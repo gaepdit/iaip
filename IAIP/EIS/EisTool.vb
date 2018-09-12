@@ -5997,7 +5997,7 @@ Public Class EisTool
                 messSuffix = "ies"
             Case EisStagingSet.Selected
                 messSet = selectedFacilityCount.ToString
-                messSuffix = IIf(selectedFacilityCount = 1, "y", "ies")
+                messSuffix = If(selectedFacilityCount = 1, "y", "ies")
         End Select
 
         Dim result As DialogResult = MessageBox.Show(String.Format(message, {messYear, messProc, messSet, messSuffix}),

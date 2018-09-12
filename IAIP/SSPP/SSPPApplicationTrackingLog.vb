@@ -3,6 +3,7 @@ Imports System.Data.SqlClient
 Imports EpdIt
 Imports Iaip.Apb.Facilities.FacilityEnums
 Imports Iaip.SharedData
+Imports Iaip.Apb.Facilities.FacilityHeaderData
 
 Public Class SSPPApplicationTrackingLog
     Dim MasterApp As String
@@ -53,6 +54,7 @@ Public Class SSPPApplicationTrackingLog
             txtDistrict.Clear()
             txtSICCode.Clear()
             txtNAICSCode.Clear()
+            chbFederallyOwned.Checked = False
             txt1HourOzone.Clear()
             txt8HROzone.Clear()
             txtPM.Clear()
@@ -117,6 +119,7 @@ Public Class SSPPApplicationTrackingLog
             chbCDS_RMP.Checked = False
             chbNSRMajor.Checked = False
             chbHAPsMajor.Checked = False
+            chbFederallyOwned.Checked = False
             rtbFacilityInformation.Clear()
 
             'Other Tab
@@ -2219,6 +2222,16 @@ Public Class SSPPApplicationTrackingLog
               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
                 txtNAICSCode.BackColor = Color.Yellow
             End If
+            'chbFederallyOwned
+            If AccountFormAccess(129, 3) = "1" Or
+               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
+               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+                chbFederallyOwned.Enabled = True
+            End If
+            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
+              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+                chbFederallyOwned.BackColor = Color.LightBlue
+            End If
             'txtPermitNumber
             If AccountFormAccess(129, 3) = "1" Or
                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
@@ -2535,217 +2548,144 @@ Public Class SSPPApplicationTrackingLog
 #End Region
 
     Private Sub LoadBasicFacilityInfo()
-        Dim Facilityname As String = ""
-        Dim FacilityStreet As String = ""
-        Dim FacilityCity As String = ""
-        Dim FacilityZipCode As String = ""
-        Dim OperationalStatus As String = ""
-        Dim OperationalStatusLine As String = ""
-        Dim Classification As String = ""
-        Dim ClassificationLine As String = ""
-        Dim AirProgramCodes As String = ""
+        Dim Facilityname As String = "N/A"
+        Dim FacilityStreet As String = "N/A"
+        Dim FacilityCity As String = "N/A"
+        Dim FacilityZipCode As String = "N/A"
+        Dim OperationalStatus As String = "N/A"
+        Dim OperationalStatusLine As String = "Operating Status - "
+        Dim Classification As String = "N/A"
+        Dim ClassificationLine As String = "Classification - "
+        Dim AirProgramCodes As String = "000000000000000"
         Dim AirPrograms As String = ""
         Dim AirProgramCheck As String = ""
         Dim AirProgramLine As String = ""
-        Dim SIC As String = ""
-        Dim SICLine As String = ""
-        Dim NAICS As String = ""
+        Dim SIC As String = "N/A"
+        Dim SICLine As String = "SIC Code - "
+        Dim NAICS As String = "N/A"
         Dim NAICSLine As String = "NAICS Code - "
-        Dim CountyName As String = ""
-        Dim District As String = ""
-        Dim Attainment As String = ""
+        Dim CountyName As String = "N/A"
+        Dim District As String = "N/A"
+        Dim Attainment As String = "00000"
         Dim AttainmentStatus As String = ""
-        Dim StateProgramCodes As String = ""
+        Dim StateProgramCodes As String = "00000"
         Dim StatePrograms As String = ""
-        Dim PlantDesc As String = ""
-        Dim PlantLine As String = ""
+        Dim PlantDesc As String = "N/A"
+        Dim PlantLine As String = "Plant Description - "
         Dim DistResponsible As String = "False"
+        Dim OwnershipTypeCode As String = Nothing
 
         Try
-            Dim query As String = "Select " &
-            "strFacilityName, strFacilityStreet1, " &
-            "strFacilityCity, strFacilityZipCode, " &
-            "strOperationalStatus, strClass, " &
-            "strAirProgramCodes, strSICCode, " &
-            "strNAICSCode, " &
-            "strCountyName, " &
-            "strDistrictName, " &
-            "strPlantDescription, " &
-            "APBHeaderData.strAttainmentStatus, " &
-            "strStateProgramCodes, strDistrictResponsible " &
-            "from APBFacilityInformation " &
-            "inner join APBHeaderData " &
-            "on APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber " &
-            "inner join LookUpCountyInformation " &
-            "on SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
-            "inner join LookUpDistrictInformation " &
-            "on SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpDistrictInformation.strDistrictCounty " &
-            "inner join LookUPDistricts " &
-            "on LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode " &
-            "inner join APBSupplamentalData " &
-            "on APBFacilityInformation.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-            "left join SSCPDistrictResponsible " &
-            "on APBFacilityInformation.strAIRSNumber = SSCPDistrictResponsible.strAIRSnumber " &
-            "where APBFacilityInformation.strAIRSNumber = @AirsNumber "
+            Dim query As String = "select
+                f.strFacilityName,
+                f.strFacilityStreet1,
+                f.strFacilityCity,
+                f.strFacilityZipCode,
+                h.strOperationalStatus,
+                h.strClass,
+                h.strAirProgramCodes,
+                h.strSICCode,
+                h.strNAICSCode,
+                c.strCountyName,
+                d.strDistrictName,
+                h.strPlantDescription,
+                h.strAttainmentStatus,
+                h.strStateProgramCodes,
+                r.strDistrictResponsible,
+                s.FacilityOwnershipTypeCode
+            from APBFACILITYINFORMATION f
+                inner join APBHEADERDATA h
+                    on f.strAIRSNumber = h.strAIRSNumber
+                inner join LOOKUPCOUNTYINFORMATION c
+                    on SUBSTRING(f.strAIRSNumber, 5, 3) = c.strCountyCode
+                inner join LOOKUPDISTRICTINFORMATION i
+                    on SUBSTRING(f.strAIRSNumber, 5, 3) = i.strDistrictCounty
+                inner join LOOKUPDISTRICTS d
+                    on d.strDistrictCode = i.strDistrictCode
+                inner join APBSUPPLAMENTALDATA s
+                    on f.strAIRSNumber = s.strAIRSNumber
+                left join SSCPDISTRICTRESPONSIBLE r
+                    on f.strAIRSNumber = r.strAIRSnumber
+            where f.strAIRSNumber = @AirsNumber "
 
             Dim parameter As New SqlParameter("@AirsNumber", "0413" & txtAIRSNumber.Text)
 
             Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
             If dr IsNot Nothing Then
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    Facilityname = "N/A"
-                Else
-                    Facilityname = dr.Item("strFacilityname")
-                End If
-                If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                    FacilityStreet = "N/A"
-                Else
-                    FacilityStreet = dr.Item("strFacilityStreet1")
-                End If
-                If IsDBNull(dr.Item("strFacilityCity")) Then
-                    FacilityCity = "N/A"
-                Else
-                    FacilityCity = dr.Item("strFacilityCity")
-                End If
-                If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                    FacilityZipCode = "N/A"
-                Else
-                    FacilityZipCode = dr.Item("strFacilityZipCode")
-                End If
-                If IsDBNull(dr.Item("strOperationalStatus")) Then
-                    OperationalStatus = "N/A"
-                Else
-                    OperationalStatus = dr.Item("strOperationalStatus")
-                    OperationalStatusLine = "Operating Status - " & OperationalStatus
-                End If
-                If IsDBNull(dr.Item("strClass")) Then
-                    Classification = "N/A"
-                Else
-                    Classification = dr.Item("strClass")
-                    ClassificationLine = "Classification - " & Classification
-                End If
-                If IsDBNull(dr.Item("strAirProgramCodes")) Then
-                    AirProgramCodes = "000000000000000"
-                Else
-                    AirProgramCodes = dr.Item("strAirProgramCodes")
-                End If
-                If IsDBNull(dr.Item("strSICCode")) Then
-                    SIC = "N/A"
-                Else
-                    SIC = dr.Item("strSICCode")
-                    SICLine = "SIC Code - " & SIC
-                End If
-                If IsDBNull(dr.Item("strNAICSCode")) Then
-                    NAICS = "N/A"
-                Else
-                    NAICS = dr.Item("strNAICSCode")
-                    NAICSLine = "NAICS Code - " & NAICS
-                End If
-                If IsDBNull(dr.Item("strCountyName")) Then
-                    CountyName = "N/A"
-                Else
-                    CountyName = dr.Item("strCountyName")
-                End If
-                If IsDBNull(dr.Item("strDistrictName")) Then
-                    District = "N/A"
-                Else
-                    District = dr.Item("strDistrictName")
-                End If
-                If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                    Attainment = "00000"
-                Else
-                    Attainment = dr.Item("strAttainmentstatus")
-                End If
-                If IsDBNull(dr.Item("strStateProgramCodes")) Then
-                    StateProgramCodes = "00000"
-                Else
-                    StateProgramCodes = dr.Item("strStateProgramCodes")
-                End If
-                If IsDBNull(dr.Item("strPlantDescription")) Then
-                    PlantDesc = "N/A"
-                Else
-                    PlantDesc = dr.Item("strPlantDescription")
-                End If
+                Facilityname = If(DBUtilities.GetNullableString(dr.Item("strFacilityname")), "N/A")
+                FacilityStreet = If(DBUtilities.GetNullableString(dr.Item("strFacilityStreet1")), "N/A")
+                FacilityCity = If(DBUtilities.GetNullableString(dr.Item("strFacilityCity")), "N/A")
+                FacilityZipCode = If(DBUtilities.GetNullableString(dr.Item("strFacilityZipCode")), "N/A")
+                OperationalStatus = If(DBUtilities.GetNullableString(dr.Item("strOperationalStatus")), "N/A")
+                OperationalStatusLine = "Operating Status - " & OperationalStatus
+                Classification = If(DBUtilities.GetNullableString(dr.Item("strClass")), "N/A")
+                ClassificationLine = "Classification - " & Classification
+                AirProgramCodes = If(DBUtilities.GetNullableString(dr.Item("strAirProgramCodes")), "000000000000000")
+                SIC = If(DBUtilities.GetNullableString(dr.Item("strSICCode")), "N/A")
+                SICLine = "SIC Code - " & SIC
+                NAICS = If(DBUtilities.GetNullableString(dr.Item("strNAICSCode")), "N/A")
+                NAICSLine = "NAICS Code - " & NAICS
+                OwnershipTypeCode = DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode"))
+                CountyName = If(DBUtilities.GetNullableString(dr.Item("strCountyName")), "N/A")
+                District = If(DBUtilities.GetNullableString(dr.Item("strDistrictName")), "N/A")
+                Attainment = If(DBUtilities.GetNullableString(dr.Item("strAttainmentstatus")), "00000")
+                StateProgramCodes = If(DBUtilities.GetNullableString(dr.Item("strStateProgramCodes")), "00000")
+                PlantDesc = If(DBUtilities.GetNullableString(dr.Item("strPlantDescription")), "N/A")
                 PlantLine = "Plant Description - " & PlantDesc
-                If IsDBNull(dr.Item("strDistrictResponsible")) Then
-                    DistResponsible = "False"
-                Else
-                    DistResponsible = dr.Item("strDistrictResponsible")
-                End If
-            Else
-                Facilityname = "N/A"
-                FacilityStreet = "N/A"
-                FacilityCity = "N/A"
-                FacilityZipCode = "N/A"
-                OperationalStatus = "N/A"
-                OperationalStatusLine = "Operating Status - "
-                Classification = "N/A"
-                ClassificationLine = "Classification - "
-                AirProgramCodes = "000000000000000"
-                SIC = "N/A"
-                SICLine = "SIC Code - "
-                NAICS = "N/A"
-                NAICSLine = "NAICS Code - "
-                CountyName = "N/A"
-                District = "N/A"
-                Attainment = "00000"
-                StateProgramCodes = "00000"
-                PlantDesc = "N/A"
-                PlantLine = "Plant Description - "
-                DistResponsible = "False"
+                DistResponsible = If(DBUtilities.GetNullableString(dr.Item("strDistrictResponsible")), "False")
             End If
 
-            If Mid(AirProgramCodes, 1, 1) = 1 Then
+            If CInt(Mid(AirProgramCodes, 1, 1)) = 1 Then
                 AirPrograms = "   0 - SIP" & vbNewLine
             Else
             End If
-            If Mid(AirProgramCodes, 2, 1) = 1 Then
+            If CInt(Mid(AirProgramCodes, 2, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   1 - Federal SIP" & vbNewLine
             End If
-            If Mid(AirProgramCodes, 3, 1) = 1 Then
+            If CInt(Mid(AirProgramCodes, 3, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   3 - Non-Federal SIP" & vbNewLine
             End If
-            If Mid(AirProgramCodes, 4, 1) = 1 Then
+            If CInt(Mid(AirProgramCodes, 4, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   4 - CFC Tracking" & vbNewLine
             End If
-            If Mid(AirProgramCodes, 5, 1) = 1 Then
+            If CInt(Mid(AirProgramCodes, 5, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   6 - PSD" & vbNewLine
             End If
-            If Mid(AirProgramCodes, 6, 1) = 1 Then
+            If CInt(Mid(AirProgramCodes, 6, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   7 - NSR" & vbNewLine
             Else
             End If
-            If Mid(AirProgramCodes, 7, 1) = 1 Then
+            If CInt(Mid(AirProgramCodes, 7, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   8 - NESHAP" & vbNewLine
             Else
             End If
-            If Mid(AirProgramCodes, 8, 1) = 1 Then
+            If CInt(Mid(AirProgramCodes, 8, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   9 - NSPS" & vbNewLine
             Else
             End If
-            If Mid(AirProgramCodes, 9, 1) = 1 Then
+            If CInt(Mid(AirProgramCodes, 9, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   F - FESOP" & vbNewLine
             Else
             End If
-            If Mid(AirProgramCodes, 10, 1) = 1 Then
+            If CInt(Mid(AirProgramCodes, 10, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   A - Acid Precipitation" & vbNewLine
             Else
             End If
-            If Mid(AirProgramCodes, 11, 1) = 1 Then
+            If CInt(Mid(AirProgramCodes, 11, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   I - Native American" & vbNewLine
             End If
-            If Mid(AirProgramCodes, 12, 1) = 1 Then
+            If CInt(Mid(AirProgramCodes, 12, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   M - MACT" & vbNewLine
             Else
             End If
-            If Mid(AirProgramCodes, 13, 1) = 1 Then
+            If CInt(Mid(AirProgramCodes, 13, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   V - Title V Permit" & vbNewLine
             Else
             End If
             AirProgramLine = "Air Program(s) - " & vbNewLine & AirPrograms
 
-            Select Case Mid(Attainment, 2, 1)
+            Select Case CInt(Mid(Attainment, 2, 1))
                 Case 0
                     AttainmentStatus = ""
                 Case 1
@@ -2755,7 +2695,8 @@ Public Class SSPPApplicationTrackingLog
                 Case Else
                     AttainmentStatus = ""
             End Select
-            Select Case Mid(Attainment, 3, 1)
+
+            Select Case CInt(Mid(Attainment, 3, 1))
                 Case 0
                     AttainmentStatus = AttainmentStatus & ""
                 Case 1
@@ -2773,7 +2714,8 @@ Public Class SSPPApplicationTrackingLog
                 Case Else
                     AttainmentStatus = AttainmentStatus & ""
             End Select
-            Select Case Mid(Attainment, 4, 1)
+
+            Select Case CInt(Mid(Attainment, 4, 1))
                 Case 0
                     AttainmentStatus = AttainmentStatus & ""
                 Case 1
@@ -2810,7 +2752,7 @@ Public Class SSPPApplicationTrackingLog
                 AttainmentStatus = "Non Attainment Area - " & vbNewLine & AttainmentStatus
             End If
 
-            Select Case Mid(StateProgramCodes, 1, 1)
+            Select Case CInt(Mid(StateProgramCodes, 1, 1))
                 Case 0
                     StatePrograms = ""
                 Case 1
@@ -2818,7 +2760,8 @@ Public Class SSPPApplicationTrackingLog
                 Case Else
                     StatePrograms = ""
             End Select
-            Select Case Mid(StateProgramCodes, 2, 1)
+
+            Select Case CInt(Mid(StateProgramCodes, 2, 1))
                 Case 0
                     StatePrograms = StatePrograms & ""
                 Case 1
@@ -2830,6 +2773,7 @@ Public Class SSPPApplicationTrackingLog
                 Case Else
                     StatePrograms = StatePrograms & ""
             End Select
+
             If StatePrograms = "" Then
                 StatePrograms = "State Codes - N/A"
             Else
@@ -2838,19 +2782,19 @@ Public Class SSPPApplicationTrackingLog
 
             rtbFacilityInformation.Clear()
             rtbFacilityInformation.Text = "AIRS # - " & txtAIRSNumber.Text & vbNewLine & vbNewLine &
-            Facilityname & vbNewLine &
-            FacilityStreet & vbNewLine &
-            FacilityCity & ", GA " & FacilityZipCode & vbNewLine & vbNewLine &
-            OperationalStatusLine & vbNewLine &
-            ClassificationLine & vbNewLine &
-            SICLine & vbNewLine &
-            NAICSLine & vbNewLine &
-            AirProgramLine &
-            StatePrograms & vbNewLine &
-            "County - " & CountyName & vbNewLine &
-            "District - " & District & vbNewLine &
-            AttainmentStatus & vbNewLine & vbNewLine &
-            PlantLine
+                Facilityname & vbNewLine &
+                FacilityStreet & vbNewLine &
+                FacilityCity & ", GA " & FacilityZipCode & vbNewLine & vbNewLine &
+                OperationalStatusLine & vbNewLine &
+                ClassificationLine & vbNewLine &
+                SICLine & vbNewLine &
+                NAICSLine & vbNewLine &
+                AirProgramLine &
+                StatePrograms & vbNewLine &
+                "County - " & CountyName & vbNewLine &
+                "District - " & District & vbNewLine &
+                AttainmentStatus & vbNewLine & vbNewLine &
+                PlantLine
 
             cboCounty.SelectedIndex = cboCounty.FindString(CountyName)
             txtDistrict.Text = District
@@ -2868,6 +2812,11 @@ Public Class SSPPApplicationTrackingLog
                 txtFacilityZipCode.Text = FacilityZipCode
                 txtSICCode.Text = SIC
                 txtNAICSCode.Text = NAICS
+
+                ' Currently we are only tracking federally-owned facilities. Eventually 
+                ' this could be expanded to use a drop-down with all ownership types.
+                chbFederallyOwned.Checked = (OwnershipTypeCode = FederallyOwnedTypeCode)
+
                 Select Case OperationalStatus
                     Case "O"
                         cboOperationalStatus.Text = "O - Operating"
@@ -2884,6 +2833,7 @@ Public Class SSPPApplicationTrackingLog
                     Case Else
                         cboOperationalStatus.Text = ""
                 End Select
+
                 Select Case Classification
                     Case "A"
                         cboClassification.Text = "A - MAJOR"
@@ -2898,6 +2848,7 @@ Public Class SSPPApplicationTrackingLog
                     Case Else
                         cboClassification.Text = ""
                 End Select
+
                 txtPlantDescription.Text = PlantDesc
 
                 If Mid(AirProgramCodes, 1, 1) = 1 Then
@@ -3380,7 +3331,7 @@ Public Class SSPPApplicationTrackingLog
                     "datPAExpires, datPNExpires, " &
                     "strStateprogramcodes, " &
                     "strTrackedRules, STRSIGNIFICANTCOMMENTS, " &
-                    "strPAPosted, strPNPosted " &
+                    "strPAPosted, strPNPosted, SSPPApplicationData.FacilityOwnershipTypeCode " &
                     "from  " &
                     "SSPPApplicationMaster  " &
                     "left join SSPPApplicationTracking  " &
@@ -3619,16 +3570,21 @@ Public Class SSPPApplicationTrackingLog
                                 chbCDS_RMP.Checked = False
                             End If
                         End If
+
                         If IsDBNull(dr.Item("strSICCode")) Then
                             txtSICCode.Clear()
                         Else
                             txtSICCode.Text = dr.Item("strSICCode")
                         End If
+
                         If IsDBNull(dr.Item("strNAICSCode")) Then
                             txtNAICSCode.Clear()
                         Else
                             txtNAICSCode.Text = dr.Item("strNAICSCode")
                         End If
+
+                        chbFederallyOwned.Checked = (DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode")) = FederallyOwnedTypeCode)
+
                         If IsDBNull(dr.Item("strPermitNumber")) Then
                             txtPermitNumber.Clear()
                         Else
@@ -4058,50 +4014,59 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub ReLoadBasicFacilityInfo()
         Try
-            Dim Facilityname As String = ""
-            Dim FacilityStreet As String = ""
-            Dim FacilityCity As String = ""
-            Dim FacilityZipCode As String = ""
-            Dim OperationalStatus As String = ""
-            Dim OperationalStatusLine As String = ""
-            Dim Classification As String = ""
-            Dim ClassificationLine As String = ""
-            Dim AirProgramCodes As String = ""
+            Dim Facilityname As String = "N/A"
+            Dim FacilityStreet As String = "N/A"
+            Dim FacilityCity As String = "N/A"
+            Dim FacilityZipCode As String = "N/A"
+            Dim OperationalStatus As String = "N/A"
+            Dim OperationalStatusLine As String = "Operating Status - "
+            Dim Classification As String = "N/A"
+            Dim ClassificationLine As String = "Classification - "
+            Dim AirProgramCodes As String = "000000000000000"
             Dim AirPrograms As String = ""
             Dim AirProgramLine As String = ""
-            Dim SIC As String = ""
-            Dim SICLine As String = ""
-            Dim NAICS As String = ""
+            Dim SIC As String = "N/A"
+            Dim SICLine As String = "SIC Code - "
+            Dim NAICS As String = "N/A"
             Dim NAICSLine As String = "NAICS Code - "
-            Dim CountyName As String = ""
-            Dim District As String = ""
-            Dim Attainment As String = ""
+            Dim CountyName As String = "N/A"
+            Dim District As String = "N/A"
+            Dim Attainment As String = "00000"
             Dim AttainmentStatus As String = ""
-            Dim StateProgramCodes As String = ""
+            Dim StateProgramCodes As String = "00000"
             Dim StatePrograms As String = ""
-            Dim PlantDesc As String = ""
-            Dim PlantLine As String = ""
+            Dim PlantDesc As String = "N/A"
+            Dim PlantLine As String = "Plant Description - "
+            Dim OwnershipTypeCode As String = Nothing
 
-            Dim query As String = "Select " &
-            "strFacilityName, strFacilityStreet1,  " &
-            "strFacilityCity, strFacilityZipCode,  " &
-            "strSICCode, strClass,  " &
-            "strNAICSCode, " &
-            "strOperationalStatus, strAirProgramCodes,  " &
-            "strPlantDescription,  " &
-            "APBHeaderData.strAttainmentStatus,  " &
-            "strStateProgramCodes,  " &
-            "strcountyName,  " &
-            "strDistrictName  " &
-            "from APBFacilityInformation,  " &
-            "APBHeaderData, LookUpCountyInformation,  " &
-            "LookUpDistricts,  " &
-            "LookUpDistrictInformation  " &
-            "where APBFacilityInformation.strAIRSnumber = APBHeaderData.strAIRSnumber " &
-            "and SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
-            "and SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpDistrictInformation.strDistrictCounty  " &
-            "and LookUpDistrictInformation.strDistrictCode = LookUpDistricts.strDistrictCode  " &
-            "and APBHeaderData.strAIRSNumber = @airsnumber"
+            Dim query As String = "Select
+                strFacilityName,
+                strFacilityStreet1,
+                strFacilityCity,
+                strFacilityZipCode,
+                strSICCode,
+                strClass,
+                strNAICSCode,
+                strOperationalStatus,
+                strAirProgramCodes,
+                strPlantDescription,
+                h.strAttainmentStatus,
+                strStateProgramCodes,
+                strcountyName,
+                strDistrictName,
+                s.FacilityOwnershipTypeCode
+            from APBFACILITYINFORMATION f
+                inner join APBHEADERDATA h
+                    on f.STRAIRSNUMBER = h.STRAIRSNUMBER
+                inner join LookUpCountyInformation c
+                    on SUBSTRING(f.STRAIRSNUMBER, 5, 3) = c.STRCOUNTYCODE
+                inner join LOOKUPDISTRICTINFORMATION i
+                    on SUBSTRING(f.STRAIRSNUMBER, 5, 3) = i.STRDISTRICTCOUNTY
+                inner join LOOKUPDISTRICTS d
+                    on i.STRDISTRICTCODE = d.STRDISTRICTCODE
+                inner join APBSUPPLAMENTALDATA s
+                on s.STRAIRSNUMBER=f.STRAIRSNUMBER
+            where h.STRAIRSNUMBER = @airsnumber"
 
             Dim parameter As New SqlParameter("@airsnumber", "0413" & txtAIRSNumber.Text)
 
@@ -4157,6 +4122,9 @@ Public Class SSPPApplicationTrackingLog
                     NAICS = dr.Item("strNAICSCode")
                     NAICSLine = "NAICS Code - " & NAICS
                 End If
+
+                OwnershipTypeCode = DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode"))
+
                 If IsDBNull(dr.Item("strCountyName")) Then
                     CountyName = "N/A"
                 Else
@@ -4183,26 +4151,6 @@ Public Class SSPPApplicationTrackingLog
                     PlantDesc = dr.Item("strPlantDescription")
                 End If
                 PlantLine = "Plant Description - " & PlantDesc
-            Else
-                Facilityname = "N/A"
-                FacilityStreet = "N/A"
-                FacilityCity = "N/A"
-                FacilityZipCode = "N/A"
-                OperationalStatus = "N/A"
-                OperationalStatusLine = "Operating Status - "
-                Classification = "N/A"
-                ClassificationLine = "Classification - "
-                AirProgramCodes = "000000000000000"
-                SIC = "N/A"
-                SICLine = "SIC Code - "
-                NAICS = "N/A"
-                NAICSLine = "NAICS Code - "
-                CountyName = "N/A"
-                District = "N/A"
-                Attainment = "00000"
-                StateProgramCodes = "00000"
-                PlantDesc = "N/A"
-                PlantLine = "Plant Description - "
             End If
 
             If Mid(AirProgramCodes, 1, 1) = 1 Then
@@ -4347,19 +4295,19 @@ Public Class SSPPApplicationTrackingLog
 
             rtbFacilityInformation.Clear()
             rtbFacilityInformation.Text = "AIRS # - " & txtAIRSNumber.Text & vbNewLine & vbNewLine &
-            Facilityname & vbNewLine &
-            FacilityStreet & vbNewLine &
-            FacilityCity & ", GA " & FacilityZipCode & vbNewLine & vbNewLine &
-            OperationalStatusLine & vbNewLine &
-            ClassificationLine & vbNewLine &
-            SICLine & vbNewLine &
-            NAICSLine & vbNewLine &
-            AirProgramLine &
-            StatePrograms & vbNewLine &
-            "County - " & CountyName & vbNewLine &
-            "District - " & District & vbNewLine &
-            AttainmentStatus & vbNewLine & vbNewLine &
-            PlantLine
+                Facilityname & vbNewLine &
+                FacilityStreet & vbNewLine &
+                FacilityCity & ", GA " & FacilityZipCode & vbNewLine & vbNewLine &
+                OperationalStatusLine & vbNewLine &
+                ClassificationLine & vbNewLine &
+                SICLine & vbNewLine &
+                NAICSLine & vbNewLine &
+                AirProgramLine &
+                StatePrograms & vbNewLine &
+                "County - " & CountyName & vbNewLine &
+                "District - " & District & vbNewLine &
+                AttainmentStatus & vbNewLine & vbNewLine &
+                PlantLine
 
             cboCounty.SelectedIndex = cboCounty.FindString(CountyName)
             txtDistrict.Text = District
@@ -4376,6 +4324,11 @@ Public Class SSPPApplicationTrackingLog
             txtFacilityZipCode.Text = FacilityZipCode
             txtSICCode.Text = SIC
             txtNAICSCode.Text = NAICS
+
+            ' Currently we are only tracking federally-owned facilities. Eventually  
+            ' this could be expanded to use a drop-down with all ownership types. 
+            chbFederallyOwned.Checked = (OwnershipTypeCode = FederallyOwnedTypeCode)
+
             Select Case OperationalStatus
                 Case "O"
                     cboOperationalStatus.Text = "O - Operating"
@@ -4634,6 +4587,7 @@ Public Class SSPPApplicationTrackingLog
         Dim SignificantComments As String = ""
         Dim PAExpires As String = Nothing
         Dim PNExpires As String = Nothing
+        Dim OwnershipTypeCode As String = Nothing
 
         Dim query As String
         Dim parameters As SqlParameter()
@@ -4828,6 +4782,8 @@ Public Class SSPPApplicationTrackingLog
                 SIC = txtSICCode.Text
                 NAICS = txtNAICSCode.Text
 
+                OwnershipTypeCode = If(chbFederallyOwned.Checked, FederallyOwnedTypeCode, Nothing)
+
                 PermitNumber = Replace(txtPermitNumber.Text, "-", "")
                 PlantDesc = txtPlantDescription.Text
                 Comments = txtComments.Text
@@ -4944,6 +4900,7 @@ Public Class SSPPApplicationTrackingLog
                 "strClass = @Classification, " &
                 "strAirProgramCodes = @AirProgramCodes, " &
                 "strSICCode = @SIC, " &
+                "FacilityOwnershipTypeCode = @OwnershipTypeCode, " &
                 "strNAICSCode = @NAICS, " &
                 "strPermitNumber = @PermitNumber, " &
                 "strPlantDescription = @PlantDesc, " &
@@ -4968,6 +4925,7 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@AirProgramCodes", AirProgramCodes),
                     New SqlParameter("@SIC", SIC),
                     New SqlParameter("@NAICS", NAICS),
+                    New SqlParameter("@OwnershipTypeCode", OwnershipTypeCode),
                     New SqlParameter("@PermitNumber", PermitNumber),
                     New SqlParameter("@PlantDesc", PlantDesc),
                     New SqlParameter("@Comments", Comments),
@@ -6002,6 +5960,7 @@ Public Class SSPPApplicationTrackingLog
                 cboCounty.Enabled = False
                 txtSICCode.ReadOnly = True
                 txtNAICSCode.ReadOnly = True
+                chbFederallyOwned.Enabled = False
                 cboOperationalStatus.Enabled = False
                 cboClassification.Enabled = False
                 chbCDS_0.Enabled = False
@@ -6499,6 +6458,7 @@ Public Class SSPPApplicationTrackingLog
         Dim AirProgramCodes As String = ""
         Dim SICCode As String = ""
         Dim NAICSCode As String = ""
+        Dim OwnershipTypeCode As String = Nothing
         Dim PlantDescription As String = ""
         Dim StateProgramCodes As String = ""
 
@@ -6516,11 +6476,12 @@ Public Class SSPPApplicationTrackingLog
             "strFacilityState, strFacilityZipCode, " &
             "strOperationalStatus, strClass, " &
             "strAIRProgramCodes, strSICCode, " &
-            "strNAICSCode, " &
+            "strNAICSCode, FacilityOwnershipTypeCode, " &
             "strPermitNumber, strPlantDescription, " &
             "strStateProgramCodes " &
             "from SSPPApplicationData " &
             "where strApplicationNumber = @appnumber "
+
             params = {New SqlParameter("@appnumber", txtApplicationNumber.Text)}
 
             Dim dr As DataRow = DB.GetDataRow(query, params)
@@ -6586,58 +6547,68 @@ Public Class SSPPApplicationTrackingLog
                 Else
                     StateProgramCodes = dr.Item("strStateProgramCodes")
                 End If
+
+                OwnershipTypeCode = DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode"))
+
+                queryList.Add("Update APBFacilityInformation set " &
+                    "strFacilityName = @FacilityName, " &
+                    "strFacilityStreet1 = @FacilityStreet1, " &
+                    "strFacilityStreet2 = @FacilityStreet2, " &
+                    "strFacilityCity = @City, " &
+                    "strFacilityZipCode = @ZipCode , " &
+                    "strComments = @Comments , " &
+                    "strModifingLocation = '1', " &
+                    "strModifingPerson = @UserGCode , " &
+                    "datModifingdate = GETDATE() " &
+                    "where strAIRSNumber = @airs ")
+                paramsList.Add(
+                    {New SqlParameter("@FacilityName", FacilityName),
+                    New SqlParameter("@FacilityStreet1", FacilityStreet1),
+                    New SqlParameter("@FacilityStreet2", FacilityStreet2),
+                    New SqlParameter("@City", City),
+                    New SqlParameter("@ZipCode", ZipCode),
+                    New SqlParameter("@Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
+                    New SqlParameter("@UserGCode", CurrentUser.UserID),
+                    New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
+                    })
+
+                queryList.Add("Update APBHeaderData set " &
+                    "strOperationalStatus = @OpStatus , " &
+                    "strClass = @Classification , " &
+                    "strAIRProgramCodes = @AirProgramCodes , " &
+                    "strSICCode = @SICCode, " &
+                    "strNAICSCode = @NAICSCode , " &
+                    "strPlantDescription = @PlantDescription, " &
+                    "strStateProgramCodes = @StateProgramCodes , " &
+                    "strComments = @Comments , " &
+                    "strModifingLocation = '1', " &
+                    "strModifingPerson = @UserGCode , " &
+                    "datModifingDate = GETDATE() " &
+                    "where strAIRSNumber = @airs ")
+                paramsList.Add(
+                    {New SqlParameter("@OpStatus", OpStatus),
+                    New SqlParameter("@Classification", Classification),
+                    New SqlParameter("@AirProgramCodes", AirProgramCodes),
+                    New SqlParameter("@SICCode", SICCode),
+                    New SqlParameter("@NAICSCode", NAICSCode),
+                    New SqlParameter("@PlantDescription", PlantDescription),
+                    New SqlParameter("@StateProgramCodes", StateProgramCodes),
+                    New SqlParameter("@Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
+                    New SqlParameter("@UserGCode", CurrentUser.UserID),
+                    New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
+                    })
+
+                queryList.Add("update APBSUPPLAMENTALDATA " &
+                    " set FacilityOwnershipTypeCode = @OwnershipTypeCode " &
+                    " where STRAIRSNUMBER = @airs")
+                paramsList.Add(
+                    {New SqlParameter("@OwnershipTypeCode", OwnershipTypeCode),
+                    New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)})
+
+                DB.RunCommand(queryList, paramsList)
+                queryList.Clear()
+                paramsList.Clear()
             End If
-
-            queryList.Add("Update APBFacilityInformation set " &
-            "strFacilityName = @FacilityName, " &
-            "strFacilityStreet1 = @FacilityStreet1, " &
-            "strFacilityStreet2 = @FacilityStreet2, " &
-            "strFacilityCity = @City, " &
-            "strFacilityZipCode = @ZipCode , " &
-            "strComments = @Comments , " &
-            "strModifingLocation = '1', " &
-            "strModifingPerson = @UserGCode , " &
-            "datModifingdate = GETDATE() " &
-            "where strAIRSNumber = @airs ")
-            paramsList.Add(
-                {New SqlParameter("@FacilityName", FacilityName),
-                 New SqlParameter("@FacilityStreet1", FacilityStreet1),
-                 New SqlParameter("@FacilityStreet2", FacilityStreet2),
-                 New SqlParameter("@City", City),
-                 New SqlParameter("@ZipCode", ZipCode),
-                 New SqlParameter("@Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
-                 New SqlParameter("@UserGCode", CurrentUser.UserID),
-                 New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
-                })
-
-            queryList.Add("Update APBHeaderData set " &
-            "strOperationalStatus = @OpStatus , " &
-            "strClass = @Classification , " &
-            "strAIRProgramCodes = @AirProgramCodes , " &
-            "strSICCode = @SICCode, " &
-            "strNAICSCode = @NAICSCode , " &
-            "strPlantDescription = @PlantDescription, " &
-            "strStateProgramCodes = @StateProgramCodes , " &
-            "strComments = @Comments , " &
-            "strModifingLocation = '1', " &
-            "strModifingPerson = @UserGCode , " &
-            "datModifingDate = GETDATE() " &
-            "where strAIRSNumber = @airs ")
-            paramsList.Add(
-                {New SqlParameter("@OpStatus", OpStatus),
-                 New SqlParameter("@Classification", Classification),
-                 New SqlParameter("@AirProgramCodes", AirProgramCodes),
-                 New SqlParameter("@SICCode", SICCode),
-                 New SqlParameter("@NAICSCode", NAICSCode),
-                 New SqlParameter("@PlantDescription", PlantDescription),
-                 New SqlParameter("@StateProgramCodes", StateProgramCodes),
-                 New SqlParameter("@Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
-                 New SqlParameter("@UserGCode", CurrentUser.UserID),
-                 New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
-                })
-            DB.RunCommand(queryList, paramsList)
-            queryList.Clear()
-            paramsList.Clear()
 
             If AirProgramCodes <> "000000000000000" Then
                 If Mid(AirProgramCodes, 1, 1) = "1" Then
@@ -7070,6 +7041,7 @@ Public Class SSPPApplicationTrackingLog
             cboCounty.SelectedIndex = 0
             txtSICCode.Clear()
             txtNAICSCode.Clear()
+            chbFederallyOwned.Checked = False
             cboOperationalStatus.Text = ""
             cboClassification.Text = ""
             chbCDS_0.Checked = True
@@ -7599,9 +7571,11 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub cboClassification_TextChanged(sender As Object, e As EventArgs) Handles cboClassification.TextChanged
         If cboClassification.Text = "A - MAJOR" Then
-            GBOther.Visible = True
+            chbNSRMajor.Visible = True
+            chbHAPsMajor.Visible = True
         Else
-            GBOther.Visible = False
+            chbNSRMajor.Visible = False
+            chbHAPsMajor.Visible = False
         End If
     End Sub
     Private Sub cboApplicationType_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboApplicationType.SelectedValueChanged

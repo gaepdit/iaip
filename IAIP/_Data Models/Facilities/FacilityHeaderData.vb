@@ -1,7 +1,6 @@
 ﻿Imports System.Collections.Generic
-Imports System.ComponentModel
-Imports Iaip.Apb.Facilities.Facility
 Imports System.Text.RegularExpressions
+Imports Iaip.SharedData
 
 Namespace Apb.Facilities
 
@@ -65,6 +64,28 @@ Namespace Apb.Facilities
         End Property
         Private _rmpId As String
 
+        Public Property OwnershipTypeCode() As String
+
+        ' Currently we are only tracking federally-owned facilities, represented by this OwnershipTypeCode
+        Public Shared ReadOnly FederallyOwnedTypeCode As String = "FDF"
+
+        Public ReadOnly Property OwnershipType() As String
+            Get
+                If String.IsNullOrEmpty(OwnershipTypeCode) Then
+                    Return Nothing
+                End If
+                Dim dt As DataTable = GetSharedData(SharedTable.FacilityOwnershipTypes)
+                If dt Is Nothing OrElse dt.Rows.Count = 0 Then
+                    Return Nothing
+                End If
+                Dim dr As DataRow = dt.Rows.Find(OwnershipTypeCode)
+                If dr Is Nothing Then
+                    Return Nothing
+                End If
+                Return dr.Item(1).ToString
+            End Get
+        End Property
+
         Public Property FacilityDescription() As String
             Get
                 Return _facilityDescription
@@ -90,19 +111,6 @@ Namespace Apb.Facilities
         Public Property WhoModified() As String
 
         Public Property WhereModified() As HeaderDataModificationLocation
-        Public Property WhereModifiedCode() As String
-            Get
-                Return WhereModified.ToString
-            End Get
-            Set(value As String)
-                WhereModified = [Enum].Parse(GetType(HeaderDataModificationLocation), value)
-            End Set
-        End Property
-        Public ReadOnly Property WhereModifiedDescription() As String
-            Get
-                Return WhereModified.GetDescription()
-            End Get
-        End Property
 
 #End Region
 
