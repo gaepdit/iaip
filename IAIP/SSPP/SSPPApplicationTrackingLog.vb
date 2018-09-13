@@ -63,9 +63,11 @@ Public Class SSPPApplicationTrackingLog
             Me.Close()
         End If
 
+        AppNumber = 0
         NewApplication = True
-        AppNumber = DB.GetInteger("Select next value for SSPPAPPLICATIONKEY")
-        lblAppNumber.Text = "New Application (#" & AppNumber.ToString & ")"
+        txtNewApplicationNumber.Text = DB.GetInteger("Select next value for SSPPAPPLICATIONKEY").ToString
+        txtNewApplicationNumber.Visible = True
+        btnFetchNewAppNumber.Visible = True
 
         TCApplicationTrackingLog.TabPages.Remove(TPReviews)
         TCApplicationTrackingLog.TabPages.Remove(TPInformationRequests)
@@ -81,7 +83,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub LoadDefaultDates()
         'Application Tracking Tab
-            chbFederallyOwned.Checked = False
+        chbFederallyOwned.Checked = False
         DTPDateSent.Value = Today
         DTPDateReceived.Value = Today
         DTPDateAssigned.Value = Today
@@ -98,7 +100,7 @@ Public Class SSPPApplicationTrackingLog
         DTPDateToDO.Value = Today
         DTPFinalAction.Value = Today
         DTPDeadline.Value = Today
-            chbFederallyOwned.Checked = False
+        chbFederallyOwned.Checked = False
 
         'ISMP and SSCP Reviews Tab
         DTPReviewSubmitted.Value = Today
@@ -999,10 +1001,8 @@ Public Class SSPPApplicationTrackingLog
             If AccountFormAccess(129, 3) = "1" Or
                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
-                btnRefreshAIRSNo.Enabled = True
                 btnRefreshAIRSNo.Visible = True
             Else
-                btnRefreshAIRSNo.Enabled = False
                 btnRefreshAIRSNo.Visible = False
             End If
 
@@ -2198,7 +2198,7 @@ Public Class SSPPApplicationTrackingLog
               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
                 txtNAICSCode.BackColor = Color.Yellow
             End If
-            
+
             'chbFederallyOwned
             If AccountFormAccess(129, 3) = "1" Or
                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
@@ -2209,7 +2209,7 @@ Public Class SSPPApplicationTrackingLog
               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
                 chbFederallyOwned.BackColor = Color.LightBlue
             End If
-            
+
             'txtPermitNumber
             If AccountFormAccess(129, 3) = "1" Or
                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
@@ -3567,7 +3567,7 @@ Public Class SSPPApplicationTrackingLog
                     txtNAICSCode.Text = dr.Item("strNAICSCode")
                 End If
 
-                        chbFederallyOwned.Checked = (DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode")) = FederallyOwnedTypeCode)
+                chbFederallyOwned.Checked = (DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode")) = FederallyOwnedTypeCode)
 
                 If IsDBNull(dr.Item("strPermitNumber")) Then
                     txtPermitNumber.Clear()
@@ -4500,7 +4500,7 @@ Public Class SSPPApplicationTrackingLog
                     Dim dt As DataTable = DB.GetDataTable(query, parameter)
 
                     For Each dr As DataRow In dt.Rows
-                        lbLinkApplications.Items.Add(cint(dr.Item("strApplicationNumber")))
+                        lbLinkApplications.Items.Add(CInt(dr.Item("strApplicationNumber")))
                         ApplicationCount += 1
                     Next
 
@@ -4523,11 +4523,12 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-    Private Function CreateNewApplication() As Boolean
-        If DAL.Sspp.ApplicationExists(AppNumber) Then
-            Return False
-        End If
+    Private Sub btnFetchNewAppNumber_Click(sender As Object, e As EventArgs) Handles btnFetchNewAppNumber.Click
+        txtNewApplicationNumber.Text = DB.GetInteger("Select next value for SSPPAPPLICATIONKEY").ToString
+        AppNumber = 0
+    End Sub
 
+    Private Function CreateNewApplication() As Boolean
         Dim queriesList As New List(Of String)
         Dim parametersList As New List(Of SqlParameter())
 
@@ -4767,7 +4768,7 @@ Public Class SSPPApplicationTrackingLog
             SIC = txtSICCode.Text
             NAICS = txtNAICSCode.Text
 
-                OwnershipTypeCode = If(chbFederallyOwned.Checked, FederallyOwnedTypeCode, Nothing)
+            OwnershipTypeCode = If(chbFederallyOwned.Checked, FederallyOwnedTypeCode, Nothing)
 
             PermitNumber = Replace(txtPermitNumber.Text, "-", "")
             PlantDesc = txtPlantDescription.Text
@@ -5886,7 +5887,6 @@ Public Class SSPPApplicationTrackingLog
 
             If Status Then
                 btnRefreshAIRSNo.Visible = False
-                btnRefreshAIRSNo.Enabled = False
                 txtFacilityName.ReadOnly = True
                 txtFacilityStreetAddress.ReadOnly = True
                 cboFacilityCity.Enabled = False
@@ -7114,6 +7114,16 @@ Public Class SSPPApplicationTrackingLog
     Private Sub PreSaveCheckThenSave()
 
         If NewApplication Then
+            If Not Integer.TryParse(txtNewApplicationNumber.Text, AppNumber) Then
+                MessageBox.Show("The selected application number is not valid. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            If DAL.Sspp.ApplicationExists(AppNumber) Then
+                MessageBox.Show("The selected application number already exists. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
             Dim result As DialogResult = MessageBox.Show("This will create a new permit application. Are you sure you want to proceed?", "New Application?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
 
             If result = DialogResult.No Then
@@ -7129,9 +7139,9 @@ Public Class SSPPApplicationTrackingLog
         End If
 
         If CurrentUser.ProgramID = 5 Or
-            (AccountFormAccess(51, 1) = "1" And CurrentUser.UnitId = 14) Or
-            AccountFormAccess(51, 3) = "1" Or
-            AccountFormAccess(51, 4) = "1" Then  'SSPP users and Web Users 
+        (AccountFormAccess(51, 1) = "1" And CurrentUser.UnitId = 14) Or
+        AccountFormAccess(51, 3) = "1" Or
+        AccountFormAccess(51, 4) = "1" Then  'SSPP users and Web Users 
 
             Dim dateModifiedInDb As DateTimeOffset = DAL.Sspp.GetWhenLastModified(AppNumber)
 
