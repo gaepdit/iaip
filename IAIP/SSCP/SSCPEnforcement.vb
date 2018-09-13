@@ -1525,7 +1525,7 @@ Public Class SscpEnforcement
 
     Private Function ValidateViolationType() As Boolean
         If FormIsCaseFile() AndAlso
-            (ViolationTypeNone.Checked Or ViolationTypeSelect.SelectedValue.ToString = "BLANK") Then
+            (ViolationTypeNone.Checked Or ViolationTypeSelect.SelectedValue?.ToString = "BLANK") Then
 
             validationErrors.Add(ViolationTypeGroupbox, "Choose a Violation Type")
             Return False
@@ -1897,7 +1897,7 @@ Public Class SscpEnforcement
             .Pollutants = ReadPollutantsFromForm()
             .LegacyAirPrograms = ReadProgramsFromForm()
             .StaffResponsibleId = CInt(StaffResponsible.SelectedValue)
-            .ViolationType = ViolationTypeSelect.SelectedValue.ToString
+            .ViolationType = ViolationTypeSelect.SelectedValue?.ToString
             .DateFinalized = GetNullableDateFromDateTimePicker(ResolvedDate)
             .DiscoveryDate = GetNullableDateFromDateTimePicker(DiscoveryDate)
         End With
