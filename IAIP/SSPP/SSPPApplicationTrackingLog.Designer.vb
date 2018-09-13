@@ -495,6 +495,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.SaveButton = New System.Windows.Forms.ToolStripButton()
         Me.HeaderPanel = New System.Windows.Forms.Panel()
+        Me.txtNewApplicationNumber = New System.Windows.Forms.TextBox()
+        Me.btnFetchNewAppNumber = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TPSubPartEditor.SuspendLayout()
@@ -570,7 +572,6 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnRefreshAIRSNo.AutoSize = True
         Me.btnRefreshAIRSNo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRefreshAIRSNo.Enabled = False
         Me.btnRefreshAIRSNo.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
         Me.btnRefreshAIRSNo.Location = New System.Drawing.Point(165, 30)
         Me.btnRefreshAIRSNo.Name = "btnRefreshAIRSNo"
@@ -616,9 +617,9 @@ Partial Class SSPPApplicationTrackingLog
         Me.lblAppNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblAppNumber.Location = New System.Drawing.Point(12, 4)
         Me.lblAppNumber.Name = "lblAppNumber"
-        Me.lblAppNumber.Size = New System.Drawing.Size(123, 17)
+        Me.lblAppNumber.Size = New System.Drawing.Size(128, 17)
         Me.lblAppNumber.TabIndex = 249
-        Me.lblAppNumber.Text = "New Application"
+        Me.lblAppNumber.Text = "New Application:"
         '
         'Label2
         '
@@ -5695,6 +5696,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'HeaderPanel
         '
+        Me.HeaderPanel.Controls.Add(Me.txtNewApplicationNumber)
+        Me.HeaderPanel.Controls.Add(Me.btnFetchNewAppNumber)
         Me.HeaderPanel.Controls.Add(Me.btnRefreshAIRSNo)
         Me.HeaderPanel.Controls.Add(Me.lblAppNumber)
         Me.HeaderPanel.Controls.Add(Me.lblLinkWarning)
@@ -5716,6 +5719,28 @@ Partial Class SSPPApplicationTrackingLog
         Me.HeaderPanel.Name = "HeaderPanel"
         Me.HeaderPanel.Size = New System.Drawing.Size(792, 105)
         Me.HeaderPanel.TabIndex = 1
+        '
+        'txtNewApplicationNumber
+        '
+        Me.txtNewApplicationNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtNewApplicationNumber.Location = New System.Drawing.Point(146, 3)
+        Me.txtNewApplicationNumber.Name = "txtNewApplicationNumber"
+        Me.txtNewApplicationNumber.Size = New System.Drawing.Size(59, 23)
+        Me.txtNewApplicationNumber.TabIndex = 0
+        Me.txtNewApplicationNumber.Visible = False
+        '
+        'btnFetchNewAppNumber
+        '
+        Me.btnFetchNewAppNumber.AutoSize = True
+        Me.btnFetchNewAppNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnFetchNewAppNumber.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
+        Me.btnFetchNewAppNumber.Location = New System.Drawing.Point(211, 3)
+        Me.btnFetchNewAppNumber.Name = "btnFetchNewAppNumber"
+        Me.btnFetchNewAppNumber.Size = New System.Drawing.Size(22, 22)
+        Me.btnFetchNewAppNumber.TabIndex = 0
+        Me.ToolTip1.SetToolTip(Me.btnFetchNewAppNumber, "Fetch new application number")
+        Me.btnFetchNewAppNumber.UseVisualStyleBackColor = True
+        Me.btnFetchNewAppNumber.Visible = False
         '
         'Label3
         '
@@ -6314,4 +6339,6 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents Label1 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents txtNewApplicationNumber As TextBox
+    Friend WithEvents btnFetchNewAppNumber As Button
 End Class
