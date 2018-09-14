@@ -47,15 +47,14 @@ Partial Class PASPFeesLog
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.clbFeeYear = New System.Windows.Forms.CheckedListBox()
         Me.btnRunFilter = New System.Windows.Forms.Button()
-        Me.mtbSelectedFeeYear = New System.Windows.Forms.MaskedTextBox()
         Me.mtbSelectedAIRSNumber = New System.Windows.Forms.MaskedTextBox()
         Me.btnOpenFeeWorkTool = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.dgvExistingYearAdmin = New System.Windows.Forms.DataGridView()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.TopPanel = New System.Windows.Forms.Panel()
         Me.cbYear = New System.Windows.Forms.ComboBox()
+        Me.TopPanel = New System.Windows.Forms.Panel()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -328,14 +327,6 @@ Partial Class PASPFeesLog
         Me.btnRunFilter.Text = "Run Filter"
         Me.btnRunFilter.UseVisualStyleBackColor = True
         '
-        'mtbSelectedFeeYear
-        '
-        Me.mtbSelectedFeeYear.Location = New System.Drawing.Point(35, 126)
-        Me.mtbSelectedFeeYear.Mask = "0000"
-        Me.mtbSelectedFeeYear.Name = "mtbSelectedFeeYear"
-        Me.mtbSelectedFeeYear.Size = New System.Drawing.Size(39, 20)
-        Me.mtbSelectedFeeYear.TabIndex = 1
-        '
         'mtbSelectedAIRSNumber
         '
         Me.mtbSelectedAIRSNumber.Location = New System.Drawing.Point(65, 36)
@@ -388,7 +379,6 @@ Partial Class PASPFeesLog
         Me.GroupBox5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox5.Controls.Add(Me.cbYear)
-        Me.GroupBox5.Controls.Add(Me.mtbSelectedFeeYear)
         Me.GroupBox5.Controls.Add(Me.btnOpenFeeWorkTool)
         Me.GroupBox5.Controls.Add(Me.Label4)
         Me.GroupBox5.Controls.Add(Me.mtbSelectedAIRSNumber)
@@ -400,6 +390,15 @@ Partial Class PASPFeesLog
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Select Specific Facility"
         '
+        'cbYear
+        '
+        Me.cbYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbYear.FormattingEnabled = True
+        Me.cbYear.Location = New System.Drawing.Point(63, 62)
+        Me.cbYear.Name = "cbYear"
+        Me.cbYear.Size = New System.Drawing.Size(64, 21)
+        Me.cbYear.TabIndex = 7
+        '
         'TopPanel
         '
         Me.TopPanel.Controls.Add(Me.GroupBox5)
@@ -410,15 +409,6 @@ Partial Class PASPFeesLog
         Me.TopPanel.Padding = New System.Windows.Forms.Padding(0, 10, 0, 0)
         Me.TopPanel.Size = New System.Drawing.Size(684, 259)
         Me.TopPanel.TabIndex = 0
-        '
-        'cbYear
-        '
-        Me.cbYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbYear.FormattingEnabled = True
-        Me.cbYear.Location = New System.Drawing.Point(63, 62)
-        Me.cbYear.Name = "cbYear"
-        Me.cbYear.Size = New System.Drawing.Size(64, 21)
-        Me.cbYear.TabIndex = 7
         '
         'PASPFeesLog
         '
@@ -456,7 +446,6 @@ Partial Class PASPFeesLog
     Friend WithEvents btnOpenFeeWorkTool As System.Windows.Forms.Button
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents mtbSelectedAIRSNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbSelectedFeeYear As System.Windows.Forms.MaskedTextBox
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
     Friend WithEvents chbOperating As System.Windows.Forms.CheckBox
     Friend WithEvents chbClosed As System.Windows.Forms.CheckBox
