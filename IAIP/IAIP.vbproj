@@ -55,11 +55,11 @@
     <InstallUrl>https://iaip.gaepd.org/install/</InstallUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>5.9.1.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>5.10.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>5.9.2.0</ApplicationVersion>
+    <ApplicationVersion>5.10.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -243,6 +243,7 @@
     <Compile Include="_DAL\DAL.State.vb" />
     <Compile Include="_DAL\DAL.Rules.vb" />
     <Compile Include="_DAL\Facilities\DAL.FacilityLookups.vb" />
+    <Compile Include="_DAL\SSPP\DAL.Sspp.ApplicationTypes.vb" />
     <Compile Include="_DAL\TableValuedParameter.vb" />
     <Compile Include="_Data Models\Users\IaipRoles.vb" />
     <Compile Include="_Code\RegexPatterns.vb" />
@@ -1512,10 +1513,10 @@
     <Compile Include="_DAL\DAL.Fees.vb" />
     <Compile Include="_DAL\DAL.QueryGenerator.vb" />
     <Compile Include="_DAL\DAL.Sbeap.vb" />
-    <Compile Include="_DAL\DAL.Sspp.Applications.vb">
+    <Compile Include="_DAL\SSPP\DAL.Sspp.Applications.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_DAL\DAL.Sspp.Permit.vb" />
+    <Compile Include="_DAL\SSPP\DAL.Sspp.Permit.vb" />
     <Compile Include="_Code\DbConnections.vb" />
     <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
