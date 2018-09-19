@@ -1,4 +1,4 @@
-﻿Imports System.Collections.Generic
+Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Data.SqlTypes
 Imports System.Linq
@@ -3183,8 +3183,7 @@ Public Class EisTool
             End If
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "", "1", "", "", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Active EIS Universe Count"
+            lblEISCount.Text = "Active EIS Universe Count: " & dgvEISStats.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3198,8 +3197,7 @@ Public Class EisTool
             End If
             EIS_VIEW(txtSelectedEISStatYear.Text, "1", "", "1", "", "", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Mailout Total Count"
+            lblEISCount.Text = "Mailout Total Count: " & dgvEISStats.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3214,8 +3212,7 @@ Public Class EisTool
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "", "", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Enrolled Count"
+            lblEISCount.Text = "Enrolled Count: " & dgvEISStats.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3228,8 +3225,7 @@ Public Class EisTool
             End If
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "Null", "", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "No Activity Count"
+            lblEISCount.Text = "No Activity Count: " & dgvEISStats.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3241,8 +3237,8 @@ Public Class EisTool
                 Exit Sub
             End If
             EIS_VIEW(txtSelectedEISStatYear.Text, "1", "0", "1", "", "", "", "")
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Unenrolled Count"
+
+            lblEISCount.Text = "Unenrolled Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3255,8 +3251,7 @@ Public Class EisTool
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0", " and EISStatusCode = 2 ", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "In Progress Count"
+            lblEISCount.Text = "In Progress Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3270,8 +3265,7 @@ Public Class EisTool
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0", "", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Opted-In Count"
+            lblEISCount.Text = "Opted-In Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3285,8 +3279,7 @@ Public Class EisTool
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "1", "", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Opted-Out Count"
+            lblEISCount.Text = "Opted-Out Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3300,8 +3293,7 @@ Public Class EisTool
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0", " and EISStatusCode >= 3 ", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Submitted Count"
+            lblEISCount.Text = "Submitted Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3316,8 +3308,7 @@ Public Class EisTool
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "",
                      " and (EISStatusCode = '3' or EISStatusCode = '4' or EISStatusCode = '5') ", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Finalized Count"
+            lblEISCount.Text = "Finalized Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3331,8 +3322,7 @@ Public Class EisTool
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "1", "1", "1", " and (strOptOut is null or strOptout = '0') ", "4", "2", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "In Progress Count"
+            lblEISCount.Text = "In Progress Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3347,8 +3337,7 @@ Public Class EisTool
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0",
                  " and EISStatusCode >= 3 ", "", " and datQAComplete is not null ")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, EPA Submitted Count"
+            lblEISCount.Text = "QA Submitted, EPA Submitted Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4481,8 +4470,7 @@ Public Class EisTool
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0", " and EISStatusCode >= 3 ", "", " and QAStatusCode is null ")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, To-Do Count"
+            lblEISCount.Text = "QA Submitted, To-Do Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4497,8 +4485,7 @@ Public Class EisTool
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0",
                       " and EISStatusCode >= 3 ", "", " and QAStatusCode is not null and datQAComplete is null ")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, Started Count"
+            lblEISCount.Text = "QA Submitted, Started Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4514,8 +4501,7 @@ Public Class EisTool
              " and EISStatusCode >= 3 ", "",
              " and datQAComplete is null and strFIError = 'True' and (strPointError = 'False' or strPointError is null) ")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, Started Count"
+            lblEISCount.Text = "QA Submitted, Started Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4531,8 +4517,7 @@ Public Class EisTool
              " and EISStatusCode >= 3 ", "",
              " and datQAComplete is null and (strFIError = 'False' or strFIError is null) and strPointError = 'True'  ")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, Started Count"
+            lblEISCount.Text = "QA Submitted, Started Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4547,8 +4532,7 @@ Public Class EisTool
           " and EISStatusCode >= 3 ", "",
           " and datQAComplete is null and (strFIError = 'True' ) and (strPointError = 'True' ) ")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, Started Count"
+            lblEISCount.Text = "QA Submitted, Started Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4565,8 +4549,7 @@ Public Class EisTool
           "(strPointError = 'False' or strPointError is null) " &
           "and QAStatusCode is not null")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, Started Count"
+            lblEISCount.Text = "QA Submitted, Started Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4581,8 +4564,7 @@ Public Class EisTool
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", " and (strOptOut = '1' or stroptout is null )",
              " and EISStatusCode >= 3 ", "", " and QAStatusCode is null ")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Opted-Out, To-do Count"
+            lblEISCount.Text = "QA Opted-Out, To-do Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4597,8 +4579,7 @@ Public Class EisTool
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", " and (strOptOut = '1' or strOptout is null) ",
                      " and EISStatusCode >= 3 ", "", " and QAStatusCode is not null and datQAComplete is null ")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Opted-Out, Started Count"
+            lblEISCount.Text = "QA Opted-Out, Started Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4613,8 +4594,7 @@ Public Class EisTool
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", " and (strOptOut = '1' or strOptout is null )  ",
                " and EISStatusCode >= 5 ", "", " and datQAComplete is not null ")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, EPA Submitted Count"
+            lblEISCount.Text = "QA Submitted, EPA Submitted Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -5351,8 +5331,7 @@ Public Class EisTool
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0",
                  " and EISStatusCode >= 3 ", "", " and QAStatusCode = '2' ")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, EPA Submitted Count"
+            lblEISCount.Text = "QA Submitted, EPA Submitted Count: " & dgvEISStats.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -5436,8 +5415,7 @@ Public Class EisTool
 
             EIS_VIEW(txtSelectedEISMailout.Text, "1", "", "1", "", "", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "EIS Mailout Count"
+            lblEISCount.Text = "EIS Mailout Count: " & dgvEISStats.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -5461,8 +5439,7 @@ Public Class EisTool
 
             EIS_VIEW(txtSelectedEISMailout.Text, "1", "", "1", "", "", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "EIS Mailout Count (Generated)"
+            lblEISCount.Text = "EIS Mailout Count (Generated): " & dgvEISStats.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -5482,8 +5459,7 @@ Public Class EisTool
 
             EIS_VIEW(txtSelectedEISMailout.Text, "1", "", "1", "", "", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "EIS Mailout Count (Removed)"
+            lblEISCount.Text = "EIS Mailout Count (Removed): " & dgvEISStats.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -5500,8 +5476,7 @@ Public Class EisTool
 
             EIS_VIEW(txtEISStatsEnrollmentYear.Text, "", "1", "1", "", "", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "EIS Enrolled"
+            lblEISCount.Text = "EIS Enrolled: " & dgvEISStats.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -5525,8 +5500,7 @@ Public Class EisTool
 
             EIS_VIEW(txtEISStatsEnrollmentYear.Text, "", "1", "1", "", "", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "EIS Enrolled (Generated)"
+            lblEISCount.Text = "EIS Enrolled (Generated): " & dgvEISStats.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -5550,8 +5524,7 @@ Public Class EisTool
 
             EIS_VIEW(txtEISStatsEnrollmentYear.Text, "", "1", "1", "", "", "", "")
 
-            lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "EIS Enrolled (Removed)"
+            lblEISCount.Text = "EIS Enrolled (Removed): " & dgvEISStats.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -5889,8 +5862,7 @@ Public Class EisTool
 
         EIS_VIEW(cboEISStatisticsYear.Text, "", "1", "1", "0", " and EISStatusCode >= 3 ", "", "")
 
-        lblEISStatsCount.Text = dgvEISStats.RowCount.ToString
-        lblEISCount.Text = "Submitted Count"
+        lblEISCount.Text = "Submitted Count: " & dgvEISStats.RowCount.ToString
 
         DisplayEisStageCount(0)
     End Sub
