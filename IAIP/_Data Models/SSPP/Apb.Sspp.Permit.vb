@@ -14,11 +14,11 @@ Namespace Apb.Sspp
             Me.PermitNumber = permitNumber
         End Sub
 
-        Public Sub New(airsNumber As String, _
-                       permitNumber As String, _
-                       issuedDate As Date, _
-                       active As Boolean, _
-                       permitTypeCode As Integer)
+        Public Sub New(airsNumber As ApbFacilityId,
+                       permitNumber As String,
+                       issuedDate As Date,
+                       active As Boolean,
+                       permitTypeCode As String)
             Me.AirsNumber = airsNumber
             Me.PermitNumber = permitNumber
             Me.IssuedDate = issuedDate
@@ -31,7 +31,7 @@ Namespace Apb.Sspp
 #Region " Properties "
 
         Public Property ID() As Integer
-        Public Property AirsNumber() As String
+        Public Property AirsNumber() As ApbFacilityId
         Public Property PermitNumber() As String
         Public Property IssuedDate() As Date?
         Public Property RevokedDate() As Date?
@@ -50,8 +50,7 @@ Namespace Apb.Sspp
 
 #Region " IEquatable Interface implementation "
 
-        Public Overloads Function Equals(other As Permit) As Boolean _
-            Implements IEquatable(Of Permit).Equals
+        Public Overloads Function Equals(other As Permit) As Boolean Implements IEquatable(Of Permit).Equals
             If other Is Nothing Then Return False
             Return Me.PermitNumber.Equals(other.PermitNumber)
         End Function

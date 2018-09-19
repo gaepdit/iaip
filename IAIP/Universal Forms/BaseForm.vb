@@ -15,6 +15,7 @@ Public Class BaseForm
         FacilityName
         Key
         ReferenceNumber
+        AppNumber
     End Enum
 
 #End Region

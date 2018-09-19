@@ -117,28 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="MainMenu1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>10, 6</value>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>353, 6</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnRefreshAIRSNo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAIRJREFUOE+ljgkK
-        wCAQA316f26JyZLVqr0GloLJhJZEfXhL6h3o6KaotiY6+DZjoIUj5fA7OsN1qNaDgTwSoE/NKCIh5sug
-        T80oohzMZIA+NaPoOjADfWpG0UbKw7uBzOpv0KdmFBkInwdCzpdBn5pRZGZigD41o6jn98AK9KmZeHxx
-        pZzbHjfz+DxbhQAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="btnRefreshAppNo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAIRJREFUOE+ljgkK
-        wCAQA316f26JyZLVqr0GloLJhJZEfXhL6h3o6KaotiY6+DZjoIUj5fA7OsN1qNaDgTwSoE/NKCIh5sug
-        T80oohzMZIA+NaPoOjADfWpG0UbKw7uBzOpv0KdmFBkInwdCzpdBn5pRZGZigD41o6jn98AK9KmZeHxx
-        pZzbHjfz+DxbhQAAAABJRU5ErkJggg==
-</value>
-  </data>
   <data name="btnSIPEditAll.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         R0lGODlhGAAWAIYAAOTq9KSipISChNza5NTa5NTa3NTW3MzW3MzS3MzO1MTO1MTK1MTGzLzCzLy+xNze

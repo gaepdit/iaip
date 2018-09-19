@@ -27,24 +27,12 @@ Partial Class SSPPApplicationTrackingLog
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MmiFile = New System.Windows.Forms.MenuItem()
-        Me.mmiSave = New System.Windows.Forms.MenuItem()
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
-        Me.mmiClose = New System.Windows.Forms.MenuItem()
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
-        Me.mmiNewApplication = New System.Windows.Forms.MenuItem()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnRefreshAIRSNo = New System.Windows.Forms.Button()
-        Me.btnRefreshAppNo = New System.Windows.Forms.Button()
         Me.lblLinkWarning = New System.Windows.Forms.Label()
         Me.rtbFacilityInformation = New System.Windows.Forms.RichTextBox()
         Me.txtAIRSNumber = New System.Windows.Forms.TextBox()
-        Me.DTPFinalizedDate = New System.Windows.Forms.DateTimePicker()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtApplicationNumber = New System.Windows.Forms.TextBox()
+        Me.lblAppNumber = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.lblApplicationUnit = New System.Windows.Forms.Label()
         Me.lblEngineer = New System.Windows.Forms.Label()
         Me.cboApplicationUnit = New System.Windows.Forms.ComboBox()
@@ -156,7 +144,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel32 = New System.Windows.Forms.Panel()
         Me.btnAddNewMACTSubpart = New System.Windows.Forms.Button()
         Me.cboMACTSubpart = New System.Windows.Forms.ComboBox()
-        Me.TPPermitUploader = New System.Windows.Forms.TabPage()
+        Me.TPDocuments = New System.Windows.Forms.TabPage()
         Me.PanelTitleV = New System.Windows.Forms.Panel()
         Me.btnTVFinalDownload = New System.Windows.Forms.Button()
         Me.btnTVPublicNoticeDownload = New System.Windows.Forms.Button()
@@ -334,11 +322,9 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPEPAStatesNotified = New System.Windows.Forms.DateTimePicker()
         Me.DTPDraftOnWeb = New System.Windows.Forms.DateTimePicker()
         Me.TPInformationRequests = New System.Windows.Forms.TabPage()
-        Me.dgvInformationRequested = New System.Windows.Forms.DataGridView()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.lblInformationReceived = New System.Windows.Forms.Label()
         Me.lblInformationRequested = New System.Windows.Forms.Label()
-        Me.btnViewInformationRequests = New System.Windows.Forms.Button()
         Me.btnDeleteInformationRequest = New System.Windows.Forms.Button()
         Me.btnClearInformationRequest = New System.Windows.Forms.Button()
         Me.txtInformationRequestedKey = New System.Windows.Forms.TextBox()
@@ -349,13 +335,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label16 = New System.Windows.Forms.Label()
         Me.DTPInformationReceived = New System.Windows.Forms.DateTimePicker()
         Me.DTPInformationRequested = New System.Windows.Forms.DateTimePicker()
-        Me.TPApplicationHistroy = New System.Windows.Forms.TabPage()
+        Me.dgvInformationRequested = New System.Windows.Forms.DataGridView()
+        Me.TPApplicationHistory = New System.Windows.Forms.TabPage()
         Me.dgvFacilityAppHistory = New System.Windows.Forms.DataGridView()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.btnLoadFacilityApplicationHistory = New System.Windows.Forms.Button()
         Me.txtApplicationCount = New System.Windows.Forms.TextBox()
         Me.txtMasterAppLock = New System.Windows.Forms.TextBox()
-        Me.btnClearList = New System.Windows.Forms.Button()
         Me.btnClearLinks = New System.Windows.Forms.Button()
         Me.btnLinkApplications = New System.Windows.Forms.Button()
         Me.btnAddApplicationToList = New System.Windows.Forms.Button()
@@ -419,16 +404,22 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbNAANSR = New System.Windows.Forms.CheckBox()
         Me.chbPSD = New System.Windows.Forms.CheckBox()
         Me.TPTrackingLog = New System.Windows.Forms.TabPage()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblDated = New System.Windows.Forms.Label()
         Me.txtNAICSCode = New System.Windows.Forms.TextBox()
         Me.Label72 = New System.Windows.Forms.Label()
+        Me.txtFacilityName = New System.Windows.Forms.TextBox()
         Me.llbPermitNumber = New System.Windows.Forms.LinkLabel()
+        Me.txtDistrict = New System.Windows.Forms.TextBox()
         Me.lblPAReady = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.lblPNReady = New System.Windows.Forms.Label()
+        Me.lblReceived = New System.Windows.Forms.Label()
         Me.GBOther = New System.Windows.Forms.GroupBox()
         Me.chbFederallyOwned = New System.Windows.Forms.CheckBox()
         Me.chbHAPsMajor = New System.Windows.Forms.CheckBox()
         Me.chbNSRMajor = New System.Windows.Forms.CheckBox()
+        Me.lblPermitNumber = New System.Windows.Forms.Label()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.txt1HourOzone = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
@@ -436,7 +427,9 @@ Partial Class SSPPApplicationTrackingLog
         Me.txt8HROzone = New System.Windows.Forms.TextBox()
         Me.Label97 = New System.Windows.Forms.Label()
         Me.Label96 = New System.Windows.Forms.Label()
+        Me.lblPermitAction = New System.Windows.Forms.Label()
         Me.chbPNReady = New System.Windows.Forms.CheckBox()
+        Me.Label30 = New System.Windows.Forms.Label()
         Me.GBAirProgramCodes = New System.Windows.Forms.GroupBox()
         Me.chbCDS_RMP = New System.Windows.Forms.CheckBox()
         Me.chbCDS_0 = New System.Windows.Forms.CheckBox()
@@ -447,69 +440,65 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbCDS_M = New System.Windows.Forms.CheckBox()
         Me.chbCDS_V = New System.Windows.Forms.CheckBox()
         Me.chbCDS_A = New System.Windows.Forms.CheckBox()
-        Me.lblDateToDO = New System.Windows.Forms.Label()
-        Me.DTPDateToDO = New System.Windows.Forms.DateTimePicker()
-        Me.lblDatetoBC = New System.Windows.Forms.Label()
-        Me.DTPDateToBC = New System.Windows.Forms.DateTimePicker()
-        Me.lblEPAEnds = New System.Windows.Forms.Label()
-        Me.DTPEPAEnds = New System.Windows.Forms.DateTimePicker()
-        Me.lblEPAWaived = New System.Windows.Forms.Label()
-        Me.DTPEPAWaived = New System.Windows.Forms.DateTimePicker()
-        Me.chbPAReady = New System.Windows.Forms.CheckBox()
-        Me.lblDraftIssued = New System.Windows.Forms.Label()
-        Me.lblFinalAction = New System.Windows.Forms.Label()
-        Me.lblDateToPM = New System.Windows.Forms.Label()
-        Me.lblDateToUC = New System.Windows.Forms.Label()
-        Me.lblDeadline = New System.Windows.Forms.Label()
-        Me.lblDatePNExpires = New System.Windows.Forms.Label()
-        Me.lblDatePAExpires = New System.Windows.Forms.Label()
-        Me.lblDateAcknowledge = New System.Windows.Forms.Label()
-        Me.lblDateReassigned = New System.Windows.Forms.Label()
-        Me.lblDateAssigned = New System.Windows.Forms.Label()
-        Me.txtFacilityZipCode = New System.Windows.Forms.TextBox()
-        Me.txtFacilityStreetAddress = New System.Windows.Forms.TextBox()
-        Me.txtFacilityName = New System.Windows.Forms.TextBox()
-        Me.txtPlantDescription = New System.Windows.Forms.TextBox()
-        Me.Label63 = New System.Windows.Forms.Label()
-        Me.cboOperationalStatus = New System.Windows.Forms.ComboBox()
-        Me.lblOperationalStatus = New System.Windows.Forms.Label()
-        Me.cboClassification = New System.Windows.Forms.ComboBox()
-        Me.lblClassification = New System.Windows.Forms.Label()
-        Me.Label42 = New System.Windows.Forms.Label()
-        Me.txtSICCode = New System.Windows.Forms.TextBox()
-        Me.txtComments = New System.Windows.Forms.TextBox()
-        Me.txtReasonAppSubmitted = New System.Windows.Forms.TextBox()
-        Me.cboPublicAdvisory = New System.Windows.Forms.ComboBox()
-        Me.cboPermitAction = New System.Windows.Forms.ComboBox()
-        Me.txtPermitNumber = New System.Windows.Forms.TextBox()
-        Me.DTPDraftIssued = New System.Windows.Forms.DateTimePicker()
-        Me.DTPFinalAction = New System.Windows.Forms.DateTimePicker()
-        Me.DTPDateToPM = New System.Windows.Forms.DateTimePicker()
-        Me.DTPDateToUC = New System.Windows.Forms.DateTimePicker()
-        Me.DTPDeadline = New System.Windows.Forms.DateTimePicker()
-        Me.DTPDatePNExpires = New System.Windows.Forms.DateTimePicker()
-        Me.DTPDatePAExpires = New System.Windows.Forms.DateTimePicker()
-        Me.DTPDateAssigned = New System.Windows.Forms.DateTimePicker()
-        Me.DTPDateReassigned = New System.Windows.Forms.DateTimePicker()
-        Me.DTPDateAcknowledge = New System.Windows.Forms.DateTimePicker()
-        Me.DTPDateReceived = New System.Windows.Forms.DateTimePicker()
-        Me.DTPDateSent = New System.Windows.Forms.DateTimePicker()
-        Me.lblCounty = New System.Windows.Forms.Label()
-        Me.cboFacilityCity = New System.Windows.Forms.ComboBox()
-        Me.cboCounty = New System.Windows.Forms.ComboBox()
-        Me.lblPublicAdvisory = New System.Windows.Forms.Label()
         Me.Label31 = New System.Windows.Forms.Label()
-        Me.Label30 = New System.Windows.Forms.Label()
-        Me.lblPermitAction = New System.Windows.Forms.Label()
-        Me.lblPermitNumber = New System.Windows.Forms.Label()
-        Me.lblReceived = New System.Windows.Forms.Label()
-        Me.lblDated = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.txtDistrict = New System.Windows.Forms.TextBox()
+        Me.lblDateToDO = New System.Windows.Forms.Label()
+        Me.lblPublicAdvisory = New System.Windows.Forms.Label()
+        Me.DTPDateToDO = New System.Windows.Forms.DateTimePicker()
+        Me.cboCounty = New System.Windows.Forms.ComboBox()
+        Me.lblDatetoBC = New System.Windows.Forms.Label()
+        Me.cboFacilityCity = New System.Windows.Forms.ComboBox()
+        Me.DTPDateToBC = New System.Windows.Forms.DateTimePicker()
+        Me.lblCounty = New System.Windows.Forms.Label()
+        Me.lblEPAEnds = New System.Windows.Forms.Label()
+        Me.DTPDateSent = New System.Windows.Forms.DateTimePicker()
+        Me.DTPEPAEnds = New System.Windows.Forms.DateTimePicker()
+        Me.DTPDateReceived = New System.Windows.Forms.DateTimePicker()
+        Me.lblEPAWaived = New System.Windows.Forms.Label()
+        Me.DTPDateAcknowledge = New System.Windows.Forms.DateTimePicker()
+        Me.DTPEPAWaived = New System.Windows.Forms.DateTimePicker()
+        Me.DTPDateReassigned = New System.Windows.Forms.DateTimePicker()
+        Me.chbPAReady = New System.Windows.Forms.CheckBox()
+        Me.DTPDateAssigned = New System.Windows.Forms.DateTimePicker()
+        Me.lblDraftIssued = New System.Windows.Forms.Label()
+        Me.DTPDatePAExpires = New System.Windows.Forms.DateTimePicker()
+        Me.lblFinalAction = New System.Windows.Forms.Label()
+        Me.DTPDatePNExpires = New System.Windows.Forms.DateTimePicker()
+        Me.lblDateToPM = New System.Windows.Forms.Label()
+        Me.DTPDeadline = New System.Windows.Forms.DateTimePicker()
+        Me.lblDateToUC = New System.Windows.Forms.Label()
+        Me.DTPDateToUC = New System.Windows.Forms.DateTimePicker()
+        Me.lblDeadline = New System.Windows.Forms.Label()
+        Me.DTPDateToPM = New System.Windows.Forms.DateTimePicker()
+        Me.lblDatePNExpires = New System.Windows.Forms.Label()
+        Me.DTPFinalAction = New System.Windows.Forms.DateTimePicker()
+        Me.lblDatePAExpires = New System.Windows.Forms.Label()
+        Me.DTPDraftIssued = New System.Windows.Forms.DateTimePicker()
+        Me.lblDateAcknowledge = New System.Windows.Forms.Label()
+        Me.txtPermitNumber = New System.Windows.Forms.TextBox()
+        Me.lblDateReassigned = New System.Windows.Forms.Label()
+        Me.cboPermitAction = New System.Windows.Forms.ComboBox()
+        Me.lblDateAssigned = New System.Windows.Forms.Label()
+        Me.cboPublicAdvisory = New System.Windows.Forms.ComboBox()
+        Me.txtFacilityZipCode = New System.Windows.Forms.TextBox()
+        Me.txtReasonAppSubmitted = New System.Windows.Forms.TextBox()
+        Me.txtFacilityStreetAddress = New System.Windows.Forms.TextBox()
+        Me.txtComments = New System.Windows.Forms.TextBox()
+        Me.txtSICCode = New System.Windows.Forms.TextBox()
+        Me.txtPlantDescription = New System.Windows.Forms.TextBox()
+        Me.Label42 = New System.Windows.Forms.Label()
+        Me.Label63 = New System.Windows.Forms.Label()
+        Me.lblClassification = New System.Windows.Forms.Label()
+        Me.cboOperationalStatus = New System.Windows.Forms.ComboBox()
+        Me.cboClassification = New System.Windows.Forms.ComboBox()
+        Me.lblOperationalStatus = New System.Windows.Forms.Label()
         Me.TCApplicationTrackingLog = New System.Windows.Forms.TabControl()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.SaveButton = New System.Windows.Forms.ToolStripButton()
-        Me.GroupBox2.SuspendLayout()
+        Me.HeaderPanel = New System.Windows.Forms.Panel()
+        Me.txtNewApplicationNumber = New System.Windows.Forms.TextBox()
+        Me.btnFetchNewAppNumber = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TPSubPartEditor.SuspendLayout()
         Me.TCSupParts.SuspendLayout()
         Me.TPSIP.SuspendLayout()
@@ -548,7 +537,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel31.SuspendLayout()
         CType(Me.dgvMACTSubPartDelete, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel32.SuspendLayout()
-        Me.TPPermitUploader.SuspendLayout()
+        Me.TPDocuments.SuspendLayout()
         Me.PanelTitleV.SuspendLayout()
         Me.PanelPSD.SuspendLayout()
         Me.Panel7.SuspendLayout()
@@ -556,9 +545,9 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPContactInformation.SuspendLayout()
         Me.TPWebPublisher.SuspendLayout()
         Me.TPInformationRequests.SuspendLayout()
-        CType(Me.dgvInformationRequested, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
-        Me.TPApplicationHistroy.SuspendLayout()
+        CType(Me.dgvInformationRequested, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TPApplicationHistory.SuspendLayout()
         CType(Me.dgvFacilityAppHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
         Me.TPReviews.SuspendLayout()
@@ -571,112 +560,32 @@ Partial Class SSPPApplicationTrackingLog
         Me.GBSignificationComments.SuspendLayout()
         Me.ApplicableRulesGroup.SuspendLayout()
         Me.TPTrackingLog.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.GBOther.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.GBAirProgramCodes.SuspendLayout()
         Me.TCApplicationTrackingLog.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
+        Me.HeaderPanel.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiFile, Me.MenuItem2})
-        '
-        'MmiFile
-        '
-        Me.MmiFile.Index = 0
-        Me.MmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.MenuItem1, Me.mmiClose})
-        Me.MmiFile.Text = "File"
-        '
-        'mmiSave
-        '
-        Me.mmiSave.Index = 0
-        Me.mmiSave.Shortcut = System.Windows.Forms.Shortcut.CtrlS
-        Me.mmiSave.Text = "&Save"
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 1
-        Me.MenuItem1.Text = "-"
-        '
-        'mmiClose
-        '
-        Me.mmiClose.Index = 2
-        Me.mmiClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
-        Me.mmiClose.Text = "&Close"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiNewApplication})
-        Me.MenuItem2.Text = "Tools"
-        '
-        'mmiNewApplication
-        '
-        Me.mmiNewApplication.Index = 0
-        Me.mmiNewApplication.Text = "Assign Application No."
-        Me.mmiNewApplication.Visible = False
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.btnRefreshAIRSNo)
-        Me.GroupBox2.Controls.Add(Me.btnRefreshAppNo)
-        Me.GroupBox2.Controls.Add(Me.lblLinkWarning)
-        Me.GroupBox2.Controls.Add(Me.rtbFacilityInformation)
-        Me.GroupBox2.Controls.Add(Me.txtAIRSNumber)
-        Me.GroupBox2.Controls.Add(Me.DTPFinalizedDate)
-        Me.GroupBox2.Controls.Add(Me.Label1)
-        Me.GroupBox2.Controls.Add(Me.txtApplicationNumber)
-        Me.GroupBox2.Controls.Add(Me.Label2)
-        Me.GroupBox2.Controls.Add(Me.Label13)
-        Me.GroupBox2.Controls.Add(Me.lblApplicationUnit)
-        Me.GroupBox2.Controls.Add(Me.lblEngineer)
-        Me.GroupBox2.Controls.Add(Me.cboApplicationUnit)
-        Me.GroupBox2.Controls.Add(Me.cboEngineer)
-        Me.GroupBox2.Controls.Add(Me.lblApplicationType)
-        Me.GroupBox2.Controls.Add(Me.cboApplicationType)
-        Me.GroupBox2.Controls.Add(Me.chbClosedOut)
-        Me.GroupBox2.Controls.Add(Me.Label10)
-        Me.GroupBox2.Controls.Add(Me.txtOutstandingApplication)
-        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox2.Location = New System.Drawing.Point(0, 25)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(792, 84)
-        Me.GroupBox2.TabIndex = 0
-        Me.GroupBox2.TabStop = False
         '
         'btnRefreshAIRSNo
         '
         Me.btnRefreshAIRSNo.AutoSize = True
         Me.btnRefreshAIRSNo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRefreshAIRSNo.Enabled = False
-        Me.btnRefreshAIRSNo.Image = CType(resources.GetObject("btnRefreshAIRSNo.Image"), System.Drawing.Image)
-        Me.btnRefreshAIRSNo.Location = New System.Drawing.Point(161, 32)
+        Me.btnRefreshAIRSNo.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
+        Me.btnRefreshAIRSNo.Location = New System.Drawing.Point(165, 30)
         Me.btnRefreshAIRSNo.Name = "btnRefreshAIRSNo"
         Me.btnRefreshAIRSNo.Size = New System.Drawing.Size(22, 22)
-        Me.btnRefreshAIRSNo.TabIndex = 336
+        Me.btnRefreshAIRSNo.TabIndex = 1
+        Me.ToolTip1.SetToolTip(Me.btnRefreshAIRSNo, "Reload facility information")
         Me.btnRefreshAIRSNo.UseVisualStyleBackColor = True
         Me.btnRefreshAIRSNo.Visible = False
-        '
-        'btnRefreshAppNo
-        '
-        Me.btnRefreshAppNo.AutoSize = True
-        Me.btnRefreshAppNo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRefreshAppNo.Enabled = False
-        Me.btnRefreshAppNo.Image = CType(resources.GetObject("btnRefreshAppNo.Image"), System.Drawing.Image)
-        Me.btnRefreshAppNo.Location = New System.Drawing.Point(161, 8)
-        Me.btnRefreshAppNo.Name = "btnRefreshAppNo"
-        Me.btnRefreshAppNo.Size = New System.Drawing.Size(22, 22)
-        Me.btnRefreshAppNo.TabIndex = 335
-        Me.btnRefreshAppNo.UseVisualStyleBackColor = True
-        Me.btnRefreshAppNo.Visible = False
         '
         'lblLinkWarning
         '
         Me.lblLinkWarning.AutoSize = True
         Me.lblLinkWarning.ForeColor = System.Drawing.Color.Tomato
-        Me.lblLinkWarning.Location = New System.Drawing.Point(221, 35)
+        Me.lblLinkWarning.Location = New System.Drawing.Point(12, 87)
         Me.lblLinkWarning.Name = "lblLinkWarning"
         Me.lblLinkWarning.Size = New System.Drawing.Size(94, 13)
         Me.lblLinkWarning.TabIndex = 334
@@ -685,83 +594,55 @@ Partial Class SSPPApplicationTrackingLog
         '
         'rtbFacilityInformation
         '
-        Me.rtbFacilityInformation.Location = New System.Drawing.Point(322, 10)
+        Me.rtbFacilityInformation.Location = New System.Drawing.Point(239, 22)
         Me.rtbFacilityInformation.Name = "rtbFacilityInformation"
         Me.rtbFacilityInformation.ReadOnly = True
         Me.rtbFacilityInformation.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
-        Me.rtbFacilityInformation.Size = New System.Drawing.Size(240, 68)
-        Me.rtbFacilityInformation.TabIndex = 333
+        Me.rtbFacilityInformation.Size = New System.Drawing.Size(301, 78)
+        Me.rtbFacilityInformation.TabIndex = 4
         Me.rtbFacilityInformation.Text = ""
         '
         'txtAIRSNumber
         '
-        Me.txtAIRSNumber.Location = New System.Drawing.Point(88, 32)
+        Me.txtAIRSNumber.Location = New System.Drawing.Point(92, 31)
         Me.txtAIRSNumber.MaxLength = 8
         Me.txtAIRSNumber.Name = "txtAIRSNumber"
         Me.txtAIRSNumber.ReadOnly = True
         Me.txtAIRSNumber.Size = New System.Drawing.Size(67, 20)
-        Me.txtAIRSNumber.TabIndex = 1
+        Me.txtAIRSNumber.TabIndex = 0
         '
-        'DTPFinalizedDate
+        'lblAppNumber
         '
-        Me.DTPFinalizedDate.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPFinalizedDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPFinalizedDate.Location = New System.Drawing.Point(202, 56)
-        Me.DTPFinalizedDate.Name = "DTPFinalizedDate"
-        Me.DTPFinalizedDate.Size = New System.Drawing.Size(18, 20)
-        Me.DTPFinalizedDate.TabIndex = 331
-        Me.DTPFinalizedDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        Me.DTPFinalizedDate.Visible = False
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(8, 10)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(79, 13)
-        Me.Label1.TabIndex = 249
-        Me.Label1.Text = "Application No."
-        '
-        'txtApplicationNumber
-        '
-        Me.txtApplicationNumber.Location = New System.Drawing.Point(88, 8)
-        Me.txtApplicationNumber.MaxLength = 10
-        Me.txtApplicationNumber.Name = "txtApplicationNumber"
-        Me.txtApplicationNumber.ReadOnly = True
-        Me.txtApplicationNumber.Size = New System.Drawing.Size(67, 20)
-        Me.txtApplicationNumber.TabIndex = 0
+        Me.lblAppNumber.AutoSize = True
+        Me.lblAppNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblAppNumber.Location = New System.Drawing.Point(12, 4)
+        Me.lblAppNumber.Name = "lblAppNumber"
+        Me.lblAppNumber.Size = New System.Drawing.Size(128, 17)
+        Me.lblAppNumber.TabIndex = 249
+        Me.lblAppNumber.Text = "New Application:"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(8, 34)
+        Me.Label2.Location = New System.Drawing.Point(12, 33)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(72, 13)
         Me.Label2.TabIndex = 250
         Me.Label2.Text = "AIRS Number"
         '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(216, 10)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(100, 13)
-        Me.Label13.TabIndex = 261
-        Me.Label13.Text = "Current Facility Info."
-        '
         'lblApplicationUnit
         '
         Me.lblApplicationUnit.AutoSize = True
-        Me.lblApplicationUnit.Location = New System.Drawing.Point(568, 34)
+        Me.lblApplicationUnit.Location = New System.Drawing.Point(557, 33)
         Me.lblApplicationUnit.Name = "lblApplicationUnit"
-        Me.lblApplicationUnit.Size = New System.Drawing.Size(49, 13)
+        Me.lblApplicationUnit.Size = New System.Drawing.Size(57, 13)
         Me.lblApplicationUnit.TabIndex = 253
-        Me.lblApplicationUnit.Text = "APL Unit"
+        Me.lblApplicationUnit.Text = "SSPP Unit"
         '
         'lblEngineer
         '
         Me.lblEngineer.AutoSize = True
-        Me.lblEngineer.Location = New System.Drawing.Point(568, 10)
+        Me.lblEngineer.Location = New System.Drawing.Point(557, 6)
         Me.lblEngineer.Name = "lblEngineer"
         Me.lblEngineer.Size = New System.Drawing.Size(49, 13)
         Me.lblEngineer.TabIndex = 252
@@ -774,10 +655,10 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboApplicationUnit.BackColor = System.Drawing.SystemColors.Window
         Me.cboApplicationUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboApplicationUnit.Enabled = False
-        Me.cboApplicationUnit.Location = New System.Drawing.Point(624, 32)
+        Me.cboApplicationUnit.Location = New System.Drawing.Point(620, 30)
         Me.cboApplicationUnit.Name = "cboApplicationUnit"
         Me.cboApplicationUnit.Size = New System.Drawing.Size(160, 21)
-        Me.cboApplicationUnit.TabIndex = 4
+        Me.cboApplicationUnit.TabIndex = 6
         '
         'cboEngineer
         '
@@ -785,15 +666,15 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboEngineer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboEngineer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEngineer.Enabled = False
-        Me.cboEngineer.Location = New System.Drawing.Point(624, 8)
+        Me.cboEngineer.Location = New System.Drawing.Point(620, 3)
         Me.cboEngineer.Name = "cboEngineer"
         Me.cboEngineer.Size = New System.Drawing.Size(160, 21)
-        Me.cboEngineer.TabIndex = 3
+        Me.cboEngineer.TabIndex = 5
         '
         'lblApplicationType
         '
         Me.lblApplicationType.AutoSize = True
-        Me.lblApplicationType.Location = New System.Drawing.Point(568, 58)
+        Me.lblApplicationType.Location = New System.Drawing.Point(557, 60)
         Me.lblApplicationType.Name = "lblApplicationType"
         Me.lblApplicationType.Size = New System.Drawing.Size(50, 13)
         Me.lblApplicationType.TabIndex = 251
@@ -805,43 +686,43 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboApplicationType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboApplicationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboApplicationType.Enabled = False
-        Me.cboApplicationType.Location = New System.Drawing.Point(624, 56)
+        Me.cboApplicationType.Location = New System.Drawing.Point(620, 57)
         Me.cboApplicationType.Name = "cboApplicationType"
         Me.cboApplicationType.Size = New System.Drawing.Size(160, 21)
-        Me.cboApplicationType.TabIndex = 5
+        Me.cboApplicationType.TabIndex = 7
         '
         'chbClosedOut
         '
         Me.chbClosedOut.Enabled = False
-        Me.chbClosedOut.Location = New System.Drawing.Point(128, 58)
+        Me.chbClosedOut.Location = New System.Drawing.Point(139, 59)
         Me.chbClosedOut.Name = "chbClosedOut"
         Me.chbClosedOut.Size = New System.Drawing.Size(80, 16)
-        Me.chbClosedOut.TabIndex = 2
+        Me.chbClosedOut.TabIndex = 3
         Me.chbClosedOut.Text = "Closed Out"
         '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(8, 58)
+        Me.Label10.Location = New System.Drawing.Point(12, 60)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(86, 13)
+        Me.Label10.Size = New System.Drawing.Size(91, 13)
         Me.Label10.TabIndex = 258
-        Me.Label10.Text = "Outstanding App"
+        Me.Label10.Text = "Outstanding Apps"
         '
         'txtOutstandingApplication
         '
-        Me.txtOutstandingApplication.Location = New System.Drawing.Point(96, 57)
+        Me.txtOutstandingApplication.Location = New System.Drawing.Point(109, 57)
         Me.txtOutstandingApplication.Name = "txtOutstandingApplication"
         Me.txtOutstandingApplication.ReadOnly = True
         Me.txtOutstandingApplication.Size = New System.Drawing.Size(24, 20)
-        Me.txtOutstandingApplication.TabIndex = 287
+        Me.txtOutstandingApplication.TabIndex = 2
         '
         'TPSubPartEditor
         '
         Me.TPSubPartEditor.Controls.Add(Me.TCSupParts)
         Me.TPSubPartEditor.Location = New System.Drawing.Point(4, 22)
         Me.TPSubPartEditor.Name = "TPSubPartEditor"
-        Me.TPSubPartEditor.Size = New System.Drawing.Size(784, 498)
+        Me.TPSubPartEditor.Size = New System.Drawing.Size(784, 477)
         Me.TPSubPartEditor.TabIndex = 8
         Me.TPSubPartEditor.Text = "Rule Applicability"
         Me.TPSubPartEditor.UseVisualStyleBackColor = True
@@ -856,15 +737,15 @@ Partial Class SSPPApplicationTrackingLog
         Me.TCSupParts.Location = New System.Drawing.Point(0, 0)
         Me.TCSupParts.Name = "TCSupParts"
         Me.TCSupParts.SelectedIndex = 0
-        Me.TCSupParts.Size = New System.Drawing.Size(784, 498)
-        Me.TCSupParts.TabIndex = 211
+        Me.TCSupParts.Size = New System.Drawing.Size(784, 477)
+        Me.TCSupParts.TabIndex = 5
         '
         'TPSIP
         '
         Me.TPSIP.Controls.Add(Me.Panel13)
         Me.TPSIP.Location = New System.Drawing.Point(4, 22)
         Me.TPSIP.Name = "TPSIP"
-        Me.TPSIP.Size = New System.Drawing.Size(776, 472)
+        Me.TPSIP.Size = New System.Drawing.Size(776, 451)
         Me.TPSIP.TabIndex = 4
         Me.TPSIP.Text = "SIP"
         Me.TPSIP.UseVisualStyleBackColor = True
@@ -879,7 +760,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel13.Location = New System.Drawing.Point(0, 0)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(776, 472)
+        Me.Panel13.Size = New System.Drawing.Size(776, 451)
         Me.Panel13.TabIndex = 5
         '
         'dgvSIPSubParts
@@ -890,8 +771,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvSIPSubParts.Location = New System.Drawing.Point(231, 34)
         Me.dgvSIPSubParts.Name = "dgvSIPSubParts"
         Me.dgvSIPSubParts.ReadOnly = True
-        Me.dgvSIPSubParts.Size = New System.Drawing.Size(301, 314)
-        Me.dgvSIPSubParts.TabIndex = 0
+        Me.dgvSIPSubParts.Size = New System.Drawing.Size(301, 293)
+        Me.dgvSIPSubParts.TabIndex = 2
         '
         'Panel17
         '
@@ -901,7 +782,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel17.Location = New System.Drawing.Point(231, 0)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Size = New System.Drawing.Size(301, 34)
-        Me.Panel17.TabIndex = 435
+        Me.Panel17.TabIndex = 1
         '
         'btnSaveSIPSubpart
         '
@@ -910,7 +791,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnSaveSIPSubpart.Location = New System.Drawing.Point(174, 10)
         Me.btnSaveSIPSubpart.Name = "btnSaveSIPSubpart"
         Me.btnSaveSIPSubpart.Size = New System.Drawing.Size(115, 23)
-        Me.btnSaveSIPSubpart.TabIndex = 430
+        Me.btnSaveSIPSubpart.TabIndex = 0
         Me.btnSaveSIPSubpart.Text = "Save SIP Data"
         Me.btnSaveSIPSubpart.UseVisualStyleBackColor = False
         '
@@ -935,8 +816,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel15.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel15.Location = New System.Drawing.Point(532, 0)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(244, 348)
-        Me.Panel15.TabIndex = 433
+        Me.Panel15.Size = New System.Drawing.Size(244, 327)
+        Me.Panel15.TabIndex = 3
         '
         'Label59
         '
@@ -954,7 +835,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvSIPSubpartAddEdit.Name = "dgvSIPSubpartAddEdit"
         Me.dgvSIPSubpartAddEdit.ReadOnly = True
         Me.dgvSIPSubpartAddEdit.Size = New System.Drawing.Size(199, 266)
-        Me.dgvSIPSubpartAddEdit.TabIndex = 427
+        Me.dgvSIPSubpartAddEdit.TabIndex = 0
         '
         'btnSIPEditAll
         '
@@ -964,7 +845,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnSIPEditAll.Location = New System.Drawing.Point(6, 148)
         Me.btnSIPEditAll.Name = "btnSIPEditAll"
         Me.btnSIPEditAll.Size = New System.Drawing.Size(30, 28)
-        Me.btnSIPEditAll.TabIndex = 423
+        Me.btnSIPEditAll.TabIndex = 3
         Me.btnSIPEditAll.UseVisualStyleBackColor = True
         '
         'btnSIPUneditAll
@@ -975,7 +856,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnSIPUneditAll.Location = New System.Drawing.Point(6, 184)
         Me.btnSIPUneditAll.Name = "btnSIPUneditAll"
         Me.btnSIPUneditAll.Size = New System.Drawing.Size(30, 28)
-        Me.btnSIPUneditAll.TabIndex = 425
+        Me.btnSIPUneditAll.TabIndex = 4
         Me.btnSIPUneditAll.UseVisualStyleBackColor = True
         '
         'btnClearAddModifiedSIPs
@@ -997,7 +878,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnSIPUnedit.Location = New System.Drawing.Point(6, 92)
         Me.btnSIPUnedit.Name = "btnSIPUnedit"
         Me.btnSIPUnedit.Size = New System.Drawing.Size(30, 28)
-        Me.btnSIPUnedit.TabIndex = 424
+        Me.btnSIPUnedit.TabIndex = 2
         Me.btnSIPUnedit.UseVisualStyleBackColor = True
         '
         'btnSIPEdit
@@ -1008,7 +889,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnSIPEdit.Location = New System.Drawing.Point(6, 48)
         Me.btnSIPEdit.Name = "btnSIPEdit"
         Me.btnSIPEdit.Size = New System.Drawing.Size(30, 28)
-        Me.btnSIPEdit.TabIndex = 422
+        Me.btnSIPEdit.TabIndex = 1
         Me.btnSIPEdit.UseVisualStyleBackColor = True
         '
         'Panel14
@@ -1023,8 +904,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel14.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel14.Location = New System.Drawing.Point(0, 0)
         Me.Panel14.Name = "Panel14"
-        Me.Panel14.Size = New System.Drawing.Size(231, 348)
-        Me.Panel14.TabIndex = 432
+        Me.Panel14.Size = New System.Drawing.Size(231, 327)
+        Me.Panel14.TabIndex = 0
         '
         'Label58
         '
@@ -1042,7 +923,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvSIPSubPartDelete.Name = "dgvSIPSubPartDelete"
         Me.dgvSIPSubPartDelete.ReadOnly = True
         Me.dgvSIPSubPartDelete.Size = New System.Drawing.Size(180, 266)
-        Me.dgvSIPSubPartDelete.TabIndex = 426
+        Me.dgvSIPSubPartDelete.TabIndex = 0
         '
         'btnClearSIPDeletes
         '
@@ -1063,7 +944,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnSIPDelete.Location = New System.Drawing.Point(190, 46)
         Me.btnSIPDelete.Name = "btnSIPDelete"
         Me.btnSIPDelete.Size = New System.Drawing.Size(30, 28)
-        Me.btnSIPDelete.TabIndex = 420
+        Me.btnSIPDelete.TabIndex = 1
         Me.btnSIPDelete.UseVisualStyleBackColor = True
         '
         'btnSIPUndeleteAll
@@ -1074,7 +955,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnSIPUndeleteAll.Location = New System.Drawing.Point(190, 182)
         Me.btnSIPUndeleteAll.Name = "btnSIPUndeleteAll"
         Me.btnSIPUndeleteAll.Size = New System.Drawing.Size(30, 28)
-        Me.btnSIPUndeleteAll.TabIndex = 419
+        Me.btnSIPUndeleteAll.TabIndex = 4
         Me.btnSIPUndeleteAll.UseVisualStyleBackColor = True
         '
         'btnSIPDeleteAll
@@ -1085,7 +966,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnSIPDeleteAll.Location = New System.Drawing.Point(190, 146)
         Me.btnSIPDeleteAll.Name = "btnSIPDeleteAll"
         Me.btnSIPDeleteAll.Size = New System.Drawing.Size(30, 28)
-        Me.btnSIPDeleteAll.TabIndex = 421
+        Me.btnSIPDeleteAll.TabIndex = 3
         Me.btnSIPDeleteAll.UseVisualStyleBackColor = True
         '
         'btnSIPUndelete
@@ -1096,7 +977,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnSIPUndelete.Location = New System.Drawing.Point(190, 90)
         Me.btnSIPUndelete.Name = "btnSIPUndelete"
         Me.btnSIPUndelete.Size = New System.Drawing.Size(30, 28)
-        Me.btnSIPUndelete.TabIndex = 418
+        Me.btnSIPUndelete.TabIndex = 2
         Me.btnSIPUndelete.UseVisualStyleBackColor = True
         '
         'Panel16
@@ -1104,10 +985,10 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel16.Controls.Add(Me.btnAddNewSIPSubpart)
         Me.Panel16.Controls.Add(Me.cboSIPSubpart)
         Me.Panel16.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel16.Location = New System.Drawing.Point(0, 348)
+        Me.Panel16.Location = New System.Drawing.Point(0, 327)
         Me.Panel16.Name = "Panel16"
         Me.Panel16.Size = New System.Drawing.Size(776, 124)
-        Me.Panel16.TabIndex = 434
+        Me.Panel16.TabIndex = 4
         '
         'btnAddNewSIPSubpart
         '
@@ -1116,7 +997,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnAddNewSIPSubpart.Location = New System.Drawing.Point(610, 12)
         Me.btnAddNewSIPSubpart.Name = "btnAddNewSIPSubpart"
         Me.btnAddNewSIPSubpart.Size = New System.Drawing.Size(141, 23)
-        Me.btnAddNewSIPSubpart.TabIndex = 429
+        Me.btnAddNewSIPSubpart.TabIndex = 1
         Me.btnAddNewSIPSubpart.Text = "Add Subpart to Above List"
         Me.btnAddNewSIPSubpart.UseVisualStyleBackColor = True
         '
@@ -1131,7 +1012,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboSIPSubpart.Location = New System.Drawing.Point(6, 12)
         Me.cboSIPSubpart.Name = "cboSIPSubpart"
         Me.cboSIPSubpart.Size = New System.Drawing.Size(598, 21)
-        Me.cboSIPSubpart.TabIndex = 1
+        Me.cboSIPSubpart.TabIndex = 0
         '
         'TPPart60
         '
@@ -1165,7 +1046,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvNSPSSubParts.Name = "dgvNSPSSubParts"
         Me.dgvNSPSSubParts.ReadOnly = True
         Me.dgvNSPSSubParts.Size = New System.Drawing.Size(301, 293)
-        Me.dgvNSPSSubParts.TabIndex = 0
+        Me.dgvNSPSSubParts.TabIndex = 2
         '
         'Panel19
         '
@@ -1175,7 +1056,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel19.Location = New System.Drawing.Point(231, 0)
         Me.Panel19.Name = "Panel19"
         Me.Panel19.Size = New System.Drawing.Size(301, 34)
-        Me.Panel19.TabIndex = 435
+        Me.Panel19.TabIndex = 1
         '
         'btnSaveNSPSSubpart
         '
@@ -1184,7 +1065,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnSaveNSPSSubpart.Location = New System.Drawing.Point(174, 10)
         Me.btnSaveNSPSSubpart.Name = "btnSaveNSPSSubpart"
         Me.btnSaveNSPSSubpart.Size = New System.Drawing.Size(115, 23)
-        Me.btnSaveNSPSSubpart.TabIndex = 430
+        Me.btnSaveNSPSSubpart.TabIndex = 0
         Me.btnSaveNSPSSubpart.Text = "Save NSPS Data"
         Me.btnSaveNSPSSubpart.UseVisualStyleBackColor = False
         '
@@ -1210,7 +1091,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel20.Location = New System.Drawing.Point(532, 0)
         Me.Panel20.Name = "Panel20"
         Me.Panel20.Size = New System.Drawing.Size(244, 327)
-        Me.Panel20.TabIndex = 433
+        Me.Panel20.TabIndex = 0
         '
         'Label62
         '
@@ -1228,7 +1109,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvNSPSSubpartAddEdit.Name = "dgvNSPSSubpartAddEdit"
         Me.dgvNSPSSubpartAddEdit.ReadOnly = True
         Me.dgvNSPSSubpartAddEdit.Size = New System.Drawing.Size(190, 266)
-        Me.dgvNSPSSubpartAddEdit.TabIndex = 427
+        Me.dgvNSPSSubpartAddEdit.TabIndex = 0
         '
         'btnNSPSEditAll
         '
@@ -1238,7 +1119,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnNSPSEditAll.Location = New System.Drawing.Point(6, 148)
         Me.btnNSPSEditAll.Name = "btnNSPSEditAll"
         Me.btnNSPSEditAll.Size = New System.Drawing.Size(30, 28)
-        Me.btnNSPSEditAll.TabIndex = 423
+        Me.btnNSPSEditAll.TabIndex = 3
         Me.btnNSPSEditAll.UseVisualStyleBackColor = True
         '
         'btnNSPSUneditAll
@@ -1249,7 +1130,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnNSPSUneditAll.Location = New System.Drawing.Point(6, 184)
         Me.btnNSPSUneditAll.Name = "btnNSPSUneditAll"
         Me.btnNSPSUneditAll.Size = New System.Drawing.Size(30, 28)
-        Me.btnNSPSUneditAll.TabIndex = 425
+        Me.btnNSPSUneditAll.TabIndex = 4
         Me.btnNSPSUneditAll.UseVisualStyleBackColor = True
         '
         'btnClearAddModifiedNSPSs
@@ -1259,7 +1140,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnClearAddModifiedNSPSs.Location = New System.Drawing.Point(52, 307)
         Me.btnClearAddModifiedNSPSs.Name = "btnClearAddModifiedNSPSs"
         Me.btnClearAddModifiedNSPSs.Size = New System.Drawing.Size(86, 23)
-        Me.btnClearAddModifiedNSPSs.TabIndex = 431
+        Me.btnClearAddModifiedNSPSs.TabIndex = 5
         Me.btnClearAddModifiedNSPSs.Text = "Clear Selected"
         Me.btnClearAddModifiedNSPSs.UseVisualStyleBackColor = True
         '
@@ -1271,7 +1152,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnNSPSUnedit.Location = New System.Drawing.Point(6, 92)
         Me.btnNSPSUnedit.Name = "btnNSPSUnedit"
         Me.btnNSPSUnedit.Size = New System.Drawing.Size(30, 28)
-        Me.btnNSPSUnedit.TabIndex = 424
+        Me.btnNSPSUnedit.TabIndex = 2
         Me.btnNSPSUnedit.UseVisualStyleBackColor = True
         '
         'btnNSPSEdit
@@ -1282,7 +1163,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnNSPSEdit.Location = New System.Drawing.Point(6, 48)
         Me.btnNSPSEdit.Name = "btnNSPSEdit"
         Me.btnNSPSEdit.Size = New System.Drawing.Size(30, 28)
-        Me.btnNSPSEdit.TabIndex = 422
+        Me.btnNSPSEdit.TabIndex = 1
         Me.btnNSPSEdit.UseVisualStyleBackColor = True
         '
         'Panel21
@@ -1298,7 +1179,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel21.Location = New System.Drawing.Point(0, 0)
         Me.Panel21.Name = "Panel21"
         Me.Panel21.Size = New System.Drawing.Size(231, 327)
-        Me.Panel21.TabIndex = 432
+        Me.Panel21.TabIndex = 0
         '
         'Label64
         '
@@ -1316,7 +1197,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvNSPSSubPartDelete.Name = "dgvNSPSSubPartDelete"
         Me.dgvNSPSSubPartDelete.ReadOnly = True
         Me.dgvNSPSSubPartDelete.Size = New System.Drawing.Size(180, 266)
-        Me.dgvNSPSSubPartDelete.TabIndex = 426
+        Me.dgvNSPSSubPartDelete.TabIndex = 0
         '
         'btnClearNSPSDeletes
         '
@@ -1337,7 +1218,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnNSPSDelete.Location = New System.Drawing.Point(190, 46)
         Me.btnNSPSDelete.Name = "btnNSPSDelete"
         Me.btnNSPSDelete.Size = New System.Drawing.Size(30, 28)
-        Me.btnNSPSDelete.TabIndex = 420
+        Me.btnNSPSDelete.TabIndex = 1
         Me.btnNSPSDelete.UseVisualStyleBackColor = True
         '
         'btnNSPSUndeleteAll
@@ -1348,7 +1229,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnNSPSUndeleteAll.Location = New System.Drawing.Point(190, 182)
         Me.btnNSPSUndeleteAll.Name = "btnNSPSUndeleteAll"
         Me.btnNSPSUndeleteAll.Size = New System.Drawing.Size(30, 28)
-        Me.btnNSPSUndeleteAll.TabIndex = 419
+        Me.btnNSPSUndeleteAll.TabIndex = 3
         Me.btnNSPSUndeleteAll.UseVisualStyleBackColor = True
         '
         'btnNSPSDeleteAll
@@ -1359,7 +1240,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnNSPSDeleteAll.Location = New System.Drawing.Point(190, 146)
         Me.btnNSPSDeleteAll.Name = "btnNSPSDeleteAll"
         Me.btnNSPSDeleteAll.Size = New System.Drawing.Size(30, 28)
-        Me.btnNSPSDeleteAll.TabIndex = 421
+        Me.btnNSPSDeleteAll.TabIndex = 2
         Me.btnNSPSDeleteAll.UseVisualStyleBackColor = True
         '
         'btnNSPSUndelete
@@ -1381,7 +1262,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel22.Location = New System.Drawing.Point(0, 327)
         Me.Panel22.Name = "Panel22"
         Me.Panel22.Size = New System.Drawing.Size(776, 124)
-        Me.Panel22.TabIndex = 434
+        Me.Panel22.TabIndex = 1
         '
         'btnAddNewNSPSSubpart
         '
@@ -1390,7 +1271,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnAddNewNSPSSubpart.Location = New System.Drawing.Point(610, 12)
         Me.btnAddNewNSPSSubpart.Name = "btnAddNewNSPSSubpart"
         Me.btnAddNewNSPSSubpart.Size = New System.Drawing.Size(141, 23)
-        Me.btnAddNewNSPSSubpart.TabIndex = 429
+        Me.btnAddNewNSPSSubpart.TabIndex = 1
         Me.btnAddNewNSPSSubpart.Text = "Add Subpart to Above List"
         Me.btnAddNewNSPSSubpart.UseVisualStyleBackColor = True
         '
@@ -1405,7 +1286,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboNSPSSubpart.Location = New System.Drawing.Point(6, 12)
         Me.cboNSPSSubpart.Name = "cboNSPSSubpart"
         Me.cboNSPSSubpart.Size = New System.Drawing.Size(598, 21)
-        Me.cboNSPSSubpart.TabIndex = 1
+        Me.cboNSPSSubpart.TabIndex = 0
         '
         'TPPart61
         '
@@ -1449,7 +1330,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel24.Location = New System.Drawing.Point(231, 0)
         Me.Panel24.Name = "Panel24"
         Me.Panel24.Size = New System.Drawing.Size(301, 34)
-        Me.Panel24.TabIndex = 435
+        Me.Panel24.TabIndex = 1
         '
         'btnSaveNESHAPSubpart
         '
@@ -1459,7 +1340,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnSaveNESHAPSubpart.Location = New System.Drawing.Point(174, 10)
         Me.btnSaveNESHAPSubpart.Name = "btnSaveNESHAPSubpart"
         Me.btnSaveNESHAPSubpart.Size = New System.Drawing.Size(115, 23)
-        Me.btnSaveNESHAPSubpart.TabIndex = 430
+        Me.btnSaveNESHAPSubpart.TabIndex = 1
         Me.btnSaveNESHAPSubpart.Text = "Save NESHAP Data"
         Me.btnSaveNESHAPSubpart.UseVisualStyleBackColor = False
         '
@@ -1485,7 +1366,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel25.Location = New System.Drawing.Point(532, 0)
         Me.Panel25.Name = "Panel25"
         Me.Panel25.Size = New System.Drawing.Size(244, 327)
-        Me.Panel25.TabIndex = 433
+        Me.Panel25.TabIndex = 2
         '
         'Label66
         '
@@ -1503,7 +1384,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvNESHAPSubpartAddEdit.Name = "dgvNESHAPSubpartAddEdit"
         Me.dgvNESHAPSubpartAddEdit.ReadOnly = True
         Me.dgvNESHAPSubpartAddEdit.Size = New System.Drawing.Size(198, 266)
-        Me.dgvNESHAPSubpartAddEdit.TabIndex = 427
+        Me.dgvNESHAPSubpartAddEdit.TabIndex = 0
         '
         'btnNESHAPEditAll
         '
@@ -1524,7 +1405,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnNESHAPUneditAll.Location = New System.Drawing.Point(6, 184)
         Me.btnNESHAPUneditAll.Name = "btnNESHAPUneditAll"
         Me.btnNESHAPUneditAll.Size = New System.Drawing.Size(30, 28)
-        Me.btnNESHAPUneditAll.TabIndex = 425
+        Me.btnNESHAPUneditAll.TabIndex = 4
         Me.btnNESHAPUneditAll.UseVisualStyleBackColor = True
         '
         'btnClearAddModifiedNESHAPs
@@ -1534,7 +1415,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnClearAddModifiedNESHAPs.Location = New System.Drawing.Point(52, 307)
         Me.btnClearAddModifiedNESHAPs.Name = "btnClearAddModifiedNESHAPs"
         Me.btnClearAddModifiedNESHAPs.Size = New System.Drawing.Size(86, 23)
-        Me.btnClearAddModifiedNESHAPs.TabIndex = 431
+        Me.btnClearAddModifiedNESHAPs.TabIndex = 5
         Me.btnClearAddModifiedNESHAPs.Text = "Clear Selected"
         Me.btnClearAddModifiedNESHAPs.UseVisualStyleBackColor = True
         '
@@ -1546,7 +1427,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnNESHAPUnedit.Location = New System.Drawing.Point(6, 92)
         Me.btnNESHAPUnedit.Name = "btnNESHAPUnedit"
         Me.btnNESHAPUnedit.Size = New System.Drawing.Size(30, 28)
-        Me.btnNESHAPUnedit.TabIndex = 424
+        Me.btnNESHAPUnedit.TabIndex = 3
         Me.btnNESHAPUnedit.UseVisualStyleBackColor = True
         '
         'btnNESHAPEdit
@@ -1557,7 +1438,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnNESHAPEdit.Location = New System.Drawing.Point(6, 48)
         Me.btnNESHAPEdit.Name = "btnNESHAPEdit"
         Me.btnNESHAPEdit.Size = New System.Drawing.Size(30, 28)
-        Me.btnNESHAPEdit.TabIndex = 422
+        Me.btnNESHAPEdit.TabIndex = 1
         Me.btnNESHAPEdit.UseVisualStyleBackColor = True
         '
         'Panel26
@@ -1573,7 +1454,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel26.Location = New System.Drawing.Point(0, 0)
         Me.Panel26.Name = "Panel26"
         Me.Panel26.Size = New System.Drawing.Size(231, 327)
-        Me.Panel26.TabIndex = 432
+        Me.Panel26.TabIndex = 0
         '
         'Label67
         '
@@ -1591,7 +1472,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvNESHAPSubPartDelete.Name = "dgvNESHAPSubPartDelete"
         Me.dgvNESHAPSubPartDelete.ReadOnly = True
         Me.dgvNESHAPSubPartDelete.Size = New System.Drawing.Size(180, 266)
-        Me.dgvNESHAPSubPartDelete.TabIndex = 426
+        Me.dgvNESHAPSubPartDelete.TabIndex = 0
         '
         'btnClearNESHAPDeletes
         '
@@ -1612,7 +1493,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnNESHAPDelete.Location = New System.Drawing.Point(190, 46)
         Me.btnNESHAPDelete.Name = "btnNESHAPDelete"
         Me.btnNESHAPDelete.Size = New System.Drawing.Size(30, 28)
-        Me.btnNESHAPDelete.TabIndex = 420
+        Me.btnNESHAPDelete.TabIndex = 1
         Me.btnNESHAPDelete.UseVisualStyleBackColor = True
         '
         'btnNESHAPUndeleteAll
@@ -1623,7 +1504,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnNESHAPUndeleteAll.Location = New System.Drawing.Point(190, 182)
         Me.btnNESHAPUndeleteAll.Name = "btnNESHAPUndeleteAll"
         Me.btnNESHAPUndeleteAll.Size = New System.Drawing.Size(30, 28)
-        Me.btnNESHAPUndeleteAll.TabIndex = 419
+        Me.btnNESHAPUndeleteAll.TabIndex = 4
         Me.btnNESHAPUndeleteAll.UseVisualStyleBackColor = True
         '
         'btnNESHAPDeleteAll
@@ -1634,7 +1515,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnNESHAPDeleteAll.Location = New System.Drawing.Point(190, 146)
         Me.btnNESHAPDeleteAll.Name = "btnNESHAPDeleteAll"
         Me.btnNESHAPDeleteAll.Size = New System.Drawing.Size(30, 28)
-        Me.btnNESHAPDeleteAll.TabIndex = 421
+        Me.btnNESHAPDeleteAll.TabIndex = 3
         Me.btnNESHAPDeleteAll.UseVisualStyleBackColor = True
         '
         'btnNESHAPUndelete
@@ -1645,7 +1526,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnNESHAPUndelete.Location = New System.Drawing.Point(190, 90)
         Me.btnNESHAPUndelete.Name = "btnNESHAPUndelete"
         Me.btnNESHAPUndelete.Size = New System.Drawing.Size(30, 28)
-        Me.btnNESHAPUndelete.TabIndex = 418
+        Me.btnNESHAPUndelete.TabIndex = 2
         Me.btnNESHAPUndelete.UseVisualStyleBackColor = True
         '
         'Panel27
@@ -1656,7 +1537,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel27.Location = New System.Drawing.Point(0, 327)
         Me.Panel27.Name = "Panel27"
         Me.Panel27.Size = New System.Drawing.Size(776, 124)
-        Me.Panel27.TabIndex = 434
+        Me.Panel27.TabIndex = 3
         '
         'btnAddNewNESHAPSubpart
         '
@@ -1665,7 +1546,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnAddNewNESHAPSubpart.Location = New System.Drawing.Point(610, 12)
         Me.btnAddNewNESHAPSubpart.Name = "btnAddNewNESHAPSubpart"
         Me.btnAddNewNESHAPSubpart.Size = New System.Drawing.Size(141, 23)
-        Me.btnAddNewNESHAPSubpart.TabIndex = 429
+        Me.btnAddNewNESHAPSubpart.TabIndex = 1
         Me.btnAddNewNESHAPSubpart.Text = "Add Subpart to Above List"
         Me.btnAddNewNESHAPSubpart.UseVisualStyleBackColor = True
         '
@@ -1680,7 +1561,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboNESHAPSubpart.Location = New System.Drawing.Point(6, 12)
         Me.cboNESHAPSubpart.Name = "cboNESHAPSubpart"
         Me.cboNESHAPSubpart.Size = New System.Drawing.Size(598, 21)
-        Me.cboNESHAPSubpart.TabIndex = 1
+        Me.cboNESHAPSubpart.TabIndex = 0
         '
         'TPPart63
         '
@@ -1714,7 +1595,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvMACTSubParts.Name = "dgvMACTSubParts"
         Me.dgvMACTSubParts.ReadOnly = True
         Me.dgvMACTSubParts.Size = New System.Drawing.Size(301, 293)
-        Me.dgvMACTSubParts.TabIndex = 0
+        Me.dgvMACTSubParts.TabIndex = 2
         '
         'Panel29
         '
@@ -1724,7 +1605,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel29.Location = New System.Drawing.Point(231, 0)
         Me.Panel29.Name = "Panel29"
         Me.Panel29.Size = New System.Drawing.Size(301, 34)
-        Me.Panel29.TabIndex = 435
+        Me.Panel29.TabIndex = 1
         '
         'btnSaveMACTSubpart
         '
@@ -1733,7 +1614,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnSaveMACTSubpart.Location = New System.Drawing.Point(174, 10)
         Me.btnSaveMACTSubpart.Name = "btnSaveMACTSubpart"
         Me.btnSaveMACTSubpart.Size = New System.Drawing.Size(115, 23)
-        Me.btnSaveMACTSubpart.TabIndex = 430
+        Me.btnSaveMACTSubpart.TabIndex = 0
         Me.btnSaveMACTSubpart.Text = "Save MACT Data"
         Me.btnSaveMACTSubpart.UseVisualStyleBackColor = False
         '
@@ -1759,7 +1640,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel30.Location = New System.Drawing.Point(532, 0)
         Me.Panel30.Name = "Panel30"
         Me.Panel30.Size = New System.Drawing.Size(244, 327)
-        Me.Panel30.TabIndex = 433
+        Me.Panel30.TabIndex = 0
         '
         'Label70
         '
@@ -1787,7 +1668,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnMACTEditAll.Location = New System.Drawing.Point(6, 148)
         Me.btnMACTEditAll.Name = "btnMACTEditAll"
         Me.btnMACTEditAll.Size = New System.Drawing.Size(30, 28)
-        Me.btnMACTEditAll.TabIndex = 423
+        Me.btnMACTEditAll.TabIndex = 2
         Me.btnMACTEditAll.UseVisualStyleBackColor = True
         '
         'btnMACTUneditAll
@@ -1798,7 +1679,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnMACTUneditAll.Location = New System.Drawing.Point(6, 184)
         Me.btnMACTUneditAll.Name = "btnMACTUneditAll"
         Me.btnMACTUneditAll.Size = New System.Drawing.Size(30, 28)
-        Me.btnMACTUneditAll.TabIndex = 425
+        Me.btnMACTUneditAll.TabIndex = 3
         Me.btnMACTUneditAll.UseVisualStyleBackColor = True
         '
         'btnClearAddModifiedMACTs
@@ -1808,7 +1689,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnClearAddModifiedMACTs.Location = New System.Drawing.Point(52, 307)
         Me.btnClearAddModifiedMACTs.Name = "btnClearAddModifiedMACTs"
         Me.btnClearAddModifiedMACTs.Size = New System.Drawing.Size(86, 23)
-        Me.btnClearAddModifiedMACTs.TabIndex = 431
+        Me.btnClearAddModifiedMACTs.TabIndex = 5
         Me.btnClearAddModifiedMACTs.Text = "Clear Selected"
         Me.btnClearAddModifiedMACTs.UseVisualStyleBackColor = True
         '
@@ -1820,7 +1701,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnMACTUnedit.Location = New System.Drawing.Point(6, 92)
         Me.btnMACTUnedit.Name = "btnMACTUnedit"
         Me.btnMACTUnedit.Size = New System.Drawing.Size(30, 28)
-        Me.btnMACTUnedit.TabIndex = 424
+        Me.btnMACTUnedit.TabIndex = 1
         Me.btnMACTUnedit.UseVisualStyleBackColor = True
         '
         'btnMACTEdit
@@ -1831,7 +1712,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnMACTEdit.Location = New System.Drawing.Point(6, 48)
         Me.btnMACTEdit.Name = "btnMACTEdit"
         Me.btnMACTEdit.Size = New System.Drawing.Size(30, 28)
-        Me.btnMACTEdit.TabIndex = 422
+        Me.btnMACTEdit.TabIndex = 0
         Me.btnMACTEdit.UseVisualStyleBackColor = True
         '
         'Panel31
@@ -1847,7 +1728,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel31.Location = New System.Drawing.Point(0, 0)
         Me.Panel31.Name = "Panel31"
         Me.Panel31.Size = New System.Drawing.Size(231, 327)
-        Me.Panel31.TabIndex = 432
+        Me.Panel31.TabIndex = 0
         '
         'Label71
         '
@@ -1865,7 +1746,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvMACTSubPartDelete.Name = "dgvMACTSubPartDelete"
         Me.dgvMACTSubPartDelete.ReadOnly = True
         Me.dgvMACTSubPartDelete.Size = New System.Drawing.Size(180, 266)
-        Me.dgvMACTSubPartDelete.TabIndex = 426
+        Me.dgvMACTSubPartDelete.TabIndex = 0
         '
         'btnClearMACTDeletes
         '
@@ -1886,7 +1767,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnMACTDelete.Location = New System.Drawing.Point(190, 46)
         Me.btnMACTDelete.Name = "btnMACTDelete"
         Me.btnMACTDelete.Size = New System.Drawing.Size(30, 28)
-        Me.btnMACTDelete.TabIndex = 420
+        Me.btnMACTDelete.TabIndex = 1
         Me.btnMACTDelete.UseVisualStyleBackColor = True
         '
         'btnMACTUndeleteAll
@@ -1908,7 +1789,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnMACTDeleteAll.Location = New System.Drawing.Point(190, 146)
         Me.btnMACTDeleteAll.Name = "btnMACTDeleteAll"
         Me.btnMACTDeleteAll.Size = New System.Drawing.Size(30, 28)
-        Me.btnMACTDeleteAll.TabIndex = 421
+        Me.btnMACTDeleteAll.TabIndex = 3
         Me.btnMACTDeleteAll.UseVisualStyleBackColor = True
         '
         'btnMACTUndelete
@@ -1919,7 +1800,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnMACTUndelete.Location = New System.Drawing.Point(190, 90)
         Me.btnMACTUndelete.Name = "btnMACTUndelete"
         Me.btnMACTUndelete.Size = New System.Drawing.Size(30, 28)
-        Me.btnMACTUndelete.TabIndex = 418
+        Me.btnMACTUndelete.TabIndex = 2
         Me.btnMACTUndelete.UseVisualStyleBackColor = True
         '
         'Panel32
@@ -1930,7 +1811,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel32.Location = New System.Drawing.Point(0, 327)
         Me.Panel32.Name = "Panel32"
         Me.Panel32.Size = New System.Drawing.Size(776, 124)
-        Me.Panel32.TabIndex = 434
+        Me.Panel32.TabIndex = 1
         '
         'btnAddNewMACTSubpart
         '
@@ -1954,23 +1835,23 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboMACTSubpart.Location = New System.Drawing.Point(6, 12)
         Me.cboMACTSubpart.Name = "cboMACTSubpart"
         Me.cboMACTSubpart.Size = New System.Drawing.Size(598, 21)
-        Me.cboMACTSubpart.TabIndex = 1
+        Me.cboMACTSubpart.TabIndex = 0
         '
-        'TPPermitUploader
+        'TPDocuments
         '
-        Me.TPPermitUploader.Controls.Add(Me.PanelTitleV)
-        Me.TPPermitUploader.Controls.Add(Me.PanelPSD)
-        Me.TPPermitUploader.Controls.Add(Me.Panel7)
-        Me.TPPermitUploader.Controls.Add(Me.Label47)
-        Me.TPPermitUploader.Controls.Add(Me.lblPDF)
-        Me.TPPermitUploader.Controls.Add(Me.lblWord)
-        Me.TPPermitUploader.Controls.Add(Me.PanelOther)
-        Me.TPPermitUploader.Location = New System.Drawing.Point(4, 22)
-        Me.TPPermitUploader.Name = "TPPermitUploader"
-        Me.TPPermitUploader.Size = New System.Drawing.Size(784, 498)
-        Me.TPPermitUploader.TabIndex = 7
-        Me.TPPermitUploader.Text = "Documents"
-        Me.TPPermitUploader.UseVisualStyleBackColor = True
+        Me.TPDocuments.Controls.Add(Me.PanelTitleV)
+        Me.TPDocuments.Controls.Add(Me.PanelPSD)
+        Me.TPDocuments.Controls.Add(Me.Panel7)
+        Me.TPDocuments.Controls.Add(Me.Label47)
+        Me.TPDocuments.Controls.Add(Me.lblPDF)
+        Me.TPDocuments.Controls.Add(Me.lblWord)
+        Me.TPDocuments.Controls.Add(Me.PanelOther)
+        Me.TPDocuments.Location = New System.Drawing.Point(4, 22)
+        Me.TPDocuments.Name = "TPDocuments"
+        Me.TPDocuments.Size = New System.Drawing.Size(784, 477)
+        Me.TPDocuments.TabIndex = 7
+        Me.TPDocuments.Text = "Documents"
+        Me.TPDocuments.UseVisualStyleBackColor = True
         '
         'PanelTitleV
         '
@@ -2012,7 +1893,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.PanelTitleV.Location = New System.Drawing.Point(97, 25)
         Me.PanelTitleV.Name = "PanelTitleV"
         Me.PanelTitleV.Size = New System.Drawing.Size(652, 224)
-        Me.PanelTitleV.TabIndex = 19
+        Me.PanelTitleV.TabIndex = 1
         Me.PanelTitleV.Visible = False
         '
         'btnTVFinalDownload
@@ -2021,7 +1902,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnTVFinalDownload.Location = New System.Drawing.Point(623, 166)
         Me.btnTVFinalDownload.Name = "btnTVFinalDownload"
         Me.btnTVFinalDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnTVFinalDownload.TabIndex = 65
+        Me.btnTVFinalDownload.TabIndex = 13
         Me.btnTVFinalDownload.UseVisualStyleBackColor = True
         Me.btnTVFinalDownload.Visible = False
         '
@@ -2031,7 +1912,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnTVPublicNoticeDownload.Location = New System.Drawing.Point(623, 113)
         Me.btnTVPublicNoticeDownload.Name = "btnTVPublicNoticeDownload"
         Me.btnTVPublicNoticeDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnTVPublicNoticeDownload.TabIndex = 64
+        Me.btnTVPublicNoticeDownload.TabIndex = 9
         Me.btnTVPublicNoticeDownload.UseVisualStyleBackColor = True
         Me.btnTVPublicNoticeDownload.Visible = False
         '
@@ -2041,7 +1922,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnTVDraftDownload.Location = New System.Drawing.Point(623, 58)
         Me.btnTVDraftDownload.Name = "btnTVDraftDownload"
         Me.btnTVDraftDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnTVDraftDownload.TabIndex = 63
+        Me.btnTVDraftDownload.TabIndex = 5
         Me.btnTVDraftDownload.UseVisualStyleBackColor = True
         Me.btnTVDraftDownload.Visible = False
         '
@@ -2051,7 +1932,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnTVNarrativeDownload.Location = New System.Drawing.Point(623, 4)
         Me.btnTVNarrativeDownload.Name = "btnTVNarrativeDownload"
         Me.btnTVNarrativeDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnTVNarrativeDownload.TabIndex = 62
+        Me.btnTVNarrativeDownload.TabIndex = 2
         Me.btnTVNarrativeDownload.UseVisualStyleBackColor = True
         Me.btnTVNarrativeDownload.Visible = False
         '
@@ -2221,7 +2102,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtTVFinalPDF.Name = "txtTVFinalPDF"
         Me.txtTVFinalPDF.ReadOnly = True
         Me.txtTVFinalPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVFinalPDF.TabIndex = 18
+        Me.txtTVFinalPDF.TabIndex = 12
         Me.txtTVFinalPDF.Visible = False
         '
         'txtTVPublicNoticePDF
@@ -2230,7 +2111,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtTVPublicNoticePDF.Name = "txtTVPublicNoticePDF"
         Me.txtTVPublicNoticePDF.ReadOnly = True
         Me.txtTVPublicNoticePDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVPublicNoticePDF.TabIndex = 17
+        Me.txtTVPublicNoticePDF.TabIndex = 8
         Me.txtTVPublicNoticePDF.Visible = False
         '
         'txtTVDraftPDF
@@ -2239,7 +2120,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtTVDraftPDF.Name = "txtTVDraftPDF"
         Me.txtTVDraftPDF.ReadOnly = True
         Me.txtTVDraftPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVDraftPDF.TabIndex = 16
+        Me.txtTVDraftPDF.TabIndex = 4
         Me.txtTVDraftPDF.Visible = False
         '
         'txtTVNarrativePDF
@@ -2248,7 +2129,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtTVNarrativePDF.Name = "txtTVNarrativePDF"
         Me.txtTVNarrativePDF.ReadOnly = True
         Me.txtTVNarrativePDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVNarrativePDF.TabIndex = 15
+        Me.txtTVNarrativePDF.TabIndex = 1
         Me.txtTVNarrativePDF.Visible = False
         '
         'txtTVFinalDoc
@@ -2257,7 +2138,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtTVFinalDoc.Name = "txtTVFinalDoc"
         Me.txtTVFinalDoc.ReadOnly = True
         Me.txtTVFinalDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVFinalDoc.TabIndex = 13
+        Me.txtTVFinalDoc.TabIndex = 11
         Me.txtTVFinalDoc.Visible = False
         '
         'txtTVPublicNoticeDoc
@@ -2266,7 +2147,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtTVPublicNoticeDoc.Name = "txtTVPublicNoticeDoc"
         Me.txtTVPublicNoticeDoc.ReadOnly = True
         Me.txtTVPublicNoticeDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVPublicNoticeDoc.TabIndex = 11
+        Me.txtTVPublicNoticeDoc.TabIndex = 7
         Me.txtTVPublicNoticeDoc.Visible = False
         '
         'txtTVDraftDoc
@@ -2275,7 +2156,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtTVDraftDoc.Name = "txtTVDraftDoc"
         Me.txtTVDraftDoc.ReadOnly = True
         Me.txtTVDraftDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVDraftDoc.TabIndex = 9
+        Me.txtTVDraftDoc.TabIndex = 3
         Me.txtTVDraftDoc.Visible = False
         '
         'txtTVNarrativeDoc
@@ -2284,7 +2165,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtTVNarrativeDoc.Name = "txtTVNarrativeDoc"
         Me.txtTVNarrativeDoc.ReadOnly = True
         Me.txtTVNarrativeDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVNarrativeDoc.TabIndex = 7
+        Me.txtTVNarrativeDoc.TabIndex = 0
         Me.txtTVNarrativeDoc.Visible = False
         '
         'chbTVFinal
@@ -2293,7 +2174,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbTVFinal.Location = New System.Drawing.Point(4, 170)
         Me.chbTVFinal.Name = "chbTVFinal"
         Me.chbTVFinal.Size = New System.Drawing.Size(80, 17)
-        Me.chbTVFinal.TabIndex = 6
+        Me.chbTVFinal.TabIndex = 10
         Me.chbTVFinal.Text = "Final Permit"
         Me.chbTVFinal.UseVisualStyleBackColor = True
         '
@@ -2303,7 +2184,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbTVPublicNotice.Location = New System.Drawing.Point(4, 116)
         Me.chbTVPublicNotice.Name = "chbTVPublicNotice"
         Me.chbTVPublicNotice.Size = New System.Drawing.Size(89, 17)
-        Me.chbTVPublicNotice.TabIndex = 5
+        Me.chbTVPublicNotice.TabIndex = 6
         Me.chbTVPublicNotice.Text = "Public Notice"
         Me.chbTVPublicNotice.UseVisualStyleBackColor = True
         '
@@ -2399,7 +2280,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.PanelPSD.Location = New System.Drawing.Point(101, 25)
         Me.PanelPSD.Name = "PanelPSD"
         Me.PanelPSD.Size = New System.Drawing.Size(652, 439)
-        Me.PanelPSD.TabIndex = 18
+        Me.PanelPSD.TabIndex = 2
         Me.PanelPSD.Visible = False
         '
         'btnPSDNarrativeDownload
@@ -2408,7 +2289,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnPSDNarrativeDownload.Location = New System.Drawing.Point(623, 114)
         Me.btnPSDNarrativeDownload.Name = "btnPSDNarrativeDownload"
         Me.btnPSDNarrativeDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDNarrativeDownload.TabIndex = 85
+        Me.btnPSDNarrativeDownload.TabIndex = 11
         Me.btnPSDNarrativeDownload.UseVisualStyleBackColor = True
         Me.btnPSDNarrativeDownload.Visible = False
         '
@@ -2438,7 +2319,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDNarrativePDF.Name = "txtPSDNarrativePDF"
         Me.txtPSDNarrativePDF.ReadOnly = True
         Me.txtPSDNarrativePDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDNarrativePDF.TabIndex = 80
+        Me.txtPSDNarrativePDF.TabIndex = 10
         Me.txtPSDNarrativePDF.Visible = False
         '
         'txtPSDNarrativeDoc
@@ -2447,7 +2328,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDNarrativeDoc.Name = "txtPSDNarrativeDoc"
         Me.txtPSDNarrativeDoc.ReadOnly = True
         Me.txtPSDNarrativeDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDNarrativeDoc.TabIndex = 78
+        Me.txtPSDNarrativeDoc.TabIndex = 9
         Me.txtPSDNarrativeDoc.Visible = False
         '
         'chbPSDNarrative
@@ -2456,7 +2337,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbPSDNarrative.Location = New System.Drawing.Point(4, 117)
         Me.chbPSDNarrative.Name = "chbPSDNarrative"
         Me.chbPSDNarrative.Size = New System.Drawing.Size(69, 17)
-        Me.chbPSDNarrative.TabIndex = 77
+        Me.chbPSDNarrative.TabIndex = 8
         Me.chbPSDNarrative.Text = "Narrative"
         Me.chbPSDNarrative.UseVisualStyleBackColor = True
         '
@@ -2486,7 +2367,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnPSDPublicNoticeDownload.Location = New System.Drawing.Point(623, 225)
         Me.btnPSDPublicNoticeDownload.Name = "btnPSDPublicNoticeDownload"
         Me.btnPSDPublicNoticeDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDPublicNoticeDownload.TabIndex = 67
+        Me.btnPSDPublicNoticeDownload.TabIndex = 20
         Me.btnPSDPublicNoticeDownload.UseVisualStyleBackColor = True
         Me.btnPSDPublicNoticeDownload.Visible = False
         '
@@ -2496,7 +2377,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnPSDDraftPermitDownload.Location = New System.Drawing.Point(623, 169)
         Me.btnPSDDraftPermitDownload.Name = "btnPSDDraftPermitDownload"
         Me.btnPSDDraftPermitDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDDraftPermitDownload.TabIndex = 66
+        Me.btnPSDDraftPermitDownload.TabIndex = 16
         Me.btnPSDDraftPermitDownload.UseVisualStyleBackColor = True
         Me.btnPSDDraftPermitDownload.Visible = False
         '
@@ -2506,7 +2387,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnPSDPrelimDetDownload.Location = New System.Drawing.Point(623, 55)
         Me.btnPSDPrelimDetDownload.Name = "btnPSDPrelimDetDownload"
         Me.btnPSDPrelimDetDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDPrelimDetDownload.TabIndex = 65
+        Me.btnPSDPrelimDetDownload.TabIndex = 7
         Me.btnPSDPrelimDetDownload.UseVisualStyleBackColor = True
         Me.btnPSDPrelimDetDownload.Visible = False
         '
@@ -2516,7 +2397,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnPSDHearingNoticeDownload.Location = New System.Drawing.Point(623, 280)
         Me.btnPSDHearingNoticeDownload.Name = "btnPSDHearingNoticeDownload"
         Me.btnPSDHearingNoticeDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDHearingNoticeDownload.TabIndex = 64
+        Me.btnPSDHearingNoticeDownload.TabIndex = 24
         Me.btnPSDHearingNoticeDownload.UseVisualStyleBackColor = True
         Me.btnPSDHearingNoticeDownload.Visible = False
         '
@@ -2526,7 +2407,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnPSDFinalDetDownload.Location = New System.Drawing.Point(623, 332)
         Me.btnPSDFinalDetDownload.Name = "btnPSDFinalDetDownload"
         Me.btnPSDFinalDetDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDFinalDetDownload.TabIndex = 63
+        Me.btnPSDFinalDetDownload.TabIndex = 28
         Me.btnPSDFinalDetDownload.UseVisualStyleBackColor = True
         Me.btnPSDFinalDetDownload.Visible = False
         '
@@ -2536,7 +2417,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnPSDFinalPermitDownload.Location = New System.Drawing.Point(623, 387)
         Me.btnPSDFinalPermitDownload.Name = "btnPSDFinalPermitDownload"
         Me.btnPSDFinalPermitDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDFinalPermitDownload.TabIndex = 62
+        Me.btnPSDFinalPermitDownload.TabIndex = 32
         Me.btnPSDFinalPermitDownload.UseVisualStyleBackColor = True
         Me.btnPSDFinalPermitDownload.Visible = False
         '
@@ -2546,7 +2427,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnPSDAppSummaryDownload.Location = New System.Drawing.Point(623, 5)
         Me.btnPSDAppSummaryDownload.Name = "btnPSDAppSummaryDownload"
         Me.btnPSDAppSummaryDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDAppSummaryDownload.TabIndex = 61
+        Me.btnPSDAppSummaryDownload.TabIndex = 2
         Me.btnPSDAppSummaryDownload.UseVisualStyleBackColor = True
         Me.btnPSDAppSummaryDownload.Visible = False
         '
@@ -2836,7 +2717,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDPrelimDetPDF.Name = "txtPSDPrelimDetPDF"
         Me.txtPSDPrelimDetPDF.ReadOnly = True
         Me.txtPSDPrelimDetPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDPrelimDetPDF.TabIndex = 30
+        Me.txtPSDPrelimDetPDF.TabIndex = 6
         Me.txtPSDPrelimDetPDF.Visible = False
         '
         'txtPSDDraftPermitPDF
@@ -2845,7 +2726,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDDraftPermitPDF.Name = "txtPSDDraftPermitPDF"
         Me.txtPSDDraftPermitPDF.ReadOnly = True
         Me.txtPSDDraftPermitPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDDraftPermitPDF.TabIndex = 29
+        Me.txtPSDDraftPermitPDF.TabIndex = 15
         Me.txtPSDDraftPermitPDF.Visible = False
         '
         'txtPSDPublicNoticePDF
@@ -2854,7 +2735,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDPublicNoticePDF.Name = "txtPSDPublicNoticePDF"
         Me.txtPSDPublicNoticePDF.ReadOnly = True
         Me.txtPSDPublicNoticePDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDPublicNoticePDF.TabIndex = 28
+        Me.txtPSDPublicNoticePDF.TabIndex = 19
         Me.txtPSDPublicNoticePDF.Visible = False
         '
         'txtPSDHearingNoticePDF
@@ -2863,7 +2744,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDHearingNoticePDF.Name = "txtPSDHearingNoticePDF"
         Me.txtPSDHearingNoticePDF.ReadOnly = True
         Me.txtPSDHearingNoticePDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDHearingNoticePDF.TabIndex = 27
+        Me.txtPSDHearingNoticePDF.TabIndex = 23
         Me.txtPSDHearingNoticePDF.Visible = False
         '
         'txtPSDFinalDetPDF
@@ -2872,7 +2753,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDFinalDetPDF.Name = "txtPSDFinalDetPDF"
         Me.txtPSDFinalDetPDF.ReadOnly = True
         Me.txtPSDFinalDetPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDFinalDetPDF.TabIndex = 26
+        Me.txtPSDFinalDetPDF.TabIndex = 27
         Me.txtPSDFinalDetPDF.Visible = False
         '
         'txtPSDAppSummaryPDF
@@ -2881,7 +2762,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDAppSummaryPDF.Name = "txtPSDAppSummaryPDF"
         Me.txtPSDAppSummaryPDF.ReadOnly = True
         Me.txtPSDAppSummaryPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDAppSummaryPDF.TabIndex = 25
+        Me.txtPSDAppSummaryPDF.TabIndex = 1
         Me.txtPSDAppSummaryPDF.Visible = False
         '
         'txtPSDFinalPermitPDF
@@ -2890,7 +2771,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDFinalPermitPDF.Name = "txtPSDFinalPermitPDF"
         Me.txtPSDFinalPermitPDF.ReadOnly = True
         Me.txtPSDFinalPermitPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDFinalPermitPDF.TabIndex = 24
+        Me.txtPSDFinalPermitPDF.TabIndex = 31
         Me.txtPSDFinalPermitPDF.Visible = False
         '
         'txtPSDFinalPermitDoc
@@ -2899,7 +2780,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDFinalPermitDoc.Name = "txtPSDFinalPermitDoc"
         Me.txtPSDFinalPermitDoc.ReadOnly = True
         Me.txtPSDFinalPermitDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDFinalPermitDoc.TabIndex = 22
+        Me.txtPSDFinalPermitDoc.TabIndex = 30
         Me.txtPSDFinalPermitDoc.Visible = False
         '
         'chbPSDFinalPermit
@@ -2908,7 +2789,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbPSDFinalPermit.Location = New System.Drawing.Point(4, 389)
         Me.chbPSDFinalPermit.Name = "chbPSDFinalPermit"
         Me.chbPSDFinalPermit.Size = New System.Drawing.Size(80, 17)
-        Me.chbPSDFinalPermit.TabIndex = 21
+        Me.chbPSDFinalPermit.TabIndex = 29
         Me.chbPSDFinalPermit.Text = "Final Permit"
         Me.chbPSDFinalPermit.UseVisualStyleBackColor = True
         '
@@ -2918,7 +2799,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDFinalDetDoc.Name = "txtPSDFinalDetDoc"
         Me.txtPSDFinalDetDoc.ReadOnly = True
         Me.txtPSDFinalDetDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDFinalDetDoc.TabIndex = 19
+        Me.txtPSDFinalDetDoc.TabIndex = 26
         Me.txtPSDFinalDetDoc.Visible = False
         '
         'chbPSDFinalDet
@@ -2927,7 +2808,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbPSDFinalDet.Location = New System.Drawing.Point(4, 337)
         Me.chbPSDFinalDet.Name = "chbPSDFinalDet"
         Me.chbPSDFinalDet.Size = New System.Drawing.Size(71, 17)
-        Me.chbPSDFinalDet.TabIndex = 18
+        Me.chbPSDFinalDet.TabIndex = 25
         Me.chbPSDFinalDet.Text = "Final Det."
         Me.chbPSDFinalDet.UseVisualStyleBackColor = True
         '
@@ -2937,7 +2818,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDHearingNoticeDoc.Name = "txtPSDHearingNoticeDoc"
         Me.txtPSDHearingNoticeDoc.ReadOnly = True
         Me.txtPSDHearingNoticeDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDHearingNoticeDoc.TabIndex = 16
+        Me.txtPSDHearingNoticeDoc.TabIndex = 22
         Me.txtPSDHearingNoticeDoc.Visible = False
         '
         'chbPSDHearingNotice
@@ -2946,7 +2827,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbPSDHearingNotice.Location = New System.Drawing.Point(4, 284)
         Me.chbPSDHearingNotice.Name = "chbPSDHearingNotice"
         Me.chbPSDHearingNotice.Size = New System.Drawing.Size(97, 17)
-        Me.chbPSDHearingNotice.TabIndex = 15
+        Me.chbPSDHearingNotice.TabIndex = 21
         Me.chbPSDHearingNotice.Text = "Hearing Notice"
         Me.chbPSDHearingNotice.UseVisualStyleBackColor = True
         '
@@ -2956,7 +2837,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDPublicNoticeDoc.Name = "txtPSDPublicNoticeDoc"
         Me.txtPSDPublicNoticeDoc.ReadOnly = True
         Me.txtPSDPublicNoticeDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDPublicNoticeDoc.TabIndex = 13
+        Me.txtPSDPublicNoticeDoc.TabIndex = 18
         Me.txtPSDPublicNoticeDoc.Visible = False
         '
         'txtPSDDraftPermitDoc
@@ -2965,7 +2846,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDDraftPermitDoc.Name = "txtPSDDraftPermitDoc"
         Me.txtPSDDraftPermitDoc.ReadOnly = True
         Me.txtPSDDraftPermitDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDDraftPermitDoc.TabIndex = 11
+        Me.txtPSDDraftPermitDoc.TabIndex = 14
         Me.txtPSDDraftPermitDoc.Visible = False
         '
         'txtPSDPrelimDetDoc
@@ -2974,7 +2855,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDPrelimDetDoc.Name = "txtPSDPrelimDetDoc"
         Me.txtPSDPrelimDetDoc.ReadOnly = True
         Me.txtPSDPrelimDetDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDPrelimDetDoc.TabIndex = 9
+        Me.txtPSDPrelimDetDoc.TabIndex = 5
         Me.txtPSDPrelimDetDoc.Visible = False
         '
         'txtPSDAppSummaryDoc
@@ -2983,7 +2864,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPSDAppSummaryDoc.Name = "txtPSDAppSummaryDoc"
         Me.txtPSDAppSummaryDoc.ReadOnly = True
         Me.txtPSDAppSummaryDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDAppSummaryDoc.TabIndex = 7
+        Me.txtPSDAppSummaryDoc.TabIndex = 0
         Me.txtPSDAppSummaryDoc.Visible = False
         '
         'chbPSDPublicNotice
@@ -2992,7 +2873,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbPSDPublicNotice.Location = New System.Drawing.Point(4, 229)
         Me.chbPSDPublicNotice.Name = "chbPSDPublicNotice"
         Me.chbPSDPublicNotice.Size = New System.Drawing.Size(89, 17)
-        Me.chbPSDPublicNotice.TabIndex = 6
+        Me.chbPSDPublicNotice.TabIndex = 17
         Me.chbPSDPublicNotice.Text = "Public Notice"
         Me.chbPSDPublicNotice.UseVisualStyleBackColor = True
         '
@@ -3002,7 +2883,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbPSDDraftPermit.Location = New System.Drawing.Point(4, 175)
         Me.chbPSDDraftPermit.Name = "chbPSDDraftPermit"
         Me.chbPSDDraftPermit.Size = New System.Drawing.Size(81, 17)
-        Me.chbPSDDraftPermit.TabIndex = 5
+        Me.chbPSDDraftPermit.TabIndex = 12
         Me.chbPSDDraftPermit.Text = "Draft Permit"
         Me.chbPSDDraftPermit.UseVisualStyleBackColor = True
         '
@@ -3035,7 +2916,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel7.Location = New System.Drawing.Point(15, 23)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(83, 69)
-        Me.Panel7.TabIndex = 13
+        Me.Panel7.TabIndex = 0
         '
         'rdbOtherPermit
         '
@@ -3259,7 +3140,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbOtherNarrative.Location = New System.Drawing.Point(4, 10)
         Me.chbOtherNarrative.Name = "chbOtherNarrative"
         Me.chbOtherNarrative.Size = New System.Drawing.Size(69, 17)
-        Me.chbOtherNarrative.TabIndex = 16
+        Me.chbOtherNarrative.TabIndex = 0
         Me.chbOtherNarrative.Text = "Narrative"
         Me.chbOtherNarrative.UseVisualStyleBackColor = True
         '
@@ -3278,7 +3159,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbOtherPermit.Location = New System.Drawing.Point(4, 64)
         Me.chbOtherPermit.Name = "chbOtherPermit"
         Me.chbOtherPermit.Size = New System.Drawing.Size(48, 17)
-        Me.chbOtherPermit.TabIndex = 13
+        Me.chbOtherPermit.TabIndex = 0
         Me.chbOtherPermit.Text = "Final"
         Me.chbOtherPermit.UseVisualStyleBackColor = True
         '
@@ -3318,7 +3199,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPContactInformation.Controls.Add(Me.Label11)
         Me.TPContactInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPContactInformation.Name = "TPContactInformation"
-        Me.TPContactInformation.Size = New System.Drawing.Size(784, 498)
+        Me.TPContactInformation.Size = New System.Drawing.Size(784, 477)
         Me.TPContactInformation.TabIndex = 6
         Me.TPContactInformation.Text = "Contact"
         Me.TPContactInformation.UseVisualStyleBackColor = True
@@ -3330,7 +3211,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnGoToFeeContact.Location = New System.Drawing.Point(616, 5)
         Me.btnGoToFeeContact.Name = "btnGoToFeeContact"
         Me.btnGoToFeeContact.Size = New System.Drawing.Size(104, 23)
-        Me.btnGoToFeeContact.TabIndex = 369
+        Me.btnGoToFeeContact.TabIndex = 1
         Me.btnGoToFeeContact.Text = "Go to Fee Contact"
         Me.btnGoToFeeContact.UseVisualStyleBackColor = True
         '
@@ -3341,7 +3222,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnEmailAcknowledgmentLetter.Location = New System.Drawing.Point(404, 206)
         Me.btnEmailAcknowledgmentLetter.Name = "btnEmailAcknowledgmentLetter"
         Me.btnEmailAcknowledgmentLetter.Size = New System.Drawing.Size(157, 23)
-        Me.btnEmailAcknowledgmentLetter.TabIndex = 368
+        Me.btnEmailAcknowledgmentLetter.TabIndex = 17
         Me.btnEmailAcknowledgmentLetter.Text = "Email Acknowledgment Letter"
         Me.btnEmailAcknowledgmentLetter.UseVisualStyleBackColor = True
         '
@@ -3352,7 +3233,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnAcknowledgementLetter.Location = New System.Drawing.Point(404, 173)
         Me.btnAcknowledgementLetter.Name = "btnAcknowledgementLetter"
         Me.btnAcknowledgementLetter.Size = New System.Drawing.Size(129, 23)
-        Me.btnAcknowledgementLetter.TabIndex = 367
+        Me.btnAcknowledgementLetter.TabIndex = 16
         Me.btnAcknowledgementLetter.Text = "Acknowledgment Letter"
         Me.btnAcknowledgementLetter.UseVisualStyleBackColor = True
         '
@@ -3363,7 +3244,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnGetCurrentPermittingContact.Location = New System.Drawing.Point(15, 5)
         Me.btnGetCurrentPermittingContact.Name = "btnGetCurrentPermittingContact"
         Me.btnGetCurrentPermittingContact.Size = New System.Drawing.Size(146, 23)
-        Me.btnGetCurrentPermittingContact.TabIndex = 366
+        Me.btnGetCurrentPermittingContact.TabIndex = 0
         Me.btnGetCurrentPermittingContact.Text = "Get Current Facility Contact"
         Me.btnGetCurrentPermittingContact.UseVisualStyleBackColor = True
         '
@@ -3373,7 +3254,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.mtbContactZipCode.Mask = "00000-9999"
         Me.mtbContactZipCode.Name = "mtbContactZipCode"
         Me.mtbContactZipCode.Size = New System.Drawing.Size(68, 20)
-        Me.mtbContactZipCode.TabIndex = 89
+        Me.mtbContactZipCode.TabIndex = 11
         Me.mtbContactZipCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'mtbContactFaxNumber
@@ -3382,7 +3263,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.mtbContactFaxNumber.Mask = "(999) 000-0000"
         Me.mtbContactFaxNumber.Name = "mtbContactFaxNumber"
         Me.mtbContactFaxNumber.Size = New System.Drawing.Size(89, 20)
-        Me.mtbContactFaxNumber.TabIndex = 91
+        Me.mtbContactFaxNumber.TabIndex = 13
         Me.mtbContactFaxNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'mtbContactPhoneNumber
@@ -3391,7 +3272,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.mtbContactPhoneNumber.Mask = "(999) 000-0000"
         Me.mtbContactPhoneNumber.Name = "mtbContactPhoneNumber"
         Me.mtbContactPhoneNumber.Size = New System.Drawing.Size(89, 20)
-        Me.mtbContactPhoneNumber.TabIndex = 90
+        Me.mtbContactPhoneNumber.TabIndex = 12
         Me.mtbContactPhoneNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'txtContactDescription
@@ -3400,14 +3281,14 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactDescription.Multiline = True
         Me.txtContactDescription.Name = "txtContactDescription"
         Me.txtContactDescription.Size = New System.Drawing.Size(628, 96)
-        Me.txtContactDescription.TabIndex = 93
+        Me.txtContactDescription.TabIndex = 15
         '
         'txtContactEmailAddress
         '
         Me.txtContactEmailAddress.Location = New System.Drawing.Point(92, 207)
         Me.txtContactEmailAddress.Name = "txtContactEmailAddress"
         Me.txtContactEmailAddress.Size = New System.Drawing.Size(284, 20)
-        Me.txtContactEmailAddress.TabIndex = 92
+        Me.txtContactEmailAddress.TabIndex = 14
         '
         'txtContactState
         '
@@ -3415,63 +3296,63 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactState.MaxLength = 2
         Me.txtContactState.Name = "txtContactState"
         Me.txtContactState.Size = New System.Drawing.Size(40, 20)
-        Me.txtContactState.TabIndex = 88
+        Me.txtContactState.TabIndex = 10
         '
         'txtContactCity
         '
         Me.txtContactCity.Location = New System.Drawing.Point(335, 116)
         Me.txtContactCity.Name = "txtContactCity"
         Me.txtContactCity.Size = New System.Drawing.Size(171, 20)
-        Me.txtContactCity.TabIndex = 87
+        Me.txtContactCity.TabIndex = 9
         '
         'txtContactStreetAddress
         '
         Me.txtContactStreetAddress.Location = New System.Drawing.Point(335, 88)
         Me.txtContactStreetAddress.Name = "txtContactStreetAddress"
         Me.txtContactStreetAddress.Size = New System.Drawing.Size(385, 20)
-        Me.txtContactStreetAddress.TabIndex = 86
+        Me.txtContactStreetAddress.TabIndex = 8
         '
         'txtContactTitle
         '
         Me.txtContactTitle.Location = New System.Drawing.Point(335, 60)
         Me.txtContactTitle.Name = "txtContactTitle"
         Me.txtContactTitle.Size = New System.Drawing.Size(385, 20)
-        Me.txtContactTitle.TabIndex = 85
+        Me.txtContactTitle.TabIndex = 7
         '
         'txtContactCompanyName
         '
         Me.txtContactCompanyName.Location = New System.Drawing.Point(335, 34)
         Me.txtContactCompanyName.Name = "txtContactCompanyName"
         Me.txtContactCompanyName.Size = New System.Drawing.Size(385, 20)
-        Me.txtContactCompanyName.TabIndex = 84
+        Me.txtContactCompanyName.TabIndex = 6
         '
         'txtContactPedigree
         '
         Me.txtContactPedigree.Location = New System.Drawing.Point(71, 116)
         Me.txtContactPedigree.Name = "txtContactPedigree"
         Me.txtContactPedigree.Size = New System.Drawing.Size(72, 20)
-        Me.txtContactPedigree.TabIndex = 83
+        Me.txtContactPedigree.TabIndex = 5
         '
         'txtContactSocialTitle
         '
         Me.txtContactSocialTitle.Location = New System.Drawing.Point(71, 34)
         Me.txtContactSocialTitle.Name = "txtContactSocialTitle"
         Me.txtContactSocialTitle.Size = New System.Drawing.Size(72, 20)
-        Me.txtContactSocialTitle.TabIndex = 80
+        Me.txtContactSocialTitle.TabIndex = 2
         '
         'txtContactLastName
         '
         Me.txtContactLastName.Location = New System.Drawing.Point(71, 88)
         Me.txtContactLastName.Name = "txtContactLastName"
         Me.txtContactLastName.Size = New System.Drawing.Size(170, 20)
-        Me.txtContactLastName.TabIndex = 82
+        Me.txtContactLastName.TabIndex = 4
         '
         'txtContactFirstName
         '
         Me.txtContactFirstName.Location = New System.Drawing.Point(71, 60)
         Me.txtContactFirstName.Name = "txtContactFirstName"
         Me.txtContactFirstName.Size = New System.Drawing.Size(170, 20)
-        Me.txtContactFirstName.TabIndex = 81
+        Me.txtContactFirstName.TabIndex = 3
         '
         'Label46
         '
@@ -3623,7 +3504,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPWebPublisher.Controls.Add(Me.DTPDraftOnWeb)
         Me.TPWebPublisher.Location = New System.Drawing.Point(4, 22)
         Me.TPWebPublisher.Name = "TPWebPublisher"
-        Me.TPWebPublisher.Size = New System.Drawing.Size(784, 498)
+        Me.TPWebPublisher.Size = New System.Drawing.Size(784, 477)
         Me.TPWebPublisher.TabIndex = 4
         Me.TPWebPublisher.Text = "Web Publisher"
         Me.TPWebPublisher.UseVisualStyleBackColor = True
@@ -3648,7 +3529,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPPNExpires.Name = "DTPPNExpires"
         Me.DTPPNExpires.ShowCheckBox = True
         Me.DTPPNExpires.Size = New System.Drawing.Size(116, 21)
-        Me.DTPPNExpires.TabIndex = 72
+        Me.DTPPNExpires.TabIndex = 2
         Me.DTPPNExpires.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'lblEffectiveDateofPermit
@@ -3725,7 +3606,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPExperationDate.Name = "DTPExperationDate"
         Me.DTPExperationDate.ShowCheckBox = True
         Me.DTPExperationDate.Size = New System.Drawing.Size(116, 21)
-        Me.DTPExperationDate.TabIndex = 77
+        Me.DTPExperationDate.TabIndex = 7
         Me.DTPExperationDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPExperationDate.Visible = False
         '
@@ -3749,7 +3630,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPNotifiedAppReceived.Name = "DTPNotifiedAppReceived"
         Me.DTPNotifiedAppReceived.ShowCheckBox = True
         Me.DTPNotifiedAppReceived.Size = New System.Drawing.Size(116, 21)
-        Me.DTPNotifiedAppReceived.TabIndex = 70
+        Me.DTPNotifiedAppReceived.TabIndex = 0
         Me.DTPNotifiedAppReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'btnSaveWebPublisher
@@ -3758,7 +3639,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnSaveWebPublisher.Location = New System.Drawing.Point(444, 11)
         Me.btnSaveWebPublisher.Name = "btnSaveWebPublisher"
         Me.btnSaveWebPublisher.Size = New System.Drawing.Size(63, 20)
-        Me.btnSaveWebPublisher.TabIndex = 79
+        Me.btnSaveWebPublisher.TabIndex = 9
         Me.btnSaveWebPublisher.Text = "Save"
         '
         'txtEPATargetedComments
@@ -3770,7 +3651,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtEPATargetedComments.ReadOnly = True
         Me.txtEPATargetedComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtEPATargetedComments.Size = New System.Drawing.Size(493, 70)
-        Me.txtEPATargetedComments.TabIndex = 78
+        Me.txtEPATargetedComments.TabIndex = 8
         '
         'Label43
         '
@@ -3792,7 +3673,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPEffectiveDateofPermit.Name = "DTPEffectiveDateofPermit"
         Me.DTPEffectiveDateofPermit.ShowCheckBox = True
         Me.DTPEffectiveDateofPermit.Size = New System.Drawing.Size(116, 21)
-        Me.DTPEffectiveDateofPermit.TabIndex = 76
+        Me.DTPEffectiveDateofPermit.TabIndex = 6
         Me.DTPEffectiveDateofPermit.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'DTPEPANotifiedPermitOnWeb
@@ -3806,7 +3687,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPEPANotifiedPermitOnWeb.Name = "DTPEPANotifiedPermitOnWeb"
         Me.DTPEPANotifiedPermitOnWeb.ShowCheckBox = True
         Me.DTPEPANotifiedPermitOnWeb.Size = New System.Drawing.Size(116, 21)
-        Me.DTPEPANotifiedPermitOnWeb.TabIndex = 75
+        Me.DTPEPANotifiedPermitOnWeb.TabIndex = 5
         Me.DTPEPANotifiedPermitOnWeb.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'DTPFinalOnWeb
@@ -3820,7 +3701,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPFinalOnWeb.Name = "DTPFinalOnWeb"
         Me.DTPFinalOnWeb.ShowCheckBox = True
         Me.DTPFinalOnWeb.Size = New System.Drawing.Size(116, 21)
-        Me.DTPFinalOnWeb.TabIndex = 74
+        Me.DTPFinalOnWeb.TabIndex = 4
         Me.DTPFinalOnWeb.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'DTPEPAStatesNotified
@@ -3834,7 +3715,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPEPAStatesNotified.Name = "DTPEPAStatesNotified"
         Me.DTPEPAStatesNotified.ShowCheckBox = True
         Me.DTPEPAStatesNotified.Size = New System.Drawing.Size(116, 21)
-        Me.DTPEPAStatesNotified.TabIndex = 73
+        Me.DTPEPAStatesNotified.TabIndex = 3
         Me.DTPEPAStatesNotified.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'DTPDraftOnWeb
@@ -3848,19 +3729,162 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPDraftOnWeb.Name = "DTPDraftOnWeb"
         Me.DTPDraftOnWeb.ShowCheckBox = True
         Me.DTPDraftOnWeb.Size = New System.Drawing.Size(116, 21)
-        Me.DTPDraftOnWeb.TabIndex = 71
+        Me.DTPDraftOnWeb.TabIndex = 1
         Me.DTPDraftOnWeb.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'TPInformationRequests
         '
-        Me.TPInformationRequests.Controls.Add(Me.dgvInformationRequested)
         Me.TPInformationRequests.Controls.Add(Me.GroupBox3)
+        Me.TPInformationRequests.Controls.Add(Me.dgvInformationRequested)
         Me.TPInformationRequests.Location = New System.Drawing.Point(4, 22)
         Me.TPInformationRequests.Name = "TPInformationRequests"
-        Me.TPInformationRequests.Size = New System.Drawing.Size(784, 498)
+        Me.TPInformationRequests.Size = New System.Drawing.Size(784, 477)
         Me.TPInformationRequests.TabIndex = 2
         Me.TPInformationRequests.Text = "Information Requests"
         Me.TPInformationRequests.UseVisualStyleBackColor = True
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.lblInformationReceived)
+        Me.GroupBox3.Controls.Add(Me.lblInformationRequested)
+        Me.GroupBox3.Controls.Add(Me.btnDeleteInformationRequest)
+        Me.GroupBox3.Controls.Add(Me.btnClearInformationRequest)
+        Me.GroupBox3.Controls.Add(Me.txtInformationRequestedKey)
+        Me.GroupBox3.Controls.Add(Me.btnSaveInformationRequest)
+        Me.GroupBox3.Controls.Add(Me.txtInformationReceived)
+        Me.GroupBox3.Controls.Add(Me.txtInformationRequested)
+        Me.GroupBox3.Controls.Add(Me.Label17)
+        Me.GroupBox3.Controls.Add(Me.Label16)
+        Me.GroupBox3.Controls.Add(Me.DTPInformationReceived)
+        Me.GroupBox3.Controls.Add(Me.DTPInformationRequested)
+        Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.GroupBox3.Location = New System.Drawing.Point(0, 248)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(784, 229)
+        Me.GroupBox3.TabIndex = 1
+        Me.GroupBox3.TabStop = False
+        '
+        'lblInformationReceived
+        '
+        Me.lblInformationReceived.AutoSize = True
+        Me.lblInformationReceived.Location = New System.Drawing.Point(254, 24)
+        Me.lblInformationReceived.Name = "lblInformationReceived"
+        Me.lblInformationReceived.Size = New System.Drawing.Size(82, 13)
+        Me.lblInformationReceived.TabIndex = 340
+        Me.lblInformationReceived.Text = "Date Received:"
+        '
+        'lblInformationRequested
+        '
+        Me.lblInformationRequested.AutoSize = True
+        Me.lblInformationRequested.Location = New System.Drawing.Point(8, 24)
+        Me.lblInformationRequested.Name = "lblInformationRequested"
+        Me.lblInformationRequested.Size = New System.Drawing.Size(88, 13)
+        Me.lblInformationRequested.TabIndex = 339
+        Me.lblInformationRequested.Text = "Date Requested:"
+        '
+        'btnDeleteInformationRequest
+        '
+        Me.btnDeleteInformationRequest.Enabled = False
+        Me.btnDeleteInformationRequest.Location = New System.Drawing.Point(616, 113)
+        Me.btnDeleteInformationRequest.Name = "btnDeleteInformationRequest"
+        Me.btnDeleteInformationRequest.Size = New System.Drawing.Size(104, 23)
+        Me.btnDeleteInformationRequest.TabIndex = 6
+        Me.btnDeleteInformationRequest.Text = "Delete Request"
+        '
+        'btnClearInformationRequest
+        '
+        Me.btnClearInformationRequest.Enabled = False
+        Me.btnClearInformationRequest.Location = New System.Drawing.Point(616, 19)
+        Me.btnClearInformationRequest.Name = "btnClearInformationRequest"
+        Me.btnClearInformationRequest.Size = New System.Drawing.Size(104, 23)
+        Me.btnClearInformationRequest.TabIndex = 4
+        Me.btnClearInformationRequest.Text = "New Request"
+        '
+        'txtInformationRequestedKey
+        '
+        Me.txtInformationRequestedKey.Location = New System.Drawing.Point(620, 157)
+        Me.txtInformationRequestedKey.Name = "txtInformationRequestedKey"
+        Me.txtInformationRequestedKey.Size = New System.Drawing.Size(33, 20)
+        Me.txtInformationRequestedKey.TabIndex = 333
+        Me.txtInformationRequestedKey.Visible = False
+        '
+        'btnSaveInformationRequest
+        '
+        Me.btnSaveInformationRequest.Enabled = False
+        Me.btnSaveInformationRequest.Location = New System.Drawing.Point(616, 66)
+        Me.btnSaveInformationRequest.Name = "btnSaveInformationRequest"
+        Me.btnSaveInformationRequest.Size = New System.Drawing.Size(104, 23)
+        Me.btnSaveInformationRequest.TabIndex = 5
+        Me.btnSaveInformationRequest.Text = "Save Request"
+        '
+        'txtInformationReceived
+        '
+        Me.txtInformationReceived.AcceptsReturn = True
+        Me.txtInformationReceived.Location = New System.Drawing.Point(8, 149)
+        Me.txtInformationReceived.Multiline = True
+        Me.txtInformationReceived.Name = "txtInformationReceived"
+        Me.txtInformationReceived.ReadOnly = True
+        Me.txtInformationReceived.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtInformationReceived.Size = New System.Drawing.Size(593, 63)
+        Me.txtInformationReceived.TabIndex = 3
+        '
+        'txtInformationRequested
+        '
+        Me.txtInformationRequested.AcceptsReturn = True
+        Me.txtInformationRequested.Location = New System.Drawing.Point(8, 68)
+        Me.txtInformationRequested.Multiline = True
+        Me.txtInformationRequested.Name = "txtInformationRequested"
+        Me.txtInformationRequested.ReadOnly = True
+        Me.txtInformationRequested.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtInformationRequested.Size = New System.Drawing.Size(593, 62)
+        Me.txtInformationRequested.TabIndex = 2
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(8, 133)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(74, 13)
+        Me.Label17.TabIndex = 304
+        Me.Label17.Text = "Info Received"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(8, 52)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(80, 13)
+        Me.Label16.TabIndex = 303
+        Me.Label16.Text = "Info Requested"
+        '
+        'DTPInformationReceived
+        '
+        Me.DTPInformationReceived.Checked = False
+        Me.DTPInformationReceived.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPInformationReceived.Enabled = False
+        Me.DTPInformationReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPInformationReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPInformationReceived.Location = New System.Drawing.Point(342, 19)
+        Me.DTPInformationReceived.Name = "DTPInformationReceived"
+        Me.DTPInformationReceived.ShowCheckBox = True
+        Me.DTPInformationReceived.Size = New System.Drawing.Size(116, 21)
+        Me.DTPInformationReceived.TabIndex = 1
+        Me.DTPInformationReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'DTPInformationRequested
+        '
+        Me.DTPInformationRequested.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPInformationRequested.Checked = False
+        Me.DTPInformationRequested.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPInformationRequested.Enabled = False
+        Me.DTPInformationRequested.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPInformationRequested.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPInformationRequested.Location = New System.Drawing.Point(102, 19)
+        Me.DTPInformationRequested.Name = "DTPInformationRequested"
+        Me.DTPInformationRequested.ShowCheckBox = True
+        Me.DTPInformationRequested.Size = New System.Drawing.Size(116, 21)
+        Me.DTPInformationRequested.TabIndex = 0
+        Me.DTPInformationRequested.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'dgvInformationRequested
         '
@@ -3896,171 +3920,19 @@ Partial Class SSPPApplicationTrackingLog
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvInformationRequested.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        Me.dgvInformationRequested.Size = New System.Drawing.Size(784, 240)
+        Me.dgvInformationRequested.Size = New System.Drawing.Size(784, 477)
         Me.dgvInformationRequested.TabIndex = 2
         '
-        'GroupBox3
+        'TPApplicationHistory
         '
-        Me.GroupBox3.Controls.Add(Me.lblInformationReceived)
-        Me.GroupBox3.Controls.Add(Me.lblInformationRequested)
-        Me.GroupBox3.Controls.Add(Me.btnViewInformationRequests)
-        Me.GroupBox3.Controls.Add(Me.btnDeleteInformationRequest)
-        Me.GroupBox3.Controls.Add(Me.btnClearInformationRequest)
-        Me.GroupBox3.Controls.Add(Me.txtInformationRequestedKey)
-        Me.GroupBox3.Controls.Add(Me.btnSaveInformationRequest)
-        Me.GroupBox3.Controls.Add(Me.txtInformationReceived)
-        Me.GroupBox3.Controls.Add(Me.txtInformationRequested)
-        Me.GroupBox3.Controls.Add(Me.Label17)
-        Me.GroupBox3.Controls.Add(Me.Label16)
-        Me.GroupBox3.Controls.Add(Me.DTPInformationReceived)
-        Me.GroupBox3.Controls.Add(Me.DTPInformationRequested)
-        Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox3.Location = New System.Drawing.Point(0, 240)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(784, 258)
-        Me.GroupBox3.TabIndex = 1
-        Me.GroupBox3.TabStop = False
-        '
-        'lblInformationReceived
-        '
-        Me.lblInformationReceived.AutoSize = True
-        Me.lblInformationReceived.Location = New System.Drawing.Point(252, 41)
-        Me.lblInformationReceived.Name = "lblInformationReceived"
-        Me.lblInformationReceived.Size = New System.Drawing.Size(82, 13)
-        Me.lblInformationReceived.TabIndex = 340
-        Me.lblInformationReceived.Text = "Date Received:"
-        '
-        'lblInformationRequested
-        '
-        Me.lblInformationRequested.AutoSize = True
-        Me.lblInformationRequested.Location = New System.Drawing.Point(7, 41)
-        Me.lblInformationRequested.Name = "lblInformationRequested"
-        Me.lblInformationRequested.Size = New System.Drawing.Size(88, 13)
-        Me.lblInformationRequested.TabIndex = 339
-        Me.lblInformationRequested.Text = "Date Requested:"
-        '
-        'btnViewInformationRequests
-        '
-        Me.btnViewInformationRequests.Location = New System.Drawing.Point(0, 7)
-        Me.btnViewInformationRequests.Name = "btnViewInformationRequests"
-        Me.btnViewInformationRequests.Size = New System.Drawing.Size(207, 20)
-        Me.btnViewInformationRequests.TabIndex = 62
-        Me.btnViewInformationRequests.Text = "View Information Requests"
-        '
-        'btnDeleteInformationRequest
-        '
-        Me.btnDeleteInformationRequest.Enabled = False
-        Me.btnDeleteInformationRequest.Location = New System.Drawing.Point(620, 132)
-        Me.btnDeleteInformationRequest.Name = "btnDeleteInformationRequest"
-        Me.btnDeleteInformationRequest.Size = New System.Drawing.Size(104, 23)
-        Me.btnDeleteInformationRequest.TabIndex = 69
-        Me.btnDeleteInformationRequest.Text = "Delete Request"
-        '
-        'btnClearInformationRequest
-        '
-        Me.btnClearInformationRequest.Enabled = False
-        Me.btnClearInformationRequest.Location = New System.Drawing.Point(620, 42)
-        Me.btnClearInformationRequest.Name = "btnClearInformationRequest"
-        Me.btnClearInformationRequest.Size = New System.Drawing.Size(104, 23)
-        Me.btnClearInformationRequest.TabIndex = 67
-        Me.btnClearInformationRequest.Text = "New Request"
-        '
-        'txtInformationRequestedKey
-        '
-        Me.txtInformationRequestedKey.Location = New System.Drawing.Point(612, 196)
-        Me.txtInformationRequestedKey.Name = "txtInformationRequestedKey"
-        Me.txtInformationRequestedKey.Size = New System.Drawing.Size(33, 20)
-        Me.txtInformationRequestedKey.TabIndex = 333
-        Me.txtInformationRequestedKey.Visible = False
-        '
-        'btnSaveInformationRequest
-        '
-        Me.btnSaveInformationRequest.Enabled = False
-        Me.btnSaveInformationRequest.Location = New System.Drawing.Point(620, 87)
-        Me.btnSaveInformationRequest.Name = "btnSaveInformationRequest"
-        Me.btnSaveInformationRequest.Size = New System.Drawing.Size(104, 23)
-        Me.btnSaveInformationRequest.TabIndex = 68
-        Me.btnSaveInformationRequest.Text = "Save Request"
-        '
-        'txtInformationReceived
-        '
-        Me.txtInformationReceived.AcceptsReturn = True
-        Me.txtInformationReceived.Location = New System.Drawing.Point(13, 159)
-        Me.txtInformationReceived.Multiline = True
-        Me.txtInformationReceived.Name = "txtInformationReceived"
-        Me.txtInformationReceived.ReadOnly = True
-        Me.txtInformationReceived.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtInformationReceived.Size = New System.Drawing.Size(593, 57)
-        Me.txtInformationReceived.TabIndex = 66
-        '
-        'txtInformationRequested
-        '
-        Me.txtInformationRequested.AcceptsReturn = True
-        Me.txtInformationRequested.Location = New System.Drawing.Point(13, 83)
-        Me.txtInformationRequested.Multiline = True
-        Me.txtInformationRequested.Name = "txtInformationRequested"
-        Me.txtInformationRequested.ReadOnly = True
-        Me.txtInformationRequested.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtInformationRequested.Size = New System.Drawing.Size(593, 56)
-        Me.txtInformationRequested.TabIndex = 65
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(7, 146)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(74, 13)
-        Me.Label17.TabIndex = 304
-        Me.Label17.Text = "Info Received"
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(7, 69)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(80, 13)
-        Me.Label16.TabIndex = 303
-        Me.Label16.Text = "Info Requested"
-        '
-        'DTPInformationReceived
-        '
-        Me.DTPInformationReceived.Checked = False
-        Me.DTPInformationReceived.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPInformationReceived.Enabled = False
-        Me.DTPInformationReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPInformationReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPInformationReceived.Location = New System.Drawing.Point(340, 37)
-        Me.DTPInformationReceived.Name = "DTPInformationReceived"
-        Me.DTPInformationReceived.ShowCheckBox = True
-        Me.DTPInformationReceived.Size = New System.Drawing.Size(117, 21)
-        Me.DTPInformationReceived.TabIndex = 64
-        Me.DTPInformationReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPInformationRequested
-        '
-        Me.DTPInformationRequested.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPInformationRequested.Checked = False
-        Me.DTPInformationRequested.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPInformationRequested.Enabled = False
-        Me.DTPInformationRequested.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPInformationRequested.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPInformationRequested.Location = New System.Drawing.Point(100, 37)
-        Me.DTPInformationRequested.Name = "DTPInformationRequested"
-        Me.DTPInformationRequested.ShowCheckBox = True
-        Me.DTPInformationRequested.Size = New System.Drawing.Size(117, 21)
-        Me.DTPInformationRequested.TabIndex = 63
-        Me.DTPInformationRequested.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'TPApplicationHistroy
-        '
-        Me.TPApplicationHistroy.Controls.Add(Me.dgvFacilityAppHistory)
-        Me.TPApplicationHistroy.Controls.Add(Me.GroupBox6)
-        Me.TPApplicationHistroy.Location = New System.Drawing.Point(4, 22)
-        Me.TPApplicationHistroy.Name = "TPApplicationHistroy"
-        Me.TPApplicationHistroy.Size = New System.Drawing.Size(784, 498)
-        Me.TPApplicationHistroy.TabIndex = 1
-        Me.TPApplicationHistroy.Text = "History"
-        Me.TPApplicationHistroy.UseVisualStyleBackColor = True
+        Me.TPApplicationHistory.Controls.Add(Me.dgvFacilityAppHistory)
+        Me.TPApplicationHistory.Controls.Add(Me.GroupBox6)
+        Me.TPApplicationHistory.Location = New System.Drawing.Point(4, 22)
+        Me.TPApplicationHistory.Name = "TPApplicationHistory"
+        Me.TPApplicationHistory.Size = New System.Drawing.Size(784, 477)
+        Me.TPApplicationHistory.TabIndex = 1
+        Me.TPApplicationHistory.Text = "History"
+        Me.TPApplicationHistory.UseVisualStyleBackColor = True
         '
         'dgvFacilityAppHistory
         '
@@ -4096,15 +3968,13 @@ Partial Class SSPPApplicationTrackingLog
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvFacilityAppHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
-        Me.dgvFacilityAppHistory.Size = New System.Drawing.Size(784, 254)
-        Me.dgvFacilityAppHistory.TabIndex = 2
+        Me.dgvFacilityAppHistory.Size = New System.Drawing.Size(784, 233)
+        Me.dgvFacilityAppHistory.TabIndex = 0
         '
         'GroupBox6
         '
-        Me.GroupBox6.Controls.Add(Me.btnLoadFacilityApplicationHistory)
         Me.GroupBox6.Controls.Add(Me.txtApplicationCount)
         Me.GroupBox6.Controls.Add(Me.txtMasterAppLock)
-        Me.GroupBox6.Controls.Add(Me.btnClearList)
         Me.GroupBox6.Controls.Add(Me.btnClearLinks)
         Me.GroupBox6.Controls.Add(Me.btnLinkApplications)
         Me.GroupBox6.Controls.Add(Me.btnAddApplicationToList)
@@ -4126,19 +3996,11 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox6.Controls.Add(Me.Label29)
         Me.GroupBox6.Controls.Add(Me.Label33)
         Me.GroupBox6.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox6.Location = New System.Drawing.Point(0, 254)
+        Me.GroupBox6.Location = New System.Drawing.Point(0, 233)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(784, 244)
         Me.GroupBox6.TabIndex = 1
         Me.GroupBox6.TabStop = False
-        '
-        'btnLoadFacilityApplicationHistory
-        '
-        Me.btnLoadFacilityApplicationHistory.Location = New System.Drawing.Point(0, 7)
-        Me.btnLoadFacilityApplicationHistory.Name = "btnLoadFacilityApplicationHistory"
-        Me.btnLoadFacilityApplicationHistory.Size = New System.Drawing.Size(207, 20)
-        Me.btnLoadFacilityApplicationHistory.TabIndex = 57
-        Me.btnLoadFacilityApplicationHistory.Text = "View Facilty Application History"
         '
         'txtApplicationCount
         '
@@ -4158,23 +4020,13 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtMasterAppLock.TabIndex = 350
         Me.txtMasterAppLock.Visible = False
         '
-        'btnClearList
-        '
-        Me.btnClearList.Enabled = False
-        Me.btnClearList.Location = New System.Drawing.Point(660, 153)
-        Me.btnClearList.Name = "btnClearList"
-        Me.btnClearList.Size = New System.Drawing.Size(104, 23)
-        Me.btnClearList.TabIndex = 61
-        Me.btnClearList.Text = "Clear List"
-        Me.btnClearList.Visible = False
-        '
         'btnClearLinks
         '
         Me.btnClearLinks.Enabled = False
         Me.btnClearLinks.Location = New System.Drawing.Point(660, 97)
         Me.btnClearLinks.Name = "btnClearLinks"
         Me.btnClearLinks.Size = New System.Drawing.Size(104, 23)
-        Me.btnClearLinks.TabIndex = 60
+        Me.btnClearLinks.TabIndex = 10
         Me.btnClearLinks.Text = "Unlink Application"
         '
         'btnLinkApplications
@@ -4183,7 +4035,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnLinkApplications.Location = New System.Drawing.Point(660, 35)
         Me.btnLinkApplications.Name = "btnLinkApplications"
         Me.btnLinkApplications.Size = New System.Drawing.Size(104, 23)
-        Me.btnLinkApplications.TabIndex = 59
+        Me.btnLinkApplications.TabIndex = 9
         Me.btnLinkApplications.Text = "Link Applications"
         '
         'btnAddApplicationToList
@@ -4192,7 +4044,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnAddApplicationToList.Location = New System.Drawing.Point(427, 35)
         Me.btnAddApplicationToList.Name = "btnAddApplicationToList"
         Me.btnAddApplicationToList.Size = New System.Drawing.Size(104, 44)
-        Me.btnAddApplicationToList.TabIndex = 58
+        Me.btnAddApplicationToList.TabIndex = 8
         Me.btnAddApplicationToList.Text = "Add Application to  List"
         '
         'lbLinkApplications
@@ -4200,11 +4052,11 @@ Partial Class SSPPApplicationTrackingLog
         Me.lbLinkApplications.Location = New System.Drawing.Point(540, 35)
         Me.lbLinkApplications.Name = "lbLinkApplications"
         Me.lbLinkApplications.Size = New System.Drawing.Size(104, 134)
-        Me.lbLinkApplications.TabIndex = 345
+        Me.lbLinkApplications.TabIndex = 11
         '
         'txtMasterApp
         '
-        Me.txtMasterApp.Location = New System.Drawing.Point(520, 173)
+        Me.txtMasterApp.Location = New System.Drawing.Point(520, 175)
         Me.txtMasterApp.Name = "txtMasterApp"
         Me.txtMasterApp.ReadOnly = True
         Me.txtMasterApp.Size = New System.Drawing.Size(20, 20)
@@ -4217,7 +4069,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtEngineerHistory.Name = "txtEngineerHistory"
         Me.txtEngineerHistory.ReadOnly = True
         Me.txtEngineerHistory.Size = New System.Drawing.Size(120, 20)
-        Me.txtEngineerHistory.TabIndex = 343
+        Me.txtEngineerHistory.TabIndex = 4
         '
         'txtApplicationDatedHistory
         '
@@ -4225,7 +4077,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtApplicationDatedHistory.Name = "txtApplicationDatedHistory"
         Me.txtApplicationDatedHistory.ReadOnly = True
         Me.txtApplicationDatedHistory.Size = New System.Drawing.Size(120, 20)
-        Me.txtApplicationDatedHistory.TabIndex = 342
+        Me.txtApplicationDatedHistory.TabIndex = 2
         '
         'txtApplicationTypeHistory
         '
@@ -4233,7 +4085,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtApplicationTypeHistory.Name = "txtApplicationTypeHistory"
         Me.txtApplicationTypeHistory.ReadOnly = True
         Me.txtApplicationTypeHistory.Size = New System.Drawing.Size(120, 20)
-        Me.txtApplicationTypeHistory.TabIndex = 341
+        Me.txtApplicationTypeHistory.TabIndex = 1
         '
         'txtApplicationUnitHistory
         '
@@ -4241,7 +4093,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtApplicationUnitHistory.Name = "txtApplicationUnitHistory"
         Me.txtApplicationUnitHistory.ReadOnly = True
         Me.txtApplicationUnitHistory.Size = New System.Drawing.Size(120, 20)
-        Me.txtApplicationUnitHistory.TabIndex = 340
+        Me.txtApplicationUnitHistory.TabIndex = 3
         '
         'txtApplicationNumberHistory
         '
@@ -4249,7 +4101,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtApplicationNumberHistory.Name = "txtApplicationNumberHistory"
         Me.txtApplicationNumberHistory.ReadOnly = True
         Me.txtApplicationNumberHistory.Size = New System.Drawing.Size(120, 20)
-        Me.txtApplicationNumberHistory.TabIndex = 339
+        Me.txtApplicationNumberHistory.TabIndex = 0
         '
         'Label35
         '
@@ -4276,7 +4128,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbClosedOutHistory.Name = "chbClosedOutHistory"
         Me.chbClosedOutHistory.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chbClosedOutHistory.Size = New System.Drawing.Size(80, 16)
-        Me.chbClosedOutHistory.TabIndex = 336
+        Me.chbClosedOutHistory.TabIndex = 5
         Me.chbClosedOutHistory.Text = "Closed Out"
         '
         'Label15
@@ -4314,7 +4166,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtHistoryComments.ReadOnly = True
         Me.txtHistoryComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtHistoryComments.Size = New System.Drawing.Size(480, 41)
-        Me.txtHistoryComments.TabIndex = 332
+        Me.txtHistoryComments.TabIndex = 7
         '
         'txtHistoryAppComments
         '
@@ -4324,7 +4176,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtHistoryAppComments.ReadOnly = True
         Me.txtHistoryAppComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtHistoryAppComments.Size = New System.Drawing.Size(480, 32)
-        Me.txtHistoryAppComments.TabIndex = 331
+        Me.txtHistoryAppComments.TabIndex = 6
         '
         'Label29
         '
@@ -4351,7 +4203,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPReviews.Controls.Add(Me.Panel4)
         Me.TPReviews.Location = New System.Drawing.Point(4, 22)
         Me.TPReviews.Name = "TPReviews"
-        Me.TPReviews.Size = New System.Drawing.Size(784, 498)
+        Me.TPReviews.Size = New System.Drawing.Size(784, 477)
         Me.TPReviews.TabIndex = 3
         Me.TPReviews.Text = "ISMP and Compliance Reviews"
         Me.TPReviews.UseVisualStyleBackColor = True
@@ -4369,7 +4221,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox5.Location = New System.Drawing.Point(0, 192)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(784, 306)
+        Me.GroupBox5.Size = New System.Drawing.Size(784, 285)
         Me.GroupBox5.TabIndex = 2
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "ISMP Review"
@@ -4393,7 +4245,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtISMPComments.ReadOnly = True
         Me.txtISMPComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtISMPComments.Size = New System.Drawing.Size(328, 48)
-        Me.txtISMPComments.TabIndex = 56
+        Me.txtISMPComments.TabIndex = 3
         '
         'Label23
         '
@@ -4411,7 +4263,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel6.Location = New System.Drawing.Point(280, 72)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(88, 16)
-        Me.Panel6.TabIndex = 338
+        Me.Panel6.TabIndex = 2
         '
         'rdbISMPNo
         '
@@ -4419,7 +4271,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.rdbISMPNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbISMPNo.Name = "rdbISMPNo"
         Me.rdbISMPNo.Size = New System.Drawing.Size(40, 16)
-        Me.rdbISMPNo.TabIndex = 55
+        Me.rdbISMPNo.TabIndex = 1
         Me.rdbISMPNo.Text = "No"
         '
         'rdbISMPYes
@@ -4428,7 +4280,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.rdbISMPYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbISMPYes.Name = "rdbISMPYes"
         Me.rdbISMPYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbISMPYes.TabIndex = 54
+        Me.rdbISMPYes.TabIndex = 0
         Me.rdbISMPYes.Text = "Yes"
         '
         'Label24
@@ -4450,8 +4302,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPISMPReview.Location = New System.Drawing.Point(135, 21)
         Me.DTPISMPReview.Name = "DTPISMPReview"
         Me.DTPISMPReview.ShowCheckBox = True
-        Me.DTPISMPReview.Size = New System.Drawing.Size(117, 21)
-        Me.DTPISMPReview.TabIndex = 52
+        Me.DTPISMPReview.Size = New System.Drawing.Size(116, 21)
+        Me.DTPISMPReview.TabIndex = 0
         Me.DTPISMPReview.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'cboISMPStaff
@@ -4463,7 +4315,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboISMPStaff.Location = New System.Drawing.Point(127, 46)
         Me.cboISMPStaff.Name = "cboISMPStaff"
         Me.cboISMPStaff.Size = New System.Drawing.Size(160, 21)
-        Me.cboISMPStaff.TabIndex = 53
+        Me.cboISMPStaff.TabIndex = 1
         '
         'lblISMPStaff
         '
@@ -4508,9 +4360,10 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtSSCPComments.Location = New System.Drawing.Point(72, 88)
         Me.txtSSCPComments.Multiline = True
         Me.txtSSCPComments.Name = "txtSSCPComments"
+        Me.txtSSCPComments.ReadOnly = True
         Me.txtSSCPComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtSSCPComments.Size = New System.Drawing.Size(328, 48)
-        Me.txtSSCPComments.TabIndex = 51
+        Me.txtSSCPComments.TabIndex = 3
         '
         'Label22
         '
@@ -4528,7 +4381,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel5.Location = New System.Drawing.Point(292, 62)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(88, 16)
-        Me.Panel5.TabIndex = 307
+        Me.Panel5.TabIndex = 2
         '
         'rdbSSCPNo
         '
@@ -4536,7 +4389,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.rdbSSCPNo.Location = New System.Drawing.Point(45, 0)
         Me.rdbSSCPNo.Name = "rdbSSCPNo"
         Me.rdbSSCPNo.Size = New System.Drawing.Size(40, 16)
-        Me.rdbSSCPNo.TabIndex = 50
+        Me.rdbSSCPNo.TabIndex = 1
         Me.rdbSSCPNo.Text = "No"
         '
         'rdbSSCPYes
@@ -4545,7 +4398,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.rdbSSCPYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbSSCPYes.Name = "rdbSSCPYes"
         Me.rdbSSCPYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbSSCPYes.TabIndex = 49
+        Me.rdbSSCPYes.TabIndex = 0
         Me.rdbSSCPYes.Text = "Yes"
         '
         'Label21
@@ -4567,8 +4420,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPSSCPReview.Location = New System.Drawing.Point(130, 13)
         Me.DTPSSCPReview.Name = "DTPSSCPReview"
         Me.DTPSSCPReview.ShowCheckBox = True
-        Me.DTPSSCPReview.Size = New System.Drawing.Size(117, 21)
-        Me.DTPSSCPReview.TabIndex = 47
+        Me.DTPSSCPReview.Size = New System.Drawing.Size(116, 21)
+        Me.DTPSSCPReview.TabIndex = 0
         Me.DTPSSCPReview.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'cboSSCPStaff
@@ -4580,7 +4433,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboSSCPStaff.Location = New System.Drawing.Point(148, 38)
         Me.cboSSCPStaff.Name = "cboSSCPStaff"
         Me.cboSSCPStaff.Size = New System.Drawing.Size(160, 21)
-        Me.cboSSCPStaff.TabIndex = 48
+        Me.cboSSCPStaff.TabIndex = 1
         '
         'lblSSCPStaff
         '
@@ -4623,7 +4476,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboISMPUnits.Location = New System.Drawing.Point(517, 8)
         Me.cboISMPUnits.Name = "cboISMPUnits"
         Me.cboISMPUnits.Size = New System.Drawing.Size(160, 21)
-        Me.cboISMPUnits.TabIndex = 46
+        Me.cboISMPUnits.TabIndex = 2
         '
         'lblISMPUnits
         '
@@ -4644,8 +4497,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPReviewSubmitted.Location = New System.Drawing.Point(135, 8)
         Me.DTPReviewSubmitted.Name = "DTPReviewSubmitted"
         Me.DTPReviewSubmitted.ShowCheckBox = True
-        Me.DTPReviewSubmitted.Size = New System.Drawing.Size(117, 21)
-        Me.DTPReviewSubmitted.TabIndex = 44
+        Me.DTPReviewSubmitted.Size = New System.Drawing.Size(116, 21)
+        Me.DTPReviewSubmitted.TabIndex = 0
         Me.DTPReviewSubmitted.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'lblSSCPUnit
@@ -4666,7 +4519,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboSSCPUnits.Location = New System.Drawing.Point(310, 8)
         Me.cboSSCPUnits.Name = "cboSSCPUnits"
         Me.cboSSCPUnits.Size = New System.Drawing.Size(160, 21)
-        Me.cboSSCPUnits.TabIndex = 45
+        Me.cboSSCPUnits.TabIndex = 1
         '
         'TPOtherInfo
         '
@@ -4674,7 +4527,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPOtherInfo.Controls.Add(Me.ApplicableRulesGroup)
         Me.TPOtherInfo.Location = New System.Drawing.Point(4, 22)
         Me.TPOtherInfo.Name = "TPOtherInfo"
-        Me.TPOtherInfo.Size = New System.Drawing.Size(784, 498)
+        Me.TPOtherInfo.Size = New System.Drawing.Size(784, 477)
         Me.TPOtherInfo.TabIndex = 5
         Me.TPOtherInfo.Text = "Other Information"
         Me.TPOtherInfo.UseVisualStyleBackColor = True
@@ -4698,7 +4551,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtSignificantComments.ReadOnly = True
         Me.txtSignificantComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtSignificantComments.Size = New System.Drawing.Size(553, 146)
-        Me.txtSignificantComments.TabIndex = 43
+        Me.txtSignificantComments.TabIndex = 0
         '
         'ApplicableRulesGroup
         '
@@ -4720,20 +4573,22 @@ Partial Class SSPPApplicationTrackingLog
         'chbConfidential
         '
         Me.chbConfidential.AutoSize = True
+        Me.chbConfidential.Enabled = False
         Me.chbConfidential.Location = New System.Drawing.Point(6, 148)
         Me.chbConfidential.Name = "chbConfidential"
         Me.chbConfidential.Size = New System.Drawing.Size(183, 17)
-        Me.chbConfidential.TabIndex = 44
+        Me.chbConfidential.TabIndex = 7
         Me.chbConfidential.Text = "Confidential information submitted"
         Me.chbConfidential.UseVisualStyleBackColor = True
         '
         'chbExpedited
         '
         Me.chbExpedited.AutoSize = True
+        Me.chbExpedited.Enabled = False
         Me.chbExpedited.Location = New System.Drawing.Point(6, 129)
         Me.chbExpedited.Name = "chbExpedited"
         Me.chbExpedited.Size = New System.Drawing.Size(105, 17)
-        Me.chbExpedited.TabIndex = 43
+        Me.chbExpedited.TabIndex = 6
         Me.chbExpedited.Text = "Expedited Permit"
         Me.chbExpedited.UseVisualStyleBackColor = True
         '
@@ -4744,7 +4599,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbPal.Location = New System.Drawing.Point(6, 110)
         Me.chbPal.Name = "chbPal"
         Me.chbPal.Size = New System.Drawing.Size(84, 17)
-        Me.chbPal.TabIndex = 42
+        Me.chbPal.TabIndex = 5
         Me.chbPal.Text = "Actuals PAL"
         Me.chbPal.UseVisualStyleBackColor = True
         '
@@ -4755,7 +4610,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbRuleyy.Location = New System.Drawing.Point(6, 91)
         Me.chbRuleyy.Name = "chbRuleyy"
         Me.chbRuleyy.Size = New System.Drawing.Size(99, 17)
-        Me.chbRuleyy.TabIndex = 41
+        Me.chbRuleyy.TabIndex = 4
         Me.chbRuleyy.Text = "Rule (yy) RACT"
         Me.chbRuleyy.UseVisualStyleBackColor = True
         '
@@ -4766,7 +4621,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbRulett.Location = New System.Drawing.Point(6, 73)
         Me.chbRulett.Name = "chbRulett"
         Me.chbRulett.Size = New System.Drawing.Size(95, 17)
-        Me.chbRulett.TabIndex = 40
+        Me.chbRulett.TabIndex = 3
         Me.chbRulett.Text = "Rule (tt) RACT"
         Me.chbRulett.UseVisualStyleBackColor = True
         '
@@ -4777,7 +4632,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chb112g.Location = New System.Drawing.Point(6, 55)
         Me.chb112g.Name = "chb112g"
         Me.chb112g.Size = New System.Drawing.Size(56, 17)
-        Me.chb112g.TabIndex = 39
+        Me.chb112g.TabIndex = 2
         Me.chb112g.Text = "112(g)"
         Me.chb112g.UseVisualStyleBackColor = True
         '
@@ -4788,7 +4643,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbNAANSR.Location = New System.Drawing.Point(6, 37)
         Me.chbNAANSR.Name = "chbNAANSR"
         Me.chbNAANSR.Size = New System.Drawing.Size(74, 17)
-        Me.chbNAANSR.TabIndex = 38
+        Me.chbNAANSR.TabIndex = 1
         Me.chbNAANSR.Text = "NAA NSR"
         Me.chbNAANSR.UseVisualStyleBackColor = True
         '
@@ -4799,150 +4654,192 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbPSD.Location = New System.Drawing.Point(6, 19)
         Me.chbPSD.Name = "chbPSD"
         Me.chbPSD.Size = New System.Drawing.Size(48, 17)
-        Me.chbPSD.TabIndex = 37
+        Me.chbPSD.TabIndex = 0
         Me.chbPSD.Text = "PSD"
         Me.chbPSD.UseVisualStyleBackColor = True
         '
         'TPTrackingLog
         '
-        Me.TPTrackingLog.Controls.Add(Me.GroupBox1)
+        Me.TPTrackingLog.Controls.Add(Me.Label1)
+        Me.TPTrackingLog.Controls.Add(Me.lblDated)
+        Me.TPTrackingLog.Controls.Add(Me.txtNAICSCode)
+        Me.TPTrackingLog.Controls.Add(Me.Label72)
+        Me.TPTrackingLog.Controls.Add(Me.txtFacilityName)
+        Me.TPTrackingLog.Controls.Add(Me.llbPermitNumber)
+        Me.TPTrackingLog.Controls.Add(Me.txtDistrict)
+        Me.TPTrackingLog.Controls.Add(Me.lblPAReady)
+        Me.TPTrackingLog.Controls.Add(Me.Label7)
+        Me.TPTrackingLog.Controls.Add(Me.lblPNReady)
+        Me.TPTrackingLog.Controls.Add(Me.lblReceived)
+        Me.TPTrackingLog.Controls.Add(Me.GBOther)
+        Me.TPTrackingLog.Controls.Add(Me.lblPermitNumber)
+        Me.TPTrackingLog.Controls.Add(Me.GroupBox7)
+        Me.TPTrackingLog.Controls.Add(Me.lblPermitAction)
+        Me.TPTrackingLog.Controls.Add(Me.chbPNReady)
+        Me.TPTrackingLog.Controls.Add(Me.Label30)
+        Me.TPTrackingLog.Controls.Add(Me.GBAirProgramCodes)
+        Me.TPTrackingLog.Controls.Add(Me.Label31)
+        Me.TPTrackingLog.Controls.Add(Me.lblDateToDO)
+        Me.TPTrackingLog.Controls.Add(Me.lblPublicAdvisory)
+        Me.TPTrackingLog.Controls.Add(Me.DTPDateToDO)
+        Me.TPTrackingLog.Controls.Add(Me.cboCounty)
+        Me.TPTrackingLog.Controls.Add(Me.lblDatetoBC)
+        Me.TPTrackingLog.Controls.Add(Me.cboFacilityCity)
+        Me.TPTrackingLog.Controls.Add(Me.DTPDateToBC)
+        Me.TPTrackingLog.Controls.Add(Me.lblCounty)
+        Me.TPTrackingLog.Controls.Add(Me.lblEPAEnds)
+        Me.TPTrackingLog.Controls.Add(Me.DTPDateSent)
+        Me.TPTrackingLog.Controls.Add(Me.DTPEPAEnds)
+        Me.TPTrackingLog.Controls.Add(Me.DTPDateReceived)
+        Me.TPTrackingLog.Controls.Add(Me.lblEPAWaived)
+        Me.TPTrackingLog.Controls.Add(Me.DTPDateAcknowledge)
+        Me.TPTrackingLog.Controls.Add(Me.DTPEPAWaived)
+        Me.TPTrackingLog.Controls.Add(Me.DTPDateReassigned)
+        Me.TPTrackingLog.Controls.Add(Me.chbPAReady)
+        Me.TPTrackingLog.Controls.Add(Me.DTPDateAssigned)
+        Me.TPTrackingLog.Controls.Add(Me.lblDraftIssued)
+        Me.TPTrackingLog.Controls.Add(Me.DTPDatePAExpires)
+        Me.TPTrackingLog.Controls.Add(Me.lblFinalAction)
+        Me.TPTrackingLog.Controls.Add(Me.DTPDatePNExpires)
+        Me.TPTrackingLog.Controls.Add(Me.lblDateToPM)
+        Me.TPTrackingLog.Controls.Add(Me.DTPDeadline)
+        Me.TPTrackingLog.Controls.Add(Me.lblDateToUC)
+        Me.TPTrackingLog.Controls.Add(Me.DTPDateToUC)
+        Me.TPTrackingLog.Controls.Add(Me.lblDeadline)
+        Me.TPTrackingLog.Controls.Add(Me.DTPDateToPM)
+        Me.TPTrackingLog.Controls.Add(Me.lblDatePNExpires)
+        Me.TPTrackingLog.Controls.Add(Me.DTPFinalAction)
+        Me.TPTrackingLog.Controls.Add(Me.lblDatePAExpires)
+        Me.TPTrackingLog.Controls.Add(Me.DTPDraftIssued)
+        Me.TPTrackingLog.Controls.Add(Me.lblDateAcknowledge)
+        Me.TPTrackingLog.Controls.Add(Me.txtPermitNumber)
+        Me.TPTrackingLog.Controls.Add(Me.lblDateReassigned)
+        Me.TPTrackingLog.Controls.Add(Me.cboPermitAction)
+        Me.TPTrackingLog.Controls.Add(Me.lblDateAssigned)
+        Me.TPTrackingLog.Controls.Add(Me.cboPublicAdvisory)
+        Me.TPTrackingLog.Controls.Add(Me.txtFacilityZipCode)
+        Me.TPTrackingLog.Controls.Add(Me.txtReasonAppSubmitted)
+        Me.TPTrackingLog.Controls.Add(Me.txtFacilityStreetAddress)
+        Me.TPTrackingLog.Controls.Add(Me.txtComments)
+        Me.TPTrackingLog.Controls.Add(Me.txtSICCode)
+        Me.TPTrackingLog.Controls.Add(Me.txtPlantDescription)
+        Me.TPTrackingLog.Controls.Add(Me.Label42)
+        Me.TPTrackingLog.Controls.Add(Me.Label63)
+        Me.TPTrackingLog.Controls.Add(Me.lblClassification)
+        Me.TPTrackingLog.Controls.Add(Me.cboOperationalStatus)
+        Me.TPTrackingLog.Controls.Add(Me.cboClassification)
+        Me.TPTrackingLog.Controls.Add(Me.lblOperationalStatus)
         Me.TPTrackingLog.Location = New System.Drawing.Point(4, 22)
         Me.TPTrackingLog.Name = "TPTrackingLog"
-        Me.TPTrackingLog.Size = New System.Drawing.Size(784, 498)
+        Me.TPTrackingLog.Size = New System.Drawing.Size(784, 477)
         Me.TPTrackingLog.TabIndex = 0
         Me.TPTrackingLog.Text = "Tracking Log"
         Me.TPTrackingLog.UseVisualStyleBackColor = True
         '
-        'GroupBox1
+        'Label1
         '
-        Me.GroupBox1.Controls.Add(Me.txtNAICSCode)
-        Me.GroupBox1.Controls.Add(Me.Label72)
-        Me.GroupBox1.Controls.Add(Me.llbPermitNumber)
-        Me.GroupBox1.Controls.Add(Me.lblPAReady)
-        Me.GroupBox1.Controls.Add(Me.lblPNReady)
-        Me.GroupBox1.Controls.Add(Me.GBOther)
-        Me.GroupBox1.Controls.Add(Me.GroupBox7)
-        Me.GroupBox1.Controls.Add(Me.chbPNReady)
-        Me.GroupBox1.Controls.Add(Me.GBAirProgramCodes)
-        Me.GroupBox1.Controls.Add(Me.lblDateToDO)
-        Me.GroupBox1.Controls.Add(Me.DTPDateToDO)
-        Me.GroupBox1.Controls.Add(Me.lblDatetoBC)
-        Me.GroupBox1.Controls.Add(Me.DTPDateToBC)
-        Me.GroupBox1.Controls.Add(Me.lblEPAEnds)
-        Me.GroupBox1.Controls.Add(Me.DTPEPAEnds)
-        Me.GroupBox1.Controls.Add(Me.lblEPAWaived)
-        Me.GroupBox1.Controls.Add(Me.DTPEPAWaived)
-        Me.GroupBox1.Controls.Add(Me.chbPAReady)
-        Me.GroupBox1.Controls.Add(Me.lblDraftIssued)
-        Me.GroupBox1.Controls.Add(Me.lblFinalAction)
-        Me.GroupBox1.Controls.Add(Me.lblDateToPM)
-        Me.GroupBox1.Controls.Add(Me.lblDateToUC)
-        Me.GroupBox1.Controls.Add(Me.lblDeadline)
-        Me.GroupBox1.Controls.Add(Me.lblDatePNExpires)
-        Me.GroupBox1.Controls.Add(Me.lblDatePAExpires)
-        Me.GroupBox1.Controls.Add(Me.lblDateAcknowledge)
-        Me.GroupBox1.Controls.Add(Me.lblDateReassigned)
-        Me.GroupBox1.Controls.Add(Me.lblDateAssigned)
-        Me.GroupBox1.Controls.Add(Me.txtFacilityZipCode)
-        Me.GroupBox1.Controls.Add(Me.txtFacilityStreetAddress)
-        Me.GroupBox1.Controls.Add(Me.txtFacilityName)
-        Me.GroupBox1.Controls.Add(Me.txtPlantDescription)
-        Me.GroupBox1.Controls.Add(Me.Label63)
-        Me.GroupBox1.Controls.Add(Me.cboOperationalStatus)
-        Me.GroupBox1.Controls.Add(Me.lblOperationalStatus)
-        Me.GroupBox1.Controls.Add(Me.cboClassification)
-        Me.GroupBox1.Controls.Add(Me.lblClassification)
-        Me.GroupBox1.Controls.Add(Me.Label42)
-        Me.GroupBox1.Controls.Add(Me.txtSICCode)
-        Me.GroupBox1.Controls.Add(Me.txtComments)
-        Me.GroupBox1.Controls.Add(Me.txtReasonAppSubmitted)
-        Me.GroupBox1.Controls.Add(Me.cboPublicAdvisory)
-        Me.GroupBox1.Controls.Add(Me.cboPermitAction)
-        Me.GroupBox1.Controls.Add(Me.txtPermitNumber)
-        Me.GroupBox1.Controls.Add(Me.DTPDraftIssued)
-        Me.GroupBox1.Controls.Add(Me.DTPFinalAction)
-        Me.GroupBox1.Controls.Add(Me.DTPDateToPM)
-        Me.GroupBox1.Controls.Add(Me.DTPDateToUC)
-        Me.GroupBox1.Controls.Add(Me.DTPDeadline)
-        Me.GroupBox1.Controls.Add(Me.DTPDatePNExpires)
-        Me.GroupBox1.Controls.Add(Me.DTPDatePAExpires)
-        Me.GroupBox1.Controls.Add(Me.DTPDateAssigned)
-        Me.GroupBox1.Controls.Add(Me.DTPDateReassigned)
-        Me.GroupBox1.Controls.Add(Me.DTPDateAcknowledge)
-        Me.GroupBox1.Controls.Add(Me.DTPDateReceived)
-        Me.GroupBox1.Controls.Add(Me.DTPDateSent)
-        Me.GroupBox1.Controls.Add(Me.lblCounty)
-        Me.GroupBox1.Controls.Add(Me.cboFacilityCity)
-        Me.GroupBox1.Controls.Add(Me.cboCounty)
-        Me.GroupBox1.Controls.Add(Me.lblPublicAdvisory)
-        Me.GroupBox1.Controls.Add(Me.Label31)
-        Me.GroupBox1.Controls.Add(Me.Label30)
-        Me.GroupBox1.Controls.Add(Me.lblPermitAction)
-        Me.GroupBox1.Controls.Add(Me.lblPermitNumber)
-        Me.GroupBox1.Controls.Add(Me.lblReceived)
-        Me.GroupBox1.Controls.Add(Me.lblDated)
-        Me.GroupBox1.Controls.Add(Me.Label7)
-        Me.GroupBox1.Controls.Add(Me.txtDistrict)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(784, 498)
-        Me.GroupBox1.TabIndex = 0
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Facility Application Information"
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(3, 9)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(117, 13)
+        Me.Label1.TabIndex = 262
+        Me.Label1.Text = "Faciliy Name && Address"
+        '
+        'lblDated
+        '
+        Me.lblDated.AutoSize = True
+        Me.lblDated.Location = New System.Drawing.Point(-1, 104)
+        Me.lblDated.Name = "lblDated"
+        Me.lblDated.Size = New System.Drawing.Size(36, 13)
+        Me.lblDated.TabIndex = 262
+        Me.lblDated.Text = "Dated"
         '
         'txtNAICSCode
         '
-        Me.txtNAICSCode.Location = New System.Drawing.Point(580, 16)
+        Me.txtNAICSCode.Location = New System.Drawing.Point(575, 25)
         Me.txtNAICSCode.MaxLength = 6
         Me.txtNAICSCode.Name = "txtNAICSCode"
         Me.txtNAICSCode.ReadOnly = True
         Me.txtNAICSCode.Size = New System.Drawing.Size(52, 20)
-        Me.txtNAICSCode.TabIndex = 1002
+        Me.txtNAICSCode.TabIndex = 9
         '
         'Label72
         '
         Me.Label72.AutoSize = True
-        Me.Label72.Location = New System.Drawing.Point(507, 20)
+        Me.Label72.Location = New System.Drawing.Point(502, 29)
         Me.Label72.Name = "Label72"
         Me.Label72.Size = New System.Drawing.Size(67, 13)
-        Me.Label72.TabIndex = 1001
+        Me.Label72.TabIndex = 8
         Me.Label72.Text = "NAICS Code"
+        '
+        'txtFacilityName
+        '
+        Me.txtFacilityName.Location = New System.Drawing.Point(3, 25)
+        Me.txtFacilityName.Name = "txtFacilityName"
+        Me.txtFacilityName.ReadOnly = True
+        Me.txtFacilityName.Size = New System.Drawing.Size(208, 20)
+        Me.txtFacilityName.TabIndex = 0
         '
         'llbPermitNumber
         '
         Me.llbPermitNumber.AutoSize = True
-        Me.llbPermitNumber.Location = New System.Drawing.Point(437, 242)
+        Me.llbPermitNumber.Location = New System.Drawing.Point(432, 251)
         Me.llbPermitNumber.Name = "llbPermitNumber"
         Me.llbPermitNumber.Size = New System.Drawing.Size(76, 13)
-        Me.llbPermitNumber.TabIndex = 1000
+        Me.llbPermitNumber.TabIndex = 33
         Me.llbPermitNumber.TabStop = True
         Me.llbPermitNumber.Text = "Permit Number"
         Me.llbPermitNumber.Visible = False
         '
+        'txtDistrict
+        '
+        Me.txtDistrict.Location = New System.Drawing.Point(255, 49)
+        Me.txtDistrict.Name = "txtDistrict"
+        Me.txtDistrict.ReadOnly = True
+        Me.txtDistrict.Size = New System.Drawing.Size(119, 20)
+        Me.txtDistrict.TabIndex = 5
+        '
         'lblPAReady
         '
-        Me.lblPAReady.Location = New System.Drawing.Point(108, 240)
+        Me.lblPAReady.Location = New System.Drawing.Point(103, 249)
         Me.lblPAReady.Name = "lblPAReady"
         Me.lblPAReady.Size = New System.Drawing.Size(96, 18)
         Me.lblPAReady.TabIndex = 375
         '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(213, 51)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(39, 13)
+        Me.Label7.TabIndex = 255
+        Me.Label7.Text = "District"
+        '
         'lblPNReady
         '
-        Me.lblPNReady.Location = New System.Drawing.Point(336, 164)
+        Me.lblPNReady.Location = New System.Drawing.Point(331, 173)
         Me.lblPNReady.Name = "lblPNReady"
         Me.lblPNReady.Size = New System.Drawing.Size(95, 18)
         Me.lblPNReady.TabIndex = 374
+        '
+        'lblReceived
+        '
+        Me.lblReceived.AutoSize = True
+        Me.lblReceived.Location = New System.Drawing.Point(-1, 125)
+        Me.lblReceived.Name = "lblReceived"
+        Me.lblReceived.Size = New System.Drawing.Size(53, 13)
+        Me.lblReceived.TabIndex = 263
+        Me.lblReceived.Text = "Received"
         '
         'GBOther
         '
         Me.GBOther.Controls.Add(Me.chbFederallyOwned)
         Me.GBOther.Controls.Add(Me.chbHAPsMajor)
         Me.GBOther.Controls.Add(Me.chbNSRMajor)
-        Me.GBOther.Location = New System.Drawing.Point(644, 329)
+        Me.GBOther.Location = New System.Drawing.Point(639, 326)
         Me.GBOther.Name = "GBOther"
         Me.GBOther.Size = New System.Drawing.Size(136, 82)
-        Me.GBOther.TabIndex = 2
+        Me.GBOther.TabIndex = 39
         Me.GBOther.TabStop = False
         Me.GBOther.Text = "Other"
         '
@@ -4980,6 +4877,15 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbNSRMajor.TabIndex = 1
         Me.chbNSRMajor.Text = "NSR/PSD Major"
         '
+        'lblPermitNumber
+        '
+        Me.lblPermitNumber.AutoSize = True
+        Me.lblPermitNumber.Location = New System.Drawing.Point(432, 251)
+        Me.lblPermitNumber.Name = "lblPermitNumber"
+        Me.lblPermitNumber.Size = New System.Drawing.Size(76, 13)
+        Me.lblPermitNumber.TabIndex = 274
+        Me.lblPermitNumber.Text = "Permit Number"
+        '
         'GroupBox7
         '
         Me.GroupBox7.Controls.Add(Me.txt1HourOzone)
@@ -4988,10 +4894,10 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox7.Controls.Add(Me.txt8HROzone)
         Me.GroupBox7.Controls.Add(Me.Label97)
         Me.GroupBox7.Controls.Add(Me.Label96)
-        Me.GroupBox7.Location = New System.Drawing.Point(644, 10)
+        Me.GroupBox7.Location = New System.Drawing.Point(639, 19)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(136, 90)
-        Me.GroupBox7.TabIndex = 0
+        Me.GroupBox7.TabIndex = 37
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Non attainment"
         '
@@ -5052,16 +4958,34 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label96.TabIndex = 1
         Me.Label96.Text = "8-hr ozone:"
         '
+        'lblPermitAction
+        '
+        Me.lblPermitAction.AutoSize = True
+        Me.lblPermitAction.Location = New System.Drawing.Point(432, 278)
+        Me.lblPermitAction.Name = "lblPermitAction"
+        Me.lblPermitAction.Size = New System.Drawing.Size(64, 13)
+        Me.lblPermitAction.TabIndex = 275
+        Me.lblPermitAction.Text = "Action Type"
+        '
         'chbPNReady
         '
         Me.chbPNReady.AutoSize = True
         Me.chbPNReady.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.chbPNReady.Enabled = False
-        Me.chbPNReady.Location = New System.Drawing.Point(210, 163)
+        Me.chbPNReady.Location = New System.Drawing.Point(205, 172)
         Me.chbPNReady.Name = "chbPNReady"
         Me.chbPNReady.Size = New System.Drawing.Size(120, 17)
-        Me.chbPNReady.TabIndex = 24
+        Me.chbPNReady.TabIndex = 23
         Me.chbPNReady.Text = "PN Ready               "
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(0, 299)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(201, 13)
+        Me.Label30.TabIndex = 278
+        Me.Label30.Text = "Reason for Application (on Public Notice)"
         '
         'GBAirProgramCodes
         '
@@ -5074,10 +4998,10 @@ Partial Class SSPPApplicationTrackingLog
         Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_M)
         Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_V)
         Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_A)
-        Me.GBAirProgramCodes.Location = New System.Drawing.Point(644, 113)
+        Me.GBAirProgramCodes.Location = New System.Drawing.Point(639, 115)
         Me.GBAirProgramCodes.Name = "GBAirProgramCodes"
         Me.GBAirProgramCodes.Size = New System.Drawing.Size(136, 205)
-        Me.GBAirProgramCodes.TabIndex = 1
+        Me.GBAirProgramCodes.TabIndex = 38
         Me.GBAirProgramCodes.TabStop = False
         Me.GBAirProgramCodes.Text = "Air Program Codes"
         '
@@ -5091,17 +5015,19 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbCDS_RMP.Margin = New System.Windows.Forms.Padding(2)
         Me.chbCDS_RMP.Name = "chbCDS_RMP"
         Me.chbCDS_RMP.Size = New System.Drawing.Size(136, 17)
-        Me.chbCDS_RMP.TabIndex = 148
+        Me.chbCDS_RMP.TabIndex = 8
         Me.chbCDS_RMP.Text = "Risk Management Plan"
         '
         'chbCDS_0
         '
         Me.chbCDS_0.AutoSize = True
+        Me.chbCDS_0.Checked = True
+        Me.chbCDS_0.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chbCDS_0.Enabled = False
         Me.chbCDS_0.Location = New System.Drawing.Point(6, 19)
         Me.chbCDS_0.Name = "chbCDS_0"
         Me.chbCDS_0.Size = New System.Drawing.Size(43, 17)
-        Me.chbCDS_0.TabIndex = 37
+        Me.chbCDS_0.TabIndex = 0
         Me.chbCDS_0.Text = "SIP"
         '
         'chbCDS_6
@@ -5111,7 +5037,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbCDS_6.Location = New System.Drawing.Point(6, 39)
         Me.chbCDS_6.Name = "chbCDS_6"
         Me.chbCDS_6.Size = New System.Drawing.Size(48, 17)
-        Me.chbCDS_6.TabIndex = 38
+        Me.chbCDS_6.TabIndex = 1
         Me.chbCDS_6.Text = "PSD"
         '
         'chbCDS_7
@@ -5121,7 +5047,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbCDS_7.Location = New System.Drawing.Point(6, 59)
         Me.chbCDS_7.Name = "chbCDS_7"
         Me.chbCDS_7.Size = New System.Drawing.Size(49, 17)
-        Me.chbCDS_7.TabIndex = 39
+        Me.chbCDS_7.TabIndex = 2
         Me.chbCDS_7.Text = "NSR"
         '
         'chbCDS_8
@@ -5132,7 +5058,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbCDS_8.Location = New System.Drawing.Point(6, 78)
         Me.chbCDS_8.Name = "chbCDS_8"
         Me.chbCDS_8.Size = New System.Drawing.Size(113, 17)
-        Me.chbCDS_8.TabIndex = 40
+        Me.chbCDS_8.TabIndex = 3
         Me.chbCDS_8.Text = "NESHAP (Part 61)"
         '
         'chbCDS_9
@@ -5142,7 +5068,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbCDS_9.Location = New System.Drawing.Point(6, 99)
         Me.chbCDS_9.Name = "chbCDS_9"
         Me.chbCDS_9.Size = New System.Drawing.Size(98, 17)
-        Me.chbCDS_9.TabIndex = 41
+        Me.chbCDS_9.TabIndex = 4
         Me.chbCDS_9.Text = "NSPS (Part 60)"
         '
         'chbCDS_M
@@ -5153,7 +5079,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbCDS_M.Location = New System.Drawing.Point(6, 119)
         Me.chbCDS_M.Name = "chbCDS_M"
         Me.chbCDS_M.Size = New System.Drawing.Size(99, 17)
-        Me.chbCDS_M.TabIndex = 42
+        Me.chbCDS_M.TabIndex = 5
         Me.chbCDS_M.Text = "MACT (Part 63)"
         '
         'chbCDS_V
@@ -5163,7 +5089,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbCDS_V.Location = New System.Drawing.Point(6, 140)
         Me.chbCDS_V.Name = "chbCDS_V"
         Me.chbCDS_V.Size = New System.Drawing.Size(99, 17)
-        Me.chbCDS_V.TabIndex = 43
+        Me.chbCDS_V.TabIndex = 6
         Me.chbCDS_V.Text = "Title V (Part 70)"
         '
         'chbCDS_A
@@ -5173,528 +5099,49 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbCDS_A.Location = New System.Drawing.Point(6, 160)
         Me.chbCDS_A.Name = "chbCDS_A"
         Me.chbCDS_A.Size = New System.Drawing.Size(108, 17)
-        Me.chbCDS_A.TabIndex = 44
+        Me.chbCDS_A.TabIndex = 7
         Me.chbCDS_A.Text = "Acid Precipitation"
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Location = New System.Drawing.Point(-1, 358)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(56, 13)
+        Me.Label31.TabIndex = 279
+        Me.Label31.Text = "Comments"
         '
         'lblDateToDO
         '
         Me.lblDateToDO.AutoSize = True
-        Me.lblDateToDO.Location = New System.Drawing.Point(437, 166)
+        Me.lblDateToDO.Location = New System.Drawing.Point(432, 175)
         Me.lblDateToDO.Name = "lblDateToDO"
         Me.lblDateToDO.Size = New System.Drawing.Size(61, 13)
         Me.lblDateToDO.TabIndex = 370
         Me.lblDateToDO.Text = "Date to DO"
         '
+        'lblPublicAdvisory
+        '
+        Me.lblPublicAdvisory.AutoSize = True
+        Me.lblPublicAdvisory.Location = New System.Drawing.Point(-1, 225)
+        Me.lblPublicAdvisory.Name = "lblPublicAdvisory"
+        Me.lblPublicAdvisory.Size = New System.Drawing.Size(79, 13)
+        Me.lblPublicAdvisory.TabIndex = 280
+        Me.lblPublicAdvisory.Text = "Public Advisory"
+        '
         'DTPDateToDO
         '
+        Me.DTPDateToDO.Checked = False
         Me.DTPDateToDO.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateToDO.Enabled = False
         Me.DTPDateToDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateToDO.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateToDO.Location = New System.Drawing.Point(521, 163)
+        Me.DTPDateToDO.Location = New System.Drawing.Point(516, 172)
         Me.DTPDateToDO.Name = "DTPDateToDO"
         Me.DTPDateToDO.ShowCheckBox = True
         Me.DTPDateToDO.Size = New System.Drawing.Size(116, 21)
-        Me.DTPDateToDO.TabIndex = 30
+        Me.DTPDateToDO.TabIndex = 29
         Me.DTPDateToDO.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'lblDatetoBC
-        '
-        Me.lblDatetoBC.AutoSize = True
-        Me.lblDatetoBC.Location = New System.Drawing.Point(210, 269)
-        Me.lblDatetoBC.Name = "lblDatetoBC"
-        Me.lblDatetoBC.Size = New System.Drawing.Size(59, 13)
-        Me.lblDatetoBC.TabIndex = 368
-        Me.lblDatetoBC.Text = "Date to BC"
-        '
-        'DTPDateToBC
-        '
-        Me.DTPDateToBC.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDateToBC.Enabled = False
-        Me.DTPDateToBC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPDateToBC.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateToBC.Location = New System.Drawing.Point(314, 264)
-        Me.DTPDateToBC.Name = "DTPDateToBC"
-        Me.DTPDateToBC.ShowCheckBox = True
-        Me.DTPDateToBC.Size = New System.Drawing.Size(116, 21)
-        Me.DTPDateToBC.TabIndex = 28
-        Me.DTPDateToBC.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'lblEPAEnds
-        '
-        Me.lblEPAEnds.AutoSize = True
-        Me.lblEPAEnds.Location = New System.Drawing.Point(210, 242)
-        Me.lblEPAEnds.Name = "lblEPAEnds"
-        Me.lblEPAEnds.Size = New System.Drawing.Size(90, 13)
-        Me.lblEPAEnds.TabIndex = 366
-        Me.lblEPAEnds.Text = "EPA 45-day Ends"
-        '
-        'DTPEPAEnds
-        '
-        Me.DTPEPAEnds.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPEPAEnds.Enabled = False
-        Me.DTPEPAEnds.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPEPAEnds.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPEPAEnds.Location = New System.Drawing.Point(314, 237)
-        Me.DTPEPAEnds.Name = "DTPEPAEnds"
-        Me.DTPEPAEnds.ShowCheckBox = True
-        Me.DTPEPAEnds.Size = New System.Drawing.Size(116, 21)
-        Me.DTPEPAEnds.TabIndex = 27
-        Me.DTPEPAEnds.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'lblEPAWaived
-        '
-        Me.lblEPAWaived.AutoSize = True
-        Me.lblEPAWaived.Location = New System.Drawing.Point(210, 217)
-        Me.lblEPAWaived.Name = "lblEPAWaived"
-        Me.lblEPAWaived.Size = New System.Drawing.Size(103, 13)
-        Me.lblEPAWaived.TabIndex = 364
-        Me.lblEPAWaived.Text = "EPA 45-day Waived"
-        '
-        'DTPEPAWaived
-        '
-        Me.DTPEPAWaived.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPEPAWaived.Enabled = False
-        Me.DTPEPAWaived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPEPAWaived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPEPAWaived.Location = New System.Drawing.Point(314, 212)
-        Me.DTPEPAWaived.Name = "DTPEPAWaived"
-        Me.DTPEPAWaived.ShowCheckBox = True
-        Me.DTPEPAWaived.Size = New System.Drawing.Size(116, 21)
-        Me.DTPEPAWaived.TabIndex = 26
-        Me.DTPEPAWaived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'chbPAReady
-        '
-        Me.chbPAReady.AutoSize = True
-        Me.chbPAReady.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbPAReady.Enabled = False
-        Me.chbPAReady.Location = New System.Drawing.Point(4, 240)
-        Me.chbPAReady.Name = "chbPAReady"
-        Me.chbPAReady.Size = New System.Drawing.Size(98, 17)
-        Me.chbPAReady.TabIndex = 19
-        Me.chbPAReady.Text = "PA Ready        "
-        '
-        'lblDraftIssued
-        '
-        Me.lblDraftIssued.AutoSize = True
-        Me.lblDraftIssued.Location = New System.Drawing.Point(210, 142)
-        Me.lblDraftIssued.Name = "lblDraftIssued"
-        Me.lblDraftIssued.Size = New System.Drawing.Size(64, 13)
-        Me.lblDraftIssued.TabIndex = 361
-        Me.lblDraftIssued.Text = "Draft Issued"
-        '
-        'lblFinalAction
-        '
-        Me.lblFinalAction.AutoSize = True
-        Me.lblFinalAction.Location = New System.Drawing.Point(437, 190)
-        Me.lblFinalAction.Name = "lblFinalAction"
-        Me.lblFinalAction.Size = New System.Drawing.Size(62, 13)
-        Me.lblFinalAction.TabIndex = 360
-        Me.lblFinalAction.Text = "Final Action"
-        '
-        'lblDateToPM
-        '
-        Me.lblDateToPM.AutoSize = True
-        Me.lblDateToPM.Location = New System.Drawing.Point(210, 118)
-        Me.lblDateToPM.Name = "lblDateToPM"
-        Me.lblDateToPM.Size = New System.Drawing.Size(61, 13)
-        Me.lblDateToPM.TabIndex = 359
-        Me.lblDateToPM.Text = "Date to PM"
-        '
-        'lblDateToUC
-        '
-        Me.lblDateToUC.AutoSize = True
-        Me.lblDateToUC.Location = New System.Drawing.Point(210, 95)
-        Me.lblDateToUC.Name = "lblDateToUC"
-        Me.lblDateToUC.Size = New System.Drawing.Size(60, 13)
-        Me.lblDateToUC.TabIndex = 358
-        Me.lblDateToUC.Text = "Date to UC"
-        '
-        'lblDeadline
-        '
-        Me.lblDeadline.AutoSize = True
-        Me.lblDeadline.Location = New System.Drawing.Point(437, 217)
-        Me.lblDeadline.Name = "lblDeadline"
-        Me.lblDeadline.Size = New System.Drawing.Size(49, 13)
-        Me.lblDeadline.TabIndex = 356
-        Me.lblDeadline.Text = "Deadline"
-        '
-        'lblDatePNExpires
-        '
-        Me.lblDatePNExpires.AutoSize = True
-        Me.lblDatePNExpires.Location = New System.Drawing.Point(212, 190)
-        Me.lblDatePNExpires.Name = "lblDatePNExpires"
-        Me.lblDatePNExpires.Size = New System.Drawing.Size(59, 13)
-        Me.lblDatePNExpires.TabIndex = 355
-        Me.lblDatePNExpires.Text = "PN Expires"
-        '
-        'lblDatePAExpires
-        '
-        Me.lblDatePAExpires.AutoSize = True
-        Me.lblDatePAExpires.Location = New System.Drawing.Point(4, 269)
-        Me.lblDatePAExpires.Name = "lblDatePAExpires"
-        Me.lblDatePAExpires.Size = New System.Drawing.Size(58, 13)
-        Me.lblDatePAExpires.TabIndex = 354
-        Me.lblDatePAExpires.Text = "PA Expires"
-        '
-        'lblDateAcknowledge
-        '
-        Me.lblDateAcknowledge.AutoSize = True
-        Me.lblDateAcknowledge.Location = New System.Drawing.Point(4, 188)
-        Me.lblDateAcknowledge.Name = "lblDateAcknowledge"
-        Me.lblDateAcknowledge.Size = New System.Drawing.Size(78, 13)
-        Me.lblDateAcknowledge.TabIndex = 352
-        Me.lblDateAcknowledge.Text = "Acknowledged"
-        '
-        'lblDateReassigned
-        '
-        Me.lblDateReassigned.AutoSize = True
-        Me.lblDateReassigned.Location = New System.Drawing.Point(4, 164)
-        Me.lblDateReassigned.Name = "lblDateReassigned"
-        Me.lblDateReassigned.Size = New System.Drawing.Size(63, 13)
-        Me.lblDateReassigned.TabIndex = 351
-        Me.lblDateReassigned.Text = "Reassigned"
-        '
-        'lblDateAssigned
-        '
-        Me.lblDateAssigned.AutoSize = True
-        Me.lblDateAssigned.Location = New System.Drawing.Point(4, 140)
-        Me.lblDateAssigned.Name = "lblDateAssigned"
-        Me.lblDateAssigned.Size = New System.Drawing.Size(50, 13)
-        Me.lblDateAssigned.TabIndex = 350
-        Me.lblDateAssigned.Text = "Assigned"
-        '
-        'txtFacilityZipCode
-        '
-        Me.txtFacilityZipCode.Location = New System.Drawing.Point(142, 64)
-        Me.txtFacilityZipCode.Name = "txtFacilityZipCode"
-        Me.txtFacilityZipCode.ReadOnly = True
-        Me.txtFacilityZipCode.Size = New System.Drawing.Size(74, 20)
-        Me.txtFacilityZipCode.TabIndex = 9
-        '
-        'txtFacilityStreetAddress
-        '
-        Me.txtFacilityStreetAddress.Location = New System.Drawing.Point(8, 40)
-        Me.txtFacilityStreetAddress.Name = "txtFacilityStreetAddress"
-        Me.txtFacilityStreetAddress.ReadOnly = True
-        Me.txtFacilityStreetAddress.Size = New System.Drawing.Size(208, 20)
-        Me.txtFacilityStreetAddress.TabIndex = 7
-        '
-        'txtFacilityName
-        '
-        Me.txtFacilityName.Location = New System.Drawing.Point(8, 16)
-        Me.txtFacilityName.Name = "txtFacilityName"
-        Me.txtFacilityName.ReadOnly = True
-        Me.txtFacilityName.Size = New System.Drawing.Size(208, 20)
-        Me.txtFacilityName.TabIndex = 6
-        '
-        'txtPlantDescription
-        '
-        Me.txtPlantDescription.AcceptsReturn = True
-        Me.txtPlantDescription.Location = New System.Drawing.Point(439, 106)
-        Me.txtPlantDescription.MaxLength = 4000
-        Me.txtPlantDescription.Multiline = True
-        Me.txtPlantDescription.Name = "txtPlantDescription"
-        Me.txtPlantDescription.ReadOnly = True
-        Me.txtPlantDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtPlantDescription.Size = New System.Drawing.Size(199, 53)
-        Me.txtPlantDescription.TabIndex = 29
-        '
-        'Label63
-        '
-        Me.Label63.AutoSize = True
-        Me.Label63.Location = New System.Drawing.Point(436, 90)
-        Me.Label63.Name = "Label63"
-        Me.Label63.Size = New System.Drawing.Size(174, 13)
-        Me.Label63.TabIndex = 344
-        Me.Label63.Text = "Plant Description (on Public Notice)"
-        '
-        'cboOperationalStatus
-        '
-        Me.cboOperationalStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboOperationalStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboOperationalStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboOperationalStatus.Enabled = False
-        Me.cboOperationalStatus.Location = New System.Drawing.Point(461, 40)
-        Me.cboOperationalStatus.Name = "cboOperationalStatus"
-        Me.cboOperationalStatus.Size = New System.Drawing.Size(177, 21)
-        Me.cboOperationalStatus.TabIndex = 11
-        '
-        'lblOperationalStatus
-        '
-        Me.lblOperationalStatus.AutoSize = True
-        Me.lblOperationalStatus.Location = New System.Drawing.Point(385, 42)
-        Me.lblOperationalStatus.Name = "lblOperationalStatus"
-        Me.lblOperationalStatus.Size = New System.Drawing.Size(54, 13)
-        Me.lblOperationalStatus.TabIndex = 335
-        Me.lblOperationalStatus.Text = "Op Status"
-        '
-        'cboClassification
-        '
-        Me.cboClassification.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboClassification.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboClassification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboClassification.Enabled = False
-        Me.cboClassification.Location = New System.Drawing.Point(461, 64)
-        Me.cboClassification.Name = "cboClassification"
-        Me.cboClassification.Size = New System.Drawing.Size(177, 21)
-        Me.cboClassification.TabIndex = 12
-        '
-        'lblClassification
-        '
-        Me.lblClassification.AutoSize = True
-        Me.lblClassification.Location = New System.Drawing.Point(385, 66)
-        Me.lblClassification.Name = "lblClassification"
-        Me.lblClassification.Size = New System.Drawing.Size(68, 13)
-        Me.lblClassification.TabIndex = 334
-        Me.lblClassification.Text = "Classification"
-        '
-        'Label42
-        '
-        Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(385, 20)
-        Me.Label42.Name = "Label42"
-        Me.Label42.Size = New System.Drawing.Size(52, 13)
-        Me.Label42.TabIndex = 333
-        Me.Label42.Text = "SIC Code"
-        '
-        'txtSICCode
-        '
-        Me.txtSICCode.Location = New System.Drawing.Point(461, 16)
-        Me.txtSICCode.MaxLength = 4
-        Me.txtSICCode.Name = "txtSICCode"
-        Me.txtSICCode.ReadOnly = True
-        Me.txtSICCode.Size = New System.Drawing.Size(40, 20)
-        Me.txtSICCode.TabIndex = 10
-        '
-        'txtComments
-        '
-        Me.txtComments.AcceptsReturn = True
-        Me.txtComments.Location = New System.Drawing.Point(23, 365)
-        Me.txtComments.Multiline = True
-        Me.txtComments.Name = "txtComments"
-        Me.txtComments.ReadOnly = True
-        Me.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtComments.Size = New System.Drawing.Size(615, 46)
-        Me.txtComments.TabIndex = 36
-        '
-        'txtReasonAppSubmitted
-        '
-        Me.txtReasonAppSubmitted.AcceptsReturn = True
-        Me.txtReasonAppSubmitted.Location = New System.Drawing.Point(23, 306)
-        Me.txtReasonAppSubmitted.Multiline = True
-        Me.txtReasonAppSubmitted.Name = "txtReasonAppSubmitted"
-        Me.txtReasonAppSubmitted.ReadOnly = True
-        Me.txtReasonAppSubmitted.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtReasonAppSubmitted.Size = New System.Drawing.Size(615, 40)
-        Me.txtReasonAppSubmitted.TabIndex = 35
-        '
-        'cboPublicAdvisory
-        '
-        Me.cboPublicAdvisory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboPublicAdvisory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboPublicAdvisory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboPublicAdvisory.Enabled = False
-        Me.cboPublicAdvisory.Location = New System.Drawing.Point(84, 213)
-        Me.cboPublicAdvisory.Name = "cboPublicAdvisory"
-        Me.cboPublicAdvisory.Size = New System.Drawing.Size(117, 21)
-        Me.cboPublicAdvisory.TabIndex = 18
-        '
-        'cboPermitAction
-        '
-        Me.cboPermitAction.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboPermitAction.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboPermitAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboPermitAction.Enabled = False
-        Me.cboPermitAction.Location = New System.Drawing.Point(513, 265)
-        Me.cboPermitAction.Name = "cboPermitAction"
-        Me.cboPermitAction.Size = New System.Drawing.Size(125, 21)
-        Me.cboPermitAction.TabIndex = 34
-        '
-        'txtPermitNumber
-        '
-        Me.txtPermitNumber.Location = New System.Drawing.Point(513, 238)
-        Me.txtPermitNumber.MaxLength = 20
-        Me.txtPermitNumber.Name = "txtPermitNumber"
-        Me.txtPermitNumber.ReadOnly = True
-        Me.txtPermitNumber.Size = New System.Drawing.Size(125, 20)
-        Me.txtPermitNumber.TabIndex = 33
-        '
-        'DTPDraftIssued
-        '
-        Me.DTPDraftIssued.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDraftIssued.Enabled = False
-        Me.DTPDraftIssued.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPDraftIssued.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDraftIssued.Location = New System.Drawing.Point(314, 137)
-        Me.DTPDraftIssued.Name = "DTPDraftIssued"
-        Me.DTPDraftIssued.ShowCheckBox = True
-        Me.DTPDraftIssued.Size = New System.Drawing.Size(116, 21)
-        Me.DTPDraftIssued.TabIndex = 23
-        Me.DTPDraftIssued.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPFinalAction
-        '
-        Me.DTPFinalAction.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPFinalAction.Enabled = False
-        Me.DTPFinalAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPFinalAction.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPFinalAction.Location = New System.Drawing.Point(521, 187)
-        Me.DTPFinalAction.Name = "DTPFinalAction"
-        Me.DTPFinalAction.ShowCheckBox = True
-        Me.DTPFinalAction.Size = New System.Drawing.Size(116, 21)
-        Me.DTPFinalAction.TabIndex = 31
-        Me.DTPFinalAction.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPDateToPM
-        '
-        Me.DTPDateToPM.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDateToPM.Enabled = False
-        Me.DTPDateToPM.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPDateToPM.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateToPM.Location = New System.Drawing.Point(314, 113)
-        Me.DTPDateToPM.Name = "DTPDateToPM"
-        Me.DTPDateToPM.ShowCheckBox = True
-        Me.DTPDateToPM.Size = New System.Drawing.Size(116, 21)
-        Me.DTPDateToPM.TabIndex = 22
-        Me.DTPDateToPM.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPDateToUC
-        '
-        Me.DTPDateToUC.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDateToUC.Enabled = False
-        Me.DTPDateToUC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPDateToUC.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateToUC.Location = New System.Drawing.Point(314, 90)
-        Me.DTPDateToUC.Name = "DTPDateToUC"
-        Me.DTPDateToUC.ShowCheckBox = True
-        Me.DTPDateToUC.Size = New System.Drawing.Size(116, 21)
-        Me.DTPDateToUC.TabIndex = 21
-        Me.DTPDateToUC.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPDeadline
-        '
-        Me.DTPDeadline.CalendarMonthBackground = System.Drawing.SystemColors.Menu
-        Me.DTPDeadline.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDeadline.Enabled = False
-        Me.DTPDeadline.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPDeadline.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDeadline.Location = New System.Drawing.Point(521, 214)
-        Me.DTPDeadline.Name = "DTPDeadline"
-        Me.DTPDeadline.ShowCheckBox = True
-        Me.DTPDeadline.Size = New System.Drawing.Size(116, 21)
-        Me.DTPDeadline.TabIndex = 32
-        Me.DTPDeadline.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPDatePNExpires
-        '
-        Me.DTPDatePNExpires.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDatePNExpires.Enabled = False
-        Me.DTPDatePNExpires.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPDatePNExpires.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDatePNExpires.Location = New System.Drawing.Point(314, 185)
-        Me.DTPDatePNExpires.Name = "DTPDatePNExpires"
-        Me.DTPDatePNExpires.ShowCheckBox = True
-        Me.DTPDatePNExpires.Size = New System.Drawing.Size(116, 21)
-        Me.DTPDatePNExpires.TabIndex = 25
-        Me.DTPDatePNExpires.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPDatePAExpires
-        '
-        Me.DTPDatePAExpires.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDatePAExpires.Enabled = False
-        Me.DTPDatePAExpires.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPDatePAExpires.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDatePAExpires.Location = New System.Drawing.Point(84, 264)
-        Me.DTPDatePAExpires.Name = "DTPDatePAExpires"
-        Me.DTPDatePAExpires.ShowCheckBox = True
-        Me.DTPDatePAExpires.Size = New System.Drawing.Size(116, 21)
-        Me.DTPDatePAExpires.TabIndex = 20
-        Me.DTPDatePAExpires.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPDateAssigned
-        '
-        Me.DTPDateAssigned.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDateAssigned.Enabled = False
-        Me.DTPDateAssigned.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPDateAssigned.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateAssigned.Location = New System.Drawing.Point(84, 137)
-        Me.DTPDateAssigned.Name = "DTPDateAssigned"
-        Me.DTPDateAssigned.ShowCheckBox = True
-        Me.DTPDateAssigned.Size = New System.Drawing.Size(116, 21)
-        Me.DTPDateAssigned.TabIndex = 15
-        Me.DTPDateAssigned.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPDateReassigned
-        '
-        Me.DTPDateReassigned.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDateReassigned.Enabled = False
-        Me.DTPDateReassigned.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPDateReassigned.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateReassigned.Location = New System.Drawing.Point(84, 161)
-        Me.DTPDateReassigned.Name = "DTPDateReassigned"
-        Me.DTPDateReassigned.ShowCheckBox = True
-        Me.DTPDateReassigned.Size = New System.Drawing.Size(116, 21)
-        Me.DTPDateReassigned.TabIndex = 16
-        Me.DTPDateReassigned.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPDateAcknowledge
-        '
-        Me.DTPDateAcknowledge.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDateAcknowledge.Enabled = False
-        Me.DTPDateAcknowledge.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPDateAcknowledge.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateAcknowledge.Location = New System.Drawing.Point(84, 185)
-        Me.DTPDateAcknowledge.Name = "DTPDateAcknowledge"
-        Me.DTPDateAcknowledge.ShowCheckBox = True
-        Me.DTPDateAcknowledge.Size = New System.Drawing.Size(116, 21)
-        Me.DTPDateAcknowledge.TabIndex = 17
-        Me.DTPDateAcknowledge.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPDateReceived
-        '
-        Me.DTPDateReceived.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDateReceived.Enabled = False
-        Me.DTPDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateReceived.Location = New System.Drawing.Point(84, 113)
-        Me.DTPDateReceived.Name = "DTPDateReceived"
-        Me.DTPDateReceived.Size = New System.Drawing.Size(117, 21)
-        Me.DTPDateReceived.TabIndex = 14
-        Me.DTPDateReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPDateSent
-        '
-        Me.DTPDateSent.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDateSent.Enabled = False
-        Me.DTPDateSent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPDateSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateSent.Location = New System.Drawing.Point(84, 90)
-        Me.DTPDateSent.Name = "DTPDateSent"
-        Me.DTPDateSent.Size = New System.Drawing.Size(117, 21)
-        Me.DTPDateSent.TabIndex = 13
-        Me.DTPDateSent.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'lblCounty
-        '
-        Me.lblCounty.AutoSize = True
-        Me.lblCounty.Location = New System.Drawing.Point(218, 20)
-        Me.lblCounty.Name = "lblCounty"
-        Me.lblCounty.Size = New System.Drawing.Size(40, 13)
-        Me.lblCounty.TabIndex = 297
-        Me.lblCounty.Text = "County"
-        '
-        'cboFacilityCity
-        '
-        Me.cboFacilityCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboFacilityCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboFacilityCity.BackColor = System.Drawing.SystemColors.Window
-        Me.cboFacilityCity.Enabled = False
-        Me.cboFacilityCity.Location = New System.Drawing.Point(8, 64)
-        Me.cboFacilityCity.Name = "cboFacilityCity"
-        Me.cboFacilityCity.Size = New System.Drawing.Size(128, 21)
-        Me.cboFacilityCity.TabIndex = 8
         '
         'cboCounty
         '
@@ -5702,108 +5149,533 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboCounty.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboCounty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCounty.Enabled = False
-        Me.cboCounty.Location = New System.Drawing.Point(260, 16)
+        Me.cboCounty.Location = New System.Drawing.Point(255, 25)
         Me.cboCounty.Name = "cboCounty"
         Me.cboCounty.Size = New System.Drawing.Size(119, 21)
-        Me.cboCounty.TabIndex = 999
+        Me.cboCounty.TabIndex = 4
         '
-        'lblPublicAdvisory
+        'lblDatetoBC
         '
-        Me.lblPublicAdvisory.AutoSize = True
-        Me.lblPublicAdvisory.Location = New System.Drawing.Point(4, 216)
-        Me.lblPublicAdvisory.Name = "lblPublicAdvisory"
-        Me.lblPublicAdvisory.Size = New System.Drawing.Size(79, 13)
-        Me.lblPublicAdvisory.TabIndex = 280
-        Me.lblPublicAdvisory.Text = "Public Advisory"
+        Me.lblDatetoBC.AutoSize = True
+        Me.lblDatetoBC.Location = New System.Drawing.Point(205, 278)
+        Me.lblDatetoBC.Name = "lblDatetoBC"
+        Me.lblDatetoBC.Size = New System.Drawing.Size(59, 13)
+        Me.lblDatetoBC.TabIndex = 368
+        Me.lblDatetoBC.Text = "Date to BC"
         '
-        'Label31
+        'cboFacilityCity
         '
-        Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(4, 349)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(56, 13)
-        Me.Label31.TabIndex = 279
-        Me.Label31.Text = "Comments"
+        Me.cboFacilityCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboFacilityCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboFacilityCity.BackColor = System.Drawing.SystemColors.Window
+        Me.cboFacilityCity.Enabled = False
+        Me.cboFacilityCity.Location = New System.Drawing.Point(3, 73)
+        Me.cboFacilityCity.Name = "cboFacilityCity"
+        Me.cboFacilityCity.Size = New System.Drawing.Size(128, 21)
+        Me.cboFacilityCity.TabIndex = 2
         '
-        'Label30
+        'DTPDateToBC
         '
-        Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(5, 290)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(201, 13)
-        Me.Label30.TabIndex = 278
-        Me.Label30.Text = "Reason for Application (on Public Notice)"
+        Me.DTPDateToBC.Checked = False
+        Me.DTPDateToBC.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPDateToBC.Enabled = False
+        Me.DTPDateToBC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateToBC.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPDateToBC.Location = New System.Drawing.Point(309, 273)
+        Me.DTPDateToBC.Name = "DTPDateToBC"
+        Me.DTPDateToBC.ShowCheckBox = True
+        Me.DTPDateToBC.Size = New System.Drawing.Size(116, 21)
+        Me.DTPDateToBC.TabIndex = 27
+        Me.DTPDateToBC.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
-        'lblPermitAction
+        'lblCounty
         '
-        Me.lblPermitAction.AutoSize = True
-        Me.lblPermitAction.Location = New System.Drawing.Point(437, 269)
-        Me.lblPermitAction.Name = "lblPermitAction"
-        Me.lblPermitAction.Size = New System.Drawing.Size(64, 13)
-        Me.lblPermitAction.TabIndex = 275
-        Me.lblPermitAction.Text = "Action Type"
+        Me.lblCounty.AutoSize = True
+        Me.lblCounty.Location = New System.Drawing.Point(213, 29)
+        Me.lblCounty.Name = "lblCounty"
+        Me.lblCounty.Size = New System.Drawing.Size(40, 13)
+        Me.lblCounty.TabIndex = 297
+        Me.lblCounty.Text = "County"
         '
-        'lblPermitNumber
+        'lblEPAEnds
         '
-        Me.lblPermitNumber.AutoSize = True
-        Me.lblPermitNumber.Location = New System.Drawing.Point(437, 242)
-        Me.lblPermitNumber.Name = "lblPermitNumber"
-        Me.lblPermitNumber.Size = New System.Drawing.Size(76, 13)
-        Me.lblPermitNumber.TabIndex = 274
-        Me.lblPermitNumber.Text = "Permit Number"
+        Me.lblEPAEnds.AutoSize = True
+        Me.lblEPAEnds.Location = New System.Drawing.Point(205, 251)
+        Me.lblEPAEnds.Name = "lblEPAEnds"
+        Me.lblEPAEnds.Size = New System.Drawing.Size(90, 13)
+        Me.lblEPAEnds.TabIndex = 366
+        Me.lblEPAEnds.Text = "EPA 45-day Ends"
         '
-        'lblReceived
+        'DTPDateSent
         '
-        Me.lblReceived.AutoSize = True
-        Me.lblReceived.Location = New System.Drawing.Point(4, 116)
-        Me.lblReceived.Name = "lblReceived"
-        Me.lblReceived.Size = New System.Drawing.Size(53, 13)
-        Me.lblReceived.TabIndex = 263
-        Me.lblReceived.Text = "Received"
+        Me.DTPDateSent.Checked = False
+        Me.DTPDateSent.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPDateSent.Enabled = False
+        Me.DTPDateSent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPDateSent.Location = New System.Drawing.Point(79, 99)
+        Me.DTPDateSent.Name = "DTPDateSent"
+        Me.DTPDateSent.Size = New System.Drawing.Size(117, 21)
+        Me.DTPDateSent.TabIndex = 12
+        Me.DTPDateSent.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
-        'lblDated
+        'DTPEPAEnds
         '
-        Me.lblDated.AutoSize = True
-        Me.lblDated.Location = New System.Drawing.Point(4, 93)
-        Me.lblDated.Name = "lblDated"
-        Me.lblDated.Size = New System.Drawing.Size(36, 13)
-        Me.lblDated.TabIndex = 262
-        Me.lblDated.Text = "Dated"
+        Me.DTPEPAEnds.Checked = False
+        Me.DTPEPAEnds.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPEPAEnds.Enabled = False
+        Me.DTPEPAEnds.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPEPAEnds.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPEPAEnds.Location = New System.Drawing.Point(309, 246)
+        Me.DTPEPAEnds.Name = "DTPEPAEnds"
+        Me.DTPEPAEnds.ShowCheckBox = True
+        Me.DTPEPAEnds.Size = New System.Drawing.Size(116, 21)
+        Me.DTPEPAEnds.TabIndex = 26
+        Me.DTPEPAEnds.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
-        'Label7
+        'DTPDateReceived
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(218, 42)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(39, 13)
-        Me.Label7.TabIndex = 255
-        Me.Label7.Text = "District"
+        Me.DTPDateReceived.Checked = False
+        Me.DTPDateReceived.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPDateReceived.Enabled = False
+        Me.DTPDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPDateReceived.Location = New System.Drawing.Point(79, 122)
+        Me.DTPDateReceived.Name = "DTPDateReceived"
+        Me.DTPDateReceived.Size = New System.Drawing.Size(117, 21)
+        Me.DTPDateReceived.TabIndex = 13
+        Me.DTPDateReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
-        'txtDistrict
+        'lblEPAWaived
         '
-        Me.txtDistrict.Location = New System.Drawing.Point(260, 40)
-        Me.txtDistrict.Name = "txtDistrict"
-        Me.txtDistrict.ReadOnly = True
-        Me.txtDistrict.Size = New System.Drawing.Size(119, 20)
-        Me.txtDistrict.TabIndex = 282
+        Me.lblEPAWaived.AutoSize = True
+        Me.lblEPAWaived.Location = New System.Drawing.Point(205, 226)
+        Me.lblEPAWaived.Name = "lblEPAWaived"
+        Me.lblEPAWaived.Size = New System.Drawing.Size(103, 13)
+        Me.lblEPAWaived.TabIndex = 364
+        Me.lblEPAWaived.Text = "EPA 45-day Waived"
+        '
+        'DTPDateAcknowledge
+        '
+        Me.DTPDateAcknowledge.Checked = False
+        Me.DTPDateAcknowledge.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPDateAcknowledge.Enabled = False
+        Me.DTPDateAcknowledge.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateAcknowledge.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPDateAcknowledge.Location = New System.Drawing.Point(79, 194)
+        Me.DTPDateAcknowledge.Name = "DTPDateAcknowledge"
+        Me.DTPDateAcknowledge.ShowCheckBox = True
+        Me.DTPDateAcknowledge.Size = New System.Drawing.Size(116, 21)
+        Me.DTPDateAcknowledge.TabIndex = 16
+        Me.DTPDateAcknowledge.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'DTPEPAWaived
+        '
+        Me.DTPEPAWaived.Checked = False
+        Me.DTPEPAWaived.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPEPAWaived.Enabled = False
+        Me.DTPEPAWaived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPEPAWaived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPEPAWaived.Location = New System.Drawing.Point(309, 221)
+        Me.DTPEPAWaived.Name = "DTPEPAWaived"
+        Me.DTPEPAWaived.ShowCheckBox = True
+        Me.DTPEPAWaived.Size = New System.Drawing.Size(116, 21)
+        Me.DTPEPAWaived.TabIndex = 25
+        Me.DTPEPAWaived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'DTPDateReassigned
+        '
+        Me.DTPDateReassigned.Checked = False
+        Me.DTPDateReassigned.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPDateReassigned.Enabled = False
+        Me.DTPDateReassigned.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateReassigned.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPDateReassigned.Location = New System.Drawing.Point(79, 170)
+        Me.DTPDateReassigned.Name = "DTPDateReassigned"
+        Me.DTPDateReassigned.ShowCheckBox = True
+        Me.DTPDateReassigned.Size = New System.Drawing.Size(116, 21)
+        Me.DTPDateReassigned.TabIndex = 15
+        Me.DTPDateReassigned.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'chbPAReady
+        '
+        Me.chbPAReady.AutoSize = True
+        Me.chbPAReady.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.chbPAReady.Enabled = False
+        Me.chbPAReady.Location = New System.Drawing.Point(-1, 249)
+        Me.chbPAReady.Name = "chbPAReady"
+        Me.chbPAReady.Size = New System.Drawing.Size(98, 17)
+        Me.chbPAReady.TabIndex = 18
+        Me.chbPAReady.Text = "PA Ready        "
+        '
+        'DTPDateAssigned
+        '
+        Me.DTPDateAssigned.Checked = False
+        Me.DTPDateAssigned.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPDateAssigned.Enabled = False
+        Me.DTPDateAssigned.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateAssigned.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPDateAssigned.Location = New System.Drawing.Point(79, 146)
+        Me.DTPDateAssigned.Name = "DTPDateAssigned"
+        Me.DTPDateAssigned.ShowCheckBox = True
+        Me.DTPDateAssigned.Size = New System.Drawing.Size(116, 21)
+        Me.DTPDateAssigned.TabIndex = 14
+        Me.DTPDateAssigned.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'lblDraftIssued
+        '
+        Me.lblDraftIssued.AutoSize = True
+        Me.lblDraftIssued.Location = New System.Drawing.Point(205, 151)
+        Me.lblDraftIssued.Name = "lblDraftIssued"
+        Me.lblDraftIssued.Size = New System.Drawing.Size(64, 13)
+        Me.lblDraftIssued.TabIndex = 361
+        Me.lblDraftIssued.Text = "Draft Issued"
+        '
+        'DTPDatePAExpires
+        '
+        Me.DTPDatePAExpires.Checked = False
+        Me.DTPDatePAExpires.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPDatePAExpires.Enabled = False
+        Me.DTPDatePAExpires.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDatePAExpires.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPDatePAExpires.Location = New System.Drawing.Point(79, 273)
+        Me.DTPDatePAExpires.Name = "DTPDatePAExpires"
+        Me.DTPDatePAExpires.ShowCheckBox = True
+        Me.DTPDatePAExpires.Size = New System.Drawing.Size(116, 21)
+        Me.DTPDatePAExpires.TabIndex = 19
+        Me.DTPDatePAExpires.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'lblFinalAction
+        '
+        Me.lblFinalAction.AutoSize = True
+        Me.lblFinalAction.Location = New System.Drawing.Point(432, 199)
+        Me.lblFinalAction.Name = "lblFinalAction"
+        Me.lblFinalAction.Size = New System.Drawing.Size(62, 13)
+        Me.lblFinalAction.TabIndex = 360
+        Me.lblFinalAction.Text = "Final Action"
+        '
+        'DTPDatePNExpires
+        '
+        Me.DTPDatePNExpires.Checked = False
+        Me.DTPDatePNExpires.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPDatePNExpires.Enabled = False
+        Me.DTPDatePNExpires.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDatePNExpires.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPDatePNExpires.Location = New System.Drawing.Point(309, 194)
+        Me.DTPDatePNExpires.Name = "DTPDatePNExpires"
+        Me.DTPDatePNExpires.ShowCheckBox = True
+        Me.DTPDatePNExpires.Size = New System.Drawing.Size(116, 21)
+        Me.DTPDatePNExpires.TabIndex = 24
+        Me.DTPDatePNExpires.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'lblDateToPM
+        '
+        Me.lblDateToPM.AutoSize = True
+        Me.lblDateToPM.Location = New System.Drawing.Point(205, 127)
+        Me.lblDateToPM.Name = "lblDateToPM"
+        Me.lblDateToPM.Size = New System.Drawing.Size(61, 13)
+        Me.lblDateToPM.TabIndex = 359
+        Me.lblDateToPM.Text = "Date to PM"
+        '
+        'DTPDeadline
+        '
+        Me.DTPDeadline.CalendarMonthBackground = System.Drawing.SystemColors.Menu
+        Me.DTPDeadline.Checked = False
+        Me.DTPDeadline.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPDeadline.Enabled = False
+        Me.DTPDeadline.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDeadline.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPDeadline.Location = New System.Drawing.Point(516, 223)
+        Me.DTPDeadline.Name = "DTPDeadline"
+        Me.DTPDeadline.ShowCheckBox = True
+        Me.DTPDeadline.Size = New System.Drawing.Size(116, 21)
+        Me.DTPDeadline.TabIndex = 31
+        Me.DTPDeadline.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'lblDateToUC
+        '
+        Me.lblDateToUC.AutoSize = True
+        Me.lblDateToUC.Location = New System.Drawing.Point(205, 104)
+        Me.lblDateToUC.Name = "lblDateToUC"
+        Me.lblDateToUC.Size = New System.Drawing.Size(60, 13)
+        Me.lblDateToUC.TabIndex = 358
+        Me.lblDateToUC.Text = "Date to UC"
+        '
+        'DTPDateToUC
+        '
+        Me.DTPDateToUC.Checked = False
+        Me.DTPDateToUC.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPDateToUC.Enabled = False
+        Me.DTPDateToUC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateToUC.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPDateToUC.Location = New System.Drawing.Point(309, 99)
+        Me.DTPDateToUC.Name = "DTPDateToUC"
+        Me.DTPDateToUC.ShowCheckBox = True
+        Me.DTPDateToUC.Size = New System.Drawing.Size(116, 21)
+        Me.DTPDateToUC.TabIndex = 20
+        Me.DTPDateToUC.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'lblDeadline
+        '
+        Me.lblDeadline.AutoSize = True
+        Me.lblDeadline.Location = New System.Drawing.Point(432, 226)
+        Me.lblDeadline.Name = "lblDeadline"
+        Me.lblDeadline.Size = New System.Drawing.Size(49, 13)
+        Me.lblDeadline.TabIndex = 356
+        Me.lblDeadline.Text = "Deadline"
+        '
+        'DTPDateToPM
+        '
+        Me.DTPDateToPM.Checked = False
+        Me.DTPDateToPM.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPDateToPM.Enabled = False
+        Me.DTPDateToPM.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateToPM.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPDateToPM.Location = New System.Drawing.Point(309, 122)
+        Me.DTPDateToPM.Name = "DTPDateToPM"
+        Me.DTPDateToPM.ShowCheckBox = True
+        Me.DTPDateToPM.Size = New System.Drawing.Size(116, 21)
+        Me.DTPDateToPM.TabIndex = 21
+        Me.DTPDateToPM.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'lblDatePNExpires
+        '
+        Me.lblDatePNExpires.AutoSize = True
+        Me.lblDatePNExpires.Location = New System.Drawing.Point(207, 199)
+        Me.lblDatePNExpires.Name = "lblDatePNExpires"
+        Me.lblDatePNExpires.Size = New System.Drawing.Size(59, 13)
+        Me.lblDatePNExpires.TabIndex = 355
+        Me.lblDatePNExpires.Text = "PN Expires"
+        '
+        'DTPFinalAction
+        '
+        Me.DTPFinalAction.Checked = False
+        Me.DTPFinalAction.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPFinalAction.Enabled = False
+        Me.DTPFinalAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPFinalAction.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPFinalAction.Location = New System.Drawing.Point(516, 196)
+        Me.DTPFinalAction.Name = "DTPFinalAction"
+        Me.DTPFinalAction.ShowCheckBox = True
+        Me.DTPFinalAction.Size = New System.Drawing.Size(116, 21)
+        Me.DTPFinalAction.TabIndex = 30
+        Me.DTPFinalAction.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'lblDatePAExpires
+        '
+        Me.lblDatePAExpires.AutoSize = True
+        Me.lblDatePAExpires.Location = New System.Drawing.Point(-1, 278)
+        Me.lblDatePAExpires.Name = "lblDatePAExpires"
+        Me.lblDatePAExpires.Size = New System.Drawing.Size(58, 13)
+        Me.lblDatePAExpires.TabIndex = 354
+        Me.lblDatePAExpires.Text = "PA Expires"
+        '
+        'DTPDraftIssued
+        '
+        Me.DTPDraftIssued.Checked = False
+        Me.DTPDraftIssued.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPDraftIssued.Enabled = False
+        Me.DTPDraftIssued.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDraftIssued.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPDraftIssued.Location = New System.Drawing.Point(309, 146)
+        Me.DTPDraftIssued.Name = "DTPDraftIssued"
+        Me.DTPDraftIssued.ShowCheckBox = True
+        Me.DTPDraftIssued.Size = New System.Drawing.Size(116, 21)
+        Me.DTPDraftIssued.TabIndex = 22
+        Me.DTPDraftIssued.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'lblDateAcknowledge
+        '
+        Me.lblDateAcknowledge.AutoSize = True
+        Me.lblDateAcknowledge.Location = New System.Drawing.Point(-1, 197)
+        Me.lblDateAcknowledge.Name = "lblDateAcknowledge"
+        Me.lblDateAcknowledge.Size = New System.Drawing.Size(78, 13)
+        Me.lblDateAcknowledge.TabIndex = 352
+        Me.lblDateAcknowledge.Text = "Acknowledged"
+        '
+        'txtPermitNumber
+        '
+        Me.txtPermitNumber.Location = New System.Drawing.Point(508, 247)
+        Me.txtPermitNumber.MaxLength = 20
+        Me.txtPermitNumber.Name = "txtPermitNumber"
+        Me.txtPermitNumber.ReadOnly = True
+        Me.txtPermitNumber.Size = New System.Drawing.Size(125, 20)
+        Me.txtPermitNumber.TabIndex = 32
+        '
+        'lblDateReassigned
+        '
+        Me.lblDateReassigned.AutoSize = True
+        Me.lblDateReassigned.Location = New System.Drawing.Point(-1, 173)
+        Me.lblDateReassigned.Name = "lblDateReassigned"
+        Me.lblDateReassigned.Size = New System.Drawing.Size(63, 13)
+        Me.lblDateReassigned.TabIndex = 351
+        Me.lblDateReassigned.Text = "Reassigned"
+        '
+        'cboPermitAction
+        '
+        Me.cboPermitAction.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboPermitAction.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboPermitAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboPermitAction.Enabled = False
+        Me.cboPermitAction.Location = New System.Drawing.Point(508, 274)
+        Me.cboPermitAction.Name = "cboPermitAction"
+        Me.cboPermitAction.Size = New System.Drawing.Size(125, 21)
+        Me.cboPermitAction.TabIndex = 34
+        '
+        'lblDateAssigned
+        '
+        Me.lblDateAssigned.AutoSize = True
+        Me.lblDateAssigned.Location = New System.Drawing.Point(-1, 149)
+        Me.lblDateAssigned.Name = "lblDateAssigned"
+        Me.lblDateAssigned.Size = New System.Drawing.Size(50, 13)
+        Me.lblDateAssigned.TabIndex = 350
+        Me.lblDateAssigned.Text = "Assigned"
+        '
+        'cboPublicAdvisory
+        '
+        Me.cboPublicAdvisory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboPublicAdvisory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboPublicAdvisory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboPublicAdvisory.Enabled = False
+        Me.cboPublicAdvisory.Location = New System.Drawing.Point(79, 222)
+        Me.cboPublicAdvisory.Name = "cboPublicAdvisory"
+        Me.cboPublicAdvisory.Size = New System.Drawing.Size(117, 21)
+        Me.cboPublicAdvisory.TabIndex = 17
+        '
+        'txtFacilityZipCode
+        '
+        Me.txtFacilityZipCode.Location = New System.Drawing.Point(137, 73)
+        Me.txtFacilityZipCode.Name = "txtFacilityZipCode"
+        Me.txtFacilityZipCode.ReadOnly = True
+        Me.txtFacilityZipCode.Size = New System.Drawing.Size(74, 20)
+        Me.txtFacilityZipCode.TabIndex = 3
+        '
+        'txtReasonAppSubmitted
+        '
+        Me.txtReasonAppSubmitted.AcceptsReturn = True
+        Me.txtReasonAppSubmitted.Location = New System.Drawing.Point(18, 315)
+        Me.txtReasonAppSubmitted.Multiline = True
+        Me.txtReasonAppSubmitted.Name = "txtReasonAppSubmitted"
+        Me.txtReasonAppSubmitted.ReadOnly = True
+        Me.txtReasonAppSubmitted.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtReasonAppSubmitted.Size = New System.Drawing.Size(615, 40)
+        Me.txtReasonAppSubmitted.TabIndex = 35
+        '
+        'txtFacilityStreetAddress
+        '
+        Me.txtFacilityStreetAddress.Location = New System.Drawing.Point(3, 49)
+        Me.txtFacilityStreetAddress.Name = "txtFacilityStreetAddress"
+        Me.txtFacilityStreetAddress.ReadOnly = True
+        Me.txtFacilityStreetAddress.Size = New System.Drawing.Size(208, 20)
+        Me.txtFacilityStreetAddress.TabIndex = 1
+        '
+        'txtComments
+        '
+        Me.txtComments.AcceptsReturn = True
+        Me.txtComments.Location = New System.Drawing.Point(18, 374)
+        Me.txtComments.Multiline = True
+        Me.txtComments.Name = "txtComments"
+        Me.txtComments.ReadOnly = True
+        Me.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtComments.Size = New System.Drawing.Size(615, 46)
+        Me.txtComments.TabIndex = 36
+        '
+        'txtSICCode
+        '
+        Me.txtSICCode.Location = New System.Drawing.Point(456, 25)
+        Me.txtSICCode.MaxLength = 4
+        Me.txtSICCode.Name = "txtSICCode"
+        Me.txtSICCode.ReadOnly = True
+        Me.txtSICCode.Size = New System.Drawing.Size(40, 20)
+        Me.txtSICCode.TabIndex = 7
+        '
+        'txtPlantDescription
+        '
+        Me.txtPlantDescription.AcceptsReturn = True
+        Me.txtPlantDescription.Location = New System.Drawing.Point(434, 115)
+        Me.txtPlantDescription.MaxLength = 4000
+        Me.txtPlantDescription.Multiline = True
+        Me.txtPlantDescription.Name = "txtPlantDescription"
+        Me.txtPlantDescription.ReadOnly = True
+        Me.txtPlantDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtPlantDescription.Size = New System.Drawing.Size(199, 53)
+        Me.txtPlantDescription.TabIndex = 28
+        '
+        'Label42
+        '
+        Me.Label42.AutoSize = True
+        Me.Label42.Location = New System.Drawing.Point(380, 29)
+        Me.Label42.Name = "Label42"
+        Me.Label42.Size = New System.Drawing.Size(52, 13)
+        Me.Label42.TabIndex = 333
+        Me.Label42.Text = "SIC Code"
+        '
+        'Label63
+        '
+        Me.Label63.AutoSize = True
+        Me.Label63.Location = New System.Drawing.Point(431, 99)
+        Me.Label63.Name = "Label63"
+        Me.Label63.Size = New System.Drawing.Size(174, 13)
+        Me.Label63.TabIndex = 344
+        Me.Label63.Text = "Plant Description (on Public Notice)"
+        '
+        'lblClassification
+        '
+        Me.lblClassification.AutoSize = True
+        Me.lblClassification.Location = New System.Drawing.Point(380, 75)
+        Me.lblClassification.Name = "lblClassification"
+        Me.lblClassification.Size = New System.Drawing.Size(68, 13)
+        Me.lblClassification.TabIndex = 334
+        Me.lblClassification.Text = "Classification"
+        '
+        'cboOperationalStatus
+        '
+        Me.cboOperationalStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboOperationalStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboOperationalStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboOperationalStatus.Enabled = False
+        Me.cboOperationalStatus.Location = New System.Drawing.Point(456, 49)
+        Me.cboOperationalStatus.Name = "cboOperationalStatus"
+        Me.cboOperationalStatus.Size = New System.Drawing.Size(177, 21)
+        Me.cboOperationalStatus.TabIndex = 10
+        '
+        'cboClassification
+        '
+        Me.cboClassification.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboClassification.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboClassification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboClassification.Enabled = False
+        Me.cboClassification.Location = New System.Drawing.Point(456, 73)
+        Me.cboClassification.Name = "cboClassification"
+        Me.cboClassification.Size = New System.Drawing.Size(177, 21)
+        Me.cboClassification.TabIndex = 11
+        '
+        'lblOperationalStatus
+        '
+        Me.lblOperationalStatus.AutoSize = True
+        Me.lblOperationalStatus.Location = New System.Drawing.Point(380, 51)
+        Me.lblOperationalStatus.Name = "lblOperationalStatus"
+        Me.lblOperationalStatus.Size = New System.Drawing.Size(54, 13)
+        Me.lblOperationalStatus.TabIndex = 335
+        Me.lblOperationalStatus.Text = "Op Status"
         '
         'TCApplicationTrackingLog
         '
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPTrackingLog)
-        Me.TCApplicationTrackingLog.Controls.Add(Me.TPOtherInfo)
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPReviews)
-        Me.TCApplicationTrackingLog.Controls.Add(Me.TPApplicationHistroy)
+        Me.TCApplicationTrackingLog.Controls.Add(Me.TPApplicationHistory)
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPInformationRequests)
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPWebPublisher)
+        Me.TCApplicationTrackingLog.Controls.Add(Me.TPOtherInfo)
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPContactInformation)
-        Me.TCApplicationTrackingLog.Controls.Add(Me.TPPermitUploader)
+        Me.TCApplicationTrackingLog.Controls.Add(Me.TPDocuments)
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPSubPartEditor)
         Me.TCApplicationTrackingLog.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCApplicationTrackingLog.Location = New System.Drawing.Point(0, 109)
+        Me.TCApplicationTrackingLog.Location = New System.Drawing.Point(0, 130)
         Me.TCApplicationTrackingLog.Name = "TCApplicationTrackingLog"
         Me.TCApplicationTrackingLog.SelectedIndex = 0
-        Me.TCApplicationTrackingLog.Size = New System.Drawing.Size(792, 524)
-        Me.TCApplicationTrackingLog.TabIndex = 1
+        Me.TCApplicationTrackingLog.Size = New System.Drawing.Size(792, 503)
+        Me.TCApplicationTrackingLog.TabIndex = 2
         '
         'ToolStrip1
         '
@@ -5811,7 +5683,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
-        Me.ToolStrip1.TabIndex = 2
+        Me.ToolStrip1.TabIndex = 0
         Me.ToolStrip1.Text = "ToolStrip1"
         '
         'SaveButton
@@ -5820,7 +5692,64 @@ Partial Class SSPPApplicationTrackingLog
         Me.SaveButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(51, 22)
-        Me.SaveButton.Text = "Save"
+        Me.SaveButton.Text = "&Save"
+        '
+        'HeaderPanel
+        '
+        Me.HeaderPanel.Controls.Add(Me.txtNewApplicationNumber)
+        Me.HeaderPanel.Controls.Add(Me.btnFetchNewAppNumber)
+        Me.HeaderPanel.Controls.Add(Me.btnRefreshAIRSNo)
+        Me.HeaderPanel.Controls.Add(Me.lblAppNumber)
+        Me.HeaderPanel.Controls.Add(Me.lblLinkWarning)
+        Me.HeaderPanel.Controls.Add(Me.txtOutstandingApplication)
+        Me.HeaderPanel.Controls.Add(Me.rtbFacilityInformation)
+        Me.HeaderPanel.Controls.Add(Me.Label10)
+        Me.HeaderPanel.Controls.Add(Me.txtAIRSNumber)
+        Me.HeaderPanel.Controls.Add(Me.chbClosedOut)
+        Me.HeaderPanel.Controls.Add(Me.cboApplicationType)
+        Me.HeaderPanel.Controls.Add(Me.Label3)
+        Me.HeaderPanel.Controls.Add(Me.Label2)
+        Me.HeaderPanel.Controls.Add(Me.lblApplicationType)
+        Me.HeaderPanel.Controls.Add(Me.cboEngineer)
+        Me.HeaderPanel.Controls.Add(Me.lblApplicationUnit)
+        Me.HeaderPanel.Controls.Add(Me.cboApplicationUnit)
+        Me.HeaderPanel.Controls.Add(Me.lblEngineer)
+        Me.HeaderPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.HeaderPanel.Location = New System.Drawing.Point(0, 25)
+        Me.HeaderPanel.Name = "HeaderPanel"
+        Me.HeaderPanel.Size = New System.Drawing.Size(792, 105)
+        Me.HeaderPanel.TabIndex = 1
+        '
+        'txtNewApplicationNumber
+        '
+        Me.txtNewApplicationNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtNewApplicationNumber.Location = New System.Drawing.Point(146, 3)
+        Me.txtNewApplicationNumber.Name = "txtNewApplicationNumber"
+        Me.txtNewApplicationNumber.Size = New System.Drawing.Size(59, 23)
+        Me.txtNewApplicationNumber.TabIndex = 0
+        Me.txtNewApplicationNumber.Visible = False
+        '
+        'btnFetchNewAppNumber
+        '
+        Me.btnFetchNewAppNumber.AutoSize = True
+        Me.btnFetchNewAppNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnFetchNewAppNumber.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
+        Me.btnFetchNewAppNumber.Location = New System.Drawing.Point(211, 3)
+        Me.btnFetchNewAppNumber.Name = "btnFetchNewAppNumber"
+        Me.btnFetchNewAppNumber.Size = New System.Drawing.Size(22, 22)
+        Me.btnFetchNewAppNumber.TabIndex = 0
+        Me.ToolTip1.SetToolTip(Me.btnFetchNewAppNumber, "Fetch new application number")
+        Me.btnFetchNewAppNumber.UseVisualStyleBackColor = True
+        Me.btnFetchNewAppNumber.Visible = False
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(242, 6)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(97, 13)
+        Me.Label3.TabIndex = 250
+        Me.Label3.Text = "Current Facility Info"
         '
         'SSPPApplicationTrackingLog
         '
@@ -5828,14 +5757,11 @@ Partial Class SSPPApplicationTrackingLog
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(792, 633)
         Me.Controls.Add(Me.TCApplicationTrackingLog)
-        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.HeaderPanel)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Menu = Me.MainMenu1
         Me.MinimumSize = New System.Drawing.Size(808, 671)
         Me.Name = "SSPPApplicationTrackingLog"
         Me.Text = "Application Tracking Log"
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
         Me.TPSubPartEditor.ResumeLayout(False)
         Me.TCSupParts.ResumeLayout(False)
         Me.TPSIP.ResumeLayout(False)
@@ -5890,8 +5816,8 @@ Partial Class SSPPApplicationTrackingLog
         CType(Me.dgvMACTSubPartDelete, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel32.ResumeLayout(False)
         Me.Panel32.PerformLayout()
-        Me.TPPermitUploader.ResumeLayout(False)
-        Me.TPPermitUploader.PerformLayout()
+        Me.TPDocuments.ResumeLayout(False)
+        Me.TPDocuments.PerformLayout()
         Me.PanelTitleV.ResumeLayout(False)
         Me.PanelTitleV.PerformLayout()
         Me.PanelPSD.ResumeLayout(False)
@@ -5905,10 +5831,10 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPWebPublisher.ResumeLayout(False)
         Me.TPWebPublisher.PerformLayout()
         Me.TPInformationRequests.ResumeLayout(False)
-        CType(Me.dgvInformationRequested, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
-        Me.TPApplicationHistroy.ResumeLayout(False)
+        CType(Me.dgvInformationRequested, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TPApplicationHistory.ResumeLayout(False)
         CType(Me.dgvFacilityAppHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
@@ -5927,8 +5853,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.ApplicableRulesGroup.ResumeLayout(False)
         Me.ApplicableRulesGroup.PerformLayout()
         Me.TPTrackingLog.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.TPTrackingLog.PerformLayout()
         Me.GBOther.ResumeLayout(False)
         Me.GBOther.PerformLayout()
         Me.GroupBox7.ResumeLayout(False)
@@ -5938,26 +5863,17 @@ Partial Class SSPPApplicationTrackingLog
         Me.TCApplicationTrackingLog.ResumeLayout(False)
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
+        Me.HeaderPanel.ResumeLayout(False)
+        Me.HeaderPanel.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MmiFile As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiNewApplication As System.Windows.Forms.MenuItem
-    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents lblLinkWarning As System.Windows.Forms.Label
     Friend WithEvents rtbFacilityInformation As System.Windows.Forms.RichTextBox
     Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
-    Friend WithEvents DTPFinalizedDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents txtApplicationNumber As System.Windows.Forms.TextBox
+    Friend WithEvents lblAppNumber As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents lblApplicationUnit As System.Windows.Forms.Label
     Friend WithEvents lblEngineer As System.Windows.Forms.Label
     Friend WithEvents cboApplicationUnit As System.Windows.Forms.ComboBox
@@ -5967,7 +5883,6 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents chbClosedOut As System.Windows.Forms.CheckBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents txtOutstandingApplication As System.Windows.Forms.TextBox
-    Friend WithEvents btnRefreshAppNo As System.Windows.Forms.Button
     Friend WithEvents btnRefreshAIRSNo As System.Windows.Forms.Button
     Friend WithEvents TPSubPartEditor As System.Windows.Forms.TabPage
     Friend WithEvents TCSupParts As System.Windows.Forms.TabControl
@@ -5976,7 +5891,7 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents TPPart60 As System.Windows.Forms.TabPage
     Friend WithEvents TPPart61 As System.Windows.Forms.TabPage
     Friend WithEvents TPPart63 As System.Windows.Forms.TabPage
-    Friend WithEvents TPPermitUploader As System.Windows.Forms.TabPage
+    Friend WithEvents TPDocuments As System.Windows.Forms.TabPage
     Friend WithEvents PanelPSD As System.Windows.Forms.Panel
     Friend WithEvents btnPSDNarrativeDownload As System.Windows.Forms.Button
     Friend WithEvents lblPSDNarrativeDUPDF As System.Windows.Forms.Label
@@ -6155,7 +6070,6 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents lblInformationReceived As System.Windows.Forms.Label
     Friend WithEvents lblInformationRequested As System.Windows.Forms.Label
-    Friend WithEvents btnViewInformationRequests As System.Windows.Forms.Button
     Friend WithEvents btnDeleteInformationRequest As System.Windows.Forms.Button
     Friend WithEvents btnClearInformationRequest As System.Windows.Forms.Button
     Friend WithEvents txtInformationRequestedKey As System.Windows.Forms.TextBox
@@ -6166,13 +6080,11 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents DTPInformationReceived As System.Windows.Forms.DateTimePicker
     Friend WithEvents DTPInformationRequested As System.Windows.Forms.DateTimePicker
-    Friend WithEvents TPApplicationHistroy As System.Windows.Forms.TabPage
+    Friend WithEvents TPApplicationHistory As System.Windows.Forms.TabPage
     Friend WithEvents dgvFacilityAppHistory As System.Windows.Forms.DataGridView
     Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
-    Friend WithEvents btnLoadFacilityApplicationHistory As System.Windows.Forms.Button
     Friend WithEvents txtApplicationCount As System.Windows.Forms.TextBox
     Friend WithEvents txtMasterAppLock As System.Windows.Forms.TextBox
-    Friend WithEvents btnClearList As System.Windows.Forms.Button
     Friend WithEvents btnClearLinks As System.Windows.Forms.Button
     Friend WithEvents btnLinkApplications As System.Windows.Forms.Button
     Friend WithEvents btnAddApplicationToList As System.Windows.Forms.Button
@@ -6234,7 +6146,6 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents chbNAANSR As System.Windows.Forms.CheckBox
     Friend WithEvents chbPSD As System.Windows.Forms.CheckBox
     Friend WithEvents TPTrackingLog As System.Windows.Forms.TabPage
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents llbPermitNumber As System.Windows.Forms.LinkLabel
     Friend WithEvents lblPAReady As System.Windows.Forms.Label
     Friend WithEvents lblPNReady As System.Windows.Forms.Label
@@ -6424,4 +6335,10 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents SaveButton As System.Windows.Forms.ToolStripButton
     Friend WithEvents chbFederallyOwned As CheckBox
+    Friend WithEvents HeaderPanel As Panel
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents txtNewApplicationNumber As TextBox
+    Friend WithEvents btnFetchNewAppNumber As Button
 End Class
