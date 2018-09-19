@@ -1142,7 +1142,9 @@ Public Class SSCPEmissionSummaryTool
                     dgvEIResults.Columns("PMFIL").DisplayIndex = 12
 
                 Else
-                    SQL = "SELECT ROW_NUMBER() OVER(ORDER BY ViewList.FacilitySiteID) AS EIRows, ViewList.FacilitySiteID AS AIRSNumber, APBFacilityInformation.STRFACILITYNAME AS FacilityName, SO2Sum.SO2, NOXSum.NOX, VOCSum.VOC, COSum.CO, NH3Sum.NH3, LEADSum.LEAD, PM25FILSum.PMFIL, PM10FILSum.PM10FIL, PM10PRISum.PM10PRI, PM25PRISum.PM25PRI, PMCONSum.PMCON
+                    SQL = "SELECT ROW_NUMBER() OVER(ORDER BY ViewList.FacilitySiteID) AS EIRows, ViewList.FacilitySiteID AS AIRSNumber, 
+                        APBFacilityInformation.STRFACILITYNAME AS FacilityName, SO2Sum.SO2, NOXSum.NOX, VOCSum.VOC, COSum.CO, NH3Sum.NH3, 
+                        LEADSum.LEAD, PM25FILSum.PMFIL, PM10FILSum.PM10FIL, PM10PRISum.PM10PRI, PM25PRISum.PM25PRI, PMCONSum.PMCON
                         FROM (SELECT DISTINCT
                         VW_EIS_RPEMISSIONS.FACILITYSITEID AS FacilitySiteID
                         FROM VW_EIS_RPEMISSIONS
@@ -1150,7 +1152,7 @@ Public Class SSCPEmissionSummaryTool
                         LEFT JOIN (SELECT VW_EIS_RPEMISSIONS.FACILITYSITEID, SUM(VW_EIS_RPEMISSIONS.FLTTOTALEMISSIONS) AS NOX
                         FROM VW_EIS_RPEMISSIONS
                         WHERE VW_EIS_RPEMISSIONS.INTINVENTORYYEAR = @year AND VW_EIS_RPEMISSIONS.POLLUTANTCODE = 'NOX'
-                        GROUP BY VW_EIS_RPEMISSIONS.FACILITYSITEID) AS NOXSum ON ViewList.FacilitySiteID = NOXSum.FACILITYSITEID AND ViewList.FacilitySiteID = NOXSum.NOX
+                        GROUP BY VW_EIS_RPEMISSIONS.FACILITYSITEID) AS NOXSum ON ViewList.FacilitySiteID = NOXSum.FACILITYSITEID 
                         LEFT JOIN (SELECT VW_EIS_RPEMISSIONS.FACILITYSITEID, SUM(VW_EIS_RPEMISSIONS.FLTTOTALEMISSIONS) AS SO2
                         FROM VW_EIS_RPEMISSIONS
                         WHERE VW_EIS_RPEMISSIONS.INTINVENTORYYEAR = @year AND VW_EIS_RPEMISSIONS.POLLUTANTCODE = 'SO2'
