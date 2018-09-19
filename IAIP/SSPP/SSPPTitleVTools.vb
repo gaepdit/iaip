@@ -566,7 +566,7 @@ Public Class SSPPTitleVTools
                 End If
 
                 If AIRSNumber <> "" Then
-                    temp = ApplicationNumber & "  " & AIRSNumber & "  " & FacilityName.Substring(0, Math.Min(FacilityName.Length, 40)).PadRight(40)
+                    temp = ApplicationNumber & "  " & AIRSNumber & "  " & FacilityName.Truncate(40).PadRight(40)
                     temp = temp & "  ( " & PermitNumber & " ) " & " " & DateIssued & "  " & EffectiveDate
 
                     If clbTitleVRenewals.Items.Contains(temp) Then

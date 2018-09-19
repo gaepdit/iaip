@@ -4129,7 +4129,7 @@ Public Class IAIPQueryGenerator
 
     Private Sub LogQuery()
         If SubmittedQuery.Key.Length > 4000 Then
-            SubmittedQuery = New KeyValuePair(Of String, Integer)("-- Truncated: " & Me.SubmittedQuery.Key.Substring(0, 3985), Me.SubmittedQuery.Value)
+            SubmittedQuery = New KeyValuePair(Of String, Integer)("-- Truncated: " & Me.SubmittedQuery.Key.Truncate(3985), Me.SubmittedQuery.Value)
         End If
 
         DAL.LogQuery(SubmittedQuery)
