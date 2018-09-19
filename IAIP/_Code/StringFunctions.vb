@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports System.Runtime.CompilerServices
 Imports System.Text.RegularExpressions
 
 Public Module StringFunctions
@@ -66,6 +67,15 @@ Public Module StringFunctions
         Else
             Return s
         End If
+    End Function
+
+    <Extension>
+    Public Function Truncate(value As String, maxLength As Integer) As String
+        If String.IsNullOrEmpty(value) Then
+            Return value
+        End If
+
+        Return value.Substring(0, Math.Min(maxLength, value.Length))
     End Function
 
 End Module

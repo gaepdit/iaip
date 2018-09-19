@@ -1,4 +1,4 @@
-Imports System.Collections.Generic
+﻿Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Data.SqlTypes
 Imports System.Linq
@@ -5997,7 +5997,7 @@ Public Class EisTool
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@Inventory_Year", CInt(cboEISStatisticsYear.Text)),
-                New SqlParameter("@User", CurrentUser.EmailAddress.Substring(0, 50))
+                New SqlParameter("@User", CurrentUser.EmailAddress.Truncate(50))
             }
 
             If facList IsNot Nothing AndAlso facList.Any() Then
