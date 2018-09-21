@@ -217,7 +217,7 @@ Public Class SSPPApplicationTrackingLog
                 "FROM LOOKUPPERMITTYPES " &
                 "WHERE STRTYPEUSED <> 'False' OR STRTYPEUSED IS NULL " &
                 "UNION " &
-                "SELECT ' ', ' ' ORDER BY STRPERMITTYPEDESCRIPTION"
+                "SELECT '', ' ' ORDER BY STRPERMITTYPEDESCRIPTION"
             Dim dtPermitType As DataTable = DB.GetDataTable(query)
             With cboPermitAction
                 .DataSource = dtPermitType
@@ -3401,22 +3401,21 @@ Public Class SSPPApplicationTrackingLog
                     cboPermitAction.SelectedIndex = 0
                 Else
                     cboPermitAction.SelectedValue = dr.Item("strPermitType")
-                    If cboPermitAction.SelectedValue Is Nothing Then
-                        temp = dr.Item("strPermitType")
-                        Select Case temp
-                            Case 1
+                    If String.IsNullOrEmpty(cboPermitAction.SelectedValue.ToString) Then
+                        Select Case dr.Item("strPermitType").ToString
+                            Case "1"
                                 cboPermitAction.Text = "Amendment"
-                            Case 3
+                            Case "3"
                                 cboPermitAction.Text = "Draft"
-                            Case 4
+                            Case "4"
                                 cboPermitAction.Text = "New Permit"
-                            Case 8
+                            Case "8"
                                 cboPermitAction.Text = "PRMT-DNL"
-                            Case 10
+                            Case "10"
                                 cboPermitAction.Text = "Revoked"
-                            Case 12
+                            Case "12"
                                 cboPermitAction.Text = "Initial Title V Permit"
-                            Case 13
+                            Case "13"
                                 cboPermitAction.Text = "Renewal Title V Permit"
                         End Select
                     End If
@@ -4629,7 +4628,7 @@ Public Class SSPPApplicationTrackingLog
             If cboPermitAction.Text <> "" Then
                 PermitType = cboPermitAction.SelectedValue.ToString
 
-                If cboPermitAction.SelectedValue Is Nothing Then
+                If String.IsNullOrEmpty(cboPermitAction.SelectedValue) Then
                     Select Case cboPermitAction.Text
                         Case "Amendment"
                             PermitType = "1"
@@ -7163,8 +7162,8 @@ Public Class SSPPApplicationTrackingLog
                     SaveApplicationContact()
 
                     If DTPFinalAction.Checked And chbClosedOut.Checked And AirsId IsNot Nothing Then
-                        Select Case CInt(cboPermitAction.SelectedValue)
-                            Case 1, 4, 5, 7, 10, 12, 13
+                        Select Case cboPermitAction.SelectedValue.ToString
+                            Case "1", "4", "5", "7", "10", "12", "13"
                                 ' Note that of these, only 5, 7, & 10 are currently active types - DW
                                 '
                                 ' Active types selected here:
