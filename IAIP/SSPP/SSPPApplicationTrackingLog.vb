@@ -87,39 +87,66 @@ Public Class SSPPApplicationTrackingLog
         DTPDateSent.Value = Today
         DTPDateReceived.Value = Today
         DTPDateAssigned.Value = Today
+        DTPDateAssigned.Checked = False
         DTPDateReassigned.Value = Today
+        DTPDateReassigned.Checked = False
         DTPDateAcknowledge.Value = Today
+        DTPDateAcknowledge.Checked = False
         DTPDatePAExpires.Value = Today
+        DTPDatePAExpires.Checked = False
         DTPDateToUC.Value = Today
+        DTPDateToUC.Checked = False
         DTPDateToPM.Value = Today
+        DTPDateToPM.Checked = False
         DTPDraftIssued.Value = Today
+        DTPDraftIssued.Checked = False
         DTPDatePNExpires.Value = Today
+        DTPDatePNExpires.Checked = False
         DTPEPAWaived.Value = Today
+        DTPEPAWaived.Checked = False
         DTPEPAEnds.Value = Today
+        DTPEPAEnds.Checked = False
         DTPDateToBC.Value = Today
+        DTPDateToBC.Checked = False
         DTPDateToDO.Value = Today
+        DTPDateToDO.Checked = False
         DTPFinalAction.Value = Today
+        DTPFinalAction.Checked = False
         DTPDeadline.Value = Today
+        DTPDeadline.Checked = False
         chbFederallyOwned.Checked = False
 
         'ISMP and SSCP Reviews Tab
         DTPReviewSubmitted.Value = Today
+        DTPReviewSubmitted.Checked = False
         DTPISMPReview.Value = Today
+        DTPISMPReview.Checked = False
         DTPSSCPReview.Value = Today
+        DTPSSCPReview.Checked = False
 
         'Information Requested Tab
         DTPInformationRequested.Value = Today
+        DTPInformationRequested.Checked = False
         DTPInformationReceived.Value = Today
+        DTPInformationReceived.Checked = False
 
         'Web Publisher Tab
         DTPNotifiedAppReceived.Value = Today
+        DTPNotifiedAppReceived.Checked = False
         DTPDraftOnWeb.Value = Today
+        DTPDraftOnWeb.Checked = False
         DTPEPAStatesNotified.Value = Today
+        DTPEPAStatesNotified.Checked = False
         DTPFinalOnWeb.Value = Today
+        DTPFinalOnWeb.Checked = False
         DTPEPANotifiedPermitOnWeb.Value = Today
+        DTPEPANotifiedPermitOnWeb.Checked = False
         DTPEffectiveDateofPermit.Value = Today
+        DTPEffectiveDateofPermit.Checked = False
         DTPExperationDate.Value = Today
+        DTPExperationDate.Checked = False
         DTPPNExpires.Value = Today
+        DTPPNExpires.Checked = False
     End Sub
 
     Private Sub LoadComboBoxes()
@@ -217,7 +244,7 @@ Public Class SSPPApplicationTrackingLog
                 "FROM LOOKUPPERMITTYPES " &
                 "WHERE STRTYPEUSED <> 'False' OR STRTYPEUSED IS NULL " &
                 "UNION " &
-                "SELECT ' ', ' ' ORDER BY STRPERMITTYPEDESCRIPTION"
+                "SELECT '', ' ' ORDER BY STRPERMITTYPEDESCRIPTION"
             Dim dtPermitType As DataTable = DB.GetDataTable(query)
             With cboPermitAction
                 .DataSource = dtPermitType
@@ -3401,22 +3428,21 @@ Public Class SSPPApplicationTrackingLog
                     cboPermitAction.SelectedIndex = 0
                 Else
                     cboPermitAction.SelectedValue = dr.Item("strPermitType")
-                    If cboPermitAction.SelectedValue Is Nothing Then
-                        temp = dr.Item("strPermitType")
-                        Select Case temp
-                            Case 1
+                    If String.IsNullOrEmpty(cboPermitAction.SelectedValue.ToString) Then
+                        Select Case dr.Item("strPermitType").ToString
+                            Case "1"
                                 cboPermitAction.Text = "Amendment"
-                            Case 3
+                            Case "3"
                                 cboPermitAction.Text = "Draft"
-                            Case 4
+                            Case "4"
                                 cboPermitAction.Text = "New Permit"
-                            Case 8
+                            Case "8"
                                 cboPermitAction.Text = "PRMT-DNL"
-                            Case 10
+                            Case "10"
                                 cboPermitAction.Text = "Revoked"
-                            Case 12
+                            Case "12"
                                 cboPermitAction.Text = "Initial Title V Permit"
-                            Case 13
+                            Case "13"
                                 cboPermitAction.Text = "Renewal Title V Permit"
                         End Select
                     End If
@@ -4629,7 +4655,7 @@ Public Class SSPPApplicationTrackingLog
             If cboPermitAction.Text <> "" Then
                 PermitType = cboPermitAction.SelectedValue.ToString
 
-                If cboPermitAction.SelectedValue Is Nothing Then
+                If String.IsNullOrEmpty(cboPermitAction.SelectedValue) Then
                     Select Case cboPermitAction.Text
                         Case "Amendment"
                             PermitType = "1"
@@ -7163,8 +7189,8 @@ Public Class SSPPApplicationTrackingLog
                     SaveApplicationContact()
 
                     If DTPFinalAction.Checked And chbClosedOut.Checked And AirsId IsNot Nothing Then
-                        Select Case CInt(cboPermitAction.SelectedValue)
-                            Case 1, 4, 5, 7, 10, 12, 13
+                        Select Case cboPermitAction.SelectedValue.ToString
+                            Case "1", "4", "5", "7", "10", "12", "13"
                                 ' Note that of these, only 5, 7, & 10 are currently active types - DW
                                 '
                                 ' Active types selected here:

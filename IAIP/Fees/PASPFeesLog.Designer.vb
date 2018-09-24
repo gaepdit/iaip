@@ -397,7 +397,7 @@ Partial Class PASPFeesLog
         Me.cbYear.Location = New System.Drawing.Point(63, 62)
         Me.cbYear.Name = "cbYear"
         Me.cbYear.Size = New System.Drawing.Size(64, 21)
-        Me.cbYear.TabIndex = 7
+        Me.cbYear.TabIndex = 1
         '
         'TopPanel
         '
