@@ -87,39 +87,66 @@ Public Class SSPPApplicationTrackingLog
         DTPDateSent.Value = Today
         DTPDateReceived.Value = Today
         DTPDateAssigned.Value = Today
+        DTPDateAssigned.Checked = False
         DTPDateReassigned.Value = Today
+        DTPDateReassigned.Checked = False
         DTPDateAcknowledge.Value = Today
+        DTPDateAcknowledge.Checked = False
         DTPDatePAExpires.Value = Today
+        DTPDatePAExpires.Checked = False
         DTPDateToUC.Value = Today
+        DTPDateToUC.Checked = False
         DTPDateToPM.Value = Today
+        DTPDateToPM.Checked = False
         DTPDraftIssued.Value = Today
+        DTPDraftIssued.Checked = False
         DTPDatePNExpires.Value = Today
+        DTPDatePNExpires.Checked = False
         DTPEPAWaived.Value = Today
+        DTPEPAWaived.Checked = False
         DTPEPAEnds.Value = Today
+        DTPEPAEnds.Checked = False
         DTPDateToBC.Value = Today
+        DTPDateToBC.Checked = False
         DTPDateToDO.Value = Today
+        DTPDateToDO.Checked = False
         DTPFinalAction.Value = Today
+        DTPFinalAction.Checked = False
         DTPDeadline.Value = Today
+        DTPDeadline.Checked = False
         chbFederallyOwned.Checked = False
 
         'ISMP and SSCP Reviews Tab
         DTPReviewSubmitted.Value = Today
+        DTPReviewSubmitted.Checked = False
         DTPISMPReview.Value = Today
+        DTPISMPReview.Checked = False
         DTPSSCPReview.Value = Today
+        DTPSSCPReview.Checked = False
 
         'Information Requested Tab
         DTPInformationRequested.Value = Today
+        DTPInformationRequested.Checked = False
         DTPInformationReceived.Value = Today
+        DTPInformationReceived.Checked = False
 
         'Web Publisher Tab
         DTPNotifiedAppReceived.Value = Today
+        DTPNotifiedAppReceived.Checked = False
         DTPDraftOnWeb.Value = Today
+        DTPDraftOnWeb.Checked = False
         DTPEPAStatesNotified.Value = Today
+        DTPEPAStatesNotified.Checked = False
         DTPFinalOnWeb.Value = Today
+        DTPFinalOnWeb.Checked = False
         DTPEPANotifiedPermitOnWeb.Value = Today
+        DTPEPANotifiedPermitOnWeb.Checked = False
         DTPEffectiveDateofPermit.Value = Today
+        DTPEffectiveDateofPermit.Checked = False
         DTPExperationDate.Value = Today
+        DTPExperationDate.Checked = False
         DTPPNExpires.Value = Today
+        DTPPNExpires.Checked = False
     End Sub
 
     Private Sub LoadComboBoxes()
