@@ -59,6 +59,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\ReverseComparerTests.cs" />
+    <Compile Include="Classes\TemporalCollection.cs" />
     <Compile Include="Models\ApbFacilityIdTest.cs" />
     <Compile Include="UnitTestTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

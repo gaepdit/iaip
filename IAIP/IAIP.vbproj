@@ -234,9 +234,11 @@
     <Compile Include="_Code\BooleanConvert.vb" />
     <Compile Include="_Code\DateFunctions.vb" />
     <Compile Include="_Code\OSVersion.vb" />
+    <Compile Include="_Code\ReverseComparer.vb" />
     <Compile Include="_Code\SavedSession.vb" />
     <Compile Include="_Code\SaveFile.vb" />
     <Compile Include="_Code\StringFunctions.vb" />
+    <Compile Include="_Code\TemporalCollection.vb" />
     <Compile Include="_Code\UrlHandler.vb" />
     <Compile Include="_Controls\AirNumberEntryForm.Designer.vb">
       <DependentUpon>AirNumberEntryForm.vb</DependentUpon>
