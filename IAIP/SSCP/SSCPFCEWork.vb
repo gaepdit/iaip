@@ -1262,20 +1262,22 @@ Public Class SSCPFCEWork
                 Dim FCENumber As Integer
                 Dim FCECompleteDate As Date = DTPFCECompleteDate.Value
                 Dim FCEComments As String = ""
+
                 If txtFCEComments.Text = "" Then
                     FCEComments = "N/A"
                 Else
                     FCEComments = txtFCEComments.Text
                 End If
-                Dim StaffResponsible As Integer = cboReviewer.SelectedValue
+
+                Dim StaffResponsible As Integer = CInt(cboReviewer.SelectedValue)
                 Dim FCEOnSite As String = rdbFCEOnSite.Checked.ToString
                 Dim FCEYear As String = cboFCEYear.Text
 
                 If txtFCENumber.Text = "" Then
-                    SQL = "select MAX(STRFCENUMBER) from AFSSSCPFCERECORDS"
+                    SQL = "select MAX(STRFCENUMBER) from SSCPFCEMASTER"
                     FCENumber = DB.GetInteger(SQL) + 1
 
-                    sqlList.Add("Insert into SSCPFCEMaster " &
+                    sqlList.Add("Insert into SSCPFCEMASTER " &
                         "(strFCENumber, strAIRSNumber, " &
                         "strModifingPerson, datModifingDate) " &
                         "values " &
@@ -1380,7 +1382,7 @@ Public Class SSCPFCEWork
 
                 LoadFCEDataset()
                 FillFCEData()
-                txtFCENumber.Text = FCENumber
+                txtFCENumber.Text = FCENumber.ToString
                 MsgBox("FCE Saved", MsgBoxStyle.Information, "Full Compliance Evaluation")
             End If
         Catch ex As Exception
