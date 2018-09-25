@@ -2,6 +2,33 @@
 
 *Previously:* [2017](changelog-2017.html) | [2016](changelog-2016.html) | [2015](changelog-2015.html) | [2014](changelog-2014.html) | [2013](changelog-2013.html)
 
+## Version 5.10.2 <span>(2018-9-25)</span>
+
+Bug fixes.
+
+## Version 5.10.1 <span>(2018-9-24)</span>
+
+Bug fixes.
+
+## Version 5.10.0 <span>(2018-9-20)</span>
+
+How would you like to be able to open more than one permit application at a time? Of course you would. Well now you can!
+
+## Version 5.9.1 <span>(2018-9-19)</span>
+
+Bug fixes.
+
+## Version 5.9.1 <span>(2018-9-13)</span>
+
+Bug fixes.
+
+## Version 5.9.0 <span>(2018-09-12)</span>
+
+* Added the ability to track federal ownership of facilities.
+* Deleted FCEs will be retained and can be undeleted if needed.
+* Deleted enforcement actions will be retained and remain viewable for auditing purposes.
+* Bug fixes.
+
 ## Version 5.8.3 <span>(2018-8-21)</span>
 
 Bug fixes.
