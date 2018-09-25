@@ -3424,27 +3424,36 @@ Public Class SSPPApplicationTrackingLog
                 Else
                     cboApplicationType.SelectedValue = dr.Item("strApplicationType")
                 End If
-                If IsDBNull(dr.Item("strPermitType")) Then
+                If IsDBNull(dr.Item("strPermitType")) OrElse String.IsNullOrWhiteSpace(dr.Item("strPermitType").ToString) Then
                     cboPermitAction.SelectedIndex = 0
                 Else
-                    cboPermitAction.SelectedValue = dr.Item("strPermitType")
-                    If String.IsNullOrEmpty(cboPermitAction.SelectedValue.ToString) Then
+                    cboPermitAction.SelectedValue = dr.Item("strPermitType").ToString
+
+                    If cboPermitAction.SelectedValue Is Nothing OrElse String.IsNullOrEmpty(cboPermitAction.SelectedValue.ToString) Then
+                        Dim dt As DataTable = CType(cboPermitAction.DataSource, DataTable)
+                        Dim newRow As DataRow = dt.NewRow
+                        newRow.Item("STRPERMITTYPECODE") = dr.Item("strPermitType").ToString
+
                         Select Case dr.Item("strPermitType").ToString
                             Case "1"
-                                cboPermitAction.Text = "Amendment"
+                                newRow.Item("STRPERMITTYPEDESCRIPTION") = "Amendment"
                             Case "3"
-                                cboPermitAction.Text = "Draft"
+                                newRow.Item("STRPERMITTYPEDESCRIPTION") = "Draft"
                             Case "4"
-                                cboPermitAction.Text = "New Permit"
+                                newRow.Item("STRPERMITTYPEDESCRIPTION") = "New Permit"
                             Case "8"
-                                cboPermitAction.Text = "PRMT-DNL"
+                                newRow.Item("STRPERMITTYPEDESCRIPTION") = "PRMT-DNL"
                             Case "10"
-                                cboPermitAction.Text = "Revoked"
+                                newRow.Item("STRPERMITTYPEDESCRIPTION") = "Revoked"
                             Case "12"
-                                cboPermitAction.Text = "Initial Title V Permit"
+                                newRow.Item("STRPERMITTYPEDESCRIPTION") = "Initial Title V Permit"
                             Case "13"
-                                cboPermitAction.Text = "Renewal Title V Permit"
+                                newRow.Item("STRPERMITTYPEDESCRIPTION") = "Renewal Title V Permit"
                         End Select
+
+                        dt.Rows.Add(newRow)
+
+                        cboPermitAction.SelectedValue = dr.Item("strPermitType").ToString
                     End If
                 End If
                 If IsDBNull(dr.Item("APBUnit")) Then
@@ -4652,27 +4661,8 @@ Public Class SSPPApplicationTrackingLog
                 ApplicationType = cboApplicationType.SelectedValue.ToString
             End If
 
-            If cboPermitAction.Text <> "" Then
+            If Not String.IsNullOrWhiteSpace(cboPermitAction.Text) Then
                 PermitType = cboPermitAction.SelectedValue.ToString
-
-                If String.IsNullOrEmpty(cboPermitAction.SelectedValue) Then
-                    Select Case cboPermitAction.Text
-                        Case "Amendment"
-                            PermitType = "1"
-                        Case "Draft"
-                            PermitType = "3"
-                        Case "New Permit"
-                            PermitType = "4"
-                        Case "PRMT-DNL"
-                            PermitType = "8"
-                        Case "Revoked"
-                            PermitType = "10"
-                        Case "Initial Title V Permit"
-                            PermitType = "12"
-                        Case "Renewal Title V Permit"
-                            PermitType = "13"
-                    End Select
-                End If
             End If
 
             If cboApplicationUnit.Text <> "" Then
