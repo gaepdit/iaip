@@ -80,7 +80,6 @@ Partial Class PASPFeeManagement
         Me.btnSelectAllForms = New System.Windows.Forms.Button()
         Me.Label109 = New System.Windows.Forms.Label()
         Me.btnUnselectForm = New System.Windows.Forms.Button()
-        Me.btnUnselectAllForms = New System.Windows.Forms.Button()
         Me.btnUpdateNSPSbyYear = New System.Windows.Forms.Button()
         Me.btnViewNSPSExemptionsByYear = New System.Windows.Forms.Button()
         Me.dgvNSPSExemptionsByYear = New System.Windows.Forms.DataGridView()
@@ -670,7 +669,6 @@ Partial Class PASPFeeManagement
         Me.pnlNSPSExemptions.Controls.Add(Me.Panel14)
         Me.pnlNSPSExemptions.Controls.Add(Me.Label109)
         Me.pnlNSPSExemptions.Controls.Add(Me.btnUnselectForm)
-        Me.pnlNSPSExemptions.Controls.Add(Me.btnUnselectAllForms)
         Me.pnlNSPSExemptions.Controls.Add(Me.btnUpdateNSPSbyYear)
         Me.pnlNSPSExemptions.Controls.Add(Me.btnViewNSPSExemptionsByYear)
         Me.pnlNSPSExemptions.Controls.Add(Me.dgvNSPSExemptionsByYear)
@@ -767,18 +765,6 @@ Partial Class PASPFeeManagement
         Me.btnUnselectForm.TabIndex = 410
         Me.btnUnselectForm.Text = "Remove Selected Row"
         Me.btnUnselectForm.UseVisualStyleBackColor = True
-        '
-        'btnUnselectAllForms
-        '
-        Me.btnUnselectAllForms.AutoSize = True
-        Me.btnUnselectAllForms.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUnselectAllForms.Location = New System.Drawing.Point(609, 8)
-        Me.btnUnselectAllForms.Name = "btnUnselectAllForms"
-        Me.btnUnselectAllForms.Size = New System.Drawing.Size(90, 23)
-        Me.btnUnselectAllForms.TabIndex = 411
-        Me.btnUnselectAllForms.Text = "Clear Entire List"
-        Me.btnUnselectAllForms.UseVisualStyleBackColor = True
-        Me.btnUnselectAllForms.Visible = False
         '
         'btnUpdateNSPSbyYear
         '
@@ -1317,7 +1303,6 @@ Partial Class PASPFeeManagement
     Friend WithEvents Label107 As System.Windows.Forms.Label
     Friend WithEvents Label109 As System.Windows.Forms.Label
     Friend WithEvents btnUnselectForm As System.Windows.Forms.Button
-    Friend WithEvents btnUnselectAllForms As System.Windows.Forms.Button
     Friend WithEvents btnUpdateNSPSbyYear As System.Windows.Forms.Button
     Friend WithEvents btnViewNSPSExemptionsByYear As System.Windows.Forms.Button
     Friend WithEvents dgvNSPSExemptionsByYear As System.Windows.Forms.DataGridView
