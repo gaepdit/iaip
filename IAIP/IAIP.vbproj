@@ -460,10 +460,10 @@
     <Compile Include="_Code\ListViewItemComparer.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Fees\PASPFeeStatistics.Designer.vb">
+    <Compile Include="EmissionsFees\PASPFeeStatistics.Designer.vb">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </Compile>
-    <Compile Include="Fees\PASPFeeStatistics.vb">
+    <Compile Include="EmissionsFees\PASPFeeStatistics.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Crystal Reports\Fees\crFS_Invoice.vb">
@@ -598,10 +598,10 @@
     <Compile Include="ISMP\SubPages\ISMPStaffReports.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fees\PASPFeeAuditLog.Designer.vb">
+    <Compile Include="EmissionsFees\PASPFeeAuditLog.Designer.vb">
       <DependentUpon>PASPFeeAuditLog.vb</DependentUpon>
     </Compile>
-    <Compile Include="Fees\PASPFeeAuditLog.vb">
+    <Compile Include="EmissionsFees\PASPFeeAuditLog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MASP\MASPRegistrationTool.Designer.vb">
@@ -610,22 +610,22 @@
     <Compile Include="MASP\MASPRegistrationTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fees\PASPDepositsAmendments.Designer.vb">
+    <Compile Include="EmissionsFees\PASPDepositsAmendments.Designer.vb">
       <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
     </Compile>
-    <Compile Include="Fees\PASPDepositsAmendments.vb">
+    <Compile Include="EmissionsFees\PASPDepositsAmendments.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fees\PASPFeeManagement.Designer.vb">
+    <Compile Include="EmissionsFees\PASPFeeManagement.Designer.vb">
       <DependentUpon>PASPFeeManagement.vb</DependentUpon>
     </Compile>
-    <Compile Include="Fees\PASPFeeManagement.vb">
+    <Compile Include="EmissionsFees\PASPFeeManagement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fees\PASPFeesLog.Designer.vb">
+    <Compile Include="EmissionsFees\PASPFeesLog.Designer.vb">
       <DependentUpon>PASPFeesLog.vb</DependentUpon>
     </Compile>
-    <Compile Include="Fees\PASPFeesLog.vb">
+    <Compile Include="EmissionsFees\PASPFeesLog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ISMP\ISMPTestReports.Designer.vb">
@@ -1073,7 +1073,7 @@
     <EmbeddedResource Include="DMU\DmuEdtErrorMessages.resx">
       <DependentUpon>DmuEdtErrorMessages.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeeStatistics.resx">
+    <EmbeddedResource Include="EmissionsFees\PASPFeeStatistics.resx">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\SBEAPCaseLog.resx">
@@ -1191,19 +1191,19 @@
     <EmbeddedResource Include="ISMP\SubPages\ISMPStaffReports.resx">
       <DependentUpon>ISMPStaffReports.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeeAuditLog.resx">
+    <EmbeddedResource Include="EmissionsFees\PASPFeeAuditLog.resx">
       <DependentUpon>PASPFeeAuditLog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MASP\MASPRegistrationTool.resx">
       <DependentUpon>MASPRegistrationTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPDepositsAmendments.resx">
+    <EmbeddedResource Include="EmissionsFees\PASPDepositsAmendments.resx">
       <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeeManagement.resx">
+    <EmbeddedResource Include="EmissionsFees\PASPFeeManagement.resx">
       <DependentUpon>PASPFeeManagement.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeesLog.resx">
+    <EmbeddedResource Include="EmissionsFees\PASPFeesLog.resx">
       <DependentUpon>PASPFeesLog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ISMP\ISMPTestReports.resx">
@@ -1700,7 +1700,10 @@
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ApplicationFees\" />
+    <Folder Include="Finance\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
     <PreBuildEvent>
