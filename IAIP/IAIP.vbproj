@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -794,10 +794,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
-    <Compile Include="SSCP\SSCPEmissionSummaryTool.Designer.vb">
-      <DependentUpon>SSCPEmissionSummaryTool.vb</DependentUpon>
+    <Compile Include="EIS\EisEmissionSummaryTool.Designer.vb">
+      <DependentUpon>EisEmissionSummaryTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="SSCP\SSCPEmissionSummaryTool.vb">
+    <Compile Include="EIS\EisEmissionSummaryTool.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SSCP\SSCPManagersTools.Designer.vb">
@@ -1333,9 +1333,9 @@
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SSCPEmissionSummaryTool.resx">
+    <EmbeddedResource Include="EIS\EisEmissionSummaryTool.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>SSCPEmissionSummaryTool.vb</DependentUpon>
+      <DependentUpon>EisEmissionSummaryTool.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SSCPManagersTools.resx">
       <SubType>Designer</SubType>
