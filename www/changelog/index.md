@@ -2,6 +2,10 @@
 
 *Previously:* [2017](changelog-2017.html) | [2016](changelog-2016.html) | [2015](changelog-2015.html) | [2014](changelog-2014.html) | [2013](changelog-2013.html)
 
+## Version 5.10.3 <span>(2018-10-2)</span>
+
+Bug fixes.
+
 ## Version 5.10.2 <span>(2018-9-25)</span>
 
 Bug fixes.
@@ -22,7 +26,7 @@ Bug fixes.
 
 Bug fixes.
 
-## Version 5.9.0 <span>(2018-09-12)</span>
+## Version 5.9.0 <span>(2018-9-12)</span>
 
 * Added the ability to track federal ownership of facilities.
 * Deleted FCEs will be retained and can be undeleted if needed.
