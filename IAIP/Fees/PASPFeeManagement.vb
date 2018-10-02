@@ -555,12 +555,13 @@ Public Class PASPFeeManagement
                 Dim ReasonID As String = dgvNSPSExemptionsByYear(1, dgvNSPSExemptionsByYear.CurrentRow.Index).Value
 
                 Dim SQL As String = "SELECT COUNT(*) " &
-                    "FROM FSCALCULATIONS " &
-                    "WHERE INTYEAR = @year " &
-                    "AND (STRNSPSREASON LIKE @reason1 " &
-                    "OR STRNSPSREASON = @reason2 " &
-                    "OR STRNSPSREASON LIKE @reason3 " &
-                    "OR STRNSPSREASON LIKE @reason4) "
+                    " FROM FS_FEEDATA " &
+                    " WHERE NUMFEEYEAR = @year " &
+                    " AND (STRNSPSEXEMPTREASON LIKE @reason1 " &
+                    " OR STRNSPSEXEMPTREASON = @reason2 " &
+                    " OR STRNSPSEXEMPTREASON LIKE @reason3 " &
+                    " OR STRNSPSEXEMPTREASON LIKE @reason4) "
+
                 Dim p As SqlParameter() = {
                     New SqlParameter("@year", dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value),
                     New SqlParameter("@reason1", ReasonID & ",%"),
@@ -576,49 +577,6 @@ Public Class PASPFeeManagement
                 End If
             End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnUnselectAllForms_Click(sender As Object, e As EventArgs) Handles btnUnselectAllForms.Click
-        Try
-            Dim ReasonID As String = ""
-            Dim i As Integer = 0
-            Dim SQL As String = "SELECT COUNT(*) " &
-                "FROM FSCALCULATIONS " &
-                "WHERE INTYEAR = @year " &
-                "AND (STRNSPSREASON LIKE @reason1 " &
-                "OR STRNSPSREASON = @reason2 " &
-                "OR STRNSPSREASON LIKE @reason3 " &
-                "OR STRNSPSREASON LIKE @reason4) "
-
-            If dgvNSPSExemptionsByYear.RowCount > 0 Then
-
-                i = 0
-                While i < dgvNSPSExemptionsByYear.RowCount
-
-                    dgvNSPSExemptionsByYear.Rows(i).Selected = True
-                    ReasonID = dgvNSPSExemptionsByYear(1, i).Value
-
-                    Dim p As SqlParameter() = {
-                        New SqlParameter("@year", dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value),
-                        New SqlParameter("@reason1", ReasonID & ",%"),
-                        New SqlParameter("@reason2", ReasonID),
-                        New SqlParameter("@reason3", "%," & ReasonID),
-                        New SqlParameter("@reason4", "%," & ReasonID & ",%")
-                    }
-
-                    If DB.GetInteger(SQL, p) > 0 Then
-                        i += 1
-                    Else
-                        dgvNSPSExemptionsByYear.Rows(i).Selected = True
-                        dgvNSPSExemptionsByYear.Rows.Remove(dgvNSPSExemptionsByYear.CurrentRow)
-                        dgvNSPSExemptionsByYear.Rows(i).Selected = False
-                    End If
-                End While
-
-            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

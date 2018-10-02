@@ -20,8 +20,6 @@ Public Class IAIPEditHeaderData
 #Region " Form Load "
 
     Private Sub IAIPEditHeaderData_Load(sender As Object, e As EventArgs) Handles Me.Load
-
-
         AirsNumberDisplay.Text = Me.AirsNumber.FormattedString
         FacilityNameDisplay.Text = Me.FacilityName
 
@@ -48,7 +46,12 @@ Public Class IAIPEditHeaderData
 
         Dim currentData As DataRow = DAL.GetFacilityHeaderDataAsDataRow(AirsNumber)
         currentData.Table.Columns("STRKEY").ReadOnly = False
-        currentData.Item("STRKEY") = Convert.ToInt32(FacilityHeaderDataHistory.AsEnumerable().Max(Function(row) Convert.ToInt32(row("STRKEY")))) + 1
+
+        If FacilityHeaderDataHistory Is Nothing OrElse FacilityHeaderDataHistory.Rows.Count = 0 Then
+            currentData.Item("STRKEY") = 1
+        Else
+            currentData.Item("STRKEY") = Convert.ToInt32(FacilityHeaderDataHistory.AsEnumerable().Max(Function(row) Convert.ToInt32(row("STRKEY")))) + 1
+        End If
 
         FacilityHeaderDataHistory.ImportRow(currentData)
 
