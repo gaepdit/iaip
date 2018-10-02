@@ -3278,6 +3278,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtContactDescription
         '
         Me.txtContactDescription.Location = New System.Drawing.Point(92, 242)
+        Me.txtContactDescription.MaxLength = 4000
         Me.txtContactDescription.Multiline = True
         Me.txtContactDescription.Name = "txtContactDescription"
         Me.txtContactDescription.Size = New System.Drawing.Size(628, 96)
@@ -3286,6 +3287,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtContactEmailAddress
         '
         Me.txtContactEmailAddress.Location = New System.Drawing.Point(92, 207)
+        Me.txtContactEmailAddress.MaxLength = 100
         Me.txtContactEmailAddress.Name = "txtContactEmailAddress"
         Me.txtContactEmailAddress.Size = New System.Drawing.Size(284, 20)
         Me.txtContactEmailAddress.TabIndex = 14
@@ -3301,6 +3303,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtContactCity
         '
         Me.txtContactCity.Location = New System.Drawing.Point(335, 116)
+        Me.txtContactCity.MaxLength = 50
         Me.txtContactCity.Name = "txtContactCity"
         Me.txtContactCity.Size = New System.Drawing.Size(171, 20)
         Me.txtContactCity.TabIndex = 9
@@ -3308,6 +3311,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtContactStreetAddress
         '
         Me.txtContactStreetAddress.Location = New System.Drawing.Point(335, 88)
+        Me.txtContactStreetAddress.MaxLength = 100
         Me.txtContactStreetAddress.Name = "txtContactStreetAddress"
         Me.txtContactStreetAddress.Size = New System.Drawing.Size(385, 20)
         Me.txtContactStreetAddress.TabIndex = 8
@@ -3315,6 +3319,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtContactTitle
         '
         Me.txtContactTitle.Location = New System.Drawing.Point(335, 60)
+        Me.txtContactTitle.MaxLength = 100
         Me.txtContactTitle.Name = "txtContactTitle"
         Me.txtContactTitle.Size = New System.Drawing.Size(385, 20)
         Me.txtContactTitle.TabIndex = 7
@@ -3322,6 +3327,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtContactCompanyName
         '
         Me.txtContactCompanyName.Location = New System.Drawing.Point(335, 34)
+        Me.txtContactCompanyName.MaxLength = 100
         Me.txtContactCompanyName.Name = "txtContactCompanyName"
         Me.txtContactCompanyName.Size = New System.Drawing.Size(385, 20)
         Me.txtContactCompanyName.TabIndex = 6
@@ -3329,6 +3335,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtContactPedigree
         '
         Me.txtContactPedigree.Location = New System.Drawing.Point(71, 116)
+        Me.txtContactPedigree.MaxLength = 15
         Me.txtContactPedigree.Name = "txtContactPedigree"
         Me.txtContactPedigree.Size = New System.Drawing.Size(72, 20)
         Me.txtContactPedigree.TabIndex = 5
@@ -3336,6 +3343,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtContactSocialTitle
         '
         Me.txtContactSocialTitle.Location = New System.Drawing.Point(71, 34)
+        Me.txtContactSocialTitle.MaxLength = 15
         Me.txtContactSocialTitle.Name = "txtContactSocialTitle"
         Me.txtContactSocialTitle.Size = New System.Drawing.Size(72, 20)
         Me.txtContactSocialTitle.TabIndex = 2
@@ -3343,6 +3351,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtContactLastName
         '
         Me.txtContactLastName.Location = New System.Drawing.Point(71, 88)
+        Me.txtContactLastName.MaxLength = 35
         Me.txtContactLastName.Name = "txtContactLastName"
         Me.txtContactLastName.Size = New System.Drawing.Size(170, 20)
         Me.txtContactLastName.TabIndex = 4
@@ -3350,6 +3359,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtContactFirstName
         '
         Me.txtContactFirstName.Location = New System.Drawing.Point(71, 60)
+        Me.txtContactFirstName.MaxLength = 35
         Me.txtContactFirstName.Name = "txtContactFirstName"
         Me.txtContactFirstName.Size = New System.Drawing.Size(170, 20)
         Me.txtContactFirstName.TabIndex = 3
