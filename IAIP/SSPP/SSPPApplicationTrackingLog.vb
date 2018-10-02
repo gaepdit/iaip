@@ -6458,7 +6458,7 @@ Public Class SSPPApplicationTrackingLog
             "strOperationalStatus, strClass, " &
             "strAIRProgramCodes, strSICCode, " &
             "strNAICSCode, FacilityOwnershipTypeCode, " &
-            "strPermitNumber, strPlantDescription, " &
+            "strPlantDescription, " &
             "strStateProgramCodes " &
             "from SSPPApplicationData " &
             "where strApplicationNumber = @appnumber "
@@ -6471,7 +6471,7 @@ Public Class SSPPApplicationTrackingLog
                 If IsDBNull(dr.Item("strFacilityName")) Then
                     FacilityName = "N/A"
                 Else
-                    FacilityName = Apb.Facilities.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
+                    FacilityName = SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
                 End If
                 If IsDBNull(dr.Item("strFacilityStreet1")) Then
                     FacilityStreet1 = "N/A"
@@ -6586,7 +6586,7 @@ Public Class SSPPApplicationTrackingLog
                     " where STRAIRSNUMBER = @airs")
                 paramsList.Add(
                     {New SqlParameter("@OwnershipTypeCode", OwnershipTypeCode),
-                    New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)})
+                    New SqlParameter("@airs", AirsId.DbFormattedString)})
 
                 DB.RunCommand(queryList, paramsList)
                 queryList.Clear()
@@ -6705,7 +6705,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, query & vbNewLine & AirsId?.FormattedString & vbNewLine & AppNumber.ToString, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, AirsId?.FormattedString & vbNewLine & AppNumber.ToString, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6794,7 +6794,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub UpdateAddedSubpartData(key As String, subpartList As List(Of String))
         If subpartList Is Nothing OrElse subpartList.Count = 0 Then Exit Sub
 
-        Dim pKey As String = "0413" & AirsId.DbFormattedString & key
+        Dim pKey As String = AirsId.DbFormattedString & key
         Dim query As String = ""
         Dim params As SqlParameter() = Nothing
 
