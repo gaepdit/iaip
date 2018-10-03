@@ -177,6 +177,7 @@ Namespace DAL
                     If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
                         SaveUserSetting(UserSetting.FileDownloadLocation, Path.GetDirectoryName(dialog.FileName))
                     End If
+
                     Process.Start("explorer.exe", "/select,""" & dialog.FileName.ToString & """")
                 End If
             ElseIf dialogAction = DialogResult.Cancel Then

@@ -3176,7 +3176,7 @@ Public Class SSPPPermitUploader
 
                 Select Case FileType
                     Case "10"
-                        path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+                        path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
                         path.FileName = PermitNumber
                         path.Filter = "Microsoft Office Work file (*.doc)|.doc"
                         path.FilterIndex = 1
@@ -3184,6 +3184,10 @@ Public Class SSPPPermitUploader
 
                         If path.ShowDialog = DialogResult.OK Then
                             DestFilePath = path.FileName.ToString
+
+                            If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                                SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
+                            End If
                         Else
                             DestFilePath = "N/A"
                         End If
@@ -3199,7 +3203,7 @@ Public Class SSPPPermitUploader
                             SaveBinaryFileFromDB(DestFilePath, SQL, p2)
                         End If
                     Case "01"
-                        path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+                        path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
                         path.FileName = PermitNumber
                         path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
                         path.FilterIndex = 1
@@ -3207,6 +3211,10 @@ Public Class SSPPPermitUploader
 
                         If path.ShowDialog = DialogResult.OK Then
                             DestFilePath = path.FileName.ToString
+
+                            If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                                SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
+                            End If
                         Else
                             DestFilePath = "N/A"
                         End If
@@ -3222,7 +3230,7 @@ Public Class SSPPPermitUploader
                             SaveBinaryFileFromDB(DestFilePath, SQL, p2)
                         End If
                     Case "11"
-                        path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+                        path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
                         path.FileName = PermitNumber
                         path.Filter = "Microsoft Office Work file (*.doc)|.doc"
                         path.FilterIndex = 1
@@ -3230,6 +3238,10 @@ Public Class SSPPPermitUploader
 
                         If path.ShowDialog = DialogResult.OK Then
                             DestFilePath = path.FileName.ToString
+
+                            If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                                SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
+                            End If
                         Else
                             DestFilePath = "N/A"
                         End If
@@ -3245,7 +3257,7 @@ Public Class SSPPPermitUploader
                             SaveBinaryFileFromDB(DestFilePath, SQL, p2)
                         End If
 
-                        path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+                        path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
                         path.FileName = PermitNumber
                         path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
                         path.FilterIndex = 1
@@ -3253,6 +3265,10 @@ Public Class SSPPPermitUploader
 
                         If path.ShowDialog = DialogResult.OK Then
                             DestFilePath = path.FileName.ToString
+
+                            If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                                SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
+                            End If
                         Else
                             DestFilePath = "N/A"
                         End If

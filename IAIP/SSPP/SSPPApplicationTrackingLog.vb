@@ -6951,7 +6951,7 @@ Public Class SSPPApplicationTrackingLog
             Dim parameter As New SqlParameter("@FileName", fileName)
 
             Dim sfd As New SaveFileDialog With {
-                .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                .InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation),
                 .FileName = fileName,
                 .FilterIndex = 1
             }
@@ -6976,6 +6976,11 @@ Public Class SSPPApplicationTrackingLog
             If sfd.ShowDialog = DialogResult.OK Then
                 saveFilePath = sfd.FileName.ToString
                 SaveBinaryFileFromDB(saveFilePath, query, parameter)
+
+                If Not IO.Path.GetDirectoryName(sfd.FileName) = sfd.InitialDirectory Then
+                    SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(sfd.FileName))
+                    sfd.InitialDirectory = IO.Path.GetDirectoryName(sfd.FileName)
+                End If
             End If
 
             If fileType = "11" Then
@@ -6989,6 +6994,10 @@ Public Class SSPPApplicationTrackingLog
                 If sfd.ShowDialog = DialogResult.OK Then
                     saveFilePath = sfd.FileName.ToString
                     SaveBinaryFileFromDB(saveFilePath, query, parameter)
+
+                    If Not IO.Path.GetDirectoryName(sfd.FileName) = sfd.InitialDirectory Then
+                        SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(sfd.FileName))
+                    End If
                 End If
             End If
 

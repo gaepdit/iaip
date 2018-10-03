@@ -3376,11 +3376,15 @@ Public Class IAIPQueryGenerator
             Dim path As New SaveFileDialog
             Dim DestFilePath As String = "N/A"
 
-            path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+            path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
             path.DefaultExt = ".txt"
 
             If path.ShowDialog = DialogResult.OK Then
                 DestFilePath = path.FileName.ToString
+
+                If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                    SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
+                End If
             Else
                 DestFilePath = "N/A"
             End If
@@ -3390,7 +3394,7 @@ Public Class IAIPQueryGenerator
 
                 Dim bytedata As Byte() = Encoder.GetBytes(DefaultsText)
 
-                Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
+                Dim fs As New FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
                 fs.Write(bytedata, 0, bytedata.Length)
                 fs.Close()
             End If
@@ -3430,11 +3434,15 @@ Public Class IAIPQueryGenerator
             Dim path As New OpenFileDialog
             Dim DestFilePath As String = "N/A"
 
-            path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+            path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
             path.DefaultExt = ".txt"
 
             If path.ShowDialog = DialogResult.OK Then
                 DestFilePath = path.FileName.ToString
+
+                If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                    SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
+                End If
             Else
                 DestFilePath = "N/A"
             End If
