@@ -803,7 +803,7 @@ Public Class IAIPNavigation
         AddNavButtonIfUserHasPermission(118, "Organization Editor", NameOf(IAIPListTool), NavButtonCategories.DMU)
 
         ' EIS
-        AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", NameOf(SSCPEmissionSummaryTool), NavButtonCategories.EIS)
+        AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", NameOf(EisEmissionSummaryTool), NavButtonCategories.EIS)
         AddNavButtonIfAccountHasFormAccess(130, "Emission Inventory Tools", NameOf(EisTool), NavButtonCategories.EIS)
 
         'SBEAP
