@@ -1,5 +1,5 @@
 Imports System.Data.SqlClient
-Imports EpdIt
+Imports EpdIt.DBUtilities
 
 Public Class EisEmissionSummaryTool
     Dim SQL As String
@@ -7,26 +7,21 @@ Public Class EisEmissionSummaryTool
 #Region " Form load "
 
     Private Sub SSCPEmissionSummaryTool_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        loadYear()
-        loadEIPollutant()
+        loadComboBoxes()
     End Sub
 
-    Private Sub loadYear()
+    Private Sub loadComboBoxes()
         SQL = "Select " &
-        "distinct intESYear " &
-        "from esschema " &
-        "order by intESYear desc "
+            "distinct intESYear " &
+            "from esschema " &
+            "order by intESYear desc "
 
-        Dim dt As DataTable = DB.GetDataTable(SQL)
-        If dt IsNot Nothing Then
-            For Each dr As DataRow In dt.Rows
-                cboYear.Items.Add(DBUtilities.GetNullable(Of Integer)(dr("intESYear")))
-            Next
-        End If
-
-        cboYear.SelectedIndex = 0
-
-        cboEIYear.Items.Add("-Select a Year-")
+        With cboYear
+            .DataSource = DB.GetDataTable(SQL)
+            .DisplayMember = "intESYear"
+            .ValueMember = "intESYear"
+            .SelectedIndex = 0
+        End With
 
         SQL = "SELECT inventoryyear AS EIYear
                 FROM eis_admin
@@ -35,17 +30,13 @@ Public Class EisEmissionSummaryTool
                 FROM EISI
                 ORDER BY EIYear DESC"
 
-        dt = DB.GetDataTable(SQL)
-        If dt IsNot Nothing Then
-            For Each dr As DataRow In dt.Rows
-                cboEIYear.Items.Add(dr.Item("EIYear"))
-            Next
-        End If
+        With cboEIYear
+            .DataSource = DB.GetDataTable(SQL)
+            .DisplayMember = "EIYear"
+            .ValueMember = "EIYear"
+            .SelectedIndex = 0
+        End With
 
-        cboEIYear.SelectedIndex = 0
-    End Sub
-
-    Private Sub loadEIPollutant()
         SQL = "Select " &
             "distinct(EIEM.strPollutantCode) As Pollutants,   " &
             "strPollutantDesc  " &
@@ -56,10 +47,9 @@ Public Class EisEmissionSummaryTool
             "EISLK_PollutantCode .strDesc " &
             "from VW_EIS_RPEMISSIONS, EISLK_PollutantCode " &
             "where VW_EIS_RPEMISSIONS.PollutantCode = EISLK_PollutantCode.PollutantCode "
-        Dim dtEIPollutant As DataTable = DB.GetDataTable(SQL)
 
         With cboEIPollutants
-            .DataSource = dtEIPollutant
+            .DataSource = DB.GetDataTable(SQL)
             .DisplayMember = "strPollutantDesc"
             .ValueMember = "Pollutants"
             .SelectedIndex = 0
@@ -72,14 +62,14 @@ Public Class EisEmissionSummaryTool
 
     Private Sub btnView_Click(sender As Object, e As EventArgs) Handles btnView.Click
         runcount()
-        lblYear.Text = cboYear.SelectedItem
+        lblYear.Text = cboYear.SelectedValue.ToString
     End Sub
 
     Private Sub runcount()
-        txtESYear.Text = cboYear.SelectedItem
+        txtESYear.Text = cboYear.SelectedValue.ToString
         Dim DeadlineYear As String = txtESYear.Text
         If DeadlineYear = "" Then DeadlineYear = "2007"
-        Dim deadlineDate As New Date(DeadlineYear, 6, 15)
+        Dim deadlineDate As New Date(CInt(DeadlineYear), 6, 15)
 
         Dim ESYearParam As New SqlParameter("@ESYear", DeadlineYear)
         Dim intEsYearParam As New SqlParameter("@intESyear", CInt(DeadlineYear))
@@ -181,7 +171,7 @@ Public Class EisEmissionSummaryTool
 
     Private Sub findESData()
         Dim AirsNo As String = txtESAirsNo.Text
-        Dim ESyear As String = cboYear.SelectedItem
+        Dim ESyear As String = cboYear.SelectedValue.ToString
         Dim intESyear As Integer = CInt(ESyear)
 
         SQL = "SELECT * " &
@@ -192,150 +182,37 @@ Public Class EisEmissionSummaryTool
         Dim param As SqlParameter() = {New SqlParameter("@AirsNo", AirsNo), New SqlParameter("@intESyear", intESyear)}
 
         Dim dr As DataRow = DB.GetDataRow(SQL, param)
-        If dr IsNot Nothing Then
 
-            If IsDBNull(dr("STRAIRSNUMBER")) Then
-                txtESAirsNo.Text = ""
-            Else
-                txtESAirsNo.Text = dr("STRAIRSNUMBER")
-            End If
-            If IsDBNull(dr("STRFACILITYNAME")) Then
-                txtFACILITYNAME.Text = ""
-            Else
-                txtFACILITYNAME.Text = dr("STRFACILITYNAME")
-            End If
-            If IsDBNull(dr("STRFACILITYADDRESS")) Then
-                txtFACILITYADDRESS.Text = ""
-            Else
-                txtFACILITYADDRESS.Text = dr("STRFACILITYADDRESS")
-            End If
-            If IsDBNull(dr("STRFACILITYCITY")) Then
-                txtFACILITYCITY.Text = ""
-            Else
-                txtFACILITYCITY.Text = dr("STRFACILITYCITY")
-            End If
-            If IsDBNull(dr("STRFACILITYSTATE")) Then
-                txtFACILITYSTATE.Text = ""
-            Else
-                txtFACILITYSTATE.Text = dr("STRFACILITYSTATE")
-            End If
-            If IsDBNull(dr("STRFACILITYZIP")) Then
-                txtFACILITYZIP.Text = ""
-            Else
-                txtFACILITYZIP.Text = dr("STRFACILITYZIP")
-            End If
-            If IsDBNull(dr("STRCOUNTY")) Then
-                txtCOUNTY.Text = ""
-            Else
-                txtCOUNTY.Text = dr("STRCOUNTY")
-            End If
-            If IsDBNull(dr("DBLXCOORDINATE")) Then
-                txtXCOORDINATE.Text = ""
-            Else
-                txtXCOORDINATE.Text = dr("DBLXCOORDINATE")
-            End If
-            If IsDBNull(dr("DBLYCOORDINATE")) Then
-                txtYCOORDINATE.Text = ""
-            Else
-                txtYCOORDINATE.Text = dr("DBLYCOORDINATE")
-            End If
-            If IsDBNull(dr("STRHORIZONTALCOLLECTIONCODE")) Then
-                txtHORIZONTALCOLLECTIONCODE.Text = ""
-            Else
-                txtHORIZONTALCOLLECTIONCODE.Text = dr("STRHORIZONTALCOLLECTIONCODE")
-            End If
-            If IsDBNull(dr("STRHORIZONTALACCURACYMEASURE")) Then
-                txtHORIZONTALACCURACYMEASURE.Text = ""
-            Else
-                txtHORIZONTALACCURACYMEASURE.Text = dr("STRHORIZONTALACCURACYMEASURE")
-            End If
-            If IsDBNull(dr("STRHORIZONTALREFERENCECODE")) Then
-                txtHORIZONTALREFERENCECODE.Text = ""
-            Else
-                txtHORIZONTALREFERENCECODE.Text = dr("STRHORIZONTALREFERENCECODE")
-            End If
-            If IsDBNull(dr("STRCONTACTCOMPANY")) Then
-                txtCompany.Text = ""
-            Else
-                txtCompany.Text = dr("STRCONTACTCOMPANY")
-            End If
-            If IsDBNull(dr("STRCONTACTTITLE")) Then
-                txtTitle.Text = ""
-            Else
-                txtTitle.Text = dr("STRCONTACTTITLE")
-            End If
-            If IsDBNull(dr("STRCONTACTPHONENUMBER")) Then
-                txtPhone.Text = ""
-            Else
-                txtPhone.Text = dr("STRCONTACTPHONENUMBER")
-            End If
-            If IsDBNull(dr("STRCONTACTFAXNUMBER")) Then
-                txtFax.Text = ""
-            Else
-                txtFax.Text = dr("STRCONTACTFAXNUMBER")
-            End If
-            If IsDBNull(dr("STRCONTACTFIRSTNAME")) Then
-                txtContactFirstName.Text = ""
-            Else
-                txtContactFirstName.Text = dr("STRCONTACTFIRSTNAME")
-            End If
-            If IsDBNull(dr("STRCONTACTLASTNAME")) Then
-                txtContactLastName.Text = ""
-            Else
-                txtContactLastName.Text = dr("STRCONTACTLASTNAME")
-            End If
-            If IsDBNull(dr("STRCONTACTADDRESS1")) Then
-                txtAddress1.Text = ""
-            Else
-                txtAddress1.Text = dr("STRCONTACTADDRESS1")
-            End If
-            If IsDBNull(dr("STRCONTACTADDRESS2")) Then
-                txtAddress2.Text = ""
-            Else
-                txtAddress2.Text = dr("STRCONTACTADDRESS2")
-            End If
-            If IsDBNull(dr("STRCONTACTCITY")) Then
-                txtCity.Text = ""
-            Else
-                txtCity.Text = dr("STRCONTACTCITY")
-            End If
-            If IsDBNull(dr("STRCONTACTSTATE")) Then
-                txtState.Text = ""
-            Else
-                txtState.Text = dr("STRCONTACTSTATE")
-            End If
-            If IsDBNull(dr("STRCONTACTZIP")) Then
-                txtZip.Text = ""
-            Else
-                txtZip.Text = dr("STRCONTACTZIP")
-            End If
-            If IsDBNull(dr("STRCONTACTEMAIL")) Then
-                txtEmail.Text = ""
-            Else
-                txtEmail.Text = dr("STRCONTACTEMAIL")
-            End If
-            If IsDBNull(dr("DBLVOCEMISSION")) Then
-                txtVOCEmission.Text = ""
-            Else
-                txtVOCEmission.Text = dr("DBLVOCEMISSION")
-            End If
-            If IsDBNull(dr("DBLNOXEMISSION")) Then
-                txtNOXEmission.Text = ""
-            Else
-                txtNOXEmission.Text = dr("DBLNOXEMISSION")
-            End If
-            If IsDBNull(dr("STRCONFIRMATIONNBR")) Then
-                txtConfirmationNbr.Text = ""
-                txtConfirmationNumber.Text = ""
-            Else
-                txtConfirmationNbr.Text = dr("STRCONFIRMATIONNBR")
-                txtConfirmationNumber.Text = dr("STRCONFIRMATIONNBR")
-            End If
-            If IsDBNull(dr("STRDATEFIRSTCONFIRM")) Then
-                txtFirstConfirmedDate.Text = ""
-            Else
-                txtFirstConfirmedDate.Text = dr("STRDATEFIRSTCONFIRM")
-            End If
+        If dr IsNot Nothing Then
+            txtESAirsNo.Text = GetNullableString(dr("STRAIRSNUMBER"))
+            txtFACILITYNAME.Text = GetNullableString(dr("STRFACILITYNAME"))
+            txtFACILITYADDRESS.Text = GetNullableString(dr("STRFACILITYADDRESS"))
+            txtFACILITYCITY.Text = GetNullableString(dr("STRFACILITYCITY"))
+            txtFACILITYSTATE.Text = GetNullableString(dr("STRFACILITYSTATE"))
+            txtFACILITYZIP.Text = GetNullableString(dr("STRFACILITYZIP"))
+            txtCOUNTY.Text = GetNullableString(dr("STRCOUNTY"))
+            txtXCOORDINATE.Text = GetNullableString(dr("DBLXCOORDINATE"))
+            txtYCOORDINATE.Text = GetNullableString(dr("DBLYCOORDINATE"))
+            txtHORIZONTALCOLLECTIONCODE.Text = GetNullableString(dr("STRHORIZONTALCOLLECTIONCODE"))
+            txtHORIZONTALACCURACYMEASURE.Text = GetNullableString(dr("STRHORIZONTALACCURACYMEASURE"))
+            txtHORIZONTALREFERENCECODE.Text = GetNullableString(dr("STRHORIZONTALREFERENCECODE"))
+            txtCompany.Text = GetNullableString(dr("STRCONTACTCOMPANY"))
+            txtTitle.Text = GetNullableString(dr("STRCONTACTTITLE"))
+            txtPhone.Text = GetNullableString(dr("STRCONTACTPHONENUMBER"))
+            txtFax.Text = GetNullableString(dr("STRCONTACTFAXNUMBER"))
+            txtContactFirstName.Text = GetNullableString(dr("STRCONTACTFIRSTNAME"))
+            txtContactLastName.Text = GetNullableString(dr("STRCONTACTLASTNAME"))
+            txtAddress1.Text = GetNullableString(dr("STRCONTACTADDRESS1"))
+            txtAddress2.Text = GetNullableString(dr("STRCONTACTADDRESS2"))
+            txtCity.Text = GetNullableString(dr("STRCONTACTCITY"))
+            txtState.Text = GetNullableString(dr("STRCONTACTSTATE"))
+            txtZip.Text = GetNullableString(dr("STRCONTACTZIP"))
+            txtEmail.Text = GetNullableString(dr("STRCONTACTEMAIL"))
+            txtVOCEmission.Text = GetNullableString(dr("DBLVOCEMISSION"))
+            txtNOXEmission.Text = GetNullableString(dr("DBLNOXEMISSION"))
+            txtConfirmationNbr.Text = GetNullableString(dr("STRCONFIRMATIONNBR"))
+            txtConfirmationNumber.Text = GetNullableString(dr("STRCONFIRMATIONNBR"))
+            txtFirstConfirmedDate.Text = GetNullableString(dr("STRDATEFIRSTCONFIRM"))
         End If
     End Sub
 
@@ -346,10 +223,10 @@ Public Class EisEmissionSummaryTool
             If dgvESDataCount.RowCount > 0 And hti.RowIndex <> -1 Then
                 If dgvESDataCount.Columns(0).HeaderText = "Airs No." Then
                     If Not IsDBNull(dgvESDataCount(0, hti.RowIndex).Value) Then
-                        txtESAirsNo.Text = dgvESDataCount(0, hti.RowIndex).Value
+                        txtESAirsNo.Text = dgvESDataCount(0, hti.RowIndex).Value.ToString
                         If dgvESDataCount.Columns(3).HeaderText = "Confirmation Number" Then
                             If Not IsDBNull(dgvESDataCount(3, hti.RowIndex).Value) Then
-                                txtConfirmationNumber.Text = dgvESDataCount(3, hti.RowIndex).Value
+                                txtConfirmationNumber.Text = dgvESDataCount(3, hti.RowIndex).Value.ToString
                                 findESData()
                             End If
                         End If
@@ -362,7 +239,7 @@ Public Class EisEmissionSummaryTool
     End Sub
 
     Private Sub lblViewMailOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewMailOut.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+        txtESYear.Text = cboYear.SelectedValue.ToString
 
         Try
 
@@ -395,25 +272,15 @@ Public Class EisEmissionSummaryTool
             dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
             dgvESDataCount.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
-            dgvESDataCount.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 2
             dgvESDataCount.Columns("STRCONTACTLASTNAME").HeaderText = "Contact Last Name"
-            dgvESDataCount.Columns("STRCONTACTLASTNAME").DisplayIndex = 3
             dgvESDataCount.Columns("STRCONTACTCOMPANYname").HeaderText = "Contact Company"
-            dgvESDataCount.Columns("STRCONTACTCOMPANYname").DisplayIndex = 4
             dgvESDataCount.Columns("STRCONTACTADDRESS1").HeaderText = "Address"
-            dgvESDataCount.Columns("STRCONTACTADDRESS1").DisplayIndex = 5
             dgvESDataCount.Columns("STRCONTACTCITY").HeaderText = "City"
-            dgvESDataCount.Columns("STRCONTACTCITY").DisplayIndex = 6
             dgvESDataCount.Columns("STRCONTACTSTATE").HeaderText = "State"
-            dgvESDataCount.Columns("STRCONTACTSTATE").DisplayIndex = 7
             dgvESDataCount.Columns("STRCONTACTZIPCODE").HeaderText = "Zip"
-            dgvESDataCount.Columns("STRCONTACTZIPCODE").DisplayIndex = 8
             dgvESDataCount.Columns("STRCONTACTEMAIL").HeaderText = "Contact Email"
-            dgvESDataCount.Columns("STRCONTACTEMAIL").DisplayIndex = 9
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
             txtMailOutCount.Text = txtRecordNumber.Text
@@ -426,11 +293,11 @@ Public Class EisEmissionSummaryTool
     End Sub
 
     Private Sub lblViewOptin_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptin.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+        txtESYear.Text = cboYear.SelectedValue.ToString
         Try
 
             Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
+            Dim intYear As Integer = CInt(year)
 
             SQL = "SELECT esSchema.STRAIRSNUMBER, esSchema.STRFACILITYNAME, esSchema.STRDATEFIRSTCONFIRM, esSchema.STRCONFIRMATIONNBR
                 FROM esSchema
@@ -451,13 +318,9 @@ Public Class EisEmissionSummaryTool
             dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").HeaderText = "First Date Confirmed"
-            dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").DisplayIndex = 2
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").HeaderText = "Confirmation Number"
-            dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 3
 
             txtTotalOptInCount.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtTotalOptInCount.Text
@@ -469,11 +332,11 @@ Public Class EisEmissionSummaryTool
     End Sub
 
     Private Sub lblViewOptOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptOut.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+        txtESYear.Text = cboYear.SelectedValue.ToString
         Try
 
             Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
+            Dim intYear As Integer = CInt(year)
 
             SQL = "SELECT esSchema.STRAIRSNUMBER, esSchema.STRFACILITYNAME, esSchema.STRDATEFIRSTCONFIRM, esSchema.STRCONFIRMATIONNBR
                 FROM esSchema
@@ -494,13 +357,9 @@ Public Class EisEmissionSummaryTool
             dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").HeaderText = "First Date Confirmed"
-            dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").DisplayIndex = 2
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").HeaderText = "Confirmation Number"
-            dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 3
 
             txtTotalOptOutCount.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtTotalOptOutCount.Text
@@ -513,12 +372,12 @@ Public Class EisEmissionSummaryTool
     End Sub
 
     Private Sub lblViewOutofcompliance_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewOutofcompliance.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+        txtESYear.Text = cboYear.SelectedValue.ToString
         Try
 
             Dim DeadlineYear As String = txtESYear.Text
             If DeadlineYear = "" Then DeadlineYear = "2007"
-            Dim deadlineDate As New Date(DeadlineYear, 6, 15)
+            Dim deadlineDate As New Date(CInt(DeadlineYear), 6, 15)
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@intYear", CInt(DeadlineYear)),
@@ -557,31 +416,18 @@ Public Class EisEmissionSummaryTool
             dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
             dgvESDataCount.Columns("STROPTOUT").HeaderText = "OptOut Status"
-            dgvESDataCount.Columns("STROPTOUT").DisplayIndex = 2
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").HeaderText = "Confirmation Number"
-            dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 3
             dgvESDataCount.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
-            dgvESDataCount.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
             dgvESDataCount.Columns("STRCONTACTLASTNAME").HeaderText = "Contact Last Name"
-            dgvESDataCount.Columns("STRCONTACTLASTNAME").DisplayIndex = 5
             dgvESDataCount.Columns("STRCONTACTCOMPANY").HeaderText = "Contact Company"
-            dgvESDataCount.Columns("STRCONTACTCOMPANY").DisplayIndex = 6
             dgvESDataCount.Columns("STRCONTACTADDRESS1").HeaderText = "Street Address"
-            dgvESDataCount.Columns("STRCONTACTADDRESS1").DisplayIndex = 7
             dgvESDataCount.Columns("STRCONTACTCITY").HeaderText = "City"
-            dgvESDataCount.Columns("STRCONTACTCITY").DisplayIndex = 8
             dgvESDataCount.Columns("STRCONTACTSTATE").HeaderText = "State"
-            dgvESDataCount.Columns("STRCONTACTSTATE").DisplayIndex = 9
             dgvESDataCount.Columns("STRCONTACTZIP").HeaderText = "Zip"
-            dgvESDataCount.Columns("STRCONTACTZIP").DisplayIndex = 10
             dgvESDataCount.Columns("STRCONTACTEMAIL").HeaderText = "Contact Email"
-            dgvESDataCount.Columns("STRCONTACTEMAIL").DisplayIndex = 11
             dgvESDataCount.Columns("STRCONTACTPHONENUMBER").HeaderText = "Phone No."
-            dgvESDataCount.Columns("STRCONTACTPHONENUMBER").DisplayIndex = 12
 
             txtTotaloutofcompliance.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtTotaloutofcompliance.Text
@@ -593,12 +439,12 @@ Public Class EisEmissionSummaryTool
     End Sub
 
     Private Sub lblViewINCompliance_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewINCompliance.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+        txtESYear.Text = cboYear.SelectedValue.ToString
         Try
 
             Dim DeadlineYear As String = txtESYear.Text
             If DeadlineYear = "" Then DeadlineYear = "2007"
-            Dim deadlineDate As New Date(DeadlineYear, 6, 15)
+            Dim deadlineDate As New Date(CInt(DeadlineYear), 6, 15)
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@intYear", CInt(DeadlineYear)),
@@ -628,13 +474,9 @@ Public Class EisEmissionSummaryTool
             dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").HeaderText = "Date First Confirmed"
-            dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").DisplayIndex = 2
             dgvESDataCount.Columns("STRCONTACTPHONENUMBER").HeaderText = "Confirmation Number"
-            dgvESDataCount.Columns("STRCONTACTPHONENUMBER").DisplayIndex = 3
 
             txtTotalincompliance.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtTotalincompliance.Text
@@ -647,7 +489,7 @@ Public Class EisEmissionSummaryTool
     End Sub
 
     Private Sub lblViewESData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewESData.LinkClicked
-        Dim year As Integer = CInt(cboYear.SelectedItem)
+        Dim year As Integer = CInt(cboYear.SelectedValue)
         Try
 
             SQL = "SELECT STRAIRSNUMBER, " &
@@ -673,17 +515,11 @@ Public Class EisEmissionSummaryTool
             dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
             dgvESDataCount.Columns("DBLVOCEMISSION").HeaderText = "VOC Emissions"
-            dgvESDataCount.Columns("DBLVOCEMISSION").DisplayIndex = 2
             dgvESDataCount.Columns("DBLNOXEMISSION").HeaderText = "NOX Emissions"
-            dgvESDataCount.Columns("DBLNOXEMISSION").DisplayIndex = 4
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").HeaderText = "Confirmation Number"
-            dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 3
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").HeaderText = "First Date Confirmed"
-            dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").DisplayIndex = 5
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
 
@@ -698,7 +534,7 @@ Public Class EisEmissionSummaryTool
     Private Sub lblViewNonResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewNonResponse.LinkClicked
         Try
 
-            Dim year As String = cboYear.SelectedItem
+            Dim year As String = cboYear.SelectedValue.ToString
 
             SQL = "SELECT ESSCHEMA.STRAIRSNUMBER, ESSCHEMA.STRFACILITYNAME
                 FROM esMailOut
@@ -719,9 +555,7 @@ Public Class EisEmissionSummaryTool
             dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
 
             txtNonResponseCount.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtNonResponseCount.Text
@@ -761,19 +595,12 @@ Public Class EisEmissionSummaryTool
             dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
             dgvESDataCount.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
-            dgvESDataCount.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 2
             dgvESDataCount.Columns("STRCONTACTLASTNAME").HeaderText = "Contact Last Name"
-            dgvESDataCount.Columns("STRCONTACTLASTNAME").DisplayIndex = 3
             dgvESDataCount.Columns("STRCONTACTCOMPANY").HeaderText = "Contact Company"
-            dgvESDataCount.Columns("STRCONTACTCOMPANY").DisplayIndex = 4
             dgvESDataCount.Columns("STRCONTACTEMAIL").HeaderText = "Contact Email"
-            dgvESDataCount.Columns("STRCONTACTEMAIL").DisplayIndex = 5
             dgvESDataCount.Columns("STRCONTACTPHONENUMBER").HeaderText = "Phone No."
-            dgvESDataCount.Columns("STRCONTACTPHONENUMBER").DisplayIndex = 6
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
             txtextraResponse.Text = dgvESDataCount.RowCount.ToString
@@ -788,11 +615,11 @@ Public Class EisEmissionSummaryTool
     End Sub
 
     Private Sub lblViewOptIn_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewOptIn.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+        txtESYear.Text = cboYear.SelectedValue.ToString
         Try
 
             Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
+            Dim intYear As Integer = CInt(year)
 
             SQL = "SELECT esSchema.STRAIRSNUMBER, esSchema.STRFACILITYNAME, esSchema.STRDATEFIRSTCONFIRM, esSchema.STRCONFIRMATIONNBR
                 FROM esSchema
@@ -813,13 +640,9 @@ Public Class EisEmissionSummaryTool
             dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").HeaderText = "First Date Confirmed"
-            dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").DisplayIndex = 2
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").HeaderText = "Confirmation Number"
-            dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 3
 
             txtMailoutOptin.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtMailoutOptin.Text
@@ -831,11 +654,11 @@ Public Class EisEmissionSummaryTool
     End Sub
 
     Private Sub lblViewOptOut_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewOptOut.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+        txtESYear.Text = cboYear.SelectedValue.ToString
         Try
 
             Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
+            Dim intYear As Integer = CInt(year)
 
             SQL = "SELECT esSchema.STRAIRSNUMBER, esSchema.STRFACILITYNAME, esSchema.STRDATEFIRSTCONFIRM, esSchema.STRCONFIRMATIONNBR
                 FROM esSchema
@@ -856,13 +679,9 @@ Public Class EisEmissionSummaryTool
             dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").HeaderText = "First Date Confirmed"
-            dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").DisplayIndex = 2
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").HeaderText = "Confirmation Number"
-            dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 3
 
             txtMailOutOptOut.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtMailOutOptOut.Text
@@ -874,11 +693,11 @@ Public Class EisEmissionSummaryTool
     End Sub
 
     Private Sub lblViewExtraOptOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptOut.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+        txtESYear.Text = cboYear.SelectedValue.ToString
         Try
 
             Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
+            Dim intYear As Integer = CInt(year)
 
             SQL = "SELECT ESSCHEMA.STRAIRSNUMBER, ESSCHEMA.STRFACILITYNAME, ESSCHEMA.STRDATEFIRSTCONFIRM, ESSCHEMA.STRCONFIRMATIONNBR
                 FROM (SELECT ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, ESMailout.STRAIRSYEAR AS MailoutAIRS
@@ -901,13 +720,9 @@ Public Class EisEmissionSummaryTool
             dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 1
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 0
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").HeaderText = "First Date Confirmed"
-            dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").DisplayIndex = 2
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").HeaderText = "Confirmation Number"
-            dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 3
 
             txtExtraOptout.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtExtraOptout.Text
@@ -919,11 +734,11 @@ Public Class EisEmissionSummaryTool
     End Sub
 
     Private Sub lblViewExtraOptIn_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptIn.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+        txtESYear.Text = cboYear.SelectedValue.ToString
         Try
 
             Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
+            Dim intYear As Integer = CInt(year)
 
             SQL = "SELECT ESSCHEMA.STRAIRSNUMBER, ESSCHEMA.STRFACILITYNAME, ESSCHEMA.STRDATEFIRSTCONFIRM, ESSCHEMA.STRCONFIRMATIONNBR
                 FROM (SELECT ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, ESMailout.STRAIRSYEAR AS MailoutAIRS
@@ -946,13 +761,9 @@ Public Class EisEmissionSummaryTool
             dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").HeaderText = "First Date Confirmed"
-            dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").DisplayIndex = 2
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").HeaderText = "Confirmation Number"
-            dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 3
 
             txtExtraOptin.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtExtraOptin.Text
@@ -965,11 +776,11 @@ Public Class EisEmissionSummaryTool
     End Sub
 
     Private Sub lblViewTotalResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewTotalResponse.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+        txtESYear.Text = cboYear.SelectedValue.ToString
         Try
 
             Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
+            Dim intYear As Integer = CInt(year)
 
             SQL = "SELECT esSchema.STRAIRSNUMBER, " &
             "esSchema.STRFACILITYNAME, " &
@@ -996,19 +807,12 @@ Public Class EisEmissionSummaryTool
             dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
             dgvESDataCount.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
-            dgvESDataCount.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 2
             dgvESDataCount.Columns("STRCONTACTLASTNAME").HeaderText = "Contact Last Name"
-            dgvESDataCount.Columns("STRCONTACTLASTNAME").DisplayIndex = 3
             dgvESDataCount.Columns("STRCONTACTCOMPANY").HeaderText = "Contact Company"
-            dgvESDataCount.Columns("STRCONTACTCOMPANY").DisplayIndex = 4
             dgvESDataCount.Columns("STRCONTACTEMAIL").HeaderText = "Contact Email"
-            dgvESDataCount.Columns("STRCONTACTEMAIL").DisplayIndex = 5
             dgvESDataCount.Columns("STRCONTACTPHONENUMBER").HeaderText = "Phone Number"
-            dgvESDataCount.Columns("STRCONTACTPHONENUMBER").DisplayIndex = 6
 
             txtTotalResponse.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtTotalResponse.Text
