@@ -192,13 +192,6 @@ Namespace DAL
         'Region added to validate that a number entered as an Airs Number, not only isn't null, but also adheres to the correct Airs Number Format
         'Used when you don't know whether an Airs Number entry by the user is in a valid format or exists already in the database 
 
-        Public Enum AirsNumberValidationResult
-            Valid
-            Empty
-            InvalidCharacters
-            NonExistent
-        End Enum
-
         'Added to make sure AirsNumber entered is Not Null and is of the correct Pattern and can be used seperately from ValidateAirsNumber
         Public Function ValidateAirsPattern(ByVal airsInput As String) As AirsNumberValidationResult
             If airsInput = "" Then
@@ -206,7 +199,7 @@ Namespace DAL
             End If
 
             If Not Regex.IsMatch(airsInput, AirsNumberPattern) Then
-                Return AirsNumberValidationResult.InvalidCharacters
+                Return AirsNumberValidationResult.InvalidFormat
             End If
 
             Return AirsNumberValidationResult.Valid
@@ -219,7 +212,7 @@ Namespace DAL
             End If
 
             If Not Regex.IsMatch(airsInput, AirsNumberPattern) Then
-                Return AirsNumberValidationResult.InvalidCharacters
+                Return AirsNumberValidationResult.InvalidFormat
             End If
 
             If Not AirsNumberExists(airsInput) Then
@@ -231,7 +224,7 @@ Namespace DAL
 
         Public Function GetAirsValidationMsg(ByVal result As AirsNumberValidationResult) As String
             Select Case result
-                Case AirsNumberValidationResult.InvalidCharacters
+                Case AirsNumberValidationResult.InvalidFormat
                     Return "The AIRS Number is not formatted correctly. " &
                         "Please try again."
 
@@ -250,4 +243,12 @@ Namespace DAL
 #End Region
 
     End Module
+
+    Public Enum AirsNumberValidationResult
+        Valid
+        Empty
+        InvalidFormat
+        NonExistent
+    End Enum
+
 End Namespace

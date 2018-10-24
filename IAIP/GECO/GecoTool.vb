@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Facilities
+Imports Iaip.DAL
 Imports Iaip.DAL.FacilityData
 Imports Iaip.DAL.Geco
 

@@ -238,6 +238,15 @@
     <Compile Include="_Code\SaveFile.vb" />
     <Compile Include="_Code\StringFunctions.vb" />
     <Compile Include="_Code\UrlHandler.vb" />
+    <Compile Include="_Controls\AirNumberEntryForm.Designer.vb">
+      <DependentUpon>AirNumberEntryForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="_Controls\AirNumberEntryForm.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="_Controls\AirsNumberTextBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="_DAL\DAL.Organization.vb" />
     <Compile Include="_DAL\DAL.GECO.vb" />
     <Compile Include="_DAL\DAL.State.vb" />
@@ -265,6 +274,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Users\IaipUserProfile.resx">
       <DependentUpon>IaipUserProfile.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_Controls\AirNumberEntryForm.resx">
+      <DependentUpon>AirNumberEntryForm.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>
@@ -1622,7 +1634,7 @@
     <Compile Include="_DAL\DAL.EventRegistration.vb" />
     <Compile Include="_Code\BitFields.vb" />
     <Compile Include="_Code\CrystalReports.vb" />
-    <Compile Include="_Code\CueTextBox.vb">
+    <Compile Include="_Controls\CueTextBox.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="_Code\Email.vb" />

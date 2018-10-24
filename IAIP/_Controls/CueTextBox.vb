@@ -1,4 +1,5 @@
-﻿''' <summary>
+﻿Imports System.ComponentModel
+''' <summary>
 ''' Textbox with cue text
 ''' </summary>
 ''' <remarks>See http://stackoverflow.com/a/5450496/212978 </remarks>
@@ -11,14 +12,15 @@ Friend Class CueTextBox
         Private Const ECM_FIRST As UInteger = &H1500
         Friend Const EM_SETCUEBANNER As UInteger = ECM_FIRST + 1
 
-        <Runtime.InteropServices.DllImport("user32.dll", CharSet:=Runtime.InteropServices.CharSet.Unicode)> _
+        <Runtime.InteropServices.DllImport("user32.dll", CharSet:=Runtime.InteropServices.CharSet.Unicode)>
         Public Shared Function SendMessage(hWnd As IntPtr, Msg As UInt32, wParam As IntPtr, lParam As String) As IntPtr
         End Function
     End Class
 
     Private _cue As String
 
-    Public Property Cue() As String
+    <Category("Appearance"), Description("Specifies the placeholder text to display in the TextBox.")>
+    Public Overridable Property Cue() As String
         Get
             Return _cue
         End Get
