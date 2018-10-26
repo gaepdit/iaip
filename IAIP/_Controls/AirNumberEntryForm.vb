@@ -4,7 +4,7 @@ Imports Iaip.DAL
 
 Public Class AirNumberEntryForm
 
-    ' Properties
+#Region " Properties "
 
     <Category("Appearance"), Description("Message displayed when AIRS # entered does not exist in database.")>
     Public Property FacilityDoesNotExistMessage As String = "Facility does not exist."
@@ -15,7 +15,9 @@ Public Class AirNumberEntryForm
     <Category("Appearance"), Description("Whether to display the error message label.")>
     Public Property DisplayErrorMessage As Boolean = True
 
-    ' AirsEntryTextBox pass-thru properties
+#End Region
+
+#Region " AirsEntryTextBox pass-thru properties "
 
     <Browsable(False)>
     Public Property AirsNumber As ApbFacilityId
@@ -44,6 +46,10 @@ Public Class AirNumberEntryForm
         End Get
     End Property
 
+#End Region
+
+#Region " CueTextBox pass-thru properties "
+
     <Category("Appearance"), Description("Specifies the placeholder text to display in the TextBox.")>
     Public Property Cue As String
         Get
@@ -53,6 +59,10 @@ Public Class AirNumberEntryForm
             AirsEntryTextBox.Cue = value
         End Set
     End Property
+
+#End Region
+
+#Region " TextBox pass-thru properties "
 
     <Category("Data"), Description("User-defined data associated with the object.")>
     Public Overloads Property Tag As Object
@@ -73,6 +83,28 @@ Public Class AirNumberEntryForm
             AirsEntryTextBox.Text = value
         End Set
     End Property
+
+    <Category("Behavior"), Description("Controls whether the text can be changed or not.")>
+    Public Property [ReadOnly] As Boolean
+        Get
+            Return AirsEntryTextBox.ReadOnly
+        End Get
+        Set(value As Boolean)
+            AirsEntryTextBox.ReadOnly = value
+        End Set
+    End Property
+
+    <Category("Appearance"), Description("The background color of the text field.")>
+    Public Property TextBoxBackColor As Color
+        Get
+            Return AirsEntryTextBox.BackColor
+        End Get
+        Set(value As Color)
+            AirsEntryTextBox.BackColor = value
+        End Set
+    End Property
+
+#End Region
 
     ' Constructor
 
