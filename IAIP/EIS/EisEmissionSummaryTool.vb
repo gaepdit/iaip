@@ -263,14 +263,6 @@ Public Class EisEmissionSummaryTool
 
             dgvESDataCount.DataSource = dtViewCount
 
-            dgvESDataCount.RowHeadersVisible = False
-            dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvESDataCount.AllowUserToResizeColumns = True
-            dgvESDataCount.AllowUserToAddRows = False
-            dgvESDataCount.AllowUserToDeleteRows = False
-            dgvESDataCount.AllowUserToOrderColumns = True
-            dgvESDataCount.AllowUserToResizeRows = True
-
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvESDataCount.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
@@ -309,14 +301,6 @@ Public Class EisEmissionSummaryTool
 
             dgvESDataCount.DataSource = dtView
 
-            dgvESDataCount.RowHeadersVisible = False
-            dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvESDataCount.AllowUserToResizeColumns = True
-            dgvESDataCount.AllowUserToAddRows = False
-            dgvESDataCount.AllowUserToDeleteRows = False
-            dgvESDataCount.AllowUserToOrderColumns = True
-            dgvESDataCount.AllowUserToResizeRows = True
-
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").HeaderText = "First Date Confirmed"
@@ -347,14 +331,6 @@ Public Class EisEmissionSummaryTool
             Dim dtView As DataTable = DB.GetDataTable(SQL, New SqlParameter("@intYear", intYear))
 
             dgvESDataCount.DataSource = dtView
-
-            dgvESDataCount.RowHeadersVisible = False
-            dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvESDataCount.AllowUserToResizeColumns = True
-            dgvESDataCount.AllowUserToAddRows = False
-            dgvESDataCount.AllowUserToDeleteRows = False
-            dgvESDataCount.AllowUserToOrderColumns = True
-            dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
@@ -407,14 +383,6 @@ Public Class EisEmissionSummaryTool
 
             dgvESDataCount.DataSource = dtView
 
-            dgvESDataCount.RowHeadersVisible = False
-            dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvESDataCount.AllowUserToResizeColumns = True
-            dgvESDataCount.AllowUserToAddRows = False
-            dgvESDataCount.AllowUserToDeleteRows = False
-            dgvESDataCount.AllowUserToOrderColumns = True
-            dgvESDataCount.AllowUserToResizeRows = True
-
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvESDataCount.Columns("STROPTOUT").HeaderText = "OptOut Status"
@@ -465,14 +433,6 @@ Public Class EisEmissionSummaryTool
 
             dgvESDataCount.DataSource = dtView
 
-            dgvESDataCount.RowHeadersVisible = False
-            dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvESDataCount.AllowUserToResizeColumns = True
-            dgvESDataCount.AllowUserToAddRows = False
-            dgvESDataCount.AllowUserToDeleteRows = False
-            dgvESDataCount.AllowUserToOrderColumns = True
-            dgvESDataCount.AllowUserToResizeRows = True
-
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").HeaderText = "Date First Confirmed"
@@ -506,14 +466,6 @@ Public Class EisEmissionSummaryTool
 
             dgvESDataCount.DataSource = dtViewCount
 
-            dgvESDataCount.RowHeadersVisible = False
-            dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvESDataCount.AllowUserToResizeColumns = True
-            dgvESDataCount.AllowUserToAddRows = False
-            dgvESDataCount.AllowUserToDeleteRows = False
-            dgvESDataCount.AllowUserToOrderColumns = True
-            dgvESDataCount.AllowUserToResizeRows = True
-
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvESDataCount.Columns("DBLVOCEMISSION").HeaderText = "VOC Emissions"
@@ -546,14 +498,6 @@ Public Class EisEmissionSummaryTool
 
             dgvESDataCount.DataSource = dtViewCount
 
-            dgvESDataCount.RowHeadersVisible = False
-            dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvESDataCount.AllowUserToResizeColumns = True
-            dgvESDataCount.AllowUserToAddRows = False
-            dgvESDataCount.AllowUserToDeleteRows = False
-            dgvESDataCount.AllowUserToOrderColumns = True
-            dgvESDataCount.AllowUserToResizeRows = True
-
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
 
@@ -585,14 +529,6 @@ Public Class EisEmissionSummaryTool
             Dim dtView As DataTable = DB.GetDataTable(SQL, New SqlParameter("@intYear", intyear))
 
             dgvESDataCount.DataSource = dtView
-
-            dgvESDataCount.RowHeadersVisible = False
-            dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvESDataCount.AllowUserToResizeColumns = True
-            dgvESDataCount.AllowUserToAddRows = False
-            dgvESDataCount.AllowUserToDeleteRows = False
-            dgvESDataCount.AllowUserToOrderColumns = True
-            dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
@@ -631,14 +567,6 @@ Public Class EisEmissionSummaryTool
 
             dgvESDataCount.DataSource = dtView
 
-            dgvESDataCount.RowHeadersVisible = False
-            dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvESDataCount.AllowUserToResizeColumns = True
-            dgvESDataCount.AllowUserToAddRows = False
-            dgvESDataCount.AllowUserToDeleteRows = False
-            dgvESDataCount.AllowUserToOrderColumns = True
-            dgvESDataCount.AllowUserToResizeRows = True
-
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").HeaderText = "First Date Confirmed"
@@ -669,14 +597,6 @@ Public Class EisEmissionSummaryTool
             Dim dtView As DataTable = DB.GetDataTable(SQL, New SqlParameter("@intYear", intYear))
 
             dgvESDataCount.DataSource = dtView
-
-            dgvESDataCount.RowHeadersVisible = False
-            dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvESDataCount.AllowUserToResizeColumns = True
-            dgvESDataCount.AllowUserToAddRows = False
-            dgvESDataCount.AllowUserToDeleteRows = False
-            dgvESDataCount.AllowUserToOrderColumns = True
-            dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
@@ -711,14 +631,6 @@ Public Class EisEmissionSummaryTool
 
             dgvESDataCount.DataSource = dtView
 
-            dgvESDataCount.RowHeadersVisible = False
-            dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvESDataCount.AllowUserToResizeColumns = True
-            dgvESDataCount.AllowUserToAddRows = False
-            dgvESDataCount.AllowUserToDeleteRows = False
-            dgvESDataCount.AllowUserToOrderColumns = True
-            dgvESDataCount.AllowUserToResizeRows = True
-
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").HeaderText = "First Date Confirmed"
@@ -751,14 +663,6 @@ Public Class EisEmissionSummaryTool
             Dim dtView As DataTable = DB.GetDataTable(SQL, New SqlParameter("@intYear", intYear))
 
             dgvESDataCount.DataSource = dtView
-
-            dgvESDataCount.RowHeadersVisible = False
-            dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvESDataCount.AllowUserToResizeColumns = True
-            dgvESDataCount.AllowUserToAddRows = False
-            dgvESDataCount.AllowUserToDeleteRows = False
-            dgvESDataCount.AllowUserToOrderColumns = True
-            dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
@@ -797,14 +701,6 @@ Public Class EisEmissionSummaryTool
             Dim dtView As DataTable = DB.GetDataTable(SQL, New SqlParameter("@intYear", intYear))
 
             dgvESDataCount.DataSource = dtView
-
-            dgvESDataCount.RowHeadersVisible = False
-            dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvESDataCount.AllowUserToResizeColumns = True
-            dgvESDataCount.AllowUserToAddRows = False
-            dgvESDataCount.AllowUserToDeleteRows = False
-            dgvESDataCount.AllowUserToOrderColumns = True
-            dgvESDataCount.AllowUserToResizeRows = True
 
             dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
@@ -906,14 +802,6 @@ Public Class EisEmissionSummaryTool
 
                     dgvEIResults.DataSource = DB.GetDataTable(SQL, param)
 
-                    dgvEIResults.RowHeadersVisible = False
-                    dgvEIResults.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                    dgvEIResults.AllowUserToResizeColumns = True
-                    dgvEIResults.AllowUserToAddRows = False
-                    dgvEIResults.AllowUserToDeleteRows = False
-                    dgvEIResults.AllowUserToOrderColumns = True
-                    dgvEIResults.AllowUserToResizeRows = True
-
                     dgvEIResults.Columns("AIRSNumber").HeaderText = "Airs No."
                     dgvEIResults.Columns("AIRSNumber").Width = 75
                     dgvEIResults.Columns("FacilityName").HeaderText = "Facility Name"
@@ -959,14 +847,6 @@ Public Class EisEmissionSummaryTool
                     Dim param As New SqlParameter("@year", cboEIYear.Text)
 
                     dgvEIResults.DataSource = DB.GetDataTable(SQL, param)
-
-                    dgvEIResults.RowHeadersVisible = False
-                    dgvEIResults.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                    dgvEIResults.AllowUserToResizeColumns = True
-                    dgvEIResults.AllowUserToAddRows = False
-                    dgvEIResults.AllowUserToDeleteRows = False
-                    dgvEIResults.AllowUserToOrderColumns = True
-                    dgvEIResults.AllowUserToResizeRows = True
 
                     dgvEIResults.Columns("AIRSNumber").HeaderText = "Airs No."
                     dgvEIResults.Columns("AIRSNumber").Width = 75
@@ -1025,14 +905,6 @@ Public Class EisEmissionSummaryTool
                 }
 
                 dgvEIResults.DataSource = DB.GetDataTable(SQL, params)
-
-                dgvEIResults.RowHeadersVisible = False
-                dgvEIResults.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvEIResults.AllowUserToResizeColumns = True
-                dgvEIResults.AllowUserToAddRows = False
-                dgvEIResults.AllowUserToDeleteRows = False
-                dgvEIResults.AllowUserToOrderColumns = True
-                dgvEIResults.AllowUserToResizeRows = True
 
                 dgvEIResults.Columns("AIRSNumber").HeaderText = "Airs No."
                 dgvEIResults.Columns("AIRSNumber").Width = 75

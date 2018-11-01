@@ -19,6 +19,8 @@ Partial Class EisEmissionSummaryTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.TabControl3 = New System.Windows.Forms.TabControl()
         Me.tabSummary = New System.Windows.Forms.TabPage()
@@ -169,6 +171,7 @@ Partial Class EisEmissionSummaryTool
         'SplitContainer1
         '
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
         Me.SplitContainer1.Location = New System.Drawing.Point(3, 3)
         Me.SplitContainer1.Name = "SplitContainer1"
         '
@@ -181,8 +184,8 @@ Partial Class EisEmissionSummaryTool
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.dgvESDataCount)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Btn)
-        Me.SplitContainer1.Size = New System.Drawing.Size(984, 644)
-        Me.SplitContainer1.SplitterDistance = 543
+        Me.SplitContainer1.Size = New System.Drawing.Size(909, 609)
+        Me.SplitContainer1.SplitterDistance = 535
         Me.SplitContainer1.TabIndex = 9
         '
         'TabControl3
@@ -193,7 +196,7 @@ Partial Class EisEmissionSummaryTool
         Me.TabControl3.Location = New System.Drawing.Point(0, 48)
         Me.TabControl3.Name = "TabControl3"
         Me.TabControl3.SelectedIndex = 0
-        Me.TabControl3.Size = New System.Drawing.Size(543, 596)
+        Me.TabControl3.Size = New System.Drawing.Size(535, 561)
         Me.TabControl3.TabIndex = 12
         '
         'tabSummary
@@ -243,7 +246,7 @@ Partial Class EisEmissionSummaryTool
         Me.tabSummary.Location = New System.Drawing.Point(4, 22)
         Me.tabSummary.Name = "tabSummary"
         Me.tabSummary.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabSummary.Size = New System.Drawing.Size(535, 570)
+        Me.tabSummary.Size = New System.Drawing.Size(527, 535)
         Me.tabSummary.TabIndex = 0
         Me.tabSummary.Text = "Summary"
         Me.tabSummary.UseVisualStyleBackColor = True
@@ -674,7 +677,7 @@ Partial Class EisEmissionSummaryTool
         Me.TabDetails.Controls.Add(Me.Label145)
         Me.TabDetails.Location = New System.Drawing.Point(4, 22)
         Me.TabDetails.Name = "TabDetails"
-        Me.TabDetails.Size = New System.Drawing.Size(535, 570)
+        Me.TabDetails.Size = New System.Drawing.Size(527, 474)
         Me.TabDetails.TabIndex = 2
         Me.TabDetails.Text = "Details"
         Me.TabDetails.UseVisualStyleBackColor = True
@@ -1230,7 +1233,7 @@ Partial Class EisEmissionSummaryTool
         Me.PnlESYear.Dock = System.Windows.Forms.DockStyle.Top
         Me.PnlESYear.Location = New System.Drawing.Point(0, 0)
         Me.PnlESYear.Name = "PnlESYear"
-        Me.PnlESYear.Size = New System.Drawing.Size(543, 48)
+        Me.PnlESYear.Size = New System.Drawing.Size(535, 48)
         Me.PnlESYear.TabIndex = 11
         '
         'txtESYear
@@ -1271,12 +1274,20 @@ Partial Class EisEmissionSummaryTool
         '
         'dgvESDataCount
         '
+        Me.dgvESDataCount.AllowUserToAddRows = False
+        Me.dgvESDataCount.AllowUserToDeleteRows = False
+        Me.dgvESDataCount.AllowUserToOrderColumns = True
+        Me.dgvESDataCount.AllowUserToResizeRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvESDataCount.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvESDataCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvESDataCount.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvESDataCount.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvESDataCount.Location = New System.Drawing.Point(0, 51)
         Me.dgvESDataCount.Name = "dgvESDataCount"
         Me.dgvESDataCount.ReadOnly = True
-        Me.dgvESDataCount.Size = New System.Drawing.Size(437, 593)
+        Me.dgvESDataCount.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvESDataCount.Size = New System.Drawing.Size(370, 558)
         Me.dgvESDataCount.TabIndex = 2
         '
         'Btn
@@ -1286,7 +1297,7 @@ Partial Class EisEmissionSummaryTool
         Me.Btn.Dock = System.Windows.Forms.DockStyle.Top
         Me.Btn.Location = New System.Drawing.Point(0, 0)
         Me.Btn.Name = "Btn"
-        Me.Btn.Size = New System.Drawing.Size(437, 51)
+        Me.Btn.Size = New System.Drawing.Size(370, 51)
         Me.Btn.TabIndex = 10
         Me.Btn.TabStop = False
         Me.Btn.Text = "View Data"
@@ -1303,7 +1314,7 @@ Partial Class EisEmissionSummaryTool
         Me.btnoutofcomplianceExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnoutofcomplianceExport.AutoSize = True
         Me.btnoutofcomplianceExport.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnoutofcomplianceExport.Location = New System.Drawing.Point(323, 18)
+        Me.btnoutofcomplianceExport.Location = New System.Drawing.Point(248, 18)
         Me.btnoutofcomplianceExport.Name = "btnoutofcomplianceExport"
         Me.btnoutofcomplianceExport.Size = New System.Drawing.Size(108, 23)
         Me.btnoutofcomplianceExport.TabIndex = 41
@@ -1319,7 +1330,7 @@ Partial Class EisEmissionSummaryTool
         Me.TCEmissionTools.Location = New System.Drawing.Point(0, 0)
         Me.TCEmissionTools.Name = "TCEmissionTools"
         Me.TCEmissionTools.SelectedIndex = 0
-        Me.TCEmissionTools.Size = New System.Drawing.Size(998, 676)
+        Me.TCEmissionTools.Size = New System.Drawing.Size(923, 641)
         Me.TCEmissionTools.TabIndex = 0
         '
         'TPESTools
@@ -1328,7 +1339,7 @@ Partial Class EisEmissionSummaryTool
         Me.TPESTools.Location = New System.Drawing.Point(4, 22)
         Me.TPESTools.Name = "TPESTools"
         Me.TPESTools.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPESTools.Size = New System.Drawing.Size(990, 650)
+        Me.TPESTools.Size = New System.Drawing.Size(915, 615)
         Me.TPESTools.TabIndex = 0
         Me.TPESTools.Text = "Emissions Statement Tools"
         Me.TPESTools.UseVisualStyleBackColor = True
@@ -1340,19 +1351,28 @@ Partial Class EisEmissionSummaryTool
         Me.TPEITools.Location = New System.Drawing.Point(4, 22)
         Me.TPEITools.Name = "TPEITools"
         Me.TPEITools.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPEITools.Size = New System.Drawing.Size(990, 650)
+        Me.TPEITools.Size = New System.Drawing.Size(915, 615)
         Me.TPEITools.TabIndex = 1
         Me.TPEITools.Text = "Emissions Inventory Tools"
         Me.TPEITools.UseVisualStyleBackColor = True
         '
         'dgvEIResults
         '
+        Me.dgvEIResults.AllowUserToAddRows = False
+        Me.dgvEIResults.AllowUserToDeleteRows = False
+        Me.dgvEIResults.AllowUserToOrderColumns = True
+        Me.dgvEIResults.AllowUserToResizeRows = False
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEIResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvEIResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEIResults.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvEIResults.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvEIResults.Location = New System.Drawing.Point(3, 53)
         Me.dgvEIResults.Name = "dgvEIResults"
         Me.dgvEIResults.ReadOnly = True
-        Me.dgvEIResults.Size = New System.Drawing.Size(984, 594)
+        Me.dgvEIResults.RowHeadersVisible = False
+        Me.dgvEIResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvEIResults.Size = New System.Drawing.Size(909, 559)
         Me.dgvEIResults.TabIndex = 1
         '
         'Panel1
@@ -1369,13 +1389,13 @@ Partial Class EisEmissionSummaryTool
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(984, 50)
+        Me.Panel1.Size = New System.Drawing.Size(909, 50)
         Me.Panel1.TabIndex = 0
         '
         'txtEICount
         '
         Me.txtEICount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtEICount.Location = New System.Drawing.Point(801, 13)
+        Me.txtEICount.Location = New System.Drawing.Point(726, 13)
         Me.txtEICount.Name = "txtEICount"
         Me.txtEICount.ReadOnly = True
         Me.txtEICount.Size = New System.Drawing.Size(69, 20)
@@ -1385,7 +1405,7 @@ Partial Class EisEmissionSummaryTool
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(757, 16)
+        Me.Label3.Location = New System.Drawing.Point(682, 16)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(38, 13)
         Me.Label3.TabIndex = 7
@@ -1394,7 +1414,7 @@ Partial Class EisEmissionSummaryTool
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(289, 16)
+        Me.Label2.Location = New System.Drawing.Point(285, 16)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(48, 13)
         Me.Label2.TabIndex = 6
@@ -1402,17 +1422,20 @@ Partial Class EisEmissionSummaryTool
         '
         'cboEIPollutants
         '
+        Me.cboEIPollutants.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboEIPollutants.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEIPollutants.FormattingEnabled = True
-        Me.cboEIPollutants.Location = New System.Drawing.Point(343, 13)
+        Me.cboEIPollutants.Location = New System.Drawing.Point(339, 12)
         Me.cboEIPollutants.Name = "cboEIPollutants"
-        Me.cboEIPollutants.Size = New System.Drawing.Size(268, 21)
+        Me.cboEIPollutants.Size = New System.Drawing.Size(179, 21)
         Me.cboEIPollutants.TabIndex = 2
         '
         'btnViewEISummaryByPollutant
         '
+        Me.btnViewEISummaryByPollutant.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnViewEISummaryByPollutant.AutoSize = True
-        Me.btnViewEISummaryByPollutant.Location = New System.Drawing.Point(617, 11)
+        Me.btnViewEISummaryByPollutant.Location = New System.Drawing.Point(524, 11)
         Me.btnViewEISummaryByPollutant.Name = "btnViewEISummaryByPollutant"
         Me.btnViewEISummaryByPollutant.Size = New System.Drawing.Size(130, 23)
         Me.btnViewEISummaryByPollutant.TabIndex = 3
@@ -1424,7 +1447,7 @@ Partial Class EisEmissionSummaryTool
         Me.btnExportEItoExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnExportEItoExcel.AutoSize = True
         Me.btnExportEItoExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnExportEItoExcel.Location = New System.Drawing.Point(876, 11)
+        Me.btnExportEItoExcel.Location = New System.Drawing.Point(801, 11)
         Me.btnExportEItoExcel.Name = "btnExportEItoExcel"
         Me.btnExportEItoExcel.Size = New System.Drawing.Size(104, 23)
         Me.btnExportEItoExcel.TabIndex = 5
@@ -1435,7 +1458,7 @@ Partial Class EisEmissionSummaryTool
         'btnEISummary
         '
         Me.btnEISummary.AutoSize = True
-        Me.btnEISummary.Location = New System.Drawing.Point(167, 11)
+        Me.btnEISummary.Location = New System.Drawing.Point(125, 11)
         Me.btnEISummary.Name = "btnEISummary"
         Me.btnEISummary.Size = New System.Drawing.Size(105, 23)
         Me.btnEISummary.TabIndex = 1
@@ -1455,18 +1478,18 @@ Partial Class EisEmissionSummaryTool
         '
         Me.cboEIYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEIYear.FormattingEnabled = True
-        Me.cboEIYear.Location = New System.Drawing.Point(40, 13)
+        Me.cboEIYear.Location = New System.Drawing.Point(40, 12)
         Me.cboEIYear.Name = "cboEIYear"
-        Me.cboEIYear.Size = New System.Drawing.Size(121, 21)
+        Me.cboEIYear.Size = New System.Drawing.Size(79, 21)
         Me.cboEIYear.TabIndex = 0
         '
         'EisEmissionSummaryTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(998, 676)
+        Me.ClientSize = New System.Drawing.Size(923, 641)
         Me.Controls.Add(Me.TCEmissionTools)
-        Me.MaximumSize = New System.Drawing.Size(1014, 714)
+        Me.MinimumSize = New System.Drawing.Size(868, 618)
         Me.Name = "EisEmissionSummaryTool"
         Me.Text = "Emissions Summary Tool"
         Me.SplitContainer1.Panel1.ResumeLayout(False)
