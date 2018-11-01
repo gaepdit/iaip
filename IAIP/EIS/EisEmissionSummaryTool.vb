@@ -818,31 +818,9 @@ Public Class EisEmissionSummaryTool
                     dgvEIResults.Columns("PMFIL").HeaderText = "Filterable PM 2.5"
 
                 Else
-                    SQL = "select FACILITYSITEID as AIRSNumber,
-                           STRFACILITYNAME as FacilityName,
-                           SO2,
-                           NOX,
-                           VOC,
-                           CO,
-                           NH3,
-                           Lead,
-                           [PM-CON] as PMCON,
-                           [PM10-PRI] as PM10PRI,
-                           [PM10-FIL] as PM10FIL,
-                           [PM25-PRI] as PM25PRI,
-                           [PM25-FIL] as PMFIL
-                    from (
-                             SELECT FACILITYSITEID, f.STRFACILITYNAME, POLLUTANTCODE, SUM(FLTTOTALEMISSIONS) AS Pollutant
-                             FROM VW_EIS_RPEMISSIONS e
-                                  inner join APBFACILITYINFORMATION f
-                                          on right(f.STRAIRSNUMBER, 8) = e.FACILITYSITEID
-                             WHERE INTINVENTORYYEAR = @year
-                               and RPTPERIODTYPECODE = 'A'
-                             GROUP BY FACILITYSITEID, f.STRFACILITYNAME, POLLUTANTCODE
-                         ) t pivot (sum(Pollutant) for POLLUTANTCODE
-                                 in (SO2, NOX, VOC, CO, NH3, Lead, [PM-CON], [PM10-PRI], [PM10-FIL], [PM25-PRI], [PM25-FIL])
-                                 ) p
-                    order by FACILITYSITEID"
+                    SQL = "select AIRSNumber, FacilityName, SO2, NOX, VOC, CO, NH3, Lead, PMCON, PM10PRI, PM10FIL, PM25PRI, PMFIL
+                        from VW_EIS_EMISSIONSUMMARY
+                        WHERE INTINVENTORYYEAR = @year"
 
                     Dim param As New SqlParameter("@year", cboEIYear.Text)
 
