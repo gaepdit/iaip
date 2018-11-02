@@ -759,7 +759,7 @@ Public Class EisEmissionSummaryTool
         End Try
     End Sub
 
-    Private Sub btnoutofcomplianceExport_Click(sender As Object, e As EventArgs) Handles btnoutofcomplianceExport.Click
+    Private Sub btnoutofcomplianceExport_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
         dgvESDataCount.ExportToExcel(Me)
     End Sub
 

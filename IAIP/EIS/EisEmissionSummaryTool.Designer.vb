@@ -134,9 +134,8 @@ Partial Class EisEmissionSummaryTool
         Me.Label31 = New System.Windows.Forms.Label()
         Me.cboYear = New System.Windows.Forms.ComboBox()
         Me.dgvESDataCount = New System.Windows.Forms.DataGridView()
-        Me.Btn = New System.Windows.Forms.GroupBox()
         Me.txtRecordNumber = New System.Windows.Forms.TextBox()
-        Me.btnoutofcomplianceExport = New System.Windows.Forms.Button()
+        Me.btnExportToExcel = New System.Windows.Forms.Button()
         Me.TCEmissionTools = New System.Windows.Forms.TabControl()
         Me.TPESTools = New System.Windows.Forms.TabPage()
         Me.TPEITools = New System.Windows.Forms.TabPage()
@@ -151,6 +150,8 @@ Partial Class EisEmissionSummaryTool
         Me.btnEISummary = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cboEIYear = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -160,12 +161,12 @@ Partial Class EisEmissionSummaryTool
         Me.TabDetails.SuspendLayout()
         Me.PnlESYear.SuspendLayout()
         CType(Me.dgvESDataCount, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Btn.SuspendLayout()
         Me.TCEmissionTools.SuspendLayout()
         Me.TPESTools.SuspendLayout()
         Me.TPEITools.SuspendLayout()
         CType(Me.dgvEIResults, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'SplitContainer1
@@ -183,7 +184,7 @@ Partial Class EisEmissionSummaryTool
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.dgvESDataCount)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.Btn)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.Panel2)
         Me.SplitContainer1.Size = New System.Drawing.Size(909, 609)
         Me.SplitContainer1.SplitterDistance = 535
         Me.SplitContainer1.TabIndex = 9
@@ -677,7 +678,7 @@ Partial Class EisEmissionSummaryTool
         Me.TabDetails.Controls.Add(Me.Label145)
         Me.TabDetails.Location = New System.Drawing.Point(4, 22)
         Me.TabDetails.Name = "TabDetails"
-        Me.TabDetails.Size = New System.Drawing.Size(527, 474)
+        Me.TabDetails.Size = New System.Drawing.Size(527, 535)
         Me.TabDetails.TabIndex = 2
         Me.TabDetails.Text = "Details"
         Me.TabDetails.UseVisualStyleBackColor = True
@@ -1238,7 +1239,7 @@ Partial Class EisEmissionSummaryTool
         '
         'txtESYear
         '
-        Me.txtESYear.Location = New System.Drawing.Point(297, 12)
+        Me.txtESYear.Location = New System.Drawing.Point(295, 12)
         Me.txtESYear.Name = "txtESYear"
         Me.txtESYear.Size = New System.Drawing.Size(100, 20)
         Me.txtESYear.TabIndex = 7
@@ -1247,7 +1248,7 @@ Partial Class EisEmissionSummaryTool
         'btnView
         '
         Me.btnView.AutoSize = True
-        Me.btnView.Location = New System.Drawing.Point(196, 12)
+        Me.btnView.Location = New System.Drawing.Point(196, 10)
         Me.btnView.Name = "btnView"
         Me.btnView.Size = New System.Drawing.Size(40, 23)
         Me.btnView.TabIndex = 6
@@ -1267,7 +1268,7 @@ Partial Class EisEmissionSummaryTool
         '
         Me.cboYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboYear.FormattingEnabled = True
-        Me.cboYear.Location = New System.Drawing.Point(93, 12)
+        Me.cboYear.Location = New System.Drawing.Point(93, 11)
         Me.cboYear.Name = "cboYear"
         Me.cboYear.Size = New System.Drawing.Size(97, 21)
         Me.cboYear.TabIndex = 5
@@ -1283,44 +1284,33 @@ Partial Class EisEmissionSummaryTool
         Me.dgvESDataCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvESDataCount.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvESDataCount.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvESDataCount.Location = New System.Drawing.Point(0, 51)
+        Me.dgvESDataCount.Location = New System.Drawing.Point(0, 48)
         Me.dgvESDataCount.Name = "dgvESDataCount"
         Me.dgvESDataCount.ReadOnly = True
+        Me.dgvESDataCount.RowHeadersVisible = False
         Me.dgvESDataCount.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvESDataCount.Size = New System.Drawing.Size(370, 558)
+        Me.dgvESDataCount.Size = New System.Drawing.Size(370, 561)
         Me.dgvESDataCount.TabIndex = 2
-        '
-        'Btn
-        '
-        Me.Btn.Controls.Add(Me.txtRecordNumber)
-        Me.Btn.Controls.Add(Me.btnoutofcomplianceExport)
-        Me.Btn.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Btn.Location = New System.Drawing.Point(0, 0)
-        Me.Btn.Name = "Btn"
-        Me.Btn.Size = New System.Drawing.Size(370, 51)
-        Me.Btn.TabIndex = 10
-        Me.Btn.TabStop = False
-        Me.Btn.Text = "View Data"
         '
         'txtRecordNumber
         '
-        Me.txtRecordNumber.Location = New System.Drawing.Point(11, 20)
+        Me.txtRecordNumber.Location = New System.Drawing.Point(47, 12)
         Me.txtRecordNumber.Name = "txtRecordNumber"
-        Me.txtRecordNumber.Size = New System.Drawing.Size(100, 20)
+        Me.txtRecordNumber.ReadOnly = True
+        Me.txtRecordNumber.Size = New System.Drawing.Size(90, 20)
         Me.txtRecordNumber.TabIndex = 1
         '
-        'btnoutofcomplianceExport
+        'btnExportToExcel
         '
-        Me.btnoutofcomplianceExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnoutofcomplianceExport.AutoSize = True
-        Me.btnoutofcomplianceExport.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnoutofcomplianceExport.Location = New System.Drawing.Point(248, 18)
-        Me.btnoutofcomplianceExport.Name = "btnoutofcomplianceExport"
-        Me.btnoutofcomplianceExport.Size = New System.Drawing.Size(108, 23)
-        Me.btnoutofcomplianceExport.TabIndex = 41
-        Me.btnoutofcomplianceExport.Text = "Export To Excel"
-        Me.btnoutofcomplianceExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnoutofcomplianceExport.UseVisualStyleBackColor = True
+        Me.btnExportToExcel.AutoSize = True
+        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportToExcel.Location = New System.Drawing.Point(143, 10)
+        Me.btnExportToExcel.Name = "btnExportToExcel"
+        Me.btnExportToExcel.Size = New System.Drawing.Size(115, 23)
+        Me.btnExportToExcel.TabIndex = 41
+        Me.btnExportToExcel.Text = "Export To Excel"
+        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnExportToExcel.UseVisualStyleBackColor = True
         '
         'TCEmissionTools
         '
@@ -1483,6 +1473,26 @@ Partial Class EisEmissionSummaryTool
         Me.cboEIYear.Size = New System.Drawing.Size(79, 21)
         Me.cboEIYear.TabIndex = 0
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(3, 15)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(38, 13)
+        Me.Label4.TabIndex = 42
+        Me.Label4.Text = "Count:"
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.Label4)
+        Me.Panel2.Controls.Add(Me.txtRecordNumber)
+        Me.Panel2.Controls.Add(Me.btnExportToExcel)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel2.Location = New System.Drawing.Point(0, 0)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(370, 48)
+        Me.Panel2.TabIndex = 11
+        '
         'EisEmissionSummaryTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1504,20 +1514,19 @@ Partial Class EisEmissionSummaryTool
         Me.PnlESYear.ResumeLayout(False)
         Me.PnlESYear.PerformLayout()
         CType(Me.dgvESDataCount, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Btn.ResumeLayout(False)
-        Me.Btn.PerformLayout()
         Me.TCEmissionTools.ResumeLayout(False)
         Me.TPESTools.ResumeLayout(False)
         Me.TPEITools.ResumeLayout(False)
         CType(Me.dgvEIResults, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
     Friend WithEvents dgvESDataCount As System.Windows.Forms.DataGridView
-    Friend WithEvents Btn As System.Windows.Forms.GroupBox
     Friend WithEvents txtRecordNumber As System.Windows.Forms.TextBox
     Friend WithEvents PnlESYear As System.Windows.Forms.Panel
     Friend WithEvents txtESYear As System.Windows.Forms.TextBox
@@ -1527,7 +1536,7 @@ Partial Class EisEmissionSummaryTool
     Friend WithEvents TabControl3 As System.Windows.Forms.TabControl
     Friend WithEvents tabSummary As System.Windows.Forms.TabPage
     Friend WithEvents lblViewMailOut As System.Windows.Forms.LinkLabel
-    Friend WithEvents btnoutofcomplianceExport As System.Windows.Forms.Button
+    Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
     Friend WithEvents Label76 As System.Windows.Forms.Label
     Friend WithEvents txtResponseCount As System.Windows.Forms.TextBox
     Friend WithEvents lblViewTotalResponse As System.Windows.Forms.LinkLabel
@@ -1645,4 +1654,6 @@ Partial Class EisEmissionSummaryTool
     Friend WithEvents cboEIPollutants As System.Windows.Forms.ComboBox
     Friend WithEvents txtEICount As System.Windows.Forms.TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents Label4 As Label
 End Class
