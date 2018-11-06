@@ -1034,16 +1034,16 @@ Public Class IAIPQueryGenerator
             If chbAllSubparts.Checked = True Then
                 SQLSelect = SQLSelect &
                    " case " &
-                   "when SUBSTRING(strSubPartKey, 13, 1) = '0' then strSubPart " &
+                   "when SUBSTRING(strSubPartKey, 13, 1) = '0' and ACTIVE = 1 then strSubPart " &
                    "end GASIP, " &
                    "case " &
-                   "when SUBSTRING(strSubPartKey, 13, 1) = '8' then strSubPart " &
+                   "when SUBSTRING(strSubPartKey, 13, 1) = '8' and ACTIVE = 1 then strSubPart " &
                    "end Part61, " &
                    "case " &
-                   "when SUBSTRING(strSubPartKey, 13, 1) = '9' then strSubPart " &
+                   "when SUBSTRING(strSubPartKey, 13, 1) = '9' and ACTIVE = 1 then strSubPart " &
                    "end Part60, " &
                    "case " &
-                   "when SUBSTRING(strSubPartKey, 13, 1) = 'M' then strSubPart " &
+                   "when SUBSTRING(strSubPartKey, 13, 1) = 'M' and ACTIVE = 1 then strSubPart " &
                    "End Part63, "
 
                 If SQLFrom.IndexOf("APBSubPartData") <> -1 Then
@@ -1058,7 +1058,7 @@ Public Class IAIPQueryGenerator
                 If chbSIP.Checked = True Then
                     SQLSelect = SQLSelect &
                     " case " &
-                    "when SUBSTRING(strSubPartKey, 13, 1) = '0' then strSubPart " &
+                    "when SUBSTRING(strSubPartKey, 13, 1) = '0' and ACTIVE = 1 then strSubPart " &
                     "end GASIP, "
 
                     If SQLFrom.IndexOf("APBSubPartData") <> -1 Then
@@ -1073,7 +1073,7 @@ Public Class IAIPQueryGenerator
                 If chbPart61Subpart.Checked = True Then
                     SQLSelect = SQLSelect &
                     " case " &
-                    "when SUBSTRING(strSubPartKey, 13, 1) = '8' then strSubPart " &
+                    "when SUBSTRING(strSubPartKey, 13, 1) = '8' and ACTIVE = 1 then strSubPart " &
                     "end Part61, "
 
                     If SQLFrom.IndexOf("APBSubPartData") <> -1 Then
@@ -1088,7 +1088,7 @@ Public Class IAIPQueryGenerator
                 If chbPart60Subpart.Checked = True Then
                     SQLSelect = SQLSelect &
                     " case " &
-                    "when SUBSTRING(strSubPartKey, 13, 1) = '9' then strSubPart " &
+                    "when SUBSTRING(strSubPartKey, 13, 1) = '9' and ACTIVE = 1 then strSubPart " &
                     "end Part60, "
 
                     If SQLFrom.IndexOf("APBSubPartData") <> -1 Then
@@ -1103,7 +1103,7 @@ Public Class IAIPQueryGenerator
                 If chbPart63Subpart.Checked = True Then
                     SQLSelect = SQLSelect &
                     " case " &
-                    "when SUBSTRING(strSubPartKey, 13, 1) = 'M' then strSubPart " &
+                    "when SUBSTRING(strSubPartKey, 13, 1) = 'M' and ACTIVE = 1 then strSubPart " &
                     "end Part63, "
 
                     If SQLFrom.IndexOf("APBSubPartData") <> -1 Then

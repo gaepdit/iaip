@@ -32,7 +32,7 @@ Module IaipFormHelpers
 
     Public Function OpenFormFacilitySummary(airsNumber As ApbFacilityId) As Form
         If Not DAL.FacilityData.AirsNumberExists(airsNumber) Then
-            MessageBox.Show("AIRS number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Facility does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
         Else
             Dim facilitySummary As IAIPFacilitySummary = New IAIPFacilitySummary

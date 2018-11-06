@@ -144,7 +144,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessTextbox_Enter(sender As Object, e As EventArgs) _
-    Handles txtOpenApplication.Enter, txtOpenEnforcement.Enter, txtOpenFacilitySummary.Enter, txtOpenSbeapCaseLog.Enter,
+    Handles txtOpenApplication.Enter, txtOpenEnforcement.Enter, txtOpenFacilitySummary.AirsTextEnter, txtOpenSbeapCaseLog.Enter,
     txtOpenSbeapClient.Enter, txtOpenSscpItem.Enter, txtOpenTestLog.Enter, txtOpenTestReport.Enter
         Dim thisButton As Button = CType(CType(sender, TextBox).Tag, Button)
         Me.AcceptButton = thisButton
@@ -153,18 +153,18 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessTextbox_Leave(sender As Object, e As EventArgs) _
-    Handles txtOpenApplication.Leave, txtOpenEnforcement.Leave, txtOpenFacilitySummary.Leave, txtOpenSbeapCaseLog.Leave,
+    Handles txtOpenApplication.Leave, txtOpenEnforcement.Leave, txtOpenFacilitySummary.AirsTextLeave, txtOpenSbeapCaseLog.Leave,
     txtOpenSbeapClient.Leave, txtOpenSscpItem.Leave, txtOpenTestLog.Leave, txtOpenTestReport.Leave
         Dim thisButton As Button = CType(CType(sender, TextBox).Tag, Button)
         Me.AcceptButton = Nothing
-        If Not thisButton.Tag Then
+        If Not CBool(thisButton.Tag) Then
             thisButton.FlatStyle = FlatStyle.Flat
             thisButton.ForeColor = SystemColors.GrayText
         End If
     End Sub
 
     Private Sub QuickAccessTextbox_TextChanged(sender As Object, e As EventArgs) _
-    Handles txtOpenApplication.TextChanged, txtOpenEnforcement.TextChanged, txtOpenFacilitySummary.TextChanged, txtOpenSbeapCaseLog.TextChanged,
+    Handles txtOpenApplication.TextChanged, txtOpenEnforcement.TextChanged, txtOpenFacilitySummary.AirsTextChanged, txtOpenSbeapCaseLog.TextChanged,
     txtOpenSbeapClient.TextChanged, txtOpenSscpItem.TextChanged, txtOpenTestLog.TextChanged, txtOpenTestReport.TextChanged
         Dim thisTextbox As TextBox = CType(sender, TextBox)
         Dim thisButton As Button = CType(thisTextbox.Tag, Button)
@@ -185,7 +185,7 @@ Public Class IAIPNavigation
     Handles btnOpenApplication.Enter, btnOpenEnforcement.Enter, btnOpenFacilitySummary.Enter, btnOpenSbeapCaseLog.Enter,
     btnOpenSbeapClient.Enter, btnOpenSscpItem.Enter, btnOpenTestLog.Enter, btnOpenTestReport.Enter
         Dim thisButton As Button = CType(sender, Button)
-        If thisButton.Tag Then
+        If CBool(thisButton.Tag) Then
             thisButton.FlatStyle = FlatStyle.Standard
             thisButton.ForeColor = SystemColors.ControlText
         End If
@@ -222,7 +222,16 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenFacilitySummary()
-        OpenFormFacilitySummary(txtOpenFacilitySummary.Text)
+        Select Case txtOpenFacilitySummary.ValidationStatus
+            Case DAL.AirsNumberValidationResult.Empty
+                OpenFormFacilitySummary()
+            Case DAL.AirsNumberValidationResult.InvalidFormat
+                MessageBox.Show("AIRS number is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Case DAL.AirsNumberValidationResult.NonExistent
+                MessageBox.Show("Facility does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Case DAL.AirsNumberValidationResult.Valid
+                OpenFormFacilitySummary(txtOpenFacilitySummary.AirsNumber)
+        End Select
     End Sub
 
     Private Sub OpenTestLog()

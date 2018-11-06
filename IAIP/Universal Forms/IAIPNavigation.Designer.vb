@@ -60,7 +60,7 @@ Partial Class IAIPNavigation
         Me.txtOpenTestLog = New Iaip.CueTextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.lblOpenFacilitySummary = New System.Windows.Forms.Label()
-        Me.txtOpenFacilitySummary = New Iaip.CueTextBox()
+        Me.txtOpenFacilitySummary = New Iaip.AirNumberEntryForm()
         Me.txtOpenSscpItem = New Iaip.CueTextBox()
         Me.lblOpenSscpItem = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -389,7 +389,7 @@ Partial Class IAIPNavigation
         Me.btnOpenSbeapClient.FlatAppearance.BorderSize = 0
         Me.btnOpenSbeapClient.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnOpenSbeapClient.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.btnOpenSbeapClient.Location = New System.Drawing.Point(102, 24)
+        Me.btnOpenSbeapClient.Location = New System.Drawing.Point(102, 22)
         Me.btnOpenSbeapClient.Name = "btnOpenSbeapClient"
         Me.btnOpenSbeapClient.Size = New System.Drawing.Size(43, 23)
         Me.btnOpenSbeapClient.TabIndex = 1
@@ -412,7 +412,7 @@ Partial Class IAIPNavigation
         '
         Me.SbeapClientIDLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.SbeapClientIDLabel.AutoSize = True
-        Me.SbeapClientIDLabel.Location = New System.Drawing.Point(4, 11)
+        Me.SbeapClientIDLabel.Location = New System.Drawing.Point(4, 9)
         Me.SbeapClientIDLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.SbeapClientIDLabel.Name = "SbeapClientIDLabel"
         Me.SbeapClientIDLabel.Size = New System.Drawing.Size(89, 13)
@@ -423,7 +423,7 @@ Partial Class IAIPNavigation
         '
         Me.txtOpenSbeapClient.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.txtOpenSbeapClient.Cue = "Customer ID"
-        Me.txtOpenSbeapClient.Location = New System.Drawing.Point(7, 26)
+        Me.txtOpenSbeapClient.Location = New System.Drawing.Point(7, 24)
         Me.txtOpenSbeapClient.Margin = New System.Windows.Forms.Padding(2)
         Me.txtOpenSbeapClient.MaxLength = 10
         Me.txtOpenSbeapClient.Name = "txtOpenSbeapClient"
@@ -466,15 +466,18 @@ Partial Class IAIPNavigation
         '
         'txtOpenFacilitySummary
         '
-        Me.txtOpenFacilitySummary.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtOpenFacilitySummary.AirsNumber = Nothing
+        Me.txtOpenFacilitySummary.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
+        Me.txtOpenFacilitySummary.BackColor = System.Drawing.Color.Transparent
         Me.txtOpenFacilitySummary.Cue = "AIRS #"
+        Me.txtOpenFacilitySummary.DisplayErrorMessage = False
+        Me.txtOpenFacilitySummary.FacilityDoesNotExistMessage = "Facility does not exist."
+        Me.txtOpenFacilitySummary.FacilityMustExist = True
+        Me.txtOpenFacilitySummary.InvalidFormatMessage = "Invalid AIRS #."
         Me.txtOpenFacilitySummary.Location = New System.Drawing.Point(10, 36)
-        Me.txtOpenFacilitySummary.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtOpenFacilitySummary.MaxLength = 9
         Me.txtOpenFacilitySummary.Name = "txtOpenFacilitySummary"
-        Me.txtOpenFacilitySummary.Size = New System.Drawing.Size(90, 20)
+        Me.txtOpenFacilitySummary.Size = New System.Drawing.Size(90, 21)
         Me.txtOpenFacilitySummary.TabIndex = 0
-        Me.txtOpenFacilitySummary.Tag = ""
         '
         'txtOpenSscpItem
         '
@@ -850,7 +853,7 @@ Partial Class IAIPNavigation
     Friend WithEvents txtOpenApplication As Iaip.CueTextBox
     Friend WithEvents txtOpenEnforcement As Iaip.CueTextBox
     Friend WithEvents txtOpenTestReport As Iaip.CueTextBox
-    Friend WithEvents txtOpenFacilitySummary As Iaip.CueTextBox
+    Friend WithEvents txtOpenFacilitySummary As AirNumberEntryForm
     Friend WithEvents txtOpenTestLog As Iaip.CueTextBox
     Friend WithEvents txtOpenSbeapCaseLog As Iaip.CueTextBox
     Friend WithEvents txtOpenSbeapClient As Iaip.CueTextBox
