@@ -7118,10 +7118,10 @@ Public Class SSPPApplicationTrackingLog
         ClearApplicationLinks()
     End Sub
 
-    Private Sub lbLinkApplications_MouseUp(sender As Object, e As MouseEventArgs) Handles lbLinkApplications.MouseUp
+    Private Sub lbLinkApplications_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbLinkApplications.SelectedIndexChanged
         Try
             If txtMasterAppLock.Text = "" Then
-                If lbLinkApplications.Items.Count > 0 Then
+                If lbLinkApplications.Items.Count > 0 And lbLinkApplications.SelectedItem IsNot Nothing Then
                     txtMasterApp.Text = lbLinkApplications.SelectedItem.ToString
                 End If
             Else
