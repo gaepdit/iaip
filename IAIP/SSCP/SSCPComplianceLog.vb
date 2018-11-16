@@ -739,11 +739,11 @@ Public Class SSCPComplianceLog
     End Sub
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
-        dgvWork.ExportToExcel()
+        LoadDefaultSettings()
     End Sub
 
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
-        LoadDefaultSettings()
+        dgvWork.ExportToExcel()
     End Sub
 
     Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
