@@ -1,4 +1,4 @@
-﻿Imports System.Collections.Generic
+Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Data.SqlTypes
 Imports System.Linq
@@ -73,6 +73,9 @@ Public Class EisTool
             cboEILogYear.Items.Add(dr.Item("InvYear"))
             cboEISStatisticsYear.Items.Add(dr.Item("InvYear"))
         Next
+
+        cboEILogYear.SelectedIndex = 0
+        cboEISStatisticsYear.SelectedIndex = 0
 
         SQL = "select distinct strDMUResponsibleStaff as DMUStafff " &
             "from EIS_QAAdmin " &
@@ -1936,6 +1939,8 @@ Public Class EisTool
         For Each dr As DataRow In dt.Rows
             cboESYear.Items.Add(dr("STRESYEAR"))
         Next
+
+        cboESYear.SelectedIndex = 0
     End Sub
 
 #End Region
@@ -5897,6 +5902,14 @@ Public Class EisTool
 
     Private Sub btnEisStageSelectAll_Click(sender As Object, e As EventArgs) Handles btnEisStageSelectAll.Click
         For Each row As DataGridViewRow In dgvEISStats.Rows
+            row.Cells("Select").Value = True
+        Next
+
+        DisplayEisStageCount(CountSelectedEisStageFacilities)
+    End Sub
+
+    Private Sub btnSelectHighlighted_Click(sender As Object, e As EventArgs) Handles btnSelectHighlighted.Click
+        For Each row As DataGridViewRow In dgvEISStats.SelectedRows
             row.Cells("Select").Value = True
         Next
 
