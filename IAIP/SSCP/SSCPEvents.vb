@@ -1293,7 +1293,7 @@ Public Class SSCPEvents
                     "datModifingDate =  GETDATE() " &
                     "where strTrackingNumber = @num")
             Else
-                SQL = "Insert into SSCPTestReports " &
+                sqlList.Add("Insert into SSCPTestReports " &
                     "(strTrackingNumber, strReferenceNumber, " &
                     "datTestReportDue, " &
                     "strTestReportComments, strTestReportFollowUp, " &
@@ -1302,7 +1302,7 @@ Public Class SSCPEvents
                     "(@num, @strReferenceNumber, " &
                     "@datTestReportDue, " &
                     "@strTestReportComments, @strTestReportFollowUp, " &
-                    "@strModifingPerson, GETDATE() ) "
+                    "@strModifingPerson, GETDATE() ) ")
             End If
             plist.Add({
                 New SqlParameter("@strReferenceNumber", ReferenceNumber),
@@ -2239,11 +2239,11 @@ Public Class SSCPEvents
                 Dim dr2 As DataRow = DB.GetDataRow(SQL, p2)
 
                 If dr2 IsNot Nothing Then
-                    DTPTestReportReceivedDate.Value = NormalizeDate(CDate(dr.Item("datReceivedDate"))).Value
-                    If Not NormalizeDate(CDate(dr.Item("datCompleteDate"))).HasValue Then
+                    DTPTestReportReceivedDate.Value = NormalizeDate(CDate(dr2.Item("datReceivedDate"))).Value
+                    If Not NormalizeDate(CDate(dr2.Item("datCompleteDate"))).HasValue Then
                         txtTestReportISMPCompleteDate.Text = "Open"
                     Else
-                        txtTestReportISMPCompleteDate.Text = CDate(dr.Item("datReceivedDate")).ToString(DateFormat)
+                        txtTestReportISMPCompleteDate.Text = CDate(dr2.Item("datReceivedDate")).ToString(DateFormat)
                     End If
                 Else
                     DTPTestReportReceivedDate.Value = Today
@@ -2260,10 +2260,10 @@ Public Class SSCPEvents
             Dim dr3 As DataRow = DB.GetDataRow(SQL, p3)
 
             If dr3 IsNot Nothing Then
-                If IsDBNull(dr.Item("datSSCPTestReportDue")) Then
+                If IsDBNull(dr3.Item("datSSCPTestReportDue")) Then
                     DTPTestReportNewDueDate.Value = Today
                 Else
-                    DTPTestReportNewDueDate.Value = CDate(dr.Item("datSSCPTestReportDue"))
+                    DTPTestReportNewDueDate.Value = CDate(dr3.Item("datSSCPTestReportDue"))
                 End If
             Else
                 DTPTestReportNewDueDate.Value = Today
@@ -2281,8 +2281,8 @@ Public Class SSCPEvents
                 Dim dr2 As DataRow = DB.GetDataRow(SQL, p2)
 
                 If dr2 IsNot Nothing Then
-                    txtPollutantTested.Text = dr.Item("strPollutantDescription").ToString
-                    txtUnitTested.Text = dr.Item("strEmissionSource").ToString
+                    txtPollutantTested.Text = dr2.Item("strPollutantDescription").ToString
+                    txtUnitTested.Text = dr2.Item("strEmissionSource").ToString
                 Else
                     txtPollutantTested.Text = "N/A"
                     txtUnitTested.Text = "N/A"
