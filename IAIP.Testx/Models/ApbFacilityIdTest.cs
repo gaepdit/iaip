@@ -55,5 +55,71 @@ namespace IAIP.Testx.Models
             Assert.Equal("123-45678", airs2.FormattedString);
             Assert.Equal(12345678, airs2.ToInt());
         }
+
+        [Theory]
+        [InlineData("00100001", "001-00001")]
+        [InlineData("041300100001", "04-13-001-00001")]
+        private void EqualityTrue(string input1, string input2)
+        {
+            ApbFacilityId airs1 = new ApbFacilityId(input1);
+            ApbFacilityId airs2 = new ApbFacilityId(input2);
+
+            bool result = (airs1 == airs2);
+            Assert.True(result);
+        }
+
+        [Theory]
+        [InlineData("00100001", "00100002")]
+        private void EqualityFalse(string input1, string input2)
+        {
+            ApbFacilityId airs1 = new ApbFacilityId(input1);
+            ApbFacilityId airs2 = new ApbFacilityId(input2);
+
+            bool result = (airs1 == airs2);
+            Assert.False(result);
+        }
+
+        [Theory]
+        [InlineData("00100001", "00100002")]
+        private void InequalityTrue(string input1, string input2)
+        {
+            ApbFacilityId airs1 = new ApbFacilityId(input1);
+            ApbFacilityId airs2 = new ApbFacilityId(input2);
+
+            bool result = (airs1 != airs2);
+            Assert.True(result);
+        }
+
+        [Theory]
+        [InlineData("00100001", "001-00001")]
+        private void InequalityFalse(string input1, string input2)
+        {
+            ApbFacilityId airs1 = new ApbFacilityId(input1);
+            ApbFacilityId airs2 = new ApbFacilityId(input2);
+
+            bool result = (airs1 != airs2);
+            Assert.False(result);
+        }
+
+        [Fact]
+        private void NullEquality()
+        {
+            ApbFacilityId airs1 = null;
+            ApbFacilityId airs2 = null;
+
+            bool result = (airs1 == airs2);
+            Assert.True(result);
+        }
+
+        [Theory]
+        [InlineData("00100001")]
+        private void NullInequality(string input)
+        {
+            ApbFacilityId airs1 = new ApbFacilityId(input);
+
+            bool result = (airs1 != null);
+            Assert.True(result);
+        }
+
     }
 }

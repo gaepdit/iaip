@@ -31,7 +31,7 @@
     </UpgradeBackupLocation>
     <TargetZone>LocalIntranet</TargetZone>
     <GenerateManifests>true</GenerateManifests>
-    <ManifestCertificateThumbprint>3CB1D348DC3BC6990F889C32503657631C4AE2EE</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>2DAFC8EC202A4C6AB57B2D6FCB322A38BF8FE99A</ManifestCertificateThumbprint>
     <ManifestKeyFile>IAIP_TemporaryKey.pfx</ManifestKeyFile>
     <SignManifests>true</SignManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -55,11 +55,11 @@
     <InstallUrl>https://iaip.gaepd.org/install/</InstallUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>5.10.6.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>5.10.7.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>5.10.6.0</ApplicationVersion>
+    <ApplicationVersion>5.10.7.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

@@ -245,6 +245,7 @@ Partial Class EisTool
         Me.btnLoadEISLog = New System.Windows.Forms.Button()
         Me.btnEisStageSelectNone = New System.Windows.Forms.Button()
         Me.mtbEISLogAIRSNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.btnSelectHighlighted = New System.Windows.Forms.Button()
         Me.btnEisStageSelectAll = New System.Windows.Forms.Button()
         Me.lblEISCount = New System.Windows.Forms.Label()
         Me.btnEISSummaryToExcel = New System.Windows.Forms.Button()
@@ -2794,10 +2795,10 @@ Partial Class EisTool
         Me.dgvEISStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEISStats.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvEISStats.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvEISStats.Location = New System.Drawing.Point(0, 52)
+        Me.dgvEISStats.Location = New System.Drawing.Point(0, 62)
         Me.dgvEISStats.Name = "dgvEISStats"
         Me.dgvEISStats.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvEISStats.Size = New System.Drawing.Size(562, 635)
+        Me.dgvEISStats.Size = New System.Drawing.Size(562, 625)
         Me.dgvEISStats.TabIndex = 1
         '
         'Panel18
@@ -2806,20 +2807,21 @@ Partial Class EisTool
         Me.Panel18.Controls.Add(Me.btnLoadEISLog)
         Me.Panel18.Controls.Add(Me.btnEisStageSelectNone)
         Me.Panel18.Controls.Add(Me.mtbEISLogAIRSNumber)
+        Me.Panel18.Controls.Add(Me.btnSelectHighlighted)
         Me.Panel18.Controls.Add(Me.btnEisStageSelectAll)
         Me.Panel18.Controls.Add(Me.lblEISCount)
         Me.Panel18.Controls.Add(Me.btnEISSummaryToExcel)
         Me.Panel18.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel18.Location = New System.Drawing.Point(0, 0)
         Me.Panel18.Name = "Panel18"
-        Me.Panel18.Size = New System.Drawing.Size(562, 52)
+        Me.Panel18.Size = New System.Drawing.Size(562, 62)
         Me.Panel18.TabIndex = 0
         '
         'lblEisStageSelectedCount
         '
         Me.lblEisStageSelectedCount.AutoSize = True
         Me.lblEisStageSelectedCount.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEisStageSelectedCount.Location = New System.Drawing.Point(198, 8)
+        Me.lblEisStageSelectedCount.Location = New System.Drawing.Point(415, 37)
         Me.lblEisStageSelectedCount.Name = "lblEisStageSelectedCount"
         Me.lblEisStageSelectedCount.Size = New System.Drawing.Size(61, 13)
         Me.lblEisStageSelectedCount.TabIndex = 7
@@ -2827,7 +2829,7 @@ Partial Class EisTool
         '
         'btnLoadEISLog
         '
-        Me.btnLoadEISLog.Location = New System.Drawing.Point(78, 24)
+        Me.btnLoadEISLog.Location = New System.Drawing.Point(75, 3)
         Me.btnLoadEISLog.Name = "btnLoadEISLog"
         Me.btnLoadEISLog.Size = New System.Drawing.Size(95, 23)
         Me.btnLoadEISLog.TabIndex = 108
@@ -2836,7 +2838,7 @@ Partial Class EisTool
         '
         'btnEisStageSelectNone
         '
-        Me.btnEisStageSelectNone.Location = New System.Drawing.Point(279, 24)
+        Me.btnEisStageSelectNone.Location = New System.Drawing.Point(337, 32)
         Me.btnEisStageSelectNone.Name = "btnEisStageSelectNone"
         Me.btnEisStageSelectNone.Size = New System.Drawing.Size(72, 23)
         Me.btnEisStageSelectNone.TabIndex = 2
@@ -2845,16 +2847,25 @@ Partial Class EisTool
         '
         'mtbEISLogAIRSNumber
         '
-        Me.mtbEISLogAIRSNumber.Location = New System.Drawing.Point(9, 26)
+        Me.mtbEISLogAIRSNumber.Location = New System.Drawing.Point(6, 5)
         Me.mtbEISLogAIRSNumber.Mask = "000-00000"
         Me.mtbEISLogAIRSNumber.Name = "mtbEISLogAIRSNumber"
         Me.mtbEISLogAIRSNumber.Size = New System.Drawing.Size(63, 20)
         Me.mtbEISLogAIRSNumber.TabIndex = 107
         Me.mtbEISLogAIRSNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
+        'btnSelectHighlighted
+        '
+        Me.btnSelectHighlighted.Location = New System.Drawing.Point(229, 32)
+        Me.btnSelectHighlighted.Name = "btnSelectHighlighted"
+        Me.btnSelectHighlighted.Size = New System.Drawing.Size(102, 23)
+        Me.btnSelectHighlighted.TabIndex = 1
+        Me.btnSelectHighlighted.Text = "Select highlighted"
+        Me.btnSelectHighlighted.UseVisualStyleBackColor = True
+        '
         'btnEisStageSelectAll
         '
-        Me.btnEisStageSelectAll.Location = New System.Drawing.Point(201, 24)
+        Me.btnEisStageSelectAll.Location = New System.Drawing.Point(151, 32)
         Me.btnEisStageSelectAll.Name = "btnEisStageSelectAll"
         Me.btnEisStageSelectAll.Size = New System.Drawing.Size(72, 23)
         Me.btnEisStageSelectAll.TabIndex = 1
@@ -2864,7 +2875,7 @@ Partial Class EisTool
         'lblEISCount
         '
         Me.lblEISCount.AutoSize = True
-        Me.lblEISCount.Location = New System.Drawing.Point(6, 8)
+        Me.lblEISCount.Location = New System.Drawing.Point(6, 37)
         Me.lblEISCount.Name = "lblEISCount"
         Me.lblEISCount.Size = New System.Drawing.Size(38, 13)
         Me.lblEISCount.TabIndex = 104
@@ -2874,7 +2885,7 @@ Partial Class EisTool
         '
         Me.btnEISSummaryToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnEISSummaryToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnEISSummaryToExcel.Location = New System.Drawing.Point(435, 24)
+        Me.btnEISSummaryToExcel.Location = New System.Drawing.Point(433, 3)
         Me.btnEISSummaryToExcel.Name = "btnEISSummaryToExcel"
         Me.btnEISSummaryToExcel.Size = New System.Drawing.Size(121, 23)
         Me.btnEISSummaryToExcel.TabIndex = 105
@@ -7031,4 +7042,5 @@ Partial Class EisTool
     Friend WithEvents Panel2 As Panel
     Friend WithEvents lblRecordNumber As Label
     Friend WithEvents Label3 As Label
+    Friend WithEvents btnSelectHighlighted As Button
 End Class

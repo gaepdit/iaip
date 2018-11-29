@@ -14,10 +14,16 @@ Friend Class AirsNumberTextBox
             Return _airsNumber
         End Get
         Set(value As ApbFacilityId)
-            _airsNumber = value
+            If _airsNumber <> value Then
+                _airsNumber = value
 
-            If value IsNot Nothing Then
-                Text = _airsNumber.FormattedString
+                If value IsNot Nothing Then
+                    Text = _airsNumber.FormattedString
+                End If
+
+                If Not isValidating Then
+                    ValidationStatus = ValidateText()
+                End If
             End If
         End Set
     End Property
@@ -52,8 +58,9 @@ Friend Class AirsNumberTextBox
     <Browsable(False)>
     Public Overrides Property MaxLength As Integer = 9
 
-    <Category("Appearance"), Description("Specifies the placeholder text to display in the TextBox.")>
-    Public Overrides Property Cue As String = "000-00000"
+    ' Local fields
+
+    Private isValidating As Boolean = False
 
     ' Constructor
 
@@ -85,11 +92,15 @@ Friend Class AirsNumberTextBox
     Private Sub ValidateTextBox()
         ValidationStatus = ValidateText()
 
+        isValidating = True
+
         If ValidationStatus = AirsNumberValidationResult.Valid Or ValidationStatus = AirsNumberValidationResult.NonExistent Then
             AirsNumber = New ApbFacilityId(Text)
         Else
             AirsNumber = Nothing
         End If
+
+        isValidating = False
     End Sub
 
     Private Function ValidateText() As AirsNumberValidationResult
