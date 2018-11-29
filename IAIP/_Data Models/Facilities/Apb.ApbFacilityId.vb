@@ -81,9 +81,25 @@
             Return New ApbFacilityId(airsNumber)
         End Operator
 
-        'Public Shared Widening Operator CType(airsNumber As ApbFacilityId) As String
-        '    Return airsNumber.ToString
-        'End Operator
+        Public Shared Widening Operator CType(airsNumber As ApbFacilityId) As String
+            Return airsNumber.ToString
+        End Operator
+
+        Public Shared Operator =(airs1 As ApbFacilityId, airs2 As ApbFacilityId) As Boolean
+            If airs1 Is Nothing AndAlso airs2 Is Nothing Then
+                Return True
+            End If
+
+            If airs1 IsNot Nothing AndAlso airs2 IsNot Nothing Then
+                Return airs1.ShortString.Equals(airs2.ShortString)
+            End If
+
+            Return False
+        End Operator
+
+        Public Shared Operator <>(airs1 As ApbFacilityId, airs2 As ApbFacilityId) As Boolean
+            Return Not (airs1 = airs2)
+        End Operator
 
 #End Region
 
