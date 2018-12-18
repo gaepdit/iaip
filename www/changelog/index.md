@@ -2,6 +2,26 @@
 
 *Previously:* [2017](changelog-2017.html) | [2016](changelog-2016.html) | [2015](changelog-2015.html) | [2014](changelog-2014.html) | [2013](changelog-2013.html)
 
+## Version 5.10.8 <span>(2018-12-18)</span>
+
+Fix Excel Export in Application Log for some search results.
+
+## Version 5.10.7 <span>(2018-11-29)</span>
+
+Minor bug fixes in EIS tool, SSCP events tool, SSPP app tracking log, and Nav Screen.
+
+## Version 5.10.6 <span>(2018-11-7)</span>
+
+Nav Screen Quick Access bug fix.
+
+## Version 5.10.5 <span>(2018-11-6)</span>
+
+EIS & Query Generator bug fixes.
+
+## Version 5.10.4 <span>(2018-10-16)</span>
+
+EIS bug fixes.
+
 ## Version 5.10.3 <span>(2018-10-2)</span>
 
 Bug fixes.
