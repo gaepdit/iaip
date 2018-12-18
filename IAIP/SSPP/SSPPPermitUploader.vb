@@ -65,7 +65,7 @@ Public Class SSPPPermitUploader
             Dim ZipCode As String = ""
             Dim PermitType As String = ""
             Dim AppType As String = ""
-            Dim Status As String = ""
+            Dim Status As Boolean = False
             Dim temp As String = ""
             Dim SQL As String
 
@@ -166,10 +166,8 @@ Public Class SSPPPermitUploader
                     Else
                         txtApplicationInformation.Text = txtApplicationInformation.Text & "Staff Responsible: " & dr.Item("staffResponsible")
                     End If
-                    If IsDBNull(dr.Item("datFinalizedDate")) Then
-                        Status = ""
-                    Else
-                        Status = dr.Item("datFinalizedDate")
+                    If Not IsDBNull(dr.Item("datFinalizedDate")) Then
+                        Status = True
                     End If
                     If IsDBNull(dr.Item("datFinalOnWeb")) Then
                         DTPFinalOnWeb.Value = Today
@@ -256,7 +254,7 @@ Public Class SSPPPermitUploader
 
             End If
 
-            If Status <> "" Then
+            If Status Then
                 If CurrentUser.UnitId = 14 Or (CurrentUser.UnitId = 0 And CurrentUser.ProgramID = 4) Or (CurrentUser.UnitId = 0 And CurrentUser.ProgramID = 5) Then
                     btnUploadFile.Enabled = True
                 Else
