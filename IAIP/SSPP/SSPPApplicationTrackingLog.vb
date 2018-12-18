@@ -2369,7 +2369,8 @@ Public Class SSPPApplicationTrackingLog
             "else concat(strLastName,', ',strFirstName) " &
             "end staffResponsible, " &
             "case " &
-            "    when SSPPApplicationMaster.datFinalizedDate is Null then ' ' " &
+            "    when SSPPApplicationMaster.datFinalizedDate is Null " &
+            " or SSPPApplicationMaster.datFinalizedDate = '1776-07-04' then ' ' " &
             "else format(SSPPApplicationMaster.datFinalizedDate, 'MMMM d, yyyy') " &
             "end FinalizedDate, " &
             "case " &

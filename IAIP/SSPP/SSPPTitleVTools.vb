@@ -30,10 +30,6 @@ Public Class SSPPTitleVTools
             "    ,SUBSTRING(strPermitNumber, 8, 4), '-' ,SUBSTRING(strPermitNumber, 12, 1), '-'         " &
             "    ,SUBSTRING(strPermitNumber, 13, 2), '-' ,SUBSTRING(strPermitNumber, 15, 1) ) " &
             "END AS strPermitNumber,  " &
-            "CASE  " &
-            "   WHEN datFinalizedDate IS NULL THEN ' '  " &
-            "   ELSE format(datFinalizedDate, 'yyyy-MM-dd') " &
-            "END datFinalizedDate,  " &
             "strApplicationTypeDesc  " &
             "from SSPPApplicationTracking, SSPPApplicationData,  " &
             "SSPPApplicationMaster, LookUpApplicationTypes " &
