@@ -739,7 +739,7 @@ Public Class IAIPFacilitySummary
         With ComplianceWorkGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ComplianceWork.ToString)
-                .MakeColumnsLookLikeLinks(0)
+                .MakeColumnLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
         End With
@@ -749,7 +749,7 @@ Public Class IAIPFacilitySummary
         With ComplianceEnforcementGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ComplianceEnforcement.ToString)
-                .MakeColumnsLookLikeLinks(0)
+                .MakeColumnLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
         End With
@@ -759,7 +759,7 @@ Public Class IAIPFacilitySummary
         With ComplianceFceGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ComplianceFCE.ToString)
-                .MakeColumnsLookLikeLinks(0)
+                .MakeColumnLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
         End With
@@ -1015,7 +1015,7 @@ Public Class IAIPFacilitySummary
         With PermitApplicationGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.PermitApplications.ToString)
-                .MakeColumnsLookLikeLinks(0)
+                .MakeColumnLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
         End With
@@ -1062,7 +1062,7 @@ Public Class IAIPFacilitySummary
         With TestReportsGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.TestReports.ToString)
-                .MakeColumnsLookLikeLinks(0)
+                .MakeColumnLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
         End With
@@ -1073,7 +1073,7 @@ Public Class IAIPFacilitySummary
         With TestNotificationsGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.TestNotifications.ToString)
-                .MakeColumnsLookLikeLinks(0)
+                .MakeColumnLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
         End With
@@ -1083,7 +1083,7 @@ Public Class IAIPFacilitySummary
         With TestMemosGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.TestMemos.ToString)
-                .MakeColumnsLookLikeLinks(0)
+                .MakeColumnLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
         End With

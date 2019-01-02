@@ -32,28 +32,48 @@ Module Extensions
     End Sub
 
     <Extension()>
-    Public Sub MakeColumnsLookLikeLinks(dgv As DataGridView, col As Integer)
-        dgv.MakeColumnsLookLikeLinks(New Integer() {col})
+    Public Sub MakeColumnLookLikeLinks(dgv As DataGridView, columnName As String)
+        dgv.Columns(columnName).DefaultCellStyle.ForeColor = SystemColors.HotTrack
     End Sub
 
     <Extension()>
-    Public Sub MakeColumnsLookLikeLinks(dgv As DataGridView, cols As Integer())
-        For Each col As Integer In cols
+    Public Sub MakeColumnLookLikeLinks(dgv As DataGridView, index As Integer)
+        dgv.MakeColumnLookLikeLinks(New Integer() {index})
+    End Sub
+
+    <Extension()>
+    Public Sub MakeColumnLookLikeLinks(dgv As DataGridView, index As Integer())
+        For Each col As Integer In index
             dgv.Columns(col).DefaultCellStyle.ForeColor = SystemColors.HotTrack
         Next
     End Sub
 
     <Extension()>
-    Public Sub MakeCellLookLikeHoveredLink(dgv As DataGridView, row As Integer, col As Integer, Optional hover As Boolean = True)
+    Public Sub MakeCellLookLikeHoveredLink(dgv As DataGridView, rowIndex As Integer, columnName As String, Optional hover As Boolean = True)
         If hover Then
             dgv.Cursor = Cursors.Hand
-            dgv.Rows(row).Cells(col).Style.ForeColor = Color.Blue
-            dgv.Rows(row).Cells(col).Style.Font =
+            dgv.Rows(rowIndex).Cells(columnName).Style.ForeColor = Color.Blue
+            dgv.Rows(rowIndex).Cells(columnName).Style.Font =
                 New Font(dgv.DefaultCellStyle.Font, FontStyle.Underline)
         Else
             dgv.Cursor = Cursors.Default
-            dgv.Rows(row).Cells(col).Style.ForeColor = SystemColors.HotTrack
-            dgv.Rows(row).Cells(col).Style.Font =
+            dgv.Rows(rowIndex).Cells(columnName).Style.ForeColor = SystemColors.HotTrack
+            dgv.Rows(rowIndex).Cells(columnName).Style.Font =
+                New Font(dgv.DefaultCellStyle.Font, FontStyle.Regular)
+        End If
+    End Sub
+
+    <Extension()>
+    Public Sub MakeCellLookLikeHoveredLink(dgv As DataGridView, rowIndex As Integer, columnIndex As Integer, Optional hover As Boolean = True)
+        If hover Then
+            dgv.Cursor = Cursors.Hand
+            dgv.Rows(rowIndex).Cells(columnIndex).Style.ForeColor = Color.Blue
+            dgv.Rows(rowIndex).Cells(columnIndex).Style.Font =
+                New Font(dgv.DefaultCellStyle.Font, FontStyle.Underline)
+        Else
+            dgv.Cursor = Cursors.Default
+            dgv.Rows(rowIndex).Cells(columnIndex).Style.ForeColor = SystemColors.HotTrack
+            dgv.Rows(rowIndex).Cells(columnIndex).Style.Font =
                 New Font(dgv.DefaultCellStyle.Font, FontStyle.Regular)
         End If
     End Sub

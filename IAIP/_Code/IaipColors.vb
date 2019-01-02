@@ -11,12 +11,12 @@
     End Property
     Public Shared ReadOnly Property WarningForeColor As Color
         Get
-            Return Color.DarkRed
+            Return Color.SaddleBrown
         End Get
     End Property
     Public Shared ReadOnly Property WarningBackColor As Color
         Get
-            Return Color.Pink
+            Return Color.Bisque
         End Get
     End Property
     Public Shared ReadOnly Property SuccessForeColor As Color

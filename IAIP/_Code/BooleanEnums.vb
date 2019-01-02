@@ -21,3 +21,13 @@
     End Enum
 
 End Module
+
+Public Module ThreeStateEnums
+
+    Public Enum OpenClosedAll
+        All = 0
+        Open = 1
+        Closed = 2
+    End Enum
+
+End Module

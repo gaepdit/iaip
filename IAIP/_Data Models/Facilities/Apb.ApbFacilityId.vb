@@ -156,6 +156,22 @@
             Return airsNumber
         End Function
 
+        Public Shared Function TryCastApbFacilityId(airsNumber As String) As ApbFacilityId
+            If String.IsNullOrEmpty(airsNumber) OrElse Not IsValidAirsNumberFormat(airsNumber) Then
+                Return Nothing
+            End If
+
+            Return New ApbFacilityId(airsNumber)
+        End Function
+
+        Public Shared Function TryCastApbFacilityId(airsNumber As Object) As ApbFacilityId
+            If airsNumber Is Nothing OrElse IsDBNull(airsNumber) Then
+                Return Nothing
+            End If
+
+            Return TryCastApbFacilityId(CStr(airsNumber))
+        End Function
+
 #End Region
 
     End Class

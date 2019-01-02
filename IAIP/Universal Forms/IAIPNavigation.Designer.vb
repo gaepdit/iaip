@@ -470,14 +470,14 @@ Partial Class IAIPNavigation
         Me.txtOpenFacilitySummary.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
         Me.txtOpenFacilitySummary.BackColor = System.Drawing.Color.Transparent
         Me.txtOpenFacilitySummary.Cue = "AIRS #"
-        Me.txtOpenFacilitySummary.DisplayErrorMessage = False
-        Me.txtOpenFacilitySummary.FacilityDoesNotExistMessage = "Facility does not exist."
+        Me.txtOpenFacilitySummary.ErrorMessageLabel = Nothing
         Me.txtOpenFacilitySummary.FacilityMustExist = True
-        Me.txtOpenFacilitySummary.InvalidFormatMessage = "Invalid AIRS #."
         Me.txtOpenFacilitySummary.Location = New System.Drawing.Point(10, 36)
         Me.txtOpenFacilitySummary.Name = "txtOpenFacilitySummary"
-        Me.txtOpenFacilitySummary.Size = New System.Drawing.Size(90, 21)
+        Me.txtOpenFacilitySummary.ReadOnly = False
+        Me.txtOpenFacilitySummary.Size = New System.Drawing.Size(90, 20)
         Me.txtOpenFacilitySummary.TabIndex = 0
+        Me.txtOpenFacilitySummary.TextBoxBackColor = System.Drawing.SystemColors.Window
         '
         'txtOpenSscpItem
         '

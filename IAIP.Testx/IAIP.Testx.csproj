@@ -39,6 +39,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,9 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\ReverseComparerTests.cs" />
-    <Compile Include="Classes\TemporalCollection.cs" />
-    <Compile Include="Models\ApbFacilityIdTest.cs" />
+    <Compile Include="ClassTests\ReverseComparerTests.cs" />
+    <Compile Include="ClassTests\TemporalCollectionTests.cs" />
+    <Compile Include="ControlTests\AirsNumberTextBoxTests.cs" />
+    <Compile Include="ExtensionMethods\ControlExtensions.cs" />
+    <Compile Include="ModelTests\InvoiceIdTests.cs" />
+    <Compile Include="ModelTests\ApbFacilityIdTests.cs" />
     <Compile Include="UnitTestTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

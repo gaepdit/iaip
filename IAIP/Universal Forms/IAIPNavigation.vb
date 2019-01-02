@@ -394,7 +394,7 @@ Public Class IAIPNavigation
     Private Sub FormatWorkViewer()
         If dgvWorkViewer.Visible = True Then
             dgvWorkViewer.SanelyResizeColumns()
-            dgvWorkViewer.MakeColumnsLookLikeLinks(0)
+            dgvWorkViewer.MakeColumnLookLikeLinks(0)
         End If
 
         If CurrentNavWorkListContext = NavWorkListContext.MonitoringTestReports Then
@@ -422,7 +422,7 @@ Public Class IAIPNavigation
     Private Sub dgvWorkViewer_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
         If e IsNot Nothing AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) Then
             If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText.ToUpper = "AIRS #" AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value) Then
-                e.Value = New Apb.ApbFacilityId(e.Value).FormattedString
+                e.Value = New Apb.ApbFacilityId(e.Value.ToString).FormattedString
             ElseIf TypeOf e.Value Is Date Then
                 e.CellStyle.Format = DateFormat
             End If
@@ -704,7 +704,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub NavButton_Click(sender As Object, e As EventArgs)
-        Dim nb As NavButton = CType(sender, Button).Tag
+        Dim nb As NavButton = CType(CType(sender, Button).Tag, NavButton)
         OpenSingleForm(nb.FormName)
     End Sub
 
@@ -749,7 +749,8 @@ Public Class IAIPNavigation
         ISMP
         SSPP
         SSCP
-        Fees
+        EmissionFees
+        Finance
         DMU
         MASP
         EIS
@@ -761,7 +762,8 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.ISMP, "Industrial Source Monitoring Program", "ISMU")
         AddNavButtonCategory(NavButtonCategories.SSPP, "Stationary Source Permitting Program")
         AddNavButtonCategory(NavButtonCategories.SSCP, "Stationary Source Compliance Program")
-        AddNavButtonCategory(NavButtonCategories.Fees, "Financial Management Unit")
+        AddNavButtonCategory(NavButtonCategories.EmissionFees, "Financial Management Unit", "Emission Fees")
+        AddNavButtonCategory(NavButtonCategories.Finance, "Financial Management Unit")
         AddNavButtonCategory(NavButtonCategories.DMU, "Data Management Unit")
         AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program")
         AddNavButtonCategory(NavButtonCategories.EIS, "Emission Inventory System")
@@ -795,11 +797,18 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(15, "Memo Viewer", NameOf(ISMPTestMemoViewer), NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(17, "ISMU Management", NameOf(ISMPManagersTools), NavButtonCategories.ISMP)
 
-        ' Fees
-        AddNavButtonIfAccountHasFormAccess(135, "Fees Log", NameOf(PASPFeesLog), NavButtonCategories.Fees)
-        AddNavButtonIfAccountHasFormAccess(139, "Fee Management", NameOf(PASPFeeManagement), NavButtonCategories.Fees)
-        AddNavButtonIfAccountHasFormAccess(12, "Fee Statistics && Reports", NameOf(PASPFeeStatistics), NavButtonCategories.Fees)
-        AddNavButtonIfAccountHasFormAccess(18, "Deposits", NameOf(PASPDepositsAmendments), NavButtonCategories.Fees)
+        ' Emission Fees
+        AddNavButtonIfAccountHasFormAccess(135, "Fees Log", NameOf(PASPFeesLog), NavButtonCategories.EmissionFees)
+        AddNavButtonIfAccountHasFormAccess(139, "Fee Management", NameOf(PASPFeeManagement), NavButtonCategories.EmissionFees)
+        AddNavButtonIfAccountHasFormAccess(12, "Fee Statistics && Reports", NameOf(PASPFeeStatistics), NavButtonCategories.EmissionFees)
+        AddNavButtonIfAccountHasFormAccess(18, "Deposits", NameOf(PASPDepositsAmendments), NavButtonCategories.EmissionFees)
+
+        ' Finance
+        AddNavButtonIfUserHasPermission({118, 123, 124, 125}, "New Deposit", NameOf(FinDepositView), NavButtonCategories.Finance)
+        AddNavButtonIfUserHasPermission({118, 123, 124, 125}, "Search Deposits", NameOf(FinSearchDeposits), NavButtonCategories.Finance)
+        AddNavButtonIfAccountHasFormAccess(1, "Search Invoices", NameOf(FinSearchInvoices), NavButtonCategories.Finance)
+        AddNavButtonIfAccountHasFormAccess(1, "Search Facilities", NameOf(FinSearchFacilities), NavButtonCategories.Finance)
+        'AddNavButtonIfUserHasPermission({118, 123, 124, 28}, "Manage Fee Rates", NameOf(FinFeeRateManagement), NavButtonCategories.Finance)
 
         ' MASP
         AddNavButtonIfAccountHasFormAccess(137, "EPD Events", NameOf(MASPRegistrationTool), NavButtonCategories.MASP)
