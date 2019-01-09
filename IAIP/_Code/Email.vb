@@ -60,13 +60,15 @@ Public Module Email
 
             Dim result As Boolean = False
 
-            If emailUriString.Length < 2083 Then
-                ' The OpenUri method is preferable, but is limited by URI length, which can be exceeded
-                ' if a lot of recipients are added
+            Dim u As Uri = New Uri(emailUriString)
+
+            If u.ToString.Length < 2084 Then
+                ' The OpenUri method is preferable, but is limited by URI length, 
+                ' which can be exceeded if a lot of recipients are added
                 ' Ref: https://support.microsoft.com/en-us/help/208427/maximum-url-length-is-2-083-characters-in-internet-explorer
                 result = OpenUri(New Uri(emailUriString), isMailto:=True)
             Else
-                ' Failover is to create an Outlook Email
+                ' Failover is to create a text file with instructions to user
                 OpenEmailAsTextFile(subject, body, toParam, ccParam, bccParam)
                 result = True
             End If

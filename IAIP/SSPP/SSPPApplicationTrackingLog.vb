@@ -34,48 +34,56 @@ Public Class SSPPApplicationTrackingLog
     Private UpdatingValues As Boolean = False
     Private FeeChangesAllowed As Boolean = True
 
-    Private _ApplicationFeeAmount As Decimal = 0
-    Private _ExpeditedFeeAmount As Decimal = 0
-    Private _TotalFeeAmount As Decimal = 0
+    Private _applicationFeeAmount As Decimal = 0
+    Private _expeditedFeeAmount As Decimal = 0
+    Private _totalFeeAmount As Decimal = 0
 
     Private Property ApplicationFeeAmount As Decimal
         Get
-            Return _ApplicationFeeAmount
+            Return _applicationFeeAmount
         End Get
-        Set
-            _ApplicationFeeAmount = Value
-            txtAppFeeAmount.Amount = Value
-            TotalFeeAmount = Value + _ExpeditedFeeAmount
+        Set(value As Decimal)
+            If _applicationFeeAmount <> value Then
+                _applicationFeeAmount = value
+                txtAppFeeAmount.Amount = value
+
+                TotalFeeAmount = value + _expeditedFeeAmount
+            End If
         End Set
     End Property
 
     Private Property ExpeditedFeeAmount As Decimal
         Get
-            Return _ExpeditedFeeAmount
+            Return _expeditedFeeAmount
         End Get
-        Set
-            _ExpeditedFeeAmount = Value
-            txtExpFeeAmount.Amount = Value
-            TotalFeeAmount = Value + _ApplicationFeeAmount
+        Set(value As Decimal)
+            If _expeditedFeeAmount <> value Then
+                _expeditedFeeAmount = value
+                txtExpFeeAmount.Amount = value
+
+                TotalFeeAmount = value + _applicationFeeAmount
+            End If
         End Set
     End Property
 
     Private Property TotalFeeAmount As Decimal
         Get
-            Return _TotalFeeAmount
+            Return _totalFeeAmount
         End Get
-        Set
-            _TotalFeeAmount = Value
-            txtFeeTotal.Text = String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C0}", Value)
+        Set(value As Decimal)
+            If _totalFeeAmount <> value Then
+                _totalFeeAmount = value
+                txtFeeTotal.Text = String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C0}", value)
 
-            If Value = 0 Then
-                txtFeeTotal.Visible = False
-                lblTotalFee.Visible = False
-                chbFeeDataFinalized.Visible = False
-            Else
-                txtFeeTotal.Visible = True
-                lblTotalFee.Visible = True
-                chbFeeDataFinalized.Visible = FeeChangesAllowed
+                If value = 0 Then
+                    txtFeeTotal.Visible = False
+                    lblTotalFee.Visible = False
+                    chbFeeDataFinalized.Visible = False
+                Else
+                    txtFeeTotal.Visible = True
+                    lblTotalFee.Visible = True
+                    chbFeeDataFinalized.Visible = FeeChangesAllowed
+                End If
             End If
         End Set
     End Property
@@ -14681,7 +14689,7 @@ Public Class SSPPApplicationTrackingLog
         AdjustFeesUI()
     End Sub
 
-    Private Sub txtAppFeeAmount_Validated(sender As Object, e As EventArgs) Handles txtAppFeeAmount.ValidationStatusChanged
+    Private Sub txtAppFeeAmount_Validated(sender As Object, e As EventArgs) Handles txtAppFeeAmount.AmountChanged
         If txtAppFeeAmount.IsValid Then
             ApplicationFeeAmount = txtAppFeeAmount.Amount
         Else
@@ -14689,7 +14697,7 @@ Public Class SSPPApplicationTrackingLog
         End If
     End Sub
 
-    Private Sub txtExpFeeAmount_Validated(sender As Object, e As EventArgs) Handles txtExpFeeAmount.ValidationStatusChanged
+    Private Sub txtExpFeeAmount_Validated(sender As Object, e As EventArgs) Handles txtExpFeeAmount.AmountChanged
         If txtExpFeeAmount.IsValid Then
             ExpeditedFeeAmount = txtExpFeeAmount.Amount
         Else
@@ -14962,9 +14970,6 @@ Public Class SSPPApplicationTrackingLog
         body.Append("Other environmental permits may be required. For Industrial Stormwater permits, contact the Watershed Protection Branch ")
         body.Append("at (404) 675-1605; for Solid Waste permits, contact the Land Protection Branch at (404) 362-2537. ")
         body.Append("For more info, see http://epd.georgia.gov/ ")
-        body.AppendLine()
-        body.Append("If your company qualifies as a small business (generally those with fewer than 100 employees), you may contact our ")
-        body.Append("Small Business Assistance Program at (404) 362-4842 for free and confidential permitting assistance.")
         body.AppendLine()
         body.Append("Please contact me if you have any questions.")
 

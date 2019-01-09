@@ -15,11 +15,13 @@ Namespace Apb.Finance
         <DisplayName("Amount Refunded")>
         Public Property TotalRefunded As Decimal
 
+        <DisplayName("Total Amount Allocated")>
         Public ReadOnly Property TotalAmountAllocated As Decimal
             Get
                 Return TotalPaymentsApplied + TotalRefunded
             End Get
         End Property
+
         <DisplayName("Deposit Balance")>
         Public ReadOnly Property DepositBalance As Decimal
             Get
@@ -41,7 +43,7 @@ Namespace Apb.Finance
         Public Property Deleted As Boolean
 
         Public Property DepositsApplied As List(Of DepositApplied)
-        Public Property Refunds As List(Of Refund)
+        Public Property RefundsApplied As List(Of RefundApplied)
 
     End Class
 End Namespace

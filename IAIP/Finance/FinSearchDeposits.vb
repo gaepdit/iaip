@@ -59,7 +59,7 @@ Public Class FinSearchDeposits
 
     Private Sub OpenSelectedItem()
         If selectedID > 0 AndAlso Not selectedIdErrorProvider.HasError Then
-            OpenDeposit(selectedID)
+            OpenDepositView(selectedID)
         End If
     End Sub
 

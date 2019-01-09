@@ -1,18 +1,19 @@
-﻿Imports System.ComponentModel
+﻿Imports System.Collections.Generic
+Imports System.ComponentModel
 
 Namespace Apb.Finance
     Public Class Refund
 
         <DisplayName("Refund ID")>
-        Public Property RefundID As Integer
-        <DisplayName("Deposit ID")>
-        Public Property DepositID As Integer
+        Public Property RefundId As Integer
         <DisplayName("Refund Date")>
         Public Property RefundDate As Date
         Public Property Amount As Decimal
-        <Browsable(False)>
+        <DisplayName("Facility ID")>
+        Public Property FacilityID As ApbFacilityId
         Public Property Comment As String
         Public Property Deleted As Boolean
+        Public Property RefundsApplied As List(Of RefundApplied)
 
     End Class
 End Namespace

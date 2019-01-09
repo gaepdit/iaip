@@ -55,6 +55,8 @@ Public Class FinDepositView
         grpSummary.Visible = False
 
         btnRefresh.Visible = False
+        lblDepositDisplay.Location = New Point(12, 15)
+
         btnDeleteDeposit.Visible = False
         btnUpdateDepositDetails.Visible = False
     End Sub
@@ -69,7 +71,8 @@ Public Class FinDepositView
     ' Load deposit
 
     Private Sub LoadDeposit()
-        MinimumSize = New Size(975, 638)
+        ' MinimumSize = New Size(975, 638)
+        MinimumSize = New Size(624, 653)
         Size = originalSize
 
         thisDeposit = GetDeposit(DepositID)
@@ -80,12 +83,14 @@ Public Class FinDepositView
         End If
 
         btnRefresh.Visible = True
+        lblDepositDisplay.Location = New Point(42, 15)
+
         btnUpdateDepositDetails.Visible = True
         btnSaveNewDeposit.Visible = False
 
         grpApplyToInvoice.Visible = True
         grpRefunds.Visible = True
-        grpInvoiceSearch.Visible = True
+       ' grpInvoiceSearch.Visible = True
         grpSummary.Visible = True
 
         With thisDeposit
@@ -125,11 +130,15 @@ Public Class FinDepositView
                 AddHandler dgvInvoicesPaid.CellEnter, AddressOf dgvInvoicesPaid_CellEnter
             End If
 
-            If .Refunds.Count = 0 Then
+            If .RefundsApplied.Count = 0 Then
                 dgvRefunds.Visible = False
             Else
                 dgvRefunds.Visible = True
-                dgvRefunds.DataSource = .Refunds
+
+                dgvRefunds.DataSource = .RefundsApplied
+                dgvRefunds.Columns("DepositID").Visible = False
+                ' dgvRefunds.Columns("RefundDeleted").Visible = False
+                ' dgvRefunds.Columns("DepositDeleted").Visible = False
                 dgvRefunds.SelectNone()
             End If
 
@@ -151,7 +160,9 @@ Public Class FinDepositView
         DisableControls({grpDepositDetails, grpApplyToInvoice, grpRefunds, grpInvoiceSearch, grpSummary})
 
         btnDeleteDeposit.Visible = False
+
         btnRefresh.Visible = False
+        lblDepositDisplay.Location = New Point(12, 15)
     End Sub
 
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
@@ -593,6 +604,20 @@ Public Class FinDepositView
                 lblDeleteDepositMessage.ShowMessage("An unknown error occurred. Please refresh page and try again.", ErrorLevel.Error)
 
         End Select
+    End Sub
+
+    ' Refunds DataGridView events
+
+    Private Sub dgvRefunds_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRefunds.CellClick
+        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvRefunds.RowCount AndAlso e.ColumnIndex = 0 Then
+            OpenRefundView(CInt(dgvRefunds(1, e.RowIndex).Value))
+        End If
+    End Sub
+
+    Private Sub dgvRefunds_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRefunds.CellDoubleClick
+        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvRefunds.RowCount AndAlso e.ColumnIndex <> 0 Then
+            OpenRefundView(CInt(dgvRefunds(1, e.RowIndex).Value))
+        End If
     End Sub
 
     ' Accept Button

@@ -27,7 +27,7 @@ Namespace DAL.Finance
             Next
 
             For Each dr As DataRow In ds.Tables(2).Rows
-                deposit.Refunds.Add(RefundFromDataRow(dr))
+                deposit.RefundsApplied.Add(RefundAppliedFromDataRow(dr))
             Next
 
             Return deposit
@@ -48,7 +48,7 @@ Namespace DAL.Finance
                 .FacilityID = TryCastApbFacilityId(dr("FacilityID")),
                 .Deleted = CBool(dr("Deleted")),
                 .DepositsApplied = New List(Of DepositApplied),
-                .Refunds = New List(Of Refund)
+                .RefundsApplied = New List(Of RefundApplied)
             }
         End Function
 
@@ -93,9 +93,12 @@ Namespace DAL.Finance
         ' Delete deposit
 
         Public Function DeleteDeposit(depositID As Integer) As DeleteDepositResult
-            Dim result As Integer = DB.SPReturnValue("fees.DeleteDeposit", New SqlParameter("@DepositID", depositID))
+            Dim params As SqlParameter() = {
+                New SqlParameter("@DepositID", depositID),
+                New SqlParameter("@UserID", CurrentUser.UserID)
+            }
 
-            Select Case result
+            Select Case DB.SPReturnValue("fees.DeleteDeposit", params)
                 Case 0
                     Return DeleteDepositResult.Success
                 Case 1
@@ -158,9 +161,7 @@ Namespace DAL.Finance
                 New SqlParameter("@UserID", CurrentUser.UserID)
             }
 
-            Dim returnValue As Integer = DB.SPReturnValue("fees.UpdateDeposit", params)
-
-            Select Case returnValue
+            Select Case DB.SPReturnValue("fees.UpdateDeposit", params)
                 Case 0
                     Return UpdateDepositResult.Success
                 Case 1

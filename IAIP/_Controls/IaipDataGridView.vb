@@ -199,7 +199,7 @@ Public Class IaipDataGridView
 
     Private Sub AddExcelExportButton()
         Controls.Add(ExportToExcelButton)
-        ExportToExcelButton.Location = New Point(Math.Max(Width - 72, 10), 10)
+        ExportToExcelButton.Location = New Point(Math.Max(Width - 62, 10), Math.Max(Height - 52, 10))
         ExportToExcelButton.Size = New Size(42, 32)
         ExportToExcelButton.Visible = gridHoveredOrFocused
     End Sub

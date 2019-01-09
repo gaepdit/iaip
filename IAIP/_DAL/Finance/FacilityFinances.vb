@@ -24,7 +24,14 @@ Namespace DAL.Finance
         End Function
 
         Public Function GetFacilityFinances(facilityId As ApbFacilityId) As DataSet
-            Return DB.SPGetDataSet("fees.GetFacilityFinances", New SqlParameter("FacilityID", facilityId.DbFormattedString))
+            Dim ds As DataSet = DB.SPGetDataSet("fees.GetFacilityFinances", New SqlParameter("FacilityID", facilityId.DbFormattedString))
+
+            ds.Tables(0).TableName = "Invoices"
+            ds.Tables(1).TableName = "Credits"
+            ds.Tables(2).TableName = "Pending"
+            ds.Tables(3).TableName = "Refunds"
+
+            Return ds
         End Function
 
     End Module

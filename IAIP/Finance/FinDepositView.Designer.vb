@@ -70,7 +70,6 @@ Partial Class FinDepositView
         Me.txtTotalDeposit = New Iaip.CurrencyTextBox()
         Me.txtAmountRefunded = New Iaip.CurrencyTextBox()
         Me.txtAmountAppliedToInvoices = New Iaip.CurrencyTextBox()
-        Me.btnRefresh = New System.Windows.Forms.Button()
         Me.grpApplyToInvoice = New System.Windows.Forms.GroupBox()
         Me.btnUnapplyToInvoice = New System.Windows.Forms.Button()
         Me.lblApplyToInvoiceMessage = New System.Windows.Forms.Label()
@@ -78,6 +77,7 @@ Partial Class FinDepositView
         Me.lblInvoicesPaid = New System.Windows.Forms.Label()
         Me.grpSummary = New System.Windows.Forms.GroupBox()
         Me.lblDeleteDepositMessage = New System.Windows.Forms.Label()
+        Me.btnRefresh = New System.Windows.Forms.Button()
         Me.grpDepositDetails.SuspendLayout()
         CType(Me.dgvInvoicesPaid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpInvoiceSearch.SuspendLayout()
@@ -275,7 +275,7 @@ Partial Class FinDepositView
         Me.btnDeleteDeposit.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDeleteDeposit.AutoSize = True
         Me.btnDeleteDeposit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnDeleteDeposit.Location = New System.Drawing.Point(841, 12)
+        Me.btnDeleteDeposit.Location = New System.Drawing.Point(490, 12)
         Me.btnDeleteDeposit.Name = "btnDeleteDeposit"
         Me.btnDeleteDeposit.Size = New System.Drawing.Size(106, 23)
         Me.btnDeleteDeposit.TabIndex = 4
@@ -306,7 +306,7 @@ Partial Class FinDepositView
         Me.dgvInvoicesPaid.ResultsCountLabel = Nothing
         Me.dgvInvoicesPaid.ResultsCountLabelFormat = "{0} found"
         Me.dgvInvoicesPaid.ShowEditingIcon = False
-        Me.dgvInvoicesPaid.Size = New System.Drawing.Size(316, 227)
+        Me.dgvInvoicesPaid.Size = New System.Drawing.Size(315, 227)
         Me.dgvInvoicesPaid.StandardTab = True
         Me.dgvInvoicesPaid.TabIndex = 4
         '
@@ -393,15 +393,12 @@ Partial Class FinDepositView
         Me.lblSearchFacilityDisplay.MaximumSize = New System.Drawing.Size(185, 0)
         Me.lblSearchFacilityDisplay.Name = "lblSearchFacilityDisplay"
         Me.lblSearchFacilityDisplay.Padding = New System.Windows.Forms.Padding(3)
-        Me.lblSearchFacilityDisplay.Size = New System.Drawing.Size(129, 20)
+        Me.lblSearchFacilityDisplay.Size = New System.Drawing.Size(129, 0)
         Me.lblSearchFacilityDisplay.TabIndex = 0
         Me.lblSearchFacilityDisplay.Text = "Facility Display"
         '
         'grpInvoiceSearch
         '
-        Me.grpInvoiceSearch.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grpInvoiceSearch.Controls.Add(Me.chkOnlyOpen)
         Me.grpInvoiceSearch.Controls.Add(Me.dgvSearchResults)
         Me.grpInvoiceSearch.Controls.Add(Me.Label12)
@@ -414,6 +411,7 @@ Partial Class FinDepositView
         Me.grpInvoiceSearch.TabIndex = 3
         Me.grpInvoiceSearch.TabStop = False
         Me.grpInvoiceSearch.Text = "Invoice Search"
+        Me.grpInvoiceSearch.Visible = False
         '
         'chkOnlyOpen
         '
@@ -457,13 +455,14 @@ Partial Class FinDepositView
         '
         'grpRefunds
         '
-        Me.grpRefunds.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.grpRefunds.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grpRefunds.Controls.Add(Me.dgvRefunds)
         Me.grpRefunds.Controls.Add(Me.lblNoRefunds)
         Me.grpRefunds.Location = New System.Drawing.Point(259, 429)
         Me.grpRefunds.Name = "grpRefunds"
-        Me.grpRefunds.Size = New System.Drawing.Size(337, 158)
+        Me.grpRefunds.Size = New System.Drawing.Size(336, 173)
         Me.grpRefunds.TabIndex = 2
         Me.grpRefunds.TabStop = False
         Me.grpRefunds.Text = "Refunds Issued"
@@ -477,12 +476,13 @@ Partial Class FinDepositView
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvRefunds.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvRefunds.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvRefunds.LinkifyFirstColumn = True
         Me.dgvRefunds.Location = New System.Drawing.Point(9, 19)
         Me.dgvRefunds.Name = "dgvRefunds"
         Me.dgvRefunds.ResultsCountLabel = Nothing
         Me.dgvRefunds.ResultsCountLabelFormat = "{0} found"
         Me.dgvRefunds.ShowEditingIcon = False
-        Me.dgvRefunds.Size = New System.Drawing.Size(313, 124)
+        Me.dgvRefunds.Size = New System.Drawing.Size(312, 139)
         Me.dgvRefunds.StandardTab = True
         Me.dgvRefunds.TabIndex = 0
         '
@@ -602,19 +602,10 @@ Partial Class FinDepositView
         Me.txtAmountAppliedToInvoices.Text = "$0"
         Me.txtAmountAppliedToInvoices.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'btnRefresh
-        '
-        Me.btnRefresh.FlatAppearance.BorderSize = 0
-        Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnRefresh.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
-        Me.btnRefresh.Location = New System.Drawing.Point(12, 11)
-        Me.btnRefresh.Name = "btnRefresh"
-        Me.btnRefresh.Size = New System.Drawing.Size(24, 24)
-        Me.btnRefresh.TabIndex = 5
-        Me.btnRefresh.UseVisualStyleBackColor = True
-        '
         'grpApplyToInvoice
         '
+        Me.grpApplyToInvoice.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grpApplyToInvoice.Controls.Add(Me.dgvInvoicesPaid)
         Me.grpApplyToInvoice.Controls.Add(Me.btnUnapplyToInvoice)
         Me.grpApplyToInvoice.Controls.Add(Me.Label10)
@@ -627,7 +618,7 @@ Partial Class FinDepositView
         Me.grpApplyToInvoice.Controls.Add(Me.lblInvoicesPaid)
         Me.grpApplyToInvoice.Location = New System.Drawing.Point(259, 51)
         Me.grpApplyToInvoice.Name = "grpApplyToInvoice"
-        Me.grpApplyToInvoice.Size = New System.Drawing.Size(337, 372)
+        Me.grpApplyToInvoice.Size = New System.Drawing.Size(336, 372)
         Me.grpApplyToInvoice.TabIndex = 1
         Me.grpApplyToInvoice.TabStop = False
         Me.grpApplyToInvoice.Text = "Apply To Invoice"
@@ -690,7 +681,7 @@ Partial Class FinDepositView
         Me.grpSummary.Controls.Add(Me.InvoiceLine)
         Me.grpSummary.Location = New System.Drawing.Point(12, 429)
         Me.grpSummary.Name = "grpSummary"
-        Me.grpSummary.Size = New System.Drawing.Size(231, 158)
+        Me.grpSummary.Size = New System.Drawing.Size(231, 173)
         Me.grpSummary.TabIndex = 10
         Me.grpSummary.TabStop = False
         Me.grpSummary.Text = "Summary"
@@ -707,12 +698,23 @@ Partial Class FinDepositView
         Me.lblDeleteDepositMessage.Text = "Delete deposit message."
         Me.lblDeleteDepositMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'btnRefresh
+        '
+        Me.btnRefresh.FlatAppearance.BorderSize = 0
+        Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnRefresh.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
+        Me.btnRefresh.Location = New System.Drawing.Point(12, 11)
+        Me.btnRefresh.Name = "btnRefresh"
+        Me.btnRefresh.Size = New System.Drawing.Size(24, 24)
+        Me.btnRefresh.TabIndex = 5
+        Me.btnRefresh.UseVisualStyleBackColor = True
+        '
         'FinDepositView
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
-        Me.ClientSize = New System.Drawing.Size(959, 600)
+        Me.ClientSize = New System.Drawing.Size(608, 615)
         Me.Controls.Add(Me.grpSummary)
         Me.Controls.Add(Me.grpApplyToInvoice)
         Me.Controls.Add(Me.btnRefresh)
@@ -722,7 +724,7 @@ Partial Class FinDepositView
         Me.Controls.Add(Me.grpDepositDetails)
         Me.Controls.Add(Me.btnDeleteDeposit)
         Me.Controls.Add(Me.lblDeleteDepositMessage)
-        Me.MinimumSize = New System.Drawing.Size(975, 638)
+        Me.MinimumSize = New System.Drawing.Size(624, 600)
         Me.Name = "FinDepositView"
         Me.Text = "New Deposit"
         Me.grpDepositDetails.ResumeLayout(False)
@@ -774,7 +776,6 @@ Partial Class FinDepositView
     Friend WithEvents grpRefunds As GroupBox
     Friend WithEvents txtDepositComments As TextBox
     Friend WithEvents Label7 As Label
-    Friend WithEvents btnRefresh As Button
     Friend WithEvents lblSearchFacilityDisplay As Label
     Friend WithEvents grpApplyToInvoice As GroupBox
     Friend WithEvents Label1 As Label
@@ -795,4 +796,5 @@ Partial Class FinDepositView
     Friend WithEvents lblNoRefunds As Label
     Friend WithEvents lblInvoicesPaid As Label
     Friend WithEvents lblDeleteDepositMessage As Label
+    Friend WithEvents btnRefresh As Button
 End Class

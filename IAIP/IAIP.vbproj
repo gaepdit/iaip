@@ -331,6 +331,7 @@
     <Compile Include="_DAL\DbResult.vb" />
     <Compile Include="_DAL\TableValuedParameter.vb" />
     <Compile Include="_DAL\Finance\FeeRatesSchedule.vb" />
+    <Compile Include="_Data Models\Finance\RefundApplied.vb" />
     <Compile Include="_Data Models\Finance\FinanceEnums.vb" />
     <Compile Include="_Data Models\Finance\Deposit.vb" />
     <Compile Include="_Data Models\Finance\DepositApplied.vb" />

@@ -23,7 +23,7 @@ Partial Class IaipDataGridView
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ExportToExcelButton = New System.Windows.Forms.Button()
         Me.ButtonToolTip = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -31,7 +31,7 @@ Partial Class IaipDataGridView
         '
         'ExportToExcelButton
         '
-        Me.ExportToExcelButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ExportToExcelButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ExportToExcelButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlDark
         Me.ExportToExcelButton.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
         Me.ExportToExcelButton.Location = New System.Drawing.Point(0, 0)
@@ -47,8 +47,8 @@ Partial Class IaipDataGridView
         Me.AllowUserToDeleteRows = False
         Me.AllowUserToOrderColumns = True
         Me.AllowUserToResizeRows = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.GridColor = System.Drawing.Color.Gainsboro

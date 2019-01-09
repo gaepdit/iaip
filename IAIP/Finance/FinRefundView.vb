@@ -1,142 +1,238 @@
-﻿Imports Iaip.Apb
+﻿Imports System.Linq
+Imports Iaip.Apb
 Imports Iaip.Apb.Finance
+Imports Iaip.DAL
 Imports Iaip.DAL.Finance
 
 Public Class FinRefundView
 
     ' Properties
 
-    Public Property OpenWithDepositId As Integer
+    ' Either FacilityId or RefundId will be set when opening form, but not both.
+    ' If RefundId is set first, FacilityId will be set when loading refund details.
+    Public Property FacilityId As ApbFacilityId
         Get
-            Return _openWithDepositID
+            Return _facilityId
         End Get
-        Set
-            _openWithDepositID = Value
-            LoadDeposit()
-        End Set
-    End Property
-    Private _openWithDepositID As Integer
+        Set(value As ApbFacilityId)
+            If value <> _facilityId Then
+                _facilityId = value
 
-    Public Property RefundID As Integer
-        Get
-            Return _refundID
-        End Get
-        Set(value As Integer)
-            If value <> _refundID Then
-                _refundID = value
-                LoadRefund()
+                DisplayFacility()
+
+                If RefundId = -1 Then
+                    LoadUnbalancedDeposits()
+                End If
             End If
         End Set
     End Property
-    Private _refundID As Integer = -1
+    Private _facilityId As ApbFacilityId
 
-    Private refund As Refund
-    Private thisDeposit As Deposit
+    Public Property RefundId As Integer
+        Get
+            Return _refundId
+        End Get
+        Set(value As Integer)
+            If value <> _refundId Then
+                _refundId = value
 
-    Private amountErrorProvider As IaipErrorProvider
+                If value > -1 Then
+                    LoadRefund()
+                End If
+            End If
+        End Set
+    End Property
+    Private _refundId As Integer = -1
 
     ' Load
 
     Protected Overrides Sub OnLoad(e As EventArgs)
-        ClearMessages()
-        dtpRefundDate.Value = Today
-
+        SetUpAsNewRefund()
         MyBase.OnLoad(e)
     End Sub
 
-    Private Sub ClearMessages()
-        lblErrorMessage.Text = ""
-        lblErrorMessage.BackColor = New Color()
-        lblSaveMessage.Text = ""
-        lblSaveMessage.BackColor = New Color()
+    Private Sub DisableForm(msg As String, errorLevel As ErrorLevel)
+        DisableControls({btnSaveNew, txtComment, txtRefundAmount, dtpRefundDate, btnDelete, btnRefresh, btnUpdateComment})
+        HideControls({btnSaveNew, btnDelete, btnUpdateComment, btnRefresh})
+        lblRefundDisplay.Location = New Point(12, 15)
+        lblMessage.ShowMessage(msg, errorLevel)
     End Sub
 
-    ''' <summary>
-    ''' Only runs for existing refunds opened by ID (or by refresh button)
-    ''' </summary>
+    ' New or existing refund
+
+    Private Sub DisplayFacility()
+        If FacilityId Is Nothing Then
+            lblFacility.Text = String.Empty
+            DisableForm("Error loading facility.", ErrorLevel.Error)
+            Exit Sub
+        End If
+
+        lblFacility.Text = String.Concat(FacilityId.FormattedString, " ", GetFacilityName(FacilityId))
+    End Sub
+
+    ' New refund
+    Private Sub SetUpAsNewRefund()
+        lblMessage.Text = ""
+        lblMessage.BackColor = New Color()
+        dtpRefundDate.Value = Today
+        btnRefresh.Visible = False
+        lblRefundDisplay.Location = New Point(12, 15)
+        btnSaveNew.Visible = True
+        btnUpdateComment.Visible = False
+        btnDelete.Visible = False
+    End Sub
+
+    Private Sub LoadUnbalancedDeposits()
+        Dim ds As DataSet = GetFacilityFinances(FacilityId)
+        dgvDeposits.DataSource = ds.Tables("Credits")
+        dgvDeposits.SelectNone()
+
+        If ds.Tables("Credits") IsNot Nothing AndAlso ds.Tables("Credits").Rows.Count > 0 Then
+            txtCredits.Amount = ds.Tables("Credits").AsEnumerable().
+                Sum(Function(x) x.Field(Of Decimal)("Unused Balance"))
+            txtRefundAmount.MaxValue = txtCredits.Amount
+        Else
+            DisableForm("No credits available to refund.", ErrorLevel.Warning)
+        End If
+    End Sub
+
+    Private Sub btnSaveNew_Click(sender As Object, e As EventArgs) Handles btnSaveNew.Click
+        If RefundId <> -1 Then
+            DisableForm("Error.", ErrorLevel.Error)
+            Exit Sub
+        End If
+
+        If txtRefundAmount.Amount = 0 Then
+            lblMessage.ShowMessage("Refund amount must be greater than zero.", ErrorLevel.Warning)
+            Exit Sub
+        End If
+
+        Dim refund As New Refund With {
+            .Amount = txtRefundAmount.Amount,
+            .Comment = txtComment.Text,
+            .FacilityID = FacilityId,
+            .RefundDate = dtpRefundDate.Value
+        }
+
+        Dim newRefundId As Integer
+
+        Dim result As SaveRefundResult = SaveNewRefund(refund, newRefundId)
+
+        Select Case result
+            Case SaveRefundResult.Success
+                lblMessage.ShowMessage("Refund successfully saved.", ErrorLevel.Success)
+                RefundId = newRefundId
+
+            Case SaveRefundResult.NonPositiveAmount
+                lblMessage.ShowMessage("Refund amount must be greater than zero.", ErrorLevel.Warning)
+
+            Case SaveRefundResult.InsufficientFunds
+                lblMessage.ShowMessage("Refund amount cannot be greater than available credits.", ErrorLevel.Warning)
+
+            Case Else
+                DisableForm("A database occurred.", ErrorLevel.Error)
+        End Select
+
+    End Sub
+
+    ' Existing refund
+
     Private Sub LoadRefund()
         btnSaveNew.Visible = False
+        btnUpdateComment.Visible = True
+        btnDelete.Visible = True
 
-        refund = GetRefund(RefundID)
+        lblRefundDisplay.Location = New Point(42, 15)
+        lblRefundDisplay.Text = String.Concat("Refund ID ", RefundId.ToString)
+        Name = String.Concat("Refund ID ", RefundId.ToString)
+
+        Dim refund As Refund = GetRefund(RefundId)
 
         If refund Is Nothing Then
             DisableForm("Refund ID does not exist.", ErrorLevel.Error)
             Exit Sub
         End If
 
+        btnRefresh.Visible = True
+
         dtpRefundDate.Value = refund.RefundDate
-        txtComments.Text = refund.Comment
         txtRefundAmount.Amount = refund.Amount
+        txtComment.Text = refund.Comment
+
+        DisableControls({dtpRefundDate, txtRefundAmount})
+
+        txtCredits.Visible = False
+        lblCredits.Visible = False
+
+        FacilityId = refund.FacilityID
 
         If refund.Deleted Then
             DisableForm("Refund has been deleted.", ErrorLevel.Info)
+            lblDepositList.Visible = False
+            dgvDeposits.Visible = False
+        Else
+            lblDepositList.Text = "Refund applied to following deposits:"
+            dgvDeposits.DataSource = refund.RefundsApplied
         End If
     End Sub
 
-    ''' <summary>
-    ''' Only runs for new refunds opened with Deposit ID
-    ''' </summary>
-    Private Sub LoadDeposit()
-        btnUpdate.Visible = False
-        btnDelete.Visible = False
-        btnRefresh.Visible = False
-
-        thisDeposit = GetDeposit(OpenWithDepositId)
-
-        If thisDeposit.DepositBalance <= 0 Then
-            DisableForm("No balance to refund.", ErrorLevel.Info)
-        End If
-
-        txtRefundAmount.MaxValue = thisDeposit.DepositBalance
-    End Sub
-
-    Private Sub DisableForm(msg As String, errorLevel As ErrorLevel)
-        DisableControls({btnSaveNew, btnUpdate, txtComments, txtRefundAmount, dtpRefundDate, btnDelete, btnRefresh})
-        lblErrorMessage.ShowMessage(msg, errorLevel)
-    End Sub
-
-    ' Button events
-
-    Private Sub btnSaveNew_Click(sender As Object, e As EventArgs) Handles btnSaveNew.Click
-        If RefundID <> -1 Then
-            DisableForm("Error.", ErrorLevel.Error)
+    Private Sub btnUpdateComment_Click(sender As Object, e As EventArgs) Handles btnUpdateComment.Click
+        If RefundId = -1 Then
+            DisableForm("Refund does not exist.", ErrorLevel.Error)
             Exit Sub
         End If
 
+        Dim result As UpdateRefundCommentResult = UpdateRefundComment(RefundId, txtComment.Text)
 
-
-
-    End Sub
-
-    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
-        If RefundID = -1 Then
-            DisableForm("Refund ID does not exist.", ErrorLevel.Error)
-            Exit Sub
-        End If
-
-
-
-
+        Select Case result
+            Case UpdateRefundCommentResult.Success
+                lblMessage.ShowMessage("Comment successfully updated.", ErrorLevel.Success)
+            Case UpdateRefundCommentResult.DoesNotExist
+                DisableForm("Refund does not exist.", ErrorLevel.Error)
+            Case UpdateRefundCommentResult.RefundDeleted
+                DisableForm("Refund has been deleted.", ErrorLevel.Error)
+            Case Else
+                DisableForm("A database occurred.", ErrorLevel.Error)
+        End Select
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
-        Dim result As DeleteDepositResult = DeleteDeposit(RefundID)
+        If RefundId = -1 Then
+            DisableForm("Refund does not exist.", ErrorLevel.Error)
+            Exit Sub
+        End If
+
+        Dim result As DeleteRefundResult = DeleteRefund(RefundId)
 
         Select Case result
-            Case DeleteDepositResult.AlreadyDeleted
-                DisableForm("Refund has already been deleted.", ErrorLevel.Warning)
-            Case DeleteDepositResult.DoesNotExist
-                DisableForm("Refund does not exist.", ErrorLevel.Error)
-            Case DeleteDepositResult.Success
+            Case DeleteRefundResult.Success
                 DisableForm("Refund successfully deleted.", ErrorLevel.Success)
+            Case DeleteRefundResult.AlreadyDeleted
+                DisableForm("Refund has already been deleted.", ErrorLevel.Warning)
+            Case DeleteRefundResult.DoesNotExist
+                DisableForm("Refund does not exist.", ErrorLevel.Error)
             Case Else
                 DisableForm("A database occurred.", ErrorLevel.Error)
         End Select
     End Sub
 
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
-        If RefundID > -1 Then
+        If RefundId > -1 Then
             LoadRefund()
+        End If
+    End Sub
+
+    ' DataGridView events
+
+    Private Sub dgvDeposits_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDeposits.CellClick
+        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvDeposits.RowCount AndAlso e.ColumnIndex = 0 Then
+            OpenDepositView(CInt(dgvDeposits(0, e.RowIndex).Value))
+        End If
+    End Sub
+
+    Private Sub dgvDeposits_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDeposits.CellDoubleClick
+        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvDeposits.RowCount AndAlso e.ColumnIndex <> 0 Then
+            OpenDepositView(CInt(dgvDeposits(0, e.RowIndex).Value))
         End If
     End Sub
 
