@@ -122,6 +122,8 @@ Public Class IAIPNavigation
 
     Private Sub QuickAccessButton_Click(sender As Object, e As EventArgs) _
     Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenSscpItem.Click, btnOpenSbeapClient.Click, btnOpenSbeapCaseLog.Click, btnOpenEnforcement.Click, btnOpenApplication.Click
+        Cursor = Cursors.WaitCursor
+
         Dim thisButton As Button = CType(sender, Button)
         Select Case thisButton.Name
             Case btnOpenApplication.Name
@@ -141,6 +143,8 @@ Public Class IAIPNavigation
             Case btnOpenTestReport.Name
                 OpenTestReport()
         End Select
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub QuickAccessTextbox_Enter(sender As Object, e As EventArgs) _
@@ -526,6 +530,8 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenSelectedItem()
+        Cursor = Cursors.WaitCursor
+
         Select Case dgvWorkViewer.Columns(0).HeaderText
             Case "Case ID" ' SBEAP cases
                 OpenSbeapCaseLog()
@@ -542,6 +548,8 @@ Public Class IAIPNavigation
             Case "App #" ' Permit applications
                 OpenApplication()
         End Select
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub SelectItemNumbers(row As Integer)
@@ -698,8 +706,11 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub NavButton_Click(sender As Object, e As EventArgs)
-        Dim nb As NavButton = CType(CType(sender, Button).Tag, NavButton)
-        OpenSingleForm(nb.FormName)
+        Cursor = Cursors.WaitCursor
+
+        OpenSingleForm(CType(CType(sender, Button).Tag, NavButton).FormName)
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub CreateNavButtons()
