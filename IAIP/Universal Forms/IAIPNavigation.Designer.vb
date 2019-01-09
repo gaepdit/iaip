@@ -83,11 +83,11 @@ Partial Class IAIPNavigation
         Me.lblMessageLabel = New System.Windows.Forms.Label()
         Me.bgrUserPermissions = New System.ComponentModel.BackgroundWorker()
         Me.pnlCurrentList = New System.Windows.Forms.Panel()
-        Me.btnExportToExcel = New System.Windows.Forms.Button()
+        Me.lblResultsCount = New System.Windows.Forms.Label()
         Me.NavWorkListChangerPanel = New System.Windows.Forms.Panel()
         Me.cboNavWorkListContext = New System.Windows.Forms.ComboBox()
         Me.NavWorkListScopePanel = New System.Windows.Forms.Panel()
-        Me.dgvWorkViewer = New System.Windows.Forms.DataGridView()
+        Me.dgvWorkViewer = New Iaip.IaipDataGridView()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -691,7 +691,7 @@ Partial Class IAIPNavigation
         '
         'pnlCurrentList
         '
-        Me.pnlCurrentList.Controls.Add(Me.btnExportToExcel)
+        Me.pnlCurrentList.Controls.Add(Me.lblResultsCount)
         Me.pnlCurrentList.Controls.Add(Me.NavWorkListChangerPanel)
         Me.pnlCurrentList.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.pnlCurrentList.Location = New System.Drawing.Point(118, 203)
@@ -699,21 +699,15 @@ Partial Class IAIPNavigation
         Me.pnlCurrentList.Size = New System.Drawing.Size(686, 54)
         Me.pnlCurrentList.TabIndex = 1
         '
-        'btnExportToExcel
+        'lblResultsCount
         '
-        Me.btnExportToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportToExcel.FlatAppearance.BorderSize = 0
-        Me.btnExportToExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnExportToExcel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnExportToExcel.Location = New System.Drawing.Point(585, 3)
-        Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Size = New System.Drawing.Size(98, 25)
-        Me.btnExportToExcel.TabIndex = 297
-        Me.btnExportToExcel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
-        Me.btnExportToExcel.UseVisualStyleBackColor = True
+        Me.lblResultsCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblResultsCount.Location = New System.Drawing.Point(600, 10)
+        Me.lblResultsCount.Name = "lblResultsCount"
+        Me.lblResultsCount.Size = New System.Drawing.Size(74, 18)
+        Me.lblResultsCount.TabIndex = 296
+        Me.lblResultsCount.Text = "Results count"
+        Me.lblResultsCount.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'NavWorkListChangerPanel
         '
@@ -753,10 +747,6 @@ Partial Class IAIPNavigation
         '
         'dgvWorkViewer
         '
-        Me.dgvWorkViewer.AllowUserToAddRows = False
-        Me.dgvWorkViewer.AllowUserToDeleteRows = False
-        Me.dgvWorkViewer.AllowUserToOrderColumns = True
-        Me.dgvWorkViewer.AllowUserToResizeRows = False
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
         Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
@@ -765,10 +755,10 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 33)
         Me.dgvWorkViewer.Name = "dgvWorkViewer"
-        Me.dgvWorkViewer.ReadOnly = True
-        Me.dgvWorkViewer.RowHeadersVisible = False
-        Me.dgvWorkViewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvWorkViewer.ResultsCountLabel = Me.lblResultsCount
+        Me.dgvWorkViewer.ResultsCountLabelFormat = "{0} found"
         Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 170)
+        Me.dgvWorkViewer.StandardTab = True
         Me.dgvWorkViewer.TabIndex = 4
         '
         'IAIPNavigation
@@ -859,7 +849,7 @@ Partial Class IAIPNavigation
     Friend WithEvents txtOpenSbeapClient As Iaip.CueTextBox
     Private WithEvents bgrLoadWorkViewer As System.ComponentModel.BackgroundWorker
     Private WithEvents bgrUserPermissions As System.ComponentModel.BackgroundWorker
-    Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvWorkViewer As IaipDataGridView
     Friend WithEvents NavWorkListChangerPanel As System.Windows.Forms.Panel
     Friend WithEvents RunTest As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAccount As System.Windows.Forms.MenuItem
@@ -870,6 +860,6 @@ Partial Class IAIPNavigation
     Friend WithEvents cboNavWorkListContext As ComboBox
     Friend WithEvents mmiUsernameSeparator As MenuItem
     Friend WithEvents mmiSecurity As MenuItem
-    Friend WithEvents btnExportToExcel As Button
     Friend WithEvents RunTest2 As MenuItem
+    Friend WithEvents lblResultsCount As Label
 End Class

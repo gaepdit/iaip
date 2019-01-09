@@ -441,8 +441,6 @@ Public Class IAIPNavigation
         pnlCurrentList.Enabled = False
         btnLoadNavWorkList.Text = "Loading…"
         btnLoadNavWorkList.Enabled = False
-        btnExportToExcel.Visible = False
-        btnExportToExcel.Text = ""
 
         ClearQuickAccessTool()
 
@@ -468,16 +466,12 @@ Public Class IAIPNavigation
             dgvWorkViewer.Visible = True
             lblMessageLabel.Visible = False
             lblMessageLabel.Text = ""
-            btnExportToExcel.Visible = True
-            btnExportToExcel.Text = WorkViewerTable.Rows.Count & " results"
             FormatWorkViewer()
         Else
             dgvWorkViewer.DataSource = Nothing
             dgvWorkViewer.Visible = False
             lblMessageLabel.Visible = True
             lblMessageLabel.Text = "No data to display"
-            btnExportToExcel.Visible = False
-            btnExportToExcel.Text = ""
         End If
     End Sub
 
@@ -773,7 +767,7 @@ Public Class IAIPNavigation
     Private Sub CreateNavButtonsList()
 
         ' General
-        AddNavButtonIfAccountHasFormAccess(1, "Facility Summary", NameOf(IAIPFacilitySummary), NavButtonCategories.General)
+        AddNavButton("Facility Summary", NameOf(IAIPFacilitySummary), NavButtonCategories.General)
         AddNavButtonIfAccountHasFormAccess(7, "Query Generator", NameOf(IAIPQueryGenerator), NavButtonCategories.General)
         AddNavButtonIfAccountHasFormAccess(8, "User Management", NameOf(IaipUserManagement), NavButtonCategories.General)
         AddNavButtonIfUserHasPermission({118, 119, 123, 124}, "GECO User Management", NameOf(GecoTool), NavButtonCategories.General)
@@ -806,8 +800,8 @@ Public Class IAIPNavigation
         ' Finance
         AddNavButtonIfUserHasPermission({118, 123, 124, 125}, "New Deposit", NameOf(FinDepositView), NavButtonCategories.Finance)
         AddNavButtonIfUserHasPermission({118, 123, 124, 125}, "Search Deposits", NameOf(FinSearchDeposits), NavButtonCategories.Finance)
-        AddNavButtonIfAccountHasFormAccess(1, "Search Invoices", NameOf(FinSearchInvoices), NavButtonCategories.Finance)
-        AddNavButtonIfAccountHasFormAccess(1, "Search Facilities", NameOf(FinSearchFacilities), NavButtonCategories.Finance)
+        AddNavButton("Search Invoices", NameOf(FinSearchInvoices), NavButtonCategories.Finance)
+        AddNavButton("Search Facilities", NameOf(FinSearchFacilities), NavButtonCategories.Finance)
         'AddNavButtonIfUserHasPermission({118, 123, 124, 28}, "Manage Fee Rates", NameOf(FinFeeRateManagement), NavButtonCategories.Finance)
 
         ' MASP
@@ -844,10 +838,6 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub mmiExport_Click(sender As Object, e As EventArgs) Handles mmiExport.Click
-        dgvWorkViewer.ExportToExcel(Me)
-    End Sub
-
-    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
         dgvWorkViewer.ExportToExcel(Me)
     End Sub
 

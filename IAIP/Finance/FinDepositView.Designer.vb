@@ -68,7 +68,6 @@ Partial Class FinDepositView
         Me.InvoiceLine = New System.Windows.Forms.Label()
         Me.txtDepositBalance = New Iaip.CurrencyTextBox()
         Me.txtTotalDeposit = New Iaip.CurrencyTextBox()
-        Me.btnIssueRefund = New System.Windows.Forms.Button()
         Me.txtAmountRefunded = New Iaip.CurrencyTextBox()
         Me.txtAmountAppliedToInvoices = New Iaip.CurrencyTextBox()
         Me.btnRefresh = New System.Windows.Forms.Button()
@@ -308,6 +307,7 @@ Partial Class FinDepositView
         Me.dgvInvoicesPaid.ResultsCountLabelFormat = "{0} found"
         Me.dgvInvoicesPaid.ShowEditingIcon = False
         Me.dgvInvoicesPaid.Size = New System.Drawing.Size(316, 227)
+        Me.dgvInvoicesPaid.StandardTab = True
         Me.dgvInvoicesPaid.TabIndex = 4
         '
         'txtInvoiceToApply
@@ -386,13 +386,14 @@ Partial Class FinDepositView
         '
         'lblSearchFacilityDisplay
         '
-        Me.lblSearchFacilityDisplay.AutoSize = True
+        Me.lblSearchFacilityDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblSearchFacilityDisplay.ForeColor = System.Drawing.SystemColors.ControlDarkDark
         Me.lblSearchFacilityDisplay.Location = New System.Drawing.Point(140, 24)
         Me.lblSearchFacilityDisplay.MaximumSize = New System.Drawing.Size(185, 0)
         Me.lblSearchFacilityDisplay.Name = "lblSearchFacilityDisplay"
         Me.lblSearchFacilityDisplay.Padding = New System.Windows.Forms.Padding(3)
-        Me.lblSearchFacilityDisplay.Size = New System.Drawing.Size(82, 19)
+        Me.lblSearchFacilityDisplay.Size = New System.Drawing.Size(129, 20)
         Me.lblSearchFacilityDisplay.TabIndex = 0
         Me.lblSearchFacilityDisplay.Text = "Facility Display"
         '
@@ -441,6 +442,7 @@ Partial Class FinDepositView
         Me.dgvSearchResults.ResultsCountLabelFormat = "{0} found"
         Me.dgvSearchResults.ShowEditingIcon = False
         Me.dgvSearchResults.Size = New System.Drawing.Size(313, 441)
+        Me.dgvSearchResults.StandardTab = True
         Me.dgvSearchResults.TabIndex = 3
         '
         'btnInvoiceSearch
@@ -481,6 +483,7 @@ Partial Class FinDepositView
         Me.dgvRefunds.ResultsCountLabelFormat = "{0} found"
         Me.dgvRefunds.ShowEditingIcon = False
         Me.dgvRefunds.Size = New System.Drawing.Size(313, 124)
+        Me.dgvRefunds.StandardTab = True
         Me.dgvRefunds.TabIndex = 0
         '
         'lblNoRefunds
@@ -568,16 +571,6 @@ Partial Class FinDepositView
         Me.txtTotalDeposit.TabIndex = 0
         Me.txtTotalDeposit.Text = "$0"
         Me.txtTotalDeposit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'btnIssueRefund
-        '
-        Me.btnIssueRefund.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnIssueRefund.Location = New System.Drawing.Point(117, 105)
-        Me.btnIssueRefund.Name = "btnIssueRefund"
-        Me.btnIssueRefund.Size = New System.Drawing.Size(101, 23)
-        Me.btnIssueRefund.TabIndex = 4
-        Me.btnIssueRefund.Text = "Issue Refund"
-        Me.btnIssueRefund.UseVisualStyleBackColor = True
         '
         'txtAmountRefunded
         '
@@ -690,7 +683,6 @@ Partial Class FinDepositView
         Me.grpSummary.Controls.Add(Me.txtAmountAppliedToInvoices)
         Me.grpSummary.Controls.Add(Me.txtAmountRefunded)
         Me.grpSummary.Controls.Add(Me.Label17)
-        Me.grpSummary.Controls.Add(Me.btnIssueRefund)
         Me.grpSummary.Controls.Add(Me.Label11)
         Me.grpSummary.Controls.Add(Me.txtTotalDeposit)
         Me.grpSummary.Controls.Add(Me.Label13)
@@ -791,7 +783,6 @@ Partial Class FinDepositView
     Friend WithEvents InvoiceLine As Label
     Friend WithEvents txtDepositBalance As CurrencyTextBox
     Friend WithEvents txtTotalDeposit As CurrencyTextBox
-    Friend WithEvents btnIssueRefund As Button
     Friend WithEvents txtAmountAppliedToInvoices As CurrencyTextBox
     Friend WithEvents lblApplyToInvoiceMessage As Label
     Friend WithEvents Label17 As Label

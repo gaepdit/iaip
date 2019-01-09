@@ -41,7 +41,6 @@ Partial Class FinSearchFacilities
         Me.chkUnusedCredits = New System.Windows.Forms.CheckBox()
         Me.chkOpenInvoices = New System.Windows.Forms.CheckBox()
         Me.chkPendingItems = New System.Windows.Forms.CheckBox()
-        Me.btnExportToExcel = New System.Windows.Forms.Button()
         Me.grpFacility.SuspendLayout()
         CType(Me.dgvSearchResults, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TopPanel.SuspendLayout()
@@ -51,12 +50,12 @@ Partial Class FinSearchFacilities
         'lblResultsCount
         '
         Me.lblResultsCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblResultsCount.Location = New System.Drawing.Point(469, 149)
+        Me.lblResultsCount.AutoSize = True
+        Me.lblResultsCount.Location = New System.Drawing.Point(279, 149)
         Me.lblResultsCount.Name = "lblResultsCount"
-        Me.lblResultsCount.Size = New System.Drawing.Size(98, 13)
+        Me.lblResultsCount.Size = New System.Drawing.Size(73, 13)
         Me.lblResultsCount.TabIndex = 454
         Me.lblResultsCount.Text = "Results Count"
-        Me.lblResultsCount.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'grpFacility
         '
@@ -163,6 +162,7 @@ Partial Class FinSearchFacilities
         Me.dgvSearchResults.ResultsCountLabelFormat = "{0} found"
         Me.dgvSearchResults.ShowEditingIcon = False
         Me.dgvSearchResults.Size = New System.Drawing.Size(692, 316)
+        Me.dgvSearchResults.StandardTab = True
         Me.dgvSearchResults.TabIndex = 1
         '
         'TopPanel
@@ -173,7 +173,6 @@ Partial Class FinSearchFacilities
         Me.TopPanel.Controls.Add(Me.grpBalance)
         Me.TopPanel.Controls.Add(Me.grpFacility)
         Me.TopPanel.Controls.Add(Me.lblResultsCount)
-        Me.TopPanel.Controls.Add(Me.btnExportToExcel)
         Me.TopPanel.Controls.Add(Me.btnOpenSelectedItem)
         Me.TopPanel.Controls.Add(Me.btnSearch)
         Me.TopPanel.Dock = System.Windows.Forms.DockStyle.Top
@@ -267,21 +266,6 @@ Partial Class FinSearchFacilities
         Me.chkPendingItems.Text = "Facilities with pending items " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "not invoiced"
         Me.chkPendingItems.UseVisualStyleBackColor = True
         '
-        'btnExportToExcel
-        '
-        Me.btnExportToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnExportToExcel.AutoSize = True
-        Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnExportToExcel.Location = New System.Drawing.Point(573, 144)
-        Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Padding = New System.Windows.Forms.Padding(3, 0, 0, 0)
-        Me.btnExportToExcel.Size = New System.Drawing.Size(107, 23)
-        Me.btnExportToExcel.TabIndex = 6
-        Me.btnExportToExcel.Text = "Export to Excel"
-        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnExportToExcel.UseVisualStyleBackColor = True
-        '
         'FinSearchFacilities
         '
         Me.AcceptButton = Me.btnSearch
@@ -312,7 +296,6 @@ Partial Class FinSearchFacilities
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents lblResultsCount As System.Windows.Forms.Label
     Friend WithEvents TopPanel As Panel
-    Friend WithEvents btnExportToExcel As Button
     Friend WithEvents txtSelectedItem As AirNumberEntryForm
     Friend WithEvents grpBalance As GroupBox
     Friend WithEvents lblSelectedAirsMessage As Label

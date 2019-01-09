@@ -22,9 +22,24 @@ Partial Class IaipDataGridView
     ' using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.ExportToExcelButton = New System.Windows.Forms.Button()
+        Me.ButtonToolTip = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'ExportToExcelButton
+        '
+        Me.ExportToExcelButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ExportToExcelButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlDark
+        Me.ExportToExcelButton.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.ExportToExcelButton.Location = New System.Drawing.Point(0, 0)
+        Me.ExportToExcelButton.Name = "ExportToExcelButton"
+        Me.ExportToExcelButton.Size = New System.Drawing.Size(75, 23)
+        Me.ExportToExcelButton.TabIndex = 0
+        Me.ButtonToolTip.SetToolTip(Me.ExportToExcelButton, "Export to Excel")
+        Me.ExportToExcelButton.UseVisualStyleBackColor = True
         '
         'IaipDataGridView
         '
@@ -32,8 +47,8 @@ Partial Class IaipDataGridView
         Me.AllowUserToDeleteRows = False
         Me.AllowUserToOrderColumns = True
         Me.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.GridColor = System.Drawing.Color.Gainsboro
@@ -41,10 +56,13 @@ Partial Class IaipDataGridView
         Me.ReadOnly = True
         Me.RowHeadersVisible = False
         Me.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.StandardTab = True
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
+    Friend WithEvents ExportToExcelButton As Button
+    Friend WithEvents ButtonToolTip As ToolTip
 End Class
 

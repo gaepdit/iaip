@@ -1570,7 +1570,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>IAIPListTool.vb</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="_DAL\SSPP\DAL.Sspp.ApplicationFees.vb" />
+    <Compile Include="_DAL\SSPP\ApplicationFees.vb" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />

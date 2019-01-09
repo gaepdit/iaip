@@ -6,8 +6,10 @@ Public Class FinSearchInvoices
     Private selectedID As Integer
     Private selectedIdErrorProvider As IaipErrorProvider
 
-    Private Sub SearchInvoices_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Protected Overrides Sub OnLoad(e As EventArgs)
         ClearMessages()
+
+        MyBase.OnLoad(e)
     End Sub
 
     Private Sub ClearMessages()
@@ -46,12 +48,6 @@ Public Class FinSearchInvoices
         txtSelectedItem.Text = ""
         ValidateSelectedID()
         dgvSearchResults.DataSource = Nothing
-    End Sub
-
-    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
-        If dgvSearchResults.Rows.Count > 0 Then
-            dgvSearchResults.ExportToExcel()
-        End If
     End Sub
 
     ' Open selected

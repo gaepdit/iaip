@@ -80,10 +80,9 @@ Public Class SSPPApplicationTrackingLog
         End Set
     End Property
 
-
 #End Region
 
-    Private Sub SSPPPermitTrackingLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Protected Overrides Sub OnLoad(e As EventArgs)
         FormStatus = "Loading"
         LoadDefaultDates()
         LoadComboBoxes()
@@ -98,7 +97,7 @@ Public Class SSPPApplicationTrackingLog
                 LoadApplication()
             Else
                 MessageBox.Show("Application #" & AppNumber.ToString & " does not exist.")
-                Me.Close()
+                Close()
             End If
         Else
             SetUpForNewApplication()
@@ -106,6 +105,8 @@ Public Class SSPPApplicationTrackingLog
 
         TPTrackingLog.Focus()
         FormStatus = ""
+
+        MyBase.OnLoad(e)
     End Sub
 
 #Region "Page Load Functions"

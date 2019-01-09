@@ -1,7 +1,8 @@
 ﻿Public Class FinFeeRateManagement
 
-    Private Sub FeeRateManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Protected Overrides Sub OnLoad(e As EventArgs)
 
+        MyBase.OnLoad(e)
     End Sub
 
     Private Sub cmbCategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCategory.SelectedIndexChanged

@@ -52,12 +52,18 @@ Module Extensions
     Public Sub MakeCellLookLikeHoveredLink(dgv As DataGridView, rowIndex As Integer, columnName As String, Optional hover As Boolean = True)
         If hover Then
             dgv.Cursor = Cursors.Hand
-            dgv.Rows(rowIndex).Cells(columnName).Style.ForeColor = Color.Blue
+            dgv.Rows(rowIndex).Cells(columnName).Style.ForeColor = IaipColors.GridHoverForeColor
+            dgv.Rows(rowIndex).Cells(columnName).Style.BackColor = IaipColors.GridHoverBackColor
+            dgv.Rows(rowIndex).Cells(columnName).Style.SelectionForeColor = IaipColors.GridSelectionHoverForeColor
+            dgv.Rows(rowIndex).Cells(columnName).Style.SelectionBackColor = IaipColors.GridSelectionHoverBackColor
             dgv.Rows(rowIndex).Cells(columnName).Style.Font =
                 New Font(dgv.DefaultCellStyle.Font, FontStyle.Underline)
         Else
             dgv.Cursor = Cursors.Default
-            dgv.Rows(rowIndex).Cells(columnName).Style.ForeColor = SystemColors.HotTrack
+            dgv.Rows(rowIndex).Cells(columnName).Style.ForeColor = New Color()
+            dgv.Rows(rowIndex).Cells(columnName).Style.BackColor = New Color()
+            dgv.Rows(rowIndex).Cells(columnName).Style.SelectionForeColor = New Color()
+            dgv.Rows(rowIndex).Cells(columnName).Style.SelectionBackColor = New Color()
             dgv.Rows(rowIndex).Cells(columnName).Style.Font =
                 New Font(dgv.DefaultCellStyle.Font, FontStyle.Regular)
         End If
@@ -67,12 +73,18 @@ Module Extensions
     Public Sub MakeCellLookLikeHoveredLink(dgv As DataGridView, rowIndex As Integer, columnIndex As Integer, Optional hover As Boolean = True)
         If hover Then
             dgv.Cursor = Cursors.Hand
-            dgv.Rows(rowIndex).Cells(columnIndex).Style.ForeColor = Color.Blue
+            dgv.Rows(rowIndex).Cells(columnIndex).Style.ForeColor = IaipColors.GridHoverForeColor
+            dgv.Rows(rowIndex).Cells(columnIndex).Style.BackColor = IaipColors.GridHoverBackColor
+            dgv.Rows(rowIndex).Cells(columnIndex).Style.SelectionForeColor = IaipColors.GridSelectionHoverForeColor
+            dgv.Rows(rowIndex).Cells(columnIndex).Style.SelectionBackColor = IaipColors.GridSelectionHoverBackColor
             dgv.Rows(rowIndex).Cells(columnIndex).Style.Font =
                 New Font(dgv.DefaultCellStyle.Font, FontStyle.Underline)
         Else
             dgv.Cursor = Cursors.Default
-            dgv.Rows(rowIndex).Cells(columnIndex).Style.ForeColor = SystemColors.HotTrack
+            dgv.Rows(rowIndex).Cells(columnIndex).Style.ForeColor = New Color()
+            dgv.Rows(rowIndex).Cells(columnIndex).Style.BackColor = New Color()
+            dgv.Rows(rowIndex).Cells(columnIndex).Style.SelectionForeColor = New Color()
+            dgv.Rows(rowIndex).Cells(columnIndex).Style.SelectionBackColor = New Color()
             dgv.Rows(rowIndex).Cells(columnIndex).Style.Font =
                 New Font(dgv.DefaultCellStyle.Font, FontStyle.Regular)
         End If

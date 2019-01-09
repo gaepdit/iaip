@@ -1,7 +1,8 @@
 ﻿Public Class FinCreateRateItem
 
-    Private Sub CreateRateItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Protected Overrides Sub OnLoad(e As EventArgs)
 
+        MyBase.OnLoad(e)
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click

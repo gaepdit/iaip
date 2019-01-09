@@ -28,6 +28,10 @@ Public Class IaipDataGridView
     <DefaultValue(False)>
     Public Property LinkifyFirstColumn As Boolean = False
 
+    ' Private fields
+
+    Private gridHoveredOrFocused As Boolean = False
+
     ' Modified defaults for DataGridView properties 
 
     <DefaultValue(False)>
@@ -41,6 +45,7 @@ Public Class IaipDataGridView
             End If
         End Set
     End Property
+
     <DefaultValue(False)>
     Public Overloads Property AllowUserToDeleteRows As Boolean
         Get
@@ -52,6 +57,7 @@ Public Class IaipDataGridView
             End If
         End Set
     End Property
+
     <DefaultValue(True)>
     Public Overloads Property AllowUserToOrderColumns As Boolean
         Get
@@ -63,6 +69,7 @@ Public Class IaipDataGridView
             End If
         End Set
     End Property
+
     <DefaultValue(False)>
     Public Overloads Property AllowUserToResizeRows As Boolean
         Get
@@ -74,6 +81,7 @@ Public Class IaipDataGridView
             End If
         End Set
     End Property
+
     <DefaultValue(DataGridViewAutoSizeColumnsMode.DisplayedCellsExceptHeader)>
     Public Overloads Property AutoSizeColumnsMode As DataGridViewAutoSizeColumnsMode
         Get
@@ -85,6 +93,7 @@ Public Class IaipDataGridView
             End If
         End Set
     End Property
+
     <DefaultValue(DataGridViewEditMode.EditProgrammatically)>
     Public Overloads Property EditMode As DataGridViewEditMode
         Get
@@ -96,6 +105,7 @@ Public Class IaipDataGridView
             End If
         End Set
     End Property
+
     <DefaultValue(GetType(Color), "0xFFDCDCDC")>
     Public Overloads Property GridColor As Color
         Get
@@ -107,6 +117,7 @@ Public Class IaipDataGridView
             End If
         End Set
     End Property
+
     <DefaultValue(False)>
     Public Overloads Property MultiSelect As Boolean
         Get
@@ -118,6 +129,7 @@ Public Class IaipDataGridView
             End If
         End Set
     End Property
+
     <DefaultValue(True)>
     Public Overloads Property [ReadOnly] As Boolean
         Get
@@ -129,6 +141,7 @@ Public Class IaipDataGridView
             End If
         End Set
     End Property
+
     <DefaultValue(False)>
     Public Overloads Property RowHeadersVisible As Boolean
         Get
@@ -140,6 +153,7 @@ Public Class IaipDataGridView
             End If
         End Set
     End Property
+
     <DefaultValue(DataGridViewSelectionMode.FullRowSelect)>
     Public Overloads Property SelectionMode As DataGridViewSelectionMode
         Get
@@ -152,14 +166,25 @@ Public Class IaipDataGridView
         End Set
     End Property
 
+    ' Methods
+
+    Public Sub SelectNone()
+        ClearSelection()
+        CurrentCell = Nothing
+    End Sub
+
     ' Events
 
     Private Sub IaipDataGridView_DataSourceChanged(sender As Object, e As EventArgs) Handles MyBase.DataSourceChanged
         If DataSource Is Nothing Then
+            RemoveExcelExportButton()
+
             If ResultsCountLabel IsNot Nothing Then
                 ResultsCountLabel.Text = String.Empty
             End If
         Else
+            AddExcelExportButton()
+
             SanelyResizeColumns()
 
             If LinkifyFirstColumn Then
@@ -169,6 +194,19 @@ Public Class IaipDataGridView
             If ResultsCountLabel IsNot Nothing Then
                 ResultsCountLabel.Text = String.Format(ResultsCountLabelFormat, Rows.Count)
             End If
+        End If
+    End Sub
+
+    Private Sub AddExcelExportButton()
+        Controls.Add(ExportToExcelButton)
+        ExportToExcelButton.Location = New Point(Math.Max(Width - 72, 10), 10)
+        ExportToExcelButton.Size = New Size(42, 32)
+        ExportToExcelButton.Visible = gridHoveredOrFocused
+    End Sub
+
+    Private Sub RemoveExcelExportButton()
+        If Controls.Contains(ExportToExcelButton) Then
+            Controls.Remove(ExportToExcelButton)
         End If
     End Sub
 
@@ -198,11 +236,23 @@ Public Class IaipDataGridView
         End If
     End Sub
 
-    ' Methods
+    Private Sub ButtonExportToExcel_Click(sender As Object, e As EventArgs) Handles ExportToExcelButton.Click
+        ExportToExcel(Me)
+    End Sub
 
-    Public Sub SelectNone()
-        ClearSelection()
-        CurrentCell = Nothing
+    Private Sub ActivateButton(sender As Object, e As EventArgs) Handles MyBase.MouseEnter, MyBase.Enter, ExportToExcelButton.MouseEnter
+        gridHoveredOrFocused = True
+
+        If DataSource IsNot Nothing Then
+            ExportToExcelButton.Visible = True
+        End If
+    End Sub
+
+    Private Sub DeactivateButton(sender As Object, e As EventArgs) Handles MyBase.MouseLeave, MyBase.Leave, ExportToExcelButton.MouseLeave
+        If Not ClientRectangle.Contains(PointToClient(MousePosition)) Then
+            gridHoveredOrFocused = False
+            ExportToExcelButton.Visible = False
+        End If
     End Sub
 
 End Class

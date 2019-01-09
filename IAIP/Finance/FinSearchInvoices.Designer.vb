@@ -48,7 +48,6 @@ Partial Class FinSearchInvoices
         Me.grpDates = New System.Windows.Forms.GroupBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.btnExportToExcel = New System.Windows.Forms.Button()
         Me.txtSelectedItem = New Iaip.CueTextBox()
         Me.grpFacility.SuspendLayout()
         CType(Me.dgvSearchResults, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -61,12 +60,12 @@ Partial Class FinSearchInvoices
         'lblResultsCount
         '
         Me.lblResultsCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblResultsCount.Location = New System.Drawing.Point(443, 231)
+        Me.lblResultsCount.AutoSize = True
+        Me.lblResultsCount.Location = New System.Drawing.Point(279, 231)
         Me.lblResultsCount.Name = "lblResultsCount"
-        Me.lblResultsCount.Size = New System.Drawing.Size(98, 13)
+        Me.lblResultsCount.Size = New System.Drawing.Size(73, 13)
         Me.lblResultsCount.TabIndex = 454
         Me.lblResultsCount.Text = "Results Count"
-        Me.lblResultsCount.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'dtpDateEnd
         '
@@ -193,6 +192,7 @@ Partial Class FinSearchInvoices
         Me.dgvSearchResults.ResultsCountLabel = Me.lblResultsCount
         Me.dgvSearchResults.ResultsCountLabelFormat = "{0} found"
         Me.dgvSearchResults.Size = New System.Drawing.Size(668, 224)
+        Me.dgvSearchResults.StandardTab = True
         Me.dgvSearchResults.TabIndex = 1
         '
         'TopPanel
@@ -204,7 +204,6 @@ Partial Class FinSearchInvoices
         Me.TopPanel.Controls.Add(Me.grpDates)
         Me.TopPanel.Controls.Add(Me.grpFacility)
         Me.TopPanel.Controls.Add(Me.lblResultsCount)
-        Me.TopPanel.Controls.Add(Me.btnExportToExcel)
         Me.TopPanel.Controls.Add(Me.txtSelectedItem)
         Me.TopPanel.Controls.Add(Me.btnOpenSelectedItem)
         Me.TopPanel.Controls.Add(Me.btnSearch)
@@ -350,21 +349,6 @@ Partial Class FinSearchInvoices
         Me.Label2.TabIndex = 6
         Me.Label2.Text = "Start Date"
         '
-        'btnExportToExcel
-        '
-        Me.btnExportToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnExportToExcel.AutoSize = True
-        Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnExportToExcel.Location = New System.Drawing.Point(547, 226)
-        Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Padding = New System.Windows.Forms.Padding(3, 0, 0, 0)
-        Me.btnExportToExcel.Size = New System.Drawing.Size(107, 23)
-        Me.btnExportToExcel.TabIndex = 8
-        Me.btnExportToExcel.Text = "Export to Excel"
-        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnExportToExcel.UseVisualStyleBackColor = True
-        '
         'txtSelectedItem
         '
         Me.txtSelectedItem.Cue = "Invoice ID"
@@ -413,7 +397,6 @@ Partial Class FinSearchInvoices
     Friend WithEvents TopPanel As Panel
     Friend WithEvents txtAirsNumberSearch As AirNumberEntryForm
     Friend WithEvents txtSelectedItem As CueTextBox
-    Friend WithEvents btnExportToExcel As Button
     Friend WithEvents grpDates As GroupBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label

@@ -125,12 +125,16 @@
                     HasRoleType(RoleType.UnitManager) Or
                     HasRoleType(RoleType.DistrictManager)
 
-            ' === Fees caps
+            ' === Finance caps
             Case UserCan.OverrideFeeAmount
                 ' Branch Chief, APB Admin, all APB program managers
                 Return HasRoleType(RoleType.BranchChief) Or
                     HasRoleType(RoleType.BranchAdmin) Or
                     HasRoleType(RoleType.ProgramManager)
+
+            Case UserCan.EditFinancialData
+                ' All Finance staff
+                Return HasRole({123, 124, 125})
 
             Case Else
                 Return False
@@ -152,6 +156,7 @@ Public Enum UserCan
     EditAllUsers
     EditDirectReports
     OverrideFeeAmount
+    EditFinancialData
 End Enum
 
 Public Enum RoleType

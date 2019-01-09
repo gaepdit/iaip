@@ -55,7 +55,8 @@ Namespace DAL.Sspp
         End Function
 
         Public Function GetApplicationPayments(appNumber As Integer) As DataTable
-            Dim query As String = "select r.DepositDate   as [Date],
+            Dim query As String = "select r.DepositID as [Deposit ID],
+                       r.DepositDate   as [Date],
                        i.InvoiceId     as [Invoice #],
                        X.AmountApplied as [Payment]
                 from fees.Deposit r

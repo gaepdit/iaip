@@ -40,7 +40,6 @@ Partial Class FinFacilityView
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.btnNewDeposit = New System.Windows.Forms.Button()
         Me.InvoiceLine = New System.Windows.Forms.Label()
         Me.txtAmountInvoiced = New Iaip.CurrencyTextBox()
         Me.txtPaymentsApplied = New Iaip.CurrencyTextBox()
@@ -121,6 +120,7 @@ Partial Class FinFacilityView
         Me.dgvInvoices.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvInvoices.ShowEditingIcon = False
         Me.dgvInvoices.Size = New System.Drawing.Size(550, 188)
+        Me.dgvInvoices.StandardTab = True
         Me.dgvInvoices.TabIndex = 3
         '
         'Label4
@@ -165,19 +165,6 @@ Partial Class FinFacilityView
         Me.Label3.Size = New System.Drawing.Size(170, 13)
         Me.Label3.TabIndex = 334
         Me.Label3.Text = "Current Balance On Invoices"
-        '
-        'btnNewDeposit
-        '
-        Me.btnNewDeposit.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnNewDeposit.AutoSize = True
-        Me.btnNewDeposit.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnNewDeposit.Location = New System.Drawing.Point(429, 11)
-        Me.btnNewDeposit.Name = "btnNewDeposit"
-        Me.btnNewDeposit.Size = New System.Drawing.Size(133, 27)
-        Me.btnNewDeposit.TabIndex = 1
-        Me.btnNewDeposit.Text = "Add New Deposit"
-        Me.btnNewDeposit.UseVisualStyleBackColor = True
-        Me.btnNewDeposit.Visible = False
         '
         'InvoiceLine
         '
@@ -377,6 +364,7 @@ Partial Class FinFacilityView
         Me.dgvCredits.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
         Me.dgvCredits.ShowEditingIcon = False
         Me.dgvCredits.Size = New System.Drawing.Size(550, 103)
+        Me.dgvCredits.StandardTab = True
         Me.dgvCredits.TabIndex = 335
         '
         'Label11
@@ -427,6 +415,7 @@ Partial Class FinFacilityView
         Me.dgvUnInvoiced.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
         Me.dgvUnInvoiced.ShowEditingIcon = False
         Me.dgvUnInvoiced.Size = New System.Drawing.Size(550, 100)
+        Me.dgvUnInvoiced.StandardTab = True
         Me.dgvUnInvoiced.TabIndex = 3
         '
         'pnlTop
@@ -434,7 +423,6 @@ Partial Class FinFacilityView
         Me.pnlTop.Controls.Add(Me.lblDataErrorMessage)
         Me.pnlTop.Controls.Add(Me.btnRefresh)
         Me.pnlTop.Controls.Add(Me.lblFacilityDisplay)
-        Me.pnlTop.Controls.Add(Me.btnNewDeposit)
         Me.pnlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlTop.Location = New System.Drawing.Point(0, 0)
         Me.pnlTop.Name = "pnlTop"
@@ -497,7 +485,6 @@ Partial Class FinFacilityView
     Friend WithEvents Label5 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents btnNewDeposit As Button
     Friend WithEvents InvoiceLine As Label
     Friend WithEvents txtAmountInvoiced As CurrencyTextBox
     Friend WithEvents txtPaymentsApplied As CurrencyTextBox

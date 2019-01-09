@@ -50,7 +50,6 @@ Partial Class FinSearchDeposits
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnClear = New System.Windows.Forms.Button()
-        Me.btnExportToExcel = New System.Windows.Forms.Button()
         Me.txtSelectedItem = New Iaip.CueTextBox()
         CType(Me.dgvSearchResults, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TopPanel.SuspendLayout()
@@ -88,7 +87,7 @@ Partial Class FinSearchDeposits
         Me.btnOpenSelectedItem.Location = New System.Drawing.Point(549, 28)
         Me.btnOpenSelectedItem.Name = "btnOpenSelectedItem"
         Me.btnOpenSelectedItem.Size = New System.Drawing.Size(132, 27)
-        Me.btnOpenSelectedItem.TabIndex = 6
+        Me.btnOpenSelectedItem.TabIndex = 5
         Me.btnOpenSelectedItem.Text = "Open Deposit"
         Me.btnOpenSelectedItem.UseVisualStyleBackColor = True
         '
@@ -106,17 +105,18 @@ Partial Class FinSearchDeposits
         Me.dgvSearchResults.ResultsCountLabelFormat = "{0} found"
         Me.dgvSearchResults.ShowEditingIcon = False
         Me.dgvSearchResults.Size = New System.Drawing.Size(694, 258)
+        Me.dgvSearchResults.StandardTab = True
         Me.dgvSearchResults.TabIndex = 1
         '
         'lblResultsCount
         '
         Me.lblResultsCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblResultsCount.Location = New System.Drawing.Point(470, 219)
+        Me.lblResultsCount.AutoSize = True
+        Me.lblResultsCount.Location = New System.Drawing.Point(279, 219)
         Me.lblResultsCount.Name = "lblResultsCount"
-        Me.lblResultsCount.Size = New System.Drawing.Size(98, 13)
+        Me.lblResultsCount.Size = New System.Drawing.Size(73, 13)
         Me.lblResultsCount.TabIndex = 455
         Me.lblResultsCount.Text = "Results Count"
-        Me.lblResultsCount.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'TopPanel
         '
@@ -127,7 +127,6 @@ Partial Class FinSearchDeposits
         Me.TopPanel.Controls.Add(Me.grpDepositDetails)
         Me.TopPanel.Controls.Add(Me.grpDates)
         Me.TopPanel.Controls.Add(Me.btnClear)
-        Me.TopPanel.Controls.Add(Me.btnExportToExcel)
         Me.TopPanel.Controls.Add(Me.txtSelectedItem)
         Me.TopPanel.Controls.Add(Me.btnOpenSelectedItem)
         Me.TopPanel.Dock = System.Windows.Forms.DockStyle.Top
@@ -147,7 +146,7 @@ Partial Class FinSearchDeposits
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Padding = New System.Windows.Forms.Padding(3, 0, 0, 0)
         Me.btnSearch.Size = New System.Drawing.Size(149, 27)
-        Me.btnSearch.TabIndex = 3
+        Me.btnSearch.TabIndex = 2
         Me.btnSearch.Text = "Search Deposits"
         Me.btnSearch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnSearch.UseVisualStyleBackColor = True
@@ -353,25 +352,10 @@ Partial Class FinSearchDeposits
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Padding = New System.Windows.Forms.Padding(3, 0, 0, 0)
         Me.btnClear.Size = New System.Drawing.Size(97, 23)
-        Me.btnClear.TabIndex = 4
+        Me.btnClear.TabIndex = 3
         Me.btnClear.Text = "Clear Search"
         Me.btnClear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnClear.UseVisualStyleBackColor = True
-        '
-        'btnExportToExcel
-        '
-        Me.btnExportToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnExportToExcel.AutoSize = True
-        Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnExportToExcel.Location = New System.Drawing.Point(574, 214)
-        Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Padding = New System.Windows.Forms.Padding(3, 0, 0, 0)
-        Me.btnExportToExcel.Size = New System.Drawing.Size(107, 23)
-        Me.btnExportToExcel.TabIndex = 7
-        Me.btnExportToExcel.Text = "Export to Excel"
-        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnExportToExcel.UseVisualStyleBackColor = True
         '
         'txtSelectedItem
         '
@@ -380,7 +364,7 @@ Partial Class FinSearchDeposits
         Me.txtSelectedItem.Location = New System.Drawing.Point(460, 30)
         Me.txtSelectedItem.Name = "txtSelectedItem"
         Me.txtSelectedItem.Size = New System.Drawing.Size(83, 23)
-        Me.txtSelectedItem.TabIndex = 5
+        Me.txtSelectedItem.TabIndex = 4
         '
         'FinSearchDeposits
         '
@@ -410,7 +394,6 @@ Partial Class FinSearchDeposits
     Friend WithEvents dtpDateStart As System.Windows.Forms.DateTimePicker
     Friend WithEvents TopPanel As Panel
     Friend WithEvents txtSelectedItem As CueTextBox
-    Friend WithEvents btnExportToExcel As Button
     Friend WithEvents grpDates As GroupBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label

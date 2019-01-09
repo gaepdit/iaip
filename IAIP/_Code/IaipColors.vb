@@ -39,4 +39,28 @@
             Return SystemColors.Info
         End Get
     End Property
+
+    Public Shared ReadOnly Property GridHoverForeColor As Color
+        Get
+            Return Color.Blue
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property GridHoverBackColor As Color
+        Get
+            Return ColorTranslator.FromHtml("#FDF2FD")
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property GridSelectionHoverForeColor As Color
+        Get
+            Return SystemColors.HighlightText
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property GridSelectionHoverBackColor As Color
+        Get
+            Return SystemColors.HotTrack
+        End Get
+    End Property
 End Class

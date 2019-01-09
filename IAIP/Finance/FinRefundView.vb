@@ -37,9 +37,11 @@ Public Class FinRefundView
 
     ' Load
 
-    Private Sub DepositView_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Protected Overrides Sub OnLoad(e As EventArgs)
         ClearMessages()
         dtpRefundDate.Value = Today
+
+        MyBase.OnLoad(e)
     End Sub
 
     Private Sub ClearMessages()

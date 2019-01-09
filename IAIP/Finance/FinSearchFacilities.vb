@@ -3,10 +3,12 @@ Imports Iaip.DAL.Finance.FacilityFinances
 
 Public Class FinSearchFacilities
 
-    Private Sub SearchFacilities_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Protected Overrides Sub OnLoad(e As EventArgs)
         lblAirsSearchMessage.Text = ""
         lblSelectedAirsMessage.Text = ""
         lblResultsCount.Text = ""
+
+        MyBase.OnLoad(e)
     End Sub
 
     ' Search
@@ -28,12 +30,6 @@ Public Class FinSearchFacilities
         chkUnusedCredits.Checked = False
         txtSelectedItem.Clear()
         dgvSearchResults.DataSource = Nothing
-    End Sub
-
-    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
-        If dgvSearchResults.Rows.Count > 0 Then
-            dgvSearchResults.ExportToExcel()
-        End If
     End Sub
 
     ' Open selected

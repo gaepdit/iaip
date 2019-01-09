@@ -23,8 +23,10 @@ Public Class FinInvoiceView
 
 #End Region
 
-    Private Sub InvoiceView_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Protected Overrides Sub OnLoad(e As EventArgs)
         ClearMessages()
+
+        MyBase.OnLoad(e)
     End Sub
 
     Private Sub ClearMessages()

@@ -6,11 +6,13 @@ Public Class FinSearchDeposits
     Private selectedID As Integer
     Private selectedIdErrorProvider As IaipErrorProvider
 
-    Private Sub FinSearchDeposits_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Protected Overrides Sub OnLoad(e As EventArgs)
         lblSelectedIdMessage.Text = ""
         lblAirsSearchMessage.Text = ""
         lblResultsCount.Text = ""
         selectedIdErrorProvider = New IaipErrorProvider(txtSelectedItem, lblSelectedIdMessage)
+
+        MyBase.OnLoad(e)
     End Sub
 
     ' Search
@@ -47,12 +49,6 @@ Public Class FinSearchDeposits
         txtSelectedItem.Text = ""
         ValidateSelectedID()
         dgvSearchResults.DataSource = Nothing
-    End Sub
-
-    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
-        If dgvSearchResults.Rows.Count > 0 Then
-            dgvSearchResults.ExportToExcel()
-        End If
     End Sub
 
     ' Open selected

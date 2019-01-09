@@ -23,29 +23,22 @@ Public Class FinDepositView
         End Set
     End Property
 
-    ' Currently unused
-    'Public WriteOnly Property OpenWithFacilityID As ApbFacilityId
-    '    Set(value As ApbFacilityId)
-    '        OpenWithFacility(value)
-    '    End Set
-    'End Property
-
-    ' Currently unused
-    'Public WriteOnly Property OpenWithInvoiceID As Integer
-    '    Set(value As Integer)
-    '        OpenWithInvoice(value)
-    '    End Set
-    'End Property
-
     ' Local fields
 
     Private thisDeposit As Deposit = Nothing
     Private selectedInvoice As Invoice = Nothing
+    Private originalSize As Size
 
     ' Load form
 
-    Private Sub FinDepositView_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Protected Overrides Sub OnLoad(e As EventArgs)
         SetUpAsNewDeposit()
+
+        MyBase.OnLoad(e)
+
+        originalSize = Size
+        MinimumSize = New Size(271, 467)
+        Size = New Size(271, 467)
     End Sub
 
     Private Sub SetUpAsNewDeposit()
@@ -62,7 +55,6 @@ Public Class FinDepositView
         grpSummary.Visible = False
 
         btnRefresh.Visible = False
-        btnIssueRefund.Visible = False
         btnDeleteDeposit.Visible = False
         btnUpdateDepositDetails.Visible = False
     End Sub
@@ -74,23 +66,12 @@ Public Class FinDepositView
         lblDeleteDepositMessage.ClearMessage()
     End Sub
 
-    'Private Sub OpenWithFacility(facilityId As ApbFacilityId)
-    '    txtAirsInvoiceSearch.AirsNumber = facilityId
-    '    DoInvoiceSearch()
-    'End Sub
-
-    'Private Sub OpenWithInvoice(invoiceId As Integer)
-    '    txtInvoiceToApply.Text = invoiceId.ToString
-    '    SelectInvoice()
-    '
-    '    If selectedInvoice IsNot Nothing Then
-    '        OpenWithFacility(selectedInvoice.FacilityID)
-    '    End If
-    'End Sub
-
     ' Load deposit
 
     Private Sub LoadDeposit()
+        MinimumSize = New Size(975, 638)
+        Size = originalSize
+
         thisDeposit = GetDeposit(DepositID)
 
         If thisDeposit Is Nothing Then
@@ -159,7 +140,6 @@ Public Class FinDepositView
 
             grpApplyToInvoice.Enabled = (.DepositBalance > 0)
 
-            btnIssueRefund.Visible = (.DepositBalance > 0)
             btnDeleteDeposit.Visible = (.TotalAmountAllocated = 0)
         End With
     End Sub
@@ -196,7 +176,6 @@ Public Class FinDepositView
             dgvSearchResults.Columns().Item("Facility ID").Visible = False
             dgvSearchResults.Columns().Item("Facility Name").Visible = False
             dgvSearchResults.Columns().Item("Type").Visible = False
-            dgvSearchResults.Columns().Item("Full Settlement Date").Visible = False
             dgvSearchResults.Columns().Item("Ceased Collections").Visible = False
 
             dgvSearchResults.SelectNone()
@@ -344,7 +323,7 @@ Public Class FinDepositView
                 lblApplyToInvoiceMessage.ShowMessage(String.Format("Payment amount cannot be less than {0:c}.", txtAmountToApply.MinValue), ErrorLevel.Warning)
             Case CurrencyTextBox.CurrencyValidationStatus.Valid
                 lblApplyToInvoiceMessage.ClearMessage()
-                btnApplyToInvoice.Enabled = True
+                btnApplyToInvoice.Enabled = (selectedInvoice IsNot Nothing)
         End Select
     End Sub
 
@@ -357,6 +336,11 @@ Public Class FinDepositView
 
         If txtAmountToApply.Amount = 0 Then
             lblApplyToInvoiceMessage.ShowMessage("New payment amount cannot be 0.", ErrorLevel.Warning)
+            Exit Sub
+        End If
+
+        If selectedInvoice Is Nothing Then
+            lblApplyToInvoiceMessage.ShowMessage("Enter a valid invoice ID.", ErrorLevel.Warning)
             Exit Sub
         End If
 
@@ -609,13 +593,6 @@ Public Class FinDepositView
                 lblDeleteDepositMessage.ShowMessage("An unknown error occurred. Please refresh page and try again.", ErrorLevel.Error)
 
         End Select
-    End Sub
-
-    ' Issue refund
-
-    Private Sub btnRefund_Click(sender As Object, e As EventArgs) Handles btnIssueRefund.Click
-        ' TODO
-
     End Sub
 
     ' Accept Button

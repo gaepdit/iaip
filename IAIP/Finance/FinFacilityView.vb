@@ -18,8 +18,10 @@ Public Class FinFacilityView
         End Set
     End Property
 
-    Private Sub FinFacilityView_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Protected Overrides Sub OnLoad(e As EventArgs)
         lblDataErrorMessage.Visible = False
+
+        MyBase.OnLoad(e)
     End Sub
 
     Private Sub LoadFacility()
@@ -32,7 +34,6 @@ Public Class FinFacilityView
             lblDataErrorMessage.BackColor = IaipColors.ErrorBackColor
             lblDataErrorMessage.ForeColor = IaipColors.ErrorForeColor
 
-            'btnNewDeposit.Visible = False
             btnRefresh.Visible = False
 
             Exit Sub
@@ -57,9 +58,9 @@ Public Class FinFacilityView
         End With
 
         If ds.Tables(1) IsNot Nothing AndAlso ds.Tables(1).Rows.Count > 0 Then
-            btnAddRefund.Visible = True
             txtCredits.Amount = ds.Tables(1).AsEnumerable().
                 Sum(Function(x) x.Field(Of Decimal)("Unused Balance"))
+            btnAddRefund.Visible = (txtCredits.Amount > 0)
         Else
             btnAddRefund.Visible = False
         End If
@@ -69,10 +70,6 @@ Public Class FinFacilityView
             .SelectNone()
         End With
     End Sub
-
-    'Private Sub btnNewDeposit_Click(sender As Object, e As EventArgs) Handles btnNewDeposit.Click
-    '    OpenNewDeposit(FacilityID)
-    'End Sub
 
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         LoadFacility()
