@@ -55,7 +55,7 @@ Namespace DAL.Sspp
         End Function
 
         Public Function GetApplicationPayments(appNumber As Integer) As DataTable
-            Dim query As String = "select r.DepositID as [Deposit ID],
+            Dim query As String = "select r.DepositID     as [Deposit ID],
                        r.DepositDate   as [Date],
                        i.InvoiceId     as [Invoice #],
                        X.AmountApplied as [Payment]
@@ -65,6 +65,8 @@ Namespace DAL.Sspp
                      inner join fees.VW_Invoices i
                                 on X.InvoiceID = i.InvoiceID
                 where ApplicationID = @appNumber
+                  and Deleted = 0
+                  and i.Voided = 0
                 order by r.DepositDate, i.InvoiceID"
 
             Return DB.GetDataTable(query, New SqlParameter("@appNumber", appNumber))
@@ -77,7 +79,8 @@ Namespace DAL.Sspp
                        PaymentsApplied  as [Total Payments],
                        SettlementStatus as Status
                 from fees.VW_Invoices
-                where ApplicationID = @appNumber
+                where Voided = 0
+                  and ApplicationID = @appNumber
                 order by InvoiceID"
 
             Return DB.GetDataTable(query, New SqlParameter("@appNumber", appNumber))

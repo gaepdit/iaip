@@ -14903,26 +14903,54 @@ Public Class SSPPApplicationTrackingLog
         UpdatingValues = False
         AdjustFeesUI()
 
-        dgvApplicationInvoices.Visible = feesInfo.FeeDataFinalized
-        lblInvoices.Visible = feesInfo.FeeDataFinalized
-        dgvApplicationPayments.Visible = feesInfo.FeeDataFinalized
-        lblPayments.Visible = feesInfo.FeeDataFinalized
-
         If feesInfo.FeeDataFinalized Then
-            dgvApplicationInvoices.DataSource = GetApplicationInvoices(AppNumber)
-            dgvApplicationPayments.DataSource = GetApplicationPayments(AppNumber)
+            ShowControls({dgvApplicationInvoices, dgvApplicationPayments, lblInvoices, lblPayments, lblFeeTotalInvoiced, lblFeeTotalPaid, txtFeeTotalInvoiced, txtFeeTotalPaid})
+            SplitContainer1.BackColor = SystemColors.ActiveCaption
+            SplitContainer1.IsSplitterFixed = False
+
+            Dim dt As DataTable = GetApplicationInvoices(AppNumber)
+            dgvApplicationInvoices.DataSource = dt
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+                txtFeeTotalInvoiced.Amount = dt.AsEnumerable().
+                Sum(Function(x) x.Field(Of Decimal)("Amount"))
+            End If
+
+            Dim dt2 As DataTable = GetApplicationPayments(AppNumber)
+            dgvApplicationPayments.DataSource = dt2
+
+            If dt2 IsNot Nothing AndAlso dt2.Rows.Count > 0 Then
+                txtFeeTotalPaid.Amount = dt2.AsEnumerable().
+                Sum(Function(x) x.Field(Of Decimal)("Payment"))
+            End If
+        Else
+            HideControls({dgvApplicationInvoices, dgvApplicationPayments, lblInvoices, lblPayments, lblFeeTotalInvoiced, lblFeeTotalPaid, txtFeeTotalInvoiced, txtFeeTotalPaid})
+            SplitContainer1.BackColor = SystemColors.ControlLightLight
+            SplitContainer1.IsSplitterFixed = True
         End If
     End Sub
 
-    Private Sub dgvInvoices_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationInvoices.CellClick
+    Private Sub dgvApplicationInvoices_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationInvoices.CellClick
         If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvApplicationInvoices.RowCount AndAlso e.ColumnIndex = 0 Then
             OpenInvoiceView(CInt(dgvApplicationInvoices(0, e.RowIndex).Value))
         End If
     End Sub
 
-    Private Sub dgvInvoices_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationInvoices.CellDoubleClick
+    Private Sub dgvApplicationInvoices_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationInvoices.CellDoubleClick
         If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvApplicationInvoices.RowCount AndAlso e.ColumnIndex > 0 Then
             OpenInvoiceView(CInt(dgvApplicationInvoices(0, e.RowIndex).Value))
+        End If
+    End Sub
+
+    Private Sub dgvApplicationPayments_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationPayments.CellClick
+        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvApplicationInvoices.RowCount AndAlso e.ColumnIndex = 0 Then
+            OpenDepositView(CInt(dgvApplicationPayments(0, e.RowIndex).Value))
+        End If
+    End Sub
+
+    Private Sub dgvApplicationPayments_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationPayments.CellDoubleClick
+        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvApplicationInvoices.RowCount AndAlso e.ColumnIndex > 0 Then
+            OpenDepositView(CInt(dgvApplicationPayments(0, e.RowIndex).Value))
         End If
     End Sub
 
