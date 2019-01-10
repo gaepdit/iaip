@@ -344,18 +344,20 @@ Public Class IAIPEditHeaderData
         With facilityHeaderData
             .Classification = CType(ClassificationDropDown.SelectedValue, FacilityClassification)
             .OperationalStatus = CType(OperationalDropDown.SelectedValue, FacilityOperationalStatus)
-            .SicCode = SicCode.Text
+            .SicCode = RealStringOrNothing(SicCode.Text)
+            .Naics = RealStringOrNothing(NaicsCode.Text)
+
             If StartUpDate.Checked Then
                 .StartupDate = StartUpDate.Value
             Else
                 .StartupDate = Nothing
             End If
+
             If ShutdownDate.Checked Then
                 .ShutdownDate = ShutdownDate.Value
             Else
                 .ShutdownDate = Nothing
             End If
-            .Naics = NaicsCode.Text
 
             .AirPrograms = AirProgram.None
             If ApcAcid.Checked Then .AirPrograms = .AirPrograms Or AirProgram.AcidPrecipitation

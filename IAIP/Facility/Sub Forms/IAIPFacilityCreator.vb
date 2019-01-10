@@ -592,14 +592,14 @@ Public Class IAIPFacilityCreator
                 New SqlParameter("@STROPERATIONALSTATUS", OperatingStatus),
                 New SqlParameter("@STRCLASS", Classification),
                 New SqlParameter("@STRAIRPROGRAMCODES", AirProgramCode),
-                New SqlParameter("@STRSICCODE", SICCode),
+                New SqlParameter("@STRSICCODE", RealStringOrNothing(SICCode)),
                 New SqlParameter("@STRFEINUMBER", "N/A"),
                 New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
                 New SqlParameter("@STRCOMMENTS", Comments),
                 New SqlParameter("@STRPLANTDESCRIPTION", PlantDesc),
                 New SqlParameter("@STRATTAINMENTSTATUS", AttainmentStatus),
                 New SqlParameter("@STRMODIFINGLOCATION", "4"),
-                New SqlParameter("@STRNAICSCODE", NAICSCode)
+                New SqlParameter("@STRNAICSCODE", RealStringOrNothing(NAICSCode))
             }
 
             DB.RunCommand(SQL, p4)
@@ -1953,8 +1953,8 @@ Public Class IAIPFacilityCreator
                 New SqlParameter("@strOperationalStatus", OperatingStatus),
                 New SqlParameter("@strClass", Classification),
                 New SqlParameter("@strAIRProgramCodes", AirProgramCode),
-                New SqlParameter("@strSICCode", SICCode),
-                New SqlParameter("@strNAICSCode", NAICSCode),
+                New SqlParameter("@strSICCode", RealStringOrNothing(SICCode)),
+                New SqlParameter("@strNAICSCode", RealStringOrNothing(NAICSCode)),
                 New SqlParameter("@strPlantDescription", PlantDesc),
                 New SqlParameter("@strComments", Comments),
                 New SqlParameter("@strModifingPerson", CurrentUser.UserID),
