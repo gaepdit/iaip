@@ -22,7 +22,9 @@ Namespace DAL.Finance
         Public Function GetInvoice(invoiceId As Integer) As Invoice
             Dim ds As DataSet = DB.SPGetDataSet("fees.GetInvoice", New SqlParameter("@InvoiceID", invoiceId))
 
-            If ds Is Nothing OrElse ds.Tables.Count <> 3 OrElse ds.Tables(0).Rows.Count <> 1 Then Return Nothing
+            If ds Is Nothing OrElse ds.Tables.Count <> 3 OrElse ds.Tables(0).Rows.Count <> 1 Then
+                Return Nothing
+            End If
 
             Dim invoice As Invoice = InvoiceFromDataRow(ds.Tables(0).Rows(0))
 

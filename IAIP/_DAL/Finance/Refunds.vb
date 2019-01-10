@@ -16,7 +16,9 @@ Namespace DAL.Finance
         Public Function GetRefund(refundID As Integer) As Refund
             Dim ds As DataSet = DB.SPGetDataSet("fees.GetRefund", New SqlParameter("@RefundID", refundID))
 
-            If ds Is Nothing OrElse ds.Tables.Count <> 2 OrElse ds.Tables(0).Rows.Count <> 1 Then Return Nothing
+            If ds Is Nothing OrElse ds.Tables.Count <> 2 OrElse ds.Tables(0).Rows.Count <> 1 Then
+                Return Nothing
+            End If
 
             Dim refund As Refund = RefundFromDataRow(ds.Tables(0).Rows(0))
 

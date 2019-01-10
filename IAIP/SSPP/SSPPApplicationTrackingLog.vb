@@ -14859,6 +14859,12 @@ Public Class SSPPApplicationTrackingLog
 
         Dim feesInfo As ApplicationFeeInfo = GetApplicationFeesInfo(AppNumber)
 
+        If feesInfo Is Nothing Then
+            UpdatingValues = False
+
+            Exit Sub
+        End If
+
         With feesInfo
             ' Application fee
             chbAppFee.Checked = .ApplicationFeeApplies
@@ -14894,40 +14900,38 @@ Public Class SSPPApplicationTrackingLog
 
             dtpFacilityFeeNotified.Value = If(.DateFacilityNotifiedOfFees, Today)
             dtpFacilityFeeNotified.Checked = .DateFacilityNotifiedOfFees.HasValue
-        End With
 
-        If IsInvoiceGeneratedForApplication(AppNumber) Then
-            FeeChangesAllowed = False
-        End If
+            If .FeeDataFinalized Then
+                ShowControls({dgvApplicationInvoices, dgvApplicationPayments, lblInvoices, lblPayments, lblFeeTotalInvoiced, lblFeeTotalPaid, txtFeeTotalInvoiced, txtFeeTotalPaid})
+                SplitContainer1.BackColor = SystemColors.ActiveCaption
+                SplitContainer1.IsSplitterFixed = False
+
+                dgvApplicationInvoices.DataSource = .Invoices
+
+                If .Invoices IsNot Nothing AndAlso .Invoices.Rows.Count > 0 Then
+                    txtFeeTotalInvoiced.Amount = .Invoices.AsEnumerable().
+                    Sum(Function(x) x.Field(Of Decimal)("Amount"))
+                End If
+
+                dgvApplicationPayments.DataSource = .Payments
+
+                If .Payments IsNot Nothing AndAlso .Payments.Rows.Count > 0 Then
+                    txtFeeTotalPaid.Amount = .Payments.AsEnumerable().
+                    Sum(Function(x) x.Field(Of Decimal)("Payment"))
+                End If
+            Else
+                HideControls({dgvApplicationInvoices, dgvApplicationPayments, lblInvoices, lblPayments, lblFeeTotalInvoiced, lblFeeTotalPaid, txtFeeTotalInvoiced, txtFeeTotalPaid})
+                SplitContainer1.BackColor = SystemColors.ControlLightLight
+                SplitContainer1.IsSplitterFixed = True
+            End If
+
+            If .Invoices IsNot Nothing AndAlso .Invoices.Rows.Count > 0 Then
+                FeeChangesAllowed = False
+            End If
+        End With
 
         UpdatingValues = False
         AdjustFeesUI()
-
-        If feesInfo.FeeDataFinalized Then
-            ShowControls({dgvApplicationInvoices, dgvApplicationPayments, lblInvoices, lblPayments, lblFeeTotalInvoiced, lblFeeTotalPaid, txtFeeTotalInvoiced, txtFeeTotalPaid})
-            SplitContainer1.BackColor = SystemColors.ActiveCaption
-            SplitContainer1.IsSplitterFixed = False
-
-            Dim dt As DataTable = GetApplicationInvoices(AppNumber)
-            dgvApplicationInvoices.DataSource = dt
-
-            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
-                txtFeeTotalInvoiced.Amount = dt.AsEnumerable().
-                Sum(Function(x) x.Field(Of Decimal)("Amount"))
-            End If
-
-            Dim dt2 As DataTable = GetApplicationPayments(AppNumber)
-            dgvApplicationPayments.DataSource = dt2
-
-            If dt2 IsNot Nothing AndAlso dt2.Rows.Count > 0 Then
-                txtFeeTotalPaid.Amount = dt2.AsEnumerable().
-                Sum(Function(x) x.Field(Of Decimal)("Payment"))
-            End If
-        Else
-            HideControls({dgvApplicationInvoices, dgvApplicationPayments, lblInvoices, lblPayments, lblFeeTotalInvoiced, lblFeeTotalPaid, txtFeeTotalInvoiced, txtFeeTotalPaid})
-            SplitContainer1.BackColor = SystemColors.ControlLightLight
-            SplitContainer1.IsSplitterFixed = True
-        End If
     End Sub
 
     Private Sub dgvApplicationInvoices_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationInvoices.CellClick

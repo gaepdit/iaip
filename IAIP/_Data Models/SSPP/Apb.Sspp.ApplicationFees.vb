@@ -26,6 +26,9 @@
         Public Property DateFeeDataFinalized As Date?
         Public Property DateFacilityNotifiedOfFees As Date?
 
+        Public Property Invoices As DataTable
+        Public Property Payments As DataTable
+
     End Class
 
 End Namespace

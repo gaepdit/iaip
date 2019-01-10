@@ -489,13 +489,16 @@ Partial Class SSPPApplicationTrackingLog
         Me.TCApplicationTrackingLog = New System.Windows.Forms.TabControl()
         Me.TPFees = New System.Windows.Forms.TabPage()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.txtFeeTotalInvoiced = New Iaip.CurrencyTextBox()
+        Me.Panel2 = New System.Windows.Forms.Panel()
         Me.lblInvoices = New System.Windows.Forms.Label()
-        Me.dgvApplicationInvoices = New Iaip.IaipDataGridView()
+        Me.txtFeeTotalInvoiced = New Iaip.CurrencyTextBox()
         Me.lblFeeTotalInvoiced = New System.Windows.Forms.Label()
+        Me.dgvApplicationInvoices = New Iaip.IaipDataGridView()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.lblPayments = New System.Windows.Forms.Label()
         Me.txtFeeTotalPaid = New Iaip.CurrencyTextBox()
-        Me.dgvApplicationPayments = New Iaip.IaipDataGridView()
         Me.lblFeeTotalPaid = New System.Windows.Forms.Label()
+        Me.dgvApplicationPayments = New Iaip.IaipDataGridView()
         Me.txtAppFeeAmount = New Iaip.CurrencyTextBox()
         Me.txtExpFeeAmount = New Iaip.CurrencyTextBox()
         Me.dtpFeeDataFinalized = New System.Windows.Forms.DateTimePicker()
@@ -525,9 +528,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnFetchNewAppNumber = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.lblPayments = New System.Windows.Forms.Label()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Panel2 = New System.Windows.Forms.Panel()
         Me.TPSubPartEditor.SuspendLayout()
         Me.TCSupParts.SuspendLayout()
         Me.TPSIP.SuspendLayout()
@@ -598,12 +598,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         CType(Me.dgvApplicationInvoices, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         CType(Me.dgvApplicationPayments, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.HeaderPanel.SuspendLayout()
-        Me.Panel1.SuspendLayout()
-        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnRefreshAIRSNo
@@ -5723,6 +5723,31 @@ Partial Class SSPPApplicationTrackingLog
         Me.SplitContainer1.SplitterDistance = 379
         Me.SplitContainer1.TabIndex = 17
         '
+        'Panel2
+        '
+        Me.Panel2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Panel2.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Panel2.Controls.Add(Me.lblInvoices)
+        Me.Panel2.Controls.Add(Me.txtFeeTotalInvoiced)
+        Me.Panel2.Controls.Add(Me.lblFeeTotalInvoiced)
+        Me.Panel2.Controls.Add(Me.dgvApplicationInvoices)
+        Me.Panel2.Location = New System.Drawing.Point(0, 1)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(380, 137)
+        Me.Panel2.TabIndex = 16
+        '
+        'lblInvoices
+        '
+        Me.lblInvoices.AutoSize = True
+        Me.lblInvoices.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.lblInvoices.Location = New System.Drawing.Point(10, 10)
+        Me.lblInvoices.Name = "lblInvoices"
+        Me.lblInvoices.Size = New System.Drawing.Size(100, 13)
+        Me.lblInvoices.TabIndex = 11
+        Me.lblInvoices.Text = "Invoices Generated"
+        '
         'txtFeeTotalInvoiced
         '
         Me.txtFeeTotalInvoiced.Amount = New Decimal(New Integer() {0, 0, 0, 0})
@@ -5740,15 +5765,15 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtFeeTotalInvoiced.Text = "$0"
         Me.txtFeeTotalInvoiced.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'lblInvoices
+        'lblFeeTotalInvoiced
         '
-        Me.lblInvoices.AutoSize = True
-        Me.lblInvoices.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.lblInvoices.Location = New System.Drawing.Point(10, 10)
-        Me.lblInvoices.Name = "lblInvoices"
-        Me.lblInvoices.Size = New System.Drawing.Size(100, 13)
-        Me.lblInvoices.TabIndex = 11
-        Me.lblInvoices.Text = "Invoices Generated"
+        Me.lblFeeTotalInvoiced.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblFeeTotalInvoiced.AutoSize = True
+        Me.lblFeeTotalInvoiced.Location = New System.Drawing.Point(265, 10)
+        Me.lblFeeTotalInvoiced.Name = "lblFeeTotalInvoiced"
+        Me.lblFeeTotalInvoiced.Size = New System.Drawing.Size(34, 13)
+        Me.lblFeeTotalInvoiced.TabIndex = 2
+        Me.lblFeeTotalInvoiced.Text = "Total:"
         '
         'dgvApplicationInvoices
         '
@@ -5768,15 +5793,30 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvApplicationInvoices.StandardTab = True
         Me.dgvApplicationInvoices.TabIndex = 14
         '
-        'lblFeeTotalInvoiced
+        'Panel1
         '
-        Me.lblFeeTotalInvoiced.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblFeeTotalInvoiced.AutoSize = True
-        Me.lblFeeTotalInvoiced.Location = New System.Drawing.Point(265, 10)
-        Me.lblFeeTotalInvoiced.Name = "lblFeeTotalInvoiced"
-        Me.lblFeeTotalInvoiced.Size = New System.Drawing.Size(34, 13)
-        Me.lblFeeTotalInvoiced.TabIndex = 2
-        Me.lblFeeTotalInvoiced.Text = "Total:"
+        Me.Panel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Panel1.Controls.Add(Me.lblPayments)
+        Me.Panel1.Controls.Add(Me.txtFeeTotalPaid)
+        Me.Panel1.Controls.Add(Me.lblFeeTotalPaid)
+        Me.Panel1.Controls.Add(Me.dgvApplicationPayments)
+        Me.Panel1.Location = New System.Drawing.Point(0, 1)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(405, 137)
+        Me.Panel1.TabIndex = 16
+        '
+        'lblPayments
+        '
+        Me.lblPayments.AutoSize = True
+        Me.lblPayments.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.lblPayments.Location = New System.Drawing.Point(16, 10)
+        Me.lblPayments.Name = "lblPayments"
+        Me.lblPayments.Size = New System.Drawing.Size(53, 13)
+        Me.lblPayments.TabIndex = 11
+        Me.lblPayments.Text = "Payments"
         '
         'txtFeeTotalPaid
         '
@@ -5795,23 +5835,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtFeeTotalPaid.Text = "$0"
         Me.txtFeeTotalPaid.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'dgvApplicationPayments
-        '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvApplicationPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
-        Me.dgvApplicationPayments.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvApplicationPayments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        Me.dgvApplicationPayments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvApplicationPayments.Location = New System.Drawing.Point(16, 29)
-        Me.dgvApplicationPayments.Name = "dgvApplicationPayments"
-        Me.dgvApplicationPayments.ResultsCountLabel = Nothing
-        Me.dgvApplicationPayments.ResultsCountLabelFormat = "{0} found"
-        Me.dgvApplicationPayments.Size = New System.Drawing.Size(381, 99)
-        Me.dgvApplicationPayments.StandardTab = True
-        Me.dgvApplicationPayments.TabIndex = 15
-        '
         'lblFeeTotalPaid
         '
         Me.lblFeeTotalPaid.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -5821,6 +5844,24 @@ Partial Class SSPPApplicationTrackingLog
         Me.lblFeeTotalPaid.Size = New System.Drawing.Size(34, 13)
         Me.lblFeeTotalPaid.TabIndex = 2
         Me.lblFeeTotalPaid.Text = "Total:"
+        '
+        'dgvApplicationPayments
+        '
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvApplicationPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvApplicationPayments.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvApplicationPayments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvApplicationPayments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvApplicationPayments.LinkifyFirstColumn = True
+        Me.dgvApplicationPayments.Location = New System.Drawing.Point(16, 29)
+        Me.dgvApplicationPayments.Name = "dgvApplicationPayments"
+        Me.dgvApplicationPayments.ResultsCountLabel = Nothing
+        Me.dgvApplicationPayments.ResultsCountLabelFormat = "{0} found"
+        Me.dgvApplicationPayments.Size = New System.Drawing.Size(381, 99)
+        Me.dgvApplicationPayments.StandardTab = True
+        Me.dgvApplicationPayments.TabIndex = 15
         '
         'txtAppFeeAmount
         '
@@ -6126,46 +6167,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label3.TabIndex = 250
         Me.Label3.Text = "Current Facility Info"
         '
-        'lblPayments
-        '
-        Me.lblPayments.AutoSize = True
-        Me.lblPayments.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.lblPayments.Location = New System.Drawing.Point(16, 10)
-        Me.lblPayments.Name = "lblPayments"
-        Me.lblPayments.Size = New System.Drawing.Size(53, 13)
-        Me.lblPayments.TabIndex = 11
-        Me.lblPayments.Text = "Payments"
-        '
-        'Panel1
-        '
-        Me.Panel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Panel1.Controls.Add(Me.lblPayments)
-        Me.Panel1.Controls.Add(Me.txtFeeTotalPaid)
-        Me.Panel1.Controls.Add(Me.lblFeeTotalPaid)
-        Me.Panel1.Controls.Add(Me.dgvApplicationPayments)
-        Me.Panel1.Location = New System.Drawing.Point(0, 1)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(405, 137)
-        Me.Panel1.TabIndex = 16
-        '
-        'Panel2
-        '
-        Me.Panel2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Panel2.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Panel2.Controls.Add(Me.lblInvoices)
-        Me.Panel2.Controls.Add(Me.txtFeeTotalInvoiced)
-        Me.Panel2.Controls.Add(Me.lblFeeTotalInvoiced)
-        Me.Panel2.Controls.Add(Me.dgvApplicationInvoices)
-        Me.Panel2.Location = New System.Drawing.Point(0, 1)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(380, 137)
-        Me.Panel2.TabIndex = 16
-        '
         'SSPPApplicationTrackingLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -6282,16 +6283,16 @@ Partial Class SSPPApplicationTrackingLog
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         CType(Me.dgvApplicationInvoices, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         CType(Me.dgvApplicationPayments, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.HeaderPanel.ResumeLayout(False)
         Me.HeaderPanel.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

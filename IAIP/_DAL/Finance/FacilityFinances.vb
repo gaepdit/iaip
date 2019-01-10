@@ -26,6 +26,10 @@ Namespace DAL.Finance
         Public Function GetFacilityFinances(facilityId As ApbFacilityId) As DataSet
             Dim ds As DataSet = DB.SPGetDataSet("fees.GetFacilityFinances", New SqlParameter("FacilityID", facilityId.DbFormattedString))
 
+            If ds Is Nothing OrElse ds.Tables.Count <> 4 Then
+                Return Nothing
+            End If
+
             ds.Tables(0).TableName = "Invoices"
             ds.Tables(1).TableName = "Credits"
             ds.Tables(2).TableName = "Pending"

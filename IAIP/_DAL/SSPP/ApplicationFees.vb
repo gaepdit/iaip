@@ -6,35 +6,21 @@ Namespace DAL.Sspp
     Module ApplicationFees
 
         Public Function GetApplicationFeesInfo(appNumber As Integer) As ApplicationFeeInfo
-            Dim query As String = "select ApplicationFeeApplies,
-                    ApplicationFeeType,
-                    ApplicationFeeAmount,
-                    ApplicationFeeOverride,
-                    ApplicationFeeOverrideReason,
-                    ExpeditedFeeApplies,
-                    ExpeditedFeeType,
-                    ExpeditedFeeAmount,
-                    ExpeditedFeeOverride,
-                    ExpeditedFeeOverrideReason,
-                    FeeDataFinalized,
-                    DateFacilityNotifiedOfFees,
-                    DateFeeDataFinalized,
-                    case
-                        when m.STRPERMITTYPE = 11
-                                then convert(bit, 1)
-                        else convert(bit, 0)
-                    end as ApplicationWithdrawn
-            from SSPPAPPLICATIONDATA d
-                    inner join SSPPAPPLICATIONMASTER m
-                            on d.STRAPPLICATIONNUMBER = m.STRAPPLICATIONNUMBER
-            where convert(int, d.STRAPPLICATIONNUMBER) = @AppNumber"
+            Dim ds As DataSet = DB.SPGetDataSet("fees.GetApplicationFeeInfo", New SqlParameter("@AppNumber", appNumber))
 
-            Dim dr As DataRow = DB.GetDataRow(query, New SqlParameter("@AppNumber", appNumber))
-
-            If dr Is Nothing Then
+            If ds Is Nothing OrElse ds.Tables.Count <> 3 OrElse ds.Tables(0).Rows.Count <> 1 Then
                 Return Nothing
             End If
 
+            Dim info As ApplicationFeeInfo = ApplicationFeeInfoFromDataRow(appNumber, ds.Tables(0).Rows(0))
+
+            info.Invoices = ds.Tables(1)
+            info.Payments = ds.Tables(2)
+
+            Return info
+        End Function
+
+        Private Function ApplicationFeeInfoFromDataRow(appNumber As Integer, dr As DataRow) As ApplicationFeeInfo
             Return New ApplicationFeeInfo With {
                 .ApplicationID = appNumber,
                 .ApplicationWithdrawn = CBool(dr.Item("ApplicationWithdrawn")),
@@ -54,44 +40,8 @@ Namespace DAL.Sspp
             }
         End Function
 
-        Public Function GetApplicationPayments(appNumber As Integer) As DataTable
-            Dim query As String = "select r.DepositID     as [Deposit ID],
-                       r.DepositDate   as [Date],
-                       i.InvoiceId     as [Invoice #],
-                       X.AmountApplied as [Payment]
-                from fees.Deposit r
-                     inner join fees.Deposit_Invoice X
-                                on r.DepositID = X.DepositID
-                     inner join fees.VW_Invoices i
-                                on X.InvoiceID = i.InvoiceID
-                where ApplicationID = @appNumber
-                  and Deleted = 0
-                  and i.Voided = 0
-                order by r.DepositDate, i.InvoiceID"
-
-            Return DB.GetDataTable(query, New SqlParameter("@appNumber", appNumber))
-        End Function
-
-        Public Function GetApplicationInvoices(appNumber As Integer) As DataTable
-            Dim query As String = "select InvoiceID        as [Invoice #],
-                       InvoiceDate      as [Invoice Date],
-                       TotalAmount      as Amount,
-                       PaymentsApplied  as [Total Payments],
-                       SettlementStatus as Status
-                from fees.VW_Invoices
-                where Voided = 0
-                  and ApplicationID = @appNumber
-                order by InvoiceID"
-
-            Return DB.GetDataTable(query, New SqlParameter("@appNumber", appNumber))
-        End Function
-
         Public Function IsInvoiceGeneratedForApplication(appNumber As Integer) As Boolean
-            Dim query As String = "select convert(bit, count(*))
-                from fees.VW_Invoices
-                where ApplicationID = @appNumber and Voided = 0"
-
-            Return DB.GetBoolean(query, New SqlParameter("@appNumber", appNumber))
+            Return DB.GetBoolean("select fees.IsInvoiceGeneratedForApplication(@AppNumber)", New SqlParameter("@AppNumber", appNumber))
         End Function
 
         Public Function SaveApplicationFeesData(appFeesInfo As ApplicationFeeInfo) As Integer
