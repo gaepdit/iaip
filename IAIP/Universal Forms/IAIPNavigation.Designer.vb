@@ -753,6 +753,7 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.ColumnHeadersHeight = 35
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvWorkViewer.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvWorkViewer.LinkifyColumnByName = Nothing
         Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 33)
         Me.dgvWorkViewer.Name = "dgvWorkViewer"
         Me.dgvWorkViewer.ResultsCountLabel = Me.lblResultsCount

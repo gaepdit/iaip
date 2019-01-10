@@ -5784,6 +5784,7 @@ Partial Class SSPPApplicationTrackingLog
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvApplicationInvoices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvApplicationInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvApplicationInvoices.LinkifyColumnByName = Nothing
         Me.dgvApplicationInvoices.LinkifyFirstColumn = True
         Me.dgvApplicationInvoices.Location = New System.Drawing.Point(10, 29)
         Me.dgvApplicationInvoices.Name = "dgvApplicationInvoices"
@@ -5854,6 +5855,7 @@ Partial Class SSPPApplicationTrackingLog
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvApplicationPayments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvApplicationPayments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvApplicationPayments.LinkifyColumnByName = Nothing
         Me.dgvApplicationPayments.LinkifyFirstColumn = True
         Me.dgvApplicationPayments.Location = New System.Drawing.Point(16, 29)
         Me.dgvApplicationPayments.Name = "dgvApplicationPayments"

@@ -37,7 +37,7 @@ Module Constants
 #Region " String formats "
 
     Friend Const DateParseExactFormat As String = "yyyy-MM-dd HH:mm tt"
-    Friend Const DateFormat As String = "dd-MMM-yyyy"
+    Friend Const DateFormat As String = "d-MMM-yyyy"
     Friend Const DateStringFormat As String = "{0:dd-MMM-yyyy}"
     Friend Const DisplayZeroAsBlank As String = "0;; "
     Friend Const DisplayZeroAsNA As String = "0;;N/A"

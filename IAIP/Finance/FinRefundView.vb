@@ -177,6 +177,8 @@ Public Class FinRefundView
         Else
             lblDepositList.Text = "Refund applied to following deposits:"
             dgvDeposits.DataSource = refund.RefundsApplied
+            dgvDeposits.Columns("RefundID").Visible = False
+            dgvDeposits.SelectNone()
         End If
     End Sub
 
@@ -229,14 +231,18 @@ Public Class FinRefundView
     ' DataGridView events
 
     Private Sub dgvDeposits_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDeposits.CellClick
-        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvDeposits.RowCount AndAlso e.ColumnIndex = 0 Then
-            OpenDepositView(CInt(dgvDeposits(0, e.RowIndex).Value))
+        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvDeposits.RowCount AndAlso
+            dgvDeposits.Columns(e.ColumnIndex).Name = dgvDeposits.LinkifyColumnByName Then
+
+            OpenDepositView(CInt(dgvDeposits(dgvDeposits.LinkifyColumnByName, e.RowIndex).Value))
         End If
     End Sub
 
     Private Sub dgvDeposits_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDeposits.CellDoubleClick
-        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvDeposits.RowCount AndAlso e.ColumnIndex <> 0 Then
-            OpenDepositView(CInt(dgvDeposits(0, e.RowIndex).Value))
+        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvDeposits.RowCount AndAlso
+            dgvDeposits.Columns(e.ColumnIndex).Name <> dgvDeposits.LinkifyColumnByName Then
+
+            OpenDepositView(CInt(dgvDeposits(dgvDeposits.LinkifyColumnByName, e.RowIndex).Value))
         End If
     End Sub
 

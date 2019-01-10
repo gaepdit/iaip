@@ -168,6 +168,18 @@ Public Class FinInvoiceView
         LoadInvoice()
     End Sub
 
+    Private Sub dgvPaymentsApplied_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPaymentsApplied.CellClick
+        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvPaymentsApplied.RowCount AndAlso e.ColumnIndex = 0 Then
+            OpenDepositView(CInt(dgvPaymentsApplied(0, e.RowIndex).Value))
+        End If
+    End Sub
+
+    Private Sub dgvPaymentsApplied_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPaymentsApplied.CellDoubleClick
+        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvPaymentsApplied.RowCount AndAlso e.ColumnIndex <> 0 Then
+            OpenDepositView(CInt(dgvPaymentsApplied(0, e.RowIndex).Value))
+        End If
+    End Sub
+
     Private Sub txtComments_Enter(sender As Object, e As EventArgs) Handles txtComments.Enter
         AcceptButton = btnSaveComment
     End Sub
@@ -175,4 +187,5 @@ Public Class FinInvoiceView
     Private Sub txtComments_Leave(sender As Object, e As EventArgs) Handles txtComments.Leave
         AcceptButton = Nothing
     End Sub
+
 End Class

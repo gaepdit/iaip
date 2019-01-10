@@ -620,14 +620,18 @@ Public Class FinDepositView
     ' Refunds DataGridView events
 
     Private Sub dgvRefunds_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRefunds.CellClick
-        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvRefunds.RowCount AndAlso e.ColumnIndex = 0 Then
-            OpenRefundView(CInt(dgvRefunds(1, e.RowIndex).Value))
+        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvRefunds.RowCount AndAlso
+            dgvRefunds.Columns(e.ColumnIndex).Name = dgvRefunds.LinkifyColumnByName Then
+
+            OpenRefundView(CInt(dgvRefunds(dgvRefunds.LinkifyColumnByName, e.RowIndex).Value))
         End If
     End Sub
 
     Private Sub dgvRefunds_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRefunds.CellDoubleClick
-        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvRefunds.RowCount AndAlso e.ColumnIndex <> 0 Then
-            OpenRefundView(CInt(dgvRefunds(1, e.RowIndex).Value))
+        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvRefunds.RowCount AndAlso
+            dgvRefunds.Columns(e.ColumnIndex).Name <> dgvRefunds.LinkifyColumnByName Then
+
+            OpenRefundView(CInt(dgvRefunds(dgvRefunds.LinkifyColumnByName, e.RowIndex).Value))
         End If
     End Sub
 

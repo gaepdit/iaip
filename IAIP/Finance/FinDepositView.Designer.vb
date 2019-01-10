@@ -22,9 +22,9 @@ Partial Class FinDepositView
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dtpDepositDate = New System.Windows.Forms.DateTimePicker()
         Me.btnSaveNewDeposit = New System.Windows.Forms.Button()
         Me.grpDepositDetails = New System.Windows.Forms.GroupBox()
@@ -294,13 +294,14 @@ Partial Class FinDepositView
         '
         'dgvInvoicesPaid
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvInvoicesPaid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvInvoicesPaid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvInvoicesPaid.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvInvoicesPaid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvInvoicesPaid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvInvoicesPaid.LinkifyColumnByName = Nothing
         Me.dgvInvoicesPaid.Location = New System.Drawing.Point(9, 128)
         Me.dgvInvoicesPaid.Name = "dgvInvoicesPaid"
         Me.dgvInvoicesPaid.ResultsCountLabel = Nothing
@@ -427,13 +428,14 @@ Partial Class FinDepositView
         '
         'dgvSearchResults
         '
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvSearchResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvSearchResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvSearchResults.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvSearchResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvSearchResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvSearchResults.LinkifyColumnByName = Nothing
         Me.dgvSearchResults.Location = New System.Drawing.Point(12, 79)
         Me.dgvSearchResults.Name = "dgvSearchResults"
         Me.dgvSearchResults.ResultsCountLabel = Nothing
@@ -469,14 +471,14 @@ Partial Class FinDepositView
         '
         'dgvRefunds
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvRefunds.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvRefunds.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvRefunds.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvRefunds.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvRefunds.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvRefunds.LinkifyFirstColumn = True
+        Me.dgvRefunds.LinkifyColumnByName = "RefundId"
         Me.dgvRefunds.Location = New System.Drawing.Point(9, 19)
         Me.dgvRefunds.Name = "dgvRefunds"
         Me.dgvRefunds.ResultsCountLabel = Nothing

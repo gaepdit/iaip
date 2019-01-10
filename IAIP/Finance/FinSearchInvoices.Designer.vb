@@ -186,6 +186,7 @@ Partial Class FinSearchInvoices
         Me.dgvSearchResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvSearchResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvSearchResults.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvSearchResults.LinkifyColumnByName = Nothing
         Me.dgvSearchResults.LinkifyFirstColumn = True
         Me.dgvSearchResults.Location = New System.Drawing.Point(0, 265)
         Me.dgvSearchResults.Name = "dgvSearchResults"

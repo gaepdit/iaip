@@ -24,9 +24,12 @@ Public Class IaipDataGridView
     <Category("Appearance"), Description("Format for displaying results count.")>
     Public Property ResultsCountLabelFormat As String = "{0} found"
 
-    <Category("Behavior"), Description("Format first column like a link.")>
+    <Category("Behavior"), Description("Format first column (index = 0) like a link.")>
     <DefaultValue(False)>
     Public Property LinkifyFirstColumn As Boolean = False
+
+    <Category("Behavior"), Description("Format named column like a link.")>
+    Public Property LinkifyColumnByName As String = Nothing
 
     ' Private fields
 
@@ -191,6 +194,10 @@ Public Class IaipDataGridView
                 MakeColumnLookLikeLinks(0)
             End If
 
+            If Not String.IsNullOrEmpty(LinkifyColumnByName) Then
+                MakeColumnLookLikeLinks(LinkifyColumnByName)
+            End If
+
             If ResultsCountLabel IsNot Nothing Then
                 ResultsCountLabel.Text = String.Format(ResultsCountLabelFormat, Rows.Count)
             End If
@@ -228,11 +235,23 @@ Public Class IaipDataGridView
         If LinkifyFirstColumn AndAlso e.RowIndex <> -1 AndAlso e.RowIndex < RowCount AndAlso e.ColumnIndex = 0 Then
             MakeCellLookLikeHoveredLink(e.RowIndex, 0, True)
         End If
+
+        If Not String.IsNullOrEmpty(LinkifyColumnByName) AndAlso e.RowIndex <> -1 AndAlso e.RowIndex < RowCount AndAlso
+            Columns(e.ColumnIndex).Name = LinkifyColumnByName Then
+
+            MakeCellLookLikeHoveredLink(e.RowIndex, LinkifyColumnByName, True)
+        End If
     End Sub
 
     Private Sub IaipDataGridView_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles MyBase.CellMouseLeave
         If LinkifyFirstColumn AndAlso e.RowIndex <> -1 AndAlso e.RowIndex < RowCount AndAlso e.ColumnIndex = 0 Then
             MakeCellLookLikeHoveredLink(e.RowIndex, 0, False)
+        End If
+
+        If Not String.IsNullOrEmpty(LinkifyColumnByName) AndAlso e.RowIndex <> -1 AndAlso e.RowIndex < RowCount AndAlso
+            Columns(e.ColumnIndex).Name = LinkifyColumnByName Then
+
+            MakeCellLookLikeHoveredLink(e.RowIndex, LinkifyColumnByName, False)
         End If
     End Sub
 

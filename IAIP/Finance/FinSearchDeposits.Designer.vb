@@ -98,6 +98,7 @@ Partial Class FinSearchDeposits
         Me.dgvSearchResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvSearchResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvSearchResults.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvSearchResults.LinkifyColumnByName = Nothing
         Me.dgvSearchResults.LinkifyFirstColumn = True
         Me.dgvSearchResults.Location = New System.Drawing.Point(0, 255)
         Me.dgvSearchResults.Name = "dgvSearchResults"

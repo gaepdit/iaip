@@ -207,6 +207,8 @@ Partial Class FinInvoiceView
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvPaymentsApplied.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvPaymentsApplied.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvPaymentsApplied.LinkifyColumnByName = Nothing
+        Me.dgvPaymentsApplied.LinkifyFirstColumn = True
         Me.dgvPaymentsApplied.Location = New System.Drawing.Point(12, 434)
         Me.dgvPaymentsApplied.Name = "dgvPaymentsApplied"
         Me.dgvPaymentsApplied.ResultsCountLabel = Nothing
@@ -334,6 +336,7 @@ Partial Class FinInvoiceView
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvInvoiceItems.DefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvInvoiceItems.LinkifyColumnByName = Nothing
         Me.dgvInvoiceItems.Location = New System.Drawing.Point(12, 289)
         Me.dgvInvoiceItems.Name = "dgvInvoiceItems"
         Me.dgvInvoiceItems.ResultsCountLabel = Nothing

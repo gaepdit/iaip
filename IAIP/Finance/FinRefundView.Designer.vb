@@ -185,7 +185,7 @@ Partial Class FinRefundView
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvDeposits.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvDeposits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvDeposits.LinkifyFirstColumn = True
+        Me.dgvDeposits.LinkifyColumnByName = "DepositId"
         Me.dgvDeposits.Location = New System.Drawing.Point(12, 319)
         Me.dgvDeposits.Name = "dgvDeposits"
         Me.dgvDeposits.ResultsCountLabel = Nothing
