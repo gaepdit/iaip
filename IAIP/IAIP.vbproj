@@ -198,16 +198,16 @@
     <Compile Include="Finance\FinFacilityView.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Finance\FinFeeRateManagement.Designer.vb">
+    <Compile Include="Finance\Fee Rates\FinFeeRateManagement.Designer.vb">
       <DependentUpon>FinFeeRateManagement.vb</DependentUpon>
     </Compile>
-    <Compile Include="Finance\FinFeeRateManagement.vb">
+    <Compile Include="Finance\Fee Rates\FinFeeRateManagement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Finance\FinCreateRateItem.Designer.vb">
+    <Compile Include="Finance\Fee Rates\FinCreateRateItem.Designer.vb">
       <DependentUpon>FinCreateRateItem.vb</DependentUpon>
     </Compile>
-    <Compile Include="Finance\FinCreateRateItem.vb">
+    <Compile Include="Finance\Fee Rates\FinCreateRateItem.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Finance\FinRefundView.Designer.vb">
@@ -346,10 +346,10 @@
     <EmbeddedResource Include="Finance\FinFacilityView.resx">
       <DependentUpon>FinFacilityView.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Finance\FinFeeRateManagement.resx">
+    <EmbeddedResource Include="Finance\Fee Rates\FinFeeRateManagement.resx">
       <DependentUpon>FinFeeRateManagement.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Finance\FinCreateRateItem.resx">
+    <EmbeddedResource Include="Finance\Fee Rates\FinCreateRateItem.resx">
       <DependentUpon>FinCreateRateItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Finance\FinRefundView.resx">
