@@ -1,4 +1,4 @@
-﻿Imports Iaip.Apb
+Imports Iaip.Apb
 Imports Iaip.Apb.Finance
 Imports Iaip.DAL
 Imports Iaip.DAL.Finance
@@ -147,7 +147,9 @@ Public Class FinDepositView
             txtAmountToApply.Amount = 0
             txtAmountToApply.MaxValue = .DepositBalance
 
-            grpApplyToInvoice.Enabled = (.DepositBalance > 0)
+            If .DepositBalance <= 0 Then
+                DisableApplyingToInvoice("")
+            End If
 
             btnDeleteDeposit.Visible = (.TotalAmountAllocated = 0)
         End With
@@ -234,7 +236,6 @@ Public Class FinDepositView
 
             txtInvoiceToApply.Text = dgvInvoicesPaid(1, e.RowIndex).Value.ToString
             SelectInvoice()
-
         End If
     End Sub
 
