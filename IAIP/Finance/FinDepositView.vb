@@ -172,6 +172,8 @@ Public Class FinDepositView
     End Sub
 
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
+        ClearMessages()
+
         If DepositID > -1 Then
             LoadDeposit()
         End If
@@ -349,6 +351,7 @@ Public Class FinDepositView
 
     Private Sub ApplyNewPaymentToInvoice()
         ' Attempts to add a new payment
+        ClearMessages()
 
         If txtAmountToApply.Amount = 0 Then
             lblApplyToInvoiceMessage.ShowMessage("New payment amount cannot be 0.", ErrorLevel.Warning)
@@ -397,6 +400,7 @@ Public Class FinDepositView
 
     Private Sub UpdatePaymentToInvoice()
         ' Attempts to update an existing payment
+        ClearMessages()
 
         If txtAmountToApply.Amount = 0 Then
             RemovePaymentFromInvoice()
@@ -439,6 +443,7 @@ Public Class FinDepositView
 
     Private Sub RemovePaymentFromInvoice()
         ' Attempts to delete a payment
+        ClearMessages()
 
         lblApplyToInvoiceMessage.ClearMessage()
 
@@ -463,11 +468,11 @@ Public Class FinDepositView
     ' New deposit
 
     Private Sub btnSaveNewDeposit_Click(sender As Object, e As EventArgs) Handles btnSaveNewDeposit.Click
+        ClearMessages()
+
         If Not ValidateDepositDetails() Then
             Exit Sub
         End If
-
-        lblDetailsMessage.ClearMessage()
 
         Dim deposit As New Deposit() With {
             .DepositDate = dtpDepositDate.Value,
@@ -535,11 +540,11 @@ Public Class FinDepositView
     End Sub
 
     Private Sub btnUpdateDeposit_Click(sender As Object, e As EventArgs) Handles btnUpdateDepositDetails.Click
+        ClearMessages()
+
         If Not ValidateDepositDetails() Then
             Exit Sub
         End If
-
-        lblDetailsMessage.ClearMessage()
 
         Dim deposit As New Deposit() With {
             .DepositID = DepositID,
@@ -575,6 +580,8 @@ Public Class FinDepositView
     ' Delete deposit
 
     Private Sub btnDeleteDeposit_Click(sender As Object, e As EventArgs) Handles btnDeleteDeposit.Click
+        ClearMessages()
+
         If DepositID = -1 OrElse thisDeposit Is Nothing Then
             btnDeleteDeposit.Visible = False
             lblDeleteDepositMessage.ShowMessage("No deposit loaded", ErrorLevel.Warning)
@@ -590,10 +597,9 @@ Public Class FinDepositView
         Select Case DeleteDeposit(DepositID)
             Case DeleteDepositResult.Success
                 DisableEntireForm()
-                btnDeleteDeposit.Visible = False
                 Text = "Deposit ID " & DepositID & " deleted."
                 lblDepositDisplay.Text = "Deposit ID " & DepositID & " deleted."
-                lblDeleteDepositMessage.ShowMessage("Deposit successfully deleted.", ErrorLevel.Error)
+                lblDeleteDepositMessage.ShowMessage("Deposit successfully deleted.", ErrorLevel.Success)
 
             Case DeleteDepositResult.AlreadyDeleted, DeleteDepositResult.DoesNotExist
                 DisableEntireForm()

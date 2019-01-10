@@ -22,9 +22,9 @@ Partial Class FinDepositView
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dtpDepositDate = New System.Windows.Forms.DateTimePicker()
         Me.btnSaveNewDeposit = New System.Windows.Forms.Button()
         Me.grpDepositDetails = New System.Windows.Forms.GroupBox()
@@ -73,11 +73,11 @@ Partial Class FinDepositView
         Me.grpApplyToInvoice = New System.Windows.Forms.GroupBox()
         Me.btnUnapplyToInvoice = New System.Windows.Forms.Button()
         Me.lblApplyToInvoiceMessage = New System.Windows.Forms.Label()
-        Me.btnUpdateApplyToInvoice = New System.Windows.Forms.Button()
         Me.lblInvoicesPaid = New System.Windows.Forms.Label()
+        Me.btnUpdateApplyToInvoice = New System.Windows.Forms.Button()
         Me.grpSummary = New System.Windows.Forms.GroupBox()
-        Me.lblDeleteDepositMessage = New System.Windows.Forms.Label()
         Me.btnRefresh = New System.Windows.Forms.Button()
+        Me.lblDeleteDepositMessage = New System.Windows.Forms.Label()
         Me.grpDepositDetails.SuspendLayout()
         CType(Me.dgvInvoicesPaid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpInvoiceSearch.SuspendLayout()
@@ -294,8 +294,8 @@ Partial Class FinDepositView
         '
         'dgvInvoicesPaid
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvInvoicesPaid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvInvoicesPaid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvInvoicesPaid.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -427,8 +427,8 @@ Partial Class FinDepositView
         '
         'dgvSearchResults
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvSearchResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvSearchResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvSearchResults.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -469,8 +469,8 @@ Partial Class FinDepositView
         '
         'dgvRefunds
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvRefunds.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvRefunds.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvRefunds.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -646,6 +646,15 @@ Partial Class FinDepositView
         Me.lblApplyToInvoiceMessage.TabIndex = 5
         Me.lblApplyToInvoiceMessage.Text = "Invoice message."
         '
+        'lblInvoicesPaid
+        '
+        Me.lblInvoicesPaid.AutoSize = True
+        Me.lblInvoicesPaid.Location = New System.Drawing.Point(9, 112)
+        Me.lblInvoicesPaid.Name = "lblInvoicesPaid"
+        Me.lblInvoicesPaid.Size = New System.Drawing.Size(71, 13)
+        Me.lblInvoicesPaid.TabIndex = 6
+        Me.lblInvoicesPaid.Text = "Invoices Paid"
+        '
         'btnUpdateApplyToInvoice
         '
         Me.btnUpdateApplyToInvoice.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
@@ -656,15 +665,6 @@ Partial Class FinDepositView
         Me.btnUpdateApplyToInvoice.Text = "Update Amount"
         Me.btnUpdateApplyToInvoice.UseVisualStyleBackColor = True
         Me.btnUpdateApplyToInvoice.Visible = False
-        '
-        'lblInvoicesPaid
-        '
-        Me.lblInvoicesPaid.AutoSize = True
-        Me.lblInvoicesPaid.Location = New System.Drawing.Point(9, 112)
-        Me.lblInvoicesPaid.Name = "lblInvoicesPaid"
-        Me.lblInvoicesPaid.Size = New System.Drawing.Size(71, 13)
-        Me.lblInvoicesPaid.TabIndex = 6
-        Me.lblInvoicesPaid.Text = "Invoices Paid"
         '
         'grpSummary
         '
@@ -686,18 +686,6 @@ Partial Class FinDepositView
         Me.grpSummary.TabStop = False
         Me.grpSummary.Text = "Summary"
         '
-        'lblDeleteDepositMessage
-        '
-        Me.lblDeleteDepositMessage.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.lblDeleteDepositMessage.Location = New System.Drawing.Point(783, 14)
-        Me.lblDeleteDepositMessage.MaximumSize = New System.Drawing.Size(194, 0)
-        Me.lblDeleteDepositMessage.Name = "lblDeleteDepositMessage"
-        Me.lblDeleteDepositMessage.Padding = New System.Windows.Forms.Padding(3)
-        Me.lblDeleteDepositMessage.Size = New System.Drawing.Size(164, 0)
-        Me.lblDeleteDepositMessage.TabIndex = 5
-        Me.lblDeleteDepositMessage.Text = "Delete deposit message."
-        Me.lblDeleteDepositMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'btnRefresh
         '
         Me.btnRefresh.FlatAppearance.BorderSize = 0
@@ -709,12 +697,24 @@ Partial Class FinDepositView
         Me.btnRefresh.TabIndex = 4
         Me.btnRefresh.UseVisualStyleBackColor = True
         '
+        'lblDeleteDepositMessage
+        '
+        Me.lblDeleteDepositMessage.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.lblDeleteDepositMessage.Location = New System.Drawing.Point(320, 8)
+        Me.lblDeleteDepositMessage.Name = "lblDeleteDepositMessage"
+        Me.lblDeleteDepositMessage.Padding = New System.Windows.Forms.Padding(3)
+        Me.lblDeleteDepositMessage.Size = New System.Drawing.Size(164, 30)
+        Me.lblDeleteDepositMessage.TabIndex = 5
+        Me.lblDeleteDepositMessage.Text = "Delete deposit message."
+        Me.lblDeleteDepositMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'FinDepositView
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
         Me.ClientSize = New System.Drawing.Size(608, 615)
+        Me.Controls.Add(Me.lblDeleteDepositMessage)
         Me.Controls.Add(Me.grpSummary)
         Me.Controls.Add(Me.grpApplyToInvoice)
         Me.Controls.Add(Me.btnRefresh)
@@ -723,7 +723,6 @@ Partial Class FinDepositView
         Me.Controls.Add(Me.lblDepositDisplay)
         Me.Controls.Add(Me.grpDepositDetails)
         Me.Controls.Add(Me.btnDeleteDeposit)
-        Me.Controls.Add(Me.lblDeleteDepositMessage)
         Me.MinimumSize = New System.Drawing.Size(624, 600)
         Me.Name = "FinDepositView"
         Me.Text = "New Deposit"
@@ -795,6 +794,6 @@ Partial Class FinDepositView
     Friend WithEvents grpSummary As GroupBox
     Friend WithEvents lblNoRefunds As Label
     Friend WithEvents lblInvoicesPaid As Label
-    Friend WithEvents lblDeleteDepositMessage As Label
     Friend WithEvents btnRefresh As Button
+    Friend WithEvents lblDeleteDepositMessage As Label
 End Class
