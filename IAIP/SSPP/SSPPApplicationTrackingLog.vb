@@ -14947,13 +14947,13 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub dgvApplicationPayments_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationPayments.CellClick
-        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvApplicationInvoices.RowCount AndAlso e.ColumnIndex = 0 Then
+        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvApplicationPayments.RowCount AndAlso e.ColumnIndex = 0 Then
             OpenDepositView(CInt(dgvApplicationPayments(0, e.RowIndex).Value))
         End If
     End Sub
 
     Private Sub dgvApplicationPayments_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationPayments.CellDoubleClick
-        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvApplicationInvoices.RowCount AndAlso e.ColumnIndex > 0 Then
+        If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvApplicationPayments.RowCount AndAlso e.ColumnIndex > 0 Then
             OpenDepositView(CInt(dgvApplicationPayments(0, e.RowIndex).Value))
         End If
     End Sub
