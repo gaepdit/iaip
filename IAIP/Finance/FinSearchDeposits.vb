@@ -104,12 +104,12 @@ Public Class FinSearchDeposits
         AcceptButton = Nothing
     End Sub
 
-    Private Sub mainAcceptButtonSet(sender As Object, e As EventArgs) _
+    Private Sub MainAcceptButtonSet(sender As Object, e As EventArgs) _
         Handles grpDates.Enter, grpDepositDetails.Enter, grpStatus.Enter
         AcceptButton = btnSearch
     End Sub
 
-    Private Sub mainAcceptButtonUnset(sender As Object, e As EventArgs) _
+    Private Sub MainAcceptButtonUnset(sender As Object, e As EventArgs) _
         Handles grpDates.Leave, grpDepositDetails.Leave, grpStatus.Leave
         AcceptButton = Nothing
     End Sub

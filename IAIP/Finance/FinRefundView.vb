@@ -142,6 +142,10 @@ Public Class FinRefundView
         btnUpdateComment.Visible = True
         btnDelete.Visible = True
 
+        If AcceptButton Is btnSaveNew Then
+            AcceptButton = btnUpdateComment
+        End If
+
         lblRefundDisplay.Location = New Point(42, 15)
         lblRefundDisplay.Text = String.Concat("Refund ID ", RefundId.ToString)
         Name = String.Concat("Refund ID ", RefundId.ToString)
@@ -234,6 +238,21 @@ Public Class FinRefundView
         If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgvDeposits.RowCount AndAlso e.ColumnIndex <> 0 Then
             OpenDepositView(CInt(dgvDeposits(0, e.RowIndex).Value))
         End If
+    End Sub
+
+    Private Sub SetAcceptButton(sender As Object, e As EventArgs) _
+        Handles dtpRefundDate.Enter, txtRefundAmount.Enter, txtComment.Enter
+
+        If btnSaveNew.Visible Then
+            AcceptButton = btnSaveNew
+        Else
+            AcceptButton = btnUpdateComment
+        End If
+    End Sub
+
+    Private Sub UnsetAcceptButton(sender As Object, e As EventArgs) _
+        Handles dtpRefundDate.Leave, txtRefundAmount.Leave, txtComment.Leave
+        AcceptButton = Nothing
     End Sub
 
 End Class

@@ -168,4 +168,11 @@ Public Class FinInvoiceView
         LoadInvoice()
     End Sub
 
+    Private Sub txtComments_Enter(sender As Object, e As EventArgs) Handles txtComments.Enter
+        AcceptButton = btnSaveComment
+    End Sub
+
+    Private Sub txtComments_Leave(sender As Object, e As EventArgs) Handles txtComments.Leave
+        AcceptButton = Nothing
+    End Sub
 End Class

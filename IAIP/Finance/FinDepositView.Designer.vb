@@ -278,7 +278,7 @@ Partial Class FinDepositView
         Me.btnDeleteDeposit.Location = New System.Drawing.Point(490, 12)
         Me.btnDeleteDeposit.Name = "btnDeleteDeposit"
         Me.btnDeleteDeposit.Size = New System.Drawing.Size(106, 23)
-        Me.btnDeleteDeposit.TabIndex = 4
+        Me.btnDeleteDeposit.TabIndex = 5
         Me.btnDeleteDeposit.Text = "Delete this Deposit"
         Me.btnDeleteDeposit.UseVisualStyleBackColor = True
         '
@@ -308,7 +308,7 @@ Partial Class FinDepositView
         Me.dgvInvoicesPaid.ShowEditingIcon = False
         Me.dgvInvoicesPaid.Size = New System.Drawing.Size(315, 227)
         Me.dgvInvoicesPaid.StandardTab = True
-        Me.dgvInvoicesPaid.TabIndex = 4
+        Me.dgvInvoicesPaid.TabIndex = 5
         '
         'txtInvoiceToApply
         '
@@ -356,7 +356,7 @@ Partial Class FinDepositView
         Me.btnApplyToInvoice.Location = New System.Drawing.Point(209, 40)
         Me.btnApplyToInvoice.Name = "btnApplyToInvoice"
         Me.btnApplyToInvoice.Size = New System.Drawing.Size(101, 27)
-        Me.btnApplyToInvoice.TabIndex = 2
+        Me.btnApplyToInvoice.TabIndex = 4
         Me.btnApplyToInvoice.Text = "Apply"
         Me.btnApplyToInvoice.UseVisualStyleBackColor = True
         '
@@ -610,12 +610,12 @@ Partial Class FinDepositView
         Me.grpApplyToInvoice.Controls.Add(Me.btnUnapplyToInvoice)
         Me.grpApplyToInvoice.Controls.Add(Me.Label10)
         Me.grpApplyToInvoice.Controls.Add(Me.Label9)
-        Me.grpApplyToInvoice.Controls.Add(Me.btnApplyToInvoice)
         Me.grpApplyToInvoice.Controls.Add(Me.lblApplyToInvoiceMessage)
         Me.grpApplyToInvoice.Controls.Add(Me.txtAmountToApply)
         Me.grpApplyToInvoice.Controls.Add(Me.txtInvoiceToApply)
-        Me.grpApplyToInvoice.Controls.Add(Me.btnUpdateApplyToInvoice)
         Me.grpApplyToInvoice.Controls.Add(Me.lblInvoicesPaid)
+        Me.grpApplyToInvoice.Controls.Add(Me.btnApplyToInvoice)
+        Me.grpApplyToInvoice.Controls.Add(Me.btnUpdateApplyToInvoice)
         Me.grpApplyToInvoice.Location = New System.Drawing.Point(259, 51)
         Me.grpApplyToInvoice.Name = "grpApplyToInvoice"
         Me.grpApplyToInvoice.Size = New System.Drawing.Size(336, 372)
@@ -652,7 +652,7 @@ Partial Class FinDepositView
         Me.btnUpdateApplyToInvoice.Location = New System.Drawing.Point(209, 40)
         Me.btnUpdateApplyToInvoice.Name = "btnUpdateApplyToInvoice"
         Me.btnUpdateApplyToInvoice.Size = New System.Drawing.Size(101, 27)
-        Me.btnUpdateApplyToInvoice.TabIndex = 4
+        Me.btnUpdateApplyToInvoice.TabIndex = 2
         Me.btnUpdateApplyToInvoice.Text = "Update Amount"
         Me.btnUpdateApplyToInvoice.UseVisualStyleBackColor = True
         Me.btnUpdateApplyToInvoice.Visible = False
@@ -682,7 +682,7 @@ Partial Class FinDepositView
         Me.grpSummary.Location = New System.Drawing.Point(12, 429)
         Me.grpSummary.Name = "grpSummary"
         Me.grpSummary.Size = New System.Drawing.Size(231, 173)
-        Me.grpSummary.TabIndex = 10
+        Me.grpSummary.TabIndex = 3
         Me.grpSummary.TabStop = False
         Me.grpSummary.Text = "Summary"
         '
@@ -706,7 +706,7 @@ Partial Class FinDepositView
         Me.btnRefresh.Location = New System.Drawing.Point(12, 11)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(24, 24)
-        Me.btnRefresh.TabIndex = 5
+        Me.btnRefresh.TabIndex = 4
         Me.btnRefresh.UseVisualStyleBackColor = True
         '
         'FinDepositView

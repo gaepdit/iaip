@@ -37,14 +37,14 @@ Partial Class FinSearchFacilities
         Me.btnClear = New System.Windows.Forms.Button()
         Me.lblSelectedAirsMessage = New System.Windows.Forms.Label()
         Me.txtSelectedItem = New Iaip.AirNumberEntryForm()
-        Me.grpBalance = New System.Windows.Forms.GroupBox()
+        Me.btnAccounts = New System.Windows.Forms.GroupBox()
         Me.chkUnusedCredits = New System.Windows.Forms.CheckBox()
         Me.chkOpenInvoices = New System.Windows.Forms.CheckBox()
         Me.chkPendingItems = New System.Windows.Forms.CheckBox()
         Me.grpFacility.SuspendLayout()
         CType(Me.dgvSearchResults, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TopPanel.SuspendLayout()
-        Me.grpBalance.SuspendLayout()
+        Me.btnAccounts.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblResultsCount
@@ -170,7 +170,7 @@ Partial Class FinSearchFacilities
         Me.TopPanel.Controls.Add(Me.btnClear)
         Me.TopPanel.Controls.Add(Me.lblSelectedAirsMessage)
         Me.TopPanel.Controls.Add(Me.txtSelectedItem)
-        Me.TopPanel.Controls.Add(Me.grpBalance)
+        Me.TopPanel.Controls.Add(Me.btnAccounts)
         Me.TopPanel.Controls.Add(Me.grpFacility)
         Me.TopPanel.Controls.Add(Me.lblResultsCount)
         Me.TopPanel.Controls.Add(Me.btnOpenSelectedItem)
@@ -224,17 +224,17 @@ Partial Class FinSearchFacilities
         Me.txtSelectedItem.TabIndex = 4
         Me.txtSelectedItem.TextBoxBackColor = System.Drawing.SystemColors.Window
         '
-        'grpBalance
+        'btnAccounts
         '
-        Me.grpBalance.Controls.Add(Me.chkUnusedCredits)
-        Me.grpBalance.Controls.Add(Me.chkOpenInvoices)
-        Me.grpBalance.Controls.Add(Me.chkPendingItems)
-        Me.grpBalance.Location = New System.Drawing.Point(235, 12)
-        Me.grpBalance.Name = "grpBalance"
-        Me.grpBalance.Size = New System.Drawing.Size(210, 111)
-        Me.grpBalance.TabIndex = 1
-        Me.grpBalance.TabStop = False
-        Me.grpBalance.Text = "Invoice Search"
+        Me.btnAccounts.Controls.Add(Me.chkUnusedCredits)
+        Me.btnAccounts.Controls.Add(Me.chkOpenInvoices)
+        Me.btnAccounts.Controls.Add(Me.chkPendingItems)
+        Me.btnAccounts.Location = New System.Drawing.Point(235, 12)
+        Me.btnAccounts.Name = "btnAccounts"
+        Me.btnAccounts.Size = New System.Drawing.Size(210, 111)
+        Me.btnAccounts.TabIndex = 1
+        Me.btnAccounts.TabStop = False
+        Me.btnAccounts.Text = "Account Search"
         '
         'chkUnusedCredits
         '
@@ -282,8 +282,8 @@ Partial Class FinSearchFacilities
         CType(Me.dgvSearchResults, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TopPanel.ResumeLayout(False)
         Me.TopPanel.PerformLayout()
-        Me.grpBalance.ResumeLayout(False)
-        Me.grpBalance.PerformLayout()
+        Me.btnAccounts.ResumeLayout(False)
+        Me.btnAccounts.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -297,7 +297,7 @@ Partial Class FinSearchFacilities
     Friend WithEvents lblResultsCount As System.Windows.Forms.Label
     Friend WithEvents TopPanel As Panel
     Friend WithEvents txtSelectedItem As AirNumberEntryForm
-    Friend WithEvents grpBalance As GroupBox
+    Friend WithEvents btnAccounts As GroupBox
     Friend WithEvents lblSelectedAirsMessage As Label
     Friend WithEvents lblAirsSearchMessage As Label
     Friend WithEvents txtAirsNumberSearch As AirNumberEntryForm

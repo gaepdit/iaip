@@ -1,4 +1,4 @@
-Imports Iaip.Apb
+﻿Imports Iaip.Apb
 Imports Iaip.Apb.Finance
 Imports Iaip.DAL
 Imports Iaip.DAL.Finance
@@ -87,6 +87,10 @@ Public Class FinDepositView
 
         btnUpdateDepositDetails.Visible = True
         btnSaveNewDeposit.Visible = False
+
+        If AcceptButton Is btnSaveNewDeposit Then
+            AcceptButton = btnUpdateDepositDetails
+        End If
 
         grpApplyToInvoice.Visible = True
         grpRefunds.Visible = True

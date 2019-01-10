@@ -54,13 +54,13 @@ Public Class FinSearchFacilities
         AcceptButton = Nothing
     End Sub
 
-    Private Sub mainAcceptButtonSet(sender As Object, e As EventArgs) _
-        Handles grpFacility.Enter, grpBalance.Enter
+    Private Sub MainAcceptButtonSet(sender As Object, e As EventArgs) _
+        Handles grpFacility.Enter, btnAccounts.Enter
         AcceptButton = btnSearch
     End Sub
 
-    Private Sub mainAcceptButtonUnset(sender As Object, e As EventArgs) _
-        Handles grpFacility.Leave, grpBalance.Leave
+    Private Sub MainAcceptButtonUnset(sender As Object, e As EventArgs) _
+        Handles grpFacility.Leave, btnAccounts.Leave
         AcceptButton = Nothing
     End Sub
 

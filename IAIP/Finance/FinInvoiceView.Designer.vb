@@ -213,6 +213,7 @@ Partial Class FinInvoiceView
         Me.dgvPaymentsApplied.ResultsCountLabelFormat = "{0} found"
         Me.dgvPaymentsApplied.ShowEditingIcon = False
         Me.dgvPaymentsApplied.Size = New System.Drawing.Size(454, 101)
+        Me.dgvPaymentsApplied.StandardTab = True
         Me.dgvPaymentsApplied.TabIndex = 3
         '
         'Label8
@@ -339,6 +340,7 @@ Partial Class FinInvoiceView
         Me.dgvInvoiceItems.ResultsCountLabelFormat = "{0} found"
         Me.dgvInvoiceItems.ShowEditingIcon = False
         Me.dgvInvoiceItems.Size = New System.Drawing.Size(454, 113)
+        Me.dgvInvoiceItems.StandardTab = True
         Me.dgvInvoiceItems.TabIndex = 2
         '
         'Label1
