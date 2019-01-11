@@ -113,8 +113,9 @@ Public Class FinDepositView
             txtAmountToApply.MaxValue = .DepositBalance
 
             txtTotalDeposit.Amount = .TotalAmount
-            txtDepositBalance.Amount = .DepositBalance
             txtAmountAppliedToInvoices.Amount = .TotalPaymentsApplied
+            txtAmountRefunded.Amount = .TotalRefunded
+            txtDepositBalance.Amount = .DepositBalance
 
             txtAirsInvoiceSearch.AirsNumber = thisDeposit.FacilityID
 
