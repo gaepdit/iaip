@@ -84,6 +84,7 @@ Public Class FinRefundView
 
     Private Sub LoadUnbalancedDeposits()
         Dim ds As DataSet = GetFacilityFinances(FacilityId)
+        dgvDeposits.LinkifyColumnByName = "Deposit ID"
         dgvDeposits.DataSource = ds.Tables("Credits")
         dgvDeposits.SelectNone()
 
@@ -176,6 +177,7 @@ Public Class FinRefundView
             dgvDeposits.Visible = False
         Else
             lblDepositList.Text = "Refund applied to following deposits:"
+            dgvDeposits.LinkifyColumnByName = "DepositId"
             dgvDeposits.DataSource = refund.RefundsApplied
             dgvDeposits.Columns("RefundID").Visible = False
             dgvDeposits.SelectNone()
