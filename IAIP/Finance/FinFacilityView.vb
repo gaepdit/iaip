@@ -29,10 +29,16 @@ Public Class FinFacilityView
 
         Dim ds As DataSet = GetFacilityFinances(FacilityID)
 
-        If ds Is Nothing OrElse ds.Tables.Count <> 4 Then
+        If ds Is Nothing Then
             lblDataErrorMessage.Visible = True
             lblDataErrorMessage.BackColor = IaipColors.ErrorBackColor
             lblDataErrorMessage.ForeColor = IaipColors.ErrorForeColor
+
+            dgvDeposits.DataSource = Nothing
+            dgvInvoices.DataSource = Nothing
+            dgvPending.DataSource = Nothing
+            dgvRefunds.DataSource = Nothing
+            dgvCredits.DataSource = Nothing
 
             Exit Sub
         End If
@@ -68,7 +74,7 @@ Public Class FinFacilityView
             btnAddRefund.Visible = False
         End If
 
-        With dgvPendingItems
+        With dgvPending
             .DataSource = ds.Tables("Pending")
             .SelectNone()
         End With
@@ -90,6 +96,18 @@ Public Class FinFacilityView
                 Sum(Function(x) x.Field(Of Decimal)("Amount"))
         Else
             txtRefunds.Amount = 0
+        End If
+
+        With dgvDeposits
+            .DataSource = ds.Tables("Deposits")
+            .SelectNone()
+        End With
+
+        If ds.Tables("Deposits") IsNot Nothing AndAlso ds.Tables("Deposits").Rows.Count > 0 Then
+            txtDeposits.Amount = ds.Tables("Deposits").AsEnumerable().
+                Sum(Function(x) x.Field(Of Decimal)("Amount"))
+        Else
+            txtDeposits.Amount = 0
         End If
     End Sub
 
@@ -121,7 +139,7 @@ Public Class FinFacilityView
 
     ' Credits DataGridView events
 
-    Private Sub dgvCredits_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCredits.CellClick
+    Private Sub dgvCredits_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCredits.CellClick, dgvDeposits.CellClick
         Dim dgv As DataGridView = CType(sender, DataGridView)
 
         If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgv.RowCount AndAlso e.ColumnIndex = 0 Then
@@ -129,7 +147,7 @@ Public Class FinFacilityView
         End If
     End Sub
 
-    Private Sub dgvCredits_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCredits.CellDoubleClick
+    Private Sub dgvCredits_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCredits.CellDoubleClick, dgvDeposits.CellDoubleClick
         Dim dgv As DataGridView = CType(sender, DataGridView)
 
         If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < dgv.RowCount AndAlso e.ColumnIndex > 0 Then

@@ -54,6 +54,7 @@ Partial Class FinInvoiceView
         Me.btnRefresh = New System.Windows.Forms.Button()
         Me.lblFacilityDisplay = New System.Windows.Forms.Label()
         Me.UrlToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.lnkFacility = New System.Windows.Forms.LinkLabel()
         CType(Me.dgvPaymentsApplied, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvInvoiceItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -369,17 +370,29 @@ Partial Class FinInvoiceView
         'lblFacilityDisplay
         '
         Me.lblFacilityDisplay.AutoSize = True
-        Me.lblFacilityDisplay.Location = New System.Drawing.Point(12, 128)
+        Me.lblFacilityDisplay.Location = New System.Drawing.Point(12, 141)
         Me.lblFacilityDisplay.Name = "lblFacilityDisplay"
-        Me.lblFacilityDisplay.Size = New System.Drawing.Size(70, 26)
+        Me.lblFacilityDisplay.Size = New System.Drawing.Size(70, 13)
         Me.lblFacilityDisplay.TabIndex = 3
-        Me.lblFacilityDisplay.Text = "000-00000" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Facility Name"
+        Me.lblFacilityDisplay.Text = "Facility Name"
+        '
+        'lnkFacility
+        '
+        Me.lnkFacility.AutoSize = True
+        Me.lnkFacility.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.lnkFacility.Location = New System.Drawing.Point(12, 128)
+        Me.lnkFacility.Name = "lnkFacility"
+        Me.lnkFacility.Size = New System.Drawing.Size(58, 13)
+        Me.lnkFacility.TabIndex = 343
+        Me.lnkFacility.TabStop = True
+        Me.lnkFacility.Text = "000-00000"
         '
         'FinInvoiceView
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(478, 593)
+        Me.Controls.Add(Me.lnkFacility)
         Me.Controls.Add(Me.btnRefresh)
         Me.Controls.Add(Me.lblSaveCommentMessage)
         Me.Controls.Add(Me.InvoiceLine)
@@ -444,4 +457,5 @@ Partial Class FinInvoiceView
     Friend WithEvents btnRefresh As Button
     Friend WithEvents lblFacilityDisplay As Label
     Friend WithEvents UrlToolTip As ToolTip
+    Friend WithEvents lnkFacility As LinkLabel
 End Class

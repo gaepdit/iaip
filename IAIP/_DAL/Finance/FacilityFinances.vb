@@ -26,7 +26,7 @@ Namespace DAL.Finance
         Public Function GetFacilityFinances(facilityId As ApbFacilityId) As DataSet
             Dim ds As DataSet = DB.SPGetDataSet("fees.GetFacilityFinances", New SqlParameter("FacilityID", facilityId.DbFormattedString))
 
-            If ds Is Nothing OrElse ds.Tables.Count <> 4 Then
+            If ds Is Nothing OrElse ds.Tables.Count <> 5 Then
                 Return Nothing
             End If
 
@@ -34,6 +34,7 @@ Namespace DAL.Finance
             ds.Tables(1).TableName = "Credits"
             ds.Tables(2).TableName = "Pending"
             ds.Tables(3).TableName = "Refunds"
+            ds.Tables(4).TableName = "Deposits"
 
             Return ds
         End Function

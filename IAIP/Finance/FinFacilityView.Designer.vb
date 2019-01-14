@@ -38,6 +38,10 @@ Partial Class FinFacilityView
         Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.lblFacilityDisplay = New System.Windows.Forms.Label()
         Me.dgvInvoices = New Iaip.IaipDataGridView()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -48,9 +52,10 @@ Partial Class FinFacilityView
         Me.txtAmountInvoiced = New Iaip.CurrencyTextBox()
         Me.txtPaymentsApplied = New Iaip.CurrencyTextBox()
         Me.txtInvoiceBalance = New Iaip.CurrencyTextBox()
-        Me.SplitWholeForm = New System.Windows.Forms.SplitContainer()
         Me.SplitInvoicesAndPending = New System.Windows.Forms.SplitContainer()
-        Me.dgvPendingItems = New Iaip.IaipDataGridView()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtPending = New Iaip.CurrencyTextBox()
+        Me.dgvPending = New Iaip.IaipDataGridView()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.SplitCreditsAndRefunds = New System.Windows.Forms.SplitContainer()
         Me.btnAddRefund = New System.Windows.Forms.Button()
@@ -58,25 +63,26 @@ Partial Class FinFacilityView
         Me.txtCredits = New Iaip.CurrencyTextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvCredits = New Iaip.IaipDataGridView()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtRefunds = New Iaip.CurrencyTextBox()
         Me.dgvRefunds = New Iaip.IaipDataGridView()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.pnlTop = New System.Windows.Forms.Panel()
         Me.lblDataErrorMessage = New System.Windows.Forms.Label()
         Me.btnRefresh = New System.Windows.Forms.Button()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.txtPending = New Iaip.CurrencyTextBox()
-        Me.txtRefunds = New Iaip.CurrencyTextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.tpDeposits = New System.Windows.Forms.TabPage()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtDeposits = New Iaip.CurrencyTextBox()
+        Me.dgvDeposits = New Iaip.IaipDataGridView()
+        Me.tpInvoices = New System.Windows.Forms.TabPage()
+        Me.tpRefunds = New System.Windows.Forms.TabPage()
         CType(Me.dgvInvoices, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.SplitWholeForm, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitWholeForm.Panel1.SuspendLayout()
-        Me.SplitWholeForm.Panel2.SuspendLayout()
-        Me.SplitWholeForm.SuspendLayout()
         CType(Me.SplitInvoicesAndPending, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitInvoicesAndPending.Panel1.SuspendLayout()
         Me.SplitInvoicesAndPending.Panel2.SuspendLayout()
         Me.SplitInvoicesAndPending.SuspendLayout()
-        CType(Me.dgvPendingItems, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvPending, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitCreditsAndRefunds, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitCreditsAndRefunds.Panel1.SuspendLayout()
         Me.SplitCreditsAndRefunds.Panel2.SuspendLayout()
@@ -84,6 +90,11 @@ Partial Class FinFacilityView
         CType(Me.dgvCredits, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvRefunds, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlTop.SuspendLayout()
+        Me.TabControl1.SuspendLayout()
+        Me.tpDeposits.SuspendLayout()
+        CType(Me.dgvDeposits, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tpInvoices.SuspendLayout()
+        Me.tpRefunds.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblFacilityDisplay
@@ -121,6 +132,7 @@ Partial Class FinFacilityView
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvInvoices.DefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvInvoices.LinkifyColumnByName = Nothing
         Me.dgvInvoices.LinkifyFirstColumn = True
         Me.dgvInvoices.Location = New System.Drawing.Point(12, 28)
         Me.dgvInvoices.Name = "dgvInvoices"
@@ -135,7 +147,7 @@ Partial Class FinFacilityView
         DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvInvoices.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvInvoices.ShowEditingIcon = False
-        Me.dgvInvoices.Size = New System.Drawing.Size(438, 211)
+        Me.dgvInvoices.Size = New System.Drawing.Size(430, 467)
         Me.dgvInvoices.StandardTab = True
         Me.dgvInvoices.TabIndex = 0
         '
@@ -153,7 +165,7 @@ Partial Class FinFacilityView
         Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
         Me.Label5.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label5.Location = New System.Drawing.Point(12, 264)
+        Me.Label5.Location = New System.Drawing.Point(12, 522)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(114, 13)
         Me.Label5.TabIndex = 334
@@ -164,7 +176,7 @@ Partial Class FinFacilityView
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
         Me.Label2.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label2.Location = New System.Drawing.Point(12, 283)
+        Me.Label2.Location = New System.Drawing.Point(12, 541)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(91, 13)
         Me.Label2.TabIndex = 334
@@ -176,7 +188,7 @@ Partial Class FinFacilityView
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label3.Location = New System.Drawing.Point(12, 303)
+        Me.Label3.Location = New System.Drawing.Point(12, 561)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(170, 13)
         Me.Label3.TabIndex = 334
@@ -186,7 +198,7 @@ Partial Class FinFacilityView
         '
         Me.InvoiceLine.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.InvoiceLine.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.InvoiceLine.Location = New System.Drawing.Point(188, 299)
+        Me.InvoiceLine.Location = New System.Drawing.Point(188, 557)
         Me.InvoiceLine.Name = "InvoiceLine"
         Me.InvoiceLine.Size = New System.Drawing.Size(71, 1)
         Me.InvoiceLine.TabIndex = 339
@@ -195,10 +207,10 @@ Partial Class FinFacilityView
         '
         Me.txtAmountInvoiced.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtAmountInvoiced.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtAmountInvoiced.BackColor = System.Drawing.SystemColors.Control
+        Me.txtAmountInvoiced.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.txtAmountInvoiced.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtAmountInvoiced.Cue = "$0"
-        Me.txtAmountInvoiced.Location = New System.Drawing.Point(188, 264)
+        Me.txtAmountInvoiced.Location = New System.Drawing.Point(188, 522)
         Me.txtAmountInvoiced.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtAmountInvoiced.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtAmountInvoiced.Name = "txtAmountInvoiced"
@@ -211,10 +223,10 @@ Partial Class FinFacilityView
         '
         Me.txtPaymentsApplied.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtPaymentsApplied.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtPaymentsApplied.BackColor = System.Drawing.SystemColors.Control
+        Me.txtPaymentsApplied.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.txtPaymentsApplied.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtPaymentsApplied.Cue = "$0"
-        Me.txtPaymentsApplied.Location = New System.Drawing.Point(188, 283)
+        Me.txtPaymentsApplied.Location = New System.Drawing.Point(188, 541)
         Me.txtPaymentsApplied.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtPaymentsApplied.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtPaymentsApplied.Name = "txtPaymentsApplied"
@@ -227,11 +239,11 @@ Partial Class FinFacilityView
         '
         Me.txtInvoiceBalance.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtInvoiceBalance.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtInvoiceBalance.BackColor = System.Drawing.SystemColors.Control
+        Me.txtInvoiceBalance.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.txtInvoiceBalance.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtInvoiceBalance.Cue = "$0"
         Me.txtInvoiceBalance.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtInvoiceBalance.Location = New System.Drawing.Point(188, 303)
+        Me.txtInvoiceBalance.Location = New System.Drawing.Point(188, 561)
         Me.txtInvoiceBalance.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtInvoiceBalance.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtInvoiceBalance.Name = "txtInvoiceBalance"
@@ -240,39 +252,16 @@ Partial Class FinFacilityView
         Me.txtInvoiceBalance.Text = "$0"
         Me.txtInvoiceBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'SplitWholeForm
-        '
-        Me.SplitWholeForm.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.SplitWholeForm.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitWholeForm.Location = New System.Drawing.Point(0, 51)
-        Me.SplitWholeForm.Name = "SplitWholeForm"
-        Me.SplitWholeForm.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitWholeForm.Panel1
-        '
-        Me.SplitWholeForm.Panel1.BackColor = System.Drawing.SystemColors.Control
-        Me.SplitWholeForm.Panel1.Controls.Add(Me.SplitInvoicesAndPending)
-        Me.SplitWholeForm.Panel1MinSize = 250
-        '
-        'SplitWholeForm.Panel2
-        '
-        Me.SplitWholeForm.Panel2.BackColor = System.Drawing.SystemColors.Control
-        Me.SplitWholeForm.Panel2.Controls.Add(Me.SplitCreditsAndRefunds)
-        Me.SplitWholeForm.Panel2MinSize = 250
-        Me.SplitWholeForm.Size = New System.Drawing.Size(873, 628)
-        Me.SplitWholeForm.SplitterDistance = 340
-        Me.SplitWholeForm.TabIndex = 1
-        '
         'SplitInvoicesAndPending
         '
         Me.SplitInvoicesAndPending.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.SplitInvoicesAndPending.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitInvoicesAndPending.Location = New System.Drawing.Point(0, 0)
+        Me.SplitInvoicesAndPending.Location = New System.Drawing.Point(3, 3)
         Me.SplitInvoicesAndPending.Name = "SplitInvoicesAndPending"
         '
         'SplitInvoicesAndPending.Panel1
         '
-        Me.SplitInvoicesAndPending.Panel1.BackColor = System.Drawing.SystemColors.Control
+        Me.SplitInvoicesAndPending.Panel1.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.SplitInvoicesAndPending.Panel1.Controls.Add(Me.Label4)
         Me.SplitInvoicesAndPending.Panel1.Controls.Add(Me.Label5)
         Me.SplitInvoicesAndPending.Panel1.Controls.Add(Me.InvoiceLine)
@@ -286,24 +275,53 @@ Partial Class FinFacilityView
         '
         'SplitInvoicesAndPending.Panel2
         '
-        Me.SplitInvoicesAndPending.Panel2.BackColor = System.Drawing.SystemColors.Control
+        Me.SplitInvoicesAndPending.Panel2.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.SplitInvoicesAndPending.Panel2.Controls.Add(Me.Label8)
         Me.SplitInvoicesAndPending.Panel2.Controls.Add(Me.txtPending)
-        Me.SplitInvoicesAndPending.Panel2.Controls.Add(Me.dgvPendingItems)
+        Me.SplitInvoicesAndPending.Panel2.Controls.Add(Me.dgvPending)
         Me.SplitInvoicesAndPending.Panel2.Controls.Add(Me.Label11)
         Me.SplitInvoicesAndPending.Panel2MinSize = 100
-        Me.SplitInvoicesAndPending.Size = New System.Drawing.Size(873, 340)
-        Me.SplitInvoicesAndPending.SplitterDistance = 465
+        Me.SplitInvoicesAndPending.Size = New System.Drawing.Size(859, 596)
+        Me.SplitInvoicesAndPending.SplitterDistance = 457
         Me.SplitInvoicesAndPending.TabIndex = 0
         '
-        'dgvPendingItems
+        'Label8
+        '
+        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label8.Location = New System.Drawing.Point(15, 561)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(120, 13)
+        Me.Label8.TabIndex = 340
+        Me.Label8.Text = "Total Pending Items"
+        '
+        'txtPending
+        '
+        Me.txtPending.Amount = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtPending.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtPending.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.txtPending.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtPending.Cue = "$0"
+        Me.txtPending.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPending.Location = New System.Drawing.Point(191, 561)
+        Me.txtPending.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtPending.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtPending.Name = "txtPending"
+        Me.txtPending.Size = New System.Drawing.Size(71, 13)
+        Me.txtPending.TabIndex = 1
+        Me.txtPending.Text = "$0"
+        Me.txtPending.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'dgvPending
         '
         DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvPendingItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
-        Me.dgvPendingItems.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.dgvPending.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        Me.dgvPending.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvPendingItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvPending.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -311,8 +329,8 @@ Partial Class FinFacilityView
         DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPendingItems.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
-        Me.dgvPendingItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvPending.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
+        Me.dgvPending.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -320,11 +338,12 @@ Partial Class FinFacilityView
         DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvPendingItems.DefaultCellStyle = DataGridViewCellStyle7
-        Me.dgvPendingItems.Location = New System.Drawing.Point(15, 28)
-        Me.dgvPendingItems.Name = "dgvPendingItems"
-        Me.dgvPendingItems.ResultsCountLabel = Nothing
-        Me.dgvPendingItems.ResultsCountLabelFormat = "{0} found"
+        Me.dgvPending.DefaultCellStyle = DataGridViewCellStyle7
+        Me.dgvPending.LinkifyColumnByName = Nothing
+        Me.dgvPending.Location = New System.Drawing.Point(15, 28)
+        Me.dgvPending.Name = "dgvPending"
+        Me.dgvPending.ResultsCountLabel = Nothing
+        Me.dgvPending.ResultsCountLabelFormat = "{0} found"
         DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -332,11 +351,11 @@ Partial Class FinFacilityView
         DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPendingItems.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
-        Me.dgvPendingItems.ShowEditingIcon = False
-        Me.dgvPendingItems.Size = New System.Drawing.Size(377, 211)
-        Me.dgvPendingItems.StandardTab = True
-        Me.dgvPendingItems.TabIndex = 0
+        Me.dgvPending.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
+        Me.dgvPending.ShowEditingIcon = False
+        Me.dgvPending.Size = New System.Drawing.Size(371, 467)
+        Me.dgvPending.StandardTab = True
+        Me.dgvPending.TabIndex = 0
         '
         'Label11
         '
@@ -351,12 +370,12 @@ Partial Class FinFacilityView
         '
         Me.SplitCreditsAndRefunds.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.SplitCreditsAndRefunds.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitCreditsAndRefunds.Location = New System.Drawing.Point(0, 0)
+        Me.SplitCreditsAndRefunds.Location = New System.Drawing.Point(3, 3)
         Me.SplitCreditsAndRefunds.Name = "SplitCreditsAndRefunds"
         '
         'SplitCreditsAndRefunds.Panel1
         '
-        Me.SplitCreditsAndRefunds.Panel1.BackColor = System.Drawing.SystemColors.Control
+        Me.SplitCreditsAndRefunds.Panel1.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.SplitCreditsAndRefunds.Panel1.Controls.Add(Me.btnAddRefund)
         Me.SplitCreditsAndRefunds.Panel1.Controls.Add(Me.Label6)
         Me.SplitCreditsAndRefunds.Panel1.Controls.Add(Me.txtCredits)
@@ -366,14 +385,14 @@ Partial Class FinFacilityView
         '
         'SplitCreditsAndRefunds.Panel2
         '
-        Me.SplitCreditsAndRefunds.Panel2.BackColor = System.Drawing.SystemColors.Control
+        Me.SplitCreditsAndRefunds.Panel2.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.SplitCreditsAndRefunds.Panel2.Controls.Add(Me.Label9)
         Me.SplitCreditsAndRefunds.Panel2.Controls.Add(Me.txtRefunds)
         Me.SplitCreditsAndRefunds.Panel2.Controls.Add(Me.dgvRefunds)
         Me.SplitCreditsAndRefunds.Panel2.Controls.Add(Me.Label7)
         Me.SplitCreditsAndRefunds.Panel2MinSize = 100
-        Me.SplitCreditsAndRefunds.Size = New System.Drawing.Size(873, 284)
-        Me.SplitCreditsAndRefunds.SplitterDistance = 465
+        Me.SplitCreditsAndRefunds.Size = New System.Drawing.Size(859, 596)
+        Me.SplitCreditsAndRefunds.SplitterDistance = 457
         Me.SplitCreditsAndRefunds.TabIndex = 0
         '
         'btnAddRefund
@@ -381,7 +400,7 @@ Partial Class FinFacilityView
         Me.btnAddRefund.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnAddRefund.AutoSize = True
         Me.btnAddRefund.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAddRefund.Location = New System.Drawing.Point(337, 242)
+        Me.btnAddRefund.Location = New System.Drawing.Point(329, 554)
         Me.btnAddRefund.Name = "btnAddRefund"
         Me.btnAddRefund.Size = New System.Drawing.Size(113, 27)
         Me.btnAddRefund.TabIndex = 2
@@ -394,7 +413,7 @@ Partial Class FinFacilityView
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label6.Location = New System.Drawing.Point(12, 249)
+        Me.Label6.Location = New System.Drawing.Point(12, 561)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(126, 13)
         Me.Label6.TabIndex = 338
@@ -404,11 +423,11 @@ Partial Class FinFacilityView
         '
         Me.txtCredits.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtCredits.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtCredits.BackColor = System.Drawing.SystemColors.Control
+        Me.txtCredits.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.txtCredits.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtCredits.Cue = "$0"
         Me.txtCredits.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCredits.Location = New System.Drawing.Point(188, 249)
+        Me.txtCredits.Location = New System.Drawing.Point(188, 561)
         Me.txtCredits.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtCredits.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtCredits.Name = "txtCredits"
@@ -420,7 +439,7 @@ Partial Class FinFacilityView
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 8)
+        Me.Label1.Location = New System.Drawing.Point(12, 12)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(78, 13)
         Me.Label1.TabIndex = 336
@@ -451,8 +470,9 @@ Partial Class FinFacilityView
         DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvCredits.DefaultCellStyle = DataGridViewCellStyle11
+        Me.dgvCredits.LinkifyColumnByName = Nothing
         Me.dgvCredits.LinkifyFirstColumn = True
-        Me.dgvCredits.Location = New System.Drawing.Point(12, 24)
+        Me.dgvCredits.Location = New System.Drawing.Point(12, 28)
         Me.dgvCredits.Name = "dgvCredits"
         Me.dgvCredits.ResultsCountLabel = Nothing
         Me.dgvCredits.ResultsCountLabelFormat = "{0} found"
@@ -465,9 +485,38 @@ Partial Class FinFacilityView
         DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvCredits.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
         Me.dgvCredits.ShowEditingIcon = False
-        Me.dgvCredits.Size = New System.Drawing.Size(438, 200)
+        Me.dgvCredits.Size = New System.Drawing.Size(430, 512)
         Me.dgvCredits.StandardTab = True
         Me.dgvCredits.TabIndex = 0
+        '
+        'Label9
+        '
+        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label9.Location = New System.Drawing.Point(15, 561)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(128, 13)
+        Me.Label9.TabIndex = 340
+        Me.Label9.Text = "Total Refunds Issued"
+        '
+        'txtRefunds
+        '
+        Me.txtRefunds.Amount = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtRefunds.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtRefunds.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.txtRefunds.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtRefunds.Cue = "$0"
+        Me.txtRefunds.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRefunds.Location = New System.Drawing.Point(191, 561)
+        Me.txtRefunds.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtRefunds.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtRefunds.Name = "txtRefunds"
+        Me.txtRefunds.Size = New System.Drawing.Size(71, 13)
+        Me.txtRefunds.TabIndex = 1
+        Me.txtRefunds.Text = "$0"
+        Me.txtRefunds.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'dgvRefunds
         '
@@ -494,8 +543,9 @@ Partial Class FinFacilityView
         DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvRefunds.DefaultCellStyle = DataGridViewCellStyle15
+        Me.dgvRefunds.LinkifyColumnByName = Nothing
         Me.dgvRefunds.LinkifyFirstColumn = True
-        Me.dgvRefunds.Location = New System.Drawing.Point(15, 24)
+        Me.dgvRefunds.Location = New System.Drawing.Point(15, 28)
         Me.dgvRefunds.Name = "dgvRefunds"
         Me.dgvRefunds.ResultsCountLabel = Nothing
         Me.dgvRefunds.ResultsCountLabelFormat = "{0} found"
@@ -508,14 +558,14 @@ Partial Class FinFacilityView
         DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvRefunds.RowHeadersDefaultCellStyle = DataGridViewCellStyle16
         Me.dgvRefunds.ShowEditingIcon = False
-        Me.dgvRefunds.Size = New System.Drawing.Size(377, 200)
+        Me.dgvRefunds.Size = New System.Drawing.Size(371, 512)
         Me.dgvRefunds.StandardTab = True
         Me.dgvRefunds.TabIndex = 0
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(15, 8)
+        Me.Label7.Location = New System.Drawing.Point(15, 12)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(80, 13)
         Me.Label7.TabIndex = 334
@@ -553,86 +603,143 @@ Partial Class FinFacilityView
         Me.btnRefresh.TabIndex = 0
         Me.btnRefresh.UseVisualStyleBackColor = True
         '
-        'Label8
+        'TabControl1
         '
-        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label8.Location = New System.Drawing.Point(15, 303)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(120, 13)
-        Me.Label8.TabIndex = 340
-        Me.Label8.Text = "Total Pending Items"
+        Me.TabControl1.Controls.Add(Me.tpDeposits)
+        Me.TabControl1.Controls.Add(Me.tpInvoices)
+        Me.TabControl1.Controls.Add(Me.tpRefunds)
+        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TabControl1.Location = New System.Drawing.Point(0, 51)
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        Me.TabControl1.Size = New System.Drawing.Size(873, 628)
+        Me.TabControl1.TabIndex = 2
         '
-        'txtPending
+        'tpDeposits
         '
-        Me.txtPending.Amount = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtPending.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtPending.BackColor = System.Drawing.SystemColors.Control
-        Me.txtPending.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtPending.Cue = "$0"
-        Me.txtPending.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPending.Location = New System.Drawing.Point(191, 303)
-        Me.txtPending.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtPending.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtPending.Name = "txtPending"
-        Me.txtPending.Size = New System.Drawing.Size(71, 13)
-        Me.txtPending.TabIndex = 1
-        Me.txtPending.Text = "$0"
-        Me.txtPending.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.tpDeposits.Controls.Add(Me.Label10)
+        Me.tpDeposits.Controls.Add(Me.txtDeposits)
+        Me.tpDeposits.Controls.Add(Me.dgvDeposits)
+        Me.tpDeposits.Location = New System.Drawing.Point(4, 22)
+        Me.tpDeposits.Name = "tpDeposits"
+        Me.tpDeposits.Size = New System.Drawing.Size(865, 602)
+        Me.tpDeposits.TabIndex = 2
+        Me.tpDeposits.Text = "Deposits"
+        Me.tpDeposits.UseVisualStyleBackColor = True
         '
-        'txtRefunds
+        'Label10
         '
-        Me.txtRefunds.Amount = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtRefunds.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtRefunds.BackColor = System.Drawing.SystemColors.Control
-        Me.txtRefunds.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtRefunds.Cue = "$0"
-        Me.txtRefunds.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtRefunds.Location = New System.Drawing.Point(191, 249)
-        Me.txtRefunds.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtRefunds.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtRefunds.Name = "txtRefunds"
-        Me.txtRefunds.Size = New System.Drawing.Size(71, 13)
-        Me.txtRefunds.TabIndex = 1
-        Me.txtRefunds.Text = "$0"
-        Me.txtRefunds.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label10.Location = New System.Drawing.Point(12, 561)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(89, 13)
+        Me.Label10.TabIndex = 342
+        Me.Label10.Text = "Total Deposits"
         '
-        'Label9
+        'txtDeposits
         '
-        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label9.Location = New System.Drawing.Point(15, 249)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(128, 13)
-        Me.Label9.TabIndex = 340
-        Me.Label9.Text = "Total Refunds Issued"
+        Me.txtDeposits.Amount = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtDeposits.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtDeposits.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.txtDeposits.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtDeposits.Cue = "$0"
+        Me.txtDeposits.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtDeposits.Location = New System.Drawing.Point(188, 561)
+        Me.txtDeposits.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtDeposits.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtDeposits.Name = "txtDeposits"
+        Me.txtDeposits.Size = New System.Drawing.Size(71, 13)
+        Me.txtDeposits.TabIndex = 341
+        Me.txtDeposits.Text = "$0"
+        Me.txtDeposits.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'dgvDeposits
+        '
+        DataGridViewCellStyle17.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvDeposits.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle17
+        Me.dgvDeposits.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvDeposits.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDeposits.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle18
+        Me.dgvDeposits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDeposits.DefaultCellStyle = DataGridViewCellStyle19
+        Me.dgvDeposits.LinkifyColumnByName = Nothing
+        Me.dgvDeposits.LinkifyFirstColumn = True
+        Me.dgvDeposits.Location = New System.Drawing.Point(12, 28)
+        Me.dgvDeposits.Name = "dgvDeposits"
+        Me.dgvDeposits.ResultsCountLabel = Nothing
+        Me.dgvDeposits.ResultsCountLabelFormat = "{0} found"
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDeposits.RowHeadersDefaultCellStyle = DataGridViewCellStyle20
+        Me.dgvDeposits.ShowEditingIcon = False
+        Me.dgvDeposits.Size = New System.Drawing.Size(845, 508)
+        Me.dgvDeposits.StandardTab = True
+        Me.dgvDeposits.TabIndex = 337
+        '
+        'tpInvoices
+        '
+        Me.tpInvoices.Controls.Add(Me.SplitInvoicesAndPending)
+        Me.tpInvoices.Location = New System.Drawing.Point(4, 22)
+        Me.tpInvoices.Name = "tpInvoices"
+        Me.tpInvoices.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpInvoices.Size = New System.Drawing.Size(865, 602)
+        Me.tpInvoices.TabIndex = 0
+        Me.tpInvoices.Text = "Invoices"
+        Me.tpInvoices.UseVisualStyleBackColor = True
+        '
+        'tpRefunds
+        '
+        Me.tpRefunds.Controls.Add(Me.SplitCreditsAndRefunds)
+        Me.tpRefunds.Location = New System.Drawing.Point(4, 22)
+        Me.tpRefunds.Name = "tpRefunds"
+        Me.tpRefunds.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpRefunds.Size = New System.Drawing.Size(865, 602)
+        Me.tpRefunds.TabIndex = 1
+        Me.tpRefunds.Text = "Credits & Refunds"
+        Me.tpRefunds.UseVisualStyleBackColor = True
         '
         'FinFacilityView
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(873, 679)
-        Me.Controls.Add(Me.SplitWholeForm)
+        Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.pnlTop)
         Me.MinimumSize = New System.Drawing.Size(590, 593)
         Me.Name = "FinFacilityView"
         Me.Text = "Facility Account"
         CType(Me.dgvInvoices, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SplitWholeForm.Panel1.ResumeLayout(False)
-        Me.SplitWholeForm.Panel2.ResumeLayout(False)
-        CType(Me.SplitWholeForm, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SplitWholeForm.ResumeLayout(False)
         Me.SplitInvoicesAndPending.Panel1.ResumeLayout(False)
         Me.SplitInvoicesAndPending.Panel1.PerformLayout()
         Me.SplitInvoicesAndPending.Panel2.ResumeLayout(False)
         Me.SplitInvoicesAndPending.Panel2.PerformLayout()
         CType(Me.SplitInvoicesAndPending, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitInvoicesAndPending.ResumeLayout(False)
-        CType(Me.dgvPendingItems, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvPending, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitCreditsAndRefunds.Panel1.ResumeLayout(False)
         Me.SplitCreditsAndRefunds.Panel1.PerformLayout()
         Me.SplitCreditsAndRefunds.Panel2.ResumeLayout(False)
@@ -643,6 +750,12 @@ Partial Class FinFacilityView
         CType(Me.dgvRefunds, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlTop.ResumeLayout(False)
         Me.pnlTop.PerformLayout()
+        Me.TabControl1.ResumeLayout(False)
+        Me.tpDeposits.ResumeLayout(False)
+        Me.tpDeposits.PerformLayout()
+        CType(Me.dgvDeposits, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tpInvoices.ResumeLayout(False)
+        Me.tpRefunds.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -656,11 +769,10 @@ Partial Class FinFacilityView
     Friend WithEvents txtAmountInvoiced As CurrencyTextBox
     Friend WithEvents txtPaymentsApplied As CurrencyTextBox
     Friend WithEvents txtInvoiceBalance As CurrencyTextBox
-    Friend WithEvents SplitWholeForm As SplitContainer
     Friend WithEvents pnlTop As Panel
     Friend WithEvents lblDataErrorMessage As Label
     Friend WithEvents Label11 As Label
-    Friend WithEvents dgvPendingItems As IaipDataGridView
+    Friend WithEvents dgvPending As IaipDataGridView
     Friend WithEvents btnRefresh As Button
     Friend WithEvents SplitCreditsAndRefunds As SplitContainer
     Friend WithEvents btnAddRefund As Button
@@ -675,4 +787,11 @@ Partial Class FinFacilityView
     Friend WithEvents txtPending As CurrencyTextBox
     Friend WithEvents Label9 As Label
     Friend WithEvents txtRefunds As CurrencyTextBox
+    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents tpDeposits As TabPage
+    Friend WithEvents Label10 As Label
+    Friend WithEvents txtDeposits As CurrencyTextBox
+    Friend WithEvents dgvDeposits As IaipDataGridView
+    Friend WithEvents tpInvoices As TabPage
+    Friend WithEvents tpRefunds As TabPage
 End Class

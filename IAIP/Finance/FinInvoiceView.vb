@@ -67,7 +67,8 @@ Public Class FinInvoiceView
             End If
 
             txtComments.Text = .Comment
-            lblFacilityDisplay.Text = .FacilityID.FormattedString & vbNewLine & .Facility.FacilityName.ToString()
+            lnkFacility.Text = .FacilityID.FormattedString
+            lblFacilityDisplay.Text = .Facility.FacilityName.ToString()
             txtInvoiceDate.Text = .InvoiceDate.ToShortDateString
             txtTotalDue.Amount = .TotalAmountDue
             txtAmountPaid.Amount = .PaymentsApplied
@@ -158,6 +159,10 @@ Public Class FinInvoiceView
         End Select
 
         lblVoidMessage.Text = msg
+    End Sub
+
+    Private Sub lnkFacility_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkFacility.LinkClicked
+        OpenFacilityAccount(thisInvoice.FacilityID)
     End Sub
 
     Private Sub lnkViewInvoice_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkViewInvoice.LinkClicked
