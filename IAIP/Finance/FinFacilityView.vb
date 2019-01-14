@@ -48,6 +48,10 @@ Public Class FinFacilityView
             txtPaymentsApplied.Amount = ds.Tables("Invoices").AsEnumerable().
                 Sum(Function(x) x.Field(Of Decimal)("Payments Applied"))
             txtInvoiceBalance.Amount = txtAmountInvoiced.Amount + txtPaymentsApplied.Amount
+        Else
+            txtAmountInvoiced.Amount = 0
+            txtPaymentsApplied.Amount = 0
+            txtInvoiceBalance.Amount = 0
         End If
 
         With dgvCredits
@@ -60,6 +64,7 @@ Public Class FinFacilityView
                 Sum(Function(x) x.Field(Of Decimal)("Unused Balance"))
             btnAddRefund.Visible = (txtCredits.Amount > 0)
         Else
+            txtCredits.Amount = 0
             btnAddRefund.Visible = False
         End If
 
@@ -71,6 +76,8 @@ Public Class FinFacilityView
         If ds.Tables("Pending") IsNot Nothing AndAlso ds.Tables("Pending").Rows.Count > 0 Then
             txtPending.Amount = ds.Tables("Pending").AsEnumerable().
                 Sum(Function(x) x.Field(Of Decimal)("Amount"))
+        Else
+            txtPending.Amount = 0
         End If
 
         With dgvRefunds
@@ -81,6 +88,8 @@ Public Class FinFacilityView
         If ds.Tables("Refunds") IsNot Nothing AndAlso ds.Tables("Refunds").Rows.Count > 0 Then
             txtRefunds.Amount = ds.Tables("Refunds").AsEnumerable().
                 Sum(Function(x) x.Field(Of Decimal)("Amount"))
+        Else
+            txtRefunds.Amount = 0
         End If
     End Sub
 
