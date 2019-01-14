@@ -284,6 +284,13 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="_Code\ColorLabelHelper.vb" />
+    <Compile Include="_Code\DataGridViewExtensions.vb" />
+    <Compile Include="_Code\DictionaryExtensions.vb" />
+    <Compile Include="_Code\EnumExtensions.vb" />
+    <Compile Include="_Code\ComboBoxBinding.vb" />
+    <Compile Include="_Code\CollectionExtensions.vb" />
+    <Compile Include="_Code\ListExtensions.vb" />
+    <Compile Include="_Code\SplitContainerExtensions.vb" />
     <Compile Include="_Code\Forms\FacilityFormHelpers.vb" />
     <Compile Include="_Code\Forms\SsppFormHelpers.vb" />
     <Compile Include="_Code\Forms\IsmuFormHelpers.vb" />
@@ -1000,7 +1007,7 @@
     <Compile Include="_Code\SharedData.vb" />
     <Compile Include="_Code\ErrorReporting.vb" />
     <Compile Include="_Code\ExcelExport.vb" />
-    <Compile Include="_Code\Extensions.vb" />
+    <Compile Include="_Code\ArrayExtensions.vb" />
     <Compile Include="_Code\AppVersion.vb" />
     <Compile Include="_Code\IaipColors.vb" />
     <Compile Include="_Code\IaipMessage.vb" />
