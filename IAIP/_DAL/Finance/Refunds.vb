@@ -70,23 +70,14 @@ Namespace DAL.Finance
 
             newRefundId = DB.SPGetInteger("fees.SaveNewRefund", params, returnValue)
 
-            Select Case returnValue
-                Case 0
-                    Return SaveRefundResult.Success
-                Case 1
-                    Return SaveRefundResult.NonPositiveAmount
-                Case 2
-                    Return SaveRefundResult.InsufficientFunds
-                Case Else
-                    Return SaveRefundResult.DbError
-            End Select
+            Return CType(returnValue, SaveRefundResult)
         End Function
 
         Public Enum SaveRefundResult
-            Success
-            DbError
-            NonPositiveAmount
-            InsufficientFunds
+            DbError = -1
+            Success = 0
+            NonPositiveAmount = 1
+            InsufficientFunds = 2
         End Enum
 
         Public Function UpdateRefundComment(refundId As Integer, comment As String) As UpdateRefundCommentResult
@@ -96,23 +87,14 @@ Namespace DAL.Finance
                 New SqlParameter("@UserID", CurrentUser.UserID)
             }
 
-            Select Case DB.SPReturnValue("fees.UpdateRefundComment", params)
-                Case 0
-                    Return UpdateRefundCommentResult.Success
-                Case 1
-                    Return UpdateRefundCommentResult.DoesNotExist
-                Case 2
-                    Return UpdateRefundCommentResult.RefundDeleted
-                Case Else
-                    Return UpdateRefundCommentResult.DbError
-            End Select
+            Return CType(DB.SPReturnValue("fees.UpdateRefundComment", params), UpdateRefundCommentResult)
         End Function
 
         Public Enum UpdateRefundCommentResult
-            Success
-            DbError
-            DoesNotExist
-            RefundDeleted
+            DbError = -1
+            Success = 0
+            DoesNotExist = 1
+            RefundDeleted = 2
         End Enum
 
         Public Function DeleteRefund(refundId As Integer) As DeleteRefundResult
@@ -121,23 +103,14 @@ Namespace DAL.Finance
                 New SqlParameter("@UserID", CurrentUser.UserID)
             }
 
-            Select Case DB.SPReturnValue("fees.DeleteRefund", params)
-                Case 0
-                    Return DeleteRefundResult.Success
-                Case 1
-                    Return DeleteRefundResult.DoesNotExist
-                Case 2
-                    Return DeleteRefundResult.AlreadyDeleted
-                Case Else
-                    Return DeleteRefundResult.DbError
-            End Select
+            Return CType(DB.SPReturnValue("fees.DeleteRefund", params), DeleteRefundResult)
         End Function
 
         Public Enum DeleteRefundResult
-            Success
-            DbError
-            DoesNotExist
-            AlreadyDeleted
+            DbError = -1
+            Success = 0
+            DoesNotExist = 1
+            AlreadyDeleted = 2
         End Enum
 
     End Module

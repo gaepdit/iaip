@@ -143,20 +143,16 @@ Namespace DAL.Finance
                 New SqlParameter("@UserID", CurrentUser.UserID)
             }
 
-            Select Case DB.SPReturnValue("fees.VoidInvoice", params)
-                Case 0
-                    Return VoidInvoiceResult.Success
-                Case 1
-                    Return VoidInvoiceResult.DoesNotExist
-                Case 2
-                    Return VoidInvoiceResult.AlreadyVoided
-                Case 3
-                    Return VoidInvoiceResult.HasPayments
-                Case Else
-                    Return VoidInvoiceResult.DbError
-            End Select
-
+            Return CType(DB.SPReturnValue("fees.VoidInvoice", params), VoidInvoiceResult)
         End Function
+
+        Public Enum VoidInvoiceResult
+            DbError = -1
+            Success = 0
+            DoesNotExist = 1
+            AlreadyVoided = 2
+            HasPayments = 3
+        End Enum
 
         ' ID Validation
 
@@ -184,14 +180,6 @@ Namespace DAL.Finance
             Valid
             Malformed
             Nonexistent
-        End Enum
-
-        Public Enum VoidInvoiceResult
-            Success
-            DoesNotExist
-            HasPayments
-            AlreadyVoided
-            DbError
         End Enum
 
     End Module

@@ -98,26 +98,15 @@ Namespace DAL.Finance
                 New SqlParameter("@UserID", CurrentUser.UserID)
             }
 
-            Select Case DB.SPReturnValue("fees.DeleteDeposit", params)
-                Case 0
-                    Return DeleteDepositResult.Success
-                Case 1
-                    Return DeleteDepositResult.DoesNotExist
-                Case 2
-                    Return DeleteDepositResult.AlreadyDeleted
-                Case 3
-                    Return DeleteDepositResult.PaymentsApplied
-                Case Else
-                    Return DeleteDepositResult.DbError
-            End Select
+            Return CType(DB.SPReturnValue("fees.DeleteDeposit", params), DeleteDepositResult)
         End Function
 
         Public Enum DeleteDepositResult
-            Success
-            DbError
-            DoesNotExist
-            AlreadyDeleted
-            PaymentsApplied
+            DbError = -1
+            Success = 0
+            DoesNotExist = 1
+            AlreadyDeleted = 2
+            PaymentsApplied = 3
         End Enum
 
         ' Save deposit
@@ -140,12 +129,7 @@ Namespace DAL.Finance
 
             newDepositId = DB.SPGetInteger("fees.SaveNewDeposit", params, returnValue)
 
-            Select Case returnValue
-                Case 0
-                    Return DbResult.Success
-                Case Else
-                    Return DbResult.DbError
-            End Select
+            Return CType(returnValue, DbResult)
         End Function
 
         Public Function UpdateDeposit(deposit As Deposit) As UpdateDepositResult
@@ -161,26 +145,15 @@ Namespace DAL.Finance
                 New SqlParameter("@UserID", CurrentUser.UserID)
             }
 
-            Select Case DB.SPReturnValue("fees.UpdateDeposit", params)
-                Case 0
-                    Return UpdateDepositResult.Success
-                Case 1
-                    Return UpdateDepositResult.DoesNotExist
-                Case 2
-                    Return UpdateDepositResult.DepositDeleted
-                Case 3
-                    Return UpdateDepositResult.AmountBelowMinimum
-                Case Else
-                    Return UpdateDepositResult.DbError
-            End Select
+            Return CType(DB.SPReturnValue("fees.UpdateDeposit", params), UpdateDepositResult)
         End Function
 
         Public Enum UpdateDepositResult
-            Success
-            DbError
-            DoesNotExist
-            DepositDeleted
-            AmountBelowMinimum
+            DbError = -1
+            Success = 0
+            DoesNotExist = 1
+            DepositDeleted = 2
+            AmountBelowMinimum = 3
         End Enum
 
         ' Payment applied
@@ -197,35 +170,18 @@ Namespace DAL.Finance
 
             newDepositAppliedId = DB.SPGetInteger("fees.ApplyPaymentToInvoice", params, returnValue)
 
-            Select Case returnValue
-                Case 0
-                    Return ApplyPaymentToInvoiceResult.Success
-                Case 1
-                    Return ApplyPaymentToInvoiceResult.DepositDoesNotExist
-                Case 2
-                    Return ApplyPaymentToInvoiceResult.DepositDeleted
-                Case 3
-                    Return ApplyPaymentToInvoiceResult.InvoiceDoesNotExist
-                Case 4
-                    Return ApplyPaymentToInvoiceResult.InvoiceVoided
-                Case 5
-                    Return ApplyPaymentToInvoiceResult.DepositBalanceInsufficient
-                Case 6
-                    Return ApplyPaymentToInvoiceResult.InvoiceBalanceExceeded
-                Case Else
-                    Return ApplyPaymentToInvoiceResult.DbError
-            End Select
+            Return CType(returnValue, ApplyPaymentToInvoiceResult)
         End Function
 
         Public Enum ApplyPaymentToInvoiceResult
-            Success
-            DbError
-            DepositDoesNotExist
-            DepositDeleted
-            InvoiceDoesNotExist
-            InvoiceVoided
-            DepositBalanceInsufficient
-            InvoiceBalanceExceeded
+            DbError = -1
+            Success = 0
+            DepositDoesNotExist = 1
+            DepositDeleted = 2
+            InvoiceDoesNotExist = 3
+            InvoiceVoided = 4
+            DepositBalanceInsufficient = 5
+            InvoiceBalanceExceeded = 6
         End Enum
 
         ' ID Validation
