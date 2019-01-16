@@ -138,6 +138,7 @@ Public Class AirNumberEntryForm
 
     Public Sub Clear()
         AirsEntryTextBox.Clear()
+        AirsEntryTextBox.AirsNumber = Nothing
         airsEntryErrorProvider.ClearError()
     End Sub
 
