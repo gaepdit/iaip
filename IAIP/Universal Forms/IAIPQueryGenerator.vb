@@ -1,6 +1,7 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.IO
+Imports Iaip.Apb.Facilities
 
 Public Class IAIPQueryGenerator
     Dim query As String
@@ -24,57 +25,58 @@ Public Class IAIPQueryGenerator
 
     Private SubmittedQuery As KeyValuePair(Of String, Integer)
 
-    Private Sub IAIPQueryGenerator_Load(sender As Object, e As EventArgs) Handles Me.Load
-
+    Protected Overrides Sub OnLoad(e As EventArgs)
         lblQueryCount.Text = ""
-        Try
-            cboCountySearch1.Visible = False
-            cboCountySearch2.Visible = False
-            cboDistrictSearch1.Visible = False
-            cboDistrictSearch2.Visible = False
-            cboOperationStatusSearch1.Visible = False
-            cboOperationStatusSearch2.Visible = False
-            cboClassificationSearch1.Visible = False
-            cboClassificationSearch2.Visible = False
-            cboCMSUniverseSearch1.Visible = False
-            cboCMSUniverseSearch2.Visible = False
-            cboSIPSearch1.Visible = False
-            cboSIPSearch2.Visible = False
-            cboPart61Search1.Visible = False
-            cboPart61Search2.Visible = False
-            cboPart60Search1.Visible = False
-            cboPart60Search2.Visible = False
-            cboPart63Search1.Visible = False
-            cboPart63Search2.Visible = False
+        lblCannedQueryCount.Text = ""
 
-            If bgwQueryGenerator.IsBusy = True Then
-                bgwQueryGenerator.CancelAsync()
-            Else
-                bgwQueryGenerator.WorkerReportsProgress = True
-                bgwQueryGenerator.WorkerSupportsCancellation = True
-                bgwQueryGenerator.RunWorkerAsync()
-            End If
+        cboCountySearch1.Visible = False
+        cboCountySearch2.Visible = False
+        cboDistrictSearch1.Visible = False
+        cboDistrictSearch2.Visible = False
+        cboOperationStatusSearch1.Visible = False
+        cboOperationStatusSearch2.Visible = False
+        cboClassificationSearch1.Visible = False
+        cboClassificationSearch2.Visible = False
+        cboCMSUniverseSearch1.Visible = False
+        cboCMSUniverseSearch2.Visible = False
+        cboSIPSearch1.Visible = False
+        cboSIPSearch2.Visible = False
+        cboPart61Search1.Visible = False
+        cboPart61Search2.Visible = False
+        cboPart60Search1.Visible = False
+        cboPart60Search2.Visible = False
+        cboPart63Search1.Visible = False
+        cboPart63Search2.Visible = False
 
-            DTPStartUpDateSearch1.Value = Today
-            DTPStartUpDateSearch1.Checked = False
-            DTPStartUpDateSearch2.Value = Today
-            DTPStartUpDateSearch2.Checked = False
-            DTPShutDownDateSearch1.Value = Today
-            DTPShutDownDateSearch1.Checked = False
-            DTPShutDownDateSearch2.Value = Today
-            DTPShutDownDateSearch2.Checked = False
-            DTPLastFCESearch1.Value = Today
-            DTPLastFCESearch1.Checked = False
-            DTPLastFCESearch2.Value = Today
-            DTPLastFCESearch2.Checked = False
+        If bgwQueryGenerator.IsBusy = True Then
+            bgwQueryGenerator.CancelAsync()
+        Else
+            bgwQueryGenerator.WorkerReportsProgress = True
+            bgwQueryGenerator.WorkerSupportsCancellation = True
+            bgwQueryGenerator.RunWorkerAsync()
+        End If
 
-            TCQuerryOptions.Size = New Size(TCQuerryOptions.Size.Width, 389)
+        DTPStartUpDateSearch1.Value = Today
+        DTPStartUpDateSearch1.Checked = False
+        DTPStartUpDateSearch2.Value = Today
+        DTPStartUpDateSearch2.Checked = False
+        DTPShutDownDateSearch1.Value = Today
+        DTPShutDownDateSearch1.Checked = False
+        DTPShutDownDateSearch2.Value = Today
+        DTPShutDownDateSearch2.Checked = False
+        DTPLastFCESearch1.Value = Today
+        DTPLastFCESearch1.Checked = False
+        DTPLastFCESearch2.Value = Today
+        DTPLastFCESearch2.Checked = False
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+        tcQueryOptions.Size = New Size(tcQueryOptions.Size.Width, 389)
 
-        End Try
+        dtpCannedEndDate.Value = DatePriorToDate(9, 30, Today)
+        dtpCannedStartDate.Value = DatePriorToDate(10, 1, dtpCannedEndDate.Value)
+        cboCannedSelection.BindToEnum(Of FacilityClassification)()
+        cboCannedSelection.SelectedIndex = 1
+
+        MyBase.OnLoad(e)
     End Sub
 
 #Region "Page Load Functions"
@@ -347,7 +349,7 @@ Public Class IAIPQueryGenerator
             Dim j As Integer = 0
 
             SQLSelect = "Select " &
-            "SUBSTRING(APBFacilityInformation.strAIRSNumber, 5,8) as AIRSNumber, " &
+            "substring(APBFacilityInformation.STRAIRSNUMBER, 5, 3) + '-' + substring(APBFacilityInformation.STRAIRSNUMBER, 8, 5) as AIRSNumber, " &
             "APBFacilityInformation.strFacilityName, "
 
             SQLFrom = " From APBMasterAIRS, APBFacilityInformation, "
@@ -1357,12 +1359,12 @@ Public Class IAIPQueryGenerator
                 Else
                     SQLWhereCase2 = " Not Like "
                 End If
-                If cboCountySearch1.SelectedIndex <> -1 And cboCountySearch1.SelectedIndex <> 0 Then
+                If cboCountySearch1.SelectedIndex > -1 Then
                     SQLWhere = SQLWhere & " and (SUBSTRING(APBMasterAIRS.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " @county1 ) "
                     params.Add(New SqlParameter("@county1", cboCountySearch1.SelectedValue))
                 End If
-                If cboCountySearch2.SelectedIndex <> -1 And cboCountySearch2.SelectedIndex <> 0 Then
-                    If cboCountySearch1.SelectedIndex <> -1 And cboCountySearch1.SelectedIndex <> 0 Then
+                If cboCountySearch2.SelectedIndex > -1 Then
+                    If cboCountySearch1.SelectedIndex > -1 Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
                         " " & SQLWhereCase1 & " SUBSTRING(APBMasterAIRS.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " @county2 ) "
                     Else
@@ -1383,12 +1385,12 @@ Public Class IAIPQueryGenerator
                 Else
                     SQLWhereCase2 = " Not Like "
                 End If
-                If cboSSCPEngineerSearch1.SelectedIndex <> -1 And cboSSCPEngineerSearch1.SelectedIndex <> 0 Then
+                If cboSSCPEngineerSearch1.SelectedIndex > -1 Then
                     SQLWhere = SQLWhere & " and (VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPEngineer " & SQLWhereCase2 & " @eng1) "
                     params.Add(New SqlParameter("@eng1", cboSSCPEngineerSearch1.SelectedValue))
                 End If
-                If cboSSCPEngineerSearch2.SelectedIndex <> -1 And cboSSCPEngineerSearch2.SelectedIndex <> 0 Then
-                    If cboSSCPEngineerSearch1.SelectedIndex <> -1 And cboSSCPEngineerSearch1.SelectedIndex <> 0 Then
+                If cboSSCPEngineerSearch2.SelectedIndex > -1 Then
+                    If cboSSCPEngineerSearch1.SelectedIndex > -1 Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
                         " " & SQLWhereCase1 & " VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPEngineer " & SQLWhereCase2 & " @eng2 ) "
                     Else
@@ -1409,12 +1411,12 @@ Public Class IAIPQueryGenerator
                 Else
                     SQLWhereCase2 = " Not Like "
                 End If
-                If cboDistrictSearch1.SelectedIndex <> -1 And cboDistrictSearch1.SelectedIndex <> 0 Then
+                If cboDistrictSearch1.SelectedIndex > -1 Then
                     SQLWhere = SQLWhere & " and (LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " @dist1) "
                     params.Add(New SqlParameter("@dist1", cboDistrictSearch1.SelectedValue))
                 End If
-                If cboDistrictSearch2.SelectedIndex <> -1 And cboDistrictSearch2.SelectedIndex <> 0 Then
-                    If cboDistrictSearch1.SelectedIndex <> -1 And cboDistrictSearch1.SelectedIndex <> 0 Then
+                If cboDistrictSearch2.SelectedIndex > -1 Then
+                    If cboDistrictSearch1.SelectedIndex > -1 Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
                         " " & SQLWhereCase1 & " LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " @dist2 ) "
                     Else
@@ -1593,12 +1595,12 @@ Public Class IAIPQueryGenerator
                 Else
                     SQLWhereCase2 = " Not Like "
                 End If
-                If cboCMSUniverseSearch1.SelectedIndex <> -1 And cboCMSUniverseSearch1.SelectedIndex <> 0 Then
+                If cboCMSUniverseSearch1.SelectedIndex > -1 Then
                     SQLWhere = SQLWhere & " and (APBSupplamentalData.strCMSMember " & SQLWhereCase2 & " @cms1) "
                     params.Add(New SqlParameter("@cms1", cboCMSUniverseSearch1.Text))
                 End If
-                If cboCMSUniverseSearch2.SelectedIndex <> -1 And cboCMSUniverseSearch2.SelectedIndex <> 0 Then
-                    If cboCMSUniverseSearch1.SelectedIndex <> -1 And cboCMSUniverseSearch1.SelectedIndex <> 0 Then
+                If cboCMSUniverseSearch2.SelectedIndex > -1 Then
+                    If cboCMSUniverseSearch1.SelectedIndex > -1 Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
                         " " & SQLWhereCase1 & " APBSupplamentalData.strCMSMember " & SQLWhereCase2 & " @cms2 ) "
                     Else
@@ -2301,448 +2303,362 @@ Public Class IAIPQueryGenerator
             SubmittedQuery = New KeyValuePair(Of String, Integer)(MasterSQL, dgvQueryGenerator.Rows.Count)
 
             i = 0
-            dgvQueryGenerator.RowHeadersVisible = False
-            dgvQueryGenerator.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvQueryGenerator.AllowUserToResizeColumns = True
-            dgvQueryGenerator.AllowUserToAddRows = False
-            dgvQueryGenerator.AllowUserToDeleteRows = False
-            dgvQueryGenerator.AllowUserToOrderColumns = True
-            dgvQueryGenerator.AllowUserToResizeRows = True
             dgvQueryGenerator.Columns("AIRSNumber").HeaderText = "AIRS #"
             dgvQueryGenerator.Columns("AIRSNumber").DisplayIndex = i
-            dgvQueryGenerator.Columns("AIRSNumber").Width = "75"
+
             i += 1
             dgvQueryGenerator.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvQueryGenerator.Columns("strFacilityName").DisplayIndex = i
-            dgvQueryGenerator.Columns("strFacilityName").Width = "200"
+
             i += 1
 
             If chbFacilityStreet1.Checked = True Then
                 dgvQueryGenerator.Columns("strFacilityStreet1").HeaderText = "Street Address 1"
                 dgvQueryGenerator.Columns("strFacilityStreet1").DisplayIndex = i
-                dgvQueryGenerator.Columns("strFacilityStreet1").Width = "200"
                 i += 1
             End If
             If chbFacilityStreet2.Checked = True Then
                 dgvQueryGenerator.Columns("strFacilityStreet2").HeaderText = "Street Address 2"
                 dgvQueryGenerator.Columns("strFacilityStreet2").DisplayIndex = i
-                dgvQueryGenerator.Columns("strFacilityStreet2").Width = "200"
                 i += 1
             End If
             If chbFacilityCity.Checked = True Then
                 dgvQueryGenerator.Columns("strFacilityCity").HeaderText = "City"
                 dgvQueryGenerator.Columns("strFacilityCity").DisplayIndex = i
-                dgvQueryGenerator.Columns("strFacilityCity").Width = "100"
                 i += 1
             End If
             If chbFacilityZipCode.Checked = True Then
                 dgvQueryGenerator.Columns("strFacilityZipCode").HeaderText = "Zip Code"
                 dgvQueryGenerator.Columns("strFacilityZipCode").DisplayIndex = i
-                dgvQueryGenerator.Columns("strFacilityZipCode").Width = "100"
                 i += 1
             End If
             If chbFacilityLatitude.Checked = True Then
                 dgvQueryGenerator.Columns("numFacilityLatitude").HeaderText = "Latitude"
                 dgvQueryGenerator.Columns("numFacilityLatitude").DisplayIndex = i
-                dgvQueryGenerator.Columns("numFacilityLatitude").Width = "100"
                 i += 1
             End If
             If chbFacilityLongitude.Checked = True Then
                 dgvQueryGenerator.Columns("numFacilityLongitude").HeaderText = "Longitude"
                 dgvQueryGenerator.Columns("numFacilityLongitude").DisplayIndex = i
-                dgvQueryGenerator.Columns("numFacilityLongitude").Width = "100"
                 i += 1
             End If
             If chbCounty.Checked = True Then
                 dgvQueryGenerator.Columns("strCountyName").HeaderText = "County"
                 dgvQueryGenerator.Columns("strCountyName").DisplayIndex = i
-                dgvQueryGenerator.Columns("strCountyName").Width = "100"
                 i += 1
             End If
             If chbSSCPEngineer.Checked = True Then
                 dgvQueryGenerator.Columns("SSCPEngineer").HeaderText = "Compliance Engineer"
                 dgvQueryGenerator.Columns("SSCPEngineer").DisplayIndex = i
-                dgvQueryGenerator.Columns("SSCPEngineer").Width = "150"
                 i += 1
             End If
             If chbSSCPUnit.Checked = True Then
                 dgvQueryGenerator.Columns("strUnitDesc").HeaderText = "Compliance Unit"
                 dgvQueryGenerator.Columns("strUnitDesc").DisplayIndex = i
-                dgvQueryGenerator.Columns("strUnitDesc").Width = "150"
                 i += 1
             End If
             If chbDistrict.Checked = True Then
                 dgvQueryGenerator.Columns("strDistrictName").HeaderText = "District"
                 dgvQueryGenerator.Columns("strDistrictName").DisplayIndex = i
-                dgvQueryGenerator.Columns("strDistrictName").Width = "100"
                 i += 1
             End If
             If chbOperationStatus.Checked = True Then
                 dgvQueryGenerator.Columns("strOperationalStatus").HeaderText = "Operation Status"
                 dgvQueryGenerator.Columns("strOperationalStatus").DisplayIndex = i
-                dgvQueryGenerator.Columns("strOperationalStatus").Width = "75"
                 i += 1
             End If
             If chbClassification.Checked = True Then
                 dgvQueryGenerator.Columns("strClass").HeaderText = "Classification"
                 dgvQueryGenerator.Columns("strClass").DisplayIndex = i
-                dgvQueryGenerator.Columns("strClass").Width = "75"
                 i += 1
             End If
             If chbSICCode.Checked = True Then
                 dgvQueryGenerator.Columns("strSICCode").HeaderText = "SIC"
                 dgvQueryGenerator.Columns("strSICCode").DisplayIndex = i
-                dgvQueryGenerator.Columns("strSICCode").Width = "50"
                 i += 1
             End If
             If chbNAICSCode.Checked = True Then
                 dgvQueryGenerator.Columns("strNAICSCode").HeaderText = "NAICS"
                 dgvQueryGenerator.Columns("strNAICSCode").DisplayIndex = i
-                dgvQueryGenerator.Columns("strNAICSCode").Width = "50"
                 i += 1
             End If
             If chbStartUpDate.Checked = True Then
                 dgvQueryGenerator.Columns("datStartUpDate").HeaderText = "Startup Date"
                 dgvQueryGenerator.Columns("datStartUpDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
                 dgvQueryGenerator.Columns("datStartUpDate").DisplayIndex = i
-                dgvQueryGenerator.Columns("datStartUpDate").Width = "90"
                 i += 1
             End If
             If chbShutDownDate.Checked = True Then
                 dgvQueryGenerator.Columns("datShutDownDate").HeaderText = "Permit Revocation Date"
                 dgvQueryGenerator.Columns("datShutDownDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
                 dgvQueryGenerator.Columns("datShutDownDate").DisplayIndex = i
-                dgvQueryGenerator.Columns("datShutDownDate").Width = "90"
                 i += 1
             End If
             If chbLastFCE.Checked = True Then
                 dgvQueryGenerator.Columns("LastFCE").HeaderText = "Last FCE"
                 dgvQueryGenerator.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
                 dgvQueryGenerator.Columns("LastFCE").DisplayIndex = i
-                dgvQueryGenerator.Columns("LastFCE").Width = "90"
                 i += 1
             End If
             If chbCMSUniverse.Checked = True Then
                 dgvQueryGenerator.Columns("strCMSMember").HeaderText = "CMS"
                 dgvQueryGenerator.Columns("strCMSMember").DisplayIndex = i
-                dgvQueryGenerator.Columns("strCMSMember").Width = "50"
                 i += 1
             End If
             If chbPlantDescription.Checked = True Then
                 dgvQueryGenerator.Columns("strPlantDescription").HeaderText = "Plant Description"
                 dgvQueryGenerator.Columns("strPlantDescription").DisplayIndex = i
-                dgvQueryGenerator.Columns("strPlantDescription").Width = "200"
                 i += 1
             End If
             If chbAttainmentStatus.Checked = True Then
                 dgvQueryGenerator.Columns("OneHRYes").HeaderText = "One HR Yes"
                 dgvQueryGenerator.Columns("OneHRYes").DisplayIndex = i
-                dgvQueryGenerator.Columns("OneHRYes").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("OneHRContribute").HeaderText = "One Hr Contributing"
                 dgvQueryGenerator.Columns("OneHRContribute").DisplayIndex = i
-                dgvQueryGenerator.Columns("OneHRContribute").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("OneHRNo").HeaderText = "One Hr No"
                 dgvQueryGenerator.Columns("OneHRNo").DisplayIndex = i
-                dgvQueryGenerator.Columns("OneHRNo").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("EightHRAtlanta").HeaderText = "8-Hr Atlanta"
                 dgvQueryGenerator.Columns("EightHRAtlanta").DisplayIndex = i
-                dgvQueryGenerator.Columns("EightHRAtlanta").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("EightHRMacon").HeaderText = "8-Hr Macon"
                 dgvQueryGenerator.Columns("EightHRMacon").DisplayIndex = i
-                dgvQueryGenerator.Columns("EightHRMacon").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("EightHRNo").HeaderText = "8-Hr No"
                 dgvQueryGenerator.Columns("EightHRNo").DisplayIndex = i
-                dgvQueryGenerator.Columns("EightHRNo").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("PMAtlanta").HeaderText = "PM Atlanta"
                 dgvQueryGenerator.Columns("PMAtlanta").DisplayIndex = i
-                dgvQueryGenerator.Columns("PMAtlanta").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("PMChattanooga").HeaderText = "PM Chattanooga"
                 dgvQueryGenerator.Columns("PMChattanooga").DisplayIndex = i
-                dgvQueryGenerator.Columns("PMChattanooga").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("PMMacon").HeaderText = "PM Macon"
                 dgvQueryGenerator.Columns("PMMacon").DisplayIndex = i
-                dgvQueryGenerator.Columns("PMMacon").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("PMFloyd").HeaderText = "PM Floyd"
                 dgvQueryGenerator.Columns("PMFloyd").DisplayIndex = i
-                dgvQueryGenerator.Columns("PMFloyd").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("PMNo").HeaderText = "PM No"
                 dgvQueryGenerator.Columns("PMNo").DisplayIndex = i
-                dgvQueryGenerator.Columns("PMNo").Width = "100"
                 i += 1
             Else
                 If chb1HrYes.Checked = True Then
                     dgvQueryGenerator.Columns("OneHRYes").HeaderText = "One HR Yes"
                     dgvQueryGenerator.Columns("OneHRYes").DisplayIndex = i
-                    dgvQueryGenerator.Columns("OneHRYes").Width = "100"
                     i += 1
                 End If
                 If chb1HrContribute.Checked = True Then
                     dgvQueryGenerator.Columns("OneHRContribute").HeaderText = "One Hr Contributing"
                     dgvQueryGenerator.Columns("OneHRContribute").DisplayIndex = i
-                    dgvQueryGenerator.Columns("OneHRContribute").Width = "100"
                     i += 1
                 End If
                 If chb1HrNo.Checked = True Then
                     dgvQueryGenerator.Columns("OneHRNo").HeaderText = "One Hr No"
                     dgvQueryGenerator.Columns("OneHRNo").DisplayIndex = i
-                    dgvQueryGenerator.Columns("OneHRNo").Width = "100"
                     i += 1
                 End If
                 If chb8HrAtlanta.Checked = True Then
                     dgvQueryGenerator.Columns("EightHRAtlanta").HeaderText = "8-Hr Atlanta"
                     dgvQueryGenerator.Columns("EightHRAtlanta").DisplayIndex = i
-                    dgvQueryGenerator.Columns("EightHRAtlanta").Width = "100"
                     i += 1
                 End If
                 If chb8HrMacon.Checked = True Then
                     dgvQueryGenerator.Columns("EightHRMacon").HeaderText = "8-Hr Macon"
                     dgvQueryGenerator.Columns("EightHRMacon").DisplayIndex = i
-                    dgvQueryGenerator.Columns("EightHRMacon").Width = "100"
                     i += 1
                 End If
                 If chb8HrNo.Checked = True Then
                     dgvQueryGenerator.Columns("EightHRNo").HeaderText = "8-Hr No"
                     dgvQueryGenerator.Columns("EightHRNo").DisplayIndex = i
-                    dgvQueryGenerator.Columns("EightHRNo").Width = "100"
                     i += 1
                 End If
                 If chbPMAtlanta.Checked = True Then
                     dgvQueryGenerator.Columns("PMAtlanta").HeaderText = "PM Atlanta"
                     dgvQueryGenerator.Columns("PMAtlanta").DisplayIndex = i
-                    dgvQueryGenerator.Columns("PMAtlanta").Width = "100"
                     i += 1
                 End If
                 If chbPMChattanooga.Checked = True Then
                     dgvQueryGenerator.Columns("PMChattanooga").HeaderText = "PM Chattanooga"
                     dgvQueryGenerator.Columns("PMChattanooga").DisplayIndex = i
-                    dgvQueryGenerator.Columns("PMChattanooga").Width = "100"
                     i += 1
                 End If
                 If chbPMFloyd.Checked = True Then
                     dgvQueryGenerator.Columns("PMFloyd").HeaderText = "PM Floyd"
                     dgvQueryGenerator.Columns("PMFloyd").DisplayIndex = i
-                    dgvQueryGenerator.Columns("PMFloyd").Width = "100"
                     i += 1
                 End If
                 If chbPMMacon.Checked = True Then
                     dgvQueryGenerator.Columns("PMMacon").HeaderText = "PM Macon"
                     dgvQueryGenerator.Columns("PMMacon").DisplayIndex = i
-                    dgvQueryGenerator.Columns("PMMacon").Width = "100"
                     i += 1
                 End If
                 If chbPMNo.Checked = True Then
                     dgvQueryGenerator.Columns("PMNo").HeaderText = "PM No"
                     dgvQueryGenerator.Columns("PMNo").DisplayIndex = i
-                    dgvQueryGenerator.Columns("PMNo").Width = "100"
                     i += 1
                 End If
             End If
             If chbStateProgramCodes.Checked = True Then
                 dgvQueryGenerator.Columns("NSRPSD").HeaderText = "NSR/PSD"
                 dgvQueryGenerator.Columns("NSRPSD").DisplayIndex = i
-                dgvQueryGenerator.Columns("NSRPSD").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("HAP").HeaderText = "HAPs"
                 dgvQueryGenerator.Columns("HAP").DisplayIndex = i
-                dgvQueryGenerator.Columns("HAP").Width = "100"
                 i += 1
             Else
                 If chbNSRPSDMajor.Checked = True Then
                     dgvQueryGenerator.Columns("NSRPSD").HeaderText = "NSR/PSD"
                     dgvQueryGenerator.Columns("NSRPSD").DisplayIndex = i
-                    dgvQueryGenerator.Columns("NSRPSD").Width = "100"
                     i += 1
                 End If
                 If chbHAPMajor.Checked = True Then
                     dgvQueryGenerator.Columns("HAP").HeaderText = "HAPs"
                     dgvQueryGenerator.Columns("HAP").DisplayIndex = i
-                    dgvQueryGenerator.Columns("HAP").Width = "100"
                     i += 1
                 End If
             End If
             If chbViewAirPrograms.Checked = True Then
                 dgvQueryGenerator.Columns("APC0").HeaderText = "0 - SIP"
                 dgvQueryGenerator.Columns("APC0").DisplayIndex = i
-                dgvQueryGenerator.Columns("APC0").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("APC1").HeaderText = "1 - Federal SIP"
                 dgvQueryGenerator.Columns("APC1").DisplayIndex = i
-                dgvQueryGenerator.Columns("APC1").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("APC3").HeaderText = "3 - Non-Federal SIP"
                 dgvQueryGenerator.Columns("APC3").DisplayIndex = i
-                dgvQueryGenerator.Columns("APC3").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("APC4").HeaderText = "4 - CFC Tracking"
                 dgvQueryGenerator.Columns("APC4").DisplayIndex = i
-                dgvQueryGenerator.Columns("APC4").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("APC6").HeaderText = "6 - PSD"
                 dgvQueryGenerator.Columns("APC6").DisplayIndex = i
-                dgvQueryGenerator.Columns("APC6").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("APC7").HeaderText = "7 - NSR"
                 dgvQueryGenerator.Columns("APC7").DisplayIndex = i
-                dgvQueryGenerator.Columns("APC7").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("APC8").HeaderText = "8 - NESHAP"
                 dgvQueryGenerator.Columns("APC8").DisplayIndex = i
-                dgvQueryGenerator.Columns("APC8").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("APC9").HeaderText = "9 - NSPS"
                 dgvQueryGenerator.Columns("APC9").DisplayIndex = i
-                dgvQueryGenerator.Columns("APC9").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("APCA").HeaderText = "A - Acid Precipitation"
                 dgvQueryGenerator.Columns("APCA").DisplayIndex = i
-                dgvQueryGenerator.Columns("APCA").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("APCF").HeaderText = "F - FESOP"
                 dgvQueryGenerator.Columns("APCF").DisplayIndex = i
-                dgvQueryGenerator.Columns("APCF").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("APCI").HeaderText = "I - Native American"
                 dgvQueryGenerator.Columns("APCI").DisplayIndex = i
-                dgvQueryGenerator.Columns("APCI").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("APCM").HeaderText = "M - MACT"
                 dgvQueryGenerator.Columns("APCM").DisplayIndex = i
-                dgvQueryGenerator.Columns("APCM").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("APCV").HeaderText = "V - Title V"
                 dgvQueryGenerator.Columns("APCV").DisplayIndex = i
-                dgvQueryGenerator.Columns("APCV").Width = "100"
                 i += 1
             Else
                 If chbAPC0.Checked = True Then
                     dgvQueryGenerator.Columns("APC0").HeaderText = "0 - SIP"
                     dgvQueryGenerator.Columns("APC0").DisplayIndex = i
-                    dgvQueryGenerator.Columns("APC0").Width = "100"
                     i += 1
                 End If
                 If chbAPC1.Checked = True Then
                     dgvQueryGenerator.Columns("APC1").HeaderText = "1 - Federal SIP"
                     dgvQueryGenerator.Columns("APC1").DisplayIndex = i
-                    dgvQueryGenerator.Columns("APC1").Width = "100"
                     i += 1
                 End If
                 If chbAPC3.Checked = True Then
                     dgvQueryGenerator.Columns("APC3").HeaderText = "3 - Non-Federal SIP"
                     dgvQueryGenerator.Columns("APC3").DisplayIndex = i
-                    dgvQueryGenerator.Columns("APC3").Width = "100"
                     i += 1
                 End If
                 If chbAPC4.Checked = True Then
                     dgvQueryGenerator.Columns("APC4").HeaderText = "4 - CFC Tracking"
                     dgvQueryGenerator.Columns("APC4").DisplayIndex = i
-                    dgvQueryGenerator.Columns("APC4").Width = "100"
                     i += 1
                 End If
                 If chbAPC6.Checked = True Then
                     dgvQueryGenerator.Columns("APC6").HeaderText = "6 - PSD"
                     dgvQueryGenerator.Columns("APC6").DisplayIndex = i
-                    dgvQueryGenerator.Columns("APC6").Width = "100"
                     i += 1
                 End If
                 If chbAPC7.Checked = True Then
                     dgvQueryGenerator.Columns("APC7").HeaderText = "7 - NSR"
                     dgvQueryGenerator.Columns("APC7").DisplayIndex = i
-                    dgvQueryGenerator.Columns("APC7").Width = "100"
                     i += 1
                 End If
                 If chbAPC8.Checked = True Then
                     dgvQueryGenerator.Columns("APC8").HeaderText = "8 - NESHAP"
                     dgvQueryGenerator.Columns("APC8").DisplayIndex = i
-                    dgvQueryGenerator.Columns("APC8").Width = "100"
                     i += 1
                 End If
                 If chbAPC9.Checked = True Then
                     dgvQueryGenerator.Columns("APC9").HeaderText = "9 - NSPS"
                     dgvQueryGenerator.Columns("APC9").DisplayIndex = i
-                    dgvQueryGenerator.Columns("APC9").Width = "100"
                     i += 1
                 End If
                 If chbAPCA.Checked = True Then
                     dgvQueryGenerator.Columns("APCA").HeaderText = "A - Acid Precipitation"
                     dgvQueryGenerator.Columns("APCA").DisplayIndex = i
-                    dgvQueryGenerator.Columns("APCA").Width = "100"
                     i += 1
                 End If
                 If chbAPCF.Checked = True Then
                     dgvQueryGenerator.Columns("APCF").HeaderText = "F - FESOP"
                     dgvQueryGenerator.Columns("APCF").DisplayIndex = i
-                    dgvQueryGenerator.Columns("APCF").Width = "100"
                     i += 1
                 End If
                 If chbAPCI.Checked = True Then
                     dgvQueryGenerator.Columns("APCI").HeaderText = "I - Native American"
                     dgvQueryGenerator.Columns("APCI").DisplayIndex = i
-                    dgvQueryGenerator.Columns("strFacilityZipCode").Width = "100"
                     i += 1
                 End If
                 If chbAPCM.Checked = True Then
                     dgvQueryGenerator.Columns("APCM").HeaderText = "M - MACT"
                     dgvQueryGenerator.Columns("APCM").DisplayIndex = i
-                    dgvQueryGenerator.Columns("APCM").Width = "100"
                     i += 1
                 End If
                 If chbAPCV.Checked = True Then
                     dgvQueryGenerator.Columns("APCV").HeaderText = "V - Title V"
                     dgvQueryGenerator.Columns("APCV").DisplayIndex = i
-                    dgvQueryGenerator.Columns("APCV").Width = "100"
                     i += 1
                 End If
             End If
             If chbAllSubparts.Checked = True Then
                 dgvQueryGenerator.Columns("GASIP").HeaderText = "GA SIP"
                 dgvQueryGenerator.Columns("GASIP").DisplayIndex = i
-                dgvQueryGenerator.Columns("GASIP").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("Part61").HeaderText = "NESHAP"
                 dgvQueryGenerator.Columns("Part61").DisplayIndex = i
-                dgvQueryGenerator.Columns("Part61").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("Part60").HeaderText = "NSPS"
                 dgvQueryGenerator.Columns("Part60").DisplayIndex = i
-                dgvQueryGenerator.Columns("Part60").Width = "100"
                 i += 1
                 dgvQueryGenerator.Columns("Part63").HeaderText = "MACT"
                 dgvQueryGenerator.Columns("Part63").DisplayIndex = i
-                dgvQueryGenerator.Columns("Part63").Width = "100"
                 i += 1
             Else
                 If chbSIP.Checked = True Then
                     dgvQueryGenerator.Columns("GASIP").HeaderText = "GA SIP"
                     dgvQueryGenerator.Columns("GASIP").DisplayIndex = i
-                    dgvQueryGenerator.Columns("GASIP").Width = "100"
                     i += 1
                 End If
                 If chbPart61Subpart.Checked = True Then
                     dgvQueryGenerator.Columns("Part61").HeaderText = "NESHAP"
                     dgvQueryGenerator.Columns("Part61").DisplayIndex = i
-                    dgvQueryGenerator.Columns("Part61").Width = "100"
                     i += 1
                 End If
                 If chbPart60Subpart.Checked = True Then
                     dgvQueryGenerator.Columns("Part60").HeaderText = "NSPS"
                     dgvQueryGenerator.Columns("Part60").DisplayIndex = i
-                    dgvQueryGenerator.Columns("Part60").Width = 100
                     i += 1
                 End If
                 If chbPart63Subpart.Checked = True Then
                     dgvQueryGenerator.Columns("Part63").HeaderText = "MACT"
                     dgvQueryGenerator.Columns("Part63").DisplayIndex = i
-                    dgvQueryGenerator.Columns("Part63").Width = 100
                     i += 1
                 End If
             End If
@@ -2975,10 +2891,10 @@ Public Class IAIPQueryGenerator
     Private Sub ResizeFilter()
         Try
 
-            If TCQuerryOptions.Size.Height > 27 Then
-                TCQuerryOptions.Size = New Size(TCQuerryOptions.Size.Width, 27)
+            If tcQueryOptions.Size.Height > 27 Then
+                tcQueryOptions.Size = New Size(tcQueryOptions.Size.Width, 27)
             Else
-                TCQuerryOptions.Size = New Size(TCQuerryOptions.Size.Width, 389)
+                tcQueryOptions.Size = New Size(tcQueryOptions.Size.Width, 389)
             End If
 
         Catch ex As Exception
@@ -3932,9 +3848,7 @@ Public Class IAIPQueryGenerator
         Try
             GenerateSQL2()
 
-            Dim resultsPluralized As String = "result found"
-            If dgvQueryGenerator.RowCount <> 1 Then resultsPluralized = "results found"
-            lblQueryCount.Text = String.Format("{0} {1}", dgvQueryGenerator.RowCount.ToString, resultsPluralized)
+            DisplayCount()
 
             dgvQueryGenerator.SanelyResizeColumns()
 
@@ -4009,7 +3923,7 @@ Public Class IAIPQueryGenerator
         End Try
     End Sub
 
-    Private Sub btnRunPermitContact_Click(sender As Object, e As EventArgs) Handles btnRunPermitContact.Click
+    Private Sub RunCannedPermitContact()
         Try
             Dim warning As String = "This report may take a long time to run and may time out. " &
                 "If you get an error, please just try again. If you continue to get errors after " &
@@ -4019,10 +3933,8 @@ Public Class IAIPQueryGenerator
                 Exit Sub
             End If
 
-            Me.Cursor = Cursors.WaitCursor
-
             query = "select " &
-            "SUBSTRING(strAIRSNumber, 5,8) as AIRSNumber, " &
+            "distinct substring(STRAIRSNUMBER, 5, 3) + '-' + substring(STRAIRSNUMBER, 8, 5) as AIRSNumber, " &
             "strFacilityName, strFacilityStreet1, " &
             "strFacilityStreet2, strFacilityCity, " &
             "strFacilityState, strFacilityZipCode, " &
@@ -4036,99 +3948,46 @@ Public Class IAIPQueryGenerator
             "strContactPhoneNumber1, strContactEmail, " &
             "PermitNumber, IssuanceDate " &
             "from VW_Permit_Contact_Data " &
-            "order by strAIRSNumber "
+            "order by AIRSNumber "
 
             dgvQueryGenerator.DataSource = DB.GetDataTable(query)
 
-            dgvQueryGenerator.RowHeadersVisible = False
-            dgvQueryGenerator.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvQueryGenerator.AllowUserToResizeColumns = True
-            dgvQueryGenerator.AllowUserToAddRows = False
-            dgvQueryGenerator.AllowUserToDeleteRows = False
-            dgvQueryGenerator.AllowUserToOrderColumns = True
-            dgvQueryGenerator.AllowUserToResizeRows = True
             dgvQueryGenerator.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvQueryGenerator.Columns("AIRSNumber").DisplayIndex = 0
-            dgvQueryGenerator.Columns("AIRSNumber").Width = "75"
             dgvQueryGenerator.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvQueryGenerator.Columns("strFacilityName").DisplayIndex = 1
-            dgvQueryGenerator.Columns("strFacilityName").Width = "125"
             dgvQueryGenerator.Columns("strFacilityStreet1").HeaderText = "Facility Street"
-            dgvQueryGenerator.Columns("strFacilityStreet1").DisplayIndex = 2
-            dgvQueryGenerator.Columns("strFacilityStreet1").Width = "125"
             dgvQueryGenerator.Columns("strFacilityStreet2").HeaderText = "Facility Street 2"
-            dgvQueryGenerator.Columns("strFacilityStreet2").DisplayIndex = 3
-            dgvQueryGenerator.Columns("strFacilityStreet2").Width = "100"
             dgvQueryGenerator.Columns("strFacilityCity").HeaderText = "Facility City"
-            dgvQueryGenerator.Columns("strFacilityCity").DisplayIndex = 4
-            dgvQueryGenerator.Columns("strFacilityCity").Width = "75"
             dgvQueryGenerator.Columns("strFacilityState").HeaderText = "Facility State"
-            dgvQueryGenerator.Columns("strFacilityState").DisplayIndex = 5
-            dgvQueryGenerator.Columns("strFacilityState").Width = "75"
             dgvQueryGenerator.Columns("strFacilityZipCode").HeaderText = "Facility Zip Code"
-            dgvQueryGenerator.Columns("strFacilityZipCode").DisplayIndex = 6
-            dgvQueryGenerator.Columns("strFacilityZipCode").Width = "75"
             dgvQueryGenerator.Columns("numFacilityLongitude").HeaderText = "Longitude"
-            dgvQueryGenerator.Columns("numFacilityLongitude").DisplayIndex = 7
-            dgvQueryGenerator.Columns("numFacilityLongitude").Width = "75"
             dgvQueryGenerator.Columns("numFacilityLatitude").HeaderText = "Latitude"
-            dgvQueryGenerator.Columns("numFacilityLatitude").DisplayIndex = 8
-            dgvQueryGenerator.Columns("numFacilityLatitude").Width = "75"
             dgvQueryGenerator.Columns("strOperationalStatus").HeaderText = "Status"
-            dgvQueryGenerator.Columns("strOperationalStatus").DisplayIndex = 9
-            dgvQueryGenerator.Columns("strOperationalStatus").Width = "75"
             dgvQueryGenerator.Columns("strClass").HeaderText = "Classificaiton"
-            dgvQueryGenerator.Columns("strClass").DisplayIndex = 10
-            dgvQueryGenerator.Columns("strClass").Width = "75"
             dgvQueryGenerator.Columns("strSICCode").HeaderText = "SIC"
-            dgvQueryGenerator.Columns("strSICCode").DisplayIndex = 11
-            dgvQueryGenerator.Columns("strSICCode").Width = "75"
             dgvQueryGenerator.Columns("strNAICSCode").HeaderText = "NAICS"
-            dgvQueryGenerator.Columns("strNAICSCode").DisplayIndex = 12
-            dgvQueryGenerator.Columns("strNAICSCode").Width = "75"
             dgvQueryGenerator.Columns("strPlantDescription").HeaderText = "Plant Desc."
-            dgvQueryGenerator.Columns("strPlantDescription").DisplayIndex = 13
-            dgvQueryGenerator.Columns("strPlantDescription").Width = "75"
             dgvQueryGenerator.Columns("ContactType").HeaderText = "Contact Type"
-            dgvQueryGenerator.Columns("ContactType").DisplayIndex = 14
-            dgvQueryGenerator.Columns("ContactType").Width = "75"
             dgvQueryGenerator.Columns("strContactFirstName").HeaderText = "First Name"
-            dgvQueryGenerator.Columns("strContactFirstName").DisplayIndex = 15
-            dgvQueryGenerator.Columns("strContactFirstName").Width = "75"
             dgvQueryGenerator.Columns("strContactLastName").HeaderText = "Last Name"
-            dgvQueryGenerator.Columns("strContactLastName").DisplayIndex = 16
-            dgvQueryGenerator.Columns("strContactLastName").Width = "75"
             dgvQueryGenerator.Columns("strContactAddress1").HeaderText = "City Address"
-            dgvQueryGenerator.Columns("strContactAddress1").DisplayIndex = 17
-            dgvQueryGenerator.Columns("strContactAddress1").Width = "75"
             dgvQueryGenerator.Columns("strContactCity").HeaderText = "Contact City"
-            dgvQueryGenerator.Columns("strContactCity").DisplayIndex = 18
-            dgvQueryGenerator.Columns("strContactCity").Width = "75"
             dgvQueryGenerator.Columns("strContactState").HeaderText = "Contact State"
-            dgvQueryGenerator.Columns("strContactState").DisplayIndex = 19
-            dgvQueryGenerator.Columns("strContactState").Width = "75"
             dgvQueryGenerator.Columns("strContactZiPCode").HeaderText = "Contact Zip Code"
-            dgvQueryGenerator.Columns("strContactZiPCode").DisplayIndex = 20
-            dgvQueryGenerator.Columns("strContactZiPCode").Width = "75"
             dgvQueryGenerator.Columns("strContactPhoneNumber1").HeaderText = "Phone #"
-            dgvQueryGenerator.Columns("strContactPhoneNumber1").DisplayIndex = 21
-            dgvQueryGenerator.Columns("strContactPhoneNumber1").Width = "75"
             dgvQueryGenerator.Columns("strContactEmail").HeaderText = "Email"
-            dgvQueryGenerator.Columns("strContactEmail").DisplayIndex = 22
-            dgvQueryGenerator.Columns("strContactEmail").Width = "75"
             dgvQueryGenerator.Columns("PermitNumber").HeaderText = "Permit #"
-            dgvQueryGenerator.Columns("PermitNumber").DisplayIndex = 23
-            dgvQueryGenerator.Columns("PermitNumber").Width = "75"
             dgvQueryGenerator.Columns("IssuanceDate").HeaderText = "Issued Date"
-            dgvQueryGenerator.Columns("IssuanceDate").DisplayIndex = 24
-            dgvQueryGenerator.Columns("IssuanceDate").Width = "75"
 
-            lblQueryCount.Text = dgvQueryGenerator.RowCount.ToString
-
-            Me.Cursor = Cursors.Default
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub DisplayCount()
+        Dim resultsPluralized As String = "result found"
+        If dgvQueryGenerator.RowCount <> 1 Then resultsPluralized = "results found"
+        lblQueryCount.Text = String.Format("{0} {1}", dgvQueryGenerator.RowCount.ToString, resultsPluralized)
+        lblCannedQueryCount.Text = String.Format("{0} {1}", dgvQueryGenerator.RowCount.ToString, resultsPluralized)
     End Sub
 
     Private Sub mmiExport_Click(sender As Object, e As EventArgs) Handles mmiExport.Click
@@ -4141,5 +4000,73 @@ Public Class IAIPQueryGenerator
         End If
 
         DAL.LogQuery(SubmittedQuery)
+    End Sub
+
+    Private Sub RunCannedHistoryAirProgram()
+        If dtpCannedEndDate.Value >= dtpCannedStartDate.Value Then
+            dgvQueryGenerator.DataSource = DAL.SearchHistoricalAirProgramStatus(
+                dtpCannedStartDate.Value,
+                dtpCannedEndDate.Value,
+                CType(cboCannedSelection.SelectedValue, AirProgram))
+        End If
+    End Sub
+
+    Private Sub RunCannedHistoryClass()
+        If dtpCannedEndDate.Value >= dtpCannedStartDate.Value Then
+            dgvQueryGenerator.DataSource = DAL.SearchHistoricalFacilityClassificationStatus(
+                dtpCannedStartDate.Value,
+                dtpCannedEndDate.Value,
+                CType(cboCannedSelection.SelectedValue, FacilityClassification))
+        End If
+    End Sub
+
+    Private Sub btnRunCannedReport_Click(sender As Object, e As EventArgs) Handles btnRunCannedReport.Click
+        Cursor = Cursors.WaitCursor
+
+        If rdbCannedHistoryClass.Checked Then
+            RunCannedHistoryClass()
+        ElseIf rdbCannedHistoryAirProgram.Checked Then
+            RunCannedHistoryAirProgram()
+        Else
+            RunCannedPermitContact()
+        End If
+
+        DisplayCount()
+        dgvQueryGenerator.SanelyResizeColumns()
+        Cursor = Cursors.Default
+    End Sub
+
+    Private Sub CannedSelection_CheckedChanged(sender As Object, e As EventArgs) _
+        Handles rdbCannedHistoryClass.CheckedChanged, rdbCannedHistoryAirProgram.CheckedChanged, rdbCannedPermitContactData.CheckedChanged
+
+        If rdbCannedHistoryClass.Checked Then
+            HideControls({lblCannedHistoryAirProgram, lblCannedPermitContactData})
+            ShowControls({lblCannedHistoryClass, lblCannedStartDate, dtpCannedStartDate, lblCannedEndDate, dtpCannedEndDate, lblCannedSelection, cboCannedSelection})
+            cboCannedSelection.BindToEnum(Of FacilityClassification)()
+
+            If cboCannedSelection.Items.Count > 1 Then
+                cboCannedSelection.SelectedIndex = 1
+            End If
+        ElseIf rdbCannedHistoryAirProgram.Checked Then
+            HideControls({lblCannedHistoryClass, lblCannedPermitContactData})
+            ShowControls({lblCannedHistoryAirProgram, lblCannedStartDate, dtpCannedStartDate, lblCannedEndDate, dtpCannedEndDate, lblCannedSelection, cboCannedSelection})
+            cboCannedSelection.BindToEnum(Of AirProgram)()
+
+            If cboCannedSelection.Items.Count > 1 Then
+                cboCannedSelection.SelectedIndex = 1
+            End If
+        Else
+            HideControls({lblCannedHistoryClass, lblCannedHistoryAirProgram, lblCannedStartDate, dtpCannedStartDate, lblCannedEndDate, dtpCannedEndDate, lblCannedSelection, cboCannedSelection})
+            ShowControls({lblCannedPermitContactData})
+        End If
+
+    End Sub
+
+    Private Sub tcQueryOptions_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tcQueryOptions.SelectedIndexChanged
+        If tcQueryOptions.SelectedTab Is TPCannedReports Then
+            BasicSearchGroup.Enabled = False
+        Else
+            BasicSearchGroup.Enabled = True
+        End If
     End Sub
 End Class

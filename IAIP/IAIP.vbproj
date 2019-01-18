@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -251,6 +251,7 @@
     <Compile Include="_DAL\DAL.GECO.vb" />
     <Compile Include="_DAL\DAL.State.vb" />
     <Compile Include="_DAL\DAL.Rules.vb" />
+    <Compile Include="_DAL\Facilities\DAL.FacilityProgramHistory.vb" />
     <Compile Include="_DAL\Facilities\DAL.FacilityLookups.vb" />
     <Compile Include="_DAL\SSPP\DAL.Sspp.ApplicationTypes.vb" />
     <Compile Include="_DAL\TableValuedParameter.vb" />
