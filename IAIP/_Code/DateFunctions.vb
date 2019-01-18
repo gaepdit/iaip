@@ -29,4 +29,8 @@
         Return False
     End Function
 
+    Public Function DatePriorToDate(month As Integer, day As Integer, priorToDate As Date) As Date
+        Return New Date(priorToDate.Year - Convert.ToInt32(priorToDate <= New Date(priorToDate.Year, month, day)), month, day)
+    End Function
+
 End Module

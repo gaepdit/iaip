@@ -36,6 +36,7 @@ Namespace Apb.Facilities
             PS
             TS
         End Enum
+
         Public EisSiteStatusCodeDescriptions As New Dictionary(Of EisSiteStatus, String) From {
             {EisSiteStatus.UNK, "Unknown"},
             {EisSiteStatus.OP, "Operational"},
@@ -55,6 +56,7 @@ Namespace Apb.Facilities
             <Description("Permit by rule")> PR
             <Description("Unclassified")> C
         End Enum
+
         Public FacilityClassificationDescriptions As New Dictionary(Of FacilityClassification, String) From {
             {FacilityClassification.A, "Major source"},
             {FacilityClassification.B, "Minor source"},
@@ -145,6 +147,24 @@ Namespace Apb.Facilities
             <Description("Title V")> TitleV = 4096 ' 000000000000100
             <Description("Risk Management Plan")> RMP = 8192 ' 000000000000010
         End Enum
+
+        Public AirProgramBitPosition As New Dictionary(Of AirProgram, Integer) From {
+            {AirProgram.None, 0},
+            {AirProgram.SIP, 1},
+            {AirProgram.FederalSIP, 2},
+            {AirProgram.NonFederalSIP, 3},
+            {AirProgram.CfcTracking, 4},
+            {AirProgram.PSD, 5},
+            {AirProgram.NSR, 6},
+            {AirProgram.NESHAP, 7},
+            {AirProgram.NSPS, 8},
+            {AirProgram.FESOP, 9},
+            {AirProgram.AcidPrecipitation, 10},
+            {AirProgram.NativeAmerican, 11},
+            {AirProgram.MACT, 12},
+            {AirProgram.TitleV, 13},
+            {AirProgram.RMP, 14}
+        }
 
         ''' <summary>
         ''' Bitwise flag for enumerating which air program classifications apply to a facility.

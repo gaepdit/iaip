@@ -23,9 +23,10 @@ Partial Class IAIPQueryGenerator
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPQueryGenerator))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbExport = New System.Windows.Forms.ToolStripButton()
         Me.tsbSearchQuery = New System.Windows.Forms.ToolStripButton()
@@ -52,14 +53,13 @@ Partial Class IAIPQueryGenerator
         Me.txtAIRSNumberSearch1 = New System.Windows.Forms.TextBox()
         Me.chbFacilityName = New System.Windows.Forms.CheckBox()
         Me.chbAIRSNumber = New System.Windows.Forms.CheckBox()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnRunSearch = New System.Windows.Forms.Button()
         Me.Splitter1 = New System.Windows.Forms.Splitter()
         Me.dgvQueryGenerator = New System.Windows.Forms.DataGridView()
-        Me.TCQuerryOptions = New System.Windows.Forms.TabControl()
+        Me.tcQueryOptions = New System.Windows.Forms.TabControl()
         Me.TPPhysicalLocation = New System.Windows.Forms.TabPage()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -264,7 +264,6 @@ Partial Class IAIPQueryGenerator
         Me.chb1HrNo = New System.Windows.Forms.CheckBox()
         Me.chb1HrYes = New System.Windows.Forms.CheckBox()
         Me.TPAirProgramCodes = New System.Windows.Forms.TabPage()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.Panel70 = New System.Windows.Forms.Panel()
         Me.rdbAPCOr = New System.Windows.Forms.RadioButton()
         Me.rdbAPCAnd = New System.Windows.Forms.RadioButton()
@@ -404,9 +403,21 @@ Partial Class IAIPQueryGenerator
         Me.rdbSSCPEngineerEqual = New System.Windows.Forms.RadioButton()
         Me.chbSSCPEngineer = New System.Windows.Forms.CheckBox()
         Me.TPCannedReports = New System.Windows.Forms.TabPage()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.btnRunPermitContact = New System.Windows.Forms.Button()
-        Me.GBBasic = New System.Windows.Forms.GroupBox()
+        Me.lblCannedQueryCount = New System.Windows.Forms.Label()
+        Me.cboCannedSelection = New System.Windows.Forms.ComboBox()
+        Me.lblCannedSelection = New System.Windows.Forms.Label()
+        Me.lblCannedEndDate = New System.Windows.Forms.Label()
+        Me.lblCannedStartDate = New System.Windows.Forms.Label()
+        Me.dtpCannedEndDate = New System.Windows.Forms.DateTimePicker()
+        Me.dtpCannedStartDate = New System.Windows.Forms.DateTimePicker()
+        Me.rdbCannedHistoryClass = New System.Windows.Forms.RadioButton()
+        Me.rdbCannedHistoryAirProgram = New System.Windows.Forms.RadioButton()
+        Me.rdbCannedPermitContactData = New System.Windows.Forms.RadioButton()
+        Me.lblCannedHistoryAirProgram = New System.Windows.Forms.Label()
+        Me.lblCannedHistoryClass = New System.Windows.Forms.Label()
+        Me.lblCannedPermitContactData = New System.Windows.Forms.Label()
+        Me.btnRunCannedReport = New System.Windows.Forms.Button()
+        Me.BasicSearchGroup = New System.Windows.Forms.GroupBox()
         Me.lblQueryCount = New System.Windows.Forms.Label()
         Me.bgwQueryGenerator = New System.ComponentModel.BackgroundWorker()
         Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -421,7 +432,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel36.SuspendLayout()
         Me.Panel37.SuspendLayout()
         CType(Me.dgvQueryGenerator, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TCQuerryOptions.SuspendLayout()
+        Me.tcQueryOptions.SuspendLayout()
         Me.TPPhysicalLocation.SuspendLayout()
         Me.Panel30.SuspendLayout()
         Me.Panel29.SuspendLayout()
@@ -498,7 +509,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel67.SuspendLayout()
         Me.Panel69.SuspendLayout()
         Me.TPCannedReports.SuspendLayout()
-        Me.GBBasic.SuspendLayout()
+        Me.BasicSearchGroup.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -507,7 +518,7 @@ Partial Class IAIPQueryGenerator
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbExport, Me.tsbSearchQuery, Me.tsbSaveQuery, Me.tsbReSizeFilterOptions})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(796, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(739, 25)
         Me.ToolStrip1.TabIndex = 1
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -733,14 +744,6 @@ Partial Class IAIPQueryGenerator
         Me.chbAIRSNumber.TabIndex = 255
         Me.chbAIRSNumber.Text = "AIRS Number"
         '
-        'Label6
-        '
-        Me.Label6.Location = New System.Drawing.Point(5, 18)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(86, 14)
-        Me.Label6.TabIndex = 265
-        Me.Label6.Text = "Column Name"
-        '
         'Label3
         '
         Me.Label3.Location = New System.Drawing.Point(237, 18)
@@ -778,59 +781,67 @@ Partial Class IAIPQueryGenerator
         Me.Splitter1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Splitter1.Location = New System.Drawing.Point(0, 534)
         Me.Splitter1.Name = "Splitter1"
-        Me.Splitter1.Size = New System.Drawing.Size(796, 5)
+        Me.Splitter1.Size = New System.Drawing.Size(739, 5)
         Me.Splitter1.TabIndex = 14
         Me.Splitter1.TabStop = False
         '
         'dgvQueryGenerator
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvQueryGenerator.AllowUserToAddRows = False
+        Me.dgvQueryGenerator.AllowUserToDeleteRows = False
+        Me.dgvQueryGenerator.AllowUserToOrderColumns = True
+        Me.dgvQueryGenerator.AllowUserToResizeRows = False
+        DataGridViewCellStyle9.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvQueryGenerator.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
         Me.dgvQueryGenerator.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvQueryGenerator.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvQueryGenerator.DefaultCellStyle = DataGridViewCellStyle11
         Me.dgvQueryGenerator.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvQueryGenerator.Location = New System.Drawing.Point(0, 539)
         Me.dgvQueryGenerator.Name = "dgvQueryGenerator"
         Me.dgvQueryGenerator.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        Me.dgvQueryGenerator.Size = New System.Drawing.Size(796, 122)
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+        Me.dgvQueryGenerator.RowHeadersVisible = False
+        Me.dgvQueryGenerator.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
+        Me.dgvQueryGenerator.Size = New System.Drawing.Size(739, 122)
         Me.dgvQueryGenerator.TabIndex = 13
         '
-        'TCQuerryOptions
+        'tcQueryOptions
         '
-        Me.TCQuerryOptions.Controls.Add(Me.TPPhysicalLocation)
-        Me.TCQuerryOptions.Controls.Add(Me.TPHeaderInformation)
-        Me.TCQuerryOptions.Controls.Add(Me.TPHeaderInformation2)
-        Me.TCQuerryOptions.Controls.Add(Me.TPAirProgramCodes)
-        Me.TCQuerryOptions.Controls.Add(Me.TPSubpartData)
-        Me.TCQuerryOptions.Controls.Add(Me.TPComplianceInfo)
-        Me.TCQuerryOptions.Controls.Add(Me.TPCannedReports)
-        Me.TCQuerryOptions.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TCQuerryOptions.Location = New System.Drawing.Point(0, 145)
-        Me.TCQuerryOptions.Name = "TCQuerryOptions"
-        Me.TCQuerryOptions.SelectedIndex = 0
-        Me.TCQuerryOptions.Size = New System.Drawing.Size(796, 389)
-        Me.TCQuerryOptions.TabIndex = 1
+        Me.tcQueryOptions.Controls.Add(Me.TPPhysicalLocation)
+        Me.tcQueryOptions.Controls.Add(Me.TPHeaderInformation)
+        Me.tcQueryOptions.Controls.Add(Me.TPHeaderInformation2)
+        Me.tcQueryOptions.Controls.Add(Me.TPAirProgramCodes)
+        Me.tcQueryOptions.Controls.Add(Me.TPSubpartData)
+        Me.tcQueryOptions.Controls.Add(Me.TPComplianceInfo)
+        Me.tcQueryOptions.Controls.Add(Me.TPCannedReports)
+        Me.tcQueryOptions.Dock = System.Windows.Forms.DockStyle.Top
+        Me.tcQueryOptions.Location = New System.Drawing.Point(0, 145)
+        Me.tcQueryOptions.Name = "tcQueryOptions"
+        Me.tcQueryOptions.SelectedIndex = 0
+        Me.tcQueryOptions.Size = New System.Drawing.Size(739, 389)
+        Me.tcQueryOptions.TabIndex = 1
         '
         'TPPhysicalLocation
         '
@@ -885,7 +896,7 @@ Partial Class IAIPQueryGenerator
         Me.TPPhysicalLocation.Location = New System.Drawing.Point(4, 22)
         Me.TPPhysicalLocation.Name = "TPPhysicalLocation"
         Me.TPPhysicalLocation.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPhysicalLocation.Size = New System.Drawing.Size(788, 363)
+        Me.TPPhysicalLocation.Size = New System.Drawing.Size(731, 363)
         Me.TPPhysicalLocation.TabIndex = 0
         Me.TPPhysicalLocation.Text = "Physical Location"
         Me.TPPhysicalLocation.UseVisualStyleBackColor = True
@@ -1613,7 +1624,7 @@ Partial Class IAIPQueryGenerator
         Me.TPHeaderInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPHeaderInformation.Name = "TPHeaderInformation"
         Me.TPHeaderInformation.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPHeaderInformation.Size = New System.Drawing.Size(788, 363)
+        Me.TPHeaderInformation.Size = New System.Drawing.Size(731, 363)
         Me.TPHeaderInformation.TabIndex = 1
         Me.TPHeaderInformation.Text = "Header Information"
         Me.TPHeaderInformation.UseVisualStyleBackColor = True
@@ -2330,7 +2341,7 @@ Partial Class IAIPQueryGenerator
         Me.TPHeaderInformation2.Controls.Add(Me.chb1HrYes)
         Me.TPHeaderInformation2.Location = New System.Drawing.Point(4, 22)
         Me.TPHeaderInformation2.Name = "TPHeaderInformation2"
-        Me.TPHeaderInformation2.Size = New System.Drawing.Size(788, 363)
+        Me.TPHeaderInformation2.Size = New System.Drawing.Size(731, 363)
         Me.TPHeaderInformation2.TabIndex = 3
         Me.TPHeaderInformation2.Text = "Header Information 2"
         Me.TPHeaderInformation2.UseVisualStyleBackColor = True
@@ -2862,7 +2873,6 @@ Partial Class IAIPQueryGenerator
         '
         'TPAirProgramCodes
         '
-        Me.TPAirProgramCodes.Controls.Add(Me.Label7)
         Me.TPAirProgramCodes.Controls.Add(Me.Panel70)
         Me.TPAirProgramCodes.Controls.Add(Me.chbViewAirPrograms)
         Me.TPAirProgramCodes.Controls.Add(Me.txtAPCVOrder)
@@ -2906,19 +2916,10 @@ Partial Class IAIPQueryGenerator
         Me.TPAirProgramCodes.Controls.Add(Me.chbAPC9)
         Me.TPAirProgramCodes.Location = New System.Drawing.Point(4, 22)
         Me.TPAirProgramCodes.Name = "TPAirProgramCodes"
-        Me.TPAirProgramCodes.Size = New System.Drawing.Size(788, 363)
+        Me.TPAirProgramCodes.Size = New System.Drawing.Size(731, 363)
         Me.TPAirProgramCodes.TabIndex = 2
         Me.TPAirProgramCodes.Text = "Air Program Codes"
         Me.TPAirProgramCodes.UseVisualStyleBackColor = True
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(585, 59)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(175, 13)
-        Me.Label7.TabIndex = 253
-        Me.Label7.Text = "Add explanation to above AND/OR"
         '
         'Panel70
         '
@@ -3595,7 +3596,7 @@ Partial Class IAIPQueryGenerator
         Me.TPSubpartData.Controls.Add(Me.chbPart63Subpart)
         Me.TPSubpartData.Location = New System.Drawing.Point(4, 22)
         Me.TPSubpartData.Name = "TPSubpartData"
-        Me.TPSubpartData.Size = New System.Drawing.Size(788, 363)
+        Me.TPSubpartData.Size = New System.Drawing.Size(731, 363)
         Me.TPSubpartData.TabIndex = 4
         Me.TPSubpartData.Text = "Subpart Data"
         Me.TPSubpartData.UseVisualStyleBackColor = True
@@ -3774,7 +3775,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel23.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel23.Controls.Add(Me.rdbSIPNotEqual)
         Me.Panel23.Controls.Add(Me.rdbSIPEqual)
-        Me.Panel23.Location = New System.Drawing.Point(636, 28)
+        Me.Panel23.Location = New System.Drawing.Point(601, 23)
         Me.Panel23.Name = "Panel23"
         Me.Panel23.Size = New System.Drawing.Size(83, 27)
         Me.Panel23.TabIndex = 275
@@ -3848,7 +3849,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel68.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel68.Controls.Add(Me.rdbPart63NotEqual)
         Me.Panel68.Controls.Add(Me.rdbPart63Equal)
-        Me.Panel68.Location = New System.Drawing.Point(636, 102)
+        Me.Panel68.Location = New System.Drawing.Point(601, 97)
         Me.Panel68.Name = "Panel68"
         Me.Panel68.Size = New System.Drawing.Size(83, 27)
         Me.Panel68.TabIndex = 270
@@ -3880,7 +3881,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel66.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel66.Controls.Add(Me.rdbPart60NotEqual)
         Me.Panel66.Controls.Add(Me.rdbPart60Equal)
-        Me.Panel66.Location = New System.Drawing.Point(636, 78)
+        Me.Panel66.Location = New System.Drawing.Point(601, 73)
         Me.Panel66.Name = "Panel66"
         Me.Panel66.Size = New System.Drawing.Size(83, 27)
         Me.Panel66.TabIndex = 265
@@ -3912,7 +3913,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel64.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel64.Controls.Add(Me.rdbPart61NotEqual)
         Me.Panel64.Controls.Add(Me.rdbPart61Equal)
-        Me.Panel64.Location = New System.Drawing.Point(636, 53)
+        Me.Panel64.Location = New System.Drawing.Point(601, 48)
         Me.Panel64.Name = "Panel64"
         Me.Panel64.Size = New System.Drawing.Size(83, 27)
         Me.Panel64.TabIndex = 260
@@ -4000,7 +4001,7 @@ Partial Class IAIPQueryGenerator
         Me.TPComplianceInfo.Controls.Add(Me.chbSSCPEngineer)
         Me.TPComplianceInfo.Location = New System.Drawing.Point(4, 22)
         Me.TPComplianceInfo.Name = "TPComplianceInfo"
-        Me.TPComplianceInfo.Size = New System.Drawing.Size(788, 363)
+        Me.TPComplianceInfo.Size = New System.Drawing.Size(731, 363)
         Me.TPComplianceInfo.TabIndex = 5
         Me.TPComplianceInfo.Text = "Compliance Info"
         Me.TPComplianceInfo.UseVisualStyleBackColor = True
@@ -4299,68 +4300,203 @@ Partial Class IAIPQueryGenerator
         '
         'TPCannedReports
         '
-        Me.TPCannedReports.Controls.Add(Me.Label8)
-        Me.TPCannedReports.Controls.Add(Me.btnRunPermitContact)
+        Me.TPCannedReports.Controls.Add(Me.lblCannedQueryCount)
+        Me.TPCannedReports.Controls.Add(Me.cboCannedSelection)
+        Me.TPCannedReports.Controls.Add(Me.lblCannedSelection)
+        Me.TPCannedReports.Controls.Add(Me.lblCannedEndDate)
+        Me.TPCannedReports.Controls.Add(Me.lblCannedStartDate)
+        Me.TPCannedReports.Controls.Add(Me.dtpCannedEndDate)
+        Me.TPCannedReports.Controls.Add(Me.dtpCannedStartDate)
+        Me.TPCannedReports.Controls.Add(Me.rdbCannedHistoryClass)
+        Me.TPCannedReports.Controls.Add(Me.rdbCannedHistoryAirProgram)
+        Me.TPCannedReports.Controls.Add(Me.rdbCannedPermitContactData)
+        Me.TPCannedReports.Controls.Add(Me.lblCannedHistoryAirProgram)
+        Me.TPCannedReports.Controls.Add(Me.lblCannedHistoryClass)
+        Me.TPCannedReports.Controls.Add(Me.lblCannedPermitContactData)
+        Me.TPCannedReports.Controls.Add(Me.btnRunCannedReport)
         Me.TPCannedReports.Location = New System.Drawing.Point(4, 22)
         Me.TPCannedReports.Name = "TPCannedReports"
-        Me.TPCannedReports.Size = New System.Drawing.Size(788, 363)
+        Me.TPCannedReports.Size = New System.Drawing.Size(731, 363)
         Me.TPCannedReports.TabIndex = 6
         Me.TPCannedReports.Text = "Canned Reports"
         Me.TPCannedReports.UseVisualStyleBackColor = True
         '
-        'Label8
+        'lblCannedQueryCount
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(51, 23)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(236, 52)
-        Me.Label8.TabIndex = 1
-        Me.Label8.Text = "Report with all facilities" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- Fee Contact first or Permit Contact if no fee" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- La" &
-    "st Permit Issued" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Warning: This report may take a long time to run." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.lblCannedQueryCount.AutoSize = True
+        Me.lblCannedQueryCount.Location = New System.Drawing.Point(121, 123)
+        Me.lblCannedQueryCount.Name = "lblCannedQueryCount"
+        Me.lblCannedQueryCount.Size = New System.Drawing.Size(100, 13)
+        Me.lblCannedQueryCount.TabIndex = 276
+        Me.lblCannedQueryCount.Text = "99999 results found"
         '
-        'btnRunPermitContact
+        'cboCannedSelection
         '
-        Me.btnRunPermitContact.AutoSize = True
-        Me.btnRunPermitContact.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRunPermitContact.Location = New System.Drawing.Point(8, 18)
-        Me.btnRunPermitContact.Name = "btnRunPermitContact"
-        Me.btnRunPermitContact.Size = New System.Drawing.Size(37, 23)
-        Me.btnRunPermitContact.TabIndex = 0
-        Me.btnRunPermitContact.Text = "Run"
-        Me.btnRunPermitContact.UseVisualStyleBackColor = True
+        Me.cboCannedSelection.FormattingEnabled = True
+        Me.cboCannedSelection.Location = New System.Drawing.Point(262, 68)
+        Me.cboCannedSelection.Name = "cboCannedSelection"
+        Me.cboCannedSelection.Size = New System.Drawing.Size(106, 21)
+        Me.cboCannedSelection.TabIndex = 5
         '
-        'GBBasic
+        'lblCannedSelection
         '
-        Me.GBBasic.Controls.Add(Me.lblQueryCount)
-        Me.GBBasic.Controls.Add(Me.btnReset)
-        Me.GBBasic.Controls.Add(Me.Label6)
-        Me.GBBasic.Controls.Add(Me.txtFacilityAIRSNumberOrder)
-        Me.GBBasic.Controls.Add(Me.btnRunSearch)
-        Me.GBBasic.Controls.Add(Me.txtFacilityNameOrder)
-        Me.GBBasic.Controls.Add(Me.Label1)
-        Me.GBBasic.Controls.Add(Me.Label2)
-        Me.GBBasic.Controls.Add(Me.Panel6)
-        Me.GBBasic.Controls.Add(Me.Label3)
-        Me.GBBasic.Controls.Add(Me.Panel35)
-        Me.GBBasic.Controls.Add(Me.chbAIRSNumber)
-        Me.GBBasic.Controls.Add(Me.txtFacilityNameSearch2)
-        Me.GBBasic.Controls.Add(Me.chbFacilityName)
-        Me.GBBasic.Controls.Add(Me.txtFacilityNameSearch1)
-        Me.GBBasic.Controls.Add(Me.txtAIRSNumberSearch1)
-        Me.GBBasic.Controls.Add(Me.Panel36)
-        Me.GBBasic.Controls.Add(Me.txtAIRSNumberSearch2)
-        Me.GBBasic.Controls.Add(Me.Panel37)
-        Me.GBBasic.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GBBasic.Location = New System.Drawing.Point(0, 49)
-        Me.GBBasic.Name = "GBBasic"
-        Me.GBBasic.Size = New System.Drawing.Size(796, 96)
-        Me.GBBasic.TabIndex = 0
-        Me.GBBasic.TabStop = False
+        Me.lblCannedSelection.AutoSize = True
+        Me.lblCannedSelection.Location = New System.Drawing.Point(201, 71)
+        Me.lblCannedSelection.Name = "lblCannedSelection"
+        Me.lblCannedSelection.Size = New System.Drawing.Size(32, 13)
+        Me.lblCannedSelection.TabIndex = 101
+        Me.lblCannedSelection.Text = "Class"
+        '
+        'lblCannedEndDate
+        '
+        Me.lblCannedEndDate.AutoSize = True
+        Me.lblCannedEndDate.Location = New System.Drawing.Point(201, 45)
+        Me.lblCannedEndDate.Name = "lblCannedEndDate"
+        Me.lblCannedEndDate.Size = New System.Drawing.Size(52, 13)
+        Me.lblCannedEndDate.TabIndex = 101
+        Me.lblCannedEndDate.Text = "End Date"
+        '
+        'lblCannedStartDate
+        '
+        Me.lblCannedStartDate.AutoSize = True
+        Me.lblCannedStartDate.Location = New System.Drawing.Point(201, 19)
+        Me.lblCannedStartDate.Name = "lblCannedStartDate"
+        Me.lblCannedStartDate.Size = New System.Drawing.Size(55, 13)
+        Me.lblCannedStartDate.TabIndex = 101
+        Me.lblCannedStartDate.Text = "Start Date"
+        '
+        'dtpCannedEndDate
+        '
+        Me.dtpCannedEndDate.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpCannedEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpCannedEndDate.Location = New System.Drawing.Point(262, 42)
+        Me.dtpCannedEndDate.Name = "dtpCannedEndDate"
+        Me.dtpCannedEndDate.Size = New System.Drawing.Size(106, 20)
+        Me.dtpCannedEndDate.TabIndex = 4
+        Me.dtpCannedEndDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'dtpCannedStartDate
+        '
+        Me.dtpCannedStartDate.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpCannedStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpCannedStartDate.Location = New System.Drawing.Point(262, 16)
+        Me.dtpCannedStartDate.Name = "dtpCannedStartDate"
+        Me.dtpCannedStartDate.Size = New System.Drawing.Size(106, 20)
+        Me.dtpCannedStartDate.TabIndex = 3
+        Me.dtpCannedStartDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'rdbCannedHistoryClass
+        '
+        Me.rdbCannedHistoryClass.AutoSize = True
+        Me.rdbCannedHistoryClass.Checked = True
+        Me.rdbCannedHistoryClass.Location = New System.Drawing.Point(8, 17)
+        Me.rdbCannedHistoryClass.Name = "rdbCannedHistoryClass"
+        Me.rdbCannedHistoryClass.Size = New System.Drawing.Size(129, 17)
+        Me.rdbCannedHistoryClass.TabIndex = 0
+        Me.rdbCannedHistoryClass.TabStop = True
+        Me.rdbCannedHistoryClass.Text = "Historical Class Status"
+        Me.rdbCannedHistoryClass.UseVisualStyleBackColor = True
+        '
+        'rdbCannedHistoryAirProgram
+        '
+        Me.rdbCannedHistoryAirProgram.AutoSize = True
+        Me.rdbCannedHistoryAirProgram.Location = New System.Drawing.Point(8, 43)
+        Me.rdbCannedHistoryAirProgram.Name = "rdbCannedHistoryAirProgram"
+        Me.rdbCannedHistoryAirProgram.Size = New System.Drawing.Size(158, 17)
+        Me.rdbCannedHistoryAirProgram.TabIndex = 1
+        Me.rdbCannedHistoryAirProgram.Text = "Historical Air Program Status"
+        Me.rdbCannedHistoryAirProgram.UseVisualStyleBackColor = True
+        '
+        'rdbCannedPermitContactData
+        '
+        Me.rdbCannedPermitContactData.AutoSize = True
+        Me.rdbCannedPermitContactData.Location = New System.Drawing.Point(8, 69)
+        Me.rdbCannedPermitContactData.Name = "rdbCannedPermitContactData"
+        Me.rdbCannedPermitContactData.Size = New System.Drawing.Size(120, 17)
+        Me.rdbCannedPermitContactData.TabIndex = 2
+        Me.rdbCannedPermitContactData.Text = "Permit/Contact data"
+        Me.rdbCannedPermitContactData.UseVisualStyleBackColor = True
+        '
+        'lblCannedHistoryAirProgram
+        '
+        Me.lblCannedHistoryAirProgram.AutoSize = True
+        Me.lblCannedHistoryAirProgram.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.lblCannedHistoryAirProgram.Location = New System.Drawing.Point(402, 19)
+        Me.lblCannedHistoryAirProgram.MaximumSize = New System.Drawing.Size(250, 0)
+        Me.lblCannedHistoryAirProgram.Name = "lblCannedHistoryAirProgram"
+        Me.lblCannedHistoryAirProgram.Size = New System.Drawing.Size(249, 65)
+        Me.lblCannedHistoryAirProgram.TabIndex = 1
+        Me.lblCannedHistoryAirProgram.Text = "All facilities subject to the selected Air Program at any time during the selecte" &
+    "d date range (inclusive). " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Does not include facilities that were shut down at" &
+    " the time."
+        Me.lblCannedHistoryAirProgram.Visible = False
+        '
+        'lblCannedHistoryClass
+        '
+        Me.lblCannedHistoryClass.AutoSize = True
+        Me.lblCannedHistoryClass.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.lblCannedHistoryClass.Location = New System.Drawing.Point(402, 19)
+        Me.lblCannedHistoryClass.MaximumSize = New System.Drawing.Size(250, 0)
+        Me.lblCannedHistoryClass.Name = "lblCannedHistoryClass"
+        Me.lblCannedHistoryClass.Size = New System.Drawing.Size(241, 65)
+        Me.lblCannedHistoryClass.TabIndex = 1
+        Me.lblCannedHistoryClass.Text = "All facilities with the selected Class at any time during the selected date range" &
+    " (inclusive). " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Does not include facilities that were shut down at the time."
+        '
+        'lblCannedPermitContactData
+        '
+        Me.lblCannedPermitContactData.AutoSize = True
+        Me.lblCannedPermitContactData.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.lblCannedPermitContactData.Location = New System.Drawing.Point(402, 19)
+        Me.lblCannedPermitContactData.MaximumSize = New System.Drawing.Size(250, 0)
+        Me.lblCannedPermitContactData.Name = "lblCannedPermitContactData"
+        Me.lblCannedPermitContactData.Size = New System.Drawing.Size(236, 65)
+        Me.lblCannedPermitContactData.TabIndex = 1
+        Me.lblCannedPermitContactData.Text = "All facilities, with:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- Fee contact if it exists, otherwise permit contact" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- La" &
+    "st permit issued" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Warning: This report may take a long time to run." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.lblCannedPermitContactData.Visible = False
+        '
+        'btnRunCannedReport
+        '
+        Me.btnRunCannedReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnRunCannedReport.Location = New System.Drawing.Point(8, 115)
+        Me.btnRunCannedReport.Name = "btnRunCannedReport"
+        Me.btnRunCannedReport.Size = New System.Drawing.Size(107, 28)
+        Me.btnRunCannedReport.TabIndex = 6
+        Me.btnRunCannedReport.Text = "Run Report"
+        Me.btnRunCannedReport.UseVisualStyleBackColor = True
+        '
+        'BasicSearchGroup
+        '
+        Me.BasicSearchGroup.Controls.Add(Me.lblQueryCount)
+        Me.BasicSearchGroup.Controls.Add(Me.btnReset)
+        Me.BasicSearchGroup.Controls.Add(Me.txtFacilityAIRSNumberOrder)
+        Me.BasicSearchGroup.Controls.Add(Me.btnRunSearch)
+        Me.BasicSearchGroup.Controls.Add(Me.txtFacilityNameOrder)
+        Me.BasicSearchGroup.Controls.Add(Me.Label1)
+        Me.BasicSearchGroup.Controls.Add(Me.Label2)
+        Me.BasicSearchGroup.Controls.Add(Me.Panel6)
+        Me.BasicSearchGroup.Controls.Add(Me.Label3)
+        Me.BasicSearchGroup.Controls.Add(Me.Panel35)
+        Me.BasicSearchGroup.Controls.Add(Me.chbAIRSNumber)
+        Me.BasicSearchGroup.Controls.Add(Me.txtFacilityNameSearch2)
+        Me.BasicSearchGroup.Controls.Add(Me.chbFacilityName)
+        Me.BasicSearchGroup.Controls.Add(Me.txtFacilityNameSearch1)
+        Me.BasicSearchGroup.Controls.Add(Me.txtAIRSNumberSearch1)
+        Me.BasicSearchGroup.Controls.Add(Me.Panel36)
+        Me.BasicSearchGroup.Controls.Add(Me.txtAIRSNumberSearch2)
+        Me.BasicSearchGroup.Controls.Add(Me.Panel37)
+        Me.BasicSearchGroup.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BasicSearchGroup.Location = New System.Drawing.Point(0, 49)
+        Me.BasicSearchGroup.Name = "BasicSearchGroup"
+        Me.BasicSearchGroup.Size = New System.Drawing.Size(739, 96)
+        Me.BasicSearchGroup.TabIndex = 0
+        Me.BasicSearchGroup.TabStop = False
         '
         'lblQueryCount
         '
         Me.lblQueryCount.AutoSize = True
-        Me.lblQueryCount.Location = New System.Drawing.Point(624, 44)
+        Me.lblQueryCount.Location = New System.Drawing.Point(619, 44)
         Me.lblQueryCount.Name = "lblQueryCount"
         Me.lblQueryCount.Size = New System.Drawing.Size(31, 13)
         Me.lblQueryCount.TabIndex = 275
@@ -4373,7 +4509,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveSearchQueryToolStripMenuItem, Me.OpenSavedSearchToolStripMenuItem, Me.ToolStripSeparator1, Me.mmiExport})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
+        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(47, 20)
         Me.ToolsToolStripMenuItem.Text = "&Tools"
         '
         'SaveSearchQueryToolStripMenuItem
@@ -4404,7 +4540,7 @@ Partial Class IAIPQueryGenerator
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolsToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(796, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(739, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -4413,14 +4549,15 @@ Partial Class IAIPQueryGenerator
         Me.AcceptButton = Me.btnRunSearch
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(796, 661)
+        Me.ClientSize = New System.Drawing.Size(739, 661)
         Me.Controls.Add(Me.dgvQueryGenerator)
         Me.Controls.Add(Me.Splitter1)
-        Me.Controls.Add(Me.TCQuerryOptions)
-        Me.Controls.Add(Me.GBBasic)
+        Me.Controls.Add(Me.tcQueryOptions)
+        Me.Controls.Add(Me.BasicSearchGroup)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
+        Me.MinimumSize = New System.Drawing.Size(755, 700)
         Me.Name = "IAIPQueryGenerator"
         Me.Text = "Query Generator"
         Me.ToolStrip1.ResumeLayout(False)
@@ -4432,7 +4569,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel37.ResumeLayout(False)
         Me.Panel37.PerformLayout()
         CType(Me.dgvQueryGenerator, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TCQuerryOptions.ResumeLayout(False)
+        Me.tcQueryOptions.ResumeLayout(False)
         Me.TPPhysicalLocation.ResumeLayout(False)
         Me.TPPhysicalLocation.PerformLayout()
         Me.Panel30.ResumeLayout(False)
@@ -4585,8 +4722,8 @@ Partial Class IAIPQueryGenerator
         Me.Panel69.PerformLayout()
         Me.TPCannedReports.ResumeLayout(False)
         Me.TPCannedReports.PerformLayout()
-        Me.GBBasic.ResumeLayout(False)
-        Me.GBBasic.PerformLayout()
+        Me.BasicSearchGroup.ResumeLayout(False)
+        Me.BasicSearchGroup.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
@@ -4618,14 +4755,13 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents txtAIRSNumberSearch1 As System.Windows.Forms.TextBox
     Friend WithEvents chbFacilityName As System.Windows.Forms.CheckBox
     Friend WithEvents chbAIRSNumber As System.Windows.Forms.CheckBox
-    Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents btnRunSearch As System.Windows.Forms.Button
-    Friend WithEvents GBBasic As System.Windows.Forms.GroupBox
+    Friend WithEvents BasicSearchGroup As System.Windows.Forms.GroupBox
     Friend WithEvents dgvQueryGenerator As System.Windows.Forms.DataGridView
-    Friend WithEvents TCQuerryOptions As System.Windows.Forms.TabControl
+    Friend WithEvents tcQueryOptions As System.Windows.Forms.TabControl
     Friend WithEvents TPPhysicalLocation As System.Windows.Forms.TabPage
     Friend WithEvents TPHeaderInformation As System.Windows.Forms.TabPage
     Friend WithEvents TPAirProgramCodes As System.Windows.Forms.TabPage
@@ -4909,7 +5045,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents Panel70 As System.Windows.Forms.Panel
     Friend WithEvents rdbAPCOr As System.Windows.Forms.RadioButton
     Friend WithEvents rdbAPCAnd As System.Windows.Forms.RadioButton
-    Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents cboSIPSearch2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboSIPSearch1 As System.Windows.Forms.ComboBox
     Friend WithEvents bgwQueryGenerator As System.ComponentModel.BackgroundWorker
@@ -4969,8 +5104,8 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents txtNAICSCodeSearch1 As System.Windows.Forms.TextBox
     Friend WithEvents chbNAICSCode As System.Windows.Forms.CheckBox
     Friend WithEvents TPCannedReports As System.Windows.Forms.TabPage
-    Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents btnRunPermitContact As System.Windows.Forms.Button
+    Friend WithEvents lblCannedPermitContactData As System.Windows.Forms.Label
+    Friend WithEvents btnRunCannedReport As System.Windows.Forms.Button
     Friend WithEvents Panel76 As System.Windows.Forms.Panel
     Friend WithEvents rdbDistrictResponsibleFalse As System.Windows.Forms.RadioButton
     Friend WithEvents rdbDistrictResponsibleTrue As System.Windows.Forms.RadioButton
@@ -4982,4 +5117,16 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents mmiExport As ToolStripMenuItem
     Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents rdbCannedHistoryClass As RadioButton
+    Friend WithEvents rdbCannedHistoryAirProgram As RadioButton
+    Friend WithEvents rdbCannedPermitContactData As RadioButton
+    Friend WithEvents cboCannedSelection As ComboBox
+    Friend WithEvents lblCannedSelection As Label
+    Friend WithEvents lblCannedEndDate As Label
+    Friend WithEvents lblCannedStartDate As Label
+    Friend WithEvents dtpCannedEndDate As DateTimePicker
+    Friend WithEvents dtpCannedStartDate As DateTimePicker
+    Friend WithEvents lblCannedHistoryAirProgram As Label
+    Friend WithEvents lblCannedHistoryClass As Label
+    Friend WithEvents lblCannedQueryCount As Label
 End Class

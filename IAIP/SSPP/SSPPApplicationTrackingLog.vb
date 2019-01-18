@@ -4921,9 +4921,9 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("@OperationalStatus", OperationalStatus),
                 New SqlParameter("@Classification", Classification),
                 New SqlParameter("@AirProgramCodes", AirProgramCodes),
-                New SqlParameter("@SIC", SIC),
-                New SqlParameter("@NAICS", NAICS),
-                    New SqlParameter("@OwnershipTypeCode", OwnershipTypeCode),
+                New SqlParameter("@SIC", RealStringOrNothing(SIC)),
+                New SqlParameter("@NAICS", RealStringOrNothing(NAICS)),
+                New SqlParameter("@OwnershipTypeCode", OwnershipTypeCode),
                 New SqlParameter("@PermitNumber", PermitNumber),
                 New SqlParameter("@PlantDesc", PlantDesc),
                 New SqlParameter("@Comments", Comments),
@@ -6552,7 +6552,7 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@ZipCode", ZipCode),
                     New SqlParameter("@Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
                     New SqlParameter("@UserGCode", CurrentUser.UserID),
-                 New SqlParameter("@airs", AirsId.DbFormattedString)
+                    New SqlParameter("@airs", AirsId.DbFormattedString)
                     })
 
                 queryList.Add("Update APBHeaderData set " &
@@ -6573,13 +6573,13 @@ Public Class SSPPApplicationTrackingLog
                     {New SqlParameter("@OpStatus", OpStatus),
                     New SqlParameter("@Classification", Classification),
                     New SqlParameter("@AirProgramCodes", AirProgramCodes),
-                    New SqlParameter("@SICCode", SICCode),
-                    New SqlParameter("@NAICSCode", NAICSCode),
+                    New SqlParameter("@SICCode", RealStringOrNothing(SICCode)),
+                    New SqlParameter("@NAICSCode", RealStringOrNothing(NAICSCode)),
                     New SqlParameter("@PlantDescription", PlantDescription),
                     New SqlParameter("@StateProgramCodes", StateProgramCodes),
                     New SqlParameter("@Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
                     New SqlParameter("@UserGCode", CurrentUser.UserID),
-                 New SqlParameter("@airs", AirsId.DbFormattedString)
+                    New SqlParameter("@airs", AirsId.DbFormattedString)
                     })
 
                 queryList.Add("update APBSUPPLAMENTALDATA " &
