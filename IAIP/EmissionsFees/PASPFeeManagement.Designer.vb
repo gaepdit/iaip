@@ -22,7 +22,6 @@ Partial Class PASPFeeManagement
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PASPFeeManagement))
         Me.FeeManagementTabControl = New System.Windows.Forms.TabControl()
         Me.TPFeeAdminTools = New System.Windows.Forms.TabPage()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
@@ -372,7 +371,7 @@ Partial Class PASPFeeManagement
         '
         Me.btnReloadFeeRate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnReloadFeeRate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnReloadFeeRate.Image = CType(resources.GetObject("btnReloadFeeRate.Image"), System.Drawing.Image)
+        Me.btnReloadFeeRate.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
         Me.btnReloadFeeRate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnReloadFeeRate.Location = New System.Drawing.Point(903, 3)
         Me.btnReloadFeeRate.Name = "btnReloadFeeRate"
@@ -866,7 +865,7 @@ Partial Class PASPFeeManagement
         'btnRefreshNSPSExemptions
         '
         Me.btnRefreshNSPSExemptions.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRefreshNSPSExemptions.Image = CType(resources.GetObject("btnRefreshNSPSExemptions.Image"), System.Drawing.Image)
+        Me.btnRefreshNSPSExemptions.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
         Me.btnRefreshNSPSExemptions.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnRefreshNSPSExemptions.Location = New System.Drawing.Point(133, 205)
         Me.btnRefreshNSPSExemptions.Name = "btnRefreshNSPSExemptions"

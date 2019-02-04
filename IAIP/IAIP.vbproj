@@ -1209,27 +1209,32 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\SBEAPCaseWork.resx">
       <DependentUpon>SBEAPCaseWork.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\SBEAPClientSummary.resx">
       <DependentUpon>SBEAPClientSummary.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\SBEAPMiscTools.resx">
       <DependentUpon>SBEAPMiscTools.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\SBEAPPhoneLog.resx">
       <DependentUpon>SBEAPPhoneLog.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\SBEAPReports.resx">
       <DependentUpon>SBEAPReports.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\Sub Forms\SBEAPClientSearchTool.resx">
       <DependentUpon>SBEAPClientSearchTool.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SscpDocuments.resx">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SscpEnforcement.resx">
       <DependentUpon>SscpEnforcement.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Fees\crFS_Invoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1589,6 +1594,21 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\ReportIcon.png" />
+    <None Include="Resources\OpenFolderIcon.png" />
+    <None Include="Resources\UploadIcon.png" />
+    <None Include="Resources\MailOpenIcon.png" />
+    <None Include="Resources\PrintIcon.png" />
+    <None Include="Resources\DocumentTextIcon.png" />
+    <None Include="Resources\DocumentConfidentialIcson.png" />
+    <None Include="Resources\DeleteCrossIcon.png" />
+    <None Include="Resources\DocumentCopyIcon.png" />
+    <None Include="Resources\PanelResizeIcon.png" />
+    <None Include="Resources\MoveRightIcon.gif" />
+    <None Include="Resources\MoveLeftIcon.gif" />
+    <None Include="Resources\MoveAllRightIcon.gif" />
+    <None Include="Resources\MoveAllLeftIcon.gif" />
+    <None Include="Resources\DownloadIcon.png" />
     <None Include="Resources\PrintPreviewIcon.png" />
     <None Include="Resources\RefreshIcon.png" />
     <None Include="Resources\SearchIcon.png" />

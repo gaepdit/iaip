@@ -16,7 +16,7 @@ Public Class ISMPTestMemoViewer
 
     End Sub
 
-    Private Sub LoadDataSet(Loading As String)
+    Private Sub LoadDataSet(Loading As Boolean)
         Dim query As String
         Dim SQLLine As String = " "
         Dim SQLLine2 As String = "AND ("
@@ -170,22 +170,6 @@ Public Class ISMPTestMemoViewer
         End Try
     End Sub
 
-    Private Sub TBTestMemoViewer_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBTestMemoViewer.ButtonClick
-        Try
-
-            Select Case TBTestMemoViewer.Buttons.IndexOf(e.Button)
-                Case 0
-                    ResetOptions()
-                Case Else
-                    MsgBox("try clicking again")
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub LLSelectReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
         Try
 
@@ -233,6 +217,5 @@ Public Class ISMPTestMemoViewer
         End Try
 
     End Sub
-
 
 End Class

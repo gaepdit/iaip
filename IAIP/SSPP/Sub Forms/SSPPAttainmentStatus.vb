@@ -550,23 +550,11 @@ Public Class SSPPAttainmentStatus
 
     End Sub
 
-    Private Sub TBAttainmentStatus_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBAttainmentStatus.ButtonClick
-        Try
-
-            Select Case TBAttainmentStatus.Buttons.IndexOf(e.Button)
-                Case 0
-                    SaveOneHourChanges()
-                    SaveEightHourChanges()
-                    SavePMFineChanges()
-                    MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
-            End Select
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+    Private Sub bSave_Click(sender As Object, e As EventArgs) Handles bSave.Click
+        SaveOneHourChanges()
+        SaveEightHourChanges()
+        SavePMFineChanges()
+        MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
     End Sub
 
 #End Region

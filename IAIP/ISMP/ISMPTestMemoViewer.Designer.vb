@@ -45,56 +45,16 @@ Partial Class ISMPTestMemoViewer
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents LLSelectReport As System.Windows.Forms.LinkLabel
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents TBTestMemoViewer As System.Windows.Forms.ToolBar
     Friend WithEvents LLRunSearch As System.Windows.Forms.LinkLabel
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtFilterText1 As System.Windows.Forms.TextBox
     Friend WithEvents Splitter1 As System.Windows.Forms.Splitter
     Friend WithEvents GBFilterAndSortOption As System.Windows.Forms.GroupBox
     Friend WithEvents dgrMemoViewer As System.Windows.Forms.DataGrid
-    Friend WithEvents TbbExit As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbBack As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbReset As System.Windows.Forms.ToolBarButton
-    Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
-    Friend WithEvents MmiHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiShowToolbar As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiReset As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem10 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiPaste As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiCopy As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCut As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiExit As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem9 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
     Private components As System.ComponentModel.IContainer
 
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPTestMemoViewer))
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
-        Me.MmiBack = New System.Windows.Forms.MenuItem()
-        Me.MenuItem9 = New System.Windows.Forms.MenuItem()
-        Me.MmiExit = New System.Windows.Forms.MenuItem()
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
-        Me.mmiCut = New System.Windows.Forms.MenuItem()
-        Me.MmiCopy = New System.Windows.Forms.MenuItem()
-        Me.MmiPaste = New System.Windows.Forms.MenuItem()
-        Me.MenuItem10 = New System.Windows.Forms.MenuItem()
-        Me.MmiReset = New System.Windows.Forms.MenuItem()
-        Me.MenuItem3 = New System.Windows.Forms.MenuItem()
-        Me.mmiShowToolbar = New System.Windows.Forms.MenuItem()
-        Me.MmiHelp = New System.Windows.Forms.MenuItem()
-        Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.TBTestMemoViewer = New System.Windows.Forms.ToolBar()
-        Me.TbbReset = New System.Windows.Forms.ToolBarButton()
-        Me.TbbBack = New System.Windows.Forms.ToolBarButton()
-        Me.TbbExit = New System.Windows.Forms.ToolBarButton()
         Me.dgrMemoViewer = New System.Windows.Forms.DataGrid()
         Me.GBFilterAndSortOption = New System.Windows.Forms.GroupBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -127,196 +87,6 @@ Partial Class ISMPTestMemoViewer
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.MenuItem3, Me.MmiHelp})
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiBack, Me.MenuItem9, Me.MmiExit})
-        Me.MenuItem1.Text = "File"
-        '
-        'MmiBack
-        '
-        Me.MmiBack.Index = 0
-        Me.MmiBack.Text = "Return to Navigation"
-        '
-        'MenuItem9
-        '
-        Me.MenuItem9.Index = 1
-        Me.MenuItem9.Text = "-"
-        '
-        'MmiExit
-        '
-        Me.MmiExit.Index = 2
-        Me.MmiExit.Text = "Exit"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiCut, Me.MmiCopy, Me.MmiPaste, Me.MenuItem10, Me.MmiReset})
-        Me.MenuItem2.Text = "Edit"
-        '
-        'mmiCut
-        '
-        Me.mmiCut.Index = 0
-        Me.mmiCut.Text = "Cut"
-        '
-        'MmiCopy
-        '
-        Me.MmiCopy.Index = 1
-        Me.MmiCopy.Text = "Copy "
-        '
-        'MmiPaste
-        '
-        Me.MmiPaste.Index = 2
-        Me.MmiPaste.Text = "Paste"
-        '
-        'MenuItem10
-        '
-        Me.MenuItem10.Index = 3
-        Me.MenuItem10.Text = "-"
-        '
-        'MmiReset
-        '
-        Me.MmiReset.Index = 4
-        Me.MmiReset.Text = "Reset Options"
-        '
-        'MenuItem3
-        '
-        Me.MenuItem3.Index = 2
-        Me.MenuItem3.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiShowToolbar})
-        Me.MenuItem3.Text = "Tools"
-        '
-        'mmiShowToolbar
-        '
-        Me.mmiShowToolbar.Index = 0
-        Me.mmiShowToolbar.Text = "Show Toolbar"
-        '
-        'MmiHelp
-        '
-        Me.MmiHelp.Index = 3
-        Me.MmiHelp.Text = "Help"
-        '
-        'Image_List_All
-        '
-        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
-        Me.Image_List_All.Images.SetKeyName(0, "")
-        Me.Image_List_All.Images.SetKeyName(1, "")
-        Me.Image_List_All.Images.SetKeyName(2, "")
-        Me.Image_List_All.Images.SetKeyName(3, "")
-        Me.Image_List_All.Images.SetKeyName(4, "")
-        Me.Image_List_All.Images.SetKeyName(5, "")
-        Me.Image_List_All.Images.SetKeyName(6, "")
-        Me.Image_List_All.Images.SetKeyName(7, "")
-        Me.Image_List_All.Images.SetKeyName(8, "")
-        Me.Image_List_All.Images.SetKeyName(9, "")
-        Me.Image_List_All.Images.SetKeyName(10, "")
-        Me.Image_List_All.Images.SetKeyName(11, "")
-        Me.Image_List_All.Images.SetKeyName(12, "")
-        Me.Image_List_All.Images.SetKeyName(13, "")
-        Me.Image_List_All.Images.SetKeyName(14, "")
-        Me.Image_List_All.Images.SetKeyName(15, "")
-        Me.Image_List_All.Images.SetKeyName(16, "")
-        Me.Image_List_All.Images.SetKeyName(17, "")
-        Me.Image_List_All.Images.SetKeyName(18, "")
-        Me.Image_List_All.Images.SetKeyName(19, "")
-        Me.Image_List_All.Images.SetKeyName(20, "")
-        Me.Image_List_All.Images.SetKeyName(21, "")
-        Me.Image_List_All.Images.SetKeyName(22, "")
-        Me.Image_List_All.Images.SetKeyName(23, "")
-        Me.Image_List_All.Images.SetKeyName(24, "")
-        Me.Image_List_All.Images.SetKeyName(25, "")
-        Me.Image_List_All.Images.SetKeyName(26, "")
-        Me.Image_List_All.Images.SetKeyName(27, "")
-        Me.Image_List_All.Images.SetKeyName(28, "")
-        Me.Image_List_All.Images.SetKeyName(29, "")
-        Me.Image_List_All.Images.SetKeyName(30, "")
-        Me.Image_List_All.Images.SetKeyName(31, "")
-        Me.Image_List_All.Images.SetKeyName(32, "")
-        Me.Image_List_All.Images.SetKeyName(33, "")
-        Me.Image_List_All.Images.SetKeyName(34, "")
-        Me.Image_List_All.Images.SetKeyName(35, "")
-        Me.Image_List_All.Images.SetKeyName(36, "")
-        Me.Image_List_All.Images.SetKeyName(37, "")
-        Me.Image_List_All.Images.SetKeyName(38, "")
-        Me.Image_List_All.Images.SetKeyName(39, "")
-        Me.Image_List_All.Images.SetKeyName(40, "")
-        Me.Image_List_All.Images.SetKeyName(41, "")
-        Me.Image_List_All.Images.SetKeyName(42, "")
-        Me.Image_List_All.Images.SetKeyName(43, "")
-        Me.Image_List_All.Images.SetKeyName(44, "")
-        Me.Image_List_All.Images.SetKeyName(45, "")
-        Me.Image_List_All.Images.SetKeyName(46, "")
-        Me.Image_List_All.Images.SetKeyName(47, "")
-        Me.Image_List_All.Images.SetKeyName(48, "")
-        Me.Image_List_All.Images.SetKeyName(49, "")
-        Me.Image_List_All.Images.SetKeyName(50, "")
-        Me.Image_List_All.Images.SetKeyName(51, "")
-        Me.Image_List_All.Images.SetKeyName(52, "")
-        Me.Image_List_All.Images.SetKeyName(53, "")
-        Me.Image_List_All.Images.SetKeyName(54, "")
-        Me.Image_List_All.Images.SetKeyName(55, "")
-        Me.Image_List_All.Images.SetKeyName(56, "")
-        Me.Image_List_All.Images.SetKeyName(57, "")
-        Me.Image_List_All.Images.SetKeyName(58, "")
-        Me.Image_List_All.Images.SetKeyName(59, "")
-        Me.Image_List_All.Images.SetKeyName(60, "")
-        Me.Image_List_All.Images.SetKeyName(61, "")
-        Me.Image_List_All.Images.SetKeyName(62, "")
-        Me.Image_List_All.Images.SetKeyName(63, "")
-        Me.Image_List_All.Images.SetKeyName(64, "")
-        Me.Image_List_All.Images.SetKeyName(65, "")
-        Me.Image_List_All.Images.SetKeyName(66, "")
-        Me.Image_List_All.Images.SetKeyName(67, "")
-        Me.Image_List_All.Images.SetKeyName(68, "")
-        Me.Image_List_All.Images.SetKeyName(69, "")
-        Me.Image_List_All.Images.SetKeyName(70, "")
-        Me.Image_List_All.Images.SetKeyName(71, "")
-        Me.Image_List_All.Images.SetKeyName(72, "")
-        Me.Image_List_All.Images.SetKeyName(73, "")
-        Me.Image_List_All.Images.SetKeyName(74, "")
-        Me.Image_List_All.Images.SetKeyName(75, "")
-        Me.Image_List_All.Images.SetKeyName(76, "")
-        Me.Image_List_All.Images.SetKeyName(77, "")
-        Me.Image_List_All.Images.SetKeyName(78, "")
-        Me.Image_List_All.Images.SetKeyName(79, "")
-        Me.Image_List_All.Images.SetKeyName(80, "")
-        Me.Image_List_All.Images.SetKeyName(81, "")
-        Me.Image_List_All.Images.SetKeyName(82, "")
-        Me.Image_List_All.Images.SetKeyName(83, "")
-        Me.Image_List_All.Images.SetKeyName(84, "")
-        '
-        'TBTestMemoViewer
-        '
-        Me.TBTestMemoViewer.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbReset, Me.TbbBack, Me.TbbExit})
-        Me.TBTestMemoViewer.ButtonSize = New System.Drawing.Size(23, 22)
-        Me.TBTestMemoViewer.DropDownArrows = True
-        Me.TBTestMemoViewer.ImageList = Me.Image_List_All
-        Me.TBTestMemoViewer.Location = New System.Drawing.Point(0, 0)
-        Me.TBTestMemoViewer.Name = "TBTestMemoViewer"
-        Me.TBTestMemoViewer.ShowToolTips = True
-        Me.TBTestMemoViewer.Size = New System.Drawing.Size(950, 28)
-        Me.TBTestMemoViewer.TabIndex = 231
-        '
-        'TbbReset
-        '
-        Me.TbbReset.ImageIndex = 84
-        Me.TbbReset.Name = "TbbReset"
-        '
-        'TbbBack
-        '
-        Me.TbbBack.ImageIndex = 2
-        Me.TbbBack.Name = "TbbBack"
-        '
-        'TbbExit
-        '
-        Me.TbbExit.ImageIndex = 81
-        Me.TbbExit.Name = "TbbExit"
-        Me.TbbExit.Visible = False
-        '
         'dgrMemoViewer
         '
         Me.dgrMemoViewer.DataMember = ""
@@ -339,9 +109,9 @@ Partial Class ISMPTestMemoViewer
         Me.GBFilterAndSortOption.Controls.Add(Me.Label1)
         Me.GBFilterAndSortOption.Controls.Add(Me.txtFilterText1)
         Me.GBFilterAndSortOption.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GBFilterAndSortOption.Location = New System.Drawing.Point(0, 28)
+        Me.GBFilterAndSortOption.Location = New System.Drawing.Point(0, 0)
         Me.GBFilterAndSortOption.Name = "GBFilterAndSortOption"
-        Me.GBFilterAndSortOption.Size = New System.Drawing.Size(950, 258)
+        Me.GBFilterAndSortOption.Size = New System.Drawing.Size(950, 286)
         Me.GBFilterAndSortOption.TabIndex = 236
         Me.GBFilterAndSortOption.TabStop = False
         Me.GBFilterAndSortOption.Text = "Filter Options"
@@ -557,8 +327,6 @@ Partial Class ISMPTestMemoViewer
         Me.Controls.Add(Me.Splitter1)
         Me.Controls.Add(Me.GBFilterAndSortOption)
         Me.Controls.Add(Me.dgrMemoViewer)
-        Me.Controls.Add(Me.TBTestMemoViewer)
-        Me.Menu = Me.MainMenu1
         Me.Name = "ISMPTestMemoViewer"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "ISMP Test Memo Viewer"
@@ -572,7 +340,6 @@ Partial Class ISMPTestMemoViewer
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 

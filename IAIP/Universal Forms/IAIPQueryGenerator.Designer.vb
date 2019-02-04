@@ -22,14 +22,13 @@ Partial Class IAIPQueryGenerator
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPQueryGenerator))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbExport = New System.Windows.Forms.ToolStripButton()
-        Me.tsbSearchQuery = New System.Windows.Forms.ToolStripButton()
         Me.tsbSaveQuery = New System.Windows.Forms.ToolStripButton()
+        Me.tsbSearchQuery = New System.Windows.Forms.ToolStripButton()
         Me.tsbReSizeFilterOptions = New System.Windows.Forms.ToolStripButton()
         Me.btnReset = New System.Windows.Forms.Button()
         Me.txtFacilityAIRSNumberOrder = New System.Windows.Forms.TextBox()
@@ -514,7 +513,7 @@ Partial Class IAIPQueryGenerator
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbExport, Me.tsbSearchQuery, Me.tsbSaveQuery, Me.tsbReSizeFilterOptions})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbExport, Me.tsbSaveQuery, Me.tsbSearchQuery, Me.tsbReSizeFilterOptions})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(739, 25)
@@ -530,28 +529,28 @@ Partial Class IAIPQueryGenerator
         Me.tsbExport.Size = New System.Drawing.Size(23, 22)
         Me.tsbExport.Text = "Export to Excel"
         '
-        'tsbSearchQuery
-        '
-        Me.tsbSearchQuery.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSearchQuery.Image = CType(resources.GetObject("tsbSearchQuery.Image"), System.Drawing.Image)
-        Me.tsbSearchQuery.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbSearchQuery.Name = "tsbSearchQuery"
-        Me.tsbSearchQuery.Size = New System.Drawing.Size(23, 22)
-        Me.tsbSearchQuery.Text = "Open Query"
-        '
         'tsbSaveQuery
         '
         Me.tsbSaveQuery.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSaveQuery.Image = CType(resources.GetObject("tsbSaveQuery.Image"), System.Drawing.Image)
+        Me.tsbSaveQuery.Image = Global.Iaip.My.Resources.Resources.SaveIcon
         Me.tsbSaveQuery.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbSaveQuery.Name = "tsbSaveQuery"
         Me.tsbSaveQuery.Size = New System.Drawing.Size(23, 22)
         Me.tsbSaveQuery.Text = "Save Query"
         '
+        'tsbSearchQuery
+        '
+        Me.tsbSearchQuery.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.tsbSearchQuery.Image = Global.Iaip.My.Resources.Resources.OpenFolderIcon
+        Me.tsbSearchQuery.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbSearchQuery.Name = "tsbSearchQuery"
+        Me.tsbSearchQuery.Size = New System.Drawing.Size(23, 22)
+        Me.tsbSearchQuery.Text = "Open Query"
+        '
         'tsbReSizeFilterOptions
         '
         Me.tsbReSizeFilterOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbReSizeFilterOptions.Image = CType(resources.GetObject("tsbReSizeFilterOptions.Image"), System.Drawing.Image)
+        Me.tsbReSizeFilterOptions.Image = Global.Iaip.My.Resources.Resources.PanelResizeIcon
         Me.tsbReSizeFilterOptions.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbReSizeFilterOptions.Name = "tsbReSizeFilterOptions"
         Me.tsbReSizeFilterOptions.Size = New System.Drawing.Size(23, 22)

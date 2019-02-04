@@ -479,7 +479,7 @@ Public Class ISMPTestReportAdministrative
                 bgw1.RunWorkerAsync()
 
                 If rdbCloseReport.Checked = True Then
-                    TBFacilityInfo.Buttons.Item(0).Enabled = False
+                    SaveToolStripMenuItem.Enabled = False
                 End If
                 Find()
                 MsgBox("Done", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
@@ -725,11 +725,11 @@ Public Class ISMPTestReportAdministrative
                         If dr2.Item("strClosed") = "True" Then
                             rdbOpenReport.Checked = False
                             rdbCloseReport.Checked = True
-                            TBFacilityInfo.Buttons.Item(0).Enabled = False
+                            SaveToolStripMenuItem.Enabled = False
                         Else
                             rdbOpenReport.Checked = True
                             rdbCloseReport.Checked = False
-                            TBFacilityInfo.Buttons.Item(0).Enabled = True
+                            SaveToolStripMenuItem.Enabled = True
                         End If
 
                         If dr2.Item("forDateComplete") <> "04-Jul-1776" Then
@@ -782,7 +782,7 @@ Public Class ISMPTestReportAdministrative
             rdbOpenReport.Checked = True
             rdbCloseReport.Checked = False
             DTPDateClosed.Value = Today
-            TBFacilityInfo.Buttons.Item(0).Enabled = True
+            SaveToolStripMenuItem.Enabled = True
             If cboTestingFirms.SelectedIndex > -1 Then
                 cboTestingFirms.SelectedIndex = 0
             End If
@@ -1665,11 +1665,11 @@ Public Class ISMPTestReportAdministrative
     Private Sub MmiShowToolbar_Click(sender As Object, e As EventArgs) Handles MmiShowToolbar.Click
         Try
 
-            If TBFacilityInfo.Visible = True Then
-                TBFacilityInfo.Visible = False
+            If MenuStrip1.Visible = True Then
+                MenuStrip1.Visible = False
                 MmiShowToolbar.Checked = True
             Else
-                TBFacilityInfo.Visible = True
+                MenuStrip1.Visible = True
                 MmiShowToolbar.Checked = False
             End If
         Catch ex As Exception
@@ -1682,42 +1682,40 @@ Public Class ISMPTestReportAdministrative
 
 #End Region
 
-    Private Sub TBFacilityInfo_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBFacilityInfo.ButtonClick
-        Try
-
-            Dim temp As String
-
-            Select Case TBFacilityInfo.Buttons.IndexOf(e.Button)
-                Case 0
-                    Save()
-                Case 1
-                    temp = InputBox("Enter the Reference Number you are searching for.", "Reference Number Search")
-                    If temp <> "" Then
-                        Clear()
-                        txtReferenceNumber.Text = temp
-                        If cboAIRSNumber.Text = "" Then
-                            txtReferenceNumber.Text = ""
-                            MsgBox("Reference Number does not exist in Database", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
-                        End If
-                    End If
-                Case 2
-                    MoveOn()
-                Case 3
-                    OpenMemo()
-                Case 4
-                    Clear()
-                Case 5
-                    DeleteTestReport()
-            End Select
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
+    Private Sub SaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem.Click
+        Save()
     End Sub
+
+    Private Sub SearchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchToolStripMenuItem.Click
+        Dim temp As String = InputBox("Enter the Reference Number you are searching for.", "Reference Number Search")
+
+        If temp <> "" Then
+            Clear()
+            txtReferenceNumber.Text = temp
+
+            If cboAIRSNumber.Text = "" Then
+                txtReferenceNumber.Text = ""
+                MsgBox("Reference Number does not exist in Database", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
+            End If
+        End If
+    End Sub
+
+    Private Sub OpenTestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenTestToolStripMenuItem.Click
+        MoveOn()
+    End Sub
+
+    Private Sub OpenMemoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenMemoToolStripMenuItem.Click
+        OpenMemo()
+    End Sub
+
+    Private Sub ClearToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearToolStripMenuItem.Click
+        Clear()
+    End Sub
+
+    Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteToolStripMenuItem.Click
+        DeleteTestReport()
+    End Sub
+
     Private Sub dgvFacilityInfo_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvFacilityInfo.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvFacilityInfo.HitTest(e.X, e.Y)
 
@@ -1763,8 +1761,8 @@ Public Class ISMPTestReportAdministrative
     Private Sub rdbCloseReport_CheckedChanged(sender As Object, e As EventArgs) Handles rdbCloseReport.CheckedChanged
         Try
 
-            If rdbCloseReport.Checked = False And TBFacilityInfo.Buttons.Item(0).Enabled = False Then
-                TBFacilityInfo.Buttons.Item(0).Enabled = True
+            If rdbCloseReport.Checked = False And SaveToolStripMenuItem.Enabled = False Then
+                SaveToolStripMenuItem.Enabled = True
             End If
             If rdbCloseReport.Checked = True Then
                 DTPDateClosed.Enabled = True

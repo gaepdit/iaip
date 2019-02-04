@@ -22,7 +22,6 @@ Partial Class PASPFeeAuditLog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PASPFeeAuditLog))
         Me.TabControl3 = New System.Windows.Forms.TabControl()
         Me.TPGECOSubmittal = New System.Windows.Forms.TabPage()
         Me.dgvInvoiceData = New System.Windows.Forms.DataGridView()
@@ -532,7 +531,7 @@ Partial Class PASPFeeAuditLog
         Me.TPGECOSubmittal.Location = New System.Drawing.Point(4, 22)
         Me.TPGECOSubmittal.Name = "TPGECOSubmittal"
         Me.TPGECOSubmittal.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPGECOSubmittal.Size = New System.Drawing.Size(979, 457)
+        Me.TPGECOSubmittal.Size = New System.Drawing.Size(989, 444)
         Me.TPGECOSubmittal.TabIndex = 1
         Me.TPGECOSubmittal.Text = "GECO Submittal"
         Me.TPGECOSubmittal.UseVisualStyleBackColor = True
@@ -544,7 +543,7 @@ Partial Class PASPFeeAuditLog
         Me.dgvInvoiceData.Location = New System.Drawing.Point(3, 254)
         Me.dgvInvoiceData.Name = "dgvInvoiceData"
         Me.dgvInvoiceData.ReadOnly = True
-        Me.dgvInvoiceData.Size = New System.Drawing.Size(973, 200)
+        Me.dgvInvoiceData.Size = New System.Drawing.Size(983, 187)
         Me.dgvInvoiceData.TabIndex = 478
         '
         'Panel7
@@ -603,7 +602,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel7.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel7.Location = New System.Drawing.Point(3, 3)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(973, 251)
+        Me.Panel7.Size = New System.Drawing.Size(983, 251)
         Me.Panel7.TabIndex = 477
         '
         'llbAuditPerformed
@@ -1098,7 +1097,7 @@ Partial Class PASPFeeAuditLog
         Me.TPGECOSubmittalContact.Controls.Add(Me.Panel16)
         Me.TPGECOSubmittalContact.Location = New System.Drawing.Point(4, 22)
         Me.TPGECOSubmittalContact.Name = "TPGECOSubmittalContact"
-        Me.TPGECOSubmittalContact.Size = New System.Drawing.Size(979, 457)
+        Me.TPGECOSubmittalContact.Size = New System.Drawing.Size(989, 444)
         Me.TPGECOSubmittalContact.TabIndex = 2
         Me.TPGECOSubmittalContact.Text = "GECO Submittal Contact"
         Me.TPGECOSubmittalContact.UseVisualStyleBackColor = True
@@ -1110,7 +1109,7 @@ Partial Class PASPFeeAuditLog
         Me.dgvGECOFeeContacts.Location = New System.Drawing.Point(0, 156)
         Me.dgvGECOFeeContacts.Name = "dgvGECOFeeContacts"
         Me.dgvGECOFeeContacts.ReadOnly = True
-        Me.dgvGECOFeeContacts.Size = New System.Drawing.Size(979, 301)
+        Me.dgvGECOFeeContacts.Size = New System.Drawing.Size(989, 288)
         Me.dgvGECOFeeContacts.TabIndex = 481
         '
         'Panel16
@@ -1145,7 +1144,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel16.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel16.Location = New System.Drawing.Point(0, 0)
         Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(979, 156)
+        Me.Panel16.Size = New System.Drawing.Size(989, 156)
         Me.Panel16.TabIndex = 489
         '
         'txtGECOContactSalutation
@@ -1394,7 +1393,7 @@ Partial Class PASPFeeAuditLog
         Me.TPInvoices.Controls.Add(Me.Panel31)
         Me.TPInvoices.Location = New System.Drawing.Point(4, 22)
         Me.TPInvoices.Name = "TPInvoices"
-        Me.TPInvoices.Size = New System.Drawing.Size(979, 457)
+        Me.TPInvoices.Size = New System.Drawing.Size(989, 444)
         Me.TPInvoices.TabIndex = 5
         Me.TPInvoices.Text = "Invoices"
         Me.TPInvoices.UseVisualStyleBackColor = True
@@ -1405,7 +1404,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel32.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel32.Location = New System.Drawing.Point(473, 0)
         Me.Panel32.Name = "Panel32"
-        Me.Panel32.Size = New System.Drawing.Size(506, 457)
+        Me.Panel32.Size = New System.Drawing.Size(516, 444)
         Me.Panel32.TabIndex = 1
         '
         'crFeeStatsAndInvoices
@@ -1421,7 +1420,7 @@ Partial Class PASPFeeAuditLog
         Me.crFeeStatsAndInvoices.ShowGroupTreeButton = False
         Me.crFeeStatsAndInvoices.ShowRefreshButton = False
         Me.crFeeStatsAndInvoices.ShowTextSearchButton = False
-        Me.crFeeStatsAndInvoices.Size = New System.Drawing.Size(506, 457)
+        Me.crFeeStatsAndInvoices.Size = New System.Drawing.Size(516, 444)
         Me.crFeeStatsAndInvoices.TabIndex = 0
         Me.crFeeStatsAndInvoices.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
         Me.crFeeStatsAndInvoices.ViewTimeSelectionFormula = ""
@@ -1433,7 +1432,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel31.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel31.Location = New System.Drawing.Point(0, 0)
         Me.Panel31.Name = "Panel31"
-        Me.Panel31.Size = New System.Drawing.Size(473, 457)
+        Me.Panel31.Size = New System.Drawing.Size(473, 444)
         Me.Panel31.TabIndex = 0
         '
         'Panel33
@@ -1442,7 +1441,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel33.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel33.Location = New System.Drawing.Point(0, 280)
         Me.Panel33.Name = "Panel33"
-        Me.Panel33.Size = New System.Drawing.Size(473, 177)
+        Me.Panel33.Size = New System.Drawing.Size(473, 164)
         Me.Panel33.TabIndex = 0
         '
         'dgvInvoices
@@ -1452,7 +1451,7 @@ Partial Class PASPFeeAuditLog
         Me.dgvInvoices.Location = New System.Drawing.Point(0, 0)
         Me.dgvInvoices.Name = "dgvInvoices"
         Me.dgvInvoices.ReadOnly = True
-        Me.dgvInvoices.Size = New System.Drawing.Size(473, 177)
+        Me.dgvInvoices.Size = New System.Drawing.Size(473, 164)
         Me.dgvInvoices.TabIndex = 0
         '
         'Panel34
@@ -1792,7 +1791,7 @@ Partial Class PASPFeeAuditLog
         Me.TPTransactions.Controls.Add(Me.Panel9)
         Me.TPTransactions.Location = New System.Drawing.Point(4, 22)
         Me.TPTransactions.Name = "TPTransactions"
-        Me.TPTransactions.Size = New System.Drawing.Size(979, 457)
+        Me.TPTransactions.Size = New System.Drawing.Size(989, 444)
         Me.TPTransactions.TabIndex = 3
         Me.TPTransactions.Text = "Transactions"
         Me.TPTransactions.UseVisualStyleBackColor = True
@@ -1804,7 +1803,7 @@ Partial Class PASPFeeAuditLog
         Me.dgvTransactions.Location = New System.Drawing.Point(0, 226)
         Me.dgvTransactions.Name = "dgvTransactions"
         Me.dgvTransactions.ReadOnly = True
-        Me.dgvTransactions.Size = New System.Drawing.Size(979, 231)
+        Me.dgvTransactions.Size = New System.Drawing.Size(989, 218)
         Me.dgvTransactions.TabIndex = 506
         '
         'Panel9
@@ -1849,7 +1848,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel9.Location = New System.Drawing.Point(0, 0)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(979, 226)
+        Me.Panel9.Size = New System.Drawing.Size(989, 226)
         Me.Panel9.TabIndex = 505
         '
         'chbChangeInvoiceNumber
@@ -2238,7 +2237,7 @@ Partial Class PASPFeeAuditLog
         Me.TPInvoiceSpecific.Location = New System.Drawing.Point(4, 22)
         Me.TPInvoiceSpecific.Name = "TPInvoiceSpecific"
         Me.TPInvoiceSpecific.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPInvoiceSpecific.Size = New System.Drawing.Size(624, 409)
+        Me.TPInvoiceSpecific.Size = New System.Drawing.Size(634, 418)
         Me.TPInvoiceSpecific.TabIndex = 0
         Me.TPInvoiceSpecific.Text = "Invoice Specific Data"
         Me.TPInvoiceSpecific.UseVisualStyleBackColor = True
@@ -2249,7 +2248,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel23.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel23.Location = New System.Drawing.Point(3, 3)
         Me.Panel23.Name = "Panel23"
-        Me.Panel23.Size = New System.Drawing.Size(618, 403)
+        Me.Panel23.Size = New System.Drawing.Size(628, 412)
         Me.Panel23.TabIndex = 0
         '
         'pnlInvoiceData
@@ -2320,7 +2319,7 @@ Partial Class PASPFeeAuditLog
         Me.pnlInvoiceData.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlInvoiceData.Location = New System.Drawing.Point(0, 0)
         Me.pnlInvoiceData.Name = "pnlInvoiceData"
-        Me.pnlInvoiceData.Size = New System.Drawing.Size(618, 403)
+        Me.pnlInvoiceData.Size = New System.Drawing.Size(628, 412)
         Me.pnlInvoiceData.TabIndex = 478
         '
         'Panel6
@@ -2870,7 +2869,7 @@ Partial Class PASPFeeAuditLog
         Me.TPFacilitySpecific.Location = New System.Drawing.Point(4, 22)
         Me.TPFacilitySpecific.Name = "TPFacilitySpecific"
         Me.TPFacilitySpecific.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPFacilitySpecific.Size = New System.Drawing.Size(653, 431)
+        Me.TPFacilitySpecific.Size = New System.Drawing.Size(634, 418)
         Me.TPFacilitySpecific.TabIndex = 1
         Me.TPFacilitySpecific.Text = "Facility Specific Data"
         Me.TPFacilitySpecific.UseVisualStyleBackColor = True
@@ -2881,7 +2880,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel30.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel30.Location = New System.Drawing.Point(383, 205)
         Me.Panel30.Name = "Panel30"
-        Me.Panel30.Size = New System.Drawing.Size(267, 223)
+        Me.Panel30.Size = New System.Drawing.Size(248, 210)
         Me.Panel30.TabIndex = 480
         '
         'dgvEditExemptions
@@ -2892,7 +2891,7 @@ Partial Class PASPFeeAuditLog
         Me.dgvEditExemptions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEditExemptions.Location = New System.Drawing.Point(6, 3)
         Me.dgvEditExemptions.Name = "dgvEditExemptions"
-        Me.dgvEditExemptions.Size = New System.Drawing.Size(250, 208)
+        Me.dgvEditExemptions.Size = New System.Drawing.Size(231, 195)
         Me.dgvEditExemptions.TabIndex = 596
         '
         'pnlFacilityData2
@@ -2909,7 +2908,7 @@ Partial Class PASPFeeAuditLog
         Me.pnlFacilityData2.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlFacilityData2.Location = New System.Drawing.Point(383, 3)
         Me.pnlFacilityData2.Name = "pnlFacilityData2"
-        Me.pnlFacilityData2.Size = New System.Drawing.Size(267, 202)
+        Me.pnlFacilityData2.Size = New System.Drawing.Size(248, 202)
         Me.pnlFacilityData2.TabIndex = 479
         '
         'Label156
@@ -3119,7 +3118,7 @@ Partial Class PASPFeeAuditLog
         Me.pnlFacilityData.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlFacilityData.Location = New System.Drawing.Point(3, 3)
         Me.pnlFacilityData.Name = "pnlFacilityData"
-        Me.pnlFacilityData.Size = New System.Drawing.Size(380, 425)
+        Me.pnlFacilityData.Size = New System.Drawing.Size(380, 412)
         Me.pnlFacilityData.TabIndex = 2
         '
         'Label113
@@ -4339,7 +4338,7 @@ Partial Class PASPFeeAuditLog
         'ReloadButton
         '
         Me.ReloadButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ReloadButton.Image = CType(resources.GetObject("ReloadButton.Image"), System.Drawing.Image)
+        Me.ReloadButton.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
         Me.ReloadButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ReloadButton.Location = New System.Drawing.Point(245, 9)
         Me.ReloadButton.Name = "ReloadButton"

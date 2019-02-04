@@ -20,7 +20,6 @@ Partial Class SSPPApplicationTrackingLog
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPApplicationTrackingLog))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshAIRSNo = New System.Windows.Forms.Button()
@@ -885,7 +884,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPEditAll.AutoSize = True
         Me.btnSIPEditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPEditAll.Image = CType(resources.GetObject("btnSIPEditAll.Image"), System.Drawing.Image)
+        Me.btnSIPEditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnSIPEditAll.Location = New System.Drawing.Point(6, 148)
         Me.btnSIPEditAll.Name = "btnSIPEditAll"
         Me.btnSIPEditAll.Size = New System.Drawing.Size(30, 28)
@@ -896,7 +895,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPUneditAll.AutoSize = True
         Me.btnSIPUneditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPUneditAll.Image = CType(resources.GetObject("btnSIPUneditAll.Image"), System.Drawing.Image)
+        Me.btnSIPUneditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnSIPUneditAll.Location = New System.Drawing.Point(6, 184)
         Me.btnSIPUneditAll.Name = "btnSIPUneditAll"
         Me.btnSIPUneditAll.Size = New System.Drawing.Size(30, 28)
@@ -918,7 +917,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPUnedit.AutoSize = True
         Me.btnSIPUnedit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPUnedit.Image = CType(resources.GetObject("btnSIPUnedit.Image"), System.Drawing.Image)
+        Me.btnSIPUnedit.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnSIPUnedit.Location = New System.Drawing.Point(6, 92)
         Me.btnSIPUnedit.Name = "btnSIPUnedit"
         Me.btnSIPUnedit.Size = New System.Drawing.Size(30, 28)
@@ -929,7 +928,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPEdit.AutoSize = True
         Me.btnSIPEdit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPEdit.Image = CType(resources.GetObject("btnSIPEdit.Image"), System.Drawing.Image)
+        Me.btnSIPEdit.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnSIPEdit.Location = New System.Drawing.Point(6, 48)
         Me.btnSIPEdit.Name = "btnSIPEdit"
         Me.btnSIPEdit.Size = New System.Drawing.Size(30, 28)
@@ -984,7 +983,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPDelete.AutoSize = True
         Me.btnSIPDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPDelete.Image = CType(resources.GetObject("btnSIPDelete.Image"), System.Drawing.Image)
+        Me.btnSIPDelete.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnSIPDelete.Location = New System.Drawing.Point(190, 46)
         Me.btnSIPDelete.Name = "btnSIPDelete"
         Me.btnSIPDelete.Size = New System.Drawing.Size(30, 28)
@@ -995,7 +994,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPUndeleteAll.AutoSize = True
         Me.btnSIPUndeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPUndeleteAll.Image = CType(resources.GetObject("btnSIPUndeleteAll.Image"), System.Drawing.Image)
+        Me.btnSIPUndeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnSIPUndeleteAll.Location = New System.Drawing.Point(190, 182)
         Me.btnSIPUndeleteAll.Name = "btnSIPUndeleteAll"
         Me.btnSIPUndeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -1006,7 +1005,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPDeleteAll.AutoSize = True
         Me.btnSIPDeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPDeleteAll.Image = CType(resources.GetObject("btnSIPDeleteAll.Image"), System.Drawing.Image)
+        Me.btnSIPDeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnSIPDeleteAll.Location = New System.Drawing.Point(190, 146)
         Me.btnSIPDeleteAll.Name = "btnSIPDeleteAll"
         Me.btnSIPDeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -1017,7 +1016,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPUndelete.AutoSize = True
         Me.btnSIPUndelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPUndelete.Image = CType(resources.GetObject("btnSIPUndelete.Image"), System.Drawing.Image)
+        Me.btnSIPUndelete.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnSIPUndelete.Location = New System.Drawing.Point(190, 90)
         Me.btnSIPUndelete.Name = "btnSIPUndelete"
         Me.btnSIPUndelete.Size = New System.Drawing.Size(30, 28)
@@ -1159,7 +1158,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSEditAll.AutoSize = True
         Me.btnNSPSEditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSEditAll.Image = CType(resources.GetObject("btnNSPSEditAll.Image"), System.Drawing.Image)
+        Me.btnNSPSEditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnNSPSEditAll.Location = New System.Drawing.Point(6, 148)
         Me.btnNSPSEditAll.Name = "btnNSPSEditAll"
         Me.btnNSPSEditAll.Size = New System.Drawing.Size(30, 28)
@@ -1170,7 +1169,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSUneditAll.AutoSize = True
         Me.btnNSPSUneditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSUneditAll.Image = CType(resources.GetObject("btnNSPSUneditAll.Image"), System.Drawing.Image)
+        Me.btnNSPSUneditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnNSPSUneditAll.Location = New System.Drawing.Point(6, 184)
         Me.btnNSPSUneditAll.Name = "btnNSPSUneditAll"
         Me.btnNSPSUneditAll.Size = New System.Drawing.Size(30, 28)
@@ -1192,7 +1191,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSUnedit.AutoSize = True
         Me.btnNSPSUnedit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSUnedit.Image = CType(resources.GetObject("btnNSPSUnedit.Image"), System.Drawing.Image)
+        Me.btnNSPSUnedit.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnNSPSUnedit.Location = New System.Drawing.Point(6, 92)
         Me.btnNSPSUnedit.Name = "btnNSPSUnedit"
         Me.btnNSPSUnedit.Size = New System.Drawing.Size(30, 28)
@@ -1203,7 +1202,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSEdit.AutoSize = True
         Me.btnNSPSEdit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSEdit.Image = CType(resources.GetObject("btnNSPSEdit.Image"), System.Drawing.Image)
+        Me.btnNSPSEdit.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnNSPSEdit.Location = New System.Drawing.Point(6, 48)
         Me.btnNSPSEdit.Name = "btnNSPSEdit"
         Me.btnNSPSEdit.Size = New System.Drawing.Size(30, 28)
@@ -1258,7 +1257,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSDelete.AutoSize = True
         Me.btnNSPSDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSDelete.Image = CType(resources.GetObject("btnNSPSDelete.Image"), System.Drawing.Image)
+        Me.btnNSPSDelete.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnNSPSDelete.Location = New System.Drawing.Point(190, 46)
         Me.btnNSPSDelete.Name = "btnNSPSDelete"
         Me.btnNSPSDelete.Size = New System.Drawing.Size(30, 28)
@@ -1269,7 +1268,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSUndeleteAll.AutoSize = True
         Me.btnNSPSUndeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSUndeleteAll.Image = CType(resources.GetObject("btnNSPSUndeleteAll.Image"), System.Drawing.Image)
+        Me.btnNSPSUndeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnNSPSUndeleteAll.Location = New System.Drawing.Point(190, 182)
         Me.btnNSPSUndeleteAll.Name = "btnNSPSUndeleteAll"
         Me.btnNSPSUndeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -1280,7 +1279,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSDeleteAll.AutoSize = True
         Me.btnNSPSDeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSDeleteAll.Image = CType(resources.GetObject("btnNSPSDeleteAll.Image"), System.Drawing.Image)
+        Me.btnNSPSDeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnNSPSDeleteAll.Location = New System.Drawing.Point(190, 146)
         Me.btnNSPSDeleteAll.Name = "btnNSPSDeleteAll"
         Me.btnNSPSDeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -1291,7 +1290,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSUndelete.AutoSize = True
         Me.btnNSPSUndelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSUndelete.Image = CType(resources.GetObject("btnNSPSUndelete.Image"), System.Drawing.Image)
+        Me.btnNSPSUndelete.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnNSPSUndelete.Location = New System.Drawing.Point(190, 90)
         Me.btnNSPSUndelete.Name = "btnNSPSUndelete"
         Me.btnNSPSUndelete.Size = New System.Drawing.Size(30, 28)
@@ -1434,7 +1433,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPEditAll.AutoSize = True
         Me.btnNESHAPEditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPEditAll.Image = CType(resources.GetObject("btnNESHAPEditAll.Image"), System.Drawing.Image)
+        Me.btnNESHAPEditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnNESHAPEditAll.Location = New System.Drawing.Point(6, 148)
         Me.btnNESHAPEditAll.Name = "btnNESHAPEditAll"
         Me.btnNESHAPEditAll.Size = New System.Drawing.Size(30, 28)
@@ -1445,7 +1444,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPUneditAll.AutoSize = True
         Me.btnNESHAPUneditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPUneditAll.Image = CType(resources.GetObject("btnNESHAPUneditAll.Image"), System.Drawing.Image)
+        Me.btnNESHAPUneditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnNESHAPUneditAll.Location = New System.Drawing.Point(6, 184)
         Me.btnNESHAPUneditAll.Name = "btnNESHAPUneditAll"
         Me.btnNESHAPUneditAll.Size = New System.Drawing.Size(30, 28)
@@ -1467,7 +1466,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPUnedit.AutoSize = True
         Me.btnNESHAPUnedit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPUnedit.Image = CType(resources.GetObject("btnNESHAPUnedit.Image"), System.Drawing.Image)
+        Me.btnNESHAPUnedit.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnNESHAPUnedit.Location = New System.Drawing.Point(6, 92)
         Me.btnNESHAPUnedit.Name = "btnNESHAPUnedit"
         Me.btnNESHAPUnedit.Size = New System.Drawing.Size(30, 28)
@@ -1478,7 +1477,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPEdit.AutoSize = True
         Me.btnNESHAPEdit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPEdit.Image = CType(resources.GetObject("btnNESHAPEdit.Image"), System.Drawing.Image)
+        Me.btnNESHAPEdit.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnNESHAPEdit.Location = New System.Drawing.Point(6, 48)
         Me.btnNESHAPEdit.Name = "btnNESHAPEdit"
         Me.btnNESHAPEdit.Size = New System.Drawing.Size(30, 28)
@@ -1533,7 +1532,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPDelete.AutoSize = True
         Me.btnNESHAPDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPDelete.Image = CType(resources.GetObject("btnNESHAPDelete.Image"), System.Drawing.Image)
+        Me.btnNESHAPDelete.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnNESHAPDelete.Location = New System.Drawing.Point(190, 46)
         Me.btnNESHAPDelete.Name = "btnNESHAPDelete"
         Me.btnNESHAPDelete.Size = New System.Drawing.Size(30, 28)
@@ -1544,7 +1543,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPUndeleteAll.AutoSize = True
         Me.btnNESHAPUndeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPUndeleteAll.Image = CType(resources.GetObject("btnNESHAPUndeleteAll.Image"), System.Drawing.Image)
+        Me.btnNESHAPUndeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnNESHAPUndeleteAll.Location = New System.Drawing.Point(190, 182)
         Me.btnNESHAPUndeleteAll.Name = "btnNESHAPUndeleteAll"
         Me.btnNESHAPUndeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -1555,7 +1554,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPDeleteAll.AutoSize = True
         Me.btnNESHAPDeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPDeleteAll.Image = CType(resources.GetObject("btnNESHAPDeleteAll.Image"), System.Drawing.Image)
+        Me.btnNESHAPDeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnNESHAPDeleteAll.Location = New System.Drawing.Point(190, 146)
         Me.btnNESHAPDeleteAll.Name = "btnNESHAPDeleteAll"
         Me.btnNESHAPDeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -1566,7 +1565,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPUndelete.AutoSize = True
         Me.btnNESHAPUndelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPUndelete.Image = CType(resources.GetObject("btnNESHAPUndelete.Image"), System.Drawing.Image)
+        Me.btnNESHAPUndelete.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnNESHAPUndelete.Location = New System.Drawing.Point(190, 90)
         Me.btnNESHAPUndelete.Name = "btnNESHAPUndelete"
         Me.btnNESHAPUndelete.Size = New System.Drawing.Size(30, 28)
@@ -1708,7 +1707,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTEditAll.AutoSize = True
         Me.btnMACTEditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTEditAll.Image = CType(resources.GetObject("btnMACTEditAll.Image"), System.Drawing.Image)
+        Me.btnMACTEditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnMACTEditAll.Location = New System.Drawing.Point(6, 148)
         Me.btnMACTEditAll.Name = "btnMACTEditAll"
         Me.btnMACTEditAll.Size = New System.Drawing.Size(30, 28)
@@ -1719,7 +1718,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTUneditAll.AutoSize = True
         Me.btnMACTUneditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTUneditAll.Image = CType(resources.GetObject("btnMACTUneditAll.Image"), System.Drawing.Image)
+        Me.btnMACTUneditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnMACTUneditAll.Location = New System.Drawing.Point(6, 184)
         Me.btnMACTUneditAll.Name = "btnMACTUneditAll"
         Me.btnMACTUneditAll.Size = New System.Drawing.Size(30, 28)
@@ -1741,7 +1740,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTUnedit.AutoSize = True
         Me.btnMACTUnedit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTUnedit.Image = CType(resources.GetObject("btnMACTUnedit.Image"), System.Drawing.Image)
+        Me.btnMACTUnedit.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnMACTUnedit.Location = New System.Drawing.Point(6, 92)
         Me.btnMACTUnedit.Name = "btnMACTUnedit"
         Me.btnMACTUnedit.Size = New System.Drawing.Size(30, 28)
@@ -1752,7 +1751,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTEdit.AutoSize = True
         Me.btnMACTEdit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTEdit.Image = CType(resources.GetObject("btnMACTEdit.Image"), System.Drawing.Image)
+        Me.btnMACTEdit.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnMACTEdit.Location = New System.Drawing.Point(6, 48)
         Me.btnMACTEdit.Name = "btnMACTEdit"
         Me.btnMACTEdit.Size = New System.Drawing.Size(30, 28)
@@ -1807,7 +1806,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTDelete.AutoSize = True
         Me.btnMACTDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTDelete.Image = CType(resources.GetObject("btnMACTDelete.Image"), System.Drawing.Image)
+        Me.btnMACTDelete.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnMACTDelete.Location = New System.Drawing.Point(190, 46)
         Me.btnMACTDelete.Name = "btnMACTDelete"
         Me.btnMACTDelete.Size = New System.Drawing.Size(30, 28)
@@ -1818,7 +1817,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTUndeleteAll.AutoSize = True
         Me.btnMACTUndeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTUndeleteAll.Image = CType(resources.GetObject("btnMACTUndeleteAll.Image"), System.Drawing.Image)
+        Me.btnMACTUndeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnMACTUndeleteAll.Location = New System.Drawing.Point(190, 182)
         Me.btnMACTUndeleteAll.Name = "btnMACTUndeleteAll"
         Me.btnMACTUndeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -1829,7 +1828,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTDeleteAll.AutoSize = True
         Me.btnMACTDeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTDeleteAll.Image = CType(resources.GetObject("btnMACTDeleteAll.Image"), System.Drawing.Image)
+        Me.btnMACTDeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnMACTDeleteAll.Location = New System.Drawing.Point(190, 146)
         Me.btnMACTDeleteAll.Name = "btnMACTDeleteAll"
         Me.btnMACTDeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -1840,7 +1839,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTUndelete.AutoSize = True
         Me.btnMACTUndelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTUndelete.Image = CType(resources.GetObject("btnMACTUndelete.Image"), System.Drawing.Image)
+        Me.btnMACTUndelete.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnMACTUndelete.Location = New System.Drawing.Point(190, 90)
         Me.btnMACTUndelete.Name = "btnMACTUndelete"
         Me.btnMACTUndelete.Size = New System.Drawing.Size(30, 28)
@@ -1942,7 +1941,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnTVFinalDownload
         '
-        Me.btnTVFinalDownload.Image = CType(resources.GetObject("btnTVFinalDownload.Image"), System.Drawing.Image)
+        Me.btnTVFinalDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnTVFinalDownload.Location = New System.Drawing.Point(623, 166)
         Me.btnTVFinalDownload.Name = "btnTVFinalDownload"
         Me.btnTVFinalDownload.Size = New System.Drawing.Size(24, 23)
@@ -1952,7 +1951,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnTVPublicNoticeDownload
         '
-        Me.btnTVPublicNoticeDownload.Image = CType(resources.GetObject("btnTVPublicNoticeDownload.Image"), System.Drawing.Image)
+        Me.btnTVPublicNoticeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnTVPublicNoticeDownload.Location = New System.Drawing.Point(623, 113)
         Me.btnTVPublicNoticeDownload.Name = "btnTVPublicNoticeDownload"
         Me.btnTVPublicNoticeDownload.Size = New System.Drawing.Size(24, 23)
@@ -1962,7 +1961,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnTVDraftDownload
         '
-        Me.btnTVDraftDownload.Image = CType(resources.GetObject("btnTVDraftDownload.Image"), System.Drawing.Image)
+        Me.btnTVDraftDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnTVDraftDownload.Location = New System.Drawing.Point(623, 58)
         Me.btnTVDraftDownload.Name = "btnTVDraftDownload"
         Me.btnTVDraftDownload.Size = New System.Drawing.Size(24, 23)
@@ -1972,7 +1971,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnTVNarrativeDownload
         '
-        Me.btnTVNarrativeDownload.Image = CType(resources.GetObject("btnTVNarrativeDownload.Image"), System.Drawing.Image)
+        Me.btnTVNarrativeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnTVNarrativeDownload.Location = New System.Drawing.Point(623, 4)
         Me.btnTVNarrativeDownload.Name = "btnTVNarrativeDownload"
         Me.btnTVNarrativeDownload.Size = New System.Drawing.Size(24, 23)
@@ -2329,7 +2328,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDNarrativeDownload
         '
-        Me.btnPSDNarrativeDownload.Image = CType(resources.GetObject("btnPSDNarrativeDownload.Image"), System.Drawing.Image)
+        Me.btnPSDNarrativeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDNarrativeDownload.Location = New System.Drawing.Point(623, 114)
         Me.btnPSDNarrativeDownload.Name = "btnPSDNarrativeDownload"
         Me.btnPSDNarrativeDownload.Size = New System.Drawing.Size(24, 23)
@@ -2407,7 +2406,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDPublicNoticeDownload
         '
-        Me.btnPSDPublicNoticeDownload.Image = CType(resources.GetObject("btnPSDPublicNoticeDownload.Image"), System.Drawing.Image)
+        Me.btnPSDPublicNoticeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDPublicNoticeDownload.Location = New System.Drawing.Point(623, 225)
         Me.btnPSDPublicNoticeDownload.Name = "btnPSDPublicNoticeDownload"
         Me.btnPSDPublicNoticeDownload.Size = New System.Drawing.Size(24, 23)
@@ -2417,7 +2416,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDDraftPermitDownload
         '
-        Me.btnPSDDraftPermitDownload.Image = CType(resources.GetObject("btnPSDDraftPermitDownload.Image"), System.Drawing.Image)
+        Me.btnPSDDraftPermitDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDDraftPermitDownload.Location = New System.Drawing.Point(623, 169)
         Me.btnPSDDraftPermitDownload.Name = "btnPSDDraftPermitDownload"
         Me.btnPSDDraftPermitDownload.Size = New System.Drawing.Size(24, 23)
@@ -2427,7 +2426,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDPrelimDetDownload
         '
-        Me.btnPSDPrelimDetDownload.Image = CType(resources.GetObject("btnPSDPrelimDetDownload.Image"), System.Drawing.Image)
+        Me.btnPSDPrelimDetDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDPrelimDetDownload.Location = New System.Drawing.Point(623, 55)
         Me.btnPSDPrelimDetDownload.Name = "btnPSDPrelimDetDownload"
         Me.btnPSDPrelimDetDownload.Size = New System.Drawing.Size(24, 23)
@@ -2437,7 +2436,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDHearingNoticeDownload
         '
-        Me.btnPSDHearingNoticeDownload.Image = CType(resources.GetObject("btnPSDHearingNoticeDownload.Image"), System.Drawing.Image)
+        Me.btnPSDHearingNoticeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDHearingNoticeDownload.Location = New System.Drawing.Point(623, 280)
         Me.btnPSDHearingNoticeDownload.Name = "btnPSDHearingNoticeDownload"
         Me.btnPSDHearingNoticeDownload.Size = New System.Drawing.Size(24, 23)
@@ -2447,7 +2446,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDFinalDetDownload
         '
-        Me.btnPSDFinalDetDownload.Image = CType(resources.GetObject("btnPSDFinalDetDownload.Image"), System.Drawing.Image)
+        Me.btnPSDFinalDetDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDFinalDetDownload.Location = New System.Drawing.Point(623, 332)
         Me.btnPSDFinalDetDownload.Name = "btnPSDFinalDetDownload"
         Me.btnPSDFinalDetDownload.Size = New System.Drawing.Size(24, 23)
@@ -2457,7 +2456,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDFinalPermitDownload
         '
-        Me.btnPSDFinalPermitDownload.Image = CType(resources.GetObject("btnPSDFinalPermitDownload.Image"), System.Drawing.Image)
+        Me.btnPSDFinalPermitDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDFinalPermitDownload.Location = New System.Drawing.Point(623, 387)
         Me.btnPSDFinalPermitDownload.Name = "btnPSDFinalPermitDownload"
         Me.btnPSDFinalPermitDownload.Size = New System.Drawing.Size(24, 23)
@@ -2467,7 +2466,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDAppSummaryDownload
         '
-        Me.btnPSDAppSummaryDownload.Image = CType(resources.GetObject("btnPSDAppSummaryDownload.Image"), System.Drawing.Image)
+        Me.btnPSDAppSummaryDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDAppSummaryDownload.Location = New System.Drawing.Point(623, 5)
         Me.btnPSDAppSummaryDownload.Name = "btnPSDAppSummaryDownload"
         Me.btnPSDAppSummaryDownload.Size = New System.Drawing.Size(24, 23)
@@ -3053,7 +3052,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnOtherPermitDownload
         '
-        Me.btnOtherPermitDownload.Image = CType(resources.GetObject("btnOtherPermitDownload.Image"), System.Drawing.Image)
+        Me.btnOtherPermitDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnOtherPermitDownload.Location = New System.Drawing.Point(623, 59)
         Me.btnOtherPermitDownload.Name = "btnOtherPermitDownload"
         Me.btnOtherPermitDownload.Size = New System.Drawing.Size(24, 23)
@@ -3063,7 +3062,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnOtherNarrativeDownload
         '
-        Me.btnOtherNarrativeDownload.Image = CType(resources.GetObject("btnOtherNarrativeDownload.Image"), System.Drawing.Image)
+        Me.btnOtherNarrativeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnOtherNarrativeDownload.Location = New System.Drawing.Point(623, 4)
         Me.btnOtherNarrativeDownload.Name = "btnOtherNarrativeDownload"
         Me.btnOtherNarrativeDownload.Size = New System.Drawing.Size(24, 23)
