@@ -119,6 +119,7 @@ Public Class FinDepositView
             txtAirsInvoiceSearch.AirsNumber = thisDeposit.FacilityID
 
             If .DepositsApplied.Count = 0 Then
+                dgvInvoicesPaid.DataSource = Nothing
                 dgvInvoicesPaid.Visible = False
                 lblInvoicesPaid.Visible = False
             Else
@@ -138,6 +139,8 @@ Public Class FinDepositView
                     }
 
                     dgvInvoicesPaid.Columns.Add(removePaymentButtonColumn)
+                Else
+                    dgvInvoicesPaid.Columns("RemoveInvoicePayment").DisplayIndex = dgvInvoicesPaid.Columns.Count() - 1
                 End If
             End If
 
@@ -254,7 +257,8 @@ Public Class FinDepositView
             DisableApplyingToInvoice("Invoice ID is not valid.")
         End If
 
-        If dgvInvoicesPaid.Columns("InvoiceID").ContainsValue(invoiceId) Then
+        If dgvInvoicesPaid IsNot Nothing AndAlso dgvInvoicesPaid.DataSource IsNot Nothing AndAlso
+            dgvInvoicesPaid.Rows.Count > 0 AndAlso dgvInvoicesPaid.Columns("InvoiceID").ContainsValue(invoiceId) Then
             DisableApplyingToInvoice("Invoice already selected. To update amount, first remove existing record below.")
             Exit Sub
         End If
