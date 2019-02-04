@@ -66,7 +66,7 @@ Partial Class FinInvoiceView
         Me.lblInvoiceID.Location = New System.Drawing.Point(42, 15)
         Me.lblInvoiceID.Name = "lblInvoiceID"
         Me.lblInvoiceID.Size = New System.Drawing.Size(97, 17)
-        Me.lblInvoiceID.TabIndex = 0
+        Me.lblInvoiceID.TabIndex = 1
         Me.lblInvoiceID.Text = "Invoice View"
         '
         'txtInvoiceDate
@@ -138,7 +138,7 @@ Partial Class FinInvoiceView
         Me.btnVoid.Location = New System.Drawing.Point(365, 12)
         Me.btnVoid.Name = "btnVoid"
         Me.btnVoid.Size = New System.Drawing.Size(101, 23)
-        Me.btnVoid.TabIndex = 6
+        Me.btnVoid.TabIndex = 8
         Me.btnVoid.Text = "Void This Invoice"
         Me.btnVoid.UseVisualStyleBackColor = True
         '
@@ -150,7 +150,7 @@ Partial Class FinInvoiceView
         Me.btnNewDeposit.Location = New System.Drawing.Point(333, 554)
         Me.btnNewDeposit.Name = "btnNewDeposit"
         Me.btnNewDeposit.Size = New System.Drawing.Size(133, 27)
-        Me.btnNewDeposit.TabIndex = 5
+        Me.btnNewDeposit.TabIndex = 7
         Me.btnNewDeposit.Text = "Add New Deposit"
         Me.btnNewDeposit.UseVisualStyleBackColor = True
         Me.btnNewDeposit.Visible = False
@@ -165,7 +165,7 @@ Partial Class FinInvoiceView
         Me.lnkViewInvoice.Location = New System.Drawing.Point(12, 559)
         Me.lnkViewInvoice.Name = "lnkViewInvoice"
         Me.lnkViewInvoice.Size = New System.Drawing.Size(144, 17)
-        Me.lnkViewInvoice.TabIndex = 4
+        Me.lnkViewInvoice.TabIndex = 6
         Me.lnkViewInvoice.TabStop = True
         Me.lnkViewInvoice.Text = "View printable invoice"
         Me.lnkViewInvoice.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -178,7 +178,7 @@ Partial Class FinInvoiceView
         Me.txtComments.Multiline = True
         Me.txtComments.Name = "txtComments"
         Me.txtComments.Size = New System.Drawing.Size(203, 73)
-        Me.txtComments.TabIndex = 0
+        Me.txtComments.TabIndex = 2
         '
         'Label7
         '
@@ -195,7 +195,7 @@ Partial Class FinInvoiceView
         Me.btnSaveComment.Location = New System.Drawing.Point(263, 204)
         Me.btnSaveComment.Name = "btnSaveComment"
         Me.btnSaveComment.Size = New System.Drawing.Size(94, 27)
-        Me.btnSaveComment.TabIndex = 1
+        Me.btnSaveComment.TabIndex = 3
         Me.btnSaveComment.Text = "Save Comments"
         Me.btnSaveComment.UseVisualStyleBackColor = True
         '
@@ -217,7 +217,7 @@ Partial Class FinInvoiceView
         Me.dgvPaymentsApplied.ShowEditingIcon = False
         Me.dgvPaymentsApplied.Size = New System.Drawing.Size(454, 101)
         Me.dgvPaymentsApplied.StandardTab = True
-        Me.dgvPaymentsApplied.TabIndex = 3
+        Me.dgvPaymentsApplied.TabIndex = 5
         '
         'Label8
         '
@@ -345,7 +345,7 @@ Partial Class FinInvoiceView
         Me.dgvInvoiceItems.ShowEditingIcon = False
         Me.dgvInvoiceItems.Size = New System.Drawing.Size(454, 113)
         Me.dgvInvoiceItems.StandardTab = True
-        Me.dgvInvoiceItems.TabIndex = 2
+        Me.dgvInvoiceItems.TabIndex = 4
         '
         'Label1
         '
@@ -364,7 +364,7 @@ Partial Class FinInvoiceView
         Me.btnRefresh.Location = New System.Drawing.Point(12, 11)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(24, 24)
-        Me.btnRefresh.TabIndex = 342
+        Me.btnRefresh.TabIndex = 0
         Me.btnRefresh.UseVisualStyleBackColor = True
         '
         'lblFacilityDisplay

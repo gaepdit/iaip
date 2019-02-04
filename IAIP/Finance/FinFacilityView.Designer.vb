@@ -499,7 +499,7 @@ Partial Class FinFacilityView
         Me.Label9.Location = New System.Drawing.Point(15, 561)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(128, 13)
-        Me.Label9.TabIndex = 340
+        Me.Label9.TabIndex = 1
         Me.Label9.Text = "Total Refunds Issued"
         '
         'txtRefunds
@@ -515,7 +515,7 @@ Partial Class FinFacilityView
         Me.txtRefunds.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtRefunds.Name = "txtRefunds"
         Me.txtRefunds.Size = New System.Drawing.Size(71, 13)
-        Me.txtRefunds.TabIndex = 1
+        Me.txtRefunds.TabIndex = 2
         Me.txtRefunds.Text = "$0"
         Me.txtRefunds.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -625,7 +625,7 @@ Partial Class FinFacilityView
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(873, 628)
-        Me.TabControl1.TabIndex = 2
+        Me.TabControl1.TabIndex = 1
         '
         'tpDeposits
         '
