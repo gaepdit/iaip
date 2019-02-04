@@ -39,8 +39,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number to search for.</param>
         ''' <returns>The facility name, or an empty string if facility AIRS number does not exist.</returns>
         Public Function GetFacilityName(airsNumber As ApbFacilityId) As String
-            Dim fac As Facility = GetFacility(airsNumber)
-            Return fac?.FacilityName
+            Return DBUtilities.GetNullableString(DB.SPGetString("iaip_facility.GetFacilityName", New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)))
         End Function
 
         ''' <summary>
@@ -70,7 +69,6 @@ Namespace DAL
             Dim spName As String = "iaip_facility.GetFacilityBasicInfo"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Try
-
                 Return DB.SPGetDataRow(spName, parameter)
             Catch ex As Exception
                 Return Nothing
@@ -245,9 +243,9 @@ Namespace DAL
     End Module
 
     Public Enum AirsNumberValidationResult
-        Valid
         Empty
         InvalidFormat
+        Valid
         NonExistent
     End Enum
 

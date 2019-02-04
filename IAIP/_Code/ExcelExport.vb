@@ -69,7 +69,7 @@ Module ExcelExport
             With dialog
                 .Filter = "Excel File (*.xlsx)|*.xlsx"
                 .DefaultExt = ".xlsx"
-                .FileName = "Export_" & Date.Now.ToString("yyyy-MM-dd_HH.mm.ss") & ".xlsx"
+                .FileName = "IAIP-Export-" & Date.Now.ToString("yyyy.MM.dd-HH.mm.ss") & ".xlsx"
                 .InitialDirectory = GetUserSetting(UserSetting.ExcelExportLocation)
             End With
 

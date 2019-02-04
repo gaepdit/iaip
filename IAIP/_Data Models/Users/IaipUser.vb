@@ -99,7 +99,7 @@
                 ' SSCP Program Manager, SSCP Unit Manager, or Branch Chief
                 Return HasRole({19, 114, 102})
 
-                ' === Facility caps
+            ' === Facility caps
             Case UserCan.AddPollutantsToFacility
                 ' Air Branch
                 Return (BranchID = 1 OrElse BranchID = 5)
@@ -112,7 +112,7 @@
                 ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liasion, SSPP Program Manager
                 Return HasRole({114, 19, 102, 27, 28})
 
-                ' === User management caps
+            ' === User management caps
             Case UserCan.EditAllUsers
                 ' Branch Chief, APB Admin, all APB program managers
                 Return HasRoleType(RoleType.BranchChief) Or
@@ -124,6 +124,17 @@
                 Return HasPermission(UserCan.EditAllUsers) Or
                     HasRoleType(RoleType.UnitManager) Or
                     HasRoleType(RoleType.DistrictManager)
+
+            ' === Finance caps
+            Case UserCan.OverrideFeeAmount
+                ' Branch Chief, APB Admin, all APB program managers
+                Return HasRoleType(RoleType.BranchChief) Or
+                    HasRoleType(RoleType.BranchAdmin) Or
+                    HasRoleType(RoleType.ProgramManager)
+
+            Case UserCan.EditFinancialData
+                ' All Finance staff
+                Return HasRole({123, 124, 125})
 
             Case Else
                 Return False
@@ -144,6 +155,8 @@ Public Enum UserCan
     ShutDownFacility
     EditAllUsers
     EditDirectReports
+    OverrideFeeAmount
+    EditFinancialData
 End Enum
 
 Public Enum RoleType

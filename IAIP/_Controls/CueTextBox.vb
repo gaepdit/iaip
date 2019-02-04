@@ -1,14 +1,16 @@
 ﻿Imports System.ComponentModel
+
 ''' <summary>
 ''' Textbox with cue text
 ''' </summary>
 ''' <remarks>See http://stackoverflow.com/a/5450496/212978 </remarks>
-Friend Class CueTextBox
+Public Class CueTextBox
     Inherits TextBox
 
     Private NotInheritable Class NativeMethods
         Private Sub New()
         End Sub
+
         Private Const ECM_FIRST As UInteger = &H1500
         Friend Const EM_SETCUEBANNER As UInteger = ECM_FIRST + 1
 

@@ -1,4 +1,23 @@
-﻿Public Module UrlHandler
+﻿Imports System.Configuration
+
+Public Module UrlHandler
+
+    'URLs
+
+    Private ReadOnly DocumentationUrl As New Uri("https://sites.google.com/site/iaipdocs/")
+    Private ReadOnly SupportUrl As New Uri("https://iaip.gaepd.org/")
+    Private ReadOnly ChangelogUrl As New Uri("https://iaip.gaepd.org/changelog/")
+    Private ReadOnly PrereqInstallUrl As New Uri("https://iaip.gaepd.org/pre-install/")
+
+    Private ReadOnly MapUrlFragment As String = "http://maps.google.com/maps?q="
+    Private ReadOnly PermitSearchUrlFragment As String = "http://permitsearch.gaepd.org/?AirsNumber="
+    Private ReadOnly VesaUrl As New Uri("https://vnap.cloudapp.net/vnap")
+
+    Friend ReadOnly GecoUrl As New Uri(ConfigurationManager.AppSettings("GecoUrl"))
+    Private ReadOnly InvoiceViewUrlFragment As String = String.Concat(GecoUrl.ToString, "Invoice/?id={0}")
+    Private ReadOnly ApplicationViewUrlFragment As String = String.Concat(GecoUrl.ToString, "Permits/Application.aspx?id={0}")
+
+    ' Public URL methods
 
     Public Sub OpenDocumentationUrl(Optional objectSender As Form = Nothing)
         OpenUri(DocumentationUrl, objectSender)
@@ -26,6 +45,22 @@
 
     Public Sub OpenVesaUrl(Optional objectSender As Form = Nothing)
         OpenUri(VesaUrl, objectSender)
+    End Sub
+
+    Public Function GetInvoiceUrl(invoiceGuid As Guid) As String
+        Return String.Format(InvoiceViewUrlFragment, invoiceGuid.ToString)
+    End Function
+
+    Public Sub OpenInvoiceUrl(invoiceGuid As Guid, Optional objectSender As Form = Nothing)
+        OpenUri(New Uri(GetInvoiceUrl(invoiceGuid)), objectSender)
+    End Sub
+
+    Public Function GetPermitApplicationUrl(appNumber As Integer) As String
+        Return String.Format(ApplicationViewUrlFragment, appNumber.ToString)
+    End Function
+
+    Public Sub OpenPermitApplicationUrl(appNumber As Integer, Optional objectSender As Form = Nothing)
+        OpenUri(New Uri(GetPermitApplicationUrl(appNumber)), objectSender)
     End Sub
 
     Private Function OpenUri(uriString As String, Optional sender As Object = Nothing, Optional isMailto As Boolean = False) As Boolean

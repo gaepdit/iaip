@@ -11,12 +11,12 @@
     End Property
     Public Shared ReadOnly Property WarningForeColor As Color
         Get
-            Return Color.DarkRed
+            Return Color.SaddleBrown
         End Get
     End Property
     Public Shared ReadOnly Property WarningBackColor As Color
         Get
-            Return Color.Pink
+            Return Color.Bisque
         End Get
     End Property
     Public Shared ReadOnly Property SuccessForeColor As Color
@@ -37,6 +37,30 @@
     Public Shared ReadOnly Property InfoBackColor As Color
         Get
             Return SystemColors.Info
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property GridHoverForeColor As Color
+        Get
+            Return Color.Blue
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property GridHoverBackColor As Color
+        Get
+            Return ColorTranslator.FromHtml("#FDF2FD")
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property GridSelectionHoverForeColor As Color
+        Get
+            Return SystemColors.HighlightText
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property GridSelectionHoverBackColor As Color
+        Get
+            Return SystemColors.HotTrack
         End Get
     End Property
 End Class

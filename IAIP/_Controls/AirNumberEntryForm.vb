@@ -4,20 +4,44 @@ Imports Iaip.DAL
 
 Public Class AirNumberEntryForm
 
-#Region " Properties "
+    ' Custom Properties 
 
     <Category("Appearance"), Description("Message displayed when AIRS # entered does not exist in database.")>
+    <DefaultValue("Facility does not exist.")>
     Public Property FacilityDoesNotExistMessage As String = "Facility does not exist."
 
     <Category("Appearance"), Description("Message displayed when AIRS # has an invalid format.")>
-    Public Property InvalidFormatMessage As String = "Invalid AIRS #."
+    <DefaultValue("Invalid AIRS number.")>
+    Public Property InvalidFormatMessage As String = "Invalid AIRS number."
 
-    <Category("Appearance"), Description("Whether to display the error message label.")>
-    Public Property DisplayErrorMessage As Boolean = True
+    <Category("Behavior"), Description("Label to display AIRS # error message.")>
+    Public Property ErrorMessageLabel As Label
+        Get
+            Return _errorMessageLabel
+        End Get
+        Set(value As Label)
+            _errorMessageLabel = value
 
-#End Region
+            If value Is Nothing Then
+                airsEntryErrorProvider = New IaipErrorProvider(AirsEntryTextBox)
+            Else
+                airsEntryErrorProvider = New IaipErrorProvider(AirsEntryTextBox, value)
+            End If
+        End Set
+    End Property
+    Private _errorMessageLabel As Label
 
-#Region " AirsEntryTextBox pass-thru properties "
+    Public ReadOnly Property HasError As Boolean
+        Get
+            Return airsEntryErrorProvider.HasError
+        End Get
+    End Property
+
+    ' Local fields
+
+    Private airsEntryErrorProvider As IaipErrorProvider
+
+    ' AirsEntryTextBox pass-thru properties 
 
     <Browsable(False)>
     Public Property AirsNumber As ApbFacilityId
@@ -46,23 +70,22 @@ Public Class AirNumberEntryForm
         End Get
     End Property
 
-#End Region
-
-#Region " CueTextBox pass-thru properties "
+    ' CueTextBox pass-thru properties 
 
     <Category("Appearance"), Description("Specifies the placeholder text to display in the TextBox.")>
-    Public Property Cue As String
+    <DefaultValue("000-00000")>
+    Public Property Cue As String 
         Get
             Return AirsEntryTextBox.Cue
         End Get
         Set(value As String)
-            AirsEntryTextBox.Cue = value
+            If AirsEntryTextBox.Cue <> value Then
+                AirsEntryTextBox.Cue = value
+            End If
         End Set
     End Property
 
-#End Region
-
-#Region " TextBox pass-thru properties "
+    ' TextBox pass-thru properties 
 
     <Category("Data"), Description("User-defined data associated with the object.")>
     Public Overloads Property Tag As Object
@@ -104,40 +127,43 @@ Public Class AirNumberEntryForm
         End Set
     End Property
 
-#End Region
-
     ' Constructor
 
     Public Sub New()
         InitializeComponent()
-        AirsEntryErrorLabel.ForeColor = IaipColors.ErrorForeColor
+        airsEntryErrorProvider = New IaipErrorProvider(AirsEntryTextBox)
     End Sub
 
     ' Methods
 
     Public Sub Clear()
         AirsEntryTextBox.Clear()
+        airsEntryErrorProvider.ClearError()
     End Sub
 
     ' Events
 
     Private Sub AirsEntryTextBox_ValidationStatusChanged(sender As Object, e As EventArgs) Handles AirsEntryTextBox.ValidationStatusChanged
-        SetAirsEntryErrorProvider()
+        Select Case AirsEntryTextBox.ValidationStatus
+
+            Case AirsNumberValidationResult.NonExistent
+                airsEntryErrorProvider.SetError(FacilityDoesNotExistMessage)
+
+            Case AirsNumberValidationResult.InvalidFormat
+                airsEntryErrorProvider.SetError(InvalidFormatMessage)
+
+            Case Else
+                airsEntryErrorProvider.ClearError()
+
+        End Select
     End Sub
 
-    Private Sub SetAirsEntryErrorProvider()
-        Select Case AirsEntryTextBox.ValidationStatus
-            Case AirsNumberValidationResult.NonExistent
-                AirsEntryErrorProvider.SetError(AirsEntryTextBox, FacilityDoesNotExistMessage)
-            Case AirsNumberValidationResult.InvalidFormat
-                AirsEntryErrorProvider.SetError(AirsEntryTextBox, InvalidFormatMessage)
-            Case Else
-                AirsEntryErrorProvider.SetError(AirsEntryTextBox, String.Empty)
-        End Select
+    ' Pass-thru events
 
-        If DisplayErrorMessage Then
-            AirsEntryErrorLabel.Text = AirsEntryErrorProvider.GetError(AirsEntryTextBox)
-        End If
+    Public Event AirsNumberChanged As EventHandler
+
+    Private Sub AirsEntryTextBox_AirsNumberChanged(sender As Object, e As EventArgs) Handles AirsEntryTextBox.AirsNumberChanged
+        RaiseEvent AirsNumberChanged(Me, e)
     End Sub
 
     Public Event AirsTextChanged As EventHandler
