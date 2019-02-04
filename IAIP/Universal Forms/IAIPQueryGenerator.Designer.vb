@@ -23,10 +23,9 @@ Partial Class IAIPQueryGenerator
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPQueryGenerator))
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbExport = New System.Windows.Forms.ToolStripButton()
         Me.tsbSearchQuery = New System.Windows.Forms.ToolStripButton()
@@ -58,7 +57,8 @@ Partial Class IAIPQueryGenerator
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnRunSearch = New System.Windows.Forms.Button()
         Me.Splitter1 = New System.Windows.Forms.Splitter()
-        Me.dgvQueryGenerator = New System.Windows.Forms.DataGridView()
+        Me.dgvQueryGenerator = New Iaip.IaipDataGridView()
+        Me.lblQueryCount = New System.Windows.Forms.Label()
         Me.tcQueryOptions = New System.Windows.Forms.TabControl()
         Me.TPPhysicalLocation = New System.Windows.Forms.TabPage()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -418,7 +418,6 @@ Partial Class IAIPQueryGenerator
         Me.lblCannedPermitContactData = New System.Windows.Forms.Label()
         Me.btnRunCannedReport = New System.Windows.Forms.Button()
         Me.BasicSearchGroup = New System.Windows.Forms.GroupBox()
-        Me.lblQueryCount = New System.Windows.Forms.Label()
         Me.bgwQueryGenerator = New System.ComponentModel.BackgroundWorker()
         Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveSearchQueryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -787,45 +786,46 @@ Partial Class IAIPQueryGenerator
         '
         'dgvQueryGenerator
         '
-        Me.dgvQueryGenerator.AllowUserToAddRows = False
-        Me.dgvQueryGenerator.AllowUserToDeleteRows = False
-        Me.dgvQueryGenerator.AllowUserToOrderColumns = True
-        Me.dgvQueryGenerator.AllowUserToResizeRows = False
-        DataGridViewCellStyle9.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvQueryGenerator.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvQueryGenerator.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvQueryGenerator.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvQueryGenerator.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvQueryGenerator.DefaultCellStyle = DataGridViewCellStyle11
         Me.dgvQueryGenerator.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvQueryGenerator.LinkifyColumnByName = Nothing
+        Me.dgvQueryGenerator.LinkifyFirstColumn = True
         Me.dgvQueryGenerator.Location = New System.Drawing.Point(0, 539)
         Me.dgvQueryGenerator.Name = "dgvQueryGenerator"
-        Me.dgvQueryGenerator.ReadOnly = True
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
-        Me.dgvQueryGenerator.RowHeadersVisible = False
+        Me.dgvQueryGenerator.ResultsCountLabel = Me.lblQueryCount
+        Me.dgvQueryGenerator.ResultsCountLabelFormat = "{0} found"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvQueryGenerator.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
         Me.dgvQueryGenerator.Size = New System.Drawing.Size(739, 122)
+        Me.dgvQueryGenerator.StandardTab = True
         Me.dgvQueryGenerator.TabIndex = 13
+        '
+        'lblQueryCount
+        '
+        Me.lblQueryCount.AutoSize = True
+        Me.lblQueryCount.Location = New System.Drawing.Point(619, 44)
+        Me.lblQueryCount.Name = "lblQueryCount"
+        Me.lblQueryCount.Size = New System.Drawing.Size(31, 13)
+        Me.lblQueryCount.TabIndex = 275
+        Me.lblQueryCount.Text = "Hello"
         '
         'tcQueryOptions
         '
@@ -4493,15 +4493,6 @@ Partial Class IAIPQueryGenerator
         Me.BasicSearchGroup.TabIndex = 0
         Me.BasicSearchGroup.TabStop = False
         '
-        'lblQueryCount
-        '
-        Me.lblQueryCount.AutoSize = True
-        Me.lblQueryCount.Location = New System.Drawing.Point(619, 44)
-        Me.lblQueryCount.Name = "lblQueryCount"
-        Me.lblQueryCount.Size = New System.Drawing.Size(31, 13)
-        Me.lblQueryCount.TabIndex = 275
-        Me.lblQueryCount.Text = "Hello"
-        '
         'bgwQueryGenerator
         '
         '
@@ -4760,7 +4751,7 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents btnRunSearch As System.Windows.Forms.Button
     Friend WithEvents BasicSearchGroup As System.Windows.Forms.GroupBox
-    Friend WithEvents dgvQueryGenerator As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvQueryGenerator As IaipDataGridView
     Friend WithEvents tcQueryOptions As System.Windows.Forms.TabControl
     Friend WithEvents TPPhysicalLocation As System.Windows.Forms.TabPage
     Friend WithEvents TPHeaderInformation As System.Windows.Forms.TabPage

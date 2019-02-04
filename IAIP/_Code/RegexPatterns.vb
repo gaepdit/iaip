@@ -22,7 +22,7 @@
 
     ' Valid permit numbers are in the form 0000-000-0000-A-00-?
     ' (with the dashes)
-    ' Test regex here: http://regexr.com/39l4d
+    ' Test regex here: https://regexr.com/39l4d
     Friend Const PermitNumberPattern As String = "^\d{4}-\d{3}-\d{4}-[A-Z]-\d{2}-[A-Z0-9]$"
 
     ' Official DNR email address:
@@ -33,7 +33,7 @@
     '   user.name@gaepd.org
     '   user.name@georgiaepd.com
     '   user.name@georgiaepd.org
-    ' Test regex here: http://regexr.com/3dea9
+    ' Test regex here: https://regexr.com/3dea9
     Public Const DnrEmailPattern As String = "^[\w-\.]+@(dnr\.(ga\.gov|state\.ga\.us)|gadnr\.org|(ga|georgia)epd\.(com|org))$"
 
     ' Currently unused

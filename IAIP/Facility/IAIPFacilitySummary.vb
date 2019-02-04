@@ -1,9 +1,11 @@
 ﻿Imports System.Collections.Generic
+Imports System.ComponentModel
+Imports EpdIt
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
+Imports Iaip.Apb.ApbFacilityId
+Imports Iaip.DAL
 Imports Iaip.DAL.FacilitySummaryData
-Imports EpdIt
-Imports System.ComponentModel
 
 Public Class IAIPFacilitySummary
 
@@ -15,8 +17,6 @@ Public Class IAIPFacilitySummary
             Return _airsNumber
         End Get
         Set(value As ApbFacilityId)
-            If _airsNumber Is Nothing AndAlso value Is Nothing Then Return
-            'If _airsNumber IsNot Nothing AndAlso _airsNumber.Equals(value) Then Return
             _airsNumber = value
             ReloadAllData()
         End Set
@@ -31,7 +31,6 @@ Public Class IAIPFacilitySummary
         ComplianceWork
         ComplianceEnforcement
         ComplianceFCE
-        Fees
         ContactsState
         ContactsWebSite
         ContactsPermitting
@@ -45,29 +44,31 @@ Public Class IAIPFacilitySummary
         PermitRules
         PermitRuleHistory
         Permits
-        FinancialFees
-        FinancialInvoices
-        FinancialDeposits
-        EiPost2009
-        EiPre2009
+        PermitApplicationFees
+        EmissionsFeesSummary
+        EmissionsFeesData
+        EmissionsFeesInvoices
+        EmissionsFeesDeposits
+        EIPost2009
+        EIPre2009
     End Enum
 
 #End Region
 
 #Region " Form Load "
 
-    Private Sub IAIPFacilitySummary_Load(sender As Object, e As EventArgs) Handles Me.Load
-
+    Protected Overrides Sub OnLoad(e As EventArgs)
         LoadPermissions()
         InitializeDataTables()
         InitializeGridEvents()
+
+        MyBase.OnLoad(e)
     End Sub
 
     Private Sub IAIPFacilitySummary_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        If AirsNumber Is Nothing Then
-            ClearAllData()
-            AirsNumberEntry.Focus()
-        End If
+        'If AirsNumber Is Nothing Then
+        '    AirsNumberEntry.Focus()
+        'End If
     End Sub
 
     Private Sub LoadPermissions()
@@ -102,7 +103,7 @@ Public Class IAIPFacilitySummary
         AddDataTable(FacilityDataTable.ComplianceWork)
         AddDataTable(FacilityDataTable.ComplianceEnforcement)
         AddDataTable(FacilityDataTable.ComplianceFCE)
-        AddDataTable(FacilityDataTable.Fees)
+        AddDataTable(FacilityDataTable.EmissionsFeesSummary)
         AddDataTable(FacilityDataTable.ContactsCompliance)
         AddDataTable(FacilityDataTable.ContactsGeco)
         AddDataTable(FacilityDataTable.ContactsPermitting)
@@ -116,11 +117,12 @@ Public Class IAIPFacilitySummary
         AddDataTable(FacilityDataTable.PermitRuleHistory)
         AddDataTable(FacilityDataTable.PermitRules)
         AddDataTable(FacilityDataTable.Permits)
-        AddDataTable(FacilityDataTable.FinancialDeposits)
-        AddDataTable(FacilityDataTable.FinancialFees)
-        AddDataTable(FacilityDataTable.FinancialInvoices)
-        AddDataTable(FacilityDataTable.EiPost2009)
-        AddDataTable(FacilityDataTable.EiPre2009)
+        AddDataTable(FacilityDataTable.PermitApplicationFees)
+        AddDataTable(FacilityDataTable.EmissionsFeesDeposits)
+        AddDataTable(FacilityDataTable.EmissionsFeesData)
+        AddDataTable(FacilityDataTable.EmissionsFeesInvoices)
+        AddDataTable(FacilityDataTable.EIPost2009)
+        AddDataTable(FacilityDataTable.EIPre2009)
     End Sub
 
     Private Sub AddDataTable(whichTable As FacilityDataTable)
@@ -129,6 +131,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub ReloadAllData()
         ClearAllData()
+
         If _airsNumber Is Nothing Then
             AirsNumberEntry.Focus()
         Else
@@ -144,9 +147,7 @@ Public Class IAIPFacilitySummary
     Private Sub ClearAllData()
         ThisFacility = Nothing
         FacilitySummaryDataSet.Clear()
-
         DisableFacilityTools()
-
         ClearBasicFacilityData()
     End Sub
 
@@ -159,8 +160,8 @@ Public Class IAIPFacilitySummary
         ContactsTabControl.SelectedTab = TPStateContacts
         TestingTabControl.SelectedTab = TPTestReport
         ComplianceTabControl.SelectedTab = TPComplianceWork
-        PermittingTabControl.SelectedTab = TPAppLog
-        FinancialTabControl.SelectedTab = TPFeeData
+        PermittingTabControl.SelectedTab = TPAppTrackingLog
+        EmissionsFeesTabControl.SelectedTab = TPEmissionsAnnual
         EiTabControl.SelectedTab = TPEiPost2009
     End Sub
 
@@ -175,8 +176,7 @@ Public Class IAIPFacilitySummary
 #Region " Basic Info data "
 
     Private Sub EditFacilityLocationButton_Click(sender As Object, e As EventArgs) Handles EditFacilityLocationButton.Click
-        Dim parameters As New Dictionary(Of FormParameter, String) From {{FormParameter.AirsNumber, Me.AirsNumber.ToString}}
-        OpenMultiForm(IAIPEditFacilityLocation, Me.AirsNumber.ToInt, parameters)
+        OpenMultiForm(IAIPEditFacilityLocation, AirsNumber.ToInt, New Dictionary(Of FormParameter, String) From {{FormParameter.AirsNumber, AirsNumber.ToString}})
     End Sub
 
     Private Sub ClearBasicFacilityData()
@@ -224,7 +224,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub LoadBasicFacilityAndHeaderData()
-        ThisFacility = DAL.FacilityData.GetFacility(Me.AirsNumber)
+        ThisFacility = GetFacility(AirsNumber)
 
         If ThisFacility Is Nothing Then
             FacilityNameDisplay.Text = "Facility does not exist"
@@ -243,7 +243,7 @@ Public Class IAIPFacilitySummary
         DisplayMap()
 
         'Navigation Panel
-        AirsNumberEntry.Text = Me.AirsNumber.FormattedString
+        AirsNumberEntry.Text = AirsNumber.FormattedString
 
         With ThisFacility
 
@@ -284,7 +284,7 @@ Public Class IAIPFacilitySummary
             End With
 
             'Compliance Status
-            Dim enforcementCount As Integer = DAL.Sscp.GetOpenEnforcementCountForFacility(AirsNumber)
+            Dim enforcementCount As Integer = Sscp.GetOpenEnforcementCountForFacility(AirsNumber)
             If enforcementCount = 0 Then
                 ComplianceStatusDisplay.Text = "No open enforcement cases"
             ElseIf enforcementCount = 1 Then
@@ -316,15 +316,16 @@ Public Class IAIPFacilitySummary
         EpaDateDisplay.Text = "..."
         DataUpdateDateDisplay.Text = "..."
 
-        bgw = New BackgroundWorker
-        bgw.WorkerSupportsCancellation = True
+        bgw = New BackgroundWorker With {
+            .WorkerSupportsCancellation = True
+        }
         AddHandler bgw.DoWork, AddressOf DataDatesBackgroundWorker_DoWork
         AddHandler bgw.RunWorkerCompleted, AddressOf DataDatesBackgroundWorker_RunWorkerCompleted
         bgw.RunWorkerAsync()
     End Sub
 
     Private Sub DataDatesBackgroundWorker_DoWork(sender As Object, e As DoWorkEventArgs)
-        Dim dt As DataRow = DAL.GetDataExchangeDates(Me.AirsNumber)
+        Dim dt As DataRow = GetDataExchangeDates(AirsNumber)
         If Not CType(sender, BackgroundWorker).CancellationPending Then DataDates = dt
     End Sub
 
@@ -363,9 +364,9 @@ Public Class IAIPFacilitySummary
 
     Private Sub ColorCodeCmsDisplay()
         With ThisFacility.HeaderData
-            If (.CmsMember = FacilityCmsMember.A And .Classification <> FacilityClassification.A) _
-            OrElse (.CmsMember = FacilityCmsMember.S And .Classification <> FacilityClassification.SM) _
-            OrElse (.CmsMember = FacilityCmsMember.M And .Classification <> FacilityClassification.A) Then
+            If (.CmsMember = FacilityCmsMember.A And .Classification <> FacilityClassification.A) OrElse
+                (.CmsMember = FacilityCmsMember.S And .Classification <> FacilityClassification.SM) OrElse
+                (.CmsMember = FacilityCmsMember.M And .Classification <> FacilityClassification.A) Then
                 CmsDisplay.BackColor = IaipColors.WarningBackColor
                 CmsDisplay.ForeColor = IaipColors.WarningForeColor
             Else
@@ -432,16 +433,17 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub EditSubpartsButton_Click(sender As Object, e As EventArgs) Handles EditSubpartsButton.Click
-        Dim editSubParts As IAIPEditSubParts = CType(OpenMultiForm(IAIPEditSubParts, Me.AirsNumber.ToInt), IAIPEditSubParts)
+        Dim editSubParts As IAIPEditSubParts = CType(OpenMultiForm(IAIPEditSubParts, AirsNumber.ToInt), IAIPEditSubParts)
         editSubParts.AirsNumber = AirsNumber
     End Sub
 
     Private Sub EditHeaderDataButton_Click(sender As Object, e As EventArgs) Handles EditHeaderDataButton.Click
-        If Apb.ApbFacilityId.IsValidAirsNumberFormat(Me.AirsNumber.ToString) Then
+        If IsValidAirsNumberFormat(AirsNumber.ToString) Then
 
-            Dim editHeaderDataDialog As New IAIPEditHeaderData
-            editHeaderDataDialog.AirsNumber = Me.AirsNumber.ToString
-            editHeaderDataDialog.FacilityName = Me.ThisFacility.FacilityName
+            Dim editHeaderDataDialog As New IAIPEditHeaderData With {
+                .AirsNumber = AirsNumber,
+                .FacilityName = ThisFacility.FacilityName
+            }
 
             editHeaderDataDialog.ShowDialog()
 
@@ -454,7 +456,7 @@ Public Class IAIPFacilitySummary
             editHeaderDataDialog.Dispose()
         Else
             MessageBox.Show("AIRS number is not valid.", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Me.AirsNumber = Nothing
+            AirsNumber = Nothing
         End If
     End Sub
 
@@ -508,10 +510,10 @@ Public Class IAIPFacilitySummary
             If (.AirProgramClassifications = AirProgramClassification.None) Then
                 ProgramClassificationsListBox.Items.Add(AirProgramClassification.None.GetDescription)
             Else
-                If (.AirProgramClassifications And AirProgramClassification.NsrMajor) Then
+                If CBool(.AirProgramClassifications And AirProgramClassification.NsrMajor) Then
                     ProgramClassificationsListBox.Items.Add(AirProgramClassification.NsrMajor.GetDescription)
                 End If
-                If (.AirProgramClassifications And AirProgramClassification.HapMajor) Then
+                If CBool(.AirProgramClassifications And AirProgramClassification.HapMajor) Then
                     ProgramClassificationsListBox.Items.Add(AirProgramClassification.HapMajor.GetDescription)
                 End If
             End If
@@ -529,10 +531,12 @@ Public Class IAIPFacilitySummary
 #Region " Generic data table procedures "
 
     Private Sub LoadDataTable(whichTable As FacilityDataTable)
-        If Me.AirsNumber Is Nothing OrElse Me.ThisFacility Is Nothing Then Exit Sub
-        If TableDataExists(whichTable) Then Exit Sub
+        If AirsNumber Is Nothing OrElse ThisFacility Is Nothing OrElse TableDataExists(whichTable) Then
+            Exit Sub
+        End If
 
-        Dim table As DataTable = GetFSDataTable(whichTable, Me.AirsNumber)
+        Dim table As DataTable = GetFSDataTable(whichTable, AirsNumber)
+
         If table IsNot Nothing AndAlso table.Rows.Count > 0 Then
             FacilitySummaryDataSet.Tables(whichTable.ToString).Merge(table, False, MissingSchemaAction.Add)
             SetUpData(whichTable)
@@ -548,61 +552,78 @@ Public Class IAIPFacilitySummary
 
             ' Compliance
             Case FacilityDataTable.ComplianceWork
-                SetUpComplianceWorkGrid()
-            Case FacilityDataTable.ComplianceFCE
-                SetUpComplianceFceGrid()
-            Case FacilityDataTable.ComplianceEnforcement
-                SetUpComplianceEnforcementGrid()
+                SetUpDataGridSource(ComplianceWorkGrid, FacilityDataTable.ComplianceWork)
 
-                ' Fees
-            Case FacilityDataTable.Fees
-                SetUpFeesTab()
+            Case FacilityDataTable.ComplianceFCE
+                SetUpDataGridSource(ComplianceFceGrid, FacilityDataTable.ComplianceFCE)
+
+            Case FacilityDataTable.ComplianceEnforcement
+                SetUpDataGridSource(ComplianceEnforcementGrid, FacilityDataTable.ComplianceEnforcement)
 
                 ' Contacts
             Case FacilityDataTable.ContactsState
-                SetUpContactsStateGrid()
+                SetUpDataGridSource(ContactsStateGrid, FacilityDataTable.ContactsState)
+
             Case FacilityDataTable.ContactsWebSite
-                SetUpContactsWebSiteGrid()
+                SetUpDataGridSource(ContactsWebSiteGrid, FacilityDataTable.ContactsWebSite)
+
             Case FacilityDataTable.ContactsPermitting
-                SetUpContactsPermittingGrid()
+                SetUpDataGridSource(ContactsPermittingGrid, FacilityDataTable.ContactsPermitting)
+
             Case FacilityDataTable.ContactsTesting
-                SetUpContactsTestingGrid()
+                SetUpDataGridSource(ContactsTestingGrid, FacilityDataTable.ContactsTesting)
+
             Case FacilityDataTable.ContactsCompliance
-                SetUpContactsComplianceGrid()
+                SetUpDataGridSource(ContactsComplianceGrid, FacilityDataTable.ContactsCompliance)
+
             Case FacilityDataTable.ContactsGeco
-                SetUpContactsGecoGrid()
+                SetUpDataGridSource(ContactsGecoGrid, FacilityDataTable.ContactsGeco)
 
                 ' Testing
             Case FacilityDataTable.TestReports
-                SetUpTestReportsGrid()
+                SetUpDataGridSource(TestReportsGrid, FacilityDataTable.TestReports)
+
             Case FacilityDataTable.TestNotifications
-                SetUpTestNotificationsGrid()
+                SetUpDataGridSource(TestNotificationsGrid, FacilityDataTable.TestNotifications)
+
             Case FacilityDataTable.TestMemos
-                SetUpTestMemosGrid()
+                SetUpDataGridSource(TestMemosGrid, FacilityDataTable.TestMemos)
 
                 ' Permitting
             Case FacilityDataTable.PermitApplications
-                SetUpPermitApplicationsGrid()
-            Case FacilityDataTable.PermitRuleHistory
-                SetUpPermitRuleHistoryGrid()
-            Case FacilityDataTable.PermitRules
-                SetUpPermitRulesGrid()
-            Case FacilityDataTable.Permits
-                SetUpPermitsGrid()
+                SetUpDataGridSource(PermitApplicationGrid, FacilityDataTable.PermitApplications)
 
-                ' Financial
-            Case FacilityDataTable.FinancialDeposits
-                SetUpFinancialDepositsGrid()
-            Case FacilityDataTable.FinancialFees
-                SetUpFinancialFeesGrid()
-            Case FacilityDataTable.FinancialInvoices
-                SetUpFinancialInvoicesGrid()
+            Case FacilityDataTable.PermitRuleHistory
+                SetUpDataGridSource(PermitRuleHistoryGrid, FacilityDataTable.PermitRuleHistory)
+
+            Case FacilityDataTable.PermitRules
+                SetUpDataGridSource(PermitRulesGrid, FacilityDataTable.PermitRules)
+
+            Case FacilityDataTable.Permits
+                SetUpDataGridSource(PermitsGrid, FacilityDataTable.Permits)
+
+            Case FacilityDataTable.PermitApplicationFees
+                SetUpDataGridSource(PermitApplicationInvoicesGrid, FacilityDataTable.PermitApplicationFees)
+
+                ' Emissions Fees
+            Case FacilityDataTable.EmissionsFeesSummary
+                SetUpFeesTab()
+
+            Case FacilityDataTable.EmissionsFeesDeposits
+                SetUpDataGridSource(FinancialDepositsGrid, FacilityDataTable.EmissionsFeesDeposits)
+
+            Case FacilityDataTable.EmissionsFeesData
+                SetUpDataGridSource(FinancialFeeGrid, FacilityDataTable.EmissionsFeesData)
+
+            Case FacilityDataTable.EmissionsFeesInvoices
+                SetUpDataGridSource(FinancialInvoicesGrid, FacilityDataTable.EmissionsFeesInvoices)
 
                 ' Emission Inventory
-            Case FacilityDataTable.EiPost2009
-                SetUpEiPost2009Grid()
-            Case FacilityDataTable.EiPre2009
-                SetUpEiPre2009Grid()
+            Case FacilityDataTable.EIPost2009
+                SetUpDataGridSource(EiPost2009Grid, FacilityDataTable.EIPost2009)
+
+            Case FacilityDataTable.EIPre2009
+                SetUpDataGridSource(EiPre2009Grid, FacilityDataTable.EIPre2009)
 
         End Select
     End Sub
@@ -611,28 +632,26 @@ Public Class IAIPFacilitySummary
 
 #Region " AcceptButton "
 
-    Private Sub AddAcceptButton(sender As Object, e As EventArgs) _
-    Handles AirsNumberEntry.Enter
-        Me.AcceptButton = ViewDataButton
+    Private Sub AddAcceptButton(sender As Object, e As EventArgs) Handles AirsNumberEntry.Enter
+        AcceptButton = ViewDataButton
     End Sub
 
-    Private Sub RemoveAcceptButton(sender As Object, e As EventArgs) _
-    Handles AirsNumberEntry.Leave
-        Me.AcceptButton = Nothing
+    Private Sub RemoveAcceptButton(sender As Object, e As EventArgs) Handles AirsNumberEntry.Leave
+        AcceptButton = Nothing
     End Sub
 
 #End Region
 
 #Region " Grid Item events "
 
-    Private Sub OpenItem(dgv As DataGridView, id As String)
+    Private Sub OpenItem(dgv As IaipDataGridView, id As String)
         Select Case dgv.Name
 
             ' Compliance
             Case ComplianceEnforcementGrid.Name
                 OpenFormEnforcement(id)
             Case ComplianceFceGrid.Name
-                OpenFormFce(Me.AirsNumber, id)
+                OpenFormFce(AirsNumber, id)
             Case ComplianceWorkGrid.Name
                 OpenFormSscpWorkItem(id)
 
@@ -647,226 +666,49 @@ Public Class IAIPFacilitySummary
                 ' Permitting
             Case PermitApplicationGrid.Name
                 OpenFormPermitApplication(id)
+            Case PermitApplicationInvoicesGrid.Name
+                OpenInvoiceView(CInt(id))
 
         End Select
     End Sub
 
     Private Sub InitializeGridEvents()
-        Dim GridsWithEvents As New List(Of DataGridView)
+        Dim GridsWithEvents As New List(Of IaipDataGridView) From {
+            ComplianceEnforcementGrid,
+            ComplianceFceGrid,
+            ComplianceWorkGrid,
+            TestReportsGrid,
+            TestNotificationsGrid,
+            TestMemosGrid,
+            PermitApplicationGrid,
+            PermitApplicationInvoicesGrid
+        }
 
-        ' Compliance 
-        GridsWithEvents.Add(ComplianceEnforcementGrid)
-        GridsWithEvents.Add(ComplianceFceGrid)
-        GridsWithEvents.Add(ComplianceWorkGrid)
-
-        ' Testing
-        GridsWithEvents.Add(TestReportsGrid)
-        GridsWithEvents.Add(TestNotificationsGrid)
-        GridsWithEvents.Add(TestMemosGrid)
-
-        ' Permitting
-        GridsWithEvents.Add(PermitApplicationGrid)
-
-        For Each dgv As DataGridView In GridsWithEvents
-            AddHandler dgv.CellClick, AddressOf HandleGrid_CellClick
-            AddHandler dgv.CellDoubleClick, AddressOf HandleGrid_CellDoubleClick
-            AddHandler dgv.KeyDown, AddressOf HandleGrid_KeyDown
-            AddHandler dgv.KeyUp, AddressOf HandleGrid_KeyUp
-            AddHandler dgv.CellMouseEnter, AddressOf HandleGrid_MouseEnter
-            AddHandler dgv.CellMouseLeave, AddressOf HandleGrid_MouseLeave
+        For Each dgv As IaipDataGridView In GridsWithEvents
+            dgv.LinkifyFirstColumn = True
+            AddHandler dgv.CellLinkActivated, AddressOf HandleGrid_CellLinkActivated
         Next
-
     End Sub
 
-    Private Sub HandleGrid_CellClick(sender As Object, e As DataGridViewCellEventArgs)
-        ' Only within the cell content of first column
-        Dim dgv As DataGridView = CType(sender, DataGridView)
-        If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
-            OpenItem(dgv, dgv.Rows(e.RowIndex).Cells(0).Value.ToString)
-        End If
-    End Sub
-
-    Private Sub HandleGrid_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs)
-        'Double-click within the cell content (but exclude first column to avoid double-firing)
-        Dim dgv As DataGridView = CType(sender, DataGridView)
-        If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex <> 0 Then
-            OpenItem(dgv, dgv.Rows(e.RowIndex).Cells(0).Value.ToString)
-        End If
-    End Sub
-
-    Private Sub HandleGrid_KeyDown(sender As Object, e As KeyEventArgs)
-        If e.KeyCode = Keys.Enter Then
-            e.Handled = True
-        End If
-    End Sub
-
-    Private Sub HandleGrid_KeyUp(sender As Object, e As KeyEventArgs)
-        If e.KeyCode = Keys.Enter Then
-            Dim dgv As DataGridView = CType(sender, DataGridView)
-            If dgv.RowCount > 0 Then
-                OpenItem(dgv, dgv.CurrentRow.Cells(0).Value.ToString)
-            End If
-        End If
-    End Sub
-
-    Private Sub HandleGrid_MouseEnter(sender As Object, e As DataGridViewCellEventArgs)
-        ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
-        Dim dgv As DataGridView = CType(sender, DataGridView)
-        If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
-            dgv.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, True)
-        End If
-    End Sub
-
-    Private Sub HandleGrid_MouseLeave(sender As Object, e As DataGridViewCellEventArgs)
-        ' Reset cursor and text color when mouse leaves (un-hovers) a cell
-        Dim dgv As DataGridView = CType(sender, DataGridView)
-        If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
-            dgv.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, False)
-        End If
+    Private Sub HandleGrid_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs)
+        Dim dgv As IaipDataGridView = CType(sender, IaipDataGridView)
+        OpenItem(dgv, e.LinkValue.ToString)
     End Sub
 
 #End Region
 
-#Region " Compliance data "
+#Region " Data Sources "
+
+    Private Sub SetUpDataGridSource(dgv As IaipDataGridView, table As FacilityDataTable)
+        If dgv.DataSource Is Nothing Then
+            dgv.DataSource = FacilitySummaryDataSet.Tables(table.ToString)
+        End If
+    End Sub
 
     Private Sub LoadComplianceData()
         LoadDataTable(FacilityDataTable.ComplianceWork)
         LoadDataTable(FacilityDataTable.ComplianceFCE)
         LoadDataTable(FacilityDataTable.ComplianceEnforcement)
-    End Sub
-
-    Private Sub SetUpComplianceWorkGrid()
-        With ComplianceWorkGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ComplianceWork.ToString)
-                .MakeColumnsLookLikeLinks(0)
-                .SanelyResizeColumns()
-            End If
-        End With
-    End Sub
-
-    Private Sub SetUpComplianceEnforcementGrid()
-        With ComplianceEnforcementGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ComplianceEnforcement.ToString)
-                .MakeColumnsLookLikeLinks(0)
-                .SanelyResizeColumns()
-            End If
-        End With
-    End Sub
-
-    Private Sub SetUpComplianceFceGrid()
-        With ComplianceFceGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ComplianceFCE.ToString)
-                .MakeColumnsLookLikeLinks(0)
-                .SanelyResizeColumns()
-            End If
-        End With
-    End Sub
-
-#End Region
-
-#Region " Fees data "
-
-    Private Sub LoadFeesData()
-        LoadDataTable(FacilityDataTable.Fees)
-    End Sub
-
-    Private Sub SetUpFeesTab()
-        If FeeYearSelect.DataSource Is Nothing Then
-            With FeeYearSelect
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.Fees.ToString)
-                .DisplayMember = "FeesData"
-                .ValueMember = "intYear"
-                .SelectedIndex = 0
-            End With
-
-            Dim textBoxDataBindings As New Dictionary(Of TextBox, String)
-            textBoxDataBindings.Add(FeeFacilityClassDisplay, "strClass")
-            textBoxDataBindings.Add(FeeDateSubmitDisplay, "DateSubmit")
-            textBoxDataBindings.Add(FeeStatusDisplay, "strIAIPDesc")
-            For Each item As KeyValuePair(Of TextBox, String) In textBoxDataBindings
-                item.Key.DataBindings.Add(New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.Fees.ToString), item.Value))
-            Next
-
-            Dim textBoxDataBindingsTons As New Dictionary(Of TextBox, String)
-            textBoxDataBindingsTons.Add(FeeVocDisplay, "intVOCTons")
-            textBoxDataBindingsTons.Add(FeePmDisplay, "intPMTons")
-            textBoxDataBindingsTons.Add(FeeSO2Display, "intSO2Tons")
-            textBoxDataBindingsTons.Add(FeeNOxDisplay, "intNOXtons")
-            For Each item As KeyValuePair(Of TextBox, String) In textBoxDataBindingsTons
-                Dim b As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.Fees.ToString), item.Value)
-                AddHandler b.Format, AddressOf BindingFormatTons
-                item.Key.DataBindings.Add(b)
-            Next
-
-            Dim textBoxDataBindingsDollars As New Dictionary(Of TextBox, String)
-            textBoxDataBindingsDollars.Add(FeeTotalDisplay, "NumTotalFee")
-            textBoxDataBindingsDollars.Add(FeePaidDisplay, "TotalPaid")
-            textBoxDataBindingsDollars.Add(FeePart70Display, "NumPart70Fee")
-            textBoxDataBindingsDollars.Add(FeeSmDisplay, "NumSMFee")
-            textBoxDataBindingsDollars.Add(FeeNspsDisplay, "NumNSPSFee")
-            textBoxDataBindingsDollars.Add(FeeAdminDisplay, "NumAdminFee")
-            textBoxDataBindingsDollars.Add(FeePollutantTotalDisplay, "numCalculatedFee")
-            For Each item As KeyValuePair(Of TextBox, String) In textBoxDataBindingsDollars
-                Dim b As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.Fees.ToString), item.Value)
-                AddHandler b.Format, AddressOf BindingFormatDollars
-                item.Key.DataBindings.Add(b)
-            Next
-
-            Dim binding As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.Fees.ToString), "NumFeeRate")
-            AddHandler binding.Format, AddressOf BindingFormatDollarsPerTon
-            FeeRateDisplay.DataBindings.Add(binding)
-
-            Dim checkBoxDataBindings As New Dictionary(Of CheckBox, String)
-            checkBoxDataBindings.Add(FeeFacilityOperatingDisplay, "strOperate")
-            checkBoxDataBindings.Add(FeeFacilityPart70Display, "strPart70")
-            checkBoxDataBindings.Add(FeeFacilityNspsExemptDisplay, "strNSPSExempt")
-            For Each item As KeyValuePair(Of CheckBox, String) In checkBoxDataBindings
-                item.Key.DataBindings.Add(New Binding("Checked", FacilitySummaryDataSet.Tables(FacilityDataTable.Fees.ToString), item.Value))
-            Next
-
-        End If
-    End Sub
-
-    Private Sub BindingFormatTons(sender As Object, cevent As ConvertEventArgs)
-        Dim num As Decimal = 0
-        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
-
-        If Decimal.TryParse(cevent.Value, num) Then
-            cevent.Value = num.ToString("N0") & " ton"
-            If num <> 1 Then cevent.Value = cevent.Value & "s"
-        End If
-    End Sub
-
-    Private Sub BindingFormatDollars(sender As Object, cevent As ConvertEventArgs)
-        Dim num As Decimal = 0
-        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
-
-        If Decimal.TryParse(cevent.Value, num) Then
-            cevent.Value = "$" & num.ToString("N0")
-        End If
-    End Sub
-
-    Private Sub BindingFormatDollarsPerTon(sender As Object, cevent As ConvertEventArgs)
-        Dim num As Decimal = 0
-        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
-
-        If Decimal.TryParse(cevent.Value, num) Then
-            cevent.Value = "$" & num.ToString("N2") & " /ton"
-        End If
-    End Sub
-
-#End Region
-
-#Region " Contacts data "
-
-    Private Sub EditContactsButton_Click(sender As Object, e As EventArgs) Handles EditContactsButton.Click
-        Dim parameters As New Dictionary(Of FormParameter, String)
-        parameters(FormParameter.AirsNumber) = Me.AirsNumber.ShortString
-        parameters(FormParameter.FacilityName) = Me.ThisFacility.FacilityName
-        OpenMultiForm(IAIPEditContacts, AirsNumber.ToInt, parameters)
     End Sub
 
     Private Sub LoadContactsData()
@@ -878,179 +720,25 @@ Public Class IAIPFacilitySummary
         LoadDataTable(FacilityDataTable.ContactsGeco)
     End Sub
 
-    Private Sub SetUpContactsStateGrid()
-        With ContactsStateGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ContactsState.ToString)
-                .SanelyResizeColumns
-            End If
-        End With
-    End Sub
-
-    Private Sub SetUpContactsWebSiteGrid()
-        With ContactsWebSiteGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ContactsWebSite.ToString)
-                .SanelyResizeColumns
-            End If
-        End With
-    End Sub
-
-    Private Sub SetUpContactsPermittingGrid()
-        With ContactsPermittingGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ContactsPermitting.ToString)
-                .SanelyResizeColumns
-            End If
-        End With
-    End Sub
-
-    Private Sub SetUpContactsTestingGrid()
-        With ContactsTestingGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ContactsTesting.ToString)
-                .SanelyResizeColumns
-            End If
-        End With
-    End Sub
-
-    Private Sub SetUpContactsComplianceGrid()
-        With ContactsComplianceGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ContactsCompliance.ToString)
-                .SanelyResizeColumns
-            End If
-        End With
-    End Sub
-
-    Private Sub SetUpContactsGecoGrid()
-        With ContactsGecoGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ContactsGeco.ToString)
-                .SanelyResizeColumns
-            End If
-        End With
-    End Sub
-
-#End Region
-
-#Region " Emission Inventory data "
-
     Private Sub LoadEmissionInventoryData()
-        LoadDataTable(FacilityDataTable.EiPost2009)
-        LoadDataTable(FacilityDataTable.EiPre2009)
+        LoadDataTable(FacilityDataTable.EIPost2009)
+        LoadDataTable(FacilityDataTable.EIPre2009)
     End Sub
 
-    Private Sub SetUpEiPost2009Grid()
-        With EiPost2009Grid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.EiPost2009.ToString)
-                .SanelyResizeColumns()
-            End If
-        End With
-    End Sub
-
-    Private Sub SetUpEiPre2009Grid()
-        With EiPre2009Grid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.EiPre2009.ToString)
-                .SanelyResizeColumns()
-            End If
-        End With
-    End Sub
-
-#End Region
-
-#Region " Financial "
-
-    Private Sub LoadFinancialData()
-        LoadDataTable(FacilityDataTable.FinancialDeposits)
-        LoadDataTable(FacilityDataTable.FinancialFees)
-        LoadDataTable(FacilityDataTable.FinancialInvoices)
-    End Sub
-
-    Private Sub SetUpFinancialFeesGrid()
-        With FinancialFeeGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.FinancialFees.ToString)
-                .SanelyResizeColumns()
-            End If
-        End With
-    End Sub
-
-    Private Sub SetUpFinancialDepositsGrid()
-        With FinancialDepositsGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.FinancialDeposits.ToString)
-                .SanelyResizeColumns()
-            End If
-        End With
-    End Sub
-
-    Private Sub SetUpFinancialInvoicesGrid()
-        With FinancialInvoicesGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.FinancialInvoices.ToString)
-                .SanelyResizeColumns()
-            End If
-        End With
-    End Sub
-
-#End Region
-
-#Region " Permitting data "
-
-    Private Sub PermitsLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles PermitsLink.LinkClicked
-        OpenPermitSearchUrl(Me.AirsNumber, Me)
+    Private Sub LoadEmissionsFeesData()
+        LoadDataTable(FacilityDataTable.EmissionsFeesSummary)
+        LoadDataTable(FacilityDataTable.EmissionsFeesDeposits)
+        LoadDataTable(FacilityDataTable.EmissionsFeesData)
+        LoadDataTable(FacilityDataTable.EmissionsFeesInvoices)
     End Sub
 
     Private Sub LoadPermittingData()
         LoadDataTable(FacilityDataTable.PermitApplications)
+        LoadDataTable(FacilityDataTable.PermitApplicationFees)
         LoadDataTable(FacilityDataTable.PermitRuleHistory)
         LoadDataTable(FacilityDataTable.PermitRules)
         LoadDataTable(FacilityDataTable.Permits)
     End Sub
-
-    Private Sub SetUpPermitApplicationsGrid()
-        With PermitApplicationGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.PermitApplications.ToString)
-                .MakeColumnsLookLikeLinks(0)
-                .SanelyResizeColumns()
-            End If
-        End With
-    End Sub
-
-    Private Sub SetUpPermitRulesGrid()
-        With PermitRulesGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.PermitRules.ToString)
-                .SanelyResizeColumns()
-            End If
-        End With
-    End Sub
-
-    Private Sub SetUpPermitRuleHistoryGrid()
-        With PermitRuleHistoryGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.PermitRuleHistory.ToString)
-                .SanelyResizeColumns()
-            End If
-        End With
-    End Sub
-
-    Private Sub SetUpPermitsGrid()
-        With PermitsGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.Permits.ToString)
-                .SanelyResizeColumns()
-            End If
-        End With
-    End Sub
-
-#End Region
-
-#Region " Testing data "
 
     Private Sub LoadTestingData()
         LoadDataTable(FacilityDataTable.TestReports)
@@ -1058,35 +746,108 @@ Public Class IAIPFacilitySummary
         LoadDataTable(FacilityDataTable.TestMemos)
     End Sub
 
-    Private Sub SetUpTestReportsGrid()
-        With TestReportsGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.TestReports.ToString)
-                .MakeColumnsLookLikeLinks(0)
-                .SanelyResizeColumns()
-            End If
-        End With
+    Private Sub SetUpFeesTab()
+        If FeeYearSelect.DataSource Is Nothing Then
+            With FeeYearSelect
+                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString)
+                .DisplayMember = "FeesData"
+                .ValueMember = "intYear"
+                .SelectedIndex = 0
+            End With
 
+            Dim textBoxDataBindings As New Dictionary(Of TextBox, String) From {
+                {FeeFacilityClassDisplay, "strClass"},
+                {FeeDateSubmitDisplay, "DateSubmit"},
+                {FeeStatusDisplay, "strIAIPDesc"}
+            }
+
+            For Each item As KeyValuePair(Of TextBox, String) In textBoxDataBindings
+                item.Key.DataBindings.Add(New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), item.Value))
+            Next
+
+            Dim textBoxDataBindingsTons As New Dictionary(Of TextBox, String) From {
+                {FeeVocDisplay, "intVOCTons"},
+                {FeePmDisplay, "intPMTons"},
+                {FeeSO2Display, "intSO2Tons"},
+                {FeeNOxDisplay, "intNOXtons"}
+            }
+
+            For Each item As KeyValuePair(Of TextBox, String) In textBoxDataBindingsTons
+                Dim b As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), item.Value)
+                AddHandler b.Format, AddressOf BindingFormatTons
+                item.Key.DataBindings.Add(b)
+            Next
+
+            Dim textBoxDataBindingsDollars As New Dictionary(Of TextBox, String) From {
+                {FeeTotalDisplay, "NumTotalFee"},
+                {FeePaidDisplay, "TotalPaid"},
+                {FeePart70Display, "NumPart70Fee"},
+                {FeeSmDisplay, "NumSMFee"},
+                {FeeNspsDisplay, "NumNSPSFee"},
+                {FeeAdminDisplay, "NumAdminFee"},
+                {FeePollutantTotalDisplay, "numCalculatedFee"}
+            }
+
+            For Each item As KeyValuePair(Of TextBox, String) In textBoxDataBindingsDollars
+                Dim b As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), item.Value)
+                AddHandler b.Format, AddressOf BindingFormatDollars
+                item.Key.DataBindings.Add(b)
+            Next
+
+            Dim binding As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), "NumFeeRate")
+            AddHandler binding.Format, AddressOf BindingFormatDollarsPerTon
+            FeeRateDisplay.DataBindings.Add(binding)
+
+            Dim checkBoxDataBindings As New Dictionary(Of CheckBox, String) From {
+                {FeeFacilityOperatingDisplay, "strOperate"},
+                {FeeFacilityPart70Display, "strPart70"},
+                {FeeFacilityNspsExemptDisplay, "strNSPSExempt"}
+            }
+
+            For Each item As KeyValuePair(Of CheckBox, String) In checkBoxDataBindings
+                item.Key.DataBindings.Add(New Binding("Checked", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), item.Value))
+            Next
+
+        End If
     End Sub
 
-    Private Sub SetUpTestNotificationsGrid()
-        With TestNotificationsGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.TestNotifications.ToString)
-                .MakeColumnsLookLikeLinks(0)
-                .SanelyResizeColumns()
-            End If
-        End With
+    Private Sub BindingFormatTons(sender As Object, cevent As ConvertEventArgs)
+        Dim num As Decimal = 0
+        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
+
+        If Decimal.TryParse(cevent.Value.ToString, num) Then
+            cevent.Value = num.ToString("N0") & " ton"
+            If num <> 1 Then cevent.Value = cevent.Value.ToString & "s"
+        End If
     End Sub
 
-    Private Sub SetUpTestMemosGrid()
-        With TestMemosGrid
-            If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.TestMemos.ToString)
-                .MakeColumnsLookLikeLinks(0)
-                .SanelyResizeColumns()
-            End If
-        End With
+    Private Sub BindingFormatDollars(sender As Object, cevent As ConvertEventArgs)
+        Dim num As Decimal = 0
+        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
+
+        If Decimal.TryParse(cevent.Value.ToString, num) Then
+            cevent.Value = "$" & num.ToString("N0")
+        End If
+    End Sub
+
+    Private Sub BindingFormatDollarsPerTon(sender As Object, cevent As ConvertEventArgs)
+        Dim num As Decimal = 0
+        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
+
+        If Decimal.TryParse(cevent.Value.ToString, num) Then
+            cevent.Value = "$" & num.ToString("N2") & " /ton"
+        End If
+    End Sub
+
+    Private Sub EditContactsButton_Click(sender As Object, e As EventArgs) Handles EditContactsButton.Click
+        Dim parameters As New Dictionary(Of FormParameter, String)
+        parameters(FormParameter.AirsNumber) = AirsNumber.ShortString
+        parameters(FormParameter.FacilityName) = ThisFacility.FacilityName
+        OpenMultiForm(IAIPEditContacts, AirsNumber.ToInt, parameters)
+    End Sub
+
+    Private Sub PermitsLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles PermitsLink.LinkClicked
+        OpenPermitSearchUrl(AirsNumber, Me)
     End Sub
 
 #End Region
@@ -1095,7 +856,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub UpdateEpaData()
         If ThisFacility IsNot Nothing Then
-            If DAL.FacilityData.TriggerDataUpdateAtEPA(Me.AirsNumber) Then
+            If TriggerDataUpdateAtEPA(AirsNumber) Then
                 MessageBox.Show("Data for this facility will be sent to EPA the next time the database update procedures run.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
                 MessageBox.Show("There was an error attempting to flag this facility to update. Contact EPD IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1113,12 +874,12 @@ Public Class IAIPFacilitySummary
         OpenSingleForm(IAIPFacilityCreator)
     End Sub
 
-    Private Sub ViewData_Click(sender As Object, e As EventArgs) Handles ViewDataButton.Click
+    Private Sub ViewDataButton_Click(sender As Object, e As EventArgs) Handles ViewDataButton.Click
         If AirsNumberEntry.Text = "" Then
             ClearAllData()
         Else
             Try
-                Me.AirsNumber = AirsNumberEntry.Text
+                AirsNumber = CType(AirsNumberEntry.Text, ApbFacilityId)
             Catch ex As ArgumentException
                 ClearAllData()
                 FacilityNameDisplay.Text = "Invalid AIRS number"
@@ -1133,13 +894,14 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub OpenFacilityLookupTool()
-        Dim facilityLookupDialog As New IAIPFacilityLookUpTool
-        facilityLookupDialog.ShowDialog()
-        If facilityLookupDialog.DialogResult = DialogResult.OK _
-        AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(facilityLookupDialog.SelectedAirsNumber) Then
-            Me.AirsNumber = facilityLookupDialog.SelectedAirsNumber
-        End If
-        facilityLookupDialog.Dispose()
+        Using facilityLookupDialog As New IAIPFacilityLookUpTool
+            facilityLookupDialog.ShowDialog()
+
+            If facilityLookupDialog.DialogResult = DialogResult.OK AndAlso
+                IsValidAirsNumberFormat(facilityLookupDialog.SelectedAirsNumber) Then
+                AirsNumber = CType(facilityLookupDialog.SelectedAirsNumber, ApbFacilityId)
+            End If
+        End Using
     End Sub
 
 #End Region
@@ -1155,11 +917,11 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub ClearFormToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearFormMenuItem.Click
-        Me.AirsNumber = Nothing
+        AirsNumber = Nothing
     End Sub
 
     Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseMenuItem.Click
-        Me.Close()
+        Close()
     End Sub
 
     Private Sub FacilityCreatorToolToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CreateFacilityMenuItem.Click
@@ -1179,30 +941,24 @@ Public Class IAIPFacilitySummary
 #Region " Form-level events "
 
     Private Sub FSMainTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles FSMainTabControl.SelectedIndexChanged
-        Select Case FSMainTabControl.SelectedTab.Name
+        Cursor = Cursors.WaitCursor
 
+        Select Case FSMainTabControl.SelectedTab.Name
             Case FSCompliance.Name
                 LoadComplianceData()
-
-            Case FSFees.Name
-                LoadFeesData()
-
             Case FSContacts.Name
                 LoadContactsData()
-
             Case FSEmissionInventory.Name
                 LoadEmissionInventoryData()
-
-            Case FSFinancial.Name
-                LoadFinancialData()
-
+            Case FSEmissionsFees.Name
+                LoadEmissionsFeesData()
             Case FSPermitting.Name
                 LoadPermittingData()
-
             Case FSTesting.Name
                 LoadTestingData()
-
         End Select
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub IAIPFacilitySummary_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
@@ -1224,6 +980,7 @@ Public Class IAIPFacilitySummary
         OwnershipDisplay.TextChanged
 
         Dim t As TextBox = CType(sender, TextBox)
+
         If t.Text = "" Then
             t.Text = "N/A"
         End If
