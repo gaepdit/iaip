@@ -276,7 +276,7 @@ Partial Class FinDepositView
         Me.btnDeleteDeposit.Location = New System.Drawing.Point(490, 12)
         Me.btnDeleteDeposit.Name = "btnDeleteDeposit"
         Me.btnDeleteDeposit.Size = New System.Drawing.Size(106, 23)
-        Me.btnDeleteDeposit.TabIndex = 5
+        Me.btnDeleteDeposit.TabIndex = 7
         Me.btnDeleteDeposit.Text = "Delete this Deposit"
         Me.btnDeleteDeposit.UseVisualStyleBackColor = True
         '
@@ -287,7 +287,7 @@ Partial Class FinDepositView
         Me.lblDepositDisplay.Location = New System.Drawing.Point(42, 15)
         Me.lblDepositDisplay.Name = "lblDepositDisplay"
         Me.lblDepositDisplay.Size = New System.Drawing.Size(98, 17)
-        Me.lblDepositDisplay.TabIndex = 9
+        Me.lblDepositDisplay.TabIndex = 5
         Me.lblDepositDisplay.Text = "New Deposit"
         '
         'dgvInvoicesPaid
@@ -307,7 +307,7 @@ Partial Class FinDepositView
         Me.dgvInvoicesPaid.ShowEditingIcon = False
         Me.dgvInvoicesPaid.Size = New System.Drawing.Size(315, 227)
         Me.dgvInvoicesPaid.StandardTab = True
-        Me.dgvInvoicesPaid.TabIndex = 5
+        Me.dgvInvoicesPaid.TabIndex = 4
         '
         'txtInvoiceToApply
         '
@@ -355,7 +355,7 @@ Partial Class FinDepositView
         Me.btnApplyToInvoice.Location = New System.Drawing.Point(209, 40)
         Me.btnApplyToInvoice.Name = "btnApplyToInvoice"
         Me.btnApplyToInvoice.Size = New System.Drawing.Size(101, 27)
-        Me.btnApplyToInvoice.TabIndex = 4
+        Me.btnApplyToInvoice.TabIndex = 2
         Me.btnApplyToInvoice.Text = "Apply"
         Me.btnApplyToInvoice.UseVisualStyleBackColor = True
         '
@@ -630,7 +630,7 @@ Partial Class FinDepositView
         Me.lblApplyToInvoiceMessage.Name = "lblApplyToInvoiceMessage"
         Me.lblApplyToInvoiceMessage.Padding = New System.Windows.Forms.Padding(3)
         Me.lblApplyToInvoiceMessage.Size = New System.Drawing.Size(96, 19)
-        Me.lblApplyToInvoiceMessage.TabIndex = 5
+        Me.lblApplyToInvoiceMessage.TabIndex = 3
         Me.lblApplyToInvoiceMessage.Text = "Invoice message."
         '
         'lblInvoicesPaid
@@ -680,7 +680,7 @@ Partial Class FinDepositView
         Me.lblDeleteDepositMessage.Name = "lblDeleteDepositMessage"
         Me.lblDeleteDepositMessage.Padding = New System.Windows.Forms.Padding(3)
         Me.lblDeleteDepositMessage.Size = New System.Drawing.Size(164, 30)
-        Me.lblDeleteDepositMessage.TabIndex = 5
+        Me.lblDeleteDepositMessage.TabIndex = 6
         Me.lblDeleteDepositMessage.Text = "Delete deposit message."
         Me.lblDeleteDepositMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '

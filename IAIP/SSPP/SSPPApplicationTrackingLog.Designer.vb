@@ -5735,7 +5735,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel2.Location = New System.Drawing.Point(0, 1)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(380, 137)
-        Me.Panel2.TabIndex = 16
+        Me.Panel2.TabIndex = 0
         '
         'lblInvoices
         '
@@ -5806,7 +5806,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel1.Location = New System.Drawing.Point(0, 1)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(405, 137)
-        Me.Panel1.TabIndex = 16
+        Me.Panel1.TabIndex = 0
         '
         'lblPayments
         '
@@ -5901,7 +5901,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dtpFeeDataFinalized.Location = New System.Drawing.Point(193, 275)
         Me.dtpFeeDataFinalized.Name = "dtpFeeDataFinalized"
         Me.dtpFeeDataFinalized.Size = New System.Drawing.Size(98, 21)
-        Me.dtpFeeDataFinalized.TabIndex = 12
+        Me.dtpFeeDataFinalized.TabIndex = 13
         '
         'lblFacilityFeeNotified
         '
@@ -5922,7 +5922,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dtpFacilityFeeNotified.Name = "dtpFacilityFeeNotified"
         Me.dtpFacilityFeeNotified.ShowCheckBox = True
         Me.dtpFacilityFeeNotified.Size = New System.Drawing.Size(116, 21)
-        Me.dtpFacilityFeeNotified.TabIndex = 12
+        Me.dtpFacilityFeeNotified.TabIndex = 14
         '
         'lblFeeDataFinalized
         '
@@ -5940,7 +5940,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.lklGenerateEmail.Location = New System.Drawing.Point(8, 253)
         Me.lklGenerateEmail.Name = "lklGenerateEmail"
         Me.lklGenerateEmail.Size = New System.Drawing.Size(78, 13)
-        Me.lklGenerateEmail.TabIndex = 11
+        Me.lklGenerateEmail.TabIndex = 12
         Me.lklGenerateEmail.TabStop = True
         Me.lklGenerateEmail.Text = "Generate email"
         '
@@ -5998,7 +5998,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbFeeDataFinalized.Location = New System.Drawing.Point(11, 231)
         Me.chbFeeDataFinalized.Name = "chbFeeDataFinalized"
         Me.chbFeeDataFinalized.Size = New System.Drawing.Size(127, 17)
-        Me.chbFeeDataFinalized.TabIndex = 10
+        Me.chbFeeDataFinalized.TabIndex = 11
         Me.chbFeeDataFinalized.Text = "Ready to be invoiced"
         Me.chbFeeDataFinalized.UseVisualStyleBackColor = True
         '
@@ -6021,7 +6021,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtFeeTotal.Name = "txtFeeTotal"
         Me.txtFeeTotal.ReadOnly = True
         Me.txtFeeTotal.Size = New System.Drawing.Size(77, 13)
-        Me.txtFeeTotal.TabIndex = 13
+        Me.txtFeeTotal.TabIndex = 10
         Me.txtFeeTotal.Text = "$0"
         Me.txtFeeTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '

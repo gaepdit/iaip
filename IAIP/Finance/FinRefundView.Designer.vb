@@ -51,7 +51,7 @@ Partial Class FinRefundView
         Me.dtpRefundDate.Location = New System.Drawing.Point(149, 86)
         Me.dtpRefundDate.Name = "dtpRefundDate"
         Me.dtpRefundDate.Size = New System.Drawing.Size(91, 20)
-        Me.dtpRefundDate.TabIndex = 1
+        Me.dtpRefundDate.TabIndex = 0
         '
         'btnSaveNew
         '
@@ -60,7 +60,7 @@ Partial Class FinRefundView
         Me.btnSaveNew.Location = New System.Drawing.Point(15, 216)
         Me.btnSaveNew.Name = "btnSaveNew"
         Me.btnSaveNew.Size = New System.Drawing.Size(141, 27)
-        Me.btnSaveNew.TabIndex = 5
+        Me.btnSaveNew.TabIndex = 4
         Me.btnSaveNew.Text = "Save New Refund"
         Me.btnSaveNew.UseVisualStyleBackColor = True
         '
@@ -72,7 +72,7 @@ Partial Class FinRefundView
         Me.btnDelete.Location = New System.Drawing.Point(226, 12)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(105, 23)
-        Me.btnDelete.TabIndex = 8
+        Me.btnDelete.TabIndex = 9
         Me.btnDelete.Text = "Delete this Refund"
         Me.btnDelete.UseVisualStyleBackColor = True
         '
@@ -85,7 +85,7 @@ Partial Class FinRefundView
         Me.txtRefundAmount.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtRefundAmount.Name = "txtRefundAmount"
         Me.txtRefundAmount.Size = New System.Drawing.Size(91, 20)
-        Me.txtRefundAmount.TabIndex = 2
+        Me.txtRefundAmount.TabIndex = 1
         Me.txtRefundAmount.Text = "$0"
         Me.txtRefundAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -114,7 +114,7 @@ Partial Class FinRefundView
         Me.lblRefundDisplay.Location = New System.Drawing.Point(42, 15)
         Me.lblRefundDisplay.Name = "lblRefundDisplay"
         Me.lblRefundDisplay.Size = New System.Drawing.Size(95, 17)
-        Me.lblRefundDisplay.TabIndex = 9
+        Me.lblRefundDisplay.TabIndex = 8
         Me.lblRefundDisplay.Text = "New Refund"
         '
         'txtComment
@@ -123,7 +123,7 @@ Partial Class FinRefundView
         Me.txtComment.Multiline = True
         Me.txtComment.Name = "txtComment"
         Me.txtComment.Size = New System.Drawing.Size(225, 46)
-        Me.txtComment.TabIndex = 3
+        Me.txtComment.TabIndex = 2
         '
         'lblMessage
         '
@@ -192,7 +192,7 @@ Partial Class FinRefundView
         Me.dgvDeposits.ResultsCountLabelFormat = "{0} found"
         Me.dgvDeposits.Size = New System.Drawing.Size(319, 163)
         Me.dgvDeposits.StandardTab = True
-        Me.dgvDeposits.TabIndex = 9
+        Me.dgvDeposits.TabIndex = 6
         '
         'btnUpdateComment
         '
@@ -201,7 +201,7 @@ Partial Class FinRefundView
         Me.btnUpdateComment.Location = New System.Drawing.Point(15, 216)
         Me.btnUpdateComment.Name = "btnUpdateComment"
         Me.btnUpdateComment.Size = New System.Drawing.Size(129, 27)
-        Me.btnUpdateComment.TabIndex = 4
+        Me.btnUpdateComment.TabIndex = 3
         Me.btnUpdateComment.Text = "Update Comment"
         Me.btnUpdateComment.UseVisualStyleBackColor = True
         '
@@ -230,7 +230,7 @@ Partial Class FinRefundView
         Me.txtCredits.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtCredits.Name = "txtCredits"
         Me.txtCredits.Size = New System.Drawing.Size(71, 13)
-        Me.txtCredits.TabIndex = 6
+        Me.txtCredits.TabIndex = 5
         Me.txtCredits.Text = "$0"
         Me.txtCredits.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
