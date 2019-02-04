@@ -22,7 +22,6 @@ Partial Class ISMPTestFirmComments
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPTestFirmComments))
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbSave = New System.Windows.Forms.ToolStripButton()
         Me.tsbLookUpAirNumber = New System.Windows.Forms.ToolStripButton()
@@ -74,7 +73,7 @@ Partial Class ISMPTestFirmComments
         'tsbSave
         '
         Me.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSave.Image = CType(resources.GetObject("tsbSave.Image"), System.Drawing.Image)
+        Me.tsbSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
         Me.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbSave.Name = "tsbSave"
         Me.tsbSave.Size = New System.Drawing.Size(23, 22)
@@ -83,7 +82,7 @@ Partial Class ISMPTestFirmComments
         'tsbLookUpAirNumber
         '
         Me.tsbLookUpAirNumber.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbLookUpAirNumber.Image = CType(resources.GetObject("tsbLookUpAirNumber.Image"), System.Drawing.Image)
+        Me.tsbLookUpAirNumber.Image = Global.Iaip.My.Resources.Resources.FindIcon
         Me.tsbLookUpAirNumber.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbLookUpAirNumber.Name = "tsbLookUpAirNumber"
         Me.tsbLookUpAirNumber.Size = New System.Drawing.Size(23, 22)
@@ -155,7 +154,7 @@ Partial Class ISMPTestFirmComments
         '
         Me.btnRefreshAIRSNumber.AutoSize = True
         Me.btnRefreshAIRSNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRefreshAIRSNumber.Image = CType(resources.GetObject("btnRefreshAIRSNumber.Image"), System.Drawing.Image)
+        Me.btnRefreshAIRSNumber.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
         Me.btnRefreshAIRSNumber.Location = New System.Drawing.Point(488, 6)
         Me.btnRefreshAIRSNumber.Name = "btnRefreshAIRSNumber"
         Me.btnRefreshAIRSNumber.Size = New System.Drawing.Size(22, 22)
@@ -166,7 +165,7 @@ Partial Class ISMPTestFirmComments
         '
         Me.btnRefreshReportNumber.AutoSize = True
         Me.btnRefreshReportNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRefreshReportNumber.Image = CType(resources.GetObject("btnRefreshReportNumber.Image"), System.Drawing.Image)
+        Me.btnRefreshReportNumber.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
         Me.btnRefreshReportNumber.Location = New System.Drawing.Point(464, 33)
         Me.btnRefreshReportNumber.Name = "btnRefreshReportNumber"
         Me.btnRefreshReportNumber.Size = New System.Drawing.Size(22, 22)
@@ -177,7 +176,7 @@ Partial Class ISMPTestFirmComments
         '
         Me.btnRefreshNotifications.AutoSize = True
         Me.btnRefreshNotifications.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRefreshNotifications.Image = CType(resources.GetObject("btnRefreshNotifications.Image"), System.Drawing.Image)
+        Me.btnRefreshNotifications.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
         Me.btnRefreshNotifications.Location = New System.Drawing.Point(222, 32)
         Me.btnRefreshNotifications.Name = "btnRefreshNotifications"
         Me.btnRefreshNotifications.Size = New System.Drawing.Size(22, 22)
@@ -401,7 +400,7 @@ Partial Class ISMPTestFirmComments
         Me.txtAllComments.Multiline = True
         Me.txtAllComments.Name = "txtAllComments"
         Me.txtAllComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtAllComments.Size = New System.Drawing.Size(768, 243)
+        Me.txtAllComments.Size = New System.Drawing.Size(768, 242)
         Me.txtAllComments.TabIndex = 4
         '
         'ISMPTestFirmComments

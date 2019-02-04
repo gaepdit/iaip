@@ -19,7 +19,6 @@ Partial Class SBEAPCaseWork
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SBEAPCaseWork))
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbSave = New System.Windows.Forms.ToolStripButton()
         Me.tsbClientSearch = New System.Windows.Forms.ToolStripButton()
@@ -225,7 +224,7 @@ Partial Class SBEAPCaseWork
         'tsbSave
         '
         Me.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSave.Image = CType(resources.GetObject("tsbSave.Image"), System.Drawing.Image)
+        Me.tsbSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
         Me.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbSave.Name = "tsbSave"
         Me.tsbSave.Size = New System.Drawing.Size(23, 22)
@@ -234,7 +233,7 @@ Partial Class SBEAPCaseWork
         'tsbClientSearch
         '
         Me.tsbClientSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbClientSearch.Image = CType(resources.GetObject("tsbClientSearch.Image"), System.Drawing.Image)
+        Me.tsbClientSearch.Image = Global.Iaip.My.Resources.Resources.FindIcon
         Me.tsbClientSearch.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbClientSearch.Name = "tsbClientSearch"
         Me.tsbClientSearch.Size = New System.Drawing.Size(23, 22)
@@ -243,7 +242,7 @@ Partial Class SBEAPCaseWork
         'tsbClearFrom
         '
         Me.tsbClearFrom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbClearFrom.Image = CType(resources.GetObject("tsbClearFrom.Image"), System.Drawing.Image)
+        Me.tsbClearFrom.Image = Global.Iaip.My.Resources.Resources.EraseIcon
         Me.tsbClearFrom.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbClearFrom.Name = "tsbClearFrom"
         Me.tsbClearFrom.Size = New System.Drawing.Size(23, 22)
@@ -262,7 +261,7 @@ Partial Class SBEAPCaseWork
         '
         Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiAddNewClient, Me.tsmDeleteCaseWork})
         Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
+        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(42, 20)
         Me.ToolToolStripMenuItem.Text = "Tool"
         '
         'mmiAddNewClient
@@ -494,7 +493,7 @@ Partial Class SBEAPCaseWork
         '
         Me.btnRefreshClient.AutoSize = True
         Me.btnRefreshClient.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRefreshClient.Image = CType(resources.GetObject("btnRefreshClient.Image"), System.Drawing.Image)
+        Me.btnRefreshClient.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
         Me.btnRefreshClient.Location = New System.Drawing.Point(162, 2)
         Me.btnRefreshClient.Name = "btnRefreshClient"
         Me.btnRefreshClient.Size = New System.Drawing.Size(22, 22)

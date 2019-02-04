@@ -9,7 +9,7 @@ Public Class ISMPMemo
             LoadMemo()
             If AccountFormAccess(15, 0) = "1" Or AccountFormAccess(15, 1) = "1" Or AccountFormAccess(15, 2) = "1" Or AccountFormAccess(15, 3) = "1" Then
             Else
-                TBMemo.Buttons.Remove(TbbSave)
+                bbtSave.Enabled = False
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -97,22 +97,11 @@ Public Class ISMPMemo
         End Try
 
     End Sub
-    Private Sub TBMemo_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBMemo.ButtonClick
-        Try
 
-            Select Case TBMemo.Buttons.IndexOf(e.Button)
-                Case 0
-                    SaveMemo()
-                    txtMemoOut.Clear()
-                    LoadMemo()
-                    txtMemoIN.Clear()
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+    Private Sub bbtSave_Click(sender As Object, e As EventArgs) Handles bbtSave.Click
+        SaveMemo()
+        txtMemoOut.Clear()
+        LoadMemo()
+        txtMemoIN.Clear()
     End Sub
-
 End Class

@@ -22,7 +22,6 @@ Partial Class ISMPTestReports
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPTestReports))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiSave = New System.Windows.Forms.ToolStripMenuItem()
@@ -880,6 +879,7 @@ Partial Class ISMPTestReports
         Me.cboMaximumExpectedOperatingCapacityUnitsMethod22 = New System.Windows.Forms.ComboBox()
         Me.Label222 = New System.Windows.Forms.Label()
         Me.TPSSCPWork = New System.Windows.Forms.TabPage()
+        Me.llEnforcementCases = New System.Windows.Forms.LinkLabel()
         Me.cboStaffResponsible = New System.Windows.Forms.ComboBox()
         Me.Label223 = New System.Windows.Forms.Label()
         Me.txtTrackingNumber = New System.Windows.Forms.TextBox()
@@ -905,45 +905,44 @@ Partial Class ISMPTestReports
         Me.Label326 = New System.Windows.Forms.Label()
         Me.txtTestReportDueDate = New System.Windows.Forms.TextBox()
         Me.DeletedTestFlag = New System.Windows.Forms.Label()
-        Me.llEnforcementCases = New System.Windows.Forms.LinkLabel()
-        Me.MenuStrip1.SuspendLayout()
-        Me.ToolStrip1.SuspendLayout()
-        CType(Me.SCTestReports, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SCTestReports.Panel1.SuspendLayout()
-        Me.SCTestReports.Panel2.SuspendLayout()
-        Me.SCTestReports.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.TCDocumentTypes.SuspendLayout()
-        Me.TPOneStack.SuspendLayout()
-        Me.TCOneStack.SuspendLayout()
-        Me.TPOneStackTwoRun.SuspendLayout()
-        Me.TPOneStackThreeRun.SuspendLayout()
-        Me.TPOneStackFourRun.SuspendLayout()
-        Me.TPLoadingRack.SuspendLayout()
-        Me.TPPondTreatment.SuspendLayout()
-        Me.TPGasConcentration.SuspendLayout()
-        Me.TPFlare.SuspendLayout()
-        Me.TPMethodNine.SuspendLayout()
-        Me.TCMethodNine.SuspendLayout()
-        Me.TPMethodNineSingle.SuspendLayout()
-        Me.Panel4.SuspendLayout()
-        Me.TPMethodNineMultiple.SuspendLayout()
-        Me.Panel5.SuspendLayout()
-        Me.TPMethodNineMultiple2.SuspendLayout()
-        Me.TPMemorandum.SuspendLayout()
-        Me.TCMemorandum.SuspendLayout()
-        Me.TPMemoStandard.SuspendLayout()
-        Me.TPMemoToFile.SuspendLayout()
-        Me.TPMemoPTE.SuspendLayout()
-        Me.TPRata.SuspendLayout()
-        Me.TPTwoStack.SuspendLayout()
-        Me.TCTwoStack.SuspendLayout()
-        Me.TPTwoStackStandard.SuspendLayout()
-        Me.TPTwoStackDRE.SuspendLayout()
-        Me.TPMethodTwentyTwo.SuspendLayout()
-        Me.TPSSCPWork.SuspendLayout()
-        Me.Panel22.SuspendLayout()
-        Me.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout
+        Me.ToolStrip1.SuspendLayout
+        CType(Me.SCTestReports, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.SCTestReports.Panel1.SuspendLayout
+        Me.SCTestReports.Panel2.SuspendLayout
+        Me.SCTestReports.SuspendLayout
+        Me.GroupBox1.SuspendLayout
+        Me.TCDocumentTypes.SuspendLayout
+        Me.TPOneStack.SuspendLayout
+        Me.TCOneStack.SuspendLayout
+        Me.TPOneStackTwoRun.SuspendLayout
+        Me.TPOneStackThreeRun.SuspendLayout
+        Me.TPOneStackFourRun.SuspendLayout
+        Me.TPLoadingRack.SuspendLayout
+        Me.TPPondTreatment.SuspendLayout
+        Me.TPGasConcentration.SuspendLayout
+        Me.TPFlare.SuspendLayout
+        Me.TPMethodNine.SuspendLayout
+        Me.TCMethodNine.SuspendLayout
+        Me.TPMethodNineSingle.SuspendLayout
+        Me.Panel4.SuspendLayout
+        Me.TPMethodNineMultiple.SuspendLayout
+        Me.Panel5.SuspendLayout
+        Me.TPMethodNineMultiple2.SuspendLayout
+        Me.TPMemorandum.SuspendLayout
+        Me.TCMemorandum.SuspendLayout
+        Me.TPMemoStandard.SuspendLayout
+        Me.TPMemoToFile.SuspendLayout
+        Me.TPMemoPTE.SuspendLayout
+        Me.TPRata.SuspendLayout
+        Me.TPTwoStack.SuspendLayout
+        Me.TCTwoStack.SuspendLayout
+        Me.TPTwoStackStandard.SuspendLayout
+        Me.TPTwoStackDRE.SuspendLayout
+        Me.TPMethodTwentyTwo.SuspendLayout
+        Me.TPSSCPWork.SuspendLayout
+        Me.Panel22.SuspendLayout
+        Me.SuspendLayout
         '
         'MenuStrip1
         '
@@ -992,7 +991,7 @@ Partial Class ISMPTestReports
         '
         Me.mmiTool.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOpenTestLogNotification, Me.mmiOpenExcelFile, Me.mmiPrePopulate, Me.mmiDefaultCompliance, Me.mmiPrintNonConf})
         Me.mmiTool.Name = "mmiTool"
-        Me.mmiTool.Size = New System.Drawing.Size(48, 20)
+        Me.mmiTool.Size = New System.Drawing.Size(47, 20)
         Me.mmiTool.Text = "Tools"
         '
         'mmiOpenTestLogNotification
@@ -1038,7 +1037,7 @@ Partial Class ISMPTestReports
         'tsbSave
         '
         Me.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSave.Image = CType(resources.GetObject("tsbSave.Image"), System.Drawing.Image)
+        Me.tsbSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
         Me.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbSave.Name = "tsbSave"
         Me.tsbSave.Size = New System.Drawing.Size(23, 22)
@@ -1047,7 +1046,7 @@ Partial Class ISMPTestReports
         'tsbSearch
         '
         Me.tsbSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSearch.Image = CType(resources.GetObject("tsbSearch.Image"), System.Drawing.Image)
+        Me.tsbSearch.Image = Global.Iaip.My.Resources.Resources.FindIcon
         Me.tsbSearch.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbSearch.Name = "tsbSearch"
         Me.tsbSearch.Size = New System.Drawing.Size(23, 22)
@@ -1056,7 +1055,7 @@ Partial Class ISMPTestReports
         'tsbPrePopulate
         '
         Me.tsbPrePopulate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbPrePopulate.Image = CType(resources.GetObject("tsbPrePopulate.Image"), System.Drawing.Image)
+        Me.tsbPrePopulate.Image = Global.Iaip.My.Resources.Resources.DocumentCopyIcon
         Me.tsbPrePopulate.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbPrePopulate.Name = "tsbPrePopulate"
         Me.tsbPrePopulate.Size = New System.Drawing.Size(23, 22)
@@ -1065,7 +1064,7 @@ Partial Class ISMPTestReports
         'tsbPrint
         '
         Me.tsbPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbPrint.Image = CType(resources.GetObject("tsbPrint.Image"), System.Drawing.Image)
+        Me.tsbPrint.Image = Global.Iaip.My.Resources.Resources.PrintIcon
         Me.tsbPrint.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbPrint.Name = "tsbPrint"
         Me.tsbPrint.Size = New System.Drawing.Size(23, 22)
@@ -1074,7 +1073,7 @@ Partial Class ISMPTestReports
         'tsbClear
         '
         Me.tsbClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbClear.Image = CType(resources.GetObject("tsbClear.Image"), System.Drawing.Image)
+        Me.tsbClear.Image = Global.Iaip.My.Resources.Resources.EraseIcon
         Me.tsbClear.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbClear.Name = "tsbClear"
         Me.tsbClear.Size = New System.Drawing.Size(23, 22)
@@ -1084,7 +1083,7 @@ Partial Class ISMPTestReports
         'tsbResize
         '
         Me.tsbResize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbResize.Image = CType(resources.GetObject("tsbResize.Image"), System.Drawing.Image)
+        Me.tsbResize.Image = Global.Iaip.My.Resources.Resources.PanelResizeIcon
         Me.tsbResize.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbResize.Name = "tsbResize"
         Me.tsbResize.Size = New System.Drawing.Size(23, 22)
@@ -1093,7 +1092,7 @@ Partial Class ISMPTestReports
         'tsbMemo
         '
         Me.tsbMemo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbMemo.Image = CType(resources.GetObject("tsbMemo.Image"), System.Drawing.Image)
+        Me.tsbMemo.Image = Global.Iaip.My.Resources.Resources.DocumentTextIcon
         Me.tsbMemo.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbMemo.Name = "tsbMemo"
         Me.tsbMemo.Size = New System.Drawing.Size(23, 22)
@@ -1102,7 +1101,7 @@ Partial Class ISMPTestReports
         'tsbTestLogLink
         '
         Me.tsbTestLogLink.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbTestLogLink.Image = CType(resources.GetObject("tsbTestLogLink.Image"), System.Drawing.Image)
+        Me.tsbTestLogLink.Image = Global.Iaip.My.Resources.Resources.MailOpenIcon
         Me.tsbTestLogLink.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbTestLogLink.Name = "tsbTestLogLink"
         Me.tsbTestLogLink.Size = New System.Drawing.Size(23, 22)
@@ -1111,7 +1110,7 @@ Partial Class ISMPTestReports
         'tsbDelete
         '
         Me.tsbDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbDelete.Image = CType(resources.GetObject("tsbDelete.Image"), System.Drawing.Image)
+        Me.tsbDelete.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.tsbDelete.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbDelete.Name = "tsbDelete"
         Me.tsbDelete.Size = New System.Drawing.Size(23, 22)
@@ -1120,7 +1119,7 @@ Partial Class ISMPTestReports
         'tsbConfidentialData
         '
         Me.tsbConfidentialData.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbConfidentialData.Image = CType(resources.GetObject("tsbConfidentialData.Image"), System.Drawing.Image)
+        Me.tsbConfidentialData.Image = Global.Iaip.My.Resources.Resources.DocumentConfidentialIcson
         Me.tsbConfidentialData.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbConfidentialData.Name = "tsbConfidentialData"
         Me.tsbConfidentialData.Size = New System.Drawing.Size(23, 22)
@@ -9803,6 +9802,17 @@ Partial Class ISMPTestReports
         Me.TPSSCPWork.Text = "Compliance Work"
         Me.TPSSCPWork.UseVisualStyleBackColor = True
         '
+        'llEnforcementCases
+        '
+        Me.llEnforcementCases.AutoSize = True
+        Me.llEnforcementCases.Location = New System.Drawing.Point(205, 38)
+        Me.llEnforcementCases.Name = "llEnforcementCases"
+        Me.llEnforcementCases.Size = New System.Drawing.Size(101, 13)
+        Me.llEnforcementCases.TabIndex = 2
+        Me.llEnforcementCases.TabStop = True
+        Me.llEnforcementCases.Text = "Enforcement cases:"
+        Me.llEnforcementCases.Visible = False
+        '
         'cboStaffResponsible
         '
         Me.cboStaffResponsible.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
@@ -10031,17 +10041,6 @@ Partial Class ISMPTestReports
         Me.DeletedTestFlag.TabIndex = 465
         Me.DeletedTestFlag.Text = "TEST REPORT IS FLAGGED AS DELETED"
         Me.DeletedTestFlag.Visible = False
-        '
-        'llEnforcementCases
-        '
-        Me.llEnforcementCases.AutoSize = True
-        Me.llEnforcementCases.Location = New System.Drawing.Point(205, 38)
-        Me.llEnforcementCases.Name = "llEnforcementCases"
-        Me.llEnforcementCases.Size = New System.Drawing.Size(101, 13)
-        Me.llEnforcementCases.TabIndex = 2
-        Me.llEnforcementCases.TabStop = True
-        Me.llEnforcementCases.Text = "Enforcement cases:"
-        Me.llEnforcementCases.Visible = False
         '
         'ISMPTestReports
         '
