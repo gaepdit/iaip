@@ -22,7 +22,6 @@ Partial Class SBEAPClientSummary
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SBEAPClientSummary))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -69,24 +68,31 @@ Partial Class SBEAPClientSummary
         Me.txtStreetAddress = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TPCompanyInformation = New System.Windows.Forms.TabPage()
-        Me.lblNAICS = New System.Windows.Forms.Label()
-        Me.lblSIC = New System.Windows.Forms.Label()
-        Me.llbNAICSSearch = New System.Windows.Forms.LinkLabel()
-        Me.llbSICSearch = New System.Windows.Forms.LinkLabel()
-        Me.Label38 = New System.Windows.Forms.Label()
         Me.txtISMPUnit = New System.Windows.Forms.TextBox()
+        Me.lblNAICS = New System.Windows.Forms.Label()
         Me.Label37 = New System.Windows.Forms.Label()
+        Me.lblSIC = New System.Windows.Forms.Label()
         Me.txtISMPContact = New System.Windows.Forms.TextBox()
+        Me.llbNAICSSearch = New System.Windows.Forms.LinkLabel()
         Me.txtSSPPUnit = New System.Windows.Forms.TextBox()
+        Me.llbSICSearch = New System.Windows.Forms.LinkLabel()
         Me.Label36 = New System.Windows.Forms.Label()
+        Me.Label38 = New System.Windows.Forms.Label()
         Me.txtSSPPContact = New System.Windows.Forms.TextBox()
         Me.txtSSCPUnit = New System.Windows.Forms.TextBox()
+        Me.txtDescription = New System.Windows.Forms.TextBox()
         Me.Label35 = New System.Windows.Forms.Label()
+        Me.mtbNumberOfEmployees = New System.Windows.Forms.MaskedTextBox()
         Me.txtSSCPContact = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
         Me.Label34 = New System.Windows.Forms.Label()
+        Me.txtWebSite = New System.Windows.Forms.TextBox()
         Me.txtAIRPermitNumber = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.mtbAIRSNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbSIC = New System.Windows.Forms.MaskedTextBox()
         Me.btnRefreshAIRSData = New System.Windows.Forms.Button()
+        Me.Label12 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.chbHAPs = New System.Windows.Forms.CheckBox()
         Me.chbNSRPSD = New System.Windows.Forms.CheckBox()
@@ -103,19 +109,12 @@ Partial Class SBEAPClientSummary
         Me.chbNonFedSIP = New System.Windows.Forms.CheckBox()
         Me.chbFederalSIP = New System.Windows.Forms.CheckBox()
         Me.chbSIP = New System.Windows.Forms.CheckBox()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.txtAirDescription = New System.Windows.Forms.TextBox()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.txtDescription = New System.Windows.Forms.TextBox()
-        Me.mtbNumberOfEmployees = New System.Windows.Forms.MaskedTextBox()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.txtWebSite = New System.Windows.Forms.TextBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.mtbSIC = New System.Windows.Forms.MaskedTextBox()
-        Me.Label12 = New System.Windows.Forms.Label()
         Me.mtbNAICS = New System.Windows.Forms.MaskedTextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.txtAirDescription = New System.Windows.Forms.TextBox()
         Me.TPContactInformation = New System.Windows.Forms.TabPage()
         Me.dgvContactInformation = New System.Windows.Forms.DataGridView()
         Me.Panel3 = New System.Windows.Forms.Panel()
@@ -196,7 +195,7 @@ Partial Class SBEAPClientSummary
         '
         Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiDeleteClient})
         Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
+        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(42, 20)
         Me.ToolToolStripMenuItem.Text = "Tool"
         '
         'mmiDeleteClient
@@ -223,7 +222,7 @@ Partial Class SBEAPClientSummary
         'tsbSave
         '
         Me.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSave.Image = CType(resources.GetObject("tsbSave.Image"), System.Drawing.Image)
+        Me.tsbSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
         Me.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbSave.Name = "tsbSave"
         Me.tsbSave.Size = New System.Drawing.Size(23, 22)
@@ -232,7 +231,7 @@ Partial Class SBEAPClientSummary
         'tsbSearchTool
         '
         Me.tsbSearchTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSearchTool.Image = CType(resources.GetObject("tsbSearchTool.Image"), System.Drawing.Image)
+        Me.tsbSearchTool.Image = Global.Iaip.My.Resources.Resources.FindIcon
         Me.tsbSearchTool.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbSearchTool.Name = "tsbSearchTool"
         Me.tsbSearchTool.Size = New System.Drawing.Size(23, 22)
@@ -241,7 +240,7 @@ Partial Class SBEAPClientSummary
         'tsbClear
         '
         Me.tsbClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbClear.Image = CType(resources.GetObject("tsbClear.Image"), System.Drawing.Image)
+        Me.tsbClear.Image = Global.Iaip.My.Resources.Resources.EraseIcon
         Me.tsbClear.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbClear.Name = "tsbClear"
         Me.tsbClear.Size = New System.Drawing.Size(23, 22)
@@ -637,6 +636,13 @@ Partial Class SBEAPClientSummary
         Me.TPCompanyInformation.Text = "Company Information"
         Me.TPCompanyInformation.UseVisualStyleBackColor = True
         '
+        'txtISMPUnit
+        '
+        Me.txtISMPUnit.Location = New System.Drawing.Point(380, 359)
+        Me.txtISMPUnit.Name = "txtISMPUnit"
+        Me.txtISMPUnit.Size = New System.Drawing.Size(228, 20)
+        Me.txtISMPUnit.TabIndex = 28
+        '
         'lblNAICS
         '
         Me.lblNAICS.AutoSize = True
@@ -645,6 +651,15 @@ Partial Class SBEAPClientSummary
         Me.lblNAICS.Size = New System.Drawing.Size(0, 13)
         Me.lblNAICS.TabIndex = 34
         '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.Location = New System.Drawing.Point(6, 363)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(128, 13)
+        Me.Label37.TabIndex = 27
+        Me.Label37.Text = "Monitoring Engineer/Unit:"
+        '
         'lblSIC
         '
         Me.lblSIC.AutoSize = True
@@ -652,6 +667,13 @@ Partial Class SBEAPClientSummary
         Me.lblSIC.Name = "lblSIC"
         Me.lblSIC.Size = New System.Drawing.Size(0, 13)
         Me.lblSIC.TabIndex = 33
+        '
+        'txtISMPContact
+        '
+        Me.txtISMPContact.Location = New System.Drawing.Point(146, 359)
+        Me.txtISMPContact.Name = "txtISMPContact"
+        Me.txtISMPContact.Size = New System.Drawing.Size(228, 20)
+        Me.txtISMPContact.TabIndex = 26
         '
         'llbNAICSSearch
         '
@@ -663,6 +685,13 @@ Partial Class SBEAPClientSummary
         Me.llbNAICSSearch.TabStop = True
         Me.llbNAICSSearch.Text = "NAICS Search"
         '
+        'txtSSPPUnit
+        '
+        Me.txtSSPPUnit.Location = New System.Drawing.Point(380, 333)
+        Me.txtSSPPUnit.Name = "txtSSPPUnit"
+        Me.txtSSPPUnit.Size = New System.Drawing.Size(228, 20)
+        Me.txtSSPPUnit.TabIndex = 25
+        '
         'llbSICSearch
         '
         Me.llbSICSearch.AutoSize = True
@@ -673,45 +702,6 @@ Partial Class SBEAPClientSummary
         Me.llbSICSearch.TabStop = True
         Me.llbSICSearch.Text = "SIC Search"
         '
-        'Label38
-        '
-        Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(484, 10)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(92, 13)
-        Me.Label38.TabIndex = 30
-        Me.Label38.Text = "Client Description:"
-        '
-        'txtISMPUnit
-        '
-        Me.txtISMPUnit.Location = New System.Drawing.Point(380, 359)
-        Me.txtISMPUnit.Name = "txtISMPUnit"
-        Me.txtISMPUnit.Size = New System.Drawing.Size(228, 20)
-        Me.txtISMPUnit.TabIndex = 28
-        '
-        'Label37
-        '
-        Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(6, 363)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(128, 13)
-        Me.Label37.TabIndex = 27
-        Me.Label37.Text = "Monitoring Engineer/Unit:"
-        '
-        'txtISMPContact
-        '
-        Me.txtISMPContact.Location = New System.Drawing.Point(146, 359)
-        Me.txtISMPContact.Name = "txtISMPContact"
-        Me.txtISMPContact.Size = New System.Drawing.Size(228, 20)
-        Me.txtISMPContact.TabIndex = 26
-        '
-        'txtSSPPUnit
-        '
-        Me.txtSSPPUnit.Location = New System.Drawing.Point(380, 333)
-        Me.txtSSPPUnit.Name = "txtSSPPUnit"
-        Me.txtSSPPUnit.Size = New System.Drawing.Size(228, 20)
-        Me.txtSSPPUnit.TabIndex = 25
-        '
         'Label36
         '
         Me.Label36.AutoSize = True
@@ -720,6 +710,15 @@ Partial Class SBEAPClientSummary
         Me.Label36.Size = New System.Drawing.Size(125, 13)
         Me.Label36.TabIndex = 24
         Me.Label36.Text = "Permitting Engineer/Unit:"
+        '
+        'Label38
+        '
+        Me.Label38.AutoSize = True
+        Me.Label38.Location = New System.Drawing.Point(484, 10)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(92, 13)
+        Me.Label38.TabIndex = 30
+        Me.Label38.Text = "Client Description:"
         '
         'txtSSPPContact
         '
@@ -735,6 +734,13 @@ Partial Class SBEAPClientSummary
         Me.txtSSCPUnit.Size = New System.Drawing.Size(228, 20)
         Me.txtSSCPUnit.TabIndex = 22
         '
+        'txtDescription
+        '
+        Me.txtDescription.Location = New System.Drawing.Point(576, 7)
+        Me.txtDescription.Name = "txtDescription"
+        Me.txtDescription.Size = New System.Drawing.Size(169, 20)
+        Me.txtDescription.TabIndex = 29
+        '
         'Label35
         '
         Me.Label35.AutoSize = True
@@ -744,12 +750,29 @@ Partial Class SBEAPClientSummary
         Me.Label35.TabIndex = 21
         Me.Label35.Text = "Compliance Engineer/Unit:"
         '
+        'mtbNumberOfEmployees
+        '
+        Me.mtbNumberOfEmployees.Location = New System.Drawing.Point(87, 6)
+        Me.mtbNumberOfEmployees.Mask = "0000000"
+        Me.mtbNumberOfEmployees.Name = "mtbNumberOfEmployees"
+        Me.mtbNumberOfEmployees.Size = New System.Drawing.Size(60, 20)
+        Me.mtbNumberOfEmployees.TabIndex = 6
+        '
         'txtSSCPContact
         '
         Me.txtSSCPContact.Location = New System.Drawing.Point(146, 307)
         Me.txtSSCPContact.Name = "txtSSCPContact"
         Me.txtSSCPContact.Size = New System.Drawing.Size(228, 20)
         Me.txtSSCPContact.TabIndex = 20
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(2, 10)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(83, 13)
+        Me.Label14.TabIndex = 10
+        Me.Label14.Text = "# of Employees:"
         '
         'Label34
         '
@@ -760,12 +783,28 @@ Partial Class SBEAPClientSummary
         Me.Label34.TabIndex = 19
         Me.Label34.Text = "Current Permit #:"
         '
+        'txtWebSite
+        '
+        Me.txtWebSite.Location = New System.Drawing.Point(231, 6)
+        Me.txtWebSite.Name = "txtWebSite"
+        Me.txtWebSite.Size = New System.Drawing.Size(228, 20)
+        Me.txtWebSite.TabIndex = 3
+        '
         'txtAIRPermitNumber
         '
         Me.txtAIRPermitNumber.Location = New System.Drawing.Point(98, 146)
         Me.txtAIRPermitNumber.Name = "txtAIRPermitNumber"
         Me.txtAIRPermitNumber.Size = New System.Drawing.Size(169, 20)
         Me.txtAIRPermitNumber.TabIndex = 18
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(175, 10)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(54, 13)
+        Me.Label11.TabIndex = 4
+        Me.Label11.Text = "Web Site:"
         '
         'mtbAIRSNumber
         '
@@ -776,16 +815,33 @@ Partial Class SBEAPClientSummary
         Me.mtbAIRSNumber.TabIndex = 17
         Me.mtbAIRSNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
+        'mtbSIC
+        '
+        Me.mtbSIC.Location = New System.Drawing.Point(105, 31)
+        Me.mtbSIC.Mask = "0000"
+        Me.mtbSIC.Name = "mtbSIC"
+        Me.mtbSIC.Size = New System.Drawing.Size(42, 20)
+        Me.mtbSIC.TabIndex = 4
+        '
         'btnRefreshAIRSData
         '
         Me.btnRefreshAIRSData.AutoSize = True
         Me.btnRefreshAIRSData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRefreshAIRSData.Image = CType(resources.GetObject("btnRefreshAIRSData.Image"), System.Drawing.Image)
+        Me.btnRefreshAIRSData.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
         Me.btnRefreshAIRSData.Location = New System.Drawing.Point(169, 118)
         Me.btnRefreshAIRSData.Name = "btnRefreshAIRSData"
         Me.btnRefreshAIRSData.Size = New System.Drawing.Size(22, 22)
         Me.btnRefreshAIRSData.TabIndex = 2
         Me.btnRefreshAIRSData.UseVisualStyleBackColor = True
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(76, 35)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(27, 13)
+        Me.Label12.TabIndex = 6
+        Me.Label12.Text = "SIC:"
         '
         'Panel2
         '
@@ -960,6 +1016,14 @@ Partial Class SBEAPClientSummary
         Me.chbSIP.Text = "0 - SIP"
         Me.chbSIP.UseVisualStyleBackColor = True
         '
+        'mtbNAICS
+        '
+        Me.mtbNAICS.Location = New System.Drawing.Point(131, 57)
+        Me.mtbNAICS.Mask = "000000"
+        Me.mtbNAICS.Name = "mtbNAICS"
+        Me.mtbNAICS.Size = New System.Drawing.Size(50, 20)
+        Me.mtbNAICS.TabIndex = 5
+        '
         'Label15
         '
         Me.Label15.AutoSize = True
@@ -968,6 +1032,15 @@ Partial Class SBEAPClientSummary
         Me.Label15.Size = New System.Drawing.Size(86, 13)
         Me.Label15.TabIndex = 12
         Me.Label15.Text = "Air Classification:"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(87, 61)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(42, 13)
+        Me.Label13.TabIndex = 8
+        Me.Label13.Text = "NAICS:"
         '
         'Label10
         '
@@ -978,13 +1051,6 @@ Partial Class SBEAPClientSummary
         Me.Label10.TabIndex = 2
         Me.Label10.Text = "Air Program Client Description:"
         '
-        'txtAirDescription
-        '
-        Me.txtAirDescription.Location = New System.Drawing.Point(386, 119)
-        Me.txtAirDescription.Name = "txtAirDescription"
-        Me.txtAirDescription.Size = New System.Drawing.Size(228, 20)
-        Me.txtAirDescription.TabIndex = 0
-        '
         'Label17
         '
         Me.Label17.AutoSize = True
@@ -994,79 +1060,12 @@ Partial Class SBEAPClientSummary
         Me.Label17.TabIndex = 16
         Me.Label17.Text = "AIRS Number:"
         '
-        'txtDescription
+        'txtAirDescription
         '
-        Me.txtDescription.Location = New System.Drawing.Point(576, 7)
-        Me.txtDescription.Name = "txtDescription"
-        Me.txtDescription.Size = New System.Drawing.Size(169, 20)
-        Me.txtDescription.TabIndex = 29
-        '
-        'mtbNumberOfEmployees
-        '
-        Me.mtbNumberOfEmployees.Location = New System.Drawing.Point(87, 6)
-        Me.mtbNumberOfEmployees.Mask = "0000000"
-        Me.mtbNumberOfEmployees.Name = "mtbNumberOfEmployees"
-        Me.mtbNumberOfEmployees.Size = New System.Drawing.Size(60, 20)
-        Me.mtbNumberOfEmployees.TabIndex = 6
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(2, 10)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(83, 13)
-        Me.Label14.TabIndex = 10
-        Me.Label14.Text = "# of Employees:"
-        '
-        'txtWebSite
-        '
-        Me.txtWebSite.Location = New System.Drawing.Point(231, 6)
-        Me.txtWebSite.Name = "txtWebSite"
-        Me.txtWebSite.Size = New System.Drawing.Size(228, 20)
-        Me.txtWebSite.TabIndex = 3
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(175, 10)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(54, 13)
-        Me.Label11.TabIndex = 4
-        Me.Label11.Text = "Web Site:"
-        '
-        'mtbSIC
-        '
-        Me.mtbSIC.Location = New System.Drawing.Point(105, 31)
-        Me.mtbSIC.Mask = "0000"
-        Me.mtbSIC.Name = "mtbSIC"
-        Me.mtbSIC.Size = New System.Drawing.Size(42, 20)
-        Me.mtbSIC.TabIndex = 4
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(76, 35)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(27, 13)
-        Me.Label12.TabIndex = 6
-        Me.Label12.Text = "SIC:"
-        '
-        'mtbNAICS
-        '
-        Me.mtbNAICS.Location = New System.Drawing.Point(131, 57)
-        Me.mtbNAICS.Mask = "000000"
-        Me.mtbNAICS.Name = "mtbNAICS"
-        Me.mtbNAICS.Size = New System.Drawing.Size(50, 20)
-        Me.mtbNAICS.TabIndex = 5
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(87, 61)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(42, 13)
-        Me.Label13.TabIndex = 8
-        Me.Label13.Text = "NAICS:"
+        Me.txtAirDescription.Location = New System.Drawing.Point(386, 119)
+        Me.txtAirDescription.Name = "txtAirDescription"
+        Me.txtAirDescription.Size = New System.Drawing.Size(228, 20)
+        Me.txtAirDescription.TabIndex = 0
         '
         'TPContactInformation
         '

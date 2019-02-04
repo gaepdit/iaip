@@ -549,22 +549,12 @@ Public Class ISMPAddTestingFirms
 
 #End Region
 
-    Private Sub TBAddTestingFirm_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBAddTestingFirm.ButtonClick
-        Try
-
-            Select Case TBAddTestingFirm.Buttons.IndexOf(e.Button)
-                Case 0
-                    Save()
-                Case 1
-                    Clear()
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+    Private Sub bSave_Click(sender As Object, e As EventArgs) Handles bSave.Click
+        Save()
     End Sub
 
+    Private Sub bClear_Click(sender As Object, e As EventArgs) Handles bClear.Click
+        Clear()
+    End Sub
 
 End Class

@@ -1282,34 +1282,25 @@ Public Class ISMPManagersTools
 
         End Try
     End Sub
-    Private Sub TBManagersTools_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBManagersTools.ButtonClick
-        Try
 
-            Select Case TBManagersTools.Buttons.IndexOf(e.Button)
-                Case 0
-                    If TPReportAssignment.Focus = True Then
-                        SaveTestReportsAssignments()
-                    End If
-                Case 1
-                    If TPReportAssignment.Focus = True Then
-                        cboEngineer.Text = ""
-                        lblTestReportAssignment.Items.Clear()
-                        txtTestReportCount.Text = 0
-                        LVTestReportAssignment.Clear()
-                        LoadLVTestReportAssignment()
-                    ElseIf TPMethods.Focus = True Then
-                        txtMethodCode.Clear()
-                        txtMethodDescription.Clear()
-                        txtMethodNumber.Clear()
-                    End If
-            End Select
+    Private Sub bSave_Click(sender As Object, e As EventArgs) Handles bSave.Click
+        If TPReportAssignment.Focus = True Then
+            SaveTestReportsAssignments()
+        End If
+    End Sub
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+    Private Sub bClear_Click(sender As Object, e As EventArgs) Handles bClear.Click
+        If TPReportAssignment.Focus = True Then
+            cboEngineer.Text = ""
+            lblTestReportAssignment.Items.Clear()
+            txtTestReportCount.Text = 0
+            LVTestReportAssignment.Clear()
+            LoadLVTestReportAssignment()
+        ElseIf TPMethods.Focus = True Then
+            txtMethodCode.Clear()
+            txtMethodDescription.Clear()
+            txtMethodNumber.Clear()
+        End If
     End Sub
 
 #Region "Menu Items"

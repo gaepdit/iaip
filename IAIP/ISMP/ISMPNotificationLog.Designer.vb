@@ -22,7 +22,6 @@ Partial Class ISMPNotificationLog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPNotificationLog))
         Me.lblStreetAddress = New System.Windows.Forms.Label()
         Me.lblCityStateZipCode = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -247,7 +246,7 @@ Partial Class ISMPNotificationLog
         'bbtSave
         '
         Me.bbtSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.bbtSave.Image = CType(resources.GetObject("bbtSave.Image"), System.Drawing.Image)
+        Me.bbtSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
         Me.bbtSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.bbtSave.Name = "bbtSave"
         Me.bbtSave.Size = New System.Drawing.Size(23, 22)
@@ -272,7 +271,7 @@ Partial Class ISMPNotificationLog
         'SaveToolStripMenuItem
         '
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(98, 22)
         Me.SaveToolStripMenuItem.Text = "Save"
         '
         'txtContactFirstName

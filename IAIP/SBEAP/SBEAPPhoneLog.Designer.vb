@@ -22,7 +22,6 @@ Partial Class SBEAPPhoneLog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SBEAPPhoneLog))
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbSave = New System.Windows.Forms.ToolStripButton()
         Me.tsbClientSearch = New System.Windows.Forms.ToolStripButton()
@@ -90,7 +89,7 @@ Partial Class SBEAPPhoneLog
         'tsbSave
         '
         Me.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSave.Image = CType(resources.GetObject("tsbSave.Image"), System.Drawing.Image)
+        Me.tsbSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
         Me.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbSave.Name = "tsbSave"
         Me.tsbSave.Size = New System.Drawing.Size(23, 22)
@@ -99,7 +98,7 @@ Partial Class SBEAPPhoneLog
         'tsbClientSearch
         '
         Me.tsbClientSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbClientSearch.Image = CType(resources.GetObject("tsbClientSearch.Image"), System.Drawing.Image)
+        Me.tsbClientSearch.Image = Global.Iaip.My.Resources.Resources.FindIcon
         Me.tsbClientSearch.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbClientSearch.Name = "tsbClientSearch"
         Me.tsbClientSearch.Size = New System.Drawing.Size(23, 22)
@@ -218,7 +217,7 @@ Partial Class SBEAPPhoneLog
         'btnRefreshClient
         '
         Me.btnRefreshClient.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRefreshClient.Image = CType(resources.GetObject("btnRefreshClient.Image"), System.Drawing.Image)
+        Me.btnRefreshClient.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
         Me.btnRefreshClient.Location = New System.Drawing.Point(161, 11)
         Me.btnRefreshClient.Name = "btnRefreshClient"
         Me.btnRefreshClient.Size = New System.Drawing.Size(22, 24)
