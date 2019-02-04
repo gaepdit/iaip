@@ -89,7 +89,7 @@ Public Class DmuEdtErrorMessages
             .Columns("CountOpenByUser").Visible = False
             .Columns("DefaultUserId").Visible = False
 
-            .MakeColumnsLookLikeLinks(0)
+            .MakeColumnLookLikeLinks(0)
             .SanelyResizeColumns()
         End With
     End Sub

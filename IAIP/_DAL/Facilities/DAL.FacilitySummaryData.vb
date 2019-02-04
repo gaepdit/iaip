@@ -6,8 +6,12 @@ Namespace DAL
 
         Public Function GetFSDataTable(whichTable As FacilityDataTable, airsNumber As Apb.ApbFacilityId) As DataTable
             Dim spName As String = GetCorrectStoredProcedureName(whichTable)
-            Dim parameter As SqlParameter = New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
-            Return DB.SPGetDataTable(spName, parameter)
+
+            If String.IsNullOrEmpty(spName) Then
+                Return Nothing
+            End If
+
+            Return DB.SPGetDataTable(spName, New SqlParameter("@AirsNumber", airsNumber.DbFormattedString))
         End Function
 
         Private Function GetCorrectStoredProcedureName(whichTable As FacilityDataTable) As String
@@ -40,22 +44,22 @@ Namespace DAL
                 Case FacilityDataTable.ContactsWebSite
                     Return "iaip_facility.GetContactsWebSite"
 
-                Case FacilityDataTable.EiPost2009
+                Case FacilityDataTable.EIPost2009
                     Return "iaip_facility.GetSummaryEiPost2009"
 
-                Case FacilityDataTable.EiPre2009
+                Case FacilityDataTable.EIPre2009
                     Return "iaip_facility.GetSummaryEiPre2009"
 
-                Case FacilityDataTable.Fees
+                Case FacilityDataTable.EmissionsFeesSummary
                     Return "iaip_facility.GetSummaryFees"
 
-                Case FacilityDataTable.FinancialDeposits
+                Case FacilityDataTable.EmissionsFeesDeposits
                     Return "iaip_facility.FinancialDeposits"
 
-                Case FacilityDataTable.FinancialFees
+                Case FacilityDataTable.EmissionsFeesData
                     Return "iaip_facility.FinancialFees"
 
-                Case FacilityDataTable.FinancialInvoices
+                Case FacilityDataTable.EmissionsFeesInvoices
                     Return "iaip_facility.FinancialInvoices"
 
                 Case FacilityDataTable.PermitApplications
@@ -69,6 +73,9 @@ Namespace DAL
 
                 Case FacilityDataTable.Permits
                     Return "iaip_facility.Permits"
+
+                Case FacilityDataTable.PermitApplicationFees
+                    Return "iaip_facility.PermitAppInvoices"
 
                 Case FacilityDataTable.TestMemos
                     Return "iaip_facility.TestMemos"

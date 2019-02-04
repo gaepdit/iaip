@@ -1,15 +1,23 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
+Imports System.Linq
 Imports EpdIt
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities.Facility
 Imports Iaip.Apb.Facilities.FacilityEnums
-Imports Iaip.Apb.Sspp.Permit
-Imports Iaip.DAL.FacilityHeaderDataData
-Imports Iaip.SharedData
 Imports Iaip.Apb.Facilities.FacilityHeaderData
+Imports Iaip.Apb.Finance
+Imports Iaip.Apb.Sspp
+Imports Iaip.Apb.Sspp.Permit
+Imports Iaip.DAL.Finance
+Imports Iaip.DAL.FacilityHeaderDataData
+Imports Iaip.DAL.Sspp
+Imports Iaip.SharedData
+Imports System.Text
 
 Public Class SSPPApplicationTrackingLog
+
+#Region " Properties and fields "
 
     Private Property AppNumber As Integer = 0
 
@@ -21,10 +29,68 @@ Public Class SSPPApplicationTrackingLog
     Private Property FacilityApplicationHistoryLoaded As Boolean = False
     Private Property InformationRequestHistoryLoaded As Boolean = False
 
-    Dim MasterApp As String
-    Dim FormStatus As String
+    Private MasterApp As String
+    Private FormStatus As String
+    Private UpdatingValues As Boolean = False
+    Private FeeChangesAllowed As Boolean = True
 
-    Private Sub SSPPPermitTrackingLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private _applicationFeeAmount As Decimal = 0
+    Private _expeditedFeeAmount As Decimal = 0
+    Private _totalFeeAmount As Decimal = 0
+
+    Private Property ApplicationFeeAmount As Decimal
+        Get
+            Return _applicationFeeAmount
+        End Get
+        Set(value As Decimal)
+            If _applicationFeeAmount <> value Then
+                _applicationFeeAmount = value
+                txtAppFeeAmount.Amount = value
+
+                TotalFeeAmount = value + _expeditedFeeAmount
+            End If
+        End Set
+    End Property
+
+    Private Property ExpeditedFeeAmount As Decimal
+        Get
+            Return _expeditedFeeAmount
+        End Get
+        Set(value As Decimal)
+            If _expeditedFeeAmount <> value Then
+                _expeditedFeeAmount = value
+                txtExpFeeAmount.Amount = value
+
+                TotalFeeAmount = value + _applicationFeeAmount
+            End If
+        End Set
+    End Property
+
+    Private Property TotalFeeAmount As Decimal
+        Get
+            Return _totalFeeAmount
+        End Get
+        Set(value As Decimal)
+            If _totalFeeAmount <> value Then
+                _totalFeeAmount = value
+                txtFeeTotal.Text = String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C0}", value)
+
+                If value = 0 Then
+                    txtFeeTotal.Visible = False
+                    lblTotalFee.Visible = False
+                    chbFeeDataFinalized.Visible = False
+                Else
+                    txtFeeTotal.Visible = True
+                    lblTotalFee.Visible = True
+                    chbFeeDataFinalized.Visible = FeeChangesAllowed
+                End If
+            End If
+        End Set
+    End Property
+
+#End Region
+
+    Protected Overrides Sub OnLoad(e As EventArgs)
         FormStatus = "Loading"
         LoadDefaultDates()
         LoadComboBoxes()
@@ -35,11 +101,11 @@ Public Class SSPPApplicationTrackingLog
         ParseParameters()
 
         If AppNumber > 0 Then
-            If DAL.Sspp.ApplicationExists(AppNumber) Then
+            If ApplicationExists(AppNumber) Then
                 LoadApplication()
             Else
                 MessageBox.Show("Application #" & AppNumber.ToString & " does not exist.")
-                Me.Close()
+                Close()
             End If
         Else
             SetUpForNewApplication()
@@ -47,6 +113,8 @@ Public Class SSPPApplicationTrackingLog
 
         TPTrackingLog.Focus()
         FormStatus = ""
+
+        MyBase.OnLoad(e)
     End Sub
 
 #Region "Page Load Functions"
@@ -74,6 +142,7 @@ Public Class SSPPApplicationTrackingLog
         TCApplicationTrackingLog.TabPages.Remove(TPWebPublisher)
         TCApplicationTrackingLog.TabPages.Remove(TPDocuments)
         TCApplicationTrackingLog.TabPages.Remove(TPSubPartEditor)
+        TCApplicationTrackingLog.TabPages.Remove(TPFees)
 
         chbClosedOut.Enabled = False
 
@@ -234,7 +303,7 @@ Public Class SSPPApplicationTrackingLog
             End With
 
             With cboApplicationType
-                .DataSource = DAL.Sspp.GetApplicationTypes()
+                .DataSource = GetApplicationTypes()
                 .DisplayMember = "Application Type"
                 .ValueMember = "Application Type Code"
                 .SelectedValue = 0
@@ -245,9 +314,8 @@ Public Class SSPPApplicationTrackingLog
                 "WHERE STRTYPEUSED <> 'False' OR STRTYPEUSED IS NULL " &
                 "UNION " &
                 "SELECT '', ' ' ORDER BY STRPERMITTYPEDESCRIPTION"
-            Dim dtPermitType As DataTable = DB.GetDataTable(query)
             With cboPermitAction
-                .DataSource = dtPermitType
+                .DataSource = DB.GetDataTable(query)
                 .DisplayMember = "strPermitTypeDescription"
                 .ValueMember = "strPermitTypeCode"
                 .SelectedIndex = 0
@@ -1480,11 +1548,11 @@ Public Class SSPPApplicationTrackingLog
                 chbPal.Enabled = True
             End If
 
-            'chbExpedited
+            'chbExpeditedReview
             If AccountFormAccess(129, 3) = "1" Or
                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
-                chbExpedited.Enabled = True
+                chbExpFee.Enabled = True
             End If
 
             'chbConfidential
@@ -2053,7 +2121,7 @@ Public Class SSPPApplicationTrackingLog
             If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
                 (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
-                txtAIRSNumber.BackColor = Color.PeachPuff
+                txtAIRSNumber.TextBoxBackColor = Color.PeachPuff
             End If
 
             'txtComments
@@ -3317,7 +3385,7 @@ Public Class SSPPApplicationTrackingLog
         Dim parameter As New SqlParameter("@appnumber", AppNumber)
 
         Try
-            LastModificationDateAsLoaded = DAL.Sspp.GetWhenLastModified(AppNumber)
+            LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
 
             query = "Select " &
             "strAIRSNumber, strStaffResponsible,  " &
@@ -3359,7 +3427,7 @@ Public Class SSPPApplicationTrackingLog
             If dr IsNot Nothing Then
                 If Not IsDBNull(dr.Item("strAIRSNumber")) AndAlso ApbFacilityId.IsValidAirsNumberFormat(dr.Item("strAIRSNumber").ToString) Then
                     AirsId = New ApbFacilityId(dr.Item("strAIRSNumber").ToString)
-                    txtAIRSNumber.Text = AirsId.FormattedString
+                    txtAIRSNumber.AirsNumber = AirsId
                 Else
                     AirsId = Nothing
                 End If
@@ -3376,7 +3444,7 @@ Public Class SSPPApplicationTrackingLog
                     chbRulett.Checked = False
                     chbRuleyy.Checked = False
                     chbPal.Checked = False
-                    chbExpedited.Checked = False
+                    chbExpFee.Checked = False
                     chbConfidential.Checked = False
                 Else
                     If Mid(dr.Item("strTrackedRules"), 1, 1) = "0" Then
@@ -3410,9 +3478,9 @@ Public Class SSPPApplicationTrackingLog
                         chbPal.Checked = True
                     End If
                     If Mid(dr.Item("strTrackedRules"), 7, 1) = "0" Then
-                        chbExpedited.Checked = False
+                        chbExpFee.Checked = False
                     Else
-                        chbExpedited.Checked = True
+                        chbExpFee.Checked = True
                     End If
                     If Mid(dr.Item("strTrackedRules"), 8, 1) = "0" Then
                         chbConfidential.Checked = False
@@ -4634,7 +4702,6 @@ Public Class SSPPApplicationTrackingLog
         Dim ReturnToEngineer As String = Nothing
         Dim PermitIssued As String = Nothing
         Dim AppDeadline As String = Nothing
-        Dim Withdrawn As String = Nothing
         Dim DraftIssued As String = Nothing
         Dim EPAWaived As String = Nothing
         Dim EPAEnds As String = Nothing
@@ -4862,7 +4929,7 @@ Public Class SSPPApplicationTrackingLog
             If chbPal.Checked = True Then
                 TrackedRules = Mid(TrackedRules, 1, 5) & "1" & Mid(TrackedRules, 7)
             End If
-            If chbExpedited.Checked = True Then
+            If chbExpFee.Checked = True Then
                 TrackedRules = Mid(TrackedRules, 1, 6) & "1" & Mid(TrackedRules, 8)
             End If
             If chbConfidential.Checked = True Then
@@ -5039,7 +5106,6 @@ Public Class SSPPApplicationTrackingLog
             "datReturnedtoEngineer = @ReturnToEngineer, " &
             "datPermitIssued = @PermitIssued, " &
             "datApplicationDeadline = @AppDeadline, " &
-            "datWithdrawn = @Withdrawn, " &
             "datDraftIssued = @DraftIssued, " &
             "strModifingPerson = @UserGCode, " &
             "datModifingDate = GETDATE() , " &
@@ -5063,7 +5129,6 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("@ReturnToEngineer", ReturnToEngineer),
                 New SqlParameter("@PermitIssued", PermitIssued),
                 New SqlParameter("@AppDeadline", AppDeadline),
-                New SqlParameter("@Withdrawn", Withdrawn),
                 New SqlParameter("@DraftIssued", DraftIssued),
                 New SqlParameter("@UserGCode", CurrentUser.UserID),
                 New SqlParameter("@EPAWaived", EPAWaived),
@@ -5198,14 +5263,15 @@ Public Class SSPPApplicationTrackingLog
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 
     Private Sub PermitRevocationQuery()
         ' Check for existing permits first
-        Dim activePermits As List(Of Sspp.Permit) = DAL.Sspp.GetActivePermitsAsList(AirsId)
+        Dim activePermits As List(Of Permit) = GetActivePermitsAsList(AirsId)
 
-        activePermits.RemoveAll(Function(permit As Sspp.Permit) permit.Equals(New Sspp.Permit(txtPermitNumber.Text)))
+        activePermits.RemoveAll(Function(permit As Permit) permit.Equals(New Permit(txtPermitNumber.Text)))
 
         If activePermits IsNot Nothing AndAlso activePermits.Count > 0 Then
 
@@ -5213,10 +5279,10 @@ Public Class SSPPApplicationTrackingLog
             permitRevocationDialog.ActivePermits = activePermits ' Send list of existing permits to dialog
             permitRevocationDialog.ShowDialog()
 
-            Dim revokedPermits As List(Of Sspp.Permit) = permitRevocationDialog.PermitsToRevoke
+            Dim revokedPermits As List(Of Permit) = permitRevocationDialog.PermitsToRevoke
 
             If revokedPermits IsNot Nothing AndAlso revokedPermits.Count > 0 Then
-                Dim result As Boolean = DAL.Sspp.RevokePermits(revokedPermits, DTPFinalAction.Value)
+                Dim result As Boolean = RevokePermits(revokedPermits, DTPFinalAction.Value)
                 If Not result Then
                     MessageBox.Show("There was an error revoking permits." & vbNewLine &
                                     "Please contact the Data Management Unit.", "Error",
@@ -5228,17 +5294,17 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub SaveIssuedPermit()
         Dim result As Boolean = False
-        Dim permit As Sspp.Permit
+        Dim permit As Permit
 
-        If Not DAL.Sspp.PermitExists(txtPermitNumber.Text) Then
-            permit = New Sspp.Permit(AirsId, txtPermitNumber.Text,
+        If Not PermitExists(txtPermitNumber.Text) Then
+            permit = New Permit(AirsId, txtPermitNumber.Text,
                                          DTPFinalAction.Value, True, cboApplicationType.SelectedValue.ToString)
-            result = DAL.Sspp.AddPermit(permit)
+            result = AddPermit(permit)
         Else
-            permit = DAL.Sspp.GetPermit(txtPermitNumber.Text)
+            permit = GetPermit(txtPermitNumber.Text)
             permit.IssuedDate = DTPFinalAction.Value
             permit.PermitTypeCode = cboApplicationType.SelectedValue.ToString
-            result = DAL.Sspp.UpdatePermit(permit)
+            result = UpdatePermit(permit)
         End If
 
         If Not result Then
@@ -5259,7 +5325,7 @@ Public Class SSPPApplicationTrackingLog
 
         Try
 
-            If DAL.Sspp.ApplicationExists(AppNumber) Then
+            If ApplicationExists(AppNumber) Then
                 If txtInformationRequestedKey.Text = "" Then
                     query = "SELECT ISNULL(MAX(strRequestKey), 0) + 1 " &
                     "from SSPPApplicationInformation " &
@@ -5976,7 +6042,7 @@ Public Class SSPPApplicationTrackingLog
                 chbRulett.Enabled = False
                 chbRuleyy.Enabled = False
                 chbPal.Enabled = False
-                chbExpedited.Enabled = False
+                chbExpFee.Enabled = False
                 chbConfidential.Enabled = False
                 txtSignificantComments.ReadOnly = True
 
@@ -7145,7 +7211,7 @@ Public Class SSPPApplicationTrackingLog
                 Exit Sub
             End If
 
-            If DAL.Sspp.ApplicationExists(AppNumber) Then
+            If ApplicationExists(AppNumber) Then
                 MessageBox.Show("The selected application number already exists. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
@@ -7169,7 +7235,7 @@ Public Class SSPPApplicationTrackingLog
         AccountFormAccess(51, 3) = "1" Or
         AccountFormAccess(51, 4) = "1" Then  'SSPP users and Web Users 
 
-            Dim dateModifiedInDb As DateTimeOffset = DAL.Sspp.GetWhenLastModified(AppNumber)
+            Dim dateModifiedInDb As DateTimeOffset = GetWhenLastModified(AppNumber)
 
             If Not NewApplication AndAlso LastModificationDateAsLoaded < dateModifiedInDb Then
                 MessageBox.Show("The application has been updated since you last opened it." & vbNewLine &
@@ -7184,9 +7250,10 @@ Public Class SSPPApplicationTrackingLog
                     MessageBox.Show("There was an error saving the application data. Please contact EPD-IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Else
                     ' After validating form and saving main application data, proceed with remaining data updates and cleanup
-                    LastModificationDateAsLoaded = DAL.Sspp.GetWhenLastModified(AppNumber)
+                    LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
 
                     SaveApplicationContact()
+                    SaveApplicationFees()
 
                     If DTPFinalAction.Checked And chbClosedOut.Checked And AirsId IsNot Nothing Then
                         Select Case cboPermitAction.SelectedValue.ToString
@@ -7257,6 +7324,26 @@ Public Class SSPPApplicationTrackingLog
 
         If Not NaicsCodeIsValid(txtNAICSCode.Text) Then
             MessageBox.Show("The NAICS Code is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            valid = False
+        End If
+
+        If chbAppFee.Checked AndAlso cmbAppFeeType.SelectedIndex = -1 Then
+            MessageBox.Show("An application fee type is not selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            valid = False
+        End If
+
+        If chbExpFee.Checked AndAlso cmbExpFeeType.SelectedIndex = -1 Then
+            MessageBox.Show("An expedited review fee type is not selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            valid = False
+        End If
+
+        If chbAppFeeOverride.Checked AndAlso String.IsNullOrWhiteSpace(txtAppFeeOverrideReason.Text) Then
+            MessageBox.Show("Please enter an explanation for overriding the application fee amount.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            valid = False
+        End If
+
+        If chbExpFeeOverride.Checked AndAlso String.IsNullOrWhiteSpace(txtExpFeeOverrideReason.Text) Then
+            MessageBox.Show("Please enter an explanation for overriding the application fee amount.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             valid = False
         End If
 
@@ -7741,12 +7828,13 @@ Public Class SSPPApplicationTrackingLog
 
             LoadApplicationData()
 
-            ' TODO: separate facility load routines, so that refresh is easier 
             LoadFacilityAttainmentStatus()
             LoadBasicFacilityInfo()
             LoadOpenApplications()
 
             LoadContactData()
+            LoadFeeRatesComboBoxes()
+            LoadFeesData()
 
             FindMasterApp()
 
@@ -7755,14 +7843,20 @@ Public Class SSPPApplicationTrackingLog
             LoadSSPPNESHAPSubPartInformation()
             LoadSSPPMACTSubPartInformation()
 
+            SetUpPublicAppViewLink()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
+    Private Sub SetUpPublicAppViewLink()
+        lklOpenAppOnline.Visible = True
+        ToolTip1.SetToolTip(lklOpenAppOnline, GetPermitApplicationUrl(AppNumber))
+    End Sub
+
     Private Sub btnRefreshAIRSNo_Click(sender As Object, e As EventArgs) Handles btnRefreshAIRSNo.Click
-        If DAL.AirsNumberExists(txtAIRSNumber.Text) Then
-            AirsId = New ApbFacilityId(txtAIRSNumber.Text)
+        If txtAIRSNumber.ValidationStatus = DAL.AirsNumberValidationResult.Valid Then
+            AirsId = txtAIRSNumber.AirsNumber
 
             FormStatus = "Loading"
             ReLoadBasicFacilityInfo()
@@ -10152,13 +10246,8 @@ Public Class SSPPApplicationTrackingLog
             Dim StaffPhone As String = ""
             Dim StaffEmail As String = ""
 
-            If txtContactSocialTitle.Text = "N/A" Then
-                MessageBox.Show("Invalid social title, please correct.", "Error", MessageBoxButtons.OK)
-                Exit Sub
-            End If
-
             If Not txtContactEmailAddress.Text.IsValidEmailAddress Then
-                MessageBox.Show("The email address is not valid", "Error", MessageBoxButtons.OK)
+                MessageBox.Show("The contact email address is not valid. Please enter a valid email and try again.", "Email not sent", MessageBoxButtons.OK)
                 Exit Sub
             End If
 
@@ -10180,9 +10269,7 @@ Public Class SSPPApplicationTrackingLog
 
             Subject = "GA Air Application No. " & AppNumber.ToString & ", dated: " & DTPDateSent.Text
 
-            Body = "Dear " & txtContactSocialTitle.Text & " " & txtContactLastName.Text & ", " &
-                vbNewLine & vbNewLine &
-                "This is to acknowledge the receipt of your GA Air Quality Permit application for " &
+            Body = "This is to acknowledge the receipt of your GA Air Quality Permit application for " &
                 txtFacilityName.Text & " (Airs No. " & AirsId?.FormattedString & ") in " & cboFacilityCity.Text &
                 ", GA. After our initial review of the information and technical data in this application, " &
                 "we will notify you if more information is needed to complete " &
@@ -14480,11 +14567,11 @@ Public Class SSPPApplicationTrackingLog
         End If
     End Sub
 
-    Private Sub txtAIRSNumber_Enter(sender As Object, e As EventArgs) Handles txtAIRSNumber.Enter
+    Private Sub txtAIRSNumber_Enter(sender As Object, e As EventArgs) Handles txtAIRSNumber.AirsTextEnter
         AcceptButton = btnRefreshAIRSNo
     End Sub
 
-    Private Sub txtAIRSNumber_Leave(sender As Object, e As EventArgs) Handles txtAIRSNumber.Leave
+    Private Sub txtAIRSNumber_Leave(sender As Object, e As EventArgs) Handles txtAIRSNumber.AirsTextLeave
         AcceptButton = Nothing
     End Sub
 
@@ -14496,11 +14583,451 @@ Public Class SSPPApplicationTrackingLog
             Case TPInformationRequests.Name
                 LoadInformationRequestHistory()
 
+            Case TPFees.Name
+                If dgvApplicationInvoices.Visible Then
+                    dgvApplicationInvoices.SanelyResizeColumns()
+                    dgvApplicationInvoices.SelectNone()
+                End If
+
+                If dgvApplicationPayments.Visible Then
+                    dgvApplicationPayments.SanelyResizeColumns()
+                    dgvApplicationPayments.SelectNone()
+                End If
+
         End Select
     End Sub
 
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
         PreSaveCheckThenSave()
     End Sub
+
+#Region " Application fees "
+
+    Private Sub chbApplicationFee_CheckedChanged(sender As Object, e As EventArgs) Handles chbAppFee.CheckedChanged
+        If Not chbAppFee.Checked Then
+            UpdatingValues = True
+            cmbAppFeeType.SelectedIndex = -1
+            chbAppFeeOverride.Checked = False
+            ApplicationFeeAmount = 0
+            UpdatingValues = False
+        End If
+
+        AdjustFeesUI()
+    End Sub
+
+    Private Sub chbExpeditedReview_CheckedChanged(sender As Object, e As EventArgs) Handles chbExpFee.CheckedChanged
+        If Not chbExpFee.Checked Then
+            UpdatingValues = True
+            cmbExpFeeType.SelectedIndex = -1
+            chbExpFeeOverride.Checked = False
+            ExpeditedFeeAmount = 0
+            UpdatingValues = False
+        End If
+
+        AdjustFeesUI()
+    End Sub
+
+    Private Sub cmbAppFeeType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbAppFeeType.SelectedIndexChanged
+        If Not chbAppFeeOverride.Checked Then
+            If cmbAppFeeType.SelectedIndex = -1 Then
+                ApplicationFeeAmount = 0
+            Else
+                ApplicationFeeAmount = GetFeeRateAsOf(CType(cmbAppFeeType.SelectedValue, Integer), DTPDateReceived.Value)
+            End If
+        End If
+    End Sub
+
+    Private Sub cmbExpFeeType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbExpFeeType.SelectedIndexChanged
+        If Not chbExpFeeOverride.Checked Then
+            If cmbExpFeeType.SelectedIndex = -1 Then
+                ExpeditedFeeAmount = 0
+            Else
+                ExpeditedFeeAmount = GetFeeRateAsOf(CType(cmbExpFeeType.SelectedValue, Integer), DTPDateReceived.Value)
+            End If
+        End If
+    End Sub
+
+    Private Sub chbAppFeeOverride_CheckedChanged(sender As Object, e As EventArgs) Handles chbAppFeeOverride.CheckedChanged
+        If chbAppFeeOverride.Checked Then
+            chbAppFeeOverride.Text = "Override fee amount (give reason)"
+        Else
+            txtAppFeeOverrideReason.Clear()
+            chbAppFeeOverride.Text = "Override fee amount"
+
+            If Not chbAppFee.Checked OrElse cmbAppFeeType.SelectedIndex = -1 Then
+                ApplicationFeeAmount = 0
+            Else
+                ApplicationFeeAmount = GetFeeRateAsOf(CType(cmbAppFeeType.SelectedValue, Integer), DTPDateReceived.Value)
+            End If
+        End If
+
+        AdjustFeesUI()
+    End Sub
+
+    Private Sub chkExpFeeOverride_CheckedChanged(sender As Object, e As EventArgs) Handles chbExpFeeOverride.CheckedChanged
+        If chbExpFeeOverride.Checked Then
+            chbExpFeeOverride.Text = "Override fee amount (give reason)"
+        Else
+            txtExpFeeOverrideReason.Clear()
+            chbExpFeeOverride.Text = "Override fee amount"
+
+            If Not chbExpFee.Checked OrElse cmbExpFeeType.SelectedIndex = -1 Then
+                ExpeditedFeeAmount = 0
+            Else
+                ExpeditedFeeAmount = GetFeeRateAsOf(CType(cmbExpFeeType.SelectedValue, Integer), DTPDateReceived.Value)
+            End If
+        End If
+
+        AdjustFeesUI()
+    End Sub
+
+    Private Sub chbFeeDataFinalized_CheckedChanged(sender As Object, e As EventArgs) Handles chbFeeDataFinalized.CheckedChanged
+        If chbFeeDataFinalized.Checked Then
+            dtpFeeDataFinalized.Value = Today
+        End If
+
+        AdjustFeesUI()
+    End Sub
+
+    Private Sub txtAppFeeAmount_Validated(sender As Object, e As EventArgs) Handles txtAppFeeAmount.AmountChanged
+        If txtAppFeeAmount.IsValid Then
+            ApplicationFeeAmount = txtAppFeeAmount.Amount
+        Else
+            ApplicationFeeAmount = 0
+        End If
+    End Sub
+
+    Private Sub txtExpFeeAmount_Validated(sender As Object, e As EventArgs) Handles txtExpFeeAmount.AmountChanged
+        If txtExpFeeAmount.IsValid Then
+            ExpeditedFeeAmount = txtExpFeeAmount.Amount
+        Else
+            ExpeditedFeeAmount = 0
+        End If
+    End Sub
+
+    Private Sub DTPDateReceived_Leave(sender As Object, e As EventArgs) Handles DTPDateReceived.Leave
+        LoadFeeRatesComboBoxes()
+    End Sub
+
+    Private Sub AdjustFeesUI()
+        If AirsId Is Nothing Or AppNumber = 0 Then
+            TPFees.Enabled = False
+        End If
+
+        If Not UpdatingValues Then
+
+            ' Application fees
+            chbAppFee.Enabled = FeeChangesAllowed And cmbAppFeeType.Items.Count > 0 And Not chbFeeDataFinalized.Checked
+            cmbAppFeeType.Enabled = chbAppFee.Enabled And Not chbAppFeeOverride.Checked
+            chbAppFeeOverride.Enabled = chbAppFee.Enabled And CurrentUser.HasPermission(UserCan.OverrideFeeAmount)
+            txtAppFeeOverrideReason.Enabled = chbAppFee.Enabled And CurrentUser.HasPermission(UserCan.OverrideFeeAmount)
+
+            cmbAppFeeType.Visible = chbAppFee.Checked
+            lblAppFee.Visible = chbAppFee.Checked
+            txtAppFeeAmount.Visible = chbAppFee.Checked
+            txtAppFeeAmount.ReadOnly = chbFeeDataFinalized.Checked OrElse Not (chbAppFeeOverride.Checked And CurrentUser.HasPermission(UserCan.OverrideFeeAmount))
+            chbAppFeeOverride.Visible = chbAppFee.Checked And (chbAppFeeOverride.Checked Or CurrentUser.HasPermission(UserCan.OverrideFeeAmount))
+            txtAppFeeOverrideReason.Visible = chbAppFeeOverride.Checked And chbAppFee.Checked
+
+            ' Expedited fees
+            chbExpFee.Enabled = FeeChangesAllowed And cmbExpFeeType.Items.Count > 0 And Not chbFeeDataFinalized.Checked
+            cmbExpFeeType.Enabled = chbExpFee.Enabled And Not chbExpFeeOverride.Checked
+            chbExpFeeOverride.Enabled = chbExpFee.Enabled And CurrentUser.HasPermission(UserCan.OverrideFeeAmount)
+            txtExpFeeOverrideReason.Enabled = chbExpFee.Enabled And CurrentUser.HasPermission(UserCan.OverrideFeeAmount)
+
+            cmbExpFeeType.Visible = chbExpFee.Checked
+            lblExpFee.Visible = chbExpFee.Checked
+            txtExpFeeAmount.Visible = chbExpFee.Checked
+            txtExpFeeAmount.ReadOnly = chbFeeDataFinalized.Checked OrElse Not (chbExpFeeOverride.Checked And CurrentUser.HasPermission(UserCan.OverrideFeeAmount))
+            chbExpFeeOverride.Visible = chbExpFee.Checked And (chbExpFeeOverride.Checked Or CurrentUser.HasPermission(UserCan.OverrideFeeAmount))
+            txtExpFeeOverrideReason.Visible = chbExpFeeOverride.Checked And chbExpFee.Checked
+
+            ' Invoicing
+            chbFeeDataFinalized.Visible = FeeChangesAllowed And TotalFeeAmount > 0 And (chbAppFee.Checked Or chbExpFee.Checked)
+            dtpFacilityFeeNotified.Enabled = FeeChangesAllowed
+
+            lklGenerateEmail.Visible = chbFeeDataFinalized.Checked And TotalFeeAmount > 0
+            lblFeeDataFinalized.Visible = chbFeeDataFinalized.Checked
+            dtpFeeDataFinalized.Visible = chbFeeDataFinalized.Checked
+            lblFacilityFeeNotified.Visible = chbFeeDataFinalized.Checked And (chbAppFee.Checked Or chbExpFee.Checked)
+            dtpFacilityFeeNotified.Visible = chbFeeDataFinalized.Checked And (chbAppFee.Checked Or chbExpFee.Checked)
+            lblFeeChangesNotAllowed.Visible = TotalFeeAmount > 0 And Not FeeChangesAllowed
+
+            ' Fees not applicable labels
+            If chbAppFee.Enabled Or chbAppFee.Checked Then
+                chbAppFee.Text = "Permit Application Fee"
+            Else
+                chbAppFee.Text = "No Permit Application Fees Applicable"
+            End If
+
+            If chbExpFee.Enabled Or chbExpFee.Checked Then
+                chbExpFee.Text = "Expedited Review"
+            Else
+                chbExpFee.Text = "No Expedited Review Fees Applicable"
+            End If
+
+        End If
+    End Sub
+
+    Private Sub LoadFeeRatesComboBoxes()
+        UpdatingValues = True
+
+        Dim feeRates As List(Of FeeRateItem) = GetFeeRateItemsAsOf(DTPDateReceived.Value)
+
+        Dim currentFeeDataFinalized As Boolean = chbFeeDataFinalized.Checked And Not (cmbAppFeeType.Items.Count = 0 And cmbExpFeeType.Items.Count = 0)
+
+        ' Application Fees
+        Dim currentFeeTypeSelection As Integer = -1
+        If cmbAppFeeType.Items.Count > 0 AndAlso cmbAppFeeType.SelectedIndex > -1 Then
+            currentFeeTypeSelection = CType(cmbAppFeeType.SelectedValue, Integer)
+        End If
+
+        Dim appFeeRates As List(Of FeeRateItem) = feeRates.Where(Function(m) m.RateCategory = FeeRateCategory.PermitApplication).ToList()
+        cmbAppFeeType.DisplayMember = "Description"
+        cmbAppFeeType.ValueMember = "FeeRateItemID"
+        cmbAppFeeType.DataSource = appFeeRates
+        cmbAppFeeType.SetDropDownWidth()
+
+        If currentFeeTypeSelection > -1 AndAlso appFeeRates.Any(Function(m) m.FeeRateItemID = currentFeeTypeSelection) Then
+            cmbAppFeeType.SelectedValue = currentFeeTypeSelection
+        Else
+            chbAppFee.Checked = False
+            ApplicationFeeAmount = 0
+            cmbAppFeeType.SelectedIndex = -1
+        End If
+
+        ' Expedited fees
+        currentFeeTypeSelection = -1
+        If cmbExpFeeType.Items.Count > 0 AndAlso cmbExpFeeType.SelectedIndex > -1 Then
+            currentFeeTypeSelection = CType(cmbExpFeeType.SelectedValue, Integer)
+        End If
+
+        Dim expFeeRates As List(Of FeeRateItem) = feeRates.Where(Function(m) m.RateCategory = FeeRateCategory.ExpeditedReview).ToList()
+        cmbExpFeeType.DisplayMember = "Description"
+        cmbExpFeeType.ValueMember = "FeeRateItemID"
+        cmbExpFeeType.DataSource = expFeeRates
+        cmbExpFeeType.SetDropDownWidth()
+
+        If currentFeeTypeSelection > -1 AndAlso expFeeRates.Any(Function(m) m.FeeRateItemID = currentFeeTypeSelection) Then
+            cmbExpFeeType.SelectedValue = currentFeeTypeSelection
+        Else
+            chbExpFee.Checked = False
+            ExpeditedFeeAmount = 0
+            cmbExpFeeType.SelectedIndex = -1
+        End If
+
+        If cmbAppFeeType.Items.Count = 0 And cmbExpFeeType.Items.Count = 0 Then
+            chbFeeDataFinalized.Checked = True
+        Else
+            chbFeeDataFinalized.Checked = currentFeeDataFinalized
+        End If
+
+        UpdatingValues = False
+        AdjustFeesUI()
+    End Sub
+
+    Private Sub SaveApplicationFees()
+        If AirsId Is Nothing Or AppNumber = 0 Or Not FeeChangesAllowed Then
+            Exit Sub
+        End If
+
+        Dim feesInfo As New ApplicationFeeInfo() With {
+            .ApplicationFeeAmount = ApplicationFeeAmount,
+            .ApplicationFeeApplies = chbAppFee.Checked,
+            .ApplicationFeeOverride = chbAppFeeOverride.Checked,
+            .ApplicationFeeOverrideReason = txtAppFeeOverrideReason.Text,
+            .ApplicationFeeType = If(cmbAppFeeType.SelectedIndex > -1, CType(cmbAppFeeType.SelectedValue, Integer), CType(Nothing, Integer?)),
+            .ApplicationID = AppNumber,
+            .ApplicationWithdrawn = (cboPermitAction.SelectedValue.ToString = "11"),
+            .DateFacilityNotifiedOfFees = If(dtpFacilityFeeNotified.Checked, dtpFacilityFeeNotified.Value, CType(Nothing, Date?)),
+            .DateFeeDataFinalized = If(chbFeeDataFinalized.Checked, dtpFeeDataFinalized.Value, CType(Nothing, Date?)),
+            .ExpeditedFeeAmount = ExpeditedFeeAmount,
+            .ExpeditedFeeApplies = chbExpFee.Checked,
+            .ExpeditedFeeOverride = chbExpFeeOverride.Checked,
+            .ExpeditedFeeOverrideReason = txtExpFeeOverrideReason.Text,
+            .ExpeditedFeeType = If(cmbExpFeeType.SelectedIndex > -1, CType(cmbExpFeeType.SelectedValue, Integer), CType(Nothing, Integer?)),
+            .FacilityID = AirsId,
+            .FeeDataFinalized = chbFeeDataFinalized.Checked
+        }
+
+        Select Case SaveApplicationFeesData(feesInfo)
+            Case SaveApplicationFeesDataResult.Success
+                ' No action
+
+            Case SaveApplicationFeesDataResult.ApplicationDoesNotExist
+                MessageBox.Show("There was an error saving the application fees. Application number not found. Please contact EPD-IT.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+            Case SaveApplicationFeesDataResult.InvoiceAlreadyGenerated
+                MessageBox.Show("An invoice has already been generated for this application. Please verify fees information before proceeding.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                LoadFeesData()
+
+            Case Else
+                MessageBox.Show("There was an error saving the application fees. Please contact EPD-IT.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Select
+    End Sub
+
+
+    Private Sub LoadFeesData()
+        UpdatingValues = True
+
+        Dim feesInfo As ApplicationFeeInfo = GetApplicationFeesInfo(AppNumber)
+
+        If feesInfo Is Nothing Then
+            UpdatingValues = False
+
+            Exit Sub
+        End If
+
+        With feesInfo
+            ' Application fee
+            chbAppFee.Checked = .ApplicationFeeApplies
+            ApplicationFeeAmount = .ApplicationFeeAmount
+            chbAppFeeOverride.Checked = .ApplicationFeeOverride
+            txtAppFeeOverrideReason.Text = .ApplicationFeeOverrideReason
+
+            If .ApplicationFeeType.HasValue AndAlso cmbAppFeeType.Items.Count > 0 Then
+                cmbAppFeeType.SelectedValue = .ApplicationFeeType.Value
+            End If
+
+            ' Expedited fee
+            chbExpFee.Checked = .ExpeditedFeeApplies
+            ExpeditedFeeAmount = .ExpeditedFeeAmount
+            chbExpFeeOverride.Checked = .ExpeditedFeeOverride
+            txtExpFeeOverrideReason.Text = .ExpeditedFeeOverrideReason
+
+            If .ExpeditedFeeType.HasValue AndAlso cmbExpFeeType.Items.Count > 0 Then
+                cmbExpFeeType.SelectedValue = .ExpeditedFeeType.Value
+            End If
+
+            ' Invoicing
+            RemoveHandler chbFeeDataFinalized.CheckedChanged, AddressOf chbFeeDataFinalized_CheckedChanged
+
+            If cmbAppFeeType.Items.Count = 0 And cmbExpFeeType.Items.Count = 0 Then
+                chbFeeDataFinalized.Checked = True
+            Else
+                chbFeeDataFinalized.Checked = .FeeDataFinalized
+            End If
+
+            dtpFeeDataFinalized.Value = If(.DateFeeDataFinalized, Today)
+            AddHandler chbFeeDataFinalized.CheckedChanged, AddressOf chbFeeDataFinalized_CheckedChanged
+
+            dtpFacilityFeeNotified.Value = If(.DateFacilityNotifiedOfFees, Today)
+            dtpFacilityFeeNotified.Checked = .DateFacilityNotifiedOfFees.HasValue
+
+            If .FeeDataFinalized Then
+                ShowControls({dgvApplicationInvoices, dgvApplicationPayments, lblInvoices, lblPayments, lblFeeTotalInvoiced, lblFeeTotalPaid, txtFeeTotalInvoiced, txtFeeTotalPaid})
+                SplitContainer1.BackColor = SystemColors.ActiveCaption
+                SplitContainer1.IsSplitterFixed = False
+
+                dgvApplicationInvoices.DataSource = .Invoices
+
+                If .Invoices IsNot Nothing AndAlso .Invoices.Rows.Count > 0 Then
+                    txtFeeTotalInvoiced.Amount = .Invoices.AsEnumerable().
+                    Sum(Function(x) x.Field(Of Decimal)("Amount"))
+                End If
+
+                dgvApplicationPayments.DataSource = .Payments
+
+                If .Payments IsNot Nothing AndAlso .Payments.Rows.Count > 0 Then
+                    txtFeeTotalPaid.Amount = .Payments.AsEnumerable().
+                    Sum(Function(x) x.Field(Of Decimal)("Payment"))
+                End If
+            Else
+                HideControls({dgvApplicationInvoices, dgvApplicationPayments, lblInvoices, lblPayments, lblFeeTotalInvoiced, lblFeeTotalPaid, txtFeeTotalInvoiced, txtFeeTotalPaid})
+                SplitContainer1.BackColor = SystemColors.ControlLightLight
+                SplitContainer1.IsSplitterFixed = True
+            End If
+
+            If .Invoices IsNot Nothing AndAlso .Invoices.Rows.Count > 0 Then
+                FeeChangesAllowed = False
+            End If
+        End With
+
+        UpdatingValues = False
+        AdjustFeesUI()
+    End Sub
+
+    Private Sub dgvApplicationInvoices_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvApplicationInvoices.CellLinkActivated
+        OpenInvoiceView(CInt(e.LinkValue))
+    End Sub
+
+    Private Sub dgvApplicationPayments_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvApplicationPayments.CellLinkActivated
+        OpenDepositView(CInt(e.LinkValue))
+    End Sub
+
+    Private Sub lklGenerateEmail_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklGenerateEmail.LinkClicked
+        If Not txtContactEmailAddress.Text.IsValidEmailAddress Then
+            MessageBox.Show("The contact email address is not valid. Please enter a valid email and try again.", "Email not sent", MessageBoxButtons.OK)
+            Exit Sub
+        End If
+
+        UseWaitCursor = True
+
+        Dim subject As String = String.Format("Application No. {0}, Fee Notification", AppNumber)
+
+        If chbExpFee.Checked Then
+            subject &= " and Expedited Acceptance Notification"
+        End If
+
+        Dim body As New StringBuilder()
+        body.AppendLine(String.Format("Facility: {0}", txtFacilityName.Text))
+        body.AppendLine(String.Format("Location: {0}, {1} County", cboFacilityCity.Text, cboCounty.Text))
+        body.AppendLine(String.Format("AIRS No: {0}", txtAIRSNumber.AirsNumber.FormattedString))
+        body.AppendLine(String.Format("Application Type: {0}", cboApplicationType.Text))
+        body.AppendLine()
+        body.AppendLine(String.Format("Application Fee: {0}", If(chbAppFee.Checked, txtAppFeeAmount.Text, "Not Applicable")))
+        body.AppendLine(String.Format("Expedited Review Fee: {0}", If(chbExpFee.Checked, txtExpFeeAmount.Text, "Not Applicable")))
+        body.AppendLine(String.Format("Total Fee: {0}", txtFeeTotal.Text))
+        body.AppendLine()
+        body.AppendLine("This email serves to acknowledge receipt of your Air Quality Permit application.")
+        body.AppendLine()
+
+        If chbExpFee.Checked Then
+            body.Append("This email also serves as notice of acceptance of the application into the Expedited Permitting Program. ")
+            body.Append("The applicant must complete the invitation process by responding to this email to acknowledge entry into the program, ")
+            body.Append("within three business days of this email. The expedited time frame begins upon the applicant’s acceptance of the invitation. ")
+            body.Append("Failure to comply with the deadlines listed in this email may result in removal of the application from the ")
+            body.Append("Expedited Permitting Program. If the applicant decides to decline to participate in the Expedited Permitting Program they ")
+            body.Append("must immediately respond to this email, requesting that the application no longer be considered for the program.")
+            body.AppendLine()
+        End If
+
+        body.AppendFormat("The applicant must complete the submittal process by paying the above referenced fee of {0}. ", txtFeeTotal.Text)
+        body.AppendFormat("A printable fee invoice is accessible through GECO at {0} ", GetPermitApplicationUrl(AppNumber))
+        body.AppendLine()
+        body.Append("The fee must be submitted within 10 business days of the date of this email. Permitting actions will not be finalized ")
+        body.Append("prior to the Division’s receipt of the fee payment.")
+        body.AppendLine()
+        body.Append("Other environmental permits may be required. For Industrial Stormwater permits, contact the Watershed Protection Branch ")
+        body.Append("at (404) 675-1605; for Solid Waste permits, contact the Land Protection Branch at (404) 362-2537. ")
+        body.Append("For more info, see http://epd.georgia.gov/ ")
+        body.AppendLine()
+        body.Append("Please contact me if you have any questions.")
+
+        Dim recipient As String() = Nothing
+
+        If txtContactEmailAddress.Text.IsValidEmailAddress Then
+            recipient = {txtContactEmailAddress.Text}
+        End If
+
+        Select Case CreateEmail(subject, body.ToString(), recipient)
+
+            Case CreateEmailResult.Failure, CreateEmailResult.FunctionError
+                MessageBox.Show("There was an error sending the message. Please try again.", "Error", MessageBoxButtons.OK)
+
+        End Select
+
+        UseWaitCursor = False
+    End Sub
+
+    Private Sub lklOpenAppOnline_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklOpenAppOnline.LinkClicked
+        OpenPermitApplicationUrl(AppNumber)
+    End Sub
+
+#End Region
 
 End Class

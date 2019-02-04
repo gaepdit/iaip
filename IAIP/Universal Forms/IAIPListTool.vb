@@ -61,9 +61,9 @@ Public Class IAIPListTool
             btnAddBranch.Enabled = True
 
             With cboBranch
-                .DataSource = dt.Copy
                 .DisplayMember = "strBranchDesc"
                 .ValueMember = "numBranchCode"
+                .DataSource = dt.Copy
                 .SelectedIndex = -1
             End With
         Catch ex As Exception
@@ -315,16 +315,16 @@ Public Class IAIPListTool
         End Try
     End Sub
 
-    Private Sub LoadProgram(BranchCode As String)
+    Private Sub LoadProgram(BranchCode As Integer)
         Try
-            Dim dvProgram As New DataView(dtOrganization, "numBranchCode = " & BranchCode, "strProgramDesc", DataViewRowState.CurrentRows)
+            Dim dvProgram As New DataView(dtOrganization, "numBranchCode = " & BranchCode.ToString, "strProgramDesc", DataViewRowState.CurrentRows)
             Dim dtProgram As DataTable = dvProgram.ToTable(True, {"numProgramCode", "strProgramDesc"})
 
             With cboProgram
-                .DataSource = dtProgram
+                .Enabled = True
                 .DisplayMember = "strProgramDesc"
                 .ValueMember = "numProgramCode"
-                .Enabled = True
+                .DataSource = dtProgram
                 .SelectedIndex = -1
             End With
         Catch ex As Exception
@@ -332,23 +332,23 @@ Public Class IAIPListTool
         End Try
     End Sub
 
-    Private Sub LoadAccounts(ProgramCode As String, BranchCode As String)
+    Private Sub LoadAccounts(ProgramCode As Integer, BranchCode As Integer)
         Try
-            Dim filterString As String = " BranchID = " & BranchCode
+            Dim filterString As String = " BranchID = " & BranchCode.ToString
 
-            If String.IsNullOrEmpty(ProgramCode) Then
-                filterString &= " and ProgramID is null "
+            If ProgramCode > 0 Then
+                filterString &= " and ProgramID = " & ProgramCode.ToString
             Else
-                filterString &= " and ProgramID = " & ProgramCode
+                filterString &= " and ProgramID is null "
             End If
 
             Dim dvAccount As New DataView(GetSharedData(SharedTable.IaipAccountRoles), filterString, "Role", DataViewRowState.CurrentRows)
             Dim dtAccount As DataTable = dvAccount.ToTable(True, {"RoleCode", "Role"})
 
             With lbAccounts
-                .DataSource = dtAccount
                 .DisplayMember = "Role"
                 .ValueMember = "RoleCode"
+                .DataSource = dtAccount
             End With
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -397,13 +397,13 @@ Public Class IAIPListTool
 
             If chbCascadeBranch.Checked = True Then
                 SQLLine = " numBranchcode = @code "
-                code = cboBranch.SelectedValue
+                code = CInt(cboBranch.SelectedValue)
             ElseIf chbCascadeProgram.Checked = True Then
                 SQLLine = " numProgramcode = @code "
-                code = cboProgram.SelectedValue
+                code = CInt(cboProgram.SelectedValue)
             ElseIf lbAccounts.SelectedItems.Count = 1 Then
                 SQLLine = " numaccountCode = @code "
-                code = lbAccounts.SelectedValue
+                code = CInt(lbAccounts.SelectedValue)
             End If
 
             If SQLLine <> "" Then
@@ -837,18 +837,18 @@ Public Class IAIPListTool
     Private Sub cboBranch_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboBranch.SelectedIndexChanged
         loading = True
         If cboBranch.SelectedIndex > -1 Then
-            LoadProgram(cboBranch.SelectedValue)
-            LoadAccounts(Nothing, cboBranch.SelectedValue)
+            LoadProgram(CInt(cboBranch.SelectedValue))
+            LoadAccounts(Nothing, CInt(cboBranch.SelectedValue))
         Else
-            cboProgram.DataSource = Nothing
             cboProgram.Enabled = False
+            cboProgram.DataSource = Nothing
         End If
         loading = False
     End Sub
 
     Private Sub cboProgram_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboProgram.SelectedIndexChanged
         If Not loading And cboProgram.SelectedIndex > -1 Then
-            LoadAccounts(cboProgram.SelectedValue, cboBranch.SelectedValue)
+            LoadAccounts(CInt(cboProgram.SelectedValue), CInt(cboBranch.SelectedValue))
         End If
     End Sub
 

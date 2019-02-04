@@ -14,7 +14,6 @@
 
     Private Property DisplayLabel As Label = Nothing
     Private Property ErrorProvider As ErrorProvider = Nothing
-    Private Property ErrorControl As Control = Nothing
 
 #End Region
 
@@ -46,13 +45,11 @@
     ''' </summary>
     ''' <param name="displayLabel">The label in which to display the message.</param>
     ''' <param name="errorProvider">The optional ErrorProvider.</param>
-    ''' <param name="errorControl">The optional control to attach the ErrorProvider to. If not set, then displayLabel is used.</param>
-    Public Sub Display(displayLabel As Label, Optional errorProvider As ErrorProvider = Nothing, Optional errorControl As Control = Nothing)
+    Public Sub Display(displayLabel As Label, Optional errorProvider As ErrorProvider = Nothing)
         If Me Is Nothing Then Exit Sub
 
         Me.DisplayLabel = displayLabel
         Me.ErrorProvider = errorProvider
-        Me.ErrorControl = errorControl
 
         Select Case Me.WarningLevel
 
@@ -74,13 +71,8 @@
         Me.DisplayLabel.Visible = True
 
         If Me.ErrorProvider IsNot Nothing Then
-            If Me.ErrorControl IsNot Nothing Then
-                Me.ErrorProvider.SetError(Me.ErrorControl, Me.MessageText)
-                Me.ErrorProvider.SetIconAlignment(Me.ErrorControl, System.Windows.Forms.ErrorIconAlignment.TopLeft)
-            Else
-                Me.ErrorProvider.SetError(displayLabel, Me.MessageText)
-                Me.ErrorProvider.SetIconAlignment(displayLabel, System.Windows.Forms.ErrorIconAlignment.TopLeft)
-            End If
+            Me.ErrorProvider.SetError(displayLabel, Me.MessageText)
+            Me.ErrorProvider.SetIconAlignment(displayLabel, System.Windows.Forms.ErrorIconAlignment.TopLeft)
         End If
     End Sub
 
@@ -99,7 +91,6 @@
 
         DisplayLabel = Nothing
         ErrorProvider = Nothing
-        ErrorControl = Nothing
     End Sub
 
 #End Region

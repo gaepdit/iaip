@@ -61,6 +61,7 @@ Public Module StringFunctions
         End If
     End Function
 
+    <Extension>
     Public Function RealStringOrNothing(s As String) As String
         If String.IsNullOrEmpty(s) Then
             Return Nothing
@@ -76,6 +77,11 @@ Public Module StringFunctions
         End If
 
         Return value.Substring(0, Math.Min(maxLength, value.Length))
+    End Function
+
+    <Extension>
+    Public Function LineCount(str As String) As Integer
+        Return Regex.Matches(str, Environment.NewLine).Count() + 1
     End Function
 
 End Module

@@ -1,0 +1,12 @@
+﻿Namespace Apb.Finance
+    Public Class FeeRateItem
+
+        Public Property FeeRateItemID As Integer
+        Public Property Description As String
+        Public Property RateCategory As FeeRateCategory
+        Public Property BeginDate As Date
+        Public Property EndDate As Date?
+        Public Rates As New TemporalCollection(Of Decimal)
+
+    End Class
+End Namespace

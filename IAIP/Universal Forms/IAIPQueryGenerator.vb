@@ -155,8 +155,6 @@ Public Class IAIPQueryGenerator
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -2665,7 +2663,6 @@ Public Class IAIPQueryGenerator
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
@@ -2884,8 +2881,6 @@ Public Class IAIPQueryGenerator
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
     Private Sub ResizeFilter()
@@ -2899,8 +2894,6 @@ Public Class IAIPQueryGenerator
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
     Private Sub UpdateDefaultSearch()
@@ -3317,13 +3310,9 @@ Public Class IAIPQueryGenerator
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
-
     End Sub
+
     Private Sub LoadDefaults()
         Dim DefaultsText As String = ""
         Dim AIRSNumber As String = ""
@@ -3839,64 +3828,30 @@ Public Class IAIPQueryGenerator
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
     Private Sub btnRunSearch_Click(sender As Object, e As EventArgs) Handles btnRunSearch.Click
-        Try
-            GenerateSQL2()
-
-            DisplayCount()
-
-            dgvQueryGenerator.SanelyResizeColumns()
-
-            LogQuery()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        Cursor = Cursors.WaitCursor
+        GenerateSQL2()
+        LogQuery()
+        Cursor = Cursors.Default
     End Sub
+
     Private Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
-        Try
-            ResetForm()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        ResetForm()
     End Sub
+
     Private Sub tsbReSizeFilterOptions_Click(sender As Object, e As EventArgs) Handles tsbReSizeFilterOptions.Click
-        Try
-
-            ResizeFilter()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        ResizeFilter()
     End Sub
 
     Private Sub bgwQueryGenerator_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgwQueryGenerator.DoWork
-        Try
-            LoadDataSets()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        LoadDataSets()
     End Sub
-    Private Sub bgwQueryGenerator_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwQueryGenerator.RunWorkerCompleted
-        Try
-            ShowComboBoxes()
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+    Private Sub bgwQueryGenerator_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwQueryGenerator.RunWorkerCompleted
+        ShowComboBoxes()
     End Sub
 
     Private Sub tsbExport_Click(sender As Object, e As EventArgs) Handles tsbExport.Click
@@ -3904,23 +3859,11 @@ Public Class IAIPQueryGenerator
     End Sub
 
     Private Sub tsbSearchQuery_Click(sender As Object, e As EventArgs) Handles tsbSearchQuery.Click, OpenSavedSearchToolStripMenuItem.Click
-        Try
-            LoadDefaults()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        LoadDefaults()
     End Sub
 
     Private Sub tsbSaveQuery_Click(sender As Object, e As EventArgs) Handles tsbSaveQuery.Click, SaveSearchQueryToolStripMenuItem.Click
-        Try
-            UpdateDefaultSearch()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        UpdateDefaultSearch()
     End Sub
 
     Private Sub RunCannedPermitContact()
@@ -3983,13 +3926,6 @@ Public Class IAIPQueryGenerator
         End Try
     End Sub
 
-    Private Sub DisplayCount()
-        Dim resultsPluralized As String = "result found"
-        If dgvQueryGenerator.RowCount <> 1 Then resultsPluralized = "results found"
-        lblQueryCount.Text = String.Format("{0} {1}", dgvQueryGenerator.RowCount.ToString, resultsPluralized)
-        lblCannedQueryCount.Text = String.Format("{0} {1}", dgvQueryGenerator.RowCount.ToString, resultsPluralized)
-    End Sub
-
     Private Sub mmiExport_Click(sender As Object, e As EventArgs) Handles mmiExport.Click
         ExportToExcel()
     End Sub
@@ -4031,8 +3967,6 @@ Public Class IAIPQueryGenerator
             RunCannedPermitContact()
         End If
 
-        DisplayCount()
-        dgvQueryGenerator.SanelyResizeColumns()
         Cursor = Cursors.Default
     End Sub
 
@@ -4065,8 +3999,16 @@ Public Class IAIPQueryGenerator
     Private Sub tcQueryOptions_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tcQueryOptions.SelectedIndexChanged
         If tcQueryOptions.SelectedTab Is TPCannedReports Then
             BasicSearchGroup.Enabled = False
+            AcceptButton = btnRunCannedReport
         Else
             BasicSearchGroup.Enabled = True
+            AcceptButton = btnRunSearch
         End If
+    End Sub
+
+    ' DataGridView events
+
+    Private Sub dgvQueryGenerator_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvQueryGenerator.CellLinkActivated
+        OpenFormFacilitySummary(e.LinkValue.ToString)
     End Sub
 End Class
