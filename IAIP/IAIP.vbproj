@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -402,12 +402,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FacilityBasicInfo.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSPP\crSSPPConfirmationLetter.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crSSPPConfirmationLetter.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ISMP\ISMPManagersTools.Designer.vb">
@@ -1054,10 +1048,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FacilityBasicInfo.vb</LastGenOutput>
       <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSPP\crSSPPConfirmationLetter.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crSSPPConfirmationLetter.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\SSCP\AccMemo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
