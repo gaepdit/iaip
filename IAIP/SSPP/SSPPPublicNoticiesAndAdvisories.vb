@@ -1618,6 +1618,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
             CRVPublicNotices.ExportReport()
 
+            LogCrystalReportsUsage(rpt)
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1900,6 +1902,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
             CRVPublicNotices.ReportSource = rpt
 
             CRVPublicNotices.ExportReport()
+
+            LogCrystalReportsUsage(rpt)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

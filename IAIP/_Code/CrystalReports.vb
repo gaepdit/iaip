@@ -113,6 +113,8 @@ Module CrystalReports
         Loop
 
         crReportViewer.Refresh()
+
+        DAL.LogCrystalReportsUsage(report)
     End Sub
 
     <Extension>

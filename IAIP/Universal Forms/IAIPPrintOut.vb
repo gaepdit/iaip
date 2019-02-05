@@ -37,6 +37,10 @@ Public Class IAIPPrintOut
         If CrystalReportsIsAvailable() Then
             LoadCorrectReport()
             CRViewer.ShowHideViewerTabs(VisibleOrNot.NotVisible)
+
+            If CRViewer.ReportSource IsNot Nothing Then
+                LogCrystalReportsUsage(CType(CRViewer.ReportSource, CrystalDecisions.CrystalReports.Engine.ReportClass))
+            End If
         Else
             Close()
         End If

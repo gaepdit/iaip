@@ -3506,6 +3506,8 @@ Public Class PASPFeeAuditLog
             crFeeStatsAndInvoices.ReportSource = rpt
             crFeeStatsAndInvoices.Refresh()
 
+            DAL.LogCrystalReportsUsage(rpt)
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
