@@ -73,7 +73,7 @@ Public Class SSPPApplicationTrackingLog
         Set(value As Decimal)
             If _totalFeeAmount <> value Then
                 _totalFeeAmount = value
-                txtFeeTotal.Text = String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C0}", value)
+                txtFeeTotal.Text = String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C}", value)
 
                 If value = 0 Then
                     txtFeeTotal.Visible = False

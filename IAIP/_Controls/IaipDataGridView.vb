@@ -15,8 +15,8 @@ Public Class IaipDataGridView
     Public Property AutoFormatCells As Boolean = True
 
     <Category("Appearance"), Description("Format for Decimal data typed columns.")>
-    <DefaultValue("C0")>
-    Public Property DecimalFieldFormat As String = "C0"
+    <DefaultValue("C")>
+    Public Property DecimalFieldFormat As String = "C"
 
     <Category("Appearance"), Description("Format for Date data typed columns.")>
     <DefaultValue(DateFormat)>

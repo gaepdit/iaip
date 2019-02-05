@@ -13,7 +13,7 @@ Friend Class CurrencyTextBox
         Set
             If _amount <> Value Then
                 _amount = Value
-                Text = String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C0}", Value)
+                Text = String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C}", Value)
 
                 If Not isValidating Then
                     ValidationStatus = ValidateText()
