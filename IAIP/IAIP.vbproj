@@ -253,6 +253,7 @@
     <Compile Include="_DAL\DAL.Rules.vb" />
     <Compile Include="_DAL\Facilities\DAL.FacilityProgramHistory.vb" />
     <Compile Include="_DAL\Facilities\DAL.FacilityLookups.vb" />
+    <Compile Include="_DAL\Logging\IaipLogging.vb" />
     <Compile Include="_DAL\SSPP\DAL.Sspp.ApplicationTypes.vb" />
     <Compile Include="_DAL\TableValuedParameter.vb" />
     <Compile Include="_Data Models\Users\IaipRoles.vb" />

@@ -1,4 +1,4 @@
-﻿Option Strict On
+Option Strict On
 
 Imports System.Collections.Generic
 Imports CrystalDecisions.CrystalReports.Engine
@@ -132,6 +132,8 @@ Public Class CRViewerForm
             If Me.CRParameters IsNot Nothing Then CRSetParameters(CRReportDocument, CRParameters)
             CRViewerControl.ReportSource = Me.CRReportDocument
             CRViewerControl.ShowHideViewerTabs(VisibleOrNot.NotVisible)
+
+            DAL.LogCrystalReportsUsage(CRReportDocument)
         End If
     End Sub
 
