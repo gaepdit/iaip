@@ -376,7 +376,7 @@ Partial Class FinSearchDeposits
         Me.Controls.Add(Me.TopPanel)
         Me.MinimumSize = New System.Drawing.Size(710, 422)
         Me.Name = "FinSearchDeposits"
-        Me.Text = "Deposit Search"
+        Me.Text = "Application Fee Deposit Search"
         CType(Me.dgvSearchResults, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TopPanel.ResumeLayout(False)
         Me.TopPanel.PerformLayout()

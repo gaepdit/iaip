@@ -701,7 +701,7 @@ Partial Class FinDepositView
         Me.Controls.Add(Me.btnDeleteDeposit)
         Me.MinimumSize = New System.Drawing.Size(624, 600)
         Me.Name = "FinDepositView"
-        Me.Text = "New Deposit"
+        Me.Text = "New Application Fee Deposit"
         Me.grpDepositDetails.ResumeLayout(False)
         Me.grpDepositDetails.PerformLayout()
         CType(Me.dgvInvoicesPaid, System.ComponentModel.ISupportInitialize).EndInit()

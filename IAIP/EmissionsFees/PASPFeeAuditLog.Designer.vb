@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class PASPFeeAuditLog
     Inherits BaseForm
 
@@ -4868,7 +4868,7 @@ Partial Class PASPFeeAuditLog
         Me.Controls.Add(Me.Panel4)
         Me.MinimumSize = New System.Drawing.Size(1003, 716)
         Me.Name = "PASPFeeAuditLog"
-        Me.Text = "Fee Audit Log"
+        Me.Text = "Emissions Fee Audit Log"
         Me.TabControl3.ResumeLayout(False)
         Me.TPGECOSubmittal.ResumeLayout(False)
         CType(Me.dgvInvoiceData, System.ComponentModel.ISupportInitialize).EndInit()

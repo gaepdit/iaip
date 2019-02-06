@@ -277,7 +277,7 @@ Partial Class FinSearchFacilities
         Me.Controls.Add(Me.TopPanel)
         Me.MinimumSize = New System.Drawing.Size(708, 422)
         Me.Name = "FinSearchFacilities"
-        Me.Text = "Facility Account Search"
+        Me.Text = "Application Fee Facility Search"
         Me.grpFacility.ResumeLayout(False)
         Me.grpFacility.PerformLayout()
         CType(Me.dgvSearchResults, System.ComponentModel.ISupportInitialize).EndInit()

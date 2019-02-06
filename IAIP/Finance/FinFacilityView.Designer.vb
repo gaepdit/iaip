@@ -743,7 +743,7 @@ Partial Class FinFacilityView
         Me.Controls.Add(Me.pnlTop)
         Me.MinimumSize = New System.Drawing.Size(590, 593)
         Me.Name = "FinFacilityView"
-        Me.Text = "Facility Account"
+        Me.Text = "Application Fee Facility Account"
         CType(Me.dgvInvoices, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitInvoicesAndPending.Panel1.ResumeLayout(False)
         Me.SplitInvoicesAndPending.Panel1.PerformLayout()

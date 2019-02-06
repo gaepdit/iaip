@@ -422,7 +422,7 @@ Partial Class FinInvoiceView
         Me.Controls.Add(Me.Label4)
         Me.MinimumSize = New System.Drawing.Size(426, 471)
         Me.Name = "FinInvoiceView"
-        Me.Text = "Invoice"
+        Me.Text = "Application Fee Invoice"
         CType(Me.dgvPaymentsApplied, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvInvoiceItems, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

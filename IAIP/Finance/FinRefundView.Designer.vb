@@ -258,7 +258,7 @@ Partial Class FinRefundView
         Me.Controls.Add(Me.btnSaveNew)
         Me.MinimumSize = New System.Drawing.Size(359, 357)
         Me.Name = "FinRefundView"
-        Me.Text = "New Refund"
+        Me.Text = "New Application Fee Refund"
         CType(Me.dgvDeposits, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

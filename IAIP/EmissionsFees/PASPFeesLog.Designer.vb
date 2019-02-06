@@ -419,7 +419,7 @@ Partial Class PASPFeesLog
         Me.Controls.Add(Me.TopPanel)
         Me.MinimumSize = New System.Drawing.Size(650, 333)
         Me.Name = "PASPFeesLog"
-        Me.Text = "Fees Log"
+        Me.Text = "Emissions Fees Log"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
