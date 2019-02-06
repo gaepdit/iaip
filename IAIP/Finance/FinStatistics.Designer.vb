@@ -1,4 +1,4 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FinStatistics
     Inherits BaseForm
 
@@ -174,7 +174,7 @@ Partial Class FinStatistics
         Me.Controls.Add(Me.dgvResults)
         Me.Controls.Add(Me.btnRunReport)
         Me.Name = "FinStatistics"
-        Me.Text = "Permit Application Fee Statistics"
+        Me.Text = "Application Fee Statistics"
         CType(Me.dgvResults, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpDateBias.ResumeLayout(False)
         Me.grpDateBias.PerformLayout()

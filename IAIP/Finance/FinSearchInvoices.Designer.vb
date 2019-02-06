@@ -370,7 +370,7 @@ Partial Class FinSearchInvoices
         Me.Controls.Add(Me.TopPanel)
         Me.MinimumSize = New System.Drawing.Size(684, 422)
         Me.Name = "FinSearchInvoices"
-        Me.Text = "Invoice Search"
+        Me.Text = "Application Fee Invoice Search"
         Me.grpFacility.ResumeLayout(False)
         Me.grpFacility.PerformLayout()
         CType(Me.dgvSearchResults, System.ComponentModel.ISupportInitialize).EndInit()
