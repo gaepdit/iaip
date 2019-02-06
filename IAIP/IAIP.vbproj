@@ -192,6 +192,12 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Finance\FinStatistics.Designer.vb">
+      <DependentUpon>FinStatistics.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\FinStatistics.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Finance\FinFacilityView.Designer.vb">
       <DependentUpon>FinFacilityView.vb</DependentUpon>
     </Compile>
@@ -352,6 +358,9 @@
     <Compile Include="_Data Models\Users\IaipRoles.vb" />
     <Compile Include="_Code\RegexPatterns.vb" />
     <Compile Include="_Code\IaipValidation.vb" />
+    <EmbeddedResource Include="Finance\FinStatistics.resx">
+      <DependentUpon>FinStatistics.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Finance\FinFacilityView.resx">
       <DependentUpon>FinFacilityView.vb</DependentUpon>
     </EmbeddedResource>

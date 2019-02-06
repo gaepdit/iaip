@@ -805,7 +805,7 @@ Public Class IAIPNavigation
         ' Emission Fees
         AddNavButtonIfAccountHasFormAccess(135, "Fees Log", NameOf(PASPFeesLog), NavButtonCategories.EmissionFees)
         AddNavButtonIfAccountHasFormAccess(139, "Fee Management", NameOf(PASPFeeManagement), NavButtonCategories.EmissionFees)
-        AddNavButtonIfAccountHasFormAccess(12, "Fee Statistics && Reports", NameOf(PASPFeeStatistics), NavButtonCategories.EmissionFees)
+        AddNavButtonIfAccountHasFormAccess(12, "Statistics && Reports", NameOf(PASPFeeStatistics), NavButtonCategories.EmissionFees)
         AddNavButtonIfAccountHasFormAccess(18, "Deposits", NameOf(PASPDepositsAmendments), NavButtonCategories.EmissionFees)
 
         ' Finance
@@ -814,6 +814,7 @@ Public Class IAIPNavigation
         AddNavButton("Search Invoices", NameOf(FinSearchInvoices), NavButtonCategories.Finance)
         AddNavButton("Search Facilities", NameOf(FinSearchFacilities), NavButtonCategories.Finance)
         'AddNavButtonIfUserHasPermission({118, 123, 124, 28}, "Manage Fee Rates", NameOf(FinFeeRateManagement), NavButtonCategories.Finance)
+        AddNavButton("Statistics && Reports", NameOf(FinStatistics), NavButtonCategories.Finance)
 
         ' MASP
         AddNavButtonIfAccountHasFormAccess(137, "EPD Events", NameOf(MASPRegistrationTool), NavButtonCategories.MASP)
