@@ -1,5 +1,6 @@
-﻿Imports System.Runtime.CompilerServices
+Imports System.Collections.Generic
 Imports System.Linq
+Imports System.Runtime.CompilerServices
 
 Module DataGridViewExtensions
 
@@ -38,8 +39,14 @@ Module DataGridViewExtensions
 
     <Extension()>
     Public Sub MakeColumnLookLikeLinks(dgv As DataGridView, index As Integer())
+        If dgv.Columns.Count = 0 Then
+            Exit Sub
+        End If
+
         For Each col As Integer In index
-            dgv.Columns(col).DefaultCellStyle.ForeColor = SystemColors.HotTrack
+            If col < dgv.Columns.Count Then
+                dgv.Columns(col).DefaultCellStyle.ForeColor = SystemColors.HotTrack
+            End If
         Next
     End Sub
 
@@ -87,7 +94,7 @@ Module DataGridViewExtensions
 
     <Extension()>
     Public Function ContainsValue(c As DataGridViewColumn, value As Object) As Boolean
-        Return c.DataGridView.Rows.Cast(Of DataGridViewRow).Any(Function(row) row.Cells(c.Index).Value.Equals(value))
+        Return c.DataGridView.Rows.Cast(Of DataGridViewRow).Any(Function(r) r.Cells(c.Index).Value.Equals(value))
     End Function
 
 End Module

@@ -76,7 +76,7 @@ Public Class FinInvoiceView
 
             Select Case .InvoiceCategory
                 Case InvoiceCategory.EmissionsFees
-                    lblInvoiceDescription.Text = "Emissions Fees for " & .FeeYear.ToString
+                    lblInvoiceDescription.Text = "Annual/Emissions Fees for " & .FeeYear.ToString
                 Case InvoiceCategory.PermitApplicationFees
                     lblInvoiceDescription.Text = "Permit Application Fees for #" & .ApplicationID.ToString
                 Case Else

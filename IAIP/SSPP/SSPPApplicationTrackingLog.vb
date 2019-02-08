@@ -14772,7 +14772,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub LoadFeeRatesComboBoxes()
         UpdatingValues = True
 
-        Dim feeRates As List(Of FeeRateItem) = GetFeeRateItemsAsOf(DTPDateReceived.Value)
+        Dim feeRates As List(Of FeeRateItem) = FeeRateItemsAsOf(DTPDateReceived.Value)
 
         Dim currentFeeDataFinalized As Boolean = chbFeeDataFinalized.Checked And Not (cmbAppFeeType.Items.Count = 0 And cmbExpFeeType.Items.Count = 0)
 
