@@ -70,6 +70,7 @@ Public Class FinInvoiceView
             lnkFacility.Text = .FacilityID.FormattedString
             lblFacilityDisplay.Text = .Facility.FacilityName.ToString()
             txtInvoiceDate.Text = .InvoiceDate.ToShortDateString
+            txtDueDate.Text = .DueDate.ToShortDateString
             txtTotalDue.Amount = .TotalAmountDue
             txtAmountPaid.Amount = .PaymentsApplied
             txtCurrentBalance.Amount = .InvoiceBalance
@@ -112,13 +113,9 @@ Public Class FinInvoiceView
 
     Private Sub txtSaveComment_Click(sender As Object, e As EventArgs) Handles btnSaveComment.Click
         If SaveInvoiceComment(InvoiceID, txtComments.Text) Then
-            lblSaveCommentMessage.Text = "Comment saved."
-            lblSaveCommentMessage.ForeColor = IaipColors.InfoForeColor
-            lblSaveCommentMessage.BackColor = IaipColors.InfoBackColor
+            lblSaveCommentMessage.ShowMessage("Comment saved.", ErrorLevel.Success)
         Else
-            lblSaveCommentMessage.Text = "Error saving comment."
-            lblSaveCommentMessage.ForeColor = IaipColors.ErrorForeColor
-            lblSaveCommentMessage.BackColor = IaipColors.ErrorBackColor
+            lblSaveCommentMessage.ShowMessage("Error saving comment.", ErrorLevel.Error)
         End If
     End Sub
 
@@ -127,33 +124,30 @@ Public Class FinInvoiceView
     'End Sub
 
     Private Sub btnVoid_Click(sender As Object, e As EventArgs) Handles btnVoid.Click
-        lblVoidMessage.ForeColor = IaipColors.ErrorForeColor
-        lblVoidMessage.BackColor = IaipColors.ErrorBackColor
+        lblVoidMessage.ClearMessage()
         btnVoid.Enabled = False
 
         Dim msg As String = ""
 
         Select Case VoidInvoice(InvoiceID)
             Case VoidInvoiceResult.AlreadyVoided
-                msg = "Invoice has already been voided."
+                lblVoidMessage.ShowMessage("Invoice has already been voided.", ErrorLevel.Error)
                 lblStatus.Text = "Status: VOID"
 
             Case VoidInvoiceResult.DbError
                 btnVoid.Enabled = True
-                msg = "A database error has occurred."
+                lblVoidMessage.ShowMessage("A database error has occurred.", ErrorLevel.Error)
                 lblStatus.Text = "Status: ERROR"
 
             Case VoidInvoiceResult.DoesNotExist
-                msg = "This invoice does not exist."
+                lblVoidMessage.ShowMessage("This invoice does not exist.", ErrorLevel.Error)
                 lblStatus.Text = "Status: ERROR"
 
             Case VoidInvoiceResult.HasPayments
-                msg = "Cannot void invoice because payments have been applied."
+                lblVoidMessage.ShowMessage("Cannot void invoice because payments have been applied.", ErrorLevel.Error)
 
             Case VoidInvoiceResult.Success
-                lblVoidMessage.ForeColor = IaipColors.InfoForeColor
-                lblVoidMessage.BackColor = IaipColors.InfoBackColor
-                msg = "Invoice has been voided."
+                lblVoidMessage.ShowMessage("This invoice does not exist.", ErrorLevel.Info)
                 lblStatus.Text = "Status: VOID"
 
         End Select
