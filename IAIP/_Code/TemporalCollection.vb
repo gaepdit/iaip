@@ -7,22 +7,22 @@
 ''' <remarks>See https://www.martinfowler.com/eaaDev/TemporalProperty.html </remarks>
 Public Class TemporalCollection(Of T)
 
-    Private Property contents As SortedList(Of Date, T)
+    Public ReadOnly Property Contents As SortedList(Of Date, T)
 
     Public Sub New()
-        contents = New SortedList(Of Date, T)(New ReverseComparer(Of Date)(Comparer(Of Date).Default))
+        Contents = New SortedList(Of Date, T)(New ReverseComparer(Of Date)(Comparer(Of Date).Default))
     End Sub
 
     Public Sub New(datedValues As IDictionary(Of Date, T))
         ' The ReverseComparer causes the SortedList to be sorted in reverse order (descending)
-        contents = New SortedList(Of Date, T)(
+        Contents = New SortedList(Of Date, T)(
             datedValues,
             New ReverseComparer(Of Date)(Comparer(Of Date).Default)
         )
     End Sub
 
     Public Sub AddValue(effectiveDate As Date, value As T)
-        contents.Add(effectiveDate, value)
+        Contents.Add(effectiveDate, value)
     End Sub
 
     ''' <summary>
@@ -39,13 +39,13 @@ Public Class TemporalCollection(Of T)
     ''' <param name="effectiveDate">The effective date at which the value is needed.</param>
     ''' <returns></returns>
     Public Function GetValueAt(effectiveDate As Date) As T
-        If contents.Count = 0 Then
+        If Contents.Count = 0 Then
             Throw New ArgumentOutOfRangeException("Temporal collection contains no records.")
         End If
 
-        For Each keyDate As Date In contents.Keys
+        For Each keyDate As Date In Contents.Keys
             If keyDate <= effectiveDate Then
-                Return contents(keyDate)
+                Return Contents(keyDate)
             End If
         Next
 
@@ -54,19 +54,28 @@ Public Class TemporalCollection(Of T)
 
     Public ReadOnly Property EarliestDate() As Date
         Get
-            If contents.Count = 0 Then
+            If Contents.Count = 0 Then
                 Throw New ArgumentOutOfRangeException("Temporal collection contains no records.")
             End If
 
-            Return contents.Keys.Item(contents.Count - 1)
+            Return Contents.Keys.Item(Contents.Count - 1)
+        End Get
+    End Property
+
+    Public ReadOnly Property LatestDate() As Date
+        Get
+            If Contents.Count = 0 Then
+                Throw New ArgumentOutOfRangeException("Temporal collection contains no records.")
+            End If
+
+            Return Contents.Keys.Item(0)
         End Get
     End Property
 
     Public ReadOnly Property Count() As Integer
         Get
-            Return contents.Count
+            Return Contents.Count
         End Get
     End Property
-
 
 End Class

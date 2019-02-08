@@ -1,4 +1,4 @@
-﻿Imports System.Collections.Generic
+Imports System.Collections.Generic
 Imports System.ComponentModel
 Imports Iaip.DAL.NavigationScreenData
 Imports Iaip.SharedData
@@ -10,7 +10,7 @@ Public Class IAIPNavigation
     Private Property WorkViewerTable As DataTable
     Private Property CurrentNavWorkListContext As NavWorkListContext
     Private Property CurrentNavWorkListScope As NavWorkListScope
-    Private Property CurrentNavWorkListParameter As String = ""
+    Private Property CurrentNavWorkListParameter As Integer? = Nothing
     Private Property ExitWhenClosed As Boolean = True
     Private Property NavWorkListContextDictionary As Dictionary(Of NavWorkListContext, String)
 
@@ -199,7 +199,7 @@ Public Class IAIPNavigation
     Handles btnOpenApplication.Leave, btnOpenEnforcement.Leave, btnOpenFacilitySummary.Leave, btnOpenSbeapCaseLog.Leave,
     btnOpenSbeapClient.Leave, btnOpenSscpItem.Leave, btnOpenTestLog.Leave, btnOpenTestReport.Leave
         Dim thisButton As Button = CType(sender, Button)
-        If Not Me.AcceptButton Is thisButton And Not thisButton.Tag Then
+        If Not AcceptButton Is thisButton And Not CBool(thisButton.Tag) Then
             thisButton.FlatStyle = FlatStyle.Flat
             thisButton.ForeColor = SystemColors.GrayText
         End If
@@ -340,7 +340,7 @@ Public Class IAIPNavigation
 
     Private Sub SetWorkViewerContext()
         ' Get current Nav Work List parameters
-        CurrentNavWorkListContext = cboNavWorkListContext.SelectedValue
+        CurrentNavWorkListContext = CType(cboNavWorkListContext.SelectedValue, NavWorkListContext)
 
         If rdbStaffView.Checked Then
             CurrentNavWorkListScope = NavWorkListScope.StaffView
@@ -369,7 +369,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub cboNavWorkListContext_SelectedValueChanged(sender As Object, e As EventArgs)
-        Dim c As NavWorkListContext = cboNavWorkListContext.SelectedValue
+        Dim c As NavWorkListContext = CType(cboNavWorkListContext.SelectedValue, NavWorkListContext)
         Select Case c
             Case NavWorkListContext.ComplianceWork, NavWorkListContext.Enforcement, NavWorkListContext.MonitoringTestReports, NavWorkListContext.PermitApplications, NavWorkListContext.SbeapCases
                 NavWorkListScopePanel.Visible = True
@@ -379,7 +379,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub SetUpNavWorkListScopeChanger()
-        Dim scope As NavWorkListScope = [Enum].Parse(GetType(NavWorkListScope), GetUserSetting(UserSetting.SelectedNavWorkListScope))
+        Dim scope As NavWorkListScope = CType([Enum].Parse(GetType(NavWorkListScope), GetUserSetting(UserSetting.SelectedNavWorkListScope)), NavWorkListScope)
 
         Select Case scope
             Case NavWorkListScope.ProgramView
@@ -410,10 +410,10 @@ Public Class IAIPNavigation
         Try
             For Each row As DataGridViewRow In dgvWorkViewer.Rows
                 If Not row.IsNewRow Then
-                    If row.Cells("Precompliance Status").Value IsNot DBNull.Value AndAlso row.Cells("Precompliance Status").Value = "True" Then
+                    If row.Cells("Precompliance Status").Value IsNot DBNull.Value AndAlso row.Cells("Precompliance Status").Value.ToString() = "True" Then
                         row.DefaultCellStyle.BackColor = Color.Pink
                     End If
-                    If row.Cells("Compliance Status").Value IsNot DBNull.Value AndAlso row.Cells("Compliance Status").Value = "Not In Compliance" Then
+                    If row.Cells("Compliance Status").Value IsNot DBNull.Value AndAlso row.Cells("Compliance Status").Value.ToString() = "Not In Compliance" Then
                         row.DefaultCellStyle.BackColor = Color.Tomato
                     End If
                 End If
@@ -425,7 +425,7 @@ Public Class IAIPNavigation
 
     Private Sub dgvWorkViewer_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
         If e IsNot Nothing AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) Then
-            If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText.ToUpper = "AIRS #" AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value) Then
+            If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText.ToUpper = "AIRS #" AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value.ToString()) Then
                 e.Value = New Apb.ApbFacilityId(e.Value.ToString).FormattedString
             ElseIf TypeOf e.Value Is Date Then
                 e.CellStyle.Format = DateFormat
@@ -597,14 +597,14 @@ Public Class IAIPNavigation
             accountFormAccessString = AccountFormAccessLookup.Rows.Find(account)("FormAccess").ToString
 
             If accountFormAccessString.Length > 0 Then
-                Dim formAccessArray() As String = accountFormAccessString.Split(New Char() {"(", ")"}, StringSplitOptions.RemoveEmptyEntries)
+                Dim formAccessArray() As String = accountFormAccessString.Split(New Char() {"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries)
 
                 For Each formAccessString As String In formAccessArray
-                    Dim formAccessSplit() As String = formAccessString.Split(New Char() {"-", ","})
-                    Dim formNumber As String = formAccessSplit(0)
-                    AccountFormAccess(formNumber, 0) = formNumber
+                    Dim formAccessSplit() As String = formAccessString.Split(New Char() {"-"c, ","c})
+                    Dim formNumber As Integer = CInt(formAccessSplit(0))
+                    AccountFormAccess(formNumber, 0) = formNumber.ToString()
                     For i As Integer = 1 To 4
-                        AccountFormAccess(formNumber, i) = Convert.ToInt32(AccountFormAccess(formNumber, i)) Or Convert.ToInt32(formAccessSplit(i))
+                        AccountFormAccess(formNumber, i) = (Convert.ToInt32(AccountFormAccess(formNumber, i)) Or Convert.ToInt32(formAccessSplit(i))).ToString
                     Next
                 Next
             End If

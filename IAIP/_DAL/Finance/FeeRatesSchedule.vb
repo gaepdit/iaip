@@ -1,4 +1,5 @@
-﻿Imports System.Collections.Generic
+Imports System.Collections.Generic
+Imports System.Data.SqlClient
 Imports System.Linq
 Imports EpdIt.DBUtilities
 Imports Iaip.Apb.Finance
@@ -11,12 +12,12 @@ Namespace DAL.Finance
             Return GetSharedObject(Of Dictionary(Of Integer, FeeRateItem))(SharedObject.FeeRatesSchedule)
         End Function
 
-        Public Function GetAllFeeRateItems() As List(Of FeeRateItem)
+        Private Function FeeRateItems() As List(Of FeeRateItem)
             Return GetFeeRatesSchedule().Values.AsEnumerable().ToList()
         End Function
 
-        Public Function GetFeeRateItemsAsOf(effectiveDate As Date) As List(Of FeeRateItem)
-            Return GetAllFeeRateItems().Where(
+        Public Function FeeRateItemsAsOf(effectiveDate As Date) As List(Of FeeRateItem)
+            Return FeeRateItems().Where(
                 Function(m) m.BeginDate <= effectiveDate AndAlso (Not m.EndDate.HasValue OrElse m.EndDate.Value >= effectiveDate)
                 ).ToList()
         End Function
@@ -35,7 +36,7 @@ Namespace DAL.Finance
             Return ri.Rates.GetValueAt(effectiveDate)
         End Function
 
-        Public Function GetFeeRatesScheduleFromDB() As Dictionary(Of Integer, FeeRateItem)
+        Public Function LoadFeeRatesSchedule() As Dictionary(Of Integer, FeeRateItem)
             Dim ds As DataSet = DB.SPGetDataSet("fees.GetFeeRatesSchedule")
 
             If ds Is Nothing OrElse ds.Tables.Count <> 2 Then

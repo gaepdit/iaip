@@ -11,7 +11,7 @@ Namespace DAL
         ''' <param name="scope">The scope of the Nav Work List to return</param>
         ''' <param name="scopeParameter">An optional ID, e.g., User ID, Branch ID or Unit ID</param>
         ''' <returns></returns>
-        Public Function GetNavWorkList(context As NavWorkListContext, scope As NavWorkListScope, Optional scopeParameter As String = "") As DataTable
+        Public Function GetNavWorkList(context As NavWorkListContext, scope As NavWorkListScope, Optional scopeParameter As Integer? = Nothing) As DataTable
             Dim query As String = GetNavWorkListSQL(context, scope)
             If query Is Nothing Or query = "" Then Return Nothing
             Dim parameter As New SqlParameter("@pid", scopeParameter)

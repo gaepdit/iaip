@@ -75,20 +75,6 @@ Namespace Apb.Finance
         Public Property InvoiceItems As List(Of InvoiceItem)
         Public Property DepositsApplied As List(Of DepositApplied)
 
-        '<DisplayName("Invoice ID")>
-        'Public ReadOnly Property InvoiceIdDisplay As String
-        '    Get
-        '        Select Case InvoiceCategory
-        '            Case InvoiceCategory.EmissionsFees
-        '                Return String.Concat("E-", InvoiceID)
-        '            Case InvoiceCategory.PermitApplicationFees
-        '                Return String.Concat("P-", InvoiceID)
-        '            Case Else
-        '                Return "Error"
-        '        End Select
-        '    End Get
-        'End Property
-
         <DisplayName("Category")>
         Public ReadOnly Property InvoiceCategoryDisplay As String
             Get

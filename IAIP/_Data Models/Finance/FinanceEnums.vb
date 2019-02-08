@@ -1,11 +1,9 @@
-﻿Imports System.ComponentModel
+Imports System.ComponentModel
 
 Namespace Apb.Finance
 
     Public Enum InvoiceCategory
-        <Description("Emissions Fees")>
         EmissionsFees
-        <Description("Permit Application Fees")>
         PermitApplicationFees
     End Enum
 

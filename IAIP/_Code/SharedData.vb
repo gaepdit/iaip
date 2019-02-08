@@ -8,7 +8,7 @@ Public Class SharedData
     Private Shared _dictDictionary As Dictionary(Of SharedLookupDictionary, Dictionary(Of Integer, String))
     Private Shared _objDictionary As Dictionary(Of SharedObject, Object)
 
-#Region " Enums: Available shared data "
+    ' Enums: Available shared data
 
     ''' <summary>
     ''' Enum delineating all the available shared Tables in the SharedData service
@@ -47,10 +47,7 @@ Public Class SharedData
         FeeRatesSchedule
     End Enum
 
-#End Region
-
-#Region " Initialize shared data "
-
+    ' Initialize Shared data
     ' The InitializeData procedures define how the shared data is initially populated
 
     Private Shared Sub InitializeData(table As SharedTable)
@@ -181,7 +178,7 @@ Public Class SharedData
             Select Case obj
 
                 Case SharedObject.FeeRatesSchedule
-                    myObj = DAL.Finance.GetFeeRatesScheduleFromDB()
+                    myObj = DAL.Finance.LoadFeeRatesSchedule()
 
             End Select
 
@@ -193,10 +190,7 @@ Public Class SharedData
         End SyncLock
     End Sub
 
-#End Region
-
-#Region " Public functions for using shared data "
-
+    ' Public functions for using shared data
     ' The GetSharedData functions make the shared data available to other procedures
 
     ''' <summary>
@@ -277,9 +271,8 @@ Public Class SharedData
     End Function
 
 
-#End Region
-
-#Region " Public functions for clearing shared data "
+    ' Public functions for clearing shared data
+    ' Removes data from the cache
 
     Public Shared Sub ClearSharedData(table As SharedTable)
         If _tDictionary IsNot Nothing AndAlso _tDictionary.ContainsKey(table) Then
@@ -299,12 +292,33 @@ Public Class SharedData
         End If
     End Sub
 
-    Public Shared Sub ClearSharedData(obj As SharedObject)
+    Public Shared Sub ClearSharedObject(obj As SharedObject)
         If _objDictionary IsNot Nothing AndAlso _objDictionary.ContainsKey(obj) Then
             _objDictionary.Remove(obj)
         End If
     End Sub
 
-#End Region
+    ' Public functions for reloading shared data
+    ' Clears then returns fresh copy of data
+
+    Public Shared Function ReloadSharedData(table As SharedTable) As DataTable
+        ClearSharedData(table)
+        Return GetSharedData(table)
+    End Function
+
+    Public Shared Function ReloadSharedData(dataSet As SharedDataSet) As DataSet
+        ClearSharedData(dataSet)
+        Return GetSharedData(dataSet)
+    End Function
+
+    Public Shared Function ReloadSharedData(lookupDictionary As SharedLookupDictionary) As Dictionary(Of Integer, String)
+        ClearSharedData(lookupDictionary)
+        Return GetSharedData(lookupDictionary)
+    End Function
+
+    Public Shared Function ReloadSharedObject(Of T)(obj As SharedObject) As T
+        ClearSharedObject(obj)
+        Return GetSharedObject(Of T)(obj)
+    End Function
 
 End Class
