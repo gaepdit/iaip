@@ -1,4 +1,4 @@
-Imports System.Collections.Generic
+﻿Imports System.Collections.Generic
 Imports System.Linq
 Imports System.Runtime.CompilerServices
 
@@ -95,6 +95,13 @@ Module DataGridViewExtensions
     <Extension()>
     Public Function ContainsValue(c As DataGridViewColumn, value As Object) As Boolean
         Return c.DataGridView.Rows.Cast(Of DataGridViewRow).Any(Function(r) r.Cells(c.Index).Value.Equals(value))
+    End Function
+
+    <Extension()>
+    Public Function RowIndexForValue(c As DataGridViewColumn, value As Object) As Integer?
+        Return c.DataGridView.Rows.Cast(Of DataGridViewRow).
+            Where(Function(r) r.Cells(c.Index).Value.Equals(value)).
+            FirstOrDefault()?.Index
     End Function
 
 End Module

@@ -1,4 +1,4 @@
-Imports System.Collections.Generic
+﻿Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Linq
 Imports EpdIt.DBUtilities
@@ -12,28 +12,26 @@ Namespace DAL.Finance
             Return GetSharedObject(Of Dictionary(Of Integer, FeeRateItem))(SharedObject.FeeRatesSchedule)
         End Function
 
-        Private Function FeeRateItems() As List(Of FeeRateItem)
-            Return GetFeeRatesSchedule().Values.AsEnumerable().ToList()
-        End Function
-
         Public Function FeeRateItemsAsOf(effectiveDate As Date) As List(Of FeeRateItem)
-            Return FeeRateItems().Where(
+            Dim FeeRateItems As List(Of FeeRateItem) = GetFeeRatesSchedule().Values.AsEnumerable().ToList()
+
+            Return FeeRateItems.Where(
                 Function(m) m.BeginDate <= effectiveDate AndAlso (Not m.EndDate.HasValue OrElse m.EndDate.Value >= effectiveDate)
                 ).ToList()
         End Function
 
-        Public Function GetFeeRateAsOf(rateItem As Integer, effectiveDate As Date) As Decimal
-            Dim ri As FeeRateItem = Nothing
+        Public Function GetFeeRateAsOf(rateItemID As Integer, effectiveDate As Date) As Decimal
+            Dim rateItem As FeeRateItem = Nothing
 
-            If Not GetFeeRatesSchedule().TryGetValue(rateItem, ri) Then
+            If Not GetFeeRatesSchedule().TryGetValue(rateItemID, rateItem) Then
                 Return 0
             End If
 
-            If ri.Rates.Count = 0 OrElse ri.Rates.EarliestDate > effectiveDate Then
+            If rateItem.Rates.Count = 0 OrElse rateItem.Rates.EarliestDate > effectiveDate Then
                 Return 0
             End If
 
-            Return ri.Rates.GetValueAt(effectiveDate)
+            Return rateItem.Rates.GetValueAt(effectiveDate)
         End Function
 
         Public Function LoadFeeRatesSchedule() As Dictionary(Of Integer, FeeRateItem)
@@ -66,6 +64,75 @@ Namespace DAL.Finance
             Next
 
             Return rates
+        End Function
+
+        Public Function GetRateItemMaxUsedDate(rateItemID As Integer) As Date?
+            Return DB.SPGetSingleValue(Of Date?)("fees.GetRateItemMaxUsedDate", New SqlParameter("@RateItemID", rateItemID))
+        End Function
+
+        Public Function UpdateRateItemDescription(rateItemID As Integer, description As String) As DbResult
+            Dim params As SqlParameter() = {
+                New SqlParameter("@Description", description),
+                New SqlParameter("@RateItemID", rateItemID),
+                New SqlParameter("@UserID", CurrentUser.UserID)
+            }
+
+            If DB.SPRunCommand("fees.UpdateRateItemDescription", params) Then
+                Return DbResult.Success
+            End If
+
+            Return DbResult.DbError
+        End Function
+
+        Public Function SaveNewRateItem(category As FeeRateCategory,
+                                        description As String,
+                                        amount As Decimal,
+                                        effectiveDate As Date,
+                                        ByRef newRateItemID As Integer) As DbResult
+            newRateItemID = -1
+
+            Dim params As SqlParameter() = {
+                New SqlParameter("@Description", description),
+                New SqlParameter("@RateCategoryID", CInt(category)),
+                New SqlParameter("@Amount", amount),
+                New SqlParameter("@EffectiveDate", effectiveDate),
+                New SqlParameter("@UserID", CurrentUser.UserID)
+            }
+
+            Dim returnValue As Integer
+
+            newRateItemID = DB.SPGetInteger("fees.SaveNewRateItem", params, returnValue)
+
+            Return CType(returnValue, DbResult)
+        End Function
+
+        Public Function AddNewEffectiveRate(rateItemID As Integer, rate As Decimal, effectiveDate As Date) As DbResult
+            Dim params As SqlParameter() = {
+                New SqlParameter("@RateItemID", rateItemID),
+                New SqlParameter("@Rate", rate),
+                New SqlParameter("@EffectiveDate", effectiveDate),
+                New SqlParameter("@UserID", CurrentUser.UserID)
+            }
+
+            If DB.SPRunCommand("fees.AddNewEffectiveRate", params) Then
+                Return DbResult.Success
+            End If
+
+            Return DbResult.DbError
+        End Function
+
+        Public Function EndUseOfRateItem(rateItemID As Integer, endDate As Date) As DbResult
+            Dim params As SqlParameter() = {
+                New SqlParameter("@RateItemID", rateItemID),
+                New SqlParameter("@EndDate", endDate),
+                New SqlParameter("@UserID", CurrentUser.UserID)
+            }
+
+            If DB.SPRunCommand("fees.EndUseOfRateItem", params) Then
+                Return DbResult.Success
+            End If
+
+            Return DbResult.DbError
         End Function
 
     End Module
