@@ -55,6 +55,8 @@ Partial Class FinInvoiceView
         Me.lblFacilityDisplay = New System.Windows.Forms.Label()
         Me.UrlToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.lnkFacility = New System.Windows.Forms.LinkLabel()
+        Me.txtDueDate = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
         CType(Me.dgvPaymentsApplied, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvInvoiceItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -72,11 +74,11 @@ Partial Class FinInvoiceView
         'txtInvoiceDate
         '
         Me.txtInvoiceDate.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtInvoiceDate.Location = New System.Drawing.Point(101, 167)
+        Me.txtInvoiceDate.Location = New System.Drawing.Point(101, 141)
         Me.txtInvoiceDate.Name = "txtInvoiceDate"
         Me.txtInvoiceDate.ReadOnly = True
         Me.txtInvoiceDate.Size = New System.Drawing.Size(100, 13)
-        Me.txtInvoiceDate.TabIndex = 7
+        Me.txtInvoiceDate.TabIndex = 3
         Me.txtInvoiceDate.Text = "N/A"
         Me.txtInvoiceDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -84,7 +86,7 @@ Partial Class FinInvoiceView
         '
         Me.Label2.AutoSize = True
         Me.Label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label2.Location = New System.Drawing.Point(12, 167)
+        Me.Label2.Location = New System.Drawing.Point(12, 141)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(68, 13)
         Me.Label2.TabIndex = 5
@@ -94,7 +96,7 @@ Partial Class FinInvoiceView
         '
         Me.Label4.AutoSize = True
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label4.Location = New System.Drawing.Point(12, 205)
+        Me.Label4.Location = New System.Drawing.Point(12, 198)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(54, 13)
         Me.Label4.TabIndex = 7
@@ -104,7 +106,7 @@ Partial Class FinInvoiceView
         '
         Me.Label5.AutoSize = True
         Me.Label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label5.Location = New System.Drawing.Point(12, 224)
+        Me.Label5.Location = New System.Drawing.Point(12, 217)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(55, 13)
         Me.Label5.TabIndex = 9
@@ -114,7 +116,7 @@ Partial Class FinInvoiceView
         '
         Me.Label6.AutoSize = True
         Me.Label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label6.Location = New System.Drawing.Point(12, 244)
+        Me.Label6.Location = New System.Drawing.Point(12, 237)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(83, 13)
         Me.Label6.TabIndex = 11
@@ -128,7 +130,7 @@ Partial Class FinInvoiceView
         Me.lblStatus.Location = New System.Drawing.Point(12, 45)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(347, 20)
-        Me.lblStatus.TabIndex = 1
+        Me.lblStatus.TabIndex = 2
         Me.lblStatus.Text = "Status"
         '
         'btnVoid
@@ -138,7 +140,7 @@ Partial Class FinInvoiceView
         Me.btnVoid.Location = New System.Drawing.Point(365, 12)
         Me.btnVoid.Name = "btnVoid"
         Me.btnVoid.Size = New System.Drawing.Size(101, 23)
-        Me.btnVoid.TabIndex = 8
+        Me.btnVoid.TabIndex = 14
         Me.btnVoid.Text = "Void This Invoice"
         Me.btnVoid.UseVisualStyleBackColor = True
         '
@@ -147,10 +149,10 @@ Partial Class FinInvoiceView
         Me.btnNewDeposit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnNewDeposit.AutoSize = True
         Me.btnNewDeposit.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnNewDeposit.Location = New System.Drawing.Point(333, 554)
+        Me.btnNewDeposit.Location = New System.Drawing.Point(333, 512)
         Me.btnNewDeposit.Name = "btnNewDeposit"
         Me.btnNewDeposit.Size = New System.Drawing.Size(133, 27)
-        Me.btnNewDeposit.TabIndex = 7
+        Me.btnNewDeposit.TabIndex = 13
         Me.btnNewDeposit.Text = "Add New Deposit"
         Me.btnNewDeposit.UseVisualStyleBackColor = True
         Me.btnNewDeposit.Visible = False
@@ -162,10 +164,10 @@ Partial Class FinInvoiceView
         Me.lnkViewInvoice.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lnkViewInvoice.ForeColor = System.Drawing.SystemColors.GrayText
         Me.lnkViewInvoice.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
-        Me.lnkViewInvoice.Location = New System.Drawing.Point(12, 559)
+        Me.lnkViewInvoice.Location = New System.Drawing.Point(12, 517)
         Me.lnkViewInvoice.Name = "lnkViewInvoice"
         Me.lnkViewInvoice.Size = New System.Drawing.Size(144, 17)
-        Me.lnkViewInvoice.TabIndex = 6
+        Me.lnkViewInvoice.TabIndex = 12
         Me.lnkViewInvoice.TabStop = True
         Me.lnkViewInvoice.Text = "View printable invoice"
         Me.lnkViewInvoice.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -174,28 +176,28 @@ Partial Class FinInvoiceView
         '
         Me.txtComments.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtComments.Location = New System.Drawing.Point(263, 125)
+        Me.txtComments.Location = New System.Drawing.Point(238, 138)
         Me.txtComments.Multiline = True
         Me.txtComments.Name = "txtComments"
-        Me.txtComments.Size = New System.Drawing.Size(203, 73)
-        Me.txtComments.TabIndex = 2
+        Me.txtComments.Size = New System.Drawing.Size(228, 58)
+        Me.txtComments.TabIndex = 8
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(260, 109)
+        Me.Label7.Location = New System.Drawing.Point(238, 122)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(59, 13)
+        Me.Label7.Size = New System.Drawing.Size(96, 13)
         Me.Label7.TabIndex = 15
-        Me.Label7.Text = "Comments:"
+        Me.Label7.Text = "Invoice comments:"
         '
         'btnSaveComment
         '
         Me.btnSaveComment.AutoSize = True
-        Me.btnSaveComment.Location = New System.Drawing.Point(263, 204)
+        Me.btnSaveComment.Location = New System.Drawing.Point(238, 202)
         Me.btnSaveComment.Name = "btnSaveComment"
         Me.btnSaveComment.Size = New System.Drawing.Size(94, 27)
-        Me.btnSaveComment.TabIndex = 3
+        Me.btnSaveComment.TabIndex = 9
         Me.btnSaveComment.Text = "Save Comments"
         Me.btnSaveComment.UseVisualStyleBackColor = True
         '
@@ -210,19 +212,19 @@ Partial Class FinInvoiceView
         Me.dgvPaymentsApplied.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvPaymentsApplied.LinkifyColumnByName = Nothing
         Me.dgvPaymentsApplied.LinkifyFirstColumn = True
-        Me.dgvPaymentsApplied.Location = New System.Drawing.Point(12, 434)
+        Me.dgvPaymentsApplied.Location = New System.Drawing.Point(12, 413)
         Me.dgvPaymentsApplied.Name = "dgvPaymentsApplied"
         Me.dgvPaymentsApplied.ResultsCountLabel = Nothing
         Me.dgvPaymentsApplied.ResultsCountLabelFormat = "{0} found"
         Me.dgvPaymentsApplied.ShowEditingIcon = False
-        Me.dgvPaymentsApplied.Size = New System.Drawing.Size(454, 101)
+        Me.dgvPaymentsApplied.Size = New System.Drawing.Size(454, 80)
         Me.dgvPaymentsApplied.StandardTab = True
-        Me.dgvPaymentsApplied.TabIndex = 5
+        Me.dgvPaymentsApplied.TabIndex = 11
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(12, 418)
+        Me.Label8.Location = New System.Drawing.Point(12, 397)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(93, 13)
         Me.Label8.TabIndex = 15
@@ -234,7 +236,7 @@ Partial Class FinInvoiceView
         Me.Label9.Location = New System.Drawing.Point(12, 83)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(60, 13)
-        Me.Label9.TabIndex = 2
+        Me.Label9.TabIndex = 3
         Me.Label9.Text = "Invoice for:"
         '
         'txtTotalDue
@@ -242,13 +244,13 @@ Partial Class FinInvoiceView
         Me.txtTotalDue.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtTotalDue.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtTotalDue.Cue = "$0"
-        Me.txtTotalDue.Location = New System.Drawing.Point(101, 205)
+        Me.txtTotalDue.Location = New System.Drawing.Point(101, 198)
         Me.txtTotalDue.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtTotalDue.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtTotalDue.Name = "txtTotalDue"
         Me.txtTotalDue.ReadOnly = True
         Me.txtTotalDue.Size = New System.Drawing.Size(100, 13)
-        Me.txtTotalDue.TabIndex = 8
+        Me.txtTotalDue.TabIndex = 5
         Me.txtTotalDue.Text = "$0"
         Me.txtTotalDue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -257,13 +259,13 @@ Partial Class FinInvoiceView
         Me.txtAmountPaid.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtAmountPaid.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtAmountPaid.Cue = "$0"
-        Me.txtAmountPaid.Location = New System.Drawing.Point(101, 224)
+        Me.txtAmountPaid.Location = New System.Drawing.Point(101, 217)
         Me.txtAmountPaid.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtAmountPaid.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtAmountPaid.Name = "txtAmountPaid"
         Me.txtAmountPaid.ReadOnly = True
         Me.txtAmountPaid.Size = New System.Drawing.Size(100, 13)
-        Me.txtAmountPaid.TabIndex = 9
+        Me.txtAmountPaid.TabIndex = 6
         Me.txtAmountPaid.Text = "$0"
         Me.txtAmountPaid.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -272,20 +274,20 @@ Partial Class FinInvoiceView
         Me.txtCurrentBalance.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtCurrentBalance.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtCurrentBalance.Cue = "$0"
-        Me.txtCurrentBalance.Location = New System.Drawing.Point(101, 244)
+        Me.txtCurrentBalance.Location = New System.Drawing.Point(101, 237)
         Me.txtCurrentBalance.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
         Me.txtCurrentBalance.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtCurrentBalance.Name = "txtCurrentBalance"
         Me.txtCurrentBalance.ReadOnly = True
         Me.txtCurrentBalance.Size = New System.Drawing.Size(100, 13)
-        Me.txtCurrentBalance.TabIndex = 10
+        Me.txtCurrentBalance.TabIndex = 7
         Me.txtCurrentBalance.Text = "$0"
         Me.txtCurrentBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'InvoiceLine
         '
         Me.InvoiceLine.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.InvoiceLine.Location = New System.Drawing.Point(130, 240)
+        Me.InvoiceLine.Location = New System.Drawing.Point(130, 233)
         Me.InvoiceLine.Name = "InvoiceLine"
         Me.InvoiceLine.Size = New System.Drawing.Size(71, 1)
         Me.InvoiceLine.TabIndex = 340
@@ -296,13 +298,13 @@ Partial Class FinInvoiceView
         Me.lblInvoiceDescription.Location = New System.Drawing.Point(12, 96)
         Me.lblInvoiceDescription.Name = "lblInvoiceDescription"
         Me.lblInvoiceDescription.Size = New System.Drawing.Size(146, 13)
-        Me.lblInvoiceDescription.TabIndex = 3
+        Me.lblInvoiceDescription.TabIndex = 4
         Me.lblInvoiceDescription.Text = "Emissions Fees or Application"
         '
         'lblSaveCommentMessage
         '
         Me.lblSaveCommentMessage.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.lblSaveCommentMessage.Location = New System.Drawing.Point(263, 239)
+        Me.lblSaveCommentMessage.Location = New System.Drawing.Point(238, 232)
         Me.lblSaveCommentMessage.Name = "lblSaveCommentMessage"
         Me.lblSaveCommentMessage.Size = New System.Drawing.Size(122, 23)
         Me.lblSaveCommentMessage.TabIndex = 341
@@ -313,7 +315,7 @@ Partial Class FinInvoiceView
         '
         Me.lblVoidMessage.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblVoidMessage.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.lblVoidMessage.Location = New System.Drawing.Point(298, 68)
+        Me.lblVoidMessage.Location = New System.Drawing.Point(298, 45)
         Me.lblVoidMessage.Name = "lblVoidMessage"
         Me.lblVoidMessage.Size = New System.Drawing.Size(168, 28)
         Me.lblVoidMessage.TabIndex = 15
@@ -338,19 +340,19 @@ Partial Class FinInvoiceView
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvInvoiceItems.DefaultCellStyle = DataGridViewCellStyle3
         Me.dgvInvoiceItems.LinkifyColumnByName = Nothing
-        Me.dgvInvoiceItems.Location = New System.Drawing.Point(12, 289)
+        Me.dgvInvoiceItems.Location = New System.Drawing.Point(12, 282)
         Me.dgvInvoiceItems.Name = "dgvInvoiceItems"
         Me.dgvInvoiceItems.ResultsCountLabel = Nothing
         Me.dgvInvoiceItems.ResultsCountLabelFormat = "{0} found"
         Me.dgvInvoiceItems.ShowEditingIcon = False
-        Me.dgvInvoiceItems.Size = New System.Drawing.Size(454, 113)
+        Me.dgvInvoiceItems.Size = New System.Drawing.Size(454, 99)
         Me.dgvInvoiceItems.StandardTab = True
-        Me.dgvInvoiceItems.TabIndex = 4
+        Me.dgvInvoiceItems.TabIndex = 10
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 273)
+        Me.Label1.Location = New System.Drawing.Point(12, 266)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(73, 13)
         Me.Label1.TabIndex = 13
@@ -369,29 +371,52 @@ Partial Class FinInvoiceView
         '
         'lblFacilityDisplay
         '
-        Me.lblFacilityDisplay.AutoSize = True
-        Me.lblFacilityDisplay.Location = New System.Drawing.Point(12, 141)
+        Me.lblFacilityDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblFacilityDisplay.Location = New System.Drawing.Point(238, 96)
         Me.lblFacilityDisplay.Name = "lblFacilityDisplay"
-        Me.lblFacilityDisplay.Size = New System.Drawing.Size(70, 13)
-        Me.lblFacilityDisplay.TabIndex = 3
+        Me.lblFacilityDisplay.Size = New System.Drawing.Size(228, 26)
+        Me.lblFacilityDisplay.TabIndex = 6
         Me.lblFacilityDisplay.Text = "Facility Name"
         '
         'lnkFacility
         '
         Me.lnkFacility.AutoSize = True
         Me.lnkFacility.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
-        Me.lnkFacility.Location = New System.Drawing.Point(12, 128)
+        Me.lnkFacility.Location = New System.Drawing.Point(238, 83)
         Me.lnkFacility.Name = "lnkFacility"
         Me.lnkFacility.Size = New System.Drawing.Size(58, 13)
-        Me.lnkFacility.TabIndex = 343
+        Me.lnkFacility.TabIndex = 2
         Me.lnkFacility.TabStop = True
         Me.lnkFacility.Text = "000-00000"
+        '
+        'txtDueDate
+        '
+        Me.txtDueDate.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtDueDate.Location = New System.Drawing.Point(101, 160)
+        Me.txtDueDate.Name = "txtDueDate"
+        Me.txtDueDate.ReadOnly = True
+        Me.txtDueDate.Size = New System.Drawing.Size(100, 13)
+        Me.txtDueDate.TabIndex = 4
+        Me.txtDueDate.Text = "N/A"
+        Me.txtDueDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label10.Location = New System.Drawing.Point(12, 160)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(53, 13)
+        Me.Label10.TabIndex = 5
+        Me.Label10.Text = "Due Date"
         '
         'FinInvoiceView
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(478, 593)
+        Me.ClientSize = New System.Drawing.Size(478, 551)
+        Me.Controls.Add(Me.lblVoidMessage)
         Me.Controls.Add(Me.lnkFacility)
         Me.Controls.Add(Me.btnRefresh)
         Me.Controls.Add(Me.lblSaveCommentMessage)
@@ -403,7 +428,6 @@ Partial Class FinInvoiceView
         Me.Controls.Add(Me.dgvInvoiceItems)
         Me.Controls.Add(Me.dgvPaymentsApplied)
         Me.Controls.Add(Me.txtComments)
-        Me.Controls.Add(Me.lblVoidMessage)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.lnkViewInvoice)
         Me.Controls.Add(Me.btnNewDeposit)
@@ -413,14 +437,16 @@ Partial Class FinInvoiceView
         Me.Controls.Add(Me.lblInvoiceDescription)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.btnVoid)
+        Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.txtDueDate)
         Me.Controls.Add(Me.txtInvoiceDate)
         Me.Controls.Add(Me.lblInvoiceID)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.Label4)
-        Me.MinimumSize = New System.Drawing.Size(426, 471)
+        Me.MinimumSize = New System.Drawing.Size(494, 590)
         Me.Name = "FinInvoiceView"
         Me.Text = "Application Fee Invoice"
         CType(Me.dgvPaymentsApplied, System.ComponentModel.ISupportInitialize).EndInit()
@@ -458,4 +484,6 @@ Partial Class FinInvoiceView
     Friend WithEvents lblFacilityDisplay As Label
     Friend WithEvents UrlToolTip As ToolTip
     Friend WithEvents lnkFacility As LinkLabel
+    Friend WithEvents txtDueDate As TextBox
+    Friend WithEvents Label10 As Label
 End Class

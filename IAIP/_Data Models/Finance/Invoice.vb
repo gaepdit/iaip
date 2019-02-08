@@ -33,6 +33,8 @@ Namespace Apb.Finance
         Public Property IsCreditMemo As Boolean = False
         <DisplayName("Invoice Date")>
         Public Property InvoiceDate As Date
+        <DisplayName("Due Date")>
+        Public Property DueDate As Date
         <DisplayName("Comment")>
         Public Property Comment As String
         <DisplayName("Voided")>
