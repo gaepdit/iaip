@@ -27,13 +27,14 @@ Partial Class FinCreateRateItem
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.EP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.UsernameLabel = New System.Windows.Forms.Label()
-        Me.txtName = New System.Windows.Forms.TextBox()
+        Me.txtDescription = New System.Windows.Forms.TextBox()
         Me.cmbCategory = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtpNewRateDate = New System.Windows.Forms.DateTimePicker()
         Me.txtNewRate = New Iaip.CurrencyTextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.lblMessage = New System.Windows.Forms.Label()
         CType(Me.EP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -42,10 +43,10 @@ Partial Class FinCreateRateItem
         Me.btnSave.AutoSize = True
         Me.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.btnSave.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSave.Location = New System.Drawing.Point(30, 179)
+        Me.btnSave.Location = New System.Drawing.Point(27, 179)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(164, 27)
-        Me.btnSave.TabIndex = 9
+        Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "Save New Rate Item"
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -53,10 +54,10 @@ Partial Class FinCreateRateItem
         '
         Me.btnCancel.CausesValidation = False
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(200, 181)
+        Me.btnCancel.Location = New System.Drawing.Point(197, 181)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(86, 23)
-        Me.btnCancel.TabIndex = 10
+        Me.btnCancel.TabIndex = 5
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
@@ -70,26 +71,30 @@ Partial Class FinCreateRateItem
         Me.UsernameLabel.AutoSize = True
         Me.UsernameLabel.Location = New System.Drawing.Point(28, 65)
         Me.UsernameLabel.Name = "UsernameLabel"
-        Me.UsernameLabel.Size = New System.Drawing.Size(35, 13)
+        Me.UsernameLabel.Size = New System.Drawing.Size(60, 13)
         Me.UsernameLabel.TabIndex = 20
-        Me.UsernameLabel.Text = "Name"
+        Me.UsernameLabel.Text = "Description"
         '
-        'txtName
+        'txtDescription
         '
-        Me.txtName.Location = New System.Drawing.Point(123, 62)
-        Me.txtName.MaxLength = 50
-        Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(230, 20)
-        Me.txtName.TabIndex = 0
+        Me.txtDescription.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtDescription.Location = New System.Drawing.Point(123, 62)
+        Me.txtDescription.MaxLength = 50
+        Me.txtDescription.Name = "txtDescription"
+        Me.txtDescription.Size = New System.Drawing.Size(230, 20)
+        Me.txtDescription.TabIndex = 1
         '
         'cmbCategory
         '
+        Me.cmbCategory.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbCategory.FormattingEnabled = True
         Me.cmbCategory.Location = New System.Drawing.Point(123, 22)
         Me.cmbCategory.Name = "cmbCategory"
         Me.cmbCategory.Size = New System.Drawing.Size(230, 21)
-        Me.cmbCategory.TabIndex = 23
+        Me.cmbCategory.TabIndex = 0
         '
         'Label1
         '
@@ -108,7 +113,7 @@ Partial Class FinCreateRateItem
         Me.dtpNewRateDate.Location = New System.Drawing.Point(123, 140)
         Me.dtpNewRateDate.Name = "dtpNewRateDate"
         Me.dtpNewRateDate.Size = New System.Drawing.Size(91, 20)
-        Me.dtpNewRateDate.TabIndex = 26
+        Me.dtpNewRateDate.TabIndex = 3
         '
         'txtNewRate
         '
@@ -119,7 +124,7 @@ Partial Class FinCreateRateItem
         Me.txtNewRate.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtNewRate.Name = "txtNewRate"
         Me.txtNewRate.Size = New System.Drawing.Size(91, 20)
-        Me.txtNewRate.TabIndex = 25
+        Me.txtNewRate.TabIndex = 2
         Me.txtNewRate.Text = "$0"
         Me.txtNewRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -141,6 +146,16 @@ Partial Class FinCreateRateItem
         Me.Label4.TabIndex = 28
         Me.Label4.Text = "Effective Date"
         '
+        'lblMessage
+        '
+        Me.lblMessage.AutoSize = True
+        Me.lblMessage.Location = New System.Drawing.Point(28, 222)
+        Me.lblMessage.Name = "lblMessage"
+        Me.lblMessage.Padding = New System.Windows.Forms.Padding(3)
+        Me.lblMessage.Size = New System.Drawing.Size(182, 32)
+        Me.lblMessage.TabIndex = 29
+        Me.lblMessage.Text = "Label6" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Warning Warning Warning Warning"
+        '
         'FinCreateRateItem
         '
         Me.AcceptButton = Me.btnSave
@@ -148,20 +163,22 @@ Partial Class FinCreateRateItem
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(378, 226)
+        Me.ClientSize = New System.Drawing.Size(378, 270)
+        Me.Controls.Add(Me.lblMessage)
         Me.Controls.Add(Me.dtpNewRateDate)
         Me.Controls.Add(Me.txtNewRate)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.cmbCategory)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.txtName)
+        Me.Controls.Add(Me.txtDescription)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.UsernameLabel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
+        Me.MinimumSize = New System.Drawing.Size(394, 309)
         Me.Name = "FinCreateRateItem"
         Me.Text = "Create New Fee Rate Item"
         CType(Me.EP, System.ComponentModel.ISupportInitialize).EndInit()
@@ -172,7 +189,7 @@ Partial Class FinCreateRateItem
     Friend WithEvents btnSave As System.Windows.Forms.Button
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents EP As System.Windows.Forms.ErrorProvider
-    Friend WithEvents txtName As System.Windows.Forms.TextBox
+    Friend WithEvents txtDescription As System.Windows.Forms.TextBox
     Friend WithEvents UsernameLabel As System.Windows.Forms.Label
     Friend WithEvents cmbCategory As ComboBox
     Friend WithEvents Label1 As Label
@@ -180,4 +197,5 @@ Partial Class FinCreateRateItem
     Friend WithEvents txtNewRate As CurrencyTextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents Label4 As Label
+    Friend WithEvents lblMessage As Label
 End Class
