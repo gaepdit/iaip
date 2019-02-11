@@ -813,7 +813,7 @@ Public Class IAIPNavigation
         AddNavButtonIfUserHasPermission({118, 123, 124, 125}, "Search Deposits", NameOf(FinSearchDeposits), NavButtonCategories.Finance)
         AddNavButton("Search Invoices", NameOf(FinSearchInvoices), NavButtonCategories.Finance)
         AddNavButton("Search Facilities", NameOf(FinSearchFacilities), NavButtonCategories.Finance)
-        AddNavButtonIfUserHasPermission({118, 123, 124, 28}, "Manage Fee Rates", NameOf(FinFeeRateManagement), NavButtonCategories.Finance)
+        AddNavButtonIfUserHasPermission({118, 124, 28}, "Manage Fee Rates", NameOf(FinFeeRateManagement), NavButtonCategories.Finance)
         AddNavButton("Statistics && Reports", NameOf(FinStatistics), NavButtonCategories.Finance)
 
         ' MASP
