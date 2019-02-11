@@ -83,6 +83,8 @@
                 Return HasRole({134, 136, 133, 135, 137, 138, 140})
 
         End Select
+
+        Return False
     End Function
 
     Public Function HasPermission(capability As UserCan) As Boolean

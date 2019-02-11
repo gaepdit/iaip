@@ -1462,6 +1462,7 @@ Public Class PASPFeeManagement
             Return DB.RunCommand(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 
@@ -1473,10 +1474,10 @@ Public Class PASPFeeManagement
                 New SqlParameter("@DESCRIPTION", Description),
                 New SqlParameter("@UPDATEUSER", CurrentUser.UserID)
             }
-            DB.RunCommand(SQL, p)
-            Return True
+            Return DB.RunCommand(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 
@@ -1495,7 +1496,7 @@ Public Class PASPFeeManagement
                     New SqlParameter("@user", CurrentUser.UserID),
                     New SqlParameter("@reason", NSPSReasonCode)
                 }
-                DB.RunCommand(SQL, p)
+                Return DB.RunCommand(SQL, p)
             Else
                 SQL = "Update FSLK_NSPSReason set " &
                 "Description = @description , " &
@@ -1509,11 +1510,11 @@ Public Class PASPFeeManagement
                     New SqlParameter("@user", CurrentUser.UserID),
                     New SqlParameter("@reason", NSPSReasonCode)
                 }
-                DB.RunCommand(SQL, p)
+                Return DB.RunCommand(SQL, p)
             End If
-            Return True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 
@@ -1529,10 +1530,10 @@ Public Class PASPFeeManagement
                 New SqlParameter("DISPLAYORDER", DisplayOrder),
                 New SqlParameter("UPDATEUSER", CurrentUser.UserID)
             }
-            DB.RunCommand(SQL, p)
-            Return True
+            Return DB.RunCommand(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 
@@ -1554,10 +1555,10 @@ Public Class PASPFeeManagement
                 New SqlParameter("@NSPSReasonCode", NSPSReasonCode)
             }
 
-            DB.RunCommand(SQL, p)
-            Return True
+            Return DB.RunCommand(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 

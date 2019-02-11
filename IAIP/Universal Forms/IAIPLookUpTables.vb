@@ -17,7 +17,7 @@ Public Class IAIPLookUpTables
         End If
     End Sub
 
-    Private Function LoadApplicationTypes() As Boolean
+    Private Sub LoadApplicationTypes()
         dgvApplicationType.DataSource = DAL.Sspp.GetApplicationTypes(True)
 
         With dgvApplicationType
@@ -34,7 +34,7 @@ Public Class IAIPLookUpTables
             .SanelyResizeColumns
             .ClearSelection()
         End With
-    End Function
+    End Sub
 
     Private Sub dgvApplicationType_SelectionChanged(sender As Object, e As EventArgs) Handles dgvApplicationType.SelectionChanged
         If dgvApplicationType.SelectedRows.Count = 1 Then

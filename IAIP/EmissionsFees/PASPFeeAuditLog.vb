@@ -4783,6 +4783,7 @@ Public Class PASPFeeAuditLog
             Return True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 
@@ -4887,6 +4888,7 @@ Public Class PASPFeeAuditLog
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 

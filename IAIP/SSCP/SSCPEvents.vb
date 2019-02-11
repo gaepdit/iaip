@@ -821,6 +821,7 @@ Public Class SSCPEvents
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 
@@ -923,6 +924,7 @@ Public Class SSCPEvents
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 
@@ -1342,6 +1344,7 @@ Public Class SSCPEvents
             Return DB.RunCommand(sqlList, plist)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 
@@ -1448,6 +1451,7 @@ Public Class SSCPEvents
             Return DB.RunCommand(sqlList, plist)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 
@@ -1552,6 +1556,7 @@ Public Class SSCPEvents
             Return DB.RunCommand(SqlList, ParamList)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 
