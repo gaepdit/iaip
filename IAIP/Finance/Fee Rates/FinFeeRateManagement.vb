@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports System.ComponentModel
 Imports System.Linq
 Imports Iaip.Apb.Finance
 Imports Iaip.DAL
@@ -10,6 +11,22 @@ Public Class FinFeeRateManagement
     Private feeRatesSchedule As Dictionary(Of Integer, FeeRateItem)
     Private selectedRateItem As FeeRateItem = Nothing
     Private updating As Boolean = False
+
+    Private Class FeeRateItemDisplay
+        Public Property Key As Integer
+        Public Property Description As String
+        <DisplayName("Effective Date")>
+        Public Property EffectiveDate As Date
+        <DisplayName("Final Date")>
+        Public Property FinalDate As Date?
+    End Class
+
+    Private Class FeeRateDisplay
+        <DisplayName("Effective Date")>
+        Public Property EffectiveDate As Date
+        <DisplayName("Fee Rate")>
+        Public Property FeeRate As Decimal
+    End Class
 
     Protected Overrides Sub OnLoad(e As EventArgs)
         lblMessage.ClearMessage()
@@ -37,18 +54,22 @@ Public Class FinFeeRateManagement
         items = feeRatesSchedule.Where(Function(m) m.Value.RateCategory = selectedCategory)
 
         If Not chkShowInactive.Checked Then
-            items = items.Where(Function(m) Not m.Value.EndDate.HasValue)
+            items = items.Where(Function(m) Not m.Value.EndDate.HasValue OrElse m.Value.EndDate.Value >= Today)
         End If
 
         updating = True
 
         dgvRateItems.DataSource = items.
-            Select(Function(i) New With {Key i.Key, i.Value.Description, .Begins = i.Value.BeginDate, .Ends = i.Value.EndDate}).
+            Select(Function(i) New FeeRateItemDisplay With {
+                .Key = i.Key,
+                .Description = i.Value.Description,
+                .EffectiveDate = i.Value.BeginDate,
+                .FinalDate = i.Value.EndDate
+                }).
             OrderBy(Function(i) i.Description).
             ToArray()
 
         dgvRateItems.Columns("Key").Visible = False
-        dgvRateItems.Columns("Ends").Visible = chkShowInactive.Checked
 
         SelectNoRateItem()
 
@@ -82,7 +103,7 @@ Public Class FinFeeRateManagement
 
         If selectedRateItem.Rates.Count > 0 Then
             dgvRateItemHistory.DataSource = selectedRateItem.Rates.Contents.
-                Select(Function(i) New With {Key .EffectiveDate = i.Key, .FeeAmount = i.Value}).
+                Select(Function(i) New FeeRateDisplay With {.EffectiveDate = i.Key, .FeeRate = i.Value}).
                 ToArray()
 
             dgvRateItemHistory.SelectNone()
@@ -90,7 +111,7 @@ Public Class FinFeeRateManagement
             Dim maxUsedDate As Date? = GetRateItemMaxUsedDate(selectedRateItem.FeeRateItemID)
 
             dtpEndRateItemDate.MinDate = CDate({selectedRateItem.Rates.LatestDate, maxUsedDate}.Max())
-            dtpNewEffectiveRateDate.MinDate = CDate({selectedRateItem.Rates.LatestDate.AddDays(1), maxUsedDate}.Max())
+            dtpNewEffectiveRateDate.MinDate = CDate({selectedRateItem.Rates.LatestDate, maxUsedDate}.Max()).AddDays(1)
         End If
 
         txtRateItemName.Enabled = Not selectedRateItem.EndDate.HasValue
