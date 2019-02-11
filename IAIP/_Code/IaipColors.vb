@@ -1,7 +1,7 @@
 ﻿Public NotInheritable Class IaipColors
     Public Shared ReadOnly Property ErrorForeColor As Color
         Get
-            Return Color.DarkRed
+            Return ColorTranslator.FromHtml("#800000")
         End Get
     End Property
     Public Shared ReadOnly Property ErrorBackColor As Color
@@ -11,7 +11,7 @@
     End Property
     Public Shared ReadOnly Property WarningForeColor As Color
         Get
-            Return Color.SaddleBrown
+            Return ColorTranslator.FromHtml("#6A3611")
         End Get
     End Property
     Public Shared ReadOnly Property WarningBackColor As Color
@@ -21,7 +21,7 @@
     End Property
     Public Shared ReadOnly Property SuccessForeColor As Color
         Get
-            Return Color.DarkGreen
+            Return ColorTranslator.FromHtml("#004400")
         End Get
     End Property
     Public Shared ReadOnly Property SuccessBackColor As Color
