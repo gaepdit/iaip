@@ -1214,15 +1214,14 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
                     New SqlParameter("@user", CurrentUser.UserID)
                 }
 
-                DB.RunCommand(SQL, p)
-
-                Return True
+                Return DB.RunCommand(SQL, p)
             Else
                 Return False
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 
@@ -1243,10 +1242,10 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
                 New SqlParameter("@strConfirmationNumber", Confirmation)
             }
 
-            DB.RunCommand(query, p)
-            Return True
+            Return DB.RunCommand(query, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 
