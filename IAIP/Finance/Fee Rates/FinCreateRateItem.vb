@@ -7,16 +7,22 @@ Public Class FinCreateRateItem
     Public Property SelectedCategory As FeeRateCategory
     Public Property NewRateItemID As Integer = -1
     Public Property Success As Boolean = False
+    Private updating As Boolean = False
 
     Protected Overrides Sub OnLoad(e As EventArgs)
+        lblMessage.ClearMessage()
+
+        updating = True
         cmbCategory.BindToEnum(Of FeeRateCategory)()
-        AddHandler cmbCategory.SelectedIndexChanged, AddressOf cmbCategory_SelectedIndexChanged
+        updating = False
 
         MyBase.OnLoad(e)
     End Sub
 
-    Private Sub cmbCategory_SelectedIndexChanged(sender As Object, e As EventArgs)
-        SelectedCategory = CType(cmbCategory.SelectedValue, FeeRateCategory)
+    Private Sub cmbCategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCategory.SelectedIndexChanged
+        If Not updating Then
+            SelectedCategory = CType(cmbCategory.SelectedValue, FeeRateCategory)
+        End If
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click

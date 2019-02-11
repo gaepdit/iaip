@@ -12,7 +12,7 @@ Public Class FinFeeRateManagement
     Private updating As Boolean = False
 
     Protected Overrides Sub OnLoad(e As EventArgs)
-        lblMessage.Text = Nothing
+        lblMessage.ClearMessage()
 
         updating = True
         cmbCategory.BindToEnum(Of FeeRateCategory)()
@@ -48,6 +48,7 @@ Public Class FinFeeRateManagement
             ToArray()
 
         dgvRateItems.Columns("Key").Visible = False
+        dgvRateItems.Columns("Ends").Visible = chkShowInactive.Checked
 
         SelectNoRateItem()
 
