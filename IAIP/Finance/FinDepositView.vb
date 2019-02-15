@@ -1,5 +1,4 @@
-﻿Imports Iaip.Apb
-Imports Iaip.Apb.Finance
+﻿Imports Iaip.Apb.Finance
 Imports Iaip.DAL
 Imports Iaip.DAL.Finance
 
@@ -66,6 +65,20 @@ Public Class FinDepositView
         lblSearchFacilityDisplay.ClearMessage()
         lblDetailsMessage.ClearMessage()
         lblDeleteDepositMessage.ClearMessage()
+    End Sub
+
+    ' Don't allow the form to close if no inovices have been added
+
+    Private Sub FinDepositView_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If DepositID = -1 OrElse thisDeposit Is Nothing Then
+            Exit Sub
+        End If
+
+        If thisDeposit.DepositsApplied Is Nothing OrElse thisDeposit.DepositsApplied.Count = 0 Then
+            lblApplyToInvoiceMessage.ShowMessage("Payment must be applied to at least one invoice.", ErrorLevel.Warning)
+            txtInvoiceToApply.Focus()
+            e.Cancel = True
+        End If
     End Sub
 
     ' Load deposit
