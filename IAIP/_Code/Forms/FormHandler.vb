@@ -117,4 +117,15 @@ Module FormHandler
         Return formType
     End Function
 
+    Public Sub ShowAllForms()
+        For Each f As Form In Application.OpenForms
+            If f.WindowState = FormWindowState.Minimized Then
+                f.WindowState = FormWindowState.Normal
+            End If
+
+            f.Show()
+            f.Activate()
+        Next
+    End Sub
+
 End Module

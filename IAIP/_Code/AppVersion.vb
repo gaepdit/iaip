@@ -41,6 +41,7 @@ Public Module AppVersion
     Public Sub CheckForUpdate()
         Dim openFormCount As Integer = 0
         Dim okayForms As String() = New String() {NameOf(IAIPLogIn), NameOf(IAIPNavigation), NameOf(IaipAbout)}
+
         For Each f As Form In Application.OpenForms
             If Not (okayForms.Contains(f.Name)) Then
                 openFormCount += 1
@@ -50,14 +51,7 @@ Public Module AppVersion
         If openFormCount > 0 Then
             MessageBox.Show("The IAIP cannot be updated if multiple IAIP windows are open. Please close them and try again",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            For Each f As Form In Application.OpenForms
-                If f.WindowState = FormWindowState.Minimized Then
-                    f.WindowState = FormWindowState.Normal
-                End If
-                f.Show()
-                f.Activate()
-            Next
-
+            ShowAllForms()
             Exit Sub
         End If
 

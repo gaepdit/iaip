@@ -11,7 +11,7 @@ Public Class IAIPNavigation
     Private Property CurrentNavWorkListContext As NavWorkListContext
     Private Property CurrentNavWorkListScope As NavWorkListScope
     Private Property CurrentNavWorkListParameter As Integer? = Nothing
-    Private Property ExitWhenClosed As Boolean = True
+    Private Property LoggingOff As Boolean = False
     Private Property NavWorkListContextDictionary As Dictionary(Of NavWorkListContext, String)
 
 #End Region
@@ -47,8 +47,27 @@ Public Class IAIPNavigation
         LoadWorkViewerData()
     End Sub
 
-    Private Sub IAIPNavigation_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        If ExitWhenClosed Then StartupShutdown.CloseIaip()
+    Private Sub IAIPNavigation_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If Not LoggingOff Then
+            Dim openForms As New List(Of Form)
+
+            For Each frm As Form In Application.OpenForms
+                If frm IsNot Me Then
+                    openForms.Add(frm)
+                End If
+            Next
+
+            For Each frm As Form In openForms
+                frm.Close()
+            Next
+
+            If Application.OpenForms.Count <= 1 Then
+                CloseIaip()
+            Else
+                ShowAllForms()
+                e.Cancel = True
+            End If
+        End If
     End Sub
 
 #End Region
@@ -874,24 +893,16 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub mmiLogOut_Click(sender As Object, e As EventArgs) Handles mmiLogOut.Click
-        Dim currentlyOpenForms As FormCollection = Application.OpenForms
-
-        If currentlyOpenForms Is Nothing Then
+        If Application.OpenForms Is Nothing Then
             CloseIaip()
-        ElseIf currentlyOpenForms.Count > 1 Then
+        ElseIf Application.OpenForms.Count > 1 Then
             MessageBox.Show("Close all open IAIP windows before logging off.", "Save your work", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            For Each f As Form In currentlyOpenForms
-                If f.WindowState = FormWindowState.Minimized Then
-                    f.WindowState = FormWindowState.Normal
-                End If
-                f.Show()
-                f.Activate()
-            Next
+            ShowAllForms()
         Else
-            ExitWhenClosed = False
+            LoggingOff = True
             LogOutUser()
             OpenSingleForm(IAIPLogIn)
-            Me.Close()
+            Close()
         End If
     End Sub
 
