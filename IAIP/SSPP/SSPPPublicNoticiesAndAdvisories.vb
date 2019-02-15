@@ -690,16 +690,22 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
         With newDocument
             Dim params As SqlParameter() = {
-                    New SqlParameter("@FileName", .FileName),
-                    New SqlParameter("@FileData", .FileData),
-                    New SqlParameter("@ReviewingManager", .ReviewingManager),
-                    New SqlParameter("@DateReviewed", .DateReviewed),
-                    New SqlParameter("@PublishingStaff", .PublishingStaff),
-                    New SqlParameter("@DatePublished", .DatePublished),
-                    New SqlParameter("@CommentsDate", .CommentsDate),
-                    selectedAdvisoryApps.AsTvpSqlParameter("@PublicAdvisoryAppNums"),
-                    selectedNoticeApps.AsTvpSqlParameter("@PublicNoticeAppNums")
-                }
+                New SqlParameter("@FileName", .FileName),
+                New SqlParameter("@FileData", .FileData),
+                New SqlParameter("@ReviewingManager", .ReviewingManager),
+                New SqlParameter("@DateReviewed", .DateReviewed),
+                New SqlParameter("@PublishingStaff", .PublishingStaff),
+                New SqlParameter("@DatePublished", .DatePublished),
+                New SqlParameter("@CommentsDate", .CommentsDate)
+            }
+
+            If selectedAdvisoryApps.Count > 0 Then
+                params.Add(selectedAdvisoryApps.AsTvpSqlParameter("@PublicAdvisoryAppNums"))
+            End If
+
+            If selectedNoticeApps.Count > 0 Then
+                params.Add(selectedNoticeApps.AsTvpSqlParameter("@PublicNoticeAppNums"))
+            End If
 
             Return DB.SPReturnValue("dbo.SavePAandPNDocument", params)
         End With
