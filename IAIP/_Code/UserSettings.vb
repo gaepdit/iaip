@@ -1,10 +1,10 @@
-﻿Module UserSettings
+﻿Imports Syroot.Windows.IO
+
+Module UserSettings
 
     ' Define user settings here
     Friend Enum UserSetting
-        ExcelExportLocation
-        PermitUploadLocation
-        EnforcementUploadLocation
+        FileUploadLocation
         FileDownloadLocation
         PrefillLoginId
         PasswordResetRequestedDate
@@ -16,11 +16,19 @@
     Private Function DefaultSetting(whichSetting As UserSetting) As String
         Select Case whichSetting
 
-            Case UserSetting.ExcelExportLocation,
-                 UserSetting.PermitUploadLocation,
-                 UserSetting.EnforcementUploadLocation,
-                 UserSetting.FileDownloadLocation
-                Return Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+            Case UserSetting.FileUploadLocation
+                Try
+                    Return New KnownFolder(KnownFolderType.Documents).Path
+                Catch ex As Exception
+                    Return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                End Try
+
+            Case UserSetting.FileDownloadLocation
+                Try
+                    Return New KnownFolder(KnownFolderType.Downloads).Path
+                Catch ex As Exception
+                    Return Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+                End Try
 
             Case UserSetting.SelectedNavWorkListContext
                 Return IAIPNavigation.NavWorkListContext.PermitApplications.ToString

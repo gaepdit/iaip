@@ -70,13 +70,13 @@ Module ExcelExport
                 .Filter = "Excel File (*.xlsx)|*.xlsx"
                 .DefaultExt = ".xlsx"
                 .FileName = "Export_" & Date.Now.ToString("yyyy-MM-dd_HH.mm.ss") & ".xlsx"
-                .InitialDirectory = GetUserSetting(UserSetting.ExcelExportLocation)
+                .InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
             End With
 
             If dialog.ShowDialog() = DialogResult.OK Then
                 If CreateExcelFileFromDataTable(dialog.FileName, dataTable) Then
                     If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
-                        SaveUserSetting(UserSetting.ExcelExportLocation, Path.GetDirectoryName(dialog.FileName))
+                        SaveUserSetting(UserSetting.FileDownloadLocation, Path.GetDirectoryName(dialog.FileName))
                     End If
 
                     Process.Start("explorer.exe", "/select,""" & dialog.FileName & """")
