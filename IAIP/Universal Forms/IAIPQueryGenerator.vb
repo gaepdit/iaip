@@ -3299,7 +3299,7 @@ Public Class IAIPQueryGenerator
             End If
 
             If DestFilePath <> "N/A" Then
-                Dim Encoder As New System.Text.ASCIIEncoding
+                Dim Encoder As New Text.ASCIIEncoding
 
                 Dim bytedata As Byte() = Encoder.GetBytes(DefaultsText)
 
