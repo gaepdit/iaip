@@ -499,7 +499,7 @@ Public Class FinDepositView
     Private Sub txtDepositAmount_ValidationStatusChanged(sender As Object, e As EventArgs) Handles txtDepositAmount.ValidationStatusChanged
         Select Case txtDepositAmount.ValidationStatus
             Case CurrencyTextBox.CurrencyValidationStatus.BelowMinimum
-                lblDetailsMessage.ShowMessage(String.Format("Deposit amount must be above {0}.", thisDeposit.TotalAmountAllocated), ErrorLevel.Warning)
+                lblDetailsMessage.ShowMessage(String.Format("Deposit amount must be above {0}.", txtDepositAmount.MinValue), ErrorLevel.Warning)
                 btnSaveNewDeposit.Enabled = False
                 btnUpdateDepositDetails.Enabled = False
 
