@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.Globalization
 
 Friend Class CurrencyTextBox
     Inherits CueTextBox
@@ -13,7 +14,7 @@ Friend Class CurrencyTextBox
         Set
             If _amount <> Value Then
                 _amount = Value
-                Text = String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C}", Value)
+                Text = String.Format(CultureInfo.CurrentCulture, "{0:C}", Value)
 
                 If Not isValidating Then
                     ValidationStatus = ValidateText()
@@ -122,7 +123,8 @@ Friend Class CurrencyTextBox
     Private Function ValidateText() As CurrencyValidationStatus
         Dim amt As Decimal
 
-        If Not Decimal.TryParse(Text.Replace("$", "").Replace(" ", ""), amt) Then
+
+        If Not Decimal.TryParse(Text, NumberStyles.Currency, CultureInfo.CurrentCulture, amt) Then
             Return CurrencyValidationStatus.InvalidFormat
         End If
 

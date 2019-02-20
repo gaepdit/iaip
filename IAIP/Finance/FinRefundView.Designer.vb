@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FinRefundView
     Inherits BaseForm
 
@@ -207,7 +207,6 @@ Partial Class FinRefundView
         '
         'lblCredits
         '
-        Me.lblCredits.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblCredits.AutoSize = True
         Me.lblCredits.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCredits.ForeColor = System.Drawing.SystemColors.GrayText
@@ -220,16 +219,15 @@ Partial Class FinRefundView
         'txtCredits
         '
         Me.txtCredits.Amount = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.txtCredits.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.txtCredits.BackColor = System.Drawing.SystemColors.Control
         Me.txtCredits.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtCredits.Cue = "$0"
         Me.txtCredits.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCredits.Location = New System.Drawing.Point(169, 268)
+        Me.txtCredits.Location = New System.Drawing.Point(149, 268)
         Me.txtCredits.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtCredits.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtCredits.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtCredits.Name = "txtCredits"
-        Me.txtCredits.Size = New System.Drawing.Size(71, 13)
+        Me.txtCredits.Size = New System.Drawing.Size(91, 13)
         Me.txtCredits.TabIndex = 5
         Me.txtCredits.Text = "$0"
         Me.txtCredits.TextAlign = System.Windows.Forms.HorizontalAlignment.Right

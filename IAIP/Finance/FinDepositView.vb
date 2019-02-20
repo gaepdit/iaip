@@ -113,24 +113,26 @@ Public Class FinDepositView
             Text = "Deposit ID " & .DepositID.ToString
             lblDepositDisplay.Text = "Deposit ID " & .DepositID.ToString
 
+            ' Details
             dtpDepositDate.Value = .DepositDate
-            txtDepositAmount.Amount = .TotalAmount
+            txtDepositAmount.Amount = - .DepositAmount
             txtDepositNumber.Text = .DepositNumber
             txtBatchNumber.Text = .BatchNumber
             txtCheckNumber.Text = .CheckNumber
             txtCreditConf.Text = .CreditCardConf
             txtDepositComments.Text = .Comment
-
             txtDepositAmount.MinValue = .TotalAmountAllocated
-            txtAmountToApply.MaxValue = .DepositBalance
 
-            txtTotalDeposit.Amount = .TotalAmount
+            ' Summary 
+            txtTotalDeposit.Amount = .DepositAmount
             txtAmountAppliedToInvoices.Amount = .TotalPaymentsApplied
             txtAmountRefunded.Amount = .TotalRefunded
             txtDepositBalance.Amount = .DepositBalance
 
-            txtAirsInvoiceSearch.AirsNumber = thisDeposit.FacilityID
+            ' Search (not used)
+            'txtAirsInvoiceSearch.AirsNumber = thisDeposit.FacilityID
 
+            ' Invoices paid
             If .DepositsApplied.Count = 0 Then
                 dgvInvoicesPaid.DataSource = Nothing
                 dgvInvoicesPaid.Visible = False
@@ -157,6 +159,7 @@ Public Class FinDepositView
                 End If
             End If
 
+            ' Refunds
             If .RefundsApplied.Count = 0 Then
                 dgvRefunds.Visible = False
             Else
@@ -167,12 +170,13 @@ Public Class FinDepositView
                 dgvRefunds.SelectNone()
             End If
 
+            ' Apply to Invoice section
             txtInvoiceToApply.Clear()
             selectedInvoice = Nothing
             txtAmountToApply.Amount = 0
-            txtAmountToApply.MaxValue = .DepositBalance
+            txtAmountToApply.MaxValue = - .DepositBalance
 
-            If .DepositBalance <= 0 Then
+            If .DepositBalance >= 0 Then
                 DisableApplyingToInvoice("")
             End If
 
@@ -309,14 +313,14 @@ Public Class FinDepositView
 
             btnApplyToInvoice.Enabled = True
 
-            txtAmountToApply.Amount = Math.Min(selectedInvoice.InvoiceBalance, thisDeposit.DepositBalance)
-            txtAmountToApply.MaxValue = Math.Min(selectedInvoice.InvoiceBalance, thisDeposit.DepositBalance)
+            txtAmountToApply.Amount = Math.Min(selectedInvoice.InvoiceBalance, -thisDeposit.DepositBalance)
+            txtAmountToApply.MaxValue = Math.Min(selectedInvoice.InvoiceBalance, -thisDeposit.DepositBalance)
         Else
             grpApplyToInvoice.Enabled = True
             btnApplyToInvoice.Enabled = False
 
             txtAmountToApply.Amount = existingPayment.AmountApplied
-            txtAmountToApply.MaxValue = existingPayment.AmountApplied + Math.Min(selectedInvoice.InvoiceBalance, thisDeposit.DepositBalance)
+            txtAmountToApply.MaxValue = existingPayment.AmountApplied + Math.Min(selectedInvoice.InvoiceBalance, -thisDeposit.DepositBalance)
         End If
     End Sub
 
@@ -448,7 +452,7 @@ Public Class FinDepositView
 
         Dim deposit As New Deposit() With {
             .DepositDate = dtpDepositDate.Value,
-            .TotalAmount = txtDepositAmount.Amount,
+            .DepositAmount = -txtDepositAmount.Amount,
             .DepositNumber = txtDepositNumber.Text,
             .BatchNumber = txtBatchNumber.Text,
             .CheckNumber = txtCheckNumber.Text,
@@ -521,7 +525,7 @@ Public Class FinDepositView
         Dim deposit As New Deposit() With {
             .DepositID = DepositID,
             .DepositDate = dtpDepositDate.Value,
-            .TotalAmount = txtDepositAmount.Amount,
+            .DepositAmount = -txtDepositAmount.Amount,
             .DepositNumber = txtDepositNumber.Text,
             .BatchNumber = txtBatchNumber.Text,
             .CheckNumber = txtCheckNumber.Text,

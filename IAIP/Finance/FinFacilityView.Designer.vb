@@ -201,7 +201,7 @@ Partial Class FinFacilityView
         Me.InvoiceLine.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.InvoiceLine.Location = New System.Drawing.Point(188, 557)
         Me.InvoiceLine.Name = "InvoiceLine"
-        Me.InvoiceLine.Size = New System.Drawing.Size(71, 1)
+        Me.InvoiceLine.Size = New System.Drawing.Size(84, 1)
         Me.InvoiceLine.TabIndex = 339
         '
         'txtAmountInvoiced
@@ -213,11 +213,10 @@ Partial Class FinFacilityView
         Me.txtAmountInvoiced.Cue = "$0"
         Me.txtAmountInvoiced.Location = New System.Drawing.Point(188, 522)
         Me.txtAmountInvoiced.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtAmountInvoiced.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtAmountInvoiced.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtAmountInvoiced.Name = "txtAmountInvoiced"
-        Me.txtAmountInvoiced.Size = New System.Drawing.Size(71, 13)
+        Me.txtAmountInvoiced.Size = New System.Drawing.Size(84, 13)
         Me.txtAmountInvoiced.TabIndex = 1
-        Me.txtAmountInvoiced.Text = "$0"
         Me.txtAmountInvoiced.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtPaymentsApplied
@@ -229,11 +228,10 @@ Partial Class FinFacilityView
         Me.txtPaymentsApplied.Cue = "$0"
         Me.txtPaymentsApplied.Location = New System.Drawing.Point(188, 541)
         Me.txtPaymentsApplied.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtPaymentsApplied.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtPaymentsApplied.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtPaymentsApplied.Name = "txtPaymentsApplied"
-        Me.txtPaymentsApplied.Size = New System.Drawing.Size(71, 13)
+        Me.txtPaymentsApplied.Size = New System.Drawing.Size(84, 13)
         Me.txtPaymentsApplied.TabIndex = 2
-        Me.txtPaymentsApplied.Text = "$0"
         Me.txtPaymentsApplied.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtInvoiceBalance
@@ -246,11 +244,10 @@ Partial Class FinFacilityView
         Me.txtInvoiceBalance.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtInvoiceBalance.Location = New System.Drawing.Point(188, 561)
         Me.txtInvoiceBalance.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtInvoiceBalance.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtInvoiceBalance.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtInvoiceBalance.Name = "txtInvoiceBalance"
-        Me.txtInvoiceBalance.Size = New System.Drawing.Size(71, 13)
+        Me.txtInvoiceBalance.Size = New System.Drawing.Size(84, 13)
         Me.txtInvoiceBalance.TabIndex = 3
-        Me.txtInvoiceBalance.Text = "$0"
         Me.txtInvoiceBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'SplitInvoicesAndPending
@@ -308,11 +305,10 @@ Partial Class FinFacilityView
         Me.txtPending.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPending.Location = New System.Drawing.Point(191, 561)
         Me.txtPending.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtPending.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtPending.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtPending.Name = "txtPending"
-        Me.txtPending.Size = New System.Drawing.Size(71, 13)
+        Me.txtPending.Size = New System.Drawing.Size(84, 13)
         Me.txtPending.TabIndex = 1
-        Me.txtPending.Text = "$0"
         Me.txtPending.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'dgvPending
@@ -428,13 +424,12 @@ Partial Class FinFacilityView
         Me.txtCredits.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtCredits.Cue = "$0"
         Me.txtCredits.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCredits.Location = New System.Drawing.Point(188, 561)
+        Me.txtCredits.Location = New System.Drawing.Point(175, 561)
         Me.txtCredits.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtCredits.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtCredits.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtCredits.Name = "txtCredits"
-        Me.txtCredits.Size = New System.Drawing.Size(71, 13)
+        Me.txtCredits.Size = New System.Drawing.Size(84, 13)
         Me.txtCredits.TabIndex = 1
-        Me.txtCredits.Text = "$0"
         Me.txtCredits.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label1
@@ -510,13 +505,12 @@ Partial Class FinFacilityView
         Me.txtRefunds.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtRefunds.Cue = "$0"
         Me.txtRefunds.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtRefunds.Location = New System.Drawing.Point(191, 561)
+        Me.txtRefunds.Location = New System.Drawing.Point(178, 561)
         Me.txtRefunds.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtRefunds.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtRefunds.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtRefunds.Name = "txtRefunds"
-        Me.txtRefunds.Size = New System.Drawing.Size(71, 13)
+        Me.txtRefunds.Size = New System.Drawing.Size(84, 13)
         Me.txtRefunds.TabIndex = 2
-        Me.txtRefunds.Text = "$0"
         Me.txtRefunds.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'dgvRefunds
@@ -661,11 +655,10 @@ Partial Class FinFacilityView
         Me.txtDeposits.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDeposits.Location = New System.Drawing.Point(188, 561)
         Me.txtDeposits.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
-        Me.txtDeposits.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtDeposits.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
         Me.txtDeposits.Name = "txtDeposits"
-        Me.txtDeposits.Size = New System.Drawing.Size(71, 13)
+        Me.txtDeposits.Size = New System.Drawing.Size(84, 13)
         Me.txtDeposits.TabIndex = 341
-        Me.txtDeposits.Text = "$0"
         Me.txtDeposits.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'dgvDeposits

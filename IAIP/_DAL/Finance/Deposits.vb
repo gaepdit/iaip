@@ -37,7 +37,7 @@ Namespace DAL.Finance
             Return New Deposit With {
                 .DepositID = CInt(dr("DepositID")),
                 .DepositDate = CDate(dr("DepositDate")),
-                .TotalAmount = CDec(dr("TotalAmount")),
+                .DepositAmount = -CDec(dr("TotalAmount")),
                 .TotalPaymentsApplied = CDec(dr("TotalPaymentsApplied")),
                 .TotalRefunded = CDec(dr("TotalRefunded")),
                 .DepositNumber = GetNullableString(dr("DepositNumber")),
@@ -116,7 +116,7 @@ Namespace DAL.Finance
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@DepositDate", deposit.DepositDate),
-                New SqlParameter("@TotalAmount", deposit.TotalAmount),
+                New SqlParameter("@TotalAmount", -deposit.DepositAmount),
                 New SqlParameter("@DepositNumber", deposit.DepositNumber),
                 New SqlParameter("@BatchNumber", deposit.BatchNumber),
                 New SqlParameter("@CheckNumber", deposit.CheckNumber),
@@ -136,7 +136,7 @@ Namespace DAL.Finance
             Dim params As SqlParameter() = {
                 New SqlParameter("@DepositID", deposit.DepositID),
                 New SqlParameter("@DepositDate", deposit.DepositDate),
-                New SqlParameter("@TotalAmount", deposit.TotalAmount),
+                New SqlParameter("@TotalAmount", -deposit.DepositAmount),
                 New SqlParameter("@DepositNumber", deposit.DepositNumber),
                 New SqlParameter("@BatchNumber", deposit.BatchNumber),
                 New SqlParameter("@CheckNumber", deposit.CheckNumber),

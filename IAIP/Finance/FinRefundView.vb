@@ -91,7 +91,7 @@ Public Class FinRefundView
         If ds.Tables("Credits") IsNot Nothing AndAlso ds.Tables("Credits").Rows.Count > 0 Then
             txtCredits.Amount = ds.Tables("Credits").AsEnumerable().
                 Sum(Function(x) x.Field(Of Decimal)("Unused Balance"))
-            txtRefundAmount.MaxValue = txtCredits.Amount
+            txtRefundAmount.MaxValue = -txtCredits.Amount
         Else
             DisableForm("No credits available to refund.", ErrorLevel.Warning)
         End If

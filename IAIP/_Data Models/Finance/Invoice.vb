@@ -21,12 +21,14 @@ Namespace Apb.Finance
         Public Property InvoiceType As InvoiceType
         <DisplayName("Total Amount Due")>
         Public Property TotalAmountDue As Decimal
+
+        ' Payments applied stored and displayed locally as a negative value (credit)
         <DisplayName("Payments Applied")>
         Public Property PaymentsApplied As Decimal
         <DisplayName("Current Balance")>
         Public ReadOnly Property InvoiceBalance As Decimal
             Get
-                Return TotalAmountDue - PaymentsApplied
+                Return TotalAmountDue + PaymentsApplied
             End Get
         End Property
         <Browsable(False)>

@@ -8,8 +8,10 @@ Namespace Apb.Finance
         Public Property DepositID As Integer
         <DisplayName("Deposit Date")>
         Public Property DepositDate As Date
+
+        ' Deposit amount stored and displayed locally as a negative value (credit)
         <DisplayName("Total Amount")>
-        Public Property TotalAmount As Decimal
+        Public Property DepositAmount As Decimal
         <DisplayName("Payments Applied")>
         Public Property TotalPaymentsApplied As Decimal
         <DisplayName("Amount Refunded")>
@@ -25,7 +27,7 @@ Namespace Apb.Finance
         <DisplayName("Deposit Balance")>
         Public ReadOnly Property DepositBalance As Decimal
             Get
-                Return TotalAmount - TotalAmountAllocated
+                Return DepositAmount + TotalAmountAllocated
             End Get
         End Property
 

@@ -58,7 +58,7 @@ Namespace DAL.Finance
                 .IsCreditMemo = CBool(dr("IsCreditMemo")),
                 .SettlementStatus = GetNullableString(dr("SettlementStatus")),
                 .TotalAmountDue = CDec(dr("TotalAmount")),
-                .PaymentsApplied = CDec(dr("PaymentsApplied")),
+                .PaymentsApplied = -CDec(dr("PaymentsApplied")),
                 .Voided = CBool(dr("Voided")),
                 .VoidedDate = GetNullableDateTime(dr.Item("VoidedDate")),
                 .ApplicationID = GetNullable(Of Integer)(dr("ApplicationID")),
