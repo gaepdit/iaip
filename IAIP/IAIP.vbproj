@@ -138,11 +138,6 @@
       <HintPath>..\packages\FastMember.Signed.1.3.0\lib\net45\FastMember.Signed.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Office.Interop.Outlook, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>..\packages\Microsoft.Office.Interop.Outlook.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Outlook.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -195,6 +190,66 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Finance\FinStatistics.Designer.vb">
+      <DependentUpon>FinStatistics.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\FinStatistics.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Finance\FinFacilityView.Designer.vb">
+      <DependentUpon>FinFacilityView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\FinFacilityView.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Finance\Fee Rates\FinFeeRateManagement.Designer.vb">
+      <DependentUpon>FinFeeRateManagement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\Fee Rates\FinFeeRateManagement.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Finance\Fee Rates\FinCreateRateItem.Designer.vb">
+      <DependentUpon>FinCreateRateItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\Fee Rates\FinCreateRateItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Finance\FinRefundView.Designer.vb">
+      <DependentUpon>FinRefundView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\FinRefundView.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Finance\FinInvoiceView.Designer.vb">
+      <DependentUpon>FinInvoiceView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\FinInvoiceView.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Finance\FinDepositView.Designer.vb">
+      <DependentUpon>FinDepositView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\FinDepositView.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Finance\FinSearchFacilities.Designer.vb">
+      <DependentUpon>FinSearchFacilities.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\FinSearchFacilities.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Finance\FinSearchInvoices.Designer.vb">
+      <DependentUpon>FinSearchInvoices.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\FinSearchInvoices.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Finance\FinSearchDeposits.Designer.vb">
+      <DependentUpon>FinSearchDeposits.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\FinSearchDeposits.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GECO\GecoTool.Designer.vb">
       <DependentUpon>GecoTool.vb</DependentUpon>
     </Compile>
@@ -232,14 +287,29 @@
     <Compile Include="Users\IaipUserSecurity.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_Code\ColorLabelHelper.vb" />
+    <Compile Include="_Code\DataGridViewExtensions.vb" />
+    <Compile Include="_Code\DictionaryExtensions.vb" />
+    <Compile Include="_Code\EnumExtensions.vb" />
+    <Compile Include="_Code\ComboBoxHelpers.vb" />
+    <Compile Include="_Code\CollectionExtensions.vb" />
+    <Compile Include="_Code\ListExtensions.vb" />
+    <Compile Include="_Code\SplitContainerExtensions.vb" />
+    <Compile Include="_Code\Forms\FacilityFormHelpers.vb" />
+    <Compile Include="_Code\Forms\SsppFormHelpers.vb" />
+    <Compile Include="_Code\Forms\IsmuFormHelpers.vb" />
+    <Compile Include="_Code\Forms\SscpFormHelpers.vb" />
+    <Compile Include="_Code\IaipErrorProvider.vb" />
     <Compile Include="_Code\IntegerConvert.vb" />
     <Compile Include="_Code\BooleanEnums.vb" />
     <Compile Include="_Code\BooleanConvert.vb" />
     <Compile Include="_Code\DateFunctions.vb" />
     <Compile Include="_Code\OSVersion.vb" />
+    <Compile Include="_Code\ReverseComparer.vb" />
     <Compile Include="_Code\SavedSession.vb" />
     <Compile Include="_Code\SaveFile.vb" />
     <Compile Include="_Code\StringFunctions.vb" />
+    <Compile Include="_Code\TemporalCollection.vb" />
     <Compile Include="_Code\UrlHandler.vb" />
     <Compile Include="_Controls\AirNumberEntryForm.Designer.vb">
       <DependentUpon>AirNumberEntryForm.vb</DependentUpon>
@@ -247,21 +317,75 @@
     <Compile Include="_Controls\AirNumberEntryForm.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="_Controls\CurrencyTextBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="_Controls\AirsNumberTextBox.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="_DAL\DAL.Organization.vb" />
-    <Compile Include="_DAL\DAL.GECO.vb" />
-    <Compile Include="_DAL\DAL.State.vb" />
-    <Compile Include="_DAL\DAL.Rules.vb" />
+    <Compile Include="_Controls\IaipDataGridView.Designer.vb">
+      <DependentUpon>IaipDataGridView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="_Controls\IaipDataGridView.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="_DAL\Facilities\DAL.FacilityProgramHistory.vb" />
+    <Compile Include="_DAL\Misc\DAL.Organization.vb" />
+    <Compile Include="_DAL\Misc\DAL.Geco.vb" />
+    <Compile Include="_DAL\Misc\DAL.State.vb" />
+    <Compile Include="_DAL\Misc\DAL.Rules.vb" />
     <Compile Include="_DAL\Facilities\DAL.FacilityLookups.vb" />
     <Compile Include="_DAL\Logging\IaipLogging.vb" />
+    <Compile Include="_DAL\Finance\Refunds.vb" />
+    <Compile Include="_DAL\Finance\FacilityFinances.vb" />
+    <Compile Include="_DAL\Finance\Invoices.vb" />
+    <Compile Include="_DAL\Finance\Deposits.vb" />
     <Compile Include="_DAL\SSPP\DAL.Sspp.ApplicationTypes.vb" />
+    <Compile Include="_DAL\DbResult.vb" />
     <Compile Include="_DAL\TableValuedParameter.vb" />
+    <Compile Include="_DAL\Finance\FeeRatesSchedule.vb" />
+    <Compile Include="_Data Models\Finance\RefundApplied.vb" />
+    <Compile Include="_Data Models\Finance\FinanceEnums.vb" />
+    <Compile Include="_Data Models\Finance\Deposit.vb" />
+    <Compile Include="_Data Models\Finance\DepositApplied.vb" />
+    <Compile Include="_Data Models\Finance\InvoiceItem.vb" />
+    <Compile Include="_Data Models\Finance\InvoiceType.vb" />
+    <Compile Include="_Data Models\Finance\Invoice.vb" />
+    <Compile Include="_Data Models\Finance\FeeRateItem.vb" />
+    <Compile Include="_Data Models\Finance\Refund.vb" />
     <Compile Include="_Data Models\Users\IaipRoles.vb" />
     <Compile Include="_Code\RegexPatterns.vb" />
     <Compile Include="_Code\IaipValidation.vb" />
+    <EmbeddedResource Include="Finance\FinStatistics.resx">
+      <DependentUpon>FinStatistics.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Finance\FinFacilityView.resx">
+      <DependentUpon>FinFacilityView.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Finance\Fee Rates\FinFeeRateManagement.resx">
+      <DependentUpon>FinFeeRateManagement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Finance\Fee Rates\FinCreateRateItem.resx">
+      <DependentUpon>FinCreateRateItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Finance\FinRefundView.resx">
+      <DependentUpon>FinRefundView.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Finance\FinInvoiceView.resx">
+      <DependentUpon>FinInvoiceView.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Finance\FinDepositView.resx">
+      <DependentUpon>FinDepositView.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Finance\FinSearchFacilities.resx">
+      <DependentUpon>FinSearchFacilities.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Finance\FinSearchInvoices.resx">
+      <DependentUpon>FinSearchInvoices.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Finance\FinSearchDeposits.resx">
+      <DependentUpon>FinSearchDeposits.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GECO\GecoTool.resx">
       <DependentUpon>GecoTool.vb</DependentUpon>
     </EmbeddedResource>
@@ -282,6 +406,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="_Controls\AirNumberEntryForm.resx">
       <DependentUpon>AirNumberEntryForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_Controls\CurrencyTextBox.resx">
+      <DependentUpon>CurrencyTextBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_Controls\IaipDataGridView.resx">
+      <DependentUpon>IaipDataGridView.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>
@@ -457,10 +587,10 @@
     <Compile Include="_Code\ListViewItemComparer.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Fees\PASPFeeStatistics.Designer.vb">
+    <Compile Include="EmissionsFees\PASPFeeStatistics.Designer.vb">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </Compile>
-    <Compile Include="Fees\PASPFeeStatistics.vb">
+    <Compile Include="EmissionsFees\PASPFeeStatistics.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Crystal Reports\Fees\crFS_Invoice.vb">
@@ -595,10 +725,10 @@
     <Compile Include="ISMP\SubPages\ISMPStaffReports.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fees\PASPFeeAuditLog.Designer.vb">
+    <Compile Include="EmissionsFees\PASPFeeAuditLog.Designer.vb">
       <DependentUpon>PASPFeeAuditLog.vb</DependentUpon>
     </Compile>
-    <Compile Include="Fees\PASPFeeAuditLog.vb">
+    <Compile Include="EmissionsFees\PASPFeeAuditLog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MASP\MASPRegistrationTool.Designer.vb">
@@ -607,22 +737,22 @@
     <Compile Include="MASP\MASPRegistrationTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fees\PASPDepositsAmendments.Designer.vb">
+    <Compile Include="EmissionsFees\PASPDepositsAmendments.Designer.vb">
       <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
     </Compile>
-    <Compile Include="Fees\PASPDepositsAmendments.vb">
+    <Compile Include="EmissionsFees\PASPDepositsAmendments.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fees\PASPFeeManagement.Designer.vb">
+    <Compile Include="EmissionsFees\PASPFeeManagement.Designer.vb">
       <DependentUpon>PASPFeeManagement.vb</DependentUpon>
     </Compile>
-    <Compile Include="Fees\PASPFeeManagement.vb">
+    <Compile Include="EmissionsFees\PASPFeeManagement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fees\PASPFeesLog.Designer.vb">
+    <Compile Include="EmissionsFees\PASPFeesLog.Designer.vb">
       <DependentUpon>PASPFeesLog.vb</DependentUpon>
     </Compile>
-    <Compile Include="Fees\PASPFeesLog.vb">
+    <Compile Include="EmissionsFees\PASPFeesLog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ISMP\ISMPTestReports.Designer.vb">
@@ -880,12 +1010,12 @@
     <Compile Include="_Code\SharedData.vb" />
     <Compile Include="_Code\ErrorReporting.vb" />
     <Compile Include="_Code\ExcelExport.vb" />
-    <Compile Include="_Code\Extensions.vb" />
-    <Compile Include="_Code\App.vb" />
+    <Compile Include="_Code\ArrayExtensions.vb" />
+    <Compile Include="_Code\AppVersion.vb" />
     <Compile Include="_Code\IaipColors.vb" />
     <Compile Include="_Code\IaipMessage.vb" />
     <Compile Include="_Code\UserSettings.vb" />
-    <Compile Include="_Code\AppVariables.vb">
+    <Compile Include="_Code\Constants.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Facility\IAIPFacilitySummary.Designer.vb">
@@ -1066,7 +1196,7 @@
     <EmbeddedResource Include="DMU\DmuEdtErrorMessages.resx">
       <DependentUpon>DmuEdtErrorMessages.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeeStatistics.resx">
+    <EmbeddedResource Include="EmissionsFees\PASPFeeStatistics.resx">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\SBEAPCaseLog.resx">
@@ -1074,27 +1204,32 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\SBEAPCaseWork.resx">
       <DependentUpon>SBEAPCaseWork.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\SBEAPClientSummary.resx">
       <DependentUpon>SBEAPClientSummary.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\SBEAPMiscTools.resx">
       <DependentUpon>SBEAPMiscTools.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\SBEAPPhoneLog.resx">
       <DependentUpon>SBEAPPhoneLog.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\SBEAPReports.resx">
       <DependentUpon>SBEAPReports.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\Sub Forms\SBEAPClientSearchTool.resx">
       <DependentUpon>SBEAPClientSearchTool.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SscpDocuments.resx">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SscpEnforcement.resx">
       <DependentUpon>SscpEnforcement.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Fees\crFS_Invoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1184,19 +1319,19 @@
     <EmbeddedResource Include="ISMP\SubPages\ISMPStaffReports.resx">
       <DependentUpon>ISMPStaffReports.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeeAuditLog.resx">
+    <EmbeddedResource Include="EmissionsFees\PASPFeeAuditLog.resx">
       <DependentUpon>PASPFeeAuditLog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MASP\MASPRegistrationTool.resx">
       <DependentUpon>MASPRegistrationTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPDepositsAmendments.resx">
+    <EmbeddedResource Include="EmissionsFees\PASPDepositsAmendments.resx">
       <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeeManagement.resx">
+    <EmbeddedResource Include="EmissionsFees\PASPFeeManagement.resx">
       <DependentUpon>PASPFeeManagement.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeesLog.resx">
+    <EmbeddedResource Include="EmissionsFees\PASPFeesLog.resx">
       <DependentUpon>PASPFeesLog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ISMP\ISMPTestReports.resx">
@@ -1447,13 +1582,31 @@
       <SubType>Designer</SubType>
       <DependentUpon>IAIPListTool.vb</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="_DAL\SSPP\ApplicationFees.vb" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\ReportIcon.png" />
+    <None Include="Resources\OpenFolderIcon.png" />
+    <None Include="Resources\UploadIcon.png" />
+    <None Include="Resources\MailOpenIcon.png" />
+    <None Include="Resources\PrintIcon.png" />
+    <None Include="Resources\DocumentTextIcon.png" />
+    <None Include="Resources\DocumentConfidentialIcson.png" />
+    <None Include="Resources\DeleteCrossIcon.png" />
+    <None Include="Resources\DocumentCopyIcon.png" />
+    <None Include="Resources\PanelResizeIcon.png" />
+    <None Include="Resources\MoveRightIcon.gif" />
+    <None Include="Resources\MoveLeftIcon.gif" />
+    <None Include="Resources\MoveAllRightIcon.gif" />
+    <None Include="Resources\MoveAllLeftIcon.gif" />
+    <None Include="Resources\DownloadIcon.png" />
+    <None Include="Resources\PrintPreviewIcon.png" />
     <None Include="Resources\RefreshIcon.png" />
+    <None Include="Resources\SearchIcon.png" />
     <None Include="Resources\SpreadsheetIcon.png" />
     <None Include="Resources\EpdLogo.png" />
     <None Include="Resources\EpdIcon.ico" />
@@ -1461,7 +1614,6 @@
     <None Include="Resources\DevLogo.png" />
     <None Include="Resources\WarningIcon32.ico" />
     <None Include="Resources\ErrorIcon32.ico" />
-    <None Include="Resources\PrintPreviewIcon.png" />
     <None Include="Resources\GeorgiaStaticMap.png" />
     <None Include="Resources\UatIcon.ico" />
     <None Include="Resources\UatLogo.png" />
@@ -1508,18 +1660,18 @@
     <Compile Include="_Data Models\Facilities\FacilityEnums.vb" />
     <Compile Include="_Data Models\Facilities\FacilityHeaderData.vb" />
     <Compile Include="_Data Models\SSPP\Apb.Sspp.Permit.vb" />
-    <Compile Include="_DAL\DAL.Dmu.EdtError.vb" />
+    <Compile Include="_DAL\Misc\DAL.Dmu.EdtError.vb" />
     <Compile Include="_DAL\Facilities\DAL.FacilitySummaryData.vb" />
-    <Compile Include="_DAL\DAL.Ismp.StackTest.vb">
+    <Compile Include="_DAL\Misc\DAL.Ismp.StackTest.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_DAL\SSCP\DAL.Sscp.FacilityAssignments.vb" />
-    <Compile Include="_DAL\DAL.IaipAppData.vb" />
+    <Compile Include="_DAL\Misc\DAL.IaipAppData.vb" />
     <Compile Include="_DAL\Facilities\DAL.FacilityHeaderData.vb" />
-    <Compile Include="_DAL\DAL.Contacts.vb" />
-    <Compile Include="_DAL\DAL.Fees.vb" />
-    <Compile Include="_DAL\DAL.QueryGenerator.vb" />
-    <Compile Include="_DAL\DAL.Sbeap.vb" />
+    <Compile Include="_DAL\Misc\DAL.Contacts.vb" />
+    <Compile Include="_DAL\EmissionFees\DAL.EmissionFees.vb" />
+    <Compile Include="_DAL\Misc\DAL.QueryGenerator.vb" />
+    <Compile Include="_DAL\Misc\DAL.Sbeap.vb" />
     <Compile Include="_DAL\SSPP\DAL.Sspp.Applications.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -1587,8 +1739,8 @@
     </Compile>
     <Compile Include="_Data Models\Users\IaipUser.vb" />
     <Compile Include="_DAL\SSCP\DAL.Sscp.WorkItem.vb" />
-    <Compile Include="_DAL\DAL.IaipUser.vb" />
-    <Compile Include="_DAL\DAL.NavigationScreen.vb">
+    <Compile Include="_DAL\Misc\DAL.IaipUser.vb" />
+    <Compile Include="_DAL\Misc\DAL.NavigationScreen.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Code\CollectionHelper.vb" />
@@ -1599,7 +1751,7 @@
     </Compile>
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Acc.vb" />
     <Compile Include="_DAL\Facilities\DAL.FacilityData.vb" />
-    <Compile Include="_DAL\DAL.Staff.vb" />
+    <Compile Include="_DAL\Misc\DAL.Staff.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
     </Compile>
@@ -1621,12 +1773,12 @@
     <Compile Include="_Code\SettingsHelper.vb" />
     <Compile Include="_Data Models\SSCP\Apb.Sscp.Document.vb" />
     <Compile Include="_Data Models\SSCP\Apb.Sscp.EnforcementInfo.vb" />
-    <Compile Include="_Data Models\SSPP\Apb.Sspp.ApplicationInfo.vb">
+    <Compile Include="_Data Models\SSPP\Apb.Sspp.ApplicationFees.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_DAL\SSCP\DAL.Sscp.Enforcement.vb" />
-    <Compile Include="_DAL\DAL.Documents.vb" />
-    <Compile Include="_DAL\DAL.EventRegistration.vb" />
+    <Compile Include="_DAL\Misc\DAL.Documents.vb" />
+    <Compile Include="_DAL\Misc\DAL.EventRegistration.vb" />
     <Compile Include="_Code\BitFields.vb" />
     <Compile Include="_Code\CrystalReports.vb" />
     <Compile Include="_Controls\CueTextBox.vb">
@@ -1634,10 +1786,10 @@
     </Compile>
     <Compile Include="_Code\Email.vb" />
     <Compile Include="_Code\FileSystem.vb" />
-    <Compile Include="_Code\FormHandler.vb" />
-    <Compile Include="_Code\IaipFormHelpers.vb" />
-    <Compile Include="_Code\FormSettings.vb" />
-    <Compile Include="_Code\FormControlsProcedures.vb" />
+    <Compile Include="_Code\Forms\FormHandler.vb" />
+    <Compile Include="_Code\Forms\FinanceFormHelpers.vb" />
+    <Compile Include="_Code\Forms\FormSettings.vb" />
+    <Compile Include="_Code\ControlHelpers.vb" />
     <Compile Include="_Code\MD5.vb" />
     <Compile Include="_Code\DocumentMessages.vb" />
     <Compile Include="_Code\StartupShutdown.vb">

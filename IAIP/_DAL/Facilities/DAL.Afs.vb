@@ -1,7 +1,4 @@
-﻿Imports System.Collections.Generic
-Imports Iaip.Apb.Sscp
-Imports Iaip.Apb.Facilities
-Imports System.Data.SqlClient
+﻿Imports System.Data.SqlClient
 
 Namespace DAL
 

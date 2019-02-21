@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports EpdIt
 Imports Iaip.Apb.Facilities
 Imports Iaip.DAL
 Imports Iaip.DAL.FacilityData
@@ -230,64 +231,27 @@ Public Class GecoTool
 
     Private Sub LoadUserFacilityInfo(EmailLoc As String)
         Try
+            Dim dt As DataTable = GetUserGecoAccessTable(EmailLoc)
+
             Dim dgvRow As New DataGridViewRow
-
-            Dim SQL As String = "SELECT
-                    right(a.STRAIRSNUMBER, 8) as strAIRSNumber,
-                    f.STRFACILITYNAME,
-                    INTADMINACCESS,
-                    INTFEEACCESS,
-                    INTEIACCESS,
-                    INTESACCESS
-                FROM OLAPUSERACCESS a
-                    inner join OLAPUSERLOGIN l
-                        on a.NUMUSERID = l.NUMUSERID
-                    inner join APBFACILITYINFORMATION f
-                        on f.STRAIRSNUMBER = a.STRAIRSNUMBER
-                where STRUSEREMAIL = @strUserEmail
-                order by f.STRFACILITYNAME"
-
-            Dim param As New SqlParameter("@strUserEmail", EmailLoc)
 
             dgvUserFacilities.Rows.Clear()
 
-            Dim dt As DataTable = DB.GetDataTable(SQL, param)
-
             For Each dr As DataRow In dt.Rows
+                If IsDBNull(dr.Item("strAIRSNumber")) Then
+                    Continue For
+                End If
+
                 dgvRow = New DataGridViewRow
                 dgvRow.CreateCells(dgvUserFacilities)
-                If IsDBNull(dr.Item("strAIRSNumber")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("strAIRSNumber").ToString
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("strFacilityName").ToString
-                End If
 
-                If IsDBNull(dr.Item("intAdminAccess")) Then
-                    dgvRow.Cells(2).Value = False
-                Else
-                    dgvRow.Cells(2).Value = CBool(dr.Item("intAdminAccess"))
-                End If
-                If IsDBNull(dr.Item("intFeeAccess")) Then
-                    dgvRow.Cells(3).Value = False
-                Else
-                    dgvRow.Cells(3).Value = CBool(dr.Item("intFeeAccess"))
-                End If
+                dgvRow.Cells(0).Value = dr.Item("strAIRSNumber").ToString
+                dgvRow.Cells(1).Value = DBUtilities.GetNullableString(dr.Item("strFacilityName"))
+                dgvRow.Cells(2).Value = CBool(dr.Item("intAdminAccess"))
+                dgvRow.Cells(3).Value = CBool(dr.Item("intFeeAccess"))
+                dgvRow.Cells(4).Value = CBool(dr.Item("intEIAccess"))
+                dgvRow.Cells(5).Value = CBool(dr.Item("intESAccess"))
 
-                If IsDBNull(dr.Item("intEIAccess")) Then
-                    dgvRow.Cells(4).Value = False
-                Else
-                    dgvRow.Cells(4).Value = CBool(dr.Item("intEIAccess"))
-                End If
-                If IsDBNull(dr.Item("intESAccess")) Then
-                    dgvRow.Cells(5).Value = False
-                Else
-                    dgvRow.Cells(5).Value = CBool(dr.Item("intESAccess"))
-                End If
                 dgvUserFacilities.Rows.Add(dgvRow)
             Next
 
@@ -320,13 +284,9 @@ Public Class GecoTool
                 Dim dgvRow As DataGridViewRow
                 txtEmail.Clear()
 
-                Dim SQL As String = "Select strFacilityName " &
-                "from APBFacilityInformation " &
-                "where strAIRSNumber = @strAIRSNumber "
+                Dim airs As New Apb.ApbFacilityId(mtbAIRSNumber.Text)
 
-                Dim param As New SqlParameter("@strAIRSNumber", "0413" & mtbAIRSNumber.Text)
-
-                Dim fn As String = DB.GetString(SQL, param)
+                Dim fn As String = GetFacilityName(airs)
 
                 If fn = "" Then
                     lblFaciltyName.Text = " - "
@@ -334,69 +294,28 @@ Public Class GecoTool
                     lblFaciltyName.Text = Facility.SanitizeFacilityNameForDb(fn)
                 End If
 
-                SQL = "SELECT
-                        a.NUMUSERID   as ID,
-                        l.NUMUSERID,
-                        l.STRUSEREMAIL as Email,
-                        INTADMINACCESS,
-                        INTFEEACCESS,
-                        INTEIACCESS,
-                        INTESACCESS
-                    FROM OLAPUSERACCESS a
-                        inner join OLAPUSERLOGIN l
-                            on a.NUMUSERID = l.NUMUSERID
-                    where STRAIRSNUMBER = @strAirsNumber
-                    order by Email"
-
-                Dim dt As DataTable = DB.GetDataTable(SQL, param)
+                Dim dt As DataTable = GetGecoAccessForFacility(airs)
 
                 dgvUsers.Rows.Clear()
 
                 For Each dr As DataRow In dt.Rows
                     dgvRow = New DataGridViewRow
                     dgvRow.CreateCells(dgvUsers)
-                    If IsDBNull(dr.Item("ID")) Then
-                        dgvRow.Cells(0).Value = ""
-                    Else
-                        dgvRow.Cells(0).Value = CInt(dr.Item("ID"))
-                    End If
-                    If IsDBNull(dr.Item("numuserid")) Then
-                        dgvRow.Cells(1).Value = ""
-                    Else
-                        dgvRow.Cells(1).Value = CInt(dr.Item("numuserid"))
-                    End If
-                    If IsDBNull(dr.Item("Email")) Then
-                        dgvRow.Cells(2).Value = ""
-                    Else
-                        dgvRow.Cells(2).Value = dr.Item("Email").ToString
-                    End If
-                    If IsDBNull(dr.Item("intAdminAccess")) Then
-                        dgvRow.Cells(3).Value = False
-                    Else
-                        dgvRow.Cells(3).Value = CBool(dr.Item("intAdminAccess"))
-                    End If
-                    If IsDBNull(dr.Item("intFeeAccess")) Then
-                        dgvRow.Cells(4).Value = False
-                    Else
-                        dgvRow.Cells(4).Value = CBool(dr.Item("intFeeAccess"))
-                    End If
 
-                    If IsDBNull(dr.Item("intEIAccess")) Then
-                        dgvRow.Cells(5).Value = False
-                    Else
-                        dgvRow.Cells(5).Value = CBool(dr.Item("intEIAccess"))
-                    End If
-                    If IsDBNull(dr.Item("intESAccess")) Then
-                        dgvRow.Cells(6).Value = False
-                    Else
-                        dgvRow.Cells(6).Value = CBool(dr.Item("intESAccess"))
-                    End If
+                    dgvRow.Cells(0).Value = CInt(dr.Item("numuserid"))
+                    dgvRow.Cells(1).Value = CInt(dr.Item("numuserid"))
+                    dgvRow.Cells(2).Value = DBUtilities.GetNullableString(dr.Item("Email"))
+                    dgvRow.Cells(3).Value = CBool(dr.Item("intAdminAccess"))
+                    dgvRow.Cells(4).Value = CBool(dr.Item("intFeeAccess"))
+                    dgvRow.Cells(5).Value = CBool(dr.Item("intEIAccess"))
+                    dgvRow.Cells(6).Value = CBool(dr.Item("intESAccess"))
+
                     dgvUsers.Rows.Add(dgvRow)
                 Next
 
                 cboUsers.DataSource = dt
                 cboUsers.DisplayMember = "Email"
-                cboUsers.ValueMember = "ID"
+                cboUsers.ValueMember = "numuserid"
                 cboUsers.Text = ""
             End If
 
@@ -414,7 +333,6 @@ Public Class GecoTool
                 Exit Sub
             End If
 
-
             Dim query As String = "Select numUserId from olapuserlogin " &
                 " where struseremail = @struseremail "
 
@@ -427,24 +345,14 @@ Public Class GecoTool
                 Exit Sub
             End If
 
-            query = "select convert(bit, count(*)) from OLAPUSERACCESS " &
-                " where NUMUSERID = @NUMUSERID and STRAIRSNUMBER = @STRAIRSNUMBER "
+            Dim airs As New Apb.ApbFacilityId(mtbAIRSNumber.Text)
 
-            Dim params As SqlParameter() = {
-                    New SqlParameter("@NUMUSERID", userID),
-                    New SqlParameter("@STRAIRSNUMBER", "0413" & mtbAIRSNumber.Text)
-                }
-
-            If DB.GetBoolean(query, params) Then ' already assigned
+            If UserGecoAccessExists(userID, airs) Then ' already assigned
                 MessageBox.Show("This user already has access to this facility.")
                 Exit Sub
             End If
 
-            query = "Insert into OlapUserAccess " &
-                    " (numUserId, strAirsNumber) values " &
-                    " (@NUMUSERID, @STRAIRSNUMBER) "
-
-            DB.RunCommand(query, params)
+            AddUserGecoAccess(userID, airs)
 
             ViewFacilitySpecificUsers()
 
@@ -457,18 +365,9 @@ Public Class GecoTool
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         Try
-            Dim SQL As String = "DELETE OlapUserAccess " &
-                "WHERE numUserID = @numUserID " &
-                "and strAirsNumber = @strAirsNumber "
-            Dim params As SqlParameter() = {
-                New SqlParameter("@numUserID", cboUsers.SelectedValue),
-                New SqlParameter("@strAirsNumber", "0413" & mtbAIRSNumber.Text)
-            }
-            DB.RunCommand(SQL, params)
-
+            DeleteUserGecoAccess(CInt(cboUsers.SelectedValue), New Apb.ApbFacilityId(mtbAIRSNumber.Text))
             ViewFacilitySpecificUsers()
             MsgBox("The user has been removed from this facility", MsgBoxStyle.Information, "User removed")
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -476,55 +375,23 @@ Public Class GecoTool
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
         Try
-            Dim adminaccess As String
-            Dim feeaccess As String
-            Dim eiaccess As String
-            Dim esaccess As String
+            Dim adminaccess As Boolean
+            Dim feeaccess As Boolean
+            Dim eiaccess As Boolean
+            Dim esaccess As Boolean
 
             For i As Integer = 0 To dgvUsers.Rows.Count - 1
-                If dgvUsers(3, i).Value = True Then
-                    adminaccess = "1"
-                Else
-                    adminaccess = "0"
-                End If
-                If dgvUsers(4, i).Value = True Then
-                    feeaccess = "1"
-                Else
-                    feeaccess = "0"
-                End If
-                If dgvUsers(5, i).Value = True Then
-                    eiaccess = "1"
-                Else
-                    eiaccess = "0"
-                End If
-                If dgvUsers(6, i).Value = True Then
-                    esaccess = "1"
-                Else
-                    esaccess = "0"
-                End If
+                adminaccess = CBool(dgvUsers(3, i).Value)
+                feeaccess = CBool(dgvUsers(4, i).Value)
+                eiaccess = CBool(dgvUsers(5, i).Value)
+                esaccess = CBool(dgvUsers(6, i).Value)
 
-                Dim SQL As String = "UPDATE OlapUserAccess " &
-                    "SET " &
-                    "intadminaccess = @intadminaccess, " &
-                    "intFeeAccess = @intFeeAccess, " &
-                    "intEIAccess = @intEIAccess, " &
-                    "intESAccess = @intESAccess " &
-                    "WHERE numUserID = @numUserID " &
-                    "and strAirsNumber = @strAirsNumber "
-                Dim params As SqlParameter() = {
-                    New SqlParameter("@intadminaccess", adminaccess),
-                    New SqlParameter("@intFeeAccess", feeaccess),
-                    New SqlParameter("@intEIAccess", eiaccess),
-                    New SqlParameter("@intESAccess", esaccess),
-                    New SqlParameter("@numUserID", dgvUsers(1, i).Value),
-                    New SqlParameter("@strAirsNumber", "0413" & mtbAIRSNumber.Text)
-                }
-                DB.RunCommand(SQL, params)
+                UpdateUserGecoAccess(adminaccess, feeaccess, eiaccess, esaccess, CInt(dgvUsers(1, i).Value), New Apb.ApbFacilityId(mtbAIRSNumber.Text))
             Next
 
             ViewFacilitySpecificUsers()
-            MsgBox("The records have been updated", MsgBoxStyle.Information, "Success")
 
+            MsgBox("The records have been updated", MsgBoxStyle.Information, "Success")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -676,38 +543,18 @@ Public Class GecoTool
     Private Sub btnAddFacilitytoUser_Click(sender As Object, e As EventArgs) Handles btnAddFacilitytoUser.Click
         Try
             If txtWebUserID.Text <> "" Then
-                Dim Result As AirsNumberValidationResult = ValidateAirsFacility(mtbFacilityToAdd.Text)
-                If Result = AirsNumberValidationResult.Valid Then
-                    Dim SQL As String = "Select " &
-                    "1 " &
-                    "from OlapUserAccess " &
-                    "where numUserId = @numUserId " &
-                    " And strAirsNumber = @strAirsNumber "
-                    Dim params As SqlParameter() = {
-                    New SqlParameter("@numUserId", txtWebUserID.Text),
-                    New SqlParameter("@strAirsNumber", "0413" & mtbFacilityToAdd.Text)
-                    }
+                Dim result As AirsNumberValidationResult = ValidateAirsFacility(mtbFacilityToAdd.Text)
 
-                    If Not DB.GetBoolean(SQL, params) Then
-                        SQL = "Insert into OlapUserAccess " &
-                            "(numUserId, strAirsNumber) " &
-                            "values " &
-                            "(@numUserId, @strAirsNumber) "
-
-                        Dim params2 As SqlParameter() = {
-                            New SqlParameter("@numUserId", txtWebUserID.Text),
-                            New SqlParameter("@strAirsNumber", "0413" & mtbFacilityToAdd.Text)
-                        }
-
-                        DB.RunCommand(SQL, params2)
-
+                If result = AirsNumberValidationResult.Valid Then
+                    If UserGecoAccessExists(CInt(txtWebUserID.Text), New Apb.ApbFacilityId(mtbFacilityToAdd.Text)) Then
+                        MessageBox.Show(Me, "The facility already exists for this user." & vbCrLf & "NO DATA SAVED", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    Else
+                        AddUserGecoAccess(CInt(txtWebUserID.Text), New Apb.ApbFacilityId(mtbFacilityToAdd.Text))
                         LoadUserFacilityInfo(txtWebUserEmail.Text)
                         MessageBox.Show(Me, "The facility has been added to this user", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Else
-                        MessageBox.Show(Me, "The facility already exists for this user." & vbCrLf & "NO DATA SAVED", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     End If
                 Else
-                    MessageBox.Show(Me, GetAirsValidationMsg(Result), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    MessageBox.Show(Me, GetAirsValidationMsg(result), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
             Else
                 MessageBox.Show(Me, "You must enter a user's e-mail address.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -720,15 +567,7 @@ Public Class GecoTool
     Private Sub btnDeleteFacilityUser_Click(sender As Object, e As EventArgs) Handles btnDeleteFacilityUser.Click
         Try
             If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
-                Dim SQL As String = "DELETE OlapUserAccess " &
-                "WHERE numUserID = @numUserID " &
-                "and strAirsNumber = @strAirsNumber "
-                Dim params As SqlParameter() = {
-                    New SqlParameter("@numUserID", txtWebUserID.Text),
-                    New SqlParameter("@strAirsNumber", "0413" & cboFacilityToDelete.SelectedValue)
-                }
-                DB.RunCommand(SQL, params)
-
+                DeleteUserGecoAccess(CInt(txtWebUserID.Text), New Apb.ApbFacilityId(cboFacilityToDelete.SelectedValue.ToString))
                 LoadUserFacilityInfo(txtWebUserEmail.Text)
                 MsgBox("The facility has been removed for this user", MsgBoxStyle.Information, "Facility removed")
             End If
@@ -739,50 +578,18 @@ Public Class GecoTool
 
     Private Sub btnUpdateUser_Click(sender As Object, e As EventArgs) Handles btnUpdateUser.Click
         Try
-            Dim adminaccess As String
-            Dim feeaccess As String
-            Dim eiaccess As String
-            Dim esaccess As String
+            Dim adminaccess As Boolean
+            Dim feeaccess As Boolean
+            Dim eiaccess As Boolean
+            Dim esaccess As Boolean
 
             For i As Integer = 0 To dgvUserFacilities.Rows.Count - 1
-                If dgvUserFacilities(2, i).Value = True Then
-                    adminaccess = "1"
-                Else
-                    adminaccess = "0"
-                End If
-                If dgvUserFacilities(3, i).Value = True Then
-                    feeaccess = "1"
-                Else
-                    feeaccess = "0"
-                End If
-                If dgvUserFacilities(4, i).Value = True Then
-                    eiaccess = "1"
-                Else
-                    eiaccess = "0"
-                End If
-                If dgvUserFacilities(5, i).Value = True Then
-                    esaccess = "1"
-                Else
-                    esaccess = "0"
-                End If
+                adminaccess = CBool(dgvUserFacilities(2, i).Value)
+                feeaccess = CBool(dgvUserFacilities(3, i).Value)
+                eiaccess = CBool(dgvUserFacilities(4, i).Value)
+                esaccess = CBool(dgvUserFacilities(5, i).Value)
 
-                Dim SQL As String = "UPDATE OlapUserAccess " &
-                    "SET intadminaccess = @intadminaccess, " &
-                    "intFeeAccess = @intFeeAccess, " &
-                    "intEIAccess = @intEIAccess, " &
-                    "intESAccess = @intESAccess " &
-                    "WHERE numUserID = @numUserID " &
-                    "and strAirsNumber = @strAirsNumber "
-
-                Dim params As SqlParameter() = {
-                    New SqlParameter("@intadminaccess", adminaccess),
-                    New SqlParameter("@intFeeAccess", feeaccess),
-                    New SqlParameter("@intEIAccess", eiaccess),
-                    New SqlParameter("@intESAccess", esaccess),
-                    New SqlParameter("@numUserID", txtWebUserID.Text),
-                    New SqlParameter("@strAirsNumber", "0413" & dgvUserFacilities(0, i).Value)
-                }
-                DB.RunCommand(SQL, params)
+                UpdateUserGecoAccess(adminaccess, feeaccess, eiaccess, esaccess, CInt(txtWebUserID.Text), New Apb.ApbFacilityId(dgvUserFacilities(0, i).Value.ToString))
             Next
 
             LoadUserFacilityInfo(txtWebUserEmail.Text)

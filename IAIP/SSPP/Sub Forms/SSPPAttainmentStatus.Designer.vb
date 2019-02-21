@@ -19,11 +19,6 @@ Partial Class SSPPAttainmentStatus
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPAttainmentStatus))
-        Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.TBAttainmentStatus = New System.Windows.Forms.ToolBar()
-        Me.TBBSave = New System.Windows.Forms.ToolBarButton()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.btnPMFineChanges = New System.Windows.Forms.Button()
@@ -50,118 +45,15 @@ Partial Class SSPPAttainmentStatus
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cboNonAttainmentStatus = New System.Windows.Forms.ComboBox()
         Me.dgvAttainmentStatus = New System.Windows.Forms.DataGridView()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.bSave = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.dgvAttainmentStatus, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'Image_List_All
-        '
-        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
-        Me.Image_List_All.Images.SetKeyName(0, "")
-        Me.Image_List_All.Images.SetKeyName(1, "")
-        Me.Image_List_All.Images.SetKeyName(2, "")
-        Me.Image_List_All.Images.SetKeyName(3, "")
-        Me.Image_List_All.Images.SetKeyName(4, "")
-        Me.Image_List_All.Images.SetKeyName(5, "")
-        Me.Image_List_All.Images.SetKeyName(6, "")
-        Me.Image_List_All.Images.SetKeyName(7, "")
-        Me.Image_List_All.Images.SetKeyName(8, "")
-        Me.Image_List_All.Images.SetKeyName(9, "")
-        Me.Image_List_All.Images.SetKeyName(10, "")
-        Me.Image_List_All.Images.SetKeyName(11, "")
-        Me.Image_List_All.Images.SetKeyName(12, "")
-        Me.Image_List_All.Images.SetKeyName(13, "")
-        Me.Image_List_All.Images.SetKeyName(14, "")
-        Me.Image_List_All.Images.SetKeyName(15, "")
-        Me.Image_List_All.Images.SetKeyName(16, "")
-        Me.Image_List_All.Images.SetKeyName(17, "")
-        Me.Image_List_All.Images.SetKeyName(18, "")
-        Me.Image_List_All.Images.SetKeyName(19, "")
-        Me.Image_List_All.Images.SetKeyName(20, "")
-        Me.Image_List_All.Images.SetKeyName(21, "")
-        Me.Image_List_All.Images.SetKeyName(22, "")
-        Me.Image_List_All.Images.SetKeyName(23, "")
-        Me.Image_List_All.Images.SetKeyName(24, "")
-        Me.Image_List_All.Images.SetKeyName(25, "")
-        Me.Image_List_All.Images.SetKeyName(26, "")
-        Me.Image_List_All.Images.SetKeyName(27, "")
-        Me.Image_List_All.Images.SetKeyName(28, "")
-        Me.Image_List_All.Images.SetKeyName(29, "")
-        Me.Image_List_All.Images.SetKeyName(30, "")
-        Me.Image_List_All.Images.SetKeyName(31, "")
-        Me.Image_List_All.Images.SetKeyName(32, "")
-        Me.Image_List_All.Images.SetKeyName(33, "")
-        Me.Image_List_All.Images.SetKeyName(34, "")
-        Me.Image_List_All.Images.SetKeyName(35, "")
-        Me.Image_List_All.Images.SetKeyName(36, "")
-        Me.Image_List_All.Images.SetKeyName(37, "")
-        Me.Image_List_All.Images.SetKeyName(38, "")
-        Me.Image_List_All.Images.SetKeyName(39, "")
-        Me.Image_List_All.Images.SetKeyName(40, "")
-        Me.Image_List_All.Images.SetKeyName(41, "")
-        Me.Image_List_All.Images.SetKeyName(42, "")
-        Me.Image_List_All.Images.SetKeyName(43, "")
-        Me.Image_List_All.Images.SetKeyName(44, "")
-        Me.Image_List_All.Images.SetKeyName(45, "")
-        Me.Image_List_All.Images.SetKeyName(46, "")
-        Me.Image_List_All.Images.SetKeyName(47, "")
-        Me.Image_List_All.Images.SetKeyName(48, "")
-        Me.Image_List_All.Images.SetKeyName(49, "")
-        Me.Image_List_All.Images.SetKeyName(50, "")
-        Me.Image_List_All.Images.SetKeyName(51, "")
-        Me.Image_List_All.Images.SetKeyName(52, "")
-        Me.Image_List_All.Images.SetKeyName(53, "")
-        Me.Image_List_All.Images.SetKeyName(54, "")
-        Me.Image_List_All.Images.SetKeyName(55, "")
-        Me.Image_List_All.Images.SetKeyName(56, "")
-        Me.Image_List_All.Images.SetKeyName(57, "")
-        Me.Image_List_All.Images.SetKeyName(58, "")
-        Me.Image_List_All.Images.SetKeyName(59, "")
-        Me.Image_List_All.Images.SetKeyName(60, "")
-        Me.Image_List_All.Images.SetKeyName(61, "")
-        Me.Image_List_All.Images.SetKeyName(62, "")
-        Me.Image_List_All.Images.SetKeyName(63, "")
-        Me.Image_List_All.Images.SetKeyName(64, "")
-        Me.Image_List_All.Images.SetKeyName(65, "")
-        Me.Image_List_All.Images.SetKeyName(66, "")
-        Me.Image_List_All.Images.SetKeyName(67, "")
-        Me.Image_List_All.Images.SetKeyName(68, "")
-        Me.Image_List_All.Images.SetKeyName(69, "")
-        Me.Image_List_All.Images.SetKeyName(70, "")
-        Me.Image_List_All.Images.SetKeyName(71, "")
-        Me.Image_List_All.Images.SetKeyName(72, "")
-        Me.Image_List_All.Images.SetKeyName(73, "")
-        Me.Image_List_All.Images.SetKeyName(74, "")
-        Me.Image_List_All.Images.SetKeyName(75, "")
-        Me.Image_List_All.Images.SetKeyName(76, "")
-        Me.Image_List_All.Images.SetKeyName(77, "")
-        Me.Image_List_All.Images.SetKeyName(78, "")
-        Me.Image_List_All.Images.SetKeyName(79, "")
-        Me.Image_List_All.Images.SetKeyName(80, "")
-        Me.Image_List_All.Images.SetKeyName(81, "")
-        Me.Image_List_All.Images.SetKeyName(82, "")
-        Me.Image_List_All.Images.SetKeyName(83, "")
-        Me.Image_List_All.Images.SetKeyName(84, "")
-        '
-        'TBAttainmentStatus
-        '
-        Me.TBAttainmentStatus.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TBBSave})
-        Me.TBAttainmentStatus.DropDownArrows = True
-        Me.TBAttainmentStatus.ImageList = Me.Image_List_All
-        Me.TBAttainmentStatus.Location = New System.Drawing.Point(0, 0)
-        Me.TBAttainmentStatus.Name = "TBAttainmentStatus"
-        Me.TBAttainmentStatus.ShowToolTips = True
-        Me.TBAttainmentStatus.Size = New System.Drawing.Size(792, 28)
-        Me.TBAttainmentStatus.TabIndex = 256
-        '
-        'TBBSave
-        '
-        Me.TBBSave.ImageIndex = 65
-        Me.TBBSave.Name = "TBBSave"
         '
         'GroupBox1
         '
@@ -176,7 +68,7 @@ Partial Class SSPPAttainmentStatus
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.cboNonAttainmentStatus)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 28)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 24)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(792, 249)
         Me.GroupBox1.TabIndex = 257
@@ -452,11 +344,27 @@ Partial Class SSPPAttainmentStatus
         Me.dgvAttainmentStatus.AllowUserToOrderColumns = True
         Me.dgvAttainmentStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvAttainmentStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvAttainmentStatus.Location = New System.Drawing.Point(0, 277)
+        Me.dgvAttainmentStatus.Location = New System.Drawing.Point(0, 273)
         Me.dgvAttainmentStatus.Name = "dgvAttainmentStatus"
         Me.dgvAttainmentStatus.ReadOnly = True
-        Me.dgvAttainmentStatus.Size = New System.Drawing.Size(792, 268)
+        Me.dgvAttainmentStatus.Size = New System.Drawing.Size(792, 272)
         Me.dgvAttainmentStatus.TabIndex = 258
+        '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.bSave})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(792, 24)
+        Me.MenuStrip1.TabIndex = 259
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'bSave
+        '
+        Me.bSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
+        Me.bSave.Name = "bSave"
+        Me.bSave.Size = New System.Drawing.Size(59, 20)
+        Me.bSave.Text = "Save"
         '
         'SSPPAttainmentStatus
         '
@@ -465,7 +373,8 @@ Partial Class SSPPAttainmentStatus
         Me.ClientSize = New System.Drawing.Size(792, 545)
         Me.Controls.Add(Me.dgvAttainmentStatus)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.TBAttainmentStatus)
+        Me.Controls.Add(Me.MenuStrip1)
+        Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "SSPPAttainmentStatus"
         Me.Text = "SSPP Attainment Status"
         Me.GroupBox1.ResumeLayout(False)
@@ -477,13 +386,12 @@ Partial Class SSPPAttainmentStatus
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.dgvAttainmentStatus, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
-    Friend WithEvents TBAttainmentStatus As System.Windows.Forms.ToolBar
-    Friend WithEvents TBBSave As System.Windows.Forms.ToolBarButton
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents cboNonAttainmentStatus As System.Windows.Forms.ComboBox
@@ -510,4 +418,6 @@ Partial Class SSPPAttainmentStatus
     Friend WithEvents btnPMFineChanges As Button
     Friend WithEvents btnEightHourChanges As Button
     Friend WithEvents btnOneHourChanges As Button
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents bSave As ToolStripMenuItem
 End Class

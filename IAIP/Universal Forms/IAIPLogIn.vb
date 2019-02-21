@@ -391,7 +391,7 @@
     End Sub
 
     Private Sub mmiCheckForUpdate_Click(sender As Object, e As EventArgs) Handles mmiCheckForUpdate.Click
-        App.CheckForUpdate()
+        AppVersion.CheckForUpdate()
     End Sub
 
     Private Sub mmiForgotUsername_Click(sender As Object, e As EventArgs) Handles mmiForgotUsername.Click

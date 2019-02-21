@@ -191,7 +191,7 @@ Public Class DmuEdtErrorMessageDetail
             End With
             .Columns("IDCATEGORY").Visible = False
 
-            .MakeColumnsLookLikeLinks(0)
+            .MakeColumnLookLikeLinks(0)
             .SanelyResizeColumns()
         End With
 

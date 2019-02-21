@@ -22,7 +22,6 @@ Partial Class ISMPConfidentialData
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPConfidentialData))
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbSave = New System.Windows.Forms.ToolStripButton()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
@@ -485,7 +484,7 @@ Partial Class ISMPConfidentialData
         'tsbSave
         '
         Me.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSave.Image = CType(resources.GetObject("tsbSave.Image"), System.Drawing.Image)
+        Me.tsbSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
         Me.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbSave.Name = "tsbSave"
         Me.tsbSave.Size = New System.Drawing.Size(23, 22)
@@ -510,7 +509,7 @@ Partial Class ISMPConfidentialData
         'mmiSave
         '
         Me.mmiSave.Name = "mmiSave"
-        Me.mmiSave.Size = New System.Drawing.Size(152, 22)
+        Me.mmiSave.Size = New System.Drawing.Size(98, 22)
         Me.mmiSave.Text = "Save"
         '
         'TCDocuments

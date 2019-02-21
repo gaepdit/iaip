@@ -232,9 +232,6 @@ Partial Class ISMPManagersTools
     Friend WithEvents TPReportAssignment As System.Windows.Forms.TabPage
     Friend WithEvents PanelManagersTools As System.Windows.Forms.Panel
     Friend WithEvents SplitterManagersTools As System.Windows.Forms.Splitter
-    Friend WithEvents TbbClear As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TBManagersTools As System.Windows.Forms.ToolBar
     Friend WithEvents MmiViewByFacility As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem13 As System.Windows.Forms.MenuItem
     Friend WithEvents MmiShowDeletedRecords As System.Windows.Forms.MenuItem
@@ -265,14 +262,11 @@ Partial Class ISMPManagersTools
     Friend WithEvents MmiSave As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Private components As System.ComponentModel.IContainer
 
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPManagersTools))
-        Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.MenuItem1 = New System.Windows.Forms.MenuItem()
         Me.MmiSave = New System.Windows.Forms.MenuItem()
@@ -368,9 +362,6 @@ Partial Class ISMPManagersTools
         Me.MmiShowDeletedRecords = New System.Windows.Forms.MenuItem()
         Me.MenuItem13 = New System.Windows.Forms.MenuItem()
         Me.MmiViewByFacility = New System.Windows.Forms.MenuItem()
-        Me.TBManagersTools = New System.Windows.Forms.ToolBar()
-        Me.TbbSave = New System.Windows.Forms.ToolBarButton()
-        Me.TbbClear = New System.Windows.Forms.ToolBarButton()
         Me.SplitterManagersTools = New System.Windows.Forms.Splitter()
         Me.PanelManagersTools = New System.Windows.Forms.Panel()
         Me.TCManagersTools = New System.Windows.Forms.TabControl()
@@ -511,6 +502,9 @@ Partial Class ISMPManagersTools
         Me.DataGridTextBoxColumn2 = New System.Windows.Forms.DataGridTextBoxColumn()
         Me.DataGridBoolColumn1 = New System.Windows.Forms.DataGridBoolColumn()
         Me.DataGridBoolColumn2 = New System.Windows.Forms.DataGridBoolColumn()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.bSave = New System.Windows.Forms.ToolStripMenuItem()
+        Me.bClear = New System.Windows.Forms.ToolStripMenuItem()
         Me.PanelManagersTools.SuspendLayout()
         Me.TCManagersTools.SuspendLayout()
         Me.TPReportAssignment.SuspendLayout()
@@ -543,97 +537,8 @@ Partial Class ISMPManagersTools
         Me.TPTestReportAdd.SuspendLayout()
         Me.Panel11.SuspendLayout()
         Me.Panel12.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'Image_List_All
-        '
-        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
-        Me.Image_List_All.Images.SetKeyName(0, "")
-        Me.Image_List_All.Images.SetKeyName(1, "")
-        Me.Image_List_All.Images.SetKeyName(2, "")
-        Me.Image_List_All.Images.SetKeyName(3, "")
-        Me.Image_List_All.Images.SetKeyName(4, "")
-        Me.Image_List_All.Images.SetKeyName(5, "")
-        Me.Image_List_All.Images.SetKeyName(6, "")
-        Me.Image_List_All.Images.SetKeyName(7, "")
-        Me.Image_List_All.Images.SetKeyName(8, "")
-        Me.Image_List_All.Images.SetKeyName(9, "")
-        Me.Image_List_All.Images.SetKeyName(10, "")
-        Me.Image_List_All.Images.SetKeyName(11, "")
-        Me.Image_List_All.Images.SetKeyName(12, "")
-        Me.Image_List_All.Images.SetKeyName(13, "")
-        Me.Image_List_All.Images.SetKeyName(14, "")
-        Me.Image_List_All.Images.SetKeyName(15, "")
-        Me.Image_List_All.Images.SetKeyName(16, "")
-        Me.Image_List_All.Images.SetKeyName(17, "")
-        Me.Image_List_All.Images.SetKeyName(18, "")
-        Me.Image_List_All.Images.SetKeyName(19, "")
-        Me.Image_List_All.Images.SetKeyName(20, "")
-        Me.Image_List_All.Images.SetKeyName(21, "")
-        Me.Image_List_All.Images.SetKeyName(22, "")
-        Me.Image_List_All.Images.SetKeyName(23, "")
-        Me.Image_List_All.Images.SetKeyName(24, "")
-        Me.Image_List_All.Images.SetKeyName(25, "")
-        Me.Image_List_All.Images.SetKeyName(26, "")
-        Me.Image_List_All.Images.SetKeyName(27, "")
-        Me.Image_List_All.Images.SetKeyName(28, "")
-        Me.Image_List_All.Images.SetKeyName(29, "")
-        Me.Image_List_All.Images.SetKeyName(30, "")
-        Me.Image_List_All.Images.SetKeyName(31, "")
-        Me.Image_List_All.Images.SetKeyName(32, "")
-        Me.Image_List_All.Images.SetKeyName(33, "")
-        Me.Image_List_All.Images.SetKeyName(34, "")
-        Me.Image_List_All.Images.SetKeyName(35, "")
-        Me.Image_List_All.Images.SetKeyName(36, "")
-        Me.Image_List_All.Images.SetKeyName(37, "")
-        Me.Image_List_All.Images.SetKeyName(38, "")
-        Me.Image_List_All.Images.SetKeyName(39, "")
-        Me.Image_List_All.Images.SetKeyName(40, "")
-        Me.Image_List_All.Images.SetKeyName(41, "")
-        Me.Image_List_All.Images.SetKeyName(42, "")
-        Me.Image_List_All.Images.SetKeyName(43, "")
-        Me.Image_List_All.Images.SetKeyName(44, "")
-        Me.Image_List_All.Images.SetKeyName(45, "")
-        Me.Image_List_All.Images.SetKeyName(46, "")
-        Me.Image_List_All.Images.SetKeyName(47, "")
-        Me.Image_List_All.Images.SetKeyName(48, "")
-        Me.Image_List_All.Images.SetKeyName(49, "")
-        Me.Image_List_All.Images.SetKeyName(50, "")
-        Me.Image_List_All.Images.SetKeyName(51, "")
-        Me.Image_List_All.Images.SetKeyName(52, "")
-        Me.Image_List_All.Images.SetKeyName(53, "")
-        Me.Image_List_All.Images.SetKeyName(54, "")
-        Me.Image_List_All.Images.SetKeyName(55, "")
-        Me.Image_List_All.Images.SetKeyName(56, "")
-        Me.Image_List_All.Images.SetKeyName(57, "")
-        Me.Image_List_All.Images.SetKeyName(58, "")
-        Me.Image_List_All.Images.SetKeyName(59, "")
-        Me.Image_List_All.Images.SetKeyName(60, "")
-        Me.Image_List_All.Images.SetKeyName(61, "")
-        Me.Image_List_All.Images.SetKeyName(62, "")
-        Me.Image_List_All.Images.SetKeyName(63, "")
-        Me.Image_List_All.Images.SetKeyName(64, "")
-        Me.Image_List_All.Images.SetKeyName(65, "")
-        Me.Image_List_All.Images.SetKeyName(66, "")
-        Me.Image_List_All.Images.SetKeyName(67, "")
-        Me.Image_List_All.Images.SetKeyName(68, "")
-        Me.Image_List_All.Images.SetKeyName(69, "")
-        Me.Image_List_All.Images.SetKeyName(70, "")
-        Me.Image_List_All.Images.SetKeyName(71, "")
-        Me.Image_List_All.Images.SetKeyName(72, "")
-        Me.Image_List_All.Images.SetKeyName(73, "")
-        Me.Image_List_All.Images.SetKeyName(74, "")
-        Me.Image_List_All.Images.SetKeyName(75, "")
-        Me.Image_List_All.Images.SetKeyName(76, "")
-        Me.Image_List_All.Images.SetKeyName(77, "")
-        Me.Image_List_All.Images.SetKeyName(78, "")
-        Me.Image_List_All.Images.SetKeyName(79, "")
-        Me.Image_List_All.Images.SetKeyName(80, "")
-        Me.Image_List_All.Images.SetKeyName(81, "")
-        Me.Image_List_All.Images.SetKeyName(82, "")
-        Me.Image_List_All.Images.SetKeyName(83, "")
-        Me.Image_List_All.Images.SetKeyName(84, "")
         '
         'MainMenu1
         '
@@ -1116,32 +1021,10 @@ Partial Class ISMPManagersTools
         Me.MmiViewByFacility.Index = 8
         Me.MmiViewByFacility.Text = "View By Facility"
         '
-        'TBManagersTools
-        '
-        Me.TBManagersTools.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbClear})
-        Me.TBManagersTools.ButtonSize = New System.Drawing.Size(23, 22)
-        Me.TBManagersTools.DropDownArrows = True
-        Me.TBManagersTools.ImageList = Me.Image_List_All
-        Me.TBManagersTools.Location = New System.Drawing.Point(0, 0)
-        Me.TBManagersTools.Name = "TBManagersTools"
-        Me.TBManagersTools.ShowToolTips = True
-        Me.TBManagersTools.Size = New System.Drawing.Size(1142, 28)
-        Me.TBManagersTools.TabIndex = 46
-        '
-        'TbbSave
-        '
-        Me.TbbSave.ImageIndex = 65
-        Me.TbbSave.Name = "TbbSave"
-        '
-        'TbbClear
-        '
-        Me.TbbClear.ImageIndex = 84
-        Me.TbbClear.Name = "TbbClear"
-        '
         'SplitterManagersTools
         '
         Me.SplitterManagersTools.Dock = System.Windows.Forms.DockStyle.Top
-        Me.SplitterManagersTools.Location = New System.Drawing.Point(0, 28)
+        Me.SplitterManagersTools.Location = New System.Drawing.Point(0, 24)
         Me.SplitterManagersTools.Name = "SplitterManagersTools"
         Me.SplitterManagersTools.Size = New System.Drawing.Size(1142, 4)
         Me.SplitterManagersTools.TabIndex = 231
@@ -1151,9 +1034,9 @@ Partial Class ISMPManagersTools
         '
         Me.PanelManagersTools.Controls.Add(Me.TCManagersTools)
         Me.PanelManagersTools.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelManagersTools.Location = New System.Drawing.Point(0, 32)
+        Me.PanelManagersTools.Location = New System.Drawing.Point(0, 28)
         Me.PanelManagersTools.Name = "PanelManagersTools"
-        Me.PanelManagersTools.Size = New System.Drawing.Size(1142, 762)
+        Me.PanelManagersTools.Size = New System.Drawing.Size(1142, 766)
         Me.PanelManagersTools.TabIndex = 232
         '
         'TCManagersTools
@@ -1170,7 +1053,7 @@ Partial Class ISMPManagersTools
         Me.TCManagersTools.Multiline = True
         Me.TCManagersTools.Name = "TCManagersTools"
         Me.TCManagersTools.SelectedIndex = 0
-        Me.TCManagersTools.Size = New System.Drawing.Size(1142, 762)
+        Me.TCManagersTools.Size = New System.Drawing.Size(1142, 766)
         Me.TCManagersTools.TabIndex = 0
         '
         'TPReportAssignment
@@ -1180,7 +1063,7 @@ Partial Class ISMPManagersTools
         Me.TPReportAssignment.Controls.Add(Me.LVTestReportAssignment)
         Me.TPReportAssignment.Location = New System.Drawing.Point(4, 22)
         Me.TPReportAssignment.Name = "TPReportAssignment"
-        Me.TPReportAssignment.Size = New System.Drawing.Size(1134, 736)
+        Me.TPReportAssignment.Size = New System.Drawing.Size(1134, 740)
         Me.TPReportAssignment.TabIndex = 0
         Me.TPReportAssignment.Text = "Test Report Assignment"
         Me.TPReportAssignment.UseVisualStyleBackColor = True
@@ -1189,7 +1072,7 @@ Partial Class ISMPManagersTools
         '
         Me.SplitterTestReportAssignment.BackColor = System.Drawing.SystemColors.HotTrack
         Me.SplitterTestReportAssignment.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.SplitterTestReportAssignment.Location = New System.Drawing.Point(0, 292)
+        Me.SplitterTestReportAssignment.Location = New System.Drawing.Point(0, 296)
         Me.SplitterTestReportAssignment.MinExtra = 10
         Me.SplitterTestReportAssignment.Name = "SplitterTestReportAssignment"
         Me.SplitterTestReportAssignment.Size = New System.Drawing.Size(1134, 4)
@@ -1208,7 +1091,7 @@ Partial Class ISMPManagersTools
         Me.PanelReportAssignment.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelReportAssignment.Location = New System.Drawing.Point(0, 0)
         Me.PanelReportAssignment.Name = "PanelReportAssignment"
-        Me.PanelReportAssignment.Size = New System.Drawing.Size(1134, 296)
+        Me.PanelReportAssignment.Size = New System.Drawing.Size(1134, 300)
         Me.PanelReportAssignment.TabIndex = 43
         '
         'chbNonComplianceTestReport
@@ -1278,7 +1161,7 @@ Partial Class ISMPManagersTools
         '
         Me.LVTestReportAssignment.AllowColumnReorder = True
         Me.LVTestReportAssignment.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.LVTestReportAssignment.Location = New System.Drawing.Point(0, 296)
+        Me.LVTestReportAssignment.Location = New System.Drawing.Point(0, 300)
         Me.LVTestReportAssignment.Name = "LVTestReportAssignment"
         Me.LVTestReportAssignment.Size = New System.Drawing.Size(1134, 440)
         Me.LVTestReportAssignment.TabIndex = 41
@@ -1290,7 +1173,7 @@ Partial Class ISMPManagersTools
         Me.TPUnitStatistics2.Controls.Add(Me.Panel13)
         Me.TPUnitStatistics2.Location = New System.Drawing.Point(4, 22)
         Me.TPUnitStatistics2.Name = "TPUnitStatistics2"
-        Me.TPUnitStatistics2.Size = New System.Drawing.Size(1134, 736)
+        Me.TPUnitStatistics2.Size = New System.Drawing.Size(1134, 740)
         Me.TPUnitStatistics2.TabIndex = 12
         Me.TPUnitStatistics2.Text = "Statistics"
         Me.TPUnitStatistics2.UseVisualStyleBackColor = True
@@ -1302,7 +1185,7 @@ Partial Class ISMPManagersTools
         Me.GroupBox19.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox19.Location = New System.Drawing.Point(342, 0)
         Me.GroupBox19.Name = "GroupBox19"
-        Me.GroupBox19.Size = New System.Drawing.Size(792, 736)
+        Me.GroupBox19.Size = New System.Drawing.Size(792, 740)
         Me.GroupBox19.TabIndex = 1
         Me.GroupBox19.TabStop = False
         Me.GroupBox19.Text = "View Test Report(s)"
@@ -1314,7 +1197,7 @@ Partial Class ISMPManagersTools
         Me.dgvUnitStats.Location = New System.Drawing.Point(3, 80)
         Me.dgvUnitStats.Name = "dgvUnitStats"
         Me.dgvUnitStats.ReadOnly = True
-        Me.dgvUnitStats.Size = New System.Drawing.Size(786, 653)
+        Me.dgvUnitStats.Size = New System.Drawing.Size(786, 657)
         Me.dgvUnitStats.TabIndex = 2
         '
         'Panel15
@@ -1387,7 +1270,7 @@ Partial Class ISMPManagersTools
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel13.Location = New System.Drawing.Point(0, 0)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(342, 736)
+        Me.Panel13.Size = New System.Drawing.Size(342, 740)
         Me.Panel13.TabIndex = 0
         '
         'Label126
@@ -1558,7 +1441,7 @@ Partial Class ISMPManagersTools
         Me.TPEngineerTestReport.Controls.Add(Me.dgrEngineersFacilityList)
         Me.TPEngineerTestReport.Location = New System.Drawing.Point(4, 22)
         Me.TPEngineerTestReport.Name = "TPEngineerTestReport"
-        Me.TPEngineerTestReport.Size = New System.Drawing.Size(1134, 736)
+        Me.TPEngineerTestReport.Size = New System.Drawing.Size(1134, 740)
         Me.TPEngineerTestReport.TabIndex = 8
         Me.TPEngineerTestReport.Text = "Engineer Test Reports"
         Me.TPEngineerTestReport.UseVisualStyleBackColor = True
@@ -1567,7 +1450,7 @@ Partial Class ISMPManagersTools
         '
         Me.Splitter9.BackColor = System.Drawing.SystemColors.HotTrack
         Me.Splitter9.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Splitter9.Location = New System.Drawing.Point(0, 467)
+        Me.Splitter9.Location = New System.Drawing.Point(0, 471)
         Me.Splitter9.Name = "Splitter9"
         Me.Splitter9.Size = New System.Drawing.Size(1134, 5)
         Me.Splitter9.TabIndex = 148
@@ -1580,7 +1463,7 @@ Partial Class ISMPManagersTools
         Me.GroupBox14.Font = New System.Drawing.Font("Times New Roman", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox14.Location = New System.Drawing.Point(0, 141)
         Me.GroupBox14.Name = "GroupBox14"
-        Me.GroupBox14.Size = New System.Drawing.Size(1134, 331)
+        Me.GroupBox14.Size = New System.Drawing.Size(1134, 335)
         Me.GroupBox14.TabIndex = 147
         Me.GroupBox14.TabStop = False
         Me.GroupBox14.Text = "Engineer \ Reference Number \ Facility \ Date Received \ (Days)"
@@ -1593,7 +1476,7 @@ Partial Class ISMPManagersTools
         Me.lsbEngineers.Location = New System.Drawing.Point(3, 22)
         Me.lsbEngineers.Name = "lsbEngineers"
         Me.lsbEngineers.ScrollAlwaysVisible = True
-        Me.lsbEngineers.Size = New System.Drawing.Size(1128, 306)
+        Me.lsbEngineers.Size = New System.Drawing.Size(1128, 310)
         Me.lsbEngineers.TabIndex = 99
         '
         'Splitter8
@@ -1823,7 +1706,7 @@ Partial Class ISMPManagersTools
         Me.dgrEngineersFacilityList.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.dgrEngineersFacilityList.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dgrEngineersFacilityList.HeaderForeColor = System.Drawing.SystemColors.ControlText
-        Me.dgrEngineersFacilityList.Location = New System.Drawing.Point(0, 472)
+        Me.dgrEngineersFacilityList.Location = New System.Drawing.Point(0, 476)
         Me.dgrEngineersFacilityList.Name = "dgrEngineersFacilityList"
         Me.dgrEngineersFacilityList.ReadOnly = True
         Me.dgrEngineersFacilityList.Size = New System.Drawing.Size(1134, 264)
@@ -1837,7 +1720,7 @@ Partial Class ISMPManagersTools
         Me.TPMonthlyReport.Controls.Add(Me.btnRunReport)
         Me.TPMonthlyReport.Location = New System.Drawing.Point(4, 22)
         Me.TPMonthlyReport.Name = "TPMonthlyReport"
-        Me.TPMonthlyReport.Size = New System.Drawing.Size(1134, 736)
+        Me.TPMonthlyReport.Size = New System.Drawing.Size(1134, 740)
         Me.TPMonthlyReport.TabIndex = 2
         Me.TPMonthlyReport.Text = "Monthly Report"
         Me.TPMonthlyReport.UseVisualStyleBackColor = True
@@ -1847,7 +1730,7 @@ Partial Class ISMPManagersTools
         Me.Splitter2.BackColor = System.Drawing.SystemColors.HotTrack
         Me.Splitter2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Splitter2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Splitter2.Location = New System.Drawing.Point(0, 387)
+        Me.Splitter2.Location = New System.Drawing.Point(0, 391)
         Me.Splitter2.Name = "Splitter2"
         Me.Splitter2.Size = New System.Drawing.Size(1134, 5)
         Me.Splitter2.TabIndex = 129
@@ -1863,7 +1746,7 @@ Partial Class ISMPManagersTools
                 Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox6.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(1134, 392)
+        Me.GroupBox6.Size = New System.Drawing.Size(1134, 396)
         Me.GroupBox6.TabIndex = 127
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Monthly Report "
@@ -1873,7 +1756,7 @@ Partial Class ISMPManagersTools
         Me.Splitter1.BackColor = System.Drawing.SystemColors.HotTrack
         Me.Splitter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Splitter1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Splitter1.Location = New System.Drawing.Point(3, 272)
+        Me.Splitter1.Location = New System.Drawing.Point(3, 276)
         Me.Splitter1.Name = "Splitter1"
         Me.Splitter1.Size = New System.Drawing.Size(1128, 5)
         Me.Splitter1.TabIndex = 128
@@ -1903,7 +1786,7 @@ Partial Class ISMPManagersTools
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(3, 22)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(1128, 255)
+        Me.Panel4.Size = New System.Drawing.Size(1128, 259)
         Me.Panel4.TabIndex = 127
         '
         'Label73
@@ -2087,7 +1970,7 @@ Partial Class ISMPManagersTools
         Me.GroupBox5.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.GroupBox5.Font = New System.Drawing.Font("Times New Roman", 12.0!, CType(((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic) _
                 Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox5.Location = New System.Drawing.Point(3, 277)
+        Me.GroupBox5.Location = New System.Drawing.Point(3, 281)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(1128, 112)
         Me.GroupBox5.TabIndex = 126
@@ -2112,7 +1995,7 @@ Partial Class ISMPManagersTools
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.GroupBox4.Font = New System.Drawing.Font("Times New Roman", 12.0!, CType(((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic) _
                 Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox4.Location = New System.Drawing.Point(0, 392)
+        Me.GroupBox4.Location = New System.Drawing.Point(0, 396)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(1134, 344)
         Me.GroupBox4.TabIndex = 125
@@ -2176,7 +2059,7 @@ Partial Class ISMPManagersTools
         Me.TPMiscTools.Controls.Add(Me.TCMiscTools)
         Me.TPMiscTools.Location = New System.Drawing.Point(4, 22)
         Me.TPMiscTools.Name = "TPMiscTools"
-        Me.TPMiscTools.Size = New System.Drawing.Size(1134, 736)
+        Me.TPMiscTools.Size = New System.Drawing.Size(1134, 740)
         Me.TPMiscTools.TabIndex = 13
         Me.TPMiscTools.Text = "Misc. Tools"
         Me.TPMiscTools.UseVisualStyleBackColor = True
@@ -2188,7 +2071,7 @@ Partial Class ISMPManagersTools
         Me.TCMiscTools.Location = New System.Drawing.Point(0, 0)
         Me.TCMiscTools.Name = "TCMiscTools"
         Me.TCMiscTools.SelectedIndex = 0
-        Me.TCMiscTools.Size = New System.Drawing.Size(1134, 736)
+        Me.TCMiscTools.Size = New System.Drawing.Size(1134, 740)
         Me.TCMiscTools.TabIndex = 0
         '
         'TPMethods
@@ -2198,7 +2081,7 @@ Partial Class ISMPManagersTools
         Me.TPMethods.Location = New System.Drawing.Point(4, 22)
         Me.TPMethods.Name = "TPMethods"
         Me.TPMethods.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPMethods.Size = New System.Drawing.Size(1126, 710)
+        Me.TPMethods.Size = New System.Drawing.Size(1126, 714)
         Me.TPMethods.TabIndex = 0
         Me.TPMethods.Text = "Edit Methods"
         Me.TPMethods.UseVisualStyleBackColor = True
@@ -2209,7 +2092,7 @@ Partial Class ISMPManagersTools
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel6.Location = New System.Drawing.Point(3, 103)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1120, 604)
+        Me.Panel6.Size = New System.Drawing.Size(1120, 608)
         Me.Panel6.TabIndex = 1
         '
         'dgvMethods
@@ -2219,7 +2102,7 @@ Partial Class ISMPManagersTools
         Me.dgvMethods.Location = New System.Drawing.Point(0, 0)
         Me.dgvMethods.Name = "dgvMethods"
         Me.dgvMethods.ReadOnly = True
-        Me.dgvMethods.Size = New System.Drawing.Size(1120, 604)
+        Me.dgvMethods.Size = New System.Drawing.Size(1120, 608)
         Me.dgvMethods.TabIndex = 0
         '
         'Panel5
@@ -2293,7 +2176,7 @@ Partial Class ISMPManagersTools
         Me.TPTestReportAdd.Controls.Add(Me.Panel11)
         Me.TPTestReportAdd.Location = New System.Drawing.Point(4, 22)
         Me.TPTestReportAdd.Name = "TPTestReportAdd"
-        Me.TPTestReportAdd.Size = New System.Drawing.Size(1134, 736)
+        Me.TPTestReportAdd.Size = New System.Drawing.Size(1134, 740)
         Me.TPTestReportAdd.TabIndex = 14
         Me.TPTestReportAdd.Text = "Add Test Report"
         Me.TPTestReportAdd.UseVisualStyleBackColor = True
@@ -2558,6 +2441,29 @@ Partial Class ISMPManagersTools
         '
         Me.DataGridBoolColumn2.Width = 75
         '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.bSave, Me.bClear})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(1142, 24)
+        Me.MenuStrip1.TabIndex = 233
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'bSave
+        '
+        Me.bSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
+        Me.bSave.Name = "bSave"
+        Me.bSave.Size = New System.Drawing.Size(59, 20)
+        Me.bSave.Text = "Save"
+        '
+        'bClear
+        '
+        Me.bClear.Image = Global.Iaip.My.Resources.Resources.EraseIcon
+        Me.bClear.Name = "bClear"
+        Me.bClear.Size = New System.Drawing.Size(62, 20)
+        Me.bClear.Text = "Clear"
+        '
         'ISMPManagersTools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2567,7 +2473,8 @@ Partial Class ISMPManagersTools
         Me.ClientSize = New System.Drawing.Size(1142, 794)
         Me.Controls.Add(Me.PanelManagersTools)
         Me.Controls.Add(Me.SplitterManagersTools)
-        Me.Controls.Add(Me.TBManagersTools)
+        Me.Controls.Add(Me.MenuStrip1)
+        Me.MainMenuStrip = Me.MenuStrip1
         Me.Menu = Me.MainMenu1
         Me.MinimumSize = New System.Drawing.Size(250, 173)
         Me.Name = "ISMPManagersTools"
@@ -2614,8 +2521,14 @@ Partial Class ISMPManagersTools
         Me.Panel11.PerformLayout()
         Me.Panel12.ResumeLayout(False)
         Me.Panel12.PerformLayout()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
+
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents bSave As ToolStripMenuItem
+    Friend WithEvents bClear As ToolStripMenuItem
 End Class

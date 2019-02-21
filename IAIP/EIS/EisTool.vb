@@ -5855,10 +5855,6 @@ Public Class EisTool
 
 #Region " EIS Staging "
 
-    Private Sub lblOpenVesaUrl_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblOpenVesaUrl.LinkClicked
-        OpenVesaUrl(Me)
-    End Sub
-
     Private Sub btnEisStageViewSubmitted_Click(sender As Object, e As EventArgs) Handles btnEisStageViewSubmitted.Click
         If cboEISStatisticsYear.Text = "" Then
             MessageBox.Show("Please select a valid year first.")

@@ -30,7 +30,6 @@ Partial Class SscpEnforcement
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SscpEnforcement))
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -1475,12 +1474,12 @@ Partial Class SscpEnforcement
         '
         'ClearStipulatedPenaltyFormButton
         '
-        Me.ClearStipulatedPenaltyFormButton.BackgroundImage = CType(resources.GetObject("ClearStipulatedPenaltyFormButton.BackgroundImage"), System.Drawing.Image)
-        Me.ClearStipulatedPenaltyFormButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.ClearStipulatedPenaltyFormButton.Image = Global.Iaip.My.Resources.Resources.EraseIcon
         Me.ClearStipulatedPenaltyFormButton.Location = New System.Drawing.Point(191, 0)
         Me.ClearStipulatedPenaltyFormButton.Name = "ClearStipulatedPenaltyFormButton"
         Me.ClearStipulatedPenaltyFormButton.Size = New System.Drawing.Size(24, 23)
         Me.ClearStipulatedPenaltyFormButton.TabIndex = 3
+        Me.ToolTip.SetToolTip(Me.ClearStipulatedPenaltyFormButton, "Clear Stipulated Penalty")
         '
         'Label21
         '
@@ -2624,7 +2623,7 @@ Partial Class SscpEnforcement
         '
         Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClearMessageMenuItem, Me.ClearErrorsMenuItem, Me.EnforcementToolStripSeparator, Me.ShowAuditHistoryMenuItem, Me.ShowEpaActionNumbersMenuItem, Me.DeleteEnforcementToolStripSeparator, Me.DeleteEnforcementMenuItem})
         Me.ToolsMenu.Name = "ToolsMenu"
-        Me.ToolsMenu.Size = New System.Drawing.Size(48, 20)
+        Me.ToolsMenu.Size = New System.Drawing.Size(47, 20)
         Me.ToolsMenu.Text = "&Tools"
         '
         'ClearMessageMenuItem

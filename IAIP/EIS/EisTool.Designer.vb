@@ -406,7 +406,6 @@ Partial Class EisTool
         Me.btnEisStagePseSelected = New System.Windows.Forms.Button()
         Me.btnEisStageFiAll = New System.Windows.Forms.Button()
         Me.btnEisStageFiSelected = New System.Windows.Forms.Button()
-        Me.lblOpenVesaUrl = New System.Windows.Forms.LinkLabel()
         Me.btnEisStageViewSubmitted = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel21 = New System.Windows.Forms.Panel()
@@ -4439,7 +4438,6 @@ Partial Class EisTool
         Me.TPStageData.Controls.Add(Me.btnEisStagePseSelected)
         Me.TPStageData.Controls.Add(Me.btnEisStageFiAll)
         Me.TPStageData.Controls.Add(Me.btnEisStageFiSelected)
-        Me.TPStageData.Controls.Add(Me.lblOpenVesaUrl)
         Me.TPStageData.Controls.Add(Me.btnEisStageViewSubmitted)
         Me.TPStageData.Controls.Add(Me.Label2)
         Me.TPStageData.Location = New System.Drawing.Point(4, 22)
@@ -4485,16 +4483,6 @@ Partial Class EisTool
         Me.btnEisStageFiSelected.TabIndex = 3
         Me.btnEisStageFiSelected.Text = "Stage Facility Information " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for selected facilities"
         Me.btnEisStageFiSelected.UseVisualStyleBackColor = True
-        '
-        'lblOpenVesaUrl
-        '
-        Me.lblOpenVesaUrl.AutoSize = True
-        Me.lblOpenVesaUrl.Location = New System.Drawing.Point(11, 298)
-        Me.lblOpenVesaUrl.Name = "lblOpenVesaUrl"
-        Me.lblOpenVesaUrl.Size = New System.Drawing.Size(103, 13)
-        Me.lblOpenVesaUrl.TabIndex = 7
-        Me.lblOpenVesaUrl.TabStop = True
-        Me.lblOpenVesaUrl.Text = "Open VESA website"
         '
         'btnEisStageViewSubmitted
         '
@@ -7031,7 +7019,6 @@ Partial Class EisTool
     Friend WithEvents TPStageData As TabPage
     Friend WithEvents btnEisStageViewSubmitted As Button
     Friend WithEvents Label2 As Label
-    Friend WithEvents lblOpenVesaUrl As LinkLabel
     Friend WithEvents lblEisStageSelectedCount As Label
     Friend WithEvents btnEisStageSelectNone As Button
     Friend WithEvents btnEisStageSelectAll As Button

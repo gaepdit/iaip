@@ -120,33 +120,6 @@
   <metadata name="ToolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>125, 17</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="tsbSearchQuery.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC+SURBVDhPjZABFsMgCEM9ukfzZo6PxqHYbnkvLQKJacsN
-        tdZ+co7eoeXWWgelGBHP/qsRQ7CJ7ZF5MYliv/EqTPxij60FpZi9bDwQxXv8Hr/7MJimQPEFH9biQj8b
-        /dOWkPkyywlgEuu9TA4DHCWWQRJj6CLEDwbubrVSJRMXXRNoMMhyMrEBPd+PBgPcvJvoRzKE1A7q0Ytg
-        MYiDyahJabfbgW2aP0yodY7vv0ye6MvQgo2bdL5Bw8gT1iv9A+S9oGr4Ip+iAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="tsbSaveQuery.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACaSURBVDhPpVABDgAhCOrp/vxORMtcV7fFxswEarYMEXkq
-        fXQGxY8Z7CyN1EvcbQED4I1XDziFjK9ahhr8dfsNeoZQs0CY2cSLbkwBOqWmogeEMDMHHQOCNWT8MHNg
-        DkiiCPD7soM4s/oQK+QmtfpwxUDth/mrQkNpP9eAfQg0lK5hoiL+w47JLLrAHaExV8KVGbgyAzE8MaG1
-        F22gQg7/cPkXAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="tsbReSizeFilterOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABbSURBVDhPrY4BCgAgCAP9/6cLoYFZS7MORJk6FU5rozBY
-        bdefYAPQ0waaWRxhA9BLBlYLDdKokw/omfwP7xhdWPrPL5U/QOHzFbqEAJHR0o8WKLhsA3omPyHSASaq
-        b5GfY50zAAAAAElFTkSuQmCC
-</value>
-  </data>
   <metadata name="bgwQueryGenerator.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>339, 17</value>
   </metadata>

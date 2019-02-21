@@ -37,7 +37,6 @@ Module IaipValidation
         Return True
     End Function
 
-
     Public Enum StringValidationResult
         Valid
         Empty

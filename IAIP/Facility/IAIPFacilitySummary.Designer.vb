@@ -62,6 +62,7 @@ Partial Class IAIPFacilitySummary
         Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle40 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.NavigationPanel = New System.Windows.Forms.Panel()
         Me.FacilitySearchButton = New System.Windows.Forms.Button()
         Me.AirsNumberEntry = New Iaip.CueTextBox()
@@ -142,48 +143,52 @@ Partial Class IAIPFacilitySummary
         Me.FSContacts = New System.Windows.Forms.TabPage()
         Me.ContactsTabControl = New System.Windows.Forms.TabControl()
         Me.TPStateContacts = New System.Windows.Forms.TabPage()
-        Me.ContactsStateGrid = New System.Windows.Forms.DataGridView()
+        Me.ContactsStateGrid = New Iaip.IaipDataGridView()
         Me.TPWebContacts = New System.Windows.Forms.TabPage()
-        Me.ContactsWebSiteGrid = New System.Windows.Forms.DataGridView()
+        Me.ContactsWebSiteGrid = New Iaip.IaipDataGridView()
         Me.TPSSPPContacts = New System.Windows.Forms.TabPage()
-        Me.ContactsPermittingGrid = New System.Windows.Forms.DataGridView()
+        Me.ContactsPermittingGrid = New Iaip.IaipDataGridView()
         Me.TPISMPContacts = New System.Windows.Forms.TabPage()
-        Me.ContactsTestingGrid = New System.Windows.Forms.DataGridView()
+        Me.ContactsTestingGrid = New Iaip.IaipDataGridView()
         Me.TPSSCPContacts = New System.Windows.Forms.TabPage()
-        Me.ContactsComplianceGrid = New System.Windows.Forms.DataGridView()
+        Me.ContactsComplianceGrid = New Iaip.IaipDataGridView()
         Me.TPGECOContacts = New System.Windows.Forms.TabPage()
-        Me.ContactsGecoGrid = New System.Windows.Forms.DataGridView()
+        Me.ContactsGecoGrid = New Iaip.IaipDataGridView()
         Me.EditContactsPanel = New System.Windows.Forms.Panel()
         Me.EditContactsButton = New System.Windows.Forms.Button()
         Me.FSTesting = New System.Windows.Forms.TabPage()
         Me.TestingTabControl = New System.Windows.Forms.TabControl()
         Me.TPTestReport = New System.Windows.Forms.TabPage()
-        Me.TestReportsGrid = New System.Windows.Forms.DataGridView()
+        Me.TestReportsGrid = New Iaip.IaipDataGridView()
         Me.TPTestNotifications = New System.Windows.Forms.TabPage()
-        Me.TestNotificationsGrid = New System.Windows.Forms.DataGridView()
+        Me.TestNotificationsGrid = New Iaip.IaipDataGridView()
         Me.TPTestMemos = New System.Windows.Forms.TabPage()
-        Me.TestMemosGrid = New System.Windows.Forms.DataGridView()
+        Me.TestMemosGrid = New Iaip.IaipDataGridView()
         Me.FSCompliance = New System.Windows.Forms.TabPage()
         Me.ComplianceTabControl = New System.Windows.Forms.TabControl()
         Me.TPComplianceWork = New System.Windows.Forms.TabPage()
-        Me.ComplianceWorkGrid = New System.Windows.Forms.DataGridView()
+        Me.ComplianceWorkGrid = New Iaip.IaipDataGridView()
         Me.TPFce = New System.Windows.Forms.TabPage()
-        Me.ComplianceFceGrid = New System.Windows.Forms.DataGridView()
+        Me.ComplianceFceGrid = New Iaip.IaipDataGridView()
         Me.TPEnforcement = New System.Windows.Forms.TabPage()
-        Me.ComplianceEnforcementGrid = New System.Windows.Forms.DataGridView()
+        Me.ComplianceEnforcementGrid = New Iaip.IaipDataGridView()
         Me.FSPermitting = New System.Windows.Forms.TabPage()
         Me.PermittingTabControl = New System.Windows.Forms.TabControl()
-        Me.TPAppLog = New System.Windows.Forms.TabPage()
-        Me.PermitApplicationGrid = New System.Windows.Forms.DataGridView()
+        Me.TPAppTrackingLog = New System.Windows.Forms.TabPage()
+        Me.PermitApplicationGrid = New Iaip.IaipDataGridView()
+        Me.TPApplicationInvoices = New System.Windows.Forms.TabPage()
+        Me.PermitApplicationInvoicesGrid = New Iaip.IaipDataGridView()
         Me.TPCurrentRules = New System.Windows.Forms.TabPage()
-        Me.PermitRulesGrid = New System.Windows.Forms.DataGridView()
+        Me.PermitRulesGrid = New Iaip.IaipDataGridView()
         Me.TPRuleHistory = New System.Windows.Forms.TabPage()
-        Me.PermitRuleHistoryGrid = New System.Windows.Forms.DataGridView()
+        Me.PermitRuleHistoryGrid = New Iaip.IaipDataGridView()
         Me.TPPermits = New System.Windows.Forms.TabPage()
-        Me.PermitsGrid = New System.Windows.Forms.DataGridView()
+        Me.PermitsGrid = New Iaip.IaipDataGridView()
         Me.PermitsPanel = New System.Windows.Forms.Panel()
         Me.PermitsLink = New System.Windows.Forms.LinkLabel()
-        Me.FSFees = New System.Windows.Forms.TabPage()
+        Me.FSEmissionsFees = New System.Windows.Forms.TabPage()
+        Me.EmissionsFeesTabControl = New System.Windows.Forms.TabControl()
+        Me.TPEmissionsAnnual = New System.Windows.Forms.TabPage()
         Me.FeePaidDisplay = New System.Windows.Forms.TextBox()
         Me.FeeTotalDisplay = New System.Windows.Forms.TextBox()
         Me.FeeStatusDisplay = New System.Windows.Forms.TextBox()
@@ -223,20 +228,18 @@ Partial Class IAIPFacilitySummary
         Me.FeeDueLabel = New System.Windows.Forms.Label()
         Me.FeeYearSelect = New System.Windows.Forms.ComboBox()
         Me.FeeYearLabel = New System.Windows.Forms.Label()
-        Me.FSFinancial = New System.Windows.Forms.TabPage()
-        Me.FinancialTabControl = New System.Windows.Forms.TabControl()
-        Me.TPFeeData = New System.Windows.Forms.TabPage()
-        Me.FinancialFeeGrid = New System.Windows.Forms.DataGridView()
-        Me.TPInvoices = New System.Windows.Forms.TabPage()
-        Me.FinancialInvoicesGrid = New System.Windows.Forms.DataGridView()
-        Me.TPFeeDeposits = New System.Windows.Forms.TabPage()
-        Me.FinancialDepositsGrid = New System.Windows.Forms.DataGridView()
+        Me.TPEmissionsData = New System.Windows.Forms.TabPage()
+        Me.FinancialFeeGrid = New Iaip.IaipDataGridView()
+        Me.TPEmissionsInvoices = New System.Windows.Forms.TabPage()
+        Me.FinancialInvoicesGrid = New Iaip.IaipDataGridView()
+        Me.TPEmissionsDeposits = New System.Windows.Forms.TabPage()
+        Me.FinancialDepositsGrid = New Iaip.IaipDataGridView()
         Me.FSEmissionInventory = New System.Windows.Forms.TabPage()
         Me.EiTabControl = New System.Windows.Forms.TabControl()
         Me.TPEiPost2009 = New System.Windows.Forms.TabPage()
-        Me.EiPost2009Grid = New System.Windows.Forms.DataGridView()
+        Me.EiPost2009Grid = New Iaip.IaipDataGridView()
         Me.TpEiPre2009 = New System.Windows.Forms.TabPage()
-        Me.EiPre2009Grid = New System.Windows.Forms.DataGridView()
+        Me.EiPre2009Grid = New Iaip.IaipDataGridView()
         Me.FSMenuStrip = New System.Windows.Forms.MenuStrip()
         Me.FileMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.LookUpFacilityMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -291,8 +294,10 @@ Partial Class IAIPFacilitySummary
         CType(Me.ComplianceEnforcementGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FSPermitting.SuspendLayout()
         Me.PermittingTabControl.SuspendLayout()
-        Me.TPAppLog.SuspendLayout()
+        Me.TPAppTrackingLog.SuspendLayout()
         CType(Me.PermitApplicationGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TPApplicationInvoices.SuspendLayout()
+        CType(Me.PermitApplicationInvoicesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPCurrentRules.SuspendLayout()
         CType(Me.PermitRulesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPRuleHistory.SuspendLayout()
@@ -300,17 +305,17 @@ Partial Class IAIPFacilitySummary
         Me.TPPermits.SuspendLayout()
         CType(Me.PermitsGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PermitsPanel.SuspendLayout()
-        Me.FSFees.SuspendLayout()
+        Me.FSEmissionsFees.SuspendLayout()
+        Me.EmissionsFeesTabControl.SuspendLayout()
+        Me.TPEmissionsAnnual.SuspendLayout()
         Me.FeeRegGroupBox.SuspendLayout()
         Me.FeeEmissionGroupBox.SuspendLayout()
         Me.FeeDataGroupBox.SuspendLayout()
-        Me.FSFinancial.SuspendLayout()
-        Me.FinancialTabControl.SuspendLayout()
-        Me.TPFeeData.SuspendLayout()
+        Me.TPEmissionsData.SuspendLayout()
         CType(Me.FinancialFeeGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPInvoices.SuspendLayout()
+        Me.TPEmissionsInvoices.SuspendLayout()
         CType(Me.FinancialInvoicesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPFeeDeposits.SuspendLayout()
+        Me.TPEmissionsDeposits.SuspendLayout()
         CType(Me.FinancialDepositsGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FSEmissionInventory.SuspendLayout()
         Me.EiTabControl.SuspendLayout()
@@ -406,8 +411,7 @@ Partial Class IAIPFacilitySummary
         Me.FSMainTabControl.Controls.Add(Me.FSTesting)
         Me.FSMainTabControl.Controls.Add(Me.FSCompliance)
         Me.FSMainTabControl.Controls.Add(Me.FSPermitting)
-        Me.FSMainTabControl.Controls.Add(Me.FSFees)
-        Me.FSMainTabControl.Controls.Add(Me.FSFinancial)
+        Me.FSMainTabControl.Controls.Add(Me.FSEmissionsFees)
         Me.FSMainTabControl.Controls.Add(Me.FSEmissionInventory)
         Me.FSMainTabControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FSMainTabControl.Location = New System.Drawing.Point(0, 82)
@@ -459,7 +463,7 @@ Partial Class IAIPFacilitySummary
         Me.FSInfo.Padding = New System.Windows.Forms.Padding(3)
         Me.FSInfo.Size = New System.Drawing.Size(596, 424)
         Me.FSInfo.TabIndex = 0
-        Me.FSInfo.Text = "Info"
+        Me.FSInfo.Text = "Summary"
         Me.FSInfo.UseVisualStyleBackColor = True
         '
         'MapPictureBox
@@ -1316,12 +1320,9 @@ Partial Class IAIPFacilitySummary
         '
         'ContactsStateGrid
         '
-        Me.ContactsStateGrid.AllowUserToAddRows = False
-        Me.ContactsStateGrid.AllowUserToDeleteRows = False
-        Me.ContactsStateGrid.AllowUserToOrderColumns = True
-        Me.ContactsStateGrid.AllowUserToResizeRows = False
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ContactsStateGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.ContactsStateGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.ContactsStateGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
@@ -1342,9 +1343,11 @@ Partial Class IAIPFacilitySummary
         Me.ContactsStateGrid.DefaultCellStyle = DataGridViewCellStyle3
         Me.ContactsStateGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ContactsStateGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ContactsStateGrid.LinkifyColumnByName = Nothing
         Me.ContactsStateGrid.Location = New System.Drawing.Point(0, 0)
         Me.ContactsStateGrid.Name = "ContactsStateGrid"
-        Me.ContactsStateGrid.ReadOnly = True
+        Me.ContactsStateGrid.ResultsCountLabel = Nothing
+        Me.ContactsStateGrid.ResultsCountLabelFormat = "{0} found"
         DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1353,8 +1356,8 @@ Partial Class IAIPFacilitySummary
         DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.ContactsStateGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
-        Me.ContactsStateGrid.RowHeadersVisible = False
         Me.ContactsStateGrid.Size = New System.Drawing.Size(588, 358)
+        Me.ContactsStateGrid.StandardTab = True
         Me.ContactsStateGrid.TabIndex = 0
         '
         'TPWebContacts
@@ -1370,12 +1373,9 @@ Partial Class IAIPFacilitySummary
         '
         'ContactsWebSiteGrid
         '
-        Me.ContactsWebSiteGrid.AllowUserToAddRows = False
-        Me.ContactsWebSiteGrid.AllowUserToDeleteRows = False
-        Me.ContactsWebSiteGrid.AllowUserToOrderColumns = True
-        Me.ContactsWebSiteGrid.AllowUserToResizeRows = False
         DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ContactsWebSiteGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        Me.ContactsWebSiteGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.ContactsWebSiteGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
@@ -1396,9 +1396,11 @@ Partial Class IAIPFacilitySummary
         Me.ContactsWebSiteGrid.DefaultCellStyle = DataGridViewCellStyle7
         Me.ContactsWebSiteGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ContactsWebSiteGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ContactsWebSiteGrid.LinkifyColumnByName = Nothing
         Me.ContactsWebSiteGrid.Location = New System.Drawing.Point(0, 0)
         Me.ContactsWebSiteGrid.Name = "ContactsWebSiteGrid"
-        Me.ContactsWebSiteGrid.ReadOnly = True
+        Me.ContactsWebSiteGrid.ResultsCountLabel = Nothing
+        Me.ContactsWebSiteGrid.ResultsCountLabelFormat = "{0} found"
         DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1407,8 +1409,8 @@ Partial Class IAIPFacilitySummary
         DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.ContactsWebSiteGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
-        Me.ContactsWebSiteGrid.RowHeadersVisible = False
         Me.ContactsWebSiteGrid.Size = New System.Drawing.Size(588, 358)
+        Me.ContactsWebSiteGrid.StandardTab = True
         Me.ContactsWebSiteGrid.TabIndex = 7
         '
         'TPSSPPContacts
@@ -1424,12 +1426,9 @@ Partial Class IAIPFacilitySummary
         '
         'ContactsPermittingGrid
         '
-        Me.ContactsPermittingGrid.AllowUserToAddRows = False
-        Me.ContactsPermittingGrid.AllowUserToDeleteRows = False
-        Me.ContactsPermittingGrid.AllowUserToOrderColumns = True
-        Me.ContactsPermittingGrid.AllowUserToResizeRows = False
         DataGridViewCellStyle9.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ContactsPermittingGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        Me.ContactsPermittingGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.ContactsPermittingGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
@@ -1450,9 +1449,11 @@ Partial Class IAIPFacilitySummary
         Me.ContactsPermittingGrid.DefaultCellStyle = DataGridViewCellStyle11
         Me.ContactsPermittingGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ContactsPermittingGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ContactsPermittingGrid.LinkifyColumnByName = Nothing
         Me.ContactsPermittingGrid.Location = New System.Drawing.Point(0, 0)
         Me.ContactsPermittingGrid.Name = "ContactsPermittingGrid"
-        Me.ContactsPermittingGrid.ReadOnly = True
+        Me.ContactsPermittingGrid.ResultsCountLabel = Nothing
+        Me.ContactsPermittingGrid.ResultsCountLabelFormat = "{0} found"
         DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1461,8 +1462,8 @@ Partial Class IAIPFacilitySummary
         DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.ContactsPermittingGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
-        Me.ContactsPermittingGrid.RowHeadersVisible = False
         Me.ContactsPermittingGrid.Size = New System.Drawing.Size(588, 358)
+        Me.ContactsPermittingGrid.StandardTab = True
         Me.ContactsPermittingGrid.TabIndex = 7
         '
         'TPISMPContacts
@@ -1478,12 +1479,9 @@ Partial Class IAIPFacilitySummary
         '
         'ContactsTestingGrid
         '
-        Me.ContactsTestingGrid.AllowUserToAddRows = False
-        Me.ContactsTestingGrid.AllowUserToDeleteRows = False
-        Me.ContactsTestingGrid.AllowUserToOrderColumns = True
-        Me.ContactsTestingGrid.AllowUserToResizeRows = False
         DataGridViewCellStyle13.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ContactsTestingGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        Me.ContactsTestingGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.ContactsTestingGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
@@ -1504,9 +1502,11 @@ Partial Class IAIPFacilitySummary
         Me.ContactsTestingGrid.DefaultCellStyle = DataGridViewCellStyle15
         Me.ContactsTestingGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ContactsTestingGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ContactsTestingGrid.LinkifyColumnByName = Nothing
         Me.ContactsTestingGrid.Location = New System.Drawing.Point(0, 0)
         Me.ContactsTestingGrid.Name = "ContactsTestingGrid"
-        Me.ContactsTestingGrid.ReadOnly = True
+        Me.ContactsTestingGrid.ResultsCountLabel = Nothing
+        Me.ContactsTestingGrid.ResultsCountLabelFormat = "{0} found"
         DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1515,8 +1515,8 @@ Partial Class IAIPFacilitySummary
         DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.ContactsTestingGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle16
-        Me.ContactsTestingGrid.RowHeadersVisible = False
         Me.ContactsTestingGrid.Size = New System.Drawing.Size(588, 358)
+        Me.ContactsTestingGrid.StandardTab = True
         Me.ContactsTestingGrid.TabIndex = 7
         '
         'TPSSCPContacts
@@ -1532,12 +1532,9 @@ Partial Class IAIPFacilitySummary
         '
         'ContactsComplianceGrid
         '
-        Me.ContactsComplianceGrid.AllowUserToAddRows = False
-        Me.ContactsComplianceGrid.AllowUserToDeleteRows = False
-        Me.ContactsComplianceGrid.AllowUserToOrderColumns = True
-        Me.ContactsComplianceGrid.AllowUserToResizeRows = False
         DataGridViewCellStyle17.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ContactsComplianceGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle17
+        Me.ContactsComplianceGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.ContactsComplianceGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control
@@ -1558,9 +1555,11 @@ Partial Class IAIPFacilitySummary
         Me.ContactsComplianceGrid.DefaultCellStyle = DataGridViewCellStyle19
         Me.ContactsComplianceGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ContactsComplianceGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ContactsComplianceGrid.LinkifyColumnByName = Nothing
         Me.ContactsComplianceGrid.Location = New System.Drawing.Point(0, 0)
         Me.ContactsComplianceGrid.Name = "ContactsComplianceGrid"
-        Me.ContactsComplianceGrid.ReadOnly = True
+        Me.ContactsComplianceGrid.ResultsCountLabel = Nothing
+        Me.ContactsComplianceGrid.ResultsCountLabelFormat = "{0} found"
         DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1569,8 +1568,8 @@ Partial Class IAIPFacilitySummary
         DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.ContactsComplianceGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle20
-        Me.ContactsComplianceGrid.RowHeadersVisible = False
         Me.ContactsComplianceGrid.Size = New System.Drawing.Size(588, 358)
+        Me.ContactsComplianceGrid.StandardTab = True
         Me.ContactsComplianceGrid.TabIndex = 7
         '
         'TPGECOContacts
@@ -1585,12 +1584,9 @@ Partial Class IAIPFacilitySummary
         '
         'ContactsGecoGrid
         '
-        Me.ContactsGecoGrid.AllowUserToAddRows = False
-        Me.ContactsGecoGrid.AllowUserToDeleteRows = False
-        Me.ContactsGecoGrid.AllowUserToOrderColumns = True
-        Me.ContactsGecoGrid.AllowUserToResizeRows = False
         DataGridViewCellStyle21.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ContactsGecoGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle21
+        Me.ContactsGecoGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.ContactsGecoGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control
@@ -1611,9 +1607,11 @@ Partial Class IAIPFacilitySummary
         Me.ContactsGecoGrid.DefaultCellStyle = DataGridViewCellStyle23
         Me.ContactsGecoGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ContactsGecoGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ContactsGecoGrid.LinkifyColumnByName = Nothing
         Me.ContactsGecoGrid.Location = New System.Drawing.Point(0, 0)
         Me.ContactsGecoGrid.Name = "ContactsGecoGrid"
-        Me.ContactsGecoGrid.ReadOnly = True
+        Me.ContactsGecoGrid.ResultsCountLabel = Nothing
+        Me.ContactsGecoGrid.ResultsCountLabelFormat = "{0} found"
         DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1622,8 +1620,8 @@ Partial Class IAIPFacilitySummary
         DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.ContactsGecoGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle24
-        Me.ContactsGecoGrid.RowHeadersVisible = False
         Me.ContactsGecoGrid.Size = New System.Drawing.Size(588, 358)
+        Me.ContactsGecoGrid.StandardTab = True
         Me.ContactsGecoGrid.TabIndex = 7
         '
         'EditContactsPanel
@@ -1653,7 +1651,7 @@ Partial Class IAIPFacilitySummary
         Me.FSTesting.Name = "FSTesting"
         Me.FSTesting.Size = New System.Drawing.Size(596, 424)
         Me.FSTesting.TabIndex = 5
-        Me.FSTesting.Text = "Testing"
+        Me.FSTesting.Text = "Tests"
         Me.FSTesting.UseVisualStyleBackColor = True
         '
         'TestingTabControl
@@ -1681,22 +1679,20 @@ Partial Class IAIPFacilitySummary
         '
         'TestReportsGrid
         '
-        Me.TestReportsGrid.AllowUserToAddRows = False
-        Me.TestReportsGrid.AllowUserToDeleteRows = False
-        Me.TestReportsGrid.AllowUserToOrderColumns = True
-        Me.TestReportsGrid.AllowUserToResizeRows = False
         DataGridViewCellStyle25.BackColor = System.Drawing.Color.WhiteSmoke
         Me.TestReportsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
+        Me.TestReportsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.TestReportsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.TestReportsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.TestReportsGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TestReportsGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.TestReportsGrid.LinkifyColumnByName = Nothing
         Me.TestReportsGrid.Location = New System.Drawing.Point(0, 0)
         Me.TestReportsGrid.Name = "TestReportsGrid"
-        Me.TestReportsGrid.ReadOnly = True
-        Me.TestReportsGrid.RowHeadersVisible = False
-        Me.TestReportsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.TestReportsGrid.ResultsCountLabel = Nothing
+        Me.TestReportsGrid.ResultsCountLabelFormat = "{0} found"
         Me.TestReportsGrid.Size = New System.Drawing.Size(588, 398)
+        Me.TestReportsGrid.StandardTab = True
         Me.TestReportsGrid.TabIndex = 7
         '
         'TPTestNotifications
@@ -1712,22 +1708,20 @@ Partial Class IAIPFacilitySummary
         '
         'TestNotificationsGrid
         '
-        Me.TestNotificationsGrid.AllowUserToAddRows = False
-        Me.TestNotificationsGrid.AllowUserToDeleteRows = False
-        Me.TestNotificationsGrid.AllowUserToOrderColumns = True
-        Me.TestNotificationsGrid.AllowUserToResizeRows = False
         DataGridViewCellStyle26.BackColor = System.Drawing.Color.WhiteSmoke
         Me.TestNotificationsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle26
+        Me.TestNotificationsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.TestNotificationsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.TestNotificationsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.TestNotificationsGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TestNotificationsGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.TestNotificationsGrid.LinkifyColumnByName = Nothing
         Me.TestNotificationsGrid.Location = New System.Drawing.Point(0, 0)
         Me.TestNotificationsGrid.Name = "TestNotificationsGrid"
-        Me.TestNotificationsGrid.ReadOnly = True
-        Me.TestNotificationsGrid.RowHeadersVisible = False
-        Me.TestNotificationsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.TestNotificationsGrid.ResultsCountLabel = Nothing
+        Me.TestNotificationsGrid.ResultsCountLabelFormat = "{0} found"
         Me.TestNotificationsGrid.Size = New System.Drawing.Size(588, 398)
+        Me.TestNotificationsGrid.StandardTab = True
         Me.TestNotificationsGrid.TabIndex = 9
         '
         'TPTestMemos
@@ -1743,22 +1737,20 @@ Partial Class IAIPFacilitySummary
         '
         'TestMemosGrid
         '
-        Me.TestMemosGrid.AllowUserToAddRows = False
-        Me.TestMemosGrid.AllowUserToDeleteRows = False
-        Me.TestMemosGrid.AllowUserToOrderColumns = True
-        Me.TestMemosGrid.AllowUserToResizeRows = False
         DataGridViewCellStyle27.BackColor = System.Drawing.Color.WhiteSmoke
         Me.TestMemosGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle27
+        Me.TestMemosGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.TestMemosGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.TestMemosGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.TestMemosGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TestMemosGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.TestMemosGrid.LinkifyColumnByName = Nothing
         Me.TestMemosGrid.Location = New System.Drawing.Point(0, 0)
         Me.TestMemosGrid.Name = "TestMemosGrid"
-        Me.TestMemosGrid.ReadOnly = True
-        Me.TestMemosGrid.RowHeadersVisible = False
-        Me.TestMemosGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.TestMemosGrid.ResultsCountLabel = Nothing
+        Me.TestMemosGrid.ResultsCountLabelFormat = "{0} found"
         Me.TestMemosGrid.Size = New System.Drawing.Size(588, 398)
+        Me.TestMemosGrid.StandardTab = True
         Me.TestMemosGrid.TabIndex = 9
         '
         'FSCompliance
@@ -1797,22 +1789,20 @@ Partial Class IAIPFacilitySummary
         '
         'ComplianceWorkGrid
         '
-        Me.ComplianceWorkGrid.AllowUserToAddRows = False
-        Me.ComplianceWorkGrid.AllowUserToDeleteRows = False
-        Me.ComplianceWorkGrid.AllowUserToOrderColumns = True
-        Me.ComplianceWorkGrid.AllowUserToResizeRows = False
         DataGridViewCellStyle28.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ComplianceWorkGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle28
+        Me.ComplianceWorkGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.ComplianceWorkGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.ComplianceWorkGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ComplianceWorkGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ComplianceWorkGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ComplianceWorkGrid.LinkifyColumnByName = Nothing
         Me.ComplianceWorkGrid.Location = New System.Drawing.Point(0, 0)
         Me.ComplianceWorkGrid.Name = "ComplianceWorkGrid"
-        Me.ComplianceWorkGrid.ReadOnly = True
-        Me.ComplianceWorkGrid.RowHeadersVisible = False
-        Me.ComplianceWorkGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ComplianceWorkGrid.ResultsCountLabel = Nothing
+        Me.ComplianceWorkGrid.ResultsCountLabelFormat = "{0} found"
         Me.ComplianceWorkGrid.Size = New System.Drawing.Size(588, 398)
+        Me.ComplianceWorkGrid.StandardTab = True
         Me.ComplianceWorkGrid.TabIndex = 5
         '
         'TPFce
@@ -1828,22 +1818,20 @@ Partial Class IAIPFacilitySummary
         '
         'ComplianceFceGrid
         '
-        Me.ComplianceFceGrid.AllowUserToAddRows = False
-        Me.ComplianceFceGrid.AllowUserToDeleteRows = False
-        Me.ComplianceFceGrid.AllowUserToOrderColumns = True
-        Me.ComplianceFceGrid.AllowUserToResizeRows = False
         DataGridViewCellStyle29.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ComplianceFceGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle29
+        Me.ComplianceFceGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.ComplianceFceGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.ComplianceFceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ComplianceFceGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ComplianceFceGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ComplianceFceGrid.LinkifyColumnByName = Nothing
         Me.ComplianceFceGrid.Location = New System.Drawing.Point(0, 0)
         Me.ComplianceFceGrid.Name = "ComplianceFceGrid"
-        Me.ComplianceFceGrid.ReadOnly = True
-        Me.ComplianceFceGrid.RowHeadersVisible = False
-        Me.ComplianceFceGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ComplianceFceGrid.ResultsCountLabel = Nothing
+        Me.ComplianceFceGrid.ResultsCountLabelFormat = "{0} found"
         Me.ComplianceFceGrid.Size = New System.Drawing.Size(588, 398)
+        Me.ComplianceFceGrid.StandardTab = True
         Me.ComplianceFceGrid.TabIndex = 5
         '
         'TPEnforcement
@@ -1859,22 +1847,20 @@ Partial Class IAIPFacilitySummary
         '
         'ComplianceEnforcementGrid
         '
-        Me.ComplianceEnforcementGrid.AllowUserToAddRows = False
-        Me.ComplianceEnforcementGrid.AllowUserToDeleteRows = False
-        Me.ComplianceEnforcementGrid.AllowUserToOrderColumns = True
-        Me.ComplianceEnforcementGrid.AllowUserToResizeRows = False
         DataGridViewCellStyle30.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ComplianceEnforcementGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle30
+        Me.ComplianceEnforcementGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.ComplianceEnforcementGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.ComplianceEnforcementGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ComplianceEnforcementGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ComplianceEnforcementGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ComplianceEnforcementGrid.LinkifyColumnByName = Nothing
         Me.ComplianceEnforcementGrid.Location = New System.Drawing.Point(0, 0)
         Me.ComplianceEnforcementGrid.Name = "ComplianceEnforcementGrid"
-        Me.ComplianceEnforcementGrid.ReadOnly = True
-        Me.ComplianceEnforcementGrid.RowHeadersVisible = False
-        Me.ComplianceEnforcementGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ComplianceEnforcementGrid.ResultsCountLabel = Nothing
+        Me.ComplianceEnforcementGrid.ResultsCountLabelFormat = "{0} found"
         Me.ComplianceEnforcementGrid.Size = New System.Drawing.Size(588, 398)
+        Me.ComplianceEnforcementGrid.StandardTab = True
         Me.ComplianceEnforcementGrid.TabIndex = 7
         '
         'FSPermitting
@@ -1889,7 +1875,8 @@ Partial Class IAIPFacilitySummary
         '
         'PermittingTabControl
         '
-        Me.PermittingTabControl.Controls.Add(Me.TPAppLog)
+        Me.PermittingTabControl.Controls.Add(Me.TPAppTrackingLog)
+        Me.PermittingTabControl.Controls.Add(Me.TPApplicationInvoices)
         Me.PermittingTabControl.Controls.Add(Me.TPCurrentRules)
         Me.PermittingTabControl.Controls.Add(Me.TPRuleHistory)
         Me.PermittingTabControl.Controls.Add(Me.TPPermits)
@@ -1901,36 +1888,60 @@ Partial Class IAIPFacilitySummary
         Me.PermittingTabControl.Size = New System.Drawing.Size(596, 424)
         Me.PermittingTabControl.TabIndex = 1
         '
-        'TPAppLog
+        'TPAppTrackingLog
         '
-        Me.TPAppLog.Controls.Add(Me.PermitApplicationGrid)
-        Me.TPAppLog.Location = New System.Drawing.Point(4, 22)
-        Me.TPAppLog.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPAppLog.Name = "TPAppLog"
-        Me.TPAppLog.Size = New System.Drawing.Size(588, 398)
-        Me.TPAppLog.TabIndex = 0
-        Me.TPAppLog.Text = "Application Tracking Log"
-        Me.TPAppLog.UseVisualStyleBackColor = True
+        Me.TPAppTrackingLog.Controls.Add(Me.PermitApplicationGrid)
+        Me.TPAppTrackingLog.Location = New System.Drawing.Point(4, 22)
+        Me.TPAppTrackingLog.Margin = New System.Windows.Forms.Padding(2)
+        Me.TPAppTrackingLog.Name = "TPAppTrackingLog"
+        Me.TPAppTrackingLog.Size = New System.Drawing.Size(588, 398)
+        Me.TPAppTrackingLog.TabIndex = 0
+        Me.TPAppTrackingLog.Text = "Application Tracking Log"
+        Me.TPAppTrackingLog.UseVisualStyleBackColor = True
         '
         'PermitApplicationGrid
         '
-        Me.PermitApplicationGrid.AllowUserToAddRows = False
-        Me.PermitApplicationGrid.AllowUserToDeleteRows = False
-        Me.PermitApplicationGrid.AllowUserToOrderColumns = True
-        Me.PermitApplicationGrid.AllowUserToResizeRows = False
         DataGridViewCellStyle31.BackColor = System.Drawing.Color.WhiteSmoke
         Me.PermitApplicationGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle31
+        Me.PermitApplicationGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.PermitApplicationGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.PermitApplicationGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.PermitApplicationGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PermitApplicationGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.PermitApplicationGrid.LinkifyColumnByName = Nothing
         Me.PermitApplicationGrid.Location = New System.Drawing.Point(0, 0)
         Me.PermitApplicationGrid.Name = "PermitApplicationGrid"
-        Me.PermitApplicationGrid.ReadOnly = True
-        Me.PermitApplicationGrid.RowHeadersVisible = False
-        Me.PermitApplicationGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.PermitApplicationGrid.ResultsCountLabel = Nothing
+        Me.PermitApplicationGrid.ResultsCountLabelFormat = "{0} found"
         Me.PermitApplicationGrid.Size = New System.Drawing.Size(588, 398)
+        Me.PermitApplicationGrid.StandardTab = True
         Me.PermitApplicationGrid.TabIndex = 7
+        '
+        'TPApplicationInvoices
+        '
+        Me.TPApplicationInvoices.Controls.Add(Me.PermitApplicationInvoicesGrid)
+        Me.TPApplicationInvoices.Location = New System.Drawing.Point(4, 22)
+        Me.TPApplicationInvoices.Name = "TPApplicationInvoices"
+        Me.TPApplicationInvoices.Size = New System.Drawing.Size(588, 398)
+        Me.TPApplicationInvoices.TabIndex = 9
+        Me.TPApplicationInvoices.Text = "Application Fees"
+        Me.TPApplicationInvoices.UseVisualStyleBackColor = True
+        '
+        'PermitApplicationInvoicesGrid
+        '
+        DataGridViewCellStyle32.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PermitApplicationInvoicesGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle32
+        Me.PermitApplicationInvoicesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.PermitApplicationInvoicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.PermitApplicationInvoicesGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PermitApplicationInvoicesGrid.LinkifyColumnByName = Nothing
+        Me.PermitApplicationInvoicesGrid.Location = New System.Drawing.Point(0, 0)
+        Me.PermitApplicationInvoicesGrid.Name = "PermitApplicationInvoicesGrid"
+        Me.PermitApplicationInvoicesGrid.ResultsCountLabel = Nothing
+        Me.PermitApplicationInvoicesGrid.ResultsCountLabelFormat = "{0} found"
+        Me.PermitApplicationInvoicesGrid.Size = New System.Drawing.Size(588, 398)
+        Me.PermitApplicationInvoicesGrid.StandardTab = True
+        Me.PermitApplicationInvoicesGrid.TabIndex = 0
         '
         'TPCurrentRules
         '
@@ -1944,22 +1955,20 @@ Partial Class IAIPFacilitySummary
         '
         'PermitRulesGrid
         '
-        Me.PermitRulesGrid.AllowUserToAddRows = False
-        Me.PermitRulesGrid.AllowUserToDeleteRows = False
-        Me.PermitRulesGrid.AllowUserToOrderColumns = True
-        Me.PermitRulesGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle32.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.PermitRulesGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle32
+        DataGridViewCellStyle33.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PermitRulesGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle33
+        Me.PermitRulesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.PermitRulesGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.PermitRulesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.PermitRulesGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PermitRulesGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.PermitRulesGrid.LinkifyColumnByName = Nothing
         Me.PermitRulesGrid.Location = New System.Drawing.Point(0, 0)
         Me.PermitRulesGrid.Name = "PermitRulesGrid"
-        Me.PermitRulesGrid.ReadOnly = True
-        Me.PermitRulesGrid.RowHeadersVisible = False
-        Me.PermitRulesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.PermitRulesGrid.ResultsCountLabel = Nothing
+        Me.PermitRulesGrid.ResultsCountLabelFormat = "{0} found"
         Me.PermitRulesGrid.Size = New System.Drawing.Size(588, 398)
+        Me.PermitRulesGrid.StandardTab = True
         Me.PermitRulesGrid.TabIndex = 10
         '
         'TPRuleHistory
@@ -1974,22 +1983,20 @@ Partial Class IAIPFacilitySummary
         '
         'PermitRuleHistoryGrid
         '
-        Me.PermitRuleHistoryGrid.AllowUserToAddRows = False
-        Me.PermitRuleHistoryGrid.AllowUserToDeleteRows = False
-        Me.PermitRuleHistoryGrid.AllowUserToOrderColumns = True
-        Me.PermitRuleHistoryGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle33.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.PermitRuleHistoryGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle33
+        DataGridViewCellStyle34.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PermitRuleHistoryGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle34
+        Me.PermitRuleHistoryGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.PermitRuleHistoryGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.PermitRuleHistoryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.PermitRuleHistoryGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PermitRuleHistoryGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.PermitRuleHistoryGrid.LinkifyColumnByName = Nothing
         Me.PermitRuleHistoryGrid.Location = New System.Drawing.Point(0, 0)
         Me.PermitRuleHistoryGrid.Name = "PermitRuleHistoryGrid"
-        Me.PermitRuleHistoryGrid.ReadOnly = True
-        Me.PermitRuleHistoryGrid.RowHeadersVisible = False
-        Me.PermitRuleHistoryGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.PermitRuleHistoryGrid.ResultsCountLabel = Nothing
+        Me.PermitRuleHistoryGrid.ResultsCountLabelFormat = "{0} found"
         Me.PermitRuleHistoryGrid.Size = New System.Drawing.Size(588, 398)
+        Me.PermitRuleHistoryGrid.StandardTab = True
         Me.PermitRuleHistoryGrid.TabIndex = 10
         '
         'TPPermits
@@ -2005,22 +2012,20 @@ Partial Class IAIPFacilitySummary
         '
         'PermitsGrid
         '
-        Me.PermitsGrid.AllowUserToAddRows = False
-        Me.PermitsGrid.AllowUserToDeleteRows = False
-        Me.PermitsGrid.AllowUserToOrderColumns = True
-        Me.PermitsGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle34.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.PermitsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle34
+        DataGridViewCellStyle35.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PermitsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle35
+        Me.PermitsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.PermitsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.PermitsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.PermitsGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PermitsGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.PermitsGrid.LinkifyColumnByName = Nothing
         Me.PermitsGrid.Location = New System.Drawing.Point(0, 0)
         Me.PermitsGrid.Name = "PermitsGrid"
-        Me.PermitsGrid.ReadOnly = True
-        Me.PermitsGrid.RowHeadersVisible = False
-        Me.PermitsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.PermitsGrid.ResultsCountLabel = Nothing
+        Me.PermitsGrid.ResultsCountLabelFormat = "{0} found"
         Me.PermitsGrid.Size = New System.Drawing.Size(588, 354)
+        Me.PermitsGrid.StandardTab = True
         Me.PermitsGrid.TabIndex = 9
         '
         'PermitsPanel
@@ -2042,29 +2047,51 @@ Partial Class IAIPFacilitySummary
         Me.PermitsLink.TabIndex = 5
         Me.PermitsLink.TabStop = True
         Me.PermitsLink.Text = "View permits online"
-        Me.PermitsLink.Visible = False
         '
-        'FSFees
+        'FSEmissionsFees
         '
-        Me.FSFees.Controls.Add(Me.FeePaidDisplay)
-        Me.FSFees.Controls.Add(Me.FeeTotalDisplay)
-        Me.FSFees.Controls.Add(Me.FeeStatusDisplay)
-        Me.FSFees.Controls.Add(Me.FeeDateSubmitDisplay)
-        Me.FSFees.Controls.Add(Me.FeeStatusLabel)
-        Me.FSFees.Controls.Add(Me.FeeSubmitDateLabel)
-        Me.FSFees.Controls.Add(Me.FeePaidLabel)
-        Me.FSFees.Controls.Add(Me.FeeRegGroupBox)
-        Me.FSFees.Controls.Add(Me.FeeEmissionGroupBox)
-        Me.FSFees.Controls.Add(Me.FeeDataGroupBox)
-        Me.FSFees.Controls.Add(Me.FeeDueLabel)
-        Me.FSFees.Controls.Add(Me.FeeYearSelect)
-        Me.FSFees.Controls.Add(Me.FeeYearLabel)
-        Me.FSFees.Location = New System.Drawing.Point(4, 22)
-        Me.FSFees.Name = "FSFees"
-        Me.FSFees.Size = New System.Drawing.Size(596, 424)
-        Me.FSFees.TabIndex = 3
-        Me.FSFees.Text = "Fees"
-        Me.FSFees.UseVisualStyleBackColor = True
+        Me.FSEmissionsFees.Controls.Add(Me.EmissionsFeesTabControl)
+        Me.FSEmissionsFees.Location = New System.Drawing.Point(4, 22)
+        Me.FSEmissionsFees.Name = "FSEmissionsFees"
+        Me.FSEmissionsFees.Size = New System.Drawing.Size(596, 424)
+        Me.FSEmissionsFees.TabIndex = 8
+        Me.FSEmissionsFees.Text = "Emissions Fees"
+        Me.FSEmissionsFees.UseVisualStyleBackColor = True
+        '
+        'EmissionsFeesTabControl
+        '
+        Me.EmissionsFeesTabControl.Controls.Add(Me.TPEmissionsAnnual)
+        Me.EmissionsFeesTabControl.Controls.Add(Me.TPEmissionsData)
+        Me.EmissionsFeesTabControl.Controls.Add(Me.TPEmissionsInvoices)
+        Me.EmissionsFeesTabControl.Controls.Add(Me.TPEmissionsDeposits)
+        Me.EmissionsFeesTabControl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.EmissionsFeesTabControl.Location = New System.Drawing.Point(0, 0)
+        Me.EmissionsFeesTabControl.Name = "EmissionsFeesTabControl"
+        Me.EmissionsFeesTabControl.SelectedIndex = 0
+        Me.EmissionsFeesTabControl.Size = New System.Drawing.Size(596, 424)
+        Me.EmissionsFeesTabControl.TabIndex = 1
+        '
+        'TPEmissionsAnnual
+        '
+        Me.TPEmissionsAnnual.Controls.Add(Me.FeePaidDisplay)
+        Me.TPEmissionsAnnual.Controls.Add(Me.FeeTotalDisplay)
+        Me.TPEmissionsAnnual.Controls.Add(Me.FeeStatusDisplay)
+        Me.TPEmissionsAnnual.Controls.Add(Me.FeeDateSubmitDisplay)
+        Me.TPEmissionsAnnual.Controls.Add(Me.FeeStatusLabel)
+        Me.TPEmissionsAnnual.Controls.Add(Me.FeeSubmitDateLabel)
+        Me.TPEmissionsAnnual.Controls.Add(Me.FeePaidLabel)
+        Me.TPEmissionsAnnual.Controls.Add(Me.FeeRegGroupBox)
+        Me.TPEmissionsAnnual.Controls.Add(Me.FeeEmissionGroupBox)
+        Me.TPEmissionsAnnual.Controls.Add(Me.FeeDataGroupBox)
+        Me.TPEmissionsAnnual.Controls.Add(Me.FeeDueLabel)
+        Me.TPEmissionsAnnual.Controls.Add(Me.FeeYearSelect)
+        Me.TPEmissionsAnnual.Controls.Add(Me.FeeYearLabel)
+        Me.TPEmissionsAnnual.Location = New System.Drawing.Point(4, 22)
+        Me.TPEmissionsAnnual.Name = "TPEmissionsAnnual"
+        Me.TPEmissionsAnnual.Size = New System.Drawing.Size(588, 398)
+        Me.TPEmissionsAnnual.TabIndex = 3
+        Me.TPEmissionsAnnual.Text = "Annual Summary"
+        Me.TPEmissionsAnnual.UseVisualStyleBackColor = True
         '
         'FeePaidDisplay
         '
@@ -2533,116 +2560,88 @@ Partial Class IAIPFacilitySummary
         Me.FeeYearLabel.TabIndex = 175
         Me.FeeYearLabel.Text = "Year"
         '
-        'FSFinancial
+        'TPEmissionsData
         '
-        Me.FSFinancial.Controls.Add(Me.FinancialTabControl)
-        Me.FSFinancial.Location = New System.Drawing.Point(4, 22)
-        Me.FSFinancial.Name = "FSFinancial"
-        Me.FSFinancial.Size = New System.Drawing.Size(596, 424)
-        Me.FSFinancial.TabIndex = 8
-        Me.FSFinancial.Text = "Financial Data"
-        Me.FSFinancial.UseVisualStyleBackColor = True
-        '
-        'FinancialTabControl
-        '
-        Me.FinancialTabControl.Controls.Add(Me.TPFeeData)
-        Me.FinancialTabControl.Controls.Add(Me.TPInvoices)
-        Me.FinancialTabControl.Controls.Add(Me.TPFeeDeposits)
-        Me.FinancialTabControl.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FinancialTabControl.Location = New System.Drawing.Point(0, 0)
-        Me.FinancialTabControl.Name = "FinancialTabControl"
-        Me.FinancialTabControl.SelectedIndex = 0
-        Me.FinancialTabControl.Size = New System.Drawing.Size(596, 424)
-        Me.FinancialTabControl.TabIndex = 1
-        '
-        'TPFeeData
-        '
-        Me.TPFeeData.Controls.Add(Me.FinancialFeeGrid)
-        Me.TPFeeData.Location = New System.Drawing.Point(4, 22)
-        Me.TPFeeData.Name = "TPFeeData"
-        Me.TPFeeData.Size = New System.Drawing.Size(588, 398)
-        Me.TPFeeData.TabIndex = 0
-        Me.TPFeeData.Text = "Fee Data"
-        Me.TPFeeData.UseVisualStyleBackColor = True
+        Me.TPEmissionsData.Controls.Add(Me.FinancialFeeGrid)
+        Me.TPEmissionsData.Location = New System.Drawing.Point(4, 22)
+        Me.TPEmissionsData.Name = "TPEmissionsData"
+        Me.TPEmissionsData.Size = New System.Drawing.Size(588, 398)
+        Me.TPEmissionsData.TabIndex = 0
+        Me.TPEmissionsData.Text = "Emissions Data"
+        Me.TPEmissionsData.UseVisualStyleBackColor = True
         '
         'FinancialFeeGrid
         '
-        Me.FinancialFeeGrid.AllowUserToAddRows = False
-        Me.FinancialFeeGrid.AllowUserToDeleteRows = False
-        Me.FinancialFeeGrid.AllowUserToOrderColumns = True
-        Me.FinancialFeeGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle35.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.FinancialFeeGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle35
+        DataGridViewCellStyle36.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.FinancialFeeGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle36
+        Me.FinancialFeeGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.FinancialFeeGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.FinancialFeeGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.FinancialFeeGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FinancialFeeGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.FinancialFeeGrid.LinkifyColumnByName = Nothing
         Me.FinancialFeeGrid.Location = New System.Drawing.Point(0, 0)
         Me.FinancialFeeGrid.Name = "FinancialFeeGrid"
-        Me.FinancialFeeGrid.ReadOnly = True
-        Me.FinancialFeeGrid.RowHeadersVisible = False
-        Me.FinancialFeeGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.FinancialFeeGrid.ResultsCountLabel = Nothing
+        Me.FinancialFeeGrid.ResultsCountLabelFormat = "{0} found"
         Me.FinancialFeeGrid.Size = New System.Drawing.Size(588, 398)
+        Me.FinancialFeeGrid.StandardTab = True
         Me.FinancialFeeGrid.TabIndex = 6
         '
-        'TPInvoices
+        'TPEmissionsInvoices
         '
-        Me.TPInvoices.Controls.Add(Me.FinancialInvoicesGrid)
-        Me.TPInvoices.Location = New System.Drawing.Point(4, 22)
-        Me.TPInvoices.Name = "TPInvoices"
-        Me.TPInvoices.Size = New System.Drawing.Size(588, 398)
-        Me.TPInvoices.TabIndex = 2
-        Me.TPInvoices.Text = "Invoices"
-        Me.TPInvoices.UseVisualStyleBackColor = True
+        Me.TPEmissionsInvoices.Controls.Add(Me.FinancialInvoicesGrid)
+        Me.TPEmissionsInvoices.Location = New System.Drawing.Point(4, 22)
+        Me.TPEmissionsInvoices.Name = "TPEmissionsInvoices"
+        Me.TPEmissionsInvoices.Size = New System.Drawing.Size(588, 398)
+        Me.TPEmissionsInvoices.TabIndex = 2
+        Me.TPEmissionsInvoices.Text = "Invoices"
+        Me.TPEmissionsInvoices.UseVisualStyleBackColor = True
         '
         'FinancialInvoicesGrid
         '
-        Me.FinancialInvoicesGrid.AllowUserToAddRows = False
-        Me.FinancialInvoicesGrid.AllowUserToDeleteRows = False
-        Me.FinancialInvoicesGrid.AllowUserToOrderColumns = True
-        Me.FinancialInvoicesGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle36.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.FinancialInvoicesGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle36
+        DataGridViewCellStyle37.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.FinancialInvoicesGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle37
+        Me.FinancialInvoicesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.FinancialInvoicesGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.FinancialInvoicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.FinancialInvoicesGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FinancialInvoicesGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.FinancialInvoicesGrid.LinkifyColumnByName = Nothing
         Me.FinancialInvoicesGrid.Location = New System.Drawing.Point(0, 0)
         Me.FinancialInvoicesGrid.Name = "FinancialInvoicesGrid"
-        Me.FinancialInvoicesGrid.ReadOnly = True
-        Me.FinancialInvoicesGrid.RowHeadersVisible = False
-        Me.FinancialInvoicesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.FinancialInvoicesGrid.ResultsCountLabel = Nothing
+        Me.FinancialInvoicesGrid.ResultsCountLabelFormat = "{0} found"
         Me.FinancialInvoicesGrid.Size = New System.Drawing.Size(588, 398)
+        Me.FinancialInvoicesGrid.StandardTab = True
         Me.FinancialInvoicesGrid.TabIndex = 6
         '
-        'TPFeeDeposits
+        'TPEmissionsDeposits
         '
-        Me.TPFeeDeposits.Controls.Add(Me.FinancialDepositsGrid)
-        Me.TPFeeDeposits.Location = New System.Drawing.Point(4, 22)
-        Me.TPFeeDeposits.Name = "TPFeeDeposits"
-        Me.TPFeeDeposits.Size = New System.Drawing.Size(588, 398)
-        Me.TPFeeDeposits.TabIndex = 1
-        Me.TPFeeDeposits.Text = "Fee Deposits"
-        Me.TPFeeDeposits.UseVisualStyleBackColor = True
+        Me.TPEmissionsDeposits.Controls.Add(Me.FinancialDepositsGrid)
+        Me.TPEmissionsDeposits.Location = New System.Drawing.Point(4, 22)
+        Me.TPEmissionsDeposits.Name = "TPEmissionsDeposits"
+        Me.TPEmissionsDeposits.Size = New System.Drawing.Size(588, 398)
+        Me.TPEmissionsDeposits.TabIndex = 1
+        Me.TPEmissionsDeposits.Text = "Deposits"
+        Me.TPEmissionsDeposits.UseVisualStyleBackColor = True
         '
         'FinancialDepositsGrid
         '
-        Me.FinancialDepositsGrid.AllowUserToAddRows = False
-        Me.FinancialDepositsGrid.AllowUserToDeleteRows = False
-        Me.FinancialDepositsGrid.AllowUserToOrderColumns = True
-        Me.FinancialDepositsGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle37.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.FinancialDepositsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle37
+        DataGridViewCellStyle38.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.FinancialDepositsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle38
+        Me.FinancialDepositsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.FinancialDepositsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.FinancialDepositsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.FinancialDepositsGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FinancialDepositsGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.FinancialDepositsGrid.LinkifyColumnByName = Nothing
         Me.FinancialDepositsGrid.Location = New System.Drawing.Point(0, 0)
         Me.FinancialDepositsGrid.Name = "FinancialDepositsGrid"
-        Me.FinancialDepositsGrid.ReadOnly = True
-        Me.FinancialDepositsGrid.RowHeadersVisible = False
-        Me.FinancialDepositsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.FinancialDepositsGrid.ResultsCountLabel = Nothing
+        Me.FinancialDepositsGrid.ResultsCountLabelFormat = "{0} found"
         Me.FinancialDepositsGrid.Size = New System.Drawing.Size(588, 398)
+        Me.FinancialDepositsGrid.StandardTab = True
         Me.FinancialDepositsGrid.TabIndex = 6
         '
         'FSEmissionInventory
@@ -2652,7 +2651,7 @@ Partial Class IAIPFacilitySummary
         Me.FSEmissionInventory.Name = "FSEmissionInventory"
         Me.FSEmissionInventory.Size = New System.Drawing.Size(596, 424)
         Me.FSEmissionInventory.TabIndex = 4
-        Me.FSEmissionInventory.Text = "Emission Inventory"
+        Me.FSEmissionInventory.Text = "Emissions Inventory"
         Me.FSEmissionInventory.UseVisualStyleBackColor = True
         '
         'EiTabControl
@@ -2679,22 +2678,20 @@ Partial Class IAIPFacilitySummary
         '
         'EiPost2009Grid
         '
-        Me.EiPost2009Grid.AllowUserToAddRows = False
-        Me.EiPost2009Grid.AllowUserToDeleteRows = False
-        Me.EiPost2009Grid.AllowUserToOrderColumns = True
-        Me.EiPost2009Grid.AllowUserToResizeRows = False
-        DataGridViewCellStyle38.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.EiPost2009Grid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle38
+        DataGridViewCellStyle39.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.EiPost2009Grid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle39
+        Me.EiPost2009Grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.EiPost2009Grid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.EiPost2009Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.EiPost2009Grid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.EiPost2009Grid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.EiPost2009Grid.LinkifyColumnByName = Nothing
         Me.EiPost2009Grid.Location = New System.Drawing.Point(3, 3)
         Me.EiPost2009Grid.Name = "EiPost2009Grid"
-        Me.EiPost2009Grid.ReadOnly = True
-        Me.EiPost2009Grid.RowHeadersVisible = False
-        Me.EiPost2009Grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.EiPost2009Grid.ResultsCountLabel = Nothing
+        Me.EiPost2009Grid.ResultsCountLabelFormat = "{0} found"
         Me.EiPost2009Grid.Size = New System.Drawing.Size(582, 392)
+        Me.EiPost2009Grid.StandardTab = True
         Me.EiPost2009Grid.TabIndex = 6
         '
         'TpEiPre2009
@@ -2710,22 +2707,20 @@ Partial Class IAIPFacilitySummary
         '
         'EiPre2009Grid
         '
-        Me.EiPre2009Grid.AllowUserToAddRows = False
-        Me.EiPre2009Grid.AllowUserToDeleteRows = False
-        Me.EiPre2009Grid.AllowUserToOrderColumns = True
-        Me.EiPre2009Grid.AllowUserToResizeRows = False
-        DataGridViewCellStyle39.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.EiPre2009Grid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle39
+        DataGridViewCellStyle40.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.EiPre2009Grid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle40
+        Me.EiPre2009Grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.EiPre2009Grid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.EiPre2009Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.EiPre2009Grid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.EiPre2009Grid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.EiPre2009Grid.LinkifyColumnByName = Nothing
         Me.EiPre2009Grid.Location = New System.Drawing.Point(3, 3)
         Me.EiPre2009Grid.Name = "EiPre2009Grid"
-        Me.EiPre2009Grid.ReadOnly = True
-        Me.EiPre2009Grid.RowHeadersVisible = False
-        Me.EiPre2009Grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.EiPre2009Grid.ResultsCountLabel = Nothing
+        Me.EiPre2009Grid.ResultsCountLabelFormat = "{0} found"
         Me.EiPre2009Grid.Size = New System.Drawing.Size(582, 392)
+        Me.EiPre2009Grid.StandardTab = True
         Me.EiPre2009Grid.TabIndex = 6
         '
         'FSMenuStrip
@@ -2780,24 +2775,24 @@ Partial Class IAIPFacilitySummary
         '
         Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CreateFacilityMenuItem, Me.ToolsMenuSeparator, Me.UpdateEpaMenuItem})
         Me.ToolsMenu.Name = "ToolsMenu"
-        Me.ToolsMenu.Size = New System.Drawing.Size(48, 20)
+        Me.ToolsMenu.Size = New System.Drawing.Size(47, 20)
         Me.ToolsMenu.Text = "&Tools"
         '
         'CreateFacilityMenuItem
         '
         Me.CreateFacilityMenuItem.Name = "CreateFacilityMenuItem"
-        Me.CreateFacilityMenuItem.Size = New System.Drawing.Size(220, 22)
+        Me.CreateFacilityMenuItem.Size = New System.Drawing.Size(219, 22)
         Me.CreateFacilityMenuItem.Text = "&Create New Facility"
         '
         'ToolsMenuSeparator
         '
         Me.ToolsMenuSeparator.Name = "ToolsMenuSeparator"
-        Me.ToolsMenuSeparator.Size = New System.Drawing.Size(217, 6)
+        Me.ToolsMenuSeparator.Size = New System.Drawing.Size(216, 6)
         '
         'UpdateEpaMenuItem
         '
         Me.UpdateEpaMenuItem.Name = "UpdateEpaMenuItem"
-        Me.UpdateEpaMenuItem.Size = New System.Drawing.Size(220, 22)
+        Me.UpdateEpaMenuItem.Size = New System.Drawing.Size(219, 22)
         Me.UpdateEpaMenuItem.Text = "&Update All Data Sent to EPA"
         '
         'HelpMenu
@@ -2871,8 +2866,10 @@ Partial Class IAIPFacilitySummary
         CType(Me.ComplianceEnforcementGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FSPermitting.ResumeLayout(False)
         Me.PermittingTabControl.ResumeLayout(False)
-        Me.TPAppLog.ResumeLayout(False)
+        Me.TPAppTrackingLog.ResumeLayout(False)
         CType(Me.PermitApplicationGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TPApplicationInvoices.ResumeLayout(False)
+        CType(Me.PermitApplicationInvoicesGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPCurrentRules.ResumeLayout(False)
         CType(Me.PermitRulesGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPRuleHistory.ResumeLayout(False)
@@ -2881,21 +2878,21 @@ Partial Class IAIPFacilitySummary
         CType(Me.PermitsGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PermitsPanel.ResumeLayout(False)
         Me.PermitsPanel.PerformLayout()
-        Me.FSFees.ResumeLayout(False)
-        Me.FSFees.PerformLayout()
+        Me.FSEmissionsFees.ResumeLayout(False)
+        Me.EmissionsFeesTabControl.ResumeLayout(False)
+        Me.TPEmissionsAnnual.ResumeLayout(False)
+        Me.TPEmissionsAnnual.PerformLayout()
         Me.FeeRegGroupBox.ResumeLayout(False)
         Me.FeeRegGroupBox.PerformLayout()
         Me.FeeEmissionGroupBox.ResumeLayout(False)
         Me.FeeEmissionGroupBox.PerformLayout()
         Me.FeeDataGroupBox.ResumeLayout(False)
         Me.FeeDataGroupBox.PerformLayout()
-        Me.FSFinancial.ResumeLayout(False)
-        Me.FinancialTabControl.ResumeLayout(False)
-        Me.TPFeeData.ResumeLayout(False)
+        Me.TPEmissionsData.ResumeLayout(False)
         CType(Me.FinancialFeeGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPInvoices.ResumeLayout(False)
+        Me.TPEmissionsInvoices.ResumeLayout(False)
         CType(Me.FinancialInvoicesGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPFeeDeposits.ResumeLayout(False)
+        Me.TPEmissionsDeposits.ResumeLayout(False)
         CType(Me.FinancialDepositsGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FSEmissionInventory.ResumeLayout(False)
         Me.EiTabControl.ResumeLayout(False)
@@ -2916,12 +2913,12 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents FSInfo As System.Windows.Forms.TabPage
     Friend WithEvents FSHeaderData As System.Windows.Forms.TabPage
     Friend WithEvents FSContacts As System.Windows.Forms.TabPage
-    Friend WithEvents FSFees As System.Windows.Forms.TabPage
+    Friend WithEvents TPEmissionsAnnual As System.Windows.Forms.TabPage
     Friend WithEvents FSEmissionInventory As System.Windows.Forms.TabPage
     Friend WithEvents FSTesting As System.Windows.Forms.TabPage
     Friend WithEvents FSCompliance As System.Windows.Forms.TabPage
     Friend WithEvents FSPermitting As System.Windows.Forms.TabPage
-    Friend WithEvents FSFinancial As System.Windows.Forms.TabPage
+    Friend WithEvents FSEmissionsFees As System.Windows.Forms.TabPage
     Friend WithEvents MapAddressLink As System.Windows.Forms.LinkLabel
     Friend WithEvents DistrictOfficeLabel As System.Windows.Forms.Label
     Friend WithEvents EditPollutantsButton As System.Windows.Forms.Button
@@ -2962,19 +2959,19 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents TPFce As System.Windows.Forms.TabPage
     Friend WithEvents TPEnforcement As System.Windows.Forms.TabPage
     Friend WithEvents PermittingTabControl As System.Windows.Forms.TabControl
-    Friend WithEvents TPAppLog As System.Windows.Forms.TabPage
+    Friend WithEvents TPAppTrackingLog As System.Windows.Forms.TabPage
     Friend WithEvents TPCurrentRules As System.Windows.Forms.TabPage
     Friend WithEvents TPRuleHistory As System.Windows.Forms.TabPage
-    Friend WithEvents FinancialTabControl As System.Windows.Forms.TabControl
-    Friend WithEvents TPFeeData As System.Windows.Forms.TabPage
-    Friend WithEvents TPFeeDeposits As System.Windows.Forms.TabPage
+    Friend WithEvents EmissionsFeesTabControl As System.Windows.Forms.TabControl
+    Friend WithEvents TPEmissionsData As System.Windows.Forms.TabPage
+    Friend WithEvents TPEmissionsDeposits As System.Windows.Forms.TabPage
     Friend WithEvents EditFacilityLocationButton As System.Windows.Forms.Button
     Friend WithEvents EditHeaderDataButton As System.Windows.Forms.Button
     Friend WithEvents EditContactsPanel As System.Windows.Forms.Panel
     Friend WithEvents EditContactsButton As System.Windows.Forms.Button
     Friend WithEvents FeeAdminLabel As System.Windows.Forms.Label
     Friend WithEvents FeeAdminWarningLabel As System.Windows.Forms.Label
-    Friend WithEvents TPInvoices As System.Windows.Forms.TabPage
+    Friend WithEvents TPEmissionsInvoices As System.Windows.Forms.TabPage
     Friend WithEvents TPPermits As System.Windows.Forms.TabPage
     Friend WithEvents ViewDataButton As System.Windows.Forms.Button
     Friend WithEvents FacilityApprovalLinkLabel As System.Windows.Forms.LinkLabel
@@ -3045,9 +3042,9 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents CmsDisplay As System.Windows.Forms.TextBox
     Friend WithEvents ProgramClassificationsListBox As System.Windows.Forms.ListBox
     Friend WithEvents AirProgramsListBox As System.Windows.Forms.ListBox
-    Friend WithEvents ComplianceWorkGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents ComplianceFceGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents ComplianceEnforcementGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents ComplianceWorkGrid As Iaip.IaipDataGridView
+    Friend WithEvents ComplianceFceGrid As Iaip.IaipDataGridView
+    Friend WithEvents ComplianceEnforcementGrid As Iaip.IaipDataGridView
     Friend WithEvents AirProgramsGroupBox As System.Windows.Forms.GroupBox
     Friend WithEvents ProgramClassificationsGroupBox As System.Windows.Forms.GroupBox
     Friend WithEvents FeeStatusLabel As System.Windows.Forms.Label
@@ -3069,34 +3066,36 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents CountyDisplay As System.Windows.Forms.TextBox
     Friend WithEvents AirsNumberEntry As Iaip.CueTextBox
     Friend WithEvents FacilitySearchButton As System.Windows.Forms.Button
-    Friend WithEvents ContactsStateGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents ContactsWebSiteGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents ContactsPermittingGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents ContactsTestingGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents ContactsComplianceGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents ContactsGecoGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents ContactsStateGrid As Iaip.IaipDataGridView
+    Friend WithEvents ContactsWebSiteGrid As Iaip.IaipDataGridView
+    Friend WithEvents ContactsPermittingGrid As Iaip.IaipDataGridView
+    Friend WithEvents ContactsTestingGrid As Iaip.IaipDataGridView
+    Friend WithEvents ContactsComplianceGrid As Iaip.IaipDataGridView
+    Friend WithEvents ContactsGecoGrid As Iaip.IaipDataGridView
     Friend WithEvents TPTestReport As System.Windows.Forms.TabPage
-    Friend WithEvents TestReportsGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents TestNotificationsGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents TestMemosGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents PermitApplicationGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents PermitRulesGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents PermitRuleHistoryGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents PermitsGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents TestReportsGrid As Iaip.IaipDataGridView
+    Friend WithEvents TestNotificationsGrid As Iaip.IaipDataGridView
+    Friend WithEvents TestMemosGrid As Iaip.IaipDataGridView
+    Friend WithEvents PermitApplicationGrid As Iaip.IaipDataGridView
+    Friend WithEvents PermitRulesGrid As Iaip.IaipDataGridView
+    Friend WithEvents PermitRuleHistoryGrid As Iaip.IaipDataGridView
+    Friend WithEvents PermitsGrid As Iaip.IaipDataGridView
     Friend WithEvents PermitsPanel As System.Windows.Forms.Panel
     Friend WithEvents PermitsLink As System.Windows.Forms.LinkLabel
     Friend WithEvents EiTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TPEiPost2009 As System.Windows.Forms.TabPage
     Friend WithEvents TpEiPre2009 As System.Windows.Forms.TabPage
-    Friend WithEvents FinancialInvoicesGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents FinancialDepositsGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents EiPost2009Grid As System.Windows.Forms.DataGridView
-    Friend WithEvents EiPre2009Grid As System.Windows.Forms.DataGridView
-    Friend WithEvents FinancialFeeGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents FinancialInvoicesGrid As Iaip.IaipDataGridView
+    Friend WithEvents FinancialDepositsGrid As Iaip.IaipDataGridView
+    Friend WithEvents EiPost2009Grid As Iaip.IaipDataGridView
+    Friend WithEvents EiPre2009Grid As Iaip.IaipDataGridView
+    Friend WithEvents FinancialFeeGrid As Iaip.IaipDataGridView
     Friend WithEvents MapPictureBox As System.Windows.Forms.PictureBox
     Friend WithEvents MapCountyLink As System.Windows.Forms.LinkLabel
     Friend WithEvents Label1 As Label
     Friend WithEvents EpaFacilityIdDisplay As TextBox
     Friend WithEvents lblOwnership As Label
     Friend WithEvents OwnershipDisplay As TextBox
+    Friend WithEvents TPApplicationInvoices As TabPage
+    Friend WithEvents PermitApplicationInvoicesGrid As IaipDataGridView
 End Class

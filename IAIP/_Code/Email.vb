@@ -60,12 +60,15 @@ Public Module Email
 
             Dim result As Boolean = False
 
-            If emailUriString.Length < 5000 Then
-                ' The OpenUri method is preferable, but is limited by URI length, which can be exceeded
-                ' if a lot of recipients are added
+            Dim u As Uri = New Uri(emailUriString)
+
+            If u.ToString.Length < 2084 Then
+                ' The OpenUri method is preferable, but is limited by URI length, 
+                ' which can be exceeded if a lot of recipients are added
+                ' Ref: https://support.microsoft.com/en-us/help/208427/maximum-url-length-is-2-083-characters-in-internet-explorer
                 result = OpenUri(New Uri(emailUriString), isMailto:=True)
             Else
-                ' Failover is to create an Outlook Email
+                ' Failover is to create a text file with instructions to user
                 OpenEmailAsTextFile(subject, body, toParam, ccParam, bccParam)
                 result = True
             End If
@@ -88,24 +91,29 @@ Public Module Email
         sb.AppendLine("Could not create email. Please copy and paste the text below into a new email.")
         sb.AppendLine()
 
-        sb.AppendFormat("To: {0}", toParam)
+        sb.AppendLine("To:")
+        sb.AppendLine(toParam)
         sb.AppendLine()
 
         If Not String.IsNullOrEmpty(ccParam) Then
-            sb.AppendFormat("CC: {0}", ccParam)
+            sb.AppendLine("CC:")
+            sb.AppendLine(ccParam)
             sb.AppendLine()
         End If
 
         If Not String.IsNullOrEmpty(bccParam) Then
-            sb.AppendFormat("BCC: {0}", bccParam)
+            sb.AppendLine("BCC:")
+            sb.AppendLine(bccParam)
             sb.AppendLine()
         End If
 
         If subject IsNot Nothing Then
-            sb.AppendFormat("Subject: {0}", subject)
+            sb.AppendLine("Subject:")
+            sb.AppendLine(subject)
             sb.AppendLine()
         End If
 
+        sb.AppendLine("Message:")
         sb.AppendLine()
 
         If body IsNot Nothing Then sb.Append(body)

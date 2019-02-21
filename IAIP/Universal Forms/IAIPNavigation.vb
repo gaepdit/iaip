@@ -10,8 +10,8 @@ Public Class IAIPNavigation
     Private Property WorkViewerTable As DataTable
     Private Property CurrentNavWorkListContext As NavWorkListContext
     Private Property CurrentNavWorkListScope As NavWorkListScope
-    Private Property CurrentNavWorkListParameter As String = ""
-    Private Property ExitWhenClosed As Boolean = True
+    Private Property CurrentNavWorkListParameter As Integer? = Nothing
+    Private Property LoggingOff As Boolean = False
     Private Property NavWorkListContextDictionary As Dictionary(Of NavWorkListContext, String)
 
 #End Region
@@ -47,8 +47,27 @@ Public Class IAIPNavigation
         LoadWorkViewerData()
     End Sub
 
-    Private Sub IAIPNavigation_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        If ExitWhenClosed Then StartupShutdown.CloseIaip()
+    Private Sub IAIPNavigation_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If Not LoggingOff Then
+            Dim openForms As New List(Of Form)
+
+            For Each frm As Form In Application.OpenForms
+                If frm IsNot Me Then
+                    openForms.Add(frm)
+                End If
+            Next
+
+            For Each frm As Form In openForms
+                frm.Close()
+            Next
+
+            If Application.OpenForms.Count <= 1 Then
+                CloseIaip()
+            Else
+                ShowAllForms()
+                e.Cancel = True
+            End If
+        End If
     End Sub
 
 #End Region
@@ -122,6 +141,8 @@ Public Class IAIPNavigation
 
     Private Sub QuickAccessButton_Click(sender As Object, e As EventArgs) _
     Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenSscpItem.Click, btnOpenSbeapClient.Click, btnOpenSbeapCaseLog.Click, btnOpenEnforcement.Click, btnOpenApplication.Click
+        Cursor = Cursors.WaitCursor
+
         Dim thisButton As Button = CType(sender, Button)
         Select Case thisButton.Name
             Case btnOpenApplication.Name
@@ -141,6 +162,8 @@ Public Class IAIPNavigation
             Case btnOpenTestReport.Name
                 OpenTestReport()
         End Select
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub QuickAccessTextbox_Enter(sender As Object, e As EventArgs) _
@@ -195,7 +218,7 @@ Public Class IAIPNavigation
     Handles btnOpenApplication.Leave, btnOpenEnforcement.Leave, btnOpenFacilitySummary.Leave, btnOpenSbeapCaseLog.Leave,
     btnOpenSbeapClient.Leave, btnOpenSscpItem.Leave, btnOpenTestLog.Leave, btnOpenTestReport.Leave
         Dim thisButton As Button = CType(sender, Button)
-        If Not Me.AcceptButton Is thisButton And Not thisButton.Tag Then
+        If Not AcceptButton Is thisButton And Not CBool(thisButton.Tag) Then
             thisButton.FlatStyle = FlatStyle.Flat
             thisButton.ForeColor = SystemColors.GrayText
         End If
@@ -336,7 +359,7 @@ Public Class IAIPNavigation
 
     Private Sub SetWorkViewerContext()
         ' Get current Nav Work List parameters
-        CurrentNavWorkListContext = cboNavWorkListContext.SelectedValue
+        CurrentNavWorkListContext = CType(cboNavWorkListContext.SelectedValue, NavWorkListContext)
 
         If rdbStaffView.Checked Then
             CurrentNavWorkListScope = NavWorkListScope.StaffView
@@ -365,7 +388,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub cboNavWorkListContext_SelectedValueChanged(sender As Object, e As EventArgs)
-        Dim c As NavWorkListContext = cboNavWorkListContext.SelectedValue
+        Dim c As NavWorkListContext = CType(cboNavWorkListContext.SelectedValue, NavWorkListContext)
         Select Case c
             Case NavWorkListContext.ComplianceWork, NavWorkListContext.Enforcement, NavWorkListContext.MonitoringTestReports, NavWorkListContext.PermitApplications, NavWorkListContext.SbeapCases
                 NavWorkListScopePanel.Visible = True
@@ -375,7 +398,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub SetUpNavWorkListScopeChanger()
-        Dim scope As NavWorkListScope = [Enum].Parse(GetType(NavWorkListScope), GetUserSetting(UserSetting.SelectedNavWorkListScope))
+        Dim scope As NavWorkListScope = CType([Enum].Parse(GetType(NavWorkListScope), GetUserSetting(UserSetting.SelectedNavWorkListScope)), NavWorkListScope)
 
         Select Case scope
             Case NavWorkListScope.ProgramView
@@ -394,7 +417,7 @@ Public Class IAIPNavigation
     Private Sub FormatWorkViewer()
         If dgvWorkViewer.Visible = True Then
             dgvWorkViewer.SanelyResizeColumns()
-            dgvWorkViewer.MakeColumnsLookLikeLinks(0)
+            dgvWorkViewer.MakeColumnLookLikeLinks(0)
         End If
 
         If CurrentNavWorkListContext = NavWorkListContext.MonitoringTestReports Then
@@ -406,10 +429,10 @@ Public Class IAIPNavigation
         Try
             For Each row As DataGridViewRow In dgvWorkViewer.Rows
                 If Not row.IsNewRow Then
-                    If row.Cells("Precompliance Status").Value IsNot DBNull.Value AndAlso row.Cells("Precompliance Status").Value = "True" Then
+                    If row.Cells("Precompliance Status").Value IsNot DBNull.Value AndAlso row.Cells("Precompliance Status").Value.ToString() = "True" Then
                         row.DefaultCellStyle.BackColor = Color.Pink
                     End If
-                    If row.Cells("Compliance Status").Value IsNot DBNull.Value AndAlso row.Cells("Compliance Status").Value = "Not In Compliance" Then
+                    If row.Cells("Compliance Status").Value IsNot DBNull.Value AndAlso row.Cells("Compliance Status").Value.ToString() = "Not In Compliance" Then
                         row.DefaultCellStyle.BackColor = Color.Tomato
                     End If
                 End If
@@ -421,8 +444,8 @@ Public Class IAIPNavigation
 
     Private Sub dgvWorkViewer_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
         If e IsNot Nothing AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) Then
-            If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText.ToUpper = "AIRS #" AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value) Then
-                e.Value = New Apb.ApbFacilityId(e.Value).FormattedString
+            If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText.ToUpper = "AIRS #" AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value.ToString()) Then
+                e.Value = New Apb.ApbFacilityId(e.Value.ToString).FormattedString
             ElseIf TypeOf e.Value Is Date Then
                 e.CellStyle.Format = DateFormat
             End If
@@ -441,8 +464,6 @@ Public Class IAIPNavigation
         pnlCurrentList.Enabled = False
         btnLoadNavWorkList.Text = "Loading…"
         btnLoadNavWorkList.Enabled = False
-        btnExportToExcel.Visible = False
-        btnExportToExcel.Text = ""
 
         ClearQuickAccessTool()
 
@@ -468,16 +489,12 @@ Public Class IAIPNavigation
             dgvWorkViewer.Visible = True
             lblMessageLabel.Visible = False
             lblMessageLabel.Text = ""
-            btnExportToExcel.Visible = True
-            btnExportToExcel.Text = WorkViewerTable.Rows.Count & " results"
             FormatWorkViewer()
         Else
             dgvWorkViewer.DataSource = Nothing
             dgvWorkViewer.Visible = False
             lblMessageLabel.Visible = True
             lblMessageLabel.Text = "No data to display"
-            btnExportToExcel.Visible = False
-            btnExportToExcel.Text = ""
         End If
     End Sub
 
@@ -532,6 +549,8 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenSelectedItem()
+        Cursor = Cursors.WaitCursor
+
         Select Case dgvWorkViewer.Columns(0).HeaderText
             Case "Case ID" ' SBEAP cases
                 OpenSbeapCaseLog()
@@ -548,6 +567,8 @@ Public Class IAIPNavigation
             Case "App #" ' Permit applications
                 OpenApplication()
         End Select
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub SelectItemNumbers(row As Integer)
@@ -595,14 +616,14 @@ Public Class IAIPNavigation
             accountFormAccessString = AccountFormAccessLookup.Rows.Find(account)("FormAccess").ToString
 
             If accountFormAccessString.Length > 0 Then
-                Dim formAccessArray() As String = accountFormAccessString.Split(New Char() {"(", ")"}, StringSplitOptions.RemoveEmptyEntries)
+                Dim formAccessArray() As String = accountFormAccessString.Split(New Char() {"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries)
 
                 For Each formAccessString As String In formAccessArray
-                    Dim formAccessSplit() As String = formAccessString.Split(New Char() {"-", ","})
-                    Dim formNumber As String = formAccessSplit(0)
-                    AccountFormAccess(formNumber, 0) = formNumber
+                    Dim formAccessSplit() As String = formAccessString.Split(New Char() {"-"c, ","c})
+                    Dim formNumber As Integer = CInt(formAccessSplit(0))
+                    AccountFormAccess(formNumber, 0) = formNumber.ToString()
                     For i As Integer = 1 To 4
-                        AccountFormAccess(formNumber, i) = Convert.ToInt32(AccountFormAccess(formNumber, i)) Or Convert.ToInt32(formAccessSplit(i))
+                        AccountFormAccess(formNumber, i) = (Convert.ToInt32(AccountFormAccess(formNumber, i)) Or Convert.ToInt32(formAccessSplit(i))).ToString
                     Next
                 Next
             End If
@@ -704,8 +725,11 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub NavButton_Click(sender As Object, e As EventArgs)
-        Dim nb As NavButton = CType(sender, Button).Tag
-        OpenSingleForm(nb.FormName)
+        Cursor = Cursors.WaitCursor
+
+        OpenSingleForm(CType(CType(sender, Button).Tag, NavButton).FormName)
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub CreateNavButtons()
@@ -749,7 +773,8 @@ Public Class IAIPNavigation
         ISMP
         SSPP
         SSCP
-        Fees
+        EmissionFees
+        Finance
         DMU
         MASP
         EIS
@@ -761,7 +786,8 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.ISMP, "Industrial Source Monitoring Program", "ISMU")
         AddNavButtonCategory(NavButtonCategories.SSPP, "Stationary Source Permitting Program")
         AddNavButtonCategory(NavButtonCategories.SSCP, "Stationary Source Compliance Program")
-        AddNavButtonCategory(NavButtonCategories.Fees, "Financial Management Unit")
+        AddNavButtonCategory(NavButtonCategories.EmissionFees, "Financial Management Unit", "Emission Fees")
+        AddNavButtonCategory(NavButtonCategories.Finance, "Financial Management Unit", "Application Fees")
         AddNavButtonCategory(NavButtonCategories.DMU, "Data Management Unit")
         AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program")
         AddNavButtonCategory(NavButtonCategories.EIS, "Emission Inventory System")
@@ -771,7 +797,7 @@ Public Class IAIPNavigation
     Private Sub CreateNavButtonsList()
 
         ' General
-        AddNavButtonIfAccountHasFormAccess(1, "Facility Summary", NameOf(IAIPFacilitySummary), NavButtonCategories.General)
+        AddNavButton("Facility Summary", NameOf(IAIPFacilitySummary), NavButtonCategories.General)
         AddNavButtonIfAccountHasFormAccess(7, "Query Generator", NameOf(IAIPQueryGenerator), NavButtonCategories.General)
         AddNavButtonIfAccountHasFormAccess(8, "User Management", NameOf(IaipUserManagement), NavButtonCategories.General)
         AddNavButtonIfUserHasPermission({118, 119, 123, 124}, "GECO User Management", NameOf(GecoTool), NavButtonCategories.General)
@@ -795,11 +821,19 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(15, "Memo Viewer", NameOf(ISMPTestMemoViewer), NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(17, "ISMU Management", NameOf(ISMPManagersTools), NavButtonCategories.ISMP)
 
-        ' Fees
-        AddNavButtonIfAccountHasFormAccess(135, "Fees Log", NameOf(PASPFeesLog), NavButtonCategories.Fees)
-        AddNavButtonIfAccountHasFormAccess(139, "Fee Management", NameOf(PASPFeeManagement), NavButtonCategories.Fees)
-        AddNavButtonIfAccountHasFormAccess(12, "Fee Statistics && Reports", NameOf(PASPFeeStatistics), NavButtonCategories.Fees)
-        AddNavButtonIfAccountHasFormAccess(18, "Deposits", NameOf(PASPDepositsAmendments), NavButtonCategories.Fees)
+        ' Emission Fees
+        AddNavButtonIfAccountHasFormAccess(135, "Fees Log", NameOf(PASPFeesLog), NavButtonCategories.EmissionFees)
+        AddNavButtonIfAccountHasFormAccess(139, "Fee Management", NameOf(PASPFeeManagement), NavButtonCategories.EmissionFees)
+        AddNavButtonIfAccountHasFormAccess(12, "Statistics && Reports", NameOf(PASPFeeStatistics), NavButtonCategories.EmissionFees)
+        AddNavButtonIfAccountHasFormAccess(18, "Deposits", NameOf(PASPDepositsAmendments), NavButtonCategories.EmissionFees)
+
+        ' Finance
+        AddNavButtonIfUserHasPermission({118, 123, 124, 125}, "New Deposit", NameOf(FinDepositView), NavButtonCategories.Finance)
+        AddNavButtonIfUserHasPermission({118, 123, 124, 125}, "Search Deposits", NameOf(FinSearchDeposits), NavButtonCategories.Finance)
+        AddNavButton("Search Invoices", NameOf(FinSearchInvoices), NavButtonCategories.Finance)
+        AddNavButton("Search Facilities", NameOf(FinSearchFacilities), NavButtonCategories.Finance)
+        AddNavButtonIfUserHasPermission({118, 124, 28}, "Manage Fee Rates", NameOf(FinFeeRateManagement), NavButtonCategories.Finance)
+        AddNavButton("Statistics && Reports", NameOf(FinStatistics), NavButtonCategories.Finance)
 
         ' MASP
         AddNavButtonIfAccountHasFormAccess(137, "EPD Events", NameOf(MASPRegistrationTool), NavButtonCategories.MASP)
@@ -838,10 +872,6 @@ Public Class IAIPNavigation
         dgvWorkViewer.ExportToExcel(Me)
     End Sub
 
-    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
-        dgvWorkViewer.ExportToExcel(Me)
-    End Sub
-
     Private Sub mmiUpdateProfile_Click(sender As Object, e As EventArgs) Handles mmiUpdateProfile.Click
         Dim pf As New IaipUserProfile
         pf.ShowDialog()
@@ -863,24 +893,16 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub mmiLogOut_Click(sender As Object, e As EventArgs) Handles mmiLogOut.Click
-        Dim currentlyOpenForms As FormCollection = Application.OpenForms
-
-        If currentlyOpenForms Is Nothing Then
+        If Application.OpenForms Is Nothing Then
             CloseIaip()
-        ElseIf currentlyOpenForms.Count > 1 Then
+        ElseIf Application.OpenForms.Count > 1 Then
             MessageBox.Show("Close all open IAIP windows before logging off.", "Save your work", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            For Each f As Form In currentlyOpenForms
-                If f.WindowState = FormWindowState.Minimized Then
-                    f.WindowState = FormWindowState.Normal
-                End If
-                f.Show()
-                f.Activate()
-            Next
+            ShowAllForms()
         Else
-            ExitWhenClosed = False
+            LoggingOff = True
             LogOutUser()
             OpenSingleForm(IAIPLogIn)
-            Me.Close()
+            Close()
         End If
     End Sub
 

@@ -2,12 +2,13 @@
 Imports Iaip.Apb.Facilities
 
 Public Class SharedData
-    Private Shared _initLock As Object = New Object()
+    Private Shared ReadOnly _initLock As Object = New Object()
     Private Shared _tDictionary As Dictionary(Of SharedTable, DataTable)
     Private Shared _dsDictionary As Dictionary(Of SharedDataSet, DataSet)
     Private Shared _dictDictionary As Dictionary(Of SharedLookupDictionary, Dictionary(Of Integer, String))
+    Private Shared _objDictionary As Dictionary(Of SharedObject, Object)
 
-#Region " Enums: Available shared data "
+    ' Enums: Available shared data
 
     ''' <summary>
     ''' Enum delineating all the available shared Tables in the SharedData service
@@ -42,10 +43,11 @@ Public Class SharedData
         Counties
     End Enum
 
-#End Region
+    Public Enum SharedObject
+        FeeRatesSchedule
+    End Enum
 
-#Region " Initialize shared data "
-
+    ' Initialize Shared data
     ' The InitializeData procedures define how the shared data is initially populated
 
     Private Shared Sub InitializeData(table As SharedTable)
@@ -168,10 +170,27 @@ Public Class SharedData
         End SyncLock
     End Sub
 
-#End Region
+    Private Shared Sub InitializeData(obj As SharedObject)
+        SyncLock _initLock
 
-#Region " Public functions for using shared data "
+            Dim myObj As New Object
 
+            Select Case obj
+
+                Case SharedObject.FeeRatesSchedule
+                    myObj = DAL.Finance.LoadFeeRatesSchedule()
+
+            End Select
+
+            If _objDictionary.ContainsKey(obj) Then
+                _objDictionary.Remove(obj)
+            End If
+            _objDictionary.Add(obj, myObj)
+
+        End SyncLock
+    End Sub
+
+    ' Public functions for using shared data
     ' The GetSharedData functions make the shared data available to other procedures
 
     ''' <summary>
@@ -231,9 +250,29 @@ Public Class SharedData
         Return _dictDictionary(lookupDictionary)
     End Function
 
-#End Region
+    ''' <summary>
+    ''' Returns data from the shared data service. If data has not been intialized, 
+    ''' first retrieves the data from the database. Data is only retrieved the first
+    ''' time it is used when the IAIP is run.
+    ''' </summary>
+    ''' <typeparam name="T">The Type of Object to return</typeparam>
+    ''' <param name="obj">The shared Object to return.</param>
+    ''' <returns>Object of Type T from the shared data service.</returns>
+    Public Shared Function GetSharedObject(Of T)(obj As SharedObject) As T
+        If _objDictionary Is Nothing Then
+            _objDictionary = New Dictionary(Of SharedObject, Object)
+        End If
 
-#Region " Public functions for clearing shared data "
+        If Not _objDictionary.ContainsKey(obj) OrElse _objDictionary(obj) Is Nothing Then
+            InitializeData(obj)
+        End If
+
+        Return CType(_objDictionary(obj), T)
+    End Function
+
+
+    ' Public functions for clearing shared data
+    ' Removes data from the cache
 
     Public Shared Sub ClearSharedData(table As SharedTable)
         If _tDictionary IsNot Nothing AndAlso _tDictionary.ContainsKey(table) Then
@@ -247,6 +286,39 @@ Public Class SharedData
         End If
     End Sub
 
-#End Region
+    Public Shared Sub ClearSharedData(lookupDictionary As SharedLookupDictionary)
+        If _dictDictionary IsNot Nothing AndAlso _dictDictionary.ContainsKey(lookupDictionary) Then
+            _dictDictionary.Remove(lookupDictionary)
+        End If
+    End Sub
+
+    Public Shared Sub ClearSharedObject(obj As SharedObject)
+        If _objDictionary IsNot Nothing AndAlso _objDictionary.ContainsKey(obj) Then
+            _objDictionary.Remove(obj)
+        End If
+    End Sub
+
+    ' Public functions for reloading shared data
+    ' Clears then returns fresh copy of data
+
+    Public Shared Function ReloadSharedData(table As SharedTable) As DataTable
+        ClearSharedData(table)
+        Return GetSharedData(table)
+    End Function
+
+    Public Shared Function ReloadSharedData(dataSet As SharedDataSet) As DataSet
+        ClearSharedData(dataSet)
+        Return GetSharedData(dataSet)
+    End Function
+
+    Public Shared Function ReloadSharedData(lookupDictionary As SharedLookupDictionary) As Dictionary(Of Integer, String)
+        ClearSharedData(lookupDictionary)
+        Return GetSharedData(lookupDictionary)
+    End Function
+
+    Public Shared Function ReloadSharedObject(Of T)(obj As SharedObject) As T
+        ClearSharedObject(obj)
+        Return GetSharedObject(Of T)(obj)
+    End Function
 
 End Class

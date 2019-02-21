@@ -1,4 +1,5 @@
-﻿Imports System.Collections.Generic
+Imports System.Collections.Generic
+Imports System.Globalization
 Imports System.Linq
 Imports System.Text
 Imports Iaip.Apb
@@ -1520,7 +1521,7 @@ Public Class SscpEnforcement
     End Function
 
     Private Function StringValidatesAsCurrency(s As String) As Boolean
-        Return Decimal.TryParse(s.Trim({"$"c, " "c}).Replace(",", ""), Nothing)
+        Return Decimal.TryParse(s, NumberStyles.Currency, CultureInfo.CurrentCulture, Nothing)
     End Function
 
     Private Function ValidateViolationType() As Boolean

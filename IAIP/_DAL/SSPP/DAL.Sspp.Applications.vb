@@ -12,8 +12,8 @@ Namespace DAL.Sspp
 
         Public Function ApplicationExists(appNumber As Integer) As Boolean
             If appNumber = 0 Then Return False
-            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) FROM SSPPAPPLICATIONMASTER WHERE STRAPPLICATIONNUMBER = @id "
-            Return DB.GetBoolean(query, New SqlParameter("@id", appNumber))
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) FROM SSPPAPPLICATIONMASTER WHERE STRAPPLICATIONNUMBER = @appNumber"
+            Return DB.GetBoolean(query, New SqlParameter("@appNumber", appNumber))
         End Function
 
         Public Function GetWhenLastModified(appNumber As Integer) As DateTimeOffset

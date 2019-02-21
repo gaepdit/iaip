@@ -22,7 +22,6 @@ Partial Class IAIPListTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPListTool))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ToolToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsbRefreshForm = New System.Windows.Forms.ToolStripMenuItem()
@@ -132,7 +131,7 @@ Partial Class IAIPListTool
         '
         Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbRefreshForm})
         Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
+        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(42, 20)
         Me.ToolToolStripMenuItem.Text = "Tool"
         '
         'tsbRefreshForm
@@ -206,7 +205,7 @@ Partial Class IAIPListTool
         '
         Me.btnClearBranch.AutoSize = True
         Me.btnClearBranch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearBranch.Image = CType(resources.GetObject("btnClearBranch.Image"), System.Drawing.Image)
+        Me.btnClearBranch.Image = Global.Iaip.My.Resources.Resources.EraseIcon
         Me.btnClearBranch.Location = New System.Drawing.Point(232, 7)
         Me.btnClearBranch.Name = "btnClearBranch"
         Me.btnClearBranch.Size = New System.Drawing.Size(22, 22)
@@ -217,7 +216,7 @@ Partial Class IAIPListTool
         '
         Me.btnClearAccount.AutoSize = True
         Me.btnClearAccount.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearAccount.Image = CType(resources.GetObject("btnClearAccount.Image"), System.Drawing.Image)
+        Me.btnClearAccount.Image = Global.Iaip.My.Resources.Resources.EraseIcon
         Me.btnClearAccount.Location = New System.Drawing.Point(232, 85)
         Me.btnClearAccount.Name = "btnClearAccount"
         Me.btnClearAccount.Size = New System.Drawing.Size(22, 22)
@@ -228,7 +227,7 @@ Partial Class IAIPListTool
         '
         Me.btnClearUnit.AutoSize = True
         Me.btnClearUnit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearUnit.Image = CType(resources.GetObject("btnClearUnit.Image"), System.Drawing.Image)
+        Me.btnClearUnit.Image = Global.Iaip.My.Resources.Resources.EraseIcon
         Me.btnClearUnit.Location = New System.Drawing.Point(232, 59)
         Me.btnClearUnit.Name = "btnClearUnit"
         Me.btnClearUnit.Size = New System.Drawing.Size(22, 22)
@@ -239,7 +238,7 @@ Partial Class IAIPListTool
         '
         Me.btnClearProgram.AutoSize = True
         Me.btnClearProgram.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearProgram.Image = CType(resources.GetObject("btnClearProgram.Image"), System.Drawing.Image)
+        Me.btnClearProgram.Image = Global.Iaip.My.Resources.Resources.EraseIcon
         Me.btnClearProgram.Location = New System.Drawing.Point(232, 33)
         Me.btnClearProgram.Name = "btnClearProgram"
         Me.btnClearProgram.Size = New System.Drawing.Size(22, 22)
@@ -722,7 +721,7 @@ Partial Class IAIPListTool
         '
         Me.btnSelectForm.AutoSize = True
         Me.btnSelectForm.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSelectForm.Image = CType(resources.GetObject("btnSelectForm.Image"), System.Drawing.Image)
+        Me.btnSelectForm.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnSelectForm.Location = New System.Drawing.Point(18, 27)
         Me.btnSelectForm.Name = "btnSelectForm"
         Me.btnSelectForm.Size = New System.Drawing.Size(30, 28)
@@ -733,7 +732,7 @@ Partial Class IAIPListTool
         '
         Me.btnUnselectForm.AutoSize = True
         Me.btnUnselectForm.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUnselectForm.Image = CType(resources.GetObject("btnUnselectForm.Image"), System.Drawing.Image)
+        Me.btnUnselectForm.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnUnselectForm.Location = New System.Drawing.Point(18, 109)
         Me.btnUnselectForm.Name = "btnUnselectForm"
         Me.btnUnselectForm.Size = New System.Drawing.Size(30, 28)
@@ -744,7 +743,7 @@ Partial Class IAIPListTool
         '
         Me.btnSelectAllForms.AutoSize = True
         Me.btnSelectAllForms.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSelectAllForms.Image = CType(resources.GetObject("btnSelectAllForms.Image"), System.Drawing.Image)
+        Me.btnSelectAllForms.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnSelectAllForms.Location = New System.Drawing.Point(18, 68)
         Me.btnSelectAllForms.Name = "btnSelectAllForms"
         Me.btnSelectAllForms.Size = New System.Drawing.Size(30, 28)
@@ -755,7 +754,7 @@ Partial Class IAIPListTool
         '
         Me.btnUnselectAllForms.AutoSize = True
         Me.btnUnselectAllForms.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUnselectAllForms.Image = CType(resources.GetObject("btnUnselectAllForms.Image"), System.Drawing.Image)
+        Me.btnUnselectAllForms.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnUnselectAllForms.Location = New System.Drawing.Point(18, 150)
         Me.btnUnselectAllForms.Name = "btnUnselectAllForms"
         Me.btnUnselectAllForms.Size = New System.Drawing.Size(30, 28)
