@@ -96,7 +96,6 @@ Public Module AppVersion
                 If (doUpdate) Then
                     Try
                         AD.Update()
-                        'MessageBox.Show("The IAIP has been updated and will now restart.")
                         Application.Restart()
                     Catch dde As DeploymentDownloadException
                         MessageBox.Show("The IAIP cannot be updated right now. " & vbNewLine & vbNewLine &
