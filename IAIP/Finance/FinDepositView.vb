@@ -58,6 +58,8 @@ Public Class FinDepositView
 
         btnDeleteDeposit.Visible = False
         btnUpdateDepositDetails.Visible = False
+
+        SetPermissions()
     End Sub
 
     Private Sub ClearMessages()
@@ -145,17 +147,19 @@ Public Class FinDepositView
                 dgvInvoicesPaid.Columns("DepositID").Visible = False
                 dgvInvoicesPaid.SelectNone()
 
-                If dgvInvoicesPaid.Columns("RemoveInvoicePayment") Is Nothing Then
-                    Dim removePaymentButtonColumn As New DataGridViewButtonColumn With {
-                        .Name = "RemoveInvoicePayment",
-                        .HeaderText = "",
-                        .Text = "Remove",
-                        .UseColumnTextForButtonValue = True
-                    }
+                If CurrentUser.HasPermission(UserCan.EditFinancialData) Then
+                    If dgvInvoicesPaid.Columns("RemoveInvoicePayment") Is Nothing Then
+                        Dim removePaymentButtonColumn As New DataGridViewButtonColumn With {
+                            .Name = "RemoveInvoicePayment",
+                            .HeaderText = "",
+                            .Text = "Remove",
+                            .UseColumnTextForButtonValue = True
+                        }
 
-                    dgvInvoicesPaid.Columns.Add(removePaymentButtonColumn)
-                Else
-                    dgvInvoicesPaid.Columns("RemoveInvoicePayment").DisplayIndex = dgvInvoicesPaid.Columns.Count() - 1
+                        dgvInvoicesPaid.Columns.Add(removePaymentButtonColumn)
+                    Else
+                        dgvInvoicesPaid.Columns("RemoveInvoicePayment").DisplayIndex = dgvInvoicesPaid.Columns.Count() - 1
+                    End If
                 End If
             End If
 
@@ -182,6 +186,17 @@ Public Class FinDepositView
 
             btnDeleteDeposit.Visible = (.TotalAmountAllocated = 0)
         End With
+
+        SetPermissions()
+    End Sub
+
+    Private Sub SetPermissions()
+        If Not CurrentUser.HasPermission(UserCan.EditFinancialData) Then
+            HideControls({btnApplyToInvoice, btnDeleteDeposit, btnSaveNewDeposit, btnUpdateDepositDetails, txtInvoiceToApply, lblInvoiceToApply, txtAmountToApply, lblAmountToApply})
+            lblInvoicesPaid.Location = lblInvoiceToApply.Location
+            dgvInvoicesPaid.Size = New Size(dgvInvoicesPaid.Width, 311)
+            dgvInvoicesPaid.Location = txtInvoiceToApply.Location
+        End If
     End Sub
 
     Private Sub DisableEntireForm()
@@ -410,7 +425,10 @@ Public Class FinDepositView
     End Sub
 
     Private Sub dgvInvoicesPaid_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoicesPaid.CellClick
-        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvInvoicesPaid.RowCount AndAlso e.ColumnIndex = dgvInvoicesPaid.Columns("RemoveInvoicePayment").Index Then
+        If CurrentUser.HasPermission(UserCan.EditFinancialData) AndAlso
+            e.RowIndex <> -1 AndAlso e.RowIndex < dgvInvoicesPaid.RowCount AndAlso
+            e.ColumnIndex = dgvInvoicesPaid.Columns("RemoveInvoicePayment").Index Then
+
             RemovePaymentFromInvoice(CInt(dgvInvoicesPaid("InvoiceID", e.RowIndex).Value))
         End If
     End Sub

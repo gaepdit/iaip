@@ -47,8 +47,8 @@ Partial Class FinDepositView
         Me.lblDepositDisplay = New System.Windows.Forms.Label()
         Me.dgvInvoicesPaid = New Iaip.IaipDataGridView()
         Me.txtInvoiceToApply = New System.Windows.Forms.TextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
+        Me.lblAmountToApply = New System.Windows.Forms.Label()
+        Me.lblInvoiceToApply = New System.Windows.Forms.Label()
         Me.txtAmountToApply = New Iaip.CurrencyTextBox()
         Me.btnApplyToInvoice = New System.Windows.Forms.Button()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -318,21 +318,21 @@ Partial Class FinDepositView
         '
         'Label9
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(109, 28)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(87, 13)
-        Me.Label9.TabIndex = 3
-        Me.Label9.Text = "Payment Amount"
+        Me.lblAmountToApply.AutoSize = True
+        Me.lblAmountToApply.Location = New System.Drawing.Point(109, 28)
+        Me.lblAmountToApply.Name = "Label9"
+        Me.lblAmountToApply.Size = New System.Drawing.Size(87, 13)
+        Me.lblAmountToApply.TabIndex = 3
+        Me.lblAmountToApply.Text = "Payment Amount"
         '
         'Label10
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(9, 28)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(52, 13)
-        Me.Label10.TabIndex = 3
-        Me.Label10.Text = "Invoice #"
+        Me.lblInvoiceToApply.AutoSize = True
+        Me.lblInvoiceToApply.Location = New System.Drawing.Point(9, 28)
+        Me.lblInvoiceToApply.Name = "Label10"
+        Me.lblInvoiceToApply.Size = New System.Drawing.Size(52, 13)
+        Me.lblInvoiceToApply.TabIndex = 3
+        Me.lblInvoiceToApply.Text = "Invoice #"
         '
         'txtAmountToApply
         '
@@ -607,8 +607,8 @@ Partial Class FinDepositView
         Me.grpApplyToInvoice.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grpApplyToInvoice.Controls.Add(Me.dgvInvoicesPaid)
-        Me.grpApplyToInvoice.Controls.Add(Me.Label10)
-        Me.grpApplyToInvoice.Controls.Add(Me.Label9)
+        Me.grpApplyToInvoice.Controls.Add(Me.lblInvoiceToApply)
+        Me.grpApplyToInvoice.Controls.Add(Me.lblAmountToApply)
         Me.grpApplyToInvoice.Controls.Add(Me.lblApplyToInvoiceMessage)
         Me.grpApplyToInvoice.Controls.Add(Me.txtAmountToApply)
         Me.grpApplyToInvoice.Controls.Add(Me.txtInvoiceToApply)
@@ -738,8 +738,8 @@ Partial Class FinDepositView
     Friend WithEvents btnDeleteDeposit As Button
     Friend WithEvents btnUpdateDepositDetails As Button
     Friend WithEvents txtInvoiceToApply As TextBox
-    Friend WithEvents Label9 As Label
-    Friend WithEvents Label10 As Label
+    Friend WithEvents lblAmountToApply As Label
+    Friend WithEvents lblInvoiceToApply As Label
     Friend WithEvents txtAmountToApply As CurrencyTextBox
     Friend WithEvents btnApplyToInvoice As Button
     Friend WithEvents Label12 As Label

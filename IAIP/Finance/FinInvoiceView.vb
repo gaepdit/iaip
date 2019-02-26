@@ -99,6 +99,14 @@ Public Class FinInvoiceView
                 btnNewDeposit.Enabled = (.InvoiceBalance <> 0)
             End If
         End With
+
+        SetPermissions()
+    End Sub
+
+    Private Sub SetPermissions()
+        If Not CurrentUser.HasPermission(UserCan.EditFinancialData) Then
+            HideControls({btnNewDeposit, btnVoid})
+        End If
     End Sub
 
     Private Sub InvalidateForm()

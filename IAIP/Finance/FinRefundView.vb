@@ -80,6 +80,8 @@ Public Class FinRefundView
         btnSaveNew.Visible = True
         btnUpdateComment.Visible = False
         btnDelete.Visible = False
+
+        SetPermissions()
     End Sub
 
     Private Sub LoadUnbalancedDeposits()
@@ -181,6 +183,14 @@ Public Class FinRefundView
             dgvDeposits.DataSource = refund.RefundsApplied
             dgvDeposits.Columns("RefundID").Visible = False
             dgvDeposits.SelectNone()
+        End If
+
+        SetPermissions()
+    End Sub
+
+    Private Sub SetPermissions()
+        If Not CurrentUser.HasPermission(UserCan.EditFinancialData) Then
+            HideControls({btnSaveNew, btnDelete})
         End If
     End Sub
 

@@ -111,6 +111,14 @@ Public Class FinFacilityView
         Else
             txtDeposits.Amount = 0
         End If
+
+        SetPermissions()
+    End Sub
+
+    Private Sub SetPermissions()
+        If Not CurrentUser.HasPermission(UserCan.EditFinancialData) Then
+            HideControls({btnAddRefund})
+        End If
     End Sub
 
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
