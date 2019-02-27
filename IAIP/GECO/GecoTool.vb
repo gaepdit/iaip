@@ -569,7 +569,6 @@ Public Class GecoTool
             If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
                 DeleteUserGecoAccess(CInt(txtWebUserID.Text), New Apb.ApbFacilityId(cboFacilityToDelete.SelectedValue.ToString))
                 LoadUserFacilityInfo(txtWebUserEmail.Text)
-                MsgBox("The facility has been removed for this user", MsgBoxStyle.Information, "Facility removed")
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
