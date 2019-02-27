@@ -166,25 +166,28 @@ Namespace DAL
         Public Function GetRegistrantsByEventId(id As Integer) As DataTable
             Try
                 Dim query As String =
-                "SELECT
-                    RR.NUMRES_REGISTRATIONID,
-                    RR.DATREGISTRATIONDATETIME,
-                    OPROF.STRFIRSTNAME,
-                    OPROF.STRLASTNAME,
-                    RR.STRCOMMENTS,
-                    RESLK.STRREGISTRATIONSTATUS,
-                    RR.UPDATEUSER AS STRUSEREMAIL,
-                    OPROF.STRCOMPANYNAME,
-                    OPROF.STRPHONENUMBER,
-                    OPROF.STRADDRESS,
-                    OPROF.STRCITY,
-                    OPROF.STRSTATE,
-                    OPROF.STRZIP,
-                    RR.NUMREGISTRATIONSTATUSCODE
-                FROM RES_REGISTRATION RR
-                    LEFT JOIN RESLK_REGISTRATIONSTATUS RESLK ON RR.NUMREGISTRATIONSTATUSCODE = RESLK.NUMRESLK_REGISTRATIONSTATUSID
-                    LEFT JOIN OLAPUSERPROFILE OPROF ON RR.NUMGECOUSERID = OPROF.NUMUSERID
-                WHERE Convert(INT, RR.NUMRES_EVENTID) = @pId"
+                "SELECT r.NUMRES_REGISTRATIONID,
+                       r.DATREGISTRATIONDATETIME,
+                       u.STRFIRSTNAME,
+                       u.STRLASTNAME,
+                       r.STRCOMMENTS,
+                       s.STRREGISTRATIONSTATUS,
+                       o.STRUSEREMAIL,
+                       u.STRCOMPANYNAME,
+                       u.STRPHONENUMBER,
+                       u.STRADDRESS,
+                       u.STRCITY,
+                       u.STRSTATE,
+                       u.STRZIP,
+                       r.NUMREGISTRATIONSTATUSCODE
+                FROM RES_REGISTRATION r
+                     inner JOIN RESLK_REGISTRATIONSTATUS s
+                                ON r.NUMREGISTRATIONSTATUSCODE = s.NUMRESLK_REGISTRATIONSTATUSID
+                     inner JOIN OLAPUSERPROFILE u
+                                ON r.NUMGECOUSERID = u.NUMUSERID
+                     inner join OLAPUSERLOGIN o
+                                on u.NUMUSERID = o.NUMUSERID
+                WHERE Convert(int, r.NUMRES_EVENTID) = @pId"
 
                 Dim parameter As New SqlParameter("@pId", id)
 
