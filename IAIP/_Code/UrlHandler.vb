@@ -42,6 +42,10 @@ Public Module UrlHandler
         OpenUri(New Uri(PermitSearchUrlFragment & airsNumber.ToString), objectSender)
     End Sub
 
+    Public Function GetGecoUrl() As String
+        Return GecoUrl.ToString
+    End Function
+
     Public Function GetInvoiceUrl(invoiceGuid As Guid) As String
         Return String.Format(InvoiceViewUrlFragment, invoiceGuid.ToString)
     End Function

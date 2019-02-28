@@ -14967,37 +14967,42 @@ Public Class SSPPApplicationTrackingLog
 
         UseWaitCursor = True
 
-        Dim subject As String = String.Format("Application No. {0}, Fee Notification", AppNumber)
+        Dim subject As String = String.Format("Application No. {0}; Fee ", AppNumber)
 
         If chbExpFee.Checked Then
-            subject &= " and Expedited Acceptance Notification"
+            subject &= "and Expedited Acceptance "
         End If
+
+        subject &= "Notification"
 
         Dim body As New StringBuilder()
         body.AppendLine(String.Format("Facility: {0}", txtFacilityName.Text))
         body.AppendLine(String.Format("Location: {0}, {1} County", cboFacilityCity.Text, cboCounty.Text))
-        body.AppendLine(String.Format("AIRS No: {0}", txtAIRSNumber.AirsNumber.FormattedString))
-        body.AppendLine(String.Format("Application Type: {0}", cboApplicationType.Text))
+        body.AppendLine(String.Format("AIRS: {0}", txtAIRSNumber.AirsNumber.FormattedString))
+        body.AppendLine(String.Format("App Type: {0}", cboApplicationType.Text))
         body.AppendLine()
         body.AppendLine(String.Format("Application Fee: {0}", If(chbAppFee.Checked, txtAppFeeAmount.Text, "Not Applicable")))
         body.AppendLine(String.Format("Expedited Review Fee: {0}", If(chbExpFee.Checked, txtExpFeeAmount.Text, "Not Applicable")))
-        body.AppendLine(String.Format("Total Fee: {0}", txtFeeTotal.Text))
+        body.AppendLine(String.Format("Total: {0}", txtFeeTotal.Text))
         body.AppendLine()
         body.AppendLine("This email serves to acknowledge receipt of your Air Quality Permit application.")
         body.AppendLine()
 
         If chbExpFee.Checked Then
             body.Append("This email also serves as notice of acceptance of the application into the Expedited Permitting Program. ")
-            body.Append("The applicant must complete the invitation process by responding to this email to acknowledge entry into the program, ")
+            body.Append("The applicant must complete the invitation process by responding to this email to acknowledge entry into the program ")
             body.Append("within three business days of this email. The expedited time frame begins upon the applicant’s acceptance of the invitation. ")
             body.Append("Failure to comply with the deadlines listed in this email may result in removal of the application from the ")
-            body.Append("Expedited Permitting Program. If the applicant decides to decline to participate in the Expedited Permitting Program they ")
-            body.Append("must immediately respond to this email, requesting that the application no longer be considered for the program.")
+            body.Append("Expedited Permitting Program. If the applicant decides to decline participation in the program they ")
+            body.Append("must immediately respond, requesting that the application no longer be considered.")
             body.AppendLine()
         End If
 
-        body.AppendFormat("The applicant must complete the submittal process by paying the above referenced fee of {0}. ", txtFeeTotal.Text)
+        body.Append("The applicant must complete the submittal process by paying the above referenced fee. ")
         body.AppendFormat("A printable fee invoice is accessible through GECO at {0} ", GetPermitApplicationUrl(AppNumber))
+        body.AppendLine()
+        body.AppendFormat("If you do not have a GECO account, visit {0} and create a new account. ", GetGecoUrl())
+        body.Append("You can then request access to this facility for emission fees using the tools in GECO.")
         body.AppendLine()
         body.Append("The fee must be submitted within 10 business days of the date of this email. Permitting actions will not be finalized ")
         body.Append("prior to the Division’s receipt of the fee payment.")
