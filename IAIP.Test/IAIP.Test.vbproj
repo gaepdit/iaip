@@ -54,6 +54,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -85,7 +86,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\ApbFacilityIdTest.vb" />
+    <Compile Include="ClassTests\ReverseComparerTests.vb" />
+    <Compile Include="ClassTests\TemporalCollectionTests.vb" />
+    <Compile Include="ControlTests\AirsNumberTextBoxTests.vb" />
+    <Compile Include="ExtensionMethods\ControlExtensions.vb" />
+    <Compile Include="ModelTests\ApbFacilityIdTest.vb" />
+    <Compile Include="ModelTests\InvoiceIdTests.vb" />
     <Compile Include="UnitTestTests.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -130,6 +136,7 @@
       <Name>IAIP</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

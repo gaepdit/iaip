@@ -1182,7 +1182,7 @@ Public Class SSPPApplicationLog
                 Panel1.Text = dtApplicationLog.Rows.Count & " applications found"
             End If
 
-            dgvApplicationLog.MakeColumnsLookLikeLinks(0)
+            dgvApplicationLog.MakeColumnLookLikeLinks(0)
             dgvApplicationLog.Visible = True
             dgvApplicationLog.SanelyResizeColumns()
 

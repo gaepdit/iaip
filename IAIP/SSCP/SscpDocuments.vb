@@ -302,7 +302,7 @@ Public Class SscpDocuments
     Private Sub btnNewDocumentSelect_Click(sender As Object, e As EventArgs) Handles btnNewDocumentSelect.Click
 
         Dim openFileDialog As New OpenFileDialog With { _
-            .InitialDirectory = GetUserSetting(UserSetting.EnforcementUploadLocation), _
+            .InitialDirectory = GetUserSetting(UserSetting.FileUploadLocation), _
             .Filter = String.Join("|", FileOpenFilters.ToArray) _
         }
 
@@ -380,7 +380,7 @@ Public Class SscpDocuments
         If result Then
             m = String.Format(GetDocumentMessage(DocumentMessageType.UploadSuccess), documentToUpload.FileName)
             Me.Message = New IaipMessage(m)
-            SaveUserSetting(UserSetting.EnforcementUploadLocation, fileInfo.DirectoryName)
+            SaveUserSetting(UserSetting.FileUploadLocation, fileInfo.DirectoryName)
         Else
             Me.Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.UploadFailure), IaipMessage.WarningLevels.ErrorReport)
         End If

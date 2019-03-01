@@ -28,7 +28,6 @@ Partial Class ISMPAddTestingFirms
     'Do not modify it using the code editor.
 
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents TBAddTestingFirm As System.Windows.Forms.ToolBar
     Friend WithEvents txtTestingFirmKey As System.Windows.Forms.TextBox
     Friend WithEvents txtTestingFirmEmail As System.Windows.Forms.TextBox
     Friend WithEvents txtTestingFirmFaxNumber As System.Windows.Forms.TextBox
@@ -52,19 +51,11 @@ Partial Class ISMPAddTestingFirms
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents dgrTestingFirms As System.Windows.Forms.DataGrid
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents tbbClear As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Private components As System.ComponentModel.IContainer
 
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPAddTestingFirms))
-        Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.TBAddTestingFirm = New System.Windows.Forms.ToolBar()
-        Me.tbbSave = New System.Windows.Forms.ToolBarButton()
-        Me.tbbClear = New System.Windows.Forms.ToolBarButton()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtTestingFirmKey = New System.Windows.Forms.TextBox()
@@ -94,122 +85,13 @@ Partial Class ISMPAddTestingFirms
         Me.mmiClear = New System.Windows.Forms.MenuItem()
         Me.MenuItem2 = New System.Windows.Forms.MenuItem()
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.bSave = New System.Windows.Forms.ToolStripMenuItem()
+        Me.bClear = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgrTestingFirms, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'Image_List_All
-        '
-        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
-        Me.Image_List_All.Images.SetKeyName(0, "")
-        Me.Image_List_All.Images.SetKeyName(1, "")
-        Me.Image_List_All.Images.SetKeyName(2, "")
-        Me.Image_List_All.Images.SetKeyName(3, "")
-        Me.Image_List_All.Images.SetKeyName(4, "")
-        Me.Image_List_All.Images.SetKeyName(5, "")
-        Me.Image_List_All.Images.SetKeyName(6, "")
-        Me.Image_List_All.Images.SetKeyName(7, "")
-        Me.Image_List_All.Images.SetKeyName(8, "")
-        Me.Image_List_All.Images.SetKeyName(9, "")
-        Me.Image_List_All.Images.SetKeyName(10, "")
-        Me.Image_List_All.Images.SetKeyName(11, "")
-        Me.Image_List_All.Images.SetKeyName(12, "")
-        Me.Image_List_All.Images.SetKeyName(13, "")
-        Me.Image_List_All.Images.SetKeyName(14, "")
-        Me.Image_List_All.Images.SetKeyName(15, "")
-        Me.Image_List_All.Images.SetKeyName(16, "")
-        Me.Image_List_All.Images.SetKeyName(17, "")
-        Me.Image_List_All.Images.SetKeyName(18, "")
-        Me.Image_List_All.Images.SetKeyName(19, "")
-        Me.Image_List_All.Images.SetKeyName(20, "")
-        Me.Image_List_All.Images.SetKeyName(21, "")
-        Me.Image_List_All.Images.SetKeyName(22, "")
-        Me.Image_List_All.Images.SetKeyName(23, "")
-        Me.Image_List_All.Images.SetKeyName(24, "")
-        Me.Image_List_All.Images.SetKeyName(25, "")
-        Me.Image_List_All.Images.SetKeyName(26, "")
-        Me.Image_List_All.Images.SetKeyName(27, "")
-        Me.Image_List_All.Images.SetKeyName(28, "")
-        Me.Image_List_All.Images.SetKeyName(29, "")
-        Me.Image_List_All.Images.SetKeyName(30, "")
-        Me.Image_List_All.Images.SetKeyName(31, "")
-        Me.Image_List_All.Images.SetKeyName(32, "")
-        Me.Image_List_All.Images.SetKeyName(33, "")
-        Me.Image_List_All.Images.SetKeyName(34, "")
-        Me.Image_List_All.Images.SetKeyName(35, "")
-        Me.Image_List_All.Images.SetKeyName(36, "")
-        Me.Image_List_All.Images.SetKeyName(37, "")
-        Me.Image_List_All.Images.SetKeyName(38, "")
-        Me.Image_List_All.Images.SetKeyName(39, "")
-        Me.Image_List_All.Images.SetKeyName(40, "")
-        Me.Image_List_All.Images.SetKeyName(41, "")
-        Me.Image_List_All.Images.SetKeyName(42, "")
-        Me.Image_List_All.Images.SetKeyName(43, "")
-        Me.Image_List_All.Images.SetKeyName(44, "")
-        Me.Image_List_All.Images.SetKeyName(45, "")
-        Me.Image_List_All.Images.SetKeyName(46, "")
-        Me.Image_List_All.Images.SetKeyName(47, "")
-        Me.Image_List_All.Images.SetKeyName(48, "")
-        Me.Image_List_All.Images.SetKeyName(49, "")
-        Me.Image_List_All.Images.SetKeyName(50, "")
-        Me.Image_List_All.Images.SetKeyName(51, "")
-        Me.Image_List_All.Images.SetKeyName(52, "")
-        Me.Image_List_All.Images.SetKeyName(53, "")
-        Me.Image_List_All.Images.SetKeyName(54, "")
-        Me.Image_List_All.Images.SetKeyName(55, "")
-        Me.Image_List_All.Images.SetKeyName(56, "")
-        Me.Image_List_All.Images.SetKeyName(57, "")
-        Me.Image_List_All.Images.SetKeyName(58, "")
-        Me.Image_List_All.Images.SetKeyName(59, "")
-        Me.Image_List_All.Images.SetKeyName(60, "")
-        Me.Image_List_All.Images.SetKeyName(61, "")
-        Me.Image_List_All.Images.SetKeyName(62, "")
-        Me.Image_List_All.Images.SetKeyName(63, "")
-        Me.Image_List_All.Images.SetKeyName(64, "")
-        Me.Image_List_All.Images.SetKeyName(65, "")
-        Me.Image_List_All.Images.SetKeyName(66, "")
-        Me.Image_List_All.Images.SetKeyName(67, "")
-        Me.Image_List_All.Images.SetKeyName(68, "")
-        Me.Image_List_All.Images.SetKeyName(69, "")
-        Me.Image_List_All.Images.SetKeyName(70, "")
-        Me.Image_List_All.Images.SetKeyName(71, "")
-        Me.Image_List_All.Images.SetKeyName(72, "")
-        Me.Image_List_All.Images.SetKeyName(73, "")
-        Me.Image_List_All.Images.SetKeyName(74, "")
-        Me.Image_List_All.Images.SetKeyName(75, "")
-        Me.Image_List_All.Images.SetKeyName(76, "")
-        Me.Image_List_All.Images.SetKeyName(77, "")
-        Me.Image_List_All.Images.SetKeyName(78, "")
-        Me.Image_List_All.Images.SetKeyName(79, "")
-        Me.Image_List_All.Images.SetKeyName(80, "")
-        Me.Image_List_All.Images.SetKeyName(81, "")
-        Me.Image_List_All.Images.SetKeyName(82, "")
-        Me.Image_List_All.Images.SetKeyName(83, "")
-        Me.Image_List_All.Images.SetKeyName(84, "")
-        '
-        'TBAddTestingFirm
-        '
-        Me.TBAddTestingFirm.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.tbbSave, Me.tbbClear})
-        Me.TBAddTestingFirm.DropDownArrows = True
-        Me.TBAddTestingFirm.ImageList = Me.Image_List_All
-        Me.TBAddTestingFirm.Location = New System.Drawing.Point(0, 0)
-        Me.TBAddTestingFirm.Name = "TBAddTestingFirm"
-        Me.TBAddTestingFirm.ShowToolTips = True
-        Me.TBAddTestingFirm.Size = New System.Drawing.Size(680, 28)
-        Me.TBAddTestingFirm.TabIndex = 141
-        '
-        'tbbSave
-        '
-        Me.tbbSave.ImageIndex = 65
-        Me.tbbSave.Name = "tbbSave"
-        Me.tbbSave.ToolTipText = "Save"
-        '
-        'tbbClear
-        '
-        Me.tbbClear.ImageIndex = 84
-        Me.tbbClear.Name = "tbbClear"
-        Me.tbbClear.ToolTipText = "Clear"
         '
         'GroupBox1
         '
@@ -236,7 +118,7 @@ Partial Class ISMPAddTestingFirms
         Me.GroupBox1.Controls.Add(Me.txtTestingFirm)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 28)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 24)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(680, 150)
         Me.GroupBox1.TabIndex = 145
@@ -429,10 +311,10 @@ Partial Class ISMPAddTestingFirms
         Me.dgrTestingFirms.DataMember = ""
         Me.dgrTestingFirms.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrTestingFirms.HeaderForeColor = System.Drawing.SystemColors.ControlText
-        Me.dgrTestingFirms.Location = New System.Drawing.Point(0, 178)
+        Me.dgrTestingFirms.Location = New System.Drawing.Point(0, 174)
         Me.dgrTestingFirms.Name = "dgrTestingFirms"
         Me.dgrTestingFirms.ReadOnly = True
-        Me.dgrTestingFirms.Size = New System.Drawing.Size(680, 167)
+        Me.dgrTestingFirms.Size = New System.Drawing.Size(680, 171)
         Me.dgrTestingFirms.TabIndex = 147
         '
         'MmiSave
@@ -461,13 +343,37 @@ Partial Class ISMPAddTestingFirms
         '
         Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2})
         '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.bSave, Me.bClear})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(680, 24)
+        Me.MenuStrip1.TabIndex = 148
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'bSave
+        '
+        Me.bSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
+        Me.bSave.Name = "bSave"
+        Me.bSave.Size = New System.Drawing.Size(59, 20)
+        Me.bSave.Text = "Save"
+        '
+        'bClear
+        '
+        Me.bClear.Image = Global.Iaip.My.Resources.Resources.EraseIcon
+        Me.bClear.Name = "bClear"
+        Me.bClear.Size = New System.Drawing.Size(62, 20)
+        Me.bClear.Text = "Clear"
+        '
         'ISMPAddTestingFirms
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(680, 345)
         Me.Controls.Add(Me.dgrTestingFirms)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.TBAddTestingFirm)
+        Me.Controls.Add(Me.MenuStrip1)
+        Me.MainMenuStrip = Me.MenuStrip1
         Me.Menu = Me.MainMenu1
         Me.Name = "ISMPAddTestingFirms"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
@@ -475,6 +381,8 @@ Partial Class ISMPAddTestingFirms
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.dgrTestingFirms, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -485,4 +393,7 @@ Partial Class ISMPAddTestingFirms
     Friend WithEvents mmiClear As MenuItem
     Friend WithEvents MenuItem2 As MenuItem
     Friend WithEvents MainMenu1 As MainMenu
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents bSave As ToolStripMenuItem
+    Friend WithEvents bClear As ToolStripMenuItem
 End Class

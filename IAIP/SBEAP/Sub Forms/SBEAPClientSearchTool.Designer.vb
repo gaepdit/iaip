@@ -22,7 +22,6 @@ Partial Class SBEAPClientSearchTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SBEAPClientSearchTool))
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbClear = New System.Windows.Forms.ToolStripButton()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -100,7 +99,7 @@ Partial Class SBEAPClientSearchTool
         '
         'tsbClear
         '
-        Me.tsbClear.Image = CType(resources.GetObject("tsbClear.Image"), System.Drawing.Image)
+        Me.tsbClear.Image = Global.Iaip.My.Resources.Resources.EraseIcon
         Me.tsbClear.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbClear.Name = "tsbClear"
         Me.tsbClear.Size = New System.Drawing.Size(54, 22)

@@ -55,6 +55,7 @@ Partial Class IAIPLogIn
         Me.RetryButton = New System.Windows.Forms.Button()
         Me.chkRemember = New System.Windows.Forms.CheckBox()
         Me.lblIAIP = New System.Windows.Forms.Label()
+        Me.lnkChangelog = New System.Windows.Forms.LinkLabel()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -186,13 +187,13 @@ Partial Class IAIPLogIn
         '
         Me.lblCurrentVersionMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCurrentVersionMessage.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.lblCurrentVersionMessage.Location = New System.Drawing.Point(29, 369)
+        Me.lblCurrentVersionMessage.Location = New System.Drawing.Point(29, 351)
         Me.lblCurrentVersionMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblCurrentVersionMessage.Name = "lblCurrentVersionMessage"
-        Me.lblCurrentVersionMessage.Size = New System.Drawing.Size(256, 36)
+        Me.lblCurrentVersionMessage.Size = New System.Drawing.Size(256, 38)
         Me.lblCurrentVersionMessage.TabIndex = 38
         Me.lblCurrentVersionMessage.Text = "Current Version Placeholder"
-        Me.lblCurrentVersionMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblCurrentVersionMessage.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.lblCurrentVersionMessage.Visible = False
         '
         'lblLicenseLabel
@@ -203,7 +204,7 @@ Partial Class IAIPLogIn
         Me.lblLicenseLabel.Name = "lblLicenseLabel"
         Me.lblLicenseLabel.Size = New System.Drawing.Size(256, 36)
         Me.lblLicenseLabel.TabIndex = 37
-        Me.lblLicenseLabel.Text = "This product is licensed to " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "State of Georgia employees only"
+        Me.lblLicenseLabel.Text = "This product is licensed to " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "State of Georgia employees only."
         Me.lblLicenseLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblPassword
@@ -279,7 +280,8 @@ Partial Class IAIPLogIn
         Me.lblGeneralMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGeneralMessage.MaximumSize = New System.Drawing.Size(382, 96)
         Me.lblGeneralMessage.Name = "lblGeneralMessage"
-        Me.lblGeneralMessage.Size = New System.Drawing.Size(163, 54)
+        Me.lblGeneralMessage.Padding = New System.Windows.Forms.Padding(3)
+        Me.lblGeneralMessage.Size = New System.Drawing.Size(169, 60)
         Me.lblGeneralMessage.TabIndex = 38
         Me.lblGeneralMessage.Text = "Message Placeholder 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3"
         Me.lblGeneralMessage.Visible = False
@@ -292,7 +294,7 @@ Partial Class IAIPLogIn
         Me.ForgotUsernameLink.Location = New System.Drawing.Point(598, 146)
         Me.ForgotUsernameLink.Name = "ForgotUsernameLink"
         Me.ForgotUsernameLink.Size = New System.Drawing.Size(143, 20)
-        Me.ForgotUsernameLink.TabIndex = 39
+        Me.ForgotUsernameLink.TabIndex = 5
         Me.ForgotUsernameLink.TabStop = True
         Me.ForgotUsernameLink.Text = "Forgot Username?"
         Me.ForgotUsernameLink.Visible = False
@@ -305,7 +307,7 @@ Partial Class IAIPLogIn
         Me.ForgotPasswordLink.Location = New System.Drawing.Point(598, 185)
         Me.ForgotPasswordLink.Name = "ForgotPasswordLink"
         Me.ForgotPasswordLink.Size = New System.Drawing.Size(138, 20)
-        Me.ForgotPasswordLink.TabIndex = 39
+        Me.ForgotPasswordLink.TabIndex = 6
         Me.ForgotPasswordLink.TabStop = True
         Me.ForgotPasswordLink.Text = "Forgot Password?"
         Me.ForgotPasswordLink.Visible = False
@@ -313,9 +315,9 @@ Partial Class IAIPLogIn
         'RetryButton
         '
         Me.RetryButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RetryButton.Location = New System.Drawing.Point(335, 361)
+        Me.RetryButton.Location = New System.Drawing.Point(332, 365)
         Me.RetryButton.Name = "RetryButton"
-        Me.RetryButton.Size = New System.Drawing.Size(99, 31)
+        Me.RetryButton.Size = New System.Drawing.Size(107, 31)
         Me.RetryButton.TabIndex = 4
         Me.RetryButton.Text = "Try again"
         Me.RetryButton.UseVisualStyleBackColor = True
@@ -343,12 +345,26 @@ Partial Class IAIPLogIn
         Me.lblIAIP.TabIndex = 32
         Me.lblIAIP.Text = "Integrated Air Information Platform" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
+        'lnkChangelog
+        '
+        Me.lnkChangelog.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lnkChangelog.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.lnkChangelog.Location = New System.Drawing.Point(29, 389)
+        Me.lnkChangelog.Name = "lnkChangelog"
+        Me.lnkChangelog.Size = New System.Drawing.Size(256, 20)
+        Me.lnkChangelog.TabIndex = 7
+        Me.lnkChangelog.TabStop = True
+        Me.lnkChangelog.Text = "Change Log"
+        Me.lnkChangelog.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lnkChangelog.Visible = False
+        '
         'IAIPLogIn
         '
         Me.AcceptButton = Me.btnLoginButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(742, 406)
+        Me.ClientSize = New System.Drawing.Size(756, 418)
+        Me.Controls.Add(Me.lnkChangelog)
         Me.Controls.Add(Me.chkRemember)
         Me.Controls.Add(Me.RetryButton)
         Me.Controls.Add(Me.ForgotPasswordLink)
@@ -415,4 +431,5 @@ Partial Class IAIPLogIn
     Friend WithEvents mmiThrowHandledError As MenuItem
     Friend WithEvents chkRemember As CheckBox
     Friend WithEvents lblIAIP As Label
+    Friend WithEvents lnkChangelog As LinkLabel
 End Class

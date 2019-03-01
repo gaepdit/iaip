@@ -849,7 +849,7 @@ Public Class ISMPTestReports
     End Sub
     Private Sub LoadData()
         Try
-            Dim OtherWitnessingEng As String = "0"
+            Dim OtherWitnessingEng As Integer = 0
             Dim ConfidentialData As String = "0"
 
             query =
@@ -1157,9 +1157,9 @@ Public Class ISMPTestReports
                     ControlEquipment = dr.Item("strControlEquipmentData")
                 End If
                 If IsDBNull(dr.Item("strOtherWitnessingEng")) Then
-                    OtherWitnessingEng = "0"
+                    OtherWitnessingEng = 0
                 Else
-                    OtherWitnessingEng = dr.Item("strOtherWitnessingEng")
+                    OtherWitnessingEng = CInt(dr.Item("strOtherWitnessingEng"))
                 End If
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
@@ -1216,7 +1216,8 @@ Public Class ISMPTestReports
                         LoadDefaultComplianceManager()
                 End Select
             End If
-            If OtherWitnessingEng <> "0" Then
+
+            If OtherWitnessingEng > 0 Then
                 LoadOtherWitnessingEng()
             End If
 
@@ -8113,19 +8114,21 @@ Public Class ISMPTestReports
 
             Dim p As New SqlParameter("@RefNum", ReferenceNumber)
 
-            Dim dr As DataRow = DB.GetDataRow(query, p)
+            Dim dt As DataTable = DB.GetDataTable(query, p)
 
             Dim temp As String = " "
             Dim x As Integer = 0
 
-            If dr IsNot Nothing Then
-                temp = dr.Item("strWitnessingEngineer")
-                clbWitnessingEngineers.SelectedValue = temp
-                x = clbWitnessingEngineers.SelectedIndex
-                If x <> -1 Then
-                    clbWitnessingEngineers.SetItemCheckState(x, CheckState.Checked)
-                End If
-                clbWitnessingEngineers.SelectedValue = 0
+            If dt IsNot Nothing Then
+                For Each dr As DataRow In dt.Rows
+                    temp = dr.Item("strWitnessingEngineer").ToString
+                    clbWitnessingEngineers.SelectedValue = temp
+                    x = clbWitnessingEngineers.SelectedIndex
+                    If x <> -1 Then
+                        clbWitnessingEngineers.SetItemCheckState(x, CheckState.Checked)
+                    End If
+                    clbWitnessingEngineers.SelectedValue = 0
+                Next
             End If
 
         Catch ex As Exception
@@ -9279,7 +9282,7 @@ Public Class ISMPTestReports
             Dim ReviewingEngineer As String = "0"
             Dim WitnessingEng As String = "0"
             Dim WitnessingEng2 As String = "0"
-            Dim OtherWitnessing As Integer = 0
+            Dim OtherWitnessing As Integer = clbWitnessingEngineers.CheckedItems.Count
             Dim ReviewingUnit As String = "0"
             Dim ComplianceManager As String = "0"
             Dim CC As String = "0"
@@ -9374,11 +9377,7 @@ Public Class ISMPTestReports
             Else
                 CC = "0"
             End If
-            If clbWitnessingEngineers.CheckedItems.Count > 0 Then
-                OtherWitnessing = clbWitnessingEngineers.CheckedItems.Count
-            Else
-                OtherWitnessing = 0
-            End If
+
             If txtAssignedToEngineer.Text = "04-Jul-1776" Then
                 AssignedDate = TodayFormatted
             Else
@@ -9975,34 +9974,29 @@ Public Class ISMPTestReports
 
             End Select
 
-            If OtherWitnessing > 0 Then
-                Dim temp As String = " "
-                If clbWitnessingEngineers.CheckedItems.Count > 0 Then
-                    query = "Delete ISMPWitnessingEng " &
+            query = "Delete ISMPWitnessingEng " &
                     "where strReferenceNumber = @ref "
 
-                    Dim p2 As New SqlParameter("@ref", ReferenceNumber)
+            DB.RunCommand(query, New SqlParameter("@ref", ReferenceNumber))
 
-                    DB.RunCommand(query, p2)
+            If OtherWitnessing > 0 Then
+                For i As Integer = 0 To clbWitnessingEngineers.Items.Count - 1
+                    If clbWitnessingEngineers.GetItemChecked(i) = True Then
+                        clbWitnessingEngineers.SelectedIndex = i
 
-                    For x As Integer = 0 To clbWitnessingEngineers.Items.Count - 1
-                        If clbWitnessingEngineers.GetItemChecked(x) = True Then
-                            clbWitnessingEngineers.SelectedIndex = x
-                            temp = clbWitnessingEngineers.SelectedValue
-                            query = "Insert into ISMPWitnessingEng " &
-                                "(STRREFERENCENUMBER, STRWITNESSINGENGINEER) " &
-                            "values " &
-                                "(@STRREFERENCENUMBER, @STRWITNESSINGENGINEER) "
+                        query = "Insert into ISMPWitnessingEng " &
+                            "(STRREFERENCENUMBER, STRWITNESSINGENGINEER) " &
+                        "values " &
+                            "(@STRREFERENCENUMBER, @STRWITNESSINGENGINEER) "
 
-                            Dim p3 As SqlParameter() = {
-                                New SqlParameter("@STRREFERENCENUMBER", ReferenceNumber),
-                                New SqlParameter("@STRWITNESSINGENGINEER", temp)
-                            }
+                        Dim p3 As SqlParameter() = {
+                            New SqlParameter("@STRREFERENCENUMBER", ReferenceNumber),
+                            New SqlParameter("@STRWITNESSINGENGINEER", clbWitnessingEngineers.SelectedValue.ToString)
+                        }
 
-                            DB.RunCommand(query, p3)
-                        End If
-                    Next
-                End If
+                        DB.RunCommand(query, p3)
+                    End If
+                Next
             End If
 
             query = "delete ISMPTestLogLink " &

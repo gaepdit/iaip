@@ -46,14 +46,13 @@ Partial Class IaipAbout
         '
         'lblLicenseLabel
         '
-        Me.lblLicenseLabel.AutoSize = True
-        Me.lblLicenseLabel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLicenseLabel.Location = New System.Drawing.Point(66, 288)
+        Me.lblLicenseLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblLicenseLabel.Location = New System.Drawing.Point(39, 288)
         Me.lblLicenseLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblLicenseLabel.Name = "lblLicenseLabel"
-        Me.lblLicenseLabel.Size = New System.Drawing.Size(164, 28)
+        Me.lblLicenseLabel.Size = New System.Drawing.Size(218, 32)
         Me.lblLicenseLabel.TabIndex = 37
-        Me.lblLicenseLabel.Text = "This product is licensed to " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "State of Georgia employees only"
+        Me.lblLicenseLabel.Text = "This product is licensed to " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "State of Georgia employees only."
         Me.lblLicenseLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblTitle
@@ -93,6 +92,7 @@ Partial Class IaipAbout
         '
         Me.lblSupport.AutoSize = True
         Me.lblSupport.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSupport.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
         Me.lblSupport.Location = New System.Drawing.Point(299, 182)
         Me.lblSupport.Name = "lblSupport"
         Me.lblSupport.Size = New System.Drawing.Size(94, 17)
@@ -104,6 +104,7 @@ Partial Class IaipAbout
         '
         Me.lblDocumentation.AutoSize = True
         Me.lblDocumentation.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDocumentation.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
         Me.lblDocumentation.Location = New System.Drawing.Point(299, 204)
         Me.lblDocumentation.Name = "lblDocumentation"
         Me.lblDocumentation.Size = New System.Drawing.Size(146, 17)
@@ -115,6 +116,7 @@ Partial Class IaipAbout
         '
         Me.lblChangelog.AutoSize = True
         Me.lblChangelog.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblChangelog.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
         Me.lblChangelog.Location = New System.Drawing.Point(299, 226)
         Me.lblChangelog.Name = "lblChangelog"
         Me.lblChangelog.Size = New System.Drawing.Size(80, 17)
@@ -126,6 +128,7 @@ Partial Class IaipAbout
         '
         Me.lblUpdateCheck.AutoSize = True
         Me.lblUpdateCheck.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblUpdateCheck.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
         Me.lblUpdateCheck.Location = New System.Drawing.Point(299, 248)
         Me.lblUpdateCheck.Name = "lblUpdateCheck"
         Me.lblUpdateCheck.Size = New System.Drawing.Size(123, 17)

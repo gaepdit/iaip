@@ -20,17 +20,12 @@ Partial Class SSPPApplicationTrackingLog
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPApplicationTrackingLog))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshAIRSNo = New System.Windows.Forms.Button()
         Me.lblLinkWarning = New System.Windows.Forms.Label()
         Me.rtbFacilityInformation = New System.Windows.Forms.RichTextBox()
-        Me.txtAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.txtAIRSNumber = New Iaip.AirNumberEntryForm()
         Me.lblAppNumber = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblApplicationUnit = New System.Windows.Forms.Label()
@@ -396,7 +391,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtSignificantComments = New System.Windows.Forms.TextBox()
         Me.ApplicableRulesGroup = New System.Windows.Forms.GroupBox()
         Me.chbConfidential = New System.Windows.Forms.CheckBox()
-        Me.chbExpedited = New System.Windows.Forms.CheckBox()
         Me.chbPal = New System.Windows.Forms.CheckBox()
         Me.chbRuleyy = New System.Windows.Forms.CheckBox()
         Me.chbRulett = New System.Windows.Forms.CheckBox()
@@ -492,9 +486,43 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboClassification = New System.Windows.Forms.ComboBox()
         Me.lblOperationalStatus = New System.Windows.Forms.Label()
         Me.TCApplicationTrackingLog = New System.Windows.Forms.TabControl()
+        Me.TPFees = New System.Windows.Forms.TabPage()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.lblInvoices = New System.Windows.Forms.Label()
+        Me.txtFeeTotalInvoiced = New Iaip.CurrencyTextBox()
+        Me.lblFeeTotalInvoiced = New System.Windows.Forms.Label()
+        Me.dgvApplicationInvoices = New Iaip.IaipDataGridView()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.lblPayments = New System.Windows.Forms.Label()
+        Me.txtFeeTotalPaid = New Iaip.CurrencyTextBox()
+        Me.lblFeeTotalPaid = New System.Windows.Forms.Label()
+        Me.dgvApplicationPayments = New Iaip.IaipDataGridView()
+        Me.txtAppFeeAmount = New Iaip.CurrencyTextBox()
+        Me.txtExpFeeAmount = New Iaip.CurrencyTextBox()
+        Me.dtpFeeDataFinalized = New System.Windows.Forms.DateTimePicker()
+        Me.lblFacilityFeeNotified = New System.Windows.Forms.Label()
+        Me.dtpFacilityFeeNotified = New System.Windows.Forms.DateTimePicker()
+        Me.lblFeeDataFinalized = New System.Windows.Forms.Label()
+        Me.lklGenerateEmail = New System.Windows.Forms.LinkLabel()
+        Me.chbAppFee = New System.Windows.Forms.CheckBox()
+        Me.chbExpFee = New System.Windows.Forms.CheckBox()
+        Me.txtExpFeeOverrideReason = New System.Windows.Forms.TextBox()
+        Me.txtAppFeeOverrideReason = New System.Windows.Forms.TextBox()
+        Me.chbExpFeeOverride = New System.Windows.Forms.CheckBox()
+        Me.chbFeeDataFinalized = New System.Windows.Forms.CheckBox()
+        Me.chbAppFeeOverride = New System.Windows.Forms.CheckBox()
+        Me.txtFeeTotal = New System.Windows.Forms.TextBox()
+        Me.lblExpFee = New System.Windows.Forms.Label()
+        Me.lblAppFee = New System.Windows.Forms.Label()
+        Me.lblTotalFee = New System.Windows.Forms.Label()
+        Me.cmbExpFeeType = New System.Windows.Forms.ComboBox()
+        Me.cmbAppFeeType = New System.Windows.Forms.ComboBox()
+        Me.lblFeeChangesNotAllowed = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.SaveButton = New System.Windows.Forms.ToolStripButton()
         Me.HeaderPanel = New System.Windows.Forms.Panel()
+        Me.lklOpenAppOnline = New System.Windows.Forms.LinkLabel()
         Me.txtNewApplicationNumber = New System.Windows.Forms.TextBox()
         Me.btnFetchNewAppNumber = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -564,6 +592,15 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox7.SuspendLayout()
         Me.GBAirProgramCodes.SuspendLayout()
         Me.TCApplicationTrackingLog.SuspendLayout()
+        Me.TPFees.SuspendLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        CType(Me.dgvApplicationInvoices, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
+        CType(Me.dgvApplicationPayments, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.HeaderPanel.SuspendLayout()
         Me.SuspendLayout()
@@ -573,7 +610,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnRefreshAIRSNo.AutoSize = True
         Me.btnRefreshAIRSNo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnRefreshAIRSNo.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
-        Me.btnRefreshAIRSNo.Location = New System.Drawing.Point(165, 30)
+        Me.btnRefreshAIRSNo.Location = New System.Drawing.Point(177, 30)
         Me.btnRefreshAIRSNo.Name = "btnRefreshAIRSNo"
         Me.btnRefreshAIRSNo.Size = New System.Drawing.Size(22, 22)
         Me.btnRefreshAIRSNo.TabIndex = 1
@@ -604,12 +641,18 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtAIRSNumber
         '
+        Me.txtAIRSNumber.AirsNumber = Nothing
+        Me.txtAIRSNumber.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
+        Me.txtAIRSNumber.BackColor = System.Drawing.Color.Transparent
+        Me.txtAIRSNumber.ErrorMessageLabel = Nothing
+        Me.txtAIRSNumber.FacilityMustExist = True
+        Me.txtAIRSNumber.InvalidFormatMessage = "Invalid AIRS #."
         Me.txtAIRSNumber.Location = New System.Drawing.Point(92, 31)
-        Me.txtAIRSNumber.MaxLength = 8
         Me.txtAIRSNumber.Name = "txtAIRSNumber"
         Me.txtAIRSNumber.ReadOnly = True
-        Me.txtAIRSNumber.Size = New System.Drawing.Size(67, 20)
+        Me.txtAIRSNumber.Size = New System.Drawing.Size(79, 20)
         Me.txtAIRSNumber.TabIndex = 0
+        Me.txtAIRSNumber.TextBoxBackColor = System.Drawing.SystemColors.Window
         '
         'lblAppNumber
         '
@@ -841,7 +884,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPEditAll.AutoSize = True
         Me.btnSIPEditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPEditAll.Image = CType(resources.GetObject("btnSIPEditAll.Image"), System.Drawing.Image)
+        Me.btnSIPEditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnSIPEditAll.Location = New System.Drawing.Point(6, 148)
         Me.btnSIPEditAll.Name = "btnSIPEditAll"
         Me.btnSIPEditAll.Size = New System.Drawing.Size(30, 28)
@@ -852,7 +895,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPUneditAll.AutoSize = True
         Me.btnSIPUneditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPUneditAll.Image = CType(resources.GetObject("btnSIPUneditAll.Image"), System.Drawing.Image)
+        Me.btnSIPUneditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnSIPUneditAll.Location = New System.Drawing.Point(6, 184)
         Me.btnSIPUneditAll.Name = "btnSIPUneditAll"
         Me.btnSIPUneditAll.Size = New System.Drawing.Size(30, 28)
@@ -874,7 +917,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPUnedit.AutoSize = True
         Me.btnSIPUnedit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPUnedit.Image = CType(resources.GetObject("btnSIPUnedit.Image"), System.Drawing.Image)
+        Me.btnSIPUnedit.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnSIPUnedit.Location = New System.Drawing.Point(6, 92)
         Me.btnSIPUnedit.Name = "btnSIPUnedit"
         Me.btnSIPUnedit.Size = New System.Drawing.Size(30, 28)
@@ -885,7 +928,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPEdit.AutoSize = True
         Me.btnSIPEdit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPEdit.Image = CType(resources.GetObject("btnSIPEdit.Image"), System.Drawing.Image)
+        Me.btnSIPEdit.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnSIPEdit.Location = New System.Drawing.Point(6, 48)
         Me.btnSIPEdit.Name = "btnSIPEdit"
         Me.btnSIPEdit.Size = New System.Drawing.Size(30, 28)
@@ -940,7 +983,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPDelete.AutoSize = True
         Me.btnSIPDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPDelete.Image = CType(resources.GetObject("btnSIPDelete.Image"), System.Drawing.Image)
+        Me.btnSIPDelete.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnSIPDelete.Location = New System.Drawing.Point(190, 46)
         Me.btnSIPDelete.Name = "btnSIPDelete"
         Me.btnSIPDelete.Size = New System.Drawing.Size(30, 28)
@@ -951,7 +994,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPUndeleteAll.AutoSize = True
         Me.btnSIPUndeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPUndeleteAll.Image = CType(resources.GetObject("btnSIPUndeleteAll.Image"), System.Drawing.Image)
+        Me.btnSIPUndeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnSIPUndeleteAll.Location = New System.Drawing.Point(190, 182)
         Me.btnSIPUndeleteAll.Name = "btnSIPUndeleteAll"
         Me.btnSIPUndeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -962,7 +1005,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPDeleteAll.AutoSize = True
         Me.btnSIPDeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPDeleteAll.Image = CType(resources.GetObject("btnSIPDeleteAll.Image"), System.Drawing.Image)
+        Me.btnSIPDeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnSIPDeleteAll.Location = New System.Drawing.Point(190, 146)
         Me.btnSIPDeleteAll.Name = "btnSIPDeleteAll"
         Me.btnSIPDeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -973,7 +1016,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnSIPUndelete.AutoSize = True
         Me.btnSIPUndelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSIPUndelete.Image = CType(resources.GetObject("btnSIPUndelete.Image"), System.Drawing.Image)
+        Me.btnSIPUndelete.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnSIPUndelete.Location = New System.Drawing.Point(190, 90)
         Me.btnSIPUndelete.Name = "btnSIPUndelete"
         Me.btnSIPUndelete.Size = New System.Drawing.Size(30, 28)
@@ -1115,7 +1158,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSEditAll.AutoSize = True
         Me.btnNSPSEditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSEditAll.Image = CType(resources.GetObject("btnNSPSEditAll.Image"), System.Drawing.Image)
+        Me.btnNSPSEditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnNSPSEditAll.Location = New System.Drawing.Point(6, 148)
         Me.btnNSPSEditAll.Name = "btnNSPSEditAll"
         Me.btnNSPSEditAll.Size = New System.Drawing.Size(30, 28)
@@ -1126,7 +1169,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSUneditAll.AutoSize = True
         Me.btnNSPSUneditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSUneditAll.Image = CType(resources.GetObject("btnNSPSUneditAll.Image"), System.Drawing.Image)
+        Me.btnNSPSUneditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnNSPSUneditAll.Location = New System.Drawing.Point(6, 184)
         Me.btnNSPSUneditAll.Name = "btnNSPSUneditAll"
         Me.btnNSPSUneditAll.Size = New System.Drawing.Size(30, 28)
@@ -1148,7 +1191,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSUnedit.AutoSize = True
         Me.btnNSPSUnedit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSUnedit.Image = CType(resources.GetObject("btnNSPSUnedit.Image"), System.Drawing.Image)
+        Me.btnNSPSUnedit.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnNSPSUnedit.Location = New System.Drawing.Point(6, 92)
         Me.btnNSPSUnedit.Name = "btnNSPSUnedit"
         Me.btnNSPSUnedit.Size = New System.Drawing.Size(30, 28)
@@ -1159,7 +1202,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSEdit.AutoSize = True
         Me.btnNSPSEdit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSEdit.Image = CType(resources.GetObject("btnNSPSEdit.Image"), System.Drawing.Image)
+        Me.btnNSPSEdit.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnNSPSEdit.Location = New System.Drawing.Point(6, 48)
         Me.btnNSPSEdit.Name = "btnNSPSEdit"
         Me.btnNSPSEdit.Size = New System.Drawing.Size(30, 28)
@@ -1214,7 +1257,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSDelete.AutoSize = True
         Me.btnNSPSDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSDelete.Image = CType(resources.GetObject("btnNSPSDelete.Image"), System.Drawing.Image)
+        Me.btnNSPSDelete.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnNSPSDelete.Location = New System.Drawing.Point(190, 46)
         Me.btnNSPSDelete.Name = "btnNSPSDelete"
         Me.btnNSPSDelete.Size = New System.Drawing.Size(30, 28)
@@ -1225,7 +1268,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSUndeleteAll.AutoSize = True
         Me.btnNSPSUndeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSUndeleteAll.Image = CType(resources.GetObject("btnNSPSUndeleteAll.Image"), System.Drawing.Image)
+        Me.btnNSPSUndeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnNSPSUndeleteAll.Location = New System.Drawing.Point(190, 182)
         Me.btnNSPSUndeleteAll.Name = "btnNSPSUndeleteAll"
         Me.btnNSPSUndeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -1236,7 +1279,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSDeleteAll.AutoSize = True
         Me.btnNSPSDeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSDeleteAll.Image = CType(resources.GetObject("btnNSPSDeleteAll.Image"), System.Drawing.Image)
+        Me.btnNSPSDeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnNSPSDeleteAll.Location = New System.Drawing.Point(190, 146)
         Me.btnNSPSDeleteAll.Name = "btnNSPSDeleteAll"
         Me.btnNSPSDeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -1247,7 +1290,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNSPSUndelete.AutoSize = True
         Me.btnNSPSUndelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNSPSUndelete.Image = CType(resources.GetObject("btnNSPSUndelete.Image"), System.Drawing.Image)
+        Me.btnNSPSUndelete.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnNSPSUndelete.Location = New System.Drawing.Point(190, 90)
         Me.btnNSPSUndelete.Name = "btnNSPSUndelete"
         Me.btnNSPSUndelete.Size = New System.Drawing.Size(30, 28)
@@ -1390,7 +1433,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPEditAll.AutoSize = True
         Me.btnNESHAPEditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPEditAll.Image = CType(resources.GetObject("btnNESHAPEditAll.Image"), System.Drawing.Image)
+        Me.btnNESHAPEditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnNESHAPEditAll.Location = New System.Drawing.Point(6, 148)
         Me.btnNESHAPEditAll.Name = "btnNESHAPEditAll"
         Me.btnNESHAPEditAll.Size = New System.Drawing.Size(30, 28)
@@ -1401,7 +1444,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPUneditAll.AutoSize = True
         Me.btnNESHAPUneditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPUneditAll.Image = CType(resources.GetObject("btnNESHAPUneditAll.Image"), System.Drawing.Image)
+        Me.btnNESHAPUneditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnNESHAPUneditAll.Location = New System.Drawing.Point(6, 184)
         Me.btnNESHAPUneditAll.Name = "btnNESHAPUneditAll"
         Me.btnNESHAPUneditAll.Size = New System.Drawing.Size(30, 28)
@@ -1423,7 +1466,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPUnedit.AutoSize = True
         Me.btnNESHAPUnedit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPUnedit.Image = CType(resources.GetObject("btnNESHAPUnedit.Image"), System.Drawing.Image)
+        Me.btnNESHAPUnedit.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnNESHAPUnedit.Location = New System.Drawing.Point(6, 92)
         Me.btnNESHAPUnedit.Name = "btnNESHAPUnedit"
         Me.btnNESHAPUnedit.Size = New System.Drawing.Size(30, 28)
@@ -1434,7 +1477,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPEdit.AutoSize = True
         Me.btnNESHAPEdit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPEdit.Image = CType(resources.GetObject("btnNESHAPEdit.Image"), System.Drawing.Image)
+        Me.btnNESHAPEdit.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnNESHAPEdit.Location = New System.Drawing.Point(6, 48)
         Me.btnNESHAPEdit.Name = "btnNESHAPEdit"
         Me.btnNESHAPEdit.Size = New System.Drawing.Size(30, 28)
@@ -1489,7 +1532,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPDelete.AutoSize = True
         Me.btnNESHAPDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPDelete.Image = CType(resources.GetObject("btnNESHAPDelete.Image"), System.Drawing.Image)
+        Me.btnNESHAPDelete.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnNESHAPDelete.Location = New System.Drawing.Point(190, 46)
         Me.btnNESHAPDelete.Name = "btnNESHAPDelete"
         Me.btnNESHAPDelete.Size = New System.Drawing.Size(30, 28)
@@ -1500,7 +1543,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPUndeleteAll.AutoSize = True
         Me.btnNESHAPUndeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPUndeleteAll.Image = CType(resources.GetObject("btnNESHAPUndeleteAll.Image"), System.Drawing.Image)
+        Me.btnNESHAPUndeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnNESHAPUndeleteAll.Location = New System.Drawing.Point(190, 182)
         Me.btnNESHAPUndeleteAll.Name = "btnNESHAPUndeleteAll"
         Me.btnNESHAPUndeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -1511,7 +1554,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPDeleteAll.AutoSize = True
         Me.btnNESHAPDeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPDeleteAll.Image = CType(resources.GetObject("btnNESHAPDeleteAll.Image"), System.Drawing.Image)
+        Me.btnNESHAPDeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnNESHAPDeleteAll.Location = New System.Drawing.Point(190, 146)
         Me.btnNESHAPDeleteAll.Name = "btnNESHAPDeleteAll"
         Me.btnNESHAPDeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -1522,7 +1565,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnNESHAPUndelete.AutoSize = True
         Me.btnNESHAPUndelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNESHAPUndelete.Image = CType(resources.GetObject("btnNESHAPUndelete.Image"), System.Drawing.Image)
+        Me.btnNESHAPUndelete.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnNESHAPUndelete.Location = New System.Drawing.Point(190, 90)
         Me.btnNESHAPUndelete.Name = "btnNESHAPUndelete"
         Me.btnNESHAPUndelete.Size = New System.Drawing.Size(30, 28)
@@ -1664,7 +1707,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTEditAll.AutoSize = True
         Me.btnMACTEditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTEditAll.Image = CType(resources.GetObject("btnMACTEditAll.Image"), System.Drawing.Image)
+        Me.btnMACTEditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnMACTEditAll.Location = New System.Drawing.Point(6, 148)
         Me.btnMACTEditAll.Name = "btnMACTEditAll"
         Me.btnMACTEditAll.Size = New System.Drawing.Size(30, 28)
@@ -1675,7 +1718,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTUneditAll.AutoSize = True
         Me.btnMACTUneditAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTUneditAll.Image = CType(resources.GetObject("btnMACTUneditAll.Image"), System.Drawing.Image)
+        Me.btnMACTUneditAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnMACTUneditAll.Location = New System.Drawing.Point(6, 184)
         Me.btnMACTUneditAll.Name = "btnMACTUneditAll"
         Me.btnMACTUneditAll.Size = New System.Drawing.Size(30, 28)
@@ -1697,7 +1740,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTUnedit.AutoSize = True
         Me.btnMACTUnedit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTUnedit.Image = CType(resources.GetObject("btnMACTUnedit.Image"), System.Drawing.Image)
+        Me.btnMACTUnedit.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnMACTUnedit.Location = New System.Drawing.Point(6, 92)
         Me.btnMACTUnedit.Name = "btnMACTUnedit"
         Me.btnMACTUnedit.Size = New System.Drawing.Size(30, 28)
@@ -1708,7 +1751,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTEdit.AutoSize = True
         Me.btnMACTEdit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTEdit.Image = CType(resources.GetObject("btnMACTEdit.Image"), System.Drawing.Image)
+        Me.btnMACTEdit.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnMACTEdit.Location = New System.Drawing.Point(6, 48)
         Me.btnMACTEdit.Name = "btnMACTEdit"
         Me.btnMACTEdit.Size = New System.Drawing.Size(30, 28)
@@ -1763,7 +1806,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTDelete.AutoSize = True
         Me.btnMACTDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTDelete.Image = CType(resources.GetObject("btnMACTDelete.Image"), System.Drawing.Image)
+        Me.btnMACTDelete.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnMACTDelete.Location = New System.Drawing.Point(190, 46)
         Me.btnMACTDelete.Name = "btnMACTDelete"
         Me.btnMACTDelete.Size = New System.Drawing.Size(30, 28)
@@ -1774,7 +1817,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTUndeleteAll.AutoSize = True
         Me.btnMACTUndeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTUndeleteAll.Image = CType(resources.GetObject("btnMACTUndeleteAll.Image"), System.Drawing.Image)
+        Me.btnMACTUndeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnMACTUndeleteAll.Location = New System.Drawing.Point(190, 182)
         Me.btnMACTUndeleteAll.Name = "btnMACTUndeleteAll"
         Me.btnMACTUndeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -1785,7 +1828,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTDeleteAll.AutoSize = True
         Me.btnMACTDeleteAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTDeleteAll.Image = CType(resources.GetObject("btnMACTDeleteAll.Image"), System.Drawing.Image)
+        Me.btnMACTDeleteAll.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnMACTDeleteAll.Location = New System.Drawing.Point(190, 146)
         Me.btnMACTDeleteAll.Name = "btnMACTDeleteAll"
         Me.btnMACTDeleteAll.Size = New System.Drawing.Size(30, 28)
@@ -1796,7 +1839,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnMACTUndelete.AutoSize = True
         Me.btnMACTUndelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMACTUndelete.Image = CType(resources.GetObject("btnMACTUndelete.Image"), System.Drawing.Image)
+        Me.btnMACTUndelete.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnMACTUndelete.Location = New System.Drawing.Point(190, 90)
         Me.btnMACTUndelete.Name = "btnMACTUndelete"
         Me.btnMACTUndelete.Size = New System.Drawing.Size(30, 28)
@@ -1898,7 +1941,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnTVFinalDownload
         '
-        Me.btnTVFinalDownload.Image = CType(resources.GetObject("btnTVFinalDownload.Image"), System.Drawing.Image)
+        Me.btnTVFinalDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnTVFinalDownload.Location = New System.Drawing.Point(623, 166)
         Me.btnTVFinalDownload.Name = "btnTVFinalDownload"
         Me.btnTVFinalDownload.Size = New System.Drawing.Size(24, 23)
@@ -1908,7 +1951,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnTVPublicNoticeDownload
         '
-        Me.btnTVPublicNoticeDownload.Image = CType(resources.GetObject("btnTVPublicNoticeDownload.Image"), System.Drawing.Image)
+        Me.btnTVPublicNoticeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnTVPublicNoticeDownload.Location = New System.Drawing.Point(623, 113)
         Me.btnTVPublicNoticeDownload.Name = "btnTVPublicNoticeDownload"
         Me.btnTVPublicNoticeDownload.Size = New System.Drawing.Size(24, 23)
@@ -1918,7 +1961,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnTVDraftDownload
         '
-        Me.btnTVDraftDownload.Image = CType(resources.GetObject("btnTVDraftDownload.Image"), System.Drawing.Image)
+        Me.btnTVDraftDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnTVDraftDownload.Location = New System.Drawing.Point(623, 58)
         Me.btnTVDraftDownload.Name = "btnTVDraftDownload"
         Me.btnTVDraftDownload.Size = New System.Drawing.Size(24, 23)
@@ -1928,7 +1971,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnTVNarrativeDownload
         '
-        Me.btnTVNarrativeDownload.Image = CType(resources.GetObject("btnTVNarrativeDownload.Image"), System.Drawing.Image)
+        Me.btnTVNarrativeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnTVNarrativeDownload.Location = New System.Drawing.Point(623, 4)
         Me.btnTVNarrativeDownload.Name = "btnTVNarrativeDownload"
         Me.btnTVNarrativeDownload.Size = New System.Drawing.Size(24, 23)
@@ -2285,7 +2328,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDNarrativeDownload
         '
-        Me.btnPSDNarrativeDownload.Image = CType(resources.GetObject("btnPSDNarrativeDownload.Image"), System.Drawing.Image)
+        Me.btnPSDNarrativeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDNarrativeDownload.Location = New System.Drawing.Point(623, 114)
         Me.btnPSDNarrativeDownload.Name = "btnPSDNarrativeDownload"
         Me.btnPSDNarrativeDownload.Size = New System.Drawing.Size(24, 23)
@@ -2363,7 +2406,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDPublicNoticeDownload
         '
-        Me.btnPSDPublicNoticeDownload.Image = CType(resources.GetObject("btnPSDPublicNoticeDownload.Image"), System.Drawing.Image)
+        Me.btnPSDPublicNoticeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDPublicNoticeDownload.Location = New System.Drawing.Point(623, 225)
         Me.btnPSDPublicNoticeDownload.Name = "btnPSDPublicNoticeDownload"
         Me.btnPSDPublicNoticeDownload.Size = New System.Drawing.Size(24, 23)
@@ -2373,7 +2416,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDDraftPermitDownload
         '
-        Me.btnPSDDraftPermitDownload.Image = CType(resources.GetObject("btnPSDDraftPermitDownload.Image"), System.Drawing.Image)
+        Me.btnPSDDraftPermitDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDDraftPermitDownload.Location = New System.Drawing.Point(623, 169)
         Me.btnPSDDraftPermitDownload.Name = "btnPSDDraftPermitDownload"
         Me.btnPSDDraftPermitDownload.Size = New System.Drawing.Size(24, 23)
@@ -2383,7 +2426,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDPrelimDetDownload
         '
-        Me.btnPSDPrelimDetDownload.Image = CType(resources.GetObject("btnPSDPrelimDetDownload.Image"), System.Drawing.Image)
+        Me.btnPSDPrelimDetDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDPrelimDetDownload.Location = New System.Drawing.Point(623, 55)
         Me.btnPSDPrelimDetDownload.Name = "btnPSDPrelimDetDownload"
         Me.btnPSDPrelimDetDownload.Size = New System.Drawing.Size(24, 23)
@@ -2393,7 +2436,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDHearingNoticeDownload
         '
-        Me.btnPSDHearingNoticeDownload.Image = CType(resources.GetObject("btnPSDHearingNoticeDownload.Image"), System.Drawing.Image)
+        Me.btnPSDHearingNoticeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDHearingNoticeDownload.Location = New System.Drawing.Point(623, 280)
         Me.btnPSDHearingNoticeDownload.Name = "btnPSDHearingNoticeDownload"
         Me.btnPSDHearingNoticeDownload.Size = New System.Drawing.Size(24, 23)
@@ -2403,7 +2446,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDFinalDetDownload
         '
-        Me.btnPSDFinalDetDownload.Image = CType(resources.GetObject("btnPSDFinalDetDownload.Image"), System.Drawing.Image)
+        Me.btnPSDFinalDetDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDFinalDetDownload.Location = New System.Drawing.Point(623, 332)
         Me.btnPSDFinalDetDownload.Name = "btnPSDFinalDetDownload"
         Me.btnPSDFinalDetDownload.Size = New System.Drawing.Size(24, 23)
@@ -2413,7 +2456,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDFinalPermitDownload
         '
-        Me.btnPSDFinalPermitDownload.Image = CType(resources.GetObject("btnPSDFinalPermitDownload.Image"), System.Drawing.Image)
+        Me.btnPSDFinalPermitDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDFinalPermitDownload.Location = New System.Drawing.Point(623, 387)
         Me.btnPSDFinalPermitDownload.Name = "btnPSDFinalPermitDownload"
         Me.btnPSDFinalPermitDownload.Size = New System.Drawing.Size(24, 23)
@@ -2423,7 +2466,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnPSDAppSummaryDownload
         '
-        Me.btnPSDAppSummaryDownload.Image = CType(resources.GetObject("btnPSDAppSummaryDownload.Image"), System.Drawing.Image)
+        Me.btnPSDAppSummaryDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDAppSummaryDownload.Location = New System.Drawing.Point(623, 5)
         Me.btnPSDAppSummaryDownload.Name = "btnPSDAppSummaryDownload"
         Me.btnPSDAppSummaryDownload.Size = New System.Drawing.Size(24, 23)
@@ -3009,7 +3052,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnOtherPermitDownload
         '
-        Me.btnOtherPermitDownload.Image = CType(resources.GetObject("btnOtherPermitDownload.Image"), System.Drawing.Image)
+        Me.btnOtherPermitDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnOtherPermitDownload.Location = New System.Drawing.Point(623, 59)
         Me.btnOtherPermitDownload.Name = "btnOtherPermitDownload"
         Me.btnOtherPermitDownload.Size = New System.Drawing.Size(24, 23)
@@ -3019,7 +3062,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'btnOtherNarrativeDownload
         '
-        Me.btnOtherNarrativeDownload.Image = CType(resources.GetObject("btnOtherNarrativeDownload.Image"), System.Drawing.Image)
+        Me.btnOtherNarrativeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnOtherNarrativeDownload.Location = New System.Drawing.Point(623, 4)
         Me.btnOtherNarrativeDownload.Name = "btnOtherNarrativeDownload"
         Me.btnOtherNarrativeDownload.Size = New System.Drawing.Size(24, 23)
@@ -3901,35 +3944,11 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvInformationRequested.AllowUserToAddRows = False
         Me.dgvInformationRequested.AllowUserToDeleteRows = False
         Me.dgvInformationRequested.AllowUserToOrderColumns = True
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvInformationRequested.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvInformationRequested.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvInformationRequested.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvInformationRequested.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvInformationRequested.Location = New System.Drawing.Point(0, 0)
         Me.dgvInformationRequested.Name = "dgvInformationRequested"
         Me.dgvInformationRequested.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvInformationRequested.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvInformationRequested.Size = New System.Drawing.Size(784, 477)
         Me.dgvInformationRequested.TabIndex = 2
         '
@@ -3949,35 +3968,11 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvFacilityAppHistory.AllowUserToAddRows = False
         Me.dgvFacilityAppHistory.AllowUserToDeleteRows = False
         Me.dgvFacilityAppHistory.AllowUserToOrderColumns = True
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvFacilityAppHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvFacilityAppHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvFacilityAppHistory.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvFacilityAppHistory.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvFacilityAppHistory.Location = New System.Drawing.Point(0, 0)
         Me.dgvFacilityAppHistory.Name = "dgvFacilityAppHistory"
         Me.dgvFacilityAppHistory.ReadOnly = True
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvFacilityAppHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvFacilityAppHistory.Size = New System.Drawing.Size(784, 233)
         Me.dgvFacilityAppHistory.TabIndex = 0
         '
@@ -4215,7 +4210,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPReviews.Name = "TPReviews"
         Me.TPReviews.Size = New System.Drawing.Size(784, 477)
         Me.TPReviews.TabIndex = 3
-        Me.TPReviews.Text = "ISMP and Compliance Reviews"
+        Me.TPReviews.Text = "Compliance Review"
         Me.TPReviews.UseVisualStyleBackColor = True
         '
         'GroupBox5
@@ -4566,7 +4561,6 @@ Partial Class SSPPApplicationTrackingLog
         'ApplicableRulesGroup
         '
         Me.ApplicableRulesGroup.Controls.Add(Me.chbConfidential)
-        Me.ApplicableRulesGroup.Controls.Add(Me.chbExpedited)
         Me.ApplicableRulesGroup.Controls.Add(Me.chbPal)
         Me.ApplicableRulesGroup.Controls.Add(Me.chbRuleyy)
         Me.ApplicableRulesGroup.Controls.Add(Me.chbRulett)
@@ -4575,7 +4569,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.ApplicableRulesGroup.Controls.Add(Me.chbPSD)
         Me.ApplicableRulesGroup.Location = New System.Drawing.Point(3, 3)
         Me.ApplicableRulesGroup.Name = "ApplicableRulesGroup"
-        Me.ApplicableRulesGroup.Size = New System.Drawing.Size(189, 178)
+        Me.ApplicableRulesGroup.Size = New System.Drawing.Size(189, 165)
         Me.ApplicableRulesGroup.TabIndex = 0
         Me.ApplicableRulesGroup.TabStop = False
         Me.ApplicableRulesGroup.Text = "Applicable Rule(s)"
@@ -4584,23 +4578,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.chbConfidential.AutoSize = True
         Me.chbConfidential.Enabled = False
-        Me.chbConfidential.Location = New System.Drawing.Point(6, 148)
+        Me.chbConfidential.Location = New System.Drawing.Point(6, 130)
         Me.chbConfidential.Name = "chbConfidential"
         Me.chbConfidential.Size = New System.Drawing.Size(183, 17)
         Me.chbConfidential.TabIndex = 7
         Me.chbConfidential.Text = "Confidential information submitted"
         Me.chbConfidential.UseVisualStyleBackColor = True
-        '
-        'chbExpedited
-        '
-        Me.chbExpedited.AutoSize = True
-        Me.chbExpedited.Enabled = False
-        Me.chbExpedited.Location = New System.Drawing.Point(6, 129)
-        Me.chbExpedited.Name = "chbExpedited"
-        Me.chbExpedited.Size = New System.Drawing.Size(105, 17)
-        Me.chbExpedited.TabIndex = 6
-        Me.chbExpedited.Text = "Expedited Permit"
-        Me.chbExpedited.UseVisualStyleBackColor = True
         '
         'chbPal
         '
@@ -5254,7 +5237,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPDateReceived.Name = "DTPDateReceived"
         Me.DTPDateReceived.Size = New System.Drawing.Size(117, 21)
         Me.DTPDateReceived.TabIndex = 13
-        Me.DTPDateReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'lblEPAWaived
         '
@@ -5680,12 +5662,424 @@ Partial Class SSPPApplicationTrackingLog
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPContactInformation)
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPDocuments)
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPSubPartEditor)
+        Me.TCApplicationTrackingLog.Controls.Add(Me.TPFees)
         Me.TCApplicationTrackingLog.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCApplicationTrackingLog.Location = New System.Drawing.Point(0, 130)
         Me.TCApplicationTrackingLog.Name = "TCApplicationTrackingLog"
         Me.TCApplicationTrackingLog.SelectedIndex = 0
         Me.TCApplicationTrackingLog.Size = New System.Drawing.Size(792, 503)
         Me.TCApplicationTrackingLog.TabIndex = 2
+        '
+        'TPFees
+        '
+        Me.TPFees.Controls.Add(Me.SplitContainer1)
+        Me.TPFees.Controls.Add(Me.txtAppFeeAmount)
+        Me.TPFees.Controls.Add(Me.txtExpFeeAmount)
+        Me.TPFees.Controls.Add(Me.dtpFeeDataFinalized)
+        Me.TPFees.Controls.Add(Me.lblFacilityFeeNotified)
+        Me.TPFees.Controls.Add(Me.dtpFacilityFeeNotified)
+        Me.TPFees.Controls.Add(Me.lblFeeDataFinalized)
+        Me.TPFees.Controls.Add(Me.lklGenerateEmail)
+        Me.TPFees.Controls.Add(Me.chbAppFee)
+        Me.TPFees.Controls.Add(Me.chbExpFee)
+        Me.TPFees.Controls.Add(Me.txtExpFeeOverrideReason)
+        Me.TPFees.Controls.Add(Me.txtAppFeeOverrideReason)
+        Me.TPFees.Controls.Add(Me.chbExpFeeOverride)
+        Me.TPFees.Controls.Add(Me.chbFeeDataFinalized)
+        Me.TPFees.Controls.Add(Me.chbAppFeeOverride)
+        Me.TPFees.Controls.Add(Me.txtFeeTotal)
+        Me.TPFees.Controls.Add(Me.lblExpFee)
+        Me.TPFees.Controls.Add(Me.lblAppFee)
+        Me.TPFees.Controls.Add(Me.lblTotalFee)
+        Me.TPFees.Controls.Add(Me.cmbExpFeeType)
+        Me.TPFees.Controls.Add(Me.cmbAppFeeType)
+        Me.TPFees.Controls.Add(Me.lblFeeChangesNotAllowed)
+        Me.TPFees.Location = New System.Drawing.Point(4, 22)
+        Me.TPFees.Name = "TPFees"
+        Me.TPFees.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPFees.Size = New System.Drawing.Size(784, 477)
+        Me.TPFees.TabIndex = 9
+        Me.TPFees.Text = "Fees"
+        Me.TPFees.UseVisualStyleBackColor = True
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.SplitContainer1.Location = New System.Drawing.Point(-3, 340)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Panel2)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.Panel1)
+        Me.SplitContainer1.Size = New System.Drawing.Size(787, 137)
+        Me.SplitContainer1.SplitterDistance = 379
+        Me.SplitContainer1.TabIndex = 17
+        '
+        'Panel2
+        '
+        Me.Panel2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Panel2.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Panel2.Controls.Add(Me.lblInvoices)
+        Me.Panel2.Controls.Add(Me.txtFeeTotalInvoiced)
+        Me.Panel2.Controls.Add(Me.lblFeeTotalInvoiced)
+        Me.Panel2.Controls.Add(Me.dgvApplicationInvoices)
+        Me.Panel2.Location = New System.Drawing.Point(0, 1)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(380, 137)
+        Me.Panel2.TabIndex = 0
+        '
+        'lblInvoices
+        '
+        Me.lblInvoices.AutoSize = True
+        Me.lblInvoices.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.lblInvoices.Location = New System.Drawing.Point(10, 10)
+        Me.lblInvoices.Name = "lblInvoices"
+        Me.lblInvoices.Size = New System.Drawing.Size(100, 13)
+        Me.lblInvoices.TabIndex = 11
+        Me.lblInvoices.Text = "Invoices Generated"
+        '
+        'txtFeeTotalInvoiced
+        '
+        Me.txtFeeTotalInvoiced.Amount = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtFeeTotalInvoiced.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtFeeTotalInvoiced.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.txtFeeTotalInvoiced.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtFeeTotalInvoiced.Cue = "$ 0"
+        Me.txtFeeTotalInvoiced.Location = New System.Drawing.Point(305, 10)
+        Me.txtFeeTotalInvoiced.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtFeeTotalInvoiced.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtFeeTotalInvoiced.Name = "txtFeeTotalInvoiced"
+        Me.txtFeeTotalInvoiced.ReadOnly = True
+        Me.txtFeeTotalInvoiced.Size = New System.Drawing.Size(57, 13)
+        Me.txtFeeTotalInvoiced.TabIndex = 15
+        Me.txtFeeTotalInvoiced.Text = "$0"
+        Me.txtFeeTotalInvoiced.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'lblFeeTotalInvoiced
+        '
+        Me.lblFeeTotalInvoiced.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblFeeTotalInvoiced.AutoSize = True
+        Me.lblFeeTotalInvoiced.Location = New System.Drawing.Point(265, 10)
+        Me.lblFeeTotalInvoiced.Name = "lblFeeTotalInvoiced"
+        Me.lblFeeTotalInvoiced.Size = New System.Drawing.Size(34, 13)
+        Me.lblFeeTotalInvoiced.TabIndex = 2
+        Me.lblFeeTotalInvoiced.Text = "Total:"
+        '
+        'dgvApplicationInvoices
+        '
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvApplicationInvoices.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvApplicationInvoices.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvApplicationInvoices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvApplicationInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvApplicationInvoices.LinkifyColumnByName = Nothing
+        Me.dgvApplicationInvoices.LinkifyFirstColumn = True
+        Me.dgvApplicationInvoices.Location = New System.Drawing.Point(10, 29)
+        Me.dgvApplicationInvoices.Name = "dgvApplicationInvoices"
+        Me.dgvApplicationInvoices.ResultsCountLabel = Nothing
+        Me.dgvApplicationInvoices.ResultsCountLabelFormat = "{0} found"
+        Me.dgvApplicationInvoices.Size = New System.Drawing.Size(355, 99)
+        Me.dgvApplicationInvoices.StandardTab = True
+        Me.dgvApplicationInvoices.TabIndex = 14
+        '
+        'Panel1
+        '
+        Me.Panel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Panel1.Controls.Add(Me.lblPayments)
+        Me.Panel1.Controls.Add(Me.txtFeeTotalPaid)
+        Me.Panel1.Controls.Add(Me.lblFeeTotalPaid)
+        Me.Panel1.Controls.Add(Me.dgvApplicationPayments)
+        Me.Panel1.Location = New System.Drawing.Point(0, 1)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(405, 137)
+        Me.Panel1.TabIndex = 0
+        '
+        'lblPayments
+        '
+        Me.lblPayments.AutoSize = True
+        Me.lblPayments.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.lblPayments.Location = New System.Drawing.Point(16, 10)
+        Me.lblPayments.Name = "lblPayments"
+        Me.lblPayments.Size = New System.Drawing.Size(53, 13)
+        Me.lblPayments.TabIndex = 11
+        Me.lblPayments.Text = "Payments"
+        '
+        'txtFeeTotalPaid
+        '
+        Me.txtFeeTotalPaid.Amount = New Decimal(New Integer() {999999, 0, 0, 0})
+        Me.txtFeeTotalPaid.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtFeeTotalPaid.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.txtFeeTotalPaid.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtFeeTotalPaid.Cue = "$ 0"
+        Me.txtFeeTotalPaid.Location = New System.Drawing.Point(337, 10)
+        Me.txtFeeTotalPaid.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtFeeTotalPaid.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtFeeTotalPaid.Name = "txtFeeTotalPaid"
+        Me.txtFeeTotalPaid.ReadOnly = True
+        Me.txtFeeTotalPaid.Size = New System.Drawing.Size(57, 13)
+        Me.txtFeeTotalPaid.TabIndex = 15
+        Me.txtFeeTotalPaid.Text = "$0"
+        Me.txtFeeTotalPaid.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'lblFeeTotalPaid
+        '
+        Me.lblFeeTotalPaid.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblFeeTotalPaid.AutoSize = True
+        Me.lblFeeTotalPaid.Location = New System.Drawing.Point(297, 10)
+        Me.lblFeeTotalPaid.Name = "lblFeeTotalPaid"
+        Me.lblFeeTotalPaid.Size = New System.Drawing.Size(34, 13)
+        Me.lblFeeTotalPaid.TabIndex = 2
+        Me.lblFeeTotalPaid.Text = "Total:"
+        '
+        'dgvApplicationPayments
+        '
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvApplicationPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvApplicationPayments.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvApplicationPayments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvApplicationPayments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvApplicationPayments.LinkifyColumnByName = Nothing
+        Me.dgvApplicationPayments.LinkifyFirstColumn = True
+        Me.dgvApplicationPayments.Location = New System.Drawing.Point(16, 29)
+        Me.dgvApplicationPayments.Name = "dgvApplicationPayments"
+        Me.dgvApplicationPayments.ResultsCountLabel = Nothing
+        Me.dgvApplicationPayments.ResultsCountLabelFormat = "{0} found"
+        Me.dgvApplicationPayments.Size = New System.Drawing.Size(381, 99)
+        Me.dgvApplicationPayments.StandardTab = True
+        Me.dgvApplicationPayments.TabIndex = 15
+        '
+        'txtAppFeeAmount
+        '
+        Me.txtAppFeeAmount.Amount = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtAppFeeAmount.Cue = "$ 0"
+        Me.txtAppFeeAmount.Location = New System.Drawing.Point(214, 71)
+        Me.txtAppFeeAmount.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtAppFeeAmount.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtAppFeeAmount.Name = "txtAppFeeAmount"
+        Me.txtAppFeeAmount.ReadOnly = True
+        Me.txtAppFeeAmount.Size = New System.Drawing.Size(77, 20)
+        Me.txtAppFeeAmount.TabIndex = 4
+        Me.txtAppFeeAmount.Text = "$0"
+        Me.txtAppFeeAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtExpFeeAmount
+        '
+        Me.txtExpFeeAmount.Amount = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.txtExpFeeAmount.Cue = "$ 0"
+        Me.txtExpFeeAmount.Location = New System.Drawing.Point(214, 162)
+        Me.txtExpFeeAmount.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
+        Me.txtExpFeeAmount.MinValue = New Decimal(New Integer() {-1, -1, -1, -2147483648})
+        Me.txtExpFeeAmount.Name = "txtExpFeeAmount"
+        Me.txtExpFeeAmount.ReadOnly = True
+        Me.txtExpFeeAmount.Size = New System.Drawing.Size(77, 20)
+        Me.txtExpFeeAmount.TabIndex = 9
+        Me.txtExpFeeAmount.Text = "$0"
+        Me.txtExpFeeAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'dtpFeeDataFinalized
+        '
+        Me.dtpFeeDataFinalized.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpFeeDataFinalized.Enabled = False
+        Me.dtpFeeDataFinalized.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpFeeDataFinalized.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpFeeDataFinalized.Location = New System.Drawing.Point(193, 275)
+        Me.dtpFeeDataFinalized.Name = "dtpFeeDataFinalized"
+        Me.dtpFeeDataFinalized.Size = New System.Drawing.Size(98, 21)
+        Me.dtpFeeDataFinalized.TabIndex = 13
+        '
+        'lblFacilityFeeNotified
+        '
+        Me.lblFacilityFeeNotified.AutoSize = True
+        Me.lblFacilityFeeNotified.Location = New System.Drawing.Point(8, 306)
+        Me.lblFacilityFeeNotified.Name = "lblFacilityFeeNotified"
+        Me.lblFacilityFeeNotified.Size = New System.Drawing.Size(78, 13)
+        Me.lblFacilityFeeNotified.TabIndex = 9
+        Me.lblFacilityFeeNotified.Text = "Facility Notified"
+        '
+        'dtpFacilityFeeNotified
+        '
+        Me.dtpFacilityFeeNotified.Checked = False
+        Me.dtpFacilityFeeNotified.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpFacilityFeeNotified.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpFacilityFeeNotified.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpFacilityFeeNotified.Location = New System.Drawing.Point(175, 302)
+        Me.dtpFacilityFeeNotified.Name = "dtpFacilityFeeNotified"
+        Me.dtpFacilityFeeNotified.ShowCheckBox = True
+        Me.dtpFacilityFeeNotified.Size = New System.Drawing.Size(116, 21)
+        Me.dtpFacilityFeeNotified.TabIndex = 14
+        '
+        'lblFeeDataFinalized
+        '
+        Me.lblFeeDataFinalized.AutoSize = True
+        Me.lblFeeDataFinalized.Location = New System.Drawing.Point(8, 279)
+        Me.lblFeeDataFinalized.Name = "lblFeeDataFinalized"
+        Me.lblFeeDataFinalized.Size = New System.Drawing.Size(95, 13)
+        Me.lblFeeDataFinalized.TabIndex = 9
+        Me.lblFeeDataFinalized.Text = "Fee Data Finalized"
+        '
+        'lklGenerateEmail
+        '
+        Me.lklGenerateEmail.AutoSize = True
+        Me.lklGenerateEmail.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lklGenerateEmail.Location = New System.Drawing.Point(8, 253)
+        Me.lklGenerateEmail.Name = "lklGenerateEmail"
+        Me.lklGenerateEmail.Size = New System.Drawing.Size(78, 13)
+        Me.lklGenerateEmail.TabIndex = 12
+        Me.lklGenerateEmail.TabStop = True
+        Me.lklGenerateEmail.Text = "Generate email"
+        '
+        'chbAppFee
+        '
+        Me.chbAppFee.AutoSize = True
+        Me.chbAppFee.Enabled = False
+        Me.chbAppFee.Location = New System.Drawing.Point(11, 17)
+        Me.chbAppFee.Name = "chbAppFee"
+        Me.chbAppFee.Size = New System.Drawing.Size(131, 17)
+        Me.chbAppFee.TabIndex = 0
+        Me.chbAppFee.Text = "Permit Application Fee"
+        Me.chbAppFee.UseVisualStyleBackColor = True
+        '
+        'chbExpFee
+        '
+        Me.chbExpFee.AutoSize = True
+        Me.chbExpFee.Enabled = False
+        Me.chbExpFee.Location = New System.Drawing.Point(11, 108)
+        Me.chbExpFee.Name = "chbExpFee"
+        Me.chbExpFee.Size = New System.Drawing.Size(112, 17)
+        Me.chbExpFee.TabIndex = 5
+        Me.chbExpFee.Text = "Expedited Review"
+        Me.chbExpFee.UseVisualStyleBackColor = True
+        '
+        'txtExpFeeOverrideReason
+        '
+        Me.txtExpFeeOverrideReason.Location = New System.Drawing.Point(337, 131)
+        Me.txtExpFeeOverrideReason.Multiline = True
+        Me.txtExpFeeOverrideReason.Name = "txtExpFeeOverrideReason"
+        Me.txtExpFeeOverrideReason.Size = New System.Drawing.Size(280, 51)
+        Me.txtExpFeeOverrideReason.TabIndex = 8
+        '
+        'txtAppFeeOverrideReason
+        '
+        Me.txtAppFeeOverrideReason.Location = New System.Drawing.Point(337, 40)
+        Me.txtAppFeeOverrideReason.Multiline = True
+        Me.txtAppFeeOverrideReason.Name = "txtAppFeeOverrideReason"
+        Me.txtAppFeeOverrideReason.Size = New System.Drawing.Size(280, 51)
+        Me.txtAppFeeOverrideReason.TabIndex = 3
+        '
+        'chbExpFeeOverride
+        '
+        Me.chbExpFeeOverride.AutoSize = True
+        Me.chbExpFeeOverride.Location = New System.Drawing.Point(337, 108)
+        Me.chbExpFeeOverride.Name = "chbExpFeeOverride"
+        Me.chbExpFeeOverride.Size = New System.Drawing.Size(122, 17)
+        Me.chbExpFeeOverride.TabIndex = 7
+        Me.chbExpFeeOverride.Text = "Override fee amount"
+        Me.chbExpFeeOverride.UseVisualStyleBackColor = True
+        '
+        'chbFeeDataFinalized
+        '
+        Me.chbFeeDataFinalized.AutoSize = True
+        Me.chbFeeDataFinalized.Location = New System.Drawing.Point(11, 231)
+        Me.chbFeeDataFinalized.Name = "chbFeeDataFinalized"
+        Me.chbFeeDataFinalized.Size = New System.Drawing.Size(127, 17)
+        Me.chbFeeDataFinalized.TabIndex = 11
+        Me.chbFeeDataFinalized.Text = "Ready to be invoiced"
+        Me.chbFeeDataFinalized.UseVisualStyleBackColor = True
+        '
+        'chbAppFeeOverride
+        '
+        Me.chbAppFeeOverride.AutoSize = True
+        Me.chbAppFeeOverride.Location = New System.Drawing.Point(337, 17)
+        Me.chbAppFeeOverride.Name = "chbAppFeeOverride"
+        Me.chbAppFeeOverride.Size = New System.Drawing.Size(122, 17)
+        Me.chbAppFeeOverride.TabIndex = 2
+        Me.chbAppFeeOverride.Text = "Override fee amount"
+        Me.chbAppFeeOverride.UseVisualStyleBackColor = True
+        '
+        'txtFeeTotal
+        '
+        Me.txtFeeTotal.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.txtFeeTotal.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtFeeTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtFeeTotal.Location = New System.Drawing.Point(211, 199)
+        Me.txtFeeTotal.Name = "txtFeeTotal"
+        Me.txtFeeTotal.ReadOnly = True
+        Me.txtFeeTotal.Size = New System.Drawing.Size(77, 13)
+        Me.txtFeeTotal.TabIndex = 10
+        Me.txtFeeTotal.Text = "$0"
+        Me.txtFeeTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'lblExpFee
+        '
+        Me.lblExpFee.AutoSize = True
+        Me.lblExpFee.Location = New System.Drawing.Point(8, 165)
+        Me.lblExpFee.Name = "lblExpFee"
+        Me.lblExpFee.Size = New System.Drawing.Size(25, 13)
+        Me.lblExpFee.TabIndex = 2
+        Me.lblExpFee.Text = "Fee"
+        '
+        'lblAppFee
+        '
+        Me.lblAppFee.AutoSize = True
+        Me.lblAppFee.Location = New System.Drawing.Point(8, 74)
+        Me.lblAppFee.Name = "lblAppFee"
+        Me.lblAppFee.Size = New System.Drawing.Size(25, 13)
+        Me.lblAppFee.TabIndex = 2
+        Me.lblAppFee.Text = "Fee"
+        '
+        'lblTotalFee
+        '
+        Me.lblTotalFee.AutoSize = True
+        Me.lblTotalFee.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalFee.Location = New System.Drawing.Point(8, 199)
+        Me.lblTotalFee.Name = "lblTotalFee"
+        Me.lblTotalFee.Size = New System.Drawing.Size(61, 13)
+        Me.lblTotalFee.TabIndex = 2
+        Me.lblTotalFee.Text = "Total Fee"
+        '
+        'cmbExpFeeType
+        '
+        Me.cmbExpFeeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbExpFeeType.FormattingEnabled = True
+        Me.cmbExpFeeType.Location = New System.Drawing.Point(11, 131)
+        Me.cmbExpFeeType.Name = "cmbExpFeeType"
+        Me.cmbExpFeeType.Size = New System.Drawing.Size(280, 21)
+        Me.cmbExpFeeType.TabIndex = 6
+        '
+        'cmbAppFeeType
+        '
+        Me.cmbAppFeeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbAppFeeType.FormattingEnabled = True
+        Me.cmbAppFeeType.Location = New System.Drawing.Point(11, 40)
+        Me.cmbAppFeeType.Name = "cmbAppFeeType"
+        Me.cmbAppFeeType.Size = New System.Drawing.Size(280, 21)
+        Me.cmbAppFeeType.TabIndex = 1
+        '
+        'lblFeeChangesNotAllowed
+        '
+        Me.lblFeeChangesNotAllowed.AutoSize = True
+        Me.lblFeeChangesNotAllowed.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFeeChangesNotAllowed.Location = New System.Drawing.Point(8, 232)
+        Me.lblFeeChangesNotAllowed.Name = "lblFeeChangesNotAllowed"
+        Me.lblFeeChangesNotAllowed.Size = New System.Drawing.Size(285, 13)
+        Me.lblFeeChangesNotAllowed.TabIndex = 16
+        Me.lblFeeChangesNotAllowed.Text = "Fees cannot be changed after invoice has been generated"
         '
         'ToolStrip1
         '
@@ -5706,6 +6100,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'HeaderPanel
         '
+        Me.HeaderPanel.Controls.Add(Me.lklOpenAppOnline)
         Me.HeaderPanel.Controls.Add(Me.txtNewApplicationNumber)
         Me.HeaderPanel.Controls.Add(Me.btnFetchNewAppNumber)
         Me.HeaderPanel.Controls.Add(Me.btnRefreshAIRSNo)
@@ -5729,6 +6124,18 @@ Partial Class SSPPApplicationTrackingLog
         Me.HeaderPanel.Name = "HeaderPanel"
         Me.HeaderPanel.Size = New System.Drawing.Size(792, 105)
         Me.HeaderPanel.TabIndex = 1
+        '
+        'lklOpenAppOnline
+        '
+        Me.lklOpenAppOnline.AutoSize = True
+        Me.lklOpenAppOnline.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lklOpenAppOnline.Location = New System.Drawing.Point(557, 83)
+        Me.lklOpenAppOnline.Name = "lklOpenAppOnline"
+        Me.lklOpenAppOnline.Size = New System.Drawing.Size(115, 13)
+        Me.lklOpenAppOnline.TabIndex = 335
+        Me.lklOpenAppOnline.TabStop = True
+        Me.lklOpenAppOnline.Text = "Public application view"
+        Me.lklOpenAppOnline.Visible = False
         '
         'txtNewApplicationNumber
         '
@@ -5871,6 +6278,18 @@ Partial Class SSPPApplicationTrackingLog
         Me.GBAirProgramCodes.ResumeLayout(False)
         Me.GBAirProgramCodes.PerformLayout()
         Me.TCApplicationTrackingLog.ResumeLayout(False)
+        Me.TPFees.ResumeLayout(False)
+        Me.TPFees.PerformLayout()
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
+        CType(Me.dgvApplicationInvoices, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        CType(Me.dgvApplicationPayments, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.HeaderPanel.ResumeLayout(False)
@@ -5881,7 +6300,7 @@ Partial Class SSPPApplicationTrackingLog
     End Sub
     Friend WithEvents lblLinkWarning As System.Windows.Forms.Label
     Friend WithEvents rtbFacilityInformation As System.Windows.Forms.RichTextBox
-    Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
+    Friend WithEvents txtAIRSNumber As AirNumberEntryForm
     Friend WithEvents lblAppNumber As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents lblApplicationUnit As System.Windows.Forms.Label
@@ -6340,7 +6759,6 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents txtNAICSCode As System.Windows.Forms.TextBox
     Friend WithEvents Label72 As System.Windows.Forms.Label
     Friend WithEvents chbCDS_RMP As System.Windows.Forms.CheckBox
-    Friend WithEvents chbExpedited As System.Windows.Forms.CheckBox
     Friend WithEvents chbConfidential As System.Windows.Forms.CheckBox
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents SaveButton As System.Windows.Forms.ToolStripButton
@@ -6351,4 +6769,38 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents txtNewApplicationNumber As TextBox
     Friend WithEvents btnFetchNewAppNumber As Button
+    Friend WithEvents TPFees As TabPage
+    Friend WithEvents dtpFacilityFeeNotified As DateTimePicker
+    Friend WithEvents lblFeeDataFinalized As Label
+    Friend WithEvents lklGenerateEmail As LinkLabel
+    Friend WithEvents chbAppFee As CheckBox
+    Friend WithEvents chbExpFee As CheckBox
+    Friend WithEvents txtExpFeeOverrideReason As TextBox
+    Friend WithEvents txtAppFeeOverrideReason As TextBox
+    Friend WithEvents chbExpFeeOverride As CheckBox
+    Friend WithEvents chbFeeDataFinalized As CheckBox
+    Friend WithEvents chbAppFeeOverride As CheckBox
+    Friend WithEvents txtFeeTotal As TextBox
+    Friend WithEvents lblTotalFee As Label
+    Friend WithEvents cmbExpFeeType As ComboBox
+    Friend WithEvents cmbAppFeeType As ComboBox
+    Friend WithEvents dgvApplicationPayments As IaipDataGridView
+    Friend WithEvents lblInvoices As Label
+    Friend WithEvents lblExpFee As Label
+    Friend WithEvents lblAppFee As Label
+    Friend WithEvents dtpFeeDataFinalized As DateTimePicker
+    Friend WithEvents lblFacilityFeeNotified As Label
+    Friend WithEvents lblFeeChangesNotAllowed As Label
+    Friend WithEvents txtExpFeeAmount As CurrencyTextBox
+    Friend WithEvents txtAppFeeAmount As CurrencyTextBox
+    Friend WithEvents dgvApplicationInvoices As IaipDataGridView
+    Friend WithEvents lklOpenAppOnline As LinkLabel
+    Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents lblFeeTotalInvoiced As Label
+    Friend WithEvents lblFeeTotalPaid As Label
+    Friend WithEvents txtFeeTotalInvoiced As CurrencyTextBox
+    Friend WithEvents txtFeeTotalPaid As CurrencyTextBox
+    Friend WithEvents lblPayments As Label
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents Panel1 As Panel
 End Class

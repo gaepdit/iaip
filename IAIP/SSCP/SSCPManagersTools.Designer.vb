@@ -19,7 +19,6 @@ Partial Class SSCPManagersTools
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPManagersTools))
         Me.CmsClassSelectionPanel = New System.Windows.Forms.Panel()
         Me.rdbCMSClassNone = New System.Windows.Forms.RadioButton()
         Me.rdbCMSClassM = New System.Windows.Forms.RadioButton()
@@ -1381,7 +1380,7 @@ Partial Class SSCPManagersTools
         Me.Label64.AutoSize = True
         Me.Label64.Location = New System.Drawing.Point(173, 34)
         Me.Label64.Name = "Label64"
-        Me.Label64.Size = New System.Drawing.Size(44, 13)
+        Me.Label64.Size = New System.Drawing.Size(43, 13)
         Me.Label64.TabIndex = 152
         Me.Label64.Text = "→ Year"
         '
@@ -1523,7 +1522,7 @@ Partial Class SSCPManagersTools
         '
         Me.btnSelectFacility.AutoSize = True
         Me.btnSelectFacility.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSelectFacility.Image = CType(resources.GetObject("btnSelectFacility.Image"), System.Drawing.Image)
+        Me.btnSelectFacility.Image = Global.Iaip.My.Resources.Resources.MoveRightIcon
         Me.btnSelectFacility.Location = New System.Drawing.Point(11, 118)
         Me.btnSelectFacility.Name = "btnSelectFacility"
         Me.btnSelectFacility.Size = New System.Drawing.Size(30, 28)
@@ -1534,7 +1533,7 @@ Partial Class SSCPManagersTools
         '
         Me.btnSelectAllFacilities.AutoSize = True
         Me.btnSelectAllFacilities.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSelectAllFacilities.Image = CType(resources.GetObject("btnSelectAllFacilities.Image"), System.Drawing.Image)
+        Me.btnSelectAllFacilities.Image = Global.Iaip.My.Resources.Resources.MoveAllRightIcon
         Me.btnSelectAllFacilities.Location = New System.Drawing.Point(11, 159)
         Me.btnSelectAllFacilities.Name = "btnSelectAllFacilities"
         Me.btnSelectAllFacilities.Size = New System.Drawing.Size(30, 28)
@@ -1545,7 +1544,7 @@ Partial Class SSCPManagersTools
         '
         Me.btnUnselectAllFacilities.AutoSize = True
         Me.btnUnselectAllFacilities.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUnselectAllFacilities.Image = CType(resources.GetObject("btnUnselectAllFacilities.Image"), System.Drawing.Image)
+        Me.btnUnselectAllFacilities.Image = Global.Iaip.My.Resources.Resources.MoveAllLeftIcon
         Me.btnUnselectAllFacilities.Location = New System.Drawing.Point(11, 241)
         Me.btnUnselectAllFacilities.Name = "btnUnselectAllFacilities"
         Me.btnUnselectAllFacilities.Size = New System.Drawing.Size(30, 28)
@@ -1556,7 +1555,7 @@ Partial Class SSCPManagersTools
         '
         Me.btnUnselectFacility.AutoSize = True
         Me.btnUnselectFacility.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUnselectFacility.Image = CType(resources.GetObject("btnUnselectFacility.Image"), System.Drawing.Image)
+        Me.btnUnselectFacility.Image = Global.Iaip.My.Resources.Resources.MoveLeftIcon
         Me.btnUnselectFacility.Location = New System.Drawing.Point(11, 200)
         Me.btnUnselectFacility.Name = "btnUnselectFacility"
         Me.btnUnselectFacility.Size = New System.Drawing.Size(30, 28)

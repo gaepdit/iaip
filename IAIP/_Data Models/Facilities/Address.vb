@@ -22,7 +22,7 @@
         If linear Then
             Return ConcatNonEmptyStrings(", ", {Me.Street, Me.Street2, cityState & " " & zip})
         Else
-            Return ConcatNonEmptyStrings(Constants.vbNewLine, {Me.Street, Me.Street2, cityState & " " & zip})
+            Return ConcatNonEmptyStrings(vbNewLine, {Me.Street, Me.Street2, cityState & " " & zip})
         End If
     End Function
 

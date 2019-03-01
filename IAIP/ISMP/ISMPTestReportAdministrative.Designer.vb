@@ -20,7 +20,6 @@ Partial Class ISMPTestReportAdministrative
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPTestReportAdministrative))
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.MenuItem1 = New System.Windows.Forms.MenuItem()
         Me.MmiSave = New System.Windows.Forms.MenuItem()
@@ -73,16 +72,8 @@ Partial Class ISMPTestReportAdministrative
         Me.mmiAddTestingFirm = New System.Windows.Forms.MenuItem()
         Me.mmiAddPollutant = New System.Windows.Forms.MenuItem()
         Me.mmiRefreshLists = New System.Windows.Forms.MenuItem()
-        Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.cmPrint = New System.Windows.Forms.ContextMenu()
         Me.cmiPrintTestReport = New System.Windows.Forms.MenuItem()
-        Me.TBFacilityInfo = New System.Windows.Forms.ToolBar()
-        Me.TbbSave = New System.Windows.Forms.ToolBarButton()
-        Me.TbbFind = New System.Windows.Forms.ToolBarButton()
-        Me.TbbForward = New System.Windows.Forms.ToolBarButton()
-        Me.TbbAddMemo = New System.Windows.Forms.ToolBarButton()
-        Me.TbbClear = New System.Windows.Forms.ToolBarButton()
-        Me.TbbDelete = New System.Windows.Forms.ToolBarButton()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnLoadCombos = New System.Windows.Forms.Button()
         Me.btnSearchForAIRS = New System.Windows.Forms.Button()
@@ -155,6 +146,13 @@ Partial Class ISMPTestReportAdministrative
         Me.Label61 = New System.Windows.Forms.Label()
         Me.bgw1 = New System.ComponentModel.BackgroundWorker()
         Me.bgwAIRS = New System.ComponentModel.BackgroundWorker()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OpenTestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OpenMemoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClearToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         Me.GBRecordStatus.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -164,6 +162,7 @@ Partial Class ISMPTestReportAdministrative
         Me.TPHistoricalReports.SuspendLayout()
         Me.Panel11.SuspendLayout()
         Me.Panel12.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainMenu1
@@ -430,96 +429,6 @@ Partial Class ISMPTestReportAdministrative
         Me.mmiRefreshLists.Index = 5
         Me.mmiRefreshLists.Text = "Refresh List(s)"
         '
-        'Image_List_All
-        '
-        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
-        Me.Image_List_All.Images.SetKeyName(0, "")
-        Me.Image_List_All.Images.SetKeyName(1, "")
-        Me.Image_List_All.Images.SetKeyName(2, "")
-        Me.Image_List_All.Images.SetKeyName(3, "")
-        Me.Image_List_All.Images.SetKeyName(4, "")
-        Me.Image_List_All.Images.SetKeyName(5, "")
-        Me.Image_List_All.Images.SetKeyName(6, "")
-        Me.Image_List_All.Images.SetKeyName(7, "")
-        Me.Image_List_All.Images.SetKeyName(8, "")
-        Me.Image_List_All.Images.SetKeyName(9, "")
-        Me.Image_List_All.Images.SetKeyName(10, "")
-        Me.Image_List_All.Images.SetKeyName(11, "")
-        Me.Image_List_All.Images.SetKeyName(12, "")
-        Me.Image_List_All.Images.SetKeyName(13, "")
-        Me.Image_List_All.Images.SetKeyName(14, "")
-        Me.Image_List_All.Images.SetKeyName(15, "")
-        Me.Image_List_All.Images.SetKeyName(16, "")
-        Me.Image_List_All.Images.SetKeyName(17, "")
-        Me.Image_List_All.Images.SetKeyName(18, "")
-        Me.Image_List_All.Images.SetKeyName(19, "")
-        Me.Image_List_All.Images.SetKeyName(20, "")
-        Me.Image_List_All.Images.SetKeyName(21, "")
-        Me.Image_List_All.Images.SetKeyName(22, "")
-        Me.Image_List_All.Images.SetKeyName(23, "")
-        Me.Image_List_All.Images.SetKeyName(24, "")
-        Me.Image_List_All.Images.SetKeyName(25, "")
-        Me.Image_List_All.Images.SetKeyName(26, "")
-        Me.Image_List_All.Images.SetKeyName(27, "")
-        Me.Image_List_All.Images.SetKeyName(28, "")
-        Me.Image_List_All.Images.SetKeyName(29, "")
-        Me.Image_List_All.Images.SetKeyName(30, "")
-        Me.Image_List_All.Images.SetKeyName(31, "")
-        Me.Image_List_All.Images.SetKeyName(32, "")
-        Me.Image_List_All.Images.SetKeyName(33, "")
-        Me.Image_List_All.Images.SetKeyName(34, "")
-        Me.Image_List_All.Images.SetKeyName(35, "")
-        Me.Image_List_All.Images.SetKeyName(36, "")
-        Me.Image_List_All.Images.SetKeyName(37, "")
-        Me.Image_List_All.Images.SetKeyName(38, "")
-        Me.Image_List_All.Images.SetKeyName(39, "")
-        Me.Image_List_All.Images.SetKeyName(40, "")
-        Me.Image_List_All.Images.SetKeyName(41, "")
-        Me.Image_List_All.Images.SetKeyName(42, "")
-        Me.Image_List_All.Images.SetKeyName(43, "")
-        Me.Image_List_All.Images.SetKeyName(44, "")
-        Me.Image_List_All.Images.SetKeyName(45, "")
-        Me.Image_List_All.Images.SetKeyName(46, "")
-        Me.Image_List_All.Images.SetKeyName(47, "")
-        Me.Image_List_All.Images.SetKeyName(48, "")
-        Me.Image_List_All.Images.SetKeyName(49, "")
-        Me.Image_List_All.Images.SetKeyName(50, "")
-        Me.Image_List_All.Images.SetKeyName(51, "")
-        Me.Image_List_All.Images.SetKeyName(52, "")
-        Me.Image_List_All.Images.SetKeyName(53, "")
-        Me.Image_List_All.Images.SetKeyName(54, "")
-        Me.Image_List_All.Images.SetKeyName(55, "")
-        Me.Image_List_All.Images.SetKeyName(56, "")
-        Me.Image_List_All.Images.SetKeyName(57, "")
-        Me.Image_List_All.Images.SetKeyName(58, "")
-        Me.Image_List_All.Images.SetKeyName(59, "")
-        Me.Image_List_All.Images.SetKeyName(60, "")
-        Me.Image_List_All.Images.SetKeyName(61, "")
-        Me.Image_List_All.Images.SetKeyName(62, "")
-        Me.Image_List_All.Images.SetKeyName(63, "")
-        Me.Image_List_All.Images.SetKeyName(64, "")
-        Me.Image_List_All.Images.SetKeyName(65, "")
-        Me.Image_List_All.Images.SetKeyName(66, "")
-        Me.Image_List_All.Images.SetKeyName(67, "")
-        Me.Image_List_All.Images.SetKeyName(68, "")
-        Me.Image_List_All.Images.SetKeyName(69, "")
-        Me.Image_List_All.Images.SetKeyName(70, "")
-        Me.Image_List_All.Images.SetKeyName(71, "")
-        Me.Image_List_All.Images.SetKeyName(72, "")
-        Me.Image_List_All.Images.SetKeyName(73, "")
-        Me.Image_List_All.Images.SetKeyName(74, "")
-        Me.Image_List_All.Images.SetKeyName(75, "")
-        Me.Image_List_All.Images.SetKeyName(76, "")
-        Me.Image_List_All.Images.SetKeyName(77, "")
-        Me.Image_List_All.Images.SetKeyName(78, "")
-        Me.Image_List_All.Images.SetKeyName(79, "")
-        Me.Image_List_All.Images.SetKeyName(80, "")
-        Me.Image_List_All.Images.SetKeyName(81, "")
-        Me.Image_List_All.Images.SetKeyName(82, "")
-        Me.Image_List_All.Images.SetKeyName(83, "")
-        Me.Image_List_All.Images.SetKeyName(84, "")
-        '
         'cmPrint
         '
         Me.cmPrint.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.cmiPrintTestReport})
@@ -528,49 +437,6 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.cmiPrintTestReport.Index = 0
         Me.cmiPrintTestReport.Text = "Print Test Report"
-        '
-        'TBFacilityInfo
-        '
-        Me.TBFacilityInfo.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbFind, Me.TbbForward, Me.TbbAddMemo, Me.TbbClear, Me.TbbDelete})
-        Me.TBFacilityInfo.ButtonSize = New System.Drawing.Size(23, 22)
-        Me.TBFacilityInfo.ContextMenu = Me.cmPrint
-        Me.TBFacilityInfo.DropDownArrows = True
-        Me.TBFacilityInfo.ImageList = Me.Image_List_All
-        Me.TBFacilityInfo.Location = New System.Drawing.Point(0, 0)
-        Me.TBFacilityInfo.Name = "TBFacilityInfo"
-        Me.TBFacilityInfo.ShowToolTips = True
-        Me.TBFacilityInfo.Size = New System.Drawing.Size(816, 28)
-        Me.TBFacilityInfo.TabIndex = 47
-        '
-        'TbbSave
-        '
-        Me.TbbSave.ImageIndex = 65
-        Me.TbbSave.Name = "TbbSave"
-        '
-        'TbbFind
-        '
-        Me.TbbFind.ImageIndex = 3
-        Me.TbbFind.Name = "TbbFind"
-        '
-        'TbbForward
-        '
-        Me.TbbForward.ImageIndex = 61
-        Me.TbbForward.Name = "TbbForward"
-        '
-        'TbbAddMemo
-        '
-        Me.TbbAddMemo.ImageIndex = 0
-        Me.TbbAddMemo.Name = "TbbAddMemo"
-        '
-        'TbbClear
-        '
-        Me.TbbClear.ImageIndex = 84
-        Me.TbbClear.Name = "TbbClear"
-        '
-        'TbbDelete
-        '
-        Me.TbbDelete.ImageIndex = 13
-        Me.TbbDelete.Name = "TbbDelete"
         '
         'GroupBox1
         '
@@ -643,8 +509,7 @@ Partial Class ISMPTestReportAdministrative
         'btnClearReferenceNumber
         '
         Me.btnClearReferenceNumber.AutoSize = True
-        Me.btnClearReferenceNumber.ImageIndex = 84
-        Me.btnClearReferenceNumber.ImageList = Me.Image_List_All
+        Me.btnClearReferenceNumber.Image = Global.Iaip.My.Resources.Resources.EraseIcon
         Me.btnClearReferenceNumber.Location = New System.Drawing.Point(188, 13)
         Me.btnClearReferenceNumber.Name = "btnClearReferenceNumber"
         Me.btnClearReferenceNumber.Size = New System.Drawing.Size(22, 22)
@@ -996,9 +861,9 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.GroupBox2.Controls.Add(Me.dgvFacilityInfo)
         Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox2.Location = New System.Drawing.Point(0, 342)
+        Me.GroupBox2.Location = New System.Drawing.Point(0, 338)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(816, 203)
+        Me.GroupBox2.Size = New System.Drawing.Size(816, 207)
         Me.GroupBox2.TabIndex = 213
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Test Reports"
@@ -1010,7 +875,7 @@ Partial Class ISMPTestReportAdministrative
         Me.dgvFacilityInfo.Location = New System.Drawing.Point(3, 16)
         Me.dgvFacilityInfo.Name = "dgvFacilityInfo"
         Me.dgvFacilityInfo.ReadOnly = True
-        Me.dgvFacilityInfo.Size = New System.Drawing.Size(810, 184)
+        Me.dgvFacilityInfo.Size = New System.Drawing.Size(810, 188)
         Me.dgvFacilityInfo.TabIndex = 213
         '
         'TCTestReports
@@ -1018,7 +883,7 @@ Partial Class ISMPTestReportAdministrative
         Me.TCTestReports.Controls.Add(Me.TPNewTestReports)
         Me.TCTestReports.Controls.Add(Me.TPHistoricalReports)
         Me.TCTestReports.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TCTestReports.Location = New System.Drawing.Point(0, 28)
+        Me.TCTestReports.Location = New System.Drawing.Point(0, 24)
         Me.TCTestReports.Name = "TCTestReports"
         Me.TCTestReports.SelectedIndex = 0
         Me.TCTestReports.Size = New System.Drawing.Size(816, 314)
@@ -1302,6 +1167,51 @@ Partial Class ISMPTestReportAdministrative
         'bgw1
         '
         '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveToolStripMenuItem, Me.SearchToolStripMenuItem, Me.OpenTestToolStripMenuItem, Me.OpenMemoToolStripMenuItem, Me.ClearToolStripMenuItem, Me.DeleteToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(816, 24)
+        Me.MenuStrip1.TabIndex = 215
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'SaveToolStripMenuItem
+        '
+        Me.SaveToolStripMenuItem.Image = Global.Iaip.My.Resources.Resources.SaveIcon
+        Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(28, 20)
+        '
+        'SearchToolStripMenuItem
+        '
+        Me.SearchToolStripMenuItem.Image = Global.Iaip.My.Resources.Resources.FindIcon
+        Me.SearchToolStripMenuItem.Name = "SearchToolStripMenuItem"
+        Me.SearchToolStripMenuItem.Size = New System.Drawing.Size(28, 20)
+        '
+        'OpenTestToolStripMenuItem
+        '
+        Me.OpenTestToolStripMenuItem.Image = Global.Iaip.My.Resources.Resources.ReportIcon
+        Me.OpenTestToolStripMenuItem.Name = "OpenTestToolStripMenuItem"
+        Me.OpenTestToolStripMenuItem.Size = New System.Drawing.Size(28, 20)
+        '
+        'OpenMemoToolStripMenuItem
+        '
+        Me.OpenMemoToolStripMenuItem.Image = Global.Iaip.My.Resources.Resources.DocumentTextIcon
+        Me.OpenMemoToolStripMenuItem.Name = "OpenMemoToolStripMenuItem"
+        Me.OpenMemoToolStripMenuItem.Size = New System.Drawing.Size(28, 20)
+        '
+        'ClearToolStripMenuItem
+        '
+        Me.ClearToolStripMenuItem.Image = Global.Iaip.My.Resources.Resources.EraseIcon
+        Me.ClearToolStripMenuItem.Name = "ClearToolStripMenuItem"
+        Me.ClearToolStripMenuItem.Size = New System.Drawing.Size(28, 20)
+        '
+        'DeleteToolStripMenuItem
+        '
+        Me.DeleteToolStripMenuItem.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
+        Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
+        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(28, 20)
+        '
         'ISMPTestReportAdministrative
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1309,23 +1219,26 @@ Partial Class ISMPTestReportAdministrative
         Me.ClientSize = New System.Drawing.Size(816, 545)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.TCTestReports)
-        Me.Controls.Add(Me.TBFacilityInfo)
+        Me.Controls.Add(Me.MenuStrip1)
+        Me.MainMenuStrip = Me.MenuStrip1
         Me.Menu = Me.MainMenu1
         Me.Name = "ISMPTestReportAdministrative"
         Me.Text = "ISMP Test Report Administrative"
         Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout
-        Me.GBRecordStatus.ResumeLayout(false)
-        Me.GroupBox2.ResumeLayout(false)
-        CType(Me.dgvFacilityInfo,System.ComponentModel.ISupportInitialize).EndInit
-        Me.TCTestReports.ResumeLayout(false)
-        Me.TPNewTestReports.ResumeLayout(false)
-        Me.TPHistoricalReports.ResumeLayout(false)
-        Me.Panel11.ResumeLayout(false)
-        Me.Panel11.PerformLayout
-        Me.Panel12.ResumeLayout(false)
-        Me.Panel12.PerformLayout
-        Me.ResumeLayout(false)
+        Me.GroupBox1.PerformLayout()
+        Me.GBRecordStatus.ResumeLayout(False)
+        Me.GroupBox2.ResumeLayout(False)
+        CType(Me.dgvFacilityInfo, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TCTestReports.ResumeLayout(False)
+        Me.TPNewTestReports.ResumeLayout(False)
+        Me.TPHistoricalReports.ResumeLayout(False)
+        Me.Panel11.ResumeLayout(False)
+        Me.Panel11.PerformLayout()
+        Me.Panel12.ResumeLayout(False)
+        Me.Panel12.PerformLayout()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
+        Me.ResumeLayout(False)
         Me.PerformLayout
 
 End Sub
@@ -1381,16 +1294,8 @@ End Sub
     Friend WithEvents mmiAddTestingFirm As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAddPollutant As System.Windows.Forms.MenuItem
     Friend WithEvents mmiRefreshLists As System.Windows.Forms.MenuItem
-    Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents cmPrint As System.Windows.Forms.ContextMenu
     Friend WithEvents cmiPrintTestReport As System.Windows.Forms.MenuItem
-    Friend WithEvents TBFacilityInfo As System.Windows.Forms.ToolBar
-    Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbFind As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbForward As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbAddMemo As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbClear As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbDelete As System.Windows.Forms.ToolBarButton
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents DTPDateReceived As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label21 As System.Windows.Forms.Label
@@ -1463,4 +1368,11 @@ End Sub
     Friend WithEvents btnOpenTestReport As System.Windows.Forms.Button
     Friend WithEvents btnSearchForAIRS As System.Windows.Forms.Button
     Friend WithEvents btnLoadCombos As System.Windows.Forms.Button
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents SaveToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SearchToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents OpenTestToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents OpenMemoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ClearToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DeleteToolStripMenuItem As ToolStripMenuItem
 End Class

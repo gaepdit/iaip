@@ -19,9 +19,6 @@ Partial Class SSPPPermitUploader
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPPermitUploader))
-        Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtApplicationNumber = New System.Windows.Forms.TextBox()
         Me.btnUploadFile = New System.Windows.Forms.Button()
@@ -209,96 +206,6 @@ Partial Class SSPPPermitUploader
         Me.TPOther.SuspendLayout()
         Me.SuspendLayout()
         '
-        'Image_List_All
-        '
-        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
-        Me.Image_List_All.Images.SetKeyName(0, "")
-        Me.Image_List_All.Images.SetKeyName(1, "")
-        Me.Image_List_All.Images.SetKeyName(2, "")
-        Me.Image_List_All.Images.SetKeyName(3, "")
-        Me.Image_List_All.Images.SetKeyName(4, "")
-        Me.Image_List_All.Images.SetKeyName(5, "")
-        Me.Image_List_All.Images.SetKeyName(6, "")
-        Me.Image_List_All.Images.SetKeyName(7, "")
-        Me.Image_List_All.Images.SetKeyName(8, "")
-        Me.Image_List_All.Images.SetKeyName(9, "")
-        Me.Image_List_All.Images.SetKeyName(10, "")
-        Me.Image_List_All.Images.SetKeyName(11, "")
-        Me.Image_List_All.Images.SetKeyName(12, "")
-        Me.Image_List_All.Images.SetKeyName(13, "")
-        Me.Image_List_All.Images.SetKeyName(14, "")
-        Me.Image_List_All.Images.SetKeyName(15, "")
-        Me.Image_List_All.Images.SetKeyName(16, "")
-        Me.Image_List_All.Images.SetKeyName(17, "")
-        Me.Image_List_All.Images.SetKeyName(18, "")
-        Me.Image_List_All.Images.SetKeyName(19, "")
-        Me.Image_List_All.Images.SetKeyName(20, "")
-        Me.Image_List_All.Images.SetKeyName(21, "")
-        Me.Image_List_All.Images.SetKeyName(22, "")
-        Me.Image_List_All.Images.SetKeyName(23, "")
-        Me.Image_List_All.Images.SetKeyName(24, "")
-        Me.Image_List_All.Images.SetKeyName(25, "")
-        Me.Image_List_All.Images.SetKeyName(26, "")
-        Me.Image_List_All.Images.SetKeyName(27, "")
-        Me.Image_List_All.Images.SetKeyName(28, "")
-        Me.Image_List_All.Images.SetKeyName(29, "")
-        Me.Image_List_All.Images.SetKeyName(30, "")
-        Me.Image_List_All.Images.SetKeyName(31, "")
-        Me.Image_List_All.Images.SetKeyName(32, "")
-        Me.Image_List_All.Images.SetKeyName(33, "")
-        Me.Image_List_All.Images.SetKeyName(34, "")
-        Me.Image_List_All.Images.SetKeyName(35, "")
-        Me.Image_List_All.Images.SetKeyName(36, "")
-        Me.Image_List_All.Images.SetKeyName(37, "")
-        Me.Image_List_All.Images.SetKeyName(38, "")
-        Me.Image_List_All.Images.SetKeyName(39, "")
-        Me.Image_List_All.Images.SetKeyName(40, "")
-        Me.Image_List_All.Images.SetKeyName(41, "")
-        Me.Image_List_All.Images.SetKeyName(42, "")
-        Me.Image_List_All.Images.SetKeyName(43, "")
-        Me.Image_List_All.Images.SetKeyName(44, "")
-        Me.Image_List_All.Images.SetKeyName(45, "")
-        Me.Image_List_All.Images.SetKeyName(46, "")
-        Me.Image_List_All.Images.SetKeyName(47, "")
-        Me.Image_List_All.Images.SetKeyName(48, "")
-        Me.Image_List_All.Images.SetKeyName(49, "")
-        Me.Image_List_All.Images.SetKeyName(50, "")
-        Me.Image_List_All.Images.SetKeyName(51, "")
-        Me.Image_List_All.Images.SetKeyName(52, "")
-        Me.Image_List_All.Images.SetKeyName(53, "")
-        Me.Image_List_All.Images.SetKeyName(54, "")
-        Me.Image_List_All.Images.SetKeyName(55, "")
-        Me.Image_List_All.Images.SetKeyName(56, "")
-        Me.Image_List_All.Images.SetKeyName(57, "")
-        Me.Image_List_All.Images.SetKeyName(58, "")
-        Me.Image_List_All.Images.SetKeyName(59, "")
-        Me.Image_List_All.Images.SetKeyName(60, "")
-        Me.Image_List_All.Images.SetKeyName(61, "")
-        Me.Image_List_All.Images.SetKeyName(62, "")
-        Me.Image_List_All.Images.SetKeyName(63, "")
-        Me.Image_List_All.Images.SetKeyName(64, "")
-        Me.Image_List_All.Images.SetKeyName(65, "")
-        Me.Image_List_All.Images.SetKeyName(66, "")
-        Me.Image_List_All.Images.SetKeyName(67, "")
-        Me.Image_List_All.Images.SetKeyName(68, "")
-        Me.Image_List_All.Images.SetKeyName(69, "")
-        Me.Image_List_All.Images.SetKeyName(70, "")
-        Me.Image_List_All.Images.SetKeyName(71, "")
-        Me.Image_List_All.Images.SetKeyName(72, "")
-        Me.Image_List_All.Images.SetKeyName(73, "")
-        Me.Image_List_All.Images.SetKeyName(74, "")
-        Me.Image_List_All.Images.SetKeyName(75, "")
-        Me.Image_List_All.Images.SetKeyName(76, "")
-        Me.Image_List_All.Images.SetKeyName(77, "")
-        Me.Image_List_All.Images.SetKeyName(78, "")
-        Me.Image_List_All.Images.SetKeyName(79, "")
-        Me.Image_List_All.Images.SetKeyName(80, "")
-        Me.Image_List_All.Images.SetKeyName(81, "")
-        Me.Image_List_All.Images.SetKeyName(82, "")
-        Me.Image_List_All.Images.SetKeyName(83, "")
-        Me.Image_List_All.Images.SetKeyName(84, "")
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -427,7 +334,7 @@ Partial Class SSPPPermitUploader
         '
         'btnDeleteTVFinal
         '
-        Me.btnDeleteTVFinal.Image = CType(resources.GetObject("btnDeleteTVFinal.Image"), System.Drawing.Image)
+        Me.btnDeleteTVFinal.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDeleteTVFinal.Location = New System.Drawing.Point(631, 208)
         Me.btnDeleteTVFinal.Name = "btnDeleteTVFinal"
         Me.btnDeleteTVFinal.Size = New System.Drawing.Size(24, 23)
@@ -437,7 +344,7 @@ Partial Class SSPPPermitUploader
         '
         'btnDeleteTVPublicNot
         '
-        Me.btnDeleteTVPublicNot.Image = CType(resources.GetObject("btnDeleteTVPublicNot.Image"), System.Drawing.Image)
+        Me.btnDeleteTVPublicNot.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDeleteTVPublicNot.Location = New System.Drawing.Point(631, 150)
         Me.btnDeleteTVPublicNot.Name = "btnDeleteTVPublicNot"
         Me.btnDeleteTVPublicNot.Size = New System.Drawing.Size(24, 23)
@@ -447,7 +354,7 @@ Partial Class SSPPPermitUploader
         '
         'btnDeleteTVDraft
         '
-        Me.btnDeleteTVDraft.Image = CType(resources.GetObject("btnDeleteTVDraft.Image"), System.Drawing.Image)
+        Me.btnDeleteTVDraft.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDeleteTVDraft.Location = New System.Drawing.Point(631, 92)
         Me.btnDeleteTVDraft.Name = "btnDeleteTVDraft"
         Me.btnDeleteTVDraft.Size = New System.Drawing.Size(24, 23)
@@ -457,7 +364,7 @@ Partial Class SSPPPermitUploader
         '
         'btnDeleteTVNarrative
         '
-        Me.btnDeleteTVNarrative.Image = CType(resources.GetObject("btnDeleteTVNarrative.Image"), System.Drawing.Image)
+        Me.btnDeleteTVNarrative.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDeleteTVNarrative.Location = New System.Drawing.Point(631, 36)
         Me.btnDeleteTVNarrative.Name = "btnDeleteTVNarrative"
         Me.btnDeleteTVNarrative.Size = New System.Drawing.Size(24, 23)
@@ -467,7 +374,7 @@ Partial Class SSPPPermitUploader
         '
         'btnTVFinalDownload
         '
-        Me.btnTVFinalDownload.Image = CType(resources.GetObject("btnTVFinalDownload.Image"), System.Drawing.Image)
+        Me.btnTVFinalDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnTVFinalDownload.Location = New System.Drawing.Point(631, 184)
         Me.btnTVFinalDownload.Name = "btnTVFinalDownload"
         Me.btnTVFinalDownload.Size = New System.Drawing.Size(24, 23)
@@ -477,7 +384,7 @@ Partial Class SSPPPermitUploader
         '
         'btnTVPublicNoticeDownload
         '
-        Me.btnTVPublicNoticeDownload.Image = CType(resources.GetObject("btnTVPublicNoticeDownload.Image"), System.Drawing.Image)
+        Me.btnTVPublicNoticeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnTVPublicNoticeDownload.Location = New System.Drawing.Point(631, 126)
         Me.btnTVPublicNoticeDownload.Name = "btnTVPublicNoticeDownload"
         Me.btnTVPublicNoticeDownload.Size = New System.Drawing.Size(24, 23)
@@ -487,7 +394,7 @@ Partial Class SSPPPermitUploader
         '
         'btnTVDraftDownload
         '
-        Me.btnTVDraftDownload.Image = CType(resources.GetObject("btnTVDraftDownload.Image"), System.Drawing.Image)
+        Me.btnTVDraftDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnTVDraftDownload.Location = New System.Drawing.Point(631, 68)
         Me.btnTVDraftDownload.Name = "btnTVDraftDownload"
         Me.btnTVDraftDownload.Size = New System.Drawing.Size(24, 23)
@@ -497,7 +404,7 @@ Partial Class SSPPPermitUploader
         '
         'btnTVNarrativeDownload
         '
-        Me.btnTVNarrativeDownload.Image = CType(resources.GetObject("btnTVNarrativeDownload.Image"), System.Drawing.Image)
+        Me.btnTVNarrativeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnTVNarrativeDownload.Location = New System.Drawing.Point(631, 12)
         Me.btnTVNarrativeDownload.Name = "btnTVNarrativeDownload"
         Me.btnTVNarrativeDownload.Size = New System.Drawing.Size(24, 23)
@@ -623,7 +530,7 @@ Partial Class SSPPPermitUploader
         '
         'btnTVFinal
         '
-        Me.btnTVFinal.Image = CType(resources.GetObject("btnTVFinal.Image"), System.Drawing.Image)
+        Me.btnTVFinal.Image = Global.Iaip.My.Resources.Resources.UploadIcon
         Me.btnTVFinal.Location = New System.Drawing.Point(107, 184)
         Me.btnTVFinal.Name = "btnTVFinal"
         Me.btnTVFinal.Size = New System.Drawing.Size(24, 23)
@@ -642,7 +549,7 @@ Partial Class SSPPPermitUploader
         '
         'btnTVPublicNotice
         '
-        Me.btnTVPublicNotice.Image = CType(resources.GetObject("btnTVPublicNotice.Image"), System.Drawing.Image)
+        Me.btnTVPublicNotice.Image = Global.Iaip.My.Resources.Resources.UploadIcon
         Me.btnTVPublicNotice.Location = New System.Drawing.Point(107, 126)
         Me.btnTVPublicNotice.Name = "btnTVPublicNotice"
         Me.btnTVPublicNotice.Size = New System.Drawing.Size(24, 23)
@@ -661,7 +568,7 @@ Partial Class SSPPPermitUploader
         '
         'btnTVDraft
         '
-        Me.btnTVDraft.Image = CType(resources.GetObject("btnTVDraft.Image"), System.Drawing.Image)
+        Me.btnTVDraft.Image = Global.Iaip.My.Resources.Resources.UploadIcon
         Me.btnTVDraft.Location = New System.Drawing.Point(107, 68)
         Me.btnTVDraft.Name = "btnTVDraft"
         Me.btnTVDraft.Size = New System.Drawing.Size(24, 23)
@@ -680,7 +587,7 @@ Partial Class SSPPPermitUploader
         '
         'btnTVNarrative
         '
-        Me.btnTVNarrative.Image = CType(resources.GetObject("btnTVNarrative.Image"), System.Drawing.Image)
+        Me.btnTVNarrative.Image = Global.Iaip.My.Resources.Resources.UploadIcon
         Me.btnTVNarrative.Location = New System.Drawing.Point(107, 12)
         Me.btnTVNarrative.Name = "btnTVNarrative"
         Me.btnTVNarrative.Size = New System.Drawing.Size(24, 23)
@@ -819,7 +726,7 @@ Partial Class SSPPPermitUploader
         '
         'btnDeletePSDFinalPermit
         '
-        Me.btnDeletePSDFinalPermit.Image = CType(resources.GetObject("btnDeletePSDFinalPermit.Image"), System.Drawing.Image)
+        Me.btnDeletePSDFinalPermit.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDeletePSDFinalPermit.Location = New System.Drawing.Point(635, 29)
         Me.btnDeletePSDFinalPermit.Name = "btnDeletePSDFinalPermit"
         Me.btnDeletePSDFinalPermit.Size = New System.Drawing.Size(24, 23)
@@ -829,7 +736,7 @@ Partial Class SSPPPermitUploader
         '
         'btnDeletePSDFinalDet
         '
-        Me.btnDeletePSDFinalDet.Image = CType(resources.GetObject("btnDeletePSDFinalDet.Image"), System.Drawing.Image)
+        Me.btnDeletePSDFinalDet.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDeletePSDFinalDet.Location = New System.Drawing.Point(636, 28)
         Me.btnDeletePSDFinalDet.Name = "btnDeletePSDFinalDet"
         Me.btnDeletePSDFinalDet.Size = New System.Drawing.Size(24, 23)
@@ -839,7 +746,7 @@ Partial Class SSPPPermitUploader
         '
         'btnDeletePSDHearingNotice
         '
-        Me.btnDeletePSDHearingNotice.Image = CType(resources.GetObject("btnDeletePSDHearingNotice.Image"), System.Drawing.Image)
+        Me.btnDeletePSDHearingNotice.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDeletePSDHearingNotice.Location = New System.Drawing.Point(635, 28)
         Me.btnDeletePSDHearingNotice.Name = "btnDeletePSDHearingNotice"
         Me.btnDeletePSDHearingNotice.Size = New System.Drawing.Size(24, 23)
@@ -849,7 +756,7 @@ Partial Class SSPPPermitUploader
         '
         'btnDeletePSDPublicNotice
         '
-        Me.btnDeletePSDPublicNotice.Image = CType(resources.GetObject("btnDeletePSDPublicNotice.Image"), System.Drawing.Image)
+        Me.btnDeletePSDPublicNotice.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDeletePSDPublicNotice.Location = New System.Drawing.Point(635, 27)
         Me.btnDeletePSDPublicNotice.Name = "btnDeletePSDPublicNotice"
         Me.btnDeletePSDPublicNotice.Size = New System.Drawing.Size(24, 23)
@@ -859,7 +766,7 @@ Partial Class SSPPPermitUploader
         '
         'btnDeletePSDDraftPermit
         '
-        Me.btnDeletePSDDraftPermit.Image = CType(resources.GetObject("btnDeletePSDDraftPermit.Image"), System.Drawing.Image)
+        Me.btnDeletePSDDraftPermit.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDeletePSDDraftPermit.Location = New System.Drawing.Point(635, 25)
         Me.btnDeletePSDDraftPermit.Name = "btnDeletePSDDraftPermit"
         Me.btnDeletePSDDraftPermit.Size = New System.Drawing.Size(24, 23)
@@ -869,7 +776,7 @@ Partial Class SSPPPermitUploader
         '
         'btnDeletePSDNarrative
         '
-        Me.btnDeletePSDNarrative.Image = CType(resources.GetObject("btnDeletePSDNarrative.Image"), System.Drawing.Image)
+        Me.btnDeletePSDNarrative.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDeletePSDNarrative.Location = New System.Drawing.Point(635, 30)
         Me.btnDeletePSDNarrative.Name = "btnDeletePSDNarrative"
         Me.btnDeletePSDNarrative.Size = New System.Drawing.Size(24, 23)
@@ -879,7 +786,7 @@ Partial Class SSPPPermitUploader
         '
         'btnDeletePSDPrelimDet
         '
-        Me.btnDeletePSDPrelimDet.Image = CType(resources.GetObject("btnDeletePSDPrelimDet.Image"), System.Drawing.Image)
+        Me.btnDeletePSDPrelimDet.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDeletePSDPrelimDet.Location = New System.Drawing.Point(635, 24)
         Me.btnDeletePSDPrelimDet.Name = "btnDeletePSDPrelimDet"
         Me.btnDeletePSDPrelimDet.Size = New System.Drawing.Size(24, 23)
@@ -889,7 +796,7 @@ Partial Class SSPPPermitUploader
         '
         'btnDeletePSDAppSummary
         '
-        Me.btnDeletePSDAppSummary.Image = CType(resources.GetObject("btnDeletePSDAppSummary.Image"), System.Drawing.Image)
+        Me.btnDeletePSDAppSummary.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDeletePSDAppSummary.Location = New System.Drawing.Point(635, 26)
         Me.btnDeletePSDAppSummary.Name = "btnDeletePSDAppSummary"
         Me.btnDeletePSDAppSummary.Size = New System.Drawing.Size(24, 23)
@@ -899,7 +806,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDNarrativeDownload
         '
-        Me.btnPSDNarrativeDownload.Image = CType(resources.GetObject("btnPSDNarrativeDownload.Image"), System.Drawing.Image)
+        Me.btnPSDNarrativeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDNarrativeDownload.Location = New System.Drawing.Point(635, 6)
         Me.btnPSDNarrativeDownload.Name = "btnPSDNarrativeDownload"
         Me.btnPSDNarrativeDownload.Size = New System.Drawing.Size(24, 23)
@@ -938,7 +845,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDNarrative
         '
-        Me.btnPSDNarrative.Image = CType(resources.GetObject("btnPSDNarrative.Image"), System.Drawing.Image)
+        Me.btnPSDNarrative.Image = Global.Iaip.My.Resources.Resources.UploadIcon
         Me.btnPSDNarrative.Location = New System.Drawing.Point(111, 6)
         Me.btnPSDNarrative.Name = "btnPSDNarrative"
         Me.btnPSDNarrative.Size = New System.Drawing.Size(24, 23)
@@ -987,7 +894,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDPublicNoticeDownload
         '
-        Me.btnPSDPublicNoticeDownload.Image = CType(resources.GetObject("btnPSDPublicNoticeDownload.Image"), System.Drawing.Image)
+        Me.btnPSDPublicNoticeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDPublicNoticeDownload.Location = New System.Drawing.Point(635, 3)
         Me.btnPSDPublicNoticeDownload.Name = "btnPSDPublicNoticeDownload"
         Me.btnPSDPublicNoticeDownload.Size = New System.Drawing.Size(24, 23)
@@ -997,7 +904,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDDraftPermitDownload
         '
-        Me.btnPSDDraftPermitDownload.Image = CType(resources.GetObject("btnPSDDraftPermitDownload.Image"), System.Drawing.Image)
+        Me.btnPSDDraftPermitDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDDraftPermitDownload.Location = New System.Drawing.Point(635, 2)
         Me.btnPSDDraftPermitDownload.Name = "btnPSDDraftPermitDownload"
         Me.btnPSDDraftPermitDownload.Size = New System.Drawing.Size(24, 23)
@@ -1007,7 +914,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDPrelimDetDownload
         '
-        Me.btnPSDPrelimDetDownload.Image = CType(resources.GetObject("btnPSDPrelimDetDownload.Image"), System.Drawing.Image)
+        Me.btnPSDPrelimDetDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDPrelimDetDownload.Location = New System.Drawing.Point(635, 1)
         Me.btnPSDPrelimDetDownload.Name = "btnPSDPrelimDetDownload"
         Me.btnPSDPrelimDetDownload.Size = New System.Drawing.Size(24, 23)
@@ -1017,7 +924,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDHearingNoticeDownload
         '
-        Me.btnPSDHearingNoticeDownload.Image = CType(resources.GetObject("btnPSDHearingNoticeDownload.Image"), System.Drawing.Image)
+        Me.btnPSDHearingNoticeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDHearingNoticeDownload.Location = New System.Drawing.Point(635, 4)
         Me.btnPSDHearingNoticeDownload.Name = "btnPSDHearingNoticeDownload"
         Me.btnPSDHearingNoticeDownload.Size = New System.Drawing.Size(24, 23)
@@ -1027,7 +934,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDFinalDetDownload
         '
-        Me.btnPSDFinalDetDownload.Image = CType(resources.GetObject("btnPSDFinalDetDownload.Image"), System.Drawing.Image)
+        Me.btnPSDFinalDetDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDFinalDetDownload.Location = New System.Drawing.Point(636, 5)
         Me.btnPSDFinalDetDownload.Name = "btnPSDFinalDetDownload"
         Me.btnPSDFinalDetDownload.Size = New System.Drawing.Size(24, 23)
@@ -1037,7 +944,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDFinalPermitDownload
         '
-        Me.btnPSDFinalPermitDownload.Image = CType(resources.GetObject("btnPSDFinalPermitDownload.Image"), System.Drawing.Image)
+        Me.btnPSDFinalPermitDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDFinalPermitDownload.Location = New System.Drawing.Point(635, 5)
         Me.btnPSDFinalPermitDownload.Name = "btnPSDFinalPermitDownload"
         Me.btnPSDFinalPermitDownload.Size = New System.Drawing.Size(24, 23)
@@ -1047,7 +954,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDAppSummaryDownload
         '
-        Me.btnPSDAppSummaryDownload.Image = CType(resources.GetObject("btnPSDAppSummaryDownload.Image"), System.Drawing.Image)
+        Me.btnPSDAppSummaryDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnPSDAppSummaryDownload.Location = New System.Drawing.Point(635, 3)
         Me.btnPSDAppSummaryDownload.Name = "btnPSDAppSummaryDownload"
         Me.btnPSDAppSummaryDownload.Size = New System.Drawing.Size(24, 23)
@@ -1260,7 +1167,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDFinalPermit
         '
-        Me.btnPSDFinalPermit.Image = CType(resources.GetObject("btnPSDFinalPermit.Image"), System.Drawing.Image)
+        Me.btnPSDFinalPermit.Image = Global.Iaip.My.Resources.Resources.UploadIcon
         Me.btnPSDFinalPermit.Location = New System.Drawing.Point(111, 5)
         Me.btnPSDFinalPermit.Name = "btnPSDFinalPermit"
         Me.btnPSDFinalPermit.Size = New System.Drawing.Size(24, 23)
@@ -1289,7 +1196,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDFinalDet
         '
-        Me.btnPSDFinalDet.Image = CType(resources.GetObject("btnPSDFinalDet.Image"), System.Drawing.Image)
+        Me.btnPSDFinalDet.Image = Global.Iaip.My.Resources.Resources.UploadIcon
         Me.btnPSDFinalDet.Location = New System.Drawing.Point(112, 5)
         Me.btnPSDFinalDet.Name = "btnPSDFinalDet"
         Me.btnPSDFinalDet.Size = New System.Drawing.Size(24, 23)
@@ -1318,7 +1225,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDHearingNotice
         '
-        Me.btnPSDHearingNotice.Image = CType(resources.GetObject("btnPSDHearingNotice.Image"), System.Drawing.Image)
+        Me.btnPSDHearingNotice.Image = Global.Iaip.My.Resources.Resources.UploadIcon
         Me.btnPSDHearingNotice.Location = New System.Drawing.Point(111, 4)
         Me.btnPSDHearingNotice.Name = "btnPSDHearingNotice"
         Me.btnPSDHearingNotice.Size = New System.Drawing.Size(24, 23)
@@ -1347,7 +1254,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDPublicNotice
         '
-        Me.btnPSDPublicNotice.Image = CType(resources.GetObject("btnPSDPublicNotice.Image"), System.Drawing.Image)
+        Me.btnPSDPublicNotice.Image = Global.Iaip.My.Resources.Resources.UploadIcon
         Me.btnPSDPublicNotice.Location = New System.Drawing.Point(111, 3)
         Me.btnPSDPublicNotice.Name = "btnPSDPublicNotice"
         Me.btnPSDPublicNotice.Size = New System.Drawing.Size(24, 23)
@@ -1366,7 +1273,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDDraftPermit
         '
-        Me.btnPSDDraftPermit.Image = CType(resources.GetObject("btnPSDDraftPermit.Image"), System.Drawing.Image)
+        Me.btnPSDDraftPermit.Image = Global.Iaip.My.Resources.Resources.UploadIcon
         Me.btnPSDDraftPermit.Location = New System.Drawing.Point(111, 2)
         Me.btnPSDDraftPermit.Name = "btnPSDDraftPermit"
         Me.btnPSDDraftPermit.Size = New System.Drawing.Size(24, 23)
@@ -1385,7 +1292,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDPrelimDet
         '
-        Me.btnPSDPrelimDet.Image = CType(resources.GetObject("btnPSDPrelimDet.Image"), System.Drawing.Image)
+        Me.btnPSDPrelimDet.Image = Global.Iaip.My.Resources.Resources.UploadIcon
         Me.btnPSDPrelimDet.Location = New System.Drawing.Point(111, 1)
         Me.btnPSDPrelimDet.Name = "btnPSDPrelimDet"
         Me.btnPSDPrelimDet.Size = New System.Drawing.Size(24, 23)
@@ -1404,7 +1311,7 @@ Partial Class SSPPPermitUploader
         '
         'btnPSDAppSummary
         '
-        Me.btnPSDAppSummary.Image = CType(resources.GetObject("btnPSDAppSummary.Image"), System.Drawing.Image)
+        Me.btnPSDAppSummary.Image = Global.Iaip.My.Resources.Resources.UploadIcon
         Me.btnPSDAppSummary.Location = New System.Drawing.Point(111, 3)
         Me.btnPSDAppSummary.Name = "btnPSDAppSummary"
         Me.btnPSDAppSummary.Size = New System.Drawing.Size(24, 23)
@@ -1603,7 +1510,7 @@ Partial Class SSPPPermitUploader
         '
         'btnDeleteOtherPermit
         '
-        Me.btnDeleteOtherPermit.Image = CType(resources.GetObject("btnDeleteOtherPermit.Image"), System.Drawing.Image)
+        Me.btnDeleteOtherPermit.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDeleteOtherPermit.Location = New System.Drawing.Point(629, 94)
         Me.btnDeleteOtherPermit.Name = "btnDeleteOtherPermit"
         Me.btnDeleteOtherPermit.Size = New System.Drawing.Size(24, 23)
@@ -1613,7 +1520,7 @@ Partial Class SSPPPermitUploader
         '
         'btnDeleteOtherNarrative
         '
-        Me.btnDeleteOtherNarrative.Image = CType(resources.GetObject("btnDeleteOtherNarrative.Image"), System.Drawing.Image)
+        Me.btnDeleteOtherNarrative.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDeleteOtherNarrative.Location = New System.Drawing.Point(629, 35)
         Me.btnDeleteOtherNarrative.Name = "btnDeleteOtherNarrative"
         Me.btnDeleteOtherNarrative.Size = New System.Drawing.Size(24, 23)
@@ -1623,7 +1530,7 @@ Partial Class SSPPPermitUploader
         '
         'btnOtherPermitDownload
         '
-        Me.btnOtherPermitDownload.Image = CType(resources.GetObject("btnOtherPermitDownload.Image"), System.Drawing.Image)
+        Me.btnOtherPermitDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnOtherPermitDownload.Location = New System.Drawing.Point(629, 70)
         Me.btnOtherPermitDownload.Name = "btnOtherPermitDownload"
         Me.btnOtherPermitDownload.Size = New System.Drawing.Size(24, 23)
@@ -1633,7 +1540,7 @@ Partial Class SSPPPermitUploader
         '
         'btnOtherNarrativeDownload
         '
-        Me.btnOtherNarrativeDownload.Image = CType(resources.GetObject("btnOtherNarrativeDownload.Image"), System.Drawing.Image)
+        Me.btnOtherNarrativeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
         Me.btnOtherNarrativeDownload.Location = New System.Drawing.Point(629, 12)
         Me.btnOtherNarrativeDownload.Name = "btnOtherNarrativeDownload"
         Me.btnOtherNarrativeDownload.Size = New System.Drawing.Size(24, 23)
@@ -1701,7 +1608,7 @@ Partial Class SSPPPermitUploader
         '
         'btnOtherNarrative
         '
-        Me.btnOtherNarrative.Image = CType(resources.GetObject("btnOtherNarrative.Image"), System.Drawing.Image)
+        Me.btnOtherNarrative.Image = Global.Iaip.My.Resources.Resources.UploadIcon
         Me.btnOtherNarrative.Location = New System.Drawing.Point(105, 12)
         Me.btnOtherNarrative.Name = "btnOtherNarrative"
         Me.btnOtherNarrative.Size = New System.Drawing.Size(24, 23)
@@ -1730,7 +1637,7 @@ Partial Class SSPPPermitUploader
         '
         'btnOtherPermit
         '
-        Me.btnOtherPermit.Image = CType(resources.GetObject("btnOtherPermit.Image"), System.Drawing.Image)
+        Me.btnOtherPermit.Image = Global.Iaip.My.Resources.Resources.UploadIcon
         Me.btnOtherPermit.Location = New System.Drawing.Point(105, 70)
         Me.btnOtherPermit.Name = "btnOtherPermit"
         Me.btnOtherPermit.Size = New System.Drawing.Size(24, 23)
@@ -2182,7 +2089,6 @@ Partial Class SSPPPermitUploader
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtApplicationNumber As System.Windows.Forms.TextBox
     Friend WithEvents btnUploadFile As System.Windows.Forms.Button
