@@ -1,4 +1,4 @@
-﻿Imports Iaip.Apb.Finance
+Imports Iaip.Apb.Finance
 Imports Iaip.DAL.FacilityData
 Imports Iaip.DAL.Finance
 
@@ -135,8 +135,6 @@ Public Class FinInvoiceView
         lblVoidMessage.ClearMessage()
         btnVoid.Enabled = False
 
-        Dim msg As String = ""
-
         Select Case VoidInvoice(InvoiceID)
             Case VoidInvoiceResult.AlreadyVoided
                 lblVoidMessage.ShowMessage("Invoice has already been voided.", ErrorLevel.Error)
@@ -159,8 +157,6 @@ Public Class FinInvoiceView
                 lblStatus.Text = "Status: VOID"
 
         End Select
-
-        lblVoidMessage.Text = msg
     End Sub
 
     Private Sub lnkFacility_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkFacility.LinkClicked
