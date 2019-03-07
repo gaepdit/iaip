@@ -55,6 +55,7 @@ Friend Module StartupShutdown
     ''' </summary>
     ''' <remarks></remarks>
     Friend Sub CloseIaip()
+        IaipExiting = True
         Application.Exit()
     End Sub
 

@@ -18,6 +18,7 @@ Module Constants
     Friend AppFirstRun As Boolean = False
     Friend AppUpdated As Boolean = False
     Friend AccountFormAccess(150, 4) As String
+    Friend IaipExiting As Boolean = False
 
     Friend Const APP_NAME As String = "IAIP"
     Friend Const APP_FRIENDLY_NAME As String = "Integrated Air Information Platform"
