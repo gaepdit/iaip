@@ -59,6 +59,7 @@ Partial Class SscpEnforcement
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.DismissMessageButton = New System.Windows.Forms.Button()
+        Me.ClearStipulatedPenaltyFormButton = New System.Windows.Forms.Button()
         Me.EnforcementTabs = New System.Windows.Forms.TabControl()
         Me.InfoTabPage = New System.Windows.Forms.TabPage()
         Me.LinkedEvents = New System.Windows.Forms.DataGridView()
@@ -133,7 +134,6 @@ Partial Class SscpEnforcement
         Me.UpdateStipulatedPenaltyButton = New System.Windows.Forms.Button()
         Me.DeleteStipulatedPenaltyButton = New System.Windows.Forms.Button()
         Me.SaveNewStipulatedPenaltyButton = New System.Windows.Forms.Button()
-        Me.ClearStipulatedPenaltyFormButton = New System.Windows.Forms.Button()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.COResolved = New System.Windows.Forms.DateTimePicker()
         Me.Label18 = New System.Windows.Forms.Label()
@@ -559,6 +559,15 @@ Partial Class SscpEnforcement
         Me.DismissMessageButton.UseVisualStyleBackColor = True
         Me.DismissMessageButton.Visible = False
         '
+        'ClearStipulatedPenaltyFormButton
+        '
+        Me.ClearStipulatedPenaltyFormButton.Image = Global.Iaip.My.Resources.Resources.EraseIcon
+        Me.ClearStipulatedPenaltyFormButton.Location = New System.Drawing.Point(191, 0)
+        Me.ClearStipulatedPenaltyFormButton.Name = "ClearStipulatedPenaltyFormButton"
+        Me.ClearStipulatedPenaltyFormButton.Size = New System.Drawing.Size(24, 23)
+        Me.ClearStipulatedPenaltyFormButton.TabIndex = 3
+        Me.ToolTip.SetToolTip(Me.ClearStipulatedPenaltyFormButton, "Clear Stipulated Penalty")
+        '
         'EnforcementTabs
         '
         Me.EnforcementTabs.Controls.Add(Me.InfoTabPage)
@@ -911,9 +920,9 @@ Partial Class SscpEnforcement
         Me.Label7.AutoSize = True
         Me.Label7.Location = New System.Drawing.Point(144, 52)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(80, 13)
+        Me.Label7.Size = New System.Drawing.Size(89, 13)
         Me.Label7.TabIndex = 3
-        Me.Label7.Text = "Date LON Sent"
+        Me.Label7.Text = "Date LON Issued"
         '
         'Label43
         '
@@ -1132,18 +1141,18 @@ Partial Class SscpEnforcement
         Me.Label8.AutoSize = True
         Me.Label8.Location = New System.Drawing.Point(144, 80)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(81, 13)
+        Me.Label8.Size = New System.Drawing.Size(90, 13)
         Me.Label8.TabIndex = 367
-        Me.Label8.Text = "Date NOV Sent"
+        Me.Label8.Text = "Date NOV Issued"
         '
         'Label13
         '
         Me.Label13.AutoSize = True
         Me.Label13.Location = New System.Drawing.Point(450, 80)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(109, 13)
+        Me.Label13.Size = New System.Drawing.Size(118, 13)
         Me.Label13.TabIndex = 371
-        Me.Label13.Text = "Date NFA Letter Sent"
+        Me.Label13.Text = "Date NFA Letter Issued"
         '
         'Label45
         '
@@ -1471,15 +1480,6 @@ Partial Class SscpEnforcement
         Me.SaveNewStipulatedPenaltyButton.TabIndex = 1
         Me.SaveNewStipulatedPenaltyButton.Tag = ""
         Me.SaveNewStipulatedPenaltyButton.Text = "Add New Penalty"
-        '
-        'ClearStipulatedPenaltyFormButton
-        '
-        Me.ClearStipulatedPenaltyFormButton.Image = Global.Iaip.My.Resources.Resources.EraseIcon
-        Me.ClearStipulatedPenaltyFormButton.Location = New System.Drawing.Point(191, 0)
-        Me.ClearStipulatedPenaltyFormButton.Name = "ClearStipulatedPenaltyFormButton"
-        Me.ClearStipulatedPenaltyFormButton.Size = New System.Drawing.Size(24, 23)
-        Me.ClearStipulatedPenaltyFormButton.TabIndex = 3
-        Me.ToolTip.SetToolTip(Me.ClearStipulatedPenaltyFormButton, "Clear Stipulated Penalty")
         '
         'Label21
         '
