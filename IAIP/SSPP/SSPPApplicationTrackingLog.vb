@@ -14991,7 +14991,7 @@ Public Class SSPPApplicationTrackingLog
         If chbExpFee.Checked Then
             body.Append("This email also serves as notice of acceptance of the application into the Expedited Permitting Program. ")
             body.Append("The applicant must complete the invitation process by responding to this email to acknowledge entry into the program ")
-            body.Append("within three business days of this email. The expedited time frame begins upon the applicant�s acceptance of the invitation. ")
+            body.Append("within three business days of this email. The expedited time frame begins upon the applicant’s acceptance of the invitation. ")
             body.Append("Failure to comply with the deadlines listed in this email may result in removal of the application from the ")
             body.Append("Expedited Permitting Program. If the applicant decides to decline participation in the program they ")
             body.Append("must immediately respond, requesting that the application no longer be considered.")
@@ -15005,7 +15005,7 @@ Public Class SSPPApplicationTrackingLog
         body.Append("You can then request access to this facility for emission fees using the tools in GECO.")
         body.AppendLine()
         body.Append("The fee must be submitted within 10 business days of the date of this email. Permitting actions will not be finalized ")
-        body.Append("prior to the Division�s receipt of the fee payment.")
+        body.Append("prior to the Division’s receipt of the fee payment.")
         body.AppendLine()
         body.Append("Other environmental permits may be required. For Industrial Stormwater permits, contact the Watershed Protection Branch ")
         body.Append("at (404) 675-1605; for Solid Waste permits, contact the Land Protection Branch at (404) 362-2537. ")
