@@ -61,6 +61,7 @@ Public Class IAIPFacilitySummary
         LoadPermissions()
         InitializeDataTables()
         InitializeGridEvents()
+        DisableFacilityTools()
 
         MyBase.OnLoad(e)
     End Sub
@@ -176,7 +177,9 @@ Public Class IAIPFacilitySummary
 #Region " Basic Info data "
 
     Private Sub EditFacilityLocationButton_Click(sender As Object, e As EventArgs) Handles EditFacilityLocationButton.Click
-        OpenMultiForm(IAIPEditFacilityLocation, AirsNumber.ToInt, New Dictionary(Of FormParameter, String) From {{FormParameter.AirsNumber, AirsNumber.ToString}})
+        If AirsNumber IsNot Nothing Then
+            OpenMultiForm(IAIPEditFacilityLocation, AirsNumber.ToInt, New Dictionary(Of FormParameter, String) From {{FormParameter.AirsNumber, AirsNumber.ToString}})
+        End If
     End Sub
 
     Private Sub ClearBasicFacilityData()
@@ -423,22 +426,26 @@ Public Class IAIPFacilitySummary
 #Region " Header data "
 
     Private Sub EditPollutantsButton_Click(sender As Object, e As EventArgs) Handles EditPollutantsButton.Click
-        Using editProgPollDialog As New IAIPEditAirProgramPollutants
-            With editProgPollDialog
-                .AirsNumber = AirsNumber
-                .FacilityName = ThisFacility.FacilityName & ", " & ThisFacility.DisplayCity
-                .ShowDialog()
-            End With
-        End Using
+        If AirsNumber IsNot Nothing Then
+            Using editProgPollDialog As New IAIPEditAirProgramPollutants
+                With editProgPollDialog
+                    .AirsNumber = AirsNumber
+                    .FacilityName = ThisFacility.FacilityName & ", " & ThisFacility.DisplayCity
+                    .ShowDialog()
+                End With
+            End Using
+        End If
     End Sub
 
     Private Sub EditSubpartsButton_Click(sender As Object, e As EventArgs) Handles EditSubpartsButton.Click
-        Dim editSubParts As IAIPEditSubParts = CType(OpenMultiForm(IAIPEditSubParts, AirsNumber.ToInt), IAIPEditSubParts)
-        editSubParts.AirsNumber = AirsNumber
+        If AirsNumber IsNot Nothing Then
+            Dim editSubParts As IAIPEditSubParts = CType(OpenMultiForm(IAIPEditSubParts, AirsNumber.ToInt), IAIPEditSubParts)
+            editSubParts.AirsNumber = AirsNumber
+        End If
     End Sub
 
     Private Sub EditHeaderDataButton_Click(sender As Object, e As EventArgs) Handles EditHeaderDataButton.Click
-        If IsValidAirsNumberFormat(AirsNumber.ToString) Then
+        If AirsNumber IsNot Nothing Then
 
             Dim editHeaderDataDialog As New IAIPEditHeaderData With {
                 .AirsNumber = AirsNumber,
@@ -840,10 +847,12 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub EditContactsButton_Click(sender As Object, e As EventArgs) Handles EditContactsButton.Click
-        Dim parameters As New Dictionary(Of FormParameter, String)
-        parameters(FormParameter.AirsNumber) = AirsNumber.ShortString
-        parameters(FormParameter.FacilityName) = ThisFacility.FacilityName
-        OpenMultiForm(IAIPEditContacts, AirsNumber.ToInt, parameters)
+        If AirsNumber IsNot Nothing Then
+            Dim parameters As New Dictionary(Of FormParameter, String)
+            parameters(FormParameter.AirsNumber) = AirsNumber.ShortString
+            parameters(FormParameter.FacilityName) = ThisFacility.FacilityName
+            OpenMultiForm(IAIPEditContacts, AirsNumber.ToInt, parameters)
+        End If
     End Sub
 
     Private Sub PermitsLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles PermitsLink.LinkClicked
@@ -987,13 +996,15 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub OpenFacilitySummaryPrintTool()
-        Dim facilityPrintOut As New IaipFacilitySummaryPrint With {
+        If AirsNumber IsNot Nothing Then
+            Dim facilityPrintOut As New IaipFacilitySummaryPrint With {
             .AirsNumber = AirsNumber,
             .FacilityName = ThisFacility.FacilityName
         }
 
-        If facilityPrintOut IsNot Nothing AndAlso Not facilityPrintOut.IsDisposed Then
-            facilityPrintOut.Show()
+            If facilityPrintOut IsNot Nothing AndAlso Not facilityPrintOut.IsDisposed Then
+                facilityPrintOut.Show()
+            End If
         End If
     End Sub
 

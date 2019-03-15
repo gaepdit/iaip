@@ -10,7 +10,7 @@ Public Class IaipDataGridView
 
     ' Custom Properties
 
-    <Category("Appearance"), Description("Format for Decimal data typed columns.")>
+    <Category("Appearance"), Description("Automatically apply formatting for some column data types.")>
     <DefaultValue(True)>
     Public Property AutoFormatCells As Boolean = True
 

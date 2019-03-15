@@ -54,15 +54,16 @@ Public Class IaipExceptionManager
             "If you continue to see this error, please email EPD IT. Describe what you were doing and paste the error details below into your email."
         End If
 
-        Dim ed As New ExceptionDialog
-        With ed
-            .ErrorMessage.Text = WhatHappened
-            .ActionMessage.Text = WhatUserCanDo
-            .ErrorDetails.Text = FormatExceptionForUser(exc)
-            If showExitButton Then .Unrecoverable = True
-        End With
+        Using ed As New ExceptionDialog
+            With ed
+                .ErrorMessage.Text = WhatHappened
+                .ActionMessage.Text = WhatUserCanDo
+                .ErrorDetails.Text = FormatExceptionForUser(exc)
+                If showExitButton Then .Unrecoverable = True
+            End With
 
-        Return ed.ShowDialog()
+            Return ed.ShowDialog()
+        End Using
     End Function
 
     '--

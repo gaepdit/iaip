@@ -1,4 +1,4 @@
-﻿Imports System.Collections.Generic
+Imports System.Collections.Generic
 Imports System.ComponentModel
 Imports Iaip.DAL.NavigationScreenData
 Imports Iaip.SharedData
@@ -48,7 +48,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub IAIPNavigation_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        If Not LoggingOff Then
+        If Not LoggingOff And Not IaipExiting Then
             Dim openForms As New List(Of Form)
 
             For Each frm As Form In Application.OpenForms
