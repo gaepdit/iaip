@@ -3,17 +3,16 @@
 Namespace DAL
     Module QueryGeneratorData
 
-        Public Function LogQuery(kvp As Generic.KeyValuePair(Of String, Integer)) As Boolean
+        Public Function LogQuery(generatedQuery As String, count As Integer) As Boolean
             Dim query As String =
                 " INSERT INTO IAIP_LOG_QUERYGENERATOR " &
-                " (USERSUBMITTING, DATESUBMITTED, ROWSRETURNED, QUERYSUBMITTED) " &
-                " VALUES (@UserSubmitting, @DateSubmitted, @RowsReturned, @QuerySubmitted) "
+                " (USERSUBMITTING, ROWSRETURNED, QUERYSUBMITTED) " &
+                " VALUES (@UserSubmitting, @RowsReturned, @QuerySubmitted) "
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@UserSubmitting", CurrentUser.UserID),
-                New SqlParameter("@DateSubmitted", Date.Now),
-                New SqlParameter("@RowsReturned", kvp.Value),
-                New SqlParameter("@QuerySubmitted", kvp.Key)
+                New SqlParameter("@RowsReturned", count),
+                New SqlParameter("@QuerySubmitted", generatedQuery)
             }
 
             Try

@@ -23,8 +23,6 @@ Public Class IAIPQueryGenerator
     Dim dtcboSSCPUnitSearch1 As DataTable
     Dim dtcboSSCPUnitSearch2 As DataTable
 
-    Private SubmittedQuery As KeyValuePair(Of String, Integer)
-
     Protected Overrides Sub OnLoad(e As EventArgs)
         lblQueryCount.Text = ""
         lblCannedQueryCount.Text = ""
@@ -2298,7 +2296,7 @@ Public Class IAIPQueryGenerator
 
             dgvQueryGenerator.DataSource = DB.GetDataTable(MasterSQL, params.ToArray)
 
-            SubmittedQuery = New KeyValuePair(Of String, Integer)(MasterSQL, dgvQueryGenerator.Rows.Count)
+            DAL.LogQuery(MasterSQL, dgvQueryGenerator.Rows.Count)
 
             i = 0
             dgvQueryGenerator.Columns("AIRSNumber").HeaderText = "AIRS #"
@@ -3834,7 +3832,6 @@ Public Class IAIPQueryGenerator
     Private Sub btnRunSearch_Click(sender As Object, e As EventArgs) Handles btnRunSearch.Click
         Cursor = Cursors.WaitCursor
         GenerateSQL2()
-        LogQuery()
         Cursor = Cursors.Default
     End Sub
 
@@ -3928,14 +3925,6 @@ Public Class IAIPQueryGenerator
 
     Private Sub mmiExport_Click(sender As Object, e As EventArgs) Handles mmiExport.Click
         ExportToExcel()
-    End Sub
-
-    Private Sub LogQuery()
-        If SubmittedQuery.Key.Length > 4000 Then
-            SubmittedQuery = New KeyValuePair(Of String, Integer)("-- Truncated: " & Me.SubmittedQuery.Key.Truncate(3985), Me.SubmittedQuery.Value)
-        End If
-
-        DAL.LogQuery(SubmittedQuery)
     End Sub
 
     Private Sub RunCannedHistoryAirProgram()
