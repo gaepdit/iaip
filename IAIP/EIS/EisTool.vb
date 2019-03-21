@@ -2799,9 +2799,9 @@ Public Class EisTool
             txtAllEISDeadlineComment.Clear()
 
             Dim SQL As String = "Select * " &
-           "From EIS_Admin " &
-           "where inventoryYear = @inventoryYear " &
-           "and FacilitySiteID = @FacilitySiteID "
+                "From EIS_Admin " &
+                "where inventoryYear = @inventoryYear " &
+                "and FacilitySiteID = @FacilitySiteID "
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@inventoryYear", txtEILogSelectedYear.Text),
@@ -2827,16 +2827,36 @@ Public Class EisTool
                 Else
                     cboEILogAccessCode.SelectedValue = dr.Item("EISAccessCode")
                 End If
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    rdbEILogOpOutYes.Checked = False
-                    rdbEILogOpOutNo.Checked = False
-                Else
-                    If dr.Item("strOptOut") = "1" Then
+
+                gbColocate.Visible = False
+                rdbEILogOpOutYes.Checked = False
+                rdbEILogOpOutNo.Checked = False
+                lblColocated.Text = ""
+                txtColocatedWith.Text = ""
+                lblOptOutReason.Text = ""
+
+                If Not IsDBNull(dr.Item("strOptOut")) Then
+                    If dr.Item("strOptOut").ToString = "1" Then
+                        gbColocate.Visible = True
                         rdbEILogOpOutYes.Checked = True
+                        txtColocatedWith.Text = dr("ColocatedWith").ToString
+
+                        If Not IsDBNull(dr.Item("IsColocated")) Then
+                            lblColocated.Text = If(CBool(dr.Item("IsColocated")), "Yes", "No")
+                        End If
+
+                        If Not IsDBNull(dr.Item("STROPTOUTREASON")) Then
+                            If dr.Item("STROPTOUTREASON").ToString = "1" Then
+                                lblOptOutReason.Text = "Did not operate"
+                            ElseIf dr.Item("STROPTOUTREASON").ToString = "2" Then
+                                lblOptOutReason.Text = "Emissions below thresholds"
+                            End If
+                        End If
                     Else
-                        rdbEILogOpOutNo.Checked = True
+                            rdbEILogOpOutNo.Checked = True
                     End If
                 End If
+
                 If IsDBNull(dr.Item("strIncorrectOptOut")) Then
                     chbOptedOutIncorrectly.Checked = False
                 Else
