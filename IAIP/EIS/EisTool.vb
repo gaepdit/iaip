@@ -3599,7 +3599,7 @@ Public Class EisTool
                     "and strEnrollment = '0' " &
                     "and strOptOut is null " &
                     "and EISAccessCode = '0' " &
-                    "and EISStatusCode = '0' " &
+                    "and EISStatusCode in ('0', '1') " &
                     "and strMailout = '1' " &
                     temp
 
@@ -5516,10 +5516,14 @@ Public Class EisTool
 
             Dim SQL As String = "Update EIS_Admin set " &
             "strEnrollment = '1' , " &
-            "EISSTATUSCODE= '1' " &
+            "EISSTATUSCODE= '1', " &
+            "EISAccessCode = '1', " &
+            "DatEISStatus = getdate() " &
             "where active = '1' " &
             "and InventoryYear = @InventoryYear " &
+            "and EISStatusCode in ('0', '1') " &
             "and strMailout = '1' "
+
             Dim param As New SqlParameter("@InventoryYear", txtEISStatsEnrollmentYear.Text)
             DB.RunCommand(SQL, param)
 
