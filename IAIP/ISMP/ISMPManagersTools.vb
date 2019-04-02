@@ -71,7 +71,7 @@ Public Class ISMPManagersTools
             "where EPDUSerProfiles.numUnit = LookUpEPDUnits.numUnitCode  " &
             "and numProgram = '3'  " &
             "and numUnit <> '14'  " &
-            "and numEmployeeStatus = '1' " &
+            "and numEmployeeStatus = 1 " &
             "and numUserID <> '0' " &
             "order by strlastname"
 

@@ -82,7 +82,7 @@ Namespace DAL
                 .PhoneNumber = DBUtilities.GetNullable(Of String)(row("Phone number"))
                 .OfficeNumber = DBUtilities.GetNullable(Of String)(row("Office"))
                 .EmailAddress = DBUtilities.GetNullable(Of String)(row("Email address"))
-                .ActiveEmployee = Convert.ToBoolean(DBUtilities.GetNullable(Of Integer)(row("ActiveEmployee")))
+                .ActiveEmployee = CType(CBool(row("ActiveEmployee")), ActiveOrInactive)
                 .BranchID = DBUtilities.GetNullable(Of Integer)(row("BranchID"))
                 .BranchName = DBUtilities.GetNullable(Of String)(row("Branch"))
                 .ProgramID = DBUtilities.GetNullable(Of Integer)(row("ProgramID"))
@@ -90,7 +90,7 @@ Namespace DAL
                 .UnitId = DBUtilities.GetNullable(Of Integer)(row("UnitID"))
                 .UnitName = DBUtilities.GetNullable(Of String)(row("Unit"))
                 .Username = DBUtilities.GetNullable(Of String)(row("Username"))
-                .IaipRoles = DBUtilities.GetNullable(Of String)(row("RolesString"))
+                .IaipRoles = CType(DBUtilities.GetNullable(Of String)(row("RolesString")), IaipRoles)
                 .RequirePasswordChange = Convert.ToBoolean(row("RequirePasswordChange"))
                 .RequestProfileUpdate = Convert.ToBoolean(row("RequestProfileUpdate"))
             End With
@@ -267,7 +267,7 @@ Namespace DAL
                 New SqlParameter("@branchid", branch),
                 New SqlParameter("@programid", program),
                 New SqlParameter("@unitid", unit),
-                New SqlParameter("@includeinactive", includeInactive.ToString)
+                New SqlParameter("@includeinactive", includeInactive)
             }
             Return DB.SPGetDataTable(spName, parameters)
         End Function

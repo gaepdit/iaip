@@ -81,7 +81,7 @@ Public Class SBEAPCaseWork
                 inner join
                 IAIPPERMISSIONS i
                     on p.NUMUSERID = i.NUMUSERID
-            where (p.NUMEMPLOYEESTATUS = '1'
+            where (p.NUMEMPLOYEESTATUS = 1
                    AND (i.STRIAIPPERMISSIONS LIKE '%(142)%'
                         OR i.STRIAIPPERMISSIONS LIKE '%(143)%'))
             union

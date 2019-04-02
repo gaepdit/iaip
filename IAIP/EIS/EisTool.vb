@@ -85,7 +85,7 @@ Public Class EisTool
             "where numBranch = '1' " &
             "and numProgram = '3' " &
             "and numunit = '14' " &
-            "and numEmployeeStatus = '1' "
+            "and numEmployeeStatus = 1 "
         dt = DB.GetDataTable(SQL)
 
         For Each dr As DataRow In dt.Rows
