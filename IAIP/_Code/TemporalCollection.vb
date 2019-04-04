@@ -52,25 +52,21 @@ Public Class TemporalCollection(Of T)
         Throw New ArgumentOutOfRangeException("No records that early.")
     End Function
 
-    Public ReadOnly Property EarliestDate() As Date
-        Get
-            If Contents.Count = 0 Then
-                Throw New ArgumentOutOfRangeException("Temporal collection contains no records.")
-            End If
+    Public Function EarliestDate() As Date
+        If Contents.Count = 0 Then
+            Throw New ArgumentOutOfRangeException("Temporal collection contains no records.")
+        End If
 
-            Return Contents.Keys.Item(Contents.Count - 1)
-        End Get
-    End Property
+        Return Contents.Keys.Item(Contents.Count - 1)
+    End Function
 
-    Public ReadOnly Property LatestDate() As Date
-        Get
-            If Contents.Count = 0 Then
-                Throw New ArgumentOutOfRangeException("Temporal collection contains no records.")
-            End If
+    Public Function LatestDate() As Date
+        If Contents.Count = 0 Then
+            Throw New ArgumentOutOfRangeException("Temporal collection contains no records.")
+        End If
 
-            Return Contents.Keys.Item(0)
-        End Get
-    End Property
+        Return Contents.Keys.Item(0)
+    End Function
 
     Public ReadOnly Property Count() As Integer
         Get
