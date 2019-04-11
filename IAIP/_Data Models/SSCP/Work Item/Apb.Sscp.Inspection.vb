@@ -57,7 +57,7 @@ Namespace Apb.Sscp
             Multimedia
         End Enum
 
-        Public InspectionReasonStrings As New Dictionary(Of InspectionReason, String) From {
+        Private ReadOnly InspectionReasonStrings As New Dictionary(Of InspectionReason, String) From {
             {InspectionReason.None, "N/A"},
             {InspectionReason.ComplaintInvestigation, "Complaint Investigation"},
             {InspectionReason.PlannedAnnounced, "Planned Announced"},
@@ -67,22 +67,12 @@ Namespace Apb.Sscp
             {InspectionReason.Multimedia, "Multimedia"}
         }
 
-        Public InspectionReasonKeys As New Dictionary(Of String, InspectionReason) From {
-            {"N/A", InspectionReason.None},
-            {"Complaint Investigation", InspectionReason.ComplaintInvestigation},
-            {"Planned Announced", InspectionReason.PlannedAnnounced},
-            {"Planned Unannounced", InspectionReason.PlannedUnannounced},
-            {"Joint EPD/EPA", InspectionReason.JointEpdEpa},
-            {"Unplanned", InspectionReason.Unplanned},
-            {"Multimedia", InspectionReason.Multimedia}
-        }
-
         Public Enum InspectionComplianceStatus
             Compliant
             DeviationsNoted
         End Enum
 
-        Public InspectionComplianceStatusStrings As New Dictionary(Of InspectionComplianceStatus, String) From {
+        Private ReadOnly InspectionComplianceStatusStrings As New Dictionary(Of InspectionComplianceStatus, String) From {
             {InspectionComplianceStatus.Compliant, "Compliant"},
             {InspectionComplianceStatus.DeviationsNoted, "Deviation(s) Noted"}
         }
