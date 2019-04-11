@@ -2,6 +2,12 @@
 
 *Previously:* [2018](changelog-2018.html) | [2017](changelog-2017.html) | [2016](changelog-2016.html) | [2015](changelog-2015.html) | [2014](changelog-2014.html) | [2013](changelog-2013.html)
 
+## Version 5.12.0 <span>(2019-4-11)</span>
+
+* Added some features to the EIS tool for the 2018 Emission Inventory season.
+* District Managers can now update the operational status of a facility.
+* Plus various bug fixes.
+
 ## Version 5.11.3 <span>(2019-3-14)</span>
 
 Fixed some minor bugs and improved copy in some places.
