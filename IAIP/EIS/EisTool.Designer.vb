@@ -22,12 +22,18 @@ Partial Class EisTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPEISLog = New System.Windows.Forms.TabPage()
         Me.TabControl6 = New System.Windows.Forms.TabControl()
         Me.TPFacilitySite = New System.Windows.Forms.TabPage()
+        Me.gbColocate = New System.Windows.Forms.GroupBox()
+        Me.txtColocatedWith = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.cbEisModifyOperStatus = New System.Windows.Forms.ComboBox()
         Me.Label231 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
@@ -596,10 +602,13 @@ Partial Class EisTool
         Me.btnView = New System.Windows.Forms.Button()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.cboYear = New System.Windows.Forms.ComboBox()
+        Me.lblOptOutReason = New System.Windows.Forms.Label()
+        Me.lblColocated = New System.Windows.Forms.Label()
         Me.TCDMUTools.SuspendLayout()
         Me.TPEISLog.SuspendLayout()
         Me.TabControl6.SuspendLayout()
         Me.TPFacilitySite.SuspendLayout()
+        Me.gbColocate.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.TPEISMailout.SuspendLayout()
         Me.Panel12.SuspendLayout()
@@ -696,6 +705,7 @@ Partial Class EisTool
         'TPFacilitySite
         '
         Me.TPFacilitySite.AutoScroll = True
+        Me.TPFacilitySite.Controls.Add(Me.gbColocate)
         Me.TPFacilitySite.Controls.Add(Me.cbEisModifyOperStatus)
         Me.TPFacilitySite.Controls.Add(Me.Label231)
         Me.TPFacilitySite.Controls.Add(Me.GroupBox4)
@@ -729,6 +739,69 @@ Partial Class EisTool
         Me.TPFacilitySite.TabIndex = 0
         Me.TPFacilitySite.Text = "Modify Facility Site"
         Me.TPFacilitySite.UseVisualStyleBackColor = True
+        '
+        'gbColocate
+        '
+        Me.gbColocate.Controls.Add(Me.txtColocatedWith)
+        Me.gbColocate.Controls.Add(Me.Label7)
+        Me.gbColocate.Controls.Add(Me.Label5)
+        Me.gbColocate.Controls.Add(Me.lblColocated)
+        Me.gbColocate.Controls.Add(Me.lblOptOutReason)
+        Me.gbColocate.Controls.Add(Me.Label4)
+        Me.gbColocate.Controls.Add(Me.Label1)
+        Me.gbColocate.Location = New System.Drawing.Point(534, 280)
+        Me.gbColocate.Name = "gbColocate"
+        Me.gbColocate.Size = New System.Drawing.Size(345, 182)
+        Me.gbColocate.TabIndex = 491
+        Me.gbColocate.TabStop = False
+        Me.gbColocate.Text = "Facility Co-location"
+        Me.gbColocate.Visible = False
+        '
+        'txtColocatedWith
+        '
+        Me.txtColocatedWith.Location = New System.Drawing.Point(99, 88)
+        Me.txtColocatedWith.Multiline = True
+        Me.txtColocatedWith.Name = "txtColocatedWith"
+        Me.txtColocatedWith.ReadOnly = True
+        Me.txtColocatedWith.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtColocatedWith.Size = New System.Drawing.Size(233, 77)
+        Me.txtColocatedWith.TabIndex = 4
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(10, 91)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(80, 13)
+        Me.Label7.TabIndex = 3
+        Me.Label7.Text = "Colocated with:"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(10, 65)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(58, 13)
+        Me.Label5.TabIndex = 3
+        Me.Label5.Text = "Colocated:"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(10, 39)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(80, 13)
+        Me.Label4.TabIndex = 3
+        Me.Label4.Text = "Opt-out reason:"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(10, 16)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(191, 13)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "(Info only requested if facility opted out)"
         '
         'cbEisModifyOperStatus
         '
@@ -2590,11 +2663,11 @@ Partial Class EisTool
         'Label101
         '
         Me.Label101.AutoSize = True
-        Me.Label101.Location = New System.Drawing.Point(13, 118)
+        Me.Label101.Location = New System.Drawing.Point(10, 119)
         Me.Label101.Name = "Label101"
-        Me.Label101.Size = New System.Drawing.Size(41, 13)
+        Me.Label101.Size = New System.Drawing.Size(44, 13)
         Me.Label101.TabIndex = 435
-        Me.Label101.Text = "Op Out"
+        Me.Label101.Text = "Opt Out"
         '
         'Panel15
         '
@@ -4597,23 +4670,23 @@ Partial Class EisTool
         '
         'dgvESDataCount
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.dgvESDataCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle6
         Me.dgvESDataCount.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvESDataCount.Location = New System.Drawing.Point(0, 39)
         Me.dgvESDataCount.Name = "dgvESDataCount"
@@ -6357,6 +6430,24 @@ Partial Class EisTool
         Me.cboYear.Size = New System.Drawing.Size(97, 21)
         Me.cboYear.TabIndex = 0
         '
+        'lblOptOutReason
+        '
+        Me.lblOptOutReason.AutoSize = True
+        Me.lblOptOutReason.Location = New System.Drawing.Point(99, 39)
+        Me.lblOptOutReason.Name = "lblOptOutReason"
+        Me.lblOptOutReason.Size = New System.Drawing.Size(45, 13)
+        Me.lblOptOutReason.TabIndex = 3
+        Me.lblOptOutReason.Text = "(reason)"
+        '
+        'lblColocated
+        '
+        Me.lblColocated.AutoSize = True
+        Me.lblColocated.Location = New System.Drawing.Point(99, 65)
+        Me.lblColocated.Name = "lblColocated"
+        Me.lblColocated.Size = New System.Drawing.Size(60, 13)
+        Me.lblColocated.TabIndex = 3
+        Me.lblColocated.Text = "(colocated)"
+        '
         'EisTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -6371,6 +6462,8 @@ Partial Class EisTool
         Me.TabControl6.ResumeLayout(False)
         Me.TPFacilitySite.ResumeLayout(False)
         Me.TPFacilitySite.PerformLayout()
+        Me.gbColocate.ResumeLayout(False)
+        Me.gbColocate.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         Me.TPEISMailout.ResumeLayout(False)
@@ -7030,4 +7123,12 @@ Partial Class EisTool
     Friend WithEvents lblRecordNumber As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents btnSelectHighlighted As Button
+    Friend WithEvents gbColocate As GroupBox
+    Friend WithEvents txtColocatedWith As TextBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents lblColocated As Label
+    Friend WithEvents lblOptOutReason As Label
 End Class

@@ -1,7 +1,8 @@
+Imports System.Resources
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
-<Assembly: AssemblyVersion("5.11.3.0")>
+<Assembly: AssemblyVersion("5.12.0.1947")>
 <Assembly: AssemblyCompany("State of Georgia")>
 <Assembly: AssemblyCopyright("")>
 <Assembly: AssemblyTrademark("")>
@@ -21,5 +22,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("GA Air Protection Branch integrated database system")>
 <Assembly: AssemblyProduct("Integrated Air Information Platform")>
 <Assembly: Guid("9F83B6AF-EE06-4324-83E9-7AB1D5E8BE5F")>
+<Assembly: NeutralResourcesLanguage("en-US")>
+
 
 #End If

@@ -1,4 +1,5 @@
 ﻿Public Class IaipErrorProvider
+    Implements IDisposable
 
     ' Properties/fields
 
@@ -67,6 +68,19 @@
                 errorProvider.SetError(DisplayLabel, String.Empty)
             End If
         End If
+    End Sub
+
+    Protected Overridable Overloads Sub Dispose(disposing As Boolean)
+        If disposing Then
+            errorProvider.Dispose()
+            ErrorControl.Dispose()
+            DisplayLabel.Dispose()
+        End If
+    End Sub
+
+    Public Overloads Sub Dispose() Implements IDisposable.Dispose
+        Dispose(True)
+        GC.SuppressFinalize(Me)
     End Sub
 
 End Class

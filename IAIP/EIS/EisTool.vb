@@ -85,7 +85,7 @@ Public Class EisTool
             "where numBranch = '1' " &
             "and numProgram = '3' " &
             "and numunit = '14' " &
-            "and numEmployeeStatus = '1' "
+            "and numEmployeeStatus = 1 "
         dt = DB.GetDataTable(SQL)
 
         For Each dr As DataRow In dt.Rows
@@ -2799,9 +2799,9 @@ Public Class EisTool
             txtAllEISDeadlineComment.Clear()
 
             Dim SQL As String = "Select * " &
-           "From EIS_Admin " &
-           "where inventoryYear = @inventoryYear " &
-           "and FacilitySiteID = @FacilitySiteID "
+                "From EIS_Admin " &
+                "where inventoryYear = @inventoryYear " &
+                "and FacilitySiteID = @FacilitySiteID "
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@inventoryYear", txtEILogSelectedYear.Text),
@@ -2827,16 +2827,36 @@ Public Class EisTool
                 Else
                     cboEILogAccessCode.SelectedValue = dr.Item("EISAccessCode")
                 End If
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    rdbEILogOpOutYes.Checked = False
-                    rdbEILogOpOutNo.Checked = False
-                Else
-                    If dr.Item("strOptOut") = "1" Then
+
+                gbColocate.Visible = False
+                rdbEILogOpOutYes.Checked = False
+                rdbEILogOpOutNo.Checked = False
+                lblColocated.Text = ""
+                txtColocatedWith.Text = ""
+                lblOptOutReason.Text = ""
+
+                If Not IsDBNull(dr.Item("strOptOut")) Then
+                    If dr.Item("strOptOut").ToString = "1" Then
+                        gbColocate.Visible = True
                         rdbEILogOpOutYes.Checked = True
+                        txtColocatedWith.Text = dr("ColocatedWith").ToString
+
+                        If Not IsDBNull(dr.Item("IsColocated")) Then
+                            lblColocated.Text = If(CBool(dr.Item("IsColocated")), "Yes", "No")
+                        End If
+
+                        If Not IsDBNull(dr.Item("STROPTOUTREASON")) Then
+                            If dr.Item("STROPTOUTREASON").ToString = "1" Then
+                                lblOptOutReason.Text = "Did not operate"
+                            ElseIf dr.Item("STROPTOUTREASON").ToString = "2" Then
+                                lblOptOutReason.Text = "Emissions below thresholds"
+                            End If
+                        End If
                     Else
-                        rdbEILogOpOutNo.Checked = True
+                            rdbEILogOpOutNo.Checked = True
                     End If
                 End If
+
                 If IsDBNull(dr.Item("strIncorrectOptOut")) Then
                     chbOptedOutIncorrectly.Checked = False
                 Else
@@ -3579,7 +3599,7 @@ Public Class EisTool
                     "and strEnrollment = '0' " &
                     "and strOptOut is null " &
                     "and EISAccessCode = '0' " &
-                    "and EISStatusCode = '0' " &
+                    "and EISStatusCode in ('0', '1') " &
                     "and strMailout = '1' " &
                     temp
 
@@ -5496,10 +5516,14 @@ Public Class EisTool
 
             Dim SQL As String = "Update EIS_Admin set " &
             "strEnrollment = '1' , " &
-            "EISSTATUSCODE= '1' " &
+            "EISSTATUSCODE= '1', " &
+            "EISAccessCode = '1', " &
+            "DatEISStatus = getdate() " &
             "where active = '1' " &
             "and InventoryYear = @InventoryYear " &
+            "and EISStatusCode in ('0', '1') " &
             "and strMailout = '1' "
+
             Dim param As New SqlParameter("@InventoryYear", txtEISStatsEnrollmentYear.Text)
             DB.RunCommand(SQL, param)
 

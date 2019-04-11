@@ -6,7 +6,7 @@
         Public Property RateCategory As FeeRateCategory
         Public Property BeginDate As Date
         Public Property EndDate As Date?
-        Public Rates As New TemporalCollection(Of Decimal)
+        Public Property Rates As New TemporalCollection(Of Decimal)
 
     End Class
 End Namespace

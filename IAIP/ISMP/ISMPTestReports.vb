@@ -90,7 +90,7 @@ Public Class ISMPTestReports
 
             query = "SELECT CONCAT(strLastName, ', ', strFirstName) AS UserName, NumUserID
                 FROM EPDUSerProfiles
-                WHERE numProgram = '3' AND numEmployeeStatus = '1' AND (numunit IS NULL OR numunit <> '14') AND NUMUSERID <> 0
+                WHERE numProgram = '3' AND numEmployeeStatus = 1 AND (numunit IS NULL OR numunit <> '14') AND NUMUSERID <> 0
                 UNION
                 SELECT CONCAT(strLastName, ', ', strFirstName) AS UserName, NumUserID
                 FROM EPDUSerProfiles, ismpreportinformation
@@ -111,7 +111,7 @@ Public Class ISMPTestReports
                 FROM EPDUserProfiles,
                     IAIPPermissions
                 WHERE EPDUserProfiles.NUMUSERID = IAIPPermissions.NUMUSERID
-                AND EPDUserProfiles.NUMEMPLOYEESTATUS = '1'
+                AND EPDUserProfiles.NUMEMPLOYEESTATUS = 1
                 AND ((IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(28)%')
                 OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(19)%')
                 OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(121)%')
@@ -140,7 +140,7 @@ Public Class ISMPTestReports
                 inner join
                 IAIPPermissions i
                     on p.NUMUSERID = i.NUMUSERID
-            where (p.NUMEMPLOYEESTATUS = '1'
+            where (p.NUMEMPLOYEESTATUS = 1
                     AND (i.STRIAIPPERMISSIONS LIKE '%(19)%'
                         OR i.STRIAIPPERMISSIONS LIKE '%(27)%'
                         OR i.STRIAIPPERMISSIONS LIKE '%(114)%'
@@ -173,7 +173,7 @@ Public Class ISMPTestReports
 
             query = "SELECT CONCAT(strLastName, ', ', strFirstName) AS StaffName, numUserID
                 FROM EPDUserProfiles
-                WHERE (numProgram = '4' OR numbranch = '5') AND numEmployeeStatus = '1' OR strLastName = 'District' AND numuserid <> 0
+                WHERE (numProgram = '4' OR numbranch = '5') AND numEmployeeStatus = 1 OR strLastName = 'District' AND numuserid <> 0
                 UNION
                 SELECT StaffName AS username, userid AS numUserID
                 FROM VW_ComplianceStaff
@@ -781,7 +781,7 @@ Public Class ISMPTestReports
             "FROM EPDUSERPROFILES u " &
             "INNER JOIN IAIPPERMISSIONS p " &
             "ON u.NUMUSERID             = p.NUMUSERID " &
-            "WHERE (u.NUMEMPLOYEESTATUS = '1' " &
+            "WHERE (u.NUMEMPLOYEESTATUS = 1 " &
             "AND (p.STRIAIPPERMISSIONS LIKE '%(115)%')) " &
             "OR p.NUMUSERID = 0"
         With cboUnitManager

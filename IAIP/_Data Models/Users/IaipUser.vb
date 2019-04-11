@@ -80,7 +80,7 @@
                 Return HasRole({47, 63, 106, 114, 115, 121, 128})
 
             Case RoleType.DistrictManager
-                Return HasRole({134, 136, 133, 135, 137, 138, 140})
+                Return HasRole({133, 134, 135, 136, 137, 138, 140})
 
         End Select
 
@@ -107,8 +107,8 @@
                 Return (BranchID = 1 OrElse BranchID = 5)
 
             Case UserCan.EditFacilityHeaderData
-                ' Branch Chief; SSCP Unit Manager; or SSCP, ISMP, or SSPP Program Manager
-                Return HasRole({102, 114, 2, 19, 28})
+                ' Branch Chief; SSCP Unit Manager; SSCP, ISMP, or SSPP Program Manager; District Manager
+                Return HasRole({102, 114, 2, 19, 28}) Or HasRoleType(RoleType.DistrictManager)
 
             Case UserCan.ShutDownFacility
                 ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liasion, SSPP Program Manager

@@ -1698,7 +1698,7 @@ Public Class PASPFeeAuditLog
             "where numbranch = '1' " &
             "and numprogram = '2' " &
             "and numUnit = '9' " &
-            "and numEmployeeStatus = '1' " &
+            "and numEmployeeStatus = 1 " &
             "union " &
             "select distinct " &
             "(strLastName+', '+strFirstName) as Staff, " &

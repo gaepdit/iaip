@@ -3,12 +3,6 @@ Imports System.Data.SqlClient
 Public Class SBEAPCaseWork
     Dim FixDtpCheckBox As Boolean = False
 
-    Public WriteOnly Property ValueFromClientLookUp() As String
-        Set(Value As String)
-            txtClientID.Text = Value
-        End Set
-    End Property
-
     Private Sub SBEAPCaseLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             If IsNumeric(txtCaseID.Text) = True Then
@@ -81,7 +75,7 @@ Public Class SBEAPCaseWork
                 inner join
                 IAIPPERMISSIONS i
                     on p.NUMUSERID = i.NUMUSERID
-            where (p.NUMEMPLOYEESTATUS = '1'
+            where (p.NUMEMPLOYEESTATUS = 1
                    AND (i.STRIAIPPERMISSIONS LIKE '%(142)%'
                         OR i.STRIAIPPERMISSIONS LIKE '%(143)%'))
             union
@@ -1979,7 +1973,7 @@ Public Class SBEAPCaseWork
             Dim clientSearchDialog As New SBEAPClientSearchTool
             clientSearchDialog.ShowDialog()
             If clientSearchDialog.DialogResult = DialogResult.OK Then
-                Me.ValueFromClientLookUp = clientSearchDialog.SelectedClientID
+                txtClientID.Text = clientSearchDialog.SelectedClientID
                 LoadClientInfo()
             End If
         Catch ex As Exception

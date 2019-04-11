@@ -2,18 +2,8 @@ Imports System.Data.SqlClient
 
 Public Class SBEAPClientSummary
 
-#Region " Properties "
-
-    Public WriteOnly Property ValueFromClientLookUp() As String
-        Set(Value As String)
-            txtClientID.Text = Value
-        End Set
-    End Property
-
     Private dtCounty As DataTable
     Private query As String
-
-#End Region
 
 #Region " Page Load "
 
@@ -1982,7 +1972,7 @@ Public Class SBEAPClientSummary
             Dim clientSearchDialog As New SBEAPClientSearchTool
             clientSearchDialog.ShowDialog()
             If clientSearchDialog.DialogResult = DialogResult.OK Then
-                Me.ValueFromClientLookUp = clientSearchDialog.SelectedClientID
+                txtClientID.Text = clientSearchDialog.SelectedClientID
                 LoadClientData()
             End If
         Catch ex As Exception
