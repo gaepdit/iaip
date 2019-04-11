@@ -1,4 +1,5 @@
-﻿Imports IAIP.DAL.Finance.Invoices
+﻿Imports System.Globalization
+Imports IAIP.DAL.Finance.Invoices
 Imports Xunit
 
 Public Class InvoiceIdTests
@@ -20,7 +21,7 @@ Public Class InvoiceIdTests
     Public Sub AcceptsValidInvoiceId(input As String)
         Dim newInvoiceID As Integer = 0
         Assert.Equal(InvoiceValidationResult.Valid, ValidateInvoiceId(input, newInvoiceID))
-        Assert.Equal(Integer.Parse(input), newInvoiceID)
+        Assert.Equal(Integer.Parse(input, NumberStyles.Integer, CultureInfo.CurrentCulture), newInvoiceID)
     End Sub
 
 End Class

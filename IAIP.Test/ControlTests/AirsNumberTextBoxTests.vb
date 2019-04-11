@@ -4,14 +4,10 @@ Imports Xunit
 
 Public Class AirsNumberTextBoxTests
 
-    Private ReadOnly airs As AirsNumberTextBox
-
-    Public Sub New()
-        airs = New AirsNumberTextBox()
-    End Sub
-
     <Fact>
     Private Sub InitialValues()
+        Dim airs As New AirsNumberTextBox()
+
         Assert.Null(airs.AirsNumber)
         Assert.Equal(9, airs.MaxLength)
         Assert.Equal("000-00000", airs.Cue)
@@ -25,7 +21,10 @@ Public Class AirsNumberTextBoxTests
     <InlineData("0010001")>
     <InlineData("001-0001")>
     Private Sub InvalidFormat(input As String)
-        airs.Text = input
+        Dim airs As New AirsNumberTextBox With {
+            .Text = input
+        }
+
         Dim result As Boolean = airs.Validate()
 
         Assert.True(result)
@@ -39,7 +38,10 @@ Public Class AirsNumberTextBoxTests
     <InlineData("99999999")>
     <InlineData("999-99999")>
     Private Sub ValidFormat(input As String)
-        airs.Text = input
+        Dim airs As New AirsNumberTextBox With {
+            .Text = input
+        }
+
         Dim result As Boolean = airs.Validate()
 
         Assert.True(result)
@@ -51,7 +53,10 @@ Public Class AirsNumberTextBoxTests
     <InlineData(Nothing)>
     <InlineData("")>
     Private Sub EmptyInput(input As String)
-        airs.Text = input
+        Dim airs As New AirsNumberTextBox With {
+            .Text = input
+        }
+
         Dim result As Boolean = airs.Validate()
 
         Assert.True(result)
@@ -61,6 +66,8 @@ Public Class AirsNumberTextBoxTests
 
     <Fact>
     Private Sub ValidationStatusChanged()
+        Dim airs As New AirsNumberTextBox()
+
         AddHandler airs.ValidationStatusChanged, AddressOf Airs_ValidationStatusChanged
 
         Assert.Null(airs.Tag)
@@ -72,7 +79,8 @@ Public Class AirsNumberTextBoxTests
         Assert.True(CBool(airs.Tag))
     End Sub
 
-    Private Sub Airs_ValidationStatusChanged(sender As Object, e As System.EventArgs)
+    Private Sub Airs_ValidationStatusChanged(sender As Object, e As EventArgs)
+        Dim airs As AirsNumberTextBox = CType(sender, AirsNumberTextBox)
         airs.Tag = True
     End Sub
 
