@@ -8,10 +8,10 @@
     <ProjectGuid>{B92680E9-391D-4109-993E-53E5B6946E93}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>Resources\EpdIcon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\UatIcon.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>IAIP</AssemblyName>
+    <AssemblyName>IaipHorizon</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
@@ -43,7 +43,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>ftp://10.149.210.227/install/</PublishUrl>
+    <PublishUrl>ftp://10.149.210.227/uat/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -53,9 +53,9 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>https://iaip.gaepd.org/install/</InstallUrl>
-    <UpdateUrl>https://iaip.gaepd.org/install/</UpdateUrl>
-    <ProductName>Integrated Air Information Platform</ProductName>
+    <InstallUrl>https://iaip.gaepd.org/uat/</InstallUrl>
+    <UpdateUrl>https://iaip.gaepd.org/uat/</UpdateUrl>
+    <ProductName>IAIP UAT</ProductName>
     <PublisherName>State of Georgia</PublisherName>
     <MinimumRequiredVersion>5.25.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
