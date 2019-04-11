@@ -2,12 +2,6 @@
 
 Public Class SBEAPPhoneLog
 
-    Public WriteOnly Property ValueFromClientLookUp() As String
-        Set(Value As String)
-            txtClientID.Text = Value
-        End Set
-    End Property
-
 #Region " Page Load "
 
     Private Sub SBEAPPhoneLog_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -476,7 +470,7 @@ Public Class SBEAPPhoneLog
         Dim clientSearchDialog As New SBEAPClientSearchTool
         clientSearchDialog.ShowDialog()
         If clientSearchDialog.DialogResult = DialogResult.OK Then
-            Me.ValueFromClientLookUp = clientSearchDialog.SelectedClientID
+            txtClientID.Text = clientSearchDialog.SelectedClientID
             LoadClientInfo()
         End If
     End Sub
