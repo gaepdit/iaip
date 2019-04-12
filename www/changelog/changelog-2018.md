@@ -107,7 +107,7 @@ Adjusted some permissions in compliance.
 
 ## Version 5.6.1 <span>(2018-5-1)</span>
 
-Moved IAIP installation website to [iaip.gaepd.org](https://iaip.gaepd.org/).
+Moved IAIP installation website to `iaip.gaepd.org`
 
 ## Version 5.6.0 <span>(2018-4-30)</span>
 

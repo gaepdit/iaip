@@ -22,4 +22,4 @@ If so, then you have come to the right place! Otherwise, probably not (but it wo
 
 * If you got an error message saying "An error occurred while installing system components for IAIP Framework Installer...", then you don't have admin rights on your computer to complete the installation, and a technician will have to install the prerequisites for you. 
 
-    Please submit a ticket at the [EPD-IT Service Desk](https://gaepdit.atlassian.net/servicedesk/customer/portal/1).
+    Please submit a ticket at the [EPD-IT Service Desk](https://gaepdit.atlassian.net/servicedesk/).

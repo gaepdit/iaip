@@ -2,11 +2,11 @@
 
 ## Introduction
 
-The [Exchange Network](http://www.exchangenetwork.net/) is a data and services platform for sharing environmental information data between EPA, States, Territories, and Tribes. The [Emissions Inventory System (EIS)](http://www.exchangenetwork.net/data-exchange/emissions-inventory-system/) is EPA’s information system for storing all current and historical emissions inventory data. 
+The [Exchange Network](https://www.exchangenetwork.net) is a data and services platform for sharing environmental information data between EPA, States, Territories, and Tribes. The [Emissions Inventory System (EIS)](https://www.exchangenetwork.net/data-exchange/emissions-inventory-system/) is EPA’s information system for storing all current and historical emissions inventory data. 
 
 The [Exchange Network Services Center](https://enservices.epa.gov/) (ENSC) is a web-based tool designed to allow Exchange Network users to easily use Exchange Network Services.
 
-Regulated facilities in Georgia report EIS data using the [Georgia Environmental Connections Online (GECO)](https://geco.gaepd.org/) system. Air Protection Branch staff then use the [Integrated Air Information Platform (IAIP)](https://iaip.gaepd.org/) to stage existing data. Finally, staged EIS data is compiled and submitted to EPA using either the [Virtual Exchange Service (VES)](https://vnap.cloudapp.net/vnap/) — a hosted data exchange platform — or the ENSC. 
+Regulated facilities in Georgia report EIS data using the [Georgia Environmental Connections Online (GECO)](https://geco.gaepd.org/) system. Air Protection Branch staff then use the [Integrated Air Information Platform (IAIP)](/) to stage existing data. Finally, staged EIS data is compiled and submitted to EPA using either the [Virtual Exchange Service (VES)](https://vnap.cloudapp.net/vnap/) — a hosted data exchange platform — or the ENSC. 
 
 This tutorial is intended to introduce APB staff to the staging and submittal procedures. The tutorial focuses on using ENSC instead of VES.
 
@@ -15,7 +15,7 @@ This tutorial is intended to introduce APB staff to the staging and submittal pr
 New users must request access to both the *EIS Gateway,* which is the web interface for viewing EPA's EIS data, and the *ENSC.*
 
 * To access the EIS Gateway, follow the instructions in *[How Do I Request Access to the EIS Gateway?](https://www.epa.gov/sites/production/files/2016-04/documents/access.pdf)*
-    * The first step is to [register for EPA Web Application Access](https://waa.epa.gov/waa/selfregistration/index.do).
+    * The first step is to [register for EPA Web Application Access](https://waa.epa.gov) (select "Self Register" link).
     * The registration page asks for your EPA contact, which for Region 4 is:
 
         > Ahmed Amanulah  

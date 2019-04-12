@@ -13,7 +13,7 @@ IAIP Installer](install/IAIP.application)
 
 ## Support
 
-For account creation or management, please speak to your supervisor in EPD. For general application support or to report a bug, please use the [EPD IT Service Desk](https://gaepdit.atlassian.net/servicedesk/customer/portal/1).
+For account creation or management, please speak to your supervisor in EPD. For general application support or to report a bug, please use the [EPD IT Service Desk](https://gaepdit.atlassian.net/servicedesk/).
 
 Some additional documentation can be found on the [IAIP Documentation site](https://sites.google.com/site/iaipdocs/).
 
@@ -23,7 +23,7 @@ If this is the first time the IAIP is being installed on your computer, you may 
 
 ### Connecting remotely
 
-The IAIP may be used from remote locations (outside of EPD offices) *only* by connecting through the DNR VPN. [Instructions for accessing the VPN](http://dnrintranet.org/it/SSLvpn) are available on the DNR Intranet. For assistance, please use the [EPD IT Service Desk](https://gaepdit.atlassian.net/servicedesk/customer/portal/1/create/34)
+The IAIP may be used from remote locations (outside of EPD offices) *only* by connecting through the DNR VPN. [Instructions for accessing the VPN](https://dnrintranet.org/it/SSLvpn) are available on the DNR Intranet. For assistance, please use the [EPD IT Service Desk](https://gaepdit.atlassian.net/servicedesk/customer/portal/1/create/34)
 
 **All Air Branch and District employees have a VPN account.** Your username and password are the same as the ones you use to log in to your work computer (not the same as your IAIP username/password).
 
