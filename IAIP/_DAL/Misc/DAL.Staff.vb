@@ -6,8 +6,7 @@ Namespace DAL
         Public Function GetStaffDetailsAsDataTableByBranch(Optional branch As Integer = 1, Optional includeInactive As Boolean = False) As DataTable
             ' Default to Air Branch if no branch code is provided
             Dim query As String =
-                " SELECT NUMUSERID, STRLASTNAME, STRFIRSTNAME, STREMAILADDRESS, STRPHONE, NUMEMPLOYEESTATUS, " &
-                "     CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS AlphaName " &
+                " SELECT NUMUSERID, CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS AlphaName, STRPHONE " &
                 " FROM EPDUSERPROFILES " &
                 " WHERE NUMBRANCH = @branch "
 
