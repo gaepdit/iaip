@@ -46,18 +46,18 @@ Public Class MASPRegistrationTool
     End Sub
 
     Private Sub LoadEventContactCombos()
-        Dim staff As DataTable = DAL.GetStaffAsDataTableByBranch()
+        Dim staff As DataTable = DAL.GetStaffDetailsAsDataTableByBranch()
 
         Dim nullRow As DataRow = staff.NewRow
-        nullRow("UserID") = 0
-        nullRow("UserName") = "Select a contact…"
+        nullRow("NUMUSERID") = 0
+        nullRow("AlphaName") = "Select a contact…"
         staff.Rows.InsertAt(nullRow, 0)
 
         If staff.Rows.Count > 0 Then
             With cboEventContact
                 .DataSource = staff
-                .DisplayMember = "UserName"
-                .ValueMember = "UserID"
+                .DisplayMember = "AlphaName"
+                .ValueMember = "NUMUSERID"
                 .SelectedIndex = 0
             End With
             With mtbEventPhoneNumber
@@ -67,8 +67,8 @@ Public Class MASPRegistrationTool
             Dim webStaff As DataTable = staff.Copy
             With cboEventWebContact
                 .DataSource = webStaff
-                .DisplayMember = "UserName"
-                .ValueMember = "UserID"
+                .DisplayMember = "AlphaName"
+                .ValueMember = "NUMUSERID"
                 .SelectedIndex = 0
             End With
             With mtbEventWebPhoneNumber
