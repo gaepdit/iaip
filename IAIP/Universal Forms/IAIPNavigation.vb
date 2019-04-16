@@ -686,8 +686,9 @@ Public Class IAIPNavigation
         If AllTheNavButtons.ContainsKey(category) Then
             AllTheNavButtons(category).Add(New NavButton(buttonText, formName))
         Else
-            Dim navButtonList As New List(Of NavButton)
-            navButtonList.Add(New NavButton(buttonText, formName))
+            Dim navButtonList As New List(Of NavButton) From {
+                New NavButton(buttonText, formName)
+            }
             AllTheNavButtons.Add(category, navButtonList)
         End If
 

@@ -3668,9 +3668,9 @@ Public Class EisTool
                 " and FacilitySiteID in ({0}) "
 
                 Dim paramNameList As New List(Of String)
-                Dim paramList As New List(Of SqlParameter)
-
-                paramList.Add(New SqlParameter("@inventoryYear", EISConfirm))
+                Dim paramList As New List(Of SqlParameter) From {
+                    New SqlParameter("@inventoryYear", EISConfirm)
+                }
 
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
@@ -3726,10 +3726,10 @@ Public Class EisTool
                     "and FacilitySiteID in ({0}) "
 
                 Dim paramNameList1 As New List(Of String)
-                Dim paramList1 As New List(Of SqlParameter)
-
-                paramList1.Add(New SqlParameter("@updateuser", CurrentUser.AlphaName))
-                paramList1.Add(New SqlParameter("@inventoryYear", EISConfirm))
+                Dim paramList1 As New List(Of SqlParameter) From {
+                    New SqlParameter("@updateuser", CurrentUser.AlphaName),
+                    New SqlParameter("@inventoryYear", EISConfirm)
+                }
 
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
@@ -3758,10 +3758,10 @@ Public Class EisTool
                     "and FacilitySiteID in ({0}) "
 
                 Dim paramNameList2 As New List(Of String)
-                Dim paramList2 As New List(Of SqlParameter)
-
-                paramList2.Add(New SqlParameter("@updateuser", CurrentUser.AlphaName))
-                paramList2.Add(New SqlParameter("@inventoryYear", EISConfirm))
+                Dim paramList2 As New List(Of SqlParameter) From {
+                    New SqlParameter("@updateuser", CurrentUser.AlphaName),
+                    New SqlParameter("@inventoryYear", EISConfirm)
+                }
 
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
@@ -4955,10 +4955,10 @@ Public Class EisTool
                 " and FacilitySiteID in ({0}) "
 
                 Dim paramNameList As New List(Of String)
-                Dim paramList As New List(Of SqlParameter)
-
-                paramList.Add(New SqlParameter("@inventoryYear", EISConfirm))
-                paramList.Add(New SqlParameter("@UpdateUser", CurrentUser.AlphaName))
+                Dim paramList As New List(Of SqlParameter) From {
+                    New SqlParameter("@inventoryYear", EISConfirm),
+                    New SqlParameter("@UpdateUser", CurrentUser.AlphaName)
+                }
 
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
