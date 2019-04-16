@@ -113,7 +113,7 @@ Partial Class IaipUserManagement
         'ProfileStatusInactive
         '
         Me.ProfileStatusInactive.AutoSize = True
-        Me.ProfileStatusInactive.Location = New System.Drawing.Point(61, 9)
+        Me.ProfileStatusInactive.Location = New System.Drawing.Point(61, 2)
         Me.ProfileStatusInactive.Name = "ProfileStatusInactive"
         Me.ProfileStatusInactive.Size = New System.Drawing.Size(63, 17)
         Me.ProfileStatusInactive.TabIndex = 1
@@ -123,7 +123,7 @@ Partial Class IaipUserManagement
         'ProfileStatusActive
         '
         Me.ProfileStatusActive.AutoSize = True
-        Me.ProfileStatusActive.Location = New System.Drawing.Point(0, 9)
+        Me.ProfileStatusActive.Location = New System.Drawing.Point(0, 2)
         Me.ProfileStatusActive.Name = "ProfileStatusActive"
         Me.ProfileStatusActive.Size = New System.Drawing.Size(55, 17)
         Me.ProfileStatusActive.TabIndex = 0
@@ -505,9 +505,9 @@ Partial Class IaipUserManagement
         '
         Me.ProfileStatusSelection.Controls.Add(Me.ProfileStatusInactive)
         Me.ProfileStatusSelection.Controls.Add(Me.ProfileStatusActive)
-        Me.ProfileStatusSelection.Location = New System.Drawing.Point(110, 162)
+        Me.ProfileStatusSelection.Location = New System.Drawing.Point(110, 169)
         Me.ProfileStatusSelection.Name = "ProfileStatusSelection"
-        Me.ProfileStatusSelection.Size = New System.Drawing.Size(138, 32)
+        Me.ProfileStatusSelection.Size = New System.Drawing.Size(138, 25)
         Me.ProfileStatusSelection.TabIndex = 6
         '
         'RequiredLabel
