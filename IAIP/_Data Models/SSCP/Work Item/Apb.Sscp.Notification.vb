@@ -24,7 +24,7 @@ Namespace Apb.Sscp
             Deviation
         End Enum
 
-        Public NotificationTypeStrings As New Dictionary(Of NotificationType, String) From {
+        Public ReadOnly Property NotificationTypeStrings As New Dictionary(Of NotificationType, String) From {
             {NotificationType.Other, "Other"},
             {NotificationType.Startup, "Startup"},
             {NotificationType.PermitRevocation, "Permit Revocation"},

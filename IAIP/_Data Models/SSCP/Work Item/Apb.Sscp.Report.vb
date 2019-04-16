@@ -30,7 +30,7 @@ Namespace Apb.Sscp
             Malfunction
         End Enum
 
-        Public ReportingPeriodStrings As New Dictionary(Of ReportingPeriodTypes, String) From {
+        Public ReadOnly Property ReportingPeriodStrings As New Dictionary(Of ReportingPeriodTypes, String) From {
             {ReportingPeriodTypes.FirstQuarter, "First Quarter"},
             {ReportingPeriodTypes.SecondQuarter, "Second Quarter"},
             {ReportingPeriodTypes.ThirdQuarter, "Third Quarter"},
