@@ -3,7 +3,6 @@ Imports System.Data.SqlClient
 Imports System.Linq
 Imports EpdIt.DBUtilities
 Imports Iaip.Apb.Finance
-Imports Iaip.SharedData
 
 Namespace DAL.Finance
     Public Module FeeRatesSchedule

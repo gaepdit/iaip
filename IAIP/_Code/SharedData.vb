@@ -255,19 +255,19 @@ Public Module SharedData
     ''' first retrieves the data from the database. Data is only retrieved the first
     ''' time it is used when the IAIP is run.
     ''' </summary>
-    ''' <typeparam name="T">The Type of Object to return</typeparam>
-    ''' <param name="obj">The shared Object to return.</param>
+    ''' <typeparam name="T">The Type of value to return</typeparam>
+    ''' <param name="value">The shared value to return.</param>
     ''' <returns>Object of Type T from the shared data service.</returns>
-    Public Function GetSharedObject(Of T)(obj As SharedObject) As T
+    Public Function GetSharedObject(Of T)(value As SharedObject) As T
         If _objDictionary Is Nothing Then
             _objDictionary = New Dictionary(Of SharedObject, Object)
         End If
 
-        If Not _objDictionary.ContainsKey(obj) OrElse _objDictionary(obj) Is Nothing Then
-            InitializeData(obj)
+        If Not _objDictionary.ContainsKey(value) OrElse _objDictionary(value) Is Nothing Then
+            InitializeData(value)
         End If
 
-        Return CType(_objDictionary(obj), T)
+        Return CType(_objDictionary(value), T)
     End Function
 
 
@@ -292,9 +292,9 @@ Public Module SharedData
         End If
     End Sub
 
-    Public Sub ClearSharedObject(obj As SharedObject)
-        If _objDictionary IsNot Nothing AndAlso _objDictionary.ContainsKey(obj) Then
-            _objDictionary.Remove(obj)
+    Public Sub ClearSharedObject(value As SharedObject)
+        If _objDictionary IsNot Nothing AndAlso _objDictionary.ContainsKey(value) Then
+            _objDictionary.Remove(value)
         End If
     End Sub
 
@@ -316,9 +316,9 @@ Public Module SharedData
         Return GetSharedData(lookupDictionary)
     End Function
 
-    Public Function ReloadSharedObject(Of T)(obj As SharedObject) As T
-        ClearSharedObject(obj)
-        Return GetSharedObject(Of T)(obj)
+    Public Function ReloadSharedObject(Of T)(value As SharedObject) As T
+        ClearSharedObject(value)
+        Return GetSharedObject(Of T)(value)
     End Function
 
 End Module
