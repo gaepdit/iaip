@@ -20,7 +20,7 @@ Namespace Apb.Facilities
             <Description("Seasonal Operation")> I
         End Enum
 
-        Public FacilityOperationalStatusDescriptions As New Dictionary(Of FacilityOperationalStatus, String) From {
+        Public ReadOnly Property FacilityOperationalStatusDescriptions As New Dictionary(Of FacilityOperationalStatus, String) From {
             {FacilityOperationalStatus.U, "Unspecified"},
             {FacilityOperationalStatus.O, "Operational"},
             {FacilityOperationalStatus.P, "Planned"},
@@ -37,7 +37,7 @@ Namespace Apb.Facilities
             TS
         End Enum
 
-        Public EisSiteStatusCodeDescriptions As New Dictionary(Of EisSiteStatus, String) From {
+        Public ReadOnly Property EisSiteStatusCodeDescriptions As New Dictionary(Of EisSiteStatus, String) From {
             {EisSiteStatus.UNK, "Unknown"},
             {EisSiteStatus.OP, "Operational"},
             {EisSiteStatus.PS, "Permanently shut down"},
@@ -57,7 +57,7 @@ Namespace Apb.Facilities
             <Description("Unclassified")> C
         End Enum
 
-        Public FacilityClassificationDescriptions As New Dictionary(Of FacilityClassification, String) From {
+        Public ReadOnly Property FacilityClassificationDescriptions As New Dictionary(Of FacilityClassification, String) From {
             {FacilityClassification.A, "Major source"},
             {FacilityClassification.B, "Minor source"},
             {FacilityClassification.SM, "Synthetic minor"},
@@ -148,7 +148,7 @@ Namespace Apb.Facilities
             <Description("Risk Management Plan")> RMP = 8192 ' 000000000000010
         End Enum
 
-        Public AirProgramBitPosition As New Dictionary(Of AirPrograms, Integer) From {
+        Public ReadOnly Property AirProgramBitPosition As New Dictionary(Of AirPrograms, Integer) From {
             {AirPrograms.None, 0},
             {AirPrograms.SIP, 1},
             {AirPrograms.FederalSIP, 2},

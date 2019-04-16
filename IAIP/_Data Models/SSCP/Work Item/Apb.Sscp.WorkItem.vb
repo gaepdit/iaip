@@ -1,5 +1,4 @@
 ﻿Imports System.Collections.Generic
-Imports EpdIt
 
 Namespace Apb.Sscp
 
@@ -75,7 +74,7 @@ Namespace Apb.Sscp
             RmpInspection = 7
         End Enum
 
-        Public Shared EventTypeDbCodes As New Dictionary(Of WorkItemEventType, String) From {
+        Public ReadOnly Property EventTypeDbCodes As New Dictionary(Of WorkItemEventType, String) From {
             {WorkItemEventType.Report, "01"},
             {WorkItemEventType.Inspection, "02"},
             {WorkItemEventType.StackTest, "03"},
