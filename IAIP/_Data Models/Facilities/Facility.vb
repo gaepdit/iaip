@@ -80,7 +80,7 @@
                 If HeaderData Is Nothing Then
                     Return Nothing
                 Else
-                    Return HeaderData.AirPrograms.HasFlag(AirProgram.NSPS)
+                    Return HeaderData.AirPrograms.HasFlag(AirPrograms.NSPS)
                 End If
             End Get
         End Property
@@ -90,7 +90,7 @@
                 If HeaderData Is Nothing Then
                     Return Nothing
                 Else
-                    Return HeaderData.AirPrograms.HasFlag(AirProgram.TitleV)
+                    Return HeaderData.AirPrograms.HasFlag(AirPrograms.TitleV)
                 End If
             End Get
         End Property

@@ -19,35 +19,35 @@ Namespace DAL
             Return dt
         End Function
 
-        Public Function GetFacilityAirPrograms(airsNumber As ApbFacilityId) As AirProgram
+        Public Function GetFacilityAirPrograms(airsNumber As ApbFacilityId) As AirPrograms
             Dim query As String = "SELECT STRAIRPROGRAMCODES FROM APBHEADERDATA WHERE STRAIRSNUMBER = @airsNumber"
             Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
             Dim apc As String = DB.GetString(query, parameter)
 
             If apc Is Nothing Then
-                Return AirProgram.None
+                Return AirPrograms.None
             Else
-                Return ConvertBitFieldToEnum(Of AirProgram)(apc)
+                Return ConvertBitFieldToEnum(Of AirPrograms)(apc)
             End If
         End Function
 
         Public Function GetFacilityAirProgramsAsDataTable(airsNumber As ApbFacilityId, Stringify As Boolean) As DataTable
-            Dim airPrograms As AirProgram = GetFacilityAirPrograms(airsNumber)
+            Dim airPrograms As AirPrograms = GetFacilityAirPrograms(airsNumber)
 
-            If (airPrograms = AirProgram.None) Then Return Nothing
+            If (airPrograms = AirPrograms.None) Then Return Nothing
 
             Dim dt As New DataTable
 
             If Stringify Then
                 dt.Columns.Add("Key", GetType(String))
                 dt.Columns.Add("Description", GetType(String))
-                For Each ap As AirProgram In airPrograms.GetUniqueFlags
+                For Each ap As AirPrograms In airPrograms.GetUniqueFlags
                     dt.Rows.Add({ap.ToString, ap.GetDescription})
                 Next
             Else
-                dt.Columns.Add("Key", GetType(AirProgram))
+                dt.Columns.Add("Key", GetType(AirPrograms))
                 dt.Columns.Add("Description", GetType(String))
-                For Each ap As AirProgram In airPrograms.GetUniqueFlags
+                For Each ap As AirPrograms In airPrograms.GetUniqueFlags
                     dt.Rows.Add({ap, ap.GetDescription})
                 Next
             End If
@@ -76,7 +76,7 @@ Namespace DAL
         End Function
 
         Public Function SaveFacilityAirProgramPollutant(airsNumber As ApbFacilityId,
-                                                        airProgram As AirProgram,
+                                                        airProgram As AirPrograms,
                                                         pollutantCode As String,
                                                         Optional operatingStatus As FacilityOperationalStatus = FacilityOperationalStatus.O
                                                         ) As Boolean
@@ -89,7 +89,7 @@ Namespace DAL
         End Function
 
         Public Function InsertFacilityAirProgramPollutant(airsNumber As ApbFacilityId,
-                                                           airProgram As AirProgram,
+                                                           airProgram As AirPrograms,
                                                            pollutantCode As String,
                                                            operatingStatus As FacilityOperationalStatus
                                                            ) As Boolean
@@ -120,7 +120,7 @@ Namespace DAL
         End Function
 
         Private Function UpdateFacilityAirProgramPollutant(airsNumber As ApbFacilityId,
-                                                           airProgram As AirProgram,
+                                                           airProgram As AirPrograms,
                                                            pollutantCode As String,
                                                            operatingStatus As FacilityOperationalStatus
                                                            ) As Boolean
@@ -143,7 +143,7 @@ Namespace DAL
         End Function
 
         Private Function FacilityAirProgramPollutantExists(airsNumber As ApbFacilityId,
-                                                           airProgram As AirProgram,
+                                                           airProgram As AirPrograms,
                                                            pollutantCode As String
                                                            ) As Boolean
 

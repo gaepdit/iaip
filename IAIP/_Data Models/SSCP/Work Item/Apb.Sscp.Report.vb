@@ -6,7 +6,7 @@ Namespace Apb.Sscp
         Inherits WorkItem
 
         ' Data from SSCPREPORTS or SSCPREPORTSHISTORY table
-        Public Property ReportingPeriod As ReportingPeriodTypes
+        Public Property ReportingPeriod As ReportingPeriodType
         Public Property ReportingPeriodComments As String
         Public Property ReportingPeriodStart As Date
         Public Property ReportingPeriodEnd As Date
@@ -17,7 +17,7 @@ Namespace Apb.Sscp
         Public Property ShowsDeviations As Boolean
         Public Property SubmittalNumber As Integer
 
-        Public Enum ReportingPeriodTypes
+        Public Enum ReportingPeriodType
             Other
             FirstQuarter
             SecondQuarter
@@ -30,17 +30,17 @@ Namespace Apb.Sscp
             Malfunction
         End Enum
 
-        Public ReadOnly Property ReportingPeriodStrings As New Dictionary(Of ReportingPeriodTypes, String) From {
-            {ReportingPeriodTypes.FirstQuarter, "First Quarter"},
-            {ReportingPeriodTypes.SecondQuarter, "Second Quarter"},
-            {ReportingPeriodTypes.ThirdQuarter, "Third Quarter"},
-            {ReportingPeriodTypes.FourthQuarter, "Fourth Quarter"},
-            {ReportingPeriodTypes.FirstSemiannual, "First Semiannual"},
-            {ReportingPeriodTypes.SecondSemiannual, "Second Semiannual"},
-            {ReportingPeriodTypes.Annual, "Annual"},
-            {ReportingPeriodTypes.Other, "Other"},
-            {ReportingPeriodTypes.Monthly, "Monthly"},
-            {ReportingPeriodTypes.Malfunction, "Malfunction/Deviation"}
+        Public ReadOnly Property ReportingPeriodStrings As New Dictionary(Of ReportingPeriodType, String) From {
+            {ReportingPeriodType.FirstQuarter, "First Quarter"},
+            {ReportingPeriodType.SecondQuarter, "Second Quarter"},
+            {ReportingPeriodType.ThirdQuarter, "Third Quarter"},
+            {ReportingPeriodType.FourthQuarter, "Fourth Quarter"},
+            {ReportingPeriodType.FirstSemiannual, "First Semiannual"},
+            {ReportingPeriodType.SecondSemiannual, "Second Semiannual"},
+            {ReportingPeriodType.Annual, "Annual"},
+            {ReportingPeriodType.Other, "Other"},
+            {ReportingPeriodType.Monthly, "Monthly"},
+            {ReportingPeriodType.Malfunction, "Malfunction/Deviation"}
         }
 
     End Class

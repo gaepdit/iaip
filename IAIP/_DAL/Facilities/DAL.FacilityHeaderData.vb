@@ -147,9 +147,9 @@ Namespace DAL
             ' Build active and inactive apc lists...
             Dim activeApcList As New List(Of String)
             Dim inactiveApcList As New List(Of String)
-            Dim apcArray As Array = [Enum].GetValues(GetType(AirProgram))
-            For Each apc As AirProgram In apcArray
-                If apc = AirProgram.None Then
+            Dim apcArray As Array = [Enum].GetValues(GetType(AirPrograms))
+            For Each apc As AirPrograms In apcArray
+                If apc = AirPrograms.None Then
                     Continue For
                 End If
 

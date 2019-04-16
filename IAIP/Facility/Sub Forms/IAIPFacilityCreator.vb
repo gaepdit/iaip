@@ -671,43 +671,43 @@ Public Class IAIPFacilityCreator
             Dim os As FacilityOperationalStatus = CType([Enum].Parse(GetType(FacilityOperationalStatus), OperatingStatus), FacilityOperationalStatus)
 
             If chbCDS_1.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.SIP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.SIP, "OT", os)
             End If
             If chbCDS_2.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.FederalSIP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.FederalSIP, "OT", os)
             End If
             If chbCDS_3.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NonFederalSIP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NonFederalSIP, "OT", os)
             End If
             If chbCDS_4.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.CfcTracking, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.CfcTracking, "OT", os)
             End If
             If chbCDS_5.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.PSD, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.PSD, "OT", os)
             End If
             If chbCDS_6.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NSR, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NSR, "OT", os)
             End If
             If chbCDS_7.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NESHAP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NESHAP, "OT", os)
             End If
             If chbCDS_8.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NSPS, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NSPS, "OT", os)
             End If
             If chbCDS_9.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.FESOP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.FESOP, "OT", os)
             End If
             If chbCDS_10.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.AcidPrecipitation, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.AcidPrecipitation, "OT", os)
             End If
             If chbCDS_11.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NativeAmerican, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NativeAmerican, "OT", os)
             End If
             If chbCDS_12.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.MACT, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.MACT, "OT", os)
             End If
             If chbCDS_13.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.TitleV, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.TitleV, "OT", os)
             End If
 
             SQL = "Insert into SSCPDistrictResponsible " &

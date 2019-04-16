@@ -3932,7 +3932,7 @@ Public Class IAIPQueryGenerator
             dgvQueryGenerator.DataSource = DAL.SearchHistoricalAirProgramStatus(
                 dtpCannedStartDate.Value,
                 dtpCannedEndDate.Value,
-                CType(cboCannedSelection.SelectedValue, AirProgram))
+                CType(cboCannedSelection.SelectedValue, AirPrograms))
         End If
     End Sub
 
@@ -3973,7 +3973,7 @@ Public Class IAIPQueryGenerator
         ElseIf rdbCannedHistoryAirProgram.Checked Then
             HideControls({lblCannedHistoryClass, lblCannedPermitContactData})
             ShowControls({lblCannedHistoryAirProgram, lblCannedStartDate, dtpCannedStartDate, lblCannedEndDate, dtpCannedEndDate, lblCannedSelection, cboCannedSelection})
-            cboCannedSelection.BindToEnum(Of AirProgram)()
+            cboCannedSelection.BindToEnum(Of AirPrograms)()
 
             If cboCannedSelection.Items.Count > 1 Then
                 cboCannedSelection.SelectedIndex = 1

@@ -4,7 +4,7 @@ Imports Iaip.Apb.Facilities
 Namespace DAL
     Module FacilityProgramHistory
 
-        Public Function SearchHistoricalAirProgramStatus(beginSearchDate As Date, endSearchDate As Date, program As AirProgram) As DataTable
+        Public Function SearchHistoricalAirProgramStatus(beginSearchDate As Date, endSearchDate As Date, program As AirPrograms) As DataTable
             Dim airProgramNumber As Integer = AirProgramBitPosition(program)
 
             Dim params As SqlParameter() = {

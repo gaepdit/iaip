@@ -91,11 +91,11 @@ Public Class IAIPEditAirProgramPollutants
     Private Sub LoadFacilityProgramPollutants()
         Dim dt As DataTable = DAL.PollutantsPrograms.GetFacilityProgramPollutantStatuses(AirsNumber)
         dt.Columns.Add("Air Program", GetType(String))
-        dt.Columns.Add("Air Program Enum", GetType(AirProgram))
+        dt.Columns.Add("Air Program Enum", GetType(AirPrograms))
         dt.Columns.Add("Operating Status", GetType(String))
         dt.Columns.Add("Operating Status Enum", GetType(FacilityOperationalStatus))
 
-        Dim ap As AirProgram
+        Dim ap As AirPrograms
         Dim os As FacilityOperationalStatus
 
         FacilityPollutantsSet = New HashSet(Of String)

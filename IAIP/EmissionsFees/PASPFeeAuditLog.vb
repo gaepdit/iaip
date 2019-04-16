@@ -1801,8 +1801,8 @@ Public Class PASPFeeAuditLog
                 .Classification = cboInitialClassification.SelectedValue
                 .ShutdownDate = If(dtpInitialShutDownDate.Checked, dtpInitialShutDownDate.Value, CType(Nothing, DateTime?))
             End With
-            If rdbInitialNSPSTrue.Checked Then .HeaderData.AirPrograms = .HeaderData.AirPrograms Or AirProgram.NSPS
-            If rdbInitialPart70True.Checked Then .HeaderData.AirPrograms = .HeaderData.AirPrograms Or AirProgram.TitleV
+            If rdbInitialNSPSTrue.Checked Then .HeaderData.AirPrograms = .HeaderData.AirPrograms Or AirPrograms.NSPS
+            If rdbInitialPart70True.Checked Then .HeaderData.AirPrograms = .HeaderData.AirPrograms Or AirPrograms.TitleV
         End With
 
         Return facility

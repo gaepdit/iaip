@@ -291,23 +291,23 @@ Public Class IAIPEditHeaderData
             End If
             NaicsCode.Text = .Naics
 
-            ApcAcid.Checked = Convert.ToBoolean(.AirPrograms And AirProgram.AcidPrecipitation)
-            ApcCfc.Checked = CBool(.AirPrograms And AirProgram.CfcTracking)
-            ApcFederalSip.Checked = CBool(.AirPrograms And AirProgram.FederalSIP)
-            ApcFesop.Checked = CBool(.AirPrograms And AirProgram.FESOP)
-            ApcMact.Checked = CBool(.AirPrograms And AirProgram.MACT)
-            ApcNativeAmerican.Checked = CBool(.AirPrograms And AirProgram.NativeAmerican)
-            ApcNeshap.Checked = CBool(.AirPrograms And AirProgram.NESHAP)
-            ApcNonfederalSip.Checked = CBool(.AirPrograms And AirProgram.NonFederalSIP)
-            ApcNsps.Checked = CBool(.AirPrograms And AirProgram.NSPS)
-            ApcNsr.Checked = CBool(.AirPrograms And AirProgram.NSR)
-            ApcPsd.Checked = CBool(.AirPrograms And AirProgram.PSD)
-            ApcRmp.Checked = CBool(.AirPrograms And AirProgram.RMP)
-            ApcSip.Checked = CBool(.AirPrograms And AirProgram.SIP)
-            ApcTitleV.Checked = CBool(.AirPrograms And AirProgram.TitleV)
+            ApcAcid.Checked = Convert.ToBoolean(.AirPrograms And AirPrograms.AcidPrecipitation)
+            ApcCfc.Checked = CBool(.AirPrograms And AirPrograms.CfcTracking)
+            ApcFederalSip.Checked = CBool(.AirPrograms And AirPrograms.FederalSIP)
+            ApcFesop.Checked = CBool(.AirPrograms And AirPrograms.FESOP)
+            ApcMact.Checked = CBool(.AirPrograms And AirPrograms.MACT)
+            ApcNativeAmerican.Checked = CBool(.AirPrograms And AirPrograms.NativeAmerican)
+            ApcNeshap.Checked = CBool(.AirPrograms And AirPrograms.NESHAP)
+            ApcNonfederalSip.Checked = CBool(.AirPrograms And AirPrograms.NonFederalSIP)
+            ApcNsps.Checked = CBool(.AirPrograms And AirPrograms.NSPS)
+            ApcNsr.Checked = CBool(.AirPrograms And AirPrograms.NSR)
+            ApcPsd.Checked = CBool(.AirPrograms And AirPrograms.PSD)
+            ApcRmp.Checked = CBool(.AirPrograms And AirPrograms.RMP)
+            ApcSip.Checked = CBool(.AirPrograms And AirPrograms.SIP)
+            ApcTitleV.Checked = CBool(.AirPrograms And AirPrograms.TitleV)
 
-            NsrMajor.Checked = CBool(.AirProgramClassifications And AirProgramClassification.NsrMajor)
-            HapMajor.Checked = CBool(.AirProgramClassifications And AirProgramClassification.HapMajor)
+            NsrMajor.Checked = CBool(.AirProgramClassifications And AirProgramClassifications.NsrMajor)
+            HapMajor.Checked = CBool(.AirProgramClassifications And AirProgramClassifications.HapMajor)
 
             ' Currently we are only tracking federally-owned facilities. Eventually 
             ' this could be expanded to use a drop-down with all ownership types.
@@ -359,25 +359,25 @@ Public Class IAIPEditHeaderData
                 .ShutdownDate = Nothing
             End If
 
-            .AirPrograms = AirProgram.None
-            If ApcAcid.Checked Then .AirPrograms = .AirPrograms Or AirProgram.AcidPrecipitation
-            If ApcCfc.Checked Then .AirPrograms = .AirPrograms Or AirProgram.CfcTracking
-            If ApcFederalSip.Checked Then .AirPrograms = .AirPrograms Or AirProgram.FederalSIP
-            If ApcFesop.Checked Then .AirPrograms = .AirPrograms Or AirProgram.FESOP
-            If ApcMact.Checked Then .AirPrograms = .AirPrograms Or AirProgram.MACT
-            If ApcNativeAmerican.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NativeAmerican
-            If ApcNeshap.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NESHAP
-            If ApcNonfederalSip.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NonFederalSIP
-            If ApcNsps.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NSPS
-            If ApcNsr.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NSR
-            If ApcPsd.Checked Then .AirPrograms = .AirPrograms Or AirProgram.PSD
-            If ApcRmp.Checked Then .AirPrograms = .AirPrograms Or AirProgram.RMP
-            If ApcSip.Checked Then .AirPrograms = .AirPrograms Or AirProgram.SIP
-            If ApcTitleV.Checked Then .AirPrograms = .AirPrograms Or AirProgram.TitleV
+            .AirPrograms = AirPrograms.None
+            If ApcAcid.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.AcidPrecipitation
+            If ApcCfc.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.CfcTracking
+            If ApcFederalSip.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.FederalSIP
+            If ApcFesop.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.FESOP
+            If ApcMact.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.MACT
+            If ApcNativeAmerican.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.NativeAmerican
+            If ApcNeshap.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.NESHAP
+            If ApcNonfederalSip.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.NonFederalSIP
+            If ApcNsps.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.NSPS
+            If ApcNsr.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.NSR
+            If ApcPsd.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.PSD
+            If ApcRmp.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.RMP
+            If ApcSip.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.SIP
+            If ApcTitleV.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.TitleV
 
-            .AirProgramClassifications = AirProgramClassification.None
-            If NsrMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassification.NsrMajor
-            If HapMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassification.HapMajor
+            .AirProgramClassifications = AirProgramClassifications.None
+            If NsrMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassifications.NsrMajor
+            If HapMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassifications.HapMajor
 
             ' Currently we are only tracking federally-owned facilities, represented by this OwnershipTypeCode
             .OwnershipTypeCode = If(FederallyOwned.Checked, FacilityHeaderData.FederallyOwnedTypeCode, Nothing)
