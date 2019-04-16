@@ -536,47 +536,6 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub LoadByTestReportAllTestReportAssignmentDataSet(ByRef ReportType As String)
-        Try
-
-            If AccountFormAccess(17, 3) = "1" Then
-                query = "Select " &
-                "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                "format(DATTestDateStart, 'MMMM d, yyyy') as ForTestDateStart, " &
-                "strEmissionSource,  " &
-                "(Select strPollutantDescription  " &
-                "from LookUPPollutants, ISMPReportInformation  " &
-                "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
-                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                "(select concat(strLastName, ', ' , strFirstName) as ReviewingEngineer  " &
-                "from EPDUserProfiles, ISMPReportInformation  " &
-                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
-                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
-                "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                "and ISMPReportInformation.strDocumentType = @ReportType " &
-                "and ISMPReportInformation.strReviewingEngineer <> '0' " &
-                "and ISMPReportInformation.strDelete is NULL"
-
-                Dim p As New SqlParameter("@ReportType", ReportType)
-
-                dtTestReportAssignments = DB.GetDataTable(query, p)
-                dtTestReportAssignments.TableName = "TestReportAssignment"
-
-            Else
-                dtTestReportAssignments = Nothing
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-
-    End Sub
     Private Sub LoadByTestReportAssignedTestReportAssignmentDataSet(ByRef ReportType As String)
         Try
 
@@ -600,45 +559,6 @@ Public Class ISMPManagersTools
                     "and ISMPReportInformation.strDelete is NULL"
 
                 Dim p As New SqlParameter("@ReportType", ReportType)
-
-                dtTestReportAssignments = DB.GetDataTable(query, p)
-                dtTestReportAssignments.TableName = "TestReportAssignment"
-
-            Else
-                dtTestReportAssignments = Nothing
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-    Private Sub LoadByAIRSNumberTestReportAssignmentDataSet()
-        Try
-
-            If AccountFormAccess(17, 3) = "1" Then
-                query = "Select " &
-                "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                "format(DATTestDateStart, 'MMMM d, yyyy') as ForTestDateStart, " &
-                "strEmissionSource,  " &
-                "(Select strPollutantDescription  " &
-                "from LookUPPollutants, ISMPReportInformation  " &
-                "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
-                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                "(select concat(strLastName, ', ' , strFirstName) as ReviewingEngineer  " &
-                "from EPDUserProfiles, ISMPReportInformation  " &
-                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
-                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
-                "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                "and ISMPMaster.strAIRSNumber = @airs " &
-                "and ISMPReportInformation.strDelete is NULL"
-
-                Dim p As New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
 
                 dtTestReportAssignments = DB.GetDataTable(query, p)
                 dtTestReportAssignments.TableName = "TestReportAssignment"

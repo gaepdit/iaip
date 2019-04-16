@@ -176,23 +176,6 @@ Public Class SSPPAttainmentStatus
 
     End Sub
 
-    Private Sub ClearForm()
-        Try
-
-
-            cboNonAttainmentStatus.Text = cboNonAttainmentStatus.Items.Item(0)
-            cboCounty.SelectedIndex = 0
-            rdbOneHourNo.Checked = True
-            rdbEightHourNo.Checked = True
-            rdbPMFineNo.Checked = True
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
     Private Sub SaveOneHourChanges()
         Try
             Dim AttainmentStatus As String = "00000"

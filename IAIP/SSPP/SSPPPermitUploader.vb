@@ -270,23 +270,6 @@ Public Class SSPPPermitUploader
 
     End Sub
 
-    Private Sub ClearForm()
-        Try
-            txtApplicationNumber.Clear()
-            txtApplicationInformation.Clear()
-            txtApplicationLinks.Clear()
-            rdbTitleVPermit.Checked = False
-            rdbPSDPermit.Checked = False
-            rdbOtherPermit.Checked = False
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
 #End Region
 
 #Region "Save files"
