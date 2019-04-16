@@ -1796,7 +1796,6 @@
     <Compile Include="_Code\Forms\FinanceFormHelpers.vb" />
     <Compile Include="_Code\Forms\FormSettings.vb" />
     <Compile Include="_Code\ControlHelpers.vb" />
-    <Compile Include="_Code\MD5.vb" />
     <Compile Include="_Code\DocumentMessages.vb" />
     <Compile Include="_Code\StartupShutdown.vb">
       <SubType>Code</SubType>
