@@ -9,8 +9,8 @@ Public Module UrlHandler
     Private ReadOnly ChangelogUrl As New Uri("https://iaip.gaepd.org/changelog/")
     Private ReadOnly PrereqInstallUrl As New Uri("https://iaip.gaepd.org/pre-install/")
 
-    Private ReadOnly MapUrlFragment As String = "http://maps.google.com/maps?q="
-    Private ReadOnly PermitSearchUrlFragment As String = "http://permitsearch.gaepd.org/?AirsNumber="
+    Private Const MapUrlFragment As String = "http://maps.google.com/maps?q="
+    Private Const PermitSearchUrlFragment As String = "http://permitsearch.gaepd.org/?AirsNumber="
 
     Friend ReadOnly GecoUrl As New Uri(ConfigurationManager.AppSettings("GecoUrl"))
     Private ReadOnly InvoiceViewUrlFragment As String = String.Concat(GecoUrl.ToString, "Invoice/?id={0}")
