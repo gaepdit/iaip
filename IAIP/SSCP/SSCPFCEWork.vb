@@ -62,7 +62,7 @@ Public Class SSCPFCEWork
         End If
 
         Dim sb As New StringBuilder
-        sb.AppendLine(AirsNumber.FormattedString & " – " & facility.FacilityName)
+        sb.AppendLine(AirsNumber.FormattedString & " ï¿½ " & facility.FacilityName)
         sb.AppendLine(facility.DisplayFacilityAddress)
         sb.AppendLine(facility.DisplayCounty & " County")
         sb.AppendLine("Classification: " & facility.DisplayClassification)
@@ -1536,5 +1536,17 @@ Public Class SSCPFCEWork
     End Sub
 
 #End Region
+
+    'Form overrides dispose to clean up the component list. 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If fceTable IsNot Nothing Then fceTable.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
 
 End Class

@@ -505,4 +505,17 @@ Public Class IaipUserManagement
 
 #End Region
 
+    'Form overrides dispose to clean up the component list. 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If organizationDataSet IsNot Nothing Then organizationDataSet.Dispose()
+                If iaipAccountRoles IsNot Nothing Then iaipAccountRoles.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
 End Class

@@ -1030,4 +1030,16 @@ Public Class IAIPListTool
         End Try
     End Sub
 
+    'Form overrides dispose to clean up the component list. 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If dtOrganization IsNot Nothing Then dtOrganization.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
 End Class

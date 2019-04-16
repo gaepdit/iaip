@@ -2941,4 +2941,21 @@ Public Class ISMPManagersTools
         End Try
     End Sub
 
+    'Form overrides dispose to clean up the component list. 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If dtEngineer IsNot Nothing Then dtEngineer.Dispose()
+                If dtTestReportAssignments IsNot Nothing Then dtTestReportAssignments.Dispose()
+                If dtEngineerGrid IsNot Nothing Then dtEngineerGrid.Dispose()
+                If dtSummaryReport IsNot Nothing Then dtSummaryReport.Dispose()
+                If dtUnitStats IsNot Nothing Then dtUnitStats.Dispose()
+                If dtMethods IsNot Nothing Then dtMethods.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
 End Class

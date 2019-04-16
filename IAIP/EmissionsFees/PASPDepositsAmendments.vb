@@ -1025,4 +1025,17 @@ Public Class PASPDepositsAmendments
 
 #End Region
 
+    'Form overrides dispose to clean up the component list.
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If dtInvoice IsNot Nothing Then dtInvoice.Dispose()
+                If dtDeposit IsNot Nothing Then dtDeposit.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
 End Class

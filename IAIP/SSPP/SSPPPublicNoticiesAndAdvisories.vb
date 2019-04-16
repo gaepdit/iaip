@@ -955,4 +955,16 @@ Public Class SSPPPublicNoticiesAndAdvisories
         AcceptButton = Nothing
     End Sub
 
+    'Form overrides dispose to clean up the component list. 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If displayedAppList IsNot Nothing Then displayedAppList.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
 End Class

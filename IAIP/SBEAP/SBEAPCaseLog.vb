@@ -712,4 +712,19 @@
     Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
         ExportCaseLogToExcel()
     End Sub
+
+    'Form overrides dispose to clean up the component list. 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If dtCaseLogGrid IsNot Nothing Then dtCaseLogGrid.Dispose()
+                If dtStaff IsNot Nothing Then dtStaff.Dispose()
+                If dtActions IsNot Nothing Then dtActions.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
 End Class

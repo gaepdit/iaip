@@ -3138,7 +3138,7 @@ Public Class SSPPPermitUploader
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            dialog.Dispose()
+            If dialog IsNot Nothing Then dialog.Dispose()
         End Try
     End Sub
 
