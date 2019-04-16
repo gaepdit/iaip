@@ -2,12 +2,12 @@
 
 Public Module IaipExceptionManager
 
-    Public Sub Application_ThreadException(sender As Object, e As Threading.ThreadExceptionEventArgs)
+    Public Sub ApplicationThreadException(sender As Object, e As Threading.ThreadExceptionEventArgs)
         ' Application.ThreadException Handler added in StartupShutdown.Init
 
         e.Exception.Data.Add("Sender", sender.ToString)
         e.Exception.Data.Add("Unrecoverable", True)
-        HandleException(e.Exception, NameOf(Application_ThreadException))
+        HandleException(e.Exception, NameOf(ApplicationThreadException))
 
     End Sub
 

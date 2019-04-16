@@ -7,7 +7,7 @@ Friend Module StartupShutdown
     ''' </summary>
     ''' <remarks> Called by MyApplication_Startup -> StartupShutdown.Init() </remarks>
     Friend Sub Init()
-        AddHandler Application.ThreadException, AddressOf IaipExceptionManager.Application_ThreadException
+        AddHandler Application.ThreadException, AddressOf IaipExceptionManager.ApplicationThreadException
 
         ' Updates: Should run each time program is updated
         If AppVersion.JustUpdated Then

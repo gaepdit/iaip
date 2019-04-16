@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.1\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.1\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
   <Import Project="..\packages\Microsoft.NetFramework.Analyzers.2.9.1\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.1\build\Microsoft.NetFramework.Analyzers.props')" />
@@ -789,10 +789,10 @@
     <Compile Include="SSCP\SSCPComplianceLog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SSPP\Sub Forms\SSPP_FeeContact.Designer.vb">
-      <DependentUpon>SSPP_FeeContact.vb</DependentUpon>
+    <Compile Include="SSPP\Sub Forms\SSPPFeeContact.Designer.vb">
+      <DependentUpon>SSPPFeeContact.vb</DependentUpon>
     </Compile>
-    <Compile Include="SSPP\Sub Forms\SSPP_FeeContact.vb">
+    <Compile Include="SSPP\Sub Forms\SSPPFeeContact.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Universal Forms\IAIPLookUpTables.Designer.vb">
@@ -1357,8 +1357,8 @@
     <EmbeddedResource Include="SSPP\Sub Forms\SsppPermitRevocationDialog.resx">
       <DependentUpon>SsppPermitRevocationDialog.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSPP\Sub Forms\SSPP_FeeContact.resx">
-      <DependentUpon>SSPP_FeeContact.vb</DependentUpon>
+    <EmbeddedResource Include="SSPP\Sub Forms\SSPPFeeContact.resx">
+      <DependentUpon>SSPPFeeContact.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\ExceptionDialog.resx">
       <DependentUpon>ExceptionDialog.vb</DependentUpon>

@@ -14558,7 +14558,7 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
         End If
 
-        Dim feeContact As New SSPP_FeeContact
+        Dim feeContact As New SSPPFeeContact
 
         If feeContact IsNot Nothing AndAlso Not feeContact.IsDisposed Then
             feeContact.AirsId = AirsId
