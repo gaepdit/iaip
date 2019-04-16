@@ -40,7 +40,7 @@ Public Class TemporalCollection(Of T)
     ''' <returns></returns>
     Public Function GetValueAt(effectiveDate As Date) As T
         If Contents.Count = 0 Then
-            Throw New ArgumentOutOfRangeException("Temporal collection contains no records.")
+            Throw New InvalidOperationException("Temporal collection contains no records.")
         End If
 
         For Each keyDate As Date In Contents.Keys
@@ -49,12 +49,12 @@ Public Class TemporalCollection(Of T)
             End If
         Next
 
-        Throw New ArgumentOutOfRangeException("No records that early.")
+        Throw New ArgumentOutOfRangeException(NameOf(effectiveDate), effectiveDate, "No records that early.")
     End Function
 
     Public Function EarliestDate() As Date
         If Contents.Count = 0 Then
-            Throw New ArgumentOutOfRangeException("Temporal collection contains no records.")
+            Throw New InvalidOperationException("Temporal collection contains no records.")
         End If
 
         Return Contents.Keys.Item(Contents.Count - 1)
@@ -62,7 +62,7 @@ Public Class TemporalCollection(Of T)
 
     Public Function LatestDate() As Date
         If Contents.Count = 0 Then
-            Throw New ArgumentOutOfRangeException("Temporal collection contains no records.")
+            Throw New InvalidOperationException("Temporal collection contains no records.")
         End If
 
         Return Contents.Keys.Item(0)
