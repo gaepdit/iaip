@@ -2,7 +2,7 @@ Public Class ListViewItemComparer
 
     Implements IComparer
 
-    Private col As Integer
+    Private ReadOnly col As Integer
 
     Public Sub New()
         col = 0

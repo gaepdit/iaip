@@ -21,7 +21,7 @@ Public Class FinStatistics
         UnpaidApplications
     End Enum
 
-    Private ReportList As New Dictionary(Of ReportType, String) From {
+    Private ReadOnly ReportList As New Dictionary(Of ReportType, String) From {
         {ReportType.FeesAssessedPerType, "Fees assessed per application type"},
         {ReportType.FeesReceivedPerType, "Fees received per application type"},
         {ReportType.UnpaidApplications, "Unpaid permit application fees"}

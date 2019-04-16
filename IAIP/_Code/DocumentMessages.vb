@@ -1,7 +1,5 @@
 ﻿Module DocumentMessages
 
-#Region "Document upload messages"
-
     Public Enum DocumentMessageType
         InvalidApplicationNumber
         InvalidEnforcementNumber
@@ -43,11 +41,11 @@
 
         Return messageList
     End Function
-    Private DocumentMessages As Hashtable = GetDocumentMessages()
-    Public Function GetDocumentMessage(key As DocumentMessageType) As String
-        Return DocumentMessages(key)
-    End Function
 
-#End Region
+    Private ReadOnly DocumentMessages As Hashtable = GetDocumentMessages()
+
+    Public Function GetDocumentMessage(key As DocumentMessageType) As String
+        Return DocumentMessages(key).ToString
+    End Function
 
 End Module

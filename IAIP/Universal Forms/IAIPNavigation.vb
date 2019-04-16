@@ -662,9 +662,9 @@ Public Class IAIPNavigation
         Public ShortName As String
     End Structure
 
-    Private AllTheNavButtons As New Dictionary(Of NavButtonCategories, List(Of NavButton))
+    Private ReadOnly AllTheNavButtons As New Dictionary(Of NavButtonCategories, List(Of NavButton))
 
-    Private AllTheNavButtonCategories As New List(Of NavButtonCategory)
+    Private ReadOnly AllTheNavButtonCategories As New List(Of NavButtonCategory)
 
 #End Region
 

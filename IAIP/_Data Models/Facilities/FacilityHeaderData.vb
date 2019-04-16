@@ -253,7 +253,7 @@ Namespace Apb.Facilities
             End Set
         End Property
 
-        Private Shared AirProgramsCodeLength As Integer = 15
+        Private Const AirProgramsCodeLength As Integer = 15
 
         Public Shared Property ConvertAirProgramLegacyCodes As Dictionary(Of String, AirPrograms) =
             New Dictionary(Of String, AirPrograms) From {
@@ -310,7 +310,7 @@ Namespace Apb.Facilities
             End Set
         End Property
 
-        Private Shared AirProgramClassificationsCodeLength As Integer = 5
+        Private Const AirProgramClassificationsCodeLength As Integer = 5
 
 #End Region
 

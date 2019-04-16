@@ -12,8 +12,8 @@ Public Class IaipUserManagement
     Private Property Message As New IaipMessage
     Private Property InvalidEntries As New List(Of Control)
 
-    Dim organizationDataSet As DataSet = GetSharedData(SharedDataSet.EpdOrganization)
-    Dim iaipAccountRoles As DataTable = GetSharedData(SharedTable.IaipAccountRoles)
+    Private ReadOnly organizationDataSet As DataSet = GetSharedData(SharedDataSet.EpdOrganization)
+    Private ReadOnly iaipAccountRoles As DataTable = GetSharedData(SharedTable.IaipAccountRoles)
 
 #End Region
 
