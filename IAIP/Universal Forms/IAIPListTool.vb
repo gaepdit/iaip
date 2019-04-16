@@ -1,5 +1,4 @@
 Imports System.Data.SqlClient
-Imports Iaip.SharedData
 
 Public Class IAIPListTool
     Private formAccessText As String = ""

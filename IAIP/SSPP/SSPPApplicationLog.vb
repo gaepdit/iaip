@@ -1,5 +1,4 @@
 Imports System.Data.SqlClient
-Imports Iaip.SharedData
 Imports Iaip.Apb.Facilities
 
 Public Class SSPPApplicationLog

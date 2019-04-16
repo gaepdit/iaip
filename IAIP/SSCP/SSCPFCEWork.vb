@@ -3,7 +3,6 @@ Imports System.Data.SqlClient
 Imports System.Text
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
-Imports Iaip.SharedData
 
 Public Class SSCPFCEWork
 

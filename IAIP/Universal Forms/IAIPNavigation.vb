@@ -1,7 +1,6 @@
 Imports System.Collections.Generic
 Imports System.ComponentModel
 Imports Iaip.DAL.NavigationScreenData
-Imports Iaip.SharedData
 
 Public Class IAIPNavigation
 

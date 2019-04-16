@@ -4,7 +4,6 @@ Imports System.Linq
 Imports Iaip.Apb.Finance
 Imports Iaip.DAL
 Imports Iaip.DAL.Finance
-Imports Iaip.SharedData
 
 Public Class FinFeeRateManagement
 

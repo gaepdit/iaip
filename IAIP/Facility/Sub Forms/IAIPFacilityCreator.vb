@@ -1,7 +1,6 @@
 Imports System.Data.SqlClient
-Imports Iaip.Apb.Facilities
-Imports Iaip.SharedData
 Imports Iaip.Apb
+Imports Iaip.Apb.Facilities
 
 Public Class IAIPFacilityCreator
 

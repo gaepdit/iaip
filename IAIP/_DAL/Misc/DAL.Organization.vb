@@ -1,5 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports Iaip.SharedData
 Imports EpdIt.DBUtilities
 
 Namespace DAL

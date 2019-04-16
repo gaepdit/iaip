@@ -1,6 +1,5 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
-Imports Iaip.SharedData
 
 
 Public Class SSCPComplianceLog

@@ -1,6 +1,5 @@
 Imports System.Collections.Generic
 Imports Iaip.Apb.Facilities
-Imports Iaip.SharedData
 
 Public Class IAIPEditAirProgramPollutants
 

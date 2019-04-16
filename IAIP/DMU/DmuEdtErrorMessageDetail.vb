@@ -1,5 +1,4 @@
 ﻿Imports System.Collections.Generic
-Imports Iaip.SharedData
 
 Public Class DmuEdtErrorMessageDetail
 
