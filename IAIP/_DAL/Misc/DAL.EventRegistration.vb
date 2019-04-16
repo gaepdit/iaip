@@ -159,6 +159,12 @@ Namespace DAL
             End With
         End Sub
 
+        Public Function PasscodeExists(id As String) As Boolean
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) FROM RES_EVENT WHERE STRPASSCODE = @id"
+            Dim parameter As New SqlParameter("@id", id)
+            Return DB.GetBoolean(query, parameter)
+        End Function
+
 #End Region
 
 #Region "Event Registrants"

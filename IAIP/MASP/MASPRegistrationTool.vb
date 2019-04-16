@@ -669,6 +669,7 @@ Public Class MASPRegistrationTool
         Try
             Dim r As New Random(Date.Now.Millisecond)
             Dim passcode As String = "GA" & r.Next(100000, 999999)
+
             If PasscodeExists(passcode) Then
                 Return GeneratePasscode()
             Else
@@ -1251,18 +1252,8 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
 
 #End Region
 
-#Region "DAL"
-
-    Private Function PasscodeExists(id As String) As Boolean
-        Dim query As String = "SELECT CONVERT( bit, COUNT(*)) FROM RES_EVENT WHERE STRPASSCODE = @id"
-        Dim parameter As New SqlParameter("@id", id)
-        Return DB.GetBoolean(query, parameter)
-    End Function
-
     Private Sub lnkGecoLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkGecoLink.LinkClicked
         OpenUri(New Uri(lnkGecoLink.Text))
     End Sub
-
-#End Region
 
 End Class

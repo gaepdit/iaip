@@ -670,7 +670,7 @@ Public Class IAIPNavigation
 
 #Region " Implementation "
 
-    Private Function AccountHasAccessToForm(index As Int32) As Boolean
+    Private Shared Function AccountHasAccessToForm(index As Int32) As Boolean
         Return (AccountFormAccess(index, 0) IsNot Nothing _
                 AndAlso AccountFormAccess(index, 0) = index.ToString _
                 AndAlso (AccountFormAccess(index, 1) = "1" Or AccountFormAccess(index, 2) = "1" _

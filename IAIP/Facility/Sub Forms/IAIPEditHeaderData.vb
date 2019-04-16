@@ -114,7 +114,7 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Sub CheckEditingPermissions()
-        If Not EditingIsAllowed() Then
+        If Not CurrentUser.HasPermission(UserCan.EditFacilityHeaderData) Then
             HideControls({EditData, SaveChangesButton, CancelEditButton})
         End If
     End Sub
@@ -398,7 +398,7 @@ Public Class IAIPEditHeaderData
 
         ' See if facility is being shut down & check permissions
         If UserIsTryingToCloseFacility() Then
-            If Not UserCanShutDownFacility() Then
+            If Not CurrentUser.HasPermission(UserCan.ShutDownFacility) Then
                 MessageBox.Show("You do not have permissions to shut down a facility. Please contact your manager.",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return False
@@ -428,7 +428,7 @@ Public Class IAIPEditHeaderData
         Return True
     End Function
 
-    Private Function FacilityHeaderDataDiffers(facility1 As FacilityHeaderData, facility2 As FacilityHeaderData) As Boolean
+    Private Shared Function FacilityHeaderDataDiffers(facility1 As FacilityHeaderData, facility2 As FacilityHeaderData) As Boolean
         If facility1.AirProgramClassificationsCode <> facility2.AirProgramClassificationsCode Then Return True
         If facility1.AirProgramsCode <> facility2.AirProgramsCode Then Return True
         If facility1.ClassificationCode <> facility2.ClassificationCode Then Return True
@@ -445,7 +445,7 @@ Public Class IAIPEditHeaderData
         Return False
     End Function
 
-    Private Function ConfirmFacilityShutdown() As Boolean
+    Private Shared Function ConfirmFacilityShutdown() As Boolean
         Return MessageBox.Show("Are you sure you want to mark this facility as closed/dismantled? " &
                                "This will revoke all existing permits.",
                                "Warning", MessageBoxButtons.YesNo,
@@ -519,12 +519,6 @@ Public Class IAIPEditHeaderData
         Return valid
     End Function
 
-    Private Sub HighlightControls(controls As List(Of Control))
-        For Each c As Control In controls
-            c.BackColor = Color.Yellow
-        Next
-    End Sub
-
     Private Sub ResetControlHighlights()
         Dim resetableControls As New List(Of Control)(New Control() {
           ClassificationLabel,
@@ -587,18 +581,6 @@ Public Class IAIPEditHeaderData
         End If
 
     End Sub
-
-#End Region
-
-#Region " Permissions "
-
-    Private Function EditingIsAllowed() As Boolean
-        Return CurrentUser.HasPermission(UserCan.EditFacilityHeaderData)
-    End Function
-
-    Private Function UserCanShutDownFacility() As Boolean
-        Return CurrentUser.HasPermission(UserCan.ShutDownFacility)
-    End Function
 
 #End Region
 

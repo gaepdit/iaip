@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports System.Globalization
 Imports System.Runtime.CompilerServices
 Imports System.Text.RegularExpressions
 
@@ -82,6 +83,19 @@ Public Module StringFunctions
     <Extension>
     Public Function LineCount(str As String) As Integer
         Return Regex.Matches(str, Environment.NewLine).Count() + 1
+    End Function
+
+    Public Function StringValidatesAsCurrency(s As String) As Boolean
+        Return Decimal.TryParse(s, NumberStyles.Currency, CultureInfo.CurrentCulture, Nothing)
+    End Function
+
+    Public Function ConvertCurrencyStringToDecimal(s As String) As Decimal
+        Dim result As Decimal
+        If Decimal.TryParse(s, NumberStyles.Currency, CultureInfo.CurrentCulture, result) Then
+            Return result
+        Else
+            Return 0
+        End If
     End Function
 
 End Module

@@ -198,23 +198,27 @@ Namespace Apb.Sscp
 
 #Region " Pollutants/Programs functions "
 
-        Private Function ParseEnforcementPollutants(progPoll As String) As List(Of String)
-            If progPoll = "" OrElse Not progPoll.Contains(","c) Then Return Nothing
+        Private Shared Function ParseEnforcementPollutants(progPoll As String) As List(Of String)
+            If String.IsNullOrEmpty(progPoll) OrElse Not progPoll.Contains(","c) Then Return Nothing
 
             Dim p As String() = progPoll.Split({","c}, StringSplitOptions.RemoveEmptyEntries)
+
             For i As Integer = 0 To p.Length - 1
                 p(i) = p(i).Substring(1)
             Next
+
             Return p.Distinct.ToList
         End Function
 
-        Private Function ParseEnforcementPrograms(progPoll As String) As List(Of String)
-            If progPoll = "" OrElse Not progPoll.Contains(","c) Then Return Nothing
+        Private Shared Function ParseEnforcementPrograms(progPoll As String) As List(Of String)
+            If String.IsNullOrEmpty(progPoll) OrElse Not progPoll.Contains(","c) Then Return Nothing
 
             Dim p As String() = progPoll.Split({","c}, StringSplitOptions.RemoveEmptyEntries)
+
             For i As Integer = 0 To p.Length - 1
                 p(i) = p(i).Substring(0, 1)
             Next
+
             Return p.Distinct.ToList
         End Function
 

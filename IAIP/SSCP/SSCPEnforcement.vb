@@ -1,11 +1,9 @@
 Imports System.Collections.Generic
-Imports System.Globalization
 Imports System.Linq
 Imports System.Text
 Imports Iaip.Apb
 Imports Iaip.Apb.Sscp
 Imports Iaip.DAL.DocumentData
-Imports Iaip.SharedData
 
 Public Class SscpEnforcement
 
@@ -149,13 +147,6 @@ Public Class SscpEnforcement
                        COExecuted, COResolved,
                        AOExecuted, AOAppealed, AOResolved
                        })
-    End Sub
-
-    Private Sub SetDtpMaxDates(maxDate As DateTime, dateControls As List(Of DateTimePicker))
-        For Each dateControl As DateTimePicker In dateControls
-            dateControl.MaxDate = maxDate
-            dateControl.Checked = False
-        Next
     End Sub
 
 #End Region
@@ -1520,10 +1511,6 @@ Public Class SscpEnforcement
         Return True
     End Function
 
-    Private Function StringValidatesAsCurrency(s As String) As Boolean
-        Return Decimal.TryParse(s, NumberStyles.Currency, CultureInfo.CurrentCulture, Nothing)
-    End Function
-
     Private Function ValidateViolationType() As Boolean
         If FormIsCaseFile() AndAlso
             (ViolationTypeNone.Checked Or ViolationTypeSelect.SelectedValue?.ToString = "BLANK") Then
@@ -1810,7 +1797,7 @@ Public Class SscpEnforcement
         Return result
     End Function
 
-    Private Function CheckTheseDates(dateToCheck As Date,
+    Private Shared Function CheckTheseDates(dateToCheck As Date,
                                Optional antecedents As List(Of DateTimePicker) = Nothing,
                                Optional subsequents As List(Of DateTimePicker) = Nothing,
                                Optional requiredAntecedents As List(Of DateTimePicker) = Nothing,
@@ -2012,23 +1999,6 @@ Public Class SscpEnforcement
             End If
         End With
     End Sub
-
-    Private Function ConvertCurrencyStringToDecimal(c As String) As Decimal
-        Dim result As Decimal
-        If Decimal.TryParse(c.Trim({"$"c, " "c}).Replace(",", ""), result) Then
-            Return result
-        Else
-            Return 0
-        End If
-    End Function
-
-    Private Function GetNullableDateFromDateTimePicker(dtp As DateTimePicker) As Date?
-        If dtp.Checked Then
-            Return dtp.Value
-        Else
-            Return Nothing
-        End If
-    End Function
 
     Private Function ReadProgramsFromForm() As List(Of String)
         Dim pList As New List(Of String)

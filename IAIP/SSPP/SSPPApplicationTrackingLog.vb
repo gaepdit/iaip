@@ -1,6 +1,7 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Linq
+Imports System.Text
 Imports EpdIt
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities.Facility
@@ -9,11 +10,9 @@ Imports Iaip.Apb.Facilities.FacilityHeaderData
 Imports Iaip.Apb.Finance
 Imports Iaip.Apb.Sspp
 Imports Iaip.Apb.Sspp.Permit
-Imports Iaip.DAL.Finance
 Imports Iaip.DAL.FacilityHeaderDataData
+Imports Iaip.DAL.Finance
 Imports Iaip.DAL.Sspp
-Imports Iaip.SharedData
-Imports System.Text
 
 Public Class SSPPApplicationTrackingLog
 
@@ -12049,36 +12048,6 @@ Public Class SSPPApplicationTrackingLog
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
-
-    Private Sub DeleteProgramSubparts(appnum As String, programkey As String)
-        Dim query As String = "Delete from SSPPSubpartData " &
-            "where strSubpartKey = @pKey "
-        Dim parameter As New SqlParameter("@pKey", appnum & programkey)
-        DB.RunCommand(query, parameter)
-    End Sub
-
-    Private Sub SaveProgramSubpartData(appnum As String, programKey As String, subpart As String, activity As String)
-        Dim query As String = "INSERT " &
-            "INTO SSPPSUBPARTDATA " &
-            "  ( " &
-            "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
-            "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
-            "    CREATEDATETIME " &
-            "  ) " &
-            "  VALUES " &
-            "  ( " &
-            "    @appnum, @pKey, @subpart, @activity, @pUser, GETDATE(), GETDATE() " &
-            "  ) "
-
-        Dim parameters As SqlParameter() = {
-            New SqlParameter("@appnum", appnum),
-            New SqlParameter("@pKey", appnum & programKey),
-            New SqlParameter("@subpart", subpart),
-            New SqlParameter("@activity", activity),
-            New SqlParameter("@pUser", CurrentUser.UserID)
-        }
-        DB.RunCommand(query, parameters)
     End Sub
 
     Private Sub SaveNSPSSubpart()

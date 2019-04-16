@@ -294,6 +294,7 @@
     </Compile>
     <Compile Include="_Code\ColorLabelHelper.vb" />
     <Compile Include="_Code\DataGridViewExtensions.vb" />
+    <Compile Include="_Code\DateTimePickerHelpers.vb" />
     <Compile Include="_Code\DictionaryExtensions.vb" />
     <Compile Include="_Code\EnumExtensions.vb" />
     <Compile Include="_Code\ComboBoxHelpers.vb" />

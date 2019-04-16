@@ -22,6 +22,36 @@ Namespace DAL.Sspp
             Return DB.GetSingleValue(Of DateTimeOffset)(query, param)
         End Function
 
+        Public Sub DeleteProgramSubparts(appnum As String, programkey As String)
+            Dim query As String = "Delete from SSPPSubpartData " &
+            "where strSubpartKey = @pKey "
+            Dim parameter As New SqlParameter("@pKey", appnum & programkey)
+            DB.RunCommand(query, parameter)
+        End Sub
+
+        Public Sub SaveProgramSubpartData(appnum As String, programKey As String, subpart As String, activity As String)
+            Dim query As String = "INSERT " &
+            "INTO SSPPSUBPARTDATA " &
+            "  ( " &
+            "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
+            "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
+            "    CREATEDATETIME " &
+            "  ) " &
+            "  VALUES " &
+            "  ( " &
+            "    @appnum, @pKey, @subpart, @activity, @pUser, GETDATE(), GETDATE() " &
+            "  ) "
+
+            Dim parameters As SqlParameter() = {
+            New SqlParameter("@appnum", appnum),
+            New SqlParameter("@pKey", appnum & programKey),
+            New SqlParameter("@subpart", subpart),
+            New SqlParameter("@activity", activity),
+            New SqlParameter("@pUser", CurrentUser.UserID)
+        }
+            DB.RunCommand(query, parameters)
+        End Sub
+
     End Module
 
 End Namespace

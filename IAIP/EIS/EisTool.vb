@@ -2853,7 +2853,7 @@ Public Class EisTool
                             End If
                         End If
                     Else
-                            rdbEILogOpOutNo.Checked = True
+                        rdbEILogOpOutNo.Checked = True
                     End If
                 End If
 
@@ -6038,16 +6038,11 @@ Public Class EisTool
                 params.Add(facList.AsTvpSqlParameter("@Facility_List"))
             End If
 
-            Dim result As Boolean = DB.SPRunCommand(SPName, params)
-            DisplayEisStageResults(result)
-        End If
-    End Sub
-
-    Private Sub DisplayEisStageResults(result As Boolean)
-        If result Then
-            MessageBox.Show("Done")
-        Else
-            MessageBox.Show("There was an error staging the data.")
+            If DB.SPRunCommand(SPName, params) Then
+                MessageBox.Show("Done")
+            Else
+                MessageBox.Show("There was an error staging the data.")
+            End If
         End If
     End Sub
 
