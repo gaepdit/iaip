@@ -307,7 +307,7 @@ Public Class ISMPTestReportAdministrative
     End Sub
     Private Sub Save()
         Dim RecordStatus As String = "False"
-        Dim AIRSNumber As String = ""
+        Dim AIRSNumber As String
 
         Try
 

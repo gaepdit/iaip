@@ -277,16 +277,16 @@ Public Class ISMPAddTestingFirms
 
     End Sub
     Private Sub Save()
-        Dim TestingFirm As String = ""
-        Dim TestingFirmAddress1 As String = ""
-        Dim TestingFirmAddress2 As String = ""
-        Dim TestingFirmCity As String = ""
-        Dim TestingFirmState As String = ""
+        Dim TestingFirm As String
+        Dim TestingFirmAddress1 As String
+        Dim TestingFirmAddress2 As String
+        Dim TestingFirmCity As String
+        Dim TestingFirmState As String
         Dim TestingFirmZipCode As String = ""
         Dim TestingFirmPhoneNumber1 As String = ""
         Dim TestingFirmPhoneNumber2 As String = ""
         Dim TestingFirmFaxNumber As String = ""
-        Dim TestingFirmEmail As String = ""
+        Dim TestingFirmEmail As String
         Dim x As Integer
 
         Try

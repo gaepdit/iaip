@@ -77,7 +77,7 @@ Public Class FinSearchInvoices
         End If
 
         Dim newID As Integer = 0
-        Dim errorMessage As String = ""
+        Dim errorMessage As String
 
         Select Case ValidateInvoiceId(txtSelectedItem.Text, newID, True)
             Case InvoiceValidationResult.Malformed

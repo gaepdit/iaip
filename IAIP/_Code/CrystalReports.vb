@@ -43,8 +43,6 @@ Module CrystalReports
             Return True
         Catch ex As Exception
             Return False
-        Finally
-            testAssembly = Nothing
         End Try
     End Function
 

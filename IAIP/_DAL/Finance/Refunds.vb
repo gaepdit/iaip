@@ -56,8 +56,6 @@ Namespace DAL.Finance
         ' Write
 
         Public Function SaveNewRefund(refund As Refund, ByRef newRefundId As Integer) As SaveRefundResult
-            newRefundId = -1
-
             Dim params As SqlParameter() = {
                 New SqlParameter("@RefundDate", refund.RefundDate),
                 New SqlParameter("@Amount", refund.Amount),

@@ -3313,24 +3313,24 @@ Public Class IAIPQueryGenerator
 
     Private Sub LoadDefaults()
         Dim DefaultsText As String = ""
-        Dim AIRSNumber As String = ""
-        Dim FacilityName As String = ""
-        Dim FacilityStreet1 As String = ""
-        Dim FacilityStreet2 As String = ""
-        Dim FacilityCity As String = ""
-        Dim FacilityZipCode As String = ""
-        Dim Longitude As String = ""
-        Dim Latitude As String = ""
-        Dim County As String = ""
-        Dim District As String = ""
-        Dim OperationStatus As String = ""
-        Dim Classification As String = ""
-        Dim SICCode As String = ""
-        Dim NAICSCode As String = ""
-        Dim StartUpDate As String = ""
-        Dim ShutDownDate As String = ""
-        Dim CMSUniverse As String = ""
-        Dim PlantDesc As String = ""
+        Dim AIRSNumber As String
+        Dim FacilityName As String
+        Dim FacilityStreet1 As String
+        Dim FacilityStreet2 As String
+        Dim FacilityCity As String
+        Dim FacilityZipCode As String
+        Dim Longitude As String
+        Dim Latitude As String
+        Dim County As String
+        Dim District As String
+        Dim OperationStatus As String
+        Dim Classification As String
+        Dim SICCode As String
+        Dim NAICSCode As String
+        Dim StartUpDate As String
+        Dim ShutDownDate As String
+        Dim CMSUniverse As String
+        Dim PlantDesc As String
 
         Try
 

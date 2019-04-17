@@ -55,7 +55,7 @@ Public Class SSPPAttainmentStatus
     End Sub
 
     Private Sub ViewSelectedData()
-        Dim SQLClause As String = ""
+        Dim SQLClause As String
 
         Select Case cboNonAttainmentStatus.Text
             Case ("-View All-")

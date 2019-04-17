@@ -596,8 +596,8 @@ Public Class ISMPManagersTools
     Private Sub SaveTestReportsAssignments()
         Dim strObject As String
         Dim EngineerGCode As String = ""
-        Dim AssignDate As String = ""
-        Dim PreCompliance As String = ""
+        Dim AssignDate As String
+        Dim PreCompliance As String
         Dim drEngineers As DataRow()
         Dim row As DataRow
 
@@ -807,12 +807,12 @@ Public Class ISMPManagersTools
 #End Region
 
     Private Sub RunMonthlyReport()
-        Dim TestReceived As String = 0
-        Dim TestCompleted As String = 0
-        Dim TestWitnessed As String = 0
-        Dim OutofCompliance As String = 0
-        Dim MedianTime As String = 0
-        Dim PercentileTime As String = 0
+        Dim TestReceived As String
+        Dim TestCompleted As String
+        Dim TestWitnessed As String
+        Dim OutofCompliance As String
+        Dim MedianTime As String
+        Dim PercentileTime As String
         Dim n As Integer = 0
         Dim MedianArray(n) As Decimal
         Dim Percential As Decimal

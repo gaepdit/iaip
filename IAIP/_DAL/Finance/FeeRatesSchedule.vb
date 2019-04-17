@@ -88,8 +88,6 @@ Namespace DAL.Finance
                                         amount As Decimal,
                                         effectiveDate As Date,
                                         ByRef newRateItemID As Integer) As DbResult
-            newRateItemID = -1
-
             Dim params As SqlParameter() = {
                 New SqlParameter("@Description", description),
                 New SqlParameter("@RateCategoryID", CInt(category)),
@@ -102,7 +100,7 @@ Namespace DAL.Finance
 
             newRateItemID = DB.SPGetInteger("fees.SaveNewRateItem", params, returnValue)
 
-            Return CType(returnValue, DbResult)
+            Return returnValue
         End Function
 
         Public Function AddNewEffectiveRate(rateItemID As Integer, rate As Decimal, effectiveDate As Date) As DbResult

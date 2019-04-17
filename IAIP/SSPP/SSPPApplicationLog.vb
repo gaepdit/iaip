@@ -414,11 +414,11 @@ Public Class SSPPApplicationLog
     End Sub
 
     Private Sub FetchData(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgwApplicationLog.DoWork
-        Dim SQL As String = ""
-        Dim SQLLine As String = ""
+        Dim SQL As String
+        Dim SQLLine As String
         Dim SQLSearch1 As String = ""
         Dim SQLSearch2 As String = ""
-        Dim SQLOrder As String = ""
+        Dim SQLOrder As String
 
         Try
             SQL = "SELECT DISTINCT

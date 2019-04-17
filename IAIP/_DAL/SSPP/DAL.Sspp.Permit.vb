@@ -40,7 +40,7 @@ Namespace DAL.Sspp
 
         Public Function GetActivePermitsAsList(airsNumber As ApbFacilityId) As List(Of Permit)
             Dim permitList As New List(Of Permit)
-            Dim permit As New Permit
+            Dim permit As Permit
 
             Dim dataTable As DataTable = GetActivePermitsAsTable(airsNumber)
 

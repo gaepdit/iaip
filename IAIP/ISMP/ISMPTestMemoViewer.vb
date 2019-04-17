@@ -21,7 +21,7 @@ Public Class ISMPTestMemoViewer
         Dim SQLLine As String = " "
         Dim SQLLine2 As String = "AND ("
         Dim SQLLine3 As String = "AND ("
-        Dim SQLLine4 As String = " "
+        Dim SQLLine4 As String
 
         Try
 

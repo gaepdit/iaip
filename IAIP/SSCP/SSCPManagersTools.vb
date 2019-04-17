@@ -434,7 +434,7 @@ Public Class SSCPManagersTools
     End Sub
 
     Private Sub RunCMSWarningReport()
-        Dim SqlFilter As String = ""
+        Dim SqlFilter As String
 
         Dim SMOverdueDate As Date = Today.AddYears(-MIN_FCE_SPAN_CLASS_SM)
         Dim AOverdueDate As Date = Today.AddYears(-MIN_FCE_SPAN_CLASS_A)

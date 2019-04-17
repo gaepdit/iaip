@@ -84,7 +84,7 @@ Namespace DAL
 
         Public Function GetEnforcementDocumentsAsList(enfNum As Integer) As List(Of EnforcementDocument)
             Dim docsList As New List(Of EnforcementDocument)
-            Dim doc As New EnforcementDocument
+            Dim doc As EnforcementDocument
 
             Dim dataTable As DataTable = GetEnforcementDocumentsAsTable(enfNum)
 

@@ -81,12 +81,12 @@ Public Class SSPPPublicNoticiesAndAdvisories
         rtbPreview.Clear()
 
         Dim PANeeded As String = ""
-        Dim PublicAdvisories As String = ""
-        Dim TVAdvisories As String = ""
+        Dim PublicAdvisories As String
+        Dim TVAdvisories As String
         Dim TVInitial As String = ""
         Dim TVRenewal As String = ""
         Dim TVSigMod As String = ""
-        Dim Deadline As String = ""
+        Dim Deadline As String
 
         selectedAdvisoryApps = New List(Of Integer)
         selectedNoticeApps = New List(Of Integer)
@@ -600,9 +600,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
     End Sub
 
     Private Sub GenerateFileName()
-        Dim FileMonth As String = ""
-        Dim FileYear As String = ""
-        Dim FileWeek As String = ""
+        Dim FileMonth As String
+        Dim FileYear As String
+        Dim FileWeek As String
         Dim Flag As Boolean = False
 
         FileMonth = Today.Month.ToString.PadLeft(2, "0"c)

@@ -444,7 +444,7 @@ Public Class SSCPComplianceLog
 
     Private Sub DeleteWork()
         Dim response As DialogResult
-        Dim SQL As String = ""
+        Dim SQL As String
         Dim p As New SqlParameter("@num", txtWorkNumber.Text)
 
         Select Case txtTestType.Text

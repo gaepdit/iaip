@@ -1570,9 +1570,7 @@ Public Class SscpEnforcement
     End Function
 
     Private Function ValidateDates() As Boolean
-        Dim result As Boolean = True
-
-        result = ValidateDiscoveryDate()
+        Dim result As Boolean = ValidateDiscoveryDate()
 
         If LonCheckBox.Checked Then
             result = result And ValidateLonDates()

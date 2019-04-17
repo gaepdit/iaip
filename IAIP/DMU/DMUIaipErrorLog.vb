@@ -19,7 +19,7 @@ Public Class DMUIaipErrorLog
 
         'Formatting our DataGrid
         Dim objGrid As New DataGridTableStyle
-        Dim objtextcol As New DataGridTextBoxColumn
+        Dim objtextcol As DataGridTextBoxColumn
 
         objGrid.AlternatingBackColor = Color.WhiteSmoke
         objGrid.MappingName = "WebErrorLog"

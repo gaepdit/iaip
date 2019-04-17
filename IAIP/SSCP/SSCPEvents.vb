@@ -1352,9 +1352,9 @@ Public Class SSCPEvents
         Dim NotificationDueDate As Object
         Dim NotificationSent As String = "True"
         Dim NotificationSentDate As Object
-        Dim NotificationTypeOther As String = ""
-        Dim NotificationComment As String = ""
-        Dim NotificationFollowUp As String = ""
+        Dim NotificationTypeOther As String
+        Dim NotificationComment As String
+        Dim NotificationFollowUp As String
         Dim sqlList As New List(Of String)
         Dim plist As New List(Of SqlParameter())
 
@@ -1610,9 +1610,9 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub LoadReportFromSubmittal()
-        Dim Completeness As String = ""
-        Dim Enforcement As String = ""
-        Dim Deviation As String = ""
+        Dim Completeness As String
+        Dim Enforcement As String
+        Dim Deviation As String
 
         Try
 

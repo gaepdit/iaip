@@ -2643,8 +2643,8 @@ Public Class SSPPApplicationTrackingLog
         Dim ClassificationLine As String = "Classification - "
         Dim AirProgramCodes As String = "000000000000000"
         Dim AirPrograms As String = ""
-        Dim AirProgramCheck As String = ""
-        Dim AirProgramLine As String = ""
+        Dim AirProgramCheck As String
+        Dim AirProgramLine As String
         Dim SIC As String = "N/A"
         Dim SICLine As String = "SIC Code - "
         Dim NAICS As String = "N/A"
@@ -2652,9 +2652,9 @@ Public Class SSPPApplicationTrackingLog
         Dim CountyName As String = "N/A"
         Dim District As String = "N/A"
         Dim Attainment As String = "00000"
-        Dim AttainmentStatus As String = ""
+        Dim AttainmentStatus As String
         Dim StateProgramCodes As String = "00000"
-        Dim StatePrograms As String = ""
+        Dim StatePrograms As String
         Dim PlantDesc As String = "N/A"
         Dim PlantLine As String = "Plant Description - "
         Dim DistResponsible As String = "False"
@@ -4563,7 +4563,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub CheckForLinkedApplications()
-        Dim MasterApplication As String = ""
         Dim ApplicationCount As Integer = 0
         Dim query As String
         Dim parameter As New SqlParameter("@appnumber", AppNumber)
@@ -4581,7 +4580,7 @@ Public Class SSPPApplicationTrackingLog
                     "from SSPPApplicationLinking " &
                     "where strApplicationNumber = @appnumber"
 
-                MasterApplication = DB.GetString(query, parameter)
+                Dim MasterApplication As String = DB.GetString(query, parameter)
 
                 If String.IsNullOrEmpty(MasterApplication) Then
                     txtMasterApp.Clear()
@@ -4674,46 +4673,46 @@ Public Class SSPPApplicationTrackingLog
         Dim ApplicationType As String = ""
         Dim PermitType As String = ""
         Dim Unit As String = ""
-        Dim DateFinalized As String = Nothing
-        Dim FacilityName As String = ""
-        Dim FacilityAddress As String = ""
-        Dim FacilityCity As String = ""
-        Dim FacilityZipCode As String = ""
-        Dim OperationalStatus As String = ""
-        Dim Classification As String = ""
-        Dim AirProgramCodes As String = ""
-        Dim SIC As String = ""
-        Dim NAICS As String = ""
-        Dim PermitNumber As String = ""
-        Dim PlantDesc As String = ""
-        Dim Comments As String = ""
-        Dim ApplicationNotes As String = ""
-        Dim ReceivedDate As String = Nothing
-        Dim SentByDate As String = Nothing
-        Dim AssignedToEngineer As String = Nothing
-        Dim ReAssignedToEngineer As String = Nothing
+        Dim DateFinalized As String
+        Dim FacilityName As String
+        Dim FacilityAddress As String
+        Dim FacilityCity As String
+        Dim FacilityZipCode As String
+        Dim OperationalStatus As String
+        Dim Classification As String
+        Dim AirProgramCodes As String
+        Dim SIC As String
+        Dim NAICS As String
+        Dim PermitNumber As String
+        Dim PlantDesc As String
+        Dim Comments As String
+        Dim ApplicationNotes As String
+        Dim ReceivedDate As String
+        Dim SentByDate As String
+        Dim AssignedToEngineer As String
+        Dim ReAssignedToEngineer As String
         Dim PackageCompleteDate As String = Nothing
-        Dim AcknowledgementLetter As String = Nothing
-        Dim PublicInvolved As String = "0"
-        Dim ToPMI As String = Nothing
-        Dim ToPMII As String = Nothing
-        Dim ReturnToEngineer As String = Nothing
-        Dim PermitIssued As String = Nothing
-        Dim AppDeadline As String = Nothing
-        Dim DraftIssued As String = Nothing
-        Dim EPAWaived As String = Nothing
-        Dim EPAEnds As String = Nothing
-        Dim ToBC As String = Nothing
-        Dim ToDO As String = Nothing
-        Dim PAReady As String = Nothing
-        Dim PNReady As String = Nothing
-        Dim TrackedRules As String = ""
-        Dim StateProgramCodes As String = ""
-        Dim AttainmentStatus As String = ""
-        Dim SignificantComments As String = ""
-        Dim PAExpires As String = Nothing
-        Dim PNExpires As String = Nothing
-        Dim OwnershipTypeCode As String = Nothing
+        Dim AcknowledgementLetter As String
+        Dim PublicInvolved As String
+        Dim ToPMI As String
+        Dim ToPMII As String
+        Dim ReturnToEngineer As String
+        Dim PermitIssued As String
+        Dim AppDeadline As String
+        Dim DraftIssued As String
+        Dim EPAWaived As String
+        Dim EPAEnds As String
+        Dim ToBC As String
+        Dim ToDO As String
+        Dim PAReady As String
+        Dim PNReady As String
+        Dim TrackedRules As String
+        Dim StateProgramCodes As String
+        Dim AttainmentStatus As String
+        Dim SignificantComments As String
+        Dim PAExpires As String
+        Dim PNExpires As String
+        Dim OwnershipTypeCode As String
 
         Dim queriesList As New List(Of String)
         Dim parametersList As New List(Of SqlParameter())
@@ -4876,7 +4875,7 @@ Public Class SSPPApplicationTrackingLog
                 Case "Yes"
                     AttainmentStatus = "01000"
                 Case "Contributing"
-
+                    AttainmentStatus = ""
                 Case Else
                     AttainmentStatus = "00000"
             End Select
@@ -5291,7 +5290,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SaveIssuedPermit()
-        Dim result As Boolean = False
+        Dim result As Boolean
         Dim permit As Permit
 
         If Not PermitExists(txtPermitNumber.Text) Then
@@ -5314,8 +5313,8 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub SaveInformationRequest()
         Dim InformationRequestKey As Integer
-        Dim InformationRequested As String = ""
-        Dim InformationReceived As String = ""
+        Dim InformationRequested As String
+        Dim InformationReceived As String
         Dim DateInfoRequested As DateTime?
         Dim DateInfoReceived As DateTime?
         Dim query As String
@@ -6218,7 +6217,7 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
         End If
 
-        Dim MasterLink As String = ""
+        Dim MasterLink As String
         Dim query As String
         Dim param As SqlParameter
 
@@ -6407,7 +6406,7 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
         End If
 
-        Dim ActionNumber As String = ""
+        Dim ActionNumber As String
         Dim UpdateStatus As String
         Dim query As String
         Dim params As SqlParameter()
@@ -6494,21 +6493,21 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
         End If
 
-        Dim FacilityName As String = ""
-        Dim FacilityStreet1 As String = ""
-        Dim FacilityStreet2 As String = ""
-        Dim City As String = ""
-        Dim ZipCode As String = ""
+        Dim FacilityName As String
+        Dim FacilityStreet1 As String
+        Dim FacilityStreet2 As String
+        Dim City As String
+        Dim ZipCode As String
         Dim OpStatus As String = ""
-        Dim Classification As String = ""
+        Dim Classification As String
         Dim AirProgramCodes As String = ""
-        Dim SICCode As String = ""
-        Dim NAICSCode As String = ""
-        Dim OwnershipTypeCode As String = Nothing
-        Dim PlantDescription As String = ""
-        Dim StateProgramCodes As String = ""
+        Dim SICCode As String
+        Dim NAICSCode As String
+        Dim OwnershipTypeCode As String
+        Dim PlantDescription As String
+        Dim StateProgramCodes As String
 
-        Dim query As String = ""
+        Dim query As String
         Dim params As SqlParameter()
         Dim queryList As New List(Of String)
         Dim paramsList As New List(Of SqlParameter())
@@ -6776,7 +6775,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub UpdateProgramPollutantKey(key As String, OpStatus As String)
         Dim pKey As String = AirsId.DbFormattedString & key
-        Dim query As String = ""
+        Dim query As String
         Dim params As SqlParameter()
         Dim queryList As New List(Of String)
         Dim paramsList As New List(Of SqlParameter())
@@ -6936,7 +6935,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub FindMasterApp()
-        Dim AppType As String = ""
+        Dim AppType As String
         Dim query As String
         Dim parameter As SqlParameter()
 
@@ -7369,7 +7368,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub dgrFacilityAppHistory_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvFacilityAppHistory.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvFacilityAppHistory.HitTest(e.X, e.Y)
-        Dim temp As String = ""
+        Dim temp As String
 
         Try
 
@@ -7398,7 +7397,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub dgvInformationRequested_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvInformationRequested.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvInformationRequested.HitTest(e.X, e.Y)
-        Dim temp As String = ""
+        Dim temp As String
 
         Try
 

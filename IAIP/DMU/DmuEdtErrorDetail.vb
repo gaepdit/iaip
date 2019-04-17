@@ -153,10 +153,8 @@ Public Class DmuEdtErrorDetail
     End Sub
 
     Private Sub ChangeStatus_Click(sender As Object, e As EventArgs) Handles ChangeStatus.Click
-        Dim result As Boolean = False
         Dim resolving As Boolean = Not edtErrorDetails.Resolved
-
-        result = DAL.Dmu.SetResolvedStatus(resolving, Me.EdtErrorID)
+        Dim result As Boolean = DAL.Dmu.SetResolvedStatus(resolving, Me.EdtErrorID)
 
         If result = True Then
             edtErrorDetails.Resolved = resolving

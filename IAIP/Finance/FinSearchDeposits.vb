@@ -78,7 +78,7 @@ Public Class FinSearchDeposits
         End If
 
         Dim newID As Integer = 0
-        Dim errorMessage As String = ""
+        Dim errorMessage As String
 
         Select Case ValidateDepositId(txtSelectedItem.Text, newID, True)
             Case DepositValidationResult.Malformed

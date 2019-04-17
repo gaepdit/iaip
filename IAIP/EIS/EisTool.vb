@@ -1597,18 +1597,18 @@ Public Class EisTool
     Private Sub GenerateESMailOut()
         Dim airsNumber As String
         Dim airsYear As String
-        Dim FACILITYNAME As String = " "
-        Dim CONTACTCOMPANYNAME As String = " "
-        Dim CONTACTADDRESS1 As String = " "
-        Dim CONTACTCITY As String = " "
-        Dim CONTACTSTATE As String = " "
-        Dim CONTACTZIPCODE As String = " "
-        Dim CONTACTFIRSTNAME As String = " "
-        Dim CONTACTLASTNAME As String = " "
-        Dim CONTACTEMAIL As String = " "
+        Dim FACILITYNAME As String
+        Dim CONTACTCOMPANYNAME As String
+        Dim CONTACTADDRESS1 As String
+        Dim CONTACTCITY As String
+        Dim CONTACTSTATE As String
+        Dim CONTACTZIPCODE As String
+        Dim CONTACTFIRSTNAME As String
+        Dim CONTACTLASTNAME As String
+        Dim CONTACTEMAIL As String
         Dim ESYear As String = cboMailoutYear.SelectedItem
-        Dim OperationalStatus As String = " "
-        Dim FacilityClass As String = " "
+        Dim OperationalStatus As String
+        Dim FacilityClass As String
 
         Try
             Dim SQL As String = "Select strAirsNumber " &
