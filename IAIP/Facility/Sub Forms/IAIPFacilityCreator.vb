@@ -214,7 +214,9 @@ Public Class IAIPFacilityCreator
         End Try
     End Sub
 
-    Private Sub FindRegion(Region As String, AIRSNumber As String)
+    Private Sub FindRegion(AIRSNumber As String)
+        Dim Region As String
+
         Try
             If ApbFacilityId.IsValidAirsNumberFormat(AIRSNumber) Then
                 Dim SQL As String = "Select concat(LookUPDistricts.strDistrictcode, '-', strDistrictName) as District " &
@@ -341,7 +343,7 @@ Public Class IAIPFacilityCreator
                 AIRSNumber = "0413" & txtCDSAIRSNumber.Text
             End If
 
-            FindRegion(txtCDSRegionCode.Text, txtCDSAIRSNumber.Text)
+            FindRegion(txtCDSAIRSNumber.Text)
 
             If txtCDSFacilityName.Text = "" Then
                 FacilityName = "N/A"
@@ -1083,7 +1085,7 @@ Public Class IAIPFacilityCreator
             End If
 
             txtCDSAIRSNumber.Text = txtNewAIRSNumber.Text
-            FindRegion(txtCDSRegionCode.Text, txtCDSAIRSNumber.Text)
+            FindRegion(txtCDSAIRSNumber.Text)
 
             Dim SQL As String = "select " &
             "strFacilityName, strFacilityStreet1, " &
