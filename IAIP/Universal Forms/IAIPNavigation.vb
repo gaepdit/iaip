@@ -143,26 +143,39 @@ Public Class IAIPNavigation
         Cursor = Cursors.WaitCursor
 
         Dim thisButton As Button = CType(sender, Button)
-        Select Case thisButton.Name
-            Case btnOpenApplication.Name
-                OpenApplication()
-            Case btnOpenEnforcement.Name
-                OpenEnforcement()
-            Case btnOpenFacilitySummary.Name
-                OpenFacilitySummary()
-            Case btnOpenSbeapCaseLog.Name
-                OpenSbeapCaseLog()
-            Case btnOpenSbeapClient.Name
-                OpenSbeapClient()
-            Case btnOpenSscpItem.Name
-                OpenSscpItem()
-            Case btnOpenTestLog.Name
-                OpenTestLog()
-            Case btnOpenTestReport.Name
-                OpenTestReport()
-        End Select
 
-        Cursor = Cursors.Default
+        Try
+            Select Case thisButton.Name
+                Case btnOpenApplication.Name
+                    OpenApplication()
+                Case btnOpenEnforcement.Name
+                    OpenEnforcement()
+                Case btnOpenFacilitySummary.Name
+                    OpenFacilitySummary()
+                Case btnOpenSbeapCaseLog.Name
+                    OpenSbeapCaseLog()
+                Case btnOpenSbeapClient.Name
+                    OpenSbeapClient()
+                Case btnOpenSscpItem.Name
+                    OpenSscpItem()
+                Case btnOpenTestLog.Name
+                    OpenTestLog()
+                Case btnOpenTestReport.Name
+                    OpenTestReport()
+            End Select
+        Catch ex As Exception
+            ex.Data.Add("txtOpenApplication", txtOpenApplication.Text)
+            ex.Data.Add("txtOpenEnforcement", txtOpenEnforcement.Text)
+            ex.Data.Add("txtOpenFacilitySummary", txtOpenFacilitySummary.Text)
+            ex.Data.Add("txtOpenSbeapCaseLog", txtOpenSbeapCaseLog.Text)
+            ex.Data.Add("txtOpenSbeapClient", txtOpenSbeapClient.Text)
+            ex.Data.Add("txtOpenSscpItem", txtOpenSscpItem.Text)
+            ex.Data.Add("txtOpenTestLog", txtOpenTestLog.Text)
+            ex.Data.Add("txtOpenTestReport", txtOpenTestReport.Text)
+            Throw
+        Finally
+            Cursor = Cursors.Default
+        End Try
     End Sub
 
     Private Sub QuickAccessTextbox_Enter(sender As Object, e As EventArgs) _
