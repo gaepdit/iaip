@@ -23,6 +23,8 @@ Partial Class SSPPFeeContact
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btnSaveFeeContact = New System.Windows.Forms.Button()
+        Me.btnClear = New System.Windows.Forms.Button()
         Me.btnLoadDefaultDescription = New System.Windows.Forms.Button()
         Me.txtSocialTitle = New System.Windows.Forms.TextBox()
         Me.txtFirstName = New System.Windows.Forms.TextBox()
@@ -30,7 +32,6 @@ Partial Class SSPPFeeContact
         Me.txtEmailAddress = New System.Windows.Forms.TextBox()
         Me.mtbFaxNumber = New System.Windows.Forms.MaskedTextBox()
         Me.mtbPhoneNumber2 = New System.Windows.Forms.MaskedTextBox()
-        Me.mtbPhoneNumber1 = New System.Windows.Forms.MaskedTextBox()
         Me.mtbZipCode = New System.Windows.Forms.MaskedTextBox()
         Me.txtState = New System.Windows.Forms.TextBox()
         Me.txtCity = New System.Windows.Forms.TextBox()
@@ -53,16 +54,16 @@ Partial Class SSPPFeeContact
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.btnSaveFeeContact = New System.Windows.Forms.Button()
-        Me.btnClear = New System.Windows.Forms.Button()
-        Me.lblAirs = New System.Windows.Forms.Label()
         Me.lblApp = New System.Windows.Forms.Label()
+        Me.lblAirs = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtPhoneNumber1 = New System.Windows.Forms.TextBox()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.txtPhoneNumber1)
         Me.Panel1.Controls.Add(Me.btnSaveFeeContact)
         Me.Panel1.Controls.Add(Me.btnClear)
         Me.Panel1.Controls.Add(Me.btnLoadDefaultDescription)
@@ -72,7 +73,6 @@ Partial Class SSPPFeeContact
         Me.Panel1.Controls.Add(Me.txtEmailAddress)
         Me.Panel1.Controls.Add(Me.mtbFaxNumber)
         Me.Panel1.Controls.Add(Me.mtbPhoneNumber2)
-        Me.Panel1.Controls.Add(Me.mtbPhoneNumber1)
         Me.Panel1.Controls.Add(Me.mtbZipCode)
         Me.Panel1.Controls.Add(Me.txtState)
         Me.Panel1.Controls.Add(Me.txtCity)
@@ -101,8 +101,30 @@ Partial Class SSPPFeeContact
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(550, 362)
+        Me.Panel1.Size = New System.Drawing.Size(550, 361)
         Me.Panel1.TabIndex = 0
+        '
+        'btnSaveFeeContact
+        '
+        Me.btnSaveFeeContact.AutoSize = True
+        Me.btnSaveFeeContact.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnSaveFeeContact.Location = New System.Drawing.Point(262, 41)
+        Me.btnSaveFeeContact.Name = "btnSaveFeeContact"
+        Me.btnSaveFeeContact.Size = New System.Drawing.Size(129, 23)
+        Me.btnSaveFeeContact.TabIndex = 0
+        Me.btnSaveFeeContact.Text = "Save Fee Contact Data"
+        Me.btnSaveFeeContact.UseVisualStyleBackColor = True
+        '
+        'btnClear
+        '
+        Me.btnClear.AutoSize = True
+        Me.btnClear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnClear.Location = New System.Drawing.Point(471, 41)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(67, 23)
+        Me.btnClear.TabIndex = 1
+        Me.btnClear.Text = "Clear Form"
+        Me.btnClear.UseVisualStyleBackColor = True
         '
         'btnLoadDefaultDescription
         '
@@ -161,15 +183,6 @@ Partial Class SSPPFeeContact
         Me.mtbPhoneNumber2.Size = New System.Drawing.Size(85, 20)
         Me.mtbPhoneNumber2.TabIndex = 11
         Me.mtbPhoneNumber2.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'mtbPhoneNumber1
-        '
-        Me.mtbPhoneNumber1.Location = New System.Drawing.Point(352, 82)
-        Me.mtbPhoneNumber1.Mask = "(999) 000-0000"
-        Me.mtbPhoneNumber1.Name = "mtbPhoneNumber1"
-        Me.mtbPhoneNumber1.Size = New System.Drawing.Size(85, 20)
-        Me.mtbPhoneNumber1.TabIndex = 10
-        Me.mtbPhoneNumber1.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'mtbZipCode
         '
@@ -356,36 +369,15 @@ Partial Class SSPPFeeContact
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "First Name"
         '
-        'Label1
+        'lblApp
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 89)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(59, 13)
-        Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Social Title"
-        '
-        'btnSaveFeeContact
-        '
-        Me.btnSaveFeeContact.AutoSize = True
-        Me.btnSaveFeeContact.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSaveFeeContact.Location = New System.Drawing.Point(262, 41)
-        Me.btnSaveFeeContact.Name = "btnSaveFeeContact"
-        Me.btnSaveFeeContact.Size = New System.Drawing.Size(129, 23)
-        Me.btnSaveFeeContact.TabIndex = 0
-        Me.btnSaveFeeContact.Text = "Save Fee Contact Data"
-        Me.btnSaveFeeContact.UseVisualStyleBackColor = True
-        '
-        'btnClear
-        '
-        Me.btnClear.AutoSize = True
-        Me.btnClear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClear.Location = New System.Drawing.Point(471, 41)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(67, 23)
-        Me.btnClear.TabIndex = 1
-        Me.btnClear.Text = "Clear Form"
-        Me.btnClear.UseVisualStyleBackColor = True
+        Me.lblApp.AutoSize = True
+        Me.lblApp.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblApp.Location = New System.Drawing.Point(12, 44)
+        Me.lblApp.Name = "lblApp"
+        Me.lblApp.Size = New System.Drawing.Size(88, 17)
+        Me.lblApp.TabIndex = 2
+        Me.lblApp.Text = "Application"
         '
         'lblAirs
         '
@@ -397,28 +389,34 @@ Partial Class SSPPFeeContact
         Me.lblAirs.TabIndex = 2
         Me.lblAirs.Text = "AIRS #"
         '
-        'lblApp
+        'Label1
         '
-        Me.lblApp.AutoSize = True
-        Me.lblApp.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblApp.Location = New System.Drawing.Point(12, 44)
-        Me.lblApp.Name = "lblApp"
-        Me.lblApp.Size = New System.Drawing.Size(88, 17)
-        Me.lblApp.TabIndex = 2
-        Me.lblApp.Text = "Application"
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(12, 89)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(59, 13)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "Social Title"
         '
-        'SSPP_FeeContact
+        'txtPhoneNumber1
+        '
+        Me.txtPhoneNumber1.Location = New System.Drawing.Point(352, 83)
+        Me.txtPhoneNumber1.Name = "txtPhoneNumber1"
+        Me.txtPhoneNumber1.Size = New System.Drawing.Size(186, 20)
+        Me.txtPhoneNumber1.TabIndex = 17
+        '
+        'SSPPFeeContact
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(550, 362)
+        Me.ClientSize = New System.Drawing.Size(550, 361)
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MaximumSize = New System.Drawing.Size(566, 400)
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(566, 400)
-        Me.Name = "SSPP_FeeContact"
+        Me.Name = "SSPPFeeContact"
         Me.Text = "SSPP Fee Contact Update"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
@@ -447,7 +445,6 @@ Partial Class SSPPFeeContact
     Friend WithEvents txtEmailAddress As System.Windows.Forms.TextBox
     Friend WithEvents mtbFaxNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mtbPhoneNumber2 As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbPhoneNumber1 As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mtbZipCode As System.Windows.Forms.MaskedTextBox
     Friend WithEvents txtState As System.Windows.Forms.TextBox
     Friend WithEvents txtCity As System.Windows.Forms.TextBox
@@ -461,4 +458,5 @@ Partial Class SSPPFeeContact
     Friend WithEvents btnSaveFeeContact As System.Windows.Forms.Button
     Friend WithEvents lblAirs As Label
     Friend WithEvents lblApp As Label
+    Friend WithEvents txtPhoneNumber1 As TextBox
 End Class

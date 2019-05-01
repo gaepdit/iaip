@@ -3329,9 +3329,9 @@ Public Class SSPPApplicationTrackingLog
                     txtContactCompanyName.Text = dr.Item("strContactCompanyName")
                 End If
                 If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
-                    mtbContactPhoneNumber.Clear()
+                    txtContactPhoneNumber.Clear()
                 Else
-                    mtbContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
+                    txtContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
                 End If
                 If IsDBNull(dr.Item("strContactFaxNumber")) Then
                     mtbContactFaxNumber.Clear()
@@ -5622,8 +5622,8 @@ Public Class SSPPApplicationTrackingLog
             Else
                 ContactCompany = " "
             End If
-            If mtbContactPhoneNumber.Text <> "" Then
-                ContactPhone = mtbContactPhoneNumber.Text
+            If txtContactPhoneNumber.Text <> "" Then
+                ContactPhone = txtContactPhoneNumber.Text
             Else
                 ContactPhone = "0000000000"
             End If
@@ -5696,7 +5696,7 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@ContactSuffix", ContactSuffix),
                     New SqlParameter("@ContactTitle", ContactTitle),
                     New SqlParameter("@ContactCompany", ContactCompany),
-                    New SqlParameter("@ContactPhone", Replace(Replace(Replace(Replace(ContactPhone, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("@ContactPhone", ContactPhone),
                     New SqlParameter("@ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
                     New SqlParameter("@ContactEmail", ContactEmail),
                     New SqlParameter("@ContactAddress", ContactAddress),
@@ -5734,7 +5734,7 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@ContactSuffix", ContactSuffix),
                     New SqlParameter("@ContactTitle", ContactTitle),
                     New SqlParameter("@ContactCompany", ContactCompany),
-                    New SqlParameter("@ContactPhone", Replace(Replace(Replace(Replace(ContactPhone, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("@ContactPhone", ContactPhone),
                     New SqlParameter("@ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
                     New SqlParameter("@ContactEmail", ContactEmail),
                     New SqlParameter("@ContactAddress", ContactAddress),
@@ -10171,9 +10171,9 @@ Public Class SSPPApplicationTrackingLog
                     txtContactCompanyName.Text = dr.Item("strContactCompanyName")
                 End If
                 If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
-                    mtbContactPhoneNumber.Clear()
+                    txtContactPhoneNumber.Clear()
                 Else
-                    mtbContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
+                    txtContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
                 End If
                 If IsDBNull(dr.Item("strContactFaxNumber")) Then
                     mtbContactFaxNumber.Clear()

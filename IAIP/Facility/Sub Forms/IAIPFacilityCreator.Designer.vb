@@ -42,9 +42,9 @@ Partial Class IAIPFacilityCreator
         Me.btnClear = New System.Windows.Forms.Button()
         Me.btnEditFacilityData = New System.Windows.Forms.Button()
         Me.GBContactInformation = New System.Windows.Forms.GroupBox()
+        Me.txtContactPhoneNumber = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.txtFacilityComments = New System.Windows.Forms.TextBox()
-        Me.mtbContactNumberExtension = New System.Windows.Forms.MaskedTextBox()
         Me.txtContactPedigree = New System.Windows.Forms.TextBox()
         Me.txtContactSocialTitle = New System.Windows.Forms.TextBox()
         Me.Label33 = New System.Windows.Forms.Label()
@@ -53,8 +53,6 @@ Partial Class IAIPFacilityCreator
         Me.Label35 = New System.Windows.Forms.Label()
         Me.txtContactFirstName = New System.Windows.Forms.TextBox()
         Me.Label36 = New System.Windows.Forms.Label()
-        Me.mtbContactPhoneNumber = New System.Windows.Forms.MaskedTextBox()
-        Me.Label23 = New System.Windows.Forms.Label()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.Label30 = New System.Windows.Forms.Label()
         Me.txtContactTitle = New System.Windows.Forms.TextBox()
@@ -108,7 +106,6 @@ Partial Class IAIPFacilityCreator
         Me.TCFacilityTools = New System.Windows.Forms.TabControl()
         Me.TPCreateNewFacility = New System.Windows.Forms.TabPage()
         Me.TPApproveNewFacility = New System.Windows.Forms.TabPage()
-        Me.dgvVerifyNewFacilities = New System.Windows.Forms.DataGridView()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.Label29 = New System.Windows.Forms.Label()
@@ -144,6 +141,7 @@ Partial Class IAIPFacilityCreator
         Me.txtNewFacilityName = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txtNewAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.dgvVerifyNewFacilities = New System.Windows.Forms.DataGridView()
         Me.TPDeleteFacility = New System.Windows.Forms.TabPage()
         Me.FacilityLongDisplay = New System.Windows.Forms.Label()
         Me.AirsNumberToDelete = New System.Windows.Forms.TextBox()
@@ -159,9 +157,9 @@ Partial Class IAIPFacilityCreator
         Me.TCFacilityTools.SuspendLayout()
         Me.TPCreateNewFacility.SuspendLayout()
         Me.TPApproveNewFacility.SuspendLayout()
-        CType(Me.dgvVerifyNewFacilities, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvValidatingAIRS, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvVerifyNewFacilities, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPDeleteFacility.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -396,9 +394,9 @@ Partial Class IAIPFacilityCreator
         '
         'GBContactInformation
         '
+        Me.GBContactInformation.Controls.Add(Me.txtContactPhoneNumber)
         Me.GBContactInformation.Controls.Add(Me.Label14)
         Me.GBContactInformation.Controls.Add(Me.txtFacilityComments)
-        Me.GBContactInformation.Controls.Add(Me.mtbContactNumberExtension)
         Me.GBContactInformation.Controls.Add(Me.txtContactPedigree)
         Me.GBContactInformation.Controls.Add(Me.txtContactSocialTitle)
         Me.GBContactInformation.Controls.Add(Me.Label33)
@@ -407,8 +405,6 @@ Partial Class IAIPFacilityCreator
         Me.GBContactInformation.Controls.Add(Me.Label35)
         Me.GBContactInformation.Controls.Add(Me.txtContactFirstName)
         Me.GBContactInformation.Controls.Add(Me.Label36)
-        Me.GBContactInformation.Controls.Add(Me.mtbContactPhoneNumber)
-        Me.GBContactInformation.Controls.Add(Me.Label23)
         Me.GBContactInformation.Controls.Add(Me.Label22)
         Me.GBContactInformation.Controls.Add(Me.Label30)
         Me.GBContactInformation.Controls.Add(Me.txtContactTitle)
@@ -419,6 +415,13 @@ Partial Class IAIPFacilityCreator
         Me.GBContactInformation.TabIndex = 5
         Me.GBContactInformation.TabStop = False
         Me.GBContactInformation.Text = "Contact Information"
+        '
+        'txtContactPhoneNumber
+        '
+        Me.txtContactPhoneNumber.Location = New System.Drawing.Point(362, 40)
+        Me.txtContactPhoneNumber.Name = "txtContactPhoneNumber"
+        Me.txtContactPhoneNumber.Size = New System.Drawing.Size(189, 20)
+        Me.txtContactPhoneNumber.TabIndex = 376
         '
         'Label14
         '
@@ -436,14 +439,6 @@ Partial Class IAIPFacilityCreator
         Me.txtFacilityComments.Name = "txtFacilityComments"
         Me.txtFacilityComments.Size = New System.Drawing.Size(496, 47)
         Me.txtFacilityComments.TabIndex = 7
-        '
-        'mtbContactNumberExtension
-        '
-        Me.mtbContactNumberExtension.Location = New System.Drawing.Point(493, 40)
-        Me.mtbContactNumberExtension.Mask = "0000"
-        Me.mtbContactNumberExtension.Name = "mtbContactNumberExtension"
-        Me.mtbContactNumberExtension.Size = New System.Drawing.Size(46, 20)
-        Me.mtbContactNumberExtension.TabIndex = 6
         '
         'txtContactPedigree
         '
@@ -509,27 +504,10 @@ Partial Class IAIPFacilityCreator
         Me.Label36.TabIndex = 368
         Me.Label36.Text = "First Name"
         '
-        'mtbContactPhoneNumber
-        '
-        Me.mtbContactPhoneNumber.Location = New System.Drawing.Point(359, 40)
-        Me.mtbContactPhoneNumber.Mask = "(999) 000-0000"
-        Me.mtbContactPhoneNumber.Name = "mtbContactPhoneNumber"
-        Me.mtbContactPhoneNumber.Size = New System.Drawing.Size(100, 20)
-        Me.mtbContactPhoneNumber.TabIndex = 5
-        '
-        'Label23
-        '
-        Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(465, 44)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(24, 13)
-        Me.Label23.TabIndex = 133
-        Me.Label23.Text = "ext."
-        '
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(278, 44)
+        Me.Label22.Location = New System.Drawing.Point(278, 43)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(78, 13)
         Me.Label22.TabIndex = 130
@@ -1050,22 +1028,6 @@ Partial Class IAIPFacilityCreator
         Me.TPApproveNewFacility.Text = "Approve New Facilities"
         Me.TPApproveNewFacility.UseVisualStyleBackColor = True
         '
-        'dgvVerifyNewFacilities
-        '
-        Me.dgvVerifyNewFacilities.AllowUserToAddRows = False
-        Me.dgvVerifyNewFacilities.AllowUserToDeleteRows = False
-        Me.dgvVerifyNewFacilities.AllowUserToResizeRows = False
-        Me.dgvVerifyNewFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvVerifyNewFacilities.Dock = System.Windows.Forms.DockStyle.Top
-        Me.dgvVerifyNewFacilities.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvVerifyNewFacilities.Location = New System.Drawing.Point(3, 3)
-        Me.dgvVerifyNewFacilities.MultiSelect = False
-        Me.dgvVerifyNewFacilities.Name = "dgvVerifyNewFacilities"
-        Me.dgvVerifyNewFacilities.RowHeadersVisible = False
-        Me.dgvVerifyNewFacilities.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvVerifyNewFacilities.Size = New System.Drawing.Size(732, 226)
-        Me.dgvVerifyNewFacilities.TabIndex = 0
-        '
         'Panel5
         '
         Me.Panel5.Controls.Add(Me.Label31)
@@ -1433,6 +1395,22 @@ Partial Class IAIPFacilityCreator
         Me.txtNewAIRSNumber.Size = New System.Drawing.Size(88, 20)
         Me.txtNewAIRSNumber.TabIndex = 4
         '
+        'dgvVerifyNewFacilities
+        '
+        Me.dgvVerifyNewFacilities.AllowUserToAddRows = False
+        Me.dgvVerifyNewFacilities.AllowUserToDeleteRows = False
+        Me.dgvVerifyNewFacilities.AllowUserToResizeRows = False
+        Me.dgvVerifyNewFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvVerifyNewFacilities.Dock = System.Windows.Forms.DockStyle.Top
+        Me.dgvVerifyNewFacilities.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.dgvVerifyNewFacilities.Location = New System.Drawing.Point(3, 3)
+        Me.dgvVerifyNewFacilities.MultiSelect = False
+        Me.dgvVerifyNewFacilities.Name = "dgvVerifyNewFacilities"
+        Me.dgvVerifyNewFacilities.RowHeadersVisible = False
+        Me.dgvVerifyNewFacilities.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvVerifyNewFacilities.Size = New System.Drawing.Size(732, 226)
+        Me.dgvVerifyNewFacilities.TabIndex = 0
+        '
         'TPDeleteFacility
         '
         Me.TPDeleteFacility.Controls.Add(Me.FacilityLongDisplay)
@@ -1506,10 +1484,10 @@ Partial Class IAIPFacilityCreator
         Me.TCFacilityTools.ResumeLayout(False)
         Me.TPCreateNewFacility.ResumeLayout(False)
         Me.TPApproveNewFacility.ResumeLayout(False)
-        CType(Me.dgvVerifyNewFacilities, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
         CType(Me.dgvValidatingAIRS, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvVerifyNewFacilities, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPDeleteFacility.ResumeLayout(False)
         Me.TPDeleteFacility.PerformLayout()
         Me.ResumeLayout(False)
@@ -1637,7 +1615,6 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents txtFacilityDescription As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents GBContactInformation As System.Windows.Forms.GroupBox
-    Friend WithEvents mtbContactNumberExtension As System.Windows.Forms.MaskedTextBox
     Friend WithEvents txtContactPedigree As System.Windows.Forms.TextBox
     Friend WithEvents txtContactSocialTitle As System.Windows.Forms.TextBox
     Friend WithEvents Label33 As System.Windows.Forms.Label
@@ -1646,8 +1623,6 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents Label35 As System.Windows.Forms.Label
     Friend WithEvents txtContactFirstName As System.Windows.Forms.TextBox
     Friend WithEvents Label36 As System.Windows.Forms.Label
-    Friend WithEvents mtbContactPhoneNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents Label30 As System.Windows.Forms.Label
     Friend WithEvents txtContactTitle As System.Windows.Forms.TextBox
@@ -1714,4 +1689,5 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents FacilityLongDisplay As System.Windows.Forms.Label
     Friend WithEvents txtApplicationNumber As CueTextBox
     Friend WithEvents btnClear As Button
+    Friend WithEvents txtContactPhoneNumber As TextBox
 End Class

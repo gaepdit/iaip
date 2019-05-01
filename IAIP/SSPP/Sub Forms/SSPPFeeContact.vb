@@ -37,7 +37,7 @@ Public Class SSPPFeeContact
             txtCity.Clear()
             txtState.Clear()
             mtbZipCode.Clear()
-            mtbPhoneNumber1.Clear()
+            txtPhoneNumber1.Clear()
             mtbPhoneNumber2.Clear()
             mtbFaxNumber.Clear()
             txtEmailAddress.Clear()
@@ -92,9 +92,9 @@ Public Class SSPPFeeContact
                     txtCompany.Text = dr.Item("strContactCompanyName").ToString
                 End If
                 If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
-                    mtbPhoneNumber1.Clear()
+                    txtPhoneNumber1.Clear()
                 Else
-                    mtbPhoneNumber1.Text = dr.Item("strContactPhoneNumber1").ToString
+                    txtPhoneNumber1.Text = dr.Item("strContactPhoneNumber1").ToString
                 End If
                 If IsDBNull(dr.Item("strContactPhoneNumber2")) Then
                     mtbPhoneNumber2.Clear()
@@ -153,7 +153,7 @@ Public Class SSPPFeeContact
         txtCity.Clear()
         txtState.Clear()
         mtbZipCode.Clear()
-        mtbPhoneNumber1.Clear()
+        txtPhoneNumber1.Clear()
         mtbPhoneNumber2.Clear()
         mtbFaxNumber.Clear()
         txtEmailAddress.Clear()
@@ -225,7 +225,7 @@ Public Class SSPPFeeContact
                 New SqlParameter("@strContactSuffix", txtPedigree.Text),
                 New SqlParameter("@strContactCompanyName", txtCompany.Text),
                 New SqlParameter("@strContactTitle", txtTitle.Text),
-                New SqlParameter("@strContactPhoneNumber1", mtbPhoneNumber1.Text),
+                New SqlParameter("@strContactPhoneNumber1", txtPhoneNumber1.Text),
                 New SqlParameter("@strContactPhoneNumber2", mtbPhoneNumber2.Text),
                 New SqlParameter("@strContactFaxNumber", mtbFaxNumber.Text),
                 New SqlParameter("@strContactEmail", txtEmailAddress.Text),

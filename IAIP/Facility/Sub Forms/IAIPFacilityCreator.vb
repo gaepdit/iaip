@@ -474,13 +474,10 @@ Public Class IAIPFacilityCreator
             Else
                 ContactTitle = "N/A"
             End If
-            If mtbContactPhoneNumber.Text <> "" Then
-                ContactPhoneNumber = Replace(Replace(Replace(Replace(mtbContactPhoneNumber.Text, "(", ""), ")", ""), " ", ""), "-", "")
+            If String.IsNullOrEmpty(txtContactPhoneNumber.Text) Then
+                ContactPhoneNumber = txtContactPhoneNumber.Text
             Else
                 ContactPhoneNumber = "0000000000"
-            End If
-            If mtbContactNumberExtension.Text <> "" Then
-                ContactPhoneNumber = ContactPhoneNumber & mtbContactNumberExtension.Text
             End If
             If txtMailingAddress.Text <> "" Then
                 MailingStreet = txtMailingAddress.Text
@@ -986,11 +983,9 @@ Public Class IAIPFacilityCreator
                         txtContactTitle.Text = dr.Item("strContactTitle").ToString
                     End If
                     If IsDBNull(dr.Item("strCOntactphoneNumber1")) Then
-                        mtbContactPhoneNumber.Clear()
-                        mtbContactNumberExtension.Clear()
+                        txtContactPhoneNumber.Clear()
                     Else
-                        mtbContactPhoneNumber.Text = Mid(dr.Item("strContactPhoneNumber1").ToString, 1, 10)
-                        mtbContactNumberExtension.Text = Mid(dr.Item("strcontactPhoneNumber1").ToString, 11)
+                        txtContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1").ToString
                     End If
                 End If
             End If
@@ -1313,11 +1308,9 @@ Public Class IAIPFacilityCreator
                     txtContactTitle.Text = dr.Item("strContactTitle").ToString
                 End If
                 If IsDBNull(dr.Item("strCOntactphoneNumber1")) Then
-                    mtbContactPhoneNumber.Clear()
-                    mtbContactNumberExtension.Clear()
+                    txtContactPhoneNumber.Clear()
                 Else
-                    mtbContactPhoneNumber.Text = Mid(dr.Item("strContactPhoneNumber1").ToString, 1, 10)
-                    mtbContactNumberExtension.Text = Mid(dr.Item("strcontactPhoneNumber1").ToString, 11)
+                    txtContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1").ToString
                 End If
                 If IsDBNull(dr.Item("numFacilityLongitude")) Then
                     mtbFacilityLongitude.Clear()
@@ -1663,8 +1656,7 @@ Public Class IAIPFacilityCreator
         txtContactLastName.Clear()
         txtContactPedigree.Clear()
         txtContactTitle.Clear()
-        mtbContactPhoneNumber.Clear()
-        mtbContactNumberExtension.Clear()
+        txtContactPhoneNumber.Clear()
         txtFacilityComments.Clear()
 
         txtNewAIRSNumber.Clear()
@@ -1872,13 +1864,10 @@ Public Class IAIPFacilityCreator
             Else
                 ContactTitle = "N/A"
             End If
-            If mtbContactPhoneNumber.Text <> "" Then
-                ContactPhoneNumber = Replace(Replace(Replace(Replace(mtbContactPhoneNumber.Text, "(", ""), ")", ""), " ", ""), "-", "")
+            If String.IsNullOrEmpty(txtContactPhoneNumber.Text) Then
+                ContactPhoneNumber = txtContactPhoneNumber.Text
             Else
                 ContactPhoneNumber = "0000000000"
-            End If
-            If mtbContactNumberExtension.Text <> "" Then
-                ContactPhoneNumber = ContactPhoneNumber & mtbContactNumberExtension.Text
             End If
             If txtMailingAddress.Text <> "" Then
                 MailingStreet = txtMailingAddress.Text
