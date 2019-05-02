@@ -73,4 +73,10 @@ Module ComboBoxHelpers
         c.DropDownWidth = Math.Max(c.Width, c.Items.Cast(Of Object).Max(Function(o) TextRenderer.MeasureText(c.GetItemText(o), c.Font).Width) + scrollBarWidth)
     End Sub
 
+    Public Sub SetComboBoxFilter(cbo As ComboBox, rowFilter As String)
+        Dim view As DataView = CType(cbo.DataSource, DataView)
+        view.RowFilter = rowFilter
+        cbo.SelectedValue = 0
+    End Sub
+
 End Module

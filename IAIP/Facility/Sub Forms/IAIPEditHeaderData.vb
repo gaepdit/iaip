@@ -114,7 +114,7 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Sub CheckEditingPermissions()
-        If Not EditingIsAllowed() Then
+        If Not CurrentUser.HasPermission(UserCan.EditFacilityHeaderData) Then
             HideControls({EditData, SaveChangesButton, CancelEditButton})
         End If
     End Sub
@@ -291,23 +291,23 @@ Public Class IAIPEditHeaderData
             End If
             NaicsCode.Text = .Naics
 
-            ApcAcid.Checked = Convert.ToBoolean(.AirPrograms And AirProgram.AcidPrecipitation)
-            ApcCfc.Checked = CBool(.AirPrograms And AirProgram.CfcTracking)
-            ApcFederalSip.Checked = CBool(.AirPrograms And AirProgram.FederalSIP)
-            ApcFesop.Checked = CBool(.AirPrograms And AirProgram.FESOP)
-            ApcMact.Checked = CBool(.AirPrograms And AirProgram.MACT)
-            ApcNativeAmerican.Checked = CBool(.AirPrograms And AirProgram.NativeAmerican)
-            ApcNeshap.Checked = CBool(.AirPrograms And AirProgram.NESHAP)
-            ApcNonfederalSip.Checked = CBool(.AirPrograms And AirProgram.NonFederalSIP)
-            ApcNsps.Checked = CBool(.AirPrograms And AirProgram.NSPS)
-            ApcNsr.Checked = CBool(.AirPrograms And AirProgram.NSR)
-            ApcPsd.Checked = CBool(.AirPrograms And AirProgram.PSD)
-            ApcRmp.Checked = CBool(.AirPrograms And AirProgram.RMP)
-            ApcSip.Checked = CBool(.AirPrograms And AirProgram.SIP)
-            ApcTitleV.Checked = CBool(.AirPrograms And AirProgram.TitleV)
+            ApcAcid.Checked = Convert.ToBoolean(.AirPrograms And AirPrograms.AcidPrecipitation)
+            ApcCfc.Checked = CBool(.AirPrograms And AirPrograms.CfcTracking)
+            ApcFederalSip.Checked = CBool(.AirPrograms And AirPrograms.FederalSIP)
+            ApcFesop.Checked = CBool(.AirPrograms And AirPrograms.FESOP)
+            ApcMact.Checked = CBool(.AirPrograms And AirPrograms.MACT)
+            ApcNativeAmerican.Checked = CBool(.AirPrograms And AirPrograms.NativeAmerican)
+            ApcNeshap.Checked = CBool(.AirPrograms And AirPrograms.NESHAP)
+            ApcNonfederalSip.Checked = CBool(.AirPrograms And AirPrograms.NonFederalSIP)
+            ApcNsps.Checked = CBool(.AirPrograms And AirPrograms.NSPS)
+            ApcNsr.Checked = CBool(.AirPrograms And AirPrograms.NSR)
+            ApcPsd.Checked = CBool(.AirPrograms And AirPrograms.PSD)
+            ApcRmp.Checked = CBool(.AirPrograms And AirPrograms.RMP)
+            ApcSip.Checked = CBool(.AirPrograms And AirPrograms.SIP)
+            ApcTitleV.Checked = CBool(.AirPrograms And AirPrograms.TitleV)
 
-            NsrMajor.Checked = CBool(.AirProgramClassifications And AirProgramClassification.NsrMajor)
-            HapMajor.Checked = CBool(.AirProgramClassifications And AirProgramClassification.HapMajor)
+            NsrMajor.Checked = CBool(.AirProgramClassifications And AirProgramClassifications.NsrMajor)
+            HapMajor.Checked = CBool(.AirProgramClassifications And AirProgramClassifications.HapMajor)
 
             ' Currently we are only tracking federally-owned facilities. Eventually 
             ' this could be expanded to use a drop-down with all ownership types.
@@ -359,25 +359,25 @@ Public Class IAIPEditHeaderData
                 .ShutdownDate = Nothing
             End If
 
-            .AirPrograms = AirProgram.None
-            If ApcAcid.Checked Then .AirPrograms = .AirPrograms Or AirProgram.AcidPrecipitation
-            If ApcCfc.Checked Then .AirPrograms = .AirPrograms Or AirProgram.CfcTracking
-            If ApcFederalSip.Checked Then .AirPrograms = .AirPrograms Or AirProgram.FederalSIP
-            If ApcFesop.Checked Then .AirPrograms = .AirPrograms Or AirProgram.FESOP
-            If ApcMact.Checked Then .AirPrograms = .AirPrograms Or AirProgram.MACT
-            If ApcNativeAmerican.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NativeAmerican
-            If ApcNeshap.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NESHAP
-            If ApcNonfederalSip.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NonFederalSIP
-            If ApcNsps.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NSPS
-            If ApcNsr.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NSR
-            If ApcPsd.Checked Then .AirPrograms = .AirPrograms Or AirProgram.PSD
-            If ApcRmp.Checked Then .AirPrograms = .AirPrograms Or AirProgram.RMP
-            If ApcSip.Checked Then .AirPrograms = .AirPrograms Or AirProgram.SIP
-            If ApcTitleV.Checked Then .AirPrograms = .AirPrograms Or AirProgram.TitleV
+            .AirPrograms = AirPrograms.None
+            If ApcAcid.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.AcidPrecipitation
+            If ApcCfc.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.CfcTracking
+            If ApcFederalSip.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.FederalSIP
+            If ApcFesop.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.FESOP
+            If ApcMact.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.MACT
+            If ApcNativeAmerican.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.NativeAmerican
+            If ApcNeshap.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.NESHAP
+            If ApcNonfederalSip.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.NonFederalSIP
+            If ApcNsps.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.NSPS
+            If ApcNsr.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.NSR
+            If ApcPsd.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.PSD
+            If ApcRmp.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.RMP
+            If ApcSip.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.SIP
+            If ApcTitleV.Checked Then .AirPrograms = .AirPrograms Or AirPrograms.TitleV
 
-            .AirProgramClassifications = AirProgramClassification.None
-            If NsrMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassification.NsrMajor
-            If HapMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassification.HapMajor
+            .AirProgramClassifications = AirProgramClassifications.None
+            If NsrMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassifications.NsrMajor
+            If HapMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassifications.HapMajor
 
             ' Currently we are only tracking federally-owned facilities, represented by this OwnershipTypeCode
             .OwnershipTypeCode = If(FederallyOwned.Checked, FacilityHeaderData.FederallyOwnedTypeCode, Nothing)
@@ -398,7 +398,7 @@ Public Class IAIPEditHeaderData
 
         ' See if facility is being shut down & check permissions
         If UserIsTryingToCloseFacility() Then
-            If Not UserCanShutDownFacility() Then
+            If Not CurrentUser.HasPermission(UserCan.ShutDownFacility) Then
                 MessageBox.Show("You do not have permissions to shut down a facility. Please contact your manager.",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return False
@@ -428,7 +428,7 @@ Public Class IAIPEditHeaderData
         Return True
     End Function
 
-    Private Function FacilityHeaderDataDiffers(facility1 As FacilityHeaderData, facility2 As FacilityHeaderData) As Boolean
+    Private Shared Function FacilityHeaderDataDiffers(facility1 As FacilityHeaderData, facility2 As FacilityHeaderData) As Boolean
         If facility1.AirProgramClassificationsCode <> facility2.AirProgramClassificationsCode Then Return True
         If facility1.AirProgramsCode <> facility2.AirProgramsCode Then Return True
         If facility1.ClassificationCode <> facility2.ClassificationCode Then Return True
@@ -445,7 +445,7 @@ Public Class IAIPEditHeaderData
         Return False
     End Function
 
-    Private Function ConfirmFacilityShutdown() As Boolean
+    Private Shared Function ConfirmFacilityShutdown() As Boolean
         Return MessageBox.Show("Are you sure you want to mark this facility as closed/dismantled? " &
                                "This will revoke all existing permits.",
                                "Warning", MessageBoxButtons.YesNo,
@@ -519,12 +519,6 @@ Public Class IAIPEditHeaderData
         Return valid
     End Function
 
-    Private Sub HighlightControls(controls As List(Of Control))
-        For Each c As Control In controls
-            c.BackColor = Color.Yellow
-        Next
-    End Sub
-
     Private Sub ResetControlHighlights()
         Dim resetableControls As New List(Of Control)(New Control() {
           ClassificationLabel,
@@ -590,16 +584,16 @@ Public Class IAIPEditHeaderData
 
 #End Region
 
-#Region " Permissions "
-
-    Private Function EditingIsAllowed() As Boolean
-        Return CurrentUser.HasPermission(UserCan.EditFacilityHeaderData)
-    End Function
-
-    Private Function UserCanShutDownFacility() As Boolean
-        Return CurrentUser.HasPermission(UserCan.ShutDownFacility)
-    End Function
-
-#End Region
+    'Form overrides dispose to clean up the component list. 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If FacilityHeaderDataHistory IsNot Nothing Then FacilityHeaderDataHistory.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
 
 End Class

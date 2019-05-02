@@ -205,9 +205,9 @@ Public Class IAIPEditContacts
                         txtNewCompany.Text = dr.Item("STRCONTACTCOMPANYNAME")
                     End If
                     If IsDBNull(dr.Item("STRCONTACTPHONENUMBER1")) Then
-                        mtbNewPhoneNumber.Clear()
+                        txtNewPhoneNumber.Clear()
                     Else
-                        mtbNewPhoneNumber.Text = dr.Item("STRCONTACTPHONENUMBER1")
+                        txtNewPhoneNumber.Text = dr.Item("STRCONTACTPHONENUMBER1")
                     End If
                     If IsDBNull(dr.Item("STRCONTACTPHONENUMBER2")) Then
                         mtbNewPhoneNumber2.Clear()
@@ -321,7 +321,7 @@ Public Class IAIPEditContacts
         txtNewSuffix.Clear()
         txtNewTitle.Clear()
         mtbNewFaxNumber.Clear()
-        mtbNewPhoneNumber.Clear()
+        txtNewPhoneNumber.Clear()
         mtbNewPhoneNumber2.Clear()
         mtbNewZipCode.Clear()
         Key = ContactKey.None
@@ -370,7 +370,7 @@ Public Class IAIPEditContacts
                         New SqlParameter("@STRCONTACTSUFFIX", txtNewSuffix.Text),
                         New SqlParameter("@STRCONTACTTITLE", txtNewTitle.Text),
                         New SqlParameter("@STRCONTACTCOMPANYNAME", txtNewCompany.Text),
-                        New SqlParameter("@STRCONTACTPHONENUMBER1", mtbNewPhoneNumber.Text),
+                        New SqlParameter("@STRCONTACTPHONENUMBER1", txtNewPhoneNumber.Text),
                         New SqlParameter("@STRCONTACTPHONENUMBER2", mtbNewPhoneNumber2.Text),
                         New SqlParameter("@STRCONTACTFAXNUMBER", mtbNewFaxNumber.Text),
                         New SqlParameter("@STRCONTACTEMAIL", txtNewEmail.Text),
@@ -435,7 +435,7 @@ Public Class IAIPEditContacts
                             New SqlParameter("@STRCONTACTSUFFIX", txtNewSuffix.Text),
                             New SqlParameter("@STRCONTACTTITLE", txtNewTitle.Text),
                             New SqlParameter("@STRCONTACTCOMPANYNAME", txtNewCompany.Text),
-                            New SqlParameter("@STRCONTACTPHONENUMBER1", mtbNewPhoneNumber.Text),
+                            New SqlParameter("@STRCONTACTPHONENUMBER1", txtNewPhoneNumber.Text),
                             New SqlParameter("@STRCONTACTPHONENUMBER2", mtbNewPhoneNumber2.Text),
                             New SqlParameter("@STRCONTACTFAXNUMBER", mtbNewFaxNumber.Text),
                             New SqlParameter("@STRCONTACTEMAIL", txtNewEmail.Text),
@@ -546,7 +546,7 @@ Public Class IAIPEditContacts
                                 New SqlParameter("@STRCONTACTSUFFIX", txtNewSuffix.Text),
                                 New SqlParameter("@STRCONTACTTITLE", txtNewTitle.Text),
                                 New SqlParameter("@STRCONTACTCOMPANYNAME", txtNewCompany.Text),
-                                New SqlParameter("@STRCONTACTPHONENUMBER1", mtbNewPhoneNumber.Text),
+                                New SqlParameter("@STRCONTACTPHONENUMBER1", txtNewPhoneNumber.Text),
                                 New SqlParameter("@STRCONTACTPHONENUMBER2", mtbNewPhoneNumber2.Text),
                                 New SqlParameter("@STRCONTACTFAXNUMBER", mtbNewFaxNumber.Text),
                                 New SqlParameter("@STRCONTACTEMAIL", txtNewEmail.Text),
@@ -590,7 +590,7 @@ Public Class IAIPEditContacts
                                 New SqlParameter("@STRCONTACTSUFFIX", txtNewSuffix.Text),
                                 New SqlParameter("@STRCONTACTTITLE", txtNewTitle.Text),
                                 New SqlParameter("@STRCONTACTCOMPANYNAME", txtNewCompany.Text),
-                                New SqlParameter("@STRCONTACTPHONENUMBER1", mtbNewPhoneNumber.Text),
+                                New SqlParameter("@STRCONTACTPHONENUMBER1", txtNewPhoneNumber.Text),
                                 New SqlParameter("@STRCONTACTPHONENUMBER2", mtbNewPhoneNumber2.Text),
                                 New SqlParameter("@STRCONTACTFAXNUMBER", mtbNewFaxNumber.Text),
                                 New SqlParameter("@STRCONTACTEMAIL", txtNewEmail.Text),

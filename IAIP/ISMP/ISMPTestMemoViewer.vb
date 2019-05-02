@@ -21,7 +21,7 @@ Public Class ISMPTestMemoViewer
         Dim SQLLine As String = " "
         Dim SQLLine2 As String = "AND ("
         Dim SQLLine3 As String = "AND ("
-        Dim SQLLine4 As String = " "
+        Dim SQLLine4 As String
 
         Try
 
@@ -133,27 +133,6 @@ Public Class ISMPTestMemoViewer
             'Setting the DataGrid Caption, which defines the table title
             dgrMemoViewer.CaptionText = "Test Memo Viewer"
             dgrMemoViewer.ColumnHeadersVisible = True
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub ResetOptions()
-        Try
-
-            txtFilterText1.Clear()
-            chbOpen.Checked = False
-            chbClosed.Checked = False
-            chbDelete.Checked = False
-            chbComplianceStatus1.Checked = False
-            chbComplianceStatus2.Checked = False
-            chbComplianceStatus3.Checked = False
-            chbComplianceStatus4.Checked = False
-            chbComplianceStatus5.Checked = False
-            txtReferenceNumber.Clear()
-            txtReferenceNumber2.Clear()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

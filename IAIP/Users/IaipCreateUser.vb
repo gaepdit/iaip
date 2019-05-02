@@ -1,6 +1,5 @@
-﻿Imports System.Text
-Imports System.Collections.Generic
-Imports Iaip.SharedData
+﻿Imports System.Collections.Generic
+Imports System.Text
 
 Public Class IaipCreateUser
 

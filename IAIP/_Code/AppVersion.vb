@@ -55,7 +55,7 @@ Public Module AppVersion
             Exit Sub
         End If
 
-        Dim info As UpdateCheckInfo = Nothing
+        Dim info As UpdateCheckInfo
 
         If (ApplicationDeployment.IsNetworkDeployed) Then
             Dim AD As ApplicationDeployment = ApplicationDeployment.CurrentDeployment

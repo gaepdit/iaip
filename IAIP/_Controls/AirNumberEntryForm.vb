@@ -74,7 +74,7 @@ Public Class AirNumberEntryForm
 
     <Category("Appearance"), Description("Specifies the placeholder text to display in the TextBox.")>
     <DefaultValue("000-00000")>
-    Public Property Cue As String 
+    Public Property Cue As String
         Get
             Return AirsEntryTextBox.Cue
         End Get
@@ -182,6 +182,18 @@ Public Class AirNumberEntryForm
 
     Private Sub AirsEntryTextBox_Leave(sender As Object, e As EventArgs) Handles AirsEntryTextBox.Leave
         RaiseEvent AirsTextLeave(sender, e)
+    End Sub
+
+    'UserControl overrides dispose to clean up the component list.
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If airsEntryErrorProvider IsNot Nothing Then airsEntryErrorProvider.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
     End Sub
 
 End Class

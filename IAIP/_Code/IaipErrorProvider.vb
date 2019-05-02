@@ -70,17 +70,31 @@
         End If
     End Sub
 
-    Protected Overridable Overloads Sub Dispose(disposing As Boolean)
-        If disposing Then
-            errorProvider.Dispose()
-            ErrorControl.Dispose()
-            DisplayLabel.Dispose()
+#Region "IDisposable Support"
+    Private disposedValue As Boolean ' To detect redundant calls
+
+    ' IDisposable
+    Protected Overridable Sub Dispose(disposing As Boolean)
+        If Not disposedValue Then
+            If disposing Then
+                If errorProvider IsNot Nothing Then errorProvider.Dispose()
+                If ErrorControl IsNot Nothing Then ErrorControl.Dispose()
+                If DisplayLabel IsNot Nothing Then DisplayLabel.Dispose()
+            End If
         End If
+        disposedValue = True
     End Sub
 
-    Public Overloads Sub Dispose() Implements IDisposable.Dispose
+    Protected Overrides Sub Finalize()
+        Dispose(False)
+        MyBase.Finalize()
+    End Sub
+
+    Public Sub Dispose() Implements IDisposable.Dispose
+        ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
         Dispose(True)
         GC.SuppressFinalize(Me)
     End Sub
+#End Region
 
 End Class

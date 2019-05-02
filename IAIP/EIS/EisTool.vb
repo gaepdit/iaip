@@ -1597,18 +1597,18 @@ Public Class EisTool
     Private Sub GenerateESMailOut()
         Dim airsNumber As String
         Dim airsYear As String
-        Dim FACILITYNAME As String = " "
-        Dim CONTACTCOMPANYNAME As String = " "
-        Dim CONTACTADDRESS1 As String = " "
-        Dim CONTACTCITY As String = " "
-        Dim CONTACTSTATE As String = " "
-        Dim CONTACTZIPCODE As String = " "
-        Dim CONTACTFIRSTNAME As String = " "
-        Dim CONTACTLASTNAME As String = " "
-        Dim CONTACTEMAIL As String = " "
+        Dim FACILITYNAME As String
+        Dim CONTACTCOMPANYNAME As String
+        Dim CONTACTADDRESS1 As String
+        Dim CONTACTCITY As String
+        Dim CONTACTSTATE As String
+        Dim CONTACTZIPCODE As String
+        Dim CONTACTFIRSTNAME As String
+        Dim CONTACTLASTNAME As String
+        Dim CONTACTEMAIL As String
         Dim ESYear As String = cboMailoutYear.SelectedItem
-        Dim OperationalStatus As String = " "
-        Dim FacilityClass As String = " "
+        Dim OperationalStatus As String
+        Dim FacilityClass As String
 
         Try
             Dim SQL As String = "Select strAirsNumber " &
@@ -2853,7 +2853,7 @@ Public Class EisTool
                             End If
                         End If
                     Else
-                            rdbEILogOpOutNo.Checked = True
+                        rdbEILogOpOutNo.Checked = True
                     End If
                 End If
 
@@ -3668,9 +3668,9 @@ Public Class EisTool
                 " and FacilitySiteID in ({0}) "
 
                 Dim paramNameList As New List(Of String)
-                Dim paramList As New List(Of SqlParameter)
-
-                paramList.Add(New SqlParameter("@inventoryYear", EISConfirm))
+                Dim paramList As New List(Of SqlParameter) From {
+                    New SqlParameter("@inventoryYear", EISConfirm)
+                }
 
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
@@ -3726,10 +3726,10 @@ Public Class EisTool
                     "and FacilitySiteID in ({0}) "
 
                 Dim paramNameList1 As New List(Of String)
-                Dim paramList1 As New List(Of SqlParameter)
-
-                paramList1.Add(New SqlParameter("@updateuser", CurrentUser.AlphaName))
-                paramList1.Add(New SqlParameter("@inventoryYear", EISConfirm))
+                Dim paramList1 As New List(Of SqlParameter) From {
+                    New SqlParameter("@updateuser", CurrentUser.AlphaName),
+                    New SqlParameter("@inventoryYear", EISConfirm)
+                }
 
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
@@ -3758,10 +3758,10 @@ Public Class EisTool
                     "and FacilitySiteID in ({0}) "
 
                 Dim paramNameList2 As New List(Of String)
-                Dim paramList2 As New List(Of SqlParameter)
-
-                paramList2.Add(New SqlParameter("@updateuser", CurrentUser.AlphaName))
-                paramList2.Add(New SqlParameter("@inventoryYear", EISConfirm))
+                Dim paramList2 As New List(Of SqlParameter) From {
+                    New SqlParameter("@updateuser", CurrentUser.AlphaName),
+                    New SqlParameter("@inventoryYear", EISConfirm)
+                }
 
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
@@ -4955,10 +4955,10 @@ Public Class EisTool
                 " and FacilitySiteID in ({0}) "
 
                 Dim paramNameList As New List(Of String)
-                Dim paramList As New List(Of SqlParameter)
-
-                paramList.Add(New SqlParameter("@inventoryYear", EISConfirm))
-                paramList.Add(New SqlParameter("@UpdateUser", CurrentUser.AlphaName))
+                Dim paramList As New List(Of SqlParameter) From {
+                    New SqlParameter("@inventoryYear", EISConfirm),
+                    New SqlParameter("@UpdateUser", CurrentUser.AlphaName)
+                }
 
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
@@ -6038,16 +6038,11 @@ Public Class EisTool
                 params.Add(facList.AsTvpSqlParameter("@Facility_List"))
             End If
 
-            Dim result As Boolean = DB.SPRunCommand(SPName, params)
-            DisplayEisStageResults(result)
-        End If
-    End Sub
-
-    Private Sub DisplayEisStageResults(result As Boolean)
-        If result Then
-            MessageBox.Show("Done")
-        Else
-            MessageBox.Show("There was an error staging the data.")
+            If DB.SPRunCommand(SPName, params) Then
+                MessageBox.Show("Done")
+            Else
+                MessageBox.Show("There was an error staging the data.")
+            End If
         End If
     End Sub
 

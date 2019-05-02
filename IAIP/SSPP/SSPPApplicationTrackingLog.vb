@@ -1,6 +1,7 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Linq
+Imports System.Text
 Imports EpdIt
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities.Facility
@@ -9,11 +10,9 @@ Imports Iaip.Apb.Facilities.FacilityHeaderData
 Imports Iaip.Apb.Finance
 Imports Iaip.Apb.Sspp
 Imports Iaip.Apb.Sspp.Permit
-Imports Iaip.DAL.Finance
 Imports Iaip.DAL.FacilityHeaderDataData
+Imports Iaip.DAL.Finance
 Imports Iaip.DAL.Sspp
-Imports Iaip.SharedData
-Imports System.Text
 
 Public Class SSPPApplicationTrackingLog
 
@@ -22,7 +21,6 @@ Public Class SSPPApplicationTrackingLog
     Private Property AppNumber As Integer = 0
 
     Private Property AirsId As ApbFacilityId
-    Private Property MasterAppNumber As Integer = 0
     Private Property NewApplication As Boolean = False
 
     Private Property LastModificationDateAsLoaded As DateTimeOffset = Nothing
@@ -2645,8 +2643,8 @@ Public Class SSPPApplicationTrackingLog
         Dim ClassificationLine As String = "Classification - "
         Dim AirProgramCodes As String = "000000000000000"
         Dim AirPrograms As String = ""
-        Dim AirProgramCheck As String = ""
-        Dim AirProgramLine As String = ""
+        Dim AirProgramCheck As String
+        Dim AirProgramLine As String
         Dim SIC As String = "N/A"
         Dim SICLine As String = "SIC Code - "
         Dim NAICS As String = "N/A"
@@ -2654,9 +2652,9 @@ Public Class SSPPApplicationTrackingLog
         Dim CountyName As String = "N/A"
         Dim District As String = "N/A"
         Dim Attainment As String = "00000"
-        Dim AttainmentStatus As String = ""
+        Dim AttainmentStatus As String
         Dim StateProgramCodes As String = "00000"
-        Dim StatePrograms As String = ""
+        Dim StatePrograms As String
         Dim PlantDesc As String = "N/A"
         Dim PlantLine As String = "Plant Description - "
         Dim DistResponsible As String = "False"
@@ -3331,9 +3329,9 @@ Public Class SSPPApplicationTrackingLog
                     txtContactCompanyName.Text = dr.Item("strContactCompanyName")
                 End If
                 If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
-                    mtbContactPhoneNumber.Clear()
+                    txtContactPhoneNumber.Clear()
                 Else
-                    mtbContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
+                    txtContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
                 End If
                 If IsDBNull(dr.Item("strContactFaxNumber")) Then
                     mtbContactFaxNumber.Clear()
@@ -4565,7 +4563,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub CheckForLinkedApplications()
-        Dim MasterApplication As String = ""
         Dim ApplicationCount As Integer = 0
         Dim query As String
         Dim parameter As New SqlParameter("@appnumber", AppNumber)
@@ -4583,7 +4580,7 @@ Public Class SSPPApplicationTrackingLog
                     "from SSPPApplicationLinking " &
                     "where strApplicationNumber = @appnumber"
 
-                MasterApplication = DB.GetString(query, parameter)
+                Dim MasterApplication As String = DB.GetString(query, parameter)
 
                 If String.IsNullOrEmpty(MasterApplication) Then
                     txtMasterApp.Clear()
@@ -4676,46 +4673,46 @@ Public Class SSPPApplicationTrackingLog
         Dim ApplicationType As String = ""
         Dim PermitType As String = ""
         Dim Unit As String = ""
-        Dim DateFinalized As String = Nothing
-        Dim FacilityName As String = ""
-        Dim FacilityAddress As String = ""
-        Dim FacilityCity As String = ""
-        Dim FacilityZipCode As String = ""
-        Dim OperationalStatus As String = ""
-        Dim Classification As String = ""
-        Dim AirProgramCodes As String = ""
-        Dim SIC As String = ""
-        Dim NAICS As String = ""
-        Dim PermitNumber As String = ""
-        Dim PlantDesc As String = ""
-        Dim Comments As String = ""
-        Dim ApplicationNotes As String = ""
-        Dim ReceivedDate As String = Nothing
-        Dim SentByDate As String = Nothing
-        Dim AssignedToEngineer As String = Nothing
-        Dim ReAssignedToEngineer As String = Nothing
+        Dim DateFinalized As String
+        Dim FacilityName As String
+        Dim FacilityAddress As String
+        Dim FacilityCity As String
+        Dim FacilityZipCode As String
+        Dim OperationalStatus As String
+        Dim Classification As String
+        Dim AirProgramCodes As String
+        Dim SIC As String
+        Dim NAICS As String
+        Dim PermitNumber As String
+        Dim PlantDesc As String
+        Dim Comments As String
+        Dim ApplicationNotes As String
+        Dim ReceivedDate As String
+        Dim SentByDate As String
+        Dim AssignedToEngineer As String
+        Dim ReAssignedToEngineer As String
         Dim PackageCompleteDate As String = Nothing
-        Dim AcknowledgementLetter As String = Nothing
-        Dim PublicInvolved As String = "0"
-        Dim ToPMI As String = Nothing
-        Dim ToPMII As String = Nothing
-        Dim ReturnToEngineer As String = Nothing
-        Dim PermitIssued As String = Nothing
-        Dim AppDeadline As String = Nothing
-        Dim DraftIssued As String = Nothing
-        Dim EPAWaived As String = Nothing
-        Dim EPAEnds As String = Nothing
-        Dim ToBC As String = Nothing
-        Dim ToDO As String = Nothing
-        Dim PAReady As String = Nothing
-        Dim PNReady As String = Nothing
-        Dim TrackedRules As String = ""
-        Dim StateProgramCodes As String = ""
-        Dim AttainmentStatus As String = ""
-        Dim SignificantComments As String = ""
-        Dim PAExpires As String = Nothing
-        Dim PNExpires As String = Nothing
-        Dim OwnershipTypeCode As String = Nothing
+        Dim AcknowledgementLetter As String
+        Dim PublicInvolved As String
+        Dim ToPMI As String
+        Dim ToPMII As String
+        Dim ReturnToEngineer As String
+        Dim PermitIssued As String
+        Dim AppDeadline As String
+        Dim DraftIssued As String
+        Dim EPAWaived As String
+        Dim EPAEnds As String
+        Dim ToBC As String
+        Dim ToDO As String
+        Dim PAReady As String
+        Dim PNReady As String
+        Dim TrackedRules As String
+        Dim StateProgramCodes As String
+        Dim AttainmentStatus As String
+        Dim SignificantComments As String
+        Dim PAExpires As String
+        Dim PNExpires As String
+        Dim OwnershipTypeCode As String
 
         Dim queriesList As New List(Of String)
         Dim parametersList As New List(Of SqlParameter())
@@ -4878,7 +4875,7 @@ Public Class SSPPApplicationTrackingLog
                 Case "Yes"
                     AttainmentStatus = "01000"
                 Case "Contributing"
-
+                    AttainmentStatus = ""
                 Case Else
                     AttainmentStatus = "00000"
             End Select
@@ -5293,7 +5290,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SaveIssuedPermit()
-        Dim result As Boolean = False
+        Dim result As Boolean
         Dim permit As Permit
 
         If Not PermitExists(txtPermitNumber.Text) Then
@@ -5316,8 +5313,8 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub SaveInformationRequest()
         Dim InformationRequestKey As Integer
-        Dim InformationRequested As String = ""
-        Dim InformationReceived As String = ""
+        Dim InformationRequested As String
+        Dim InformationReceived As String
         Dim DateInfoRequested As DateTime?
         Dim DateInfoReceived As DateTime?
         Dim query As String
@@ -5625,8 +5622,8 @@ Public Class SSPPApplicationTrackingLog
             Else
                 ContactCompany = " "
             End If
-            If mtbContactPhoneNumber.Text <> "" Then
-                ContactPhone = mtbContactPhoneNumber.Text
+            If txtContactPhoneNumber.Text <> "" Then
+                ContactPhone = txtContactPhoneNumber.Text
             Else
                 ContactPhone = "0000000000"
             End If
@@ -5699,7 +5696,7 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@ContactSuffix", ContactSuffix),
                     New SqlParameter("@ContactTitle", ContactTitle),
                     New SqlParameter("@ContactCompany", ContactCompany),
-                    New SqlParameter("@ContactPhone", Replace(Replace(Replace(Replace(ContactPhone, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("@ContactPhone", ContactPhone),
                     New SqlParameter("@ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
                     New SqlParameter("@ContactEmail", ContactEmail),
                     New SqlParameter("@ContactAddress", ContactAddress),
@@ -5737,7 +5734,7 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@ContactSuffix", ContactSuffix),
                     New SqlParameter("@ContactTitle", ContactTitle),
                     New SqlParameter("@ContactCompany", ContactCompany),
-                    New SqlParameter("@ContactPhone", Replace(Replace(Replace(Replace(ContactPhone, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("@ContactPhone", ContactPhone),
                     New SqlParameter("@ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
                     New SqlParameter("@ContactEmail", ContactEmail),
                     New SqlParameter("@ContactAddress", ContactAddress),
@@ -6220,7 +6217,7 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
         End If
 
-        Dim MasterLink As String = ""
+        Dim MasterLink As String
         Dim query As String
         Dim param As SqlParameter
 
@@ -6409,7 +6406,7 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
         End If
 
-        Dim ActionNumber As String = ""
+        Dim ActionNumber As String
         Dim UpdateStatus As String
         Dim query As String
         Dim params As SqlParameter()
@@ -6496,21 +6493,21 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
         End If
 
-        Dim FacilityName As String = ""
-        Dim FacilityStreet1 As String = ""
-        Dim FacilityStreet2 As String = ""
-        Dim City As String = ""
-        Dim ZipCode As String = ""
+        Dim FacilityName As String
+        Dim FacilityStreet1 As String
+        Dim FacilityStreet2 As String
+        Dim City As String
+        Dim ZipCode As String
         Dim OpStatus As String = ""
-        Dim Classification As String = ""
+        Dim Classification As String
         Dim AirProgramCodes As String = ""
-        Dim SICCode As String = ""
-        Dim NAICSCode As String = ""
-        Dim OwnershipTypeCode As String = Nothing
-        Dim PlantDescription As String = ""
-        Dim StateProgramCodes As String = ""
+        Dim SICCode As String
+        Dim NAICSCode As String
+        Dim OwnershipTypeCode As String
+        Dim PlantDescription As String
+        Dim StateProgramCodes As String
 
-        Dim query As String = ""
+        Dim query As String
         Dim params As SqlParameter()
         Dim queryList As New List(Of String)
         Dim paramsList As New List(Of SqlParameter())
@@ -6778,7 +6775,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub UpdateProgramPollutantKey(key As String, OpStatus As String)
         Dim pKey As String = AirsId.DbFormattedString & key
-        Dim query As String = ""
+        Dim query As String
         Dim params As SqlParameter()
         Dim queryList As New List(Of String)
         Dim paramsList As New List(Of SqlParameter())
@@ -6938,7 +6935,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub FindMasterApp()
-        Dim AppType As String = ""
+        Dim AppType As String
         Dim query As String
         Dim parameter As SqlParameter()
 
@@ -7371,7 +7368,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub dgrFacilityAppHistory_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvFacilityAppHistory.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvFacilityAppHistory.HitTest(e.X, e.Y)
-        Dim temp As String = ""
+        Dim temp As String
 
         Try
 
@@ -7400,7 +7397,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub dgvInformationRequested_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvInformationRequested.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvInformationRequested.HitTest(e.X, e.Y)
-        Dim temp As String = ""
+        Dim temp As String
 
         Try
 
@@ -10174,9 +10171,9 @@ Public Class SSPPApplicationTrackingLog
                     txtContactCompanyName.Text = dr.Item("strContactCompanyName")
                 End If
                 If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
-                    mtbContactPhoneNumber.Clear()
+                    txtContactPhoneNumber.Clear()
                 Else
-                    mtbContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
+                    txtContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
                 End If
                 If IsDBNull(dr.Item("strContactFaxNumber")) Then
                     mtbContactFaxNumber.Clear()
@@ -12051,36 +12048,6 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-    Private Sub DeleteProgramSubparts(appnum As String, programkey As String)
-        Dim query As String = "Delete from SSPPSubpartData " &
-            "where strSubpartKey = @pKey "
-        Dim parameter As New SqlParameter("@pKey", appnum & programkey)
-        DB.RunCommand(query, parameter)
-    End Sub
-
-    Private Sub SaveProgramSubpartData(appnum As String, programKey As String, subpart As String, activity As String)
-        Dim query As String = "INSERT " &
-            "INTO SSPPSUBPARTDATA " &
-            "  ( " &
-            "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
-            "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
-            "    CREATEDATETIME " &
-            "  ) " &
-            "  VALUES " &
-            "  ( " &
-            "    @appnum, @pKey, @subpart, @activity, @pUser, GETDATE(), GETDATE() " &
-            "  ) "
-
-        Dim parameters As SqlParameter() = {
-            New SqlParameter("@appnum", appnum),
-            New SqlParameter("@pKey", appnum & programKey),
-            New SqlParameter("@subpart", subpart),
-            New SqlParameter("@activity", activity),
-            New SqlParameter("@pUser", CurrentUser.UserID)
-        }
-        DB.RunCommand(query, parameters)
-    End Sub
-
     Private Sub SaveNSPSSubpart()
         Try
             Dim Subpart As String = ""
@@ -12107,270 +12074,6 @@ Public Class SSPPApplicationTrackingLog
             Next
 
             LoadSSPPNSPSSubPartInformation()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub SaveNSPSSubpart2()
-        Try
-            Dim Subpart As String = ""
-            Dim Action As String = ""
-            Dim i As Integer = 0
-            Dim parameter As SqlParameter()
-
-            Dim query As String = "Select " &
-            "strSubpart " &
-            "from SSPPSubpartData " &
-            "where strSubpartKey = @pKey " &
-            "and strApplicationActivity = '1' "
-            parameter = {New SqlParameter("@pKey", AppNumber & "9")}
-
-            Dim dt As DataTable = DB.GetDataTable(query, parameter)
-
-            For Each dr As DataRow In dt.Rows
-                If IsDBNull(dr.Item("strSubpart")) Then
-                    Subpart = ""
-                Else
-                    Subpart = dr.Item("strSubpart")
-                End If
-
-                Dim temp As String = ""
-                If Subpart <> "" Then
-                    For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                        If Subpart = dgvNSPSSubParts(1, i).Value Then
-                            temp = "Ignore"
-                        End If
-                    Next
-                    If temp <> "Ignore" Then
-                        query = "Update APBSubpartData set " &
-                            "Active = '9', " &
-                            "updateUser = @UserGCode , " &
-                            "updateDateTime = GETDATE() " &
-                            "where strSubpartKey = @pKey " &
-                            "and strSubpart = @Subpart "
-                        parameter = {
-                            New SqlParameter("@UserGCode", CurrentUser.UserID),
-                            New SqlParameter("@pKey", AirsId.DbFormattedString & "9"),
-                            New SqlParameter("@Subpart", Subpart)
-                        }
-                        DB.RunCommand(query, parameter)
-
-                        query = "Delete from SSPPSubpartData " &
-                        "where strSubpartKey = @pKey " &
-                        "and strApplicationActivity = '1' " &
-                        "and strSubpart = @Subpart "
-                        parameter = {
-                            New SqlParameter("@pKey", AppNumber & "9"),
-                            New SqlParameter("@Subpart", Subpart)
-                        }
-                        DB.RunCommand(query, parameter)
-                    End If
-                End If
-            Next
-
-            For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                Subpart = dgvNSPSSubParts(1, i).Value
-
-                query = "Select strSubPart " &
-                "from APBSubpartData " &
-                "where strSubpartKey = @pKey  " &
-                "and strSubpart = @Subpart "
-                parameter = {
-                    New SqlParameter("@airsnum", AirsId.DbFormattedString),
-                    New SqlParameter("@UserGCode", CurrentUser.UserID),
-                    New SqlParameter("@pKey", AirsId.DbFormattedString & "9"),
-                    New SqlParameter("@Subpart", Subpart)
-                }
-
-                If DB.ValueExists(query, parameter) Then
-                    query = "Update APBSubpartData set " &
-                    "Active = '1', " &
-                    "updateUser = @UserGCode " &
-                    "updateDateTime = GETDATE() " &
-                    "where strSubpartKey = @pKey " &
-                    "and strSubpart = @Subpart "
-                Else
-                    query = "INSERT INTO APBSUBPARTDATA " &
-                    "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " &
-                    "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " &
-                    "  ) VALUES " &
-                    "(@airsnum, @pKey, @Subpart, @UserGCode, " &
-                    "GETDATE(), '1', " &
-                    "GETDATE() )"
-                End If
-                DB.RunCommand(query, parameter)
-            Next
-
-            query = "Delete from SSPPSubpartData " &
-            "where strSubpartKey = @pKey " &
-            "and strApplicationActivity <> '1' "
-            parameter = {New SqlParameter("@pKey", AppNumber & "9")}
-            DB.RunCommand(query, parameter)
-
-            'Removed 
-            For i = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
-                Subpart = dgvNSPSSubPartDelete(0, i).Value
-
-                query = "Update APBSubpartData set " &
-                    "Active = '9', " &
-                    "updateUser = @UserGCode , " &
-                    "updateDateTime = GETDATE() " &
-                    "where strSubpartKey = @pKey " &
-                    "and strSubpart = @Subpart "
-                parameter = {
-                    New SqlParameter("@UserGCode", CurrentUser.UserID),
-                    New SqlParameter("@pKey", AirsId.DbFormattedString & "9"),
-                    New SqlParameter("@Subpart", Subpart)
-                }
-                DB.RunCommand(query, parameter)
-
-                query = "Select " &
-                "strSubpart " &
-                "from SSPPSubpartData " &
-                "where strSubpartKey = @pKey " &
-                "and strSubpart = @Subpart "
-                parameter = {
-                    New SqlParameter("@UserGCode", CurrentUser.UserID),
-                    New SqlParameter("@appnum", AppNumber),
-                    New SqlParameter("@pKey", AppNumber & "9"),
-                    New SqlParameter("@Subpart", Subpart)
-                }
-
-                If DB.ValueExists(query, parameter) Then
-                    query = "Update SSPPSubpartData set " &
-                        "strApplicationActivity = '9', " &
-                        "updateUser = @UserGCode , " &
-                        "updateDateTime = GETDATE() " &
-                        "where strApplicationNumber = @appnum " &
-                        "and strSubPartKey = @pKey " &
-                        "and strSubPart = @Subpart "
-                Else
-                    query = "INSERT INTO SSPPSUBPARTDATA " &
-                        "  ( " &
-                        "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
-                        "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
-                        "    CREATEDATETIME " &
-                        "  ) " &
-                        "  VALUES " &
-                        "  ( " &
-                        "    @appnum, @pKey, @Subpart, '9', @UserGCode, GETDATE(), GETDATE() " &
-                        "  ) "
-                End If
-                DB.RunCommand(query, parameter)
-            Next
-
-            'Added/Modified
-            For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                Action = dgvNSPSSubpartAddEdit(3, i).Value
-                Subpart = dgvNSPSSubpartAddEdit(0, i).Value
-
-                query = "Select " &
-                "strSubpart " &
-                "from SSPPSubpartData " &
-                "where strSubpartKey = @pKey " &
-                "and strSubpart = @Subpart "
-                parameter = {
-                    New SqlParameter("@UserGCode", CurrentUser.UserID),
-                    New SqlParameter("@appnum", AppNumber),
-                    New SqlParameter("@pKey", AppNumber & "9"),
-                    New SqlParameter("@Subpart", Subpart)
-                }
-
-                Select Case Action
-                    Case "Added"
-                        If DB.ValueExists(query, parameter) Then
-                            query = "Update SSPPSubpartData set " &
-                                "strApplicationActivity = '1', " &
-                                "updateUser = @UserGCode , " &
-                                "updateDateTime = GETDATE() " &
-                                "where strApplicationNumber = @appnum " &
-                                "and strSubPartKey = @pKey " &
-                                "and strSubPart = @Subpart "
-                        Else
-                            query = "INSERT INTO SSPPSUBPARTDATA " &
-                                "  ( " &
-                                "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
-                                "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
-                                "    CREATEDATETIME " &
-                                "  ) " &
-                                "  VALUES " &
-                                "  ( " &
-                                "    @appnum, @pKey, @Subpart, '1', @UserGCode, GETDATE(), GETDATE() " &
-                                "  ) "
-                        End If
-                    Case "Modify"
-                        If DB.ValueExists(query, parameter) Then
-                            query = "Update SSPPSubpartData set " &
-                                "strApplicationActivity = '2', " &
-                                "updateUser = @UserGCode , " &
-                                "updateDateTime = GETDATE() " &
-                                "where strApplicationNumber = @appnum " &
-                                "and strSubPartKey = @pKey " &
-                                "and strSubPart = @Subpart "
-                        Else
-                            query = "INSERT INTO SSPPSUBPARTDATA " &
-                                "  ( " &
-                                "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
-                                "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
-                                "    CREATEDATETIME " &
-                                "  ) " &
-                                "  VALUES " &
-                                "  ( " &
-                                "    @appnum, @pKey, @Subpart, '2', @UserGCode, GETDATE(), GETDATE() " &
-                                "  ) "
-                        End If
-                    Case Else
-                        query = ""
-                End Select
-
-                If query <> "" Then
-                    DB.RunCommand(query, parameter)
-                End If
-            Next
-
-            query = "Select " &
-            "strPollutantKey " &
-            "from AFSAirPollutantData " &
-            "where strAirPollutantKey = @pKey "
-            parameter = {
-                New SqlParameter("@airsnum", AirsId.DbFormattedString),
-                New SqlParameter("@pKey", AirsId.DbFormattedString & "9"),
-                New SqlParameter("@UserGCode", CurrentUser.UserID)
-            }
-
-            If DB.ValueExists(query, parameter) Then
-                query = "Update AFSAirPollutantData set " &
-                "strUpdateStatus = 'C' " &
-                "where strAirPollutantKey = @pKey " &
-                "and strUpdateStatus <> 'A' "
-                DB.RunCommand(query, parameter)
-            Else
-                query = "INSERT INTO APBAIRPROGRAMPOLLUTANTS " &
-                "  ( " &
-                "    STRAIRSNUMBER , STRAIRPOLLUTANTKEY , STRPOLLUTANTKEY , " &
-                "    STRCOMPLIANCESTATUS , STRMODIFINGPERSON , DATMODIFINGDATE , " &
-                "    STROPERATIONALSTATUS " &
-                "  ) " &
-                "  VALUES" &
-                "(@airsnum, @pKey, " &
-                "'OT', '3', " &
-                "@UserGCode, GETDATE(), " &
-                "'O') "
-                DB.RunCommand(query, parameter)
-
-                query = "Insert into AFSAirPollutantData " &
-                "values " &
-                "(@airsnum, @pKey, " &
-                "'OT', 'A', " &
-                "@UserGCode, GETDATE()) "
-                DB.RunCommand(query, parameter)
-            End If
-
-            LoadSSPPNSPSSubPartInformation()
-
-            MsgBox("NSPS Updated", MsgBoxStyle.Information, "Application Tracking Log")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -14558,7 +14261,7 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
         End If
 
-        Dim feeContact As New SSPP_FeeContact
+        Dim feeContact As New SSPPFeeContact
 
         If feeContact IsNot Nothing AndAlso Not feeContact.IsDisposed Then
             feeContact.AirsId = AirsId

@@ -19,52 +19,52 @@ Partial Class IAIPEditContacts
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.ContactsDataGrid = New System.Windows.Forms.DataGridView
-        Me.pnlInfoPanel = New System.Windows.Forms.Panel
-        Me.Panel6 = New System.Windows.Forms.Panel
-        Me.rdbNewDistrictContact = New System.Windows.Forms.RadioButton
-        Me.rdbNewPlanningContact = New System.Windows.Forms.RadioButton
-        Me.rdbNewAmbientContact = New System.Windows.Forms.RadioButton
-        Me.rdbNewESContact = New System.Windows.Forms.RadioButton
-        Me.rdbNewPermittingContact = New System.Windows.Forms.RadioButton
-        Me.rdbNewEISContact = New System.Windows.Forms.RadioButton
-        Me.rdbNewFeeContact = New System.Windows.Forms.RadioButton
-        Me.rdbNewComplianceContact = New System.Windows.Forms.RadioButton
-        Me.rdbNewMonitoringContact = New System.Windows.Forms.RadioButton
-        Me.btnNewClear = New System.Windows.Forms.Button
-        Me.btnNewUpdate = New System.Windows.Forms.Button
-        Me.btnNewSave = New System.Windows.Forms.Button
-        Me.mtbNewFaxNumber = New System.Windows.Forms.MaskedTextBox
-        Me.mtbNewPhoneNumber2 = New System.Windows.Forms.MaskedTextBox
-        Me.mtbNewZipCode = New System.Windows.Forms.MaskedTextBox
-        Me.mtbNewPhoneNumber = New System.Windows.Forms.MaskedTextBox
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.txtNewCity = New System.Windows.Forms.TextBox
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.txtNewState = New System.Windows.Forms.TextBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.txtNewAddress = New System.Windows.Forms.TextBox
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.txtNewFirstName = New System.Windows.Forms.TextBox
-        Me.txtNewCompany = New System.Windows.Forms.TextBox
-        Me.txtNewEmail = New System.Windows.Forms.TextBox
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.txtNewDescrption = New System.Windows.Forms.TextBox
-        Me.txtNewTitle = New System.Windows.Forms.TextBox
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.txtNewSuffix = New System.Windows.Forms.TextBox
-        Me.txtNewPrefix = New System.Windows.Forms.TextBox
-        Me.txtNewLastName = New System.Windows.Forms.TextBox
-        Me.pnlHeaderPanel = New System.Windows.Forms.Panel
-        Me.lblAirsNumber = New System.Windows.Forms.Label
-        Me.lblFacilityName = New System.Windows.Forms.Label
+        Me.ContactsDataGrid = New System.Windows.Forms.DataGridView()
+        Me.pnlInfoPanel = New System.Windows.Forms.Panel()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.rdbNewDistrictContact = New System.Windows.Forms.RadioButton()
+        Me.rdbNewPlanningContact = New System.Windows.Forms.RadioButton()
+        Me.rdbNewAmbientContact = New System.Windows.Forms.RadioButton()
+        Me.rdbNewESContact = New System.Windows.Forms.RadioButton()
+        Me.rdbNewPermittingContact = New System.Windows.Forms.RadioButton()
+        Me.rdbNewEISContact = New System.Windows.Forms.RadioButton()
+        Me.rdbNewFeeContact = New System.Windows.Forms.RadioButton()
+        Me.rdbNewComplianceContact = New System.Windows.Forms.RadioButton()
+        Me.rdbNewMonitoringContact = New System.Windows.Forms.RadioButton()
+        Me.btnNewClear = New System.Windows.Forms.Button()
+        Me.btnNewUpdate = New System.Windows.Forms.Button()
+        Me.btnNewSave = New System.Windows.Forms.Button()
+        Me.mtbNewFaxNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbNewPhoneNumber2 = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbNewZipCode = New System.Windows.Forms.MaskedTextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtNewCity = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.txtNewState = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.txtNewAddress = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.txtNewFirstName = New System.Windows.Forms.TextBox()
+        Me.txtNewCompany = New System.Windows.Forms.TextBox()
+        Me.txtNewEmail = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.txtNewDescrption = New System.Windows.Forms.TextBox()
+        Me.txtNewTitle = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.txtNewSuffix = New System.Windows.Forms.TextBox()
+        Me.txtNewPrefix = New System.Windows.Forms.TextBox()
+        Me.txtNewLastName = New System.Windows.Forms.TextBox()
+        Me.pnlHeaderPanel = New System.Windows.Forms.Panel()
+        Me.lblAirsNumber = New System.Windows.Forms.Label()
+        Me.lblFacilityName = New System.Windows.Forms.Label()
+        Me.txtNewPhoneNumber = New Iaip.CueTextBox()
         CType(Me.ContactsDataGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlInfoPanel.SuspendLayout()
         Me.Panel6.SuspendLayout()
@@ -90,6 +90,7 @@ Partial Class IAIPEditContacts
         '
         'pnlInfoPanel
         '
+        Me.pnlInfoPanel.Controls.Add(Me.txtNewPhoneNumber)
         Me.pnlInfoPanel.Controls.Add(Me.Panel6)
         Me.pnlInfoPanel.Controls.Add(Me.btnNewClear)
         Me.pnlInfoPanel.Controls.Add(Me.btnNewUpdate)
@@ -97,7 +98,6 @@ Partial Class IAIPEditContacts
         Me.pnlInfoPanel.Controls.Add(Me.mtbNewFaxNumber)
         Me.pnlInfoPanel.Controls.Add(Me.mtbNewPhoneNumber2)
         Me.pnlInfoPanel.Controls.Add(Me.mtbNewZipCode)
-        Me.pnlInfoPanel.Controls.Add(Me.mtbNewPhoneNumber)
         Me.pnlInfoPanel.Controls.Add(Me.Label9)
         Me.pnlInfoPanel.Controls.Add(Me.txtNewCity)
         Me.pnlInfoPanel.Controls.Add(Me.Label11)
@@ -301,15 +301,6 @@ Partial Class IAIPEditContacts
         Me.mtbNewZipCode.Size = New System.Drawing.Size(69, 20)
         Me.mtbNewZipCode.TabIndex = 9
         Me.mtbNewZipCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'mtbNewPhoneNumber
-        '
-        Me.mtbNewPhoneNumber.Location = New System.Drawing.Point(488, 11)
-        Me.mtbNewPhoneNumber.Mask = "(999) 000-0000"
-        Me.mtbNewPhoneNumber.Name = "mtbNewPhoneNumber"
-        Me.mtbNewPhoneNumber.Size = New System.Drawing.Size(92, 20)
-        Me.mtbNewPhoneNumber.TabIndex = 10
-        Me.mtbNewPhoneNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'Label9
         '
@@ -562,6 +553,14 @@ Partial Class IAIPEditContacts
         Me.lblFacilityName.TabIndex = 0
         Me.lblFacilityName.Text = "Facility Name"
         '
+        'txtNewPhoneNumber
+        '
+        Me.txtNewPhoneNumber.Cue = "(___) ___-____"
+        Me.txtNewPhoneNumber.Location = New System.Drawing.Point(488, 11)
+        Me.txtNewPhoneNumber.Name = "txtNewPhoneNumber"
+        Me.txtNewPhoneNumber.Size = New System.Drawing.Size(92, 20)
+        Me.txtNewPhoneNumber.TabIndex = 253
+        '
         'IAIPEditContacts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -600,7 +599,6 @@ Partial Class IAIPEditContacts
     Friend WithEvents mtbNewFaxNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mtbNewPhoneNumber2 As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mtbNewZipCode As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbNewPhoneNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents txtNewCity As System.Windows.Forms.TextBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
@@ -628,4 +626,5 @@ Partial Class IAIPEditContacts
     Friend WithEvents pnlHeaderPanel As System.Windows.Forms.Panel
     Friend WithEvents lblAirsNumber As System.Windows.Forms.Label
     Friend WithEvents lblFacilityName As System.Windows.Forms.Label
+    Friend WithEvents txtNewPhoneNumber As CueTextBox
 End Class

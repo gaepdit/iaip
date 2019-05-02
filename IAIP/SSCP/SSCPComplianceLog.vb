@@ -1,6 +1,5 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
-Imports Iaip.SharedData
 
 
 Public Class SSCPComplianceLog
@@ -445,7 +444,7 @@ Public Class SSCPComplianceLog
 
     Private Sub DeleteWork()
         Dim response As DialogResult
-        Dim SQL As String = ""
+        Dim SQL As String
         Dim p As New SqlParameter("@num", txtWorkNumber.Text)
 
         Select Case txtTestType.Text

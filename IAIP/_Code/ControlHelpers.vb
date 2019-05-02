@@ -1,6 +1,8 @@
-﻿Friend Module ControlHelpers
+﻿Imports System.Collections.Generic
 
-#Region " Enable/disable "
+Friend Module ControlHelpers
+
+    ' Enable/disable
 
     ''' <summary>
     ''' Disables Controls in an array by setting their .Enabled properties to False
@@ -22,9 +24,7 @@
         Next
     End Sub
 
-#End Region
-
-#Region " Hide/show "
+    ' Hide/show
 
     ''' <summary>
     ''' Hides Controls in an array by setting their .Visible property to False
@@ -46,9 +46,7 @@
         Next
     End Sub
 
-#End Region
-
-#Region " Prevent/allow "
+    ' Prevent/allow
 
     ''' <summary>
     ''' Prevents use of Controls in an array by setting their .Enabled or .ReadOnly properties to False, depending on the Object type
@@ -86,6 +84,12 @@
         Next
     End Sub
 
-#End Region
+    ' Decorate
+
+    Public Sub HighlightControls(controls As List(Of Control))
+        For Each c As Control In controls
+            c.BackColor = Color.Yellow
+        Next
+    End Sub
 
 End Module

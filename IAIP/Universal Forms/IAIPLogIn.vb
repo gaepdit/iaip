@@ -216,9 +216,12 @@
         End Using
     End Sub
 
-    Private Function ValidateUserData() As Boolean
+    Private Shared Function ValidateUserData() As Boolean
         ' Returns false only if profile info is incomplete and user doesn't update it
-        If CurrentUser.PhoneNumber = "" OrElse CurrentUser.FirstName = "" OrElse CurrentUser.LastName = "" OrElse CurrentUser.EmailAddress = "" Then
+        If String.IsNullOrEmpty(CurrentUser.PhoneNumber) OrElse
+            String.IsNullOrEmpty(CurrentUser.FirstName) OrElse
+            String.IsNullOrEmpty(CurrentUser.LastName) OrElse
+            String.IsNullOrEmpty(CurrentUser.EmailAddress) Then
 
             Using editProfile As New IaipUserProfile
                 editProfile.Message = New IaipMessage("Your profile must be completed before you can use the IAIP.", IaipMessage.WarningLevels.Info)

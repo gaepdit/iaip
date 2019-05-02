@@ -1,6 +1,5 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
-Imports Iaip.SharedData
 Imports Iaip.DAL
 
 
@@ -435,7 +434,7 @@ Public Class SSCPManagersTools
     End Sub
 
     Private Sub RunCMSWarningReport()
-        Dim SqlFilter As String = ""
+        Dim SqlFilter As String
 
         Dim SMOverdueDate As Date = Today.AddYears(-MIN_FCE_SPAN_CLASS_SM)
         Dim AOverdueDate As Date = Today.AddYears(-MIN_FCE_SPAN_CLASS_A)

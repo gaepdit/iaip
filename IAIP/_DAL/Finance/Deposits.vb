@@ -112,8 +112,6 @@ Namespace DAL.Finance
         ' Save deposit
 
         Public Function SaveNewDeposit(deposit As Deposit, ByRef newDepositId As Integer) As DbResult
-            newDepositId = -1
-
             Dim params As SqlParameter() = {
                 New SqlParameter("@DepositDate", deposit.DepositDate),
                 New SqlParameter("@TotalAmount", -deposit.DepositAmount),

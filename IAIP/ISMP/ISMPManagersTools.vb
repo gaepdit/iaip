@@ -536,47 +536,6 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub LoadByTestReportAllTestReportAssignmentDataSet(ByRef ReportType As String)
-        Try
-
-            If AccountFormAccess(17, 3) = "1" Then
-                query = "Select " &
-                "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                "format(DATTestDateStart, 'MMMM d, yyyy') as ForTestDateStart, " &
-                "strEmissionSource,  " &
-                "(Select strPollutantDescription  " &
-                "from LookUPPollutants, ISMPReportInformation  " &
-                "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
-                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                "(select concat(strLastName, ', ' , strFirstName) as ReviewingEngineer  " &
-                "from EPDUserProfiles, ISMPReportInformation  " &
-                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
-                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
-                "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                "and ISMPReportInformation.strDocumentType = @ReportType " &
-                "and ISMPReportInformation.strReviewingEngineer <> '0' " &
-                "and ISMPReportInformation.strDelete is NULL"
-
-                Dim p As New SqlParameter("@ReportType", ReportType)
-
-                dtTestReportAssignments = DB.GetDataTable(query, p)
-                dtTestReportAssignments.TableName = "TestReportAssignment"
-
-            Else
-                dtTestReportAssignments = Nothing
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-
-    End Sub
     Private Sub LoadByTestReportAssignedTestReportAssignmentDataSet(ByRef ReportType As String)
         Try
 
@@ -616,45 +575,6 @@ Public Class ISMPManagersTools
 
 
     End Sub
-    Private Sub LoadByAIRSNumberTestReportAssignmentDataSet()
-        Try
-
-            If AccountFormAccess(17, 3) = "1" Then
-                query = "Select " &
-                "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                "format(DATTestDateStart, 'MMMM d, yyyy') as ForTestDateStart, " &
-                "strEmissionSource,  " &
-                "(Select strPollutantDescription  " &
-                "from LookUPPollutants, ISMPReportInformation  " &
-                "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
-                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                "(select concat(strLastName, ', ' , strFirstName) as ReviewingEngineer  " &
-                "from EPDUserProfiles, ISMPReportInformation  " &
-                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
-                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
-                "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                "and ISMPMaster.strAIRSNumber = @airs " &
-                "and ISMPReportInformation.strDelete is NULL"
-
-                Dim p As New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
-
-                dtTestReportAssignments = DB.GetDataTable(query, p)
-                dtTestReportAssignments.TableName = "TestReportAssignment"
-
-            Else
-                dtTestReportAssignments = Nothing
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
 
 #End Region
 
@@ -676,8 +596,8 @@ Public Class ISMPManagersTools
     Private Sub SaveTestReportsAssignments()
         Dim strObject As String
         Dim EngineerGCode As String = ""
-        Dim AssignDate As String = ""
-        Dim PreCompliance As String = ""
+        Dim AssignDate As String
+        Dim PreCompliance As String
         Dim drEngineers As DataRow()
         Dim row As DataRow
 
@@ -887,12 +807,12 @@ Public Class ISMPManagersTools
 #End Region
 
     Private Sub RunMonthlyReport()
-        Dim TestReceived As String = 0
-        Dim TestCompleted As String = 0
-        Dim TestWitnessed As String = 0
-        Dim OutofCompliance As String = 0
-        Dim MedianTime As String = 0
-        Dim PercentileTime As String = 0
+        Dim TestReceived As String
+        Dim TestCompleted As String
+        Dim TestWitnessed As String
+        Dim OutofCompliance As String
+        Dim MedianTime As String
+        Dim PercentileTime As String
         Dim n As Integer = 0
         Dim MedianArray(n) As Decimal
         Dim Percential As Decimal
@@ -2938,6 +2858,23 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    'Form overrides dispose to clean up the component list. 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If dtEngineer IsNot Nothing Then dtEngineer.Dispose()
+                If dtTestReportAssignments IsNot Nothing Then dtTestReportAssignments.Dispose()
+                If dtEngineerGrid IsNot Nothing Then dtEngineerGrid.Dispose()
+                If dtSummaryReport IsNot Nothing Then dtSummaryReport.Dispose()
+                If dtUnitStats IsNot Nothing Then dtUnitStats.Dispose()
+                If dtMethods IsNot Nothing Then dtMethods.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
         End Try
     End Sub
 

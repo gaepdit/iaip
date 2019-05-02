@@ -20,7 +20,7 @@ Namespace Apb.Facilities
             <Description("Seasonal Operation")> I
         End Enum
 
-        Public FacilityOperationalStatusDescriptions As New Dictionary(Of FacilityOperationalStatus, String) From {
+        Public ReadOnly Property FacilityOperationalStatusDescriptions As New Dictionary(Of FacilityOperationalStatus, String) From {
             {FacilityOperationalStatus.U, "Unspecified"},
             {FacilityOperationalStatus.O, "Operational"},
             {FacilityOperationalStatus.P, "Planned"},
@@ -37,7 +37,7 @@ Namespace Apb.Facilities
             TS
         End Enum
 
-        Public EisSiteStatusCodeDescriptions As New Dictionary(Of EisSiteStatus, String) From {
+        Public ReadOnly Property EisSiteStatusCodeDescriptions As New Dictionary(Of EisSiteStatus, String) From {
             {EisSiteStatus.UNK, "Unknown"},
             {EisSiteStatus.OP, "Operational"},
             {EisSiteStatus.PS, "Permanently shut down"},
@@ -57,7 +57,7 @@ Namespace Apb.Facilities
             <Description("Unclassified")> C
         End Enum
 
-        Public FacilityClassificationDescriptions As New Dictionary(Of FacilityClassification, String) From {
+        Public ReadOnly Property FacilityClassificationDescriptions As New Dictionary(Of FacilityClassification, String) From {
             {FacilityClassification.A, "Major source"},
             {FacilityClassification.B, "Minor source"},
             {FacilityClassification.SM, "Synthetic minor"},
@@ -130,7 +130,7 @@ Namespace Apb.Facilities
         ''' in the database as a (reversed) bitwise string. The string is 15 characters, but 
         ''' only the first 14 are used.</remarks>
         <Flags()>
-        Public Enum AirProgram
+        Public Enum AirPrograms
             None = 0
             <Description("SIP")> SIP = 1 ' 100000000000000
             <Description("Federal SIP")> FederalSIP = 2 ' 010000000000000
@@ -148,22 +148,22 @@ Namespace Apb.Facilities
             <Description("Risk Management Plan")> RMP = 8192 ' 000000000000010
         End Enum
 
-        Public AirProgramBitPosition As New Dictionary(Of AirProgram, Integer) From {
-            {AirProgram.None, 0},
-            {AirProgram.SIP, 1},
-            {AirProgram.FederalSIP, 2},
-            {AirProgram.NonFederalSIP, 3},
-            {AirProgram.CfcTracking, 4},
-            {AirProgram.PSD, 5},
-            {AirProgram.NSR, 6},
-            {AirProgram.NESHAP, 7},
-            {AirProgram.NSPS, 8},
-            {AirProgram.FESOP, 9},
-            {AirProgram.AcidPrecipitation, 10},
-            {AirProgram.NativeAmerican, 11},
-            {AirProgram.MACT, 12},
-            {AirProgram.TitleV, 13},
-            {AirProgram.RMP, 14}
+        Public ReadOnly Property AirProgramBitPosition As New Dictionary(Of AirPrograms, Integer) From {
+            {AirPrograms.None, 0},
+            {AirPrograms.SIP, 1},
+            {AirPrograms.FederalSIP, 2},
+            {AirPrograms.NonFederalSIP, 3},
+            {AirPrograms.CfcTracking, 4},
+            {AirPrograms.PSD, 5},
+            {AirPrograms.NSR, 6},
+            {AirPrograms.NESHAP, 7},
+            {AirPrograms.NSPS, 8},
+            {AirPrograms.FESOP, 9},
+            {AirPrograms.AcidPrecipitation, 10},
+            {AirPrograms.NativeAmerican, 11},
+            {AirPrograms.MACT, 12},
+            {AirPrograms.TitleV, 13},
+            {AirPrograms.RMP, 14}
         }
 
         ''' <summary>
@@ -173,7 +173,7 @@ Namespace Apb.Facilities
         ''' in the database as a (reversed) bitwise string. The string is 5 characters, but 
         ''' only the first 2 are used.</remarks>
         <Flags()>
-        Public Enum AirProgramClassification
+        Public Enum AirProgramClassifications
             None = 0
             <Description("NSR/PSD Major")> NsrMajor = 1
             <Description("HAPs Major")> HapMajor = 2

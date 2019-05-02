@@ -78,7 +78,7 @@ Public Class FinSearchDeposits
         End If
 
         Dim newID As Integer = 0
-        Dim errorMessage As String = ""
+        Dim errorMessage As String
 
         Select Case ValidateDepositId(txtSelectedItem.Text, newID, True)
             Case DepositValidationResult.Malformed
@@ -133,4 +133,15 @@ Public Class FinSearchDeposits
         End If
     End Sub
 
+    'Form overrides dispose to clean up the component list. 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If selectedIdErrorProvider IsNot Nothing Then selectedIdErrorProvider.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
 End Class

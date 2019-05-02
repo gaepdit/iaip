@@ -1,6 +1,5 @@
 ﻿Imports System.Collections.Generic
 Imports System.Text.RegularExpressions
-Imports Iaip.SharedData
 
 Namespace Apb.Facilities
 
@@ -234,7 +233,7 @@ Namespace Apb.Facilities
 
 #Region " Program Codes "
 
-        Public Property AirPrograms() As AirProgram
+        Public Property AirPrograms() As AirPrograms
 
         ''' <summary>
         ''' A 15-character string representing all air programs a facility is subjec to. 
@@ -246,52 +245,52 @@ Namespace Apb.Facilities
         ''' Stored in database as a 15-character coded string, but only the first 14 are used.</remarks>
         Public Property AirProgramsCode() As String
             Get
-                Return ConvertEnumToBitFlags(Of AirProgram)(Me.AirPrograms, AirProgramsCodeLength)
+                Return ConvertEnumToBitFlags(Of AirPrograms)(Me.AirPrograms, AirProgramsCodeLength)
             End Get
             Set(value As String)
-                AirPrograms = ConvertBitFieldToEnum(Of AirProgram)(value)
+                AirPrograms = ConvertBitFieldToEnum(Of AirPrograms)(value)
             End Set
         End Property
 
-        Private Shared AirProgramsCodeLength As Integer = 15
+        Private Const AirProgramsCodeLength As Integer = 15
 
-        Public Shared Property ConvertAirProgramLegacyCodes As Dictionary(Of String, AirProgram) =
-            New Dictionary(Of String, AirProgram) From {
-            {"0", AirProgram.SIP},
-            {"1", AirProgram.FederalSIP},
-            {"3", AirProgram.NonFederalSIP},
-            {"4", AirProgram.CfcTracking},
-            {"6", AirProgram.PSD},
-            {"7", AirProgram.NSR},
-            {"8", AirProgram.NESHAP},
-            {"9", AirProgram.NSPS},
-            {"F", AirProgram.FESOP},
-            {"A", AirProgram.AcidPrecipitation},
-            {"I", AirProgram.NativeAmerican},
-            {"M", AirProgram.MACT},
-            {"V", AirProgram.TitleV},
-            {"R", AirProgram.RMP}
+        Public Shared Property ConvertAirProgramLegacyCodes As Dictionary(Of String, AirPrograms) =
+            New Dictionary(Of String, AirPrograms) From {
+            {"0", AirPrograms.SIP},
+            {"1", AirPrograms.FederalSIP},
+            {"3", AirPrograms.NonFederalSIP},
+            {"4", AirPrograms.CfcTracking},
+            {"6", AirPrograms.PSD},
+            {"7", AirPrograms.NSR},
+            {"8", AirPrograms.NESHAP},
+            {"9", AirPrograms.NSPS},
+            {"F", AirPrograms.FESOP},
+            {"A", AirPrograms.AcidPrecipitation},
+            {"I", AirPrograms.NativeAmerican},
+            {"M", AirPrograms.MACT},
+            {"V", AirPrograms.TitleV},
+            {"R", AirPrograms.RMP}
         }
 
         Public Shared Property ConvertAirProgramToLegacyCode As Dictionary(Of String, String) =
             New Dictionary(Of String, String) From {
-            {AirProgram.SIP.ToString, "0"},
-            {AirProgram.FederalSIP.ToString, "1"},
-            {AirProgram.NonFederalSIP.ToString, "3"},
-            {AirProgram.CfcTracking.ToString, "4"},
-            {AirProgram.PSD.ToString, "6"},
-            {AirProgram.NSR.ToString, "7"},
-            {AirProgram.NESHAP.ToString, "8"},
-            {AirProgram.NSPS.ToString, "9"},
-            {AirProgram.FESOP.ToString, "F"},
-            {AirProgram.AcidPrecipitation.ToString, "A"},
-            {AirProgram.NativeAmerican.ToString, "I"},
-            {AirProgram.MACT.ToString, "M"},
-            {AirProgram.TitleV.ToString, "V"},
-            {AirProgram.RMP.ToString, "R"}
+            {AirPrograms.SIP.ToString, "0"},
+            {AirPrograms.FederalSIP.ToString, "1"},
+            {AirPrograms.NonFederalSIP.ToString, "3"},
+            {AirPrograms.CfcTracking.ToString, "4"},
+            {AirPrograms.PSD.ToString, "6"},
+            {AirPrograms.NSR.ToString, "7"},
+            {AirPrograms.NESHAP.ToString, "8"},
+            {AirPrograms.NSPS.ToString, "9"},
+            {AirPrograms.FESOP.ToString, "F"},
+            {AirPrograms.AcidPrecipitation.ToString, "A"},
+            {AirPrograms.NativeAmerican.ToString, "I"},
+            {AirPrograms.MACT.ToString, "M"},
+            {AirPrograms.TitleV.ToString, "V"},
+            {AirPrograms.RMP.ToString, "R"}
         }
 
-        Public Property AirProgramClassifications() As AirProgramClassification
+        Public Property AirProgramClassifications() As AirProgramClassifications
 
         ''' <summary>
         ''' A five-character string representing a facility's air program classifications. 
@@ -303,14 +302,14 @@ Namespace Apb.Facilities
         ''' Stored in database as a five-character coded string, but only the first two are used.</remarks>
         Public Property AirProgramClassificationsCode() As String
             Get
-                Return ConvertEnumToBitFlags(Of AirProgramClassification)(Me.AirProgramClassifications, AirProgramClassificationsCodeLength)
+                Return ConvertEnumToBitFlags(Of AirProgramClassifications)(Me.AirProgramClassifications, AirProgramClassificationsCodeLength)
             End Get
             Set(value As String)
-                AirProgramClassifications = ConvertBitFieldToEnum(Of AirProgramClassification)(value)
+                AirProgramClassifications = ConvertBitFieldToEnum(Of AirProgramClassifications)(value)
             End Set
         End Property
 
-        Private Shared AirProgramClassificationsCodeLength As Integer = 5
+        Private Const AirProgramClassificationsCodeLength As Integer = 5
 
 #End Region
 
@@ -329,35 +328,35 @@ Namespace Apb.Facilities
             Return Regex.IsMatch(rmpID, RmpIdPattern)
         End Function
 
-        Public Shared Function GetAirProgramDbKey(selectedAirProgram As AirProgram) As String
+        Public Shared Function GetAirProgramDbKey(selectedAirProgram As AirPrograms) As String
             Select Case selectedAirProgram
-                Case AirProgram.AcidPrecipitation
+                Case AirPrograms.AcidPrecipitation
                     Return "A"
-                Case AirProgram.CfcTracking
+                Case AirPrograms.CfcTracking
                     Return "4"
-                Case AirProgram.FederalSIP
+                Case AirPrograms.FederalSIP
                     Return "1"
-                Case AirProgram.FESOP
+                Case AirPrograms.FESOP
                     Return "F"
-                Case AirProgram.MACT
+                Case AirPrograms.MACT
                     Return "M"
-                Case AirProgram.NativeAmerican
+                Case AirPrograms.NativeAmerican
                     Return "I"
-                Case AirProgram.NESHAP
+                Case AirPrograms.NESHAP
                     Return "8"
-                Case AirProgram.NonFederalSIP
+                Case AirPrograms.NonFederalSIP
                     Return "3"
-                Case AirProgram.NSPS
+                Case AirPrograms.NSPS
                     Return "9"
-                Case AirProgram.NSR
+                Case AirPrograms.NSR
                     Return "7"
-                Case AirProgram.PSD
+                Case AirPrograms.PSD
                     Return "6"
-                Case AirProgram.RMP
+                Case AirPrograms.RMP
                     Return "R"
-                Case AirProgram.SIP
+                Case AirPrograms.SIP
                     Return "0"
-                Case AirProgram.TitleV
+                Case AirPrograms.TitleV
                     Return "V"
                 Case Else
                     Return ""

@@ -1,6 +1,7 @@
 Imports System.Data.SqlClient
 Imports CrystalDecisions.Shared
 Imports Iaip.DAL
+Imports Iaip.DAL.Ismp
 
 Public Class IAIPPrintOut
 
@@ -13052,31 +13053,6 @@ Public Class IAIPPrintOut
         End If
 
     End Sub
-
-    Private Function GetPrintableWitnessesList(refNumber As String) As String
-        Dim query As String =
-            "select concat(strFirstName, ' ', strLastName)
-            from ISMPWitnessingEng e
-                inner join EPDUSerProfiles p
-                    on e.strWitnessingEngineer = p.NUMUSERID
-            where strReferenceNumber = @ref "
-
-        Dim param As New SqlParameter("@ref", refNumber)
-
-        Dim dt As DataTable = DB.GetDataTable(query, param)
-
-        If dt.Rows.Count = 0 Then
-            Return ""
-        End If
-
-        Dim results As New Generic.List(Of String)
-
-        For Each dr As DataRow In dt.Rows
-            results.Add(dr(0).ToString())
-        Next
-
-        Return ConcatNonEmptyStrings(", ", results)
-    End Function
 
 #End Region
 

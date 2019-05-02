@@ -38,7 +38,7 @@
 
         Dim rpt As New CR.Reports.FacilityBasicReport
 
-        Dim dt As DataTable = CollectionHelper.ConvertToDataTable(Of Apb.Facilities.Facility)(New Apb.Facilities.Facility() {DAL.GetFacility(AirsNumber).RetrieveHeaderData})
+        Dim dt As DataTable = ConvertToDataTable(Of Apb.Facilities.Facility)(New Apb.Facilities.Facility() {DAL.GetFacility(AirsNumber).RetrieveHeaderData})
         rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt)
 
         Dim crv As New CRViewerForm(rpt)
@@ -57,50 +57,32 @@
 
         Dim startdate As Date = FullPrintStartDate.Value
         Dim enddate As Date = FullPrintEndDate.Value
+
         If Date.Compare(FullPrintStartDate.Value, FullPrintEndDate.Value) > 0 Then
             startdate = FullPrintEndDate.Value
             enddate = FullPrintStartDate.Value
         End If
 
-        Dim dt1 As New DataTable
-        dt1 = CollectionHelper.ConvertToDataTable(Of Apb.Facilities.Facility)(New Apb.Facilities.Facility() {DAL.GetFacility(AirsNumber).RetrieveHeaderData})
+        Dim dt1 As DataTable = ConvertToDataTable(Of Apb.Facilities.Facility)(New Apb.Facilities.Facility() {DAL.GetFacility(AirsNumber).RetrieveHeaderData})
         rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt1)
 
-        Dim dt2 As New DataTable("VW_SSCP_INSPECTIONS")
-        dt2 = DAL.Sscp.GetInspectionDataTable(startdate, enddate, AirsNumber)
-        rpt.Subreports("SscpInspections.rpt").SetDataSource(dt2)
+        rpt.Subreports("SscpInspections.rpt").SetDataSource(DAL.Sscp.GetInspectionDataTable(startdate, enddate, AirsNumber))
 
-        Dim dt3 As New DataTable("VW_SSCP_RMPINSPECTIONS")
-        dt3 = DAL.Sscp.GetRmpInspectionDataTable(startdate, enddate, AirsNumber)
-        rpt.Subreports("SscpRmpInspections.rpt").SetDataSource(dt3)
+        rpt.Subreports("SscpRmpInspections.rpt").SetDataSource(DAL.Sscp.GetRmpInspectionDataTable(startdate, enddate, AirsNumber))
 
-        Dim dt4 As New DataTable("VW_SSCP_ACCS")
-        dt4 = DAL.Sscp.GetAccDataTable(startdate, enddate, AirsNumber)
-        rpt.Subreports("SscpAcc.rpt").SetDataSource(dt4)
+        rpt.Subreports("SscpAcc.rpt").SetDataSource(DAL.Sscp.GetAccDataTable(startdate, enddate, AirsNumber))
 
-        Dim dt5 As New DataTable("VW_SSCP_REPORTS")
-        dt5 = DAL.Sscp.GetCompReportsDataTable(startdate, enddate, AirsNumber)
-        rpt.Subreports("SscpReports.rpt").SetDataSource(dt5)
+        rpt.Subreports("SscpReports.rpt").SetDataSource(DAL.Sscp.GetCompReportsDataTable(startdate, enddate, AirsNumber))
 
-        Dim dt6 As New DataTable("VW_SSCP_NOTIFICATIONS")
-        dt6 = DAL.Sscp.GetCompNotificationsDataTable(startdate, enddate, AirsNumber)
-        rpt.Subreports("SscpNotifications.rpt").SetDataSource(dt6)
+        rpt.Subreports("SscpNotifications.rpt").SetDataSource(DAL.Sscp.GetCompNotificationsDataTable(startdate, enddate, AirsNumber))
 
-        Dim dt7 As New DataTable("VW_SSCP_STACKTESTS")
-        dt7 = DAL.Sscp.GetCompStackTestDataTable(startdate, enddate, AirsNumber)
-        rpt.Subreports("SscpStackTests.rpt").SetDataSource(dt7)
+        rpt.Subreports("SscpStackTests.rpt").SetDataSource(DAL.Sscp.GetCompStackTestDataTable(startdate, enddate, AirsNumber))
 
-        Dim dt8 As New DataTable("VW_SSCP_FCES")
-        dt8 = DAL.Sscp.GetFceDataTable(startdate, enddate, AirsNumber)
-        rpt.Subreports("SscpFce.rpt").SetDataSource(dt8)
+        rpt.Subreports("SscpFce.rpt").SetDataSource(DAL.Sscp.GetFceDataTable(startdate, enddate, AirsNumber))
 
-        Dim dt10 As New DataTable("VW_FEES_FACILITY_SUMMARY")
-        dt10 = DAL.FeesData.GetFeesFacilitySummaryAsDataTable(startdate.Year, enddate.Year, AirsNumber)
-        rpt.Subreports("FeesFacilitySum.rpt").SetDataSource(dt10)
+        rpt.Subreports("FeesFacilitySum.rpt").SetDataSource(DAL.GetFeesFacilitySummaryAsDataTable(startdate.Year, enddate.Year, AirsNumber))
 
-        Dim dt11 As New DataTable("VW_SSCP_ENFORCEMENT_SUMMARY")
-        dt11 = DAL.Sscp.GetEnforcementSummaryDataTable(startdate, enddate, AirsNumber)
-        rpt.Subreports("SscpEnforcementSum.rpt").SetDataSource(dt11)
+        rpt.Subreports("SscpEnforcementSum.rpt").SetDataSource(DAL.Sscp.GetEnforcementSummaryDataTable(startdate, enddate, AirsNumber))
 
         Dim pd As New Generic.Dictionary(Of String, String) From {
             {"StartDate", String.Format("{0:MMMM d, yyyy}", startdate)},

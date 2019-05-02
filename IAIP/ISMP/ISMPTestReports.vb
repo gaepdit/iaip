@@ -21387,4 +21387,27 @@ Public Class ISMPTestReports
 
 #End Region
 
+    'Form overrides dispose to clean up the component list. 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If dtMethods IsNot Nothing Then dtMethods.Dispose()
+                If dtEngineer IsNot Nothing Then dtEngineer.Dispose()
+                If dtComplianceStatus IsNot Nothing Then dtComplianceStatus.Dispose()
+                If dtCCList IsNot Nothing Then dtCCList.Dispose()
+                If dtUnits IsNot Nothing Then dtUnits.Dispose()
+                If dtComplianceManager IsNot Nothing Then dtComplianceManager.Dispose()
+                If dtReportType IsNot Nothing Then dtReportType.Dispose()
+                If dtTestingFirm IsNot Nothing Then dtTestingFirm.Dispose()
+                If dtISMPUnits IsNot Nothing Then dtISMPUnits.Dispose()
+                If dtPollutants IsNot Nothing Then dtPollutants.Dispose()
+                If dtComplianceStaff IsNot Nothing Then dtComplianceStaff.Dispose()
+
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
 End Class

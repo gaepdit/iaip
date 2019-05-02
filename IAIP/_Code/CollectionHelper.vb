@@ -1,8 +1,8 @@
 ﻿Imports System.ComponentModel
 
-Public Class CollectionHelper
+Public Module CollectionHelper
 
-    Public Shared Function ConvertToDataTable(Of T)(list As IList) As DataTable
+    Public Function ConvertToDataTable(Of T)(list As IList) As DataTable
         Dim table As DataTable = CreateTable(Of T)()
         Dim entityType As Type = GetType(T)
         Dim properties As PropertyDescriptorCollection = TypeDescriptor.GetProperties(entityType)
@@ -20,7 +20,7 @@ Public Class CollectionHelper
         Return table
     End Function
 
-    Private Shared Function CreateTable(Of T)() As DataTable
+    Private Function CreateTable(Of T)() As DataTable
         Dim entityType As Type = GetType(T)
         Dim table As New DataTable(entityType.Name)
         Dim properties As PropertyDescriptorCollection = TypeDescriptor.GetProperties(entityType)
@@ -32,4 +32,4 @@ Public Class CollectionHelper
         Return table
     End Function
 
-End Class
+End Module

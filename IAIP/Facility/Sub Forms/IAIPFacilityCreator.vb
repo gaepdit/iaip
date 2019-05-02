@@ -1,7 +1,6 @@
 Imports System.Data.SqlClient
-Imports Iaip.Apb.Facilities
-Imports Iaip.SharedData
 Imports Iaip.Apb
+Imports Iaip.Apb.Facilities
 
 Public Class IAIPFacilityCreator
 
@@ -215,7 +214,9 @@ Public Class IAIPFacilityCreator
         End Try
     End Sub
 
-    Private Sub FindRegion(Region As String, AIRSNumber As String)
+    Private Sub FindRegion(AIRSNumber As String)
+        Dim Region As String
+
         Try
             If ApbFacilityId.IsValidAirsNumberFormat(AIRSNumber) Then
                 Dim SQL As String = "Select concat(LookUPDistricts.strDistrictcode, '-', strDistrictName) as District " &
@@ -342,7 +343,7 @@ Public Class IAIPFacilityCreator
                 AIRSNumber = "0413" & txtCDSAIRSNumber.Text
             End If
 
-            FindRegion(txtCDSRegionCode.Text, txtCDSAIRSNumber.Text)
+            FindRegion(txtCDSAIRSNumber.Text)
 
             If txtCDSFacilityName.Text = "" Then
                 FacilityName = "N/A"
@@ -473,13 +474,10 @@ Public Class IAIPFacilityCreator
             Else
                 ContactTitle = "N/A"
             End If
-            If mtbContactPhoneNumber.Text <> "" Then
-                ContactPhoneNumber = Replace(Replace(Replace(Replace(mtbContactPhoneNumber.Text, "(", ""), ")", ""), " ", ""), "-", "")
+            If String.IsNullOrEmpty(txtContactPhoneNumber.Text) Then
+                ContactPhoneNumber = txtContactPhoneNumber.Text
             Else
                 ContactPhoneNumber = "0000000000"
-            End If
-            If mtbContactNumberExtension.Text <> "" Then
-                ContactPhoneNumber = ContactPhoneNumber & mtbContactNumberExtension.Text
             End If
             If txtMailingAddress.Text <> "" Then
                 MailingStreet = txtMailingAddress.Text
@@ -671,43 +669,43 @@ Public Class IAIPFacilityCreator
             Dim os As FacilityOperationalStatus = CType([Enum].Parse(GetType(FacilityOperationalStatus), OperatingStatus), FacilityOperationalStatus)
 
             If chbCDS_1.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.SIP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.SIP, "OT", os)
             End If
             If chbCDS_2.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.FederalSIP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.FederalSIP, "OT", os)
             End If
             If chbCDS_3.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NonFederalSIP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NonFederalSIP, "OT", os)
             End If
             If chbCDS_4.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.CfcTracking, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.CfcTracking, "OT", os)
             End If
             If chbCDS_5.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.PSD, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.PSD, "OT", os)
             End If
             If chbCDS_6.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NSR, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NSR, "OT", os)
             End If
             If chbCDS_7.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NESHAP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NESHAP, "OT", os)
             End If
             If chbCDS_8.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NSPS, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NSPS, "OT", os)
             End If
             If chbCDS_9.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.FESOP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.FESOP, "OT", os)
             End If
             If chbCDS_10.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.AcidPrecipitation, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.AcidPrecipitation, "OT", os)
             End If
             If chbCDS_11.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NativeAmerican, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NativeAmerican, "OT", os)
             End If
             If chbCDS_12.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.MACT, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.MACT, "OT", os)
             End If
             If chbCDS_13.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.TitleV, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.TitleV, "OT", os)
             End If
 
             SQL = "Insert into SSCPDistrictResponsible " &
@@ -985,11 +983,9 @@ Public Class IAIPFacilityCreator
                         txtContactTitle.Text = dr.Item("strContactTitle").ToString
                     End If
                     If IsDBNull(dr.Item("strCOntactphoneNumber1")) Then
-                        mtbContactPhoneNumber.Clear()
-                        mtbContactNumberExtension.Clear()
+                        txtContactPhoneNumber.Clear()
                     Else
-                        mtbContactPhoneNumber.Text = Mid(dr.Item("strContactPhoneNumber1").ToString, 1, 10)
-                        mtbContactNumberExtension.Text = Mid(dr.Item("strcontactPhoneNumber1").ToString, 11)
+                        txtContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1").ToString
                     End If
                 End If
             End If
@@ -1084,7 +1080,7 @@ Public Class IAIPFacilityCreator
             End If
 
             txtCDSAIRSNumber.Text = txtNewAIRSNumber.Text
-            FindRegion(txtCDSRegionCode.Text, txtCDSAIRSNumber.Text)
+            FindRegion(txtCDSAIRSNumber.Text)
 
             Dim SQL As String = "select " &
             "strFacilityName, strFacilityStreet1, " &
@@ -1312,11 +1308,9 @@ Public Class IAIPFacilityCreator
                     txtContactTitle.Text = dr.Item("strContactTitle").ToString
                 End If
                 If IsDBNull(dr.Item("strCOntactphoneNumber1")) Then
-                    mtbContactPhoneNumber.Clear()
-                    mtbContactNumberExtension.Clear()
+                    txtContactPhoneNumber.Clear()
                 Else
-                    mtbContactPhoneNumber.Text = Mid(dr.Item("strContactPhoneNumber1").ToString, 1, 10)
-                    mtbContactNumberExtension.Text = Mid(dr.Item("strcontactPhoneNumber1").ToString, 11)
+                    txtContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1").ToString
                 End If
                 If IsDBNull(dr.Item("numFacilityLongitude")) Then
                     mtbFacilityLongitude.Clear()
@@ -1662,8 +1656,7 @@ Public Class IAIPFacilityCreator
         txtContactLastName.Clear()
         txtContactPedigree.Clear()
         txtContactTitle.Clear()
-        mtbContactPhoneNumber.Clear()
-        mtbContactNumberExtension.Clear()
+        txtContactPhoneNumber.Clear()
         txtFacilityComments.Clear()
 
         txtNewAIRSNumber.Clear()
@@ -1871,13 +1864,10 @@ Public Class IAIPFacilityCreator
             Else
                 ContactTitle = "N/A"
             End If
-            If mtbContactPhoneNumber.Text <> "" Then
-                ContactPhoneNumber = Replace(Replace(Replace(Replace(mtbContactPhoneNumber.Text, "(", ""), ")", ""), " ", ""), "-", "")
+            If String.IsNullOrEmpty(txtContactPhoneNumber.Text) Then
+                ContactPhoneNumber = txtContactPhoneNumber.Text
             Else
                 ContactPhoneNumber = "0000000000"
-            End If
-            If mtbContactNumberExtension.Text <> "" Then
-                ContactPhoneNumber = ContactPhoneNumber & mtbContactNumberExtension.Text
             End If
             If txtMailingAddress.Text <> "" Then
                 MailingStreet = txtMailingAddress.Text

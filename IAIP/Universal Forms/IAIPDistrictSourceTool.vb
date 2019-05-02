@@ -1,7 +1,6 @@
-Imports System.Data.SqlClient
 Imports System.Collections.Generic
+Imports System.Data.SqlClient
 Imports System.Linq
-Imports Iaip.SharedData
 Imports Iaip.DAL
 
 Public Class IAIPDistrictSourceTool
@@ -177,6 +176,18 @@ Public Class IAIPDistrictSourceTool
                 clbCounties.SetItemChecked(i, True)
             End If
         Next
+    End Sub
+
+    'Form overrides dispose to clean up the component list. 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If DistrictCountyAssignments IsNot Nothing Then DistrictCountyAssignments.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
     End Sub
 
 End Class

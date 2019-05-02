@@ -671,9 +671,9 @@ Public Class PASPFeeAuditLog
                     mtbGECOContactZipCode.Text = dr.Item("strContactZipCode")
                 End If
                 If IsDBNull(dr.Item("strContactPhoneNumber")) Then
-                    mtbGECOContactPhontNumber.Clear()
+                    txtGECOContactPhontNumber.Clear()
                 Else
-                    mtbGECOContactPhontNumber.Text = dr.Item("strContactPhoneNumber")
+                    txtGECOContactPhontNumber.Text = dr.Item("strContactPhoneNumber")
                 End If
                 If IsDBNull(dr.Item("strContactFaxNumber")) Then
                     mtbGECOContactFaxNumber.Clear()
@@ -1801,8 +1801,8 @@ Public Class PASPFeeAuditLog
                 .Classification = cboInitialClassification.SelectedValue
                 .ShutdownDate = If(dtpInitialShutDownDate.Checked, dtpInitialShutDownDate.Value, CType(Nothing, DateTime?))
             End With
-            If rdbInitialNSPSTrue.Checked Then .HeaderData.AirPrograms = .HeaderData.AirPrograms Or AirProgram.NSPS
-            If rdbInitialPart70True.Checked Then .HeaderData.AirPrograms = .HeaderData.AirPrograms Or AirProgram.TitleV
+            If rdbInitialNSPSTrue.Checked Then .HeaderData.AirPrograms = .HeaderData.AirPrograms Or AirPrograms.NSPS
+            If rdbInitialPart70True.Checked Then .HeaderData.AirPrograms = .HeaderData.AirPrograms Or AirPrograms.TitleV
         End With
 
         Return facility
@@ -2082,7 +2082,7 @@ Public Class PASPFeeAuditLog
             txtGECOContactCity.Clear()
             txtGECOContactState.Clear()
             mtbGECOContactZipCode.Clear()
-            mtbGECOContactPhontNumber.Clear()
+            txtGECOContactPhontNumber.Clear()
             mtbGECOContactFaxNumber.Clear()
             txtGECOContactEmail.Clear()
             txtGECOContactComments.Clear()
@@ -2115,7 +2115,7 @@ Public Class PASPFeeAuditLog
             txtGECOContactCity.ReadOnly = True
             txtGECOContactState.ReadOnly = True
             mtbGECOContactZipCode.ReadOnly = True
-            mtbGECOContactPhontNumber.ReadOnly = True
+            txtGECOContactPhontNumber.ReadOnly = True
             mtbGECOContactFaxNumber.ReadOnly = True
             txtGECOContactEmail.ReadOnly = True
             txtGECOContactComments.ReadOnly = True
@@ -2351,9 +2351,9 @@ Public Class PASPFeeAuditLog
                     mtbGECOContactZipCode.Text = dgvGECOFeeContacts(10, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvGECOFeeContacts(11, hti.RowIndex).Value) Then
-                    mtbGECOContactPhontNumber.Clear()
+                    txtGECOContactPhontNumber.Clear()
                 Else
-                    mtbGECOContactPhontNumber.Text = dgvGECOFeeContacts(11, hti.RowIndex).Value
+                    txtGECOContactPhontNumber.Text = dgvGECOFeeContacts(11, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvGECOFeeContacts(12, hti.RowIndex).Value) Then
                     mtbGECOContactFaxNumber.Clear()

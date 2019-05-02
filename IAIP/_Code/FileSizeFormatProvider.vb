@@ -15,9 +15,6 @@ Public Class FileSizeFormatProvider
     End Function
 
     Private Const fileSizeFormat As String = "fs"
-    Private Const OneKiloByte As Decimal = 1024D
-    Private Const OneMegaByte As Decimal = OneKiloByte * 1024D
-    Private Const OneGigaByte As Decimal = OneMegaByte * 1024D
 
     Public Function Format(format__1 As String, arg As Object, formatProvider As IFormatProvider) As String Implements System.ICustomFormatter.Format
         If format__1 Is Nothing OrElse Not format__1.StartsWith(fileSizeFormat) Then

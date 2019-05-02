@@ -1,6 +1,5 @@
-Imports System.Data.SqlClient
 Imports System.Collections.Generic
-Imports Iaip.SharedData
+Imports System.Data.SqlClient
 Imports Iaip.Apb.Facilities
 
 Public Class IAIPEditSubParts

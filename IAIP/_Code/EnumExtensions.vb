@@ -5,7 +5,7 @@ Imports System.Runtime.CompilerServices
 
 Module EnumExtensions
 
-    Private enumDescriptions As New Dictionary(Of String, String)
+    Private ReadOnly enumDescriptions As New Dictionary(Of String, String)
 
     ''' <summary>
     ''' If a Description attribute is present for an enum value, returns the description.

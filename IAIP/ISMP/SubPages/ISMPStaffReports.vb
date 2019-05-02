@@ -31,24 +31,24 @@ Public Class ISMPStaffReports
         Dim ComplianceByDate As String = "X"
         Dim OpenComplianceByDate As String = "X"
         Dim CloseComplianceByDate As String = "X"
-        Dim OpenMedianByDate As String = "X"
-        Dim CloseMedianByDate As String = "X"
-        Dim OpenPercentileByDate As String = "X"
-        Dim ClosePercentileByDate As String = "X"
+        Dim OpenMedianByDate As String
+        Dim CloseMedianByDate As String
+        Dim OpenPercentileByDate As String
+        Dim ClosePercentileByDate As String
 
         Dim ReceivedTotal As String = "X"
         Dim OpenTotal As String = "X"
         Dim OpenWitnessedTotal As String = "X"
         Dim OpenComplianceTotal As String = "X"
         Dim OpenGreaterTotal As String = "X"
-        Dim OpenMedianTotal As String = "X"
-        Dim PercentileOpenTotalDay As String = "X"
+        Dim OpenMedianTotal As String
+        Dim PercentileOpenTotalDay As String
         Dim ClosedTotal As String = "X"
         Dim ClosedWitnessedTotal As String = "X"
         Dim ClosedComplianceTotal As String = "X"
         Dim ClosedGreaterTotal As String = "X"
-        Dim ClosedMedianTotal As String = "X"
-        Dim PercentileClosedTotalDay As String = "X"
+        Dim ClosedMedianTotal As String
+        Dim PercentileClosedTotalDay As String
         Dim Statement As String = ""
 
         Dim i As Integer = 0

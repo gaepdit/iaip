@@ -269,7 +269,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnGetCurrentPermittingContact = New System.Windows.Forms.Button()
         Me.mtbContactZipCode = New System.Windows.Forms.MaskedTextBox()
         Me.mtbContactFaxNumber = New System.Windows.Forms.MaskedTextBox()
-        Me.mtbContactPhoneNumber = New System.Windows.Forms.MaskedTextBox()
         Me.txtContactDescription = New System.Windows.Forms.TextBox()
         Me.txtContactEmailAddress = New System.Windows.Forms.TextBox()
         Me.txtContactState = New System.Windows.Forms.TextBox()
@@ -527,6 +526,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnFetchNewAppNumber = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.txtContactPhoneNumber = New System.Windows.Forms.TextBox()
         Me.TPSubPartEditor.SuspendLayout()
         Me.TCSupParts.SuspendLayout()
         Me.TPSIP.SuspendLayout()
@@ -3208,13 +3208,13 @@ Partial Class SSPPApplicationTrackingLog
         '
         'TPContactInformation
         '
+        Me.TPContactInformation.Controls.Add(Me.txtContactPhoneNumber)
         Me.TPContactInformation.Controls.Add(Me.btnGoToFeeContact)
         Me.TPContactInformation.Controls.Add(Me.btnEmailAcknowledgmentLetter)
         Me.TPContactInformation.Controls.Add(Me.btnAcknowledgementLetter)
         Me.TPContactInformation.Controls.Add(Me.btnGetCurrentPermittingContact)
         Me.TPContactInformation.Controls.Add(Me.mtbContactZipCode)
         Me.TPContactInformation.Controls.Add(Me.mtbContactFaxNumber)
-        Me.TPContactInformation.Controls.Add(Me.mtbContactPhoneNumber)
         Me.TPContactInformation.Controls.Add(Me.txtContactDescription)
         Me.TPContactInformation.Controls.Add(Me.txtContactEmailAddress)
         Me.TPContactInformation.Controls.Add(Me.txtContactState)
@@ -3308,15 +3308,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.mtbContactFaxNumber.Size = New System.Drawing.Size(89, 20)
         Me.mtbContactFaxNumber.TabIndex = 13
         Me.mtbContactFaxNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'mtbContactPhoneNumber
-        '
-        Me.mtbContactPhoneNumber.Location = New System.Drawing.Point(92, 150)
-        Me.mtbContactPhoneNumber.Mask = "(999) 000-0000"
-        Me.mtbContactPhoneNumber.Name = "mtbContactPhoneNumber"
-        Me.mtbContactPhoneNumber.Size = New System.Drawing.Size(89, 20)
-        Me.mtbContactPhoneNumber.TabIndex = 12
-        Me.mtbContactPhoneNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'txtContactDescription
         '
@@ -6168,6 +6159,13 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label3.TabIndex = 250
         Me.Label3.Text = "Current Facility Info"
         '
+        'txtContactPhoneNumber
+        '
+        Me.txtContactPhoneNumber.Location = New System.Drawing.Point(92, 151)
+        Me.txtContactPhoneNumber.Name = "txtContactPhoneNumber"
+        Me.txtContactPhoneNumber.Size = New System.Drawing.Size(149, 20)
+        Me.txtContactPhoneNumber.TabIndex = 366
+        '
         'SSPPApplicationTrackingLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -6447,7 +6445,6 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents btnGetCurrentPermittingContact As System.Windows.Forms.Button
     Friend WithEvents mtbContactZipCode As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mtbContactFaxNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbContactPhoneNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents txtContactDescription As System.Windows.Forms.TextBox
     Friend WithEvents txtContactEmailAddress As System.Windows.Forms.TextBox
     Friend WithEvents txtContactState As System.Windows.Forms.TextBox
@@ -6803,4 +6800,5 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents lblPayments As Label
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents txtContactPhoneNumber As TextBox
 End Class

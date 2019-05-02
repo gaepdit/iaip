@@ -18,7 +18,7 @@
             Case BooleanDBConversionType.OneOrZero
                 Return Convert.ToBoolean(Integer.Parse(value))
             Case Else
-                Throw New ArgumentException
+                Throw New ArgumentException("Incorrect conversion type specified.", NameOf(conversionType))
         End Select
     End Function
 
@@ -37,7 +37,7 @@
                     Return "0"
                 End If
             Case Else
-                Throw New ArgumentException
+                Throw New ArgumentException("Incorrect conversion type specified.", NameOf(conversionType))
         End Select
     End Function
 

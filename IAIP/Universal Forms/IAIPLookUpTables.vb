@@ -1,7 +1,4 @@
-﻿Imports System.Data.SqlClient
-Imports Iaip.SharedData
-
-Public Class IAIPLookUpTables
+﻿Public Class IAIPLookUpTables
     Private AppTypesLoaded As Boolean = False
 
     Private Sub IAIPLookUpTables_Load(sender As Object, e As EventArgs) Handles Me.Load

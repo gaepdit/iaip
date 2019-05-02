@@ -117,7 +117,7 @@ Public Class IaipUserSecurity
         RevokeFailure
     End Enum
 
-    Private MessageDictionary As New Dictionary(Of Message, String) From {
+    Private ReadOnly MessageDictionary As New Dictionary(Of Message, String) From {
         {Message.RevokeAllFailure, "An error occurred when attempting to revoke all sessions."},
         {Message.RevokeAllSuccess, "All sessions successfully revoked."},
         {Message.RevokeFailure, "An error occurred when attempting to revoke the session."},

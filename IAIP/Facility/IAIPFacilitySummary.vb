@@ -484,44 +484,44 @@ Public Class IAIPFacilitySummary
             HeaderDescDisplay.Text = .FacilityDescription
 
             'Air Programs
-            Dim tempAP As AirProgram = .AirPrograms
+            Dim tempAP As AirPrograms = .AirPrograms
             With AirProgramsListBox.Items
                 .Clear()
-                If tempAP = AirProgram.None Then
-                    .Add(AirProgram.None.GetDescription)
+                If tempAP = AirPrograms.None Then
+                    .Add(AirPrograms.None.GetDescription)
                 Else
-                    If CBool(tempAP And AirProgram.SIP) Then .Add(AirProgram.SIP.GetDescription)
-                    If CBool(tempAP And AirProgram.FederalSIP) Then AirProgramsListBox.Items.Add(AirProgram.FederalSIP.GetDescription)
-                    If CBool(tempAP And AirProgram.NonFederalSIP) Then AirProgramsListBox.Items.Add(AirProgram.NonFederalSIP.GetDescription)
-                    If CBool(tempAP And AirProgram.CfcTracking) Then AirProgramsListBox.Items.Add(AirProgram.CfcTracking.GetDescription)
-                    If CBool(tempAP And AirProgram.PSD) Then AirProgramsListBox.Items.Add(AirProgram.PSD.GetDescription)
-                    If CBool(tempAP And AirProgram.NSR) Then AirProgramsListBox.Items.Add(AirProgram.NSR.GetDescription)
-                    If CBool(tempAP And AirProgram.TitleV) Then AirProgramsListBox.Items.Add(AirProgram.TitleV.GetDescription)
-                    If CBool(tempAP And AirProgram.MACT) Then AirProgramsListBox.Items.Add(AirProgram.MACT.GetDescription)
-                    If CBool(tempAP And AirProgram.NESHAP) Then AirProgramsListBox.Items.Add(AirProgram.NESHAP.GetDescription)
-                    If CBool(tempAP And AirProgram.NSPS) Then AirProgramsListBox.Items.Add(AirProgram.NSPS.GetDescription)
-                    If CBool(tempAP And AirProgram.AcidPrecipitation) Then AirProgramsListBox.Items.Add(AirProgram.AcidPrecipitation.GetDescription)
-                    If CBool(tempAP And AirProgram.FESOP) Then AirProgramsListBox.Items.Add(AirProgram.FESOP.GetDescription)
-                    If CBool(tempAP And AirProgram.NativeAmerican) Then AirProgramsListBox.Items.Add(AirProgram.NativeAmerican.GetDescription)
-                    If CBool(tempAP And AirProgram.RMP) Then AirProgramsListBox.Items.Add(AirProgram.RMP.GetDescription)
+                    If CBool(tempAP And AirPrograms.SIP) Then .Add(AirPrograms.SIP.GetDescription)
+                    If CBool(tempAP And AirPrograms.FederalSIP) Then AirProgramsListBox.Items.Add(AirPrograms.FederalSIP.GetDescription)
+                    If CBool(tempAP And AirPrograms.NonFederalSIP) Then AirProgramsListBox.Items.Add(AirPrograms.NonFederalSIP.GetDescription)
+                    If CBool(tempAP And AirPrograms.CfcTracking) Then AirProgramsListBox.Items.Add(AirPrograms.CfcTracking.GetDescription)
+                    If CBool(tempAP And AirPrograms.PSD) Then AirProgramsListBox.Items.Add(AirPrograms.PSD.GetDescription)
+                    If CBool(tempAP And AirPrograms.NSR) Then AirProgramsListBox.Items.Add(AirPrograms.NSR.GetDescription)
+                    If CBool(tempAP And AirPrograms.TitleV) Then AirProgramsListBox.Items.Add(AirPrograms.TitleV.GetDescription)
+                    If CBool(tempAP And AirPrograms.MACT) Then AirProgramsListBox.Items.Add(AirPrograms.MACT.GetDescription)
+                    If CBool(tempAP And AirPrograms.NESHAP) Then AirProgramsListBox.Items.Add(AirPrograms.NESHAP.GetDescription)
+                    If CBool(tempAP And AirPrograms.NSPS) Then AirProgramsListBox.Items.Add(AirPrograms.NSPS.GetDescription)
+                    If CBool(tempAP And AirPrograms.AcidPrecipitation) Then AirProgramsListBox.Items.Add(AirPrograms.AcidPrecipitation.GetDescription)
+                    If CBool(tempAP And AirPrograms.FESOP) Then AirProgramsListBox.Items.Add(AirPrograms.FESOP.GetDescription)
+                    If CBool(tempAP And AirPrograms.NativeAmerican) Then AirProgramsListBox.Items.Add(AirPrograms.NativeAmerican.GetDescription)
+                    If CBool(tempAP And AirPrograms.RMP) Then AirProgramsListBox.Items.Add(AirPrograms.RMP.GetDescription)
                 End If
             End With
 
             'Buttons for Air Program Subparts
             EditSubpartsButton.Visible = CBool(.AirPrograms And
-                (AirProgram.MACT Or AirProgram.NESHAP Or AirProgram.NSPS Or AirProgram.SIP))
+                (AirPrograms.MACT Or AirPrograms.NESHAP Or AirPrograms.NSPS Or AirPrograms.SIP))
             EditPollutantsButton.Enabled = True
 
             'Classifications
             ProgramClassificationsListBox.Items.Clear()
-            If (.AirProgramClassifications = AirProgramClassification.None) Then
-                ProgramClassificationsListBox.Items.Add(AirProgramClassification.None.GetDescription)
+            If (.AirProgramClassifications = AirProgramClassifications.None) Then
+                ProgramClassificationsListBox.Items.Add(AirProgramClassifications.None.GetDescription)
             Else
-                If CBool(.AirProgramClassifications And AirProgramClassification.NsrMajor) Then
-                    ProgramClassificationsListBox.Items.Add(AirProgramClassification.NsrMajor.GetDescription)
+                If CBool(.AirProgramClassifications And AirProgramClassifications.NsrMajor) Then
+                    ProgramClassificationsListBox.Items.Add(AirProgramClassifications.NsrMajor.GetDescription)
                 End If
-                If CBool(.AirProgramClassifications And AirProgramClassification.HapMajor) Then
-                    ProgramClassificationsListBox.Items.Add(AirProgramClassification.HapMajor.GetDescription)
+                If CBool(.AirProgramClassifications And AirProgramClassifications.HapMajor) Then
+                    ProgramClassificationsListBox.Items.Add(AirProgramClassifications.HapMajor.GetDescription)
                 End If
             End If
 
@@ -1009,5 +1009,18 @@ Public Class IAIPFacilitySummary
     End Sub
 
 #End Region
+
+    'Form overrides dispose to clean up the component list. 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If FacilitySummaryDataSet IsNot Nothing Then FacilitySummaryDataSet.Dispose()
+                If bgw IsNot Nothing Then bgw.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
 
 End Class

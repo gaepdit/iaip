@@ -110,15 +110,15 @@ Public Class IAIPEditFacilityLocation
             Exit Sub
         End If
 
-        Dim FacilityName As String = ""
-        Dim Street1 As String = ""
-        Dim Street2 As String = ""
-        Dim City As String = ""
-        Dim State As String = ""
-        Dim ZipCode As String = ""
-        Dim Longitude As String = ""
-        Dim Latitude As String = ""
-        Dim Comments As String = ""
+        Dim FacilityName As String
+        Dim Street1 As String
+        Dim Street2 As String
+        Dim City As String
+        Dim State As String
+        Dim ZipCode As String
+        Dim Longitude As String
+        Dim Latitude As String
+        Dim Comments As String
 
         txtFacilityName.BackColor = Color.Empty
         txtStreetAddress.BackColor = Color.Empty

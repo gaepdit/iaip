@@ -62,7 +62,7 @@ Public Class ISMPMonitoringLog
     End Sub
 
     Private Sub LoadDataSet()
-        Dim SQLWhere As String = ""
+        Dim SQLWhere As String
         Dim query As String = ""
 
         Try

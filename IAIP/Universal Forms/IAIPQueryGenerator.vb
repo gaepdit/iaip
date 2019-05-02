@@ -3313,24 +3313,24 @@ Public Class IAIPQueryGenerator
 
     Private Sub LoadDefaults()
         Dim DefaultsText As String = ""
-        Dim AIRSNumber As String = ""
-        Dim FacilityName As String = ""
-        Dim FacilityStreet1 As String = ""
-        Dim FacilityStreet2 As String = ""
-        Dim FacilityCity As String = ""
-        Dim FacilityZipCode As String = ""
-        Dim Longitude As String = ""
-        Dim Latitude As String = ""
-        Dim County As String = ""
-        Dim District As String = ""
-        Dim OperationStatus As String = ""
-        Dim Classification As String = ""
-        Dim SICCode As String = ""
-        Dim NAICSCode As String = ""
-        Dim StartUpDate As String = ""
-        Dim ShutDownDate As String = ""
-        Dim CMSUniverse As String = ""
-        Dim PlantDesc As String = ""
+        Dim AIRSNumber As String
+        Dim FacilityName As String
+        Dim FacilityStreet1 As String
+        Dim FacilityStreet2 As String
+        Dim FacilityCity As String
+        Dim FacilityZipCode As String
+        Dim Longitude As String
+        Dim Latitude As String
+        Dim County As String
+        Dim District As String
+        Dim OperationStatus As String
+        Dim Classification As String
+        Dim SICCode As String
+        Dim NAICSCode As String
+        Dim StartUpDate As String
+        Dim ShutDownDate As String
+        Dim CMSUniverse As String
+        Dim PlantDesc As String
 
         Try
 
@@ -3932,7 +3932,7 @@ Public Class IAIPQueryGenerator
             dgvQueryGenerator.DataSource = DAL.SearchHistoricalAirProgramStatus(
                 dtpCannedStartDate.Value,
                 dtpCannedEndDate.Value,
-                CType(cboCannedSelection.SelectedValue, AirProgram))
+                CType(cboCannedSelection.SelectedValue, AirPrograms))
         End If
     End Sub
 
@@ -3973,7 +3973,7 @@ Public Class IAIPQueryGenerator
         ElseIf rdbCannedHistoryAirProgram.Checked Then
             HideControls({lblCannedHistoryClass, lblCannedPermitContactData})
             ShowControls({lblCannedHistoryAirProgram, lblCannedStartDate, dtpCannedStartDate, lblCannedEndDate, dtpCannedEndDate, lblCannedSelection, cboCannedSelection})
-            cboCannedSelection.BindToEnum(Of AirProgram)()
+            cboCannedSelection.BindToEnum(Of AirPrograms)()
 
             If cboCannedSelection.Items.Count > 1 Then
                 cboCannedSelection.SelectedIndex = 1
@@ -4000,4 +4000,32 @@ Public Class IAIPQueryGenerator
     Private Sub dgvQueryGenerator_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvQueryGenerator.CellLinkActivated
         OpenFormFacilitySummary(e.LinkValue.ToString)
     End Sub
+
+    'Form overrides dispose to clean up the component list. 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If dtcboCountySearch1 IsNot Nothing Then dtcboCountySearch1.Dispose()
+                If dtcboCountySearch2 IsNot Nothing Then dtcboCountySearch2.Dispose()
+                If dtcboDistrictSearch1 IsNot Nothing Then dtcboDistrictSearch1.Dispose()
+                If dtcboDistrictSearch2 IsNot Nothing Then dtcboDistrictSearch2.Dispose()
+                If dtcboSIPSearch1 IsNot Nothing Then dtcboSIPSearch1.Dispose()
+                If dtcboSIPSearch2 IsNot Nothing Then dtcboSIPSearch2.Dispose()
+                If dtcboPart61Search1 IsNot Nothing Then dtcboPart61Search1.Dispose()
+                If dtcboPart61Search2 IsNot Nothing Then dtcboPart61Search2.Dispose()
+                If dtcboPart60Search1 IsNot Nothing Then dtcboPart60Search1.Dispose()
+                If dtcboPart60Search2 IsNot Nothing Then dtcboPart60Search2.Dispose()
+                If dtcboPart63Search1 IsNot Nothing Then dtcboPart63Search1.Dispose()
+                If dtcboPart63Search2 IsNot Nothing Then dtcboPart63Search2.Dispose()
+                If dtcboSSCPEngineerSearch1 IsNot Nothing Then dtcboSSCPEngineerSearch1.Dispose()
+                If dtcboSSCPEngineerSearch2 IsNot Nothing Then dtcboSSCPEngineerSearch2.Dispose()
+                If dtcboSSCPUnitSearch1 IsNot Nothing Then dtcboSSCPUnitSearch1.Dispose()
+                If dtcboSSCPUnitSearch2 IsNot Nothing Then dtcboSSCPUnitSearch2.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
 End Class

@@ -13,9 +13,9 @@
     ''' Handles logging and reporting of errors.
     ''' </summary>
     ''' <param name="exc">The exception to be handled.</param>
-    ''' <param name="SupplementalMessage">A string containing supplementary information to be logged.</param>
+    ''' <param name="supplementalMessage">A string containing supplementary information to be logged.</param>
     ''' <param name="contextMessage">A string representing the calling function.</param>
-    Public Sub ErrorReport(exc As Exception, SupplementalMessage As String, contextMessage As String, Optional displayErrorToUser As Boolean = True)
+    Public Sub ErrorReport(exc As Exception, supplementalMessage As String, contextMessage As String, Optional displayErrorToUser As Boolean = True)
 
         ' First, log the exception.
 #If Not DEBUG Then
@@ -29,8 +29,8 @@
 
         ' Second, display a dialog to the user describing the error and next steps.
         Dim errorMessage As String = exc.Message
-        If Not String.IsNullOrEmpty(SupplementalMessage) Then
-            errorMessage = errorMessage & Environment.NewLine & Environment.NewLine & SupplementalMessage
+        If Not String.IsNullOrEmpty(supplementalMessage) Then
+            errorMessage = errorMessage & Environment.NewLine & Environment.NewLine & supplementalMessage
         End If
 
         If displayErrorToUser Then

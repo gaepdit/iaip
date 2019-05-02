@@ -1,6 +1,4 @@
-﻿Imports System.Collections.Generic
-
-Public Class DmuEdtErrorMessages
+﻿Public Class DmuEdtErrorMessages
 
 #Region " Properties and variables "
 
@@ -12,7 +10,7 @@ Public Class DmuEdtErrorMessages
 #Region " Load "
 
     Private Sub DmuEdtErrors_Load(sender As Object, e As EventArgs) Handles Me.Load
-        
+
         GetData()
         AddDisplayOptionHandlers()
     End Sub
@@ -160,5 +158,18 @@ Public Class DmuEdtErrorMessages
     End Sub
 
 #End Region
+
+    'Form overrides dispose to clean up the component list.
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If edtErrorMessagesTable IsNot Nothing Then edtErrorMessagesTable.Dispose()
+                If edtErrorMessagesBindingSource IsNot Nothing Then edtErrorMessagesBindingSource.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
 
 End Class

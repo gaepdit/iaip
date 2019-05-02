@@ -1,6 +1,5 @@
 Imports System.Collections.Generic
 Imports System.Text
-Imports Iaip.SharedData
 
 Public Class IaipUserManagement
 
@@ -12,8 +11,8 @@ Public Class IaipUserManagement
     Private Property Message As New IaipMessage
     Private Property InvalidEntries As New List(Of Control)
 
-    Dim organizationDataSet As DataSet = GetSharedData(SharedDataSet.EpdOrganization)
-    Dim iaipAccountRoles As DataTable = GetSharedData(SharedTable.IaipAccountRoles)
+    Private ReadOnly organizationDataSet As DataSet = GetSharedData(SharedDataSet.EpdOrganization)
+    Private ReadOnly iaipAccountRoles As DataTable = GetSharedData(SharedTable.IaipAccountRoles)
 
 #End Region
 
@@ -81,13 +80,7 @@ Public Class IaipUserManagement
         SearchBranch.SelectedValue = CurrentUser.BranchID
     End Sub
 
-    Private Sub SetComboBoxFilter(cbo As ComboBox, rowFilter As String)
-        Dim view As DataView = CType(cbo.DataSource, DataView)
-        view.RowFilter = rowFilter
-        cbo.SelectedValue = 0
-    End Sub
-
-    Private Sub BranchCboSelectionChanged(branchCbo As ComboBox, programCbo As ComboBox)
+    Private Shared Sub BranchCboSelectionChanged(branchCbo As ComboBox, programCbo As ComboBox)
         If branchCbo.SelectedValue > 0 Then
             SetComboBoxFilter(programCbo, "BranchCode = " & branchCbo.SelectedValue.ToString & " OR ProgramCode = 0 ")
         Else
@@ -510,5 +503,18 @@ Public Class IaipUserManagement
     End Sub
 
 #End Region
+
+    'Form overrides dispose to clean up the component list. 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                If organizationDataSet IsNot Nothing Then organizationDataSet.Dispose()
+                If iaipAccountRoles IsNot Nothing Then iaipAccountRoles.Dispose()
+                If components IsNot Nothing Then components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
 
 End Class

@@ -1,21 +1,17 @@
 ﻿Imports System.Reflection
 
-Public Class IaipExceptionManager
+Public Module IaipExceptionManager
 
-    Private Sub New()
-        ' to keep this class from being creatable as an instance.
-    End Sub
-
-    Public Shared Sub Application_ThreadException(sender As Object, e As Threading.ThreadExceptionEventArgs)
+    Public Sub ApplicationThreadException(sender As Object, e As Threading.ThreadExceptionEventArgs)
         ' Application.ThreadException Handler added in StartupShutdown.Init
 
         e.Exception.Data.Add("Sender", sender.ToString)
         e.Exception.Data.Add("Unrecoverable", True)
-        HandleException(e.Exception, NameOf(Application_ThreadException))
+        HandleException(e.Exception, NameOf(ApplicationThreadException))
 
     End Sub
 
-    Public Shared Sub HandleException(ex As Exception, Optional context As String = Nothing)
+    Public Sub HandleException(ex As Exception, Optional context As String = Nothing)
         ' Log exception
 #If Not DEBUG Then
         If context IsNot Nothing Then
@@ -39,7 +35,7 @@ Public Class IaipExceptionManager
     '-- 
     '--  method to show error dialog
     '--
-    Public Shared Function ShowErrorDialog(exc As Exception,
+    Public Function ShowErrorDialog(exc As Exception,
                                            Optional WhatHappened As String = "",
                                            Optional WhatUserCanDo As String = "",
                                            Optional showExitButton As Boolean = False
@@ -70,7 +66,7 @@ Public Class IaipExceptionManager
     '-- turns exception into something an average user can hopefully
     '-- understand; still very technical
     '--
-    Private Shared Function FormatExceptionForUser(exc As Exception) As String
+    Private Function FormatExceptionForUser(exc As Exception) As String
         Dim sb As New Text.StringBuilder
         With sb
             .Append("Detailed error information follows:")
@@ -84,7 +80,7 @@ Public Class IaipExceptionManager
     '--
     '-- translate exception object to string, with additional system info
     '--
-    Private Shared Function ExceptionToString(exc As Exception) As String
+    Private Function ExceptionToString(exc As Exception) As String
         Dim sb As New Text.StringBuilder
 
         If Not (exc.InnerException Is Nothing) Then
@@ -154,7 +150,7 @@ Public Class IaipExceptionManager
     '-- gather some system information that is helpful to diagnosing
     '-- exception
     '--
-    Private Shared Function SysInfoToString(Optional blnIncludeStackTrace As Boolean = False) As String
+    Private Function SysInfoToString(Optional blnIncludeStackTrace As Boolean = False) As String
         Dim objStringBuilder As New System.Text.StringBuilder
 
         With objStringBuilder
@@ -205,7 +201,7 @@ Public Class IaipExceptionManager
     '--
     '-- enhanced stack trace generator
     '--
-    Private Shared Function EnhancedStackTrace(objStackTrace As StackTrace, _
+    Private Function EnhancedStackTrace(objStackTrace As StackTrace,
         Optional strSkipClassName As String = "") As String
         Dim intFrame As Integer
 
@@ -234,7 +230,7 @@ Public Class IaipExceptionManager
     '--
     '-- enhanced stack trace generator (exception)
     '--
-    Private Shared Function EnhancedStackTrace(objException As Exception) As String
+    Private Function EnhancedStackTrace(objException As Exception) As String
         Dim objStackTrace As New StackTrace(objException, True)
         Return EnhancedStackTrace(objStackTrace)
     End Function
@@ -242,7 +238,7 @@ Public Class IaipExceptionManager
     '--
     '-- enhanced stack trace generator (no params)
     '--
-    Private Shared Function EnhancedStackTrace() As String
+    Private Function EnhancedStackTrace() As String
         Dim objStackTrace As New StackTrace(True)
         Return EnhancedStackTrace(objStackTrace, "ExceptionManager")
     End Function
@@ -251,7 +247,7 @@ Public Class IaipExceptionManager
     '-- exception-safe WindowsIdentity.GetCurrent retrieval returns "domain\username"
     '-- per MS, this sometimes randomly fails with "Access Denied" particularly on NT4
     '--
-    Private Shared Function CurrentWindowsIdentity() As String
+    Private Function CurrentWindowsIdentity() As String
         Try
             Return System.Security.Principal.WindowsIdentity.GetCurrent.Name()
         Catch ex As Exception
@@ -262,7 +258,7 @@ Public Class IaipExceptionManager
     '--
     '-- exception-safe "domain\username" retrieval from Environment
     '--
-    Private Shared Function CurrentEnvironmentIdentity() As String
+    Private Function CurrentEnvironmentIdentity() As String
         Try
             Return System.Environment.UserDomainName + "\" + System.Environment.UserName
         Catch ex As Exception
@@ -273,7 +269,7 @@ Public Class IaipExceptionManager
     '--
     '-- retrieve identity with fallback on error to safer method
     '--
-    Private Shared Function UserIdentity() As String
+    Private Function UserIdentity() As String
         Dim strTemp As String
         strTemp = CurrentWindowsIdentity()
         If strTemp = "" Then
@@ -285,7 +281,7 @@ Public Class IaipExceptionManager
     '--
     '-- turns a single stack frame object into an informative string
     '--
-    Private Shared Function StackFrameToString(sf As StackFrame) As String
+    Private Function StackFrameToString(sf As StackFrame) As String
         Dim sb As New System.Text.StringBuilder
         Dim intParam As Integer
         Dim mi As MemberInfo = sf.GetMethod
@@ -331,4 +327,4 @@ Public Class IaipExceptionManager
         Return sb.ToString
     End Function
 
-End Class
+End Module

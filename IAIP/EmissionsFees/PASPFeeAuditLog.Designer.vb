@@ -88,7 +88,6 @@ Partial Class PASPFeeAuditLog
         Me.Label15 = New System.Windows.Forms.Label()
         Me.txtGECOContactLastName = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.mtbGECOContactPhontNumber = New System.Windows.Forms.MaskedTextBox()
         Me.txtGECOContactState = New System.Windows.Forms.TextBox()
         Me.mtbGECOContactFaxNumber = New System.Windows.Forms.MaskedTextBox()
         Me.Label17 = New System.Windows.Forms.Label()
@@ -457,6 +456,7 @@ Partial Class PASPFeeAuditLog
         Me.Label27 = New System.Windows.Forms.Label()
         Me.txtFSAdminComments = New System.Windows.Forms.TextBox()
         Me.dtpFeeAdminStatusDate = New System.Windows.Forms.DateTimePicker()
+        Me.txtGECOContactPhontNumber = New System.Windows.Forms.TextBox()
         Me.TabControl3.SuspendLayout()
         Me.TPGECOSubmittal.SuspendLayout()
         CType(Me.dgvInvoiceData, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1114,13 +1114,13 @@ Partial Class PASPFeeAuditLog
         '
         'Panel16
         '
+        Me.Panel16.Controls.Add(Me.txtGECOContactPhontNumber)
         Me.Panel16.Controls.Add(Me.txtGECOContactSalutation)
         Me.Panel16.Controls.Add(Me.btnGECOViewPastContacts)
         Me.Panel16.Controls.Add(Me.txtGECOContactFirstName)
         Me.Panel16.Controls.Add(Me.Label15)
         Me.Panel16.Controls.Add(Me.txtGECOContactLastName)
         Me.Panel16.Controls.Add(Me.Label16)
-        Me.Panel16.Controls.Add(Me.mtbGECOContactPhontNumber)
         Me.Panel16.Controls.Add(Me.txtGECOContactState)
         Me.Panel16.Controls.Add(Me.mtbGECOContactFaxNumber)
         Me.Panel16.Controls.Add(Me.Label17)
@@ -1199,16 +1199,6 @@ Partial Class PASPFeeAuditLog
         Me.Label16.Size = New System.Drawing.Size(58, 13)
         Me.Label16.TabIndex = 458
         Me.Label16.Text = "Last Name"
-        '
-        'mtbGECOContactPhontNumber
-        '
-        Me.mtbGECOContactPhontNumber.Location = New System.Drawing.Point(621, 6)
-        Me.mtbGECOContactPhontNumber.Mask = "(999) 000-0000"
-        Me.mtbGECOContactPhontNumber.Name = "mtbGECOContactPhontNumber"
-        Me.mtbGECOContactPhontNumber.ReadOnly = True
-        Me.mtbGECOContactPhontNumber.Size = New System.Drawing.Size(86, 20)
-        Me.mtbGECOContactPhontNumber.TabIndex = 484
-        Me.mtbGECOContactPhontNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'txtGECOContactState
         '
@@ -4858,6 +4848,14 @@ Partial Class PASPFeeAuditLog
         Me.dtpFeeAdminStatusDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpFeeAdminStatusDate.TabIndex = 15
         '
+        'txtGECOContactPhontNumber
+        '
+        Me.txtGECOContactPhontNumber.Location = New System.Drawing.Point(621, 6)
+        Me.txtGECOContactPhontNumber.Name = "txtGECOContactPhontNumber"
+        Me.txtGECOContactPhontNumber.ReadOnly = True
+        Me.txtGECOContactPhontNumber.Size = New System.Drawing.Size(123, 20)
+        Me.txtGECOContactPhontNumber.TabIndex = 489
+        '
         'PASPFeeAuditLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -5079,7 +5077,6 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents txtGECOContactEmail As System.Windows.Forms.TextBox
     Friend WithEvents Label75 As System.Windows.Forms.Label
     Friend WithEvents txtGECOContactComments As System.Windows.Forms.TextBox
-    Friend WithEvents mtbGECOContactPhontNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mtbGECOContactFaxNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mtbGECOContactZipCode As System.Windows.Forms.MaskedTextBox
     Friend WithEvents btnGECOViewPastContacts As System.Windows.Forms.Button
@@ -5383,4 +5380,5 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents MailoutSaveFacilityButton As System.Windows.Forms.Button
     Friend WithEvents MailoutCancelEditFacilityButton As System.Windows.Forms.Button
     Private WithEvents crFeeStatsAndInvoices As CrystalDecisions.Windows.Forms.CrystalReportViewer
+    Friend WithEvents txtGECOContactPhontNumber As TextBox
 End Class
