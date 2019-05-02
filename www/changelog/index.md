@@ -2,6 +2,14 @@
 
 *Previously:* [2018](changelog-2018.html) | [2017](changelog-2017.html) | [2016](changelog-2016.html) | [2015](changelog-2015.html) | [2014](changelog-2014.html) | [2013](changelog-2013.html)
 
+## Version 5.12.3 <span>(2019-5-2)</span>
+
+Allow looser formatting when entering some phone numbers.
+
+## Version 5.12.2 <span>(2019-4-15)</span>
+
+* Minor bug fix in event registration tool.
+
 ## Version 5.12.0 <span>(2019-4-11)</span>
 
 * Added some features to the EIS tool for the 2018 Emission Inventory season.
