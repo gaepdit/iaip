@@ -240,7 +240,7 @@ Partial Class ISMPMonitoringLog
         'mmiReset
         '
         Me.mmiReset.Name = "mmiReset"
-        Me.mmiReset.Size = New System.Drawing.Size(133, 22)
+        Me.mmiReset.Size = New System.Drawing.Size(180, 22)
         Me.mmiReset.Text = "&Reset Form"
         '
         'ToolsToolStripMenuItem
@@ -253,13 +253,13 @@ Partial Class ISMPMonitoringLog
         'mmiReports
         '
         Me.mmiReports.Name = "mmiReports"
-        Me.mmiReports.Size = New System.Drawing.Size(173, 22)
+        Me.mmiReports.Size = New System.Drawing.Size(180, 22)
         Me.mmiReports.Text = "Open Staff &Reports"
         '
         'ExportToExcelToolStripMenuItem
         '
         Me.ExportToExcelToolStripMenuItem.Name = "ExportToExcelToolStripMenuItem"
-        Me.ExportToExcelToolStripMenuItem.Size = New System.Drawing.Size(173, 22)
+        Me.ExportToExcelToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ExportToExcelToolStripMenuItem.Text = "&Export to Excel"
         '
         'ToolStrip1
@@ -268,7 +268,7 @@ Partial Class ISMPMonitoringLog
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(1016, 25)
-        Me.ToolStrip1.TabIndex = 2
+        Me.ToolStrip1.TabIndex = 1
         Me.ToolStrip1.Text = "ToolStrip1"
         '
         'tsbClear
@@ -326,7 +326,7 @@ Partial Class ISMPMonitoringLog
         Me.SCMonitoringLog.Panel2.Controls.Add(Me.TCMonitoringGrids)
         Me.SCMonitoringLog.Size = New System.Drawing.Size(1016, 661)
         Me.SCMonitoringLog.SplitterDistance = 557
-        Me.SCMonitoringLog.TabIndex = 3
+        Me.SCMonitoringLog.TabIndex = 2
         '
         'GBFilterAndSortOptions
         '
@@ -352,7 +352,7 @@ Partial Class ISMPMonitoringLog
         Me.GBFilterAndSortOptions.Location = New System.Drawing.Point(0, 0)
         Me.GBFilterAndSortOptions.Name = "GBFilterAndSortOptions"
         Me.GBFilterAndSortOptions.Size = New System.Drawing.Size(1016, 557)
-        Me.GBFilterAndSortOptions.TabIndex = 239
+        Me.GBFilterAndSortOptions.TabIndex = 0
         Me.GBFilterAndSortOptions.TabStop = False
         Me.GBFilterAndSortOptions.Text = "Filter and Sort Option(s)"
         '
@@ -362,7 +362,7 @@ Partial Class ISMPMonitoringLog
         Me.txtTestFirmCommentsCount.Name = "txtTestFirmCommentsCount"
         Me.txtTestFirmCommentsCount.ReadOnly = True
         Me.txtTestFirmCommentsCount.Size = New System.Drawing.Size(43, 20)
-        Me.txtTestFirmCommentsCount.TabIndex = 291
+        Me.txtTestFirmCommentsCount.TabIndex = 17
         '
         'Label29
         '
@@ -379,7 +379,7 @@ Partial Class ISMPMonitoringLog
         Me.txtNotificationCount.Name = "txtNotificationCount"
         Me.txtNotificationCount.ReadOnly = True
         Me.txtNotificationCount.Size = New System.Drawing.Size(43, 20)
-        Me.txtNotificationCount.TabIndex = 289
+        Me.txtNotificationCount.TabIndex = 16
         '
         'Label27
         '
@@ -406,7 +406,7 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox9.Location = New System.Drawing.Point(609, 16)
         Me.GroupBox9.Name = "GroupBox9"
         Me.GroupBox9.Size = New System.Drawing.Size(96, 54)
-        Me.GroupBox9.TabIndex = 286
+        Me.GroupBox9.TabIndex = 10
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "Notification "
         '
@@ -415,7 +415,7 @@ Partial Class ISMPMonitoringLog
         Me.chbNotificationUnlinked.Location = New System.Drawing.Point(8, 32)
         Me.chbNotificationUnlinked.Name = "chbNotificationUnlinked"
         Me.chbNotificationUnlinked.Size = New System.Drawing.Size(80, 16)
-        Me.chbNotificationUnlinked.TabIndex = 244
+        Me.chbNotificationUnlinked.TabIndex = 1
         Me.chbNotificationUnlinked.Text = "Unlinked"
         '
         'chbNotificationLinked
@@ -423,7 +423,7 @@ Partial Class ISMPMonitoringLog
         Me.chbNotificationLinked.Location = New System.Drawing.Point(8, 16)
         Me.chbNotificationLinked.Name = "chbNotificationLinked"
         Me.chbNotificationLinked.Size = New System.Drawing.Size(80, 16)
-        Me.chbNotificationLinked.TabIndex = 243
+        Me.chbNotificationLinked.TabIndex = 0
         Me.chbNotificationLinked.Text = "Linked"
         '
         'GroupBox8
@@ -451,7 +451,7 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox8.Location = New System.Drawing.Point(383, 245)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(355, 250)
-        Me.GroupBox8.TabIndex = 285
+        Me.GroupBox8.TabIndex = 9
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Misc. "
         '
@@ -461,7 +461,7 @@ Partial Class ISMPMonitoringLog
         Me.Label28.Location = New System.Drawing.Point(6, 234)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(64, 13)
-        Me.Label28.TabIndex = 49
+        Me.Label28.TabIndex = 19
         Me.Label28.Text = "Testing Firm"
         '
         'txtTestingFirm
@@ -470,7 +470,7 @@ Partial Class ISMPMonitoringLog
         Me.txtTestingFirm.MaxLength = 100
         Me.txtTestingFirm.Name = "txtTestingFirm"
         Me.txtTestingFirm.Size = New System.Drawing.Size(129, 20)
-        Me.txtTestingFirm.TabIndex = 48
+        Me.txtTestingFirm.TabIndex = 9
         '
         'Label12
         '
@@ -478,7 +478,7 @@ Partial Class ISMPMonitoringLog
         Me.Label12.Location = New System.Drawing.Point(6, 209)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(48, 13)
-        Me.Label12.TabIndex = 47
+        Me.Label12.TabIndex = 18
         Me.Label12.Text = "Pollutant"
         '
         'txtPollutantFilter
@@ -487,7 +487,7 @@ Partial Class ISMPMonitoringLog
         Me.txtPollutantFilter.MaxLength = 100
         Me.txtPollutantFilter.Name = "txtPollutantFilter"
         Me.txtPollutantFilter.Size = New System.Drawing.Size(129, 20)
-        Me.txtPollutantFilter.TabIndex = 46
+        Me.txtPollutantFilter.TabIndex = 8
         '
         'Label9
         '
@@ -495,7 +495,7 @@ Partial Class ISMPMonitoringLog
         Me.Label9.Location = New System.Drawing.Point(6, 185)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(76, 13)
-        Me.Label9.TabIndex = 45
+        Me.Label9.TabIndex = 17
         Me.Label9.Text = "Comment Field"
         '
         'txtCommentFieldFilter
@@ -504,7 +504,7 @@ Partial Class ISMPMonitoringLog
         Me.txtCommentFieldFilter.MaxLength = 1000
         Me.txtCommentFieldFilter.Name = "txtCommentFieldFilter"
         Me.txtCommentFieldFilter.Size = New System.Drawing.Size(129, 20)
-        Me.txtCommentFieldFilter.TabIndex = 44
+        Me.txtCommentFieldFilter.TabIndex = 7
         '
         'Label1
         '
@@ -512,7 +512,7 @@ Partial Class ISMPMonitoringLog
         Me.Label1.Location = New System.Drawing.Point(6, 161)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(121, 13)
-        Me.Label1.TabIndex = 43
+        Me.Label1.TabIndex = 16
         Me.Label1.Text = "Emission Source Tested"
         '
         'txtEmissionSourceTestedFilter
@@ -521,7 +521,7 @@ Partial Class ISMPMonitoringLog
         Me.txtEmissionSourceTestedFilter.MaxLength = 1000
         Me.txtEmissionSourceTestedFilter.Name = "txtEmissionSourceTestedFilter"
         Me.txtEmissionSourceTestedFilter.Size = New System.Drawing.Size(129, 20)
-        Me.txtEmissionSourceTestedFilter.TabIndex = 42
+        Me.txtEmissionSourceTestedFilter.TabIndex = 6
         '
         'Label26
         '
@@ -529,7 +529,7 @@ Partial Class ISMPMonitoringLog
         Me.Label26.Location = New System.Drawing.Point(6, 137)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(40, 13)
-        Me.Label26.TabIndex = 41
+        Me.Label26.TabIndex = 15
         Me.Label26.Text = "County"
         '
         'txtCountyFilter
@@ -538,7 +538,7 @@ Partial Class ISMPMonitoringLog
         Me.txtCountyFilter.MaxLength = 1000
         Me.txtCountyFilter.Name = "txtCountyFilter"
         Me.txtCountyFilter.Size = New System.Drawing.Size(129, 20)
-        Me.txtCountyFilter.TabIndex = 40
+        Me.txtCountyFilter.TabIndex = 5
         '
         'Label21
         '
@@ -546,7 +546,7 @@ Partial Class ISMPMonitoringLog
         Me.Label21.Location = New System.Drawing.Point(6, 41)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(70, 13)
-        Me.Label21.TabIndex = 39
+        Me.Label21.TabIndex = 11
         Me.Label21.Text = "Facility Name"
         '
         'txtFacilityNameFilter
@@ -555,7 +555,7 @@ Partial Class ISMPMonitoringLog
         Me.txtFacilityNameFilter.MaxLength = 1000
         Me.txtFacilityNameFilter.Name = "txtFacilityNameFilter"
         Me.txtFacilityNameFilter.Size = New System.Drawing.Size(129, 20)
-        Me.txtFacilityNameFilter.TabIndex = 22
+        Me.txtFacilityNameFilter.TabIndex = 1
         '
         'Label22
         '
@@ -563,7 +563,7 @@ Partial Class ISMPMonitoringLog
         Me.Label22.Location = New System.Drawing.Point(6, 113)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(24, 13)
-        Me.Label22.TabIndex = 37
+        Me.Label22.TabIndex = 14
         Me.Label22.Text = "City"
         '
         'txtCityFilter
@@ -572,7 +572,7 @@ Partial Class ISMPMonitoringLog
         Me.txtCityFilter.MaxLength = 1000
         Me.txtCityFilter.Name = "txtCityFilter"
         Me.txtCityFilter.Size = New System.Drawing.Size(129, 20)
-        Me.txtCityFilter.TabIndex = 21
+        Me.txtCityFilter.TabIndex = 4
         '
         'Label23
         '
@@ -580,7 +580,7 @@ Partial Class ISMPMonitoringLog
         Me.Label23.Location = New System.Drawing.Point(6, 89)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(89, 13)
-        Me.Label23.TabIndex = 35
+        Me.Label23.TabIndex = 13
         Me.Label23.Text = "Test Log Number"
         '
         'txtNotificationNumberFilter
@@ -589,7 +589,7 @@ Partial Class ISMPMonitoringLog
         Me.txtNotificationNumberFilter.MaxLength = 1000
         Me.txtNotificationNumberFilter.Name = "txtNotificationNumberFilter"
         Me.txtNotificationNumberFilter.Size = New System.Drawing.Size(129, 20)
-        Me.txtNotificationNumberFilter.TabIndex = 20
+        Me.txtNotificationNumberFilter.TabIndex = 3
         '
         'Label24
         '
@@ -597,7 +597,7 @@ Partial Class ISMPMonitoringLog
         Me.Label24.Location = New System.Drawing.Point(6, 65)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(97, 13)
-        Me.Label24.TabIndex = 1
+        Me.Label24.TabIndex = 12
         Me.Label24.Text = "Reference Number"
         '
         'Label25
@@ -606,7 +606,7 @@ Partial Class ISMPMonitoringLog
         Me.Label25.Location = New System.Drawing.Point(6, 17)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(75, 13)
-        Me.Label25.TabIndex = 1
+        Me.Label25.TabIndex = 10
         Me.Label25.Text = "AIRS Number:"
         '
         'txtReferenceNumberFilter
@@ -615,7 +615,7 @@ Partial Class ISMPMonitoringLog
         Me.txtReferenceNumberFilter.MaxLength = 1000
         Me.txtReferenceNumberFilter.Name = "txtReferenceNumberFilter"
         Me.txtReferenceNumberFilter.Size = New System.Drawing.Size(129, 20)
-        Me.txtReferenceNumberFilter.TabIndex = 19
+        Me.txtReferenceNumberFilter.TabIndex = 2
         '
         'txtAIRSNumberFilter
         '
@@ -623,7 +623,7 @@ Partial Class ISMPMonitoringLog
         Me.txtAIRSNumberFilter.MaxLength = 8
         Me.txtAIRSNumberFilter.Name = "txtAIRSNumberFilter"
         Me.txtAIRSNumberFilter.Size = New System.Drawing.Size(129, 20)
-        Me.txtAIRSNumberFilter.TabIndex = 18
+        Me.txtAIRSNumberFilter.TabIndex = 0
         '
         'GroupBox7
         '
@@ -632,7 +632,7 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox7.Location = New System.Drawing.Point(7, 329)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(208, 166)
-        Me.GroupBox7.TabIndex = 283
+        Me.GroupBox7.TabIndex = 4
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Witnessing Staff"
         '
@@ -642,7 +642,7 @@ Partial Class ISMPMonitoringLog
         Me.clbWitnessingStaff.Location = New System.Drawing.Point(8, 34)
         Me.clbWitnessingStaff.Name = "clbWitnessingStaff"
         Me.clbWitnessingStaff.Size = New System.Drawing.Size(186, 124)
-        Me.clbWitnessingStaff.TabIndex = 200
+        Me.clbWitnessingStaff.TabIndex = 1
         '
         'chbWitnessingEngineer
         '
@@ -650,7 +650,7 @@ Partial Class ISMPMonitoringLog
         Me.chbWitnessingEngineer.Location = New System.Drawing.Point(8, 18)
         Me.chbWitnessingEngineer.Name = "chbWitnessingEngineer"
         Me.chbWitnessingEngineer.Size = New System.Drawing.Size(85, 17)
-        Me.chbWitnessingEngineer.TabIndex = 10
+        Me.chbWitnessingEngineer.TabIndex = 0
         Me.chbWitnessingEngineer.Text = "Current Staff"
         '
         'GroupBox6
@@ -660,7 +660,7 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox6.Location = New System.Drawing.Point(7, 151)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(208, 172)
-        Me.GroupBox6.TabIndex = 282
+        Me.GroupBox6.TabIndex = 3
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Reviewing Staff"
         '
@@ -670,7 +670,7 @@ Partial Class ISMPMonitoringLog
         Me.clbEngineer.Location = New System.Drawing.Point(8, 34)
         Me.clbEngineer.Name = "clbEngineer"
         Me.clbEngineer.Size = New System.Drawing.Size(186, 124)
-        Me.clbEngineer.TabIndex = 200
+        Me.clbEngineer.TabIndex = 1
         '
         'chbReviewingEngineer
         '
@@ -680,7 +680,7 @@ Partial Class ISMPMonitoringLog
         Me.chbReviewingEngineer.Location = New System.Drawing.Point(8, 18)
         Me.chbReviewingEngineer.Name = "chbReviewingEngineer"
         Me.chbReviewingEngineer.Size = New System.Drawing.Size(85, 17)
-        Me.chbReviewingEngineer.TabIndex = 10
+        Me.chbReviewingEngineer.TabIndex = 0
         Me.chbReviewingEngineer.Text = "Current Staff"
         '
         'btnRunFilter
@@ -688,7 +688,7 @@ Partial Class ISMPMonitoringLog
         Me.btnRunFilter.Location = New System.Drawing.Point(12, 16)
         Me.btnRunFilter.Name = "btnRunFilter"
         Me.btnRunFilter.Size = New System.Drawing.Size(75, 23)
-        Me.btnRunFilter.TabIndex = 255
+        Me.btnRunFilter.TabIndex = 0
         Me.btnRunFilter.Text = "Run Filter"
         Me.btnRunFilter.UseVisualStyleBackColor = True
         '
@@ -702,7 +702,7 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox5.Location = New System.Drawing.Point(7, 51)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(117, 96)
-        Me.GroupBox5.TabIndex = 254
+        Me.GroupBox5.TabIndex = 1
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Work Type(s) "
         '
@@ -712,7 +712,7 @@ Partial Class ISMPMonitoringLog
         Me.chbTestFirmComments.Location = New System.Drawing.Point(6, 60)
         Me.chbTestFirmComments.Name = "chbTestFirmComments"
         Me.chbTestFirmComments.Size = New System.Drawing.Size(105, 17)
-        Me.chbTestFirmComments.TabIndex = 246
+        Me.chbTestFirmComments.TabIndex = 2
         Me.chbTestFirmComments.Text = "Test Comment(s)"
         '
         'chbNotifications
@@ -721,7 +721,7 @@ Partial Class ISMPMonitoringLog
         Me.chbNotifications.Location = New System.Drawing.Point(6, 41)
         Me.chbNotifications.Name = "chbNotifications"
         Me.chbNotifications.Size = New System.Drawing.Size(68, 17)
-        Me.chbNotifications.TabIndex = 245
+        Me.chbNotifications.TabIndex = 1
         Me.chbNotifications.Text = "Test Log"
         '
         'chbTestReports
@@ -732,7 +732,7 @@ Partial Class ISMPMonitoringLog
         Me.chbTestReports.Location = New System.Drawing.Point(6, 22)
         Me.chbTestReports.Name = "chbTestReports"
         Me.chbTestReports.Size = New System.Drawing.Size(93, 17)
-        Me.chbTestReports.TabIndex = 244
+        Me.chbTestReports.TabIndex = 0
         Me.chbTestReports.Text = "Test Report(s)"
         '
         'TCMonitoringSelection
@@ -745,7 +745,7 @@ Partial Class ISMPMonitoringLog
         Me.TCMonitoringSelection.Name = "TCMonitoringSelection"
         Me.TCMonitoringSelection.SelectedIndex = 0
         Me.TCMonitoringSelection.Size = New System.Drawing.Size(261, 538)
-        Me.TCMonitoringSelection.TabIndex = 253
+        Me.TCMonitoringSelection.TabIndex = 11
         '
         'TPSelectTestReport
         '
@@ -779,7 +779,7 @@ Partial Class ISMPMonitoringLog
         Me.GBSelectedTestReport.Location = New System.Drawing.Point(3, 3)
         Me.GBSelectedTestReport.Name = "GBSelectedTestReport"
         Me.GBSelectedTestReport.Size = New System.Drawing.Size(247, 506)
-        Me.GBSelectedTestReport.TabIndex = 236
+        Me.GBSelectedTestReport.TabIndex = 0
         Me.GBSelectedTestReport.TabStop = False
         '
         'LLSelectReport
@@ -788,7 +788,7 @@ Partial Class ISMPMonitoringLog
         Me.LLSelectReport.Location = New System.Drawing.Point(128, 40)
         Me.LLSelectReport.Name = "LLSelectReport"
         Me.LLSelectReport.Size = New System.Drawing.Size(72, 13)
-        Me.LLSelectReport.TabIndex = 248
+        Me.LLSelectReport.TabIndex = 1
         Me.LLSelectReport.TabStop = True
         Me.LLSelectReport.Text = "Select Report"
         '
@@ -798,7 +798,7 @@ Partial Class ISMPMonitoringLog
         Me.txtPollutant.Name = "txtPollutant"
         Me.txtPollutant.ReadOnly = True
         Me.txtPollutant.Size = New System.Drawing.Size(208, 20)
-        Me.txtPollutant.TabIndex = 247
+        Me.txtPollutant.TabIndex = 10
         '
         'Label8
         '
@@ -815,7 +815,7 @@ Partial Class ISMPMonitoringLog
         Me.txtFacilityCounty.Name = "txtFacilityCounty"
         Me.txtFacilityCounty.ReadOnly = True
         Me.txtFacilityCounty.Size = New System.Drawing.Size(208, 20)
-        Me.txtFacilityCounty.TabIndex = 245
+        Me.txtFacilityCounty.TabIndex = 9
         '
         'Label7
         '
@@ -832,7 +832,7 @@ Partial Class ISMPMonitoringLog
         Me.txtFacilityCity.Name = "txtFacilityCity"
         Me.txtFacilityCity.ReadOnly = True
         Me.txtFacilityCity.Size = New System.Drawing.Size(208, 20)
-        Me.txtFacilityCity.TabIndex = 243
+        Me.txtFacilityCity.TabIndex = 8
         '
         'Label6
         '
@@ -849,7 +849,7 @@ Partial Class ISMPMonitoringLog
         Me.txtTestType.Name = "txtTestType"
         Me.txtTestType.ReadOnly = True
         Me.txtTestType.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestType.TabIndex = 241
+        Me.txtTestType.TabIndex = 7
         '
         'Label5
         '
@@ -866,7 +866,7 @@ Partial Class ISMPMonitoringLog
         Me.txtAIRSNumber.Name = "txtAIRSNumber"
         Me.txtAIRSNumber.ReadOnly = True
         Me.txtAIRSNumber.Size = New System.Drawing.Size(208, 20)
-        Me.txtAIRSNumber.TabIndex = 239
+        Me.txtAIRSNumber.TabIndex = 3
         '
         'Label4
         '
@@ -883,7 +883,7 @@ Partial Class ISMPMonitoringLog
         Me.txtFacilityName.Name = "txtFacilityName"
         Me.txtFacilityName.ReadOnly = True
         Me.txtFacilityName.Size = New System.Drawing.Size(208, 20)
-        Me.txtFacilityName.TabIndex = 237
+        Me.txtFacilityName.TabIndex = 2
         '
         'Label3
         '
@@ -908,7 +908,7 @@ Partial Class ISMPMonitoringLog
         Me.txtReferenceNumber.Location = New System.Drawing.Point(24, 40)
         Me.txtReferenceNumber.Name = "txtReferenceNumber"
         Me.txtReferenceNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtReferenceNumber.TabIndex = 235
+        Me.txtReferenceNumber.TabIndex = 0
         '
         'TPSelectTestLog
         '
@@ -941,7 +941,7 @@ Partial Class ISMPMonitoringLog
         Me.llbSelectTestLog.Location = New System.Drawing.Point(126, 26)
         Me.llbSelectTestLog.Name = "llbSelectTestLog"
         Me.llbSelectTestLog.Size = New System.Drawing.Size(93, 26)
-        Me.llbSelectTestLog.TabIndex = 263
+        Me.llbSelectTestLog.TabIndex = 1
         Me.llbSelectTestLog.TabStop = True
         Me.llbSelectTestLog.Text = "Select Notification" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    (Add New) "
         '
@@ -951,7 +951,7 @@ Partial Class ISMPMonitoringLog
         Me.txtNotificationTestStart.Name = "txtNotificationTestStart"
         Me.txtNotificationTestStart.ReadOnly = True
         Me.txtNotificationTestStart.Size = New System.Drawing.Size(208, 20)
-        Me.txtNotificationTestStart.TabIndex = 262
+        Me.txtNotificationTestStart.TabIndex = 7
         '
         'Label14
         '
@@ -968,7 +968,7 @@ Partial Class ISMPMonitoringLog
         Me.txtNotificationCounty.Name = "txtNotificationCounty"
         Me.txtNotificationCounty.ReadOnly = True
         Me.txtNotificationCounty.Size = New System.Drawing.Size(208, 20)
-        Me.txtNotificationCounty.TabIndex = 260
+        Me.txtNotificationCounty.TabIndex = 6
         '
         'Label15
         '
@@ -985,7 +985,7 @@ Partial Class ISMPMonitoringLog
         Me.txtNotificationCity.Name = "txtNotificationCity"
         Me.txtNotificationCity.ReadOnly = True
         Me.txtNotificationCity.Size = New System.Drawing.Size(208, 20)
-        Me.txtNotificationCity.TabIndex = 258
+        Me.txtNotificationCity.TabIndex = 5
         '
         'Label16
         '
@@ -1002,7 +1002,7 @@ Partial Class ISMPMonitoringLog
         Me.txtNotificationEmissionUnit.Name = "txtNotificationEmissionUnit"
         Me.txtNotificationEmissionUnit.ReadOnly = True
         Me.txtNotificationEmissionUnit.Size = New System.Drawing.Size(208, 20)
-        Me.txtNotificationEmissionUnit.TabIndex = 256
+        Me.txtNotificationEmissionUnit.TabIndex = 4
         '
         'Label17
         '
@@ -1019,7 +1019,7 @@ Partial Class ISMPMonitoringLog
         Me.txtNotificationAIRSNumber.Name = "txtNotificationAIRSNumber"
         Me.txtNotificationAIRSNumber.ReadOnly = True
         Me.txtNotificationAIRSNumber.Size = New System.Drawing.Size(208, 20)
-        Me.txtNotificationAIRSNumber.TabIndex = 254
+        Me.txtNotificationAIRSNumber.TabIndex = 3
         '
         'Label18
         '
@@ -1036,7 +1036,7 @@ Partial Class ISMPMonitoringLog
         Me.txtNotificationFacilityName.Name = "txtNotificationFacilityName"
         Me.txtNotificationFacilityName.ReadOnly = True
         Me.txtNotificationFacilityName.Size = New System.Drawing.Size(208, 20)
-        Me.txtNotificationFacilityName.TabIndex = 252
+        Me.txtNotificationFacilityName.TabIndex = 2
         '
         'Label19
         '
@@ -1061,7 +1061,7 @@ Partial Class ISMPMonitoringLog
         Me.txtTestLogNumber.Location = New System.Drawing.Point(22, 26)
         Me.txtTestLogNumber.Name = "txtTestLogNumber"
         Me.txtTestLogNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtTestLogNumber.TabIndex = 250
+        Me.txtTestLogNumber.TabIndex = 0
         '
         'TPTestFirmComment
         '
@@ -1097,7 +1097,7 @@ Partial Class ISMPMonitoringLog
         Me.txtTestFirmName.Name = "txtTestFirmName"
         Me.txtTestFirmName.ReadOnly = True
         Me.txtTestFirmName.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmName.TabIndex = 269
+        Me.txtTestFirmName.TabIndex = 4
         '
         'Label38
         '
@@ -1114,7 +1114,7 @@ Partial Class ISMPMonitoringLog
         Me.txtTestFirmTestLogNumber.Name = "txtTestFirmTestLogNumber"
         Me.txtTestFirmTestLogNumber.ReadOnly = True
         Me.txtTestFirmTestLogNumber.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmTestLogNumber.TabIndex = 267
+        Me.txtTestFirmTestLogNumber.TabIndex = 9
         '
         'Label37
         '
@@ -1131,7 +1131,7 @@ Partial Class ISMPMonitoringLog
         Me.txtTestFirmReferenceNumber.Name = "txtTestFirmReferenceNumber"
         Me.txtTestFirmReferenceNumber.ReadOnly = True
         Me.txtTestFirmReferenceNumber.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmReferenceNumber.TabIndex = 265
+        Me.txtTestFirmReferenceNumber.TabIndex = 8
         '
         'Label30
         '
@@ -1148,7 +1148,7 @@ Partial Class ISMPMonitoringLog
         Me.llbOpenComments.Location = New System.Drawing.Point(128, 40)
         Me.llbOpenComments.Name = "llbOpenComments"
         Me.llbOpenComments.Size = New System.Drawing.Size(84, 26)
-        Me.llbOpenComments.TabIndex = 263
+        Me.llbOpenComments.TabIndex = 1
         Me.llbOpenComments.TabStop = True
         Me.llbOpenComments.Text = "Select Comment" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    (Add New)"
         '
@@ -1158,7 +1158,7 @@ Partial Class ISMPMonitoringLog
         Me.txtTestFirmCounty.Name = "txtTestFirmCounty"
         Me.txtTestFirmCounty.ReadOnly = True
         Me.txtTestFirmCounty.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmCounty.TabIndex = 260
+        Me.txtTestFirmCounty.TabIndex = 7
         '
         'Label31
         '
@@ -1175,7 +1175,7 @@ Partial Class ISMPMonitoringLog
         Me.txtTestFirmFacilityCity.Name = "txtTestFirmFacilityCity"
         Me.txtTestFirmFacilityCity.ReadOnly = True
         Me.txtTestFirmFacilityCity.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmFacilityCity.TabIndex = 258
+        Me.txtTestFirmFacilityCity.TabIndex = 6
         '
         'Label32
         '
@@ -1192,7 +1192,7 @@ Partial Class ISMPMonitoringLog
         Me.txtTestFirmCommentType.Name = "txtTestFirmCommentType"
         Me.txtTestFirmCommentType.ReadOnly = True
         Me.txtTestFirmCommentType.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmCommentType.TabIndex = 256
+        Me.txtTestFirmCommentType.TabIndex = 5
         '
         'Label33
         '
@@ -1209,7 +1209,7 @@ Partial Class ISMPMonitoringLog
         Me.txtTestFirmAirsNumber.Name = "txtTestFirmAirsNumber"
         Me.txtTestFirmAirsNumber.ReadOnly = True
         Me.txtTestFirmAirsNumber.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmAirsNumber.TabIndex = 254
+        Me.txtTestFirmAirsNumber.TabIndex = 3
         '
         'Label34
         '
@@ -1226,7 +1226,7 @@ Partial Class ISMPMonitoringLog
         Me.txtTestFirmFacilityName.Name = "txtTestFirmFacilityName"
         Me.txtTestFirmFacilityName.ReadOnly = True
         Me.txtTestFirmFacilityName.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmFacilityName.TabIndex = 252
+        Me.txtTestFirmFacilityName.TabIndex = 2
         '
         'Label35
         '
@@ -1251,7 +1251,7 @@ Partial Class ISMPMonitoringLog
         Me.txtCommentNumber.Location = New System.Drawing.Point(24, 40)
         Me.txtCommentNumber.Name = "txtCommentNumber"
         Me.txtCommentNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtCommentNumber.TabIndex = 250
+        Me.txtCommentNumber.TabIndex = 0
         '
         'txtReportCount
         '
@@ -1259,7 +1259,7 @@ Partial Class ISMPMonitoringLog
         Me.txtReportCount.Name = "txtReportCount"
         Me.txtReportCount.ReadOnly = True
         Me.txtReportCount.Size = New System.Drawing.Size(43, 20)
-        Me.txtReportCount.TabIndex = 252
+        Me.txtReportCount.TabIndex = 15
         '
         'GroupBox4
         '
@@ -1287,7 +1287,7 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox4.Location = New System.Drawing.Point(221, 16)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(156, 358)
-        Me.GroupBox4.TabIndex = 251
+        Me.GroupBox4.TabIndex = 5
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Document Type"
         '
@@ -1297,7 +1297,7 @@ Partial Class ISMPMonitoringLog
         Me.chbAll.Location = New System.Drawing.Point(8, 16)
         Me.chbAll.Name = "chbAll"
         Me.chbAll.Size = New System.Drawing.Size(121, 17)
-        Me.chbAll.TabIndex = 260
+        Me.chbAll.TabIndex = 0
         Me.chbAll.Text = "All Document Types"
         '
         'chbPTE
@@ -1306,7 +1306,7 @@ Partial Class ISMPMonitoringLog
         Me.chbPTE.Location = New System.Drawing.Point(8, 254)
         Me.chbPTE.Name = "chbPTE"
         Me.chbPTE.Size = New System.Drawing.Size(47, 17)
-        Me.chbPTE.TabIndex = 259
+        Me.chbPTE.TabIndex = 14
         Me.chbPTE.Text = "PTE"
         '
         'chbPEMS
@@ -1315,7 +1315,7 @@ Partial Class ISMPMonitoringLog
         Me.chbPEMS.Location = New System.Drawing.Point(8, 220)
         Me.chbPEMS.Name = "chbPEMS"
         Me.chbPEMS.Size = New System.Drawing.Size(56, 17)
-        Me.chbPEMS.TabIndex = 258
+        Me.chbPEMS.TabIndex = 12
         Me.chbPEMS.Text = "PEMS"
         '
         'chbMethod22
@@ -1324,7 +1324,7 @@ Partial Class ISMPMonitoringLog
         Me.chbMethod22.Location = New System.Drawing.Point(8, 152)
         Me.chbMethod22.Name = "chbMethod22"
         Me.chbMethod22.Size = New System.Drawing.Size(77, 17)
-        Me.chbMethod22.TabIndex = 257
+        Me.chbMethod22.TabIndex = 8
         Me.chbMethod22.Text = "Method 22"
         '
         'chbMethod9Single
@@ -1333,7 +1333,7 @@ Partial Class ISMPMonitoringLog
         Me.chbMethod9Single.Location = New System.Drawing.Point(8, 135)
         Me.chbMethod9Single.Name = "chbMethod9Single"
         Me.chbMethod9Single.Size = New System.Drawing.Size(109, 17)
-        Me.chbMethod9Single.TabIndex = 256
+        Me.chbMethod9Single.TabIndex = 7
         Me.chbMethod9Single.Text = "Method 9 (Single)"
         '
         'chbMethod9Multi
@@ -1342,7 +1342,7 @@ Partial Class ISMPMonitoringLog
         Me.chbMethod9Multi.Location = New System.Drawing.Point(8, 118)
         Me.chbMethod9Multi.Name = "chbMethod9Multi"
         Me.chbMethod9Multi.Size = New System.Drawing.Size(105, 17)
-        Me.chbMethod9Multi.TabIndex = 255
+        Me.chbMethod9Multi.TabIndex = 6
         Me.chbMethod9Multi.Text = "Method 9 (Multi.)"
         '
         'chbMemorandumToFile
@@ -1351,7 +1351,7 @@ Partial Class ISMPMonitoringLog
         Me.chbMemorandumToFile.Location = New System.Drawing.Point(8, 101)
         Me.chbMemorandumToFile.Name = "chbMemorandumToFile"
         Me.chbMemorandumToFile.Size = New System.Drawing.Size(131, 17)
-        Me.chbMemorandumToFile.TabIndex = 254
+        Me.chbMemorandumToFile.TabIndex = 5
         Me.chbMemorandumToFile.Text = "Memorandum (To File)"
         '
         'chbMemorandumStandard
@@ -1360,7 +1360,7 @@ Partial Class ISMPMonitoringLog
         Me.chbMemorandumStandard.Location = New System.Drawing.Point(8, 84)
         Me.chbMemorandumStandard.Name = "chbMemorandumStandard"
         Me.chbMemorandumStandard.Size = New System.Drawing.Size(142, 17)
-        Me.chbMemorandumStandard.TabIndex = 253
+        Me.chbMemorandumStandard.TabIndex = 4
         Me.chbMemorandumStandard.Text = "Memorandum (Standard)"
         '
         'chbRata
@@ -1369,7 +1369,7 @@ Partial Class ISMPMonitoringLog
         Me.chbRata.Location = New System.Drawing.Point(8, 271)
         Me.chbRata.Name = "chbRata"
         Me.chbRata.Size = New System.Drawing.Size(49, 17)
-        Me.chbRata.TabIndex = 252
+        Me.chbRata.TabIndex = 15
         Me.chbRata.Text = "Rata"
         '
         'chbFlare
@@ -1378,7 +1378,7 @@ Partial Class ISMPMonitoringLog
         Me.chbFlare.Location = New System.Drawing.Point(8, 50)
         Me.chbFlare.Name = "chbFlare"
         Me.chbFlare.Size = New System.Drawing.Size(49, 17)
-        Me.chbFlare.TabIndex = 251
+        Me.chbFlare.TabIndex = 2
         Me.chbFlare.Text = "Flare"
         '
         'chbGasConcentration
@@ -1387,7 +1387,7 @@ Partial Class ISMPMonitoringLog
         Me.chbGasConcentration.Location = New System.Drawing.Point(8, 33)
         Me.chbGasConcentration.Name = "chbGasConcentration"
         Me.chbGasConcentration.Size = New System.Drawing.Size(114, 17)
-        Me.chbGasConcentration.TabIndex = 250
+        Me.chbGasConcentration.TabIndex = 1
         Me.chbGasConcentration.Text = "Gas Concentration"
         '
         'chbPondTreatment
@@ -1396,7 +1396,7 @@ Partial Class ISMPMonitoringLog
         Me.chbPondTreatment.Location = New System.Drawing.Point(8, 237)
         Me.chbPondTreatment.Name = "chbPondTreatment"
         Me.chbPondTreatment.Size = New System.Drawing.Size(102, 17)
-        Me.chbPondTreatment.TabIndex = 249
+        Me.chbPondTreatment.TabIndex = 13
         Me.chbPondTreatment.Text = "Pond Treatment"
         '
         'chbLoadingRack
@@ -1405,7 +1405,7 @@ Partial Class ISMPMonitoringLog
         Me.chbLoadingRack.Location = New System.Drawing.Point(8, 67)
         Me.chbLoadingRack.Name = "chbLoadingRack"
         Me.chbLoadingRack.Size = New System.Drawing.Size(93, 17)
-        Me.chbLoadingRack.TabIndex = 248
+        Me.chbLoadingRack.TabIndex = 3
         Me.chbLoadingRack.Text = "Loading Rack"
         '
         'chbTwoStackDRE
@@ -1414,7 +1414,7 @@ Partial Class ISMPMonitoringLog
         Me.chbTwoStackDRE.Location = New System.Drawing.Point(8, 305)
         Me.chbTwoStackDRE.Name = "chbTwoStackDRE"
         Me.chbTwoStackDRE.Size = New System.Drawing.Size(110, 17)
-        Me.chbTwoStackDRE.TabIndex = 247
+        Me.chbTwoStackDRE.TabIndex = 17
         Me.chbTwoStackDRE.Text = "Two Stack (DRE)"
         '
         'chbTwoStackStandard
@@ -1423,7 +1423,7 @@ Partial Class ISMPMonitoringLog
         Me.chbTwoStackStandard.Location = New System.Drawing.Point(8, 288)
         Me.chbTwoStackStandard.Name = "chbTwoStackStandard"
         Me.chbTwoStackStandard.Size = New System.Drawing.Size(130, 17)
-        Me.chbTwoStackStandard.TabIndex = 246
+        Me.chbTwoStackStandard.TabIndex = 16
         Me.chbTwoStackStandard.Text = "Two Stack (Standard)"
         '
         'chbOneStackFourRun
@@ -1432,7 +1432,7 @@ Partial Class ISMPMonitoringLog
         Me.chbOneStackFourRun.Location = New System.Drawing.Point(8, 203)
         Me.chbOneStackFourRun.Name = "chbOneStackFourRun"
         Me.chbOneStackFourRun.Size = New System.Drawing.Size(135, 17)
-        Me.chbOneStackFourRun.TabIndex = 245
+        Me.chbOneStackFourRun.TabIndex = 11
         Me.chbOneStackFourRun.Text = "One Stack (Four Runs)"
         '
         'chbOneStackThreeRun
@@ -1441,7 +1441,7 @@ Partial Class ISMPMonitoringLog
         Me.chbOneStackThreeRun.Location = New System.Drawing.Point(8, 186)
         Me.chbOneStackThreeRun.Name = "chbOneStackThreeRun"
         Me.chbOneStackThreeRun.Size = New System.Drawing.Size(142, 17)
-        Me.chbOneStackThreeRun.TabIndex = 244
+        Me.chbOneStackThreeRun.TabIndex = 10
         Me.chbOneStackThreeRun.Text = "One Stack (Three Runs)"
         '
         'chbOneStackTwoRun
@@ -1450,7 +1450,7 @@ Partial Class ISMPMonitoringLog
         Me.chbOneStackTwoRun.Location = New System.Drawing.Point(8, 169)
         Me.chbOneStackTwoRun.Name = "chbOneStackTwoRun"
         Me.chbOneStackTwoRun.Size = New System.Drawing.Size(135, 17)
-        Me.chbOneStackTwoRun.TabIndex = 243
+        Me.chbOneStackTwoRun.TabIndex = 9
         Me.chbOneStackTwoRun.Text = "One Stack (Two Runs)"
         '
         'chbUnassigned
@@ -1459,7 +1459,7 @@ Partial Class ISMPMonitoringLog
         Me.chbUnassigned.Location = New System.Drawing.Point(8, 322)
         Me.chbUnassigned.Name = "chbUnassigned"
         Me.chbUnassigned.Size = New System.Drawing.Size(82, 17)
-        Me.chbUnassigned.TabIndex = 242
+        Me.chbUnassigned.TabIndex = 18
         Me.chbUnassigned.Text = "Unassigned"
         '
         'GBReportType
@@ -1472,7 +1472,7 @@ Partial Class ISMPMonitoringLog
         Me.GBReportType.Location = New System.Drawing.Point(221, 380)
         Me.GBReportType.Name = "GBReportType"
         Me.GBReportType.Size = New System.Drawing.Size(156, 115)
-        Me.GBReportType.TabIndex = 250
+        Me.GBReportType.TabIndex = 6
         Me.GBReportType.TabStop = False
         Me.GBReportType.Text = "Report Type"
         '
@@ -1529,7 +1529,7 @@ Partial Class ISMPMonitoringLog
         Me.GBDateBias.Location = New System.Drawing.Point(383, 16)
         Me.GBDateBias.Name = "GBDateBias"
         Me.GBDateBias.Size = New System.Drawing.Size(220, 120)
-        Me.GBDateBias.TabIndex = 246
+        Me.GBDateBias.TabIndex = 7
         Me.GBDateBias.TabStop = False
         Me.GBDateBias.Text = "Date Bias"
         '
@@ -1539,7 +1539,7 @@ Partial Class ISMPMonitoringLog
         Me.rdbNA.Location = New System.Drawing.Point(8, 16)
         Me.rdbNA.Name = "rdbNA"
         Me.rdbNA.Size = New System.Drawing.Size(136, 16)
-        Me.rdbNA.TabIndex = 240
+        Me.rdbNA.TabIndex = 0
         Me.rdbNA.TabStop = True
         Me.rdbNA.Text = "N/A"
         '
@@ -1568,7 +1568,7 @@ Partial Class ISMPMonitoringLog
         Me.DTPEndDate.Location = New System.Drawing.Point(112, 96)
         Me.DTPEndDate.Name = "DTPEndDate"
         Me.DTPEndDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPEndDate.TabIndex = 7
+        Me.DTPEndDate.TabIndex = 5
         '
         'DTPStartDate
         '
@@ -1577,14 +1577,14 @@ Partial Class ISMPMonitoringLog
         Me.DTPStartDate.Location = New System.Drawing.Point(8, 96)
         Me.DTPStartDate.Name = "DTPStartDate"
         Me.DTPStartDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPStartDate.TabIndex = 6
+        Me.DTPStartDate.TabIndex = 4
         '
         'rdbFacilityDateCompleted
         '
         Me.rdbFacilityDateCompleted.Location = New System.Drawing.Point(8, 64)
         Me.rdbFacilityDateCompleted.Name = "rdbFacilityDateCompleted"
         Me.rdbFacilityDateCompleted.Size = New System.Drawing.Size(144, 16)
-        Me.rdbFacilityDateCompleted.TabIndex = 5
+        Me.rdbFacilityDateCompleted.TabIndex = 3
         Me.rdbFacilityDateCompleted.Text = "Date Report Completed"
         '
         'rdbFacilityDateTested
@@ -1600,7 +1600,7 @@ Partial Class ISMPMonitoringLog
         Me.rdbFacilityDateReceived.Location = New System.Drawing.Point(8, 48)
         Me.rdbFacilityDateReceived.Name = "rdbFacilityDateReceived"
         Me.rdbFacilityDateReceived.Size = New System.Drawing.Size(104, 16)
-        Me.rdbFacilityDateReceived.TabIndex = 3
+        Me.rdbFacilityDateReceived.TabIndex = 2
         Me.rdbFacilityDateReceived.Text = "Date Received"
         '
         'GroupBox3
@@ -1610,7 +1610,7 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox3.Location = New System.Drawing.Point(128, 55)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(87, 90)
-        Me.GroupBox3.TabIndex = 245
+        Me.GroupBox3.TabIndex = 2
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Open/Closed"
         '
@@ -1619,7 +1619,7 @@ Partial Class ISMPMonitoringLog
         Me.chbClosed.Location = New System.Drawing.Point(8, 32)
         Me.chbClosed.Name = "chbClosed"
         Me.chbClosed.Size = New System.Drawing.Size(80, 16)
-        Me.chbClosed.TabIndex = 244
+        Me.chbClosed.TabIndex = 1
         Me.chbClosed.Text = "Closed"
         '
         'chbOpen
@@ -1629,7 +1629,7 @@ Partial Class ISMPMonitoringLog
         Me.chbOpen.Location = New System.Drawing.Point(8, 16)
         Me.chbOpen.Name = "chbOpen"
         Me.chbOpen.Size = New System.Drawing.Size(80, 16)
-        Me.chbOpen.TabIndex = 243
+        Me.chbOpen.TabIndex = 0
         Me.chbOpen.Text = "Open"
         '
         'GroupBox2
@@ -1642,7 +1642,7 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox2.Location = New System.Drawing.Point(383, 142)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(173, 100)
-        Me.GroupBox2.TabIndex = 244
+        Me.GroupBox2.TabIndex = 8
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Compliance Status"
         '
@@ -1652,7 +1652,7 @@ Partial Class ISMPMonitoringLog
         Me.chbComplianceStatus5.Location = New System.Drawing.Point(8, 80)
         Me.chbComplianceStatus5.Name = "chbComplianceStatus5"
         Me.chbComplianceStatus5.Size = New System.Drawing.Size(113, 17)
-        Me.chbComplianceStatus5.TabIndex = 246
+        Me.chbComplianceStatus5.TabIndex = 4
         Me.chbComplianceStatus5.Text = "Not In Compliance"
         '
         'chbComplianceStatus4
@@ -1661,7 +1661,7 @@ Partial Class ISMPMonitoringLog
         Me.chbComplianceStatus4.Location = New System.Drawing.Point(8, 64)
         Me.chbComplianceStatus4.Name = "chbComplianceStatus4"
         Me.chbComplianceStatus4.Size = New System.Drawing.Size(90, 17)
-        Me.chbComplianceStatus4.TabIndex = 245
+        Me.chbComplianceStatus4.TabIndex = 3
         Me.chbComplianceStatus4.Text = "Indeterminate"
         '
         'chbComplianceStatus3
@@ -1670,7 +1670,7 @@ Partial Class ISMPMonitoringLog
         Me.chbComplianceStatus3.Location = New System.Drawing.Point(8, 48)
         Me.chbComplianceStatus3.Name = "chbComplianceStatus3"
         Me.chbComplianceStatus3.Size = New System.Drawing.Size(93, 17)
-        Me.chbComplianceStatus3.TabIndex = 244
+        Me.chbComplianceStatus3.TabIndex = 2
         Me.chbComplianceStatus3.Text = "In Compliance"
         '
         'chbComplianceStatus2
@@ -1679,7 +1679,7 @@ Partial Class ISMPMonitoringLog
         Me.chbComplianceStatus2.Location = New System.Drawing.Point(8, 32)
         Me.chbComplianceStatus2.Name = "chbComplianceStatus2"
         Me.chbComplianceStatus2.Size = New System.Drawing.Size(162, 17)
-        Me.chbComplianceStatus2.TabIndex = 243
+        Me.chbComplianceStatus2.TabIndex = 1
         Me.chbComplianceStatus2.Text = "For Information Purpose Only"
         '
         'chbComplianceStatus1
@@ -1688,7 +1688,7 @@ Partial Class ISMPMonitoringLog
         Me.chbComplianceStatus1.Location = New System.Drawing.Point(8, 16)
         Me.chbComplianceStatus1.Name = "chbComplianceStatus1"
         Me.chbComplianceStatus1.Size = New System.Drawing.Size(71, 17)
-        Me.chbComplianceStatus1.TabIndex = 242
+        Me.chbComplianceStatus1.TabIndex = 0
         Me.chbComplianceStatus1.Text = "File Open"
         '
         'TCMonitoringGrids
