@@ -81,7 +81,11 @@ Public Class ISMPMonitoringLog
                 "ISMPReportType.strReportType,  " &
                 "ISMPDocumentType.strDocumentType,  " &
                 "concat(strLastName, ', ' , strFirstName) as StaffResponsible,  " &
-                "ISMPREportInformation.datTestDateStart,  " &
+                " case " &
+                " when DATTESTDATESTART = DATTESTDATEEND " &
+                " then format(DATTESTDATESTART, 'dd-MMM-yyyy') " &
+                " else concat(format(DATTESTDATESTART, 'dd-MMM-yyyy'), ' — ', format(DATTESTDATEEND, 'dd-MMM-yyyy')) " &
+                " end as [TestDateRange], " &
                 "ISMPREportInformation.datReceivedDate,  " &
                 "DATEDIFF(day, ISMPREportINformation.datTestDateEnd, " &
                 "ISMPReportInformation.datReceivedDate) as daysToReceived, " &
@@ -306,8 +310,9 @@ Public Class ISMPMonitoringLog
                     If rdbFacilityDateReceived.Checked = True Then
                         SQLWhere = SQLWhere & "AND datReceivedDate between '" & DTPStartDate.Text & "' and '" & DTPEndDate.Text & "' "
                     End If
-                    If rdbFacilityDateTestStarted.Checked = True Then
-                        SQLWhere = SQLWhere & "AND datTestDateStart between '" & DTPStartDate.Text & "' and '" & DTPEndDate.Text & "' "
+                    If rdbFacilityDateTested.Checked = True Then
+                        SQLWhere = SQLWhere & "AND ((datTestDateStart between '" & DTPStartDate.Text & "' and '" & DTPEndDate.Text & "' ) "
+                        SQLWhere = SQLWhere & " OR (DATTESTDATEEND between '" & DTPStartDate.Text & "' and '" & DTPEndDate.Text & "' )) "
                     End If
                     If rdbFacilityDateCompleted.Checked = True Then
                         SQLWhere = SQLWhere & "And datCompleteDate between '" & DTPStartDate.Text & "' and '" & DTPEndDate.Text & "' "
@@ -378,9 +383,9 @@ Public Class ISMPMonitoringLog
                 dgvTestReportViewer.Columns("strDocumentType").DisplayIndex = 8
                 dgvTestReportViewer.Columns("StaffResponsible").HeaderText = "Staff Responsible"
                 dgvTestReportViewer.Columns("StaffResponsible").DisplayIndex = 9
-                dgvTestReportViewer.Columns("datTestDateStart").HeaderText = "Test Date"
-                dgvTestReportViewer.Columns("datTestDateStart").DisplayIndex = 10
-                dgvTestReportViewer.Columns("datTestDateStart").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                dgvTestReportViewer.Columns("TestDateRange").HeaderText = "Test Dates"
+                dgvTestReportViewer.Columns("TestDateRange").DisplayIndex = 10
+                dgvTestReportViewer.Columns("TestDateRange").DefaultCellStyle.Format = "dd-MMM-yyyy"
                 dgvTestReportViewer.Columns("daysToReceived").HeaderText = "Days From Test to APB"
                 dgvTestReportViewer.Columns("daysToReceived").DisplayIndex = 11
                 dgvTestReportViewer.Columns("datReceivedDate").HeaderText = "Received Date"
@@ -403,6 +408,8 @@ Public Class ISMPMonitoringLog
                 dgvTestReportViewer.Columns("strTestLogNumber").DisplayIndex = 19
                 dgvTestReportViewer.Columns("strPreComplianceStatus").HeaderText = "PreCompliance Status"
                 dgvTestReportViewer.Columns("strPreComplianceStatus").DisplayIndex = 20
+
+                dgvTestReportViewer.SanelyResizeColumns()
                 txtReportCount.Text = dgvTestReportViewer.RowCount.ToString()
 
                 LoadCompliaceColor()
@@ -534,6 +541,8 @@ Public Class ISMPMonitoringLog
                 dgvNotificationLog.Columns("strComments").DisplayIndex = 7
                 dgvNotificationLog.Columns("strReferenceNumber").HeaderText = "Reference #"
                 dgvNotificationLog.Columns("strReferenceNumber").DisplayIndex = 1
+
+                dgvNotificationLog.SanelyResizeColumns()
                 txtNotificationCount.Text = dgvNotificationLog.RowCount
             End If
 
@@ -664,6 +673,7 @@ Public Class ISMPMonitoringLog
                 dgvTestFirmComments.Columns("strCountyName").HeaderText = "County Name"
                 dgvTestFirmComments.Columns("strCountyName").DisplayIndex = 11
 
+                dgvTestFirmComments.SanelyResizeColumns()
                 txtTestFirmCommentsCount.Text = dgvTestFirmComments.RowCount
             End If
 

@@ -172,7 +172,7 @@ Partial Class ISMPMonitoringLog
         Me.DTPEndDate = New System.Windows.Forms.DateTimePicker()
         Me.DTPStartDate = New System.Windows.Forms.DateTimePicker()
         Me.rdbFacilityDateCompleted = New System.Windows.Forms.RadioButton()
-        Me.rdbFacilityDateTestStarted = New System.Windows.Forms.RadioButton()
+        Me.rdbFacilityDateTested = New System.Windows.Forms.RadioButton()
         Me.rdbFacilityDateReceived = New System.Windows.Forms.RadioButton()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.chbClosed = New System.Windows.Forms.CheckBox()
@@ -1524,7 +1524,7 @@ Partial Class ISMPMonitoringLog
         Me.GBDateBias.Controls.Add(Me.DTPEndDate)
         Me.GBDateBias.Controls.Add(Me.DTPStartDate)
         Me.GBDateBias.Controls.Add(Me.rdbFacilityDateCompleted)
-        Me.GBDateBias.Controls.Add(Me.rdbFacilityDateTestStarted)
+        Me.GBDateBias.Controls.Add(Me.rdbFacilityDateTested)
         Me.GBDateBias.Controls.Add(Me.rdbFacilityDateReceived)
         Me.GBDateBias.Location = New System.Drawing.Point(383, 16)
         Me.GBDateBias.Name = "GBDateBias"
@@ -1587,13 +1587,13 @@ Partial Class ISMPMonitoringLog
         Me.rdbFacilityDateCompleted.TabIndex = 5
         Me.rdbFacilityDateCompleted.Text = "Date Report Completed"
         '
-        'rdbFacilityDateTestStarted
+        'rdbFacilityDateTested
         '
-        Me.rdbFacilityDateTestStarted.Location = New System.Drawing.Point(8, 32)
-        Me.rdbFacilityDateTestStarted.Name = "rdbFacilityDateTestStarted"
-        Me.rdbFacilityDateTestStarted.Size = New System.Drawing.Size(136, 16)
-        Me.rdbFacilityDateTestStarted.TabIndex = 4
-        Me.rdbFacilityDateTestStarted.Text = "Date Test Started"
+        Me.rdbFacilityDateTested.Location = New System.Drawing.Point(8, 32)
+        Me.rdbFacilityDateTested.Name = "rdbFacilityDateTested"
+        Me.rdbFacilityDateTested.Size = New System.Drawing.Size(136, 16)
+        Me.rdbFacilityDateTested.TabIndex = 1
+        Me.rdbFacilityDateTested.Text = "Date Tested"
         '
         'rdbFacilityDateReceived
         '
@@ -1933,7 +1933,7 @@ Partial Class ISMPMonitoringLog
     Friend WithEvents DTPEndDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents DTPStartDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents rdbFacilityDateCompleted As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbFacilityDateTestStarted As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbFacilityDateTested As System.Windows.Forms.RadioButton
     Friend WithEvents rdbFacilityDateReceived As System.Windows.Forms.RadioButton
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents chbClosed As System.Windows.Forms.CheckBox
