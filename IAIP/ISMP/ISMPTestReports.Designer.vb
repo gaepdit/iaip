@@ -1446,7 +1446,6 @@ Partial Class ISMPTestReports
         Me.DTPTestDateComplete.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPTestDateComplete.Location = New System.Drawing.Point(639, 138)
         Me.DTPTestDateComplete.Name = "DTPTestDateComplete"
-        Me.DTPTestDateComplete.ShowCheckBox = True
         Me.DTPTestDateComplete.Size = New System.Drawing.Size(119, 22)
         Me.DTPTestDateComplete.TabIndex = 11
         Me.DTPTestDateComplete.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
@@ -1458,7 +1457,6 @@ Partial Class ISMPTestReports
         Me.DTPTestDateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPTestDateStart.Location = New System.Drawing.Point(516, 138)
         Me.DTPTestDateStart.Name = "DTPTestDateStart"
-        Me.DTPTestDateStart.ShowCheckBox = True
         Me.DTPTestDateStart.Size = New System.Drawing.Size(117, 22)
         Me.DTPTestDateStart.TabIndex = 10
         Me.DTPTestDateStart.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
