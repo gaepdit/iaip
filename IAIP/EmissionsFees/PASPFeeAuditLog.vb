@@ -1914,7 +1914,12 @@ Public Class PASPFeeAuditLog
     Private Sub MailoutReplaceContactWithFeeContactButton_Click(sender As Object, e As EventArgs) Handles MailoutReplaceContactWithFeeContactButton.Click
         MailoutEditingToggle(True)
         Dim contact As Contact = DAL.GetCurrentContact(AirsNumber, DAL.ContactKey.Fees)
-        MailoutFillContactFrom(contact)
+
+        If contact Is Nothing Then
+            MessageBox.Show("There is no current fee contact.")
+        Else
+            MailoutFillContactFrom(contact)
+        End If
     End Sub
 
     Private Sub MailoutReplaceFacilityInfoButton_Click(sender As Object, e As EventArgs) Handles MailoutReplaceFacilityInfoButton.Click

@@ -45,15 +45,15 @@ Namespace DAL
             }
 
             Dim dataTable As DataTable = DB.GetDataTable(query, parameters)
-            If dataTable Is Nothing Then Return Nothing
+            If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Return Nothing
 
-            FillContactFromDataRow(dataTable.Rows(0), contact)
-
-            Return contact
+            Return ContactFromDataRow(dataTable.Rows(0))
         End Function
 
-        Private Sub FillContactFromDataRow(row As DataRow, ByRef contact As Contact)
+        Private Function ContactFromDataRow(row As DataRow) As Contact
+            Dim contact As New Contact
             Dim address As New Address
+
             With address
                 .Street = DBUtilities.GetNullable(Of String)(row("strContactAddress1"))
                 .Street2 = DBUtilities.GetNullable(Of String)(row("strContactAddress2"))
@@ -61,6 +61,7 @@ Namespace DAL
                 .PostalCode = DBUtilities.GetNullable(Of String)(row("strContactZipCode"))
                 .State = DBUtilities.GetNullable(Of String)(row("strContactstate"))
             End With
+
             With contact
                 .FirstName = DBUtilities.GetNullable(Of String)(row("strContactFirstName"))
                 .LastName = DBUtilities.GetNullable(Of String)(row("strContactLastName"))
@@ -72,7 +73,9 @@ Namespace DAL
                 .Title = DBUtilities.GetNullable(Of String)(row("STRCONTACTTITLE"))
                 .PhoneNumber = DBUtilities.GetNullable(Of String)(row("STRCONTACTPHONENUMBER1"))
             End With
-        End Sub
+
+            Return contact
+        End Function
 
     End Module
 End Namespace
