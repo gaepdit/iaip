@@ -311,8 +311,7 @@ Public Class ISMPMonitoringLog
                         SQLWhere = SQLWhere & "AND datReceivedDate between '" & DTPStartDate.Text & "' and '" & DTPEndDate.Text & "' "
                     End If
                     If rdbFacilityDateTested.Checked = True Then
-                        SQLWhere = SQLWhere & "AND ((datTestDateStart between '" & DTPStartDate.Text & "' and '" & DTPEndDate.Text & "' ) "
-                        SQLWhere = SQLWhere & " OR (DATTESTDATEEND between '" & DTPStartDate.Text & "' and '" & DTPEndDate.Text & "' )) "
+                        SQLWhere = SQLWhere & "AND (datTestDateStart <= '" & DTPEndDate.Text & "' AND DATTESTDATEEND >= '" & DTPStartDate.Text & "') "
                     End If
                     If rdbFacilityDateCompleted.Checked = True Then
                         SQLWhere = SQLWhere & "And datCompleteDate between '" & DTPStartDate.Text & "' and '" & DTPEndDate.Text & "' "
