@@ -1,9 +1,9 @@
 # iaip.gaepd.org
 
-Website for hosting the IAIP installation files and some brief help pages.
+Website for hosting the [IAIP](https://bitbucket.org/gaepdit/iaip/) installation files and some documentation.
 
 ## Deployment instructions
 
 1. Install [Pandoc](https://pandoc.org/) on your computer.
-1. Run `generate.bat` to generate HTML from the MD files. 
-1. Use FTP to upload everything in the `www` folder to the server.
+2. Run `build.bat` to generate HTML from the MD files.
+3. Use FTP to upload everything in the `www` folder onto the server.
