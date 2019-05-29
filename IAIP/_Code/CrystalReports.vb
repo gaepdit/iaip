@@ -118,23 +118,34 @@ Module CrystalReports
     <Extension>
     Public Sub ShowHideViewerTabs(CrystalReportViewer As CrystalReportViewer, visible As VisibleOrNot)
         ' http://bloggingabout.net/blogs/jschreuder/archive/2005/08/03/8760.aspx
-        If CrystalReportViewer IsNot Nothing Then
-            For Each control As Control In CrystalReportViewer.Controls
-                If TypeOf control Is PageView Then
-                    Dim tab As TabControl = DirectCast(DirectCast(control, PageView).Controls(0), TabControl)
-                    Select Case visible
-                        Case VisibleOrNot.NotVisible
-                            tab.ItemSize = New Size(0, 1)
-                            tab.SizeMode = TabSizeMode.Fixed
-                            tab.Appearance = TabAppearance.Buttons
-                        Case VisibleOrNot.Visible
-                            tab.ItemSize = New Size(67, 18)
-                            tab.SizeMode = TabSizeMode.Normal
-                            tab.Appearance = TabAppearance.Normal
-                    End Select
-                End If
-            Next
+        If CrystalReportViewer Is Nothing OrElse CrystalReportViewer.Controls.Count = 0 Then
+            Exit Sub
         End If
+
+        For Each control As Control In CrystalReportViewer.Controls
+            If TypeOf control IsNot PageView Then
+                Continue For
+            End If
+
+            Dim pageView As PageView = DirectCast(control, PageView)
+
+            If pageView.Controls.Count = 0 Then
+                Continue For
+            End If
+
+            Dim tab As TabControl = DirectCast(pageView.Controls(0), TabControl)
+
+            Select Case visible
+                Case VisibleOrNot.NotVisible
+                    tab.ItemSize = New Size(0, 1)
+                    tab.SizeMode = TabSizeMode.Fixed
+                    tab.Appearance = TabAppearance.Buttons
+                Case VisibleOrNot.Visible
+                    tab.ItemSize = New Size(67, 18)
+                    tab.SizeMode = TabSizeMode.Normal
+                    tab.Appearance = TabAppearance.Normal
+            End Select
+        Next
     End Sub
 
 
