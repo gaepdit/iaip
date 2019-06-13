@@ -299,7 +299,9 @@
     <Compile Include="_Code\EnumExtensions.vb" />
     <Compile Include="_Code\ComboBoxHelpers.vb" />
     <Compile Include="_Code\CollectionExtensions.vb" />
+    <Compile Include="_Code\IPAddressRange.vb" />
     <Compile Include="_Code\ListExtensions.vb" />
+    <Compile Include="_Code\NetworkCheck.vb" />
     <Compile Include="_Code\SplitContainerExtensions.vb" />
     <Compile Include="_Code\Forms\FacilityFormHelpers.vb" />
     <Compile Include="_Code\Forms\SsppFormHelpers.vb" />

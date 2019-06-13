@@ -28,12 +28,13 @@
 #End If
 
         ' Second, display a dialog to the user describing the error and next steps.
-        Dim errorMessage As String = exc.Message
-        If Not String.IsNullOrEmpty(supplementalMessage) Then
-            errorMessage = errorMessage & Environment.NewLine & Environment.NewLine & supplementalMessage
-        End If
-
         If displayErrorToUser Then
+            Dim errorMessage As String = exc.Message
+
+            If Not String.IsNullOrEmpty(supplementalMessage) Then
+                errorMessage = errorMessage & Environment.NewLine & Environment.NewLine & supplementalMessage
+            End If
+
             Dim WhatHappened As String = ""
             Dim WhatUserCanDo As String = ""
 
@@ -54,7 +55,7 @@
             WhatUserCanDo = WhatUserCanDo & "• Close and restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine &
                     "• If you continue to see this error, please email EPD IT. Describe what you were doing and paste the error details below into your email."
 
-            IaipExceptionManager.ShowErrorDialog(exc, WhatHappened, WhatUserCanDo)
+            ShowErrorDialog(exc, WhatHappened, WhatUserCanDo)
         End If
 
     End Sub
