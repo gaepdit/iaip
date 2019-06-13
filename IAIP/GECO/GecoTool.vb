@@ -118,36 +118,42 @@ Public Class GecoTool
                     txtWebUserID.Text = dr.Item("numUserID")
                 End If
                 If IsDBNull(dr.Item("strfirstname")) Then
+                    lblFName.Text = ""
                     txtEditFirstName.Clear()
                 Else
                     lblFName.Text = "First Name: " & dr.Item("strfirstname")
                     txtEditFirstName.Text = dr.Item("strFirstName")
                 End If
                 If IsDBNull(dr.Item("strlastname")) Then
+                    lblLName.Text = ""
                     txtEditLastName.Clear()
                 Else
                     lblLName.Text = "Last Name: " & dr.Item("strlastname")
                     txtEditLastName.Text = dr.Item("strLastName")
                 End If
                 If IsDBNull(dr.Item("strtitle")) Then
+                    lblTitle.Text = ""
                     txtEditTitle.Clear()
                 Else
                     lblTitle.Text = "Title: " & dr.Item("strtitle")
                     txtEditTitle.Text = dr.Item("strTitle")
                 End If
                 If IsDBNull(dr.Item("strcompanyname")) Then
+                    lblCoName.Text = ""
                     txtEditCompany.Clear()
                 Else
                     lblCoName.Text = "Company Name: " & dr.Item("strcompanyname")
                     txtEditCompany.Text = dr.Item("strCompanyName")
                 End If
                 If IsDBNull(dr.Item("straddress")) Then
+                    lblAddress.Text = ""
                     txtEditAddress.Clear()
                 Else
                     lblAddress.Text = dr.Item("straddress")
                     txtEditAddress.Text = dr.Item("strAddress")
                 End If
                 If IsDBNull(dr.Item("strcity")) Then
+                    lblCityStateZip.Text = ""
                     txtEditCity.Clear()
                     mtbEditState.Clear()
                     mtbEditZipCode.Clear()
@@ -158,21 +164,27 @@ Public Class GecoTool
                     mtbEditZipCode.Text = dr.Item("strZip")
                 End If
                 If IsDBNull(dr.Item("strphonenumber")) Then
+                    lblPhoneNo.Text = ""
                     mtbEditPhoneNumber.Clear()
                 Else
                     lblPhoneNo.Text = "Phone Number: " & dr.Item("strphonenumber")
                     mtbEditPhoneNumber.Text = dr.Item("strPhoneNumber")
                 End If
                 If IsDBNull(dr.Item("strfaxnumber")) Then
+                    lblFaxNo.Text = ""
                     mtbEditFaxNumber.Clear()
                 Else
                     lblFaxNo.Text = "Fax Number: " & dr.Item("strfaxnumber")
                     mtbEditFaxNumber.Text = dr.Item("strFaxNumber")
                 End If
                 If IsDBNull(dr.Item("DateEmailConfirmed")) Then
-                    lblConfirmDate.Text = "Account not yet confirmed by user."
+                    lblConfirmDate.Text = $"{UserData} is registered but email not yet confirmed by user."
+                    lblConfirmDate.BackColor = IaipColors.WarningBackColor
+                    lblConfirmDate.ForeColor = IaipColors.WarningForeColor
                 Else
                     lblConfirmDate.Text = "Date account confirmed: " & CDate(dr.Item("DateEmailConfirmed")).ToShortDateString
+                    lblConfirmDate.BackColor = Nothing
+                    lblConfirmDate.ForeColor = Nothing
                 End If
                 If IsDBNull(dr.Item("datLastLogIn")) Then
                     lblLastLogIn.Text = ""
@@ -207,6 +219,9 @@ Public Class GecoTool
                 lblCityStateZip.Text = ""
                 lblPhoneNo.Text = ""
                 lblFaxNo.Text = ""
+                lblConfirmDate.Text = "Entered email not found in GECO."
+                lblConfirmDate.BackColor = IaipColors.WarningBackColor
+                lblConfirmDate.ForeColor = IaipColors.WarningForeColor
             End If
 
             txtEditFirstName.Visible = False
