@@ -2,6 +2,10 @@
 
 *Previously:* [2018](changelog-2018.html) | [2017](changelog-2017.html) | [2016](changelog-2016.html) | [2015](changelog-2015.html) | [2014](changelog-2014.html) | [2013](changelog-2013.html)
 
+## Version 5.14.0 <span>(2019-6-14)</span>
+
+Better handling of connection issues on startup, and various other bug fixes and minor improvements.
+
 ## Version 5.13.0 <span>(2019-5-9)</span>
 
 Improve searching on stack test date ranges in the ISMP test log.
