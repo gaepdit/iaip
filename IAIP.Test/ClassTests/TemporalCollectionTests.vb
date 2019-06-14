@@ -56,8 +56,8 @@ Public Class TemporalCollectionTests
         Dim emptyColl As New TemporalCollection(Of String)
 
         Assert.Equal(0, emptyColl.Count)
-        Assert.Throws(Of ArgumentOutOfRangeException)(Function() emptyColl.GetValueAt(New Date(2010, 1, 1)))
-        Assert.Throws(Of ArgumentOutOfRangeException)(Function() emptyColl.EarliestDate)
+        Assert.Throws(Of InvalidOperationException)(Function() emptyColl.GetValueAt(New Date(2010, 1, 1)))
+        Assert.Throws(Of InvalidOperationException)(Function() emptyColl.EarliestDate)
     End Sub
 
 End Class

@@ -380,9 +380,10 @@ Partial Class GecoTool
         'lblConfirmDate
         '
         Me.lblConfirmDate.AutoSize = True
-        Me.lblConfirmDate.Location = New System.Drawing.Point(9, 258)
+        Me.lblConfirmDate.Location = New System.Drawing.Point(8, 255)
         Me.lblConfirmDate.Name = "lblConfirmDate"
-        Me.lblConfirmDate.Size = New System.Drawing.Size(0, 13)
+        Me.lblConfirmDate.Padding = New System.Windows.Forms.Padding(3)
+        Me.lblConfirmDate.Size = New System.Drawing.Size(6, 19)
         Me.lblConfirmDate.TabIndex = 42
         '
         'Label75
@@ -397,7 +398,7 @@ Partial Class GecoTool
         'lblLastLogIn
         '
         Me.lblLastLogIn.AutoSize = True
-        Me.lblLastLogIn.Location = New System.Drawing.Point(9, 280)
+        Me.lblLastLogIn.Location = New System.Drawing.Point(11, 280)
         Me.lblLastLogIn.Name = "lblLastLogIn"
         Me.lblLastLogIn.Size = New System.Drawing.Size(0, 13)
         Me.lblLastLogIn.TabIndex = 41
@@ -550,11 +551,10 @@ Partial Class GecoTool
         '
         'btnEditUserData
         '
-        Me.btnEditUserData.AutoSize = True
         Me.btnEditUserData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEditUserData.Location = New System.Drawing.Point(14, 225)
+        Me.btnEditUserData.Location = New System.Drawing.Point(11, 225)
         Me.btnEditUserData.Name = "btnEditUserData"
-        Me.btnEditUserData.Size = New System.Drawing.Size(86, 23)
+        Me.btnEditUserData.Size = New System.Drawing.Size(97, 23)
         Me.btnEditUserData.TabIndex = 11
         Me.btnEditUserData.Text = "Edit User Data"
         Me.btnEditUserData.UseVisualStyleBackColor = True

@@ -1,8 +1,13 @@
-﻿Public Class IAIPLogIn
+﻿Imports System.Threading
+Imports System.Threading.Tasks
+
+Public Class IAIPLogIn
 
 #Region " Properties "
 
+    Private ReadOnly synchronizationContext As WindowsFormsSynchronizationContext
     Private _message As IaipMessage
+
     Private Property Message As IaipMessage
         Get
             Return _message
@@ -14,58 +19,136 @@
         End Set
     End Property
 
-    Private Property DBIsAvailable As Boolean = False
-
 #End Region
 
 #Region " Page Load "
 
-    Private Sub IAIPLogIn_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        If txtUserID.Enabled Then txtUserID.Text = GetUserSetting(UserSetting.PrefillLoginId)
-        FocusLogin()
-        DisplayVersion()
-        CheckForPasswordResetRequest()
-
-        'If AppFirstRun Or AppUpdated Then
-        'End If
-
-        CheckDBAvailability()
+    Public Sub New()
+        InitializeComponent()
+        synchronizationContext = CType(Threading.SynchronizationContext.Current, WindowsFormsSynchronizationContext)
     End Sub
+
 
     Private Sub IAIPLogIn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        UseDbServerEnvironment()
+        FillLoginForm()
+        SetUpUi()
     End Sub
 
-    Private Sub AttemptSessionLogin()
-        Dim userId As Integer = ValidateSession()
+    Private Sub IAIPLogIn_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        CheckConnectionStatusAsync()
+    End Sub
 
-        If userId > 0 Then
-            CurrentUser = DAL.GetIaipUserByUserId(userId)
-            If CurrentUser Is Nothing OrElse CurrentUser.RequirePasswordChange OrElse Not ValidateUserData() Then
-                CurrentUser = Nothing
-            Else
-                LogInAlready()
-            End If
+    Private Sub SetUpUi()
+        UseDbServerEnvironmentBranding()
+        DisplayVersion()
+        CheckForPasswordResetRequest()
+        DisableLogin("Connecting...", True)
+    End Sub
+
+    Private Sub FillLoginForm()
+        If txtUserID.Enabled Then
+            txtUserID.Text = GetUserSetting(UserSetting.PrefillLoginId)
         End If
+
+        FocusLogin()
     End Sub
 
-    Private Sub DisableLogin(Optional messageText As String = Nothing)
+    Private Enum ConnectionStatus
+        NotSet
+        NoNetwork
+        NoVpn
+        NoDB
+        SessionLogin
+        None
+    End Enum
+
+    Private Async Sub CheckConnectionStatusAsync()
+        Dim status As ConnectionStatus = ConnectionStatus.None
+        Dim networkStatus As NetworkCheckResponse = Await CheckNetworkAsync().ConfigureAwait(False)
+
+        If networkStatus = NetworkCheckResponse.NoNetwork Then
+            status = ConnectionStatus.NoNetwork
+        ElseIf networkStatus = NetworkCheckResponse.OutOfNetwork Then
+            status = ConnectionStatus.NoVpn
+        ElseIf Not Await CheckDBAvailabilityAsync().ConfigureAwait(False) Then
+            status = ConnectionStatus.NoDB
+        ElseIf Await CheckUserSavedSessionAsync().ConfigureAwait(False) Then
+            status = ConnectionStatus.SessionLogin
+        End If
+
+        synchronizationContext.Post(
+            New SendOrPostCallback(
+            Sub()
+                SetUpLoginUi(status)
+            End Sub
+            ), status)
+    End Sub
+
+    Private Sub SetUpLoginUi(status As ConnectionStatus)
+        Select Case status
+            Case ConnectionStatus.NoNetwork
+                DisableLogin("It appears you are not connected to the Internet. " &
+                             "Please check your connection and try again.")
+            Case ConnectionStatus.NoVpn
+                DisableLogin("It appears you are not connected to the VPN. " &
+                             "If you are working remotely, you must " &
+                             "connect to the VPN before using the IAIP. ")
+            Case ConnectionStatus.NoDB
+                DisableLogin("Unable to connect to the database. " &
+                             "Please wait a few minutes and try again. " &
+                             "If still unable to connect, please contact EPD-IT for support. ")
+            Case ConnectionStatus.SessionLogin
+                LogInAlready()
+            Case ConnectionStatus.None
+                EnableLogin()
+        End Select
+    End Sub
+
+    Private Shared Async Function CheckUserSavedSessionAsync() As Task(Of Boolean)
+        Dim userId As Integer = Await ValidateSessionAsync().ConfigureAwait(False)
+
+        If userId <= 0 Then
+            Return False
+        End If
+
+        CurrentUser = Await Task.Run(
+            Function()
+                Return DAL.GetIaipUserByUserId(userId.ToString)
+            End Function
+            ).ConfigureAwait(False)
+
+        If CurrentUser Is Nothing OrElse CurrentUser.RequirePasswordChange OrElse Not ValidateUserData() Then
+            CurrentUser = Nothing
+            Return False
+        End If
+
+        Return True
+    End Function
+
+    Private Sub DisableLogin(Optional messageText As String = Nothing, Optional waiting As Boolean = False)
         DisableControls({txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton, chkRemember})
-        AcceptButton = Nothing
-        Message = New IaipMessage(messageText, IaipMessage.WarningLevels.Warning)
+
+        If waiting Then
+            Message = New IaipMessage(messageText, IaipMessage.WarningLevels.Info)
+            RetryButton.Visible = False
+            AcceptButton = Nothing
+        Else
+            Message = New IaipMessage(messageText, IaipMessage.WarningLevels.Warning)
+            RetryButton.Visible = True
+            AcceptButton = RetryButton
+            RetryButton.Select()
+        End If
     End Sub
 
     Private Sub EnableLogin()
         EnableControls({txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton, chkRemember})
-
         AcceptButton = btnLoginButton
         If Message IsNot Nothing Then Message.Clear()
-
-        FocusLogin()
+        RetryButton.Visible = False
     End Sub
 
     Private Sub FocusLogin()
-        If txtUserID.Text = "" Then
+        If String.IsNullOrEmpty(txtUserID.Text) Then
             If txtUserID.Enabled Then txtUserID.Select()
         Else
             If txtUserPassword.Enabled Then txtUserPassword.Select()
@@ -80,12 +163,12 @@
         currentVersion = GetCurrentVersionAsMajorMinorBuild()
 
         If AppUpdated Then
-            msgText = String.Format("The IAIP has been updated." & vbNewLine & "Current version: {0}", currentVersion.ToString)
+            msgText = "The IAIP has been updated." & vbNewLine & $"Current version:  {currentVersion.ToString}"
             msg = New IaipMessage(msgText, IaipMessage.WarningLevels.Info)
             lnkChangelog.Visible = True
             lnkChangelog.BackColor = IaipColors.InfoBackColor
         Else
-            msgText = String.Format("Version: {0}", currentVersion.ToString)
+            msgText = $"Version: {currentVersion.ToString}"
             msg = New IaipMessage(msgText, IaipMessage.WarningLevels.None)
         End If
 
@@ -98,8 +181,9 @@
 
     Private Sub CheckForPasswordResetRequest()
         Dim prr As String = GetUserSetting(UserSetting.PasswordResetRequestedDate)
-        If prr <> "" Then
-            Dim prrd As DateTime = DateTime.ParseExact(prr, DateParseExactFormat, Nothing)
+
+        If Not String.IsNullOrEmpty(prr) Then
+            Dim prrd As Date = Date.ParseExact(prr, DateParseExactFormat, Nothing)
             If Date.Compare(prrd, Date.Now.AddHours(-24)) > 0 Then
                 mmiPasswordReset.Visible = True
             Else
@@ -108,28 +192,18 @@
         End If
     End Sub
 
-    Private Sub CheckDBAvailability()
-        DBIsAvailable = DAL.AppIsEnabled()
-        If DBIsAvailable Then AttemptSessionLogin()
-        DisplayDBAvailability()
-    End Sub
+    Private Shared Async Function CheckDBAvailabilityAsync() As Task(Of Boolean)
+        Return Await Task.Run(
+            Function()
+                Return DAL.AppIsEnabled()
+            End Function
+            ).ConfigureAwait(False)
+    End Function
 
-    Private Sub DisplayDBAvailability()
-        If DBIsAvailable Then
-            EnableLogin()
-            RetryButton.Visible = False
-        Else
-            DisableLogin("Can't connect. Please check your Internet " &
-                         "connection. If you are working remotely, you must " &
-                         "connect to the VPN before using the IAIP. ")
-            RetryButton.Visible = True
-            RetryButton.Select()
-        End If
-    End Sub
-
-    Private Sub RetryButton_Click(sender As Object, e As EventArgs) Handles RetryButton.Click
-        CheckDBAvailability()
-    End Sub
+    Private Function RetryButton_Click(sender As Object, e As EventArgs) As Task Handles RetryButton.Click
+        DisableLogin("Connecting...", True)
+        CheckConnectionStatusAsync()
+    End Function
 
 #End Region
 
@@ -141,8 +215,8 @@
         ForgotPasswordLink.Visible = False
         ForgotUsernameLink.Visible = False
 
-        If txtUserID.Text = "" OrElse txtUserPassword.Text = "" OrElse Not DBIsAvailable Then
-            CancelLogin(ClearPasswordField.Yes)
+        If String.IsNullOrEmpty(txtUserID.Text) OrElse String.IsNullOrEmpty(txtUserPassword.Text) Then
+            CancelLogin(True)
         Else
             Dim authenticationResult As DAL.IaipAuthenticationResult = DAL.AuthenticateIaipUser(txtUserID.Text, txtUserPassword.Text)
 
@@ -150,28 +224,28 @@
                 Case DAL.IaipAuthenticationResult.InvalidUsername
                     Message = New IaipMessage("That Username does not exist.", IaipMessage.WarningLevels.ErrorReport)
                     ForgotUsernameLink.Visible = True
-                    CancelLogin(ClearPasswordField.Yes)
+                    CancelLogin(True)
 
                 Case DAL.IaipAuthenticationResult.InactiveUser
                     Message = New IaipMessage("Your user status has been flagged as inactive.", IaipMessage.WarningLevels.ErrorReport)
-                    CancelLogin(ClearPasswordField.Yes)
+                    CancelLogin(True)
 
                 Case DAL.IaipAuthenticationResult.InvalidLogin
                     Message = New IaipMessage("Login information is incorrect.", IaipMessage.WarningLevels.ErrorReport)
                     ForgotPasswordLink.Visible = True
-                    CancelLogin(ClearPasswordField.No)
+                    CancelLogin(False)
 
                 Case DAL.IaipAuthenticationResult.Success
                     CurrentUser = DAL.GetIaipUserByUsername(txtUserID.Text)
                     If CurrentUser Is Nothing Then
                         Message = New IaipMessage("There was a system error. Please contact support.", IaipMessage.WarningLevels.ErrorReport)
-                        CancelLogin(ClearPasswordField.No)
+                        CancelLogin(False)
                     ElseIf CurrentUser.RequirePasswordChange Then
                         RequirePasswordUpdate()
-                        CancelLogin(ClearPasswordField.Yes)
+                        CancelLogin(True)
                     ElseIf Not ValidateUserData() Then
                         Message = New IaipMessage("Your profile must be completed before you can use the IAIP.", IaipMessage.WarningLevels.Warning)
-                        CancelLogin(ClearPasswordField.No)
+                        CancelLogin(False)
                     Else
                         UpdateSession(chkRemember.Checked)
                         LogInAlready()
@@ -184,24 +258,19 @@
     Private Sub LogInAlready()
         ' Tag exception logger with new user
         ExceptionLogger.Tags.Add("IaipUser", CurrentUser.Username)
-        ExceptionLogger.Tags.Add("IaipUserID", CurrentUser.UserID)
+        ExceptionLogger.Tags.Add("IaipUserID", CurrentUser.UserID.ToString)
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
         OpenSingleForm(IAIPNavigation)
         Close()
     End Sub
 
-    Private Sub CancelLogin(Optional clearPasswordField As ClearPasswordField = ClearPasswordField.No)
+    Private Sub CancelLogin(Optional clearPasswordField As Boolean = False)
         CurrentUser = Nothing
-        If clearPasswordField = ClearPasswordField.Yes Then txtUserPassword.Clear()
+        If clearPasswordField Then txtUserPassword.Clear()
         FocusLogin()
         Cursor = Cursors.Default
     End Sub
-
-    Private Enum ClearPasswordField
-        No
-        Yes
-    End Enum
 
     Private Sub RequirePasswordUpdate()
         Using changePassword As New IaipChangePassword
@@ -302,7 +371,7 @@
     End Sub
 
     Private Sub ShowPasswordResetForm(Optional username As String = "")
-        If username = "" Then
+        If String.IsNullOrEmpty(username) Then
             username = GetUserSetting(UserSetting.PrefillLoginId)
         End If
 
@@ -324,7 +393,7 @@
 
 #Region " Database Environment "
 
-    Private Sub UseDbServerEnvironment()
+    Private Sub UseDbServerEnvironmentBranding()
         btnLoginButton.Text = "Log In"
 
 #If DEBUG Then

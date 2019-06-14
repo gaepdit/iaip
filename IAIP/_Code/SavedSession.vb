@@ -1,4 +1,6 @@
-﻿Public Module SavedSessions
+﻿Imports System.Threading.Tasks
+
+Public Module SavedSessions
 
     Public Sub UpdateSession(save As Boolean)
         If save Then
@@ -8,13 +10,20 @@
         End If
     End Sub
 
-    Public Function ValidateSession() As Integer
+    Public Async Function ValidateSessionAsync() As Task(Of Integer)
         Dim sc As Specialized.StringCollection = My.Settings.SavedSession
 
         If sc IsNot Nothing AndAlso sc.Count = 2 Then
             Dim userId As Integer
+
             If Integer.TryParse(sc(0), userId) Then
-                Dim newToken As String = DAL.ValidateSession(userId, sc(1))
+
+                Dim newToken As String = Await Task.Run(
+                    Function()
+                        Return DAL.ValidateSession(userId, sc(1))
+                    End Function
+                    ).ConfigureAwait(False)
+
                 If Not String.IsNullOrEmpty(newToken) Then
                     SaveLocalSession(userId, newToken)
                     Return userId
