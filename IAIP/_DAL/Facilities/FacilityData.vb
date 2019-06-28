@@ -190,7 +190,7 @@ Namespace DAL
         'Region added to validate that a number entered as an Airs Number, not only isn't null, but also adheres to the correct Airs Number Format
         'Used when you don't know whether an Airs Number entry by the user is in a valid format or exists already in the database 
 
-        'Added to make sure AirsNumber entered is Not Null and is of the correct Pattern and can be used seperately from ValidateAirsNumber
+        'Added to make sure AirsNumber entered is Not Null and is of the correct Pattern and can be used separately from ValidateAirsNumber
         Public Function ValidateAirsPattern(ByVal airsInput As String) As AirsNumberValidationResult
             If airsInput = "" Then
                 Return AirsNumberValidationResult.Empty

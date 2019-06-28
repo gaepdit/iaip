@@ -419,7 +419,7 @@ Public Class IAIPListTool
 
                 MsgBox("Successfully  Done.", MsgBoxStyle.Information, "IAIP List Tool")
             Else
-                MsgBox("No data was save. " & vbCrLf & "Select atleast one Account or cascade through Branch/Program", MsgBoxStyle.Exclamation, "IAIP List Tool")
+                MsgBox("No data was save. " & vbCrLf & "Select at least one Account or cascade through Branch/Program", MsgBoxStyle.Exclamation, "IAIP List Tool")
             End If
 
         Catch ex As Exception

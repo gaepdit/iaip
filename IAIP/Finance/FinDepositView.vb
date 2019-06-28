@@ -69,7 +69,7 @@ Public Class FinDepositView
         lblDeleteDepositMessage.ClearMessage()
     End Sub
 
-    ' Don't allow the form to close if no inovices have been added
+    ' Don't allow the form to close if no invoices have been added
 
     Private Sub FinDepositView_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If DepositID = -1 OrElse thisDeposit Is Nothing Then

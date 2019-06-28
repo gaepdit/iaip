@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -956,10 +956,10 @@
     <Compile Include="SSCP\SubPages\SSCPEnforcementChecklist.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SSPP\SSPPPublicNoticiesAndAdvisories.Designer.vb">
-      <DependentUpon>SSPPPublicNoticiesAndAdvisories.vb</DependentUpon>
+    <Compile Include="SSPP\SSPPPublicNoticesAndAdvisories.Designer.vb">
+      <DependentUpon>SSPPPublicNoticesAndAdvisories.vb</DependentUpon>
     </Compile>
-    <Compile Include="SSPP\SSPPPublicNoticiesAndAdvisories.vb">
+    <Compile Include="SSPP\SSPPPublicNoticesAndAdvisories.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SSPP\SSPPApplicationLog.Designer.vb">
@@ -1488,8 +1488,8 @@
       <DependentUpon>SSCPEnforcementChecklist.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSPP\SSPPPublicNoticiesAndAdvisories.resx">
-      <DependentUpon>SSPPPublicNoticiesAndAdvisories.vb</DependentUpon>
+    <EmbeddedResource Include="SSPP\SSPPPublicNoticesAndAdvisories.resx">
+      <DependentUpon>SSPPPublicNoticesAndAdvisories.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SSPP\SSPPApplicationLog.resx">

@@ -1565,7 +1565,7 @@ Public Class PASPFeeAuditLog
             dgvAuditHistory.Columns("numSMFee").DisplayIndex = 2
             dgvAuditHistory.Columns("numSMFee").Width = 100
             dgvAuditHistory.Columns("numSMFee").DefaultCellStyle.Format = "c"
-            dgvAuditHistory.Columns("Part70").HeaderText = "Part 70 Stauts"
+            dgvAuditHistory.Columns("Part70").HeaderText = "Part 70 Status"
             dgvAuditHistory.Columns("Part70").DisplayIndex = 3
             dgvAuditHistory.Columns("Part70").Width = 50
             dgvAuditHistory.Columns("numPart70Fee").HeaderText = "Part 70 Fee"
@@ -1598,7 +1598,7 @@ Public Class PASPFeeAuditLog
             dgvAuditHistory.Columns("numNSPSFee").DisplayIndex = 12
             dgvAuditHistory.Columns("numNSPSFee").Width = 100
             dgvAuditHistory.Columns("numNSPSFee").DefaultCellStyle.Format = "c"
-            dgvAuditHistory.Columns("NSPSExempt").HeaderText = "NSPS Exempt Stauts"
+            dgvAuditHistory.Columns("NSPSExempt").HeaderText = "NSPS Exempt Status"
             dgvAuditHistory.Columns("NSPSExempt").DisplayIndex = 13
             dgvAuditHistory.Columns("NSPSExempt").Width = 50
             dgvAuditHistory.Columns("numAdminFee").HeaderText = "Admin Fee"

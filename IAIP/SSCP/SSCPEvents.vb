@@ -563,7 +563,7 @@ Public Class SSCPEvents
     Private Sub SaveMaster()
         Try
             If AccountFormAccess(49, 2) = "0" And AccountFormAccess(49, 3) = "0" And AccountFormAccess(49, 4) = "0" Then
-                MsgBox("You do not have sufficent permission to save Compliance Events.", MsgBoxStyle.Information, "Compliance Events")
+                MsgBox("You do not have sufficient permission to save Compliance Events.", MsgBoxStyle.Information, "Compliance Events")
             Else
                 Dim result As Boolean = False
                 Select Case EventType

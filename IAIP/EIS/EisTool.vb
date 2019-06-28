@@ -827,9 +827,9 @@ Public Class EisTool
             dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").HeaderText = "First Date Confirmed"
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").DisplayIndex = 2
-            dgvESDataCount.Columns("DBLVOCEMISSION").HeaderText = "VOC Emmissions"
+            dgvESDataCount.Columns("DBLVOCEMISSION").HeaderText = "VOC Emissions"
             dgvESDataCount.Columns("DBLVOCEMISSION").DisplayIndex = 3
-            dgvESDataCount.Columns("DBLNOXEMISSION").HeaderText = "NOX Emmissions"
+            dgvESDataCount.Columns("DBLNOXEMISSION").HeaderText = "NOX Emissions"
             dgvESDataCount.Columns("DBLNOXEMISSION").DisplayIndex = 4
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").HeaderText = "Confirmation Number"
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 5
@@ -4907,7 +4907,7 @@ Public Class EisTool
 
     Private Sub btnAddtoEISMailout_Click(sender As Object, e As EventArgs) Handles btnAddtoEISMailout.Click
         Try
-            Dim EISConfirm As String = InputBox("Type in the EIS Year that you have selected to add facilies into Mailout.", Me.Text)
+            Dim EISConfirm As String = InputBox("Type in the EIS Year that you have selected to add facilities into Mailout.", Me.Text)
 
             If EISConfirm = txtSelectedEISStatYear.Text Then
                 Dim temp As String = ""

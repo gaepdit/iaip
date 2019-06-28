@@ -449,7 +449,7 @@ Public Class SSCPFCEWork
             'Setting the Column Headings    11
             objtextcol = New DataGridTextBoxColumn
             objtextcol.MappingName = "AcknowledgmentLetterSent"
-            objtextcol.HeaderText = "Date Acknowledgement Letter Sent"
+            objtextcol.HeaderText = "Date Acknowledgment Letter Sent"
             objtextcol.Alignment = HorizontalAlignment.Left
             objtextcol.Width = 135
             objGrid.GridColumnStyles.Add(objtextcol)
@@ -870,7 +870,7 @@ Public Class SSCPFCEWork
             'Setting the Column Headings    6 
             objtextcol = New DataGridTextBoxColumn
             objtextcol.MappingName = "strUnitTitle"
-            objtextcol.HeaderText = "Reveiewing Unit"
+            objtextcol.HeaderText = "Reviewing Unit"
             objtextcol.Alignment = HorizontalAlignment.Left
             objtextcol.Width = 120
             objGrid.GridColumnStyles.Add(objtextcol)
@@ -878,7 +878,7 @@ Public Class SSCPFCEWork
             'Setting the Column Headings    7
             objtextcol = New DataGridTextBoxColumn
             objtextcol.MappingName = "ReviewingEngineer"
-            objtextcol.HeaderText = "Reveiewing Engineer"
+            objtextcol.HeaderText = "Reviewing Engineer"
             objtextcol.Alignment = HorizontalAlignment.Left
             objtextcol.Width = 135
             objGrid.GridColumnStyles.Add(objtextcol)
@@ -1252,7 +1252,7 @@ Public Class SSCPFCEWork
         Try
 
             If AccountFormAccess(50, 2) = "0" And AccountFormAccess(50, 3) = "0" And AccountFormAccess(50, 4) = "0" Then
-                MsgBox("Insufficent permissions to save Full Compliance Evaluations.", MsgBoxStyle.Information, "Full Compliance Evaluation.")
+                MsgBox("Insufficient permissions to save Full Compliance Evaluations.", MsgBoxStyle.Information, "Full Compliance Evaluation.")
             Else
                 Dim SQL As String
                 Dim sqlList As New List(Of String)

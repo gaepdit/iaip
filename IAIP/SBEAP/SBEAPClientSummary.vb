@@ -1499,7 +1499,7 @@ Public Class SBEAPClientSummary
 
                     DB.RunCommand(query, p2)
                 Else
-                    MsgBox("The Client ID box currnetly has a value.", MsgBoxStyle.Information, "Client Maintenance")
+                    MsgBox("The Client ID box currently has a value.", MsgBoxStyle.Information, "Client Maintenance")
                 End If
             Else
                 query = "Update SBEAPClients set " &

@@ -215,7 +215,7 @@ Public Class SBEAPReports
             "case " &
             "when datCaseOpened between @sdate and @edate then 'Case Opened' " &
             "when datCaseClosed between @sdate and @edate  then 'Case Closed' " &
-            "when datActionOccured between @sdate and @edate then 'Action Occured' " &
+            "when datActionOccured between @sdate and @edate then 'Action Occurred' " &
             "end CountReason, " &
             "case " &
             "when datCaseOpened between @sdate and @edate then datCaseOpened " &
@@ -325,7 +325,7 @@ Public Class SBEAPReports
             "SBEAPClients.ClientID, strCompanyName, " &
             "strCaseSummary, " &
             "Case " &
-            "when datActionOccured between @sdate and @edate then 'Action Occured' " &
+            "when datActionOccured between @sdate and @edate then 'Action Occurred' " &
             "when datCaseClosed between @sdate and @edate then 'Case Closed' " &
             "end CountReason, " &
             "datCaseOpened as datCaseOpened, " &
@@ -409,7 +409,7 @@ Public Class SBEAPReports
             "strCaseSummary, " &
             "datCaseOpened , " &
             "Case " &
-            "when datActionOccured between @sdate and @edate then 'Action Occured' " &
+            "when datActionOccured between @sdate and @edate then 'Action Occurred' " &
             "when datCaseClosed between @sdate and @edate then 'Case Closed' " &
             "end CountReason, concat(strLastName, ', ' ,strFirstName) as StaffResponsible   " &
             "from SBEAPCaseLog " &
@@ -566,7 +566,7 @@ Public Class SBEAPReports
             dgvCaseWork.Columns("strCompanyName").DisplayIndex = 2
             dgvCaseWork.Columns("strWorkDescription").HeaderText = "Action Type"
             dgvCaseWork.Columns("strWorkDescription").DisplayIndex = 3
-            dgvCaseWork.Columns("datActionOccured").HeaderText = "Date Action Occured"
+            dgvCaseWork.Columns("datActionOccured").HeaderText = "Date Action Occurred"
             dgvCaseWork.Columns("datActionOccured").DisplayIndex = 4
             dgvCaseWork.Columns("datActionOccured").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvCaseWork.Columns("StaffResponsible").HeaderText = "Staff Responsible"
@@ -628,7 +628,7 @@ Public Class SBEAPReports
             dgvCaseWork.Columns("strCompanyName").DisplayIndex = 2
             dgvCaseWork.Columns("strWorkDescription").HeaderText = "Action Type"
             dgvCaseWork.Columns("strWorkDescription").DisplayIndex = 3
-            dgvCaseWork.Columns("datActionOccured").HeaderText = "Date Action Occured"
+            dgvCaseWork.Columns("datActionOccured").HeaderText = "Date Action Occurred"
             dgvCaseWork.Columns("datActionOccured").DisplayIndex = 4
             dgvCaseWork.Columns("datActionOccured").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvCaseWork.Columns("StaffResponsible").HeaderText = "Staff Responsible"
@@ -717,7 +717,7 @@ Public Class SBEAPReports
             dgvCaseWork.Columns("strCompanyName").DisplayIndex = 2
             dgvCaseWork.Columns("strWorkDescription").HeaderText = "Action Type"
             dgvCaseWork.Columns("strWorkDescription").DisplayIndex = 3
-            dgvCaseWork.Columns("datActionOccured").HeaderText = "Date Action Occured"
+            dgvCaseWork.Columns("datActionOccured").HeaderText = "Date Action Occurred"
             dgvCaseWork.Columns("datActionOccured").DisplayIndex = 4
             dgvCaseWork.Columns("datActionOccured").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvCaseWork.Columns("StaffResponsible").HeaderText = "Staff Responsible"

@@ -1211,7 +1211,7 @@ Partial Class SSPPStatisticalTools
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(182, 13)
         Me.Label25.TabIndex = 43
-        Me.Label25.Text = "Pulic Notice Comment Period Expired"
+        Me.Label25.Text = "Public Notice Comment Period Expired"
         '
         'Label26
         '

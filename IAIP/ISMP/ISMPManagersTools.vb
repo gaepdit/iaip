@@ -2667,7 +2667,7 @@ Public Class ISMPManagersTools
                     txtAddTestReportCommissioner.BackColor = Color.White
                 Else
                     txtAddTestReportCommissioner.BackColor = Color.Tomato
-                    MsgBox("Please add a valid Commissioenr.", MsgBoxStyle.Information, "Add Test Report")
+                    MsgBox("Please add a valid Commissioner.", MsgBoxStyle.Information, "Add Test Report")
                     Exit Sub
                 End If
                 If txtAddTestReportDirector.Text <> "" Then
@@ -2695,7 +2695,7 @@ Public Class ISMPManagersTools
                 Dim p As New SqlParameter("@ref", RefNum)
 
                 If DB.ValueExists(query, p) Then
-                    MsgBox("This Refernece Number already exists in the system.", MsgBoxStyle.Information, "Add Test Report")
+                    MsgBox("This Reference Number already exists in the system.", MsgBoxStyle.Information, "Add Test Report")
                     Exit Sub
                 End If
 
