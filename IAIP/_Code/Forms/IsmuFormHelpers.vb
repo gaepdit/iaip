@@ -1,4 +1,4 @@
-﻿Imports System.Collections.Generic
+Imports System.Collections.Generic
 Imports Iaip.BaseForm
 
 Module IsmuFormHelpers
@@ -98,10 +98,10 @@ Module IsmuFormHelpers
     ''' </summary>
     ''' <param name="referenceNumber">The reference number for an ISMP stack test</param>
     ''' <returns>A unique integer for the reference number.</returns>
-    ''' <remarks>Required because reference numbers are strings, some have leading zeroes, 
-    ''' and some of those have duplicates in the system without the leading zeroes. 
+    ''' <remarks>Required because reference numbers are strings, some have leading zeros, 
+    ''' and some of those have duplicates in the system without the leading zeros. 
     ''' This function returns the reference number as an integer if it does not have leading
-    ''' zeroes. If the reference number has leading zeroes, this function returns the 
+    ''' zeroed. If the reference number has leading zeros, this function returns the 
     ''' reference number as a negative integer.</remarks>
     Public Function NormalizeReferenceId(referenceNumber As String) As Integer
         If String.IsNullOrEmpty(referenceNumber) OrElse Not Integer.TryParse(referenceNumber, Nothing) Then

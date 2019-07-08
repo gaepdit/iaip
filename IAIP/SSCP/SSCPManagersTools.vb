@@ -588,7 +588,7 @@ Public Class SSCPManagersTools
 
             txtSubmittedLate.Text = DB.GetInteger(SQL, params).ToString
 
-            '---Devations Reported in first Submittal
+            '---Deviations Reported in first Submittal
             SQL = "select " &
             "count(*) as DeviationsReported " &
             "from SSCPACCs inner join SSCPItemMaster " &
@@ -1065,7 +1065,7 @@ Public Class SSCPManagersTools
                 dateEndParam
             }
 
-            '---Devations Reported in first Submittal
+            '---Deviations Reported in first Submittal
             SQL = "select " &
                 "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
                 "strFacilityName,   " &
@@ -2469,7 +2469,7 @@ Public Class SSCPManagersTools
                 row.Cells(3).Value = cboSSCPUnit2.Text
             Next
 
-            MsgBox("Unit Assignment(s) Completed", MsgBoxStyle.Information, "Managers Tools")
+            MsgBox("Unit Assignments Completed", MsgBoxStyle.Information, "Managers Tools")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2684,7 +2684,7 @@ Public Class SSCPManagersTools
                 row.Cells(3).Value = Nothing
             Next
 
-            MsgBox("Unit Assignment(s) Completed", MsgBoxStyle.Information, "Managers Tools")
+            MsgBox("Unit Assignments Completed", MsgBoxStyle.Information, "Managers Tools")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

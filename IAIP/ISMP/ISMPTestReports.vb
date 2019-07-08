@@ -9248,7 +9248,7 @@ Public Class ISMPTestReports
     End Sub
 
     Private Sub ClearTestReportData()
-        Dim diag As DialogResult = MessageBox.Show("This will clear all data from this test repot. Are you sure you want to proceed?", "Delete all data", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
+        Dim diag As DialogResult = MessageBox.Show("This will clear all data from this test report. Are you sure you want to proceed?", "Delete all data", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
 
         If diag = DialogResult.Yes Then
             Dim result As Boolean = DAL.Ismp.ClearStackTestData(ReferenceNumber)

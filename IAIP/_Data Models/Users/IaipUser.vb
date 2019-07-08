@@ -111,7 +111,7 @@
                 Return HasRole({102, 114, 2, 19, 28}) Or HasRoleType(RoleType.DistrictManager)
 
             Case UserCan.ShutDownFacility
-                ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liasion, SSPP Program Manager
+                ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liaison, SSPP Program Manager
                 Return HasRole({114, 19, 102, 27, 28})
 
             ' === User management caps

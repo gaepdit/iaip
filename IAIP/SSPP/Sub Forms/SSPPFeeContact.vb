@@ -187,7 +187,7 @@ Public Class SSPPFeeContact
             If DB.ValueExists(SQL, p) Then
                 MsgBox("The Contact Description is exactly the same as a record on file." & vbCrLf &
                        "Please enter a unique description before saving.", MsgBoxStyle.Exclamation,
-                       "Fee Contact Updtate")
+                       "Fee Contact Update")
                 Exit Sub
             End If
 

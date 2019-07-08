@@ -378,6 +378,7 @@ Partial Class FinInvoiceView
         Me.lblFacilityDisplay.Size = New System.Drawing.Size(228, 26)
         Me.lblFacilityDisplay.TabIndex = 6
         Me.lblFacilityDisplay.Text = "Facility Name"
+        Me.lblFacilityDisplay.UseMnemonic = False
         '
         'lnkFacility
         '

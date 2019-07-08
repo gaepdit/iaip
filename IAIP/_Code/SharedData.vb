@@ -194,7 +194,7 @@ Public Module SharedData
     ' The GetSharedData functions make the shared data available to other procedures
 
     ''' <summary>
-    ''' Returns data from the shared data service. If data has not been intialized, 
+    ''' Returns data from the shared data service. If data has not been initialized, 
     ''' first retrieves the data from the database. Data is only retrieved the first
     ''' time it is used when the IAIP is run.
     ''' </summary>
@@ -213,7 +213,7 @@ Public Module SharedData
     End Function
 
     ''' <summary>
-    ''' Returns data from the shared data service. If data has not been intialized, 
+    ''' Returns data from the shared data service. If data has not been initialized, 
     ''' first retrieves the data from the database. Data is only retrieved the first
     ''' time it is used when the IAIP is run.
     ''' </summary>
@@ -232,7 +232,7 @@ Public Module SharedData
     End Function
 
     ''' <summary>
-    ''' Returns data from the shared data service. If data has not been intialized, 
+    ''' Returns data from the shared data service. If data has not been initialized, 
     ''' first retrieves the data from the database. Data is only retrieved the first
     ''' time it is used when the IAIP is run.
     ''' </summary>
@@ -251,7 +251,7 @@ Public Module SharedData
     End Function
 
     ''' <summary>
-    ''' Returns data from the shared data service. If data has not been intialized, 
+    ''' Returns data from the shared data service. If data has not been initialized, 
     ''' first retrieves the data from the database. Data is only retrieved the first
     ''' time it is used when the IAIP is run.
     ''' </summary>

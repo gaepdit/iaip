@@ -131,7 +131,7 @@ Public Class SSPPTitleVTools
 
             objtextcol = New DataGridTextBoxColumn
             objtextcol.MappingName = "datExpirationDate"
-            objtextcol.HeaderText = "Experation Date"
+            objtextcol.HeaderText = "Expiration Date"
             objtextcol.Width = 100
             objGrid.GridColumnStyles.Add(objtextcol)
 
@@ -753,7 +753,7 @@ Public Class SSPPTitleVTools
             If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.7(e)(2),(3), and (4) and 70.8(a)(1) and (b)(1), you are hereby notified that " &
                 "Georgia EPD has received an application for the modification of an existing Part 70 permit for the " &
-                "following source(s): " & vbCrLf & vbCrLf
+                "following sources: " & vbCrLf & vbCrLf
 
                 query = "Select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
@@ -2490,7 +2490,7 @@ Public Class SSPPTitleVTools
                             clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                         End If
                     Else
-                        MsgBox("Unable to add this Applition to list.", MsgBoxStyle.Information, "Data Management Tools")
+                        MsgBox("Unable to add this Application to list.", MsgBoxStyle.Information, "Data Management Tools")
                     End If
                 Case "DraftOnWeb"
                     query = "Select " &
@@ -2567,7 +2567,7 @@ Public Class SSPPTitleVTools
                         End If
 
                     Else
-                        MsgBox("Unable to add this Applition to list.", MsgBoxStyle.Information, "Data Management Tools")
+                        MsgBox("Unable to add this Application to list.", MsgBoxStyle.Information, "Data Management Tools")
                     End If
                 Case "MinorOnWeb"
                     query = "Select " &
@@ -2644,7 +2644,7 @@ Public Class SSPPTitleVTools
                         End If
 
                     Else
-                        MsgBox("Unable to add this Applition to list.", MsgBoxStyle.Information, "Data Management Tools")
+                        MsgBox("Unable to add this Application to list.", MsgBoxStyle.Information, "Data Management Tools")
                     End If
                 Case "FinalOnWeb"
                     query = "Select " &
@@ -2720,7 +2720,7 @@ Public Class SSPPTitleVTools
                             clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                         End If
                     Else
-                        MsgBox("Unable to add this Applition to list.", MsgBoxStyle.Information, "Data Management Tools")
+                        MsgBox("Unable to add this Application to list.", MsgBoxStyle.Information, "Data Management Tools")
                     End If
             End Select
 

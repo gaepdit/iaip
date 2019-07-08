@@ -418,7 +418,7 @@ Partial Class ISMPTestReportAdministrative
         'mmiRefreshLists
         '
         Me.mmiRefreshLists.Index = 5
-        Me.mmiRefreshLists.Text = "Refresh List(s)"
+        Me.mmiRefreshLists.Text = "Refresh Lists"
         '
         'cmPrint
         '
@@ -515,7 +515,7 @@ Partial Class ISMPTestReportAdministrative
         Me.btnCloseTestReport.Name = "btnCloseTestReport"
         Me.btnCloseTestReport.Size = New System.Drawing.Size(120, 23)
         Me.btnCloseTestReport.TabIndex = 15
-        Me.btnCloseTestReport.Text = "Close Out Report(s)"
+        Me.btnCloseTestReport.Text = "Close Out Reports"
         Me.btnCloseTestReport.UseVisualStyleBackColor = True
         '
         'clbReferenceNumbers

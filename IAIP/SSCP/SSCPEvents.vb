@@ -116,7 +116,7 @@ Public Class SSCPEvents
         txtEventInformation.Text = "Tracking # " & TrackingNumber & vbNewLine &
             "Staff Responsible: " & dr.Item("strFirstName") & " " & dr.Item("strLastName") & vbNewLine &
             "Classification: " & dr.Item("strClass") & vbNewLine &
-            "Air Program Code(s): " & vbNewLine
+            "Air Program Codes: " & vbNewLine
 
         If Not IsDBNull(dr.Item("INSPECTION_ID")) Then
             txtEventInformation.Text = "GEOS Inspection ID " & dr.Item("INSPECTION_ID") & vbNewLine & txtEventInformation.Text
@@ -563,7 +563,7 @@ Public Class SSCPEvents
     Private Sub SaveMaster()
         Try
             If AccountFormAccess(49, 2) = "0" And AccountFormAccess(49, 3) = "0" And AccountFormAccess(49, 4) = "0" Then
-                MsgBox("You do not have sufficent permission to save Compliance Events.", MsgBoxStyle.Information, "Compliance Events")
+                MsgBox("You do not have sufficient permission to save Compliance Events.", MsgBoxStyle.Information, "Compliance Events")
             Else
                 Dim result As Boolean = False
                 Select Case EventType

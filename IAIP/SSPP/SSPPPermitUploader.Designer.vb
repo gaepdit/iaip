@@ -229,7 +229,7 @@ Partial Class SSPPPermitUploader
         Me.btnUploadFile.Name = "btnUploadFile"
         Me.btnUploadFile.Size = New System.Drawing.Size(120, 23)
         Me.btnUploadFile.TabIndex = 5
-        Me.btnUploadFile.Text = "Upload File(s)"
+        Me.btnUploadFile.Text = "Upload Files"
         Me.btnUploadFile.UseVisualStyleBackColor = True
         '
         'txtApplicationInformation

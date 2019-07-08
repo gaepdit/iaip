@@ -75,9 +75,9 @@ Public Class IAIPEditFacilityLocation
             dgvFacilityInformationHistory.Columns("strKey").Visible = False
             dgvFacilityInformationHistory.Columns("ModifingDate").HeaderText = "Date Modified"
             dgvFacilityInformationHistory.Columns("ModifingDate").DisplayIndex = 1
-            dgvFacilityInformationHistory.Columns("UserName").HeaderText = "Modifing Person"
+            dgvFacilityInformationHistory.Columns("UserName").HeaderText = "Modifying Person"
             dgvFacilityInformationHistory.Columns("UserName").DisplayIndex = 2
-            dgvFacilityInformationHistory.Columns("strModifingLocation").HeaderText = "Modifing Location"
+            dgvFacilityInformationHistory.Columns("strModifingLocation").HeaderText = "Modifying Location"
             dgvFacilityInformationHistory.Columns("strModifingLocation").DisplayIndex = 3
             dgvFacilityInformationHistory.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFacilityInformationHistory.Columns("strFacilityName").DisplayIndex = 4
@@ -95,7 +95,7 @@ Public Class IAIPEditFacilityLocation
             dgvFacilityInformationHistory.Columns("numFacilityLongitude").DisplayIndex = 10
             dgvFacilityInformationHistory.Columns("numFacilityLatitude").HeaderText = "Latitude"
             dgvFacilityInformationHistory.Columns("numFacilityLatitude").DisplayIndex = 11
-            dgvFacilityInformationHistory.Columns("strComments").HeaderText = "Comment(s)"
+            dgvFacilityInformationHistory.Columns("strComments").HeaderText = "Comments"
             dgvFacilityInformationHistory.Columns("strComments").DisplayIndex = 12
             dgvFacilityInformationHistory.Columns("strAIRSNumber").HeaderText = "AIRS Number"
             dgvFacilityInformationHistory.Columns("strAIRSNumber").DisplayIndex = 13

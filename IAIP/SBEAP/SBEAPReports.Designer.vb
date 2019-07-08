@@ -194,7 +194,7 @@ Partial Class SBEAPReports
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(90, 13)
         Me.Label15.TabIndex = 76
-        Me.Label15.Text = "Front Desk Call(s)"
+        Me.Label15.Text = "Front Desk Calls"
         '
         'cboActionTypes
         '
@@ -224,7 +224,7 @@ Partial Class SBEAPReports
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(104, 13)
         Me.Label8.TabIndex = 73
-        Me.Label8.Text = "Customer(s) Assisted"
+        Me.Label8.Text = "Customers Assisted"
         '
         'Label7
         '
@@ -233,7 +233,7 @@ Partial Class SBEAPReports
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(87, 13)
         Me.Label7.TabIndex = 72
-        Me.Label7.Text = "New Customer(s)"
+        Me.Label7.Text = "New Customers"
         '
         'Label6
         '
@@ -243,7 +243,7 @@ Partial Class SBEAPReports
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(91, 16)
         Me.Label6.TabIndex = 71
-        Me.Label6.Text = "Customer(s)"
+        Me.Label6.Text = "Customers"
         '
         'Label16
         '
@@ -253,7 +253,7 @@ Partial Class SBEAPReports
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(69, 16)
         Me.Label16.TabIndex = 70
-        Me.Label16.Text = "Action(s)"
+        Me.Label16.Text = "Actions"
         '
         'llbActionTypes
         '
@@ -406,7 +406,7 @@ Partial Class SBEAPReports
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(69, 13)
         Me.Label12.TabIndex = 41
-        Me.Label12.Text = "Total Case(s)"
+        Me.Label12.Text = "Total Cases"
         '
         'Label11
         '
@@ -415,7 +415,7 @@ Partial Class SBEAPReports
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(77, 13)
         Me.Label11.TabIndex = 40
-        Me.Label11.Text = "Case(s) Closed"
+        Me.Label11.Text = "Cases Closed"
         '
         'Label10
         '
@@ -424,7 +424,7 @@ Partial Class SBEAPReports
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(75, 13)
         Me.Label10.TabIndex = 39
-        Me.Label10.Text = "Total Action(s)"
+        Me.Label10.Text = "Total Actions"
         '
         'Label9
         '
@@ -433,7 +433,7 @@ Partial Class SBEAPReports
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(75, 13)
         Me.Label9.TabIndex = 38
-        Me.Label9.Text = "Action Type(s)"
+        Me.Label9.Text = "Action Types"
         '
         'Label5
         '
@@ -442,7 +442,7 @@ Partial Class SBEAPReports
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(81, 13)
         Me.Label5.TabIndex = 34
-        Me.Label5.Text = "Existing Case(s)"
+        Me.Label5.Text = "Existing Cases"
         '
         'Label4
         '
@@ -451,7 +451,7 @@ Partial Class SBEAPReports
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(67, 13)
         Me.Label4.TabIndex = 33
-        Me.Label4.Text = "New Case(s)"
+        Me.Label4.Text = "New Cases"
         '
         'Label19
         '
@@ -461,7 +461,7 @@ Partial Class SBEAPReports
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(62, 16)
         Me.Label19.TabIndex = 0
-        Me.Label19.Text = "Case(s)"
+        Me.Label19.Text = "Cases"
         '
         'Label13
         '
@@ -483,7 +483,7 @@ Partial Class SBEAPReports
         Me.GroupBox1.Size = New System.Drawing.Size(541, 566)
         Me.GroupBox1.TabIndex = 35
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "View Case(s)"
+        Me.GroupBox1.Text = "View Cases"
         '
         'dgvCaseWork
         '

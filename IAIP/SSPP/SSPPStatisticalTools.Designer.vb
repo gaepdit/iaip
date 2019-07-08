@@ -285,7 +285,7 @@ Partial Class SSPPStatisticalTools
         Me.TPPermittingStats.Padding = New System.Windows.Forms.Padding(3)
         Me.TPPermittingStats.Size = New System.Drawing.Size(508, 648)
         Me.TPPermittingStats.TabIndex = 0
-        Me.TPPermittingStats.Text = "Application Count(s)"
+        Me.TPPermittingStats.Text = "Application Counts"
         Me.TPPermittingStats.UseVisualStyleBackColor = True
         '
         'TCPermitCounts
@@ -794,7 +794,7 @@ Partial Class SSPPStatisticalTools
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(97, 13)
         Me.Label3.TabIndex = 0
-        Me.Label3.Text = "Application Type(s)"
+        Me.Label3.Text = "Application Types"
         '
         'GBPermitDates
         '
@@ -843,7 +843,7 @@ Partial Class SSPPStatisticalTools
         Me.Label60.Name = "Label60"
         Me.Label60.Size = New System.Drawing.Size(86, 13)
         Me.Label60.TabIndex = 101
-        Me.Label60.Text = "Permitting Unit(s)"
+        Me.Label60.Text = "Permitting Units"
         '
         'cboSSPPUnits
         '
@@ -963,7 +963,7 @@ Partial Class SSPPStatisticalTools
         Me.TPAllOpenApplications.Padding = New System.Windows.Forms.Padding(3)
         Me.TPAllOpenApplications.Size = New System.Drawing.Size(494, 616)
         Me.TPAllOpenApplications.TabIndex = 0
-        Me.TPAllOpenApplications.Text = "All Open Application(s)"
+        Me.TPAllOpenApplications.Text = "All Open Applications"
         Me.TPAllOpenApplications.UseVisualStyleBackColor = True
         '
         'chbAllApps2
@@ -995,7 +995,7 @@ Partial Class SSPPStatisticalTools
         Me.Label71.Name = "Label71"
         Me.Label71.Size = New System.Drawing.Size(86, 13)
         Me.Label71.TabIndex = 104
-        Me.Label71.Text = "Permitting Unit(s)"
+        Me.Label71.Text = "Permitting Units"
         '
         'cboSSPPUnits2
         '
@@ -1039,7 +1039,7 @@ Partial Class SSPPStatisticalTools
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(113, 13)
         Me.Label35.TabIndex = 71
-        Me.Label35.Text = "EPA 45-day Review(s)"
+        Me.Label35.Text = "EPA 45-day Reviews"
         '
         'btnRunOpenReport
         '
@@ -1211,7 +1211,7 @@ Partial Class SSPPStatisticalTools
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(182, 13)
         Me.Label25.TabIndex = 43
-        Me.Label25.Text = "Pulic Notice Comment Period Expired"
+        Me.Label25.Text = "Public Notice Comment Period Expired"
         '
         'Label26
         '
@@ -1237,7 +1237,7 @@ Partial Class SSPPStatisticalTools
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(113, 13)
         Me.Label28.TabIndex = 38
-        Me.Label28.Text = "All Open Application(s)"
+        Me.Label28.Text = "All Open Applications"
         '
         'Label29
         '
@@ -1267,7 +1267,7 @@ Partial Class SSPPStatisticalTools
         Me.TPAgeofOpenApplications.Padding = New System.Windows.Forms.Padding(3)
         Me.TPAgeofOpenApplications.Size = New System.Drawing.Size(494, 616)
         Me.TPAgeofOpenApplications.TabIndex = 1
-        Me.TPAgeofOpenApplications.Text = "Age of Open Application(s)"
+        Me.TPAgeofOpenApplications.Text = "Age of Open Applications"
         Me.TPAgeofOpenApplications.UseVisualStyleBackColor = True
         '
         'GroupBox5
@@ -1312,7 +1312,7 @@ Partial Class SSPPStatisticalTools
         Me.Label72.Name = "Label72"
         Me.Label72.Size = New System.Drawing.Size(86, 13)
         Me.Label72.TabIndex = 107
-        Me.Label72.Text = "Permitting Unit(s)"
+        Me.Label72.Text = "Permitting Units"
         '
         'cboSSPPUnits3
         '
@@ -2423,7 +2423,7 @@ Partial Class SSPPStatisticalTools
         Me.GroupBox1.Size = New System.Drawing.Size(406, 674)
         Me.GroupBox1.TabIndex = 274
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "View Application(s)"
+        Me.GroupBox1.Text = "View Applications"
         '
         'btnExportToExcel
         '

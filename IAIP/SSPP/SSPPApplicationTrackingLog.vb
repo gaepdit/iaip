@@ -2768,7 +2768,7 @@ Public Class SSPPApplicationTrackingLog
                 AirPrograms = AirPrograms & "   V - Title V Permit" & vbNewLine
             Else
             End If
-            AirProgramLine = "Air Program(s) - " & vbNewLine & AirPrograms
+            AirProgramLine = "Air Programs - " & vbNewLine & AirPrograms
 
             Select Case CInt(Mid(Attainment, 2, 1))
                 Case 0
@@ -3102,7 +3102,7 @@ Public Class SSPPApplicationTrackingLog
                 AirProgramCodes = Mid(AirProgramCodes, 1, 1) & "000" & Mid(AirProgramCodes, 5, 4) & "0" & Mid(AirProgramCodes, 10, 1) & "0" & Mid(AirProgramCodes, 12, 2) & "00"
 
                 If AirProgramCheck <> AirProgramCodes Then
-                    rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Air Program(s) - ")
+                    rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Air Programs - ")
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
 
@@ -4279,7 +4279,7 @@ Public Class SSPPApplicationTrackingLog
                 AirPrograms = AirPrograms & "   V - Title V Permit" & vbNewLine
             Else
             End If
-            AirProgramLine = "Air Program(s) - " & vbNewLine & AirPrograms
+            AirProgramLine = "Air Programs - " & vbNewLine & AirPrograms
 
             Select Case Mid(Attainment, 2, 1)
                 Case 0
@@ -11178,7 +11178,7 @@ Public Class SSPPApplicationTrackingLog
             If chbCDS_0.Checked = False Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code 0 - SIP. " &
-                       "If you do not check this air program code the subpart(s) cannot be saved.",
+                       "If you do not check this air program code the subparts cannot be saved.",
                      MsgBoxStyle.Exclamation, "Application Tracking Log")
                 Exit Sub
             Else
@@ -12085,7 +12085,7 @@ Public Class SSPPApplicationTrackingLog
             If chbCDS_9.Checked = False Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code 9 - NSPS. " &
-                       "If you do not check this air program code the subpart(s) cannot be saved.",
+                       "If you do not check this air program code the subparts cannot be saved.",
                      MsgBoxStyle.Exclamation, "Application Tracking Log")
                 Exit Sub
             End If
@@ -12993,7 +12993,7 @@ Public Class SSPPApplicationTrackingLog
             If chbCDS_8.Checked = False Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code 8 - NESHAP. " &
-                       "If you do not check this air program code the subpart(s) cannot be saved.",
+                       "If you do not check this air program code the subparts cannot be saved.",
                      MsgBoxStyle.Exclamation, "Application Tracking Log")
                 Exit Sub
             End If
@@ -13903,7 +13903,7 @@ Public Class SSPPApplicationTrackingLog
             If chbCDS_M.Checked = False Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code M - MACT. " &
-                       "If you do not check this air program code the subpart(s) cannot be saved.",
+                       "If you do not check this air program code the subparts cannot be saved.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
                 Exit Sub
             End If

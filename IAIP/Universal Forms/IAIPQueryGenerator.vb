@@ -836,7 +836,7 @@ Public Class IAIPQueryGenerator
                 "when SUBSTRING(strAirProgramCodes, 8, 1) = '1' then '9 - NSPS' " &
                 "Else null end APC9, " &
                 "case " &
-                "when SUBSTRING(strAirProgramCodes, 9, 1) = '1' then 'A - Acid Percipitation' " &
+                "when SUBSTRING(strAirProgramCodes, 9, 1) = '1' then 'A - Acid Precipitation' " &
                 "Else null end APCA, " &
                 "case " &
                 "when SUBSTRING(strAirProgramCodes, 10, 1) = '1' then 'F - FESHOP' " &
@@ -965,7 +965,7 @@ Public Class IAIPQueryGenerator
                 If chbAPCA.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when SUBSTRING(strAirProgramCodes, 9, 1) = '1' then 'A - Acid Percipitation' " &
+                    "when SUBSTRING(strAirProgramCodes, 9, 1) = '1' then 'A - Acid Precipitation' " &
                     "Else null end APCA, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -3902,7 +3902,7 @@ Public Class IAIPQueryGenerator
             dgvQueryGenerator.Columns("numFacilityLongitude").HeaderText = "Longitude"
             dgvQueryGenerator.Columns("numFacilityLatitude").HeaderText = "Latitude"
             dgvQueryGenerator.Columns("strOperationalStatus").HeaderText = "Status"
-            dgvQueryGenerator.Columns("strClass").HeaderText = "Classificaiton"
+            dgvQueryGenerator.Columns("strClass").HeaderText = "Classification"
             dgvQueryGenerator.Columns("strSICCode").HeaderText = "SIC"
             dgvQueryGenerator.Columns("strNAICSCode").HeaderText = "NAICS"
             dgvQueryGenerator.Columns("strPlantDescription").HeaderText = "Plant Desc."

@@ -287,7 +287,7 @@ Partial Class ISMPTestFirmComments
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(68, 13)
         Me.Label5.TabIndex = 13
-        Me.Label5.Text = "Test Date(s):"
+        Me.Label5.Text = "Test Dates:"
         '
         'Label4
         '

@@ -1459,7 +1459,7 @@ Public Class ISMPTestReportAdministrative
                   "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                   "and strDelete is NULL " &
                    "and strClosed = 'False' " &
-                  "and ISMPDocumentType.strDocumentType = 'PTE (Perminate Total Enclosure)' " &
+                  "and ISMPDocumentType.strDocumentType = 'PTE (Permanent Total Enclosure)' " &
                   "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
@@ -1916,7 +1916,7 @@ Public Class ISMPTestReportAdministrative
                     txtAddTestReportCommissioner.BackColor = Color.White
                 Else
                     txtAddTestReportCommissioner.BackColor = Color.Tomato
-                    MsgBox("Please add a valid Commissioenr.", MsgBoxStyle.Information, "Add Test Report")
+                    MsgBox("Please add a valid Commissioner.", MsgBoxStyle.Information, "Add Test Report")
                     Exit Sub
                 End If
                 If txtAddTestReportDirector.Text <> "" Then
@@ -1946,7 +1946,7 @@ Public Class ISMPTestReportAdministrative
                 Dim p As New SqlParameter("@ref", RefNum)
 
                 If DB.ValueExists(query, p) Then
-                    MsgBox("This Refernece Number already exists in the system.", MsgBoxStyle.Information, "Add Test Report")
+                    MsgBox("This Reference Number already exists in the system.", MsgBoxStyle.Information, "Add Test Report")
                     Exit Sub
                 End If
 

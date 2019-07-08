@@ -401,7 +401,7 @@ Public Class SBEAPCaseWork
                 dgvActionLog.Columns("CreationDate").Width = 100
                 dgvActionLog.Columns("CreationDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
 
-                dgvActionLog.Columns("OccuredDate").HeaderText = "Date Action Occured"
+                dgvActionLog.Columns("OccuredDate").HeaderText = "Date Action Occurred"
                 dgvActionLog.Columns("OccuredDate").DisplayIndex = 0
                 dgvActionLog.Columns("OccuredDate").Width = 100
                 dgvActionLog.Columns("OccuredDate").DefaultCellStyle.Format = "dd-MMM-yyyy"

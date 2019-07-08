@@ -791,7 +791,7 @@ Public Class SscpEnforcement
         End If
 
         If Not CurrentUser.HasPermission(UserCan.ResolveEnforcement) Then
-            GeneralMessage = New IaipMessage("You do not have sufficent permission to submit enforcement case to EPA.", IaipMessage.WarningLevels.ErrorReport)
+            GeneralMessage = New IaipMessage("You do not have sufficient permission to submit enforcement case to EPA.", IaipMessage.WarningLevels.ErrorReport)
             Exit Sub
         End If
 
@@ -1219,7 +1219,7 @@ Public Class SscpEnforcement
         AuditHistory.Columns("DATNOVTOPM").DefaultCellStyle.Format = "dd-MMM-yyyy"
         AuditHistory.Columns("DATNOVSENT").HeaderText = "Date NOV Sent"
         AuditHistory.Columns("DATNOVSENT").DefaultCellStyle.Format = "dd-MMM-yyyy"
-        AuditHistory.Columns("DATNOVRESPONSERECEIVED").HeaderText = "Date NOV Response Recieved"
+        AuditHistory.Columns("DATNOVRESPONSERECEIVED").HeaderText = "Date NOV Response Received"
         AuditHistory.Columns("DATNOVRESPONSERECEIVED").DefaultCellStyle.Format = "dd-MMM-yyyy"
         AuditHistory.Columns("DATNFATOUC").HeaderText = "Date NFA to UC"
         AuditHistory.Columns("DATNFATOUC").DefaultCellStyle.Format = "dd-MMM-yyyy"
@@ -1359,7 +1359,7 @@ Public Class SscpEnforcement
 
     Private Function ValidateAndSave() As Boolean
         If Not CurrentUser.HasPermission(UserCan.SaveEnforcement) Then
-            GeneralMessage = New IaipMessage("You do not have sufficent permission to save changes to enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
+            GeneralMessage = New IaipMessage("You do not have sufficient permission to save changes to enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
             Return False
         End If
 
@@ -1840,7 +1840,7 @@ Public Class SscpEnforcement
         End If
 
         If Not CurrentUser.HasPermission(UserCan.ResolveEnforcement) Then
-            GeneralMessage = New IaipMessage("You do not have sufficent permission to delete enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
+            GeneralMessage = New IaipMessage("You do not have sufficient permission to delete enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
             Exit Sub
         End If
 

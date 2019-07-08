@@ -122,7 +122,7 @@ Public Class IAIPPrintOut
                 LoadMethod22()
             Case "Method9 (Single)"
                 LoadMethod9Single()
-            Case "PTE (Perminate Total Enclosure)"
+            Case "PTE (Permanent Total Enclosure)"
                 LoadPTE()
             Case Else
                 MsgBox("Unable to Print at this time.")

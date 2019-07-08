@@ -1091,7 +1091,7 @@ Partial Class ISMPManagersTools
         Me.chbNonComplianceTestReport.Name = "chbNonComplianceTestReport"
         Me.chbNonComplianceTestReport.Size = New System.Drawing.Size(212, 17)
         Me.chbNonComplianceTestReport.TabIndex = 44
-        Me.chbNonComplianceTestReport.Text = "Test Report(s) potentially non-compliant"
+        Me.chbNonComplianceTestReport.Text = "Test Reports potentially non-compliant"
         Me.chbNonComplianceTestReport.UseVisualStyleBackColor = True
         '
         'txtAIRSNumber
@@ -1178,7 +1178,7 @@ Partial Class ISMPManagersTools
         Me.GroupBox19.Size = New System.Drawing.Size(792, 740)
         Me.GroupBox19.TabIndex = 1
         Me.GroupBox19.TabStop = False
-        Me.GroupBox19.Text = "View Test Report(s)"
+        Me.GroupBox19.Text = "View Test Reports"
         '
         'dgvUnitStats
         '

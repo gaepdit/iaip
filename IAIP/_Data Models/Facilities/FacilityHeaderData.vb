@@ -236,7 +236,7 @@ Namespace Apb.Facilities
         Public Property AirPrograms() As AirPrograms
 
         ''' <summary>
-        ''' A 15-character string representing all air programs a facility is subjec to. 
+        ''' A 15-character string representing all air programs a facility is subject to. 
         ''' Used for storage and retrieval from database.
         ''' </summary>
         ''' <value>A 15-character encoded string.</value>

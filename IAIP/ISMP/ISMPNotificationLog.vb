@@ -478,7 +478,7 @@ Public Class ISMPNotificationLog
 
                 MsgBox("Information Saved.", MsgBoxStyle.Information, "Notification Log")
             Else
-                MsgBox("You do not have sufficent permissions to save.", MsgBoxStyle.Information, "Notification Log")
+                MsgBox("You do not have sufficient permissions to save.", MsgBoxStyle.Information, "Notification Log")
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

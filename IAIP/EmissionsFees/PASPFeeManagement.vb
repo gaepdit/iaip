@@ -808,7 +808,7 @@ Public Class PASPFeeManagement
             End If
 
             If cboAvailableFeeYears.Text < (Today.Year - 1) Then
-                MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Only Current and last Fee Years are elegible to be unenrolled.",
+                MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Only Current and last Fee Years are eligible to be unenrolled.",
                         MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
@@ -926,7 +926,7 @@ Public Class PASPFeeManagement
             dgvFeeManagementLists.Columns("strFacilityAddress1").DisplayIndex = 14
             dgvFeeManagementLists.Columns("STRFACILITYCITY").HeaderText = "Facility City"
             dgvFeeManagementLists.Columns("STRFACILITYCITY").DisplayIndex = 15
-            dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zipcode"
+            dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zip Code"
             dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").DisplayIndex = 16
             dgvFeeManagementLists.Columns("strGECOUserEmail").HeaderText = "Contact Email"
             dgvFeeManagementLists.Columns("strGECOUserEmail").DisplayIndex = 17
@@ -1072,7 +1072,7 @@ Public Class PASPFeeManagement
             dgvFeeManagementLists.Columns("strFacilityAddress1").DisplayIndex = 14
             dgvFeeManagementLists.Columns("STRFACILITYCITY").HeaderText = "Facility City"
             dgvFeeManagementLists.Columns("STRFACILITYCITY").DisplayIndex = 15
-            dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zipcode"
+            dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zip Code"
             dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").DisplayIndex = 16
             dgvFeeManagementLists.Columns("strGECOUserEmail").HeaderText = "Contact Email"
             dgvFeeManagementLists.Columns("strGECOUserEmail").DisplayIndex = 17
@@ -1238,7 +1238,7 @@ Public Class PASPFeeManagement
             dgvFeeManagementLists.Columns("strFacilityStreet1").DisplayIndex = 2
             dgvFeeManagementLists.Columns("STRFACILITYCITY").HeaderText = "Facility City - Current Data"
             dgvFeeManagementLists.Columns("STRFACILITYCITY").DisplayIndex = 3
-            dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zipcode - Current Data"
+            dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zip Code - Current Data"
             dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").DisplayIndex = 4
 
             dgvFeeManagementLists.Columns("STROPERATIONALSTATUS").HeaderText = "Operational Status - Current Data"

@@ -570,7 +570,7 @@ Partial Class SSPPTitleVTools
         Me.Label70.Name = "Label70"
         Me.Label70.Size = New System.Drawing.Size(195, 13)
         Me.Label70.TabIndex = 19
-        Me.Label70.Text = "Generate Email from list of Application(s)"
+        Me.Label70.Text = "Generate Email from list of Applications"
         Me.Label70.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label60
@@ -580,7 +580,7 @@ Partial Class SSPPTitleVTools
         Me.Label60.Name = "Label60"
         Me.Label60.Size = New System.Drawing.Size(142, 13)
         Me.Label60.TabIndex = 18
-        Me.Label60.Text = "Preview List of Application(s)"
+        Me.Label60.Text = "Preview List of Applications"
         Me.Label60.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'txtApplicationCount
@@ -627,7 +627,7 @@ Partial Class SSPPTitleVTools
         Me.btnPreviewMinorMod.Name = "btnPreviewMinorMod"
         Me.btnPreviewMinorMod.Size = New System.Drawing.Size(162, 23)
         Me.btnPreviewMinorMod.TabIndex = 3
-        Me.btnPreviewMinorMod.Text = "Minor Modification(s) Proposed"
+        Me.btnPreviewMinorMod.Text = "Minor Modifications Proposed"
         Me.btnPreviewMinorMod.UseVisualStyleBackColor = True
         '
         'btnEmailDraftOnWebState
@@ -691,7 +691,7 @@ Partial Class SSPPTitleVTools
         Me.btnPreviewFinalOnWeb.Name = "btnPreviewFinalOnWeb"
         Me.btnPreviewFinalOnWeb.Size = New System.Drawing.Size(91, 23)
         Me.btnPreviewFinalOnWeb.TabIndex = 4
-        Me.btnPreviewFinalOnWeb.Text = "Final(s) on Web"
+        Me.btnPreviewFinalOnWeb.Text = "Finals on Web"
         Me.btnPreviewFinalOnWeb.UseVisualStyleBackColor = True
         '
         'btnPreviewESNReceived
@@ -701,7 +701,7 @@ Partial Class SSPPTitleVTools
         Me.btnPreviewESNReceived.Name = "btnPreviewESNReceived"
         Me.btnPreviewESNReceived.Size = New System.Drawing.Size(137, 23)
         Me.btnPreviewESNReceived.TabIndex = 1
-        Me.btnPreviewESNReceived.Text = "Application(s) Received"
+        Me.btnPreviewESNReceived.Text = "Applications Received"
         Me.btnPreviewESNReceived.UseVisualStyleBackColor = True
         '
         'btnEmailFinalOnWeb
@@ -731,7 +731,7 @@ Partial Class SSPPTitleVTools
         Me.btnPreviewDraftOnWeb.Name = "btnPreviewDraftOnWeb"
         Me.btnPreviewDraftOnWeb.Size = New System.Drawing.Size(92, 23)
         Me.btnPreviewDraftOnWeb.TabIndex = 2
-        Me.btnPreviewDraftOnWeb.Text = "Draft(s) on Web"
+        Me.btnPreviewDraftOnWeb.Text = "Drafts on Web"
         Me.btnPreviewDraftOnWeb.UseVisualStyleBackColor = True
         '
         'TPTitleVRenewals
@@ -777,7 +777,7 @@ Partial Class SSPPTitleVTools
         Me.GBTitleVRenewals.Size = New System.Drawing.Size(815, 147)
         Me.GBTitleVRenewals.TabIndex = 0
         Me.GBTitleVRenewals.TabStop = False
-        Me.GBTitleVRenewals.Text = "Title V Renewal(s)"
+        Me.GBTitleVRenewals.Text = "Title V Renewals"
         '
         'lblEndDate
         '

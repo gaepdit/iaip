@@ -1692,7 +1692,7 @@ Partial Class SSCPEvents
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(136, 13)
         Me.Label20.TabIndex = 18
-        Me.Label20.Text = "Facility Inspection Guide(s):"
+        Me.Label20.Text = "Facility Inspection Guides:"
         '
         'Label18
         '

@@ -827,9 +827,9 @@ Public Class EisTool
             dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").HeaderText = "First Date Confirmed"
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").DisplayIndex = 2
-            dgvESDataCount.Columns("DBLVOCEMISSION").HeaderText = "VOC Emmissions"
+            dgvESDataCount.Columns("DBLVOCEMISSION").HeaderText = "VOC Emissions"
             dgvESDataCount.Columns("DBLVOCEMISSION").DisplayIndex = 3
-            dgvESDataCount.Columns("DBLNOXEMISSION").HeaderText = "NOX Emmissions"
+            dgvESDataCount.Columns("DBLNOXEMISSION").HeaderText = "NOX Emissions"
             dgvESDataCount.Columns("DBLNOXEMISSION").DisplayIndex = 4
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").HeaderText = "Confirmation Number"
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 5
@@ -2050,10 +2050,10 @@ Public Class EisTool
     End Sub
 
     Private Sub btnaddfacilitytoES_Click(sender As Object, e As EventArgs) Handles btnaddfacilitytoES.Click
-        addonefacilityES()
-    End Sub
+        If String.IsNullOrWhiteSpace(txtESairNumber.Text) OrElse Not Integer.TryParse(txtESYearforFacility.Text, Nothing) Then
+            Exit Sub
+        End If
 
-    Private Sub addonefacilityES()
         Dim AirsNo As String = "0413" & txtESairNumber.Text
         Dim ESYear As Integer = txtESYearforFacility.Text
         Dim airsYear As String = AirsNo & ESYear
@@ -2125,6 +2125,10 @@ Public Class EisTool
     End Sub
 
     Private Sub btnremoveFacilityES_Click(sender As Object, e As EventArgs) Handles btnremoveFacilityES.Click
+        If String.IsNullOrWhiteSpace(txtESairNumber.Text) OrElse Not Integer.TryParse(txtESYearforFacility.Text, Nothing) Then
+            Exit Sub
+        End If
+
         Dim ESYear As Integer = txtESYearforFacility.Text
         Dim AirsNo As String = "0413" & txtESairNumber.Text
 
@@ -2154,6 +2158,10 @@ Public Class EisTool
     End Sub
 
     Private Sub btnCheckESstatus_Click(sender As Object, e As EventArgs) Handles btnCheckESstatus.Click
+        If String.IsNullOrWhiteSpace(txtESairNumber.Text) OrElse Not Integer.TryParse(txtESYearforFacility.Text, Nothing) Then
+            Exit Sub
+        End If
+
         Dim AirsNo As String = "0413" & txtESairNumber.Text
         Dim ESYear As Integer = txtESYearforFacility.Text
 
@@ -2162,10 +2170,12 @@ Public Class EisTool
                 "FROM ESSCHEMA " &
                 "where ESSCHEMA.INTESYEAR = @ESYear " &
                 " And ESSCHEMA.STRAIRSNUMBER = @AirsNo "
+
             Dim param As SqlParameter() = {
-                        New SqlParameter("@ESYear", ESYear),
-                        New SqlParameter("@AirsNo", AirsNo)
-                    }
+                New SqlParameter("@ESYear", ESYear),
+                New SqlParameter("@AirsNo", AirsNo)
+            }
+
             If DB.ValueExists(SQL, param) Then
                 MsgBox("This facility (" & AirsNo & ") has been enrolled for " & ESYear & ".", MsgBoxStyle.Information, "ES Enrollment")
             Else
@@ -4907,7 +4917,7 @@ Public Class EisTool
 
     Private Sub btnAddtoEISMailout_Click(sender As Object, e As EventArgs) Handles btnAddtoEISMailout.Click
         Try
-            Dim EISConfirm As String = InputBox("Type in the EIS Year that you have selected to add facilies into Mailout.", Me.Text)
+            Dim EISConfirm As String = InputBox("Type in the EIS Year that you have selected to add facilities into Mailout.", Me.Text)
 
             If EISConfirm = txtSelectedEISStatYear.Text Then
                 Dim temp As String = ""

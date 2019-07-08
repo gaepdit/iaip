@@ -1565,7 +1565,7 @@ Partial Class ISMPTestReports
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(147, 13)
         Me.Label11.TabIndex = 10
-        Me.Label11.Text = "Other Witnessing Engineer(s):"
+        Me.Label11.Text = "Other Witnessing Engineers:"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
         'txtCompleteDate
@@ -1685,7 +1685,7 @@ Partial Class ISMPTestReports
         Me.lblDatesTested.Name = "lblDatesTested"
         Me.lblDatesTested.Size = New System.Drawing.Size(80, 13)
         Me.lblDatesTested.TabIndex = 48
-        Me.lblDatesTested.Text = "Date(s) Tested:"
+        Me.lblDatesTested.Text = "Dates Tested:"
         '
         'Label6
         '

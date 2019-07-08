@@ -1365,7 +1365,7 @@ Public Class SSPPStatisticalTools
             vbTab & "c) Date commitment completed (if applicable): " & txtEPA1c.Text & vbCrLf & vbCrLf &
             "2. Total Current Part 70 Source Universe and Permit Universe " & vbCrLf &
             vbTab & "a) Number of active part 70 sources that have obtained part 70 permits, plus the number of active part 70 sources that have not yet obtained part 70 permits: " & txtEPA2a.Text & vbCrLf &
-            vbTab & "b) Nubmer of part 70 sources that have applied to obtain a synthetic minor restriction in lieu of a part 70 permit, and the part 70 program's permit application due dates for those sources have passed: " & txtEPA2b.Text & vbCrLf &
+            vbTab & "b) Number of part 70 sources that have applied to obtain a synthetic minor restriction in lieu of a part 70 permit, and the part 70 program's permit application due dates for those sources have passed: " & txtEPA2b.Text & vbCrLf &
             vbTab & "c) Total number of current part 70 sources (a+b): " & txtEPA2c.Text & vbCrLf &
             vbTab & "d) For permitting authorities that issue multiple part 70 permits to a single source: total number of active part 70 permits issued, plus part 70 permits applied for: " & txtEPA2d.Text & vbCrLf & vbCrLf &
             "3. Total Active Part 70 Permits " & vbCrLf &

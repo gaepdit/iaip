@@ -337,7 +337,7 @@ Public Class IAIPFacilityCreator
             txtCDSAIRSNumber.Text = DB.GetString(SQL, p)
 
             If txtCDSAIRSNumber.Text = "" Then
-                MsgBox("There was an error in creating Facility." & "Contact EPD IT before proceding", MsgBoxStyle.Information, Me.Text)
+                MsgBox("There was an error in creating Facility." & "Contact EPD IT before proceeding", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             Else
                 AIRSNumber = "0413" & txtCDSAIRSNumber.Text
