@@ -71,7 +71,7 @@ Public Class ISMPAddPollutants
             dgrPollutants.TableStyles.Add(objGrid)
 
             'Setting the DataGrid Caption, which defines the table title
-            dgrPollutants.CaptionText = "Pollutant(s)"
+            dgrPollutants.CaptionText = "Pollutants"
             dgrPollutants.ColumnHeadersVisible = True
 
         Catch ex As Exception

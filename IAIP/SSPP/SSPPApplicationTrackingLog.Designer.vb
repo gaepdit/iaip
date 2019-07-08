@@ -4563,7 +4563,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.ApplicableRulesGroup.Size = New System.Drawing.Size(189, 165)
         Me.ApplicableRulesGroup.TabIndex = 0
         Me.ApplicableRulesGroup.TabStop = False
-        Me.ApplicableRulesGroup.Text = "Applicable Rule(s)"
+        Me.ApplicableRulesGroup.Text = "Applicable Rules"
         '
         'chbConfidential
         '

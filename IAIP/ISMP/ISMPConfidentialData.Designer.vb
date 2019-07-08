@@ -5360,7 +5360,7 @@ Partial Class ISMPConfidentialData
         Me.chbDatesTested.Name = "chbDatesTested"
         Me.chbDatesTested.Size = New System.Drawing.Size(96, 17)
         Me.chbDatesTested.TabIndex = 18
-        Me.chbDatesTested.Text = "Date(s) Tested"
+        Me.chbDatesTested.Text = "Dates Tested"
         Me.chbDatesTested.UseVisualStyleBackColor = True
         '
         'chbISMPComplianceDetermination

@@ -95,7 +95,7 @@ Public Class IAIPEditFacilityLocation
             dgvFacilityInformationHistory.Columns("numFacilityLongitude").DisplayIndex = 10
             dgvFacilityInformationHistory.Columns("numFacilityLatitude").HeaderText = "Latitude"
             dgvFacilityInformationHistory.Columns("numFacilityLatitude").DisplayIndex = 11
-            dgvFacilityInformationHistory.Columns("strComments").HeaderText = "Comment(s)"
+            dgvFacilityInformationHistory.Columns("strComments").HeaderText = "Comments"
             dgvFacilityInformationHistory.Columns("strComments").DisplayIndex = 12
             dgvFacilityInformationHistory.Columns("strAIRSNumber").HeaderText = "AIRS Number"
             dgvFacilityInformationHistory.Columns("strAIRSNumber").DisplayIndex = 13

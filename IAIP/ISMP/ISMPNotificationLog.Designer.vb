@@ -127,7 +127,7 @@ Partial Class ISMPNotificationLog
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(84, 13)
         Me.Label6.TabIndex = 5
-        Me.Label6.Text = "Emission Unit(s) "
+        Me.Label6.Text = "Emission Units"
         '
         'Label7
         '

@@ -1668,7 +1668,7 @@ Partial Class SBEAPCaseWork
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(62, 13)
         Me.Label42.TabIndex = 3
-        Me.Label42.Text = "Customer(s)"
+        Me.Label42.Text = "Customers"
         '
         'btnAddClients
         '
@@ -1696,7 +1696,7 @@ Partial Class SBEAPCaseWork
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(86, 13)
         Me.Label13.TabIndex = 0
-        Me.Label13.Text = "Add Clustomer(s)"
+        Me.Label13.Text = "Add Clustomers"
         '
         'txtMultiClientList
         '

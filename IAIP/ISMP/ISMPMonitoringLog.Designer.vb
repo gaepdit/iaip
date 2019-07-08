@@ -354,7 +354,7 @@ Partial Class ISMPMonitoringLog
         Me.GBFilterAndSortOptions.Size = New System.Drawing.Size(1016, 557)
         Me.GBFilterAndSortOptions.TabIndex = 0
         Me.GBFilterAndSortOptions.TabStop = False
-        Me.GBFilterAndSortOptions.Text = "Filter and Sort Option(s)"
+        Me.GBFilterAndSortOptions.Text = "Filter and Sort Options"
         '
         'txtTestFirmCommentsCount
         '
@@ -704,7 +704,7 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox5.Size = New System.Drawing.Size(117, 96)
         Me.GroupBox5.TabIndex = 1
         Me.GroupBox5.TabStop = False
-        Me.GroupBox5.Text = "Work Type(s) "
+        Me.GroupBox5.Text = "Work Types"
         '
         'chbTestFirmComments
         '
@@ -713,7 +713,7 @@ Partial Class ISMPMonitoringLog
         Me.chbTestFirmComments.Name = "chbTestFirmComments"
         Me.chbTestFirmComments.Size = New System.Drawing.Size(105, 17)
         Me.chbTestFirmComments.TabIndex = 2
-        Me.chbTestFirmComments.Text = "Test Comment(s)"
+        Me.chbTestFirmComments.Text = "Test Comments"
         '
         'chbNotifications
         '
@@ -733,7 +733,7 @@ Partial Class ISMPMonitoringLog
         Me.chbTestReports.Name = "chbTestReports"
         Me.chbTestReports.Size = New System.Drawing.Size(93, 17)
         Me.chbTestReports.TabIndex = 0
-        Me.chbTestReports.Text = "Test Report(s)"
+        Me.chbTestReports.Text = "Test Reports"
         '
         'TCMonitoringSelection
         '

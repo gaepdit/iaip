@@ -1265,7 +1265,7 @@ Partial Class SSCPManagersTools
         Me.btnFilterManualAIRSList.Name = "btnFilterManualAIRSList"
         Me.btnFilterManualAIRSList.Size = New System.Drawing.Size(126, 28)
         Me.btnFilterManualAIRSList.TabIndex = 131
-        Me.btnFilterManualAIRSList.Text = "Filter AIRS Number(s)"
+        Me.btnFilterManualAIRSList.Text = "Filter AIRS Numbers"
         '
         'Label54
         '
@@ -1329,7 +1329,7 @@ Partial Class SSCPManagersTools
         Me.Label60.TabIndex = 1
         Me.Label60.Text = "" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Enter an AIRS # to attempt to add it directly to the Selected Facilities. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "I" &
     "f the AIRS # does not appear in the Selected Facilities box then the Facility ma" &
-    "ny not exist in the system."
+    "y not exist in the system."
         '
         'TPCopyYear
         '

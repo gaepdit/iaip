@@ -116,7 +116,7 @@ Public Class SSCPEvents
         txtEventInformation.Text = "Tracking # " & TrackingNumber & vbNewLine &
             "Staff Responsible: " & dr.Item("strFirstName") & " " & dr.Item("strLastName") & vbNewLine &
             "Classification: " & dr.Item("strClass") & vbNewLine &
-            "Air Program Code(s): " & vbNewLine
+            "Air Program Codes: " & vbNewLine
 
         If Not IsDBNull(dr.Item("INSPECTION_ID")) Then
             txtEventInformation.Text = "GEOS Inspection ID " & dr.Item("INSPECTION_ID") & vbNewLine & txtEventInformation.Text

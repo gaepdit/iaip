@@ -753,7 +753,7 @@ Public Class SSPPTitleVTools
             If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.7(e)(2),(3), and (4) and 70.8(a)(1) and (b)(1), you are hereby notified that " &
                 "Georgia EPD has received an application for the modification of an existing Part 70 permit for the " &
-                "following source(s): " & vbCrLf & vbCrLf
+                "following sources: " & vbCrLf & vbCrLf
 
                 query = "Select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &

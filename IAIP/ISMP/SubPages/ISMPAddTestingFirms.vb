@@ -139,7 +139,7 @@ Public Class ISMPAddTestingFirms
             dgrTestingFirms.TableStyles.Add(objGrid)
 
             'Setting the DataGrid Caption, which defines the table title
-            dgrTestingFirms.CaptionText = "Testing Firm(s)"
+            dgrTestingFirms.CaptionText = "Testing Firms"
             dgrTestingFirms.ColumnHeadersVisible = True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
