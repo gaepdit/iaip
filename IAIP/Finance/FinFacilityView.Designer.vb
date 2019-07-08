@@ -107,6 +107,7 @@ Partial Class FinFacilityView
         Me.lblFacilityDisplay.Size = New System.Drawing.Size(188, 17)
         Me.lblFacilityDisplay.TabIndex = 1
         Me.lblFacilityDisplay.Text = "000-00000 Facility Name"
+        Me.lblFacilityDisplay.UseMnemonic = False
         '
         'dgvInvoices
         '

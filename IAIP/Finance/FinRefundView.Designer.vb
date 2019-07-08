@@ -164,6 +164,7 @@ Partial Class FinRefundView
         Me.lblFacility.Size = New System.Drawing.Size(316, 13)
         Me.lblFacility.TabIndex = 0
         Me.lblFacility.Text = "Facility Display"
+        Me.lblFacility.UseMnemonic = False
         '
         'btnRefresh
         '
