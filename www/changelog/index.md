@@ -2,6 +2,17 @@
 
 *Previously:* [2018](changelog-2018.html) | [2017](changelog-2017.html) | [2016](changelog-2016.html) | [2015](changelog-2015.html) | [2014](changelog-2014.html) | [2013](changelog-2013.html)
 
+## Version 5.14.1 <span>(2019-7-8)</span>
+
+Bug fixes:
+
+* Lots of typos fixed throughout application.
+* Fee tools displayed facility name incorrectly if it contains an ampersand.
+* Latitude and longitude were displayed as currency in the Query Generator.
+* Fixed crash in Enforcement Documents tool.
+* Fixed crash in Emission Summary Facility tool.
+* Better error handling when saving to an Excel file that is currently open.
+
 ## Version 5.14.0 <span>(2019-6-14)</span>
 
 Better handling of connection issues on startup, and various other bug fixes and minor improvements.
