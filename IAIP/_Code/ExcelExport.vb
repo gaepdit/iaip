@@ -56,7 +56,7 @@ Module ExcelExport
     <Extension()>
     Public Sub ExportToExcel(dataTable As DataTable, Optional sender As Object = Nothing)
         If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then
-            MessageBox.Show("Table is empty", "Nothing to export", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Table is empty.", "Nothing to export", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -64,8 +64,38 @@ Module ExcelExport
             CType(sender, Form).Cursor = Cursors.AppStarting
         End If
 
-        Using dialog As New SaveFileDialog()
+        Dim fileName As String = GetFileName()
 
+        If fileName Is Nothing Then
+            Exit Sub
+        End If
+
+        Select Case CreateExcelFileFromDataTable(fileName, dataTable)
+            Case CreateExcelFileResult.Success
+                If Not Path.GetDirectoryName(fileName) = GetUserSetting(UserSetting.FileDownloadLocation) Then
+                    SaveUserSetting(UserSetting.FileDownloadLocation, Path.GetDirectoryName(fileName))
+                End If
+
+                Process.Start("explorer.exe", $"/select,""{fileName}""")
+
+            Case CreateExcelFileResult.DataTableEmpty
+                MessageBox.Show("Table is empty.", "Nothing to export", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
+            Case CreateExcelFileResult.FileInUse
+                MessageBox.Show("The selected file is in use. Please close it or select a different filename and try again.", "File in use", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
+            Case CreateExcelFileResult.OtherError
+                MessageBox.Show("There was an error creating the Excel file.")
+
+        End Select
+
+        If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            CType(sender, Form).Cursor = Nothing
+        End If
+    End Sub
+
+    Private Function GetFileName() As String
+        Using dialog As New SaveFileDialog()
             With dialog
                 .Filter = "Excel File (*.xlsx)|*.xlsx"
                 .DefaultExt = ".xlsx"
@@ -73,25 +103,13 @@ Module ExcelExport
                 .InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
             End With
 
-            If dialog.ShowDialog() = DialogResult.OK Then
-                If CreateExcelFileFromDataTable(dialog.FileName, dataTable) Then
-                    If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
-                        SaveUserSetting(UserSetting.FileDownloadLocation, Path.GetDirectoryName(dialog.FileName))
-                    End If
-
-                    Process.Start("explorer.exe", "/select,""" & dialog.FileName & """")
-                    'Process.Start(dialog.FileName)
-                Else
-                    MessageBox.Show("There was an error creating the Excel file.")
-                End If
+            If dialog.ShowDialog = DialogResult.Cancel Then
+                Return Nothing
             End If
 
+            Return dialog.FileName
         End Using
-
-        If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
-            CType(sender, Form).Cursor = Nothing
-        End If
-    End Sub
+    End Function
 
 #End Region
 
@@ -102,32 +120,41 @@ Module ExcelExport
     ''' <param name="filePath">The Excel file to create</param>
     ''' <param name="dataTable">DataTable to write to Excel file</param>
     ''' <returns>True if file successfully created; otherwise, false</returns>
-    Private Function CreateExcelFileFromDataTable(filePath As String, dataTable As DataTable) As Boolean
-        If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Return False
+    Private Function CreateExcelFileFromDataTable(filePath As String, dataTable As DataTable) As CreateExcelFileResult
+        If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Return CreateExcelFileResult.DataTableEmpty
 
         If String.IsNullOrWhiteSpace(dataTable.TableName) Then
             dataTable.TableName = "Sheet1"
         End If
 
-        Try
-            ' Create Excel Workbook 
-            Using workbook As New XLWorkbook()
-                workbook.AddWorksheet(dataTable)
-                workbook.SaveAs(filePath)
-            End Using
+        ' Create Excel Workbook 
+        Using workbook As New XLWorkbook()
 
-            Return True
-        Catch ex As Exception
-            ErrorReport(ex, MethodBase.GetCurrentMethod.Name)
+            workbook.AddWorksheet(dataTable)
 
             Try
-                ' Try to delete the file, but don't crash if you can't
-                File.Delete(filePath)
-            Catch
+                workbook.SaveAs(filePath)
+            Catch ex As IOException
+                If ex.Message.Contains("The process cannot access the file") AndAlso
+                    ex.Message.Contains("because it is being used by another process") Then
+                    Return CreateExcelFileResult.FileInUse
+                Else
+                    Return CreateExcelFileResult.OtherError
+                End If
+            Catch ex As Exception
+                ErrorReport(ex, MethodBase.GetCurrentMethod.Name)
+                Return CreateExcelFileResult.OtherError
             End Try
 
-            Return False
-        End Try
+            Return CreateExcelFileResult.Success
+        End Using
     End Function
+
+    Enum CreateExcelFileResult
+        Success
+        DataTableEmpty
+        FileInUse
+        OtherError
+    End Enum
 
 End Module
