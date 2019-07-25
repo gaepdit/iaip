@@ -32,7 +32,6 @@ Partial Class ISMPMemo
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents txtMemoOut As System.Windows.Forms.TextBox
-    Friend WithEvents txtReferenceNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtMemoIN As System.Windows.Forms.TextBox
@@ -43,12 +42,12 @@ Partial Class ISMPMemo
         Me.txtMemoIN = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.txtReferenceNumber = New System.Windows.Forms.TextBox()
         Me.txtMemoOut = New System.Windows.Forms.TextBox()
         Me.TCISMPMemo = New System.Windows.Forms.TabControl()
         Me.TPInternalMemo = New System.Windows.Forms.TabPage()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.lblReferenceNumber = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.bbtSave = New System.Windows.Forms.ToolStripButton()
         Me.TCISMPMemo.SuspendLayout()
@@ -87,21 +86,13 @@ Partial Class ISMPMemo
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.Label2.Location = New System.Drawing.Point(480, 7)
+        Me.Label2.Location = New System.Drawing.Point(478, 8)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(154, 14)
+        Me.Label2.Size = New System.Drawing.Size(157, 16)
         Me.Label2.TabIndex = 55
-        Me.Label2.Text = "(based on Reference Number)"
-        '
-        'txtReferenceNumber
-        '
-        Me.txtReferenceNumber.Location = New System.Drawing.Point(55, 7)
-        Me.txtReferenceNumber.Name = "txtReferenceNumber"
-        Me.txtReferenceNumber.Size = New System.Drawing.Size(16, 20)
-        Me.txtReferenceNumber.TabIndex = 56
-        Me.txtReferenceNumber.Visible = False
+        Me.Label2.Text = "For Reference Number:"
         '
         'txtMemoOut
         '
@@ -159,13 +150,24 @@ Partial Class ISMPMemo
         'Panel4
         '
         Me.Panel4.Controls.Add(Me.Label1)
+        Me.Panel4.Controls.Add(Me.lblReferenceNumber)
         Me.Panel4.Controls.Add(Me.Label2)
-        Me.Panel4.Controls.Add(Me.txtReferenceNumber)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel4.Location = New System.Drawing.Point(0, 25)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(950, 30)
         Me.Panel4.TabIndex = 58
+        '
+        'lblReferenceNumber
+        '
+        Me.lblReferenceNumber.AutoSize = True
+        Me.lblReferenceNumber.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblReferenceNumber.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.lblReferenceNumber.Location = New System.Drawing.Point(641, 8)
+        Me.lblReferenceNumber.Name = "lblReferenceNumber"
+        Me.lblReferenceNumber.Size = New System.Drawing.Size(30, 16)
+        Me.lblReferenceNumber.TabIndex = 55
+        Me.lblReferenceNumber.Text = "N/A"
         '
         'ToolStrip1
         '
@@ -214,4 +216,5 @@ Partial Class ISMPMemo
 
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents bbtSave As ToolStripButton
+    Friend WithEvents lblReferenceNumber As Label
 End Class
