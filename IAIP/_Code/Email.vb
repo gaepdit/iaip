@@ -22,6 +22,8 @@ Public Module Email
             Dim subjectParam As String = Nothing
             Dim bodyParam As String = Nothing
             Dim toParam As String = ApbContactEmail
+            Dim cc As String = Nothing
+            Dim bcc As String = Nothing
             Dim ccParam As String = Nothing
             Dim bccParam As String = Nothing
 
@@ -32,6 +34,7 @@ Public Module Email
                 If Not recipientsTo.AreValidEmailAddresses() Then
                     Return CreateEmailResult.InvalidEmail
                 End If
+
                 toParam = ConcatNonEmptyStrings(",", TrimArray(recipientsTo))
             End If
 
@@ -39,19 +42,24 @@ Public Module Email
                 If Not recipientsCC.AreValidEmailAddresses() Then
                     Return CreateEmailResult.InvalidEmail
                 End If
-                ccParam = "cc=" & ConcatNonEmptyStrings(",", TrimArray(recipientsCC))
+
+                cc = ConcatNonEmptyStrings(",", TrimArray(recipientsCC))
+                ccParam = "cc=" & cc
             End If
 
             If recipientsBCC IsNot Nothing Then
                 If Not recipientsBCC.AreValidEmailAddresses() Then
                     Return CreateEmailResult.InvalidEmail
                 End If
-                bccParam = "bcc=" & ConcatNonEmptyStrings(",", TrimArray(recipientsBCC))
+
+                bcc = ConcatNonEmptyStrings(",", TrimArray(recipientsBCC))
+                bccParam = "bcc=" & bcc
             End If
 
             Dim uriQueryString As String = ConcatNonEmptyStrings("&", {subjectParam, bodyParam, ccParam, bccParam})
 
             Dim emailUriString As String
+
             If String.IsNullOrEmpty(uriQueryString) Then
                 emailUriString = $"mailto:{toParam}"
             Else
@@ -60,16 +68,16 @@ Public Module Email
 
             Dim result As Boolean = False
 
-            Dim u As Uri = New Uri(emailUriString)
+            Dim emailUri As Uri = New Uri(emailUriString)
 
-            If u.ToString.Length < 2084 Then
+            If emailUri.ToString.Length < 2084 Then
                 ' The OpenUri method is preferable, but is limited by URI length, 
                 ' which can be exceeded if a lot of recipients are added
                 ' Ref: https://support.microsoft.com/en-us/help/208427/maximum-url-length-is-2-083-characters-in-internet-explorer
-                result = OpenUri(New Uri(emailUriString), isMailto:=True)
+                result = OpenUri(emailUri, isMailto:=True)
             Else
                 ' Failover is to create a text file with instructions to user
-                OpenEmailAsTextFile(subject, body, toParam, ccParam, bccParam)
+                OpenEmailAsTextFile(subject, body, toParam, cc, bcc)
                 result = True
             End If
 

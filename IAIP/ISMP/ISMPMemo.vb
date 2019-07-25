@@ -3,36 +3,27 @@ Imports System.Data.SqlClient
 Public Class ISMPMemo
 
     Private Sub ISMPMemo_Load(sender As Object, e As EventArgs) Handles Me.Load
-
-        Try
-
-            LoadMemo()
-            If AccountFormAccess(15, 0) = "1" Or AccountFormAccess(15, 1) = "1" Or AccountFormAccess(15, 2) = "1" Or AccountFormAccess(15, 3) = "1" Then
-            Else
-                bbtSave.Enabled = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        If AccountFormAccess(15, 0) = "1" Or AccountFormAccess(15, 1) = "1" Or AccountFormAccess(15, 2) = "1" Or AccountFormAccess(15, 3) = "1" Then
+            bbtSave.Enabled = True
+        Else
+            bbtSave.Enabled = False
+        End If
     End Sub
 
     Private Sub SaveMemo()
         Dim query As String
-        Dim dashes As String = "--------------------------------------------------------------------------------------------"
+        Const dashes As String = "--------------------------------------------------------------------------------------------"
         Dim MemoTemp As String
 
         Try
 
-            If txtReferenceNumber.Text <> "" Then
+            If lblReferenceNumber.Text <> "" Then
 
                 query = "Select strReferenceNumber " &
                 "from ISMPMaster " &
                 "where strReferenceNumber = @ref "
 
-                Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+                Dim p As New SqlParameter("@ref", lblReferenceNumber.Text)
 
                 If DB.ValueExists(query, p) Then
                     query = "Select strMemorandumField " &
@@ -41,10 +32,8 @@ Public Class ISMPMemo
 
                     txtMemoIN.Text = TodayFormatted + vbCrLf + txtMemoIN.Text + vbCrLf + CurrentUser.AlphaName + vbCrLf + dashes + vbCrLf
 
-                    MemoTemp = DB.GetString(query, p)
-
                     If DB.ValueExists(query, p) Then
-                        MemoTemp = DB.GetString(query, p) & vbCrLf & Replace(txtMemoIN.Text, " '", "''")
+                        MemoTemp = DB.GetString(query, p) & vbCrLf & txtMemoIN.Text
 
                         query = "Update ISMPTestREportMemo set " &
                         "strMemorandumField = @memo " &
@@ -55,13 +44,10 @@ Public Class ISMPMemo
                         query = "Insert into ISMPTestREportMemo " &
                         "(strReferenceNumber, strMemorandumField) " &
                         "values " &
-                        "(@ref, @memo)'"
+                        "(@ref, @memo)"
                     End If
 
-                    Dim p2 As SqlParameter() = {
-                        New SqlParameter("@memo", MemoTemp),
-                        p
-                    }
+                    Dim p2 As SqlParameter() = {New SqlParameter("@memo", MemoTemp), p}
 
                     DB.RunCommand(query, p2)
                 End If
@@ -70,32 +56,19 @@ Public Class ISMPMemo
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
-    Private Sub LoadMemo()
-        Dim query As String
 
-        Try
+    Public Sub LoadMemo()
+        If lblReferenceNumber.Text <> "" Then
+            Dim query As String = "Select strMemorandumField " &
+            "from ISMPTestREportMemo " &
+            "where strReferenceNumber = @ref "
 
-            If txtReferenceNumber.Text <> "" Then
-                query = "Select strMemorandumField " &
-                "from ISMPTestREportMemo " &
-                "where strReferenceNumber = @ref "
+            Dim p As New SqlParameter("@ref", lblReferenceNumber.Text)
 
-                Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
-
-                txtMemoOut.Text = DB.GetString(query, p)
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+            txtMemoOut.Text = DB.GetString(query, p)
+        End If
     End Sub
 
     Private Sub bbtSave_Click(sender As Object, e As EventArgs) Handles bbtSave.Click

@@ -52,7 +52,8 @@ Module IsmuFormHelpers
     Public Function OpenFormTestMemo(referenceNumber As String) As ISMPMemo
         If DAL.Ismp.StackTestExists(referenceNumber) Then
             Dim ISMPMemoEdit As ISMPMemo = CType(OpenMultiForm(ISMPMemo, NormalizeReferenceId(referenceNumber)), ISMPMemo)
-            ISMPMemoEdit.txtReferenceNumber.Text = referenceNumber
+            ISMPMemoEdit.lblReferenceNumber.Text = referenceNumber
+            ISMPMemoEdit.LoadMemo()
             ISMPMemoEdit.Show()
             Return ISMPMemoEdit
         Else

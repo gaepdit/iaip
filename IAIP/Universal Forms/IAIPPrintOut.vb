@@ -74,11 +74,35 @@ Public Class IAIPPrintOut
             End Select
 
         Catch ex As Exception
-            ex.Data.Add("ReferenceValue", ReferenceValue)
-            ex.Data.Add("PrintoutType", PrintoutType.ToString)
-            ex.Data.Add("PrintoutSubtype", PrintoutSubtype.ToString)
-            ex.Data.Add("StartDate", StartDate.ToString)
-            ex.Data.Add("EndDate", EndDate.ToString)
+            If Not ex.Data.Contains("ReferenceValue") Then
+                ex.Data.Add("ReferenceValue", ReferenceValue)
+            Else
+                ex.Data.Add("ReferenceValue-" & Guid.NewGuid.ToString, ReferenceValue)
+            End If
+
+            If Not ex.Data.Contains("PrintoutType") Then
+                ex.Data.Add("PrintoutType", PrintoutType.ToString)
+            Else
+                ex.Data.Add("PrintoutType-" & Guid.NewGuid.ToString, PrintoutType)
+            End If
+
+            If Not ex.Data.Contains("PrintoutSubtype") Then
+                ex.Data.Add("PrintoutSubtype", PrintoutSubtype.ToString)
+            Else
+                ex.Data.Add("PrintoutSubtype-" & Guid.NewGuid.ToString, PrintoutSubtype)
+            End If
+
+            If Not ex.Data.Contains("StartDate") Then
+                ex.Data.Add("StartDate", StartDate.ToString)
+            Else
+                ex.Data.Add("StartDate-" & Guid.NewGuid.ToString, StartDate)
+            End If
+
+            If Not ex.Data.Contains("EndDate") Then
+                ex.Data.Add("EndDate", EndDate.ToString)
+            Else
+                ex.Data.Add("EndDate-" & Guid.NewGuid.ToString, EndDate)
+            End If
 
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
