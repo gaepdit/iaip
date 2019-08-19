@@ -206,8 +206,8 @@ Public Class IaipUserManagement
         Else
             ProfileUnit.SelectedValue = dgv.Cells("UnitID").Value.ToString()
         End If
-        ProfileStatusActive.Checked = (dgv.Cells("ActiveEmployee").Value.ToString = "1")
-        ProfileStatusInactive.Checked = Not (dgv.Cells("ActiveEmployee").Value.ToString = "1")
+        ProfileStatusActive.Checked = CBool(dgv.Cells("ActiveEmployee").Value)
+        ProfileStatusInactive.Checked = Not CBool(dgv.Cells("ActiveEmployee").Value)
 
         DisplayCurrentRoles(dgv.Cells("RolesString").Value.ToString)
 
