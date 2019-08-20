@@ -66,9 +66,10 @@ Public Module NetworkCheck
     End Function
 
     Private Async Function GetIpAddressAsync(requestUri As Uri) As Task(Of IPAddress)
-        Dim httpClient As New HttpClient
-        Dim ip As String = Await httpClient.GetStringAsync(requestUri).ConfigureAwait(False)
-        Return IPAddress.Parse(ip)
+        Using httpClient As New HttpClient
+            Dim ip As String = Await httpClient.GetStringAsync(requestUri).ConfigureAwait(False)
+            Return IPAddress.Parse(ip)
+        End Using
     End Function
 
 End Module
