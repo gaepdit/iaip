@@ -22,7 +22,7 @@ New users must request access to both the *EIS Gateway,* which is the web interf
         > 404-562-9209  
         > amanulah.ahmed@epa.gov
 
-* To gain access to ENSC, [contact EPD-IT](mailto:epd-it@dnr.ga.gov?subject=ENSC Access Request).
+* To gain access to ENSC, [contact EPD-IT](mailto:epd_it@dnr.ga.gov?subject=ENSC Access Request).
 
 ## Staging Data (IAIP)
 
