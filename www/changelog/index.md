@@ -2,6 +2,10 @@
 
 *Previously:* [2018](changelog-2018.html) | [2017](changelog-2017.html) | [2016](changelog-2016.html) | [2015](changelog-2015.html) | [2014](changelog-2014.html) | [2013](changelog-2013.html)
 
+## Version 5.14.2 <span>(2019-7-25)</span>
+
+Fixed the ISMP Memo form (which has been broken since 2016).
+
 ## Version 5.14.1 <span>(2019-7-8)</span>
 
 Bug fixes:
