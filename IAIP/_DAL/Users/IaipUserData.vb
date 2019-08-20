@@ -314,7 +314,7 @@ Namespace DAL
                 New SqlParameter("@machineName", Environment.MachineName),
                 New SqlParameter("@windowsUserName", Environment.UserName),
                 New SqlParameter("@windowsDomainName", Environment.UserDomainName),
-                New SqlParameter("@osVersion", OSFriendlyName)
+                New SqlParameter("@osVersion", OSFriendlyName())
             }
 
             Return DB.SPGetString(spName, parameters)

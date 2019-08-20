@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -294,6 +294,7 @@
     <Compile Include="_Code\EnumExtensions.vb" />
     <Compile Include="_Code\ComboBoxHelpers.vb" />
     <Compile Include="_Code\CollectionExtensions.vb" />
+    <Compile Include="_Code\GetDotNetVersion.vb" />
     <Compile Include="_Code\IPAddressRange.vb" />
     <Compile Include="_Code\ListExtensions.vb" />
     <Compile Include="_Code\NetworkCheck.vb" />
