@@ -259,6 +259,7 @@ Public Class IAIPLogIn
         ' Tag exception logger with new user
         ExceptionLogger.Tags.Add("IaipUser", CurrentUser.Username)
         ExceptionLogger.Tags.Add("IaipUserID", CurrentUser.UserID.ToString)
+        DAL.LogSystemProperties()
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
         OpenSingleForm(IAIPNavigation)

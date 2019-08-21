@@ -23,5 +23,21 @@ Namespace DAL
             End Try
         End Function
 
+        Public Function LogSystemProperties() As Boolean
+            Try
+                Dim query As String = "insert into IAIP_SystemLog (DotNetVersion, OSVersion, UserId) values (@DotNetVersion, @OSVersion, @UserId)"
+
+                Dim parameters As SqlParameter() = {
+                    New SqlParameter("@UserId", CurrentUser.UserID),
+                    New SqlParameter("@DotNetVersion", Get45PlusFromRegistry()),
+                    New SqlParameter("@OSVersion", OSFriendlyName())
+                }
+
+                Return DB.RunCommand(query, parameters)
+            Catch ex As Exception
+                Return False
+            End Try
+        End Function
+
     End Module
 End Namespace
