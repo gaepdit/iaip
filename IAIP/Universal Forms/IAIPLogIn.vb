@@ -7,6 +7,7 @@ Public Class IAIPLogIn
 
     Private ReadOnly synchronizationContext As WindowsFormsSynchronizationContext
     Private _message As IaipMessage
+    Private networkStatus As NetworkCheckResponse
 
     Private Property Message As IaipMessage
         Get
@@ -64,7 +65,7 @@ Public Class IAIPLogIn
 
     Private Async Sub CheckConnectionStatusAsync()
         Dim status As ConnectionStatus = ConnectionStatus.None
-        Dim networkStatus As NetworkCheckResponse = Await CheckNetworkAsync().ConfigureAwait(False)
+        networkStatus = Await CheckNetworkAsync().ConfigureAwait(False)
 
         If networkStatus = NetworkCheckResponse.NoNetwork Then
             status = ConnectionStatus.NoNetwork
@@ -98,7 +99,7 @@ Public Class IAIPLogIn
                              "Please wait a few minutes and try again. " &
                              "If still unable to connect, please contact EPD-IT for support. ")
             Case ConnectionStatus.SessionLogin
-                LogInAlready()
+                LogInAlready(networkStatus)
             Case ConnectionStatus.None
                 EnableLogin()
         End Select
@@ -200,10 +201,10 @@ Public Class IAIPLogIn
             ).ConfigureAwait(False)
     End Function
 
-    Private Function RetryButton_Click(sender As Object, e As EventArgs) As Task Handles RetryButton.Click
+    Private Sub RetryButton_Click(sender As Object, e As EventArgs) Handles RetryButton.Click
         DisableLogin("Connecting...", True)
         CheckConnectionStatusAsync()
-    End Function
+    End Sub
 
 #End Region
 
@@ -248,21 +249,21 @@ Public Class IAIPLogIn
                         CancelLogin(False)
                     Else
                         UpdateSession(chkRemember.Checked)
-                        LogInAlready()
+                        LogInAlready(networkStatus)
                     End If
 
             End Select
         End If
     End Sub
 
-    Private Sub LogInAlready()
+    Private Sub LogInAlready(networkStatus As NetworkCheckResponse)
         ' Tag exception logger with new user
         ExceptionLogger.Tags.Add("IaipUser", CurrentUser.Username)
         ExceptionLogger.Tags.Add("IaipUserID", CurrentUser.UserID.ToString)
-        DAL.LogSystemProperties()
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
         OpenSingleForm(IAIPNavigation)
+        DAL.LogSystemProperties(networkStatus)
         Close()
     End Sub
 
