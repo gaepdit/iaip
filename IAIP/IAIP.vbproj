@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
   <Import Project="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props')" />
@@ -601,12 +601,6 @@
     </Compile>
     <Compile Include="EmissionsFees\PASPFeeStatistics.vb">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Fees\crFS_Invoice.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crFS_Invoice.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Crystal Reports\SSPP\crAPBPrintOut2.vb">
       <AutoGen>True</AutoGen>
@@ -1233,10 +1227,6 @@
     <EmbeddedResource Include="SSCP\SscpEnforcement.resx">
       <DependentUpon>SscpEnforcement.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Fees\crFS_Invoice.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crFS_Invoice.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\SSPP\crAPBPrintOut2.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

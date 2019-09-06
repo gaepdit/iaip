@@ -14,6 +14,8 @@ Public Module UrlHandler
 
     Friend ReadOnly GecoUrl As New Uri(ConfigurationManager.AppSettings("GecoUrl"))
     Private ReadOnly InvoiceViewUrlFragment As String = String.Concat(GecoUrl.ToString, "Invoice/?id={0}")
+    Private ReadOnly EmissionFeeInvoiceViewUrlFragment As String = String.Concat(GecoUrl.ToString, "Invoice/?Facility={0}&FeeYear={1}")
+    Private ReadOnly EmissionFeeYearInvoiceViewUrlFragment As String = String.Concat(GecoUrl.ToString, "Invoice/?Facility={0}&FeeYear={1}&InvoiceId={2}")
     Private ReadOnly ApplicationViewUrlFragment As String = String.Concat(GecoUrl.ToString, "Permits/Application.aspx?id={0}")
 
     ' Public URL methods
@@ -52,6 +54,22 @@ Public Module UrlHandler
 
     Public Sub OpenInvoiceUrl(invoiceGuid As Guid, Optional objectSender As Form = Nothing)
         OpenUri(GetInvoiceUrl(invoiceGuid), objectSender)
+    End Sub
+
+    Public Function GetEmissionFeeInvoiceUrl(airs As Apb.ApbFacilityId, feeYear As Integer) As String
+        Return String.Format(EmissionFeeInvoiceViewUrlFragment, airs.ShortString, feeYear)
+    End Function
+
+    Public Function GetEmissionFeeInvoiceUrl(airs As Apb.ApbFacilityId, feeYear As Integer, invoiceID As Integer) As String
+        Return String.Format(EmissionFeeYearInvoiceViewUrlFragment, airs.ShortString, feeYear, invoiceID)
+    End Function
+
+    Public Sub OpenEmissionFeeInvoiceUrl(airs As Apb.ApbFacilityId, feeYear As Integer, Optional objectSender As Form = Nothing)
+        OpenUri(New Uri(GetEmissionFeeInvoiceUrl(airs, feeYear)), objectSender)
+    End Sub
+
+    Public Sub OpenEmissionFeeInvoiceUrl(airs As Apb.ApbFacilityId, feeYear As Integer, invoiceID As Integer, Optional objectSender As Form = Nothing)
+        OpenUri(New Uri(GetEmissionFeeInvoiceUrl(airs, feeYear, invoiceID)), objectSender)
     End Sub
 
     Public Function GetPermitApplicationUrl(appNumber As Integer) As Uri

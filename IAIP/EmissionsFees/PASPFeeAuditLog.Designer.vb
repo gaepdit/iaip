@@ -1,9 +1,9 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class PASPFeeAuditLog
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,12 +20,14 @@ Partial Class PASPFeeAuditLog
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.TabControl3 = New System.Windows.Forms.TabControl()
         Me.TPGECOSubmittal = New System.Windows.Forms.TabPage()
         Me.dgvInvoiceData = New System.Windows.Forms.DataGridView()
         Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.lnkPrintActiveInvoices = New System.Windows.Forms.LinkLabel()
         Me.llbAuditPerformed = New System.Windows.Forms.Label()
         Me.txtInvoiceDataNSPSExempts = New System.Windows.Forms.TextBox()
         Me.chbInvoiceDataOperating = New System.Windows.Forms.CheckBox()
@@ -82,6 +84,7 @@ Partial Class PASPFeeAuditLog
         Me.TPGECOSubmittalContact = New System.Windows.Forms.TabPage()
         Me.dgvGECOFeeContacts = New System.Windows.Forms.DataGridView()
         Me.Panel16 = New System.Windows.Forms.Panel()
+        Me.txtGECOContactPhontNumber = New System.Windows.Forms.TextBox()
         Me.txtGECOContactSalutation = New System.Windows.Forms.TextBox()
         Me.btnGECOViewPastContacts = New System.Windows.Forms.Button()
         Me.txtGECOContactFirstName = New System.Windows.Forms.TextBox()
@@ -109,12 +112,9 @@ Partial Class PASPFeeAuditLog
         Me.Label74 = New System.Windows.Forms.Label()
         Me.Label73 = New System.Windows.Forms.Label()
         Me.TPInvoices = New System.Windows.Forms.TabPage()
-        Me.Panel32 = New System.Windows.Forms.Panel()
-        Me.crFeeStatsAndInvoices = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
-        Me.Panel31 = New System.Windows.Forms.Panel()
-        Me.Panel33 = New System.Windows.Forms.Panel()
         Me.dgvInvoices = New System.Windows.Forms.DataGridView()
         Me.Panel34 = New System.Windows.Forms.Panel()
+        Me.lnkPrintSelectedInvoice = New System.Windows.Forms.LinkLabel()
         Me.lblAdminFee = New System.Windows.Forms.Label()
         Me.txtTotalFee = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -143,10 +143,8 @@ Partial Class PASPFeeAuditLog
         Me.Label165 = New System.Windows.Forms.Label()
         Me.txtAmount = New System.Windows.Forms.TextBox()
         Me.Label164 = New System.Windows.Forms.Label()
-        Me.btnViewInvoices = New System.Windows.Forms.Button()
         Me.txtInvoice = New System.Windows.Forms.TextBox()
         Me.btnVOIDAllUnpaid = New System.Windows.Forms.Button()
-        Me.btnViewPrintableInvoice = New System.Windows.Forms.Button()
         Me.TPTransactions = New System.Windows.Forms.TabPage()
         Me.dgvTransactions = New System.Windows.Forms.DataGridView()
         Me.Panel9 = New System.Windows.Forms.Panel()
@@ -456,7 +454,7 @@ Partial Class PASPFeeAuditLog
         Me.Label27 = New System.Windows.Forms.Label()
         Me.txtFSAdminComments = New System.Windows.Forms.TextBox()
         Me.dtpFeeAdminStatusDate = New System.Windows.Forms.DateTimePicker()
-        Me.txtGECOContactPhontNumber = New System.Windows.Forms.TextBox()
+        Me.UrlToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.TabControl3.SuspendLayout()
         Me.TPGECOSubmittal.SuspendLayout()
         CType(Me.dgvInvoiceData, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -467,9 +465,6 @@ Partial Class PASPFeeAuditLog
         CType(Me.dgvGECOFeeContacts, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel16.SuspendLayout()
         Me.TPInvoices.SuspendLayout()
-        Me.Panel32.SuspendLayout()
-        Me.Panel31.SuspendLayout()
-        Me.Panel33.SuspendLayout()
         CType(Me.dgvInvoices, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel34.SuspendLayout()
         Me.TPTransactions.SuspendLayout()
@@ -540,14 +535,15 @@ Partial Class PASPFeeAuditLog
         '
         Me.dgvInvoiceData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvInvoiceData.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvInvoiceData.Location = New System.Drawing.Point(3, 254)
+        Me.dgvInvoiceData.Location = New System.Drawing.Point(3, 269)
         Me.dgvInvoiceData.Name = "dgvInvoiceData"
         Me.dgvInvoiceData.ReadOnly = True
-        Me.dgvInvoiceData.Size = New System.Drawing.Size(983, 187)
+        Me.dgvInvoiceData.Size = New System.Drawing.Size(983, 172)
         Me.dgvInvoiceData.TabIndex = 478
         '
         'Panel7
         '
+        Me.Panel7.Controls.Add(Me.lnkPrintActiveInvoices)
         Me.Panel7.Controls.Add(Me.llbAuditPerformed)
         Me.Panel7.Controls.Add(Me.txtInvoiceDataNSPSExempts)
         Me.Panel7.Controls.Add(Me.chbInvoiceDataOperating)
@@ -602,8 +598,20 @@ Partial Class PASPFeeAuditLog
         Me.Panel7.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel7.Location = New System.Drawing.Point(3, 3)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(983, 251)
+        Me.Panel7.Size = New System.Drawing.Size(983, 266)
         Me.Panel7.TabIndex = 477
+        '
+        'lnkPrintActiveInvoices
+        '
+        Me.lnkPrintActiveInvoices.AutoSize = True
+        Me.lnkPrintActiveInvoices.Enabled = False
+        Me.lnkPrintActiveInvoices.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.lnkPrintActiveInvoices.Location = New System.Drawing.Point(5, 243)
+        Me.lnkPrintActiveInvoices.Name = "lnkPrintActiveInvoices"
+        Me.lnkPrintActiveInvoices.Size = New System.Drawing.Size(158, 13)
+        Me.lnkPrintActiveInvoices.TabIndex = 526
+        Me.lnkPrintActiveInvoices.TabStop = True
+        Me.lnkPrintActiveInvoices.Text = "Print active invoices for fee year"
         '
         'llbAuditPerformed
         '
@@ -676,7 +684,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel8.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel8.Controls.Add(Me.rdbInvoiceDataUnpaidStatus)
         Me.Panel8.Controls.Add(Me.rdbInvoiceDataPaidStatus)
-        Me.Panel8.Location = New System.Drawing.Point(76, 6)
+        Me.Panel8.Location = New System.Drawing.Point(79, 6)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Size = New System.Drawing.Size(208, 22)
         Me.Panel8.TabIndex = 516
@@ -708,7 +716,7 @@ Partial Class PASPFeeAuditLog
         'Label97
         '
         Me.Label97.AutoSize = True
-        Me.Label97.Location = New System.Drawing.Point(3, 10)
+        Me.Label97.Location = New System.Drawing.Point(5, 10)
         Me.Label97.Name = "Label97"
         Me.Label97.Size = New System.Drawing.Size(75, 13)
         Me.Label97.TabIndex = 515
@@ -772,7 +780,7 @@ Partial Class PASPFeeAuditLog
         'Label93
         '
         Me.Label93.AutoSize = True
-        Me.Label93.Location = New System.Drawing.Point(11, 172)
+        Me.Label93.Location = New System.Drawing.Point(5, 172)
         Me.Label93.Name = "Label93"
         Me.Label93.Size = New System.Drawing.Size(114, 13)
         Me.Label93.TabIndex = 507
@@ -826,7 +834,7 @@ Partial Class PASPFeeAuditLog
         'Label79
         '
         Me.Label79.AutoSize = True
-        Me.Label79.Location = New System.Drawing.Point(3, 146)
+        Me.Label79.Location = New System.Drawing.Point(5, 146)
         Me.Label79.Name = "Label79"
         Me.Label79.Size = New System.Drawing.Size(122, 13)
         Me.Label79.TabIndex = 502
@@ -1147,6 +1155,14 @@ Partial Class PASPFeeAuditLog
         Me.Panel16.Size = New System.Drawing.Size(989, 156)
         Me.Panel16.TabIndex = 489
         '
+        'txtGECOContactPhontNumber
+        '
+        Me.txtGECOContactPhontNumber.Location = New System.Drawing.Point(621, 6)
+        Me.txtGECOContactPhontNumber.Name = "txtGECOContactPhontNumber"
+        Me.txtGECOContactPhontNumber.ReadOnly = True
+        Me.txtGECOContactPhontNumber.Size = New System.Drawing.Size(123, 20)
+        Me.txtGECOContactPhontNumber.TabIndex = 489
+        '
         'txtGECOContactSalutation
         '
         Me.txtGECOContactSalutation.Location = New System.Drawing.Point(67, 6)
@@ -1379,8 +1395,8 @@ Partial Class PASPFeeAuditLog
         '
         'TPInvoices
         '
-        Me.TPInvoices.Controls.Add(Me.Panel32)
-        Me.TPInvoices.Controls.Add(Me.Panel31)
+        Me.TPInvoices.Controls.Add(Me.dgvInvoices)
+        Me.TPInvoices.Controls.Add(Me.Panel34)
         Me.TPInvoices.Location = New System.Drawing.Point(4, 22)
         Me.TPInvoices.Name = "TPInvoices"
         Me.TPInvoices.Size = New System.Drawing.Size(989, 444)
@@ -1388,64 +1404,19 @@ Partial Class PASPFeeAuditLog
         Me.TPInvoices.Text = "Invoices"
         Me.TPInvoices.UseVisualStyleBackColor = True
         '
-        'Panel32
-        '
-        Me.Panel32.Controls.Add(Me.crFeeStatsAndInvoices)
-        Me.Panel32.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel32.Location = New System.Drawing.Point(473, 0)
-        Me.Panel32.Name = "Panel32"
-        Me.Panel32.Size = New System.Drawing.Size(516, 444)
-        Me.Panel32.TabIndex = 1
-        '
-        'crFeeStatsAndInvoices
-        '
-        Me.crFeeStatsAndInvoices.ActiveViewIndex = -1
-        Me.crFeeStatsAndInvoices.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.crFeeStatsAndInvoices.Cursor = System.Windows.Forms.Cursors.Default
-        Me.crFeeStatsAndInvoices.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.crFeeStatsAndInvoices.Location = New System.Drawing.Point(0, 0)
-        Me.crFeeStatsAndInvoices.Name = "crFeeStatsAndInvoices"
-        Me.crFeeStatsAndInvoices.SelectionFormula = ""
-        Me.crFeeStatsAndInvoices.ShowCloseButton = False
-        Me.crFeeStatsAndInvoices.ShowGroupTreeButton = False
-        Me.crFeeStatsAndInvoices.ShowRefreshButton = False
-        Me.crFeeStatsAndInvoices.ShowTextSearchButton = False
-        Me.crFeeStatsAndInvoices.Size = New System.Drawing.Size(516, 444)
-        Me.crFeeStatsAndInvoices.TabIndex = 0
-        Me.crFeeStatsAndInvoices.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-        Me.crFeeStatsAndInvoices.ViewTimeSelectionFormula = ""
-        '
-        'Panel31
-        '
-        Me.Panel31.Controls.Add(Me.Panel33)
-        Me.Panel31.Controls.Add(Me.Panel34)
-        Me.Panel31.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel31.Location = New System.Drawing.Point(0, 0)
-        Me.Panel31.Name = "Panel31"
-        Me.Panel31.Size = New System.Drawing.Size(473, 444)
-        Me.Panel31.TabIndex = 0
-        '
-        'Panel33
-        '
-        Me.Panel33.Controls.Add(Me.dgvInvoices)
-        Me.Panel33.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel33.Location = New System.Drawing.Point(0, 280)
-        Me.Panel33.Name = "Panel33"
-        Me.Panel33.Size = New System.Drawing.Size(473, 164)
-        Me.Panel33.TabIndex = 0
-        '
         'dgvInvoices
         '
         Me.dgvInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvInvoices.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvInvoices.Location = New System.Drawing.Point(0, 0)
+        Me.dgvInvoices.Location = New System.Drawing.Point(505, 0)
         Me.dgvInvoices.Name = "dgvInvoices"
         Me.dgvInvoices.ReadOnly = True
-        Me.dgvInvoices.Size = New System.Drawing.Size(473, 164)
+        Me.dgvInvoices.Size = New System.Drawing.Size(484, 444)
         Me.dgvInvoices.TabIndex = 0
         '
         'Panel34
         '
+        Me.Panel34.Controls.Add(Me.lnkPrintSelectedInvoice)
         Me.Panel34.Controls.Add(Me.lblAdminFee)
         Me.Panel34.Controls.Add(Me.txtTotalFee)
         Me.Panel34.Controls.Add(Me.Label12)
@@ -1474,35 +1445,46 @@ Partial Class PASPFeeAuditLog
         Me.Panel34.Controls.Add(Me.Label165)
         Me.Panel34.Controls.Add(Me.txtAmount)
         Me.Panel34.Controls.Add(Me.Label164)
-        Me.Panel34.Controls.Add(Me.btnViewInvoices)
         Me.Panel34.Controls.Add(Me.txtInvoice)
         Me.Panel34.Controls.Add(Me.btnVOIDAllUnpaid)
-        Me.Panel34.Controls.Add(Me.btnViewPrintableInvoice)
-        Me.Panel34.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel34.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel34.Location = New System.Drawing.Point(0, 0)
         Me.Panel34.Name = "Panel34"
-        Me.Panel34.Size = New System.Drawing.Size(473, 280)
+        Me.Panel34.Size = New System.Drawing.Size(505, 444)
         Me.Panel34.TabIndex = 1
+        '
+        'lnkPrintSelectedInvoice
+        '
+        Me.lnkPrintSelectedInvoice.AutoSize = True
+        Me.lnkPrintSelectedInvoice.Enabled = False
+        Me.lnkPrintSelectedInvoice.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.lnkPrintSelectedInvoice.Location = New System.Drawing.Point(272, 19)
+        Me.lnkPrintSelectedInvoice.Name = "lnkPrintSelectedInvoice"
+        Me.lnkPrintSelectedInvoice.Size = New System.Drawing.Size(108, 13)
+        Me.lnkPrintSelectedInvoice.TabIndex = 428
+        Me.lnkPrintSelectedInvoice.TabStop = True
+        Me.lnkPrintSelectedInvoice.Text = "Print selected invoice"
         '
         'lblAdminFee
         '
         Me.lblAdminFee.AutoSize = True
-        Me.lblAdminFee.Location = New System.Drawing.Point(144, 255)
+        Me.lblAdminFee.Location = New System.Drawing.Point(151, 273)
         Me.lblAdminFee.Name = "lblAdminFee"
-        Me.lblAdminFee.Size = New System.Drawing.Size(0, 13)
+        Me.lblAdminFee.Size = New System.Drawing.Size(106, 13)
         Me.lblAdminFee.TabIndex = 627
+        Me.lblAdminFee.Text = "Calculated admin fee"
         '
         'txtTotalFee
         '
-        Me.txtTotalFee.Location = New System.Drawing.Point(54, 226)
+        Me.txtTotalFee.Location = New System.Drawing.Point(70, 242)
         Me.txtTotalFee.Name = "txtTotalFee"
-        Me.txtTotalFee.Size = New System.Drawing.Size(53, 20)
+        Me.txtTotalFee.Size = New System.Drawing.Size(66, 20)
         Me.txtTotalFee.TabIndex = 626
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(2, 230)
+        Me.Label12.Location = New System.Drawing.Point(8, 245)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(52, 13)
         Me.Label12.TabIndex = 625
@@ -1510,7 +1492,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtAdminFee
         '
-        Me.txtAdminFee.Location = New System.Drawing.Point(414, 248)
+        Me.txtAdminFee.Location = New System.Drawing.Point(420, 270)
         Me.txtAdminFee.Name = "txtAdminFee"
         Me.txtAdminFee.Size = New System.Drawing.Size(53, 20)
         Me.txtAdminFee.TabIndex = 624
@@ -1518,7 +1500,7 @@ Partial Class PASPFeeAuditLog
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(358, 252)
+        Me.Label10.Location = New System.Drawing.Point(357, 273)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(57, 13)
         Me.Label10.TabIndex = 623
@@ -1528,7 +1510,7 @@ Partial Class PASPFeeAuditLog
         '
         Me.dtpEndDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEndDate.Location = New System.Drawing.Point(279, 225)
+        Me.dtpEndDate.Location = New System.Drawing.Point(315, 242)
         Me.dtpEndDate.Name = "dtpEndDate"
         Me.dtpEndDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpEndDate.TabIndex = 622
@@ -1536,7 +1518,7 @@ Partial Class PASPFeeAuditLog
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(250, 229)
+        Me.Label7.Location = New System.Drawing.Point(283, 245)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(26, 13)
         Me.Label7.TabIndex = 621
@@ -1546,7 +1528,7 @@ Partial Class PASPFeeAuditLog
         '
         Me.dtpStartDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpStartDate.Location = New System.Drawing.Point(144, 225)
+        Me.dtpStartDate.Location = New System.Drawing.Point(177, 242)
         Me.dtpStartDate.Name = "dtpStartDate"
         Me.dtpStartDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpStartDate.TabIndex = 620
@@ -1554,7 +1536,7 @@ Partial Class PASPFeeAuditLog
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(113, 229)
+        Me.Label3.Location = New System.Drawing.Point(142, 245)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(29, 13)
         Me.Label3.TabIndex = 619
@@ -1562,7 +1544,7 @@ Partial Class PASPFeeAuditLog
         '
         'btnCalculateDays
         '
-        Me.btnCalculateDays.Location = New System.Drawing.Point(70, 250)
+        Me.btnCalculateDays.Location = New System.Drawing.Point(70, 268)
         Me.btnCalculateDays.Name = "btnCalculateDays"
         Me.btnCalculateDays.Size = New System.Drawing.Size(75, 23)
         Me.btnCalculateDays.TabIndex = 618
@@ -1572,7 +1554,7 @@ Partial Class PASPFeeAuditLog
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(67, 190)
+        Me.Label2.Location = New System.Drawing.Point(67, 294)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(169, 26)
         Me.Label2.TabIndex = 617
@@ -1582,20 +1564,19 @@ Partial Class PASPFeeAuditLog
         '
         Me.btnClearInvoiceData.AutoSize = True
         Me.btnClearInvoiceData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearInvoiceData.Location = New System.Drawing.Point(119, 7)
+        Me.btnClearInvoiceData.Location = New System.Drawing.Point(8, 14)
         Me.btnClearInvoiceData.Name = "btnClearInvoiceData"
-        Me.btnClearInvoiceData.Size = New System.Drawing.Size(79, 23)
+        Me.btnClearInvoiceData.Size = New System.Drawing.Size(105, 23)
         Me.btnClearInvoiceData.TabIndex = 616
-        Me.btnClearInvoiceData.Text = "Clear Invoice"
+        Me.btnClearInvoiceData.Text = "Clear Invoice Form"
         Me.btnClearInvoiceData.UseVisualStyleBackColor = True
         '
         'btnVOIDInvoice
         '
-        Me.btnVOIDInvoice.AutoSize = True
         Me.btnVOIDInvoice.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnVOIDInvoice.Location = New System.Drawing.Point(196, 164)
+        Me.btnVOIDInvoice.Location = New System.Drawing.Point(204, 187)
         Me.btnVOIDInvoice.Name = "btnVOIDInvoice"
-        Me.btnVOIDInvoice.Size = New System.Drawing.Size(117, 23)
+        Me.btnVOIDInvoice.Size = New System.Drawing.Size(123, 23)
         Me.btnVOIDInvoice.TabIndex = 431
         Me.btnVOIDInvoice.Text = "VOID THIS INVOICE"
         Me.btnVOIDInvoice.UseVisualStyleBackColor = True
@@ -1604,7 +1585,7 @@ Partial Class PASPFeeAuditLog
         '
         Me.btnRemoveVOID.AutoSize = True
         Me.btnRemoveVOID.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRemoveVOID.Location = New System.Drawing.Point(142, 110)
+        Me.btnRemoveVOID.Location = New System.Drawing.Point(142, 132)
         Me.btnRemoveVOID.Name = "btnRemoveVOID"
         Me.btnRemoveVOID.Size = New System.Drawing.Size(92, 23)
         Me.btnRemoveVOID.TabIndex = 430
@@ -1613,43 +1594,42 @@ Partial Class PASPFeeAuditLog
         '
         'btnAddNewInvoice
         '
-        Me.btnAddNewInvoice.AutoSize = True
         Me.btnAddNewInvoice.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnAddNewInvoice.Location = New System.Drawing.Point(69, 164)
+        Me.btnAddNewInvoice.Location = New System.Drawing.Point(70, 187)
         Me.btnAddNewInvoice.Name = "btnAddNewInvoice"
-        Me.btnAddNewInvoice.Size = New System.Drawing.Size(99, 23)
+        Me.btnAddNewInvoice.Size = New System.Drawing.Size(104, 23)
         Me.btnAddNewInvoice.TabIndex = 429
         Me.btnAddNewInvoice.Text = "Add New Invoice"
         Me.btnAddNewInvoice.UseVisualStyleBackColor = True
         '
         'txtInvoiceComments
         '
-        Me.txtInvoiceComments.Location = New System.Drawing.Point(269, 60)
+        Me.txtInvoiceComments.Location = New System.Drawing.Point(275, 82)
         Me.txtInvoiceComments.Multiline = True
         Me.txtInvoiceComments.Name = "txtInvoiceComments"
-        Me.txtInvoiceComments.Size = New System.Drawing.Size(198, 98)
+        Me.txtInvoiceComments.Size = New System.Drawing.Size(198, 99)
         Me.txtInvoiceComments.TabIndex = 428
         '
         'txtPayStatus
         '
-        Me.txtPayStatus.Location = New System.Drawing.Point(269, 36)
+        Me.txtPayStatus.Location = New System.Drawing.Point(275, 56)
         Me.txtPayStatus.Name = "txtPayStatus"
         Me.txtPayStatus.ReadOnly = True
-        Me.txtPayStatus.Size = New System.Drawing.Size(103, 20)
+        Me.txtPayStatus.Size = New System.Drawing.Size(105, 20)
         Me.txtPayStatus.TabIndex = 427
         '
         'cboInvoiceType
         '
         Me.cboInvoiceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboInvoiceType.FormattingEnabled = True
-        Me.cboInvoiceType.Location = New System.Drawing.Point(70, 137)
+        Me.cboInvoiceType.Location = New System.Drawing.Point(70, 160)
         Me.cboInvoiceType.Name = "cboInvoiceType"
         Me.cboInvoiceType.Size = New System.Drawing.Size(182, 21)
         Me.cboInvoiceType.TabIndex = 426
         '
         'txtStatus
         '
-        Me.txtStatus.Location = New System.Drawing.Point(69, 111)
+        Me.txtStatus.Location = New System.Drawing.Point(70, 134)
         Me.txtStatus.Name = "txtStatus"
         Me.txtStatus.ReadOnly = True
         Me.txtStatus.Size = New System.Drawing.Size(66, 20)
@@ -1659,15 +1639,15 @@ Partial Class PASPFeeAuditLog
         '
         Me.DTPInvoiceDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPInvoiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPInvoiceDate.Location = New System.Drawing.Point(70, 85)
+        Me.DTPInvoiceDate.Location = New System.Drawing.Point(70, 108)
         Me.DTPInvoiceDate.Name = "DTPInvoiceDate"
-        Me.DTPInvoiceDate.Size = New System.Drawing.Size(100, 20)
+        Me.DTPInvoiceDate.Size = New System.Drawing.Size(104, 20)
         Me.DTPInvoiceDate.TabIndex = 424
         '
         'Label170
         '
         Me.Label170.AutoSize = True
-        Me.Label170.Location = New System.Drawing.Point(208, 64)
+        Me.Label170.Location = New System.Drawing.Point(211, 85)
         Me.Label170.Name = "Label170"
         Me.Label170.Size = New System.Drawing.Size(51, 13)
         Me.Label170.TabIndex = 11
@@ -1676,7 +1656,7 @@ Partial Class PASPFeeAuditLog
         'Label169
         '
         Me.Label169.AutoSize = True
-        Me.Label169.Location = New System.Drawing.Point(206, 40)
+        Me.Label169.Location = New System.Drawing.Point(211, 59)
         Me.Label169.Name = "Label169"
         Me.Label169.Size = New System.Drawing.Size(58, 13)
         Me.Label169.TabIndex = 10
@@ -1685,7 +1665,7 @@ Partial Class PASPFeeAuditLog
         'Label168
         '
         Me.Label168.AutoSize = True
-        Me.Label168.Location = New System.Drawing.Point(29, 141)
+        Me.Label168.Location = New System.Drawing.Point(8, 163)
         Me.Label168.Name = "Label168"
         Me.Label168.Size = New System.Drawing.Size(31, 13)
         Me.Label168.TabIndex = 9
@@ -1694,7 +1674,7 @@ Partial Class PASPFeeAuditLog
         'Label167
         '
         Me.Label167.AutoSize = True
-        Me.Label167.Location = New System.Drawing.Point(26, 115)
+        Me.Label167.Location = New System.Drawing.Point(8, 137)
         Me.Label167.Name = "Label167"
         Me.Label167.Size = New System.Drawing.Size(37, 13)
         Me.Label167.TabIndex = 8
@@ -1703,7 +1683,7 @@ Partial Class PASPFeeAuditLog
         'Label166
         '
         Me.Label166.AutoSize = True
-        Me.Label166.Location = New System.Drawing.Point(10, 89)
+        Me.Label166.Location = New System.Drawing.Point(8, 111)
         Me.Label166.Name = "Label166"
         Me.Label166.Size = New System.Drawing.Size(53, 13)
         Me.Label166.TabIndex = 7
@@ -1712,7 +1692,7 @@ Partial Class PASPFeeAuditLog
         'Label165
         '
         Me.Label165.AutoSize = True
-        Me.Label165.Location = New System.Drawing.Point(22, 64)
+        Me.Label165.Location = New System.Drawing.Point(8, 85)
         Me.Label165.Name = "Label165"
         Me.Label165.Size = New System.Drawing.Size(43, 13)
         Me.Label165.TabIndex = 6
@@ -1720,60 +1700,37 @@ Partial Class PASPFeeAuditLog
         '
         'txtAmount
         '
-        Me.txtAmount.Location = New System.Drawing.Point(70, 60)
+        Me.txtAmount.Location = New System.Drawing.Point(70, 82)
         Me.txtAmount.Name = "txtAmount"
-        Me.txtAmount.Size = New System.Drawing.Size(86, 20)
+        Me.txtAmount.Size = New System.Drawing.Size(104, 20)
         Me.txtAmount.TabIndex = 5
         '
         'Label164
         '
         Me.Label164.AutoSize = True
-        Me.Label164.Location = New System.Drawing.Point(8, 40)
+        Me.Label164.Location = New System.Drawing.Point(8, 59)
         Me.Label164.Name = "Label164"
         Me.Label164.Size = New System.Drawing.Size(56, 13)
         Me.Label164.TabIndex = 4
         Me.Label164.Text = "Invoice ID"
         '
-        'btnViewInvoices
-        '
-        Me.btnViewInvoices.AutoSize = True
-        Me.btnViewInvoices.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewInvoices.Location = New System.Drawing.Point(8, 7)
-        Me.btnViewInvoices.Name = "btnViewInvoices"
-        Me.btnViewInvoices.Size = New System.Drawing.Size(97, 23)
-        Me.btnViewInvoices.TabIndex = 3
-        Me.btnViewInvoices.Text = "View All Invoices"
-        Me.btnViewInvoices.UseVisualStyleBackColor = True
-        '
         'txtInvoice
         '
-        Me.txtInvoice.Location = New System.Drawing.Point(70, 36)
+        Me.txtInvoice.Location = New System.Drawing.Point(70, 56)
         Me.txtInvoice.Name = "txtInvoice"
         Me.txtInvoice.ReadOnly = True
-        Me.txtInvoice.Size = New System.Drawing.Size(66, 20)
+        Me.txtInvoice.Size = New System.Drawing.Size(104, 20)
         Me.txtInvoice.TabIndex = 2
         '
         'btnVOIDAllUnpaid
         '
-        Me.btnVOIDAllUnpaid.AutoSize = True
         Me.btnVOIDAllUnpaid.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnVOIDAllUnpaid.Location = New System.Drawing.Point(330, 164)
+        Me.btnVOIDAllUnpaid.Location = New System.Drawing.Point(333, 187)
         Me.btnVOIDAllUnpaid.Name = "btnVOIDAllUnpaid"
-        Me.btnVOIDAllUnpaid.Size = New System.Drawing.Size(137, 23)
+        Me.btnVOIDAllUnpaid.Size = New System.Drawing.Size(140, 23)
         Me.btnVOIDAllUnpaid.TabIndex = 1
         Me.btnVOIDAllUnpaid.Text = "VOID All Unpaid Invoices"
         Me.btnVOIDAllUnpaid.UseVisualStyleBackColor = True
-        '
-        'btnViewPrintableInvoice
-        '
-        Me.btnViewPrintableInvoice.AutoSize = True
-        Me.btnViewPrintableInvoice.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewPrintableInvoice.Location = New System.Drawing.Point(345, 7)
-        Me.btnViewPrintableInvoice.Name = "btnViewPrintableInvoice"
-        Me.btnViewPrintableInvoice.Size = New System.Drawing.Size(122, 23)
-        Me.btnViewPrintableInvoice.TabIndex = 0
-        Me.btnViewPrintableInvoice.Text = "View Printable Invoice"
-        Me.btnViewPrintableInvoice.UseVisualStyleBackColor = True
         '
         'TPTransactions
         '
@@ -4309,7 +4266,7 @@ Partial Class PASPFeeAuditLog
         '
         'ClearFormButton
         '
-        Me.ClearFormButton.Location = New System.Drawing.Point(326, 10)
+        Me.ClearFormButton.Location = New System.Drawing.Point(329, 10)
         Me.ClearFormButton.Name = "ClearFormButton"
         Me.ClearFormButton.Size = New System.Drawing.Size(80, 22)
         Me.ClearFormButton.TabIndex = 3
@@ -4320,7 +4277,7 @@ Partial Class PASPFeeAuditLog
         '
         Me.FeeYearsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.FeeYearsComboBox.FormattingEnabled = True
-        Me.FeeYearsComboBox.Location = New System.Drawing.Point(66, 11)
+        Me.FeeYearsComboBox.Location = New System.Drawing.Point(68, 12)
         Me.FeeYearsComboBox.Name = "FeeYearsComboBox"
         Me.FeeYearsComboBox.Size = New System.Drawing.Size(61, 21)
         Me.FeeYearsComboBox.TabIndex = 0
@@ -4330,7 +4287,7 @@ Partial Class PASPFeeAuditLog
         Me.ReloadButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ReloadButton.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
         Me.ReloadButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ReloadButton.Location = New System.Drawing.Point(245, 9)
+        Me.ReloadButton.Location = New System.Drawing.Point(248, 9)
         Me.ReloadButton.Name = "ReloadButton"
         Me.ReloadButton.Padding = New System.Windows.Forms.Padding(3, 0, 4, 0)
         Me.ReloadButton.Size = New System.Drawing.Size(75, 24)
@@ -4342,7 +4299,7 @@ Partial Class PASPFeeAuditLog
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(10, 15)
+        Me.Label26.Location = New System.Drawing.Point(12, 15)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(50, 13)
         Me.Label26.TabIndex = 421
@@ -4351,7 +4308,7 @@ Partial Class PASPFeeAuditLog
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(133, 15)
+        Me.Label23.Location = New System.Drawing.Point(136, 15)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(42, 13)
         Me.Label23.TabIndex = 426
@@ -4359,7 +4316,7 @@ Partial Class PASPFeeAuditLog
         '
         'mtbAirsNumber
         '
-        Me.mtbAirsNumber.Location = New System.Drawing.Point(181, 12)
+        Me.mtbAirsNumber.Location = New System.Drawing.Point(184, 12)
         Me.mtbAirsNumber.Mask = "000-00000"
         Me.mtbAirsNumber.Name = "mtbAirsNumber"
         Me.mtbAirsNumber.Size = New System.Drawing.Size(58, 20)
@@ -4503,7 +4460,7 @@ Partial Class PASPFeeAuditLog
         'Label56
         '
         Me.Label56.AutoSize = True
-        Me.Label56.Location = New System.Drawing.Point(10, 41)
+        Me.Label56.Location = New System.Drawing.Point(12, 41)
         Me.Label56.Name = "Label56"
         Me.Label56.Size = New System.Drawing.Size(90, 13)
         Me.Label56.TabIndex = 462
@@ -4529,7 +4486,7 @@ Partial Class PASPFeeAuditLog
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(9, 96)
+        Me.Label25.Location = New System.Drawing.Point(12, 96)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(85, 13)
         Me.Label25.TabIndex = 424
@@ -4547,7 +4504,7 @@ Partial Class PASPFeeAuditLog
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(9, 68)
+        Me.Label24.Location = New System.Drawing.Point(12, 68)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(45, 13)
         Me.Label24.TabIndex = 425
@@ -4592,7 +4549,7 @@ Partial Class PASPFeeAuditLog
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(9, 124)
+        Me.Label21.Location = New System.Drawing.Point(12, 124)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(50, 13)
         Me.Label21.TabIndex = 428
@@ -4806,7 +4763,7 @@ Partial Class PASPFeeAuditLog
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(10, 151)
+        Me.Label28.Location = New System.Drawing.Point(12, 151)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(117, 13)
         Me.Label28.TabIndex = 435
@@ -4848,14 +4805,6 @@ Partial Class PASPFeeAuditLog
         Me.dtpFeeAdminStatusDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpFeeAdminStatusDate.TabIndex = 15
         '
-        'txtGECOContactPhontNumber
-        '
-        Me.txtGECOContactPhontNumber.Location = New System.Drawing.Point(621, 6)
-        Me.txtGECOContactPhontNumber.Name = "txtGECOContactPhontNumber"
-        Me.txtGECOContactPhontNumber.ReadOnly = True
-        Me.txtGECOContactPhontNumber.Size = New System.Drawing.Size(123, 20)
-        Me.txtGECOContactPhontNumber.TabIndex = 489
-        '
         'PASPFeeAuditLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -4879,9 +4828,6 @@ Partial Class PASPFeeAuditLog
         Me.Panel16.ResumeLayout(False)
         Me.Panel16.PerformLayout()
         Me.TPInvoices.ResumeLayout(False)
-        Me.Panel32.ResumeLayout(False)
-        Me.Panel31.ResumeLayout(False)
-        Me.Panel33.ResumeLayout(False)
         CType(Me.dgvInvoices, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel34.ResumeLayout(False)
         Me.Panel34.PerformLayout()
@@ -5294,13 +5240,9 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents pnlFacilityData2 As System.Windows.Forms.Panel
     Friend WithEvents Panel30 As System.Windows.Forms.Panel
     Friend WithEvents Label156 As System.Windows.Forms.Label
-    Friend WithEvents Panel32 As System.Windows.Forms.Panel
-    Friend WithEvents Panel31 As System.Windows.Forms.Panel
-    Friend WithEvents Panel33 As System.Windows.Forms.Panel
     Friend WithEvents dgvInvoices As System.Windows.Forms.DataGridView
     Friend WithEvents Panel34 As System.Windows.Forms.Panel
     Friend WithEvents btnVOIDAllUnpaid As System.Windows.Forms.Button
-    Friend WithEvents btnViewPrintableInvoice As System.Windows.Forms.Button
     Friend WithEvents Panel35 As System.Windows.Forms.Panel
     Friend WithEvents pnlFacilityData As System.Windows.Forms.Panel
     Friend WithEvents Label158 As System.Windows.Forms.Label
@@ -5314,7 +5256,6 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents Label159 As System.Windows.Forms.Label
     Friend WithEvents txtInvoice As System.Windows.Forms.TextBox
     Friend WithEvents Label163 As System.Windows.Forms.Label
-    Friend WithEvents btnViewInvoices As System.Windows.Forms.Button
     Friend WithEvents Label166 As System.Windows.Forms.Label
     Friend WithEvents Label165 As System.Windows.Forms.Label
     Friend WithEvents txtAmount As System.Windows.Forms.TextBox
@@ -5379,6 +5320,8 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents MailoutCancelEditingContactButton As System.Windows.Forms.Button
     Friend WithEvents MailoutSaveFacilityButton As System.Windows.Forms.Button
     Friend WithEvents MailoutCancelEditFacilityButton As System.Windows.Forms.Button
-    Private WithEvents crFeeStatsAndInvoices As CrystalDecisions.Windows.Forms.CrystalReportViewer
     Friend WithEvents txtGECOContactPhontNumber As TextBox
+    Friend WithEvents lnkPrintSelectedInvoice As LinkLabel
+    Friend WithEvents UrlToolTip As ToolTip
+    Friend WithEvents lnkPrintActiveInvoices As LinkLabel
 End Class
