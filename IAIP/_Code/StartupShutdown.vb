@@ -28,9 +28,6 @@ Friend Module StartupShutdown
             My.Settings.Save()
         End If
 
-        ' Language settings
-        CheckLanguageRegistrySetting()
-
         ' Enable TLS
         EnableTLS()
 
@@ -70,15 +67,6 @@ Friend Module StartupShutdown
         ' Remove username from analytics
         ExceptionLogger.Tags.Remove("IaipUser")
         ExceptionLogger.Tags.Remove("IaipUserID")
-    End Sub
-
-    Private Sub CheckLanguageRegistrySetting()
-        Dim currentSetting As String
-        currentSetting = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", Nothing)?.ToString
-        If currentSetting Is Nothing Or currentSetting <> "AMERICAN" Then
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", "AMERICAN")
-            Application.Restart()
-        End If
     End Sub
 
     Private Sub SetUpDbServerEnvironment()
