@@ -1,2 +1,2 @@
 call build.bat
-git ftp push -P --remote-root /iaip.gaepd.org --syncroot www ftp://167.192.208.134
+git ftp push -P --syncroot www --insecure sftp://10.149.210.227/cygdrive/d/inetpub/wwwroot/iaip.gaepd.org/
