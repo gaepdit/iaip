@@ -1462,8 +1462,15 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            If DAL.FacilityHasBeenApproved(New ApbFacilityId(txtNewAIRSNumber.Text)) Then
+            Dim airsNumberDeleting As New ApbFacilityId(txtNewAIRSNumber.Text)
+
+            If DAL.FacilityHasBeenApproved(airsNumberDeleting) Then
                 MessageBox.Show("Facility has already been approved.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            If DAL.Finance.FacilityHasFeesData(airsNumberDeleting) Then
+                MessageBox.Show("Facility has permit fees data. Unable to delete unless the fees data is removed first.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -1474,7 +1481,7 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            If DAL.DeleteFacility(New ApbFacilityId(txtNewAIRSNumber.Text)) Then
+            If DAL.DeleteFacility(airsNumberDeleting) Then
                 MessageBox.Show("Facility removed from the database", "Gone", MessageBoxButtons.OK)
             Else
                 MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
@@ -2044,6 +2051,11 @@ Public Class IAIPFacilityCreator
 
             If Not DAL.FacilityHasBeenApproved(airsNumberDeleting) Then
                 MessageBox.Show("Facility has not been approved yet. Remove facility using the ""Approve New Facilities"" tab.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            If DAL.Finance.FacilityHasFeesData(airsNumberDeleting) Then
+                MessageBox.Show("Facility has permit fees data. Unable to delete unless the fees data is removed first.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 

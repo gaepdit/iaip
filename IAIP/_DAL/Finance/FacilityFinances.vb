@@ -4,8 +4,6 @@ Imports Iaip.Apb
 Namespace DAL.Finance
     Public Module FacilityFinances
 
-        ' Read
-
         Public Function SearchFacilityAccounts(facilityID As ApbFacilityId,
                                                facilityName As String,
                                                openInvoicesOnly As Boolean,
@@ -37,6 +35,13 @@ Namespace DAL.Finance
             ds.Tables(4).TableName = "Deposits"
 
             Return ds
+        End Function
+
+        Public Function FacilityHasFeesData(facilityId As ApbFacilityId) As Boolean
+            Dim query As String = "select convert(bit, count(*))
+                from fees.VW_AffectedFacilities
+                where FacilityID = @FacilityID"
+            Return DB.GetBoolean(query, New SqlParameter("@FacilityID", facilityId.DbFormattedString))
         End Function
 
     End Module
