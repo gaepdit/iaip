@@ -1,23 +1,32 @@
 Imports System.Configuration
+Imports System.Net
 
+''' <summary>
+''' Global variables and constants
+''' </summary>
 Module Constants
 
-    ' Global variables 
-
-#Region " DB Connections "
+    ' DB connections
 
     Friend CurrentServerEnvironment As ServerEnvironment = ServerEnvironment.Production
     Friend DB As EpdIt.DBHelper
     Friend ExceptionLogger As SharpRaven.RavenClient
 
-#End Region
-
-#Region " App info "
+    ' User info
 
     Friend CurrentUser As IaipUser
+    Friend AccountFormAccess(150, 4) As String
+
+    ' Network connection
+
+    Friend InternalIPAddress As IPAddress = Nothing
+    Friend ExternalIPAddress As IPAddress = Nothing
+    Friend NetworkStatus As NetworkCheckResponse
+
+    ' App info
+
     Friend AppFirstRun As Boolean = False
     Friend AppUpdated As Boolean = False
-    Friend AccountFormAccess(150, 4) As String
     Friend IaipExiting As Boolean = False
 
     Friend Const APP_NAME As String = "IAIP"
@@ -26,16 +35,12 @@ Module Constants
     Friend Const MIN_USERNAME_LENGTH As Integer = 3
     Friend Const MIN_PASSWORD_LENGTH As Integer = 3
 
-#End Region
-
-#Region " API Keys "
+    ' API keys
 
     Friend ReadOnly SENTRY_DSN As String = ConfigurationManager.AppSettings("SENTRY_DSN")
     Friend ReadOnly GOOGLE_MAPS_API_KEY As String = ConfigurationManager.AppSettings("GOOGLE_MAPS_API_KEY")
 
-#End Region
-
-#Region " String formats "
+    ' String formats 
 
     Friend Const DateParseExactFormat As String = "yyyy-MM-dd HH:mm tt"
     Friend Const DateFormat As String = "d-MMM-yyyy"
@@ -49,17 +54,13 @@ Module Constants
         End Get
     End Property
 
-#End Region
-
-#Region " Geographic constants "
+    ' Geographic constants 
 
     Friend Const GA_STATE_CODE As String = "GA"
     Friend Const GA_STATE_NUMERIC_CODE As String = "13"
     Friend Const GA_EPA_REGION_CODE As String = "04"
 
-#End Region
-
-#Region " Business logic constants "
+    ' Business logic constants 
 
     Public Const FCE_DATA_PERIOD As Integer = 1 ' Year
     Public Const FCE_ENFORCEMENT_DATA_PERIOD As Integer = 5 ' Years
@@ -67,14 +68,10 @@ Module Constants
     Public Const MIN_FCE_SPAN_CLASS_SM As Integer = 5 ' Years
     Public Const MIN_FCE_SPAN_CLASS_M As Integer = 7 ' Years
 
-#End Region
+    ' All forms 
 
-#Region " All Forms "
     ' TODO DWW: Remove global form variables
-
     Public ClientSummary As SBEAPClientSummary
     Public CaseWork As SBEAPCaseWork
-
-#End Region
 
 End Module
