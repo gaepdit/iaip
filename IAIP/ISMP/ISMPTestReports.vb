@@ -10234,7 +10234,7 @@ Public Class ISMPTestReports
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "Query = " & If(query, "Nothing"), Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -16264,7 +16264,13 @@ Public Class ISMPTestReports
     End Sub
     Private Sub tsbTestLogLink_Click(sender As Object, e As EventArgs) Handles tsbTestLogLink.Click
         Try
-            OpenFormTestNotification(cboTestNotificationNumber.Text)
+            Dim NotificationNumber As String = ""
+            If cboTestNotificationNumber.Text.Contains(" --> ") Then
+                NotificationNumber = Mid(cboTestNotificationNumber.Text, 1, cboTestNotificationNumber.Text.IndexOf(" -->"))
+            Else
+                NotificationNumber = cboTestNotificationNumber.Text
+            End If
+            OpenFormTestNotification(NotificationNumber)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -16305,7 +16311,13 @@ Public Class ISMPTestReports
     End Sub
     Private Sub mmiOpenTestLogNotification_Click(sender As Object, e As EventArgs) Handles mmiOpenTestLogNotification.Click
         Try
-            OpenFormTestNotification(cboTestNotificationNumber.Text)
+            Dim NotificationNumber As String = ""
+            If cboTestNotificationNumber.Text.Contains(" --> ") Then
+                NotificationNumber = Mid(cboTestNotificationNumber.Text, 1, cboTestNotificationNumber.Text.IndexOf(" -->"))
+            Else
+                NotificationNumber = cboTestNotificationNumber.Text
+            End If
+            OpenFormTestNotification(NotificationNumber)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
