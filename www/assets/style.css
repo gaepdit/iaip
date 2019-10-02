@@ -502,6 +502,7 @@ a[href="setup.exe"] {
   text-decoration: none;
   text-shadow: 0px 1px 5px rgba(0,0,0,.4);
 }
+
 a[href$=".application"]:hover,
 a[href$=".application"]:focus {
   top: 1px;
@@ -511,6 +512,7 @@ a[href$=".application"]:active {
   top: 3px;
   box-shadow: 0px 1px 0px hsl(208, 40%, 70%), 0 2px hsl(208, 40%, 50%);
 }
+
 a[href="setup.exe"] {
   width: 275px;
   background-color: hsl(112, 40%, 65%);
@@ -525,6 +527,7 @@ a[href="setup.exe"]:active {
   top: 3px;
   box-shadow: 0px 1px 0px hsl(112, 30%, 75%), 0 2px hsl(112, 25%, 55%);
 }
+
 a[href="IaipHorizon.application"] {
   background-color: hsl(0, 0%, 60%);
   box-shadow: 0px 1px 0px hsl(0, 0%, 70%), 0 5px hsl(0, 0%, 40%);
@@ -537,6 +540,20 @@ a[href="IaipHorizon.application"]:focus {
 a[href="IaipHorizon.application"]:active {
   top: 3px;
   box-shadow: 0px 1px 0px hsl(0, 0%, 70%), 0 2px hsl(0, 0%, 40%);
+}
+
+a[href="IaipSEI.application"] {
+  background-color: hsl(190, 70%, 70%);
+  box-shadow: 0px 1px 0px hsl(190, 70%, 70%), 0 5px hsl(190, 60%, 50%);
+}
+a[href="IaipSEI.application"]:hover,
+a[href="IaipSEI.application"]:focus {
+  top: 1px;
+  box-shadow: 0px 1px 0px hsl(190, 70%, 70%), 0 4px hsl(190, 60%, 50%);
+}
+a[href="IaipSEI.application"]:active {
+  top: 3px;
+  box-shadow: 0px 1px 0px hsl(190, 70%, 70%), 0 2px hsl(190, 60%, 50%);
 }
 
 /* 
