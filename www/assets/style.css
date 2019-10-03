@@ -543,17 +543,17 @@ a[href="IaipHorizon.application"]:active {
 }
 
 a[href="IaipSEI.application"] {
-  background-color: hsl(190, 70%, 70%);
-  box-shadow: 0px 1px 0px hsl(190, 70%, 70%), 0 5px hsl(190, 60%, 50%);
+  background-color: hsl(190, 72%, 68%);
+  box-shadow: 0px 1px 0px hsl(190, 72%, 68%), 0 5px hsl(190, 60%, 50%);
 }
 a[href="IaipSEI.application"]:hover,
 a[href="IaipSEI.application"]:focus {
   top: 1px;
-  box-shadow: 0px 1px 0px hsl(190, 70%, 70%), 0 4px hsl(190, 60%, 50%);
+  box-shadow: 0px 1px 0px hsl(190, 72%, 68%), 0 4px hsl(190, 60%, 50%);
 }
 a[href="IaipSEI.application"]:active {
   top: 3px;
-  box-shadow: 0px 1px 0px hsl(190, 70%, 70%), 0 2px hsl(190, 60%, 50%);
+  box-shadow: 0px 1px 0px hsl(190, 72%, 68%), 0 2px hsl(190, 60%, 50%);
 }
 
 /* 
