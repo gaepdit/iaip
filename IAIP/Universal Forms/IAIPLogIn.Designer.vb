@@ -56,6 +56,11 @@ Partial Class IAIPLogIn
         Me.chkRemember = New System.Windows.Forms.CheckBox()
         Me.lblIAIP = New System.Windows.Forms.Label()
         Me.lnkChangelog = New System.Windows.Forms.LinkLabel()
+        Me.DbDev = New System.Windows.Forms.RadioButton()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.DbUat = New System.Windows.Forms.RadioButton()
+        Me.DbProd = New System.Windows.Forms.RadioButton()
+        Me.DbDR = New System.Windows.Forms.RadioButton()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -358,12 +363,68 @@ Partial Class IAIPLogIn
         Me.lnkChangelog.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.lnkChangelog.Visible = False
         '
+        'DbDev
+        '
+        Me.DbDev.AutoSize = True
+        Me.DbDev.Checked = True
+        Me.DbDev.Location = New System.Drawing.Point(602, 249)
+        Me.DbDev.Name = "DbDev"
+        Me.DbDev.Size = New System.Drawing.Size(45, 17)
+        Me.DbDev.TabIndex = 39
+        Me.DbDev.TabStop = True
+        Me.DbDev.Text = "Dev"
+        Me.DbDev.UseVisualStyleBackColor = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(599, 233)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(112, 13)
+        Me.Label1.TabIndex = 40
+        Me.Label1.Text = "Database connection:"
+        '
+        'DbUat
+        '
+        Me.DbUat.AutoSize = True
+        Me.DbUat.Location = New System.Drawing.Point(602, 270)
+        Me.DbUat.Name = "DbUat"
+        Me.DbUat.Size = New System.Drawing.Size(47, 17)
+        Me.DbUat.TabIndex = 39
+        Me.DbUat.Text = "UAT"
+        Me.DbUat.UseVisualStyleBackColor = True
+        '
+        'DbProd
+        '
+        Me.DbProd.AutoSize = True
+        Me.DbProd.Location = New System.Drawing.Point(655, 249)
+        Me.DbProd.Name = "DbProd"
+        Me.DbProd.Size = New System.Drawing.Size(76, 17)
+        Me.DbProd.TabIndex = 39
+        Me.DbProd.Text = "Production"
+        Me.DbProd.UseVisualStyleBackColor = True
+        '
+        'DbDR
+        '
+        Me.DbDR.AutoSize = True
+        Me.DbDR.Location = New System.Drawing.Point(655, 270)
+        Me.DbDR.Name = "DbDR"
+        Me.DbDR.Size = New System.Drawing.Size(112, 17)
+        Me.DbDR.TabIndex = 39
+        Me.DbDR.Text = "Disaster Recovery"
+        Me.DbDR.UseVisualStyleBackColor = True
+        '
         'IAIPLogIn
         '
         Me.AcceptButton = Me.btnLoginButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(756, 418)
+        Me.ClientSize = New System.Drawing.Size(840, 418)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.DbDR)
+        Me.Controls.Add(Me.DbUat)
+        Me.Controls.Add(Me.DbProd)
+        Me.Controls.Add(Me.DbDev)
         Me.Controls.Add(Me.lnkChangelog)
         Me.Controls.Add(Me.chkRemember)
         Me.Controls.Add(Me.RetryButton)
@@ -432,4 +493,9 @@ Partial Class IAIPLogIn
     Friend WithEvents chkRemember As CheckBox
     Friend WithEvents lblIAIP As Label
     Friend WithEvents lnkChangelog As LinkLabel
+    Friend WithEvents DbDev As RadioButton
+    Friend WithEvents Label1 As Label
+    Friend WithEvents DbUat As RadioButton
+    Friend WithEvents DbProd As RadioButton
+    Friend WithEvents DbDR As RadioButton
 End Class

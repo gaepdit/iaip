@@ -9,6 +9,7 @@ Module DbConnections
         Production
         Staging
         Development
+        DisasterRecovery
     End Enum
 
     ''' <summary>

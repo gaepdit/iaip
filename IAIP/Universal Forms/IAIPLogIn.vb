@@ -1,4 +1,5 @@
-﻿Imports System.Threading
+﻿Imports System.Configuration
+Imports System.Threading
 Imports System.Threading.Tasks
 
 Public Class IAIPLogIn
@@ -423,6 +424,7 @@ Public Class IAIPLogIn
         lblIAIP.Text = "IAIP User Acceptance Testing (UAT)"
 #End If
 
+        lblIAIP.Text = "IAIP SEI Test"
     End Sub
 
 #End Region
@@ -520,5 +522,48 @@ Public Class IAIPLogIn
     End Sub
 
 #End Region
+
+    Private Sub DbDev_CheckedChanged(sender As Object, e As EventArgs) Handles DbDev.CheckedChanged
+        If DbDev.Checked Then
+            SetDbConnection(DbSeiServers.SEI_Dev)
+            CurrentServerEnvironment = ServerEnvironment.Development
+        End If
+    End Sub
+
+    Private Sub DbUat_CheckedChanged(sender As Object, e As EventArgs) Handles DbUat.CheckedChanged
+        If DbUat.Checked Then
+            SetDbConnection(DbSeiServers.SEI_UAT)
+            CurrentServerEnvironment = ServerEnvironment.Staging
+        End If
+    End Sub
+
+    Private Sub DbProd_CheckedChanged(sender As Object, e As EventArgs) Handles DbProd.CheckedChanged
+        If DbProd.Checked Then
+            SetDbConnection(DbSeiServers.SEI_Prod)
+            CurrentServerEnvironment = ServerEnvironment.Production
+        End If
+    End Sub
+
+    Private Sub DbDR_CheckedChanged(sender As Object, e As EventArgs) Handles DbDR.CheckedChanged
+        If DbDR.Checked Then
+            SetDbConnection(DbSeiServers.SEI_DR)
+            CurrentServerEnvironment = ServerEnvironment.DisasterRecovery
+        End If
+    End Sub
+
+    Private Sub SetDbConnection(server As DbSeiServers)
+        Dim cs As ConnectionStringSettings = ConfigurationManager.ConnectionStrings(server.ToString)
+
+        If cs IsNot Nothing Then
+            DB = New EpdIt.DBHelper(cs.ConnectionString)
+        End If
+    End Sub
+
+    Private Enum DbSeiServers
+        SEI_Dev
+        SEI_UAT
+        SEI_Prod
+        SEI_DR
+    End Enum
 
 End Class

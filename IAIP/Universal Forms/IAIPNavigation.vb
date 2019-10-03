@@ -104,18 +104,23 @@ Public Class IAIPNavigation
                 pnlDbEnv.Text = "DEV database"
                 pnlDbEnv.BackColor = Color.Tomato
                 pnlDbEnv.Visible = True
-                lblTitle.Text = "IAIP Navigation Screen — DEV"
+                lblTitle.Text = "IAIP SEI Test — Dev"
                 TestingMenu.Visible = True
             Case ServerEnvironment.Production
                 pnlDbEnv.Text = "PRD"
                 pnlDbEnv.Visible = False
-                TestingMenu.Visible = False
+                lblTitle.Text = "IAIP SEI Test — Prod"
             Case ServerEnvironment.Staging
                 pnlDbEnv.Text = "UAT database"
                 pnlDbEnv.BackColor = Color.SpringGreen
                 pnlDbEnv.Visible = True
-                lblTitle.Text = "IAIP Navigation Screen — UAT"
-                'TestingMenu.Visible = True
+                lblTitle.Text = "IAIP SEI Test — UAT"
+            Case ServerEnvironment.DisasterRecovery
+                pnlDbEnv.Text = "DR database"
+                pnlDbEnv.BackColor = Color.Yellow
+                pnlDbEnv.Visible = True
+                lblTitle.Text = "IAIP SEI Test — Disaster Recovery Test"
+
         End Select
 
 #If SqlServer Then
