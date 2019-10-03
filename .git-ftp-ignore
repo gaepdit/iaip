@@ -1,1 +1,4 @@
 *.md
+setup.exe
+*.application
+Application\ Files/
