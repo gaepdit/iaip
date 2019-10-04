@@ -7,7 +7,6 @@ Public Class IAIPLogIn
 
     Private ReadOnly synchronizationContext As WindowsFormsSynchronizationContext
     Private _message As IaipMessage
-    Private networkStatus As NetworkCheckResponse
 
     Private Property Message As IaipMessage
         Get
@@ -65,11 +64,11 @@ Public Class IAIPLogIn
 
     Private Async Sub CheckConnectionStatusAsync()
         Dim status As ConnectionStatus = ConnectionStatus.None
-        networkStatus = Await CheckNetworkAsync().ConfigureAwait(False)
+        NetworkStatus = Await CheckNetworkAsync().ConfigureAwait(False)
 
-        If networkStatus = NetworkCheckResponse.NoNetwork Then
+        If NetworkStatus = NetworkCheckResponse.NoNetwork Then
             status = ConnectionStatus.NoNetwork
-        ElseIf networkStatus = NetworkCheckResponse.OutOfNetwork Then
+        ElseIf NetworkStatus = NetworkCheckResponse.OutOfNetwork Then
             status = ConnectionStatus.NoVpn
         ElseIf Not Await CheckDBAvailabilityAsync().ConfigureAwait(False) Then
             status = ConnectionStatus.NoDB
@@ -99,7 +98,7 @@ Public Class IAIPLogIn
                              "Please wait a few minutes and try again. " &
                              "If still unable to connect, please contact EPD-IT for support. ")
             Case ConnectionStatus.SessionLogin
-                LogInAlready(networkStatus)
+                LogInAlready(NetworkStatus)
             Case ConnectionStatus.None
                 EnableLogin()
         End Select
@@ -249,7 +248,7 @@ Public Class IAIPLogIn
                         CancelLogin(False)
                     Else
                         UpdateSession(chkRemember.Checked)
-                        LogInAlready(networkStatus)
+                        LogInAlready(NetworkStatus)
                     End If
 
             End Select
@@ -260,6 +259,15 @@ Public Class IAIPLogIn
         ' Tag exception logger with new user
         ExceptionLogger.Tags.Add("IaipUser", CurrentUser.Username)
         ExceptionLogger.Tags.Add("IaipUserID", CurrentUser.UserID.ToString)
+        If Not ExceptionLogger.Tags.ContainsKey("ExternalIPAddress") Then
+            ExceptionLogger.Tags.Add("ExternalIPAddress", ExternalIPAddress?.ToString())
+        End If
+        If Not ExceptionLogger.Tags.ContainsKey("InternalIPAddress") Then
+            ExceptionLogger.Tags.Add("InternalIPAddress", InternalIPAddress?.ToString())
+        End If
+        If Not ExceptionLogger.Tags.ContainsKey("InitialNetworkStatus") Then
+            ExceptionLogger.Tags.Add("InitialNetworkStatus", networkStatus.GetDescription())
+        End If
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
         OpenSingleForm(IAIPNavigation)

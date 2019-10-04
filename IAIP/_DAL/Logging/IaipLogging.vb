@@ -25,7 +25,8 @@ Namespace DAL
 
         Public Function LogSystemProperties(networkStatus As NetworkCheckResponse) As Boolean
             Try
-                Dim query As String = "insert into IAIP_SystemLog (UserId, DotNetVersion, OSVersion, NetworkStatus) values (@UserId, @DotNetVersion, @OSVersion, @NetworkStatus)"
+                Dim query As String = "insert into IAIP_SystemLog (UserId, DotNetVersion, OSVersion, NetworkStatus) 
+                    values (@UserId, @DotNetVersion, @OSVersion, @NetworkStatus)"
 
                 Dim status As String = "Error"
 

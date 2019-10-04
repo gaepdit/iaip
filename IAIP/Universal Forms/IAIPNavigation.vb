@@ -936,16 +936,16 @@ Public Class IAIPNavigation
 
 #Region " Testing Menu click events "
 
-    Private Sub RunTest_Click(sender As Object, e As EventArgs) Handles RunTest.Click
+    Private Sub HandledExceptionTest(sender As Object, e As EventArgs) Handles RunTest.Click
         Try
-            Throw New Exception("Handled exception testing")
+            Throw New Exception("NavScreen handled exception testing")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub RunTest2_Click(sender As Object, e As EventArgs) Handles RunTest2.Click
-        Throw New Exception("Unhandled exception testing")
+    Private Sub UnhandledExceptionTest(sender As Object, e As EventArgs) Handles RunTest2.Click
+        Throw New Exception("NavScreen unhandled exception testing")
     End Sub
 
 #End Region

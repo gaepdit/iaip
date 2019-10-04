@@ -9269,7 +9269,51 @@ Public Class ISMPTestReports
         End If
     End Sub
 
-    Private Sub SaveStackTest()
+    Private Sub SaveEverything()
+        If cboTestNotificationNumber.Text <> " " And cboTestNotificationNumber.Text <> "" Then
+            Dim qTest As String = "select convert(bit, count(*))
+                from ISMPTESTNOTIFICATION
+                where STRTESTLOGNUMBER = @nTest"
+            Dim nTest As String
+
+            If cboTestNotificationNumber.Text.Contains(" --> ") Then
+                nTest = Mid(cboTestNotificationNumber.Text, 1, cboTestNotificationNumber.Text.IndexOf(" -->"))
+            Else
+                nTest = cboTestNotificationNumber.Text
+            End If
+
+            If Not DB.GetBoolean(qTest, New SqlParameter("@nTest", nTest)) Then
+                SCTestReports.SanelySetSplitterDistance(385)
+                cboTestNotificationNumber.Select(0, cboTestNotificationNumber.Text.Length)
+                MessageBox.Show("The test notification number entered is not valid. Changes were not saved.", "Error", MessageBoxButtons.OK)
+                Exit Sub
+            End If
+        End If
+
+        Try
+            If AccountFormAccess(69, 3) = "1" Then
+                If cboTestNotificationNumber.Text = "" Or cboTestNotificationNumber.Text = " " Then
+                    MsgBox("WARNING" & vbCrLf & "Please associate a test notification number to this Test Report before you close out the report.",
+                       MsgBoxStyle.Exclamation, "Test Report")
+                End If
+
+                If SaveStackTest() Then
+                    MsgBox("Save Complete", MsgBoxStyle.Information, "Performance Test Report")
+                End If
+            End If
+
+            If AccountFormAccess(69, 4) = "1" Then
+                If SaveSSCPWork() Then
+                    MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
+                End If
+            End If
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Function SaveStackTest() As Boolean
         Try
             Dim Pollutant As String = "00001"
             Dim EmissionSource As String = "N/A'"
@@ -10233,12 +10277,14 @@ Public Class ISMPTestReports
                 End If
             End If
 
+            Return True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            ErrorReport(ex, "Query = " & If(query, "Nothing"), Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
-    End Sub
-    Private Sub SaveSSCPWork()
+    End Function
+
+    Private Function SaveSSCPWork() As Boolean
         Try
             Dim StaffResponsible As Integer = CurrentUser.UserID
             Dim CompleteDate As Date? = Today
@@ -10411,13 +10457,13 @@ Public Class ISMPTestReports
                 End If
             End If
 
-            MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
-
+            Return True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            Return False
         End Try
-    End Sub
+    End Function
+
     Private Sub SaveOneStack(Runs As String)
         Try
             Dim MaxOpCapacity As String = " "
@@ -16162,24 +16208,7 @@ Public Class ISMPTestReports
 #Region "Tool Strip Buttons"
 
     Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
-        Try
-            If AccountFormAccess(69, 3) = "1" Then
-                SaveStackTest()
-                If cboTestNotificationNumber.Text = "" Or cboTestNotificationNumber.Text = " " Then
-                    MsgBox("WARNING" & vbCrLf & "Please associate a test notification number to this Test Report before you close out the report.",
-                       MsgBoxStyle.Exclamation, "Test Report")
-                End If
-                MsgBox("Save Complete", MsgBoxStyle.Information, "Performance Test Report")
-            End If
-
-            If AccountFormAccess(69, 4) = "1" Then
-                SaveSSCPWork()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        SaveEverything()
     End Sub
     Private Sub tsbSearch_Click(sender As Object, e As EventArgs) Handles tsbSearch.Click
         Try
@@ -16264,7 +16293,13 @@ Public Class ISMPTestReports
     End Sub
     Private Sub tsbTestLogLink_Click(sender As Object, e As EventArgs) Handles tsbTestLogLink.Click
         Try
-            OpenFormTestNotification(cboTestNotificationNumber.Text)
+            Dim NotificationNumber As String = ""
+            If cboTestNotificationNumber.Text.Contains(" --> ") Then
+                NotificationNumber = Mid(cboTestNotificationNumber.Text, 1, cboTestNotificationNumber.Text.IndexOf(" -->"))
+            Else
+                NotificationNumber = cboTestNotificationNumber.Text
+            End If
+            OpenFormTestNotification(NotificationNumber)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -16284,28 +16319,17 @@ Public Class ISMPTestReports
 #Region "Main Menu"
 
     Private Sub mmiSave_Click(sender As Object, e As EventArgs) Handles mmiSave.Click
-        Try
-            If AccountFormAccess(69, 3) = "1" Then
-                SaveStackTest()
-                If cboTestNotificationNumber.Text = "" Or cboTestNotificationNumber.Text = " " Then
-                    MsgBox("WARNING" & vbCrLf & "Please associate a test notification number to this Test Report before you close out the report.",
-                       MsgBoxStyle.Exclamation, "Test Report")
-                End If
-                MsgBox("Save Complete", MsgBoxStyle.Information, "Performance Test Report")
-            End If
-
-            If AccountFormAccess(69, 4) = "1" Then
-                SaveSSCPWork()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        SaveEverything()
     End Sub
     Private Sub mmiOpenTestLogNotification_Click(sender As Object, e As EventArgs) Handles mmiOpenTestLogNotification.Click
         Try
-            OpenFormTestNotification(cboTestNotificationNumber.Text)
+            Dim NotificationNumber As String = ""
+            If cboTestNotificationNumber.Text.Contains(" --> ") Then
+                NotificationNumber = Mid(cboTestNotificationNumber.Text, 1, cboTestNotificationNumber.Text.IndexOf(" -->"))
+            Else
+                NotificationNumber = cboTestNotificationNumber.Text
+            End If
+            OpenFormTestNotification(NotificationNumber)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
