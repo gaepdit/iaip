@@ -8,6 +8,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.14.5 <span>(2019-10-4)</span>
+
+Minor bug fixes.
+
 ## Version 5.14.4 <span>(2019-8-21)</span>
 
 Fixed a bug in the user management screen that made it hard to tell if a user
