@@ -173,7 +173,7 @@ Partial Class IAIPLogIn
         Me.btnLoginButton.Margin = New System.Windows.Forms.Padding(2)
         Me.btnLoginButton.Name = "btnLoginButton"
         Me.btnLoginButton.Size = New System.Drawing.Size(175, 38)
-        Me.btnLoginButton.TabIndex = 3
+        Me.btnLoginButton.TabIndex = 7
         Me.btnLoginButton.Text = "Log In"
         Me.btnLoginButton.UseVisualStyleBackColor = False
         '
@@ -299,7 +299,7 @@ Partial Class IAIPLogIn
         Me.ForgotUsernameLink.Location = New System.Drawing.Point(598, 146)
         Me.ForgotUsernameLink.Name = "ForgotUsernameLink"
         Me.ForgotUsernameLink.Size = New System.Drawing.Size(143, 20)
-        Me.ForgotUsernameLink.TabIndex = 5
+        Me.ForgotUsernameLink.TabIndex = 9
         Me.ForgotUsernameLink.TabStop = True
         Me.ForgotUsernameLink.Text = "Forgot Username?"
         Me.ForgotUsernameLink.Visible = False
@@ -312,7 +312,7 @@ Partial Class IAIPLogIn
         Me.ForgotPasswordLink.Location = New System.Drawing.Point(598, 185)
         Me.ForgotPasswordLink.Name = "ForgotPasswordLink"
         Me.ForgotPasswordLink.Size = New System.Drawing.Size(138, 20)
-        Me.ForgotPasswordLink.TabIndex = 6
+        Me.ForgotPasswordLink.TabIndex = 10
         Me.ForgotPasswordLink.TabStop = True
         Me.ForgotPasswordLink.Text = "Forgot Password?"
         Me.ForgotPasswordLink.Visible = False
@@ -323,7 +323,7 @@ Partial Class IAIPLogIn
         Me.RetryButton.Location = New System.Drawing.Point(332, 365)
         Me.RetryButton.Name = "RetryButton"
         Me.RetryButton.Size = New System.Drawing.Size(107, 31)
-        Me.RetryButton.TabIndex = 4
+        Me.RetryButton.TabIndex = 8
         Me.RetryButton.Text = "Try again"
         Me.RetryButton.UseVisualStyleBackColor = True
         Me.RetryButton.Visible = False
@@ -357,7 +357,7 @@ Partial Class IAIPLogIn
         Me.lnkChangelog.Location = New System.Drawing.Point(29, 389)
         Me.lnkChangelog.Name = "lnkChangelog"
         Me.lnkChangelog.Size = New System.Drawing.Size(256, 20)
-        Me.lnkChangelog.TabIndex = 7
+        Me.lnkChangelog.TabIndex = 11
         Me.lnkChangelog.TabStop = True
         Me.lnkChangelog.Text = "Change Log"
         Me.lnkChangelog.TextAlign = System.Drawing.ContentAlignment.TopCenter
@@ -370,7 +370,7 @@ Partial Class IAIPLogIn
         Me.DbDev.Location = New System.Drawing.Point(602, 249)
         Me.DbDev.Name = "DbDev"
         Me.DbDev.Size = New System.Drawing.Size(45, 17)
-        Me.DbDev.TabIndex = 39
+        Me.DbDev.TabIndex = 3
         Me.DbDev.TabStop = True
         Me.DbDev.Text = "Dev"
         Me.DbDev.UseVisualStyleBackColor = True
@@ -390,7 +390,7 @@ Partial Class IAIPLogIn
         Me.DbUat.Location = New System.Drawing.Point(602, 270)
         Me.DbUat.Name = "DbUat"
         Me.DbUat.Size = New System.Drawing.Size(47, 17)
-        Me.DbUat.TabIndex = 39
+        Me.DbUat.TabIndex = 4
         Me.DbUat.Text = "UAT"
         Me.DbUat.UseVisualStyleBackColor = True
         '
@@ -400,7 +400,7 @@ Partial Class IAIPLogIn
         Me.DbProd.Location = New System.Drawing.Point(655, 249)
         Me.DbProd.Name = "DbProd"
         Me.DbProd.Size = New System.Drawing.Size(76, 17)
-        Me.DbProd.TabIndex = 39
+        Me.DbProd.TabIndex = 5
         Me.DbProd.Text = "Production"
         Me.DbProd.UseVisualStyleBackColor = True
         '
@@ -410,7 +410,7 @@ Partial Class IAIPLogIn
         Me.DbDR.Location = New System.Drawing.Point(655, 270)
         Me.DbDR.Name = "DbDR"
         Me.DbDR.Size = New System.Drawing.Size(112, 17)
-        Me.DbDR.TabIndex = 39
+        Me.DbDR.TabIndex = 6
         Me.DbDR.Text = "Disaster Recovery"
         Me.DbDR.UseVisualStyleBackColor = True
         '

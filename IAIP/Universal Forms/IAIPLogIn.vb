@@ -425,6 +425,7 @@ Public Class IAIPLogIn
 #End If
 
         lblIAIP.Text = "IAIP SEI Test"
+        btnLoginButton.Text = "Log in to SEI DEV"
     End Sub
 
 #End Region
@@ -527,6 +528,7 @@ Public Class IAIPLogIn
         If DbDev.Checked Then
             SetDbConnection(DbSeiServers.SEI_Dev)
             CurrentServerEnvironment = ServerEnvironment.Development
+            btnLoginButton.Text = "Log in to SEI DEV"
         End If
     End Sub
 
@@ -534,6 +536,7 @@ Public Class IAIPLogIn
         If DbUat.Checked Then
             SetDbConnection(DbSeiServers.SEI_UAT)
             CurrentServerEnvironment = ServerEnvironment.Staging
+            btnLoginButton.Text = "Log in to SEI UAT"
         End If
     End Sub
 
@@ -541,6 +544,7 @@ Public Class IAIPLogIn
         If DbProd.Checked Then
             SetDbConnection(DbSeiServers.SEI_Prod)
             CurrentServerEnvironment = ServerEnvironment.Production
+            btnLoginButton.Text = "Log in to SEI Prod"
         End If
     End Sub
 
@@ -548,6 +552,7 @@ Public Class IAIPLogIn
         If DbDR.Checked Then
             SetDbConnection(DbSeiServers.SEI_DR)
             CurrentServerEnvironment = ServerEnvironment.DisasterRecovery
+            btnLoginButton.Text = "Log in to SEI DR"
         End If
     End Sub
 
