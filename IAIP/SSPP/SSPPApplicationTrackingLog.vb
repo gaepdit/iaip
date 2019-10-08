@@ -7848,7 +7848,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub SetUpPublicAppViewLink()
         lklOpenAppOnline.Visible = True
-        ToolTip1.SetToolTip(lklOpenAppOnline, GetPermitApplicationUrl(AppNumber))
+        ToolTip1.SetToolTip(lklOpenAppOnline, GetPermitApplicationLinkAddress(AppNumber))
     End Sub
 
     Private Sub btnRefreshAIRSNo_Click(sender As Object, e As EventArgs) Handles btnRefreshAIRSNo.Click
@@ -14702,9 +14702,9 @@ Public Class SSPPApplicationTrackingLog
         End If
 
         body.Append("The applicant must complete the submittal process by paying the above referenced fee. ")
-        body.AppendFormat("A printable fee invoice is accessible through GECO at {0} ", GetPermitApplicationUrl(AppNumber))
+        body.AppendFormat("A printable fee invoice is accessible through GECO at {0} ", GetPermitApplicationLinkAddress(AppNumber))
         body.AppendLine()
-        body.AppendFormat("If you do not have a GECO account, visit {0} and create a new account. ", GetGecoUrl())
+        body.AppendFormat("If you do not have a GECO account, visit {0} and create a new account. ", GecoUrl.ToString)
         body.Append("You can then request access to this facility for emission fees using the tools in GECO.")
         body.AppendLine()
         body.Append("The fee must be submitted within 10 business days of the date of this email. Permitting actions will not be finalized ")
