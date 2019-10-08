@@ -4,7 +4,6 @@
 ' Project-level suppressions either have no target or are given 
 ' a specific target and scoped to a namespace, type, member, etc.
 
-<Assembly: CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification:="IAIP was designed around this pattern.")>
 <Assembly: CodeAnalysis.SuppressMessage("Usage", "CA1801:Review unused parameters", Justification:="Parameter used in Release, but not Debug build", Scope:="member", Target:="~M:Iaip.ErrorReporting.ErrorReport(System.Exception,System.String,System.String,System.Boolean)")>
 <Assembly: CodeAnalysis.SuppressMessage("Usage", "CA1801:Review unused parameters", Justification:="Parameter used in Release, but not Debug build", Scope:="member", Target:="~M:Iaip.IaipExceptionManager.HandleException(System.Exception,System.String)")>
 <Assembly: CodeAnalysis.SuppressMessage("Performance", "CA1814:Prefer jagged arrays over multidimensional", Justification:="This multidimensional array is integral to the design of the IAIP.", Scope:="member", Target:="~F:Iaip.Constants.AccountFormAccess")>
