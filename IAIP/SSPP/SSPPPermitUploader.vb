@@ -3132,150 +3132,136 @@ Public Class SSPPPermitUploader
     Private Sub DownloadFile(FileName As String, FileType As String)
         Try
             Dim PermitNumber As String = ""
-            Dim path As New SaveFileDialog
-            Dim DestFilePath As String = "N/A"
-            Dim SQL As String
 
-            If FileType <> "00" Then
-                SQL = "select " &
-                "strPermitNumber,  " &
-                "concat(SUBSTRING(strPermitNumber,1, 4) ,'-',SUBSTRING(strPermitNumber, 5,3) " &
-                "   ,'-',SUBSTRING(strPermitNumber, 8,4),'-',SUBSTRING(strPermitNumber, 12, 1)  " &
-                "   ,'-',SUBSTRING(strPermitNumber, 13, 2) ,'-',SUBSTRING(strPermitNumber, 15,1)) as PermitNumber " &
-                "from SSPPApplicationData  " &
-                "where strApplicationNumber like @appnum "
+            Using path As New SaveFileDialog
+                Dim DestFilePath As String = "N/A"
+                Dim SQL As String
 
-                Dim p As New SqlParameter("@appnum", MasterApp)
+                If FileType <> "00" Then
+                    SQL = "select " &
+                    "strPermitNumber,  " &
+                    "concat(SUBSTRING(strPermitNumber,1, 4) ,'-',SUBSTRING(strPermitNumber, 5,3) " &
+                    "   ,'-',SUBSTRING(strPermitNumber, 8,4),'-',SUBSTRING(strPermitNumber, 12, 1)  " &
+                    "   ,'-',SUBSTRING(strPermitNumber, 13, 2) ,'-',SUBSTRING(strPermitNumber, 15,1)) as PermitNumber " &
+                    "from SSPPApplicationData  " &
+                    "where strApplicationNumber like @appnum "
 
-                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+                    Dim p As New SqlParameter("@appnum", MasterApp)
 
-                If dr IsNot Nothing Then
-                    PermitNumber = dr.Item("PermitNumber")
-                Else
-                    PermitNumber = Mid(FileName, 3)
+                    Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                    If dr IsNot Nothing Then
+                        PermitNumber = dr.Item("PermitNumber")
+                    Else
+                        PermitNumber = Mid(FileName, 3)
+                    End If
+
+                    Select Case FileType
+                        Case "10"
+                            path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
+                            path.FileName = PermitNumber
+                            path.Filter = "Microsoft Office Work file (*.doc)|.doc"
+                            path.FilterIndex = 1
+                            path.DefaultExt = ".doc"
+
+                            If path.ShowDialog() = DialogResult.OK Then
+                                DestFilePath = path.FileName.ToString
+
+                                If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                                    SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
+                                End If
+
+                                SQL = "select " &
+                                    "DocPermitData " &
+                                    "from APBPermits " &
+                                    "where strFileName = @filename "
+
+                                Dim p2 As New SqlParameter("@filename", FileName)
+
+                                SaveBinaryFileFromDB(DestFilePath, SQL, p2)
+                            End If
+
+                        Case "01"
+                            path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
+                            path.FileName = PermitNumber
+                            path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
+                            path.FilterIndex = 1
+                            path.DefaultExt = ".pdf"
+
+                            If path.ShowDialog() = DialogResult.OK Then
+                                DestFilePath = path.FileName.ToString
+
+                                If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                                    SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
+                                End If
+
+                                SQL = "select " &
+                                    "pdfPermitData " &
+                                    "from APBPermits " &
+                                    "where strFileName = @filename "
+
+                                Dim p2 As New SqlParameter("@filename", FileName)
+
+                                SaveBinaryFileFromDB(DestFilePath, SQL, p2)
+                            End If
+
+                        Case "11"
+                            path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
+                            path.FileName = PermitNumber
+                            path.Filter = "Microsoft Office Work file (*.doc)|.doc"
+                            path.FilterIndex = 1
+                            path.DefaultExt = ".doc"
+
+                            If path.ShowDialog() = DialogResult.OK Then
+                                DestFilePath = path.FileName.ToString
+
+                                If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                                    SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
+                                End If
+
+                                SQL = "select " &
+                                    "DocPermitData " &
+                                    "from APBPermits " &
+                                    "where strFileName = @filename "
+
+                                Dim p2 As New SqlParameter("@filename", FileName)
+
+                                SaveBinaryFileFromDB(DestFilePath, SQL, p2)
+                            End If
+
+                            path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
+                            path.FileName = PermitNumber
+                            path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
+                            path.FilterIndex = 1
+                            path.DefaultExt = ".pdf"
+
+                            If path.ShowDialog() = DialogResult.OK Then
+                                DestFilePath = path.FileName.ToString
+
+                                If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                                    SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
+                                End If
+
+                                SQL = "select " &
+                                    "pdfPermitData " &
+                                    "from APBPermits " &
+                                    "where strFileName = @filename "
+
+                                Dim p2 As New SqlParameter("@filename", FileName)
+
+                                SaveBinaryFileFromDB(DestFilePath, SQL, p2)
+                            End If
+                        Case Else
+                    End Select
+
+                    If DestFilePath <> "N/A" Then
+                        Process.Start(DestFilePath)
+                    End If
                 End If
-
-                Select Case FileType
-                    Case "10"
-                        path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
-                        path.FileName = PermitNumber
-                        path.Filter = "Microsoft Office Work file (*.doc)|.doc"
-                        path.FilterIndex = 1
-                        path.DefaultExt = ".doc"
-
-                        If path.ShowDialog = DialogResult.OK Then
-                            DestFilePath = path.FileName.ToString
-
-                            If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
-                                SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
-                            End If
-                        Else
-                            DestFilePath = "N/A"
-                        End If
-
-                        If DestFilePath <> "N/A" Then
-                            SQL = "select " &
-                            "DocPermitData " &
-                            "from APBPermits " &
-                            "where strFileName = @filename "
-
-                            Dim p2 As New SqlParameter("@filename", FileName)
-
-                            SaveBinaryFileFromDB(DestFilePath, SQL, p2)
-                        End If
-                    Case "01"
-                        path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
-                        path.FileName = PermitNumber
-                        path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
-                        path.FilterIndex = 1
-                        path.DefaultExt = ".pdf"
-
-                        If path.ShowDialog = DialogResult.OK Then
-                            DestFilePath = path.FileName.ToString
-
-                            If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
-                                SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
-                            End If
-                        Else
-                            DestFilePath = "N/A"
-                        End If
-
-                        If DestFilePath <> "N/A" Then
-                            SQL = "select " &
-                            "pdfPermitData " &
-                            "from APBPermits " &
-                            "where strFileName = @filename "
-
-                            Dim p2 As New SqlParameter("@filename", FileName)
-
-                            SaveBinaryFileFromDB(DestFilePath, SQL, p2)
-                        End If
-                    Case "11"
-                        path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
-                        path.FileName = PermitNumber
-                        path.Filter = "Microsoft Office Work file (*.doc)|.doc"
-                        path.FilterIndex = 1
-                        path.DefaultExt = ".doc"
-
-                        If path.ShowDialog = DialogResult.OK Then
-                            DestFilePath = path.FileName.ToString
-
-                            If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
-                                SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
-                            End If
-                        Else
-                            DestFilePath = "N/A"
-                        End If
-
-                        If DestFilePath <> "N/A" Then
-                            SQL = "select " &
-                            "DocPermitData " &
-                            "from APBPermits " &
-                            "where strFileName = @filename "
-
-                            Dim p2 As New SqlParameter("@filename", FileName)
-
-                            SaveBinaryFileFromDB(DestFilePath, SQL, p2)
-                        End If
-
-                        path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
-                        path.FileName = PermitNumber
-                        path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
-                        path.FilterIndex = 1
-                        path.DefaultExt = ".pdf"
-
-                        If path.ShowDialog = DialogResult.OK Then
-                            DestFilePath = path.FileName.ToString
-
-                            If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
-                                SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
-                            End If
-                        Else
-                            DestFilePath = "N/A"
-                        End If
-
-                        If DestFilePath <> "N/A" Then
-                            SQL = "select " &
-                            "pdfPermitData " &
-                            "from APBPermits " &
-                            "where strFileName = @filename "
-
-                            Dim p2 As New SqlParameter("@filename", FileName)
-
-                            SaveBinaryFileFromDB(DestFilePath, SQL, p2)
-                        End If
-                    Case Else
-                End Select
-
-                If DestFilePath <> "N/A" Then
-                    Process.Start(DestFilePath)
-                End If
-            End If
+            End Using
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 

@@ -3201,8 +3201,6 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            Dim dgvRow As New DataGridViewRow
-
             Dim SQL As String = "select
                         FSLK_NSPSReason.NSPSREasonCode,
                         Description
@@ -3219,13 +3217,15 @@ Public Class PASPFeeAuditLog
             dgvEditExemptions.Rows.Clear()
 
             For Each dr As DataRow In dt.Rows
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEditExemptions)
-                dgvRow.Cells(0).Value = 0
-                dgvRow.Cells(1).Value = dr.Item("NSPSReasonCode")
-                dgvRow.Cells(2).Value = dr.Item("description")
-                dgvEditExemptions.Rows.Add(dgvRow)
+                Using dgvRow As New DataGridViewRow
+                    dgvRow.CreateCells(dgvEditExemptions)
+                    dgvRow.Cells(0).Value = 0
+                    dgvRow.Cells(1).Value = dr.Item("NSPSReasonCode")
+                    dgvRow.Cells(2).Value = dr.Item("description")
+                    dgvEditExemptions.Rows.Add(dgvRow)
+                End Using
             Next
+
             dgvEditExemptions.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3513,7 +3513,7 @@ Public Class PASPFeeAuditLog
             crFeeStatsAndInvoices.ReportSource = rpt
             crFeeStatsAndInvoices.Refresh()
 
-            DAL.LogCrystalReportsUsage(rpt) 
+            DAL.LogCrystalReportsUsage(rpt)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

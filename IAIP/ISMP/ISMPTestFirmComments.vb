@@ -483,13 +483,12 @@ Public Class ISMPTestFirmComments
     End Sub
     Private Sub OpenFacilityLookupTool()
         Try
-            Dim facilityLookupDialog As New IAIPFacilityLookUpTool
-            facilityLookupDialog.ShowDialog()
-            If facilityLookupDialog.DialogResult = DialogResult.OK _
-            AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                txtAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber
-                txtFacilityTested.Text = facilityLookupDialog.SelectedFacilityName
-            End If
+            Using facilityLookupDialog As New IAIPFacilityLookUpTool
+                If facilityLookupDialog.ShowDialog() = DialogResult.OK AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
+                    txtAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber
+                    txtFacilityTested.Text = facilityLookupDialog.SelectedFacilityName
+                End If
+            End Using
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

@@ -412,7 +412,6 @@ Public Class PASPFeeManagement
             Dim NSPStemp As String = ""
             Dim ReasonID As String = ""
             Dim DisplayOrder As String = ""
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 1
             Dim SQL As String
 
@@ -462,13 +461,14 @@ Public Class PASPFeeManagement
                         Dim c As DataGridViewCell = dgvNSPSExemptions.Rows(x).Cells(y)
                         If Not c.Value Is DBNull.Value Or Nothing Then
                             If CType(c.Value, String) = ReasonID Then
-                                dgvRow = New DataGridViewRow
-                                dgvRow.CreateCells(dgvNSPSExemptionsByYear)
-                                dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
-                                dgvRow.Cells(1).Value = dgvNSPSExemptions(0, x).Value
-                                dgvRow.Cells(2).Value = DisplayOrder
-                                dgvRow.Cells(3).Value = dgvNSPSExemptions(1, x).Value
-                                dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
+                                Using dgvRow As New DataGridViewRow
+                                    dgvRow.CreateCells(dgvNSPSExemptionsByYear)
+                                    dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
+                                    dgvRow.Cells(1).Value = dgvNSPSExemptions(0, x).Value
+                                    dgvRow.Cells(2).Value = DisplayOrder
+                                    dgvRow.Cells(3).Value = dgvNSPSExemptions(1, x).Value
+                                    dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
+                                End Using
                             End If
                         End If
                         Math.Min(Threading.Interlocked.Increment(y), y - 1)
@@ -486,7 +486,6 @@ Public Class PASPFeeManagement
 
     Private Sub btnSelectForm_Click(sender As Object, e As EventArgs) Handles btnSelectForm.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim temp As String
             Dim temp2 As String = "Add"
             Dim i As Integer = 0
@@ -501,20 +500,24 @@ Public Class PASPFeeManagement
                     End If
                 Next
                 If temp2 <> "Ignore" Then
+                    Using dgvRow As New DataGridViewRow
+                        dgvRow.CreateCells(dgvNSPSExemptionsByYear)
+                        dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
+                        dgvRow.Cells(1).Value = dgvNSPSExemptions(0, dgvNSPSExemptions.CurrentRow.Index).Value
+                        dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
+                        dgvRow.Cells(3).Value = dgvNSPSExemptions(1, dgvNSPSExemptions.CurrentRow.Index).Value
+                        dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
+                    End Using
+                End If
+            Else
+                Using dgvRow As New DataGridViewRow
                     dgvRow.CreateCells(dgvNSPSExemptionsByYear)
                     dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
                     dgvRow.Cells(1).Value = dgvNSPSExemptions(0, dgvNSPSExemptions.CurrentRow.Index).Value
                     dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
                     dgvRow.Cells(3).Value = dgvNSPSExemptions(1, dgvNSPSExemptions.CurrentRow.Index).Value
                     dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
-                End If
-            Else
-                dgvRow.CreateCells(dgvNSPSExemptionsByYear)
-                dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
-                dgvRow.Cells(1).Value = dgvNSPSExemptions(0, dgvNSPSExemptions.CurrentRow.Index).Value
-                dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
-                dgvRow.Cells(3).Value = dgvNSPSExemptions(1, dgvNSPSExemptions.CurrentRow.Index).Value
-                dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
+                End Using
             End If
 
         Catch ex As Exception
@@ -530,18 +533,18 @@ Public Class PASPFeeManagement
 
     Private Sub btnSelectAllForms_Click(sender As Object, e As EventArgs) Handles btnSelectAllForms.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             dgvNSPSExemptionsByYear.Rows.Clear()
 
             For i = 0 To dgvNSPSExemptions.Rows.Count - 1
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvNSPSExemptionsByYear)
-                dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
-                dgvRow.Cells(1).Value = dgvNSPSExemptions(0, i).Value
-                dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
-                dgvRow.Cells(3).Value = dgvNSPSExemptions(1, i).Value
-                dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
+                Using dgvRow As New DataGridViewRow
+                    dgvRow.CreateCells(dgvNSPSExemptionsByYear)
+                    dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
+                    dgvRow.Cells(1).Value = dgvNSPSExemptions(0, i).Value
+                    dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
+                    dgvRow.Cells(3).Value = dgvNSPSExemptions(1, i).Value
+                    dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
+                End Using
             Next
 
         Catch ex As Exception

@@ -998,9 +998,9 @@ Public Class IAIPFacilitySummary
     Private Sub OpenFacilitySummaryPrintTool()
         If AirsNumber IsNot Nothing Then
             Dim facilityPrintOut As New IaipFacilitySummaryPrint With {
-            .AirsNumber = AirsNumber,
-            .FacilityName = ThisFacility.FacilityName
-        }
+                .AirsNumber = AirsNumber,
+                .FacilityName = ThisFacility.FacilityName
+            }
 
             If facilityPrintOut IsNot Nothing AndAlso Not facilityPrintOut.IsDisposed Then
                 facilityPrintOut.Show()

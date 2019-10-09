@@ -155,7 +155,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadOneStackTwoRun()
-        Dim rpt As New CROneStackTwoRuns
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -1013,8 +1012,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
-
+            CRViewer.ReportSource = New CROneStackTwoRuns
         Else
             MsgBox("Unable to Print at this time.")
             Me.Close()
@@ -1023,7 +1021,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadOneStackThreeRun()
-        Dim rpt As New CROneStackThreeRuns
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -1965,7 +1962,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CROneStackThreeRuns
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -1975,7 +1972,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadOneStackFourRun()
-        Dim rpt As New CROneStackFourRuns
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -3004,7 +3000,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CROneStackFourRuns
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -3014,7 +3010,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadTwoStackStandard()
-        Dim rpt As New CRTwoStackStandard
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -4291,7 +4286,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRTwoStackStandard
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -4301,7 +4296,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadTwoStackDRE()
-        Dim rpt As New CRTwoStackDRE
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -5529,7 +5523,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRTwoStackDRE
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -5539,7 +5533,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadLoadingRack()
-        Dim rpt As New CRLoadingRack
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -6223,7 +6216,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRLoadingRack
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -6233,7 +6226,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadPondTreatment()
-        Dim rpt As New CRPondTreatment
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -7016,7 +7008,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRPondTreatment
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -7026,7 +7018,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadGasConcentration()
-        Dim rpt As New CRGasConcentration
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -7839,7 +7830,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRGasConcentration
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -7849,7 +7840,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadFlare()
-        Dim rpt As New CRFlare
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -8521,7 +8511,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRFlare
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -8531,7 +8521,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadMemorandumStandard()
-        Dim rpt As New CRMemorandumStandard
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -8943,7 +8932,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRMemorandumStandard
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -8953,7 +8942,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadMemorandumToFile()
-        Dim rpt As New CRMemorandumToFile
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -9385,7 +9373,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRMemorandumToFile
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -9395,7 +9383,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadPTE()
-        Dim rpt As New CRMemorandumPTE
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -10015,7 +10002,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRMemorandumPTE
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -10025,7 +10012,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadMethod22()
-        Dim rpt As New CRMethod22
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -10556,7 +10542,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRMethod22
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -10566,7 +10552,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadMethod9Single()
-        Dim rpt As New CRMethod9Single
         Dim temp As String
 
         Dim ParameterFields As ParameterFields
@@ -11153,7 +11138,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRMethod9Single
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -11163,7 +11148,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadMethod9Multi()
-        Dim rpt As New CRMethod9Multi
         Dim temp As String
 
         Dim ParameterFields As ParameterFields
@@ -12015,7 +11999,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRMethod9Multi
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -12025,7 +12009,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadRata()
-        Dim rpt As New CRRata
         Dim temp As String
 
         Dim ParameterFields As ParameterFields
@@ -13069,7 +13052,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRRata
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -13095,17 +13078,18 @@ Public Class IAIPPrintOut
 
         Dim p As New SqlParameter("@ref", ReferenceValue)
 
-        Dim ds As New DataSet
-        Dim dt As DataTable = DB.GetDataTable(SQL, p)
-        dt.TableName = "VW_SSPP_Acknowledge"
-        ds.Tables.Add(dt)
+        Using ds As New DataSet
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
+            dt.TableName = "VW_SSPP_Acknowledge"
+            ds.Tables.Add(dt)
 
-        Dim rpt As New crAPBPrintOut2
-        rpt.SetDataSource(ds)
+            Dim rpt As New crAPBPrintOut2
+            rpt.SetDataSource(ds)
 
-        CRViewer.ParameterFieldInfo = ParameterFields
-        CRViewer.ReportSource = rpt
-        CRViewer.Refresh()
+            CRViewer.ParameterFieldInfo = ParameterFields
+            CRViewer.ReportSource = rpt
+            CRViewer.Refresh()
+        End Using
     End Sub
 
     Private Sub PrintOutTitleVRenewals()

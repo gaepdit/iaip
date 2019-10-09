@@ -436,7 +436,6 @@ Public Class IAIPListTool
             Dim temp As String = lbAccounts.SelectedValue
             Dim temp2 As String = ""
             Dim tempForm As String = ""
-            Dim dgvRow As New DataGridViewRow
 
             Dim SQL As String = "Select " &
             "strFormAccess " &
@@ -465,32 +464,33 @@ Public Class IAIPListTool
                             Dim c As DataGridViewCell = dgvAvailableForms.Rows(x).Cells(y)
                             If Not c.Value Is DBNull.Value Or Nothing Then
                                 If CType(c.Value, String) = temp2 Then
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvSelectedForms)
-                                    dgvRow.Cells(0).Value = dgvAvailableForms(0, x).Value
-                                    dgvRow.Cells(1).Value = dgvAvailableForms(1, x).Value
-                                    dgvRow.Cells(2).Value = dgvAvailableForms(2, x).Value
-                                    If Mid(tempForm, 1, 1) = "1" Then
-                                        dgvRow.Cells(3).Value = True
-                                    Else
-                                        dgvRow.Cells(3).Value = False
-                                    End If
-                                    If Mid(tempForm, 3, 1) = "1" Then
-                                        dgvRow.Cells(4).Value = True
-                                    Else
-                                        dgvRow.Cells(4).Value = False
-                                    End If
-                                    If Mid(tempForm, 5, 1) = "1" Then
-                                        dgvRow.Cells(5).Value = True
-                                    Else
-                                        dgvRow.Cells(5).Value = False
-                                    End If
-                                    If Mid(tempForm, 7, 1) = "1" Then
-                                        dgvRow.Cells(6).Value = True
-                                    Else
-                                        dgvRow.Cells(6).Value = False
-                                    End If
-                                    dgvSelectedForms.Rows.Add(dgvRow)
+                                    Using dgvRow As New DataGridViewRow
+                                        dgvRow.CreateCells(dgvSelectedForms)
+                                        dgvRow.Cells(0).Value = dgvAvailableForms(0, x).Value
+                                        dgvRow.Cells(1).Value = dgvAvailableForms(1, x).Value
+                                        dgvRow.Cells(2).Value = dgvAvailableForms(2, x).Value
+                                        If Mid(tempForm, 1, 1) = "1" Then
+                                            dgvRow.Cells(3).Value = True
+                                        Else
+                                            dgvRow.Cells(3).Value = False
+                                        End If
+                                        If Mid(tempForm, 3, 1) = "1" Then
+                                            dgvRow.Cells(4).Value = True
+                                        Else
+                                            dgvRow.Cells(4).Value = False
+                                        End If
+                                        If Mid(tempForm, 5, 1) = "1" Then
+                                            dgvRow.Cells(5).Value = True
+                                        Else
+                                            dgvRow.Cells(5).Value = False
+                                        End If
+                                        If Mid(tempForm, 7, 1) = "1" Then
+                                            dgvRow.Cells(6).Value = True
+                                        Else
+                                            dgvRow.Cells(6).Value = False
+                                        End If
+                                        dgvSelectedForms.Rows.Add(dgvRow)
+                                    End Using
                                 End If
                             End If
                             Math.Min(Threading.Interlocked.Increment(y), y - 1)
@@ -853,7 +853,6 @@ Public Class IAIPListTool
 
     Private Sub btnSelectForm_Click(sender As Object, e As EventArgs) Handles btnSelectForm.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim temp As String
             Dim temp2 As String = "Add"
             Dim i As Integer = 0
@@ -868,18 +867,22 @@ Public Class IAIPListTool
                     End If
                 Next
                 If temp2 <> "Ignore" Then
+                    Using dgvRow As New DataGridViewRow
+                        dgvRow.CreateCells(dgvSelectedForms)
+                        dgvRow.Cells(0).Value = dgvAvailableForms(0, dgvAvailableForms.CurrentRow.Index).Value
+                        dgvRow.Cells(1).Value = dgvAvailableForms(1, dgvAvailableForms.CurrentRow.Index).Value
+                        dgvRow.Cells(2).Value = dgvAvailableForms(2, dgvAvailableForms.CurrentRow.Index).Value
+                        dgvSelectedForms.Rows.Add(dgvRow)
+                    End Using
+                End If
+            Else
+                Using dgvRow As New DataGridViewRow
                     dgvRow.CreateCells(dgvSelectedForms)
                     dgvRow.Cells(0).Value = dgvAvailableForms(0, dgvAvailableForms.CurrentRow.Index).Value
                     dgvRow.Cells(1).Value = dgvAvailableForms(1, dgvAvailableForms.CurrentRow.Index).Value
                     dgvRow.Cells(2).Value = dgvAvailableForms(2, dgvAvailableForms.CurrentRow.Index).Value
                     dgvSelectedForms.Rows.Add(dgvRow)
-                End If
-            Else
-                dgvRow.CreateCells(dgvSelectedForms)
-                dgvRow.Cells(0).Value = dgvAvailableForms(0, dgvAvailableForms.CurrentRow.Index).Value
-                dgvRow.Cells(1).Value = dgvAvailableForms(1, dgvAvailableForms.CurrentRow.Index).Value
-                dgvRow.Cells(2).Value = dgvAvailableForms(2, dgvAvailableForms.CurrentRow.Index).Value
-                dgvSelectedForms.Rows.Add(dgvRow)
+                End Using
             End If
 
             lblSelectedFormCount.Text = "Count: " & dgvSelectedForms.Rows.Count.ToString
@@ -891,17 +894,16 @@ Public Class IAIPListTool
 
     Private Sub btnSelectAllForms_Click(sender As Object, e As EventArgs) Handles btnSelectAllForms.Click
         Try
-            Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             dgvSelectedForms.Rows.Clear()
 
-            For i = 0 To dgvAvailableForms.Rows.Count - 1
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvSelectedForms)
-                dgvRow.Cells(0).Value = dgvAvailableForms(0, i).Value
-                dgvRow.Cells(1).Value = dgvAvailableForms(1, i).Value
-                dgvRow.Cells(2).Value = dgvAvailableForms(2, i).Value
-                dgvSelectedForms.Rows.Add(dgvRow)
+            For i As Integer = 0 To dgvAvailableForms.Rows.Count - 1
+                Using dgvRow As New DataGridViewRow
+                    dgvRow.CreateCells(dgvSelectedForms)
+                    dgvRow.Cells(0).Value = dgvAvailableForms(0, i).Value
+                    dgvRow.Cells(1).Value = dgvAvailableForms(1, i).Value
+                    dgvRow.Cells(2).Value = dgvAvailableForms(2, i).Value
+                    dgvSelectedForms.Rows.Add(dgvRow)
+                End Using
             Next
 
             lblSelectedFormCount.Text = "Count: " & dgvSelectedForms.Rows.Count.ToString

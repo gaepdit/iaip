@@ -885,19 +885,19 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub mmiUpdateProfile_Click(sender As Object, e As EventArgs) Handles mmiUpdateProfile.Click
-        Dim pf As New IaipUserProfile
-        pf.ShowDialog()
-        If pf.DialogResult = DialogResult.OK Then
-            MessageBox.Show("Profile successfully updated.", "Success", MessageBoxButtons.OK)
-        End If
+        Using pf As New IaipUserProfile
+            If pf.ShowDialog() = DialogResult.OK Then
+                MessageBox.Show("Profile successfully updated.", "Success", MessageBoxButtons.OK)
+            End If
+        End Using
     End Sub
 
     Private Sub mmiChangePassword_Click(sender As Object, e As EventArgs) Handles mmiChangePassword.Click
-        Dim cp As New IaipChangePassword
-        cp.ShowDialog()
-        If cp.DialogResult = DialogResult.OK Then
-            MessageBox.Show("Password successfully updated.", "Success", MessageBoxButtons.OK)
-        End If
+        Using cp As New IaipChangePassword
+            If cp.ShowDialog() = DialogResult.OK Then
+                MessageBox.Show("Password successfully updated.", "Success", MessageBoxButtons.OK)
+            End If
+        End Using
     End Sub
 
     Private Sub mmiSecurity_Click(sender As Object, e As EventArgs) Handles mmiSecurity.Click

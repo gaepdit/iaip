@@ -577,7 +577,7 @@ Public Class ISMPMonitoringLog
                " LEFT JOIN LookUpCountyInformation " &
                "ON SUBSTRING(ISMPTestFirmComments.strAIRSNUmber, 5, 3)  = LookUpCountyInformation.strCountycode "
 
-                                If chbReviewingEngineer.Checked = True Then
+                If chbReviewingEngineer.Checked = True Then
                     SQLWhere = SQLWhere & " and ( "
                     If clbEngineer.CheckedItems.Count > 0 Then
                         For x As Integer = 0 To clbEngineer.Items.Count - 1
@@ -1032,12 +1032,11 @@ Public Class ISMPMonitoringLog
 
     Private Sub OpenFacilityLookupTool()
         Try
-            Dim facilityLookupDialog As New IAIPFacilityLookUpTool
-            facilityLookupDialog.ShowDialog()
-            If facilityLookupDialog.DialogResult = DialogResult.OK _
-            AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                txtAIRSNumberFilter.Text = facilityLookupDialog.SelectedAirsNumber
-            End If
+            Using facilityLookupDialog As New IAIPFacilityLookUpTool
+                If facilityLookupDialog.ShowDialog() = DialogResult.OK AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
+                    txtAIRSNumberFilter.Text = facilityLookupDialog.SelectedAirsNumber
+                End If
+            End Using
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

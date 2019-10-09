@@ -248,8 +248,6 @@ Public Class GecoTool
         Try
             Dim dt As DataTable = GetUserGecoAccessTable(EmailLoc)
 
-            Dim dgvRow As New DataGridViewRow
-
             dgvUserFacilities.Rows.Clear()
 
             For Each dr As DataRow In dt.Rows
@@ -257,17 +255,18 @@ Public Class GecoTool
                     Continue For
                 End If
 
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvUserFacilities)
+                Using dgvRow As New DataGridViewRow
+                    dgvRow.CreateCells(dgvUserFacilities)
 
-                dgvRow.Cells(0).Value = dr.Item("strAIRSNumber").ToString
-                dgvRow.Cells(1).Value = DBUtilities.GetNullableString(dr.Item("strFacilityName"))
-                dgvRow.Cells(2).Value = CBool(dr.Item("intAdminAccess"))
-                dgvRow.Cells(3).Value = CBool(dr.Item("intFeeAccess"))
-                dgvRow.Cells(4).Value = CBool(dr.Item("intEIAccess"))
-                dgvRow.Cells(5).Value = CBool(dr.Item("intESAccess"))
+                    dgvRow.Cells(0).Value = dr.Item("strAIRSNumber").ToString
+                    dgvRow.Cells(1).Value = DBUtilities.GetNullableString(dr.Item("strFacilityName"))
+                    dgvRow.Cells(2).Value = CBool(dr.Item("intAdminAccess"))
+                    dgvRow.Cells(3).Value = CBool(dr.Item("intFeeAccess"))
+                    dgvRow.Cells(4).Value = CBool(dr.Item("intEIAccess"))
+                    dgvRow.Cells(5).Value = CBool(dr.Item("intESAccess"))
 
-                dgvUserFacilities.Rows.Add(dgvRow)
+                    dgvUserFacilities.Rows.Add(dgvRow)
+                End Using
             Next
 
             cboFacilityToDelete.DataSource = dt

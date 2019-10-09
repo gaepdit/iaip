@@ -5591,8 +5591,6 @@ Public Class EisTool
                 EISActive = "1"
             End If
 
-            Dim dgvRow As New DataGridViewRow
-
             Dim SQL As String = "Select " &
             "'False' as ID, " &
             "FACILITYSITEID, " &
@@ -5655,153 +5653,154 @@ Public Class EisTool
             Dim dt As DataTable = DB.GetDataTable(SQL, params)
 
             For Each dr As DataRow In dt.Rows
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
+                Using dgvRow As New DataGridViewRow
+                    dgvRow.CreateCells(dgvEISStats)
 
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("INVENTORYYEAR")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("INVENTORYYEAR")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-                If IsDBNull(dr.Item("OptOut")) Then
-                    dgvRow.Cells(6).Value = ""
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("OptOut")
-                End If
+                    If IsDBNull(dr.Item("ID")) Then
+                        dgvRow.Cells(0).Value = ""
+                    Else
+                        dgvRow.Cells(0).Value = dr.Item("ID")
+                    End If
+                    If IsDBNull(dr.Item("FacilitySiteID")) Then
+                        dgvRow.Cells(1).Value = ""
+                    Else
+                        dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
+                    End If
+                    If IsDBNull(dr.Item("strFacilityName")) Then
+                        dgvRow.Cells(2).Value = ""
+                    Else
+                        dgvRow.Cells(2).Value = dr.Item("strFacilityName")
+                    End If
+                    If IsDBNull(dr.Item("INVENTORYYEAR")) Then
+                        dgvRow.Cells(3).Value = ""
+                    Else
+                        dgvRow.Cells(3).Value = dr.Item("INVENTORYYEAR")
+                    End If
+                    If IsDBNull(dr.Item("EISStatus")) Then
+                        dgvRow.Cells(4).Value = ""
+                    Else
+                        dgvRow.Cells(4).Value = dr.Item("EISStatus")
+                    End If
+                    If IsDBNull(dr.Item("EISAccess")) Then
+                        dgvRow.Cells(5).Value = ""
+                    Else
+                        dgvRow.Cells(5).Value = dr.Item("EISAccess")
+                    End If
+                    If IsDBNull(dr.Item("OptOut")) Then
+                        dgvRow.Cells(6).Value = ""
+                    Else
+                        dgvRow.Cells(6).Value = dr.Item("OptOut")
+                    End If
 
-                If IsDBNull(dr.Item("MailOut")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("Mailout")
-                End If
-                If IsDBNull(dr.Item("MailoutEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("MailoutEmail")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                If IsDBNull(dr.Item("Enrollment")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("Enrollment")
-                End If
-                If IsDBNull(dr.Item("QASTATUS")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("QASTATUS")
-                End If
-                If IsDBNull(dr.Item("DATQASTATUS")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("DATQASTATUS")
-                End If
-                If IsDBNull(dr.Item("IAIPPrefix")) Then
-                    dgvRow.Cells(13).Value = ""
-                Else
-                    dgvRow.Cells(13).Value = dr.Item("IAIPPrefix")
-                End If
-                If IsDBNull(dr.Item("IAIPFIRSTNAME")) Then
-                    dgvRow.Cells(14).Value = ""
-                Else
-                    dgvRow.Cells(14).Value = dr.Item("IAIPFIRSTNAME")
-                End If
-                If IsDBNull(dr.Item("IAIPLASTNAME")) Then
-                    dgvRow.Cells(15).Value = ""
-                Else
-                    dgvRow.Cells(15).Value = dr.Item("IAIPLASTNAME")
-                End If
-                If IsDBNull(dr.Item("IAIPEMAIL")) Then
-                    dgvRow.Cells(16).Value = ""
-                Else
-                    dgvRow.Cells(16).Value = dr.Item("IAIPEMAIL")
-                End If
-                If IsDBNull(dr.Item("EISCOMPANYNAME")) Then
-                    dgvRow.Cells(17).Value = ""
-                Else
-                    dgvRow.Cells(17).Value = dr.Item("EISCOMPANYNAME")
-                End If
-                If IsDBNull(dr.Item("EISADDRESS")) Then
-                    dgvRow.Cells(18).Value = ""
-                Else
-                    dgvRow.Cells(18).Value = dr.Item("EISADDRESS")
-                End If
-                If IsDBNull(dr.Item("EISADDRESS2")) Then
-                    dgvRow.Cells(19).Value = ""
-                Else
-                    dgvRow.Cells(19).Value = dr.Item("EISADDRESS2")
-                End If
-                If IsDBNull(dr.Item("EISCITY")) Then
-                    dgvRow.Cells(20).Value = ""
-                Else
-                    dgvRow.Cells(20).Value = dr.Item("EISCITY")
-                End If
-                If IsDBNull(dr.Item("EISState")) Then
-                    dgvRow.Cells(21).Value = ""
-                Else
-                    dgvRow.Cells(21).Value = dr.Item("EISState")
-                End If
-                If IsDBNull(dr.Item("EISZipCode")) Then
-                    dgvRow.Cells(22).Value = ""
-                Else
-                    dgvRow.Cells(22).Value = dr.Item("EISZipCode")
-                End If
-                If IsDBNull(dr.Item("EISPrefix")) Then
-                    dgvRow.Cells(23).Value = ""
-                Else
-                    dgvRow.Cells(23).Value = dr.Item("EISPrefix")
-                End If
-                If IsDBNull(dr.Item("EISFirstname")) Then
-                    dgvRow.Cells(24).Value = ""
-                Else
-                    dgvRow.Cells(24).Value = dr.Item("EISFirstname")
-                End If
+                    If IsDBNull(dr.Item("MailOut")) Then
+                        dgvRow.Cells(7).Value = ""
+                    Else
+                        dgvRow.Cells(7).Value = dr.Item("Mailout")
+                    End If
+                    If IsDBNull(dr.Item("MailoutEmail")) Then
+                        dgvRow.Cells(8).Value = ""
+                    Else
+                        dgvRow.Cells(8).Value = dr.Item("MailoutEmail")
+                    End If
+                    If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
+                        dgvRow.Cells(9).Value = ""
+                    Else
+                        dgvRow.Cells(9).Value = dr.Item("strDMUResponsibleStaff")
+                    End If
+                    If IsDBNull(dr.Item("Enrollment")) Then
+                        dgvRow.Cells(10).Value = ""
+                    Else
+                        dgvRow.Cells(10).Value = dr.Item("Enrollment")
+                    End If
+                    If IsDBNull(dr.Item("QASTATUS")) Then
+                        dgvRow.Cells(11).Value = ""
+                    Else
+                        dgvRow.Cells(11).Value = dr.Item("QASTATUS")
+                    End If
+                    If IsDBNull(dr.Item("DATQASTATUS")) Then
+                        dgvRow.Cells(12).Value = ""
+                    Else
+                        dgvRow.Cells(12).Value = dr.Item("DATQASTATUS")
+                    End If
+                    If IsDBNull(dr.Item("IAIPPrefix")) Then
+                        dgvRow.Cells(13).Value = ""
+                    Else
+                        dgvRow.Cells(13).Value = dr.Item("IAIPPrefix")
+                    End If
+                    If IsDBNull(dr.Item("IAIPFIRSTNAME")) Then
+                        dgvRow.Cells(14).Value = ""
+                    Else
+                        dgvRow.Cells(14).Value = dr.Item("IAIPFIRSTNAME")
+                    End If
+                    If IsDBNull(dr.Item("IAIPLASTNAME")) Then
+                        dgvRow.Cells(15).Value = ""
+                    Else
+                        dgvRow.Cells(15).Value = dr.Item("IAIPLASTNAME")
+                    End If
+                    If IsDBNull(dr.Item("IAIPEMAIL")) Then
+                        dgvRow.Cells(16).Value = ""
+                    Else
+                        dgvRow.Cells(16).Value = dr.Item("IAIPEMAIL")
+                    End If
+                    If IsDBNull(dr.Item("EISCOMPANYNAME")) Then
+                        dgvRow.Cells(17).Value = ""
+                    Else
+                        dgvRow.Cells(17).Value = dr.Item("EISCOMPANYNAME")
+                    End If
+                    If IsDBNull(dr.Item("EISADDRESS")) Then
+                        dgvRow.Cells(18).Value = ""
+                    Else
+                        dgvRow.Cells(18).Value = dr.Item("EISADDRESS")
+                    End If
+                    If IsDBNull(dr.Item("EISADDRESS2")) Then
+                        dgvRow.Cells(19).Value = ""
+                    Else
+                        dgvRow.Cells(19).Value = dr.Item("EISADDRESS2")
+                    End If
+                    If IsDBNull(dr.Item("EISCITY")) Then
+                        dgvRow.Cells(20).Value = ""
+                    Else
+                        dgvRow.Cells(20).Value = dr.Item("EISCITY")
+                    End If
+                    If IsDBNull(dr.Item("EISState")) Then
+                        dgvRow.Cells(21).Value = ""
+                    Else
+                        dgvRow.Cells(21).Value = dr.Item("EISState")
+                    End If
+                    If IsDBNull(dr.Item("EISZipCode")) Then
+                        dgvRow.Cells(22).Value = ""
+                    Else
+                        dgvRow.Cells(22).Value = dr.Item("EISZipCode")
+                    End If
+                    If IsDBNull(dr.Item("EISPrefix")) Then
+                        dgvRow.Cells(23).Value = ""
+                    Else
+                        dgvRow.Cells(23).Value = dr.Item("EISPrefix")
+                    End If
+                    If IsDBNull(dr.Item("EISFirstname")) Then
+                        dgvRow.Cells(24).Value = ""
+                    Else
+                        dgvRow.Cells(24).Value = dr.Item("EISFirstname")
+                    End If
 
-                If IsDBNull(dr.Item("EISLASTNAME")) Then
-                    dgvRow.Cells(25).Value = ""
-                Else
-                    dgvRow.Cells(25).Value = dr.Item("EISLASTNAME")
-                End If
+                    If IsDBNull(dr.Item("EISLASTNAME")) Then
+                        dgvRow.Cells(25).Value = ""
+                    Else
+                        dgvRow.Cells(25).Value = dr.Item("EISLASTNAME")
+                    End If
 
-                If IsDBNull(dr.Item("DATFINALIZE")) Then
-                    dgvRow.Cells(26).Value = ""
-                Else
-                    dgvRow.Cells(26).Value = dr.Item("DATFINALIZE")
-                End If
+                    If IsDBNull(dr.Item("DATFINALIZE")) Then
+                        dgvRow.Cells(26).Value = ""
+                    Else
+                        dgvRow.Cells(26).Value = dr.Item("DATFINALIZE")
+                    End If
 
-                dgvRow.Cells(27).Value = DBUtilities.GetNullable(Of String)(dr.Item("FITrackingNumber"))
-                dgvRow.Cells(28).Value = DBUtilities.GetNullable(Of String)(dr.Item("PointTrackingNumber"))
-                dgvRow.Cells(29).Value = DBUtilities.GetNullable(Of String)(dr.Item("Comments"))
+                    dgvRow.Cells(27).Value = DBUtilities.GetNullable(Of String)(dr.Item("FITrackingNumber"))
+                    dgvRow.Cells(28).Value = DBUtilities.GetNullable(Of String)(dr.Item("PointTrackingNumber"))
+                    dgvRow.Cells(29).Value = DBUtilities.GetNullable(Of String)(dr.Item("Comments"))
 
-                dgvEISStats.Rows.Add(dgvRow)
+                    dgvEISStats.Rows.Add(dgvRow)
+                End Using
             Next
 
         Catch ex As Exception

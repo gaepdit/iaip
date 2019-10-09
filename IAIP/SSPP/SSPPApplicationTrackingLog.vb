@@ -5271,21 +5271,22 @@ Public Class SSPPApplicationTrackingLog
         activePermits.RemoveAll(Function(permit As Permit) permit.Equals(New Permit(txtPermitNumber.Text)))
 
         If activePermits IsNot Nothing AndAlso activePermits.Count > 0 Then
+            Using permitRevocationDialog As New SsppPermitRevocationDialog With {
+                .ActivePermits = activePermits ' Send list of existing permits to dialog
+            }
+                permitRevocationDialog.ShowDialog()
 
-            Dim permitRevocationDialog As New SsppPermitRevocationDialog
-            permitRevocationDialog.ActivePermits = activePermits ' Send list of existing permits to dialog
-            permitRevocationDialog.ShowDialog()
+                Dim revokedPermits As List(Of Permit) = permitRevocationDialog.PermitsToRevoke
 
-            Dim revokedPermits As List(Of Permit) = permitRevocationDialog.PermitsToRevoke
-
-            If revokedPermits IsNot Nothing AndAlso revokedPermits.Count > 0 Then
-                Dim result As Boolean = RevokePermits(revokedPermits, DTPFinalAction.Value)
-                If Not result Then
-                    MessageBox.Show("There was an error revoking permits." & vbNewLine &
-                                    "Please contact the Data Management Unit.", "Error",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error)
+                If revokedPermits IsNot Nothing AndAlso revokedPermits.Count > 0 Then
+                    Dim result As Boolean = RevokePermits(revokedPermits, DTPFinalAction.Value)
+                    If Not result Then
+                        MessageBox.Show("There was an error revoking permits." & vbNewLine &
+                                        "Please contact the Data Management Unit.", "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End If
                 End If
-            End If
+            End Using
         End If
     End Sub
 
@@ -10224,16 +10225,16 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
         End If
 
-        Dim PrintOut As New IAIPPrintOut With {
+        Using PrintOut As New IAIPPrintOut With {
             .PrintoutType = IAIPPrintOut.PrintType.SsppConfirm,
             .ReferenceValue = AppNumber.ToString
         }
-
-        If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
-            PrintOut.Show()
-        Else
-            MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
+            If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
+                PrintOut.Show()
+            Else
+                MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        End Using
     End Sub
 
     Private Sub btnEmailAcknowledgmentLetter_Click(sender As Object, e As EventArgs) Handles btnEmailAcknowledgmentLetter.Click

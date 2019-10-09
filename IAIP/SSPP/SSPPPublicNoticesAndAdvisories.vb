@@ -441,162 +441,164 @@ Public Class SSPPPublicNoticesAndAdvisories
     End Sub
 
     Private Sub FormatReport()
-        Dim bfont As New Font(rtbPreview.Font, FontStyle.Bold)
-        Dim ufont As New Font(rtbPreview.Font, FontStyle.Underline)
+        Using bfont As New Font(rtbPreview.Font, FontStyle.Bold),
+            ufont As New Font(rtbPreview.Font, FontStyle.Underline)
 
-        Dim tempStart As Integer
-        Dim tempEnd As Integer
-        Dim temp As String
-        Dim temp2 As String
+            Dim tempStart As Integer
+            Dim tempEnd As Integer
+            Dim temp As String
+            Dim temp2 As String
 
-        Do While rtbPreview.Text.Contains("*X")
-            rtbPreview.SelectionStart = rtbPreview.Find("*X")
-            tempStart = rtbPreview.Find("*X")
-            tempEnd = rtbPreview.Find("X*")
-            temp = Mid(rtbPreview.Text, tempStart + 1, (tempEnd - tempStart) + 2)
-            temp2 = Replace(temp, "*X", "")
-            temp2 = Replace(temp2, "X*", "")
-            rtbPreview.SelectionStart = rtbPreview.Find(temp)
-            rtbPreview.SelectionFont = ufont
-            rtbPreview.SelectedText = temp2
-        Loop
+            Do While rtbPreview.Text.Contains("*X")
+                rtbPreview.SelectionStart = rtbPreview.Find("*X")
+                tempStart = rtbPreview.Find("*X")
+                tempEnd = rtbPreview.Find("X*")
+                temp = Mid(rtbPreview.Text, tempStart + 1, (tempEnd - tempStart) + 2)
+                temp2 = Replace(temp, "*X", "")
+                temp2 = Replace(temp2, "X*", "")
+                rtbPreview.SelectionStart = rtbPreview.Find(temp)
+                rtbPreview.SelectionFont = ufont
+                rtbPreview.SelectedText = temp2
+            Loop
 
-        If rtbPreview.Text.Contains("EPD PUBLIC ADVISORY") Then
-            rtbPreview.SelectionStart = rtbPreview.Find("EPD PUBLIC ADVISORY")
-            rtbPreview.SelectionAlignment = HorizontalAlignment.Center
-            rtbPreview.SelectionFont = bfont
-        End If
+            If rtbPreview.Text.Contains("EPD PUBLIC ADVISORY") Then
+                rtbPreview.SelectionStart = rtbPreview.Find("EPD PUBLIC ADVISORY")
+                rtbPreview.SelectionAlignment = HorizontalAlignment.Center
+                rtbPreview.SelectionFont = bfont
+            End If
 
-        If rtbPreview.Text.Contains("GEORGIA AIR PROTECTION BRANCH") Then
-            rtbPreview.SelectionStart = rtbPreview.Find("GEORGIA AIR PROTECTION BRANCH")
-            rtbPreview.SelectionAlignment = HorizontalAlignment.Center
-            rtbPreview.SelectionFont = bfont
-        End If
+            If rtbPreview.Text.Contains("GEORGIA AIR PROTECTION BRANCH") Then
+                rtbPreview.SelectionStart = rtbPreview.Find("GEORGIA AIR PROTECTION BRANCH")
+                rtbPreview.SelectionAlignment = HorizontalAlignment.Center
+                rtbPreview.SelectionFont = bfont
+            End If
 
-        If rtbPreview.Text.Contains("SIP PUBLIC ADVISORIES") Then
-            rtbPreview.SelectionStart = rtbPreview.Find("SIP PUBLIC ADVISORIES")
-            rtbPreview.SelectionFont = bfont
-        End If
+            If rtbPreview.Text.Contains("SIP PUBLIC ADVISORIES") Then
+                rtbPreview.SelectionStart = rtbPreview.Find("SIP PUBLIC ADVISORIES")
+                rtbPreview.SelectionFont = bfont
+            End If
 
-        If rtbPreview.Text.Contains("Any comments should be received by") Then
-            rtbPreview.SelectionStart = rtbPreview.Find("Any comments should be received by")
-            rtbPreview.SelectionFont = bfont
-        End If
+            If rtbPreview.Text.Contains("Any comments should be received by") Then
+                rtbPreview.SelectionStart = rtbPreview.Find("Any comments should be received by")
+                rtbPreview.SelectionFont = bfont
+            End If
 
-        If rtbPreview.Text.Contains("NO PUBLIC ADVISORIESX") Then
-            rtbPreview.SelectionStart = rtbPreview.Find("NO PUBLIC ADVISORIESX")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "NO PUBLIC ADVISORIES"
-        End If
+            If rtbPreview.Text.Contains("NO PUBLIC ADVISORIESX") Then
+                rtbPreview.SelectionStart = rtbPreview.Find("NO PUBLIC ADVISORIESX")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "NO PUBLIC ADVISORIES"
+            End If
 
-        Do While rtbPreview.Text.Contains("Facility Name:X")
-            rtbPreview.SelectionStart = rtbPreview.Find("Facility Name:X")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "Facility Name:"
-        Loop
+            Do While rtbPreview.Text.Contains("Facility Name:X")
+                rtbPreview.SelectionStart = rtbPreview.Find("Facility Name:X")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "Facility Name:"
+            Loop
 
-        Do While rtbPreview.Text.Contains("Application No:X")
-            rtbPreview.SelectionStart = rtbPreview.Find("Application No:X")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "Application No:"
-        Loop
+            Do While rtbPreview.Text.Contains("Application No:X")
+                rtbPreview.SelectionStart = rtbPreview.Find("Application No:X")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "Application No:"
+            Loop
 
-        Do While rtbPreview.Text.Contains("Facility Address:X")
-            rtbPreview.SelectionStart = rtbPreview.Find("Facility Address:X")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "Facility Address:"
-        Loop
+            Do While rtbPreview.Text.Contains("Facility Address:X")
+                rtbPreview.SelectionStart = rtbPreview.Find("Facility Address:X")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "Facility Address:"
+            Loop
 
-        Do While rtbPreview.Text.Contains("EPD Notice Type:X")
-            rtbPreview.SelectionStart = rtbPreview.Find("EPD Notice Type:X")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "EPD Notice Type:"
-        Loop
+            Do While rtbPreview.Text.Contains("EPD Notice Type:X")
+                rtbPreview.SelectionStart = rtbPreview.Find("EPD Notice Type:X")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "EPD Notice Type:"
+            Loop
 
-        Do While rtbPreview.Text.Contains("Description of Operation:X")
-            rtbPreview.SelectionStart = rtbPreview.Find("Description of Operation:X")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "Description of Operation:"
-        Loop
+            Do While rtbPreview.Text.Contains("Description of Operation:X")
+                rtbPreview.SelectionStart = rtbPreview.Find("Description of Operation:X")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "Description of Operation:"
+            Loop
 
-        Do While rtbPreview.Text.Contains("Reason for Application:X")
-            rtbPreview.SelectionStart = rtbPreview.Find("Reason for Application:X")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "Reason for Application:"
-        Loop
+            Do While rtbPreview.Text.Contains("Reason for Application:X")
+                rtbPreview.SelectionStart = rtbPreview.Find("Reason for Application:X")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "Reason for Application:"
+            Loop
 
-        Do While rtbPreview.Text.Contains("Comment period/deadline for public hearing request expires on:X")
-            rtbPreview.SelectionStart = rtbPreview.Find("Comment period/deadline for public hearing request expires on:X")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "Comment period/deadline for public hearing request expires on:"
-        Loop
+            Do While rtbPreview.Text.Contains("Comment period/deadline for public hearing request expires on:X")
+                rtbPreview.SelectionStart = rtbPreview.Find("Comment period/deadline for public hearing request expires on:X")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "Comment period/deadline for public hearing request expires on:"
+            Loop
 
-        Do While rtbPreview.Text.Contains("Description of Requested Modification/Change:X")
-            rtbPreview.SelectionStart = rtbPreview.Find("Description of Requested Modification/Change:X")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "Description of Requested Modification/Change:"
-        Loop
+            Do While rtbPreview.Text.Contains("Description of Requested Modification/Change:X")
+                rtbPreview.SelectionStart = rtbPreview.Find("Description of Requested Modification/Change:X")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "Description of Requested Modification/Change:"
+            Loop
 
-        Do While rtbPreview.Text.Contains("Emission Increase/Decrease:X")
-            rtbPreview.SelectionStart = rtbPreview.Find("Emission Increase/Decrease:X")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "Emission Increase/Decrease:"
-        Loop
+            Do While rtbPreview.Text.Contains("Emission Increase/Decrease:X")
+                rtbPreview.SelectionStart = rtbPreview.Find("Emission Increase/Decrease:X")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "Emission Increase/Decrease:"
+            Loop
 
-        If rtbPreview.Text.Contains("NOTICE OF DRAFT TITLE V OPERATING PERMITS AND PERMIT MODIFICATIONS") Then
-            rtbPreview.SelectionStart = rtbPreview.Find("NOTICE OF DRAFT TITLE V OPERATING PERMITS AND PERMIT MODIFICATIONS")
-            rtbPreview.SelectionAlignment = HorizontalAlignment.Center
-            rtbPreview.SelectionFont = bfont
-        End If
+            If rtbPreview.Text.Contains("NOTICE OF DRAFT TITLE V OPERATING PERMITS AND PERMIT MODIFICATIONS") Then
+                rtbPreview.SelectionStart = rtbPreview.Find("NOTICE OF DRAFT TITLE V OPERATING PERMITS AND PERMIT MODIFICATIONS")
+                rtbPreview.SelectionAlignment = HorizontalAlignment.Center
+                rtbPreview.SelectionFont = bfont
+            End If
 
-        If rtbPreview.Text.Contains("GEORGIA ENVIRONMENTAL PROTECTION DIVISION") Then
-            rtbPreview.SelectionStart = rtbPreview.Find("GEORGIA ENVIRONMENTAL PROTECTION DIVISION")
-            rtbPreview.SelectionAlignment = HorizontalAlignment.Center
-            rtbPreview.SelectionFont = bfont
-        End If
+            If rtbPreview.Text.Contains("GEORGIA ENVIRONMENTAL PROTECTION DIVISION") Then
+                rtbPreview.SelectionStart = rtbPreview.Find("GEORGIA ENVIRONMENTAL PROTECTION DIVISION")
+                rtbPreview.SelectionAlignment = HorizontalAlignment.Center
+                rtbPreview.SelectionFont = bfont
+            End If
 
-        Do While rtbPreview.Text.Contains("AIR PROTECTION BRANCHX")
-            rtbPreview.SelectionStart = rtbPreview.Find("AIR PROTECTION BRANCHX")
-            rtbPreview.SelectionAlignment = HorizontalAlignment.Center
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "AIR PROTECTION BRANCH"
-        Loop
+            Do While rtbPreview.Text.Contains("AIR PROTECTION BRANCHX")
+                rtbPreview.SelectionStart = rtbPreview.Find("AIR PROTECTION BRANCHX")
+                rtbPreview.SelectionAlignment = HorizontalAlignment.Center
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "AIR PROTECTION BRANCH"
+            Loop
 
-        If rtbPreview.Text.Contains("4244 INTERNATIONAL PARKWAY, SUITE 120, ATLANTA, GA 30354") Then
-            rtbPreview.SelectionStart = rtbPreview.Find("4244 INTERNATIONAL PARKWAY, SUITE 120, ATLANTA, GA 30354")
-            rtbPreview.SelectionAlignment = HorizontalAlignment.Center
-            rtbPreview.SelectionFont = bfont
-        End If
+            If rtbPreview.Text.Contains("4244 INTERNATIONAL PARKWAY, SUITE 120, ATLANTA, GA 30354") Then
+                rtbPreview.SelectionStart = rtbPreview.Find("4244 INTERNATIONAL PARKWAY, SUITE 120, ATLANTA, GA 30354")
+                rtbPreview.SelectionAlignment = HorizontalAlignment.Center
+                rtbPreview.SelectionFont = bfont
+            End If
 
-        If rtbPreview.Text.Contains("INITIAL TITLE V OPERATING PERMITS") Then
-            rtbPreview.SelectionStart = rtbPreview.Find("INITIAL TITLE V OPERATING PERMITSX")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "INITIAL TITLE V OPERATING PERMITS"
-        End If
+            If rtbPreview.Text.Contains("INITIAL TITLE V OPERATING PERMITS") Then
+                rtbPreview.SelectionStart = rtbPreview.Find("INITIAL TITLE V OPERATING PERMITSX")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "INITIAL TITLE V OPERATING PERMITS"
+            End If
 
-        If rtbPreview.Text.Contains("RENEWAL TITLE V OPERATING PERMITS") Then
-            rtbPreview.SelectionStart = rtbPreview.Find("RENEWAL TITLE V OPERATING PERMITSX")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "RENEWAL TITLE V OPERATING PERMITS"
-        End If
+            If rtbPreview.Text.Contains("RENEWAL TITLE V OPERATING PERMITS") Then
+                rtbPreview.SelectionStart = rtbPreview.Find("RENEWAL TITLE V OPERATING PERMITSX")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "RENEWAL TITLE V OPERATING PERMITS"
+            End If
 
-        If rtbPreview.Text.Contains("TITLE V SIGNIFICANT MODIFICATIONS") Then
-            rtbPreview.SelectionStart = rtbPreview.Find("TITLE V SIGNIFICANT MODIFICATIONSX")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "TITLE V SIGNIFICANT MODIFICATIONS"
-        End If
+            If rtbPreview.Text.Contains("TITLE V SIGNIFICANT MODIFICATIONS") Then
+                rtbPreview.SelectionStart = rtbPreview.Find("TITLE V SIGNIFICANT MODIFICATIONSX")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "TITLE V SIGNIFICANT MODIFICATIONS"
+            End If
 
-        If rtbPreview.Text.Contains("NO TITLE V ADVISORIES") Then
-            rtbPreview.SelectionStart = rtbPreview.Find("NO TITLE V ADVISORIESX")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "NO TITLE V ADVISORIES"
-        End If
+            If rtbPreview.Text.Contains("NO TITLE V ADVISORIES") Then
+                rtbPreview.SelectionStart = rtbPreview.Find("NO TITLE V ADVISORIESX")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "NO TITLE V ADVISORIES"
+            End If
 
-        If rtbPreview.Text.Contains("ADDITIONAL INFORMATIONX:") Then
-            rtbPreview.SelectionStart = rtbPreview.Find("ADDITIONAL INFORMATIONX:")
-            rtbPreview.SelectionFont = bfont
-            rtbPreview.SelectedText = "ADDITIONAL INFORMATION:"
-        End If
+            If rtbPreview.Text.Contains("ADDITIONAL INFORMATIONX:") Then
+                rtbPreview.SelectionStart = rtbPreview.Find("ADDITIONAL INFORMATIONX:")
+                rtbPreview.SelectionFont = bfont
+                rtbPreview.SelectedText = "ADDITIONAL INFORMATION:"
+            End If
+
+        End Using
     End Sub
 
     Private Sub GenerateFileName()
@@ -738,6 +740,7 @@ Public Class SSPPPublicNoticesAndAdvisories
                 Process.Start("explorer.exe", "/select,""" & dialog.FileName & """")
 
                 UseWaitCursor = False
+                rpt.Dispose()
             End If
         End Using
     End Sub
