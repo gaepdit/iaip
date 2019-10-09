@@ -999,8 +999,9 @@ Partial Class ISMPManagersTools
         '
         Me.SplitterManagersTools.Dock = System.Windows.Forms.DockStyle.Top
         Me.SplitterManagersTools.Location = New System.Drawing.Point(0, 24)
+        Me.SplitterManagersTools.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.SplitterManagersTools.Name = "SplitterManagersTools"
-        Me.SplitterManagersTools.Size = New System.Drawing.Size(1142, 4)
+        Me.SplitterManagersTools.Size = New System.Drawing.Size(1523, 5)
         Me.SplitterManagersTools.TabIndex = 231
         Me.SplitterManagersTools.TabStop = False
         '
@@ -1008,9 +1009,10 @@ Partial Class ISMPManagersTools
         '
         Me.PanelManagersTools.Controls.Add(Me.TCManagersTools)
         Me.PanelManagersTools.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelManagersTools.Location = New System.Drawing.Point(0, 28)
+        Me.PanelManagersTools.Location = New System.Drawing.Point(0, 29)
+        Me.PanelManagersTools.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PanelManagersTools.Name = "PanelManagersTools"
-        Me.PanelManagersTools.Size = New System.Drawing.Size(1142, 766)
+        Me.PanelManagersTools.Size = New System.Drawing.Size(1523, 948)
         Me.PanelManagersTools.TabIndex = 232
         '
         'TCManagersTools
@@ -1024,10 +1026,11 @@ Partial Class ISMPManagersTools
         Me.TCManagersTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCManagersTools.HotTrack = True
         Me.TCManagersTools.Location = New System.Drawing.Point(0, 0)
+        Me.TCManagersTools.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TCManagersTools.Multiline = True
         Me.TCManagersTools.Name = "TCManagersTools"
         Me.TCManagersTools.SelectedIndex = 0
-        Me.TCManagersTools.Size = New System.Drawing.Size(1142, 766)
+        Me.TCManagersTools.Size = New System.Drawing.Size(1523, 948)
         Me.TCManagersTools.TabIndex = 0
         '
         'TPReportAssignment
@@ -1035,9 +1038,10 @@ Partial Class ISMPManagersTools
         Me.TPReportAssignment.Controls.Add(Me.SplitterTestReportAssignment)
         Me.TPReportAssignment.Controls.Add(Me.PanelReportAssignment)
         Me.TPReportAssignment.Controls.Add(Me.LVTestReportAssignment)
-        Me.TPReportAssignment.Location = New System.Drawing.Point(4, 22)
+        Me.TPReportAssignment.Location = New System.Drawing.Point(4, 25)
+        Me.TPReportAssignment.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TPReportAssignment.Name = "TPReportAssignment"
-        Me.TPReportAssignment.Size = New System.Drawing.Size(1134, 740)
+        Me.TPReportAssignment.Size = New System.Drawing.Size(1515, 919)
         Me.TPReportAssignment.TabIndex = 0
         Me.TPReportAssignment.Text = "Test Report Assignment"
         Me.TPReportAssignment.UseVisualStyleBackColor = True
@@ -1046,17 +1050,17 @@ Partial Class ISMPManagersTools
         '
         Me.SplitterTestReportAssignment.BackColor = System.Drawing.SystemColors.HotTrack
         Me.SplitterTestReportAssignment.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.SplitterTestReportAssignment.Location = New System.Drawing.Point(0, 296)
+        Me.SplitterTestReportAssignment.Location = New System.Drawing.Point(0, 373)
+        Me.SplitterTestReportAssignment.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.SplitterTestReportAssignment.MinExtra = 10
         Me.SplitterTestReportAssignment.Name = "SplitterTestReportAssignment"
-        Me.SplitterTestReportAssignment.Size = New System.Drawing.Size(1134, 4)
+        Me.SplitterTestReportAssignment.Size = New System.Drawing.Size(1515, 5)
         Me.SplitterTestReportAssignment.TabIndex = 44
         Me.SplitterTestReportAssignment.TabStop = False
         '
         'PanelReportAssignment
         '
         Me.PanelReportAssignment.Controls.Add(Me.chbNonComplianceTestReport)
-        Me.PanelReportAssignment.Controls.Add(Me.txtAIRSNumber)
         Me.PanelReportAssignment.Controls.Add(Me.Label107)
         Me.PanelReportAssignment.Controls.Add(Me.txtTestReportCount)
         Me.PanelReportAssignment.Controls.Add(Me.lblTestReportAssignment)
@@ -1064,16 +1068,18 @@ Partial Class ISMPManagersTools
         Me.PanelReportAssignment.Controls.Add(Me.cboEngineer)
         Me.PanelReportAssignment.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelReportAssignment.Location = New System.Drawing.Point(0, 0)
+        Me.PanelReportAssignment.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PanelReportAssignment.Name = "PanelReportAssignment"
-        Me.PanelReportAssignment.Size = New System.Drawing.Size(1134, 300)
+        Me.PanelReportAssignment.Size = New System.Drawing.Size(1515, 378)
         Me.PanelReportAssignment.TabIndex = 43
         '
         'chbNonComplianceTestReport
         '
         Me.chbNonComplianceTestReport.AutoSize = True
-        Me.chbNonComplianceTestReport.Location = New System.Drawing.Point(176, 83)
+        Me.chbNonComplianceTestReport.Location = New System.Drawing.Point(235, 102)
+        Me.chbNonComplianceTestReport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chbNonComplianceTestReport.Name = "chbNonComplianceTestReport"
-        Me.chbNonComplianceTestReport.Size = New System.Drawing.Size(212, 17)
+        Me.chbNonComplianceTestReport.Size = New System.Drawing.Size(256, 20)
         Me.chbNonComplianceTestReport.TabIndex = 44
         Me.chbNonComplianceTestReport.Text = "Test Reports potentially non-compliant"
         Me.chbNonComplianceTestReport.UseVisualStyleBackColor = True
@@ -1081,34 +1087,39 @@ Partial Class ISMPManagersTools
         'Label107
         '
         Me.Label107.AutoSize = True
-        Me.Label107.Location = New System.Drawing.Point(384, 8)
+        Me.Label107.Location = New System.Drawing.Point(512, 10)
+        Me.Label107.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label107.Name = "Label107"
-        Me.Label107.Size = New System.Drawing.Size(41, 13)
+        Me.Label107.Size = New System.Drawing.Size(48, 16)
         Me.Label107.TabIndex = 41
         Me.Label107.Text = "Count: "
         '
         'txtTestReportCount
         '
-        Me.txtTestReportCount.Location = New System.Drawing.Point(440, 8)
+        Me.txtTestReportCount.Location = New System.Drawing.Point(587, 10)
+        Me.txtTestReportCount.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtTestReportCount.Name = "txtTestReportCount"
         Me.txtTestReportCount.ReadOnly = True
-        Me.txtTestReportCount.Size = New System.Drawing.Size(24, 20)
+        Me.txtTestReportCount.Size = New System.Drawing.Size(31, 22)
         Me.txtTestReportCount.TabIndex = 40
         Me.txtTestReportCount.Text = "0"
         '
         'lblTestReportAssignment
         '
-        Me.lblTestReportAssignment.Location = New System.Drawing.Point(176, 8)
+        Me.lblTestReportAssignment.ItemHeight = 16
+        Me.lblTestReportAssignment.Location = New System.Drawing.Point(235, 10)
+        Me.lblTestReportAssignment.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lblTestReportAssignment.Name = "lblTestReportAssignment"
-        Me.lblTestReportAssignment.Size = New System.Drawing.Size(200, 69)
+        Me.lblTestReportAssignment.Size = New System.Drawing.Size(265, 84)
         Me.lblTestReportAssignment.TabIndex = 39
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(8, 8)
+        Me.Label1.Location = New System.Drawing.Point(11, 10)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(55, 13)
+        Me.Label1.Size = New System.Drawing.Size(68, 16)
         Me.Label1.TabIndex = 36
         Me.Label1.Text = "Engineer: "
         '
@@ -1117,18 +1128,21 @@ Partial Class ISMPManagersTools
         Me.cboEngineer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboEngineer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboEngineer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboEngineer.Location = New System.Drawing.Point(8, 32)
+        Me.cboEngineer.Location = New System.Drawing.Point(11, 39)
+        Me.cboEngineer.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cboEngineer.Name = "cboEngineer"
-        Me.cboEngineer.Size = New System.Drawing.Size(144, 21)
+        Me.cboEngineer.Size = New System.Drawing.Size(191, 24)
         Me.cboEngineer.TabIndex = 38
         '
         'LVTestReportAssignment
         '
         Me.LVTestReportAssignment.AllowColumnReorder = True
         Me.LVTestReportAssignment.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.LVTestReportAssignment.Location = New System.Drawing.Point(0, 300)
+        Me.LVTestReportAssignment.HideSelection = False
+        Me.LVTestReportAssignment.Location = New System.Drawing.Point(0, 378)
+        Me.LVTestReportAssignment.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.LVTestReportAssignment.Name = "LVTestReportAssignment"
-        Me.LVTestReportAssignment.Size = New System.Drawing.Size(1134, 440)
+        Me.LVTestReportAssignment.Size = New System.Drawing.Size(1515, 541)
         Me.LVTestReportAssignment.TabIndex = 41
         Me.LVTestReportAssignment.UseCompatibleStateImageBehavior = False
         '
@@ -1136,9 +1150,10 @@ Partial Class ISMPManagersTools
         '
         Me.TPUnitStatistics2.Controls.Add(Me.GroupBox19)
         Me.TPUnitStatistics2.Controls.Add(Me.Panel13)
-        Me.TPUnitStatistics2.Location = New System.Drawing.Point(4, 22)
+        Me.TPUnitStatistics2.Location = New System.Drawing.Point(4, 25)
+        Me.TPUnitStatistics2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TPUnitStatistics2.Name = "TPUnitStatistics2"
-        Me.TPUnitStatistics2.Size = New System.Drawing.Size(1134, 740)
+        Me.TPUnitStatistics2.Size = New System.Drawing.Size(1515, 914)
         Me.TPUnitStatistics2.TabIndex = 12
         Me.TPUnitStatistics2.Text = "Statistics"
         Me.TPUnitStatistics2.UseVisualStyleBackColor = True
@@ -1148,9 +1163,11 @@ Partial Class ISMPManagersTools
         Me.GroupBox19.Controls.Add(Me.dgvUnitStats)
         Me.GroupBox19.Controls.Add(Me.Panel15)
         Me.GroupBox19.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox19.Location = New System.Drawing.Point(342, 0)
+        Me.GroupBox19.Location = New System.Drawing.Point(456, 0)
+        Me.GroupBox19.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox19.Name = "GroupBox19"
-        Me.GroupBox19.Size = New System.Drawing.Size(792, 740)
+        Me.GroupBox19.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox19.Size = New System.Drawing.Size(1059, 914)
         Me.GroupBox19.TabIndex = 1
         Me.GroupBox19.TabStop = False
         Me.GroupBox19.Text = "View Test Reports"
@@ -1159,10 +1176,11 @@ Partial Class ISMPManagersTools
         '
         Me.dgvUnitStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvUnitStats.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvUnitStats.Location = New System.Drawing.Point(3, 80)
+        Me.dgvUnitStats.Location = New System.Drawing.Point(4, 98)
+        Me.dgvUnitStats.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvUnitStats.Name = "dgvUnitStats"
         Me.dgvUnitStats.ReadOnly = True
-        Me.dgvUnitStats.Size = New System.Drawing.Size(786, 657)
+        Me.dgvUnitStats.Size = New System.Drawing.Size(1051, 812)
         Me.dgvUnitStats.TabIndex = 2
         '
         'Panel15
@@ -1172,44 +1190,49 @@ Partial Class ISMPManagersTools
         Me.Panel15.Controls.Add(Me.Label127)
         Me.Panel15.Controls.Add(Me.txtUnitStatsCount)
         Me.Panel15.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel15.Location = New System.Drawing.Point(3, 16)
+        Me.Panel15.Location = New System.Drawing.Point(4, 19)
+        Me.Panel15.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(786, 64)
+        Me.Panel15.Size = New System.Drawing.Size(1051, 79)
         Me.Panel15.TabIndex = 1
         '
         'btnViewTestReport
         '
         Me.btnViewTestReport.AutoSize = True
-        Me.btnViewTestReport.Location = New System.Drawing.Point(89, 27)
+        Me.btnViewTestReport.Location = New System.Drawing.Point(119, 33)
+        Me.btnViewTestReport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnViewTestReport.Name = "btnViewTestReport"
-        Me.btnViewTestReport.Size = New System.Drawing.Size(99, 23)
+        Me.btnViewTestReport.Size = New System.Drawing.Size(161, 32)
         Me.btnViewTestReport.TabIndex = 143
         Me.btnViewTestReport.Text = "View Test Report"
         Me.btnViewTestReport.UseVisualStyleBackColor = True
         '
         'txtUnitStatReferenceNumber
         '
-        Me.txtUnitStatReferenceNumber.Location = New System.Drawing.Point(3, 29)
+        Me.txtUnitStatReferenceNumber.Location = New System.Drawing.Point(4, 36)
+        Me.txtUnitStatReferenceNumber.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtUnitStatReferenceNumber.Name = "txtUnitStatReferenceNumber"
         Me.txtUnitStatReferenceNumber.ReadOnly = True
-        Me.txtUnitStatReferenceNumber.Size = New System.Drawing.Size(80, 20)
+        Me.txtUnitStatReferenceNumber.Size = New System.Drawing.Size(105, 22)
         Me.txtUnitStatReferenceNumber.TabIndex = 142
         '
         'Label127
         '
         Me.Label127.AutoSize = True
-        Me.Label127.Location = New System.Drawing.Point(48, 10)
+        Me.Label127.Location = New System.Drawing.Point(64, 12)
+        Me.Label127.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(35, 13)
+        Me.Label127.Size = New System.Drawing.Size(42, 16)
         Me.Label127.TabIndex = 141
         Me.Label127.Text = "Count"
         '
         'txtUnitStatsCount
         '
-        Me.txtUnitStatsCount.Location = New System.Drawing.Point(3, 3)
+        Me.txtUnitStatsCount.Location = New System.Drawing.Point(4, 4)
+        Me.txtUnitStatsCount.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtUnitStatsCount.Name = "txtUnitStatsCount"
         Me.txtUnitStatsCount.ReadOnly = True
-        Me.txtUnitStatsCount.Size = New System.Drawing.Size(39, 20)
+        Me.txtUnitStatsCount.Size = New System.Drawing.Size(51, 22)
         Me.txtUnitStatsCount.TabIndex = 140
         '
         'Panel13
@@ -1234,127 +1257,142 @@ Partial Class ISMPManagersTools
         Me.Panel13.Controls.Add(Me.DTPUnitStatsStartDate)
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel13.Location = New System.Drawing.Point(0, 0)
+        Me.Panel13.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(342, 740)
+        Me.Panel13.Size = New System.Drawing.Size(456, 914)
         Me.Panel13.TabIndex = 0
         '
         'Label126
         '
         Me.Label126.AutoSize = True
-        Me.Label126.Location = New System.Drawing.Point(8, 73)
+        Me.Label126.Location = New System.Drawing.Point(11, 90)
+        Me.Label126.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(76, 13)
+        Me.Label126.Size = New System.Drawing.Size(93, 16)
         Me.Label126.TabIndex = 140
         Me.Label126.Text = "# of Engineers"
         '
         'txtAverageWitnessed
         '
-        Me.txtAverageWitnessed.Location = New System.Drawing.Point(232, 246)
+        Me.txtAverageWitnessed.Location = New System.Drawing.Point(309, 303)
+        Me.txtAverageWitnessed.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtAverageWitnessed.Name = "txtAverageWitnessed"
         Me.txtAverageWitnessed.ReadOnly = True
-        Me.txtAverageWitnessed.Size = New System.Drawing.Size(39, 20)
+        Me.txtAverageWitnessed.Size = New System.Drawing.Size(51, 22)
         Me.txtAverageWitnessed.TabIndex = 139
         '
         'txtPercentialAverage
         '
-        Me.txtPercentialAverage.Location = New System.Drawing.Point(232, 223)
+        Me.txtPercentialAverage.Location = New System.Drawing.Point(309, 274)
+        Me.txtPercentialAverage.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtPercentialAverage.Name = "txtPercentialAverage"
         Me.txtPercentialAverage.ReadOnly = True
-        Me.txtPercentialAverage.Size = New System.Drawing.Size(39, 20)
+        Me.txtPercentialAverage.Size = New System.Drawing.Size(51, 22)
         Me.txtPercentialAverage.TabIndex = 138
         '
         'Label140
         '
         Me.Label140.AutoSize = True
-        Me.Label140.Location = New System.Drawing.Point(8, 181)
+        Me.Label140.Location = New System.Drawing.Point(11, 223)
+        Me.Label140.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label140.Name = "Label140"
-        Me.Label140.Size = New System.Drawing.Size(137, 13)
+        Me.Label140.Size = New System.Drawing.Size(172, 16)
         Me.Label140.TabIndex = 137
         Me.Label140.Text = "Average of Total Reviewed"
         '
         'txtEngineerCount
         '
-        Me.txtEngineerCount.Location = New System.Drawing.Point(232, 69)
+        Me.txtEngineerCount.Location = New System.Drawing.Point(309, 85)
+        Me.txtEngineerCount.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtEngineerCount.Name = "txtEngineerCount"
         Me.txtEngineerCount.ReadOnly = True
-        Me.txtEngineerCount.Size = New System.Drawing.Size(39, 20)
+        Me.txtEngineerCount.Size = New System.Drawing.Size(51, 22)
         Me.txtEngineerCount.TabIndex = 129
         '
         'txtAverageMedianDays
         '
-        Me.txtAverageMedianDays.Location = New System.Drawing.Point(232, 200)
+        Me.txtAverageMedianDays.Location = New System.Drawing.Point(309, 246)
+        Me.txtAverageMedianDays.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtAverageMedianDays.Name = "txtAverageMedianDays"
         Me.txtAverageMedianDays.ReadOnly = True
-        Me.txtAverageMedianDays.Size = New System.Drawing.Size(39, 20)
+        Me.txtAverageMedianDays.Size = New System.Drawing.Size(51, 22)
         Me.txtAverageMedianDays.TabIndex = 128
         '
         'Label130
         '
         Me.Label130.AutoSize = True
-        Me.Label130.Location = New System.Drawing.Point(8, 227)
+        Me.Label130.Location = New System.Drawing.Point(11, 279)
+        Me.Label130.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(149, 13)
+        Me.Label130.Size = New System.Drawing.Size(184, 16)
         Me.Label130.TabIndex = 127
         Me.Label130.Text = "Average of 80% - Goal (60.00)"
         '
         'Label129
         '
         Me.Label129.AutoSize = True
-        Me.Label129.Location = New System.Drawing.Point(8, 204)
+        Me.Label129.Location = New System.Drawing.Point(11, 251)
+        Me.Label129.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label129.Name = "Label129"
-        Me.Label129.Size = New System.Drawing.Size(191, 13)
+        Me.Label129.Size = New System.Drawing.Size(238, 16)
         Me.Label129.TabIndex = 126
         Me.Label129.Text = "Average of Median Days - Goal (30.00)"
         '
         'txtAverageofTotalReviewed
         '
-        Me.txtAverageofTotalReviewed.Location = New System.Drawing.Point(232, 177)
+        Me.txtAverageofTotalReviewed.Location = New System.Drawing.Point(309, 218)
+        Me.txtAverageofTotalReviewed.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtAverageofTotalReviewed.Name = "txtAverageofTotalReviewed"
         Me.txtAverageofTotalReviewed.ReadOnly = True
-        Me.txtAverageofTotalReviewed.Size = New System.Drawing.Size(39, 20)
+        Me.txtAverageofTotalReviewed.Size = New System.Drawing.Size(51, 22)
         Me.txtAverageofTotalReviewed.TabIndex = 125
         '
         'lblTotalTests
         '
         Me.lblTotalTests.AutoSize = True
-        Me.lblTotalTests.Location = New System.Drawing.Point(279, 102)
+        Me.lblTotalTests.Location = New System.Drawing.Point(372, 126)
+        Me.lblTotalTests.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTotalTests.Name = "lblTotalTests"
-        Me.lblTotalTests.Size = New System.Drawing.Size(30, 13)
+        Me.lblTotalTests.Size = New System.Drawing.Size(37, 16)
         Me.lblTotalTests.TabIndex = 120
         Me.lblTotalTests.TabStop = True
         Me.lblTotalTests.Text = "View"
         '
         'txtTotalReviewed
         '
-        Me.txtTotalReviewed.Location = New System.Drawing.Point(232, 98)
+        Me.txtTotalReviewed.Location = New System.Drawing.Point(309, 121)
+        Me.txtTotalReviewed.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtTotalReviewed.Name = "txtTotalReviewed"
         Me.txtTotalReviewed.ReadOnly = True
-        Me.txtTotalReviewed.Size = New System.Drawing.Size(39, 20)
+        Me.txtTotalReviewed.Size = New System.Drawing.Size(51, 22)
         Me.txtTotalReviewed.TabIndex = 119
         '
         'Label125
         '
         Me.Label125.AutoSize = True
-        Me.Label125.Location = New System.Drawing.Point(8, 250)
+        Me.Label125.Location = New System.Drawing.Point(11, 308)
+        Me.Label125.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label125.Name = "Label125"
-        Me.Label125.Size = New System.Drawing.Size(189, 13)
+        Me.Label125.Size = New System.Drawing.Size(232, 16)
         Me.Label125.TabIndex = 107
         Me.Label125.Text = "Average of # Witnessed - Goal (30.00)"
         '
         'Label124
         '
         Me.Label124.AutoSize = True
-        Me.Label124.Location = New System.Drawing.Point(8, 102)
+        Me.Label124.Location = New System.Drawing.Point(11, 126)
+        Me.Label124.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label124.Name = "Label124"
-        Me.Label124.Size = New System.Drawing.Size(111, 13)
+        Me.Label124.Size = New System.Drawing.Size(140, 16)
         Me.Label124.TabIndex = 106
         Me.Label124.Text = "Total Tests Reviewed"
         '
         'btnRunUnitStatsReport
         '
-        Me.btnRunUnitStatsReport.Location = New System.Drawing.Point(196, 11)
+        Me.btnRunUnitStatsReport.Location = New System.Drawing.Point(261, 14)
+        Me.btnRunUnitStatsReport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnRunUnitStatsReport.Name = "btnRunUnitStatsReport"
-        Me.btnRunUnitStatsReport.Size = New System.Drawing.Size(75, 23)
+        Me.btnRunUnitStatsReport.Size = New System.Drawing.Size(100, 28)
         Me.btnRunUnitStatsReport.TabIndex = 102
         Me.btnRunUnitStatsReport.Text = "Run Report"
         Me.btnRunUnitStatsReport.UseVisualStyleBackColor = True
@@ -1362,18 +1400,20 @@ Partial Class ISMPManagersTools
         'Label122
         '
         Me.Label122.AutoSize = True
-        Me.Label122.Location = New System.Drawing.Point(118, 42)
+        Me.Label122.Location = New System.Drawing.Point(157, 52)
+        Me.Label122.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label122.Name = "Label122"
-        Me.Label122.Size = New System.Drawing.Size(55, 13)
+        Me.Label122.Size = New System.Drawing.Size(67, 16)
         Me.Label122.TabIndex = 101
         Me.Label122.Text = "End Date "
         '
         'Label123
         '
         Me.Label123.AutoSize = True
-        Me.Label123.Location = New System.Drawing.Point(118, 16)
+        Me.Label123.Location = New System.Drawing.Point(157, 20)
+        Me.Label123.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label123.Name = "Label123"
-        Me.Label123.Size = New System.Drawing.Size(55, 13)
+        Me.Label123.Size = New System.Drawing.Size(67, 16)
         Me.Label123.TabIndex = 100
         Me.Label123.Text = "Start Date"
         '
@@ -1381,9 +1421,10 @@ Partial Class ISMPManagersTools
         '
         Me.DTPUnitStatsEndDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPUnitStatsEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPUnitStatsEndDate.Location = New System.Drawing.Point(8, 38)
+        Me.DTPUnitStatsEndDate.Location = New System.Drawing.Point(11, 47)
+        Me.DTPUnitStatsEndDate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.DTPUnitStatsEndDate.Name = "DTPUnitStatsEndDate"
-        Me.DTPUnitStatsEndDate.Size = New System.Drawing.Size(104, 20)
+        Me.DTPUnitStatsEndDate.Size = New System.Drawing.Size(137, 22)
         Me.DTPUnitStatsEndDate.TabIndex = 99
         Me.DTPUnitStatsEndDate.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '
@@ -1391,9 +1432,10 @@ Partial Class ISMPManagersTools
         '
         Me.DTPUnitStatsStartDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPUnitStatsStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPUnitStatsStartDate.Location = New System.Drawing.Point(8, 12)
+        Me.DTPUnitStatsStartDate.Location = New System.Drawing.Point(11, 15)
+        Me.DTPUnitStatsStartDate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.DTPUnitStatsStartDate.Name = "DTPUnitStatsStartDate"
-        Me.DTPUnitStatsStartDate.Size = New System.Drawing.Size(104, 20)
+        Me.DTPUnitStatsStartDate.Size = New System.Drawing.Size(137, 22)
         Me.DTPUnitStatsStartDate.TabIndex = 98
         Me.DTPUnitStatsStartDate.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '
@@ -1404,9 +1446,10 @@ Partial Class ISMPManagersTools
         Me.TPEngineerTestReport.Controls.Add(Me.Splitter8)
         Me.TPEngineerTestReport.Controls.Add(Me.PanelDate)
         Me.TPEngineerTestReport.Controls.Add(Me.dgrEngineersFacilityList)
-        Me.TPEngineerTestReport.Location = New System.Drawing.Point(4, 22)
+        Me.TPEngineerTestReport.Location = New System.Drawing.Point(4, 25)
+        Me.TPEngineerTestReport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TPEngineerTestReport.Name = "TPEngineerTestReport"
-        Me.TPEngineerTestReport.Size = New System.Drawing.Size(1134, 740)
+        Me.TPEngineerTestReport.Size = New System.Drawing.Size(1515, 914)
         Me.TPEngineerTestReport.TabIndex = 8
         Me.TPEngineerTestReport.Text = "Engineer Test Reports"
         Me.TPEngineerTestReport.UseVisualStyleBackColor = True
@@ -1415,9 +1458,10 @@ Partial Class ISMPManagersTools
         '
         Me.Splitter9.BackColor = System.Drawing.SystemColors.HotTrack
         Me.Splitter9.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Splitter9.Location = New System.Drawing.Point(0, 471)
+        Me.Splitter9.Location = New System.Drawing.Point(0, 583)
+        Me.Splitter9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Splitter9.Name = "Splitter9"
-        Me.Splitter9.Size = New System.Drawing.Size(1134, 5)
+        Me.Splitter9.Size = New System.Drawing.Size(1515, 6)
         Me.Splitter9.TabIndex = 148
         Me.Splitter9.TabStop = False
         '
@@ -1426,9 +1470,11 @@ Partial Class ISMPManagersTools
         Me.GroupBox14.Controls.Add(Me.lsbEngineers)
         Me.GroupBox14.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox14.Font = New System.Drawing.Font("Times New Roman", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox14.Location = New System.Drawing.Point(0, 141)
+        Me.GroupBox14.Location = New System.Drawing.Point(0, 173)
+        Me.GroupBox14.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox14.Name = "GroupBox14"
-        Me.GroupBox14.Size = New System.Drawing.Size(1134, 335)
+        Me.GroupBox14.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox14.Size = New System.Drawing.Size(1515, 416)
         Me.GroupBox14.TabIndex = 147
         Me.GroupBox14.TabStop = False
         Me.GroupBox14.Text = "Engineer \ Reference Number \ Facility \ Date Received \ (Days)"
@@ -1438,19 +1484,21 @@ Partial Class ISMPManagersTools
         Me.lsbEngineers.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lsbEngineers.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lsbEngineers.HorizontalScrollbar = True
-        Me.lsbEngineers.Location = New System.Drawing.Point(3, 22)
+        Me.lsbEngineers.Location = New System.Drawing.Point(4, 23)
+        Me.lsbEngineers.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lsbEngineers.Name = "lsbEngineers"
         Me.lsbEngineers.ScrollAlwaysVisible = True
-        Me.lsbEngineers.Size = New System.Drawing.Size(1128, 310)
+        Me.lsbEngineers.Size = New System.Drawing.Size(1507, 389)
         Me.lsbEngineers.TabIndex = 99
         '
         'Splitter8
         '
         Me.Splitter8.BackColor = System.Drawing.SystemColors.HotTrack
         Me.Splitter8.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Splitter8.Location = New System.Drawing.Point(0, 136)
+        Me.Splitter8.Location = New System.Drawing.Point(0, 167)
+        Me.Splitter8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Splitter8.Name = "Splitter8"
-        Me.Splitter8.Size = New System.Drawing.Size(1134, 5)
+        Me.Splitter8.Size = New System.Drawing.Size(1515, 6)
         Me.Splitter8.TabIndex = 146
         Me.Splitter8.TabStop = False
         '
@@ -1463,26 +1511,29 @@ Partial Class ISMPManagersTools
         Me.PanelDate.Controls.Add(Me.GroupBox12)
         Me.PanelDate.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelDate.Location = New System.Drawing.Point(0, 0)
+        Me.PanelDate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PanelDate.Name = "PanelDate"
-        Me.PanelDate.Size = New System.Drawing.Size(1134, 136)
+        Me.PanelDate.Size = New System.Drawing.Size(1515, 167)
         Me.PanelDate.TabIndex = 145
         '
         'Splitter11
         '
         Me.Splitter11.BackColor = System.Drawing.SystemColors.Highlight
         Me.Splitter11.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Splitter11.Location = New System.Drawing.Point(905, 0)
+        Me.Splitter11.Location = New System.Drawing.Point(1209, 0)
+        Me.Splitter11.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Splitter11.Name = "Splitter11"
-        Me.Splitter11.Size = New System.Drawing.Size(5, 136)
+        Me.Splitter11.Size = New System.Drawing.Size(7, 167)
         Me.Splitter11.TabIndex = 154
         Me.Splitter11.TabStop = False
         '
         'Splitter10
         '
         Me.Splitter10.BackColor = System.Drawing.SystemColors.Highlight
-        Me.Splitter10.Location = New System.Drawing.Point(232, 0)
+        Me.Splitter10.Location = New System.Drawing.Point(309, 0)
+        Me.Splitter10.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Splitter10.Name = "Splitter10"
-        Me.Splitter10.Size = New System.Drawing.Size(5, 136)
+        Me.Splitter10.Size = New System.Drawing.Size(7, 167)
         Me.Splitter10.TabIndex = 153
         Me.Splitter10.TabStop = False
         '
@@ -1497,27 +1548,30 @@ Partial Class ISMPManagersTools
         Me.Panel10.Controls.Add(Me.llbViewReport)
         Me.Panel10.Controls.Add(Me.llbEngineerTestReports)
         Me.Panel10.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel10.Location = New System.Drawing.Point(232, 0)
+        Me.Panel10.Location = New System.Drawing.Point(309, 0)
+        Me.Panel10.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(678, 136)
+        Me.Panel10.Size = New System.Drawing.Size(907, 167)
         Me.Panel10.TabIndex = 152
         '
         'DTPEngineerTestReportEnd
         '
         Me.DTPEngineerTestReportEnd.CustomFormat = "dd-MMM-yyyy"
         Me.DTPEngineerTestReportEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPEngineerTestReportEnd.Location = New System.Drawing.Point(152, 24)
+        Me.DTPEngineerTestReportEnd.Location = New System.Drawing.Point(203, 30)
+        Me.DTPEngineerTestReportEnd.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.DTPEngineerTestReportEnd.Name = "DTPEngineerTestReportEnd"
-        Me.DTPEngineerTestReportEnd.Size = New System.Drawing.Size(112, 20)
+        Me.DTPEngineerTestReportEnd.Size = New System.Drawing.Size(148, 22)
         Me.DTPEngineerTestReportEnd.TabIndex = 92
         Me.DTPEngineerTestReportEnd.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '
         'Label121
         '
         Me.Label121.AutoSize = True
-        Me.Label121.Location = New System.Drawing.Point(8, 8)
+        Me.Label121.Location = New System.Drawing.Point(11, 10)
+        Me.Label121.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label121.Name = "Label121"
-        Me.Label121.Size = New System.Drawing.Size(55, 13)
+        Me.Label121.Size = New System.Drawing.Size(67, 16)
         Me.Label121.TabIndex = 145
         Me.Label121.Text = "Start Date"
         '
@@ -1525,33 +1579,37 @@ Partial Class ISMPManagersTools
         '
         Me.DTPEngineerTestReportStart.CustomFormat = "dd-MMM-yyyy"
         Me.DTPEngineerTestReportStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPEngineerTestReportStart.Location = New System.Drawing.Point(16, 24)
+        Me.DTPEngineerTestReportStart.Location = New System.Drawing.Point(21, 30)
+        Me.DTPEngineerTestReportStart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.DTPEngineerTestReportStart.Name = "DTPEngineerTestReportStart"
-        Me.DTPEngineerTestReportStart.Size = New System.Drawing.Size(112, 20)
+        Me.DTPEngineerTestReportStart.Size = New System.Drawing.Size(148, 22)
         Me.DTPEngineerTestReportStart.TabIndex = 91
         Me.DTPEngineerTestReportStart.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '
         'Label120
         '
         Me.Label120.AutoSize = True
-        Me.Label120.Location = New System.Drawing.Point(136, 8)
+        Me.Label120.Location = New System.Drawing.Point(181, 10)
+        Me.Label120.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label120.Name = "Label120"
-        Me.Label120.Size = New System.Drawing.Size(55, 13)
+        Me.Label120.Size = New System.Drawing.Size(67, 16)
         Me.Label120.TabIndex = 146
         Me.Label120.Text = "End Date "
         '
         'txtReferenceNumber
         '
-        Me.txtReferenceNumber.Location = New System.Drawing.Point(40, 112)
+        Me.txtReferenceNumber.Location = New System.Drawing.Point(53, 138)
+        Me.txtReferenceNumber.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtReferenceNumber.Name = "txtReferenceNumber"
-        Me.txtReferenceNumber.Size = New System.Drawing.Size(100, 20)
+        Me.txtReferenceNumber.Size = New System.Drawing.Size(132, 22)
         Me.txtReferenceNumber.TabIndex = 150
         '
         'llbExportToExcel
         '
         Me.llbExportToExcel.AutoSize = True
         Me.llbExportToExcel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.llbExportToExcel.Location = New System.Drawing.Point(176, 88)
+        Me.llbExportToExcel.Location = New System.Drawing.Point(235, 108)
+        Me.llbExportToExcel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.llbExportToExcel.Name = "llbExportToExcel"
         Me.llbExportToExcel.Size = New System.Drawing.Size(78, 13)
         Me.llbExportToExcel.TabIndex = 151
@@ -1561,9 +1619,10 @@ Partial Class ISMPManagersTools
         'llbViewReport
         '
         Me.llbViewReport.AutoSize = True
-        Me.llbViewReport.Location = New System.Drawing.Point(16, 88)
+        Me.llbViewReport.Location = New System.Drawing.Point(21, 108)
+        Me.llbViewReport.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.llbViewReport.Name = "llbViewReport"
-        Me.llbViewReport.Size = New System.Drawing.Size(110, 13)
+        Me.llbViewReport.Size = New System.Drawing.Size(138, 16)
         Me.llbViewReport.TabIndex = 149
         Me.llbViewReport.TabStop = True
         Me.llbViewReport.Text = "View Selected Report"
@@ -1571,9 +1630,10 @@ Partial Class ISMPManagersTools
         'llbEngineerTestReports
         '
         Me.llbEngineerTestReports.AutoSize = True
-        Me.llbEngineerTestReports.Location = New System.Drawing.Point(16, 48)
+        Me.llbEngineerTestReports.Location = New System.Drawing.Point(21, 59)
+        Me.llbEngineerTestReports.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.llbEngineerTestReports.Name = "llbEngineerTestReports"
-        Me.llbEngineerTestReports.Size = New System.Drawing.Size(62, 13)
+        Me.llbEngineerTestReports.Size = New System.Drawing.Size(76, 16)
         Me.llbEngineerTestReports.TabIndex = 148
         Me.llbEngineerTestReports.TabStop = True
         Me.llbEngineerTestReports.Text = "Run Report"
@@ -1583,9 +1643,11 @@ Partial Class ISMPManagersTools
         Me.GroupBox13.Controls.Add(Me.clbEngineersList2)
         Me.GroupBox13.Dock = System.Windows.Forms.DockStyle.Right
         Me.GroupBox13.Font = New System.Drawing.Font("Times New Roman", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox13.Location = New System.Drawing.Point(910, 0)
+        Me.GroupBox13.Location = New System.Drawing.Point(1216, 0)
+        Me.GroupBox13.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox13.Name = "GroupBox13"
-        Me.GroupBox13.Size = New System.Drawing.Size(224, 136)
+        Me.GroupBox13.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox13.Size = New System.Drawing.Size(299, 167)
         Me.GroupBox13.TabIndex = 147
         Me.GroupBox13.TabStop = False
         Me.GroupBox13.Text = "Engineers Within Unit"
@@ -1595,9 +1657,10 @@ Partial Class ISMPManagersTools
         Me.clbEngineersList2.CheckOnClick = True
         Me.clbEngineersList2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.clbEngineersList2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.clbEngineersList2.Location = New System.Drawing.Point(3, 22)
+        Me.clbEngineersList2.Location = New System.Drawing.Point(4, 23)
+        Me.clbEngineersList2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.clbEngineersList2.Name = "clbEngineersList2"
-        Me.clbEngineersList2.Size = New System.Drawing.Size(218, 111)
+        Me.clbEngineersList2.Size = New System.Drawing.Size(291, 140)
         Me.clbEngineersList2.TabIndex = 90
         '
         'GroupBox12
@@ -1611,8 +1674,10 @@ Partial Class ISMPManagersTools
         Me.GroupBox12.Font = New System.Drawing.Font("Times New Roman", 12.0!, CType(((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic) _
                 Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox12.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBox12.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox12.Name = "GroupBox12"
-        Me.GroupBox12.Size = New System.Drawing.Size(232, 136)
+        Me.GroupBox12.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox12.Size = New System.Drawing.Size(309, 167)
         Me.GroupBox12.TabIndex = 144
         Me.GroupBox12.TabStop = False
         Me.GroupBox12.Text = "Date Bias"
@@ -1620,9 +1685,10 @@ Partial Class ISMPManagersTools
         'rdbEngineerTestReportAll
         '
         Me.rdbEngineerTestReportAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdbEngineerTestReportAll.Location = New System.Drawing.Point(8, 88)
+        Me.rdbEngineerTestReportAll.Location = New System.Drawing.Point(11, 108)
+        Me.rdbEngineerTestReportAll.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rdbEngineerTestReportAll.Name = "rdbEngineerTestReportAll"
-        Me.rdbEngineerTestReportAll.Size = New System.Drawing.Size(104, 16)
+        Me.rdbEngineerTestReportAll.Size = New System.Drawing.Size(139, 20)
         Me.rdbEngineerTestReportAll.TabIndex = 152
         Me.rdbEngineerTestReportAll.Text = "All Test Reports"
         '
@@ -1630,7 +1696,8 @@ Partial Class ISMPManagersTools
         '
         Me.Label119.AutoSize = True
         Me.Label119.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label119.Location = New System.Drawing.Point(24, 104)
+        Me.Label119.Location = New System.Drawing.Point(32, 128)
+        Me.Label119.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label119.Name = "Label119"
         Me.Label119.Size = New System.Drawing.Size(185, 13)
         Me.Label119.TabIndex = 153
@@ -1639,18 +1706,20 @@ Partial Class ISMPManagersTools
         'rdbEngineerTestReportCompleted
         '
         Me.rdbEngineerTestReportCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdbEngineerTestReportCompleted.Location = New System.Drawing.Point(8, 64)
+        Me.rdbEngineerTestReportCompleted.Location = New System.Drawing.Point(11, 79)
+        Me.rdbEngineerTestReportCompleted.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rdbEngineerTestReportCompleted.Name = "rdbEngineerTestReportCompleted"
-        Me.rdbEngineerTestReportCompleted.Size = New System.Drawing.Size(144, 24)
+        Me.rdbEngineerTestReportCompleted.Size = New System.Drawing.Size(192, 30)
         Me.rdbEngineerTestReportCompleted.TabIndex = 2
         Me.rdbEngineerTestReportCompleted.Text = "Date Report Completed"
         '
         'rdbEngineerTestReportTestDate
         '
         Me.rdbEngineerTestReportTestDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdbEngineerTestReportTestDate.Location = New System.Drawing.Point(8, 16)
+        Me.rdbEngineerTestReportTestDate.Location = New System.Drawing.Point(11, 20)
+        Me.rdbEngineerTestReportTestDate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rdbEngineerTestReportTestDate.Name = "rdbEngineerTestReportTestDate"
-        Me.rdbEngineerTestReportTestDate.Size = New System.Drawing.Size(136, 24)
+        Me.rdbEngineerTestReportTestDate.Size = New System.Drawing.Size(181, 30)
         Me.rdbEngineerTestReportTestDate.TabIndex = 1
         Me.rdbEngineerTestReportTestDate.Text = "Date Test Started"
         '
@@ -1658,9 +1727,10 @@ Partial Class ISMPManagersTools
         '
         Me.rdbEngineerTestReportReceived.Checked = True
         Me.rdbEngineerTestReportReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdbEngineerTestReportReceived.Location = New System.Drawing.Point(8, 40)
+        Me.rdbEngineerTestReportReceived.Location = New System.Drawing.Point(11, 49)
+        Me.rdbEngineerTestReportReceived.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rdbEngineerTestReportReceived.Name = "rdbEngineerTestReportReceived"
-        Me.rdbEngineerTestReportReceived.Size = New System.Drawing.Size(104, 24)
+        Me.rdbEngineerTestReportReceived.Size = New System.Drawing.Size(139, 30)
         Me.rdbEngineerTestReportReceived.TabIndex = 0
         Me.rdbEngineerTestReportReceived.TabStop = True
         Me.rdbEngineerTestReportReceived.Text = "Date Received"
@@ -1671,10 +1741,11 @@ Partial Class ISMPManagersTools
         Me.dgrEngineersFacilityList.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.dgrEngineersFacilityList.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dgrEngineersFacilityList.HeaderForeColor = System.Drawing.SystemColors.ControlText
-        Me.dgrEngineersFacilityList.Location = New System.Drawing.Point(0, 476)
+        Me.dgrEngineersFacilityList.Location = New System.Drawing.Point(0, 589)
+        Me.dgrEngineersFacilityList.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgrEngineersFacilityList.Name = "dgrEngineersFacilityList"
         Me.dgrEngineersFacilityList.ReadOnly = True
-        Me.dgrEngineersFacilityList.Size = New System.Drawing.Size(1134, 264)
+        Me.dgrEngineersFacilityList.Size = New System.Drawing.Size(1515, 325)
         Me.dgrEngineersFacilityList.TabIndex = 96
         '
         'TPMonthlyReport
@@ -1683,9 +1754,10 @@ Partial Class ISMPManagersTools
         Me.TPMonthlyReport.Controls.Add(Me.GroupBox6)
         Me.TPMonthlyReport.Controls.Add(Me.GroupBox4)
         Me.TPMonthlyReport.Controls.Add(Me.btnRunReport)
-        Me.TPMonthlyReport.Location = New System.Drawing.Point(4, 22)
+        Me.TPMonthlyReport.Location = New System.Drawing.Point(4, 25)
+        Me.TPMonthlyReport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TPMonthlyReport.Name = "TPMonthlyReport"
-        Me.TPMonthlyReport.Size = New System.Drawing.Size(1134, 740)
+        Me.TPMonthlyReport.Size = New System.Drawing.Size(1515, 914)
         Me.TPMonthlyReport.TabIndex = 2
         Me.TPMonthlyReport.Text = "Monthly Report"
         Me.TPMonthlyReport.UseVisualStyleBackColor = True
@@ -1695,9 +1767,10 @@ Partial Class ISMPManagersTools
         Me.Splitter2.BackColor = System.Drawing.SystemColors.HotTrack
         Me.Splitter2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Splitter2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Splitter2.Location = New System.Drawing.Point(0, 391)
+        Me.Splitter2.Location = New System.Drawing.Point(0, 485)
+        Me.Splitter2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Splitter2.Name = "Splitter2"
-        Me.Splitter2.Size = New System.Drawing.Size(1134, 5)
+        Me.Splitter2.Size = New System.Drawing.Size(1515, 6)
         Me.Splitter2.TabIndex = 129
         Me.Splitter2.TabStop = False
         '
@@ -1710,8 +1783,10 @@ Partial Class ISMPManagersTools
         Me.GroupBox6.Font = New System.Drawing.Font("Times New Roman", 12.0!, CType(((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic) _
                 Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox6.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBox6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(1134, 396)
+        Me.GroupBox6.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox6.Size = New System.Drawing.Size(1515, 491)
         Me.GroupBox6.TabIndex = 127
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Monthly Report "
@@ -1721,9 +1796,10 @@ Partial Class ISMPManagersTools
         Me.Splitter1.BackColor = System.Drawing.SystemColors.HotTrack
         Me.Splitter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Splitter1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Splitter1.Location = New System.Drawing.Point(3, 276)
+        Me.Splitter1.Location = New System.Drawing.Point(4, 343)
+        Me.Splitter1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Splitter1.Name = "Splitter1"
-        Me.Splitter1.Size = New System.Drawing.Size(1128, 5)
+        Me.Splitter1.Size = New System.Drawing.Size(1507, 6)
         Me.Splitter1.TabIndex = 128
         Me.Splitter1.TabStop = False
         '
@@ -1749,16 +1825,18 @@ Partial Class ISMPManagersTools
         Me.Panel4.Controls.Add(Me.Label31)
         Me.Panel4.Controls.Add(Me.llbRunMonthlyReport)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel4.Location = New System.Drawing.Point(3, 22)
+        Me.Panel4.Location = New System.Drawing.Point(4, 23)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(1128, 259)
+        Me.Panel4.Size = New System.Drawing.Size(1507, 326)
         Me.Panel4.TabIndex = 127
         '
         'Label73
         '
         Me.Label73.AutoSize = True
         Me.Label73.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label73.Location = New System.Drawing.Point(304, 32)
+        Me.Label73.Location = New System.Drawing.Point(405, 39)
+        Me.Label73.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label73.Name = "Label73"
         Me.Label73.Size = New System.Drawing.Size(138, 13)
         Me.Label73.TabIndex = 140
@@ -1767,16 +1845,18 @@ Partial Class ISMPManagersTools
         'txtTestWitnessed
         '
         Me.txtTestWitnessed.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTestWitnessed.Location = New System.Drawing.Point(200, 32)
+        Me.txtTestWitnessed.Location = New System.Drawing.Point(267, 39)
+        Me.txtTestWitnessed.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtTestWitnessed.Name = "txtTestWitnessed"
-        Me.txtTestWitnessed.Size = New System.Drawing.Size(100, 20)
+        Me.txtTestWitnessed.Size = New System.Drawing.Size(132, 20)
         Me.txtTestWitnessed.TabIndex = 139
         '
         'Label70
         '
         Me.Label70.AutoSize = True
         Me.Label70.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label70.Location = New System.Drawing.Point(552, 32)
+        Me.Label70.Location = New System.Drawing.Point(736, 39)
+        Me.Label70.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label70.Name = "Label70"
         Me.Label70.Size = New System.Drawing.Size(125, 13)
         Me.Label70.TabIndex = 134
@@ -1785,16 +1865,18 @@ Partial Class ISMPManagersTools
         'txtTestOutOfCompliance
         '
         Me.txtTestOutOfCompliance.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTestOutOfCompliance.Location = New System.Drawing.Point(448, 32)
+        Me.txtTestOutOfCompliance.Location = New System.Drawing.Point(597, 39)
+        Me.txtTestOutOfCompliance.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtTestOutOfCompliance.Name = "txtTestOutOfCompliance"
-        Me.txtTestOutOfCompliance.Size = New System.Drawing.Size(100, 20)
+        Me.txtTestOutOfCompliance.Size = New System.Drawing.Size(132, 20)
         Me.txtTestOutOfCompliance.TabIndex = 133
         '
         'Label69
         '
         Me.Label69.AutoSize = True
         Me.Label69.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label69.Location = New System.Drawing.Point(552, 8)
+        Me.Label69.Location = New System.Drawing.Point(736, 10)
+        Me.Label69.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label69.Name = "Label69"
         Me.Label69.Size = New System.Drawing.Size(86, 13)
         Me.Label69.TabIndex = 132
@@ -1803,16 +1885,18 @@ Partial Class ISMPManagersTools
         'txtTestCompleted
         '
         Me.txtTestCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTestCompleted.Location = New System.Drawing.Point(448, 8)
+        Me.txtTestCompleted.Location = New System.Drawing.Point(597, 10)
+        Me.txtTestCompleted.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtTestCompleted.Name = "txtTestCompleted"
-        Me.txtTestCompleted.Size = New System.Drawing.Size(100, 20)
+        Me.txtTestCompleted.Size = New System.Drawing.Size(132, 20)
         Me.txtTestCompleted.TabIndex = 131
         '
         'Label68
         '
         Me.Label68.AutoSize = True
         Me.Label68.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label68.Location = New System.Drawing.Point(304, 8)
+        Me.Label68.Location = New System.Drawing.Point(405, 10)
+        Me.Label68.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label68.Name = "Label68"
         Me.Label68.Size = New System.Drawing.Size(82, 13)
         Me.Label68.TabIndex = 130
@@ -1821,26 +1905,29 @@ Partial Class ISMPManagersTools
         'txtReceived
         '
         Me.txtReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtReceived.Location = New System.Drawing.Point(200, 8)
+        Me.txtReceived.Location = New System.Drawing.Point(267, 10)
+        Me.txtReceived.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtReceived.Name = "txtReceived"
-        Me.txtReceived.Size = New System.Drawing.Size(100, 20)
+        Me.txtReceived.Size = New System.Drawing.Size(132, 20)
         Me.txtReceived.TabIndex = 129
         '
         'Label65
         '
         Me.Label65.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label65.Location = New System.Drawing.Point(120, 32)
+        Me.Label65.Location = New System.Drawing.Point(160, 39)
+        Me.Label65.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label65.Name = "Label65"
-        Me.Label65.Size = New System.Drawing.Size(80, 16)
+        Me.Label65.Size = New System.Drawing.Size(107, 20)
         Me.Label65.TabIndex = 128
         Me.Label65.Text = "End Date"
         '
         'Label64
         '
         Me.Label64.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label64.Location = New System.Drawing.Point(120, 8)
+        Me.Label64.Location = New System.Drawing.Point(160, 10)
+        Me.Label64.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label64.Name = "Label64"
-        Me.Label64.Size = New System.Drawing.Size(80, 16)
+        Me.Label64.Size = New System.Drawing.Size(107, 20)
         Me.Label64.TabIndex = 127
         Me.Label64.Text = "Start Date"
         '
@@ -1849,9 +1936,10 @@ Partial Class ISMPManagersTools
         Me.DTPMonthlyEnd.CustomFormat = "dd-MMM-yyyy"
         Me.DTPMonthlyEnd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPMonthlyEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPMonthlyEnd.Location = New System.Drawing.Point(8, 32)
+        Me.DTPMonthlyEnd.Location = New System.Drawing.Point(11, 39)
+        Me.DTPMonthlyEnd.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.DTPMonthlyEnd.Name = "DTPMonthlyEnd"
-        Me.DTPMonthlyEnd.Size = New System.Drawing.Size(104, 20)
+        Me.DTPMonthlyEnd.Size = New System.Drawing.Size(137, 20)
         Me.DTPMonthlyEnd.TabIndex = 126
         '
         'DTPMonthlyStart
@@ -1859,17 +1947,19 @@ Partial Class ISMPManagersTools
         Me.DTPMonthlyStart.CustomFormat = "dd-MMM-yyyy"
         Me.DTPMonthlyStart.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPMonthlyStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPMonthlyStart.Location = New System.Drawing.Point(8, 8)
+        Me.DTPMonthlyStart.Location = New System.Drawing.Point(11, 10)
+        Me.DTPMonthlyStart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.DTPMonthlyStart.Name = "DTPMonthlyStart"
-        Me.DTPMonthlyStart.Size = New System.Drawing.Size(104, 20)
+        Me.DTPMonthlyStart.Size = New System.Drawing.Size(137, 20)
         Me.DTPMonthlyStart.TabIndex = 125
         '
         'txtPercential
         '
         Me.txtPercential.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPercential.Location = New System.Drawing.Point(304, 80)
+        Me.txtPercential.Location = New System.Drawing.Point(405, 98)
+        Me.txtPercential.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtPercential.Name = "txtPercential"
-        Me.txtPercential.Size = New System.Drawing.Size(32, 20)
+        Me.txtPercential.Size = New System.Drawing.Size(41, 20)
         Me.txtPercential.TabIndex = 141
         Me.txtPercential.Text = "80"
         '
@@ -1877,7 +1967,8 @@ Partial Class ISMPManagersTools
         '
         Me.Label72.AutoSize = True
         Me.Label72.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label72.Location = New System.Drawing.Point(304, 56)
+        Me.Label72.Location = New System.Drawing.Point(405, 69)
+        Me.Label72.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label72.Name = "Label72"
         Me.Label72.Size = New System.Drawing.Size(205, 13)
         Me.Label72.TabIndex = 138
@@ -1886,16 +1977,18 @@ Partial Class ISMPManagersTools
         'txtMedianTimeToComplete
         '
         Me.txtMedianTimeToComplete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtMedianTimeToComplete.Location = New System.Drawing.Point(200, 56)
+        Me.txtMedianTimeToComplete.Location = New System.Drawing.Point(267, 69)
+        Me.txtMedianTimeToComplete.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMedianTimeToComplete.Name = "txtMedianTimeToComplete"
-        Me.txtMedianTimeToComplete.Size = New System.Drawing.Size(100, 20)
+        Me.txtMedianTimeToComplete.Size = New System.Drawing.Size(132, 20)
         Me.txtMedianTimeToComplete.TabIndex = 137
         '
         'Label71
         '
         Me.Label71.AutoSize = True
         Me.Label71.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label71.Location = New System.Drawing.Point(352, 80)
+        Me.Label71.Location = New System.Drawing.Point(469, 98)
+        Me.Label71.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label71.Name = "Label71"
         Me.Label71.Size = New System.Drawing.Size(217, 13)
         Me.Label71.TabIndex = 136
@@ -1904,17 +1997,19 @@ Partial Class ISMPManagersTools
         'txt80Percent
         '
         Me.txt80Percent.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt80Percent.Location = New System.Drawing.Point(200, 80)
+        Me.txt80Percent.Location = New System.Drawing.Point(267, 98)
+        Me.txt80Percent.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txt80Percent.Name = "txt80Percent"
-        Me.txt80Percent.Size = New System.Drawing.Size(100, 20)
+        Me.txt80Percent.Size = New System.Drawing.Size(132, 20)
         Me.txt80Percent.TabIndex = 135
         '
         'Label31
         '
         Me.Label31.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label31.Location = New System.Drawing.Point(336, 80)
+        Me.Label31.Location = New System.Drawing.Point(448, 98)
+        Me.Label31.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(24, 16)
+        Me.Label31.Size = New System.Drawing.Size(32, 20)
         Me.Label31.TabIndex = 142
         Me.Label31.Text = " %"
         '
@@ -1922,7 +2017,8 @@ Partial Class ISMPManagersTools
         '
         Me.llbRunMonthlyReport.AutoSize = True
         Me.llbRunMonthlyReport.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.llbRunMonthlyReport.Location = New System.Drawing.Point(8, 56)
+        Me.llbRunMonthlyReport.Location = New System.Drawing.Point(11, 69)
+        Me.llbRunMonthlyReport.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.llbRunMonthlyReport.Name = "llbRunMonthlyReport"
         Me.llbRunMonthlyReport.Size = New System.Drawing.Size(124, 13)
         Me.llbRunMonthlyReport.TabIndex = 143
@@ -1935,9 +2031,11 @@ Partial Class ISMPManagersTools
         Me.GroupBox5.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.GroupBox5.Font = New System.Drawing.Font("Times New Roman", 12.0!, CType(((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic) _
                 Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox5.Location = New System.Drawing.Point(3, 281)
+        Me.GroupBox5.Location = New System.Drawing.Point(4, 349)
+        Me.GroupBox5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(1128, 112)
+        Me.GroupBox5.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox5.Size = New System.Drawing.Size(1507, 138)
         Me.GroupBox5.TabIndex = 126
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Test Report"
@@ -1946,9 +2044,10 @@ Partial Class ISMPManagersTools
         '
         Me.txtReportText.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtReportText.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtReportText.Location = New System.Drawing.Point(3, 22)
+        Me.txtReportText.Location = New System.Drawing.Point(4, 23)
+        Me.txtReportText.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtReportText.Name = "txtReportText"
-        Me.txtReportText.Size = New System.Drawing.Size(1122, 87)
+        Me.txtReportText.Size = New System.Drawing.Size(1499, 111)
         Me.txtReportText.TabIndex = 48
         Me.txtReportText.Text = ""
         '
@@ -1960,9 +2059,11 @@ Partial Class ISMPManagersTools
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.GroupBox4.Font = New System.Drawing.Font("Times New Roman", 12.0!, CType(((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic) _
                 Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox4.Location = New System.Drawing.Point(0, 396)
+        Me.GroupBox4.Location = New System.Drawing.Point(0, 491)
+        Me.GroupBox4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(1134, 344)
+        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox4.Size = New System.Drawing.Size(1515, 423)
         Me.GroupBox4.TabIndex = 125
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Non-Compliance Facilities"
@@ -1971,9 +2072,10 @@ Partial Class ISMPManagersTools
         '
         Me.Splitter14.BackColor = System.Drawing.SystemColors.Highlight
         Me.Splitter14.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Splitter14.Location = New System.Drawing.Point(3, 153)
+        Me.Splitter14.Location = New System.Drawing.Point(4, 188)
+        Me.Splitter14.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Splitter14.Name = "Splitter14"
-        Me.Splitter14.Size = New System.Drawing.Size(1128, 5)
+        Me.Splitter14.Size = New System.Drawing.Size(1507, 6)
         Me.Splitter14.TabIndex = 51
         Me.Splitter14.TabStop = False
         '
@@ -1981,9 +2083,11 @@ Partial Class ISMPManagersTools
         '
         Me.GroupBox15.Controls.Add(Me.dgrTestSummary)
         Me.GroupBox15.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox15.Location = New System.Drawing.Point(3, 158)
+        Me.GroupBox15.Location = New System.Drawing.Point(4, 194)
+        Me.GroupBox15.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox15.Name = "GroupBox15"
-        Me.GroupBox15.Size = New System.Drawing.Size(1128, 183)
+        Me.GroupBox15.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox15.Size = New System.Drawing.Size(1507, 225)
         Me.GroupBox15.TabIndex = 50
         Me.GroupBox15.TabStop = False
         Me.GroupBox15.Text = "Source Test Summary"
@@ -1994,27 +2098,30 @@ Partial Class ISMPManagersTools
         Me.dgrTestSummary.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrTestSummary.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dgrTestSummary.HeaderForeColor = System.Drawing.SystemColors.ControlText
-        Me.dgrTestSummary.Location = New System.Drawing.Point(3, 22)
+        Me.dgrTestSummary.Location = New System.Drawing.Point(4, 23)
+        Me.dgrTestSummary.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgrTestSummary.Name = "dgrTestSummary"
         Me.dgrTestSummary.ReadOnly = True
-        Me.dgrTestSummary.Size = New System.Drawing.Size(1122, 158)
+        Me.dgrTestSummary.Size = New System.Drawing.Size(1499, 198)
         Me.dgrTestSummary.TabIndex = 2
         '
         'txtOutOfComplianceReport
         '
         Me.txtOutOfComplianceReport.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtOutOfComplianceReport.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOutOfComplianceReport.Location = New System.Drawing.Point(3, 22)
+        Me.txtOutOfComplianceReport.Location = New System.Drawing.Point(4, 23)
+        Me.txtOutOfComplianceReport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtOutOfComplianceReport.Name = "txtOutOfComplianceReport"
-        Me.txtOutOfComplianceReport.Size = New System.Drawing.Size(1128, 319)
+        Me.txtOutOfComplianceReport.Size = New System.Drawing.Size(1507, 396)
         Me.txtOutOfComplianceReport.TabIndex = 49
         Me.txtOutOfComplianceReport.Text = ""
         '
         'btnRunReport
         '
-        Me.btnRunReport.Location = New System.Drawing.Point(784, 503)
+        Me.btnRunReport.Location = New System.Drawing.Point(1045, 619)
+        Me.btnRunReport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnRunReport.Name = "btnRunReport"
-        Me.btnRunReport.Size = New System.Drawing.Size(75, 23)
+        Me.btnRunReport.Size = New System.Drawing.Size(100, 28)
         Me.btnRunReport.TabIndex = 42
         Me.btnRunReport.Text = "Run Report"
         '
@@ -2022,9 +2129,10 @@ Partial Class ISMPManagersTools
         '
         Me.TPMiscTools.BackColor = System.Drawing.Color.Transparent
         Me.TPMiscTools.Controls.Add(Me.TCMiscTools)
-        Me.TPMiscTools.Location = New System.Drawing.Point(4, 22)
+        Me.TPMiscTools.Location = New System.Drawing.Point(4, 25)
+        Me.TPMiscTools.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TPMiscTools.Name = "TPMiscTools"
-        Me.TPMiscTools.Size = New System.Drawing.Size(1134, 740)
+        Me.TPMiscTools.Size = New System.Drawing.Size(1515, 914)
         Me.TPMiscTools.TabIndex = 13
         Me.TPMiscTools.Text = "Misc. Tools"
         Me.TPMiscTools.UseVisualStyleBackColor = True
@@ -2034,19 +2142,21 @@ Partial Class ISMPManagersTools
         Me.TCMiscTools.Controls.Add(Me.TPMethods)
         Me.TCMiscTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCMiscTools.Location = New System.Drawing.Point(0, 0)
+        Me.TCMiscTools.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TCMiscTools.Name = "TCMiscTools"
         Me.TCMiscTools.SelectedIndex = 0
-        Me.TCMiscTools.Size = New System.Drawing.Size(1134, 740)
+        Me.TCMiscTools.Size = New System.Drawing.Size(1515, 914)
         Me.TCMiscTools.TabIndex = 0
         '
         'TPMethods
         '
         Me.TPMethods.Controls.Add(Me.Panel6)
         Me.TPMethods.Controls.Add(Me.Panel5)
-        Me.TPMethods.Location = New System.Drawing.Point(4, 22)
+        Me.TPMethods.Location = New System.Drawing.Point(4, 25)
+        Me.TPMethods.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TPMethods.Name = "TPMethods"
-        Me.TPMethods.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPMethods.Size = New System.Drawing.Size(1126, 714)
+        Me.TPMethods.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TPMethods.Size = New System.Drawing.Size(1507, 885)
         Me.TPMethods.TabIndex = 0
         Me.TPMethods.Text = "Edit Methods"
         Me.TPMethods.UseVisualStyleBackColor = True
@@ -2055,9 +2165,10 @@ Partial Class ISMPManagersTools
         '
         Me.Panel6.Controls.Add(Me.dgvMethods)
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel6.Location = New System.Drawing.Point(3, 103)
+        Me.Panel6.Location = New System.Drawing.Point(4, 127)
+        Me.Panel6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1120, 608)
+        Me.Panel6.Size = New System.Drawing.Size(1499, 754)
         Me.Panel6.TabIndex = 1
         '
         'dgvMethods
@@ -2065,9 +2176,10 @@ Partial Class ISMPManagersTools
         Me.dgvMethods.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvMethods.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvMethods.Location = New System.Drawing.Point(0, 0)
+        Me.dgvMethods.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvMethods.Name = "dgvMethods"
         Me.dgvMethods.ReadOnly = True
-        Me.dgvMethods.Size = New System.Drawing.Size(1120, 608)
+        Me.dgvMethods.Size = New System.Drawing.Size(1499, 754)
         Me.dgvMethods.TabIndex = 0
         '
         'Panel5
@@ -2079,69 +2191,77 @@ Partial Class ISMPManagersTools
         Me.Panel5.Controls.Add(Me.txtMethodNumber)
         Me.Panel5.Controls.Add(Me.Label26)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel5.Location = New System.Drawing.Point(3, 3)
+        Me.Panel5.Location = New System.Drawing.Point(4, 4)
+        Me.Panel5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1120, 100)
+        Me.Panel5.Size = New System.Drawing.Size(1499, 123)
         Me.Panel5.TabIndex = 0
         '
         'txtMethodCode
         '
-        Me.txtMethodCode.Location = New System.Drawing.Point(119, 28)
+        Me.txtMethodCode.Location = New System.Drawing.Point(159, 34)
+        Me.txtMethodCode.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMethodCode.Name = "txtMethodCode"
-        Me.txtMethodCode.Size = New System.Drawing.Size(13, 20)
+        Me.txtMethodCode.Size = New System.Drawing.Size(16, 22)
         Me.txtMethodCode.TabIndex = 5
         Me.txtMethodCode.Visible = False
         '
         'txtMethodDescription
         '
-        Me.txtMethodDescription.Location = New System.Drawing.Point(138, 28)
+        Me.txtMethodDescription.Location = New System.Drawing.Point(184, 34)
+        Me.txtMethodDescription.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMethodDescription.Multiline = True
         Me.txtMethodDescription.Name = "txtMethodDescription"
         Me.txtMethodDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtMethodDescription.Size = New System.Drawing.Size(417, 49)
+        Me.txtMethodDescription.Size = New System.Drawing.Size(555, 59)
         Me.txtMethodDescription.TabIndex = 4
         '
         'Label30
         '
         Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(135, 12)
+        Me.Label30.Location = New System.Drawing.Point(180, 15)
+        Me.Label30.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(99, 13)
+        Me.Label30.Size = New System.Drawing.Size(124, 16)
         Me.Label30.TabIndex = 3
         Me.Label30.Text = "Method Description"
         '
         'btnUpdateMethods
         '
         Me.btnUpdateMethods.AutoSize = True
-        Me.btnUpdateMethods.Location = New System.Drawing.Point(18, 54)
+        Me.btnUpdateMethods.Location = New System.Drawing.Point(24, 66)
+        Me.btnUpdateMethods.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnUpdateMethods.Name = "btnUpdateMethods"
-        Me.btnUpdateMethods.Size = New System.Drawing.Size(79, 23)
+        Me.btnUpdateMethods.Size = New System.Drawing.Size(128, 32)
         Me.btnUpdateMethods.TabIndex = 2
         Me.btnUpdateMethods.Text = "Edit Methods"
         Me.btnUpdateMethods.UseVisualStyleBackColor = True
         '
         'txtMethodNumber
         '
-        Me.txtMethodNumber.Location = New System.Drawing.Point(18, 28)
+        Me.txtMethodNumber.Location = New System.Drawing.Point(24, 34)
+        Me.txtMethodNumber.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMethodNumber.Name = "txtMethodNumber"
-        Me.txtMethodNumber.Size = New System.Drawing.Size(98, 20)
+        Me.txtMethodNumber.Size = New System.Drawing.Size(129, 22)
         Me.txtMethodNumber.TabIndex = 1
         '
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(3, 12)
+        Me.Label26.Location = New System.Drawing.Point(4, 15)
+        Me.Label26.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(113, 13)
+        Me.Label26.Size = New System.Drawing.Size(142, 16)
         Me.Label26.TabIndex = 0
         Me.Label26.Text = "Method - example (1A)"
         '
         'TPTestReportAdd
         '
         Me.TPTestReportAdd.Controls.Add(Me.Panel11)
-        Me.TPTestReportAdd.Location = New System.Drawing.Point(4, 22)
+        Me.TPTestReportAdd.Location = New System.Drawing.Point(4, 25)
+        Me.TPTestReportAdd.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TPTestReportAdd.Name = "TPTestReportAdd"
-        Me.TPTestReportAdd.Size = New System.Drawing.Size(1134, 740)
+        Me.TPTestReportAdd.Size = New System.Drawing.Size(1515, 914)
         Me.TPTestReportAdd.TabIndex = 14
         Me.TPTestReportAdd.Text = "Add Test Report"
         Me.TPTestReportAdd.UseVisualStyleBackColor = True
@@ -2169,8 +2289,9 @@ Partial Class ISMPManagersTools
         Me.Panel11.Controls.Add(Me.Label61)
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel11.Location = New System.Drawing.Point(0, 0)
+        Me.Panel11.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(1134, 432)
+        Me.Panel11.Size = New System.Drawing.Size(1515, 532)
         Me.Panel11.TabIndex = 0
         '
         'Panel12
@@ -2179,18 +2300,20 @@ Partial Class ISMPManagersTools
         Me.Panel12.Controls.Add(Me.btnCloseHistoricTestReport)
         Me.Panel12.Controls.Add(Me.txtCloseTestReportRefNum)
         Me.Panel12.Controls.Add(Me.Label78)
-        Me.Panel12.Location = New System.Drawing.Point(23, 285)
+        Me.Panel12.Location = New System.Drawing.Point(31, 351)
+        Me.Panel12.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(372, 100)
+        Me.Panel12.Size = New System.Drawing.Size(496, 123)
         Me.Panel12.TabIndex = 11
         '
         'btnReOpenHistoricTestReport
         '
         Me.btnReOpenHistoricTestReport.AutoSize = True
         Me.btnReOpenHistoricTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnReOpenHistoricTestReport.Location = New System.Drawing.Point(114, 68)
+        Me.btnReOpenHistoricTestReport.Location = New System.Drawing.Point(152, 84)
+        Me.btnReOpenHistoricTestReport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnReOpenHistoricTestReport.Name = "btnReOpenHistoricTestReport"
-        Me.btnReOpenHistoricTestReport.Size = New System.Drawing.Size(119, 23)
+        Me.btnReOpenHistoricTestReport.Size = New System.Drawing.Size(147, 26)
         Me.btnReOpenHistoricTestReport.TabIndex = 9
         Me.btnReOpenHistoricTestReport.Text = "Re-Open Test Report"
         Me.btnReOpenHistoricTestReport.UseVisualStyleBackColor = True
@@ -2199,35 +2322,39 @@ Partial Class ISMPManagersTools
         '
         Me.btnCloseHistoricTestReport.AutoSize = True
         Me.btnCloseHistoricTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnCloseHistoricTestReport.Location = New System.Drawing.Point(114, 39)
+        Me.btnCloseHistoricTestReport.Location = New System.Drawing.Point(152, 48)
+        Me.btnCloseHistoricTestReport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCloseHistoricTestReport.Name = "btnCloseHistoricTestReport"
-        Me.btnCloseHistoricTestReport.Size = New System.Drawing.Size(102, 23)
+        Me.btnCloseHistoricTestReport.Size = New System.Drawing.Size(127, 26)
         Me.btnCloseHistoricTestReport.TabIndex = 8
         Me.btnCloseHistoricTestReport.Text = "Close Test Report"
         Me.btnCloseHistoricTestReport.UseVisualStyleBackColor = True
         '
         'txtCloseTestReportRefNum
         '
-        Me.txtCloseTestReportRefNum.Location = New System.Drawing.Point(114, 13)
+        Me.txtCloseTestReportRefNum.Location = New System.Drawing.Point(152, 16)
+        Me.txtCloseTestReportRefNum.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCloseTestReportRefNum.Name = "txtCloseTestReportRefNum"
-        Me.txtCloseTestReportRefNum.Size = New System.Drawing.Size(136, 20)
+        Me.txtCloseTestReportRefNum.Size = New System.Drawing.Size(180, 22)
         Me.txtCloseTestReportRefNum.TabIndex = 3
         '
         'Label78
         '
         Me.Label78.AutoSize = True
-        Me.Label78.Location = New System.Drawing.Point(10, 17)
+        Me.Label78.Location = New System.Drawing.Point(13, 21)
+        Me.Label78.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label78.Name = "Label78"
-        Me.Label78.Size = New System.Drawing.Size(97, 13)
+        Me.Label78.Size = New System.Drawing.Size(122, 16)
         Me.Label78.TabIndex = 4
         Me.Label78.Text = "Reference Number"
         '
         'Label77
         '
         Me.Label77.AutoSize = True
-        Me.Label77.Location = New System.Drawing.Point(383, 102)
+        Me.Label77.Location = New System.Drawing.Point(511, 126)
+        Me.Label77.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label77.Name = "Label77"
-        Me.Label77.Size = New System.Drawing.Size(233, 52)
+        Me.Label77.Size = New System.Drawing.Size(298, 64)
         Me.Label77.TabIndex = 10
         Me.Label77.Text = "Please enter the " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Commissioner, Director, and Program Managers " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "from the origin" &
     "al Test Report " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "not the Current individuals if different. "
@@ -2236,7 +2363,8 @@ Partial Class ISMPManagersTools
         '
         Me.Label76.AutoSize = True
         Me.Label76.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label76.Location = New System.Drawing.Point(18, 11)
+        Me.Label76.Location = New System.Drawing.Point(24, 14)
+        Me.Label76.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label76.Name = "Label76"
         Me.Label76.Size = New System.Drawing.Size(458, 25)
         Me.Label76.TabIndex = 9
@@ -2247,18 +2375,20 @@ Partial Class ISMPManagersTools
         Me.DTPAddTestReportDateCompleted.CustomFormat = "dd-MMM-yyyy"
         Me.DTPAddTestReportDateCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPAddTestReportDateCompleted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPAddTestReportDateCompleted.Location = New System.Drawing.Point(345, 176)
+        Me.DTPAddTestReportDateCompleted.Location = New System.Drawing.Point(460, 217)
+        Me.DTPAddTestReportDateCompleted.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.DTPAddTestReportDateCompleted.Name = "DTPAddTestReportDateCompleted"
-        Me.DTPAddTestReportDateCompleted.Size = New System.Drawing.Size(110, 22)
+        Me.DTPAddTestReportDateCompleted.Size = New System.Drawing.Size(145, 22)
         Me.DTPAddTestReportDateCompleted.TabIndex = 6
         Me.DTPAddTestReportDateCompleted.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'Label67
         '
         Me.Label67.AutoSize = True
-        Me.Label67.Location = New System.Drawing.Point(256, 181)
+        Me.Label67.Location = New System.Drawing.Point(341, 223)
+        Me.Label67.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label67.Name = "Label67"
-        Me.Label67.Size = New System.Drawing.Size(83, 13)
+        Me.Label67.Size = New System.Drawing.Size(106, 16)
         Me.Label67.TabIndex = 6
         Me.Label67.Text = "Date Completed"
         '
@@ -2266,19 +2396,21 @@ Partial Class ISMPManagersTools
         '
         Me.btnClearAddTestReport.AutoSize = True
         Me.btnClearAddTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearAddTestReport.Location = New System.Drawing.Point(259, 218)
+        Me.btnClearAddTestReport.Location = New System.Drawing.Point(345, 268)
+        Me.btnClearAddTestReport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnClearAddTestReport.Name = "btnClearAddTestReport"
-        Me.btnClearAddTestReport.Size = New System.Drawing.Size(67, 23)
+        Me.btnClearAddTestReport.Size = New System.Drawing.Size(82, 26)
         Me.btnClearAddTestReport.TabIndex = 8
         Me.btnClearAddTestReport.Text = "Clear Data"
         Me.btnClearAddTestReport.UseVisualStyleBackColor = True
         '
         'mtbAddTestReportAIRSNumber
         '
-        Me.mtbAddTestReportAIRSNumber.Location = New System.Drawing.Point(124, 76)
+        Me.mtbAddTestReportAIRSNumber.Location = New System.Drawing.Point(165, 94)
+        Me.mtbAddTestReportAIRSNumber.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.mtbAddTestReportAIRSNumber.Mask = "000-00000"
         Me.mtbAddTestReportAIRSNumber.Name = "mtbAddTestReportAIRSNumber"
-        Me.mtbAddTestReportAIRSNumber.Size = New System.Drawing.Size(80, 20)
+        Me.mtbAddTestReportAIRSNumber.Size = New System.Drawing.Size(105, 22)
         Me.mtbAddTestReportAIRSNumber.TabIndex = 1
         Me.mtbAddTestReportAIRSNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
@@ -2287,92 +2419,103 @@ Partial Class ISMPManagersTools
         Me.dtpAddTestReportDateReceived.CustomFormat = "dd-MMM-yyyy"
         Me.dtpAddTestReportDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpAddTestReportDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpAddTestReportDateReceived.Location = New System.Drawing.Point(124, 176)
+        Me.dtpAddTestReportDateReceived.Location = New System.Drawing.Point(165, 217)
+        Me.dtpAddTestReportDateReceived.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dtpAddTestReportDateReceived.Name = "dtpAddTestReportDateReceived"
-        Me.dtpAddTestReportDateReceived.Size = New System.Drawing.Size(110, 22)
+        Me.dtpAddTestReportDateReceived.Size = New System.Drawing.Size(145, 22)
         Me.dtpAddTestReportDateReceived.TabIndex = 5
         Me.dtpAddTestReportDateReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'txtAddTestReportCommissioner
         '
-        Me.txtAddTestReportCommissioner.Location = New System.Drawing.Point(124, 102)
+        Me.txtAddTestReportCommissioner.Location = New System.Drawing.Point(165, 126)
+        Me.txtAddTestReportCommissioner.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtAddTestReportCommissioner.Name = "txtAddTestReportCommissioner"
-        Me.txtAddTestReportCommissioner.Size = New System.Drawing.Size(211, 20)
+        Me.txtAddTestReportCommissioner.Size = New System.Drawing.Size(280, 22)
         Me.txtAddTestReportCommissioner.TabIndex = 2
         '
         'txtAddTestReportDirector
         '
-        Me.txtAddTestReportDirector.Location = New System.Drawing.Point(124, 127)
+        Me.txtAddTestReportDirector.Location = New System.Drawing.Point(165, 156)
+        Me.txtAddTestReportDirector.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtAddTestReportDirector.Name = "txtAddTestReportDirector"
-        Me.txtAddTestReportDirector.Size = New System.Drawing.Size(211, 20)
+        Me.txtAddTestReportDirector.Size = New System.Drawing.Size(280, 22)
         Me.txtAddTestReportDirector.TabIndex = 3
         '
         'txtAddTestReportProgramManager
         '
-        Me.txtAddTestReportProgramManager.Location = New System.Drawing.Point(124, 151)
+        Me.txtAddTestReportProgramManager.Location = New System.Drawing.Point(165, 186)
+        Me.txtAddTestReportProgramManager.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtAddTestReportProgramManager.Name = "txtAddTestReportProgramManager"
-        Me.txtAddTestReportProgramManager.Size = New System.Drawing.Size(211, 20)
+        Me.txtAddTestReportProgramManager.Size = New System.Drawing.Size(280, 22)
         Me.txtAddTestReportProgramManager.TabIndex = 4
         '
         'Label74
         '
         Me.Label74.AutoSize = True
-        Me.Label74.Location = New System.Drawing.Point(20, 181)
+        Me.Label74.Location = New System.Drawing.Point(27, 223)
+        Me.Label74.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label74.Name = "Label74"
-        Me.Label74.Size = New System.Drawing.Size(79, 13)
+        Me.Label74.Size = New System.Drawing.Size(99, 16)
         Me.Label74.TabIndex = 8
         Me.Label74.Text = "Date Received"
         '
         'Label75
         '
         Me.Label75.AutoSize = True
-        Me.Label75.Location = New System.Drawing.Point(20, 155)
+        Me.Label75.Location = New System.Drawing.Point(27, 191)
+        Me.Label75.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label75.Name = "Label75"
-        Me.Label75.Size = New System.Drawing.Size(91, 13)
+        Me.Label75.Size = New System.Drawing.Size(117, 16)
         Me.Label75.TabIndex = 7
         Me.Label75.Text = "Program Manager"
         '
         'Label66
         '
         Me.Label66.AutoSize = True
-        Me.Label66.Location = New System.Drawing.Point(20, 131)
+        Me.Label66.Location = New System.Drawing.Point(27, 161)
+        Me.Label66.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label66.Name = "Label66"
-        Me.Label66.Size = New System.Drawing.Size(44, 13)
+        Me.Label66.Size = New System.Drawing.Size(55, 16)
         Me.Label66.TabIndex = 6
         Me.Label66.Text = "Director"
         '
         'Label63
         '
         Me.Label63.AutoSize = True
-        Me.Label63.Location = New System.Drawing.Point(20, 106)
+        Me.Label63.Location = New System.Drawing.Point(27, 130)
+        Me.Label63.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label63.Name = "Label63"
-        Me.Label63.Size = New System.Drawing.Size(74, 13)
+        Me.Label63.Size = New System.Drawing.Size(97, 16)
         Me.Label63.TabIndex = 5
         Me.Label63.Text = "Commissioner:"
         '
         'Label62
         '
         Me.Label62.AutoSize = True
-        Me.Label62.Location = New System.Drawing.Point(20, 80)
+        Me.Label62.Location = New System.Drawing.Point(27, 98)
+        Me.Label62.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label62.Name = "Label62"
-        Me.Label62.Size = New System.Drawing.Size(72, 13)
+        Me.Label62.Size = New System.Drawing.Size(90, 16)
         Me.Label62.TabIndex = 4
         Me.Label62.Text = "AIRS Number"
         '
         'txtAddTestReportRefNum
         '
-        Me.txtAddTestReportRefNum.Location = New System.Drawing.Point(124, 51)
+        Me.txtAddTestReportRefNum.Location = New System.Drawing.Point(165, 63)
+        Me.txtAddTestReportRefNum.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtAddTestReportRefNum.Name = "txtAddTestReportRefNum"
-        Me.txtAddTestReportRefNum.Size = New System.Drawing.Size(108, 20)
+        Me.txtAddTestReportRefNum.Size = New System.Drawing.Size(143, 22)
         Me.txtAddTestReportRefNum.TabIndex = 0
         '
         'btnAddTestReport
         '
         Me.btnAddTestReport.AutoSize = True
         Me.btnAddTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnAddTestReport.Location = New System.Drawing.Point(124, 218)
+        Me.btnAddTestReport.Location = New System.Drawing.Point(165, 268)
+        Me.btnAddTestReport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnAddTestReport.Name = "btnAddTestReport"
-        Me.btnAddTestReport.Size = New System.Drawing.Size(95, 23)
+        Me.btnAddTestReport.Size = New System.Drawing.Size(117, 26)
         Me.btnAddTestReport.TabIndex = 7
         Me.btnAddTestReport.Text = "Add Test Report"
         Me.btnAddTestReport.UseVisualStyleBackColor = True
@@ -2380,9 +2523,10 @@ Partial Class ISMPManagersTools
         'Label61
         '
         Me.Label61.AutoSize = True
-        Me.Label61.Location = New System.Drawing.Point(20, 55)
+        Me.Label61.Location = New System.Drawing.Point(27, 68)
+        Me.Label61.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label61.Name = "Label61"
-        Me.Label61.Size = New System.Drawing.Size(97, 13)
+        Me.Label61.Size = New System.Drawing.Size(122, 16)
         Me.Label61.TabIndex = 2
         Me.Label61.Text = "Reference Number"
         '
@@ -2411,7 +2555,8 @@ Partial Class ISMPManagersTools
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.bSave, Me.bClear})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1142, 24)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(8, 2, 0, 2)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1523, 24)
         Me.MenuStrip1.TabIndex = 233
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -2431,17 +2576,18 @@ Partial Class ISMPManagersTools
         '
         'ISMPManagersTools
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScroll = True
         Me.AutoScrollMargin = New System.Drawing.Size(10, 10)
         Me.AutoScrollMinSize = New System.Drawing.Size(10, 10)
-        Me.ClientSize = New System.Drawing.Size(1142, 794)
+        Me.ClientSize = New System.Drawing.Size(1523, 977)
         Me.Controls.Add(Me.PanelManagersTools)
         Me.Controls.Add(Me.SplitterManagersTools)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
+        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Menu = Me.MainMenu1
-        Me.MinimumSize = New System.Drawing.Size(250, 173)
+        Me.MinimumSize = New System.Drawing.Size(328, 204)
         Me.Name = "ISMPManagersTools"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "ISMU Managers Tools"
