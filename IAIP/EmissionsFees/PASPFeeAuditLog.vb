@@ -2814,7 +2814,7 @@ Public Class PASPFeeAuditLog
             Dim NSPSExemptions As String = ""
             Dim StaffResponsible As String = ""
             Dim AuditLevel As String = ""
-            Dim AuditEnforcement As Integer = 0
+            Dim AuditEnforcement As Integer
             Dim AuditComments As String = ""
             Dim AuditStart As String = ""
             Dim AuditEnd As String = ""
@@ -3021,7 +3021,9 @@ Public Class PASPFeeAuditLog
                     AuditLevel = "4"
             End Select
 
-            Integer.TryParse(txtAuditEnforcementNumber.Text, AuditEnforcement)
+            If Not Integer.TryParse(txtAuditEnforcementNumber.Text, AuditEnforcement) Then
+                AuditEnforcement = 0
+            End If
             If txtAuditComment.Text <> "" Then
                 AuditComments = txtAuditComment.Text
             End If
