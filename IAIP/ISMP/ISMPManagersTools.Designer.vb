@@ -111,7 +111,6 @@ Partial Class ISMPManagersTools
     Friend WithEvents clbEngineersList2 As System.Windows.Forms.CheckedListBox
     Friend WithEvents lsbEngineers As System.Windows.Forms.ListBox
     Friend WithEvents TPEngineerTestReport As System.Windows.Forms.TabPage
-    Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents Splitter1 As System.Windows.Forms.Splitter
     Friend WithEvents llbRunMonthlyReport As System.Windows.Forms.LinkLabel
     Friend WithEvents Label31 As System.Windows.Forms.Label
@@ -222,8 +221,6 @@ Partial Class ISMPManagersTools
     Friend WithEvents TPReportAssignment As System.Windows.Forms.TabPage
     Friend WithEvents PanelManagersTools As System.Windows.Forms.Panel
     Friend WithEvents SplitterManagersTools As System.Windows.Forms.Splitter
-    Friend WithEvents MmiViewByFacility As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem13 As System.Windows.Forms.MenuItem
     Friend WithEvents MmiShowDeletedRecords As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem14 As System.Windows.Forms.MenuItem
     Friend WithEvents MmiMethod22 As System.Windows.Forms.MenuItem
@@ -350,8 +347,6 @@ Partial Class ISMPManagersTools
         Me.MmiAllMethod22 = New System.Windows.Forms.MenuItem()
         Me.MenuItem14 = New System.Windows.Forms.MenuItem()
         Me.MmiShowDeletedRecords = New System.Windows.Forms.MenuItem()
-        Me.MenuItem13 = New System.Windows.Forms.MenuItem()
-        Me.MmiViewByFacility = New System.Windows.Forms.MenuItem()
         Me.SplitterManagersTools = New System.Windows.Forms.Splitter()
         Me.PanelManagersTools = New System.Windows.Forms.Panel()
         Me.TCManagersTools = New System.Windows.Forms.TabControl()
@@ -359,7 +354,6 @@ Partial Class ISMPManagersTools
         Me.SplitterTestReportAssignment = New System.Windows.Forms.Splitter()
         Me.PanelReportAssignment = New System.Windows.Forms.Panel()
         Me.chbNonComplianceTestReport = New System.Windows.Forms.CheckBox()
-        Me.txtAIRSNumber = New System.Windows.Forms.TextBox()
         Me.Label107 = New System.Windows.Forms.Label()
         Me.txtTestReportCount = New System.Windows.Forms.TextBox()
         Me.lblTestReportAssignment = New System.Windows.Forms.ListBox()
@@ -569,7 +563,7 @@ Partial Class ISMPManagersTools
         'MenuItem3
         '
         Me.MenuItem3.Index = 2
-        Me.MenuItem3.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiViewTestReports, Me.MmiUnassignedTestReports, Me.MmiAssignedTestReports, Me.MenuItem12, Me.MmiViewByTestType, Me.MenuItem14, Me.MmiShowDeletedRecords, Me.MenuItem13, Me.MmiViewByFacility})
+        Me.MenuItem3.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiViewTestReports, Me.MmiUnassignedTestReports, Me.MmiAssignedTestReports, Me.MenuItem12, Me.MmiViewByTestType, Me.MenuItem14, Me.MmiShowDeletedRecords})
         Me.MenuItem3.Text = "View"
         '
         'MmiViewTestReports
@@ -1001,16 +995,6 @@ Partial Class ISMPManagersTools
         Me.MmiShowDeletedRecords.Index = 6
         Me.MmiShowDeletedRecords.Text = "View Deleted Records"
         '
-        'MenuItem13
-        '
-        Me.MenuItem13.Index = 7
-        Me.MenuItem13.Text = "-"
-        '
-        'MmiViewByFacility
-        '
-        Me.MmiViewByFacility.Index = 8
-        Me.MmiViewByFacility.Text = "View By Facility"
-        '
         'SplitterManagersTools
         '
         Me.SplitterManagersTools.Dock = System.Windows.Forms.DockStyle.Top
@@ -1093,15 +1077,6 @@ Partial Class ISMPManagersTools
         Me.chbNonComplianceTestReport.TabIndex = 44
         Me.chbNonComplianceTestReport.Text = "Test Reports potentially non-compliant"
         Me.chbNonComplianceTestReport.UseVisualStyleBackColor = True
-        '
-        'txtAIRSNumber
-        '
-        Me.txtAIRSNumber.Location = New System.Drawing.Point(440, 34)
-        Me.txtAIRSNumber.Name = "txtAIRSNumber"
-        Me.txtAIRSNumber.ReadOnly = True
-        Me.txtAIRSNumber.Size = New System.Drawing.Size(24, 20)
-        Me.txtAIRSNumber.TabIndex = 43
-        Me.txtAIRSNumber.Visible = False
         '
         'Label107
         '

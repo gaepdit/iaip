@@ -1336,25 +1336,6 @@ Public Class ISMPManagersTools
 
     End Sub
 
-    Private Sub OpenFacilityLookupTool()
-        Try
-            Dim facilityLookupDialog As New IAIPFacilityLookUpTool
-            facilityLookupDialog.ShowDialog()
-            If facilityLookupDialog.DialogResult = DialogResult.OK _
-            AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                txtAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub MmiViewByFacility_Click(sender As Object, e As EventArgs) Handles MmiViewByFacility.Click
-        If TPReportAssignment.Focus = True Then
-            OpenFacilityLookupTool()
-        End If
-    End Sub
-
 #Region "By Test Report-Unassigned"
 
     Private Sub MmiUnassigned_Click(sender As Object, e As EventArgs) Handles MmiUnassigned.Click
