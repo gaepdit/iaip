@@ -179,7 +179,7 @@ Public Class IaipUserManagement
         Message.Clear()
 
         SelectedUserID = dgv.Cells("UserID").Value.ToString
-        SelectedUserRoles = dgv.Cells("RolesString").Value.ToString
+        SelectedUserRoles = New IaipRoles(dgv.Cells("RolesString").Value.ToString)
 
         ProfileUsername.Text = dgv.Cells("Username").Value.ToString
         ProfileLastName.Text = dgv.Cells("Last name").Value.ToString
@@ -209,7 +209,7 @@ Public Class IaipUserManagement
         ProfileStatusActive.Checked = CBool(dgv.Cells("ActiveEmployee").Value)
         ProfileStatusInactive.Checked = Not CBool(dgv.Cells("ActiveEmployee").Value)
 
-        DisplayCurrentRoles(dgv.Cells("RolesString").Value.ToString)
+        DisplayCurrentRoles(SelectedUserRoles)
 
         ProfilePanel.Enabled = True
         RolesPanel.Enabled = True
@@ -365,7 +365,7 @@ Public Class IaipUserManagement
             Message.Display(MessageDisplay)
         Else
             For Each item As Object In AvailableRoles.SelectedItems
-                SelectedUserRoles.RoleCodes.Add(CType(item, DataRowView).Item("RoleCode"))
+                SelectedUserRoles.RoleCodes.Add(CInt(CType(item, DataRowView).Item("RoleCode")))
             Next
             UpdateRoles()
         End If
@@ -388,7 +388,7 @@ Public Class IaipUserManagement
                 End If
             End If
             For Each item As Object In CurrentRoles.SelectedItems
-                SelectedUserRoles.RoleCodes.Remove(CType(item, DataRowView).Item("RoleCode"))
+                SelectedUserRoles.RoleCodes.Remove(CInt(CType(item, DataRowView).Item("RoleCode")))
             Next
             UpdateRoles()
         End If
@@ -397,12 +397,18 @@ Public Class IaipUserManagement
     Private Sub UpdateRoles()
         Message.Clear()
         SelectedUserRoles.RoleCodes.Remove(0)
-        If SelectedUserRoles.RoleCodes.Count = 0 Then SelectedUserRoles.RoleCodes.Add(0)
+
+        If SelectedUserRoles.RoleCodes.Count = 0 Then
+            SelectedUserRoles.RoleCodes.Add(0)
+        End If
+
         If DAL.UpdateUserRoles(SelectedUserID, SelectedUserRoles) Then
             DisplayCurrentRoles(SelectedUserRoles)
+
             If SelectedUserID = CurrentUser.UserID Then
                 CurrentUser.IaipRoles = SelectedUserRoles
             End If
+
             Message = New IaipMessage("User roles were successfully updated.", IaipMessage.WarningLevels.Success)
             Message.Display(MessageDisplay)
         Else
