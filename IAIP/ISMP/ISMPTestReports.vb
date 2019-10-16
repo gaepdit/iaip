@@ -9302,10 +9302,8 @@ Public Class ISMPTestReports
                 End If
             End If
 
-            If AccountFormAccess(69, 4) = "1" Then
-                If SaveSSCPWork() Then
-                    MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
-                End If
+            If AccountFormAccess(69, 4) = "1" AndAlso SaveSSCPWork() Then
+                MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
             End If
 
         Catch ex As Exception
@@ -21347,15 +21345,9 @@ Public Class ISMPTestReports
 
     End Sub
     Private Sub btnSaveSSCPData_Click(sender As Object, e As EventArgs) Handles btnSaveSSCPData.Click
-        Try
-            If AccountFormAccess(69, 4) = "1" Then
-                SaveSSCPWork()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        If AccountFormAccess(69, 4) = "1" AndAlso SaveSSCPWork() Then
+            MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
+        End If
     End Sub
     Private Sub llbTestNotifiactionNumber_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbTestNotifiactionNumber.LinkClicked
         Try
