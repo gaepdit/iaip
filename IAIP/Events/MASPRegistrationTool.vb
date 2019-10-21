@@ -980,8 +980,6 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
             Else
                 If PassCodeRequired = False Then
                     PassCode = "1"
-                Else
-                    PassCode = PassCode
                 End If
             End If
 

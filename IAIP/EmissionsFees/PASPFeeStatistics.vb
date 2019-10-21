@@ -1110,7 +1110,6 @@ Public Class PASPFeeStatistics
                 Dim dt As DataTable = DB.GetDataTable(SQL)
                 For Each dr2 As DataRow In dt.Rows
                     If IsDBNull(dr2.Item("description")) Then
-                        txtNSPSExemptReason.Text = txtNSPSExemptReason.Text
                     Else
                         txtNSPSExemptReason.Text = "- " & txtNSPSExemptReason.Text & dr2.Item("description") & vbCrLf
                     End If
