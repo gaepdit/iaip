@@ -161,7 +161,7 @@ Public Class ISMPManagersTools
                 item1.SubItems.Add(row("Pollutant").ToString())
                 item1.SubItems.Add(row("ReviewingEngineer").ToString())
 
-                LVTestReportAssignment.Items.AddRange(New ListViewItem() {item1})
+                LVTestReportAssignment.Items.Add(item1)
 
             Next row
 
@@ -947,7 +947,7 @@ Public Class ISMPManagersTools
 
             Next
 
-            txtOutOfComplianceReport.SelectionTabs = New Integer() {30, 260}
+            txtOutOfComplianceReport.SelectionTabs = {30, 260}
             txtOutOfComplianceReport.Text = Report
 
         Catch ex As Exception

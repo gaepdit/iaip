@@ -4257,9 +4257,7 @@ Public Class EisTool
             " STRLOCATIONADDRESSPOSTALCODE = @PostalCode " &
             " where facilitysiteid = @AirsNumber"
 
-            Dim parameters As SqlParameter()
-
-            parameters = New SqlParameter() {
+            Dim parameters As SqlParameter() = {
                 New SqlParameter("@Address", Address),
                 New SqlParameter("@City", City),
                 New SqlParameter("@PostalCode", PostalCode),
@@ -4292,9 +4290,7 @@ Public Class EisTool
             " strMailingAddressPostalCode = @PostalCode " &
             " where facilitysiteid = @AirsNumber"
 
-            Dim parameters As SqlParameter()
-
-            parameters = New SqlParameter() {
+            Dim parameters As SqlParameter() = {
                 New SqlParameter("@Address", Address),
                 New SqlParameter("@City", City),
                 New SqlParameter("@PostalCode", PostalCode),
@@ -4326,9 +4322,7 @@ Public Class EisTool
             " strFacilitySiteName = @FacilityName " &
             " where facilitysiteid = @AirsNumber"
 
-            Dim parameters As SqlParameter()
-
-            parameters = New SqlParameter() {
+            Dim parameters As SqlParameter() = {
                 New SqlParameter("@FacilityName", FacilityName),
                 New SqlParameter("@AirsNumber", txtEILogSelectedAIRSNumber.Text)
             }
@@ -4406,7 +4400,7 @@ Public Class EisTool
                 " , UPDATEDATETIME = GETDATE() " &
                 " WHERE FACILITYSITEID = @siteid "
 
-            Dim parameters As SqlParameter() = New SqlParameter() {
+            Dim parameters As SqlParameter() = {
                 New SqlParameter("@statuscode", cbEisModifyOperStatus.SelectedValue.ToString),
                 New SqlParameter("@sitecomment", "Site status updated from IAIP"),
                 New SqlParameter("@updateuser", CurrentUser.UserID & "-" & CurrentUser.AlphaName),

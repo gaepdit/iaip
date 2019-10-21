@@ -4905,7 +4905,7 @@ Public Class PASPFeeAuditLog
             "and strInvoiceStatus = '0' " &
             "and active = '1' "
 
-            Dim parameters As SqlParameter() = New SqlParameter() {
+            Dim parameters As SqlParameter() = {
                 New SqlParameter("@Username", CurrentUser.AlphaName),
                 New SqlParameter("@FeeYear", FeeYear),
                 New SqlParameter("@AirsNumber", AirsNumber.DbFormattedString)

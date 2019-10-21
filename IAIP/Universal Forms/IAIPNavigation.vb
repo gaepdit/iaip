@@ -628,10 +628,10 @@ Public Class IAIPNavigation
             accountFormAccessString = AccountFormAccessLookup.Rows.Find(account)("FormAccess").ToString
 
             If accountFormAccessString.Length > 0 Then
-                Dim formAccessArray As String() = accountFormAccessString.Split(New Char() {"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries)
+                Dim formAccessArray As String() = accountFormAccessString.Split({"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries)
 
                 For Each formAccessString As String In formAccessArray
-                    Dim formAccessSplit As String() = formAccessString.Split(New Char() {"-"c, ","c})
+                    Dim formAccessSplit As String() = formAccessString.Split({"-"c, ","c})
                     Dim formNumber As Integer = CInt(formAccessSplit(0))
                     AccountFormAccess(formNumber, 0) = formNumber.ToString()
                     For i As Integer = 1 To 4

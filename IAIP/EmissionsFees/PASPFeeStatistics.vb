@@ -5106,7 +5106,7 @@ Public Class PASPFeeStatistics
 
                 Dim feeYearParam As SqlParameter = New SqlParameter("@FeeYear", SqlDbType.SmallInt) With {.Value = feeYear}
 
-                Dim parameters As SqlParameter() = New SqlParameter() {
+                Dim parameters As SqlParameter() = {
                     New SqlParameter("@Username", CurrentUser.AlphaName),
                     feeYearParam
                 }
