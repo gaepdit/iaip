@@ -65,7 +65,7 @@ Public Module AppVersion
             Catch dde As DeploymentDownloadException
                 MessageBox.Show("The IAIP cannot be updated right now. " & vbNewLine & vbNewLine _
                                 & "Please check your network connection or try again later. " &
-                                vbNewLine & vbNewLine & "Error: " + dde.Message,
+                                vbNewLine & vbNewLine & "Error: " & dde.Message,
                                 "Error")
                 Return
             Catch ioe As InvalidOperationException
