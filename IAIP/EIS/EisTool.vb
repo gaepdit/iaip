@@ -325,7 +325,7 @@ Public Class EisTool
                 txtMailOutOptOut.Text = DB.GetInteger(SQL, param).ToString
 
             Catch ex As Exception
-                MsgBox("That Prefix is not in the db" + vbCrLf + ex.ToString())
+                MsgBox("That Prefix is not in the db" & vbCrLf & ex.ToString())
             End Try
 
 

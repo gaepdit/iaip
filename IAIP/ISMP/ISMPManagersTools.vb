@@ -847,27 +847,27 @@ Public Class ISMPManagersTools
                 Case 0
                     Received = "There were no test reports received for this month. "
                 Case 1
-                    Received = "ISMP received " + txtReceived.Text + " test report this month. "
+                    Received = "ISMP received " & txtReceived.Text & " test report this month. "
                 Case Else
-                    Received = "ISMP received " + txtReceived.Text + " test reports this month. "
+                    Received = "ISMP received " & txtReceived.Text & " test reports this month. "
             End Select
 
             Select Case txtTestCompleted.Text
                 Case 0
                     Completed = "There were no completed reviews of test reports this month, "
                 Case 1
-                    Completed = "ISMP completed reviews of " + txtTestCompleted.Text + " test report this month, "
+                    Completed = "ISMP completed reviews of " & txtTestCompleted.Text & " test report this month, "
                 Case Else
-                    Completed = "ISMP completed reviews of " + txtTestCompleted.Text + " test reports this month, "
+                    Completed = "ISMP completed reviews of " & txtTestCompleted.Text & " test reports this month, "
             End Select
 
             Select Case txtTestOutOfCompliance.Text
                 Case 0
                     Compliance = " "
                 Case 1
-                    Compliance = "There was " + txtTestOutOfCompliance.Text + " reviewed report that showed noncompliance this month."
+                    Compliance = "There was " & txtTestOutOfCompliance.Text & " reviewed report that showed noncompliance this month."
                 Case Else
-                    Compliance = "There were " + txtTestOutOfCompliance.Text + " reviewed reports that showed noncompliance this month."
+                    Compliance = "There were " & txtTestOutOfCompliance.Text & " reviewed reports that showed noncompliance this month."
             End Select
 
             Select Case txtTestWitnessed.Text
@@ -876,10 +876,10 @@ Public Class ISMPManagersTools
                 Case 1
                     Witnessed = "and ISMP staff was on-site during 1 of these tests. "
                 Case Else
-                    Witnessed = "and ISMP staff was on-site during " + txtTestWitnessed.Text + " of these tests. "
+                    Witnessed = "and ISMP staff was on-site during " & txtTestWitnessed.Text & " of these tests. "
             End Select
 
-            Text = "Test Reports" + vbCrLf + Received + vbCr + Completed + vbCrLf + Witnessed + vbCrLf + Compliance
+            Text = "Test Reports" & vbCrLf & Received & vbCr & Completed & vbCrLf & Witnessed & vbCrLf & Compliance
 
             txtReportText.Text = Text
 

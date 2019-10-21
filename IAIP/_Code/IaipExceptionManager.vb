@@ -260,7 +260,7 @@ Public Module IaipExceptionManager
     '--
     Private Function CurrentEnvironmentIdentity() As String
         Try
-            Return System.Environment.UserDomainName + "\" + System.Environment.UserName
+            Return Environment.UserDomainName & "\" & Environment.UserName
         Catch ex As Exception
             Return ""
         End Try

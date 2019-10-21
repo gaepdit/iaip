@@ -22,7 +22,7 @@ Module EnumExtensions
         Dim name As String = e.ToString()
 
         ' Construct a full name for this enum value
-        Dim fullName As String = enumType.FullName + "." + name
+        Dim fullName As String = enumType.FullName & "." & name
 
         ' See if we have looked it up earlier
         Dim enumDescription As String = Nothing
