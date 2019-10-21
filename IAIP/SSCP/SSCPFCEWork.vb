@@ -1427,7 +1427,7 @@ Public Class SSCPFCEWork
 
     Private Sub LoadSSCPFCEReport()
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Cursor = Cursors.WaitCursor

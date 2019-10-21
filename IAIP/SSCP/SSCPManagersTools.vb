@@ -534,7 +534,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -750,7 +750,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -817,7 +817,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -893,7 +893,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -972,7 +972,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1051,7 +1051,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1131,7 +1131,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1213,7 +1213,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1295,7 +1295,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1374,7 +1374,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1453,7 +1453,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1537,7 +1537,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1619,7 +1619,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1701,7 +1701,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -2444,7 +2444,7 @@ Public Class SSCPManagersTools
         Try
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "No data saved.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
@@ -2462,7 +2462,7 @@ Public Class SSCPManagersTools
         Try
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
@@ -2481,7 +2481,7 @@ Public Class SSCPManagersTools
         Try
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String
@@ -2528,7 +2528,7 @@ Public Class SSCPManagersTools
         Try
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String
@@ -2577,7 +2577,7 @@ Public Class SSCPManagersTools
 
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
@@ -2659,7 +2659,7 @@ Public Class SSCPManagersTools
         Try
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "No data saved.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
@@ -2677,7 +2677,7 @@ Public Class SSCPManagersTools
         Try
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
@@ -2695,7 +2695,7 @@ Public Class SSCPManagersTools
         Try
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String
@@ -2738,14 +2738,14 @@ Public Class SSCPManagersTools
 
             If cboExistingYears.Text = "" Then
                 MsgBox("Select an existing year from the dropdown." & vbCrLf & "No data altered", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             Else
                 oldYear = CType(cboExistingYears.Text, Integer)
             End If
 
             If mtbNewYear.Text = "" OrElse mtbNewYear.Text.Length <> 4 OrElse Not IsNumeric(mtbNewYear.Text) Then
                 MsgBox("Please enter a complete 4-digit year" & vbCrLf & "No data altered", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             Else
                 targetYear = CType(mtbNewYear.Text, Integer)
             End If
@@ -2755,7 +2755,7 @@ Public Class SSCPManagersTools
                                 "Are you sure you want to proceed?", "Confirm Patience",
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
             If confirmResult = DialogResult.Cancel Then
-                Exit Sub
+                Return
             End If
 
             If DAL.Sscp.AssignmentYearExists(targetYear) Then
@@ -2770,7 +2770,7 @@ Public Class SSCPManagersTools
                             MsgBox("There was an error when attempting to clear data from target year. " &
                                    "Please check the value and try again." & vbCrLf & "No data altered.",
                                    MsgBoxStyle.Exclamation, Me.Text)
-                            Exit Sub
+                            Return
                         End If
                     End If
                 Else
@@ -2779,7 +2779,7 @@ Public Class SSCPManagersTools
                                         ". Are you sure you want to proceed?", "Confirm Merge",
                                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
                     If dialogResult = DialogResult.No Then
-                        Exit Sub
+                        Return
                     End If
                 End If
             End If

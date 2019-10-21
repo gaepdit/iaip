@@ -338,7 +338,7 @@ Public Class IAIPEditContacts
                 And rdbNewMonitoringContact.Checked = False And rdbNewPermittingContact.Checked = False _
                 And rdbNewPlanningContact.Checked = False Then
                     MsgBox("Please select a Contact Type first" & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Me.Text)
-                    Exit Sub
+                    Return
                 End If
 
                 If Key <> ContactKey.None Then
@@ -490,7 +490,7 @@ Public Class IAIPEditContacts
 
                 If newKey = "" Then
                     MsgBox("Please select a Contact Type first" & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Me.Text)
-                    Exit Sub
+                    Return
                 Else
                     Select Case newKey
                         Case "10", "20", "30", "50", "60", "70"

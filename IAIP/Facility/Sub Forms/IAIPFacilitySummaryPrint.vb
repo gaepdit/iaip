@@ -13,12 +13,12 @@
 
     Private Sub ShowReport(sender As Object, e As EventArgs) Handles ShowBasicReportButton.Click, ShowFullReportButton.Click
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         If AirsNumber Is Nothing Then
             MessageBox.Show("The AIRS number is invalid")
-            Exit Sub
+            Return
         End If
 
         Cursor = Cursors.AppStarting

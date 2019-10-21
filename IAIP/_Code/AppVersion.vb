@@ -52,7 +52,7 @@ Public Module AppVersion
             MessageBox.Show("The IAIP cannot be updated if multiple IAIP windows are open. Please close them and try again",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             ShowAllForms()
-            Exit Sub
+            Return
         End If
 
         Dim info As UpdateCheckInfo

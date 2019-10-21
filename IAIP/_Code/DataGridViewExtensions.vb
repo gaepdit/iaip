@@ -40,7 +40,7 @@ Module DataGridViewExtensions
     <Extension()>
     Public Sub MakeColumnLookLikeLinks(dgv As DataGridView, index As Integer())
         If dgv.Columns.Count = 0 Then
-            Exit Sub
+            Return
         End If
 
         For Each col As Integer In index

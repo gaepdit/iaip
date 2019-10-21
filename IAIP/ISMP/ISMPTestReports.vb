@@ -9286,7 +9286,7 @@ Public Class ISMPTestReports
                 SCTestReports.SanelySetSplitterDistance(385)
                 cboTestNotificationNumber.Select(0, cboTestNotificationNumber.Text.Length)
                 MessageBox.Show("The test notification number entered is not valid. Changes were not saved.", "Error", MessageBoxButtons.OK)
-                Exit Sub
+                Return
             End If
         End If
 
@@ -13868,7 +13868,7 @@ Public Class ISMPTestReports
 
     Private Sub DisplayEnforcementCases()
         If String.IsNullOrEmpty(txtTrackingNumber.Text) Then
-            Exit Sub
+            Return
         End If
 
         Dim dt As New DataTable
