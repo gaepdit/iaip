@@ -42,7 +42,7 @@ Public Class PASPDepositsAmendments
 
     Private Function ValidateData() As Boolean
         Dim query As String
-        Dim param() As SqlParameter
+        Dim param As SqlParameter()
 
         If Not DAL.AirsNumberExists(mtbAIRSNumber.Text) Then
             MsgBox("This AIRS # is not valid; please verify that it is entered correctly." & vbCrLf &
@@ -130,7 +130,7 @@ Public Class PASPDepositsAmendments
 
         Try
             Dim query As String
-            Dim param() As SqlParameter
+            Dim param As SqlParameter()
 
             If txtCheckNumber.Text <> "" Then
                 query = "select " &
@@ -479,8 +479,7 @@ Public Class PASPDepositsAmendments
                         "    @STRCOMMENT, @ACTIVE, @UPDATEUSER, getdate(), getdate(), " &
                         "    @STRAIRSNUMBER, @NUMFEEYEAR, @STRCREDITCARDNO " &
                         "  ) "
-                    Dim param() As SqlParameter
-                    param = {
+                    Dim param As SqlParameter() = {
                         New SqlParameter("@INVOICEID", txtInvoiceForDeposit.Text),
                         New SqlParameter("@TRANSACTIONTYPECODE", "1"),
                         New SqlParameter("@DATTRANSACTIONDATE", dtpBatchDepositDateField.Text),

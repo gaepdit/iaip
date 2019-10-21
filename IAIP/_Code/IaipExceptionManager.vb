@@ -296,7 +296,7 @@ Public Module IaipExceptionManager
             .Append(mi.Name)
 
             '-- build method params
-            Dim objParameters() As ParameterInfo = sf.GetMethod.GetParameters()
+            Dim objParameters As ParameterInfo() = sf.GetMethod.GetParameters()
             Dim objParameter As ParameterInfo
             .Append("(")
             intParam = 0

@@ -526,7 +526,7 @@ Public Class SSPPPermitUploader
                         fs = New FileStream(PDFLocation, FileMode.OpenOrCreate, FileAccess.Read)
                     End If
 
-                    Dim rawData() As Byte = New Byte(fs.Length) {}
+                    Dim rawData As Byte() = New Byte(fs.Length) {}
                     If DocxLocation <> "" Then
                         ReDim rawData(fs.Length - 1)
                     End If
