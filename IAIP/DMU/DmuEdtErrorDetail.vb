@@ -108,7 +108,7 @@ Public Class DmuEdtErrorDetail
                 Else
                     IaipId.Text = .IaipID
                 End If
-                If Not .IaipIDCategory = Dmu.EdtIdCategory.None Then
+                If .IaipIDCategory <> Dmu.EdtIdCategory.None Then
                     IaipId.Enabled = True
                 End If
 
@@ -117,7 +117,7 @@ Public Class DmuEdtErrorDetail
                 Else
                     IaipForeignId.Text = .IaipForeignID
                 End If
-                If Not .IaipForeignIDCategory = Dmu.EdtIdCategory.None Then
+                If .IaipForeignIDCategory <> Dmu.EdtIdCategory.None Then
                     IaipForeignId.Enabled = True
                 End If
             End With

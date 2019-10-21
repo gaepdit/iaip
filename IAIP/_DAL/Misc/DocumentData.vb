@@ -174,7 +174,7 @@ Namespace DAL
             If dialogAction = DialogResult.OK Then
                 result = DownloadFile(doc.BinaryFileId, dialog.FileName)
                 If result Then
-                    If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
+                    If Path.GetDirectoryName(dialog.FileName) <> dialog.InitialDirectory Then
                         SaveUserSetting(UserSetting.FileDownloadLocation, Path.GetDirectoryName(dialog.FileName))
                     End If
 

@@ -107,7 +107,7 @@ Public Class IaipChangePassword
             PasswordEP.SetError(ConfirmPassword, "Repeat new password to confirm")
             If Not InvalidEntries.Contains(ConfirmPassword) Then InvalidEntries.Add(ConfirmPassword)
             e.Cancel = True
-        ElseIf Not ConfirmPassword.Text = NewPassword.Text Then
+        ElseIf ConfirmPassword.Text <> NewPassword.Text Then
             PasswordEP.SetError(ConfirmPassword, "New password fields must match")
             If Not InvalidEntries.Contains(ConfirmPassword) Then InvalidEntries.Add(ConfirmPassword)
             e.Cancel = True

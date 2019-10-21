@@ -85,7 +85,7 @@ Public Module AppVersion
                                          GetVersionAsMajorMinorBuild(info.AvailableVersion).ToString &
                                          "). Would you like to install it now?",
                                          "Update Available", MessageBoxButtons.YesNo)
-                    If (Not DialogResult.Yes = dr) Then doUpdate = False
+                    If DialogResult.Yes <> dr Then doUpdate = False
                 Else
                     ' Display a message that the app MUST reboot. Display the minimum required version.
                     MessageBox.Show("A mandatory update will now be installed (" &

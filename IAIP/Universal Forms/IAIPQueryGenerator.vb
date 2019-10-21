@@ -3288,7 +3288,7 @@ Public Class IAIPQueryGenerator
                 If path.ShowDialog() = DialogResult.OK Then
                     Dim DestFilePath As String = path.FileName.ToString
 
-                    If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                    If IO.Path.GetDirectoryName(path.FileName) <> path.InitialDirectory Then
                         SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
                     End If
 
@@ -3338,7 +3338,7 @@ Public Class IAIPQueryGenerator
                 If path.ShowDialog() = DialogResult.OK Then
                     Dim DestFilePath As String = path.FileName.ToString
 
-                    If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                    If IO.Path.GetDirectoryName(path.FileName) <> path.InitialDirectory Then
                         SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
                     End If
 

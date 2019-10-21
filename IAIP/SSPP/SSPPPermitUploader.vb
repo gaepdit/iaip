@@ -3091,7 +3091,7 @@ Public Class SSPPPermitUploader
             If dialog.ShowDialog = DialogResult.OK Then
                 If File.Exists(dialog.FileName) Then
 
-                    If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
+                    If Path.GetDirectoryName(dialog.FileName) <> dialog.InitialDirectory Then
                         SaveUserSetting(UserSetting.FileUploadLocation, Path.GetDirectoryName(dialog.FileName))
                     End If
 
@@ -3167,7 +3167,7 @@ Public Class SSPPPermitUploader
                             If path.ShowDialog() = DialogResult.OK Then
                                 DestFilePath = path.FileName.ToString
 
-                                If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                                If IO.Path.GetDirectoryName(path.FileName) <> path.InitialDirectory Then
                                     SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
                                 End If
 
@@ -3191,7 +3191,7 @@ Public Class SSPPPermitUploader
                             If path.ShowDialog() = DialogResult.OK Then
                                 DestFilePath = path.FileName.ToString
 
-                                If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                                If IO.Path.GetDirectoryName(path.FileName) <> path.InitialDirectory Then
                                     SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
                                 End If
 
@@ -3215,7 +3215,7 @@ Public Class SSPPPermitUploader
                             If path.ShowDialog() = DialogResult.OK Then
                                 DestFilePath = path.FileName.ToString
 
-                                If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                                If IO.Path.GetDirectoryName(path.FileName) <> path.InitialDirectory Then
                                     SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
                                 End If
 
@@ -3238,7 +3238,7 @@ Public Class SSPPPermitUploader
                             If path.ShowDialog() = DialogResult.OK Then
                                 DestFilePath = path.FileName.ToString
 
-                                If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
+                                If IO.Path.GetDirectoryName(path.FileName) <> path.InitialDirectory Then
                                     SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
                                 End If
 

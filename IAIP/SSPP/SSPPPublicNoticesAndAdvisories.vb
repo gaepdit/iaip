@@ -727,7 +727,7 @@ Public Class SSPPPublicNoticesAndAdvisories
         }
 
             If dialog.ShowDialog() = DialogResult.OK Then
-                If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
+                If Path.GetDirectoryName(dialog.FileName) <> dialog.InitialDirectory Then
                     SaveUserSetting(UserSetting.FileDownloadLocation, Path.GetDirectoryName(dialog.FileName))
                 End If
 

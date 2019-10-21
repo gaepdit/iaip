@@ -124,7 +124,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SetUpForNewApplication()
-        If Not AccountFormAccess(3, 4) = "1" Then
+        If AccountFormAccess(3, 4) <> "1" Then
             MessageBox.Show("You do not have permission to start a new application.")
             Me.Close()
         End If
@@ -7042,7 +7042,7 @@ Public Class SSPPApplicationTrackingLog
                 saveFilePath = sfd.FileName.ToString
                 SaveBinaryFileFromDB(saveFilePath, query, parameter)
 
-                If Not IO.Path.GetDirectoryName(sfd.FileName) = sfd.InitialDirectory Then
+                If IO.Path.GetDirectoryName(sfd.FileName) <> sfd.InitialDirectory Then
                     SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(sfd.FileName))
                     sfd.InitialDirectory = IO.Path.GetDirectoryName(sfd.FileName)
                 End If
@@ -7060,7 +7060,7 @@ Public Class SSPPApplicationTrackingLog
                     saveFilePath = sfd.FileName.ToString
                     SaveBinaryFileFromDB(saveFilePath, query, parameter)
 
-                    If Not IO.Path.GetDirectoryName(sfd.FileName) = sfd.InitialDirectory Then
+                    If IO.Path.GetDirectoryName(sfd.FileName) <> sfd.InitialDirectory Then
                         SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(sfd.FileName))
                     End If
                 End If
