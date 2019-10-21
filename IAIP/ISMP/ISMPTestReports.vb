@@ -928,7 +928,7 @@ Public Class ISMPTestReports
                 Else
                     txtFacilityState.Text = dr.Item("strFacilityState")
                 End If
-                txtFacilityCity.Text = String.Join(", ", New String() {txtFacilityCity.Text, txtFacilityState.Text})
+                txtFacilityCity.Text = String.Join(", ", {txtFacilityCity.Text, txtFacilityState.Text})
                 If IsDBNull(dr.Item("strPollutant")) Then
                     cboPollutantDetermined.SelectedValue = 0
                 Else
@@ -8982,7 +8982,7 @@ Public Class ISMPTestReports
                         Else
                             txtFacilityState.Text = dr.Item("strFacilityState")
                         End If
-                        txtFacilityCity.Text = String.Join(", ", New String() {txtFacilityCity.Text, txtFacilityState.Text})
+                        txtFacilityCity.Text = String.Join(", ", {txtFacilityCity.Text, txtFacilityState.Text})
                         If IsDBNull(dr.Item("strTestingFirm")) Then
                             cboTestingFirm.SelectedValue = 0
                         Else

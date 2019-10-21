@@ -34,7 +34,7 @@ Module DataGridViewExtensions
 
     <Extension()>
     Public Sub MakeColumnLookLikeLinks(dgv As DataGridView, index As Integer)
-        dgv.MakeColumnLookLikeLinks(New Integer() {index})
+        dgv.MakeColumnLookLikeLinks({index})
     End Sub
 
     <Extension()>

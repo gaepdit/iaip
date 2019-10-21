@@ -167,7 +167,7 @@ Public Class IAIPEditContacts
                 "where strAIRSNumber = @airsnumber " &
                 "and strKey = @key "
 
-                Dim parameters As SqlParameter() = New SqlParameter() {
+                Dim parameters As SqlParameter() = {
                     New SqlParameter("@airsnumber", Me.AirsNumber.DbFormattedString),
                     New SqlParameter("@key", Key.ToString("D"))
                 }

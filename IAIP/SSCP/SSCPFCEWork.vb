@@ -1440,7 +1440,7 @@ Public Class SSCPFCEWork
             Dim enforcementStartDate As Date = endDate.AddYears(-FCE_ENFORCEMENT_DATA_PERIOD)
 
             Dim dt1 As New DataTable
-            dt1 = CollectionHelper.ConvertToDataTable(Of Facility)(New Facility() {facility})
+            dt1 = CollectionHelper.ConvertToDataTable(Of Facility)({facility})
             rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt1)
 
             Dim dt2 As New DataTable("VW_SSCP_INSPECTIONS")

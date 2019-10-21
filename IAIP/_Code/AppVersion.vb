@@ -40,7 +40,7 @@ Public Module AppVersion
 
     Public Sub CheckForUpdate()
         Dim openFormCount As Integer = 0
-        Dim okayForms As String() = New String() {NameOf(IAIPLogIn), NameOf(IAIPNavigation), NameOf(IaipAbout)}
+        Dim okayForms As String() = {NameOf(IAIPLogIn), NameOf(IAIPNavigation), NameOf(IaipAbout)}
 
         For Each f As Form In Application.OpenForms
             If Not (okayForms.Contains(f.Name)) Then

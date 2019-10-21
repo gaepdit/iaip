@@ -2035,7 +2035,7 @@ Public Class SSCPManagersTools
                 End Select
 
             Else
-                Dim airslist As String() = txtManualAIRSNumber.Text.Split(New String() {vbNewLine, "\r\n", "\n"}, StringSplitOptions.RemoveEmptyEntries)
+                Dim airslist As String() = txtManualAIRSNumber.Text.Split({vbNewLine, "\r\n", "\n"}, StringSplitOptions.RemoveEmptyEntries)
 
                 If airslist.Length > 0 Then
                     For i As Integer = 0 To airslist.Length - 1
