@@ -3856,11 +3856,7 @@ Public Class EisTool
             If rdbEILogEnrolledYes.Checked = True Then
                 Enrollment = "1"
             Else
-                If rdbEILogEnrolledNo.Checked = True Then
-                    Enrollment = "0"
-                Else
-                    Enrollment = "0"
-                End If
+                Enrollment = "0"
             End If
             If rdbEILogOpOutYes.Checked = True Then
                 OptOut = "1"
