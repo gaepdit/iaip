@@ -7101,8 +7101,6 @@ Public Class SSPPApplicationTrackingLog
                     If cboApplicationType.Text = "ERC" Then
                         If Mid(txtPermitNumber.Text, 1, 3) <> "ERC" Then
                             txtPermitNumber.Text = "ERC"
-                        Else
-                            txtPermitNumber.Text = txtPermitNumber.Text
                         End If
                     Else
                         If txtSICCode.Text.Length = 4 And AirsId IsNot Nothing Then

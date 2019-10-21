@@ -159,17 +159,14 @@ Public Class SBEAPCaseWork
                     CompanyName = dr.Item("strCompanyName") & vbCrLf
                 End If
                 If IsDBNull(dr.Item("strCompanyAddress")) Then
-                    CompanyAddress = CompanyAddress
                 Else
                     CompanyAddress = CompanyAddress & dr.Item("strCompanyAddress") & vbCrLf
                 End If
                 If IsDBNull(dr.Item("strCompanyCity")) Then
-                    CompanyAddress = CompanyAddress
                 Else
                     CompanyAddress = CompanyAddress & dr.Item("strCompanyCity")
                 End If
                 If IsDBNull(dr.Item("strCompanyState")) Then
-                    CompanyAddress = CompanyAddress
                 Else
                     CompanyAddress = CompanyAddress & ", " & dr.Item("strCompanyState")
                 End If
