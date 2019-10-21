@@ -1597,7 +1597,7 @@ Public Class SBEAPCaseWork
             If CallerPhone <> "" AndAlso Not IsNumeric(CallerPhone) Then
                 MessageBox.Show("Phone call could not be saved because there is a problem with the phone number. " &
                                 "Please fix and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String
