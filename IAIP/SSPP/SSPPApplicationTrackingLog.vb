@@ -3930,7 +3930,7 @@ Public Class SSPPApplicationTrackingLog
                         DTPReviewSubmitted.Value = Today
                         DTPReviewSubmitted.Checked = False
                     Else
-                        DTPReviewSubmitted.Text = dr.Item("datReviewsubmitted")
+                        DTPReviewSubmitted.Value = CDate(dr.Item("datReviewsubmitted"))
                         DTPReviewSubmitted.Checked = True
                     End If
                     If IsDBNull(dr.Item("strSSCPUnit")) Then
@@ -5453,37 +5453,40 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SaveApplicationSubmitForReview()
-        Try
-            Dim DateReviewSubmitted As Date = DTPReviewSubmitted.Value
 
-            Dim queryList As New List(Of String)
-            Dim paramList As New List(Of SqlParameter())
+        Dim DateReviewSubmitted As Date? = Nothing
 
-            queryList.Add("Update SSPPApplicationData set " &
-                "strSSCPUnit = @cboSSCPUnits, " &
-                "strISMPUnit = @cboISMPUnits " &
-                "where strApplicationNumber = @txtApplicationNumber ")
+        If DTPReviewSubmitted.Checked Then
+            DateReviewSubmitted = DTPReviewSubmitted.Value
+        End If
 
-            paramList.Add({
-                New SqlParameter("@cboSSCPUnits", cboSSCPUnits.SelectedValue.ToString),
-                New SqlParameter("@cboISMPUnits", cboISMPUnits.SelectedValue.ToString),
-                New SqlParameter("@txtApplicationNumber", AppNumber)
-            })
+        Dim SscpReviewUnit As String = If(DTPReviewSubmitted.Checked, cboSSCPUnits.SelectedValue.ToString, Nothing)
+        Dim IsmpReviewUnit As String = If(DTPReviewSubmitted.Checked, cboISMPUnits.SelectedValue.ToString, Nothing)
 
-            queryList.Add("Update SSPPApplicationTracking set " &
-                "datReviewSubmitted = @DateReviewSubmitted " &
-                "where strApplicationNumber = @txtApplicationNumber ")
+        Dim queryList As New List(Of String)
+        Dim paramList As New List(Of SqlParameter())
 
-            paramList.Add({
-                New SqlParameter("@DateReviewSubmitted", DateReviewSubmitted),
-                New SqlParameter("@txtApplicationNumber", AppNumber)
-            })
+        queryList.Add("Update SSPPApplicationData set " &
+                      "strSSCPUnit = @cboSSCPUnits, " &
+                      "strISMPUnit = @cboISMPUnits " &
+                      "where strApplicationNumber = @txtApplicationNumber ")
 
-            DB.RunCommand(queryList, paramList)
+        paramList.Add({
+                      New SqlParameter("@cboSSCPUnits", SscpReviewUnit),
+                      New SqlParameter("@cboISMPUnits", IsmpReviewUnit),
+                      New SqlParameter("@txtApplicationNumber", AppNumber)
+                      })
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        queryList.Add("Update SSPPApplicationTracking set " &
+                      "datReviewSubmitted = @DateReviewSubmitted " &
+                      "where strApplicationNumber = @txtApplicationNumber ")
+
+        paramList.Add({
+                      New SqlParameter("@DateReviewSubmitted", DateReviewSubmitted),
+                      New SqlParameter("@txtApplicationNumber", AppNumber)
+                      })
+
+        DB.RunCommand(queryList, paramList)
     End Sub
 
     Private Sub SaveSSCPReview()
@@ -7285,9 +7288,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
 
                     If Not NewApplication Then
-                        If DTPReviewSubmitted.Checked = True Then
-                            SaveApplicationSubmitForReview()
-                        End If
+                        SaveApplicationSubmitForReview()
 
                         If DTPSSCPReview.Checked = True Then
                             SaveSSCPReview()
