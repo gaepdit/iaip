@@ -881,7 +881,7 @@ Public Class PASPFeeStatistics
 
     Private Sub LoadSelectedFeeData()
         If txtSelectedAIRSNumber.Text = "" OrElse txtSelectedAIRSNumber.Text.Length <> 8 OrElse txtSelectedYear.Text = "" Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1320,7 +1320,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnViewFacilitySpecificData_Click(sender As Object, e As EventArgs) Handles btnViewFacilitySpecificData.Click
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1358,7 +1358,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnClassification_Click(sender As Object, e As EventArgs) Handles btnClassification.Click
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1380,7 +1380,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnRunBalanceReport_Click(sender As Object, e As EventArgs) Handles btnRunBalanceReport.Click
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1458,7 +1458,7 @@ Public Class PASPFeeStatistics
 #Region "Financial"
     Private Sub btnPayment_Click(sender As Object, e As EventArgs) Handles btnPayment.Click
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1481,7 +1481,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnFeeByYear_Click(sender As Object, e As EventArgs) Handles btnFeeByYear.Click
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1507,7 +1507,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnViewDepositsReportByDate_Click(sender As Object, e As EventArgs) Handles btnViewDepositsReportByDate.Click
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Me.Cursor = Cursors.WaitCursor
@@ -1534,7 +1534,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnViewFacilityDepositsReport_Click(sender As Object, e As EventArgs) Handles btnViewFacilityDepositsReport.Click
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         If cboAirs.Text <> "" Then
@@ -1561,7 +1561,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnClassChange_Click(sender As Object, e As EventArgs) Handles btnClassChange.Click
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1582,7 +1582,7 @@ Public Class PASPFeeStatistics
 
     Private Sub lblNSPS1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS1.LinkClicked
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1606,7 +1606,7 @@ Public Class PASPFeeStatistics
 
     Private Sub lblNSPS2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS2.LinkClicked
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1629,7 +1629,7 @@ Public Class PASPFeeStatistics
 
     Private Sub lblNSPS3_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS3.LinkClicked
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1652,7 +1652,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnNoOperate_Click(sender As Object, e As EventArgs) Handles btnNoOperate.Click
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1678,7 +1678,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnFacInfoChange_Click(sender As Object, e As EventArgs) Handles btnFacInfoChange.Click
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1864,7 +1864,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -1912,7 +1912,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -1962,7 +1962,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2013,7 +2013,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2064,7 +2064,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2116,7 +2116,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2168,7 +2168,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2219,7 +2219,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2271,7 +2271,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2328,7 +2328,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2382,7 +2382,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2437,7 +2437,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2491,7 +2491,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2545,7 +2545,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2596,7 +2596,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2647,7 +2647,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2699,7 +2699,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2751,7 +2751,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -2888,7 +2888,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -3030,7 +3030,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -3173,7 +3173,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -3316,7 +3316,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -3460,7 +3460,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -3603,7 +3603,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -3744,7 +3744,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -3887,7 +3887,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -4037,7 +4037,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -4185,7 +4185,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -4332,7 +4332,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "SELECT   SUBSTRing(AD.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, " &
@@ -4494,7 +4494,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -4637,7 +4637,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -4781,7 +4781,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -4927,7 +4927,7 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select  " &
@@ -5113,7 +5113,7 @@ Public Class PASPFeeStatistics
 
                 If Not DB.RunCommand(query, parameters) Then
                     MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Exit Sub
+                    Return
                 End If
 
                 DB.SPRunCommand("dbo.PD_FEE_STATUSES", feeYearParam)
@@ -5675,7 +5675,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnExportedRun_Click(sender As Object, e As EventArgs) Handles btnExportedRun.Click
         If String.IsNullOrEmpty(cbReportedYear.Text) Then
-            Exit Sub
+            Return
         End If
 
         Dim query As String = "SELECT

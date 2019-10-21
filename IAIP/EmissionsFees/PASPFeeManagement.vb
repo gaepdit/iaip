@@ -289,7 +289,7 @@ Public Class PASPFeeManagement
 
             ClearFeeData()
             If IsDBNull(row.Cells(0).Value) Then
-                Exit Sub
+                Return
             Else
                 txtFeeID.Text = row.Cells(0).Value
             End If
@@ -588,7 +588,7 @@ Public Class PASPFeeManagement
     Private Sub btnUpdateNSPSbyYear_Click(sender As Object, e As EventArgs) Handles btnUpdateNSPSbyYear.Click
         If cboNSPSExemptionYear.Text = "" OrElse Not IsNumeric(cboNSPSExemptionYear.Text) Then
             MessageBox.Show("Please select a Fee Year first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
+            Return
         End If
 
         Try
@@ -740,7 +740,7 @@ Public Class PASPFeeManagement
 
             If cboAvailableFeeYears.Text = "" Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Select a fee year first.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             SQL = "Select " &
@@ -762,7 +762,7 @@ Public Class PASPFeeManagement
             If EnrollCheck > 0 Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "There are already facilities enrolled for this fee year.",
                         MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             SQL = "Update FS_Admin set " &
@@ -807,13 +807,13 @@ Public Class PASPFeeManagement
 
             If cboAvailableFeeYears.Text = "" Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Select a fee year first.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If cboAvailableFeeYears.Text < (Today.Year - 1) Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Only Current and last Fee Years are eligible to be unenrolled.",
                         MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim Result As DialogResult
@@ -825,7 +825,7 @@ Public Class PASPFeeManagement
                 Case DialogResult.Yes
 
                 Case Else
-                    Exit Sub
+                    Return
             End Select
 
             SQL = "Update FS_Admin set " &
@@ -957,7 +957,7 @@ Public Class PASPFeeManagement
 
             If cboAvailableFeeYears.Text = "" OrElse Not IsNumeric(cboAvailableFeeYears.Text) Then
                 MsgBox("Select a valid fee year first.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             SQL = "select count(*) as ContactTotals " &
@@ -1101,7 +1101,7 @@ Public Class PASPFeeManagement
             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2)
 
         If confirm = DialogResult.No Then
-            Exit Sub
+            Return
         End If
 
 
@@ -1109,7 +1109,7 @@ Public Class PASPFeeManagement
 
         If Not Integer.TryParse(cboAvailableFeeYears.Text, SelectedYear) Then
             MessageBox.Show("Invalid year selected")
-            Exit Sub
+            Return
         End If
 
         Cursor = Cursors.WaitCursor
@@ -1159,7 +1159,7 @@ Public Class PASPFeeManagement
             txtDeleteNSPSExemptions.Clear()
             txtNSPSExemption.Clear()
             If IsDBNull(row.Cells(0).Value) Then
-                Exit Sub
+                Return
             Else
                 txtDeleteNSPSExemptions.Text = row.Cells(0).Value
             End If
@@ -1279,7 +1279,7 @@ Public Class PASPFeeManagement
         Dim confirm As DialogResult = MessageBox.Show("Are you sure you want to set the initial mailout date for all sources in the mailout list?",
             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
         If confirm = DialogResult.No Then
-            Exit Sub
+            Return
         End If
 
         Try

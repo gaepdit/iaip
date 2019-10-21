@@ -279,32 +279,32 @@ Public Class IAIPFacilityCreator
 
             If IsDBNull(cboCounty.SelectedValue) OrElse cboCounty.SelectedValue Is Nothing OrElse cboCounty.SelectedIndex = -1 Then
                 MsgBox("Invalid County Selected." & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Me.Name)
-                Exit Sub
+                Return
             End If
             If txtCDSAIRSNumber.Text <> "" Then
                 MsgBox("There is an existing AIRS # associated with this data." &
                     "Either use the Edit button or clear the AIRS # before Saving a new Facility.", MsgBoxStyle.Information, Me.Name)
-                Exit Sub
+                Return
             End If
             If mtbFacilityLatitude.Text = "  ." Then
                 MsgBox("The Latitude field needs to be addressed." &
                  "No Data saved.", MsgBoxStyle.Information, Me.Name)
-                Exit Sub
+                Return
             End If
             If mtbFacilityLongitude.Text = "-  ." Then
                 MsgBox("The Longitude field needs to be addressed." &
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
-                Exit Sub
+                Return
             End If
             If Not DAL.NaicsCodeIsValid(mtbCDSNAICSCode.Text, False) Then
                 MsgBox("The NAICS Code is not valid and must be fixed before proceeding." &
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
-                Exit Sub
+                Return
             End If
             If Not DAL.SicCodeIsValid(mtbCDSSICCode.Text) Then
                 MsgBox("The SIC Code is not valid and must be fixed before proceeding." &
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "INSERT INTO APBMASTERAIRS (
@@ -338,7 +338,7 @@ Public Class IAIPFacilityCreator
 
             If txtCDSAIRSNumber.Text = "" Then
                 MsgBox("There was an error in creating Facility." & "Contact EPD IT before proceeding", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             Else
                 AIRSNumber = "0413" & txtCDSAIRSNumber.Text
             End If
@@ -1074,7 +1074,7 @@ Public Class IAIPFacilityCreator
             Dim temp As String
 
             If txtNewAIRSNumber.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             txtCDSAIRSNumber.Text = txtNewAIRSNumber.Text
@@ -1457,26 +1457,26 @@ Public Class IAIPFacilityCreator
         Try
             If Not ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
                 MessageBox.Show("AIRS number is not valid", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             Dim airsNumberDeleting As New ApbFacilityId(txtNewAIRSNumber.Text)
 
             If DAL.FacilityHasBeenApproved(airsNumberDeleting) Then
                 MessageBox.Show("Facility has already been approved.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             If DAL.Finance.FacilityHasFeesData(airsNumberDeleting) Then
                 MessageBox.Show("Facility has permit fees data. Unable to delete unless the fees data is removed first.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             Dim result As DialogResult
             result = MessageBox.Show("Are you sure you want to completely remove this facility from the database? The data will not be recoverable.", "Confirm facility deletion",
                                       MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
             If result = DialogResult.No Then
-                Exit Sub
+                Return
             End If
 
             If DAL.DeleteFacility(airsNumberDeleting) Then
@@ -1498,7 +1498,7 @@ Public Class IAIPFacilityCreator
         Try
             If chbSSCPSignOff.Checked = False Then
                 MsgBox("Please check the SSCP Approve box.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Update APBSupplamentalData set " &
@@ -1528,7 +1528,7 @@ Public Class IAIPFacilityCreator
         Try
             If chbSSPPSignOff.Checked = False Then
                 MsgBox("Please check the SSPP Approve box.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Update APBSupplamentalData set " &
@@ -1559,7 +1559,7 @@ Public Class IAIPFacilityCreator
             If Not ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
                 dgvValidatingAIRS.DataSource = Nothing
                 lblValidationCount.Text = ""
-                Exit Sub
+                Return
             End If
 
             Dim FacilityName As String = txtNewFacilityName.Text
@@ -1720,13 +1720,13 @@ Public Class IAIPFacilityCreator
             If Not ApbFacilityId.IsValidAirsNumberFormat(txtCDSAIRSNumber.Text) Then
                 MsgBox("There is no AIRS # selected. You will need to select a facility from the Approval Tab first.",
                        MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If Not DAL.NaicsCodeIsValid(mtbCDSNAICSCode.Text, False) Then
                 MsgBox("The NAICS Code is not valid." &
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
-                Exit Sub
+                Return
             End If
 
             AIRSNumber = "0413" & txtCDSAIRSNumber.Text
@@ -2040,26 +2040,26 @@ Public Class IAIPFacilityCreator
         Try
             If Not ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
                 MessageBox.Show("AIRS number is not valid", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             Dim airsNumberDeleting As New ApbFacilityId(AirsNumberToDelete.Text)
 
             If Not DAL.FacilityHasBeenApproved(airsNumberDeleting) Then
                 MessageBox.Show("Facility has not been approved yet. Remove facility using the ""Approve New Facilities"" tab.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             If DAL.Finance.FacilityHasFeesData(airsNumberDeleting) Then
                 MessageBox.Show("Facility has permit fees data. Unable to delete unless the fees data is removed first.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             Dim result As DialogResult
             result = MessageBox.Show("Are you sure you want to completely remove this facility from the database? The data will not be recoverable.", "Confirm facility deletion",
                                       MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
             If result = DialogResult.No Then
-                Exit Sub
+                Return
             End If
 
             If DAL.DeleteFacility(airsNumberDeleting) Then

@@ -239,7 +239,7 @@ Public Class PASPFeeAuditLog
 
     Private Sub LoadAdminData()
         If AirsNumber Is Nothing OrElse FeeYear Is Nothing Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1229,7 +1229,7 @@ Public Class PASPFeeAuditLog
 
     Private Sub LoadAuditedData()
         If AirsNumber Is Nothing OrElse FeeYear Is Nothing Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1936,13 +1936,13 @@ Public Class PASPFeeAuditLog
                             "Please double-check and try again." &
                             vbNewLine & vbNewLine & "NO DATA SAVED.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
+            Return
         End If
 
         If Not DAL.FeeMailoutEntryExists(AirsNumber, FeeYear) Then
             MessageBox.Show("Can't save contact: No mailout exists for that AIRS number and year.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
+            Return
         End If
 
         Dim contact As Contact = MailoutGetContactFromForm()
@@ -1963,13 +1963,13 @@ Public Class PASPFeeAuditLog
                             "Please double-check and try again." &
                             vbNewLine & vbNewLine & "NO DATA SAVED.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
+            Return
         End If
 
         If Not DAL.FeeMailoutEntryExists(AirsNumber, FeeYear) Then
             MessageBox.Show("Can't save facility: No mailout exists for that AIRS number and year.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
+            Return
         End If
 
         Dim facility As Facility = MailoutGetFacilityFromForm()
@@ -1990,7 +1990,7 @@ Public Class PASPFeeAuditLog
         If AirsNumber Is Nothing OrElse (mtbAirsNumber.Text <> AirsNumber.FormattedString) Then
             MessageBox.Show("Please select a valid AIRS number first.",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
+            Return
         End If
 
         Dim parameters As New Generic.Dictionary(Of FormParameter, String)
@@ -2004,7 +2004,7 @@ Public Class PASPFeeAuditLog
         Try
             If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbAirsNumber.Text) Then
                 MessageBox.Show("AIRS number is not valid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             FeeYear = FeeYearsComboBox.Text
@@ -2140,7 +2140,7 @@ Public Class PASPFeeAuditLog
                 Select Case ResultDoc
                     Case DialogResult.No
                         MsgBox("NO DATA SAVED.", MsgBoxStyle.Exclamation, Me.Text)
-                        Exit Sub
+                        Return
                 End Select
             End If
 
@@ -2149,7 +2149,7 @@ Public Class PASPFeeAuditLog
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
@@ -2165,7 +2165,7 @@ Public Class PASPFeeAuditLog
             If Not result Then
                 MsgBox("The facility is not currently in the Fee universe for the selected year." & vbCrLf &
                        "Use the Add New Facility to Year." & vbCrLf & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If Update_FS_Admin(Me.FeeYear, Me.AirsNumber,
@@ -2210,7 +2210,7 @@ Public Class PASPFeeAuditLog
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             If Insert_FS_Admin(Me.FeeYear, Me.AirsNumber,
@@ -2409,7 +2409,7 @@ Public Class PASPFeeAuditLog
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If txtTransactionID.Text <> "" Then
@@ -2422,17 +2422,17 @@ Public Class PASPFeeAuditLog
 
                     Case Else
                         MsgBox("No data was saved", MsgBoxStyle.Information, Me.Text)
-                        Exit Sub
+                        Return
                 End Select
             End If
             If cboTransactionType.SelectedValue Is Nothing OrElse cboTransactionType.SelectedValue.ToString = "" Then
                 MsgBox("A transaction type must be selected before continuing." & vbCrLf & "No data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If InvoiceCheck() = False Then
                 MsgBox("The Invoice Number entered is not valid." & vbCrLf & "No Data saved", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim payment As Double? = CType(RealStringOrNothing(Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")), Double?)
@@ -2622,21 +2622,21 @@ Public Class PASPFeeAuditLog
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If txtTransactionID.Text = "" Then
                 MsgBox("Please select a valid transaction to update." & vbCrLf & "No data modified", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
             If cboTransactionType.SelectedValue Is Nothing Or cboTransactionType.SelectedValue = "" Then
                 MsgBox("A transaction type must be selected before continuing." & vbCrLf & "No data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If InvoiceCheck() = False Then
                 MsgBox("The Invoice Number entered is not valid." & vbCrLf & "No Data saved", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim payment As Double? = CType(RealStringOrNothing(Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")), Double?)
@@ -2694,16 +2694,16 @@ Public Class PASPFeeAuditLog
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If txtTransactionID.Text = "" Then
                 MsgBox("Please select a valid transaction to update." & vbCrLf & "No data modified", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
             If InvoiceCheck() = False Then
                 MsgBox("The Invoice Number entered is not valid." & vbCrLf & "No Data saved", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Update FS_Transactions set " &
@@ -2822,7 +2822,7 @@ Public Class PASPFeeAuditLog
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("Reload a facility and year before continuing." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If rdbEditOpStatusTrue.Checked = True Or rdbEditOpStatusFalse.Checked = True Then
@@ -3187,13 +3187,13 @@ Public Class PASPFeeAuditLog
     Private Sub rdbEditNSPSExemptTrue_CheckedChanged(sender As Object, e As EventArgs) Handles rdbEditNSPSExemptTrue.CheckedChanged
         Try
             If rdbEditNSPSExemptTrue.Checked = False Then
-                Exit Sub
+                Return
             End If
 
             If AirsNumber Is Nothing OrElse FeeYear Is Nothing Then
                 MessageBox.Show("Please select a valid AIRS number and year first.",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "select
@@ -3229,7 +3229,7 @@ Public Class PASPFeeAuditLog
 
     Private Sub dgvEditExemptions_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvEditExemptions.MouseUp
         If dgvEditExemptions.Rows.Count < 1 Then
-            Exit Sub
+            Return
         End If
         Try
             Dim hti As DataGridView.HitTestInfo = dgvEditExemptions.HitTest(e.X, e.Y)
@@ -3257,7 +3257,7 @@ Public Class PASPFeeAuditLog
     Private Sub btnGenerateInvoice_Click(sender As Object, e As EventArgs) Handles btnViewPrintableInvoice.Click
 
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -3279,7 +3279,7 @@ Public Class PASPFeeAuditLog
 
             If txtInvoice.Text = "" Then
                 MsgBox("Please select an existing invoice to Print.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select " &
@@ -3517,7 +3517,7 @@ Public Class PASPFeeAuditLog
 
     Private Sub ViewAllInvoices()
         If AirsNumber Is Nothing Then
-            Exit Sub
+            Return
         End If
         Try
             Dim SQL As String = "select distinct " &
@@ -3644,7 +3644,7 @@ Public Class PASPFeeAuditLog
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If txtAmount.Text <> "" And cboInvoiceType.Text <> "" Then
@@ -3655,7 +3655,7 @@ Public Class PASPFeeAuditLog
                 End If
             Else
                 MsgBox("A valid Invoice Amount, Pay Type and Invoice Date must be selected.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Insert into FS_FeeINvoice " &
@@ -3706,13 +3706,13 @@ Public Class PASPFeeAuditLog
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             If txtInvoice.Text Is Nothing OrElse Not Integer.TryParse(txtInvoice.Text, Nothing) Then
                 MessageBox.Show("Please select an invoice first and try again.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             Dim query As String = "Select " &
@@ -3729,7 +3729,7 @@ Public Class PASPFeeAuditLog
                 MsgBox("There already exists a transaction for this invoice. " &
                        "Any Transaction needs to be deleted or zeroed out to VOID an Invoice.",
                          MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             query = "Update FS_FeeInvoice set " &
@@ -3757,7 +3757,7 @@ Public Class PASPFeeAuditLog
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select distinct " &
@@ -3809,7 +3809,7 @@ Public Class PASPFeeAuditLog
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             If txtInvoice.Text <> "" Then
@@ -3883,12 +3883,12 @@ Public Class PASPFeeAuditLog
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             If txtAuditID.Text = "" Then
                 MsgBox("Please select an existing Audit before attempting to edit.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If rdbEditOpStatusTrue.Checked = True Or rdbEditOpStatusFalse.Checked = True Then
@@ -4247,7 +4247,7 @@ Public Class PASPFeeAuditLog
             Dim temp As String
 
             If dgvAuditHistory.CurrentRow Is Nothing Then
-                Exit Sub
+                Return
             End If
             ClearAuditData()
 

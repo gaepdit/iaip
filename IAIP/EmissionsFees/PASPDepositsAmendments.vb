@@ -506,7 +506,7 @@ Public Class PASPDepositsAmendments
                     End If
                 Else
                     MsgBox("Use ""Update Existing Check Deposit"" instead.")
-                    Exit Sub
+                    Return
                 End If
 
                 If Not DAL.Update_FS_Admin_Status(CInt(cbYear2.Text), New Apb.ApbFacilityId(mtbAIRSNumber.Text)) Then
@@ -594,7 +594,7 @@ Public Class PASPDepositsAmendments
                         DB.RunCommand(query, param)
                     Else
                         MsgBox("Use ""Add New Check Deposit"" instead.", MsgBoxStyle.Information, Me.Text)
-                        Exit Sub
+                        Return
                     End If
 
                     If Not DAL.Update_FS_Admin_Status(CInt(cbYear2.Text), New Apb.ApbFacilityId(mtbAIRSNumber.Text)) Then
@@ -634,7 +634,7 @@ Public Class PASPDepositsAmendments
         Try
             If txtTransactionID.Text = "" Then
                 MsgBox("Select a transaction first.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim result As DialogResult = MessageBox.Show("Are you sure you want to remove " & txtCheckNumberField.Text &

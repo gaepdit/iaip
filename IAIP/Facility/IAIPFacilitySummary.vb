@@ -408,7 +408,7 @@ Public Class IAIPFacilitySummary
             ElseIf Not String.IsNullOrWhiteSpace(.Address.ToLinearString) Then
                 StaticMapsUrl.Append("&markers=" & .Address.ToLinearString)
             Else
-                Exit Sub
+                Return
             End If
         End With
 
@@ -541,7 +541,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub LoadDataTable(whichTable As FacilityDataTable)
         If AirsNumber Is Nothing OrElse ThisFacility Is Nothing OrElse TableDataExists(whichTable) Then
-            Exit Sub
+            Return
         End If
 
         Dim table As DataTable = GetFSDataTable(whichTable, AirsNumber)

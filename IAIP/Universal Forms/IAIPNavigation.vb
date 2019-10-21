@@ -272,7 +272,9 @@ Public Class IAIPNavigation
     Private Sub OpenTestLog()
         Try
             Dim id As String = txtOpenTestLog.Text
-            If id = "" Then Exit Sub
+            If id = "" Then
+                Return
+            End If
 
             If DAL.Ismp.TestNotificationExists(id) Then
                 OpenFormTestNotification(id)
@@ -287,7 +289,9 @@ Public Class IAIPNavigation
     Private Sub OpenSbeapClient()
         Try
             Dim id As String = txtOpenSbeapClient.Text
-            If id = "" Then Exit Sub
+            If id = "" Then
+                Return
+            End If
 
             If DAL.Sbeap.ClientExists(id) Then
                 If ClientSummary IsNot Nothing AndAlso Not ClientSummary.IsDisposed Then
@@ -309,7 +313,9 @@ Public Class IAIPNavigation
     Private Sub OpenSbeapCaseLog()
         Try
             Dim id As String = txtOpenSbeapCaseLog.Text
-            If id = "" Then Exit Sub
+            If id = "" Then
+                Return
+            End If
 
             If DAL.Sbeap.CaseExists(id) Then
 

@@ -415,9 +415,9 @@ Public Class ISMPNotificationLog
                          MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
                         Select Case result
                             Case DialogResult.No
-                                Exit Sub
+                                Return
                             Case "7"
-                                Exit Sub
+                                Return
                             Case Else
 
                         End Select

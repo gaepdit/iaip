@@ -2049,7 +2049,7 @@ Public Class EisTool
 
     Private Sub btnaddfacilitytoES_Click(sender As Object, e As EventArgs) Handles btnaddfacilitytoES.Click
         If String.IsNullOrWhiteSpace(txtESairNumber.Text) OrElse Not Integer.TryParse(txtESYearforFacility.Text, Nothing) Then
-            Exit Sub
+            Return
         End If
 
         Dim AirsNo As String = "0413" & txtESairNumber.Text
@@ -2124,7 +2124,7 @@ Public Class EisTool
 
     Private Sub btnremoveFacilityES_Click(sender As Object, e As EventArgs) Handles btnremoveFacilityES.Click
         If String.IsNullOrWhiteSpace(txtESairNumber.Text) OrElse Not Integer.TryParse(txtESYearforFacility.Text, Nothing) Then
-            Exit Sub
+            Return
         End If
 
         Dim ESYear As Integer = txtESYearforFacility.Text
@@ -2157,7 +2157,7 @@ Public Class EisTool
 
     Private Sub btnCheckESstatus_Click(sender As Object, e As EventArgs) Handles btnCheckESstatus.Click
         If String.IsNullOrWhiteSpace(txtESairNumber.Text) OrElse Not Integer.TryParse(txtESYearforFacility.Text, Nothing) Then
-            Exit Sub
+            Return
         End If
 
         Dim AirsNo As String = "0413" & txtESairNumber.Text
@@ -2444,12 +2444,14 @@ Public Class EisTool
         Try
             If cboEILogYear.Text = "" Or cboEILogYear.Text.Length <> 4 Then
                 MsgBox("Please select a valid year from the EIS Year dropdown.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
+
             If mtbEILogAIRSNumber.Text = "" Or mtbEILogAIRSNumber.Text.Length <> 8 Then
                 MsgBox("Please enter a valid AIRS # into the EIS AIRS #", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
+
             txtEILogSelectedYear.Text = cboEILogYear.Text
             txtEILogSelectedAIRSNumber.Text = mtbEILogAIRSNumber.Text
 
@@ -3075,7 +3077,7 @@ Public Class EisTool
 
             If cboEISStatisticsYear.Text = "" Then
                 MessageBox.Show("Please select a valid year first.")
-                Exit Sub
+                Return
             End If
 
             txtSelectedEISStatYear.Text = cboEISStatisticsYear.Text
@@ -3210,8 +3212,9 @@ Public Class EisTool
     Private Sub llbEISEIUniverse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISEIUniverse.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
+
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "", "1", "", "", "", "")
 
             lblEISCount.Text = "Active EIS Universe Count: " & dgvEISStats.RowCount.ToString
@@ -3224,8 +3227,9 @@ Public Class EisTool
     Private Sub llbEISMailOutTotal_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISMailOutTotal.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
+
             EIS_VIEW(txtSelectedEISStatYear.Text, "1", "", "1", "", "", "", "")
 
             lblEISCount.Text = "Mailout Total Count: " & dgvEISStats.RowCount.ToString
@@ -3238,7 +3242,7 @@ Public Class EisTool
     Private Sub llbEISEnrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISEnrolled.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "", "", "", "")
@@ -3252,8 +3256,9 @@ Public Class EisTool
     Private Sub llbEISNoActivity_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISNoActivity.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
+
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "Null", "", "", "")
 
             lblEISCount.Text = "No Activity Count: " & dgvEISStats.RowCount.ToString
@@ -3265,8 +3270,9 @@ Public Class EisTool
     Private Sub llbEISUnenrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISUnenrolled.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
+
             EIS_VIEW(txtSelectedEISStatYear.Text, "1", "0", "1", "", "", "", "")
 
             lblEISCount.Text = "Unenrolled Count: " & dgvEISStats.RowCount.ToString
@@ -3277,7 +3283,7 @@ Public Class EisTool
     Private Sub llbEISInProgress_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISInProgress.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0", " and EISStatusCode = 2 ", "", "")
@@ -3291,7 +3297,7 @@ Public Class EisTool
     Private Sub llbEISOptedIn_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISOptedIn.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0", "", "", "")
@@ -3305,7 +3311,7 @@ Public Class EisTool
     Private Sub llbEISOptedOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISOptedOut.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "1", "", "", "")
@@ -3319,7 +3325,7 @@ Public Class EisTool
     Private Sub llbEISSubmitted_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISSubmitted.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0", " and EISStatusCode >= 3 ", "", "")
@@ -3333,7 +3339,7 @@ Public Class EisTool
     Private Sub llbEISFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISFinalized.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "",
@@ -3348,7 +3354,7 @@ Public Class EisTool
     Private Sub llbEISQABegan_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISQABegan.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "1", "1", "1", " and (strOptOut is null or strOptout = '0') ", "4", "2", "")
@@ -3362,7 +3368,7 @@ Public Class EisTool
     Private Sub llbEISSubmittedToEPA_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISSubmittedToEPA.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0",
@@ -3714,7 +3720,7 @@ Public Class EisTool
                 Next
                 If Not selection Then
                     MsgBox("No facilities selected.")
-                    Exit Sub
+                    Return
                 End If
 
                 Dim queryList As New List(Of String)
@@ -3833,7 +3839,7 @@ Public Class EisTool
         Try
             If cboEILogAccessCode.SelectedValue.ToString = "" OrElse cboEILogStatusCode.SelectedValue.ToString = "" Then
                 MessageBox.Show("Select a valid access code and status code before saving data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             Dim EISAccess As String = ""
@@ -3889,7 +3895,7 @@ Public Class EisTool
                 MsgBox("The facility is not currently in the EIS universe for the selected year." & vbCrLf &
                        "Use the Add New Facility to Year." & vbCrLf & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Information, Me.Text)
 
-                Exit Sub
+                Return
             End If
 
             SQL = "Update EIS_Admin set " &
@@ -4239,7 +4245,7 @@ Public Class EisTool
 
         If txtEILogSelectedAIRSNumber.Text = "" Then
             MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
-            Exit Sub
+            Return
         End If
 
         Dim Address As String = txtEIModifyLocation.Text
@@ -4272,7 +4278,7 @@ Public Class EisTool
 
         If txtEILogSelectedAIRSNumber.Text = "" Then
             MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
-            Exit Sub
+            Return
         End If
 
         Dim Address As String = txtEIModifyMLocation.Text
@@ -4304,7 +4310,7 @@ Public Class EisTool
     Private Sub btnEIModifyUpdateName_Click(sender As Object, e As EventArgs) Handles btnEIModifyUpdateName.Click
         If txtEILogSelectedAIRSNumber.Text = "" Then
             MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
-            Exit Sub
+            Return
         End If
 
         If txtEIModifyFacilityName.Text <> "" Then
@@ -4335,7 +4341,7 @@ Public Class EisTool
         Try
             If txtEILogSelectedAIRSNumber.Text = "" Then
                 MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If mtbEIModifyLatitude.Text <> "" And mtbEIModifyLongitude.Text <> "" Then
@@ -4438,7 +4444,7 @@ Public Class EisTool
 
             If txtEILogSelectedAIRSNumber.Text = "" Then
                 MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Update EIS_Mailout Set " &
@@ -4486,7 +4492,7 @@ Public Class EisTool
     Private Sub llbEISStatsSubmittedToDo_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedToDo.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0", " and EISStatusCode >= 3 ", "", " and QAStatusCode is null ")
@@ -4500,7 +4506,7 @@ Public Class EisTool
     Private Sub llbEISStatsSubmittedBegan_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBegan.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0",
@@ -4515,7 +4521,7 @@ Public Class EisTool
     Private Sub llbEISStatsSubmittedBeganwFIErrors_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBeganwFIErrors.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0",
@@ -4531,7 +4537,7 @@ Public Class EisTool
     Private Sub llbEISStatsSubmittedBeganwithEIErrors_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBeganwithEIErrors.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0",
@@ -4546,7 +4552,7 @@ Public Class EisTool
     Private Sub llbEISStatsSubmittedBeganwithBothErrors_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBeganwithBothErrors.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0",
@@ -4561,7 +4567,7 @@ Public Class EisTool
     Private Sub llbEISStatsSubmittedBeganwithoutErrors_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBeganwithoutErrors.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0",
@@ -4579,7 +4585,7 @@ Public Class EisTool
     Private Sub llbEISStatsOptedOutToDo_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsOptedOutToDo.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", " and (strOptOut = '1' or stroptout is null )",
@@ -4594,7 +4600,7 @@ Public Class EisTool
     Private Sub llbEISStatsOptedOutBegan_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsOptedOutBegan.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", " and (strOptOut = '1' or strOptout is null) ",
@@ -4609,7 +4615,7 @@ Public Class EisTool
     Private Sub llbEISStatsOptedOutSubmittedToEPA_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsOptedOutSubmittedToEPA.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", " and (strOptOut = '1' or strOptout is null )  ",
@@ -4625,7 +4631,7 @@ Public Class EisTool
         Try
             If cboEISStatisticsYear.Text = "" Then
                 MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select " &
@@ -5069,10 +5075,10 @@ Public Class EisTool
             End If
             If ThresholdType = "" Then
                 MsgBox("Select either an Annual or 3 Year threshold type." & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
             If txtPollutant.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select * from " &
@@ -5120,10 +5126,10 @@ Public Class EisTool
             End If
             If ThresholdType = "" Then
                 MsgBox("Select either an Annual or 3 Year threshold type." & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
             If txtPollutant.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select * from " &
@@ -5243,7 +5249,7 @@ Public Class EisTool
 
             If mtbThresholdYear.Text.Length <> 4 Then
                 MsgBox("Bad Year" & vbCrLf & "No Data Saved", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If rdbEISThreeYear.Checked = True Then
@@ -5287,7 +5293,7 @@ Public Class EisTool
 
             If mtbThresholdYear.Text.Length <> 4 Then
                 MsgBox("Bad Year" & vbCrLf & "No Data Saved", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If rdbEISThreeYear.Checked = True Then
@@ -5344,7 +5350,7 @@ Public Class EisTool
     Private Sub llbEISStatsFipassed_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsFipassed.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0",
@@ -5429,7 +5435,7 @@ Public Class EisTool
         Try
             If txtSelectedEISMailout.Text = "" Then
                 MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtSelectedEISMailout.Text, "1", "", "1", "", "", "", "")
@@ -5445,7 +5451,7 @@ Public Class EisTool
         Try
             If txtSelectedEISMailout.Text = "" Then
                 MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Update EIS_Admin set " &
@@ -5490,7 +5496,7 @@ Public Class EisTool
         Try
             If txtEISStatsEnrollmentYear.Text.Length <> 4 Then
                 MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             EIS_VIEW(txtEISStatsEnrollmentYear.Text, "", "1", "1", "", "", "", "")
@@ -5505,7 +5511,7 @@ Public Class EisTool
         Try
             If txtEISStatsEnrollmentYear.Text.Length <> 4 Then
                 MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Update EIS_Admin set " &
@@ -5533,7 +5539,7 @@ Public Class EisTool
         Try
             If txtEISStatsEnrollmentYear.Text.Length <> 4 Then
                 MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Update EIS_Admin set " &
@@ -5569,7 +5575,7 @@ Public Class EisTool
 
         Try
             If EISYear = "" Then
-                Exit Sub
+                Return
             End If
             If EISActive = "" Then
                 EISActive = "1"
@@ -5875,7 +5881,7 @@ Public Class EisTool
     Private Sub btnEisStageViewSubmitted_Click(sender As Object, e As EventArgs) Handles btnEisStageViewSubmitted.Click
         If cboEISStatisticsYear.Text = "" Then
             MessageBox.Show("Please select a valid year first.")
-            Exit Sub
+            Return
         End If
 
         EIS_VIEW(cboEISStatisticsYear.Text, "", "1", "1", "0", " and EISStatusCode >= 3 ", "", "")

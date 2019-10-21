@@ -2362,7 +2362,7 @@ Public Class ISMPManagersTools
                 Else
                     mtbAddTestReportAIRSNumber.BackColor = Color.Tomato
                     MsgBox("Please add a valid AIRS Number.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
                 If txtAddTestReportCommissioner.Text <> "" Then
                     Commissioner = txtAddTestReportCommissioner.Text
@@ -2370,7 +2370,7 @@ Public Class ISMPManagersTools
                 Else
                     txtAddTestReportCommissioner.BackColor = Color.Tomato
                     MsgBox("Please add a valid Commissioner.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
                 If txtAddTestReportDirector.Text <> "" Then
                     Director = txtAddTestReportDirector.Text
@@ -2378,7 +2378,7 @@ Public Class ISMPManagersTools
                 Else
                     txtAddTestReportDirector.BackColor = Color.Tomato
                     MsgBox("Please add a valid Director.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
                 If txtAddTestReportProgramManager.Text <> "" Then
                     ProgramManager = txtAddTestReportProgramManager.Text
@@ -2386,7 +2386,7 @@ Public Class ISMPManagersTools
                 Else
                     txtAddTestReportProgramManager.BackColor = Color.Tomato
                     MsgBox("Please add a valid Program Manager.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
 
                 query = "Select " &
@@ -2398,7 +2398,7 @@ Public Class ISMPManagersTools
 
                 If DB.ValueExists(query, p) Then
                     MsgBox("This Reference Number already exists in the system.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
 
                 query = "Select " &
@@ -2410,7 +2410,7 @@ Public Class ISMPManagersTools
 
                 If Not DB.ValueExists(query, p2) Then
                     MsgBox("This AIRS Number does not exist in the system.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
 
                 query = "Insert into ISMPMaster " &
@@ -2483,7 +2483,7 @@ Public Class ISMPManagersTools
             Else
                 txtAddTestReportRefNum.BackColor = Color.Tomato
                 MsgBox("Please add a valid Reference Number.", MsgBoxStyle.Information, "Add Test Report")
-                Exit Sub
+                Return
             End If
 
 
