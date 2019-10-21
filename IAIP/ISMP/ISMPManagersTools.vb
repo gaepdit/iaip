@@ -80,11 +80,7 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
     Private Sub LoadComboBoxes()
         Try
@@ -98,10 +94,7 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub LoadTestReportAssignmentDataSet()
         Try
@@ -132,11 +125,7 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
     Private Sub LoadLVTestReportAssignment()
         Try
@@ -178,11 +167,7 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
     Private Sub FormatEngineerTestReportGrid()
         Try
@@ -260,10 +245,7 @@ Public Class ISMPManagersTools
             dgrEngineersFacilityList.ColumnHeadersVisible = True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub FormatTestSummaryGrid()
         Try
@@ -311,10 +293,7 @@ Public Class ISMPManagersTools
             dgrTestSummary.ColumnHeadersVisible = True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub LoadMethods()
         Try
@@ -344,8 +323,6 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -383,11 +360,7 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
     Private Sub LoadUnassignedNoUnitTestReportAssignmentDataSet()
         Try
@@ -420,10 +393,7 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub LoadAssignedNoUnitTestReportAssignmentDataSet()
         Try
@@ -456,11 +426,7 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
     Private Sub LoadDeletedTestReportAssignmentDataSet()
         Try
@@ -492,10 +458,7 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub LoadByTestReportTestReportAssignmentDataSet(ReportType As String)
         Try
@@ -531,10 +494,7 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub LoadByTestReportAssignedTestReportAssignmentDataSet(ByRef ReportType As String)
         Try
@@ -569,11 +529,7 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
 
 #End Region
@@ -585,10 +541,7 @@ Public Class ISMPManagersTools
             LVTestReportAssignment.Sort()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
 #Region "Saves"
@@ -659,10 +612,7 @@ Public Class ISMPManagersTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
 #End Region
@@ -742,11 +692,7 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
     Private Sub EngineerOpenTestReports()
         Dim strObject As Object
@@ -797,11 +743,7 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, query, "ISMPManagersTools.EngineerOpenTestReports")
-        Finally
-
         End Try
-
-
     End Sub
 
 #End Region
@@ -943,10 +885,7 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub GetOutOfComplianceReport()
         Dim Report As String
@@ -1026,10 +965,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
     Private Sub RunSummaryReport()
@@ -1082,11 +1018,7 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
 
     Private Sub RunUnitStatistics2()
@@ -1198,8 +1130,6 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -1233,10 +1163,7 @@ Public Class ISMPManagersTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiClear_Click(sender As Object, e As EventArgs) Handles MmiClear.Click
         Try
@@ -1244,10 +1171,7 @@ Public Class ISMPManagersTools
             ClearTestReportAssignmentTab()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiClearTab_Click(sender As Object, e As EventArgs) Handles MmiClearTab.Click
         Try
@@ -1257,12 +1181,7 @@ Public Class ISMPManagersTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
-
     End Sub
 
 #Region "Viewing Options"
@@ -1279,10 +1198,7 @@ Public Class ISMPManagersTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiUnassignedTestReports_Click(sender As Object, e As EventArgs) Handles MmiUnassignedTestReports.Click
         Try
@@ -1296,10 +1212,7 @@ Public Class ISMPManagersTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedTestReports_Click(sender As Object, e As EventArgs) Handles MmiAssignedTestReports.Click
         Try
@@ -1313,10 +1226,7 @@ Public Class ISMPManagersTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiShowDeletedRecords_Click(sender As Object, e As EventArgs) Handles MmiShowDeletedRecords.Click
         Try
@@ -1330,10 +1240,7 @@ Public Class ISMPManagersTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
 #Region "By Test Report-Unassigned"
@@ -1350,10 +1257,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiOneStackTwoRun_Click(sender As Object, e As EventArgs) Handles MmiOneStackTwoRun.Click
         Try
@@ -1367,10 +1271,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiOneStackThreeRun_Click(sender As Object, e As EventArgs) Handles MmiOneStackThreeRun.Click
         Try
@@ -1384,10 +1285,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiOneStackFourRun_Click(sender As Object, e As EventArgs) Handles MmiOneStackFourRun.Click
         Try
@@ -1401,10 +1299,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiTwoStackStandard_Click(sender As Object, e As EventArgs) Handles MmiTwoStackStandard.Click
         Try
@@ -1418,10 +1313,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiTwoStackDRE_Click(sender As Object, e As EventArgs) Handles MmiTwoStackDRE.Click
         Try
@@ -1435,10 +1327,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiLoadingRack_Click(sender As Object, e As EventArgs) Handles MmiLoadingRack.Click
         Try
@@ -1452,10 +1341,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiFlare_Click(sender As Object, e As EventArgs) Handles MmiFlare.Click
         Try
@@ -1469,10 +1355,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiPondTreatment_Click(sender As Object, e As EventArgs) Handles MmiPondTreatment.Click
         Try
@@ -1486,10 +1369,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiGasConcentration_Click(sender As Object, e As EventArgs) Handles MmiGasConcentration.Click
         Try
@@ -1503,10 +1383,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiRata_Click(sender As Object, e As EventArgs) Handles MmiRata.Click
         Try
@@ -1520,10 +1397,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiPEMS_Click(sender As Object, e As EventArgs) Handles MmiPEMS.Click
         Try
@@ -1537,10 +1411,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiMemoStandard_Click(sender As Object, e As EventArgs) Handles MmiMemoStandard.Click
         Try
@@ -1554,10 +1425,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiMemoToFile_Click(sender As Object, e As EventArgs) Handles MmiMemoToFile.Click
         Try
@@ -1571,10 +1439,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiMemoPTE_Click(sender As Object, e As EventArgs) Handles MmiMemoPTE.Click
         Try
@@ -1588,10 +1453,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiMethod9Single_Click(sender As Object, e As EventArgs) Handles MmiMethod9Single.Click
         Try
@@ -1605,10 +1467,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiMethod9Multi_Click(sender As Object, e As EventArgs) Handles MmiMethod9Multi.Click
         Try
@@ -1622,10 +1481,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiMethod22_Click(sender As Object, e As EventArgs) Handles MmiMethod22.Click
         Try
@@ -1639,10 +1495,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
 #End Region
@@ -1661,10 +1514,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedOneStackTwoRuns_Click(sender As Object, e As EventArgs) Handles MmiAssignedOneStackTwoRuns.Click
         Try
@@ -1678,10 +1528,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedOneStackThreeRuns_Click(sender As Object, e As EventArgs) Handles MmiAssignedOneStackThreeRuns.Click
         Try
@@ -1695,10 +1542,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedOneStackFourRuns_Click(sender As Object, e As EventArgs) Handles MmiAssignedOneStackFourRuns.Click
         Try
@@ -1712,10 +1556,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedTwoStackStandard_Click(sender As Object, e As EventArgs) Handles MmiAssignedTwoStackStandard.Click
         Try
@@ -1729,10 +1570,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedTwoStackDRE_Click(sender As Object, e As EventArgs) Handles MmiAssignedTwoStackDRE.Click
         Try
@@ -1746,10 +1584,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedLoadingRack_Click(sender As Object, e As EventArgs) Handles MmiAssignedLoadingRack.Click
         Try
@@ -1763,10 +1598,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedFlare_Click(sender As Object, e As EventArgs) Handles MmiAssignedFlare.Click
         Try
@@ -1780,10 +1612,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedPondTreatment_Click(sender As Object, e As EventArgs) Handles MmiAssignedPondTreatment.Click
         Try
@@ -1797,10 +1626,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedGasConcentration_Click(sender As Object, e As EventArgs) Handles MmiAssignedGasConcentration.Click
         Try
@@ -1814,10 +1640,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedRata_Click(sender As Object, e As EventArgs) Handles MmiAssignedRata.Click
         Try
@@ -1831,10 +1654,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedPEMS_Click(sender As Object, e As EventArgs) Handles MmiAssignedPEMS.Click
         Try
@@ -1848,10 +1668,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedMemoStandard_Click(sender As Object, e As EventArgs) Handles MmiAssignedMemoStandard.Click
         Try
@@ -1865,10 +1682,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedMemoToFile_Click(sender As Object, e As EventArgs) Handles MmiAssignedMemoToFile.Click
         Try
@@ -1882,10 +1696,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedMemoPTE_Click(sender As Object, e As EventArgs) Handles MmiAssignedMemoPTE.Click
         Try
@@ -1899,10 +1710,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedMethod9Single_Click(sender As Object, e As EventArgs) Handles MmiAssignedMethod9Single.Click
         Try
@@ -1916,10 +1724,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedMethod9Multi_Click(sender As Object, e As EventArgs) Handles MmiAssignedMethod9Multi.Click
         Try
@@ -1933,10 +1738,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAssignedMethod22_Click(sender As Object, e As EventArgs) Handles MmiAssignedMethod22.Click
         Try
@@ -1950,10 +1752,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
 #End Region
@@ -1972,10 +1771,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllOneStackTwoRuns_Click(sender As Object, e As EventArgs) Handles MmiAllOneStackTwoRuns.Click
         Try
@@ -1989,10 +1785,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllOneStackThreeRuns_Click(sender As Object, e As EventArgs) Handles MmiAllOneStackThreeRuns.Click
         Try
@@ -2006,10 +1799,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllOneStackFourRuns_Click(sender As Object, e As EventArgs) Handles MmiAllOneStackFourRuns.Click
         Try
@@ -2023,10 +1813,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllTwoStackStandard_Click(sender As Object, e As EventArgs) Handles MmiAllTwoStackStandard.Click
         Try
@@ -2040,10 +1827,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllTwoStackDRE_Click(sender As Object, e As EventArgs) Handles MmiAllTwoStackDRE.Click
         Try
@@ -2057,10 +1841,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllLoadingRack_Click(sender As Object, e As EventArgs) Handles MmiAllLoadingRack.Click
         Try
@@ -2074,10 +1855,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllFlare_Click(sender As Object, e As EventArgs) Handles MmiAllFlare.Click
         Try
@@ -2091,10 +1869,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllPondTreatment_Click(sender As Object, e As EventArgs) Handles MmiAllPondTreatment.Click
         Try
@@ -2108,10 +1883,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllGasConcentration_Click(sender As Object, e As EventArgs) Handles MmiAllGasConcentration.Click
         Try
@@ -2125,10 +1897,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllRata_Click(sender As Object, e As EventArgs) Handles MmiAllRata.Click
         Try
@@ -2142,10 +1911,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllPEMS_Click(sender As Object, e As EventArgs) Handles MmiAllPEMS.Click
         Try
@@ -2159,10 +1925,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllMemoStandard_Click(sender As Object, e As EventArgs) Handles MmiAllMemoStandard.Click
         Try
@@ -2176,10 +1939,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllMemoToFile_Click(sender As Object, e As EventArgs) Handles MmiAllMemoToFile.Click
         Try
@@ -2193,10 +1953,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllMemoPTE_Click(sender As Object, e As EventArgs) Handles MmiAllMemoPTE.Click
         Try
@@ -2210,10 +1967,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllMethod9Single_Click(sender As Object, e As EventArgs) Handles MmiAllMethod9Single.Click
         Try
@@ -2227,10 +1981,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllMethod9Multi_Click(sender As Object, e As EventArgs) Handles MmiAllMethod9Multi.Click
         Try
@@ -2244,10 +1995,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiAllMethod22_Click(sender As Object, e As EventArgs) Handles MmiAllMethod22.Click
         Try
@@ -2261,10 +2009,7 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
 #End Region
@@ -2288,10 +2033,7 @@ Public Class ISMPManagersTools
             txtTestReportCount.Text = count
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub llbRunMonthlyReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbRunMonthlyReport.LinkClicked
         Try
@@ -2301,10 +2043,7 @@ Public Class ISMPManagersTools
             RunSummaryReport()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub llbEngineerTestReports_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEngineerTestReports.LinkClicked
         Try
@@ -2313,10 +2052,7 @@ Public Class ISMPManagersTools
             EngineerOpenTestReports()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub dgrEngineersFacilityList_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrEngineersFacilityList.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrEngineersFacilityList.HitTest(e.X, e.Y)
@@ -2355,10 +2091,7 @@ Public Class ISMPManagersTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub llbViewReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewReport.LinkClicked
         Try
@@ -2377,8 +2110,6 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
     Private Sub lblTotalTests_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblTotalTests.LinkClicked
@@ -2436,8 +2167,6 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
     Private Sub dgvUnitStats_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvUnitStats.MouseUp
@@ -2452,8 +2181,6 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
     Private Sub btnViewTestReport_Click(sender As Object, e As EventArgs) Handles btnViewTestReport.Click
@@ -2473,8 +2200,6 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
     Private Sub txtMethodCode_TextChanged(sender As Object, e As EventArgs) Handles txtMethodCode.TextChanged
@@ -2502,8 +2227,6 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -2619,8 +2342,6 @@ Public Class ISMPManagersTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 

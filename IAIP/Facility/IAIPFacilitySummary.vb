@@ -418,6 +418,8 @@ Public Class IAIPFacilitySummary
         Try
             MapPictureBox.LoadAsync(StaticMapsUrl.ToString)
         Catch ex As Exception
+            ' Log error but don't display error to user
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name, False)
         End Try
     End Sub
 

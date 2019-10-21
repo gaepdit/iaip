@@ -1571,8 +1571,6 @@ Public Class EisTool
             txtFirstConfirmedDate.Text = ""
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -2410,8 +2408,6 @@ Public Class EisTool
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -5069,8 +5065,6 @@ Public Class EisTool
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
     Private Sub btnAddNewPollutant_Click(sender As Object, e As EventArgs) Handles btnAddNewPollutant.Click

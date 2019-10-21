@@ -55,10 +55,7 @@ Public Class ISMPMonitoringLog
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
     Private Sub LoadDataSet()
@@ -678,11 +675,7 @@ Public Class ISMPMonitoringLog
 
         Catch ex As Exception
             ErrorReport(ex, query, "ISMPTestReportViewer.LoadDataSet")
-        Finally
-
         End Try
-
-
     End Sub
 
     Private Sub LoadTestLogData()
@@ -746,10 +739,7 @@ Public Class ISMPMonitoringLog
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub SelectTestReport()
         Try
@@ -784,10 +774,7 @@ Public Class ISMPMonitoringLog
             txtPollutant.Clear()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
     Private Sub LLSelectReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
@@ -796,10 +783,7 @@ Public Class ISMPMonitoringLog
             SelectTestReport()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub btnRunFilter_Click(sender As Object, e As EventArgs) Handles btnRunFilter.Click
         Try
@@ -808,10 +792,7 @@ Public Class ISMPMonitoringLog
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiReset_Click(sender As Object, e As EventArgs) Handles mmiReset.Click
         Try
@@ -819,10 +800,7 @@ Public Class ISMPMonitoringLog
             ResetOptions()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub dgvTestReportViewer_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvTestReportViewer.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvTestReportViewer.HitTest(e.X, e.Y)
@@ -871,10 +849,7 @@ Public Class ISMPMonitoringLog
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub dgvTestFirmComments_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvTestFirmComments.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvTestFirmComments.HitTest(e.X, e.Y)
@@ -931,11 +906,7 @@ Public Class ISMPMonitoringLog
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
     Private Sub tsbResize_Click(sender As Object, e As EventArgs) Handles tsbResize.Click
         Try
@@ -992,20 +963,14 @@ Public Class ISMPMonitoringLog
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub llbSelectTestLog_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbSelectTestLog.LinkClicked
         Try
             OpenFormTestNotification(txtTestLogNumber.Text)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub llbOpenComments_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbOpenComments.LinkClicked
         Try
@@ -1025,8 +990,6 @@ Public Class ISMPMonitoringLog
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -1071,7 +1034,7 @@ Public Class ISMPMonitoringLog
                 End If
             Next
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name, False)
         End Try
     End Sub
 

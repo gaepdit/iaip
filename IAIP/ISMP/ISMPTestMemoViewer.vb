@@ -3,17 +3,12 @@ Imports System.Data.SqlClient
 Public Class ISMPTestMemoViewer
 
     Private Sub ISMPTestMemoViewer_Load(sender As Object, e As EventArgs) Handles Me.Load
-
         Try
-
             LoadDataSet(True)
             FormatdgrTestReportViewer()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
     Private Sub LoadDataSet(Loading As Boolean)
@@ -90,11 +85,7 @@ Public Class ISMPTestMemoViewer
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
     Private Sub FormatdgrTestReportViewer()
         Try
@@ -135,10 +126,7 @@ Public Class ISMPTestMemoViewer
             dgrMemoViewer.ColumnHeadersVisible = True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub SelectTestReport()
         Try
@@ -155,10 +143,7 @@ Public Class ISMPTestMemoViewer
             SelectTestReport()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub LLViewMemo_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLViewMemo.LinkClicked
         OpenFormTestMemo(Me.txtReferenceNumber2.Text)
@@ -169,10 +154,7 @@ Public Class ISMPTestMemoViewer
             LoadDataSet(False)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub dgrMemoViewer_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrMemoViewer.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrMemoViewer.HitTest(e.X, e.Y)
@@ -191,10 +173,7 @@ Public Class ISMPTestMemoViewer
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
 End Class

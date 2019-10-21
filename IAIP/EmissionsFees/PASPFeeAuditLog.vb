@@ -1923,16 +1923,11 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub MailoutReplaceFacilityInfoButton_Click(sender As Object, e As EventArgs) Handles MailoutReplaceFacilityInfoButton.Click
-        Try
+        MailoutEditingToggle(True, False)
+        Dim facility As Facility = DAL.GetFacility(Me.AirsNumber)
+        facility.RetrieveHeaderData()
 
-            MailoutEditingToggle(True, False)
-            Dim facility As Facility = DAL.GetFacility(Me.AirsNumber)
-            facility.RetrieveHeaderData()
-
-            MailoutFillFacilityFrom(facility)
-        Catch ex As Exception
-
-        End Try
+        MailoutFillFacilityFrom(facility)
     End Sub
 
     Private Sub MailoutSaveContactButton_Click(sender As Object, e As EventArgs) Handles MailoutSaveContactButton.Click
@@ -3256,7 +3251,6 @@ Public Class PASPFeeAuditLog
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 

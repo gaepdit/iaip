@@ -163,8 +163,6 @@ Public Class EisEmissionSummaryTool
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -278,8 +276,6 @@ Public Class EisEmissionSummaryTool
             txtMailOutCount.Text = txtRecordNumber.Text
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -310,8 +306,6 @@ Public Class EisEmissionSummaryTool
             txtRecordNumber.Text = txtTotalOptInCount.Text
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -342,8 +336,6 @@ Public Class EisEmissionSummaryTool
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -401,8 +393,6 @@ Public Class EisEmissionSummaryTool
             txtRecordNumber.Text = txtTotaloutofcompliance.Text
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -442,9 +432,6 @@ Public Class EisEmissionSummaryTool
             txtRecordNumber.Text = txtTotalincompliance.Text
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
 
@@ -477,8 +464,6 @@ Public Class EisEmissionSummaryTool
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -507,8 +492,6 @@ Public Class EisEmissionSummaryTool
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -545,8 +528,6 @@ Public Class EisEmissionSummaryTool
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -576,8 +557,6 @@ Public Class EisEmissionSummaryTool
             txtRecordNumber.Text = txtMailoutOptin.Text
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -607,8 +586,6 @@ Public Class EisEmissionSummaryTool
             txtRecordNumber.Text = txtMailOutOptOut.Text
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -640,8 +617,6 @@ Public Class EisEmissionSummaryTool
             txtRecordNumber.Text = txtExtraOptout.Text
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -673,8 +648,6 @@ Public Class EisEmissionSummaryTool
             txtRecordNumber.Text = txtExtraOptin.Text
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -716,8 +689,6 @@ Public Class EisEmissionSummaryTool
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -754,8 +725,6 @@ Public Class EisEmissionSummaryTool
             txtFirstConfirmedDate.Text = ""
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -775,8 +744,6 @@ Public Class EisEmissionSummaryTool
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 

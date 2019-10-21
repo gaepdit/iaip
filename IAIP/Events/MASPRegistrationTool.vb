@@ -162,19 +162,15 @@ Public Class MASPRegistrationTool
     End Sub
 
     Private Sub dgvEvents_SelectionChanged(sender As Object, e As EventArgs)
-        Try
-            If dgvEvents.SelectedCells.Count > 0 Then
-                Dim selectedRow As DataGridViewRow = dgvEvents.Rows(dgvEvents.CurrentCell.RowIndex)
-                selectedEventId = selectedRow.Cells("NUMRES_EVENTID").Value
-                btnViewDetails.Enabled = True
-            Else
-                selectedEventId = Nothing
-                ClearEventSelection()
-                btnViewDetails.Enabled = False
-            End If
-        Catch ex As Exception
-
-        End Try
+        If dgvEvents.SelectedCells.Count > 0 Then
+            Dim selectedRow As DataGridViewRow = dgvEvents.Rows(dgvEvents.CurrentCell.RowIndex)
+            selectedEventId = selectedRow.Cells("NUMRES_EVENTID").Value
+            btnViewDetails.Enabled = True
+        Else
+            selectedEventId = Nothing
+            ClearEventSelection()
+            btnViewDetails.Enabled = False
+        End If
     End Sub
 
 #End Region
@@ -893,8 +889,6 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
