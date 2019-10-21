@@ -401,7 +401,7 @@ Public Class SSPPPublicNoticesAndAdvisories
             "4244 International Parkway, Atlanta Tradeport - Suite 120, Atlanta, Georgia 30354. " & vbCrLf &
             "Copies of the draft permits or permit amendments, narratives, " & vbCrLf &
             "application summaries, and (in most cases) permit applications are also " & vbCrLf &
-            "available at our Internet site, epd.georgia.gov/air . Also " & vbCrLf &
+            "available at our Internet site, https://epd.georgia.gov/. Also " & vbCrLf &
             "available at this Internet site is a copy of the public notice, as it " & vbCrLf &
             "will appear in the legal organ of the county where the facility is " & vbCrLf &
             "located. " & vbCrLf & vbCrLf &
