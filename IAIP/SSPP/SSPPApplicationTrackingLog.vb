@@ -2937,11 +2937,7 @@ Public Class SSPPApplicationTrackingLog
 
                 txtPlantDescription.Text = PlantDesc
 
-                If Mid(AirProgramCodes, 1, 1) = 1 Then
-                    chbCDS_0.Checked = True
-                Else
-                    chbCDS_0.Checked = True
-                End If
+                chbCDS_0.Checked = True
                 If Mid(AirProgramCodes, 5, 1) = 1 Then
                     chbCDS_6.Checked = True
                 Else
@@ -3610,11 +3606,7 @@ Public Class SSPPApplicationTrackingLog
                     chbCDS_V.Checked = False
                     chbCDS_RMP.Checked = False
                 Else
-                    If Mid(dr.Item("strAirProgramCodes"), 1, 1) = 1 Then
-                        chbCDS_0.Checked = True
-                    Else
-                        chbCDS_0.Checked = True
-                    End If
+                    chbCDS_0.Checked = True
                     If Mid(dr.Item("strAirProgramCodes"), 5, 1) = 1 Then
                         chbCDS_6.Checked = True
                     Else
@@ -4441,11 +4433,7 @@ Public Class SSPPApplicationTrackingLog
             End Select
             txtPlantDescription.Text = PlantDesc
 
-            If Mid(AirProgramCodes, 1, 1) = 1 Then
-                chbCDS_0.Checked = True
-            Else
-                chbCDS_0.Checked = True
-            End If
+            chbCDS_0.Checked = True
             If Mid(AirProgramCodes, 5, 1) = 1 Then
                 chbCDS_6.Checked = True
             Else
