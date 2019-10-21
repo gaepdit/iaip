@@ -86,7 +86,7 @@ Public Module IaipExceptionManager
         If Not (exc.InnerException Is Nothing) Then
             '-- sometimes the original exception is wrapped in a more relevant outer exception
             '-- the detail exception is the "inner" exception
-            '-- see http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnbda/html/exceptdotnet.asp
+            '-- see https://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnbda/html/exceptdotnet.asp
             With sb
                 .Append("(Inner Exception)")
                 .Append(Environment.NewLine)

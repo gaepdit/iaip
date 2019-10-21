@@ -10086,21 +10086,21 @@ Public Class SSPPApplicationTrackingLog
             Select Case Mid(temp, 1, 1)
                 Case "V"
                     If PDFFile <> "" Then
-                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=PDF-VF-" & MasterApp
+                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=PDF-VF-" & MasterApp
                     Else
-                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=DOC-VF-" & MasterApp
+                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=DOC-VF-" & MasterApp
                     End If
                 Case "P"
                     If PDFFile <> "" Then
-                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=PDF-PI-" & MasterApp
+                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=PDF-PI-" & MasterApp
                     Else
-                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=DOC-PI-" & MasterApp
+                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=DOC-PI-" & MasterApp
                     End If
                 Case Else
                     If PDFFile <> "" Then
-                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=PDF-OP-" & MasterApp
+                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=PDF-OP-" & MasterApp
                     Else
-                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=DOC-OP-" & MasterApp
+                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=DOC-OP-" & MasterApp
                     End If
             End Select
 
@@ -10275,14 +10275,14 @@ Public Class SSPPApplicationTrackingLog
                 vbNewLine & vbNewLine &
                 "Other environmental permits may be required. For Industrial Stormwater permits, contact " &
                 "the Watershed Protection Branch at (404) 675-1605; for Solid Waste permits, contact the " &
-                "Land Protection Branch at (404) 362-2537. For more info, http://epd.georgia.gov" &
+                "Land Protection Branch at (404) 362-2537. For more info, https://epd.georgia.gov" &
                 vbNewLine & vbNewLine &
                 "GEOS, the new web-based permit application system is now operational at: " &
                 "https://geos.epd.georgia.gov/GA/GEOS/Public/EnSuite/Shared/Pages/Main/Login.aspx " &
                 vbNewLine & vbNewLine &
                 "To track the status of the air quality permit application, log on to Georgia Environmental " &
                 "Protection Division's Georgia Environmental Connections Online (GECO) at the web address " &
-                "http://geco.gaepd.org/ (registration required) and follow the online instructions." &
+                "https://geco.gaepd.org/ (registration required) and follow the online instructions." &
                 vbNewLine & vbNewLine &
                 "If your company qualifies as a small business (generally those with fewer than 100 " &
                 "employees), you may contact our Small Business Environmental Assistance Program at " &
@@ -14713,7 +14713,7 @@ Public Class SSPPApplicationTrackingLog
         body.AppendLine()
         body.Append("Other environmental permits may be required. For Industrial Stormwater permits, contact the Watershed Protection Branch ")
         body.Append("at (404) 675-1605; for Solid Waste permits, contact the Land Protection Branch at (404) 362-2537. ")
-        body.Append("For more info, see http://epd.georgia.gov/ ")
+        body.Append("For more info, see https://epd.georgia.gov/ ")
         body.AppendLine()
         body.Append("Please contact me if you have any questions.")
 

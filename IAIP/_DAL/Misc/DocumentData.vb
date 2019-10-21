@@ -10,7 +10,7 @@ Namespace DAL
 
 #Region "File Filters"
         ' File filters for open/save dialog boxes
-        ' Document extensions from http://en.wikipedia.org/wiki/List_of_file_formats#Document
+        ' Document extensions from https://en.wikipedia.org/wiki/List_of_file_formats#Document
 
         Public FileSaveFilters As New Dictionary(Of String, String) From {
             {".txt", "Text file (*.txt)|*.txt"}, ' Text

@@ -3,7 +3,7 @@
 ''' <summary>
 ''' Textbox with cue text
 ''' </summary>
-''' <remarks>See http://stackoverflow.com/a/5450496/212978 </remarks>
+''' <remarks>See https://stackoverflow.com/a/5450496/212978 </remarks>
 Public Class CueTextBox
     Inherits TextBox
 

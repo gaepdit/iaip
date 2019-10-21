@@ -14,7 +14,7 @@ Module EnumExtensions
     ''' <param name="e">The enum value to describe.</param>
     ''' <returns>The value of the Description attribute if present, else
     ''' the normal ToString() representation of the enum value.</returns>
-    ''' <remarks>http://stackoverflow.com/a/14772005/212978</remarks>
+    ''' <remarks>https://stackoverflow.com/a/14772005/212978</remarks>
     <DebuggerStepThrough>
     <Extension>
     Public Function GetDescription(e As [Enum]) As String

@@ -1000,7 +1000,7 @@ Public Class IAIPFacilityCreator
             Dim MappingAddress As String = txtCDSStreetAddress.Text & ", " & txtCDSCity.Text & ", GA," & mtbCDSZipCode.Text
             Clipboard.SetDataObject(MappingAddress, True)
 
-            OpenUri(New Uri("http://mapper.acme.com/"), Me)
+            OpenUri(New Uri("https://mapper.acme.com/"), Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

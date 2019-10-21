@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.Runtime.Serialization
 
-' Adapted from http://stackoverflow.com/a/11801369/212978
+' Adapted from https://stackoverflow.com/a/11801369/212978
 Friend Class SettingsHelper
     Private Shared _keySettingsDictionary As Dictionary(Of String, String)
     Private Shared ReadOnly _initLock As Object = New Object()

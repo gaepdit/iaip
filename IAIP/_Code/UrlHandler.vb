@@ -9,8 +9,8 @@ Public Module UrlHandler
     Private ReadOnly ChangelogUrl As New Uri("https://iaip.gaepd.org/changelog/")
     Private ReadOnly PrereqInstallUrl As New Uri("https://iaip.gaepd.org/pre-install/")
 
-    Private Const MapUrlFragment As String = "http://maps.google.com/maps?q="
-    Private Const PermitSearchUrlFragment As String = "http://permitsearch.gaepd.org/?AirsNumber="
+    Private Const MapUrlFragment As String = "https://maps.google.com/maps?q="
+    Private Const PermitSearchUrlFragment As String = "https://permitsearch.gaepd.org/?AirsNumber="
 
     Friend ReadOnly GecoUrl As New Uri(ConfigurationManager.AppSettings("GecoUrl"))
     Private ReadOnly InvoiceViewUrlFragment As String = String.Concat(GecoUrl.ToString, "Invoice/?id={0}")
@@ -67,7 +67,7 @@ Public Module UrlHandler
     End Sub
 
     Private Function OpenUri(uriString As String, Optional sender As Object = Nothing, Optional isMailto As Boolean = False) As Boolean
-        ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
+        ' Reference: https://faithlife.codes/blog/2008/01/using_processstart_to_link_to/
         Try
             If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Cursors.AppStarting

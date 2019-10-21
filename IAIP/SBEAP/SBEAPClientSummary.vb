@@ -2434,7 +2434,7 @@ Public Class SBEAPClientSummary
     Private Sub llbSICSearch_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbSICSearch.LinkClicked
         Try
 
-            Process.Start("http://www.osha.gov/pls/imis/sicsearch.html")
+            Process.Start("https://www.osha.gov/pls/imis/sicsearch.html")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2444,7 +2444,7 @@ Public Class SBEAPClientSummary
     Private Sub llbNAICSSearch_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbNAICSSearch.LinkClicked
         Try
 
-            Process.Start("http://www.naics.com/search.htm")
+            Process.Start("https://www.naics.com/search/")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
