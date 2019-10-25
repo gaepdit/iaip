@@ -41,7 +41,7 @@ Public Class ISMPAddPollutants
 
             'Formatting our DataGrid
             Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As New DataGridTextBoxColumn
+            Dim objtextcol As DataGridTextBoxColumn
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke

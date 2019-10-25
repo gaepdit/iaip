@@ -300,37 +300,38 @@ Public Class SscpDocuments
 #Region "Select document"
 
     Private Sub btnNewDocumentSelect_Click(sender As Object, e As EventArgs) Handles btnNewDocumentSelect.Click
-
-        Dim openFileDialog As New OpenFileDialog With { _
-            .InitialDirectory = GetUserSetting(UserSetting.FileUploadLocation), _
-            .Filter = String.Join("|", FileOpenFilters.ToArray) _
+        Using openFileDialog As New OpenFileDialog With {
+            .InitialDirectory = GetUserSetting(UserSetting.FileUploadLocation),
+            .Filter = String.Join("|", FileOpenFilters.ToArray)
         }
-
-        If openFileDialog.ShowDialog = DialogResult.OK _
-        AndAlso openFileDialog.FileName <> "" Then
+            If openFileDialog.ShowDialog() <> DialogResult.OK OrElse openFileDialog.FileName = "" Then
+                Exit Sub
+            End If
 
             ClearNewDocument()
 
             Dim fileInfo As New FileInfo(openFileDialog.FileName)
 
             If Not fileInfo.Exists Then
-                Me.Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.FileNotFound), IaipMessage.WarningLevels.ErrorReport)
-            Else
-                If fileInfo.Length >= Document.MaxFileSize Then
-                    Me.Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.FileTooLarge), IaipMessage.WarningLevels.ErrorReport)
-                Else
-                    If fileInfo.Length = 0 Then
-                        Me.Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.FileEmpty), IaipMessage.WarningLevels.ErrorReport)
-                    Else
-                        NewDocumentPath = openFileDialog.FileName
-                        EnableNewDocumentDetails()
-                        lblNewDocumentName.Text = openFileDialog.SafeFileName
-                        txtNewDocumentDescription.Focus()
-                    End If
-                End If
+                Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.FileNotFound), IaipMessage.WarningLevels.ErrorReport)
+                Exit Sub
             End If
 
-        End If
+            If fileInfo.Length >= Document.MaxFileSize Then
+                Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.FileTooLarge), IaipMessage.WarningLevels.ErrorReport)
+                Exit Sub
+            End If
+
+            If fileInfo.Length = 0 Then
+                Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.FileEmpty), IaipMessage.WarningLevels.ErrorReport)
+                Exit Sub
+            End If
+
+            NewDocumentPath = openFileDialog.FileName
+            EnableNewDocumentDetails()
+            lblNewDocumentName.Text = openFileDialog.SafeFileName
+            txtNewDocumentDescription.Focus()
+        End Using
     End Sub
 
 #End Region
@@ -394,9 +395,9 @@ Public Class SscpDocuments
 #Region "Document type validation"
 
     Private Function DocumentTypeAlreadyExists() As Boolean
-        Dim index As Integer = Documents.FindIndex( _
+        Dim index As Integer = Documents.FindIndex(
             Function(doc) _
-                doc.DocumentTypeId = ddlNewDocumentType.SelectedValue _
+                doc.DocumentTypeId = ddlNewDocumentType.SelectedValue
         )
         Return If(index = -1, False, True)
     End Function
@@ -425,7 +426,7 @@ Public Class SscpDocuments
 
     Private Sub btnDocumentDelete_Click(sender As Object, e As EventArgs) Handles btnDocumentDelete.Click
         Dim m As String = String.Format(GetDocumentMessage(DocumentMessageType.ConfirmDelete), lblDocumentName.Text)
-        Dim response As DialogResult = _
+        Dim response As DialogResult =
             MessageBox.Show(m, "Delete File?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
 
         If response = DialogResult.Yes Then

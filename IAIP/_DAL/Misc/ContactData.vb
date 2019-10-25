@@ -20,8 +20,6 @@ Namespace DAL
         Public Function GetCurrentContact(airsNumber As Apb.ApbFacilityId, key As ContactKey) As Contact
             If key = ContactKey.None OrElse Not [Enum].IsDefined(GetType(ContactKey), key) Then Return Nothing
 
-            Dim contact As New Contact
-
             Dim query As String = " SELECT strContactFirstName, " &
                 "  strContactLastName, " &
                 "  strContactPrefix, " &

@@ -31,7 +31,7 @@ Namespace DAL
         End Function
 
         Public Function Update_FS_Admin_Status(feeYear As Integer, airsNumber As Apb.ApbFacilityId) As Boolean
-            Dim parameters As SqlParameter() = New SqlParameter() {
+            Dim parameters As SqlParameter() = {
                 New SqlParameter("@FEEYEAR", SqlDbType.SmallInt) With {.Value = feeYear},
                 New SqlParameter("@AIRSNUMBER", SqlDbType.VarChar) With {.Value = airsNumber.DbFormattedString}
             }
@@ -86,7 +86,7 @@ Namespace DAL
                 " WHERE strAIRSnumber = @airsnumber " &
                 " AND numFeeYear = @feeyear "
 
-            Dim parameters As SqlParameter() = New SqlParameter() {
+            Dim parameters As SqlParameter() = {
                 New SqlParameter("@airsnumber", airsNumber.DbFormattedString),
                 New SqlParameter("@feeyear", feeYearDecimal)
             }
@@ -187,7 +187,7 @@ Namespace DAL
                 "  fa.STRAIRSNUMBER = fi.STRAIRSNUMBER " &
                 "ORDER BY fi.STRFACILITYNAME"
             Dim dt As DataTable = DB.GetDataTable(query)
-            dt.PrimaryKey = New DataColumn() {dt.Columns("STRAIRSNUMBER")}
+            dt.PrimaryKey = {dt.Columns("STRAIRSNUMBER")}
             Return dt
         End Function
 

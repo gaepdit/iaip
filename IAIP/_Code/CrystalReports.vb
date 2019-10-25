@@ -60,7 +60,7 @@ Module CrystalReports
                         "until installation is complete. " & vbNewLine & vbNewLine &
                         "Open the installation page for more information.",
                     .CommonButtons = TaskDialogCommonButtonFlags.OK,
-                    .Buttons = New TaskDialogButton() {New TaskDialogButton(99, "Open Installation Page")},
+                    .Buttons = {New TaskDialogButton(99, "Open Installation Page")},
                     .UseCommandLinks = True,
                     .DefaultButton = 1
                 }

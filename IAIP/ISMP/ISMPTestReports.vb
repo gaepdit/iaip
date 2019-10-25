@@ -928,7 +928,7 @@ Public Class ISMPTestReports
                 Else
                     txtFacilityState.Text = dr.Item("strFacilityState")
                 End If
-                txtFacilityCity.Text = String.Join(", ", New String() {txtFacilityCity.Text, txtFacilityState.Text})
+                txtFacilityCity.Text = String.Join(", ", {txtFacilityCity.Text, txtFacilityState.Text})
                 If IsDBNull(dr.Item("strPollutant")) Then
                     cboPollutantDetermined.SelectedValue = 0
                 Else
@@ -8982,7 +8982,7 @@ Public Class ISMPTestReports
                         Else
                             txtFacilityState.Text = dr.Item("strFacilityState")
                         End If
-                        txtFacilityCity.Text = String.Join(", ", New String() {txtFacilityCity.Text, txtFacilityState.Text})
+                        txtFacilityCity.Text = String.Join(", ", {txtFacilityCity.Text, txtFacilityState.Text})
                         If IsDBNull(dr.Item("strTestingFirm")) Then
                             cboTestingFirm.SelectedValue = 0
                         Else
@@ -9286,7 +9286,7 @@ Public Class ISMPTestReports
                 SCTestReports.SanelySetSplitterDistance(385)
                 cboTestNotificationNumber.Select(0, cboTestNotificationNumber.Text.Length)
                 MessageBox.Show("The test notification number entered is not valid. Changes were not saved.", "Error", MessageBoxButtons.OK)
-                Exit Sub
+                Return
             End If
         End If
 
@@ -13868,7 +13868,7 @@ Public Class ISMPTestReports
 
     Private Sub DisplayEnforcementCases()
         If String.IsNullOrEmpty(txtTrackingNumber.Text) Then
-            Exit Sub
+            Return
         End If
 
         Dim dt As New DataTable

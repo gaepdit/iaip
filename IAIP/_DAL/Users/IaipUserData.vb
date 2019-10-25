@@ -90,7 +90,7 @@ Namespace DAL
                 .UnitId = DBUtilities.GetNullable(Of Integer)(row("UnitID"))
                 .UnitName = DBUtilities.GetNullable(Of String)(row("Unit"))
                 .Username = DBUtilities.GetNullable(Of String)(row("Username"))
-                .IaipRoles = CType(DBUtilities.GetNullable(Of String)(row("RolesString")), IaipRoles)
+                .IaipRoles = New IaipRoles(DBUtilities.GetNullable(Of String)(row("RolesString")))
                 .RequirePasswordChange = Convert.ToBoolean(row("RequirePasswordChange"))
                 .RequestProfileUpdate = Convert.ToBoolean(row("RequestProfileUpdate"))
             End With

@@ -357,7 +357,7 @@ Public Class SSCPFCEWork
 
             'Formatting our DataGrid
             Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As New DataGridTextBoxColumn
+            Dim objtextcol As DataGridTextBoxColumn
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
@@ -480,7 +480,7 @@ Public Class SSCPFCEWork
 
             'Formatting our DataGrid
             Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As New DataGridTextBoxColumn
+            Dim objtextcol As DataGridTextBoxColumn
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
@@ -620,7 +620,7 @@ Public Class SSCPFCEWork
 
             'Formatting our DataGrid
             Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As New DataGridTextBoxColumn
+            Dim objtextcol As DataGridTextBoxColumn
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
@@ -744,7 +744,7 @@ Public Class SSCPFCEWork
 
             'Formatting our DataGrid
             Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As New DataGridTextBoxColumn
+            Dim objtextcol As DataGridTextBoxColumn
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
@@ -819,7 +819,7 @@ Public Class SSCPFCEWork
 
             'Formatting our DataGrid
             Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As New DataGridTextBoxColumn
+            Dim objtextcol As DataGridTextBoxColumn
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
@@ -950,7 +950,7 @@ Public Class SSCPFCEWork
 
             'Formatting our DataGrid
             Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As New DataGridTextBoxColumn
+            Dim objtextcol As DataGridTextBoxColumn
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
@@ -1009,7 +1009,7 @@ Public Class SSCPFCEWork
 
             'Formatting our DataGrid
             Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As New DataGridTextBoxColumn
+            Dim objtextcol As DataGridTextBoxColumn
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
@@ -1427,7 +1427,7 @@ Public Class SSCPFCEWork
 
     Private Sub LoadSSCPFCEReport()
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         Cursor = Cursors.WaitCursor
@@ -1440,7 +1440,7 @@ Public Class SSCPFCEWork
             Dim enforcementStartDate As Date = endDate.AddYears(-FCE_ENFORCEMENT_DATA_PERIOD)
 
             Dim dt1 As New DataTable
-            dt1 = CollectionHelper.ConvertToDataTable(Of Facility)(New Facility() {facility})
+            dt1 = CollectionHelper.ConvertToDataTable(Of Facility)({facility})
             rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt1)
 
             Dim dt2 As New DataTable("VW_SSCP_INSPECTIONS")

@@ -16,7 +16,7 @@ Namespace DAL
             Dim query As String = "UPDATE APBSUPPLAMENTALDATA SET " &
                 "STRAFSACTIONNUMBER = @key " &
                 "WHERE STRAIRSNUMBER = @airsNumber"
-            Dim parameters() As SqlParameter = {
+            Dim parameters As SqlParameter() = {
                 New SqlParameter("@key", key),
                 New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
             }

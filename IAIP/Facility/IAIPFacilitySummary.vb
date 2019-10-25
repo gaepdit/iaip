@@ -408,7 +408,7 @@ Public Class IAIPFacilitySummary
             ElseIf Not String.IsNullOrWhiteSpace(.Address.ToLinearString) Then
                 StaticMapsUrl.Append("&markers=" & .Address.ToLinearString)
             Else
-                Exit Sub
+                Return
             End If
         End With
 
@@ -418,6 +418,8 @@ Public Class IAIPFacilitySummary
         Try
             MapPictureBox.LoadAsync(StaticMapsUrl.ToString)
         Catch ex As Exception
+            ' Log error but don't display error to user
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name, False)
         End Try
     End Sub
 
@@ -539,7 +541,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub LoadDataTable(whichTable As FacilityDataTable)
         If AirsNumber Is Nothing OrElse ThisFacility Is Nothing OrElse TableDataExists(whichTable) Then
-            Exit Sub
+            Return
         End If
 
         Dim table As DataTable = GetFSDataTable(whichTable, AirsNumber)
@@ -998,9 +1000,9 @@ Public Class IAIPFacilitySummary
     Private Sub OpenFacilitySummaryPrintTool()
         If AirsNumber IsNot Nothing Then
             Dim facilityPrintOut As New IaipFacilitySummaryPrint With {
-            .AirsNumber = AirsNumber,
-            .FacilityName = ThisFacility.FacilityName
-        }
+                .AirsNumber = AirsNumber,
+                .FacilityName = ThisFacility.FacilityName
+            }
 
             If facilityPrintOut IsNot Nothing AndAlso Not facilityPrintOut.IsDisposed Then
                 facilityPrintOut.Show()

@@ -2380,8 +2380,6 @@ Public Class ISMPConfidentialData
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -4541,8 +4539,6 @@ Public Class ISMPConfidentialData
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 

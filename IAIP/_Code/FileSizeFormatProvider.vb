@@ -1,7 +1,7 @@
 ﻿' Sources:
-' FormatProvider for file sizes: http://stackoverflow.com/a/128683
-' Nicer method for converting raw byte size to string: http://stackoverflow.com/a/4975942
-' Getting FormatProvider to work on datagridview cells: http://stackoverflow.com/a/3576329
+' FormatProvider for file sizes: https://stackoverflow.com/a/128683
+' Nicer method for converting raw byte size to string: https://stackoverflow.com/a/4975942
+' Getting FormatProvider to work on datagridview cells: https://stackoverflow.com/a/3576329
 
 Public Class FileSizeFormatProvider
     Implements IFormatProvider

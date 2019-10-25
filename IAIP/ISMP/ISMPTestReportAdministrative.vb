@@ -233,7 +233,7 @@ Public Class ISMPTestReportAdministrative
     End Sub
 
     Private Sub FillTestReportList()
-        Dim dt As New DataTable()
+        Dim dt As DataTable = Nothing
 
         Try
             clbReferenceNumbers.Items.Clear()
@@ -740,9 +740,9 @@ Public Class ISMPTestReportAdministrative
                     End If
 
                     FillTestReportList()
-                    End If
-
                 End If
+
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1648,12 +1648,11 @@ Public Class ISMPTestReportAdministrative
 
     Private Sub OpenFacilityLookupTool()
         Try
-            Dim facilityLookupDialog As New IAIPFacilityLookUpTool
-            facilityLookupDialog.ShowDialog()
-            If facilityLookupDialog.DialogResult = DialogResult.OK _
-            AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                cboAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber
-            End If
+            Using facilityLookupDialog As New IAIPFacilityLookUpTool
+                If facilityLookupDialog.ShowDialog() = DialogResult.OK AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
+                    cboAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber
+                End If
+            End Using
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

@@ -272,7 +272,9 @@ Public Class IAIPNavigation
     Private Sub OpenTestLog()
         Try
             Dim id As String = txtOpenTestLog.Text
-            If id = "" Then Exit Sub
+            If id = "" Then
+                Return
+            End If
 
             If DAL.Ismp.TestNotificationExists(id) Then
                 OpenFormTestNotification(id)
@@ -287,7 +289,9 @@ Public Class IAIPNavigation
     Private Sub OpenSbeapClient()
         Try
             Dim id As String = txtOpenSbeapClient.Text
-            If id = "" Then Exit Sub
+            If id = "" Then
+                Return
+            End If
 
             If DAL.Sbeap.ClientExists(id) Then
                 If ClientSummary IsNot Nothing AndAlso Not ClientSummary.IsDisposed Then
@@ -309,7 +313,9 @@ Public Class IAIPNavigation
     Private Sub OpenSbeapCaseLog()
         Try
             Dim id As String = txtOpenSbeapCaseLog.Text
-            If id = "" Then Exit Sub
+            If id = "" Then
+                Return
+            End If
 
             If DAL.Sbeap.CaseExists(id) Then
 
@@ -628,10 +634,10 @@ Public Class IAIPNavigation
             accountFormAccessString = AccountFormAccessLookup.Rows.Find(account)("FormAccess").ToString
 
             If accountFormAccessString.Length > 0 Then
-                Dim formAccessArray() As String = accountFormAccessString.Split(New Char() {"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries)
+                Dim formAccessArray As String() = accountFormAccessString.Split({"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries)
 
                 For Each formAccessString As String In formAccessArray
-                    Dim formAccessSplit() As String = formAccessString.Split(New Char() {"-"c, ","c})
+                    Dim formAccessSplit As String() = formAccessString.Split({"-"c, ","c})
                     Dim formNumber As Integer = CInt(formAccessSplit(0))
                     AccountFormAccess(formNumber, 0) = formNumber.ToString()
                     For i As Integer = 1 To 4
@@ -885,19 +891,19 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub mmiUpdateProfile_Click(sender As Object, e As EventArgs) Handles mmiUpdateProfile.Click
-        Dim pf As New IaipUserProfile
-        pf.ShowDialog()
-        If pf.DialogResult = DialogResult.OK Then
-            MessageBox.Show("Profile successfully updated.", "Success", MessageBoxButtons.OK)
-        End If
+        Using pf As New IaipUserProfile
+            If pf.ShowDialog() = DialogResult.OK Then
+                MessageBox.Show("Profile successfully updated.", "Success", MessageBoxButtons.OK)
+            End If
+        End Using
     End Sub
 
     Private Sub mmiChangePassword_Click(sender As Object, e As EventArgs) Handles mmiChangePassword.Click
-        Dim cp As New IaipChangePassword
-        cp.ShowDialog()
-        If cp.DialogResult = DialogResult.OK Then
-            MessageBox.Show("Password successfully updated.", "Success", MessageBoxButtons.OK)
-        End If
+        Using cp As New IaipChangePassword
+            If cp.ShowDialog() = DialogResult.OK Then
+                MessageBox.Show("Password successfully updated.", "Success", MessageBoxButtons.OK)
+            End If
+        End Using
     End Sub
 
     Private Sub mmiSecurity_Click(sender As Object, e As EventArgs) Handles mmiSecurity.Click

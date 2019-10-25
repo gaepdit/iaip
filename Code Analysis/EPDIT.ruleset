@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RuleSet Name="EPDIT" ToolsVersion="12.0">
-  <Include Path="dead code.ruleset" Action="Default" />
-  <Include Path="other rules.ruleset" Action="Default" />
+  <Include Path="Dead code.ruleset" Action="Default" />
+  <Include Path="Other rules.ruleset" Action="Default" />
+  <Include Path="SQL security.ruleset" Action="Default" />
 </RuleSet>

@@ -1679,7 +1679,7 @@ Public Class SSCPEvents
     Private Sub FormatReportsDGR()
         Try
             Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As New DataGridTextBoxColumn
+            Dim objtextcol As DataGridTextBoxColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
             objGrid.MappingName = "Reports"
@@ -2161,7 +2161,7 @@ Public Class SSCPEvents
 
             'Formatting our DataGrid
             Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As New DataGridTextBoxColumn
+            Dim objtextcol As DataGridTextBoxColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
             objGrid.MappingName = "ACCs"
@@ -3091,10 +3091,11 @@ Public Class SSCPEvents
             Dim acc As Acc = LoadAccFromForm()
             Dim accList As New List(Of Acc) From {acc}
 
-            Dim dataTable As DataTable = CollectionHelper.ConvertToDataTable(Of Acc)(accList)
-            Dim title As String = acc.AccReportingYear & " ACC for " & acc.Facility.AirsNumber.FormattedString
-            Dim crv As New CRViewerForm(New CR.Reports.AccMemo, dataTable, title:=title)
-            crv.Show()
+            Using dataTable As DataTable = ConvertToDataTable(Of Acc)(accList)
+                Dim title As String = acc.AccReportingYear & " ACC for " & acc.Facility.AirsNumber.FormattedString
+                Dim crv As New CRViewerForm(New CR.Reports.AccMemo, dataTable, title:=title)
+                crv.Show()
+            End Using
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

@@ -150,7 +150,7 @@ Public Class IAIPDistrictSourceTool
             txtNewDistrictCode.Text = drv.Item("DistrictCode")
             txtNewDistrict.Text = drv.Item("DistrictName")
 
-            Dim exists As Boolean = (CType(cboDistrictManager.DataSource, DataTable).Select("UserId=" & drv.Item("Manager").ToString).Count > 0)
+            Dim exists As Boolean = (CType(cboDistrictManager.DataSource, DataTable).Select("UserId=" & drv.Item("Manager").ToString).Any)
             If exists Then
                 cboDistrictManager.SelectedValue = drv.Item("Manager")
             End If

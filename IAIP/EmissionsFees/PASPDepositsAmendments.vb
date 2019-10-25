@@ -42,7 +42,7 @@ Public Class PASPDepositsAmendments
 
     Private Function ValidateData() As Boolean
         Dim query As String
-        Dim param() As SqlParameter
+        Dim param As SqlParameter()
 
         If Not DAL.AirsNumberExists(mtbAIRSNumber.Text) Then
             MsgBox("This AIRS # is not valid; please verify that it is entered correctly." & vbCrLf &
@@ -130,7 +130,7 @@ Public Class PASPDepositsAmendments
 
         Try
             Dim query As String
-            Dim param() As SqlParameter
+            Dim param As SqlParameter()
 
             If txtCheckNumber.Text <> "" Then
                 query = "select " &
@@ -479,8 +479,7 @@ Public Class PASPDepositsAmendments
                         "    @STRCOMMENT, @ACTIVE, @UPDATEUSER, getdate(), getdate(), " &
                         "    @STRAIRSNUMBER, @NUMFEEYEAR, @STRCREDITCARDNO " &
                         "  ) "
-                    Dim param() As SqlParameter
-                    param = {
+                    Dim param As SqlParameter() = {
                         New SqlParameter("@INVOICEID", txtInvoiceForDeposit.Text),
                         New SqlParameter("@TRANSACTIONTYPECODE", "1"),
                         New SqlParameter("@DATTRANSACTIONDATE", dtpBatchDepositDateField.Text),
@@ -507,7 +506,7 @@ Public Class PASPDepositsAmendments
                     End If
                 Else
                     MsgBox("Use ""Update Existing Check Deposit"" instead.")
-                    Exit Sub
+                    Return
                 End If
 
                 If Not DAL.Update_FS_Admin_Status(CInt(cbYear2.Text), New Apb.ApbFacilityId(mtbAIRSNumber.Text)) Then
@@ -595,7 +594,7 @@ Public Class PASPDepositsAmendments
                         DB.RunCommand(query, param)
                     Else
                         MsgBox("Use ""Add New Check Deposit"" instead.", MsgBoxStyle.Information, Me.Text)
-                        Exit Sub
+                        Return
                     End If
 
                     If Not DAL.Update_FS_Admin_Status(CInt(cbYear2.Text), New Apb.ApbFacilityId(mtbAIRSNumber.Text)) Then
@@ -635,7 +634,7 @@ Public Class PASPDepositsAmendments
         Try
             If txtTransactionID.Text = "" Then
                 MsgBox("Select a transaction first.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim result As DialogResult = MessageBox.Show("Are you sure you want to remove " & txtCheckNumberField.Text &

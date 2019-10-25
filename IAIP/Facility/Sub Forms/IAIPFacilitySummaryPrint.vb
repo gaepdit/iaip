@@ -13,12 +13,12 @@
 
     Private Sub ShowReport(sender As Object, e As EventArgs) Handles ShowBasicReportButton.Click, ShowFullReportButton.Click
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         If AirsNumber Is Nothing Then
             MessageBox.Show("The AIRS number is invalid")
-            Exit Sub
+            Return
         End If
 
         Cursor = Cursors.AppStarting
@@ -38,7 +38,7 @@
 
         Dim rpt As New CR.Reports.FacilityBasicReport
 
-        Dim dt As DataTable = ConvertToDataTable(Of Apb.Facilities.Facility)(New Apb.Facilities.Facility() {DAL.GetFacility(AirsNumber).RetrieveHeaderData})
+        Dim dt As DataTable = ConvertToDataTable(Of Apb.Facilities.Facility)({DAL.GetFacility(AirsNumber).RetrieveHeaderData})
         rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt)
 
         Dim crv As New CRViewerForm(rpt)
@@ -63,7 +63,7 @@
             enddate = FullPrintStartDate.Value
         End If
 
-        Dim dt1 As DataTable = ConvertToDataTable(Of Apb.Facilities.Facility)(New Apb.Facilities.Facility() {DAL.GetFacility(AirsNumber).RetrieveHeaderData})
+        Dim dt1 As DataTable = ConvertToDataTable(Of Apb.Facilities.Facility)({DAL.GetFacility(AirsNumber).RetrieveHeaderData})
         rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt1)
 
         rpt.Subreports("SscpInspections.rpt").SetDataSource(DAL.Sscp.GetInspectionDataTable(startdate, enddate, AirsNumber))

@@ -124,7 +124,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SetUpForNewApplication()
-        If Not AccountFormAccess(3, 4) = "1" Then
+        If AccountFormAccess(3, 4) <> "1" Then
             MessageBox.Show("You do not have permission to start a new application.")
             Me.Close()
         End If
@@ -2422,7 +2422,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub LoadFacilityApplicationHistory()
         If AppNumber = 0 OrElse FacilityApplicationHistoryLoaded OrElse AirsId Is Nothing Then
-            Exit Sub
+            Return
         End If
 
         Dim query As String = "Select CONVERT(int, SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber, " &
@@ -2474,7 +2474,7 @@ Public Class SSPPApplicationTrackingLog
 
         If dtFacAppHistory Is Nothing Then
             dgvFacilityAppHistory.DataSource = Nothing
-            Exit Sub
+            Return
         End If
 
         dgvFacilityAppHistory.DataSource = dtFacAppHistory
@@ -2519,7 +2519,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub LoadInformationRequestHistory()
         If AppNumber = 0 OrElse InformationRequestHistoryLoaded Then
-            Exit Sub
+            Return
         End If
 
         Dim query As String = "Select " &
@@ -2550,7 +2550,7 @@ Public Class SSPPApplicationTrackingLog
 
         If dtFacInfoHistory Is Nothing Then
             dgvInformationRequested.DataSource = Nothing
-            Exit Sub
+            Return
         End If
 
         dgvInformationRequested.DataSource = dtFacInfoHistory
@@ -2630,7 +2630,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub LoadBasicFacilityInfo()
         If AirsId Is Nothing Then
-            Exit Sub
+            Return
         End If
 
         Dim Facilityname As String = "N/A"
@@ -2937,11 +2937,7 @@ Public Class SSPPApplicationTrackingLog
 
                 txtPlantDescription.Text = PlantDesc
 
-                If Mid(AirProgramCodes, 1, 1) = 1 Then
-                    chbCDS_0.Checked = True
-                Else
-                    chbCDS_0.Checked = True
-                End If
+                chbCDS_0.Checked = True
                 If Mid(AirProgramCodes, 5, 1) = 1 Then
                     chbCDS_6.Checked = True
                 Else
@@ -3217,7 +3213,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub LoadFacilityAttainmentStatus()
         If AirsId Is Nothing Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -3610,11 +3606,7 @@ Public Class SSPPApplicationTrackingLog
                     chbCDS_V.Checked = False
                     chbCDS_RMP.Checked = False
                 Else
-                    If Mid(dr.Item("strAirProgramCodes"), 1, 1) = 1 Then
-                        chbCDS_0.Checked = True
-                    Else
-                        chbCDS_0.Checked = True
-                    End If
+                    chbCDS_0.Checked = True
                     If Mid(dr.Item("strAirProgramCodes"), 5, 1) = 1 Then
                         chbCDS_6.Checked = True
                     Else
@@ -4441,11 +4433,7 @@ Public Class SSPPApplicationTrackingLog
             End Select
             txtPlantDescription.Text = PlantDesc
 
-            If Mid(AirProgramCodes, 1, 1) = 1 Then
-                chbCDS_0.Checked = True
-            Else
-                chbCDS_0.Checked = True
-            End If
+            chbCDS_0.Checked = True
             If Mid(AirProgramCodes, 5, 1) = 1 Then
                 chbCDS_6.Checked = True
             Else
@@ -4545,7 +4533,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub LoadOpenApplications()
         If AirsId Is Nothing Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -5271,21 +5259,22 @@ Public Class SSPPApplicationTrackingLog
         activePermits.RemoveAll(Function(permit As Permit) permit.Equals(New Permit(txtPermitNumber.Text)))
 
         If activePermits IsNot Nothing AndAlso activePermits.Count > 0 Then
+            Using permitRevocationDialog As New SsppPermitRevocationDialog With {
+                .ActivePermits = activePermits ' Send list of existing permits to dialog
+            }
+                permitRevocationDialog.ShowDialog()
 
-            Dim permitRevocationDialog As New SsppPermitRevocationDialog
-            permitRevocationDialog.ActivePermits = activePermits ' Send list of existing permits to dialog
-            permitRevocationDialog.ShowDialog()
+                Dim revokedPermits As List(Of Permit) = permitRevocationDialog.PermitsToRevoke
 
-            Dim revokedPermits As List(Of Permit) = permitRevocationDialog.PermitsToRevoke
-
-            If revokedPermits IsNot Nothing AndAlso revokedPermits.Count > 0 Then
-                Dim result As Boolean = RevokePermits(revokedPermits, DTPFinalAction.Value)
-                If Not result Then
-                    MessageBox.Show("There was an error revoking permits." & vbNewLine &
-                                    "Please contact the Data Management Unit.", "Error",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error)
+                If revokedPermits IsNot Nothing AndAlso revokedPermits.Count > 0 Then
+                    Dim result As Boolean = RevokePermits(revokedPermits, DTPFinalAction.Value)
+                    If Not result Then
+                        MessageBox.Show("There was an error revoking permits." & vbNewLine &
+                                        "Please contact the Data Management Unit.", "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End If
                 End If
-            End If
+            End Using
         End If
     End Sub
 
@@ -5572,7 +5561,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub SaveApplicationContact()
         If String.IsNullOrEmpty(txtContactFirstName.Text) Or String.IsNullOrEmpty(txtContactLastName.Text) Then
             MessageBox.Show("Contact not saved because name is missing.")
-            Exit Sub
+            Return
         End If
 
         Try
@@ -6133,7 +6122,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub LinkApplications()
         If AppNumber = 0 Then
-            Exit Sub
+            Return
         End If
 
         Dim MasterAppType As String = ""
@@ -6217,7 +6206,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub ClearApplicationLinks()
         If AppNumber = 0 Then
-            Exit Sub
+            Return
         End If
 
         Dim MasterLink As String
@@ -6406,7 +6395,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub GenerateAFSEntry()
         If AirsId Is Nothing Then
-            Exit Sub
+            Return
         End If
 
         Dim ActionNumber As String
@@ -6493,7 +6482,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub UpdateAPBTables()
         If AirsId Is Nothing Then
             MessageBox.Show("Error: No AIRS number selected.")
-            Exit Sub
+            Return
         End If
 
         Dim FacilityName As String
@@ -6859,7 +6848,9 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub UpdateAddedSubpartData(key As String, subpartList As List(Of String))
-        If subpartList Is Nothing OrElse subpartList.Count = 0 Then Exit Sub
+        If subpartList Is Nothing OrElse subpartList.Count = 0 Then
+            Return
+        End If
 
         Dim pKey As String = AirsId.DbFormattedString & key
         Dim query As String = ""
@@ -6911,7 +6902,7 @@ Public Class SSPPApplicationTrackingLog
             PanelOther.Visible = False
             PanelTitleV.Location = New Point(100, 25)
 
-            Exit Sub
+            Return
         End If
 
         If rdbPSDPermit.Checked = True Then
@@ -6920,7 +6911,7 @@ Public Class SSPPApplicationTrackingLog
             PanelOther.Visible = False
             PanelPSD.Location = New Point(100, 25)
 
-            Exit Sub
+            Return
         End If
 
         If rdbOtherPermit.Checked = True Then
@@ -6929,7 +6920,7 @@ Public Class SSPPApplicationTrackingLog
             PanelOther.Visible = True
             PanelOther.Location = New Point(100, 25)
 
-            Exit Sub
+            Return
         End If
 
         PanelTitleV.Visible = False
@@ -7011,7 +7002,9 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub DownloadFile(fileName As String, fileType As String)
-        If fileType = "00" Then Exit Sub
+        If fileType = "00" Then
+            Return
+        End If
         Try
             Dim saveFilePath As String
             Dim query As String = ""
@@ -7044,7 +7037,7 @@ Public Class SSPPApplicationTrackingLog
                 saveFilePath = sfd.FileName.ToString
                 SaveBinaryFileFromDB(saveFilePath, query, parameter)
 
-                If Not IO.Path.GetDirectoryName(sfd.FileName) = sfd.InitialDirectory Then
+                If IO.Path.GetDirectoryName(sfd.FileName) <> sfd.InitialDirectory Then
                     SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(sfd.FileName))
                     sfd.InitialDirectory = IO.Path.GetDirectoryName(sfd.FileName)
                 End If
@@ -7062,7 +7055,7 @@ Public Class SSPPApplicationTrackingLog
                     saveFilePath = sfd.FileName.ToString
                     SaveBinaryFileFromDB(saveFilePath, query, parameter)
 
-                    If Not IO.Path.GetDirectoryName(sfd.FileName) = sfd.InitialDirectory Then
+                    If IO.Path.GetDirectoryName(sfd.FileName) <> sfd.InitialDirectory Then
                         SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(sfd.FileName))
                     End If
                 End If
@@ -7103,8 +7096,6 @@ Public Class SSPPApplicationTrackingLog
                     If cboApplicationType.Text = "ERC" Then
                         If Mid(txtPermitNumber.Text, 1, 3) <> "ERC" Then
                             txtPermitNumber.Text = "ERC"
-                        Else
-                            txtPermitNumber.Text = txtPermitNumber.Text
                         End If
                     Else
                         If txtSICCode.Text.Length = 4 And AirsId IsNot Nothing Then
@@ -7208,25 +7199,25 @@ Public Class SSPPApplicationTrackingLog
         If NewApplication Then
             If Not Integer.TryParse(txtNewApplicationNumber.Text, AppNumber) Then
                 MessageBox.Show("The selected application number is not valid. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             If ApplicationExists(AppNumber) Then
                 MessageBox.Show("The selected application number already exists. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             Dim result As DialogResult = MessageBox.Show("This will create a new permit application. Are you sure you want to proceed?", "New Application?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
 
             If result = DialogResult.No Then
-                Exit Sub
+                Return
             End If
 
             If CreateNewApplication() Then
                 MessageBox.Show("New application created.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
                 MessageBox.Show("There was an error creating the new application. Please contact EPD-IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
         End If
 
@@ -7242,7 +7233,7 @@ Public Class SSPPApplicationTrackingLog
                             "Please reopen the application to save any changes." & vbNewLine & vbNewLine &
                             "NO DATA SAVED",
                             "Application Tracking Log", MessageBoxButtons.OK)
-                Exit Sub
+                Return
             End If
 
             If ValidateForm() Then
@@ -7849,7 +7840,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub SetUpPublicAppViewLink()
         lklOpenAppOnline.Visible = True
-        ToolTip1.SetToolTip(lklOpenAppOnline, GetPermitApplicationUrl(AppNumber))
+        ToolTip1.SetToolTip(lklOpenAppOnline, GetPermitApplicationLinkAddress(AppNumber))
     End Sub
 
     Private Sub btnRefreshAIRSNo_Click(sender As Object, e As EventArgs) Handles btnRefreshAIRSNo.Click
@@ -10086,21 +10077,21 @@ Public Class SSPPApplicationTrackingLog
             Select Case Mid(temp, 1, 1)
                 Case "V"
                     If PDFFile <> "" Then
-                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=PDF-VF-" & MasterApp
+                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=PDF-VF-" & MasterApp
                     Else
-                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=DOC-VF-" & MasterApp
+                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=DOC-VF-" & MasterApp
                     End If
                 Case "P"
                     If PDFFile <> "" Then
-                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=PDF-PI-" & MasterApp
+                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=PDF-PI-" & MasterApp
                     Else
-                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=DOC-PI-" & MasterApp
+                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=DOC-PI-" & MasterApp
                     End If
                 Case Else
                     If PDFFile <> "" Then
-                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=PDF-OP-" & MasterApp
+                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=PDF-OP-" & MasterApp
                     Else
-                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=DOC-OP-" & MasterApp
+                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=DOC-OP-" & MasterApp
                     End If
             End Select
 
@@ -10115,7 +10106,7 @@ Public Class SSPPApplicationTrackingLog
         Try
             If AirsId Is Nothing Then
                 MessageBox.Show("Select a facility first.")
-                Exit Sub
+                Return
             End If
 
             Dim query As String = "Select " &
@@ -10222,19 +10213,19 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnAcknowledgementLetter_Click(sender As Object, e As EventArgs) Handles btnAcknowledgementLetter.Click
         If txtContactSocialTitle.Text = "N/A" Then
             MessageBox.Show("Invalid social title, please correct.", "Error", MessageBoxButtons.OK)
-            Exit Sub
+            Return
         End If
 
-        Dim PrintOut As New IAIPPrintOut With {
+        Using PrintOut As New IAIPPrintOut With {
             .PrintoutType = IAIPPrintOut.PrintType.SsppConfirm,
             .ReferenceValue = AppNumber.ToString
         }
-
-        If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
-            PrintOut.Show()
-        Else
-            MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
+            If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
+                PrintOut.Show()
+            Else
+                MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        End Using
     End Sub
 
     Private Sub btnEmailAcknowledgmentLetter_Click(sender As Object, e As EventArgs) Handles btnEmailAcknowledgmentLetter.Click
@@ -10246,7 +10237,7 @@ Public Class SSPPApplicationTrackingLog
 
             If Not txtContactEmailAddress.Text.IsValidEmailAddress Then
                 MessageBox.Show("The contact email address is not valid. Please enter a valid email and try again.", "Email not sent", MessageBoxButtons.OK)
-                Exit Sub
+                Return
             End If
 
             Me.Cursor = Cursors.AppStarting
@@ -10275,14 +10266,14 @@ Public Class SSPPApplicationTrackingLog
                 vbNewLine & vbNewLine &
                 "Other environmental permits may be required. For Industrial Stormwater permits, contact " &
                 "the Watershed Protection Branch at (404) 675-1605; for Solid Waste permits, contact the " &
-                "Land Protection Branch at (404) 362-2537. For more info, http://epd.georgia.gov" &
+                "Land Protection Branch at (404) 362-2537. For more info, https://epd.georgia.gov" &
                 vbNewLine & vbNewLine &
                 "GEOS, the new web-based permit application system is now operational at: " &
                 "https://geos.epd.georgia.gov/GA/GEOS/Public/EnSuite/Shared/Pages/Main/Login.aspx " &
                 vbNewLine & vbNewLine &
                 "To track the status of the air quality permit application, log on to Georgia Environmental " &
                 "Protection Division's Georgia Environmental Connections Online (GECO) at the web address " &
-                "http://geco.gaepd.org/ (registration required) and follow the online instructions." &
+                "https://geco.gaepd.org/ (registration required) and follow the online instructions." &
                 vbNewLine & vbNewLine &
                 "If your company qualifies as a small business (generally those with fewer than 100 " &
                 "employees), you may contact our Small Business Environmental Assistance Program at " &
@@ -10665,7 +10656,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvSIPSubParts.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             Subpart = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
@@ -10680,7 +10671,7 @@ Public Class SSPPApplicationTrackingLog
                 MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
-                Exit Sub
+                Return
             Else
                 temp2 = ""
             End If
@@ -10731,7 +10722,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvSIPSubPartDelete.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             If dgvSIPSubPartDelete.Rows.Count > 0 Then
@@ -10774,7 +10765,7 @@ Public Class SSPPApplicationTrackingLog
                     MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be deleted from the Facility.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
-                    Exit Sub
+                    Return
                 Else
                     temp2 = ""
                 End If
@@ -10798,7 +10789,6 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
             Next
-            Exit Sub
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -10822,7 +10812,6 @@ Public Class SSPPApplicationTrackingLog
                 End With
             Next
             dgvSIPSubPartDelete.Rows.Clear()
-            Exit Sub
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -10845,7 +10834,6 @@ Public Class SSPPApplicationTrackingLog
                 End With
             Next
             dgvSIPSubPartDelete.Rows.Clear()
-            Exit Sub
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -10863,7 +10851,7 @@ Public Class SSPPApplicationTrackingLog
                 MsgBox("The SIP Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
-                Exit Sub
+                Return
             End If
 
             Subpart = cboSIPSubpart.SelectedValue.ToString
@@ -10877,7 +10865,7 @@ Public Class SSPPApplicationTrackingLog
                     temp2 = "Ignore"
                     MsgBox("The SIP Subpart already exists for this application.", MsgBoxStyle.Information,
                            "Application Tracking")
-                    Exit Sub
+                    Return
                 End If
             Next
 
@@ -10932,7 +10920,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvSIPSubParts.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             Subpart = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
@@ -10947,7 +10935,7 @@ Public Class SSPPApplicationTrackingLog
                 MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be Modified by this Application.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
-                Exit Sub
+                Return
             Else
                 temp2 = ""
             End If
@@ -11001,7 +10989,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvSIPSubpartAddEdit.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             If dgvSIPSubpartAddEdit.Rows.Count > 0 Then
@@ -11045,7 +11033,7 @@ Public Class SSPPApplicationTrackingLog
                     MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be Modified by this Application.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
-                    Exit Sub
+                    Return
                 Else
                     temp2 = ""
                 End If
@@ -11071,8 +11059,6 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
             Next
-            Exit Sub
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -11135,8 +11121,6 @@ Public Class SSPPApplicationTrackingLog
                 End If
             Next
             dgvSIPSubpartAddEdit.Rows.Clear()
-            Exit Sub
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -11181,9 +11165,7 @@ Public Class SSPPApplicationTrackingLog
                        "On the Tracking Log tab select the air program code 0 - SIP. " &
                        "If you do not check this air program code the subparts cannot be saved.",
                      MsgBoxStyle.Exclamation, "Application Tracking Log")
-                Exit Sub
-            Else
-
+                Return
             End If
             SaveSIPSubpart()
             MsgBox("SIP Updated", MsgBoxStyle.Information, "Application Tracking Log")
@@ -11573,7 +11555,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvNSPSSubParts.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             Subpart = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
@@ -11588,7 +11570,7 @@ Public Class SSPPApplicationTrackingLog
                 MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
-                Exit Sub
+                Return
             Else
                 temp2 = ""
             End If
@@ -11639,7 +11621,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvNSPSSubPartDelete.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             If dgvNSPSSubPartDelete.Rows.Count > 0 Then
@@ -11682,7 +11664,7 @@ Public Class SSPPApplicationTrackingLog
                     MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be deleted from the Facility.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
-                    Exit Sub
+                    Return
                 Else
                     temp2 = ""
                 End If
@@ -11706,8 +11688,6 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
             Next
-            Exit Sub
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -11730,7 +11710,6 @@ Public Class SSPPApplicationTrackingLog
                 End With
             Next
             dgvNSPSSubPartDelete.Rows.Clear()
-            Exit Sub
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -11753,7 +11732,6 @@ Public Class SSPPApplicationTrackingLog
                 End With
             Next
             dgvNSPSSubPartDelete.Rows.Clear()
-            Exit Sub
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -11771,7 +11749,7 @@ Public Class SSPPApplicationTrackingLog
                 MsgBox("The NSPS Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
-                Exit Sub
+                Return
             End If
 
             Subpart = cboNSPSSubpart.SelectedValue.ToString
@@ -11785,7 +11763,7 @@ Public Class SSPPApplicationTrackingLog
                     temp2 = "Ignore"
                     MsgBox("The NSPS Subpart already exists for this application.", MsgBoxStyle.Information,
                         "Application Tracking")
-                    Exit Sub
+                    Return
                 End If
             Next
 
@@ -11840,7 +11818,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvNSPSSubParts.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             Subpart = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
@@ -11855,7 +11833,7 @@ Public Class SSPPApplicationTrackingLog
                 MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be Modified by this Application.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
-                Exit Sub
+                Return
             Else
                 temp2 = ""
             End If
@@ -11909,7 +11887,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvNSPSSubpartAddEdit.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             If dgvNSPSSubpartAddEdit.Rows.Count > 0 Then
@@ -11953,7 +11931,7 @@ Public Class SSPPApplicationTrackingLog
                     MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be Modified by this Application.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
-                    Exit Sub
+                    Return
                 Else
                     temp2 = ""
                 End If
@@ -11979,8 +11957,6 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
             Next
-            Exit Sub
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -12088,7 +12064,7 @@ Public Class SSPPApplicationTrackingLog
                        "On the Tracking Log tab select the air program code 9 - NSPS. " &
                        "If you do not check this air program code the subparts cannot be saved.",
                      MsgBoxStyle.Exclamation, "Application Tracking Log")
-                Exit Sub
+                Return
             End If
             SaveNSPSSubpart()
             MsgBox("NSPS Updated", MsgBoxStyle.Information, "Application Tracking Log")
@@ -12477,7 +12453,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvNESHAPSubParts.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             Subpart = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
@@ -12492,7 +12468,7 @@ Public Class SSPPApplicationTrackingLog
                 MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
-                Exit Sub
+                Return
             Else
                 temp2 = ""
             End If
@@ -12543,7 +12519,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvNESHAPSubPartDelete.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             If dgvNESHAPSubPartDelete.Rows.Count > 0 Then
@@ -12586,7 +12562,7 @@ Public Class SSPPApplicationTrackingLog
                     MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be deleted from the Facility.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
-                    Exit Sub
+                    Return
                 Else
                     temp2 = ""
                 End If
@@ -12610,8 +12586,6 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
             Next
-            Exit Sub
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -12635,7 +12609,6 @@ Public Class SSPPApplicationTrackingLog
                 End With
             Next
             dgvNESHAPSubPartDelete.Rows.Clear()
-            Exit Sub
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -12659,7 +12632,6 @@ Public Class SSPPApplicationTrackingLog
                 End With
             Next
             dgvNESHAPSubPartDelete.Rows.Clear()
-            Exit Sub
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -12677,7 +12649,7 @@ Public Class SSPPApplicationTrackingLog
                 MsgBox("The NESHAP Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
-                Exit Sub
+                Return
             End If
 
             Subpart = cboNESHAPSubpart.SelectedValue.ToString
@@ -12692,7 +12664,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                         MsgBox("The NESHAP Subpart already exists for this application.", MsgBoxStyle.Information,
                         "Application Tracking")
-                        Exit Sub
+                        Return
                     End If
                 Next
             End If
@@ -12747,7 +12719,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvNESHAPSubParts.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             Subpart = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
@@ -12762,7 +12734,7 @@ Public Class SSPPApplicationTrackingLog
                 MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be Modified by this Application.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
-                Exit Sub
+                Return
             Else
                 temp2 = ""
             End If
@@ -12816,7 +12788,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvNESHAPSubpartAddEdit.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             If dgvNESHAPSubpartAddEdit.Rows.Count > 0 Then
@@ -12861,7 +12833,7 @@ Public Class SSPPApplicationTrackingLog
                     MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be Modified by this Application.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
-                    Exit Sub
+                    Return
                 Else
                     temp2 = ""
                 End If
@@ -12887,8 +12859,6 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
             Next
-            Exit Sub
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -12996,7 +12966,7 @@ Public Class SSPPApplicationTrackingLog
                        "On the Tracking Log tab select the air program code 8 - NESHAP. " &
                        "If you do not check this air program code the subparts cannot be saved.",
                      MsgBoxStyle.Exclamation, "Application Tracking Log")
-                Exit Sub
+                Return
             End If
             SaveNESHAPSubpart()
 
@@ -13389,7 +13359,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvMACTSubParts.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             Subpart = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
@@ -13404,7 +13374,7 @@ Public Class SSPPApplicationTrackingLog
                 MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
-                Exit Sub
+                Return
             Else
                 temp2 = ""
             End If
@@ -13455,7 +13425,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvMACTSubPartDelete.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             If dgvMACTSubPartDelete.Rows.Count > 0 Then
@@ -13498,7 +13468,7 @@ Public Class SSPPApplicationTrackingLog
                     MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be deleted from the Facility.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
-                    Exit Sub
+                    Return
                 Else
                     temp2 = ""
                 End If
@@ -13522,8 +13492,6 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
             Next
-            Exit Sub
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -13547,7 +13515,6 @@ Public Class SSPPApplicationTrackingLog
                 End With
             Next
             dgvMACTSubPartDelete.Rows.Clear()
-            Exit Sub
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -13571,7 +13538,6 @@ Public Class SSPPApplicationTrackingLog
                 End With
             Next
             dgvMACTSubPartDelete.Rows.Clear()
-            Exit Sub
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -13589,7 +13555,7 @@ Public Class SSPPApplicationTrackingLog
                 MsgBox("The MACT Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
-                Exit Sub
+                Return
             End If
 
             Subpart = cboMACTSubpart.SelectedValue.ToString
@@ -13603,7 +13569,7 @@ Public Class SSPPApplicationTrackingLog
                     temp2 = "Ignore"
                     MsgBox("The MACT Subpart already exists for this application.", MsgBoxStyle.Information,
                         "Application Tracking")
-                    Exit Sub
+                    Return
                 End If
             Next
 
@@ -13658,7 +13624,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvMACTSubParts.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             Subpart = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
@@ -13673,7 +13639,7 @@ Public Class SSPPApplicationTrackingLog
                 MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be Modified by this Application.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
-                Exit Sub
+                Return
             Else
                 temp2 = ""
             End If
@@ -13727,7 +13693,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvMACTSubpartAddEdit.CurrentRow IsNot Nothing Then
             Else
-                Exit Sub
+                Return
             End If
 
             If dgvMACTSubpartAddEdit.Rows.Count > 0 Then
@@ -13772,7 +13738,7 @@ Public Class SSPPApplicationTrackingLog
                     MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be Modified by this Application.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
-                    Exit Sub
+                    Return
                 Else
                     temp2 = ""
                 End If
@@ -13798,8 +13764,6 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
             Next
-            Exit Sub
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -13906,7 +13870,7 @@ Public Class SSPPApplicationTrackingLog
                        "On the Tracking Log tab select the air program code M - MACT. " &
                        "If you do not check this air program code the subparts cannot be saved.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
-                Exit Sub
+                Return
             End If
             SaveMACTSubpart()
             MsgBox("MACT Updated", MsgBoxStyle.Information, "Application Tracking Log")
@@ -13966,7 +13930,7 @@ Public Class SSPPApplicationTrackingLog
                                 MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                                        MsgBoxStyle.Exclamation, "Application Tracking Log")
-                                Exit Sub
+                                Return
                             Else
                                 temp2 = ""
                             End If
@@ -14050,7 +14014,7 @@ Public Class SSPPApplicationTrackingLog
                                 MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                                        MsgBoxStyle.Exclamation, "Application Tracking Log")
-                                Exit Sub
+                                Return
                             Else
                                 temp2 = ""
                             End If
@@ -14135,7 +14099,7 @@ Public Class SSPPApplicationTrackingLog
                                 MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                                        MsgBoxStyle.Exclamation, "Application Tracking Log")
-                                Exit Sub
+                                Return
                             Else
                                 temp2 = ""
                             End If
@@ -14220,7 +14184,7 @@ Public Class SSPPApplicationTrackingLog
                                 MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                                        MsgBoxStyle.Exclamation, "Application Tracking Log")
-                                Exit Sub
+                                Return
                             Else
                                 temp2 = ""
                             End If
@@ -14259,7 +14223,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnUpdateFeeContact_Click(sender As Object, e As EventArgs) Handles btnGoToFeeContact.Click
         If AirsId Is Nothing Then
             MessageBox.Show("Select a facility first.")
-            Exit Sub
+            Return
         End If
 
         Dim feeContact As New SSPPFeeContact
@@ -14532,7 +14496,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub SaveApplicationFees()
         If AirsId Is Nothing Or AppNumber = 0 Or Not FeeChangesAllowed Then
-            Exit Sub
+            Return
         End If
 
         Dim feesInfo As New ApplicationFeeInfo() With {
@@ -14583,7 +14547,7 @@ Public Class SSPPApplicationTrackingLog
         If feesInfo Is Nothing Then
             UpdatingValues = False
 
-            Exit Sub
+            Return
         End If
 
         With feesInfo
@@ -14666,7 +14630,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub lklGenerateEmail_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklGenerateEmail.LinkClicked
         If Not txtContactEmailAddress.Text.IsValidEmailAddress Then
             MessageBox.Show("The contact email address is not valid. Please enter a valid email and try again.", "Email not sent", MessageBoxButtons.OK)
-            Exit Sub
+            Return
         End If
 
         UseWaitCursor = True
@@ -14703,9 +14667,9 @@ Public Class SSPPApplicationTrackingLog
         End If
 
         body.Append("The applicant must complete the submittal process by paying the above referenced fee. ")
-        body.AppendFormat("A printable fee invoice is accessible through GECO at {0} ", GetPermitApplicationUrl(AppNumber))
+        body.AppendFormat("A printable fee invoice is accessible through GECO at {0} ", GetPermitApplicationLinkAddress(AppNumber))
         body.AppendLine()
-        body.AppendFormat("If you do not have a GECO account, visit {0} and create a new account. ", GetGecoUrl())
+        body.AppendFormat("If you do not have a GECO account, visit {0} and create a new account. ", GecoUrl.ToString)
         body.Append("You can then request access to this facility for emission fees using the tools in GECO.")
         body.AppendLine()
         body.Append("The fee must be submitted within 10 business days of the date of this email. Permitting actions will not be finalized ")
@@ -14713,7 +14677,7 @@ Public Class SSPPApplicationTrackingLog
         body.AppendLine()
         body.Append("Other environmental permits may be required. For Industrial Stormwater permits, contact the Watershed Protection Branch ")
         body.Append("at (404) 675-1605; for Solid Waste permits, contact the Land Protection Branch at (404) 362-2537. ")
-        body.Append("For more info, see http://epd.georgia.gov/ ")
+        body.Append("For more info, see https://epd.georgia.gov/ ")
         body.AppendLine()
         body.Append("Please contact me if you have any questions.")
 

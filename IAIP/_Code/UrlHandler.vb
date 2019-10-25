@@ -9,8 +9,8 @@ Public Module UrlHandler
     Private ReadOnly ChangelogUrl As New Uri("https://iaip.gaepd.org/changelog/")
     Private ReadOnly PrereqInstallUrl As New Uri("https://iaip.gaepd.org/pre-install/")
 
-    Private Const MapUrlFragment As String = "http://maps.google.com/maps?q="
-    Private Const PermitSearchUrlFragment As String = "http://permitsearch.gaepd.org/?AirsNumber="
+    Private Const MapUrlFragment As String = "https://maps.google.com/maps?q="
+    Private Const PermitSearchUrlFragment As String = "https://permitsearch.gaepd.org/?AirsNumber="
 
     Friend ReadOnly GecoUrl As New Uri(ConfigurationManager.AppSettings("GecoUrl"))
     Private ReadOnly InvoiceViewUrlFragment As String = String.Concat(GecoUrl.ToString, "Invoice/?id={0}")
@@ -42,28 +42,32 @@ Public Module UrlHandler
         OpenUri(New Uri(PermitSearchUrlFragment & airsNumber.ToString), objectSender)
     End Sub
 
-    Public Function GetGecoUrl() As String
-        Return GecoUrl.ToString
+    Public Function GetInvoiceUrl(invoiceGuid As Guid) As Uri
+        Return New Uri(GetInvoiceLinkAddress(invoiceGuid))
     End Function
 
-    Public Function GetInvoiceUrl(invoiceGuid As Guid) As String
+    Public Function GetInvoiceLinkAddress(invoiceGuid As Guid) As String
         Return String.Format(InvoiceViewUrlFragment, invoiceGuid.ToString)
     End Function
 
     Public Sub OpenInvoiceUrl(invoiceGuid As Guid, Optional objectSender As Form = Nothing)
-        OpenUri(New Uri(GetInvoiceUrl(invoiceGuid)), objectSender)
+        OpenUri(GetInvoiceUrl(invoiceGuid), objectSender)
     End Sub
 
-    Public Function GetPermitApplicationUrl(appNumber As Integer) As String
+    Public Function GetPermitApplicationUrl(appNumber As Integer) As Uri
+        Return New Uri(GetPermitApplicationLinkAddress(appNumber))
+    End Function
+
+    Public Function GetPermitApplicationLinkAddress(appNumber As Integer) As String
         Return String.Format(ApplicationViewUrlFragment, appNumber.ToString)
     End Function
 
     Public Sub OpenPermitApplicationUrl(appNumber As Integer, Optional objectSender As Form = Nothing)
-        OpenUri(New Uri(GetPermitApplicationUrl(appNumber)), objectSender)
+        OpenUri(GetPermitApplicationUrl(appNumber), objectSender)
     End Sub
 
     Private Function OpenUri(uriString As String, Optional sender As Object = Nothing, Optional isMailto As Boolean = False) As Boolean
-        ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
+        ' Reference: https://faithlife.codes/blog/2008/01/using_processstart_to_link_to/
         Try
             If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Cursors.AppStarting

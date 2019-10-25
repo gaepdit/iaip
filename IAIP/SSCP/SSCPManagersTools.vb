@@ -534,7 +534,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -750,7 +750,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -817,7 +817,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -893,7 +893,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -972,7 +972,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1051,7 +1051,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1131,7 +1131,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1213,7 +1213,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1295,7 +1295,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1374,7 +1374,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1453,7 +1453,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1537,7 +1537,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1619,7 +1619,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -1701,7 +1701,7 @@ Public Class SSCPManagersTools
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
                 MessageBox.Show("Select staff first.")
-                Exit Sub
+                Return
             End If
 
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
@@ -2035,7 +2035,7 @@ Public Class SSCPManagersTools
                 End Select
 
             Else
-                Dim airslist As String() = txtManualAIRSNumber.Text.Split(New String() {vbNewLine, "\r\n", "\n"}, StringSplitOptions.RemoveEmptyEntries)
+                Dim airslist As String() = txtManualAIRSNumber.Text.Split({vbNewLine, "\r\n", "\n"}, StringSplitOptions.RemoveEmptyEntries)
 
                 If airslist.Length > 0 Then
                     For i As Integer = 0 To airslist.Length - 1
@@ -2217,7 +2217,6 @@ Public Class SSCPManagersTools
 
     Private Sub btnSelectFacility_Click(sender As Object, e As EventArgs) Handles btnSelectFacility.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim temp As String
             Dim temp2 As String = "Add"
             Dim i As Integer = 0
@@ -2232,78 +2231,80 @@ Public Class SSCPManagersTools
                     End If
                 Next
                 If temp2 <> "Ignore" Then
-                    dgvRow.CreateCells(dgvSelectedFacilityList)
-                    dgvRow.Cells(0).Value = dgvFilteredFacilityList(0, dgvFilteredFacilityList.CurrentRow.Index).Value
-                    dgvRow.Cells(1).Value = dgvFilteredFacilityList(1, dgvFilteredFacilityList.CurrentRow.Index).Value
+                    Using dgvRow As New DataGridViewRow
+                        dgvRow.CreateCells(dgvSelectedFacilityList)
+                        dgvRow.Cells(0).Value = dgvFilteredFacilityList(0, dgvFilteredFacilityList.CurrentRow.Index).Value
+                        dgvRow.Cells(1).Value = dgvFilteredFacilityList(1, dgvFilteredFacilityList.CurrentRow.Index).Value
 
-                    If chbIgnoreFiscalYear.Checked = True Then
-                        If IsDBNull(dgvFilteredFacilityList(8, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                        Else
-                            dgvRow.Cells(2).Value = dgvFilteredFacilityList(8, dgvFilteredFacilityList.CurrentRow.Index).Value
-                        End If
-                        If IsDBNull(dgvFilteredFacilityList(9, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                        Else
-                            dgvRow.Cells(3).Value = dgvFilteredFacilityList(9, dgvFilteredFacilityList.CurrentRow.Index).Value
-                        End If
-                        If IsDBNull(dgvFilteredFacilityList(10, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                        Else
-                            dgvRow.Cells(4).Value = dgvFilteredFacilityList(10, dgvFilteredFacilityList.CurrentRow.Index).Value
-                        End If
-                        dgvRow.Cells(5).Value = ""
+                        If chbIgnoreFiscalYear.Checked = True Then
+                            If IsDBNull(dgvFilteredFacilityList(8, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            Else
+                                dgvRow.Cells(2).Value = dgvFilteredFacilityList(8, dgvFilteredFacilityList.CurrentRow.Index).Value
+                            End If
+                            If IsDBNull(dgvFilteredFacilityList(9, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            Else
+                                dgvRow.Cells(3).Value = dgvFilteredFacilityList(9, dgvFilteredFacilityList.CurrentRow.Index).Value
+                            End If
+                            If IsDBNull(dgvFilteredFacilityList(10, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            Else
+                                dgvRow.Cells(4).Value = dgvFilteredFacilityList(10, dgvFilteredFacilityList.CurrentRow.Index).Value
+                            End If
+                            dgvRow.Cells(5).Value = ""
 
-                        'Last Inspection Date
-                        If IsDBNull(dgvFilteredFacilityList(6, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            'Last Inspection Date
+                            If IsDBNull(dgvFilteredFacilityList(6, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            Else
+                                dgvRow.Cells(6).Value = CStr(Format(CDate(dgvFilteredFacilityList(6, dgvFilteredFacilityList.CurrentRow.Index).Value), "dd-MMM-yyyy"))
+                            End If
+                            dgvRow.Cells(7).Value = ""
+                            'Last FCE date
+                            If IsDBNull(dgvFilteredFacilityList(7, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            Else
+                                dgvRow.Cells(8).Value = CStr(Format(CDate(dgvFilteredFacilityList(7, dgvFilteredFacilityList.CurrentRow.Index).Value), "dd-MMM-yyyy"))
+                            End If
+                            If IsDBNull(dgvFilteredFacilityList(3, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            Else
+                                dgvRow.Cells(9).Value = dgvFilteredFacilityList(3, dgvFilteredFacilityList.CurrentRow.Index).Value
+                            End If
                         Else
-                            dgvRow.Cells(6).Value = CStr(Format(CDate(dgvFilteredFacilityList(6, dgvFilteredFacilityList.CurrentRow.Index).Value), "dd-MMM-yyyy"))
+                            If IsDBNull(dgvFilteredFacilityList(10, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            Else
+                                dgvRow.Cells(2).Value = dgvFilteredFacilityList(10, dgvFilteredFacilityList.CurrentRow.Index).Value
+                            End If
+                            If IsDBNull(dgvFilteredFacilityList(11, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            Else
+                                dgvRow.Cells(3).Value = dgvFilteredFacilityList(11, dgvFilteredFacilityList.CurrentRow.Index).Value
+                            End If
+                            If IsDBNull(dgvFilteredFacilityList(12, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            Else
+                                dgvRow.Cells(4).Value = dgvFilteredFacilityList(12, dgvFilteredFacilityList.CurrentRow.Index).Value
+                            End If
+                            If IsDBNull(dgvFilteredFacilityList(6, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            Else
+                                dgvRow.Cells(5).Value = dgvFilteredFacilityList(6, dgvFilteredFacilityList.CurrentRow.Index).Value
+                            End If
+                            'Last Inspection Date
+                            If IsDBNull(dgvFilteredFacilityList(7, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            Else
+                                dgvRow.Cells(6).Value = CStr(Format(CDate(dgvFilteredFacilityList(7, dgvFilteredFacilityList.CurrentRow.Index).Value), "dd-MMM-yyyy"))
+                            End If
+                            If IsDBNull(dgvFilteredFacilityList(8, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            Else
+                                dgvRow.Cells(7).Value = dgvFilteredFacilityList(8, dgvFilteredFacilityList.CurrentRow.Index).Value
+                            End If
+                            'Last FCE date
+                            If IsDBNull(dgvFilteredFacilityList(9, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            Else
+                                dgvRow.Cells(8).Value = CStr(Format(CDate(dgvFilteredFacilityList(9, dgvFilteredFacilityList.CurrentRow.Index).Value), "dd-MMM-yyyy"))
+                            End If
+                            If IsDBNull(dgvFilteredFacilityList(3, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
+                            Else
+                                dgvRow.Cells(9).Value = dgvFilteredFacilityList(3, dgvFilteredFacilityList.CurrentRow.Index).Value
+                            End If
                         End If
-                        dgvRow.Cells(7).Value = ""
-                        'Last FCE date
-                        If IsDBNull(dgvFilteredFacilityList(7, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                        Else
-                            dgvRow.Cells(8).Value = CStr(Format(CDate(dgvFilteredFacilityList(7, dgvFilteredFacilityList.CurrentRow.Index).Value), "dd-MMM-yyyy"))
-                        End If
-                        If IsDBNull(dgvFilteredFacilityList(3, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                        Else
-                            dgvRow.Cells(9).Value = dgvFilteredFacilityList(3, dgvFilteredFacilityList.CurrentRow.Index).Value
-                        End If
-                    Else
-                        If IsDBNull(dgvFilteredFacilityList(10, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                        Else
-                            dgvRow.Cells(2).Value = dgvFilteredFacilityList(10, dgvFilteredFacilityList.CurrentRow.Index).Value
-                        End If
-                        If IsDBNull(dgvFilteredFacilityList(11, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                        Else
-                            dgvRow.Cells(3).Value = dgvFilteredFacilityList(11, dgvFilteredFacilityList.CurrentRow.Index).Value
-                        End If
-                        If IsDBNull(dgvFilteredFacilityList(12, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                        Else
-                            dgvRow.Cells(4).Value = dgvFilteredFacilityList(12, dgvFilteredFacilityList.CurrentRow.Index).Value
-                        End If
-                        If IsDBNull(dgvFilteredFacilityList(6, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                        Else
-                            dgvRow.Cells(5).Value = dgvFilteredFacilityList(6, dgvFilteredFacilityList.CurrentRow.Index).Value
-                        End If
-                        'Last Inspection Date
-                        If IsDBNull(dgvFilteredFacilityList(7, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                        Else
-                            dgvRow.Cells(6).Value = CStr(Format(CDate(dgvFilteredFacilityList(7, dgvFilteredFacilityList.CurrentRow.Index).Value), "dd-MMM-yyyy"))
-                        End If
-                        If IsDBNull(dgvFilteredFacilityList(8, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                        Else
-                            dgvRow.Cells(7).Value = dgvFilteredFacilityList(8, dgvFilteredFacilityList.CurrentRow.Index).Value
-                        End If
-                        'Last FCE date
-                        If IsDBNull(dgvFilteredFacilityList(9, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                        Else
-                            dgvRow.Cells(8).Value = CStr(Format(CDate(dgvFilteredFacilityList(9, dgvFilteredFacilityList.CurrentRow.Index).Value), "dd-MMM-yyyy"))
-                        End If
-                        If IsDBNull(dgvFilteredFacilityList(3, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                        Else
-                            dgvRow.Cells(9).Value = dgvFilteredFacilityList(3, dgvFilteredFacilityList.CurrentRow.Index).Value
-                        End If
-                    End If
-                    'End If
-                    dgvSelectedFacilityList.Rows.Add(dgvRow)
+                        'End If
+                        dgvSelectedFacilityList.Rows.Add(dgvRow)
+                    End Using
                 End If
             Else
                 MsgBox("There must be a selected facility in the data grid to the left.", MsgBoxStyle.Exclamation, Me.Text)
@@ -2318,85 +2319,85 @@ Public Class SSCPManagersTools
 
     Private Sub btnSelectAllFacilities_Click(sender As Object, e As EventArgs) Handles btnSelectAllFacilities.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
 
             dgvSelectedFacilityList.Rows.Clear()
 
             For i = 0 To dgvFilteredFacilityList.Rows.Count - 1
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvSelectedFacilityList)
-                dgvRow.Cells(0).Value = dgvFilteredFacilityList(0, i).Value
-                dgvRow.Cells(1).Value = dgvFilteredFacilityList(1, i).Value
+                Using dgvRow As New DataGridViewRow
+                    dgvRow.CreateCells(dgvSelectedFacilityList)
+                    dgvRow.Cells(0).Value = dgvFilteredFacilityList(0, i).Value
+                    dgvRow.Cells(1).Value = dgvFilteredFacilityList(1, i).Value
 
-                If chbIgnoreFiscalYear.Checked = True Then
-                    If IsDBNull(dgvFilteredFacilityList(8, i).Value) Then
-                    Else
-                        dgvRow.Cells(2).Value = dgvFilteredFacilityList(8, i).Value
-                    End If
-                    If IsDBNull(dgvFilteredFacilityList(9, i).Value) Then
-                    Else
-                        dgvRow.Cells(3).Value = dgvFilteredFacilityList(9, i).Value
-                    End If
-                    If IsDBNull(dgvFilteredFacilityList(10, i).Value) Then
-                    Else
-                        dgvRow.Cells(4).Value = dgvFilteredFacilityList(10, i).Value
-                    End If
-                    dgvRow.Cells(5).Value = ""
+                    If chbIgnoreFiscalYear.Checked = True Then
+                        If IsDBNull(dgvFilteredFacilityList(8, i).Value) Then
+                        Else
+                            dgvRow.Cells(2).Value = dgvFilteredFacilityList(8, i).Value
+                        End If
+                        If IsDBNull(dgvFilteredFacilityList(9, i).Value) Then
+                        Else
+                            dgvRow.Cells(3).Value = dgvFilteredFacilityList(9, i).Value
+                        End If
+                        If IsDBNull(dgvFilteredFacilityList(10, i).Value) Then
+                        Else
+                            dgvRow.Cells(4).Value = dgvFilteredFacilityList(10, i).Value
+                        End If
+                        dgvRow.Cells(5).Value = ""
 
-                    'Last Inspection Date
-                    If IsDBNull(dgvFilteredFacilityList(6, i).Value) Then
+                        'Last Inspection Date
+                        If IsDBNull(dgvFilteredFacilityList(6, i).Value) Then
+                        Else
+                            dgvRow.Cells(6).Value = CStr(Format(CDate(dgvFilteredFacilityList(6, i).Value), "dd-MMM-yyyy"))
+                        End If
+                        dgvRow.Cells(7).Value = ""
+                        'Last FCE date
+                        If IsDBNull(dgvFilteredFacilityList(7, i).Value) Then
+                        Else
+                            dgvRow.Cells(8).Value = CStr(Format(CDate(dgvFilteredFacilityList(7, i).Value), "dd-MMM-yyyy"))
+                        End If
+                        If IsDBNull(dgvFilteredFacilityList(3, i).Value) Then
+                        Else
+                            dgvRow.Cells(9).Value = dgvFilteredFacilityList(3, i).Value
+                        End If
                     Else
-                        dgvRow.Cells(6).Value = CStr(Format(CDate(dgvFilteredFacilityList(6, i).Value), "dd-MMM-yyyy"))
+                        If IsDBNull(dgvFilteredFacilityList(10, i).Value) Then
+                        Else
+                            dgvRow.Cells(2).Value = dgvFilteredFacilityList(10, i).Value
+                        End If
+                        If IsDBNull(dgvFilteredFacilityList(11, i).Value) Then
+                        Else
+                            dgvRow.Cells(3).Value = dgvFilteredFacilityList(11, i).Value
+                        End If
+                        If IsDBNull(dgvFilteredFacilityList(12, i).Value) Then
+                        Else
+                            dgvRow.Cells(4).Value = dgvFilteredFacilityList(12, i).Value
+                        End If
+                        If IsDBNull(dgvFilteredFacilityList(6, i).Value) Then
+                        Else
+                            dgvRow.Cells(5).Value = dgvFilteredFacilityList(6, i).Value
+                        End If
+                        'Last Inspection Date
+                        If IsDBNull(dgvFilteredFacilityList(7, i).Value) Then
+                        Else
+                            dgvRow.Cells(6).Value = CStr(Format(CDate(dgvFilteredFacilityList(7, i).Value), "dd-MMM-yyyy"))
+                        End If
+                        If IsDBNull(dgvFilteredFacilityList(8, i).Value) Then
+                        Else
+                            dgvRow.Cells(7).Value = dgvFilteredFacilityList(8, i).Value
+                        End If
+                        'Last FCE date
+                        If IsDBNull(dgvFilteredFacilityList(9, i).Value) Then
+                        Else
+                            dgvRow.Cells(8).Value = CStr(Format(CDate(dgvFilteredFacilityList(9, i).Value), "dd-MMM-yyyy"))
+                        End If
+                        If IsDBNull(dgvFilteredFacilityList(3, i).Value) Then
+                        Else
+                            dgvRow.Cells(9).Value = dgvFilteredFacilityList(3, i).Value
+                        End If
+                        'End If
                     End If
-                    dgvRow.Cells(7).Value = ""
-                    'Last FCE date
-                    If IsDBNull(dgvFilteredFacilityList(7, i).Value) Then
-                    Else
-                        dgvRow.Cells(8).Value = CStr(Format(CDate(dgvFilteredFacilityList(7, i).Value), "dd-MMM-yyyy"))
-                    End If
-                    If IsDBNull(dgvFilteredFacilityList(3, i).Value) Then
-                    Else
-                        dgvRow.Cells(9).Value = dgvFilteredFacilityList(3, i).Value
-                    End If
-                Else
-                    If IsDBNull(dgvFilteredFacilityList(10, i).Value) Then
-                    Else
-                        dgvRow.Cells(2).Value = dgvFilteredFacilityList(10, i).Value
-                    End If
-                    If IsDBNull(dgvFilteredFacilityList(11, i).Value) Then
-                    Else
-                        dgvRow.Cells(3).Value = dgvFilteredFacilityList(11, i).Value
-                    End If
-                    If IsDBNull(dgvFilteredFacilityList(12, i).Value) Then
-                    Else
-                        dgvRow.Cells(4).Value = dgvFilteredFacilityList(12, i).Value
-                    End If
-                    If IsDBNull(dgvFilteredFacilityList(6, i).Value) Then
-                    Else
-                        dgvRow.Cells(5).Value = dgvFilteredFacilityList(6, i).Value
-                    End If
-                    'Last Inspection Date
-                    If IsDBNull(dgvFilteredFacilityList(7, i).Value) Then
-                    Else
-                        dgvRow.Cells(6).Value = CStr(Format(CDate(dgvFilteredFacilityList(7, i).Value), "dd-MMM-yyyy"))
-                    End If
-                    If IsDBNull(dgvFilteredFacilityList(8, i).Value) Then
-                    Else
-                        dgvRow.Cells(7).Value = dgvFilteredFacilityList(8, i).Value
-                    End If
-                    'Last FCE date
-                    If IsDBNull(dgvFilteredFacilityList(9, i).Value) Then
-                    Else
-                        dgvRow.Cells(8).Value = CStr(Format(CDate(dgvFilteredFacilityList(9, i).Value), "dd-MMM-yyyy"))
-                    End If
-                    If IsDBNull(dgvFilteredFacilityList(3, i).Value) Then
-                    Else
-                        dgvRow.Cells(9).Value = dgvFilteredFacilityList(3, i).Value
-                    End If
-                    'End If
-                End If
-                dgvSelectedFacilityList.Rows.Add(dgvRow)
+                    dgvSelectedFacilityList.Rows.Add(dgvRow)
+                End Using
             Next
 
             lblSelectedCount.Text = "Count: " & dgvSelectedFacilityList.Rows.Count.ToString
@@ -2443,7 +2444,7 @@ Public Class SSCPManagersTools
         Try
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "No data saved.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
@@ -2461,7 +2462,7 @@ Public Class SSCPManagersTools
         Try
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
@@ -2480,7 +2481,7 @@ Public Class SSCPManagersTools
         Try
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String
@@ -2527,7 +2528,7 @@ Public Class SSCPManagersTools
         Try
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String
@@ -2576,7 +2577,7 @@ Public Class SSCPManagersTools
 
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
@@ -2658,7 +2659,7 @@ Public Class SSCPManagersTools
         Try
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "No data saved.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
@@ -2676,7 +2677,7 @@ Public Class SSCPManagersTools
         Try
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
@@ -2694,7 +2695,7 @@ Public Class SSCPManagersTools
         Try
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String
@@ -2737,14 +2738,14 @@ Public Class SSCPManagersTools
 
             If cboExistingYears.Text = "" Then
                 MsgBox("Select an existing year from the dropdown." & vbCrLf & "No data altered", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             Else
                 oldYear = CType(cboExistingYears.Text, Integer)
             End If
 
             If mtbNewYear.Text = "" OrElse mtbNewYear.Text.Length <> 4 OrElse Not IsNumeric(mtbNewYear.Text) Then
                 MsgBox("Please enter a complete 4-digit year" & vbCrLf & "No data altered", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             Else
                 targetYear = CType(mtbNewYear.Text, Integer)
             End If
@@ -2754,7 +2755,7 @@ Public Class SSCPManagersTools
                                 "Are you sure you want to proceed?", "Confirm Patience",
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
             If confirmResult = DialogResult.Cancel Then
-                Exit Sub
+                Return
             End If
 
             If DAL.Sscp.AssignmentYearExists(targetYear) Then
@@ -2769,7 +2770,7 @@ Public Class SSCPManagersTools
                             MsgBox("There was an error when attempting to clear data from target year. " &
                                    "Please check the value and try again." & vbCrLf & "No data altered.",
                                    MsgBoxStyle.Exclamation, Me.Text)
-                            Exit Sub
+                            Return
                         End If
                     End If
                 Else
@@ -2778,7 +2779,7 @@ Public Class SSCPManagersTools
                                         ". Are you sure you want to proceed?", "Confirm Merge",
                                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
                     If dialogResult = DialogResult.No Then
-                        Exit Sub
+                        Return
                     End If
                 End If
             End If

@@ -86,7 +86,7 @@ Public Module IaipExceptionManager
         If Not (exc.InnerException Is Nothing) Then
             '-- sometimes the original exception is wrapped in a more relevant outer exception
             '-- the detail exception is the "inner" exception
-            '-- see http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnbda/html/exceptdotnet.asp
+            '-- see https://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnbda/html/exceptdotnet.asp
             With sb
                 .Append("(Inner Exception)")
                 .Append(Environment.NewLine)
@@ -260,7 +260,7 @@ Public Module IaipExceptionManager
     '--
     Private Function CurrentEnvironmentIdentity() As String
         Try
-            Return System.Environment.UserDomainName + "\" + System.Environment.UserName
+            Return Environment.UserDomainName & "\" & Environment.UserName
         Catch ex As Exception
             Return ""
         End Try
@@ -296,7 +296,7 @@ Public Module IaipExceptionManager
             .Append(mi.Name)
 
             '-- build method params
-            Dim objParameters() As ParameterInfo = sf.GetMethod.GetParameters()
+            Dim objParameters As ParameterInfo() = sf.GetMethod.GetParameters()
             Dim objParameter As ParameterInfo
             .Append("(")
             intParam = 0

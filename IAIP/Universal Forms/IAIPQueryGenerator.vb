@@ -3280,31 +3280,28 @@ Public Class IAIPQueryGenerator
                 DefaultsText = DefaultsText & "tnalP"
             End If
 
-            Dim path As New SaveFileDialog
-            Dim DestFilePath As String = "N/A"
+            Using path As New SaveFileDialog With {
+                .InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation),
+                .DefaultExt = ".txt"
+            }
 
-            path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
-            path.DefaultExt = ".txt"
+                If path.ShowDialog() = DialogResult.OK Then
+                    Dim DestFilePath As String = path.FileName.ToString
 
-            If path.ShowDialog = DialogResult.OK Then
-                DestFilePath = path.FileName.ToString
+                    If IO.Path.GetDirectoryName(path.FileName) <> path.InitialDirectory Then
+                        SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
+                    End If
 
-                If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
-                    SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
+                    Dim Encoder As New Text.ASCIIEncoding
+
+                    Dim bytedata As Byte() = Encoder.GetBytes(DefaultsText)
+
+                    Using fs As New FileStream(DestFilePath, FileMode.Create, FileAccess.Write)
+                        fs.Write(bytedata, 0, bytedata.Length)
+                        fs.Close()
+                    End Using
                 End If
-            Else
-                DestFilePath = "N/A"
-            End If
-
-            If DestFilePath <> "N/A" Then
-                Dim Encoder As New Text.ASCIIEncoding
-
-                Dim bytedata As Byte() = Encoder.GetBytes(DefaultsText)
-
-                Dim fs As New FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Write(bytedata, 0, bytedata.Length)
-                fs.Close()
-            End If
+            End Using
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3333,496 +3330,491 @@ Public Class IAIPQueryGenerator
         Dim PlantDesc As String
 
         Try
+            Using path As New OpenFileDialog With {
+                .InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation),
+                .DefaultExt = ".txt"
+            }
 
-            Dim path As New OpenFileDialog
-            Dim DestFilePath As String = "N/A"
+                If path.ShowDialog() = DialogResult.OK Then
+                    Dim DestFilePath As String = path.FileName.ToString
 
-            path.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
-            path.DefaultExt = ".txt"
-
-            If path.ShowDialog = DialogResult.OK Then
-                DestFilePath = path.FileName.ToString
-
-                If Not IO.Path.GetDirectoryName(path.FileName) = path.InitialDirectory Then
-                    SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
-                End If
-            Else
-                DestFilePath = "N/A"
-            End If
-
-            If DestFilePath <> "N/A" Then
-                If File.Exists(DestFilePath) Then
-                    Dim reader As StreamReader = New StreamReader(DestFilePath)
-                    Do
-                        DefaultsText = DefaultsText & reader.ReadLine
-                    Loop Until reader.Peek = -1
-                    reader.Close()
-
-                    If DefaultsText <> "" Then
-                        If DefaultsText.IndexOf("AIRSNumber") <> -1 Then
-                            AIRSNumber = Mid(DefaultsText, DefaultsText.IndexOf("AIRSNumber") + 1, (DefaultsText.IndexOf("rebmuNSRIA") - DefaultsText.IndexOf("AIRSNumber") + 10))
-                            Me.chbAIRSNumber.Checked = True
-                            If AIRSNumber.IndexOf("#-") <> -1 Then
-                                txtAIRSNumberSearch1.Text = Mid(AIRSNumber, (AIRSNumber.IndexOf("#-") + 3), (AIRSNumber.IndexOf("-#") - (AIRSNumber.IndexOf("#-") + 2)))
-                            End If
-                            If AIRSNumber.IndexOf("%-") <> -1 Then
-                                txtAIRSNumberSearch2.Text = Mid(AIRSNumber, (AIRSNumber.IndexOf("%-") + 3), (AIRSNumber.IndexOf("-%") - (AIRSNumber.IndexOf("%-") + 2)))
-                            End If
-                            If AIRSNumber.IndexOf("*-") <> -1 Then
-                                If Mid(AIRSNumber, AIRSNumber.IndexOf("*-") + 3, (AIRSNumber.IndexOf("-*") - (AIRSNumber.IndexOf("*-") + 2))) = "OR" Then
-                                    rdbAIRSNumberOr.Checked = True
-                                Else
-                                    rdbAIRSNumberAnd.Checked = True
-                                End If
-                            End If
-                            If AIRSNumber.IndexOf("@-") <> -1 Then
-                                If Mid(AIRSNumber, AIRSNumber.IndexOf("@-") + 3, (AIRSNumber.IndexOf("-@") - (AIRSNumber.IndexOf("@-") + 2))) = "EQUAL" Then
-                                    rdbAIRSNumberEqual.Checked = True
-                                Else
-                                    rdbAIRSNumberNotEqual.Checked = True
-                                End If
-                            End If
-                            If AIRSNumber.IndexOf("^-") <> -1 Then
-                                txtFacilityAIRSNumberOrder.Text = Mid(AIRSNumber, AIRSNumber.IndexOf("^-") + 3, (AIRSNumber.IndexOf("-^") - (AIRSNumber.IndexOf("^-") + 2)))
-                            End If
-                        End If
-
-                        If DefaultsText.IndexOf("FacilityName") <> -1 Then
-                            FacilityName = Mid(DefaultsText, DefaultsText.IndexOf("FacilityName") + 1, (DefaultsText.IndexOf("emaNytilicaF") - DefaultsText.IndexOf("FacilityName") + 12))
-                            Me.chbFacilityName.Checked = True
-                            If FacilityName.IndexOf("#-") <> -1 Then
-                                txtFacilityNameSearch1.Text = Mid(FacilityName, (FacilityName.IndexOf("#-") + 3), (FacilityName.IndexOf("-#") - (FacilityName.IndexOf("#-") + 2)))
-                            End If
-                            If FacilityName.IndexOf("%-") <> -1 Then
-                                txtFacilityNameSearch2.Text = Mid(FacilityName, (FacilityName.IndexOf("%-") + 3), (FacilityName.IndexOf("-%") - (FacilityName.IndexOf("%-") + 2)))
-                            End If
-                            If FacilityName.IndexOf("*-") <> -1 Then
-                                If Mid(FacilityName, FacilityName.IndexOf("*-") + 3, (FacilityName.IndexOf("-*") - (FacilityName.IndexOf("*-") + 2))) = "OR" Then
-                                    rdbFacilityNameOr.Checked = True
-                                Else
-                                    rdbFacilityNameAnd.Checked = True
-                                End If
-                            End If
-                            If FacilityName.IndexOf("@-") <> -1 Then
-                                If Mid(FacilityName, FacilityName.IndexOf("@-") + 3, (FacilityName.IndexOf("-@") - (FacilityName.IndexOf("@-") + 2))) = "EQUAL" Then
-                                    rdbFacilityNameEqual.Checked = True
-                                Else
-                                    rdbFacilityNameNotEqual.Checked = True
-                                End If
-                            End If
-                            If FacilityName.IndexOf("^-") <> -1 Then
-                                txtFacilityNameOrder.Text = Mid(FacilityName, FacilityName.IndexOf("^-") + 3, (FacilityName.IndexOf("-^") - (FacilityName.IndexOf("^-") + 2)))
-                            End If
-                        End If
-
-                        If DefaultsText.IndexOf("Street1") <> -1 Then
-                            FacilityStreet1 = Mid(DefaultsText, DefaultsText.IndexOf("Street1") + 1, (DefaultsText.IndexOf("1teertS") - DefaultsText.IndexOf("Street1") + 7))
-                            Me.chbFacilityStreet1.Checked = True
-                            If FacilityStreet1.IndexOf("#-") <> -1 Then
-                                txtFacilityStreet1Search1.Text = Mid(FacilityStreet1, (FacilityStreet1.IndexOf("#-") + 3), (FacilityStreet1.IndexOf("-#") - (FacilityStreet1.IndexOf("#-") + 2)))
-                            End If
-                            If FacilityStreet1.IndexOf("%-") <> -1 Then
-                                txtFacilityStreet1Search2.Text = Mid(FacilityStreet1, (FacilityStreet1.IndexOf("%-") + 3), (FacilityStreet1.IndexOf("-%") - (FacilityStreet1.IndexOf("%-") + 2)))
-                            End If
-                            If FacilityStreet1.IndexOf("*-") <> -1 Then
-                                If Mid(FacilityStreet1, FacilityStreet1.IndexOf("*-") + 3, (FacilityStreet1.IndexOf("-*") - (FacilityStreet1.IndexOf("*-") + 2))) = "OR" Then
-                                    rdbFacilityStreet1Or.Checked = True
-                                Else
-                                    rdbFacilityStreet1And.Checked = True
-                                End If
-                            End If
-                            If FacilityStreet1.IndexOf("@-") <> -1 Then
-                                If Mid(FacilityStreet1, FacilityStreet1.IndexOf("@-") + 3, (FacilityStreet1.IndexOf("-@") - (FacilityStreet1.IndexOf("@-") + 2))) = "EQUAL" Then
-                                    rdbFacilityStreet1Equal.Checked = True
-                                Else
-                                    rdbFacilityStreet1NotEqual.Checked = True
-                                End If
-                            End If
-                            If FacilityStreet1.IndexOf("^-") <> -1 Then
-                                txtFacilityStreet1Order.Text = Mid(FacilityStreet1, FacilityStreet1.IndexOf("^-") + 3, (FacilityStreet1.IndexOf("-^") - (FacilityStreet1.IndexOf("^-") + 2)))
-                            End If
-                        End If
-
-                        If DefaultsText.IndexOf("Street2") <> -1 Then
-                            FacilityStreet2 = Mid(DefaultsText, DefaultsText.IndexOf("Street2") + 1, (DefaultsText.IndexOf("2teertS") - DefaultsText.IndexOf("Street2") + 7))
-                            Me.chbFacilityStreet2.Checked = True
-                            If FacilityStreet2.IndexOf("#-") <> -1 Then
-                                txtFacilityStreet2Search1.Text = Mid(FacilityStreet2, (FacilityStreet2.IndexOf("#-") + 3), (FacilityStreet2.IndexOf("-#") - (FacilityStreet2.IndexOf("#-") + 2)))
-                            End If
-                            If FacilityStreet2.IndexOf("%-") <> -1 Then
-                                txtFacilityStreet2Search2.Text = Mid(FacilityStreet2, (FacilityStreet2.IndexOf("%-") + 3), (FacilityStreet2.IndexOf("-%") - (FacilityStreet2.IndexOf("%-") + 2)))
-                            End If
-                            If FacilityStreet2.IndexOf("*-") <> -1 Then
-                                If Mid(FacilityStreet2, FacilityStreet2.IndexOf("*-") + 3, (FacilityStreet2.IndexOf("-*") - (FacilityStreet2.IndexOf("*-") + 2))) = "OR" Then
-                                    rdbFacilityStreet2Or.Checked = True
-                                Else
-                                    rdbFacilityStreet2And.Checked = True
-                                End If
-                            End If
-                            If FacilityStreet2.IndexOf("@-") <> -1 Then
-                                If Mid(FacilityStreet2, FacilityStreet2.IndexOf("@-") + 3, (FacilityStreet2.IndexOf("-@") - (FacilityStreet2.IndexOf("@-") + 2))) = "EQUAL" Then
-                                    rdbFacilityStreet2Equal.Checked = True
-                                Else
-                                    rdbFacilityStreet2NotEqual.Checked = True
-                                End If
-                            End If
-                            If FacilityStreet2.IndexOf("^-") <> -1 Then
-                                txtFacilityStreet2Order.Text = Mid(FacilityStreet2, FacilityStreet2.IndexOf("^-") + 3, (FacilityStreet2.IndexOf("-^") - (FacilityStreet2.IndexOf("^-") + 2)))
-                            End If
-                        End If
-
-                        If DefaultsText.IndexOf("City") <> -1 Then
-                            FacilityCity = Mid(DefaultsText, DefaultsText.IndexOf("City") + 1, (DefaultsText.IndexOf("ytiC") - DefaultsText.IndexOf("City") + 4))
-                            Me.chbFacilityCity.Checked = True
-                            If FacilityCity.IndexOf("#-") <> -1 Then
-                                txtFacilityCitySearch1.Text = Mid(FacilityCity, (FacilityCity.IndexOf("#-") + 3), (FacilityCity.IndexOf("-#") - (FacilityCity.IndexOf("#-") + 2)))
-                            End If
-                            If FacilityCity.IndexOf("%-") <> -1 Then
-                                txtFacilityCitySearch2.Text = Mid(FacilityCity, (FacilityCity.IndexOf("%-") + 3), (FacilityCity.IndexOf("-%") - (FacilityCity.IndexOf("%-") + 2)))
-                            End If
-                            If FacilityCity.IndexOf("*-") <> -1 Then
-                                If Mid(FacilityCity, FacilityCity.IndexOf("*-") + 3, (FacilityCity.IndexOf("-*") - (FacilityCity.IndexOf("*-") + 2))) = "OR" Then
-                                    rdbFacilityCityOr.Checked = True
-                                Else
-                                    rdbFacilityCityAnd.Checked = True
-                                End If
-                            End If
-                            If FacilityCity.IndexOf("@-") <> -1 Then
-                                If Mid(FacilityCity, FacilityCity.IndexOf("@-") + 3, (FacilityCity.IndexOf("-@") - (FacilityCity.IndexOf("@-") + 2))) = "EQUAL" Then
-                                    rdbFacilityCityEqual.Checked = True
-                                Else
-                                    rdbFacilityCityNotEqual.Checked = True
-                                End If
-                            End If
-                            If FacilityCity.IndexOf("^-") <> -1 Then
-                                txtFacilityCityOrder.Text = Mid(FacilityCity, FacilityCity.IndexOf("^-") + 3, (FacilityCity.IndexOf("-^") - (FacilityCity.IndexOf("^-") + 2)))
-                            End If
-                        End If
-
-                        If DefaultsText.IndexOf("ZipCode") <> -1 Then
-                            FacilityZipCode = Mid(DefaultsText, DefaultsText.IndexOf("ZipCode") + 1, (DefaultsText.IndexOf("edoCpiZ") - DefaultsText.IndexOf("ZipCode") + 7))
-                            Me.chbFacilityZipCode.Checked = True
-                            If FacilityZipCode.IndexOf("#-") <> -1 Then
-                                txtFacilityZipCodeSearch1.Text = Mid(FacilityZipCode, (FacilityZipCode.IndexOf("#-") + 3), (FacilityZipCode.IndexOf("-#") - (FacilityZipCode.IndexOf("#-") + 2)))
-                            End If
-                            If FacilityZipCode.IndexOf("%-") <> -1 Then
-                                txtFacilityZipCodeSearch2.Text = Mid(FacilityZipCode, (FacilityZipCode.IndexOf("%-") + 3), (FacilityZipCode.IndexOf("-%") - (FacilityZipCode.IndexOf("%-") + 2)))
-                            End If
-                            If FacilityZipCode.IndexOf("*-") <> -1 Then
-                                If Mid(FacilityZipCode, FacilityZipCode.IndexOf("*-") + 3, (FacilityZipCode.IndexOf("-*") - (FacilityZipCode.IndexOf("*-") + 2))) = "OR" Then
-                                    rdbFacilityZipCodeOr.Checked = True
-                                Else
-                                    rdbFacilityZipCodeAnd.Checked = True
-                                End If
-                            End If
-                            If FacilityZipCode.IndexOf("@-") <> -1 Then
-                                If Mid(FacilityZipCode, FacilityZipCode.IndexOf("@-") + 3, (FacilityZipCode.IndexOf("-@") - (FacilityZipCode.IndexOf("@-") + 2))) = "EQUAL" Then
-                                    rdbFacilityZipCodeEqual.Checked = True
-                                Else
-                                    rdbFacilityZipCodeNotEqual.Checked = True
-                                End If
-                            End If
-                            If FacilityZipCode.IndexOf("^-") <> -1 Then
-                                txtFacilityZipCodeOrder.Text = Mid(FacilityZipCode, FacilityZipCode.IndexOf("^-") + 3, (FacilityZipCode.IndexOf("-^") - (FacilityZipCode.IndexOf("^-") + 2)))
-                            End If
-                        End If
-
-                        If DefaultsText.IndexOf("Longitude") <> -1 Then
-                            Longitude = Mid(DefaultsText, DefaultsText.IndexOf("Longitude") + 1, (DefaultsText.IndexOf("edutignoL") - DefaultsText.IndexOf("Longitude") + 9))
-                            Me.chbFacilityLongitude.Checked = True
-                            If Longitude.IndexOf("#-") <> -1 Then
-                                txtFacilityLongitudeSearch1.Text = Mid(Longitude, (Longitude.IndexOf("#-") + 3), (Longitude.IndexOf("-#") - (Longitude.IndexOf("#-") + 2)))
-                            End If
-                            If Longitude.IndexOf("%-") <> -1 Then
-                                txtFacilityLongitudeSearch2.Text = Mid(Longitude, (Longitude.IndexOf("%-") + 3), (Longitude.IndexOf("-%") - (Longitude.IndexOf("%-") + 2)))
-                            End If
-                            If Longitude.IndexOf("^-") <> -1 Then
-                                txtFacilityLongitudeOrder.Text = Mid(Longitude, Longitude.IndexOf("^-") + 3, (Longitude.IndexOf("-^") - (Longitude.IndexOf("^-") + 2)))
-                            End If
-                        End If
-
-                        If DefaultsText.IndexOf("Latitude") <> -1 Then
-                            Latitude = Mid(DefaultsText, DefaultsText.IndexOf("Latitude") + 1, (DefaultsText.IndexOf("edutitaL") - DefaultsText.IndexOf("Latitude") + 8))
-                            Me.chbFacilityLatitude.Checked = True
-                            If Latitude.IndexOf("#-") <> -1 Then
-                                txtFacilityLatitudeSearch1.Text = Mid(Latitude, (Latitude.IndexOf("#-") + 3), (Latitude.IndexOf("-#") - (Latitude.IndexOf("#-") + 2)))
-                            End If
-                            If Latitude.IndexOf("%-") <> -1 Then
-                                txtFacilityLatitudeSearch2.Text = Mid(Latitude, (Latitude.IndexOf("%-") + 3), (Latitude.IndexOf("-%") - (Latitude.IndexOf("%-") + 2)))
-                            End If
-                            If Latitude.IndexOf("^-") <> -1 Then
-                                txtFacilityLatitudeOrder.Text = Mid(Latitude, Latitude.IndexOf("^-") + 3, (Latitude.IndexOf("-^") - (Latitude.IndexOf("^-") + 2)))
-                            End If
-                        End If
-
-                        If DefaultsText.IndexOf("County") <> -1 Then
-                            County = Mid(DefaultsText, DefaultsText.IndexOf("County") + 1, (DefaultsText.IndexOf("ytnuoC") - DefaultsText.IndexOf("County") + 6))
-                            Me.chbCounty.Checked = True
-                            If County.IndexOf("#-") <> -1 Then
-                                cboCountySearch1.Text = Mid(County, (County.IndexOf("#-") + 3), (County.IndexOf("-#") - (County.IndexOf("#-") + 2)))
-                            End If
-                            If County.IndexOf("%-") <> -1 Then
-                                cboCountySearch2.Text = Mid(County, (County.IndexOf("%-") + 3), (County.IndexOf("-%") - (County.IndexOf("%-") + 2)))
-                            End If
-                            If County.IndexOf("*-") <> -1 Then
-                                If Mid(County, County.IndexOf("*-") + 3, (County.IndexOf("-*") - (County.IndexOf("*-") + 2))) = "OR" Then
-                                    rdbCountyOr.Checked = True
-                                Else
-                                    rdbCountyAnd.Checked = True
-                                End If
-                            End If
-                            If County.IndexOf("@-") <> -1 Then
-                                If Mid(County, County.IndexOf("@-") + 3, (County.IndexOf("-@") - (County.IndexOf("@-") + 2))) = "EQUAL" Then
-                                    rdbCountyEqual.Checked = True
-                                Else
-                                    rdbCountyNotEqual.Checked = True
-                                End If
-                            End If
-                            If County.IndexOf("^-") <> -1 Then
-                                txtCountyOrder.Text = Mid(County, County.IndexOf("^-") + 3, (County.IndexOf("-^") - (County.IndexOf("^-") + 2)))
-                            End If
-                        End If
-
-                        If DefaultsText.IndexOf("District") <> -1 Then
-                            District = Mid(DefaultsText, DefaultsText.IndexOf("District") + 1, (DefaultsText.IndexOf("tcirtsiD") - DefaultsText.IndexOf("District") + 8))
-                            Me.chbDistrict.Checked = True
-                            If District.IndexOf("#-") <> -1 Then
-                                cboDistrictSearch1.Text = Mid(District, (District.IndexOf("#-") + 3), (District.IndexOf("-#") - (District.IndexOf("#-") + 2)))
-                            End If
-                            If District.IndexOf("%-") <> -1 Then
-                                cboDistrictSearch2.Text = Mid(District, (District.IndexOf("%-") + 3), (District.IndexOf("-%") - (District.IndexOf("%-") + 2)))
-                            End If
-                            If District.IndexOf("*-") <> -1 Then
-                                If Mid(District, District.IndexOf("*-") + 3, (District.IndexOf("-*") - (District.IndexOf("*-") + 2))) = "OR" Then
-                                    rdbDistrictOr.Checked = True
-                                Else
-                                    rdbDistrictAnd.Checked = True
-                                End If
-                            End If
-                            If District.IndexOf("@-") <> -1 Then
-                                If Mid(District, District.IndexOf("@-") + 3, (District.IndexOf("-@") - (District.IndexOf("@-") + 2))) = "EQUAL" Then
-                                    rdbDistrictEqual.Checked = True
-                                Else
-                                    rdbDistrictNotEqual.Checked = True
-                                End If
-                            End If
-
-                            If District.IndexOf("^-") <> -1 Then
-                                txtDistrictOrder.Text = Mid(District, District.IndexOf("^-") + 3, (District.IndexOf("-^") - (District.IndexOf("^-") + 2)))
-                            End If
-                        End If
+                    If IO.Path.GetDirectoryName(path.FileName) <> path.InitialDirectory Then
+                        SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(path.FileName))
                     End If
 
-                    If DefaultsText.IndexOf("OpStatus") <> -1 Then
-                        OperationStatus = Mid(DefaultsText, DefaultsText.IndexOf("OpStatus") + 1, (DefaultsText.IndexOf("sutatSpO") - DefaultsText.IndexOf("OpStatus") + 8))
-                        Me.chbOperationStatus.Checked = True
-                        If OperationStatus.IndexOf("#-") <> -1 Then
-                            cboOperationStatusSearch1.Text = Mid(OperationStatus, (OperationStatus.IndexOf("#-") + 3), (OperationStatus.IndexOf("-#") - (OperationStatus.IndexOf("#-") + 2)))
-                        End If
-                        If OperationStatus.IndexOf("%-") <> -1 Then
-                            cboOperationStatusSearch2.Text = Mid(OperationStatus, (OperationStatus.IndexOf("%-") + 3), (OperationStatus.IndexOf("-%") - (OperationStatus.IndexOf("%-") + 2)))
-                        End If
-                        If OperationStatus.IndexOf("*-") <> -1 Then
-                            If Mid(OperationStatus, OperationStatus.IndexOf("*-") + 3, (OperationStatus.IndexOf("-*") - (OperationStatus.IndexOf("*-") + 2))) = "OR" Then
-                                rdbOperationalStatusOr.Checked = True
-                            Else
-                                rdbOperationalStatusAnd.Checked = True
-                            End If
-                        End If
-                        If OperationStatus.IndexOf("@-") <> -1 Then
-                            If Mid(OperationStatus, OperationStatus.IndexOf("@-") + 3, (OperationStatus.IndexOf("-@") - (OperationStatus.IndexOf("@-") + 2))) = "EQUAL" Then
-                                rdbOperationStatusEqual.Checked = True
-                            Else
-                                rdbOperationStatusNotEqual.Checked = True
-                            End If
-                        End If
-                        If OperationStatus.IndexOf("^-") <> -1 Then
-                            txtOperationStatusOrder.Text = Mid(OperationStatus, OperationStatus.IndexOf("^-") + 3, (OperationStatus.IndexOf("-^") - (OperationStatus.IndexOf("^-") + 2)))
-                        End If
-                    End If
+                    If File.Exists(DestFilePath) Then
+                        Dim reader As StreamReader = New StreamReader(DestFilePath)
+                        Do
+                            DefaultsText = DefaultsText & reader.ReadLine
+                        Loop Until reader.Peek = -1
+                        reader.Close()
 
-                    If DefaultsText.IndexOf("Classification") <> -1 Then
-                        Classification = Mid(DefaultsText, DefaultsText.IndexOf("Classification") + 1, (DefaultsText.IndexOf("noitacifissalC") - DefaultsText.IndexOf("Classification") + 14))
-                        Me.chbClassification.Checked = True
-                        If Classification.IndexOf("#-") <> -1 Then
-                            cboClassificationSearch1.Text = Mid(Classification, (Classification.IndexOf("#-") + 3), (Classification.IndexOf("-#") - (Classification.IndexOf("#-") + 2)))
-                        End If
-                        If Classification.IndexOf("%-") <> -1 Then
-                            cboClassificationSearch2.Text = Mid(Classification, (Classification.IndexOf("%-") + 3), (Classification.IndexOf("-%") - (Classification.IndexOf("%-") + 2)))
-                        End If
-                        If Classification.IndexOf("*-") <> -1 Then
-                            If Mid(Classification, Classification.IndexOf("*-") + 3, (Classification.IndexOf("-*") - (Classification.IndexOf("*-") + 2))) = "OR" Then
-                                rdbClassificationOr.Checked = True
-                            Else
-                                rdbClassificationAnd.Checked = True
+                        If DefaultsText <> "" Then
+                            If DefaultsText.IndexOf("AIRSNumber") <> -1 Then
+                                AIRSNumber = Mid(DefaultsText, DefaultsText.IndexOf("AIRSNumber") + 1, (DefaultsText.IndexOf("rebmuNSRIA") - DefaultsText.IndexOf("AIRSNumber") + 10))
+                                Me.chbAIRSNumber.Checked = True
+                                If AIRSNumber.IndexOf("#-") <> -1 Then
+                                    txtAIRSNumberSearch1.Text = Mid(AIRSNumber, (AIRSNumber.IndexOf("#-") + 3), (AIRSNumber.IndexOf("-#") - (AIRSNumber.IndexOf("#-") + 2)))
+                                End If
+                                If AIRSNumber.IndexOf("%-") <> -1 Then
+                                    txtAIRSNumberSearch2.Text = Mid(AIRSNumber, (AIRSNumber.IndexOf("%-") + 3), (AIRSNumber.IndexOf("-%") - (AIRSNumber.IndexOf("%-") + 2)))
+                                End If
+                                If AIRSNumber.IndexOf("*-") <> -1 Then
+                                    If Mid(AIRSNumber, AIRSNumber.IndexOf("*-") + 3, (AIRSNumber.IndexOf("-*") - (AIRSNumber.IndexOf("*-") + 2))) = "OR" Then
+                                        rdbAIRSNumberOr.Checked = True
+                                    Else
+                                        rdbAIRSNumberAnd.Checked = True
+                                    End If
+                                End If
+                                If AIRSNumber.IndexOf("@-") <> -1 Then
+                                    If Mid(AIRSNumber, AIRSNumber.IndexOf("@-") + 3, (AIRSNumber.IndexOf("-@") - (AIRSNumber.IndexOf("@-") + 2))) = "EQUAL" Then
+                                        rdbAIRSNumberEqual.Checked = True
+                                    Else
+                                        rdbAIRSNumberNotEqual.Checked = True
+                                    End If
+                                End If
+                                If AIRSNumber.IndexOf("^-") <> -1 Then
+                                    txtFacilityAIRSNumberOrder.Text = Mid(AIRSNumber, AIRSNumber.IndexOf("^-") + 3, (AIRSNumber.IndexOf("-^") - (AIRSNumber.IndexOf("^-") + 2)))
+                                End If
                             End If
-                        End If
-                        If Classification.IndexOf("@-") <> -1 Then
-                            If Mid(Classification, Classification.IndexOf("@-") + 3, (Classification.IndexOf("-@") - (Classification.IndexOf("@-") + 2))) = "EQUAL" Then
-                                rdbClassificationEqual.Checked = True
-                            Else
-                                rdbClassificationNotEqual.Checked = True
-                            End If
-                        End If
-                        If Classification.IndexOf("^-") <> -1 Then
-                            txtClassificationOrder.Text = Mid(Classification, Classification.IndexOf("^-") + 3, (Classification.IndexOf("-^") - (Classification.IndexOf("^-") + 2)))
-                        End If
-                    End If
 
-                    If DefaultsText.IndexOf("SIC") <> -1 Then
-                        SICCode = Mid(DefaultsText, DefaultsText.IndexOf("SIC") + 1, (DefaultsText.IndexOf("CIS") - DefaultsText.IndexOf("SIC") + 3))
-                        Me.chbSICCode.Checked = True
-                        If SICCode.IndexOf("#-") <> -1 Then
-                            txtSICCodeSearch1.Text = Mid(SICCode, (SICCode.IndexOf("#-") + 3), (SICCode.IndexOf("-#") - (SICCode.IndexOf("#-") + 2)))
-                        End If
-                        If SICCode.IndexOf("%-") <> -1 Then
-                            txtSICCodeSearch2.Text = Mid(SICCode, (SICCode.IndexOf("%-") + 3), (SICCode.IndexOf("-%") - (SICCode.IndexOf("%-") + 2)))
-                        End If
-                        If SICCode.IndexOf("*-") <> -1 Then
-                            If Mid(SICCode, SICCode.IndexOf("*-") + 3, (SICCode.IndexOf("-*") - (SICCode.IndexOf("*-") + 2))) = "OR" Then
-                                rdbSICCodeOr.Checked = True
-                            Else
-                                rdbSICCodeAnd.Checked = True
+                            If DefaultsText.IndexOf("FacilityName") <> -1 Then
+                                FacilityName = Mid(DefaultsText, DefaultsText.IndexOf("FacilityName") + 1, (DefaultsText.IndexOf("emaNytilicaF") - DefaultsText.IndexOf("FacilityName") + 12))
+                                Me.chbFacilityName.Checked = True
+                                If FacilityName.IndexOf("#-") <> -1 Then
+                                    txtFacilityNameSearch1.Text = Mid(FacilityName, (FacilityName.IndexOf("#-") + 3), (FacilityName.IndexOf("-#") - (FacilityName.IndexOf("#-") + 2)))
+                                End If
+                                If FacilityName.IndexOf("%-") <> -1 Then
+                                    txtFacilityNameSearch2.Text = Mid(FacilityName, (FacilityName.IndexOf("%-") + 3), (FacilityName.IndexOf("-%") - (FacilityName.IndexOf("%-") + 2)))
+                                End If
+                                If FacilityName.IndexOf("*-") <> -1 Then
+                                    If Mid(FacilityName, FacilityName.IndexOf("*-") + 3, (FacilityName.IndexOf("-*") - (FacilityName.IndexOf("*-") + 2))) = "OR" Then
+                                        rdbFacilityNameOr.Checked = True
+                                    Else
+                                        rdbFacilityNameAnd.Checked = True
+                                    End If
+                                End If
+                                If FacilityName.IndexOf("@-") <> -1 Then
+                                    If Mid(FacilityName, FacilityName.IndexOf("@-") + 3, (FacilityName.IndexOf("-@") - (FacilityName.IndexOf("@-") + 2))) = "EQUAL" Then
+                                        rdbFacilityNameEqual.Checked = True
+                                    Else
+                                        rdbFacilityNameNotEqual.Checked = True
+                                    End If
+                                End If
+                                If FacilityName.IndexOf("^-") <> -1 Then
+                                    txtFacilityNameOrder.Text = Mid(FacilityName, FacilityName.IndexOf("^-") + 3, (FacilityName.IndexOf("-^") - (FacilityName.IndexOf("^-") + 2)))
+                                End If
                             End If
-                        End If
-                        If SICCode.IndexOf("@-") <> -1 Then
-                            If Mid(SICCode, SICCode.IndexOf("@-") + 3, (SICCode.IndexOf("-@") - (SICCode.IndexOf("@-") + 2))) = "EQUAL" Then
-                                rdbSICCodeEqual.Checked = True
-                            Else
-                                rdbSICCodeNotEqual.Checked = True
-                            End If
-                        End If
-                        If SICCode.IndexOf("^-") <> -1 Then
-                            txtSICCodeOrder.Text = Mid(SICCode, SICCode.IndexOf("^-") + 3, (SICCode.IndexOf("-^") - (SICCode.IndexOf("^-") + 2)))
-                        End If
-                    End If
-                    If DefaultsText.IndexOf("NAICS") <> -1 Then
-                        NAICSCode = Mid(DefaultsText, DefaultsText.IndexOf("NAICS") + 1, (DefaultsText.IndexOf("SCIAN") - DefaultsText.IndexOf("NAICS") + 3))
-                        Me.chbNAICSCode.Checked = True
-                        If NAICSCode.IndexOf("#-") <> -1 Then
-                            txtNAICSCodeSearch1.Text = Mid(NAICSCode, (NAICSCode.IndexOf("#-") + 3), (NAICSCode.IndexOf("-#") - (NAICSCode.IndexOf("#-") + 2)))
-                        End If
-                        If NAICSCode.IndexOf("%-") <> -1 Then
-                            txtNAICSCodeSearch2.Text = Mid(NAICSCode, (NAICSCode.IndexOf("%-") + 3), (NAICSCode.IndexOf("-%") - (NAICSCode.IndexOf("%-") + 2)))
-                        End If
-                        If NAICSCode.IndexOf("*-") <> -1 Then
-                            If Mid(NAICSCode, NAICSCode.IndexOf("*-") + 3, (NAICSCode.IndexOf("-*") - (NAICSCode.IndexOf("*-") + 2))) = "OR" Then
-                                rdbNAICSCodeOr.Checked = True
-                            Else
-                                rdbNAICSCodeAnd.Checked = True
-                            End If
-                        End If
-                        If NAICSCode.IndexOf("@-") <> -1 Then
-                            If Mid(NAICSCode, NAICSCode.IndexOf("@-") + 3, (NAICSCode.IndexOf("-@") - (NAICSCode.IndexOf("@-") + 2))) = "EQUAL" Then
-                                rdbNAICSCodeEqual.Checked = True
-                            Else
-                                rdbNAICSCodeNotEqual.Checked = True
-                            End If
-                        End If
-                        If NAICSCode.IndexOf("^-") <> -1 Then
-                            txtNAICSCodeOrder.Text = Mid(NAICSCode, NAICSCode.IndexOf("^-") + 3, (NAICSCode.IndexOf("-^") - (NAICSCode.IndexOf("^-") + 2)))
-                        End If
-                    End If
-                    If DefaultsText.IndexOf("StartUp") <> -1 Then
-                        StartUpDate = Mid(DefaultsText, DefaultsText.IndexOf("StartUp") + 1, (DefaultsText.IndexOf("pUtratS") - DefaultsText.IndexOf("StartUp") + 7))
-                        Me.chbStartUpDate.Checked = True
-                        If StartUpDate.IndexOf("#-") <> -1 Then
-                            DTPStartUpDateSearch1.Checked = True
-                            DTPStartUpDateSearch1.Text = Mid(StartUpDate, (StartUpDate.IndexOf("#-") + 3), (StartUpDate.IndexOf("-#") - (StartUpDate.IndexOf("#-") + 2)))
-                        End If
-                        If StartUpDate.IndexOf("%-") <> -1 Then
-                            DTPStartUpDateSearch2.Checked = True
-                            DTPStartUpDateSearch2.Text = Mid(StartUpDate, (StartUpDate.IndexOf("%-") + 3), (StartUpDate.IndexOf("-%") - (StartUpDate.IndexOf("%-") + 2)))
-                        End If
-                        If StartUpDate.IndexOf("*-") <> -1 Then
-                            If Mid(StartUpDate, StartUpDate.IndexOf("*-") + 3, (StartUpDate.IndexOf("-*") - (StartUpDate.IndexOf("*-") + 2))) = "Between" Then
-                                rdbStartUpDateBetween.Checked = True
-                            End If
-                        End If
-                        If StartUpDate.IndexOf("@-") <> -1 Then
-                        End If
-                        If StartUpDate.IndexOf("^-") <> -1 Then
-                            txtStartUpDateOrder.Text = Mid(StartUpDate, StartUpDate.IndexOf("^-") + 3, (StartUpDate.IndexOf("-^") - (StartUpDate.IndexOf("^-") + 2)))
-                        End If
-                    End If
-                    If DefaultsText.IndexOf("ShutDown") <> -1 Then
-                        ShutDownDate = Mid(DefaultsText, DefaultsText.IndexOf("ShutDown") + 1, (DefaultsText.IndexOf("nwoDtuhS") - DefaultsText.IndexOf("ShutDown") + 8))
-                        Me.chbShutDownDate.Checked = True
-                        If ShutDownDate.IndexOf("#-") <> -1 Then
-                            DTPShutDownDateSearch1.Checked = True
-                            DTPShutDownDateSearch1.Text = Mid(ShutDownDate, (ShutDownDate.IndexOf("#-") + 3), (ShutDownDate.IndexOf("-#") - (ShutDownDate.IndexOf("#-") + 2)))
-                        End If
-                        If ShutDownDate.IndexOf("%-") <> -1 Then
-                            DTPShutDownDateSearch2.Checked = True
-                            DTPShutDownDateSearch2.Text = Mid(ShutDownDate, (ShutDownDate.IndexOf("%-") + 3), (ShutDownDate.IndexOf("-%") - (ShutDownDate.IndexOf("%-") + 2)))
-                        End If
-                        If ShutDownDate.IndexOf("*-") <> -1 Then
-                            If Mid(ShutDownDate, ShutDownDate.IndexOf("*-") + 3, (ShutDownDate.IndexOf("-*") - (ShutDownDate.IndexOf("*-") + 2))) = "Between" Then
-                                rdbShutDownDateBetween.Checked = True
-                            End If
-                        End If
-                        If ShutDownDate.IndexOf("^-") <> -1 Then
-                            txtShutDownDateOrder.Text = Mid(ShutDownDate, ShutDownDate.IndexOf("^-") + 3, (ShutDownDate.IndexOf("-^") - (ShutDownDate.IndexOf("^-") + 2)))
-                        End If
-                    End If
 
-                    If DefaultsText.IndexOf("CMS") <> -1 Then
-                        CMSUniverse = Mid(DefaultsText, DefaultsText.IndexOf("CMS") + 1, (DefaultsText.IndexOf("SMC") - DefaultsText.IndexOf("CMS") + 3))
-                        Me.chbCMSUniverse.Checked = True
-                        If CMSUniverse.IndexOf("#-") <> -1 Then
-                            cboCMSUniverseSearch1.Text = Mid(CMSUniverse, (CMSUniverse.IndexOf("#-") + 3), (CMSUniverse.IndexOf("-#") - (CMSUniverse.IndexOf("#-") + 2)))
-                        End If
-                        If CMSUniverse.IndexOf("%-") <> -1 Then
-                            cboCMSUniverseSearch2.Text = Mid(CMSUniverse, (CMSUniverse.IndexOf("%-") + 3), (CMSUniverse.IndexOf("-%") - (CMSUniverse.IndexOf("%-") + 2)))
-                        End If
-                        If CMSUniverse.IndexOf("*-") <> -1 Then
-                            If Mid(CMSUniverse, CMSUniverse.IndexOf("*-") + 3, (CMSUniverse.IndexOf("-*") - (CMSUniverse.IndexOf("*-") + 2))) = "OR" Then
-                                rdbCMSUniverseOR.Checked = True
-                            Else
-                                rdbCMSUniverseAnd.Checked = True
+                            If DefaultsText.IndexOf("Street1") <> -1 Then
+                                FacilityStreet1 = Mid(DefaultsText, DefaultsText.IndexOf("Street1") + 1, (DefaultsText.IndexOf("1teertS") - DefaultsText.IndexOf("Street1") + 7))
+                                Me.chbFacilityStreet1.Checked = True
+                                If FacilityStreet1.IndexOf("#-") <> -1 Then
+                                    txtFacilityStreet1Search1.Text = Mid(FacilityStreet1, (FacilityStreet1.IndexOf("#-") + 3), (FacilityStreet1.IndexOf("-#") - (FacilityStreet1.IndexOf("#-") + 2)))
+                                End If
+                                If FacilityStreet1.IndexOf("%-") <> -1 Then
+                                    txtFacilityStreet1Search2.Text = Mid(FacilityStreet1, (FacilityStreet1.IndexOf("%-") + 3), (FacilityStreet1.IndexOf("-%") - (FacilityStreet1.IndexOf("%-") + 2)))
+                                End If
+                                If FacilityStreet1.IndexOf("*-") <> -1 Then
+                                    If Mid(FacilityStreet1, FacilityStreet1.IndexOf("*-") + 3, (FacilityStreet1.IndexOf("-*") - (FacilityStreet1.IndexOf("*-") + 2))) = "OR" Then
+                                        rdbFacilityStreet1Or.Checked = True
+                                    Else
+                                        rdbFacilityStreet1And.Checked = True
+                                    End If
+                                End If
+                                If FacilityStreet1.IndexOf("@-") <> -1 Then
+                                    If Mid(FacilityStreet1, FacilityStreet1.IndexOf("@-") + 3, (FacilityStreet1.IndexOf("-@") - (FacilityStreet1.IndexOf("@-") + 2))) = "EQUAL" Then
+                                        rdbFacilityStreet1Equal.Checked = True
+                                    Else
+                                        rdbFacilityStreet1NotEqual.Checked = True
+                                    End If
+                                End If
+                                If FacilityStreet1.IndexOf("^-") <> -1 Then
+                                    txtFacilityStreet1Order.Text = Mid(FacilityStreet1, FacilityStreet1.IndexOf("^-") + 3, (FacilityStreet1.IndexOf("-^") - (FacilityStreet1.IndexOf("^-") + 2)))
+                                End If
                             End If
-                        End If
-                        If CMSUniverse.IndexOf("@-") <> -1 Then
-                            If Mid(CMSUniverse, CMSUniverse.IndexOf("@-") + 3, (CMSUniverse.IndexOf("-@") - (CMSUniverse.IndexOf("@-") + 2))) = "EQUAL" Then
-                                rdbCMSUniverseEqual.Checked = True
-                            Else
-                                rdbCMSUniverseNotEqual.Checked = True
-                            End If
-                        End If
-                        If CMSUniverse.IndexOf("^-") <> -1 Then
-                            txtCMSUniverseOrder.Text = Mid(CMSUniverse, CMSUniverse.IndexOf("^-") + 3, (CMSUniverse.IndexOf("-^") - (CMSUniverse.IndexOf("^-") + 2)))
-                        End If
-                    End If
 
-                    If DefaultsText.IndexOf("Plant") <> -1 Then
-                        PlantDesc = Mid(DefaultsText, DefaultsText.IndexOf("Plant") + 1, (DefaultsText.IndexOf("tnalP") - DefaultsText.IndexOf("Plant") + 9))
-                        Me.chbPlantDescription.Checked = True
-                        If PlantDesc.IndexOf("#-") <> -1 Then
-                            txtPlantDescriptionSearch1.Text = Mid(PlantDesc, (PlantDesc.IndexOf("#-") + 3), (PlantDesc.IndexOf("-#") - (PlantDesc.IndexOf("#-") + 2)))
-                        End If
-                        If PlantDesc.IndexOf("%-") <> -1 Then
-                            txtPlantDescriptionSearch2.Text = Mid(PlantDesc, (PlantDesc.IndexOf("%-") + 3), (PlantDesc.IndexOf("-%") - (PlantDesc.IndexOf("%-") + 2)))
-                        End If
-                        If PlantDesc.IndexOf("*-") <> -1 Then
-                            If Mid(PlantDesc, PlantDesc.IndexOf("*-") + 3, (PlantDesc.IndexOf("-*") - (PlantDesc.IndexOf("*-") + 2))) = "OR" Then
-                                rdbPlantDescriptionOR.Checked = True
-                            Else
-                                rdbPlantDescriptionAND.Checked = True
+                            If DefaultsText.IndexOf("Street2") <> -1 Then
+                                FacilityStreet2 = Mid(DefaultsText, DefaultsText.IndexOf("Street2") + 1, (DefaultsText.IndexOf("2teertS") - DefaultsText.IndexOf("Street2") + 7))
+                                Me.chbFacilityStreet2.Checked = True
+                                If FacilityStreet2.IndexOf("#-") <> -1 Then
+                                    txtFacilityStreet2Search1.Text = Mid(FacilityStreet2, (FacilityStreet2.IndexOf("#-") + 3), (FacilityStreet2.IndexOf("-#") - (FacilityStreet2.IndexOf("#-") + 2)))
+                                End If
+                                If FacilityStreet2.IndexOf("%-") <> -1 Then
+                                    txtFacilityStreet2Search2.Text = Mid(FacilityStreet2, (FacilityStreet2.IndexOf("%-") + 3), (FacilityStreet2.IndexOf("-%") - (FacilityStreet2.IndexOf("%-") + 2)))
+                                End If
+                                If FacilityStreet2.IndexOf("*-") <> -1 Then
+                                    If Mid(FacilityStreet2, FacilityStreet2.IndexOf("*-") + 3, (FacilityStreet2.IndexOf("-*") - (FacilityStreet2.IndexOf("*-") + 2))) = "OR" Then
+                                        rdbFacilityStreet2Or.Checked = True
+                                    Else
+                                        rdbFacilityStreet2And.Checked = True
+                                    End If
+                                End If
+                                If FacilityStreet2.IndexOf("@-") <> -1 Then
+                                    If Mid(FacilityStreet2, FacilityStreet2.IndexOf("@-") + 3, (FacilityStreet2.IndexOf("-@") - (FacilityStreet2.IndexOf("@-") + 2))) = "EQUAL" Then
+                                        rdbFacilityStreet2Equal.Checked = True
+                                    Else
+                                        rdbFacilityStreet2NotEqual.Checked = True
+                                    End If
+                                End If
+                                If FacilityStreet2.IndexOf("^-") <> -1 Then
+                                    txtFacilityStreet2Order.Text = Mid(FacilityStreet2, FacilityStreet2.IndexOf("^-") + 3, (FacilityStreet2.IndexOf("-^") - (FacilityStreet2.IndexOf("^-") + 2)))
+                                End If
+                            End If
+
+                            If DefaultsText.IndexOf("City") <> -1 Then
+                                FacilityCity = Mid(DefaultsText, DefaultsText.IndexOf("City") + 1, (DefaultsText.IndexOf("ytiC") - DefaultsText.IndexOf("City") + 4))
+                                Me.chbFacilityCity.Checked = True
+                                If FacilityCity.IndexOf("#-") <> -1 Then
+                                    txtFacilityCitySearch1.Text = Mid(FacilityCity, (FacilityCity.IndexOf("#-") + 3), (FacilityCity.IndexOf("-#") - (FacilityCity.IndexOf("#-") + 2)))
+                                End If
+                                If FacilityCity.IndexOf("%-") <> -1 Then
+                                    txtFacilityCitySearch2.Text = Mid(FacilityCity, (FacilityCity.IndexOf("%-") + 3), (FacilityCity.IndexOf("-%") - (FacilityCity.IndexOf("%-") + 2)))
+                                End If
+                                If FacilityCity.IndexOf("*-") <> -1 Then
+                                    If Mid(FacilityCity, FacilityCity.IndexOf("*-") + 3, (FacilityCity.IndexOf("-*") - (FacilityCity.IndexOf("*-") + 2))) = "OR" Then
+                                        rdbFacilityCityOr.Checked = True
+                                    Else
+                                        rdbFacilityCityAnd.Checked = True
+                                    End If
+                                End If
+                                If FacilityCity.IndexOf("@-") <> -1 Then
+                                    If Mid(FacilityCity, FacilityCity.IndexOf("@-") + 3, (FacilityCity.IndexOf("-@") - (FacilityCity.IndexOf("@-") + 2))) = "EQUAL" Then
+                                        rdbFacilityCityEqual.Checked = True
+                                    Else
+                                        rdbFacilityCityNotEqual.Checked = True
+                                    End If
+                                End If
+                                If FacilityCity.IndexOf("^-") <> -1 Then
+                                    txtFacilityCityOrder.Text = Mid(FacilityCity, FacilityCity.IndexOf("^-") + 3, (FacilityCity.IndexOf("-^") - (FacilityCity.IndexOf("^-") + 2)))
+                                End If
+                            End If
+
+                            If DefaultsText.IndexOf("ZipCode") <> -1 Then
+                                FacilityZipCode = Mid(DefaultsText, DefaultsText.IndexOf("ZipCode") + 1, (DefaultsText.IndexOf("edoCpiZ") - DefaultsText.IndexOf("ZipCode") + 7))
+                                Me.chbFacilityZipCode.Checked = True
+                                If FacilityZipCode.IndexOf("#-") <> -1 Then
+                                    txtFacilityZipCodeSearch1.Text = Mid(FacilityZipCode, (FacilityZipCode.IndexOf("#-") + 3), (FacilityZipCode.IndexOf("-#") - (FacilityZipCode.IndexOf("#-") + 2)))
+                                End If
+                                If FacilityZipCode.IndexOf("%-") <> -1 Then
+                                    txtFacilityZipCodeSearch2.Text = Mid(FacilityZipCode, (FacilityZipCode.IndexOf("%-") + 3), (FacilityZipCode.IndexOf("-%") - (FacilityZipCode.IndexOf("%-") + 2)))
+                                End If
+                                If FacilityZipCode.IndexOf("*-") <> -1 Then
+                                    If Mid(FacilityZipCode, FacilityZipCode.IndexOf("*-") + 3, (FacilityZipCode.IndexOf("-*") - (FacilityZipCode.IndexOf("*-") + 2))) = "OR" Then
+                                        rdbFacilityZipCodeOr.Checked = True
+                                    Else
+                                        rdbFacilityZipCodeAnd.Checked = True
+                                    End If
+                                End If
+                                If FacilityZipCode.IndexOf("@-") <> -1 Then
+                                    If Mid(FacilityZipCode, FacilityZipCode.IndexOf("@-") + 3, (FacilityZipCode.IndexOf("-@") - (FacilityZipCode.IndexOf("@-") + 2))) = "EQUAL" Then
+                                        rdbFacilityZipCodeEqual.Checked = True
+                                    Else
+                                        rdbFacilityZipCodeNotEqual.Checked = True
+                                    End If
+                                End If
+                                If FacilityZipCode.IndexOf("^-") <> -1 Then
+                                    txtFacilityZipCodeOrder.Text = Mid(FacilityZipCode, FacilityZipCode.IndexOf("^-") + 3, (FacilityZipCode.IndexOf("-^") - (FacilityZipCode.IndexOf("^-") + 2)))
+                                End If
+                            End If
+
+                            If DefaultsText.IndexOf("Longitude") <> -1 Then
+                                Longitude = Mid(DefaultsText, DefaultsText.IndexOf("Longitude") + 1, (DefaultsText.IndexOf("edutignoL") - DefaultsText.IndexOf("Longitude") + 9))
+                                Me.chbFacilityLongitude.Checked = True
+                                If Longitude.IndexOf("#-") <> -1 Then
+                                    txtFacilityLongitudeSearch1.Text = Mid(Longitude, (Longitude.IndexOf("#-") + 3), (Longitude.IndexOf("-#") - (Longitude.IndexOf("#-") + 2)))
+                                End If
+                                If Longitude.IndexOf("%-") <> -1 Then
+                                    txtFacilityLongitudeSearch2.Text = Mid(Longitude, (Longitude.IndexOf("%-") + 3), (Longitude.IndexOf("-%") - (Longitude.IndexOf("%-") + 2)))
+                                End If
+                                If Longitude.IndexOf("^-") <> -1 Then
+                                    txtFacilityLongitudeOrder.Text = Mid(Longitude, Longitude.IndexOf("^-") + 3, (Longitude.IndexOf("-^") - (Longitude.IndexOf("^-") + 2)))
+                                End If
+                            End If
+
+                            If DefaultsText.IndexOf("Latitude") <> -1 Then
+                                Latitude = Mid(DefaultsText, DefaultsText.IndexOf("Latitude") + 1, (DefaultsText.IndexOf("edutitaL") - DefaultsText.IndexOf("Latitude") + 8))
+                                Me.chbFacilityLatitude.Checked = True
+                                If Latitude.IndexOf("#-") <> -1 Then
+                                    txtFacilityLatitudeSearch1.Text = Mid(Latitude, (Latitude.IndexOf("#-") + 3), (Latitude.IndexOf("-#") - (Latitude.IndexOf("#-") + 2)))
+                                End If
+                                If Latitude.IndexOf("%-") <> -1 Then
+                                    txtFacilityLatitudeSearch2.Text = Mid(Latitude, (Latitude.IndexOf("%-") + 3), (Latitude.IndexOf("-%") - (Latitude.IndexOf("%-") + 2)))
+                                End If
+                                If Latitude.IndexOf("^-") <> -1 Then
+                                    txtFacilityLatitudeOrder.Text = Mid(Latitude, Latitude.IndexOf("^-") + 3, (Latitude.IndexOf("-^") - (Latitude.IndexOf("^-") + 2)))
+                                End If
+                            End If
+
+                            If DefaultsText.IndexOf("County") <> -1 Then
+                                County = Mid(DefaultsText, DefaultsText.IndexOf("County") + 1, (DefaultsText.IndexOf("ytnuoC") - DefaultsText.IndexOf("County") + 6))
+                                Me.chbCounty.Checked = True
+                                If County.IndexOf("#-") <> -1 Then
+                                    cboCountySearch1.Text = Mid(County, (County.IndexOf("#-") + 3), (County.IndexOf("-#") - (County.IndexOf("#-") + 2)))
+                                End If
+                                If County.IndexOf("%-") <> -1 Then
+                                    cboCountySearch2.Text = Mid(County, (County.IndexOf("%-") + 3), (County.IndexOf("-%") - (County.IndexOf("%-") + 2)))
+                                End If
+                                If County.IndexOf("*-") <> -1 Then
+                                    If Mid(County, County.IndexOf("*-") + 3, (County.IndexOf("-*") - (County.IndexOf("*-") + 2))) = "OR" Then
+                                        rdbCountyOr.Checked = True
+                                    Else
+                                        rdbCountyAnd.Checked = True
+                                    End If
+                                End If
+                                If County.IndexOf("@-") <> -1 Then
+                                    If Mid(County, County.IndexOf("@-") + 3, (County.IndexOf("-@") - (County.IndexOf("@-") + 2))) = "EQUAL" Then
+                                        rdbCountyEqual.Checked = True
+                                    Else
+                                        rdbCountyNotEqual.Checked = True
+                                    End If
+                                End If
+                                If County.IndexOf("^-") <> -1 Then
+                                    txtCountyOrder.Text = Mid(County, County.IndexOf("^-") + 3, (County.IndexOf("-^") - (County.IndexOf("^-") + 2)))
+                                End If
+                            End If
+
+                            If DefaultsText.IndexOf("District") <> -1 Then
+                                District = Mid(DefaultsText, DefaultsText.IndexOf("District") + 1, (DefaultsText.IndexOf("tcirtsiD") - DefaultsText.IndexOf("District") + 8))
+                                Me.chbDistrict.Checked = True
+                                If District.IndexOf("#-") <> -1 Then
+                                    cboDistrictSearch1.Text = Mid(District, (District.IndexOf("#-") + 3), (District.IndexOf("-#") - (District.IndexOf("#-") + 2)))
+                                End If
+                                If District.IndexOf("%-") <> -1 Then
+                                    cboDistrictSearch2.Text = Mid(District, (District.IndexOf("%-") + 3), (District.IndexOf("-%") - (District.IndexOf("%-") + 2)))
+                                End If
+                                If District.IndexOf("*-") <> -1 Then
+                                    If Mid(District, District.IndexOf("*-") + 3, (District.IndexOf("-*") - (District.IndexOf("*-") + 2))) = "OR" Then
+                                        rdbDistrictOr.Checked = True
+                                    Else
+                                        rdbDistrictAnd.Checked = True
+                                    End If
+                                End If
+                                If District.IndexOf("@-") <> -1 Then
+                                    If Mid(District, District.IndexOf("@-") + 3, (District.IndexOf("-@") - (District.IndexOf("@-") + 2))) = "EQUAL" Then
+                                        rdbDistrictEqual.Checked = True
+                                    Else
+                                        rdbDistrictNotEqual.Checked = True
+                                    End If
+                                End If
+
+                                If District.IndexOf("^-") <> -1 Then
+                                    txtDistrictOrder.Text = Mid(District, District.IndexOf("^-") + 3, (District.IndexOf("-^") - (District.IndexOf("^-") + 2)))
+                                End If
                             End If
                         End If
-                        If PlantDesc.IndexOf("@-") <> -1 Then
-                            If Mid(PlantDesc, PlantDesc.IndexOf("@-") + 3, (PlantDesc.IndexOf("-@") - (PlantDesc.IndexOf("@-") + 2))) = "EQUAL" Then
-                                rdbPlantDescriptionEqual.Checked = True
-                            Else
-                                rdbPlantDescriptionNotEqual.Checked = True
+
+                        If DefaultsText.IndexOf("OpStatus") <> -1 Then
+                            OperationStatus = Mid(DefaultsText, DefaultsText.IndexOf("OpStatus") + 1, (DefaultsText.IndexOf("sutatSpO") - DefaultsText.IndexOf("OpStatus") + 8))
+                            Me.chbOperationStatus.Checked = True
+                            If OperationStatus.IndexOf("#-") <> -1 Then
+                                cboOperationStatusSearch1.Text = Mid(OperationStatus, (OperationStatus.IndexOf("#-") + 3), (OperationStatus.IndexOf("-#") - (OperationStatus.IndexOf("#-") + 2)))
+                            End If
+                            If OperationStatus.IndexOf("%-") <> -1 Then
+                                cboOperationStatusSearch2.Text = Mid(OperationStatus, (OperationStatus.IndexOf("%-") + 3), (OperationStatus.IndexOf("-%") - (OperationStatus.IndexOf("%-") + 2)))
+                            End If
+                            If OperationStatus.IndexOf("*-") <> -1 Then
+                                If Mid(OperationStatus, OperationStatus.IndexOf("*-") + 3, (OperationStatus.IndexOf("-*") - (OperationStatus.IndexOf("*-") + 2))) = "OR" Then
+                                    rdbOperationalStatusOr.Checked = True
+                                Else
+                                    rdbOperationalStatusAnd.Checked = True
+                                End If
+                            End If
+                            If OperationStatus.IndexOf("@-") <> -1 Then
+                                If Mid(OperationStatus, OperationStatus.IndexOf("@-") + 3, (OperationStatus.IndexOf("-@") - (OperationStatus.IndexOf("@-") + 2))) = "EQUAL" Then
+                                    rdbOperationStatusEqual.Checked = True
+                                Else
+                                    rdbOperationStatusNotEqual.Checked = True
+                                End If
+                            End If
+                            If OperationStatus.IndexOf("^-") <> -1 Then
+                                txtOperationStatusOrder.Text = Mid(OperationStatus, OperationStatus.IndexOf("^-") + 3, (OperationStatus.IndexOf("-^") - (OperationStatus.IndexOf("^-") + 2)))
                             End If
                         End If
-                        If PlantDesc.IndexOf("^-") <> -1 Then
-                            txtPlantDescriptionOrder.Text = Mid(PlantDesc, PlantDesc.IndexOf("^-") + 3, (PlantDesc.IndexOf("-^") - (PlantDesc.IndexOf("^-") + 2)))
+
+                        If DefaultsText.IndexOf("Classification") <> -1 Then
+                            Classification = Mid(DefaultsText, DefaultsText.IndexOf("Classification") + 1, (DefaultsText.IndexOf("noitacifissalC") - DefaultsText.IndexOf("Classification") + 14))
+                            Me.chbClassification.Checked = True
+                            If Classification.IndexOf("#-") <> -1 Then
+                                cboClassificationSearch1.Text = Mid(Classification, (Classification.IndexOf("#-") + 3), (Classification.IndexOf("-#") - (Classification.IndexOf("#-") + 2)))
+                            End If
+                            If Classification.IndexOf("%-") <> -1 Then
+                                cboClassificationSearch2.Text = Mid(Classification, (Classification.IndexOf("%-") + 3), (Classification.IndexOf("-%") - (Classification.IndexOf("%-") + 2)))
+                            End If
+                            If Classification.IndexOf("*-") <> -1 Then
+                                If Mid(Classification, Classification.IndexOf("*-") + 3, (Classification.IndexOf("-*") - (Classification.IndexOf("*-") + 2))) = "OR" Then
+                                    rdbClassificationOr.Checked = True
+                                Else
+                                    rdbClassificationAnd.Checked = True
+                                End If
+                            End If
+                            If Classification.IndexOf("@-") <> -1 Then
+                                If Mid(Classification, Classification.IndexOf("@-") + 3, (Classification.IndexOf("-@") - (Classification.IndexOf("@-") + 2))) = "EQUAL" Then
+                                    rdbClassificationEqual.Checked = True
+                                Else
+                                    rdbClassificationNotEqual.Checked = True
+                                End If
+                            End If
+                            If Classification.IndexOf("^-") <> -1 Then
+                                txtClassificationOrder.Text = Mid(Classification, Classification.IndexOf("^-") + 3, (Classification.IndexOf("-^") - (Classification.IndexOf("^-") + 2)))
+                            End If
+                        End If
+
+                        If DefaultsText.IndexOf("SIC") <> -1 Then
+                            SICCode = Mid(DefaultsText, DefaultsText.IndexOf("SIC") + 1, (DefaultsText.IndexOf("CIS") - DefaultsText.IndexOf("SIC") + 3))
+                            Me.chbSICCode.Checked = True
+                            If SICCode.IndexOf("#-") <> -1 Then
+                                txtSICCodeSearch1.Text = Mid(SICCode, (SICCode.IndexOf("#-") + 3), (SICCode.IndexOf("-#") - (SICCode.IndexOf("#-") + 2)))
+                            End If
+                            If SICCode.IndexOf("%-") <> -1 Then
+                                txtSICCodeSearch2.Text = Mid(SICCode, (SICCode.IndexOf("%-") + 3), (SICCode.IndexOf("-%") - (SICCode.IndexOf("%-") + 2)))
+                            End If
+                            If SICCode.IndexOf("*-") <> -1 Then
+                                If Mid(SICCode, SICCode.IndexOf("*-") + 3, (SICCode.IndexOf("-*") - (SICCode.IndexOf("*-") + 2))) = "OR" Then
+                                    rdbSICCodeOr.Checked = True
+                                Else
+                                    rdbSICCodeAnd.Checked = True
+                                End If
+                            End If
+                            If SICCode.IndexOf("@-") <> -1 Then
+                                If Mid(SICCode, SICCode.IndexOf("@-") + 3, (SICCode.IndexOf("-@") - (SICCode.IndexOf("@-") + 2))) = "EQUAL" Then
+                                    rdbSICCodeEqual.Checked = True
+                                Else
+                                    rdbSICCodeNotEqual.Checked = True
+                                End If
+                            End If
+                            If SICCode.IndexOf("^-") <> -1 Then
+                                txtSICCodeOrder.Text = Mid(SICCode, SICCode.IndexOf("^-") + 3, (SICCode.IndexOf("-^") - (SICCode.IndexOf("^-") + 2)))
+                            End If
+                        End If
+                        If DefaultsText.IndexOf("NAICS") <> -1 Then
+                            NAICSCode = Mid(DefaultsText, DefaultsText.IndexOf("NAICS") + 1, (DefaultsText.IndexOf("SCIAN") - DefaultsText.IndexOf("NAICS") + 3))
+                            Me.chbNAICSCode.Checked = True
+                            If NAICSCode.IndexOf("#-") <> -1 Then
+                                txtNAICSCodeSearch1.Text = Mid(NAICSCode, (NAICSCode.IndexOf("#-") + 3), (NAICSCode.IndexOf("-#") - (NAICSCode.IndexOf("#-") + 2)))
+                            End If
+                            If NAICSCode.IndexOf("%-") <> -1 Then
+                                txtNAICSCodeSearch2.Text = Mid(NAICSCode, (NAICSCode.IndexOf("%-") + 3), (NAICSCode.IndexOf("-%") - (NAICSCode.IndexOf("%-") + 2)))
+                            End If
+                            If NAICSCode.IndexOf("*-") <> -1 Then
+                                If Mid(NAICSCode, NAICSCode.IndexOf("*-") + 3, (NAICSCode.IndexOf("-*") - (NAICSCode.IndexOf("*-") + 2))) = "OR" Then
+                                    rdbNAICSCodeOr.Checked = True
+                                Else
+                                    rdbNAICSCodeAnd.Checked = True
+                                End If
+                            End If
+                            If NAICSCode.IndexOf("@-") <> -1 Then
+                                If Mid(NAICSCode, NAICSCode.IndexOf("@-") + 3, (NAICSCode.IndexOf("-@") - (NAICSCode.IndexOf("@-") + 2))) = "EQUAL" Then
+                                    rdbNAICSCodeEqual.Checked = True
+                                Else
+                                    rdbNAICSCodeNotEqual.Checked = True
+                                End If
+                            End If
+                            If NAICSCode.IndexOf("^-") <> -1 Then
+                                txtNAICSCodeOrder.Text = Mid(NAICSCode, NAICSCode.IndexOf("^-") + 3, (NAICSCode.IndexOf("-^") - (NAICSCode.IndexOf("^-") + 2)))
+                            End If
+                        End If
+                        If DefaultsText.IndexOf("StartUp") <> -1 Then
+                            StartUpDate = Mid(DefaultsText, DefaultsText.IndexOf("StartUp") + 1, (DefaultsText.IndexOf("pUtratS") - DefaultsText.IndexOf("StartUp") + 7))
+                            Me.chbStartUpDate.Checked = True
+                            If StartUpDate.IndexOf("#-") <> -1 Then
+                                DTPStartUpDateSearch1.Checked = True
+                                DTPStartUpDateSearch1.Text = Mid(StartUpDate, (StartUpDate.IndexOf("#-") + 3), (StartUpDate.IndexOf("-#") - (StartUpDate.IndexOf("#-") + 2)))
+                            End If
+                            If StartUpDate.IndexOf("%-") <> -1 Then
+                                DTPStartUpDateSearch2.Checked = True
+                                DTPStartUpDateSearch2.Text = Mid(StartUpDate, (StartUpDate.IndexOf("%-") + 3), (StartUpDate.IndexOf("-%") - (StartUpDate.IndexOf("%-") + 2)))
+                            End If
+                            If StartUpDate.IndexOf("*-") <> -1 Then
+                                If Mid(StartUpDate, StartUpDate.IndexOf("*-") + 3, (StartUpDate.IndexOf("-*") - (StartUpDate.IndexOf("*-") + 2))) = "Between" Then
+                                    rdbStartUpDateBetween.Checked = True
+                                End If
+                            End If
+                            If StartUpDate.IndexOf("@-") <> -1 Then
+                            End If
+                            If StartUpDate.IndexOf("^-") <> -1 Then
+                                txtStartUpDateOrder.Text = Mid(StartUpDate, StartUpDate.IndexOf("^-") + 3, (StartUpDate.IndexOf("-^") - (StartUpDate.IndexOf("^-") + 2)))
+                            End If
+                        End If
+                        If DefaultsText.IndexOf("ShutDown") <> -1 Then
+                            ShutDownDate = Mid(DefaultsText, DefaultsText.IndexOf("ShutDown") + 1, (DefaultsText.IndexOf("nwoDtuhS") - DefaultsText.IndexOf("ShutDown") + 8))
+                            Me.chbShutDownDate.Checked = True
+                            If ShutDownDate.IndexOf("#-") <> -1 Then
+                                DTPShutDownDateSearch1.Checked = True
+                                DTPShutDownDateSearch1.Text = Mid(ShutDownDate, (ShutDownDate.IndexOf("#-") + 3), (ShutDownDate.IndexOf("-#") - (ShutDownDate.IndexOf("#-") + 2)))
+                            End If
+                            If ShutDownDate.IndexOf("%-") <> -1 Then
+                                DTPShutDownDateSearch2.Checked = True
+                                DTPShutDownDateSearch2.Text = Mid(ShutDownDate, (ShutDownDate.IndexOf("%-") + 3), (ShutDownDate.IndexOf("-%") - (ShutDownDate.IndexOf("%-") + 2)))
+                            End If
+                            If ShutDownDate.IndexOf("*-") <> -1 Then
+                                If Mid(ShutDownDate, ShutDownDate.IndexOf("*-") + 3, (ShutDownDate.IndexOf("-*") - (ShutDownDate.IndexOf("*-") + 2))) = "Between" Then
+                                    rdbShutDownDateBetween.Checked = True
+                                End If
+                            End If
+                            If ShutDownDate.IndexOf("^-") <> -1 Then
+                                txtShutDownDateOrder.Text = Mid(ShutDownDate, ShutDownDate.IndexOf("^-") + 3, (ShutDownDate.IndexOf("-^") - (ShutDownDate.IndexOf("^-") + 2)))
+                            End If
+                        End If
+
+                        If DefaultsText.IndexOf("CMS") <> -1 Then
+                            CMSUniverse = Mid(DefaultsText, DefaultsText.IndexOf("CMS") + 1, (DefaultsText.IndexOf("SMC") - DefaultsText.IndexOf("CMS") + 3))
+                            Me.chbCMSUniverse.Checked = True
+                            If CMSUniverse.IndexOf("#-") <> -1 Then
+                                cboCMSUniverseSearch1.Text = Mid(CMSUniverse, (CMSUniverse.IndexOf("#-") + 3), (CMSUniverse.IndexOf("-#") - (CMSUniverse.IndexOf("#-") + 2)))
+                            End If
+                            If CMSUniverse.IndexOf("%-") <> -1 Then
+                                cboCMSUniverseSearch2.Text = Mid(CMSUniverse, (CMSUniverse.IndexOf("%-") + 3), (CMSUniverse.IndexOf("-%") - (CMSUniverse.IndexOf("%-") + 2)))
+                            End If
+                            If CMSUniverse.IndexOf("*-") <> -1 Then
+                                If Mid(CMSUniverse, CMSUniverse.IndexOf("*-") + 3, (CMSUniverse.IndexOf("-*") - (CMSUniverse.IndexOf("*-") + 2))) = "OR" Then
+                                    rdbCMSUniverseOR.Checked = True
+                                Else
+                                    rdbCMSUniverseAnd.Checked = True
+                                End If
+                            End If
+                            If CMSUniverse.IndexOf("@-") <> -1 Then
+                                If Mid(CMSUniverse, CMSUniverse.IndexOf("@-") + 3, (CMSUniverse.IndexOf("-@") - (CMSUniverse.IndexOf("@-") + 2))) = "EQUAL" Then
+                                    rdbCMSUniverseEqual.Checked = True
+                                Else
+                                    rdbCMSUniverseNotEqual.Checked = True
+                                End If
+                            End If
+                            If CMSUniverse.IndexOf("^-") <> -1 Then
+                                txtCMSUniverseOrder.Text = Mid(CMSUniverse, CMSUniverse.IndexOf("^-") + 3, (CMSUniverse.IndexOf("-^") - (CMSUniverse.IndexOf("^-") + 2)))
+                            End If
+                        End If
+
+                        If DefaultsText.IndexOf("Plant") <> -1 Then
+                            PlantDesc = Mid(DefaultsText, DefaultsText.IndexOf("Plant") + 1, (DefaultsText.IndexOf("tnalP") - DefaultsText.IndexOf("Plant") + 9))
+                            Me.chbPlantDescription.Checked = True
+                            If PlantDesc.IndexOf("#-") <> -1 Then
+                                txtPlantDescriptionSearch1.Text = Mid(PlantDesc, (PlantDesc.IndexOf("#-") + 3), (PlantDesc.IndexOf("-#") - (PlantDesc.IndexOf("#-") + 2)))
+                            End If
+                            If PlantDesc.IndexOf("%-") <> -1 Then
+                                txtPlantDescriptionSearch2.Text = Mid(PlantDesc, (PlantDesc.IndexOf("%-") + 3), (PlantDesc.IndexOf("-%") - (PlantDesc.IndexOf("%-") + 2)))
+                            End If
+                            If PlantDesc.IndexOf("*-") <> -1 Then
+                                If Mid(PlantDesc, PlantDesc.IndexOf("*-") + 3, (PlantDesc.IndexOf("-*") - (PlantDesc.IndexOf("*-") + 2))) = "OR" Then
+                                    rdbPlantDescriptionOR.Checked = True
+                                Else
+                                    rdbPlantDescriptionAND.Checked = True
+                                End If
+                            End If
+                            If PlantDesc.IndexOf("@-") <> -1 Then
+                                If Mid(PlantDesc, PlantDesc.IndexOf("@-") + 3, (PlantDesc.IndexOf("-@") - (PlantDesc.IndexOf("@-") + 2))) = "EQUAL" Then
+                                    rdbPlantDescriptionEqual.Checked = True
+                                Else
+                                    rdbPlantDescriptionNotEqual.Checked = True
+                                End If
+                            End If
+                            If PlantDesc.IndexOf("^-") <> -1 Then
+                                txtPlantDescriptionOrder.Text = Mid(PlantDesc, PlantDesc.IndexOf("^-") + 3, (PlantDesc.IndexOf("-^") - (PlantDesc.IndexOf("^-") + 2)))
+                            End If
                         End If
                     End If
                 End If
-            End If
+            End Using
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
