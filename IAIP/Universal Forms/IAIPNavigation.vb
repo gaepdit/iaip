@@ -26,7 +26,6 @@ Public Class IAIPNavigation
         LoadStatusBar()
         EnableConnectionEnvironmentOptions()
         DisplayUsername()
-        lblAnnouncement.ForeColor = IaipColors.ErrorForeColor
 
 #If SqlServer Then
         Me.Text = "IAIP SQL Server Edition"
