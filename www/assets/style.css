@@ -421,6 +421,37 @@ figcaption {
   border-top: 1px solid hsl(210, 100%, 85.9%);
 }
 
+.announcement {
+  display: inline-block;
+  max-width: 25rem;
+  margin-top: 5px;
+  padding: 5px 16px;
+  background: lightyellow;
+  border: 1px solid beige;
+  border-radius: 5px;
+}
+
+.announcement.announcement-centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.announcement h2 {
+  margin-top: 0;
+  padding-top: 0;
+  border: none;
+}
+
+.announcement.announcement-severe {
+  background: #ffd9df;
+  border: 3px solid #ac3e3e;
+}
+
+.announcement.announcement-severe h2 {
+  color: #8e1e1e;
+}
+
 :target {
   background: #ffa;
 }
@@ -500,7 +531,7 @@ a[href="setup.exe"] {
   color: #fff;
   position: relative;
   text-decoration: none;
-  text-shadow: 0px 1px 5px rgba(0,0,0,.4);
+  text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
 }
 
 a[href$=".application"]:hover,
