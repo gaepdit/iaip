@@ -20,7 +20,7 @@ Partial Class IAIPNavigation
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiExit = New System.Windows.Forms.MenuItem()
@@ -88,6 +88,8 @@ Partial Class IAIPNavigation
         Me.cboNavWorkListContext = New System.Windows.Forms.ComboBox()
         Me.NavWorkListScopePanel = New System.Windows.Forms.Panel()
         Me.dgvWorkViewer = New Iaip.IaipDataGridView()
+        Me.pnlAnnouncement = New System.Windows.Forms.Panel()
+        Me.lblAnnouncement = New System.Windows.Forms.Label()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -95,6 +97,7 @@ Partial Class IAIPNavigation
         Me.NavWorkListChangerPanel.SuspendLayout()
         Me.NavWorkListScopePanel.SuspendLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlAnnouncement.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainMenu1
@@ -211,7 +214,7 @@ Partial Class IAIPNavigation
         Me.lblTitle.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTitle.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.lblTitle.Location = New System.Drawing.Point(118, 0)
+        Me.lblTitle.Location = New System.Drawing.Point(118, 39)
         Me.lblTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblTitle.Name = "lblTitle"
         Me.lblTitle.Size = New System.Drawing.Size(686, 33)
@@ -747,20 +750,43 @@ Partial Class IAIPNavigation
         '
         'dgvWorkViewer
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvWorkViewer.ColumnHeadersHeight = 35
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvWorkViewer.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvWorkViewer.LinkifyColumnByName = Nothing
-        Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 33)
+        Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 72)
         Me.dgvWorkViewer.Name = "dgvWorkViewer"
         Me.dgvWorkViewer.ResultsCountLabel = Me.lblResultsCount
         Me.dgvWorkViewer.ResultsCountLabelFormat = "{0} found"
-        Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 170)
+        Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 131)
         Me.dgvWorkViewer.StandardTab = True
         Me.dgvWorkViewer.TabIndex = 4
+        '
+        'pnlAnnouncement
+        '
+        Me.pnlAnnouncement.Controls.Add(Me.lblAnnouncement)
+        Me.pnlAnnouncement.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pnlAnnouncement.Location = New System.Drawing.Point(118, 0)
+        Me.pnlAnnouncement.Name = "pnlAnnouncement"
+        Me.pnlAnnouncement.Size = New System.Drawing.Size(686, 39)
+        Me.pnlAnnouncement.TabIndex = 265
+        '
+        'lblAnnouncement
+        '
+        Me.lblAnnouncement.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblAnnouncement.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblAnnouncement.Location = New System.Drawing.Point(8, 0)
+        Me.lblAnnouncement.Name = "lblAnnouncement"
+        Me.lblAnnouncement.Size = New System.Drawing.Size(666, 39)
+        Me.lblAnnouncement.TabIndex = 0
+        Me.lblAnnouncement.Text = "The IAIP will be unavailable from Friday, November 1, at 2 pm until Monday, Novem" &
+    "ber 4, at 6 am for a scheduled maintenance outage. Thank you for your patience!"
+        Me.lblAnnouncement.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'IAIPNavigation
         '
@@ -772,6 +798,7 @@ Partial Class IAIPNavigation
         Me.Controls.Add(Me.grpQuickAccess)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.lblTitle)
+        Me.Controls.Add(Me.pnlAnnouncement)
         Me.Controls.Add(Me.flpNavButtons)
         Me.Controls.Add(Me.lblMessageLabel)
         Me.Margin = New System.Windows.Forms.Padding(2)
@@ -792,6 +819,7 @@ Partial Class IAIPNavigation
         Me.NavWorkListScopePanel.ResumeLayout(False)
         Me.NavWorkListScopePanel.PerformLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlAnnouncement.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -863,4 +891,6 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiSecurity As MenuItem
     Friend WithEvents RunTest2 As MenuItem
     Friend WithEvents lblResultsCount As Label
+    Friend WithEvents pnlAnnouncement As Panel
+    Friend WithEvents lblAnnouncement As Label
 End Class
