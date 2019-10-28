@@ -1,14 +1,7 @@
 % Integrated Air Information Platform
 
-<div class="announcement announcement-severe announcement-centered">
-
-## Notice
-
-The IAIP will be unavailable from Friday, November&nbsp;1, at 2&nbsp;pm until Monday, November&nbsp;4, at 6&nbsp;am for a scheduled maintenance outage. Thank you for your patience!
-
-</div>
-
 The IAIP was developed by the Georgia EPD to collect and organize data required to operate an efficient air quality program. IAIP development began in 2004 and is ongoing.
+
 
 ## Installation
 
