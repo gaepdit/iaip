@@ -8,6 +8,14 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.15.0 <span>(2019-10-25)</span>
+
+The following bugs were fixed:
+
+* The confirmation dialog no longer showed when saving SSCP data in a test report.
+* The Permit App Submitted to Review checkbox could not be unchecked if it was accidentally checked.
+* Prevented some errors on the Permit App form.
+
 ## Version 5.14.5 <span>(2019-10-4)</span>
 
 Minor bug fixes.
