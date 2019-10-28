@@ -47,7 +47,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>ftp://167.192.208.134/iaip.gaepd.org/install/</PublishUrl>
+    <PublishUrl>ftp://10.149.210.227/iaip.gaepd.org/install/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
