@@ -573,20 +573,6 @@ a[href="IaipHorizon.application"]:active {
   box-shadow: 0px 1px 0px hsl(0, 0%, 70%), 0 2px hsl(0, 0%, 40%);
 }
 
-a[href="IaipSEI.application"] {
-  background-color: hsl(190, 72%, 68%);
-  box-shadow: 0px 1px 0px hsl(190, 72%, 68%), 0 5px hsl(190, 60%, 50%);
-}
-a[href="IaipSEI.application"]:hover,
-a[href="IaipSEI.application"]:focus {
-  top: 1px;
-  box-shadow: 0px 1px 0px hsl(190, 72%, 68%), 0 4px hsl(190, 60%, 50%);
-}
-a[href="IaipSEI.application"]:active {
-  top: 3px;
-  box-shadow: 0px 1px 0px hsl(190, 72%, 68%), 0 2px hsl(190, 60%, 50%);
-}
-
 /* 
 GeorgiaGov Interactive 
 Web Standards and Guidelines » 6.0 Brand Standards » 6.2 Shared Elements
