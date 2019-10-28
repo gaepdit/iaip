@@ -103,17 +103,14 @@ Public Class SBEAPPhoneLog
                     CompanyName = dr.Item("strCompanyName") & vbCrLf
                 End If
                 If IsDBNull(dr.Item("strCompanyAddress")) Then
-                    CompanyAddress = CompanyAddress
                 Else
                     CompanyAddress = CompanyAddress & dr.Item("strCompanyAddress") & vbCrLf
                 End If
                 If IsDBNull(dr.Item("strCompanyCity")) Then
-                    CompanyAddress = CompanyAddress
                 Else
                     CompanyAddress = CompanyAddress & dr.Item("strCompanyCity")
                 End If
                 If IsDBNull(dr.Item("strCompanyState")) Then
-                    CompanyAddress = CompanyAddress
                 Else
                     CompanyAddress = CompanyAddress & ", " & dr.Item("strCompanyState")
                 End If
@@ -467,12 +464,12 @@ Public Class SBEAPPhoneLog
     End Sub
 
     Private Sub tsbClientSearch_Click(sender As Object, e As EventArgs) Handles tsbClientSearch.Click
-        Dim clientSearchDialog As New SBEAPClientSearchTool
-        clientSearchDialog.ShowDialog()
-        If clientSearchDialog.DialogResult = DialogResult.OK Then
-            txtClientID.Text = clientSearchDialog.SelectedClientID
-            LoadClientInfo()
-        End If
+        Using clientSearchDialog As New SBEAPClientSearchTool
+            If clientSearchDialog.ShowDialog() = DialogResult.OK Then
+                txtClientID.Text = clientSearchDialog.SelectedClientID
+                LoadClientInfo()
+            End If
+        End Using
     End Sub
 
     Private Sub mmiClearCaseID_Click(sender As Object, e As EventArgs) Handles mmiClearCaseID.Click

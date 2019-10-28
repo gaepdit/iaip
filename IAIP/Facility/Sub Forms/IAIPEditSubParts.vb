@@ -295,8 +295,8 @@ Public Class IAIPEditSubParts
         Dim SqlList As New List(Of String)
         Dim ParamList As New List(Of SqlParameter())
 
-        Dim clb As New CheckedListBox
-        Dim ruleKey As String = ""
+        Dim clb As CheckedListBox
+        Dim ruleKey As String
 
         Select Case rulePart
             Case RulePart.MACT
@@ -311,6 +311,8 @@ Public Class IAIPEditSubParts
             Case RulePart.SIP
                 clb = clbSIP
                 ruleKey = "0"
+            Case Else
+                Exit Sub
         End Select
 
         For Each spi As SubpartItem In clb.CheckedItems

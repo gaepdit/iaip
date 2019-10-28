@@ -155,7 +155,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadOneStackTwoRun()
-        Dim rpt As New CROneStackTwoRuns
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -342,12 +341,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -403,11 +399,7 @@ Public Class IAIPPrintOut
                     spValue.Value = ", --Conf--"
                 End If
             Else
-                If Mid(ConfidentialData, 9, 1) = "1" Then
-                    spValue.Value = dr.Item("UnitManager")
-                Else
-                    spValue.Value = dr.Item("UnitManager")
-                End If
+                spValue.Value = dr.Item("UnitManager")
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -674,8 +666,6 @@ Public Class IAIPPrintOut
                 spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = "; " & vbCrLf & "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -688,8 +678,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("AllowableEmissionRateUnit3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = " "
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -1013,8 +1001,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
-
+            CRViewer.ReportSource = New CROneStackTwoRuns
         Else
             MsgBox("Unable to Print at this time.")
             Me.Close()
@@ -1023,7 +1010,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadOneStackThreeRun()
-        Dim rpt As New CROneStackThreeRuns
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -1201,12 +1187,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -1262,11 +1245,7 @@ Public Class IAIPPrintOut
                     spValue.Value = ", --Conf--"
                 End If
             Else
-                If Mid(ConfidentialData, 9, 1) = "1" Then
-                    spValue.Value = dr.Item("UnitManager")
-                Else
-                    spValue.Value = dr.Item("UnitManager")
-                End If
+                spValue.Value = dr.Item("UnitManager")
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -1535,8 +1514,6 @@ Public Class IAIPPrintOut
                 spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = "; " & vbCrLf & "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -1549,8 +1526,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("AllowableEmissionRateUnit3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = " "
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -1965,7 +1940,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CROneStackThreeRuns
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -1975,7 +1950,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadOneStackFourRun()
-        Dim rpt As New CROneStackFourRuns
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -2152,12 +2126,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -2213,11 +2184,7 @@ Public Class IAIPPrintOut
                     spValue.Value = ", --Conf--"
                 End If
             Else
-                If Mid(ConfidentialData, 9, 1) = "1" Then
-                    spValue.Value = dr.Item("UnitManager")
-                Else
-                    spValue.Value = dr.Item("UnitManager")
-                End If
+                spValue.Value = dr.Item("UnitManager")
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -2483,8 +2450,6 @@ Public Class IAIPPrintOut
                 spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = "; " & vbCrLf & "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -2497,8 +2462,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("AllowableEmissionRateUnit3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = " "
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -3004,7 +2967,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CROneStackFourRuns
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -3014,7 +2977,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadTwoStackStandard()
-        Dim rpt As New CRTwoStackStandard
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -3191,12 +3153,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -3252,11 +3211,7 @@ Public Class IAIPPrintOut
                     spValue.Value = ", --Conf--"
                 End If
             Else
-                If Mid(ConfidentialData, 9, 1) = "1" Then
-                    spValue.Value = dr.Item("UnitManager")
-                Else
-                    spValue.Value = dr.Item("UnitManager")
-                End If
+                spValue.Value = dr.Item("UnitManager")
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -3523,8 +3478,6 @@ Public Class IAIPPrintOut
                 spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = "; " & vbCrLf & "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -3537,8 +3490,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("AllowableEmissionRateUnit3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = " "
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -4291,7 +4242,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRTwoStackStandard
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -4301,7 +4252,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadTwoStackDRE()
-        Dim rpt As New CRTwoStackDRE
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -4478,12 +4428,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -4539,11 +4486,7 @@ Public Class IAIPPrintOut
                     spValue.Value = ", --Conf--"
                 End If
             Else
-                If Mid(ConfidentialData, 9, 1) = "1" Then
-                    spValue.Value = dr.Item("UnitManager")
-                Else
-                    spValue.Value = dr.Item("UnitManager")
-                End If
+                spValue.Value = dr.Item("UnitManager")
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -4813,8 +4756,6 @@ Public Class IAIPPrintOut
                 spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = "; " & vbCrLf & "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -4827,8 +4768,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("AllowableEmissionRateUnit3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = " "
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -5529,7 +5468,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRTwoStackDRE
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -5539,7 +5478,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadLoadingRack()
-        Dim rpt As New CRLoadingRack
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -5720,12 +5658,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -5781,11 +5716,7 @@ Public Class IAIPPrintOut
                     spValue.Value = ", --Conf--"
                 End If
             Else
-                If Mid(ConfidentialData, 9, 1) = "1" Then
-                    spValue.Value = dr.Item("UnitManager")
-                Else
-                    spValue.Value = dr.Item("UnitManager")
-                End If
+                spValue.Value = dr.Item("UnitManager")
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -6052,8 +5983,6 @@ Public Class IAIPPrintOut
                 spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3A")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = "; " & vbCrLf & "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -6066,8 +5995,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("AllowableEmissionRateUnit3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = " "
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -6223,7 +6150,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRLoadingRack
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -6233,7 +6160,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadPondTreatment()
-        Dim rpt As New CRPondTreatment
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -6410,12 +6336,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -6471,11 +6394,7 @@ Public Class IAIPPrintOut
                     spValue.Value = ", --Conf--"
                 End If
             Else
-                If Mid(ConfidentialData, 9, 1) = "1" Then
-                    spValue.Value = dr.Item("UnitManager")
-                Else
-                    spValue.Value = dr.Item("UnitManager")
-                End If
+                spValue.Value = dr.Item("UnitManager")
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -6742,8 +6661,6 @@ Public Class IAIPPrintOut
                 spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = "; " & vbCrLf & "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -6756,8 +6673,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("AllowableEmissionRateUnit3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = " "
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -7016,7 +6931,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRPondTreatment
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -7026,7 +6941,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadGasConcentration()
-        Dim rpt As New CRGasConcentration
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -7203,12 +7117,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7264,11 +7175,7 @@ Public Class IAIPPrintOut
                     spValue.Value = ", --Conf--"
                 End If
             Else
-                If Mid(ConfidentialData, 9, 1) = "1" Then
-                    spValue.Value = dr.Item("UnitManager")
-                Else
-                    spValue.Value = dr.Item("UnitManager")
-                End If
+                spValue.Value = dr.Item("UnitManager")
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7281,8 +7188,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceManager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7296,8 +7201,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("ForTestDateStart")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -7310,8 +7213,6 @@ Public Class IAIPPrintOut
                 spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -7325,8 +7226,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ForReceivedDate")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7339,8 +7238,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("mmoCommentArea")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 47, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7353,8 +7250,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceStatement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7367,8 +7262,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strControlEquipmentData")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 32, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7382,8 +7275,6 @@ Public Class IAIPPrintOut
                 spValue.Value = ", " & dr.Item("CC")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -7415,8 +7306,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strMaxoperatingCapacity")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7429,8 +7318,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("MaxOperatingCapacityUnit")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7443,8 +7330,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("stroperatingCapacity")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7457,8 +7342,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("OperatingCapacityUnit")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7471,8 +7354,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strAllowableEmissionRate1")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7485,8 +7366,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("AllowableEmissionRateUnit1")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7501,8 +7380,6 @@ Public Class IAIPPrintOut
                 spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate2")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
                     spValue.Value = "; " & vbCrLf & "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -7514,8 +7391,6 @@ Public Class IAIPPrintOut
                 ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
                     spValue.Value = " "
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 spValue.Value = dr.Item("AllowableEmissionRateUnit2")
                 ParameterField.CurrentValues.Add(spValue)
@@ -7551,8 +7426,6 @@ Public Class IAIPPrintOut
                 spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = "; " & vbCrLf & "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -7565,8 +7438,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("AllowableEmissionRateUnit3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = " "
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -7599,8 +7470,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strRunNumber1a")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 33, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7613,8 +7482,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strRunNumber1B")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 36, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7627,8 +7494,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strRunNumber1C")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 39, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7641,8 +7506,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strPollutantConcentration1A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 34, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7655,8 +7518,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strPollutantConcentration1B")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 37, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7669,8 +7530,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strPollutantConcentration1C")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 40, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7683,8 +7542,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("POllutantConcentrationUnit")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 42, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7697,8 +7554,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strPOllutantConcentrationAvg")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 43, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7711,8 +7566,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEmissionRate1A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 35, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7725,8 +7578,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEmissionRate1B")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 38, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7739,8 +7590,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEmissionRate1C")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 41, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7753,8 +7602,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("EmissionRateUnit")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 44, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7767,8 +7614,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEmissionRateAvg")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 45, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7781,8 +7626,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strPercentAllowable")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 46, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7839,7 +7682,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRGasConcentration
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -7849,7 +7692,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadFlare()
-        Dim rpt As New CRFlare
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -7923,8 +7765,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strProgrammanager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7937,8 +7777,6 @@ Public Class IAIPPrintOut
             spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7951,8 +7789,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("FacilityName")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -7991,8 +7827,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("PollutantDescription")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8005,8 +7839,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEmissionSource")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8025,12 +7857,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8043,8 +7872,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strApplicableRequirement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8057,8 +7884,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ReviewingEngineer")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8088,11 +7913,7 @@ Public Class IAIPPrintOut
                     spValue.Value = ", --Conf--"
                 End If
             Else
-                If Mid(ConfidentialData, 9, 1) = "1" Then
-                    spValue.Value = dr.Item("UnitManager")
-                Else
-                    spValue.Value = dr.Item("UnitManager")
-                End If
+                spValue.Value = dr.Item("UnitManager")
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8105,8 +7926,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceManager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8120,8 +7939,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("ForTestDateStart")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -8134,8 +7951,6 @@ Public Class IAIPPrintOut
                 spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -8149,8 +7964,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ForReceivedDate")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8163,8 +7976,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("mmoCommentArea")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 46, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8177,8 +7988,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceStatement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8191,8 +8000,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strControlEquipmentData")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 31, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8206,8 +8013,6 @@ Public Class IAIPPrintOut
                 spValue.Value = ", " & dr.Item("CC")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -8239,8 +8044,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strMaxoperatingCapacity")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8253,8 +8056,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("MaxOperatingCapacityUnit")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8267,8 +8068,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("stroperatingCapacity")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8281,8 +8080,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("OperatingCapacityUnit")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8295,8 +8092,6 @@ Public Class IAIPPrintOut
             spValue.Value = "Velocity less than " & dr.Item("strLimitationVelocity") & " ft/sec;"
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
                 spValue.Value = "Velocity Limitation --Conf--;"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8309,8 +8104,6 @@ Public Class IAIPPrintOut
             spValue.Value = " Heat Content greater than or equal to " & dr.Item("strLimitationHeatCapacity") & " BTU/scf."
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
                 spValue.Value = " Heat Content Limitation --Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8323,8 +8116,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strHeatingValue1A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 33, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8337,8 +8128,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strHeatingValue2A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 36, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8351,8 +8140,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strHeatingValue3A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 39, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8365,8 +8152,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("HeatingValueUnits")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 41, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8379,8 +8164,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strHeatingValueAvg")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 42, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8393,8 +8176,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strVelocity1A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 34, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8407,8 +8188,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strVelocity2A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 37, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8421,8 +8200,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strVelocity3A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 40, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8435,8 +8212,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("VelocityUnits")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 43, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8449,8 +8224,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strVelocityAvg")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 44, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8463,8 +8236,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strPercentAllowable")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 45, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8521,7 +8292,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRFlare
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -8531,7 +8302,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadMemorandumStandard()
-        Dim rpt As New CRMemorandumStandard
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -8597,8 +8367,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strProgrammanager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8611,8 +8379,6 @@ Public Class IAIPPrintOut
             spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8625,8 +8391,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("FacilityName")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8665,8 +8429,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("PollutantDescription")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8679,8 +8441,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEmissionSource")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8699,12 +8459,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8717,8 +8474,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strApplicableRequirement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8731,8 +8486,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ReviewingEngineer")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8762,11 +8515,7 @@ Public Class IAIPPrintOut
                     spValue.Value = ", --Conf--"
                 End If
             Else
-                If Mid(ConfidentialData, 9, 1) = "1" Then
-                    spValue.Value = dr.Item("UnitManager")
-                Else
-                    spValue.Value = dr.Item("UnitManager")
-                End If
+                spValue.Value = dr.Item("UnitManager")
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8779,8 +8528,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceManager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8794,8 +8541,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("ForTestDateStart")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -8808,8 +8553,6 @@ Public Class IAIPPrintOut
                 spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -8823,8 +8566,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ForReceivedDate")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8837,8 +8578,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceStatement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8852,8 +8591,6 @@ Public Class IAIPPrintOut
                 spValue.Value = ", " & dr.Item("CC")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -8885,8 +8622,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strMemorandumField")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -8943,7 +8678,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRMemorandumStandard
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -8953,7 +8688,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadMemorandumToFile()
-        Dim rpt As New CRMemorandumToFile
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -9019,8 +8753,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strProgrammanager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9033,8 +8765,6 @@ Public Class IAIPPrintOut
             spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9047,8 +8777,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("FacilityName")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9087,8 +8815,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("PollutantDescription")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9101,8 +8827,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEmissionSource")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9125,8 +8849,6 @@ Public Class IAIPPrintOut
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9139,8 +8861,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strApplicableRequirement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9153,8 +8873,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ReviewingEngineer")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9193,8 +8911,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceManager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9208,8 +8924,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("ForTestDateStart")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -9222,8 +8936,6 @@ Public Class IAIPPrintOut
                 spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -9237,8 +8949,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ForReceivedDate")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9251,8 +8961,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceStatement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9266,8 +8974,6 @@ Public Class IAIPPrintOut
                 spValue.Value = ", " & dr.Item("CC")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -9299,8 +9005,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strMemorandumField")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9313,8 +9017,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strMonitormanufactureandmodel")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9327,8 +9029,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strmonitorserialnumber")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9385,7 +9085,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRMemorandumToFile
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -9395,7 +9095,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadPTE()
-        Dim rpt As New CRMemorandumPTE
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -9471,8 +9170,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strProgrammanager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9485,8 +9182,6 @@ Public Class IAIPPrintOut
             spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9499,8 +9194,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("FacilityName")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9539,8 +9232,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("PollutantDescription")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9553,8 +9244,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEmissionSource")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9573,12 +9262,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9591,8 +9277,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strApplicableRequirement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9605,8 +9289,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ReviewingEngineer")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9636,11 +9318,7 @@ Public Class IAIPPrintOut
                     spValue.Value = ", --Conf--"
                 End If
             Else
-                If Mid(ConfidentialData, 9, 1) = "1" Then
-                    spValue.Value = dr.Item("UnitManager")
-                Else
-                    spValue.Value = dr.Item("UnitManager")
-                End If
+                spValue.Value = dr.Item("UnitManager")
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9653,8 +9331,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceManager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9668,8 +9344,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("ForTestDateStart")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -9682,8 +9356,6 @@ Public Class IAIPPrintOut
                 spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -9697,8 +9369,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ForReceivedDate")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9711,8 +9381,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceStatement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9726,8 +9394,6 @@ Public Class IAIPPrintOut
                 spValue.Value = ", " & dr.Item("CC")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -9750,8 +9416,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strControlEquipmentData")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 32, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9773,8 +9437,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strMemorandumField")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 33, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9787,8 +9449,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strMaxoperatingCapacity")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9801,8 +9461,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("MaxOperatingCapacityUnit")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9815,8 +9473,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("stroperatingCapacity")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9829,8 +9485,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("OperatingCapacityUnit")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9843,8 +9497,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strAllowableEmissionrate1A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9857,8 +9509,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("AllowableEmissionRateUnit1")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -9873,8 +9523,6 @@ Public Class IAIPPrintOut
                 spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionrate1B")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -9886,8 +9534,6 @@ Public Class IAIPPrintOut
                 ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = " "
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 spValue.Value = dr.Item("AllowableEmissionRateUnit2")
                 ParameterField.CurrentValues.Add(spValue)
@@ -9923,8 +9569,6 @@ Public Class IAIPPrintOut
                 spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate1C")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = "; " & vbCrLf & "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -9937,8 +9581,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("AllowableEmissionRateUnit3")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                     spValue.Value = " "
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -10015,7 +9657,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRMemorandumPTE
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -10025,7 +9667,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadMethod22()
-        Dim rpt As New CRMethod22
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -10097,8 +9738,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strProgrammanager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10111,8 +9750,6 @@ Public Class IAIPPrintOut
             spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10125,8 +9762,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("FacilityName")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10165,8 +9800,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("PollutantDescription")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10179,8 +9812,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEmissionSource")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10199,12 +9830,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10217,8 +9845,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strApplicableRequirement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10231,8 +9857,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ReviewingEngineer")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10262,11 +9886,7 @@ Public Class IAIPPrintOut
                     spValue.Value = ", --Conf--"
                 End If
             Else
-                If Mid(ConfidentialData, 9, 1) = "1" Then
-                    spValue.Value = dr.Item("UnitManager")
-                Else
-                    spValue.Value = dr.Item("UnitManager")
-                End If
+                spValue.Value = dr.Item("UnitManager")
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10279,8 +9899,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceManager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10294,8 +9912,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("ForTestDateStart")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -10308,8 +9924,6 @@ Public Class IAIPPrintOut
                 spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -10323,8 +9937,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ForReceivedDate")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10337,8 +9949,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("mmoCommentArea")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 32, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10351,8 +9961,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceStatement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10365,8 +9973,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceStatement2")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10381,8 +9987,6 @@ Public Class IAIPPrintOut
                 spValue.Value = ", " & dr.Item("CC")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -10414,8 +10018,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strMaxOperatingCapacity1A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10428,8 +10030,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("MaxOperatingCapacityUnit")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10442,8 +10042,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strOperatingCapacity1A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10456,8 +10054,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("OperatingCapacityUnit")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10470,8 +10066,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("STRALLOWABLEEMISSIONRATE22")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10484,8 +10078,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strOpacityTestDuration") & " minutes "
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10498,8 +10090,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strAccumulatedEmissionTime")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 31, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10556,7 +10146,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRMethod22
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -10566,7 +10156,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadMethod9Single()
-        Dim rpt As New CRMethod9Single
         Dim temp As String
 
         Dim ParameterFields As ParameterFields
@@ -10642,8 +10231,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strProgrammanager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10656,8 +10243,6 @@ Public Class IAIPPrintOut
             spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10670,8 +10255,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("FacilityName")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10710,8 +10293,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("PollutantDescription")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10724,8 +10305,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEmissionSource")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10744,12 +10323,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10762,8 +10338,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strApplicableRequirement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10776,8 +10350,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ReviewingEngineer")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10807,11 +10379,7 @@ Public Class IAIPPrintOut
                     spValue.Value = ", --Conf--"
                 End If
             Else
-                If Mid(ConfidentialData, 9, 1) = "1" Then
-                    spValue.Value = dr.Item("UnitManager")
-                Else
-                    spValue.Value = dr.Item("UnitManager")
-                End If
+                spValue.Value = dr.Item("UnitManager")
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10824,8 +10392,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceManager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10839,8 +10405,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("ForTestDateStart")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -10853,8 +10417,6 @@ Public Class IAIPPrintOut
                 spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -10868,8 +10430,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ForReceivedDate")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10882,8 +10442,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("mmoCommentArea")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 33, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10896,8 +10454,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceStatement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10910,8 +10466,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceStatement2")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10924,8 +10478,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strControlEquipmentData")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10939,8 +10491,6 @@ Public Class IAIPPrintOut
                 spValue.Value = ", " & dr.Item("CC")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -10972,8 +10522,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strMaxoperatingCapacity1A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -10986,8 +10534,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("MaxOperatingCapacityUnit")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11000,8 +10546,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("stroperatingCapacity1A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11014,8 +10558,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("OperatingCapacityUnit")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11028,8 +10570,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strAllowableEmissionRate1A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11042,8 +10582,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("AllowableEmissionRateUnit1")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11056,8 +10594,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strOpacityTestDuration")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 31, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11070,8 +10606,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strOpacityPointA") & " % Opacity"
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 32, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11153,7 +10687,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRMethod9Single
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -11163,7 +10697,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadMethod9Multi()
-        Dim rpt As New CRMethod9Multi
         Dim temp As String
 
         Dim ParameterFields As ParameterFields
@@ -11239,8 +10772,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strProgrammanager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11253,8 +10784,6 @@ Public Class IAIPPrintOut
             spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11267,8 +10796,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("FacilityName")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11307,8 +10834,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("PollutantDescription")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11321,8 +10846,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEmissionSource")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11341,12 +10864,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11359,8 +10879,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strApplicableRequirement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 44, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11373,8 +10891,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ReviewingEngineer")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11404,11 +10920,7 @@ Public Class IAIPPrintOut
                     spValue.Value = ", --Conf--"
                 End If
             Else
-                If Mid(ConfidentialData, 9, 1) = "1" Then
-                    spValue.Value = dr.Item("UnitManager")
-                Else
-                    spValue.Value = dr.Item("UnitManager")
-                End If
+                spValue.Value = dr.Item("UnitManager")
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11421,8 +10933,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceManager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11436,8 +10946,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("ForTestDateStart")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -11450,8 +10958,6 @@ Public Class IAIPPrintOut
                 spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -11465,8 +10971,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ForReceivedDate")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11479,8 +10983,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("mmoCommentArea")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 51, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11493,8 +10995,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceStatement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11507,8 +11007,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceStatement2")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11521,8 +11019,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strControlEquipmentData")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 45, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11536,8 +11032,6 @@ Public Class IAIPPrintOut
                 spValue.Value = ", " & dr.Item("CC")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -11569,8 +11063,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strMaxoperatingCapacity1A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11583,8 +11075,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strMaxoperatingCapacity2A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11597,8 +11087,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strMaxoperatingCapacity3A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11611,8 +11099,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strMaxoperatingCapacity4A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11625,8 +11111,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strMaxoperatingCapacity5A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11639,8 +11123,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("MaxOperatingCapacityUnit")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 31, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11653,8 +11135,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("stroperatingCapacity1A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 32, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11667,8 +11147,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("stroperatingCapacity2A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 33, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11681,8 +11159,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("stroperatingCapacity3A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 34, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11695,8 +11171,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("stroperatingCapacity4A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 35, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11709,8 +11183,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("stroperatingCapacity5A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 36, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11723,8 +11195,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("OperatingCapacityUnit")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 37, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11737,8 +11207,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strAllowableEmissionRate1A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 39, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11751,8 +11219,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strAllowableEmissionRate2A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 40, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11765,8 +11231,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strAllowableEmissionRate3A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 41, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11779,8 +11243,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strAllowableEmissionRate4A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 42, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11793,8 +11255,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strAllowableEmissionRate5A")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 43, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11807,8 +11267,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strOpacityPointA")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 46, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11821,8 +11279,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strOpacityPointB")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 47, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11835,8 +11291,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strOpacityPointC")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 48, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11849,8 +11303,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strOpacityPointD")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 49, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11863,8 +11315,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strOpacityPointE")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 50, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11877,8 +11327,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEquipmentItem1")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 52, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11891,8 +11339,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEquipmentItem2")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 53, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11905,8 +11351,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEquipmentItem3")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 54, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11919,8 +11363,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEquipmentItem4")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 55, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -11933,8 +11375,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEquipmentItem5")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 56, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12015,7 +11455,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRMethod9Multi
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -12025,7 +11465,6 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub LoadRata()
-        Dim rpt As New CRRata
         Dim temp As String
 
         Dim ParameterFields As ParameterFields
@@ -12097,8 +11536,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strProgrammanager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12111,8 +11548,6 @@ Public Class IAIPPrintOut
             spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12125,8 +11560,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("FacilityName")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12165,8 +11598,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("PollutantDescription")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12179,8 +11610,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strEmissionSource")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12199,12 +11628,9 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
-                    spValue.Value = spValue.Value
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12217,8 +11643,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strApplicableRequirement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12231,8 +11655,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ReviewingEngineer")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12272,8 +11694,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceManager")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12287,8 +11707,6 @@ Public Class IAIPPrintOut
                 spValue.Value = dr.Item("ForTestDateStart")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -12301,8 +11719,6 @@ Public Class IAIPPrintOut
                 spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -12316,8 +11732,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ForReceivedDate")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12330,8 +11744,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("mmoCommentArea")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 56, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12344,8 +11756,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("ComplianceStatement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12372,8 +11782,6 @@ Public Class IAIPPrintOut
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12387,8 +11795,6 @@ Public Class IAIPPrintOut
                 spValue.Value = ", " & dr.Item("CC")
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
                     spValue.Value = "--Conf--"
-                Else
-                    spValue.Value = spValue.Value
                 End If
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
@@ -12420,8 +11826,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("Diluent")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12434,8 +11838,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strAPplicableStandard")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12448,8 +11850,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strRElativeAccuracyPercent")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 54, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12474,8 +11874,6 @@ Public Class IAIPPrintOut
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 54, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12488,8 +11886,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strReferenceMethod1")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12502,8 +11898,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strReferenceMethod2")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12516,8 +11910,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strReferenceMethod3")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 31, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12530,8 +11922,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strReferenceMethod4")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 32, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12544,8 +11934,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strReferenceMethod5")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 33, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12558,8 +11946,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strReferenceMethod6")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 34, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12572,8 +11958,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strReferenceMethod7")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 35, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12586,8 +11970,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strReferenceMethod8")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 36, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12600,8 +11982,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strReferenceMethod9")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 37, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12614,8 +11994,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strReferenceMethod10")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 38, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12628,8 +12006,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strReferenceMethod11")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 39, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12642,8 +12018,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strReferenceMethod12")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 40, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12656,8 +12030,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("RataUnits")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 53, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12670,8 +12042,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("StrCMS1")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 41, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12684,8 +12054,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("StrCMS2")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 42, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12698,8 +12066,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("StrCMS3")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 43, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12712,8 +12078,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("StrCMS4")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 44, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12726,8 +12090,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("StrCMS5")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 45, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12740,8 +12102,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("StrCMS6")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 46, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12754,8 +12114,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("StrCMS7")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 47, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12768,8 +12126,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("StrCMS8")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 48, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12782,8 +12138,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("StrCMS9")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 49, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12796,8 +12150,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("StrCMS10")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 50, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12810,8 +12162,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("StrCMS11")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 51, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12824,8 +12174,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("StrCMS12")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 52, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12838,8 +12186,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strAccuracyRequiredPercent")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 55, 1) = "1" Then
                 spValue.Value = "--Conf--"
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -12852,8 +12198,6 @@ Public Class IAIPPrintOut
             spValue.Value = dr.Item("strAccuracyREquiredStatement")
             If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 55, 1) = "1" Then
                 spValue.Value = " "
-            Else
-                spValue.Value = spValue.Value
             End If
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
@@ -13069,7 +12413,7 @@ Public Class IAIPPrintOut
             CRViewer.ParameterFieldInfo = ParameterFields
 
             'Display the Report
-            CRViewer.ReportSource = rpt
+            CRViewer.ReportSource = New CRRata
 
         Else
             MsgBox("Unable to Print at this time.")
@@ -13095,17 +12439,18 @@ Public Class IAIPPrintOut
 
         Dim p As New SqlParameter("@ref", ReferenceValue)
 
-        Dim ds As New DataSet
-        Dim dt As DataTable = DB.GetDataTable(SQL, p)
-        dt.TableName = "VW_SSPP_Acknowledge"
-        ds.Tables.Add(dt)
+        Using ds As New DataSet
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
+            dt.TableName = "VW_SSPP_Acknowledge"
+            ds.Tables.Add(dt)
 
-        Dim rpt As New crAPBPrintOut2
-        rpt.SetDataSource(ds)
+            Dim rpt As New crAPBPrintOut2
+            rpt.SetDataSource(ds)
 
-        CRViewer.ParameterFieldInfo = ParameterFields
-        CRViewer.ReportSource = rpt
-        CRViewer.Refresh()
+            CRViewer.ParameterFieldInfo = ParameterFields
+            CRViewer.ReportSource = rpt
+            CRViewer.Refresh()
+        End Using
     End Sub
 
     Private Sub PrintOutTitleVRenewals()

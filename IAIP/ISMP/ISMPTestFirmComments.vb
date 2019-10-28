@@ -36,7 +36,6 @@ Public Class ISMPTestFirmComments
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
@@ -56,7 +55,6 @@ Public Class ISMPTestFirmComments
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadTestFirmComments()
@@ -167,7 +165,6 @@ Public Class ISMPTestFirmComments
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
@@ -259,10 +256,7 @@ Public Class ISMPTestFirmComments
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub LoadHeaderData(RefreshType As String)
         Try
@@ -368,7 +362,6 @@ Public Class ISMPTestFirmComments
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub SaveHeaderData()
@@ -431,7 +424,6 @@ Public Class ISMPTestFirmComments
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
@@ -440,7 +432,6 @@ Public Class ISMPTestFirmComments
             SaveCommentData("1")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub btnSaveDayOf_Click(sender As Object, e As EventArgs) Handles btnSaveDayOf.Click
@@ -448,7 +439,6 @@ Public Class ISMPTestFirmComments
             SaveCommentData("2")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub btnSaveTestReport_Click(sender As Object, e As EventArgs) Handles btnSaveTestReport.Click
@@ -456,7 +446,6 @@ Public Class ISMPTestFirmComments
             SaveCommentData("3")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub btnOpenManagerTools_Click(sender As Object, e As EventArgs) Handles btnOpenManagerTools.Click
@@ -478,18 +467,16 @@ Public Class ISMPTestFirmComments
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub OpenFacilityLookupTool()
         Try
-            Dim facilityLookupDialog As New IAIPFacilityLookUpTool
-            facilityLookupDialog.ShowDialog()
-            If facilityLookupDialog.DialogResult = DialogResult.OK _
-            AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                txtAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber
-                txtFacilityTested.Text = facilityLookupDialog.SelectedFacilityName
-            End If
+            Using facilityLookupDialog As New IAIPFacilityLookUpTool
+                If facilityLookupDialog.ShowDialog() = DialogResult.OK AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
+                    txtAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber
+                    txtFacilityTested.Text = facilityLookupDialog.SelectedFacilityName
+                End If
+            End Using
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -514,7 +501,6 @@ Public Class ISMPTestFirmComments
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub btnEditComment_Click(sender As Object, e As EventArgs) Handles btnEditComment.Click
@@ -577,7 +563,6 @@ Public Class ISMPTestFirmComments
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub btnDeleteComment_Click(sender As Object, e As EventArgs) Handles btnDeleteComment.Click
@@ -597,7 +582,6 @@ Public Class ISMPTestFirmComments
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub btnRefreshNotifications_Click(sender As Object, e As EventArgs) Handles btnRefreshNotifications.Click
@@ -606,7 +590,6 @@ Public Class ISMPTestFirmComments
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub btnRefreshReportNumber_Click(sender As Object, e As EventArgs) Handles btnRefreshReportNumber.Click
@@ -615,7 +598,6 @@ Public Class ISMPTestFirmComments
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub btnRefreshAIRSNumber_Click(sender As Object, e As EventArgs) Handles btnRefreshAIRSNumber.Click
@@ -624,7 +606,6 @@ Public Class ISMPTestFirmComments
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
@@ -632,7 +613,6 @@ Public Class ISMPTestFirmComments
             SaveHeaderData()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 

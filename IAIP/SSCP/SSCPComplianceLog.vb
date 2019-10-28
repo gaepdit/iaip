@@ -51,7 +51,7 @@ Public Class SSCPComplianceLog
             "order by strActivityName"
         Dim dtEvent As DataTable = DB.GetDataTable(SQL)
 
-        dtEvent.PrimaryKey = New DataColumn() {dtEvent.Columns("strActivityType")}
+        dtEvent.PrimaryKey = {dtEvent.Columns("strActivityType")}
 
         With cboEvent
             .DataSource = dtEvent

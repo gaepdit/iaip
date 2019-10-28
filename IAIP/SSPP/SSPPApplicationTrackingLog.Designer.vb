@@ -263,6 +263,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtOtherPermitDoc = New System.Windows.Forms.TextBox()
         Me.chbOtherPermit = New System.Windows.Forms.CheckBox()
         Me.TPContactInformation = New System.Windows.Forms.TabPage()
+        Me.txtContactPhoneNumber = New System.Windows.Forms.TextBox()
         Me.btnGoToFeeContact = New System.Windows.Forms.Button()
         Me.btnEmailAcknowledgmentLetter = New System.Windows.Forms.Button()
         Me.btnAcknowledgementLetter = New System.Windows.Forms.Button()
@@ -526,7 +527,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnFetchNewAppNumber = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.txtContactPhoneNumber = New System.Windows.Forms.TextBox()
         Me.TPSubPartEditor.SuspendLayout()
         Me.TCSupParts.SuspendLayout()
         Me.TPSIP.SuspendLayout()
@@ -3247,6 +3247,13 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPContactInformation.Text = "Contact"
         Me.TPContactInformation.UseVisualStyleBackColor = True
         '
+        'txtContactPhoneNumber
+        '
+        Me.txtContactPhoneNumber.Location = New System.Drawing.Point(92, 151)
+        Me.txtContactPhoneNumber.Name = "txtContactPhoneNumber"
+        Me.txtContactPhoneNumber.Size = New System.Drawing.Size(149, 20)
+        Me.txtContactPhoneNumber.TabIndex = 366
+        '
         'btnGoToFeeContact
         '
         Me.btnGoToFeeContact.AutoSize = True
@@ -3690,6 +3697,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.txtEPATargetedComments.AcceptsReturn = True
         Me.txtEPATargetedComments.Location = New System.Drawing.Point(14, 313)
+        Me.txtEPATargetedComments.MaxLength = 4000
         Me.txtEPATargetedComments.Multiline = True
         Me.txtEPATargetedComments.Name = "txtEPATargetedComments"
         Me.txtEPATargetedComments.ReadOnly = True
@@ -4236,6 +4244,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtISMPComments.AcceptsReturn = True
         Me.txtISMPComments.Enabled = False
         Me.txtISMPComments.Location = New System.Drawing.Point(72, 96)
+        Me.txtISMPComments.MaxLength = 4000
         Me.txtISMPComments.Multiline = True
         Me.txtISMPComments.Name = "txtISMPComments"
         Me.txtISMPComments.ReadOnly = True
@@ -4354,6 +4363,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtSSCPComments.AcceptsReturn = True
         Me.txtSSCPComments.Enabled = False
         Me.txtSSCPComments.Location = New System.Drawing.Point(72, 88)
+        Me.txtSSCPComments.MaxLength = 4000
         Me.txtSSCPComments.Multiline = True
         Me.txtSSCPComments.Name = "txtSSCPComments"
         Me.txtSSCPComments.ReadOnly = True
@@ -4542,6 +4552,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.txtSignificantComments.AcceptsReturn = True
         Me.txtSignificantComments.Location = New System.Drawing.Point(6, 19)
+        Me.txtSignificantComments.MaxLength = 4000
         Me.txtSignificantComments.Multiline = True
         Me.txtSignificantComments.Name = "txtSignificantComments"
         Me.txtSignificantComments.ReadOnly = True
@@ -4741,7 +4752,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtNAICSCode
         '
         Me.txtNAICSCode.Location = New System.Drawing.Point(575, 25)
-        Me.txtNAICSCode.MaxLength = 6
+        Me.txtNAICSCode.MaxLength = 10
         Me.txtNAICSCode.Name = "txtNAICSCode"
         Me.txtNAICSCode.ReadOnly = True
         Me.txtNAICSCode.Size = New System.Drawing.Size(52, 20)
@@ -4759,6 +4770,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtFacilityName
         '
         Me.txtFacilityName.Location = New System.Drawing.Point(3, 25)
+        Me.txtFacilityName.MaxLength = 100
         Me.txtFacilityName.Name = "txtFacilityName"
         Me.txtFacilityName.ReadOnly = True
         Me.txtFacilityName.Size = New System.Drawing.Size(208, 20)
@@ -5154,6 +5166,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboFacilityCity.BackColor = System.Drawing.SystemColors.Window
         Me.cboFacilityCity.Enabled = False
         Me.cboFacilityCity.Location = New System.Drawing.Point(3, 73)
+        Me.cboFacilityCity.MaxLength = 50
         Me.cboFacilityCity.Name = "cboFacilityCity"
         Me.cboFacilityCity.Size = New System.Drawing.Size(128, 21)
         Me.cboFacilityCity.TabIndex = 2
@@ -5528,6 +5541,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtFacilityZipCode
         '
         Me.txtFacilityZipCode.Location = New System.Drawing.Point(137, 73)
+        Me.txtFacilityZipCode.MaxLength = 10
         Me.txtFacilityZipCode.Name = "txtFacilityZipCode"
         Me.txtFacilityZipCode.ReadOnly = True
         Me.txtFacilityZipCode.Size = New System.Drawing.Size(74, 20)
@@ -5537,6 +5551,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.txtReasonAppSubmitted.AcceptsReturn = True
         Me.txtReasonAppSubmitted.Location = New System.Drawing.Point(18, 315)
+        Me.txtReasonAppSubmitted.MaxLength = 4000
         Me.txtReasonAppSubmitted.Multiline = True
         Me.txtReasonAppSubmitted.Name = "txtReasonAppSubmitted"
         Me.txtReasonAppSubmitted.ReadOnly = True
@@ -5547,6 +5562,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtFacilityStreetAddress
         '
         Me.txtFacilityStreetAddress.Location = New System.Drawing.Point(3, 49)
+        Me.txtFacilityStreetAddress.MaxLength = 100
         Me.txtFacilityStreetAddress.Name = "txtFacilityStreetAddress"
         Me.txtFacilityStreetAddress.ReadOnly = True
         Me.txtFacilityStreetAddress.Size = New System.Drawing.Size(208, 20)
@@ -5556,6 +5572,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.txtComments.AcceptsReturn = True
         Me.txtComments.Location = New System.Drawing.Point(18, 374)
+        Me.txtComments.MaxLength = 4000
         Me.txtComments.Multiline = True
         Me.txtComments.Name = "txtComments"
         Me.txtComments.ReadOnly = True
@@ -6158,13 +6175,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label3.Size = New System.Drawing.Size(97, 13)
         Me.Label3.TabIndex = 250
         Me.Label3.Text = "Current Facility Info"
-        '
-        'txtContactPhoneNumber
-        '
-        Me.txtContactPhoneNumber.Location = New System.Drawing.Point(92, 151)
-        Me.txtContactPhoneNumber.Name = "txtContactPhoneNumber"
-        Me.txtContactPhoneNumber.Size = New System.Drawing.Size(149, 20)
-        Me.txtContactPhoneNumber.TabIndex = 366
         '
         'SSPPApplicationTrackingLog
         '

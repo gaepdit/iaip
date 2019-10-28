@@ -40,7 +40,7 @@ Public Module AppVersion
 
     Public Sub CheckForUpdate()
         Dim openFormCount As Integer = 0
-        Dim okayForms As String() = New String() {NameOf(IAIPLogIn), NameOf(IAIPNavigation), NameOf(IaipAbout)}
+        Dim okayForms As String() = {NameOf(IAIPLogIn), NameOf(IAIPNavigation), NameOf(IaipAbout)}
 
         For Each f As Form In Application.OpenForms
             If Not (okayForms.Contains(f.Name)) Then
@@ -52,7 +52,7 @@ Public Module AppVersion
             MessageBox.Show("The IAIP cannot be updated if multiple IAIP windows are open. Please close them and try again",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             ShowAllForms()
-            Exit Sub
+            Return
         End If
 
         Dim info As UpdateCheckInfo
@@ -65,7 +65,7 @@ Public Module AppVersion
             Catch dde As DeploymentDownloadException
                 MessageBox.Show("The IAIP cannot be updated right now. " & vbNewLine & vbNewLine _
                                 & "Please check your network connection or try again later. " &
-                                vbNewLine & vbNewLine & "Error: " + dde.Message,
+                                vbNewLine & vbNewLine & "Error: " & dde.Message,
                                 "Error")
                 Return
             Catch ioe As InvalidOperationException
@@ -85,7 +85,7 @@ Public Module AppVersion
                                          GetVersionAsMajorMinorBuild(info.AvailableVersion).ToString &
                                          "). Would you like to install it now?",
                                          "Update Available", MessageBoxButtons.YesNo)
-                    If (Not DialogResult.Yes = dr) Then doUpdate = False
+                    If DialogResult.Yes <> dr Then doUpdate = False
                 Else
                     ' Display a message that the app MUST reboot. Display the minimum required version.
                     MessageBox.Show("A mandatory update will now be installed (" &

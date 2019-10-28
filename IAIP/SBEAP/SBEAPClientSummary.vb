@@ -1969,12 +1969,12 @@ Public Class SBEAPClientSummary
 
     Private Sub tsbSearchTool_Click(sender As Object, e As EventArgs) Handles tsbSearchTool.Click
         Try
-            Dim clientSearchDialog As New SBEAPClientSearchTool
-            clientSearchDialog.ShowDialog()
-            If clientSearchDialog.DialogResult = DialogResult.OK Then
-                txtClientID.Text = clientSearchDialog.SelectedClientID
-                LoadClientData()
-            End If
+            Using clientSearchDialog As New SBEAPClientSearchTool
+                If clientSearchDialog.ShowDialog() = DialogResult.OK Then
+                    txtClientID.Text = clientSearchDialog.SelectedClientID
+                    LoadClientData()
+                End If
+            End Using
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2434,7 +2434,7 @@ Public Class SBEAPClientSummary
     Private Sub llbSICSearch_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbSICSearch.LinkClicked
         Try
 
-            Process.Start("http://www.osha.gov/pls/imis/sicsearch.html")
+            Process.Start("https://www.osha.gov/pls/imis/sicsearch.html")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2444,7 +2444,7 @@ Public Class SBEAPClientSummary
     Private Sub llbNAICSSearch_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbNAICSSearch.LinkClicked
         Try
 
-            Process.Start("http://www.naics.com/search.htm")
+            Process.Start("https://www.naics.com/search/")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)

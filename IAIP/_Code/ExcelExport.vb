@@ -72,7 +72,7 @@ Module ExcelExport
 
         Select Case CreateExcelFileFromDataTable(fileName, dataTable)
             Case CreateExcelFileResult.Success
-                If Not Path.GetDirectoryName(fileName) = GetUserSetting(UserSetting.FileDownloadLocation) Then
+                If Path.GetDirectoryName(fileName) <> GetUserSetting(UserSetting.FileDownloadLocation) Then
                     SaveUserSetting(UserSetting.FileDownloadLocation, Path.GetDirectoryName(fileName))
                 End If
 

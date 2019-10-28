@@ -7,7 +7,7 @@
 '-- Chapter VII, "The End of Errors", pages 423-440
 '--
 '-- Jeff Atwood
-'-- http://www.codinghorror.com
+'-- https://www.codinghorror.com
 '--
 Friend Class ExceptionDialog
     Inherits Form

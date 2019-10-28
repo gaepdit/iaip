@@ -51,7 +51,7 @@ Public Class FinInvoiceView
             lblInvoiceID.Text = "Invoice " & .InvoiceID
             lblStatus.Text = "Status: "
 
-            UrlToolTip.SetToolTip(lnkViewInvoice, GetInvoiceUrl(thisInvoice.InvoiceGuid))
+            UrlToolTip.SetToolTip(lnkViewInvoice, GetInvoiceLinkAddress(thisInvoice.InvoiceGuid))
 
             If .Voided Then
                 lblStatus.Text &= "VOID"

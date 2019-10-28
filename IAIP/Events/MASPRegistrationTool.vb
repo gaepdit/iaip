@@ -162,19 +162,15 @@ Public Class MASPRegistrationTool
     End Sub
 
     Private Sub dgvEvents_SelectionChanged(sender As Object, e As EventArgs)
-        Try
-            If dgvEvents.SelectedCells.Count > 0 Then
-                Dim selectedRow As DataGridViewRow = dgvEvents.Rows(dgvEvents.CurrentCell.RowIndex)
-                selectedEventId = selectedRow.Cells("NUMRES_EVENTID").Value
-                btnViewDetails.Enabled = True
-            Else
-                selectedEventId = Nothing
-                ClearEventSelection()
-                btnViewDetails.Enabled = False
-            End If
-        Catch ex As Exception
-
-        End Try
+        If dgvEvents.SelectedCells.Count > 0 Then
+            Dim selectedRow As DataGridViewRow = dgvEvents.Rows(dgvEvents.CurrentCell.RowIndex)
+            selectedEventId = selectedRow.Cells("NUMRES_EVENTID").Value
+            btnViewDetails.Enabled = True
+        Else
+            selectedEventId = Nothing
+            ClearEventSelection()
+            btnViewDetails.Enabled = False
+        End If
     End Sub
 
 #End Region
@@ -559,12 +555,12 @@ Public Class MASPRegistrationTool
         Try
             If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
                 MsgBox("Passcode is invalid; please fix.", MsgBoxStyle.Exclamation, "Error")
-                Exit Sub
+                Return
             End If
 
             If Not (txtWebsiteURL.Text = "" OrElse IsValidURL(txtWebsiteURL.Text)) Then
                 MessageBox.Show("The website address is not valid. Please fix it and try again.", "Error")
-                Exit Sub
+                Return
             End If
 
             Dim EndDate As String = ""
@@ -601,12 +597,12 @@ Public Class MASPRegistrationTool
         Try
             If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
                 MsgBox("Passcode is invalid; please fix.", MsgBoxStyle.Exclamation, "Error")
-                Exit Sub
+                Return
             End If
 
             If Not (txtWebsiteURL.Text = "" OrElse IsValidURL(txtWebsiteURL.Text)) Then
                 MessageBox.Show("The website address is not valid. Please fix it and try again.", "Error")
-                Exit Sub
+                Return
             End If
 
             Dim EndDate As String = ""
@@ -732,7 +728,7 @@ Public Class MASPRegistrationTool
 
             If dgvRegistrationManagement.RowCount > 0 And hti.RowIndex <> -1 Then
                 If IsDBNull(dgvRegistrationManagement(0, hti.RowIndex).Value) Then
-                    Exit Sub
+                    Return
                 Else
                     txtRegID.Text = dgvRegistrationManagement(0, hti.RowIndex).Value
                 End If
@@ -851,7 +847,7 @@ Public Class MASPRegistrationTool
                 'Give the admin a warning that they may be overbooking the event
                 If MessageBox.Show(Me, "Event is already at Capacity. If this Registrant wasn't previously confirmed, the Event will be booked over capacity. 
 Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
-                    Exit Try
+                    Return
                 End If
             End If
 
@@ -893,8 +889,6 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -922,7 +916,7 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
 
         If recipientsBCC Is Nothing OrElse recipientsBCC.Count = 0 Then
             MessageBox.Show("There are no recipients to email.", "Error", MessageBoxButtons.OK)
-            Exit Sub
+            Return
         End If
 
         Cursor = Cursors.AppStarting
@@ -986,8 +980,6 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
             Else
                 If PassCodeRequired = False Then
                     PassCode = "1"
-                Else
-                    PassCode = PassCode
                 End If
             End If
 

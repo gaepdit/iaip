@@ -30,7 +30,7 @@ Public Class ISMPMemo
                     "from ISMPTestREportMemo " &
                     "where strReferenceNumber = @ref "
 
-                    txtMemoIN.Text = TodayFormatted + vbCrLf + txtMemoIN.Text + vbCrLf + CurrentUser.AlphaName + vbCrLf + dashes + vbCrLf
+                    txtMemoIN.Text = TodayFormatted & vbCrLf & txtMemoIN.Text & vbCrLf & CurrentUser.AlphaName & vbCrLf & dashes & vbCrLf
 
                     If DB.ValueExists(query, p) Then
                         MemoTemp = DB.GetString(query, p) & vbCrLf & txtMemoIN.Text

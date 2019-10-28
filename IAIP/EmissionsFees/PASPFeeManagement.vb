@@ -289,7 +289,7 @@ Public Class PASPFeeManagement
 
             ClearFeeData()
             If IsDBNull(row.Cells(0).Value) Then
-                Exit Sub
+                Return
             Else
                 txtFeeID.Text = row.Cells(0).Value
             End If
@@ -412,7 +412,6 @@ Public Class PASPFeeManagement
             Dim NSPStemp As String = ""
             Dim ReasonID As String = ""
             Dim DisplayOrder As String = ""
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 1
             Dim SQL As String
 
@@ -462,13 +461,14 @@ Public Class PASPFeeManagement
                         Dim c As DataGridViewCell = dgvNSPSExemptions.Rows(x).Cells(y)
                         If Not c.Value Is DBNull.Value Or Nothing Then
                             If CType(c.Value, String) = ReasonID Then
-                                dgvRow = New DataGridViewRow
-                                dgvRow.CreateCells(dgvNSPSExemptionsByYear)
-                                dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
-                                dgvRow.Cells(1).Value = dgvNSPSExemptions(0, x).Value
-                                dgvRow.Cells(2).Value = DisplayOrder
-                                dgvRow.Cells(3).Value = dgvNSPSExemptions(1, x).Value
-                                dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
+                                Using dgvRow As New DataGridViewRow
+                                    dgvRow.CreateCells(dgvNSPSExemptionsByYear)
+                                    dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
+                                    dgvRow.Cells(1).Value = dgvNSPSExemptions(0, x).Value
+                                    dgvRow.Cells(2).Value = DisplayOrder
+                                    dgvRow.Cells(3).Value = dgvNSPSExemptions(1, x).Value
+                                    dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
+                                End Using
                             End If
                         End If
                         Math.Min(Threading.Interlocked.Increment(y), y - 1)
@@ -486,7 +486,6 @@ Public Class PASPFeeManagement
 
     Private Sub btnSelectForm_Click(sender As Object, e As EventArgs) Handles btnSelectForm.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim temp As String
             Dim temp2 As String = "Add"
             Dim i As Integer = 0
@@ -501,20 +500,24 @@ Public Class PASPFeeManagement
                     End If
                 Next
                 If temp2 <> "Ignore" Then
+                    Using dgvRow As New DataGridViewRow
+                        dgvRow.CreateCells(dgvNSPSExemptionsByYear)
+                        dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
+                        dgvRow.Cells(1).Value = dgvNSPSExemptions(0, dgvNSPSExemptions.CurrentRow.Index).Value
+                        dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
+                        dgvRow.Cells(3).Value = dgvNSPSExemptions(1, dgvNSPSExemptions.CurrentRow.Index).Value
+                        dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
+                    End Using
+                End If
+            Else
+                Using dgvRow As New DataGridViewRow
                     dgvRow.CreateCells(dgvNSPSExemptionsByYear)
                     dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
                     dgvRow.Cells(1).Value = dgvNSPSExemptions(0, dgvNSPSExemptions.CurrentRow.Index).Value
                     dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
                     dgvRow.Cells(3).Value = dgvNSPSExemptions(1, dgvNSPSExemptions.CurrentRow.Index).Value
                     dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
-                End If
-            Else
-                dgvRow.CreateCells(dgvNSPSExemptionsByYear)
-                dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
-                dgvRow.Cells(1).Value = dgvNSPSExemptions(0, dgvNSPSExemptions.CurrentRow.Index).Value
-                dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
-                dgvRow.Cells(3).Value = dgvNSPSExemptions(1, dgvNSPSExemptions.CurrentRow.Index).Value
-                dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
+                End Using
             End If
 
         Catch ex As Exception
@@ -530,18 +533,18 @@ Public Class PASPFeeManagement
 
     Private Sub btnSelectAllForms_Click(sender As Object, e As EventArgs) Handles btnSelectAllForms.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             dgvNSPSExemptionsByYear.Rows.Clear()
 
             For i = 0 To dgvNSPSExemptions.Rows.Count - 1
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvNSPSExemptionsByYear)
-                dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
-                dgvRow.Cells(1).Value = dgvNSPSExemptions(0, i).Value
-                dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
-                dgvRow.Cells(3).Value = dgvNSPSExemptions(1, i).Value
-                dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
+                Using dgvRow As New DataGridViewRow
+                    dgvRow.CreateCells(dgvNSPSExemptionsByYear)
+                    dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
+                    dgvRow.Cells(1).Value = dgvNSPSExemptions(0, i).Value
+                    dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
+                    dgvRow.Cells(3).Value = dgvNSPSExemptions(1, i).Value
+                    dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
+                End Using
             Next
 
         Catch ex As Exception
@@ -585,7 +588,7 @@ Public Class PASPFeeManagement
     Private Sub btnUpdateNSPSbyYear_Click(sender As Object, e As EventArgs) Handles btnUpdateNSPSbyYear.Click
         If cboNSPSExemptionYear.Text = "" OrElse Not IsNumeric(cboNSPSExemptionYear.Text) Then
             MessageBox.Show("Please select a Fee Year first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
+            Return
         End If
 
         Try
@@ -737,7 +740,7 @@ Public Class PASPFeeManagement
 
             If cboAvailableFeeYears.Text = "" Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Select a fee year first.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             SQL = "Select " &
@@ -759,7 +762,7 @@ Public Class PASPFeeManagement
             If EnrollCheck > 0 Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "There are already facilities enrolled for this fee year.",
                         MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             SQL = "Update FS_Admin set " &
@@ -804,13 +807,13 @@ Public Class PASPFeeManagement
 
             If cboAvailableFeeYears.Text = "" Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Select a fee year first.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If cboAvailableFeeYears.Text < (Today.Year - 1) Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Only Current and last Fee Years are eligible to be unenrolled.",
                         MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim Result As DialogResult
@@ -822,7 +825,7 @@ Public Class PASPFeeManagement
                 Case DialogResult.Yes
 
                 Case Else
-                    Exit Sub
+                    Return
             End Select
 
             SQL = "Update FS_Admin set " &
@@ -954,7 +957,7 @@ Public Class PASPFeeManagement
 
             If cboAvailableFeeYears.Text = "" OrElse Not IsNumeric(cboAvailableFeeYears.Text) Then
                 MsgBox("Select a valid fee year first.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             SQL = "select count(*) as ContactTotals " &
@@ -1098,7 +1101,7 @@ Public Class PASPFeeManagement
             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2)
 
         If confirm = DialogResult.No Then
-            Exit Sub
+            Return
         End If
 
 
@@ -1106,7 +1109,7 @@ Public Class PASPFeeManagement
 
         If Not Integer.TryParse(cboAvailableFeeYears.Text, SelectedYear) Then
             MessageBox.Show("Invalid year selected")
-            Exit Sub
+            Return
         End If
 
         Cursor = Cursors.WaitCursor
@@ -1156,7 +1159,7 @@ Public Class PASPFeeManagement
             txtDeleteNSPSExemptions.Clear()
             txtNSPSExemption.Clear()
             If IsDBNull(row.Cells(0).Value) Then
-                Exit Sub
+                Return
             Else
                 txtDeleteNSPSExemptions.Text = row.Cells(0).Value
             End If
@@ -1276,7 +1279,7 @@ Public Class PASPFeeManagement
         Dim confirm As DialogResult = MessageBox.Show("Are you sure you want to set the initial mailout date for all sources in the mailout list?",
             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
         If confirm = DialogResult.No Then
-            Exit Sub
+            Return
         End If
 
         Try

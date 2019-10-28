@@ -159,17 +159,14 @@ Public Class SBEAPCaseWork
                     CompanyName = dr.Item("strCompanyName") & vbCrLf
                 End If
                 If IsDBNull(dr.Item("strCompanyAddress")) Then
-                    CompanyAddress = CompanyAddress
                 Else
                     CompanyAddress = CompanyAddress & dr.Item("strCompanyAddress") & vbCrLf
                 End If
                 If IsDBNull(dr.Item("strCompanyCity")) Then
-                    CompanyAddress = CompanyAddress
                 Else
                     CompanyAddress = CompanyAddress & dr.Item("strCompanyCity")
                 End If
                 If IsDBNull(dr.Item("strCompanyState")) Then
-                    CompanyAddress = CompanyAddress
                 Else
                     CompanyAddress = CompanyAddress & ", " & dr.Item("strCompanyState")
                 End If
@@ -1600,7 +1597,7 @@ Public Class SBEAPCaseWork
             If CallerPhone <> "" AndAlso Not IsNumeric(CallerPhone) Then
                 MessageBox.Show("Phone call could not be saved because there is a problem with the phone number. " &
                                 "Please fix and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String
@@ -1970,12 +1967,12 @@ Public Class SBEAPCaseWork
 
     Private Sub tsbClientSearch_Click(sender As Object, e As EventArgs) Handles tsbClientSearch.Click
         Try
-            Dim clientSearchDialog As New SBEAPClientSearchTool
-            clientSearchDialog.ShowDialog()
-            If clientSearchDialog.DialogResult = DialogResult.OK Then
-                txtClientID.Text = clientSearchDialog.SelectedClientID
-                LoadClientInfo()
-            End If
+            Using clientSearchDialog As New SBEAPClientSearchTool
+                If clientSearchDialog.ShowDialog() = DialogResult.OK Then
+                    txtClientID.Text = clientSearchDialog.SelectedClientID
+                    LoadClientInfo()
+                End If
+            End Using
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

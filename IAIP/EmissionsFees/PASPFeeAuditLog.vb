@@ -1,7 +1,5 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Data.SqlTypes
-Imports CrystalDecisions.Shared
-Imports CrystalDecisions.CrystalReports.Engine
 Imports Iaip.Apb.Facilities
 
 Public Class PASPFeeAuditLog
@@ -33,6 +31,7 @@ Public Class PASPFeeAuditLog
         pnlInvoiceData.Enabled = False
         pnlFacilityData.Enabled = False
         pnlFacilityData2.Enabled = False
+        lblAdminFee.Text = Nothing
 
         ParseParameters()
     End Sub
@@ -98,6 +97,7 @@ Public Class PASPFeeAuditLog
             If DAL.AirsNumberExists(AirsNumber) Then
                 LoadAdminData()
                 LoadAuditedData()
+                LoadInvoices()
             Else
                 MessageBox.Show("Invalid AIRS # or Fee Year.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
@@ -186,6 +186,8 @@ Public Class PASPFeeAuditLog
     Private Sub ClearAdminData()
         Try
             txtFeeAdminFacilityName.Clear()
+            txtAIRSNumber.Clear()
+            txtYear.Clear()
             rdbEnrolledTrue.Checked = False
             rdbEnrolledFalse.Checked = False
             dtpEnrollmentDate.Value = Today
@@ -239,7 +241,7 @@ Public Class PASPFeeAuditLog
 
     Private Sub LoadAdminData()
         If AirsNumber Is Nothing OrElse FeeYear Is Nothing Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1229,7 +1231,7 @@ Public Class PASPFeeAuditLog
 
     Private Sub LoadAuditedData()
         If AirsNumber Is Nothing OrElse FeeYear Is Nothing Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -1923,16 +1925,11 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub MailoutReplaceFacilityInfoButton_Click(sender As Object, e As EventArgs) Handles MailoutReplaceFacilityInfoButton.Click
-        Try
+        MailoutEditingToggle(True, False)
+        Dim facility As Facility = DAL.GetFacility(Me.AirsNumber)
+        facility.RetrieveHeaderData()
 
-            MailoutEditingToggle(True, False)
-            Dim facility As Facility = DAL.GetFacility(Me.AirsNumber)
-            facility.RetrieveHeaderData()
-
-            MailoutFillFacilityFrom(facility)
-        Catch ex As Exception
-
-        End Try
+        MailoutFillFacilityFrom(facility)
     End Sub
 
     Private Sub MailoutSaveContactButton_Click(sender As Object, e As EventArgs) Handles MailoutSaveContactButton.Click
@@ -1941,13 +1938,13 @@ Public Class PASPFeeAuditLog
                             "Please double-check and try again." &
                             vbNewLine & vbNewLine & "NO DATA SAVED.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
+            Return
         End If
 
         If Not DAL.FeeMailoutEntryExists(AirsNumber, FeeYear) Then
             MessageBox.Show("Can't save contact: No mailout exists for that AIRS number and year.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
+            Return
         End If
 
         Dim contact As Contact = MailoutGetContactFromForm()
@@ -1968,13 +1965,13 @@ Public Class PASPFeeAuditLog
                             "Please double-check and try again." &
                             vbNewLine & vbNewLine & "NO DATA SAVED.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
+            Return
         End If
 
         If Not DAL.FeeMailoutEntryExists(AirsNumber, FeeYear) Then
             MessageBox.Show("Can't save facility: No mailout exists for that AIRS number and year.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
+            Return
         End If
 
         Dim facility As Facility = MailoutGetFacilityFromForm()
@@ -1995,7 +1992,7 @@ Public Class PASPFeeAuditLog
         If AirsNumber Is Nothing OrElse (mtbAirsNumber.Text <> AirsNumber.FormattedString) Then
             MessageBox.Show("Please select a valid AIRS number first.",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
+            Return
         End If
 
         Dim parameters As New Generic.Dictionary(Of FormParameter, String)
@@ -2009,20 +2006,16 @@ Public Class PASPFeeAuditLog
         Try
             If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbAirsNumber.Text) Then
                 MessageBox.Show("AIRS number is not valid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             FeeYear = FeeYearsComboBox.Text
             AirsNumber = mtbAirsNumber.Text
 
             ClearForm()
-
-            dgvInvoices.DataSource = Nothing
-
             ClearInvoices()
+            ClearInvoiceForm()
             ClearAuditData()
-            crFeeStatsAndInvoices.ReportSource = Nothing
-            crFeeStatsAndInvoices.Refresh()
 
             MailoutEditingToggle(False)
             MailoutEditingToggle(False, False)
@@ -2031,6 +2024,7 @@ Public Class PASPFeeAuditLog
                 If DAL.AirsNumberExists(AirsNumber) Then
                     LoadAdminData()
                     LoadAuditedData()
+                    LoadInvoices()
                 Else
                     MessageBox.Show("Invalid AIRS # or Fee Year.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
@@ -2145,7 +2139,7 @@ Public Class PASPFeeAuditLog
                 Select Case ResultDoc
                     Case DialogResult.No
                         MsgBox("NO DATA SAVED.", MsgBoxStyle.Exclamation, Me.Text)
-                        Exit Sub
+                        Return
                 End Select
             End If
 
@@ -2154,7 +2148,7 @@ Public Class PASPFeeAuditLog
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
@@ -2170,7 +2164,7 @@ Public Class PASPFeeAuditLog
             If Not result Then
                 MsgBox("The facility is not currently in the Fee universe for the selected year." & vbCrLf &
                        "Use the Add New Facility to Year." & vbCrLf & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If Update_FS_Admin(Me.FeeYear, Me.AirsNumber,
@@ -2182,16 +2176,15 @@ Public Class PASPFeeAuditLog
 
                 If rdbInactiveStatus.Checked = True Then
                     ClearForm()
-
-                    dgvInvoices.DataSource = Nothing
-
                     ClearInvoices()
+                    ClearInvoiceForm()
                     ClearAuditData()
 
                     If AirsNumber Is Nothing OrElse FeeYear Is Nothing Then
                         If DAL.AirsNumberExists(AirsNumber) Then
                             LoadAdminData()
                             LoadAuditedData()
+                            LoadInvoices()
                         Else
                             MessageBox.Show("Invalid AIRS # or Fee Year.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         End If
@@ -2215,7 +2208,7 @@ Public Class PASPFeeAuditLog
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             If Insert_FS_Admin(Me.FeeYear, Me.AirsNumber,
@@ -2414,7 +2407,7 @@ Public Class PASPFeeAuditLog
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If txtTransactionID.Text <> "" Then
@@ -2427,17 +2420,17 @@ Public Class PASPFeeAuditLog
 
                     Case Else
                         MsgBox("No data was saved", MsgBoxStyle.Information, Me.Text)
-                        Exit Sub
+                        Return
                 End Select
             End If
             If cboTransactionType.SelectedValue Is Nothing OrElse cboTransactionType.SelectedValue.ToString = "" Then
                 MsgBox("A transaction type must be selected before continuing." & vbCrLf & "No data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If InvoiceCheck() = False Then
                 MsgBox("The Invoice Number entered is not valid." & vbCrLf & "No Data saved", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim payment As Double? = CType(RealStringOrNothing(Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")), Double?)
@@ -2627,21 +2620,21 @@ Public Class PASPFeeAuditLog
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If txtTransactionID.Text = "" Then
                 MsgBox("Please select a valid transaction to update." & vbCrLf & "No data modified", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
             If cboTransactionType.SelectedValue Is Nothing Or cboTransactionType.SelectedValue = "" Then
                 MsgBox("A transaction type must be selected before continuing." & vbCrLf & "No data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If InvoiceCheck() = False Then
                 MsgBox("The Invoice Number entered is not valid." & vbCrLf & "No Data saved", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim payment As Double? = CType(RealStringOrNothing(Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")), Double?)
@@ -2699,16 +2692,16 @@ Public Class PASPFeeAuditLog
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If txtTransactionID.Text = "" Then
                 MsgBox("Please select a valid transaction to update." & vbCrLf & "No data modified", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
             If InvoiceCheck() = False Then
                 MsgBox("The Invoice Number entered is not valid." & vbCrLf & "No Data saved", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Update FS_Transactions set " &
@@ -2814,7 +2807,7 @@ Public Class PASPFeeAuditLog
             Dim NSPSExemptions As String = ""
             Dim StaffResponsible As String = ""
             Dim AuditLevel As String = ""
-            Dim AuditEnforcement As Integer = 0
+            Dim AuditEnforcement As Integer
             Dim AuditComments As String = ""
             Dim AuditStart As String = ""
             Dim AuditEnd As String = ""
@@ -2827,7 +2820,7 @@ Public Class PASPFeeAuditLog
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("Reload a facility and year before continuing." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If rdbEditOpStatusTrue.Checked = True Or rdbEditOpStatusFalse.Checked = True Then
@@ -3021,7 +3014,9 @@ Public Class PASPFeeAuditLog
                     AuditLevel = "4"
             End Select
 
-            Integer.TryParse(txtAuditEnforcementNumber.Text, AuditEnforcement)
+            If Not Integer.TryParse(txtAuditEnforcementNumber.Text, AuditEnforcement) Then
+                AuditEnforcement = 0
+            End If
             If txtAuditComment.Text <> "" Then
                 AuditComments = txtAuditComment.Text
             End If
@@ -3190,16 +3185,14 @@ Public Class PASPFeeAuditLog
     Private Sub rdbEditNSPSExemptTrue_CheckedChanged(sender As Object, e As EventArgs) Handles rdbEditNSPSExemptTrue.CheckedChanged
         Try
             If rdbEditNSPSExemptTrue.Checked = False Then
-                Exit Sub
+                Return
             End If
 
             If AirsNumber Is Nothing OrElse FeeYear Is Nothing Then
                 MessageBox.Show("Please select a valid AIRS number and year first.",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
+                Return
             End If
-
-            Dim dgvRow As New DataGridViewRow
 
             Dim SQL As String = "select
                         FSLK_NSPSReason.NSPSREasonCode,
@@ -3217,13 +3210,15 @@ Public Class PASPFeeAuditLog
             dgvEditExemptions.Rows.Clear()
 
             For Each dr As DataRow In dt.Rows
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEditExemptions)
-                dgvRow.Cells(0).Value = 0
-                dgvRow.Cells(1).Value = dr.Item("NSPSReasonCode")
-                dgvRow.Cells(2).Value = dr.Item("description")
-                dgvEditExemptions.Rows.Add(dgvRow)
+                Using dgvRow As New DataGridViewRow
+                    dgvRow.CreateCells(dgvEditExemptions)
+                    dgvRow.Cells(0).Value = 0
+                    dgvRow.Cells(1).Value = dr.Item("NSPSReasonCode")
+                    dgvRow.Cells(2).Value = dr.Item("description")
+                    dgvEditExemptions.Rows.Add(dgvRow)
+                End Using
             Next
+
             dgvEditExemptions.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3232,7 +3227,7 @@ Public Class PASPFeeAuditLog
 
     Private Sub dgvEditExemptions_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvEditExemptions.MouseUp
         If dgvEditExemptions.Rows.Count < 1 Then
-            Exit Sub
+            Return
         End If
         Try
             Dim hti As DataGridView.HitTestInfo = dgvEditExemptions.HitTest(e.X, e.Y)
@@ -3254,275 +3249,14 @@ Public Class PASPFeeAuditLog
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
-    Private Sub btnGenerateInvoice_Click(sender As Object, e As EventArgs) Handles btnViewPrintableInvoice.Click
-
-        If Not CrystalReportsIsAvailable() Then
-            Exit Sub
-        End If
-
-        Try
-            Dim rpt As New ReportClass
-            Dim Director As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.EpdDirector)
-            Dim Commissioner As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.DnrCommissioner)
-            Dim TotalEmissionFees As String = ""
-            Dim InvoiceDate As Date = Today
-            Dim PayType As String = ""
-            Dim PayTypeID As String = ""
-            Dim TotalInvoiceAmount As String = ""
-            Dim TotalFee As String = ""
-            Dim AdminFee As String = ""
-            Dim DueDate As Date = Today
-            Dim VOIDStatus As String = ""
-            Dim ParameterFields As ParameterFields
-            Dim ParameterField As ParameterField
-            Dim spValue As ParameterDiscreteValue
-
-            If txtInvoice.Text = "" Then
-                MsgBox("Please select an existing invoice to Print.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
-
-            Dim SQL As String = "Select " &
-            "numAmount, datInvoiceDate, " &
-            "strPayType, strPayTypeDesc, " &
-            "FS_FeeInvoice.CreateDateTime, " &
-            "FS_FeeInvoice.Active " &
-            "from FS_FeeInvoice " &
-            "inner join FSLK_PayType " &
-            "on FS_FeeInvoice.strPayType = " &
-               "FSLK_PayType.numPayTypeID " &
-               "where InvoiceID = @InvoiceID " &
-               "and strAIRSNumber = @strAIRSNumber " &
-               "and numFeeYear = @numFeeYear "
-
-            Dim p As SqlParameter() = {
-                New SqlParameter("@InvoiceID", txtInvoice.Text),
-                New SqlParameter("@strAIRSNumber", AirsNumber.DbFormattedString),
-                New SqlParameter("@numFeeYear", FeeYear)
-            }
-
-            Dim dr As DataRow = DB.GetDataRow(SQL, p)
-            If dr IsNot Nothing Then
-                If Not IsDBNull(dr.Item("datInvoiceDate")) Then
-                    DueDate = dr.Item("datInvoiceDate")
-                End If
-                If IsDBNull(dr.Item("strPayTypeDesc")) Then
-                    PayType = ""
-                Else
-                    PayType = dr.Item("strPayTypeDesc")
-                End If
-                If IsDBNull(dr.Item("numAmount")) Then
-                    TotalInvoiceAmount = ""
-                Else
-                    TotalInvoiceAmount = Format(dr.Item("numAmount"), "c")
-                End If
-                If IsDBNull(dr.Item("strPayType")) Then
-                    PayTypeID = "1"
-                Else
-                    PayTypeID = dr.Item("strPayType")
-                End If
-                If Not IsDBNull(dr.Item("CreateDateTime")) Then
-                    InvoiceDate = dr.Item("CreateDateTime")
-                End If
-                If IsDBNull(dr.Item("Active")) Then
-                    VOIDStatus = "1"
-                Else
-                    VOIDStatus = dr.Item("Active")
-                End If
-            End If
-
-            SQL = "Select " &
-            "numTotalFee, numAdminFee, " &
-            "(numTotalFee - numAdminFee) as TotalEmissionFees " &
-            "from FS_FeeAuditedData " &
-            "where numFeeYear = @year " &
-            "and strAIRSNumber = @airs "
-            Dim p2 As SqlParameter() = {
-                New SqlParameter("@year", FeeYear),
-                New SqlParameter("@airs", AirsNumber.DbFormattedString)
-            }
-
-            Dim dr2 As DataRow = DB.GetDataRow(SQL, p2)
-            If dr2 IsNot Nothing Then
-                If IsDBNull(dr2.Item("TotalEmissionFees")) Then
-                    TotalEmissionFees = "0"
-                Else
-                    TotalEmissionFees = Format(dr2.Item("TotalEmissionFees"), "c")
-                End If
-                If IsDBNull(dr2.Item("numTotalFee")) Then
-                    TotalFee = "0"
-                Else
-                    If PayTypeID = "2" Or PayTypeID = "3" Or PayTypeID = "4" Or PayTypeID = "5" Then
-                        TotalFee = Format(dr2.Item("numTotalFee") / 4, "c")
-                    Else
-                        TotalFee = Format(dr2.Item("numTotalFee"), "c")
-                    End If
-                End If
-                If IsDBNull(dr2.Item("numAdminFee")) Then
-                    AdminFee = "$0.00"
-                Else
-                    AdminFee = Format(dr2.Item("numAdminFee"), "c")
-                End If
-            End If
-
-            SQL = "Select " &
-            "datTransactionDate, numPayment, " &
-            "strCheckNo, strCreditCardNo, " &
-            "strDepositNo " &
-            "From FS_Transactions " &
-            "where strAIRSNumber = @airs  " &
-            "and numFeeYear = @year " &
-            "and Active = '1' "
-
-            Dim dt As DataTable = DB.GetDataTable(SQL, p2)
-
-            rpt = New crFS_Invoice
-
-            'Do this just once at the start
-            ParameterFields = New ParameterFields
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New ParameterField
-            spValue = New ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "Director"
-            spValue.Value = Director
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New ParameterField
-            spValue = New ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "Commissioner"
-            spValue.Value = Commissioner
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New ParameterField
-            spValue = New ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "AIRSNumber"
-            spValue.Value = mtbAirsNumber.Text
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New ParameterField
-            spValue = New ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "FeeYear"
-            spValue.Value = Me.FeeYear
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New ParameterField
-            spValue = New ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "TotalEmissionFees"
-            spValue.Value = TotalEmissionFees
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New ParameterField
-            spValue = New ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "datInvoiceDate"
-            spValue.Value = Format(InvoiceDate, DateFormat)
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New ParameterField
-            spValue = New ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "PaymentType"
-            spValue.Value = PayType
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New ParameterField
-            spValue = New ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "TotalInvoiceAmount"
-            spValue.Value = TotalInvoiceAmount
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New ParameterField
-            spValue = New ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "TotalFee"
-            spValue.Value = TotalFee
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New ParameterField
-            spValue = New ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "AdminFee"
-            spValue.Value = AdminFee
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New ParameterField
-            spValue = New ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "InvoiceNumber"
-            spValue.Value = txtInvoice.Text
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New ParameterField
-            spValue = New ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "DueDate"
-            spValue.Value = Format(DueDate, DateFormat)
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New ParameterField
-            spValue = New ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "VOIDStatus"
-            spValue.Value = VOIDStatus
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            rpt.SetDataSource(dt)
-
-            'Load Variables into the Fields
-            crFeeStatsAndInvoices.ParameterFieldInfo = ParameterFields
-
-            'Display the Report
-            crFeeStatsAndInvoices.ReportSource = rpt
-            crFeeStatsAndInvoices.Refresh()
-
-            DAL.LogCrystalReportsUsage(rpt) 
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub ViewAllInvoices()
+    Private Sub LoadInvoices()
         If AirsNumber Is Nothing Then
-            Exit Sub
+            Return
         End If
+
         Try
             Dim SQL As String = "select distinct " &
             "FS_FeeInvoice.InvoiceID, " &
@@ -3581,23 +3315,56 @@ Public Class PASPFeeAuditLog
             dgvInvoices.Columns("strComment").HeaderText = "Comment"
             dgvInvoices.Columns("strComment").DisplayIndex = 6
 
+            If dgvInvoices.Rows.Count > 0 Then
+                EnablePrintActiveInvoicesLink()
+            Else
+                DisablePrintActiveInvoicesLink()
+            End If
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnViewInvoices_Click(sender As Object, e As EventArgs) Handles btnViewInvoices.Click
-        ViewAllInvoices()
+    Private Sub EnablePrintActiveInvoicesLink()
+        lnkPrintActiveInvoices.Enabled = True
+        UrlToolTip.SetToolTip(lnkPrintActiveInvoices, GetEmissionFeeInvoiceUrl(AirsNumber, CInt(FeeYear)))
+    End Sub
+
+    Private Sub DisablePrintActiveInvoicesLink()
+        lnkPrintActiveInvoices.Enabled = False
+        UrlToolTip.SetToolTip(lnkPrintActiveInvoices, Nothing)
+    End Sub
+
+    Private Sub EnablePrintSelectedInvoiceLink()
+        lnkPrintSelectedInvoice.Enabled = True
+        UrlToolTip.SetToolTip(lnkPrintSelectedInvoice, GetEmissionFeeInvoiceUrl(AirsNumber, CInt(FeeYear), CInt(txtInvoice.Text)))
+    End Sub
+
+    Private Sub DisablePrintSelectedInvoiceLink()
+        lnkPrintSelectedInvoice.Enabled = False
+        UrlToolTip.SetToolTip(lnkPrintSelectedInvoice, Nothing)
+    End Sub
+
+    Private Sub lnkPrintActiveInvoices_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkPrintActiveInvoices.LinkClicked
+        OpenEmissionFeeInvoiceUrl(AirsNumber, CInt(FeeYear))
+    End Sub
+
+    Private Sub LnkPrintSelectedInvoice_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkPrintSelectedInvoice.LinkClicked
+        OpenEmissionFeeInvoiceUrl(AirsNumber, CInt(FeeYear), CInt(txtInvoice.Text))
     End Sub
 
     Private Sub dgvInvoices_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvInvoices.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvInvoices.HitTest(e.X, e.Y)
+
             If dgvInvoices.RowCount > 0 And hti.RowIndex <> -1 Then
                 If IsDBNull(dgvInvoices(0, hti.RowIndex).Value) Then
                     txtInvoice.Clear()
+                    DisablePrintSelectedInvoiceLink()
                 Else
                     txtInvoice.Text = dgvInvoices(0, hti.RowIndex).Value
+                    EnablePrintSelectedInvoiceLink()
                 End If
                 If IsDBNull(dgvInvoices(1, hti.RowIndex).Value) Then
                     txtAmount.Clear()
@@ -3630,9 +3397,7 @@ Public Class PASPFeeAuditLog
                 Else
                     txtInvoiceComments.Text = dgvInvoices(6, hti.RowIndex).Value
                 End If
-
             End If
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3648,7 +3413,7 @@ Public Class PASPFeeAuditLog
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If txtAmount.Text <> "" And cboInvoiceType.Text <> "" Then
@@ -3659,7 +3424,7 @@ Public Class PASPFeeAuditLog
                 End If
             Else
                 MsgBox("A valid Invoice Amount, Pay Type and Invoice Date must be selected.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Insert into FS_FeeINvoice " &
@@ -3690,7 +3455,7 @@ Public Class PASPFeeAuditLog
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
-            ViewAllInvoices()
+            LoadInvoices()
 
             RefreshAdminStatus()
 
@@ -3710,13 +3475,13 @@ Public Class PASPFeeAuditLog
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             If txtInvoice.Text Is Nothing OrElse Not Integer.TryParse(txtInvoice.Text, Nothing) Then
                 MessageBox.Show("Please select an invoice first and try again.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             Dim query As String = "Select " &
@@ -3733,7 +3498,7 @@ Public Class PASPFeeAuditLog
                 MsgBox("There already exists a transaction for this invoice. " &
                        "Any Transaction needs to be deleted or zeroed out to VOID an Invoice.",
                          MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
+                Return
             End If
 
             query = "Update FS_FeeInvoice set " &
@@ -3742,7 +3507,7 @@ Public Class PASPFeeAuditLog
 
             DB.RunCommand(query, p)
 
-            ViewAllInvoices()
+            LoadInvoices()
             LoadTransactionData()
 
             MsgBox("Invoice VOIDED", MsgBoxStyle.Information, Me.Text)
@@ -3761,7 +3526,7 @@ Public Class PASPFeeAuditLog
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             Dim SQL As String = "Select distinct " &
@@ -3798,7 +3563,7 @@ Public Class PASPFeeAuditLog
                 End If
             End If
 
-            ViewAllInvoices()
+            LoadInvoices()
             LoadTransactionData()
             MsgBox("All unpaid Invoices have been VOIDED.", MsgBoxStyle.Exclamation, Me.Text)
         Catch ex As Exception
@@ -3813,7 +3578,7 @@ Public Class PASPFeeAuditLog
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             If txtInvoice.Text <> "" Then
@@ -3825,7 +3590,7 @@ Public Class PASPFeeAuditLog
 
                 txtStatus.Text = "Active"
 
-                ViewAllInvoices()
+                LoadInvoices()
                 LoadTransactionData()
                 MsgBox("Invoice VOID Status Removed.", MsgBoxStyle.Information, Me.Text)
             End If
@@ -3887,12 +3652,12 @@ Public Class PASPFeeAuditLog
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
+                Return
             End If
 
             If txtAuditID.Text = "" Then
                 MsgBox("Please select an existing Audit before attempting to edit.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+                Return
             End If
 
             If rdbEditOpStatusTrue.Checked = True Or rdbEditOpStatusFalse.Checked = True Then
@@ -4251,7 +4016,7 @@ Public Class PASPFeeAuditLog
             Dim temp As String
 
             If dgvAuditHistory.CurrentRow Is Nothing Then
-                Exit Sub
+                Return
             End If
             ClearAuditData()
 
@@ -4545,11 +4310,16 @@ Public Class PASPFeeAuditLog
         rdbEditNSPSExemptFalse.Checked = False
     End Sub
 
-    Private Sub btnClearInvoiceData_Click(sender As Object, e As EventArgs) Handles btnClearInvoiceData.Click
-        ClearInvoices()
+    Private Sub ClearInvoices()
+        dgvInvoices.DataSource = Nothing
+        DisablePrintActiveInvoicesLink()
     End Sub
 
-    Private Sub ClearInvoices()
+    Private Sub btnClearInvoiceData_Click(sender As Object, e As EventArgs) Handles btnClearInvoiceData.Click
+        ClearInvoiceForm()
+    End Sub
+
+    Private Sub ClearInvoiceForm()
         txtInvoice.Clear()
         txtAmount.Clear()
         DTPInvoiceDate.Value = Today
@@ -4557,6 +4327,7 @@ Public Class PASPFeeAuditLog
         cboInvoiceType.Text = ""
         txtPayStatus.Clear()
         txtInvoiceComments.Clear()
+        DisablePrintSelectedInvoiceLink()
     End Sub
 
     Private Sub btnFindTransactions4_Click(sender As Object, e As EventArgs) Handles btnFindTransactions.Click
@@ -4710,6 +4481,8 @@ Public Class PASPFeeAuditLog
         ClearForm()
         ClearAdminData()
         ClearAuditData()
+        ClearInvoices()
+        ClearInvoiceForm()
         mtbAirsNumber.Clear()
         FeeYearsComboBox.SelectedIndex = 0
     End Sub
@@ -4909,7 +4682,7 @@ Public Class PASPFeeAuditLog
             "and strInvoiceStatus = '0' " &
             "and active = '1' "
 
-            Dim parameters As SqlParameter() = New SqlParameter() {
+            Dim parameters As SqlParameter() = {
                 New SqlParameter("@Username", CurrentUser.AlphaName),
                 New SqlParameter("@FeeYear", FeeYear),
                 New SqlParameter("@AirsNumber", AirsNumber.DbFormattedString)

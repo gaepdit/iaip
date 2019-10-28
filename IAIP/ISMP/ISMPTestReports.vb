@@ -928,7 +928,7 @@ Public Class ISMPTestReports
                 Else
                     txtFacilityState.Text = dr.Item("strFacilityState")
                 End If
-                txtFacilityCity.Text = String.Join(", ", New String() {txtFacilityCity.Text, txtFacilityState.Text})
+                txtFacilityCity.Text = String.Join(", ", {txtFacilityCity.Text, txtFacilityState.Text})
                 If IsDBNull(dr.Item("strPollutant")) Then
                     cboPollutantDetermined.SelectedValue = 0
                 Else
@@ -8982,7 +8982,7 @@ Public Class ISMPTestReports
                         Else
                             txtFacilityState.Text = dr.Item("strFacilityState")
                         End If
-                        txtFacilityCity.Text = String.Join(", ", New String() {txtFacilityCity.Text, txtFacilityState.Text})
+                        txtFacilityCity.Text = String.Join(", ", {txtFacilityCity.Text, txtFacilityState.Text})
                         If IsDBNull(dr.Item("strTestingFirm")) Then
                             cboTestingFirm.SelectedValue = 0
                         Else
@@ -9286,7 +9286,7 @@ Public Class ISMPTestReports
                 SCTestReports.SanelySetSplitterDistance(385)
                 cboTestNotificationNumber.Select(0, cboTestNotificationNumber.Text.Length)
                 MessageBox.Show("The test notification number entered is not valid. Changes were not saved.", "Error", MessageBoxButtons.OK)
-                Exit Sub
+                Return
             End If
         End If
 
@@ -9302,10 +9302,8 @@ Public Class ISMPTestReports
                 End If
             End If
 
-            If AccountFormAccess(69, 4) = "1" Then
-                If SaveSSCPWork() Then
-                    MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
-                End If
+            If AccountFormAccess(69, 4) = "1" AndAlso SaveSSCPWork() Then
+                MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
             End If
 
         Catch ex As Exception
@@ -13870,7 +13868,7 @@ Public Class ISMPTestReports
 
     Private Sub DisplayEnforcementCases()
         If String.IsNullOrEmpty(txtTrackingNumber.Text) Then
-            Exit Sub
+            Return
         End If
 
         Dim dt As New DataTable
@@ -21347,15 +21345,9 @@ Public Class ISMPTestReports
 
     End Sub
     Private Sub btnSaveSSCPData_Click(sender As Object, e As EventArgs) Handles btnSaveSSCPData.Click
-        Try
-            If AccountFormAccess(69, 4) = "1" Then
-                SaveSSCPWork()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        If AccountFormAccess(69, 4) = "1" AndAlso SaveSSCPWork() Then
+            MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
+        End If
     End Sub
     Private Sub llbTestNotifiactionNumber_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbTestNotifiactionNumber.LinkClicked
         Try
