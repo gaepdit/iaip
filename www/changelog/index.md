@@ -8,6 +8,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.15.1 <span>(2019-11-01)</span>
+
+Accommodate new emissions fee invoice form.
+
 ## Version 5.15.0 <span>(2019-10-25)</span>
 
 The following bugs were fixed:
