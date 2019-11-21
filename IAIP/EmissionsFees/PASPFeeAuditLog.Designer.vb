@@ -29,7 +29,6 @@ Partial Class PASPFeeAuditLog
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.lnkPrintActiveInvoices = New System.Windows.Forms.LinkLabel()
         Me.llbAuditPerformed = New System.Windows.Forms.Label()
-        Me.txtInvoiceDataNSPSExempts = New System.Windows.Forms.TextBox()
         Me.chbInvoiceDataOperating = New System.Windows.Forms.CheckBox()
         Me.Label102 = New System.Windows.Forms.Label()
         Me.txtInvoiceDataConfirmationNumber = New System.Windows.Forms.TextBox()
@@ -545,7 +544,6 @@ Partial Class PASPFeeAuditLog
         '
         Me.Panel7.Controls.Add(Me.lnkPrintActiveInvoices)
         Me.Panel7.Controls.Add(Me.llbAuditPerformed)
-        Me.Panel7.Controls.Add(Me.txtInvoiceDataNSPSExempts)
         Me.Panel7.Controls.Add(Me.chbInvoiceDataOperating)
         Me.Panel7.Controls.Add(Me.Label102)
         Me.Panel7.Controls.Add(Me.txtInvoiceDataConfirmationNumber)
@@ -621,15 +619,6 @@ Partial Class PASPFeeAuditLog
         Me.llbAuditPerformed.Size = New System.Drawing.Size(81, 13)
         Me.llbAuditPerformed.TabIndex = 525
         Me.llbAuditPerformed.Text = "Audit performed"
-        '
-        'txtInvoiceDataNSPSExempts
-        '
-        Me.txtInvoiceDataNSPSExempts.Location = New System.Drawing.Point(719, 3)
-        Me.txtInvoiceDataNSPSExempts.Name = "txtInvoiceDataNSPSExempts"
-        Me.txtInvoiceDataNSPSExempts.ReadOnly = True
-        Me.txtInvoiceDataNSPSExempts.Size = New System.Drawing.Size(62, 20)
-        Me.txtInvoiceDataNSPSExempts.TabIndex = 524
-        Me.txtInvoiceDataNSPSExempts.Visible = False
         '
         'chbInvoiceDataOperating
         '
@@ -5079,7 +5068,6 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents Label102 As System.Windows.Forms.Label
     Friend WithEvents txtInvoiceDataConfirmationNumber As System.Windows.Forms.TextBox
     Friend WithEvents chbInvoiceDataOperating As System.Windows.Forms.CheckBox
-    Friend WithEvents txtInvoiceDataNSPSExempts As System.Windows.Forms.TextBox
     Friend WithEvents dgvTransactions As System.Windows.Forms.DataGridView
     Friend WithEvents Panel9 As System.Windows.Forms.Panel
     Friend WithEvents txtTransactionID As System.Windows.Forms.TextBox
