@@ -1,5 +1,7 @@
-﻿Imports System.Data.SqlClient
+Imports System.Data.SqlClient
 Imports System.Data.SqlTypes
+Imports System.Text
+Imports EpdIt.DBUtilities
 Imports Iaip.Apb.Facilities
 
 Public Class PASPFeeAuditLog
@@ -703,7 +705,6 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub LoadFeeInvoiceData()
-        Dim temp As String
         Try
             Dim SQL As String = "select " &
             "FS_FEEDATA.NUMFEEYEAR, " &
@@ -767,13 +768,8 @@ Public Class PASPFeeAuditLog
                         txtGECONSPS.Text = "False"
                     End If
                 End If
-                If IsDBNull(dr.Item("STRNSPSEXEMPTREASON")) Then
-                    txtInvoiceDataNSPSExempts.Clear()
-                    txtGECOExceptions.Clear()
-                Else
-                    txtInvoiceDataNSPSExempts.Text = dr.Item("STRNSPSEXEMPTREASON")
-                    txtGECOExceptions.Text = dr.Item("STRNSPSEXEMPTREASON")
-                End If
+
+                Dim nspsExemptionList As String = GetNullableString(dr.Item("STRNSPSEXEMPTREASON"))
 
                 If IsDBNull(dr.Item("strPart70")) Then
                     chbInvoiceDataPart70.Checked = False
@@ -940,90 +936,61 @@ Public Class PASPFeeAuditLog
                 Else
                     txtGECOShutDown.Text = dr.Item("DATSHUTDOWN")
                 End If
-            End If
 
-            Dim SQLLine As String = ""
-            If txtGECOExceptions.Text <> "" Then
-                Do While txtGECOExceptions.Text <> ""
-                    If txtGECOExceptions.Text.Contains(",") Then
-                        temp = Mid(txtGECOExceptions.Text, 1, InStr(txtGECOExceptions.Text, ",", CompareMethod.Text) - 1)
-                        txtGECOExceptions.Text = Replace(txtGECOExceptions.Text, temp & ",", "")
-                    Else
-                        temp = txtGECOExceptions.Text
-                        txtGECOExceptions.Text = Replace(txtGECOExceptions.Text, temp, "")
-                    End If
-                    SQLLine = SQLLine & " NSPSReasonCode = '" & temp & "' or "
-                Loop
-                If SQLLine <> "" Then
-                    SQLLine = Mid(SQLLine, 1, SQLLine.Length - 3)
+                txtGECOExceptions.Clear()
+
+                If Not String.IsNullOrEmpty(nspsExemptionList) Then
+                    SQL = "Select Description " &
+                        "from FSLK_NSPSReason " &
+                        "where NSPSReasonCode in (" & nspsExemptionList & ")"
+
+                    Dim sb As New StringBuilder()
+
+                    For Each row As DataRow In DB.GetDataTable(SQL).Rows
+                        sb.AppendLine("- " & row(0).ToString & vbCrLf)
+                    Next
+
+                    txtGECOExceptions.Text = sb.ToString
                 End If
 
-                SQL = "Select Description " &
-                "from FSLK_NSPSReason " &
-                "where " & SQLLine
-                Dim desc As String = DB.GetString(SQL)
-                If Not String.IsNullOrEmpty(desc) Then
-                    txtGECOExceptions.Text = txtGECOExceptions.Text & "- " & desc & vbCrLf & vbCrLf
-                End If
-            End If
+                If chbInvoiceDataNSPSExempt.Checked AndAlso Not String.IsNullOrEmpty(nspsExemptionList) Then
+                    SQL = "Select Description " &
+                        "from FSLK_NSPSReason " &
+                        "where NSPSReasonCode in (" & nspsExemptionList & ")"
 
-            SQLLine = ""
+                    dgvInvoiceDataNSPSExemptions.DataSource = DB.GetDataTable(SQL)
 
-            SQL = "Select " &
-            "strNonAttainment " &
-            "from LookUpCountyInformation " &
-            "where strCountyCode = @strCountyCode "
-
-            Dim param As New SqlParameter("@strCountyCode", AirsNumber.CountySubstring)
-
-            temp = DB.GetString(SQL, param)
-            If String.IsNullOrEmpty(temp) Then
-                chbInvoicedataNonAttainment.Checked = False
-            Else
-                If Mid(temp, 2, 1) = "1" Then
-                    chbInvoicedataNonAttainment.Checked = True
+                    dgvInvoiceDataNSPSExemptions.RowHeadersVisible = False
+                    dgvInvoiceDataNSPSExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                    dgvInvoiceDataNSPSExemptions.AllowUserToResizeColumns = True
+                    dgvInvoiceDataNSPSExemptions.AllowUserToResizeRows = True
+                    dgvInvoiceDataNSPSExemptions.AllowUserToAddRows = False
+                    dgvInvoiceDataNSPSExemptions.AllowUserToDeleteRows = False
+                    dgvInvoiceDataNSPSExemptions.AllowUserToOrderColumns = True
+                    dgvInvoiceDataNSPSExemptions.Columns("Description").HeaderText = "NSPS Exemption Reason"
+                    dgvInvoiceDataNSPSExemptions.Columns("Description").DisplayIndex = 0
+                    dgvInvoiceDataNSPSExemptions.Columns("Description").Width = dgvInvoiceDataNSPSExemptions.Width
                 Else
+                    dgvInvoiceDataNSPSExemptions.DataSource = Nothing
+                End If
+
+                SQL = "Select " &
+                "strNonAttainment " &
+                "from LookUpCountyInformation " &
+                "where strCountyCode = @strCountyCode "
+
+                Dim param As New SqlParameter("@strCountyCode", AirsNumber.CountySubstring)
+
+                Dim temp As String = DB.GetString(SQL, param)
+                If String.IsNullOrEmpty(temp) Then
                     chbInvoicedataNonAttainment.Checked = False
-                End If
-            End If
-
-            Dim NSPStemp As String = ""
-
-            If chbInvoiceDataNSPSExempt.Checked = True And txtInvoiceDataNSPSExempts.Text <> "" Then
-                NSPStemp = txtInvoiceDataNSPSExempts.Text
-                Do While NSPStemp <> ""
-                    If NSPStemp.Contains(",") Then
-                        temp = Mid(NSPStemp, 1, InStr(NSPStemp, ",", CompareMethod.Text) - 1)
-                        NSPStemp = Replace(NSPStemp, temp & ",", "")
+                Else
+                    If Mid(temp, 2, 1) = "1" Then
+                        chbInvoicedataNonAttainment.Checked = True
                     Else
-                        temp = NSPStemp
-                        NSPStemp = Replace(NSPStemp, temp, "")
+                        chbInvoicedataNonAttainment.Checked = False
                     End If
-                    SQLLine = SQLLine & "  NSPSReasonCode = '" & temp & "' or "
-                Loop
-
-                If SQLLine <> "" Then
-                    SQLLine = Mid(SQLLine, 1, SQLLine.Length - 3)
                 End If
-
-                SQL = "Select Description " &
-                "from FSLK_NSPSReason " &
-                "where " & SQLLine
-
-                dgvInvoiceDataNSPSExemptions.DataSource = DB.GetDataTable(SQL)
-
-                dgvInvoiceDataNSPSExemptions.RowHeadersVisible = False
-                dgvInvoiceDataNSPSExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvInvoiceDataNSPSExemptions.AllowUserToResizeColumns = True
-                dgvInvoiceDataNSPSExemptions.AllowUserToResizeRows = True
-                dgvInvoiceDataNSPSExemptions.AllowUserToAddRows = False
-                dgvInvoiceDataNSPSExemptions.AllowUserToDeleteRows = False
-                dgvInvoiceDataNSPSExemptions.AllowUserToOrderColumns = True
-                dgvInvoiceDataNSPSExemptions.Columns("Description").HeaderText = "NSPS Exemption Reason"
-                dgvInvoiceDataNSPSExemptions.Columns("Description").DisplayIndex = 0
-                dgvInvoiceDataNSPSExemptions.Columns("Description").Width = dgvInvoiceDataNSPSExemptions.Width
-            Else
-                dgvInvoiceDataNSPSExemptions.DataSource = Nothing
             End If
 
             SQL = "Select " &
@@ -1073,7 +1040,6 @@ Public Class PASPFeeAuditLog
 
             rdbInvoiceDataPaidStatus.Checked = True
             For i As Integer = 0 To dgvInvoiceData.RowCount - 1
-                temp = dgvInvoiceData(5, i).Value
                 If dgvInvoiceData(5, i).Value = "Unpaid" Then
                     rdbInvoiceDataUnpaidStatus.Checked = True
                 End If
@@ -1235,8 +1201,6 @@ Public Class PASPFeeAuditLog
         End If
 
         Try
-            Dim temp As String
-
             Dim SQL As String = "WITH cte AS " &
             "(SELECT * FROM FS_FEEAMENDMENT WHERE STRAIRSNUMBER = @airs AND NUMFEEYEAR = @year) " &
             "SELECT " &
@@ -1434,11 +1398,9 @@ Public Class PASPFeeAuditLog
                         txtAuditedNSPSExempt.Text = "False"
                     End If
                 End If
-                If IsDBNull(dr.Item("strNSPSExemptReason")) Then
-                    txtAuditedExemptions.Clear()
-                Else
-                    txtAuditedExemptions.Text = dr.Item("strNSPSExemptReason")
-                End If
+
+                Dim nspsExemptionList As String = GetNullableString(dr.Item("STRNSPSEXEMPTREASON"))
+
                 If IsDBNull(dr.Item("numAdminFee")) Then
                     txtAuditedAdminFee.Clear()
                 Else
@@ -1484,31 +1446,21 @@ Public Class PASPFeeAuditLog
                 Else
                     txtAuditedPaymentType.Text = dr.Item("strPaymentPlan")
                 End If
-            End If
 
-            Dim SQLLine As String = ""
-            If txtAuditedExemptions.Text <> "" Then
-                Do While txtAuditedExemptions.Text <> ""
-                    If txtAuditedExemptions.Text.Contains(",") Then
-                        temp = Mid(txtAuditedExemptions.Text, 1, InStr(txtAuditedExemptions.Text, ",", CompareMethod.Text) - 1)
-                        txtAuditedExemptions.Text = Replace(txtAuditedExemptions.Text, temp & ",", "")
-                    Else
-                        temp = txtAuditedExemptions.Text
-                        txtAuditedExemptions.Text = Replace(txtAuditedExemptions.Text, temp, "")
-                    End If
-                    SQLLine = SQLLine & " NSPSReasonCode = '" & temp & "' or "
-                Loop
-                If SQLLine <> "" Then
-                    SQLLine = Mid(SQLLine, 1, SQLLine.Length - 3)
-                End If
+                txtAuditedExemptions.Clear()
 
-                SQL = "Select Description " &
-                "from FSLK_NSPSReason " &
-                "where " & SQLLine
+                If Not String.IsNullOrEmpty(nspsExemptionList) Then
+                    SQL = "Select Description " &
+                        "from FSLK_NSPSReason " &
+                        "where NSPSReasonCode in (" & nspsExemptionList & ")"
 
-                Dim desc As String = DB.GetString(SQL)
-                If Not String.IsNullOrEmpty(desc) Then
-                    txtAuditedExemptions.Text = txtAuditedExemptions.Text & "- " & desc & vbCrLf & vbCrLf
+                    Dim sb As New StringBuilder()
+
+                    For Each row As DataRow In DB.GetDataTable(SQL).Rows
+                        sb.AppendLine("- " & row(0).ToString & vbCrLf)
+                    Next
+
+                    txtAuditedExemptions.Text = sb.ToString()
                 End If
             End If
 
@@ -2061,7 +2013,6 @@ Public Class PASPFeeAuditLog
             txtInvoiceDataTotalFees.Clear()
             dtpInvoiceDataDateInvoiced.Value = Today
             chbInvoiceDataNSPSExempt.Checked = False
-            txtInvoiceDataNSPSExempts.Clear()
             dgvInvoiceDataNSPSExemptions.DataSource = Nothing
 
             txtInvoiceDataOfficialName.Clear()
