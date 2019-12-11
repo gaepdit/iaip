@@ -66,7 +66,7 @@ Public Class DmuEdtErrorMessageDetail
 
     Private Sub Init()
         ErrorCodeDisplay.Text = EdtErrorCode
-        Me.Text = "EDT Error Code " & EdtErrorCode
+        Text = "EDT Error Code " & EdtErrorCode
 
         headerSuccess = GetHeaderData()
         If headerSuccess Then
@@ -120,8 +120,9 @@ Public Class DmuEdtErrorMessageDetail
         edtErrorMessagesTable.PrimaryKey = keys
 
         If edtErrorMessagesTable IsNot Nothing Then
-            edtErrorMessagesBindingSource = New BindingSource
-            edtErrorMessagesBindingSource.DataSource = edtErrorMessagesTable
+            edtErrorMessagesBindingSource = New BindingSource With {
+                .DataSource = edtErrorMessagesTable
+            }
             EdtErrorMessageGrid.DataSource = edtErrorMessagesBindingSource
 
             FormatGrid()
@@ -210,13 +211,13 @@ Public Class DmuEdtErrorMessageDetail
         edtErrorMessagesBindingSource.RemoveFilter()
         totalCount = edtErrorMessagesBindingSource.Count
 
-        If DisplayOwnerMine.Checked And DisplayResolutionOpen.Checked Then
+        If DisplayOwnerMine.Checked AndAlso DisplayResolutionOpen.Checked Then
             edtErrorMessagesBindingSource.Filter = "AssignedToUser = " & CurrentUser.UserID & " and Resolved = False"
-        ElseIf DisplayOwnerMine.Checked And DisplayResolutionAll.Checked Then
+        ElseIf DisplayOwnerMine.Checked AndAlso DisplayResolutionAll.Checked Then
             edtErrorMessagesBindingSource.Filter = "AssignedToUser = " & CurrentUser.UserID
-        ElseIf DisplayOwnerEveryone.Checked And DisplayResolutionOpen.Checked Then
+        ElseIf DisplayOwnerEveryone.Checked AndAlso DisplayResolutionOpen.Checked Then
             edtErrorMessagesBindingSource.Filter = "Resolved = False"
-        ElseIf DisplayOwnerEveryone.Checked And DisplayResolutionAll.Checked Then
+        ElseIf DisplayOwnerEveryone.Checked AndAlso DisplayResolutionAll.Checked Then
             edtErrorMessagesBindingSource.RemoveFilter()
         End If
 
@@ -251,41 +252,41 @@ Public Class DmuEdtErrorMessageDetail
 
     Private Sub EdtErrorMessageGrid_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellClick
         ' Only within the cell content of first column
-        If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex = 0 Then
-            OpenEdtErrorDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value)
+        If e.RowIndex <> -1 AndAlso e.RowIndex < EdtErrorMessageGrid.RowCount AndAlso e.ColumnIndex = 0 Then
+            OpenEdtErrorDetail(CInt(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value))
         End If
     End Sub
 
     Private Sub EdtErrorMessageGrid_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellDoubleClick
         'Double-click within the cell content (but exclude first column to avoid double-firing)
-        If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex <> 0 Then
-            OpenEdtErrorDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value)
+        If e.RowIndex <> -1 AndAlso e.RowIndex < EdtErrorMessageGrid.RowCount AndAlso e.ColumnIndex <> 0 Then
+            OpenEdtErrorDetail(CInt(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value))
         End If
     End Sub
 
     Private Sub EdtErrorMessageGrid_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellMouseEnter
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
-        If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex = 0 Then
+        If e.RowIndex <> -1 AndAlso e.RowIndex < EdtErrorMessageGrid.RowCount AndAlso e.ColumnIndex = 0 Then
             EdtErrorMessageGrid.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, True)
         End If
     End Sub
 
     Private Sub EdtErrorMessageGrid_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellMouseLeave
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
-        If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex = 0 Then
+        If e.RowIndex <> -1 AndAlso e.RowIndex < EdtErrorMessageGrid.RowCount AndAlso e.ColumnIndex = 0 Then
             EdtErrorMessageGrid.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, False)
         End If
     End Sub
 
     Private Sub EdtErrorMessageGrid_KeyUp(sender As Object, e As KeyEventArgs) Handles EdtErrorMessageGrid.KeyUp
         If e.KeyCode = Keys.Enter Then
-            OpenEdtErrorDetail(EdtErrorMessageGrid.CurrentRow.Cells(0).Value)
+            OpenEdtErrorDetail(CInt(EdtErrorMessageGrid.CurrentRow.Cells(0).Value))
         End If
     End Sub
 
     Private Sub OpenEdtError_Click(sender As Object, e As EventArgs) Handles OpenEdtError.Click
         If EdtErrorMessageGrid.RowCount > 0 AndAlso EdtErrorMessageGrid.SelectedRows.Count = 1 Then
-            OpenEdtErrorDetail(EdtErrorMessageGrid.SelectedRows(0).Cells(0).Value)
+            OpenEdtErrorDetail(CInt(EdtErrorMessageGrid.SelectedRows(0).Cells(0).Value))
         End If
     End Sub
 
@@ -306,7 +307,7 @@ Public Class DmuEdtErrorMessageDetail
             Dim allResolved As Boolean = True
 
             For Each row As DataGridViewRow In EdtErrorMessageGrid.SelectedRows
-                If row.Cells("Resolved").Value = True Then
+                If CBool(row.Cells("Resolved").Value) Then
                     allOpen = False
                 Else
                     allResolved = False
@@ -351,7 +352,7 @@ Public Class DmuEdtErrorMessageDetail
 #Region " Update data "
 
     Private Sub AssignDefaultUser_Click(sender As Object, e As EventArgs) Handles AssignDefaultUser.Click
-        If DAL.Dmu.SetDefaultUser(EdtErrorCode, UserAsDefault.SelectedValue) Then
+        If DAL.Dmu.SetDefaultUser(EdtErrorCode, CInt(UserAsDefault.SelectedValue)) Then
             MessageBox.Show("Default user set.", "Success", MessageBoxButtons.OK)
         Else
             MessageBox.Show("There was an error setting the default user.", "Error", MessageBoxButtons.OK)
@@ -363,10 +364,10 @@ Public Class DmuEdtErrorMessageDetail
         Dim result As Boolean = False
 
         If idArray IsNot Nothing Then
-            result = DAL.Dmu.AssignErrorToUser(UserToAssign.SelectedValue, idArray)
+            result = DAL.Dmu.AssignErrorToUser(CInt(UserToAssign.SelectedValue), idArray)
         End If
 
-        If result = True Then
+        If result Then
             AssignUserInGrid()
         Else
             MessageBox.Show("There was an error assigning a user to the selected items.", "Error", MessageBoxButtons.OK)
@@ -374,7 +375,7 @@ Public Class DmuEdtErrorMessageDetail
     End Sub
 
     Private Sub AssignUserInGrid()
-        If (EdtErrorMessageGrid.SelectedRows.Count = 0) Then Exit Sub
+        If (EdtErrorMessageGrid.SelectedRows.Count = 0) Then Return
 
         For Each selectedRow As DataGridViewRow In EdtErrorMessageGrid.SelectedRows
             Dim tableRow As DataRow = edtErrorMessagesTable.Rows().Find(selectedRow.Cells("ERRORID").Value)
@@ -388,7 +389,7 @@ Public Class DmuEdtErrorMessageDetail
     End Sub
 
     Private Sub ChangeStatusForSelectedRows_Click(sender As Object, e As EventArgs) Handles ChangeStatusForSelectedRows.Click
-        If statusOfSelectedRows = SelectedRowsState.AllOpen Or statusOfSelectedRows = SelectedRowsState.AllResolved Then
+        If statusOfSelectedRows = SelectedRowsState.AllOpen OrElse statusOfSelectedRows = SelectedRowsState.AllResolved Then
             Dim idArray As Integer() = GetSelectedIDs()
             Dim result As Boolean = False
 
@@ -400,7 +401,7 @@ Public Class DmuEdtErrorMessageDetail
                 End If
             End If
 
-            If result = True Then
+            If result Then
                 ChangeResolutionStatusInGrid()
             Else
                 MessageBox.Show("There was an error changing the status for the selected items.", "Error", MessageBoxButtons.OK)
@@ -409,7 +410,7 @@ Public Class DmuEdtErrorMessageDetail
     End Sub
 
     Private Sub ChangeResolutionStatusInGrid()
-        If (EdtErrorMessageGrid.SelectedRows.Count = 0) Then Exit Sub
+        If (EdtErrorMessageGrid.SelectedRows.Count = 0) Then Return
 
         If statusOfSelectedRows = SelectedRowsState.AllOpen Then
 
@@ -445,7 +446,7 @@ Public Class DmuEdtErrorMessageDetail
         If (EdtErrorMessageGrid.SelectedRows.Count > 0) Then
             Dim idList As New List(Of Integer)
             For Each row As DataGridViewRow In EdtErrorMessageGrid.SelectedRows
-                idList.Add(row.Cells("ErrorID").Value)
+                idList.Add(CInt(row.Cells("ErrorID").Value))
             Next
             Return idList.ToArray
         Else

@@ -36,7 +36,7 @@ Public Class DmuEdtErrorDetail
 
     Private Sub Init()
         ErrorIDDisplay.Text = "Error #" & EdtErrorID.ToString
-        Me.Text = "EDT Error #" & EdtErrorID.ToString & " Detail"
+        Text = "EDT Error #" & EdtErrorID.ToString & " Detail"
         GetData()
     End Sub
 
@@ -129,10 +129,6 @@ Public Class DmuEdtErrorDetail
 
 #Region " Form resize "
 
-    Private Sub DmuEdtErrorDetail_Load(sender As Object, e As EventArgs) Handles Me.Load
-        
-    End Sub
-
     Private Sub DmuEdtErrorDetail_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         GenericErrorMessageDisplay.MaximumSize = New Size(GenericErrorMessageDisplayContainer.Size.Width - 30, 0)
         BusinessRuleDisplay.MaximumSize = New Size(BusinessRuleDisplayContainer.Size.Width - 30, 0)
@@ -145,7 +141,7 @@ Public Class DmuEdtErrorDetail
 
     Private Sub AssignSelectedToUser_Click(sender As Object, e As EventArgs) Handles AssignSelectedToUser.Click
 
-        If DAL.Dmu.AssignErrorToUser(UserAssigned.SelectedValue, Me.EdtErrorID) Then
+        If DAL.Dmu.AssignErrorToUser(CInt(UserAssigned.SelectedValue), EdtErrorID) Then
             MessageBox.Show("User assigned.", "Success", MessageBoxButtons.OK)
         Else
             MessageBox.Show("There was an error assigning the user.", "Error", MessageBoxButtons.OK)
@@ -154,9 +150,9 @@ Public Class DmuEdtErrorDetail
 
     Private Sub ChangeStatus_Click(sender As Object, e As EventArgs) Handles ChangeStatus.Click
         Dim resolving As Boolean = Not edtErrorDetails.Resolved
-        Dim result As Boolean = DAL.Dmu.SetResolvedStatus(resolving, Me.EdtErrorID)
+        Dim result As Boolean = DAL.Dmu.SetResolvedStatus(resolving, EdtErrorID)
 
-        If result = True Then
+        If result Then
             edtErrorDetails.Resolved = resolving
             If resolving Then
                 With edtErrorDetails

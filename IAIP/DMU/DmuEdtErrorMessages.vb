@@ -34,8 +34,9 @@
         edtErrorMessagesTable = DAL.Dmu.GetErrorCounts(CurrentUser.UserID)
 
         If edtErrorMessagesTable IsNot Nothing Then
-            edtErrorMessagesBindingSource = New BindingSource
-            edtErrorMessagesBindingSource.DataSource = edtErrorMessagesTable
+            edtErrorMessagesBindingSource = New BindingSource With {
+                .DataSource = edtErrorMessagesTable
+            }
             EdtErrorMessageGrid.DataSource = edtErrorMessagesBindingSource
 
             FormatGrid()
@@ -96,13 +97,13 @@
         edtErrorMessagesBindingSource.RemoveFilter()
         Dim total As Integer = edtErrorMessagesBindingSource.Count
 
-        If DisplayMine.Checked And DisplayOpen.Checked Then
+        If DisplayMine.Checked AndAlso DisplayOpen.Checked Then
             edtErrorMessagesBindingSource.Filter = "DefaultUserID = " & CurrentUser.UserID & " and CountOpenByUser > 0 "
-        ElseIf DisplayMine.Checked And DisplayAll.Checked Then
+        ElseIf DisplayMine.Checked AndAlso DisplayAll.Checked Then
             edtErrorMessagesBindingSource.Filter = "DefaultUserID = " & CurrentUser.UserID
-        ElseIf DisplayEveryone.Checked And DisplayOpen.Checked Then
+        ElseIf DisplayEveryone.Checked AndAlso DisplayOpen.Checked Then
             edtErrorMessagesBindingSource.Filter = "CountOpen > 0 "
-        ElseIf DisplayEveryone.Checked And DisplayAll.Checked Then
+        ElseIf DisplayEveryone.Checked AndAlso DisplayAll.Checked Then
             edtErrorMessagesBindingSource.RemoveFilter()
         End If
 
@@ -125,28 +126,28 @@
 
     Private Sub EdtErrorMessageGrid_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellClick
         ' Only within the cell content of first column
-        If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex = 0 Then
+        If e.RowIndex <> -1 AndAlso e.RowIndex < EdtErrorMessageGrid.RowCount AndAlso e.ColumnIndex = 0 Then
             OpenErrorMessageDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value.ToString)
         End If
     End Sub
 
     Private Sub EdtErrorMessageGrid_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellDoubleClick
         'Double-click within the cell content (but exclude first column to avoid double-firing)
-        If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex <> 0 Then
+        If e.RowIndex <> -1 AndAlso e.RowIndex < EdtErrorMessageGrid.RowCount AndAlso e.ColumnIndex <> 0 Then
             OpenErrorMessageDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value.ToString)
         End If
     End Sub
 
     Private Sub EdtErrorMessageGrid_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellMouseEnter
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
-        If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex = 0 Then
+        If e.RowIndex <> -1 AndAlso e.RowIndex < EdtErrorMessageGrid.RowCount AndAlso e.ColumnIndex = 0 Then
             EdtErrorMessageGrid.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, True)
         End If
     End Sub
 
     Private Sub EdtErrorMessageGrid_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellMouseLeave
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
-        If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex = 0 Then
+        If e.RowIndex <> -1 AndAlso e.RowIndex < EdtErrorMessageGrid.RowCount AndAlso e.ColumnIndex = 0 Then
             EdtErrorMessageGrid.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, False)
         End If
     End Sub
