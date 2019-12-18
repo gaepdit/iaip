@@ -1,0 +1,1 @@
+RENAME "C:\Program Files\Git\mingw64\bin\curl.exe" "x-curl.exe"

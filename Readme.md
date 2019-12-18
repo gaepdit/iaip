@@ -40,9 +40,12 @@ unfortunately, these versions weren't built with suppport for SFTP.
 
 Download the latest binary of [curl for Windows](https://curl.haxx.se/windows/),
 save the contents of the bin folder somewhere, and add this folder to your PATH
-environment variable (make sure it appears before "%SystemRoot%\system32"). Then
-disable the copy of curl.exe in the `C:\Program Files\Git\mingw64\bin` folder (I
-just renamed mine to `x-curl.exe`).
+environment variable (make sure it appears before "%SystemRoot%\system32"). 
+
+Then disable the copy of curl.exe in the `C:\Program Files\Git\mingw64\bin`
+folder (I just renamed mine to `x-curl.exe`). You can use the `fix-curl.bat`
+script for this purpose. *(NOTE: You will have to repeat this
+step any time Git is updated.)*
 
 ### Notes
 
