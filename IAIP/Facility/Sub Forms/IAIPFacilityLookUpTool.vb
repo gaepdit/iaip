@@ -146,7 +146,7 @@ Public Class IAIPFacilityLookUpTool
                                and s.ACTIVE = 1
                                and i.ICIS_STATUS_FLAG = 'A'
                     where i.LGCY_PROGRAM_CODE = '9'
-                          and (s.STRSUBPART) like @SearchString"
+                          and s.STRSUBPART like @SearchString collate SQL_Latin1_General_CP1_CI_AS"
 
                 ElseIf rdbPart61.Checked Then
                     query = "select
@@ -163,7 +163,7 @@ Public Class IAIPFacilityLookUpTool
                                and s.ACTIVE = 1
                                and i.ICIS_STATUS_FLAG = 'A'
                     where i.LGCY_PROGRAM_CODE = '8'
-                          and (s.STRSUBPART) like @SearchString"
+                          and s.STRSUBPART like @SearchString collate SQL_Latin1_General_CP1_CI_AS"
 
                 ElseIf rdbPart63.Checked Then
                     query = "select
@@ -180,22 +180,21 @@ Public Class IAIPFacilityLookUpTool
                                and s.ACTIVE = 1
                                and i.ICIS_STATUS_FLAG = 'A'
                     where i.LGCY_PROGRAM_CODE = 'M'
-                          and (s.STRSUBPART) like @SearchString"
+                          and s.STRSUBPART like @SearchString collate SQL_Latin1_General_CP1_CI_AS"
 
                 ElseIf rdbGASIP.Checked Then
-                    query = "select " &
-                    "strFacilityName, " &
-                    "concat(substring(f.STRAIRSNUMBER, 5, 3), '-', right(f.STRAIRSNUMBER, 5)) as shortAIRS, " &
-                    "strFacilityCity, " &
-                    "(LookUpSubPartSIP.strSubPart+ ' - '+LookUpSubpartSIP.strDescription) as SubPartData " &
-                    "from " &
-                    "APBFacilityInformation f, APBSubpartData, " &
-                    "LookUPSubPartSIP " &
-                    "where " &
-                    "f.strAIRSNumber = APBSubPartData.strAIRSNumber " &
-                    "and APBSubpartData.strSubPart = LookUpSubPartSIP.strSubpart " &
-                    "and right(strSubpartKey, 1) = '0' " &
-                    "and (APBSubpartData.strSubpart) like @SearchString"
+                    query = "select f.STRFACILITYNAME,
+                           concat(substring(f.STRAIRSNUMBER, 5, 3),
+                                  '-', right(f.STRAIRSNUMBER, 5))    as shortAIRS,
+                           f.STRFACILITYCITY,
+                           (l.STRSUBPART + ' - ' + l.STRDESCRIPTION) as SubPartData
+                    from dbo.APBFACILITYINFORMATION f
+                         inner join dbo.APBSUBPARTDATA s
+                                    on f.strAIRSNumber = s.strAIRSNumber
+                         inner join dbo.LOOKUPSUBPARTSIP l
+                                    on s.strSubPart = l.strSubpart
+                    where right(strSubpartKey, 1) = '0'
+                      and s.strSubpart like @SearchString collate SQL_Latin1_General_CP1_CI_AS"
                 End If
 
                 parameter = New SqlParameter("@SearchString", "%" & txtSubpartSearch.Text & "%")
