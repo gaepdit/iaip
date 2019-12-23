@@ -8,6 +8,11 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.15.3 <span>(2019-12-23)</span>
+
+The IAIP sometimes got NSPS Subpart Cc confused with NSPS Subpart CC. 
+Had to teach it about lower-case and upper-case letters.
+
 ## Version 5.15.2 <span>(2019-11-22)</span> 🎂
 
 Fix a bug in the emission fees form.
