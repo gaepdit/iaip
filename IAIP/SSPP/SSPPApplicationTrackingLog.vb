@@ -4761,6 +4761,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             FacilityZipCode = Replace(txtFacilityZipCode.Text, "-", "")
+            FacilityZipCode = FacilityZipCode.Substring(0, Math.Min(FacilityZipCode.Length, 9))
 
             If cboOperationalStatus.Text <> "" Then
                 Select Case cboOperationalStatus.Text
@@ -4969,7 +4970,7 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("@FacilityName", FacilityName),
                 New SqlParameter("@FacilityAddress", FacilityAddress),
                 New SqlParameter("@FacilityCity", FacilityCity),
-                New SqlParameter("@FacilityZipCode", FacilityZipCode.Substring(0, 9)),
+                New SqlParameter("@FacilityZipCode", FacilityZipCode),
                 New SqlParameter("@OperationalStatus", OperationalStatus),
                 New SqlParameter("@Classification", Classification),
                 New SqlParameter("@AirProgramCodes", AirProgramCodes),
@@ -7316,12 +7317,12 @@ Public Class SSPPApplicationTrackingLog
             valid = False
         End If
 
-        If Replace(txtPermitNumber.Text, "-", "").Length > 15 Then
+        If txtPermitNumber.Text.Length > 15 AndAlso Replace(txtPermitNumber.Text, "-", "").Length > 15 Then
             MessageBox.Show("The Permit Number cannot be more than 15 characters (not counting hyphens).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             valid = False
         End If
 
-        If Replace(txtFacilityZipCode.Text, "-", "").Length > 9 Then
+        If txtFacilityZipCode.Text.Length > 9 AndAlso Replace(txtFacilityZipCode.Text, "-", "").Length > 9 Then
             MessageBox.Show("The ZIP code cannot be more than 9 characters (not counting hyphen).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             valid = False
         End If
