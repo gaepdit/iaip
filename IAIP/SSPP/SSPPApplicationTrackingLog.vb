@@ -4969,7 +4969,7 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("@FacilityName", FacilityName),
                 New SqlParameter("@FacilityAddress", FacilityAddress),
                 New SqlParameter("@FacilityCity", FacilityCity),
-                New SqlParameter("@FacilityZipCode", FacilityZipCode),
+                New SqlParameter("@FacilityZipCode", FacilityZipCode.Substring(0, 9)),
                 New SqlParameter("@OperationalStatus", OperationalStatus),
                 New SqlParameter("@Classification", Classification),
                 New SqlParameter("@AirProgramCodes", AirProgramCodes),
@@ -7313,6 +7313,16 @@ Public Class SSPPApplicationTrackingLog
 
         If Not NaicsCodeIsValid(txtNAICSCode.Text) Then
             MessageBox.Show("The NAICS Code is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            valid = False
+        End If
+
+        If Replace(txtPermitNumber.Text, "-", "").Length > 15 Then
+            MessageBox.Show("The Permit Number cannot be more than 15 characters (not counting hyphens).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            valid = False
+        End If
+
+        If Replace(txtFacilityZipCode.Text, "-", "").Length > 9 Then
+            MessageBox.Show("The ZIP code cannot be more than 9 characters (not counting hyphen).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             valid = False
         End If
 

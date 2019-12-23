@@ -64,7 +64,7 @@ Namespace DAL.Dmu
         ''' </summary>
         ''' <param name="errorID">The Error ID to retrieve</param>
         ''' <returns>An EdtError Object</returns>
-        Public Function GetErrorDetail(errorID As String) As EdtError
+        Public Function GetErrorDetail(errorID As Integer) As EdtError
             Dim er As EdtError = Nothing
 
             Dim spName As String = "icis_edt.GetErrorDetail"

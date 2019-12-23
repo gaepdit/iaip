@@ -251,7 +251,7 @@ Public Class IAIPEditSubParts
             "1 " &
             "from APBSubpartData " &
             "where strSubpartKey = @key " &
-            "and strSubpart = @subpart COLLATE Latin1_General_100_CS_AS "
+            "and strSubpart = @subpart "
 
         Dim p As SqlParameter() = {
             New SqlParameter("@airs", AirsNumber.DbFormattedString),
@@ -266,7 +266,7 @@ Public Class IAIPEditSubParts
                         "UpdateUser = @user, " &
                         "updateDateTime = getdate() " &
                         "where strSubpartKey = @key " &
-                        "and strSubpart = @subpart COLLATE Latin1_General_100_CS_AS ")
+                        "and strSubpart = @subpart ")
             ParamList.Add(p)
         Else
             SqlList.Add("INSERT INTO APBSUBPARTDATA " &
@@ -321,7 +321,7 @@ Public Class IAIPEditSubParts
                         "UpdateUser = @user, " &
                         "updateDateTime = getdate() " &
                         "where strSubPartKey = @key " &
-                        "and strSubpart = @subpart COLLATE Latin1_General_100_CS_AS ")
+                        "and strSubpart = @subpart ")
             ParamList.Add({New SqlParameter("@user", CurrentUser.UserID),
                           New SqlParameter("@key", AirsNumber.DbFormattedString & ruleKey),
                           New SqlParameter("@subpart", spi.Subpart)})
