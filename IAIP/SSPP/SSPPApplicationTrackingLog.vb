@@ -4760,8 +4760,11 @@ Public Class SSPPApplicationTrackingLog
                 FacilityCity = cboFacilityCity.Text
             End If
 
-            FacilityZipCode = Replace(txtFacilityZipCode.Text, "-", "")
-            FacilityZipCode = FacilityZipCode.Substring(0, Math.Min(FacilityZipCode.Length, 9))
+            FacilityZipCode = txtFacilityZipCode.Text?.Replace("-", "")
+
+            If Not String.IsNullOrEmpty(FacilityZipCode) Then
+                FacilityZipCode = FacilityZipCode.Substring(0, Math.Min(FacilityZipCode.Length, 9))
+            End If
 
             If cboOperationalStatus.Text <> "" Then
                 Select Case cboOperationalStatus.Text
@@ -4840,7 +4843,7 @@ Public Class SSPPApplicationTrackingLog
 
             OwnershipTypeCode = If(chbFederallyOwned.Checked, FederallyOwnedTypeCode, Nothing)
 
-            PermitNumber = Replace(txtPermitNumber.Text, "-", "")
+            PermitNumber = txtPermitNumber.Text?.Replace("-", "")
             PlantDesc = txtPlantDescription.Text
             Comments = txtComments.Text
             ApplicationNotes = txtReasonAppSubmitted.Text
@@ -5690,12 +5693,12 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@ContactTitle", ContactTitle),
                     New SqlParameter("@ContactCompany", ContactCompany),
                     New SqlParameter("@ContactPhone", ContactPhone),
-                    New SqlParameter("@ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("@ContactFax", ContactFax?.Replace("(", "")?.Replace(")", "")?.Replace("-", "")?.Replace(" ", "")),
                     New SqlParameter("@ContactEmail", ContactEmail),
                     New SqlParameter("@ContactAddress", ContactAddress),
                     New SqlParameter("@ContactCity", ContactCity),
                     New SqlParameter("@ContactState", ContactState),
-                    New SqlParameter("@ContactZipCode", Replace(ContactZipCode, "-", "")),
+                    New SqlParameter("@ContactZipCode", ContactZipCode?.Replace("-", "")),
                     New SqlParameter("@ContactDescription", ContactDescription),
                     New SqlParameter("@txtApplicationNumber", AppNumber)
                 }
@@ -5728,12 +5731,12 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@ContactTitle", ContactTitle),
                     New SqlParameter("@ContactCompany", ContactCompany),
                     New SqlParameter("@ContactPhone", ContactPhone),
-                    New SqlParameter("@ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("@ContactFax", ContactFax?.Replace("(", "")?.Replace(")", "")?.Replace("-", "")?.Replace(" ", "")),
                     New SqlParameter("@ContactEmail", ContactEmail),
                     New SqlParameter("@ContactAddress", ContactAddress),
                     New SqlParameter("@ContactCity", ContactCity),
                     New SqlParameter("@ContactState", ContactState),
-                    New SqlParameter("@ContactZipCode", Replace(ContactZipCode, "-", "")),
+                    New SqlParameter("@ContactZipCode", ContactZipCode.Replace("-", "")),
                     New SqlParameter("@ContactDescription", ContactDescription)
                 }
             End If
@@ -7317,12 +7320,12 @@ Public Class SSPPApplicationTrackingLog
             valid = False
         End If
 
-        If txtPermitNumber.Text.Length > 15 AndAlso Replace(txtPermitNumber.Text, "-", "").Length > 15 Then
+        If txtPermitNumber.Text.Length > 15 AndAlso txtPermitNumber.Text.Replace("-", "").Length > 15 Then
             MessageBox.Show("The Permit Number cannot be more than 15 characters (not counting hyphens).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             valid = False
         End If
 
-        If txtFacilityZipCode.Text.Length > 9 AndAlso Replace(txtFacilityZipCode.Text, "-", "").Length > 9 Then
+        If txtFacilityZipCode.Text.Length > 9 AndAlso txtFacilityZipCode.Text.Replace("-", "").Length > 9 Then
             MessageBox.Show("The ZIP code cannot be more than 9 characters (not counting hyphen).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             valid = False
         End If
@@ -11098,7 +11101,7 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvSIPSubpartAddEdit.Rows.RemoveAt(i)
-                TempRemove = Replace(TempRemove, i & ",", "")
+                TempRemove = TempRemove?.Replace(i & ",", "")
             Loop
 
         Catch ex As Exception
@@ -11996,7 +11999,7 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvNSPSSubpartAddEdit.Rows.RemoveAt(i)
-                TempRemove = Replace(TempRemove, i & ",", "")
+                TempRemove = TempRemove?.Replace(i & ",", "")
             Loop
 
         Catch ex As Exception
@@ -12898,7 +12901,7 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvNESHAPSubpartAddEdit.Rows.RemoveAt(i)
-                TempRemove = Replace(TempRemove, i & ",", "")
+                TempRemove = TempRemove?.Replace(i & ",", "")
             Loop
 
         Catch ex As Exception
@@ -13803,7 +13806,7 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvMACTSubpartAddEdit.Rows.RemoveAt(i)
-                TempRemove = Replace(TempRemove, i & ",", "")
+                TempRemove = TempRemove?.Replace(i & ",", "")
             Loop
 
         Catch ex As Exception
