@@ -3046,31 +3046,31 @@ Public Class SSPPApplicationTrackingLog
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
                 AirProgramCheck = "000000000000000"
-                If chbCDS_0.Checked = True Then
+                If chbCDS_0.Checked Then
                     AirProgramCheck = "1" & Mid(AirProgramCheck, 2)
                 End If
-                If chbCDS_6.Checked = True Then
+                If chbCDS_6.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 4) & "1" & Mid(AirProgramCheck, 6)
                 End If
-                If chbCDS_7.Checked = True Then
+                If chbCDS_7.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 5) & "1" & Mid(AirProgramCheck, 7)
                 End If
-                If chbCDS_8.Checked = True Then
+                If chbCDS_8.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 6) & "1" & Mid(AirProgramCheck, 8)
                 End If
-                If chbCDS_9.Checked = True Then
+                If chbCDS_9.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 7) & "1" & Mid(AirProgramCheck, 9)
                 End If
-                If chbCDS_A.Checked = True Then
+                If chbCDS_A.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 9) & "1" & Mid(AirProgramCheck, 11)
                 End If
-                If chbCDS_M.Checked = True Then
+                If chbCDS_M.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 11) & "1" & Mid(AirProgramCheck, 13)
                 End If
-                If chbCDS_V.Checked = True Then
+                If chbCDS_V.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 12) & "1" & Mid(AirProgramCheck, 14)
                 End If
-                If chbCDS_RMP.Checked = True Then
+                If chbCDS_RMP.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 13) & "1" & Mid(AirProgramCheck, 15)
                 End If
 
@@ -3149,7 +3149,7 @@ Public Class SSPPApplicationTrackingLog
                         End If
                     End If
                 End If
-                If chbNSRMajor.Checked = False Then
+                If Not chbNSRMajor.Checked Then
                     If Mid(StateProgramCodes, 1, 1) <> 0 Then
                         rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("State Codes - ")
                         rtbFacilityInformation.SelectionColor = Color.Tomato
@@ -3160,7 +3160,7 @@ Public Class SSPPApplicationTrackingLog
                         rtbFacilityInformation.SelectionColor = Color.Tomato
                     End If
                 End If
-                If chbHAPsMajor.Checked = False Then
+                If Not chbHAPsMajor.Checked Then
                     If Mid(StateProgramCodes, 2, 1) <> 0 Then
                         rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("State Codes - ")
                         rtbFacilityInformation.SelectionColor = Color.Tomato
@@ -4675,7 +4675,7 @@ Public Class SSPPApplicationTrackingLog
                 Unit = cboApplicationUnit.SelectedValue.ToString
             End If
 
-            If chbClosedOut.Checked = True Then
+            If chbClosedOut.Checked Then
                 DateFinalized = TodayFormatted
             Else
                 DateFinalized = Nothing
@@ -4763,31 +4763,31 @@ Public Class SSPPApplicationTrackingLog
 
             AirProgramCodes = "000000000000000"
 
-            If chbCDS_0.Checked = True Then
+            If chbCDS_0.Checked Then
                 AirProgramCodes = "1" & Mid(AirProgramCodes, 2)
             End If
-            If chbCDS_6.Checked = True Then
+            If chbCDS_6.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 4) & "1" & Mid(AirProgramCodes, 6)
             End If
-            If chbCDS_7.Checked = True Then
+            If chbCDS_7.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 5) & "1" & Mid(AirProgramCodes, 7)
             End If
-            If chbCDS_8.Checked = True Then
+            If chbCDS_8.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 6) & "1" & Mid(AirProgramCodes, 8)
             End If
-            If chbCDS_9.Checked = True Then
+            If chbCDS_9.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 7) & "1" & Mid(AirProgramCodes, 9)
             End If
-            If chbCDS_A.Checked = True Then
+            If chbCDS_A.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 9) & "1" & Mid(AirProgramCodes, 11)
             End If
-            If chbCDS_M.Checked = True Then
+            If chbCDS_M.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 11) & "1" & Mid(AirProgramCodes, 13)
             End If
-            If chbCDS_V.Checked = True Then
+            If chbCDS_V.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 12) & "1" & Mid(AirProgramCodes, 14)
             End If
-            If chbCDS_RMP.Checked = True Then
+            If chbCDS_RMP.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 13) & "1" & Mid(AirProgramCodes, 15)
             End If
 
@@ -4803,12 +4803,12 @@ Public Class SSPPApplicationTrackingLog
 
             StateProgramCodes = "00000"
 
-            If Me.chbNSRMajor.Checked = True Then
+            If Me.chbNSRMajor.Checked Then
                 StateProgramCodes = "10000"
             Else
                 StateProgramCodes = "00000"
             End If
-            If Me.chbHAPsMajor.Checked = True Then
+            If Me.chbHAPsMajor.Checked Then
                 StateProgramCodes = Mid(StateProgramCodes, 1, 1) & "1000"
             Else
                 StateProgramCodes = Mid(StateProgramCodes, 1, 1) & "0000"
@@ -4853,28 +4853,28 @@ Public Class SSPPApplicationTrackingLog
 
             TrackedRules = "0000000000"
 
-            If chbPSD.Checked = True Then
+            If chbPSD.Checked Then
                 TrackedRules = "1" & Mid(TrackedRules, 2)
             End If
-            If chbNAANSR.Checked = True Then
+            If chbNAANSR.Checked Then
                 TrackedRules = Mid(TrackedRules, 1, 1) & "1" & Mid(TrackedRules, 3)
             End If
-            If chb112g.Checked = True Then
+            If chb112g.Checked Then
                 TrackedRules = Mid(TrackedRules, 1, 2) & "1" & Mid(TrackedRules, 4)
             End If
-            If chbRulett.Checked = True Then
+            If chbRulett.Checked Then
                 TrackedRules = Mid(TrackedRules, 1, 3) & "1" & Mid(TrackedRules, 5)
             End If
-            If chbRuleyy.Checked = True Then
+            If chbRuleyy.Checked Then
                 TrackedRules = Mid(TrackedRules, 1, 4) & "1" & Mid(TrackedRules, 6)
             End If
-            If chbPal.Checked = True Then
+            If chbPal.Checked Then
                 TrackedRules = Mid(TrackedRules, 1, 5) & "1" & Mid(TrackedRules, 7)
             End If
-            If chbExpFee.Checked = True Then
+            If chbExpFee.Checked Then
                 TrackedRules = Mid(TrackedRules, 1, 6) & "1" & Mid(TrackedRules, 8)
             End If
-            If chbConfidential.Checked = True Then
+            If chbConfidential.Checked Then
                 TrackedRules = Mid(TrackedRules, 1, 7) & "1" & Mid(TrackedRules, 9)
             End If
 
@@ -4882,7 +4882,7 @@ Public Class SSPPApplicationTrackingLog
             PNReady = chbPNReady.Checked.ToString
             SignificantComments = txtSignificantComments.Text
 
-            If cboPublicAdvisory.Visible = False Then
+            If Not cboPublicAdvisory.Visible Then
                 PublicInvolved = "0"
             Else
                 Select Case cboPublicAdvisory.Text
@@ -4950,31 +4950,31 @@ Public Class SSPPApplicationTrackingLog
             ReceivedDate = DTPDateReceived.Text
             SentByDate = DTPDateSent.Text
 
-            If DTPDateAssigned.Checked = True Then
+            If DTPDateAssigned.Checked Then
                 AssignedToEngineer = DTPDateAssigned.Text
             Else
                 AssignedToEngineer = Nothing
             End If
 
-            If DTPDateReassigned.Checked = True Then
+            If DTPDateReassigned.Checked Then
                 ReAssignedToEngineer = DTPDateReassigned.Text
             Else
                 ReAssignedToEngineer = Nothing
             End If
 
-            If DTPDateAcknowledge.Checked = True Then
+            If DTPDateAcknowledge.Checked Then
                 AcknowledgementLetter = DTPDateAcknowledge.Text
             Else
                 AcknowledgementLetter = Nothing
             End If
 
-            If DTPDateToUC.Checked = True Then
+            If DTPDateToUC.Checked Then
                 ToPMI = DTPDateToUC.Text
             Else
                 ToPMI = Nothing
             End If
 
-            If DTPDateToPM.Checked = True Then
+            If DTPDateToPM.Checked Then
                 ToPMII = DTPDateToPM.Text
             Else
                 ToPMII = Nothing
@@ -4982,55 +4982,55 @@ Public Class SSPPApplicationTrackingLog
 
             ReturnToEngineer = Nothing
 
-            If DTPFinalAction.Checked = True Then
+            If DTPFinalAction.Checked Then
                 PermitIssued = DTPFinalAction.Text
             Else
                 PermitIssued = Nothing
             End If
 
-            If DTPDeadline.Checked = True Then
+            If DTPDeadline.Checked Then
                 AppDeadline = DTPDeadline.Text
             Else
                 AppDeadline = Nothing
             End If
 
-            If DTPDraftIssued.Checked = True Then
+            If DTPDraftIssued.Checked Then
                 DraftIssued = DTPDraftIssued.Text
             Else
                 DraftIssued = Nothing
             End If
 
-            If DTPEPAWaived.Checked = True Then
+            If DTPEPAWaived.Checked Then
                 EPAWaived = DTPEPAWaived.Text
             Else
                 EPAWaived = Nothing
             End If
 
-            If DTPEPAEnds.Checked = True Then
+            If DTPEPAEnds.Checked Then
                 EPAEnds = DTPEPAEnds.Text
             Else
                 EPAEnds = Nothing
             End If
 
-            If DTPDateToBC.Checked = True Then
+            If DTPDateToBC.Checked Then
                 ToBC = DTPDateToBC.Text
             Else
                 ToBC = Nothing
             End If
 
-            If DTPDateToDO.Checked = True Then
+            If DTPDateToDO.Checked Then
                 ToDO = DTPDateToDO.Text
             Else
                 ToDO = Nothing
             End If
 
-            If DTPDatePAExpires.Checked = True Then
+            If DTPDatePAExpires.Checked Then
                 PAExpires = DTPDatePAExpires.Text
             Else
                 PAExpires = Nothing
             End If
 
-            If DTPDatePNExpires.Checked = True Then
+            If DTPDatePNExpires.Checked Then
                 PNExpires = DTPDatePNExpires.Text
             Else
                 PNExpires = Nothing
@@ -5082,7 +5082,7 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("@txtApplicationNumber", AppNumber)
             })
 
-            If lblLinkWarning.Visible = True AndAlso lbLinkApplications.Items.Count > 0 Then
+            If lblLinkWarning.Visible AndAlso lbLinkApplications.Items.Count > 0 Then
                 Dim LinkedApplication As Integer
                 Dim i As Integer
 
@@ -5439,7 +5439,7 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim SSCPComments As String
 
-            If rdbSSCPNo.Checked = True Then
+            If rdbSSCPNo.Checked Then
                 SSCPComments = "N/A"
             Else
                 SSCPComments = txtSSCPComments.Text
@@ -5482,7 +5482,7 @@ Public Class SSPPApplicationTrackingLog
             Dim queryList As New List(Of String)
             Dim paramList As New List(Of SqlParameter())
 
-            If rdbISMPNo.Checked = True Then
+            If rdbISMPNo.Checked Then
                 ISMPComments = "N/A"
             Else
                 ISMPComments = txtISMPComments.Text
@@ -5696,7 +5696,7 @@ Public Class SSPPApplicationTrackingLog
 
             DB.RunCommand(query, params)
 
-            If chbClosedOut.Checked = True AndAlso AirsId IsNot Nothing Then
+            If chbClosedOut.Checked AndAlso AirsId IsNot Nothing Then
                 query = "select strKey " &
                 "from APBContactInformation inner join SSPPApplicationContact  " &
                 "on APBContactInformation.strContactFirstName = SSPPApplicationContact.strContactFirstName " &
@@ -6216,37 +6216,37 @@ Public Class SSPPApplicationTrackingLog
         Dim paramsList As New List(Of SqlParameter())
 
         Try
-            If DTPNotifiedAppReceived.Checked = True Then
+            If DTPNotifiedAppReceived.Checked Then
                 EPAStatesNotifiedAppRec = DTPNotifiedAppReceived.Text
             Else
                 EPAStatesNotifiedAppRec = Nothing
             End If
-            If DTPDraftOnWeb.Checked = True Then
+            If DTPDraftOnWeb.Checked Then
                 DraftOnWeb = DTPDraftOnWeb.Text
             Else
                 DraftOnWeb = Nothing
             End If
-            If DTPEPAStatesNotified.Checked = True Then
+            If DTPEPAStatesNotified.Checked Then
                 EPAStatesNotified = Me.DTPEPAStatesNotified.Text
             Else
                 EPAStatesNotified = Nothing
             End If
-            If DTPFinalOnWeb.Checked = True Then
+            If DTPFinalOnWeb.Checked Then
                 FinalOnWeb = DTPFinalOnWeb.Text
             Else
                 FinalOnWeb = Nothing
             End If
-            If DTPEPANotifiedPermitOnWeb.Checked = True Then
+            If DTPEPANotifiedPermitOnWeb.Checked Then
                 EPANotifiedPermitOnWeb = DTPEPANotifiedPermitOnWeb.Text
             Else
                 EPANotifiedPermitOnWeb = Nothing
             End If
-            If DTPEffectiveDateofPermit.Checked = True Then
+            If DTPEffectiveDateofPermit.Checked Then
                 EffectiveDateOnPermit = DTPEffectiveDateofPermit.Text
             Else
                 EffectiveDateOnPermit = Nothing
             End If
-            If DTPExperationDate.Checked = True Then
+            If DTPExperationDate.Checked Then
                 ExperationDate = DTPExperationDate.Text
             Else
                 ExperationDate = Nothing
@@ -6256,7 +6256,7 @@ Public Class SSPPApplicationTrackingLog
             Else
                 TargetedComments = ""
             End If
-            If DTPPNExpires.Checked = True Then
+            If DTPPNExpires.Checked Then
                 PNExpires = DTPPNExpires.Text
             Else
                 PNExpires = Nothing
@@ -6294,7 +6294,7 @@ Public Class SSPPApplicationTrackingLog
 
             DB.RunCommand(queryList, paramsList)
 
-            If lblLinkWarning.Visible = True Then
+            If lblLinkWarning.Visible Then
                 Dim LinkedApplication As String
                 Dim i As Integer
 
@@ -6853,7 +6853,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub DisplayPermitPanel()
-        If rdbTitleVPermit.Checked = True Then
+        If rdbTitleVPermit.Checked Then
             PanelTitleV.Visible = True
             PanelPSD.Visible = False
             PanelOther.Visible = False
@@ -6862,7 +6862,7 @@ Public Class SSPPApplicationTrackingLog
             Return
         End If
 
-        If rdbPSDPermit.Checked = True Then
+        If rdbPSDPermit.Checked Then
             PanelTitleV.Visible = False
             PanelPSD.Visible = True
             PanelOther.Visible = False
@@ -6871,7 +6871,7 @@ Public Class SSPPApplicationTrackingLog
             Return
         End If
 
-        If rdbOtherPermit.Checked = True Then
+        If rdbOtherPermit.Checked Then
             PanelTitleV.Visible = False
             PanelPSD.Visible = False
             PanelOther.Visible = True
@@ -7111,7 +7111,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub btnAddApplicationToList_Click(sender As Object, e As EventArgs) Handles btnAddApplicationToList.Click
         Try
-            If txtApplicationNumberHistory.Text <> "" AndAlso chbClosedOutHistory.Checked = False Then
+            If txtApplicationNumberHistory.Text <> "" AndAlso Not chbClosedOutHistory.Checked Then
                 If txtMasterApp.Text = "" Then
                     txtMasterApp.Text = txtApplicationNumberHistory.Text
                 End If
@@ -7238,11 +7238,11 @@ Public Class SSPPApplicationTrackingLog
                     If Not NewApplication Then
                         SaveApplicationSubmitForReview()
 
-                        If DTPSSCPReview.Checked = True Then
+                        If DTPSSCPReview.Checked Then
                             SaveSSCPReview()
                         End If
 
-                        If DTPISMPReview.Checked = True Then
+                        If DTPISMPReview.Checked Then
                             SaveISMPReview()
                         End If
                     End If
@@ -7642,7 +7642,7 @@ Public Class SSPPApplicationTrackingLog
                     lblEPAWaived.Visible = False
                     DTPEPAEnds.Visible = False
                     lblEPAEnds.Visible = False
-                    If chbPSD.Checked = True OrElse chbNAANSR.Checked = True OrElse chb112g.Checked = True Then
+                    If chbPSD.Checked OrElse chbNAANSR.Checked OrElse chb112g.Checked Then
                         DTPDraftIssued.Visible = True
                         lblDraftIssued.Visible = True
                         DTPDatePNExpires.Visible = True
@@ -7767,7 +7767,7 @@ Public Class SSPPApplicationTrackingLog
             DTPDatePAExpires.Value = Today
             DTPDatePAExpires.Visible = False
             lblDatePAExpires.Visible = False
-        ElseIf cboPublicAdvisory.Visible = True Then
+        ElseIf cboPublicAdvisory.Visible Then
             chbPAReady.Visible = True
             DTPDatePAExpires.Visible = True
             lblDatePAExpires.Visible = True
@@ -7840,7 +7840,7 @@ Public Class SSPPApplicationTrackingLog
 
             DisplayPermitPanel()
 
-            If rdbTitleVPermit.Checked = True Then
+            If rdbTitleVPermit.Checked Then
                 Dim query As String = "select " &
                     "strFileName " &
                     "from APBPermits " &
@@ -7906,7 +7906,7 @@ Public Class SSPPApplicationTrackingLog
 
             DisplayPermitPanel()
 
-            If rdbPSDPermit.Checked = True AndAlso MasterApp <> "" Then
+            If rdbPSDPermit.Checked AndAlso MasterApp <> "" Then
 
                 Dim query As String = "select " &
                     "strFileName " &
@@ -7981,7 +7981,7 @@ Public Class SSPPApplicationTrackingLog
 
             DisplayPermitPanel()
 
-            If rdbOtherPermit.Checked = True Then
+            If rdbOtherPermit.Checked Then
 
                 Dim query As String = "select " &
                     "strFileName " &
@@ -8021,7 +8021,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbTVNarrative_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVNarrative.CheckedChanged
         Try
 
-            If chbTVNarrative.Checked = True AndAlso MasterApp <> "" Then
+            If chbTVNarrative.Checked AndAlso MasterApp <> "" Then
 
                 txtTVNarrativeDoc.Visible = True
                 txtTVNarrativePDF.Visible = True
@@ -8132,7 +8132,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbTVDraft_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVDraft.CheckedChanged
         Try
 
-            If chbTVDraft.Checked = True AndAlso MasterApp <> "" Then
+            If chbTVDraft.Checked AndAlso MasterApp <> "" Then
                 txtTVDraftDoc.Visible = True
                 txtTVDraftPDF.Visible = True
                 lblWord.Visible = True
@@ -8241,7 +8241,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbTVPublicNotice_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVPublicNotice.CheckedChanged
         Try
 
-            If chbTVPublicNotice.Checked = True AndAlso MasterApp <> "" Then
+            If chbTVPublicNotice.Checked AndAlso MasterApp <> "" Then
                 txtTVPublicNoticeDoc.Visible = True
                 txtTVPublicNoticePDF.Visible = True
                 lblWord.Visible = True
@@ -8351,7 +8351,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbTVFinal_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVFinal.CheckedChanged
         Try
 
-            If chbTVFinal.Checked = True AndAlso MasterApp <> "" Then
+            If chbTVFinal.Checked AndAlso MasterApp <> "" Then
                 txtTVFinalDoc.Visible = True
                 txtTVFinalPDF.Visible = True
                 lblWord.Visible = True
@@ -8460,7 +8460,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDApplicationSummary_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDApplicationSummary.CheckedChanged
         Try
 
-            If chbPSDApplicationSummary.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDApplicationSummary.Checked AndAlso MasterApp <> "" Then
                 txtPSDAppSummaryDoc.Visible = True
                 txtPSDAppSummaryPDF.Visible = True
                 lblWord.Visible = True
@@ -8568,7 +8568,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDPrelimDet_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDPrelimDet.CheckedChanged
         Try
 
-            If chbPSDPrelimDet.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDPrelimDet.Checked AndAlso MasterApp <> "" Then
                 txtPSDPrelimDetDoc.Visible = True
                 txtPSDPrelimDetPDF.Visible = True
                 lblWord.Visible = True
@@ -8676,7 +8676,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDNarrative_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDNarrative.CheckedChanged
         Try
 
-            If chbPSDNarrative.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDNarrative.Checked AndAlso MasterApp <> "" Then
                 txtPSDNarrativeDoc.Visible = True
                 txtPSDNarrativePDF.Visible = True
                 lblWord.Visible = True
@@ -8784,7 +8784,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDDraftPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDDraftPermit.CheckedChanged
         Try
 
-            If chbPSDDraftPermit.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDDraftPermit.Checked AndAlso MasterApp <> "" Then
                 txtPSDDraftPermitDoc.Visible = True
                 txtPSDDraftPermitPDF.Visible = True
                 lblWord.Visible = True
@@ -8892,7 +8892,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDPublicNotice_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDPublicNotice.CheckedChanged
         Try
 
-            If chbPSDPublicNotice.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDPublicNotice.Checked AndAlso MasterApp <> "" Then
                 txtPSDPublicNoticeDoc.Visible = True
                 txtPSDPublicNoticePDF.Visible = True
                 lblWord.Visible = True
@@ -9000,7 +9000,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDHearingNotice_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDHearingNotice.CheckedChanged
         Try
 
-            If chbPSDHearingNotice.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDHearingNotice.Checked AndAlso MasterApp <> "" Then
                 txtPSDHearingNoticeDoc.Visible = True
                 txtPSDHearingNoticePDF.Visible = True
                 lblWord.Visible = True
@@ -9108,7 +9108,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDFinalDet_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDFinalDet.CheckedChanged
         Try
 
-            If chbPSDFinalDet.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDFinalDet.Checked AndAlso MasterApp <> "" Then
                 txtPSDFinalDetDoc.Visible = True
                 txtPSDFinalDetPDF.Visible = True
                 lblWord.Visible = True
@@ -9216,7 +9216,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDFinalPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDFinalPermit.CheckedChanged
         Try
 
-            If chbPSDFinalPermit.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDFinalPermit.Checked AndAlso MasterApp <> "" Then
                 txtPSDFinalPermitDoc.Visible = True
                 txtPSDFinalPermitPDF.Visible = True
                 lblWord.Visible = True
@@ -9323,7 +9323,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub chbOtherNarrative_CheckedChanged(sender As Object, e As EventArgs) Handles chbOtherNarrative.CheckedChanged
         Try
-            If chbOtherNarrative.Checked = True AndAlso MasterApp <> "" Then
+            If chbOtherNarrative.Checked AndAlso MasterApp <> "" Then
                 txtOtherNarrativeDoc.Visible = True
                 txtOtherNarrativePDF.Visible = True
                 lblWord.Visible = True
@@ -9432,7 +9432,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbOtherPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbOtherPermit.CheckedChanged
         Try
 
-            If chbOtherPermit.Checked = True AndAlso MasterApp <> "" Then
+            If chbOtherPermit.Checked AndAlso MasterApp <> "" Then
                 txtOtherPermitDoc.Visible = True
                 txtOtherPermitPDF.Visible = True
                 lblWord.Visible = True
@@ -10778,7 +10778,7 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
 
-            If chbCDS_0.Checked = False Then
+            If Not chbCDS_0.Checked Then
                 MsgBox("The SIP Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
@@ -11067,7 +11067,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub btnSaveSIPSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveSIPSubpart.Click
         Try
-            If chbCDS_0.Checked = False Then
+            If Not chbCDS_0.Checked Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code 0 - SIP. " &
                        "If you do not check this air program code the subparts cannot be saved.",
@@ -11619,7 +11619,7 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
 
-            If chbCDS_9.Checked = False Then
+            If Not chbCDS_9.Checked Then
                 MsgBox("The NSPS Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
@@ -11909,7 +11909,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub btnSaveNSPSSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveNSPSSubpart.Click
         Try
-            If chbCDS_9.Checked = False Then
+            If Not chbCDS_9.Checked Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code 9 - NSPS. " &
                        "If you do not check this air program code the subparts cannot be saved.",
@@ -12462,7 +12462,7 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
 
-            If chbCDS_8.Checked = False Then
+            If Not chbCDS_8.Checked Then
                 MsgBox("The NESHAP Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
@@ -12754,7 +12754,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub btnSaveNESHAPSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveNESHAPSubpart.Click
         Try
-            If chbCDS_8.Checked = False Then
+            If Not chbCDS_8.Checked Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code 8 - NESHAP. " &
                        "If you do not check this air program code the subparts cannot be saved.",
@@ -13311,7 +13311,7 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
 
-            If chbCDS_M.Checked = False Then
+            If Not chbCDS_M.Checked Then
                 MsgBox("The MACT Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
@@ -13601,7 +13601,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub btnSaveMACTSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveMACTSubpart.Click
         Try
-            If chbCDS_M.Checked = False Then
+            If Not chbCDS_M.Checked Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code M - MACT. " &
                        "If you do not check this air program code the subparts cannot be saved.",
