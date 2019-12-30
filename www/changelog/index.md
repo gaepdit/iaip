@@ -8,6 +8,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.15.5 <span>(2019-12-30)</span>
+
+Another fix for the SSPP Application Tracking Log.
+
 ## Version 5.15.4 <span>(2019-12-23)</span>
 
 The previous update broke the SSPP Application Tracking Log. This is now fixed again.
