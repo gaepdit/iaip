@@ -3092,11 +3092,9 @@ Public Class SSPPApplicationTrackingLog
                             rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Non Attainment Area - ")
                             rtbFacilityInformation.SelectionColor = Color.Tomato
                         Else
-                            If txt1HourOzone.Text = "Contributing" Then
-                                If Mid(Attainment, 2, 1) <> 2 Then
-                                    rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Non Attainment Area - ")
-                                    rtbFacilityInformation.SelectionColor = Color.Tomato
-                                End If
+                            If txt1HourOzone.Text = "Contributing" AndAlso Mid(Attainment, 2, 1) <> 2 Then
+                                rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Non Attainment Area - ")
+                                rtbFacilityInformation.SelectionColor = Color.Tomato
                             End If
                         End If
                     End If
@@ -3113,11 +3111,9 @@ Public Class SSPPApplicationTrackingLog
                             rtbFacilityInformation.SelectionColor = Color.Tomato
                         End If
                     Else
-                        If txt8HROzone.Text = "Macon" Then
-                            If Mid(Attainment, 3, 1) <> 2 Then
-                                rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Non Attainment Area - ")
-                                rtbFacilityInformation.SelectionColor = Color.Tomato
-                            End If
+                        If txt8HROzone.Text = "Macon" AndAlso Mid(Attainment, 3, 1) <> 2 Then
+                            rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Non Attainment Area - ")
+                            rtbFacilityInformation.SelectionColor = Color.Tomato
                         End If
                     End If
                 End If
@@ -3145,11 +3141,9 @@ Public Class SSPPApplicationTrackingLog
                                     rtbFacilityInformation.SelectionColor = Color.Tomato
                                 End If
                             Else
-                                If txtPM.Text = "Macon" Then
-                                    If Mid(Attainment, 4, 1) <> 4 Then
-                                        rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Non Attainment Area - ")
-                                        rtbFacilityInformation.SelectionColor = Color.Tomato
-                                    End If
+                                If txtPM.Text = "Macon" AndAlso Mid(Attainment, 4, 1) <> 4 Then
+                                    rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Non Attainment Area - ")
+                                    rtbFacilityInformation.SelectionColor = Color.Tomato
                                 End If
                             End If
                         End If
@@ -7337,22 +7331,20 @@ Public Class SSPPApplicationTrackingLog
 
         Try
 
-            If dgvFacilityAppHistory.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
-                If dgvFacilityAppHistory.Columns(0).HeaderText = "APL #" Then
-                    txtApplicationNumberHistory.Text = dgvFacilityAppHistory(0, hti.RowIndex).Value
-                    txtHistoryComments.Text = dgvFacilityAppHistory(6, hti.RowIndex).Value
-                    txtHistoryAppComments.Text = dgvFacilityAppHistory(7, hti.RowIndex).Value
-                    txtEngineerHistory.Text = dgvFacilityAppHistory(2, hti.RowIndex).Value
-                    temp = dgvFacilityAppHistory(3, hti.RowIndex).Value
-                    If temp = " " Then
-                        chbClosedOutHistory.Checked = False
-                    Else
-                        chbClosedOutHistory.Checked = True
-                    End If
-                    txtApplicationDatedHistory.Text = dgvFacilityAppHistory(4, hti.RowIndex).Value
-                    txtApplicationUnitHistory.Text = dgvFacilityAppHistory(5, hti.RowIndex).Value
-                    txtApplicationTypeHistory.Text = dgvFacilityAppHistory(1, hti.RowIndex).Value
+            If dgvFacilityAppHistory.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso dgvFacilityAppHistory.Columns(0).HeaderText = "APL #" Then
+                txtApplicationNumberHistory.Text = dgvFacilityAppHistory(0, hti.RowIndex).Value
+                txtHistoryComments.Text = dgvFacilityAppHistory(6, hti.RowIndex).Value
+                txtHistoryAppComments.Text = dgvFacilityAppHistory(7, hti.RowIndex).Value
+                txtEngineerHistory.Text = dgvFacilityAppHistory(2, hti.RowIndex).Value
+                temp = dgvFacilityAppHistory(3, hti.RowIndex).Value
+                If temp = " " Then
+                    chbClosedOutHistory.Checked = False
+                Else
+                    chbClosedOutHistory.Checked = True
                 End If
+                txtApplicationDatedHistory.Text = dgvFacilityAppHistory(4, hti.RowIndex).Value
+                txtApplicationUnitHistory.Text = dgvFacilityAppHistory(5, hti.RowIndex).Value
+                txtApplicationTypeHistory.Text = dgvFacilityAppHistory(1, hti.RowIndex).Value
             End If
 
         Catch ex As Exception
@@ -7366,28 +7358,27 @@ Public Class SSPPApplicationTrackingLog
 
         Try
 
-            If dgvInformationRequested.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
-                If dgvInformationRequested.Columns(1).HeaderText = "Request Key" Then
-                    txtInformationRequestedKey.Text = dgvInformationRequested(1, hti.RowIndex).Value
-                    temp = dgvInformationRequested(2, hti.RowIndex).Value
-                    If temp = " " Then
-                        DTPInformationRequested.Value = Today
-                        DTPInformationRequested.Checked = False
-                    Else
-                        DTPInformationRequested.Text = temp
-                        DTPInformationRequested.Checked = True
-                    End If
-                    txtInformationRequested.Text = dgvInformationRequested(3, hti.RowIndex).Value
-                    temp = dgvInformationRequested(4, hti.RowIndex).Value
-                    If temp = " " Then
-                        DTPInformationReceived.Value = Today
-                        DTPInformationReceived.Checked = False
-                    Else
-                        DTPInformationReceived.Text = temp
-                        DTPInformationReceived.Checked = True
-                    End If
-                    txtInformationReceived.Text = dgvInformationRequested(5, hti.RowIndex).Value
+            If dgvInformationRequested.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso dgvInformationRequested.Columns(1).HeaderText = "Request Key" Then
+
+                txtInformationRequestedKey.Text = dgvInformationRequested(1, hti.RowIndex).Value
+                temp = dgvInformationRequested(2, hti.RowIndex).Value
+                If temp = " " Then
+                    DTPInformationRequested.Value = Today
+                    DTPInformationRequested.Checked = False
+                Else
+                    DTPInformationRequested.Text = temp
+                    DTPInformationRequested.Checked = True
                 End If
+                txtInformationRequested.Text = dgvInformationRequested(3, hti.RowIndex).Value
+                temp = dgvInformationRequested(4, hti.RowIndex).Value
+                If temp = " " Then
+                    DTPInformationReceived.Value = Today
+                    DTPInformationReceived.Checked = False
+                Else
+                    DTPInformationReceived.Text = temp
+                    DTPInformationReceived.Checked = True
+                End If
+                txtInformationReceived.Text = dgvInformationRequested(5, hti.RowIndex).Value
             End If
 
         Catch ex As Exception
@@ -10654,16 +10645,14 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvSIPSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
-                        dgvSIPSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvSIPSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
+                    dgvSIPSubPartDelete.Rows.Add(dgvRow)
+                    With Me.dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index)
+                        .DefaultCellStyle.BackColor = Color.Tomato
+                    End With
                 End If
             Else
                 If Action <> "Added" Then
@@ -10744,17 +10733,15 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvSIPSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvSIPSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvSIPSubParts(2, i).Value
-                        dgvSIPSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvSIPSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvSIPSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvSIPSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvSIPSubParts(2, i).Value
+                    dgvSIPSubPartDelete.Rows.Add(dgvRow)
+                    With Me.dgvSIPSubParts.Rows(i)
+                        .DefaultCellStyle.BackColor = Color.Tomato
+                    End With
                 End If
             Next
 
@@ -10916,18 +10903,16 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvSIPSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(2).Value = dgvSIPSubParts(3, dgvSIPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvSIPSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(2).Value = dgvSIPSubParts(3, dgvSIPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
+                    With Me.dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index)
+                        .DefaultCellStyle.BackColor = Color.LightBlue
+                    End With
                 End If
             Else
                 If Action <> "Added" Then
@@ -11010,19 +10995,17 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvSIPSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvSIPSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvSIPSubParts(2, i).Value
-                        dgvRow.Cells(2).Value = dgvSIPSubParts(3, i).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvSIPSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvSIPSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvSIPSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvSIPSubParts(2, i).Value
+                    dgvRow.Cells(2).Value = dgvSIPSubParts(3, i).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
+                    With Me.dgvSIPSubParts.Rows(i)
+                        .DefaultCellStyle.BackColor = Color.LightBlue
+                    End With
                 End If
             Next
         Catch ex As Exception
@@ -11039,13 +11022,11 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvSIPSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    If dgvSIPSubParts(1, j).Value = Subpart Then
-                        If dgvSIPSubParts(4, j).Value = "Existing" Then
-                            With Me.dgvSIPSubParts.Rows(j)
-                                .DefaultCellStyle.BackColor = Color.White
-                            End With
-                            TempRemove = i & "," & TempRemove
-                        End If
+                    If dgvSIPSubParts(1, j).Value = Subpart AndAlso dgvSIPSubParts(4, j).Value = "Existing" Then
+                        With Me.dgvSIPSubParts.Rows(j)
+                            .DefaultCellStyle.BackColor = Color.White
+                        End With
+                        TempRemove = i & "," & TempRemove
                     End If
                 Next
             Next
@@ -11546,16 +11527,14 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvNSPSSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
-                        dgvNSPSSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvNSPSSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
+                    dgvNSPSSubPartDelete.Rows.Add(dgvRow)
+                    With Me.dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index)
+                        .DefaultCellStyle.BackColor = Color.Tomato
+                    End With
                 End If
             Else
                 If Action <> "Added" Then
@@ -11636,17 +11615,15 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvNSPSSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvNSPSSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvNSPSSubParts(2, i).Value
-                        dgvNSPSSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvNSPSSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvNSPSSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvNSPSSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvNSPSSubParts(2, i).Value
+                    dgvNSPSSubPartDelete.Rows.Add(dgvRow)
+                    With Me.dgvNSPSSubParts.Rows(i)
+                        .DefaultCellStyle.BackColor = Color.Tomato
+                    End With
                 End If
             Next
         Catch ex As Exception
@@ -11807,18 +11784,16 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvNSPSSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(2).Value = dgvNSPSSubParts(3, dgvNSPSSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvNSPSSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(2).Value = dgvNSPSSubParts(3, dgvNSPSSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
+                    With Me.dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index)
+                        .DefaultCellStyle.BackColor = Color.LightBlue
+                    End With
                 End If
             Else
                 If Action <> "Added" Then
@@ -11901,19 +11876,17 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvNSPSSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvNSPSSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvNSPSSubParts(2, i).Value
-                        dgvRow.Cells(2).Value = dgvNSPSSubParts(3, i).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvNSPSSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvNSPSSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvNSPSSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvNSPSSubParts(2, i).Value
+                    dgvRow.Cells(2).Value = dgvNSPSSubParts(3, i).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
+                    With Me.dgvNSPSSubParts.Rows(i)
+                        .DefaultCellStyle.BackColor = Color.LightBlue
+                    End With
                 End If
             Next
         Catch ex As Exception
@@ -11930,13 +11903,11 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvNSPSSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    If dgvNSPSSubParts(1, j).Value = Subpart Then
-                        If dgvNSPSSubParts(4, j).Value = "Existing" Then
-                            With Me.dgvNSPSSubParts.Rows(j)
-                                .DefaultCellStyle.BackColor = Color.White
-                            End With
-                            TempRemove = i & "," & TempRemove
-                        End If
+                    If dgvNSPSSubParts(1, j).Value = Subpart AndAlso dgvNSPSSubParts(4, j).Value = "Existing" Then
+                        With Me.dgvNSPSSubParts.Rows(j)
+                            .DefaultCellStyle.BackColor = Color.White
+                        End With
+                        TempRemove = i & "," & TempRemove
                     End If
                 Next
             Next
@@ -12437,16 +12408,14 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvNESHAPSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
-                        dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvNESHAPSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
+                    dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
+                    With Me.dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index)
+                        .DefaultCellStyle.BackColor = Color.Tomato
+                    End With
                 End If
             Else
                 If Action <> "Added" Then
@@ -12527,17 +12496,15 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvNESHAPSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, i).Value
-                        dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvNESHAPSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvNESHAPSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, i).Value
+                    dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
+                    With Me.dgvNESHAPSubParts.Rows(i)
+                        .DefaultCellStyle.BackColor = Color.Tomato
+                    End With
                 End If
             Next
         Catch ex As Exception
@@ -12701,18 +12668,16 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(2).Value = dgvNESHAPSubParts(3, dgvNESHAPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(2).Value = dgvNESHAPSubParts(3, dgvNESHAPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
+                    With Me.dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index)
+                        .DefaultCellStyle.BackColor = Color.LightBlue
+                    End With
                 End If
             Else
                 If Action <> "Added" Then
@@ -12796,19 +12761,17 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, i).Value
-                        dgvRow.Cells(2).Value = dgvNESHAPSubParts(3, i).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvNESHAPSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, i).Value
+                    dgvRow.Cells(2).Value = dgvNESHAPSubParts(3, i).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
+                    With Me.dgvNESHAPSubParts.Rows(i)
+                        .DefaultCellStyle.BackColor = Color.LightBlue
+                    End With
                 End If
             Next
         Catch ex As Exception
@@ -12825,13 +12788,11 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvNESHAPSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                    If dgvNESHAPSubParts(1, j).Value = Subpart Then
-                        If dgvNESHAPSubParts(4, j).Value = "Existing" Then
-                            With Me.dgvNESHAPSubParts.Rows(j)
-                                .DefaultCellStyle.BackColor = Color.White
-                            End With
-                            TempRemove = i & "," & TempRemove
-                        End If
+                    If dgvNESHAPSubParts(1, j).Value = Subpart AndAlso dgvNESHAPSubParts(4, j).Value = "Existing" Then
+                        With Me.dgvNESHAPSubParts.Rows(j)
+                            .DefaultCellStyle.BackColor = Color.White
+                        End With
+                        TempRemove = i & "," & TempRemove
                     End If
                 Next
             Next
@@ -13336,16 +13297,14 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvMACTSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
-                        dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvMACTSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
+                    dgvMACTSubPartDelete.Rows.Add(dgvRow)
+                    With Me.dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index)
+                        .DefaultCellStyle.BackColor = Color.Tomato
+                    End With
                 End If
             Else
                 If Action <> "Added" Then
@@ -13426,17 +13385,15 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvMACTSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvMACTSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvMACTSubParts(2, i).Value
-                        dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvMACTSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvMACTSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvMACTSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvMACTSubParts(2, i).Value
+                    dgvMACTSubPartDelete.Rows.Add(dgvRow)
+                    With Me.dgvMACTSubParts.Rows(i)
+                        .DefaultCellStyle.BackColor = Color.Tomato
+                    End With
                 End If
             Next
         Catch ex As Exception
@@ -13599,18 +13556,16 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvMACTSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(2).Value = dgvMACTSubParts(3, dgvMACTSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvMACTSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(2).Value = dgvMACTSubParts(3, dgvMACTSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
+                    With Me.dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index)
+                        .DefaultCellStyle.BackColor = Color.LightBlue
+                    End With
                 End If
             Else
                 If Action <> "Added" Then
@@ -13694,19 +13649,17 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvMACTSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvMACTSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvMACTSubParts(2, i).Value
-                        dgvRow.Cells(2).Value = dgvMACTSubParts(3, i).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvMACTSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvMACTSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvMACTSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvMACTSubParts(2, i).Value
+                    dgvRow.Cells(2).Value = dgvMACTSubParts(3, i).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
+                    With Me.dgvMACTSubParts.Rows(i)
+                        .DefaultCellStyle.BackColor = Color.LightBlue
+                    End With
                 End If
             Next
         Catch ex As Exception
@@ -13723,13 +13676,11 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvMACTSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvMACTSubParts.Rows.Count - 1
-                    If dgvMACTSubParts(1, j).Value = Subpart Then
-                        If dgvMACTSubParts(4, j).Value = "Existing" Then
-                            With Me.dgvMACTSubParts.Rows(j)
-                                .DefaultCellStyle.BackColor = Color.White
-                            End With
-                            TempRemove = i & "," & TempRemove
-                        End If
+                    If dgvMACTSubParts(1, j).Value = Subpart AndAlso dgvMACTSubParts(4, j).Value = "Existing" Then
+                        With Me.dgvMACTSubParts.Rows(j)
+                            .DefaultCellStyle.BackColor = Color.White
+                        End With
+                        TempRemove = i & "," & TempRemove
                     End If
                 Next
             Next
@@ -13836,75 +13787,67 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If FormStatus = "" Then
-                If chbCDS_0.CheckState = CheckState.Unchecked Then
-                    If dgvSIPSubParts.RowCount > 0 Then
+            If FormStatus = "" AndAlso chbCDS_0.CheckState = CheckState.Unchecked AndAlso dgvSIPSubParts.RowCount > 0 Then
 
-
-                        For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
-                            Subpart = dgvSIPSubpartAddEdit(0, i).Value
-                            temp2 = ""
-                            Action = ""
-                            For j = 0 To dgvSIPSubParts.Rows.Count - 1
-                                If dgvSIPSubParts(1, j).Value = Subpart Then
-                                    temp2 = j
-                                    Action = dgvSIPSubParts(4, j).Value
-                                End If
-                            Next
-                            If temp2 <> "" Then
-                                With Me.dgvSIPSubParts.Rows(temp2)
-                                    .DefaultCellStyle.BackColor = Color.White
-                                End With
-                                If Action = "Added" Then
-                                    dgvSIPSubParts.Rows.RemoveAt(temp2)
-                                End If
-                            End If
-                        Next
-                        dgvSIPSubpartAddEdit.Rows.Clear()
-
-                        For i = 0 To dgvSIPSubParts.Rows.Count - 1
-                            Subpart = dgvSIPSubParts(1, i).Value
-                            Action = dgvSIPSubParts(4, i).Value
-
-                            For j = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
-                                If dgvSIPSubpartAddEdit(0, j).Value = Subpart Then
-                                    temp2 = "Message"
-                                End If
-                            Next
-                            If temp2 = "Message" Then
-                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
-                                       "The subpart must be removed from this list before it can be deleted from the Facility.",
-                                       MsgBoxStyle.Exclamation, "Application Tracking Log")
-                                Return
-                            Else
-                                temp2 = ""
-                            End If
-
-                            temp2 = ""
-                            For j = 0 To dgvSIPSubPartDelete.Rows.Count - 1
-                                If dgvSIPSubPartDelete(0, j).Value = Subpart Then
-                                    temp2 = "Ignore"
-                                End If
-                            Next
-                            If temp2 <> "Ignore" Then
-                                If Action <> "Added" Then
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvSIPSubPartDelete)
-                                    dgvRow.Cells(0).Value = dgvSIPSubParts(1, i).Value
-                                    dgvRow.Cells(1).Value = dgvSIPSubParts(2, i).Value
-                                    dgvSIPSubPartDelete.Rows.Add(dgvRow)
-                                    With Me.dgvSIPSubParts.Rows(i)
-                                        .DefaultCellStyle.BackColor = Color.Tomato
-                                    End With
-                                End If
-                            End If
-                        Next
-
-                        SaveSIPSubpart()
-
-
+                For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
+                    Subpart = dgvSIPSubpartAddEdit(0, i).Value
+                    temp2 = ""
+                    Action = ""
+                    For j = 0 To dgvSIPSubParts.Rows.Count - 1
+                        If dgvSIPSubParts(1, j).Value = Subpart Then
+                            temp2 = j
+                            Action = dgvSIPSubParts(4, j).Value
+                        End If
+                    Next
+                    If temp2 <> "" Then
+                        With Me.dgvSIPSubParts.Rows(temp2)
+                            .DefaultCellStyle.BackColor = Color.White
+                        End With
+                        If Action = "Added" Then
+                            dgvSIPSubParts.Rows.RemoveAt(temp2)
+                        End If
                     End If
-                End If
+                Next
+                dgvSIPSubpartAddEdit.Rows.Clear()
+
+                For i = 0 To dgvSIPSubParts.Rows.Count - 1
+                    Subpart = dgvSIPSubParts(1, i).Value
+                    Action = dgvSIPSubParts(4, i).Value
+
+                    For j = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
+                        If dgvSIPSubpartAddEdit(0, j).Value = Subpart Then
+                            temp2 = "Message"
+                        End If
+                    Next
+                    If temp2 = "Message" Then
+                        MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
+                               "The subpart must be removed from this list before it can be deleted from the Facility.",
+                               MsgBoxStyle.Exclamation, "Application Tracking Log")
+                        Return
+                    Else
+                        temp2 = ""
+                    End If
+
+                    temp2 = ""
+                    For j = 0 To dgvSIPSubPartDelete.Rows.Count - 1
+                        If dgvSIPSubPartDelete(0, j).Value = Subpart Then
+                            temp2 = "Ignore"
+                        End If
+                    Next
+                    If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvSIPSubPartDelete)
+                        dgvRow.Cells(0).Value = dgvSIPSubParts(1, i).Value
+                        dgvRow.Cells(1).Value = dgvSIPSubParts(2, i).Value
+                        dgvSIPSubPartDelete.Rows.Add(dgvRow)
+                        With Me.dgvSIPSubParts.Rows(i)
+                            .DefaultCellStyle.BackColor = Color.Tomato
+                        End With
+                    End If
+                Next
+
+                SaveSIPSubpart()
+
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -13920,75 +13863,67 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If FormStatus = "" Then
-                If chbCDS_8.CheckState = CheckState.Unchecked Then
-                    If dgvNESHAPSubParts.RowCount > 0 Then
+            If FormStatus = "" AndAlso chbCDS_8.CheckState = CheckState.Unchecked AndAlso dgvNESHAPSubParts.RowCount > 0 Then
 
-
-                        For i = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
-                            Subpart = dgvNESHAPSubpartAddEdit(0, i).Value
-                            temp2 = ""
-                            Action = ""
-                            For j = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                                If dgvNESHAPSubParts(1, j).Value = Subpart Then
-                                    temp2 = j
-                                    Action = dgvNESHAPSubParts(4, j).Value
-                                End If
-                            Next
-                            If temp2 <> "" Then
-                                With Me.dgvNESHAPSubParts.Rows(temp2)
-                                    .DefaultCellStyle.BackColor = Color.White
-                                End With
-                                If Action = "Added" Then
-                                    dgvNESHAPSubParts.Rows.RemoveAt(temp2)
-                                End If
-                            End If
-                        Next
-                        dgvNESHAPSubpartAddEdit.Rows.Clear()
-
-                        For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                            Subpart = dgvNESHAPSubParts(1, i).Value
-                            Action = dgvNESHAPSubParts(4, i).Value
-
-                            For j = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
-                                If dgvNESHAPSubpartAddEdit(0, j).Value = Subpart Then
-                                    temp2 = "Message"
-                                End If
-                            Next
-                            If temp2 = "Message" Then
-                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
-                                       "The subpart must be removed from this list before it can be deleted from the Facility.",
-                                       MsgBoxStyle.Exclamation, "Application Tracking Log")
-                                Return
-                            Else
-                                temp2 = ""
-                            End If
-
-                            temp2 = ""
-                            For j = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
-                                If dgvNESHAPSubPartDelete(0, j).Value = Subpart Then
-                                    temp2 = "Ignore"
-                                End If
-                            Next
-                            If temp2 <> "Ignore" Then
-                                If Action <> "Added" Then
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvNESHAPSubPartDelete)
-                                    dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, i).Value
-                                    dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, i).Value
-                                    dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                                    With Me.dgvNESHAPSubParts.Rows(i)
-                                        .DefaultCellStyle.BackColor = Color.Tomato
-                                    End With
-                                End If
-                            End If
-                        Next
-
-                        SaveNESHAPSubpart()
-
-
+                For i = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
+                    Subpart = dgvNESHAPSubpartAddEdit(0, i).Value
+                    temp2 = ""
+                    Action = ""
+                    For j = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                        If dgvNESHAPSubParts(1, j).Value = Subpart Then
+                            temp2 = j
+                            Action = dgvNESHAPSubParts(4, j).Value
+                        End If
+                    Next
+                    If temp2 <> "" Then
+                        With Me.dgvNESHAPSubParts.Rows(temp2)
+                            .DefaultCellStyle.BackColor = Color.White
+                        End With
+                        If Action = "Added" Then
+                            dgvNESHAPSubParts.Rows.RemoveAt(temp2)
+                        End If
                     End If
-                End If
+                Next
+                dgvNESHAPSubpartAddEdit.Rows.Clear()
+
+                For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                    Subpart = dgvNESHAPSubParts(1, i).Value
+                    Action = dgvNESHAPSubParts(4, i).Value
+
+                    For j = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
+                        If dgvNESHAPSubpartAddEdit(0, j).Value = Subpart Then
+                            temp2 = "Message"
+                        End If
+                    Next
+                    If temp2 = "Message" Then
+                        MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
+                               "The subpart must be removed from this list before it can be deleted from the Facility.",
+                               MsgBoxStyle.Exclamation, "Application Tracking Log")
+                        Return
+                    Else
+                        temp2 = ""
+                    End If
+
+                    temp2 = ""
+                    For j = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
+                        If dgvNESHAPSubPartDelete(0, j).Value = Subpart Then
+                            temp2 = "Ignore"
+                        End If
+                    Next
+                    If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvNESHAPSubPartDelete)
+                        dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, i).Value
+                        dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, i).Value
+                        dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
+                        With Me.dgvNESHAPSubParts.Rows(i)
+                            .DefaultCellStyle.BackColor = Color.Tomato
+                        End With
+                    End If
+                Next
+
+                SaveNESHAPSubpart()
+
             End If
 
         Catch ex As Exception
@@ -14005,75 +13940,67 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If FormStatus = "" Then
-                If chbCDS_9.CheckState = CheckState.Unchecked Then
-                    If dgvNSPSSubParts.RowCount > 0 Then
+            If FormStatus = "" AndAlso chbCDS_9.CheckState = CheckState.Unchecked AndAlso dgvNSPSSubParts.RowCount > 0 Then
 
-
-                        For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                            Subpart = dgvNSPSSubpartAddEdit(0, i).Value
-                            temp2 = ""
-                            Action = ""
-                            For j = 0 To dgvNSPSSubParts.Rows.Count - 1
-                                If dgvNSPSSubParts(1, j).Value = Subpart Then
-                                    temp2 = j
-                                    Action = dgvNSPSSubParts(4, j).Value
-                                End If
-                            Next
-                            If temp2 <> "" Then
-                                With Me.dgvNSPSSubParts.Rows(temp2)
-                                    .DefaultCellStyle.BackColor = Color.White
-                                End With
-                                If Action = "Added" Then
-                                    dgvNSPSSubParts.Rows.RemoveAt(temp2)
-                                End If
-                            End If
-                        Next
-                        dgvNSPSSubpartAddEdit.Rows.Clear()
-
-                        For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                            Subpart = dgvNSPSSubParts(1, i).Value
-                            Action = dgvNSPSSubParts(4, i).Value
-
-                            For j = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                                If dgvNSPSSubpartAddEdit(0, j).Value = Subpart Then
-                                    temp2 = "Message"
-                                End If
-                            Next
-                            If temp2 = "Message" Then
-                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
-                                       "The subpart must be removed from this list before it can be deleted from the Facility.",
-                                       MsgBoxStyle.Exclamation, "Application Tracking Log")
-                                Return
-                            Else
-                                temp2 = ""
-                            End If
-
-                            temp2 = ""
-                            For j = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
-                                If dgvNSPSSubPartDelete(0, j).Value = Subpart Then
-                                    temp2 = "Ignore"
-                                End If
-                            Next
-                            If temp2 <> "Ignore" Then
-                                If Action <> "Added" Then
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvNSPSSubPartDelete)
-                                    dgvRow.Cells(0).Value = dgvNSPSSubParts(1, i).Value
-                                    dgvRow.Cells(1).Value = dgvNSPSSubParts(2, i).Value
-                                    dgvNSPSSubPartDelete.Rows.Add(dgvRow)
-                                    With Me.dgvNSPSSubParts.Rows(i)
-                                        .DefaultCellStyle.BackColor = Color.Tomato
-                                    End With
-                                End If
-                            End If
-                        Next
-
-                        SaveNSPSSubpart()
-
-
+                For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
+                    Subpart = dgvNSPSSubpartAddEdit(0, i).Value
+                    temp2 = ""
+                    Action = ""
+                    For j = 0 To dgvNSPSSubParts.Rows.Count - 1
+                        If dgvNSPSSubParts(1, j).Value = Subpart Then
+                            temp2 = j
+                            Action = dgvNSPSSubParts(4, j).Value
+                        End If
+                    Next
+                    If temp2 <> "" Then
+                        With Me.dgvNSPSSubParts.Rows(temp2)
+                            .DefaultCellStyle.BackColor = Color.White
+                        End With
+                        If Action = "Added" Then
+                            dgvNSPSSubParts.Rows.RemoveAt(temp2)
+                        End If
                     End If
-                End If
+                Next
+                dgvNSPSSubpartAddEdit.Rows.Clear()
+
+                For i = 0 To dgvNSPSSubParts.Rows.Count - 1
+                    Subpart = dgvNSPSSubParts(1, i).Value
+                    Action = dgvNSPSSubParts(4, i).Value
+
+                    For j = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
+                        If dgvNSPSSubpartAddEdit(0, j).Value = Subpart Then
+                            temp2 = "Message"
+                        End If
+                    Next
+                    If temp2 = "Message" Then
+                        MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
+                               "The subpart must be removed from this list before it can be deleted from the Facility.",
+                               MsgBoxStyle.Exclamation, "Application Tracking Log")
+                        Return
+                    Else
+                        temp2 = ""
+                    End If
+
+                    temp2 = ""
+                    For j = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
+                        If dgvNSPSSubPartDelete(0, j).Value = Subpart Then
+                            temp2 = "Ignore"
+                        End If
+                    Next
+                    If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvNSPSSubPartDelete)
+                        dgvRow.Cells(0).Value = dgvNSPSSubParts(1, i).Value
+                        dgvRow.Cells(1).Value = dgvNSPSSubParts(2, i).Value
+                        dgvNSPSSubPartDelete.Rows.Add(dgvRow)
+                        With Me.dgvNSPSSubParts.Rows(i)
+                            .DefaultCellStyle.BackColor = Color.Tomato
+                        End With
+                    End If
+                Next
+
+                SaveNSPSSubpart()
+
             End If
 
         Catch ex As Exception
@@ -14090,74 +14017,67 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If FormStatus = "" Then
-                If chbCDS_M.CheckState = CheckState.Unchecked Then
-                    If dgvMACTSubParts.RowCount > 0 Then
+            If FormStatus = "" AndAlso chbCDS_M.CheckState = CheckState.Unchecked AndAlso dgvMACTSubParts.RowCount > 0 Then
 
-
-                        For i = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
-                            Subpart = dgvMACTSubpartAddEdit(0, i).Value
-                            temp2 = ""
-                            Action = ""
-                            For j = 0 To dgvMACTSubParts.Rows.Count - 1
-                                If dgvMACTSubParts(1, j).Value = Subpart Then
-                                    temp2 = j
-                                    Action = dgvMACTSubParts(4, j).Value
-                                End If
-                            Next
-                            If temp2 <> "" Then
-                                With Me.dgvMACTSubParts.Rows(temp2)
-                                    .DefaultCellStyle.BackColor = Color.White
-                                End With
-                                If Action = "Added" Then
-                                    dgvMACTSubParts.Rows.RemoveAt(temp2)
-                                End If
-                            End If
-                        Next
-                        dgvMACTSubpartAddEdit.Rows.Clear()
-
-                        For i = 0 To dgvMACTSubParts.Rows.Count - 1
-                            Subpart = dgvMACTSubParts(1, i).Value
-                            Action = dgvMACTSubParts(4, i).Value
-
-                            For j = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
-                                If dgvMACTSubpartAddEdit(0, j).Value = Subpart Then
-                                    temp2 = "Message"
-                                End If
-                            Next
-                            If temp2 = "Message" Then
-                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
-                                       "The subpart must be removed from this list before it can be deleted from the Facility.",
-                                       MsgBoxStyle.Exclamation, "Application Tracking Log")
-                                Return
-                            Else
-                                temp2 = ""
-                            End If
-
-                            temp2 = ""
-                            For j = 0 To dgvMACTSubPartDelete.Rows.Count - 1
-                                If dgvMACTSubPartDelete(0, j).Value = Subpart Then
-                                    temp2 = "Ignore"
-                                End If
-                            Next
-                            If temp2 <> "Ignore" Then
-                                If Action <> "Added" Then
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvMACTSubPartDelete)
-                                    dgvRow.Cells(0).Value = dgvMACTSubParts(1, i).Value
-                                    dgvRow.Cells(1).Value = dgvMACTSubParts(2, i).Value
-                                    dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                                    With Me.dgvMACTSubParts.Rows(i)
-                                        .DefaultCellStyle.BackColor = Color.Tomato
-                                    End With
-                                End If
-                            End If
-                        Next
-
-                        SaveMACTSubpart()
-
+                For i = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
+                    Subpart = dgvMACTSubpartAddEdit(0, i).Value
+                    temp2 = ""
+                    Action = ""
+                    For j = 0 To dgvMACTSubParts.Rows.Count - 1
+                        If dgvMACTSubParts(1, j).Value = Subpart Then
+                            temp2 = j
+                            Action = dgvMACTSubParts(4, j).Value
+                        End If
+                    Next
+                    If temp2 <> "" Then
+                        With Me.dgvMACTSubParts.Rows(temp2)
+                            .DefaultCellStyle.BackColor = Color.White
+                        End With
+                        If Action = "Added" Then
+                            dgvMACTSubParts.Rows.RemoveAt(temp2)
+                        End If
                     End If
-                End If
+                Next
+                dgvMACTSubpartAddEdit.Rows.Clear()
+
+                For i = 0 To dgvMACTSubParts.Rows.Count - 1
+                    Subpart = dgvMACTSubParts(1, i).Value
+                    Action = dgvMACTSubParts(4, i).Value
+
+                    For j = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
+                        If dgvMACTSubpartAddEdit(0, j).Value = Subpart Then
+                            temp2 = "Message"
+                        End If
+                    Next
+                    If temp2 = "Message" Then
+                        MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
+                               "The subpart must be removed from this list before it can be deleted from the Facility.",
+                               MsgBoxStyle.Exclamation, "Application Tracking Log")
+                        Return
+                    Else
+                        temp2 = ""
+                    End If
+
+                    temp2 = ""
+                    For j = 0 To dgvMACTSubPartDelete.Rows.Count - 1
+                        If dgvMACTSubPartDelete(0, j).Value = Subpart Then
+                            temp2 = "Ignore"
+                        End If
+                    Next
+                    If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvMACTSubPartDelete)
+                        dgvRow.Cells(0).Value = dgvMACTSubParts(1, i).Value
+                        dgvRow.Cells(1).Value = dgvMACTSubParts(2, i).Value
+                        dgvMACTSubPartDelete.Rows.Add(dgvRow)
+                        With Me.dgvMACTSubParts.Rows(i)
+                            .DefaultCellStyle.BackColor = Color.Tomato
+                        End With
+                    End If
+                Next
+
+                SaveMACTSubpart()
+
             End If
 
         Catch ex As Exception
