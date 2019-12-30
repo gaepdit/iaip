@@ -2722,7 +2722,6 @@ Public Class SSPPApplicationTrackingLog
 
             If CInt(Mid(AirProgramCodes, 1, 1)) = 1 Then
                 AirPrograms = "   0 - SIP" & vbNewLine
-            Else
             End If
             If CInt(Mid(AirProgramCodes, 2, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   1 - Federal SIP" & vbNewLine
@@ -2738,34 +2737,27 @@ Public Class SSPPApplicationTrackingLog
             End If
             If CInt(Mid(AirProgramCodes, 6, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   7 - NSR" & vbNewLine
-            Else
             End If
             If CInt(Mid(AirProgramCodes, 7, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   8 - NESHAP" & vbNewLine
-            Else
             End If
             If CInt(Mid(AirProgramCodes, 8, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   9 - NSPS" & vbNewLine
-            Else
             End If
             If CInt(Mid(AirProgramCodes, 9, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   F - FESOP" & vbNewLine
-            Else
             End If
             If CInt(Mid(AirProgramCodes, 10, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   A - Acid Precipitation" & vbNewLine
-            Else
             End If
             If CInt(Mid(AirProgramCodes, 11, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   I - Native American" & vbNewLine
             End If
             If CInt(Mid(AirProgramCodes, 12, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   M - MACT" & vbNewLine
-            Else
             End If
             If CInt(Mid(AirProgramCodes, 13, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   V - Title V Permit" & vbNewLine
-            Else
             End If
             AirProgramLine = "Air Programs - " & vbNewLine & AirPrograms
 
@@ -4225,7 +4217,6 @@ Public Class SSPPApplicationTrackingLog
 
             If Mid(AirProgramCodes, 1, 1) = 1 Then
                 AirPrograms = "   0 - SIP" & vbNewLine
-            Else
             End If
             If Mid(AirProgramCodes, 2, 1) = 1 Then
                 AirPrograms = AirPrograms & "   1 - Federal SIP" & vbNewLine
@@ -4241,34 +4232,27 @@ Public Class SSPPApplicationTrackingLog
             End If
             If Mid(AirProgramCodes, 6, 1) = 1 Then
                 AirPrograms = AirPrograms & "   7 - NSR" & vbNewLine
-            Else
             End If
             If Mid(AirProgramCodes, 7, 1) = 1 Then
                 AirPrograms = AirPrograms & "   8 - NESHAP" & vbNewLine
-            Else
             End If
             If Mid(AirProgramCodes, 8, 1) = 1 Then
                 AirPrograms = AirPrograms & "   9 - NSPS" & vbNewLine
-            Else
             End If
             If Mid(AirProgramCodes, 9, 1) = 1 Then
                 AirPrograms = AirPrograms & "   F - FESOP" & vbNewLine
-            Else
             End If
             If Mid(AirProgramCodes, 10, 1) = 1 Then
                 AirPrograms = AirPrograms & "   A - Acid Precipitation" & vbNewLine
-            Else
             End If
             If Mid(AirProgramCodes, 11, 1) = 1 Then
                 AirPrograms = AirPrograms & "   I - Native American" & vbNewLine
             End If
             If Mid(AirProgramCodes, 12, 1) = 1 Then
                 AirPrograms = AirPrograms & "   M - MACT" & vbNewLine
-            Else
             End If
             If Mid(AirProgramCodes, 13, 1) = 1 Then
                 AirPrograms = AirPrograms & "   V - Title V Permit" & vbNewLine
-            Else
             End If
             AirProgramLine = "Air Programs - " & vbNewLine & AirPrograms
 
@@ -10438,12 +10422,10 @@ Public Class SSPPApplicationTrackingLog
                         Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
                         If dr IsNot Nothing Then
-                            If IsDBNull(dr.Item("strApplicationNumber")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationNumber")) Then
                                 dgvSIPSubParts(0, i).Value = dr.Item("strApplicationNumber")
                             End If
-                            If IsDBNull(dr.Item("strApplicationActivity")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationActivity")) Then
                                 Select Case dr.Item("strApplicationActivity").ToString
                                     Case "1"
                                         'Added' 
@@ -10456,8 +10438,7 @@ Public Class SSPPApplicationTrackingLog
                                         dgvSIPSubParts(4, i).Value = "Existing"
                                 End Select
                             End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("CreateDateTime")) Then
                                 dgvSIPSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
                             End If
                         End If
@@ -10667,8 +10648,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvSIPSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvSIPSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -10733,8 +10713,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
 
 
-            If dgvSIPSubPartDelete.CurrentRow IsNot Nothing Then
-            Else
+            If dgvSIPSubPartDelete.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -10931,8 +10910,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvSIPSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvSIPSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -11000,8 +10978,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvSIPSubpartAddEdit.CurrentRow IsNot Nothing Then
-            Else
+            If dgvSIPSubpartAddEdit.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -11324,12 +11301,10 @@ Public Class SSPPApplicationTrackingLog
                         Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
                         If dr IsNot Nothing Then
-                            If IsDBNull(dr.Item("strApplicationNumber")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationNumber")) Then
                                 dgvNSPSSubParts(0, i).Value = dr.Item("strApplicationNumber")
                             End If
-                            If IsDBNull(dr.Item("strApplicationActivity")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationActivity")) Then
                                 Select Case dr.Item("strApplicationActivity").ToString
                                     Case "1"
                                         'Added' 
@@ -11342,8 +11317,7 @@ Public Class SSPPApplicationTrackingLog
                                         dgvNSPSSubParts(4, i).Value = "Existing"
                                 End Select
                             End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("CreateDateTime")) Then
                                 dgvNSPSSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
                             End If
                         End If
@@ -11566,8 +11540,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvNSPSSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNSPSSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -11632,8 +11605,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
 
 
-            If dgvNSPSSubPartDelete.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNSPSSubPartDelete.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -11829,8 +11801,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvNSPSSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNSPSSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -11898,8 +11869,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvNSPSSubpartAddEdit.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNSPSSubpartAddEdit.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -12223,12 +12193,10 @@ Public Class SSPPApplicationTrackingLog
                         Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
                         If dr IsNot Nothing Then
-                            If IsDBNull(dr.Item("strApplicationNumber")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationNumber")) Then
                                 dgvNESHAPSubParts(0, i).Value = dr.Item("strApplicationNumber")
                             End If
-                            If IsDBNull(dr.Item("strApplicationActivity")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationActivity")) Then
                                 Select Case dr.Item("strApplicationActivity").ToString
                                     Case "1"
                                         'Added' 
@@ -12241,8 +12209,7 @@ Public Class SSPPApplicationTrackingLog
                                         dgvNESHAPSubParts(4, i).Value = "Existing"
                                 End Select
                             End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("CreateDateTime")) Then
                                 dgvNESHAPSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
                             End If
                         End If
@@ -12464,8 +12431,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvNESHAPSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNESHAPSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -12530,8 +12496,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
 
 
-            If dgvNESHAPSubPartDelete.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNESHAPSubPartDelete.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -12730,8 +12695,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvNESHAPSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNESHAPSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -12799,8 +12763,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvNESHAPSubpartAddEdit.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNESHAPSubpartAddEdit.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -13126,12 +13089,10 @@ Public Class SSPPApplicationTrackingLog
                         Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
                         If dr IsNot Nothing Then
-                            If IsDBNull(dr.Item("strApplicationNumber")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationNumber")) Then
                                 dgvMACTSubParts(0, i).Value = dr.Item("strApplicationNumber")
                             End If
-                            If IsDBNull(dr.Item("strApplicationActivity")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationActivity")) Then
                                 Select Case dr.Item("strApplicationActivity").ToString
                                     Case "1"
                                         'Added' 
@@ -13144,8 +13105,7 @@ Public Class SSPPApplicationTrackingLog
                                         dgvMACTSubParts(4, i).Value = "Existing"
                                 End Select
                             End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("CreateDateTime")) Then
                                 dgvMACTSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
                             End If
                         End If
@@ -13370,8 +13330,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvMACTSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvMACTSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -13436,8 +13395,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
 
 
-            If dgvMACTSubPartDelete.CurrentRow IsNot Nothing Then
-            Else
+            If dgvMACTSubPartDelete.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -13635,8 +13593,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvMACTSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvMACTSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -13704,8 +13661,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvMACTSubpartAddEdit.CurrentRow IsNot Nothing Then
-            Else
+            If dgvMACTSubpartAddEdit.CurrentRow Is Nothing Then
                 Return
             End If
 
