@@ -10518,9 +10518,7 @@ Public Class SSPPApplicationTrackingLog
                                 dgvSIPSubParts(0, i).Value = AppNum
                                 dgvSIPSubParts(4, i).Value = "Removed"
                                 temp = "Removed"
-                                With Me.dgvSIPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.Tomato
-                                End With
+                                dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                             End If
                         Next
                         If temp = "" Then
@@ -10533,9 +10531,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Removed"
                             dgvSIPSubParts.Rows.Add(dgvRow)
                             i = dgvSIPSubParts.Rows.Count - 1
-                            With Me.dgvSIPSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.Tomato
-                            End With
+                            dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                         End If
                         dgvRow = New DataGridViewRow
                         dgvRow.CreateCells(dgvSIPSubPartDelete)
@@ -10549,9 +10545,7 @@ Public Class SSPPApplicationTrackingLog
                                 dgvSIPSubParts(0, i).Value = AppNum
                                 dgvSIPSubParts(4, i).Value = "Added"
                                 temp = "Added"
-                                With Me.dgvSIPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightGreen
-                                End With
+                                dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                             End If
                         Next
                         If temp <> "Added" Then
@@ -10564,9 +10558,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Added"
                             dgvSIPSubParts.Rows.Add(dgvRow)
                             i = dgvSIPSubParts.Rows.Count - 1
-                            With Me.dgvSIPSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.LightGreen
-                            End With
+                            dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                         End If
                         dgvRow = New DataGridViewRow
                         dgvRow.CreateCells(dgvSIPSubpartAddEdit)
@@ -10576,18 +10568,14 @@ Public Class SSPPApplicationTrackingLog
                         dgvRow.Cells(3).Value = "Added"
                         dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
                         i = dgvSIPSubpartAddEdit.Rows.Count - 1
-                        With Me.dgvSIPSubpartAddEdit.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightGreen
-                        End With
+                        dgvSIPSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                     Case "Modified"
                         temp = ""
                         For i = 0 To dgvSIPSubParts.Rows.Count - 1
                             If SubPart = dgvSIPSubParts(1, i).Value Then
                                 dgvSIPSubParts(0, i).Value = AppNum
                                 temp = "Modify"
-                                With Me.dgvSIPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightBlue
-                                End With
+                                dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                             End If
                         Next
                         dgvRow = New DataGridViewRow
@@ -10650,9 +10638,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(0).Value = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(1).Value = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
                     dgvSIPSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Else
                 If Action <> "Added" Then
@@ -10661,9 +10647,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(1).Value = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
 
                     dgvSIPSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             End If
 
@@ -10689,9 +10673,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvSIPSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvSIPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                 dgvSIPSubPartDelete.Rows.Remove(dgvSIPSubPartDelete.CurrentRow)
             End If
 
@@ -10739,9 +10721,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(0).Value = dgvSIPSubParts(1, i).Value
                     dgvRow.Cells(1).Value = dgvSIPSubParts(2, i).Value
                     dgvSIPSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvSIPSubParts.Rows(i)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Next
 
@@ -10762,9 +10742,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvSIPSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvSIPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvSIPSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -10784,9 +10762,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvSIPSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvSIPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvSIPSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -10834,9 +10810,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(4).Value = "Added"
                 dgvSIPSubParts.Rows.Add(dgvRow)
                 i = dgvSIPSubParts.Rows.Count - 1
-                With Me.dgvSIPSubParts.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
 
             temp2 = ""
@@ -10855,9 +10829,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(3).Value = "Added"
                 dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
                 i = dgvSIPSubpartAddEdit.Rows.Count - 1
-                With Me.dgvSIPSubpartAddEdit.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvSIPSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -10910,9 +10882,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvSIPSubParts(3, dgvSIPSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Else
                 If Action <> "Added" Then
@@ -10922,9 +10892,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvSIPSubParts(3, dgvSIPSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             End If
 
@@ -10952,9 +10920,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If Action <> "Added" Then
-                    With Me.dgvSIPSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvSIPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     dgvSIPSubpartAddEdit.Rows.Remove(dgvSIPSubpartAddEdit.CurrentRow)
                 End If
             End If
@@ -11003,9 +10969,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvSIPSubParts(3, i).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvSIPSubParts.Rows(i)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Next
         Catch ex As Exception
@@ -11023,9 +10987,7 @@ Public Class SSPPApplicationTrackingLog
                 Subpart = dgvSIPSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
                     If dgvSIPSubParts(1, j).Value = Subpart AndAlso dgvSIPSubParts(4, j).Value = "Existing" Then
-                        With Me.dgvSIPSubParts.Rows(j)
-                            .DefaultCellStyle.BackColor = Color.White
-                        End With
+                        dgvSIPSubParts.Rows(j).DefaultCellStyle.BackColor = Color.White
                         TempRemove = i & "," & TempRemove
                     End If
                 Next
@@ -11059,9 +11021,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 <> "" Then
-                    With Me.dgvSIPSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvSIPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     If Action = "Added" Then
                         dgvSIPSubParts.Rows.RemoveAt(temp2)
                     End If
@@ -11397,9 +11357,7 @@ Public Class SSPPApplicationTrackingLog
                                 dgvNSPSSubParts(0, i).Value = AppNum
                                 dgvNSPSSubParts(4, i).Value = "Removed"
                                 temp = "Removed"
-                                With Me.dgvNSPSSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.Tomato
-                                End With
+                                dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                             End If
                         Next
 
@@ -11413,9 +11371,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Removed"
                             dgvNSPSSubParts.Rows.Add(dgvRow)
                             i = dgvNSPSSubParts.Rows.Count - 1
-                            With Me.dgvNSPSSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.Tomato
-                            End With
+                            dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                         End If
 
                         dgvRow = New DataGridViewRow
@@ -11429,9 +11385,7 @@ Public Class SSPPApplicationTrackingLog
                             If SubPart = dgvNSPSSubParts(1, i).Value Then
                                 dgvNSPSSubParts(4, i).Value = "Added"
                                 temp = "Added"
-                                With Me.dgvNSPSSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightGreen
-                                End With
+                                dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                             End If
                         Next
                         If temp <> "Added" Then
@@ -11444,9 +11398,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Added"
                             dgvNSPSSubParts.Rows.Add(dgvRow)
                             i = dgvNSPSSubParts.Rows.Count - 1
-                            With Me.dgvNSPSSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.LightGreen
-                            End With
+                            dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                         End If
 
                         dgvRow = New DataGridViewRow
@@ -11457,9 +11409,7 @@ Public Class SSPPApplicationTrackingLog
                         dgvRow.Cells(3).Value = "Added"
                         dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
                         i = dgvNSPSSubpartAddEdit.Rows.Count - 1
-                        With Me.dgvNSPSSubpartAddEdit.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightGreen
-                        End With
+                        dgvNSPSSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
 
                     Case "Modified"
                         temp = ""
@@ -11467,9 +11417,7 @@ Public Class SSPPApplicationTrackingLog
                             If SubPart = dgvNSPSSubParts(1, i).Value Then
                                 dgvNSPSSubParts(0, i).Value = AppNum
                                 temp = "Modify"
-                                With Me.dgvNSPSSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightBlue
-                                End With
+                                dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                             End If
                         Next
 
@@ -11532,9 +11480,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(0).Value = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(1).Value = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
                     dgvNSPSSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Else
                 If Action <> "Added" Then
@@ -11543,9 +11489,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(1).Value = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
 
                     dgvNSPSSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             End If
 
@@ -11571,9 +11515,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvNSPSSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvNSPSSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                 dgvNSPSSubPartDelete.Rows.Remove(dgvNSPSSubPartDelete.CurrentRow)
             End If
 
@@ -11621,9 +11563,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(0).Value = dgvNSPSSubParts(1, i).Value
                     dgvRow.Cells(1).Value = dgvNSPSSubParts(2, i).Value
                     dgvNSPSSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvNSPSSubParts.Rows(i)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Next
         Catch ex As Exception
@@ -11643,9 +11583,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvNSPSSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvNSPSSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvNSPSSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -11665,9 +11603,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvNSPSSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvNSPSSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvNSPSSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -11715,9 +11651,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(4).Value = "Added"
                 dgvNSPSSubParts.Rows.Add(dgvRow)
                 i = dgvNSPSSubParts.Rows.Count - 1
-                With Me.dgvNSPSSubParts.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
 
             temp2 = ""
@@ -11736,9 +11670,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(3).Value = "Added"
                 dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
                 i = dgvNSPSSubpartAddEdit.Rows.Count - 1
-                With Me.dgvNSPSSubpartAddEdit.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvNSPSSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -11791,9 +11723,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvNSPSSubParts(3, dgvNSPSSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Else
                 If Action <> "Added" Then
@@ -11803,9 +11733,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvNSPSSubParts(3, dgvNSPSSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             End If
 
@@ -11833,9 +11761,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If Action <> "Added" Then
-                    With Me.dgvNSPSSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvNSPSSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     dgvNSPSSubpartAddEdit.Rows.Remove(dgvNSPSSubpartAddEdit.CurrentRow)
                 End If
             End If
@@ -11884,9 +11810,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvNSPSSubParts(3, i).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvNSPSSubParts.Rows(i)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Next
         Catch ex As Exception
@@ -11904,9 +11828,7 @@ Public Class SSPPApplicationTrackingLog
                 Subpart = dgvNSPSSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
                     If dgvNSPSSubParts(1, j).Value = Subpart AndAlso dgvNSPSSubParts(4, j).Value = "Existing" Then
-                        With Me.dgvNSPSSubParts.Rows(j)
-                            .DefaultCellStyle.BackColor = Color.White
-                        End With
+                        dgvNSPSSubParts.Rows(j).DefaultCellStyle.BackColor = Color.White
                         TempRemove = i & "," & TempRemove
                     End If
                 Next
@@ -11941,9 +11863,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 <> "" Then
-                    With Me.dgvNSPSSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvNSPSSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     If Action = "Added" Then
                         dgvNSPSSubParts.Rows.RemoveAt(temp2)
                     End If
@@ -12278,9 +12198,7 @@ Public Class SSPPApplicationTrackingLog
                                 dgvNESHAPSubParts(0, i).Value = AppNum
                                 dgvNESHAPSubParts(4, i).Value = "Removed"
                                 temp = "Removed"
-                                With Me.dgvNESHAPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.Tomato
-                                End With
+                                dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                             End If
                         Next
 
@@ -12294,9 +12212,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Removed"
                             dgvNESHAPSubParts.Rows.Add(dgvRow)
                             i = dgvNESHAPSubParts.Rows.Count - 1
-                            With Me.dgvNESHAPSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.Tomato
-                            End With
+                            dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                         End If
 
                         dgvRow = New DataGridViewRow
@@ -12310,9 +12226,7 @@ Public Class SSPPApplicationTrackingLog
                             If SubPart = dgvNESHAPSubParts(1, i).Value Then
                                 dgvNESHAPSubParts(4, i).Value = "Added"
                                 temp = "Added"
-                                With Me.dgvNESHAPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightGreen
-                                End With
+                                dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                             End If
                         Next
                         If temp <> "Added" Then
@@ -12325,9 +12239,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Added"
                             dgvNESHAPSubParts.Rows.Add(dgvRow)
                             i = dgvNESHAPSubParts.Rows.Count - 1
-                            With Me.dgvNESHAPSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.LightGreen
-                            End With
+                            dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                         End If
 
                         dgvRow = New DataGridViewRow
@@ -12338,9 +12250,7 @@ Public Class SSPPApplicationTrackingLog
                         dgvRow.Cells(3).Value = "Added"
                         dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
                         i = dgvNESHAPSubpartAddEdit.Rows.Count - 1
-                        With Me.dgvNESHAPSubpartAddEdit.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightGreen
-                        End With
+                        dgvNESHAPSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
 
                     Case "Modified"
                         temp = ""
@@ -12348,9 +12258,7 @@ Public Class SSPPApplicationTrackingLog
                             If SubPart = dgvNESHAPSubParts(1, i).Value Then
                                 dgvNESHAPSubParts(0, i).Value = AppNum
                                 temp = "Modify"
-                                With Me.dgvNESHAPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightBlue
-                                End With
+                                dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                             End If
                         Next
 
@@ -12413,9 +12321,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
                     dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Else
                 If Action <> "Added" Then
@@ -12424,9 +12330,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
 
                     dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             End If
 
@@ -12452,9 +12356,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvNESHAPSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvNESHAPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                 dgvNESHAPSubPartDelete.Rows.Remove(dgvNESHAPSubPartDelete.CurrentRow)
             End If
 
@@ -12502,9 +12404,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, i).Value
                     dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, i).Value
                     dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvNESHAPSubParts.Rows(i)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Next
         Catch ex As Exception
@@ -12525,9 +12425,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvNESHAPSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvNESHAPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvNESHAPSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -12548,9 +12446,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvNESHAPSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvNESHAPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvNESHAPSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -12599,9 +12495,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(4).Value = "Added"
                 dgvNESHAPSubParts.Rows.Add(dgvRow)
                 i = dgvNESHAPSubParts.Rows.Count - 1
-                With Me.dgvNESHAPSubParts.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
 
             temp2 = ""
@@ -12620,9 +12514,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(3).Value = "Added"
                 dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
                 i = dgvNESHAPSubpartAddEdit.Rows.Count - 1
-                With Me.dgvNESHAPSubpartAddEdit.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvNESHAPSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -12675,9 +12567,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvNESHAPSubParts(3, dgvNESHAPSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Else
                 If Action <> "Added" Then
@@ -12687,9 +12577,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvNESHAPSubParts(3, dgvNESHAPSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             End If
 
@@ -12717,9 +12605,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If Action <> "Added" Then
-                    With Me.dgvNESHAPSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvNESHAPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     dgvNESHAPSubpartAddEdit.Rows.Remove(dgvNESHAPSubpartAddEdit.CurrentRow)
                 End If
             End If
@@ -12769,9 +12655,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvNESHAPSubParts(3, i).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvNESHAPSubParts.Rows(i)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Next
         Catch ex As Exception
@@ -12789,9 +12673,7 @@ Public Class SSPPApplicationTrackingLog
                 Subpart = dgvNESHAPSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
                     If dgvNESHAPSubParts(1, j).Value = Subpart AndAlso dgvNESHAPSubParts(4, j).Value = "Existing" Then
-                        With Me.dgvNESHAPSubParts.Rows(j)
-                            .DefaultCellStyle.BackColor = Color.White
-                        End With
+                        dgvNESHAPSubParts.Rows(j).DefaultCellStyle.BackColor = Color.White
                         TempRemove = i & "," & TempRemove
                     End If
                 Next
@@ -12826,9 +12708,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 <> "" Then
-                    With Me.dgvNESHAPSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvNESHAPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     If Action = "Added" Then
                         dgvNESHAPSubParts.Rows.RemoveAt(temp2)
                     End If
@@ -13164,9 +13044,7 @@ Public Class SSPPApplicationTrackingLog
                                 dgvMACTSubParts(0, i).Value = AppNum
                                 dgvMACTSubParts(4, i).Value = "Removed"
                                 temp = "Removed"
-                                With Me.dgvMACTSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.Tomato
-                                End With
+                                dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                             End If
                         Next
 
@@ -13180,9 +13058,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Removed"
                             dgvMACTSubParts.Rows.Add(dgvRow)
                             i = dgvMACTSubParts.Rows.Count - 1
-                            With Me.dgvMACTSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.Tomato
-                            End With
+                            dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                         End If
 
                         dgvRow = New DataGridViewRow
@@ -13196,9 +13072,7 @@ Public Class SSPPApplicationTrackingLog
                             If SubPart = dgvMACTSubParts(1, i).Value Then
                                 dgvMACTSubParts(4, i).Value = "Added"
                                 temp = "Added"
-                                With Me.dgvMACTSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightGreen
-                                End With
+                                dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                             End If
                         Next
                         If temp <> "Added" Then
@@ -13211,9 +13085,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Added"
                             dgvMACTSubParts.Rows.Add(dgvRow)
                             i = dgvMACTSubParts.Rows.Count - 1
-                            With Me.dgvMACTSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.LightGreen
-                            End With
+                            dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                         End If
 
                         dgvRow = New DataGridViewRow
@@ -13224,9 +13096,7 @@ Public Class SSPPApplicationTrackingLog
                         dgvRow.Cells(3).Value = "Added"
                         dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
                         i = dgvMACTSubpartAddEdit.Rows.Count - 1
-                        With Me.dgvMACTSubpartAddEdit.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightGreen
-                        End With
+                        dgvMACTSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
 
                     Case "Modified"
                         temp = ""
@@ -13234,9 +13104,7 @@ Public Class SSPPApplicationTrackingLog
                             If SubPart = dgvMACTSubParts(1, i).Value Then
                                 dgvMACTSubParts(0, i).Value = AppNum
                                 temp = "Modify"
-                                With Me.dgvMACTSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightBlue
-                                End With
+                                dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                             End If
                         Next
 
@@ -13302,9 +13170,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(0).Value = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(1).Value = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
                     dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Else
                 If Action <> "Added" Then
@@ -13313,9 +13179,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(1).Value = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
 
                     dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             End If
 
@@ -13341,9 +13205,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvMACTSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvMACTSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                 dgvMACTSubPartDelete.Rows.Remove(dgvMACTSubPartDelete.CurrentRow)
             End If
 
@@ -13391,9 +13253,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(0).Value = dgvMACTSubParts(1, i).Value
                     dgvRow.Cells(1).Value = dgvMACTSubParts(2, i).Value
                     dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvMACTSubParts.Rows(i)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Next
         Catch ex As Exception
@@ -13414,9 +13274,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvMACTSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvMACTSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvMACTSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -13437,9 +13295,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvMACTSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvMACTSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvMACTSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -13487,9 +13343,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(4).Value = "Added"
                 dgvMACTSubParts.Rows.Add(dgvRow)
                 i = dgvMACTSubParts.Rows.Count - 1
-                With Me.dgvMACTSubParts.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
 
             temp2 = ""
@@ -13508,9 +13362,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(3).Value = "Added"
                 dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
                 i = dgvMACTSubpartAddEdit.Rows.Count - 1
-                With Me.dgvMACTSubpartAddEdit.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvMACTSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -13563,9 +13415,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvMACTSubParts(3, dgvMACTSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Else
                 If Action <> "Added" Then
@@ -13575,9 +13425,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvMACTSubParts(3, dgvMACTSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             End If
 
@@ -13605,9 +13453,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If Action <> "Added" Then
-                    With Me.dgvMACTSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvMACTSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     dgvMACTSubpartAddEdit.Rows.Remove(dgvMACTSubpartAddEdit.CurrentRow)
                 End If
             End If
@@ -13657,9 +13503,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvMACTSubParts(3, i).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvMACTSubParts.Rows(i)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Next
         Catch ex As Exception
@@ -13677,9 +13521,7 @@ Public Class SSPPApplicationTrackingLog
                 Subpart = dgvMACTSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvMACTSubParts.Rows.Count - 1
                     If dgvMACTSubParts(1, j).Value = Subpart AndAlso dgvMACTSubParts(4, j).Value = "Existing" Then
-                        With Me.dgvMACTSubParts.Rows(j)
-                            .DefaultCellStyle.BackColor = Color.White
-                        End With
+                        dgvMACTSubParts.Rows(j).DefaultCellStyle.BackColor = Color.White
                         TempRemove = i & "," & TempRemove
                     End If
                 Next
@@ -13713,9 +13555,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 <> "" Then
-                    With Me.dgvMACTSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvMACTSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     If Action = "Added" Then
                         dgvMACTSubParts.Rows.RemoveAt(temp2)
                     End If
@@ -13800,9 +13640,7 @@ Public Class SSPPApplicationTrackingLog
                         End If
                     Next
                     If temp2 <> "" Then
-                        With Me.dgvSIPSubParts.Rows(temp2)
-                            .DefaultCellStyle.BackColor = Color.White
-                        End With
+                        dgvSIPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                         If Action = "Added" Then
                             dgvSIPSubParts.Rows.RemoveAt(temp2)
                         End If
@@ -13840,9 +13678,7 @@ Public Class SSPPApplicationTrackingLog
                         dgvRow.Cells(0).Value = dgvSIPSubParts(1, i).Value
                         dgvRow.Cells(1).Value = dgvSIPSubParts(2, i).Value
                         dgvSIPSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvSIPSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
+                        dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                     End If
                 Next
 
@@ -13876,9 +13712,7 @@ Public Class SSPPApplicationTrackingLog
                         End If
                     Next
                     If temp2 <> "" Then
-                        With Me.dgvNESHAPSubParts.Rows(temp2)
-                            .DefaultCellStyle.BackColor = Color.White
-                        End With
+                        dgvNESHAPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                         If Action = "Added" Then
                             dgvNESHAPSubParts.Rows.RemoveAt(temp2)
                         End If
@@ -13916,9 +13750,7 @@ Public Class SSPPApplicationTrackingLog
                         dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, i).Value
                         dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, i).Value
                         dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvNESHAPSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
+                        dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                     End If
                 Next
 
@@ -13953,9 +13785,7 @@ Public Class SSPPApplicationTrackingLog
                         End If
                     Next
                     If temp2 <> "" Then
-                        With Me.dgvNSPSSubParts.Rows(temp2)
-                            .DefaultCellStyle.BackColor = Color.White
-                        End With
+                        dgvNSPSSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                         If Action = "Added" Then
                             dgvNSPSSubParts.Rows.RemoveAt(temp2)
                         End If
@@ -13993,9 +13823,7 @@ Public Class SSPPApplicationTrackingLog
                         dgvRow.Cells(0).Value = dgvNSPSSubParts(1, i).Value
                         dgvRow.Cells(1).Value = dgvNSPSSubParts(2, i).Value
                         dgvNSPSSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvNSPSSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
+                        dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                     End If
                 Next
 
@@ -14030,9 +13858,7 @@ Public Class SSPPApplicationTrackingLog
                         End If
                     Next
                     If temp2 <> "" Then
-                        With Me.dgvMACTSubParts.Rows(temp2)
-                            .DefaultCellStyle.BackColor = Color.White
-                        End With
+                        dgvMACTSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                         If Action = "Added" Then
                             dgvMACTSubParts.Rows.RemoveAt(temp2)
                         End If
@@ -14070,9 +13896,7 @@ Public Class SSPPApplicationTrackingLog
                         dgvRow.Cells(0).Value = dgvMACTSubParts(1, i).Value
                         dgvRow.Cells(1).Value = dgvMACTSubParts(2, i).Value
                         dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvMACTSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
+                        dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                     End If
                 Next
 
