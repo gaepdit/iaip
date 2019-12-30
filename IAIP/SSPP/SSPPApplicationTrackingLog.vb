@@ -2773,8 +2773,6 @@ Public Class SSPPApplicationTrackingLog
             End Select
 
             Select Case CInt(Mid(Attainment, 3, 1))
-                Case 0
-                    AttainmentStatus = AttainmentStatus & ""
                 Case 1
                     If AttainmentStatus <> "" Then
                         AttainmentStatus = AttainmentStatus & vbNewLine & "8-hr Atlanta"
@@ -2787,13 +2785,9 @@ Public Class SSPPApplicationTrackingLog
                     Else
                         AttainmentStatus = "   8-hr Macon"
                     End If
-                Case Else
-                    AttainmentStatus = AttainmentStatus & ""
             End Select
 
             Select Case CInt(Mid(Attainment, 4, 1))
-                Case 0
-                    AttainmentStatus = AttainmentStatus & ""
                 Case 1
                     If AttainmentStatus <> "" Then
                         AttainmentStatus = AttainmentStatus & vbNewLine & "PM 2.5 Atlanta"
@@ -2818,8 +2812,6 @@ Public Class SSPPApplicationTrackingLog
                     Else
                         AttainmentStatus = "   PM 2.5 Macon"
                     End If
-                Case Else
-                    AttainmentStatus = AttainmentStatus & ""
             End Select
 
             If AttainmentStatus = "" Then
@@ -2838,16 +2830,12 @@ Public Class SSPPApplicationTrackingLog
             End Select
 
             Select Case CInt(Mid(StateProgramCodes, 2, 1))
-                Case 0
-                    StatePrograms = StatePrograms & ""
                 Case 1
                     If StatePrograms <> "" Then
-                        StatePrograms = StatePrograms & "HAPs Major"
+                        StatePrograms &= "HAPs Major"
                     Else
                         StatePrograms = "   HAPs Major"
                     End If
-                Case Else
-                    StatePrograms = StatePrograms & ""
             End Select
 
             If StatePrograms = "" Then
@@ -4267,8 +4255,6 @@ Public Class SSPPApplicationTrackingLog
                     AttainmentStatus = ""
             End Select
             Select Case Mid(Attainment, 3, 1)
-                Case 0
-                    AttainmentStatus = AttainmentStatus & ""
                 Case 1
                     If AttainmentStatus <> "" Then
                         AttainmentStatus = AttainmentStatus & vbNewLine & "8-hr Atlanta"
@@ -4281,12 +4267,8 @@ Public Class SSPPApplicationTrackingLog
                     Else
                         AttainmentStatus = "   8-hr Macon"
                     End If
-                Case Else
-                    AttainmentStatus = AttainmentStatus & ""
             End Select
             Select Case Mid(Attainment, 4, 1)
-                Case 0
-                    AttainmentStatus = AttainmentStatus & ""
                 Case 1
                     If AttainmentStatus <> "" Then
                         AttainmentStatus = AttainmentStatus & vbNewLine & "PM 2.5 Atlanta"
@@ -4311,8 +4293,6 @@ Public Class SSPPApplicationTrackingLog
                     Else
                         AttainmentStatus = "   PM 2.5 Macon"
                     End If
-                Case Else
-                    AttainmentStatus = AttainmentStatus & ""
             End Select
 
             If AttainmentStatus = "" Then
@@ -4330,16 +4310,12 @@ Public Class SSPPApplicationTrackingLog
                     StatePrograms = ""
             End Select
             Select Case Mid(StateProgramCodes, 2, 1)
-                Case 0
-                    StatePrograms = StatePrograms & ""
                 Case 1
                     If StatePrograms <> "" Then
-                        StatePrograms = StatePrograms & "HAPs Major"
+                        StatePrograms &= "HAPs Major"
                     Else
                         StatePrograms = "   HAPs Major"
                     End If
-                Case Else
-                    StatePrograms = StatePrograms & ""
             End Select
             If StatePrograms = "" Then
                 StatePrograms = "State Codes - N/A"
