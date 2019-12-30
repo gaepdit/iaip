@@ -420,804 +420,803 @@ Public Class SSPPApplicationTrackingLog
 
             'VALIDATE ALL CODES FROM LOOK UP IAIP ACCOUNTS
 
-
-            If Not (AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                 AccountFormAccess(67, 2) = "1" Or
-                (AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 3) = "0" And AccountFormAccess(48, 4) = "0") Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0")) Then
+            If Not (AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                 AccountFormAccess(67, 2) = "1" OrElse
+                (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")) Then
 
                 TCApplicationTrackingLog.TabPages.Remove(TPReviews)
 
             End If
 
-            If Not (AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0")) Then
+            If Not (AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")) Then
 
                 TCApplicationTrackingLog.TabPages.Remove(TPApplicationHistory)
 
             End If
 
-            If Not (AccountFormAccess(129, 3) = "1" Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                 (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                 (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0")) Then
+            If Not (AccountFormAccess(129, 3) = "1" OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                 (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")) Then
 
                 TCApplicationTrackingLog.TabPages.Remove(TPInformationRequests)
 
             End If
 
-            If Not (AccountFormAccess(129, 3) = "1" Or
-                  (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                  (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                   AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If Not (AccountFormAccess(129, 3) = "1" OrElse
+                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                  (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                   AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
 
                 TCApplicationTrackingLog.TabPages.Remove(TPWebPublisher)
 
             End If
 
-            If Not (AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Or
-               AccountFormAccess(67, 2) = "1" Or
-               (AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 3) = "0" And AccountFormAccess(48, 4) = "0") Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0")) Then
+            If Not (AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") OrElse
+               AccountFormAccess(67, 2) = "1" OrElse
+               (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")) Then
 
                 TCApplicationTrackingLog.TabPages.Remove(TPOtherInfo)
 
             End If
 
-            If Not (AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Or
-                 AccountFormAccess(67, 2) = "1" Or
-                (AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 3) = "0" And AccountFormAccess(48, 4) = "0") Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0")) Then
+            If Not (AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") OrElse
+                 AccountFormAccess(67, 2) = "1" OrElse
+                (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")) Then
 
                 btnGetCurrentPermittingContact.Visible = False
 
             End If
 
             'btnAddApplicationToList 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnAddApplicationToList.Enabled = True
             Else
                 btnAddApplicationToList.Enabled = False
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnAddApplicationToList.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnAddApplicationToList.BackColor = Color.Yellow
             End If
 
             'btnAddNewMactSubpart 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnAddNewMACTSubpart.Enabled = True
             End If
 
             'btnAddNewNESHAPSubpart 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnAddNewNESHAPSubpart.Enabled = True
             End If
 
             'btnAddNewNSPSSubpart 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnAddNewNSPSSubpart.Enabled = True
             End If
 
             'btnAddNewSIPSubpart 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnAddNewSIPSubpart.Enabled = True
             End If
 
             'btnClearAddModifiedMACTs 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnClearAddModifiedMACTs.Enabled = True
             End If
 
             'btnClearAddModifiedNESHAPs 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnClearAddModifiedNESHAPs.Enabled = True
             End If
 
             'btnClearAddModifiedNSPSs 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnClearAddModifiedNSPSs.Enabled = True
             End If
 
             'btnClearAddModifiedSIPs 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnClearAddModifiedSIPs.Enabled = True
             End If
 
             'btnClearMACTDeletes 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnClearMACTDeletes.Enabled = True
             End If
 
             'btnClearNESHAPDeletes 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnClearNESHAPDeletes.Enabled = True
             End If
 
             'btnClearNSPSDeletes 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnClearNSPSDeletes.Enabled = True
             End If
 
             'btnClearSIPDeletes 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnClearSIPDeletes.Enabled = True
             End If
 
             'btnMACTDelete 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnMACTDelete.Enabled = True
             End If
 
             'btnMACTDeleteAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnMACTDeleteAll.Enabled = True
             End If
 
             'btnMACTEdit 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnMACTEdit.Enabled = True
             End If
 
             'btnMACTEditAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnMACTEditAll.Enabled = True
             End If
 
             'btnMACTunDelete 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnMACTUndelete.Enabled = True
             End If
 
             'btnMACTunDeleteAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnMACTUndeleteAll.Enabled = True
             End If
 
             'btnMACTUnedit 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnMACTUnedit.Enabled = True
             End If
 
             'btnMACTUneditAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnMACTUneditAll.Enabled = True
             End If
 
             'btnNESHAPDelete 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNESHAPDelete.Enabled = True
             End If
 
             'btnNESHAPDeleteAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNESHAPDeleteAll.Enabled = True
             End If
 
             'btnNESHAPEdit 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNESHAPEdit.Enabled = True
             End If
 
             'btnNESHAPEditAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNESHAPEditAll.Enabled = True
             End If
 
             'btnNESHAPunDelete 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNESHAPUndelete.Enabled = True
             End If
 
             'btnNESHAPunDeleteAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNESHAPUndeleteAll.Enabled = True
             End If
 
             'btnNESHAPUnedit 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNESHAPUnedit.Enabled = True
             End If
 
             'btnNESHAPUneditAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNESHAPUneditAll.Enabled = True
             End If
 
             'btnNSPSDelete 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNSPSDelete.Enabled = True
             End If
 
             'btnNSPSDeleteAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNSPSDeleteAll.Enabled = True
             End If
 
             'btnNSPSEdit 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNSPSEdit.Enabled = True
             End If
 
             'btnNSPSEditAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNSPSEditAll.Enabled = True
             End If
 
             'btnNSPSunDelete 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNSPSUndelete.Enabled = True
             End If
 
             'btnNSPSunDeleteAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNSPSUndeleteAll.Enabled = True
             End If
 
             'btnNSPSUnedit 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNSPSUnedit.Enabled = True
             End If
 
             'btnNSPSUneditAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnNSPSUneditAll.Enabled = True
             End If
 
             'btnSIPDelete 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSIPDelete.Enabled = True
             End If
 
             'btnSIPDeleteAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSIPDeleteAll.Enabled = True
             End If
 
             'btnSIPEdit 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSIPEdit.Enabled = True
             End If
 
             'btnSIPEditAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSIPEditAll.Enabled = True
             End If
 
             'btnSIPunDelete 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSIPUndelete.Enabled = True
             End If
 
             'btnSIPunDeleteAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSIPUndeleteAll.Enabled = True
             End If
 
             'btnSIPUnedit 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSIPUnedit.Enabled = True
             End If
 
             'btnSIPUneditAll 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSIPUneditAll.Enabled = True
             End If
 
             'btnSaveMACTSubpart 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSaveMACTSubpart.Enabled = True
             End If
 
             'btnSaveNESHAPSubpart 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSaveNESHAPSubpart.Enabled = True
             End If
 
             'btnSaveNSPSSubpart 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSaveNSPSSubpart.Enabled = True
             End If
 
             'btnSaveSIPSubpart 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSaveSIPSubpart.Enabled = True
             End If
 
             'btnClearInformationRequest
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnClearInformationRequest.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnClearInformationRequest.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnClearInformationRequest.BackColor = Color.Yellow
             End If
 
             'btnClearLinks
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnClearLinks.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnClearLinks.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnClearLinks.BackColor = Color.Yellow
             End If
 
             'btnDeleteInformationRequest
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnDeleteInformationRequest.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnDeleteInformationRequest.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnDeleteInformationRequest.BackColor = Color.Yellow
             End If
             'btnGoToFeeContact 
 
-            If AccountFormAccess(129, 3) = "1" Or
-           (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-           (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-           (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-           (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-           (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Or
-           (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or
-           (AccountFormAccess(51, 3) = "1" And AccountFormAccess(20, 3) = "1" And AccountFormAccess(51, 1) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+           (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+           (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+           (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") OrElse
+           (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+           (AccountFormAccess(51, 3) = "1" AndAlso AccountFormAccess(20, 3) = "1" AndAlso AccountFormAccess(51, 1) = "0") Then
                 btnGoToFeeContact.Visible = True
             Else
                 btnGoToFeeContact.Visible = False
             End If
 
             'btnLinkApplications
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnLinkApplications.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnLinkApplications.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnLinkApplications.BackColor = Color.Yellow
             End If
 
             'btnSaveInformationRequest
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSaveInformationRequest.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSaveInformationRequest.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSaveInformationRequest.BackColor = Color.Yellow
             End If
 
             'BtnRefreshAIRSNo
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 btnRefreshAIRSNo.Visible = True
             Else
                 btnRefreshAIRSNo.Visible = False
             End If
 
             'btnSaveSIPSubpart
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSaveSIPSubpart.Visible = True
             Else
                 btnSaveSIPSubpart.Visible = False
             End If
 
             'btnSaveMACTSubpart
-            If AccountFormAccess(129, 3) = "1" Or
-             (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-             (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+             (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSaveMACTSubpart.Visible = True
             Else
                 btnSaveMACTSubpart.Visible = False
             End If
 
             'btnSaveNESHAPSubpart
-            If AccountFormAccess(129, 3) = "1" Or
-             (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-             (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+             (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSaveNESHAPSubpart.Visible = True
             Else
                 btnSaveNESHAPSubpart.Visible = False
             End If
 
             'btnSaveNSPSSubpart
-            If AccountFormAccess(129, 3) = "1" Or
-             (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-             (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+             (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnSaveNSPSSubpart.Visible = True
             Else
                 btnSaveNSPSSubpart.Visible = False
             End If
 
             'btnSaveWebPublisher
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 btnSaveWebPublisher.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 btnSaveWebPublisher.BackColor = Color.PeachPuff
             End If
 
             'btnGetCurrentPermittingContact
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 btnGetCurrentPermittingContact.Visible = True
             Else
                 btnGetCurrentPermittingContact.Visible = False
             End If
 
             'cboApplicationType
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboApplicationType.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboApplicationType.BackColor = Color.LightGreen
                 lblApplicationType.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 cboApplicationType.BackColor = Color.PeachPuff
                 lblApplicationType.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboApplicationType.BackColor = Color.Yellow
                 lblApplicationType.BackColor = Color.Yellow
             End If
 
             'cboApplicationUnit
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 cboApplicationUnit.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboApplicationUnit.BackColor = Color.LightBlue
                 lblApplicationUnit.BackColor = Color.LightBlue
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 cboApplicationUnit.BackColor = Color.PeachPuff
                 lblApplicationUnit.BackColor = Color.PeachPuff
             End If
 
             'cboClassification
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboClassification.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboClassification.BackColor = Color.LightGreen
                 lblClassification.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboClassification.BackColor = Color.Yellow
                 lblClassification.BackColor = Color.Yellow
             End If
@@ -1228,128 +1227,128 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'cboEngineer
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboEngineer.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboEngineer.BackColor = Color.LightBlue
                 lblEngineer.BackColor = Color.LightBlue
             End If
 
             'cboFacilityCity
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboFacilityCity.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboFacilityCity.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 cboFacilityCity.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboFacilityCity.BackColor = Color.Yellow
             End If
 
             'cboISMPStaff
-            If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 3) = "0" And AccountFormAccess(48, 4) = "0") Then
+            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") Then
                 cboISMPStaff.BackColor = Color.Yellow
                 lblISMPStaff.BackColor = Color.Yellow
             End If
 
             'cboOperationalStatus
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboOperationalStatus.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboOperationalStatus.BackColor = Color.LightGreen
                 lblOperationalStatus.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 cboOperationalStatus.BackColor = Color.PeachPuff
                 lblOperationalStatus.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboOperationalStatus.BackColor = Color.Yellow
                 lblOperationalStatus.BackColor = Color.Yellow
             End If
 
             'cboPermitAction
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboPermitAction.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                  (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboPermitAction.BackColor = Color.LightGreen
                 lblPermitAction.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboPermitAction.BackColor = Color.Yellow
                 lblPermitAction.BackColor = Color.Yellow
             End If
 
             'cboPublicAdvisory
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboPublicAdvisory.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") Then
                 cboPublicAdvisory.BackColor = Color.LightBlue
                 lblPublicAdvisory.BackColor = Color.LightBlue
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboPublicAdvisory.BackColor = Color.LightGreen
                 lblPublicAdvisory.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboPublicAdvisory.BackColor = Color.Yellow
                 lblPublicAdvisory.BackColor = Color.Yellow
             End If
 
             'cboSSCPStaff 
-            If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or
+            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
                 AccountFormAccess(67, 2) = "1" Then
                 cboSSCPStaff.BackColor = Color.Yellow
                 lblSSCPStaff.BackColor = Color.Yellow
             End If
 
             'chbNAANSR
-            If AccountFormAccess(129, 3) = "1" Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbNAANSR.Enabled = True
             End If
 
             'chb112
-            If AccountFormAccess(129, 3) = "1" Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chb112g.Enabled = True
             End If
 
@@ -1357,1061 +1356,1061 @@ Public Class SSPPApplicationTrackingLog
             If AccountFormAccess(129, 3) = "1" Then
                 chbCDS_0.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_0.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_0.BackColor = Color.Yellow
             End If
 
             'chbCDS_6
-            If AccountFormAccess(129, 3) = "1" Or
-             (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-             (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-             (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+             (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+             (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_6.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_6.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_6.BackColor = Color.Yellow
             End If
 
             'chbCDS_7
-            If AccountFormAccess(129, 3) = "1" Or
-           (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-           (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-           (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-           (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+           (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+           (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_7.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_7.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_7.BackColor = Color.Yellow
             End If
 
             'chbCDS_8
-            If AccountFormAccess(129, 3) = "1" Or
-           (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-           (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-           (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-           (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+           (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+           (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_8.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_8.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_8.BackColor = Color.Yellow
             End If
 
             'chbCDS_9
-            If AccountFormAccess(129, 3) = "1" Or
-           (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-           (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-           (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-           (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+           (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+           (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_9.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_9.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_9.BackColor = Color.Yellow
             End If
 
             'chbCDS_A
-            If AccountFormAccess(129, 3) = "1" Or
-          (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-          (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-          (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-          (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+          (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+          (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+          (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+          (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_A.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_A.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_A.BackColor = Color.Yellow
             End If
 
             'chbCDS_M
-            If AccountFormAccess(129, 3) = "1" Or
-           (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-           (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-           (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-           (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+           (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+           (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_M.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_M.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_M.BackColor = Color.Yellow
             End If
 
             'chbCDS_RMP
-            If AccountFormAccess(129, 3) = "1" Or
-           (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-           (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-           (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-           (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+           (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+           (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_RMP.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_RMP.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_RMP.BackColor = Color.Yellow
             End If
 
             'chbCDS_V
-            If AccountFormAccess(129, 3) = "1" Or
-          (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-          (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-          (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-          (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+          (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+          (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+          (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+          (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_V.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_V.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbCDS_V.BackColor = Color.Yellow
             End If
 
             'chbClosedOut 
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 chbClosedOut.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbClosedOut.BackColor = Color.LightBlue
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 chbClosedOut.BackColor = Color.PeachPuff
             End If
 
             'chbHAPsMajor
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbHAPsMajor.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbHAPsMajor.BackColor = Color.LightBlue
             End If
 
             'chbNSRMajor
-            If AccountFormAccess(129, 3) = "1" Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbNSRMajor.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbNSRMajor.BackColor = Color.LightBlue
             End If
 
             'chbPal
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbPal.Enabled = True
             End If
 
             'chbExpeditedReview
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbExpFee.Enabled = True
             End If
 
             'chbConfidential
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
                 CurrentUser.HasRole(29) Then
                 chbConfidential.Enabled = True
             End If
 
             'chbPAReady
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1" Or
-                AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing Or
-                AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0" Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1" OrElse
+                AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing OrElse
+                AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0" Then
                 chbPAReady.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbPAReady.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbPAReady.BackColor = Color.Yellow
             End If
 
             'chbPNReady
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1" Or
-                AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing Or
-                AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0" Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1" OrElse
+                AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing OrElse
+                AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0" Then
                 chbPNReady.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbPNReady.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbPNReady.BackColor = Color.Yellow
             End If
-            If (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 chbPNReady.Enabled = True
             End If
 
             'chbPSD
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbPSD.Enabled = True
             End If
 
             'chbRulett
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbRulett.Enabled = True
             End If
 
             'chbRuleyy
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbRuleyy.Enabled = True
             End If
 
             'DTPDateAcknowledge 
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 DTPDateAcknowledge.Enabled = True
             End If
 
             'DTPDateAssigned
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 DTPDateAssigned.Enabled = True
             End If
 
             'DTPDatePAExpires
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 DTPDatePAExpires.Enabled = True
             End If
 
             'DTPDatePNExpires
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-               (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPDatePNExpires.Enabled = True
             End If
 
             'DTPDateReassigned
-            If AccountFormAccess(129, 3) = "1" Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 DTPDateReassigned.Enabled = True
             End If
 
             'DTPDateReceived
-            If AccountFormAccess(129, 3) = "1" Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-            (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+            (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 DTPDateReceived.Enabled = True
             End If
 
             'DTPDateSent
-            If AccountFormAccess(129, 3) = "1" Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-            (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+            (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 DTPDateSent.Enabled = True
             End If
 
             'DTPDateToBC
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 DTPDateToBC.Enabled = True
             End If
 
             'DTPDateToDO
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 DTPDateToDO.Enabled = True
             End If
 
             'DTPDateToPM
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 DTPDateToPM.Enabled = True
             End If
 
             'DTPDateToUC
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 DTPDateToUC.Enabled = True
             End If
 
             'DTPDeadline
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 DTPDeadline.Enabled = True
             End If
 
             'DTPDraftIssued
-            If AccountFormAccess(129, 3) = "1" Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-            (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-            (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+            (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+            (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 DTPDraftIssued.Enabled = True
             End If
 
             'DTPDraftOnWeb
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPDraftOnWeb.Enabled = True
             End If
 
             'DTPEffectiveDateofPermit
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPEffectiveDateofPermit.Enabled = True
             End If
 
             'DTPEPAEnds
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 DTPEPAEnds.Enabled = True
             End If
 
             'DTPEPANotifiedPermitOnWeb
-            If AccountFormAccess(129, 3) = "1" Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPEPANotifiedPermitOnWeb.Enabled = True
             End If
 
             'DTPEPAStatesNotified
-            If AccountFormAccess(129, 3) = "1" Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPEPAStatesNotified.Enabled = True
             End If
 
             'DTPEPAWaived
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 DTPEPAWaived.Enabled = True
             End If
 
             'DTPExperationDate
-            If AccountFormAccess(129, 3) = "1" Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPExperationDate.Enabled = True
             End If
 
             'DTPFinalAction
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 DTPFinalAction.Enabled = True
             End If
 
             'DTPFinalOnWeb
-            If AccountFormAccess(129, 3) = "1" Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPFinalOnWeb.Enabled = True
             End If
 
             'DTPInformationReceived
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 DTPInformationReceived.Enabled = True
             End If
 
             'DTPInformationRequested
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 DTPInformationRequested.Enabled = True
             End If
 
             'DTPNotifiedAppReceived
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPNotifiedAppReceived.Enabled = True
             End If
 
             'DTPPNExpires
-            If AccountFormAccess(129, 3) = "1" Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                 (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                 (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPPNExpires.Enabled = True
             End If
 
             'DTPReviewSubmitted
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 DTPReviewSubmitted.Enabled = True
             End If
 
             'DTPISMPReview
-            If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or
+            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
                AccountFormAccess(67, 2) = "1" Then
                 DTPISMPReview.Enabled = True
             End If
 
             'DTPSSCPReview
-            If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 3) = "0" And AccountFormAccess(48, 4) = "0") Then
+            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") Then
                 DTPSSCPReview.Enabled = True
             End If
 
             'lbEPAStatesNotified
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                  (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                  (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 lbEPAStatesNotified.BackColor = Color.PeachPuff
             End If
 
             'lblDateAcknowledge
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblDateAcknowledge.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblDateAcknowledge.BackColor = Color.Yellow
             End If
 
             'lblDateAssigned
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblDateAssigned.BackColor = Color.LightBlue
             End If
 
             'lblDated
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-            (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+            (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 lblDated.BackColor = Color.PeachPuff
             End If
 
             'lblDatePAExpires
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 lblDatePAExpires.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 lblDatePAExpires.BackColor = Color.Yellow
             End If
 
             'lblDatePNExpires
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-               (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 lblDatePNExpires.BackColor = Color.PeachPuff
             End If
 
             'lblDateReassigned
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblDateReassigned.BackColor = Color.LightBlue
             End If
 
             'lblDatetoBC
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 lblDatetoBC.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 lblDatetoBC.BackColor = Color.Yellow
             End If
 
             'lblDateToDO
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 lblDateToDO.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 lblDateToDO.BackColor = Color.Yellow
             End If
 
             'lblDateToPM
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblDateToPM.BackColor = Color.LightBlue
             End If
 
             'lblDateToUC
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblDateToUC.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-            (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+            (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblDateToUC.BackColor = Color.Yellow
             End If
 
             'lblDeadline
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblDeadline.BackColor = Color.LightBlue
             End If
 
             'lblDraftIssued
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-            (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+            (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 lblDraftIssued.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 lblDraftIssued.BackColor = Color.Yellow
             End If
 
             'lblDraftOnWeb
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 lblDraftOnWeb.BackColor = Color.PeachPuff
             End If
 
             'lblEffectiveDateofPermit
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 lblEffectiveDateofPermit.BackColor = Color.PeachPuff
             End If
 
             'lblEPAEnds
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 lblEPAEnds.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 lblEPAEnds.BackColor = Color.Yellow
             End If
 
             'lblEPANotifiedFinalOnWeb
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 lblEPANotifiedFinalOnWeb.BackColor = Color.PeachPuff
             End If
 
             'lblEPAWaived
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 lblEPAWaived.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 lblEPAWaived.BackColor = Color.Yellow
             End If
 
             'lblExperationDate
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 lblExperationDate.BackColor = Color.PeachPuff
             End If
 
             'lblFinalAction
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-              (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+              (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 lblFinalAction.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 lblFinalAction.BackColor = Color.Yellow
             End If
 
             'lblFinalOnWeb
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 lblFinalOnWeb.BackColor = Color.PeachPuff
             End If
 
             'lblInformationReceived
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblInformationReceived.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-             (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+             (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblInformationReceived.BackColor = Color.Yellow
             End If
 
             'lblInformationRequested
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-           (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblInformationRequested.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-             (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+             (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblInformationRequested.BackColor = Color.Yellow
             End If
 
             'lblISMPReview
-            If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or
+            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
               AccountFormAccess(67, 2) = "1" Then
                 lblISMPReview.BackColor = Color.Yellow
             End If
 
             'lblNotifiedAppReceived
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 lblNotifiedAppReceived.BackColor = Color.PeachPuff
             End If
 
             'lblPermitAction
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblPermitAction.BackColor = Color.LightGreen
             End If
 
             'lblPermitNumber
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblPermitNumber.BackColor = Color.LightGreen
             End If
 
             'lblPNExpires
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 lblPNExpires.BackColor = Color.PeachPuff
             End If
 
             'lblPublicAdvisory
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") Then
                 lblPublicAdvisory.BackColor = Color.LightGreen
             End If
 
             'lblReceived
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-            (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+            (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 lblReceived.BackColor = Color.PeachPuff
             End If
 
             'lblReviewSubmitted
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblReviewSubmitted.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-              (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+              (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 lblReviewSubmitted.BackColor = Color.Yellow
             End If
 
             'lblSSCPReview
-            If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or
-              (AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 3) = "0" And AccountFormAccess(48, 4) = "0") Then
+            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+              (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") Then
                 lblSSCPReview.BackColor = Color.Yellow
             End If
 
             'rdbISMPNo
-            If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or
+            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
                  AccountFormAccess(67, 2) = "1" Then
                 rdbISMPNo.BackColor = Color.Yellow
             End If
 
             'rdbISMPYes
-            If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or
+            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
                  AccountFormAccess(67, 2) = "1" Then
                 rdbISMPYes.BackColor = Color.Yellow
             End If
 
             'rdbSSCPNo
-            If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or
-             (AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 3) = "0" And AccountFormAccess(48, 4) = "0") Then
+            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+             (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") Then
                 rdbSSCPNo.BackColor = Color.Yellow
             End If
 
             'rdbSSCPYes
-            If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or
-           (AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 3) = "0" And AccountFormAccess(48, 4) = "0") Then
+            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+           (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") Then
                 rdbSSCPYes.BackColor = Color.Yellow
             End If
 
             'txtAIRSNumber
-            If AccountFormAccess(129, 3) = "1" Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                 (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 txtAIRSNumber.ReadOnly = False
             Else
                 txtAIRSNumber.ReadOnly = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 txtAIRSNumber.TextBoxBackColor = Color.PeachPuff
             End If
 
             'txtComments
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtComments.ReadOnly = False
             Else
                 txtComments.ReadOnly = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtComments.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtComments.BackColor = Color.Yellow
             End If
 
             'txtEPATargetedComments
-            If AccountFormAccess(129, 3) = "1" Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 txtEPATargetedComments.ReadOnly = False
             Else
                 txtEPATargetedComments.ReadOnly = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-             (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+             (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 txtEPATargetedComments.BackColor = Color.PeachPuff
             End If
 
             'txtFacilityName
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtFacilityName.ReadOnly = False
             Else
                 txtFacilityName.ReadOnly = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtFacilityName.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 txtFacilityName.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtFacilityName.BackColor = Color.Yellow
             End If
 
             'txtFacilityStreetAddress
-            If AccountFormAccess(129, 3) = "1" Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                 (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                 (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                     (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                     (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtFacilityStreetAddress.ReadOnly = False
             Else
                 txtFacilityStreetAddress.ReadOnly = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtFacilityStreetAddress.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 txtFacilityStreetAddress.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtFacilityStreetAddress.BackColor = Color.Yellow
             End If
 
             'txtFacilityZipCode
-            If AccountFormAccess(129, 3) = "1" Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                 (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                 (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                     (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                     (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtFacilityZipCode.ReadOnly = False
             Else
                 txtFacilityZipCode.ReadOnly = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtFacilityZipCode.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 txtFacilityZipCode.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtFacilityZipCode.BackColor = Color.Yellow
             End If
 
             'txtInformationReceived
-            If AccountFormAccess(129, 3) = "1" Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                 (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                 (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                 (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtInformationReceived.ReadOnly = False
             Else
                 txtInformationReceived.ReadOnly = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtInformationReceived.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-              (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Or
-              (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+              (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") OrElse
+              (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtInformationReceived.BackColor = Color.Yellow
             End If
 
             'txtInformationRequested
-            If AccountFormAccess(129, 3) = "1" Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                 (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                 (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                 (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtInformationRequested.ReadOnly = False
             Else
                 txtInformationRequested.ReadOnly = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtInformationRequested.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-              (AccountFormAccess(131, 2) = "1" And AccountFormAccess(127, 3) = "1" And AccountFormAccess(127, 4) = "0") Or
-              (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+              (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") OrElse
+              (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtInformationRequested.BackColor = Color.Yellow
             End If
 
             'txtISMPComments
-            If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or
+            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
                 AccountFormAccess(67, 2) = "1" Then
                 txtISMPComments.BackColor = Color.Yellow
             End If
 
             'txtNAICSCode
-            If AccountFormAccess(129, 3) = "1" Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                 (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                 (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                     (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                     (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtNAICSCode.ReadOnly = False
             Else
                 txtNAICSCode.ReadOnly = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtNAICSCode.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 txtNAICSCode.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-              (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+              (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtNAICSCode.BackColor = Color.Yellow
             End If
 
             'chbFederallyOwned
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbFederallyOwned.Enabled = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbFederallyOwned.BackColor = Color.LightBlue
             End If
 
             'txtPermitNumber
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtPermitNumber.ReadOnly = False
             Else
                 txtPermitNumber.ReadOnly = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtPermitNumber.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-              (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+              (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtPermitNumber.BackColor = Color.Yellow
             End If
 
             'txtPlantDescription
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                    (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                    (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtPlantDescription.ReadOnly = False
             Else
                 txtPlantDescription.ReadOnly = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtPlantDescription.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 txtPlantDescription.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtPlantDescription.BackColor = Color.Yellow
             End If
 
             'txtReasonAppSubmitted
-            If AccountFormAccess(129, 3) = "1" Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-                (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                    (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                    (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtReasonAppSubmitted.ReadOnly = False
             Else
                 txtReasonAppSubmitted.ReadOnly = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtReasonAppSubmitted.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 txtReasonAppSubmitted.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtReasonAppSubmitted.BackColor = Color.Yellow
             End If
 
             'txtSICCode
-            If AccountFormAccess(129, 3) = "1" Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-              (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-              (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Or
-              (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-                  (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+              (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+              (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                  (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtSICCode.ReadOnly = False
             Else
                 txtSICCode.ReadOnly = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtSICCode.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 txtSICCode.BackColor = Color.PeachPuff
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtSICCode.BackColor = Color.Yellow
             End If
 
             'txtSignificantComments
-            If AccountFormAccess(129, 3) = "1" Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-               (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-               (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or
-               (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtSignificantComments.ReadOnly = False
             Else
                 txtSignificantComments.ReadOnly = True
             End If
-            If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
-            (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
                 txtSignificantComments.BackColor = Color.LightGreen
             End If
-            If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Then
+            If (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then
                 txtSignificantComments.BackColor = Color.Yellow
             End If
 
             'txtSSCPComments
-            If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or
-              (AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 3) = "0" And AccountFormAccess(48, 4) = "0") Then
+            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+              (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") Then
                 txtSSCPComments.BackColor = Color.Yellow
             End If
 
@@ -2723,7 +2722,6 @@ Public Class SSPPApplicationTrackingLog
 
             If CInt(Mid(AirProgramCodes, 1, 1)) = 1 Then
                 AirPrograms = "   0 - SIP" & vbNewLine
-            Else
             End If
             If CInt(Mid(AirProgramCodes, 2, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   1 - Federal SIP" & vbNewLine
@@ -2739,34 +2737,27 @@ Public Class SSPPApplicationTrackingLog
             End If
             If CInt(Mid(AirProgramCodes, 6, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   7 - NSR" & vbNewLine
-            Else
             End If
             If CInt(Mid(AirProgramCodes, 7, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   8 - NESHAP" & vbNewLine
-            Else
             End If
             If CInt(Mid(AirProgramCodes, 8, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   9 - NSPS" & vbNewLine
-            Else
             End If
             If CInt(Mid(AirProgramCodes, 9, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   F - FESOP" & vbNewLine
-            Else
             End If
             If CInt(Mid(AirProgramCodes, 10, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   A - Acid Precipitation" & vbNewLine
-            Else
             End If
             If CInt(Mid(AirProgramCodes, 11, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   I - Native American" & vbNewLine
             End If
             If CInt(Mid(AirProgramCodes, 12, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   M - MACT" & vbNewLine
-            Else
             End If
             If CInt(Mid(AirProgramCodes, 13, 1)) = 1 Then
                 AirPrograms = AirPrograms & "   V - Title V Permit" & vbNewLine
-            Else
             End If
             AirProgramLine = "Air Programs - " & vbNewLine & AirPrograms
 
@@ -2782,8 +2773,6 @@ Public Class SSPPApplicationTrackingLog
             End Select
 
             Select Case CInt(Mid(Attainment, 3, 1))
-                Case 0
-                    AttainmentStatus = AttainmentStatus & ""
                 Case 1
                     If AttainmentStatus <> "" Then
                         AttainmentStatus = AttainmentStatus & vbNewLine & "8-hr Atlanta"
@@ -2796,13 +2785,9 @@ Public Class SSPPApplicationTrackingLog
                     Else
                         AttainmentStatus = "   8-hr Macon"
                     End If
-                Case Else
-                    AttainmentStatus = AttainmentStatus & ""
             End Select
 
             Select Case CInt(Mid(Attainment, 4, 1))
-                Case 0
-                    AttainmentStatus = AttainmentStatus & ""
                 Case 1
                     If AttainmentStatus <> "" Then
                         AttainmentStatus = AttainmentStatus & vbNewLine & "PM 2.5 Atlanta"
@@ -2827,8 +2812,6 @@ Public Class SSPPApplicationTrackingLog
                     Else
                         AttainmentStatus = "   PM 2.5 Macon"
                     End If
-                Case Else
-                    AttainmentStatus = AttainmentStatus & ""
             End Select
 
             If AttainmentStatus = "" Then
@@ -2847,16 +2830,12 @@ Public Class SSPPApplicationTrackingLog
             End Select
 
             Select Case CInt(Mid(StateProgramCodes, 2, 1))
-                Case 0
-                    StatePrograms = StatePrograms & ""
                 Case 1
                     If StatePrograms <> "" Then
-                        StatePrograms = StatePrograms & "HAPs Major"
+                        StatePrograms &= "HAPs Major"
                     Else
                         StatePrograms = "   HAPs Major"
                     End If
-                Case Else
-                    StatePrograms = StatePrograms & ""
             End Select
 
             If StatePrograms = "" Then
@@ -2889,7 +2868,7 @@ Public Class SSPPApplicationTrackingLog
                 txtFacilityName.Text = Facilityname
                 txtFacilityStreetAddress.Text = FacilityStreet
 
-                If String.IsNullOrWhiteSpace(FacilityCity) Or FacilityCity = "N/A" Then
+                If String.IsNullOrWhiteSpace(FacilityCity) OrElse FacilityCity = "N/A" Then
                     cboFacilityCity.Text = ""
                 Else
                     cboFacilityCity.Text = FacilityCity
@@ -3030,68 +3009,68 @@ Public Class SSPPApplicationTrackingLog
                         chbHAPsMajor.Checked = False
                 End Select
             Else
-                If txtFacilityName.Text <> Facilityname And rtbFacilityInformation.Find(Facilityname) <> -1 Then
+                If txtFacilityName.Text <> Facilityname AndAlso rtbFacilityInformation.Find(Facilityname) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(Facilityname)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If txtFacilityStreetAddress.Text <> FacilityStreet And rtbFacilityInformation.Find(FacilityStreet) <> -1 Then
+                If txtFacilityStreetAddress.Text <> FacilityStreet AndAlso rtbFacilityInformation.Find(FacilityStreet) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(FacilityStreet)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If cboFacilityCity.Text <> FacilityCity And rtbFacilityInformation.Find(FacilityCity) <> -1 Then
+                If cboFacilityCity.Text <> FacilityCity AndAlso rtbFacilityInformation.Find(FacilityCity) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(FacilityCity)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If txtFacilityZipCode.Text <> FacilityZipCode And rtbFacilityInformation.Find(FacilityZipCode) <> -1 Then
+                If txtFacilityZipCode.Text <> FacilityZipCode AndAlso rtbFacilityInformation.Find(FacilityZipCode) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(FacilityZipCode)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If txtSICCode.Text <> SIC And rtbFacilityInformation.Find(SICLine) <> -1 Then
+                If txtSICCode.Text <> SIC AndAlso rtbFacilityInformation.Find(SICLine) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(SICLine)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If txtNAICSCode.Text <> NAICS And rtbFacilityInformation.Find(NAICSLine) <> -1 Then
+                If txtNAICSCode.Text <> NAICS AndAlso rtbFacilityInformation.Find(NAICSLine) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(NAICSLine)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If Mid(cboOperationalStatus.Text, 1, 1) <> OperationalStatus And rtbFacilityInformation.Find(OperationalStatusLine) <> -1 Then
+                If Mid(cboOperationalStatus.Text, 1, 1) <> OperationalStatus AndAlso rtbFacilityInformation.Find(OperationalStatusLine) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(OperationalStatusLine)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If Mid(cboClassification.Text, 1, 1) <> Mid(Classification, 1, 1) And rtbFacilityInformation.Find(ClassificationLine) <> -1 Then
+                If Mid(cboClassification.Text, 1, 1) <> Mid(Classification, 1, 1) AndAlso rtbFacilityInformation.Find(ClassificationLine) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(ClassificationLine)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If txtPlantDescription.Text <> PlantDesc And rtbFacilityInformation.Find(PlantLine) <> -1 Then
+                If txtPlantDescription.Text <> PlantDesc AndAlso rtbFacilityInformation.Find(PlantLine) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(PlantLine)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
                 AirProgramCheck = "000000000000000"
-                If chbCDS_0.Checked = True Then
+                If chbCDS_0.Checked Then
                     AirProgramCheck = "1" & Mid(AirProgramCheck, 2)
                 End If
-                If chbCDS_6.Checked = True Then
+                If chbCDS_6.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 4) & "1" & Mid(AirProgramCheck, 6)
                 End If
-                If chbCDS_7.Checked = True Then
+                If chbCDS_7.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 5) & "1" & Mid(AirProgramCheck, 7)
                 End If
-                If chbCDS_8.Checked = True Then
+                If chbCDS_8.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 6) & "1" & Mid(AirProgramCheck, 8)
                 End If
-                If chbCDS_9.Checked = True Then
+                If chbCDS_9.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 7) & "1" & Mid(AirProgramCheck, 9)
                 End If
-                If chbCDS_A.Checked = True Then
+                If chbCDS_A.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 9) & "1" & Mid(AirProgramCheck, 11)
                 End If
-                If chbCDS_M.Checked = True Then
+                If chbCDS_M.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 11) & "1" & Mid(AirProgramCheck, 13)
                 End If
-                If chbCDS_V.Checked = True Then
+                If chbCDS_V.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 12) & "1" & Mid(AirProgramCheck, 14)
                 End If
-                If chbCDS_RMP.Checked = True Then
+                If chbCDS_RMP.Checked Then
                     AirProgramCheck = Mid(AirProgramCheck, 1, 13) & "1" & Mid(AirProgramCheck, 15)
                 End If
 
@@ -3113,11 +3092,9 @@ Public Class SSPPApplicationTrackingLog
                             rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Non Attainment Area - ")
                             rtbFacilityInformation.SelectionColor = Color.Tomato
                         Else
-                            If txt1HourOzone.Text = "Contributing" Then
-                                If Mid(Attainment, 2, 1) <> 2 Then
-                                    rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Non Attainment Area - ")
-                                    rtbFacilityInformation.SelectionColor = Color.Tomato
-                                End If
+                            If txt1HourOzone.Text = "Contributing" AndAlso Mid(Attainment, 2, 1) <> 2 Then
+                                rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Non Attainment Area - ")
+                                rtbFacilityInformation.SelectionColor = Color.Tomato
                             End If
                         End If
                     End If
@@ -3134,11 +3111,9 @@ Public Class SSPPApplicationTrackingLog
                             rtbFacilityInformation.SelectionColor = Color.Tomato
                         End If
                     Else
-                        If txt8HROzone.Text = "Macon" Then
-                            If Mid(Attainment, 3, 1) <> 2 Then
-                                rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Non Attainment Area - ")
-                                rtbFacilityInformation.SelectionColor = Color.Tomato
-                            End If
+                        If txt8HROzone.Text = "Macon" AndAlso Mid(Attainment, 3, 1) <> 2 Then
+                            rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Non Attainment Area - ")
+                            rtbFacilityInformation.SelectionColor = Color.Tomato
                         End If
                     End If
                 End If
@@ -3166,17 +3141,15 @@ Public Class SSPPApplicationTrackingLog
                                     rtbFacilityInformation.SelectionColor = Color.Tomato
                                 End If
                             Else
-                                If txtPM.Text = "Macon" Then
-                                    If Mid(Attainment, 4, 1) <> 4 Then
-                                        rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Non Attainment Area - ")
-                                        rtbFacilityInformation.SelectionColor = Color.Tomato
-                                    End If
+                                If txtPM.Text = "Macon" AndAlso Mid(Attainment, 4, 1) <> 4 Then
+                                    rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("Non Attainment Area - ")
+                                    rtbFacilityInformation.SelectionColor = Color.Tomato
                                 End If
                             End If
                         End If
                     End If
                 End If
-                If chbNSRMajor.Checked = False Then
+                If Not chbNSRMajor.Checked Then
                     If Mid(StateProgramCodes, 1, 1) <> 0 Then
                         rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("State Codes - ")
                         rtbFacilityInformation.SelectionColor = Color.Tomato
@@ -3187,7 +3160,7 @@ Public Class SSPPApplicationTrackingLog
                         rtbFacilityInformation.SelectionColor = Color.Tomato
                     End If
                 End If
-                If chbHAPsMajor.Checked = False Then
+                If Not chbHAPsMajor.Checked Then
                     If Mid(StateProgramCodes, 2, 1) <> 0 Then
                         rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find("State Codes - ")
                         rtbFacilityInformation.SelectionColor = Color.Tomato
@@ -4226,7 +4199,6 @@ Public Class SSPPApplicationTrackingLog
 
             If Mid(AirProgramCodes, 1, 1) = 1 Then
                 AirPrograms = "   0 - SIP" & vbNewLine
-            Else
             End If
             If Mid(AirProgramCodes, 2, 1) = 1 Then
                 AirPrograms = AirPrograms & "   1 - Federal SIP" & vbNewLine
@@ -4242,34 +4214,27 @@ Public Class SSPPApplicationTrackingLog
             End If
             If Mid(AirProgramCodes, 6, 1) = 1 Then
                 AirPrograms = AirPrograms & "   7 - NSR" & vbNewLine
-            Else
             End If
             If Mid(AirProgramCodes, 7, 1) = 1 Then
                 AirPrograms = AirPrograms & "   8 - NESHAP" & vbNewLine
-            Else
             End If
             If Mid(AirProgramCodes, 8, 1) = 1 Then
                 AirPrograms = AirPrograms & "   9 - NSPS" & vbNewLine
-            Else
             End If
             If Mid(AirProgramCodes, 9, 1) = 1 Then
                 AirPrograms = AirPrograms & "   F - FESOP" & vbNewLine
-            Else
             End If
             If Mid(AirProgramCodes, 10, 1) = 1 Then
                 AirPrograms = AirPrograms & "   A - Acid Precipitation" & vbNewLine
-            Else
             End If
             If Mid(AirProgramCodes, 11, 1) = 1 Then
                 AirPrograms = AirPrograms & "   I - Native American" & vbNewLine
             End If
             If Mid(AirProgramCodes, 12, 1) = 1 Then
                 AirPrograms = AirPrograms & "   M - MACT" & vbNewLine
-            Else
             End If
             If Mid(AirProgramCodes, 13, 1) = 1 Then
                 AirPrograms = AirPrograms & "   V - Title V Permit" & vbNewLine
-            Else
             End If
             AirProgramLine = "Air Programs - " & vbNewLine & AirPrograms
 
@@ -4284,8 +4249,6 @@ Public Class SSPPApplicationTrackingLog
                     AttainmentStatus = ""
             End Select
             Select Case Mid(Attainment, 3, 1)
-                Case 0
-                    AttainmentStatus = AttainmentStatus & ""
                 Case 1
                     If AttainmentStatus <> "" Then
                         AttainmentStatus = AttainmentStatus & vbNewLine & "8-hr Atlanta"
@@ -4298,12 +4261,8 @@ Public Class SSPPApplicationTrackingLog
                     Else
                         AttainmentStatus = "   8-hr Macon"
                     End If
-                Case Else
-                    AttainmentStatus = AttainmentStatus & ""
             End Select
             Select Case Mid(Attainment, 4, 1)
-                Case 0
-                    AttainmentStatus = AttainmentStatus & ""
                 Case 1
                     If AttainmentStatus <> "" Then
                         AttainmentStatus = AttainmentStatus & vbNewLine & "PM 2.5 Atlanta"
@@ -4328,8 +4287,6 @@ Public Class SSPPApplicationTrackingLog
                     Else
                         AttainmentStatus = "   PM 2.5 Macon"
                     End If
-                Case Else
-                    AttainmentStatus = AttainmentStatus & ""
             End Select
 
             If AttainmentStatus = "" Then
@@ -4347,16 +4304,12 @@ Public Class SSPPApplicationTrackingLog
                     StatePrograms = ""
             End Select
             Select Case Mid(StateProgramCodes, 2, 1)
-                Case 0
-                    StatePrograms = StatePrograms & ""
                 Case 1
                     If StatePrograms <> "" Then
-                        StatePrograms = StatePrograms & "HAPs Major"
+                        StatePrograms &= "HAPs Major"
                     Else
                         StatePrograms = "   HAPs Major"
                     End If
-                Case Else
-                    StatePrograms = StatePrograms & ""
             End Select
             If StatePrograms = "" Then
                 StatePrograms = "State Codes - N/A"
@@ -4387,7 +4340,7 @@ Public Class SSPPApplicationTrackingLog
             txtFacilityName.Text = Facilityname
             txtFacilityStreetAddress.Text = FacilityStreet
 
-            If String.IsNullOrWhiteSpace(FacilityCity) Or FacilityCity = "N/A" Then
+            If String.IsNullOrWhiteSpace(FacilityCity) OrElse FacilityCity = "N/A" Then
                 cboFacilityCity.Text = ""
             Else
                 cboFacilityCity.Text = FacilityCity
@@ -4722,7 +4675,7 @@ Public Class SSPPApplicationTrackingLog
                 Unit = cboApplicationUnit.SelectedValue.ToString
             End If
 
-            If chbClosedOut.Checked = True Then
+            If chbClosedOut.Checked Then
                 DateFinalized = TodayFormatted
             Else
                 DateFinalized = Nothing
@@ -4760,8 +4713,11 @@ Public Class SSPPApplicationTrackingLog
                 FacilityCity = cboFacilityCity.Text
             End If
 
-            FacilityZipCode = Replace(txtFacilityZipCode.Text, "-", "")
-            FacilityZipCode = FacilityZipCode.Substring(0, Math.Min(FacilityZipCode.Length, 9))
+            FacilityZipCode = txtFacilityZipCode.Text?.Replace("-", "")
+
+            If Not String.IsNullOrEmpty(FacilityZipCode) Then
+                FacilityZipCode = FacilityZipCode.Substring(0, Math.Min(FacilityZipCode.Length, 9))
+            End If
 
             If cboOperationalStatus.Text <> "" Then
                 Select Case cboOperationalStatus.Text
@@ -4807,31 +4763,31 @@ Public Class SSPPApplicationTrackingLog
 
             AirProgramCodes = "000000000000000"
 
-            If chbCDS_0.Checked = True Then
+            If chbCDS_0.Checked Then
                 AirProgramCodes = "1" & Mid(AirProgramCodes, 2)
             End If
-            If chbCDS_6.Checked = True Then
+            If chbCDS_6.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 4) & "1" & Mid(AirProgramCodes, 6)
             End If
-            If chbCDS_7.Checked = True Then
+            If chbCDS_7.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 5) & "1" & Mid(AirProgramCodes, 7)
             End If
-            If chbCDS_8.Checked = True Then
+            If chbCDS_8.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 6) & "1" & Mid(AirProgramCodes, 8)
             End If
-            If chbCDS_9.Checked = True Then
+            If chbCDS_9.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 7) & "1" & Mid(AirProgramCodes, 9)
             End If
-            If chbCDS_A.Checked = True Then
+            If chbCDS_A.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 9) & "1" & Mid(AirProgramCodes, 11)
             End If
-            If chbCDS_M.Checked = True Then
+            If chbCDS_M.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 11) & "1" & Mid(AirProgramCodes, 13)
             End If
-            If chbCDS_V.Checked = True Then
+            If chbCDS_V.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 12) & "1" & Mid(AirProgramCodes, 14)
             End If
-            If chbCDS_RMP.Checked = True Then
+            If chbCDS_RMP.Checked Then
                 AirProgramCodes = Mid(AirProgramCodes, 1, 13) & "1" & Mid(AirProgramCodes, 15)
             End If
 
@@ -4840,19 +4796,19 @@ Public Class SSPPApplicationTrackingLog
 
             OwnershipTypeCode = If(chbFederallyOwned.Checked, FederallyOwnedTypeCode, Nothing)
 
-            PermitNumber = Replace(txtPermitNumber.Text, "-", "")
+            PermitNumber = txtPermitNumber.Text?.Replace("-", "")
             PlantDesc = txtPlantDescription.Text
             Comments = txtComments.Text
             ApplicationNotes = txtReasonAppSubmitted.Text
 
             StateProgramCodes = "00000"
 
-            If Me.chbNSRMajor.Checked = True Then
+            If Me.chbNSRMajor.Checked Then
                 StateProgramCodes = "10000"
             Else
                 StateProgramCodes = "00000"
             End If
-            If Me.chbHAPsMajor.Checked = True Then
+            If Me.chbHAPsMajor.Checked Then
                 StateProgramCodes = Mid(StateProgramCodes, 1, 1) & "1000"
             Else
                 StateProgramCodes = Mid(StateProgramCodes, 1, 1) & "0000"
@@ -4897,28 +4853,28 @@ Public Class SSPPApplicationTrackingLog
 
             TrackedRules = "0000000000"
 
-            If chbPSD.Checked = True Then
+            If chbPSD.Checked Then
                 TrackedRules = "1" & Mid(TrackedRules, 2)
             End If
-            If chbNAANSR.Checked = True Then
+            If chbNAANSR.Checked Then
                 TrackedRules = Mid(TrackedRules, 1, 1) & "1" & Mid(TrackedRules, 3)
             End If
-            If chb112g.Checked = True Then
+            If chb112g.Checked Then
                 TrackedRules = Mid(TrackedRules, 1, 2) & "1" & Mid(TrackedRules, 4)
             End If
-            If chbRulett.Checked = True Then
+            If chbRulett.Checked Then
                 TrackedRules = Mid(TrackedRules, 1, 3) & "1" & Mid(TrackedRules, 5)
             End If
-            If chbRuleyy.Checked = True Then
+            If chbRuleyy.Checked Then
                 TrackedRules = Mid(TrackedRules, 1, 4) & "1" & Mid(TrackedRules, 6)
             End If
-            If chbPal.Checked = True Then
+            If chbPal.Checked Then
                 TrackedRules = Mid(TrackedRules, 1, 5) & "1" & Mid(TrackedRules, 7)
             End If
-            If chbExpFee.Checked = True Then
+            If chbExpFee.Checked Then
                 TrackedRules = Mid(TrackedRules, 1, 6) & "1" & Mid(TrackedRules, 8)
             End If
-            If chbConfidential.Checked = True Then
+            If chbConfidential.Checked Then
                 TrackedRules = Mid(TrackedRules, 1, 7) & "1" & Mid(TrackedRules, 9)
             End If
 
@@ -4926,7 +4882,7 @@ Public Class SSPPApplicationTrackingLog
             PNReady = chbPNReady.Checked.ToString
             SignificantComments = txtSignificantComments.Text
 
-            If cboPublicAdvisory.Visible = False Then
+            If Not cboPublicAdvisory.Visible Then
                 PublicInvolved = "0"
             Else
                 Select Case cboPublicAdvisory.Text
@@ -4994,31 +4950,31 @@ Public Class SSPPApplicationTrackingLog
             ReceivedDate = DTPDateReceived.Text
             SentByDate = DTPDateSent.Text
 
-            If DTPDateAssigned.Checked = True Then
+            If DTPDateAssigned.Checked Then
                 AssignedToEngineer = DTPDateAssigned.Text
             Else
                 AssignedToEngineer = Nothing
             End If
 
-            If DTPDateReassigned.Checked = True Then
+            If DTPDateReassigned.Checked Then
                 ReAssignedToEngineer = DTPDateReassigned.Text
             Else
                 ReAssignedToEngineer = Nothing
             End If
 
-            If DTPDateAcknowledge.Checked = True Then
+            If DTPDateAcknowledge.Checked Then
                 AcknowledgementLetter = DTPDateAcknowledge.Text
             Else
                 AcknowledgementLetter = Nothing
             End If
 
-            If DTPDateToUC.Checked = True Then
+            If DTPDateToUC.Checked Then
                 ToPMI = DTPDateToUC.Text
             Else
                 ToPMI = Nothing
             End If
 
-            If DTPDateToPM.Checked = True Then
+            If DTPDateToPM.Checked Then
                 ToPMII = DTPDateToPM.Text
             Else
                 ToPMII = Nothing
@@ -5026,55 +4982,55 @@ Public Class SSPPApplicationTrackingLog
 
             ReturnToEngineer = Nothing
 
-            If DTPFinalAction.Checked = True Then
+            If DTPFinalAction.Checked Then
                 PermitIssued = DTPFinalAction.Text
             Else
                 PermitIssued = Nothing
             End If
 
-            If DTPDeadline.Checked = True Then
+            If DTPDeadline.Checked Then
                 AppDeadline = DTPDeadline.Text
             Else
                 AppDeadline = Nothing
             End If
 
-            If DTPDraftIssued.Checked = True Then
+            If DTPDraftIssued.Checked Then
                 DraftIssued = DTPDraftIssued.Text
             Else
                 DraftIssued = Nothing
             End If
 
-            If DTPEPAWaived.Checked = True Then
+            If DTPEPAWaived.Checked Then
                 EPAWaived = DTPEPAWaived.Text
             Else
                 EPAWaived = Nothing
             End If
 
-            If DTPEPAEnds.Checked = True Then
+            If DTPEPAEnds.Checked Then
                 EPAEnds = DTPEPAEnds.Text
             Else
                 EPAEnds = Nothing
             End If
 
-            If DTPDateToBC.Checked = True Then
+            If DTPDateToBC.Checked Then
                 ToBC = DTPDateToBC.Text
             Else
                 ToBC = Nothing
             End If
 
-            If DTPDateToDO.Checked = True Then
+            If DTPDateToDO.Checked Then
                 ToDO = DTPDateToDO.Text
             Else
                 ToDO = Nothing
             End If
 
-            If DTPDatePAExpires.Checked = True Then
+            If DTPDatePAExpires.Checked Then
                 PAExpires = DTPDatePAExpires.Text
             Else
                 PAExpires = Nothing
             End If
 
-            If DTPDatePNExpires.Checked = True Then
+            If DTPDatePNExpires.Checked Then
                 PNExpires = DTPDatePNExpires.Text
             Else
                 PNExpires = Nothing
@@ -5126,7 +5082,7 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("@txtApplicationNumber", AppNumber)
             })
 
-            If lblLinkWarning.Visible = True AndAlso lbLinkApplications.Items.Count > 0 Then
+            If lblLinkWarning.Visible AndAlso lbLinkApplications.Items.Count > 0 Then
                 Dim LinkedApplication As Integer
                 Dim i As Integer
 
@@ -5483,7 +5439,7 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim SSCPComments As String
 
-            If rdbSSCPNo.Checked = True Then
+            If rdbSSCPNo.Checked Then
                 SSCPComments = "N/A"
             Else
                 SSCPComments = txtSSCPComments.Text
@@ -5526,7 +5482,7 @@ Public Class SSPPApplicationTrackingLog
             Dim queryList As New List(Of String)
             Dim paramList As New List(Of SqlParameter())
 
-            If rdbISMPNo.Checked = True Then
+            If rdbISMPNo.Checked Then
                 ISMPComments = "N/A"
             Else
                 ISMPComments = txtISMPComments.Text
@@ -5560,7 +5516,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SaveApplicationContact()
-        If String.IsNullOrEmpty(txtContactFirstName.Text) Or String.IsNullOrEmpty(txtContactLastName.Text) Then
+        If String.IsNullOrEmpty(txtContactFirstName.Text) OrElse String.IsNullOrEmpty(txtContactLastName.Text) Then
             MessageBox.Show("Contact not saved because name is missing.")
             Return
         End If
@@ -5690,12 +5646,12 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@ContactTitle", ContactTitle),
                     New SqlParameter("@ContactCompany", ContactCompany),
                     New SqlParameter("@ContactPhone", ContactPhone),
-                    New SqlParameter("@ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("@ContactFax", ContactFax?.Replace("(", "")?.Replace(")", "")?.Replace("-", "")?.Replace(" ", "")),
                     New SqlParameter("@ContactEmail", ContactEmail),
                     New SqlParameter("@ContactAddress", ContactAddress),
                     New SqlParameter("@ContactCity", ContactCity),
                     New SqlParameter("@ContactState", ContactState),
-                    New SqlParameter("@ContactZipCode", Replace(ContactZipCode, "-", "")),
+                    New SqlParameter("@ContactZipCode", ContactZipCode?.Replace("-", "")),
                     New SqlParameter("@ContactDescription", ContactDescription),
                     New SqlParameter("@txtApplicationNumber", AppNumber)
                 }
@@ -5728,19 +5684,19 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@ContactTitle", ContactTitle),
                     New SqlParameter("@ContactCompany", ContactCompany),
                     New SqlParameter("@ContactPhone", ContactPhone),
-                    New SqlParameter("@ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("@ContactFax", ContactFax?.Replace("(", "")?.Replace(")", "")?.Replace("-", "")?.Replace(" ", "")),
                     New SqlParameter("@ContactEmail", ContactEmail),
                     New SqlParameter("@ContactAddress", ContactAddress),
                     New SqlParameter("@ContactCity", ContactCity),
                     New SqlParameter("@ContactState", ContactState),
-                    New SqlParameter("@ContactZipCode", Replace(ContactZipCode, "-", "")),
+                    New SqlParameter("@ContactZipCode", ContactZipCode.Replace("-", "")),
                     New SqlParameter("@ContactDescription", ContactDescription)
                 }
             End If
 
             DB.RunCommand(query, params)
 
-            If chbClosedOut.Checked = True And AirsId IsNot Nothing Then
+            If chbClosedOut.Checked AndAlso AirsId IsNot Nothing Then
                 query = "select strKey " &
                 "from APBContactInformation inner join SSPPApplicationContact  " &
                 "on APBContactInformation.strContactFirstName = SSPPApplicationContact.strContactFirstName " &
@@ -6152,13 +6108,13 @@ Public Class SSPPApplicationTrackingLog
                                 MasterApp = lbLinkApplications.Items.Item(i).ToString
                                 MasterAppType = appType
                             Case Is = "16", Is = "17", Is = "21", Is = "2"
-                                If MasterAppType <> "22" Or MasterAppType <> "16" Or MasterAppType <> "17" Or MasterAppType <> "21" Or MasterAppType <> "2" Then
+                                If MasterAppType <> "22" OrElse MasterAppType <> "16" OrElse MasterAppType <> "17" OrElse MasterAppType <> "21" OrElse MasterAppType <> "2" Then
                                     MasterApp = lbLinkApplications.Items.Item(i).ToString
                                     MasterAppType = appType
                                 End If
                             Case Is = "20", Is = "15", Is = "9", Is = "11", Is = "12"
-                                If MasterAppType <> "22" Or MasterAppType <> "16" Or MasterAppType <> "17" Or MasterAppType <> "21" Or MasterAppType <> "2" Or
-                                    MasterAppType <> "20" Or MasterAppType <> "15" Or MasterAppType <> "9" Or MasterAppType <> "11" Or MasterAppType <> "12" Then
+                                If MasterAppType <> "22" OrElse MasterAppType <> "16" OrElse MasterAppType <> "17" OrElse MasterAppType <> "21" OrElse MasterAppType <> "2" OrElse
+                                    MasterAppType <> "20" OrElse MasterAppType <> "15" OrElse MasterAppType <> "9" OrElse MasterAppType <> "11" OrElse MasterAppType <> "12" Then
                                     MasterApp = lbLinkApplications.Items.Item(i).ToString
                                     MasterAppType = appType
                                 End If
@@ -6260,37 +6216,37 @@ Public Class SSPPApplicationTrackingLog
         Dim paramsList As New List(Of SqlParameter())
 
         Try
-            If DTPNotifiedAppReceived.Checked = True Then
+            If DTPNotifiedAppReceived.Checked Then
                 EPAStatesNotifiedAppRec = DTPNotifiedAppReceived.Text
             Else
                 EPAStatesNotifiedAppRec = Nothing
             End If
-            If DTPDraftOnWeb.Checked = True Then
+            If DTPDraftOnWeb.Checked Then
                 DraftOnWeb = DTPDraftOnWeb.Text
             Else
                 DraftOnWeb = Nothing
             End If
-            If DTPEPAStatesNotified.Checked = True Then
+            If DTPEPAStatesNotified.Checked Then
                 EPAStatesNotified = Me.DTPEPAStatesNotified.Text
             Else
                 EPAStatesNotified = Nothing
             End If
-            If DTPFinalOnWeb.Checked = True Then
+            If DTPFinalOnWeb.Checked Then
                 FinalOnWeb = DTPFinalOnWeb.Text
             Else
                 FinalOnWeb = Nothing
             End If
-            If DTPEPANotifiedPermitOnWeb.Checked = True Then
+            If DTPEPANotifiedPermitOnWeb.Checked Then
                 EPANotifiedPermitOnWeb = DTPEPANotifiedPermitOnWeb.Text
             Else
                 EPANotifiedPermitOnWeb = Nothing
             End If
-            If DTPEffectiveDateofPermit.Checked = True Then
+            If DTPEffectiveDateofPermit.Checked Then
                 EffectiveDateOnPermit = DTPEffectiveDateofPermit.Text
             Else
                 EffectiveDateOnPermit = Nothing
             End If
-            If DTPExperationDate.Checked = True Then
+            If DTPExperationDate.Checked Then
                 ExperationDate = DTPExperationDate.Text
             Else
                 ExperationDate = Nothing
@@ -6300,7 +6256,7 @@ Public Class SSPPApplicationTrackingLog
             Else
                 TargetedComments = ""
             End If
-            If DTPPNExpires.Checked = True Then
+            If DTPPNExpires.Checked Then
                 PNExpires = DTPPNExpires.Text
             Else
                 PNExpires = Nothing
@@ -6338,7 +6294,7 @@ Public Class SSPPApplicationTrackingLog
 
             DB.RunCommand(queryList, paramsList)
 
-            If lblLinkWarning.Visible = True Then
+            If lblLinkWarning.Visible Then
                 Dim LinkedApplication As String
                 Dim i As Integer
 
@@ -6897,7 +6853,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub DisplayPermitPanel()
-        If rdbTitleVPermit.Checked = True Then
+        If rdbTitleVPermit.Checked Then
             PanelTitleV.Visible = True
             PanelPSD.Visible = False
             PanelOther.Visible = False
@@ -6906,7 +6862,7 @@ Public Class SSPPApplicationTrackingLog
             Return
         End If
 
-        If rdbPSDPermit.Checked = True Then
+        If rdbPSDPermit.Checked Then
             PanelTitleV.Visible = False
             PanelPSD.Visible = True
             PanelOther.Visible = False
@@ -6915,7 +6871,7 @@ Public Class SSPPApplicationTrackingLog
             Return
         End If
 
-        If rdbOtherPermit.Checked = True Then
+        If rdbOtherPermit.Checked Then
             PanelTitleV.Visible = False
             PanelPSD.Visible = False
             PanelOther.Visible = True
@@ -7076,14 +7032,14 @@ Public Class SSPPApplicationTrackingLog
         Dim PermitNumber As String
 
         Try
-            If AccountFormAccess(51, 3) = "0" And AccountFormAccess(51, 4) = "0" Then
+            If AccountFormAccess(51, 3) = "0" AndAlso AccountFormAccess(51, 4) = "0" Then
                 If txtPermitNumber.Text <> "" Then
                     If cboApplicationType.Text = "ERC" Then
                         If Mid(txtPermitNumber.Text, 1, 3) <> "ERC" Then
                             txtPermitNumber.Text = "ERC"
                         End If
                     Else
-                        If txtSICCode.Text.Length = 4 And AirsId IsNot Nothing Then
+                        If txtSICCode.Text.Length = 4 AndAlso AirsId IsNot Nothing Then
                             PermitNumber = txtSICCode.Text & "-" & AirsId.PermitFormattedString & "-"
 
                             If Mid(txtPermitNumber.Text, 1, 14) <> PermitNumber Then
@@ -7099,7 +7055,7 @@ Public Class SSPPApplicationTrackingLog
                             txtPermitNumber.Text = "ERC"
                         End If
                     Else
-                        If txtSICCode.Text.Length = 4 And AirsId IsNot Nothing Then
+                        If txtSICCode.Text.Length = 4 AndAlso AirsId IsNot Nothing Then
                             PermitNumber = txtSICCode.Text & "-" & AirsId.PermitFormattedString & "-"
 
                             If Mid(txtPermitNumber.Text, 1, 14) <> PermitNumber Then
@@ -7155,7 +7111,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub btnAddApplicationToList_Click(sender As Object, e As EventArgs) Handles btnAddApplicationToList.Click
         Try
-            If txtApplicationNumberHistory.Text <> "" And chbClosedOutHistory.Checked = False Then
+            If txtApplicationNumberHistory.Text <> "" AndAlso Not chbClosedOutHistory.Checked Then
                 If txtMasterApp.Text = "" Then
                     txtMasterApp.Text = txtApplicationNumberHistory.Text
                 End If
@@ -7180,7 +7136,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub lbLinkApplications_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbLinkApplications.SelectedIndexChanged
         Try
             If txtMasterAppLock.Text = "" Then
-                If lbLinkApplications.Items.Count > 0 And lbLinkApplications.SelectedItem IsNot Nothing Then
+                If lbLinkApplications.Items.Count > 0 AndAlso lbLinkApplications.SelectedItem IsNot Nothing Then
                     txtMasterApp.Text = lbLinkApplications.SelectedItem.ToString
                 End If
             Else
@@ -7222,9 +7178,9 @@ Public Class SSPPApplicationTrackingLog
             End If
         End If
 
-        If CurrentUser.ProgramID = 5 Or
-        (AccountFormAccess(51, 1) = "1" And CurrentUser.UnitId = 14) Or
-        AccountFormAccess(51, 3) = "1" Or
+        If CurrentUser.ProgramID = 5 OrElse
+        (AccountFormAccess(51, 1) = "1" AndAlso CurrentUser.UnitId = 14) OrElse
+        AccountFormAccess(51, 3) = "1" OrElse
         AccountFormAccess(51, 4) = "1" Then  'SSPP users and Web Users 
 
             Dim dateModifiedInDb As DateTimeOffset = GetWhenLastModified(AppNumber)
@@ -7247,7 +7203,7 @@ Public Class SSPPApplicationTrackingLog
                     SaveApplicationContact()
                     SaveApplicationFees()
 
-                    If DTPFinalAction.Checked And chbClosedOut.Checked And AirsId IsNot Nothing Then
+                    If DTPFinalAction.Checked AndAlso chbClosedOut.Checked AndAlso AirsId IsNot Nothing Then
                         Select Case cboPermitAction.SelectedValue.ToString
                             Case "1", "4", "5", "7", "10", "12", "13"
                                 ' Note that of these, only 5, 7, & 10 are currently active types - DW
@@ -7282,11 +7238,11 @@ Public Class SSPPApplicationTrackingLog
                     If Not NewApplication Then
                         SaveApplicationSubmitForReview()
 
-                        If DTPSSCPReview.Checked = True Then
+                        If DTPSSCPReview.Checked Then
                             SaveSSCPReview()
                         End If
 
-                        If DTPISMPReview.Checked = True Then
+                        If DTPISMPReview.Checked Then
                             SaveISMPReview()
                         End If
                     End If
@@ -7317,12 +7273,12 @@ Public Class SSPPApplicationTrackingLog
             valid = False
         End If
 
-        If txtPermitNumber.Text.Length > 15 AndAlso Replace(txtPermitNumber.Text, "-", "").Length > 15 Then
+        If txtPermitNumber.Text.Length > 15 AndAlso txtPermitNumber.Text.Replace("-", "").Length > 15 Then
             MessageBox.Show("The Permit Number cannot be more than 15 characters (not counting hyphens).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             valid = False
         End If
 
-        If txtFacilityZipCode.Text.Length > 9 AndAlso Replace(txtFacilityZipCode.Text, "-", "").Length > 9 Then
+        If txtFacilityZipCode.Text.Length > 9 AndAlso txtFacilityZipCode.Text.Replace("-", "").Length > 9 Then
             MessageBox.Show("The ZIP code cannot be more than 9 characters (not counting hyphen).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             valid = False
         End If
@@ -7375,22 +7331,20 @@ Public Class SSPPApplicationTrackingLog
 
         Try
 
-            If dgvFacilityAppHistory.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvFacilityAppHistory.Columns(0).HeaderText = "APL #" Then
-                    txtApplicationNumberHistory.Text = dgvFacilityAppHistory(0, hti.RowIndex).Value
-                    txtHistoryComments.Text = dgvFacilityAppHistory(6, hti.RowIndex).Value
-                    txtHistoryAppComments.Text = dgvFacilityAppHistory(7, hti.RowIndex).Value
-                    txtEngineerHistory.Text = dgvFacilityAppHistory(2, hti.RowIndex).Value
-                    temp = dgvFacilityAppHistory(3, hti.RowIndex).Value
-                    If temp = " " Then
-                        chbClosedOutHistory.Checked = False
-                    Else
-                        chbClosedOutHistory.Checked = True
-                    End If
-                    txtApplicationDatedHistory.Text = dgvFacilityAppHistory(4, hti.RowIndex).Value
-                    txtApplicationUnitHistory.Text = dgvFacilityAppHistory(5, hti.RowIndex).Value
-                    txtApplicationTypeHistory.Text = dgvFacilityAppHistory(1, hti.RowIndex).Value
+            If dgvFacilityAppHistory.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso dgvFacilityAppHistory.Columns(0).HeaderText = "APL #" Then
+                txtApplicationNumberHistory.Text = dgvFacilityAppHistory(0, hti.RowIndex).Value
+                txtHistoryComments.Text = dgvFacilityAppHistory(6, hti.RowIndex).Value
+                txtHistoryAppComments.Text = dgvFacilityAppHistory(7, hti.RowIndex).Value
+                txtEngineerHistory.Text = dgvFacilityAppHistory(2, hti.RowIndex).Value
+                temp = dgvFacilityAppHistory(3, hti.RowIndex).Value
+                If temp = " " Then
+                    chbClosedOutHistory.Checked = False
+                Else
+                    chbClosedOutHistory.Checked = True
                 End If
+                txtApplicationDatedHistory.Text = dgvFacilityAppHistory(4, hti.RowIndex).Value
+                txtApplicationUnitHistory.Text = dgvFacilityAppHistory(5, hti.RowIndex).Value
+                txtApplicationTypeHistory.Text = dgvFacilityAppHistory(1, hti.RowIndex).Value
             End If
 
         Catch ex As Exception
@@ -7404,28 +7358,27 @@ Public Class SSPPApplicationTrackingLog
 
         Try
 
-            If dgvInformationRequested.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvInformationRequested.Columns(1).HeaderText = "Request Key" Then
-                    txtInformationRequestedKey.Text = dgvInformationRequested(1, hti.RowIndex).Value
-                    temp = dgvInformationRequested(2, hti.RowIndex).Value
-                    If temp = " " Then
-                        DTPInformationRequested.Value = Today
-                        DTPInformationRequested.Checked = False
-                    Else
-                        DTPInformationRequested.Text = temp
-                        DTPInformationRequested.Checked = True
-                    End If
-                    txtInformationRequested.Text = dgvInformationRequested(3, hti.RowIndex).Value
-                    temp = dgvInformationRequested(4, hti.RowIndex).Value
-                    If temp = " " Then
-                        DTPInformationReceived.Value = Today
-                        DTPInformationReceived.Checked = False
-                    Else
-                        DTPInformationReceived.Text = temp
-                        DTPInformationReceived.Checked = True
-                    End If
-                    txtInformationReceived.Text = dgvInformationRequested(5, hti.RowIndex).Value
+            If dgvInformationRequested.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso dgvInformationRequested.Columns(1).HeaderText = "Request Key" Then
+
+                txtInformationRequestedKey.Text = dgvInformationRequested(1, hti.RowIndex).Value
+                temp = dgvInformationRequested(2, hti.RowIndex).Value
+                If temp = " " Then
+                    DTPInformationRequested.Value = Today
+                    DTPInformationRequested.Checked = False
+                Else
+                    DTPInformationRequested.Text = temp
+                    DTPInformationRequested.Checked = True
                 End If
+                txtInformationRequested.Text = dgvInformationRequested(3, hti.RowIndex).Value
+                temp = dgvInformationRequested(4, hti.RowIndex).Value
+                If temp = " " Then
+                    DTPInformationReceived.Value = Today
+                    DTPInformationReceived.Checked = False
+                Else
+                    DTPInformationReceived.Text = temp
+                    DTPInformationReceived.Checked = True
+                End If
+                txtInformationReceived.Text = dgvInformationRequested(5, hti.RowIndex).Value
             End If
 
         Catch ex As Exception
@@ -7485,7 +7438,7 @@ Public Class SSPPApplicationTrackingLog
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
                     chbPNReady.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" Or cboPublicAdvisory.Text = "" Or cboPublicAdvisory.Text = "PA Not Needed" Then
+                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
                         cboPublicAdvisory.Visible = False
                         lblPublicAdvisory.Visible = False
                         DTPDatePAExpires.Visible = False
@@ -7506,7 +7459,7 @@ Public Class SSPPApplicationTrackingLog
                     lblEPAWaived.Visible = False
                     DTPEPAEnds.Visible = False
                     lblEPAEnds.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" Or cboPublicAdvisory.Text = "" Or cboPublicAdvisory.Text = "PA Not Needed" Then
+                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
                         cboPublicAdvisory.Visible = False
                         lblPublicAdvisory.Visible = False
                         DTPDatePAExpires.Visible = False
@@ -7532,7 +7485,7 @@ Public Class SSPPApplicationTrackingLog
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
                     chbPNReady.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" Or cboPublicAdvisory.Text = "" Or cboPublicAdvisory.Text = "PA Not Needed" Then
+                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
                         cboPublicAdvisory.Visible = False
                         lblPublicAdvisory.Visible = False
                         DTPDatePAExpires.Visible = False
@@ -7556,7 +7509,7 @@ Public Class SSPPApplicationTrackingLog
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
                     chbPNReady.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" Or cboPublicAdvisory.Text = "" Or cboPublicAdvisory.Text = "PA Not Needed" Then
+                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
                         cboPublicAdvisory.Visible = False
                         lblPublicAdvisory.Visible = False
                         DTPDatePAExpires.Visible = False
@@ -7607,7 +7560,7 @@ Public Class SSPPApplicationTrackingLog
                     chbPNReady.Visible = False
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" Or cboPublicAdvisory.Text = "" Or cboPublicAdvisory.Text = "PA Not Needed" Then
+                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
                         cboPublicAdvisory.Visible = False
                         lblPublicAdvisory.Visible = False
                         DTPDatePAExpires.Visible = False
@@ -7633,7 +7586,7 @@ Public Class SSPPApplicationTrackingLog
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
                     chbPNReady.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" Or cboPublicAdvisory.Text = "" Or cboPublicAdvisory.Text = "PA Not Needed" Then
+                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
                         cboPublicAdvisory.Visible = False
                         lblPublicAdvisory.Visible = False
                         DTPDatePAExpires.Visible = False
@@ -7667,7 +7620,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                     GBSignificationComments.Visible = True
                 Case "SAWO"
-                    If cboPublicAdvisory.Text = "Not Decided" Or cboPublicAdvisory.Text = "" Or cboPublicAdvisory.Text = "PA Not Needed" Then
+                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
                         cboPublicAdvisory.Visible = False
                         lblPublicAdvisory.Visible = False
                         DTPDatePAExpires.Visible = False
@@ -7689,7 +7642,7 @@ Public Class SSPPApplicationTrackingLog
                     lblEPAWaived.Visible = False
                     DTPEPAEnds.Visible = False
                     lblEPAEnds.Visible = False
-                    If chbPSD.Checked = True Or chbNAANSR.Checked = True Or chb112g.Checked = True Then
+                    If chbPSD.Checked OrElse chbNAANSR.Checked OrElse chb112g.Checked Then
                         DTPDraftIssued.Visible = True
                         lblDraftIssued.Visible = True
                         DTPDatePNExpires.Visible = True
@@ -7719,7 +7672,7 @@ Public Class SSPPApplicationTrackingLog
                         txtPermitNumber.Text = " "
                     End If
                 Case "TV-Initial"
-                    If cboPublicAdvisory.Text = "Not Decided" Or cboPublicAdvisory.Text = "" Or cboPublicAdvisory.Text = "PA Not Needed" Then
+                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
                         cboPublicAdvisory.Visible = False
                         lblPublicAdvisory.Visible = False
                         DTPDatePAExpires.Visible = False
@@ -7736,7 +7689,7 @@ Public Class SSPPApplicationTrackingLog
                         txtPermitNumber.Text = " "
                     End If
                 Case "TV-Renewal"
-                    If cboPublicAdvisory.Text = "Not Decided" Or cboPublicAdvisory.Text = "" Or cboPublicAdvisory.Text = "PA Not Needed" Then
+                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
                         cboPublicAdvisory.Visible = False
                         lblPublicAdvisory.Visible = False
                         DTPDatePAExpires.Visible = False
@@ -7814,7 +7767,7 @@ Public Class SSPPApplicationTrackingLog
             DTPDatePAExpires.Value = Today
             DTPDatePAExpires.Visible = False
             lblDatePAExpires.Visible = False
-        ElseIf cboPublicAdvisory.Visible = True Then
+        ElseIf cboPublicAdvisory.Visible Then
             chbPAReady.Visible = True
             DTPDatePAExpires.Visible = True
             lblDatePAExpires.Visible = True
@@ -7887,7 +7840,7 @@ Public Class SSPPApplicationTrackingLog
 
             DisplayPermitPanel()
 
-            If rdbTitleVPermit.Checked = True Then
+            If rdbTitleVPermit.Checked Then
                 Dim query As String = "select " &
                     "strFileName " &
                     "from APBPermits " &
@@ -7953,7 +7906,7 @@ Public Class SSPPApplicationTrackingLog
 
             DisplayPermitPanel()
 
-            If rdbPSDPermit.Checked = True And MasterApp <> "" Then
+            If rdbPSDPermit.Checked AndAlso MasterApp <> "" Then
 
                 Dim query As String = "select " &
                     "strFileName " &
@@ -8028,7 +7981,7 @@ Public Class SSPPApplicationTrackingLog
 
             DisplayPermitPanel()
 
-            If rdbOtherPermit.Checked = True Then
+            If rdbOtherPermit.Checked Then
 
                 Dim query As String = "select " &
                     "strFileName " &
@@ -8068,7 +8021,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbTVNarrative_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVNarrative.CheckedChanged
         Try
 
-            If chbTVNarrative.Checked = True And MasterApp <> "" Then
+            If chbTVNarrative.Checked AndAlso MasterApp <> "" Then
 
                 txtTVNarrativeDoc.Visible = True
                 txtTVNarrativePDF.Visible = True
@@ -8153,7 +8106,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                If txtTVNarrativeDoc.Text = "On File" Or txtTVNarrativePDF.Text = "On File" Then
+                If txtTVNarrativeDoc.Text = "On File" OrElse txtTVNarrativePDF.Text = "On File" Then
                     btnTVNarrativeDownload.Visible = True
                 Else
                     btnTVNarrativeDownload.Visible = False
@@ -8179,7 +8132,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbTVDraft_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVDraft.CheckedChanged
         Try
 
-            If chbTVDraft.Checked = True And MasterApp <> "" Then
+            If chbTVDraft.Checked AndAlso MasterApp <> "" Then
                 txtTVDraftDoc.Visible = True
                 txtTVDraftPDF.Visible = True
                 lblWord.Visible = True
@@ -8263,7 +8216,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                If txtTVDraftDoc.Text = "On File" Or txtTVDraftPDF.Text = "On File" Then
+                If txtTVDraftDoc.Text = "On File" OrElse txtTVDraftPDF.Text = "On File" Then
                     btnTVDraftDownload.Visible = True
                 Else
                     btnTVDraftDownload.Visible = False
@@ -8288,7 +8241,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbTVPublicNotice_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVPublicNotice.CheckedChanged
         Try
 
-            If chbTVPublicNotice.Checked = True And MasterApp <> "" Then
+            If chbTVPublicNotice.Checked AndAlso MasterApp <> "" Then
                 txtTVPublicNoticeDoc.Visible = True
                 txtTVPublicNoticePDF.Visible = True
                 lblWord.Visible = True
@@ -8372,7 +8325,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                If txtTVPublicNoticeDoc.Text = "On File" Or txtTVPublicNoticePDF.Text = "On File" Then
+                If txtTVPublicNoticeDoc.Text = "On File" OrElse txtTVPublicNoticePDF.Text = "On File" Then
                     btnTVPublicNoticeDownload.Visible = True
                 Else
                     btnTVPublicNoticeDownload.Visible = False
@@ -8398,7 +8351,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbTVFinal_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVFinal.CheckedChanged
         Try
 
-            If chbTVFinal.Checked = True And MasterApp <> "" Then
+            If chbTVFinal.Checked AndAlso MasterApp <> "" Then
                 txtTVFinalDoc.Visible = True
                 txtTVFinalPDF.Visible = True
                 lblWord.Visible = True
@@ -8482,7 +8435,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                If txtTVFinalDoc.Text = "On File" Or txtTVFinalPDF.Text = "On File" Then
+                If txtTVFinalDoc.Text = "On File" OrElse txtTVFinalPDF.Text = "On File" Then
                     btnTVFinalDownload.Visible = True
                 Else
                     btnTVFinalDownload.Visible = False
@@ -8507,7 +8460,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDApplicationSummary_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDApplicationSummary.CheckedChanged
         Try
 
-            If chbPSDApplicationSummary.Checked = True And MasterApp <> "" Then
+            If chbPSDApplicationSummary.Checked AndAlso MasterApp <> "" Then
                 txtPSDAppSummaryDoc.Visible = True
                 txtPSDAppSummaryPDF.Visible = True
                 lblWord.Visible = True
@@ -8590,7 +8543,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                If txtPSDAppSummaryDoc.Text = "On File" Or txtPSDAppSummaryPDF.Text = "On File" Then
+                If txtPSDAppSummaryDoc.Text = "On File" OrElse txtPSDAppSummaryPDF.Text = "On File" Then
                     btnPSDAppSummaryDownload.Visible = True
                 Else
                     btnPSDAppSummaryDownload.Visible = False
@@ -8615,7 +8568,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDPrelimDet_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDPrelimDet.CheckedChanged
         Try
 
-            If chbPSDPrelimDet.Checked = True And MasterApp <> "" Then
+            If chbPSDPrelimDet.Checked AndAlso MasterApp <> "" Then
                 txtPSDPrelimDetDoc.Visible = True
                 txtPSDPrelimDetPDF.Visible = True
                 lblWord.Visible = True
@@ -8698,7 +8651,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                If txtPSDPrelimDetDoc.Text = "On File" Or txtPSDPrelimDetPDF.Text = "On File" Then
+                If txtPSDPrelimDetDoc.Text = "On File" OrElse txtPSDPrelimDetPDF.Text = "On File" Then
                     btnPSDPrelimDetDownload.Visible = True
                 Else
                     btnPSDPrelimDetDownload.Visible = False
@@ -8723,7 +8676,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDNarrative_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDNarrative.CheckedChanged
         Try
 
-            If chbPSDNarrative.Checked = True And MasterApp <> "" Then
+            If chbPSDNarrative.Checked AndAlso MasterApp <> "" Then
                 txtPSDNarrativeDoc.Visible = True
                 txtPSDNarrativePDF.Visible = True
                 lblWord.Visible = True
@@ -8806,7 +8759,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                If txtPSDNarrativeDoc.Text = "On File" Or txtPSDNarrativePDF.Text = "On File" Then
+                If txtPSDNarrativeDoc.Text = "On File" OrElse txtPSDNarrativePDF.Text = "On File" Then
                     btnPSDNarrativeDownload.Visible = True
                 Else
                     btnPSDNarrativeDownload.Visible = False
@@ -8831,7 +8784,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDDraftPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDDraftPermit.CheckedChanged
         Try
 
-            If chbPSDDraftPermit.Checked = True And MasterApp <> "" Then
+            If chbPSDDraftPermit.Checked AndAlso MasterApp <> "" Then
                 txtPSDDraftPermitDoc.Visible = True
                 txtPSDDraftPermitPDF.Visible = True
                 lblWord.Visible = True
@@ -8914,7 +8867,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                If txtPSDDraftPermitDoc.Text = "On File" Or txtPSDDraftPermitPDF.Text = "On File" Then
+                If txtPSDDraftPermitDoc.Text = "On File" OrElse txtPSDDraftPermitPDF.Text = "On File" Then
                     btnPSDDraftPermitDownload.Visible = True
                 Else
                     btnPSDDraftPermitDownload.Visible = False
@@ -8939,7 +8892,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDPublicNotice_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDPublicNotice.CheckedChanged
         Try
 
-            If chbPSDPublicNotice.Checked = True And MasterApp <> "" Then
+            If chbPSDPublicNotice.Checked AndAlso MasterApp <> "" Then
                 txtPSDPublicNoticeDoc.Visible = True
                 txtPSDPublicNoticePDF.Visible = True
                 lblWord.Visible = True
@@ -9022,7 +8975,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                If txtPSDPublicNoticeDoc.Text = "On File" Or txtPSDPublicNoticePDF.Text = "On File" Then
+                If txtPSDPublicNoticeDoc.Text = "On File" OrElse txtPSDPublicNoticePDF.Text = "On File" Then
                     btnPSDPublicNoticeDownload.Visible = True
                 Else
                     btnPSDPublicNoticeDownload.Visible = False
@@ -9047,7 +9000,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDHearingNotice_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDHearingNotice.CheckedChanged
         Try
 
-            If chbPSDHearingNotice.Checked = True And MasterApp <> "" Then
+            If chbPSDHearingNotice.Checked AndAlso MasterApp <> "" Then
                 txtPSDHearingNoticeDoc.Visible = True
                 txtPSDHearingNoticePDF.Visible = True
                 lblWord.Visible = True
@@ -9130,7 +9083,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                If txtPSDHearingNoticeDoc.Text = "On File" Or txtPSDHearingNoticePDF.Text = "On File" Then
+                If txtPSDHearingNoticeDoc.Text = "On File" OrElse txtPSDHearingNoticePDF.Text = "On File" Then
                     btnPSDHearingNoticeDownload.Visible = True
                 Else
                     btnPSDHearingNoticeDownload.Visible = False
@@ -9155,7 +9108,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDFinalDet_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDFinalDet.CheckedChanged
         Try
 
-            If chbPSDFinalDet.Checked = True And MasterApp <> "" Then
+            If chbPSDFinalDet.Checked AndAlso MasterApp <> "" Then
                 txtPSDFinalDetDoc.Visible = True
                 txtPSDFinalDetPDF.Visible = True
                 lblWord.Visible = True
@@ -9238,7 +9191,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                If txtPSDFinalDetDoc.Text = "On File" Or txtPSDFinalDetPDF.Text = "On File" Then
+                If txtPSDFinalDetDoc.Text = "On File" OrElse txtPSDFinalDetPDF.Text = "On File" Then
                     btnPSDFinalDetDownload.Visible = True
                 Else
                     btnPSDFinalDetDownload.Visible = False
@@ -9263,7 +9216,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbPSDFinalPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDFinalPermit.CheckedChanged
         Try
 
-            If chbPSDFinalPermit.Checked = True And MasterApp <> "" Then
+            If chbPSDFinalPermit.Checked AndAlso MasterApp <> "" Then
                 txtPSDFinalPermitDoc.Visible = True
                 txtPSDFinalPermitPDF.Visible = True
                 lblWord.Visible = True
@@ -9346,7 +9299,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                If txtPSDFinalPermitDoc.Text = "On File" Or txtPSDFinalPermitPDF.Text = "On File" Then
+                If txtPSDFinalPermitDoc.Text = "On File" OrElse txtPSDFinalPermitPDF.Text = "On File" Then
                     btnPSDFinalPermitDownload.Visible = True
                 Else
                     btnPSDFinalPermitDownload.Visible = False
@@ -9370,7 +9323,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub chbOtherNarrative_CheckedChanged(sender As Object, e As EventArgs) Handles chbOtherNarrative.CheckedChanged
         Try
-            If chbOtherNarrative.Checked = True And MasterApp <> "" Then
+            If chbOtherNarrative.Checked AndAlso MasterApp <> "" Then
                 txtOtherNarrativeDoc.Visible = True
                 txtOtherNarrativePDF.Visible = True
                 lblWord.Visible = True
@@ -9453,7 +9406,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                If txtOtherNarrativeDoc.Text = "On File" Or txtOtherNarrativePDF.Text = "On File" Then
+                If txtOtherNarrativeDoc.Text = "On File" OrElse txtOtherNarrativePDF.Text = "On File" Then
                     btnOtherNarrativeDownload.Visible = True
                 Else
                     btnOtherNarrativeDownload.Visible = False
@@ -9479,7 +9432,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub chbOtherPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbOtherPermit.CheckedChanged
         Try
 
-            If chbOtherPermit.Checked = True And MasterApp <> "" Then
+            If chbOtherPermit.Checked AndAlso MasterApp <> "" Then
                 txtOtherPermitDoc.Visible = True
                 txtOtherPermitPDF.Visible = True
                 lblWord.Visible = True
@@ -9562,7 +9515,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                If txtOtherPermitDoc.Text = "On File" Or txtOtherPermitPDF.Text = "On File" Then
+                If txtOtherPermitDoc.Text = "On File" OrElse txtOtherPermitPDF.Text = "On File" Then
                     btnOtherPermitDownload.Visible = True
                 Else
                     btnOtherPermitDownload.Visible = False
@@ -9592,8 +9545,8 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim Result As String = ""
 
-            If (txtOtherNarrativeDoc.Text = "On File" Or txtOtherNarrativePDF.Text = "On File") Then
-                If txtOtherNarrativeDoc.Text = "On File" And txtOtherNarrativePDF.Text = "On File" Then
+            If (txtOtherNarrativeDoc.Text = "On File" OrElse txtOtherNarrativePDF.Text = "On File") Then
+                If txtOtherNarrativeDoc.Text = "On File" AndAlso txtOtherNarrativePDF.Text = "On File" Then
                     Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
                     "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
@@ -9627,8 +9580,8 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim Result As String = ""
 
-            If (txtOtherPermitDoc.Text = "On File" Or txtOtherPermitPDF.Text = "On File") Then
-                If txtOtherPermitDoc.Text = "On File" And txtOtherPermitPDF.Text = "On File" Then
+            If (txtOtherPermitDoc.Text = "On File" OrElse txtOtherPermitPDF.Text = "On File") Then
+                If txtOtherPermitDoc.Text = "On File" AndAlso txtOtherPermitPDF.Text = "On File" Then
                     Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
                     "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
@@ -9660,8 +9613,8 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim Result As String = ""
 
-            If (txtTVNarrativeDoc.Text = "On File" Or txtTVNarrativePDF.Text = "On File") Then
-                If txtTVNarrativeDoc.Text = "On File" And txtTVNarrativePDF.Text = "On File" Then
+            If (txtTVNarrativeDoc.Text = "On File" OrElse txtTVNarrativePDF.Text = "On File") Then
+                If txtTVNarrativeDoc.Text = "On File" AndAlso txtTVNarrativePDF.Text = "On File" Then
                     Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
                     "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
@@ -9693,8 +9646,8 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim Result As String = ""
 
-            If (txtTVDraftDoc.Text = "On File" Or txtTVDraftPDF.Text = "On File") Then
-                If txtTVDraftDoc.Text = "On File" And txtTVDraftPDF.Text = "On File" Then
+            If (txtTVDraftDoc.Text = "On File" OrElse txtTVDraftPDF.Text = "On File") Then
+                If txtTVDraftDoc.Text = "On File" AndAlso txtTVDraftPDF.Text = "On File" Then
                     Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
                     "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
@@ -9726,8 +9679,8 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim Result As String = ""
 
-            If (txtTVPublicNoticeDoc.Text = "On File" Or txtTVPublicNoticePDF.Text = "On File") Then
-                If txtTVPublicNoticeDoc.Text = "On File" And txtTVPublicNoticePDF.Text = "On File" Then
+            If (txtTVPublicNoticeDoc.Text = "On File" OrElse txtTVPublicNoticePDF.Text = "On File") Then
+                If txtTVPublicNoticeDoc.Text = "On File" AndAlso txtTVPublicNoticePDF.Text = "On File" Then
                     Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
                     "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
@@ -9759,8 +9712,8 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim Result As String = ""
 
-            If (txtTVFinalDoc.Text = "On File" Or txtTVFinalPDF.Text = "On File") Then
-                If txtTVFinalDoc.Text = "On File" And txtTVFinalPDF.Text = "On File" Then
+            If (txtTVFinalDoc.Text = "On File" OrElse txtTVFinalPDF.Text = "On File") Then
+                If txtTVFinalDoc.Text = "On File" AndAlso txtTVFinalPDF.Text = "On File" Then
                     Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
                     "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
@@ -9792,8 +9745,8 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim Result As String = ""
 
-            If (txtPSDAppSummaryDoc.Text = "On File" Or txtPSDAppSummaryPDF.Text = "On File") Then
-                If txtPSDAppSummaryDoc.Text = "On File" And txtPSDAppSummaryPDF.Text = "On File" Then
+            If (txtPSDAppSummaryDoc.Text = "On File" OrElse txtPSDAppSummaryPDF.Text = "On File") Then
+                If txtPSDAppSummaryDoc.Text = "On File" AndAlso txtPSDAppSummaryPDF.Text = "On File" Then
                     Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
                     "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
@@ -9825,8 +9778,8 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim Result As String = ""
 
-            If (txtPSDPrelimDetDoc.Text = "On File" Or txtPSDPrelimDetPDF.Text = "On File") Then
-                If txtPSDPrelimDetDoc.Text = "On File" And txtPSDPrelimDetPDF.Text = "On File" Then
+            If (txtPSDPrelimDetDoc.Text = "On File" OrElse txtPSDPrelimDetPDF.Text = "On File") Then
+                If txtPSDPrelimDetDoc.Text = "On File" AndAlso txtPSDPrelimDetPDF.Text = "On File" Then
                     Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
                     "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
@@ -9858,8 +9811,8 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim Result As String = ""
 
-            If (txtPSDNarrativeDoc.Text = "On File" Or txtPSDNarrativePDF.Text = "On File") Then
-                If txtPSDNarrativeDoc.Text = "On File" And txtPSDNarrativePDF.Text = "On File" Then
+            If (txtPSDNarrativeDoc.Text = "On File" OrElse txtPSDNarrativePDF.Text = "On File") Then
+                If txtPSDNarrativeDoc.Text = "On File" AndAlso txtPSDNarrativePDF.Text = "On File" Then
                     Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
                     "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
@@ -9891,8 +9844,8 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim Result As String = ""
 
-            If (txtPSDDraftPermitDoc.Text = "On File" Or txtPSDDraftPermitPDF.Text = "On File") Then
-                If txtPSDDraftPermitDoc.Text = "On File" And txtPSDDraftPermitPDF.Text = "On File" Then
+            If (txtPSDDraftPermitDoc.Text = "On File" OrElse txtPSDDraftPermitPDF.Text = "On File") Then
+                If txtPSDDraftPermitDoc.Text = "On File" AndAlso txtPSDDraftPermitPDF.Text = "On File" Then
                     Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
                     "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
@@ -9924,8 +9877,8 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim Result As String = ""
 
-            If (txtPSDPublicNoticeDoc.Text = "On File" Or txtPSDPublicNoticePDF.Text = "On File") Then
-                If txtPSDPublicNoticeDoc.Text = "On File" And txtPSDPublicNoticePDF.Text = "On File" Then
+            If (txtPSDPublicNoticeDoc.Text = "On File" OrElse txtPSDPublicNoticePDF.Text = "On File") Then
+                If txtPSDPublicNoticeDoc.Text = "On File" AndAlso txtPSDPublicNoticePDF.Text = "On File" Then
                     Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
                     "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
@@ -9957,8 +9910,8 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim Result As String = ""
 
-            If (txtPSDHearingNoticeDoc.Text = "On File" Or txtPSDHearingNoticePDF.Text = "On File") Then
-                If txtPSDHearingNoticeDoc.Text = "On File" And txtPSDHearingNoticePDF.Text = "On File" Then
+            If (txtPSDHearingNoticeDoc.Text = "On File" OrElse txtPSDHearingNoticePDF.Text = "On File") Then
+                If txtPSDHearingNoticeDoc.Text = "On File" AndAlso txtPSDHearingNoticePDF.Text = "On File" Then
                     Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
                     "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
@@ -9990,8 +9943,8 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim Result As String = ""
 
-            If (txtPSDFinalDetDoc.Text = "On File" Or txtPSDFinalDetPDF.Text = "On File") Then
-                If txtPSDFinalDetDoc.Text = "On File" And txtPSDFinalDetPDF.Text = "On File" Then
+            If (txtPSDFinalDetDoc.Text = "On File" OrElse txtPSDFinalDetPDF.Text = "On File") Then
+                If txtPSDFinalDetDoc.Text = "On File" AndAlso txtPSDFinalDetPDF.Text = "On File" Then
                     Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
                     "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
@@ -10023,8 +9976,8 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim Result As String = ""
 
-            If (txtPSDFinalPermitDoc.Text = "On File" Or txtPSDFinalPermitPDF.Text = "On File") Then
-                If txtPSDFinalPermitDoc.Text = "On File" And txtPSDFinalPermitPDF.Text = "On File" Then
+            If (txtPSDFinalPermitDoc.Text = "On File" OrElse txtPSDFinalPermitPDF.Text = "On File") Then
+                If txtPSDFinalPermitDoc.Text = "On File" AndAlso txtPSDFinalPermitPDF.Text = "On File" Then
                     Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
                     "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
@@ -10436,12 +10389,10 @@ Public Class SSPPApplicationTrackingLog
                         Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
                         If dr IsNot Nothing Then
-                            If IsDBNull(dr.Item("strApplicationNumber")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationNumber")) Then
                                 dgvSIPSubParts(0, i).Value = dr.Item("strApplicationNumber")
                             End If
-                            If IsDBNull(dr.Item("strApplicationActivity")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationActivity")) Then
                                 Select Case dr.Item("strApplicationActivity").ToString
                                     Case "1"
                                         'Added' 
@@ -10454,8 +10405,7 @@ Public Class SSPPApplicationTrackingLog
                                         dgvSIPSubParts(4, i).Value = "Existing"
                                 End Select
                             End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("CreateDateTime")) Then
                                 dgvSIPSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
                             End If
                         End If
@@ -10568,9 +10518,7 @@ Public Class SSPPApplicationTrackingLog
                                 dgvSIPSubParts(0, i).Value = AppNum
                                 dgvSIPSubParts(4, i).Value = "Removed"
                                 temp = "Removed"
-                                With Me.dgvSIPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.Tomato
-                                End With
+                                dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                             End If
                         Next
                         If temp = "" Then
@@ -10583,9 +10531,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Removed"
                             dgvSIPSubParts.Rows.Add(dgvRow)
                             i = dgvSIPSubParts.Rows.Count - 1
-                            With Me.dgvSIPSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.Tomato
-                            End With
+                            dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                         End If
                         dgvRow = New DataGridViewRow
                         dgvRow.CreateCells(dgvSIPSubPartDelete)
@@ -10599,9 +10545,7 @@ Public Class SSPPApplicationTrackingLog
                                 dgvSIPSubParts(0, i).Value = AppNum
                                 dgvSIPSubParts(4, i).Value = "Added"
                                 temp = "Added"
-                                With Me.dgvSIPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightGreen
-                                End With
+                                dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                             End If
                         Next
                         If temp <> "Added" Then
@@ -10614,9 +10558,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Added"
                             dgvSIPSubParts.Rows.Add(dgvRow)
                             i = dgvSIPSubParts.Rows.Count - 1
-                            With Me.dgvSIPSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.LightGreen
-                            End With
+                            dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                         End If
                         dgvRow = New DataGridViewRow
                         dgvRow.CreateCells(dgvSIPSubpartAddEdit)
@@ -10626,18 +10568,14 @@ Public Class SSPPApplicationTrackingLog
                         dgvRow.Cells(3).Value = "Added"
                         dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
                         i = dgvSIPSubpartAddEdit.Rows.Count - 1
-                        With Me.dgvSIPSubpartAddEdit.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightGreen
-                        End With
+                        dgvSIPSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                     Case "Modified"
                         temp = ""
                         For i = 0 To dgvSIPSubParts.Rows.Count - 1
                             If SubPart = dgvSIPSubParts(1, i).Value Then
                                 dgvSIPSubParts(0, i).Value = AppNum
                                 temp = "Modify"
-                                With Me.dgvSIPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightBlue
-                                End With
+                                dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                             End If
                         Next
                         dgvRow = New DataGridViewRow
@@ -10665,8 +10603,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvSIPSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvSIPSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -10696,16 +10633,12 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvSIPSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
-                        dgvSIPSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvSIPSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
+                    dgvSIPSubPartDelete.Rows.Add(dgvRow)
+                    dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Else
                 If Action <> "Added" Then
@@ -10714,9 +10647,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(1).Value = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
 
                     dgvSIPSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             End If
 
@@ -10731,8 +10662,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
 
 
-            If dgvSIPSubPartDelete.CurrentRow IsNot Nothing Then
-            Else
+            If dgvSIPSubPartDelete.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -10743,9 +10673,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvSIPSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvSIPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                 dgvSIPSubPartDelete.Rows.Remove(dgvSIPSubPartDelete.CurrentRow)
             End If
 
@@ -10787,17 +10715,13 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvSIPSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvSIPSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvSIPSubParts(2, i).Value
-                        dgvSIPSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvSIPSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvSIPSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvSIPSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvSIPSubParts(2, i).Value
+                    dgvSIPSubPartDelete.Rows.Add(dgvRow)
+                    dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Next
 
@@ -10818,9 +10742,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvSIPSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvSIPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvSIPSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -10840,9 +10762,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvSIPSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvSIPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvSIPSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -10858,7 +10778,7 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
 
-            If chbCDS_0.Checked = False Then
+            If Not chbCDS_0.Checked Then
                 MsgBox("The SIP Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
@@ -10890,9 +10810,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(4).Value = "Added"
                 dgvSIPSubParts.Rows.Add(dgvRow)
                 i = dgvSIPSubParts.Rows.Count - 1
-                With Me.dgvSIPSubParts.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
 
             temp2 = ""
@@ -10911,9 +10829,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(3).Value = "Added"
                 dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
                 i = dgvSIPSubpartAddEdit.Rows.Count - 1
-                With Me.dgvSIPSubpartAddEdit.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvSIPSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -10929,8 +10845,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvSIPSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvSIPSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -10960,18 +10875,14 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvSIPSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(2).Value = dgvSIPSubParts(3, dgvSIPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvSIPSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(2).Value = dgvSIPSubParts(3, dgvSIPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
+                    dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Else
                 If Action <> "Added" Then
@@ -10981,9 +10892,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvSIPSubParts(3, dgvSIPSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             End If
 
@@ -10998,8 +10907,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvSIPSubpartAddEdit.CurrentRow IsNot Nothing Then
-            Else
+            If dgvSIPSubpartAddEdit.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -11012,9 +10920,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If Action <> "Added" Then
-                    With Me.dgvSIPSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvSIPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     dgvSIPSubpartAddEdit.Rows.Remove(dgvSIPSubpartAddEdit.CurrentRow)
                 End If
             End If
@@ -11055,19 +10961,15 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvSIPSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvSIPSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvSIPSubParts(2, i).Value
-                        dgvRow.Cells(2).Value = dgvSIPSubParts(3, i).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvSIPSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvSIPSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvSIPSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvSIPSubParts(2, i).Value
+                    dgvRow.Cells(2).Value = dgvSIPSubParts(3, i).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
+                    dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Next
         Catch ex As Exception
@@ -11084,13 +10986,9 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvSIPSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    If dgvSIPSubParts(1, j).Value = Subpart Then
-                        If dgvSIPSubParts(4, j).Value = "Existing" Then
-                            With Me.dgvSIPSubParts.Rows(j)
-                                .DefaultCellStyle.BackColor = Color.White
-                            End With
-                            TempRemove = i & "," & TempRemove
-                        End If
+                    If dgvSIPSubParts(1, j).Value = Subpart AndAlso dgvSIPSubParts(4, j).Value = "Existing" Then
+                        dgvSIPSubParts.Rows(j).DefaultCellStyle.BackColor = Color.White
+                        TempRemove = i & "," & TempRemove
                     End If
                 Next
             Next
@@ -11098,7 +10996,7 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvSIPSubpartAddEdit.Rows.RemoveAt(i)
-                TempRemove = Replace(TempRemove, i & ",", "")
+                TempRemove = TempRemove?.Replace(i & ",", "")
             Loop
 
         Catch ex As Exception
@@ -11123,9 +11021,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 <> "" Then
-                    With Me.dgvSIPSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvSIPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     If Action = "Added" Then
                         dgvSIPSubParts.Rows.RemoveAt(temp2)
                     End If
@@ -11171,7 +11067,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub btnSaveSIPSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveSIPSubpart.Click
         Try
-            If chbCDS_0.Checked = False Then
+            If Not chbCDS_0.Checked Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code 0 - SIP. " &
                        "If you do not check this air program code the subparts cannot be saved.",
@@ -11322,12 +11218,10 @@ Public Class SSPPApplicationTrackingLog
                         Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
                         If dr IsNot Nothing Then
-                            If IsDBNull(dr.Item("strApplicationNumber")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationNumber")) Then
                                 dgvNSPSSubParts(0, i).Value = dr.Item("strApplicationNumber")
                             End If
-                            If IsDBNull(dr.Item("strApplicationActivity")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationActivity")) Then
                                 Select Case dr.Item("strApplicationActivity").ToString
                                     Case "1"
                                         'Added' 
@@ -11340,8 +11234,7 @@ Public Class SSPPApplicationTrackingLog
                                         dgvNSPSSubParts(4, i).Value = "Existing"
                                 End Select
                             End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("CreateDateTime")) Then
                                 dgvNSPSSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
                             End If
                         End If
@@ -11464,9 +11357,7 @@ Public Class SSPPApplicationTrackingLog
                                 dgvNSPSSubParts(0, i).Value = AppNum
                                 dgvNSPSSubParts(4, i).Value = "Removed"
                                 temp = "Removed"
-                                With Me.dgvNSPSSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.Tomato
-                                End With
+                                dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                             End If
                         Next
 
@@ -11480,9 +11371,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Removed"
                             dgvNSPSSubParts.Rows.Add(dgvRow)
                             i = dgvNSPSSubParts.Rows.Count - 1
-                            With Me.dgvNSPSSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.Tomato
-                            End With
+                            dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                         End If
 
                         dgvRow = New DataGridViewRow
@@ -11496,9 +11385,7 @@ Public Class SSPPApplicationTrackingLog
                             If SubPart = dgvNSPSSubParts(1, i).Value Then
                                 dgvNSPSSubParts(4, i).Value = "Added"
                                 temp = "Added"
-                                With Me.dgvNSPSSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightGreen
-                                End With
+                                dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                             End If
                         Next
                         If temp <> "Added" Then
@@ -11511,9 +11398,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Added"
                             dgvNSPSSubParts.Rows.Add(dgvRow)
                             i = dgvNSPSSubParts.Rows.Count - 1
-                            With Me.dgvNSPSSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.LightGreen
-                            End With
+                            dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                         End If
 
                         dgvRow = New DataGridViewRow
@@ -11524,9 +11409,7 @@ Public Class SSPPApplicationTrackingLog
                         dgvRow.Cells(3).Value = "Added"
                         dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
                         i = dgvNSPSSubpartAddEdit.Rows.Count - 1
-                        With Me.dgvNSPSSubpartAddEdit.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightGreen
-                        End With
+                        dgvNSPSSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
 
                     Case "Modified"
                         temp = ""
@@ -11534,9 +11417,7 @@ Public Class SSPPApplicationTrackingLog
                             If SubPart = dgvNSPSSubParts(1, i).Value Then
                                 dgvNSPSSubParts(0, i).Value = AppNum
                                 temp = "Modify"
-                                With Me.dgvNSPSSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightBlue
-                                End With
+                                dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                             End If
                         Next
 
@@ -11564,8 +11445,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvNSPSSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNSPSSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -11595,16 +11475,12 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvNSPSSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
-                        dgvNSPSSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvNSPSSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
+                    dgvNSPSSubPartDelete.Rows.Add(dgvRow)
+                    dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Else
                 If Action <> "Added" Then
@@ -11613,9 +11489,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(1).Value = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
 
                     dgvNSPSSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             End If
 
@@ -11630,8 +11504,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
 
 
-            If dgvNSPSSubPartDelete.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNSPSSubPartDelete.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -11642,9 +11515,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvNSPSSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvNSPSSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                 dgvNSPSSubPartDelete.Rows.Remove(dgvNSPSSubPartDelete.CurrentRow)
             End If
 
@@ -11686,17 +11557,13 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvNSPSSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvNSPSSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvNSPSSubParts(2, i).Value
-                        dgvNSPSSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvNSPSSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvNSPSSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvNSPSSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvNSPSSubParts(2, i).Value
+                    dgvNSPSSubPartDelete.Rows.Add(dgvRow)
+                    dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Next
         Catch ex As Exception
@@ -11716,9 +11583,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvNSPSSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvNSPSSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvNSPSSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -11738,9 +11603,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvNSPSSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvNSPSSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvNSPSSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -11756,7 +11619,7 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
 
-            If chbCDS_9.Checked = False Then
+            If Not chbCDS_9.Checked Then
                 MsgBox("The NSPS Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
@@ -11788,9 +11651,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(4).Value = "Added"
                 dgvNSPSSubParts.Rows.Add(dgvRow)
                 i = dgvNSPSSubParts.Rows.Count - 1
-                With Me.dgvNSPSSubParts.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
 
             temp2 = ""
@@ -11809,9 +11670,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(3).Value = "Added"
                 dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
                 i = dgvNSPSSubpartAddEdit.Rows.Count - 1
-                With Me.dgvNSPSSubpartAddEdit.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvNSPSSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -11827,8 +11686,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvNSPSSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNSPSSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -11858,18 +11716,14 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvNSPSSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(2).Value = dgvNSPSSubParts(3, dgvNSPSSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvNSPSSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(2).Value = dgvNSPSSubParts(3, dgvNSPSSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
+                    dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Else
                 If Action <> "Added" Then
@@ -11879,9 +11733,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvNSPSSubParts(3, dgvNSPSSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             End If
 
@@ -11896,8 +11748,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvNSPSSubpartAddEdit.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNSPSSubpartAddEdit.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -11910,9 +11761,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If Action <> "Added" Then
-                    With Me.dgvNSPSSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvNSPSSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     dgvNSPSSubpartAddEdit.Rows.Remove(dgvNSPSSubpartAddEdit.CurrentRow)
                 End If
             End If
@@ -11953,19 +11802,15 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvNSPSSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvNSPSSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvNSPSSubParts(2, i).Value
-                        dgvRow.Cells(2).Value = dgvNSPSSubParts(3, i).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvNSPSSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvNSPSSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvNSPSSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvNSPSSubParts(2, i).Value
+                    dgvRow.Cells(2).Value = dgvNSPSSubParts(3, i).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
+                    dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Next
         Catch ex As Exception
@@ -11982,13 +11827,9 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvNSPSSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    If dgvNSPSSubParts(1, j).Value = Subpart Then
-                        If dgvNSPSSubParts(4, j).Value = "Existing" Then
-                            With Me.dgvNSPSSubParts.Rows(j)
-                                .DefaultCellStyle.BackColor = Color.White
-                            End With
-                            TempRemove = i & "," & TempRemove
-                        End If
+                    If dgvNSPSSubParts(1, j).Value = Subpart AndAlso dgvNSPSSubParts(4, j).Value = "Existing" Then
+                        dgvNSPSSubParts.Rows(j).DefaultCellStyle.BackColor = Color.White
+                        TempRemove = i & "," & TempRemove
                     End If
                 Next
             Next
@@ -11996,7 +11837,7 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvNSPSSubpartAddEdit.Rows.RemoveAt(i)
-                TempRemove = Replace(TempRemove, i & ",", "")
+                TempRemove = TempRemove?.Replace(i & ",", "")
             Loop
 
         Catch ex As Exception
@@ -12022,9 +11863,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 <> "" Then
-                    With Me.dgvNSPSSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvNSPSSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     If Action = "Added" Then
                         dgvNSPSSubParts.Rows.RemoveAt(temp2)
                     End If
@@ -12070,7 +11909,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub btnSaveNSPSSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveNSPSSubpart.Click
         Try
-            If chbCDS_9.Checked = False Then
+            If Not chbCDS_9.Checked Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code 9 - NSPS. " &
                        "If you do not check this air program code the subparts cannot be saved.",
@@ -12221,12 +12060,10 @@ Public Class SSPPApplicationTrackingLog
                         Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
                         If dr IsNot Nothing Then
-                            If IsDBNull(dr.Item("strApplicationNumber")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationNumber")) Then
                                 dgvNESHAPSubParts(0, i).Value = dr.Item("strApplicationNumber")
                             End If
-                            If IsDBNull(dr.Item("strApplicationActivity")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationActivity")) Then
                                 Select Case dr.Item("strApplicationActivity").ToString
                                     Case "1"
                                         'Added' 
@@ -12239,8 +12076,7 @@ Public Class SSPPApplicationTrackingLog
                                         dgvNESHAPSubParts(4, i).Value = "Existing"
                                 End Select
                             End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("CreateDateTime")) Then
                                 dgvNESHAPSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
                             End If
                         End If
@@ -12362,9 +12198,7 @@ Public Class SSPPApplicationTrackingLog
                                 dgvNESHAPSubParts(0, i).Value = AppNum
                                 dgvNESHAPSubParts(4, i).Value = "Removed"
                                 temp = "Removed"
-                                With Me.dgvNESHAPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.Tomato
-                                End With
+                                dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                             End If
                         Next
 
@@ -12378,9 +12212,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Removed"
                             dgvNESHAPSubParts.Rows.Add(dgvRow)
                             i = dgvNESHAPSubParts.Rows.Count - 1
-                            With Me.dgvNESHAPSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.Tomato
-                            End With
+                            dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                         End If
 
                         dgvRow = New DataGridViewRow
@@ -12394,9 +12226,7 @@ Public Class SSPPApplicationTrackingLog
                             If SubPart = dgvNESHAPSubParts(1, i).Value Then
                                 dgvNESHAPSubParts(4, i).Value = "Added"
                                 temp = "Added"
-                                With Me.dgvNESHAPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightGreen
-                                End With
+                                dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                             End If
                         Next
                         If temp <> "Added" Then
@@ -12409,9 +12239,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Added"
                             dgvNESHAPSubParts.Rows.Add(dgvRow)
                             i = dgvNESHAPSubParts.Rows.Count - 1
-                            With Me.dgvNESHAPSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.LightGreen
-                            End With
+                            dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                         End If
 
                         dgvRow = New DataGridViewRow
@@ -12422,9 +12250,7 @@ Public Class SSPPApplicationTrackingLog
                         dgvRow.Cells(3).Value = "Added"
                         dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
                         i = dgvNESHAPSubpartAddEdit.Rows.Count - 1
-                        With Me.dgvNESHAPSubpartAddEdit.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightGreen
-                        End With
+                        dgvNESHAPSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
 
                     Case "Modified"
                         temp = ""
@@ -12432,9 +12258,7 @@ Public Class SSPPApplicationTrackingLog
                             If SubPart = dgvNESHAPSubParts(1, i).Value Then
                                 dgvNESHAPSubParts(0, i).Value = AppNum
                                 temp = "Modify"
-                                With Me.dgvNESHAPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightBlue
-                                End With
+                                dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                             End If
                         Next
 
@@ -12462,8 +12286,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvNESHAPSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNESHAPSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -12493,16 +12316,12 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvNESHAPSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
-                        dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvNESHAPSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
+                    dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
+                    dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Else
                 If Action <> "Added" Then
@@ -12511,9 +12330,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
 
                     dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             End If
 
@@ -12528,8 +12345,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
 
 
-            If dgvNESHAPSubPartDelete.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNESHAPSubPartDelete.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -12540,9 +12356,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvNESHAPSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvNESHAPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                 dgvNESHAPSubPartDelete.Rows.Remove(dgvNESHAPSubPartDelete.CurrentRow)
             End If
 
@@ -12584,17 +12398,13 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvNESHAPSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, i).Value
-                        dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvNESHAPSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvNESHAPSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, i).Value
+                    dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
+                    dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Next
         Catch ex As Exception
@@ -12615,9 +12425,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvNESHAPSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvNESHAPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvNESHAPSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -12638,9 +12446,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvNESHAPSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvNESHAPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvNESHAPSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -12656,7 +12462,7 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
 
-            If chbCDS_8.Checked = False Then
+            If Not chbCDS_8.Checked Then
                 MsgBox("The NESHAP Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
@@ -12689,9 +12495,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(4).Value = "Added"
                 dgvNESHAPSubParts.Rows.Add(dgvRow)
                 i = dgvNESHAPSubParts.Rows.Count - 1
-                With Me.dgvNESHAPSubParts.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
 
             temp2 = ""
@@ -12710,9 +12514,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(3).Value = "Added"
                 dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
                 i = dgvNESHAPSubpartAddEdit.Rows.Count - 1
-                With Me.dgvNESHAPSubpartAddEdit.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvNESHAPSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -12728,8 +12530,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvNESHAPSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNESHAPSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -12759,18 +12560,14 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(2).Value = dgvNESHAPSubParts(3, dgvNESHAPSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(2).Value = dgvNESHAPSubParts(3, dgvNESHAPSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
+                    dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Else
                 If Action <> "Added" Then
@@ -12780,9 +12577,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvNESHAPSubParts(3, dgvNESHAPSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             End If
 
@@ -12797,8 +12592,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvNESHAPSubpartAddEdit.CurrentRow IsNot Nothing Then
-            Else
+            If dgvNESHAPSubpartAddEdit.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -12811,9 +12605,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If Action <> "Added" Then
-                    With Me.dgvNESHAPSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvNESHAPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     dgvNESHAPSubpartAddEdit.Rows.Remove(dgvNESHAPSubpartAddEdit.CurrentRow)
                 End If
             End If
@@ -12855,19 +12647,15 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, i).Value
-                        dgvRow.Cells(2).Value = dgvNESHAPSubParts(3, i).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvNESHAPSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, i).Value
+                    dgvRow.Cells(2).Value = dgvNESHAPSubParts(3, i).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
+                    dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Next
         Catch ex As Exception
@@ -12884,13 +12672,9 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvNESHAPSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                    If dgvNESHAPSubParts(1, j).Value = Subpart Then
-                        If dgvNESHAPSubParts(4, j).Value = "Existing" Then
-                            With Me.dgvNESHAPSubParts.Rows(j)
-                                .DefaultCellStyle.BackColor = Color.White
-                            End With
-                            TempRemove = i & "," & TempRemove
-                        End If
+                    If dgvNESHAPSubParts(1, j).Value = Subpart AndAlso dgvNESHAPSubParts(4, j).Value = "Existing" Then
+                        dgvNESHAPSubParts.Rows(j).DefaultCellStyle.BackColor = Color.White
+                        TempRemove = i & "," & TempRemove
                     End If
                 Next
             Next
@@ -12898,7 +12682,7 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvNESHAPSubpartAddEdit.Rows.RemoveAt(i)
-                TempRemove = Replace(TempRemove, i & ",", "")
+                TempRemove = TempRemove?.Replace(i & ",", "")
             Loop
 
         Catch ex As Exception
@@ -12924,9 +12708,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 <> "" Then
-                    With Me.dgvNESHAPSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvNESHAPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     If Action = "Added" Then
                         dgvNESHAPSubParts.Rows.RemoveAt(temp2)
                     End If
@@ -12972,7 +12754,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub btnSaveNESHAPSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveNESHAPSubpart.Click
         Try
-            If chbCDS_8.Checked = False Then
+            If Not chbCDS_8.Checked Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code 8 - NESHAP. " &
                        "If you do not check this air program code the subparts cannot be saved.",
@@ -13124,12 +12906,10 @@ Public Class SSPPApplicationTrackingLog
                         Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
                         If dr IsNot Nothing Then
-                            If IsDBNull(dr.Item("strApplicationNumber")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationNumber")) Then
                                 dgvMACTSubParts(0, i).Value = dr.Item("strApplicationNumber")
                             End If
-                            If IsDBNull(dr.Item("strApplicationActivity")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("strApplicationActivity")) Then
                                 Select Case dr.Item("strApplicationActivity").ToString
                                     Case "1"
                                         'Added' 
@@ -13142,8 +12922,7 @@ Public Class SSPPApplicationTrackingLog
                                         dgvMACTSubParts(4, i).Value = "Existing"
                                 End Select
                             End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                            Else
+                            If Not IsDBNull(dr.Item("CreateDateTime")) Then
                                 dgvMACTSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
                             End If
                         End If
@@ -13265,9 +13044,7 @@ Public Class SSPPApplicationTrackingLog
                                 dgvMACTSubParts(0, i).Value = AppNum
                                 dgvMACTSubParts(4, i).Value = "Removed"
                                 temp = "Removed"
-                                With Me.dgvMACTSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.Tomato
-                                End With
+                                dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                             End If
                         Next
 
@@ -13281,9 +13058,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Removed"
                             dgvMACTSubParts.Rows.Add(dgvRow)
                             i = dgvMACTSubParts.Rows.Count - 1
-                            With Me.dgvMACTSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.Tomato
-                            End With
+                            dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                         End If
 
                         dgvRow = New DataGridViewRow
@@ -13297,9 +13072,7 @@ Public Class SSPPApplicationTrackingLog
                             If SubPart = dgvMACTSubParts(1, i).Value Then
                                 dgvMACTSubParts(4, i).Value = "Added"
                                 temp = "Added"
-                                With Me.dgvMACTSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightGreen
-                                End With
+                                dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                             End If
                         Next
                         If temp <> "Added" Then
@@ -13312,9 +13085,7 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Added"
                             dgvMACTSubParts.Rows.Add(dgvRow)
                             i = dgvMACTSubParts.Rows.Count - 1
-                            With Me.dgvMACTSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.LightGreen
-                            End With
+                            dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
                         End If
 
                         dgvRow = New DataGridViewRow
@@ -13325,9 +13096,7 @@ Public Class SSPPApplicationTrackingLog
                         dgvRow.Cells(3).Value = "Added"
                         dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
                         i = dgvMACTSubpartAddEdit.Rows.Count - 1
-                        With Me.dgvMACTSubpartAddEdit.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightGreen
-                        End With
+                        dgvMACTSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
 
                     Case "Modified"
                         temp = ""
@@ -13335,9 +13104,7 @@ Public Class SSPPApplicationTrackingLog
                             If SubPart = dgvMACTSubParts(1, i).Value Then
                                 dgvMACTSubParts(0, i).Value = AppNum
                                 temp = "Modify"
-                                With Me.dgvMACTSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightBlue
-                                End With
+                                dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                             End If
                         Next
 
@@ -13368,8 +13135,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvMACTSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvMACTSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -13399,16 +13165,12 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvMACTSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
-                        dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvMACTSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
+                    dgvMACTSubPartDelete.Rows.Add(dgvRow)
+                    dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Else
                 If Action <> "Added" Then
@@ -13417,9 +13179,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(1).Value = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
 
                     dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
+                    dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             End If
 
@@ -13434,8 +13194,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
 
 
-            If dgvMACTSubPartDelete.CurrentRow IsNot Nothing Then
-            Else
+            If dgvMACTSubPartDelete.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -13446,9 +13205,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvMACTSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvMACTSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                 dgvMACTSubPartDelete.Rows.Remove(dgvMACTSubPartDelete.CurrentRow)
             End If
 
@@ -13490,17 +13247,13 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvMACTSubPartDelete)
-                        dgvRow.Cells(0).Value = dgvMACTSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvMACTSubParts(2, i).Value
-                        dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                        With Me.dgvMACTSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.Tomato
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvMACTSubPartDelete)
+                    dgvRow.Cells(0).Value = dgvMACTSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvMACTSubParts(2, i).Value
+                    dgvMACTSubPartDelete.Rows.Add(dgvRow)
+                    dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
                 End If
             Next
         Catch ex As Exception
@@ -13521,9 +13274,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvMACTSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvMACTSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvMACTSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -13544,9 +13295,7 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = j
                     End If
                 Next
-                With Me.dgvMACTSubParts.Rows(temp2)
-                    .DefaultCellStyle.BackColor = Color.White
-                End With
+                dgvMACTSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
             Next
             dgvMACTSubPartDelete.Rows.Clear()
         Catch ex As Exception
@@ -13562,7 +13311,7 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
 
-            If chbCDS_M.Checked = False Then
+            If Not chbCDS_M.Checked Then
                 MsgBox("The MACT Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
@@ -13594,9 +13343,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(4).Value = "Added"
                 dgvMACTSubParts.Rows.Add(dgvRow)
                 i = dgvMACTSubParts.Rows.Count - 1
-                With Me.dgvMACTSubParts.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
 
             temp2 = ""
@@ -13615,9 +13362,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(3).Value = "Added"
                 dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
                 i = dgvMACTSubpartAddEdit.Rows.Count - 1
-                With Me.dgvMACTSubpartAddEdit.Rows(i)
-                    .DefaultCellStyle.BackColor = Color.LightGreen
-                End With
+                dgvMACTSubpartAddEdit.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -13633,8 +13378,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvMACTSubParts.CurrentRow IsNot Nothing Then
-            Else
+            If dgvMACTSubParts.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -13664,18 +13408,14 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow.CreateCells(dgvMACTSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(1).Value = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(2).Value = dgvMACTSubParts(3, dgvMACTSubParts.CurrentRow.Index).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow.CreateCells(dgvMACTSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(1).Value = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(2).Value = dgvMACTSubParts(3, dgvMACTSubParts.CurrentRow.Index).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
+                    dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Else
                 If Action <> "Added" Then
@@ -13685,9 +13425,7 @@ Public Class SSPPApplicationTrackingLog
                     dgvRow.Cells(2).Value = dgvMACTSubParts(3, dgvMACTSubParts.CurrentRow.Index).Value
                     dgvRow.Cells(3).Value = "Modify"
                     dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
-                    With Me.dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.LightBlue
-                    End With
+                    dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             End If
 
@@ -13702,8 +13440,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If dgvMACTSubpartAddEdit.CurrentRow IsNot Nothing Then
-            Else
+            If dgvMACTSubpartAddEdit.CurrentRow Is Nothing Then
                 Return
             End If
 
@@ -13716,9 +13453,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If Action <> "Added" Then
-                    With Me.dgvMACTSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvMACTSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     dgvMACTSubpartAddEdit.Rows.Remove(dgvMACTSubpartAddEdit.CurrentRow)
                 End If
             End If
@@ -13760,19 +13495,15 @@ Public Class SSPPApplicationTrackingLog
                         temp2 = "Ignore"
                     End If
                 Next
-                If temp2 <> "Ignore" Then
-                    If Action <> "Added" Then
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvMACTSubpartAddEdit)
-                        dgvRow.Cells(0).Value = dgvMACTSubParts(1, i).Value
-                        dgvRow.Cells(1).Value = dgvMACTSubParts(2, i).Value
-                        dgvRow.Cells(2).Value = dgvMACTSubParts(3, i).Value
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
-                        With Me.dgvMACTSubParts.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightBlue
-                        End With
-                    End If
+                If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                    dgvRow = New DataGridViewRow
+                    dgvRow.CreateCells(dgvMACTSubpartAddEdit)
+                    dgvRow.Cells(0).Value = dgvMACTSubParts(1, i).Value
+                    dgvRow.Cells(1).Value = dgvMACTSubParts(2, i).Value
+                    dgvRow.Cells(2).Value = dgvMACTSubParts(3, i).Value
+                    dgvRow.Cells(3).Value = "Modify"
+                    dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
+                    dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
                 End If
             Next
         Catch ex As Exception
@@ -13789,13 +13520,9 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvMACTSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvMACTSubParts.Rows.Count - 1
-                    If dgvMACTSubParts(1, j).Value = Subpart Then
-                        If dgvMACTSubParts(4, j).Value = "Existing" Then
-                            With Me.dgvMACTSubParts.Rows(j)
-                                .DefaultCellStyle.BackColor = Color.White
-                            End With
-                            TempRemove = i & "," & TempRemove
-                        End If
+                    If dgvMACTSubParts(1, j).Value = Subpart AndAlso dgvMACTSubParts(4, j).Value = "Existing" Then
+                        dgvMACTSubParts.Rows(j).DefaultCellStyle.BackColor = Color.White
+                        TempRemove = i & "," & TempRemove
                     End If
                 Next
             Next
@@ -13803,7 +13530,7 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvMACTSubpartAddEdit.Rows.RemoveAt(i)
-                TempRemove = Replace(TempRemove, i & ",", "")
+                TempRemove = TempRemove?.Replace(i & ",", "")
             Loop
 
         Catch ex As Exception
@@ -13828,9 +13555,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 <> "" Then
-                    With Me.dgvMACTSubParts.Rows(temp2)
-                        .DefaultCellStyle.BackColor = Color.White
-                    End With
+                    dgvMACTSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
                     If Action = "Added" Then
                         dgvMACTSubParts.Rows.RemoveAt(temp2)
                     End If
@@ -13876,7 +13601,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub btnSaveMACTSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveMACTSubpart.Click
         Try
-            If chbCDS_M.Checked = False Then
+            If Not chbCDS_M.Checked Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code M - MACT. " &
                        "If you do not check this air program code the subparts cannot be saved.",
@@ -13902,75 +13627,63 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If FormStatus = "" Then
-                If chbCDS_0.CheckState = CheckState.Unchecked Then
-                    If dgvSIPSubParts.RowCount > 0 Then
+            If FormStatus = "" AndAlso chbCDS_0.CheckState = CheckState.Unchecked AndAlso dgvSIPSubParts.RowCount > 0 Then
 
-
-                        For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
-                            Subpart = dgvSIPSubpartAddEdit(0, i).Value
-                            temp2 = ""
-                            Action = ""
-                            For j = 0 To dgvSIPSubParts.Rows.Count - 1
-                                If dgvSIPSubParts(1, j).Value = Subpart Then
-                                    temp2 = j
-                                    Action = dgvSIPSubParts(4, j).Value
-                                End If
-                            Next
-                            If temp2 <> "" Then
-                                With Me.dgvSIPSubParts.Rows(temp2)
-                                    .DefaultCellStyle.BackColor = Color.White
-                                End With
-                                If Action = "Added" Then
-                                    dgvSIPSubParts.Rows.RemoveAt(temp2)
-                                End If
-                            End If
-                        Next
-                        dgvSIPSubpartAddEdit.Rows.Clear()
-
-                        For i = 0 To dgvSIPSubParts.Rows.Count - 1
-                            Subpart = dgvSIPSubParts(1, i).Value
-                            Action = dgvSIPSubParts(4, i).Value
-
-                            For j = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
-                                If dgvSIPSubpartAddEdit(0, j).Value = Subpart Then
-                                    temp2 = "Message"
-                                End If
-                            Next
-                            If temp2 = "Message" Then
-                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
-                                       "The subpart must be removed from this list before it can be deleted from the Facility.",
-                                       MsgBoxStyle.Exclamation, "Application Tracking Log")
-                                Return
-                            Else
-                                temp2 = ""
-                            End If
-
-                            temp2 = ""
-                            For j = 0 To dgvSIPSubPartDelete.Rows.Count - 1
-                                If dgvSIPSubPartDelete(0, j).Value = Subpart Then
-                                    temp2 = "Ignore"
-                                End If
-                            Next
-                            If temp2 <> "Ignore" Then
-                                If Action <> "Added" Then
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvSIPSubPartDelete)
-                                    dgvRow.Cells(0).Value = dgvSIPSubParts(1, i).Value
-                                    dgvRow.Cells(1).Value = dgvSIPSubParts(2, i).Value
-                                    dgvSIPSubPartDelete.Rows.Add(dgvRow)
-                                    With Me.dgvSIPSubParts.Rows(i)
-                                        .DefaultCellStyle.BackColor = Color.Tomato
-                                    End With
-                                End If
-                            End If
-                        Next
-
-                        SaveSIPSubpart()
-
-
+                For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
+                    Subpart = dgvSIPSubpartAddEdit(0, i).Value
+                    temp2 = ""
+                    Action = ""
+                    For j = 0 To dgvSIPSubParts.Rows.Count - 1
+                        If dgvSIPSubParts(1, j).Value = Subpart Then
+                            temp2 = j
+                            Action = dgvSIPSubParts(4, j).Value
+                        End If
+                    Next
+                    If temp2 <> "" Then
+                        dgvSIPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
+                        If Action = "Added" Then
+                            dgvSIPSubParts.Rows.RemoveAt(temp2)
+                        End If
                     End If
-                End If
+                Next
+                dgvSIPSubpartAddEdit.Rows.Clear()
+
+                For i = 0 To dgvSIPSubParts.Rows.Count - 1
+                    Subpart = dgvSIPSubParts(1, i).Value
+                    Action = dgvSIPSubParts(4, i).Value
+
+                    For j = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
+                        If dgvSIPSubpartAddEdit(0, j).Value = Subpart Then
+                            temp2 = "Message"
+                        End If
+                    Next
+                    If temp2 = "Message" Then
+                        MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
+                               "The subpart must be removed from this list before it can be deleted from the Facility.",
+                               MsgBoxStyle.Exclamation, "Application Tracking Log")
+                        Return
+                    Else
+                        temp2 = ""
+                    End If
+
+                    temp2 = ""
+                    For j = 0 To dgvSIPSubPartDelete.Rows.Count - 1
+                        If dgvSIPSubPartDelete(0, j).Value = Subpart Then
+                            temp2 = "Ignore"
+                        End If
+                    Next
+                    If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvSIPSubPartDelete)
+                        dgvRow.Cells(0).Value = dgvSIPSubParts(1, i).Value
+                        dgvRow.Cells(1).Value = dgvSIPSubParts(2, i).Value
+                        dgvSIPSubPartDelete.Rows.Add(dgvRow)
+                        dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
+                    End If
+                Next
+
+                SaveSIPSubpart()
+
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -13986,75 +13699,63 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If FormStatus = "" Then
-                If chbCDS_8.CheckState = CheckState.Unchecked Then
-                    If dgvNESHAPSubParts.RowCount > 0 Then
+            If FormStatus = "" AndAlso chbCDS_8.CheckState = CheckState.Unchecked AndAlso dgvNESHAPSubParts.RowCount > 0 Then
 
-
-                        For i = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
-                            Subpart = dgvNESHAPSubpartAddEdit(0, i).Value
-                            temp2 = ""
-                            Action = ""
-                            For j = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                                If dgvNESHAPSubParts(1, j).Value = Subpart Then
-                                    temp2 = j
-                                    Action = dgvNESHAPSubParts(4, j).Value
-                                End If
-                            Next
-                            If temp2 <> "" Then
-                                With Me.dgvNESHAPSubParts.Rows(temp2)
-                                    .DefaultCellStyle.BackColor = Color.White
-                                End With
-                                If Action = "Added" Then
-                                    dgvNESHAPSubParts.Rows.RemoveAt(temp2)
-                                End If
-                            End If
-                        Next
-                        dgvNESHAPSubpartAddEdit.Rows.Clear()
-
-                        For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                            Subpart = dgvNESHAPSubParts(1, i).Value
-                            Action = dgvNESHAPSubParts(4, i).Value
-
-                            For j = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
-                                If dgvNESHAPSubpartAddEdit(0, j).Value = Subpart Then
-                                    temp2 = "Message"
-                                End If
-                            Next
-                            If temp2 = "Message" Then
-                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
-                                       "The subpart must be removed from this list before it can be deleted from the Facility.",
-                                       MsgBoxStyle.Exclamation, "Application Tracking Log")
-                                Return
-                            Else
-                                temp2 = ""
-                            End If
-
-                            temp2 = ""
-                            For j = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
-                                If dgvNESHAPSubPartDelete(0, j).Value = Subpart Then
-                                    temp2 = "Ignore"
-                                End If
-                            Next
-                            If temp2 <> "Ignore" Then
-                                If Action <> "Added" Then
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvNESHAPSubPartDelete)
-                                    dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, i).Value
-                                    dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, i).Value
-                                    dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                                    With Me.dgvNESHAPSubParts.Rows(i)
-                                        .DefaultCellStyle.BackColor = Color.Tomato
-                                    End With
-                                End If
-                            End If
-                        Next
-
-                        SaveNESHAPSubpart()
-
-
+                For i = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
+                    Subpart = dgvNESHAPSubpartAddEdit(0, i).Value
+                    temp2 = ""
+                    Action = ""
+                    For j = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                        If dgvNESHAPSubParts(1, j).Value = Subpart Then
+                            temp2 = j
+                            Action = dgvNESHAPSubParts(4, j).Value
+                        End If
+                    Next
+                    If temp2 <> "" Then
+                        dgvNESHAPSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
+                        If Action = "Added" Then
+                            dgvNESHAPSubParts.Rows.RemoveAt(temp2)
+                        End If
                     End If
-                End If
+                Next
+                dgvNESHAPSubpartAddEdit.Rows.Clear()
+
+                For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                    Subpart = dgvNESHAPSubParts(1, i).Value
+                    Action = dgvNESHAPSubParts(4, i).Value
+
+                    For j = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
+                        If dgvNESHAPSubpartAddEdit(0, j).Value = Subpart Then
+                            temp2 = "Message"
+                        End If
+                    Next
+                    If temp2 = "Message" Then
+                        MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
+                               "The subpart must be removed from this list before it can be deleted from the Facility.",
+                               MsgBoxStyle.Exclamation, "Application Tracking Log")
+                        Return
+                    Else
+                        temp2 = ""
+                    End If
+
+                    temp2 = ""
+                    For j = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
+                        If dgvNESHAPSubPartDelete(0, j).Value = Subpart Then
+                            temp2 = "Ignore"
+                        End If
+                    Next
+                    If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvNESHAPSubPartDelete)
+                        dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, i).Value
+                        dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, i).Value
+                        dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
+                        dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
+                    End If
+                Next
+
+                SaveNESHAPSubpart()
+
             End If
 
         Catch ex As Exception
@@ -14071,75 +13772,63 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If FormStatus = "" Then
-                If chbCDS_9.CheckState = CheckState.Unchecked Then
-                    If dgvNSPSSubParts.RowCount > 0 Then
+            If FormStatus = "" AndAlso chbCDS_9.CheckState = CheckState.Unchecked AndAlso dgvNSPSSubParts.RowCount > 0 Then
 
-
-                        For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                            Subpart = dgvNSPSSubpartAddEdit(0, i).Value
-                            temp2 = ""
-                            Action = ""
-                            For j = 0 To dgvNSPSSubParts.Rows.Count - 1
-                                If dgvNSPSSubParts(1, j).Value = Subpart Then
-                                    temp2 = j
-                                    Action = dgvNSPSSubParts(4, j).Value
-                                End If
-                            Next
-                            If temp2 <> "" Then
-                                With Me.dgvNSPSSubParts.Rows(temp2)
-                                    .DefaultCellStyle.BackColor = Color.White
-                                End With
-                                If Action = "Added" Then
-                                    dgvNSPSSubParts.Rows.RemoveAt(temp2)
-                                End If
-                            End If
-                        Next
-                        dgvNSPSSubpartAddEdit.Rows.Clear()
-
-                        For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                            Subpart = dgvNSPSSubParts(1, i).Value
-                            Action = dgvNSPSSubParts(4, i).Value
-
-                            For j = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                                If dgvNSPSSubpartAddEdit(0, j).Value = Subpart Then
-                                    temp2 = "Message"
-                                End If
-                            Next
-                            If temp2 = "Message" Then
-                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
-                                       "The subpart must be removed from this list before it can be deleted from the Facility.",
-                                       MsgBoxStyle.Exclamation, "Application Tracking Log")
-                                Return
-                            Else
-                                temp2 = ""
-                            End If
-
-                            temp2 = ""
-                            For j = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
-                                If dgvNSPSSubPartDelete(0, j).Value = Subpart Then
-                                    temp2 = "Ignore"
-                                End If
-                            Next
-                            If temp2 <> "Ignore" Then
-                                If Action <> "Added" Then
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvNSPSSubPartDelete)
-                                    dgvRow.Cells(0).Value = dgvNSPSSubParts(1, i).Value
-                                    dgvRow.Cells(1).Value = dgvNSPSSubParts(2, i).Value
-                                    dgvNSPSSubPartDelete.Rows.Add(dgvRow)
-                                    With Me.dgvNSPSSubParts.Rows(i)
-                                        .DefaultCellStyle.BackColor = Color.Tomato
-                                    End With
-                                End If
-                            End If
-                        Next
-
-                        SaveNSPSSubpart()
-
-
+                For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
+                    Subpart = dgvNSPSSubpartAddEdit(0, i).Value
+                    temp2 = ""
+                    Action = ""
+                    For j = 0 To dgvNSPSSubParts.Rows.Count - 1
+                        If dgvNSPSSubParts(1, j).Value = Subpart Then
+                            temp2 = j
+                            Action = dgvNSPSSubParts(4, j).Value
+                        End If
+                    Next
+                    If temp2 <> "" Then
+                        dgvNSPSSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
+                        If Action = "Added" Then
+                            dgvNSPSSubParts.Rows.RemoveAt(temp2)
+                        End If
                     End If
-                End If
+                Next
+                dgvNSPSSubpartAddEdit.Rows.Clear()
+
+                For i = 0 To dgvNSPSSubParts.Rows.Count - 1
+                    Subpart = dgvNSPSSubParts(1, i).Value
+                    Action = dgvNSPSSubParts(4, i).Value
+
+                    For j = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
+                        If dgvNSPSSubpartAddEdit(0, j).Value = Subpart Then
+                            temp2 = "Message"
+                        End If
+                    Next
+                    If temp2 = "Message" Then
+                        MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
+                               "The subpart must be removed from this list before it can be deleted from the Facility.",
+                               MsgBoxStyle.Exclamation, "Application Tracking Log")
+                        Return
+                    Else
+                        temp2 = ""
+                    End If
+
+                    temp2 = ""
+                    For j = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
+                        If dgvNSPSSubPartDelete(0, j).Value = Subpart Then
+                            temp2 = "Ignore"
+                        End If
+                    Next
+                    If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvNSPSSubPartDelete)
+                        dgvRow.Cells(0).Value = dgvNSPSSubParts(1, i).Value
+                        dgvRow.Cells(1).Value = dgvNSPSSubParts(2, i).Value
+                        dgvNSPSSubPartDelete.Rows.Add(dgvRow)
+                        dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
+                    End If
+                Next
+
+                SaveNSPSSubpart()
+
             End If
 
         Catch ex As Exception
@@ -14156,74 +13845,63 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            If FormStatus = "" Then
-                If chbCDS_M.CheckState = CheckState.Unchecked Then
-                    If dgvMACTSubParts.RowCount > 0 Then
+            If FormStatus = "" AndAlso chbCDS_M.CheckState = CheckState.Unchecked AndAlso dgvMACTSubParts.RowCount > 0 Then
 
-
-                        For i = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
-                            Subpart = dgvMACTSubpartAddEdit(0, i).Value
-                            temp2 = ""
-                            Action = ""
-                            For j = 0 To dgvMACTSubParts.Rows.Count - 1
-                                If dgvMACTSubParts(1, j).Value = Subpart Then
-                                    temp2 = j
-                                    Action = dgvMACTSubParts(4, j).Value
-                                End If
-                            Next
-                            If temp2 <> "" Then
-                                With Me.dgvMACTSubParts.Rows(temp2)
-                                    .DefaultCellStyle.BackColor = Color.White
-                                End With
-                                If Action = "Added" Then
-                                    dgvMACTSubParts.Rows.RemoveAt(temp2)
-                                End If
-                            End If
-                        Next
-                        dgvMACTSubpartAddEdit.Rows.Clear()
-
-                        For i = 0 To dgvMACTSubParts.Rows.Count - 1
-                            Subpart = dgvMACTSubParts(1, i).Value
-                            Action = dgvMACTSubParts(4, i).Value
-
-                            For j = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
-                                If dgvMACTSubpartAddEdit(0, j).Value = Subpart Then
-                                    temp2 = "Message"
-                                End If
-                            Next
-                            If temp2 = "Message" Then
-                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
-                                       "The subpart must be removed from this list before it can be deleted from the Facility.",
-                                       MsgBoxStyle.Exclamation, "Application Tracking Log")
-                                Return
-                            Else
-                                temp2 = ""
-                            End If
-
-                            temp2 = ""
-                            For j = 0 To dgvMACTSubPartDelete.Rows.Count - 1
-                                If dgvMACTSubPartDelete(0, j).Value = Subpart Then
-                                    temp2 = "Ignore"
-                                End If
-                            Next
-                            If temp2 <> "Ignore" Then
-                                If Action <> "Added" Then
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvMACTSubPartDelete)
-                                    dgvRow.Cells(0).Value = dgvMACTSubParts(1, i).Value
-                                    dgvRow.Cells(1).Value = dgvMACTSubParts(2, i).Value
-                                    dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                                    With Me.dgvMACTSubParts.Rows(i)
-                                        .DefaultCellStyle.BackColor = Color.Tomato
-                                    End With
-                                End If
-                            End If
-                        Next
-
-                        SaveMACTSubpart()
-
+                For i = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
+                    Subpart = dgvMACTSubpartAddEdit(0, i).Value
+                    temp2 = ""
+                    Action = ""
+                    For j = 0 To dgvMACTSubParts.Rows.Count - 1
+                        If dgvMACTSubParts(1, j).Value = Subpart Then
+                            temp2 = j
+                            Action = dgvMACTSubParts(4, j).Value
+                        End If
+                    Next
+                    If temp2 <> "" Then
+                        dgvMACTSubParts.Rows(temp2).DefaultCellStyle.BackColor = Color.White
+                        If Action = "Added" Then
+                            dgvMACTSubParts.Rows.RemoveAt(temp2)
+                        End If
                     End If
-                End If
+                Next
+                dgvMACTSubpartAddEdit.Rows.Clear()
+
+                For i = 0 To dgvMACTSubParts.Rows.Count - 1
+                    Subpart = dgvMACTSubParts(1, i).Value
+                    Action = dgvMACTSubParts(4, i).Value
+
+                    For j = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
+                        If dgvMACTSubpartAddEdit(0, j).Value = Subpart Then
+                            temp2 = "Message"
+                        End If
+                    Next
+                    If temp2 = "Message" Then
+                        MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
+                               "The subpart must be removed from this list before it can be deleted from the Facility.",
+                               MsgBoxStyle.Exclamation, "Application Tracking Log")
+                        Return
+                    Else
+                        temp2 = ""
+                    End If
+
+                    temp2 = ""
+                    For j = 0 To dgvMACTSubPartDelete.Rows.Count - 1
+                        If dgvMACTSubPartDelete(0, j).Value = Subpart Then
+                            temp2 = "Ignore"
+                        End If
+                    Next
+                    If temp2 <> "Ignore" AndAlso Action <> "Added" Then
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvMACTSubPartDelete)
+                        dgvRow.Cells(0).Value = dgvMACTSubParts(1, i).Value
+                        dgvRow.Cells(1).Value = dgvMACTSubParts(2, i).Value
+                        dgvMACTSubPartDelete.Rows.Add(dgvRow)
+                        dgvMACTSubParts.Rows(i).DefaultCellStyle.BackColor = Color.Tomato
+                    End If
+                Next
+
+                SaveMACTSubpart()
+
             End If
 
         Catch ex As Exception
@@ -14389,57 +14067,57 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub AdjustFeesUI()
-        If AirsId Is Nothing Or AppNumber = 0 Then
+        If AirsId Is Nothing OrElse AppNumber = 0 Then
             TPFees.Enabled = False
         End If
 
         If Not UpdatingValues Then
 
             ' Application fees
-            chbAppFee.Enabled = FeeChangesAllowed And cmbAppFeeType.Items.Count > 0 And Not chbFeeDataFinalized.Checked
-            cmbAppFeeType.Enabled = chbAppFee.Enabled And Not chbAppFeeOverride.Checked
-            chbAppFeeOverride.Enabled = chbAppFee.Enabled And CurrentUser.HasPermission(UserCan.OverrideFeeAmount)
-            txtAppFeeOverrideReason.Enabled = chbAppFee.Enabled And CurrentUser.HasPermission(UserCan.OverrideFeeAmount)
+            chbAppFee.Enabled = FeeChangesAllowed AndAlso cmbAppFeeType.Items.Count > 0 AndAlso Not chbFeeDataFinalized.Checked
+            cmbAppFeeType.Enabled = chbAppFee.Enabled AndAlso Not chbAppFeeOverride.Checked
+            chbAppFeeOverride.Enabled = chbAppFee.Enabled AndAlso CurrentUser.HasPermission(UserCan.OverrideFeeAmount)
+            txtAppFeeOverrideReason.Enabled = chbAppFee.Enabled AndAlso CurrentUser.HasPermission(UserCan.OverrideFeeAmount)
 
             cmbAppFeeType.Visible = chbAppFee.Checked
             lblAppFee.Visible = chbAppFee.Checked
             txtAppFeeAmount.Visible = chbAppFee.Checked
-            txtAppFeeAmount.ReadOnly = chbFeeDataFinalized.Checked OrElse Not (chbAppFeeOverride.Checked And CurrentUser.HasPermission(UserCan.OverrideFeeAmount))
-            chbAppFeeOverride.Visible = chbAppFee.Checked And (chbAppFeeOverride.Checked Or CurrentUser.HasPermission(UserCan.OverrideFeeAmount))
-            txtAppFeeOverrideReason.Visible = chbAppFeeOverride.Checked And chbAppFee.Checked
+            txtAppFeeAmount.ReadOnly = chbFeeDataFinalized.Checked OrElse Not (chbAppFeeOverride.Checked AndAlso CurrentUser.HasPermission(UserCan.OverrideFeeAmount))
+            chbAppFeeOverride.Visible = chbAppFee.Checked AndAlso (chbAppFeeOverride.Checked OrElse CurrentUser.HasPermission(UserCan.OverrideFeeAmount))
+            txtAppFeeOverrideReason.Visible = chbAppFeeOverride.Checked AndAlso chbAppFee.Checked
 
             ' Expedited fees
-            chbExpFee.Enabled = FeeChangesAllowed And cmbExpFeeType.Items.Count > 0 And Not chbFeeDataFinalized.Checked
-            cmbExpFeeType.Enabled = chbExpFee.Enabled And Not chbExpFeeOverride.Checked
-            chbExpFeeOverride.Enabled = chbExpFee.Enabled And CurrentUser.HasPermission(UserCan.OverrideFeeAmount)
-            txtExpFeeOverrideReason.Enabled = chbExpFee.Enabled And CurrentUser.HasPermission(UserCan.OverrideFeeAmount)
+            chbExpFee.Enabled = FeeChangesAllowed AndAlso cmbExpFeeType.Items.Count > 0 AndAlso Not chbFeeDataFinalized.Checked
+            cmbExpFeeType.Enabled = chbExpFee.Enabled AndAlso Not chbExpFeeOverride.Checked
+            chbExpFeeOverride.Enabled = chbExpFee.Enabled AndAlso CurrentUser.HasPermission(UserCan.OverrideFeeAmount)
+            txtExpFeeOverrideReason.Enabled = chbExpFee.Enabled AndAlso CurrentUser.HasPermission(UserCan.OverrideFeeAmount)
 
             cmbExpFeeType.Visible = chbExpFee.Checked
             lblExpFee.Visible = chbExpFee.Checked
             txtExpFeeAmount.Visible = chbExpFee.Checked
-            txtExpFeeAmount.ReadOnly = chbFeeDataFinalized.Checked OrElse Not (chbExpFeeOverride.Checked And CurrentUser.HasPermission(UserCan.OverrideFeeAmount))
-            chbExpFeeOverride.Visible = chbExpFee.Checked And (chbExpFeeOverride.Checked Or CurrentUser.HasPermission(UserCan.OverrideFeeAmount))
-            txtExpFeeOverrideReason.Visible = chbExpFeeOverride.Checked And chbExpFee.Checked
+            txtExpFeeAmount.ReadOnly = chbFeeDataFinalized.Checked OrElse Not (chbExpFeeOverride.Checked AndAlso CurrentUser.HasPermission(UserCan.OverrideFeeAmount))
+            chbExpFeeOverride.Visible = chbExpFee.Checked AndAlso (chbExpFeeOverride.Checked OrElse CurrentUser.HasPermission(UserCan.OverrideFeeAmount))
+            txtExpFeeOverrideReason.Visible = chbExpFeeOverride.Checked AndAlso chbExpFee.Checked
 
             ' Invoicing
-            chbFeeDataFinalized.Visible = FeeChangesAllowed And TotalFeeAmount > 0 And (chbAppFee.Checked Or chbExpFee.Checked)
+            chbFeeDataFinalized.Visible = FeeChangesAllowed AndAlso TotalFeeAmount > 0 AndAlso (chbAppFee.Checked OrElse chbExpFee.Checked)
             dtpFacilityFeeNotified.Enabled = FeeChangesAllowed
 
-            lklGenerateEmail.Visible = chbFeeDataFinalized.Checked And TotalFeeAmount > 0
+            lklGenerateEmail.Visible = chbFeeDataFinalized.Checked AndAlso TotalFeeAmount > 0
             lblFeeDataFinalized.Visible = chbFeeDataFinalized.Checked
             dtpFeeDataFinalized.Visible = chbFeeDataFinalized.Checked
-            lblFacilityFeeNotified.Visible = chbFeeDataFinalized.Checked And (chbAppFee.Checked Or chbExpFee.Checked)
-            dtpFacilityFeeNotified.Visible = chbFeeDataFinalized.Checked And (chbAppFee.Checked Or chbExpFee.Checked)
-            lblFeeChangesNotAllowed.Visible = TotalFeeAmount > 0 And Not FeeChangesAllowed
+            lblFacilityFeeNotified.Visible = chbFeeDataFinalized.Checked AndAlso (chbAppFee.Checked OrElse chbExpFee.Checked)
+            dtpFacilityFeeNotified.Visible = chbFeeDataFinalized.Checked AndAlso (chbAppFee.Checked OrElse chbExpFee.Checked)
+            lblFeeChangesNotAllowed.Visible = TotalFeeAmount > 0 AndAlso Not FeeChangesAllowed
 
             ' Fees not applicable labels
-            If chbAppFee.Enabled Or chbAppFee.Checked Then
+            If chbAppFee.Enabled OrElse chbAppFee.Checked Then
                 chbAppFee.Text = "Permit Application Fee"
             Else
                 chbAppFee.Text = "No Permit Application Fees Applicable"
             End If
 
-            If chbExpFee.Enabled Or chbExpFee.Checked Then
+            If chbExpFee.Enabled OrElse chbExpFee.Checked Then
                 chbExpFee.Text = "Expedited Review"
             Else
                 chbExpFee.Text = "No Expedited Review Fees Applicable"
@@ -14453,7 +14131,7 @@ Public Class SSPPApplicationTrackingLog
 
         Dim feeRates As List(Of FeeRateItem) = FeeRateItemsAsOf(DTPDateReceived.Value)
 
-        Dim currentFeeDataFinalized As Boolean = chbFeeDataFinalized.Checked And Not (cmbAppFeeType.Items.Count = 0 And cmbExpFeeType.Items.Count = 0)
+        Dim currentFeeDataFinalized As Boolean = chbFeeDataFinalized.Checked AndAlso Not (cmbAppFeeType.Items.Count = 0 AndAlso cmbExpFeeType.Items.Count = 0)
 
         ' Application Fees
         Dim currentFeeTypeSelection As Integer = -1
@@ -14495,7 +14173,7 @@ Public Class SSPPApplicationTrackingLog
             cmbExpFeeType.SelectedIndex = -1
         End If
 
-        If CType(cmbAppFeeType.DataSource, ICollection).Count = 0 And CType(cmbExpFeeType.DataSource, ICollection).Count = 0 Then
+        If CType(cmbAppFeeType.DataSource, ICollection).Count = 0 AndAlso CType(cmbExpFeeType.DataSource, ICollection).Count = 0 Then
             chbFeeDataFinalized.Checked = True
         Else
             chbFeeDataFinalized.Checked = currentFeeDataFinalized
@@ -14506,7 +14184,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SaveApplicationFees()
-        If AirsId Is Nothing Or AppNumber = 0 Or Not FeeChangesAllowed Then
+        If AirsId Is Nothing OrElse AppNumber = 0 OrElse Not FeeChangesAllowed Then
             Return
         End If
 
@@ -14585,7 +14263,7 @@ Public Class SSPPApplicationTrackingLog
             ' Invoicing
             RemoveHandler chbFeeDataFinalized.CheckedChanged, AddressOf chbFeeDataFinalized_CheckedChanged
 
-            If cmbAppFeeType.Items.Count = 0 And cmbExpFeeType.Items.Count = 0 Then
+            If cmbAppFeeType.Items.Count = 0 AndAlso cmbExpFeeType.Items.Count = 0 Then
                 chbFeeDataFinalized.Checked = True
             Else
                 chbFeeDataFinalized.Checked = .FeeDataFinalized
