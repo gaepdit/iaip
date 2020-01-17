@@ -43,12 +43,14 @@ save the contents of the bin folder somewhere, and add this folder to your PATH
 environment variable (make sure it appears before "%SystemRoot%\system32"). 
 
 Then disable the copy of curl.exe in the `C:\Program Files\Git\mingw64\bin`
-folder (I just renamed mine to `x-curl.exe`). You can use the `fix-curl.bat`
-script for this purpose. *(NOTE: You will have to repeat this
-step any time Git is updated.)*
+folder (I just renamed it to `x-curl.exe`). You can use the `fix-curl.bat`
+script for this purpose. 
+
+*(NOTE: You will have to fix curl **every** time Git is updated.)*
 
 ### Notes
 
-The publish script only succeeds if your repository is clean (there are no
-uncommitted changes). It first calls the build script, which will ensure all
-changes to the Markdown files are correctly reflected in the HTML files.
+The publish script only succeeds if your repository is clean (i.e., there are
+no uncommitted changes). It first calls the build script, which will ensure 
+all changes to the Markdown files are correctly reflected in the HTML files
+before publishing.
