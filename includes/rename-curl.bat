@@ -1,1 +1,1 @@
-RENAME "C:\Program Files\Git\mingw64\bin\curl.exe" "x-curl.exe"
+RENAME "C:\Program Files\Git\mingw64\bin\curl.exe" x-curl.%date:~-4%-%date:~4,2%-%date:~7,2%.exe
