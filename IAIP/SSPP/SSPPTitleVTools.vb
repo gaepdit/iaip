@@ -1054,7 +1054,7 @@ Public Class SSPPTitleVTools
             Dim temp As String = ""
             Dim strObject As Object
 
-            If clbTitleVEmailList.Items.Count > 0 Then
+            If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
                 txtEmailLetter.Text = "In accordance with Georgia's Title V Implementation Agreement, attached are the public notices for the " &
                 "draft/proposed permits and amendments for the following sources: " & vbCrLf & vbCrLf
 
@@ -1229,7 +1229,7 @@ Public Class SSPPTitleVTools
 
             Else
                 txtEmailLetter.Clear()
-                MsgBox("Click Preview button first.", MsgBoxStyle.Information, "Title V Emails.")
+                MsgBox("Click preview button first and ensure at least one applications is selected.", MsgBoxStyle.Information, "Title V Emails.")
             End If
 
         Catch ex As Exception
@@ -1252,7 +1252,7 @@ Public Class SSPPTitleVTools
             Dim temp As String = ""
             Dim strObject As Object
 
-            If clbTitleVEmailList.Items.Count > 0 Then
+            If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.8(b)(1), attached are the public notices for the draft/proposed permits and " &
                 "amendments for the following sources: " & vbCrLf & vbCrLf
 
@@ -1420,7 +1420,7 @@ Public Class SSPPTitleVTools
 
             Else
                 txtEmailLetter.Clear()
-                MsgBox("Click Preview button first.", MsgBoxStyle.Information, "Title V Emails.")
+                MsgBox("Click preview button first and ensure at least one applications is selected.", MsgBoxStyle.Information, "Title V Emails.")
             End If
 
 
@@ -1634,7 +1634,7 @@ Public Class SSPPTitleVTools
             Dim temp As String = ""
             Dim strObject As Object
 
-            If clbTitleVEmailList.Items.Count > 0 Then
+            If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
                 txtEmailLetter.Text = "In accordance with Georgia's Title V Implementation Agreement, attached is the proposed Part " &
                 "70 permit modification and permit amendment narrative for the following: " & vbCrLf & vbCrLf
 
@@ -1797,7 +1797,7 @@ Public Class SSPPTitleVTools
 
             Else
                 txtEmailLetter.Clear()
-                MsgBox("Click Preview button first.", MsgBoxStyle.Information, "Title V Emails.")
+                MsgBox("Click preview button first and ensure at least one applications is selected.", MsgBoxStyle.Information, "Title V Emails.")
             End If
 
 
@@ -1821,7 +1821,7 @@ Public Class SSPPTitleVTools
             Dim temp As String = ""
             Dim strObject As Object
 
-            If clbTitleVEmailList.Items.Count > 0 Then
+            If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.8(b)(1), attached is the proposed Part 70 permit modification and  " &
                 "permit amendment narrative for the following source: " & vbCrLf & vbCrLf
 
@@ -1982,7 +1982,7 @@ Public Class SSPPTitleVTools
 
             Else
                 txtEmailLetter.Clear()
-                MsgBox("Click Preview button first.", MsgBoxStyle.Information, "Title V Emails.")
+                MsgBox("Click preview button first and ensure at least one applications is selected.", MsgBoxStyle.Information, "Title V Emails.")
             End If
 
 
@@ -2204,7 +2204,7 @@ Public Class SSPPTitleVTools
             Dim temp As String = ""
             Dim strObject As Object
 
-            If clbTitleVEmailList.Items.Count > 0 Then
+            If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
                 txtEmailLetter.Text = "In accordance with condition V.A.1.a of Georgia's Title V Agreement, the final Part 70 " &
                 "Permits were issued to the following sources:" & vbCrLf & vbCrLf
 
@@ -2391,7 +2391,7 @@ Public Class SSPPTitleVTools
 
             Else
                 txtEmailLetter.Clear()
-                MsgBox("Click Preview button first.", MsgBoxStyle.Information, "Title V Emails.")
+                MsgBox("Click preview button first and ensure at least one applications is selected.", MsgBoxStyle.Information, "Title V Emails.")
             End If
 
 

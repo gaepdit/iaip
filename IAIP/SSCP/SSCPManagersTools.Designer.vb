@@ -744,18 +744,18 @@ Partial Class SSCPManagersTools
         Me.rdbCmsMega.AutoSize = True
         Me.rdbCmsMega.Location = New System.Drawing.Point(6, 65)
         Me.rdbCmsMega.Name = "rdbCmsMega"
-        Me.rdbCmsMega.Size = New System.Drawing.Size(78, 17)
+        Me.rdbCmsMega.Size = New System.Drawing.Size(89, 17)
         Me.rdbCmsMega.TabIndex = 29
-        Me.rdbCmsMega.Text = "CMS-Mega"
+        Me.rdbCmsMega.Text = "M - Mega-site"
         '
         'rdbCMS_None
         '
         Me.rdbCMS_None.AutoSize = True
         Me.rdbCMS_None.Location = New System.Drawing.Point(98, 19)
         Me.rdbCMS_None.Name = "rdbCMS_None"
-        Me.rdbCMS_None.Size = New System.Drawing.Size(67, 17)
+        Me.rdbCMS_None.Size = New System.Drawing.Size(65, 17)
         Me.rdbCMS_None.TabIndex = 29
-        Me.rdbCMS_None.Text = "NO CMS"
+        Me.rdbCMS_None.Text = "No CMS"
         '
         'btnSaveCMS
         '
@@ -772,18 +772,18 @@ Partial Class SSCPManagersTools
         Me.rdbCMS_SM.AutoSize = True
         Me.rdbCMS_SM.Location = New System.Drawing.Point(6, 42)
         Me.rdbCMS_SM.Name = "rdbCMS_SM"
-        Me.rdbCMS_SM.Size = New System.Drawing.Size(67, 17)
+        Me.rdbCMS_SM.Size = New System.Drawing.Size(122, 17)
         Me.rdbCMS_SM.TabIndex = 27
-        Me.rdbCMS_SM.Text = "CMS-SM"
+        Me.rdbCMS_SM.Text = "SM - Synthetic minor"
         '
         'rdbCMS_A
         '
         Me.rdbCMS_A.AutoSize = True
         Me.rdbCMS_A.Location = New System.Drawing.Point(6, 19)
         Me.rdbCMS_A.Name = "rdbCMS_A"
-        Me.rdbCMS_A.Size = New System.Drawing.Size(58, 17)
+        Me.rdbCMS_A.Size = New System.Drawing.Size(67, 17)
         Me.rdbCMS_A.TabIndex = 26
-        Me.rdbCMS_A.Text = "CMS-A"
+        Me.rdbCMS_A.Text = "A - Major"
         '
         'btnClearSSCPUnitAssignment
         '
