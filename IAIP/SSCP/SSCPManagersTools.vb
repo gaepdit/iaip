@@ -398,31 +398,30 @@ Public Class SSCPManagersTools
         Try
             Dim CMSState As String = Nothing
 
-            If rdbCMSClassA.Checked Or rdbCMSClassS.Checked Or rdbCMSClassM.Checked Or rdbCMSClassNone.Checked Then
-                If rdbCMSClassA.Checked Then
-                    CMSState = "A"
-                ElseIf rdbCMSClassS.Checked Then
-                    CMSState = "S"
-                ElseIf rdbCMSClassM.Checked Then
-                    CMSState = "M"
-                End If
-
-                Dim SQL As String = "Update APBSupplamentalData set " &
-                    "strCMSMember = @r " &
-                    "where strAIRSNumber = @airs "
-
-                Dim params As SqlParameter() = {
-                    New SqlParameter("@airs", "0413" & txtCMSAIRSNumber.Text),
-                    New SqlParameter("@r", CMSState)
-                }
-
-                If DB.RunCommand(SQL, params) Then
-                    MessageBox.Show("CMS status saved", "Success")
-                Else
-                    MessageBox.Show("There was an error saving the CMS status", "Error")
-                End If
-            Else
+            If rdbCMSClassA.Checked Then
+                CMSState = "A"
+            ElseIf rdbCMSClassS.Checked Then
+                CMSState = "S"
+            ElseIf rdbCMSClassM.Checked Then
+                CMSState = "M"
+            ElseIf Not rdbCMSClassNone.Checked Then
                 MsgBox("Select a CMS status first.", MsgBoxStyle.Information, "SSCP Managers Tools")
+                Return
+            End If
+
+            Dim SQL As String = "Update APBSupplamentalData set " &
+                "strCMSMember = @r " &
+                "where strAIRSNumber = @airs "
+
+            Dim params As SqlParameter() = {
+                New SqlParameter("@airs", "0413" & txtCMSAIRSNumber.Text),
+                New SqlParameter("@r", CMSState)
+            }
+
+            If DB.RunCommand(SQL, params) Then
+                MessageBox.Show("CMS status saved", "Success")
+            Else
+                MessageBox.Show("There was an error saving the CMS status", "Error")
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1687,7 +1686,7 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(cint(checkedItem.Item("UserID")))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
                 selectedStaff.Add(CInt(checkedItem.Item("UserID")))
@@ -2698,8 +2697,7 @@ Public Class SSCPManagersTools
                 Return
             End If
 
-            Dim SQL As String
-            Dim CMSStatus As String = "X"
+            Dim CMSStatus As String = Nothing
 
             If rdbCMS_A.Checked Then
                 CMSStatus = "A"
@@ -2707,10 +2705,13 @@ Public Class SSCPManagersTools
                 CMSStatus = "S"
             ElseIf rdbCmsMega.Checked Then
                 CMSStatus = "M"
+            ElseIf Not rdbCMS_None.Checked Then
+                MsgBox("Select a CMS status first.", MsgBoxStyle.Information, "SSCP Managers Tools")
+                Return
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
-                SQL = "Update APBSupplamentalData set " &
+                Dim SQL As String = "Update APBSupplamentalData set " &
                     "strCMSMember = @c " &
                     "where strAIRSNumber = @airs "
 
@@ -2719,12 +2720,14 @@ Public Class SSCPManagersTools
                     New SqlParameter("@airs", "0413" & row.Cells(0).Value.ToString)
                 }
 
-                DB.RunCommand(SQL, parameters)
-
-                row.Cells(9).Value = CMSStatus
+                If DB.RunCommand(SQL, parameters) Then
+                    row.Cells(9).Value = CMSStatus
+                    MessageBox.Show("CMS status saved", "Success")
+                Else
+                    MessageBox.Show("There was an error saving the CMS status", "Error")
+                End If
             Next
 
-            MsgBox("CMS Status Updated", MsgBoxStyle.Information, "Managers Tools")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
