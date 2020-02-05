@@ -3,11 +3,13 @@ Imports System.Reflection
 Imports System.Runtime.CompilerServices
 Imports ClosedXML.Excel
 
-Module ExcelExport
+Public Module ExcelExport
 
 #Region " DataGridView Extension "
 
-    <Extension()>
+    Private ReadOnly BaseDate As Date = New Date(1900, 1, 1)
+
+    <Extension>
     Public Sub ExportToExcel(dataGridView As DataGridView, Optional sender As Object = Nothing)
         If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then
             MessageBox.Show("Table is empty", "Nothing to export", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -53,7 +55,7 @@ Module ExcelExport
 
 #Region " DataTable Extension "
 
-    <Extension()>
+    <Extension>
     Public Sub ExportToExcel(dataTable As DataTable, Optional sender As Object = Nothing)
         If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then
             MessageBox.Show("Table is empty.", "Nothing to export", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -118,19 +120,19 @@ Module ExcelExport
     ''' Saves a DataTable to an Excel file on the first sheet
     ''' </summary>
     ''' <param name="filePath">The Excel file to create</param>
-    ''' <param name="dataTable">DataTable to write to Excel file</param>
+    ''' <param name="table">DataTable to write to Excel file</param>
     ''' <returns>True if file successfully created; otherwise, false</returns>
-    Private Function CreateExcelFileFromDataTable(filePath As String, dataTable As DataTable) As CreateExcelFileResult
-        If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Return CreateExcelFileResult.DataTableEmpty
+    Private Function CreateExcelFileFromDataTable(filePath As String, table As DataTable) As CreateExcelFileResult
+        If table Is Nothing OrElse table.Rows.Count = 0 Then Return CreateExcelFileResult.DataTableEmpty
 
-        If String.IsNullOrWhiteSpace(dataTable.TableName) Then
-            dataTable.TableName = "Sheet1"
+        If String.IsNullOrWhiteSpace(table.TableName) Then
+            table.TableName = "Sheet1"
         End If
 
         ' Create Excel Workbook 
         Using workbook As New XLWorkbook()
 
-            workbook.AddWorksheet(dataTable)
+            workbook.AddWorksheetWithFixedDates(table)
 
             Try
                 workbook.SaveAs(filePath)
@@ -148,6 +150,47 @@ Module ExcelExport
 
             Return CreateExcelFileResult.Success
         End Using
+    End Function
+
+    ''' <summary>
+    ''' Adds a Worksheet to a Workbook and fills it with values from the DataTable.
+    ''' If the DataTable includes Date column, checks that values are not outside
+    ''' the allowable range for Excel dates. Invalid dates are replaced with empty
+    ''' cells.
+    ''' </summary>
+    ''' <param name="workbook">The Workbook to add the DataTable to.</param>
+    ''' <param name="table">The DataTable to add to the Workbook as a Worksheet.</param>
+    ''' <returns>Returns a reference to the added worksheet.</returns>
+    <Extension>
+    Public Function AddWorksheetWithFixedDates(workbook As XLWorkbook, table As DataTable) As IXLWorksheet
+        If workbook Is Nothing Then
+            Throw New ArgumentNullException(NameOf(workbook))
+        End If
+
+        If table Is Nothing Then
+            Throw New ArgumentNullException(NameOf(table))
+        End If
+
+        For Each col As DataColumn In table.Columns
+            If col.IsDateTime() Then
+                For Each row As DataRow In table.Rows
+                    If CDate(row(col.ColumnName)) < BaseDate Then
+                        row(col.ColumnName) = DBNull.Value
+                    End If
+                Next
+            End If
+        Next
+
+        Return workbook.AddWorksheet(table)
+    End Function
+
+    <Extension>
+    Public Function IsDateTime(col As DataColumn) As Boolean
+        If col Is Nothing Then
+            Throw New ArgumentNullException(NameOf(col))
+        End If
+
+        Return col.DataType Is GetType(Date)
     End Function
 
     Enum CreateExcelFileResult
