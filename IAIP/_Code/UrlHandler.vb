@@ -87,7 +87,7 @@ Public Module UrlHandler
     Private Function OpenUri(uriString As String, Optional sender As Object = Nothing, Optional isMailto As Boolean = False) As Boolean
         ' Reference: https://faithlife.codes/blog/2008/01/using_processstart_to_link_to/
         Try
-            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            If TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Cursors.AppStarting
             End If
 
@@ -102,7 +102,7 @@ Public Module UrlHandler
         TypeOf ee Is IO.FileNotFoundException
             Return False
         Finally
-            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            If TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Nothing
             End If
         End Try

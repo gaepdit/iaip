@@ -60,7 +60,7 @@ Module ExcelExport
             Exit Sub
         End If
 
-        If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+        If TypeOf sender Is Form Then
             CType(sender, Form).Cursor = Cursors.AppStarting
         End If
 
@@ -89,7 +89,7 @@ Module ExcelExport
 
         End Select
 
-        If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+        If TypeOf sender Is Form Then
             CType(sender, Form).Cursor = Nothing
         End If
     End Sub
