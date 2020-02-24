@@ -518,13 +518,23 @@ Public Class SSPPPermitUploader
                     End If
 
                     Dim fs As FileStream
-                    If DocLocation <> "" And Mid(Flag, 1, 1) = "1" Then
-                        fs = New FileStream(DocLocation, FileMode.OpenOrCreate, FileAccess.Read)
-                    ElseIf DocxLocation <> "" And Mid(Flag, 1, 1) = "1" Then
-                        fs = New FileStream(DocxLocation, FileMode.OpenOrCreate, FileAccess.Read)
-                    Else
-                        fs = New FileStream(PDFLocation, FileMode.OpenOrCreate, FileAccess.Read)
-                    End If
+
+                    Try
+                        If DocLocation <> "" AndAlso Mid(Flag, 1, 1) = "1" Then
+                            fs = New FileStream(DocLocation, FileMode.OpenOrCreate, FileAccess.Read)
+                        ElseIf DocxLocation <> "" AndAlso Mid(Flag, 1, 1) = "1" Then
+                            fs = New FileStream(DocxLocation, FileMode.OpenOrCreate, FileAccess.Read)
+                        Else
+                            fs = New FileStream(PDFLocation, FileMode.OpenOrCreate, FileAccess.Read)
+                        End If
+                    Catch ex As IOException
+                        If ex.Message.Contains("it is being used by another process") Then
+                            MessageBox.Show("The file is currently in use. Please close the file and try again.")
+                            Return
+                        Else
+                            Throw
+                        End If
+                    End Try
 
                     Dim rawData As Byte() = New Byte(fs.Length) {}
                     If DocxLocation <> "" Then
