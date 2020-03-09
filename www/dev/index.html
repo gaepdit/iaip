@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>IAIP Development Version Installation Page</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Coming+Soon|Lato:400,400italic,700">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=69kRrvbXdL">
+  <link rel="icon" type="image/png" href="/favicon-32x32.png?v=69kRrvbXdL" sizes="32x32">
+  <link rel="icon" type="image/png" href="/favicon-16x16.png?v=69kRrvbXdL" sizes="16x16">
+  <link rel="manifest" href="/manifest.json?v=69kRrvbXdL">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=69kRrvbXdL" color="#5bbad5">
+  <link rel="shortcut icon" href="/favicon.ico?v=69kRrvbXdL">
+  <meta name="theme-color" content="#e5f6fa">
+  <link rel="stylesheet" href="//georgia.gov/profiles/georgiagov/modules/custom/gagov_external_blocks/css/gagov_external_blocks-topper.css" />
+  <link rel="stylesheet" href="//georgia.gov/profiles/georgiagov/modules/custom/gagov_external_blocks/css/gagov_external_blocks-footer.css" />
+</head>
+<body class="">
+<script type="text/javascript" src="//georgia.gov/gagov_external_blocks/topper"></script>
+<div class="wrapper">
+<header>
+<h1 class="title">IAIP Development Version Installation Page</h1>
+</header>
+<p>Click the button to download and run the setup file.</p>
+<p><a href="IaipDev.application">Download the IAIP Dev Edition</a></p>
+<h2 id="important-notes-please-read">Important Notes – Please Read</h2>
+<p>The IAIP Development Edition is for EPD IT testing use only. If you don’t work for EPD IT, you’re in the wrong place!</p>
+<p>The Dev version of the IAIP can be installed side-by-side with the production and/or UAT versions of the IAIP. They can be used simultaneously and will not interfere with each other. The Dev version will <em>only</em> access the Dev database, so no changes to production data can be made.</p>
+<pre class="mermaid">
+graph TD;
+    A[fa:fa-desktop IAIP] --> B(fa:fa-database production database);
+    C[fa:fa-desktop IAIP UAT] --> D(fa:fa-database test database);
+    E[fa:fa-desktop IAIP Dev] --> F(fa:fa-database dev database);
+</pre>
+<script src="https://use.fontawesome.com/73014ea0c4.js"></script>
+<script src="https://unpkg.com/mermaid@8.0.0-rc.8/dist/mermaid.min.js"></script>
+<script>
+    var config = {
+        startOnLoad:true,
+        flowchart:{htmlLabels:true}
+    };
+    mermaid.initialize(config);
+</script>
+</div>
+<script type="text/javascript" src="//georgia.gov/gagov_external_blocks/footer"></script>
+<script src="//instant.page/2.0.0" type="module" defer integrity="sha384-D7B5eODAUd397+f4zNFAVlnDNDtO1ppV8rPnfygILQXhqu3cUndgHvlcJR2Bhig8"></script>
+</body>
+</html>
