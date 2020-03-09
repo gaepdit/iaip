@@ -7,5 +7,5 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg?v=69kRrvbXdL" color="#5bbad5">
 <link rel="shortcut icon" href="/favicon.ico?v=69kRrvbXdL">
 <meta name="theme-color" content="#e5f6fa">
-<link rel="stylesheet" href="//georgia.gov/profiles/georgiagov/modules/custom/gagov_external_blocks/css/gagov_external_blocks-topper.css" />
-<link rel="stylesheet" href="//georgia.gov/profiles/georgiagov/modules/custom/gagov_external_blocks/css/gagov_external_blocks-footer.css" />
+<link rel="stylesheet" href="//www.georgia.gov/profiles/georgiagov/modules/custom/gagov_external_blocks/css/gagov_external_blocks-topper.css" />
+<link rel="stylesheet" href="//www.georgia.gov/profiles/georgiagov/modules/custom/gagov_external_blocks/css/gagov_external_blocks-footer.css" />
