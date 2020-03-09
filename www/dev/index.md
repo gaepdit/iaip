@@ -15,8 +15,11 @@ The Dev version of the IAIP can be installed side-by-side with the production an
 <pre class="mermaid">
 graph TD;
     A[fa:fa-desktop IAIP] --> B(fa:fa-database production database);
+    G[fa:fa-laptop GECO] --> B;
     C[fa:fa-desktop IAIP UAT] --> D(fa:fa-database test database);
+    H[fa:fa-laptop GECO UAT] --> D;
     E[fa:fa-desktop IAIP Dev] --> F(fa:fa-database dev database);
+    I[fa:fa-laptop GECO Dev] --> F;
 </pre>
 
 <script src="https://use.fontawesome.com/73014ea0c4.js"></script>

@@ -17,7 +17,9 @@ The UAT version of the IAIP can be installed side-by-side with the production ve
 <pre class="mermaid">
 graph TD;
     A[fa:fa-desktop IAIP] --> B(fa:fa-database production database);
+    G[fa:fa-laptop GECO] --> B;
     C[fa:fa-desktop IAIP UAT] --> D(fa:fa-database test database);
+    H[fa:fa-laptop GECO UAT] --> D;
 </pre>
 
 <script src="https://use.fontawesome.com/73014ea0c4.js"></script>
