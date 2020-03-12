@@ -860,14 +860,13 @@ Public Class ISMPTestReportAdministrative
             Dim TestReportDue As String = ""
 
             If cboAIRSNumber.Text <> "" Then
-                query = "select " &
-                "strTrackingNumber " &
-                "from SSCPTestReports " &
-                "where strReferenceNumber = @ref "
+                query = "select convert(bit, count(*))
+                    from SSCPTESTREPORTS
+                    where STRREFERENCENUMBER = @ref "
                 Dim p As New SqlParameter("@ref", RefNum)
 
-                If DB.ValueExists(query, p) Then
-                    Exit Sub
+                If DB.GetBoolean(query, p) Then
+                    Return
                 End If
 
                 query = "Select " &
