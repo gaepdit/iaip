@@ -8,7 +8,7 @@ IAIP Dev Edition](IaipDev.application)
 
 ## Important Notes -- Please Read
 
-The IAIP Development Edition is for EPD IT testing use only. If you don't work for EPD IT, you're in the wrong place!
+The IAIP Development Edition is for EPD IT testing use only.
 
 The Dev version of the IAIP can be installed side-by-side with the production and/or UAT versions of the IAIP. They can be used simultaneously and will not interfere with each other. The Dev version will *only* access the Dev database, so no changes to production data can be made.
 

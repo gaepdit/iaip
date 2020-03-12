@@ -10,8 +10,6 @@ IAIP UAT Edition](IaipHorizon.application)
 
 The IAIP UAT (User Acceptance Testing) Edition is made available when users are requested to test new features or bugfixes before they are released to production. Unless someone in EPD IT has asked you to install this, you probably don't need it.
 
-The testing database was last refreshed with production data on **December 26, 2018**.
-
 The UAT version of the IAIP can be installed side-by-side with the production version of the IAIP. Both can be used simultaneously and will not interfere with each other. The UAT version will *only* access the testing (UAT) database, so no changes to production data can be made.
 
 <pre class="mermaid">
