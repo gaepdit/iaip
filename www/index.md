@@ -13,9 +13,15 @@ IAIP Installer](install/IAIP.application)
 
 ## Support
 
-For account creation or management, please speak to your supervisor in EPD. For general application support or to report a bug, please use the [EPD IT Service Desk](https://gaepdit.atlassian.net/servicedesk/).
+For account creation or management, please speak to your supervisor in EPD or Sean Taylor. For general application support or to report a bug, please use the [EPD IT Service Desk](https://gaepdit.atlassian.net/servicedesk/).
 
 Some additional documentation can be found on the [IAIP Documentation site](https://sites.google.com/site/iaipdocs/).
+
+### Security alert
+
+On Windows 10, you will likely get the following security alert when you install the IAIP. Click the "More info" link, then click the button labeled "Run anyway".
+
+![Windows 10 security alert](assets/images/win10-security-warning.png) ![Windows 10 security alert: Run anyway](assets/images/win10-security-warning-run-anyway.png)
 
 ### Prerequistes
 
