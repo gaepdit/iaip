@@ -747,7 +747,7 @@ Partial Class SscpEnforcement
         Me.StaffResponsible.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.StaffResponsible.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.StaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.StaffResponsible.Enabled = False
+        Me.StaffResponsible.Enabled = True
         Me.StaffResponsible.Location = New System.Drawing.Point(510, 21)
         Me.StaffResponsible.Name = "StaffResponsible"
         Me.StaffResponsible.Size = New System.Drawing.Size(192, 21)
