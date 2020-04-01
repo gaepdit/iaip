@@ -124,8 +124,8 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SetUpForNewApplication()
-        If AccountFormAccess(3, 4) <> "1" Then
-            MessageBox.Show("You do not have permission to start a new application.")
+        If Not CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
+            MessageBox.Show("You do not have permission to create a new application. Please contact your manager.", "Forbidden", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Me.Close()
         End If
 
@@ -7156,6 +7156,11 @@ Public Class SSPPApplicationTrackingLog
     Private Sub PreSaveCheckThenSave()
 
         If NewApplication Then
+            If Not CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
+                MessageBox.Show("You do not have permission to create a new application. Please contact your manager.", "Forbidden", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Me.Close()
+            End If
+
             If Not Integer.TryParse(txtNewApplicationNumber.Text, AppNumber) Then
                 MessageBox.Show("The selected application number is not valid. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return

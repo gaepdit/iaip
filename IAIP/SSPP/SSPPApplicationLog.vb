@@ -347,7 +347,7 @@ Public Class SSPPApplicationLog
             cboEngineer.SelectedValue = CurrentUser.UserID
         End If
 
-        If AccountFormAccess(3, 4) = "1" Then
+        If CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
             mmiNewApplication.Visible = True
         End If
     End Sub
@@ -1200,7 +1200,7 @@ Public Class SSPPApplicationLog
     End Sub
 
     Private Sub StartNewApplication()
-        If AccountFormAccess(3, 4) = "1" Then
+        If CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
             OpenFormNewPermitApplication()
         Else
             MessageBox.Show("You do not have sufficient permissions to start a new application.")
