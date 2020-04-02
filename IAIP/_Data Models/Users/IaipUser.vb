@@ -87,7 +87,7 @@
                 ' District offices, SSCP, or Branch Chief
                 Return BranchID = 5 OrElse
                     ProgramID = 4 OrElse
-                    HasRole(102)
+                    HasRole({19, 20, 113, 114, 102})
 
             Case UserCan.ResolveEnforcement
                 ' SSCP Program Manager, SSCP Unit Manager, or Branch Chief
@@ -138,7 +138,17 @@
                 Return HasRole({28, 29, 102})
 
             Case UserCan.EditPermitApp
-                Return False
+                ' SSPP users, Branch Chief 
+                Return ProgramID = 5 OrElse
+                    HasRole({28, 29, 121, 122, 102})
+
+            Case UserCan.UploadPermitFile
+                ' SSPP Program Manager, SSPP Unit Manager, SSPP Administrative, Branch Chief
+                Return HasRole({29, 28, 121, 102})
+
+            Case UserCan.DeletePermitFile
+                ' SSPP Program Manager, SSPP Administrative, Web Publisher
+                Return HasRole({28, 29, 120})
 
             Case Else
                 Return False
@@ -159,6 +169,8 @@ Public Enum UserCan
     EditFinancialData
     CreatePermitApp
     EditPermitApp
+    UploadPermitFile
+    DeletePermitFile
 End Enum
 
 Public Enum RoleType

@@ -333,16 +333,8 @@ Public Class SSPPApplicationLog
 
         cboApplicationStatus.Text = "Active"
 
-        If AccountFormAccess(3, 3) = "1" And CurrentUser.UnitId = 0 Then
-            'All active Applications
-            cboApplicationType.Text = "All"
-        ElseIf AccountFormAccess(3, 3) = "1" And CurrentUser.UnitId <> 0 Then
-            'All Active Applications from UC's Unit
-            If CurrentUser.ProgramID = 5 Then
-                cboApplicationUnit.SelectedValue = CurrentUser.UnitId
-            Else
-                cboEngineer.SelectedValue = CurrentUser.UserID
-            End If
+        If CurrentUser.HasRole(121) Then ' SSPP Unit Manager
+            cboApplicationUnit.SelectedValue = CurrentUser.UnitId
         Else
             cboEngineer.SelectedValue = CurrentUser.UserID
         End If
