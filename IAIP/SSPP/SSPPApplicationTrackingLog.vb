@@ -124,8 +124,8 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SetUpForNewApplication()
-        If AccountFormAccess(3, 4) <> "1" Then
-            MessageBox.Show("You do not have permission to start a new application.")
+        If Not CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
+            MessageBox.Show("You do not have permission to create a new application. Please contact your manager.", "Forbidden", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Me.Close()
         End If
 
@@ -7031,46 +7031,13 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub txtPermitNumber_TextChanged(sender As Object, e As EventArgs) Handles txtPermitNumber.TextChanged
-        Dim PermitNumber As String
-
-        Try
-            If AccountFormAccess(51, 3) = "0" AndAlso AccountFormAccess(51, 4) = "0" Then
-                If txtPermitNumber.Text <> "" Then
-                    If cboApplicationType.Text = "ERC" Then
-                        If Mid(txtPermitNumber.Text, 1, 3) <> "ERC" Then
-                            txtPermitNumber.Text = "ERC"
-                        End If
-                    Else
-                        If txtSICCode.Text.Length = 4 AndAlso AirsId IsNot Nothing Then
-                            PermitNumber = txtSICCode.Text & "-" & AirsId.PermitFormattedString & "-"
-
-                            If Mid(txtPermitNumber.Text, 1, 14) <> PermitNumber Then
-                                txtPermitNumber.Text = PermitNumber
-                            End If
-                        End If
-                    End If
-                End If
-            Else
-                If txtPermitNumber.Text = "" Then
-                    If cboApplicationType.Text = "ERC" Then
-                        If Mid(txtPermitNumber.Text, 1, 3) <> "ERC" Then
-                            txtPermitNumber.Text = "ERC"
-                        End If
-                    Else
-                        If txtSICCode.Text.Length = 4 AndAlso AirsId IsNot Nothing Then
-                            PermitNumber = txtSICCode.Text & "-" & AirsId.PermitFormattedString & "-"
-
-                            If Mid(txtPermitNumber.Text, 1, 14) <> PermitNumber Then
-                                txtPermitNumber.Text = PermitNumber
-                            End If
-                        End If
-                    End If
-                End If
+        If Not txtPermitNumber.ReadOnly AndAlso txtPermitNumber.Text = "" Then
+            If cboApplicationType.Text = "ERC" Then
+                txtPermitNumber.Text = "ERC"
+            ElseIf txtSICCode.Text.Length = 4 AndAlso AirsId IsNot Nothing Then
+                txtPermitNumber.Text = txtSICCode.Text & "-" & AirsId.PermitFormattedString & "-"
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        End If
     End Sub
 
     Private Sub btnSaveInformationRequest_Click(sender As Object, e As EventArgs) Handles btnSaveInformationRequest.Click
@@ -7156,6 +7123,11 @@ Public Class SSPPApplicationTrackingLog
     Private Sub PreSaveCheckThenSave()
 
         If NewApplication Then
+            If Not CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
+                MessageBox.Show("You do not have permission to create a new application. Please contact your manager.", "Forbidden", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Me.Close()
+            End If
+
             If Not Integer.TryParse(txtNewApplicationNumber.Text, AppNumber) Then
                 MessageBox.Show("The selected application number is not valid. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return
@@ -7180,10 +7152,7 @@ Public Class SSPPApplicationTrackingLog
             End If
         End If
 
-        If CurrentUser.ProgramID = 5 OrElse
-        (AccountFormAccess(51, 1) = "1" AndAlso CurrentUser.UnitId = 14) OrElse
-        AccountFormAccess(51, 3) = "1" OrElse
-        AccountFormAccess(51, 4) = "1" Then  'SSPP users and Web Users 
+        If CurrentUser.HasPermission(UserCan.EditPermitApp) Then
 
             Dim dateModifiedInDb As DateTimeOffset = GetWhenLastModified(AppNumber)
 
@@ -7500,7 +7469,7 @@ Public Class SSPPApplicationTrackingLog
                         lblDatePAExpires.Visible = True
                         chbPAReady.Visible = True
                     End If
-                    txtPermitNumber.Clear()
+                    txtPermitNumber.Text = " "
                 Case "ERC"
                     DTPEPAWaived.Visible = False
                     lblEPAWaived.Visible = False
@@ -7601,7 +7570,7 @@ Public Class SSPPApplicationTrackingLog
                         lblDatePAExpires.Visible = True
                         chbPAReady.Visible = True
                     End If
-                    txtPermitNumber.Clear()
+                    txtPermitNumber.Text = " "
 
                 Case "PBR"
                     DTPEPAWaived.Visible = False

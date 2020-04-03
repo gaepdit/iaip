@@ -246,7 +246,7 @@ Public Class SSPPPermitUploader
             End If
 
             If Status Then
-                If CurrentUser.UnitId = 14 Or (CurrentUser.UnitId = 0 And CurrentUser.ProgramID = 4) Or (CurrentUser.UnitId = 0 And CurrentUser.ProgramID = 5) Then
+                If CurrentUser.HasPermission(UserCan.UploadPermitFile) Then
                     btnUploadFile.Enabled = True
                 Else
                     btnUploadFile.Enabled = False
@@ -518,13 +518,23 @@ Public Class SSPPPermitUploader
                     End If
 
                     Dim fs As FileStream
-                    If DocLocation <> "" And Mid(Flag, 1, 1) = "1" Then
-                        fs = New FileStream(DocLocation, FileMode.OpenOrCreate, FileAccess.Read)
-                    ElseIf DocxLocation <> "" And Mid(Flag, 1, 1) = "1" Then
-                        fs = New FileStream(DocxLocation, FileMode.OpenOrCreate, FileAccess.Read)
-                    Else
-                        fs = New FileStream(PDFLocation, FileMode.OpenOrCreate, FileAccess.Read)
-                    End If
+
+                    Try
+                        If DocLocation <> "" AndAlso Mid(Flag, 1, 1) = "1" Then
+                            fs = New FileStream(DocLocation, FileMode.OpenOrCreate, FileAccess.Read)
+                        ElseIf DocxLocation <> "" AndAlso Mid(Flag, 1, 1) = "1" Then
+                            fs = New FileStream(DocxLocation, FileMode.OpenOrCreate, FileAccess.Read)
+                        Else
+                            fs = New FileStream(PDFLocation, FileMode.OpenOrCreate, FileAccess.Read)
+                        End If
+                    Catch ex As IOException
+                        If ex.Message.Contains("it is being used by another process") Then
+                            MessageBox.Show("The file is currently in use. Please close the file and try again.")
+                            Return
+                        Else
+                            Throw
+                        End If
+                    End Try
 
                     Dim rawData As Byte() = New Byte(fs.Length) {}
                     If DocxLocation <> "" Then
@@ -1431,7 +1441,7 @@ Public Class SSPPPermitUploader
 
                 If txtTVNarrativeDoc.Text = "On File" Or txtTVNarrativePDF.Text = "On File" Then
                     btnTVNarrativeDownload.Visible = True
-                    If AccountFormAccess(9, 3) = "1" Then
+                    If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                         btnDeleteTVNarrative.Visible = True
                     Else
                         btnDeleteTVNarrative.Visible = False
@@ -1550,7 +1560,7 @@ Public Class SSPPPermitUploader
 
                 If txtTVDraftDoc.Text = "On File" Or txtTVDraftPDF.Text = "On File" Then
                     btnTVDraftDownload.Visible = True
-                    If AccountFormAccess(9, 3) = "1" Then
+                    If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                         btnDeleteTVDraft.Visible = True
                     Else
                         btnDeleteTVDraft.Visible = False
@@ -1668,7 +1678,7 @@ Public Class SSPPPermitUploader
 
                 If txtTVPublicNoticeDoc.Text = "On File" Or txtTVPublicNoticePDF.Text = "On File" Then
                     btnTVPublicNoticeDownload.Visible = True
-                    If AccountFormAccess(9, 3) = "1" Then
+                    If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                         btnDeleteTVPublicNot.Visible = True
                     Else
                         btnDeleteTVPublicNot.Visible = False
@@ -1786,7 +1796,7 @@ Public Class SSPPPermitUploader
 
                 If txtTVFinalDoc.Text = "On File" Or txtTVFinalPDF.Text = "On File" Then
                     btnTVFinalDownload.Visible = True
-                    If AccountFormAccess(9, 3) = "1" Then
+                    If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                         btnDeleteTVFinal.Visible = True
                     Else
                         btnDeleteTVFinal.Visible = False
@@ -1904,7 +1914,7 @@ Public Class SSPPPermitUploader
 
                 If txtPSDAppSummaryDoc.Text = "On File" Or txtPSDAppSummaryPDF.Text = "On File" Then
                     btnPSDAppSummaryDownload.Visible = True
-                    If AccountFormAccess(9, 3) = "1" Then
+                    If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                         btnDeletePSDAppSummary.Visible = True
                     Else
                         btnDeletePSDAppSummary.Visible = False
@@ -2033,7 +2043,7 @@ Public Class SSPPPermitUploader
 
                 If txtPSDPrelimDetDoc.Text = "On File" Or txtPSDPrelimDetPDF.Text = "On File" Then
                     btnPSDPrelimDetDownload.Visible = True
-                    If AccountFormAccess(9, 3) = "1" Then
+                    If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                         btnDeletePSDPrelimDet.Visible = True
                     Else
                         btnDeletePSDPrelimDet.Visible = False
@@ -2150,7 +2160,7 @@ Public Class SSPPPermitUploader
 
                 If txtPSDNarrativeDoc.Text = "On File" Or txtPSDNarrativePDF.Text = "On File" Then
                     btnPSDNarrativeDownload.Visible = True
-                    If AccountFormAccess(9, 3) = "1" Then
+                    If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                         btnDeletePSDNarrative.Visible = True
                     Else
                         btnDeletePSDNarrative.Visible = False
@@ -2267,7 +2277,7 @@ Public Class SSPPPermitUploader
 
                 If txtPSDDraftPermitDoc.Text = "On File" Or txtPSDDraftPermitPDF.Text = "On File" Then
                     btnPSDDraftPermitDownload.Visible = True
-                    If AccountFormAccess(9, 3) = "1" Then
+                    If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                         btnDeletePSDDraftPermit.Visible = True
                     Else
                         btnDeletePSDDraftPermit.Visible = False
@@ -2384,7 +2394,7 @@ Public Class SSPPPermitUploader
 
                 If txtPSDPublicNoticeDoc.Text = "On File" Or txtPSDPublicNoticePDF.Text = "On File" Then
                     btnPSDPublicNoticeDownload.Visible = True
-                    If AccountFormAccess(9, 3) = "1" Then
+                    If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                         btnDeletePSDPublicNotice.Visible = True
                     Else
                         btnDeletePSDPublicNotice.Visible = False
@@ -2501,7 +2511,7 @@ Public Class SSPPPermitUploader
 
                 If txtPSDHearingNoticeDoc.Text = "On File" Or txtPSDHearingNoticePDF.Text = "On File" Then
                     btnPSDHearingNoticeDownload.Visible = True
-                    If AccountFormAccess(9, 3) = "1" Then
+                    If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                         btnDeletePSDHearingNotice.Visible = True
                     Else
                         btnDeletePSDHearingNotice.Visible = False
@@ -2618,7 +2628,7 @@ Public Class SSPPPermitUploader
 
                 If txtPSDFinalDetDoc.Text = "On File" Or txtPSDFinalDetPDF.Text = "On File" Then
                     btnPSDFinalDetDownload.Visible = True
-                    If AccountFormAccess(9, 3) = "1" Then
+                    If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                         btnDeletePSDFinalDet.Visible = True
                     Else
                         btnDeletePSDFinalDet.Visible = False
@@ -2735,7 +2745,7 @@ Public Class SSPPPermitUploader
 
                 If txtPSDFinalPermitDoc.Text = "On File" Or txtPSDFinalPermitPDF.Text = "On File" Then
                     btnPSDFinalPermitDownload.Visible = True
-                    If AccountFormAccess(9, 3) = "1" Then
+                    If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                         btnDeletePSDFinalPermit.Visible = True
                     Else
                         btnDeletePSDFinalPermit.Visible = False
@@ -2852,7 +2862,7 @@ Public Class SSPPPermitUploader
 
                 If txtOtherNarrativeDoc.Text = "On File" Or txtOtherNarrativePDF.Text = "On File" Then
                     btnOtherNarrativeDownload.Visible = True
-                    If AccountFormAccess(9, 3) = "1" Then
+                    If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                         btnDeleteOtherNarrative.Visible = True
                     Else
                         btnDeleteOtherNarrative.Visible = False
@@ -2970,7 +2980,7 @@ Public Class SSPPPermitUploader
 
                 If txtOtherPermitDoc.Text = "On File" Or txtOtherPermitPDF.Text = "On File" Then
                     btnOtherPermitDownload.Visible = True
-                    If AccountFormAccess(9, 3) = "1" Then
+                    If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                         btnDeleteOtherPermit.Visible = True
                     Else
                         btnDeleteOtherPermit.Visible = False

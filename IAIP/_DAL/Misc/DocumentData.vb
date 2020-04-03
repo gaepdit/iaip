@@ -155,7 +155,7 @@ Namespace DAL
         Public Function DownloadDocument(doc As Document, <Out()> Optional ByRef canceled As Boolean = False, Optional sender As Object = Nothing) As Boolean
             If doc Is Nothing OrElse doc.BinaryFileId = 0 Then Return False
 
-            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            If TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Cursors.AppStarting
             End If
 
@@ -186,7 +186,7 @@ Namespace DAL
 
             dialog.Dispose()
 
-            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            If TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Nothing
             End If
 
@@ -208,7 +208,7 @@ Namespace DAL
         Private Function UploadDocument(doc As Document, pathToFile As String, metaDataQuery As String, metaDataId As String, Optional sender As Object = Nothing) As Boolean
             If String.IsNullOrEmpty(pathToFile) Then Return False
 
-            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            If TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Cursors.AppStarting
             End If
 
@@ -252,7 +252,7 @@ Namespace DAL
 
             Dim result As Boolean = DB.RunCommand(queryList, parametersList)
 
-            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            If TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Nothing
             End If
 
@@ -279,7 +279,7 @@ Namespace DAL
 #Region "Delete files"
 
         Public Function DeleteDocument(id As Integer, Optional sender As Object = Nothing) As Boolean
-            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            If TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Cursors.AppStarting
             End If
 
@@ -288,7 +288,7 @@ Namespace DAL
 
             Dim result As Boolean = DB.RunCommand(query, parameter)
 
-            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            If TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Nothing
             End If
 
@@ -311,7 +311,7 @@ Namespace DAL
         End Function
 
         Public Function UpdateDocument(doc As Document, query As String, Optional sender As Object = Nothing) As Boolean
-            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            If TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Cursors.AppStarting
             End If
 
@@ -325,7 +325,7 @@ Namespace DAL
 
             Dim result As Boolean = DB.RunCommand(query, parameters)
 
-            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            If TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Nothing
             End If
 
@@ -379,7 +379,7 @@ Namespace DAL
         Public Function UpdateEnforcementDocumentType(d As DocumentType, Optional sender As Object = Nothing) As Boolean
             If d Is Nothing Then Return False
 
-            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            If TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Cursors.AppStarting
             End If
 
@@ -399,7 +399,7 @@ Namespace DAL
 
             Dim result As Boolean = DB.RunCommand(query, parameters)
 
-            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            If TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Nothing
             End If
 
@@ -409,7 +409,7 @@ Namespace DAL
         Public Function SaveEnforcementDocumentType(d As DocumentType, Optional sender As Object = Nothing) As Boolean
             If d Is Nothing Then Return False
 
-            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            If TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Cursors.AppStarting
             End If
 
@@ -426,7 +426,7 @@ Namespace DAL
 
             Dim result As Boolean = DB.RunCommand(query, parameters)
 
-            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            If TypeOf sender Is Form Then
                 CType(sender, Form).Cursor = Nothing
             End If
 

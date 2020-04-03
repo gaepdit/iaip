@@ -5,7 +5,7 @@
             If rk Is Nothing Then
                 Return Nothing
             End If
-            Return rk.GetValue(key).ToString
+            Return rk.GetValue(key)?.ToString
         Catch ex As Exception
             Return Nothing
         End Try

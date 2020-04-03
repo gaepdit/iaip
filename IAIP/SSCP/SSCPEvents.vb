@@ -1280,11 +1280,11 @@ Public Class SSCPEvents
                 ReferenceNumber = txtISMPReferenceNumber.Text
             End If
 
-            Dim SQL As String = "Select 1 from SSCPTestReports where strTrackingNumber = @num"
+            Dim SQL As String = "Select convert(bit, count(*)) from SSCPTestReports where strTrackingNumber = @num"
 
             Dim p As New SqlParameter("@num", TrackingNumber)
 
-            If DB.ValueExists(SQL, p) Then
+            If DB.GetBoolean(SQL, p) Then
                 sqlList.Add("Update SSCPTestReports set " &
                     "strReferenceNumber = @strReferenceNumber, " &
                     "datTestReportDue = @datTestReportDue, " &
