@@ -2,7 +2,7 @@ Imports System.Resources
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
-<Assembly: AssemblyVersion("5.15.6.0")>
+<Assembly: AssemblyVersion("5.16.0.1")>
 <Assembly: AssemblyCompany("State of Georgia")>
 <Assembly: AssemblyCopyright("")>
 <Assembly: AssemblyTrademark("")>
