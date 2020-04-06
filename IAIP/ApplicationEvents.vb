@@ -23,12 +23,10 @@ Namespace My
 
         Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) _
             Handles Me.UnhandledException
-
             e.Exception.Data.Add("Sender", sender.ToString)
-            IaipExceptionManager.HandleException(e.Exception, NameOf(MyApplication_UnhandledException))
-
+            ExceptionManager.HandleUnhandledException(e.Exception, NameOf(MyApplication_UnhandledException))
         End Sub
+
     End Class
 
 End Namespace
-

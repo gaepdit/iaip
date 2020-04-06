@@ -12,8 +12,8 @@
 Friend Class ExceptionDialog
     Inherits Form
 
-    Const _intSpacing As Integer = 10
-    Const showMoreText As String = "Show error details >>"
+    Private Const _intSpacing As Integer = 10
+    Private Const _showMoreText As String = "Show error details >>"
 
     Public Property Unrecoverable As Boolean = False
 
@@ -29,7 +29,7 @@ Friend Class ExceptionDialog
         End If
 
         '-- More >> has to be expanded
-        btnMore.Text = showMoreText
+        btnMore.Text = _showMoreText
         ErrorDetails.Anchor = AnchorStyles.None
         ErrorDetails.Visible = False
 
@@ -62,7 +62,7 @@ Friend Class ExceptionDialog
     End Sub
 
     Private Sub btnMore_Click(sender As Object, e As EventArgs) Handles btnMore.Click
-        Height = Height + 300
+        Height += 300
 
         With ErrorDetails
             .Location = New Point(btnOK.Left, btnOK.Top + btnOK.Height + _intSpacing)
@@ -75,7 +75,11 @@ Friend Class ExceptionDialog
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        Close()
+        If Unrecoverable Then
+            CloseIaip()
+        Else
+            Close()
+        End If
     End Sub
 
 End Class

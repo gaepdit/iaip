@@ -508,12 +508,12 @@ Public Class IAIPLogIn
 #Region " Exception testing "
 
     Private Sub mmiThrowUnhandledError_Click(sender As Object, e As EventArgs) Handles mmiThrowUnhandledError.Click
-        Throw New Exception("Unhandled exception testing")
+        Throw New ArgumentException("Unhandled exception testing")
     End Sub
 
     Private Sub mmiThrowHandledError_Click(sender As Object, e As EventArgs) Handles mmiThrowHandledError.Click
         Try
-            Throw New Exception("Handled exception testing")
+            Throw New ArgumentException("Handled exception testing")
         Catch ex As Exception
             ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
