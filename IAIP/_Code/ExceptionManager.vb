@@ -1,3 +1,4 @@
+Imports System.Data.SqlClient
 Imports System.Reflection
 
 Friend Module ExceptionManager
@@ -51,7 +52,12 @@ Friend Module ExceptionManager
             Dim whatHappened As String
             Dim whatUserCanDo As String = ""
 
-            If errorMessage.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently") Then
+            If SeemsLikeANetworkIssueToMe(ex) Then
+                unrecoverable = False
+                whatHappened = "Can't connect."
+                whatUserCanDo = "• Check your Internet connection." & Environment.NewLine & Environment.NewLine &
+                    "• If you are working remotely, check your VPN connection." & Environment.NewLine & Environment.NewLine
+            ElseIf errorMessage.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently") Then
                 whatHappened = "The IAIP is running multiple processing threads and needs time to complete them. Please allow time for the process to run."
                 whatUserCanDo = "• Wait for the process to finish before continuing." & Environment.NewLine & Environment.NewLine
             ElseIf errorMessage.Contains("Exception of type 'System.OutOfMemoryException' was thrown") Then
@@ -79,18 +85,39 @@ Friend Module ExceptionManager
     Public Sub LogException(ex As Exception, contextMessage As String, supplementalMessage As String)
         ' Only log if UAT or Prod
 #If Not DEBUG Then
-        If Not String.IsNullOrEmpty(contextMessage) Then
-            ExceptionLogger.Tags.Add("context", contextMessage)
-        End If
+        If Not LogThisExceptionType(ex) Then
+            If Not String.IsNullOrEmpty(contextMessage) Then
+                ExceptionLogger.Tags.Add("context", contextMessage)
+            End If
 
-        If Not String.IsNullOrEmpty(supplementalMessage) Then
-            ex.Data.Add(NameOf(supplementalMessage), supplementalMessage)
-        End If
+            If Not String.IsNullOrEmpty(supplementalMessage) Then
+                ex.Data.Add(NameOf(supplementalMessage), supplementalMessage)
+            End If
 
-        ExceptionLogger.Capture(New SharpRaven.Data.SentryEvent(ex))
-        ExceptionLogger.Tags.Remove("context")
+            ExceptionLogger.Capture(New SharpRaven.Data.SentryEvent(ex))
+            ExceptionLogger.Tags.Remove("context")
+        End If
 #End If
     End Sub
+
+    Private Function LogThisExceptionType(ex As Exception) As Boolean
+        If SeemsLikeANetworkIssueToMe(ex) Then
+            Return False
+        End If
+
+        Return True
+    End Function
+
+    Private Function SeemsLikeANetworkIssueToMe(ex As Exception) As Boolean
+        If ex.GetType() = GetType(SqlException) AndAlso
+            (ex.Message.Contains("A network-related or instance-specific error occurred while establishing a connection to SQL Server.") OrElse
+            ex.Message.Contains("A transport-level error has occurred when receiving results from the server.") OrElse
+            ex.Message.Contains("The timeout period elapsed prior to completion of the operation or the server is not responding.")) Then
+            Return True
+        End If
+
+        Return false
+    End Function
 
     '-- 
     '--  method to show error dialog
