@@ -9,6 +9,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.16.1 <span>(2020-04-06)</span>
+
+Fixed a bug when exporting a table to Excel that has empty dates.
+
 ## Version 5.16.0 <span>(2020-04-03)</span>
 
 This update includes several bug fixes:
