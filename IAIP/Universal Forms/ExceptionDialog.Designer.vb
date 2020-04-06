@@ -102,7 +102,6 @@ Partial Class ExceptionDialog
         '
         'ErrorMessage
         '
-        Me.ErrorMessage.BackColor = System.Drawing.SystemColors.Control
         Me.ErrorMessage.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ErrorMessage.Enabled = False
         Me.ErrorMessage.Location = New System.Drawing.Point(15, 57)
@@ -116,7 +115,6 @@ Partial Class ExceptionDialog
         '
         'ActionMessage
         '
-        Me.ActionMessage.BackColor = System.Drawing.SystemColors.Control
         Me.ActionMessage.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ActionMessage.Enabled = False
         Me.ActionMessage.Location = New System.Drawing.Point(15, 196)
