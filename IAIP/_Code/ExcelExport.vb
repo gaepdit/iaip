@@ -1,4 +1,4 @@
-﻿Imports System.IO
+Imports System.IO
 Imports System.Reflection
 Imports System.Runtime.CompilerServices
 Imports ClosedXML.Excel
@@ -13,36 +13,46 @@ Public Module ExcelExport
     Public Sub ExportToExcel(dataGridView As DataGridView, Optional sender As Object = Nothing)
         If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then
             MessageBox.Show("Table is empty", "Nothing to export", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
+            Return
         End If
 
-        Dim dataTable As DataTable = GetDataTableFromDataGridView(dataGridView)
+        Using dataTable As DataTable = GetDataTableFromDataGridView(dataGridView)
         dataTable.ExportToExcel(sender)
+        End Using
     End Sub
 
     Private Function GetDataTableFromDataGridView(dataGridView As DataGridView) As DataTable
-        If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then Return Nothing
-
-        Dim dataTable As New DataTable
-
-        If TypeOf dataGridView.DataSource Is DataSet Then
-            dataTable = CType(dataGridView.DataSource, DataSet).Tables(dataGridView.DataMember)
-        ElseIf TypeOf dataGridView.DataSource Is DataTable Then
-            dataTable = CType(dataGridView.DataSource, DataTable)
-        Else
-            Dim dtRow As DataRow
-            For Each dgvColumn As DataGridViewColumn In dataGridView.Columns
-                dataTable.Columns.Add(dgvColumn.Name)
-            Next
-            For Each dgvRow As DataGridViewRow In dataGridView.Rows
-                dtRow = dataTable.NewRow
-                For i As Integer = 0 To dataGridView.ColumnCount - 1
-                    dtRow.Item(i) = dgvRow.Cells(i).Value
-                Next
-                dataTable.Rows.Add(dtRow)
-            Next
+        If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then
+            Return Nothing
         End If
 
+        If TypeOf dataGridView.DataSource Is DataSet Then
+            Return FixColumnNames(dataGridView, CType(dataGridView.DataSource, DataSet).Tables(dataGridView.DataMember))
+        ElseIf TypeOf dataGridView.DataSource Is DataTable Then
+            Return FixColumnNames(dataGridView, CType(dataGridView.DataSource, DataTable))
+        Else
+            Using dataTable As New DataTable
+                Dim dtRow As DataRow
+
+                For Each dgvColumn As DataGridViewColumn In dataGridView.Columns
+                    Dim col As DataColumn = dataTable.Columns.Add(dgvColumn.Name)
+                    col.Caption = dgvColumn.HeaderText
+                Next
+
+                For Each dgvRow As DataGridViewRow In dataGridView.Rows
+                    dtRow = dataTable.NewRow
+                    For i As Integer = 0 To dataGridView.ColumnCount - 1
+                        dtRow.Item(i) = dgvRow.Cells(i).Value
+                    Next
+                    dataTable.Rows.Add(dtRow)
+                Next
+
+                Return dataTable
+            End Using
+        End If
+    End Function
+
+    Private Function FixColumnNames(dataGridView As DataGridView, dataTable As DataTable) As DataTable
         ' Replace column names with the defined column header text
         For i As Integer = 0 To dataGridView.Columns.Count - 1
             dataTable.Columns(i).Caption = dataGridView.Columns(i).HeaderText
@@ -59,7 +69,7 @@ Public Module ExcelExport
     Public Sub ExportToExcel(dataTable As DataTable, Optional sender As Object = Nothing)
         If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then
             MessageBox.Show("Table is empty.", "Nothing to export", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
+            Return
         End If
 
         If TypeOf sender Is Form Then
@@ -69,7 +79,7 @@ Public Module ExcelExport
         Dim fileName As String = GetFileName()
 
         If fileName Is Nothing Then
-            Exit Sub
+            Return
         End If
 
         Select Case CreateExcelFileFromDataTable(fileName, dataTable)
@@ -123,7 +133,9 @@ Public Module ExcelExport
     ''' <param name="table">DataTable to write to Excel file</param>
     ''' <returns>True if file successfully created; otherwise, false</returns>
     Private Function CreateExcelFileFromDataTable(filePath As String, table As DataTable) As CreateExcelFileResult
-        If table Is Nothing OrElse table.Rows.Count = 0 Then Return CreateExcelFileResult.DataTableEmpty
+        If table Is Nothing OrElse table.Rows.Count = 0 Then
+            Return CreateExcelFileResult.DataTableEmpty
+        End If
 
         If String.IsNullOrWhiteSpace(table.TableName) Then
             table.TableName = "Sheet1"
@@ -131,7 +143,6 @@ Public Module ExcelExport
 
         ' Create Excel Workbook 
         Using workbook As New XLWorkbook()
-
             workbook.AddWorksheetWithFixedDates(table)
 
             Try
@@ -172,25 +183,20 @@ Public Module ExcelExport
         End If
 
         For Each col As DataColumn In table.Columns
-            If col.IsDateTime() Then
+            If col.DataType Is GetType(Date) Then
                 For Each row As DataRow In table.Rows
-                    If CDate(row(col.ColumnName)) < BaseDate Then
+                    If Not IsDBNull(row(col.ColumnName)) AndAlso
+                        row(col.ColumnName) IsNot Nothing AndAlso
+                        CDate(row(col.ColumnName)) < BaseDate Then
+
                         row(col.ColumnName) = DBNull.Value
+
                     End If
                 Next
             End If
         Next
 
         Return workbook.AddWorksheet(table)
-    End Function
-
-    <Extension>
-    Public Function IsDateTime(col As DataColumn) As Boolean
-        If col Is Nothing Then
-            Throw New ArgumentNullException(NameOf(col))
-        End If
-
-        Return col.DataType Is GetType(Date)
     End Function
 
     Enum CreateExcelFileResult
