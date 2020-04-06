@@ -1,4 +1,4 @@
-Imports System.IO
+﻿Imports System.IO
 Imports System.Reflection
 Imports System.Runtime.CompilerServices
 Imports ClosedXML.Excel
@@ -17,7 +17,7 @@ Public Module ExcelExport
         End If
 
         Using dataTable As DataTable = GetDataTableFromDataGridView(dataGridView)
-        dataTable.ExportToExcel(sender)
+            dataTable.ExportToExcel(sender)
         End Using
     End Sub
 
@@ -174,13 +174,8 @@ Public Module ExcelExport
     ''' <returns>Returns a reference to the added worksheet.</returns>
     <Extension>
     Public Function AddWorksheetWithFixedDates(workbook As XLWorkbook, table As DataTable) As IXLWorksheet
-        If workbook Is Nothing Then
-            Throw New ArgumentNullException(NameOf(workbook))
-        End If
-
-        If table Is Nothing Then
-            Throw New ArgumentNullException(NameOf(table))
-        End If
+        ArgumentNotNull(workbook, NameOf(workbook))
+        ArgumentNotNull(table, NameOf(table))
 
         For Each col As DataColumn In table.Columns
             If col.DataType Is GetType(Date) Then

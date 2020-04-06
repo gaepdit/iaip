@@ -300,6 +300,7 @@
     <Compile Include="_Code\ComboBoxHelpers.vb" />
     <Compile Include="_Code\CollectionExtensions.vb" />
     <Compile Include="_Code\GetDotNetVersion.vb" />
+    <Compile Include="_Code\Guard.vb" />
     <Compile Include="_Code\IPAddressRange.vb" />
     <Compile Include="_Code\ListExtensions.vb" />
     <Compile Include="_Code\NetworkCheck.vb" />
