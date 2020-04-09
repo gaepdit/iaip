@@ -15,7 +15,8 @@ Friend Class ExceptionDialog
     Private Const _intSpacing As Integer = 10
     Private Const _showMoreText As String = "Show error details >>"
 
-    Public Property Unrecoverable As Boolean = False
+    Public Property Unrecoverable As Boolean
+    Public Property Logged As Boolean
 
     Private Sub UserErrorDialog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '-- make sure our window is on top
@@ -26,6 +27,11 @@ Friend Class ExceptionDialog
         If Unrecoverable Then
             btnOK.Text = "Exit"
             Icon = My.Resources.ErrorIcon
+        End If
+
+        '-- show whether logged
+        If Not Logged Then
+            IntroMessage.Text = "A copy of this error message has NOT been sent to EPD-IT."
         End If
 
         '-- More >> has to be expanded
