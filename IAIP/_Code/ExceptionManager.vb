@@ -38,8 +38,13 @@ Friend Module ExceptionManager
             Optional displayErrorToUser As Boolean = True,
             Optional unrecoverable As Boolean = False)
 
+        Dim _seemsLikeANetworkIssueToMe As Boolean = SeemsLikeANetworkIssueToMe(ex)
+        Dim logged As Boolean = False
+
         ' First, log the exception.
-        LogException(ex, contextMessage, supplementalMessage)
+        If Not _seemsLikeANetworkIssueToMe Then
+            logged = LogException(ex, contextMessage, supplementalMessage)
+        End If
 
         ' Second, display a dialog to the user describing the error and next steps.
         If displayErrorToUser Then
@@ -52,7 +57,7 @@ Friend Module ExceptionManager
             Dim whatHappened As String
             Dim whatUserCanDo As String = ""
 
-            If SeemsLikeANetworkIssueToMe(ex) Then
+            If _seemsLikeANetworkIssueToMe Then
                 unrecoverable = False
                 whatHappened = "Can't connect."
                 whatUserCanDo = "• Check your Internet connection." & Environment.NewLine & Environment.NewLine &
@@ -77,33 +82,32 @@ Friend Module ExceptionManager
                 "• Close and restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine &
                 "• If you continue to see this error, please email EPD IT. Describe what you were doing and paste the error details below into your email."
 
-            ShowErrorDialog(ex, whatHappened, whatUserCanDo, unrecoverable)
+            ShowErrorDialog(ex, whatHappened, whatUserCanDo, unrecoverable, logged)
         End If
 
     End Sub
 
-    Public Sub LogException(ex As Exception, contextMessage As String, supplementalMessage As String)
+    Public Function LogException(ex As Exception, contextMessage As String, supplementalMessage As String) As Boolean
         ' Only log if UAT or Prod
-#If Not DEBUG Then
-        If Not LogThisExceptionType(ex) Then
-            If Not String.IsNullOrEmpty(contextMessage) Then
-                ExceptionLogger.Tags.Add("context", contextMessage)
-            End If
-
-            If Not String.IsNullOrEmpty(supplementalMessage) Then
-                ex.Data.Add(NameOf(supplementalMessage), supplementalMessage)
-            End If
-
-            ExceptionLogger.Capture(New SharpRaven.Data.SentryEvent(ex))
-            ExceptionLogger.Tags.Remove("context")
-        End If
+#If DEBUG Then
+        Return False
 #End If
-    End Sub
 
-    Private Function LogThisExceptionType(ex As Exception) As Boolean
-        If SeemsLikeANetworkIssueToMe(ex) Then
-            Return False
+        If Not String.IsNullOrEmpty(contextMessage) Then
+            ExceptionLogger.Tags.Add("context", contextMessage)
         End If
+
+        If Not String.IsNullOrEmpty(supplementalMessage) Then
+            ex.Data.Add(NameOf(supplementalMessage), supplementalMessage)
+        End If
+
+        Try
+            ExceptionLogger.Capture(New SharpRaven.Data.SentryEvent(ex))
+        Catch ee As Exception
+            Return False
+        Finally
+            ExceptionLogger.Tags.Remove("context")
+        End Try
 
         Return True
     End Function
@@ -116,17 +120,17 @@ Friend Module ExceptionManager
             Return True
         End If
 
-        Return false
+        Return False
     End Function
 
     '-- 
     '--  method to show error dialog
     '--
-    Public Function ShowErrorDialog(ex As Exception,
-                                           Optional whatHappened As String = "",
-                                           Optional whatUserCanDo As String = "",
-                                           Optional unrecoverable As Boolean = False
-                                           ) As DialogResult
+    Private Function ShowErrorDialog(ex As Exception,
+                                     whatHappened As String,
+                                     whatUserCanDo As String,
+                                     unrecoverable As Boolean,
+                                     logged As Boolean) As DialogResult
 
         If String.IsNullOrEmpty(whatHappened) Then
             whatHappened = "An unexpected error has occurred. The action you requested was not performed."
@@ -143,6 +147,7 @@ Friend Module ExceptionManager
                 .ActionMessage.Text = whatUserCanDo
                 .ErrorDetails.Text = FormatExceptionForUser(ex)
                 .Unrecoverable = unrecoverable
+                .Logged = logged
             End With
 
             Return ed.ShowDialog()
