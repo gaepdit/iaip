@@ -1,6 +1,8 @@
-﻿Imports System.Net
+﻿Imports System.ComponentModel
+Imports System.Net
 Imports System.Net.Http
 Imports System.Threading.Tasks
+Imports Daramee.TaskDialogSharp
 
 Public Module NetworkCheck
     Private ReadOnly externalUri As Uri = New Uri("https://api.ipify.org")
@@ -71,5 +73,30 @@ Public Module NetworkCheck
             Return IPAddress.Parse(ip)
         End Using
     End Function
+
+    Friend Sub ShowNetworkDownSupportMessage()
+        Dim bgw As New BackgroundWorker
+
+        AddHandler bgw.DoWork,
+            Sub()
+                Dim td As New TaskDialog With {
+                    .Title = "Can't connect",
+                    .MainIcon = TaskDialogIcon.Warning,
+                    .MainInstruction = "The network appears to be down.",
+                    .Content = "Please check your internet connection and try again. " &
+                        "If you are working remotely, also check your VPN connection." & Environment.NewLine & Environment.NewLine &
+                        "If you continue to receive this message, contact EPD-IT for support.",
+                    .CommonButtons = TaskDialogCommonButtonFlags.OK,
+                    .Buttons = {},
+                    .UseCommandLinks = False
+                }
+
+                ' when the task dialog is closed, it throws an unhandled exception that ends 
+                ' the background worker, but it still works as long as .Buttons is defined above
+                td.Show()
+            End Sub
+
+        bgw.RunWorkerAsync()
+    End Sub
 
 End Module
