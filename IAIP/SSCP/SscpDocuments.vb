@@ -114,7 +114,7 @@ Public Class SscpDocuments
             infoDisplay.AppendLine(enforcementInfo.Facility.FacilityLocation.Address.ToString)
             infoDisplay.AppendFormat("Responsible staff: {0}", enforcementInfo.StaffResponsible).AppendLine()
 
-            If Not enforcementInfo.DiscoveryDate Is Nothing Then
+            If enforcementInfo.DiscoveryDate IsNot Nothing Then
                 infoDisplay.AppendFormat("{0}; Discovery Date: {1:dd-MMM-yyyy}", enforcementInfo.EnforcementTypeCode, enforcementInfo.DiscoveryDate).AppendLine()
             Else
                 infoDisplay.AppendFormat("{0}", enforcementInfo.EnforcementTypeCode).AppendLine()

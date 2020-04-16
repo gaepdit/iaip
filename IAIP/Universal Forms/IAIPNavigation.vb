@@ -230,7 +230,7 @@ Public Class IAIPNavigation
     Handles btnOpenApplication.Leave, btnOpenEnforcement.Leave, btnOpenFacilitySummary.Leave, btnOpenSbeapCaseLog.Leave,
     btnOpenSbeapClient.Leave, btnOpenSscpItem.Leave, btnOpenTestLog.Leave, btnOpenTestReport.Leave
         Dim thisButton As Button = CType(sender, Button)
-        If Not AcceptButton Is thisButton And Not CBool(thisButton.Tag) Then
+        If AcceptButton IsNot thisButton And Not CBool(thisButton.Tag) Then
             thisButton.FlatStyle = FlatStyle.Flat
             thisButton.ForeColor = SystemColors.GrayText
         End If

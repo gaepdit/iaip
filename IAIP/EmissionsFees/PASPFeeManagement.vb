@@ -459,7 +459,7 @@ Public Class PASPFeeManagement
                     Dim y As Integer = 0
                     While y < dgvNSPSExemptions.Rows(x).Cells.Count
                         Dim c As DataGridViewCell = dgvNSPSExemptions.Rows(x).Cells(y)
-                        If Not c.Value Is DBNull.Value Or Nothing Then
+                        If c.Value IsNot DBNull.Value Then
                             If CType(c.Value, String) = ReasonID Then
                                 Using dgvRow As New DataGridViewRow
                                     dgvRow.CreateCells(dgvNSPSExemptionsByYear)

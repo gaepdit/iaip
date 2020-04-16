@@ -462,7 +462,7 @@ Public Class IAIPListTool
                         Dim y As Integer = 0
                         While y < dgvAvailableForms.Rows(x).Cells.Count
                             Dim c As DataGridViewCell = dgvAvailableForms.Rows(x).Cells(y)
-                            If Not c.Value Is DBNull.Value Or Nothing Then
+                            If c.Value IsNot DBNull.Value Or Nothing Then
                                 If CType(c.Value, String) = temp2 Then
                                     Using dgvRow As New DataGridViewRow
                                         dgvRow.CreateCells(dgvSelectedForms)

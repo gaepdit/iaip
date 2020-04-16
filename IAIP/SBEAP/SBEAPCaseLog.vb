@@ -669,8 +669,8 @@
 
             For Each row As DataGridViewRow In dgvCaseLog.Rows
                 If Not row.IsNewRow Then
-                    If Not row.Cells(8).Value Is DBNull.Value Then
-                        If Not row.Cells(4).Value Is DBNull.Value Then
+                    If row.Cells(8).Value IsNot DBNull.Value Then
+                        If row.Cells(4).Value IsNot DBNull.Value Then
                             temp = row.Cells(4).Value
                             row.DefaultCellStyle.BackColor = Color.White
                         Else
