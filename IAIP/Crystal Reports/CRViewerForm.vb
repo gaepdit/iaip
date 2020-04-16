@@ -9,16 +9,15 @@ Public Class CRViewerForm
 #Region " Properties "
 
     Private Property CRReportDocument() As ReportClass
-    Private WriteOnly Property Title() As String
-        Set(value As String)
-            If value IsNot Nothing Then
-                Me.Text = "Report Preview: " & value
-            Else
-                Me.Text = "Report Preview"
-            End If
-        End Set
-    End Property
     Private Property CRParameters() As Dictionary(Of String, String)
+
+    Private Sub SetTitle(value As String)
+        If value IsNot Nothing Then
+            Me.Text = "Report Preview: " & value
+        Else
+            Me.Text = "Report Preview"
+        End If
+    End Sub
 
 #End Region
 
@@ -42,7 +41,7 @@ Public Class CRViewerForm
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
-        Me.Title = title
+        SetTitle(title)
         Me.CRReportDocument = reportDocument
         Me.CRReportDocument.SetDataSource(dataTable)
         Me.CRParameters = parameters
@@ -59,7 +58,7 @@ Public Class CRViewerForm
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
-        Me.Title = title
+        SetTitle(title)
         Me.CRReportDocument = reportDocument
         Me.CRReportDocument.SetDataSource(dataSet)
         Me.CRParameters = parameters
@@ -76,7 +75,7 @@ Public Class CRViewerForm
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
-        Me.Title = title
+        SetTitle(title)
         Me.CRReportDocument = reportDocument
         Me.CRReportDocument.SetDataSource(data)
         Me.CRParameters = parameters
@@ -92,7 +91,7 @@ Public Class CRViewerForm
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
-        Me.Title = title
+        SetTitle(title)
         Me.CRReportDocument = reportDocument
         Me.CRParameters = parameters
     End Sub
