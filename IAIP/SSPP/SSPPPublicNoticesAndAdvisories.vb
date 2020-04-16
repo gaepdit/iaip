@@ -10,12 +10,21 @@ Public Class SSPPPublicNoticesAndAdvisories
 
     Private Class Document
         Public Property FileName As String
-        Public Property FileData As Byte()
         Public Property ReviewingManager As Integer?
         Public Property DateReviewed As Date?
         Public Property PublishingStaff As Integer?
         Public Property DatePublished As Date?
         Public Property CommentsDate As Date?
+
+        Private fileData As Byte()
+
+        Public Sub SetFileData(value As Byte())
+            fileData = value
+        End Sub
+
+        Public Function GetFileData() As Byte()
+            Return fileData
+        End Function
     End Class
 
     Private ReadOnly Property SelectedRowsCount As Integer
@@ -688,12 +697,12 @@ Public Class SSPPPublicNoticesAndAdvisories
         }
 
         Dim Encoder As New Text.ASCIIEncoding
-        newDocument.FileData = Encoder.GetBytes(rtbPreview.Rtf)
+        newDocument.SetFileData(Encoder.GetBytes(rtbPreview.Rtf))
 
         With newDocument
             Dim params As SqlParameter() = {
                 New SqlParameter("@FileName", .FileName),
-                New SqlParameter("@FileData", .FileData),
+                New SqlParameter("@FileData", .GetFileData()),
                 New SqlParameter("@ReviewingManager", .ReviewingManager),
                 New SqlParameter("@DateReviewed", .DateReviewed),
                 New SqlParameter("@PublishingStaff", .PublishingStaff),
@@ -754,7 +763,6 @@ Public Class SSPPPublicNoticesAndAdvisories
         If dr IsNot Nothing Then
 
             OpenedDocument = New Document With {
-                .FileData = CType(dr.Item("BATCHFILE"), Byte()),
                 .CommentsDate = GetNullableDateTime(dr.Item("DATCOMMENTSDATE")),
                 .DatePublished = GetNullableDateTime(dr.Item("DATPUBLISHEDDATE")),
                 .DateReviewed = GetNullableDateTime(dr.Item("DATREVIEWED")),
@@ -763,10 +771,12 @@ Public Class SSPPPublicNoticesAndAdvisories
                 .ReviewingManager = GetNullable(Of Integer)(dr.Item("STRREVIEWINGMANAGER"))
             }
 
+            OpenedDocument.SetFileData(CType(dr.Item("BATCHFILE"), Byte()))
+
             lblDocumentName.Text = OpenedDocument.FileName
             lblExpirationDate.Text = OpenedDocument.CommentsDate?.ToShortDateString
 
-            Using ms As MemoryStream = New MemoryStream(OpenedDocument.FileData)
+            Using ms As MemoryStream = New MemoryStream(OpenedDocument.GetFileData())
                 rtbDocument.LoadFile(ms, RichTextBoxStreamType.RichText)
             End Using
 
