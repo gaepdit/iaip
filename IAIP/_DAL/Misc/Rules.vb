@@ -50,7 +50,7 @@ Namespace DAL
 
             Dim dt As DataTable = DB.GetDataTable(query)
             dt.CaseSensitive = True
-            dt.PrimaryKey = New DataColumn() {dt.Columns("Subpart")}
+            dt.PrimaryKey = {dt.Columns("Subpart")}
             Return dt
         End Function
 

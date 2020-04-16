@@ -112,7 +112,7 @@ Namespace DAL.Sspp
 
             For Each permit As Permit In permits
                 queryList.Add(query)
-                parameters = New SqlParameter() {
+                parameters = {
                     New SqlParameter("@AirsNumber", permit.AirsNumber.ShortString),
                     New SqlParameter("@PermitNumber", permit.PermitNumber),
                     New SqlParameter("@IssuedDate", permit.IssuedDate),

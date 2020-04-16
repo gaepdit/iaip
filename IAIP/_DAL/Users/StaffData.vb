@@ -60,7 +60,7 @@ Namespace DAL
         Public Function GetComplianceStaff() As DataTable
             Dim query As String = "SELECT * FROM VW_COMPLIANCESTAFF"
             Dim dt As DataTable = DB.GetDataTable(query)
-            dt.PrimaryKey = New DataColumn() {dt.Columns("UserID")}
+            dt.PrimaryKey = {dt.Columns("UserID")}
             dt.DefaultView.Sort = "StaffName ASC"
             Return dt
         End Function

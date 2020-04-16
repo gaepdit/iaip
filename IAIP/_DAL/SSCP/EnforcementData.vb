@@ -465,7 +465,7 @@ Namespace DAL.Sscp
             queries.Add("UPDATE APBSUPPLAMENTALDATA " &
                         "SET STRAFSACTIONNUMBER = @afs " &
                         "WHERE STRAIRSNUMBER = @airsNumber ")
-            parameters.Add(New SqlParameter() {
+            parameters.Add({
                 New SqlParameter("@afs", afsKey + 1),
                 New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
             })
@@ -483,7 +483,7 @@ Namespace DAL.Sscp
                         "    @enforcementId, @enfKey, @penalty, @penaltyComment, " &
                         "    @afsKey, @userid, GETDATE() " &
                         "  ) ")
-            parameters.Add(New SqlParameter() {
+            parameters.Add({
                 New SqlParameter("@enforcementId", enforcementId),
                 New SqlParameter("@enfKey", enfKey.ToString),
                 New SqlParameter("@penalty", penalty.ToString),
@@ -578,7 +578,7 @@ Namespace DAL.Sscp
             dr("DEPRECATED") = "TRUE"
             dt.Rows.Add(dr)
 
-            dt.PrimaryKey = New DataColumn() {dt.Columns("AIRVIOLATIONTYPECODE")}
+            dt.PrimaryKey = {dt.Columns("AIRVIOLATIONTYPECODE")}
             Return dt
         End Function
 
