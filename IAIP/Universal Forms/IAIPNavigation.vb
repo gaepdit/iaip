@@ -944,14 +944,14 @@ Public Class IAIPNavigation
 
     Private Sub HandledExceptionTest(sender As Object, e As EventArgs) Handles RunTest.Click
         Try
-            Throw New Exception("NavScreen handled exception testing")
+            Throw New ArgumentException("NavScreen handled exception testing")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub UnhandledExceptionTest(sender As Object, e As EventArgs) Handles RunTest2.Click
-        Throw New Exception("NavScreen unhandled exception testing")
+        Throw New ArgumentException("NavScreen unhandled exception testing")
     End Sub
 
 #End Region
