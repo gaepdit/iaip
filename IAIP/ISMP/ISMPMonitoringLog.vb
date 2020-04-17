@@ -177,22 +177,35 @@ Public Class ISMPMonitoringLog
                     End If
                 End If
 
-                If chbOpen.Checked = True And chbClosed.Checked = False Then
+                If chbOpen.Checked = True AndAlso chbClosed.Checked = False Then
                     SQLWhere = SQLWhere & " and strClosed = 'False' "
                 End If
-                If chbOpen.Checked = False And chbClosed.Checked = True Then
+                If chbOpen.Checked = False AndAlso chbClosed.Checked = True Then
                     SQLWhere = SQLWhere & " and strClosed = 'True' "
                 End If
 
                 If chbAll.Checked = True Then
 
                 Else
-                    If chbUnassigned.Checked = True Or chbOneStackTwoRun.Checked = True Or chbOneStackThreeRun.Checked = True Or
-                          chbOneStackFourRun.Checked = True Or chbTwoStackStandard.Checked = True Or chbTwoStackDRE.Checked = True Or
-                            chbLoadingRack.Checked = True Or chbPondTreatment.Checked = True Or chbGasConcentration.Checked = True Or
-                              chbFlare.Checked = True Or chbRata.Checked = True Or chbMemorandumStandard.Checked = True Or
-                                 chbMemorandumToFile.Checked = True Or chbMethod9Single.Checked = True Or chbMethod9Multi.Checked = True Or
-                                 chbMethod22.Checked = True Or chbPEMS.Checked = True Or chbPTE.Checked = True Then
+                    If chbUnassigned.Checked = True OrElse
+                        chbOneStackTwoRun.Checked = True OrElse
+                        chbOneStackThreeRun.Checked = True OrElse
+                        chbOneStackFourRun.Checked = True OrElse
+                        chbTwoStackStandard.Checked = True OrElse
+                        chbTwoStackDRE.Checked = True OrElse
+                        chbLoadingRack.Checked = True OrElse
+                        chbPondTreatment.Checked = True OrElse
+                        chbGasConcentration.Checked = True OrElse
+                        chbFlare.Checked = True OrElse
+                        chbRata.Checked = True OrElse
+                        chbMemorandumStandard.Checked = True OrElse
+                        chbMemorandumToFile.Checked = True OrElse
+                        chbMethod9Single.Checked = True OrElse
+                        chbMethod9Multi.Checked = True OrElse
+                        chbMethod22.Checked = True OrElse
+                        chbPEMS.Checked = True OrElse
+                        chbPTE.Checked = True Then
+
                         SQLWhere = SQLWhere & " and ( "
 
                         If chbUnassigned.Checked = True Then
@@ -253,8 +266,11 @@ Public Class ISMPMonitoringLog
                     End If
                 End If
 
-                If chbMonitorCertification.Checked = True Or chbPEMSDevelopment.Checked = True Or chbRATAandCEMS.Checked = True Or
-                     chbSourceTest.Checked = True Or chbOther.Checked = True Then
+                If chbMonitorCertification.Checked = True OrElse
+                    chbPEMSDevelopment.Checked = True OrElse
+                    chbRATAandCEMS.Checked = True OrElse
+                    chbSourceTest.Checked = True OrElse
+                    chbOther.Checked = True Then
 
                     SQLWhere = SQLWhere & " and ( "
 
@@ -277,9 +293,9 @@ Public Class ISMPMonitoringLog
 
                 End If
 
-                If chbComplianceStatus1.Checked = True Or chbComplianceStatus2.Checked = True Or
-                    chbComplianceStatus3.Checked = True Or chbComplianceStatus4.Checked = True Or
-                        chbComplianceStatus5.Checked = True Then
+                If chbComplianceStatus1.Checked = True OrElse chbComplianceStatus2.Checked = True OrElse
+                    chbComplianceStatus3.Checked = True OrElse chbComplianceStatus4.Checked = True OrElse
+                    chbComplianceStatus5.Checked = True Then
 
                     SQLWhere = SQLWhere & " and ( "
 
@@ -808,7 +824,7 @@ Public Class ISMPMonitoringLog
         Try
 
 
-            If dgvTestReportViewer.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvTestReportViewer.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 txtReferenceNumber.Text = dgvTestReportViewer(0, hti.RowIndex).Value
                 If IsDBNull(dgvTestReportViewer(2, hti.RowIndex).Value) Then
                     txtFacilityName.Text = ""
@@ -855,7 +871,7 @@ Public Class ISMPMonitoringLog
         Dim hti As DataGridView.HitTestInfo = dgvTestFirmComments.HitTest(e.X, e.Y)
 
         Try
-            If dgvTestFirmComments.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvTestFirmComments.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 txtCommentNumber.Text = dgvTestFirmComments(0, hti.RowIndex).Value
 
                 If IsDBNull(dgvTestFirmComments(3, hti.RowIndex).Value) Then
@@ -921,7 +937,7 @@ Public Class ISMPMonitoringLog
         Try
 
 
-            If dgvNotificationLog.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvNotificationLog.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 txtTestLogNumber.Text = dgvNotificationLog(4, hti.RowIndex).Value
                 If IsDBNull(dgvNotificationLog(1, hti.RowIndex).Value) Then
                     txtNotificationFacilityName.Text = ""

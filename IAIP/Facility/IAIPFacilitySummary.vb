@@ -81,15 +81,15 @@ Public Class IAIPFacilitySummary
         CreateFacilityMenuItem.Available = (
             AccountFormAccess(138, 0) IsNot Nothing AndAlso
             AccountFormAccess(138, 0) = "138" AndAlso
-            (AccountFormAccess(138, 1) = "1" Or
-            AccountFormAccess(138, 2) = "1" Or
-            AccountFormAccess(138, 3) = "1" Or
+            (AccountFormAccess(138, 1) = "1" OrElse
+            AccountFormAccess(138, 2) = "1" OrElse
+            AccountFormAccess(138, 3) = "1" OrElse
             AccountFormAccess(138, 4) = "1"))
 
-        ToolsMenuSeparator.Visible = (CreateFacilityMenuItem.Available And UpdateEpaMenuItem.Available)
+        ToolsMenuSeparator.Visible = (CreateFacilityMenuItem.Available AndAlso UpdateEpaMenuItem.Available)
 
         ' Edit location/header data
-        If CurrentUser.UnitId = 0 Or AccountFormAccess(22, 3) = "1" Or AccountFormAccess(1, 3) = "1" Then
+        If CurrentUser.UnitId = 0 OrElse AccountFormAccess(22, 3) = "1" OrElse AccountFormAccess(1, 3) = "1" Then
             EditFacilityLocationButton.Visible = True
             EditHeaderDataButton.Visible = True
         Else
@@ -367,9 +367,9 @@ Public Class IAIPFacilitySummary
 
     Private Sub ColorCodeCmsDisplay()
         With ThisFacility.HeaderData
-            If (.CmsMember = FacilityCmsMember.A And .Classification <> FacilityClassification.A) OrElse
-                (.CmsMember = FacilityCmsMember.S And .Classification <> FacilityClassification.SM) OrElse
-                (.CmsMember = FacilityCmsMember.M And .Classification <> FacilityClassification.A) Then
+            If (.CmsMember = FacilityCmsMember.A AndAlso .Classification <> FacilityClassification.A) OrElse
+                (.CmsMember = FacilityCmsMember.S AndAlso .Classification <> FacilityClassification.SM) OrElse
+                (.CmsMember = FacilityCmsMember.M AndAlso .Classification <> FacilityClassification.A) Then
                 CmsDisplay.BackColor = IaipColors.WarningBackColor
                 CmsDisplay.ForeColor = IaipColors.WarningForeColor
             Else

@@ -211,7 +211,7 @@ Public Class SBEAPPhoneLog
 
 
                 If rdbExistingClient.Checked = True Then
-                    If txtClientID.Text <> "" And txtClientInformation.Text <> "" Then
+                    If txtClientID.Text <> "" AndAlso txtClientInformation.Text <> "" Then
                         If txtClientID.Text <> "" Then
                             ClientID = txtClientID.Text
                         Else

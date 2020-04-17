@@ -326,7 +326,7 @@ Public Class ISMPAddTestingFirms
             Else
                 TestingFirmZipCode = "00000"
             End If
-            If txtTestingFirmPhoneNumber1.Text <> "" And txtTestingFirmAreaCode1.Text <> "" Then
+            If txtTestingFirmPhoneNumber1.Text <> "" AndAlso txtTestingFirmAreaCode1.Text <> "" Then
                 For x = 1 To txtTestingFirmAreaCode1.Text.Length
                     If IsNumeric(Mid(txtTestingFirmAreaCode1.Text, x, 1)) Then TestingFirmPhoneNumber1 = TestingFirmPhoneNumber1 & Mid(txtTestingFirmAreaCode1.Text, x, 1)
                 Next
@@ -339,7 +339,7 @@ Public Class ISMPAddTestingFirms
             Else
                 TestingFirmPhoneNumber1 = "N/A"
             End If
-            If txtTestingFirmPhoneNumber2.Text <> "" And txtTestingFirmAreaCode2.Text <> "" Then
+            If txtTestingFirmPhoneNumber2.Text <> "" AndAlso txtTestingFirmAreaCode2.Text <> "" Then
                 For x = 1 To txtTestingFirmAreaCode2.Text.Length
                     If IsNumeric(Mid(txtTestingFirmAreaCode2.Text, x, 1)) Then TestingFirmPhoneNumber2 = TestingFirmPhoneNumber2 & Mid(txtTestingFirmAreaCode2.Text, x, 1)
                 Next
@@ -352,7 +352,7 @@ Public Class ISMPAddTestingFirms
             Else
                 TestingFirmPhoneNumber2 = "N/A"
             End If
-            If txtTestingFirmFaxNumber.Text <> "" And txtTestingFirmAreaCode3.Text <> "" Then
+            If txtTestingFirmFaxNumber.Text <> "" AndAlso txtTestingFirmAreaCode3.Text <> "" Then
                 For x = 1 To txtTestingFirmAreaCode3.Text.Length
                     If IsNumeric(Mid(txtTestingFirmAreaCode3.Text, x, 1)) Then TestingFirmFaxNumber = TestingFirmFaxNumber & Mid(txtTestingFirmAreaCode3.Text, x, 1)
                 Next

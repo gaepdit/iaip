@@ -726,7 +726,7 @@ Public Class MASPRegistrationTool
         Try
             Dim hti As DataGridView.HitTestInfo = dgvRegistrationManagement.HitTest(e.X, e.Y)
 
-            If dgvRegistrationManagement.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvRegistrationManagement.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 If IsDBNull(dgvRegistrationManagement(0, hti.RowIndex).Value) Then
                     Return
                 Else
@@ -1152,7 +1152,7 @@ Public Class MASPRegistrationTool
             If IsDBNull(PassCodeRequired) Then
                 SQL = SQL & "strPasscode = '1', "
             Else
-                If PassCodeRequired = "0" Or PassCode = "" Then
+                If PassCodeRequired = "0" OrElse PassCode = "" Then
                     SQL = SQL & "strPasscode = '1', "
                 Else
                     SQL = SQL & "strPassCode = @PassCode, "

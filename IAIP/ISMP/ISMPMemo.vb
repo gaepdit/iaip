@@ -3,7 +3,10 @@ Imports System.Data.SqlClient
 Public Class ISMPMemo
 
     Private Sub ISMPMemo_Load(sender As Object, e As EventArgs) Handles Me.Load
-        If AccountFormAccess(15, 0) = "1" Or AccountFormAccess(15, 1) = "1" Or AccountFormAccess(15, 2) = "1" Or AccountFormAccess(15, 3) = "1" Then
+        If AccountFormAccess(15, 0) = "1" OrElse
+            AccountFormAccess(15, 1) = "1" OrElse
+            AccountFormAccess(15, 2) = "1" OrElse
+            AccountFormAccess(15, 3) = "1" Then
             bbtSave.Enabled = True
         Else
             bbtSave.Enabled = False

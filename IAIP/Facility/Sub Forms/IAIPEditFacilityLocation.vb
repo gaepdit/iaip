@@ -105,7 +105,7 @@ Public Class IAIPEditFacilityLocation
     End Sub
 
     Private Sub Save()
-        If Not (AccountFormAccess(28, 2) = "1" Or AccountFormAccess(28, 3) = "1" Or AccountFormAccess(28, 4) = "1") Then
+        If Not (AccountFormAccess(28, 2) = "1" OrElse AccountFormAccess(28, 3) = "1" OrElse AccountFormAccess(28, 4) = "1") Then
             MessageBox.Show("You do not have permissions to change facility location information.")
             Exit Sub
         End If
@@ -291,12 +291,12 @@ Public Class IAIPEditFacilityLocation
             mtbFacilityZipCode.BackColor = Color.Yellow
         End If
 
-        If Not (txtFacilityLatitude.Text = "" Or IsNumeric(txtFacilityLatitude.Text)) Then
+        If Not (txtFacilityLatitude.Text = "" OrElse IsNumeric(txtFacilityLatitude.Text)) Then
             DataIsValid = False
             txtFacilityLatitude.BackColor = Color.Yellow
         End If
 
-        If Not (txtFacilityLongitude.Text = "" Or IsNumeric(txtFacilityLongitude.Text)) Then
+        If Not (txtFacilityLongitude.Text = "" OrElse IsNumeric(txtFacilityLongitude.Text)) Then
             DataIsValid = False
             txtFacilityLongitude.BackColor = Color.Yellow
         End If

@@ -1351,7 +1351,7 @@ Public Class PASPFeeManagement
                 Return False
             End If
 
-            If IsDBNull(FeeYear) Or FeeYear = "" Then
+            If IsDBNull(FeeYear) OrElse FeeYear = "" Then
                 Return False
             Else
                 If IsNumeric(FeeYear) Then
@@ -1360,7 +1360,7 @@ Public Class PASPFeeManagement
                 End If
             End If
 
-            If IsDBNull(Part70Fee) Or Part70Fee = "" Then
+            If IsDBNull(Part70Fee) OrElse Part70Fee = "" Then
             Else
                 If IsNumeric(Part70Fee) Then
                 Else
@@ -1368,7 +1368,7 @@ Public Class PASPFeeManagement
                 End If
             End If
 
-            If IsDBNull(SMFee) Or SMFee = "" Then
+            If IsDBNull(SMFee) OrElse SMFee = "" Then
             Else
                 If IsNumeric(SMFee) Then
                 Else
@@ -1376,7 +1376,7 @@ Public Class PASPFeeManagement
                 End If
             End If
 
-            If IsDBNull(PerTonRate) Or PerTonRate = "" Then
+            If IsDBNull(PerTonRate) OrElse PerTonRate = "" Then
             Else
                 If IsNumeric(PerTonRate) Then
                 Else
@@ -1384,7 +1384,7 @@ Public Class PASPFeeManagement
                 End If
             End If
 
-            If IsDBNull(NSPSFee) Or NSPSFee = "" Then
+            If IsDBNull(NSPSFee) OrElse NSPSFee = "" Then
             Else
                 If IsNumeric(NSPSFee) Then
                 Else
@@ -1392,21 +1392,21 @@ Public Class PASPFeeManagement
                 End If
             End If
 
-            If IsDBNull(AdminFee) Or AdminFee = "" Then
+            If IsDBNull(AdminFee) OrElse AdminFee = "" Then
             Else
                 If IsNumeric(AdminFee) Then
                 Else
                     Return False
                 End If
             End If
-            If IsDBNull(AAThres) Or AAThres = "" Then
+            If IsDBNull(AAThres) OrElse AAThres = "" Then
             Else
                 If IsNumeric(AAThres) Then
                 Else
                     Return False
                 End If
             End If
-            If IsDBNull(NAThres) Or NAThres = "" Then
+            If IsDBNull(NAThres) OrElse NAThres = "" Then
             Else
                 If IsNumeric(NAThres) Then
                 Else

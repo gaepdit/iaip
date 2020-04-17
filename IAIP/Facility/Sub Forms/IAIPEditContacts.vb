@@ -162,7 +162,7 @@ Public Class IAIPEditContacts
 
     Private Sub NewContactDataLoad()
         Try
-            If Me.AirsNumber.ToString IsNot Nothing And Key <> ContactKey.None Then
+            If Me.AirsNumber.ToString IsNot Nothing AndAlso Key <> ContactKey.None Then
                 Dim query As String = "Select * from APBContactInformation " &
                 "where strAIRSNumber = @airsnumber " &
                 "and strKey = @key "
@@ -293,7 +293,7 @@ Public Class IAIPEditContacts
 
         Try
 
-            If ContactsDataGrid.RowCount > 0 And hti.RowIndex <> -1 Then
+            If ContactsDataGrid.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 AirsNumber = Mid(ContactsDataGrid(1, hti.RowIndex).Value, 5, 8)
                 Key = Mid(ContactsDataGrid(1, hti.RowIndex).Value, 13)
                 NewContactDataLoad()
@@ -332,11 +332,16 @@ Public Class IAIPEditContacts
             Dim newKey As String = ""
 
             If AirsNumber.ToString <> "" Then
-                If rdbNewAmbientContact.Checked = False And rdbNewComplianceContact.Checked = False _
-                And rdbNewDistrictContact.Checked = False And rdbNewEISContact.Checked = False _
-                And rdbNewESContact.Checked = False And rdbNewFeeContact.Checked = False _
-                And rdbNewMonitoringContact.Checked = False And rdbNewPermittingContact.Checked = False _
-                And rdbNewPlanningContact.Checked = False Then
+                If rdbNewAmbientContact.Checked = False AndAlso
+                    rdbNewComplianceContact.Checked = False AndAlso
+                    rdbNewDistrictContact.Checked = False AndAlso
+                    rdbNewEISContact.Checked = False AndAlso
+                    rdbNewESContact.Checked = False AndAlso
+                    rdbNewFeeContact.Checked = False AndAlso
+                    rdbNewMonitoringContact.Checked = False AndAlso
+                    rdbNewPermittingContact.Checked = False AndAlso
+                    rdbNewPlanningContact.Checked = False Then
+
                     MsgBox("Please select a Contact Type first" & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Me.Text)
                     Return
                 End If

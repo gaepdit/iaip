@@ -783,7 +783,7 @@ Public Class PASPDepositsAmendments
 
             txtCountInvoices.Text = dgvInvoices.RowCount.ToString
 
-            If DAL.AirsNumberExists(mtbAIRSNumber.Text) And dgvInvoices.RowCount = 0 Then
+            If DAL.AirsNumberExists(mtbAIRSNumber.Text) AndAlso dgvInvoices.RowCount = 0 Then
                 Dim query As String = "Select " &
                 "strFacilityName " &
                 "from APBFacilityInformation " &
@@ -970,7 +970,7 @@ Public Class PASPDepositsAmendments
                 dgvInvoices.Columns("FeeDue").Visible = True
                 txtCountInvoices.Text = dgvInvoices.RowCount.ToString
 
-                If DAL.AirsNumberExists(mtbAIRSNumber.Text) And dgvInvoices.RowCount = 0 Then
+                If DAL.AirsNumberExists(mtbAIRSNumber.Text) AndAlso dgvInvoices.RowCount = 0 Then
                     query = "Select " &
                         "strFacilityName " &
                         "from APBFacilityInformation " &

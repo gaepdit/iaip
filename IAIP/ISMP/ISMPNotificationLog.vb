@@ -12,7 +12,7 @@ Public Class ISMPNotificationLog
             DTPTestDateStart.Value = Today
             DTPTestDateEnd.Value = Today
 
-            If AccountFormAccess(66, 2) <> "1" And AccountFormAccess(66, 3) <> "1" Then
+            If AccountFormAccess(66, 2) <> "1" AndAlso AccountFormAccess(66, 3) <> "1" Then
                 bbtSave.Visible = False
                 SaveToolStripMenuItem.Visible = False
                 btnNewTestNotification.Visible = False
@@ -286,7 +286,7 @@ Public Class ISMPNotificationLog
     Private Sub SaveNotification()
         Try
             Dim temp As String
-            If AccountFormAccess(66, 2) = "1" Or AccountFormAccess(66, 3) = "1" Then
+            If AccountFormAccess(66, 2) = "1" OrElse AccountFormAccess(66, 3) = "1" Then
                 Dim UserIDNum As String = ""
                 Dim TestPlan As String = ""
                 Dim TimelyNotification As String = ""

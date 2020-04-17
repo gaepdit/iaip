@@ -167,7 +167,7 @@
 
         Try
 
-            If dgvExistingYearAdmin.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvExistingYearAdmin.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 mtbSelectedAIRSNumber.Text = dgvExistingYearAdmin(0, hti.RowIndex).Value.ToString
                 cbYear.Text = dgvExistingYearAdmin(2, hti.RowIndex).Value.ToString
             End If

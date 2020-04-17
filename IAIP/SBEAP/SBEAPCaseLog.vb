@@ -197,13 +197,13 @@
                     SQLSearch2 = " datCaseClosed is null "
             End Select
 
-            If SQLSearch1 <> "" And SQLSearch2 = "" Then
+            If SQLSearch1 <> "" AndAlso SQLSearch2 = "" Then
                 SQLSearch1 = " where " & SQLSearch1
             End If
-            If SQLSearch1 = "" And SQLSearch2 <> "" Then
+            If SQLSearch1 = "" AndAlso SQLSearch2 <> "" Then
                 SQLSearch2 = " where " & SQLSearch2
             End If
-            If SQLSearch1 <> "" And SQLSearch2 <> "" Then
+            If SQLSearch1 <> "" AndAlso SQLSearch2 <> "" Then
                 If cboFieldType1.Text = cboFieldType2.Text Then
                     SQLSearch1 = " where (" & SQLSearch1 & " or " & SQLSearch2 & ") "
                     SQLSearch2 = ""
@@ -269,14 +269,14 @@
                 End If
             End If
 
-            If SQLOrder1 <> " " Or SQLOrder2 <> " " Then
-                If SQLOrder1 <> " " And SQLOrder2 <> " " Then
+            If SQLOrder1 <> " " OrElse SQLOrder2 <> " " Then
+                If SQLOrder1 <> " " AndAlso SQLOrder2 <> " " Then
                     SQLOrder1 = " Order by " & SQLOrder1 & ", " & SQLOrder2
                 Else
-                    If SQLOrder1 <> " " And SQLOrder2 = " " Then
+                    If SQLOrder1 <> " " AndAlso SQLOrder2 = " " Then
                         SQLOrder1 = " order by " & SQLOrder1
                     Else
-                        If SQLOrder1 = " " And SQLOrder2 <> " " Then
+                        If SQLOrder1 = " " AndAlso SQLOrder2 <> " " Then
                             SQLOrder1 = " Order by " & SQLOrder2
                         Else
                             SQLOrder1 = " "
@@ -564,7 +564,7 @@
     Private Sub dgvCaseLog_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvCaseLog.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvCaseLog.HitTest(e.X, e.Y)
-            If dgvCaseLog.RowCount > 0 And hti.RowIndex <> -1 AndAlso
+            If dgvCaseLog.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
                 dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
 
                 If IsDBNull(dgvCaseLog(0, hti.RowIndex).Value) Then
@@ -679,7 +679,7 @@
                             If temp < 15 Then
                                 row.DefaultCellStyle.BackColor = Color.White
                             End If
-                            If temp > 15 And temp < 30 Then
+                            If temp > 15 AndAlso temp < 30 Then
                                 row.DefaultCellStyle.BackColor = Color.Pink
                             End If
                             If temp > 30 Then

@@ -24,7 +24,10 @@ Public Class ISMPTestFirmComments
                 btnOpenManagerTools.Visible = False
             End If
 
-            If AccountFormAccess(67, 1) = "1" Or AccountFormAccess(67, 2) = "1" Or AccountFormAccess(67, 3) = "1" Or AccountFormAccess(67, 4) = "1" Then
+            If AccountFormAccess(67, 1) = "1" OrElse
+                AccountFormAccess(67, 2) = "1" OrElse
+                AccountFormAccess(67, 3) = "1" OrElse
+                AccountFormAccess(67, 4) = "1" Then
             Else
                 tsbSave.Visible = False
                 btnSavePreTest.Visible = False

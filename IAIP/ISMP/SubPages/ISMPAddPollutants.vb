@@ -85,7 +85,7 @@ Public Class ISMPAddPollutants
     Private Sub Save()
         Try
 
-            If String.IsNullOrWhiteSpace(txtPollutant.Text) Or String.IsNullOrWhiteSpace(txtPollutantCode.Text) Then
+            If String.IsNullOrWhiteSpace(txtPollutant.Text) OrElse String.IsNullOrWhiteSpace(txtPollutantCode.Text) Then
                 MessageBox.Show("Enter a pollutant code and description before saving.")
                 Exit Sub
             End If

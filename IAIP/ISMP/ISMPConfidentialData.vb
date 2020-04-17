@@ -256,7 +256,7 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPSSCPWork)
             End Select
 
-            If ConfidentialData <> "" And Mid(ConfidentialData, 1, 1) = "1" Then
+            If ConfidentialData <> "" AndAlso Mid(ConfidentialData, 1, 1) = "1" Then
                 If Mid(ConfidentialData, 3, 1) = "1" Then
                     chbAIRSNumber.Checked = True
                 Else
@@ -2386,7 +2386,7 @@ Public Class ISMPConfidentialData
     Private Sub SaveConfidentialData()
         Try
 
-            If txtReferenceNumber.Text <> "" And DocumentType <> "" Then
+            If txtReferenceNumber.Text <> "" AndAlso DocumentType <> "" Then
                 ConfidentialData = "00"
                 If chbAIRSNumber.Checked = True Then
                     ConfidentialData = ConfidentialData & "1"

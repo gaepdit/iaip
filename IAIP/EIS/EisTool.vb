@@ -28,7 +28,7 @@ Public Class EisTool
     End Sub
 
     Private Sub LoadPermissions()
-        If AccountFormAccess(130, 3) <> "1" And AccountFormAccess(130, 4) <> "1" Then
+        If AccountFormAccess(130, 3) <> "1" AndAlso AccountFormAccess(130, 4) <> "1" Then
             TCDMUTools.TabPages.Remove(TPESTools)
         End If
     End Sub
@@ -681,7 +681,7 @@ Public Class EisTool
         Try
             If dgvESDataCount.RowCount > 0 Then
                 If dgvESDataCount.ColumnCount > 2 Then
-                    If dgvESDataCount.RowCount > 0 And hti.RowIndex <> -1 Then
+                    If dgvESDataCount.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                         If dgvESDataCount.Columns(0).HeaderText = "Airs No." Then
                             If IsDBNull(dgvESDataCount(0, hti.RowIndex).Value) Then
 
@@ -2442,12 +2442,12 @@ Public Class EisTool
 
     Private Sub LoadFSData()
         Try
-            If cboEILogYear.Text = "" Or cboEILogYear.Text.Length <> 4 Then
+            If cboEILogYear.Text = "" OrElse cboEILogYear.Text.Length <> 4 Then
                 MsgBox("Please select a valid year from the EIS Year dropdown.", MsgBoxStyle.Exclamation, Me.Text)
                 Return
             End If
 
-            If mtbEILogAIRSNumber.Text = "" Or mtbEILogAIRSNumber.Text.Length <> 8 Then
+            If mtbEILogAIRSNumber.Text = "" OrElse mtbEILogAIRSNumber.Text.Length <> 8 Then
                 MsgBox("Please enter a valid AIRS # into the EIS AIRS #", MsgBoxStyle.Exclamation, Me.Text)
                 Return
             End If
@@ -3386,7 +3386,7 @@ Public Class EisTool
             Dim hti As DataGridView.HitTestInfo = dgvEISStats.HitTest(e.X, e.Y)
             Dim i As Integer = 0
 
-            If hti.RowIndex = -1 And hti.ColumnIndex <> -1 Then
+            If hti.RowIndex = -1 AndAlso hti.ColumnIndex <> -1 Then
                 If dgvEISStats.Columns(hti.ColumnIndex).HeaderText = " " Then
                     If dgvEISStats(0, 0).Value = True Then
                         For i = 0 To dgvEISStats.Rows.Count - 1
@@ -3405,7 +3405,7 @@ Public Class EisTool
             End If
 
             If CurrentTabPage.Name.ToString = "TPEISStatMailout" AndAlso
-                (dgvEISStats.RowCount > 0 And hti.RowIndex <> -1) Then
+                (dgvEISStats.RowCount > 0 AndAlso hti.RowIndex <> -1) Then
 
                 dgvEISStats.Enabled = False
 
@@ -3541,7 +3541,7 @@ Public Class EisTool
     End Sub
     Private Sub btnSaveEISStatMailout_Click(sender As Object, e As EventArgs) Handles btnSaveEISStatMailout.Click
         Try
-            If txtSelectedEISMailout.Text <> "" And txtEISStatsMailoutAIRSNumber.Text <> "" Then
+            If txtSelectedEISMailout.Text <> "" AndAlso txtEISStatsMailoutAIRSNumber.Text <> "" Then
                 Dim SQL As String = "UPdate EIS_Mailout set " &
                     "strFacilityName = @strFacilityName, " &
                     "strContactCompanyName = @strContactCompanyName, " &
@@ -4252,7 +4252,7 @@ Public Class EisTool
         Dim City As String = txtEIModifyCity.Text
         Dim PostalCode As String = mtbEIModifyZipCode.Text
 
-        If Address <> "" And City <> "" Then
+        If Address <> "" AndAlso City <> "" Then
             Dim query As String = "Update EIS_FacilitySiteAddress set " &
             " STRLOCATIONADDRESSTEXT = @Address, " &
             " STRLOCALITYNAME = @City, " &
@@ -4285,7 +4285,7 @@ Public Class EisTool
         Dim City As String = txtEIModifyMCity.Text
         Dim PostalCode As String = mtbEIModifyMZipCode.Text
 
-        If Address <> "" And City <> "" Then
+        If Address <> "" AndAlso City <> "" Then
             Dim query As String = "Update EIS_FacilitySiteAddress set " &
             " strMailingAddressText = @Address, " &
             " strMailingAddresscityname = @City, " &
@@ -4344,7 +4344,7 @@ Public Class EisTool
                 Return
             End If
 
-            If mtbEIModifyLatitude.Text <> "" And mtbEIModifyLongitude.Text <> "" Then
+            If mtbEIModifyLatitude.Text <> "" AndAlso mtbEIModifyLongitude.Text <> "" Then
                 Dim SQL As String = "Update EIS_FacilityGEOCoord set " &
                 "numLatitudeMeasure = @numLatitudeMeasure, " &
                 "numLongitudeMeasure = @numLongitudeMeasure " &
@@ -5037,7 +5037,7 @@ Public Class EisTool
         Dim hti As DataGridView.HitTestInfo = dgvThresholdPollutants.HitTest(e.X, e.Y)
 
         Try
-            If dgvThresholdPollutants.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvThresholdPollutants.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 If IsDBNull(dgvThresholdPollutants(0, hti.RowIndex).Value) Then
                     txtPollutant.Clear()
                 Else
@@ -5198,7 +5198,7 @@ Public Class EisTool
         Dim hti As DataGridView.HitTestInfo = dgvEISYear.HitTest(e.X, e.Y)
 
         Try
-            If dgvEISYear.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvEISYear.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 If IsDBNull(dgvEISYear(0, hti.RowIndex).Value) Then
                     mtbThresholdYear.Clear()
                 Else
@@ -5333,7 +5333,7 @@ Public Class EisTool
 
     Private Sub btnLoadEISLog_Click(sender As Object, e As EventArgs) Handles btnLoadEISLog.Click
         Try
-            If mtbEISLogAIRSNumber.Text <> "" And cboEISStatisticsYear.Text.Length = 4 Then
+            If mtbEISLogAIRSNumber.Text <> "" AndAlso cboEISStatisticsYear.Text.Length = 4 Then
                 mtbEILogAIRSNumber.Text = mtbEISLogAIRSNumber.Text
                 cboEILogYear.Text = cboEISStatisticsYear.Text
 

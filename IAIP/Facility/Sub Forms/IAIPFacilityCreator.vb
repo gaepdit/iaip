@@ -364,12 +364,12 @@ Public Class IAIPFacilityCreator
             Else
                 FacilityZipCode = "00000"
             End If
-            If mtbFacilityLongitude.Text <> "" And mtbFacilityLongitude.Text.Contains("-  .") = False Then
+            If mtbFacilityLongitude.Text <> "" AndAlso mtbFacilityLongitude.Text.Contains("-  .") = False Then
                 FacilityLongitude = mtbFacilityLongitude.Text
             Else
                 FacilityLongitude = "00.000000"
             End If
-            If mtbFacilityLatitude.Text <> "" And mtbFacilityLatitude.Text.Contains("  .") = False Then
+            If mtbFacilityLatitude.Text <> "" AndAlso mtbFacilityLatitude.Text.Contains("  .") = False Then
                 FacilityLatitude = mtbFacilityLatitude.Text
             Else
                 FacilityLatitude = "-00.000000"
@@ -504,7 +504,7 @@ Public Class IAIPFacilityCreator
                 Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & TodayFormatted &
                                vbCrLf & txtFacilityComments.Text & vbCrLf
             End If
-            If String.IsNullOrWhiteSpace(txtApplicationNumber.Text) And
+            If String.IsNullOrWhiteSpace(txtApplicationNumber.Text) AndAlso
                 txtFacilityComments.Text.Contains(txtApplicationNumber.Text) = False Then
                 Comments = Comments & "Pre-loaded with Application " & txtApplicationNumber.Text
             End If
@@ -1350,7 +1350,7 @@ Public Class IAIPFacilityCreator
             Dim SSPPSignOff As String = ""
             Dim SQL As String
 
-            If chbSSCPSignOff.Checked = True And chbSSPPSignOff.Checked = True Then
+            If chbSSCPSignOff.Checked = True AndAlso chbSSPPSignOff.Checked = True Then
                 SQL = "Select " &
                 "numApprovingSSCP, numApprovingSSPP " &
                 "from APBSupplamentalData " &
@@ -1373,7 +1373,7 @@ Public Class IAIPFacilityCreator
                     End If
                 End If
 
-                If SSCPSignOff = "" And SSPPSignOff = "" Then
+                If SSCPSignOff = "" AndAlso SSPPSignOff = "" Then
                     SQL = "Update APBSupplamentalData set " &
                         "numApprovingSSCP = @numApprovingSSCP " &
                         ", datApproveDateSSCP = @datApproveDateSSCP " &
@@ -1751,12 +1751,12 @@ Public Class IAIPFacilityCreator
             Else
                 FacilityZipCode = "00000"
             End If
-            If mtbFacilityLongitude.Text <> "" And mtbFacilityLongitude.Text.Contains("-  .") = False Then
+            If mtbFacilityLongitude.Text <> "" AndAlso mtbFacilityLongitude.Text.Contains("-  .") = False Then
                 FacilityLongitude = mtbFacilityLongitude.Text
             Else
                 FacilityLongitude = "00.000000"
             End If
-            If mtbFacilityLatitude.Text <> "" And mtbFacilityLatitude.Text.Contains("  .") = False Then
+            If mtbFacilityLatitude.Text <> "" AndAlso mtbFacilityLatitude.Text.Contains("  .") = False Then
                 FacilityLatitude = mtbFacilityLatitude.Text
             Else
                 FacilityLatitude = "-00.000000"
@@ -1899,7 +1899,7 @@ Public Class IAIPFacilityCreator
                 Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & Format(Today, DateFormat) &
                                vbCrLf & txtFacilityComments.Text & vbCrLf
             End If
-            If Not String.IsNullOrWhiteSpace(txtApplicationNumber.Text) And
+            If Not String.IsNullOrWhiteSpace(txtApplicationNumber.Text) AndAlso
                 txtFacilityComments.Text.Contains(txtApplicationNumber.Text) = False Then
                 Comments = Comments & "Pre-loaded with Application " & txtApplicationNumber.Text
             End If

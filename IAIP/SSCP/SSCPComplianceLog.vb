@@ -88,7 +88,7 @@ Public Class SSCPComplianceLog
     End Sub
 
     Private Sub LoadDefaultSettings()
-        If AccountFormAccess(4, 3) = "1" Or AccountFormAccess(4, 4) = "1" Then 'Full Access in unit or District Liaison
+        If AccountFormAccess(4, 3) = "1" OrElse AccountFormAccess(4, 4) = "1" Then 'Full Access in unit or District Liaison
             chbEngineer.Checked = False
         Else
             chbEngineer.Checked = True

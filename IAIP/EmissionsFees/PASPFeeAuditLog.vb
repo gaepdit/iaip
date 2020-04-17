@@ -2251,7 +2251,7 @@ Public Class PASPFeeAuditLog
     Private Sub dgvGECOFeeContacts_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvGECOFeeContacts.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvGECOFeeContacts.HitTest(e.X, e.Y)
-            If dgvGECOFeeContacts.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvGECOFeeContacts.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 If IsDBNull(dgvGECOFeeContacts(2, hti.RowIndex).Value) Then
                     txtGECOContactFirstName.Clear()
                 Else
@@ -2448,7 +2448,7 @@ Public Class PASPFeeAuditLog
 
             Dim hti As DataGridView.HitTestInfo = dgvTransactions.HitTest(e.X, e.Y)
 
-            If dgvTransactions.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvTransactions.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 If IsDBNull(dgvTransactions(0, hti.RowIndex).Value) Then
                     txtTransactionID.Clear()
                 Else
@@ -2774,7 +2774,7 @@ Public Class PASPFeeAuditLog
                 Return
             End If
 
-            If rdbEditOpStatusTrue.Checked = True Or rdbEditOpStatusFalse.Checked = True Then
+            If rdbEditOpStatusTrue.Checked = True OrElse rdbEditOpStatusFalse.Checked = True Then
                 If rdbEditOpStatusTrue.Checked = True Then
                     OpStatus = "1"
                 Else
@@ -2850,21 +2850,21 @@ Public Class PASPFeeAuditLog
             Else
                 TotalFee = Nothing
             End If
-            If rdbEditSMTrue.Checked = True Or rdbEditSMFalse.Checked = True Then
+            If rdbEditSMTrue.Checked = True OrElse rdbEditSMFalse.Checked = True Then
                 If rdbEditSMTrue.Checked = True Then
                     SM = "1"
                 Else
                     SM = "0"
                 End If
             End If
-            If rdbEditPart70True.Checked = True Or rdbEditPart70False.Checked = True Then
+            If rdbEditPart70True.Checked = True OrElse rdbEditPart70False.Checked = True Then
                 If rdbEditPart70True.Checked = True Then
                     Part70 = "1"
                 Else
                     Part70 = "0"
                 End If
             End If
-            If rdbEditNSPSTrue.Checked = True Or rdbEditNSPSFalse.Checked = True Then
+            If rdbEditNSPSTrue.Checked = True OrElse rdbEditNSPSFalse.Checked = True Then
                 If rdbEditNSPSTrue.Checked = True Then
                     NSPS = "1"
                 Else
@@ -2890,7 +2890,7 @@ Public Class PASPFeeAuditLog
             Else
                 OfficialTitle = ""
             End If
-            If rdbEditNSPSExemptTrue.Checked = True Or rdbEditNSPSExemptFalse.Checked = True Then
+            If rdbEditNSPSExemptTrue.Checked = True OrElse rdbEditNSPSExemptFalse.Checked = True Then
                 If rdbEditNSPSExemptTrue.Checked = True Then
                     NSPSExempt = "1"
                 Else
@@ -3184,7 +3184,7 @@ Public Class PASPFeeAuditLog
             Dim hti As DataGridView.HitTestInfo = dgvEditExemptions.HitTest(e.X, e.Y)
             Dim i As Integer = 0
 
-            If hti.RowIndex = -1 And hti.ColumnIndex <> -1 AndAlso
+            If hti.RowIndex = -1 AndAlso hti.ColumnIndex <> -1 AndAlso
                 dgvEditExemptions.Columns(hti.ColumnIndex).HeaderText = "" Then
 
                 If dgvEditExemptions(0, 0).Value = True Then
@@ -3309,7 +3309,7 @@ Public Class PASPFeeAuditLog
         Try
             Dim hti As DataGridView.HitTestInfo = dgvInvoices.HitTest(e.X, e.Y)
 
-            If dgvInvoices.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvInvoices.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 If IsDBNull(dgvInvoices(0, hti.RowIndex).Value) Then
                     txtInvoice.Clear()
                     DisablePrintSelectedInvoiceLink()
@@ -3367,7 +3367,7 @@ Public Class PASPFeeAuditLog
                 Return
             End If
 
-            If txtAmount.Text <> "" And cboInvoiceType.Text <> "" Then
+            If txtAmount.Text <> "" AndAlso cboInvoiceType.Text <> "" Then
                 If CInt(txtAmount.Text) = 0 Then
                     InvoiceStatus = "1"
                 Else
@@ -3611,7 +3611,7 @@ Public Class PASPFeeAuditLog
                 Return
             End If
 
-            If rdbEditOpStatusTrue.Checked = True Or rdbEditOpStatusFalse.Checked = True Then
+            If rdbEditOpStatusTrue.Checked = True OrElse rdbEditOpStatusFalse.Checked = True Then
                 If rdbEditOpStatusTrue.Checked = True Then
                     OpStatus = "1"
                 Else
@@ -3688,21 +3688,21 @@ Public Class PASPFeeAuditLog
             Else
                 TotalFee = Nothing
             End If
-            If rdbEditSMTrue.Checked = True Or rdbEditSMFalse.Checked = True Then
+            If rdbEditSMTrue.Checked = True OrElse rdbEditSMFalse.Checked = True Then
                 If rdbEditSMTrue.Checked = True Then
                     SM = "1"
                 Else
                     SM = "0"
                 End If
             End If
-            If rdbEditPart70True.Checked = True Or rdbEditPart70False.Checked = True Then
+            If rdbEditPart70True.Checked = True OrElse rdbEditPart70False.Checked = True Then
                 If rdbEditPart70True.Checked = True Then
                     Part70 = "1"
                 Else
                     Part70 = "0"
                 End If
             End If
-            If rdbEditNSPSTrue.Checked = True Or rdbEditNSPSFalse.Checked = True Then
+            If rdbEditNSPSTrue.Checked = True OrElse rdbEditNSPSFalse.Checked = True Then
                 If rdbEditNSPSTrue.Checked = True Then
                     NSPS = "1"
                 Else
@@ -3728,7 +3728,7 @@ Public Class PASPFeeAuditLog
             Else
                 OfficialTitle = ""
             End If
-            If rdbEditNSPSExemptTrue.Checked = True Or rdbEditNSPSExemptFalse.Checked = True Then
+            If rdbEditNSPSExemptTrue.Checked = True OrElse rdbEditNSPSExemptFalse.Checked = True Then
                 If rdbEditNSPSExemptTrue.Checked = True Then
                     NSPSExempt = "1"
                 Else

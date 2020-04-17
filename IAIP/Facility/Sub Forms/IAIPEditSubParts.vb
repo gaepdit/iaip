@@ -90,10 +90,10 @@ Public Class IAIPEditSubParts
     End Sub
 
     Private Sub SetPermissions()
-        If Not (AccountFormAccess(26, 1) = "1" Or
-            AccountFormAccess(26, 2) = "1" Or
-            AccountFormAccess(26, 3) = "1" Or
-            AccountFormAccess(26, 4) = "1" Or
+        If Not (AccountFormAccess(26, 1) = "1" OrElse
+            AccountFormAccess(26, 2) = "1" OrElse
+            AccountFormAccess(26, 3) = "1" OrElse
+            AccountFormAccess(26, 4) = "1" OrElse
             CurrentUser.HasRole({19, 113, 114, 141})) Then
 
             DisableSaving()

@@ -32,7 +32,7 @@ Public Class SscpEnforcement
             Return _generalMessage
         End Get
         Set(value As IaipMessage)
-            If value Is Nothing And Message IsNot Nothing Then
+            If value Is Nothing AndAlso Message IsNot Nothing Then
                 ClearGeneralMessage()
             End If
             _generalMessage = value
@@ -48,7 +48,7 @@ Public Class SscpEnforcement
             Return _message
         End Get
         Set(value As IaipMessage)
-            If value Is Nothing And Message IsNot Nothing Then
+            If value Is Nothing AndAlso Message IsNot Nothing Then
                 Message.Clear()
             End If
             _message = value
@@ -461,7 +461,7 @@ Public Class SscpEnforcement
         ClearMessageMenuItem.Enabled = False
 
         Me.MinimumSize = New Size(747, 580)
-        If GeneralMessagePanel.Visible And Me.WindowState = FormWindowState.Normal Then
+        If GeneralMessagePanel.Visible AndAlso Me.WindowState = FormWindowState.Normal Then
             Me.Height = Me.Height - GeneralMessagePanel.Height
         End If
 
@@ -653,7 +653,7 @@ Public Class SscpEnforcement
     Private Function SaveAllLinkedEvents() As Boolean
         Dim success As Boolean = True
         For Each row As DataGridViewRow In LinkedEvents.Rows
-            success = success And SaveLinkedEvent(CInt(row.Cells("Tracking #").Value))
+            success = success AndAlso SaveLinkedEvent(CInt(row.Cells("Tracking #").Value))
         Next
         Return success
     End Function
@@ -693,7 +693,7 @@ Public Class SscpEnforcement
             NovCheckBox.Enabled = False
             ViolationTypeNone.Checked = True
             ViolationTypeGroupbox.Visible = False
-            If Not EnforcementCase.SubmittedToUc And EnforcementId > 0 Then
+            If Not EnforcementCase.SubmittedToUc AndAlso EnforcementId > 0 Then
                 SubmitToUC.Visible = True
             End If
         Else
@@ -711,7 +711,7 @@ Public Class SscpEnforcement
             EnableCaseFileTools(EnableOrDisable.Enable)
         Else
             EnforcementTabs.TabPages.Remove(NovTabPage)
-            If Not (COCheckBox.Checked Or AOCheckBox.Checked) Then
+            If Not (COCheckBox.Checked OrElse AOCheckBox.Checked) Then
                 EnableCaseFileTools(EnableOrDisable.Disable)
             End If
         End If
@@ -723,7 +723,7 @@ Public Class SscpEnforcement
             EnableCaseFileTools(EnableOrDisable.Enable)
         Else
             EnforcementTabs.TabPages.Remove(COTabPage)
-            If Not (NovCheckBox.Checked Or AOCheckBox.Checked) Then
+            If Not (NovCheckBox.Checked OrElse AOCheckBox.Checked) Then
                 EnableCaseFileTools(EnableOrDisable.Disable)
             End If
         End If
@@ -735,7 +735,7 @@ Public Class SscpEnforcement
             EnableCaseFileTools(EnableOrDisable.Enable)
         Else
             EnforcementTabs.TabPages.Remove(AOTabPage)
-            If Not (COCheckBox.Checked Or NovCheckBox.Checked) Then
+            If Not (COCheckBox.Checked OrElse NovCheckBox.Checked) Then
                 EnableCaseFileTools(EnableOrDisable.Disable)
             End If
         End If
@@ -745,10 +745,10 @@ Public Class SscpEnforcement
         If enabler = EnableOrDisable.Enable Then
             LonCheckBox.Enabled = False
             ViolationTypeGroupbox.Visible = True
-            If Not EnforcementCase.SubmittedToUc And EnforcementId > 0 Then
+            If Not EnforcementCase.SubmittedToUc AndAlso EnforcementId > 0 Then
                 SubmitToUC.Visible = True
             End If
-            If Not EnforcementCase.SubmittedToEpa And EnforcementId > 0 Then
+            If Not EnforcementCase.SubmittedToEpa AndAlso EnforcementId > 0 Then
                 SubmitToEpa.Visible = True
                 SubmitToEpa2.Visible = True
                 NotSubmittedToEpaLabel.Visible = True
@@ -998,7 +998,7 @@ Public Class SscpEnforcement
 
     Private Sub StipulatedPenalties_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles StipulatedPenalties.CellClick
 
-        If e.RowIndex <> -1 And e.RowIndex < StipulatedPenalties.RowCount Then
+        If e.RowIndex <> -1 AndAlso e.RowIndex < StipulatedPenalties.RowCount Then
             selectedStipulatedPenaltyItem = CInt(StipulatedPenalties.Rows(e.RowIndex).Cells("STRENFORCEMENTKEY").Value)
             Dim sp As String = StipulatedPenalties.Rows(e.RowIndex).Cells("STRSTIPULATEDPENALTY").Value.ToString
             If StringValidatesAsCurrency(sp) Then
@@ -1121,7 +1121,7 @@ Public Class SscpEnforcement
 
         Dim canceled As Boolean = False
         Dim downloaded As Boolean = DownloadDocument(doc, canceled, Me)
-        If downloaded Or canceled Then
+        If downloaded OrElse canceled Then
             If Message IsNot Nothing Then Message.Clear()
         Else
             Me.Message = New IaipMessage(String.Format(GetDocumentMessage(DocumentMessageType.DownloadFailure), lblDocumentName), IaipMessage.WarningLevels.ErrorReport)
@@ -1492,12 +1492,12 @@ Public Class SscpEnforcement
 
     Private Function ValidateFormData() As Boolean
         ClearErrors()
-        Return ValidateDates() And
-            ValidateViolationType() And
-            ValidatePrograms() And
-            ValidatePollutants() And
-            ValidateLinkedEvents() And
-            ValidateFacility() And
+        Return ValidateDates() AndAlso
+            ValidateViolationType() AndAlso
+            ValidatePrograms() AndAlso
+            ValidatePollutants() AndAlso
+            ValidateLinkedEvents() AndAlso
+            ValidateFacility() AndAlso
             ValidatePenaltyAmount()
     End Function
 
@@ -1513,7 +1513,7 @@ Public Class SscpEnforcement
 
     Private Function ValidateViolationType() As Boolean
         If FormIsCaseFile() AndAlso
-            (ViolationTypeNone.Checked Or ViolationTypeSelect.SelectedValue?.ToString = "BLANK") Then
+            (ViolationTypeNone.Checked OrElse ViolationTypeSelect.SelectedValue?.ToString = "BLANK") Then
 
             validationErrors.Add(ViolationTypeGroupbox, "Choose a Violation Type")
             Return False
@@ -1567,12 +1567,12 @@ Public Class SscpEnforcement
         Dim result As Boolean = ValidateDiscoveryDate()
 
         If LonCheckBox.Checked Then
-            result = result And ValidateLonDates()
+            result = result AndAlso ValidateLonDates()
         Else
-            If NovCheckBox.Checked Then result = result And ValidateNovDates()
-            If NovCheckBox.Checked Then result = result And ValidateNfaDates()
-            If COCheckBox.Checked Then result = result And ValidateCODates()
-            If AOCheckBox.Checked Then result = result And ValidateAODates()
+            If NovCheckBox.Checked Then result = result AndAlso ValidateNovDates()
+            If NovCheckBox.Checked Then result = result AndAlso ValidateNfaDates()
+            If COCheckBox.Checked Then result = result AndAlso ValidateCODates()
+            If AOCheckBox.Checked Then result = result AndAlso ValidateAODates()
         End If
 
         Return result
@@ -1598,21 +1598,21 @@ Public Class SscpEnforcement
         Dim result As Boolean = True
 
         If LonToUC.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 LonToUC.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
                 subsequents:=New List(Of DateTimePicker) From {LonSent, LonResolved})
         End If
 
         If LonSent.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 LonSent.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, LonToUC},
                 subsequents:=New List(Of DateTimePicker) From {LonResolved})
         End If
 
         If LonResolved.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 LonResolved.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, LonToUC},
                 requiredAntecedents:=New List(Of DateTimePicker) From {LonSent})
@@ -1629,7 +1629,7 @@ Public Class SscpEnforcement
         Dim result As Boolean = True
 
         If NovToUC.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 NovToUC.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
                 subsequents:=New List(Of DateTimePicker) From
@@ -1639,7 +1639,7 @@ Public Class SscpEnforcement
         End If
 
         If NovToPM.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 NovToPM.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC},
                 subsequents:=New List(Of DateTimePicker) From
@@ -1649,7 +1649,7 @@ Public Class SscpEnforcement
         End If
 
         If NovSent.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 NovSent.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC, NovToPM},
                 subsequents:=New List(Of DateTimePicker) From
@@ -1659,7 +1659,7 @@ Public Class SscpEnforcement
         End If
 
         If NovResponseReceived.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 NovResponseReceived.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC, NovToPM},
                 subsequents:=New List(Of DateTimePicker) From
@@ -1679,14 +1679,14 @@ Public Class SscpEnforcement
         Dim result As Boolean = True
 
         If NfaToUC.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 NfaToUC.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC},
                 subsequents:=New List(Of DateTimePicker) From {NfaToPM, NfaSent})
         End If
 
         If NfaToPM.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 NfaToPM.Value,
                 antecedents:=New List(Of DateTimePicker) From
                 {DiscoveryDate, NovToUC, NovToPM, NfaToUC},
@@ -1694,7 +1694,7 @@ Public Class SscpEnforcement
         End If
 
         If NfaSent.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 NfaSent.Value,
                 antecedents:=New List(Of DateTimePicker) From
                 {DiscoveryDate, NovToUC, NovToPM, NovSent,
@@ -1713,7 +1713,7 @@ Public Class SscpEnforcement
         Dim result As Boolean = True
 
         If COToUC.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 COToUC.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
                 subsequents:=New List(Of DateTimePicker) From
@@ -1721,21 +1721,21 @@ Public Class SscpEnforcement
         End If
 
         If COToPM.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 COToPM.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, COToUC},
                 subsequents:=New List(Of DateTimePicker) From {COProposed, COExecuted, COResolved})
         End If
 
         If COProposed.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 COProposed.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, COToUC, COToPM},
                 subsequents:=New List(Of DateTimePicker) From {COExecuted, COResolved})
         End If
 
         If COExecuted.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 COExecuted.Value,
                 antecedents:=New List(Of DateTimePicker) From
                 {DiscoveryDate, COToUC, COToPM, COProposed},
@@ -1743,7 +1743,7 @@ Public Class SscpEnforcement
         End If
 
         If COResolved.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 COResolved.Value,
                 antecedents:=New List(Of DateTimePicker) From
                 {DiscoveryDate, COToUC, COToPM, COProposed},
@@ -1761,14 +1761,14 @@ Public Class SscpEnforcement
         Dim result As Boolean = True
 
         If AOExecuted.Checked Then
-            result = result And CheckTheseDates(
+            result = result Andalso CheckTheseDates(
                 AOExecuted.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
                 subsequents:=New List(Of DateTimePicker) From {AOAppealed, AOResolved})
         End If
 
         If AOAppealed.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 AOAppealed.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
                 subsequents:=New List(Of DateTimePicker) From {AOResolved},
@@ -1776,7 +1776,7 @@ Public Class SscpEnforcement
         End If
 
         If AOResolved.Checked Then
-            result = result And CheckTheseDates(
+            result = result AndAlso CheckTheseDates(
                 AOResolved.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, AOAppealed},
                 requiredAntecedents:=New List(Of DateTimePicker) From {AOExecuted})
@@ -1898,7 +1898,7 @@ Public Class SscpEnforcement
     Private Sub ReadLonDataFromForm()
         With EnforcementCase
             If LonCheckBox.Checked AndAlso
-                (LonResolved.Checked Or LonSent.Checked Or LonToUC.Checked) Then
+                (LonResolved.Checked OrElse LonSent.Checked OrElse LonToUC.Checked) Then
 
                 .EnforcementActions.Add(EnforcementActionType.LON)
                 .LonResolved = GetNullableDateFromDateTimePicker(LonResolved)
@@ -1917,8 +1917,8 @@ Public Class SscpEnforcement
     Private Sub ReadNovDataFromForm()
         With EnforcementCase
             If NovCheckBox.Checked AndAlso
-                (NovSent.Checked Or NovToPM.Checked Or NovToUC.Checked Or
-                NfaSent.Checked Or NfaToPM.Checked Or NfaToUC.Checked) Then
+                (NovSent.Checked OrElse NovToPM.Checked OrElse NovToUC.Checked OrElse
+                NfaSent.Checked OrElse NfaToPM.Checked OrElse NfaToUC.Checked) Then
 
                 .EnforcementActions.Add(EnforcementActionType.NOV)
                 .NovResponseReceived = GetNullableDateFromDateTimePicker(NovResponseReceived)
@@ -1945,7 +1945,7 @@ Public Class SscpEnforcement
     Private Sub ReadCoDataFromForm()
         With EnforcementCase
             If COCheckBox.Checked AndAlso
-                (COExecuted.Checked Or COProposed.Checked Or COToPM.Checked Or COToUC.Checked) Then
+                (COExecuted.Checked OrElse COProposed.Checked OrElse COToPM.Checked OrElse COToUC.Checked) Then
 
                 .EnforcementActions.Add(EnforcementActionType.CO)
                 .CoExecuted = GetNullableDateFromDateTimePicker(COExecuted)
@@ -1978,7 +1978,7 @@ Public Class SscpEnforcement
     Private Sub ReadAoDataFromForm()
         With EnforcementCase
             If AOCheckBox.Checked AndAlso
-                (AOAppealed.Checked Or AOExecuted.Checked Or AOResolved.Checked) Then
+                (AOAppealed.Checked OrElse AOExecuted.Checked OrElse AOResolved.Checked) Then
 
                 .EnforcementActions.Add(EnforcementActionType.AO)
                 .AoAppealed = GetNullableDateFromDateTimePicker(AOAppealed)

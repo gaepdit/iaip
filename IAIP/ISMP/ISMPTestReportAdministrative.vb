@@ -138,7 +138,10 @@ Public Class ISMPTestReportAdministrative
         Dim temp As String
         Try
 
-            If btnSearchForAIRS.Visible = True And cboAIRSNumber.Text <> "" And cboAIRSNumber.Text.Length = 8 Then
+            If btnSearchForAIRS.Visible = True AndAlso
+                cboAIRSNumber.Text <> "" AndAlso
+                cboAIRSNumber.Text.Length = 8 Then
+
                 cboFacilityName.Text = ""
                 txtFacilityAddress.Clear()
                 txtFacilityCity.Clear()
@@ -238,7 +241,7 @@ Public Class ISMPTestReportAdministrative
         Try
             clbReferenceNumbers.Items.Clear()
 
-            If DTPDateReceived.Text <> "" And cboAIRSNumber.Text <> "" Then
+            If DTPDateReceived.Text <> "" AndAlso cboAIRSNumber.Text <> "" Then
                 query = "select
                     m.STRREFERENCENUMBER,
                     STREMISSIONSOURCE,
@@ -320,14 +323,14 @@ Public Class ISMPTestReportAdministrative
             End If
 
             If btnSearchForAIRS.Visible = True Then
-                If cboAIRSNumber.Text <> "" And cboAIRSNumber.Text.Length = 8 Then
+                If cboAIRSNumber.Text <> "" AndAlso cboAIRSNumber.Text.Length = 8 Then
                     AIRSNumber = cboAIRSNumber.Text
                 Else
                     MsgBox("Invalid AIRS Number", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
                     Exit Sub
                 End If
             Else
-                If cboAIRSNumber.SelectedIndex <> -1 And cboAIRSNumber.SelectedIndex <> 0 Then
+                If cboAIRSNumber.SelectedIndex <> -1 AndAlso cboAIRSNumber.SelectedIndex <> 0 Then
                     AIRSNumber = cboAIRSNumber.SelectedValue
                 Else
                     MsgBox("The Facility Name does not correspond to the AIRS Number provided." _
@@ -336,13 +339,13 @@ Public Class ISMPTestReportAdministrative
                 End If
             End If
 
-            If cboPollutant.SelectedIndex <> -1 And cboPollutant.SelectedIndex <> 0 Then
+            If cboPollutant.SelectedIndex <> -1 AndAlso cboPollutant.SelectedIndex <> 0 Then
             Else
                 MsgBox("The Pollutant does not match any of the provided pollutants." _
                   & vbCr & "This must be corrected before moving on.", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
                 Exit Sub
             End If
-            If cboTestingFirms.SelectedIndex <> -1 And cboTestingFirms.SelectedIndex <> 0 Then
+            If cboTestingFirms.SelectedIndex <> -1 AndAlso cboTestingFirms.SelectedIndex <> 0 Then
             Else
                 MsgBox("The Testing Firm does not match any of the provided Testing Firms." _
                   & vbCr & "This must be corrected before moving on.", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
@@ -358,7 +361,7 @@ Public Class ISMPTestReportAdministrative
             End If
 
             If txtReferenceNumber.Text <> "" Then
-                If rdbOpenReport.Checked = False And rdbCloseReport.Checked = False Then
+                If rdbOpenReport.Checked = False AndAlso rdbCloseReport.Checked = False Then
                     rdbOpenReport.Checked = True
                 End If
 
@@ -502,7 +505,7 @@ Public Class ISMPTestReportAdministrative
 
             If rdbCloseReport.Checked = True Then
                 If btnSearchForAIRS.Visible = True Then
-                    If cboAIRSNumber.Text <> "" And cboAIRSNumber.Text.Length = 8 Then
+                    If cboAIRSNumber.Text <> "" AndAlso cboAIRSNumber.Text.Length = 8 Then
                         AIRSNumber = cboAIRSNumber.Text
                     End If
                 Else
@@ -1718,7 +1721,7 @@ Public Class ISMPTestReportAdministrative
         Try
 
 
-            If dgvFacilityInfo.RowCount > 0 And hti.RowIndex <> -1 AndAlso
+            If dgvFacilityInfo.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
                 dgvFacilityInfo.Columns(0).HeaderText = "Reference #" Then
 
                 txtReferenceNumber.Text = dgvFacilityInfo(0, hti.RowIndex).Value
@@ -1757,14 +1760,14 @@ Public Class ISMPTestReportAdministrative
     Private Sub rdbCloseReport_CheckedChanged(sender As Object, e As EventArgs) Handles rdbCloseReport.CheckedChanged
         Try
 
-            If rdbCloseReport.Checked = False And SaveToolStripMenuItem.Enabled = False Then
+            If rdbCloseReport.Checked = False AndAlso SaveToolStripMenuItem.Enabled = False Then
                 SaveToolStripMenuItem.Enabled = True
             End If
             If rdbCloseReport.Checked = True Then
                 DTPDateClosed.Enabled = True
                 btnCloseTestReport.Enabled = True
 
-                If DTPDateClosed.Value = "09-Sep-9998" Or DTPDateClosed.Value = "04-Jul-1776" Then
+                If DTPDateClosed.Value = "09-Sep-9998" OrElse DTPDateClosed.Value = "04-Jul-1776" Then
                     DTPDateClosed.Value = Date.Today
                 End If
             Else
@@ -1899,7 +1902,7 @@ Public Class ISMPTestReportAdministrative
             If txtAddTestReportRefNum.Text <> "" Then
                 txtAddTestReportRefNum.BackColor = Color.White
                 RefNum = txtAddTestReportRefNum.Text
-                If mtbAddTestReportAIRSNumber.Text <> "" And Len(mtbAddTestReportAIRSNumber.Text) = 8 Then
+                If mtbAddTestReportAIRSNumber.Text <> "" AndAlso Len(mtbAddTestReportAIRSNumber.Text) = 8 Then
                     AIRSNumber = mtbAddTestReportAIRSNumber.Text
                     mtbAddTestReportAIRSNumber.BackColor = Color.White
                 Else
@@ -2146,7 +2149,7 @@ Public Class ISMPTestReportAdministrative
 
     Private Sub btnSearchForAIRS_Click(sender As Object, e As EventArgs) Handles btnSearchForAIRS.Click
         Try
-            If cboAIRSNumber.Text <> "" And cboAIRSNumber.Text.Length = 8 Then
+            If cboAIRSNumber.Text <> "" AndAlso cboAIRSNumber.Text.Length = 8 Then
                 cboFacilityName.Text = ""
                 txtFacilityAddress.Clear()
                 txtFacilityCity.Clear()

@@ -18,7 +18,7 @@ Public Class SscpDocuments
             Return _message
         End Get
         Set(value As IaipMessage)
-            If value Is Nothing And Message IsNot Nothing Then
+            If value Is Nothing AndAlso Message IsNot Nothing Then
                 Message.Clear()
             End If
             _message = value
@@ -450,7 +450,7 @@ Public Class SscpDocuments
 
         Dim canceled As Boolean = False
         Dim downloaded As Boolean = DownloadDocument(doc, canceled, Me)
-        If downloaded Or canceled Then
+        If downloaded OrElse canceled Then
             If Message IsNot Nothing Then Message.Clear()
         Else
             Me.Message = New IaipMessage(String.Format(GetDocumentMessage(DocumentMessageType.DownloadFailure), lblDocumentName), IaipMessage.WarningLevels.ErrorReport)
