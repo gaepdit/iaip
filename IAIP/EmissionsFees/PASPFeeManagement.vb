@@ -502,7 +502,7 @@ Public Class PASPFeeManagement
                         dgvRow.CreateCells(dgvNSPSExemptionsByYear)
                         dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
                         dgvRow.Cells(1).Value = dgvNSPSExemptions(0, dgvNSPSExemptions.CurrentRow.Index).Value
-                        dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
+                        dgvRow.Cells(2).Value = dgvNSPSExemptionsByYear.RowCount + 1
                         dgvRow.Cells(3).Value = dgvNSPSExemptions(1, dgvNSPSExemptions.CurrentRow.Index).Value
                         dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
                     End Using
@@ -512,7 +512,7 @@ Public Class PASPFeeManagement
                     dgvRow.CreateCells(dgvNSPSExemptionsByYear)
                     dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
                     dgvRow.Cells(1).Value = dgvNSPSExemptions(0, dgvNSPSExemptions.CurrentRow.Index).Value
-                    dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
+                    dgvRow.Cells(2).Value = dgvNSPSExemptionsByYear.RowCount + 1
                     dgvRow.Cells(3).Value = dgvNSPSExemptions(1, dgvNSPSExemptions.CurrentRow.Index).Value
                     dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
                 End Using
@@ -539,7 +539,7 @@ Public Class PASPFeeManagement
                     dgvRow.CreateCells(dgvNSPSExemptionsByYear)
                     dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
                     dgvRow.Cells(1).Value = dgvNSPSExemptions(0, i).Value
-                    dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
+                    dgvRow.Cells(2).Value = dgvNSPSExemptionsByYear.RowCount + 1
                     dgvRow.Cells(3).Value = dgvNSPSExemptions(1, i).Value
                     dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
                 End Using
