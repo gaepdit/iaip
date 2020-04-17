@@ -472,9 +472,6 @@ Public Class SBEAPPhoneLog
         End Using
     End Sub
 
-    Private Sub mmiClearCaseID_Click(sender As Object, e As EventArgs) Handles mmiClearCaseID.Click
-    End Sub
-
     Private Sub chbOnetimeAssist_CheckStateChanged(sender As Object, e As EventArgs) Handles chbOnetimeAssist.CheckStateChanged
         If chbOnetimeAssist.Checked = True Then
             btnCreateNewClient.Visible = False
