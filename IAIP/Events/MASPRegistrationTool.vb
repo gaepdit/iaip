@@ -1,4 +1,4 @@
-﻿Imports System.Data.SqlClient
+Imports System.Data.SqlClient
 Imports System.Collections.Generic
 Imports Iaip.DAL.EventRegistrationData
 Imports Iaip.Apb.Res
@@ -843,10 +843,15 @@ Public Class MASPRegistrationTool
     Private Sub btnModifyRegistration_Click(sender As Object, e As EventArgs) Handles btnModifyRegistration.Click
         Try
             'First check to see if event is already at capacity
-            If txtOvNumberRegistered.Text = txtOvEventCapacity.Text And cboRegStatus.SelectedValue.ToString = "1" Then
+            If txtOvNumberRegistered.Text = txtOvEventCapacity.Text AndAlso
+                cboRegStatus.SelectedValue.ToString = "1" Then
                 'Give the admin a warning that they may be overbooking the event
-                If MessageBox.Show(Me, "Event is already at Capacity. If this Registrant wasn't previously confirmed, the Event will be booked over capacity. 
-Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
+                Dim msg As String = "Event is already at Capacity. If this Registrant wasn't previously confirmed, " &
+                    "the Event will be booked over capacity. " & vbNewLine & vbNewLine &
+                    "Would you like to continue?"
+                Dim result As DialogResult = MessageBox.Show(Me, msg, "Event is at capacity", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
+                If result = DialogResult.No Then
                     Return
                 End If
             End If

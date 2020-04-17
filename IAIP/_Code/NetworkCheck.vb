@@ -47,12 +47,11 @@ Public Module NetworkCheck
                 Return NetworkCheckResponse.OnVpn
             End If
 
-            If externalTestSiteIsDown Then
-                ' If test site is down and client is on private network, 
-                ' no way to tell if connected to GTA network
-                If privateNetworkIpRange.IsInRange(InternalIPAddress) Then
-                    Return NetworkCheckResponse.TestSiteDown
-                End If
+            ' If test site is down and client is on private network, 
+            ' no way to tell if connected to GTA network
+            If externalTestSiteIsDown AndAlso
+                privateNetworkIpRange.IsInRange(InternalIPAddress) Then
+                Return NetworkCheckResponse.TestSiteDown
             End If
         Catch ex As Exception
             ' If internal test site is down, log as error

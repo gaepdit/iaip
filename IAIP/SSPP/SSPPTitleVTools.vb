@@ -2948,10 +2948,9 @@ Public Class SSPPTitleVTools
     Private Sub txtWebPublisherApplicationNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtWebPublisherApplicationNumber.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                If txtWebPublisherApplicationNumber.Text <> "" Then
-                    LoadWebPublisherApplicationData()
-                End If
+            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) AndAlso
+                txtWebPublisherApplicationNumber.Text <> "" Then
+                LoadWebPublisherApplicationData()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

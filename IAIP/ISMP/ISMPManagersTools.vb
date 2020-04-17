@@ -2173,10 +2173,9 @@ Public Class ISMPManagersTools
         Dim hti As DataGridView.HitTestInfo = dgvUnitStats.HitTest(e.X, e.Y)
 
         Try
-            If dgvUnitStats.Columns(0).HeaderText = "Reference #" Then
-                If dgvUnitStats.RowCount > 0 And hti.RowIndex <> -1 Then
-                    txtUnitStatReferenceNumber.Text = dgvUnitStats(0, hti.RowIndex).Value
-                End If
+            If dgvUnitStats.Columns(0).HeaderText = "Reference #" AndAlso
+                dgvUnitStats.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
+                txtUnitStatReferenceNumber.Text = dgvUnitStats(0, hti.RowIndex).Value
             End If
 
         Catch ex As Exception

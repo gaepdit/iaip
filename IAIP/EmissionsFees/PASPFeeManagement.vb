@@ -459,17 +459,15 @@ Public Class PASPFeeManagement
                     Dim y As Integer = 0
                     While y < dgvNSPSExemptions.Rows(x).Cells.Count
                         Dim c As DataGridViewCell = dgvNSPSExemptions.Rows(x).Cells(y)
-                        If c.Value IsNot DBNull.Value Then
-                            If CType(c.Value, String) = ReasonID Then
-                                Using dgvRow As New DataGridViewRow
-                                    dgvRow.CreateCells(dgvNSPSExemptionsByYear)
-                                    dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
-                                    dgvRow.Cells(1).Value = dgvNSPSExemptions(0, x).Value
-                                    dgvRow.Cells(2).Value = DisplayOrder
-                                    dgvRow.Cells(3).Value = dgvNSPSExemptions(1, x).Value
-                                    dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
-                                End Using
-                            End If
+                        If c.Value IsNot DBNull.Value AndAlso CType(c.Value, String) = ReasonID Then
+                            Using dgvRow As New DataGridViewRow
+                                dgvRow.CreateCells(dgvNSPSExemptionsByYear)
+                                dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
+                                dgvRow.Cells(1).Value = dgvNSPSExemptions(0, x).Value
+                                dgvRow.Cells(2).Value = DisplayOrder
+                                dgvRow.Cells(3).Value = dgvNSPSExemptions(1, x).Value
+                                dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
+                            End Using
                         End If
                         Math.Min(Threading.Interlocked.Increment(y), y - 1)
                     End While
@@ -688,14 +686,14 @@ Public Class PASPFeeManagement
 
     Private Sub btnDeleteNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnDeleteNSPSExemption.Click
         Try
-            If txtDeleteNSPSExemptions.Text <> "" Then
-                If Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, "", "0") = True Then
-                    txtDeleteNSPSExemptions.Clear()
-                    txtNSPSExemption.Clear()
-                    LoadNSPSExemptions()
-                    LoadNSPSExemptions2("1")
-                    MsgBox("Exemption Deleted", MsgBoxStyle.Information, Me.Text)
-                End If
+            If txtDeleteNSPSExemptions.Text <> "" AndAlso
+                Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, "", "0") = True Then
+
+                txtDeleteNSPSExemptions.Clear()
+                txtNSPSExemption.Clear()
+                LoadNSPSExemptions()
+                LoadNSPSExemptions2("1")
+                MsgBox("Exemption Deleted", MsgBoxStyle.Information, Me.Text)
             End If
 
         Catch ex As Exception
@@ -709,15 +707,15 @@ Public Class PASPFeeManagement
 
     Private Sub btnUpdateNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnUpdateNSPSExemption.Click
         Try
-            If txtDeleteNSPSExemptions.Text <> "" Then
-                If Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, txtNSPSExemption.Text, "1") = True Then
-                    txtDeleteNSPSExemptions.Clear()
-                    txtNSPSExemption.Clear()
-                    LoadNSPSExemptions()
-                    LoadNSPSExemptions2("1")
+            If txtDeleteNSPSExemptions.Text <> "" AndAlso
+                Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, txtNSPSExemption.Text, "1") = True Then
 
-                    MsgBox("Exemption Updated", MsgBoxStyle.Information, Me.Text)
-                End If
+                txtDeleteNSPSExemptions.Clear()
+                txtNSPSExemption.Clear()
+                LoadNSPSExemptions()
+                LoadNSPSExemptions2("1")
+
+                MsgBox("Exemption Updated", MsgBoxStyle.Information, Me.Text)
             End If
 
         Catch ex As Exception

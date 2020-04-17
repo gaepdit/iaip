@@ -349,10 +349,8 @@ Public Class ISMPTestReportAdministrative
                 Exit Sub
             End If
 
-            If chbOverright.Checked = False Then
-                If txtReferenceNumber.Text = "" Then
-                    GetNextReferenceNumber()
-                End If
+            If chbOverright.Checked = False AndAlso txtReferenceNumber.Text = "" Then
+                GetNextReferenceNumber()
             End If
 
             If txtEmissionSource.Text = "" Then
@@ -1720,10 +1718,10 @@ Public Class ISMPTestReportAdministrative
         Try
 
 
-            If dgvFacilityInfo.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvFacilityInfo.Columns(0).HeaderText = "Reference #" Then
-                    txtReferenceNumber.Text = dgvFacilityInfo(0, hti.RowIndex).Value
-                End If
+            If dgvFacilityInfo.RowCount > 0 And hti.RowIndex <> -1 AndAlso
+                dgvFacilityInfo.Columns(0).HeaderText = "Reference #" Then
+
+                txtReferenceNumber.Text = dgvFacilityInfo(0, hti.RowIndex).Value
             End If
 
         Catch ex As Exception

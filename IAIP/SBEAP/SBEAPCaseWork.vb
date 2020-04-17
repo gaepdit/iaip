@@ -2075,16 +2075,16 @@ Public Class SBEAPCaseWork
     Private Sub dgvActionLog_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvActionLog.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvActionLog.HitTest(e.X, e.Y)
-            If dgvActionLog.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvActionLog.Columns(0).HeaderText = "Action ID" Then
-                    txtActionID.Text = dgvActionLog(0, hti.RowIndex).Value
-                    txtActionType.Text = dgvActionLog(2, hti.RowIndex).Value
-                    txtCreationDate.Text = Format(dgvActionLog(3, hti.RowIndex).Value, "dd-MMM-yyyy")
-                    If IsDBNull(dgvActionLog(4, hti.RowIndex).Value) Then
-                        DTPActionOccured.Value = Today
-                    Else
-                        DTPActionOccured.Text = Format(dgvActionLog(4, hti.RowIndex).Value, "dd-MMM-yyyy")
-                    End If
+            If dgvActionLog.RowCount > 0 And hti.RowIndex <> -1 AndAlso
+                dgvActionLog.Columns(0).HeaderText = "Action ID" Then
+
+                txtActionID.Text = dgvActionLog(0, hti.RowIndex).Value
+                txtActionType.Text = dgvActionLog(2, hti.RowIndex).Value
+                txtCreationDate.Text = Format(dgvActionLog(3, hti.RowIndex).Value, "dd-MMM-yyyy")
+                If IsDBNull(dgvActionLog(4, hti.RowIndex).Value) Then
+                    DTPActionOccured.Value = Today
+                Else
+                    DTPActionOccured.Text = Format(dgvActionLog(4, hti.RowIndex).Value, "dd-MMM-yyyy")
                 End If
             End If
         Catch ex As Exception

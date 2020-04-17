@@ -674,10 +674,10 @@ Public Class SscpEnforcement
 
     Private Sub LinkedEvents_MouseUp(sender As Object, e As MouseEventArgs) Handles LinkedEvents.MouseUp
         ' See if the left mouse button was clicked
-        If e.Button = MouseButtons.Left Then
-            If LinkedEvents.HitTest(e.X, e.Y).Type = DataGridViewHitTestType.None Then
-                LinkedEvents.ClearSelection()
-            End If
+        If e.Button = MouseButtons.Left AndAlso
+            LinkedEvents.HitTest(e.X, e.Y).Type = DataGridViewHitTestType.None Then
+
+            LinkedEvents.ClearSelection()
         End If
     End Sub
 
@@ -1535,36 +1535,30 @@ Public Class SscpEnforcement
     End Function
 
     Private Function ValidateLinkedEvents() As Boolean
-        If EnforcementCase.SubmittedToEpa Then
-            If LinkedEvents.Rows.Count = 0 Then
-                Dim dr As DialogResult = MessageBox.Show(
+        If EnforcementCase.SubmittedToEpa AndAlso LinkedEvents.Rows.Count = 0 Then
+            Dim dr As DialogResult = MessageBox.Show(
                 "There are no compliance discovery events linked to this enforcement case. Do you want to submit to EPA without an initiating action?",
                 "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-                If dr = DialogResult.No Then
-                    validationErrors.Add(LinkToEvent, "Missing discovery event.")
-                    Return False
-                End If
+            If dr = DialogResult.No Then
+                validationErrors.Add(LinkToEvent, "Missing discovery event.")
+                Return False
             End If
         End If
         Return True
     End Function
 
     Private Function ValidatePollutants() As Boolean
-        If FormIsCaseFile() Then
-            If PollutantsListView.CheckedIndices.Count = 0 Then
-                validationErrors.Add(PollutantsListLabel, "At least one pollutant must be selected.")
-                Return False
-            End If
+        If FormIsCaseFile() AndAlso PollutantsListView.CheckedIndices.Count = 0 Then
+            validationErrors.Add(PollutantsListLabel, "At least one pollutant must be selected.")
+            Return False
         End If
         Return True
     End Function
 
     Private Function ValidatePrograms() As Boolean
-        If FormIsCaseFile() Then
-            If ProgramsListView.CheckedIndices.Count = 0 Then
-                validationErrors.Add(ProgramsListLabel, "At least one air program must be selected.")
-                Return False
-            End If
+        If FormIsCaseFile() AndAlso ProgramsListView.CheckedIndices.Count = 0 Then
+            validationErrors.Add(ProgramsListLabel, "At least one air program must be selected.")
+            Return False
         End If
         Return True
     End Function

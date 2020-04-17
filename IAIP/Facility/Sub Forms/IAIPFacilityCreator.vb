@@ -10,21 +10,19 @@ Public Class IAIPFacilityCreator
             TCFacilityTools.TabPages.Remove(TPApproveNewFacility)
             TCFacilityTools.TabPages.Remove(TPDeleteFacility)
 
-            If AccountFormAccess(138, 0) Is Nothing Then
-            Else
-                If AccountFormAccess(138, 0) = "138" Then
-                    If AccountFormAccess(138, 3) = "1" Or AccountFormAccess(138, 4) = "1" Then
-                        TCFacilityTools.TabPages.Add(TPApproveNewFacility)
-                        dtpStartFilter.Value = Today
-                        dtpEndFilter.Value = Today
-                        DTPSSCPApproveDate.Value = Today
-                        DTPSSPPApproveDate.Value = Today
+            If AccountFormAccess(138, 0) IsNot Nothing AndAlso
+                AccountFormAccess(138, 0) = "138" AndAlso
+                (AccountFormAccess(138, 3) = "1" OrElse AccountFormAccess(138, 4) = "1") Then
 
-                        TCFacilityTools.TabPages.Add(TPDeleteFacility)
+                TCFacilityTools.TabPages.Add(TPApproveNewFacility)
+                dtpStartFilter.Value = Today
+                dtpEndFilter.Value = Today
+                DTPSSCPApproveDate.Value = Today
+                DTPSSPPApproveDate.Value = Today
 
-                        LoadPendingFacilities()
-                    End If
-                End If
+                TCFacilityTools.TabPages.Add(TPDeleteFacility)
+
+                LoadPendingFacilities()
             End If
 
         Catch ex As Exception

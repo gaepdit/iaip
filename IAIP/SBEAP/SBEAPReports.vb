@@ -738,13 +738,14 @@ Public Class SBEAPReports
     Private Sub dgvCaseWork_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvCaseWork.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvCaseWork.HitTest(e.X, e.Y)
-            If dgvCaseWork.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvCaseWork.Columns(0).HeaderText = "Case #" Then
-                    If IsDBNull(dgvCaseWork(0, hti.RowIndex).Value) Then
-                        txtCaseID.Text = ""
-                    Else
-                        txtCaseID.Text = dgvCaseWork(0, hti.RowIndex).Value
-                    End If
+
+            If dgvCaseWork.RowCount > 0 And hti.RowIndex <> -1 AndAlso
+                dgvCaseWork.Columns(0).HeaderText = "Case #" Then
+
+                If IsDBNull(dgvCaseWork(0, hti.RowIndex).Value) Then
+                    txtCaseID.Text = ""
+                Else
+                    txtCaseID.Text = dgvCaseWork(0, hti.RowIndex).Value
                 End If
             End If
 

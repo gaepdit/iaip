@@ -75,12 +75,10 @@
 
     ' IDisposable
     Protected Overridable Sub Dispose(disposing As Boolean)
-        If Not disposedValue Then
-            If disposing Then
-                If errorProvider IsNot Nothing Then errorProvider.Dispose()
-                If ErrorControl IsNot Nothing Then ErrorControl.Dispose()
-                If DisplayLabel IsNot Nothing Then DisplayLabel.Dispose()
-            End If
+        If Not disposedValue AndAlso disposing Then
+            If errorProvider IsNot Nothing Then errorProvider.Dispose()
+            If ErrorControl IsNot Nothing Then ErrorControl.Dispose()
+            If DisplayLabel IsNot Nothing Then DisplayLabel.Dispose()
         End If
         disposedValue = True
     End Sub

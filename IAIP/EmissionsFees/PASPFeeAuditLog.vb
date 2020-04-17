@@ -3184,17 +3184,17 @@ Public Class PASPFeeAuditLog
             Dim hti As DataGridView.HitTestInfo = dgvEditExemptions.HitTest(e.X, e.Y)
             Dim i As Integer = 0
 
-            If hti.RowIndex = -1 And hti.ColumnIndex <> -1 Then
-                If dgvEditExemptions.Columns(hti.ColumnIndex).HeaderText = "" Then
-                    If dgvEditExemptions(0, 0).Value = True Then
-                        For i = 0 To dgvEditExemptions.Rows.Count - 1
-                            dgvEditExemptions(0, i).Value = False
-                        Next
-                    Else
-                        For i = 0 To dgvEditExemptions.Rows.Count - 1
-                            dgvEditExemptions(0, i).Value = True
-                        Next
-                    End If
+            If hti.RowIndex = -1 And hti.ColumnIndex <> -1 AndAlso
+                dgvEditExemptions.Columns(hti.ColumnIndex).HeaderText = "" Then
+
+                If dgvEditExemptions(0, 0).Value = True Then
+                    For i = 0 To dgvEditExemptions.Rows.Count - 1
+                        dgvEditExemptions(0, i).Value = False
+                    Next
+                Else
+                    For i = 0 To dgvEditExemptions.Rows.Count - 1
+                        dgvEditExemptions(0, i).Value = True
+                    Next
                 End If
             End If
 

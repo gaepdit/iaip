@@ -588,10 +588,8 @@ Public Class SSCPEvents
                         Exit Sub
                 End Select
 
-                If result Then
-                    If SaveDate() Then
-                        MsgBox("Save Complete", MsgBoxStyle.Information, "SSCP Events")
-                    End If
+                If result AndAlso SaveDate() Then
+                    MsgBox("Save Complete", MsgBoxStyle.Information, "SSCP Events")
                 End If
             End If
         Catch ex As Exception

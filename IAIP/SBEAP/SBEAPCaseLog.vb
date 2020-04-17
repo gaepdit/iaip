@@ -532,26 +532,26 @@
 
     Private Sub dgvCaseLog_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCaseLog.CellDoubleClick
         Try
-            If e.RowIndex > -1 Then
-                If dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
-                    If IsDBNull(dgvCaseLog(0, e.RowIndex).Value) Then
-                        txtCaseID.Text = ""
+            If e.RowIndex > -1 AndAlso
+                dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
+
+                If IsDBNull(dgvCaseLog(0, e.RowIndex).Value) Then
+                    txtCaseID.Text = ""
+                Else
+                    txtCaseID.Text = dgvCaseLog(0, e.RowIndex).Value
+
+                    If CaseWork IsNot Nothing Then
+                        CaseWork.Dispose()
+                    End If
+
+                    CaseWork = New SBEAPCaseWork
+
+                    If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
+                        CaseWork.txtCaseID.Text = txtCaseID.Text
+                        CaseWork.Show()
+                        CaseWork.LoadCaseLogData()
                     Else
-                        txtCaseID.Text = dgvCaseLog(0, e.RowIndex).Value
-
-                        If CaseWork IsNot Nothing Then
-                            CaseWork.Dispose()
-                        End If
-
-                        CaseWork = New SBEAPCaseWork
-
-                        If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
-                            CaseWork.txtCaseID.Text = txtCaseID.Text
-                            CaseWork.Show()
-                            CaseWork.LoadCaseLogData()
-                        Else
-                            MessageBox.Show("There was an error opening the Case.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        End If
+                        MessageBox.Show("There was an error opening the Case.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
                 End If
             End If
@@ -564,13 +564,13 @@
     Private Sub dgvCaseLog_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvCaseLog.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvCaseLog.HitTest(e.X, e.Y)
-            If dgvCaseLog.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
-                    If IsDBNull(dgvCaseLog(0, hti.RowIndex).Value) Then
-                        txtCaseID.Text = ""
-                    Else
-                        txtCaseID.Text = dgvCaseLog(0, hti.RowIndex).Value
-                    End If
+            If dgvCaseLog.RowCount > 0 And hti.RowIndex <> -1 AndAlso
+                dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
+
+                If IsDBNull(dgvCaseLog(0, hti.RowIndex).Value) Then
+                    txtCaseID.Text = ""
+                Else
+                    txtCaseID.Text = dgvCaseLog(0, hti.RowIndex).Value
                 End If
             End If
         Catch ex As Exception

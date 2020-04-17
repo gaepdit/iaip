@@ -5075,13 +5075,14 @@ Public Class PASPFeeStatistics
     Private Sub dgvFeeStats_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvFeeStats.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvFeeStats.HitTest(e.X, e.Y)
-            If dgvFeeStats.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvFeeStats.Columns(0).HeaderText = "Airs No." Then
-                    If IsDBNull(dgvFeeStats(0, hti.RowIndex).Value) Then
-                        txtFeeStatAirsNumber.Clear()
-                    Else
-                        txtFeeStatAirsNumber.Text = dgvFeeStats(0, hti.RowIndex).Value
-                    End If
+
+            If dgvFeeStats.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
+                dgvFeeStats.Columns(0).HeaderText = "Airs No." Then
+
+                If IsDBNull(dgvFeeStats(0, hti.RowIndex).Value) Then
+                    txtFeeStatAirsNumber.Clear()
+                Else
+                    txtFeeStatAirsNumber.Text = dgvFeeStats(0, hti.RowIndex).Value
                 End If
             End If
 

@@ -462,36 +462,36 @@ Public Class IAIPListTool
                         Dim y As Integer = 0
                         While y < dgvAvailableForms.Rows(x).Cells.Count
                             Dim c As DataGridViewCell = dgvAvailableForms.Rows(x).Cells(y)
-                            If c.Value IsNot DBNull.Value Or Nothing Then
-                                If CType(c.Value, String) = temp2 Then
-                                    Using dgvRow As New DataGridViewRow
-                                        dgvRow.CreateCells(dgvSelectedForms)
-                                        dgvRow.Cells(0).Value = dgvAvailableForms(0, x).Value
-                                        dgvRow.Cells(1).Value = dgvAvailableForms(1, x).Value
-                                        dgvRow.Cells(2).Value = dgvAvailableForms(2, x).Value
-                                        If Mid(tempForm, 1, 1) = "1" Then
-                                            dgvRow.Cells(3).Value = True
-                                        Else
-                                            dgvRow.Cells(3).Value = False
-                                        End If
-                                        If Mid(tempForm, 3, 1) = "1" Then
-                                            dgvRow.Cells(4).Value = True
-                                        Else
-                                            dgvRow.Cells(4).Value = False
-                                        End If
-                                        If Mid(tempForm, 5, 1) = "1" Then
-                                            dgvRow.Cells(5).Value = True
-                                        Else
-                                            dgvRow.Cells(5).Value = False
-                                        End If
-                                        If Mid(tempForm, 7, 1) = "1" Then
-                                            dgvRow.Cells(6).Value = True
-                                        Else
-                                            dgvRow.Cells(6).Value = False
-                                        End If
-                                        dgvSelectedForms.Rows.Add(dgvRow)
-                                    End Using
-                                End If
+                            If (c.Value IsNot DBNull.Value Or Nothing) AndAlso
+                                CType(c.Value, String) = temp2 Then
+
+                                Using dgvRow As New DataGridViewRow
+                                    dgvRow.CreateCells(dgvSelectedForms)
+                                    dgvRow.Cells(0).Value = dgvAvailableForms(0, x).Value
+                                    dgvRow.Cells(1).Value = dgvAvailableForms(1, x).Value
+                                    dgvRow.Cells(2).Value = dgvAvailableForms(2, x).Value
+                                    If Mid(tempForm, 1, 1) = "1" Then
+                                        dgvRow.Cells(3).Value = True
+                                    Else
+                                        dgvRow.Cells(3).Value = False
+                                    End If
+                                    If Mid(tempForm, 3, 1) = "1" Then
+                                        dgvRow.Cells(4).Value = True
+                                    Else
+                                        dgvRow.Cells(4).Value = False
+                                    End If
+                                    If Mid(tempForm, 5, 1) = "1" Then
+                                        dgvRow.Cells(5).Value = True
+                                    Else
+                                        dgvRow.Cells(5).Value = False
+                                    End If
+                                    If Mid(tempForm, 7, 1) = "1" Then
+                                        dgvRow.Cells(6).Value = True
+                                    Else
+                                        dgvRow.Cells(6).Value = False
+                                    End If
+                                    dgvSelectedForms.Rows.Add(dgvRow)
+                                End Using
                             End If
                             Math.Min(Threading.Interlocked.Increment(y), y - 1)
                         End While
@@ -511,18 +511,16 @@ Public Class IAIPListTool
     Private Sub dgvBranch_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvBranch.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvBranch.HitTest(e.X, e.Y)
-            If dgvBranch.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvBranch.Columns(0).HeaderText = "ID #" Then
-                    If IsDBNull(dgvBranch(0, hti.RowIndex).Value) Then
-                        txtBranch.Text = ""
-                        txtBranchCode.Text = ""
-                    Else
-                        txtBranch.Text = dgvBranch(1, hti.RowIndex).Value
-                        txtBranchCode.Text = dgvBranch(0, hti.RowIndex).Value
-                    End If
-                    If txtBranchCode.Text <> "" Then
-                        LoadProgramGrid()
-                    End If
+            If dgvBranch.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso dgvBranch.Columns(0).HeaderText = "ID #" Then
+                If IsDBNull(dgvBranch(0, hti.RowIndex).Value) Then
+                    txtBranch.Text = ""
+                    txtBranchCode.Text = ""
+                Else
+                    txtBranch.Text = dgvBranch(1, hti.RowIndex).Value
+                    txtBranchCode.Text = dgvBranch(0, hti.RowIndex).Value
+                End If
+                If txtBranchCode.Text <> "" Then
+                    LoadProgramGrid()
                 End If
             End If
         Catch ex As Exception
@@ -533,18 +531,18 @@ Public Class IAIPListTool
     Private Sub dgvProgram_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvProgram.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvProgram.HitTest(e.X, e.Y)
-            If dgvProgram.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvProgram.Columns(0).HeaderText = "ID #" Then
-                    If IsDBNull(dgvProgram(0, hti.RowIndex).Value) Then
-                        txtProgramCode.Text = ""
-                        txtProgram.Text = ""
-                    Else
-                        txtProgram.Text = dgvProgram(1, hti.RowIndex).Value
-                        txtProgramCode.Text = dgvProgram(0, hti.RowIndex).Value
-                    End If
-                    If txtProgramCode.Text <> "" Then
-                        LoadUnitGrid()
-                    End If
+            If dgvProgram.RowCount > 0 And hti.RowIndex <> -1 AndAlso
+                dgvProgram.Columns(0).HeaderText = "ID #" Then
+
+                If IsDBNull(dgvProgram(0, hti.RowIndex).Value) Then
+                    txtProgramCode.Text = ""
+                    txtProgram.Text = ""
+                Else
+                    txtProgram.Text = dgvProgram(1, hti.RowIndex).Value
+                    txtProgramCode.Text = dgvProgram(0, hti.RowIndex).Value
+                End If
+                If txtProgramCode.Text <> "" Then
+                    LoadUnitGrid()
                 End If
             End If
         Catch ex As Exception
@@ -555,18 +553,18 @@ Public Class IAIPListTool
     Private Sub dgvUnit_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvUnit.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvUnit.HitTest(e.X, e.Y)
-            If dgvUnit.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvUnit.Columns(0).HeaderText = "ID #" Then
-                    If IsDBNull(dgvUnit(0, hti.RowIndex).Value) Then
-                        txtUnit.Text = ""
-                        txtUnitCode.Text = ""
-                    Else
-                        txtUnit.Text = dgvUnit(1, hti.RowIndex).Value
-                        txtUnitCode.Text = dgvUnit(0, hti.RowIndex).Value
-                    End If
-                    If txtUnitCode.Text <> "" Then
-                        LoadAccountGrid()
-                    End If
+            If dgvUnit.RowCount > 0 And hti.RowIndex <> -1 AndAlso
+                dgvUnit.Columns(0).HeaderText = "ID #" Then
+
+                If IsDBNull(dgvUnit(0, hti.RowIndex).Value) Then
+                    txtUnit.Text = ""
+                    txtUnitCode.Text = ""
+                Else
+                    txtUnit.Text = dgvUnit(1, hti.RowIndex).Value
+                    txtUnitCode.Text = dgvUnit(0, hti.RowIndex).Value
+                End If
+                If txtUnitCode.Text <> "" Then
+                    LoadAccountGrid()
                 End If
             End If
         Catch ex As Exception
@@ -577,32 +575,32 @@ Public Class IAIPListTool
     Private Sub dgvAccounts_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvAccounts.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvAccounts.HitTest(e.X, e.Y)
-            If dgvAccounts.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvAccounts.Columns(0).HeaderText = "ID #" Then
-                    txtAccount.Text = dgvAccounts(1, hti.RowIndex).Value
-                    txtAccountCode.Text = dgvAccounts(0, hti.RowIndex).Value
+            If dgvAccounts.RowCount > 0 And hti.RowIndex <> -1 AndAlso
+                dgvAccounts.Columns(0).HeaderText = "ID #" Then
 
-                    If IsDBNull(dgvAccounts(2, hti.RowIndex).Value) Then
-                        txtBranch.Text = ""
-                        txtBranchCode.Text = ""
-                    Else
-                        txtBranch.Text = dgvAccounts(3, hti.RowIndex).Value
-                        txtBranchCode.Text = dgvAccounts(2, hti.RowIndex).Value
-                    End If
-                    If IsDBNull(dgvAccounts(4, hti.RowIndex).Value) Then
-                        txtProgram.Text = ""
-                        txtProgramCode.Text = ""
-                    Else
-                        txtProgram.Text = dgvAccounts(5, hti.RowIndex).Value
-                        txtProgramCode.Text = dgvAccounts(4, hti.RowIndex).Value
-                    End If
-                    If IsDBNull(dgvAccounts(6, hti.RowIndex).Value) Then
-                        txtUnit.Text = ""
-                        txtUnitCode.Text = ""
-                    Else
-                        txtUnit.Text = dgvAccounts(7, hti.RowIndex).Value
-                        txtUnitCode.Text = dgvAccounts(6, hti.RowIndex).Value
-                    End If
+                txtAccount.Text = dgvAccounts(1, hti.RowIndex).Value
+                txtAccountCode.Text = dgvAccounts(0, hti.RowIndex).Value
+
+                If IsDBNull(dgvAccounts(2, hti.RowIndex).Value) Then
+                    txtBranch.Text = ""
+                    txtBranchCode.Text = ""
+                Else
+                    txtBranch.Text = dgvAccounts(3, hti.RowIndex).Value
+                    txtBranchCode.Text = dgvAccounts(2, hti.RowIndex).Value
+                End If
+                If IsDBNull(dgvAccounts(4, hti.RowIndex).Value) Then
+                    txtProgram.Text = ""
+                    txtProgramCode.Text = ""
+                Else
+                    txtProgram.Text = dgvAccounts(5, hti.RowIndex).Value
+                    txtProgramCode.Text = dgvAccounts(4, hti.RowIndex).Value
+                End If
+                If IsDBNull(dgvAccounts(6, hti.RowIndex).Value) Then
+                    txtUnit.Text = ""
+                    txtUnitCode.Text = ""
+                Else
+                    txtUnit.Text = dgvAccounts(7, hti.RowIndex).Value
+                    txtUnitCode.Text = dgvAccounts(6, hti.RowIndex).Value
                 End If
             End If
         Catch ex As Exception

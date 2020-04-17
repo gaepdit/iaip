@@ -41,10 +41,8 @@ Public Class SSPPPermitUploader
     Private Sub txtApplicationNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtApplicationNumber.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                If txtApplicationNumber.Text <> "" Then
-                    FindApplicationInformation()
-                End If
+            If e.KeyChar = ChrW(13) AndAlso txtApplicationNumber.Text <> "" Then
+                FindApplicationInformation()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -633,10 +631,10 @@ Public Class SSPPPermitUploader
                             End If
                         End If
                     End If
-                    If txtTVNarrativePDF.Text <> "" And txtTVNarrativePDF.Text <> "N/A" Then
-                        If (Mid(txtTVNarrativePDF.Text, (txtTVNarrativePDF.Text.Length - 3))).ToUpper = ".PDF" Then
-                            pdf = txtTVNarrativePDF.Text
-                        End If
+                    If txtTVNarrativePDF.Text <> "" AndAlso
+                        txtTVNarrativePDF.Text <> "N/A" AndAlso
+                        Mid(txtTVNarrativePDF.Text, (txtTVNarrativePDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        pdf = txtTVNarrativePDF.Text
                     End If
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("VN-" & MasterApp, doc, docx, pdf, docOnFile)
@@ -664,10 +662,9 @@ Public Class SSPPPermitUploader
                             End If
                         End If
                     End If
-                    If txtTVDraftPDF.Text <> "" And txtTVDraftPDF.Text <> "N/A" Then
-                        If (Mid(txtTVDraftPDF.Text, (txtTVDraftPDF.Text.Length - 3))).ToUpper = ".PDF" Then
-                            pdf = txtTVDraftPDF.Text
-                        End If
+                    If txtTVDraftPDF.Text <> "" And txtTVDraftPDF.Text <> "N/A" AndAlso
+                        Mid(txtTVDraftPDF.Text, (txtTVDraftPDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        pdf = txtTVDraftPDF.Text
                     End If
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("VD-" & MasterApp, doc, docx, pdf, docOnFile)
@@ -695,10 +692,9 @@ Public Class SSPPPermitUploader
                             End If
                         End If
                     End If
-                    If txtTVPublicNoticePDF.Text <> "" And txtTVPublicNoticePDF.Text <> "N/A" Then
-                        If (Mid(txtTVPublicNoticePDF.Text, (txtTVPublicNoticePDF.Text.Length - 3))).ToUpper = ".PDF" Then
-                            pdf = txtTVPublicNoticePDF.Text
-                        End If
+                    If txtTVPublicNoticePDF.Text <> "" And txtTVPublicNoticePDF.Text <> "N/A" AndAlso
+                        Mid(txtTVPublicNoticePDF.Text, (txtTVPublicNoticePDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        pdf = txtTVPublicNoticePDF.Text
                     End If
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("VP-" & MasterApp, doc, docx, pdf, docOnFile)
@@ -726,10 +722,9 @@ Public Class SSPPPermitUploader
                             End If
                         End If
                     End If
-                    If txtTVFinalPDF.Text <> "" And txtTVFinalPDF.Text <> "N/A" Then
-                        If (Mid(txtTVFinalPDF.Text, (txtTVFinalPDF.Text.Length - 3))).ToUpper = ".PDF" Then
-                            pdf = txtTVFinalPDF.Text
-                        End If
+                    If txtTVFinalPDF.Text <> "" And txtTVFinalPDF.Text <> "N/A" AndAlso
+                        Mid(txtTVFinalPDF.Text, (txtTVFinalPDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        pdf = txtTVFinalPDF.Text
                     End If
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("VF-" & MasterApp, doc, docx, pdf, docOnFile)
@@ -773,10 +768,9 @@ Public Class SSPPPermitUploader
                             End If
                         End If
                     End If
-                    If txtPSDAppSummaryPDF.Text <> "" And txtPSDAppSummaryPDF.Text <> "N/A" Then
-                        If (Mid(txtPSDAppSummaryPDF.Text, (txtPSDAppSummaryPDF.Text.Length - 3))).ToUpper = ".PDF" Then
-                            pdf = txtPSDAppSummaryPDF.Text
-                        End If
+                    If txtPSDAppSummaryPDF.Text <> "" And txtPSDAppSummaryPDF.Text <> "N/A" AndAlso
+                        Mid(txtPSDAppSummaryPDF.Text, (txtPSDAppSummaryPDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        pdf = txtPSDAppSummaryPDF.Text
                     End If
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PA-" & MasterApp, doc, docx, pdf, docOnFile)
@@ -804,10 +798,9 @@ Public Class SSPPPermitUploader
                             End If
                         End If
                     End If
-                    If txtPSDPrelimDetPDF.Text <> "" And txtPSDPrelimDetPDF.Text <> "N/A" Then
-                        If (Mid(txtPSDPrelimDetPDF.Text, (txtPSDPrelimDetPDF.Text.Length - 3))).ToUpper = ".PDF" Then
-                            pdf = txtPSDPrelimDetPDF.Text
-                        End If
+                    If txtPSDPrelimDetPDF.Text <> "" And txtPSDPrelimDetPDF.Text <> "N/A" AndAlso
+                        Mid(txtPSDPrelimDetPDF.Text, (txtPSDPrelimDetPDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        pdf = txtPSDPrelimDetPDF.Text
                     End If
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PP-" & MasterApp, doc, docx, pdf, docOnFile)
@@ -835,10 +828,9 @@ Public Class SSPPPermitUploader
                             End If
                         End If
                     End If
-                    If txtPSDNarrativePDF.Text <> "" And txtPSDNarrativePDF.Text <> "N/A" Then
-                        If (Mid(txtPSDNarrativePDF.Text, (txtPSDNarrativePDF.Text.Length - 3))).ToUpper = ".PDF" Then
-                            pdf = txtPSDNarrativePDF.Text
-                        End If
+                    If txtPSDNarrativePDF.Text <> "" And txtPSDNarrativePDF.Text <> "N/A" AndAlso
+                        Mid(txtPSDNarrativePDF.Text, (txtPSDNarrativePDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        pdf = txtPSDNarrativePDF.Text
                     End If
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PT-" & MasterApp, doc, docx, pdf, docOnFile)
@@ -866,10 +858,9 @@ Public Class SSPPPermitUploader
                             End If
                         End If
                     End If
-                    If txtPSDDraftPermitPDF.Text <> "" And txtPSDDraftPermitPDF.Text <> "N/A" Then
-                        If (Mid(txtPSDDraftPermitPDF.Text, (txtPSDDraftPermitPDF.Text.Length - 3))).ToUpper = ".PDF" Then
-                            pdf = txtPSDDraftPermitPDF.Text
-                        End If
+                    If txtPSDDraftPermitPDF.Text <> "" And txtPSDDraftPermitPDF.Text <> "N/A" AndAlso
+                        Mid(txtPSDDraftPermitPDF.Text, (txtPSDDraftPermitPDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        pdf = txtPSDDraftPermitPDF.Text
                     End If
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PD-" & MasterApp, doc, docx, pdf, docOnFile)
@@ -897,10 +888,9 @@ Public Class SSPPPermitUploader
                             End If
                         End If
                     End If
-                    If txtPSDPublicNoticePDF.Text <> "" And txtPSDPublicNoticePDF.Text <> "N/A" Then
-                        If (Mid(txtPSDPublicNoticePDF.Text, (txtPSDPublicNoticePDF.Text.Length - 3))).ToUpper = ".PDF" Then
-                            pdf = txtPSDPublicNoticePDF.Text
-                        End If
+                    If txtPSDPublicNoticePDF.Text <> "" And txtPSDPublicNoticePDF.Text <> "N/A" AndAlso
+                        (Mid(txtPSDPublicNoticePDF.Text, (txtPSDPublicNoticePDF.Text.Length - 3))).ToUpper = ".PDF" Then
+                        pdf = txtPSDPublicNoticePDF.Text
                     End If
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PN-" & MasterApp, doc, docx, pdf, docOnFile)
@@ -928,10 +918,9 @@ Public Class SSPPPermitUploader
                             End If
                         End If
                     End If
-                    If txtPSDHearingNoticePDF.Text <> "" And txtPSDHearingNoticePDF.Text <> "N/A" Then
-                        If (Mid(txtPSDHearingNoticePDF.Text, (txtPSDHearingNoticePDF.Text.Length - 3))).ToUpper = ".PDF" Then
-                            pdf = txtPSDHearingNoticePDF.Text
-                        End If
+                    If txtPSDHearingNoticePDF.Text <> "" And txtPSDHearingNoticePDF.Text <> "N/A" AndAlso
+                        (Mid(txtPSDHearingNoticePDF.Text, (txtPSDHearingNoticePDF.Text.Length - 3))).ToUpper = ".PDF" Then
+                        pdf = txtPSDHearingNoticePDF.Text
                     End If
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PH-" & MasterApp, doc, docx, pdf, docOnFile)
@@ -959,10 +948,9 @@ Public Class SSPPPermitUploader
                             End If
                         End If
                     End If
-                    If txtPSDFinalDetPDF.Text <> "" And txtPSDFinalDetPDF.Text <> "N/A" Then
-                        If (Mid(txtPSDFinalDetPDF.Text, (txtPSDFinalDetPDF.Text.Length - 3))).ToUpper = ".PDF" Then
-                            pdf = txtPSDFinalDetPDF.Text
-                        End If
+                    If txtPSDFinalDetPDF.Text <> "" AndAlso txtPSDFinalDetPDF.Text <> "N/A" AndAlso
+                        (Mid(txtPSDFinalDetPDF.Text, (txtPSDFinalDetPDF.Text.Length - 3))).ToUpper = ".PDF" Then
+                        pdf = txtPSDFinalDetPDF.Text
                     End If
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PF-" & MasterApp, doc, docx, pdf, docOnFile)
@@ -990,10 +978,9 @@ Public Class SSPPPermitUploader
                             End If
                         End If
                     End If
-                    If txtPSDFinalPermitPDF.Text <> "" And txtPSDFinalPermitPDF.Text <> "N/A" Then
-                        If (Mid(txtPSDFinalPermitPDF.Text, (txtPSDFinalPermitPDF.Text.Length - 3))).ToUpper = ".PDF" Then
-                            pdf = txtPSDFinalPermitPDF.Text
-                        End If
+                    If txtPSDFinalPermitPDF.Text <> "" And txtPSDFinalPermitPDF.Text <> "N/A" AndAlso
+                        (Mid(txtPSDFinalPermitPDF.Text, (txtPSDFinalPermitPDF.Text.Length - 3))).ToUpper = ".PDF" Then
+                        pdf = txtPSDFinalPermitPDF.Text
                     End If
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PI-" & MasterApp, doc, docx, pdf, docOnFile)
@@ -1037,10 +1024,9 @@ Public Class SSPPPermitUploader
                             End If
                         End If
                     End If
-                    If txtOtherNarrativePDF.Text <> "" And txtOtherNarrativePDF.Text <> "N/A" Then
-                        If (Mid(txtOtherNarrativePDF.Text, (txtOtherNarrativePDF.Text.Length - 3))).ToUpper = ".PDF" Then
-                            pdf = txtOtherNarrativePDF.Text
-                        End If
+                    If txtOtherNarrativePDF.Text <> "" And txtOtherNarrativePDF.Text <> "N/A" AndAlso
+                        (Mid(txtOtherNarrativePDF.Text, (txtOtherNarrativePDF.Text.Length - 3))).ToUpper = ".PDF" Then
+                        pdf = txtOtherNarrativePDF.Text
                     End If
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("ON-" & MasterApp, doc, docx, pdf, docOnFile)
@@ -1068,10 +1054,9 @@ Public Class SSPPPermitUploader
                             End If
                         End If
                     End If
-                    If txtOtherPermitPDF.Text <> "" And txtOtherPermitPDF.Text <> "N/A" Then
-                        If (Mid(txtOtherPermitPDF.Text, (txtOtherPermitPDF.Text.Length - 3))).ToUpper = ".PDF" Then
-                            pdf = txtOtherPermitPDF.Text
-                        End If
+                    If txtOtherPermitPDF.Text <> "" And txtOtherPermitPDF.Text <> "N/A" AndAlso
+                        (Mid(txtOtherPermitPDF.Text, (txtOtherPermitPDF.Text.Length - 3))).ToUpper = ".PDF" Then
+                        pdf = txtOtherPermitPDF.Text
                     End If
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("OP-" & MasterApp, doc, docx, pdf, docOnFile)

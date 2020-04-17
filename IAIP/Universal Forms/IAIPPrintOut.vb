@@ -1058,10 +1058,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 
@@ -1997,10 +1996,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 
@@ -3024,10 +3022,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 
@@ -4299,10 +4296,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 
@@ -5529,10 +5525,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 
@@ -6207,10 +6202,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 
@@ -6988,10 +6982,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 
@@ -7733,10 +7726,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 
@@ -8335,10 +8327,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 
@@ -8721,10 +8712,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 
@@ -9138,10 +9128,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 
@@ -9706,10 +9695,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 
@@ -10199,10 +10187,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 
@@ -10740,10 +10727,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 
@@ -11504,10 +11490,9 @@ Public Class IAIPPrintOut
             Else
                 ConfidentialData = dr.Item("strConfidentialData")
             End If
-            If Mid(ConfidentialData, 1, 1) = "1" Then
-                If PrintoutSubtype = PrintSubtype.ToFile Then
-                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                End If
+            If Mid(ConfidentialData, 1, 1) = "1" AndAlso
+                PrintoutSubtype = PrintSubtype.ToFile Then
+                ConfidentialData = "0" & Mid(ConfidentialData, 2)
             End If
 
             'Do this at the beginning of every new entry 

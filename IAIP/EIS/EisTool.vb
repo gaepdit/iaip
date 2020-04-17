@@ -3404,133 +3404,133 @@ Public Class EisTool
                 End If
             End If
 
-            If CurrentTabPage.Name.ToString = "TPEISStatMailout" Then
-                If dgvEISStats.RowCount > 0 And hti.RowIndex <> -1 Then
-                    dgvEISStats.Enabled = False
+            If CurrentTabPage.Name.ToString = "TPEISStatMailout" AndAlso
+                (dgvEISStats.RowCount > 0 And hti.RowIndex <> -1) Then
 
-                    txtEISStatsMailoutFacilityName.Clear()
-                    txtEISStatsMailoutPrefix.Clear()
-                    txtEISStatsMailoutFirstName.Clear()
-                    txtEISStatsMailoutLastName.Clear()
-                    txtEISStatsMailoutCompanyName.Clear()
-                    txtEISStatsMailoutAddress1.Clear()
-                    txtEISStatsMailoutAddress2.Clear()
-                    txtEISStatsMailoutCity.Clear()
-                    txtEISStatsMailoutState.Clear()
-                    txtEISStatsMailoutZipCode.Clear()
-                    txtEISStatsMailoutEmailAddress.Clear()
-                    txtEISStatsMailoutComments.Clear()
-                    txtEISStatsMailoutUpdateUser.Clear()
-                    txtEISStatsMailoutUpdateDate.Clear()
-                    txtEISStatsMailoutCreateDate.Clear()
+                dgvEISStats.Enabled = False
 
-                    If IsDBNull(dgvEISStats(1, hti.RowIndex).Value) Then
-                        txtEISStatsMailoutAIRSNumber.Clear()
+                txtEISStatsMailoutFacilityName.Clear()
+                txtEISStatsMailoutPrefix.Clear()
+                txtEISStatsMailoutFirstName.Clear()
+                txtEISStatsMailoutLastName.Clear()
+                txtEISStatsMailoutCompanyName.Clear()
+                txtEISStatsMailoutAddress1.Clear()
+                txtEISStatsMailoutAddress2.Clear()
+                txtEISStatsMailoutCity.Clear()
+                txtEISStatsMailoutState.Clear()
+                txtEISStatsMailoutZipCode.Clear()
+                txtEISStatsMailoutEmailAddress.Clear()
+                txtEISStatsMailoutComments.Clear()
+                txtEISStatsMailoutUpdateUser.Clear()
+                txtEISStatsMailoutUpdateDate.Clear()
+                txtEISStatsMailoutCreateDate.Clear()
+
+                If IsDBNull(dgvEISStats(1, hti.RowIndex).Value) Then
+                    txtEISStatsMailoutAIRSNumber.Clear()
+                Else
+                    txtEISStatsMailoutAIRSNumber.Text = dgvEISStats(1, hti.RowIndex).Value
+                End If
+                If IsDBNull(dgvEISStats(3, hti.RowIndex).Value) Then
+                    txtSelectedEISMailout.Clear()
+                Else
+                    txtSelectedEISMailout.Text = dgvEISStats(3, hti.RowIndex).Value
+                End If
+
+                Dim SQL As String = "Select " &
+                "strFacilityName, " &
+                "strContactCompanyName, strContactAddress1, " &
+                "strContactAddress2, strContactCity, " &
+                "strcontactstate, strcontactzipCode, " &
+                "strcontactFirstName, strcontactLastName, " &
+                "strContactPrefix, strContactEmail, " &
+                "stroperationalStatus, strClass, " &
+                "strcomment, UpdateUser, " &
+                "updateDateTime, CreateDateTime " &
+                 "from EIS_Mailout " &
+                 "where intInventoryyear = @year " &
+                 "and FacilitySiteID = @airs "
+
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@year", txtSelectedEISMailout.Text),
+                    New SqlParameter("@airs", txtEISStatsMailoutAIRSNumber.Text)
+                }
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, params)
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("strFacilityName")) Then
+                        txtEISStatsMailoutFacilityName.Clear()
                     Else
-                        txtEISStatsMailoutAIRSNumber.Text = dgvEISStats(1, hti.RowIndex).Value
+                        txtEISStatsMailoutFacilityName.Text = dr.Item("strFacilityName")
                     End If
-                    If IsDBNull(dgvEISStats(3, hti.RowIndex).Value) Then
-                        txtSelectedEISMailout.Clear()
+                    If IsDBNull(dr.Item("strContactCompanyName")) Then
+                        txtEISStatsMailoutCompanyName.Clear()
                     Else
-                        txtSelectedEISMailout.Text = dgvEISStats(3, hti.RowIndex).Value
+                        txtEISStatsMailoutCompanyName.Text = dr.Item("strContactCompanyName")
                     End If
-
-                    Dim SQL As String = "Select " &
-                    "strFacilityName, " &
-                    "strContactCompanyName, strContactAddress1, " &
-                    "strContactAddress2, strContactCity, " &
-                    "strcontactstate, strcontactzipCode, " &
-                    "strcontactFirstName, strcontactLastName, " &
-                    "strContactPrefix, strContactEmail, " &
-                    "stroperationalStatus, strClass, " &
-                    "strcomment, UpdateUser, " &
-                    "updateDateTime, CreateDateTime " &
-                     "from EIS_Mailout " &
-                     "where intInventoryyear = @year " &
-                     "and FacilitySiteID = @airs "
-
-                    Dim params As SqlParameter() = {
-                        New SqlParameter("@year", txtSelectedEISMailout.Text),
-                        New SqlParameter("@airs", txtEISStatsMailoutAIRSNumber.Text)
-                    }
-
-                    Dim dr As DataRow = DB.GetDataRow(SQL, params)
-                    If dr IsNot Nothing Then
-                        If IsDBNull(dr.Item("strFacilityName")) Then
-                            txtEISStatsMailoutFacilityName.Clear()
-                        Else
-                            txtEISStatsMailoutFacilityName.Text = dr.Item("strFacilityName")
-                        End If
-                        If IsDBNull(dr.Item("strContactCompanyName")) Then
-                            txtEISStatsMailoutCompanyName.Clear()
-                        Else
-                            txtEISStatsMailoutCompanyName.Text = dr.Item("strContactCompanyName")
-                        End If
-                        If IsDBNull(dr.Item("strContactAddress1")) Then
-                            txtEISStatsMailoutAddress1.Clear()
-                        Else
-                            txtEISStatsMailoutAddress1.Text = dr.Item("strContactAddress1")
-                        End If
-                        If IsDBNull(dr.Item("strContactAddress2")) Then
-                            txtEISStatsMailoutAddress2.Clear()
-                        Else
-                            txtEISStatsMailoutAddress2.Text = dr.Item("strContactAddress2")
-                        End If
-                        If IsDBNull(dr.Item("strContactCity")) Then
-                            txtEISStatsMailoutCity.Clear()
-                        Else
-                            txtEISStatsMailoutCity.Text = dr.Item("strContactCity")
-                        End If
-                        If IsDBNull(dr.Item("strcontactstate")) Then
-                            txtEISStatsMailoutState.Clear()
-                        Else
-                            txtEISStatsMailoutState.Text = dr.Item("strcontactstate")
-                        End If
-                        If IsDBNull(dr.Item("strcontactzipCode")) Then
-                            txtEISStatsMailoutZipCode.Clear()
-                        Else
-                            txtEISStatsMailoutZipCode.Text = dr.Item("strcontactzipCode")
-                        End If
-                        If IsDBNull(dr.Item("strcontactFirstName")) Then
-                            txtEISStatsMailoutFirstName.Clear()
-                        Else
-                            txtEISStatsMailoutFirstName.Text = dr.Item("strcontactFirstName")
-                        End If
-                        If IsDBNull(dr.Item("strcontactLastName")) Then
-                            txtEISStatsMailoutLastName.Clear()
-                        Else
-                            txtEISStatsMailoutLastName.Text = dr.Item("strcontactLastName")
-                        End If
-                        If IsDBNull(dr.Item("strContactPrefix")) Then
-                            txtEISStatsMailoutPrefix.Clear()
-                        Else
-                            txtEISStatsMailoutPrefix.Text = dr.Item("strContactPrefix")
-                        End If
-                        If IsDBNull(dr.Item("strContactEmail")) Then
-                            txtEISStatsMailoutEmailAddress.Clear()
-                        Else
-                            txtEISStatsMailoutEmailAddress.Text = dr.Item("strContactEmail")
-                        End If
-                        If IsDBNull(dr.Item("strcomment")) Then
-                            txtEISStatsMailoutComments.Clear()
-                        Else
-                            txtEISStatsMailoutComments.Text = dr.Item("strcomment")
-                        End If
-                        If IsDBNull(dr.Item("UpdateUser")) Then
-                            txtEISStatsMailoutUpdateUser.Clear()
-                        Else
-                            txtEISStatsMailoutUpdateUser.Text = dr.Item("UpdateUser")
-                        End If
-                        If IsDBNull(dr.Item("updateDateTime")) Then
-                            txtEISStatsMailoutUpdateDate.Clear()
-                        Else
-                            txtEISStatsMailoutUpdateDate.Text = dr.Item("updateDateTime")
-                        End If
-                        If IsDBNull(dr.Item("CreateDateTime")) Then
-                            txtEISStatsMailoutCreateDate.Clear()
-                        Else
-                            txtEISStatsMailoutCreateDate.Text = dr.Item("CreateDateTime")
-                        End If
+                    If IsDBNull(dr.Item("strContactAddress1")) Then
+                        txtEISStatsMailoutAddress1.Clear()
+                    Else
+                        txtEISStatsMailoutAddress1.Text = dr.Item("strContactAddress1")
+                    End If
+                    If IsDBNull(dr.Item("strContactAddress2")) Then
+                        txtEISStatsMailoutAddress2.Clear()
+                    Else
+                        txtEISStatsMailoutAddress2.Text = dr.Item("strContactAddress2")
+                    End If
+                    If IsDBNull(dr.Item("strContactCity")) Then
+                        txtEISStatsMailoutCity.Clear()
+                    Else
+                        txtEISStatsMailoutCity.Text = dr.Item("strContactCity")
+                    End If
+                    If IsDBNull(dr.Item("strcontactstate")) Then
+                        txtEISStatsMailoutState.Clear()
+                    Else
+                        txtEISStatsMailoutState.Text = dr.Item("strcontactstate")
+                    End If
+                    If IsDBNull(dr.Item("strcontactzipCode")) Then
+                        txtEISStatsMailoutZipCode.Clear()
+                    Else
+                        txtEISStatsMailoutZipCode.Text = dr.Item("strcontactzipCode")
+                    End If
+                    If IsDBNull(dr.Item("strcontactFirstName")) Then
+                        txtEISStatsMailoutFirstName.Clear()
+                    Else
+                        txtEISStatsMailoutFirstName.Text = dr.Item("strcontactFirstName")
+                    End If
+                    If IsDBNull(dr.Item("strcontactLastName")) Then
+                        txtEISStatsMailoutLastName.Clear()
+                    Else
+                        txtEISStatsMailoutLastName.Text = dr.Item("strcontactLastName")
+                    End If
+                    If IsDBNull(dr.Item("strContactPrefix")) Then
+                        txtEISStatsMailoutPrefix.Clear()
+                    Else
+                        txtEISStatsMailoutPrefix.Text = dr.Item("strContactPrefix")
+                    End If
+                    If IsDBNull(dr.Item("strContactEmail")) Then
+                        txtEISStatsMailoutEmailAddress.Clear()
+                    Else
+                        txtEISStatsMailoutEmailAddress.Text = dr.Item("strContactEmail")
+                    End If
+                    If IsDBNull(dr.Item("strcomment")) Then
+                        txtEISStatsMailoutComments.Clear()
+                    Else
+                        txtEISStatsMailoutComments.Text = dr.Item("strcomment")
+                    End If
+                    If IsDBNull(dr.Item("UpdateUser")) Then
+                        txtEISStatsMailoutUpdateUser.Clear()
+                    Else
+                        txtEISStatsMailoutUpdateUser.Text = dr.Item("UpdateUser")
+                    End If
+                    If IsDBNull(dr.Item("updateDateTime")) Then
+                        txtEISStatsMailoutUpdateDate.Clear()
+                    Else
+                        txtEISStatsMailoutUpdateDate.Text = dr.Item("updateDateTime")
+                    End If
+                    If IsDBNull(dr.Item("CreateDateTime")) Then
+                        txtEISStatsMailoutCreateDate.Clear()
+                    Else
+                        txtEISStatsMailoutCreateDate.Text = dr.Item("CreateDateTime")
                     End If
                 End If
             End If

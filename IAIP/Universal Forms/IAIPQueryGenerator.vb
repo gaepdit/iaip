@@ -1302,46 +1302,44 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbFacilityLatitude.Checked = True Then
-                If txtFacilityLatitudeSearch1.Text <> "" Or txtFacilityLatitudeSearch2.Text <> "" Then
-                    If txtFacilityLatitudeSearch1.Text <> "" And txtFacilityLatitudeSearch2.Text = "" Then
-                        params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch1.Text))
-                        params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch1.Text))
-                    End If
-                    If txtFacilityLatitudeSearch1.Text = "" And txtFacilityLatitudeSearch2.Text <> "" Then
-                        params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch2.Text))
-                        params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch2.Text))
-                        SQLWhereCase1 = txtFacilityLatitudeSearch2.Text
-                        SQLWhereCase2 = txtFacilityLatitudeSearch2.Text
-                    End If
-                    If txtFacilityLatitudeSearch1.Text <> "" And txtFacilityLatitudeSearch2.Text <> "" Then
-                        params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch1.Text))
-                        params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch2.Text))
-                    End If
-                    SQLWhere = SQLWhere & " and (numFacilityLatitude between @lat1 and @lat2 or " &
-                        " numFacilityLatitude between @lat2 and @lat1 ) "
+            If chbFacilityLatitude.Checked = True AndAlso
+                (txtFacilityLatitudeSearch1.Text <> "" Or txtFacilityLatitudeSearch2.Text <> "") Then
+                If txtFacilityLatitudeSearch1.Text <> "" And txtFacilityLatitudeSearch2.Text = "" Then
+                    params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch1.Text))
+                    params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch1.Text))
                 End If
+                If txtFacilityLatitudeSearch1.Text = "" And txtFacilityLatitudeSearch2.Text <> "" Then
+                    params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch2.Text))
+                    params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch2.Text))
+                    SQLWhereCase1 = txtFacilityLatitudeSearch2.Text
+                    SQLWhereCase2 = txtFacilityLatitudeSearch2.Text
+                End If
+                If txtFacilityLatitudeSearch1.Text <> "" And txtFacilityLatitudeSearch2.Text <> "" Then
+                    params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch1.Text))
+                    params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch2.Text))
+                End If
+                SQLWhere = SQLWhere & " and (numFacilityLatitude between @lat1 and @lat2 or " &
+                    " numFacilityLatitude between @lat2 and @lat1 ) "
             End If
 
-            If chbFacilityLongitude.Checked = True Then
-                If (txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) _
-                OrElse (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text)) Then
+            If chbFacilityLongitude.Checked = True AndAlso
+                ((txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) OrElse
+                (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text))) Then
 
-                    If (txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) Then
-                        params.Add(New SqlParameter("@long1", -Math.Abs(CType(txtFacilityLongitudeSearch1.Text, Decimal))))
-                    Else
-                        params.Add(New SqlParameter("@long1", 0))
-                    End If
-
-                    If (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text)) Then
-                        params.Add(New SqlParameter("@long2", -Math.Abs(CType(txtFacilityLongitudeSearch2.Text, Decimal))))
-                    Else
-                        params.Add(New SqlParameter("@long2", 0))
-                    End If
-
-                    SQLWhere = SQLWhere & " and (numFacilityLongitude between @long1 and @long2 or " &
-                        " numFacilityLongitude between @long2 and @long1 ) "
+                If (txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) Then
+                    params.Add(New SqlParameter("@long1", -Math.Abs(CType(txtFacilityLongitudeSearch1.Text, Decimal))))
+                Else
+                    params.Add(New SqlParameter("@long1", 0))
                 End If
+
+                If (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text)) Then
+                    params.Add(New SqlParameter("@long2", -Math.Abs(CType(txtFacilityLongitudeSearch2.Text, Decimal))))
+                Else
+                    params.Add(New SqlParameter("@long2", 0))
+                End If
+
+                SQLWhere = SQLWhere & " and (numFacilityLongitude between @long1 and @long2 or " &
+                    " numFacilityLongitude between @long2 and @long1 ) "
             End If
 
             If chbCounty.Checked = True Then
@@ -1526,58 +1524,56 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbStartUpDate.Checked = True Then
-                If DTPStartUpDateSearch1.Checked = True Or DTPStartUpDateSearch2.Checked = True Then
-                    If DTPStartUpDateSearch1.Checked = True And DTPStartUpDateSearch2.Checked = False Then
-                        params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch1.Value))
-                        params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch1.Value))
-                    End If
-                    If DTPStartUpDateSearch1.Checked = False And DTPStartUpDateSearch2.Checked = True Then
-                        params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch2.Value))
-                        params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch2.Value))
-                    End If
-                    If DTPStartUpDateSearch1.Checked = True And DTPStartUpDateSearch2.Checked = True Then
-                        params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch1.Value))
-                        params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch2.Value))
-                    End If
-                    SQLWhere = SQLWhere & " and datStartUpDate between @stdate1 and @stdate2 "
+            If chbStartUpDate.Checked = True AndAlso
+                (DTPStartUpDateSearch1.Checked = True OrElse DTPStartUpDateSearch2.Checked = True) Then
+                If DTPStartUpDateSearch1.Checked = True And DTPStartUpDateSearch2.Checked = False Then
+                    params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch1.Value))
+                    params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch1.Value))
                 End If
+                If DTPStartUpDateSearch1.Checked = False And DTPStartUpDateSearch2.Checked = True Then
+                    params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch2.Value))
+                    params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch2.Value))
+                End If
+                If DTPStartUpDateSearch1.Checked = True And DTPStartUpDateSearch2.Checked = True Then
+                    params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch1.Value))
+                    params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch2.Value))
+                End If
+                SQLWhere = SQLWhere & " and datStartUpDate between @stdate1 and @stdate2 "
             End If
 
-            If chbShutDownDate.Checked = True Then
-                If DTPShutDownDateSearch1.Checked = True Or DTPShutDownDateSearch2.Checked = True Then
-                    If DTPShutDownDateSearch1.Checked = True And DTPShutDownDateSearch2.Checked = False Then
-                        params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch1.Value))
-                        params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch1.Value))
-                    End If
-                    If DTPShutDownDateSearch1.Checked = False And DTPShutDownDateSearch2.Checked = True Then
-                        params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch2.Value))
-                        params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch2.Value))
-                    End If
-                    If DTPShutDownDateSearch1.Checked = True And DTPShutDownDateSearch2.Checked = True Then
-                        params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch1.Value))
-                        params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch2.Value))
-                    End If
-                    SQLWhere = SQLWhere & " and datShutdownDate between @shdate1 and @shdate2 "
+            If chbShutDownDate.Checked = True AndAlso
+                (DTPShutDownDateSearch1.Checked = True OrElse DTPShutDownDateSearch2.Checked = True) Then
+
+                If DTPShutDownDateSearch1.Checked = True And DTPShutDownDateSearch2.Checked = False Then
+                    params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch1.Value))
+                    params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch1.Value))
                 End If
+                If DTPShutDownDateSearch1.Checked = False And DTPShutDownDateSearch2.Checked = True Then
+                    params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch2.Value))
+                    params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch2.Value))
+                End If
+                If DTPShutDownDateSearch1.Checked = True And DTPShutDownDateSearch2.Checked = True Then
+                    params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch1.Value))
+                    params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch2.Value))
+                End If
+                SQLWhere = SQLWhere & " and datShutdownDate between @shdate1 and @shdate2 "
             End If
 
-            If chbLastFCE.Checked = True Then
-                If DTPLastFCESearch1.Checked = True Or DTPLastFCESearch2.Checked = True Then
-                    If DTPLastFCESearch1.Checked = True And DTPLastFCESearch2.Checked = False Then
-                        params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
-                        params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch1.Value))
-                    End If
-                    If DTPLastFCESearch1.Checked = False And DTPLastFCESearch2.Checked = True Then
-                        params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch2.Value))
-                        params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch2.Value))
-                    End If
-                    If DTPLastFCESearch1.Checked = True And DTPLastFCESearch2.Checked = True Then
-                        params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
-                        params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch2.Value))
-                    End If
-                    SQLWhere = SQLWhere & " and LastFCE between @fcedate1 and @fcedate2 "
+            If chbLastFCE.Checked = True AndAlso
+                DTPLastFCESearch1.Checked = True Or DTPLastFCESearch2.Checked = True Then
+                If DTPLastFCESearch1.Checked = True And DTPLastFCESearch2.Checked = False Then
+                    params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
+                    params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch1.Value))
                 End If
+                If DTPLastFCESearch1.Checked = False And DTPLastFCESearch2.Checked = True Then
+                    params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch2.Value))
+                    params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch2.Value))
+                End If
+                If DTPLastFCESearch1.Checked = True And DTPLastFCESearch2.Checked = True Then
+                    params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
+                    params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch2.Value))
+                End If
+                SQLWhere = SQLWhere & " and LastFCE between @fcedate1 and @fcedate2 "
             End If
 
             If chbCMSUniverse.Checked = True Then
@@ -3725,10 +3721,9 @@ Public Class IAIPQueryGenerator
                                 DTPStartUpDateSearch2.Checked = True
                                 DTPStartUpDateSearch2.Text = Mid(StartUpDate, (StartUpDate.IndexOf("%-") + 3), (StartUpDate.IndexOf("-%") - (StartUpDate.IndexOf("%-") + 2)))
                             End If
-                            If StartUpDate.IndexOf("*-") <> -1 Then
-                                If Mid(StartUpDate, StartUpDate.IndexOf("*-") + 3, (StartUpDate.IndexOf("-*") - (StartUpDate.IndexOf("*-") + 2))) = "Between" Then
-                                    rdbStartUpDateBetween.Checked = True
-                                End If
+                            If StartUpDate.IndexOf("*-") <> -1 AndAlso
+                                    Mid(StartUpDate, StartUpDate.IndexOf("*-") + 3, (StartUpDate.IndexOf("-*") - (StartUpDate.IndexOf("*-") + 2))) = "Between" Then
+                                rdbStartUpDateBetween.Checked = True
                             End If
                             If StartUpDate.IndexOf("@-") <> -1 Then
                             End If
@@ -3747,10 +3742,9 @@ Public Class IAIPQueryGenerator
                                 DTPShutDownDateSearch2.Checked = True
                                 DTPShutDownDateSearch2.Text = Mid(ShutDownDate, (ShutDownDate.IndexOf("%-") + 3), (ShutDownDate.IndexOf("-%") - (ShutDownDate.IndexOf("%-") + 2)))
                             End If
-                            If ShutDownDate.IndexOf("*-") <> -1 Then
-                                If Mid(ShutDownDate, ShutDownDate.IndexOf("*-") + 3, (ShutDownDate.IndexOf("-*") - (ShutDownDate.IndexOf("*-") + 2))) = "Between" Then
-                                    rdbShutDownDateBetween.Checked = True
-                                End If
+                            If ShutDownDate.IndexOf("*-") <> -1 AndAlso
+                                Mid(ShutDownDate, ShutDownDate.IndexOf("*-") + 3, (ShutDownDate.IndexOf("-*") - (ShutDownDate.IndexOf("*-") + 2))) = "Between" Then
+                                rdbShutDownDateBetween.Checked = True
                             End If
                             If ShutDownDate.IndexOf("^-") <> -1 Then
                                 txtShutDownDateOrder.Text = Mid(ShutDownDate, ShutDownDate.IndexOf("^-") + 3, (ShutDownDate.IndexOf("-^") - (ShutDownDate.IndexOf("^-") + 2)))
