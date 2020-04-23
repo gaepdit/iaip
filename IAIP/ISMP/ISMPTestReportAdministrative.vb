@@ -138,7 +138,7 @@ Public Class ISMPTestReportAdministrative
         Dim temp As String
         Try
 
-            If btnSearchForAIRS.Visible = True AndAlso
+            If btnSearchForAIRS.Visible AndAlso
                 cboAIRSNumber.Text <> "" AndAlso
                 cboAIRSNumber.Text.Length = 8 Then
 
@@ -314,15 +314,13 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            If rdbCloseReport.Checked = False Then
-
-            Else
+            If rdbCloseReport.Checked Then
                 MsgBox("This record is currently marked as being closed." & vbCrLf & "Click Open Record to Save information.",
                 MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
                 Exit Sub
             End If
 
-            If btnSearchForAIRS.Visible = True Then
+            If btnSearchForAIRS.Visible Then
                 If cboAIRSNumber.Text <> "" AndAlso cboAIRSNumber.Text.Length = 8 Then
                     AIRSNumber = cboAIRSNumber.Text
                 Else
@@ -352,7 +350,7 @@ Public Class ISMPTestReportAdministrative
                 Exit Sub
             End If
 
-            If chbOverright.Checked = False AndAlso txtReferenceNumber.Text = "" Then
+            If Not chbOverright.Checked AndAlso txtReferenceNumber.Text = "" Then
                 GetNextReferenceNumber()
             End If
 
@@ -361,7 +359,7 @@ Public Class ISMPTestReportAdministrative
             End If
 
             If txtReferenceNumber.Text <> "" Then
-                If rdbOpenReport.Checked = False AndAlso rdbCloseReport.Checked = False Then
+                If Not rdbOpenReport.Checked AndAlso Not rdbCloseReport.Checked Then
                     rdbOpenReport.Checked = True
                 End If
 
@@ -479,7 +477,7 @@ Public Class ISMPTestReportAdministrative
                 bgw1.WorkerSupportsCancellation = True
                 bgw1.RunWorkerAsync()
 
-                If rdbCloseReport.Checked = True Then
+                If rdbCloseReport.Checked Then
                     SaveToolStripMenuItem.Enabled = False
                 End If
                 Find()
@@ -503,8 +501,8 @@ Public Class ISMPTestReportAdministrative
             Dim ComplianceStatus As String
             Dim AIRSNumber As String = ""
 
-            If rdbCloseReport.Checked = True Then
-                If btnSearchForAIRS.Visible = True Then
+            If rdbCloseReport.Checked Then
+                If btnSearchForAIRS.Visible Then
                     If cboAIRSNumber.Text <> "" AndAlso cboAIRSNumber.Text.Length = 8 Then
                         AIRSNumber = cboAIRSNumber.Text
                     End If
@@ -757,7 +755,7 @@ Public Class ISMPTestReportAdministrative
 
             txtReferenceNumber.Clear()
 
-            If btnSearchForAIRS.Visible = True Then
+            If btnSearchForAIRS.Visible Then
                 cboAIRSNumber.Text = ""
                 cboFacilityName.Text = ""
             Else
@@ -1664,7 +1662,7 @@ Public Class ISMPTestReportAdministrative
     Private Sub MmiShowToolbar_Click(sender As Object, e As EventArgs) Handles MmiShowToolbar.Click
         Try
 
-            If MenuStrip1.Visible = True Then
+            If MenuStrip1.Visible Then
                 MenuStrip1.Visible = False
                 MmiShowToolbar.Checked = True
             Else
@@ -1760,10 +1758,10 @@ Public Class ISMPTestReportAdministrative
     Private Sub rdbCloseReport_CheckedChanged(sender As Object, e As EventArgs) Handles rdbCloseReport.CheckedChanged
         Try
 
-            If rdbCloseReport.Checked = False AndAlso SaveToolStripMenuItem.Enabled = False Then
+            If Not rdbCloseReport.Checked AndAlso Not SaveToolStripMenuItem.Enabled Then
                 SaveToolStripMenuItem.Enabled = True
             End If
-            If rdbCloseReport.Checked = True Then
+            If rdbCloseReport.Checked Then
                 DTPDateClosed.Enabled = True
                 btnCloseTestReport.Enabled = True
 
@@ -1794,7 +1792,7 @@ Public Class ISMPTestReportAdministrative
     Private Sub chbOverright_CheckedChanged(sender As Object, e As EventArgs) Handles chbOverright.CheckedChanged
         Try
 
-            If chbOverright.Checked = True Then
+            If chbOverright.Checked Then
                 txtReferenceNumber.ReadOnly = False
             Else
                 txtReferenceNumber.ReadOnly = True

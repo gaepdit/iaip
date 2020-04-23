@@ -20,7 +20,7 @@ Public Class ISMPTestMemoViewer
 
         Try
 
-            If Loading = True Then
+            If Loading Then
                 SQLLine = "and ISMPReportInformation.strReviewingEngineer = @user " &
                 "and strClosed = 'False' "
             End If
@@ -29,10 +29,10 @@ Public Class ISMPTestMemoViewer
                 SQLLine = "And strMemorandumField like @text1 "
             End If
 
-            If chbOpen.Checked = True Then
+            If chbOpen.Checked Then
                 SQLLine2 = SQLLine2 & "strClosed = 'False' or "
             End If
-            If chbClosed.Checked = True Then
+            If chbClosed.Checked Then
                 SQLLine2 = SQLLine2 & "strClosed = 'True' or "
             End If
             If SQLLine2 = "AND (" Then
@@ -41,19 +41,19 @@ Public Class ISMPTestMemoViewer
                 SQLLine2 = Mid(SQLLine2, 1, (Len(SQLLine2) - 4)) & ") "
             End If
 
-            If chbComplianceStatus1.Checked = True Then
+            If chbComplianceStatus1.Checked Then
                 SQLLine3 = SQLLine3 & "ISMPReportInformation.strCOmplianceStatus = '01' or "
             End If
-            If chbComplianceStatus2.Checked = True Then
+            If chbComplianceStatus2.Checked Then
                 SQLLine3 = SQLLine3 & "ISMPReportInformation.strCOmplianceStatus = '02' or "
             End If
-            If chbComplianceStatus3.Checked = True Then
+            If chbComplianceStatus3.Checked Then
                 SQLLine3 = SQLLine3 & "ISMPReportInformation.strCOmplianceStatus = '03' or "
             End If
-            If chbComplianceStatus4.Checked = True Then
+            If chbComplianceStatus4.Checked Then
                 SQLLine3 = SQLLine3 & "ISMPReportInformation.strCOmplianceStatus = '04' or "
             End If
-            If chbComplianceStatus5.Checked = True Then
+            If chbComplianceStatus5.Checked Then
                 SQLLine3 = SQLLine3 & "ISMPReportInformation.strCOmplianceStatus = '05' or "
             End If
             If SQLLine3 = "AND (" Then
@@ -61,7 +61,7 @@ Public Class ISMPTestMemoViewer
             Else
                 SQLLine3 = Mid(SQLLine3, 1, (Len(SQLLine3) - 4)) & ") "
             End If
-            If chbDelete.Checked = True Then
+            If chbDelete.Checked Then
                 SQLLine4 = "And ISMPReportInformation.strDelete = 'DELETE' "
             Else
                 SQLLine4 = "And ISMPReportInformation.strDelete is NULL "

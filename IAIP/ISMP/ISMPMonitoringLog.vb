@@ -64,7 +64,7 @@ Public Class ISMPMonitoringLog
 
         Try
 
-            If chbTestReports.Checked = True Then
+            If chbTestReports.Checked Then
                 SQLWhere = ""
 
                 query = "select " &
@@ -125,11 +125,11 @@ Public Class ISMPMonitoringLog
                 " ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
                 "WHERE (strDelete is Null or strDelete <> 'DELETE') "
 
-                If chbReviewingEngineer.Checked = True Then
+                If chbReviewingEngineer.Checked Then
                     SQLWhere = SQLWhere & " and ( "
                     If clbEngineer.CheckedItems.Count > 0 Then
                         For x As Integer = 0 To clbEngineer.Items.Count - 1
-                            If clbEngineer.GetItemChecked(x) = True Then
+                            If clbEngineer.GetItemChecked(x) Then
                                 clbEngineer.SelectedIndex = x
                                 SQLWhere = SQLWhere & " strReviewingEngineer = '" & clbEngineer.SelectedValue & "' Or "
                             End If
@@ -140,7 +140,7 @@ Public Class ISMPMonitoringLog
                     If clbEngineer.CheckedItems.Count > 0 Then
                         SQLWhere = SQLWhere & " and ( "
                         For x As Integer = 0 To clbEngineer.Items.Count - 1
-                            If clbEngineer.GetItemChecked(x) = True Then
+                            If clbEngineer.GetItemChecked(x) Then
                                 clbEngineer.SelectedIndex = x
                                 SQLWhere = SQLWhere & " strReviewingEngineer = '" & clbEngineer.SelectedValue & "' Or "
                             End If
@@ -150,11 +150,11 @@ Public Class ISMPMonitoringLog
                     End If
                 End If
 
-                If chbWitnessingEngineer.Checked = True Then
+                If chbWitnessingEngineer.Checked Then
                     SQLWhere = SQLWhere & " and ( "
                     If clbWitnessingStaff.CheckedItems.Count > 0 Then
                         For x As Integer = 0 To clbWitnessingStaff.Items.Count - 1
-                            If clbWitnessingStaff.GetItemChecked(x) = True Then
+                            If clbWitnessingStaff.GetItemChecked(x) Then
                                 clbWitnessingStaff.SelectedIndex = x
                                 SQLWhere = SQLWhere & " ISMPReportInformation.strWitnessingengineer = '" & clbWitnessingStaff.SelectedValue & "' Or " &
                                                             " ISMPWitnessingEng.strWitnessingEngineer = '" & clbWitnessingStaff.SelectedValue & "' or "
@@ -166,7 +166,7 @@ Public Class ISMPMonitoringLog
                     If clbWitnessingStaff.CheckedItems.Count > 0 Then
                         SQLWhere = SQLWhere & " and ( "
                         For x As Integer = 0 To clbWitnessingStaff.Items.Count - 1
-                            If clbWitnessingStaff.GetItemChecked(x) = True Then
+                            If clbWitnessingStaff.GetItemChecked(x) Then
                                 clbWitnessingStaff.SelectedIndex = x
                                 SQLWhere = SQLWhere & "  ISMPReportInformation.strWitnessingengineer = '" & clbWitnessingStaff.SelectedValue & "' Or " &
                                                             " ISMPWitnessingEng.strWitnessingEngineer = '" & clbWitnessingStaff.SelectedValue & "' or "
@@ -177,156 +177,156 @@ Public Class ISMPMonitoringLog
                     End If
                 End If
 
-                If chbOpen.Checked = True AndAlso chbClosed.Checked = False Then
+                If chbOpen.Checked AndAlso Not chbClosed.Checked Then
                     SQLWhere = SQLWhere & " and strClosed = 'False' "
                 End If
-                If chbOpen.Checked = False AndAlso chbClosed.Checked = True Then
+                If Not chbOpen.Checked AndAlso chbClosed.Checked Then
                     SQLWhere = SQLWhere & " and strClosed = 'True' "
                 End If
 
-                If chbAll.Checked = True Then
+                If chbAll.Checked Then
 
                 Else
-                    If chbUnassigned.Checked = True OrElse
-                        chbOneStackTwoRun.Checked = True OrElse
-                        chbOneStackThreeRun.Checked = True OrElse
-                        chbOneStackFourRun.Checked = True OrElse
-                        chbTwoStackStandard.Checked = True OrElse
-                        chbTwoStackDRE.Checked = True OrElse
-                        chbLoadingRack.Checked = True OrElse
-                        chbPondTreatment.Checked = True OrElse
-                        chbGasConcentration.Checked = True OrElse
-                        chbFlare.Checked = True OrElse
-                        chbRata.Checked = True OrElse
-                        chbMemorandumStandard.Checked = True OrElse
-                        chbMemorandumToFile.Checked = True OrElse
-                        chbMethod9Single.Checked = True OrElse
-                        chbMethod9Multi.Checked = True OrElse
-                        chbMethod22.Checked = True OrElse
-                        chbPEMS.Checked = True OrElse
-                        chbPTE.Checked = True Then
+                    If chbUnassigned.Checked OrElse
+                        chbOneStackTwoRun.Checked OrElse
+                        chbOneStackThreeRun.Checked OrElse
+                        chbOneStackFourRun.Checked OrElse
+                        chbTwoStackStandard.Checked OrElse
+                        chbTwoStackDRE.Checked OrElse
+                        chbLoadingRack.Checked OrElse
+                        chbPondTreatment.Checked OrElse
+                        chbGasConcentration.Checked OrElse
+                        chbFlare.Checked OrElse
+                        chbRata.Checked OrElse
+                        chbMemorandumStandard.Checked OrElse
+                        chbMemorandumToFile.Checked OrElse
+                        chbMethod9Single.Checked OrElse
+                        chbMethod9Multi.Checked OrElse
+                        chbMethod22.Checked OrElse
+                        chbPEMS.Checked OrElse
+                        chbPTE.Checked Then
 
                         SQLWhere = SQLWhere & " and ( "
 
-                        If chbUnassigned.Checked = True Then
+                        If chbUnassigned.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '001' Or "
                         End If
-                        If chbOneStackTwoRun.Checked = True Then
+                        If chbOneStackTwoRun.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '002' Or "
                         End If
-                        If chbOneStackThreeRun.Checked = True Then
+                        If chbOneStackThreeRun.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '003' Or "
                         End If
-                        If chbOneStackFourRun.Checked = True Then
+                        If chbOneStackFourRun.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '004' Or "
                         End If
-                        If chbTwoStackStandard.Checked = True Then
+                        If chbTwoStackStandard.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '005' Or "
                         End If
-                        If chbTwoStackDRE.Checked = True Then
+                        If chbTwoStackDRE.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '006' Or "
                         End If
-                        If chbLoadingRack.Checked = True Then
+                        If chbLoadingRack.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '007' Or "
                         End If
-                        If chbPondTreatment.Checked = True Then
+                        If chbPondTreatment.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '008' Or "
                         End If
-                        If chbGasConcentration.Checked = True Then
+                        If chbGasConcentration.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '009' Or "
                         End If
-                        If chbFlare.Checked = True Then
+                        If chbFlare.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '010' Or "
                         End If
-                        If chbRata.Checked = True Then
+                        If chbRata.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '011' Or "
                         End If
-                        If chbMemorandumStandard.Checked = True Then
+                        If chbMemorandumStandard.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '012' Or "
                         End If
-                        If chbMemorandumToFile.Checked = True Then
+                        If chbMemorandumToFile.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '013' Or "
                         End If
-                        If chbMethod9Single.Checked = True Then
+                        If chbMethod9Single.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '016' Or "
                         End If
-                        If chbMethod9Multi.Checked = True Then
+                        If chbMethod9Multi.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '014' Or "
                         End If
-                        If chbMethod22.Checked = True Then
+                        If chbMethod22.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '015' Or "
                         End If
-                        If chbPEMS.Checked = True Then
+                        If chbPEMS.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '017' Or "
                         End If
-                        If chbPTE.Checked = True Then
+                        If chbPTE.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '018' Or "
                         End If
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 3)) & " ) "
                     End If
                 End If
 
-                If chbMonitorCertification.Checked = True OrElse
-                    chbPEMSDevelopment.Checked = True OrElse
-                    chbRATAandCEMS.Checked = True OrElse
-                    chbSourceTest.Checked = True OrElse
-                    chbOther.Checked = True Then
+                If chbMonitorCertification.Checked OrElse
+                    chbPEMSDevelopment.Checked OrElse
+                    chbRATAandCEMS.Checked OrElse
+                    chbSourceTest.Checked OrElse
+                    chbOther.Checked Then
 
                     SQLWhere = SQLWhere & " and ( "
 
-                    If chbMonitorCertification.Checked = True Then
+                    If chbMonitorCertification.Checked Then
                         SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '001' Or "
                     End If
-                    If chbPEMSDevelopment.Checked = True Then
+                    If chbPEMSDevelopment.Checked Then
                         SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '002' Or "
                     End If
-                    If chbRATAandCEMS.Checked = True Then
+                    If chbRATAandCEMS.Checked Then
                         SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '003' Or "
                     End If
-                    If chbSourceTest.Checked = True Then
+                    If chbSourceTest.Checked Then
                         SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '004' Or "
                     End If
-                    If chbOther.Checked = True Then
+                    If chbOther.Checked Then
                         SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '005' Or "
                     End If
                     SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 3)) & " ) "
 
                 End If
 
-                If chbComplianceStatus1.Checked = True OrElse chbComplianceStatus2.Checked = True OrElse
-                    chbComplianceStatus3.Checked = True OrElse chbComplianceStatus4.Checked = True OrElse
-                    chbComplianceStatus5.Checked = True Then
+                If chbComplianceStatus1.Checked OrElse chbComplianceStatus2.Checked OrElse
+                    chbComplianceStatus3.Checked OrElse chbComplianceStatus4.Checked OrElse
+                    chbComplianceStatus5.Checked Then
 
                     SQLWhere = SQLWhere & " and ( "
 
-                    If chbComplianceStatus1.Checked = True Then
+                    If chbComplianceStatus1.Checked Then
                         SQLWhere = SQLWhere & " ISMPReportInformation.strComplianceStatus = '01' Or "
                     End If
-                    If chbComplianceStatus2.Checked = True Then
+                    If chbComplianceStatus2.Checked Then
                         SQLWhere = SQLWhere & " ISMPReportInformation.strComplianceStatus = '02' Or "
                     End If
-                    If chbComplianceStatus3.Checked = True Then
+                    If chbComplianceStatus3.Checked Then
                         SQLWhere = SQLWhere & " ISMPReportInformation.strComplianceStatus = '03' Or "
                     End If
-                    If chbComplianceStatus4.Checked = True Then
+                    If chbComplianceStatus4.Checked Then
                         SQLWhere = SQLWhere & " ISMPReportInformation.strComplianceStatus = '04' Or "
                     End If
-                    If chbComplianceStatus5.Checked = True Then
+                    If chbComplianceStatus5.Checked Then
                         SQLWhere = SQLWhere & " ISMPReportInformation.strComplianceStatus = '05' Or "
                     End If
                     SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 3)) & " ) "
                 End If
 
-                If rdbNA.Checked = True Then
+                If rdbNA.Checked Then
 
                 Else
-                    If rdbFacilityDateReceived.Checked = True Then
+                    If rdbFacilityDateReceived.Checked Then
                         SQLWhere = SQLWhere & "AND datReceivedDate between '" & DTPStartDate.Text & "' and '" & DTPEndDate.Text & "' "
                     End If
-                    If rdbFacilityDateTested.Checked = True Then
+                    If rdbFacilityDateTested.Checked Then
                         SQLWhere = SQLWhere & "AND (datTestDateStart <= '" & DTPEndDate.Text & "' AND DATTESTDATEEND >= '" & DTPStartDate.Text & "') "
                     End If
-                    If rdbFacilityDateCompleted.Checked = True Then
+                    If rdbFacilityDateCompleted.Checked Then
                         SQLWhere = SQLWhere & "And datCompleteDate between '" & DTPStartDate.Text & "' and '" & DTPEndDate.Text & "' "
                     End If
                 End If
@@ -428,7 +428,7 @@ Public Class ISMPMonitoringLog
 
             End If  'Test Reports
 
-            If Me.chbNotifications.Checked = True Then
+            If Me.chbNotifications.Checked Then
                 SQLWhere = ""
                 query = "select distinct " &
                "SUBSTRING(ISMPTEstNotification.strAIRSNumber, 5,8) as AIRSNumber, " &
@@ -454,11 +454,11 @@ Public Class ISMPMonitoringLog
                "ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
                " where 1=1 "
 
-                If chbReviewingEngineer.Checked = True Then
+                If chbReviewingEngineer.Checked Then
                     SQLWhere = SQLWhere & " and ( "
                     If clbEngineer.CheckedItems.Count > 0 Then
                         For x As Integer = 0 To clbEngineer.Items.Count - 1
-                            If clbEngineer.GetItemChecked(x) = True Then
+                            If clbEngineer.GetItemChecked(x) Then
                                 clbEngineer.SelectedIndex = x
                                 SQLWhere = SQLWhere & " strStaffResponsible = '" & clbEngineer.SelectedValue & "' Or "
                             End If
@@ -469,7 +469,7 @@ Public Class ISMPMonitoringLog
                     If clbEngineer.CheckedItems.Count > 0 Then
                         SQLWhere = SQLWhere & " and ( "
                         For x As Integer = 0 To clbEngineer.Items.Count - 1
-                            If clbEngineer.GetItemChecked(x) = True Then
+                            If clbEngineer.GetItemChecked(x) Then
                                 clbEngineer.SelectedIndex = x
                                 SQLWhere = SQLWhere & " strStaffResponsible = '" & clbEngineer.SelectedValue & "' Or "
                             End If
@@ -479,7 +479,7 @@ Public Class ISMPMonitoringLog
                     End If
                 End If
 
-                If chbOpen.Checked = True Then
+                If chbOpen.Checked Then
                     SQLWhere = SQLWhere & " and datproposedstartdate > DATEADD(day, -90, GETDATE()) "
                 End If
                 If txtAIRSNumberFilter.Text <> "" Then
@@ -511,10 +511,10 @@ Public Class ISMPMonitoringLog
                 If txtPollutantFilter.Text <> "" Then
 
                 End If
-                If chbNotificationLinked.Checked = True Then
+                If chbNotificationLinked.Checked Then
                     SQLWhere = SQLWhere & " and strReferenceNumber is Not Null "
                 End If
-                If chbNotificationUnlinked.Checked = True Then
+                If chbNotificationUnlinked.Checked Then
                     SQLWhere = SQLWhere & " and strReferenceNumber is Null "
                 End If
 
@@ -558,7 +558,7 @@ Public Class ISMPMonitoringLog
                 txtNotificationCount.Text = dgvNotificationLog.RowCount
             End If
 
-            If chbTestFirmComments.Checked = True Then
+            If chbTestFirmComments.Checked Then
                 query = ""
                 SQLWhere = ""
 
@@ -590,11 +590,11 @@ Public Class ISMPMonitoringLog
                " LEFT JOIN LookUpCountyInformation " &
                "ON SUBSTRING(ISMPTestFirmComments.strAIRSNUmber, 5, 3)  = LookUpCountyInformation.strCountycode "
 
-                If chbReviewingEngineer.Checked = True Then
+                If chbReviewingEngineer.Checked Then
                     SQLWhere = SQLWhere & " and ( "
                     If clbEngineer.CheckedItems.Count > 0 Then
                         For x As Integer = 0 To clbEngineer.Items.Count - 1
-                            If clbEngineer.GetItemChecked(x) = True Then
+                            If clbEngineer.GetItemChecked(x) Then
                                 clbEngineer.SelectedIndex = x
                                 SQLWhere = SQLWhere & " ISMPTestFirmComments.strStaffResponsible = '" & clbEngineer.SelectedValue & "' Or "
                             End If
@@ -605,7 +605,7 @@ Public Class ISMPMonitoringLog
                     If clbEngineer.CheckedItems.Count > 0 Then
                         SQLWhere = SQLWhere & " and ( "
                         For x As Integer = 0 To clbEngineer.Items.Count - 1
-                            If clbEngineer.GetItemChecked(x) = True Then
+                            If clbEngineer.GetItemChecked(x) Then
                                 clbEngineer.SelectedIndex = x
                                 SQLWhere = SQLWhere & " ISMPTestFirmComments.strStaffResponsible = '" & clbEngineer.SelectedValue & "' Or "
                             End If
