@@ -2388,117 +2388,117 @@ Public Class ISMPConfidentialData
 
             If txtReferenceNumber.Text <> "" AndAlso DocumentType <> "" Then
                 ConfidentialData = "00"
-                If chbAIRSNumber.Checked = True Then
+                If chbAIRSNumber.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If chbFacilityName.Checked = True Then
+                If chbFacilityName.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If chbLocation.Checked = True Then
+                If chbLocation.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If chbReportType.Checked = True Then
+                If chbReportType.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbISMPReviewer.Checked = True Then
+                If Me.chbISMPReviewer.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbISMPUnit.Checked = True Then
+                If Me.chbISMPUnit.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbISMPProgramManager.Checked = True Then
+                If Me.chbISMPProgramManager.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbISMPUnitManager.Checked = True Then
+                If Me.chbISMPUnitManager.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbTestNotification.Checked = True Then
+                If Me.chbTestNotification.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbWitnessingEngineer.Checked = True Then
+                If Me.chbWitnessingEngineer.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbOtherWitnessingEngineer.Checked = True Then
+                If Me.chbOtherWitnessingEngineer.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbSourceTested.Checked = True Then
+                If Me.chbSourceTested.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbPollutant.Checked = True Then
+                If Me.chbPollutant.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbMethodUsed.Checked = True Then
+                If Me.chbMethodUsed.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbTestingFirm.Checked = True Then
+                If Me.chbTestingFirm.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbISMPComplianceDetermination.Checked = True Then
+                If Me.chbISMPComplianceDetermination.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbDatesTested.Checked = True Then
+                If Me.chbDatesTested.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbDaysInAPB.Checked = True Then
+                If Me.chbDaysInAPB.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbReceivedByAPB.Checked = True Then
+                If Me.chbReceivedByAPB.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbAssignedToEngineer.Checked = True Then
+                If Me.chbAssignedToEngineer.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbCompletedByISMP.Checked = True Then
+                If Me.chbCompletedByISMP.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbComplianceManager.Checked = True Then
+                If Me.chbComplianceManager.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
                 End If
-                If Me.chbCC.Checked = True Then
+                If Me.chbCC.Checked Then
                     ConfidentialData = ConfidentialData & "1"
                 Else
                     ConfidentialData = ConfidentialData & "0"
@@ -2507,309 +2507,309 @@ Public Class ISMPConfidentialData
                 Select Case DocumentType
                     Case "002"
                         ConfidentialData = "0" & "A" & Mid(ConfidentialData, 3)
-                        If Me.chbOneStackMaxOpCapacity.Checked = True Then
+                        If Me.chbOneStackMaxOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackOpCapacity.Checked = True Then
+                        If Me.chbOneStackOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackAllowEmiss1.Checked = True Then
+                        If Me.chbOneStackAllowEmiss1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackAllowEmiss2.Checked = True Then
+                        If Me.chbOneStackAllowEmiss2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackAllowEmiss3.Checked = True Then
+                        If Me.chbOneStackAllowEmiss3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackAppRequire.Checked = True Then
+                        If Me.chbOneStackAppRequire.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackControlEquip.Checked = True Then
+                        If Me.chbOneStackControlEquip.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackPercentAllow.Checked = True Then
+                        If Me.chbOneStackPercentAllow.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackOtherInfo.Checked = True Then
+                        If Me.chbOneStackOtherInfo.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2Run1.Checked = True Then
+                        If Me.chbOneStack2Run1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2Temp1.Checked = True Then
+                        If Me.chbOneStack2Temp1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2Moist1.Checked = True Then
+                        If Me.chbOneStack2Moist1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2ACFM1.Checked = True Then
+                        If Me.chbOneStack2ACFM1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2DSCFM1.Checked = True Then
+                        If Me.chbOneStack2DSCFM1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2Poll1.Checked = True Then
+                        If Me.chbOneStack2Poll1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2Emiss1.Checked = True Then
+                        If Me.chbOneStack2Emiss1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2Run2.Checked = True Then
+                        If Me.chbOneStack2Run2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2Temp2.Checked = True Then
+                        If Me.chbOneStack2Temp2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2Moist2.Checked = True Then
+                        If Me.chbOneStack2Moist2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2ACFM2.Checked = True Then
+                        If Me.chbOneStack2ACFM2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2DSCFM2.Checked = True Then
+                        If Me.chbOneStack2DSCFM2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2Poll2.Checked = True Then
+                        If Me.chbOneStack2Poll2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2Emiss2.Checked = True Then
+                        If Me.chbOneStack2Emiss2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2PollUnit.Checked = True Then
+                        If Me.chbOneStack2PollUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2PollAvg.Checked = True Then
+                        If Me.chbOneStack2PollAvg.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2EmissUnit.Checked = True Then
+                        If Me.chbOneStack2EmissUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack2EmissAvg.Checked = True Then
+                        If Me.chbOneStack2EmissAvg.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
                     Case "003"
                         ConfidentialData = "0" & "B" & Mid(ConfidentialData, 3)
-                        If Me.chbOneStackMaxOpCapacity.Checked = True Then
+                        If Me.chbOneStackMaxOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackOpCapacity.Checked = True Then
+                        If Me.chbOneStackOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackAllowEmiss1.Checked = True Then
+                        If Me.chbOneStackAllowEmiss1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackAllowEmiss2.Checked = True Then
+                        If Me.chbOneStackAllowEmiss2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackAllowEmiss3.Checked = True Then
+                        If Me.chbOneStackAllowEmiss3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackAppRequire.Checked = True Then
+                        If Me.chbOneStackAppRequire.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackControlEquip.Checked = True Then
+                        If Me.chbOneStackControlEquip.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackPercentAllow.Checked = True Then
+                        If Me.chbOneStackPercentAllow.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackOtherInfo.Checked = True Then
+                        If Me.chbOneStackOtherInfo.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Run1.Checked = True Then
+                        If Me.chbOneStack3Run1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Temp1.Checked = True Then
+                        If Me.chbOneStack3Temp1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Moist1.Checked = True Then
+                        If Me.chbOneStack3Moist1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3ACFM1.Checked = True Then
+                        If Me.chbOneStack3ACFM1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3DSCFM1.Checked = True Then
+                        If Me.chbOneStack3DSCFM1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Poll1.Checked = True Then
+                        If Me.chbOneStack3Poll1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Emiss1.Checked = True Then
+                        If Me.chbOneStack3Emiss1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Run2.Checked = True Then
+                        If Me.chbOneStack3Run2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Temp2.Checked = True Then
+                        If Me.chbOneStack3Temp2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Moist2.Checked = True Then
+                        If Me.chbOneStack3Moist2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3ACFM2.Checked = True Then
+                        If Me.chbOneStack3ACFM2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3DSCFM2.Checked = True Then
+                        If Me.chbOneStack3DSCFM2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Poll2.Checked = True Then
+                        If Me.chbOneStack3Poll2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Emiss2.Checked = True Then
+                        If Me.chbOneStack3Emiss2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Run3.Checked = True Then
+                        If Me.chbOneStack3Run3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Temp3.Checked = True Then
+                        If Me.chbOneStack3Temp3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Moist3.Checked = True Then
+                        If Me.chbOneStack3Moist3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3ACFM3.Checked = True Then
+                        If Me.chbOneStack3ACFM3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3DSCFM3.Checked = True Then
+                        If Me.chbOneStack3DSCFM3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Poll3.Checked = True Then
+                        If Me.chbOneStack3Poll3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3Emiss3.Checked = True Then
+                        If Me.chbOneStack3Emiss3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3PollUnit.Checked = True Then
+                        If Me.chbOneStack3PollUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3PollAvg.Checked = True Then
+                        If Me.chbOneStack3PollAvg.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3EmissUnit.Checked = True Then
+                        If Me.chbOneStack3EmissUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack3EmissAvg.Checked = True Then
+                        If Me.chbOneStack3EmissAvg.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
@@ -2817,207 +2817,207 @@ Public Class ISMPConfidentialData
 
                     Case "004"
                         ConfidentialData = "0" & "C" & Mid(ConfidentialData, 3)
-                        If Me.chbOneStackMaxOpCapacity.Checked = True Then
+                        If Me.chbOneStackMaxOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackOpCapacity.Checked = True Then
+                        If Me.chbOneStackOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackAllowEmiss1.Checked = True Then
+                        If Me.chbOneStackAllowEmiss1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackAllowEmiss2.Checked = True Then
+                        If Me.chbOneStackAllowEmiss2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackAllowEmiss3.Checked = True Then
+                        If Me.chbOneStackAllowEmiss3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackAppRequire.Checked = True Then
+                        If Me.chbOneStackAppRequire.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackControlEquip.Checked = True Then
+                        If Me.chbOneStackControlEquip.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackPercentAllow.Checked = True Then
+                        If Me.chbOneStackPercentAllow.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStackOtherInfo.Checked = True Then
+                        If Me.chbOneStackOtherInfo.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Run1.Checked = True Then
+                        If Me.chbOneStack4Run1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Temp1.Checked = True Then
+                        If Me.chbOneStack4Temp1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Moist1.Checked = True Then
+                        If Me.chbOneStack4Moist1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4ACFM1.Checked = True Then
+                        If Me.chbOneStack4ACFM1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4DSCFM1.Checked = True Then
+                        If Me.chbOneStack4DSCFM1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Poll1.Checked = True Then
+                        If Me.chbOneStack4Poll1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Emiss1.Checked = True Then
+                        If Me.chbOneStack4Emiss1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Run2.Checked = True Then
+                        If Me.chbOneStack4Run2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Temp2.Checked = True Then
+                        If Me.chbOneStack4Temp2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Moist2.Checked = True Then
+                        If Me.chbOneStack4Moist2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4ACFM2.Checked = True Then
+                        If Me.chbOneStack4ACFM2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4DSCFM2.Checked = True Then
+                        If Me.chbOneStack4DSCFM2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Poll2.Checked = True Then
+                        If Me.chbOneStack4Poll2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Emiss2.Checked = True Then
+                        If Me.chbOneStack4Emiss2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Run3.Checked = True Then
+                        If Me.chbOneStack4Run3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Temp3.Checked = True Then
+                        If Me.chbOneStack4Temp3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Moist3.Checked = True Then
+                        If Me.chbOneStack4Moist3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4ACFM3.Checked = True Then
+                        If Me.chbOneStack4ACFM3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4DSCFM3.Checked = True Then
+                        If Me.chbOneStack4DSCFM3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Poll3.Checked = True Then
+                        If Me.chbOneStack4Poll3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Emiss3.Checked = True Then
+                        If Me.chbOneStack4Emiss3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Run4.Checked = True Then
+                        If Me.chbOneStack4Run4.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Temp4.Checked = True Then
+                        If Me.chbOneStack4Temp4.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Moist4.Checked = True Then
+                        If Me.chbOneStack4Moist4.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4ACFM4.Checked = True Then
+                        If Me.chbOneStack4ACFM4.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4DSCFM4.Checked = True Then
+                        If Me.chbOneStack4DSCFM4.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Poll4.Checked = True Then
+                        If Me.chbOneStack4Poll4.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4Emiss4.Checked = True Then
+                        If Me.chbOneStack4Emiss4.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4PollUnit.Checked = True Then
+                        If Me.chbOneStack4PollUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4PollAvg.Checked = True Then
+                        If Me.chbOneStack4PollAvg.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4EmissUnit.Checked = True Then
+                        If Me.chbOneStack4EmissUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbOneStack4EmissAvg.Checked = True Then
+                        If Me.chbOneStack4EmissAvg.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
@@ -3025,906 +3025,906 @@ Public Class ISMPConfidentialData
 
                     Case "005"
                         ConfidentialData = "0" & "D" & Mid(ConfidentialData, 3)
-                        If Me.chbTwoStackMaxOpCapacity.Checked = True Then
+                        If Me.chbTwoStackMaxOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackOpCapacity.Checked = True Then
+                        If Me.chbTwoStackOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackAllowEmiss1.Checked = True Then
+                        If Me.chbTwoStackAllowEmiss1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackAllowEmiss2.Checked = True Then
+                        If Me.chbTwoStackAllowEmiss2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackAllowEmiss3.Checked = True Then
+                        If Me.chbTwoStackAllowEmiss3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackAppRequire.Checked = True Then
+                        If Me.chbTwoStackAppRequire.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackControlEquip.Checked = True Then
+                        If Me.chbTwoStackControlEquip.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackOtherInfo.Checked = True Then
+                        If Me.chbTwoStackOtherInfo.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandName1.Checked = True Then
+                        If Me.chbTwoStackStandName1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandName2.Checked = True Then
+                        If Me.chbTwoStackStandName2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandRun1a.Checked = True Then
+                        If Me.chbTwoStackStandRun1a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandTemp1a.Checked = True Then
+                        If Me.chbTwoStackStandTemp1a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandMoist1a.Checked = True Then
+                        If Me.chbTwoStackStandMoist1a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandACFM1a.Checked = True Then
+                        If Me.chbTwoStackStandACFM1a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandDSCFM1a.Checked = True Then
+                        If Me.chbTwoStackStandDSCFM1a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandPoll1a.Checked = True Then
+                        If Me.chbTwoStackStandPoll1a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandEmiss1a.Checked = True Then
+                        If Me.chbTwoStackStandEmiss1a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandRun2a.Checked = True Then
+                        If Me.chbTwoStackStandRun2a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandTemp2a.Checked = True Then
+                        If Me.chbTwoStackStandTemp2a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandMoist2a.Checked = True Then
+                        If Me.chbTwoStackStandMoist2a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandACFM2a.Checked = True Then
+                        If Me.chbTwoStackStandACFM2a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandDSCFM2a.Checked = True Then
+                        If Me.chbTwoStackStandDSCFM2a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandPoll2a.Checked = True Then
+                        If Me.chbTwoStackStandPoll2a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandEmiss2a.Checked = True Then
+                        If Me.chbTwoStackStandEmiss2a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandRun3a.Checked = True Then
+                        If Me.chbTwoStackStandRun3a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandTemp3a.Checked = True Then
+                        If Me.chbTwoStackStandTemp3a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandMoist3a.Checked = True Then
+                        If Me.chbTwoStackStandMoist3a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandACFM3a.Checked = True Then
+                        If Me.chbTwoStackStandACFM3a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandDSCFM3a.Checked = True Then
+                        If Me.chbTwoStackStandDSCFM3a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandPoll3a.Checked = True Then
+                        If Me.chbTwoStackStandPoll3a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandEmiss3a.Checked = True Then
+                        If Me.chbTwoStackStandEmiss3a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandRun1b.Checked = True Then
+                        If Me.chbTwoStackStandRun1b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandTemp1b.Checked = True Then
+                        If Me.chbTwoStackStandTemp1b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandMoist1b.Checked = True Then
+                        If Me.chbTwoStackStandMoist1b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandACFM1b.Checked = True Then
+                        If Me.chbTwoStackStandACFM1b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandDSCFM1b.Checked = True Then
+                        If Me.chbTwoStackStandDSCFM1b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandPoll1b.Checked = True Then
+                        If Me.chbTwoStackStandPoll1b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandEmiss1b.Checked = True Then
+                        If Me.chbTwoStackStandEmiss1b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandRun2b.Checked = True Then
+                        If Me.chbTwoStackStandRun2b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandTemp2b.Checked = True Then
+                        If Me.chbTwoStackStandTemp2b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandMoist2b.Checked = True Then
+                        If Me.chbTwoStackStandMoist2b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandACFM2b.Checked = True Then
+                        If Me.chbTwoStackStandACFM2b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandDSCFM2b.Checked = True Then
+                        If Me.chbTwoStackStandDSCFM2b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandPoll2b.Checked = True Then
+                        If Me.chbTwoStackStandPoll2b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandEmiss2b.Checked = True Then
+                        If Me.chbTwoStackStandEmiss2b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandRun3b.Checked = True Then
+                        If Me.chbTwoStackStandRun3b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandTemp3b.Checked = True Then
+                        If Me.chbTwoStackStandTemp3b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandMoist3b.Checked = True Then
+                        If Me.chbTwoStackStandMoist3b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandACFM3b.Checked = True Then
+                        If Me.chbTwoStackStandACFM3b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandDSCFM3b.Checked = True Then
+                        If Me.chbTwoStackStandDSCFM3b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandPoll3b.Checked = True Then
+                        If Me.chbTwoStackStandPoll3b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandEmiss3b.Checked = True Then
+                        If Me.chbTwoStackStandEmiss3b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
 
-                        If Me.chbTwoStackStandPollUnit.Checked = True Then
+                        If Me.chbTwoStackStandPollUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandPollAvg1.Checked = True Then
+                        If Me.chbTwoStackStandPollAvg1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandPollAvg2.Checked = True Then
+                        If Me.chbTwoStackStandPollAvg2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandEmissUnit.Checked = True Then
+                        If Me.chbTwoStackStandEmissUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandEmissAvg1.Checked = True Then
+                        If Me.chbTwoStackStandEmissAvg1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandEmissAvg2.Checked = True Then
+                        If Me.chbTwoStackStandEmissAvg2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandTotal1.Checked = True Then
+                        If Me.chbTwoStackStandTotal1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandTotal2.Checked = True Then
+                        If Me.chbTwoStackStandTotal2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandTotal3.Checked = True Then
+                        If Me.chbTwoStackStandTotal3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandTotalAvg.Checked = True Then
+                        If Me.chbTwoStackStandTotalAvg.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackStandPercentAllow.Checked = True Then
+                        If Me.chbTwoStackStandPercentAllow.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
                     Case "006"
                         ConfidentialData = "0" & "E" & Mid(ConfidentialData, 3)
-                        If Me.chbTwoStackMaxOpCapacity.Checked = True Then
+                        If Me.chbTwoStackMaxOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackOpCapacity.Checked = True Then
+                        If Me.chbTwoStackOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackAllowEmiss1.Checked = True Then
+                        If Me.chbTwoStackAllowEmiss1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackAllowEmiss2.Checked = True Then
+                        If Me.chbTwoStackAllowEmiss2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackAllowEmiss3.Checked = True Then
+                        If Me.chbTwoStackAllowEmiss3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackAppRequire.Checked = True Then
+                        If Me.chbTwoStackAppRequire.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackControlEquip.Checked = True Then
+                        If Me.chbTwoStackControlEquip.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackOtherInfo.Checked = True Then
+                        If Me.chbTwoStackOtherInfo.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREName1.Checked = True Then
+                        If Me.chbTwoStackDREName1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREName2.Checked = True Then
+                        If Me.chbTwoStackDREName2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDRERun1a.Checked = True Then
+                        If Me.chbTwoStackDRERun1a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDRETemp1a.Checked = True Then
+                        If Me.chbTwoStackDRETemp1a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREMoist1a.Checked = True Then
+                        If Me.chbTwoStackDREMoist1a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREACFM1a.Checked = True Then
+                        If Me.chbTwoStackDREACFM1a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREDSCFM1a.Checked = True Then
+                        If Me.chbTwoStackDREDSCFM1a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREPoll1a.Checked = True Then
+                        If Me.chbTwoStackDREPoll1a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREEmiss1a.Checked = True Then
+                        If Me.chbTwoStackDREEmiss1a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDRERun2a.Checked = True Then
+                        If Me.chbTwoStackDRERun2a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDRETemp2a.Checked = True Then
+                        If Me.chbTwoStackDRETemp2a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREMoist2a.Checked = True Then
+                        If Me.chbTwoStackDREMoist2a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREACFM2a.Checked = True Then
+                        If Me.chbTwoStackDREACFM2a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREDSCFM2a.Checked = True Then
+                        If Me.chbTwoStackDREDSCFM2a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREPoll2a.Checked = True Then
+                        If Me.chbTwoStackDREPoll2a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREEmiss2a.Checked = True Then
+                        If Me.chbTwoStackDREEmiss2a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDRERun3a.Checked = True Then
+                        If Me.chbTwoStackDRERun3a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDRETEmp3a.Checked = True Then
+                        If Me.chbTwoStackDRETEmp3a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREMoist3a.Checked = True Then
+                        If Me.chbTwoStackDREMoist3a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREACFM3a.Checked = True Then
+                        If Me.chbTwoStackDREACFM3a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREDSCFM3a.Checked = True Then
+                        If Me.chbTwoStackDREDSCFM3a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREPoll3a.Checked = True Then
+                        If Me.chbTwoStackDREPoll3a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREEmiss3a.Checked = True Then
+                        If Me.chbTwoStackDREEmiss3a.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDRERun1b.Checked = True Then
+                        If Me.chbTwoStackDRERun1b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDRETemp1b.Checked = True Then
+                        If Me.chbTwoStackDRETemp1b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREMoist1b.Checked = True Then
+                        If Me.chbTwoStackDREMoist1b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREACFM1b.Checked = True Then
+                        If Me.chbTwoStackDREACFM1b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREDSCFM1b.Checked = True Then
+                        If Me.chbTwoStackDREDSCFM1b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREPoll1b.Checked = True Then
+                        If Me.chbTwoStackDREPoll1b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREEmiss1b.Checked = True Then
+                        If Me.chbTwoStackDREEmiss1b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDRERun2b.Checked = True Then
+                        If Me.chbTwoStackDRERun2b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDRETemp2b.Checked = True Then
+                        If Me.chbTwoStackDRETemp2b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREMoist2b.Checked = True Then
+                        If Me.chbTwoStackDREMoist2b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREACFM2b.Checked = True Then
+                        If Me.chbTwoStackDREACFM2b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREDSCFM2b.Checked = True Then
+                        If Me.chbTwoStackDREDSCFM2b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREPoll2b.Checked = True Then
+                        If Me.chbTwoStackDREPoll2b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREEmiss2b.Checked = True Then
+                        If Me.chbTwoStackDREEmiss2b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDRERun3b.Checked = True Then
+                        If Me.chbTwoStackDRERun3b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDRETemp3b.Checked = True Then
+                        If Me.chbTwoStackDRETemp3b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREMoist3b.Checked = True Then
+                        If Me.chbTwoStackDREMoist3b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREACFM3b.Checked = True Then
+                        If Me.chbTwoStackDREACFM3b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREDSCFM3b.Checked = True Then
+                        If Me.chbTwoStackDREDSCFM3b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREPoll3b.Checked = True Then
+                        If Me.chbTwoStackDREPoll3b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREEmiss3b.Checked = True Then
+                        If Me.chbTwoStackDREEmiss3b.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREPollUnit.Checked = True Then
+                        If Me.chbTwoStackDREPollUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREPollAvg1.Checked = True Then
+                        If Me.chbTwoStackDREPollAvg1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREPollAvg2.Checked = True Then
+                        If Me.chbTwoStackDREPollAvg2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREEmissUnit.Checked = True Then
+                        If Me.chbTwoStackDREEmissUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREEmissAvg1.Checked = True Then
+                        If Me.chbTwoStackDREEmissAvg1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREEmissAvg2.Checked = True Then
+                        If Me.chbTwoStackDREEmissAvg2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbTwoStackDREDestructionEff.Checked = True Then
+                        If Me.chbTwoStackDREDestructionEff.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
                     Case "007"
                         ConfidentialData = "0" & "F" & Mid(ConfidentialData, 3)
-                        If Me.chbLoadingRackMaxOpCapacity.Checked = True Then
+                        If Me.chbLoadingRackMaxOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbLoadingRackOpCapacity.Checked = True Then
+                        If Me.chbLoadingRackOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbLoadingRackAllowEmiss1.Checked = True Then
+                        If Me.chbLoadingRackAllowEmiss1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbLoadingRackAllowEmiss2.Checked = True Then
+                        If Me.chbLoadingRackAllowEmiss2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbLoadingRackAllowEmiss3.Checked = True Then
+                        If Me.chbLoadingRackAllowEmiss3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbLoadingRackAppRequire.Checked = True Then
+                        If Me.chbLoadingRackAppRequire.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbLoadingRackControlEquip.Checked = True Then
+                        If Me.chbLoadingRackControlEquip.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbLoadingRackTestDuration.Checked = True Then
+                        If Me.chbLoadingRackTestDuration.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbLoadingRackPollIN.Checked = True Then
+                        If Me.chbLoadingRackPollIN.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbLoadingRackPollOUT.Checked = True Then
+                        If Me.chbLoadingRackPollOUT.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbLoadingRackDestReduction.Checked = True Then
+                        If Me.chbLoadingRackDestReduction.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbLoadingRackEmiss.Checked = True Then
+                        If Me.chbLoadingRackEmiss.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbLoadingRackOtherInfo.Checked = True Then
+                        If Me.chbLoadingRackOtherInfo.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
                     Case "008"
                         ConfidentialData = "0" & "G" & Mid(ConfidentialData, 3)
-                        If Me.chbPulpMaxOpCapacity.Checked = True Then
+                        If Me.chbPulpMaxOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpOpCapacity.Checked = True Then
+                        If Me.chbPulpOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpAllowEmiss1.Checked = True Then
+                        If Me.chbPulpAllowEmiss1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpAllowEmiss2.Checked = True Then
+                        If Me.chbPulpAllowEmiss2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpAllowEmiss3.Checked = True Then
+                        If Me.chbPulpAllowEmiss3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpAppRequire.Checked = True Then
+                        If Me.chbPulpAppRequire.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpControlEquip.Checked = True Then
+                        If Me.chbPulpControlEquip.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpRun1.Checked = True Then
+                        If Me.chbPulpRun1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpConc1.Checked = True Then
+                        If Me.chbPulpConc1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpTreatment1.Checked = True Then
+                        If Me.chbPulpTreatment1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpRun2.Checked = True Then
+                        If Me.chbPulpRun2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpConc2.Checked = True Then
+                        If Me.chbPulpConc2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpTreatment2.Checked = True Then
+                        If Me.chbPulpTreatment2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpRun3.Checked = True Then
+                        If Me.chbPulpRun3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpConc3.Checked = True Then
+                        If Me.chbPulpConc3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpTreatment3.Checked = True Then
+                        If Me.chbPulpTreatment3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpConcUnit.Checked = True Then
+                        If Me.chbPulpConcUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpConcAvg.Checked = True Then
+                        If Me.chbPulpConcAvg.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpTreatmentUnit.Checked = True Then
+                        If Me.chbPulpTreatmentUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpTreatmentAvg.Checked = True Then
+                        If Me.chbPulpTreatmentAvg.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpDestructEffic.Checked = True Then
+                        If Me.chbPulpDestructEffic.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbPulpOtherInfo.Checked = True Then
+                        If Me.chbPulpOtherInfo.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
                     Case "009"
                         ConfidentialData = "0" & "H" & Mid(ConfidentialData, 3)
-                        If Me.chbGasMaxOpCapacity.Checked = True Then
+                        If Me.chbGasMaxOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasOpCapacity.Checked = True Then
+                        If Me.chbGasOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasAllowEmiss1.Checked = True Then
+                        If Me.chbGasAllowEmiss1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasAllowEmiss2.Checked = True Then
+                        If Me.chbGasAllowEmiss2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasAllowEmiss3.Checked = True Then
+                        If Me.chbGasAllowEmiss3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasAppRequire.Checked = True Then
+                        If Me.chbGasAppRequire.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasControlEquip.Checked = True Then
+                        If Me.chbGasControlEquip.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasRun1.Checked = True Then
+                        If Me.chbGasRun1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasPoll1.Checked = True Then
+                        If Me.chbGasPoll1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasEmiss1.Checked = True Then
+                        If Me.chbGasEmiss1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasRun2.Checked = True Then
+                        If Me.chbGasRun2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasPoll2.Checked = True Then
+                        If Me.chbGasPoll2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasEmiss2.Checked = True Then
+                        If Me.chbGasEmiss2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasRun3.Checked = True Then
+                        If Me.chbGasRun3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasPoll3.Checked = True Then
+                        If Me.chbGasPoll3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasEmiss3.Checked = True Then
+                        If Me.chbGasEmiss3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasPollUnit.Checked = True Then
+                        If Me.chbGasPollUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasPollAvg.Checked = True Then
+                        If Me.chbGasPollAvg.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasEmissUnit.Checked = True Then
+                        If Me.chbGasEmissUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasEmissAvg.Checked = True Then
+                        If Me.chbGasEmissAvg.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasPercentAllow.Checked = True Then
+                        If Me.chbGasPercentAllow.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbGasOtherInfo.Checked = True Then
+                        If Me.chbGasOtherInfo.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
@@ -3932,107 +3932,107 @@ Public Class ISMPConfidentialData
 
                     Case "010"
                         ConfidentialData = "0" & "I" & Mid(ConfidentialData, 3)
-                        If Me.chbFlareMaxOpCapacity.Checked = True Then
+                        If Me.chbFlareMaxOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareOpCapacity.Checked = True Then
+                        If Me.chbFlareOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareAllowLimitations.Checked = True Then
+                        If Me.chbFlareAllowLimitations.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareHeatContent.Checked = True Then
+                        If Me.chbFlareHeatContent.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareAppRequire.Checked = True Then
+                        If Me.chbFlareAppRequire.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareMonitor.Checked = True Then
+                        If Me.chbFlareMonitor.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareRun1.Checked = True Then
+                        If Me.chbFlareRun1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareHeating1.Checked = True Then
+                        If Me.chbFlareHeating1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareVelocity1.Checked = True Then
+                        If Me.chbFlareVelocity1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareRun2.Checked = True Then
+                        If Me.chbFlareRun2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareHeating2.Checked = True Then
+                        If Me.chbFlareHeating2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareVelocity2.Checked = True Then
+                        If Me.chbFlareVelocity2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareRun3.Checked = True Then
+                        If Me.chbFlareRun3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareHeating3.Checked = True Then
+                        If Me.chbFlareHeating3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareVelocity3.Checked = True Then
+                        If Me.chbFlareVelocity3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareHeatingUnit.Checked = True Then
+                        If Me.chbFlareHeatingUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareHeatingAvg.Checked = True Then
+                        If Me.chbFlareHeatingAvg.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareVelocityUnit.Checked = True Then
+                        If Me.chbFlareVelocityUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareVelocityAvg.Checked = True Then
+                        If Me.chbFlareVelocityAvg.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlarePercentAllow.Checked = True Then
+                        If Me.chbFlarePercentAllow.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbFlareOtherInfo.Checked = True Then
+                        If Me.chbFlareOtherInfo.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
@@ -4040,170 +4040,170 @@ Public Class ISMPConfidentialData
 
                     Case "011"
                         ConfidentialData = "0" & "J" & Mid(ConfidentialData, 3)
-                        If Me.chbRATAAppStandard.Checked = True Then
+                        If Me.chbRATAAppStandard.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATAAppRegulation.Checked = True Then
+                        If Me.chbRATAAppRegulation.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATADiluent.Checked = True Then
+                        If Me.chbRATADiluent.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
 
-                        If Me.chbRATARef1.Checked = True Then
+                        If Me.chbRATARef1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATARef2.Checked = True Then
+                        If Me.chbRATARef2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATARef3.Checked = True Then
+                        If Me.chbRATARef3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATARef4.Checked = True Then
+                        If Me.chbRATARef4.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATARef5.Checked = True Then
+                        If Me.chbRATARef5.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATARef6.Checked = True Then
+                        If Me.chbRATARef6.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATARef7.Checked = True Then
+                        If Me.chbRATARef7.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATARef8.Checked = True Then
+                        If Me.chbRATARef8.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATARef9.Checked = True Then
+                        If Me.chbRATARef9.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATARef10.Checked = True Then
+                        If Me.chbRATARef10.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATARef11.Checked = True Then
+                        If Me.chbRATARef11.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATARef12.Checked = True Then
+                        If Me.chbRATARef12.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATACMS1.Checked = True Then
+                        If Me.chbRATACMS1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATACMS2.Checked = True Then
+                        If Me.chbRATACMS2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATACMS3.Checked = True Then
+                        If Me.chbRATACMS3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATACMS4.Checked = True Then
+                        If Me.chbRATACMS4.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATACMS5.Checked = True Then
+                        If Me.chbRATACMS5.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATACMS6.Checked = True Then
+                        If Me.chbRATACMS6.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATACMS7.Checked = True Then
+                        If Me.chbRATACMS7.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATACMS8.Checked = True Then
+                        If Me.chbRATACMS8.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATACMS9.Checked = True Then
+                        If Me.chbRATACMS9.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATACMS10.Checked = True Then
+                        If Me.chbRATACMS10.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATACMS11.Checked = True Then
+                        If Me.chbRATACMS11.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATACMS12.Checked = True Then
+                        If Me.chbRATACMS12.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATAUnits.Checked = True Then
+                        If Me.chbRATAUnits.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATARelativeAcc.Checked = True Then
+                        If Me.chbRATARelativeAcc.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATAStatement.Checked = True Then
+                        If Me.chbRATAStatement.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbRATAOtherInformation.Checked = True Then
+                        If Me.chbRATAOtherInformation.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
                     Case "012"
                         ConfidentialData = "0" & "K" & Mid(ConfidentialData, 3)
-                        If Me.chbMemoAppRequire.Checked = True Then
+                        If Me.chbMemoAppRequire.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMemoStandardMemo.Checked = True Then
+                        If Me.chbMemoStandardMemo.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
@@ -4211,258 +4211,258 @@ Public Class ISMPConfidentialData
 
                     Case "013"
                         ConfidentialData = "0" & "L" & Mid(ConfidentialData, 3)
-                        If Me.chbMemoAppRequire.Checked = True Then
+                        If Me.chbMemoAppRequire.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMemoToFileManufacture.Checked = True Then
+                        If Me.chbMemoToFileManufacture.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMemoToFileSerial.Checked = True Then
+                        If Me.chbMemoToFileSerial.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMemoToFileMemo.Checked = True Then
+                        If Me.chbMemoToFileMemo.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
                     Case "014"
                         ConfidentialData = "0" & "M" & Mid(ConfidentialData, 3)
-                        If Me.chbMethod9MultiMaxOpCapacity1.Checked = True Then
+                        If Me.chbMethod9MultiMaxOpCapacity1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiMaxOpCapacity2.Checked = True Then
+                        If Me.chbMethod9MultiMaxOpCapacity2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiMaxOpCapacity3.Checked = True Then
+                        If Me.chbMethod9MultiMaxOpCapacity3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiMaxOpCapacity4.Checked = True Then
+                        If Me.chbMethod9MultiMaxOpCapacity4.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiMaxOpCapacity5.Checked = True Then
+                        If Me.chbMethod9MultiMaxOpCapacity5.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiMaxOpCapacityUnit.Checked = True Then
+                        If Me.chbMethod9MultiMaxOpCapacityUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiOpCapacity1.Checked = True Then
+                        If Me.chbMethod9MultiOpCapacity1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiOpCapacity2.Checked = True Then
+                        If Me.chbMethod9MultiOpCapacity2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiOpCapacity3.Checked = True Then
+                        If Me.chbMethod9MultiOpCapacity3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiOpCapacity4.Checked = True Then
+                        If Me.chbMethod9MultiOpCapacity4.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiOpCapacity5.Checked = True Then
+                        If Me.chbMethod9MultiOpCapacity5.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiOpCapacityUnit.Checked = True Then
+                        If Me.chbMethod9MultiOpCapacityUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiAllowEmiss1.Checked = True Then
+                        If Me.chbMethod9MultiAllowEmiss1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiAllowEmiss2.Checked = True Then
+                        If Me.chbMethod9MultiAllowEmiss2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiAllowEmiss3.Checked = True Then
+                        If Me.chbMethod9MultiAllowEmiss3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiAllowEmiss4.Checked = True Then
+                        If Me.chbMethod9MultiAllowEmiss4.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiAllowEmiss5.Checked = True Then
+                        If Me.chbMethod9MultiAllowEmiss5.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiAllowEmissUnit.Checked = True Then
+                        If Me.chbMethod9MultiAllowEmissUnit.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If chbMethod9MultiAppRequire.Checked = True Then
+                        If chbMethod9MultiAppRequire.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiControlEquip.Checked = True Then
+                        If Me.chbMethod9MultiControlEquip.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiAvg1.Checked = True Then
+                        If Me.chbMethod9MultiAvg1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiAvg2.Checked = True Then
+                        If Me.chbMethod9MultiAvg2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiAvg3.Checked = True Then
+                        If Me.chbMethod9MultiAvg3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiAvg4.Checked = True Then
+                        If Me.chbMethod9MultiAvg4.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiAvg5.Checked = True Then
+                        If Me.chbMethod9MultiAvg5.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiOtherInfor.Checked = True Then
+                        If Me.chbMethod9MultiOtherInfor.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiEquip1.Checked = True Then
+                        If Me.chbMethod9MultiEquip1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiEquip2.Checked = True Then
+                        If Me.chbMethod9MultiEquip2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiEquip3.Checked = True Then
+                        If Me.chbMethod9MultiEquip3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiEquip4.Checked = True Then
+                        If Me.chbMethod9MultiEquip4.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9MultiEquip5.Checked = True Then
+                        If Me.chbMethod9MultiEquip5.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
                     Case "015"
                         ConfidentialData = "0" & "N" & Mid(ConfidentialData, 3)
-                        If Me.chbMethod22MaxOpCapacity.Checked = True Then
+                        If Me.chbMethod22MaxOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod22OpCapacity.Checked = True Then
+                        If Me.chbMethod22OpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod22AllowEmiss.Checked = True Then
+                        If Me.chbMethod22AllowEmiss.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod22AppReg.Checked = True Then
+                        If Me.chbMethod22AppReg.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod22TestDuration.Checked = True Then
+                        If Me.chbMethod22TestDuration.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod22Emission.Checked = True Then
+                        If Me.chbMethod22Emission.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod22OtherInfo.Checked = True Then
+                        If Me.chbMethod22OtherInfo.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
                     Case "016"
                         ConfidentialData = "0" & "O" & Mid(ConfidentialData, 3)
-                        If Me.chbMethod9MaxOpCapacity.Checked = True Then
+                        If Me.chbMethod9MaxOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9OpCapacity.Checked = True Then
+                        If Me.chbMethod9OpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9AllowEmiss.Checked = True Then
+                        If Me.chbMethod9AllowEmiss.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9AppRequire.Checked = True Then
+                        If Me.chbMethod9AppRequire.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9ControlEquip.Checked = True Then
+                        If Me.chbMethod9ControlEquip.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9TestDuration.Checked = True Then
+                        If Me.chbMethod9TestDuration.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9Opacity.Checked = True Then
+                        If Me.chbMethod9Opacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMethod9OtherInfo.Checked = True Then
+                        If Me.chbMethod9OtherInfo.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
@@ -4470,42 +4470,42 @@ Public Class ISMPConfidentialData
 
                     Case "018"
                         ConfidentialData = "0" & "Q" & Mid(ConfidentialData, 3)
-                        If Me.chbMemoAppRequire.Checked = True Then
+                        If Me.chbMemoAppRequire.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMemoPTEMaxOpCapacity.Checked = True Then
+                        If Me.chbMemoPTEMaxOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMemoPTEOpCapacity.Checked = True Then
+                        If Me.chbMemoPTEOpCapacity.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMemoPTEAllowEmiss1.Checked = True Then
+                        If Me.chbMemoPTEAllowEmiss1.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMemoPTEAllowEmiss2.Checked = True Then
+                        If Me.chbMemoPTEAllowEmiss2.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMemoPTEAllowEmiss3.Checked = True Then
+                        If Me.chbMemoPTEAllowEmiss3.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMemoPTEControlEquip.Checked = True Then
+                        If Me.chbMemoPTEControlEquip.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-                        If Me.chbMemoPTEMemo.Checked = True Then
+                        If Me.chbMemoPTEMemo.Checked Then
                             ConfidentialData = ConfidentialData & "1"
                         Else
                             ConfidentialData = ConfidentialData & "0"
