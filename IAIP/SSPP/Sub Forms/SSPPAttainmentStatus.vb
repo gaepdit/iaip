@@ -458,7 +458,7 @@ Public Class SSPPAttainmentStatus
         Dim hti As DataGridView.HitTestInfo = dgvAttainmentStatus.HitTest(e.X, e.Y)
 
         Try
-            If dgvAttainmentStatus.RowCount > 0 And hti.RowIndex <> -1 AndAlso
+            If dgvAttainmentStatus.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
                 dgvAttainmentStatus.Columns(0).HeaderText = "County Name" Then
 
                 cboCounty.Text = dgvAttainmentStatus(0, hti.RowIndex).Value

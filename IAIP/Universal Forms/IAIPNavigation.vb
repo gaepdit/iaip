@@ -47,7 +47,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub IAIPNavigation_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        If Not LoggingOff And Not IaipExiting Then
+        If Not LoggingOff AndAlso Not IaipExiting Then
             Dim openForms As New List(Of Form)
 
             For Each frm As Form In Application.OpenForms
@@ -209,7 +209,7 @@ Public Class IAIPNavigation
             thisButton.Tag = True
         Else
             thisButton.Tag = Nothing
-            If Not thisTextbox.Focused And Not thisButton.Focused Then
+            If Not thisTextbox.Focused AndAlso Not thisButton.Focused Then
                 thisButton.FlatStyle = FlatStyle.Flat
                 thisButton.ForeColor = SystemColors.GrayText
             End If
@@ -230,7 +230,7 @@ Public Class IAIPNavigation
     Handles btnOpenApplication.Leave, btnOpenEnforcement.Leave, btnOpenFacilitySummary.Leave, btnOpenSbeapCaseLog.Leave,
     btnOpenSbeapClient.Leave, btnOpenSscpItem.Leave, btnOpenTestLog.Leave, btnOpenTestReport.Leave
         Dim thisButton As Button = CType(sender, Button)
-        If AcceptButton IsNot thisButton And Not CBool(thisButton.Tag) Then
+        If AcceptButton IsNot thisButton AndAlso Not CBool(thisButton.Tag) Then
             thisButton.FlatStyle = FlatStyle.Flat
             thisButton.ForeColor = SystemColors.GrayText
         End If
@@ -691,8 +691,8 @@ Public Class IAIPNavigation
     Private Shared Function AccountHasAccessToForm(index As Int32) As Boolean
         Return (AccountFormAccess(index, 0) IsNot Nothing _
                 AndAlso AccountFormAccess(index, 0) = index.ToString _
-                AndAlso (AccountFormAccess(index, 1) = "1" Or AccountFormAccess(index, 2) = "1" _
-                         Or AccountFormAccess(index, 3) = "1" Or AccountFormAccess(index, 4) = "1")
+                AndAlso (AccountFormAccess(index, 1) = "1" OrElse AccountFormAccess(index, 2) = "1" _
+                         OrElse AccountFormAccess(index, 3) = "1" OrElse AccountFormAccess(index, 4) = "1")
                          )
     End Function
 

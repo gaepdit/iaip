@@ -13,7 +13,7 @@ Public Class IAIPLogIn
             Return _message
         End Get
         Set(value As IaipMessage)
-            If value Is Nothing And Message IsNot Nothing Then Message.Clear()
+            If value Is Nothing AndAlso Message IsNot Nothing Then Message.Clear()
             _message = value
             If value IsNot Nothing Then Message.Display(lblGeneralMessage)
         End Set

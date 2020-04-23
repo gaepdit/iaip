@@ -384,7 +384,7 @@ Public Class SSPPPublicNoticesAndAdvisories
             "Permit proceedings for the following facilities. The deadlines for " & vbCrLf &
             "submitting comments and requesting a public hearing are specified for " & vbCrLf & "each facility. " & vbCrLf & vbCrLf
 
-        If TVInitial <> "" Or TVRenewal <> "" Or TVSigMod <> "" Then
+        If TVInitial <> "" OrElse TVRenewal <> "" OrElse TVSigMod <> "" Then
             If TVInitial <> "" Then
                 TVAdvisories = TVAdvisories & "INITIAL TITLE V OPERATING PERMITSX" & vbCrLf & vbCrLf &
                     TVInitial & vbCrLf
@@ -801,7 +801,7 @@ Public Class SSPPPublicNoticesAndAdvisories
             Exit Sub
         End If
 
-        If Not rdbPublicAdvisories.Checked And Not rdbPublicNotice.Checked Then
+        If Not rdbPublicAdvisories.Checked AndAlso Not rdbPublicNotice.Checked Then
             MessageBox.Show("Select either Public Advisory or Public Notice.", "Error")
             Exit Sub
         End If

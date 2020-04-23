@@ -531,7 +531,7 @@ Public Class IAIPListTool
     Private Sub dgvProgram_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvProgram.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvProgram.HitTest(e.X, e.Y)
-            If dgvProgram.RowCount > 0 And hti.RowIndex <> -1 AndAlso
+            If dgvProgram.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
                 dgvProgram.Columns(0).HeaderText = "ID #" Then
 
                 If IsDBNull(dgvProgram(0, hti.RowIndex).Value) Then
@@ -553,7 +553,7 @@ Public Class IAIPListTool
     Private Sub dgvUnit_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvUnit.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvUnit.HitTest(e.X, e.Y)
-            If dgvUnit.RowCount > 0 And hti.RowIndex <> -1 AndAlso
+            If dgvUnit.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
                 dgvUnit.Columns(0).HeaderText = "ID #" Then
 
                 If IsDBNull(dgvUnit(0, hti.RowIndex).Value) Then
@@ -575,7 +575,7 @@ Public Class IAIPListTool
     Private Sub dgvAccounts_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvAccounts.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvAccounts.HitTest(e.X, e.Y)
-            If dgvAccounts.RowCount > 0 And hti.RowIndex <> -1 AndAlso
+            If dgvAccounts.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
                 dgvAccounts.Columns(0).HeaderText = "ID #" Then
 
                 txtAccount.Text = dgvAccounts(1, hti.RowIndex).Value
@@ -686,7 +686,7 @@ Public Class IAIPListTool
 
     Private Sub btnEditProgram_Click(sender As Object, e As EventArgs) Handles btnEditProgram.Click
         Try
-            If txtProgramCode.Text <> "" And txtBranchCode.Text <> "" Then
+            If txtProgramCode.Text <> "" AndAlso txtBranchCode.Text <> "" Then
                 Dim SQL As String = "Update LookUpEPDPrograms set " &
                 "strProgramDesc = @program, " &
                 "numBranchCode = @branchcode " &
@@ -736,7 +736,7 @@ Public Class IAIPListTool
 
     Private Sub btnEditUnit_Click(sender As Object, e As EventArgs) Handles btnEditUnit.Click
         Try
-            If txtUnitCode.Text <> "" And txtProgramCode.Text <> "" Then
+            If txtUnitCode.Text <> "" AndAlso txtProgramCode.Text <> "" Then
                 Dim SQL As String = "Update LookUpEPDUnits set " &
                 "strUnitDesc = @unit " &
                 "where numUnitCode = @unitcode "
@@ -844,7 +844,7 @@ Public Class IAIPListTool
     End Sub
 
     Private Sub cboProgram_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboProgram.SelectedIndexChanged
-        If Not loading And cboProgram.SelectedIndex > -1 Then
+        If Not loading AndAlso cboProgram.SelectedIndex > -1 Then
             LoadAccounts(CInt(cboProgram.SelectedValue), CInt(cboBranch.SelectedValue))
         End If
     End Sub
@@ -922,7 +922,7 @@ Public Class IAIPListTool
     End Sub
 
     Private Sub chbCascadeBranch_CheckedChanged(sender As Object, e As EventArgs) Handles chbCascadeBranch.CheckedChanged, chbCascadeProgram.CheckedChanged
-        lbAccounts.Enabled = Not chbCascadeBranch.Checked And Not chbCascadeProgram.Checked
+        lbAccounts.Enabled = Not chbCascadeBranch.Checked AndAlso Not chbCascadeProgram.Checked
     End Sub
 
     Private Sub btnUpdateAccount_Click(sender As Object, e As EventArgs) Handles btnUpdateAccount.Click
@@ -934,7 +934,7 @@ Public Class IAIPListTool
             Dim hti As DataGridView.HitTestInfo = dgvSelectedForms.HitTest(e.X, e.Y)
             Dim i As Integer = 0
 
-            If hti.RowIndex = -1 And hti.ColumnIndex <> -1 Then
+            If hti.RowIndex = -1 AndAlso hti.ColumnIndex <> -1 Then
                 If dgvSelectedForms.Columns(hti.ColumnIndex).HeaderText = "Read Only" Then
                     If dgvSelectedForms(3, 0).Value = True Then
                         For i = 0 To dgvSelectedForms.Rows.Count - 1

@@ -2502,43 +2502,43 @@ Public Class SSPPApplicationLog
 
     Private Sub dgvApplicationLog_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationLog.CellMouseEnter
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
-        If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index And e.RowIndex <> -1 Then
+        If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index AndAlso e.RowIndex <> -1 Then
             dgvApplicationLog.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, True)
         End If
     End Sub
 
     Private Sub dgvApplicationLog_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationLog.CellMouseLeave
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
-        If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index And e.RowIndex <> -1 Then
+        If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index AndAlso e.RowIndex <> -1 Then
             dgvApplicationLog.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, False)
         End If
     End Sub
 
     Private Sub dgvApplicationLog_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationLog.CellClick
         ' Anywhere in any cell in any non-header row in grid
-        If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount Then
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvApplicationLog.RowCount Then
             selectedApp = dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value
             btnOpen.Enabled = True
             mmiOpen.Enabled = True
         End If
 
         ' Only within the cell content of first column (App #)
-        If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount _
-            And e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index Then
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvApplicationLog.RowCount _
+            AndAlso e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index Then
             OpenApplication(dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value)
         End If
     End Sub
 
     Private Sub dgvApplicationLog_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationLog.CellDoubleClick
         'Double-click within the cell content (exclude first column to avoid double-firing)
-        If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount _
-            And e.ColumnIndex <> dgvApplicationLog.Columns("strApplicationNumber").Index Then
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvApplicationLog.RowCount _
+            AndAlso e.ColumnIndex <> dgvApplicationLog.Columns("strApplicationNumber").Index Then
             OpenApplication(dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value)
         End If
     End Sub
 
     Private Sub dgvApplicationLog_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationLog.CellEnter
-        If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount Then
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvApplicationLog.RowCount Then
             selectedApp = dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value
             btnOpen.Enabled = True
             mmiOpen.Enabled = True
