@@ -3746,7 +3746,7 @@ Public Class EisTool
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True And dgvEISStats(6, i).Value = "No" Then
+                    If dgvEISStats(0, i).Value = True AndAlso dgvEISStats(6, i).Value = "No" Then
                         paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
                         paramNameList1.Add(paramName)
                         paramList1.Add(New SqlParameter(paramName, dgvEISStats(1, i).Value))
@@ -3777,7 +3777,7 @@ Public Class EisTool
 
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True And dgvEISStats(6, i).Value = "Yes" Then
+                    If dgvEISStats(0, i).Value = True AndAlso dgvEISStats(6, i).Value = "Yes" Then
                         paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
                         paramNameList2.Add(paramName)
                         paramList2.Add(New SqlParameter(paramName, dgvEISStats(1, i).Value))
@@ -4915,7 +4915,7 @@ Public Class EisTool
                 Dim temp As String = ""
 
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True And dgvEISStats(7, i).Value = "No" Then
+                    If dgvEISStats(0, i).Value = True AndAlso dgvEISStats(7, i).Value = "No" Then
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                     End If
                 Next

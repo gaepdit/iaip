@@ -34,7 +34,7 @@ Namespace Apb.Sscp
         Public ReadOnly Property EnforcementType As EnforcementType ' STRACTIONTYPE	VARCHAR2(15 BYTE)
             Get
                 With Me.EnforcementActions
-                    If .Contains(EnforcementActionType.NOV) Or .Contains(EnforcementActionType.CO) Or .Contains(EnforcementActionType.AO) Then
+                    If .Contains(EnforcementActionType.NOV) OrElse .Contains(EnforcementActionType.CO) OrElse .Contains(EnforcementActionType.AO) Then
                         Return EnforcementType.CASEFILE
                     Else
                         Return EnforcementType.LON
@@ -51,9 +51,9 @@ Namespace Apb.Sscp
             Get
                 If Open = OpenOrClosed.Closed Then
                     Return EnforcementStatus.CaseClosed
-                ElseIf LonResolved.HasValue Or NfaSent.HasValue Or CoResolved.HasValue Or AoResolved.HasValue Then
+                ElseIf LonResolved.HasValue OrElse NfaSent.HasValue OrElse CoResolved.HasValue OrElse AoResolved.HasValue Then
                     Return EnforcementStatus.CaseResolved
-                ElseIf CoExecuted.HasValue Or AoExecuted.HasValue Then
+                ElseIf CoExecuted.HasValue OrElse AoExecuted.HasValue Then
                     Return EnforcementStatus.SubjectToComplianceSchedule
                 Else
                     Return EnforcementStatus.CaseOpen

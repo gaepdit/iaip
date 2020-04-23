@@ -13,7 +13,7 @@ Namespace DAL
         ''' <returns></returns>
         Public Function GetNavWorkList(context As NavWorkListContext, scope As NavWorkListScope, Optional scopeParameter As Integer? = Nothing) As DataTable
             Dim query As String = GetNavWorkListSQL(context, scope)
-            If query Is Nothing Or query = "" Then Return Nothing
+            If query Is Nothing OrElse query = "" Then Return Nothing
             Dim parameter As New SqlParameter("@pid", scopeParameter)
             Return DB.GetDataTable(query, parameter)
         End Function

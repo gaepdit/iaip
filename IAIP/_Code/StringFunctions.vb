@@ -43,7 +43,7 @@ Public Module StringFunctions
     Public Function FormatDigitsAsPhoneNumber(p As String, Optional formal As Boolean = True) As String
         If p Is Nothing Then Return p
         If Not Regex.IsMatch(p, NumericPattern) Then Return p
-        If Not (p.Length = 7 Or p.Length >= 10) Then Return p
+        If Not (p.Length = 7 OrElse p.Length >= 10) Then Return p
 
         If p.Length = 7 Then
             Return p.Substring(0, 3) & "-" & p.Substring(4, 4)

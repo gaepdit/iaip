@@ -237,18 +237,18 @@ Namespace DAL.Sscp
                 End If
 
                 .EnforcementActions = New List(Of EnforcementActionType)
-                If .LonComment <> "" Or AnyOfTheseDatesHasValue({ .LonResolved, .LonSent, .LonToUc}) Then
+                If .LonComment <> "" OrElse AnyOfTheseDatesHasValue({ .LonResolved, .LonSent, .LonToUc}) Then
                     .EnforcementActions.Add(EnforcementActionType.LON)
                 Else
-                    If .NovComment <> "" Or AnyOfTheseDatesHasValue({ .NovSent, .NovToPm, .NovToUc}) Then
+                    If .NovComment <> "" OrElse AnyOfTheseDatesHasValue({ .NovSent, .NovToPm, .NovToUc}) Then
                         .EnforcementActions.Add(EnforcementActionType.NOV)
                     End If
 
-                    If .CoComment <> "" Or .CoNumber <> "" Or AnyOfTheseDatesHasValue({ .CoExecuted, .CoProposed, .CoReceivedFromCompany, .CoReceivedFromDirector, .CoResolved, .CoToPm, .CoToUc}) Then
+                    If .CoComment <> "" OrElse .CoNumber <> "" OrElse AnyOfTheseDatesHasValue({ .CoExecuted, .CoProposed, .CoReceivedFromCompany, .CoReceivedFromDirector, .CoResolved, .CoToPm, .CoToUc}) Then
                         .EnforcementActions.Add(EnforcementActionType.CO)
                     End If
 
-                    If .AoComment <> "" Or AnyOfTheseDatesHasValue({ .AoAppealed, .AoExecuted, .AoResolved}) Then
+                    If .AoComment <> "" OrElse AnyOfTheseDatesHasValue({ .AoAppealed, .AoExecuted, .AoResolved}) Then
                         .EnforcementActions.Add(EnforcementActionType.AO)
                     End If
                 End If

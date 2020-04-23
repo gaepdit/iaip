@@ -36,8 +36,8 @@ Public Class IPAddressRange
                 Return False
             End If
 
-            lowerBoundary = lowerBoundary And (addressBytes(i) = lowerBytes(i))
-            upperBoundary = upperBoundary And (addressBytes(i) = upperBytes(i))
+            lowerBoundary = lowerBoundary AndAlso (addressBytes(i) = lowerBytes(i))
+            upperBoundary = upperBoundary AndAlso (addressBytes(i) = upperBytes(i))
             i += 1
         End While
 

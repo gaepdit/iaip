@@ -47,7 +47,7 @@ Public Class IaipUserSecurity
 #Region " Grid Events "
 
     Private Sub dgvSavedSessions_CellEnter(sender As Object, e As DataGridViewCellEventArgs)
-        If e.RowIndex <> -1 And e.RowIndex < dgvSavedSessions.RowCount Then
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvSavedSessions.RowCount Then
             selectedSession = dgvSavedSessions.Rows(e.RowIndex).Cells("SessionId").Value.ToString()
             btnRevokeSelection.Enabled = True
         End If

@@ -499,7 +499,7 @@ Public Class IaipUserManagement
     End Sub
 
     Private Sub ProfilePhoneNumber_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ProfilePhoneNumber.Validating
-        If ProfilePhoneNumber.MaskCompleted Or ProfilePhoneNumber.Text = "" Then
+        If ProfilePhoneNumber.MaskCompleted OrElse ProfilePhoneNumber.Text = "" Then
             EP.SetError(ProfilePhoneNumber, String.Empty)
         Else
             e.Cancel = True

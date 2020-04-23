@@ -76,7 +76,7 @@ Module IaipValidation
             If isMailto Then
                 Return (validatedUri.Scheme = Uri.UriSchemeMailto)
             End If
-            Return (validatedUri.Scheme = Uri.UriSchemeHttp Or validatedUri.Scheme = Uri.UriSchemeHttps)
+            Return (validatedUri.Scheme = Uri.UriSchemeHttp OrElse validatedUri.Scheme = Uri.UriSchemeHttps)
         End If
 
         Return False
