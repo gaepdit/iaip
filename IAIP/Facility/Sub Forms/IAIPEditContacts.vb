@@ -332,15 +332,15 @@ Public Class IAIPEditContacts
             Dim newKey As String = ""
 
             If AirsNumber.ToString <> "" Then
-                If rdbNewAmbientContact.Checked = False AndAlso
-                    rdbNewComplianceContact.Checked = False AndAlso
-                    rdbNewDistrictContact.Checked = False AndAlso
-                    rdbNewEISContact.Checked = False AndAlso
-                    rdbNewESContact.Checked = False AndAlso
-                    rdbNewFeeContact.Checked = False AndAlso
-                    rdbNewMonitoringContact.Checked = False AndAlso
-                    rdbNewPermittingContact.Checked = False AndAlso
-                    rdbNewPlanningContact.Checked = False Then
+                If Not rdbNewAmbientContact.Checked AndAlso
+                   Not rdbNewComplianceContact.Checked AndAlso
+                   Not rdbNewDistrictContact.Checked AndAlso
+                   Not rdbNewEISContact.Checked AndAlso
+                   Not rdbNewESContact.Checked AndAlso
+                   Not rdbNewFeeContact.Checked AndAlso
+                   Not rdbNewMonitoringContact.Checked AndAlso
+                   Not rdbNewPermittingContact.Checked AndAlso
+                   Not rdbNewPlanningContact.Checked Then
 
                     MsgBox("Please select a Contact Type first" & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Me.Text)
                     Return
@@ -391,23 +391,23 @@ Public Class IAIPEditContacts
 
                     DB.RunCommand(Sql, p)
                 Else
-                    If rdbNewMonitoringContact.Checked = True Then
+                    If rdbNewMonitoringContact.Checked Then
                         newKey = "10"
-                    ElseIf rdbNewComplianceContact.Checked = True Then
+                    ElseIf rdbNewComplianceContact.Checked Then
                         newKey = "20"
-                    ElseIf rdbNewPermittingContact.Checked = True Then
+                    ElseIf rdbNewPermittingContact.Checked Then
                         newKey = "30"
-                    ElseIf rdbNewFeeContact.Checked = True Then
+                    ElseIf rdbNewFeeContact.Checked Then
                         newKey = "40"
-                    ElseIf rdbNewEISContact.Checked = True Then
+                    ElseIf rdbNewEISContact.Checked Then
                         newKey = "41"
-                    ElseIf rdbNewESContact.Checked = True Then
+                    ElseIf rdbNewESContact.Checked Then
                         newKey = "42"
-                    ElseIf rdbNewAmbientContact.Checked = True Then
+                    ElseIf rdbNewAmbientContact.Checked Then
                         newKey = "50"
-                    ElseIf rdbNewPlanningContact.Checked = True Then
+                    ElseIf rdbNewPlanningContact.Checked Then
                         newKey = "60"
-                    ElseIf rdbNewDistrictContact.Checked = True Then
+                    ElseIf rdbNewDistrictContact.Checked Then
                         newKey = "70"
                     End If
 
@@ -473,23 +473,23 @@ Public Class IAIPEditContacts
             Dim SQL As String = ""
 
             If AirsNumber.ToString <> "" Then
-                If rdbNewMonitoringContact.Checked = True Then
+                If rdbNewMonitoringContact.Checked Then
                     newKey = "10"
-                ElseIf rdbNewComplianceContact.Checked = True Then
+                ElseIf rdbNewComplianceContact.Checked Then
                     newKey = "20"
-                ElseIf rdbNewPermittingContact.Checked = True Then
+                ElseIf rdbNewPermittingContact.Checked Then
                     newKey = "30"
-                ElseIf rdbNewFeeContact.Checked = True Then
+                ElseIf rdbNewFeeContact.Checked Then
                     newKey = "40"
-                ElseIf rdbNewEISContact.Checked = True Then
+                ElseIf rdbNewEISContact.Checked Then
                     newKey = "41"
-                ElseIf rdbNewESContact.Checked = True Then
+                ElseIf rdbNewESContact.Checked Then
                     newKey = "42"
-                ElseIf rdbNewAmbientContact.Checked = True Then
+                ElseIf rdbNewAmbientContact.Checked Then
                     newKey = "50"
-                ElseIf rdbNewPlanningContact.Checked = True Then
+                ElseIf rdbNewPlanningContact.Checked Then
                     newKey = "60"
-                ElseIf rdbNewDistrictContact.Checked = True Then
+                ElseIf rdbNewDistrictContact.Checked Then
                     newKey = "70"
                 End If
 

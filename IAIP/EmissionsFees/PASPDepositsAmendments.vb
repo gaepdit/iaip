@@ -213,10 +213,10 @@ Public Class PASPDepositsAmendments
     End Function
 
     Private Sub btnSearchDeposits_Click(sender As Object, e As EventArgs) Handles btnSearchDeposits.Click
-        If DepositSearch() = False Then
+        If Not DepositSearch() Then
             MsgBox("There was an error in your search. Check the start and end dates for your search.", MsgBoxStyle.Exclamation, "Deposit Search Error")
         Else
-            If LoadDepositsGridview() = False Then
+            If Not LoadDepositsGridview() Then
                 MsgBox("There was an error filling the deposits grid.", MsgBoxStyle.Exclamation, "Deposit Search Error")
             End If
         End If
@@ -238,10 +238,10 @@ Public Class PASPDepositsAmendments
 
             If DAL.AirsNumberExists(mtbAIRSNumber.Text) Then
                 If cbYear.Text <> "" Then
-                    If ViewInvoices() = False Then
+                    If Not ViewInvoices() Then
                         MsgBox("There was an error loading invoices.", MsgBoxStyle.Exclamation, "Invoice Search Error")
                     Else
-                        If LoadInvoicesGridview() = False Then
+                        If Not LoadInvoicesGridview() Then
                             MsgBox("There was an error filling the invoices grid.", MsgBoxStyle.Exclamation, "Invoice Search Error")
                         End If
                     End If
@@ -498,7 +498,7 @@ Public Class PASPDepositsAmendments
                     DB.RunCommand(query, param)
 
                     If txtInvoiceForDeposit.Text.Trim <> "" Then
-                        If InvoiceStatusCheck(txtInvoiceForDeposit.Text.Trim) = False Then
+                        If Not InvoiceStatusCheck(txtInvoiceForDeposit.Text.Trim) Then
                             MsgBox("There was a problem updating the invoice status in the database.", MsgBoxStyle.Exclamation, "Invoice Status Error")
                         End If
                     Else
@@ -513,10 +513,10 @@ Public Class PASPDepositsAmendments
                     MessageBox.Show("There was an error updating the database.", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
 
-                If ViewInvoices() = False Then
+                If Not ViewInvoices() Then
                     MsgBox("There was an error loading invoices.", MsgBoxStyle.Exclamation, "Invoice Search Error")
                 Else
-                    If LoadInvoicesGridview() = False Then
+                    If Not LoadInvoicesGridview() Then
                         MsgBox("There was an error filling the invoices grid.", MsgBoxStyle.Exclamation, "Invoice Search Error")
                     End If
                 End If
@@ -602,17 +602,17 @@ Public Class PASPDepositsAmendments
                     End If
 
                     If txtInvoiceForDeposit.Text.Trim <> "" Then
-                        If InvoiceStatusCheck(txtInvoiceForDeposit.Text.Trim) = False Then
+                        If Not InvoiceStatusCheck(txtInvoiceForDeposit.Text.Trim) Then
                             MsgBox("There was a problem updating the invoice status in the database.", MsgBoxStyle.Exclamation, "Invoice Status Error")
                         End If
                     Else
                         MsgBox("There is no invoice associated with this deposit.", MsgBoxStyle.Information, "No Invoice Number")
                     End If
 
-                    If ViewInvoices() = False Then
+                    If Not ViewInvoices() Then
                         MsgBox("There was an error loading invoices.", MsgBoxStyle.Exclamation, "Invoice Search Error")
                     Else
-                        If LoadInvoicesGridview() = False Then
+                        If Not LoadInvoicesGridview() Then
                             MsgBox("There was an error filling the invoices grid.", MsgBoxStyle.Exclamation, "Invoice Search Error")
                         End If
                     End If
@@ -648,10 +648,10 @@ Public Class PASPDepositsAmendments
                 Dim param As New SqlParameter("@trID", txtTransactionID.Text)
 
                 If DB.RunCommand(query, param) Then
-                    If ViewInvoices() = False Then
+                    If Not ViewInvoices() Then
                         MsgBox("There was an error loading invoices.", MsgBoxStyle.Exclamation, "Invoice Search Error")
                     Else
-                        If LoadInvoicesGridview() = False Then
+                        If Not LoadInvoicesGridview() Then
                             MsgBox("There was an error filling the invoices grid.", MsgBoxStyle.Exclamation, "Invoice Search Error")
                         End If
                     End If
@@ -853,10 +853,10 @@ Public Class PASPDepositsAmendments
             dtpBatchDepositDateField.Value = Date.Today
 
             If txtCheckNumber.Text <> "" Then
-                If ViewInvoices() = False Then
+                If Not ViewInvoices() Then
                     MsgBox("There was an error loading invoices.", MsgBoxStyle.Exclamation, "Invoice Search Error")
                 Else
-                    If LoadInvoicesGridview() = False Then
+                    If Not LoadInvoicesGridview() Then
                         MsgBox("There was an error filling the invoices grid.", MsgBoxStyle.Exclamation, "Invoice Search Error")
                     End If
                 End If

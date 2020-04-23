@@ -392,7 +392,7 @@ Public Class PASPFeeManagement
                                          dtpFeeDueDate.Text, txtAdminFeePercent.Text, dtpAdminApplicable.Text,
                                          txtFeeNotes.Text, "1", dtpFirstQrtDue.Text, dtpSecondQrtDue.Text,
                                          dtpThirdQrtDue.Text, dtpFourthQrtDue.Text, txtAttainmentThreshold.Text,
-                                         txtNonAttainmentThreshold.Text) = True Then
+                                         txtNonAttainmentThreshold.Text) Then
 
                     LoadFeeRates()
                     ClearFeeData()
@@ -663,7 +663,7 @@ Public Class PASPFeeManagement
 
     Private Sub btnAddNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnAddNSPSExemption.Click
         Try
-            If Insert_FSLK_NSPSReason(txtNSPSExemption.Text) = True Then
+            If Insert_FSLK_NSPSReason(txtNSPSExemption.Text) Then
                 txtNSPSExemption.Clear()
                 LoadNSPSExemptions()
                 MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
@@ -687,7 +687,7 @@ Public Class PASPFeeManagement
     Private Sub btnDeleteNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnDeleteNSPSExemption.Click
         Try
             If txtDeleteNSPSExemptions.Text <> "" AndAlso
-                Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, "", "0") = True Then
+                Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, "", "0") Then
 
                 txtDeleteNSPSExemptions.Clear()
                 txtNSPSExemption.Clear()
@@ -708,7 +708,7 @@ Public Class PASPFeeManagement
     Private Sub btnUpdateNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnUpdateNSPSExemption.Click
         Try
             If txtDeleteNSPSExemptions.Text <> "" AndAlso
-                Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, txtNSPSExemption.Text, "1") = True Then
+                Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, txtNSPSExemption.Text, "1") Then
 
                 txtDeleteNSPSExemptions.Clear()
                 txtNSPSExemption.Clear()

@@ -3388,7 +3388,7 @@ Public Class EisTool
 
             If hti.RowIndex = -1 AndAlso hti.ColumnIndex <> -1 Then
                 If dgvEISStats.Columns(hti.ColumnIndex).HeaderText = " " Then
-                    If dgvEISStats(0, 0).Value = True Then
+                    If dgvEISStats(0, 0).Value Then
                         For i = 0 To dgvEISStats.Rows.Count - 1
                             dgvEISStats(0, i).Value = False
                         Next
@@ -3595,7 +3595,7 @@ Public Class EisTool
             If EISConfirm = txtEISStatsEnrollmentYear.Text Then
                 Dim temp As String = ""
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True Then
+                    If dgvEISStats(0, i).Value Then
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                     End If
                 Next
@@ -3636,7 +3636,7 @@ Public Class EisTool
             If EISConfirm = txtEISStatsEnrollmentYear.Text Then
                 Dim temp As String = ""
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True Then
+                    If dgvEISStats(0, i).Value Then
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                     End If
                 Next
@@ -3746,7 +3746,7 @@ Public Class EisTool
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True AndAlso dgvEISStats(6, i).Value = "No" Then
+                    If dgvEISStats(0, i).Value AndAlso dgvEISStats(6, i).Value = "No" Then
                         paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
                         paramNameList1.Add(paramName)
                         paramList1.Add(New SqlParameter(paramName, dgvEISStats(1, i).Value))
@@ -3777,7 +3777,7 @@ Public Class EisTool
 
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True AndAlso dgvEISStats(6, i).Value = "Yes" Then
+                    If dgvEISStats(0, i).Value AndAlso dgvEISStats(6, i).Value = "Yes" Then
                         paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
                         paramNameList2.Add(paramName)
                         paramList2.Add(New SqlParameter(paramName, dgvEISStats(1, i).Value))
@@ -3801,7 +3801,7 @@ Public Class EisTool
                     WHERE inventoryYear = @INVENTORYYEAR AND FacilitySiteID = @FACILITYSITEID AND strOptOut = '0')"
 
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True Then
+                    If dgvEISStats(0, i).Value Then
                         queryList.Add(query3)
                         paramsList.Add({
                             New SqlParameter("@INVENTORYYEAR", EISConfirm),
@@ -3815,7 +3815,7 @@ Public Class EisTool
 
                 Dim spName As String = "dbo.PD_EIS_QASTART"
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True Then
+                    If dgvEISStats(0, i).Value Then
                         Dim param As SqlParameter() = {
                             New SqlParameter("@AIRSNUMBER_IN", dgvEISStats(1, i).Value),
                             New SqlParameter("@INTYEAR_IN", EISConfirm)
@@ -3850,33 +3850,33 @@ Public Class EisTool
             Dim ActiveStatus As String = ""
             Dim IncorrectlyOptedOut As String = ""
 
-            If rdbEILogMailoutYes.Checked = True Then
+            If rdbEILogMailoutYes.Checked Then
                 Mailout = "1"
             Else
-                If rdbEILogMailoutNo.Checked = True Then
+                If rdbEILogMailoutNo.Checked Then
                     Mailout = "0"
                 Else
                     Mailout = ""
                 End If
             End If
-            If rdbEILogEnrolledYes.Checked = True Then
+            If rdbEILogEnrolledYes.Checked Then
                 Enrollment = "1"
             Else
                 Enrollment = "0"
             End If
-            If rdbEILogOpOutYes.Checked = True Then
+            If rdbEILogOpOutYes.Checked Then
                 OptOut = "1"
-            ElseIf rdbEILogOpOutNo.Checked = True Then
+            ElseIf rdbEILogOpOutNo.Checked Then
                 OptOut = "0"
             End If
-            If chbOptedOutIncorrectly.Checked = True Then
+            If chbOptedOutIncorrectly.Checked Then
                 IncorrectlyOptedOut = "1"
             Else
                 IncorrectlyOptedOut = "0"
             End If
             EISStatus = cboEILogStatusCode.SelectedValue.ToString
             EISAccess = cboEILogAccessCode.SelectedValue.ToString
-            If rdbEILogActiveYes.Checked = True Then
+            If rdbEILogActiveYes.Checked Then
                 ActiveStatus = "1"
             Else
                 ActiveStatus = "0"
@@ -3932,7 +3932,7 @@ Public Class EisTool
 
             DB.RunCommand(SQL, params2)
 
-            If dtpDeadlineEIS.Checked = True Then
+            If dtpDeadlineEIS.Checked Then
                 Dim DeadLineComments As String = ""
                 If txtAllEISDeadlineComment.Text.Contains(dtpDeadlineEIS.Text & "(deadline)- " & CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf &
                 txtEISDeadlineComment.Text) Then
@@ -3958,7 +3958,7 @@ Public Class EisTool
                 End If
             End If
 
-            If rdbEILogOpOutYes.Checked = False Then
+            If Not rdbEILogOpOutYes.Checked Then
                 Dim QAStart As String = ""
                 Dim QAPass As String = ""
                 Dim QAStatusCode As String = ""
@@ -3972,12 +3972,12 @@ Public Class EisTool
                 Dim pointError As String = ""
 
                 QAStart = dtpQAStarted.Text
-                If dtpQAPassed.Checked = True Then
+                If dtpQAPassed.Checked Then
                     QAPass = dtpQAPassed.Text
                 Else
                     QAPass = ""
                 End If
-                If dtpQACompleted.Checked = True Then
+                If dtpQACompleted.Checked Then
                     QAComplete = dtpQACompleted.Text
                 Else
                     QAComplete = ""
@@ -4013,7 +4013,7 @@ Public Class EisTool
                                     txtAllFITrackingNumbers.Text
                     End If
                 End If
-                If chbFIErrors.Checked = True Then
+                If chbFIErrors.Checked Then
                     FIError = "True"
                 Else
                     FIError = "False"
@@ -4032,7 +4032,7 @@ Public Class EisTool
                                 txtAllPointTrackingNumbers.Text
                     End If
                 End If
-                If chbPointErrors.Checked = True Then
+                If chbPointErrors.Checked Then
                     pointError = "True"
                 Else
                     pointError = "False"
@@ -4118,12 +4118,12 @@ Public Class EisTool
             Dim PointError As String = ""
 
             QAStart = dtpQAStarted.Text
-            If dtpQAPassed.Checked = True Then
+            If dtpQAPassed.Checked Then
                 QAPass = dtpQAPassed.Text
             Else
                 QAPass = ""
             End If
-            If dtpQACompleted.Checked = True Then
+            If dtpQACompleted.Checked Then
                 QAComplete = dtpQACompleted.Text
             Else
                 QAComplete = ""
@@ -4159,7 +4159,7 @@ Public Class EisTool
                                 txtAllFITrackingNumbers.Text
                 End If
             End If
-            If chbFIErrors.Checked = True Then
+            If chbFIErrors.Checked Then
                 FIError = "True"
             Else
                 FIError = "False"
@@ -4179,7 +4179,7 @@ Public Class EisTool
                             txtAllPointTrackingNumbers.Text
                 End If
             End If
-            If chbPointErrors.Checked = True Then
+            If chbPointErrors.Checked Then
                 PointError = "True"
             Else
                 PointError = "False"
@@ -4224,7 +4224,7 @@ Public Class EisTool
 
             LoadQASpecificData()
 
-            If dtpQACompleted.Checked = True Then
+            If dtpQACompleted.Checked Then
                 Dim spname As String = "dbo.PD_EIS_QA_Done"
                 Dim params2 As SqlParameter() = {
                     New SqlParameter("@AIRSNUM", txtEILogSelectedAIRSNumber.Text),
@@ -4915,7 +4915,7 @@ Public Class EisTool
                 Dim temp As String = ""
 
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True AndAlso dgvEISStats(7, i).Value = "No" Then
+                    If dgvEISStats(0, i).Value AndAlso dgvEISStats(7, i).Value = "No" Then
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                     End If
                 Next
@@ -4965,7 +4965,7 @@ Public Class EisTool
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True Then
+                    If dgvEISStats(0, i).Value Then
                         paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
                         paramNameList.Add(paramName)
                         paramList.Add(New SqlParameter(paramName, dgvEISStats(1, i).Value))
@@ -4990,7 +4990,7 @@ Public Class EisTool
     Private Sub ViewPollutantThresholds()
         Try
             Dim SQL As String
-            If rdbThreeYearPollutants.Checked = True Then
+            If rdbThreeYearPollutants.Checked Then
                 SQL = "Select " &
                 "strPollutant, numThreshold, " &
                 "numThresholdNAA " &
@@ -5067,10 +5067,10 @@ Public Class EisTool
         Try
             Dim ThresholdType As String = ""
 
-            If rdbAnnualPollutants.Checked = True Then
+            If rdbAnnualPollutants.Checked Then
                 ThresholdType = "ANNUAL"
             End If
-            If rdbThreeYearPollutants.Checked = True Then
+            If rdbThreeYearPollutants.Checked Then
                 ThresholdType = "3YEAR"
             End If
             If ThresholdType = "" Then
@@ -5118,10 +5118,10 @@ Public Class EisTool
         Try
             Dim ThresholdType As String = ""
 
-            If rdbAnnualPollutants.Checked = True Then
+            If rdbAnnualPollutants.Checked Then
                 ThresholdType = "ANNUAL"
             End If
-            If rdbThreeYearPollutants.Checked = True Then
+            If rdbThreeYearPollutants.Checked Then
                 ThresholdType = "3YEAR"
             End If
             If ThresholdType = "" Then
@@ -5252,7 +5252,7 @@ Public Class EisTool
                 Return
             End If
 
-            If rdbEISThreeYear.Checked = True Then
+            If rdbEISThreeYear.Checked Then
                 EISYearType = "3YEAR"
             Else
                 EISYearType = "ANNUAL"
@@ -5296,7 +5296,7 @@ Public Class EisTool
                 Return
             End If
 
-            If rdbEISThreeYear.Checked = True Then
+            If rdbEISThreeYear.Checked Then
                 EISYearType = "3YEAR"
             Else
                 EISYearType = "ANNUAL"
@@ -5411,7 +5411,7 @@ Public Class EisTool
             Dim selection As Boolean = False
 
             For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                If dgvEISStats(0, i).Value = True Then
+                If dgvEISStats(0, i).Value Then
                     Dim params As SqlParameter() = {
                         New SqlParameter("@AIRSNUMBER_IN", dgvEISStats(1, i).Value),
                         New SqlParameter("@INTYEAR_IN", cboEISStatisticsYear.Text)
@@ -5911,7 +5911,7 @@ Public Class EisTool
         Dim count As Integer = 0
 
         For Each row As DataGridViewRow In dgvEISStats.Rows
-            If row.Cells("Select").Value = True Then
+            If row.Cells("Select").Value Then
                 count += 1
             End If
         Next
@@ -5948,7 +5948,7 @@ Public Class EisTool
 
         If what = EisStagingSet.Selected Then
             For Each row As DataGridViewRow In dgvEISStats.Rows
-                If row.Cells("Select").Value = True Then
+                If row.Cells("Select").Value Then
                     facList.Add(row.Cells("FacilitySiteID").Value)
                 End If
             Next

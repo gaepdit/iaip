@@ -564,7 +564,7 @@ Public Class MASPRegistrationTool
             End If
 
             Dim EndDate As String = ""
-            If DTPEventEndDate.Checked = True Then
+            If DTPEventEndDate.Checked Then
                 EndDate = DTPEventDate.Text
             End If
 
@@ -606,7 +606,7 @@ Public Class MASPRegistrationTool
             End If
 
             Dim EndDate As String = ""
-            If DTPEventEndDate.Checked = True Then
+            If DTPEventEndDate.Checked Then
                 EndDate = DTPEventDate.Text
             End If
             If Update_RES_Event(selectedEventId,
@@ -616,7 +616,7 @@ Public Class MASPRegistrationTool
                              mtbEventZipCode.Text, mtbEventCapacity.Text, txtEventNotes.Text,
                              cboEventContact.SelectedValue, cboEventWebContact.SelectedValue,
                              chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text,
-                             txtEventEndTime.Text, txtWebsiteURL.Text) = True Then
+                             txtEventEndTime.Text, txtWebsiteURL.Text) Then
                 LoadEvent()
 
                 MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
@@ -637,7 +637,7 @@ Public Class MASPRegistrationTool
                              "", "", "",
                              "", "", "",
                              "", "", "",
-                             "", "0", "", "", "") = True Then
+                             "", "0", "", "", "") Then
                 MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
             Else
                 MsgBox("Data NOT Saved/Updated", MsgBoxStyle.Exclamation, Me.Text)
@@ -650,7 +650,7 @@ Public Class MASPRegistrationTool
 
     Private Sub chbEventPasscode_CheckedChanged(sender As Object, e As EventArgs) Handles chbEventPasscode.CheckedChanged
         Try
-            If chbEventPasscode.Checked = True Then
+            If chbEventPasscode.Checked Then
                 btnGeneratePasscode.Visible = True
             Else
                 btnGeneratePasscode.Visible = False
@@ -857,7 +857,7 @@ Public Class MASPRegistrationTool
             End If
 
             If Update_RES_Registration(txtRegID.Text, txtRegConfirmationNum.Text,
-                    cboRegStatus.SelectedValue, DTPRegDateRegistered.Text) = True Then
+                    cboRegStatus.SelectedValue, DTPRegDateRegistered.Text) Then
                 MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
                 LoadRegistrationManagement()
             Else
@@ -983,7 +983,7 @@ Public Class MASPRegistrationTool
             If PassCodeRequired = "" Then
                 PassCode = "1"
             Else
-                If PassCodeRequired = False Then
+                If Not PassCodeRequired Then
                     PassCode = "1"
                 End If
             End If

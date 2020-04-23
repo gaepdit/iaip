@@ -1197,7 +1197,7 @@ Public Class PASPFeeStatistics
 
     Private Sub chbDepositDateSearch_CheckedChanged(sender As Object, e As EventArgs) Handles chbDepositDateSearch.CheckedChanged
         Try
-            If chbDepositDateSearch.Checked = True Then
+            If chbDepositDateSearch.Checked Then
                 dtpStartDepositDate.Enabled = True
                 dtpEndDepositDate.Enabled = True
                 btnRunDepositReport.Enabled = True
@@ -1395,7 +1395,7 @@ Public Class PASPFeeStatistics
             Dim spValue As ParameterDiscreteValue
 
             Dim rpt As ReportClass
-            If chbFacilityBalance.Checked = False Then
+            If Not chbFacilityBalance.Checked Then
                 rpt = New FacilityBalance10
             Else
                 rpt = New FacilityBalancewithZero10
@@ -1443,7 +1443,7 @@ Public Class PASPFeeStatistics
             'Load Variables into the Fields
             CRFeesReports.ParameterFieldInfo = ParameterFields
 
-            If chbFacilityBalance.Checked = False Then
+            If Not chbFacilityBalance.Checked Then
                 SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Fee Balance")
             Else
                 SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Fee Balance with Zero Balance")
@@ -5632,7 +5632,7 @@ Public Class PASPFeeStatistics
                         "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData "
             End Select
 
-            If chbNonZeroBalance.Checked = True Then
+            If chbNonZeroBalance.Checked Then
                 SQL = SQL & " where balance <> 0 "
             End If
 

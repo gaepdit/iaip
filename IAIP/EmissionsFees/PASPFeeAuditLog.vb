@@ -537,7 +537,7 @@ Public Class PASPFeeAuditLog
                     rdbInitialNSPSTrue.Checked = False
                     rdbInitialNSPSFalse.Checked = False
                 Else
-                    If dr.Item("strNSPS") = True Then
+                    If dr.Item("strNSPS") Then
                         rdbInitialNSPSTrue.Checked = True
                     Else
                         rdbInitialNSPSFalse.Checked = True
@@ -547,7 +547,7 @@ Public Class PASPFeeAuditLog
                     rdbInitialPart70True.Checked = False
                     rdbInitialPart70False.Checked = False
                 Else
-                    If dr.Item("strPart70") = True Then
+                    If dr.Item("strPart70") Then
                         rdbInitialPart70True.Checked = True
                     Else
                         rdbInitialPart70False.Checked = True
@@ -2082,7 +2082,7 @@ Public Class PASPFeeAuditLog
         Try
             Dim ResultDoc As DialogResult
 
-            If rdbInactiveStatus.Checked = True Then
+            If rdbInactiveStatus.Checked Then
                 ResultDoc = MessageBox.Show("If there are any transactions associated with this fee year they will ""effectively"" be deleted." &
                                             "Do you want to continue with an inactive status for this fee year data?", Me.Text,
                                             MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
@@ -2123,9 +2123,9 @@ Public Class PASPFeeAuditLog
                              dtpEnrollmentDate.Value, rdbMailoutTrue.Checked,
                              rdbLetterMailedTrue.Checked, dtpLetterMailed.Value,
                              rdbSubmittalTrue.Checked, dtpSubmittalDate.Value,
-                             txtFSAdminComments.Text, rdbActiveAdmin.Checked) = True Then
+                             txtFSAdminComments.Text, rdbActiveAdmin.Checked) Then
 
-                If rdbInactiveStatus.Checked = True Then
+                If rdbInactiveStatus.Checked Then
                     ClearForm()
                     ClearInvoices()
                     ClearInvoiceForm()
@@ -2167,7 +2167,7 @@ Public Class PASPFeeAuditLog
                           dtpEnrollmentDate.Value, rdbMailoutTrue.Checked,
                           rdbLetterMailedTrue.Checked, dtpLetterMailed.Value,
                           rdbSubmittalTrue.Checked, dtpSubmittalDate.Value,
-                          txtFSAdminComments.Text) = True Then
+                          txtFSAdminComments.Text) Then
 
                 MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
             Else
@@ -2379,7 +2379,7 @@ Public Class PASPFeeAuditLog
                 Return
             End If
 
-            If InvoiceCheck() = False Then
+            If Not InvoiceCheck() Then
                 MsgBox("The Invoice Number entered is not valid." & vbCrLf & "No Data saved", MsgBoxStyle.Exclamation, Me.Text)
                 Return
             End If
@@ -2583,7 +2583,7 @@ Public Class PASPFeeAuditLog
                 Return
             End If
 
-            If InvoiceCheck() = False Then
+            If Not InvoiceCheck() Then
                 MsgBox("The Invoice Number entered is not valid." & vbCrLf & "No Data saved", MsgBoxStyle.Exclamation, Me.Text)
                 Return
             End If
@@ -2650,7 +2650,7 @@ Public Class PASPFeeAuditLog
                 MsgBox("Please select a valid transaction to update." & vbCrLf & "No data modified", MsgBoxStyle.Exclamation, Me.Text)
                 Return
             End If
-            If InvoiceCheck() = False Then
+            If Not InvoiceCheck() Then
                 MsgBox("The Invoice Number entered is not valid." & vbCrLf & "No Data saved", MsgBoxStyle.Exclamation, Me.Text)
                 Return
             End If
@@ -2774,14 +2774,14 @@ Public Class PASPFeeAuditLog
                 Return
             End If
 
-            If rdbEditOpStatusTrue.Checked = True OrElse rdbEditOpStatusFalse.Checked = True Then
-                If rdbEditOpStatusTrue.Checked = True Then
+            If rdbEditOpStatusTrue.Checked OrElse rdbEditOpStatusFalse.Checked Then
+                If rdbEditOpStatusTrue.Checked Then
                     OpStatus = "1"
                 Else
                     OpStatus = "0"
                 End If
             End If
-            If dtpEditShutDownDate.Checked = True Then
+            If dtpEditShutDownDate.Checked Then
                 ShutDown = dtpEditShutDownDate.Text
             Else
                 ShutDown = ""
@@ -2850,22 +2850,22 @@ Public Class PASPFeeAuditLog
             Else
                 TotalFee = Nothing
             End If
-            If rdbEditSMTrue.Checked = True OrElse rdbEditSMFalse.Checked = True Then
-                If rdbEditSMTrue.Checked = True Then
+            If rdbEditSMTrue.Checked OrElse rdbEditSMFalse.Checked Then
+                If rdbEditSMTrue.Checked Then
                     SM = "1"
                 Else
                     SM = "0"
                 End If
             End If
-            If rdbEditPart70True.Checked = True OrElse rdbEditPart70False.Checked = True Then
-                If rdbEditPart70True.Checked = True Then
+            If rdbEditPart70True.Checked OrElse rdbEditPart70False.Checked Then
+                If rdbEditPart70True.Checked Then
                     Part70 = "1"
                 Else
                     Part70 = "0"
                 End If
             End If
-            If rdbEditNSPSTrue.Checked = True OrElse rdbEditNSPSFalse.Checked = True Then
-                If rdbEditNSPSTrue.Checked = True Then
+            If rdbEditNSPSTrue.Checked OrElse rdbEditNSPSFalse.Checked Then
+                If rdbEditNSPSTrue.Checked Then
                     NSPS = "1"
                 Else
                     NSPS = "0"
@@ -2890,15 +2890,15 @@ Public Class PASPFeeAuditLog
             Else
                 OfficialTitle = ""
             End If
-            If rdbEditNSPSExemptTrue.Checked = True OrElse rdbEditNSPSExemptFalse.Checked = True Then
-                If rdbEditNSPSExemptTrue.Checked = True Then
+            If rdbEditNSPSExemptTrue.Checked OrElse rdbEditNSPSExemptFalse.Checked Then
+                If rdbEditNSPSExemptTrue.Checked Then
                     NSPSExempt = "1"
                 Else
                     NSPSExempt = "0"
                 End If
                 If NSPSExempt = "1" Then
                     For i As Integer = 0 To dgvEditExemptions.Rows.Count - 1
-                        If dgvEditExemptions(0, i).Value = True Then
+                        If dgvEditExemptions(0, i).Value Then
                             NSPSExemptions = NSPSExemptions & dgvEditExemptions(1, i).Value & ","
                         End If
                     Next
@@ -2972,12 +2972,12 @@ Public Class PASPFeeAuditLog
                 AuditComments = txtAuditComment.Text
             End If
             AuditStart = Format(DTPAuditStart.Value, "dd-MMM-yyyy")
-            If DTPAuditEnd.Checked = True Then
+            If DTPAuditEnd.Checked Then
                 AuditEnd = Format(DTPAuditEnd.Value, "dd-MMM-yyyy")
             Else
                 AuditEnd = ""
             End If
-            If chbEndFeeCollectoins.Checked = True Then
+            If chbEndFeeCollectoins.Checked Then
                 EndCollections = "True"
                 CollectionsDate = Format(DTPDateCollectionsCeased.Value, "dd-MMM-yyyy")
             Else
@@ -3021,7 +3021,7 @@ Public Class PASPFeeAuditLog
 
             txtAuditID.Text = DB.GetInteger(SQL)
 
-            If chbMakeEdits.Checked = True Then
+            If chbMakeEdits.Checked Then
                 SQL = "INSERT INTO FS_FEEAMENDMENT " &
                     "( AUDITID, STRAIRSNUMBER, NUMFEEYEAR, STRSYNTHETICMINOR, " &
                     "NUMSMFEE, STRPART70, NUMPART70FEE, INTVOCTONS, " &
@@ -3135,7 +3135,7 @@ Public Class PASPFeeAuditLog
 
     Private Sub rdbEditNSPSExemptTrue_CheckedChanged(sender As Object, e As EventArgs) Handles rdbEditNSPSExemptTrue.CheckedChanged
         Try
-            If rdbEditNSPSExemptTrue.Checked = False Then
+            If Not rdbEditNSPSExemptTrue.Checked Then
                 Return
             End If
 
@@ -3187,7 +3187,7 @@ Public Class PASPFeeAuditLog
             If hti.RowIndex = -1 AndAlso hti.ColumnIndex <> -1 AndAlso
                 dgvEditExemptions.Columns(hti.ColumnIndex).HeaderText = "" Then
 
-                If dgvEditExemptions(0, 0).Value = True Then
+                If dgvEditExemptions(0, 0).Value Then
                     For i = 0 To dgvEditExemptions.Rows.Count - 1
                         dgvEditExemptions(0, i).Value = False
                     Next
@@ -3553,7 +3553,7 @@ Public Class PASPFeeAuditLog
     Private Sub chbEndFeeCollectoins_CheckStateChanged(sender As Object, e As EventArgs) Handles chbEndFeeCollectoins.CheckStateChanged
         Try
             'DTPDateCollectionsCeased
-            If chbEndFeeCollectoins.Checked = True Then
+            If chbEndFeeCollectoins.Checked Then
                 DTPDateCollectionsCeased.Enabled = True
             Else
                 DTPDateCollectionsCeased.Enabled = False
@@ -3611,15 +3611,15 @@ Public Class PASPFeeAuditLog
                 Return
             End If
 
-            If rdbEditOpStatusTrue.Checked = True OrElse rdbEditOpStatusFalse.Checked = True Then
-                If rdbEditOpStatusTrue.Checked = True Then
+            If rdbEditOpStatusTrue.Checked OrElse rdbEditOpStatusFalse.Checked Then
+                If rdbEditOpStatusTrue.Checked Then
                     OpStatus = "1"
                 Else
                     OpStatus = "0"
                 End If
             End If
 
-            If dtpEditShutDownDate.Checked = True Then
+            If dtpEditShutDownDate.Checked Then
                 ShutDown = dtpEditShutDownDate.Text
             Else
                 ShutDown = ""
@@ -3688,22 +3688,22 @@ Public Class PASPFeeAuditLog
             Else
                 TotalFee = Nothing
             End If
-            If rdbEditSMTrue.Checked = True OrElse rdbEditSMFalse.Checked = True Then
-                If rdbEditSMTrue.Checked = True Then
+            If rdbEditSMTrue.Checked OrElse rdbEditSMFalse.Checked Then
+                If rdbEditSMTrue.Checked Then
                     SM = "1"
                 Else
                     SM = "0"
                 End If
             End If
-            If rdbEditPart70True.Checked = True OrElse rdbEditPart70False.Checked = True Then
-                If rdbEditPart70True.Checked = True Then
+            If rdbEditPart70True.Checked OrElse rdbEditPart70False.Checked Then
+                If rdbEditPart70True.Checked Then
                     Part70 = "1"
                 Else
                     Part70 = "0"
                 End If
             End If
-            If rdbEditNSPSTrue.Checked = True OrElse rdbEditNSPSFalse.Checked = True Then
-                If rdbEditNSPSTrue.Checked = True Then
+            If rdbEditNSPSTrue.Checked OrElse rdbEditNSPSFalse.Checked Then
+                If rdbEditNSPSTrue.Checked Then
                     NSPS = "1"
                 Else
                     NSPS = "0"
@@ -3728,15 +3728,15 @@ Public Class PASPFeeAuditLog
             Else
                 OfficialTitle = ""
             End If
-            If rdbEditNSPSExemptTrue.Checked = True OrElse rdbEditNSPSExemptFalse.Checked = True Then
-                If rdbEditNSPSExemptTrue.Checked = True Then
+            If rdbEditNSPSExemptTrue.Checked OrElse rdbEditNSPSExemptFalse.Checked Then
+                If rdbEditNSPSExemptTrue.Checked Then
                     NSPSExempt = "1"
                 Else
                     NSPSExempt = "0"
                 End If
                 If NSPSExempt = "1" Then
                     For i As Integer = 0 To dgvEditExemptions.Rows.Count - 1
-                        If dgvEditExemptions(0, i).Value = True Then
+                        If dgvEditExemptions(0, i).Value Then
                             NSPSExemptions = NSPSExemptions & dgvEditExemptions(1, i).Value & ","
                         End If
                     Next
@@ -3748,7 +3748,7 @@ Public Class PASPFeeAuditLog
                 End If
             End If
 
-            If chbMakeEdits.Checked = True Then
+            If chbMakeEdits.Checked Then
                 SQL = "select updateuser " &
                     "from FS_FeeAmendment " &
                     "where numfeeyear = @year " &
@@ -3901,12 +3901,12 @@ Public Class PASPFeeAuditLog
                 AuditComments = txtAuditComment.Text
             End If
             AuditStart = Format(DTPAuditStart.Value, "dd-MMM-yyyy")
-            If DTPAuditEnd.Checked = True Then
+            If DTPAuditEnd.Checked Then
                 AuditEnd = Format(DTPAuditEnd.Value, "dd-MMM-yyyy")
             Else
                 AuditEnd = ""
             End If
-            If chbEndFeeCollectoins.Checked = True Then
+            If chbEndFeeCollectoins.Checked Then
                 EndCollections = "True"
                 CollectionsDate = Format(DTPDateCollectionsCeased.Value, "dd-MMM-yyyy")
             Else
@@ -4284,7 +4284,7 @@ Public Class PASPFeeAuditLog
     Private Sub btnFindTransactions4_Click(sender As Object, e As EventArgs) Handles btnFindTransactions.Click
         Try
 
-            If rdbCurrentFeeyear.Checked = True Then
+            If rdbCurrentFeeyear.Checked Then
                 LoadTransactionData()
             Else
                 Dim SQL As String = "SELECT tr.TRANSACTIONID, inv.INVOICEID, tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.STRCHECKNO, tr.STRDEPOSITNO, tr.STRBATCHNO, tr.ENTRYPERSON, tr.STRCOMMENT, tr.STRCREDITCARDNO, tr.TRANSACTIONTYPECODE, " &
@@ -4364,7 +4364,7 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub chbMakeEdits_CheckedChanged(sender As Object, e As EventArgs) Handles chbMakeEdits.CheckedChanged
-        If chbMakeEdits.Checked = True Then
+        If chbMakeEdits.Checked Then
             pnlInvoiceData.Enabled = True
             pnlFacilityData.Enabled = True
             pnlFacilityData2.Enabled = True
@@ -4409,7 +4409,7 @@ Public Class PASPFeeAuditLog
 
     Private Sub chbChangeInvoiceNumber_CheckedChanged(sender As Object, e As EventArgs) Handles chbChangeInvoiceNumber.CheckedChanged
         Try
-            If chbChangeInvoiceNumber.Checked = True Then
+            If chbChangeInvoiceNumber.Checked Then
                 txtInvoiceID.ReadOnly = False
             Else
                 txtInvoiceID.ReadOnly = True
@@ -4529,7 +4529,7 @@ Public Class PASPFeeAuditLog
 
             Dim SQL As String = ""
 
-            If Enrolled = False Then
+            If Not Enrolled Then
                 SQL = SQL & "strEnrolled = '0', " &
                 "datEnrollment = null, "
             Else
@@ -4537,19 +4537,19 @@ Public Class PASPFeeAuditLog
                 SQL = SQL & "datEnrollment = @datEnrollment, "
             End If
 
-            If Active = False Then
+            If Not Active Then
                 SQL = SQL & "Active = '0', "
             Else
                 SQL = SQL & "Active = '1', "
             End If
 
-            If InitialMailOut = False Then
+            If Not InitialMailOut Then
                 SQL = SQL & "strInitialMailOut = '0', "
             Else
                 SQL = SQL & "strInitialMailOut = '1', "
             End If
 
-            If MailoutSent = False Then
+            If Not MailoutSent Then
                 SQL = SQL & "strMailOutsent = '0', " &
                 "datMailOutSent = null, "
             Else
@@ -4557,7 +4557,7 @@ Public Class PASPFeeAuditLog
                 SQL = SQL & "datMailOutSent = @datMailOutSent, "
             End If
 
-            If Submittal = False Then
+            If Not Submittal Then
                 SQL = SQL & "intSubmittal = '0', "
                 SQL = SQL & "datSubmittal = null, "
             Else

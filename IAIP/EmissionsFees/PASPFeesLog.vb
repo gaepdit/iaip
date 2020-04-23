@@ -20,7 +20,7 @@
             Dim ShutDownBetween As String = ""
 
             For y As Integer = 0 To clbFeeYear.Items.Count - 1
-                If clbFeeYear.GetItemChecked(y) = True Then
+                If clbFeeYear.GetItemChecked(y) Then
                     clbFeeYear.SelectedIndex = y
                     FeeYearSQL = FeeYearSQL & " a.numFeeYear = '" & clbFeeYear.Items(y).ToString & "' or "
                 End If
