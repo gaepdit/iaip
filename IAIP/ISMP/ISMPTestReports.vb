@@ -41,7 +41,7 @@ Public Class ISMPTestReports
             Else
                 LoadData()
                 LoadTestNotifications()
-                If cboTestNotificationNumber.Text <> " " And cboTestNotificationNumber.Text <> "" Then
+                If cboTestNotificationNumber.Text <> " " AndAlso cboTestNotificationNumber.Text <> "" Then
                     llbTestNotifiactionNumber.Visible = True
                     labTestNotificationNumber.Visible = False
                 Else
@@ -1077,7 +1077,7 @@ Public Class ISMPTestReports
                     txtDaysfromTestToAPB.Clear()
                 Else
                     txtDaysfromTestToAPB.Text = dr.Item("DaysFromTest")
-                    If txtDaysfromTestToAPB.Text < 1 And txtDaysfromTestToAPB.Text > 0 Then
+                    If txtDaysfromTestToAPB.Text < 1 AndAlso txtDaysfromTestToAPB.Text > 0 Then
                         txtDaysfromTestToAPB.Text = "0" & txtDaysfromTestToAPB.Text
                     End If
                     If txtDaysfromTestToAPB.Text.Contains(".") Then
@@ -1093,7 +1093,7 @@ Public Class ISMPTestReports
                     txtDaysInAPB.Clear()
                 Else
                     txtDaysInAPB.Text = dr.Item("APBDays")
-                    If txtDaysInAPB.Text < 1 And txtDaysInAPB.Text > 0 Then
+                    If txtDaysInAPB.Text < 1 AndAlso txtDaysInAPB.Text > 0 Then
                         txtDaysInAPB.Text = "0" & txtDaysInAPB.Text
                     End If
                     If txtDaysInAPB.Text.Contains(".") Then
@@ -1109,7 +1109,7 @@ Public Class ISMPTestReports
                     txtDaysAssigned.Clear()
                 Else
                     txtDaysAssigned.Text = dr.Item("EngineerDays")
-                    If txtDaysAssigned.Text < 1 And txtDaysAssigned.Text > 0 Then
+                    If txtDaysAssigned.Text < 1 AndAlso txtDaysAssigned.Text > 0 Then
                         txtDaysAssigned.Text = "0" & txtDaysAssigned.Text
                     End If
                     If txtDaysAssigned.Text.Contains(".") Then
@@ -1183,7 +1183,7 @@ Public Class ISMPTestReports
                 If cboComplianceStatus.SelectedValue = "05" Then
                     cboComplianceStatus.BackColor = Color.Tomato
                 Else
-                    If lblPreComplianceStatus.Visible = True And cboComplianceStatus.SelectedValue = "01" Then
+                    If lblPreComplianceStatus.Visible = True AndAlso cboComplianceStatus.SelectedValue = "01" Then
                         cboComplianceStatus.BackColor = Color.Pink
                     End If
                 End If
@@ -5152,7 +5152,9 @@ Public Class ISMPTestReports
     End Sub
     Private Sub LoadUserPermissions()
         Try
-            If AccountFormAccess(69, 1) = "1" Or AccountFormAccess(69, 2) = "1" Or AccountFormAccess(69, 3) = "1" Or AccountFormAccess(69, 4) = "1" Then
+            If AccountFormAccess(69, 1) = "1" OrElse
+                AccountFormAccess(69, 2) = "1" OrElse AccountFormAccess(69, 3) = "1" OrElse
+                AccountFormAccess(69, 4) = "1" Then
             Else
                 tsbSave.Visible = False
                 mmiSave.Visible = False
@@ -5179,7 +5181,7 @@ Public Class ISMPTestReports
                 mmiDefaultCompliance.Visible = False
             End If
 
-            If AccountFormAccess(69, 3) = "1" And Not ReportClosed Then
+            If AccountFormAccess(69, 3) = "1" AndAlso Not ReportClosed Then
                 txtSourceTested.ReadOnly = False
                 cboPollutantDetermined.Enabled = True
                 cboMethodDetermined.Enabled = True
@@ -9269,7 +9271,7 @@ Public Class ISMPTestReports
     End Sub
 
     Private Sub SaveEverything()
-        If cboTestNotificationNumber.Text <> " " And cboTestNotificationNumber.Text <> "" Then
+        If cboTestNotificationNumber.Text <> " " AndAlso cboTestNotificationNumber.Text <> "" Then
             Dim qTest As String = "select convert(bit, count(*))
                 from ISMPTESTNOTIFICATION
                 where STRTESTLOGNUMBER = @nTest"
@@ -9291,7 +9293,7 @@ Public Class ISMPTestReports
 
         Try
             If AccountFormAccess(69, 3) = "1" Then
-                If cboTestNotificationNumber.Text = "" Or cboTestNotificationNumber.Text = " " Then
+                If cboTestNotificationNumber.Text = "" OrElse cboTestNotificationNumber.Text = " " Then
                     MsgBox("WARNING" & vbCrLf & "Please associate a test notification number to this Test Report before you close out the report.",
                        MsgBoxStyle.Exclamation, "Test Report")
                 End If
@@ -9334,7 +9336,7 @@ Public Class ISMPTestReports
             Dim AssignedDate As String = ""
             Dim UnitManager As String = ""
 
-            If cboPollutantDetermined.Text <> " " And cboPollutantDetermined.Text <> "" Then
+            If cboPollutantDetermined.Text <> " " AndAlso cboPollutantDetermined.Text <> "" Then
                 Pollutant = cboPollutantDetermined.SelectedValue
                 If Pollutant = "" Then
                     Pollutant = "00001"
@@ -9347,7 +9349,7 @@ Public Class ISMPTestReports
             Else
                 EmissionSource = "N/A"
             End If
-            If cboReportType.Text <> " " And cboReportType.Text <> "" Then
+            If cboReportType.Text <> " " AndAlso cboReportType.Text <> "" Then
                 ReportType = cboReportType.SelectedValue
                 If ReportType = "" Then
                     ReportType = "N/A"
@@ -9355,12 +9357,12 @@ Public Class ISMPTestReports
             Else
                 ReportType = "N/A"
             End If
-            If cboMethodDetermined.Text <> " " And cboMethodDetermined.Text <> "" Then
+            If cboMethodDetermined.Text <> " " AndAlso cboMethodDetermined.Text <> "" Then
                 DetMethod = cboMethodDetermined.SelectedValue
             Else
                 DetMethod = ""
             End If
-            If cboTestingFirm.Text <> " " And cboTestingFirm.Text <> "" Then
+            If cboTestingFirm.Text <> " " AndAlso cboTestingFirm.Text <> "" Then
                 TestingFirm = cboTestingFirm.SelectedValue
                 If TestingFirm = "" Then
                     TestingFirm = "00000"
@@ -9370,7 +9372,7 @@ Public Class ISMPTestReports
             End If
             TestStart = DTPTestDateStart.Text
             TestEnd = DTPTestDateComplete.Text
-            If cboComplianceStatus.Text <> " " And cboComplianceStatus.Text <> "" Then
+            If cboComplianceStatus.Text <> " " AndAlso cboComplianceStatus.Text <> "" Then
                 ComplianceStatus = cboComplianceStatus.SelectedValue
                 If ComplianceStatus = "" Then
                     ComplianceStatus = "01"
@@ -9378,7 +9380,7 @@ Public Class ISMPTestReports
             Else
                 ComplianceStatus = "01"
             End If
-            If cboReviewingEngineer.Text <> " " And cboReviewingEngineer.Text <> "" Then
+            If cboReviewingEngineer.Text <> " " AndAlso cboReviewingEngineer.Text <> "" Then
                 ReviewingEngineer = cboReviewingEngineer.SelectedValue
                 If ReviewingEngineer = "" Then
                     ReviewingEngineer = "0"
@@ -9386,7 +9388,7 @@ Public Class ISMPTestReports
             Else
                 ReviewingEngineer = "0"
             End If
-            If cboWitnessingEngineer.Text <> " " And cboWitnessingEngineer.Text <> "" Then
+            If cboWitnessingEngineer.Text <> " " AndAlso cboWitnessingEngineer.Text <> "" Then
                 WitnessingEng = cboWitnessingEngineer.SelectedValue
                 If WitnessingEng = "" Then
                     WitnessingEng = "0"
@@ -9394,7 +9396,7 @@ Public Class ISMPTestReports
             Else
                 WitnessingEng = "0"
             End If
-            If cboISMPUnit.Text <> " " And cboISMPUnit.Text <> "" Then
+            If cboISMPUnit.Text <> " " AndAlso cboISMPUnit.Text <> "" Then
                 ReviewingUnit = cboISMPUnit.SelectedValue
                 If ReviewingUnit = "" Then
                     ReviewingUnit = "0"
@@ -9402,7 +9404,7 @@ Public Class ISMPTestReports
             Else
                 ReviewingUnit = "0"
             End If
-            If cboComplianceManager.Text <> " " And cboComplianceManager.Text <> "" Then
+            If cboComplianceManager.Text <> " " AndAlso cboComplianceManager.Text <> "" Then
                 ComplianceManager = cboComplianceManager.SelectedValue
                 If ComplianceManager = "" Then
                     ComplianceManager = "0"
@@ -9410,7 +9412,7 @@ Public Class ISMPTestReports
             Else
                 ComplianceManager = "0"
             End If
-            If cboccBox.Text <> " " And cboccBox.Text <> "" Then
+            If cboccBox.Text <> " " AndAlso cboccBox.Text <> "" Then
                 CC = cboccBox.SelectedValue
                 If CC = "" Then
                     CC = "0"
@@ -9810,7 +9812,7 @@ Public Class ISMPTestReports
                                                     ControlEquip = "N/A"
                                                 End If
                                             Else
-                                                If TPMethodNineMultiple.Focus = True Or TPMethodNineMultiple2.Focus = True Then
+                                                If TPMethodNineMultiple.Focus = True OrElse TPMethodNineMultiple2.Focus = True Then
                                                     DocumentType = "014"
                                                     If txtApplicableRegulationMethod9Multi.Text <> "" Then
                                                         ApplicableReg = txtApplicableRegulationMethod9Multi.Text
@@ -10047,7 +10049,7 @@ Public Class ISMPTestReports
 
             DB.RunCommand(query, p4)
 
-            If cboTestNotificationNumber.Text <> " " And cboTestNotificationNumber.Text <> "" Then
+            If cboTestNotificationNumber.Text <> " " AndAlso cboTestNotificationNumber.Text <> "" Then
                 Dim NotificationNumber As String = ""
                 If cboTestNotificationNumber.Text.Contains(" --> ") Then
                     NotificationNumber = Mid(cboTestNotificationNumber.Text, 1, cboTestNotificationNumber.Text.IndexOf(" -->"))
@@ -10267,7 +10269,7 @@ Public Class ISMPTestReports
             If cboComplianceStatus.SelectedValue = "05" Then
                 cboComplianceStatus.BackColor = Color.Tomato
             Else
-                If lblPreComplianceStatus.Visible = True And cboComplianceStatus.SelectedValue = "01" Then
+                If lblPreComplianceStatus.Visible = True AndAlso cboComplianceStatus.SelectedValue = "01" Then
                     cboComplianceStatus.BackColor = Color.Pink
                 Else
                     cboComplianceStatus.BackColor = Color.White
@@ -10512,7 +10514,7 @@ Public Class ISMPTestReports
             Else
                 MaxOpCapacity = " "
             End If
-            If cboMaximumExpectedOperatingCapacityUnitsOneStack.Text <> "" And cboMaximumExpectedOperatingCapacityUnitsOneStack.Text <> " " Then
+            If cboMaximumExpectedOperatingCapacityUnitsOneStack.Text <> "" AndAlso cboMaximumExpectedOperatingCapacityUnitsOneStack.Text <> " " Then
                 MaxOpCapacityUnit = cboMaximumExpectedOperatingCapacityUnitsOneStack.SelectedValue
                 If MaxOpCapacityUnit = "" Then
                     MaxOpCapacityUnit = "00000"
@@ -10525,7 +10527,7 @@ Public Class ISMPTestReports
             Else
                 OpCapacity = " "
             End If
-            If cboOperatingCapacityUnitsOneStack.Text <> "" And cboOperatingCapacityUnitsOneStack.Text <> " " Then
+            If cboOperatingCapacityUnitsOneStack.Text <> "" AndAlso cboOperatingCapacityUnitsOneStack.Text <> " " Then
                 OpCapacityUnit = cboOperatingCapacityUnitsOneStack.SelectedValue
                 If OpCapacityUnit = "" Then
                     OpCapacityUnit = "00000"
@@ -10548,7 +10550,7 @@ Public Class ISMPTestReports
             Else
                 AllowEmissRate3 = " "
             End If
-            If cboAllowableEmissionRateUnits1OneStack.Text <> "" And cboAllowableEmissionRateUnits1OneStack.Text <> " " Then
+            If cboAllowableEmissionRateUnits1OneStack.Text <> "" AndAlso cboAllowableEmissionRateUnits1OneStack.Text <> " " Then
                 EmissRateUnit1 = cboAllowableEmissionRateUnits1OneStack.SelectedValue
                 If EmissRateUnit1 = "" Then
                     EmissRateUnit1 = "00000"
@@ -10556,7 +10558,7 @@ Public Class ISMPTestReports
             Else
                 EmissRateUnit1 = "00000"
             End If
-            If cboAllowableEmissionRateUnits2OneStack.Text <> "" And cboAllowableEmissionRateUnits2OneStack.Text <> " " Then
+            If cboAllowableEmissionRateUnits2OneStack.Text <> "" AndAlso cboAllowableEmissionRateUnits2OneStack.Text <> " " Then
                 EmissRateUnit2 = cboAllowableEmissionRateUnits2OneStack.SelectedValue
                 If EmissRateUnit2 = "" Then
                     EmissRateUnit2 = "00000"
@@ -10564,7 +10566,7 @@ Public Class ISMPTestReports
             Else
                 EmissRateUnit2 = "00000"
             End If
-            If cboAllowableEmissionRateUnits3OneStack.Text <> "" And cboAllowableEmissionRateUnits3OneStack.Text <> " " Then
+            If cboAllowableEmissionRateUnits3OneStack.Text <> "" AndAlso cboAllowableEmissionRateUnits3OneStack.Text <> " " Then
                 EmissRateUnit3 = cboAllowableEmissionRateUnits3OneStack.SelectedValue
                 If EmissRateUnit3 = "" Then
                     EmissRateUnit3 = "00000"
@@ -10652,7 +10654,7 @@ Public Class ISMPTestReports
                     End If
                     PollConc3 = " "
                     PollConc4 = " "
-                    If cboPollConUnitOneStackTwoRun.Text <> "" And cboPollConUnitOneStackTwoRun.Text <> " " Then
+                    If cboPollConUnitOneStackTwoRun.Text <> "" AndAlso cboPollConUnitOneStackTwoRun.Text <> " " Then
                         PollConcUnit = cboPollConUnitOneStackTwoRun.SelectedValue
                         If PollConcUnit = "" Then
                             PollConcUnit = "00000"
@@ -10677,7 +10679,7 @@ Public Class ISMPTestReports
                     End If
                     EmissRate3 = " "
                     EmissRate4 = " "
-                    If cboEmissRateUnitOneStackTwoRun.Text <> "" And cboEmissRateUnitOneStackTwoRun.Text <> " " Then
+                    If cboEmissRateUnitOneStackTwoRun.Text <> "" AndAlso cboEmissRateUnitOneStackTwoRun.Text <> " " Then
                         EmissRateUnit = cboEmissRateUnitOneStackTwoRun.SelectedValue
                         If EmissRateUnit = "" Then
                             EmissRateUnit = "00000"
@@ -10787,7 +10789,7 @@ Public Class ISMPTestReports
                         PollConc3 = " "
                     End If
                     PollConc4 = " "
-                    If cboPollConUnitOneStackThreeRun.Text <> "" And cboPollConUnitOneStackThreeRun.Text <> " " Then
+                    If cboPollConUnitOneStackThreeRun.Text <> "" AndAlso cboPollConUnitOneStackThreeRun.Text <> " " Then
                         PollConcUnit = cboPollConUnitOneStackThreeRun.SelectedValue
                         If PollConcUnit = "" Then
                             PollConcUnit = "00000"
@@ -10816,7 +10818,7 @@ Public Class ISMPTestReports
                         EmissRate3 = " "
                     End If
                     EmissRate4 = " "
-                    If cboEmissRateUnitOneStackThreeRun.Text <> "" And cboEmissRateUnitOneStackThreeRun.Text <> " " Then
+                    If cboEmissRateUnitOneStackThreeRun.Text <> "" AndAlso cboEmissRateUnitOneStackThreeRun.Text <> " " Then
                         EmissRateUnit = cboEmissRateUnitOneStackThreeRun.SelectedValue
                         If EmissRateUnit = "" Then
                             EmissRateUnit = "00000"
@@ -10950,7 +10952,7 @@ Public Class ISMPTestReports
                     Else
                         PollConc4 = " "
                     End If
-                    If cboPollConUnitOneStackFourRun.Text <> "" And cboPollConUnitOneStackFourRun.Text <> " " Then
+                    If cboPollConUnitOneStackFourRun.Text <> "" AndAlso cboPollConUnitOneStackFourRun.Text <> " " Then
                         PollConcUnit = cboPollConUnitOneStackFourRun.SelectedValue
                         If PollConcUnit = "" Then
                             PollConcUnit = "00000"
@@ -10983,7 +10985,7 @@ Public Class ISMPTestReports
                     Else
                         EmissRate4 = " "
                     End If
-                    If cboEmissRateUnitOneStackFourRun.Text <> "" And cboEmissRateUnitOneStackFourRun.Text <> " " Then
+                    If cboEmissRateUnitOneStackFourRun.Text <> "" AndAlso cboEmissRateUnitOneStackFourRun.Text <> " " Then
                         EmissRateUnit = cboEmissRateUnitOneStackFourRun.SelectedValue
                         If EmissRateUnit = "" Then
                             EmissRateUnit = "00000"
@@ -11205,7 +11207,7 @@ Public Class ISMPTestReports
             Else
                 MaxOpCapacity = " "
             End If
-            If cboMaximumExpectedOperatingCapacityUnitsTwoStack.Text <> " " And cboMaximumExpectedOperatingCapacityUnitsTwoStack.Text <> "" Then
+            If cboMaximumExpectedOperatingCapacityUnitsTwoStack.Text <> " " AndAlso cboMaximumExpectedOperatingCapacityUnitsTwoStack.Text <> "" Then
                 MaxOpCapacityUnit = cboMaximumExpectedOperatingCapacityUnitsTwoStack.SelectedValue
                 If MaxOpCapacityUnit = "" Then
                     MaxOpCapacityUnit = "00000"
@@ -11218,7 +11220,7 @@ Public Class ISMPTestReports
             Else
                 OpCapacity = " "
             End If
-            If cboOperatingCapacityUnitsTwoStack.Text <> " " And cboOperatingCapacityUnitsTwoStack.Text <> "" Then
+            If cboOperatingCapacityUnitsTwoStack.Text <> " " AndAlso cboOperatingCapacityUnitsTwoStack.Text <> "" Then
                 OpCapacityUnit = cboOperatingCapacityUnitsTwoStack.SelectedValue
                 If OpCapacityUnit = "" Then
                     OpCapacityUnit = "00000"
@@ -11241,7 +11243,7 @@ Public Class ISMPTestReports
             Else
                 AllowEmissRate3 = " "
             End If
-            If cboAllowableEmissionRateUnits1TwoStack.Text <> " " And cboAllowableEmissionRateUnits1TwoStack.Text <> "" Then
+            If cboAllowableEmissionRateUnits1TwoStack.Text <> " " AndAlso cboAllowableEmissionRateUnits1TwoStack.Text <> "" Then
                 AllowEmissRateUnit1 = cboAllowableEmissionRateUnits1TwoStack.SelectedValue
                 If AllowEmissRateUnit1 = "" Then
                     AllowEmissRateUnit1 = "00000"
@@ -11249,7 +11251,7 @@ Public Class ISMPTestReports
             Else
                 AllowEmissRateUnit1 = "00000"
             End If
-            If cboAllowableEmissionRateUnits2TwoStack.Text <> " " And cboAllowableEmissionRateUnits2TwoStack.Text <> "" Then
+            If cboAllowableEmissionRateUnits2TwoStack.Text <> " " AndAlso cboAllowableEmissionRateUnits2TwoStack.Text <> "" Then
                 AllowEmissRateUnit2 = cboAllowableEmissionRateUnits2TwoStack.SelectedValue
                 If AllowEmissRateUnit2 = "" Then
                     AllowEmissRateUnit2 = "00000"
@@ -11257,7 +11259,7 @@ Public Class ISMPTestReports
             Else
                 AllowEmissRateUnit2 = "00000"
             End If
-            If cboAllowableEmissionRateUnits3TwoStack.Text <> " " And cboAllowableEmissionRateUnits3TwoStack.Text <> "" Then
+            If cboAllowableEmissionRateUnits3TwoStack.Text <> " " AndAlso cboAllowableEmissionRateUnits3TwoStack.Text <> "" Then
                 AllowEmissRateUnit3 = cboAllowableEmissionRateUnits3TwoStack.SelectedValue
                 If AllowEmissRateUnit3 = "" Then
                     AllowEmissRateUnit3 = "00000"
@@ -11458,7 +11460,7 @@ Public Class ISMPTestReports
                     Else
                         PollConc2C = " "
                     End If
-                    If cboPollConUnitTwoStackStandard.Text <> " " And cboPollConUnitTwoStackStandard.Text <> "" Then
+                    If cboPollConUnitTwoStackStandard.Text <> " " AndAlso cboPollConUnitTwoStackStandard.Text <> "" Then
                         PollConcUnit = cboPollConUnitTwoStackStandard.SelectedValue
                         If PollConcUnit = "" Then
                             PollConcUnit = "00000"
@@ -11506,7 +11508,7 @@ Public Class ISMPTestReports
                     Else
                         EmissRate2C = " "
                     End If
-                    If cboEmissRateUnitTwoStackStandard.Text <> " " And cboEmissRateUnitTwoStackStandard.Text <> "" Then
+                    If cboEmissRateUnitTwoStackStandard.Text <> " " AndAlso cboEmissRateUnitTwoStackStandard.Text <> "" Then
                         EmissRateUnit = cboEmissRateUnitTwoStackStandard.SelectedValue
                         If EmissRateUnit = "" Then
                             EmissRateUnit = "00000"
@@ -11514,12 +11516,12 @@ Public Class ISMPTestReports
                     Else
                         EmissRateUnit = "00000"
                     End If
-                    If txtEmissRateAvgTwoStackStandard1.Text <> " " And txtEmissRateAvgTwoStackStandard1.Text <> "" Then
+                    If txtEmissRateAvgTwoStackStandard1.Text <> " " AndAlso txtEmissRateAvgTwoStackStandard1.Text <> "" Then
                         EmissRateAvg1 = txtEmissRateAvgTwoStackStandard1.Text
                     Else
                         EmissRateAvg1 = " "
                     End If
-                    If txtEmissRateAvgTwoStackStandard2.Text <> " " And txtEmissRateAvgTwoStackStandard2.Text <> "" Then
+                    If txtEmissRateAvgTwoStackStandard2.Text <> " " AndAlso txtEmissRateAvgTwoStackStandard2.Text <> "" Then
                         EmissRateAvg2 = txtEmissRateAvgTwoStackStandard2.Text
                     Else
                         EmissRateAvg2 = " "
@@ -11740,7 +11742,7 @@ Public Class ISMPTestReports
                     Else
                         PollConc2C = " "
                     End If
-                    If cboPollConUnitTwoStackDRE.Text <> " " And cboPollConUnitTwoStackDRE.Text <> "" Then
+                    If cboPollConUnitTwoStackDRE.Text <> " " AndAlso cboPollConUnitTwoStackDRE.Text <> "" Then
                         PollConcUnit = cboPollConUnitTwoStackDRE.SelectedValue
                         If PollConcUnit = "" Then
                             PollConcUnit = "00000"
@@ -11788,7 +11790,7 @@ Public Class ISMPTestReports
                     Else
                         EmissRate2C = " "
                     End If
-                    If cboEmissRateUnitTwoStackDRE.Text <> " " And cboEmissRateUnitTwoStackDRE.Text <> "" Then
+                    If cboEmissRateUnitTwoStackDRE.Text <> " " AndAlso cboEmissRateUnitTwoStackDRE.Text <> "" Then
                         EmissRateUnit = cboEmissRateUnitTwoStackDRE.SelectedValue
                         If EmissRateUnit = "" Then
                             EmissRateUnit = "00000"
@@ -11796,12 +11798,12 @@ Public Class ISMPTestReports
                     Else
                         EmissRateUnit = "00000"
                     End If
-                    If txtEmissRateAvgTwoStackDRE1.Text <> " " And txtEmissRateAvgTwoStackDRE1.Text <> "" Then
+                    If txtEmissRateAvgTwoStackDRE1.Text <> " " AndAlso txtEmissRateAvgTwoStackDRE1.Text <> "" Then
                         EmissRateAvg1 = txtEmissRateAvgTwoStackDRE1.Text
                     Else
                         EmissRateAvg1 = " "
                     End If
-                    If txtEmissRateAvgTwoStackDRE2.Text <> " " And txtEmissRateAvgTwoStackDRE2.Text <> "" Then
+                    If txtEmissRateAvgTwoStackDRE2.Text <> " " AndAlso txtEmissRateAvgTwoStackDRE2.Text <> "" Then
                         EmissRateAvg2 = txtEmissRateAvgTwoStackDRE2.Text
                     Else
                         EmissRateAvg2 = " "
@@ -12001,7 +12003,7 @@ Public Class ISMPTestReports
             Else
                 MaxOpCapacity = " "
             End If
-            If cboMaximumExpectedOperatingCapacityUnitsLoadingRack.Text <> " " And cboMaximumExpectedOperatingCapacityUnitsLoadingRack.Text <> "" Then
+            If cboMaximumExpectedOperatingCapacityUnitsLoadingRack.Text <> " " AndAlso cboMaximumExpectedOperatingCapacityUnitsLoadingRack.Text <> "" Then
                 MaxOpCapacityUnit = cboMaximumExpectedOperatingCapacityUnitsLoadingRack.SelectedValue
                 If MaxOpCapacityUnit = "" Then
                     MaxOpCapacityUnit = "00000"
@@ -12014,7 +12016,7 @@ Public Class ISMPTestReports
             Else
                 OpCapacity = " "
             End If
-            If cboOperatingCapacityUnitsLoadingRack.Text <> " " And cboOperatingCapacityUnitsLoadingRack.Text <> "" Then
+            If cboOperatingCapacityUnitsLoadingRack.Text <> " " AndAlso cboOperatingCapacityUnitsLoadingRack.Text <> "" Then
                 OpCapacityUnit = cboOperatingCapacityUnitsLoadingRack.SelectedValue
                 If OpCapacityUnit = "" Then
                     OpCapacityUnit = "00000"
@@ -12037,7 +12039,7 @@ Public Class ISMPTestReports
             Else
                 AllowEmissRate3 = " "
             End If
-            If cboAllowableEmissionRateUnits1LoadingRack.Text <> " " And cboAllowableEmissionRateUnits1LoadingRack.Text <> "" Then
+            If cboAllowableEmissionRateUnits1LoadingRack.Text <> " " AndAlso cboAllowableEmissionRateUnits1LoadingRack.Text <> "" Then
                 AllowEmissRateUnit1 = cboAllowableEmissionRateUnits1LoadingRack.SelectedValue
                 If AllowEmissRateUnit1 = "" Then
                     AllowEmissRateUnit1 = "00000"
@@ -12045,7 +12047,7 @@ Public Class ISMPTestReports
             Else
                 AllowEmissRateUnit1 = "00000"
             End If
-            If cboAllowableEmissionRateUnits2LoadingRack.Text <> " " And cboAllowableEmissionRateUnits2LoadingRack.Text <> "" Then
+            If cboAllowableEmissionRateUnits2LoadingRack.Text <> " " AndAlso cboAllowableEmissionRateUnits2LoadingRack.Text <> "" Then
                 AllowEmissRateUnit2 = cboAllowableEmissionRateUnits2LoadingRack.SelectedValue
                 If AllowEmissRateUnit2 = "" Then
                     AllowEmissRateUnit2 = "00000"
@@ -12053,7 +12055,7 @@ Public Class ISMPTestReports
             Else
                 AllowEmissRateUnit2 = "00000"
             End If
-            If cboAllowableEmissionRateUnits3LoadingRack.Text <> " " And cboAllowableEmissionRateUnits3LoadingRack.Text <> "" Then
+            If cboAllowableEmissionRateUnits3LoadingRack.Text <> " " AndAlso cboAllowableEmissionRateUnits3LoadingRack.Text <> "" Then
                 AllowEmissRateUnit3 = cboAllowableEmissionRateUnits3LoadingRack.SelectedValue
                 If AllowEmissRateUnit3 = "" Then
                     AllowEmissRateUnit3 = "00000"
@@ -12066,7 +12068,7 @@ Public Class ISMPTestReports
             Else
                 TestDuration = " "
             End If
-            If cboTestDurationUnitsLoadingRack.Text <> " " And cboTestDurationUnitsLoadingRack.Text <> "" Then
+            If cboTestDurationUnitsLoadingRack.Text <> " " AndAlso cboTestDurationUnitsLoadingRack.Text <> "" Then
                 TestDurationUnit = cboTestDurationUnitsLoadingRack.SelectedValue
                 If TestDurationUnit = "" Then
                     TestDurationUnit = "00000"
@@ -12079,7 +12081,7 @@ Public Class ISMPTestReports
             Else
                 PollConcIn = " "
             End If
-            If cboPollConUnitINLoadingRack.Text <> " " And cboPollConUnitINLoadingRack.Text <> "" Then
+            If cboPollConUnitINLoadingRack.Text <> " " AndAlso cboPollConUnitINLoadingRack.Text <> "" Then
                 PollConcInUnit = cboPollConUnitINLoadingRack.SelectedValue
                 If PollConcInUnit = "" Then
                     PollConcInUnit = "00000"
@@ -12092,7 +12094,7 @@ Public Class ISMPTestReports
             Else
                 PollConcOut = " "
             End If
-            If cboPollConUnitOUTLoadingRack.Text <> " " And cboPollConUnitOUTLoadingRack.Text <> "" Then
+            If cboPollConUnitOUTLoadingRack.Text <> " " AndAlso cboPollConUnitOUTLoadingRack.Text <> "" Then
                 PollConcOutUnit = cboPollConUnitOUTLoadingRack.SelectedValue
                 If PollConcOutUnit = "" Then
                     PollConcOutUnit = "00000"
@@ -12105,7 +12107,7 @@ Public Class ISMPTestReports
             Else
                 EmissRate = " "
             End If
-            If cboEmissRateUnitLoadingRack.Text <> " " And cboEmissRateUnitLoadingRack.Text <> "" Then
+            If cboEmissRateUnitLoadingRack.Text <> " " AndAlso cboEmissRateUnitLoadingRack.Text <> "" Then
                 EmissRateUnit = cboEmissRateUnitLoadingRack.SelectedValue
                 If EmissRateUnit = "" Then
                     EmissRateUnit = "00000"
@@ -12228,7 +12230,7 @@ Public Class ISMPTestReports
             Else
                 MaxOpCapacity = " "
             End If
-            If cboMaximumExpectedOperatingCapacityUnitsPond.Text <> " " And cboMaximumExpectedOperatingCapacityUnitsPond.Text <> "" Then
+            If cboMaximumExpectedOperatingCapacityUnitsPond.Text <> " " AndAlso cboMaximumExpectedOperatingCapacityUnitsPond.Text <> "" Then
                 MaxOpCapacityUnit = cboMaximumExpectedOperatingCapacityUnitsPond.SelectedValue
                 If MaxOpCapacityUnit = "" Then
                     MaxOpCapacityUnit = "00000"
@@ -12242,7 +12244,7 @@ Public Class ISMPTestReports
             Else
                 OpCapacity = " "
             End If
-            If cboOperatingCapacityUnitsPond.Text <> " " And cboOperatingCapacityUnitsPond.Text <> "" Then
+            If cboOperatingCapacityUnitsPond.Text <> " " AndAlso cboOperatingCapacityUnitsPond.Text <> "" Then
                 OpCapacityUnit = cboOperatingCapacityUnitsPond.SelectedValue
                 If OpCapacityUnit = "" Then
                     OpCapacityUnit = "00000"
@@ -12265,7 +12267,7 @@ Public Class ISMPTestReports
             Else
                 AllowEmissRate3 = " "
             End If
-            If cboAllowableEmissionRateUnits1Pond.Text <> " " And cboAllowableEmissionRateUnits1Pond.Text <> "" Then
+            If cboAllowableEmissionRateUnits1Pond.Text <> " " AndAlso cboAllowableEmissionRateUnits1Pond.Text <> "" Then
                 AllowEmissRateUnit1 = cboAllowableEmissionRateUnits1Pond.SelectedValue
                 If AllowEmissRateUnit1 = "" Then
                     AllowEmissRateUnit1 = "00000"
@@ -12273,7 +12275,7 @@ Public Class ISMPTestReports
             Else
                 AllowEmissRateUnit1 = "00000"
             End If
-            If cboAllowableEmissionRateUnits2Pond.Text <> " " And cboAllowableEmissionRateUnits2Pond.Text <> "" Then
+            If cboAllowableEmissionRateUnits2Pond.Text <> " " AndAlso cboAllowableEmissionRateUnits2Pond.Text <> "" Then
                 AllowEmissRateUnit2 = cboAllowableEmissionRateUnits2Pond.SelectedValue
                 If AllowEmissRateUnit2 = "" Then
                     AllowEmissRateUnit2 = "00000"
@@ -12281,7 +12283,7 @@ Public Class ISMPTestReports
             Else
                 AllowEmissRateUnit2 = "00000"
             End If
-            If cboAllowableEmissionRateUnits3Pond.Text <> " " And cboAllowableEmissionRateUnits3Pond.Text <> "" Then
+            If cboAllowableEmissionRateUnits3Pond.Text <> " " AndAlso cboAllowableEmissionRateUnits3Pond.Text <> "" Then
                 AllowEmissRateUnit3 = cboAllowableEmissionRateUnits3Pond.SelectedValue
                 If AllowEmissRateUnit3 = "" Then
                     AllowEmissRateUnit3 = "00000"
@@ -12319,7 +12321,7 @@ Public Class ISMPTestReports
             Else
                 PollConc3 = " "
             End If
-            If cboPollConUnitPond.Text <> " " And cboPollConUnitPond.Text <> "" Then
+            If cboPollConUnitPond.Text <> " " AndAlso cboPollConUnitPond.Text <> "" Then
                 PollConcUnit = cboPollConUnitPond.SelectedValue
                 If PollConcUnit = "" Then
                     PollConcUnit = "00000"
@@ -12347,7 +12349,7 @@ Public Class ISMPTestReports
             Else
                 Treatment3 = " "
             End If
-            If cboTreatmentRateUnitPond.Text <> " " And cboTreatmentRateUnitPond.Text <> "" Then
+            If cboTreatmentRateUnitPond.Text <> " " AndAlso cboTreatmentRateUnitPond.Text <> "" Then
                 TreatmentUnit = cboTreatmentRateUnitPond.SelectedValue
                 If TreatmentUnit = "" Then
                     TreatmentUnit = "00000"
@@ -12485,7 +12487,7 @@ Public Class ISMPTestReports
             Else
                 MaxOpCapacity = " "
             End If
-            If cboMaximumExpectedOperatingCapacityUnitsGas.Text <> " " And cboMaximumExpectedOperatingCapacityUnitsGas.Text <> "" Then
+            If cboMaximumExpectedOperatingCapacityUnitsGas.Text <> " " AndAlso cboMaximumExpectedOperatingCapacityUnitsGas.Text <> "" Then
                 MaxOpCapacityUnit = cboMaximumExpectedOperatingCapacityUnitsGas.SelectedValue
                 If MaxOpCapacityUnit = "" Then
                     MaxOpCapacityUnit = "00000"
@@ -12499,7 +12501,7 @@ Public Class ISMPTestReports
             Else
                 OpCapacity = " "
             End If
-            If cboOperatingCapacityUnitsGas.Text <> " " And cboOperatingCapacityUnitsGas.Text <> "" Then
+            If cboOperatingCapacityUnitsGas.Text <> " " AndAlso cboOperatingCapacityUnitsGas.Text <> "" Then
                 OpCapacityUnit = cboOperatingCapacityUnitsGas.SelectedValue
                 If OpCapacityUnit = "" Then
                     OpCapacityUnit = "00000"
@@ -12522,7 +12524,7 @@ Public Class ISMPTestReports
             Else
                 AllowEmissRate3 = " "
             End If
-            If cboAllowableEmissionRateUnits1Gas.Text <> " " And cboAllowableEmissionRateUnits1Gas.Text <> "" Then
+            If cboAllowableEmissionRateUnits1Gas.Text <> " " AndAlso cboAllowableEmissionRateUnits1Gas.Text <> "" Then
                 AllowEmissRateUnit1 = cboAllowableEmissionRateUnits1Gas.SelectedValue
                 If AllowEmissRateUnit1 = "" Then
                     AllowEmissRateUnit1 = "00000"
@@ -12530,7 +12532,7 @@ Public Class ISMPTestReports
             Else
                 AllowEmissRateUnit1 = "00000"
             End If
-            If cboAllowableEmissionRateUnits2Gas.Text <> " " And cboAllowableEmissionRateUnits2Gas.Text <> "" Then
+            If cboAllowableEmissionRateUnits2Gas.Text <> " " AndAlso cboAllowableEmissionRateUnits2Gas.Text <> "" Then
                 AllowEmissRateUnit2 = cboAllowableEmissionRateUnits2Gas.SelectedValue
                 If AllowEmissRateUnit2 = "" Then
                     AllowEmissRateUnit2 = "00000"
@@ -12538,7 +12540,7 @@ Public Class ISMPTestReports
             Else
                 AllowEmissRateUnit2 = "00000"
             End If
-            If cboAllowableEmissionRateUnits3Gas.Text <> " " And cboAllowableEmissionRateUnits3Gas.Text <> "" Then
+            If cboAllowableEmissionRateUnits3Gas.Text <> " " AndAlso cboAllowableEmissionRateUnits3Gas.Text <> "" Then
                 AllowEmissRateUnit3 = cboAllowableEmissionRateUnits3Gas.SelectedValue
                 If AllowEmissRateUnit3 = "" Then
                     AllowEmissRateUnit3 = "00000"
@@ -12576,7 +12578,7 @@ Public Class ISMPTestReports
             Else
                 PollConc3 = " "
             End If
-            If cboPollConUnitGas.Text <> " " And cboPollConUnitGas.Text <> "" Then
+            If cboPollConUnitGas.Text <> " " AndAlso cboPollConUnitGas.Text <> "" Then
                 PollConcUnit = cboPollConUnitGas.SelectedValue
                 If PollConcUnit = "" Then
                     PollConcUnit = "00000"
@@ -12604,7 +12606,7 @@ Public Class ISMPTestReports
             Else
                 Emission3 = " "
             End If
-            If cboEmissRateUnitGas.Text <> " " And cboEmissRateUnitGas.Text <> "" Then
+            If cboEmissRateUnitGas.Text <> " " AndAlso cboEmissRateUnitGas.Text <> "" Then
                 EmissionUnit = cboEmissRateUnitGas.SelectedValue
                 If EmissionUnit = "" Then
                     EmissionUnit = "00000"
@@ -12735,7 +12737,7 @@ Public Class ISMPTestReports
             Else
                 MaxOpCapacity = " "
             End If
-            If cboMaximumExpectedOperatingCapacityUnitsFlare.Text <> " " And cboMaximumExpectedOperatingCapacityUnitsFlare.Text <> "" Then
+            If cboMaximumExpectedOperatingCapacityUnitsFlare.Text <> " " AndAlso cboMaximumExpectedOperatingCapacityUnitsFlare.Text <> "" Then
                 MaxOpCapacityUnit = cboMaximumExpectedOperatingCapacityUnitsFlare.SelectedValue
                 If MaxOpCapacityUnit = "" Then
                     MaxOpCapacityUnit = "00000"
@@ -12748,7 +12750,7 @@ Public Class ISMPTestReports
             Else
                 OpCapacity = " "
             End If
-            If cboOperatingCapacityUnitsFlare.Text <> " " And cboOperatingCapacityUnitsFlare.Text <> "" Then
+            If cboOperatingCapacityUnitsFlare.Text <> " " AndAlso cboOperatingCapacityUnitsFlare.Text <> "" Then
                 OpCapacityUnit = cboOperatingCapacityUnitsFlare.SelectedValue
                 If OpCapacityUnit = "" Then
                     OpCapacityUnit = "00000"
@@ -12781,7 +12783,7 @@ Public Class ISMPTestReports
             Else
                 HeatingValue3 = " "
             End If
-            If cboHeatingValueUnits.Text <> " " And cboHeatingValueUnits.Text <> "" Then
+            If cboHeatingValueUnits.Text <> " " AndAlso cboHeatingValueUnits.Text <> "" Then
                 HeatingValueUnit = cboHeatingValueUnits.SelectedValue
                 If HeatingValueUnit = "" Then
                     HeatingValueUnit = "00000"
@@ -12809,7 +12811,7 @@ Public Class ISMPTestReports
             Else
                 Velocity3 = " "
             End If
-            If cboVelocityUnitsFlare.Text <> " " And cboVelocityUnitsFlare.Text <> "" Then
+            If cboVelocityUnitsFlare.Text <> " " AndAlso cboVelocityUnitsFlare.Text <> "" Then
                 VelocityUnit = cboVelocityUnitsFlare.SelectedValue
                 If VelocityUnit = "" Then
                     VelocityUnit = "00000"
@@ -12935,7 +12937,7 @@ Public Class ISMPTestReports
             Dim AccRequiredStatement As String = " "
             Dim IncludeKey As String = "000000000000"
 
-            If cboDilutentMonitoredRata.Text <> " " And cboDilutentMonitoredRata.Text <> "" Then
+            If cboDilutentMonitoredRata.Text <> " " AndAlso cboDilutentMonitoredRata.Text <> "" Then
                 Diluent = cboDilutentMonitoredRata.SelectedValue
                 If Diluent = "" Then
                     Diluent = "00000"
@@ -13013,7 +13015,7 @@ Public Class ISMPTestReports
             Else
                 RefMethod12 = " "
             End If
-            If cboUnitsRata.Text <> " " And cboUnitsRata.Text <> "" Then
+            If cboUnitsRata.Text <> " " AndAlso cboUnitsRata.Text <> "" Then
                 RataUnits = cboUnitsRata.SelectedValue
                 If RataUnits = "" Then
                     RataUnits = "00000"
@@ -13141,8 +13143,8 @@ Public Class ISMPTestReports
             Else
                 IncludeKey = IncludeKey & "0"
             End If
-            If txtRefMethodPercentRata.Visible = True And txtApplicableStandardPercentRata.Visible = False _
-               And cboDiluentRata.Visible = False And txtPart75Statement.Visible = False Then
+            If txtRefMethodPercentRata.Visible = True AndAlso txtApplicableStandardPercentRata.Visible = False AndAlso
+                cboDiluentRata.Visible = False AndAlso txtPart75Statement.Visible = False Then
                 AccChoice = "RefMethod"
                 If IsNumeric(txtRefMethodPercentRata.Text) Then
                     AccRequiredPercent = txtRefMethodPercentRata.Text
@@ -13151,8 +13153,8 @@ Public Class ISMPTestReports
                 End If
                 AccRequiredStatement = "% of the average value of the Reference Method (RM) test data (when the average of the RM test data is greater then 50% of the applicable standard)"
             Else
-                If txtRefMethodPercentRata.Visible = False And txtApplicableStandardPercentRata.Visible = True _
-                   And cboDiluentRata.Visible = False And txtPart75Statement.Visible = False Then
+                If txtRefMethodPercentRata.Visible = False AndAlso txtApplicableStandardPercentRata.Visible = True AndAlso
+                    cboDiluentRata.Visible = False AndAlso txtPart75Statement.Visible = False Then
                     AccChoice = "AppStandard"
                     If IsNumeric(txtApplicableStandardPercentRata.Text) Then
                         AccRequiredPercent = txtApplicableStandardPercentRata.Text
@@ -13161,14 +13163,14 @@ Public Class ISMPTestReports
                     End If
                     AccRequiredStatement = "% of the applicable standard (when the average of the RM test data is less than 50% of the applicable standard)."
                 Else
-                    If txtRefMethodPercentRata.Visible = False And txtApplicableStandardPercentRata.Visible = False _
-                       And cboDiluentRata.Visible = True And txtPart75Statement.Visible = False Then
+                    If txtRefMethodPercentRata.Visible = False AndAlso txtApplicableStandardPercentRata.Visible = False AndAlso
+                        cboDiluentRata.Visible = True AndAlso txtPart75Statement.Visible = False Then
                         AccChoice = "Diluent"
                         AccRequiredPercent = "1% "
                         AccRequiredStatement = cboDiluentRata.Text
                     Else
-                        If txtRefMethodPercentRata.Visible = False And txtApplicableStandardPercentRata.Visible = False _
-                         And cboDiluentRata.Visible = False And txtPart75Statement.Visible = True Then
+                        If txtRefMethodPercentRata.Visible = False AndAlso txtApplicableStandardPercentRata.Visible = False AndAlso
+                            cboDiluentRata.Visible = False AndAlso txtPart75Statement.Visible = True Then
                             AccChoice = "Part75"
                             If IsNumeric(txtPart75Statement.Text) Then
                                 AccRequiredPercent = txtPart75Statement.Text
@@ -13338,7 +13340,7 @@ Public Class ISMPTestReports
                     Else
                         MaxOpCapacity = " "
                     End If
-                    If cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.Text <> " " And cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.Text <> "" Then
+                    If cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.Text <> " " AndAlso cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.Text <> "" Then
                         MaxOpCapacityUnit = cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.SelectedValue
                         If MaxOpCapacityUnit = "" Then
                             MaxOpCapacityUnit = "00000"
@@ -13351,7 +13353,7 @@ Public Class ISMPTestReports
                     Else
                         OpCapacity = " "
                     End If
-                    If cboOperatingCapacityUnitsMemorandumPTE.Text <> " " And cboOperatingCapacityUnitsMemorandumPTE.Text <> "" Then
+                    If cboOperatingCapacityUnitsMemorandumPTE.Text <> " " AndAlso cboOperatingCapacityUnitsMemorandumPTE.Text <> "" Then
                         OpCapacityUnit = cboOperatingCapacityUnitsMemorandumPTE.SelectedValue
                         If OpCapacityUnit = "" Then
                             OpCapacityUnit = "00000"
@@ -13374,7 +13376,7 @@ Public Class ISMPTestReports
                     Else
                         AllowableEmiss3 = " "
                     End If
-                    If cboAllowableEmissionRateUnits1MemorandumPTE.Text <> " " And cboAllowableEmissionRateUnits1MemorandumPTE.Text <> "" Then
+                    If cboAllowableEmissionRateUnits1MemorandumPTE.Text <> " " AndAlso cboAllowableEmissionRateUnits1MemorandumPTE.Text <> "" Then
                         AllowableEmissUnit1 = cboAllowableEmissionRateUnits1MemorandumPTE.SelectedValue
                         If AllowableEmissUnit1 = "" Then
                             AllowableEmissUnit1 = "00000"
@@ -13382,7 +13384,7 @@ Public Class ISMPTestReports
                     Else
                         AllowableEmissUnit1 = "00000"
                     End If
-                    If cboAllowableEmissionRateUnits2MemorandumPTE.Text <> " " And cboAllowableEmissionRateUnits2MemorandumPTE.Text <> "" Then
+                    If cboAllowableEmissionRateUnits2MemorandumPTE.Text <> " " AndAlso cboAllowableEmissionRateUnits2MemorandumPTE.Text <> "" Then
                         AllowableEmissUnit2 = cboAllowableEmissionRateUnits2MemorandumPTE.SelectedValue
                         If AllowableEmissUnit2 = "" Then
                             AllowableEmissUnit2 = "00000"
@@ -13390,7 +13392,7 @@ Public Class ISMPTestReports
                     Else
                         AllowableEmissUnit2 = "00000"
                     End If
-                    If cboAllowableEmissionRateUnits3MemorandumPTE.Text <> " " And cboAllowableEmissionRateUnits3MemorandumPTE.Text <> "" Then
+                    If cboAllowableEmissionRateUnits3MemorandumPTE.Text <> " " AndAlso cboAllowableEmissionRateUnits3MemorandumPTE.Text <> "" Then
                         AllowableEmissUnit3 = cboAllowableEmissionRateUnits3MemorandumPTE.SelectedValue
                         If AllowableEmissUnit3 = "" Then
                             AllowableEmissUnit3 = "00000"
@@ -13504,7 +13506,8 @@ Public Class ISMPTestReports
                     Else
                         MaxOpCapacity1 = " "
                     End If
-                    If cboMaximumExpectedOperatingCapacityUnitsMethod9Single.Text <> " " And cboMaximumExpectedOperatingCapacityUnitsMethod9Single.Text <> "" Then
+                    If cboMaximumExpectedOperatingCapacityUnitsMethod9Single.Text <> " " AndAlso
+                        cboMaximumExpectedOperatingCapacityUnitsMethod9Single.Text <> "" Then
                         MaxOpCapacityUnit = cboMaximumExpectedOperatingCapacityUnitsMethod9Single.SelectedValue
                         If MaxOpCapacityUnit = "" Then
                             MaxOpCapacityUnit = "00000"
@@ -13517,7 +13520,8 @@ Public Class ISMPTestReports
                     Else
                         OpCapacity1 = " "
                     End If
-                    If cboOperatingCapacityUnitsMethod9Single.Text <> " " And cboOperatingCapacityUnitsMethod9Single.Text <> "" Then
+                    If cboOperatingCapacityUnitsMethod9Single.Text <> " " AndAlso
+                        cboOperatingCapacityUnitsMethod9Single.Text <> "" Then
                         OpCapacityUnit = cboOperatingCapacityUnitsMethod9Single.SelectedValue
                         If OpCapacityUnit = "" Then
                             OpCapacityUnit = "00000"
@@ -13530,7 +13534,7 @@ Public Class ISMPTestReports
                     Else
                         AllowableEmiss1 = " "
                     End If
-                    If cboAllowableEmissionRateUnits1Method9Single.Text <> " " And cboAllowableEmissionRateUnits1Method9Single.Text <> "" Then
+                    If cboAllowableEmissionRateUnits1Method9Single.Text <> " " AndAlso cboAllowableEmissionRateUnits1Method9Single.Text <> "" Then
                         AllowableEmissUnit = cboAllowableEmissionRateUnits1Method9Single.SelectedValue
                         If AllowableEmissUnit = "" Then
                             AllowableEmissUnit = "00000"
@@ -13579,7 +13583,8 @@ Public Class ISMPTestReports
                     Else
                         MaxOpCapacity5 = " "
                     End If
-                    If cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.Text <> " " And cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.Text <> "" Then
+                    If cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.Text <> " " AndAlso
+                        cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.Text <> "" Then
                         MaxOpCapacityUnit = cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.SelectedValue
                         If MaxOpCapacityUnit = "" Then
                             MaxOpCapacityUnit = "00000"
@@ -13612,7 +13617,8 @@ Public Class ISMPTestReports
                     Else
                         OpCapacity5 = " "
                     End If
-                    If cboOperatingCapacityUnitsMethod9Multi.Text <> " " And cboOperatingCapacityUnitsMethod9Multi.Text <> "" Then
+                    If cboOperatingCapacityUnitsMethod9Multi.Text <> " " AndAlso
+                        cboOperatingCapacityUnitsMethod9Multi.Text <> "" Then
                         OpCapacityUnit = cboOperatingCapacityUnitsMethod9Multi.SelectedValue
                         If OpCapacityUnit = "" Then
                             OpCapacityUnit = "00000"
@@ -13645,7 +13651,8 @@ Public Class ISMPTestReports
                     Else
                         AllowableEmiss5 = " "
                     End If
-                    If cboAllowableEmissionRateUnitsMethod9Multi.Text <> " " And cboAllowableEmissionRateUnitsMethod9Multi.Text <> "" Then
+                    If cboAllowableEmissionRateUnitsMethod9Multi.Text <> " " AndAlso
+                        cboAllowableEmissionRateUnitsMethod9Multi.Text <> "" Then
                         AllowableEmissUnit = cboAllowableEmissionRateUnitsMethod9Multi.SelectedValue
                         If AllowableEmissUnit = "" Then
                             AllowableEmissUnit = "00000"
@@ -13714,7 +13721,8 @@ Public Class ISMPTestReports
                     Else
                         MaxOpCapacity1 = " "
                     End If
-                    If cboMaximumExpectedOperatingCapacityUnitsMethod22.Text <> " " And cboMaximumExpectedOperatingCapacityUnitsMethod22.Text <> "" Then
+                    If cboMaximumExpectedOperatingCapacityUnitsMethod22.Text <> " " AndAlso
+                        cboMaximumExpectedOperatingCapacityUnitsMethod22.Text <> "" Then
                         MaxOpCapacityUnit = cboMaximumExpectedOperatingCapacityUnitsMethod22.SelectedValue
                         If MaxOpCapacityUnit = "" Then
                             MaxOpCapacityUnit = "00000"
@@ -13727,7 +13735,8 @@ Public Class ISMPTestReports
                     Else
                         OpCapacity1 = " "
                     End If
-                    If cboOperatingCapacityUnitsMethod22.Text <> " " And cboOperatingCapacityUnitsMethod22.Text <> "" Then
+                    If cboOperatingCapacityUnitsMethod22.Text <> " " AndAlso
+                        cboOperatingCapacityUnitsMethod22.Text <> "" Then
                         OpCapacityUnit = cboOperatingCapacityUnitsMethod22.SelectedValue
                         If OpCapacityUnit = "" Then
                             OpCapacityUnit = "00000"
@@ -16221,7 +16230,7 @@ Public Class ISMPTestReports
 
                     LoadData()
                     LoadTestNotifications()
-                    If cboTestNotificationNumber.Text <> " " And cboTestNotificationNumber.Text <> "" Then
+                    If cboTestNotificationNumber.Text <> " " AndAlso cboTestNotificationNumber.Text <> "" Then
                         llbTestNotifiactionNumber.Visible = True
                         labTestNotificationNumber.Visible = False
                     Else
@@ -16351,14 +16360,14 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcOneStackTwoRun1A.Text) And IsNumeric(txtPollConcOneStackTwoRun1B.Text) Then
+            If IsNumeric(txtPollConcOneStackTwoRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackTwoRun1B.Text) Then
                 temp = (CDec(txtPollConcOneStackTwoRun1A.Text) + CDec(txtPollConcOneStackTwoRun1B.Text))
                 temp = temp / 2
             Else
-                If IsNumeric(txtPollConcOneStackTwoRun1A.Text) And Not (IsNumeric(txtPollConcOneStackTwoRun1B.Text)) Then
+                If IsNumeric(txtPollConcOneStackTwoRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackTwoRun1B.Text)) Then
                     temp = CDec(txtPollConcOneStackTwoRun1A.Text)
                 Else
-                    If Not (IsNumeric(txtPollConcOneStackTwoRun1A.Text)) And IsNumeric(txtPollConcOneStackTwoRun1B.Text) Then
+                    If Not (IsNumeric(txtPollConcOneStackTwoRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackTwoRun1B.Text) Then
                         temp = CDec(txtPollConcOneStackTwoRun1B.Text)
                     Else
                         temp = 0
@@ -16379,14 +16388,14 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcOneStackTwoRun1A.Text) And IsNumeric(txtPollConcOneStackTwoRun1B.Text) Then
+            If IsNumeric(txtPollConcOneStackTwoRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackTwoRun1B.Text) Then
                 temp = (CDec(txtPollConcOneStackTwoRun1A.Text) + CDec(txtPollConcOneStackTwoRun1B.Text))
                 temp = temp / 2
             Else
-                If IsNumeric(txtPollConcOneStackTwoRun1A.Text) And Not (IsNumeric(txtPollConcOneStackTwoRun1B.Text)) Then
+                If IsNumeric(txtPollConcOneStackTwoRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackTwoRun1B.Text)) Then
                     temp = CDec(txtPollConcOneStackTwoRun1A.Text)
                 Else
-                    If Not (IsNumeric(txtPollConcOneStackTwoRun1A.Text)) And IsNumeric(txtPollConcOneStackTwoRun1B.Text) Then
+                    If Not (IsNumeric(txtPollConcOneStackTwoRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackTwoRun1B.Text) Then
                         temp = CDec(txtPollConcOneStackTwoRun1B.Text)
                     Else
                         temp = 0
@@ -16407,13 +16416,13 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateOneStackTwoRun1A.Text) And IsNumeric(txtEmissRateOneStackTwoRun1B.Text) Then
+            If IsNumeric(txtEmissRateOneStackTwoRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackTwoRun1B.Text) Then
                 temp = (CDec(txtEmissRateOneStackTwoRun1A.Text) + CDec(txtEmissRateOneStackTwoRun1B.Text)) / 2
             Else
-                If IsNumeric(txtEmissRateOneStackTwoRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackTwoRun1B.Text)) Then
+                If IsNumeric(txtEmissRateOneStackTwoRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackTwoRun1B.Text)) Then
                     temp = CDec(txtEmissRateOneStackTwoRun1A.Text)
                 Else
-                    If Not (IsNumeric(txtEmissRateOneStackTwoRun1A.Text)) And IsNumeric(txtEmissRateOneStackTwoRun1B.Text) Then
+                    If Not (IsNumeric(txtEmissRateOneStackTwoRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackTwoRun1B.Text) Then
                         temp = txtEmissRateOneStackTwoRun1B.Text
                     Else
                         temp = 0
@@ -16433,13 +16442,13 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateOneStackTwoRun1A.Text) And IsNumeric(txtEmissRateOneStackTwoRun1B.Text) Then
+            If IsNumeric(txtEmissRateOneStackTwoRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackTwoRun1B.Text) Then
                 temp = (CDec(txtEmissRateOneStackTwoRun1A.Text) + CDec(txtEmissRateOneStackTwoRun1B.Text)) / 2
             Else
-                If IsNumeric(txtEmissRateOneStackTwoRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackTwoRun1B.Text)) Then
+                If IsNumeric(txtEmissRateOneStackTwoRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackTwoRun1B.Text)) Then
                     temp = CDec(txtEmissRateOneStackTwoRun1A.Text)
                 Else
-                    If txtEmissRateOneStackTwoRun1A.Text = "" And txtEmissRateOneStackTwoRun1B.Text <> "" Then
+                    If txtEmissRateOneStackTwoRun1A.Text = "" AndAlso txtEmissRateOneStackTwoRun1B.Text <> "" Then
                         temp = txtEmissRateOneStackTwoRun1B.Text
                     Else
                         temp = 0
@@ -16459,33 +16468,33 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) _
-                  And IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
+            If IsNumeric(txtPollConcOneStackThreeRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackThreeRun1B.Text) _
+                  AndAlso IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
                 temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1B.Text) + CDec(txtPollConcOneStackThreeRun1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) And
+                If IsNumeric(txtPollConcOneStackThreeRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackThreeRun1B.Text) AndAlso
                     Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
                     temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) _
-                        And IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
+                    If IsNumeric(txtPollConcOneStackThreeRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) AndAlso
+                        IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
                         temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) _
-                              And IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
+                        If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackThreeRun1B.Text) AndAlso
+                            IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
                             temp = (CDec(txtPollConcOneStackThreeRun1B.Text) + CDec(txtPollConcOneStackThreeRun1C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) _
-                                  And Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
+                            If IsNumeric(txtPollConcOneStackThreeRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) AndAlso
+                                Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
                                 temp = CDec(txtPollConcOneStackThreeRun1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) _
-                                      And Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackThreeRun1B.Text) AndAlso
+                                    Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
                                     temp = CDec(txtPollConcOneStackThreeRun1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) And Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) _
-                                          And IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
+                                    If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) AndAlso Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) AndAlso
+                                        IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
                                         temp = CDec(txtPollConcOneStackThreeRun1C.Text)
                                     Else
                                         temp = 0
@@ -16511,33 +16520,33 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) _
-                 And IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
+            If IsNumeric(txtPollConcOneStackThreeRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackThreeRun1B.Text) AndAlso
+                IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
                 temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1B.Text) + CDec(txtPollConcOneStackThreeRun1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) And
+                If IsNumeric(txtPollConcOneStackThreeRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackThreeRun1B.Text) AndAlso
                     Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
                     temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) _
-                        And IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
+                    If IsNumeric(txtPollConcOneStackThreeRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) AndAlso
+                        IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
                         temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) _
-                              And IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
+                        If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackThreeRun1B.Text) AndAlso
+                            IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
                             temp = (CDec(txtPollConcOneStackThreeRun1B.Text) + CDec(txtPollConcOneStackThreeRun1C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) _
-                                  And Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
+                            If IsNumeric(txtPollConcOneStackThreeRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) AndAlso
+                                Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
                                 temp = CDec(txtPollConcOneStackThreeRun1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) _
-                                      And Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackThreeRun1B.Text) AndAlso
+                                    Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
                                     temp = CDec(txtPollConcOneStackThreeRun1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) And Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) _
-                                          And IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
+                                    If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) AndAlso Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) AndAlso
+                                        IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
                                         temp = CDec(txtPollConcOneStackThreeRun1C.Text)
                                     Else
                                         temp = 0
@@ -16564,33 +16573,33 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) _
-                   And IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
+            If IsNumeric(txtPollConcOneStackThreeRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackThreeRun1B.Text) AndAlso
+                IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
                 temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1B.Text) + CDec(txtPollConcOneStackThreeRun1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) And
+                If IsNumeric(txtPollConcOneStackThreeRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackThreeRun1B.Text) AndAlso
                     Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
                     temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) _
-                        And IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
+                    If IsNumeric(txtPollConcOneStackThreeRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) AndAlso
+                        IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
                         temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) _
-                              And IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
+                        If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackThreeRun1B.Text) AndAlso
+                            IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
                             temp = (CDec(txtPollConcOneStackThreeRun1B.Text) + CDec(txtPollConcOneStackThreeRun1C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) _
-                                  And Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
+                            If IsNumeric(txtPollConcOneStackThreeRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) AndAlso
+                                Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
                                 temp = CDec(txtPollConcOneStackThreeRun1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) _
-                                      And Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackThreeRun1B.Text) AndAlso
+                                    Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
                                     temp = CDec(txtPollConcOneStackThreeRun1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) And Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) _
-                                          And IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
+                                    If Not (IsNumeric(txtPollConcOneStackThreeRun1A.Text)) AndAlso Not (IsNumeric(txtPollConcOneStackThreeRun1B.Text)) AndAlso
+                                        IsNumeric(txtPollConcOneStackThreeRun1C.Text) Then
                                         temp = CDec(txtPollConcOneStackThreeRun1C.Text)
                                     Else
                                         temp = 0
@@ -16616,32 +16625,32 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) And IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
-                 And IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
+            If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackThreeRun1B.Text) AndAlso
+                IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
                 temp = (CDec(txtEmissRateOneStackThreeRun1A.Text) + CDec(txtEmissRateOneStackThreeRun1B.Text) + CDec(txtEmissRateOneStackThreeRun1C.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) And IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
-                   And Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
+                If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackThreeRun1B.Text) AndAlso
+                    Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
                     temp = (CDec(txtEmissRateOneStackThreeRun1A.Text) + CDec(txtEmissRateOneStackThreeRun1B.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) _
-                         And IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
+                    If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) AndAlso
+                        IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
                         temp = (CDec(txtEmissRateOneStackThreeRun1A.Text) + CDec(txtEmissRateOneStackThreeRun1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) And IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
-                              And IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
+                        If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackThreeRun1B.Text) AndAlso
+                            IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
                             temp = (CDec(txtEmissRateOneStackThreeRun1B.Text) + CDec(txtEmissRateOneStackThreeRun1C.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) _
-                                  And Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
+                            If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) AndAlso
+                                Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
                                 temp = CDec(txtEmissRateOneStackThreeRun1A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) And IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
-                                      And Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackThreeRun1B.Text) AndAlso
+                                    Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
                                     temp = CDec(txtEmissRateOneStackThreeRun1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) And Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) _
-                                          And IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
+                                    If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) AndAlso Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) AndAlso
+                                        IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
                                         temp = CDec(txtEmissRateOneStackThreeRun1C.Text)
                                     Else
                                         temp = 0
@@ -16666,32 +16675,32 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) And IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
-                 And IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
+            If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
+                 AndAlso IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
                 temp = (CDec(txtEmissRateOneStackThreeRun1A.Text) + CDec(txtEmissRateOneStackThreeRun1B.Text) + CDec(txtEmissRateOneStackThreeRun1C.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) And IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
-                   And Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
+                If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
+                   AndAlso Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
                     temp = (CDec(txtEmissRateOneStackThreeRun1A.Text) + CDec(txtEmissRateOneStackThreeRun1B.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) _
-                         And IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
+                    If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) _
+                         AndAlso IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
                         temp = (CDec(txtEmissRateOneStackThreeRun1A.Text) + CDec(txtEmissRateOneStackThreeRun1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) And IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
-                              And IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
+                        If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
+                              AndAlso IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
                             temp = (CDec(txtEmissRateOneStackThreeRun1B.Text) + CDec(txtEmissRateOneStackThreeRun1C.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) _
-                                  And Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
+                            If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) _
+                                  AndAlso Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
                                 temp = CDec(txtEmissRateOneStackThreeRun1A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) And IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
-                                      And Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
+                                      AndAlso Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
                                     temp = CDec(txtEmissRateOneStackThreeRun1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) And Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) _
-                                          And IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
+                                    If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) AndAlso Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) _
+                                          AndAlso IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
                                         temp = CDec(txtEmissRateOneStackThreeRun1C.Text)
                                     Else
                                         temp = 0
@@ -16716,32 +16725,32 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) And IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
-                 And IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
+            If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackThreeRun1B.Text) AndAlso
+                IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
                 temp = (CDec(txtEmissRateOneStackThreeRun1A.Text) + CDec(txtEmissRateOneStackThreeRun1B.Text) + CDec(txtEmissRateOneStackThreeRun1C.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) And IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
-                   And Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
+                If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackThreeRun1B.Text) AndAlso
+                    Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
                     temp = (CDec(txtEmissRateOneStackThreeRun1A.Text) + CDec(txtEmissRateOneStackThreeRun1B.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) _
-                         And IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
+                    If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) AndAlso
+                        IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
                         temp = (CDec(txtEmissRateOneStackThreeRun1A.Text) + CDec(txtEmissRateOneStackThreeRun1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) And IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
-                              And IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
+                        If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackThreeRun1B.Text) AndAlso
+                            IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
                             temp = (CDec(txtEmissRateOneStackThreeRun1B.Text) + CDec(txtEmissRateOneStackThreeRun1C.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) _
-                                  And Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
+                            If IsNumeric(txtEmissRateOneStackThreeRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) AndAlso
+                                Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
                                 temp = CDec(txtEmissRateOneStackThreeRun1A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) And IsNumeric(txtEmissRateOneStackThreeRun1B.Text) _
-                                      And Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackThreeRun1B.Text) AndAlso
+                                    Not (IsNumeric(txtEmissRateOneStackThreeRun1C.Text)) Then
                                     temp = CDec(txtEmissRateOneStackThreeRun1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) And Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) _
-                                          And IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
+                                    If Not (IsNumeric(txtEmissRateOneStackThreeRun1A.Text)) AndAlso Not (IsNumeric(txtEmissRateOneStackThreeRun1B.Text)) AndAlso
+                                        IsNumeric(txtEmissRateOneStackThreeRun1C.Text) Then
                                         temp = CDec(txtEmissRateOneStackThreeRun1C.Text)
                                     Else
                                         temp = 0
@@ -16766,74 +16775,74 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                  And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+            If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                 temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) +
                         CDec(txtPollConcOneStackFourRun1C.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 4
             Else
-                If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                      And IsNumeric(txtPollConcOneStackFourRun1C.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                    IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                     temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text)) / 3
                 Else
-                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                          And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                        Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                         temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                     Else
-                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                              And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) AndAlso
+                            IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                             temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                     CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                         Else
-                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                  And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                                IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                 temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                         CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                             Else
-                                If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                      And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                                    Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                     temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text)) / 2
                                 Else
-                                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                          And IsNumeric(txtPollConcOneStackFourRun1C.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) AndAlso
+                                        IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                         temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text)) / 2
                                     Else
-                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                              And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) AndAlso
+                                            Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                             temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 2
                                         Else
-                                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                                  And IsNumeric(txtPollConcOneStackFourRun1C.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                                                IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                 temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text)) / 2
                                             Else
-                                                If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                                If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                                                    Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                                     temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 2
                                                 Else
-                                                    If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                          And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                                    If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) AndAlso
+                                                        IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                                         temp = (CDec(txtPollConcOneStackFourRun1C.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 2
                                                     Else
-                                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                              And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
-                                                               And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) AndAlso
+                                                            Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso
+                                                            Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                             temp = CDec(txtPollConcOneStackFourRun1A.Text)
                                                         Else
-                                                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) _
-                                                                  And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                                                  And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
-                                                                  And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) Andalso 
+                                                                IsNumeric(txtPollConcOneStackFourRun1B.Text) Andalso 
+                                                                Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) Andalso 
+                                                                Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                                 temp = CDec(txtPollConcOneStackFourRun1B.Text)
                                                             Else
-                                                                If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                                      And IsNumeric(txtPollConcOneStackFourRun1C.Text) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                                                If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso
+                                                                    Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) AndAlso
+                                                                    IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso
+                                                                    Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                                     temp = CDec(txtPollConcOneStackFourRun1C.Text)
                                                                 Else
-                                                                    If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
-                                                                      And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                                                    If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso
+                                                                        Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) AndAlso
+                                                                        Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso
+                                                                        IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                                                         temp = txtPollConcOneStackFourRun1D.Text
                                                                     Else
                                                                         temp = 0
@@ -16868,74 +16877,74 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-               And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+            If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                 temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) +
                         CDec(txtPollConcOneStackFourRun1C.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 4
             Else
-                If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                      And IsNumeric(txtPollConcOneStackFourRun1C.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                    IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                     temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text)) / 3
                 Else
-                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                          And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                        Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                         temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                     Else
-                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                              And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) AndAlso
+                            IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                             temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                     CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                         Else
-                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                  And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                                IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                 temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                         CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                             Else
-                                If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                      And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                                    Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                     temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text)) / 2
                                 Else
-                                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                          And IsNumeric(txtPollConcOneStackFourRun1C.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) AndAlso
+                                        IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                         temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text)) / 2
                                     Else
-                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                              And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) AndAlso
+                                            Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                             temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 2
                                         Else
-                                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                                  And IsNumeric(txtPollConcOneStackFourRun1C.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                                                IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                 temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text)) / 2
                                             Else
-                                                If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                                If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                                                    Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                                     temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 2
                                                 Else
-                                                    If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                          And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                                    If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) AndAlso
+                                                        IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                                         temp = (CDec(txtPollConcOneStackFourRun1C.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 2
                                                     Else
-                                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                              And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
-                                                               And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) AndAlso
+                                                            Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso
+                                                            Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                             temp = CDec(txtPollConcOneStackFourRun1A.Text)
                                                         Else
-                                                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) _
-                                                                  And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                                                  And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
-                                                                  And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso
+                                                                IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                                                                Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso
+                                                                Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                                 temp = CDec(txtPollConcOneStackFourRun1B.Text)
                                                             Else
-                                                                If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                                      And IsNumeric(txtPollConcOneStackFourRun1C.Text) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                                                If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso
+                                                                    Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) AndAlso
+                                                                    IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso
+                                                                    Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                                     temp = CDec(txtPollConcOneStackFourRun1C.Text)
                                                                 Else
-                                                                    If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
-                                                                      And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                                                    If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso
+                                                                        Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) AndAlso
+                                                                        Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso
+                                                                        IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                                                         temp = txtPollConcOneStackFourRun1D.Text
                                                                     Else
                                                                         temp = 0
@@ -16970,74 +16979,74 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-             And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+            If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+             AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                 temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) +
                         CDec(txtPollConcOneStackFourRun1C.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 4
             Else
-                If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                      And IsNumeric(txtPollConcOneStackFourRun1C.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+                      AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                     temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text)) / 3
                 Else
-                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                          And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+                          AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                         temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                     Else
-                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                              And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
+                              AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                             temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                     CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                         Else
-                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                  And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+                                  AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                 temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                         CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                             Else
-                                If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                      And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+                                      AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                     temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text)) / 2
                                 Else
-                                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                          And IsNumeric(txtPollConcOneStackFourRun1C.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
+                                          AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                         temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text)) / 2
                                     Else
-                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                              And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
+                                              AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                             temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 2
                                         Else
-                                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                                  And IsNumeric(txtPollConcOneStackFourRun1C.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+                                                  AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                 temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text)) / 2
                                             Else
-                                                If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                                If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+                                                      AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                                     temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 2
                                                 Else
-                                                    If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                          And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                                    If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
+                                                          AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                                         temp = (CDec(txtPollConcOneStackFourRun1C.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 2
                                                     Else
-                                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                              And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
-                                                               And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
+                                                              AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
+                                                               AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                             temp = CDec(txtPollConcOneStackFourRun1A.Text)
                                                         Else
                                                             If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) _
-                                                                  And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                                                  And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
-                                                                  And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                                                  AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+                                                                  AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
+                                                                  AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                                 temp = CDec(txtPollConcOneStackFourRun1B.Text)
                                                             Else
                                                                 If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                                      And IsNumeric(txtPollConcOneStackFourRun1C.Text) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                                                      AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
+                                                                      AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) _
+                                                                      AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                                     temp = CDec(txtPollConcOneStackFourRun1C.Text)
                                                                 Else
                                                                     If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
-                                                                      And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                                                      AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
+                                                                      AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
+                                                                      AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                                                         temp = txtPollConcOneStackFourRun1D.Text
                                                                     Else
                                                                         temp = 0
@@ -17072,74 +17081,74 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-               And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+            If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+               AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                 temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) +
                         CDec(txtPollConcOneStackFourRun1C.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 4
             Else
-                If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                      And IsNumeric(txtPollConcOneStackFourRun1C.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+                      AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                     temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text)) / 3
                 Else
-                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                          And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+                          AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                         temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                     Else
-                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                              And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
+                              AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                             temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                     CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                         Else
-                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                  And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+                                  AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                 temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                         CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                             Else
-                                If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                      And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+                                      AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                     temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text)) / 2
                                 Else
-                                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                          And IsNumeric(txtPollConcOneStackFourRun1C.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                    If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
+                                          AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                         temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text)) / 2
                                     Else
-                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                              And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
+                                              AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                             temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 2
                                         Else
-                                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                                  And IsNumeric(txtPollConcOneStackFourRun1C.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+                                                  AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                 temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text)) / 2
                                             Else
-                                                If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                                If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+                                                      AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                                     temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 2
                                                 Else
-                                                    If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                          And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                                    If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
+                                                          AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                                         temp = (CDec(txtPollConcOneStackFourRun1C.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 2
                                                     Else
-                                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                              And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
-                                                               And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                                        If IsNumeric(txtPollConcOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
+                                                              AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
+                                                               AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                             temp = CDec(txtPollConcOneStackFourRun1A.Text)
                                                         Else
                                                             If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) _
-                                                                  And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
-                                                                  And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
-                                                                  And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                                                  AndAlso IsNumeric(txtPollConcOneStackFourRun1B.Text) _
+                                                                  AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
+                                                                  AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                                 temp = CDec(txtPollConcOneStackFourRun1B.Text)
                                                             Else
                                                                 If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                                      And IsNumeric(txtPollConcOneStackFourRun1C.Text) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
+                                                                      AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
+                                                                      AndAlso IsNumeric(txtPollConcOneStackFourRun1C.Text) _
+                                                                      AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                                     temp = CDec(txtPollConcOneStackFourRun1C.Text)
                                                                 Else
                                                                     If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
-                                                                      And Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
-                                                                      And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
+                                                                      AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
+                                                                      AndAlso Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) _
+                                                                      AndAlso IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
                                                                         temp = txtPollConcOneStackFourRun1D.Text
                                                                     Else
                                                                         temp = 0
@@ -17174,78 +17183,78 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+            If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                 temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 4
             Else
-                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                    And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                    AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                     temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text)) / 3
                 Else
-                    If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                         And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                    If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                         AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                         temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) +
                                 CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                     Else
-                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                             And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                             AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                             temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                     CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                         Else
-                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                  And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                  AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                 temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                             Else
-                                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                      And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                      AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                     temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text)) / 2
                                 Else
-                                    If txtEmissRateOneStackFourRun1A.Text <> "" And txtEmissRateOneStackFourRun1B.Text = "" _
-                                          And txtEmissRateOneStackFourRun1C.Text <> "" And txtEmissRateOneStackFourRun1D.Text = "" Then
+                                    If txtEmissRateOneStackFourRun1A.Text <> "" AndAlso txtEmissRateOneStackFourRun1B.Text = "" _
+                                          AndAlso txtEmissRateOneStackFourRun1C.Text <> "" AndAlso txtEmissRateOneStackFourRun1D.Text = "" Then
                                         temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text)) / 2
                                     Else
-                                        If txtEmissRateOneStackFourRun1A.Text <> "" And txtEmissRateOneStackFourRun1B.Text = "" _
-                                              And txtEmissRateOneStackFourRun1C.Text = "" And txtEmissRateOneStackFourRun1D.Text <> "" Then
+                                        If txtEmissRateOneStackFourRun1A.Text <> "" AndAlso txtEmissRateOneStackFourRun1B.Text = "" _
+                                              AndAlso txtEmissRateOneStackFourRun1C.Text = "" AndAlso txtEmissRateOneStackFourRun1D.Text <> "" Then
                                             temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1D.Text)) / 2
                                         Else
-                                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                                  And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                                  AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                 temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text)) / 2
                                             Else
-                                                If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                                      And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                      And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                                                If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                                      AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                      AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                                     temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1D.Text)) / 2
                                                 Else
                                                     If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                          And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                          And IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
-                                                          And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                                                          AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                          AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
+                                                          AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                                         temp = (CDec(txtEmissRateOneStackFourRun1C.Text) + CDec(txtEmissRateOneStackFourRun1D.Text)) / 2
                                                     Else
-                                                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                              And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                              And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                              AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                              AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                             temp = CDec(txtEmissRateOneStackFourRun1A.Text)
                                                         Else
                                                             If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                                  And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                                                  And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                                  And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                                                  AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                                                  AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                                  AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                                 temp = CDec(txtEmissRateOneStackFourRun1B.Text)
                                                             Else
                                                                 If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                                     And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                                     And IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
-                                                                     And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                                                     AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                                     AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
+                                                                     AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                                     temp = CDec(txtEmissRateOneStackFourRun1C.Text)
                                                                 Else
                                                                     If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                                       And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                                       And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                                       And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                                                                       AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                                       AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                                       AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                                                         temp = CDec(txtEmissRateOneStackFourRun1D.Text)
                                                                     Else
                                                                         temp = 0
@@ -17279,78 +17288,78 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-              And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+            If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+              AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                 temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 4
             Else
-                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                    And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                    AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                     temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text)) / 3
                 Else
-                    If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                         And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                    If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                         AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                         temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) +
                                 CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                     Else
-                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                             And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                             AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                             temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                     CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                         Else
-                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                  And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                  AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                 temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                             Else
-                                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                      And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                      AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                     temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text)) / 2
                                 Else
-                                    If txtEmissRateOneStackFourRun1A.Text <> "" And txtEmissRateOneStackFourRun1B.Text = "" _
-                                          And txtEmissRateOneStackFourRun1C.Text <> "" And txtEmissRateOneStackFourRun1D.Text = "" Then
+                                    If txtEmissRateOneStackFourRun1A.Text <> "" AndAlso txtEmissRateOneStackFourRun1B.Text = "" _
+                                          AndAlso txtEmissRateOneStackFourRun1C.Text <> "" AndAlso txtEmissRateOneStackFourRun1D.Text = "" Then
                                         temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text)) / 2
                                     Else
-                                        If txtEmissRateOneStackFourRun1A.Text <> "" And txtEmissRateOneStackFourRun1B.Text = "" _
-                                              And txtEmissRateOneStackFourRun1C.Text = "" And txtEmissRateOneStackFourRun1D.Text <> "" Then
+                                        If txtEmissRateOneStackFourRun1A.Text <> "" AndAlso txtEmissRateOneStackFourRun1B.Text = "" _
+                                              AndAlso txtEmissRateOneStackFourRun1C.Text = "" AndAlso txtEmissRateOneStackFourRun1D.Text <> "" Then
                                             temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1D.Text)) / 2
                                         Else
-                                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                                  And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                                  AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                 temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text)) / 2
                                             Else
-                                                If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                                      And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                      And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                                                If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                                      AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                      AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                                     temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1D.Text)) / 2
                                                 Else
                                                     If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                          And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                          And IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
-                                                          And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                                                          AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                          AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
+                                                          AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                                         temp = (CDec(txtEmissRateOneStackFourRun1C.Text) + CDec(txtEmissRateOneStackFourRun1D.Text)) / 2
                                                     Else
-                                                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                              And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                              And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                              AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                              AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                             temp = CDec(txtEmissRateOneStackFourRun1A.Text)
                                                         Else
                                                             If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                                  And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                                                  And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                                  And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                                                  AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                                                  AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                                  AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                                 temp = CDec(txtEmissRateOneStackFourRun1B.Text)
                                                             Else
                                                                 If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                                     And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                                     And IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
-                                                                     And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                                                     AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                                     AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
+                                                                     AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                                     temp = CDec(txtEmissRateOneStackFourRun1C.Text)
                                                                 Else
                                                                     If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                                       And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                                       And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                                       And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                                                                       AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                                       AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                                       AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                                                         temp = CDec(txtEmissRateOneStackFourRun1D.Text)
                                                                     Else
                                                                         temp = 0
@@ -17384,78 +17393,78 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-              And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+            If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+              AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                 temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 4
             Else
-                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                    And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                    AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                     temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text)) / 3
                 Else
-                    If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                         And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                    If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                         AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                         temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) +
                                 CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                     Else
-                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                             And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                             AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                             temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                     CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                         Else
-                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                  And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                  AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                 temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                             Else
-                                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                      And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                      AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                     temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text)) / 2
                                 Else
-                                    If txtEmissRateOneStackFourRun1A.Text <> "" And txtEmissRateOneStackFourRun1B.Text = "" _
-                                          And txtEmissRateOneStackFourRun1C.Text <> "" And txtEmissRateOneStackFourRun1D.Text = "" Then
+                                    If txtEmissRateOneStackFourRun1A.Text <> "" AndAlso txtEmissRateOneStackFourRun1B.Text = "" _
+                                          AndAlso txtEmissRateOneStackFourRun1C.Text <> "" AndAlso txtEmissRateOneStackFourRun1D.Text = "" Then
                                         temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text)) / 2
                                     Else
-                                        If txtEmissRateOneStackFourRun1A.Text <> "" And txtEmissRateOneStackFourRun1B.Text = "" _
-                                              And txtEmissRateOneStackFourRun1C.Text = "" And txtEmissRateOneStackFourRun1D.Text <> "" Then
+                                        If txtEmissRateOneStackFourRun1A.Text <> "" AndAlso txtEmissRateOneStackFourRun1B.Text = "" _
+                                              AndAlso txtEmissRateOneStackFourRun1C.Text = "" AndAlso txtEmissRateOneStackFourRun1D.Text <> "" Then
                                             temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1D.Text)) / 2
                                         Else
-                                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                                  And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                                  AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                 temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text)) / 2
                                             Else
-                                                If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                                      And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                      And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                                                If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                                      AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                      AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                                     temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1D.Text)) / 2
                                                 Else
                                                     If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                          And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                          And IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
-                                                          And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                                                          AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                          AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
+                                                          AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                                         temp = (CDec(txtEmissRateOneStackFourRun1C.Text) + CDec(txtEmissRateOneStackFourRun1D.Text)) / 2
                                                     Else
-                                                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                              And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                              And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                              AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                              AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                             temp = CDec(txtEmissRateOneStackFourRun1A.Text)
                                                         Else
                                                             If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                                  And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                                                  And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                                  And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                                                  AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                                                  AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                                  AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                                 temp = CDec(txtEmissRateOneStackFourRun1B.Text)
                                                             Else
                                                                 If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                                     And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                                     And IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
-                                                                     And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                                                     AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                                     AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
+                                                                     AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                                     temp = CDec(txtEmissRateOneStackFourRun1C.Text)
                                                                 Else
                                                                     If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                                       And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                                       And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                                       And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                                                                       AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                                       AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                                       AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                                                         temp = CDec(txtEmissRateOneStackFourRun1D.Text)
                                                                     Else
                                                                         temp = 0
@@ -17489,78 +17498,78 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+            If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                 temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 4
             Else
-                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                    And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                    AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                     temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text)) / 3
                 Else
-                    If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                         And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                    If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                         AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                         temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) +
                                 CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                     Else
-                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                             And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                             AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                             temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                     CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                         Else
-                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                  And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                  AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                 temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                             Else
-                                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                      And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                      AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                     temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text)) / 2
                                 Else
-                                    If txtEmissRateOneStackFourRun1A.Text <> "" And txtEmissRateOneStackFourRun1B.Text = "" _
-                                          And txtEmissRateOneStackFourRun1C.Text <> "" And txtEmissRateOneStackFourRun1D.Text = "" Then
+                                    If txtEmissRateOneStackFourRun1A.Text <> "" AndAlso txtEmissRateOneStackFourRun1B.Text = "" _
+                                          AndAlso txtEmissRateOneStackFourRun1C.Text <> "" AndAlso txtEmissRateOneStackFourRun1D.Text = "" Then
                                         temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text)) / 2
                                     Else
-                                        If txtEmissRateOneStackFourRun1A.Text <> "" And txtEmissRateOneStackFourRun1B.Text = "" _
-                                              And txtEmissRateOneStackFourRun1C.Text = "" And txtEmissRateOneStackFourRun1D.Text <> "" Then
+                                        If txtEmissRateOneStackFourRun1A.Text <> "" AndAlso txtEmissRateOneStackFourRun1B.Text = "" _
+                                              AndAlso txtEmissRateOneStackFourRun1C.Text = "" AndAlso txtEmissRateOneStackFourRun1D.Text <> "" Then
                                             temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1D.Text)) / 2
                                         Else
-                                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                                  And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                            If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                                  AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                 temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text)) / 2
                                             Else
-                                                If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                                      And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                      And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                                                If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                                      AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                      AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                                     temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1D.Text)) / 2
                                                 Else
                                                     If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                          And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                          And IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
-                                                          And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                                                          AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                          AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
+                                                          AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                                         temp = (CDec(txtEmissRateOneStackFourRun1C.Text) + CDec(txtEmissRateOneStackFourRun1D.Text)) / 2
                                                     Else
-                                                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                              And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                              And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                                        If IsNumeric(txtEmissRateOneStackFourRun1A.Text) AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                              AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                              AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                             temp = CDec(txtEmissRateOneStackFourRun1A.Text)
                                                         Else
                                                             If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                                  And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
-                                                                  And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                                  And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                                                  AndAlso IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
+                                                                  AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                                  AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                                 temp = CDec(txtEmissRateOneStackFourRun1B.Text)
                                                             Else
                                                                 If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                                     And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                                     And IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
-                                                                     And Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
+                                                                     AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                                     AndAlso IsNumeric(txtEmissRateOneStackFourRun1C.Text) _
+                                                                     AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1D.Text)) Then
                                                                     temp = CDec(txtEmissRateOneStackFourRun1C.Text)
                                                                 Else
                                                                     If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) _
-                                                                       And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
-                                                                       And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
-                                                                       And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
+                                                                       AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
+                                                                       AndAlso Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) _
+                                                                       AndAlso IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
                                                                         temp = CDec(txtEmissRateOneStackFourRun1D.Text)
                                                                     Else
                                                                         temp = 0
@@ -17594,26 +17603,26 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcPond1A.Text) And IsNumeric(txtPollConcPond1B.Text) And IsNumeric(txtPollConcPond1C.Text) Then
+            If IsNumeric(txtPollConcPond1A.Text) AndAlso IsNumeric(txtPollConcPond1B.Text) AndAlso IsNumeric(txtPollConcPond1C.Text) Then
                 temp = (CDec(txtPollConcPond1A.Text) + CDec(txtPollConcPond1B.Text) + CDec(txtPollConcPond1C.Text)) / 3
             Else
-                If IsNumeric(txtPollConcPond1A.Text) And IsNumeric(txtPollConcPond1B.Text) And Not (IsNumeric(txtPollConcPond1C.Text)) Then
+                If IsNumeric(txtPollConcPond1A.Text) AndAlso IsNumeric(txtPollConcPond1B.Text) AndAlso Not (IsNumeric(txtPollConcPond1C.Text)) Then
                     temp = (CDec(txtPollConcPond1A.Text) + CDec(txtPollConcPond1B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcPond1A.Text) And Not (IsNumeric(txtPollConcPond1B.Text)) And IsNumeric(txtPollConcPond1C.Text) Then
+                    If IsNumeric(txtPollConcPond1A.Text) AndAlso Not (IsNumeric(txtPollConcPond1B.Text)) AndAlso IsNumeric(txtPollConcPond1C.Text) Then
                         temp = (CDec(txtPollConcPond1A.Text) + CDec(txtPollConcPond1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcPond1A.Text)) And IsNumeric(txtPollConcPond1B.Text) And IsNumeric(txtPollConcPond1C.Text) Then
+                        If Not (IsNumeric(txtPollConcPond1A.Text)) AndAlso IsNumeric(txtPollConcPond1B.Text) AndAlso IsNumeric(txtPollConcPond1C.Text) Then
                             temp = (CDec(txtPollConcPond1B.Text) + CDec(txtPollConcPond1C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcPond1A.Text) And Not (IsNumeric(txtPollConcPond1B.Text)) And Not (IsNumeric(txtPollConcPond1C.Text)) Then
+                            If IsNumeric(txtPollConcPond1A.Text) AndAlso Not (IsNumeric(txtPollConcPond1B.Text)) AndAlso Not (IsNumeric(txtPollConcPond1C.Text)) Then
                                 temp = CDec(txtPollConcPond1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcPond1A.Text)) And IsNumeric(txtPollConcPond1B.Text) And Not (IsNumeric(txtPollConcPond1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcPond1A.Text)) AndAlso IsNumeric(txtPollConcPond1B.Text) AndAlso Not (IsNumeric(txtPollConcPond1C.Text)) Then
                                     temp = txtPollConcPond1B.Text
                                 Else
-                                    If Not (IsNumeric(txtPollConcPond1A.Text)) And Not (IsNumeric(txtPollConcPond1B.Text)) _
-                                        And IsNumeric(txtPollConcPond1C.Text) Then
+                                    If Not (IsNumeric(txtPollConcPond1A.Text)) AndAlso Not (IsNumeric(txtPollConcPond1B.Text)) _
+                                        AndAlso IsNumeric(txtPollConcPond1C.Text) Then
                                         temp = txtPollConcPond1C.Text
                                     Else
                                         temp = 0
@@ -17638,26 +17647,26 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcPond1A.Text) And IsNumeric(txtPollConcPond1B.Text) And IsNumeric(txtPollConcPond1C.Text) Then
+            If IsNumeric(txtPollConcPond1A.Text) AndAlso IsNumeric(txtPollConcPond1B.Text) AndAlso IsNumeric(txtPollConcPond1C.Text) Then
                 temp = (CDec(txtPollConcPond1A.Text) + CDec(txtPollConcPond1B.Text) + CDec(txtPollConcPond1C.Text)) / 3
             Else
-                If IsNumeric(txtPollConcPond1A.Text) And IsNumeric(txtPollConcPond1B.Text) And Not (IsNumeric(txtPollConcPond1C.Text)) Then
+                If IsNumeric(txtPollConcPond1A.Text) AndAlso IsNumeric(txtPollConcPond1B.Text) AndAlso Not (IsNumeric(txtPollConcPond1C.Text)) Then
                     temp = (CDec(txtPollConcPond1A.Text) + CDec(txtPollConcPond1B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcPond1A.Text) And Not (IsNumeric(txtPollConcPond1B.Text)) And IsNumeric(txtPollConcPond1C.Text) Then
+                    If IsNumeric(txtPollConcPond1A.Text) AndAlso Not (IsNumeric(txtPollConcPond1B.Text)) AndAlso IsNumeric(txtPollConcPond1C.Text) Then
                         temp = (CDec(txtPollConcPond1A.Text) + CDec(txtPollConcPond1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcPond1A.Text)) And IsNumeric(txtPollConcPond1B.Text) And IsNumeric(txtPollConcPond1C.Text) Then
+                        If Not (IsNumeric(txtPollConcPond1A.Text)) AndAlso IsNumeric(txtPollConcPond1B.Text) AndAlso IsNumeric(txtPollConcPond1C.Text) Then
                             temp = (CDec(txtPollConcPond1B.Text) + CDec(txtPollConcPond1C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcPond1A.Text) And Not (IsNumeric(txtPollConcPond1B.Text)) And Not (IsNumeric(txtPollConcPond1C.Text)) Then
+                            If IsNumeric(txtPollConcPond1A.Text) AndAlso Not (IsNumeric(txtPollConcPond1B.Text)) AndAlso Not (IsNumeric(txtPollConcPond1C.Text)) Then
                                 temp = CDec(txtPollConcPond1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcPond1A.Text)) And IsNumeric(txtPollConcPond1B.Text) And Not (IsNumeric(txtPollConcPond1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcPond1A.Text)) AndAlso IsNumeric(txtPollConcPond1B.Text) AndAlso Not (IsNumeric(txtPollConcPond1C.Text)) Then
                                     temp = txtPollConcPond1B.Text
                                 Else
-                                    If Not (IsNumeric(txtPollConcPond1A.Text)) And Not (IsNumeric(txtPollConcPond1B.Text)) _
-                                        And IsNumeric(txtPollConcPond1C.Text) Then
+                                    If Not (IsNumeric(txtPollConcPond1A.Text)) AndAlso Not (IsNumeric(txtPollConcPond1B.Text)) _
+                                        AndAlso IsNumeric(txtPollConcPond1C.Text) Then
                                         temp = txtPollConcPond1C.Text
                                     Else
                                         temp = 0
@@ -17682,26 +17691,26 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcPond1A.Text) And IsNumeric(txtPollConcPond1B.Text) And IsNumeric(txtPollConcPond1C.Text) Then
+            If IsNumeric(txtPollConcPond1A.Text) AndAlso IsNumeric(txtPollConcPond1B.Text) AndAlso IsNumeric(txtPollConcPond1C.Text) Then
                 temp = (CDec(txtPollConcPond1A.Text) + CDec(txtPollConcPond1B.Text) + CDec(txtPollConcPond1C.Text)) / 3
             Else
-                If IsNumeric(txtPollConcPond1A.Text) And IsNumeric(txtPollConcPond1B.Text) And Not (IsNumeric(txtPollConcPond1C.Text)) Then
+                If IsNumeric(txtPollConcPond1A.Text) AndAlso IsNumeric(txtPollConcPond1B.Text) AndAlso Not (IsNumeric(txtPollConcPond1C.Text)) Then
                     temp = (CDec(txtPollConcPond1A.Text) + CDec(txtPollConcPond1B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcPond1A.Text) And Not (IsNumeric(txtPollConcPond1B.Text)) And IsNumeric(txtPollConcPond1C.Text) Then
+                    If IsNumeric(txtPollConcPond1A.Text) AndAlso Not (IsNumeric(txtPollConcPond1B.Text)) AndAlso IsNumeric(txtPollConcPond1C.Text) Then
                         temp = (CDec(txtPollConcPond1A.Text) + CDec(txtPollConcPond1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcPond1A.Text)) And IsNumeric(txtPollConcPond1B.Text) And IsNumeric(txtPollConcPond1C.Text) Then
+                        If Not (IsNumeric(txtPollConcPond1A.Text)) AndAlso IsNumeric(txtPollConcPond1B.Text) AndAlso IsNumeric(txtPollConcPond1C.Text) Then
                             temp = (CDec(txtPollConcPond1B.Text) + CDec(txtPollConcPond1C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcPond1A.Text) And Not (IsNumeric(txtPollConcPond1B.Text)) And Not (IsNumeric(txtPollConcPond1C.Text)) Then
+                            If IsNumeric(txtPollConcPond1A.Text) AndAlso Not (IsNumeric(txtPollConcPond1B.Text)) AndAlso Not (IsNumeric(txtPollConcPond1C.Text)) Then
                                 temp = CDec(txtPollConcPond1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcPond1A.Text)) And IsNumeric(txtPollConcPond1B.Text) And Not (IsNumeric(txtPollConcPond1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcPond1A.Text)) AndAlso IsNumeric(txtPollConcPond1B.Text) AndAlso Not (IsNumeric(txtPollConcPond1C.Text)) Then
                                     temp = txtPollConcPond1B.Text
                                 Else
-                                    If Not (IsNumeric(txtPollConcPond1A.Text)) And Not (IsNumeric(txtPollConcPond1B.Text)) _
-                                        And IsNumeric(txtPollConcPond1C.Text) Then
+                                    If Not (IsNumeric(txtPollConcPond1A.Text)) AndAlso Not (IsNumeric(txtPollConcPond1B.Text)) _
+                                        AndAlso IsNumeric(txtPollConcPond1C.Text) Then
                                         temp = txtPollConcPond1C.Text
                                     Else
                                         temp = 0
@@ -17726,28 +17735,28 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtTreatmentRatePond1A.Text) And IsNumeric(txtTreatmentRatePond1B.Text) And IsNumeric(txtTreatmentRatePond1C.Text) Then
+            If IsNumeric(txtTreatmentRatePond1A.Text) AndAlso IsNumeric(txtTreatmentRatePond1B.Text) AndAlso IsNumeric(txtTreatmentRatePond1C.Text) Then
                 temp = (CDec(txtTreatmentRatePond1A.Text) + CDec(txtTreatmentRatePond1B.Text) + CDec(txtTreatmentRatePond1C.Text)) / 3
             Else
-                If IsNumeric(txtTreatmentRatePond1A.Text) And IsNumeric(txtTreatmentRatePond1B.Text) And Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
+                If IsNumeric(txtTreatmentRatePond1A.Text) AndAlso IsNumeric(txtTreatmentRatePond1B.Text) AndAlso Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
                     temp = (CDec(txtTreatmentRatePond1A.Text) + CDec(txtTreatmentRatePond1B.Text)) / 2
                 Else
-                    If IsNumeric(txtTreatmentRatePond1A.Text) And Not (IsNumeric(txtTreatmentRatePond1B.Text)) And IsNumeric(txtTreatmentRatePond1C.Text) Then
+                    If IsNumeric(txtTreatmentRatePond1A.Text) AndAlso Not (IsNumeric(txtTreatmentRatePond1B.Text)) AndAlso IsNumeric(txtTreatmentRatePond1C.Text) Then
                         temp = (CDec(txtTreatmentRatePond1A.Text) + CDec(txtTreatmentRatePond1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtTreatmentRatePond1A.Text)) And IsNumeric(txtTreatmentRatePond1B.Text) And IsNumeric(txtTreatmentRatePond1C.Text) Then
+                        If Not (IsNumeric(txtTreatmentRatePond1A.Text)) AndAlso IsNumeric(txtTreatmentRatePond1B.Text) AndAlso IsNumeric(txtTreatmentRatePond1C.Text) Then
                             temp = (CDec(txtTreatmentRatePond1B.Text) + CDec(txtTreatmentRatePond1C.Text)) / 2
                         Else
-                            If IsNumeric(txtTreatmentRatePond1A.Text) And Not (IsNumeric(txtTreatmentRatePond1B.Text)) _
-                                 And Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
+                            If IsNumeric(txtTreatmentRatePond1A.Text) AndAlso Not (IsNumeric(txtTreatmentRatePond1B.Text)) _
+                                 AndAlso Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
                                 temp = CDec(txtTreatmentRatePond1A.Text)
                             Else
-                                If Not (IsNumeric(txtTreatmentRatePond1A.Text)) And IsNumeric(txtTreatmentRatePond1B.Text) _
-                                    And Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
+                                If Not (IsNumeric(txtTreatmentRatePond1A.Text)) AndAlso IsNumeric(txtTreatmentRatePond1B.Text) _
+                                    AndAlso Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
                                     temp = txtTreatmentRatePond1B.Text
                                 Else
-                                    If Not (IsNumeric(txtTreatmentRatePond1A.Text)) And Not (IsNumeric(txtTreatmentRatePond1B.Text)) _
-                                       And IsNumeric(txtTreatmentRatePond1C.Text) Then
+                                    If Not (IsNumeric(txtTreatmentRatePond1A.Text)) AndAlso Not (IsNumeric(txtTreatmentRatePond1B.Text)) _
+                                       AndAlso IsNumeric(txtTreatmentRatePond1C.Text) Then
                                         temp = txtTreatmentRatePond1C.Text
                                     Else
                                         temp = 0
@@ -17772,28 +17781,28 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtTreatmentRatePond1A.Text) And IsNumeric(txtTreatmentRatePond1B.Text) And IsNumeric(txtTreatmentRatePond1C.Text) Then
+            If IsNumeric(txtTreatmentRatePond1A.Text) AndAlso IsNumeric(txtTreatmentRatePond1B.Text) AndAlso IsNumeric(txtTreatmentRatePond1C.Text) Then
                 temp = (CDec(txtTreatmentRatePond1A.Text) + CDec(txtTreatmentRatePond1B.Text) + CDec(txtTreatmentRatePond1C.Text)) / 3
             Else
-                If IsNumeric(txtTreatmentRatePond1A.Text) And IsNumeric(txtTreatmentRatePond1B.Text) And Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
+                If IsNumeric(txtTreatmentRatePond1A.Text) AndAlso IsNumeric(txtTreatmentRatePond1B.Text) AndAlso Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
                     temp = (CDec(txtTreatmentRatePond1A.Text) + CDec(txtTreatmentRatePond1B.Text)) / 2
                 Else
-                    If IsNumeric(txtTreatmentRatePond1A.Text) And Not (IsNumeric(txtTreatmentRatePond1B.Text)) And IsNumeric(txtTreatmentRatePond1C.Text) Then
+                    If IsNumeric(txtTreatmentRatePond1A.Text) AndAlso Not (IsNumeric(txtTreatmentRatePond1B.Text)) AndAlso IsNumeric(txtTreatmentRatePond1C.Text) Then
                         temp = (CDec(txtTreatmentRatePond1A.Text) + CDec(txtTreatmentRatePond1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtTreatmentRatePond1A.Text)) And IsNumeric(txtTreatmentRatePond1B.Text) And IsNumeric(txtTreatmentRatePond1C.Text) Then
+                        If Not (IsNumeric(txtTreatmentRatePond1A.Text)) AndAlso IsNumeric(txtTreatmentRatePond1B.Text) AndAlso IsNumeric(txtTreatmentRatePond1C.Text) Then
                             temp = (CDec(txtTreatmentRatePond1B.Text) + CDec(txtTreatmentRatePond1C.Text)) / 2
                         Else
-                            If IsNumeric(txtTreatmentRatePond1A.Text) And Not (IsNumeric(txtTreatmentRatePond1B.Text)) _
-                                 And Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
+                            If IsNumeric(txtTreatmentRatePond1A.Text) AndAlso Not (IsNumeric(txtTreatmentRatePond1B.Text)) _
+                                 AndAlso Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
                                 temp = CDec(txtTreatmentRatePond1A.Text)
                             Else
-                                If Not (IsNumeric(txtTreatmentRatePond1A.Text)) And IsNumeric(txtTreatmentRatePond1B.Text) _
-                                    And Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
+                                If Not (IsNumeric(txtTreatmentRatePond1A.Text)) AndAlso IsNumeric(txtTreatmentRatePond1B.Text) _
+                                    AndAlso Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
                                     temp = txtTreatmentRatePond1B.Text
                                 Else
-                                    If Not (IsNumeric(txtTreatmentRatePond1A.Text)) And Not (IsNumeric(txtTreatmentRatePond1B.Text)) _
-                                       And IsNumeric(txtTreatmentRatePond1C.Text) Then
+                                    If Not (IsNumeric(txtTreatmentRatePond1A.Text)) AndAlso Not (IsNumeric(txtTreatmentRatePond1B.Text)) _
+                                       AndAlso IsNumeric(txtTreatmentRatePond1C.Text) Then
                                         temp = txtTreatmentRatePond1C.Text
                                     Else
                                         temp = 0
@@ -17818,28 +17827,28 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtTreatmentRatePond1A.Text) And IsNumeric(txtTreatmentRatePond1B.Text) And IsNumeric(txtTreatmentRatePond1C.Text) Then
+            If IsNumeric(txtTreatmentRatePond1A.Text) AndAlso IsNumeric(txtTreatmentRatePond1B.Text) AndAlso IsNumeric(txtTreatmentRatePond1C.Text) Then
                 temp = (CDec(txtTreatmentRatePond1A.Text) + CDec(txtTreatmentRatePond1B.Text) + CDec(txtTreatmentRatePond1C.Text)) / 3
             Else
-                If IsNumeric(txtTreatmentRatePond1A.Text) And IsNumeric(txtTreatmentRatePond1B.Text) And Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
+                If IsNumeric(txtTreatmentRatePond1A.Text) AndAlso IsNumeric(txtTreatmentRatePond1B.Text) AndAlso Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
                     temp = (CDec(txtTreatmentRatePond1A.Text) + CDec(txtTreatmentRatePond1B.Text)) / 2
                 Else
-                    If IsNumeric(txtTreatmentRatePond1A.Text) And Not (IsNumeric(txtTreatmentRatePond1B.Text)) And IsNumeric(txtTreatmentRatePond1C.Text) Then
+                    If IsNumeric(txtTreatmentRatePond1A.Text) AndAlso Not (IsNumeric(txtTreatmentRatePond1B.Text)) AndAlso IsNumeric(txtTreatmentRatePond1C.Text) Then
                         temp = (CDec(txtTreatmentRatePond1A.Text) + CDec(txtTreatmentRatePond1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtTreatmentRatePond1A.Text)) And IsNumeric(txtTreatmentRatePond1B.Text) And IsNumeric(txtTreatmentRatePond1C.Text) Then
+                        If Not (IsNumeric(txtTreatmentRatePond1A.Text)) AndAlso IsNumeric(txtTreatmentRatePond1B.Text) AndAlso IsNumeric(txtTreatmentRatePond1C.Text) Then
                             temp = (CDec(txtTreatmentRatePond1B.Text) + CDec(txtTreatmentRatePond1C.Text)) / 2
                         Else
-                            If IsNumeric(txtTreatmentRatePond1A.Text) And Not (IsNumeric(txtTreatmentRatePond1B.Text)) _
-                                 And Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
+                            If IsNumeric(txtTreatmentRatePond1A.Text) AndAlso Not (IsNumeric(txtTreatmentRatePond1B.Text)) _
+                                 AndAlso Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
                                 temp = CDec(txtTreatmentRatePond1A.Text)
                             Else
-                                If Not (IsNumeric(txtTreatmentRatePond1A.Text)) And IsNumeric(txtTreatmentRatePond1B.Text) _
-                                    And Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
+                                If Not (IsNumeric(txtTreatmentRatePond1A.Text)) AndAlso IsNumeric(txtTreatmentRatePond1B.Text) _
+                                    AndAlso Not (IsNumeric(txtTreatmentRatePond1C.Text)) Then
                                     temp = txtTreatmentRatePond1B.Text
                                 Else
-                                    If Not (IsNumeric(txtTreatmentRatePond1A.Text)) And Not (IsNumeric(txtTreatmentRatePond1B.Text)) _
-                                       And IsNumeric(txtTreatmentRatePond1C.Text) Then
+                                    If Not (IsNumeric(txtTreatmentRatePond1A.Text)) AndAlso Not (IsNumeric(txtTreatmentRatePond1B.Text)) _
+                                       AndAlso IsNumeric(txtTreatmentRatePond1C.Text) Then
                                         temp = txtTreatmentRatePond1C.Text
                                     Else
                                         temp = 0
@@ -17864,7 +17873,7 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcAvgPond.Text) And IsNumeric(txtTreatmentRateAvgPond.Text) Then
+            If IsNumeric(txtPollConcAvgPond.Text) AndAlso IsNumeric(txtTreatmentRateAvgPond.Text) Then
                 temp = ((CDec(txtTreatmentRateAvgPond.Text)) / (CDec(txtPollConcAvgPond.Text))) * 100
             Else
                 temp = 0
@@ -17882,7 +17891,7 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcAvgPond.Text) And IsNumeric(txtTreatmentRateAvgPond.Text) Then
+            If IsNumeric(txtPollConcAvgPond.Text) AndAlso IsNumeric(txtTreatmentRateAvgPond.Text) Then
                 temp = ((CDec(txtTreatmentRateAvgPond.Text)) / (CDec(txtPollConcAvgPond.Text))) * 100
             Else
                 temp = 0
@@ -17900,30 +17909,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcGas1A.Text) And IsNumeric(txtPollConcGas1B.Text) And IsNumeric(txtPollConcGas1C.Text) Then
+            If IsNumeric(txtPollConcGas1A.Text) AndAlso IsNumeric(txtPollConcGas1B.Text) AndAlso IsNumeric(txtPollConcGas1C.Text) Then
                 temp = (CDec(txtPollConcGas1A.Text) + CDec(txtPollConcGas1B.Text) + CDec(txtPollConcGas1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcGas1A.Text) And IsNumeric(txtPollConcGas1B.Text) And Not (IsNumeric(txtPollConcGas1C.Text)) Then
+                If IsNumeric(txtPollConcGas1A.Text) AndAlso IsNumeric(txtPollConcGas1B.Text) AndAlso Not (IsNumeric(txtPollConcGas1C.Text)) Then
                     temp = (CDec(txtPollConcGas1A.Text) + CDec(txtPollConcGas1B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcGas1A.Text) And Not (IsNumeric(txtPollConcGas1B.Text)) And IsNumeric(txtPollConcGas1C.Text) Then
+                    If IsNumeric(txtPollConcGas1A.Text) AndAlso Not (IsNumeric(txtPollConcGas1B.Text)) AndAlso IsNumeric(txtPollConcGas1C.Text) Then
                         temp = (CDec(txtPollConcGas1A.Text) + CDec(txtPollConcGas1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcGas1A.Text)) And IsNumeric(txtPollConcGas1B.Text) _
-                              And IsNumeric(txtPollConcGas1C.Text) Then
+                        If Not (IsNumeric(txtPollConcGas1A.Text)) AndAlso IsNumeric(txtPollConcGas1B.Text) _
+                              AndAlso IsNumeric(txtPollConcGas1C.Text) Then
                             temp = (CDec(txtPollConcGas1B.Text) + CDec(txtPollConcGas1C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcGas1A.Text) And Not (IsNumeric(txtPollConcGas1B.Text)) _
-                                  And Not (IsNumeric(txtPollConcGas1C.Text)) Then
+                            If IsNumeric(txtPollConcGas1A.Text) AndAlso Not (IsNumeric(txtPollConcGas1B.Text)) _
+                                  AndAlso Not (IsNumeric(txtPollConcGas1C.Text)) Then
                                 temp = CDec(txtPollConcGas1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcGas1A.Text)) And IsNumeric(txtPollConcGas1B.Text) _
-                                      And Not (IsNumeric(txtPollConcGas1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcGas1A.Text)) AndAlso IsNumeric(txtPollConcGas1B.Text) _
+                                      AndAlso Not (IsNumeric(txtPollConcGas1C.Text)) Then
                                     temp = CDec(txtPollConcGas1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcGas1A.Text)) And Not (IsNumeric(txtPollConcGas1B.Text)) _
-                                          And IsNumeric(txtPollConcGas1C.Text) Then
+                                    If Not (IsNumeric(txtPollConcGas1A.Text)) AndAlso Not (IsNumeric(txtPollConcGas1B.Text)) _
+                                          AndAlso IsNumeric(txtPollConcGas1C.Text) Then
                                         temp = CDec(txtPollConcGas1C.Text)
                                     Else
                                         temp = 0
@@ -17948,30 +17957,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcGas1A.Text) And IsNumeric(txtPollConcGas1B.Text) And IsNumeric(txtPollConcGas1C.Text) Then
+            If IsNumeric(txtPollConcGas1A.Text) AndAlso IsNumeric(txtPollConcGas1B.Text) AndAlso IsNumeric(txtPollConcGas1C.Text) Then
                 temp = (CDec(txtPollConcGas1A.Text) + CDec(txtPollConcGas1B.Text) + CDec(txtPollConcGas1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcGas1A.Text) And IsNumeric(txtPollConcGas1B.Text) And Not (IsNumeric(txtPollConcGas1C.Text)) Then
+                If IsNumeric(txtPollConcGas1A.Text) AndAlso IsNumeric(txtPollConcGas1B.Text) AndAlso Not (IsNumeric(txtPollConcGas1C.Text)) Then
                     temp = (CDec(txtPollConcGas1A.Text) + CDec(txtPollConcGas1B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcGas1A.Text) And Not (IsNumeric(txtPollConcGas1B.Text)) And IsNumeric(txtPollConcGas1C.Text) Then
+                    If IsNumeric(txtPollConcGas1A.Text) AndAlso Not (IsNumeric(txtPollConcGas1B.Text)) AndAlso IsNumeric(txtPollConcGas1C.Text) Then
                         temp = (CDec(txtPollConcGas1A.Text) + CDec(txtPollConcGas1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcGas1A.Text)) And IsNumeric(txtPollConcGas1B.Text) _
-                              And IsNumeric(txtPollConcGas1C.Text) Then
+                        If Not (IsNumeric(txtPollConcGas1A.Text)) AndAlso IsNumeric(txtPollConcGas1B.Text) _
+                              AndAlso IsNumeric(txtPollConcGas1C.Text) Then
                             temp = (CDec(txtPollConcGas1B.Text) + CDec(txtPollConcGas1C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcGas1A.Text) And Not (IsNumeric(txtPollConcGas1B.Text)) _
-                                  And Not (IsNumeric(txtPollConcGas1C.Text)) Then
+                            If IsNumeric(txtPollConcGas1A.Text) AndAlso Not (IsNumeric(txtPollConcGas1B.Text)) _
+                                  AndAlso Not (IsNumeric(txtPollConcGas1C.Text)) Then
                                 temp = CDec(txtPollConcGas1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcGas1A.Text)) And IsNumeric(txtPollConcGas1B.Text) _
-                                      And Not (IsNumeric(txtPollConcGas1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcGas1A.Text)) AndAlso IsNumeric(txtPollConcGas1B.Text) _
+                                      AndAlso Not (IsNumeric(txtPollConcGas1C.Text)) Then
                                     temp = CDec(txtPollConcGas1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcGas1A.Text)) And Not (IsNumeric(txtPollConcGas1B.Text)) _
-                                          And IsNumeric(txtPollConcGas1C.Text) Then
+                                    If Not (IsNumeric(txtPollConcGas1A.Text)) AndAlso Not (IsNumeric(txtPollConcGas1B.Text)) _
+                                          AndAlso IsNumeric(txtPollConcGas1C.Text) Then
                                         temp = CDec(txtPollConcGas1C.Text)
                                     Else
                                         temp = 0
@@ -17996,30 +18005,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcGas1A.Text) And IsNumeric(txtPollConcGas1B.Text) And IsNumeric(txtPollConcGas1C.Text) Then
+            If IsNumeric(txtPollConcGas1A.Text) AndAlso IsNumeric(txtPollConcGas1B.Text) AndAlso IsNumeric(txtPollConcGas1C.Text) Then
                 temp = (CDec(txtPollConcGas1A.Text) + CDec(txtPollConcGas1B.Text) + CDec(txtPollConcGas1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcGas1A.Text) And IsNumeric(txtPollConcGas1B.Text) And Not (IsNumeric(txtPollConcGas1C.Text)) Then
+                If IsNumeric(txtPollConcGas1A.Text) AndAlso IsNumeric(txtPollConcGas1B.Text) AndAlso Not (IsNumeric(txtPollConcGas1C.Text)) Then
                     temp = (CDec(txtPollConcGas1A.Text) + CDec(txtPollConcGas1B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcGas1A.Text) And Not (IsNumeric(txtPollConcGas1B.Text)) And IsNumeric(txtPollConcGas1C.Text) Then
+                    If IsNumeric(txtPollConcGas1A.Text) AndAlso Not (IsNumeric(txtPollConcGas1B.Text)) AndAlso IsNumeric(txtPollConcGas1C.Text) Then
                         temp = (CDec(txtPollConcGas1A.Text) + CDec(txtPollConcGas1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcGas1A.Text)) And IsNumeric(txtPollConcGas1B.Text) _
-                              And IsNumeric(txtPollConcGas1C.Text) Then
+                        If Not (IsNumeric(txtPollConcGas1A.Text)) AndAlso IsNumeric(txtPollConcGas1B.Text) _
+                              AndAlso IsNumeric(txtPollConcGas1C.Text) Then
                             temp = (CDec(txtPollConcGas1B.Text) + CDec(txtPollConcGas1C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcGas1A.Text) And Not (IsNumeric(txtPollConcGas1B.Text)) _
-                                  And Not (IsNumeric(txtPollConcGas1C.Text)) Then
+                            If IsNumeric(txtPollConcGas1A.Text) AndAlso Not (IsNumeric(txtPollConcGas1B.Text)) _
+                                  AndAlso Not (IsNumeric(txtPollConcGas1C.Text)) Then
                                 temp = CDec(txtPollConcGas1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcGas1A.Text)) And IsNumeric(txtPollConcGas1B.Text) _
-                                      And Not (IsNumeric(txtPollConcGas1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcGas1A.Text)) AndAlso IsNumeric(txtPollConcGas1B.Text) _
+                                      AndAlso Not (IsNumeric(txtPollConcGas1C.Text)) Then
                                     temp = CDec(txtPollConcGas1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcGas1A.Text)) And Not (IsNumeric(txtPollConcGas1B.Text)) _
-                                          And IsNumeric(txtPollConcGas1C.Text) Then
+                                    If Not (IsNumeric(txtPollConcGas1A.Text)) AndAlso Not (IsNumeric(txtPollConcGas1B.Text)) _
+                                          AndAlso IsNumeric(txtPollConcGas1C.Text) Then
                                         temp = CDec(txtPollConcGas1C.Text)
                                     Else
                                         temp = 0
@@ -18044,30 +18053,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateGas1A.Text) And IsNumeric(txtEmissRateGas1B.Text) And IsNumeric(txtEmissRateGas1C.Text) Then
+            If IsNumeric(txtEmissRateGas1A.Text) AndAlso IsNumeric(txtEmissRateGas1B.Text) AndAlso IsNumeric(txtEmissRateGas1C.Text) Then
                 temp = (CDec(txtEmissRateGas1A.Text) + CDec(txtEmissRateGas1B.Text) + CDec(txtEmissRateGas1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtEmissRateGas1A.Text) And IsNumeric(txtEmissRateGas1B.Text) And Not (IsNumeric(txtEmissRateGas1C.Text)) Then
+                If IsNumeric(txtEmissRateGas1A.Text) AndAlso IsNumeric(txtEmissRateGas1B.Text) AndAlso Not (IsNumeric(txtEmissRateGas1C.Text)) Then
                     temp = (CDec(txtEmissRateGas1A.Text) + CDec(txtEmissRateGas1B.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateGas1A.Text) And Not (IsNumeric(txtEmissRateGas1B.Text)) And IsNumeric(txtEmissRateGas1C.Text) Then
+                    If IsNumeric(txtEmissRateGas1A.Text) AndAlso Not (IsNumeric(txtEmissRateGas1B.Text)) AndAlso IsNumeric(txtEmissRateGas1C.Text) Then
                         temp = (CDec(txtEmissRateGas1A.Text) + CDec(txtEmissRateGas1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateGas1A.Text)) And IsNumeric(txtEmissRateGas1B.Text) _
-                              And IsNumeric(txtEmissRateGas1C.Text) Then
+                        If Not (IsNumeric(txtEmissRateGas1A.Text)) AndAlso IsNumeric(txtEmissRateGas1B.Text) _
+                              AndAlso IsNumeric(txtEmissRateGas1C.Text) Then
                             temp = (CDec(txtEmissRateGas1B.Text) + CDec(txtEmissRateGas1C.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateGas1A.Text) And Not (IsNumeric(txtEmissRateGas1B.Text)) _
-                                  And Not (IsNumeric(txtEmissRateGas1C.Text)) Then
+                            If IsNumeric(txtEmissRateGas1A.Text) AndAlso Not (IsNumeric(txtEmissRateGas1B.Text)) _
+                                  AndAlso Not (IsNumeric(txtEmissRateGas1C.Text)) Then
                                 temp = CDec(txtEmissRateGas1A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateGas1A.Text)) And IsNumeric(txtEmissRateGas1B.Text) _
-                                      And Not (IsNumeric(txtEmissRateGas1C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateGas1A.Text)) AndAlso IsNumeric(txtEmissRateGas1B.Text) _
+                                      AndAlso Not (IsNumeric(txtEmissRateGas1C.Text)) Then
                                     temp = CDec(txtEmissRateGas1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateGas1A.Text)) And Not (IsNumeric(txtEmissRateGas1B.Text)) _
-                                          And IsNumeric(txtEmissRateGas1C.Text) Then
+                                    If Not (IsNumeric(txtEmissRateGas1A.Text)) AndAlso Not (IsNumeric(txtEmissRateGas1B.Text)) _
+                                          AndAlso IsNumeric(txtEmissRateGas1C.Text) Then
                                         temp = CDec(txtEmissRateGas1C.Text)
                                     Else
                                         temp = 0
@@ -18092,30 +18101,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateGas1A.Text) And IsNumeric(txtEmissRateGas1B.Text) And IsNumeric(txtEmissRateGas1C.Text) Then
+            If IsNumeric(txtEmissRateGas1A.Text) AndAlso IsNumeric(txtEmissRateGas1B.Text) AndAlso IsNumeric(txtEmissRateGas1C.Text) Then
                 temp = (CDec(txtEmissRateGas1A.Text) + CDec(txtEmissRateGas1B.Text) + CDec(txtEmissRateGas1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtEmissRateGas1A.Text) And IsNumeric(txtEmissRateGas1B.Text) And Not (IsNumeric(txtEmissRateGas1C.Text)) Then
+                If IsNumeric(txtEmissRateGas1A.Text) AndAlso IsNumeric(txtEmissRateGas1B.Text) AndAlso Not (IsNumeric(txtEmissRateGas1C.Text)) Then
                     temp = (CDec(txtEmissRateGas1A.Text) + CDec(txtEmissRateGas1B.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateGas1A.Text) And Not (IsNumeric(txtEmissRateGas1B.Text)) And IsNumeric(txtEmissRateGas1C.Text) Then
+                    If IsNumeric(txtEmissRateGas1A.Text) AndAlso Not (IsNumeric(txtEmissRateGas1B.Text)) AndAlso IsNumeric(txtEmissRateGas1C.Text) Then
                         temp = (CDec(txtEmissRateGas1A.Text) + CDec(txtEmissRateGas1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateGas1A.Text)) And IsNumeric(txtEmissRateGas1B.Text) _
-                              And IsNumeric(txtEmissRateGas1C.Text) Then
+                        If Not (IsNumeric(txtEmissRateGas1A.Text)) AndAlso IsNumeric(txtEmissRateGas1B.Text) _
+                              AndAlso IsNumeric(txtEmissRateGas1C.Text) Then
                             temp = (CDec(txtEmissRateGas1B.Text) + CDec(txtEmissRateGas1C.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateGas1A.Text) And Not (IsNumeric(txtEmissRateGas1B.Text)) _
-                                  And Not (IsNumeric(txtEmissRateGas1C.Text)) Then
+                            If IsNumeric(txtEmissRateGas1A.Text) AndAlso Not (IsNumeric(txtEmissRateGas1B.Text)) _
+                                  AndAlso Not (IsNumeric(txtEmissRateGas1C.Text)) Then
                                 temp = CDec(txtEmissRateGas1A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateGas1A.Text)) And IsNumeric(txtEmissRateGas1B.Text) _
-                                      And Not (IsNumeric(txtEmissRateGas1C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateGas1A.Text)) AndAlso IsNumeric(txtEmissRateGas1B.Text) _
+                                      AndAlso Not (IsNumeric(txtEmissRateGas1C.Text)) Then
                                     temp = CDec(txtEmissRateGas1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateGas1A.Text)) And Not (IsNumeric(txtEmissRateGas1B.Text)) _
-                                          And IsNumeric(txtEmissRateGas1C.Text) Then
+                                    If Not (IsNumeric(txtEmissRateGas1A.Text)) AndAlso Not (IsNumeric(txtEmissRateGas1B.Text)) _
+                                          AndAlso IsNumeric(txtEmissRateGas1C.Text) Then
                                         temp = CDec(txtEmissRateGas1C.Text)
                                     Else
                                         temp = 0
@@ -18140,30 +18149,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateGas1A.Text) And IsNumeric(txtEmissRateGas1B.Text) And IsNumeric(txtEmissRateGas1C.Text) Then
+            If IsNumeric(txtEmissRateGas1A.Text) AndAlso IsNumeric(txtEmissRateGas1B.Text) AndAlso IsNumeric(txtEmissRateGas1C.Text) Then
                 temp = (CDec(txtEmissRateGas1A.Text) + CDec(txtEmissRateGas1B.Text) + CDec(txtEmissRateGas1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtEmissRateGas1A.Text) And IsNumeric(txtEmissRateGas1B.Text) And Not (IsNumeric(txtEmissRateGas1C.Text)) Then
+                If IsNumeric(txtEmissRateGas1A.Text) AndAlso IsNumeric(txtEmissRateGas1B.Text) AndAlso Not (IsNumeric(txtEmissRateGas1C.Text)) Then
                     temp = (CDec(txtEmissRateGas1A.Text) + CDec(txtEmissRateGas1B.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateGas1A.Text) And Not (IsNumeric(txtEmissRateGas1B.Text)) And IsNumeric(txtEmissRateGas1C.Text) Then
+                    If IsNumeric(txtEmissRateGas1A.Text) AndAlso Not (IsNumeric(txtEmissRateGas1B.Text)) AndAlso IsNumeric(txtEmissRateGas1C.Text) Then
                         temp = (CDec(txtEmissRateGas1A.Text) + CDec(txtEmissRateGas1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateGas1A.Text)) And IsNumeric(txtEmissRateGas1B.Text) _
-                              And IsNumeric(txtEmissRateGas1C.Text) Then
+                        If Not (IsNumeric(txtEmissRateGas1A.Text)) AndAlso IsNumeric(txtEmissRateGas1B.Text) _
+                              AndAlso IsNumeric(txtEmissRateGas1C.Text) Then
                             temp = (CDec(txtEmissRateGas1B.Text) + CDec(txtEmissRateGas1C.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateGas1A.Text) And Not (IsNumeric(txtEmissRateGas1B.Text)) _
-                                  And Not (IsNumeric(txtEmissRateGas1C.Text)) Then
+                            If IsNumeric(txtEmissRateGas1A.Text) AndAlso Not (IsNumeric(txtEmissRateGas1B.Text)) _
+                                  AndAlso Not (IsNumeric(txtEmissRateGas1C.Text)) Then
                                 temp = CDec(txtEmissRateGas1A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateGas1A.Text)) And IsNumeric(txtEmissRateGas1B.Text) _
-                                      And Not (IsNumeric(txtEmissRateGas1C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateGas1A.Text)) AndAlso IsNumeric(txtEmissRateGas1B.Text) _
+                                      AndAlso Not (IsNumeric(txtEmissRateGas1C.Text)) Then
                                     temp = CDec(txtEmissRateGas1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateGas1A.Text)) And Not (IsNumeric(txtEmissRateGas1B.Text)) _
-                                          And IsNumeric(txtEmissRateGas1C.Text) Then
+                                    If Not (IsNumeric(txtEmissRateGas1A.Text)) AndAlso Not (IsNumeric(txtEmissRateGas1B.Text)) _
+                                          AndAlso IsNumeric(txtEmissRateGas1C.Text) Then
                                         temp = CDec(txtEmissRateGas1C.Text)
                                     Else
                                         temp = 0
@@ -18188,30 +18197,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtHeatingValue1AFlare.Text) And IsNumeric(txtHeatingValue1BFlare.Text) And IsNumeric(txtHeatingValue1CFlare.Text) Then
+            If IsNumeric(txtHeatingValue1AFlare.Text) AndAlso IsNumeric(txtHeatingValue1BFlare.Text) AndAlso IsNumeric(txtHeatingValue1CFlare.Text) Then
                 temp = (CDec(txtHeatingValue1AFlare.Text) + CDec(txtHeatingValue1BFlare.Text) + CDec(txtHeatingValue1CFlare.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtHeatingValue1AFlare.Text) And IsNumeric(txtHeatingValue1BFlare.Text) And Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
+                If IsNumeric(txtHeatingValue1AFlare.Text) AndAlso IsNumeric(txtHeatingValue1BFlare.Text) AndAlso Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
                     temp = (CDec(txtHeatingValue1AFlare.Text) + CDec(txtHeatingValue1BFlare.Text)) / 2
                 Else
-                    If IsNumeric(txtHeatingValue1AFlare.Text) And Not (IsNumeric(txtHeatingValue1BFlare.Text)) And IsNumeric(txtHeatingValue1CFlare.Text) Then
+                    If IsNumeric(txtHeatingValue1AFlare.Text) AndAlso Not (IsNumeric(txtHeatingValue1BFlare.Text)) AndAlso IsNumeric(txtHeatingValue1CFlare.Text) Then
                         temp = (CDec(txtHeatingValue1AFlare.Text) + CDec(txtHeatingValue1CFlare.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtHeatingValue1AFlare.Text)) And IsNumeric(txtHeatingValue1BFlare.Text) _
-                              And IsNumeric(txtHeatingValue1CFlare.Text) Then
+                        If Not (IsNumeric(txtHeatingValue1AFlare.Text)) AndAlso IsNumeric(txtHeatingValue1BFlare.Text) _
+                              AndAlso IsNumeric(txtHeatingValue1CFlare.Text) Then
                             temp = (CDec(txtHeatingValue1BFlare.Text) + CDec(txtHeatingValue1CFlare.Text)) / 2
                         Else
-                            If IsNumeric(txtHeatingValue1AFlare.Text) And Not (IsNumeric(txtHeatingValue1BFlare.Text)) _
-                                  And Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
+                            If IsNumeric(txtHeatingValue1AFlare.Text) AndAlso Not (IsNumeric(txtHeatingValue1BFlare.Text)) _
+                                  AndAlso Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
                                 temp = CDec(txtHeatingValue1AFlare.Text)
                             Else
-                                If Not (IsNumeric(txtHeatingValue1AFlare.Text)) And IsNumeric(txtHeatingValue1BFlare.Text) _
-                                      And Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
+                                If Not (IsNumeric(txtHeatingValue1AFlare.Text)) AndAlso IsNumeric(txtHeatingValue1BFlare.Text) _
+                                      AndAlso Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
                                     temp = CDec(txtHeatingValue1BFlare.Text)
                                 Else
-                                    If Not (IsNumeric(txtHeatingValue1AFlare.Text)) And Not (IsNumeric(txtHeatingValue1BFlare.Text)) _
-                                          And IsNumeric(txtHeatingValue1CFlare.Text) Then
+                                    If Not (IsNumeric(txtHeatingValue1AFlare.Text)) AndAlso Not (IsNumeric(txtHeatingValue1BFlare.Text)) _
+                                          AndAlso IsNumeric(txtHeatingValue1CFlare.Text) Then
                                         temp = CDec(txtHeatingValue1CFlare.Text)
                                     Else
                                         temp = 0
@@ -18236,30 +18245,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtHeatingValue1AFlare.Text) And IsNumeric(txtHeatingValue1BFlare.Text) And IsNumeric(txtHeatingValue1CFlare.Text) Then
+            If IsNumeric(txtHeatingValue1AFlare.Text) AndAlso IsNumeric(txtHeatingValue1BFlare.Text) AndAlso IsNumeric(txtHeatingValue1CFlare.Text) Then
                 temp = (CDec(txtHeatingValue1AFlare.Text) + CDec(txtHeatingValue1BFlare.Text) + CDec(txtHeatingValue1CFlare.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtHeatingValue1AFlare.Text) And IsNumeric(txtHeatingValue1BFlare.Text) And Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
+                If IsNumeric(txtHeatingValue1AFlare.Text) AndAlso IsNumeric(txtHeatingValue1BFlare.Text) AndAlso Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
                     temp = (CDec(txtHeatingValue1AFlare.Text) + CDec(txtHeatingValue1BFlare.Text)) / 2
                 Else
-                    If IsNumeric(txtHeatingValue1AFlare.Text) And Not (IsNumeric(txtHeatingValue1BFlare.Text)) And IsNumeric(txtHeatingValue1CFlare.Text) Then
+                    If IsNumeric(txtHeatingValue1AFlare.Text) AndAlso Not (IsNumeric(txtHeatingValue1BFlare.Text)) AndAlso IsNumeric(txtHeatingValue1CFlare.Text) Then
                         temp = (CDec(txtHeatingValue1AFlare.Text) + CDec(txtHeatingValue1CFlare.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtHeatingValue1AFlare.Text)) And IsNumeric(txtHeatingValue1BFlare.Text) _
-                              And IsNumeric(txtHeatingValue1CFlare.Text) Then
+                        If Not (IsNumeric(txtHeatingValue1AFlare.Text)) AndAlso IsNumeric(txtHeatingValue1BFlare.Text) _
+                              AndAlso IsNumeric(txtHeatingValue1CFlare.Text) Then
                             temp = (CDec(txtHeatingValue1BFlare.Text) + CDec(txtHeatingValue1CFlare.Text)) / 2
                         Else
-                            If IsNumeric(txtHeatingValue1AFlare.Text) And Not (IsNumeric(txtHeatingValue1BFlare.Text)) _
-                                  And Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
+                            If IsNumeric(txtHeatingValue1AFlare.Text) AndAlso Not (IsNumeric(txtHeatingValue1BFlare.Text)) _
+                                  AndAlso Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
                                 temp = CDec(txtHeatingValue1AFlare.Text)
                             Else
-                                If Not (IsNumeric(txtHeatingValue1AFlare.Text)) And IsNumeric(txtHeatingValue1BFlare.Text) _
-                                      And Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
+                                If Not (IsNumeric(txtHeatingValue1AFlare.Text)) AndAlso IsNumeric(txtHeatingValue1BFlare.Text) _
+                                      AndAlso Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
                                     temp = CDec(txtHeatingValue1BFlare.Text)
                                 Else
-                                    If Not (IsNumeric(txtHeatingValue1AFlare.Text)) And Not (IsNumeric(txtHeatingValue1BFlare.Text)) _
-                                          And IsNumeric(txtHeatingValue1CFlare.Text) Then
+                                    If Not (IsNumeric(txtHeatingValue1AFlare.Text)) AndAlso Not (IsNumeric(txtHeatingValue1BFlare.Text)) _
+                                          AndAlso IsNumeric(txtHeatingValue1CFlare.Text) Then
                                         temp = CDec(txtHeatingValue1CFlare.Text)
                                     Else
                                         temp = 0
@@ -18284,30 +18293,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtHeatingValue1AFlare.Text) And IsNumeric(txtHeatingValue1BFlare.Text) And IsNumeric(txtHeatingValue1CFlare.Text) Then
+            If IsNumeric(txtHeatingValue1AFlare.Text) AndAlso IsNumeric(txtHeatingValue1BFlare.Text) AndAlso IsNumeric(txtHeatingValue1CFlare.Text) Then
                 temp = (CDec(txtHeatingValue1AFlare.Text) + CDec(txtHeatingValue1BFlare.Text) + CDec(txtHeatingValue1CFlare.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtHeatingValue1AFlare.Text) And IsNumeric(txtHeatingValue1BFlare.Text) And Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
+                If IsNumeric(txtHeatingValue1AFlare.Text) AndAlso IsNumeric(txtHeatingValue1BFlare.Text) AndAlso Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
                     temp = (CDec(txtHeatingValue1AFlare.Text) + CDec(txtHeatingValue1BFlare.Text)) / 2
                 Else
-                    If IsNumeric(txtHeatingValue1AFlare.Text) And Not (IsNumeric(txtHeatingValue1BFlare.Text)) And IsNumeric(txtHeatingValue1CFlare.Text) Then
+                    If IsNumeric(txtHeatingValue1AFlare.Text) AndAlso Not (IsNumeric(txtHeatingValue1BFlare.Text)) AndAlso IsNumeric(txtHeatingValue1CFlare.Text) Then
                         temp = (CDec(txtHeatingValue1AFlare.Text) + CDec(txtHeatingValue1CFlare.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtHeatingValue1AFlare.Text)) And IsNumeric(txtHeatingValue1BFlare.Text) _
-                              And IsNumeric(txtHeatingValue1CFlare.Text) Then
+                        If Not (IsNumeric(txtHeatingValue1AFlare.Text)) AndAlso IsNumeric(txtHeatingValue1BFlare.Text) _
+                              AndAlso IsNumeric(txtHeatingValue1CFlare.Text) Then
                             temp = (CDec(txtHeatingValue1BFlare.Text) + CDec(txtHeatingValue1CFlare.Text)) / 2
                         Else
-                            If IsNumeric(txtHeatingValue1AFlare.Text) And Not (IsNumeric(txtHeatingValue1BFlare.Text)) _
-                                  And Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
+                            If IsNumeric(txtHeatingValue1AFlare.Text) AndAlso Not (IsNumeric(txtHeatingValue1BFlare.Text)) _
+                                  AndAlso Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
                                 temp = CDec(txtHeatingValue1AFlare.Text)
                             Else
-                                If Not (IsNumeric(txtHeatingValue1AFlare.Text)) And IsNumeric(txtHeatingValue1BFlare.Text) _
-                                      And Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
+                                If Not (IsNumeric(txtHeatingValue1AFlare.Text)) AndAlso IsNumeric(txtHeatingValue1BFlare.Text) _
+                                      AndAlso Not (IsNumeric(txtHeatingValue1CFlare.Text)) Then
                                     temp = CDec(txtHeatingValue1BFlare.Text)
                                 Else
-                                    If Not (IsNumeric(txtHeatingValue1AFlare.Text)) And Not (IsNumeric(txtHeatingValue1BFlare.Text)) _
-                                          And IsNumeric(txtHeatingValue1CFlare.Text) Then
+                                    If Not (IsNumeric(txtHeatingValue1AFlare.Text)) AndAlso Not (IsNumeric(txtHeatingValue1BFlare.Text)) _
+                                          AndAlso IsNumeric(txtHeatingValue1CFlare.Text) Then
                                         temp = CDec(txtHeatingValue1CFlare.Text)
                                     Else
                                         temp = 0
@@ -18332,30 +18341,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtVelocity1AFlare.Text) And IsNumeric(txtVelocity1BFlare.Text) And IsNumeric(txtVelocity1CFlare.Text) Then
+            If IsNumeric(txtVelocity1AFlare.Text) AndAlso IsNumeric(txtVelocity1BFlare.Text) AndAlso IsNumeric(txtVelocity1CFlare.Text) Then
                 temp = (CDec(txtVelocity1AFlare.Text) + CDec(txtVelocity1BFlare.Text) + CDec(txtVelocity1CFlare.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtVelocity1AFlare.Text) And IsNumeric(txtVelocity1BFlare.Text) And Not (IsNumeric(txtVelocity1CFlare.Text)) Then
+                If IsNumeric(txtVelocity1AFlare.Text) AndAlso IsNumeric(txtVelocity1BFlare.Text) AndAlso Not (IsNumeric(txtVelocity1CFlare.Text)) Then
                     temp = (CDec(txtVelocity1AFlare.Text) + CDec(txtVelocity1BFlare.Text)) / 2
                 Else
-                    If IsNumeric(txtVelocity1AFlare.Text) And Not (IsNumeric(txtVelocity1BFlare.Text)) And IsNumeric(txtVelocity1CFlare.Text) Then
+                    If IsNumeric(txtVelocity1AFlare.Text) AndAlso Not (IsNumeric(txtVelocity1BFlare.Text)) AndAlso IsNumeric(txtVelocity1CFlare.Text) Then
                         temp = (CDec(txtVelocity1AFlare.Text) + CDec(txtVelocity1CFlare.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtVelocity1AFlare.Text)) And IsNumeric(txtVelocity1BFlare.Text) _
-                              And IsNumeric(txtVelocity1CFlare.Text) Then
+                        If Not (IsNumeric(txtVelocity1AFlare.Text)) AndAlso IsNumeric(txtVelocity1BFlare.Text) _
+                              AndAlso IsNumeric(txtVelocity1CFlare.Text) Then
                             temp = (CDec(txtVelocity1BFlare.Text) + CDec(txtVelocity1CFlare.Text)) / 2
                         Else
-                            If IsNumeric(txtVelocity1AFlare.Text) And Not (IsNumeric(txtVelocity1BFlare.Text)) _
-                                  And Not (IsNumeric(txtVelocity1CFlare.Text)) Then
+                            If IsNumeric(txtVelocity1AFlare.Text) AndAlso Not (IsNumeric(txtVelocity1BFlare.Text)) _
+                                  AndAlso Not (IsNumeric(txtVelocity1CFlare.Text)) Then
                                 temp = CDec(txtVelocity1AFlare.Text)
                             Else
-                                If Not (IsNumeric(txtVelocity1AFlare.Text)) And IsNumeric(txtVelocity1BFlare.Text) _
-                                      And Not (IsNumeric(txtVelocity1CFlare.Text)) Then
+                                If Not (IsNumeric(txtVelocity1AFlare.Text)) AndAlso IsNumeric(txtVelocity1BFlare.Text) _
+                                      AndAlso Not (IsNumeric(txtVelocity1CFlare.Text)) Then
                                     temp = CDec(txtVelocity1BFlare.Text)
                                 Else
-                                    If Not (IsNumeric(txtVelocity1AFlare.Text)) And Not (IsNumeric(txtVelocity1BFlare.Text)) _
-                                          And IsNumeric(txtVelocity1CFlare.Text) Then
+                                    If Not (IsNumeric(txtVelocity1AFlare.Text)) AndAlso Not (IsNumeric(txtVelocity1BFlare.Text)) _
+                                          AndAlso IsNumeric(txtVelocity1CFlare.Text) Then
                                         temp = CDec(txtVelocity1CFlare.Text)
                                     Else
                                         temp = 0
@@ -18380,30 +18389,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtVelocity1AFlare.Text) And IsNumeric(txtVelocity1BFlare.Text) And IsNumeric(txtVelocity1CFlare.Text) Then
+            If IsNumeric(txtVelocity1AFlare.Text) AndAlso IsNumeric(txtVelocity1BFlare.Text) AndAlso IsNumeric(txtVelocity1CFlare.Text) Then
                 temp = (CDec(txtVelocity1AFlare.Text) + CDec(txtVelocity1BFlare.Text) + CDec(txtVelocity1CFlare.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtVelocity1AFlare.Text) And IsNumeric(txtVelocity1BFlare.Text) And Not (IsNumeric(txtVelocity1CFlare.Text)) Then
+                If IsNumeric(txtVelocity1AFlare.Text) AndAlso IsNumeric(txtVelocity1BFlare.Text) AndAlso Not (IsNumeric(txtVelocity1CFlare.Text)) Then
                     temp = (CDec(txtVelocity1AFlare.Text) + CDec(txtVelocity1BFlare.Text)) / 2
                 Else
-                    If IsNumeric(txtVelocity1AFlare.Text) And Not (IsNumeric(txtVelocity1BFlare.Text)) And IsNumeric(txtVelocity1CFlare.Text) Then
+                    If IsNumeric(txtVelocity1AFlare.Text) AndAlso Not (IsNumeric(txtVelocity1BFlare.Text)) AndAlso IsNumeric(txtVelocity1CFlare.Text) Then
                         temp = (CDec(txtVelocity1AFlare.Text) + CDec(txtVelocity1CFlare.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtVelocity1AFlare.Text)) And IsNumeric(txtVelocity1BFlare.Text) _
-                              And IsNumeric(txtVelocity1CFlare.Text) Then
+                        If Not (IsNumeric(txtVelocity1AFlare.Text)) AndAlso IsNumeric(txtVelocity1BFlare.Text) _
+                              AndAlso IsNumeric(txtVelocity1CFlare.Text) Then
                             temp = (CDec(txtVelocity1BFlare.Text) + CDec(txtVelocity1CFlare.Text)) / 2
                         Else
-                            If IsNumeric(txtVelocity1AFlare.Text) And Not (IsNumeric(txtVelocity1BFlare.Text)) _
-                                  And Not (IsNumeric(txtVelocity1CFlare.Text)) Then
+                            If IsNumeric(txtVelocity1AFlare.Text) AndAlso Not (IsNumeric(txtVelocity1BFlare.Text)) _
+                                  AndAlso Not (IsNumeric(txtVelocity1CFlare.Text)) Then
                                 temp = CDec(txtVelocity1AFlare.Text)
                             Else
-                                If Not (IsNumeric(txtVelocity1AFlare.Text)) And IsNumeric(txtVelocity1BFlare.Text) _
-                                      And Not (IsNumeric(txtVelocity1CFlare.Text)) Then
+                                If Not (IsNumeric(txtVelocity1AFlare.Text)) AndAlso IsNumeric(txtVelocity1BFlare.Text) _
+                                      AndAlso Not (IsNumeric(txtVelocity1CFlare.Text)) Then
                                     temp = CDec(txtVelocity1BFlare.Text)
                                 Else
-                                    If Not (IsNumeric(txtVelocity1AFlare.Text)) And Not (IsNumeric(txtVelocity1BFlare.Text)) _
-                                          And IsNumeric(txtVelocity1CFlare.Text) Then
+                                    If Not (IsNumeric(txtVelocity1AFlare.Text)) AndAlso Not (IsNumeric(txtVelocity1BFlare.Text)) _
+                                          AndAlso IsNumeric(txtVelocity1CFlare.Text) Then
                                         temp = CDec(txtVelocity1CFlare.Text)
                                     Else
                                         temp = 0
@@ -18428,30 +18437,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtVelocity1AFlare.Text) And IsNumeric(txtVelocity1BFlare.Text) And IsNumeric(txtVelocity1CFlare.Text) Then
+            If IsNumeric(txtVelocity1AFlare.Text) AndAlso IsNumeric(txtVelocity1BFlare.Text) AndAlso IsNumeric(txtVelocity1CFlare.Text) Then
                 temp = (CDec(txtVelocity1AFlare.Text) + CDec(txtVelocity1BFlare.Text) + CDec(txtVelocity1CFlare.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtVelocity1AFlare.Text) And IsNumeric(txtVelocity1BFlare.Text) And Not (IsNumeric(txtVelocity1CFlare.Text)) Then
+                If IsNumeric(txtVelocity1AFlare.Text) AndAlso IsNumeric(txtVelocity1BFlare.Text) AndAlso Not (IsNumeric(txtVelocity1CFlare.Text)) Then
                     temp = (CDec(txtVelocity1AFlare.Text) + CDec(txtVelocity1BFlare.Text)) / 2
                 Else
-                    If IsNumeric(txtVelocity1AFlare.Text) And Not (IsNumeric(txtVelocity1BFlare.Text)) And IsNumeric(txtVelocity1CFlare.Text) Then
+                    If IsNumeric(txtVelocity1AFlare.Text) AndAlso Not (IsNumeric(txtVelocity1BFlare.Text)) AndAlso IsNumeric(txtVelocity1CFlare.Text) Then
                         temp = (CDec(txtVelocity1AFlare.Text) + CDec(txtVelocity1CFlare.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtVelocity1AFlare.Text)) And IsNumeric(txtVelocity1BFlare.Text) _
-                              And IsNumeric(txtVelocity1CFlare.Text) Then
+                        If Not (IsNumeric(txtVelocity1AFlare.Text)) AndAlso IsNumeric(txtVelocity1BFlare.Text) _
+                              AndAlso IsNumeric(txtVelocity1CFlare.Text) Then
                             temp = (CDec(txtVelocity1BFlare.Text) + CDec(txtVelocity1CFlare.Text)) / 2
                         Else
-                            If IsNumeric(txtVelocity1AFlare.Text) And Not (IsNumeric(txtVelocity1BFlare.Text)) _
-                                  And Not (IsNumeric(txtVelocity1CFlare.Text)) Then
+                            If IsNumeric(txtVelocity1AFlare.Text) AndAlso Not (IsNumeric(txtVelocity1BFlare.Text)) _
+                                  AndAlso Not (IsNumeric(txtVelocity1CFlare.Text)) Then
                                 temp = CDec(txtVelocity1AFlare.Text)
                             Else
-                                If Not (IsNumeric(txtVelocity1AFlare.Text)) And IsNumeric(txtVelocity1BFlare.Text) _
-                                      And Not (IsNumeric(txtVelocity1CFlare.Text)) Then
+                                If Not (IsNumeric(txtVelocity1AFlare.Text)) AndAlso IsNumeric(txtVelocity1BFlare.Text) _
+                                      AndAlso Not (IsNumeric(txtVelocity1CFlare.Text)) Then
                                     temp = CDec(txtVelocity1BFlare.Text)
                                 Else
-                                    If Not (IsNumeric(txtVelocity1AFlare.Text)) And Not (IsNumeric(txtVelocity1BFlare.Text)) _
-                                          And IsNumeric(txtVelocity1CFlare.Text) Then
+                                    If Not (IsNumeric(txtVelocity1AFlare.Text)) AndAlso Not (IsNumeric(txtVelocity1BFlare.Text)) _
+                                          AndAlso IsNumeric(txtVelocity1CFlare.Text) Then
                                         temp = CDec(txtVelocity1CFlare.Text)
                                     Else
                                         temp = 0
@@ -18508,158 +18517,158 @@ Public Class ISMPTestReports
             Dim RelAccuracy As Double
             Dim x As Integer = 0
 
-            If txtRefMethodRata1.Text <> "" And IsNumeric(txtRefMethodRata1.Text) And chbOmitRunRata1.Checked = False Then
+            If txtRefMethodRata1.Text <> "" AndAlso IsNumeric(txtRefMethodRata1.Text) AndAlso chbOmitRunRata1.Checked = False Then
                 Ref1 = txtRefMethodRata1.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata1.Text.Length)
             Else
                 Ref1 = 0
             End If
-            If txtRefMethodRata2.Text <> "" And IsNumeric(txtRefMethodRata2.Text) And chbOmitRunRata2.Checked = False Then
+            If txtRefMethodRata2.Text <> "" AndAlso IsNumeric(txtRefMethodRata2.Text) AndAlso chbOmitRunRata2.Checked = False Then
                 Ref2 = txtRefMethodRata2.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata2.Text.Length)
             Else
                 Ref2 = 0
             End If
-            If txtRefMethodRata3.Text <> "" And IsNumeric(txtRefMethodRata3.Text) And chbOmitRunRata3.Checked = False Then
+            If txtRefMethodRata3.Text <> "" AndAlso IsNumeric(txtRefMethodRata3.Text) AndAlso chbOmitRunRata3.Checked = False Then
                 Ref3 = txtRefMethodRata3.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata3.Text.Length)
             Else
                 Ref3 = 0
             End If
-            If txtRefMethodRata4.Text <> "" And IsNumeric(txtRefMethodRata4.Text) And chbOmitRunRata4.Checked = False Then
+            If txtRefMethodRata4.Text <> "" AndAlso IsNumeric(txtRefMethodRata4.Text) AndAlso chbOmitRunRata4.Checked = False Then
                 Ref4 = txtRefMethodRata4.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata4.Text.Length)
             Else
                 Ref4 = 0
             End If
-            If txtRefMethodRata5.Text <> "" And IsNumeric(txtRefMethodRata5.Text) And chbOmitRunRata5.Checked = False Then
+            If txtRefMethodRata5.Text <> "" AndAlso IsNumeric(txtRefMethodRata5.Text) AndAlso chbOmitRunRata5.Checked = False Then
                 Ref5 = txtRefMethodRata5.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata5.Text.Length)
             Else
                 Ref5 = 0
             End If
-            If txtRefMethodRata6.Text <> "" And IsNumeric(txtRefMethodRata6.Text) And chbOmitRunRata6.Checked = False Then
+            If txtRefMethodRata6.Text <> "" AndAlso IsNumeric(txtRefMethodRata6.Text) AndAlso chbOmitRunRata6.Checked = False Then
                 Ref6 = txtRefMethodRata6.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata6.Text.Length)
             Else
                 Ref6 = 0
             End If
-            If txtRefMethodRata7.Text <> "" And IsNumeric(txtRefMethodRata7.Text) And chbOmitRunRata7.Checked = False Then
+            If txtRefMethodRata7.Text <> "" AndAlso IsNumeric(txtRefMethodRata7.Text) AndAlso chbOmitRunRata7.Checked = False Then
                 Ref7 = txtRefMethodRata7.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata7.Text.Length)
             Else
                 Ref7 = 0
             End If
-            If txtRefMethodRata8.Text <> "" And IsNumeric(txtRefMethodRata8.Text) And chbOmitRunRata8.Checked = False Then
+            If txtRefMethodRata8.Text <> "" AndAlso IsNumeric(txtRefMethodRata8.Text) AndAlso chbOmitRunRata8.Checked = False Then
                 Ref8 = txtRefMethodRata8.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata8.Text.Length)
             Else
                 Ref8 = 0
             End If
-            If txtRefMethodRata9.Text <> "" And IsNumeric(txtRefMethodRata9.Text) And chbOmitRunRata9.Checked = False Then
+            If txtRefMethodRata9.Text <> "" AndAlso IsNumeric(txtRefMethodRata9.Text) AndAlso chbOmitRunRata9.Checked = False Then
                 Ref9 = txtRefMethodRata9.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata9.Text.Length)
             Else
                 Ref9 = 0
             End If
-            If txtRefMethodRata10.Text <> "" And IsNumeric(txtRefMethodRata10.Text) And chbOmitRunRata10.Checked = False Then
+            If txtRefMethodRata10.Text <> "" AndAlso IsNumeric(txtRefMethodRata10.Text) AndAlso chbOmitRunRata10.Checked = False Then
                 Ref10 = txtRefMethodRata10.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata10.Text.Length)
             Else
                 Ref10 = 0
             End If
-            If txtRefMethodRata11.Text <> "" And IsNumeric(txtRefMethodRata11.Text) And chbOmitRunRata11.Checked = False Then
+            If txtRefMethodRata11.Text <> "" AndAlso IsNumeric(txtRefMethodRata11.Text) AndAlso chbOmitRunRata11.Checked = False Then
                 Ref11 = txtRefMethodRata11.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata11.Text.Length)
             Else
                 Ref11 = 0
             End If
-            If txtRefMethodRata12.Text <> "" And IsNumeric(txtRefMethodRata12.Text) And chbOmitRunRata12.Checked = False Then
+            If txtRefMethodRata12.Text <> "" AndAlso IsNumeric(txtRefMethodRata12.Text) AndAlso chbOmitRunRata12.Checked = False Then
                 Ref12 = txtRefMethodRata12.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata12.Text.Length)
             Else
                 Ref12 = 0
             End If
-            If txtCMSRata1.Text <> "" And IsNumeric(txtCMSRata1.Text) And chbOmitRunRata1.Checked = False Then
+            If txtCMSRata1.Text <> "" AndAlso IsNumeric(txtCMSRata1.Text) AndAlso chbOmitRunRata1.Checked = False Then
                 CMS1 = txtCMSRata1.Text
                 x = Math.Max(x, txtCMSRata1.Text.Length)
             Else
                 CMS1 = 0
             End If
 
-            If txtCMSRata2.Text <> "" And IsNumeric(txtCMSRata2.Text) And chbOmitRunRata2.Checked = False Then
+            If txtCMSRata2.Text <> "" AndAlso IsNumeric(txtCMSRata2.Text) AndAlso chbOmitRunRata2.Checked = False Then
                 CMS2 = txtCMSRata2.Text
                 x = Math.Max(x, txtCMSRata2.Text.Length)
             Else
                 CMS2 = 0
             End If
-            If txtCMSRata3.Text <> "" And IsNumeric(txtCMSRata3.Text) And chbOmitRunRata3.Checked = False Then
+            If txtCMSRata3.Text <> "" AndAlso IsNumeric(txtCMSRata3.Text) AndAlso chbOmitRunRata3.Checked = False Then
                 CMS3 = txtCMSRata3.Text
                 x = Math.Max(x, txtCMSRata3.Text.Length)
             Else
                 CMS3 = 0
             End If
-            If txtCMSRata4.Text <> "" And IsNumeric(txtCMSRata4.Text) And chbOmitRunRata4.Checked = False Then
+            If txtCMSRata4.Text <> "" AndAlso IsNumeric(txtCMSRata4.Text) AndAlso chbOmitRunRata4.Checked = False Then
                 CMS4 = txtCMSRata4.Text
                 x = Math.Max(x, txtCMSRata4.Text.Length)
             Else
                 CMS4 = 0
             End If
-            If txtCMSRata5.Text <> "" And IsNumeric(txtCMSRata5.Text) And chbOmitRunRata5.Checked = False Then
+            If txtCMSRata5.Text <> "" AndAlso IsNumeric(txtCMSRata5.Text) AndAlso chbOmitRunRata5.Checked = False Then
                 CMS5 = txtCMSRata5.Text
                 x = Math.Max(x, txtCMSRata5.Text.Length)
             Else
                 CMS5 = 0
             End If
-            If txtCMSRata6.Text <> "" And IsNumeric(txtCMSRata6.Text) And chbOmitRunRata6.Checked = False Then
+            If txtCMSRata6.Text <> "" AndAlso IsNumeric(txtCMSRata6.Text) AndAlso chbOmitRunRata6.Checked = False Then
                 CMS6 = txtCMSRata6.Text
                 x = Math.Max(x, txtCMSRata6.Text.Length)
             Else
                 CMS6 = 0
             End If
-            If txtCMSRata7.Text <> "" And IsNumeric(txtCMSRata7.Text) And chbOmitRunRata7.Checked = False Then
+            If txtCMSRata7.Text <> "" AndAlso IsNumeric(txtCMSRata7.Text) AndAlso chbOmitRunRata7.Checked = False Then
                 CMS7 = txtCMSRata7.Text
                 x = Math.Max(x, txtCMSRata7.Text.Length)
             Else
                 CMS7 = 0
             End If
-            If txtCMSRata8.Text <> "" And IsNumeric(txtCMSRata8.Text) And chbOmitRunRata8.Checked = False Then
+            If txtCMSRata8.Text <> "" AndAlso IsNumeric(txtCMSRata8.Text) AndAlso chbOmitRunRata8.Checked = False Then
                 CMS8 = txtCMSRata8.Text
                 x = Math.Max(x, txtCMSRata8.Text.Length)
             Else
                 CMS8 = 0
             End If
-            If txtCMSRata9.Text <> "" And IsNumeric(txtCMSRata9.Text) And chbOmitRunRata9.Checked = False Then
+            If txtCMSRata9.Text <> "" AndAlso IsNumeric(txtCMSRata9.Text) AndAlso chbOmitRunRata9.Checked = False Then
                 CMS9 = txtCMSRata9.Text
                 x = Math.Max(x, txtCMSRata9.Text.Length)
             Else
                 CMS9 = 0
             End If
-            If txtCMSRata10.Text <> "" And IsNumeric(txtCMSRata10.Text) And chbOmitRunRata10.Checked = False Then
+            If txtCMSRata10.Text <> "" AndAlso IsNumeric(txtCMSRata10.Text) AndAlso chbOmitRunRata10.Checked = False Then
                 CMS10 = txtCMSRata10.Text
                 x = Math.Max(x, txtCMSRata10.Text.Length)
             Else
                 CMS10 = 0
             End If
-            If txtCMSRata11.Text <> "" And IsNumeric(txtCMSRata11.Text) And chbOmitRunRata11.Checked = False Then
+            If txtCMSRata11.Text <> "" AndAlso IsNumeric(txtCMSRata11.Text) AndAlso chbOmitRunRata11.Checked = False Then
                 CMS11 = txtCMSRata11.Text
                 x = Math.Max(x, txtCMSRata11.Text.Length)
             Else
                 CMS11 = 0
             End If
-            If txtCMSRata12.Text <> "" And IsNumeric(txtCMSRata12.Text) And chbOmitRunRata12.Checked = False Then
+            If txtCMSRata12.Text <> "" AndAlso IsNumeric(txtCMSRata12.Text) AndAlso chbOmitRunRata12.Checked = False Then
                 CMS12 = txtCMSRata12.Text
                 x = Math.Max(x, txtCMSRata12.Text.Length)
             Else
@@ -18676,40 +18685,40 @@ Public Class ISMPTestReports
 
                 Dim temp, temp2 As Double
 
-                If chbOmitRunRata1.Checked = False And Ref1 <> 0 And CMS1 <> 0 Then
+                If chbOmitRunRata1.Checked = False AndAlso Ref1 <> 0 AndAlso CMS1 <> 0 Then
                     temp = ((Ref1 - CMS1) - MeanDiff) * ((Ref1 - CMS1) - MeanDiff)
                 End If
-                If chbOmitRunRata2.Checked = False And Ref2 <> 0 And CMS2 <> 0 Then
+                If chbOmitRunRata2.Checked = False AndAlso Ref2 <> 0 AndAlso CMS2 <> 0 Then
                     temp = temp + (((Ref2 - CMS2) - MeanDiff) * ((Ref2 - CMS2) - MeanDiff))
                 End If
-                If chbOmitRunRata3.Checked = False And Ref3 <> 0 And CMS3 <> 0 Then
+                If chbOmitRunRata3.Checked = False AndAlso Ref3 <> 0 AndAlso CMS3 <> 0 Then
                     temp = temp + (((Ref3 - CMS3) - MeanDiff) * ((Ref3 - CMS3) - MeanDiff))
                 End If
-                If chbOmitRunRata4.Checked = False And Ref4 <> 0 And CMS4 <> 0 Then
+                If chbOmitRunRata4.Checked = False AndAlso Ref4 <> 0 AndAlso CMS4 <> 0 Then
                     temp = temp + (((Ref4 - CMS4) - MeanDiff) * ((Ref4 - CMS4) - MeanDiff))
                 End If
-                If chbOmitRunRata5.Checked = False And Ref5 <> 0 And CMS5 <> 0 Then
+                If chbOmitRunRata5.Checked = False AndAlso Ref5 <> 0 AndAlso CMS5 <> 0 Then
                     temp = temp + (((Ref5 - CMS5) - MeanDiff) * ((Ref5 - CMS5) - MeanDiff))
                 End If
-                If chbOmitRunRata6.Checked = False And Ref6 <> 0 And CMS6 <> 0 Then
+                If chbOmitRunRata6.Checked = False AndAlso Ref6 <> 0 AndAlso CMS6 <> 0 Then
                     temp = temp + (((Ref6 - CMS6) - MeanDiff) * ((Ref6 - CMS6) - MeanDiff))
                 End If
-                If chbOmitRunRata7.Checked = False And Ref7 <> 0 And CMS7 <> 0 Then
+                If chbOmitRunRata7.Checked = False AndAlso Ref7 <> 0 AndAlso CMS7 <> 0 Then
                     temp = temp + (((Ref7 - CMS7) - MeanDiff) * ((Ref7 - CMS7) - MeanDiff))
                 End If
-                If chbOmitRunRata8.Checked = False And Ref8 <> 0 And CMS8 <> 0 Then
+                If chbOmitRunRata8.Checked = False AndAlso Ref8 <> 0 AndAlso CMS8 <> 0 Then
                     temp = temp + (((Ref8 - CMS8) - MeanDiff) * ((Ref8 - CMS8) - MeanDiff))
                 End If
-                If chbOmitRunRata9.Checked = False And Ref9 <> 0 And CMS9 <> 0 Then
+                If chbOmitRunRata9.Checked = False AndAlso Ref9 <> 0 AndAlso CMS9 <> 0 Then
                     temp = temp + (((Ref9 - CMS9) - MeanDiff) * ((Ref9 - CMS9) - MeanDiff))
                 End If
-                If chbOmitRunRata10.Checked = False And Ref10 <> 0 And CMS10 <> 0 Then
+                If chbOmitRunRata10.Checked = False AndAlso Ref10 <> 0 AndAlso CMS10 <> 0 Then
                     temp = temp + (((Ref10 - CMS10) - MeanDiff) * ((Ref10 - CMS10) - MeanDiff))
                 End If
-                If chbOmitRunRata11.Checked = False And Ref11 <> 0 And CMS11 <> 0 Then
+                If chbOmitRunRata11.Checked = False AndAlso Ref11 <> 0 AndAlso CMS11 <> 0 Then
                     temp = temp + (((Ref11 - CMS11) - MeanDiff) * ((Ref11 - CMS11) - MeanDiff))
                 End If
-                If chbOmitRunRata12.Checked = False And Ref12 <> 0 And CMS12 <> 0 Then
+                If chbOmitRunRata12.Checked = False AndAlso Ref12 <> 0 AndAlso CMS12 <> 0 Then
                     temp = temp + (((Ref12 - CMS12) - MeanDiff) * ((Ref12 - CMS12) - MeanDiff))
                 End If
 
@@ -19090,36 +19099,36 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcTwoStackStandard1A.Text) And IsNumeric(txtPollConcTwoStackStandard1B.Text) _
-                And IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
+            If IsNumeric(txtPollConcTwoStackStandard1A.Text) AndAlso IsNumeric(txtPollConcTwoStackStandard1B.Text) _
+                AndAlso IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
                 temp = (CDec(txtPollConcTwoStackStandard1A.Text) + CDec(txtPollConcTwoStackStandard1B.Text) + CDec(txtPollConcTwoStackStandard1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcTwoStackStandard1A.Text) And IsNumeric(txtPollConcTwoStackStandard1B.Text) _
-                       And Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
+                If IsNumeric(txtPollConcTwoStackStandard1A.Text) AndAlso IsNumeric(txtPollConcTwoStackStandard1B.Text) _
+                       AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
                     temp = (CDec(txtPollConcTwoStackStandard1A.Text) + CDec(txtPollConcTwoStackStandard1B.Text))
                     temp = temp / 2
                 Else
-                    If IsNumeric(txtPollConcTwoStackStandard1A.Text) And Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                         And IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
+                    If IsNumeric(txtPollConcTwoStackStandard1A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                         AndAlso IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
                         temp = (CDec(txtPollConcTwoStackStandard1A.Text) + CDec(txtPollConcTwoStackStandard1C.Text))
                         temp = temp / 2
                     Else
-                        If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) And (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                            And IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
+                        If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                            AndAlso IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
                             temp = (CDec(txtPollConcTwoStackStandard1B.Text) + CDec(txtPollConcTwoStackStandard1C.Text))
                             temp = temp / 2
                         Else
-                            If IsNumeric(txtPollConcTwoStackStandard1A.Text) And Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                                And Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
+                            If IsNumeric(txtPollConcTwoStackStandard1A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                                AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
                                 temp = CDec(txtPollConcTwoStackStandard1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) And (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                                    And Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                                    AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
                                     temp = CDec(txtPollConcTwoStackStandard1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) And Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
+                                    If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
                                         temp = CDec(txtPollConcTwoStackStandard1C.Text)
                                     Else
                                         temp = 0
@@ -19145,36 +19154,36 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcTwoStackStandard1A.Text) And IsNumeric(txtPollConcTwoStackStandard1B.Text) _
-                And IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
+            If IsNumeric(txtPollConcTwoStackStandard1A.Text) AndAlso IsNumeric(txtPollConcTwoStackStandard1B.Text) _
+                AndAlso IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
                 temp = (CDec(txtPollConcTwoStackStandard1A.Text) + CDec(txtPollConcTwoStackStandard1B.Text) + CDec(txtPollConcTwoStackStandard1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcTwoStackStandard1A.Text) And IsNumeric(txtPollConcTwoStackStandard1B.Text) _
-                       And Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
+                If IsNumeric(txtPollConcTwoStackStandard1A.Text) AndAlso IsNumeric(txtPollConcTwoStackStandard1B.Text) _
+                       AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
                     temp = (CDec(txtPollConcTwoStackStandard1A.Text) + CDec(txtPollConcTwoStackStandard1B.Text))
                     temp = temp / 2
                 Else
-                    If IsNumeric(txtPollConcTwoStackStandard1A.Text) And Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                         And IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
+                    If IsNumeric(txtPollConcTwoStackStandard1A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                         AndAlso IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
                         temp = (CDec(txtPollConcTwoStackStandard1A.Text) + CDec(txtPollConcTwoStackStandard1C.Text))
                         temp = temp / 2
                     Else
-                        If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) And (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                            And IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
+                        If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                            AndAlso IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
                             temp = (CDec(txtPollConcTwoStackStandard1B.Text) + CDec(txtPollConcTwoStackStandard1C.Text))
                             temp = temp / 2
                         Else
-                            If IsNumeric(txtPollConcTwoStackStandard1A.Text) And Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                                And Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
+                            If IsNumeric(txtPollConcTwoStackStandard1A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                                AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
                                 temp = CDec(txtPollConcTwoStackStandard1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) And (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                                    And Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                                    AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
                                     temp = CDec(txtPollConcTwoStackStandard1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) And Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
+                                    If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
                                         temp = CDec(txtPollConcTwoStackStandard1C.Text)
                                     Else
                                         temp = 0
@@ -19200,36 +19209,36 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcTwoStackStandard1A.Text) And IsNumeric(txtPollConcTwoStackStandard1B.Text) _
-                And IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
+            If IsNumeric(txtPollConcTwoStackStandard1A.Text) AndAlso IsNumeric(txtPollConcTwoStackStandard1B.Text) _
+                AndAlso IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
                 temp = (CDec(txtPollConcTwoStackStandard1A.Text) + CDec(txtPollConcTwoStackStandard1B.Text) + CDec(txtPollConcTwoStackStandard1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcTwoStackStandard1A.Text) And IsNumeric(txtPollConcTwoStackStandard1B.Text) _
-                       And Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
+                If IsNumeric(txtPollConcTwoStackStandard1A.Text) AndAlso IsNumeric(txtPollConcTwoStackStandard1B.Text) _
+                       AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
                     temp = (CDec(txtPollConcTwoStackStandard1A.Text) + CDec(txtPollConcTwoStackStandard1B.Text))
                     temp = temp / 2
                 Else
-                    If IsNumeric(txtPollConcTwoStackStandard1A.Text) And Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                         And IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
+                    If IsNumeric(txtPollConcTwoStackStandard1A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                         AndAlso IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
                         temp = (CDec(txtPollConcTwoStackStandard1A.Text) + CDec(txtPollConcTwoStackStandard1C.Text))
                         temp = temp / 2
                     Else
-                        If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) And (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                            And IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
+                        If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                            AndAlso IsNumeric(txtPollConcTwoStackStandard1C.Text) Then
                             temp = (CDec(txtPollConcTwoStackStandard1B.Text) + CDec(txtPollConcTwoStackStandard1C.Text))
                             temp = temp / 2
                         Else
-                            If IsNumeric(txtPollConcTwoStackStandard1A.Text) And Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                                And Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
+                            If IsNumeric(txtPollConcTwoStackStandard1A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                                AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
                                 temp = CDec(txtPollConcTwoStackStandard1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) And (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                                    And Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                                    AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
                                     temp = CDec(txtPollConcTwoStackStandard1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) And Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
+                                    If Not (IsNumeric(txtPollConcTwoStackStandard1A.Text)) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard1B.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackStandard1C.Text)) Then
                                         temp = CDec(txtPollConcTwoStackStandard1C.Text)
                                     Else
                                         temp = 0
@@ -19255,36 +19264,36 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcTwoStackStandard2A.Text) And IsNumeric(txtPollConcTwoStackStandard2B.Text) _
-                And IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
+            If IsNumeric(txtPollConcTwoStackStandard2A.Text) AndAlso IsNumeric(txtPollConcTwoStackStandard2B.Text) _
+                AndAlso IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
                 temp = (CDec(txtPollConcTwoStackStandard2A.Text) + CDec(txtPollConcTwoStackStandard2B.Text) + CDec(txtPollConcTwoStackStandard2C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcTwoStackStandard2A.Text) And IsNumeric(txtPollConcTwoStackStandard2B.Text) _
-                       And Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
+                If IsNumeric(txtPollConcTwoStackStandard2A.Text) AndAlso IsNumeric(txtPollConcTwoStackStandard2B.Text) _
+                       AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
                     temp = (CDec(txtPollConcTwoStackStandard2A.Text) + CDec(txtPollConcTwoStackStandard2B.Text))
                     temp = temp / 2
                 Else
-                    If IsNumeric(txtPollConcTwoStackStandard2A.Text) And Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                         And IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
+                    If IsNumeric(txtPollConcTwoStackStandard2A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                         AndAlso IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
                         temp = (CDec(txtPollConcTwoStackStandard2A.Text) + CDec(txtPollConcTwoStackStandard2C.Text))
                         temp = temp / 2
                     Else
-                        If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) And (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                            And IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
+                        If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                            AndAlso IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
                             temp = (CDec(txtPollConcTwoStackStandard2B.Text) + CDec(txtPollConcTwoStackStandard2C.Text))
                             temp = temp / 2
                         Else
-                            If IsNumeric(txtPollConcTwoStackStandard2A.Text) And Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                                And Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
+                            If IsNumeric(txtPollConcTwoStackStandard2A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                                AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
                                 temp = CDec(txtPollConcTwoStackStandard2A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) And (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                                    And Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
+                                If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                                    AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
                                     temp = CDec(txtPollConcTwoStackStandard2B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) And Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
+                                    If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
                                         temp = CDec(txtPollConcTwoStackStandard2C.Text)
                                     Else
                                         temp = 0
@@ -19311,36 +19320,36 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcTwoStackStandard2A.Text) And IsNumeric(txtPollConcTwoStackStandard2B.Text) _
-                And IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
+            If IsNumeric(txtPollConcTwoStackStandard2A.Text) AndAlso IsNumeric(txtPollConcTwoStackStandard2B.Text) _
+                AndAlso IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
                 temp = (CDec(txtPollConcTwoStackStandard2A.Text) + CDec(txtPollConcTwoStackStandard2B.Text) + CDec(txtPollConcTwoStackStandard2C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcTwoStackStandard2A.Text) And IsNumeric(txtPollConcTwoStackStandard2B.Text) _
-                       And Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
+                If IsNumeric(txtPollConcTwoStackStandard2A.Text) AndAlso IsNumeric(txtPollConcTwoStackStandard2B.Text) _
+                       AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
                     temp = (CDec(txtPollConcTwoStackStandard2A.Text) + CDec(txtPollConcTwoStackStandard2B.Text))
                     temp = temp / 2
                 Else
-                    If IsNumeric(txtPollConcTwoStackStandard2A.Text) And Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                         And IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
+                    If IsNumeric(txtPollConcTwoStackStandard2A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                         AndAlso IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
                         temp = (CDec(txtPollConcTwoStackStandard2A.Text) + CDec(txtPollConcTwoStackStandard2C.Text))
                         temp = temp / 2
                     Else
-                        If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) And (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                            And IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
+                        If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                            AndAlso IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
                             temp = (CDec(txtPollConcTwoStackStandard2B.Text) + CDec(txtPollConcTwoStackStandard2C.Text))
                             temp = temp / 2
                         Else
-                            If IsNumeric(txtPollConcTwoStackStandard2A.Text) And Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                                And Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
+                            If IsNumeric(txtPollConcTwoStackStandard2A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                                AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
                                 temp = CDec(txtPollConcTwoStackStandard2A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) And (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                                    And Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
+                                If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                                    AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
                                     temp = CDec(txtPollConcTwoStackStandard2B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) And Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
+                                    If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
                                         temp = CDec(txtPollConcTwoStackStandard2C.Text)
                                     Else
                                         temp = 0
@@ -19367,36 +19376,36 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcTwoStackStandard2A.Text) And IsNumeric(txtPollConcTwoStackStandard2B.Text) _
-                And IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
+            If IsNumeric(txtPollConcTwoStackStandard2A.Text) AndAlso IsNumeric(txtPollConcTwoStackStandard2B.Text) _
+                AndAlso IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
                 temp = (CDec(txtPollConcTwoStackStandard2A.Text) + CDec(txtPollConcTwoStackStandard2B.Text) + CDec(txtPollConcTwoStackStandard2C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcTwoStackStandard2A.Text) And IsNumeric(txtPollConcTwoStackStandard2B.Text) _
-                       And Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
+                If IsNumeric(txtPollConcTwoStackStandard2A.Text) AndAlso IsNumeric(txtPollConcTwoStackStandard2B.Text) _
+                       AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
                     temp = (CDec(txtPollConcTwoStackStandard2A.Text) + CDec(txtPollConcTwoStackStandard2B.Text))
                     temp = temp / 2
                 Else
-                    If IsNumeric(txtPollConcTwoStackStandard2A.Text) And Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                         And IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
+                    If IsNumeric(txtPollConcTwoStackStandard2A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                         AndAlso IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
                         temp = (CDec(txtPollConcTwoStackStandard2A.Text) + CDec(txtPollConcTwoStackStandard2C.Text))
                         temp = temp / 2
                     Else
-                        If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) And (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                            And IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
+                        If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                            AndAlso IsNumeric(txtPollConcTwoStackStandard2C.Text) Then
                             temp = (CDec(txtPollConcTwoStackStandard2B.Text) + CDec(txtPollConcTwoStackStandard2C.Text))
                             temp = temp / 2
                         Else
-                            If IsNumeric(txtPollConcTwoStackStandard2A.Text) And Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                                And Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
+                            If IsNumeric(txtPollConcTwoStackStandard2A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                                AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
                                 temp = CDec(txtPollConcTwoStackStandard2A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) And (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                                    And Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
+                                If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                                    AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
                                     temp = CDec(txtPollConcTwoStackStandard2B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) And Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
+                                    If Not (IsNumeric(txtPollConcTwoStackStandard2A.Text)) AndAlso Not (IsNumeric(txtPollConcTwoStackStandard2B.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackStandard2C.Text)) Then
                                         temp = CDec(txtPollConcTwoStackStandard2C.Text)
                                     Else
                                         temp = 0
@@ -19423,36 +19432,36 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And IsNumeric(txtEmissRateTwoStackStandard1B.Text) _
-                And IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
+            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard1B.Text) _
+                AndAlso IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
                 temp = (CDec(txtEmissRateTwoStackStandard1A.Text) + CDec(txtEmissRateTwoStackStandard1B.Text) + CDec(txtEmissRateTwoStackStandard1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And IsNumeric(txtEmissRateTwoStackStandard1B.Text) _
-                       And Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard1B.Text) _
+                       AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
                     temp = (CDec(txtEmissRateTwoStackStandard1A.Text) + CDec(txtEmissRateTwoStackStandard1B.Text))
                     temp = temp / 2
                 Else
-                    If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                         And IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
+                    If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                         AndAlso IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
                         temp = (CDec(txtEmissRateTwoStackStandard1A.Text) + CDec(txtEmissRateTwoStackStandard1C.Text))
                         temp = temp / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) And (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                            And IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
+                        If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                            AndAlso IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
                             temp = (CDec(txtEmissRateTwoStackStandard1B.Text) + CDec(txtEmissRateTwoStackStandard1C.Text))
                             temp = temp / 2
                         Else
-                            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                                And Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
+                            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                                AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
                                 temp = CDec(txtEmissRateTwoStackStandard1A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) And (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                                    And Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                                    AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
                                     temp = CDec(txtEmissRateTwoStackStandard1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) And Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                                        And (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
                                         temp = CDec(txtEmissRateTwoStackStandard1C.Text)
                                     Else
                                         temp = 0
@@ -19468,13 +19477,13 @@ Public Class ISMPTestReports
             x = Math.Max(x, txtEmissRateTwoStackStandard1C.Text.Length)
             txtEmissRateAvgTwoStackStandard1.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And IsNumeric(txtEmissRateTwoStackStandard2A.Text) Then
+            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard2A.Text) Then
                 temp = CDec(txtEmissRateTwoStackStandard1A.Text) + CDec(txtEmissRateTwoStackStandard2A.Text)
             Else
-                If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) Then
                     temp = CDec(txtEmissRateTwoStackStandard1A.Text)
                 Else
-                    If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) And (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) Then
+                    If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) Then
                         temp = CDec(txtEmissRateTwoStackStandard2A.Text)
                     Else
                         temp = 0
@@ -19487,33 +19496,33 @@ Public Class ISMPTestReports
             txtEmissRateTotalTwoStackStandard1.Text = Mid(CStr(temp), 1, x)
 
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) AndAlso
                  IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
                 temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                   And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                   AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                     temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                       And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                       AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                         temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                           And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                           AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                             temp = (CDec(txtEmissRateTotalTwoStackStandard2.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                               And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                               AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                 temp = txtEmissRateTotalTwoStackStandard1.Text
                             Else
-                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                     And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                     AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                     temp = txtEmissRateTotalTwoStackStandard2.Text
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                        And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                         temp = txtEmissRateTotalTwoStackStandard3.Text
                                     Else
                                         temp = 0
@@ -19540,36 +19549,36 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And IsNumeric(txtEmissRateTwoStackStandard1B.Text) _
-                And IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
+            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard1B.Text) _
+                AndAlso IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
                 temp = (CDec(txtEmissRateTwoStackStandard1A.Text) + CDec(txtEmissRateTwoStackStandard1B.Text) + CDec(txtEmissRateTwoStackStandard1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And IsNumeric(txtEmissRateTwoStackStandard1B.Text) _
-                       And Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard1B.Text) _
+                       AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
                     temp = (CDec(txtEmissRateTwoStackStandard1A.Text) + CDec(txtEmissRateTwoStackStandard1B.Text))
                     temp = temp / 2
                 Else
-                    If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                         And IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
+                    If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                         AndAlso IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
                         temp = (CDec(txtEmissRateTwoStackStandard1A.Text) + CDec(txtEmissRateTwoStackStandard1C.Text))
                         temp = temp / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) And (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                            And IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
+                        If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                            AndAlso IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
                             temp = (CDec(txtEmissRateTwoStackStandard1B.Text) + CDec(txtEmissRateTwoStackStandard1C.Text))
                             temp = temp / 2
                         Else
-                            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                                And Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
+                            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                                AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
                                 temp = CDec(txtEmissRateTwoStackStandard1A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) And (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                                    And Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                                    AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
                                     temp = CDec(txtEmissRateTwoStackStandard1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) And Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                                        And (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
                                         temp = CDec(txtEmissRateTwoStackStandard1C.Text)
                                     Else
                                         temp = 0
@@ -19585,13 +19594,13 @@ Public Class ISMPTestReports
             x = Math.Max(x, txtEmissRateTwoStackStandard1C.Text.Length)
             txtEmissRateAvgTwoStackStandard1.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTwoStackStandard1B.Text) And IsNumeric(txtEmissRateTwoStackStandard2B.Text) Then
+            If IsNumeric(txtEmissRateTwoStackStandard1B.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard2B.Text) Then
                 temp = CDec(txtEmissRateTwoStackStandard1B.Text) + CDec(txtEmissRateTwoStackStandard2B.Text)
             Else
-                If IsNumeric(txtEmissRateTwoStackStandard1B.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackStandard1B.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) Then
                     temp = CDec(txtEmissRateTwoStackStandard1B.Text)
                 Else
-                    If Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) And (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) Then
+                    If Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) Then
                         temp = CDec(txtEmissRateTwoStackStandard2B.Text)
                     Else
                         temp = 0
@@ -19603,33 +19612,33 @@ Public Class ISMPTestReports
             x = Math.Max(x, temp)
             txtEmissRateTotalTwoStackStandard2.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) AndAlso
                 IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
                 temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                   And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                   AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                     temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                       And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                       AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                         temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                           And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                           AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                             temp = (CDec(txtEmissRateTotalTwoStackStandard2.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                               And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                               AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                 temp = txtEmissRateTotalTwoStackStandard1.Text
                             Else
-                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                     And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                     AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                     temp = txtEmissRateTotalTwoStackStandard2.Text
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                        And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                         temp = txtEmissRateTotalTwoStackStandard3.Text
                                     Else
                                         temp = 0
@@ -19656,36 +19665,36 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And IsNumeric(txtEmissRateTwoStackStandard1B.Text) _
-                And IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
+            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard1B.Text) _
+                AndAlso IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
                 temp = (CDec(txtEmissRateTwoStackStandard1A.Text) + CDec(txtEmissRateTwoStackStandard1B.Text) + CDec(txtEmissRateTwoStackStandard1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And IsNumeric(txtEmissRateTwoStackStandard1B.Text) _
-                       And Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard1B.Text) _
+                       AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
                     temp = (CDec(txtEmissRateTwoStackStandard1A.Text) + CDec(txtEmissRateTwoStackStandard1B.Text))
                     temp = temp / 2
                 Else
-                    If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                         And IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
+                    If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                         AndAlso IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
                         temp = (CDec(txtEmissRateTwoStackStandard1A.Text) + CDec(txtEmissRateTwoStackStandard1C.Text))
                         temp = temp / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) And (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                            And IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
+                        If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                            AndAlso IsNumeric(txtEmissRateTwoStackStandard1C.Text) Then
                             temp = (CDec(txtEmissRateTwoStackStandard1B.Text) + CDec(txtEmissRateTwoStackStandard1C.Text))
                             temp = temp / 2
                         Else
-                            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                                And Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
+                            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                                AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
                                 temp = CDec(txtEmissRateTwoStackStandard1A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) And (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                                    And Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                                    AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
                                     temp = CDec(txtEmissRateTwoStackStandard1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) And Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
-                                        And (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) Then
                                         temp = CDec(txtEmissRateTwoStackStandard1C.Text)
                                     Else
                                         temp = 0
@@ -19701,13 +19710,13 @@ Public Class ISMPTestReports
             x = Math.Max(x, txtEmissRateTwoStackStandard1C.Text.Length)
             txtEmissRateAvgTwoStackStandard1.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTwoStackStandard1C.Text) And IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
+            If IsNumeric(txtEmissRateTwoStackStandard1C.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
                 temp = CDec(txtEmissRateTwoStackStandard1C.Text) + CDec(txtEmissRateTwoStackStandard2C.Text)
             Else
-                If IsNumeric(txtEmissRateTwoStackStandard1C.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackStandard1C.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                     temp = CDec(txtEmissRateTwoStackStandard1C.Text)
                 Else
-                    If Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) And (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                    If Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                         temp = CDec(txtEmissRateTwoStackStandard2C.Text)
                     Else
                         temp = 0
@@ -19719,33 +19728,33 @@ Public Class ISMPTestReports
             x = Math.Max(x, temp)
             txtEmissRateTotalTwoStackStandard3.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) AndAlso
                 IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
                 temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                   And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                   AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                     temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                       And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                       AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                         temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                           And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                           AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                             temp = (CDec(txtEmissRateTotalTwoStackStandard2.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                               And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                               AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                 temp = txtEmissRateTotalTwoStackStandard1.Text
                             Else
-                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                     And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                     AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                     temp = txtEmissRateTotalTwoStackStandard2.Text
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                        And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                         temp = txtEmissRateTotalTwoStackStandard3.Text
                                     Else
                                         temp = 0
@@ -19772,36 +19781,36 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTwoStackStandard2A.Text) And IsNumeric(txtEmissRateTwoStackStandard2B.Text) _
-                And IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
+            If IsNumeric(txtEmissRateTwoStackStandard2A.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard2B.Text) _
+                AndAlso IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
                 temp = (CDec(txtEmissRateTwoStackStandard2A.Text) + CDec(txtEmissRateTwoStackStandard2B.Text) + CDec(txtEmissRateTwoStackStandard2C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtEmissRateTwoStackStandard2A.Text) And IsNumeric(txtEmissRateTwoStackStandard2B.Text) _
-                       And Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackStandard2A.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard2B.Text) _
+                       AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                     temp = (CDec(txtEmissRateTwoStackStandard2A.Text) + CDec(txtEmissRateTwoStackStandard2B.Text))
                     temp = temp / 2
                 Else
-                    If IsNumeric(txtEmissRateTwoStackStandard2A.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                         And IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
+                    If IsNumeric(txtEmissRateTwoStackStandard2A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                         AndAlso IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
                         temp = (CDec(txtEmissRateTwoStackStandard2A.Text) + CDec(txtEmissRateTwoStackStandard2C.Text))
                         temp = temp / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) And (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                            And IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
+                        If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                            AndAlso IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
                             temp = (CDec(txtEmissRateTwoStackStandard2B.Text) + CDec(txtEmissRateTwoStackStandard2C.Text))
                             temp = temp / 2
                         Else
-                            If IsNumeric(txtEmissRateTwoStackStandard2A.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                                And Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                            If IsNumeric(txtEmissRateTwoStackStandard2A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                                AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                                 temp = CDec(txtEmissRateTwoStackStandard2A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) And (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                                    And Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                                    AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                                     temp = CDec(txtEmissRateTwoStackStandard2B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) And Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                                        And (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                                         temp = CDec(txtEmissRateTwoStackStandard2C.Text)
                                     Else
                                         temp = 0
@@ -19817,13 +19826,13 @@ Public Class ISMPTestReports
             x = Math.Max(x, txtEmissRateTwoStackStandard2C.Text.Length)
             txtEmissRateAvgTwoStackStandard2.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And IsNumeric(txtEmissRateTwoStackStandard2A.Text) Then
+            If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard2A.Text) Then
                 temp = CDec(txtEmissRateTwoStackStandard1A.Text) + CDec(txtEmissRateTwoStackStandard2A.Text)
             Else
-                If IsNumeric(txtEmissRateTwoStackStandard1A.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackStandard1A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) Then
                     temp = CDec(txtEmissRateTwoStackStandard1A.Text)
                 Else
-                    If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) And (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) Then
+                    If Not (IsNumeric(txtEmissRateTwoStackStandard1A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) Then
                         temp = CDec(txtEmissRateTwoStackStandard2A.Text)
                     Else
                         temp = 0
@@ -19835,33 +19844,33 @@ Public Class ISMPTestReports
             x = Math.Max(x, temp)
             txtEmissRateTotalTwoStackStandard1.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) AndAlso
                 IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
                 temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                   And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                   AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                     temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                       And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                       AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                         temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                           And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                           AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                             temp = (CDec(txtEmissRateTotalTwoStackStandard2.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                               And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                               AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                 temp = txtEmissRateTotalTwoStackStandard1.Text
                             Else
-                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                     And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                     AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                     temp = txtEmissRateTotalTwoStackStandard2.Text
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                        And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                         temp = txtEmissRateTotalTwoStackStandard3.Text
                                     Else
                                         temp = 0
@@ -19888,36 +19897,36 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTwoStackStandard2A.Text) And IsNumeric(txtEmissRateTwoStackStandard2B.Text) _
-                And IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
+            If IsNumeric(txtEmissRateTwoStackStandard2A.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard2B.Text) _
+                AndAlso IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
                 temp = (CDec(txtEmissRateTwoStackStandard2A.Text) + CDec(txtEmissRateTwoStackStandard2B.Text) + CDec(txtEmissRateTwoStackStandard2C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtEmissRateTwoStackStandard2A.Text) And IsNumeric(txtEmissRateTwoStackStandard2B.Text) _
-                       And Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackStandard2A.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard2B.Text) _
+                       AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                     temp = (CDec(txtEmissRateTwoStackStandard2A.Text) + CDec(txtEmissRateTwoStackStandard2B.Text))
                     temp = temp / 2
                 Else
-                    If IsNumeric(txtEmissRateTwoStackStandard2A.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                         And IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
+                    If IsNumeric(txtEmissRateTwoStackStandard2A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                         AndAlso IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
                         temp = (CDec(txtEmissRateTwoStackStandard2A.Text) + CDec(txtEmissRateTwoStackStandard2C.Text))
                         temp = temp / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) And (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                            And IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
+                        If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                            AndAlso IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
                             temp = (CDec(txtEmissRateTwoStackStandard2B.Text) + CDec(txtEmissRateTwoStackStandard2C.Text))
                             temp = temp / 2
                         Else
-                            If IsNumeric(txtEmissRateTwoStackStandard2A.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                                And Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                            If IsNumeric(txtEmissRateTwoStackStandard2A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                                AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                                 temp = CDec(txtEmissRateTwoStackStandard2A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) And (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                                    And Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                                    AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                                     temp = CDec(txtEmissRateTwoStackStandard2B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) And Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                                        And (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                                         temp = CDec(txtEmissRateTwoStackStandard2C.Text)
                                     Else
                                         temp = 0
@@ -19933,13 +19942,13 @@ Public Class ISMPTestReports
             x = Math.Max(x, txtEmissRateTwoStackStandard2C.Text.Length)
             txtEmissRateAvgTwoStackStandard2.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTwoStackStandard1B.Text) And IsNumeric(txtEmissRateTwoStackStandard2B.Text) Then
+            If IsNumeric(txtEmissRateTwoStackStandard1B.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard2B.Text) Then
                 temp = CDec(txtEmissRateTwoStackStandard1B.Text) + CDec(txtEmissRateTwoStackStandard2B.Text)
             Else
-                If IsNumeric(txtEmissRateTwoStackStandard1B.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackStandard1B.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) Then
                     temp = CDec(txtEmissRateTwoStackStandard1B.Text)
                 Else
-                    If Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) And (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) Then
+                    If Not (IsNumeric(txtEmissRateTwoStackStandard1B.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) Then
                         temp = CDec(txtEmissRateTwoStackStandard2B.Text)
                     Else
                         temp = 0
@@ -19951,33 +19960,33 @@ Public Class ISMPTestReports
             x = Math.Max(x, temp)
             txtEmissRateTotalTwoStackStandard2.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) AndAlso
                 IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
                 temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                   And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                   AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                     temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                       And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                       AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                         temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                           And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                           AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                             temp = (CDec(txtEmissRateTotalTwoStackStandard2.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                               And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                               AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                 temp = txtEmissRateTotalTwoStackStandard1.Text
                             Else
-                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                     And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                     AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                     temp = txtEmissRateTotalTwoStackStandard2.Text
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                        And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                         temp = txtEmissRateTotalTwoStackStandard3.Text
                                     Else
                                         temp = 0
@@ -20004,36 +20013,36 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTwoStackStandard2A.Text) And IsNumeric(txtEmissRateTwoStackStandard2B.Text) _
-                And IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
+            If IsNumeric(txtEmissRateTwoStackStandard2A.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard2B.Text) _
+                AndAlso IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
                 temp = (CDec(txtEmissRateTwoStackStandard2A.Text) + CDec(txtEmissRateTwoStackStandard2B.Text) + CDec(txtEmissRateTwoStackStandard2C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtEmissRateTwoStackStandard2A.Text) And IsNumeric(txtEmissRateTwoStackStandard2B.Text) _
-                       And Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackStandard2A.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard2B.Text) _
+                       AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                     temp = (CDec(txtEmissRateTwoStackStandard2A.Text) + CDec(txtEmissRateTwoStackStandard2B.Text))
                     temp = temp / 2
                 Else
-                    If IsNumeric(txtEmissRateTwoStackStandard2A.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                         And IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
+                    If IsNumeric(txtEmissRateTwoStackStandard2A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                         AndAlso IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
                         temp = (CDec(txtEmissRateTwoStackStandard2A.Text) + CDec(txtEmissRateTwoStackStandard2C.Text))
                         temp = temp / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) And (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                            And IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
+                        If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                            AndAlso IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
                             temp = (CDec(txtEmissRateTwoStackStandard2B.Text) + CDec(txtEmissRateTwoStackStandard2C.Text))
                             temp = temp / 2
                         Else
-                            If IsNumeric(txtEmissRateTwoStackStandard2A.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                                And Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                            If IsNumeric(txtEmissRateTwoStackStandard2A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                                AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                                 temp = CDec(txtEmissRateTwoStackStandard2A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) And (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                                    And Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                                    AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                                     temp = CDec(txtEmissRateTwoStackStandard2B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) And Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
-                                        And (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTwoStackStandard2A.Text)) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2B.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                                         temp = CDec(txtEmissRateTwoStackStandard2C.Text)
                                     Else
                                         temp = 0
@@ -20049,13 +20058,13 @@ Public Class ISMPTestReports
             x = Math.Max(x, txtEmissRateTwoStackStandard2C.Text.Length)
             txtEmissRateAvgTwoStackStandard2.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTwoStackStandard1C.Text) And IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
+            If IsNumeric(txtEmissRateTwoStackStandard1C.Text) AndAlso IsNumeric(txtEmissRateTwoStackStandard2C.Text) Then
                 temp = CDec(txtEmissRateTwoStackStandard1C.Text) + CDec(txtEmissRateTwoStackStandard2C.Text)
             Else
-                If IsNumeric(txtEmissRateTwoStackStandard1C.Text) And Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackStandard1C.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                     temp = CDec(txtEmissRateTwoStackStandard1C.Text)
                 Else
-                    If Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) And (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
+                    If Not (IsNumeric(txtEmissRateTwoStackStandard1C.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackStandard2C.Text)) Then
                         temp = CDec(txtEmissRateTwoStackStandard2C.Text)
                     Else
                         temp = 0
@@ -20067,33 +20076,33 @@ Public Class ISMPTestReports
             x = Math.Max(x, temp)
             txtEmissRateTotalTwoStackStandard3.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) AndAlso
                 IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
                 temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                   And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                   AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                     temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                       And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                       AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                         temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                           And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                           AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                             temp = (CDec(txtEmissRateTotalTwoStackStandard2.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                               And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                               AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                 temp = txtEmissRateTotalTwoStackStandard1.Text
                             Else
-                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                     And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                     AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                     temp = txtEmissRateTotalTwoStackStandard2.Text
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                        And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                         temp = txtEmissRateTotalTwoStackStandard3.Text
                                     Else
                                         temp = 0
@@ -20120,33 +20129,33 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) AndAlso
                IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
                 temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                   And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                   AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                     temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                       And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                       AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                         temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                           And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                           AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                             temp = (CDec(txtEmissRateTotalTwoStackStandard2.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                               And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                               AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                 temp = txtEmissRateTotalTwoStackStandard1.Text
                             Else
-                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                     And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                     AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                     temp = txtEmissRateTotalTwoStackStandard2.Text
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                        And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                         temp = txtEmissRateTotalTwoStackStandard3.Text
                                     Else
                                         temp = 0
@@ -20171,33 +20180,33 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) AndAlso
                IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
                 temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                   And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                   AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                     temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                       And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                       AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                         temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                           And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                           AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                             temp = (CDec(txtEmissRateTotalTwoStackStandard2.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                               And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                               AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                 temp = txtEmissRateTotalTwoStackStandard1.Text
                             Else
-                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                     And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                     AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                     temp = txtEmissRateTotalTwoStackStandard2.Text
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                        And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                         temp = txtEmissRateTotalTwoStackStandard3.Text
                                     Else
                                         temp = 0
@@ -20222,33 +20231,33 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) AndAlso
                IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
                 temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                   And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                   AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                     temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                       And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                    If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                       AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                         temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                           And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                           AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                             temp = (CDec(txtEmissRateTotalTwoStackStandard2.Text) + CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                               And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                               AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                 temp = txtEmissRateTotalTwoStackStandard1.Text
                             Else
-                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                     And Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                     AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                     temp = txtEmissRateTotalTwoStackStandard2.Text
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) And Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
-                                        And (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTotalTwoStackStandard1.Text)) AndAlso Not (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTotalTwoStackStandard3.Text)) Then
                                         temp = txtEmissRateTotalTwoStackStandard3.Text
                                     Else
                                         temp = 0
@@ -20273,30 +20282,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE1C.Text) Then
+            If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) Then
                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) + CDec(txtPollConcTwoStackDRE1B.Text) + CDec(txtPollConcTwoStackDRE1C.Text)) / 3
             Else
-                If IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE1B.Text) And Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                     temp = (CDec(txtPollConcTwoStackDRE1A.Text) + CDec(txtPollConcTwoStackDRE1B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcTwoStackDRE1A.Text) And Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
-                         And (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                    If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
+                         AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                         temp = (CDec(txtPollConcTwoStackDRE1A.Text) + CDec(txtPollConcTwoStackDRE1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) And IsNumeric(txtPollConcTwoStackDRE1B.Text) _
-                            And (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                        If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) _
+                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                             temp = (CDec(txtPollConcTwoStackDRE1B.Text) + CDec(txtPollConcTwoStackDRE1C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcTwoStackDRE1A.Text) And Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
-                                And Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                            If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
+                                AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                                 temp = CDec(txtPollConcTwoStackDRE1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) And (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
-                                    And Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
+                                    AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                                     temp = CDec(txtPollConcTwoStackDRE1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) And Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                                    If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                                         temp = CDec(txtPollConcTwoStackDRE1C.Text)
                                     Else
                                         temp = 0
@@ -20312,43 +20321,43 @@ Public Class ISMPTestReports
             x = Math.Max(x, txtPollConcTwoStackDRE1C.Text.Length)
             txtPollConcAvgTwoStackDRE1.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE1C.Text) _
-               And IsNumeric(txtPollConcTwoStackDRE2A.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+            If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) _
+               AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
                 temp = (((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 3)
             Else
-                If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                    And (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                    And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                    AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                     temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                            + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                 Else
-                    If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                        And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
+                    If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
                         temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                                + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 2
                     Else
-                        If (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                            And (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                            And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                        If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
                             temp = ((CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100 _
                                    + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                         Else
-                            If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                              And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                              And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                            If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100
                             Else
-                                If (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                  And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
-                                  And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                If (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                                     temp = (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100
                                 Else
-                                    If (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                      And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                                      And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                                    If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
                                         temp = (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100
                                     Else
                                         temp = 0
@@ -20376,30 +20385,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE1C.Text) Then
+            If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) Then
                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) + CDec(txtPollConcTwoStackDRE1B.Text) + CDec(txtPollConcTwoStackDRE1C.Text)) / 3
             Else
-                If IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE1B.Text) And Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                     temp = (CDec(txtPollConcTwoStackDRE1A.Text) + CDec(txtPollConcTwoStackDRE1B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcTwoStackDRE1A.Text) And Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
-                         And (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                    If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
+                         AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                         temp = (CDec(txtPollConcTwoStackDRE1A.Text) + CDec(txtPollConcTwoStackDRE1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) And IsNumeric(txtPollConcTwoStackDRE1B.Text) _
-                            And (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                        If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) _
+                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                             temp = (CDec(txtPollConcTwoStackDRE1B.Text) + CDec(txtPollConcTwoStackDRE1C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcTwoStackDRE1A.Text) And Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
-                                And Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                            If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
+                                AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                                 temp = CDec(txtPollConcTwoStackDRE1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) And (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
-                                    And Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
+                                    AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                                     temp = CDec(txtPollConcTwoStackDRE1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) And Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                                    If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                                         temp = CDec(txtPollConcTwoStackDRE1C.Text)
                                     Else
                                         temp = 0
@@ -20415,43 +20424,43 @@ Public Class ISMPTestReports
             x = Math.Max(x, txtPollConcTwoStackDRE1C.Text.Length)
             txtPollConcAvgTwoStackDRE1.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE1C.Text) _
-               And IsNumeric(txtPollConcTwoStackDRE2A.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+            If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) _
+               AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
                 temp = (((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 3)
             Else
-                If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                    And (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                    And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                    AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                     temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                            + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                 Else
-                    If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                        And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
+                    If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
                         temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                                + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 2
                     Else
-                        If (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                            And (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                            And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                        If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
                             temp = ((CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100 _
                                    + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                         Else
-                            If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                              And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                              And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                            If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100
                             Else
-                                If (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                  And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
-                                  And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                If (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                                     temp = (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100
                                 Else
-                                    If (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                      And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                                      And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                                    If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
                                         temp = (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100
                                     Else
                                         temp = 0
@@ -20479,30 +20488,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE1C.Text) Then
+            If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) Then
                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) + CDec(txtPollConcTwoStackDRE1B.Text) + CDec(txtPollConcTwoStackDRE1C.Text)) / 3
             Else
-                If IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE1B.Text) And Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                     temp = (CDec(txtPollConcTwoStackDRE1A.Text) + CDec(txtPollConcTwoStackDRE1B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcTwoStackDRE1A.Text) And Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
-                         And (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                    If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
+                         AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                         temp = (CDec(txtPollConcTwoStackDRE1A.Text) + CDec(txtPollConcTwoStackDRE1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) And IsNumeric(txtPollConcTwoStackDRE1B.Text) _
-                            And (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                        If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) _
+                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                             temp = (CDec(txtPollConcTwoStackDRE1B.Text) + CDec(txtPollConcTwoStackDRE1C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcTwoStackDRE1A.Text) And Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
-                                And Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                            If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
+                                AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                                 temp = CDec(txtPollConcTwoStackDRE1A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) And (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
-                                    And Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                                If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
+                                    AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                                     temp = CDec(txtPollConcTwoStackDRE1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) And Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
+                                    If Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Then
                                         temp = CDec(txtPollConcTwoStackDRE1C.Text)
                                     Else
                                         temp = 0
@@ -20518,43 +20527,43 @@ Public Class ISMPTestReports
             x = Math.Max(x, txtPollConcTwoStackDRE1C.Text.Length)
             txtPollConcAvgTwoStackDRE1.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE1C.Text) _
-               And IsNumeric(txtPollConcTwoStackDRE2A.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+            If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) _
+               AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
                 temp = (((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 3)
             Else
-                If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                    And (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                    And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                    AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                     temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                            + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                 Else
-                    If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                        And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
+                    If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
                         temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                                + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 2
                     Else
-                        If (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                            And (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                            And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                        If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
                             temp = ((CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100 _
                                    + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                         Else
-                            If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                              And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                              And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                            If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100
                             Else
-                                If (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                  And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
-                                  And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                If (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                                     temp = (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100
                                 Else
-                                    If (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                      And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                                      And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                                    If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
                                         temp = (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100
                                     Else
                                         temp = 0
@@ -20582,30 +20591,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcTwoStackDRE2A.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+            If IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
                 temp = (CDec(txtPollConcTwoStackDRE2A.Text) + CDec(txtPollConcTwoStackDRE2B.Text) + CDec(txtPollConcTwoStackDRE2C.Text)) / 3
             Else
-                If IsNumeric(txtPollConcTwoStackDRE2A.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text) And Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                If IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                     temp = (CDec(txtPollConcTwoStackDRE2A.Text) + CDec(txtPollConcTwoStackDRE2B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcTwoStackDRE2A.Text) And Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                         And (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                    If IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                         AndAlso (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                         temp = (CDec(txtPollConcTwoStackDRE2A.Text) + CDec(txtPollConcTwoStackDRE2C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) And IsNumeric(txtPollConcTwoStackDRE2B.Text) _
-                            And (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                        If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) _
+                            AndAlso (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                             temp = (CDec(txtPollConcTwoStackDRE2B.Text) + CDec(txtPollConcTwoStackDRE2C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcTwoStackDRE2A.Text) And Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                And Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                            If IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                                 temp = CDec(txtPollConcTwoStackDRE2A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) And (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                    And Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                                If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                    AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                                     temp = CDec(txtPollConcTwoStackDRE2B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) And Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                                    If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                                         temp = CDec(txtPollConcTwoStackDRE2C.Text)
                                     Else
                                         temp = 0
@@ -20621,43 +20630,43 @@ Public Class ISMPTestReports
             x = Math.Max(x, txtPollConcTwoStackDRE2C.Text.Length)
             txtPollConcAvgTwoStackDRE2.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE1C.Text) _
-                And IsNumeric(txtPollConcTwoStackDRE2A.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+            If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) _
+                AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
                 temp = (((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 3)
             Else
-                If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                    And (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                    And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                    AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                     temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                            + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                 Else
-                    If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                        And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
+                    If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
                         temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                                + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 2
                     Else
-                        If (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                            And (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                            And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                        If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
                             temp = ((CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100 _
                                    + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                         Else
-                            If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                              And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                              And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                            If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100
                             Else
-                                If (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                  And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
-                                  And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                If (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                                     temp = (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100
                                 Else
-                                    If (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                      And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                                      And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                                    If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
                                         temp = (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100
                                     Else
                                         temp = 0
@@ -20685,30 +20694,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcTwoStackDRE2A.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+            If IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
                 temp = (CDec(txtPollConcTwoStackDRE2A.Text) + CDec(txtPollConcTwoStackDRE2B.Text) + CDec(txtPollConcTwoStackDRE2C.Text)) / 3
             Else
-                If IsNumeric(txtPollConcTwoStackDRE2A.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text) And Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                If IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                     temp = (CDec(txtPollConcTwoStackDRE2A.Text) + CDec(txtPollConcTwoStackDRE2B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcTwoStackDRE2A.Text) And Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                         And (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                    If IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                         AndAlso (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                         temp = (CDec(txtPollConcTwoStackDRE2A.Text) + CDec(txtPollConcTwoStackDRE2C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) And IsNumeric(txtPollConcTwoStackDRE2B.Text) _
-                            And (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                        If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) _
+                            AndAlso (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                             temp = (CDec(txtPollConcTwoStackDRE2B.Text) + CDec(txtPollConcTwoStackDRE2C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcTwoStackDRE2A.Text) And Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                And Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                            If IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                                 temp = CDec(txtPollConcTwoStackDRE2A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) And (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                    And Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                                If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                    AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                                     temp = CDec(txtPollConcTwoStackDRE2B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) And Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                                    If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                                         temp = CDec(txtPollConcTwoStackDRE2C.Text)
                                     Else
                                         temp = 0
@@ -20724,43 +20733,43 @@ Public Class ISMPTestReports
             x = Math.Max(x, txtPollConcTwoStackDRE2C.Text.Length)
             txtPollConcAvgTwoStackDRE2.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE1C.Text) _
-               And IsNumeric(txtPollConcTwoStackDRE2A.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+            If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) _
+               AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
                 temp = (((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 3)
             Else
-                If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                    And (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                    And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                    AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                     temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                            + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                 Else
-                    If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                        And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
+                    If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
                         temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                                + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 2
                     Else
-                        If (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                            And (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                            And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                        If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
                             temp = ((CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100 _
                                    + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                         Else
-                            If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                              And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                              And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                            If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100
                             Else
-                                If (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                  And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
-                                  And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                If (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                                     temp = (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100
                                 Else
-                                    If (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                      And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                                      And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                                    If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
                                         temp = (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100
                                     Else
                                         temp = 0
@@ -20788,30 +20797,30 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcTwoStackDRE2A.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+            If IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
                 temp = (CDec(txtPollConcTwoStackDRE2A.Text) + CDec(txtPollConcTwoStackDRE2B.Text) + CDec(txtPollConcTwoStackDRE2C.Text)) / 3
             Else
-                If IsNumeric(txtPollConcTwoStackDRE2A.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text) And Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                If IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                     temp = (CDec(txtPollConcTwoStackDRE2A.Text) + CDec(txtPollConcTwoStackDRE2B.Text)) / 2
                 Else
-                    If IsNumeric(txtPollConcTwoStackDRE2A.Text) And Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                         And (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                    If IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                         AndAlso (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                         temp = (CDec(txtPollConcTwoStackDRE2A.Text) + CDec(txtPollConcTwoStackDRE2C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) And IsNumeric(txtPollConcTwoStackDRE2B.Text) _
-                            And (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                        If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) _
+                            AndAlso (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                             temp = (CDec(txtPollConcTwoStackDRE2B.Text) + CDec(txtPollConcTwoStackDRE2C.Text)) / 2
                         Else
-                            If IsNumeric(txtPollConcTwoStackDRE2A.Text) And Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                And Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                            If IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                                 temp = CDec(txtPollConcTwoStackDRE2A.Text)
                             Else
-                                If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) And (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                    And Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                                If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) AndAlso (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                    AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                                     temp = CDec(txtPollConcTwoStackDRE2B.Text)
                                 Else
-                                    If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) And Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
+                                    If Not (IsNumeric(txtPollConcTwoStackDRE2A.Text)) AndAlso Not (IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE2C.Text)) Then
                                         temp = CDec(txtPollConcTwoStackDRE2C.Text)
                                     Else
                                         temp = 0
@@ -20827,43 +20836,43 @@ Public Class ISMPTestReports
             x = Math.Max(x, txtPollConcTwoStackDRE2C.Text.Length)
             txtPollConcAvgTwoStackDRE2.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE1C.Text) _
-                 And IsNumeric(txtPollConcTwoStackDRE2A.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+            If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) _
+                 AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
                 temp = (((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 3)
             Else
-                If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                    And (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                    And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                    AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                     temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                            + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                 Else
-                    If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                                        And (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                        And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
+                    If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
                         temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                                + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 2
                     Else
-                        If (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                            And (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                            And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                        If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
                             temp = ((CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100 _
                                    + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                         Else
-                            If (IsNumeric(txtPollConcTwoStackDRE1A.Text) And IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                              And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                              And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                            If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
+                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100
                             Else
-                                If (IsNumeric(txtPollConcTwoStackDRE1B.Text) And IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                  And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
-                                  And (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                If (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
                                     temp = (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100
                                 Else
-                                    If (IsNumeric(txtPollConcTwoStackDRE1C.Text) And IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                      And (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                                      And (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) Or Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                                    If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
                                         temp = (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100
                                     Else
                                         temp = 0
@@ -20891,31 +20900,31 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTwoStackDRE1A.Text) And IsNumeric(txtEmissRateTwoStackDRE1B.Text) And IsNumeric(txtEmissRateTwoStackDRE1C.Text) Then
+            If IsNumeric(txtEmissRateTwoStackDRE1A.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE1B.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE1C.Text) Then
                 temp = (CDec(txtEmissRateTwoStackDRE1A.Text) + CDec(txtEmissRateTwoStackDRE1B.Text) + CDec(txtEmissRateTwoStackDRE1C.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTwoStackDRE1A.Text) And IsNumeric(txtEmissRateTwoStackDRE1B.Text) _
-                    And Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackDRE1A.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE1B.Text) _
+                    AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                     temp = (CDec(txtEmissRateTwoStackDRE1A.Text) + CDec(txtEmissRateTwoStackDRE1B.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTwoStackDRE1A.Text) And Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
-                         And (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                    If IsNumeric(txtEmissRateTwoStackDRE1A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
+                         AndAlso (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                         temp = (CDec(txtEmissRateTwoStackDRE1A.Text) + CDec(txtEmissRateTwoStackDRE1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) And IsNumeric(txtEmissRateTwoStackDRE1B.Text) _
-                            And (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) AndAlso IsNumeric(txtEmissRateTwoStackDRE1B.Text) _
+                            AndAlso (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                             temp = (CDec(txtEmissRateTwoStackDRE1B.Text) + CDec(txtEmissRateTwoStackDRE1C.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTwoStackDRE1A.Text) And Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
-                                And Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                            If IsNumeric(txtEmissRateTwoStackDRE1A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
+                                AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                                 temp = CDec(txtEmissRateTwoStackDRE1A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) And (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
-                                    And Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
+                                    AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                                     temp = CDec(txtEmissRateTwoStackDRE1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) And Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
-                                        And (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                                         temp = CDec(txtEmissRateTwoStackDRE1C.Text)
                                     Else
                                         temp = 0
@@ -20940,31 +20949,31 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTwoStackDRE1A.Text) And IsNumeric(txtEmissRateTwoStackDRE1B.Text) And IsNumeric(txtEmissRateTwoStackDRE1C.Text) Then
+            If IsNumeric(txtEmissRateTwoStackDRE1A.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE1B.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE1C.Text) Then
                 temp = (CDec(txtEmissRateTwoStackDRE1A.Text) + CDec(txtEmissRateTwoStackDRE1B.Text) + CDec(txtEmissRateTwoStackDRE1C.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTwoStackDRE1A.Text) And IsNumeric(txtEmissRateTwoStackDRE1B.Text) _
-                    And Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackDRE1A.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE1B.Text) _
+                    AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                     temp = (CDec(txtEmissRateTwoStackDRE1A.Text) + CDec(txtEmissRateTwoStackDRE1B.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTwoStackDRE1A.Text) And Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
-                         And (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                    If IsNumeric(txtEmissRateTwoStackDRE1A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
+                         AndAlso (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                         temp = (CDec(txtEmissRateTwoStackDRE1A.Text) + CDec(txtEmissRateTwoStackDRE1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) And IsNumeric(txtEmissRateTwoStackDRE1B.Text) _
-                            And (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) AndAlso IsNumeric(txtEmissRateTwoStackDRE1B.Text) _
+                            AndAlso (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                             temp = (CDec(txtEmissRateTwoStackDRE1B.Text) + CDec(txtEmissRateTwoStackDRE1C.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTwoStackDRE1A.Text) And Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
-                                And Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                            If IsNumeric(txtEmissRateTwoStackDRE1A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
+                                AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                                 temp = CDec(txtEmissRateTwoStackDRE1A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) And (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
-                                    And Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
+                                    AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                                     temp = CDec(txtEmissRateTwoStackDRE1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) And Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
-                                        And (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                                         temp = CDec(txtEmissRateTwoStackDRE1C.Text)
                                     Else
                                         temp = 0
@@ -20989,31 +20998,31 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTwoStackDRE1A.Text) And IsNumeric(txtEmissRateTwoStackDRE1B.Text) And IsNumeric(txtEmissRateTwoStackDRE1C.Text) Then
+            If IsNumeric(txtEmissRateTwoStackDRE1A.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE1B.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE1C.Text) Then
                 temp = (CDec(txtEmissRateTwoStackDRE1A.Text) + CDec(txtEmissRateTwoStackDRE1B.Text) + CDec(txtEmissRateTwoStackDRE1C.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTwoStackDRE1A.Text) And IsNumeric(txtEmissRateTwoStackDRE1B.Text) _
-                    And Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackDRE1A.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE1B.Text) _
+                    AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                     temp = (CDec(txtEmissRateTwoStackDRE1A.Text) + CDec(txtEmissRateTwoStackDRE1B.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTwoStackDRE1A.Text) And Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
-                         And (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                    If IsNumeric(txtEmissRateTwoStackDRE1A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
+                         AndAlso (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                         temp = (CDec(txtEmissRateTwoStackDRE1A.Text) + CDec(txtEmissRateTwoStackDRE1C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) And IsNumeric(txtEmissRateTwoStackDRE1B.Text) _
-                            And (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) AndAlso IsNumeric(txtEmissRateTwoStackDRE1B.Text) _
+                            AndAlso (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                             temp = (CDec(txtEmissRateTwoStackDRE1B.Text) + CDec(txtEmissRateTwoStackDRE1C.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTwoStackDRE1A.Text) And Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
-                                And Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                            If IsNumeric(txtEmissRateTwoStackDRE1A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
+                                AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                                 temp = CDec(txtEmissRateTwoStackDRE1A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) And (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
-                                    And Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
+                                    AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                                     temp = CDec(txtEmissRateTwoStackDRE1B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) And Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
-                                        And (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTwoStackDRE1A.Text)) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE1B.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTwoStackDRE1C.Text)) Then
                                         temp = CDec(txtEmissRateTwoStackDRE1C.Text)
                                     Else
                                         temp = 0
@@ -21038,31 +21047,31 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTwoStackDRE2A.Text) And IsNumeric(txtEmissRateTwoStackDRE2B.Text) And IsNumeric(txtEmissRateTwoStackDRE2C.Text) Then
+            If IsNumeric(txtEmissRateTwoStackDRE2A.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE2B.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE2C.Text) Then
                 temp = (CDec(txtEmissRateTwoStackDRE2A.Text) + CDec(txtEmissRateTwoStackDRE2B.Text) + CDec(txtEmissRateTwoStackDRE2C.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTwoStackDRE2A.Text) And IsNumeric(txtEmissRateTwoStackDRE2B.Text) _
-                    And Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackDRE2A.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE2B.Text) _
+                    AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                     temp = (CDec(txtEmissRateTwoStackDRE2A.Text) + CDec(txtEmissRateTwoStackDRE2B.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTwoStackDRE2A.Text) And Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
-                         And (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                    If IsNumeric(txtEmissRateTwoStackDRE2A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
+                         AndAlso (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                         temp = (CDec(txtEmissRateTwoStackDRE2A.Text) + CDec(txtEmissRateTwoStackDRE2C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) And IsNumeric(txtEmissRateTwoStackDRE2B.Text) _
-                            And (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) AndAlso IsNumeric(txtEmissRateTwoStackDRE2B.Text) _
+                            AndAlso (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                             temp = (CDec(txtEmissRateTwoStackDRE2B.Text) + CDec(txtEmissRateTwoStackDRE2C.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTwoStackDRE2A.Text) And Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
-                                And Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                            If IsNumeric(txtEmissRateTwoStackDRE2A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
+                                AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                                 temp = CDec(txtEmissRateTwoStackDRE2A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) And (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
-                                    And Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
+                                    AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                                     temp = CDec(txtEmissRateTwoStackDRE2B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) And Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
-                                        And (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                                         temp = CDec(txtEmissRateTwoStackDRE2C.Text)
                                     Else
                                         temp = 0
@@ -21087,31 +21096,31 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTwoStackDRE2A.Text) And IsNumeric(txtEmissRateTwoStackDRE2B.Text) And IsNumeric(txtEmissRateTwoStackDRE2C.Text) Then
+            If IsNumeric(txtEmissRateTwoStackDRE2A.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE2B.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE2C.Text) Then
                 temp = (CDec(txtEmissRateTwoStackDRE2A.Text) + CDec(txtEmissRateTwoStackDRE2B.Text) + CDec(txtEmissRateTwoStackDRE2C.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTwoStackDRE2A.Text) And IsNumeric(txtEmissRateTwoStackDRE2B.Text) _
-                    And Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackDRE2A.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE2B.Text) _
+                    AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                     temp = (CDec(txtEmissRateTwoStackDRE2A.Text) + CDec(txtEmissRateTwoStackDRE2B.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTwoStackDRE2A.Text) And Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
-                         And (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                    If IsNumeric(txtEmissRateTwoStackDRE2A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
+                         AndAlso (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                         temp = (CDec(txtEmissRateTwoStackDRE2A.Text) + CDec(txtEmissRateTwoStackDRE2C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) And IsNumeric(txtEmissRateTwoStackDRE2B.Text) _
-                            And (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) AndAlso IsNumeric(txtEmissRateTwoStackDRE2B.Text) _
+                            AndAlso (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                             temp = (CDec(txtEmissRateTwoStackDRE2B.Text) + CDec(txtEmissRateTwoStackDRE2C.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTwoStackDRE2A.Text) And Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
-                                And Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                            If IsNumeric(txtEmissRateTwoStackDRE2A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
+                                AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                                 temp = CDec(txtEmissRateTwoStackDRE2A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) And (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
-                                    And Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
+                                    AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                                     temp = CDec(txtEmissRateTwoStackDRE2B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) And Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
-                                        And (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                                         temp = CDec(txtEmissRateTwoStackDRE2C.Text)
                                     Else
                                         temp = 0
@@ -21136,31 +21145,31 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTwoStackDRE2A.Text) And IsNumeric(txtEmissRateTwoStackDRE2B.Text) And IsNumeric(txtEmissRateTwoStackDRE2C.Text) Then
+            If IsNumeric(txtEmissRateTwoStackDRE2A.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE2B.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE2C.Text) Then
                 temp = (CDec(txtEmissRateTwoStackDRE2A.Text) + CDec(txtEmissRateTwoStackDRE2B.Text) + CDec(txtEmissRateTwoStackDRE2C.Text)) / 3
             Else
-                If IsNumeric(txtEmissRateTwoStackDRE2A.Text) And IsNumeric(txtEmissRateTwoStackDRE2B.Text) _
-                    And Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                If IsNumeric(txtEmissRateTwoStackDRE2A.Text) AndAlso IsNumeric(txtEmissRateTwoStackDRE2B.Text) _
+                    AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                     temp = (CDec(txtEmissRateTwoStackDRE2A.Text) + CDec(txtEmissRateTwoStackDRE2B.Text)) / 2
                 Else
-                    If IsNumeric(txtEmissRateTwoStackDRE2A.Text) And Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
-                         And (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                    If IsNumeric(txtEmissRateTwoStackDRE2A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
+                         AndAlso (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                         temp = (CDec(txtEmissRateTwoStackDRE2A.Text) + CDec(txtEmissRateTwoStackDRE2C.Text)) / 2
                     Else
-                        If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) And IsNumeric(txtEmissRateTwoStackDRE2B.Text) _
-                            And (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                        If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) AndAlso IsNumeric(txtEmissRateTwoStackDRE2B.Text) _
+                            AndAlso (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                             temp = (CDec(txtEmissRateTwoStackDRE2B.Text) + CDec(txtEmissRateTwoStackDRE2C.Text)) / 2
                         Else
-                            If IsNumeric(txtEmissRateTwoStackDRE2A.Text) And Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
-                                And Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                            If IsNumeric(txtEmissRateTwoStackDRE2A.Text) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
+                                AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                                 temp = CDec(txtEmissRateTwoStackDRE2A.Text)
                             Else
-                                If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) And (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
-                                    And Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                                If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) AndAlso (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
+                                    AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                                     temp = CDec(txtEmissRateTwoStackDRE2B.Text)
                                 Else
-                                    If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) And Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
-                                        And (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
+                                    If Not (IsNumeric(txtEmissRateTwoStackDRE2A.Text)) AndAlso Not (IsNumeric(txtEmissRateTwoStackDRE2B.Text)) _
+                                        AndAlso (IsNumeric(txtEmissRateTwoStackDRE2C.Text)) Then
                                         temp = CDec(txtEmissRateTwoStackDRE2C.Text)
                                     Else
                                         temp = 0
@@ -21245,7 +21254,7 @@ Public Class ISMPTestReports
     Private Sub cboDiluentRata_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboDiluentRata.SelectedValueChanged
         Try
 
-            If cboDiluentRata.Text = "" Or cboDiluentRata.Text = " " Then
+            If cboDiluentRata.Text = "" OrElse cboDiluentRata.Text = " " Then
                 txtRefMethodPercentRata.Visible = True
                 lblRefMethodRata.Visible = True
                 txtApplicableStandardPercentRata.Visible = True
