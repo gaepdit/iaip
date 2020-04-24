@@ -1183,7 +1183,7 @@ Public Class ISMPTestReports
                 If cboComplianceStatus.SelectedValue = "05" Then
                     cboComplianceStatus.BackColor = Color.Tomato
                 Else
-                    If lblPreComplianceStatus.Visible = True AndAlso cboComplianceStatus.SelectedValue = "01" Then
+                    If lblPreComplianceStatus.Visible AndAlso cboComplianceStatus.SelectedValue = "01" Then
                         cboComplianceStatus.BackColor = Color.Pink
                     End If
                 End If
@@ -8177,7 +8177,7 @@ Public Class ISMPTestReports
                         rdbTestReportFollowUpYes.Checked = False
                         rdbTestReportFollowUpNo.Checked = False
                     Else
-                        If CBool(dr.Item("strTestReportFollowUp")) = False Then
+                        If Not CBool(dr.Item("strTestReportFollowUp")) Then
                             rdbTestReportFollowUpYes.Checked = False
                             rdbTestReportFollowUpNo.Checked = True
                         Else
@@ -8219,7 +8219,7 @@ Public Class ISMPTestReports
                 DTPEventCompleteDate.Enabled = False
 
                 If AccountFormAccess(69, 4) = "1" Then
-                    If chbEventComplete.Checked = False Then
+                    If Not chbEventComplete.Checked Then
                         CloseSSCPWork(False)
                     Else
                         CloseSSCPWork(True)
@@ -8255,7 +8255,7 @@ Public Class ISMPTestReports
     End Sub
     Private Sub CloseSSCPWork(Status As Boolean)
         Try
-            If Status = True Then
+            If Status Then
                 cboStaffResponsible.Enabled = False
                 txtTestReportComments.ReadOnly = True
                 rdbTestReportFollowUpYes.Enabled = False
@@ -9691,7 +9691,7 @@ Public Class ISMPTestReports
                         DocumentType = "001"
                     End If
                 Case Is > 4
-                    If TPOneStack.Focus = True Then
+                    If TPOneStack.Focus Then
                         If txtApplicableRegulationOneStack.Text <> "" Then
                             ApplicableReg = txtApplicableRegulationOneStack.Text
                         Else
@@ -9707,13 +9707,13 @@ Public Class ISMPTestReports
                         Else
                             ControlEquip = "N/A"
                         End If
-                        If TPOneStackTwoRun.Focus = True Then
+                        If TPOneStackTwoRun.Focus Then
                             DocumentType = "002"
                         Else
-                            If TPOneStackThreeRun.Focus = True Then
+                            If TPOneStackThreeRun.Focus Then
                                 DocumentType = "003"
                             Else
-                                If TPOneStackFourRun.Focus = True Then
+                                If TPOneStackFourRun.Focus Then
                                     DocumentType = "004"
                                 Else
                                     DocumentType = "001"
@@ -9721,7 +9721,7 @@ Public Class ISMPTestReports
                             End If
                         End If
                     Else
-                        If TPLoadingRack.Focus = True Then
+                        If TPLoadingRack.Focus Then
                             DocumentType = "007"
                             If txtApplicableRegulationLoadingRack.Text <> "" Then
                                 ApplicableReg = txtApplicableRegulationLoadingRack.Text
@@ -9739,7 +9739,7 @@ Public Class ISMPTestReports
                                 ControlEquip = "N/A"
                             End If
                         Else
-                            If TPPondTreatment.Focus = True Then
+                            If TPPondTreatment.Focus Then
                                 DocumentType = "008"
                                 If txtApplicableRegulationPond.Text <> "" Then
                                     ApplicableReg = txtApplicableRegulationPond.Text
@@ -9757,7 +9757,7 @@ Public Class ISMPTestReports
                                     ControlEquip = "N/A"
                                 End If
                             Else
-                                If TPGasConcentration.Focus = True Then
+                                If TPGasConcentration.Focus Then
                                     DocumentType = "009"
                                     If txtApplicableRegulationGas.Text <> "" Then
                                         ApplicableReg = txtApplicableRegulationGas.Text
@@ -9775,7 +9775,7 @@ Public Class ISMPTestReports
                                         ControlEquip = "N/A"
                                     End If
                                 Else
-                                    If TPFlare.Focus = True Then
+                                    If TPFlare.Focus Then
                                         DocumentType = "010"
                                         If txtApplicableRegulationFlare.Text <> "" Then
                                             ApplicableReg = txtApplicableRegulationFlare.Text
@@ -9793,13 +9793,13 @@ Public Class ISMPTestReports
                                             ControlEquip = "N/A"
                                         End If
                                     Else
-                                        If TPMethodNine.Focus = True Then
+                                        If TPMethodNine.Focus Then
                                             If txtOtherInformationMethod9.Text <> "" Then
                                                 Comments = txtOtherInformationMethod9.Text
                                             Else
                                                 Comments = "N/A"
                                             End If
-                                            If TPMethodNineSingle.Focus = True Then
+                                            If TPMethodNineSingle.Focus Then
                                                 DocumentType = "016"
                                                 If txtApplicableRegulationMethod9Single.Text <> "" Then
                                                     ApplicableReg = txtApplicableRegulationMethod9Single.Text
@@ -9812,7 +9812,7 @@ Public Class ISMPTestReports
                                                     ControlEquip = "N/A"
                                                 End If
                                             Else
-                                                If TPMethodNineMultiple.Focus = True OrElse TPMethodNineMultiple2.Focus = True Then
+                                                If TPMethodNineMultiple.Focus OrElse TPMethodNineMultiple2.Focus Then
                                                     DocumentType = "014"
                                                     If txtApplicableRegulationMethod9Multi.Text <> "" Then
                                                         ApplicableReg = txtApplicableRegulationMethod9Multi.Text
@@ -9829,20 +9829,20 @@ Public Class ISMPTestReports
                                                 End If
                                             End If
                                         Else
-                                            If TPMemorandum.Focus = True Then
+                                            If TPMemorandum.Focus Then
                                                 If txtApplicableRegulationMemorandum.Text <> "" Then
                                                     ApplicableReg = txtApplicableRegulationMemorandum.Text
                                                 Else
                                                     ApplicableReg = "Incomplete"
                                                 End If
                                                 Comments = "N/A"
-                                                If TPMemoStandard.Focus = True Then
+                                                If TPMemoStandard.Focus Then
                                                     DocumentType = "012"
                                                 Else
-                                                    If TPMemoToFile.Focus = True Then
+                                                    If TPMemoToFile.Focus Then
                                                         DocumentType = "013"
                                                     Else
-                                                        If TPMemoPTE.Focus = True Then
+                                                        If TPMemoPTE.Focus Then
                                                             DocumentType = "018"
                                                             If txtControlEquipmentOperatingDataMemorandumPTE.Text <> "" Then
                                                                 ControlEquip = txtControlEquipmentOperatingDataMemorandumPTE.Text
@@ -9855,7 +9855,7 @@ Public Class ISMPTestReports
                                                     End If
                                                 End If
                                             Else
-                                                If TPRata.Focus = True Then
+                                                If TPRata.Focus Then
                                                     DocumentType = "011"
                                                     If txtApplicableRegulationRata.Text <> "" Then
                                                         ApplicableReg = txtApplicableRegulationRata.Text
@@ -9869,7 +9869,7 @@ Public Class ISMPTestReports
                                                     End If
                                                     ControlEquip = "N/A"
                                                 Else
-                                                    If TPTwoStack.Focus = True Then
+                                                    If TPTwoStack.Focus Then
                                                         If txtApplicableRegulationTwoStack.Text <> "" Then
                                                             ApplicableReg = txtApplicableRegulationTwoStack.Text
                                                         Else
@@ -9885,17 +9885,17 @@ Public Class ISMPTestReports
                                                         Else
                                                             ControlEquip = "N/A"
                                                         End If
-                                                        If TPTwoStackStandard.Focus = True Then
+                                                        If TPTwoStackStandard.Focus Then
                                                             DocumentType = "005"
                                                         Else
-                                                            If TPTwoStackDRE.Focus = True Then
+                                                            If TPTwoStackDRE.Focus Then
                                                                 DocumentType = "006"
                                                             Else
                                                                 DocumentType = "001"
                                                             End If
                                                         End If
                                                     Else
-                                                        If TPMethodTwentyTwo.Focus = True Then
+                                                        If TPMethodTwentyTwo.Focus Then
                                                             DocumentType = "015"
                                                             If txtApplicableRegulationMethod22.Text <> "" Then
                                                                 ApplicableReg = txtApplicableRegulationMethod22.Text
@@ -10024,7 +10024,7 @@ Public Class ISMPTestReports
 
             If OtherWitnessing > 0 Then
                 For i As Integer = 0 To clbWitnessingEngineers.Items.Count - 1
-                    If clbWitnessingEngineers.GetItemChecked(i) = True Then
+                    If clbWitnessingEngineers.GetItemChecked(i) Then
                         clbWitnessingEngineers.SelectedIndex = i
 
                         query = "Insert into ISMPWitnessingEng " &
@@ -10269,7 +10269,7 @@ Public Class ISMPTestReports
             If cboComplianceStatus.SelectedValue = "05" Then
                 cboComplianceStatus.BackColor = Color.Tomato
             Else
-                If lblPreComplianceStatus.Visible = True AndAlso cboComplianceStatus.SelectedValue = "01" Then
+                If lblPreComplianceStatus.Visible AndAlso cboComplianceStatus.SelectedValue = "01" Then
                     cboComplianceStatus.BackColor = Color.Pink
                 Else
                     cboComplianceStatus.BackColor = Color.White
@@ -10298,12 +10298,12 @@ Public Class ISMPTestReports
             Else
                 StaffResponsible = CurrentUser.UserID
             End If
-            If chbEventComplete.Checked = True Then
+            If chbEventComplete.Checked Then
                 CompleteDate = DTPEventCompleteDate.Value
             Else
                 CompleteDate = Nothing
             End If
-            If chbAcknoledgmentLetterSent.Checked = True Then
+            If chbAcknoledgmentLetterSent.Checked Then
                 AckLetter = DTPAcknoledgmentLetterSent.Value
             Else
                 AckLetter = Nothing
@@ -10317,7 +10317,7 @@ Public Class ISMPTestReports
                     NextTest = Today.AddYears(1)
                 End If
             End If
-            If chbTestReportChangeDueDate.Checked = True Then
+            If chbTestReportChangeDueDate.Checked Then
                 TestDue = DTPTestReportDueDate.Value
             Else
                 If txtTestReportDueDate.Text <> "" Then
@@ -10331,7 +10331,7 @@ Public Class ISMPTestReports
             Else
                 TestReportComments = " "
             End If
-            If rdbTestReportFollowUpYes.Checked = True Then
+            If rdbTestReportFollowUpYes.Checked Then
                 FollowUp = True
             Else
                 FollowUp = False
@@ -13083,68 +13083,68 @@ Public Class ISMPTestReports
             Else
                 CMS12 = " "
             End If
-            If chbOmitRunRata1.Checked = True Then
+            If chbOmitRunRata1.Checked Then
                 IncludeKey = "1"
             Else
                 IncludeKey = "0"
             End If
-            If chbOmitRunRata2.Checked = True Then
+            If chbOmitRunRata2.Checked Then
                 IncludeKey = IncludeKey & "1"
             Else
                 IncludeKey = IncludeKey & "0"
             End If
-            If chbOmitRunRata3.Checked = True Then
+            If chbOmitRunRata3.Checked Then
                 IncludeKey = IncludeKey & "1"
             Else
                 IncludeKey = IncludeKey & "0"
             End If
-            If chbOmitRunRata4.Checked = True Then
+            If chbOmitRunRata4.Checked Then
                 IncludeKey = IncludeKey & "1"
             Else
                 IncludeKey = IncludeKey & "0"
             End If
-            If chbOmitRunRata5.Checked = True Then
+            If chbOmitRunRata5.Checked Then
                 IncludeKey = IncludeKey & "1"
             Else
                 IncludeKey = IncludeKey & "0"
             End If
-            If chbOmitRunRata6.Checked = True Then
+            If chbOmitRunRata6.Checked Then
                 IncludeKey = IncludeKey & "1"
             Else
                 IncludeKey = IncludeKey & "0"
             End If
-            If chbOmitRunRata7.Checked = True Then
+            If chbOmitRunRata7.Checked Then
                 IncludeKey = IncludeKey & "1"
             Else
                 IncludeKey = IncludeKey & "0"
             End If
-            If chbOmitRunRata8.Checked = True Then
+            If chbOmitRunRata8.Checked Then
                 IncludeKey = IncludeKey & "1"
             Else
                 IncludeKey = IncludeKey & "0"
             End If
-            If chbOmitRunRata9.Checked = True Then
+            If chbOmitRunRata9.Checked Then
                 IncludeKey = IncludeKey & "1"
             Else
                 IncludeKey = IncludeKey & "0"
             End If
-            If chbOmitRunRata10.Checked = True Then
+            If chbOmitRunRata10.Checked Then
                 IncludeKey = IncludeKey & "1"
             Else
                 IncludeKey = IncludeKey & "0"
             End If
-            If chbOmitRunRata11.Checked = True Then
+            If chbOmitRunRata11.Checked Then
                 IncludeKey = IncludeKey & "1"
             Else
                 IncludeKey = IncludeKey & "0"
             End If
-            If chbOmitRunRata12.Checked = True Then
+            If chbOmitRunRata12.Checked Then
                 IncludeKey = IncludeKey & "1"
             Else
                 IncludeKey = IncludeKey & "0"
             End If
-            If txtRefMethodPercentRata.Visible = True AndAlso txtApplicableStandardPercentRata.Visible = False AndAlso
-                cboDiluentRata.Visible = False AndAlso txtPart75Statement.Visible = False Then
+            If txtRefMethodPercentRata.Visible AndAlso Not txtApplicableStandardPercentRata.Visible AndAlso
+                Not cboDiluentRata.Visible AndAlso Not txtPart75Statement.Visible Then
                 AccChoice = "RefMethod"
                 If IsNumeric(txtRefMethodPercentRata.Text) Then
                     AccRequiredPercent = txtRefMethodPercentRata.Text
@@ -13153,8 +13153,8 @@ Public Class ISMPTestReports
                 End If
                 AccRequiredStatement = "% of the average value of the Reference Method (RM) test data (when the average of the RM test data is greater then 50% of the applicable standard)"
             Else
-                If txtRefMethodPercentRata.Visible = False AndAlso txtApplicableStandardPercentRata.Visible = True AndAlso
-                    cboDiluentRata.Visible = False AndAlso txtPart75Statement.Visible = False Then
+                If Not txtRefMethodPercentRata.Visible AndAlso txtApplicableStandardPercentRata.Visible AndAlso
+                     Not cboDiluentRata.Visible AndAlso Not txtPart75Statement.Visible Then
                     AccChoice = "AppStandard"
                     If IsNumeric(txtApplicableStandardPercentRata.Text) Then
                         AccRequiredPercent = txtApplicableStandardPercentRata.Text
@@ -13163,14 +13163,14 @@ Public Class ISMPTestReports
                     End If
                     AccRequiredStatement = "% of the applicable standard (when the average of the RM test data is less than 50% of the applicable standard)."
                 Else
-                    If txtRefMethodPercentRata.Visible = False AndAlso txtApplicableStandardPercentRata.Visible = False AndAlso
-                        cboDiluentRata.Visible = True AndAlso txtPart75Statement.Visible = False Then
+                    If Not txtRefMethodPercentRata.Visible AndAlso Not txtApplicableStandardPercentRata.Visible AndAlso
+                        cboDiluentRata.Visible AndAlso Not txtPart75Statement.Visible Then
                         AccChoice = "Diluent"
                         AccRequiredPercent = "1% "
                         AccRequiredStatement = cboDiluentRata.Text
                     Else
-                        If txtRefMethodPercentRata.Visible = False AndAlso txtApplicableStandardPercentRata.Visible = False AndAlso
-                            cboDiluentRata.Visible = False AndAlso txtPart75Statement.Visible = True Then
+                        If Not txtRefMethodPercentRata.Visible AndAlso Not txtApplicableStandardPercentRata.Visible AndAlso
+                             Not cboDiluentRata.Visible AndAlso txtPart75Statement.Visible Then
                             AccChoice = "Part75"
                             If IsNumeric(txtPart75Statement.Text) Then
                                 AccRequiredPercent = txtPart75Statement.Text
@@ -13552,7 +13552,7 @@ Public Class ISMPTestReports
                     Else
                         Opacity1 = " "
                     End If
-                    If rdbMethod9HighestAvg.Checked = True Then
+                    If rdbMethod9HighestAvg.Checked Then
                         OpacityStandard = "6"
                     Else
                         OpacityStandard = "30"
@@ -13710,7 +13710,7 @@ Public Class ISMPTestReports
                     Else
                         Equip5 = " "
                     End If
-                    If rdbMethod9MultiHighestAvg.Checked = True Then
+                    If rdbMethod9MultiHighestAvg.Checked Then
                         OpacityStandard = "6"
                     Else
                         OpacityStandard = "30"
@@ -16181,7 +16181,7 @@ Public Class ISMPTestReports
 
     Private Sub chbTestReportChangeDueDate_CheckedChanged(sender As Object, e As EventArgs) Handles chbTestReportChangeDueDate.CheckedChanged
         Try
-            If chbTestReportChangeDueDate.Checked = True Then
+            If chbTestReportChangeDueDate.Checked Then
                 DTPTestReportDueDate.Visible = True
             Else
                 DTPTestReportDueDate.Visible = False
@@ -16196,7 +16196,7 @@ Public Class ISMPTestReports
 
     Private Sub chbAcknoledgmentLetterSent_CheckedChanged(sender As Object, e As EventArgs) Handles chbAcknoledgmentLetterSent.CheckedChanged
         Try
-            If chbAcknoledgmentLetterSent.Checked = True Then
+            If chbAcknoledgmentLetterSent.Checked Then
                 DTPAcknoledgmentLetterSent.Visible = True
             Else
                 DTPAcknoledgmentLetterSent.Visible = False
@@ -18517,158 +18517,158 @@ Public Class ISMPTestReports
             Dim RelAccuracy As Double
             Dim x As Integer = 0
 
-            If txtRefMethodRata1.Text <> "" AndAlso IsNumeric(txtRefMethodRata1.Text) AndAlso chbOmitRunRata1.Checked = False Then
+            If txtRefMethodRata1.Text <> "" AndAlso IsNumeric(txtRefMethodRata1.Text) AndAlso Not chbOmitRunRata1.Checked Then
                 Ref1 = txtRefMethodRata1.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata1.Text.Length)
             Else
                 Ref1 = 0
             End If
-            If txtRefMethodRata2.Text <> "" AndAlso IsNumeric(txtRefMethodRata2.Text) AndAlso chbOmitRunRata2.Checked = False Then
+            If txtRefMethodRata2.Text <> "" AndAlso IsNumeric(txtRefMethodRata2.Text) AndAlso Not chbOmitRunRata2.Checked Then
                 Ref2 = txtRefMethodRata2.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata2.Text.Length)
             Else
                 Ref2 = 0
             End If
-            If txtRefMethodRata3.Text <> "" AndAlso IsNumeric(txtRefMethodRata3.Text) AndAlso chbOmitRunRata3.Checked = False Then
+            If txtRefMethodRata3.Text <> "" AndAlso IsNumeric(txtRefMethodRata3.Text) AndAlso Not chbOmitRunRata3.Checked Then
                 Ref3 = txtRefMethodRata3.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata3.Text.Length)
             Else
                 Ref3 = 0
             End If
-            If txtRefMethodRata4.Text <> "" AndAlso IsNumeric(txtRefMethodRata4.Text) AndAlso chbOmitRunRata4.Checked = False Then
+            If txtRefMethodRata4.Text <> "" AndAlso IsNumeric(txtRefMethodRata4.Text) AndAlso Not chbOmitRunRata4.Checked Then
                 Ref4 = txtRefMethodRata4.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata4.Text.Length)
             Else
                 Ref4 = 0
             End If
-            If txtRefMethodRata5.Text <> "" AndAlso IsNumeric(txtRefMethodRata5.Text) AndAlso chbOmitRunRata5.Checked = False Then
+            If txtRefMethodRata5.Text <> "" AndAlso IsNumeric(txtRefMethodRata5.Text) AndAlso Not chbOmitRunRata5.Checked Then
                 Ref5 = txtRefMethodRata5.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata5.Text.Length)
             Else
                 Ref5 = 0
             End If
-            If txtRefMethodRata6.Text <> "" AndAlso IsNumeric(txtRefMethodRata6.Text) AndAlso chbOmitRunRata6.Checked = False Then
+            If txtRefMethodRata6.Text <> "" AndAlso IsNumeric(txtRefMethodRata6.Text) AndAlso Not chbOmitRunRata6.Checked Then
                 Ref6 = txtRefMethodRata6.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata6.Text.Length)
             Else
                 Ref6 = 0
             End If
-            If txtRefMethodRata7.Text <> "" AndAlso IsNumeric(txtRefMethodRata7.Text) AndAlso chbOmitRunRata7.Checked = False Then
+            If txtRefMethodRata7.Text <> "" AndAlso IsNumeric(txtRefMethodRata7.Text) AndAlso Not chbOmitRunRata7.Checked Then
                 Ref7 = txtRefMethodRata7.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata7.Text.Length)
             Else
                 Ref7 = 0
             End If
-            If txtRefMethodRata8.Text <> "" AndAlso IsNumeric(txtRefMethodRata8.Text) AndAlso chbOmitRunRata8.Checked = False Then
+            If txtRefMethodRata8.Text <> "" AndAlso IsNumeric(txtRefMethodRata8.Text) AndAlso Not chbOmitRunRata8.Checked Then
                 Ref8 = txtRefMethodRata8.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata8.Text.Length)
             Else
                 Ref8 = 0
             End If
-            If txtRefMethodRata9.Text <> "" AndAlso IsNumeric(txtRefMethodRata9.Text) AndAlso chbOmitRunRata9.Checked = False Then
+            If txtRefMethodRata9.Text <> "" AndAlso IsNumeric(txtRefMethodRata9.Text) AndAlso Not chbOmitRunRata9.Checked Then
                 Ref9 = txtRefMethodRata9.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata9.Text.Length)
             Else
                 Ref9 = 0
             End If
-            If txtRefMethodRata10.Text <> "" AndAlso IsNumeric(txtRefMethodRata10.Text) AndAlso chbOmitRunRata10.Checked = False Then
+            If txtRefMethodRata10.Text <> "" AndAlso IsNumeric(txtRefMethodRata10.Text) AndAlso Not chbOmitRunRata10.Checked Then
                 Ref10 = txtRefMethodRata10.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata10.Text.Length)
             Else
                 Ref10 = 0
             End If
-            If txtRefMethodRata11.Text <> "" AndAlso IsNumeric(txtRefMethodRata11.Text) AndAlso chbOmitRunRata11.Checked = False Then
+            If txtRefMethodRata11.Text <> "" AndAlso IsNumeric(txtRefMethodRata11.Text) AndAlso Not chbOmitRunRata11.Checked Then
                 Ref11 = txtRefMethodRata11.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata11.Text.Length)
             Else
                 Ref11 = 0
             End If
-            If txtRefMethodRata12.Text <> "" AndAlso IsNumeric(txtRefMethodRata12.Text) AndAlso chbOmitRunRata12.Checked = False Then
+            If txtRefMethodRata12.Text <> "" AndAlso IsNumeric(txtRefMethodRata12.Text) AndAlso Not chbOmitRunRata12.Checked Then
                 Ref12 = txtRefMethodRata12.Text
                 RunNum += 1
                 x = Math.Max(x, txtRefMethodRata12.Text.Length)
             Else
                 Ref12 = 0
             End If
-            If txtCMSRata1.Text <> "" AndAlso IsNumeric(txtCMSRata1.Text) AndAlso chbOmitRunRata1.Checked = False Then
+            If txtCMSRata1.Text <> "" AndAlso IsNumeric(txtCMSRata1.Text) AndAlso Not chbOmitRunRata1.Checked Then
                 CMS1 = txtCMSRata1.Text
                 x = Math.Max(x, txtCMSRata1.Text.Length)
             Else
                 CMS1 = 0
             End If
 
-            If txtCMSRata2.Text <> "" AndAlso IsNumeric(txtCMSRata2.Text) AndAlso chbOmitRunRata2.Checked = False Then
+            If txtCMSRata2.Text <> "" AndAlso IsNumeric(txtCMSRata2.Text) AndAlso Not chbOmitRunRata2.Checked Then
                 CMS2 = txtCMSRata2.Text
                 x = Math.Max(x, txtCMSRata2.Text.Length)
             Else
                 CMS2 = 0
             End If
-            If txtCMSRata3.Text <> "" AndAlso IsNumeric(txtCMSRata3.Text) AndAlso chbOmitRunRata3.Checked = False Then
+            If txtCMSRata3.Text <> "" AndAlso IsNumeric(txtCMSRata3.Text) AndAlso Not chbOmitRunRata3.Checked Then
                 CMS3 = txtCMSRata3.Text
                 x = Math.Max(x, txtCMSRata3.Text.Length)
             Else
                 CMS3 = 0
             End If
-            If txtCMSRata4.Text <> "" AndAlso IsNumeric(txtCMSRata4.Text) AndAlso chbOmitRunRata4.Checked = False Then
+            If txtCMSRata4.Text <> "" AndAlso IsNumeric(txtCMSRata4.Text) AndAlso Not chbOmitRunRata4.Checked Then
                 CMS4 = txtCMSRata4.Text
                 x = Math.Max(x, txtCMSRata4.Text.Length)
             Else
                 CMS4 = 0
             End If
-            If txtCMSRata5.Text <> "" AndAlso IsNumeric(txtCMSRata5.Text) AndAlso chbOmitRunRata5.Checked = False Then
+            If txtCMSRata5.Text <> "" AndAlso IsNumeric(txtCMSRata5.Text) AndAlso Not chbOmitRunRata5.Checked Then
                 CMS5 = txtCMSRata5.Text
                 x = Math.Max(x, txtCMSRata5.Text.Length)
             Else
                 CMS5 = 0
             End If
-            If txtCMSRata6.Text <> "" AndAlso IsNumeric(txtCMSRata6.Text) AndAlso chbOmitRunRata6.Checked = False Then
+            If txtCMSRata6.Text <> "" AndAlso IsNumeric(txtCMSRata6.Text) AndAlso Not chbOmitRunRata6.Checked Then
                 CMS6 = txtCMSRata6.Text
                 x = Math.Max(x, txtCMSRata6.Text.Length)
             Else
                 CMS6 = 0
             End If
-            If txtCMSRata7.Text <> "" AndAlso IsNumeric(txtCMSRata7.Text) AndAlso chbOmitRunRata7.Checked = False Then
+            If txtCMSRata7.Text <> "" AndAlso IsNumeric(txtCMSRata7.Text) AndAlso Not chbOmitRunRata7.Checked Then
                 CMS7 = txtCMSRata7.Text
                 x = Math.Max(x, txtCMSRata7.Text.Length)
             Else
                 CMS7 = 0
             End If
-            If txtCMSRata8.Text <> "" AndAlso IsNumeric(txtCMSRata8.Text) AndAlso chbOmitRunRata8.Checked = False Then
+            If txtCMSRata8.Text <> "" AndAlso IsNumeric(txtCMSRata8.Text) AndAlso Not chbOmitRunRata8.Checked Then
                 CMS8 = txtCMSRata8.Text
                 x = Math.Max(x, txtCMSRata8.Text.Length)
             Else
                 CMS8 = 0
             End If
-            If txtCMSRata9.Text <> "" AndAlso IsNumeric(txtCMSRata9.Text) AndAlso chbOmitRunRata9.Checked = False Then
+            If txtCMSRata9.Text <> "" AndAlso IsNumeric(txtCMSRata9.Text) AndAlso Not chbOmitRunRata9.Checked Then
                 CMS9 = txtCMSRata9.Text
                 x = Math.Max(x, txtCMSRata9.Text.Length)
             Else
                 CMS9 = 0
             End If
-            If txtCMSRata10.Text <> "" AndAlso IsNumeric(txtCMSRata10.Text) AndAlso chbOmitRunRata10.Checked = False Then
+            If txtCMSRata10.Text <> "" AndAlso IsNumeric(txtCMSRata10.Text) AndAlso Not chbOmitRunRata10.Checked Then
                 CMS10 = txtCMSRata10.Text
                 x = Math.Max(x, txtCMSRata10.Text.Length)
             Else
                 CMS10 = 0
             End If
-            If txtCMSRata11.Text <> "" AndAlso IsNumeric(txtCMSRata11.Text) AndAlso chbOmitRunRata11.Checked = False Then
+            If txtCMSRata11.Text <> "" AndAlso IsNumeric(txtCMSRata11.Text) AndAlso Not chbOmitRunRata11.Checked Then
                 CMS11 = txtCMSRata11.Text
                 x = Math.Max(x, txtCMSRata11.Text.Length)
             Else
                 CMS11 = 0
             End If
-            If txtCMSRata12.Text <> "" AndAlso IsNumeric(txtCMSRata12.Text) AndAlso chbOmitRunRata12.Checked = False Then
+            If txtCMSRata12.Text <> "" AndAlso IsNumeric(txtCMSRata12.Text) AndAlso Not chbOmitRunRata12.Checked Then
                 CMS12 = txtCMSRata12.Text
                 x = Math.Max(x, txtCMSRata12.Text.Length)
             Else
@@ -18685,40 +18685,40 @@ Public Class ISMPTestReports
 
                 Dim temp, temp2 As Double
 
-                If chbOmitRunRata1.Checked = False AndAlso Ref1 <> 0 AndAlso CMS1 <> 0 Then
+                If Not chbOmitRunRata1.Checked AndAlso Ref1 <> 0 AndAlso CMS1 <> 0 Then
                     temp = ((Ref1 - CMS1) - MeanDiff) * ((Ref1 - CMS1) - MeanDiff)
                 End If
-                If chbOmitRunRata2.Checked = False AndAlso Ref2 <> 0 AndAlso CMS2 <> 0 Then
+                If Not chbOmitRunRata2.Checked AndAlso Ref2 <> 0 AndAlso CMS2 <> 0 Then
                     temp = temp + (((Ref2 - CMS2) - MeanDiff) * ((Ref2 - CMS2) - MeanDiff))
                 End If
-                If chbOmitRunRata3.Checked = False AndAlso Ref3 <> 0 AndAlso CMS3 <> 0 Then
+                If Not chbOmitRunRata3.Checked AndAlso Ref3 <> 0 AndAlso CMS3 <> 0 Then
                     temp = temp + (((Ref3 - CMS3) - MeanDiff) * ((Ref3 - CMS3) - MeanDiff))
                 End If
-                If chbOmitRunRata4.Checked = False AndAlso Ref4 <> 0 AndAlso CMS4 <> 0 Then
+                If Not chbOmitRunRata4.Checked AndAlso Ref4 <> 0 AndAlso CMS4 <> 0 Then
                     temp = temp + (((Ref4 - CMS4) - MeanDiff) * ((Ref4 - CMS4) - MeanDiff))
                 End If
-                If chbOmitRunRata5.Checked = False AndAlso Ref5 <> 0 AndAlso CMS5 <> 0 Then
+                If Not chbOmitRunRata5.Checked AndAlso Ref5 <> 0 AndAlso CMS5 <> 0 Then
                     temp = temp + (((Ref5 - CMS5) - MeanDiff) * ((Ref5 - CMS5) - MeanDiff))
                 End If
-                If chbOmitRunRata6.Checked = False AndAlso Ref6 <> 0 AndAlso CMS6 <> 0 Then
+                If Not chbOmitRunRata6.Checked AndAlso Ref6 <> 0 AndAlso CMS6 <> 0 Then
                     temp = temp + (((Ref6 - CMS6) - MeanDiff) * ((Ref6 - CMS6) - MeanDiff))
                 End If
-                If chbOmitRunRata7.Checked = False AndAlso Ref7 <> 0 AndAlso CMS7 <> 0 Then
+                If Not chbOmitRunRata7.Checked AndAlso Ref7 <> 0 AndAlso CMS7 <> 0 Then
                     temp = temp + (((Ref7 - CMS7) - MeanDiff) * ((Ref7 - CMS7) - MeanDiff))
                 End If
-                If chbOmitRunRata8.Checked = False AndAlso Ref8 <> 0 AndAlso CMS8 <> 0 Then
+                If Not chbOmitRunRata8.Checked AndAlso Ref8 <> 0 AndAlso CMS8 <> 0 Then
                     temp = temp + (((Ref8 - CMS8) - MeanDiff) * ((Ref8 - CMS8) - MeanDiff))
                 End If
-                If chbOmitRunRata9.Checked = False AndAlso Ref9 <> 0 AndAlso CMS9 <> 0 Then
+                If Not chbOmitRunRata9.Checked AndAlso Ref9 <> 0 AndAlso CMS9 <> 0 Then
                     temp = temp + (((Ref9 - CMS9) - MeanDiff) * ((Ref9 - CMS9) - MeanDiff))
                 End If
-                If chbOmitRunRata10.Checked = False AndAlso Ref10 <> 0 AndAlso CMS10 <> 0 Then
+                If Not chbOmitRunRata10.Checked AndAlso Ref10 <> 0 AndAlso CMS10 <> 0 Then
                     temp = temp + (((Ref10 - CMS10) - MeanDiff) * ((Ref10 - CMS10) - MeanDiff))
                 End If
-                If chbOmitRunRata11.Checked = False AndAlso Ref11 <> 0 AndAlso CMS11 <> 0 Then
+                If Not chbOmitRunRata11.Checked AndAlso Ref11 <> 0 AndAlso CMS11 <> 0 Then
                     temp = temp + (((Ref11 - CMS11) - MeanDiff) * ((Ref11 - CMS11) - MeanDiff))
                 End If
-                If chbOmitRunRata12.Checked = False AndAlso Ref12 <> 0 AndAlso CMS12 <> 0 Then
+                If Not chbOmitRunRata12.Checked AndAlso Ref12 <> 0 AndAlso CMS12 <> 0 Then
                     temp = temp + (((Ref12 - CMS12) - MeanDiff) * ((Ref12 - CMS12) - MeanDiff))
                 End If
 
