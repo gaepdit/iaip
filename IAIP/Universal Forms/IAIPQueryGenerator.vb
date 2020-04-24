@@ -3856,7 +3856,7 @@ Public Class IAIPQueryGenerator
                 "trying three times, please contact EPD IT."
 
             If MessageBox.Show(warning, "Warning", MessageBoxButtons.OKCancel) = DialogResult.Cancel Then
-                Exit Sub
+                Return
             End If
 
             query = "select " &

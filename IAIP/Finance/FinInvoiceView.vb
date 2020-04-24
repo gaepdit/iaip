@@ -41,7 +41,7 @@ Public Class FinInvoiceView
 
         If thisInvoice Is Nothing Then
             InvalidateForm()
-            Exit Sub
+            Return
         End If
 
         With thisInvoice

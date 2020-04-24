@@ -72,7 +72,7 @@ Public Class SscpDocuments
     End Sub
 
     Private Sub FindEnforcement()
-        If txtFindEnforcement.Text = "" Then Exit Sub
+        If txtFindEnforcement.Text = "" Then Return
 
         enforcementInfo = Nothing
         enforcementNumber = txtFindEnforcement.Text
@@ -305,7 +305,7 @@ Public Class SscpDocuments
             .Filter = String.Join("|", FileOpenFilters.ToArray)
         }
             If openFileDialog.ShowDialog() <> DialogResult.OK OrElse openFileDialog.FileName = "" Then
-                Exit Sub
+                Return
             End If
 
             ClearNewDocument()
@@ -314,17 +314,17 @@ Public Class SscpDocuments
 
             If Not fileInfo.Exists Then
                 Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.FileNotFound), IaipMessage.WarningLevels.ErrorReport)
-                Exit Sub
+                Return
             End If
 
             If fileInfo.Length >= Document.MaxFileSize Then
                 Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.FileTooLarge), IaipMessage.WarningLevels.ErrorReport)
-                Exit Sub
+                Return
             End If
 
             If fileInfo.Length = 0 Then
                 Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.FileEmpty), IaipMessage.WarningLevels.ErrorReport)
-                Exit Sub
+                Return
             End If
 
             NewDocumentPath = openFileDialog.FileName
@@ -349,7 +349,7 @@ Public Class SscpDocuments
         ' Check if file exists
         If Not fileInfo.Exists Then
             Me.Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.FileNotFound), IaipMessage.WarningLevels.ErrorReport)
-            Exit Sub
+            Return
         End If
 
         Dim m As String
@@ -358,7 +358,7 @@ Public Class SscpDocuments
         If DocumentTypeAlreadyExists() Then
             m = String.Format(GetDocumentMessage(DocumentMessageType.DocumentTypeAlreadyExists), ddlNewDocumentType.Text)
             MessageBox.Show(m, "Document Already Exists", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
+            Return
         End If
 
         ' Create Document object

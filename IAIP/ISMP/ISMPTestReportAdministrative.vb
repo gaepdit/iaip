@@ -187,7 +187,7 @@ Public Class ISMPTestReportAdministrative
                     End If
                 End If
 
-                Exit Sub
+                Return
             End If
 
             If cboAIRSNumber.SelectedIndex <> -1 Then
@@ -317,7 +317,7 @@ Public Class ISMPTestReportAdministrative
             If rdbCloseReport.Checked Then
                 MsgBox("This record is currently marked as being closed." & vbCrLf & "Click Open Record to Save information.",
                 MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
-                Exit Sub
+                Return
             End If
 
             If btnSearchForAIRS.Visible Then
@@ -325,7 +325,7 @@ Public Class ISMPTestReportAdministrative
                     AIRSNumber = cboAIRSNumber.Text
                 Else
                     MsgBox("Invalid AIRS Number", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
-                    Exit Sub
+                    Return
                 End If
             Else
                 If cboAIRSNumber.SelectedIndex <> -1 AndAlso cboAIRSNumber.SelectedIndex <> 0 Then
@@ -333,7 +333,7 @@ Public Class ISMPTestReportAdministrative
                 Else
                     MsgBox("The Facility Name does not correspond to the AIRS Number provided." _
                      & vbCr & "This must be corrected before moving on.", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
-                    Exit Sub
+                    Return
                 End If
             End If
 
@@ -341,13 +341,13 @@ Public Class ISMPTestReportAdministrative
             Else
                 MsgBox("The Pollutant does not match any of the provided pollutants." _
                   & vbCr & "This must be corrected before moving on.", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
-                Exit Sub
+                Return
             End If
             If cboTestingFirms.SelectedIndex <> -1 AndAlso cboTestingFirms.SelectedIndex <> 0 Then
             Else
                 MsgBox("The Testing Firm does not match any of the provided Testing Firms." _
                   & vbCr & "This must be corrected before moving on.", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
-                Exit Sub
+                Return
             End If
 
             If Not chbOverright.Checked AndAlso txtReferenceNumber.Text = "" Then
@@ -516,7 +516,7 @@ Public Class ISMPTestReportAdministrative
                         MsgBox("There was an issue with the Reference Number being more than 9 characters in length." & vbCrLf &
                                "Please note the Reference Numbers being closed out and contact the Data Management Unit with those numbers.",
                                 MsgBoxStyle.Exclamation, "Test Report Administration")
-                        Exit Sub
+                        Return
                     End If
                     query = "Select strComplianceStatus " &
                     "from ISMPReportInformation " &
@@ -607,12 +607,12 @@ Public Class ISMPTestReportAdministrative
                         Case "00"
                             MsgBox("Reference Number " & RefNum.ToString & " does not exist in the system.",
                                    MsgBoxStyle.Exclamation, "ISMP Test Report Information")
-                            Exit Sub
+                            Return
                         Case "01"
                             MsgBox("Test Report " & RefNum.ToString & " is marked as 'File Open' in the Compliance Status." & vbCrLf &
                             "Have the engineer correct this status before trying to close out this Test Report.",
                               MsgBoxStyle.Exclamation, "ISMP Test Report Information")
-                            Exit Sub
+                            Return
                         Case Else
                             query = "Update ISMPReportInformation set " &
                             "strClosed = 'True', " &
@@ -812,7 +812,7 @@ Public Class ISMPTestReportAdministrative
             If MessageBox.Show("Are you sure you want to delete these test reports?", "Confirm Delete",
                                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
                                = DialogResult.No Then
-                Exit Sub
+                Return
             End If
 
             For Each RefNum As String In Me.clbReferenceNumbers.CheckedItems
@@ -1906,7 +1906,7 @@ Public Class ISMPTestReportAdministrative
                 Else
                     mtbAddTestReportAIRSNumber.BackColor = Color.Tomato
                     MsgBox("Please add a valid AIRS Number.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
                 If txtAddTestReportCommissioner.Text <> "" Then
                     Commissioner = txtAddTestReportCommissioner.Text
@@ -1914,7 +1914,7 @@ Public Class ISMPTestReportAdministrative
                 Else
                     txtAddTestReportCommissioner.BackColor = Color.Tomato
                     MsgBox("Please add a valid Commissioner.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
                 If txtAddTestReportDirector.Text <> "" Then
                     Director = txtAddTestReportDirector.Text
@@ -1922,7 +1922,7 @@ Public Class ISMPTestReportAdministrative
                 Else
                     txtAddTestReportDirector.BackColor = Color.Tomato
                     MsgBox("Please add a valid Director.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
                 If txtAddTestReportProgramManager.Text <> "" Then
                     ProgramManager = txtAddTestReportProgramManager.Text
@@ -1930,7 +1930,7 @@ Public Class ISMPTestReportAdministrative
                 Else
                     txtAddTestReportProgramManager.BackColor = Color.Tomato
                     MsgBox("Please add a valid Program Manager.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
                 DateReceived = dtpAddTestReportDateReceived.Text
                 DateCompleted = DTPAddTestReportDateCompleted.Text
@@ -1944,7 +1944,7 @@ Public Class ISMPTestReportAdministrative
 
                 If DB.ValueExists(query, p) Then
                     MsgBox("This Reference Number already exists in the system.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
 
                 query = "Select " &
@@ -1956,7 +1956,7 @@ Public Class ISMPTestReportAdministrative
 
                 If Not DB.ValueExists(query, p2) Then
                     MsgBox("This AIRS Number does not exist in the system.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
 
                 query = "Insert into ISMPMaster " &
@@ -2013,7 +2013,7 @@ Public Class ISMPTestReportAdministrative
             Else
                 txtAddTestReportRefNum.BackColor = Color.Tomato
                 MsgBox("Please add a valid Reference Number.", MsgBoxStyle.Information, "Add Test Report")
-                Exit Sub
+                Return
             End If
 
 

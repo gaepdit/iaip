@@ -46,7 +46,9 @@
     ''' <param name="displayLabel">The label in which to display the message.</param>
     ''' <param name="errorProvider">The optional ErrorProvider.</param>
     Public Sub Display(displayLabel As Label, Optional errorProvider As ErrorProvider = Nothing)
-        If Me Is Nothing Then Exit Sub
+        If Me Is Nothing Then
+            Return
+        End If
 
         Me.DisplayLabel = displayLabel
         Me.ErrorProvider = errorProvider

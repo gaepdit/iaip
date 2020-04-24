@@ -69,13 +69,13 @@ Public Class SSCPEvents
         If dr Is Nothing Then
             MessageBox.Show("Item does Not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Me.Close()
-            Exit Sub
+            Return
         End If
 
         If IsDBNull(dr("strEventType")) Then
             MessageBox.Show("Item Is invalid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Me.Close()
-            Exit Sub
+            Return
         Else
             EventType = CType(CInt(dr.Item("strEventType")), WorkItemEventType)
         End If
@@ -581,11 +581,11 @@ Public Class SSCPEvents
                         If cboNotificationType.SelectedValue.ToString = "07" OrElse cboNotificationType.SelectedValue.ToString = "08" Then
                             MsgBox("Malfunctions/deviations are no longer saved as notifications." & vbCrLf &
                                    "Please save this as a Report.", MsgBoxStyle.Exclamation, Me.Text)
-                            Exit Sub
+                            Return
                         End If
                         result = SaveNotifications()
                     Case WorkItemEventType.Unknown
-                        Exit Sub
+                        Return
                 End Select
 
                 If result AndAlso SaveDate() Then
@@ -2406,14 +2406,14 @@ Public Class SSCPEvents
             If EventType = WorkItemEventType.StackTest Then
                 MessageBox.Show("Performance tests must be deleted by ISMP.",
                                 "Can't Delete", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                Exit Sub
+                Return
             End If
 
             If DAL.Sscp.TrackingNumberHasEnforcement(TrackingNumber) Then
                 MessageBox.Show("This Compliance Action is currently linked to enforcement." & vbCrLf &
                                 "Disassociate this action from any enforcement before deleting.",
                                 "Can't Delete", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                Exit Sub
+                Return
             End If
 
             If MessageBox.Show("Should this work item be deleted?",
@@ -2421,7 +2421,7 @@ Public Class SSCPEvents
                                MessageBoxButtons.YesNo,
                                MessageBoxIcon.Warning,
                                MessageBoxDefaultButton.Button2) = DialogResult.No Then
-                Exit Sub
+                Return
             End If
 
             ' Mark as deleted in SSCP item master and AFSSSCPRECORDS
@@ -3083,7 +3083,7 @@ Public Class SSCPEvents
         LoadACC()
         If Not dtpAccReportingYear.Checked Then
             MsgBox("Please save a reporting year before printing this ACC.", MsgBoxStyle.Critical, "Print Error")
-            Exit Sub
+            Return
         End If
         Try
             Dim acc As Acc = LoadAccFromForm()

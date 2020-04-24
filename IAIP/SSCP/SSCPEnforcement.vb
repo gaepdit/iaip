@@ -210,7 +210,7 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub LoadCurrentEnforcement()
-        If EnforcementId = 0 Then Exit Sub
+        If EnforcementId = 0 Then Return
         EnforcementCase = DAL.Sscp.GetEnforcementCase(EnforcementId)
         If EnforcementCase Is Nothing Then
             MessageBox.Show("Invalid enforcement number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -527,7 +527,7 @@ Public Class SscpEnforcement
 
         If Not CType(sender, RadioButton).Checked Then
             ' Prevents sub from firing twice (once for unchecking one button and once for checking another)
-            Exit Sub
+            Return
         End If
 
         Dim rowFilter As String = Nothing
@@ -770,7 +770,7 @@ Public Class SscpEnforcement
 #Region " General tab: Submit to UC/EPA buttons "
 
     Private Sub SubmitToUC_Click(sender As Object, e As EventArgs) Handles SubmitToUC.Click
-        If EnforcementCase.SubmittedToUc = True Then Exit Sub
+        If EnforcementCase.SubmittedToUc = True Then Return
 
         EnforcementCase.SubmittedToUc = True
         If ValidateAndSave() Then
@@ -787,12 +787,12 @@ Public Class SscpEnforcement
             SubmitToEpa.Visible = False
             SubmitToEpa2.Visible = False
             ShowEpaValues()
-            Exit Sub
+            Return
         End If
 
         If Not CurrentUser.HasPermission(UserCan.ResolveEnforcement) Then
             GeneralMessage = New IaipMessage("You do not have sufficient permission to submit enforcement case to EPA.", IaipMessage.WarningLevels.ErrorReport)
-            Exit Sub
+            Return
         End If
 
         EnforcementCase.SubmittedToEpa = True
@@ -821,7 +821,7 @@ Public Class SscpEnforcement
 
     Public Sub DisplayEnforcementPollutants()
         ' Pollutants associated with this case
-        If EnforcementId = 0 OrElse EnforcementCase Is Nothing Then Exit Sub
+        If EnforcementId = 0 OrElse EnforcementCase Is Nothing Then Return
         If EnforcementCase.Pollutants IsNot Nothing Then
             For i As Integer = 0 To PollutantsListView.Items.Count - 1
                 If EnforcementCase.Pollutants.Contains(PollutantsListView.Items(i).SubItems(1).Text) Then
@@ -842,7 +842,7 @@ Public Class SscpEnforcement
 
     Private Sub DisplayEnforcementAirPrograms()
         ' Programs associated with this case
-        If EnforcementId = 0 OrElse EnforcementCase Is Nothing Then Exit Sub
+        If EnforcementId = 0 OrElse EnforcementCase Is Nothing Then Return
         If EnforcementCase.AirPrograms IsNot Nothing Then
             For i As Integer = 0 To ProgramsListView.Items.Count - 1
                 If EnforcementCase.AirPrograms.Contains(ProgramsListView.Items(i).SubItems(1).Text) Then
@@ -1830,12 +1830,12 @@ Public Class SscpEnforcement
     Private Sub DeleteEnforcement()
         If EnforcementId = 0 Then
             GeneralMessage = New IaipMessage("Current enforcement must be saved before you can delete it. I know, sounds weird, right?", IaipMessage.WarningLevels.ErrorReport)
-            Exit Sub
+            Return
         End If
 
         If Not CurrentUser.HasPermission(UserCan.ResolveEnforcement) Then
             GeneralMessage = New IaipMessage("You do not have sufficient permission to delete enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
-            Exit Sub
+            Return
         End If
 
         Dim dr As DialogResult = MessageBox.Show(

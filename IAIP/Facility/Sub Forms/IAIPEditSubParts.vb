@@ -114,7 +114,7 @@ Public Class IAIPEditSubParts
         Try
             If AirsNumber Is Nothing Then
                 TCSubparts.Enabled = False
-                Exit Sub
+                Return
             End If
 
             TCSubparts.Enabled = True
@@ -312,7 +312,7 @@ Public Class IAIPEditSubParts
                 clb = clbSIP
                 ruleKey = "0"
             Case Else
-                Exit Sub
+                Return
         End Select
 
         For Each spi As SubpartItem In clb.CheckedItems

@@ -107,7 +107,7 @@ Public Class IAIPEditFacilityLocation
     Private Sub Save()
         If Not (AccountFormAccess(28, 2) = "1" OrElse AccountFormAccess(28, 3) = "1" OrElse AccountFormAccess(28, 4) = "1") Then
             MessageBox.Show("You do not have permissions to change facility location information.")
-            Exit Sub
+            Return
         End If
 
         Dim FacilityName As String
@@ -132,7 +132,7 @@ Public Class IAIPEditFacilityLocation
 
         If Not ValidateData() Then
             MessageBox.Show("Please correct the missing data.")
-            Exit Sub
+            Return
         End If
 
         txtFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
@@ -189,7 +189,7 @@ Public Class IAIPEditFacilityLocation
 
         If String.Join("", {FacilityName, Street1, Street2, City, State, ZipCode, Longitude, Latitude}) = "" Then
             MessageBox.Show("No data has been modified")
-            Exit Sub
+            Return
         End If
 
         Dim query1 As String = "Update APBFacilityInformation set "

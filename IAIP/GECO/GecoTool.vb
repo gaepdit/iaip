@@ -344,7 +344,7 @@ Public Class GecoTool
 
             If result <> AirsNumberValidationResult.Valid Then
                 MessageBox.Show("The AIRS number is not valid.", "Error")
-                Exit Sub
+                Return
             End If
 
             Dim query As String = "Select numUserId from olapuserlogin " &
@@ -356,14 +356,14 @@ Public Class GecoTool
 
             If userID = 0 Then ' Email address is not registered
                 MessageBox.Show("This Email Address is not registered", "Error")
-                Exit Sub
+                Return
             End If
 
             Dim airs As New Apb.ApbFacilityId(mtbAIRSNumber.Text)
 
             If UserGecoAccessExists(userID, airs) Then ' already assigned
                 MessageBox.Show("This user already has access to this facility.")
-                Exit Sub
+                Return
             End If
 
             AddUserGecoAccess(userID, airs)

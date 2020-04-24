@@ -724,7 +724,7 @@ Public Class SSPPPublicNoticesAndAdvisories
 
     Private Sub ExportPDF(richTextDocument As String, fileName As String)
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         ' TODO: Request filename/location
@@ -798,12 +798,12 @@ Public Class SSPPPublicNoticesAndAdvisories
 
         If Not Integer.TryParse(txtApplicationNumberEditor.Text, appNumber) OrElse Not Sspp.ApplicationExists(appNumber) Then
             MessageBox.Show("Enter a valid application number.", "Error")
-            Exit Sub
+            Return
         End If
 
         If Not rdbPublicAdvisories.Checked AndAlso Not rdbPublicNotice.Checked Then
             MessageBox.Show("Select either Public Advisory or Public Notice.", "Error")
-            Exit Sub
+            Return
         End If
 
         Dim compareString As String = "Public Notice"
@@ -822,7 +822,7 @@ Public Class SSPPPublicNoticesAndAdvisories
                 MessageBox.Show("The application is already in the list.", "Error")
             End If
 
-            Exit Sub
+            Return
         End If
 
         Dim params As SqlParameter() = {
@@ -875,7 +875,7 @@ Public Class SSPPPublicNoticesAndAdvisories
 
     'Private Sub btnUpdatePAPNChanges_Click(sender As Object, e As EventArgs) Handles btnUpdatePAPNChanges.Click
     '    If OpenedDocument Is Nothing Then
-    '        Exit Sub
+    '        Return
     '    End If
 
     '    With OpenedDocument

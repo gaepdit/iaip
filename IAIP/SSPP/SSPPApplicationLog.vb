@@ -477,7 +477,7 @@ Public Class SSPPApplicationLog
 
             If bgwApplicationLog.CancellationPending Then
                 e.Cancel = True
-                Exit Sub
+                Return
             End If
 
             Select Case FieldType1
@@ -944,7 +944,7 @@ Public Class SSPPApplicationLog
 
             If bgwApplicationLog.CancellationPending Then
                 e.Cancel = True
-                Exit Sub
+                Return
             End If
 
             If AppType <> "All" Then
@@ -1020,7 +1020,7 @@ Public Class SSPPApplicationLog
 
             If bgwApplicationLog.CancellationPending Then
                 e.Cancel = True
-                Exit Sub
+                Return
             End If
 
             If Sort1 <> Sort2 Then
@@ -1055,7 +1055,7 @@ Public Class SSPPApplicationLog
 
                 If bgwApplicationLog.CancellationPending Then
                     e.Cancel = True
-                    Exit Sub
+                    Return
                 End If
             End If
 
@@ -1069,7 +1069,7 @@ Public Class SSPPApplicationLog
 
             If bgwApplicationLog.CancellationPending Then
                 e.Cancel = True
-                Exit Sub
+                Return
             End If
 
             Dim p As SqlParameter() = {
@@ -1121,7 +1121,7 @@ Public Class SSPPApplicationLog
             lblMessage.Text = "Search canceled"
             lblMessage.Visible = True
 
-            Exit Sub
+            Return
         End If
 
         If dtApplicationLog Is Nothing OrElse dtApplicationLog.Rows.Count = 0 Then

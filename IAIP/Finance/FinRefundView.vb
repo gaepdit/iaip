@@ -64,7 +64,7 @@ Public Class FinRefundView
         If FacilityId Is Nothing Then
             lblFacility.Text = String.Empty
             DisableForm("Error loading facility.", ErrorLevel.Error)
-            Exit Sub
+            Return
         End If
 
         lblFacility.Text = String.Concat(FacilityId.FormattedString, " ", GetFacilityName(FacilityId))
@@ -102,12 +102,12 @@ Public Class FinRefundView
     Private Sub btnSaveNew_Click(sender As Object, e As EventArgs) Handles btnSaveNew.Click
         If RefundId <> -1 Then
             DisableForm("Error.", ErrorLevel.Error)
-            Exit Sub
+            Return
         End If
 
         If txtRefundAmount.Amount = 0 Then
             lblMessage.ShowMessage("Refund amount must be greater than zero.", ErrorLevel.Warning)
-            Exit Sub
+            Return
         End If
 
         Dim refund As New Refund With {
@@ -157,7 +157,7 @@ Public Class FinRefundView
 
         If refund Is Nothing Then
             DisableForm("Refund ID does not exist.", ErrorLevel.Error)
-            Exit Sub
+            Return
         End If
 
         btnRefresh.Visible = True
@@ -197,7 +197,7 @@ Public Class FinRefundView
     Private Sub btnUpdateComment_Click(sender As Object, e As EventArgs) Handles btnUpdateComment.Click
         If RefundId = -1 Then
             DisableForm("Refund does not exist.", ErrorLevel.Error)
-            Exit Sub
+            Return
         End If
 
         Dim result As UpdateRefundCommentResult = UpdateRefundComment(RefundId, txtComment.Text)
@@ -217,7 +217,7 @@ Public Class FinRefundView
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         If RefundId = -1 Then
             DisableForm("Refund does not exist.", ErrorLevel.Error)
-            Exit Sub
+            Return
         End If
 
         Dim result As DeleteRefundResult = DeleteRefund(RefundId)

@@ -88,7 +88,7 @@ Public Class FinFeeRateManagement
 
         If selectedRateItem Is Nothing Then
             lblMessage.ShowMessage("Error: Rate Item could not be selected.", ErrorLevel.Error)
-            Exit Sub
+            Return
         End If
 
         txtRateItemName.Text = selectedRateItem.Description
@@ -148,7 +148,7 @@ Public Class FinFeeRateManagement
     Private Sub btnUpdateRateItemName_Click(sender As Object, e As EventArgs) Handles btnUpdateRateItemName.Click
         If String.IsNullOrWhiteSpace(txtRateItemName.Text) Then
             lblMessage.ShowMessage("Enter a description for the rate item.", ErrorLevel.Warning)
-            Exit Sub
+            Return
         End If
 
         Dim id As Integer = selectedRateItem.FeeRateItemID
@@ -218,7 +218,7 @@ Public Class FinFeeRateManagement
         If txtNewEffectiveRate.Amount <= 0 Then
             lblMessage.ShowMessage("Enter a valid rate.", ErrorLevel.Warning)
             txtNewEffectiveRate.Focus()
-            Exit Sub
+            Return
         End If
 
         Dim id As Integer = selectedRateItem.FeeRateItemID
@@ -269,7 +269,7 @@ Public Class FinFeeRateManagement
             MessageBoxButtons.YesNo,
             MessageBoxIcon.Warning,
             MessageBoxDefaultButton.Button2) Then
-            Exit Sub
+            Return
         End If
 
         Dim id As Integer = selectedRateItem.FeeRateItemID

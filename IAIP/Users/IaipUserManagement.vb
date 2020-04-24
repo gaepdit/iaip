@@ -384,7 +384,7 @@ Public Class IaipUserManagement
                                                          "Warning",
                                                          MessageBoxButtons.OKCancel)
                 If dr = DialogResult.Cancel Then
-                    Exit Sub
+                    Return
                 End If
             End If
             For Each item As Object In CurrentRoles.SelectedItems

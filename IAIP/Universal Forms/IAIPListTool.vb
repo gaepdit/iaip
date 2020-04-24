@@ -430,7 +430,7 @@ Public Class IAIPListTool
     Private Sub ViewForms()
         Try
             If lbAccounts.SelectedItems.Count <> 1 Then
-                Exit Sub
+                Return
             End If
 
             Dim temp As String = lbAccounts.SelectedValue

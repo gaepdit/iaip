@@ -1344,7 +1344,7 @@ Public Class SBEAPClientSummary
                     Select Case Result
                         Case DialogResult.Yes
                         Case Else
-                            Exit Sub
+                            Return
                     End Select
                 End If
             Else

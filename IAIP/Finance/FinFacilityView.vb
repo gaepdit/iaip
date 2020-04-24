@@ -42,7 +42,7 @@ Public Class FinFacilityView
             dgvRefunds.DataSource = Nothing
             dgvCredits.DataSource = Nothing
 
-            Exit Sub
+            Return
         End If
 
         With dgvInvoices

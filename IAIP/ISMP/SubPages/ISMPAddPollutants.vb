@@ -87,7 +87,7 @@ Public Class ISMPAddPollutants
 
             If String.IsNullOrWhiteSpace(txtPollutant.Text) OrElse String.IsNullOrWhiteSpace(txtPollutantCode.Text) Then
                 MessageBox.Show("Enter a pollutant code and description before saving.")
-                Exit Sub
+                Return
             End If
 
             Dim query As String = "Select convert(bit,count(*)) " &

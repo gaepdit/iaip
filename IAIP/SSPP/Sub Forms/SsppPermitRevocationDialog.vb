@@ -28,7 +28,7 @@ Public Class SsppPermitRevocationDialog
         ' Something has to be selected before proceeding ("None" or at least one permit)
         If Not NoneCheckbox.Checked AndAlso ActivePermitsCheckedListBox.CheckedItems.Count = 0 Then
             Warning.Visible = True
-            Exit Sub
+            Return
         End If
 
         If NoneCheckbox.Checked Then
