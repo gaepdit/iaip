@@ -7,6 +7,7 @@
 Public Class CueTextBox
     Inherits TextBox
 
+    <CodeAnalysis.SuppressMessage("Internal class", "CA1812")>
     Private NotInheritable Class NativeMethods
         Private Sub New()
         End Sub
