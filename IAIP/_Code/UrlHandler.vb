@@ -56,20 +56,20 @@ Public Module UrlHandler
         OpenUri(GetInvoiceUrl(invoiceGuid), objectSender)
     End Sub
 
-    Public Function GetEmissionFeeInvoiceUrl(airs As Apb.ApbFacilityId, feeYear As Integer) As String
+    Public Function GetEmissionFeeInvoiceLinkAddress(airs As Apb.ApbFacilityId, feeYear As Integer) As String
         Return String.Format(EmissionFeeInvoiceViewUrlFragment, airs.ShortString, feeYear)
     End Function
 
-    Public Function GetEmissionFeeInvoiceUrl(airs As Apb.ApbFacilityId, feeYear As Integer, invoiceID As Integer) As String
+    Public Function GetEmissionFeeInvoiceLinkAddress(airs As Apb.ApbFacilityId, feeYear As Integer, invoiceID As Integer) As String
         Return String.Format(EmissionFeeYearInvoiceViewUrlFragment, airs.ShortString, feeYear, invoiceID)
     End Function
 
     Public Sub OpenEmissionFeeInvoiceUrl(airs As Apb.ApbFacilityId, feeYear As Integer, Optional objectSender As Form = Nothing)
-        OpenUri(New Uri(GetEmissionFeeInvoiceUrl(airs, feeYear)), objectSender)
+        OpenUri(New Uri(GetEmissionFeeInvoiceLinkAddress(airs, feeYear)), objectSender)
     End Sub
 
     Public Sub OpenEmissionFeeInvoiceUrl(airs As Apb.ApbFacilityId, feeYear As Integer, invoiceID As Integer, Optional objectSender As Form = Nothing)
-        OpenUri(New Uri(GetEmissionFeeInvoiceUrl(airs, feeYear, invoiceID)), objectSender)
+        OpenUri(New Uri(GetEmissionFeeInvoiceLinkAddress(airs, feeYear, invoiceID)), objectSender)
     End Sub
 
     Public Function GetPermitApplicationUrl(appNumber As Integer) As Uri

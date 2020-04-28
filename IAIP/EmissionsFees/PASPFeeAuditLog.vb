@@ -3279,7 +3279,7 @@ Public Class PASPFeeAuditLog
 
     Private Sub EnablePrintActiveInvoicesLink()
         lnkPrintActiveInvoices.Enabled = True
-        UrlToolTip.SetToolTip(lnkPrintActiveInvoices, GetEmissionFeeInvoiceUrl(AirsNumber, CInt(FeeYear)))
+        UrlToolTip.SetToolTip(lnkPrintActiveInvoices, GetEmissionFeeInvoiceLinkAddress(AirsNumber, CInt(FeeYear)))
     End Sub
 
     Private Sub DisablePrintActiveInvoicesLink()
@@ -3289,7 +3289,7 @@ Public Class PASPFeeAuditLog
 
     Private Sub EnablePrintSelectedInvoiceLink()
         lnkPrintSelectedInvoice.Enabled = True
-        UrlToolTip.SetToolTip(lnkPrintSelectedInvoice, GetEmissionFeeInvoiceUrl(AirsNumber, CInt(FeeYear), CInt(txtInvoice.Text)))
+        UrlToolTip.SetToolTip(lnkPrintSelectedInvoice, GetEmissionFeeInvoiceLinkAddress(AirsNumber, CInt(FeeYear), CInt(txtInvoice.Text)))
     End Sub
 
     Private Sub DisablePrintSelectedInvoiceLink()
