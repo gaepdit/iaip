@@ -22,6 +22,8 @@ Namespace DAL.Finance
         End Function
 
         Public Function GetFacilityFinances(facilityId As ApbFacilityId) As DataSet
+            ArgumentNotNull(facilityId, NameOf(facilityId))
+
             Dim ds As DataSet = DB.SPGetDataSet("fees.GetFacilityFinances", New SqlParameter("FacilityID", facilityId.DbFormattedString))
 
             If ds Is Nothing OrElse ds.Tables.Count <> 5 Then
@@ -38,9 +40,12 @@ Namespace DAL.Finance
         End Function
 
         Public Function FacilityHasFeesData(facilityId As ApbFacilityId) As Boolean
+            ArgumentNotNull(facilityId, NameOf(facilityId))
+
             Dim query As String = "select convert(bit, count(*))
                 from fees.VW_AffectedFacilities
                 where FacilityID = @FacilityID"
+
             Return DB.GetBoolean(query, New SqlParameter("@FacilityID", facilityId.DbFormattedString))
         End Function
 

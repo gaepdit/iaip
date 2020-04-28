@@ -12,6 +12,7 @@ Public Class IAIPEditSubParts
             Return _AirsNumber
         End Get
         Set(value As Apb.ApbFacilityId)
+            ArgumentNotNull(value, NameOf(value))
             _AirsNumber = value
             AirsNumberDisplay.Text = value.FormattedString
             LoadFacilityInformation()

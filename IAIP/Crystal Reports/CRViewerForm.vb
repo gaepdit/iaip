@@ -41,6 +41,8 @@ Public Class CRViewerForm
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
+        ArgumentNotNull(reportDocument, NameOf(reportDocument))
+
         SetTitle(title)
         Me.CRReportDocument = reportDocument
         Me.CRReportDocument.SetDataSource(dataTable)
@@ -58,6 +60,8 @@ Public Class CRViewerForm
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
+        ArgumentNotNull(reportDocument, NameOf(reportDocument))
+
         SetTitle(title)
         Me.CRReportDocument = reportDocument
         Me.CRReportDocument.SetDataSource(dataSet)
@@ -75,6 +79,8 @@ Public Class CRViewerForm
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
+        ArgumentNotNull(reportDocument, NameOf(reportDocument))
+
         SetTitle(title)
         Me.CRReportDocument = reportDocument
         Me.CRReportDocument.SetDataSource(data)

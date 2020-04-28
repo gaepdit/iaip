@@ -22,10 +22,13 @@ Public Module StringFunctions
     ''' <param name="items">A List of Strings to concatenate</param>
     ''' <returns>A concatenated string separated by the specified separator. Null or empty strings are ignored.</returns>
     Public Function ConcatNonEmptyStrings(separator As String, items As List(Of String)) As String
+        ArgumentNotNull(items, NameOf(items))
         Return ConcatNonEmptyStrings(separator, items.ToArray())
     End Function
 
     Public Function TrimArray(items As String()) As String()
+        ArgumentNotNull(items, NameOf(items))
+
         Dim s As New List(Of String)
         For Each item As String In items
             s.Add(Trim(item))

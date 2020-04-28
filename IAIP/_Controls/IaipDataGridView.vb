@@ -319,6 +319,8 @@ Public Class IaipDataGridView
     End Sub
 
     Protected Overrides Sub OnCellEnter(e As DataGridViewCellEventArgs)
+        ArgumentNotNull(e, NameOf(e))
+
         If e.RowIndex <> -1 AndAlso e.RowIndex < RowCount Then
             If LinkifyFirstColumn AndAlso Me(0, e.RowIndex).Value IsNot Nothing Then
                 OnCellLinkSelected(New IaipDataGridViewCellLinkEventArgs(Me(0, e.RowIndex).Value))
@@ -341,6 +343,8 @@ Public Class IaipDataGridView
     End Sub
 
     Protected Overrides Sub OnCellClick(e As DataGridViewCellEventArgs)
+        ArgumentNotNull(e, NameOf(e))
+
         If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < RowCount Then
             If LinkifyFirstColumn AndAlso e.ColumnIndex = 0 Then
                 OnCellLinkActivated(New IaipDataGridViewCellLinkEventArgs(Me(0, e.RowIndex).Value))
@@ -353,6 +357,8 @@ Public Class IaipDataGridView
     End Sub
 
     Protected Overrides Sub OnCellDoubleClick(e As DataGridViewCellEventArgs)
+        ArgumentNotNull(e, NameOf(e))
+
         If e.RowIndex <> -1 AndAlso e.ColumnIndex <> -1 AndAlso e.RowIndex < Me.RowCount Then
             If LinkifyFirstColumn AndAlso e.ColumnIndex <> 0 Then
                 OnCellLinkActivated(New IaipDataGridViewCellLinkEventArgs(Me(0, e.RowIndex).Value))
@@ -365,11 +371,15 @@ Public Class IaipDataGridView
     End Sub
 
     Protected Overrides Sub OnKeyDown(e As KeyEventArgs)
+        ArgumentNotNull(e, NameOf(e))
+
         e.Handled = (e.KeyCode = Keys.Enter) AndAlso (LinkifyFirstColumn OrElse LinkifiedByColumnName)
         MyBase.OnKeyDown(e)
     End Sub
 
     Protected Overrides Sub OnKeyUp(e As KeyEventArgs)
+        ArgumentNotNull(e, NameOf(e))
+
         If e.KeyCode = Keys.Enter Then
             If LinkifyFirstColumn Then
                 OnCellLinkActivated(New IaipDataGridViewCellLinkEventArgs(CurrentRow.Cells(0).Value))

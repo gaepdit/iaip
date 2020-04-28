@@ -82,6 +82,7 @@
         End Operator
 
         Public Shared Widening Operator CType(airsNumber As ApbFacilityId) As String
+            ArgumentNotNull(airsNumber, NameOf(airsNumber))
             Return airsNumber.ToString
         End Operator
 

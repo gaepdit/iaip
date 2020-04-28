@@ -8,6 +8,7 @@ Public Class SSPPFeeContact
             Return _airsId
         End Get
         Set(value As Apb.ApbFacilityId)
+            ArgumentNotNull(value, NameOf(value))
             _airsId = value
             lblAirs.Text = "AIRS #" & _airsId.FormattedString
             LoadCurrentFeeContact()
