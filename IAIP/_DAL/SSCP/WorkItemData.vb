@@ -288,7 +288,7 @@ Namespace DAL.Sscp
 
             Dim dt As DataTable = DB.GetDataTable(query)
 
-            dt.PrimaryKey = New DataColumn() {dt.Columns("STRNOTIFICATIONKEY")}
+            dt.PrimaryKey = {dt.Columns("STRNOTIFICATIONKEY")}
 
             Return dt
         End Function

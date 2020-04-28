@@ -73,7 +73,7 @@ Public Class FinDepositView
 
     Private Sub FinDepositView_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If DepositID = -1 OrElse thisDeposit Is Nothing Then
-            Exit Sub
+            Return
         End If
 
         If thisDeposit.DepositsApplied Is Nothing OrElse thisDeposit.DepositsApplied.Count = 0 Then
@@ -93,7 +93,7 @@ Public Class FinDepositView
 
         If thisDeposit Is Nothing Then
             DisableEntireForm()
-            Exit Sub
+            Return
         End If
 
         btnRefresh.Visible = True
@@ -280,7 +280,7 @@ Public Class FinDepositView
         txtAmountToApply.Amount = 0
 
         If String.IsNullOrEmpty(txtInvoiceToApply.Text) Then
-            Exit Sub
+            Return
         End If
 
         Dim invoiceId As Integer
@@ -292,7 +292,7 @@ Public Class FinDepositView
         If dgvInvoicesPaid IsNot Nothing AndAlso dgvInvoicesPaid.DataSource IsNot Nothing AndAlso
             dgvInvoicesPaid.Rows.Count > 0 AndAlso dgvInvoicesPaid.Columns("InvoiceID").ContainsValue(invoiceId) Then
             DisableApplyingToInvoice("Invoice already selected. To update amount, first remove existing record below.")
-            Exit Sub
+            Return
         End If
 
         selectedInvoice = GetInvoice(invoiceId)
@@ -308,7 +308,7 @@ Public Class FinDepositView
 
     Private Sub LoadSelectedInvoice()
         If DepositID = -1 OrElse thisDeposit Is Nothing Then
-            Exit Sub
+            Return
         End If
 
         lblApplyToInvoiceMessage.ShowMessage(String.Format("Invoice {0} current balance: {1:c}", selectedInvoice.InvoiceID, selectedInvoice.InvoiceBalance), ErrorLevel.None)
@@ -318,12 +318,12 @@ Public Class FinDepositView
         If existingPayment Is Nothing Then
             If thisDeposit.DepositBalance = 0 Then
                 DisableApplyingToInvoice("No deposit balance remaining.")
-                Exit Sub
+                Return
             End If
 
             If selectedInvoice.InvoiceBalance = 0 Then
                 DisableApplyingToInvoice(String.Format("Invoice {0} has zero balance.", selectedInvoice.InvoiceID))
-                Exit Sub
+                Return
             End If
 
             btnApplyToInvoice.Enabled = True
@@ -381,12 +381,12 @@ Public Class FinDepositView
 
         If txtAmountToApply.Amount = 0 Then
             lblApplyToInvoiceMessage.ShowMessage("New payment amount cannot be 0.", ErrorLevel.Warning)
-            Exit Sub
+            Return
         End If
 
         If selectedInvoice Is Nothing Then
             lblApplyToInvoiceMessage.ShowMessage("Enter a valid invoice ID.", ErrorLevel.Warning)
-            Exit Sub
+            Return
         End If
 
         lblApplyToInvoiceMessage.ClearMessage()
@@ -465,7 +465,7 @@ Public Class FinDepositView
         ClearMessages()
 
         If Not ValidateDepositDetails() Then
-            Exit Sub
+            Return
         End If
 
         Dim deposit As New Deposit() With {
@@ -537,7 +537,7 @@ Public Class FinDepositView
         ClearMessages()
 
         If Not ValidateDepositDetails() Then
-            Exit Sub
+            Return
         End If
 
         Dim deposit As New Deposit() With {
@@ -579,13 +579,13 @@ Public Class FinDepositView
         If DepositID = -1 OrElse thisDeposit Is Nothing Then
             btnDeleteDeposit.Visible = False
             lblDeleteDepositMessage.ShowMessage("No deposit loaded", ErrorLevel.Warning)
-            Exit Sub
+            Return
         End If
 
         Dim response As DialogResult = MessageBox.Show(String.Format("Are you sure you want to delete Deposit ID {0}?", DepositID), "Confirm delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         If response = DialogResult.No Then
-            Exit Sub
+            Return
         End If
 
         Select Case DeleteDeposit(DepositID)

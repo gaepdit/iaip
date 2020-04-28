@@ -138,7 +138,10 @@ Public Class ISMPTestReportAdministrative
         Dim temp As String
         Try
 
-            If btnSearchForAIRS.Visible = True And cboAIRSNumber.Text <> "" And cboAIRSNumber.Text.Length = 8 Then
+            If btnSearchForAIRS.Visible AndAlso
+                cboAIRSNumber.Text <> "" AndAlso
+                cboAIRSNumber.Text.Length = 8 Then
+
                 cboFacilityName.Text = ""
                 txtFacilityAddress.Clear()
                 txtFacilityCity.Clear()
@@ -184,7 +187,7 @@ Public Class ISMPTestReportAdministrative
                     End If
                 End If
 
-                Exit Sub
+                Return
             End If
 
             If cboAIRSNumber.SelectedIndex <> -1 Then
@@ -238,7 +241,7 @@ Public Class ISMPTestReportAdministrative
         Try
             clbReferenceNumbers.Items.Clear()
 
-            If DTPDateReceived.Text <> "" And cboAIRSNumber.Text <> "" Then
+            If DTPDateReceived.Text <> "" AndAlso cboAIRSNumber.Text <> "" Then
                 query = "select
                     m.STRREFERENCENUMBER,
                     STREMISSIONSOURCE,
@@ -311,48 +314,44 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            If rdbCloseReport.Checked = False Then
-
-            Else
+            If rdbCloseReport.Checked Then
                 MsgBox("This record is currently marked as being closed." & vbCrLf & "Click Open Record to Save information.",
                 MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
-                Exit Sub
+                Return
             End If
 
-            If btnSearchForAIRS.Visible = True Then
-                If cboAIRSNumber.Text <> "" And cboAIRSNumber.Text.Length = 8 Then
+            If btnSearchForAIRS.Visible Then
+                If cboAIRSNumber.Text <> "" AndAlso cboAIRSNumber.Text.Length = 8 Then
                     AIRSNumber = cboAIRSNumber.Text
                 Else
                     MsgBox("Invalid AIRS Number", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
-                    Exit Sub
+                    Return
                 End If
             Else
-                If cboAIRSNumber.SelectedIndex <> -1 And cboAIRSNumber.SelectedIndex <> 0 Then
+                If cboAIRSNumber.SelectedIndex <> -1 AndAlso cboAIRSNumber.SelectedIndex <> 0 Then
                     AIRSNumber = cboAIRSNumber.SelectedValue
                 Else
                     MsgBox("The Facility Name does not correspond to the AIRS Number provided." _
                      & vbCr & "This must be corrected before moving on.", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
-                    Exit Sub
+                    Return
                 End If
             End If
 
-            If cboPollutant.SelectedIndex <> -1 And cboPollutant.SelectedIndex <> 0 Then
+            If cboPollutant.SelectedIndex <> -1 AndAlso cboPollutant.SelectedIndex <> 0 Then
             Else
                 MsgBox("The Pollutant does not match any of the provided pollutants." _
                   & vbCr & "This must be corrected before moving on.", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
-                Exit Sub
+                Return
             End If
-            If cboTestingFirms.SelectedIndex <> -1 And cboTestingFirms.SelectedIndex <> 0 Then
+            If cboTestingFirms.SelectedIndex <> -1 AndAlso cboTestingFirms.SelectedIndex <> 0 Then
             Else
                 MsgBox("The Testing Firm does not match any of the provided Testing Firms." _
                   & vbCr & "This must be corrected before moving on.", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
-                Exit Sub
+                Return
             End If
 
-            If chbOverright.Checked = False Then
-                If txtReferenceNumber.Text = "" Then
-                    GetNextReferenceNumber()
-                End If
+            If Not chbOverright.Checked AndAlso txtReferenceNumber.Text = "" Then
+                GetNextReferenceNumber()
             End If
 
             If txtEmissionSource.Text = "" Then
@@ -360,7 +359,7 @@ Public Class ISMPTestReportAdministrative
             End If
 
             If txtReferenceNumber.Text <> "" Then
-                If rdbOpenReport.Checked = False And rdbCloseReport.Checked = False Then
+                If Not rdbOpenReport.Checked AndAlso Not rdbCloseReport.Checked Then
                     rdbOpenReport.Checked = True
                 End If
 
@@ -478,7 +477,7 @@ Public Class ISMPTestReportAdministrative
                 bgw1.WorkerSupportsCancellation = True
                 bgw1.RunWorkerAsync()
 
-                If rdbCloseReport.Checked = True Then
+                If rdbCloseReport.Checked Then
                     SaveToolStripMenuItem.Enabled = False
                 End If
                 Find()
@@ -502,9 +501,9 @@ Public Class ISMPTestReportAdministrative
             Dim ComplianceStatus As String
             Dim AIRSNumber As String = ""
 
-            If rdbCloseReport.Checked = True Then
-                If btnSearchForAIRS.Visible = True Then
-                    If cboAIRSNumber.Text <> "" And cboAIRSNumber.Text.Length = 8 Then
+            If rdbCloseReport.Checked Then
+                If btnSearchForAIRS.Visible Then
+                    If cboAIRSNumber.Text <> "" AndAlso cboAIRSNumber.Text.Length = 8 Then
                         AIRSNumber = cboAIRSNumber.Text
                     End If
                 Else
@@ -517,7 +516,7 @@ Public Class ISMPTestReportAdministrative
                         MsgBox("There was an issue with the Reference Number being more than 9 characters in length." & vbCrLf &
                                "Please note the Reference Numbers being closed out and contact the Data Management Unit with those numbers.",
                                 MsgBoxStyle.Exclamation, "Test Report Administration")
-                        Exit Sub
+                        Return
                     End If
                     query = "Select strComplianceStatus " &
                     "from ISMPReportInformation " &
@@ -608,12 +607,12 @@ Public Class ISMPTestReportAdministrative
                         Case "00"
                             MsgBox("Reference Number " & RefNum.ToString & " does not exist in the system.",
                                    MsgBoxStyle.Exclamation, "ISMP Test Report Information")
-                            Exit Sub
+                            Return
                         Case "01"
                             MsgBox("Test Report " & RefNum.ToString & " is marked as 'File Open' in the Compliance Status." & vbCrLf &
                             "Have the engineer correct this status before trying to close out this Test Report.",
                               MsgBoxStyle.Exclamation, "ISMP Test Report Information")
-                            Exit Sub
+                            Return
                         Case Else
                             query = "Update ISMPReportInformation set " &
                             "strClosed = 'True', " &
@@ -756,7 +755,7 @@ Public Class ISMPTestReportAdministrative
 
             txtReferenceNumber.Clear()
 
-            If btnSearchForAIRS.Visible = True Then
+            If btnSearchForAIRS.Visible Then
                 cboAIRSNumber.Text = ""
                 cboFacilityName.Text = ""
             Else
@@ -813,7 +812,7 @@ Public Class ISMPTestReportAdministrative
             If MessageBox.Show("Are you sure you want to delete these test reports?", "Confirm Delete",
                                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
                                = DialogResult.No Then
-                Exit Sub
+                Return
             End If
 
             For Each RefNum As String In Me.clbReferenceNumbers.CheckedItems
@@ -1663,7 +1662,7 @@ Public Class ISMPTestReportAdministrative
     Private Sub MmiShowToolbar_Click(sender As Object, e As EventArgs) Handles MmiShowToolbar.Click
         Try
 
-            If MenuStrip1.Visible = True Then
+            If MenuStrip1.Visible Then
                 MenuStrip1.Visible = False
                 MmiShowToolbar.Checked = True
             Else
@@ -1720,10 +1719,10 @@ Public Class ISMPTestReportAdministrative
         Try
 
 
-            If dgvFacilityInfo.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvFacilityInfo.Columns(0).HeaderText = "Reference #" Then
-                    txtReferenceNumber.Text = dgvFacilityInfo(0, hti.RowIndex).Value
-                End If
+            If dgvFacilityInfo.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
+                dgvFacilityInfo.Columns(0).HeaderText = "Reference #" Then
+
+                txtReferenceNumber.Text = dgvFacilityInfo(0, hti.RowIndex).Value
             End If
 
         Catch ex As Exception
@@ -1759,14 +1758,14 @@ Public Class ISMPTestReportAdministrative
     Private Sub rdbCloseReport_CheckedChanged(sender As Object, e As EventArgs) Handles rdbCloseReport.CheckedChanged
         Try
 
-            If rdbCloseReport.Checked = False And SaveToolStripMenuItem.Enabled = False Then
+            If Not rdbCloseReport.Checked AndAlso Not SaveToolStripMenuItem.Enabled Then
                 SaveToolStripMenuItem.Enabled = True
             End If
-            If rdbCloseReport.Checked = True Then
+            If rdbCloseReport.Checked Then
                 DTPDateClosed.Enabled = True
                 btnCloseTestReport.Enabled = True
 
-                If DTPDateClosed.Value = "09-Sep-9998" Or DTPDateClosed.Value = "04-Jul-1776" Then
+                If DTPDateClosed.Value = "09-Sep-9998" OrElse DTPDateClosed.Value = "04-Jul-1776" Then
                     DTPDateClosed.Value = Date.Today
                 End If
             Else
@@ -1793,7 +1792,7 @@ Public Class ISMPTestReportAdministrative
     Private Sub chbOverright_CheckedChanged(sender As Object, e As EventArgs) Handles chbOverright.CheckedChanged
         Try
 
-            If chbOverright.Checked = True Then
+            If chbOverright.Checked Then
                 txtReferenceNumber.ReadOnly = False
             Else
                 txtReferenceNumber.ReadOnly = True
@@ -1901,13 +1900,13 @@ Public Class ISMPTestReportAdministrative
             If txtAddTestReportRefNum.Text <> "" Then
                 txtAddTestReportRefNum.BackColor = Color.White
                 RefNum = txtAddTestReportRefNum.Text
-                If mtbAddTestReportAIRSNumber.Text <> "" And Len(mtbAddTestReportAIRSNumber.Text) = 8 Then
+                If mtbAddTestReportAIRSNumber.Text <> "" AndAlso Len(mtbAddTestReportAIRSNumber.Text) = 8 Then
                     AIRSNumber = mtbAddTestReportAIRSNumber.Text
                     mtbAddTestReportAIRSNumber.BackColor = Color.White
                 Else
                     mtbAddTestReportAIRSNumber.BackColor = Color.Tomato
                     MsgBox("Please add a valid AIRS Number.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
                 If txtAddTestReportCommissioner.Text <> "" Then
                     Commissioner = txtAddTestReportCommissioner.Text
@@ -1915,7 +1914,7 @@ Public Class ISMPTestReportAdministrative
                 Else
                     txtAddTestReportCommissioner.BackColor = Color.Tomato
                     MsgBox("Please add a valid Commissioner.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
                 If txtAddTestReportDirector.Text <> "" Then
                     Director = txtAddTestReportDirector.Text
@@ -1923,7 +1922,7 @@ Public Class ISMPTestReportAdministrative
                 Else
                     txtAddTestReportDirector.BackColor = Color.Tomato
                     MsgBox("Please add a valid Director.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
                 If txtAddTestReportProgramManager.Text <> "" Then
                     ProgramManager = txtAddTestReportProgramManager.Text
@@ -1931,7 +1930,7 @@ Public Class ISMPTestReportAdministrative
                 Else
                     txtAddTestReportProgramManager.BackColor = Color.Tomato
                     MsgBox("Please add a valid Program Manager.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
                 DateReceived = dtpAddTestReportDateReceived.Text
                 DateCompleted = DTPAddTestReportDateCompleted.Text
@@ -1945,7 +1944,7 @@ Public Class ISMPTestReportAdministrative
 
                 If DB.ValueExists(query, p) Then
                     MsgBox("This Reference Number already exists in the system.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
 
                 query = "Select " &
@@ -1957,7 +1956,7 @@ Public Class ISMPTestReportAdministrative
 
                 If Not DB.ValueExists(query, p2) Then
                     MsgBox("This AIRS Number does not exist in the system.", MsgBoxStyle.Information, "Add Test Report")
-                    Exit Sub
+                    Return
                 End If
 
                 query = "Insert into ISMPMaster " &
@@ -2014,7 +2013,7 @@ Public Class ISMPTestReportAdministrative
             Else
                 txtAddTestReportRefNum.BackColor = Color.Tomato
                 MsgBox("Please add a valid Reference Number.", MsgBoxStyle.Information, "Add Test Report")
-                Exit Sub
+                Return
             End If
 
 
@@ -2148,7 +2147,7 @@ Public Class ISMPTestReportAdministrative
 
     Private Sub btnSearchForAIRS_Click(sender As Object, e As EventArgs) Handles btnSearchForAIRS.Click
         Try
-            If cboAIRSNumber.Text <> "" And cboAIRSNumber.Text.Length = 8 Then
+            If cboAIRSNumber.Text <> "" AndAlso cboAIRSNumber.Text.Length = 8 Then
                 cboFacilityName.Text = ""
                 txtFacilityAddress.Clear()
                 txtFacilityCity.Clear()

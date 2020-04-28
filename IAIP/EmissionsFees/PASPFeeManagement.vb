@@ -392,7 +392,7 @@ Public Class PASPFeeManagement
                                          dtpFeeDueDate.Text, txtAdminFeePercent.Text, dtpAdminApplicable.Text,
                                          txtFeeNotes.Text, "1", dtpFirstQrtDue.Text, dtpSecondQrtDue.Text,
                                          dtpThirdQrtDue.Text, dtpFourthQrtDue.Text, txtAttainmentThreshold.Text,
-                                         txtNonAttainmentThreshold.Text) = True Then
+                                         txtNonAttainmentThreshold.Text) Then
 
                     LoadFeeRates()
                     ClearFeeData()
@@ -459,17 +459,15 @@ Public Class PASPFeeManagement
                     Dim y As Integer = 0
                     While y < dgvNSPSExemptions.Rows(x).Cells.Count
                         Dim c As DataGridViewCell = dgvNSPSExemptions.Rows(x).Cells(y)
-                        If Not c.Value Is DBNull.Value Or Nothing Then
-                            If CType(c.Value, String) = ReasonID Then
-                                Using dgvRow As New DataGridViewRow
-                                    dgvRow.CreateCells(dgvNSPSExemptionsByYear)
-                                    dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
-                                    dgvRow.Cells(1).Value = dgvNSPSExemptions(0, x).Value
-                                    dgvRow.Cells(2).Value = DisplayOrder
-                                    dgvRow.Cells(3).Value = dgvNSPSExemptions(1, x).Value
-                                    dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
-                                End Using
-                            End If
+                        If c.Value IsNot DBNull.Value AndAlso CType(c.Value, String) = ReasonID Then
+                            Using dgvRow As New DataGridViewRow
+                                dgvRow.CreateCells(dgvNSPSExemptionsByYear)
+                                dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
+                                dgvRow.Cells(1).Value = dgvNSPSExemptions(0, x).Value
+                                dgvRow.Cells(2).Value = DisplayOrder
+                                dgvRow.Cells(3).Value = dgvNSPSExemptions(1, x).Value
+                                dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
+                            End Using
                         End If
                         Math.Min(Threading.Interlocked.Increment(y), y - 1)
                     End While
@@ -504,7 +502,7 @@ Public Class PASPFeeManagement
                         dgvRow.CreateCells(dgvNSPSExemptionsByYear)
                         dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
                         dgvRow.Cells(1).Value = dgvNSPSExemptions(0, dgvNSPSExemptions.CurrentRow.Index).Value
-                        dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
+                        dgvRow.Cells(2).Value = dgvNSPSExemptionsByYear.RowCount + 1
                         dgvRow.Cells(3).Value = dgvNSPSExemptions(1, dgvNSPSExemptions.CurrentRow.Index).Value
                         dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
                     End Using
@@ -514,7 +512,7 @@ Public Class PASPFeeManagement
                     dgvRow.CreateCells(dgvNSPSExemptionsByYear)
                     dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
                     dgvRow.Cells(1).Value = dgvNSPSExemptions(0, dgvNSPSExemptions.CurrentRow.Index).Value
-                    dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
+                    dgvRow.Cells(2).Value = dgvNSPSExemptionsByYear.RowCount + 1
                     dgvRow.Cells(3).Value = dgvNSPSExemptions(1, dgvNSPSExemptions.CurrentRow.Index).Value
                     dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
                 End Using
@@ -541,7 +539,7 @@ Public Class PASPFeeManagement
                     dgvRow.CreateCells(dgvNSPSExemptionsByYear)
                     dgvRow.Cells(0).Value = cboNSPSExemptionYear.Text
                     dgvRow.Cells(1).Value = dgvNSPSExemptions(0, i).Value
-                    dgvRow.Cells(2).Value = (dgvNSPSExemptionsByYear.RowCount.ToString + 1)
+                    dgvRow.Cells(2).Value = dgvNSPSExemptionsByYear.RowCount + 1
                     dgvRow.Cells(3).Value = dgvNSPSExemptions(1, i).Value
                     dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
                 End Using
@@ -665,7 +663,7 @@ Public Class PASPFeeManagement
 
     Private Sub btnAddNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnAddNSPSExemption.Click
         Try
-            If Insert_FSLK_NSPSReason(txtNSPSExemption.Text) = True Then
+            If Insert_FSLK_NSPSReason(txtNSPSExemption.Text) Then
                 txtNSPSExemption.Clear()
                 LoadNSPSExemptions()
                 MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
@@ -688,14 +686,14 @@ Public Class PASPFeeManagement
 
     Private Sub btnDeleteNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnDeleteNSPSExemption.Click
         Try
-            If txtDeleteNSPSExemptions.Text <> "" Then
-                If Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, "", "0") = True Then
-                    txtDeleteNSPSExemptions.Clear()
-                    txtNSPSExemption.Clear()
-                    LoadNSPSExemptions()
-                    LoadNSPSExemptions2("1")
-                    MsgBox("Exemption Deleted", MsgBoxStyle.Information, Me.Text)
-                End If
+            If txtDeleteNSPSExemptions.Text <> "" AndAlso
+                Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, "", "0") Then
+
+                txtDeleteNSPSExemptions.Clear()
+                txtNSPSExemption.Clear()
+                LoadNSPSExemptions()
+                LoadNSPSExemptions2("1")
+                MsgBox("Exemption Deleted", MsgBoxStyle.Information, Me.Text)
             End If
 
         Catch ex As Exception
@@ -709,15 +707,15 @@ Public Class PASPFeeManagement
 
     Private Sub btnUpdateNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnUpdateNSPSExemption.Click
         Try
-            If txtDeleteNSPSExemptions.Text <> "" Then
-                If Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, txtNSPSExemption.Text, "1") = True Then
-                    txtDeleteNSPSExemptions.Clear()
-                    txtNSPSExemption.Clear()
-                    LoadNSPSExemptions()
-                    LoadNSPSExemptions2("1")
+            If txtDeleteNSPSExemptions.Text <> "" AndAlso
+                Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, txtNSPSExemption.Text, "1") Then
 
-                    MsgBox("Exemption Updated", MsgBoxStyle.Information, Me.Text)
-                End If
+                txtDeleteNSPSExemptions.Clear()
+                txtNSPSExemption.Clear()
+                LoadNSPSExemptions()
+                LoadNSPSExemptions2("1")
+
+                MsgBox("Exemption Updated", MsgBoxStyle.Information, Me.Text)
             End If
 
         Catch ex As Exception
@@ -1353,7 +1351,7 @@ Public Class PASPFeeManagement
                 Return False
             End If
 
-            If IsDBNull(FeeYear) Or FeeYear = "" Then
+            If IsDBNull(FeeYear) OrElse FeeYear = "" Then
                 Return False
             Else
                 If IsNumeric(FeeYear) Then
@@ -1362,7 +1360,7 @@ Public Class PASPFeeManagement
                 End If
             End If
 
-            If IsDBNull(Part70Fee) Or Part70Fee = "" Then
+            If IsDBNull(Part70Fee) OrElse Part70Fee = "" Then
             Else
                 If IsNumeric(Part70Fee) Then
                 Else
@@ -1370,7 +1368,7 @@ Public Class PASPFeeManagement
                 End If
             End If
 
-            If IsDBNull(SMFee) Or SMFee = "" Then
+            If IsDBNull(SMFee) OrElse SMFee = "" Then
             Else
                 If IsNumeric(SMFee) Then
                 Else
@@ -1378,7 +1376,7 @@ Public Class PASPFeeManagement
                 End If
             End If
 
-            If IsDBNull(PerTonRate) Or PerTonRate = "" Then
+            If IsDBNull(PerTonRate) OrElse PerTonRate = "" Then
             Else
                 If IsNumeric(PerTonRate) Then
                 Else
@@ -1386,7 +1384,7 @@ Public Class PASPFeeManagement
                 End If
             End If
 
-            If IsDBNull(NSPSFee) Or NSPSFee = "" Then
+            If IsDBNull(NSPSFee) OrElse NSPSFee = "" Then
             Else
                 If IsNumeric(NSPSFee) Then
                 Else
@@ -1394,21 +1392,21 @@ Public Class PASPFeeManagement
                 End If
             End If
 
-            If IsDBNull(AdminFee) Or AdminFee = "" Then
+            If IsDBNull(AdminFee) OrElse AdminFee = "" Then
             Else
                 If IsNumeric(AdminFee) Then
                 Else
                     Return False
                 End If
             End If
-            If IsDBNull(AAThres) Or AAThres = "" Then
+            If IsDBNull(AAThres) OrElse AAThres = "" Then
             Else
                 If IsNumeric(AAThres) Then
                 Else
                     Return False
                 End If
             End If
-            If IsDBNull(NAThres) Or NAThres = "" Then
+            If IsDBNull(NAThres) OrElse NAThres = "" Then
             Else
                 If IsNumeric(NAThres) Then
                 Else

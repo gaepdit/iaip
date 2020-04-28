@@ -1157,17 +1157,17 @@ Public Class SBEAPClientSummary
             Else
                 ClientLongitude = ""
             End If
-            If txtMailingAddress.Text <> "" And txtMailingAddress.Text <> "<Mailing Address 1>" Then
+            If txtMailingAddress.Text <> "" AndAlso txtMailingAddress.Text <> "<Mailing Address 1>" Then
                 MailingAddress = txtMailingAddress.Text
             Else
                 MailingAddress = ""
             End If
-            If txtMailingAddress2.Text <> "" And txtMailingAddress2.Text <> "<Mailing Address 2>" Then
+            If txtMailingAddress2.Text <> "" AndAlso txtMailingAddress2.Text <> "<Mailing Address 2>" Then
                 MailingAddress2 = txtMailingAddress2.Text
             Else
                 MailingAddress2 = ""
             End If
-            If txtMailingCity.Text <> "" And txtMailingCity.Text <> "<Mailing City>" Then
+            If txtMailingCity.Text <> "" AndAlso txtMailingCity.Text <> "<Mailing City>" Then
                 MailingCity = txtMailingCity.Text
             Else
                 MailingCity = ""
@@ -1344,7 +1344,7 @@ Public Class SBEAPClientSummary
                     Select Case Result
                         Case DialogResult.Yes
                         Case Else
-                            Exit Sub
+                            Return
                     End Select
                 End If
             Else
@@ -1942,10 +1942,9 @@ Public Class SBEAPClientSummary
         Dim hti As DataGridView.HitTestInfo = dgvContactInformation.HitTest(e.X, e.Y)
 
         Try
-            If dgvContactInformation.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvContactInformation.Columns(0).HeaderText = "Client ID" Then
-                    txtContactID.Text = dgvContactInformation(0, hti.RowIndex).Value
-                End If
+            If dgvContactInformation.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
+                dgvContactInformation.Columns(0).HeaderText = "Client ID" Then
+                txtContactID.Text = dgvContactInformation(0, hti.RowIndex).Value
             End If
 
             If txtContactID.Text <> "" Then
@@ -2060,10 +2059,9 @@ Public Class SBEAPClientSummary
 
                             Dim dr2 As DataRow = DB.GetDataRow(query, New SqlParameter("@client", txtClientID.Text))
 
-                            If dr2 IsNot Nothing Then
-                                If Not IsDBNull(dr2.Item("numCaseID")) Then
-                                    CaseID = dr2.Item("numCaseID")
-                                End If
+                            If dr2 IsNot Nothing AndAlso
+                                Not IsDBNull(dr2.Item("numCaseID")) Then
+                                CaseID = dr2.Item("numCaseID")
                             End If
 
                             If CaseID <> "Done" Then
@@ -2090,7 +2088,7 @@ Public Class SBEAPClientSummary
                                         End If
                                     End If
 
-                                    If ActionID <> "" And ActionID <> "Done" Then
+                                    If ActionID <> "" AndAlso ActionID <> "Done" Then
                                         Select Case ActionType
                                             Case "4"
                                                 query = "Delete SBEAPConferenceLog " &
@@ -2189,13 +2187,12 @@ Public Class SBEAPClientSummary
 
                             Dim dr3 As DataRow = DB.GetDataRow(query, New SqlParameter("@client", txtClientID.Text))
 
-                            If dr3 IsNot Nothing Then
-                                If Not IsDBNull(dr3.Item("ClientContactID")) Then
-                                    ContactID = dr3.Item("ClientContactID")
-                                End If
+                            If dr3 IsNot Nothing AndAlso
+                                Not IsDBNull(dr3.Item("ClientContactID")) Then
+                                ContactID = dr3.Item("ClientContactID")
                             End If
 
-                            If ContactID <> "" And ContactID <> "Done" Then
+                            If ContactID <> "" Andalso ContactID <> "Done" Then
                                 query = "Delete SBEAPClientContacts " &
                                 "where ClientContactID = @ContactID "
 
@@ -2391,13 +2388,13 @@ Public Class SBEAPClientSummary
     Private Sub dgvCaseLog_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvCaseLog.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvCaseLog.HitTest(e.X, e.Y)
-            If dgvCaseLog.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
-                    If IsDBNull(dgvCaseLog(0, hti.RowIndex).Value) Then
-                        txtCaseID.Text = ""
-                    Else
-                        txtCaseID.Text = dgvCaseLog(0, hti.RowIndex).Value
-                    End If
+            If dgvCaseLog.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
+                dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
+
+                If IsDBNull(dgvCaseLog(0, hti.RowIndex).Value) Then
+                    txtCaseID.Text = ""
+                Else
+                    txtCaseID.Text = dgvCaseLog(0, hti.RowIndex).Value
                 End If
             End If
         Catch ex As Exception

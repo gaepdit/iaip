@@ -21,6 +21,7 @@
     ''' <param name="dates">An array of nullable dates</param>
     ''' <returns>Returns True if any of the nullable dates has a value; otherwise returns False.</returns>
     Public Function AnyOfTheseDatesHasValue(dates() As Date?) As Boolean
+        ArgumentNotNull(dates, NameOf(dates))
         For Each d As Date? In dates
             If d.HasValue Then
                 Return True

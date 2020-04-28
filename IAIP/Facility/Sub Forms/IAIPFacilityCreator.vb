@@ -10,21 +10,19 @@ Public Class IAIPFacilityCreator
             TCFacilityTools.TabPages.Remove(TPApproveNewFacility)
             TCFacilityTools.TabPages.Remove(TPDeleteFacility)
 
-            If AccountFormAccess(138, 0) Is Nothing Then
-            Else
-                If AccountFormAccess(138, 0) = "138" Then
-                    If AccountFormAccess(138, 3) = "1" Or AccountFormAccess(138, 4) = "1" Then
-                        TCFacilityTools.TabPages.Add(TPApproveNewFacility)
-                        dtpStartFilter.Value = Today
-                        dtpEndFilter.Value = Today
-                        DTPSSCPApproveDate.Value = Today
-                        DTPSSPPApproveDate.Value = Today
+            If AccountFormAccess(138, 0) IsNot Nothing AndAlso
+                AccountFormAccess(138, 0) = "138" AndAlso
+                (AccountFormAccess(138, 3) = "1" OrElse AccountFormAccess(138, 4) = "1") Then
 
-                        TCFacilityTools.TabPages.Add(TPDeleteFacility)
+                TCFacilityTools.TabPages.Add(TPApproveNewFacility)
+                dtpStartFilter.Value = Today
+                dtpEndFilter.Value = Today
+                DTPSSCPApproveDate.Value = Today
+                DTPSSPPApproveDate.Value = Today
 
-                        LoadPendingFacilities()
-                    End If
-                End If
+                TCFacilityTools.TabPages.Add(TPDeleteFacility)
+
+                LoadPendingFacilities()
             End If
 
         Catch ex As Exception
@@ -62,7 +60,7 @@ Public Class IAIPFacilityCreator
     Private Sub LoadPendingFacilities()
         Dim SQL As String
         Try
-            If chbIncludeApproved.Checked = True Then
+            If chbIncludeApproved.Checked Then
                 SQL = "select " &
                     "FUllData.AIRSNumber, strFacilityName, " &
                     "DateCreated, strComments, " &
@@ -164,7 +162,7 @@ Public Class IAIPFacilityCreator
                     "on FullData.AIRSNumber = SSPPStaff.AIRSNumber "
             End If
 
-            If chbFilterNewFacilities.Checked = True Then
+            If chbFilterNewFacilities.Checked Then
                 SQL = SQL & " where dateCreated between @datestart and @dateend"
             End If
 
@@ -366,12 +364,12 @@ Public Class IAIPFacilityCreator
             Else
                 FacilityZipCode = "00000"
             End If
-            If mtbFacilityLongitude.Text <> "" And mtbFacilityLongitude.Text.Contains("-  .") = False Then
+            If mtbFacilityLongitude.Text <> "" AndAlso Not mtbFacilityLongitude.Text.Contains("-  .") Then
                 FacilityLongitude = mtbFacilityLongitude.Text
             Else
                 FacilityLongitude = "00.000000"
             End If
-            If mtbFacilityLatitude.Text <> "" And mtbFacilityLatitude.Text.Contains("  .") = False Then
+            If mtbFacilityLatitude.Text <> "" AndAlso Not mtbFacilityLatitude.Text.Contains("  .") Then
                 FacilityLatitude = mtbFacilityLatitude.Text
             Else
                 FacilityLatitude = "-00.000000"
@@ -389,46 +387,46 @@ Public Class IAIPFacilityCreator
 
             AirProgramCode = "000000000000000"
 
-            If chbCDS_1.Checked = True Then
+            If chbCDS_1.Checked Then
                 AirProgramCode = "1" & Mid(AirProgramCode, 2)
             End If
-            If chbCDS_2.Checked = True Then
+            If chbCDS_2.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 1) & "1" & Mid(AirProgramCode, 3)
             End If
-            If chbCDS_3.Checked = True Then
+            If chbCDS_3.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 2) & "1" & Mid(AirProgramCode, 4)
             End If
-            If chbCDS_4.Checked = True Then
+            If chbCDS_4.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 3) & "1" & Mid(AirProgramCode, 5)
             End If
-            If chbCDS_5.Checked = True Then
+            If chbCDS_5.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 4) & "1" & Mid(AirProgramCode, 6)
             End If
-            If chbCDS_6.Checked = True Then
+            If chbCDS_6.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 5) & "1" & Mid(AirProgramCode, 7)
             End If
-            If chbCDS_7.Checked = True Then
+            If chbCDS_7.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 6) & "1" & Mid(AirProgramCode, 8)
             End If
-            If chbCDS_8.Checked = True Then
+            If chbCDS_8.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 7) & "1" & Mid(AirProgramCode, 9)
             End If
-            If chbCDS_9.Checked = True Then
+            If chbCDS_9.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 8) & "1" & Mid(AirProgramCode, 10)
             End If
-            If chbCDS_10.Checked = True Then
+            If chbCDS_10.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 9) & "1" & Mid(AirProgramCode, 11)
             End If
-            If chbCDS_11.Checked = True Then
+            If chbCDS_11.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 10) & "1" & Mid(AirProgramCode, 12)
             End If
-            If chbCDS_12.Checked = True Then
+            If chbCDS_12.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 11) & "1" & Mid(AirProgramCode, 13)
             End If
-            If chbCDS_13.Checked = True Then
+            If chbCDS_13.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 12) & "1" & Mid(AirProgramCode, 14)
             End If
-            If chbCDS_14.Checked = True Then
+            If chbCDS_14.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 13) & "1" & Mid(AirProgramCode, 15)
             End If
 
@@ -506,8 +504,8 @@ Public Class IAIPFacilityCreator
                 Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & TodayFormatted &
                                vbCrLf & txtFacilityComments.Text & vbCrLf
             End If
-            If String.IsNullOrWhiteSpace(txtApplicationNumber.Text) And
-                txtFacilityComments.Text.Contains(txtApplicationNumber.Text) = False Then
+            If String.IsNullOrWhiteSpace(txtApplicationNumber.Text) AndAlso
+                Not txtFacilityComments.Text.Contains(txtApplicationNumber.Text) Then
                 Comments = Comments & "Pre-loaded with Application " & txtApplicationNumber.Text
             End If
             If mtbRiskManagementNumber.Text <> "" Then
@@ -666,43 +664,43 @@ Public Class IAIPFacilityCreator
 
             Dim os As FacilityOperationalStatus = CType([Enum].Parse(GetType(FacilityOperationalStatus), OperatingStatus), FacilityOperationalStatus)
 
-            If chbCDS_1.Checked = True Then
+            If chbCDS_1.Checked Then
                 DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.SIP, "OT", os)
             End If
-            If chbCDS_2.Checked = True Then
+            If chbCDS_2.Checked Then
                 DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.FederalSIP, "OT", os)
             End If
-            If chbCDS_3.Checked = True Then
+            If chbCDS_3.Checked Then
                 DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NonFederalSIP, "OT", os)
             End If
-            If chbCDS_4.Checked = True Then
+            If chbCDS_4.Checked Then
                 DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.CfcTracking, "OT", os)
             End If
-            If chbCDS_5.Checked = True Then
+            If chbCDS_5.Checked Then
                 DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.PSD, "OT", os)
             End If
-            If chbCDS_6.Checked = True Then
+            If chbCDS_6.Checked Then
                 DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NSR, "OT", os)
             End If
-            If chbCDS_7.Checked = True Then
+            If chbCDS_7.Checked Then
                 DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NESHAP, "OT", os)
             End If
-            If chbCDS_8.Checked = True Then
+            If chbCDS_8.Checked Then
                 DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NSPS, "OT", os)
             End If
-            If chbCDS_9.Checked = True Then
+            If chbCDS_9.Checked Then
                 DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.FESOP, "OT", os)
             End If
-            If chbCDS_10.Checked = True Then
+            If chbCDS_10.Checked Then
                 DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.AcidPrecipitation, "OT", os)
             End If
-            If chbCDS_11.Checked = True Then
+            If chbCDS_11.Checked Then
                 DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.NativeAmerican, "OT", os)
             End If
-            If chbCDS_12.Checked = True Then
+            If chbCDS_12.Checked Then
                 DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.MACT, "OT", os)
             End If
-            If chbCDS_13.Checked = True Then
+            If chbCDS_13.Checked Then
                 DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirPrograms.TitleV, "OT", os)
             End If
 
@@ -1352,7 +1350,7 @@ Public Class IAIPFacilityCreator
             Dim SSPPSignOff As String = ""
             Dim SQL As String
 
-            If chbSSCPSignOff.Checked = True And chbSSPPSignOff.Checked = True Then
+            If chbSSCPSignOff.Checked AndAlso chbSSPPSignOff.Checked Then
                 SQL = "Select " &
                 "numApprovingSSCP, numApprovingSSPP " &
                 "from APBSupplamentalData " &
@@ -1375,7 +1373,7 @@ Public Class IAIPFacilityCreator
                     End If
                 End If
 
-                If SSCPSignOff = "" And SSPPSignOff = "" Then
+                If SSCPSignOff = "" AndAlso SSPPSignOff = "" Then
                     SQL = "Update APBSupplamentalData set " &
                         "numApprovingSSCP = @numApprovingSSCP " &
                         ", datApproveDateSSCP = @datApproveDateSSCP " &
@@ -1496,7 +1494,7 @@ Public Class IAIPFacilityCreator
 
     Private Sub btnSaveSSCPApproval_Click(sender As Object, e As EventArgs) Handles btnSaveSSCPApproval.Click
         Try
-            If chbSSCPSignOff.Checked = False Then
+            If Not chbSSCPSignOff.Checked Then
                 MsgBox("Please check the SSCP Approve box.", MsgBoxStyle.Information, Me.Text)
                 Return
             End If
@@ -1526,7 +1524,7 @@ Public Class IAIPFacilityCreator
 
     Private Sub btnSaveSSPPApproval_Click(sender As Object, e As EventArgs) Handles btnSaveSSPPApproval.Click
         Try
-            If chbSSPPSignOff.Checked = False Then
+            If Not chbSSPPSignOff.Checked Then
                 MsgBox("Please check the SSPP Approve box.", MsgBoxStyle.Information, Me.Text)
                 Return
             End If
@@ -1753,12 +1751,12 @@ Public Class IAIPFacilityCreator
             Else
                 FacilityZipCode = "00000"
             End If
-            If mtbFacilityLongitude.Text <> "" And mtbFacilityLongitude.Text.Contains("-  .") = False Then
+            If mtbFacilityLongitude.Text <> "" AndAlso Not mtbFacilityLongitude.Text.Contains("-  .") Then
                 FacilityLongitude = mtbFacilityLongitude.Text
             Else
                 FacilityLongitude = "00.000000"
             End If
-            If mtbFacilityLatitude.Text <> "" And mtbFacilityLatitude.Text.Contains("  .") = False Then
+            If mtbFacilityLatitude.Text <> "" AndAlso Not mtbFacilityLatitude.Text.Contains("  .") Then
                 FacilityLatitude = mtbFacilityLatitude.Text
             Else
                 FacilityLatitude = "-00.000000"
@@ -1776,46 +1774,46 @@ Public Class IAIPFacilityCreator
 
             AirProgramCode = "000000000000000"
 
-            If chbCDS_1.Checked = True Then
+            If chbCDS_1.Checked Then
                 AirProgramCode = "1" & Mid(AirProgramCode, 2)
             End If
-            If chbCDS_2.Checked = True Then
+            If chbCDS_2.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 1) & "1" & Mid(AirProgramCode, 3)
             End If
-            If chbCDS_3.Checked = True Then
+            If chbCDS_3.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 2) & "1" & Mid(AirProgramCode, 4)
             End If
-            If chbCDS_4.Checked = True Then
+            If chbCDS_4.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 3) & "1" & Mid(AirProgramCode, 5)
             End If
-            If chbCDS_5.Checked = True Then
+            If chbCDS_5.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 4) & "1" & Mid(AirProgramCode, 6)
             End If
-            If chbCDS_6.Checked = True Then
+            If chbCDS_6.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 5) & "1" & Mid(AirProgramCode, 7)
             End If
-            If chbCDS_7.Checked = True Then
+            If chbCDS_7.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 6) & "1" & Mid(AirProgramCode, 8)
             End If
-            If chbCDS_8.Checked = True Then
+            If chbCDS_8.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 7) & "1" & Mid(AirProgramCode, 9)
             End If
-            If chbCDS_9.Checked = True Then
+            If chbCDS_9.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 8) & "1" & Mid(AirProgramCode, 10)
             End If
-            If chbCDS_10.Checked = True Then
+            If chbCDS_10.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 9) & "1" & Mid(AirProgramCode, 11)
             End If
-            If chbCDS_11.Checked = True Then
+            If chbCDS_11.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 10) & "1" & Mid(AirProgramCode, 12)
             End If
-            If chbCDS_12.Checked = True Then
+            If chbCDS_12.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 11) & "1" & Mid(AirProgramCode, 13)
             End If
-            If chbCDS_13.Checked = True Then
+            If chbCDS_13.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 12) & "1" & Mid(AirProgramCode, 14)
             End If
-            If chbCDS_14.Checked = True Then
+            If chbCDS_14.Checked Then
                 AirProgramCode = Mid(AirProgramCode, 1, 13) & "1" & Mid(AirProgramCode, 15)
             End If
 
@@ -1901,8 +1899,8 @@ Public Class IAIPFacilityCreator
                 Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & Format(Today, DateFormat) &
                                vbCrLf & txtFacilityComments.Text & vbCrLf
             End If
-            If Not String.IsNullOrWhiteSpace(txtApplicationNumber.Text) And
-                txtFacilityComments.Text.Contains(txtApplicationNumber.Text) = False Then
+            If Not String.IsNullOrWhiteSpace(txtApplicationNumber.Text) AndAlso
+                Not txtFacilityComments.Text.Contains(txtApplicationNumber.Text) Then
                 Comments = Comments & "Pre-loaded with Application " & txtApplicationNumber.Text
             End If
 
@@ -2016,7 +2014,7 @@ Public Class IAIPFacilityCreator
 
     Private Sub chbFilterNewFacilities_CheckedChanged(sender As Object, e As EventArgs) Handles chbFilterNewFacilities.CheckedChanged
         Try
-            If chbFilterNewFacilities.Checked = True Then
+            If chbFilterNewFacilities.Checked Then
                 dtpStartFilter.Enabled = True
                 dtpEndFilter.Enabled = True
                 chbIncludeApproved.Enabled = True

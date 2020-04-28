@@ -1,4 +1,4 @@
-﻿Imports System.Data.SqlClient
+Imports System.Data.SqlClient
 Imports System.Collections.Generic
 Imports Iaip.DAL.EventRegistrationData
 Imports Iaip.Apb.Res
@@ -564,7 +564,7 @@ Public Class MASPRegistrationTool
             End If
 
             Dim EndDate As String = ""
-            If DTPEventEndDate.Checked = True Then
+            If DTPEventEndDate.Checked Then
                 EndDate = DTPEventDate.Text
             End If
 
@@ -606,7 +606,7 @@ Public Class MASPRegistrationTool
             End If
 
             Dim EndDate As String = ""
-            If DTPEventEndDate.Checked = True Then
+            If DTPEventEndDate.Checked Then
                 EndDate = DTPEventDate.Text
             End If
             If Update_RES_Event(selectedEventId,
@@ -616,7 +616,7 @@ Public Class MASPRegistrationTool
                              mtbEventZipCode.Text, mtbEventCapacity.Text, txtEventNotes.Text,
                              cboEventContact.SelectedValue, cboEventWebContact.SelectedValue,
                              chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text,
-                             txtEventEndTime.Text, txtWebsiteURL.Text) = True Then
+                             txtEventEndTime.Text, txtWebsiteURL.Text) Then
                 LoadEvent()
 
                 MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
@@ -637,7 +637,7 @@ Public Class MASPRegistrationTool
                              "", "", "",
                              "", "", "",
                              "", "", "",
-                             "", "0", "", "", "") = True Then
+                             "", "0", "", "", "") Then
                 MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
             Else
                 MsgBox("Data NOT Saved/Updated", MsgBoxStyle.Exclamation, Me.Text)
@@ -650,7 +650,7 @@ Public Class MASPRegistrationTool
 
     Private Sub chbEventPasscode_CheckedChanged(sender As Object, e As EventArgs) Handles chbEventPasscode.CheckedChanged
         Try
-            If chbEventPasscode.Checked = True Then
+            If chbEventPasscode.Checked Then
                 btnGeneratePasscode.Visible = True
             Else
                 btnGeneratePasscode.Visible = False
@@ -726,7 +726,7 @@ Public Class MASPRegistrationTool
         Try
             Dim hti As DataGridView.HitTestInfo = dgvRegistrationManagement.HitTest(e.X, e.Y)
 
-            If dgvRegistrationManagement.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvRegistrationManagement.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 If IsDBNull(dgvRegistrationManagement(0, hti.RowIndex).Value) Then
                     Return
                 Else
@@ -843,16 +843,21 @@ Public Class MASPRegistrationTool
     Private Sub btnModifyRegistration_Click(sender As Object, e As EventArgs) Handles btnModifyRegistration.Click
         Try
             'First check to see if event is already at capacity
-            If txtOvNumberRegistered.Text = txtOvEventCapacity.Text And cboRegStatus.SelectedValue.ToString = "1" Then
+            If txtOvNumberRegistered.Text = txtOvEventCapacity.Text AndAlso
+                cboRegStatus.SelectedValue.ToString = "1" Then
                 'Give the admin a warning that they may be overbooking the event
-                If MessageBox.Show(Me, "Event is already at Capacity. If this Registrant wasn't previously confirmed, the Event will be booked over capacity. 
-Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
+                Dim msg As String = "Event is already at Capacity. If this Registrant wasn't previously confirmed, " &
+                    "the Event will be booked over capacity. " & vbNewLine & vbNewLine &
+                    "Would you like to continue?"
+                Dim result As DialogResult = MessageBox.Show(Me, msg, "Event is at capacity", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
+                If result = DialogResult.No Then
                     Return
                 End If
             End If
 
             If Update_RES_Registration(txtRegID.Text, txtRegConfirmationNum.Text,
-                    cboRegStatus.SelectedValue, DTPRegDateRegistered.Text) = True Then
+                    cboRegStatus.SelectedValue, DTPRegDateRegistered.Text) Then
                 MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
                 LoadRegistrationManagement()
             Else
@@ -978,7 +983,7 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
             If PassCodeRequired = "" Then
                 PassCode = "1"
             Else
-                If PassCodeRequired = False Then
+                If Not PassCodeRequired Then
                     PassCode = "1"
                 End If
             End If
@@ -1147,7 +1152,7 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
             If IsDBNull(PassCodeRequired) Then
                 SQL = SQL & "strPasscode = '1', "
             Else
-                If PassCodeRequired = "0" Or PassCode = "" Then
+                If PassCodeRequired = "0" OrElse PassCode = "" Then
                     SQL = SQL & "strPasscode = '1', "
                 Else
                     SQL = SQL & "strPassCode = @PassCode, "

@@ -208,7 +208,7 @@ Public Class SSPPStatisticalTools
                 txtTVRenewalMedian.Text = "0"
             End If
 
-            If txtTitleVInitialCount.Text <> "0" And txtTitleVRenewalCount.Text <> "0" Then
+            If txtTitleVInitialCount.Text <> "0" AndAlso txtTitleVRenewalCount.Text <> "0" Then
                 query = "select datediff(day, datReceivedDate, datPermitIssued ) as Diff " &
                     "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                     "EPDUserProfiles " &
@@ -1441,8 +1441,8 @@ Public Class SSPPStatisticalTools
                 EngineerLine = ""
             End If
 
-            If (txtTitleVInitialCount.Text <> "0" And txtTitleVInitialCount.Text <> "") Or
-                 (txtTitleVRenewalCount.Text <> "0" And txtTitleVRenewalCount.Text <> "") Then
+            If (txtTitleVInitialCount.Text <> "0" AndAlso txtTitleVInitialCount.Text <> "") OrElse
+                 (txtTitleVRenewalCount.Text <> "0" AndAlso txtTitleVRenewalCount.Text <> "") Then
 
                 query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
@@ -1513,7 +1513,7 @@ Public Class SSPPStatisticalTools
         Try
 
 
-            If dgvApplicationCount.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvApplicationCount.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 If dgvApplicationCount.Columns(0).HeaderText = "APL #" Then
                     If IsDBNull(dgvApplicationCount(0, hti.RowIndex).Value) Then
                         txtRecordNumber.Clear()
@@ -1589,7 +1589,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine = ""
             End If
 
-            If (txtSigModCount.Text <> "0" And txtSigModCount.Text <> "") Then
+            If (txtSigModCount.Text <> "0" AndAlso txtSigModCount.Text <> "") Then
 
                 query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
@@ -1687,7 +1687,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine = ""
             End If
 
-            If (txtMinorModCount.Text <> "0" And txtMinorModCount.Text <> "") Then
+            If (txtMinorModCount.Text <> "0" AndAlso txtMinorModCount.Text <> "") Then
 
                 query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
@@ -1785,7 +1785,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine = ""
             End If
 
-            If (txt502Count.Text <> "0" And txt502Count.Text <> "") Then
+            If (txt502Count.Text <> "0" AndAlso txt502Count.Text <> "") Then
 
                 query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
@@ -1883,7 +1883,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine = ""
             End If
 
-            If (txtAACount.Text <> "0" And txtAACount.Text <> "") Then
+            If (txtAACount.Text <> "0" AndAlso txtAACount.Text <> "") Then
 
                 query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
@@ -1981,7 +1981,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine = ""
             End If
 
-            If (txtSMCount.Text <> "0" And txtSMCount.Text <> "") Then
+            If (txtSMCount.Text <> "0" AndAlso txtSMCount.Text <> "") Then
 
                 query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
@@ -2079,7 +2079,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine = ""
             End If
 
-            If (txtPBRCount.Text <> "0" And txtPBRCount.Text <> "") Then
+            If (txtPBRCount.Text <> "0" AndAlso txtPBRCount.Text <> "") Then
 
                 query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
@@ -2177,7 +2177,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine = ""
             End If
 
-            If (txtOtherCount.Text <> "0" And txtOtherCount.Text <> "") Then
+            If (txtOtherCount.Text <> "0" AndAlso txtOtherCount.Text <> "") Then
 
                 query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
@@ -2277,7 +2277,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine = ""
             End If
 
-            If (txtNonPermitCount.Text <> "0" And txtNonPermitCount.Text <> "") Then
+            If (txtNonPermitCount.Text <> "0" AndAlso txtNonPermitCount.Text <> "") Then
 
                 query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
@@ -2382,7 +2382,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine = ""
             End If
 
-            If (txtPSDCount.Text <> "0" And txtPSDCount.Text <> "") Then
+            If (txtPSDCount.Text <> "0" AndAlso txtPSDCount.Text <> "") Then
 
                 query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
@@ -2567,7 +2567,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine = ""
             End If
 
-            If txtToDOCount.Text <> "" Or txtToBCCount.Text <> "" Then
+            If txtToDOCount.Text <> "" OrElse txtToBCCount.Text <> "" Then
                 query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc,  " &
@@ -4098,7 +4098,7 @@ Public Class SSPPStatisticalTools
     Private Sub btnRunEPAReport_Click(sender As Object, e As EventArgs) Handles btnRunEPAReport.Click
         Try
 
-            If cboEPAYear.Text <> "" And (rdbJanuaryReport.Checked = True Or rdbJulyReport.Checked = True) Then
+            If cboEPAYear.Text <> "" AndAlso (rdbJanuaryReport.Checked = True OrElse rdbJulyReport.Checked = True) Then
                 RunEPAReport()
             Else
                 MsgBox("Either a year is not selected or the reporting period is not selected.", MsgBoxStyle.Information, "Reports and Statistical Tools")
@@ -5233,7 +5233,7 @@ Public Class SSPPStatisticalTools
         Try
             Dim query As String
 
-            If cboSSPPUnits.Text <> "" And cboSSPPUnits.Text <> "System.Data.DataRowView" And tempLoad <> "Load" Then
+            If cboSSPPUnits.Text <> "" AndAlso cboSSPPUnits.Text <> "System.Data.DataRowView" AndAlso tempLoad <> "Load" Then
                 clbEngineers.Items.Clear()
                 clbEngineers2.Items.Clear()
                 clbEngineers3.Items.Clear()

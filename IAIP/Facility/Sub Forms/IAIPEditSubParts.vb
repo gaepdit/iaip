@@ -12,6 +12,7 @@ Public Class IAIPEditSubParts
             Return _AirsNumber
         End Get
         Set(value As Apb.ApbFacilityId)
+            ArgumentNotNull(value, NameOf(value))
             _AirsNumber = value
             AirsNumberDisplay.Text = value.FormattedString
             LoadFacilityInformation()
@@ -90,10 +91,10 @@ Public Class IAIPEditSubParts
     End Sub
 
     Private Sub SetPermissions()
-        If Not (AccountFormAccess(26, 1) = "1" Or
-            AccountFormAccess(26, 2) = "1" Or
-            AccountFormAccess(26, 3) = "1" Or
-            AccountFormAccess(26, 4) = "1" Or
+        If Not (AccountFormAccess(26, 1) = "1" OrElse
+            AccountFormAccess(26, 2) = "1" OrElse
+            AccountFormAccess(26, 3) = "1" OrElse
+            AccountFormAccess(26, 4) = "1" OrElse
             CurrentUser.HasRole({19, 113, 114, 141})) Then
 
             DisableSaving()
@@ -114,7 +115,7 @@ Public Class IAIPEditSubParts
         Try
             If AirsNumber Is Nothing Then
                 TCSubparts.Enabled = False
-                Exit Sub
+                Return
             End If
 
             TCSubparts.Enabled = True
@@ -312,7 +313,7 @@ Public Class IAIPEditSubParts
                 clb = clbSIP
                 ruleKey = "0"
             Case Else
-                Exit Sub
+                Return
         End Select
 
         For Each spi As SubpartItem In clb.CheckedItems

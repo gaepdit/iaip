@@ -28,7 +28,7 @@ Public Class EisTool
     End Sub
 
     Private Sub LoadPermissions()
-        If AccountFormAccess(130, 3) <> "1" And AccountFormAccess(130, 4) <> "1" Then
+        If AccountFormAccess(130, 3) <> "1" AndAlso AccountFormAccess(130, 4) <> "1" Then
             TCDMUTools.TabPages.Remove(TPESTools)
         End If
     End Sub
@@ -681,7 +681,7 @@ Public Class EisTool
         Try
             If dgvESDataCount.RowCount > 0 Then
                 If dgvESDataCount.ColumnCount > 2 Then
-                    If dgvESDataCount.RowCount > 0 And hti.RowIndex <> -1 Then
+                    If dgvESDataCount.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                         If dgvESDataCount.Columns(0).HeaderText = "Airs No." Then
                             If IsDBNull(dgvESDataCount(0, hti.RowIndex).Value) Then
 
@@ -2442,12 +2442,12 @@ Public Class EisTool
 
     Private Sub LoadFSData()
         Try
-            If cboEILogYear.Text = "" Or cboEILogYear.Text.Length <> 4 Then
+            If cboEILogYear.Text = "" OrElse cboEILogYear.Text.Length <> 4 Then
                 MsgBox("Please select a valid year from the EIS Year dropdown.", MsgBoxStyle.Exclamation, Me.Text)
                 Return
             End If
 
-            If mtbEILogAIRSNumber.Text = "" Or mtbEILogAIRSNumber.Text.Length <> 8 Then
+            If mtbEILogAIRSNumber.Text = "" OrElse mtbEILogAIRSNumber.Text.Length <> 8 Then
                 MsgBox("Please enter a valid AIRS # into the EIS AIRS #", MsgBoxStyle.Exclamation, Me.Text)
                 Return
             End If
@@ -3386,9 +3386,9 @@ Public Class EisTool
             Dim hti As DataGridView.HitTestInfo = dgvEISStats.HitTest(e.X, e.Y)
             Dim i As Integer = 0
 
-            If hti.RowIndex = -1 And hti.ColumnIndex <> -1 Then
+            If hti.RowIndex = -1 AndAlso hti.ColumnIndex <> -1 Then
                 If dgvEISStats.Columns(hti.ColumnIndex).HeaderText = " " Then
-                    If dgvEISStats(0, 0).Value = True Then
+                    If dgvEISStats(0, 0).Value Then
                         For i = 0 To dgvEISStats.Rows.Count - 1
                             dgvEISStats(0, i).Value = False
                         Next
@@ -3404,133 +3404,133 @@ Public Class EisTool
                 End If
             End If
 
-            If CurrentTabPage.Name.ToString = "TPEISStatMailout" Then
-                If dgvEISStats.RowCount > 0 And hti.RowIndex <> -1 Then
-                    dgvEISStats.Enabled = False
+            If CurrentTabPage.Name.ToString = "TPEISStatMailout" AndAlso
+                (dgvEISStats.RowCount > 0 AndAlso hti.RowIndex <> -1) Then
 
-                    txtEISStatsMailoutFacilityName.Clear()
-                    txtEISStatsMailoutPrefix.Clear()
-                    txtEISStatsMailoutFirstName.Clear()
-                    txtEISStatsMailoutLastName.Clear()
-                    txtEISStatsMailoutCompanyName.Clear()
-                    txtEISStatsMailoutAddress1.Clear()
-                    txtEISStatsMailoutAddress2.Clear()
-                    txtEISStatsMailoutCity.Clear()
-                    txtEISStatsMailoutState.Clear()
-                    txtEISStatsMailoutZipCode.Clear()
-                    txtEISStatsMailoutEmailAddress.Clear()
-                    txtEISStatsMailoutComments.Clear()
-                    txtEISStatsMailoutUpdateUser.Clear()
-                    txtEISStatsMailoutUpdateDate.Clear()
-                    txtEISStatsMailoutCreateDate.Clear()
+                dgvEISStats.Enabled = False
 
-                    If IsDBNull(dgvEISStats(1, hti.RowIndex).Value) Then
-                        txtEISStatsMailoutAIRSNumber.Clear()
+                txtEISStatsMailoutFacilityName.Clear()
+                txtEISStatsMailoutPrefix.Clear()
+                txtEISStatsMailoutFirstName.Clear()
+                txtEISStatsMailoutLastName.Clear()
+                txtEISStatsMailoutCompanyName.Clear()
+                txtEISStatsMailoutAddress1.Clear()
+                txtEISStatsMailoutAddress2.Clear()
+                txtEISStatsMailoutCity.Clear()
+                txtEISStatsMailoutState.Clear()
+                txtEISStatsMailoutZipCode.Clear()
+                txtEISStatsMailoutEmailAddress.Clear()
+                txtEISStatsMailoutComments.Clear()
+                txtEISStatsMailoutUpdateUser.Clear()
+                txtEISStatsMailoutUpdateDate.Clear()
+                txtEISStatsMailoutCreateDate.Clear()
+
+                If IsDBNull(dgvEISStats(1, hti.RowIndex).Value) Then
+                    txtEISStatsMailoutAIRSNumber.Clear()
+                Else
+                    txtEISStatsMailoutAIRSNumber.Text = dgvEISStats(1, hti.RowIndex).Value
+                End If
+                If IsDBNull(dgvEISStats(3, hti.RowIndex).Value) Then
+                    txtSelectedEISMailout.Clear()
+                Else
+                    txtSelectedEISMailout.Text = dgvEISStats(3, hti.RowIndex).Value
+                End If
+
+                Dim SQL As String = "Select " &
+                "strFacilityName, " &
+                "strContactCompanyName, strContactAddress1, " &
+                "strContactAddress2, strContactCity, " &
+                "strcontactstate, strcontactzipCode, " &
+                "strcontactFirstName, strcontactLastName, " &
+                "strContactPrefix, strContactEmail, " &
+                "stroperationalStatus, strClass, " &
+                "strcomment, UpdateUser, " &
+                "updateDateTime, CreateDateTime " &
+                 "from EIS_Mailout " &
+                 "where intInventoryyear = @year " &
+                 "and FacilitySiteID = @airs "
+
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@year", txtSelectedEISMailout.Text),
+                    New SqlParameter("@airs", txtEISStatsMailoutAIRSNumber.Text)
+                }
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, params)
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("strFacilityName")) Then
+                        txtEISStatsMailoutFacilityName.Clear()
                     Else
-                        txtEISStatsMailoutAIRSNumber.Text = dgvEISStats(1, hti.RowIndex).Value
+                        txtEISStatsMailoutFacilityName.Text = dr.Item("strFacilityName")
                     End If
-                    If IsDBNull(dgvEISStats(3, hti.RowIndex).Value) Then
-                        txtSelectedEISMailout.Clear()
+                    If IsDBNull(dr.Item("strContactCompanyName")) Then
+                        txtEISStatsMailoutCompanyName.Clear()
                     Else
-                        txtSelectedEISMailout.Text = dgvEISStats(3, hti.RowIndex).Value
+                        txtEISStatsMailoutCompanyName.Text = dr.Item("strContactCompanyName")
                     End If
-
-                    Dim SQL As String = "Select " &
-                    "strFacilityName, " &
-                    "strContactCompanyName, strContactAddress1, " &
-                    "strContactAddress2, strContactCity, " &
-                    "strcontactstate, strcontactzipCode, " &
-                    "strcontactFirstName, strcontactLastName, " &
-                    "strContactPrefix, strContactEmail, " &
-                    "stroperationalStatus, strClass, " &
-                    "strcomment, UpdateUser, " &
-                    "updateDateTime, CreateDateTime " &
-                     "from EIS_Mailout " &
-                     "where intInventoryyear = @year " &
-                     "and FacilitySiteID = @airs "
-
-                    Dim params As SqlParameter() = {
-                        New SqlParameter("@year", txtSelectedEISMailout.Text),
-                        New SqlParameter("@airs", txtEISStatsMailoutAIRSNumber.Text)
-                    }
-
-                    Dim dr As DataRow = DB.GetDataRow(SQL, params)
-                    If dr IsNot Nothing Then
-                        If IsDBNull(dr.Item("strFacilityName")) Then
-                            txtEISStatsMailoutFacilityName.Clear()
-                        Else
-                            txtEISStatsMailoutFacilityName.Text = dr.Item("strFacilityName")
-                        End If
-                        If IsDBNull(dr.Item("strContactCompanyName")) Then
-                            txtEISStatsMailoutCompanyName.Clear()
-                        Else
-                            txtEISStatsMailoutCompanyName.Text = dr.Item("strContactCompanyName")
-                        End If
-                        If IsDBNull(dr.Item("strContactAddress1")) Then
-                            txtEISStatsMailoutAddress1.Clear()
-                        Else
-                            txtEISStatsMailoutAddress1.Text = dr.Item("strContactAddress1")
-                        End If
-                        If IsDBNull(dr.Item("strContactAddress2")) Then
-                            txtEISStatsMailoutAddress2.Clear()
-                        Else
-                            txtEISStatsMailoutAddress2.Text = dr.Item("strContactAddress2")
-                        End If
-                        If IsDBNull(dr.Item("strContactCity")) Then
-                            txtEISStatsMailoutCity.Clear()
-                        Else
-                            txtEISStatsMailoutCity.Text = dr.Item("strContactCity")
-                        End If
-                        If IsDBNull(dr.Item("strcontactstate")) Then
-                            txtEISStatsMailoutState.Clear()
-                        Else
-                            txtEISStatsMailoutState.Text = dr.Item("strcontactstate")
-                        End If
-                        If IsDBNull(dr.Item("strcontactzipCode")) Then
-                            txtEISStatsMailoutZipCode.Clear()
-                        Else
-                            txtEISStatsMailoutZipCode.Text = dr.Item("strcontactzipCode")
-                        End If
-                        If IsDBNull(dr.Item("strcontactFirstName")) Then
-                            txtEISStatsMailoutFirstName.Clear()
-                        Else
-                            txtEISStatsMailoutFirstName.Text = dr.Item("strcontactFirstName")
-                        End If
-                        If IsDBNull(dr.Item("strcontactLastName")) Then
-                            txtEISStatsMailoutLastName.Clear()
-                        Else
-                            txtEISStatsMailoutLastName.Text = dr.Item("strcontactLastName")
-                        End If
-                        If IsDBNull(dr.Item("strContactPrefix")) Then
-                            txtEISStatsMailoutPrefix.Clear()
-                        Else
-                            txtEISStatsMailoutPrefix.Text = dr.Item("strContactPrefix")
-                        End If
-                        If IsDBNull(dr.Item("strContactEmail")) Then
-                            txtEISStatsMailoutEmailAddress.Clear()
-                        Else
-                            txtEISStatsMailoutEmailAddress.Text = dr.Item("strContactEmail")
-                        End If
-                        If IsDBNull(dr.Item("strcomment")) Then
-                            txtEISStatsMailoutComments.Clear()
-                        Else
-                            txtEISStatsMailoutComments.Text = dr.Item("strcomment")
-                        End If
-                        If IsDBNull(dr.Item("UpdateUser")) Then
-                            txtEISStatsMailoutUpdateUser.Clear()
-                        Else
-                            txtEISStatsMailoutUpdateUser.Text = dr.Item("UpdateUser")
-                        End If
-                        If IsDBNull(dr.Item("updateDateTime")) Then
-                            txtEISStatsMailoutUpdateDate.Clear()
-                        Else
-                            txtEISStatsMailoutUpdateDate.Text = dr.Item("updateDateTime")
-                        End If
-                        If IsDBNull(dr.Item("CreateDateTime")) Then
-                            txtEISStatsMailoutCreateDate.Clear()
-                        Else
-                            txtEISStatsMailoutCreateDate.Text = dr.Item("CreateDateTime")
-                        End If
+                    If IsDBNull(dr.Item("strContactAddress1")) Then
+                        txtEISStatsMailoutAddress1.Clear()
+                    Else
+                        txtEISStatsMailoutAddress1.Text = dr.Item("strContactAddress1")
+                    End If
+                    If IsDBNull(dr.Item("strContactAddress2")) Then
+                        txtEISStatsMailoutAddress2.Clear()
+                    Else
+                        txtEISStatsMailoutAddress2.Text = dr.Item("strContactAddress2")
+                    End If
+                    If IsDBNull(dr.Item("strContactCity")) Then
+                        txtEISStatsMailoutCity.Clear()
+                    Else
+                        txtEISStatsMailoutCity.Text = dr.Item("strContactCity")
+                    End If
+                    If IsDBNull(dr.Item("strcontactstate")) Then
+                        txtEISStatsMailoutState.Clear()
+                    Else
+                        txtEISStatsMailoutState.Text = dr.Item("strcontactstate")
+                    End If
+                    If IsDBNull(dr.Item("strcontactzipCode")) Then
+                        txtEISStatsMailoutZipCode.Clear()
+                    Else
+                        txtEISStatsMailoutZipCode.Text = dr.Item("strcontactzipCode")
+                    End If
+                    If IsDBNull(dr.Item("strcontactFirstName")) Then
+                        txtEISStatsMailoutFirstName.Clear()
+                    Else
+                        txtEISStatsMailoutFirstName.Text = dr.Item("strcontactFirstName")
+                    End If
+                    If IsDBNull(dr.Item("strcontactLastName")) Then
+                        txtEISStatsMailoutLastName.Clear()
+                    Else
+                        txtEISStatsMailoutLastName.Text = dr.Item("strcontactLastName")
+                    End If
+                    If IsDBNull(dr.Item("strContactPrefix")) Then
+                        txtEISStatsMailoutPrefix.Clear()
+                    Else
+                        txtEISStatsMailoutPrefix.Text = dr.Item("strContactPrefix")
+                    End If
+                    If IsDBNull(dr.Item("strContactEmail")) Then
+                        txtEISStatsMailoutEmailAddress.Clear()
+                    Else
+                        txtEISStatsMailoutEmailAddress.Text = dr.Item("strContactEmail")
+                    End If
+                    If IsDBNull(dr.Item("strcomment")) Then
+                        txtEISStatsMailoutComments.Clear()
+                    Else
+                        txtEISStatsMailoutComments.Text = dr.Item("strcomment")
+                    End If
+                    If IsDBNull(dr.Item("UpdateUser")) Then
+                        txtEISStatsMailoutUpdateUser.Clear()
+                    Else
+                        txtEISStatsMailoutUpdateUser.Text = dr.Item("UpdateUser")
+                    End If
+                    If IsDBNull(dr.Item("updateDateTime")) Then
+                        txtEISStatsMailoutUpdateDate.Clear()
+                    Else
+                        txtEISStatsMailoutUpdateDate.Text = dr.Item("updateDateTime")
+                    End If
+                    If IsDBNull(dr.Item("CreateDateTime")) Then
+                        txtEISStatsMailoutCreateDate.Clear()
+                    Else
+                        txtEISStatsMailoutCreateDate.Text = dr.Item("CreateDateTime")
                     End If
                 End If
             End If
@@ -3541,7 +3541,7 @@ Public Class EisTool
     End Sub
     Private Sub btnSaveEISStatMailout_Click(sender As Object, e As EventArgs) Handles btnSaveEISStatMailout.Click
         Try
-            If txtSelectedEISMailout.Text <> "" And txtEISStatsMailoutAIRSNumber.Text <> "" Then
+            If txtSelectedEISMailout.Text <> "" AndAlso txtEISStatsMailoutAIRSNumber.Text <> "" Then
                 Dim SQL As String = "UPdate EIS_Mailout set " &
                     "strFacilityName = @strFacilityName, " &
                     "strContactCompanyName = @strContactCompanyName, " &
@@ -3595,7 +3595,7 @@ Public Class EisTool
             If EISConfirm = txtEISStatsEnrollmentYear.Text Then
                 Dim temp As String = ""
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True Then
+                    If dgvEISStats(0, i).Value Then
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                     End If
                 Next
@@ -3636,7 +3636,7 @@ Public Class EisTool
             If EISConfirm = txtEISStatsEnrollmentYear.Text Then
                 Dim temp As String = ""
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True Then
+                    If dgvEISStats(0, i).Value Then
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                     End If
                 Next
@@ -3746,7 +3746,7 @@ Public Class EisTool
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True And dgvEISStats(6, i).Value = "No" Then
+                    If dgvEISStats(0, i).Value AndAlso dgvEISStats(6, i).Value = "No" Then
                         paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
                         paramNameList1.Add(paramName)
                         paramList1.Add(New SqlParameter(paramName, dgvEISStats(1, i).Value))
@@ -3777,7 +3777,7 @@ Public Class EisTool
 
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True And dgvEISStats(6, i).Value = "Yes" Then
+                    If dgvEISStats(0, i).Value AndAlso dgvEISStats(6, i).Value = "Yes" Then
                         paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
                         paramNameList2.Add(paramName)
                         paramList2.Add(New SqlParameter(paramName, dgvEISStats(1, i).Value))
@@ -3801,7 +3801,7 @@ Public Class EisTool
                     WHERE inventoryYear = @INVENTORYYEAR AND FacilitySiteID = @FACILITYSITEID AND strOptOut = '0')"
 
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True Then
+                    If dgvEISStats(0, i).Value Then
                         queryList.Add(query3)
                         paramsList.Add({
                             New SqlParameter("@INVENTORYYEAR", EISConfirm),
@@ -3815,7 +3815,7 @@ Public Class EisTool
 
                 Dim spName As String = "dbo.PD_EIS_QASTART"
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True Then
+                    If dgvEISStats(0, i).Value Then
                         Dim param As SqlParameter() = {
                             New SqlParameter("@AIRSNUMBER_IN", dgvEISStats(1, i).Value),
                             New SqlParameter("@INTYEAR_IN", EISConfirm)
@@ -3850,33 +3850,33 @@ Public Class EisTool
             Dim ActiveStatus As String = ""
             Dim IncorrectlyOptedOut As String = ""
 
-            If rdbEILogMailoutYes.Checked = True Then
+            If rdbEILogMailoutYes.Checked Then
                 Mailout = "1"
             Else
-                If rdbEILogMailoutNo.Checked = True Then
+                If rdbEILogMailoutNo.Checked Then
                     Mailout = "0"
                 Else
                     Mailout = ""
                 End If
             End If
-            If rdbEILogEnrolledYes.Checked = True Then
+            If rdbEILogEnrolledYes.Checked Then
                 Enrollment = "1"
             Else
                 Enrollment = "0"
             End If
-            If rdbEILogOpOutYes.Checked = True Then
+            If rdbEILogOpOutYes.Checked Then
                 OptOut = "1"
-            ElseIf rdbEILogOpOutNo.Checked = True Then
+            ElseIf rdbEILogOpOutNo.Checked Then
                 OptOut = "0"
             End If
-            If chbOptedOutIncorrectly.Checked = True Then
+            If chbOptedOutIncorrectly.Checked Then
                 IncorrectlyOptedOut = "1"
             Else
                 IncorrectlyOptedOut = "0"
             End If
             EISStatus = cboEILogStatusCode.SelectedValue.ToString
             EISAccess = cboEILogAccessCode.SelectedValue.ToString
-            If rdbEILogActiveYes.Checked = True Then
+            If rdbEILogActiveYes.Checked Then
                 ActiveStatus = "1"
             Else
                 ActiveStatus = "0"
@@ -3932,7 +3932,7 @@ Public Class EisTool
 
             DB.RunCommand(SQL, params2)
 
-            If dtpDeadlineEIS.Checked = True Then
+            If dtpDeadlineEIS.Checked Then
                 Dim DeadLineComments As String = ""
                 If txtAllEISDeadlineComment.Text.Contains(dtpDeadlineEIS.Text & "(deadline)- " & CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf &
                 txtEISDeadlineComment.Text) Then
@@ -3958,7 +3958,7 @@ Public Class EisTool
                 End If
             End If
 
-            If rdbEILogOpOutYes.Checked = False Then
+            If Not rdbEILogOpOutYes.Checked Then
                 Dim QAStart As String = ""
                 Dim QAPass As String = ""
                 Dim QAStatusCode As String = ""
@@ -3972,12 +3972,12 @@ Public Class EisTool
                 Dim pointError As String = ""
 
                 QAStart = dtpQAStarted.Text
-                If dtpQAPassed.Checked = True Then
+                If dtpQAPassed.Checked Then
                     QAPass = dtpQAPassed.Text
                 Else
                     QAPass = ""
                 End If
-                If dtpQACompleted.Checked = True Then
+                If dtpQACompleted.Checked Then
                     QAComplete = dtpQACompleted.Text
                 Else
                     QAComplete = ""
@@ -4013,7 +4013,7 @@ Public Class EisTool
                                     txtAllFITrackingNumbers.Text
                     End If
                 End If
-                If chbFIErrors.Checked = True Then
+                If chbFIErrors.Checked Then
                     FIError = "True"
                 Else
                     FIError = "False"
@@ -4032,7 +4032,7 @@ Public Class EisTool
                                 txtAllPointTrackingNumbers.Text
                     End If
                 End If
-                If chbPointErrors.Checked = True Then
+                If chbPointErrors.Checked Then
                     pointError = "True"
                 Else
                     pointError = "False"
@@ -4118,12 +4118,12 @@ Public Class EisTool
             Dim PointError As String = ""
 
             QAStart = dtpQAStarted.Text
-            If dtpQAPassed.Checked = True Then
+            If dtpQAPassed.Checked Then
                 QAPass = dtpQAPassed.Text
             Else
                 QAPass = ""
             End If
-            If dtpQACompleted.Checked = True Then
+            If dtpQACompleted.Checked Then
                 QAComplete = dtpQACompleted.Text
             Else
                 QAComplete = ""
@@ -4159,7 +4159,7 @@ Public Class EisTool
                                 txtAllFITrackingNumbers.Text
                 End If
             End If
-            If chbFIErrors.Checked = True Then
+            If chbFIErrors.Checked Then
                 FIError = "True"
             Else
                 FIError = "False"
@@ -4179,7 +4179,7 @@ Public Class EisTool
                             txtAllPointTrackingNumbers.Text
                 End If
             End If
-            If chbPointErrors.Checked = True Then
+            If chbPointErrors.Checked Then
                 PointError = "True"
             Else
                 PointError = "False"
@@ -4224,7 +4224,7 @@ Public Class EisTool
 
             LoadQASpecificData()
 
-            If dtpQACompleted.Checked = True Then
+            If dtpQACompleted.Checked Then
                 Dim spname As String = "dbo.PD_EIS_QA_Done"
                 Dim params2 As SqlParameter() = {
                     New SqlParameter("@AIRSNUM", txtEILogSelectedAIRSNumber.Text),
@@ -4252,7 +4252,7 @@ Public Class EisTool
         Dim City As String = txtEIModifyCity.Text
         Dim PostalCode As String = mtbEIModifyZipCode.Text
 
-        If Address <> "" And City <> "" Then
+        If Address <> "" AndAlso City <> "" Then
             Dim query As String = "Update EIS_FacilitySiteAddress set " &
             " STRLOCATIONADDRESSTEXT = @Address, " &
             " STRLOCALITYNAME = @City, " &
@@ -4285,7 +4285,7 @@ Public Class EisTool
         Dim City As String = txtEIModifyMCity.Text
         Dim PostalCode As String = mtbEIModifyMZipCode.Text
 
-        If Address <> "" And City <> "" Then
+        If Address <> "" AndAlso City <> "" Then
             Dim query As String = "Update EIS_FacilitySiteAddress set " &
             " strMailingAddressText = @Address, " &
             " strMailingAddresscityname = @City, " &
@@ -4344,7 +4344,7 @@ Public Class EisTool
                 Return
             End If
 
-            If mtbEIModifyLatitude.Text <> "" And mtbEIModifyLongitude.Text <> "" Then
+            If mtbEIModifyLatitude.Text <> "" AndAlso mtbEIModifyLongitude.Text <> "" Then
                 Dim SQL As String = "Update EIS_FacilityGEOCoord set " &
                 "numLatitudeMeasure = @numLatitudeMeasure, " &
                 "numLongitudeMeasure = @numLongitudeMeasure " &
@@ -4915,7 +4915,7 @@ Public Class EisTool
                 Dim temp As String = ""
 
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True And dgvEISStats(7, i).Value = "No" Then
+                    If dgvEISStats(0, i).Value AndAlso dgvEISStats(7, i).Value = "No" Then
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                     End If
                 Next
@@ -4965,7 +4965,7 @@ Public Class EisTool
                 ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True Then
+                    If dgvEISStats(0, i).Value Then
                         paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
                         paramNameList.Add(paramName)
                         paramList.Add(New SqlParameter(paramName, dgvEISStats(1, i).Value))
@@ -4990,7 +4990,7 @@ Public Class EisTool
     Private Sub ViewPollutantThresholds()
         Try
             Dim SQL As String
-            If rdbThreeYearPollutants.Checked = True Then
+            If rdbThreeYearPollutants.Checked Then
                 SQL = "Select " &
                 "strPollutant, numThreshold, " &
                 "numThresholdNAA " &
@@ -5037,7 +5037,7 @@ Public Class EisTool
         Dim hti As DataGridView.HitTestInfo = dgvThresholdPollutants.HitTest(e.X, e.Y)
 
         Try
-            If dgvThresholdPollutants.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvThresholdPollutants.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 If IsDBNull(dgvThresholdPollutants(0, hti.RowIndex).Value) Then
                     txtPollutant.Clear()
                 Else
@@ -5067,10 +5067,10 @@ Public Class EisTool
         Try
             Dim ThresholdType As String = ""
 
-            If rdbAnnualPollutants.Checked = True Then
+            If rdbAnnualPollutants.Checked Then
                 ThresholdType = "ANNUAL"
             End If
-            If rdbThreeYearPollutants.Checked = True Then
+            If rdbThreeYearPollutants.Checked Then
                 ThresholdType = "3YEAR"
             End If
             If ThresholdType = "" Then
@@ -5118,10 +5118,10 @@ Public Class EisTool
         Try
             Dim ThresholdType As String = ""
 
-            If rdbAnnualPollutants.Checked = True Then
+            If rdbAnnualPollutants.Checked Then
                 ThresholdType = "ANNUAL"
             End If
-            If rdbThreeYearPollutants.Checked = True Then
+            If rdbThreeYearPollutants.Checked Then
                 ThresholdType = "3YEAR"
             End If
             If ThresholdType = "" Then
@@ -5198,7 +5198,7 @@ Public Class EisTool
         Dim hti As DataGridView.HitTestInfo = dgvEISYear.HitTest(e.X, e.Y)
 
         Try
-            If dgvEISYear.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvEISYear.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 If IsDBNull(dgvEISYear(0, hti.RowIndex).Value) Then
                     mtbThresholdYear.Clear()
                 Else
@@ -5252,7 +5252,7 @@ Public Class EisTool
                 Return
             End If
 
-            If rdbEISThreeYear.Checked = True Then
+            If rdbEISThreeYear.Checked Then
                 EISYearType = "3YEAR"
             Else
                 EISYearType = "ANNUAL"
@@ -5296,7 +5296,7 @@ Public Class EisTool
                 Return
             End If
 
-            If rdbEISThreeYear.Checked = True Then
+            If rdbEISThreeYear.Checked Then
                 EISYearType = "3YEAR"
             Else
                 EISYearType = "ANNUAL"
@@ -5333,7 +5333,7 @@ Public Class EisTool
 
     Private Sub btnLoadEISLog_Click(sender As Object, e As EventArgs) Handles btnLoadEISLog.Click
         Try
-            If mtbEISLogAIRSNumber.Text <> "" And cboEISStatisticsYear.Text.Length = 4 Then
+            If mtbEISLogAIRSNumber.Text <> "" AndAlso cboEISStatisticsYear.Text.Length = 4 Then
                 mtbEILogAIRSNumber.Text = mtbEISLogAIRSNumber.Text
                 cboEILogYear.Text = cboEISStatisticsYear.Text
 
@@ -5411,7 +5411,7 @@ Public Class EisTool
             Dim selection As Boolean = False
 
             For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                If dgvEISStats(0, i).Value = True Then
+                If dgvEISStats(0, i).Value Then
                     Dim params As SqlParameter() = {
                         New SqlParameter("@AIRSNUMBER_IN", dgvEISStats(1, i).Value),
                         New SqlParameter("@INTYEAR_IN", cboEISStatisticsYear.Text)
@@ -5911,7 +5911,7 @@ Public Class EisTool
         Dim count As Integer = 0
 
         For Each row As DataGridViewRow In dgvEISStats.Rows
-            If row.Cells("Select").Value = True Then
+            If row.Cells("Select").Value Then
                 count += 1
             End If
         Next
@@ -5948,7 +5948,7 @@ Public Class EisTool
 
         If what = EisStagingSet.Selected Then
             For Each row As DataGridViewRow In dgvEISStats.Rows
-                If row.Cells("Select").Value = True Then
+                If row.Cells("Select").Value Then
                     facList.Add(row.Cells("FacilitySiteID").Value)
                 End If
             Next

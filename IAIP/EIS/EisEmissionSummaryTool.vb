@@ -218,17 +218,16 @@ Public Class EisEmissionSummaryTool
         Dim hti As DataGridView.HitTestInfo = dgvESDataCount.HitTest(e.X, e.Y)
 
         Try
-            If dgvESDataCount.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvESDataCount.Columns(0).HeaderText = "Airs No." Then
-                    If Not IsDBNull(dgvESDataCount(0, hti.RowIndex).Value) Then
-                        txtESAirsNo.Text = dgvESDataCount(0, hti.RowIndex).Value.ToString
-                        If dgvESDataCount.Columns(3).HeaderText = "Confirmation Number" Then
-                            If Not IsDBNull(dgvESDataCount(3, hti.RowIndex).Value) Then
-                                txtConfirmationNumber.Text = dgvESDataCount(3, hti.RowIndex).Value.ToString
-                                findESData()
-                            End If
-                        End If
-                    End If
+            If dgvESDataCount.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
+                dgvESDataCount.Columns(0).HeaderText = "Airs No." AndAlso
+                Not IsDBNull(dgvESDataCount(0, hti.RowIndex).Value) Then
+
+                txtESAirsNo.Text = dgvESDataCount(0, hti.RowIndex).Value.ToString
+
+                If dgvESDataCount.Columns(3).HeaderText = "Confirmation Number" AndAlso
+                    Not IsDBNull(dgvESDataCount(3, hti.RowIndex).Value) Then
+                    txtConfirmationNumber.Text = dgvESDataCount(3, hti.RowIndex).Value.ToString
+                    findESData()
                 End If
             End If
         Catch ex As Exception
@@ -753,7 +752,7 @@ Public Class EisEmissionSummaryTool
 
     Private Sub btnEISummary_Click(sender As Object, e As EventArgs) Handles btnEISummary.Click
         Try
-            If cboEIYear.Text <> "" And cboEIYear.Text <> "-Select a Year-" Then
+            If cboEIYear.Text <> "" AndAlso cboEIYear.Text <> "-Select a Year-" Then
                 If CInt(cboEIYear.Text) < 2010 Then
                     SQL = "SELECT AIRSNumber, FacilityName, SO2, NOX, VOC, CO, NH3, Lead, PMFIL, '' AS PM10FIL, PMPRI, PM10PRI, PM25PRI, '' AS PMCON
                         FROM (SELECT SUBSTRING(strairsnumber, 5, 8) AS AIRSNumber, strfacilityname AS FacilityName, SO2, NOX, PMPRI, PMFIL, PM10PRI, PM25PRI, VOC, CO, NH3, Lead
@@ -819,7 +818,7 @@ Public Class EisEmissionSummaryTool
     Private Sub btnViewEISummaryByPollutant_Click(sender As Object, e As EventArgs) Handles btnViewEISummaryByPollutant.Click
         Try
 
-            If cboEIYear.Text <> "" And cboEIYear.Text <> "-Select a Year-" AndAlso cboEIPollutants.Text <> "" Then
+            If cboEIYear.Text <> "" AndAlso cboEIYear.Text <> "-Select a Year-" AndAlso cboEIPollutants.Text <> "" Then
                 If CInt(cboEIYear.Text) < 2010 Then
                     SQL = "SELECT right(eiem.STRAIRSNUMBER, 8) as AIRSNumber,
                                eisi.STRFACILITYNAME AS FacilityName,

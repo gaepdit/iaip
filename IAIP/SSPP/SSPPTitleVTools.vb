@@ -450,7 +450,7 @@ Public Class SSPPTitleVTools
                     Next
                 End If
 
-                If DraftOnWeb <> "" And EPAStatesNotified = "" Then
+                If DraftOnWeb <> "" AndAlso EPAStatesNotified = "" Then
                     query = "Update SSPPApplicationData set " &
                     "strDraftOnWebNotification = 'False' " &
                     "where strApplicationNumber = @app "
@@ -2798,7 +2798,7 @@ Public Class SSPPTitleVTools
 
     End Sub
     Private Sub chbPNExpires_CheckedChanged(sender As Object, e As EventArgs) Handles chbPNExpires.CheckedChanged
-        DTPPNExpires.Visible = chbPNExpires.Checked And chbPNExpires.Visible
+        DTPPNExpires.Visible = chbPNExpires.Checked AndAlso chbPNExpires.Visible
     End Sub
     Private Sub chbEPAandStatesNotified_CheckedChanged(sender As Object, e As EventArgs) Handles chbEPAandStatesNotified.CheckedChanged
         Try
@@ -2948,10 +2948,9 @@ Public Class SSPPTitleVTools
     Private Sub txtWebPublisherApplicationNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtWebPublisherApplicationNumber.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                If txtWebPublisherApplicationNumber.Text <> "" Then
-                    LoadWebPublisherApplicationData()
-                End If
+            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) AndAlso
+                txtWebPublisherApplicationNumber.Text <> "" Then
+                LoadWebPublisherApplicationData()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2973,7 +2972,7 @@ Public Class SSPPTitleVTools
     End Sub
     Private Sub btnPrintRenewalLetters_Click(sender As Object, e As EventArgs) Handles btnPrintRenewalLetters.Click
         Try
-            If txtRenewalCount.Text <> "" And txtRenewalCount.Text <> "0" Then
+            If txtRenewalCount.Text <> "" AndAlso txtRenewalCount.Text <> "0" Then
                 Dim PrintOut As New IAIPPrintOut With {
                     .PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal,
                     .ReferenceValue = "*",
@@ -3322,7 +3321,7 @@ Public Class SSPPTitleVTools
                 AppNumber = "*"
             End If
 
-            If (Me.txtRenewalCount.Text <> "" And txtRenewalCount.Text <> "0") Or txtTitleVSingleLetter.Text <> "" Then
+            If (Me.txtRenewalCount.Text <> "" AndAlso txtRenewalCount.Text <> "0") OrElse txtTitleVSingleLetter.Text <> "" Then
                 Dim PrintOut As New IAIPPrintOut With {
                     .PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal,
                     .ReferenceValue = AppNumber,

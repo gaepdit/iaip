@@ -37,7 +37,7 @@ Namespace DAL
                 " WHERE strAIRSNumber = @airsnumber " &
                 " AND strKey          = @key "
 
-            Dim parameters As SqlParameter() = New SqlParameter() {
+            Dim parameters As SqlParameter() = {
                 New SqlParameter("@airsnumber", airsNumber.DbFormattedString),
                 New SqlParameter("@key", key.ToString("D"))
             }

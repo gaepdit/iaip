@@ -22,12 +22,19 @@ Public Class FinSearchInvoices
     ' Search
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        Dim category As Char = Nothing
+        If rdbCategoryApplicationFees.Checked Then
+            category = "P"c
+        ElseIf rdbCategoryEmissionFees.Checked Then
+            category = "E"c
+        End If
+
         dgvSearchResults.DataSource = SearchInvoices(
             txtAirsNumberSearch.AirsNumber,
             txtFacilityName.Text,
             If(dtpDateStart.Checked, CType(dtpDateStart.Value, Date?), Nothing),
             If(dtpDateEnd.Checked, CType(dtpDateEnd.Value, Date?), Nothing),
-            If(rdbCategoryAll.Checked, CType(Nothing, Char?), If(rdbCategoryApplicationFees.Checked, "P"c, "E"c)),
+            category,
             chkOnlyOpenInvoices.Checked,
             chkIncludeVoided.Checked)
 
@@ -73,7 +80,7 @@ Public Class FinSearchInvoices
 
         If String.IsNullOrEmpty(txtSelectedItem.Text) Then
             selectedIdErrorProvider.ClearError()
-            Exit Sub
+            Return
         End If
 
         Dim newID As Integer = 0

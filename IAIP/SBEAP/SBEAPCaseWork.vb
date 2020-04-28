@@ -2012,7 +2012,7 @@ Public Class SBEAPCaseWork
     Private Sub btnAddNewAction_Click(sender As Object, e As EventArgs) Handles btnAddNewAction.Click
         Try
             Dim SQL As String
-            If cboActionType.Text <> "" And cboActionType.SelectedIndex > 0 Then
+            If cboActionType.Text <> "" AndAlso cboActionType.SelectedIndex > 0 Then
                 ClearActions()
                 If txtCaseID.Text = "" Then
                     UpdateCaseLog("New Action")
@@ -2075,16 +2075,16 @@ Public Class SBEAPCaseWork
     Private Sub dgvActionLog_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvActionLog.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvActionLog.HitTest(e.X, e.Y)
-            If dgvActionLog.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvActionLog.Columns(0).HeaderText = "Action ID" Then
-                    txtActionID.Text = dgvActionLog(0, hti.RowIndex).Value
-                    txtActionType.Text = dgvActionLog(2, hti.RowIndex).Value
-                    txtCreationDate.Text = Format(dgvActionLog(3, hti.RowIndex).Value, "dd-MMM-yyyy")
-                    If IsDBNull(dgvActionLog(4, hti.RowIndex).Value) Then
-                        DTPActionOccured.Value = Today
-                    Else
-                        DTPActionOccured.Text = Format(dgvActionLog(4, hti.RowIndex).Value, "dd-MMM-yyyy")
-                    End If
+            If dgvActionLog.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
+                dgvActionLog.Columns(0).HeaderText = "Action ID" Then
+
+                txtActionID.Text = dgvActionLog(0, hti.RowIndex).Value
+                txtActionType.Text = dgvActionLog(2, hti.RowIndex).Value
+                txtCreationDate.Text = Format(dgvActionLog(3, hti.RowIndex).Value, "dd-MMM-yyyy")
+                If IsDBNull(dgvActionLog(4, hti.RowIndex).Value) Then
+                    DTPActionOccured.Value = Today
+                Else
+                    DTPActionOccured.Text = Format(dgvActionLog(4, hti.RowIndex).Value, "dd-MMM-yyyy")
                 End If
             End If
         Catch ex As Exception
@@ -2283,7 +2283,7 @@ Public Class SBEAPCaseWork
                                 End If
                             End If
 
-                            If ActionID <> "" And ActionID <> "Done" Then
+                            If ActionID <> "" AndAlso ActionID <> "Done" Then
                                 Dim p2 As New SqlParameter("@actionid", ActionID)
 
                                 Select Case ActionType

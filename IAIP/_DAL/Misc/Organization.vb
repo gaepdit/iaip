@@ -10,7 +10,7 @@ Namespace DAL
                 " ORDER BY Description "
 
             Dim dt As DataTable = DB.GetDataTable(query)
-            dt.PrimaryKey = New DataColumn() {dt.Columns("BranchCode")}
+            dt.PrimaryKey = {dt.Columns("BranchCode")}
             Return dt
         End Function
 
@@ -22,7 +22,7 @@ Namespace DAL
 
             Dim parameter As New SqlParameter("@branch", branch)
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
-            dt.PrimaryKey = New DataColumn() {dt.Columns("ProgramCode")}
+            dt.PrimaryKey = {dt.Columns("ProgramCode")}
             Return dt
         End Function
 
@@ -34,7 +34,7 @@ Namespace DAL
 
             Dim parameter As New SqlParameter("@program", program)
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
-            dt.PrimaryKey = New DataColumn() {dt.Columns("UnitCode")}
+            dt.PrimaryKey = {dt.Columns("UnitCode")}
             Return dt
         End Function
 
@@ -42,7 +42,7 @@ Namespace DAL
             Dim query As String = "SELECT STRKEY AS Role, STRMANAGEMENTNAME AS Name " &
                 "FROM LOOKUPAPBMANAGEMENTTYPE WHERE STRCURRENTCONTACT = 'C'"
             Dim dt As DataTable = DB.GetDataTable(query)
-            dt.PrimaryKey = New DataColumn() {dt.Columns("Role")}
+            dt.PrimaryKey = {dt.Columns("Role")}
             Return dt
         End Function
 

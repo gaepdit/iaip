@@ -38,13 +38,18 @@ Friend Module ExceptionManager
             Optional displayErrorToUser As Boolean = True,
             Optional unrecoverable As Boolean = False)
 
-        Dim _seemsLikeANetworkIssueToMe As Boolean = SeemsLikeANetworkIssueToMe(ex)
-        Dim logged As Boolean = False
+        If SeemsLikeACrystalReportsIssue(ex) Then
+            ShowCrystalReportsSupportMessage()
+            Return
+        End If
+
+        If SeemsLikeANetworkIssue(ex) Then
+            ShowNetworkDownSupportMessage()
+            Return
+        End If
 
         ' First, log the exception.
-        If Not _seemsLikeANetworkIssueToMe Then
-            logged = LogException(ex, contextMessage, supplementalMessage)
-        End If
+        Dim logged As Boolean = LogException(ex, contextMessage, supplementalMessage)
 
         ' Second, display a dialog to the user describing the error and next steps.
         If displayErrorToUser Then
@@ -57,12 +62,7 @@ Friend Module ExceptionManager
             Dim whatHappened As String
             Dim whatUserCanDo As String = ""
 
-            If _seemsLikeANetworkIssueToMe Then
-                unrecoverable = False
-                whatHappened = "Can't connect."
-                whatUserCanDo = "• Check your Internet connection." & Environment.NewLine & Environment.NewLine &
-                    "• If you are working remotely, check your VPN connection." & Environment.NewLine & Environment.NewLine
-            ElseIf errorMessage.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently") Then
+            If errorMessage.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently") Then
                 whatHappened = "The IAIP is running multiple processing threads and needs time to complete them. Please allow time for the process to run."
                 whatUserCanDo = "• Wait for the process to finish before continuing." & Environment.NewLine & Environment.NewLine
             ElseIf errorMessage.Contains("Exception of type 'System.OutOfMemoryException' was thrown") Then
@@ -112,11 +112,24 @@ Friend Module ExceptionManager
         Return True
     End Function
 
-    Private Function SeemsLikeANetworkIssueToMe(ex As Exception) As Boolean
+    Private Function SeemsLikeANetworkIssue(ex As Exception) As Boolean
         If ex.GetType() = GetType(SqlException) AndAlso
             (ex.Message.Contains("A network-related or instance-specific error occurred while establishing a connection to SQL Server.") OrElse
             ex.Message.Contains("A transport-level error has occurred when receiving results from the server.") OrElse
             ex.Message.Contains("The timeout period elapsed prior to completion of the operation or the server is not responding.")) Then
+            Return True
+        End If
+
+        Return False
+    End Function
+
+    Private Function SeemsLikeACrystalReportsIssue(ex As Exception) As Boolean
+        If (ex.GetType() = GetType(IO.FileNotFoundException) AndAlso
+            ex.Message.Contains("Could not load file or assembly 'CrystalDecisions.CrystalReports.Engine,")) OrElse
+            (ex.GetType() = GetType(CrystalDecisions.CrystalReports.Engine.LoadSaveReportException) AndAlso
+            ex.Message.Contains("Could not load file or assembly 'CrystalDecisions.CrystalReports.Engine,")) OrElse
+            (ex.GetType() = GetType(TypeInitializationException) AndAlso
+            ex.Message.Contains("The type initializer for 'CrystalDecisions.CrystalReports.Engine.ReportDocument' threw an exception.")) Then
             Return True
         End If
 

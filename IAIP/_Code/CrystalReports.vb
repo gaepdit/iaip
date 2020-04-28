@@ -1,4 +1,4 @@
-﻿Imports System.ComponentModel
+Imports System.ComponentModel
 Imports System.Runtime.CompilerServices
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Shared
@@ -46,36 +46,38 @@ Module CrystalReports
         End Try
     End Function
 
-    Private Sub ShowCrystalReportsSupportMessage()
-        Dim bgwCrystalReportsSupportMessage As New BackgroundWorker
+    Friend Sub ShowCrystalReportsSupportMessage()
+        Dim bgw As New BackgroundWorker
 
-        AddHandler bgwCrystalReportsSupportMessage.DoWork,
+        AddHandler bgw.DoWork,
             Sub()
                 Dim td As New TaskDialog With {
                     .Title = "Crystal Reports Not Installed",
                     .MainIcon = TaskDialogIcon.Warning,
-                    .MainInstruction = "Printing from the IAIP is currently unavailable",
+                    .MainInstruction = "Printing from the IAIP is currently unavailable.",
                     .Content = "The components needed for printing are missing. " &
                         "You can continue to use the IAIP, but you will not be able to print " &
                         "until installation is complete. " & vbNewLine & vbNewLine &
                         "Open the installation page for more information.",
-                    .CommonButtons = TaskDialogCommonButtonFlags.OK,
-                    .Buttons = {New TaskDialogButton(99, "Open Installation Page")},
-                    .UseCommandLinks = True,
+                    .CommonButtons = TaskDialogCommonButtonFlags.Close,
+                    .Buttons = {New TaskDialogButton(101, "Open Installation Page")},
+                    .UseCommandLinks = False,
                     .DefaultButton = 1
                 }
 
                 AddHandler td.ButtonClicked,
                     Sub(sender As Object, e As ButtonClickedEventArgs)
-                        If e.ButtonId = 99 Then
+                        If e.ButtonId = 101 Then
                             OpenPrereqInstallUrl()
                         End If
                     End Sub
 
+                ' when the task dialog is closed, it throws an unhandled exception that ends 
+                ' the background worker, but it still works as long as .Buttons is defined above
                 td.Show()
             End Sub
 
-        bgwCrystalReportsSupportMessage.RunWorkerAsync()
+        bgw.RunWorkerAsync()
     End Sub
 
 #End Region
@@ -119,7 +121,7 @@ Module CrystalReports
     Public Sub ShowHideViewerTabs(CrystalReportViewer As CrystalReportViewer, visible As VisibleOrNot)
         ' http://bloggingabout.net/blogs/jschreuder/archive/2005/08/03/8760.aspx
         If CrystalReportViewer Is Nothing OrElse CrystalReportViewer.Controls.Count = 0 Then
-            Exit Sub
+            Return
         End If
 
         For Each control As Control In CrystalReportViewer.Controls

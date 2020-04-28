@@ -106,7 +106,7 @@ Namespace DAL
         Public Function UsernameExists(username As String, Optional ignoreUser As Integer = 0) As Boolean
             If username = "" Then Return False
             Dim spName As String = "iaip_user.UsernameExists"
-            Dim parameters As SqlParameter() = New SqlParameter() {
+            Dim parameters As SqlParameter() = {
                 New SqlParameter("@username", username),
                 New SqlParameter("@ignoreUser", ignoreUser)
             }
@@ -116,7 +116,7 @@ Namespace DAL
         Public Function EmailIsInUse(email As String, Optional ignoreUser As Integer = 0) As Boolean
             If email.Trim = "" Then Return False
             Dim spName As String = "iaip_user.EmailInUse"
-            Dim parameters As SqlParameter() = New SqlParameter() {
+            Dim parameters As SqlParameter() = {
                 New SqlParameter("@email", email),
                 New SqlParameter("@ignoreUser", ignoreUser)
             }

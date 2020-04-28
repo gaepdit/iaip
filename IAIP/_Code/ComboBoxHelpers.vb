@@ -66,7 +66,7 @@ Module ComboBoxHelpers
     <Extension()>
     Public Sub SetDropDownWidth(c As ComboBox)
         If c Is Nothing OrElse c.Items.Count = 0 Then
-            Exit Sub
+            Return
         End If
 
         Dim scrollBarWidth As Integer = SystemInformation.VerticalScrollBarWidth

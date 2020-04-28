@@ -46,7 +46,7 @@ Public Class SSCPFCEWork
         DTPFilterStartDate.Value = Today.AddDays(-365)
         DTPFilterEndDate.Value = Today
 
-        If Not (AccountFormAccess(50, 1) = "1" Or AccountFormAccess(50, 2) = "1" Or AccountFormAccess(50, 3) = "1" Or AccountFormAccess(50, 4) = "1") Then
+        If Not (AccountFormAccess(50, 1) = "1" OrElse AccountFormAccess(50, 2) = "1" OrElse AccountFormAccess(50, 3) = "1" OrElse AccountFormAccess(50, 4) = "1") Then
             MenuSave.Visible = False
             btnSave.Visible = False
         End If
@@ -1251,7 +1251,7 @@ Public Class SSCPFCEWork
     Private Sub SaveFCE()
         Try
 
-            If AccountFormAccess(50, 2) = "0" And AccountFormAccess(50, 3) = "0" And AccountFormAccess(50, 4) = "0" Then
+            If AccountFormAccess(50, 2) = "0" AndAlso AccountFormAccess(50, 3) = "0" AndAlso AccountFormAccess(50, 4) = "0" Then
                 MsgBox("Insufficient permissions to save Full Compliance Evaluations.", MsgBoxStyle.Information, "Full Compliance Evaluation.")
             Else
                 Dim SQL As String
@@ -1308,7 +1308,7 @@ Public Class SSCPFCEWork
                         New SqlParameter("@strFCEYear", FCEYear)
                     })
 
-                    If facility.HeaderData.Classification = FacilityClassification.A Or
+                    If facility.HeaderData.Classification = FacilityClassification.A OrElse
                         facility.HeaderData.Classification = FacilityClassification.SM Then
 
                         SQL = "Select strAFSActionNumber " &

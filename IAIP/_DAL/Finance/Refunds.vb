@@ -30,6 +30,8 @@ Namespace DAL.Finance
         End Function
 
         Public Function RefundFromDataRow(dr As DataRow) As Refund
+            ArgumentNotNull(dr, NameOf(dr))
+
             Return New Refund With {
                 .RefundId = CInt(dr("RefundID")),
                 .RefundDate = CDate(dr("RefundDate")),
@@ -42,6 +44,8 @@ Namespace DAL.Finance
         End Function
 
         Public Function RefundAppliedFromDataRow(dr As DataRow) As RefundApplied
+            ArgumentNotNull(dr, NameOf(dr))
+
             Return New RefundApplied With {
                 .RefundAppliedId = CInt(dr("RefundAppliedId")),
                 .RefundId = CInt(dr("RefundID")),
@@ -56,6 +60,8 @@ Namespace DAL.Finance
         ' Write
 
         Public Function SaveNewRefund(refund As Refund, ByRef newRefundId As Integer) As SaveRefundResult
+            ArgumentNotNull(refund, NameOf(refund))
+
             Dim params As SqlParameter() = {
                 New SqlParameter("@RefundDate", refund.RefundDate),
                 New SqlParameter("@Amount", refund.Amount),

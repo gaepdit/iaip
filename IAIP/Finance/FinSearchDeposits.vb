@@ -74,7 +74,7 @@ Public Class FinSearchDeposits
 
         If String.IsNullOrEmpty(txtSelectedItem.Text) Then
             selectedIdErrorProvider.ClearError()
-            Exit Sub
+            Return
         End If
 
         Dim newID As Integer = 0

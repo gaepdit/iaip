@@ -23,7 +23,10 @@ Public Class PASPFeeStatistics
 
             LoadComboBoxesF()
 
-            If AccountFormAccess(135, 1) = "1" Or AccountFormAccess(135, 2) = "1" Or AccountFormAccess(135, 3) = "1" Or AccountFormAccess(135, 4) = "1" Then
+            If AccountFormAccess(135, 1) = "1" OrElse
+                AccountFormAccess(135, 2) = "1" OrElse
+                AccountFormAccess(135, 3) = "1" OrElse
+                AccountFormAccess(135, 4) = "1" Then
                 btnOpenFeesLog.Visible = True
                 txtFeeStatAirsNumber.Visible = True
             End If
@@ -1194,7 +1197,7 @@ Public Class PASPFeeStatistics
 
     Private Sub chbDepositDateSearch_CheckedChanged(sender As Object, e As EventArgs) Handles chbDepositDateSearch.CheckedChanged
         Try
-            If chbDepositDateSearch.Checked = True Then
+            If chbDepositDateSearch.Checked Then
                 dtpStartDepositDate.Enabled = True
                 dtpEndDepositDate.Enabled = True
                 btnRunDepositReport.Enabled = True
@@ -1392,7 +1395,7 @@ Public Class PASPFeeStatistics
             Dim spValue As ParameterDiscreteValue
 
             Dim rpt As ReportClass
-            If chbFacilityBalance.Checked = False Then
+            If Not chbFacilityBalance.Checked Then
                 rpt = New FacilityBalance10
             Else
                 rpt = New FacilityBalancewithZero10
@@ -1440,7 +1443,7 @@ Public Class PASPFeeStatistics
             'Load Variables into the Fields
             CRFeesReports.ParameterFieldInfo = ParameterFields
 
-            If chbFacilityBalance.Checked = False Then
+            If Not chbFacilityBalance.Checked Then
                 SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Fee Balance")
             Else
                 SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Fee Balance with Zero Balance")
@@ -5075,13 +5078,14 @@ Public Class PASPFeeStatistics
     Private Sub dgvFeeStats_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvFeeStats.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvFeeStats.HitTest(e.X, e.Y)
-            If dgvFeeStats.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvFeeStats.Columns(0).HeaderText = "Airs No." Then
-                    If IsDBNull(dgvFeeStats(0, hti.RowIndex).Value) Then
-                        txtFeeStatAirsNumber.Clear()
-                    Else
-                        txtFeeStatAirsNumber.Text = dgvFeeStats(0, hti.RowIndex).Value
-                    End If
+
+            If dgvFeeStats.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
+                dgvFeeStats.Columns(0).HeaderText = "Airs No." Then
+
+                If IsDBNull(dgvFeeStats(0, hti.RowIndex).Value) Then
+                    txtFeeStatAirsNumber.Clear()
+                Else
+                    txtFeeStatAirsNumber.Text = dgvFeeStats(0, hti.RowIndex).Value
                 End If
             End If
 
@@ -5628,7 +5632,7 @@ Public Class PASPFeeStatistics
                         "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData "
             End Select
 
-            If chbNonZeroBalance.Checked = True Then
+            If chbNonZeroBalance.Checked Then
                 SQL = SQL & " where balance <> 0 "
             End If
 

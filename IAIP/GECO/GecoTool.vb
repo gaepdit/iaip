@@ -344,7 +344,7 @@ Public Class GecoTool
 
             If result <> AirsNumberValidationResult.Valid Then
                 MessageBox.Show("The AIRS number is not valid.", "Error")
-                Exit Sub
+                Return
             End If
 
             Dim query As String = "Select numUserId from olapuserlogin " &
@@ -356,14 +356,14 @@ Public Class GecoTool
 
             If userID = 0 Then ' Email address is not registered
                 MessageBox.Show("This Email Address is not registered", "Error")
-                Exit Sub
+                Return
             End If
 
             Dim airs As New Apb.ApbFacilityId(mtbAIRSNumber.Text)
 
             If UserGecoAccessExists(userID, airs) Then ' already assigned
                 MessageBox.Show("This user already has access to this facility.")
-                Exit Sub
+                Return
             End If
 
             AddUserGecoAccess(userID, airs)
@@ -580,7 +580,7 @@ Public Class GecoTool
 
     Private Sub btnDeleteFacilityUser_Click(sender As Object, e As EventArgs) Handles btnDeleteFacilityUser.Click
         Try
-            If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
+            If txtWebUserID.Text <> "" AndAlso cboFacilityToDelete.Text <> "" Then
                 DeleteUserGecoAccess(CInt(txtWebUserID.Text), New Apb.ApbFacilityId(cboFacilityToDelete.SelectedValue.ToString))
                 LoadUserFacilityInfo(txtWebUserEmail.Text)
             End If

@@ -8,6 +8,7 @@ Public Class SSPPFeeContact
             Return _airsId
         End Get
         Set(value As Apb.ApbFacilityId)
+            ArgumentNotNull(value, NameOf(value))
             _airsId = value
             lblAirs.Text = "AIRS #" & _airsId.FormattedString
             LoadCurrentFeeContact()
@@ -169,7 +170,7 @@ Public Class SSPPFeeContact
 
     Private Sub btnSaveFeeContact_Click(sender As Object, e As EventArgs) Handles btnSaveFeeContact.Click
         If AirsId Is Nothing Then
-            Exit Sub
+            Return
         End If
 
         Try
@@ -188,13 +189,13 @@ Public Class SSPPFeeContact
                 MsgBox("The Contact Description is exactly the same as a record on file." & vbCrLf &
                        "Please enter a unique description before saving.", MsgBoxStyle.Exclamation,
                        "Fee Contact Update")
-                Exit Sub
+                Return
             End If
 
             If Not IsValidEmailAddress(txtEmailAddress.Text.Trim) Then
                 MsgBox("Invalid Email Address" & vbCrLf &
                        "Please enter a valid Email Address", MsgBoxStyle.Exclamation, "Fee Contact Update")
-                Exit Sub
+                Return
             End If
 
             SQL = "Update APBContactInformation set " &

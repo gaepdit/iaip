@@ -127,7 +127,7 @@ Public Class AirsNumberTextBox
 
         isValidating = True
 
-        If ValidationStatus = AirsNumberValidationResult.Valid Or ValidationStatus = AirsNumberValidationResult.NonExistent Then
+        If ValidationStatus = AirsNumberValidationResult.Valid OrElse ValidationStatus = AirsNumberValidationResult.NonExistent Then
             AirsNumber = New ApbFacilityId(Text)
         Else
             AirsNumber = Nothing

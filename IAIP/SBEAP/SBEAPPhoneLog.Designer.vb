@@ -25,9 +25,6 @@ Partial Class SBEAPPhoneLog
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbSave = New System.Windows.Forms.ToolStripButton()
         Me.tsbClientSearch = New System.Windows.Forms.ToolStripButton()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.FileMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mmiClearCaseID = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtCaseSummary = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label199 = New System.Windows.Forms.Label()
@@ -68,7 +65,6 @@ Partial Class SBEAPPhoneLog
         Me.btnNewCall = New System.Windows.Forms.Button()
         Me.pnlClientInfo = New System.Windows.Forms.Panel()
         Me.ToolStrip1.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.pnlExistingClient.SuspendLayout()
         Me.pnlNewClient.SuspendLayout()
@@ -80,7 +76,7 @@ Partial Class SBEAPPhoneLog
         'ToolStrip1
         '
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbClientSearch})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(834, 25)
         Me.ToolStrip1.TabIndex = 8
@@ -103,28 +99,6 @@ Partial Class SBEAPPhoneLog
         Me.tsbClientSearch.Name = "tsbClientSearch"
         Me.tsbClientSearch.Size = New System.Drawing.Size(23, 22)
         Me.tsbClientSearch.Text = "Client Search"
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(834, 24)
-        Me.MenuStrip1.TabIndex = 6
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileMenuItem
-        '
-        Me.FileMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiClearCaseID})
-        Me.FileMenuItem.Name = "FileMenuItem"
-        Me.FileMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileMenuItem.Text = "&File"
-        '
-        'mmiClearCaseID
-        '
-        Me.mmiClearCaseID.Name = "mmiClearCaseID"
-        Me.mmiClearCaseID.Size = New System.Drawing.Size(143, 22)
-        Me.mmiClearCaseID.Text = "&Clear Case ID"
         '
         'txtCaseSummary
         '
@@ -451,9 +425,9 @@ Partial Class SBEAPPhoneLog
         Me.pnlDetails.Controls.Add(Me.Label7)
         Me.pnlDetails.Controls.Add(Me.DTPCaseOpened)
         Me.pnlDetails.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlDetails.Location = New System.Drawing.Point(0, 244)
+        Me.pnlDetails.Location = New System.Drawing.Point(0, 220)
         Me.pnlDetails.Name = "pnlDetails"
-        Me.pnlDetails.Size = New System.Drawing.Size(834, 369)
+        Me.pnlDetails.Size = New System.Drawing.Size(834, 393)
         Me.pnlDetails.TabIndex = 58
         Me.pnlDetails.Visible = False
         '
@@ -491,7 +465,7 @@ Partial Class SBEAPPhoneLog
         Me.Panel5.Controls.Add(Me.Label199)
         Me.Panel5.Controls.Add(Me.Panel1)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel5.Location = New System.Drawing.Point(0, 49)
+        Me.Panel5.Location = New System.Drawing.Point(0, 25)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(834, 40)
         Me.Panel5.TabIndex = 59
@@ -512,7 +486,7 @@ Partial Class SBEAPPhoneLog
         Me.pnlClientInfo.Controls.Add(Me.pnlExistingClient)
         Me.pnlClientInfo.Controls.Add(Me.pnlNewClient)
         Me.pnlClientInfo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlClientInfo.Location = New System.Drawing.Point(0, 89)
+        Me.pnlClientInfo.Location = New System.Drawing.Point(0, 65)
         Me.pnlClientInfo.Name = "pnlClientInfo"
         Me.pnlClientInfo.Size = New System.Drawing.Size(834, 155)
         Me.pnlClientInfo.TabIndex = 60
@@ -527,13 +501,10 @@ Partial Class SBEAPPhoneLog
         Me.Controls.Add(Me.pnlClientInfo)
         Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.MenuStrip1)
         Me.Name = "SBEAPPhoneLog"
         Me.Text = "SBEAP Phone Log"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.pnlExistingClient.ResumeLayout(False)
@@ -552,8 +523,6 @@ Partial Class SBEAPPhoneLog
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents tsbSave As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbClientSearch As System.Windows.Forms.ToolStripButton
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents txtCaseSummary As System.Windows.Forms.TextBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents Label199 As System.Windows.Forms.Label
@@ -588,7 +557,6 @@ Partial Class SBEAPPhoneLog
     Friend WithEvents btnNewCall As System.Windows.Forms.Button
     Friend WithEvents pnlClientInfo As System.Windows.Forms.Panel
     Friend WithEvents btnCreateNewClient As System.Windows.Forms.Button
-    Friend WithEvents mmiClearCaseID As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mtbPhoneNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label26 As System.Windows.Forms.Label
     Friend WithEvents txtPhoneCallNotes As System.Windows.Forms.TextBox

@@ -19,7 +19,7 @@ Namespace DAL.Sscp
                 " WHERE INTYEAR = @year " &
                 " AND STRAIRSNUMBER = @airs "
 
-            Dim parameters As SqlParameter() = New SqlParameter() {
+            Dim parameters As SqlParameter() = {
                 New SqlParameter("@year", targetYear),
                 New SqlParameter("@airs", airsNumber.DbFormattedString)
             }
@@ -160,10 +160,10 @@ Namespace DAL.Sscp
                             "  WHERE INTYEAR       = @oldyear " &
                             "    AND STRAIRSNUMBER = @airsnumber "
 
-                        Dim parameters2 As SqlParameter() = New SqlParameter() {
-                            New SqlParameter("@targetyear", targetYear) _
-                            , New SqlParameter("@oldyear", oldYear) _
-                            , New SqlParameter("@airsnumber", airsNumberString)
+                        Dim parameters2 As SqlParameter() = {
+                            New SqlParameter("@targetyear", targetYear),
+                            New SqlParameter("@oldyear", oldYear),
+                            New SqlParameter("@airsnumber", airsNumberString)
                         }
 
                         Dim recordInserted As Integer = 0

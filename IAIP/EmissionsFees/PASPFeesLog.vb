@@ -20,7 +20,7 @@
             Dim ShutDownBetween As String = ""
 
             For y As Integer = 0 To clbFeeYear.Items.Count - 1
-                If clbFeeYear.GetItemChecked(y) = True Then
+                If clbFeeYear.GetItemChecked(y) Then
                     clbFeeYear.SelectedIndex = y
                     FeeYearSQL = FeeYearSQL & " a.numFeeYear = '" & clbFeeYear.Items(y).ToString & "' or "
                 End If
@@ -167,7 +167,7 @@
 
         Try
 
-            If dgvExistingYearAdmin.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvExistingYearAdmin.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 mtbSelectedAIRSNumber.Text = dgvExistingYearAdmin(0, hti.RowIndex).Value.ToString
                 cbYear.Text = dgvExistingYearAdmin(2, hti.RowIndex).Value.ToString
             End If

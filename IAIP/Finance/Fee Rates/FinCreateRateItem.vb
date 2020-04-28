@@ -30,14 +30,14 @@ Public Class FinCreateRateItem
             DialogResult = DialogResult.None
             lblMessage.ShowMessage("Enter a description for the rate item.", ErrorLevel.Warning)
             txtDescription.Focus()
-            Exit Sub
+            Return
         End If
 
         If txtNewRate.Amount <= 0 Then
             DialogResult = DialogResult.None
             lblMessage.ShowMessage("Enter a valid rate.", ErrorLevel.Warning)
             txtNewRate.Focus()
-            Exit Sub
+            Return
         End If
 
         Dim result As DbResult = SaveNewRateItem(CType(cmbCategory.SelectedValue, FeeRateCategory),

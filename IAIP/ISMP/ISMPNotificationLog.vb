@@ -12,7 +12,7 @@ Public Class ISMPNotificationLog
             DTPTestDateStart.Value = Today
             DTPTestDateEnd.Value = Today
 
-            If AccountFormAccess(66, 2) <> "1" And AccountFormAccess(66, 3) <> "1" Then
+            If AccountFormAccess(66, 2) <> "1" AndAlso AccountFormAccess(66, 3) <> "1" Then
                 bbtSave.Visible = False
                 SaveToolStripMenuItem.Visible = False
                 btnNewTestNotification.Visible = False
@@ -286,7 +286,7 @@ Public Class ISMPNotificationLog
     Private Sub SaveNotification()
         Try
             Dim temp As String
-            If AccountFormAccess(66, 2) = "1" Or AccountFormAccess(66, 3) = "1" Then
+            If AccountFormAccess(66, 2) = "1" OrElse AccountFormAccess(66, 3) = "1" Then
                 Dim UserIDNum As String = ""
                 Dim TestPlan As String = ""
                 Dim TimelyNotification As String = ""
@@ -299,16 +299,16 @@ Public Class ISMPNotificationLog
 
                 Dim p As New SqlParameter("@log", txtTestNotificationNumber.Text)
 
-                If chbWebContact.Checked = True Then
+                If chbWebContact.Checked Then
                     UserIDNum = " "
                 Else
                     UserIDNum = "numUserId = null, "
                 End If
-                If rdbTestPlanAvailable.Checked = True Then
+                If rdbTestPlanAvailable.Checked Then
                     TestPlan = "True"
                     TestPlanRec = DTPTestPlanReceived.Value
                 Else
-                    If rdbTestPlanNotAvailable.Checked = True Then
+                    If rdbTestPlanNotAvailable.Checked Then
                         TestPlan = "False"
                         TestPlanRec = Nothing
                     Else
@@ -316,11 +316,11 @@ Public Class ISMPNotificationLog
                         TestPlanRec = Nothing
                     End If
                 End If
-                If rdbTimelyNotification.Checked = True Then
+                If rdbTimelyNotification.Checked Then
                     TimelyNotification = "True"
                     TestNotificationDate = DTPTestNotification.Value
                 Else
-                    If Me.rdbNoTimelyNotification.Checked = True Then
+                    If Me.rdbNoTimelyNotification.Checked Then
                         TimelyNotification = "False"
                         TestNotificationDate = DTPTestNotification.Value
                     Else
@@ -533,7 +533,7 @@ Public Class ISMPNotificationLog
     End Sub
     Private Sub rdbTestPlanAvailable_CheckedChanged(sender As Object, e As EventArgs) Handles rdbTestPlanAvailable.CheckedChanged
         Try
-            If rdbTestPlanAvailable.Checked = True Then
+            If rdbTestPlanAvailable.Checked Then
                 DTPTestPlanReceived.Visible = True
                 lblReceivedDate.Visible = True
             Else

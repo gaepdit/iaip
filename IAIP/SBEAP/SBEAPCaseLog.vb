@@ -197,13 +197,13 @@
                     SQLSearch2 = " datCaseClosed is null "
             End Select
 
-            If SQLSearch1 <> "" And SQLSearch2 = "" Then
+            If SQLSearch1 <> "" AndAlso SQLSearch2 = "" Then
                 SQLSearch1 = " where " & SQLSearch1
             End If
-            If SQLSearch1 = "" And SQLSearch2 <> "" Then
+            If SQLSearch1 = "" AndAlso SQLSearch2 <> "" Then
                 SQLSearch2 = " where " & SQLSearch2
             End If
-            If SQLSearch1 <> "" And SQLSearch2 <> "" Then
+            If SQLSearch1 <> "" AndAlso SQLSearch2 <> "" Then
                 If cboFieldType1.Text = cboFieldType2.Text Then
                     SQLSearch1 = " where (" & SQLSearch1 & " or " & SQLSearch2 & ") "
                     SQLSearch2 = ""
@@ -269,14 +269,14 @@
                 End If
             End If
 
-            If SQLOrder1 <> " " Or SQLOrder2 <> " " Then
-                If SQLOrder1 <> " " And SQLOrder2 <> " " Then
+            If SQLOrder1 <> " " OrElse SQLOrder2 <> " " Then
+                If SQLOrder1 <> " " AndAlso SQLOrder2 <> " " Then
                     SQLOrder1 = " Order by " & SQLOrder1 & ", " & SQLOrder2
                 Else
-                    If SQLOrder1 <> " " And SQLOrder2 = " " Then
+                    If SQLOrder1 <> " " AndAlso SQLOrder2 = " " Then
                         SQLOrder1 = " order by " & SQLOrder1
                     Else
-                        If SQLOrder1 = " " And SQLOrder2 <> " " Then
+                        If SQLOrder1 = " " AndAlso SQLOrder2 <> " " Then
                             SQLOrder1 = " Order by " & SQLOrder2
                         Else
                             SQLOrder1 = " "
@@ -532,26 +532,26 @@
 
     Private Sub dgvCaseLog_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCaseLog.CellDoubleClick
         Try
-            If e.RowIndex > -1 Then
-                If dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
-                    If IsDBNull(dgvCaseLog(0, e.RowIndex).Value) Then
-                        txtCaseID.Text = ""
+            If e.RowIndex > -1 AndAlso
+                dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
+
+                If IsDBNull(dgvCaseLog(0, e.RowIndex).Value) Then
+                    txtCaseID.Text = ""
+                Else
+                    txtCaseID.Text = dgvCaseLog(0, e.RowIndex).Value
+
+                    If CaseWork IsNot Nothing Then
+                        CaseWork.Dispose()
+                    End If
+
+                    CaseWork = New SBEAPCaseWork
+
+                    If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
+                        CaseWork.txtCaseID.Text = txtCaseID.Text
+                        CaseWork.Show()
+                        CaseWork.LoadCaseLogData()
                     Else
-                        txtCaseID.Text = dgvCaseLog(0, e.RowIndex).Value
-
-                        If CaseWork IsNot Nothing Then
-                            CaseWork.Dispose()
-                        End If
-
-                        CaseWork = New SBEAPCaseWork
-
-                        If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
-                            CaseWork.txtCaseID.Text = txtCaseID.Text
-                            CaseWork.Show()
-                            CaseWork.LoadCaseLogData()
-                        Else
-                            MessageBox.Show("There was an error opening the Case.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        End If
+                        MessageBox.Show("There was an error opening the Case.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
                 End If
             End If
@@ -564,13 +564,13 @@
     Private Sub dgvCaseLog_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvCaseLog.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvCaseLog.HitTest(e.X, e.Y)
-            If dgvCaseLog.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
-                    If IsDBNull(dgvCaseLog(0, hti.RowIndex).Value) Then
-                        txtCaseID.Text = ""
-                    Else
-                        txtCaseID.Text = dgvCaseLog(0, hti.RowIndex).Value
-                    End If
+            If dgvCaseLog.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
+                dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
+
+                If IsDBNull(dgvCaseLog(0, hti.RowIndex).Value) Then
+                    txtCaseID.Text = ""
+                Else
+                    txtCaseID.Text = dgvCaseLog(0, hti.RowIndex).Value
                 End If
             End If
         Catch ex As Exception
@@ -669,8 +669,8 @@
 
             For Each row As DataGridViewRow In dgvCaseLog.Rows
                 If Not row.IsNewRow Then
-                    If Not row.Cells(8).Value Is DBNull.Value Then
-                        If Not row.Cells(4).Value Is DBNull.Value Then
+                    If row.Cells(8).Value IsNot DBNull.Value Then
+                        If row.Cells(4).Value IsNot DBNull.Value Then
                             temp = row.Cells(4).Value
                             row.DefaultCellStyle.BackColor = Color.White
                         Else
@@ -679,7 +679,7 @@
                             If temp < 15 Then
                                 row.DefaultCellStyle.BackColor = Color.White
                             End If
-                            If temp > 15 And temp < 30 Then
+                            If temp > 15 AndAlso temp < 30 Then
                                 row.DefaultCellStyle.BackColor = Color.Pink
                             End If
                             If temp > 30 Then

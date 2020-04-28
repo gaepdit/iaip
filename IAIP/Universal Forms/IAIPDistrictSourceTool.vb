@@ -82,7 +82,7 @@ Public Class IAIPDistrictSourceTool
     End Sub
 
     Private Sub SaveNewDistricts()
-        If txtNewDistrict.Text <> "" And txtNewDistrictCode.Text <> "" And cboDistrictManager.SelectedIndex > -1 Then
+        If txtNewDistrict.Text <> "" AndAlso txtNewDistrictCode.Text <> "" AndAlso cboDistrictManager.SelectedIndex > -1 Then
             Dim exists As Boolean = (GetSharedData(SharedTable.DistrictOffices).AsEnumerable.Any(Function(dr) dr.Item("DistrictCode") = txtNewDistrictCode.Text))
             Dim SQL As String
             Dim countycode As String = txtNewDistrictCode.Text
@@ -172,7 +172,7 @@ Public Class IAIPDistrictSourceTool
         For i As Integer = 0 To clbCounties.Items.Count - 1
             cty = CType(clbCounties.Items.Item(i), DataRowView).Item("CountyCode")
 
-            If DistrictCountyAssignments.AsEnumerable.Any(Function(dr) dr.Item("CountyCode") = cty And dr.Item("DistrictCode") = dst) Then
+            If DistrictCountyAssignments.AsEnumerable.Any(Function(dr) dr.Item("CountyCode") = cty AndAlso dr.Item("DistrictCode") = dst) Then
                 clbCounties.SetItemChecked(i, True)
             End If
         Next

@@ -19,7 +19,7 @@ Module SplitContainerExtensions
             ' the minimum sizes of its parts, but it can happen if the SplitContainer is
             ' docked in a Form that is itself resized until the SplitContainer is too small.
             ' In this situation, don't try to fix things, just bail.
-            If (sc.Height < sc.Panel1MinSize + sc.Panel2MinSize) Then Exit Sub
+            If (sc.Height < sc.Panel1MinSize + sc.Panel2MinSize) Then Return
 
             ' The order here shouldn't matter
             i = Math.Max(i, sc.Panel1MinSize)
@@ -27,7 +27,7 @@ Module SplitContainerExtensions
 
         Else
             ' Same as above, except for vertical orientation
-            If (sc.Width < sc.Panel1MinSize + sc.Panel2MinSize) Then Exit Sub
+            If (sc.Width < sc.Panel1MinSize + sc.Panel2MinSize) Then Return
             i = Math.Max(i, sc.Panel1MinSize)
             i = Math.Min(i, sc.Width - sc.Panel2MinSize)
         End If
@@ -46,11 +46,11 @@ Module SplitContainerExtensions
     <Extension()>
     Public Sub ToggleSplitterDistance(sc As SplitContainer, a As Integer, b As Integer)
         ' Bail if a or b are outside the allowable values for SplitterDistance
-        If (a < sc.Panel1MinSize) OrElse (b < sc.Panel1MinSize) Then Exit Sub
+        If (a < sc.Panel1MinSize) OrElse (b < sc.Panel1MinSize) Then Return
         If (sc.Orientation = Orientation.Vertical) Then
-            If (a > sc.Width - sc.Panel2MinSize) OrElse (b > sc.Width - sc.Panel2MinSize) Then Exit Sub
+            If (a > sc.Width - sc.Panel2MinSize) OrElse (b > sc.Width - sc.Panel2MinSize) Then Return
         Else
-            If (a > sc.Height - sc.Panel2MinSize) OrElse (b > sc.Height - sc.Panel2MinSize) Then Exit Sub
+            If (a > sc.Height - sc.Panel2MinSize) OrElse (b > sc.Height - sc.Panel2MinSize) Then Return
         End If
 
         ' If current SplitterDistance is smaller than the average, set it to the larger value;

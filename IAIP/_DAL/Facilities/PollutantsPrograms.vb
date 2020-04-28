@@ -15,7 +15,7 @@ Namespace DAL
                 "WHERE poll.STRAIRSNUMBER = @airsNumber"
             Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
-            dt.PrimaryKey = New DataColumn() {dt.Columns("STRPOLLUTANTKEY")}
+            dt.PrimaryKey = {dt.Columns("STRPOLLUTANTKEY")}
             Return dt
         End Function
 
@@ -167,7 +167,7 @@ Namespace DAL
                 "WHERE STRAFSCODE = 'True' " &
                 "ORDER BY STRPOLLUTANTDESCRIPTION"
             Dim dt As DataTable = DB.GetDataTable(query)
-            dt.PrimaryKey = New DataColumn() {dt.Columns("Pollutant Code")}
+            dt.PrimaryKey = {dt.Columns("Pollutant Code")}
             Return dt
         End Function
 

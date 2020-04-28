@@ -1302,46 +1302,44 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbFacilityLatitude.Checked = True Then
-                If txtFacilityLatitudeSearch1.Text <> "" Or txtFacilityLatitudeSearch2.Text <> "" Then
-                    If txtFacilityLatitudeSearch1.Text <> "" And txtFacilityLatitudeSearch2.Text = "" Then
-                        params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch1.Text))
-                        params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch1.Text))
-                    End If
-                    If txtFacilityLatitudeSearch1.Text = "" And txtFacilityLatitudeSearch2.Text <> "" Then
-                        params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch2.Text))
-                        params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch2.Text))
-                        SQLWhereCase1 = txtFacilityLatitudeSearch2.Text
-                        SQLWhereCase2 = txtFacilityLatitudeSearch2.Text
-                    End If
-                    If txtFacilityLatitudeSearch1.Text <> "" And txtFacilityLatitudeSearch2.Text <> "" Then
-                        params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch1.Text))
-                        params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch2.Text))
-                    End If
-                    SQLWhere = SQLWhere & " and (numFacilityLatitude between @lat1 and @lat2 or " &
-                        " numFacilityLatitude between @lat2 and @lat1 ) "
+            If chbFacilityLatitude.Checked = True AndAlso
+                (txtFacilityLatitudeSearch1.Text <> "" OrElse txtFacilityLatitudeSearch2.Text <> "") Then
+                If txtFacilityLatitudeSearch1.Text <> "" AndAlso txtFacilityLatitudeSearch2.Text = "" Then
+                    params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch1.Text))
+                    params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch1.Text))
                 End If
+                If txtFacilityLatitudeSearch1.Text = "" AndAlso txtFacilityLatitudeSearch2.Text <> "" Then
+                    params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch2.Text))
+                    params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch2.Text))
+                    SQLWhereCase1 = txtFacilityLatitudeSearch2.Text
+                    SQLWhereCase2 = txtFacilityLatitudeSearch2.Text
+                End If
+                If txtFacilityLatitudeSearch1.Text <> "" AndAlso txtFacilityLatitudeSearch2.Text <> "" Then
+                    params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch1.Text))
+                    params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch2.Text))
+                End If
+                SQLWhere = SQLWhere & " and (numFacilityLatitude between @lat1 and @lat2 or " &
+                    " numFacilityLatitude between @lat2 and @lat1 ) "
             End If
 
-            If chbFacilityLongitude.Checked = True Then
-                If (txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) _
-                OrElse (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text)) Then
+            If chbFacilityLongitude.Checked = True AndAlso
+                ((txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) OrElse
+                (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text))) Then
 
-                    If (txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) Then
-                        params.Add(New SqlParameter("@long1", -Math.Abs(CType(txtFacilityLongitudeSearch1.Text, Decimal))))
-                    Else
-                        params.Add(New SqlParameter("@long1", 0))
-                    End If
-
-                    If (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text)) Then
-                        params.Add(New SqlParameter("@long2", -Math.Abs(CType(txtFacilityLongitudeSearch2.Text, Decimal))))
-                    Else
-                        params.Add(New SqlParameter("@long2", 0))
-                    End If
-
-                    SQLWhere = SQLWhere & " and (numFacilityLongitude between @long1 and @long2 or " &
-                        " numFacilityLongitude between @long2 and @long1 ) "
+                If (txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) Then
+                    params.Add(New SqlParameter("@long1", -Math.Abs(CType(txtFacilityLongitudeSearch1.Text, Decimal))))
+                Else
+                    params.Add(New SqlParameter("@long1", 0))
                 End If
+
+                If (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text)) Then
+                    params.Add(New SqlParameter("@long2", -Math.Abs(CType(txtFacilityLongitudeSearch2.Text, Decimal))))
+                Else
+                    params.Add(New SqlParameter("@long2", 0))
+                End If
+
+                SQLWhere = SQLWhere & " and (numFacilityLongitude between @long1 and @long2 or " &
+                    " numFacilityLongitude between @long2 and @long1 ) "
             End If
 
             If chbCounty.Checked = True Then
@@ -1433,12 +1431,12 @@ Public Class IAIPQueryGenerator
                 Else
                     SQLWhereCase2 = " Not Like "
                 End If
-                If cboOperationStatusSearch1.Text <> "" And cboOperationStatusSearch1.Text <> " " Then
+                If cboOperationStatusSearch1.Text <> "" AndAlso cboOperationStatusSearch1.Text <> " " Then
                     SQLWhere = SQLWhere & " and (APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " @op1) "
                     params.Add(New SqlParameter("@op1", "%" & Mid(cboOperationStatusSearch1.Text, 1, 1) & "%"))
                 End If
-                If cboOperationStatusSearch2.Text <> "" And cboOperationStatusSearch2.Text <> " " Then
-                    If cboOperationStatusSearch1.Text <> "" And cboOperationStatusSearch1.Text <> " " Then
+                If cboOperationStatusSearch2.Text <> "" AndAlso cboOperationStatusSearch2.Text <> " " Then
+                    If cboOperationStatusSearch1.Text <> "" AndAlso cboOperationStatusSearch1.Text <> " " Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
                         " " & SQLWhereCase1 & " APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " @op2 ) "
                     Else
@@ -1459,12 +1457,12 @@ Public Class IAIPQueryGenerator
                 Else
                     SQLWhereCase2 = " Not Like "
                 End If
-                If cboClassificationSearch1.Text <> "" And cboClassificationSearch1.Text <> " " Then
+                If cboClassificationSearch1.Text <> "" AndAlso cboClassificationSearch1.Text <> " " Then
                     SQLWhere = SQLWhere & " and (APBHeaderdata.strClass " & SQLWhereCase2 & " @class1) "
                     params.Add(New SqlParameter("@class1", "%" & Mid(cboClassificationSearch1.Text, 1, 1) & "%"))
                 End If
-                If cboClassificationSearch2.Text <> "" And cboClassificationSearch2.Text <> " " Then
-                    If cboClassificationSearch1.Text <> "" And cboClassificationSearch1.Text <> " " Then
+                If cboClassificationSearch2.Text <> "" AndAlso cboClassificationSearch2.Text <> " " Then
+                    If cboClassificationSearch1.Text <> "" AndAlso cboClassificationSearch1.Text <> " " Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
                         " " & SQLWhereCase1 & " APBHeaderdata.strClass " & SQLWhereCase2 & " @class2 ) "
                     Else
@@ -1526,58 +1524,56 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbStartUpDate.Checked = True Then
-                If DTPStartUpDateSearch1.Checked = True Or DTPStartUpDateSearch2.Checked = True Then
-                    If DTPStartUpDateSearch1.Checked = True And DTPStartUpDateSearch2.Checked = False Then
-                        params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch1.Value))
-                        params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch1.Value))
-                    End If
-                    If DTPStartUpDateSearch1.Checked = False And DTPStartUpDateSearch2.Checked = True Then
-                        params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch2.Value))
-                        params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch2.Value))
-                    End If
-                    If DTPStartUpDateSearch1.Checked = True And DTPStartUpDateSearch2.Checked = True Then
-                        params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch1.Value))
-                        params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch2.Value))
-                    End If
-                    SQLWhere = SQLWhere & " and datStartUpDate between @stdate1 and @stdate2 "
+            If chbStartUpDate.Checked = True AndAlso
+                (DTPStartUpDateSearch1.Checked = True OrElse DTPStartUpDateSearch2.Checked = True) Then
+                If DTPStartUpDateSearch1.Checked = True AndAlso DTPStartUpDateSearch2.Checked = False Then
+                    params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch1.Value))
+                    params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch1.Value))
                 End If
+                If DTPStartUpDateSearch1.Checked = False AndAlso DTPStartUpDateSearch2.Checked = True Then
+                    params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch2.Value))
+                    params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch2.Value))
+                End If
+                If DTPStartUpDateSearch1.Checked = True AndAlso DTPStartUpDateSearch2.Checked = True Then
+                    params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch1.Value))
+                    params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch2.Value))
+                End If
+                SQLWhere = SQLWhere & " and datStartUpDate between @stdate1 and @stdate2 "
             End If
 
-            If chbShutDownDate.Checked = True Then
-                If DTPShutDownDateSearch1.Checked = True Or DTPShutDownDateSearch2.Checked = True Then
-                    If DTPShutDownDateSearch1.Checked = True And DTPShutDownDateSearch2.Checked = False Then
-                        params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch1.Value))
-                        params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch1.Value))
-                    End If
-                    If DTPShutDownDateSearch1.Checked = False And DTPShutDownDateSearch2.Checked = True Then
-                        params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch2.Value))
-                        params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch2.Value))
-                    End If
-                    If DTPShutDownDateSearch1.Checked = True And DTPShutDownDateSearch2.Checked = True Then
-                        params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch1.Value))
-                        params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch2.Value))
-                    End If
-                    SQLWhere = SQLWhere & " and datShutdownDate between @shdate1 and @shdate2 "
+            If chbShutDownDate.Checked = True AndAlso
+                (DTPShutDownDateSearch1.Checked = True OrElse DTPShutDownDateSearch2.Checked = True) Then
+
+                If DTPShutDownDateSearch1.Checked = True AndAlso DTPShutDownDateSearch2.Checked = False Then
+                    params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch1.Value))
+                    params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch1.Value))
                 End If
+                If DTPShutDownDateSearch1.Checked = False AndAlso DTPShutDownDateSearch2.Checked = True Then
+                    params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch2.Value))
+                    params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch2.Value))
+                End If
+                If DTPShutDownDateSearch1.Checked = True AndAlso DTPShutDownDateSearch2.Checked = True Then
+                    params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch1.Value))
+                    params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch2.Value))
+                End If
+                SQLWhere = SQLWhere & " and datShutdownDate between @shdate1 and @shdate2 "
             End If
 
-            If chbLastFCE.Checked = True Then
-                If DTPLastFCESearch1.Checked = True Or DTPLastFCESearch2.Checked = True Then
-                    If DTPLastFCESearch1.Checked = True And DTPLastFCESearch2.Checked = False Then
-                        params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
-                        params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch1.Value))
-                    End If
-                    If DTPLastFCESearch1.Checked = False And DTPLastFCESearch2.Checked = True Then
-                        params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch2.Value))
-                        params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch2.Value))
-                    End If
-                    If DTPLastFCESearch1.Checked = True And DTPLastFCESearch2.Checked = True Then
-                        params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
-                        params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch2.Value))
-                    End If
-                    SQLWhere = SQLWhere & " and LastFCE between @fcedate1 and @fcedate2 "
+            If chbLastFCE.Checked = True AndAlso
+                DTPLastFCESearch1.Checked = True OrElse DTPLastFCESearch2.Checked = True Then
+                If DTPLastFCESearch1.Checked = True AndAlso DTPLastFCESearch2.Checked = False Then
+                    params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
+                    params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch1.Value))
                 End If
+                If DTPLastFCESearch1.Checked = False AndAlso DTPLastFCESearch2.Checked = True Then
+                    params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch2.Value))
+                    params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch2.Value))
+                End If
+                If DTPLastFCESearch1.Checked = True AndAlso DTPLastFCESearch2.Checked = True Then
+                    params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
+                    params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch2.Value))
+                End If
+                SQLWhere = SQLWhere & " and LastFCE between @fcedate1 and @fcedate2 "
             End If
 
             If chbCMSUniverse.Checked = True Then
@@ -1660,147 +1656,147 @@ Public Class IAIPQueryGenerator
             End If
 
 
-            If txtFacilityAIRSNumberOrder.Text <> "" Or txtFacilityNameOrder.Text <> "" _
-                     Or txtFacilityStreet1Order.Text <> "" Or txtFacilityStreet2Order.Text <> "" _
-                     Or txtFacilityCityOrder.Text <> "" Or txtFacilityZipCodeOrder.Text <> "" _
-                     Or txtFacilityLatitudeOrder.Text <> "" Or txtFacilityLongitudeOrder.Text <> "" _
-                     Or txtCountyOrder.Text <> "" Or txtDistrictOrder.Text <> "" _
-                     Or txtOperationStatusOrder.Text <> "" Or txtClassificationOrder.Text <> "" _
-                     Or txtSICCodeOrder.Text <> "" Or txtStartUpDateOrder.Text <> "" _
-                     Or txtShutDownDateOrder.Text <> "" Or txtCMSUniverseOrder.Text <> "" _
-                     Or txtPlantDescriptionOrder.Text <> "" Or txtAPC0Order.Text <> "" _
-                     Or txtAPC1Order.Text <> "" Or txtAPC3Order.Text <> "" _
-                     Or txtAPC4Order.Text <> "" Or txtAPC6Order.Text <> "" _
-                     Or txtAPC7Order.Text <> "" Or txtAPC8Order.Text <> "" _
-                     Or txtAPC9Order.Text <> "" Or txtAPCAOrder.Text <> "" _
-                     Or txtAPCFOrder.Text <> "" Or txtAPCIOrder.Text <> "" _
-                     Or txtAPCMOrder.Text <> "" Or txtAPCVOrder.Text <> "" Then
+            If txtFacilityAIRSNumberOrder.Text <> "" OrElse txtFacilityNameOrder.Text <> "" _
+                     OrElse txtFacilityStreet1Order.Text <> "" OrElse txtFacilityStreet2Order.Text <> "" _
+                     OrElse txtFacilityCityOrder.Text <> "" OrElse txtFacilityZipCodeOrder.Text <> "" _
+                     OrElse txtFacilityLatitudeOrder.Text <> "" OrElse txtFacilityLongitudeOrder.Text <> "" _
+                     OrElse txtCountyOrder.Text <> "" OrElse txtDistrictOrder.Text <> "" _
+                     OrElse txtOperationStatusOrder.Text <> "" OrElse txtClassificationOrder.Text <> "" _
+                     OrElse txtSICCodeOrder.Text <> "" OrElse txtStartUpDateOrder.Text <> "" _
+                     OrElse txtShutDownDateOrder.Text <> "" OrElse txtCMSUniverseOrder.Text <> "" _
+                     OrElse txtPlantDescriptionOrder.Text <> "" OrElse txtAPC0Order.Text <> "" _
+                     OrElse txtAPC1Order.Text <> "" OrElse txtAPC3Order.Text <> "" _
+                     OrElse txtAPC4Order.Text <> "" OrElse txtAPC6Order.Text <> "" _
+                     OrElse txtAPC7Order.Text <> "" OrElse txtAPC8Order.Text <> "" _
+                     OrElse txtAPC9Order.Text <> "" OrElse txtAPCAOrder.Text <> "" _
+                     OrElse txtAPCFOrder.Text <> "" OrElse txtAPCIOrder.Text <> "" _
+                     OrElse txtAPCMOrder.Text <> "" OrElse txtAPCVOrder.Text <> "" Then
                 i = 1
-                If txtFacilityAIRSNumberOrder.Text <> "" And chbAIRSNumber.Checked = True Then
+                If txtFacilityAIRSNumberOrder.Text <> "" AndAlso chbAIRSNumber.Checked = True Then
                     temp = temp & txtFacilityAIRSNumberOrder.Text & "-AIRSNumber, "
                     i += 1
                 End If
-                If txtFacilityNameOrder.Text <> "" And chbFacilityName.Checked = True Then
+                If txtFacilityNameOrder.Text <> "" AndAlso chbFacilityName.Checked = True Then
                     temp = temp & txtFacilityNameOrder.Text & "-strFacilityName, "
                     i += 1
                 End If
-                If txtFacilityStreet1Order.Text <> "" And chbFacilityStreet1.Checked = True Then
+                If txtFacilityStreet1Order.Text <> "" AndAlso chbFacilityStreet1.Checked = True Then
                     temp = temp & txtFacilityStreet1Order.Text & "-strFacilityStreet1, "
                     i += 1
                 End If
-                If txtFacilityStreet2Order.Text <> "" And chbFacilityStreet2.Checked = True Then
+                If txtFacilityStreet2Order.Text <> "" AndAlso chbFacilityStreet2.Checked = True Then
                     temp = temp & txtFacilityStreet2Order.Text & "-strFacilityStreet2, "
                     i += 1
                 End If
-                If txtFacilityCityOrder.Text <> "" And chbFacilityCity.Checked = True Then
+                If txtFacilityCityOrder.Text <> "" AndAlso chbFacilityCity.Checked = True Then
                     temp = temp & txtFacilityCityOrder.Text & "-strFacilityCity, "
                     i += 1
                 End If
-                If txtFacilityZipCodeOrder.Text <> "" And chbFacilityZipCode.Checked = True Then
+                If txtFacilityZipCodeOrder.Text <> "" AndAlso chbFacilityZipCode.Checked = True Then
                     temp = temp & txtFacilityZipCodeOrder.Text & "-strFacilityZipCode, "
                     i += 1
                 End If
-                If txtFacilityLatitudeOrder.Text <> "" And chbFacilityLatitude.Checked = True Then
+                If txtFacilityLatitudeOrder.Text <> "" AndAlso chbFacilityLatitude.Checked = True Then
                     temp = temp & txtFacilityLatitudeOrder.Text & "-numFacilityLatitude, "
                     i += 1
                 End If
-                If txtFacilityLongitudeOrder.Text <> "" And chbFacilityLongitude.Checked = True Then
+                If txtFacilityLongitudeOrder.Text <> "" AndAlso chbFacilityLongitude.Checked = True Then
                     temp = temp & txtFacilityLongitudeOrder.Text & "-numFacilityLongitude, "
                     i += 1
                 End If
-                If txtCountyOrder.Text <> "" And chbCounty.Checked = True Then
+                If txtCountyOrder.Text <> "" AndAlso chbCounty.Checked = True Then
                     temp = temp & txtCountyOrder.Text & "-strCountyName, "
                     i += 1
                 End If
-                If txtDistrictOrder.Text <> "" And chbDistrict.Checked = True Then
+                If txtDistrictOrder.Text <> "" AndAlso chbDistrict.Checked = True Then
                     temp = temp & txtDistrictOrder.Text & "-strDistrictName, "
                     i += 1
                 End If
-                If txtOperationStatusOrder.Text <> "" And chbOperationStatus.Checked = True Then
+                If txtOperationStatusOrder.Text <> "" AndAlso chbOperationStatus.Checked = True Then
                     temp = temp & txtOperationStatusOrder.Text & "-strOperationalStatus, "
                     i += 1
                 End If
-                If txtClassificationOrder.Text <> "" And chbClassification.Checked = True Then
+                If txtClassificationOrder.Text <> "" AndAlso chbClassification.Checked = True Then
                     temp = temp & txtClassificationOrder.Text & "-strClass, "
                     i += 1
                 End If
-                If txtSICCodeOrder.Text <> "" And chbSICCode.Checked = True Then
+                If txtSICCodeOrder.Text <> "" AndAlso chbSICCode.Checked = True Then
                     temp = temp & txtSICCodeOrder.Text & "-strSICCode, "
                     i += 1
                 End If
-                If txtNAICSCodeOrder.Text <> "" And chbNAICSCode.Checked = True Then
+                If txtNAICSCodeOrder.Text <> "" AndAlso chbNAICSCode.Checked = True Then
                     temp = temp & txtNAICSCodeOrder.Text & "-strNAICSCode, "
                     i += 1
                 End If
-                If txtStartUpDateOrder.Text <> "" And chbStartUpDate.Checked = True Then
+                If txtStartUpDateOrder.Text <> "" AndAlso chbStartUpDate.Checked = True Then
                     temp = temp & txtStartUpDateOrder.Text & "-datStartUpDate, "
                     i += 1
                 End If
-                If txtShutDownDateOrder.Text <> "" And chbShutDownDate.Checked = True Then
+                If txtShutDownDateOrder.Text <> "" AndAlso chbShutDownDate.Checked = True Then
                     temp = temp & txtShutDownDateOrder.Text & "-datShutDownDate, "
                     i += 1
                 End If
-                If txtLastFCEOrder.Text <> "" And chbLastFCE.Checked = True Then
+                If txtLastFCEOrder.Text <> "" AndAlso chbLastFCE.Checked = True Then
                     temp = temp & txtLastFCEOrder.Text & "-LastFCE, "
                     i += 1
                 End If
-                If txtCMSUniverseOrder.Text <> "" And chbCMSUniverse.Checked = True Then
+                If txtCMSUniverseOrder.Text <> "" AndAlso chbCMSUniverse.Checked = True Then
                     temp = temp & txtCMSUniverseOrder.Text & "-strCMSmember, "
                     i += 1
                 End If
-                If txtPlantDescriptionOrder.Text <> "" And chbPlantDescription.Checked = True Then
+                If txtPlantDescriptionOrder.Text <> "" AndAlso chbPlantDescription.Checked = True Then
                     temp = temp & txtPlantDescriptionOrder.Text & "-strPlantDescription, "
                     i += 1
                 End If
-                If txtAPC0Order.Text <> "" And chbAPC0.Checked = True Then
+                If txtAPC0Order.Text <> "" AndAlso chbAPC0.Checked = True Then
                     temp = temp & txtAPC0Order.Text & "-APC0, "
                     i += 1
                 End If
-                If txtAPC1Order.Text <> "" And chbAPC1.Checked = True Then
+                If txtAPC1Order.Text <> "" AndAlso chbAPC1.Checked = True Then
                     temp = temp & txtAPC1Order.Text & "-APC1, "
                     i += 1
                 End If
-                If txtAPC3Order.Text <> "" And chbAPC3.Checked = True Then
+                If txtAPC3Order.Text <> "" AndAlso chbAPC3.Checked = True Then
                     temp = temp & txtAPC3Order.Text & "-APC3, "
                     i += 1
                 End If
-                If txtAPC4Order.Text <> "" And chbAPC4.Checked = True Then
+                If txtAPC4Order.Text <> "" AndAlso chbAPC4.Checked = True Then
                     temp = temp & txtAPC4Order.Text & "-APC4, "
                     i += 1
                 End If
-                If txtAPC6Order.Text <> "" And chbAPC6.Checked = True Then
+                If txtAPC6Order.Text <> "" AndAlso chbAPC6.Checked = True Then
                     temp = temp & txtAPC6Order.Text & "-APC6, "
                     i += 1
                 End If
-                If txtAPC7Order.Text <> "" And chbAPC7.Checked = True Then
+                If txtAPC7Order.Text <> "" AndAlso chbAPC7.Checked = True Then
                     temp = temp & txtAPC7Order.Text & "-APC7, "
                     i += 1
                 End If
-                If txtAPC8Order.Text <> "" And chbAPC8.Checked = True Then
+                If txtAPC8Order.Text <> "" AndAlso chbAPC8.Checked = True Then
                     temp = temp & txtAPC8Order.Text & "-APC8, "
                     i += 1
                 End If
-                If txtAPC9Order.Text <> "" And chbAPC9.Checked = True Then
+                If txtAPC9Order.Text <> "" AndAlso chbAPC9.Checked = True Then
                     temp = temp & txtAPC9Order.Text & "-APC9, "
                     i += 1
                 End If
-                If txtAPCAOrder.Text <> "" And chbAPCA.Checked = True Then
+                If txtAPCAOrder.Text <> "" AndAlso chbAPCA.Checked = True Then
                     temp = temp & txtAPCAOrder.Text & "-APCA, "
                     i += 1
                 End If
-                If txtAPCFOrder.Text <> "" And chbAPCF.Checked = True Then
+                If txtAPCFOrder.Text <> "" AndAlso chbAPCF.Checked = True Then
                     temp = temp & txtAPCFOrder.Text & "-APCF, "
                     i += 1
                 End If
-                If txtAPCIOrder.Text <> "" And chbAPCI.Checked = True Then
+                If txtAPCIOrder.Text <> "" AndAlso chbAPCI.Checked = True Then
                     temp = temp & txtAPCIOrder.Text & "-APCI, "
                     i += 1
                 End If
-                If txtAPCMOrder.Text <> "" And chbAPCM.Checked = True Then
+                If txtAPCMOrder.Text <> "" AndAlso chbAPCM.Checked = True Then
                     temp = temp & txtAPCMOrder.Text & "-APCM, "
                     i += 1
                 End If
-                If txtAPCVOrder.Text <> "" And chbAPCV.Checked = True Then
+                If txtAPCVOrder.Text <> "" AndAlso chbAPCV.Checked = True Then
                     temp = temp & txtAPCVOrder.Text & "-APCV, "
                     i += 1
                 End If
@@ -2030,13 +2026,13 @@ Public Class IAIPQueryGenerator
                     End If
                 End If
             Else
-                If chbAPC0.Checked = True Or chbAPC1.Checked = True _
-                 Or chbAPC3.Checked = True Or chbAPC4.Checked = True _
-                  Or chbAPC6.Checked = True Or chbAPC7.Checked = True _
-                   Or chbAPC8.Checked = True Or chbAPC9.Checked = True _
-                    Or chbAPCA.Checked = True Or chbAPCF.Checked = True _
-                     Or chbAPCI.Checked = True Or chbAPCM.Checked = True _
-                      Or chbAPCV.Checked = True Then
+                If chbAPC0.Checked = True OrElse chbAPC1.Checked = True _
+                 OrElse chbAPC3.Checked = True OrElse chbAPC4.Checked = True _
+                  OrElse chbAPC6.Checked = True OrElse chbAPC7.Checked = True _
+                   OrElse chbAPC8.Checked = True OrElse chbAPC9.Checked = True _
+                    OrElse chbAPCA.Checked = True OrElse chbAPCF.Checked = True _
+                     OrElse chbAPCI.Checked = True OrElse chbAPCM.Checked = True _
+                      OrElse chbAPCV.Checked = True Then
                     MasterSQL = MasterSQL & " and ("
 
                     If chbAPC0.Checked = True Then
@@ -2178,12 +2174,12 @@ Public Class IAIPQueryGenerator
                     Else
                         SQLWhereCase2 = " <> "
                     End If
-                    If cboSIPSearch1.Text <> "" And cboSIPSearch1.Text <> " " Then
+                    If cboSIPSearch1.Text <> "" AndAlso cboSIPSearch1.Text <> " " Then
                         MasterSQL = MasterSQL & " and (GASIP " & SQLWhereCase2 & " @sip1 ) "
                         params.Add(New SqlParameter("@sip1", cboSIPSearch1.Text))
                     End If
-                    If cboSIPSearch2.Text <> "" And cboSIPSearch2.Text <> " " Then
-                        If cboSIPSearch1.Text <> "" And cboSIPSearch1.Text <> " " Then
+                    If cboSIPSearch2.Text <> "" AndAlso cboSIPSearch2.Text <> " " Then
+                        If cboSIPSearch1.Text <> "" AndAlso cboSIPSearch1.Text <> " " Then
                             MasterSQL = Mid(MasterSQL, 1, (MasterSQL.Length - 2)) &
                             " " & SQLWhereCase1 & " GASIP " & SQLWhereCase2 & " @sip2 ) "
                         Else
@@ -2204,12 +2200,12 @@ Public Class IAIPQueryGenerator
                     Else
                         SQLWhereCase2 = " <> "
                     End If
-                    If cboPart61Search1.Text <> "" And cboPart61Search1.Text <> " " Then
+                    If cboPart61Search1.Text <> "" AndAlso cboPart61Search1.Text <> " " Then
                         MasterSQL = MasterSQL & " and (Part61 " & SQLWhereCase2 & " @p61a ) "
                         params.Add(New SqlParameter("@p61a", cboPart61Search1.Text))
                     End If
-                    If cboPart61Search2.Text <> "" And cboPart61Search2.Text <> " " Then
-                        If cboPart61Search1.Text <> "" And cboPart61Search1.Text <> " " Then
+                    If cboPart61Search2.Text <> "" AndAlso cboPart61Search2.Text <> " " Then
+                        If cboPart61Search1.Text <> "" AndAlso cboPart61Search1.Text <> " " Then
                             MasterSQL = Mid(MasterSQL, 1, (MasterSQL.Length - 2)) &
                             " " & SQLWhereCase1 & " Part61 " & SQLWhereCase2 & " @p61b ) "
                         Else
@@ -2230,12 +2226,12 @@ Public Class IAIPQueryGenerator
                     Else
                         SQLWhereCase2 = " <> "
                     End If
-                    If cboPart60Search1.Text <> "" And cboPart60Search1.Text <> " " Then
+                    If cboPart60Search1.Text <> "" AndAlso cboPart60Search1.Text <> " " Then
                         MasterSQL = MasterSQL & " and (Part60 " & SQLWhereCase2 & " '" & cboPart60Search1.Text & "' ) "
                         params.Add(New SqlParameter("@p60a", cboPart60Search1.Text))
                     End If
-                    If cboPart60Search2.Text <> "" And cboPart60Search2.Text <> " " Then
-                        If cboPart60Search1.Text <> "" And cboPart60Search1.Text <> " " Then
+                    If cboPart60Search2.Text <> "" AndAlso cboPart60Search2.Text <> " " Then
+                        If cboPart60Search1.Text <> "" AndAlso cboPart60Search1.Text <> " " Then
                             MasterSQL = Mid(MasterSQL, 1, (MasterSQL.Length - 2)) &
                             " " & SQLWhereCase1 & " Part60 " & SQLWhereCase2 & " '" & cboPart60Search2.Text & "' ) "
                         Else
@@ -2256,12 +2252,12 @@ Public Class IAIPQueryGenerator
                     Else
                         SQLWhereCase2 = " <> "
                     End If
-                    If cboPart63Search1.Text <> "" And cboPart63Search1.Text <> " " Then
+                    If cboPart63Search1.Text <> "" AndAlso cboPart63Search1.Text <> " " Then
                         MasterSQL = MasterSQL & " and (Part63 " & SQLWhereCase2 & " '" & cboPart63Search1.Text & "' ) "
                         params.Add(New SqlParameter("@p63a", cboPart63Search1.Text))
                     End If
-                    If cboPart63Search2.Text <> "" And cboPart63Search2.Text <> " " Then
-                        If cboPart63Search1.Text <> "" And cboPart63Search1.Text <> " " Then
+                    If cboPart63Search2.Text <> "" AndAlso cboPart63Search2.Text <> " " Then
+                        If cboPart63Search1.Text <> "" AndAlso cboPart63Search1.Text <> " " Then
                             MasterSQL = Mid(MasterSQL, 1, (MasterSQL.Length - 2)) &
                             " " & SQLWhereCase1 & " Part63 " & SQLWhereCase2 & " '" & cboPart63Search2.Text & "' ) "
                         Else
@@ -2270,8 +2266,8 @@ Public Class IAIPQueryGenerator
                         params.Add(New SqlParameter("@p63b", cboPart63Search2.Text))
                     End If
                 End If
-                If chbSIP.Checked = True Or chbPart60Subpart.Checked = True Or chbPart61Subpart.Checked = True Or chbPart63Subpart.Checked = True Then
-                    If chbSIP.Checked = True And chbPart60Subpart.Checked = True And chbPart61Subpart.Checked = True And chbPart63Subpart.Checked = True Then
+                If chbSIP.Checked = True OrElse chbPart60Subpart.Checked = True OrElse chbPart61Subpart.Checked = True OrElse chbPart63Subpart.Checked = True Then
+                    If chbSIP.Checked = True AndAlso chbPart60Subpart.Checked = True AndAlso chbPart61Subpart.Checked = True AndAlso chbPart63Subpart.Checked = True Then
                         MasterSQL = MasterSQL & " and (Part60 is not null or GASIP is not null or Part61 is not null or Part63 is not null) "
                     Else
                         MasterSQL = MasterSQL & " and ( "
@@ -3725,10 +3721,9 @@ Public Class IAIPQueryGenerator
                                 DTPStartUpDateSearch2.Checked = True
                                 DTPStartUpDateSearch2.Text = Mid(StartUpDate, (StartUpDate.IndexOf("%-") + 3), (StartUpDate.IndexOf("-%") - (StartUpDate.IndexOf("%-") + 2)))
                             End If
-                            If StartUpDate.IndexOf("*-") <> -1 Then
-                                If Mid(StartUpDate, StartUpDate.IndexOf("*-") + 3, (StartUpDate.IndexOf("-*") - (StartUpDate.IndexOf("*-") + 2))) = "Between" Then
-                                    rdbStartUpDateBetween.Checked = True
-                                End If
+                            If StartUpDate.IndexOf("*-") <> -1 AndAlso
+                                    Mid(StartUpDate, StartUpDate.IndexOf("*-") + 3, (StartUpDate.IndexOf("-*") - (StartUpDate.IndexOf("*-") + 2))) = "Between" Then
+                                rdbStartUpDateBetween.Checked = True
                             End If
                             If StartUpDate.IndexOf("@-") <> -1 Then
                             End If
@@ -3747,10 +3742,9 @@ Public Class IAIPQueryGenerator
                                 DTPShutDownDateSearch2.Checked = True
                                 DTPShutDownDateSearch2.Text = Mid(ShutDownDate, (ShutDownDate.IndexOf("%-") + 3), (ShutDownDate.IndexOf("-%") - (ShutDownDate.IndexOf("%-") + 2)))
                             End If
-                            If ShutDownDate.IndexOf("*-") <> -1 Then
-                                If Mid(ShutDownDate, ShutDownDate.IndexOf("*-") + 3, (ShutDownDate.IndexOf("-*") - (ShutDownDate.IndexOf("*-") + 2))) = "Between" Then
-                                    rdbShutDownDateBetween.Checked = True
-                                End If
+                            If ShutDownDate.IndexOf("*-") <> -1 AndAlso
+                                Mid(ShutDownDate, ShutDownDate.IndexOf("*-") + 3, (ShutDownDate.IndexOf("-*") - (ShutDownDate.IndexOf("*-") + 2))) = "Between" Then
+                                rdbShutDownDateBetween.Checked = True
                             End If
                             If ShutDownDate.IndexOf("^-") <> -1 Then
                                 txtShutDownDateOrder.Text = Mid(ShutDownDate, ShutDownDate.IndexOf("^-") + 3, (ShutDownDate.IndexOf("-^") - (ShutDownDate.IndexOf("^-") + 2)))
@@ -3862,7 +3856,7 @@ Public Class IAIPQueryGenerator
                 "trying three times, please contact EPD IT."
 
             If MessageBox.Show(warning, "Warning", MessageBoxButtons.OKCancel) = DialogResult.Cancel Then
-                Exit Sub
+                Return
             End If
 
             query = "select " &

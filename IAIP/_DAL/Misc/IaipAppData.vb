@@ -21,7 +21,7 @@ Namespace DAL
         Public Function GetIaipAccountRoles() As DataTable
             Dim spName As String = "IAIP_USER.GetIaipAccountRoles"
             Dim dt As DataTable = DB.SPGetDataTable(spName)
-            dt.PrimaryKey = New DataColumn() {dt.Columns("RoleCode")}
+            dt.PrimaryKey = {dt.Columns("RoleCode")}
             Return dt
         End Function
 

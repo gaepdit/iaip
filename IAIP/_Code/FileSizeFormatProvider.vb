@@ -17,6 +17,8 @@ Public Class FileSizeFormatProvider
     Private Const fileSizeFormat As String = "fs"
 
     Public Function Format(format__1 As String, arg As Object, formatProvider As IFormatProvider) As String Implements System.ICustomFormatter.Format
+        ArgumentNotNull(arg, NameOf(arg))
+
         If format__1 Is Nothing OrElse Not format__1.StartsWith(fileSizeFormat) Then
             Return defaultFormat(format__1, arg, formatProvider)
         End If

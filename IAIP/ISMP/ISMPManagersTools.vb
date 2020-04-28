@@ -561,7 +561,7 @@ Public Class ISMPManagersTools
             For Each row In drEngineers
                 EngineerGCode = row("numUserID")
             Next
-            If chbNonComplianceTestReport.Checked = True Then
+            If chbNonComplianceTestReport.Checked Then
                 PreCompliance = "True"
             Else
                 PreCompliance = "False"
@@ -628,19 +628,19 @@ Public Class ISMPManagersTools
 
         Try
 
-            If rdbEngineerTestReportTestDate.Checked = True Then
+            If rdbEngineerTestReportTestDate.Checked Then
                 DateBias = "datTestDateStart between @startdate " &
                 "and  @enddate "
             End If
-            If rdbEngineerTestReportReceived.Checked = True Then
+            If rdbEngineerTestReportReceived.Checked Then
                 DateBias = "datReceivedDate between @startdate " &
                 "and  @enddate "
             End If
-            If rdbEngineerTestReportCompleted.Checked = True Then
+            If rdbEngineerTestReportCompleted.Checked Then
                 DateBias = "datCompleteDate between @startdate " &
                 "and  @enddate "
             End If
-            If rdbEngineerTestReportAll.Checked = True Then
+            If rdbEngineerTestReportAll.Checked Then
                 DateBias = "datReceivedDate between '04-Jul-1776' " &
                 "and '09-Sep-9998'"
             End If
@@ -803,7 +803,7 @@ Public Class ISMPManagersTools
 
             If txtPercential.Text <> "" Then
                 Percential = CDec(txtPercential.Text)
-                If Percential > 0.1 And Percential < 99.999999 Then
+                If Percential > 0.1 AndAlso Percential < 99.999999 Then
                     Percential = Percential / 100
                 Else
                     Percential = 0.8
@@ -1134,19 +1134,19 @@ Public Class ISMPManagersTools
     End Sub
 
     Private Sub bSave_Click(sender As Object, e As EventArgs) Handles bSave.Click
-        If TPReportAssignment.Focus = True Then
+        If TPReportAssignment.Focus Then
             SaveTestReportsAssignments()
         End If
     End Sub
 
     Private Sub bClear_Click(sender As Object, e As EventArgs) Handles bClear.Click
-        If TPReportAssignment.Focus = True Then
+        If TPReportAssignment.Focus Then
             cboEngineer.Text = ""
             lblTestReportAssignment.Items.Clear()
             txtTestReportCount.Text = 0
             LVTestReportAssignment.Clear()
             LoadLVTestReportAssignment()
-        ElseIf TPMethods.Focus = True Then
+        ElseIf TPMethods.Focus Then
             txtMethodCode.Clear()
             txtMethodDescription.Clear()
             txtMethodNumber.Clear()
@@ -1158,7 +1158,7 @@ Public Class ISMPManagersTools
     Private Sub MmiSave_Click(sender As Object, e As EventArgs) Handles MmiSave.Click
         Try
 
-            If TPReportAssignment.Focus = True Then
+            If TPReportAssignment.Focus Then
                 SaveTestReportsAssignments()
             End If
         Catch ex As Exception
@@ -1176,7 +1176,7 @@ Public Class ISMPManagersTools
     Private Sub MmiClearTab_Click(sender As Object, e As EventArgs) Handles MmiClearTab.Click
         Try
 
-            If TPReportAssignment.Focus = True Then
+            If TPReportAssignment.Focus Then
                 ClearTestReportAssignmentTab()
             End If
         Catch ex As Exception
@@ -1189,7 +1189,7 @@ Public Class ISMPManagersTools
     Private Sub MmiViewTestReports_Click(sender As Object, e As EventArgs) Handles MmiViewTestReports.Click
         Try
 
-            If TPReportAssignment.Focus = True Then
+            If TPReportAssignment.Focus Then
                 LVTestReportAssignment.Clear()
                 lblTestReportAssignment.Items.Clear()
                 txtTestReportCount.Text = "0"
@@ -1203,7 +1203,7 @@ Public Class ISMPManagersTools
     Private Sub MmiUnassignedTestReports_Click(sender As Object, e As EventArgs) Handles MmiUnassignedTestReports.Click
         Try
 
-            If TPReportAssignment.Focus = True Then
+            If TPReportAssignment.Focus Then
                 LVTestReportAssignment.Clear()
                 lblTestReportAssignment.Items.Clear()
                 txtTestReportCount.Text = "0"
@@ -1217,7 +1217,7 @@ Public Class ISMPManagersTools
     Private Sub MmiAssignedTestReports_Click(sender As Object, e As EventArgs) Handles MmiAssignedTestReports.Click
         Try
 
-            If TPReportAssignment.Focus = True Then
+            If TPReportAssignment.Focus Then
                 LVTestReportAssignment.Clear()
                 lblTestReportAssignment.Items.Clear()
                 txtTestReportCount.Text = "0"
@@ -1231,7 +1231,7 @@ Public Class ISMPManagersTools
     Private Sub MmiShowDeletedRecords_Click(sender As Object, e As EventArgs) Handles MmiShowDeletedRecords.Click
         Try
 
-            If TPReportAssignment.Focus = True Then
+            If TPReportAssignment.Focus Then
                 LVTestReportAssignment.Clear()
                 lblTestReportAssignment.Items.Clear()
                 txtTestReportCount.Text = "0"
@@ -2023,7 +2023,7 @@ Public Class ISMPManagersTools
 
             Dim count As Integer = txtTestReportCount.Text
 
-            If LVTestReportAssignment.Items.Item(e.Index).Checked = True Then
+            If LVTestReportAssignment.Items.Item(e.Index).Checked Then
                 lblTestReportAssignment.Items.Remove(LVTestReportAssignment.Items.Item(e.Index).Text)
                 count -= 1
             Else
@@ -2173,10 +2173,9 @@ Public Class ISMPManagersTools
         Dim hti As DataGridView.HitTestInfo = dgvUnitStats.HitTest(e.X, e.Y)
 
         Try
-            If dgvUnitStats.Columns(0).HeaderText = "Reference #" Then
-                If dgvUnitStats.RowCount > 0 And hti.RowIndex <> -1 Then
-                    txtUnitStatReferenceNumber.Text = dgvUnitStats(0, hti.RowIndex).Value
-                End If
+            If dgvUnitStats.Columns(0).HeaderText = "Reference #" AndAlso
+                dgvUnitStats.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
+                txtUnitStatReferenceNumber.Text = dgvUnitStats(0, hti.RowIndex).Value
             End If
 
         Catch ex As Exception
@@ -2194,7 +2193,7 @@ Public Class ISMPManagersTools
         Dim hti As DataGridView.HitTestInfo = dgvMethods.HitTest(e.X, e.Y)
 
         Try
-            If dgvMethods.RowCount > 0 And hti.RowIndex <> -1 Then
+            If dgvMethods.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
                 txtMethodCode.Text = dgvMethods(0, hti.RowIndex).Value
             End If
 
@@ -2216,7 +2215,7 @@ Public Class ISMPManagersTools
 
                 temp = DB.GetString(query, p)
 
-                If temp <> "" And temp.Contains(" - ") Then
+                If temp <> "" AndAlso temp.Contains(" - ") Then
                     txtMethodNumber.Text = Replace(Mid(temp, 1, (temp.IndexOf(" - "))), "Method ", "")
                     txtMethodDescription.Text = Mid(temp, (temp.IndexOf(" - ") + 4))
                 Else
@@ -2234,7 +2233,7 @@ Public Class ISMPManagersTools
         Try
             Dim temp As String = ""
 
-            If txtMethodNumber.Text <> "" And txtMethodDescription.Text <> "" Then
+            If txtMethodNumber.Text <> "" AndAlso txtMethodDescription.Text <> "" Then
                 txtMethodNumber.BackColor = Color.White
                 txtMethodDescription.BackColor = Color.White
                 temp = "Method " & txtMethodNumber.Text.ToUpper & " - " & txtMethodDescription.Text
@@ -2356,7 +2355,7 @@ Public Class ISMPManagersTools
             If txtAddTestReportRefNum.Text <> "" Then
                 txtAddTestReportRefNum.BackColor = Color.White
                 RefNum = txtAddTestReportRefNum.Text
-                If mtbAddTestReportAIRSNumber.Text <> "" And Len(mtbAddTestReportAIRSNumber.Text) = 8 Then
+                If mtbAddTestReportAIRSNumber.Text <> "" AndAlso Len(mtbAddTestReportAIRSNumber.Text) = 8 Then
                     AIRSNumber = mtbAddTestReportAIRSNumber.Text
                     mtbAddTestReportAIRSNumber.BackColor = Color.White
                 Else

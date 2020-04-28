@@ -10,12 +10,21 @@ Public Class SSPPPublicNoticesAndAdvisories
 
     Private Class Document
         Public Property FileName As String
-        Public Property FileData As Byte()
         Public Property ReviewingManager As Integer?
         Public Property DateReviewed As Date?
         Public Property PublishingStaff As Integer?
         Public Property DatePublished As Date?
         Public Property CommentsDate As Date?
+
+        Private fileData As Byte()
+
+        Public Sub SetFileData(value As Byte())
+            fileData = value
+        End Sub
+
+        Public Function GetFileData() As Byte()
+            Return fileData
+        End Function
     End Class
 
     Private ReadOnly Property SelectedRowsCount As Integer
@@ -375,7 +384,7 @@ Public Class SSPPPublicNoticesAndAdvisories
             "Permit proceedings for the following facilities. The deadlines for " & vbCrLf &
             "submitting comments and requesting a public hearing are specified for " & vbCrLf & "each facility. " & vbCrLf & vbCrLf
 
-        If TVInitial <> "" Or TVRenewal <> "" Or TVSigMod <> "" Then
+        If TVInitial <> "" OrElse TVRenewal <> "" OrElse TVSigMod <> "" Then
             If TVInitial <> "" Then
                 TVAdvisories = TVAdvisories & "INITIAL TITLE V OPERATING PERMITSX" & vbCrLf & vbCrLf &
                     TVInitial & vbCrLf
@@ -688,12 +697,12 @@ Public Class SSPPPublicNoticesAndAdvisories
         }
 
         Dim Encoder As New Text.ASCIIEncoding
-        newDocument.FileData = Encoder.GetBytes(rtbPreview.Rtf)
+        newDocument.SetFileData(Encoder.GetBytes(rtbPreview.Rtf))
 
         With newDocument
             Dim params As SqlParameter() = {
                 New SqlParameter("@FileName", .FileName),
-                New SqlParameter("@FileData", .FileData),
+                New SqlParameter("@FileData", .GetFileData()),
                 New SqlParameter("@ReviewingManager", .ReviewingManager),
                 New SqlParameter("@DateReviewed", .DateReviewed),
                 New SqlParameter("@PublishingStaff", .PublishingStaff),
@@ -715,7 +724,7 @@ Public Class SSPPPublicNoticesAndAdvisories
 
     Private Sub ExportPDF(richTextDocument As String, fileName As String)
         If Not CrystalReportsIsAvailable() Then
-            Exit Sub
+            Return
         End If
 
         ' TODO: Request filename/location
@@ -754,7 +763,6 @@ Public Class SSPPPublicNoticesAndAdvisories
         If dr IsNot Nothing Then
 
             OpenedDocument = New Document With {
-                .FileData = CType(dr.Item("BATCHFILE"), Byte()),
                 .CommentsDate = GetNullableDateTime(dr.Item("DATCOMMENTSDATE")),
                 .DatePublished = GetNullableDateTime(dr.Item("DATPUBLISHEDDATE")),
                 .DateReviewed = GetNullableDateTime(dr.Item("DATREVIEWED")),
@@ -763,10 +771,12 @@ Public Class SSPPPublicNoticesAndAdvisories
                 .ReviewingManager = GetNullable(Of Integer)(dr.Item("STRREVIEWINGMANAGER"))
             }
 
+            OpenedDocument.SetFileData(CType(dr.Item("BATCHFILE"), Byte()))
+
             lblDocumentName.Text = OpenedDocument.FileName
             lblExpirationDate.Text = OpenedDocument.CommentsDate?.ToShortDateString
 
-            Using ms As MemoryStream = New MemoryStream(OpenedDocument.FileData)
+            Using ms As MemoryStream = New MemoryStream(OpenedDocument.GetFileData())
                 rtbDocument.LoadFile(ms, RichTextBoxStreamType.RichText)
             End Using
 
@@ -788,12 +798,12 @@ Public Class SSPPPublicNoticesAndAdvisories
 
         If Not Integer.TryParse(txtApplicationNumberEditor.Text, appNumber) OrElse Not Sspp.ApplicationExists(appNumber) Then
             MessageBox.Show("Enter a valid application number.", "Error")
-            Exit Sub
+            Return
         End If
 
-        If Not rdbPublicAdvisories.Checked And Not rdbPublicNotice.Checked Then
+        If Not rdbPublicAdvisories.Checked AndAlso Not rdbPublicNotice.Checked Then
             MessageBox.Show("Select either Public Advisory or Public Notice.", "Error")
-            Exit Sub
+            Return
         End If
 
         Dim compareString As String = "Public Notice"
@@ -812,7 +822,7 @@ Public Class SSPPPublicNoticesAndAdvisories
                 MessageBox.Show("The application is already in the list.", "Error")
             End If
 
-            Exit Sub
+            Return
         End If
 
         Dim params As SqlParameter() = {
@@ -865,7 +875,7 @@ Public Class SSPPPublicNoticesAndAdvisories
 
     'Private Sub btnUpdatePAPNChanges_Click(sender As Object, e As EventArgs) Handles btnUpdatePAPNChanges.Click
     '    If OpenedDocument Is Nothing Then
-    '        Exit Sub
+    '        Return
     '    End If
 
     '    With OpenedDocument

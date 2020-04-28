@@ -473,7 +473,7 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(PermitRevocationDateLabel)
         End If
 
-        If Not editedFacility.ShutdownDate Is Nothing _
+        If editedFacility.ShutdownDate IsNot Nothing _
             AndAlso editedFacility.OperationalStatus <> FacilityOperationalStatus.X _
             AndAlso editedFacility.ShutdownDate Is Nothing Then
             MessageBox.Show("A permit revocation date is entered, but the facility is not marked as closed. Please reconcile this.",

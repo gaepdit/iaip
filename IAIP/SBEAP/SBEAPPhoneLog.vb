@@ -211,7 +211,7 @@ Public Class SBEAPPhoneLog
 
 
                 If rdbExistingClient.Checked = True Then
-                    If txtClientID.Text <> "" And txtClientInformation.Text <> "" Then
+                    If txtClientID.Text <> "" AndAlso txtClientInformation.Text <> "" Then
                         If txtClientID.Text <> "" Then
                             ClientID = txtClientID.Text
                         Else
@@ -470,9 +470,6 @@ Public Class SBEAPPhoneLog
                 LoadClientInfo()
             End If
         End Using
-    End Sub
-
-    Private Sub mmiClearCaseID_Click(sender As Object, e As EventArgs) Handles mmiClearCaseID.Click
     End Sub
 
     Private Sub chbOnetimeAssist_CheckStateChanged(sender As Object, e As EventArgs) Handles chbOnetimeAssist.CheckStateChanged

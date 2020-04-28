@@ -237,18 +237,18 @@ Namespace DAL.Sscp
                 End If
 
                 .EnforcementActions = New List(Of EnforcementActionType)
-                If .LonComment <> "" Or AnyOfTheseDatesHasValue({ .LonResolved, .LonSent, .LonToUc}) Then
+                If .LonComment <> "" OrElse AnyOfTheseDatesHasValue({ .LonResolved, .LonSent, .LonToUc}) Then
                     .EnforcementActions.Add(EnforcementActionType.LON)
                 Else
-                    If .NovComment <> "" Or AnyOfTheseDatesHasValue({ .NovSent, .NovToPm, .NovToUc}) Then
+                    If .NovComment <> "" OrElse AnyOfTheseDatesHasValue({ .NovSent, .NovToPm, .NovToUc}) Then
                         .EnforcementActions.Add(EnforcementActionType.NOV)
                     End If
 
-                    If .CoComment <> "" Or .CoNumber <> "" Or AnyOfTheseDatesHasValue({ .CoExecuted, .CoProposed, .CoReceivedFromCompany, .CoReceivedFromDirector, .CoResolved, .CoToPm, .CoToUc}) Then
+                    If .CoComment <> "" OrElse .CoNumber <> "" OrElse AnyOfTheseDatesHasValue({ .CoExecuted, .CoProposed, .CoReceivedFromCompany, .CoReceivedFromDirector, .CoResolved, .CoToPm, .CoToUc}) Then
                         .EnforcementActions.Add(EnforcementActionType.CO)
                     End If
 
-                    If .AoComment <> "" Or AnyOfTheseDatesHasValue({ .AoAppealed, .AoExecuted, .AoResolved}) Then
+                    If .AoComment <> "" OrElse AnyOfTheseDatesHasValue({ .AoAppealed, .AoExecuted, .AoResolved}) Then
                         .EnforcementActions.Add(EnforcementActionType.AO)
                     End If
                 End If
@@ -465,7 +465,7 @@ Namespace DAL.Sscp
             queries.Add("UPDATE APBSUPPLAMENTALDATA " &
                         "SET STRAFSACTIONNUMBER = @afs " &
                         "WHERE STRAIRSNUMBER = @airsNumber ")
-            parameters.Add(New SqlParameter() {
+            parameters.Add({
                 New SqlParameter("@afs", afsKey + 1),
                 New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
             })
@@ -483,7 +483,7 @@ Namespace DAL.Sscp
                         "    @enforcementId, @enfKey, @penalty, @penaltyComment, " &
                         "    @afsKey, @userid, GETDATE() " &
                         "  ) ")
-            parameters.Add(New SqlParameter() {
+            parameters.Add({
                 New SqlParameter("@enforcementId", enforcementId),
                 New SqlParameter("@enfKey", enfKey.ToString),
                 New SqlParameter("@penalty", penalty.ToString),
@@ -578,7 +578,7 @@ Namespace DAL.Sscp
             dr("DEPRECATED") = "TRUE"
             dt.Rows.Add(dr)
 
-            dt.PrimaryKey = New DataColumn() {dt.Columns("AIRVIOLATIONTYPECODE")}
+            dt.PrimaryKey = {dt.Columns("AIRVIOLATIONTYPECODE")}
             Return dt
         End Function
 
