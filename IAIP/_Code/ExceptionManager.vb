@@ -5,14 +5,14 @@ Friend Module ExceptionManager
 
     Public Sub ApplicationThreadException(sender As Object, e As Threading.ThreadExceptionEventArgs)
         ' Application.ThreadException Handler added in StartupShutdown.Init
-        e.Exception.Data.Add("Sender", sender.ToString)
+        e.Exception.Data.AddAsUniqueIfExists("Sender", sender.ToString)
         HandleUnhandledException(e.Exception, NameOf(ApplicationThreadException))
     End Sub
 
     Public Sub HandleUnhandledException(ex As Exception, context As String)
         ' Comes from Application.ThreadException Handler (above)
         ' or MyApplication.UnhandledException (ApplicationEvent.vb)
-        ex.Data.Add("Unrecoverable", True)
+        ex.Data.AddAsUniqueIfExists("Unrecoverable", True)
         ErrorReport(ex, Nothing, context, True, True)
     End Sub
 
@@ -94,11 +94,11 @@ Friend Module ExceptionManager
 #End If
 
         If Not String.IsNullOrEmpty(contextMessage) Then
-            ExceptionLogger.Tags.Add("context", contextMessage)
+            ExceptionLogger.Tags.AddAsUniqueIfExists("context", contextMessage)
         End If
 
         If Not String.IsNullOrEmpty(supplementalMessage) Then
-            ex.Data.Add(NameOf(supplementalMessage), supplementalMessage)
+            ex.Data.AddAsUniqueIfExists(NameOf(supplementalMessage), supplementalMessage)
         End If
 
         Try

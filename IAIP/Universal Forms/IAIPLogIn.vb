@@ -257,17 +257,12 @@ Public Class IAIPLogIn
 
     Private Sub LogInAlready(networkStatus As NetworkCheckResponse)
         ' Tag exception logger with new user
-        ExceptionLogger.Tags.Add("IaipUser", CurrentUser.Username)
-        ExceptionLogger.Tags.Add("IaipUserID", CurrentUser.UserID.ToString)
-        If Not ExceptionLogger.Tags.ContainsKey("ExternalIPAddress") Then
-            ExceptionLogger.Tags.Add("ExternalIPAddress", ExternalIPAddress?.ToString())
-        End If
-        If Not ExceptionLogger.Tags.ContainsKey("InternalIPAddress") Then
-            ExceptionLogger.Tags.Add("InternalIPAddress", InternalIPAddress?.ToString())
-        End If
-        If Not ExceptionLogger.Tags.ContainsKey("InitialNetworkStatus") Then
-            ExceptionLogger.Tags.Add("InitialNetworkStatus", networkStatus.GetDescription())
-        End If
+        ExceptionLogger.Tags.AddAsUniqueIfExists("IaipUser", CurrentUser.Username)
+        ExceptionLogger.Tags.AddAsUniqueIfExists("IaipUserID", CurrentUser.UserID.ToString)
+        ExceptionLogger.Tags.AddAsUniqueIfExists("ExternalIPAddress", ExternalIPAddress?.ToString())
+        ExceptionLogger.Tags.AddAsUniqueIfExists("InternalIPAddress", InternalIPAddress?.ToString())
+        ExceptionLogger.Tags.AddAsUniqueIfExists("InitialNetworkStatus", networkStatus.GetDescription())
+
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
         OpenSingleForm(IAIPNavigation)

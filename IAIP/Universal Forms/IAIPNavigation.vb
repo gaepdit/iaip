@@ -164,14 +164,14 @@ Public Class IAIPNavigation
                     OpenTestReport()
             End Select
         Catch ex As Exception
-            ex.Data.Add("txtOpenApplication", txtOpenApplication.Text)
-            ex.Data.Add("txtOpenEnforcement", txtOpenEnforcement.Text)
-            ex.Data.Add("txtOpenFacilitySummary", txtOpenFacilitySummary.Text)
-            ex.Data.Add("txtOpenSbeapCaseLog", txtOpenSbeapCaseLog.Text)
-            ex.Data.Add("txtOpenSbeapClient", txtOpenSbeapClient.Text)
-            ex.Data.Add("txtOpenSscpItem", txtOpenSscpItem.Text)
-            ex.Data.Add("txtOpenTestLog", txtOpenTestLog.Text)
-            ex.Data.Add("txtOpenTestReport", txtOpenTestReport.Text)
+            ex.Data.AddAsUniqueIfExists("txtOpenApplication", txtOpenApplication.Text)
+            ex.Data.AddAsUniqueIfExists("txtOpenEnforcement", txtOpenEnforcement.Text)
+            ex.Data.AddAsUniqueIfExists("txtOpenFacilitySummary", txtOpenFacilitySummary.Text)
+            ex.Data.AddAsUniqueIfExists("txtOpenSbeapCaseLog", txtOpenSbeapCaseLog.Text)
+            ex.Data.AddAsUniqueIfExists("txtOpenSbeapClient", txtOpenSbeapClient.Text)
+            ex.Data.AddAsUniqueIfExists("txtOpenSscpItem", txtOpenSscpItem.Text)
+            ex.Data.AddAsUniqueIfExists("txtOpenTestLog", txtOpenTestLog.Text)
+            ex.Data.AddAsUniqueIfExists("txtOpenTestReport", txtOpenTestReport.Text)
             Throw
         Finally
             Cursor = Cursors.Default

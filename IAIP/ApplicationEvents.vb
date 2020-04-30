@@ -23,7 +23,8 @@ Namespace My
 
         Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) _
             Handles Me.UnhandledException
-            e.Exception.Data.Add("Sender", sender.ToString)
+
+            e.Exception.Data.AddAsUniqueIfExists("Sender", sender.ToString)
             ExceptionManager.HandleUnhandledException(e.Exception, NameOf(MyApplication_UnhandledException))
         End Sub
 
