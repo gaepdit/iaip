@@ -14324,22 +14324,31 @@ Public Class SSPPApplicationTrackingLog
             body.Append("Expedited Permitting Program. If the applicant decides to decline participation in the program they ")
             body.Append("must immediately respond, requesting that the application no longer be considered.")
             body.AppendLine()
+            body.AppendLine()
         End If
 
         body.Append("The applicant must complete the submittal process by paying the above referenced fee. ")
         body.AppendFormat("A printable fee invoice is accessible through GECO at {0} ", GetPermitApplicationLinkAddress(AppNumber))
         body.AppendLine()
+        body.AppendLine()
+        body.Append("FEE PAYMENT INSTRUCTIONS: Don’t send payment to the Air Branch office address; pay by check to the PO Box ")
+        body.Append("listed on the invoice or by credit card following the instructions on the invoice.")
+        body.AppendLine()
+        body.AppendLine()
         body.AppendFormat("If you do not have a GECO account, visit {0} and create a new account. ", GecoUrl.ToString)
         body.Append("You can then request access to this facility for emission fees using the tools in GECO.")
         body.AppendLine()
+        body.AppendLine()
         body.Append("The fee must be submitted within 10 business days of the date of this email. Permitting actions will not be finalized ")
         body.Append("prior to the Division’s receipt of the fee payment.")
+        body.AppendLine()
         body.AppendLine()
         body.Append("Other environmental permits may be required. For Industrial Stormwater permits, contact the Watershed Protection Branch ")
         body.Append("at (404) 675-1605; for Solid Waste permits, contact the Land Protection Branch at (404) 362-2537. ")
         body.Append("For more info, see https://epd.georgia.gov/ ")
         body.AppendLine()
-        body.Append("Please contact me if you have any questions.")
+        body.AppendLine()
+        body.AppendLine("Please contact me if you have any questions.")
 
         Dim recipient As String() = Nothing
 

@@ -276,9 +276,9 @@ Public Class ISMPTestReportAdministrative
             End If
 
         Catch ex As Exception
-            ex.Data.Add("AIRS#", cboAIRSNumber.Text)
-            ex.Data.Add("Date", DTPDateReceived.Value)
-            ex.Data.Add("DataTable", dt)
+            ex.Data.AddAsUniqueIfExists("AIRS#", cboAIRSNumber.Text)
+            ex.Data.AddAsUniqueIfExists("Date", DTPDateReceived.Value)
+            ex.Data.AddAsUniqueIfExists("DataTable", dt)
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 

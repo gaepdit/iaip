@@ -8,15 +8,15 @@ Public Module Guard
         End If
     End Sub
 
-    'Public Sub ArgumentNotNullOrEmpty(value As String, parameterName As String)
-    '    If value Is Nothing Then
-    '        Throw New ArgumentNullException(parameterName)
-    '    End If
+    Public Sub ArgumentNotNullOrEmpty(value As String, parameterName As String)
+        If value Is Nothing Then
+            Throw New ArgumentNullException(parameterName)
+        End If
 
-    '    If String.IsNullOrEmpty(value) Then
-    '        Throw New ArgumentException($"{parameterName} can not be null or empty.", parameterName)
-    '    End If
-    'End Sub
+        If String.IsNullOrEmpty(value) Then
+            Throw New ArgumentException($"{parameterName} can not be null or empty.", parameterName)
+        End If
+    End Sub
 
     'Public Sub ArgumentNotNullOrWhiteSpace(value As String, parameterName As String)
     '    If value Is Nothing Then
