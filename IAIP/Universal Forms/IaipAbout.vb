@@ -27,7 +27,7 @@
     End Sub
 
     Private Sub lblUpdateCheck_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblUpdateCheck.LinkClicked
-        AppVersion.CheckForUpdate()
+        CheckForUpdate()
     End Sub
 
 End Class
