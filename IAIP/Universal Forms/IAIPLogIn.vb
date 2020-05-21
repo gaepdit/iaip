@@ -49,8 +49,6 @@ Public Class IAIPLogIn
         If txtUserID.Enabled Then
             txtUserID.Text = GetUserSetting(UserSetting.PrefillLoginId)
         End If
-
-        FocusLogin()
     End Sub
 
     Private Enum ConnectionStatus
@@ -145,6 +143,7 @@ Public Class IAIPLogIn
         AcceptButton = btnLoginButton
         If Message IsNot Nothing Then Message.Clear()
         RetryButton.Visible = False
+        FocusLogin()
     End Sub
 
     Private Sub FocusLogin()
