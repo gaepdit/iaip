@@ -10,7 +10,6 @@ Public Class IAIPNavigation
     Private Property CurrentNavWorkListContext As NavWorkListContext
     Private Property CurrentNavWorkListScope As NavWorkListScope
     Private Property CurrentNavWorkListParameter As Integer? = Nothing
-    Private Property LoggingOff As Boolean = False
     Private Property NavWorkListContextDictionary As Dictionary(Of NavWorkListContext, String)
 
 #End Region

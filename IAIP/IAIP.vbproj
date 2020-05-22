@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
   <Import Project="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props')" />
@@ -50,7 +50,7 @@
     <PublishUrl>ftp://10.149.210.227/install/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>1</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
@@ -58,6 +58,7 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>https://iaip.gaepd.org/install/</InstallUrl>
+    <UpdateUrl>https://iaip.gaepd.org/install/</UpdateUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
     <MinimumRequiredVersion>5.16.4.0</MinimumRequiredVersion>
@@ -262,6 +263,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GlobalSuppressions.vb" />
+    <Compile Include="Universal Forms\IaipUpdater.Designer.vb">
+      <DependentUpon>IaipUpdater.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\IaipUpdater.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Users\IaipResetPassword.Designer.vb">
       <DependentUpon>IaipResetPassword.vb</DependentUpon>
     </Compile>
@@ -292,6 +299,7 @@
     <Compile Include="Users\IaipUserSecurity.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_Code\AppUpdater.vb" />
     <Compile Include="_Code\ColorLabelHelper.vb" />
     <Compile Include="_Code\DataGridViewExtensions.vb" />
     <Compile Include="_Code\DateTimePickerHelpers.vb" />
@@ -398,6 +406,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GECO\GecoTool.resx">
       <DependentUpon>GecoTool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universal Forms\IaipUpdater.resx">
+      <DependentUpon>IaipUpdater.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Users\IaipResetPassword.resx">
       <DependentUpon>IaipResetPassword.vb</DependentUpon>
@@ -1012,7 +1023,7 @@
     <Compile Include="_Code\IaipColors.vb" />
     <Compile Include="_Code\IaipMessage.vb" />
     <Compile Include="_Code\UserSettings.vb" />
-    <Compile Include="_Code\Constants.vb">
+    <Compile Include="_Code\AppGlobals.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Facility\IAIPFacilitySummary.Designer.vb">

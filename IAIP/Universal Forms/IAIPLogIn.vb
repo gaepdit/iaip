@@ -1,4 +1,4 @@
-﻿Imports System.Threading
+Imports System.Threading
 Imports System.Threading.Tasks
 
 Public Class IAIPLogIn
@@ -30,6 +30,11 @@ Public Class IAIPLogIn
 
 
     Private Sub IAIPLogIn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If Not LoggingOff Then
+            CheckForUpdate(True)
+        End If
+        LoggingOff = False
+
         FillLoginForm()
         SetUpUi()
     End Sub
