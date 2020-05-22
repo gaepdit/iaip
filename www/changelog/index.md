@@ -9,6 +9,18 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.16.4 <span>(2020-05-01)</span>
+
+Updated the text in the permit fees email template.
+
+## Version 5.16.3 <span>(2020-04-28)</span>
+
+Better error message if Crystal Reports is not installed.
+
+## Version 5.16.2 <span>(2020-04-09)</span>
+
+Fixed error reporting bug.
+
 ## Version 5.16.1 <span>(2020-04-06)</span>
 
 Fixed a bug when exporting a table to Excel that has empty dates.

@@ -11,7 +11,7 @@ This page is only for installing the IAIP Prerequisites. These prerequisites onl
 
 ## Do I need this thing?
 
-* Were you using the IAIP and got a message saying "Printing from the IAIP is currently disabled"?
+* Were you using the IAIP and got a message saying "Printing from the IAIP is currently unavailable"?
 * Or were you trying to install the IAIP and got a message saying "Unable to install or run the application" or "The application is improperly formatted…"?
 
 If so, then you have come to the right place! Otherwise, probably not (but it won't hurt anything if you install it anyway).
