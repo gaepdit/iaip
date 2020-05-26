@@ -9,6 +9,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.17.0 <span>(2020-05-26)</span>
+
+Improved app update experience.
+
 ## Version 5.16.4 <span>(2020-05-01)</span>
 
 Updated the text in the permit fees email template.
