@@ -11,7 +11,7 @@ Friend Module StartupShutdown
         AddHandler Application.ThreadException, AddressOf ExceptionManager.ApplicationThreadException
 
         ' Updates: Should run each time program is updated
-        If AppVersion.JustUpdated Then
+        If AppUpdater.JustUpdated Then
             ' Settings.Upgrade() folds in settings from previous version
             My.Settings.Upgrade()
             AppUpdated = True

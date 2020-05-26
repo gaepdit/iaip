@@ -4,13 +4,11 @@ Namespace DAL
     Module IaipAppData
 
         Public Function AppIsEnabled() As Boolean
-            Dim query As String = " SELECT FENABLED " &
-                " FROM APBMASTERAPP " &
-                " WHERE STRAPPLICATIONNAME = @STRAPPLICATIONNAME "
-            Dim parameter As SqlParameter = New SqlParameter("@STRAPPLICATIONNAME", APP_NAME)
+            Dim spName As String = "dbo.IsIaipEnabled"
+            Dim param As SqlParameter = New SqlParameter("@currentVersion", GetCurrentVersionAsMajorMinorBuild.ToString)
 
             Try
-                Return DB.GetBoolean(query, parameter)
+                Return DB.SPGetBoolean(spName, param)
             Catch ex As SqlException
                 Return False
             Catch ex As FormatException

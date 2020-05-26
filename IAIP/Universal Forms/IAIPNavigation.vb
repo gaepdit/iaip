@@ -10,7 +10,6 @@ Public Class IAIPNavigation
     Private Property CurrentNavWorkListContext As NavWorkListContext
     Private Property CurrentNavWorkListScope As NavWorkListScope
     Private Property CurrentNavWorkListParameter As Integer? = Nothing
-    Private Property LoggingOff As Boolean = False
     Private Property NavWorkListContextDictionary As Dictionary(Of NavWorkListContext, String)
 
 #End Region
@@ -952,6 +951,10 @@ Public Class IAIPNavigation
 
     Private Sub UnhandledExceptionTest(sender As Object, e As EventArgs) Handles RunTest2.Click
         Throw New ArgumentException("NavScreen unhandled exception testing")
+    End Sub
+
+    Private Sub mmiCheckForUpdates_Click(sender As Object, e As EventArgs) Handles mmiCheckForUpdates.Click
+        CheckForUpdate()
     End Sub
 
 #End Region

@@ -37,6 +37,7 @@ Partial Class IAIPNavigation
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem()
         Me.mmiResetForm = New System.Windows.Forms.MenuItem()
         Me.mmiSeparator1 = New System.Windows.Forms.MenuItem()
+        Me.mmiCheckForUpdates = New System.Windows.Forms.MenuItem()
         Me.mmiAbout = New System.Windows.Forms.MenuItem()
         Me.TestingMenu = New System.Windows.Forms.MenuItem()
         Me.RunTest = New System.Windows.Forms.MenuItem()
@@ -164,7 +165,7 @@ Partial Class IAIPNavigation
         'mmiHelp
         '
         Me.mmiHelp.Index = 3
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.mmiSeparator1, Me.mmiAbout})
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.mmiSeparator1, Me.mmiCheckForUpdates, Me.mmiAbout})
         Me.mmiHelp.Text = "&Help"
         '
         'mmiOnlineHelp
@@ -183,9 +184,14 @@ Partial Class IAIPNavigation
         Me.mmiSeparator1.Index = 2
         Me.mmiSeparator1.Text = "-"
         '
+        'mmiCheckForUpdates
+        '
+        Me.mmiCheckForUpdates.Index = 3
+        Me.mmiCheckForUpdates.Text = "Check for &Updates"
+        '
         'mmiAbout
         '
-        Me.mmiAbout.Index = 3
+        Me.mmiAbout.Index = 4
         Me.mmiAbout.Text = "&About IAIP"
         '
         'TestingMenu
@@ -863,4 +869,5 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiSecurity As MenuItem
     Friend WithEvents RunTest2 As MenuItem
     Friend WithEvents lblResultsCount As Label
+    Friend WithEvents mmiCheckForUpdates As MenuItem
 End Class

@@ -1,4 +1,4 @@
-﻿Imports System.Threading
+Imports System.Threading
 Imports System.Threading.Tasks
 
 Public Class IAIPLogIn
@@ -30,6 +30,11 @@ Public Class IAIPLogIn
 
 
     Private Sub IAIPLogIn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If Not LoggingOff Then
+            CheckForUpdate(True)
+        End If
+        LoggingOff = False
+
         FillLoginForm()
         SetUpUi()
     End Sub
@@ -49,8 +54,6 @@ Public Class IAIPLogIn
         If txtUserID.Enabled Then
             txtUserID.Text = GetUserSetting(UserSetting.PrefillLoginId)
         End If
-
-        FocusLogin()
     End Sub
 
     Private Enum ConnectionStatus
@@ -145,6 +148,7 @@ Public Class IAIPLogIn
         AcceptButton = btnLoginButton
         If Message IsNot Nothing Then Message.Clear()
         RetryButton.Visible = False
+        FocusLogin()
     End Sub
 
     Private Sub FocusLogin()
