@@ -52,17 +52,13 @@ Public Module AppUpdater
 
         Dim doUpdate As Boolean = True
 
-        If info.IsUpdateRequired Then
-            MessageBox.Show("A mandatory update will now be installed (" &
-                            GetVersionAsMajorMinorBuild(info.AvailableVersion).ToString & "). ",
-                            "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Else
+        If Not info.IsUpdateRequired Then
             Dim dr As DialogResult
             dr = MessageBox.Show("An update is available (" &
                                  GetVersionAsMajorMinorBuild(info.AvailableVersion).ToString &
                                  "). Would you like to install it now?",
                                  "Update Available", MessageBoxButtons.YesNo)
-            If DialogResult.Yes <> dr Then doUpdate = False
+            doUpdate = dr = DialogResult.Yes
         End If
 
         If doUpdate Then
