@@ -66,6 +66,8 @@ Public Class IAIPNavigation
                 e.Cancel = True
             End If
         End If
+
+        LoggingOff = False
     End Sub
 
 #End Region

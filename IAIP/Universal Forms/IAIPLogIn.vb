@@ -33,7 +33,6 @@ Public Class IAIPLogIn
         If Not LoggingOff Then
             CheckForUpdate(True)
         End If
-        LoggingOff = False
 
         FillLoginForm()
         SetUpUi()
