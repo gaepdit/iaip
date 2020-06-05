@@ -67,20 +67,17 @@ Public Module StringFunctions
 
     <Extension>
     Public Function RealStringOrNothing(s As String) As String
-        If String.IsNullOrEmpty(s) Then
-            Return Nothing
-        Else
-            Return s
-        End If
+        Return If(String.IsNullOrEmpty(s), Nothing, s)
+    End Function
+
+    <Extension>
+    Public Function IfEmpty(s As String, alternate As String) As String
+        Return If(String.IsNullOrEmpty(s), alternate, s)
     End Function
 
     <Extension>
     Public Function Truncate(value As String, maxLength As Integer) As String
-        If String.IsNullOrEmpty(value) Then
-            Return value
-        End If
-
-        Return value.Substring(0, Math.Min(maxLength, value.Length))
+        Return If(String.IsNullOrEmpty(value), value, value.Substring(0, Math.Min(maxLength, value.Length)))
     End Function
 
     <Extension>

@@ -1,9 +1,10 @@
-Imports CrystalDecisions.Shared
-Imports EpdIt.DBUtilities
 Imports System.Collections.Generic
-Imports System.Linq
 Imports System.Data.SqlClient
 Imports System.IO
+Imports System.Linq
+Imports System.Text
+Imports CrystalDecisions.Shared
+Imports EpdIt.DBUtilities
 Imports Iaip.DAL
 
 Public Class SSPPPublicNoticesAndAdvisories
@@ -89,14 +90,7 @@ Public Class SSPPPublicNoticesAndAdvisories
     Private Sub PreviewReport()
         rtbPreview.Clear()
 
-        Dim PANeeded As String = ""
-        Dim PublicAdvisories As String
-        Dim TVAdvisories As String
-        Dim TVInitial As String = ""
-        Dim TVRenewal As String = ""
-        Dim TVSigMod As String = ""
-        Dim Deadline As String
-
+        ' Compile lists of included applications
         selectedAdvisoryApps = New List(Of Integer)
         selectedNoticeApps = New List(Of Integer)
 
@@ -110,504 +104,198 @@ Public Class SSPPPublicNoticesAndAdvisories
             End If
         Next
 
+        ' Start RTF document
+        Dim rtfDocument As New StringBuilder("{\rtf1\ansi\deff0{\fonttbl{\f0\fswiss\fcharset0 Arial;}}\uc1\lang1033\fs20")
+
+        ' Public Advisories section header
+        Dim DeadlineText As String
+        If dtpExpirationDate.Checked Then
+            DeadlineText = Format(CDate(dtpExpirationDate.Text), "MMMM d, yyyy")
+        Else
+            DeadlineText = "PUBLICATION DEADLINE"
+        End If
+
+        rtfDocument.AppendLine("\pard\qc{\b EPD PUBLIC ADVISORY}\par")
+        rtfDocument.AppendLine("{\b GEORGIA AIR PROTECTION BRANCH}\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("\pard\qj The following applications have been received for Air Quality Permits. These applications are presently under review. ")
+        rtfDocument.AppendLine($"{{\b Deadline:}} Any comments should be received by {DeadlineText}.\par")
+        rtfDocument.AppendLine("\par")
+
         ' Public Advisories
+        rtfDocument.AppendLine("\pard{\b SIP PUBLIC ADVISORIES}\par")
+        rtfDocument.AppendLine("\par")
 
         If selectedAdvisoryApps.Count > 0 Then
-
             Dim params As SqlParameter() = {
                 New SqlParameter("@PAorPN", True),
                 selectedAdvisoryApps.AsTvpSqlParameter("@AppNums")
             }
+            Dim dt As DataTable = DB.SPGetDataTable("dbo.GetAppDetailsForPAandPN", params)
 
-            Dim ds As DataSet = DB.SPGetDataSet("dbo.GetAppDetailsForPAandPN", params)
-
-            For Each dr As DataRow In ds.Tables(0).Rows
-                If IsDBNull(dr.Item("strCountyName")) Then
-                    PANeeded &= "County Unknown" & vbCrLf & vbCrLf
-                Else
-                    PANeeded = PANeeded & "*X" & dr.Item("strCountyName").ToString.ToUpper & "X*" & vbCrLf & vbCrLf
-                End If
-
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    PANeeded = PANeeded & "Facility Name:X Unknown" & vbCrLf
-                Else
-                    PANeeded = PANeeded & "Facility Name:X " & dr.Item("strFacilityName").ToString & vbCrLf
-                End If
-                If IsDBNull(dr.Item("strApplicationNumber")) Then
-                    PANeeded = PANeeded & "Application No:X Unknown" & vbCrLf
-                Else
-                    PANeeded = PANeeded & "Application No:X " & dr.Item("strApplicationNumber").ToString & vbCrLf
-                End If
-                If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                    PANeeded = PANeeded & "Facility Address:X Unknown, "
-                Else
-                    PANeeded = PANeeded & "Facility Address:X " & dr.Item("strFacilityStreet1").ToString & ", "
-                End If
-                If IsDBNull(dr.Item("strFacilityCity")) Then
-                    PANeeded = PANeeded & " Unknown, "
-                Else
-                    PANeeded = PANeeded & dr.Item("strFacilityCity").ToString & ", "
-                End If
-                If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                    PANeeded = PANeeded & " Unknown "
-                Else
-                    PANeeded = PANeeded & dr.Item("strFacilityZipCode").ToString & " "
-                End If
-                If IsDBNull(dr.Item("strCountyName")) Then
-                    PANeeded = PANeeded & "(Unknown County) " & vbCrLf
-                Else
-                    PANeeded = PANeeded & "(" & dr.Item("strCountyName").ToString & ")" & vbCrLf
-                End If
-                PANeeded = PANeeded & "EPD Notice Type:X Permit - Application. " & vbCrLf
-                If IsDBNull(dr.Item("strPlantDescription")) Then
-                    PANeeded = PANeeded & "Description of Operation:X Unknown" & vbCrLf
-                Else
-                    PANeeded = PANeeded & "Description of Operation:X " & dr.Item("strPlantDescription").ToString & vbCrLf
-                End If
-                If IsDBNull(dr.Item("strApplicationNotes")) Then
-                    PANeeded = PANeeded & "Reason for Application:X Unknown " & vbCrLf & vbCrLf
-                Else
-                    PANeeded = PANeeded & "Reason for Application:X " & dr.Item("strApplicationNotes").ToString & vbCrLf & vbCrLf
-                End If
+            For Each dr As DataRow In dt.Rows
+                rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine("{\b Facility Address:} ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine("{\b EPD Notice Type:} Permit Application\par")
+                rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine($"{{\b Reason for Application:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine("\par")
             Next
+        Else
+            rtfDocument.AppendLine("\pard None\par")
+            rtfDocument.AppendLine("\par")
         End If
 
+        ' Public Advisories section footer
+        rtfDocument.AppendLine("\pard\qj {\b ADDITIONAL INFORMATION:} The permit application, additional information, and EPD generated documents are available for review at the ")
+        rtfDocument.AppendLine("office of the Air Protection Branch, 4244 International Parkway, Suite 120, Atlanta, Georgia 30354 by appointment only at this time. Permit applications ")
+        rtfDocument.AppendLine("listed above can be provided in electronic form upon request.\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("To comment, send written comments via email to epdcomments@dnr.ga.gov (include \ldblquote air permit application\rdblquote  in the subject line) ")
+        rtfDocument.AppendLine("or by mail to Eric Cornwell, 4244 International Parkway, Suite 120, Atlanta, Georgia 30354.\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("All comments received on or prior to the deadline will be considered by the Division in making its final decision to issue the permit. Any comments requesting ")
+        rtfDocument.AppendLine("a public hearing must be made prior to the deadline and should specify, in as much detail as possible, the portion of the Georgia Rules for Air Quality Control ")
+        rtfDocument.AppendLine("or the Federal Rules which the individual making the request is concerned may not have been adequately incorporated. A public hearing may be held if the ")
+        rtfDocument.AppendLine("Director of the EPD finds that such a hearing would assist the EPD in a proper review of the facility's ability to comply with the Federal and State air ")
+        rtfDocument.AppendLine("quality regulations.\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("Issued (final) permits are available for public viewing at this link: {\ul https://permitsearch.gaepd.org/}\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("For further information, contact Eric Cornwell, Program Manager, Stationary Source Permitting Program, Air Protection Branch, 4244 International Parkway, ")
+        rtfDocument.AppendLine("Suite 120, Atlanta, Georgia 30354, (404) 363-7000; eric.cornwell@dnr.ga.gov\par")
+        rtfDocument.AppendLine("\par")
+
+        ' Public Notices section header
+        rtfDocument.AppendLine("\pard\qc{\b NOTICE OF DRAFT TITLE V OPERATING PERMITS AND PERMIT MODIFICATIONS}\par")
+        rtfDocument.AppendLine("{\b GEORGIA ENVIRONMENTAL PROTECTION DIVISION}\par")
+        rtfDocument.AppendLine("{\b AIR PROTECTION BRANCH}\par")
+        rtfDocument.AppendLine("{\b 4244 INTERNATIONAL PARKWAY, SUITE 120, ATLANTA, GA 30354}\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("\pard\qj The Georgia Environmental Protection Division announces its intent to issue initial Title V Operating Permits, Title V Significant ")
+        rtfDocument.AppendLine("Modifications, Title V Operating Permit Renewals, and/or other Title V Permit proceedings for the following facilities. The deadlines for submitting ")
+        rtfDocument.AppendLine("comments and requesting a public hearing are specified for each facility.\par")
+        rtfDocument.AppendLine("\par")
+
         ' Public Notices
-
         If selectedNoticeApps.Count > 0 Then
-
             Dim params As SqlParameter() = {
                 New SqlParameter("@PAorPN", False),
                 selectedNoticeApps.AsTvpSqlParameter("@AppNums")
             }
-
             Dim ds As DataSet = DB.SPGetDataSet("dbo.GetAppDetailsForPAandPN", params)
 
-            ' TV Initials
+            ' Initial Title V Permits
+            rtfDocument.AppendLine("\pard{\b INITIAL TITLE V OPERATING PERMITS}\par")
+            rtfDocument.AppendLine("\par")
 
-            For Each dr As DataRow In ds.Tables(0).Rows
-                If IsDBNull(dr.Item("strCountyName")) Then
-                    TVInitial = TVInitial & "County Unknown" & vbCrLf & vbCrLf
-                Else
-                    TVInitial = TVInitial & "*X" & dr.Item("strCountyName").ToString.ToUpper & "X*" & vbCrLf & vbCrLf
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    TVInitial = TVInitial & "Facility Name:X Unknown" & vbCrLf
-                Else
-                    TVInitial = TVInitial & "Facility Name:X " & dr.Item("strFacilityName").ToString & vbCrLf
-                End If
-                If IsDBNull(dr.Item("strApplicationNumber")) Then
-                    TVInitial = TVInitial & "Application No:X Unknown" & vbCrLf
-                Else
-                    TVInitial = TVInitial & "Application No:X " & dr.Item("strApplicationNumber").ToString & vbCrLf
-                End If
-                If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                    TVInitial = TVInitial & "Facility Address:X Unknown, "
-                Else
-                    TVInitial = TVInitial & "Facility Address:X " & dr.Item("strFacilityStreet1").ToString & ", "
-                End If
-                If IsDBNull(dr.Item("strFacilityCity")) Then
-                    TVInitial = TVInitial & " Unknown, "
-                Else
-                    TVInitial = TVInitial & dr.Item("strFacilityCity").ToString & ", "
-                End If
-                If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                    TVInitial = TVInitial & " Unknown "
-                Else
-                    TVInitial = TVInitial & dr.Item("strFacilityZipCode").ToString & " "
-                End If
-                If IsDBNull(dr.Item("strCountyName")) Then
-                    TVInitial = TVInitial & "(Unknown County) " & vbCrLf
-                Else
-                    TVInitial = TVInitial & "(" & dr.Item("strCountyName").ToString & ")" & vbCrLf
-                End If
-                TVInitial = TVInitial & "EPD Notice Type:X Permit - Proposed. " & vbCrLf
-
-                If IsDBNull(dr.Item("strPlantDescription")) Then
-                    TVInitial = TVInitial & "Description of Operation:X Unknown" & vbCrLf
-                Else
-                    TVInitial = TVInitial & "Description of Operation:X " & dr.Item("strPlantDescription").ToString & vbCrLf
-                End If
-                If IsDBNull(dr.Item("datPNExpires")) Then
-                    TVInitial = TVInitial & "Comment period/deadline for public hearing request expires on:X (Unknown Date) " & vbCrLf & vbCrLf
-                Else
-                    TVInitial = TVInitial & "Comment period/deadline for public hearing request expires on:X " & dr.Item("datPNExpires").ToString & vbCrLf & vbCrLf
-                End If
-            Next
-
-            ' TV Renewals
-
-            For Each dr As DataRow In ds.Tables(1).Rows
-                If IsDBNull(dr.Item("strCountyName")) Then
-                    TVRenewal = TVRenewal & "County Unknown" & vbCrLf & vbCrLf
-                Else
-                    TVRenewal = TVRenewal & "*X" & dr.Item("strCountyName").ToString.ToUpper & "X*" & vbCrLf & vbCrLf
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    TVRenewal = TVRenewal & "Facility Name:X Unknown" & vbCrLf
-                Else
-                    TVRenewal = TVRenewal & "Facility Name:X " & dr.Item("strFacilityName").ToString & vbCrLf
-                End If
-                If IsDBNull(dr.Item("strApplicationNumber")) Then
-                    TVRenewal = TVRenewal & "Application No:X Unknown" & vbCrLf
-                Else
-                    TVRenewal = TVRenewal & "Application No:X " & dr.Item("strApplicationNumber").ToString & vbCrLf
-                End If
-                If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                    TVRenewal = TVRenewal & "Facility Address:X Unknown, "
-                Else
-                    TVRenewal = TVRenewal & "Facility Address:X " & dr.Item("strFacilityStreet1").ToString & ", "
-                End If
-                If IsDBNull(dr.Item("strFacilityCity")) Then
-                    TVRenewal = TVRenewal & " Unknown, "
-                Else
-                    TVRenewal = TVRenewal & dr.Item("strFacilityCity").ToString & ", "
-                End If
-                If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                    TVRenewal = TVRenewal & " Unknown "
-                Else
-                    TVRenewal = TVRenewal & dr.Item("strFacilityZipCode").ToString & " "
-                End If
-                If IsDBNull(dr.Item("strCountyName")) Then
-                    TVRenewal = TVRenewal & "(Unknown County) " & vbCrLf
-                Else
-                    TVRenewal = TVRenewal & "(" & dr.Item("strCountyName").ToString & ")" & vbCrLf
-                End If
-                TVRenewal = TVRenewal & "EPD Notice Type:X Permit - Proposed. " & vbCrLf
-
-                If IsDBNull(dr.Item("strPlantDescription")) Then
-                    TVRenewal = TVRenewal & "Description of Operation:X Unknown" & vbCrLf
-                Else
-                    TVRenewal = TVRenewal & "Description of Operation:X " & dr.Item("strPlantDescription").ToString & vbCrLf
-                End If
-                If IsDBNull(dr.Item("datPNExpires")) Then
-                    TVRenewal = TVRenewal & "Comment period/deadline for public hearing request expires on:X (Unknown Date) " & vbCrLf & vbCrLf
-                Else
-                    TVRenewal = TVRenewal & "Comment period/deadline for public hearing request expires on:X " & dr.Item("datPNExpires").ToString & vbCrLf & vbCrLf
-                End If
-            Next
-
-            ' TV Sig Mods
-
-            For Each dr As DataRow In ds.Tables(2).Rows
-                If IsDBNull(dr.Item("strCountyName")) Then
-                    TVSigMod = TVSigMod & "County Unknown" & vbCrLf & vbCrLf
-                Else
-                    TVSigMod = TVSigMod & "*X" & dr.Item("strCountyName").ToString.ToUpper & "X*" & vbCrLf & vbCrLf
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    TVSigMod = TVSigMod & "Facility Name:X Unknown" & vbCrLf
-                Else
-                    TVSigMod = TVSigMod & "Facility Name:X " & dr.Item("strFacilityName").ToString & vbCrLf
-                End If
-                If IsDBNull(dr.Item("strApplicationNumber")) Then
-                    TVSigMod = TVSigMod & "Application No:X Unknown" & vbCrLf
-                Else
-                    TVSigMod = TVSigMod & "Application No:X " & dr.Item("strApplicationNumber").ToString & vbCrLf
-                End If
-                If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                    TVSigMod = TVSigMod & "Facility Address:X Unknown, "
-                Else
-                    TVSigMod = TVSigMod & "Facility Address:X " & dr.Item("strFacilityStreet1").ToString & ", "
-                End If
-                If IsDBNull(dr.Item("strFacilityCity")) Then
-                    TVSigMod = TVSigMod & " Unknown, "
-                Else
-                    TVSigMod = TVSigMod & dr.Item("strFacilityCity").ToString & ", "
-                End If
-                If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                    TVSigMod = TVSigMod & " Unknown "
-                Else
-                    TVSigMod = TVSigMod & dr.Item("strFacilityZipCode").ToString & " "
-                End If
-                If IsDBNull(dr.Item("strCountyName")) Then
-                    TVSigMod = TVSigMod & "(Unknown County) " & vbCrLf
-                Else
-                    TVSigMod = TVSigMod & "(" & dr.Item("strCountyName").ToString & ")" & vbCrLf
-                End If
-                TVSigMod = TVSigMod & "EPD Notice Type:X Permit - Proposed. " & vbCrLf
-                If IsDBNull(dr.Item("strPlantDescription")) Then
-                    TVSigMod = TVSigMod & "Description of Operation:X Unknown" & vbCrLf
-                Else
-                    TVSigMod = TVSigMod & "Description of Operation:X " & dr.Item("strPlantDescription").ToString & vbCrLf
-                End If
-                If IsDBNull(dr.Item("strSignificantComments")) Then
-                    TVSigMod = TVSigMod & "Emission Increase/Decrease:X (Unknown) " & vbCrLf
-                Else
-                    TVSigMod = TVSigMod & "Emission Increase/Decrease:X " & dr.Item("strSignificantComments").ToString & vbCrLf
-                End If
-                If IsDBNull(dr.Item("strApplicationNotes")) Then
-                    TVSigMod = TVSigMod & "Description of Requested Modification/Change:X N/A " & vbCrLf
-                Else
-                    TVSigMod = TVSigMod & "Description of Requested Modification/Change:X " & dr.Item("strApplicationNotes").ToString & vbCrLf
-                End If
-                If IsDBNull(dr.Item("datPNExpires")) Then
-                    TVSigMod = TVSigMod & "Comment period/deadline for public hearing request expires on:X (Unknown Date) " & vbCrLf & vbCrLf
-                Else
-                    TVSigMod = TVSigMod & "Comment period/deadline for public hearing request expires on:X " & dr.Item("datPNExpires").ToString & vbCrLf & vbCrLf
-                End If
-            Next
-        End If
-
-        ' Final matter
-
-        If dtpExpirationDate.Checked Then
-            Deadline = Format(CDate(dtpExpirationDate.Text), "dd-MMMM-yyyy")
-        Else
-            Deadline = "PUBLICATION DEADLINE"
-        End If
-
-
-        PublicAdvisories = "EPD PUBLIC ADVISORY" &
-            vbCrLf & "GEORGIA AIR PROTECTION BRANCH" &
-            vbCrLf & vbCrLf & vbCrLf & "SIP PUBLIC ADVISORIES" &
-            vbCrLf & vbCrLf & "The following applications have been received for Air Quality Permits. " & vbCrLf &
-            "These applications are presently under review. Any comments should be received by " & Deadline & vbCrLf & vbCrLf & vbCrLf
-
-        If PANeeded <> "" Then
-            PublicAdvisories = PublicAdvisories & PANeeded & vbCrLf
-        Else
-            PublicAdvisories = PublicAdvisories & "NO PUBLIC ADVISORIESX" & vbCrLf & vbCrLf
-        End If
-
-        PublicAdvisories = PublicAdvisories & "For additional information, contact Eric Cornwell, Program Manager, " & vbCrLf &
-            "Stationary Source Permitting Program, Air Protection Branch, " & vbCrLf &
-            "4244 International Parkway, Suite 120, Atlanta, Georgia 30354, " & vbCrLf & "(404) 363-7000" & vbCrLf & vbCrLf & vbCrLf
-
-        TVAdvisories = "NOTICE OF DRAFT TITLE V OPERATING PERMITS AND PERMIT MODIFICATIONS " & vbCrLf &
-            "GEORGIA ENVIRONMENTAL PROTECTION DIVISION " & vbCrLf &
-            "AIR PROTECTION BRANCHX" & vbCrLf &
-            "4244 INTERNATIONAL PARKWAY, SUITE 120, ATLANTA, GA 30354 " & vbCrLf & vbCrLf &
-            "The Georgia Environmental Protection Division announces its intent to " & vbCrLf &
-            "issue initial Title V Operating Permits, Title V Significant " & vbCrLf &
-            "modifications, Title V Operating Permit Renewals, and/or other Title V " & vbCrLf &
-            "Permit proceedings for the following facilities. The deadlines for " & vbCrLf &
-            "submitting comments and requesting a public hearing are specified for " & vbCrLf & "each facility. " & vbCrLf & vbCrLf
-
-        If TVInitial <> "" OrElse TVRenewal <> "" OrElse TVSigMod <> "" Then
-            If TVInitial <> "" Then
-                TVAdvisories = TVAdvisories & "INITIAL TITLE V OPERATING PERMITSX" & vbCrLf & vbCrLf &
-                    TVInitial & vbCrLf
+            If ds.Tables(0).Rows.Count = 0 Then
+                rtfDocument.AppendLine("\pard None\par")
+                rtfDocument.AppendLine("\par")
+            Else
+                For Each dr As DataRow In ds.Tables(0).Rows
+                    rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                    rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b Facility Address:} ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
+                    rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+                    rtfDocument.AppendLine("\par")
+                Next
             End If
-            If TVRenewal <> "" Then
-                TVAdvisories = TVAdvisories & "RENEWAL TITLE V OPERATING PERMITSX" & vbCrLf & vbCrLf &
-                    TVRenewal & vbCrLf
+
+            ' Renewal Title V Permits
+            rtfDocument.AppendLine("\pard{\b RENEWAL TITLE V OPERATING PERMITS}\par")
+            rtfDocument.AppendLine("\par")
+
+            If ds.Tables(1).Rows.Count = 0 Then
+                rtfDocument.AppendLine("\pard None\par")
+                rtfDocument.AppendLine("\par")
+            Else
+                For Each dr As DataRow In ds.Tables(1).Rows
+                    rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                    rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b Facility Address:} ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
+                    rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+                    rtfDocument.AppendLine("\par")
+                Next
             End If
-            If TVSigMod <> "" Then
-                TVAdvisories = TVAdvisories & "TITLE V SIGNIFICANT MODIFICATIONSX" & vbCrLf & vbCrLf &
-                    TVSigMod & vbCrLf
+
+            ' Title V Sig Mods
+            rtfDocument.AppendLine("\pard{\b TITLE V SIGNIFICANT MODIFICATIONS}\par")
+            rtfDocument.AppendLine("\par")
+
+            If ds.Tables(2).Rows.Count = 0 Then
+                rtfDocument.AppendLine("\pard None\par")
+                rtfDocument.AppendLine("\par")
+            Else
+                For Each dr As DataRow In ds.Tables(2).Rows
+                    rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                    rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b Facility Address:} ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
+                    rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Emission Increase/Decrease:}} {GetNullableString(dr.Item("strSignificantComments")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Description of Requested Modification/Change:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("N/A")}\par")
+                    rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+                    rtfDocument.AppendLine("\par")
+                Next
             End If
         Else
-            TVAdvisories = TVAdvisories & "NO TITLE V ADVISORIESX" & vbCrLf & vbCrLf
+            rtfDocument.AppendLine("\pard{\b NO TITLE V ADVISORIES}\par")
+            rtfDocument.AppendLine("\par")
         End If
 
-        TVAdvisories = TVAdvisories & "ADDITIONAL INFORMATIONX: The draft permits and permit amendments and " & vbCrLf &
-            "all information used to develop the draft permits and permit amendments " & vbCrLf &
-            "are available for review. This includes the application, all relevant " & vbCrLf &
-            "supporting materials and all other materials available to the permitting " & vbCrLf &
-            "authority used in the permit review process. This information is " & vbCrLf &
-            "available for review at the office of the Air Protection Branch, " & vbCrLf &
-            "4244 International Parkway, Atlanta Tradeport - Suite 120, Atlanta, Georgia 30354. " & vbCrLf &
-            "Copies of the draft permits or permit amendments, narratives, " & vbCrLf &
-            "application summaries, and (in most cases) permit applications are also " & vbCrLf &
-            "available at our Internet site, https://epd.georgia.gov/. Also " & vbCrLf &
-            "available at this Internet site is a copy of the public notice, as it " & vbCrLf &
-            "will appear in the legal organ of the county where the facility is " & vbCrLf &
-            "located. " & vbCrLf & vbCrLf &
-            "If a permit application is not available at our Internet site, the " & vbCrLf &
-            "public notice will indicate where a copy of these documents will be " & vbCrLf &
-            "available at a location near the facility. " & vbCrLf & vbCrLf &
-            "Persons wishing to comment on a draft Initial Title V Operating Permit, " & vbCrLf &
-            "Title V Significant modification, Title V Operating Permit Renewal, or " & vbCrLf &
-            "other Title V Permit proceedings are required to submit their comments, " & vbCrLf &
-            "in writing, to EPD at the above Atlanta Air Protection Branch address. " & vbCrLf &
-            "Comments must be received by no later than the deadline indicated for " & vbCrLf &
-            "the particular facility. (Should the comment period end on a weekend or " & vbCrLf &
-            "holiday, comments will be accepted up until the next working day.) All " & vbCrLf &
-            "comments received on or prior to the deadline will be considered by the " & vbCrLf &
-            "Division in making its final decision to issue the Title V permit or " & vbCrLf &
-            "permit amendment." & vbCrLf & vbCrLf &
-            "Any requests for a public hearing must be made prior to the deadline " & vbCrLf &
-            "indicated for the particular facility. A request for a hearing should " & vbCrLf &
-            "be in writing and should specify, in as much detail as possible, the " & vbCrLf &
-            "portion of the Georgia Rules for Air Quality Control or the Federal " & vbCrLf &
-            "Rules which the individual making the request is concerned may not have " & vbCrLf &
-            "been adequately incorporated. A public hearing may be held if the " & vbCrLf &
-            "Director of the EPD finds that such a hearing would assist the EPD in a " & vbCrLf &
-            "proper review of the facility's ability to comply with the Federal and " & vbCrLf &
-            "State air quality regulations. " & vbCrLf & vbCrLf &
-            "For additional information, contact Eric Cornwell, Program Manager, " & vbCrLf &
-            "Stationary Source Permitting Program, Air Protection Branch, " & vbCrLf &
-            "4244 International Parkway, Suite 120, " & vbCrLf &
-            "Atlanta, Georgia 30354, (404) 363-7000" & vbCrLf & vbCrLf & vbCrLf &
-            "--------------------------------------------------" & vbCrLf
+        ' Public Notices section footer
+        rtfDocument.AppendLine("\pard\qj{\b ADDITIONAL INFORMATION:} The draft permits and permit amendments and all information used to develop the draft permits and permit ")
+        rtfDocument.AppendLine("amendments are available for review. This includes the application, all relevant supporting materials and all other materials available to the permitting ")
+        rtfDocument.AppendLine("authority used in the permit review process. This information is available for review at the office of the Air Protection Branch, 4244 International Parkway, ")
+        rtfDocument.AppendLine("Suite 120, Atlanta, Georgia 30354. ")
+        rtfDocument.AppendLine("Copies of the draft permits or permit amendments, narratives, and (in most cases) permit applications are also available at our Internet site ")
+        rtfDocument.AppendLine("{\ul https://epd.georgia.gov}. ")
+        rtfDocument.AppendLine("The direct link to the draft Title V permits and amendments is {\ul https://epd.georgia.gov/draft-title-v-permitsamendments-other-draft-permits}. Also available ")
+        rtfDocument.AppendLine("at this Internet site is a copy of the public notice, as it will appear in the legal organ of the county where the facility is located.\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("Persons wishing to comment on a draft Initial Title V Operating Permit, Title V Significant Modification, Title V Operating Permit Renewal, or other Title V ")
+        rtfDocument.AppendLine("Permit proceedings are required to submit their comments in writing. To comment, send written comments via email to epdcomments@dnr.ga.gov (include ")
+        rtfDocument.AppendLine("\ldblquote air permit application\rdblquote  in the subject line) or by mail to Eric Cornwell, 4244 International Parkway, Suite 120, Atlanta, Georgia 30354.\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("Comments must be received by no later than the deadline indicated for the particular facility. (Should the comment period end on a weekend or holiday, ")
+        rtfDocument.AppendLine("comments will be accepted up until the next working day.) All comments received on or prior to the deadline will be considered by the Division in making ")
+        rtfDocument.AppendLine("its final decision to issue the Title V permit or permit amendment.\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("Any comments requesting a public hearing must be made prior to the deadline and should specify, in as much detail as possible, the portion of the Georgia ")
+        rtfDocument.AppendLine("Rules for Air Quality Control or the Federal Rules which the individual making the request is concerned may not have been adequately incorporated. A public ")
+        rtfDocument.AppendLine("hearing may be held if the Director of the EPD finds that such a hearing would assist the EPD in a proper review of the facility's ability to comply with ")
+        rtfDocument.AppendLine("the Federal and State air quality regulations.\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("Issued (final) permits are available for public viewing at this link: {\ul https://permitsearch.gaepd.org/} \par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("For further information, contact Eric Cornwell, Program Manager, Stationary Source Permitting Program, Air Protection Branch, 4244 International Parkway, ")
+        rtfDocument.AppendLine("Suite 120, Atlanta, Georgia 30354, (404) 363-7000; eric.cornwell@dnr.ga.gov\par}")
+        rtfDocument.AppendLine("\par")
 
-        rtbPreview.Text = PublicAdvisories & TVAdvisories
-
-        FormatReport()
-
+        rtbPreview.Rtf = rtfDocument.ToString()
         btnPublishDocument.Enabled = True
-    End Sub
-
-    Private Sub FormatReport()
-        Using bfont As New Font(rtbPreview.Font, FontStyle.Bold),
-            ufont As New Font(rtbPreview.Font, FontStyle.Underline)
-
-            Dim tempStart As Integer
-            Dim tempEnd As Integer
-            Dim temp As String
-            Dim temp2 As String
-
-            Do While rtbPreview.Text.Contains("*X")
-                rtbPreview.SelectionStart = rtbPreview.Find("*X")
-                tempStart = rtbPreview.Find("*X")
-                tempEnd = rtbPreview.Find("X*")
-                temp = Mid(rtbPreview.Text, tempStart + 1, (tempEnd - tempStart) + 2)
-                temp2 = Replace(temp, "*X", "")
-                temp2 = Replace(temp2, "X*", "")
-                rtbPreview.SelectionStart = rtbPreview.Find(temp)
-                rtbPreview.SelectionFont = ufont
-                rtbPreview.SelectedText = temp2
-            Loop
-
-            If rtbPreview.Text.Contains("EPD PUBLIC ADVISORY") Then
-                rtbPreview.SelectionStart = rtbPreview.Find("EPD PUBLIC ADVISORY")
-                rtbPreview.SelectionAlignment = HorizontalAlignment.Center
-                rtbPreview.SelectionFont = bfont
-            End If
-
-            If rtbPreview.Text.Contains("GEORGIA AIR PROTECTION BRANCH") Then
-                rtbPreview.SelectionStart = rtbPreview.Find("GEORGIA AIR PROTECTION BRANCH")
-                rtbPreview.SelectionAlignment = HorizontalAlignment.Center
-                rtbPreview.SelectionFont = bfont
-            End If
-
-            If rtbPreview.Text.Contains("SIP PUBLIC ADVISORIES") Then
-                rtbPreview.SelectionStart = rtbPreview.Find("SIP PUBLIC ADVISORIES")
-                rtbPreview.SelectionFont = bfont
-            End If
-
-            If rtbPreview.Text.Contains("Any comments should be received by") Then
-                rtbPreview.SelectionStart = rtbPreview.Find("Any comments should be received by")
-                rtbPreview.SelectionFont = bfont
-            End If
-
-            If rtbPreview.Text.Contains("NO PUBLIC ADVISORIESX") Then
-                rtbPreview.SelectionStart = rtbPreview.Find("NO PUBLIC ADVISORIESX")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "NO PUBLIC ADVISORIES"
-            End If
-
-            Do While rtbPreview.Text.Contains("Facility Name:X")
-                rtbPreview.SelectionStart = rtbPreview.Find("Facility Name:X")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "Facility Name:"
-            Loop
-
-            Do While rtbPreview.Text.Contains("Application No:X")
-                rtbPreview.SelectionStart = rtbPreview.Find("Application No:X")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "Application No:"
-            Loop
-
-            Do While rtbPreview.Text.Contains("Facility Address:X")
-                rtbPreview.SelectionStart = rtbPreview.Find("Facility Address:X")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "Facility Address:"
-            Loop
-
-            Do While rtbPreview.Text.Contains("EPD Notice Type:X")
-                rtbPreview.SelectionStart = rtbPreview.Find("EPD Notice Type:X")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "EPD Notice Type:"
-            Loop
-
-            Do While rtbPreview.Text.Contains("Description of Operation:X")
-                rtbPreview.SelectionStart = rtbPreview.Find("Description of Operation:X")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "Description of Operation:"
-            Loop
-
-            Do While rtbPreview.Text.Contains("Reason for Application:X")
-                rtbPreview.SelectionStart = rtbPreview.Find("Reason for Application:X")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "Reason for Application:"
-            Loop
-
-            Do While rtbPreview.Text.Contains("Comment period/deadline for public hearing request expires on:X")
-                rtbPreview.SelectionStart = rtbPreview.Find("Comment period/deadline for public hearing request expires on:X")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "Comment period/deadline for public hearing request expires on:"
-            Loop
-
-            Do While rtbPreview.Text.Contains("Description of Requested Modification/Change:X")
-                rtbPreview.SelectionStart = rtbPreview.Find("Description of Requested Modification/Change:X")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "Description of Requested Modification/Change:"
-            Loop
-
-            Do While rtbPreview.Text.Contains("Emission Increase/Decrease:X")
-                rtbPreview.SelectionStart = rtbPreview.Find("Emission Increase/Decrease:X")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "Emission Increase/Decrease:"
-            Loop
-
-            If rtbPreview.Text.Contains("NOTICE OF DRAFT TITLE V OPERATING PERMITS AND PERMIT MODIFICATIONS") Then
-                rtbPreview.SelectionStart = rtbPreview.Find("NOTICE OF DRAFT TITLE V OPERATING PERMITS AND PERMIT MODIFICATIONS")
-                rtbPreview.SelectionAlignment = HorizontalAlignment.Center
-                rtbPreview.SelectionFont = bfont
-            End If
-
-            If rtbPreview.Text.Contains("GEORGIA ENVIRONMENTAL PROTECTION DIVISION") Then
-                rtbPreview.SelectionStart = rtbPreview.Find("GEORGIA ENVIRONMENTAL PROTECTION DIVISION")
-                rtbPreview.SelectionAlignment = HorizontalAlignment.Center
-                rtbPreview.SelectionFont = bfont
-            End If
-
-            Do While rtbPreview.Text.Contains("AIR PROTECTION BRANCHX")
-                rtbPreview.SelectionStart = rtbPreview.Find("AIR PROTECTION BRANCHX")
-                rtbPreview.SelectionAlignment = HorizontalAlignment.Center
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "AIR PROTECTION BRANCH"
-            Loop
-
-            If rtbPreview.Text.Contains("4244 INTERNATIONAL PARKWAY, SUITE 120, ATLANTA, GA 30354") Then
-                rtbPreview.SelectionStart = rtbPreview.Find("4244 INTERNATIONAL PARKWAY, SUITE 120, ATLANTA, GA 30354")
-                rtbPreview.SelectionAlignment = HorizontalAlignment.Center
-                rtbPreview.SelectionFont = bfont
-            End If
-
-            If rtbPreview.Text.Contains("INITIAL TITLE V OPERATING PERMITS") Then
-                rtbPreview.SelectionStart = rtbPreview.Find("INITIAL TITLE V OPERATING PERMITSX")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "INITIAL TITLE V OPERATING PERMITS"
-            End If
-
-            If rtbPreview.Text.Contains("RENEWAL TITLE V OPERATING PERMITS") Then
-                rtbPreview.SelectionStart = rtbPreview.Find("RENEWAL TITLE V OPERATING PERMITSX")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "RENEWAL TITLE V OPERATING PERMITS"
-            End If
-
-            If rtbPreview.Text.Contains("TITLE V SIGNIFICANT MODIFICATIONS") Then
-                rtbPreview.SelectionStart = rtbPreview.Find("TITLE V SIGNIFICANT MODIFICATIONSX")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "TITLE V SIGNIFICANT MODIFICATIONS"
-            End If
-
-            If rtbPreview.Text.Contains("NO TITLE V ADVISORIES") Then
-                rtbPreview.SelectionStart = rtbPreview.Find("NO TITLE V ADVISORIESX")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "NO TITLE V ADVISORIES"
-            End If
-
-            If rtbPreview.Text.Contains("ADDITIONAL INFORMATIONX:") Then
-                rtbPreview.SelectionStart = rtbPreview.Find("ADDITIONAL INFORMATIONX:")
-                rtbPreview.SelectionFont = bfont
-                rtbPreview.SelectedText = "ADDITIONAL INFORMATION:"
-            End If
-
-        End Using
     End Sub
 
     Private Sub GenerateFileName()
@@ -696,7 +384,7 @@ Public Class SSPPPublicNoticesAndAdvisories
             .CommentsDate = If(dtpExpirationDate.Checked, dtpExpirationDate.Value, Today)
         }
 
-        Dim Encoder As New Text.ASCIIEncoding
+        Dim Encoder As New ASCIIEncoding
         newDocument.SetFileData(Encoder.GetBytes(rtbPreview.Rtf))
 
         With newDocument
@@ -727,7 +415,6 @@ Public Class SSPPPublicNoticesAndAdvisories
             Return
         End If
 
-        ' TODO: Request filename/location
         Using dialog As New SaveFileDialog() With {
             .Filter = "PDF Files (*.pdf)|*.pdf",
             .DefaultExt = ".pdf",
@@ -872,42 +559,6 @@ Public Class SSPPPublicNoticesAndAdvisories
             ExportPDF(rtbDocument.Rtf, OpenedDocument.FileName)
         End If
     End Sub
-
-    'Private Sub btnUpdatePAPNChanges_Click(sender As Object, e As EventArgs) Handles btnUpdatePAPNChanges.Click
-    '    If OpenedDocument Is Nothing Then
-    '        Return
-    '    End If
-
-    '    With OpenedDocument
-    '        .ReviewingManager = If(.ReviewingManager, CurrentUser.UserID)
-    '        .PublishingStaff = If(.PublishingStaff, CurrentUser.UserID)
-    '        .DateReviewed = If(.DateReviewed, Today)
-    '        .DatePublished = If(.DateReviewed, Today)
-    '        .CommentsDate = If(.DateReviewed, Today)
-    '    End With
-
-    '    Dim query As String = "update SSPPPUBLICLETTERS
-    '        set DATPUBLISHEDDATE    = @DatePublished,
-    '            DATCOMMENTSDATE     = @CommentsDate,
-    '            DATREVIEWED         = @DateReviewed,
-    '            STRREVIEWINGMANAGER = @ReviewingManager,
-    '            STRPUBLISHINGSTAFF  = @PublishingStaff
-    '        where STRFILENAME = @FileName"
-
-    '    Dim params As SqlParameter() = {
-    '        New SqlParameter("@DatePublished", OpenedDocument.DatePublished),
-    '        New SqlParameter("@CommentsDate", OpenedDocument.CommentsDate),
-    '        New SqlParameter("@DateReviewed", OpenedDocument.DateReviewed),
-    '        New SqlParameter("@ReviewingManager", OpenedDocument.ReviewingManager),
-    '        New SqlParameter("@PublishingStaff", OpenedDocument.PublishingStaff)
-    '    }
-
-    '    If DB.RunCommand(query, params) Then
-    '        MessageBox.Show("Data updated.", "Success")
-    '    Else
-    '        MessageBox.Show("There was an error updating the data.", "Error")
-    '    End If
-    'End Sub
 
     Private Sub btnRefesh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         LoadPublicNoticesList()
