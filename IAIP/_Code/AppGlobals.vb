@@ -21,9 +21,8 @@ Module AppGlobals
 
     ' Network connection
 
-    Friend InternalIPAddress As IPAddress = Nothing
     Friend ExternalIPAddress As IPAddress = Nothing
-    Friend NetworkStatus As NetworkCheckResponse
+    Friend NetworkStatus As IaipNetworkStatus
 
     ' App info
 

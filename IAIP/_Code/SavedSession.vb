@@ -47,7 +47,7 @@ Public Module SavedSessions
 
     Private Sub SaveLocalSession(userId As Integer, token As String)
         Dim sc As New Specialized.StringCollection()
-        sc.Insert(0, userId)
+        sc.Insert(0, userId.ToString)
         sc.Insert(1, token)
         My.Settings.SavedSession = sc
     End Sub
