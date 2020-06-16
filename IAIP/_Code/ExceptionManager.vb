@@ -139,9 +139,11 @@ Friend Module ExceptionManager
     End Function
 
     Private Sub ShowNetworkDownSupportMessage()
-        Dim bgw As New BackgroundWorker
+        Dim nav As IAIPNavigation = CType(SingleForm(IAIPNavigation.Name), IAIPNavigation)
+        nav.CheckNetworkConnection()
 
-        AddHandler bgw.DoWork,
+        Using bgw As New BackgroundWorker
+            AddHandler bgw.DoWork,
             Sub()
                 Dim td As New TaskDialog With {
                     .Title = "Can't connect",
@@ -160,7 +162,8 @@ Friend Module ExceptionManager
                 td.Show()
             End Sub
 
-        bgw.RunWorkerAsync()
+            bgw.RunWorkerAsync()
+        End Using
     End Sub
 
     '-- 

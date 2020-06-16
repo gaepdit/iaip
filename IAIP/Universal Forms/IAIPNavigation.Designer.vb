@@ -1,9 +1,9 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class IAIPNavigation
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         If disposing AndAlso components IsNot Nothing Then
             components.Dispose()
@@ -17,10 +17,10 @@ Partial Class IAIPNavigation
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiExit = New System.Windows.Forms.MenuItem()
@@ -75,6 +75,7 @@ Partial Class IAIPNavigation
         Me.pnlProgram = New System.Windows.Forms.ToolStripStatusLabel()
         Me.pnlDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.pnlDbEnv = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.pnlConnectionStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.rdbAllView = New System.Windows.Forms.RadioButton()
         Me.rdbUnitView = New System.Windows.Forms.RadioButton()
         Me.rdbStaffView = New System.Windows.Forms.RadioButton()
@@ -89,6 +90,12 @@ Partial Class IAIPNavigation
         Me.cboNavWorkListContext = New System.Windows.Forms.ComboBox()
         Me.NavWorkListScopePanel = New System.Windows.Forms.Panel()
         Me.dgvWorkViewer = New Iaip.IaipDataGridView()
+        Me.pnlConnectionWarning = New System.Windows.Forms.Panel()
+        Me.lblNetworkCheckCountdown = New System.Windows.Forms.Label()
+        Me.btnRetryConnection = New System.Windows.Forms.Button()
+        Me.lblWarningHeader = New System.Windows.Forms.Label()
+        Me.lblConnectionWarning = New System.Windows.Forms.Label()
+        Me.bgrNetworkChecker = New System.ComponentModel.BackgroundWorker()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -96,6 +103,7 @@ Partial Class IAIPNavigation
         Me.NavWorkListChangerPanel.SuspendLayout()
         Me.NavWorkListScopePanel.SuspendLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlConnectionWarning.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainMenu1
@@ -576,10 +584,11 @@ Partial Class IAIPNavigation
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnlName, Me.pnlProgram, Me.pnlDate, Me.pnlDbEnv})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnlName, Me.pnlProgram, Me.pnlDate, Me.pnlDbEnv, Me.pnlConnectionStatus})
         Me.StatusStrip1.Location = New System.Drawing.Point(118, 374)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 10, 0)
+        Me.StatusStrip1.ShowItemToolTips = True
         Me.StatusStrip1.Size = New System.Drawing.Size(686, 24)
         Me.StatusStrip1.SizingGrip = False
         Me.StatusStrip1.Stretch = False
@@ -600,7 +609,7 @@ Partial Class IAIPNavigation
         Me.pnlProgram.Margin = New System.Windows.Forms.Padding(2, 3, 0, 2)
         Me.pnlProgram.Name = "pnlProgram"
         Me.pnlProgram.Padding = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.pnlProgram.Size = New System.Drawing.Size(504, 19)
+        Me.pnlProgram.Size = New System.Drawing.Size(485, 19)
         Me.pnlProgram.Spring = True
         Me.pnlProgram.Text = "Program"
         Me.pnlProgram.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -622,6 +631,13 @@ Partial Class IAIPNavigation
         Me.pnlDbEnv.Padding = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.pnlDbEnv.Size = New System.Drawing.Size(83, 19)
         Me.pnlDbEnv.Text = "Environment"
+        '
+        'pnlConnectionStatus
+        '
+        Me.pnlConnectionStatus.Name = "pnlConnectionStatus"
+        Me.pnlConnectionStatus.Size = New System.Drawing.Size(19, 19)
+        Me.pnlConnectionStatus.Text = "🌐"
+        Me.pnlConnectionStatus.ToolTipText = "Connected"
         '
         'rdbAllView
         '
@@ -753,8 +769,8 @@ Partial Class IAIPNavigation
         '
         'dgvWorkViewer
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvWorkViewer.ColumnHeadersHeight = 35
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
@@ -768,11 +784,73 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.StandardTab = True
         Me.dgvWorkViewer.TabIndex = 4
         '
+        'pnlConnectionWarning
+        '
+        Me.pnlConnectionWarning.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlConnectionWarning.BackColor = System.Drawing.Color.PapayaWhip
+        Me.pnlConnectionWarning.Controls.Add(Me.lblNetworkCheckCountdown)
+        Me.pnlConnectionWarning.Controls.Add(Me.btnRetryConnection)
+        Me.pnlConnectionWarning.Controls.Add(Me.lblWarningHeader)
+        Me.pnlConnectionWarning.Controls.Add(Me.lblConnectionWarning)
+        Me.pnlConnectionWarning.Location = New System.Drawing.Point(445, 17)
+        Me.pnlConnectionWarning.Name = "pnlConnectionWarning"
+        Me.pnlConnectionWarning.Size = New System.Drawing.Size(347, 188)
+        Me.pnlConnectionWarning.TabIndex = 265
+        Me.pnlConnectionWarning.Visible = False
+        '
+        'lblNetworkCheckCountdown
+        '
+        Me.lblNetworkCheckCountdown.AutoSize = True
+        Me.lblNetworkCheckCountdown.Location = New System.Drawing.Point(13, 157)
+        Me.lblNetworkCheckCountdown.Name = "lblNetworkCheckCountdown"
+        Me.lblNetworkCheckCountdown.Size = New System.Drawing.Size(143, 13)
+        Me.lblNetworkCheckCountdown.TabIndex = 2
+        Me.lblNetworkCheckCountdown.Text = "Trying again in 45 seconds..."
+        '
+        'btnRetryConnection
+        '
+        Me.btnRetryConnection.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnRetryConnection.AutoSize = True
+        Me.btnRetryConnection.BackColor = System.Drawing.Color.PapayaWhip
+        Me.btnRetryConnection.Location = New System.Drawing.Point(211, 151)
+        Me.btnRetryConnection.Name = "btnRetryConnection"
+        Me.btnRetryConnection.Size = New System.Drawing.Size(119, 25)
+        Me.btnRetryConnection.TabIndex = 1
+        Me.btnRetryConnection.Text = "Retry Now"
+        Me.btnRetryConnection.UseVisualStyleBackColor = False
+        '
+        'lblWarningHeader
+        '
+        Me.lblWarningHeader.AutoSize = True
+        Me.lblWarningHeader.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblWarningHeader.Location = New System.Drawing.Point(13, 10)
+        Me.lblWarningHeader.Name = "lblWarningHeader"
+        Me.lblWarningHeader.Size = New System.Drawing.Size(131, 17)
+        Me.lblWarningHeader.TabIndex = 0
+        Me.lblWarningHeader.Text = "Connection Error"
+        '
+        'lblConnectionWarning
+        '
+        Me.lblConnectionWarning.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblConnectionWarning.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblConnectionWarning.Location = New System.Drawing.Point(13, 39)
+        Me.lblConnectionWarning.Name = "lblConnectionWarning"
+        Me.lblConnectionWarning.Size = New System.Drawing.Size(317, 109)
+        Me.lblConnectionWarning.TabIndex = 0
+        Me.lblConnectionWarning.Text = "Unable to connect to the database. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Please wait a few minutes and try again. I" &
+    "f still unable to connect, please contact EPD-IT for support."
+        '
+        'bgrNetworkChecker
+        '
+        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(804, 398)
+        Me.Controls.Add(Me.pnlConnectionWarning)
         Me.Controls.Add(Me.dgvWorkViewer)
         Me.Controls.Add(Me.pnlCurrentList)
         Me.Controls.Add(Me.grpQuickAccess)
@@ -798,6 +876,8 @@ Partial Class IAIPNavigation
         Me.NavWorkListScopePanel.ResumeLayout(False)
         Me.NavWorkListScopePanel.PerformLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlConnectionWarning.ResumeLayout(False)
+        Me.pnlConnectionWarning.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -870,4 +950,11 @@ Partial Class IAIPNavigation
     Friend WithEvents RunTest2 As MenuItem
     Friend WithEvents lblResultsCount As Label
     Friend WithEvents mmiCheckForUpdates As MenuItem
+    Friend WithEvents pnlConnectionStatus As ToolStripStatusLabel
+    Friend WithEvents pnlConnectionWarning As Panel
+    Friend WithEvents btnRetryConnection As Button
+    Friend WithEvents lblConnectionWarning As Label
+    Friend WithEvents lblWarningHeader As Label
+    Friend WithEvents bgrNetworkChecker As System.ComponentModel.BackgroundWorker
+    Friend WithEvents lblNetworkCheckCountdown As Label
 End Class
