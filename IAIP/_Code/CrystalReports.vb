@@ -47,9 +47,8 @@ Module CrystalReports
     End Function
 
     Friend Sub ShowCrystalReportsSupportMessage()
-        Dim bgw As New BackgroundWorker
-
-        AddHandler bgw.DoWork,
+        Using bgw As New BackgroundWorker
+            AddHandler bgw.DoWork,
             Sub()
                 Dim td As New TaskDialog With {
                     .Title = "Crystal Reports Not Installed",
@@ -77,7 +76,8 @@ Module CrystalReports
                 td.Show()
             End Sub
 
-        bgw.RunWorkerAsync()
+            bgw.RunWorkerAsync()
+        End Using
     End Sub
 
 #End Region

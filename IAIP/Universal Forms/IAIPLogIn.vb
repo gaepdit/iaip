@@ -57,7 +57,7 @@ Public Class IAIPLogIn
 
     Private Async Sub CheckConnectionStatusAsync()
         Dim sessionLogin As Boolean = False
-        NetworkStatus = Await IaipNetworkTester.GetIaipNetworkStatusAsync().ConfigureAwait(False)
+        NetworkStatus = Await GetIaipNetworkStatusAsync().ConfigureAwait(False)
 
         If NetworkStatus = IaipNetworkStatus.Enabled Then
             sessionLogin = Await CheckUserSavedSessionAsync().ConfigureAwait(False)
@@ -241,7 +241,7 @@ Public Class IAIPLogIn
         End If
     End Sub
 
-    Private Async Sub LogInAlready()
+    Private Sub LogInAlready()
         Dim isVpn As Boolean = IsVpnConnected()
 
         ' Tag exception logger with new user

@@ -54,6 +54,7 @@ Public Class IAIPNavigation
 
             lblNetworkCheckCountdown.Text = "Trying again..."
             btnRetryConnection.Enabled = False
+            pnlConnectionWarning.BackColor = Color.LightGray
             CheckingNetwork = True
             bgrNetworkChecker.RunWorkerAsync()
         End If
@@ -70,11 +71,16 @@ Public Class IAIPNavigation
             Case IaipNetworkStatus.Enabled
                 pnlConnectionStatus.Text = "🌐"
                 pnlConnectionStatus.ToolTipText = "Connected"
+                AutoValidate = AutoValidate.Inherit
+                txtOpenFacilitySummary.AutoValidate = AutoValidate.EnableAllowFocusChange
 
             Case Else
                 pnlConnectionStatus.Text = "⛔"
                 pnlConnectionStatus.ToolTipText = "Connection Error"
                 btnRetryConnection.Enabled = True
+                pnlConnectionWarning.BackColor = Color.PapayaWhip
+                AutoValidate = AutoValidate.Disable
+                txtOpenFacilitySummary.AutoValidate = AutoValidate.Disable
                 StartNetworkCheckTimer()
                 BringToFront()
         End Select

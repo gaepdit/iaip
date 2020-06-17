@@ -811,7 +811,6 @@ Partial Class IAIPNavigation
         '
         Me.btnRetryConnection.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnRetryConnection.AutoSize = True
-        Me.btnRetryConnection.BackColor = System.Drawing.Color.PapayaWhip
         Me.btnRetryConnection.Location = New System.Drawing.Point(211, 151)
         Me.btnRetryConnection.Name = "btnRetryConnection"
         Me.btnRetryConnection.Size = New System.Drawing.Size(119, 25)

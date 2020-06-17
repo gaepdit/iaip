@@ -153,9 +153,17 @@ Friend Module ExceptionManager
                         "If you are working remotely, also check your VPN connection." & Environment.NewLine & Environment.NewLine &
                         "If you continue to receive this message, contact EPD-IT for support.",
                     .CommonButtons = TaskDialogCommonButtonFlags.OK,
-                    .Buttons = {},
-                    .UseCommandLinks = False
+                    .Buttons = {New TaskDialogButton(99, "Exit IAIP")},
+                    .UseCommandLinks = False,
+                    .DefaultButton = TaskDialogCommonButtonFlags.OK
                 }
+
+                AddHandler td.ButtonClicked,
+                Sub(sender As Object, e As ButtonClickedEventArgs)
+                    If e.ButtonId = 99 Then
+                        CloseIaip()
+                    End If
+                End Sub
 
                 ' when the task dialog is closed, it throws an unhandled exception that ends 
                 ' the background worker, but it still works as long as .Buttons is defined above
