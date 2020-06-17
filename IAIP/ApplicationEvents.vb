@@ -26,8 +26,9 @@ Namespace My
         Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) _
             Handles Me.UnhandledException
 
-            e.Exception.Data.AddAsUniqueIfExists("Sender", sender.ToString)
-            ExceptionManager.HandleUnhandledException(e.Exception, NameOf(MyApplication_UnhandledException))
+            ExceptionManager.ErrorReport(e.Exception, sender.ToString,
+                                         NameOf(MyApplication_UnhandledException), True,
+                                         e.ExitApplication)
         End Sub
 
     End Class

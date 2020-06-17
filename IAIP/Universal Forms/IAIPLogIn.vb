@@ -242,18 +242,10 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub LogInAlready()
-        Dim isVpn As Boolean = IsVpnConnected()
-
-        ' Tag exception logger with new user
-        ExceptionLogger.Tags.AddAsUniqueIfExists("IaipUser", CurrentUser.Username)
-        ExceptionLogger.Tags.AddAsUniqueIfExists("IaipUserID", CurrentUser.UserID.ToString)
-        ExceptionLogger.Tags.AddAsUniqueIfExists("ExternalIPAddress", ExternalIPAddress?.ToString())
-        ExceptionLogger.Tags.AddAsUniqueIfExists("IsVPN", isVpn.ToString)
-
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
         OpenSingleForm(IAIPNavigation)
-        DAL.LogSystemProperties(isVpn)
+        DAL.LogSystemProperties(IsVpnConnected())
 
         Close()
     End Sub

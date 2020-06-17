@@ -27,9 +27,9 @@ Partial Class ExceptionDialog
     'It can be modified using the Windows Form Designer.
     'Do not modify it using the code editor.
 
-    Friend WithEvents btnMore As System.Windows.Forms.Button
+    Friend WithEvents btnCopy As System.Windows.Forms.Button
     Friend WithEvents ActionMessage As System.Windows.Forms.TextBox
-    Friend WithEvents ErrorMessage As System.Windows.Forms.TextBox
+    Friend WithEvents ErrorDescription As System.Windows.Forms.TextBox
     Friend WithEvents ErrorDetails As System.Windows.Forms.TextBox
     Friend WithEvents ActionHeading As System.Windows.Forms.Label
     Friend WithEvents ErrorHeading As System.Windows.Forms.Label
@@ -42,8 +42,8 @@ Partial Class ExceptionDialog
         Me.ActionHeading = New System.Windows.Forms.Label()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.ErrorDetails = New System.Windows.Forms.TextBox()
-        Me.btnMore = New System.Windows.Forms.Button()
-        Me.ErrorMessage = New System.Windows.Forms.TextBox()
+        Me.btnCopy = New System.Windows.Forms.Button()
+        Me.ErrorDescription = New System.Windows.Forms.TextBox()
         Me.ActionMessage = New System.Windows.Forms.TextBox()
         Me.IntroMessage = New System.Windows.Forms.Label()
         Me.SuspendLayout()
@@ -55,7 +55,7 @@ Partial Class ExceptionDialog
         Me.ErrorHeading.Location = New System.Drawing.Point(12, 41)
         Me.ErrorHeading.Name = "ErrorHeading"
         Me.ErrorHeading.Size = New System.Drawing.Size(99, 13)
-        Me.ErrorHeading.TabIndex = 0
+        Me.ErrorHeading.TabIndex = 1
         Me.ErrorHeading.Text = "What happened:"
         '
         'ActionHeading
@@ -65,7 +65,7 @@ Partial Class ExceptionDialog
         Me.ActionHeading.Location = New System.Drawing.Point(12, 180)
         Me.ActionHeading.Name = "ActionHeading"
         Me.ActionHeading.Size = New System.Drawing.Size(104, 13)
-        Me.ActionHeading.TabIndex = 4
+        Me.ActionHeading.TabIndex = 3
         Me.ActionHeading.Text = "What you can do:"
         '
         'btnOK
@@ -73,7 +73,7 @@ Partial Class ExceptionDialog
         Me.btnOK.Location = New System.Drawing.Point(12, 316)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 24)
-        Me.btnOK.TabIndex = 2
+        Me.btnOK.TabIndex = 5
         Me.btnOK.Text = "OK"
         '
         'ErrorDetails
@@ -89,29 +89,29 @@ Partial Class ExceptionDialog
         Me.ErrorDetails.ReadOnly = True
         Me.ErrorDetails.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.ErrorDetails.Size = New System.Drawing.Size(410, 150)
-        Me.ErrorDetails.TabIndex = 3
+        Me.ErrorDetails.TabIndex = 7
         Me.ErrorDetails.Text = "(detailed information, such as exception details)"
         '
-        'btnMore
+        'btnCopy
         '
-        Me.btnMore.Location = New System.Drawing.Point(293, 316)
-        Me.btnMore.Name = "btnMore"
-        Me.btnMore.Size = New System.Drawing.Size(129, 24)
-        Me.btnMore.TabIndex = 0
-        Me.btnMore.Text = "Show error details >>"
+        Me.btnCopy.Location = New System.Drawing.Point(293, 316)
+        Me.btnCopy.Name = "btnCopy"
+        Me.btnCopy.Size = New System.Drawing.Size(129, 24)
+        Me.btnCopy.TabIndex = 6
+        Me.btnCopy.Text = "Copy error details >>"
         '
-        'ErrorMessage
+        'ErrorDescription
         '
-        Me.ErrorMessage.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.ErrorMessage.Enabled = False
-        Me.ErrorMessage.Location = New System.Drawing.Point(15, 57)
-        Me.ErrorMessage.Multiline = True
-        Me.ErrorMessage.Name = "ErrorMessage"
-        Me.ErrorMessage.ReadOnly = True
-        Me.ErrorMessage.Size = New System.Drawing.Size(407, 120)
-        Me.ErrorMessage.TabIndex = 7
-        Me.ErrorMessage.TabStop = False
-        Me.ErrorMessage.Text = "An error has occurred."
+        Me.ErrorDescription.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.ErrorDescription.Enabled = False
+        Me.ErrorDescription.Location = New System.Drawing.Point(15, 57)
+        Me.ErrorDescription.Multiline = True
+        Me.ErrorDescription.Name = "ErrorDescription"
+        Me.ErrorDescription.ReadOnly = True
+        Me.ErrorDescription.Size = New System.Drawing.Size(407, 120)
+        Me.ErrorDescription.TabIndex = 2
+        Me.ErrorDescription.TabStop = False
+        Me.ErrorDescription.Text = "An error has occurred."
         '
         'ActionMessage
         '
@@ -122,7 +122,7 @@ Partial Class ExceptionDialog
         Me.ActionMessage.Name = "ActionMessage"
         Me.ActionMessage.ReadOnly = True
         Me.ActionMessage.Size = New System.Drawing.Size(407, 114)
-        Me.ActionMessage.TabIndex = 7
+        Me.ActionMessage.TabIndex = 4
         Me.ActionMessage.TabStop = False
         Me.ActionMessage.Text = "Restart the IAIP and try repeating your last action."
         '
@@ -132,7 +132,7 @@ Partial Class ExceptionDialog
         Me.IntroMessage.Location = New System.Drawing.Point(12, 9)
         Me.IntroMessage.Name = "IntroMessage"
         Me.IntroMessage.Size = New System.Drawing.Size(263, 13)
-        Me.IntroMessage.TabIndex = 8
+        Me.IntroMessage.TabIndex = 0
         Me.IntroMessage.Text = "A copy of this error message has been sent to EPD-IT."
         '
         'ExceptionDialog
@@ -140,18 +140,20 @@ Partial Class ExceptionDialog
         Me.AcceptButton = Me.btnOK
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.ClientSize = New System.Drawing.Size(434, 508)
+        Me.ControlBox = False
         Me.Controls.Add(Me.IntroMessage)
-        Me.Controls.Add(Me.ActionMessage)
-        Me.Controls.Add(Me.ErrorMessage)
-        Me.Controls.Add(Me.btnMore)
-        Me.Controls.Add(Me.ErrorDetails)
-        Me.Controls.Add(Me.btnOK)
-        Me.Controls.Add(Me.ActionHeading)
         Me.Controls.Add(Me.ErrorHeading)
+        Me.Controls.Add(Me.ErrorDescription)
+        Me.Controls.Add(Me.ActionHeading)
+        Me.Controls.Add(Me.ActionMessage)
+        Me.Controls.Add(Me.btnOK)
+        Me.Controls.Add(Me.btnCopy)
+        Me.Controls.Add(Me.ErrorDetails)
         Me.Icon = Global.Iaip.My.Resources.Resources.WarningIcon
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(450, 0)
         Me.Name = "ExceptionDialog"
+        Me.ShowInTaskbar = False
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "IAIP has encountered a problem"
