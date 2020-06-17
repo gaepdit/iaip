@@ -8,7 +8,8 @@ Friend Module StartupShutdown
     ''' </summary>
     ''' <remarks> Called by MyApplication_Startup -> StartupShutdown.Init() </remarks>
     Friend Sub Init()
-        AddHandler Application.ThreadException, AddressOf ExceptionManager.ApplicationThreadException
+        AddHandler Application.ThreadException, AddressOf Application_ThreadException
+        AddHandler AppDomain.CurrentDomain.UnhandledException, AddressOf CurrentDomain_UnhandledException
 
         ' Updates: Should run each time program is updated
         If AppUpdater.JustUpdated Then
@@ -33,9 +34,6 @@ Friend Module StartupShutdown
 
         ' DB Environment
         SetUpDbServerEnvironment()
-
-        ' Start exception monitor
-        SetUpExceptionLogger()
 
         ' Initialize form settings
         AllFormSettings = GetAllFormSettings()
@@ -64,9 +62,6 @@ Friend Module StartupShutdown
         UpdateSession(False)
         CurrentUser = Nothing
         Array.Clear(AccountFormAccess, 0, AccountFormAccess.Length)
-        ' Remove username from analytics
-        ExceptionLogger.Tags.Remove("IaipUser")
-        ExceptionLogger.Tags.Remove("IaipUserID")
     End Sub
 
     Private Sub SetUpDbServerEnvironment()
@@ -80,13 +75,6 @@ Friend Module StartupShutdown
         DB = New EpdIt.DBHelper(CurrentConnectionString)
     End Sub
 
-    Private Sub SetUpExceptionLogger()
-        ExceptionLogger = New SharpRaven.RavenClient(SENTRY_DSN) With {
-            .Environment = CurrentServerEnvironment.ToString,
-            .Release = GetCurrentVersionAsMajorMinorBuild().ToString
-        }
-    End Sub
-
     Private Sub EnableTLS()
         ' Enable newer TLS protocols. This should be removed if the IAIP is transitioned to a 
         ' newer version of .NET Framework.
@@ -98,6 +86,16 @@ Friend Module StartupShutdown
         ' SecurityProtocolType Enum (System.Net) | Microsoft Docs
         ' https://docs.microsoft.com/en-us/dotnet/api/system.net.securityprotocoltype?view=netframework-4.5.2
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 Or SecurityProtocolType.Tls12
+    End Sub
+
+    Private Sub Application_ThreadException(sender As Object, e As Threading.ThreadExceptionEventArgs)
+        ErrorReport(e.Exception, sender.ToString, NameOf(Application_ThreadException), True, True)
+    End Sub
+
+    Private Sub CurrentDomain_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs)
+        ErrorReport(CType(e.ExceptionObject, Exception), sender.ToString,
+                    NameOf(CurrentDomain_UnhandledException), True,
+                    e.IsTerminating)
     End Sub
 
 End Module
