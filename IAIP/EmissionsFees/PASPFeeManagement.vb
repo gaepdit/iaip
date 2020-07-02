@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Collections.Generic
+Imports System.Text
 
 Public Class PASPFeeManagement
 
@@ -253,26 +254,26 @@ Public Class PASPFeeManagement
             dgvNSPSExemptionsByYear.AllowUserToDeleteRows = False
             dgvNSPSExemptionsByYear.AllowUserToOrderColumns = False
             dgvNSPSExemptionsByYear.AllowUserToResizeRows = False
-            dgvNSPSExemptionsByYear.ColumnHeadersHeight = "35"
+            dgvNSPSExemptionsByYear.ColumnHeadersHeight = 35
 
             dgvNSPSExemptionsByYear.Columns.Add("numFeeYear", "Year")
             dgvNSPSExemptionsByYear.Columns("numFeeYear").DisplayIndex = 0
-            dgvNSPSExemptionsByYear.Columns("numFeeYear").Width = (dgvNSPSExemptionsByYear.Width * 0.1)
+            dgvNSPSExemptionsByYear.Columns("numFeeYear").Width = CInt(Math.Floor(dgvNSPSExemptionsByYear.Width * 0.1))
             dgvNSPSExemptionsByYear.Columns("numFeeYear").Visible = True
 
             dgvNSPSExemptionsByYear.Columns.Add("NSPSReasonCode", "NSPS ID")
             dgvNSPSExemptionsByYear.Columns("NSPSReasonCode").DisplayIndex = 1
-            dgvNSPSExemptionsByYear.Columns("NSPSReasonCode").Width = (dgvNSPSExemptionsByYear.Width * 0.15)
+            dgvNSPSExemptionsByYear.Columns("NSPSReasonCode").Width = CInt(Math.Floor(dgvNSPSExemptionsByYear.Width * 0.15))
             dgvNSPSExemptionsByYear.Columns("NSPSReasonCode").ReadOnly = True
 
             dgvNSPSExemptionsByYear.Columns.Add("displayOrder", "Display Order")
             dgvNSPSExemptionsByYear.Columns("displayOrder").DisplayIndex = 2
-            dgvNSPSExemptionsByYear.Columns("displayOrder").Width = (dgvNSPSExemptionsByYear.Width * 0.15)
+            dgvNSPSExemptionsByYear.Columns("displayOrder").Width = CInt(Math.Floor(dgvNSPSExemptionsByYear.Width * 0.15))
             dgvNSPSExemptionsByYear.Columns("displayOrder").ReadOnly = False
 
             dgvNSPSExemptionsByYear.Columns.Add("Description", "NSPS Exemption Reason")
             dgvNSPSExemptionsByYear.Columns("Description").DisplayIndex = 3
-            dgvNSPSExemptionsByYear.Columns("Description").Width = (dgvNSPSExemptionsByYear.Width * 0.6)
+            dgvNSPSExemptionsByYear.Columns("Description").Width = CInt(Math.Floor(dgvNSPSExemptionsByYear.Width * 0.6))
             dgvNSPSExemptionsByYear.Columns("Description").ReadOnly = True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -291,95 +292,95 @@ Public Class PASPFeeManagement
             If IsDBNull(row.Cells(0).Value) Then
                 Return
             Else
-                txtFeeID.Text = row.Cells(0).Value
+                txtFeeID.Text = row.Cells(0).Value.ToString
             End If
             If IsDBNull(row.Cells(1).Value) Then
                 txtFeeYear.Clear()
             Else
-                txtFeeYear.Text = row.Cells(1).Value
+                txtFeeYear.Text = row.Cells(1).Value.ToString
             End If
             If IsDBNull(row.Cells(2).Value) Then
                 dtpFeePeriodStart.Value = Today
             Else
-                dtpFeePeriodStart.Text = row.Cells(2).Value
+                dtpFeePeriodStart.Text = row.Cells(2).Value.ToString
             End If
             If IsDBNull(row.Cells(3).Value) Then
                 dtpFeePeriodEnd.Value = Today
             Else
-                dtpFeePeriodEnd.Text = row.Cells(3).Value
+                dtpFeePeriodEnd.Text = row.Cells(3).Value.ToString
             End If
             If IsDBNull(row.Cells(4).Value) Then
                 txtTitleVfee.Clear()
             Else
-                txtTitleVfee.Text = row.Cells(4).Value
+                txtTitleVfee.Text = row.Cells(4).Value.ToString
             End If
             If IsDBNull(row.Cells(5).Value) Then
                 txtAnnualSMFee.Clear()
             Else
-                txtAnnualSMFee.Text = row.Cells(5).Value
+                txtAnnualSMFee.Text = row.Cells(5).Value.ToString
             End If
             If IsDBNull(row.Cells(7).Value) Then
                 txtAnnualNSPSFee.Clear()
             Else
-                txtAnnualNSPSFee.Text = row.Cells(7).Value
+                txtAnnualNSPSFee.Text = row.Cells(7).Value.ToString
             End If
             If IsDBNull(row.Cells(6).Value) Then
                 txtperTonRate.Clear()
             Else
-                txtperTonRate.Text = row.Cells(6).Value
+                txtperTonRate.Text = row.Cells(6).Value.ToString
             End If
             If IsDBNull(row.Cells(16).Value) Then
                 txtAttainmentThreshold.Clear()
             Else
-                txtAttainmentThreshold.Text = row.Cells(16).Value
+                txtAttainmentThreshold.Text = row.Cells(16).Value.ToString
             End If
             If IsDBNull(row.Cells(17).Value) Then
                 txtNonAttainmentThreshold.Clear()
             Else
-                txtNonAttainmentThreshold.Text = row.Cells(17).Value
+                txtNonAttainmentThreshold.Text = row.Cells(17).Value.ToString
             End If
 
             If IsDBNull(row.Cells(8).Value) Then
                 dtpFeeDueDate.Value = Today
             Else
-                dtpFeeDueDate.Text = row.Cells(8).Value
+                dtpFeeDueDate.Text = row.Cells(8).Value.ToString
             End If
             If IsDBNull(row.Cells(9).Value) Then
                 txtAdminFeePercent.Clear()
             Else
-                txtAdminFeePercent.Text = row.Cells(9).Value
+                txtAdminFeePercent.Text = row.Cells(9).Value.ToString
             End If
             If IsDBNull(row.Cells(10).Value) Then
                 dtpAdminApplicable.Value = Today
             Else
-                dtpAdminApplicable.Text = row.Cells(10).Value
+                dtpAdminApplicable.Text = row.Cells(10).Value.ToString
             End If
 
             If IsDBNull(row.Cells(11).Value) Then
                 dtpFirstQrtDue.Value = Today
             Else
-                dtpFirstQrtDue.Text = row.Cells(11).Value
+                dtpFirstQrtDue.Text = row.Cells(11).Value.ToString
             End If
             If IsDBNull(row.Cells(12).Value) Then
                 dtpSecondQrtDue.Value = Today
             Else
-                dtpSecondQrtDue.Text = row.Cells(12).Value
+                dtpSecondQrtDue.Text = row.Cells(12).Value.ToString
             End If
             If IsDBNull(row.Cells(13).Value) Then
                 dtpThirdQrtDue.Value = Today
             Else
-                dtpThirdQrtDue.Text = row.Cells(13).Value
+                dtpThirdQrtDue.Text = row.Cells(13).Value.ToString
             End If
             If IsDBNull(row.Cells(14).Value) Then
                 dtpFourthQrtDue.Value = Today
             Else
-                dtpFourthQrtDue.Text = row.Cells(14).Value
+                dtpFourthQrtDue.Text = row.Cells(14).Value.ToString
             End If
 
             If IsDBNull(row.Cells(15).Value) Then
                 txtFeeNotes.Clear()
             Else
-                txtFeeNotes.Text = row.Cells(15).Value
+                txtFeeNotes.Text = row.Cells(15).Value.ToString
             End If
         End If
     End Sub
@@ -409,7 +410,6 @@ Public Class PASPFeeManagement
 
     Private Sub LoadNSPSExemptionByYear()
         Try
-            Dim NSPStemp As String = ""
             Dim ReasonID As String = ""
             Dim DisplayOrder As String = ""
             Dim i As Integer = 1
@@ -424,21 +424,25 @@ Public Class PASPFeeManagement
             Dim p As New SqlParameter("@year", cboNSPSExemptionYear.Text)
 
             Dim dt As DataTable = DB.GetDataTable(SQL, p)
+            Dim sbNSPStemp As New StringBuilder()
+
             For Each dr As DataRow In dt.Rows
-                If IsDBNull(dr.Item("NSPSReasonCode")) Then
-                Else
-                    NSPStemp = NSPStemp & dr.Item("NSPSReasonCode")
+                If Not IsDBNull(dr.Item("NSPSReasonCode")) Then
+                    sbNSPStemp.Append(dr.Item("NSPSReasonCode").ToString)
+
                     If IsDBNull(dr.Item("DisplayOrder")) Then
-                        NSPStemp = NSPStemp & "-" & i & ","
+                        sbNSPStemp.Append("-" & i & ",")
                         i += 1
                     Else
-                        NSPStemp = NSPStemp & "-" & dr.Item("DisplayOrder") & ","
-                        If dr.Item("DisplayOrder") >= i Then
-                            i = dr.Item("DisplayOrder") + 1
+                        sbNSPStemp.Append("-" & dr.Item("DisplayOrder").ToString & ",")
+                        If CInt(dr.Item("DisplayOrder")) >= i Then
+                            i = CInt(dr.Item("DisplayOrder")) + 1
                         End If
                     End If
                 End If
             Next
+
+            Dim NSPStemp As String = sbNSPStemp.ToString
 
             dgvNSPSExemptionsByYear.Rows.Clear()
 
@@ -491,9 +495,9 @@ Public Class PASPFeeManagement
             i = dgvNSPSExemptionsByYear.Rows.Count
 
             If i > 0 Then
-                temp = dgvNSPSExemptions(0, dgvNSPSExemptions.CurrentRow.Index).Value
+                temp = dgvNSPSExemptions(0, dgvNSPSExemptions.CurrentRow.Index).Value.ToString
                 For i = 0 To dgvNSPSExemptionsByYear.Rows.Count - 1
-                    If dgvNSPSExemptionsByYear(1, i).Value = temp Then
+                    If dgvNSPSExemptionsByYear(1, i).Value.ToString = temp Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -553,7 +557,7 @@ Public Class PASPFeeManagement
     Private Sub btnUnselectForm_Click(sender As Object, e As EventArgs) Handles btnUnselectForm.Click
         Try
             If dgvNSPSExemptionsByYear.RowCount > 0 Then
-                Dim ReasonID As String = dgvNSPSExemptionsByYear(1, dgvNSPSExemptionsByYear.CurrentRow.Index).Value
+                Dim ReasonID As String = dgvNSPSExemptionsByYear(1, dgvNSPSExemptionsByYear.CurrentRow.Index).Value.ToString
 
                 Dim SQL As String = "SELECT COUNT(*) " &
                     " FROM FS_FEEDATA " &
@@ -591,38 +595,33 @@ Public Class PASPFeeManagement
 
         Try
             Dim x As Integer = 0
-            Dim ReasonID As String
-            Dim Order As String
+            Dim ReasonID As Integer
+            Dim Order As Integer
             Dim temp As String = ""
-            Dim ExistingID As String = ""
+            Dim sbExistingID As New StringBuilder()
             Dim SQL As String
 
-            SQL = "Select " &
-            "NSPSReasonCode " &
-            "from FSLK_NSPSReasonYear " &
-            "where numFeeYear = @year "
+            SQL = "Select NSPSReasonCode from FSLK_NSPSReasonYear where numFeeYear = @year "
             Dim p As New SqlParameter("@year", cboNSPSExemptionYear.Text)
 
             Dim dt As DataTable = DB.GetDataTable(SQL, p)
+
             For Each dr As DataRow In dt.Rows
-                If IsDBNull(dr.Item("NSPSReasonCode")) Then
-                Else
-                    ExistingID = ExistingID & "(" & dr.Item("NSPSReasonCode") & ")"
+                If Not IsDBNull(dr.Item("NSPSReasonCode")) Then
+                    sbExistingID.Append("(" & dr.Item("NSPSReasonCode").ToString & ")")
                 End If
             Next
 
+            Dim ExistingID As String = sbExistingID.ToString
+
             While x < dgvNSPSExemptionsByYear.Rows.Count
-                ReasonID = dgvNSPSExemptionsByYear(1, x).Value
-                Order = dgvNSPSExemptionsByYear(2, x).Value
+                ReasonID = CInt(dgvNSPSExemptionsByYear(1, x).Value)
+                Order = CInt(dgvNSPSExemptionsByYear(2, x).Value)
                 x += 1
 
-                SQL = "Select " &
-                "DisplayOrder " &
-                "from FSLK_NSPSReasonYear " &
-                "where numFeeYear = @year " &
-                "and NSPSReasonCode = @reasoncode "
+                SQL = "Select DisplayOrder from FSLK_NSPSReasonYear where numFeeYear = @year and NSPSReasonCode = @reasoncode "
                 Dim p2 As SqlParameter() = {
-                    New SqlParameter("@year", cboNSPSExemptionYear.Text),
+                    New SqlParameter("@year", cint(cboNSPSExemptionYear.Text)),
                     New SqlParameter("@reasoncode", ReasonID)
                 }
                 Dim dr As DataRow = DB.GetDataRow(SQL, p2)
@@ -631,28 +630,30 @@ Public Class PASPFeeManagement
                     If IsDBNull(dr.Item("DisplayOrder")) Then
                         temp = "NULL"
                     Else
-                        temp = dr.Item("DisplayOrder")
+                        temp = dr.Item("DisplayOrder").ToString
                     End If
                 End If
 
-                If temp <> Order Then
+                If temp <> Order.ToString Then
                     Select Case temp
                         Case ""
-                            Insert_FSLK_NSPSReasonYear(cboNSPSExemptionYear.Text, ReasonID, Order)
+                            Insert_FSLK_NSPSReasonYear(CInt(cboNSPSExemptionYear.Text), ReasonID, Order)
                         Case Else
-                            Update_FSLK_NSPSReasonYear(cboNSPSExemptionYear.Text, ReasonID, Order, "1")
+                            Update_FSLK_NSPSReasonYear(CInt(cboNSPSExemptionYear.Text), ReasonID, Order, True)
                     End Select
                 End If
+
                 ExistingID = Replace(ExistingID, ("(" & ReasonID & ")"), "")
             End While
 
             If ExistingID <> "" Then
                 Do While ExistingID <> ""
-                    ReasonID = Mid(ExistingID, InStr(ExistingID, "(", CompareMethod.Text) + 1, InStr(ExistingID, ")", CompareMethod.Text) - 2)
+                    ReasonID = CInt(Mid(ExistingID, InStr(ExistingID, "(", CompareMethod.Text) + 1, InStr(ExistingID, ")", CompareMethod.Text) - 2))
                     ExistingID = Replace(ExistingID, ("(" & ReasonID & ")"), "")
-                    Update_FSLK_NSPSReasonYear(cboNSPSExemptionYear.Text, ReasonID, "0", "0")
+                    Update_FSLK_NSPSReasonYear(CInt(cboNSPSExemptionYear.Text), ReasonID, 0, False)
                 Loop
             End If
+
             LoadFeeYears()
             MessageBox.Show("Update Complete", Me.Text, MessageBoxButtons.OK)
 
@@ -733,15 +734,12 @@ Public Class PASPFeeManagement
 
     Private Sub btnFirstEnrollment_Click(sender As Object, e As EventArgs) Handles btnFirstEnrollment.Click
         Try
-            Dim EnrollCheck As String = ""
-            Dim SQL As String
-
             If cboAvailableFeeYears.Text = "" Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Select a fee year first.", MsgBoxStyle.Exclamation, Me.Text)
                 Return
             End If
 
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "count(*) as EnrollCheck " &
             "from FS_Admin " &
             "where numFeeYear = @year " &
@@ -750,13 +748,12 @@ Public Class PASPFeeManagement
             Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            If dr IsNot Nothing Then
-                If IsDBNull(dr.Item("EnrollCheck")) Then
-                    EnrollCheck = "0"
-                Else
-                    EnrollCheck = dr.Item("EnrollCheck")
-                End If
+            Dim EnrollCheck As Integer = 0
+
+            If dr IsNot Nothing AndAlso Not IsDBNull(dr.Item("EnrollCheck")) Then
+                EnrollCheck = CInt(dr.Item("EnrollCheck"))
             End If
+
             If EnrollCheck > 0 Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "There are already facilities enrolled for this fee year.",
                         MsgBoxStyle.Exclamation, Me.Text)
@@ -808,7 +805,7 @@ Public Class PASPFeeManagement
                 Return
             End If
 
-            If cboAvailableFeeYears.Text < (Today.Year - 1) Then
+            If CInt(cboAvailableFeeYears.Text) < (Today.Year - 1) Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Only Current and last Fee Years are eligible to be unenrolled.",
                         MsgBoxStyle.Exclamation, Me.Text)
                 Return
@@ -950,25 +947,21 @@ Public Class PASPFeeManagement
 
     Private Sub btnGenerateMailoutList_Click(sender As Object, e As EventArgs) Handles btnGenerateMailoutList.Click
         Try
-            Dim temp As String = ""
-            Dim SQL As String
 
             If cboAvailableFeeYears.Text = "" OrElse Not IsNumeric(cboAvailableFeeYears.Text) Then
                 MsgBox("Select a valid fee year first.", MsgBoxStyle.Exclamation, Me.Text)
                 Return
             End If
 
-            SQL = "select count(*) as ContactTotals " &
+            Dim SQL As String = "select count(*) as ContactTotals " &
                 "from FS_MailOut " &
                 "where numfeeyear = @year "
             Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
-            If dr IsNot Nothing Then
-                If IsDBNull(dr.Item("ContactTotals")) Then
-                    temp = "0"
-                Else
-                    temp = dr.Item("ContactTotals")
-                End If
+            Dim temp As Integer = 0
+
+            If dr IsNot Nothing AndAlso Not IsDBNull(dr.Item("ContactTotals")) Then
+                temp = CInt(dr.Item("ContactTotals"))
             End If
 
             If temp < 1 Then
@@ -1159,12 +1152,12 @@ Public Class PASPFeeManagement
             If IsDBNull(row.Cells(0).Value) Then
                 Return
             Else
-                txtDeleteNSPSExemptions.Text = row.Cells(0).Value
+                txtDeleteNSPSExemptions.Text = row.Cells(0).Value.ToString
             End If
             If IsDBNull(row.Cells(1).Value) Then
                 txtNSPSExemption.Clear()
             Else
-                txtNSPSExemption.Text = row.Cells(1).Value
+                txtNSPSExemption.Text = row.Cells(1).Value.ToString
             End If
         End If
     End Sub
@@ -1346,72 +1339,16 @@ Public Class PASPFeeManagement
                           ThridQrtDue As String, FourthQrtDue As String, AAThres As String,
                           NAThres As String) As Boolean
         Try
-            If IsNumeric(FeeRateID) Then
-            Else
+            If Not IsNumeric(FeeRateID) OrElse
+                Not IsNumeric(FeeYear) OrElse
+                Not IsNumeric(Part70Fee) OrElse
+                Not IsNumeric(SMFee) OrElse
+                Not IsNumeric(PerTonRate) OrElse
+                Not IsNumeric(NSPSFee) OrElse
+                Not IsNumeric(AdminFee) OrElse
+                Not IsNumeric(AAThres) OrElse
+                Not IsNumeric(NAThres) Then
                 Return False
-            End If
-
-            If IsDBNull(FeeYear) OrElse FeeYear = "" Then
-                Return False
-            Else
-                If IsNumeric(FeeYear) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(Part70Fee) OrElse Part70Fee = "" Then
-            Else
-                If IsNumeric(Part70Fee) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(SMFee) OrElse SMFee = "" Then
-            Else
-                If IsNumeric(SMFee) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(PerTonRate) OrElse PerTonRate = "" Then
-            Else
-                If IsNumeric(PerTonRate) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(NSPSFee) OrElse NSPSFee = "" Then
-            Else
-                If IsNumeric(NSPSFee) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(AdminFee) OrElse AdminFee = "" Then
-            Else
-                If IsNumeric(AdminFee) Then
-                Else
-                    Return False
-                End If
-            End If
-            If IsDBNull(AAThres) OrElse AAThres = "" Then
-            Else
-                If IsNumeric(AAThres) Then
-                Else
-                    Return False
-                End If
-            End If
-            If IsDBNull(NAThres) OrElse NAThres = "" Then
-            Else
-                If IsNumeric(NAThres) Then
-                Else
-                    Return False
-                End If
             End If
 
             Dim SQL As String = "Update FS_FeeRate set " &
@@ -1519,7 +1456,7 @@ Public Class PASPFeeManagement
         End Try
     End Function
 
-    Private Function Insert_FSLK_NSPSReasonYear(numFeeYear As String, NSPSReasonCode As String, DisplayOrder As String) As Boolean
+    Private Function Insert_FSLK_NSPSReasonYear(numFeeYear As Integer, NSPSReasonCode As Integer, DisplayOrder As Integer) As Boolean
         Try
             Dim SQL As String = "Insert into FSLK_NSPSReasonYear " &
                 " ( NUMFEEYEAR, NSPSREASONCODE, DISPLAYORDER, ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME ) " &
@@ -1538,8 +1475,8 @@ Public Class PASPFeeManagement
         End Try
     End Function
 
-    Private Function Update_FSLK_NSPSReasonYear(numFeeYear As String, NSPSReasonCode As String, DisplayOrder As String,
-                                       ActiveStatus As String) As Boolean
+    Private Function Update_FSLK_NSPSReasonYear(numFeeYear As Integer, NSPSReasonCode As Integer, DisplayOrder As Integer,
+                                       ActiveStatus As Boolean) As Boolean
         Try
             Dim SQL As String = "Update FSLK_NSPSReasonYear set " &
                 "DisplayOrder = @DisplayOrder, " &
@@ -1550,7 +1487,7 @@ Public Class PASPFeeManagement
                 "and NSPSReasonCode = @NSPSReasonCode "
             Dim p As SqlParameter() = {
                 New SqlParameter("@DisplayOrder", DisplayOrder),
-                New SqlParameter("@Active", ActiveStatus),
+                New SqlParameter("@Active", If(ActiveStatus, "1", "0")),
                 New SqlParameter("@updateUser", CurrentUser.UserID),
                 New SqlParameter("@numFeeYear", numFeeYear),
                 New SqlParameter("@NSPSReasonCode", NSPSReasonCode)
