@@ -150,7 +150,7 @@ Namespace DAL.Sscp
                             "    ) AS NEWKEY " &
                             "  , STRAIRSNUMBER " &
                             "  , @targetyear " &
-                            "  , NUMSSCPENGINEER " &
+                            "  , ISNULL(NUMSSCPENGINEER, 0 ) " &
                             "  , NUMSSCPUNIT " &
                             "  , STRINSPECTIONREQUIRED " &
                             "  , STRFCEREQUIRED " &

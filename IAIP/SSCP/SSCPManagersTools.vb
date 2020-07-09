@@ -1977,7 +1977,7 @@ Public Class SSCPManagersTools
                         SqlFilter.Add(" STRFACILITYNAME LIKE @search1 ")
                         ParamList.Add(New SqlParameter("@search1", "%" & txtFacSearch1.Text & "%"))
                     Case "Unassigned Facilities"
-                        SqlFilter.Add(" NUMSSCPENGINEER is null ")
+                        SqlFilter.Add(" NUMSSCPENGINEER = 0 ")
                     Case "Operational Status"
                         SqlFilter.Add(" STROPERATIONALSTATUS = @search1 ")
                         ParamList.Add(New SqlParameter("@search1", cboOpStatus1.Text))
@@ -2018,7 +2018,7 @@ Public Class SSCPManagersTools
                         SqlFilter.Add(" STRFACILITYNAME LIKE @search2 ")
                         ParamList.Add(New SqlParameter("@search2", "%" & txtFacSearch2.Text & "%"))
                     Case "Unassigned Facilities"
-                        SqlFilter.Add(" NUMSSCPENGINEER is null ")
+                        SqlFilter.Add(" NUMSSCPENGINEER = 0 ")
                     Case "Operational Status"
                         SqlFilter.Add(" STROPERATIONALSTATUS = @search2 ")
                         ParamList.Add(New SqlParameter("@search2", cboOpStatus2.Text))
@@ -2633,7 +2633,7 @@ Public Class SSCPManagersTools
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
-                DAL.Sscp.SetFacilityStaffAssignment(New Apb.ApbFacilityId(row.Cells(0).Value.ToString), CInt(cboFiscalYear.Text), Nothing, CurrentUser.UserID)
+                DAL.Sscp.SetFacilityStaffAssignment(New Apb.ApbFacilityId(row.Cells(0).Value.ToString), CInt(cboFiscalYear.Text), 0, CurrentUser.UserID)
                 row.Cells(2).Value = Nothing
             Next
 
