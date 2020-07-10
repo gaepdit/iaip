@@ -9,13 +9,17 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.17.1 <span>(2020-06-05)</span>
+
+Rewrite the Public Notice document.
+
 ## Version 5.17.0 <span>(2020-05-26)</span>
 
 Improved app update experience.
 
 ## Version 5.16.4 <span>(2020-05-01)</span>
 
-Updated the text in the permit fees email template.
+Updated the text in the permit fees instructions email.
 
 ## Version 5.16.3 <span>(2020-04-28)</span>
 
