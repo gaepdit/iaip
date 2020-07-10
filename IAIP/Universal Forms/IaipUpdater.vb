@@ -15,16 +15,20 @@ Public Class IaipUpdater
         AddHandler ad.UpdateCompleted, AddressOf ad_UpdateCompleted
         AddHandler ad.UpdateProgressChanged, AddressOf ad_UpdateProgressChanged
 
+        SetTaskbarProgressState(Handle, TaskbarState.Normal)
         ad.UpdateAsync()
     End Sub
 
     Private Sub ad_UpdateProgressChanged(sender As Object, e As DeploymentProgressChangedEventArgs)
         downloadProgress.Value = e.ProgressPercentage
+        SetTaskbarProgressValue(Handle, e.ProgressPercentage, 100)
     End Sub
 
     Private Sub ad_UpdateCompleted(sender As Object, e As AsyncCompletedEventArgs)
         If e.Cancelled Then
             downloadProgress.Visible = False
+            SetTaskbarProgressState(Handle, TaskbarState.Paused)
+
             updaterStatus.Text = "The IAIP update was cancelled."
             updaterButton.Text = "Close"
             updaterButton.Focus()
@@ -33,6 +37,9 @@ Public Class IaipUpdater
         End If
 
         If e.Error IsNot Nothing Then
+            downloadProgress.Visible = False
+            SetTaskbarProgressState(Handle, TaskbarState.Error)
+
             If TypeOf e.Error Is DeploymentDownloadException Then
                 updaterStatus.Text = "Network Error: Could not install the latest IAIP version right now. " & vbNewLine &
                     "Please check your network connection or try again later."
@@ -42,7 +49,6 @@ Public Class IaipUpdater
                     "Error Message: " & vbNewLine & e.Error.Message
             End If
 
-            downloadProgress.Visible = False
             updaterButton.Text = "Close"
             updaterButton.Focus()
 
@@ -52,7 +58,7 @@ Public Class IaipUpdater
         Application.Restart()
     End Sub
 
-    Private Sub cancelUpdate_Click(sender As Object, e As EventArgs) Handles updaterButton.Click
+    Private Sub updaterButton_Click(sender As Object, e As EventArgs) Handles updaterButton.Click
         If updaterButton.Text = "Cancel" Then
             ad.UpdateAsyncCancel()
             Return
