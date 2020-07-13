@@ -10,7 +10,6 @@ Module AppGlobals
 
     Friend CurrentServerEnvironment As ServerEnvironment = ServerEnvironment.Production
     Friend DB As EpdIt.DBHelper
-    Friend ExceptionLogger As SharpRaven.RavenClient
 
     ' User info
 
@@ -21,9 +20,8 @@ Module AppGlobals
 
     ' Network connection
 
-    Friend InternalIPAddress As IPAddress = Nothing
     Friend ExternalIPAddress As IPAddress = Nothing
-    Friend NetworkStatus As NetworkCheckResponse
+    Friend NetworkStatus As IaipNetworkStatus
 
     ' App info
 
@@ -42,7 +40,6 @@ Module AppGlobals
 
     ' API keys
 
-    Friend ReadOnly SENTRY_DSN As String = ConfigurationManager.AppSettings("SENTRY_DSN")
     Friend ReadOnly GOOGLE_MAPS_API_KEY As String = ConfigurationManager.AppSettings("GOOGLE_MAPS_API_KEY")
 
     ' String formats 

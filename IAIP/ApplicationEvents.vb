@@ -13,19 +13,22 @@ Namespace My
 
         Private Sub MyApplication_Startup(sender As Object, e As StartupEventArgs) _
             Handles Me.Startup
+
             StartupShutdown.Init()
         End Sub
 
         Private Sub MyApplication_Shutdown(sender As Object, e As EventArgs) _
             Handles Me.Shutdown
+
             StartupShutdown.Finish()
         End Sub
 
         Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) _
             Handles Me.UnhandledException
 
-            e.Exception.Data.AddAsUniqueIfExists("Sender", sender.ToString)
-            ExceptionManager.HandleUnhandledException(e.Exception, NameOf(MyApplication_UnhandledException))
+            ExceptionManager.ErrorReport(e.Exception, sender.ToString,
+                                         NameOf(MyApplication_UnhandledException), True,
+                                         e.ExitApplication)
         End Sub
 
     End Class

@@ -12,7 +12,7 @@
     Private Sub RunSearch()
         Try
             Dim SQL As String
-            Dim FeeYearSQL As String = ""
+            Dim FeeYearSqlSb As New Text.StringBuilder()
             Dim OpStatus As String = ""
             Dim AIRSNumber As String = ""
             Dim FacilityName As String = ""
@@ -22,52 +22,54 @@
             For y As Integer = 0 To clbFeeYear.Items.Count - 1
                 If clbFeeYear.GetItemChecked(y) Then
                     clbFeeYear.SelectedIndex = y
-                    FeeYearSQL = FeeYearSQL & " a.numFeeYear = '" & clbFeeYear.Items(y).ToString & "' or "
+                    FeeYearSqlSb.Append(" a.numFeeYear = '" & clbFeeYear.Items(y).ToString & "' or ")
                 End If
             Next
+            Dim FeeYearSQL As String = FeeYearSqlSb.ToString
             If FeeYearSQL <> "" Then
                 FeeYearSQL = " (" & Mid(FeeYearSQL, 1, (FeeYearSQL.Length) - 3) & " ) "
             End If
+
             If chbOperating.Checked Then
                 If OpStatus = "" Then
                     OpStatus = " stroperationalstatus = 'O' "
                 Else
-                    OpStatus = OpStatus & " or stroperationalstatus = 'O' "
+                    OpStatus &= " or stroperationalstatus = 'O' "
                 End If
             End If
             If chbClosed.Checked Then
                 If OpStatus = "" Then
                     OpStatus = " stroperationalstatus = 'X' "
                 Else
-                    OpStatus = OpStatus & " or stroperationalstatus = 'X' "
+                    OpStatus &= " or stroperationalstatus = 'X' "
                 End If
             End If
             If chbPlanned.Checked Then
                 If OpStatus = "" Then
                     OpStatus = " stroperationalstatus = 'P' "
                 Else
-                    OpStatus = OpStatus & " or stroperationalstatus = 'P' "
+                    OpStatus &= " or stroperationalstatus = 'P' "
                 End If
             End If
             If chbConstruction.Checked Then
                 If OpStatus = "" Then
                     OpStatus = " stroperationalstatus = 'C' "
                 Else
-                    OpStatus = OpStatus & " or stroperationalstatus = 'C' "
+                    OpStatus &= " or stroperationalstatus = 'C' "
                 End If
             End If
             If chbSeasonal.Checked Then
                 If OpStatus = "" Then
                     OpStatus = " stroperationalstatus = 'I' "
                 Else
-                    OpStatus = OpStatus & " or stroperationalstatus = 'I' "
+                    OpStatus &= " or stroperationalstatus = 'I' "
                 End If
             End If
             If chbTempClosed.Checked Then
                 If OpStatus = "" Then
                     OpStatus = " stroperationalstatus = 'T' "
                 Else
-                    OpStatus = OpStatus & " or stroperationalstatus = 'T' "
+                    OpStatus &= " or stroperationalstatus = 'T' "
                 End If
             End If
             If OpStatus <> "" Then
@@ -77,7 +79,7 @@
                 AIRSNumber = " a.strAIRSNumber like '%" & mtbSearchAirsNumber.Text & "%' "
             End If
             If txtSearchFacilityName.Text <> "" Then
-                FacilityName = " a.strFacilityName like '%" & txtSearchFacilityName.Text & "%' "
+                FacilityName = " f.strFacilityName like '%" & txtSearchFacilityName.Text & "%' "
             End If
             If chbOwesFees.Checked Then
                 CollectionStatus = " numCurrentStatus < 10 "

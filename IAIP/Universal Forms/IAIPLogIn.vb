@@ -55,53 +55,44 @@ Public Class IAIPLogIn
         End If
     End Sub
 
-    Private Enum ConnectionStatus
-        NotSet
-        NoNetwork
-        NoVpn
-        NoDB
-        SessionLogin
-        None
-    End Enum
-
     Private Async Sub CheckConnectionStatusAsync()
-        Dim status As ConnectionStatus = ConnectionStatus.None
-        NetworkStatus = Await CheckNetworkAsync().ConfigureAwait(False)
+        Dim sessionLogin As Boolean = False
+        NetworkStatus = Await GetIaipNetworkStatusAsync().ConfigureAwait(False)
 
-        If NetworkStatus = NetworkCheckResponse.NoNetwork Then
-            status = ConnectionStatus.NoNetwork
-        ElseIf NetworkStatus = NetworkCheckResponse.OutOfNetwork Then
-            status = ConnectionStatus.NoVpn
-        ElseIf Not Await CheckDBAvailabilityAsync().ConfigureAwait(False) Then
-            status = ConnectionStatus.NoDB
-        ElseIf Await CheckUserSavedSessionAsync().ConfigureAwait(False) Then
-            status = ConnectionStatus.SessionLogin
+        If NetworkStatus = IaipNetworkStatus.Enabled Then
+            sessionLogin = Await CheckUserSavedSessionAsync().ConfigureAwait(False)
         End If
 
         synchronizationContext.Post(
             New SendOrPostCallback(
             Sub()
-                SetUpLoginUi(status)
+                SetUpLoginUi(sessionLogin)
             End Sub
-            ), status)
+            ), sessionLogin)
     End Sub
 
-    Private Sub SetUpLoginUi(status As ConnectionStatus)
-        Select Case status
-            Case ConnectionStatus.NoNetwork
+    Private Sub SetUpLoginUi(sessionLogin As Boolean)
+        If sessionLogin Then
+            LogInAlready()
+        End If
+
+        Select Case NetworkStatus
+            Case IaipNetworkStatus.NoInternet
                 DisableLogin("It appears you are not connected to the Internet. " &
                              "Please check your connection and try again.")
-            Case ConnectionStatus.NoVpn
+            Case IaipNetworkStatus.NoVpn
                 DisableLogin("It appears you are not connected to the VPN. " &
                              "If you are working remotely, you must " &
-                             "connect to the VPN before using the IAIP. ")
-            Case ConnectionStatus.NoDB
+                             "connect to the VPN before using the IAIP.")
+            Case IaipNetworkStatus.NoDb
                 DisableLogin("Unable to connect to the database. " &
                              "Please wait a few minutes and try again. " &
-                             "If still unable to connect, please contact EPD-IT for support. ")
-            Case ConnectionStatus.SessionLogin
-                LogInAlready(NetworkStatus)
-            Case ConnectionStatus.None
+                             "If still unable to connect, please contact EPD-IT for support.")
+            Case IaipNetworkStatus.AppDisabled
+                DisableLogin("The IAIP is temporarily down for maintenance. " &
+                             "Please wait a few minutes and try again or " &
+                             "contact EPD-IT for more information.")
+            Case Else
                 EnableLogin()
         End Select
     End Sub
@@ -195,14 +186,6 @@ Public Class IAIPLogIn
         End If
     End Sub
 
-    Private Shared Async Function CheckDBAvailabilityAsync() As Task(Of Boolean)
-        Return Await Task.Run(
-            Function()
-                Return DAL.AppIsEnabled()
-            End Function
-            ).ConfigureAwait(False)
-    End Function
-
     Private Sub RetryButton_Click(sender As Object, e As EventArgs) Handles RetryButton.Click
         DisableLogin("Connecting...", True)
         CheckConnectionStatusAsync()
@@ -251,25 +234,19 @@ Public Class IAIPLogIn
                         CancelLogin(False)
                     Else
                         UpdateSession(chkRemember.Checked)
-                        LogInAlready(NetworkStatus)
+                        LogInAlready()
                     End If
 
             End Select
         End If
     End Sub
 
-    Private Sub LogInAlready(networkStatus As NetworkCheckResponse)
-        ' Tag exception logger with new user
-        ExceptionLogger.Tags.AddAsUniqueIfExists("IaipUser", CurrentUser.Username)
-        ExceptionLogger.Tags.AddAsUniqueIfExists("IaipUserID", CurrentUser.UserID.ToString)
-        ExceptionLogger.Tags.AddAsUniqueIfExists("ExternalIPAddress", ExternalIPAddress?.ToString())
-        ExceptionLogger.Tags.AddAsUniqueIfExists("InternalIPAddress", InternalIPAddress?.ToString())
-        ExceptionLogger.Tags.AddAsUniqueIfExists("InitialNetworkStatus", networkStatus.GetDescription())
-
+    Private Sub LogInAlready()
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
         OpenSingleForm(IAIPNavigation)
-        DAL.LogSystemProperties(networkStatus)
+        DAL.LogSystemProperties(IsVpnConnected())
+
         Close()
     End Sub
 

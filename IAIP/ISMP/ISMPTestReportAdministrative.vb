@@ -880,10 +880,8 @@ Public Class ISMPTestReportAdministrative
                 "group by numSSCPEngineer "
 
                 Dim p2 As New SqlParameter("@airs", "0413" & cboAIRSNumber.Text)
-                Dim dr As DataRow = DB.GetDataRow(query, p2)
-                If dr IsNot Nothing Then
-                    StaffResponsible = dr.Item("numSSCPEngineer")
-                Else
+                StaffResponsible = DB.GetString(query, p2)
+                If String.IsNullOrEmpty(StaffResponsible) Then
                     StaffResponsible = "0"
                 End If
 

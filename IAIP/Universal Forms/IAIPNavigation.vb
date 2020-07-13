@@ -1,5 +1,6 @@
 Imports System.Collections.Generic
 Imports System.ComponentModel
+Imports System.Net.NetworkInformation
 Imports Iaip.DAL.NavigationScreenData
 
 Public Class IAIPNavigation
@@ -11,6 +12,8 @@ Public Class IAIPNavigation
     Private Property CurrentNavWorkListScope As NavWorkListScope
     Private Property CurrentNavWorkListParameter As Integer? = Nothing
     Private Property NavWorkListContextDictionary As Dictionary(Of NavWorkListContext, String)
+
+    Private Property CheckingNetwork As Boolean = False
 
 #End Region
 
@@ -31,6 +34,117 @@ Public Class IAIPNavigation
 #ElseIf UAT Then
         Me.Text = "IAIP UAT"
 #End If
+
+        AddHandler NetworkChange.NetworkAddressChanged, AddressOf AddressChangedCallback
+    End Sub
+
+    Private Sub AddressChangedCallback(sender As Object, e As EventArgs)
+        CheckNetworkConnection()
+    End Sub
+
+    Private Sub btnRetryConnection_Click(sender As Object, e As EventArgs) Handles btnRetryConnection.Click
+        CheckNetworkConnection()
+    End Sub
+
+    Public Sub CheckNetworkConnection()
+        If Not CheckingNetwork Then
+            If networkCheckTimer IsNot Nothing Then
+                StopNetworkCheckTimer()
+            End If
+
+            lblNetworkCheckCountdown.Text = "Trying again..."
+            btnRetryConnection.Enabled = False
+            pnlConnectionWarning.BackColor = Color.LightGray
+            CheckingNetwork = True
+            bgrNetworkChecker.RunWorkerAsync()
+        End If
+    End Sub
+
+    Private Sub bgrNetworkChecker_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgrNetworkChecker.DoWork
+        e.Result = GetIaipNetworkStatusAsync().Result
+    End Sub
+
+    Private Sub bgrNetworkChecker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bgrNetworkChecker.RunWorkerCompleted
+        Dim status As IaipNetworkStatus = CType(e.Result, IaipNetworkStatus)
+
+        Select Case status
+            Case IaipNetworkStatus.Enabled
+                pnlConnectionStatus.Text = "🌐"
+                pnlConnectionStatus.ToolTipText = "Connected"
+                AutoValidate = AutoValidate.Inherit
+                txtOpenFacilitySummary.AutoValidate = AutoValidate.EnableAllowFocusChange
+
+            Case Else
+                pnlConnectionStatus.Text = "⛔"
+                pnlConnectionStatus.ToolTipText = "Connection Error"
+                btnRetryConnection.Enabled = True
+                pnlConnectionWarning.BackColor = Color.PapayaWhip
+                AutoValidate = AutoValidate.Disable
+                txtOpenFacilitySummary.AutoValidate = AutoValidate.Disable
+                StartNetworkCheckTimer()
+                BringToFront()
+        End Select
+
+        Select Case status
+            Case IaipNetworkStatus.Enabled
+                pnlConnectionWarning.Visible = False
+
+            Case IaipNetworkStatus.NoInternet
+                pnlConnectionWarning.Visible = True
+                lblConnectionWarning.Text = "It appears you have lost connection to the Internet. " &
+                    vbNewLine & vbNewLine &
+                    "Please check your connection and try again."
+
+            Case IaipNetworkStatus.NoVpn
+                pnlConnectionWarning.Visible = True
+                lblConnectionWarning.Text = "It appears you have lost connection to the VPN. " &
+                    vbNewLine & vbNewLine &
+                    "Please check your connection and try again."
+
+            Case IaipNetworkStatus.NoDb
+                pnlConnectionWarning.Visible = True
+                lblConnectionWarning.Text = "Unable to connect to the database. " &
+                    vbNewLine & vbNewLine &
+                    "Please wait a few minutes and try again. " &
+                    "If still unable to connect, please contact EPD-IT for support."
+
+            Case IaipNetworkStatus.AppDisabled
+                pnlConnectionWarning.Visible = True
+                lblConnectionWarning.Text = "The IAIP is temporarily down for maintenance. " &
+                    vbNewLine & vbNewLine &
+                    "Please wait a few minutes and try again or " &
+                    "contact EPD-IT for more information."
+
+        End Select
+
+        CheckingNetwork = False
+    End Sub
+
+    Private networkCheckTimer As Timer
+    Private networkCheckTimerCount As Integer = 0
+    Private ReadOnly networkCheckTimerCountMax As Integer = 45
+
+    Private Sub StartNetworkCheckTimer()
+        networkCheckTimerCount = 0
+        networkCheckTimer = New Timer()
+        AddHandler networkCheckTimer.Tick, AddressOf NetworkCheckTimerTickEventHandler
+        networkCheckTimer.Interval = 1000
+        networkCheckTimer.Start()
+    End Sub
+
+    Private Sub StopNetworkCheckTimer()
+        networkCheckTimerCount = 0
+        networkCheckTimer.Stop()
+        networkCheckTimer.Dispose()
+    End Sub
+
+    Private Sub NetworkCheckTimerTickEventHandler(sender As Object, e As EventArgs)
+        lblNetworkCheckCountdown.Text = $"Trying again in {networkCheckTimerCountMax - networkCheckTimerCount} seconds..."
+        networkCheckTimerCount += 1
+
+        If networkCheckTimerCount = networkCheckTimerCountMax Then
+            CheckNetworkConnection()
+        End If
     End Sub
 
     Private Sub DisplayUsername()
@@ -81,7 +195,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub LoadStatusBar()
-        pnlName.Text = CurrentUser.AlphaName
+        pnlName.Text = CurrentUser.FullName
         pnlDate.Text = Format(Today, DateFormat)
         pnlProgram.Text = CurrentUser.ProgramName
     End Sub
@@ -103,7 +217,7 @@ Public Class IAIPNavigation
         Select Case CurrentServerEnvironment
             Case ServerEnvironment.Development
                 pnlDbEnv.Text = "DEV database"
-                pnlDbEnv.BackColor = Color.Tomato
+                pnlDbEnv.BackColor = Color.YellowGreen
                 pnlDbEnv.Visible = True
                 lblTitle.Text = "IAIP Navigation Screen — DEV"
                 TestingMenu.Visible = True

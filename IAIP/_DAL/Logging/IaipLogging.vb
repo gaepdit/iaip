@@ -23,28 +23,17 @@ Namespace DAL
             End Try
         End Function
 
-        Public Function LogSystemProperties(networkStatus As NetworkCheckResponse) As Boolean
+        Public Function LogSystemProperties(isVpn As Boolean) As Boolean
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@UserId", CurrentUser.UserID),
+                New SqlParameter("@DotNetVersion", Get45PlusFromRegistry()),
+                New SqlParameter("@OSVersion", OSFriendlyName()),
+                New SqlParameter("@NetworkStatus", If(isVpn, "On VPN", "In Network")),
+                New SqlParameter("@IaipVersion", GetCurrentVersion().ToString)
+            }
+
             Try
-                Dim query As String = "insert into IAIP_SystemLog (UserId, DotNetVersion, OSVersion, NetworkStatus) 
-                    values (@UserId, @DotNetVersion, @OSVersion, @NetworkStatus)"
-
-                Dim status As String = "Error"
-
-                Select Case networkStatus
-                    Case NetworkCheckResponse.InNetwork
-                        status = "In Network"
-                    Case NetworkCheckResponse.OnVpn
-                        status = "On VPN"
-                End Select
-
-                Dim parameters As SqlParameter() = {
-                    New SqlParameter("@UserId", CurrentUser.UserID),
-                    New SqlParameter("@DotNetVersion", Get45PlusFromRegistry()),
-                    New SqlParameter("@OSVersion", OSFriendlyName()),
-                    New SqlParameter("@NetworkStatus", status)
-                }
-
-                Return DB.RunCommand(query, parameters)
+                Return DB.SPRunCommand("iaip_user.LogSystemProperties", parameters)
             Catch ex As Exception
                 Return False
             End Try
