@@ -6,8 +6,8 @@ Namespace DAL
     Module IaipUserData
 
         Public Function AuthenticateIaipUser(username As String, password As String) As IaipAuthenticationResult
-            If username = "" Then Return IaipAuthenticationResult.InvalidUsername
-            If password = "" Then Return IaipAuthenticationResult.InvalidLogin
+            If String.IsNullOrEmpty(username) Then Return IaipAuthenticationResult.InvalidUsername
+            If String.IsNullOrEmpty(password) Then Return IaipAuthenticationResult.InvalidLogin
 
             Dim spName As String = "iaip_user.AuthenticateIaipUser"
             Dim parameters As SqlParameter() = {
@@ -40,7 +40,7 @@ Namespace DAL
         Public Function GetIaipUserByUserId(userid As String) As IaipUser
             Dim id As Integer
 
-            If userid = "" OrElse Not Integer.TryParse(userid, id) Then
+            If String.IsNullOrEmpty(userid) OrElse Not Integer.TryParse(userid, id) Then
                 Return Nothing
             End If
 
@@ -60,7 +60,7 @@ Namespace DAL
         End Function
 
         Public Function GetIaipUserByUsername(username As String) As IaipUser
-            If username = "" Then Return Nothing
+            If String.IsNullOrEmpty(username) Then Return Nothing
 
             Dim spName As String = "iaip_user.GetIaipUserByUsername"
             Dim parameter As New SqlParameter("@username", username)
@@ -104,7 +104,7 @@ Namespace DAL
         End Function
 
         Public Function UsernameExists(username As String, Optional ignoreUser As Integer = 0) As Boolean
-            If username = "" Then Return False
+            If String.IsNullOrEmpty(username) Then Return False
             Dim spName As String = "iaip_user.UsernameExists"
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@username", username),
@@ -113,8 +113,15 @@ Namespace DAL
             Return DB.SPGetBoolean(spName, parameters)
         End Function
 
+        Public Function ActiveUserExists(username As String) As Boolean
+            If String.IsNullOrEmpty(username) Then Return False
+            Dim spName As String = "iaip_user.ActiveUserExists"
+            Dim parameter As New SqlParameter("@username", username)
+            Return DB.SPGetBoolean(spName, parameter)
+        End Function
+
         Public Function EmailIsInUse(email As String, Optional ignoreUser As Integer = 0) As Boolean
-            If email.Trim = "" Then Return False
+            If String.IsNullOrEmpty(email.Trim) Then Return False
             Dim spName As String = "iaip_user.EmailInUse"
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@email", email),
@@ -124,9 +131,9 @@ Namespace DAL
         End Function
 
         Public Function UpdateUserPassword(username As String, newPassword As String, oldPassword As String) As PasswordUpdateResponse
-            If username = "" Then Return PasswordUpdateResponse.InvalidUsername
-            If newPassword = "" Then Return PasswordUpdateResponse.InvalidNewPassword
-            If oldPassword = "" Then Return PasswordUpdateResponse.InvalidLogin
+            If String.IsNullOrEmpty(username) Then Return PasswordUpdateResponse.InvalidUsername
+            If String.IsNullOrEmpty(newPassword) Then Return PasswordUpdateResponse.InvalidNewPassword
+            If String.IsNullOrEmpty(oldPassword) Then Return PasswordUpdateResponse.InvalidLogin
 
             Dim spName As String = "iaip_user.UpdateUserPassword"
             Dim parameters As SqlParameter() = {
@@ -152,7 +159,7 @@ Namespace DAL
         End Enum
 
         Public Function SendUsernameReminder(email As String) As UsernameReminderResponse
-            If email = "" OrElse Not IsValidEmailAddress(email) Then
+            If Not IsValidEmailAddress(email) Then
                 Return UsernameReminderResponse.InvalidInput
             End If
 
@@ -178,7 +185,7 @@ Namespace DAL
         End Enum
 
         Public Function RequestPasswordReset(username As String) As RequestPasswordResetResponse
-            If username = "" OrElse Not UsernameExists(username) Then
+            If Not ActiveUserExists(username) Then
                 Return RequestPasswordResetResponse.InvalidUsername
             End If
 
@@ -199,11 +206,12 @@ Namespace DAL
         End Enum
 
         Public Function ResetUserPassword(username As String, newPassword As String, resettoken As String) As ResetPasswordResponse
-            If username = "" OrElse Not UsernameExists(username) Then
+            If Not ActiveUserExists(username) Then
                 Return ResetPasswordResponse.InvalidUsername
             End If
-            If newPassword = "" Then Return ResetPasswordResponse.InvalidNewPassword
-            If resettoken = "" Then Return ResetPasswordResponse.InvalidToken
+
+            If String.IsNullOrEmpty(newPassword) Then Return ResetPasswordResponse.InvalidNewPassword
+            If String.IsNullOrEmpty(resettoken) Then Return ResetPasswordResponse.InvalidToken
 
             Dim spName As String = "iaip_user.ResetUserPassword"
             Dim parameters As SqlParameter() = {
