@@ -1,7 +1,9 @@
 ﻿Imports System.Collections.Generic
 Imports System.Data.SqlClient
+Imports System.Text
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Shared
+Imports EpdIt.DBUtilities
 
 Public Class PASPFeeStatistics
 
@@ -494,7 +496,6 @@ Public Class PASPFeeStatistics
 
             dgvDepositsAndPayments.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvDepositsAndPayments.Columns("AIRSNUmber").HeaderText = "AIRS Number"
             dgvDepositsAndPayments.Columns("AIRSNUmber").DisplayIndex = 0
             dgvDepositsAndPayments.Columns("strFacilityName").HeaderText = "Facility Name"
@@ -502,39 +503,31 @@ Public Class PASPFeeStatistics
             dgvDepositsAndPayments.Columns("strFacilityName").Width = 300
             dgvDepositsAndPayments.Columns("strPaymentPlan").HeaderText = "Payment Plan"
             dgvDepositsAndPayments.Columns("strPaymentPlan").DisplayIndex = 2
+
             Select Case cboStatPayType.Text
                 Case "QUARTER ONE", "QUARTER TWO", "QUARTER THREE", "QUARTER FOUR", "ALL QUARTERS"
                     dgvDepositsAndPayments.Columns("Due").HeaderText = "Amount Reported per Quarter"
                 Case Else
                     dgvDepositsAndPayments.Columns("Due").HeaderText = "Amount Reported"
             End Select
+
             dgvDepositsAndPayments.Columns("Due").DisplayIndex = 3
-            dgvDepositsAndPayments.Columns("Due").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("numFeeYear").HeaderText = "Year"
             dgvDepositsAndPayments.Columns("numFeeYear").DisplayIndex = 4
-
             dgvDepositsAndPayments.Columns("strClass").HeaderText = "Classification"
             dgvDepositsAndPayments.Columns("strClass").DisplayIndex = 5
-
             dgvDepositsAndPayments.Columns("numPart70Fee").HeaderText = "Part 70 Fee"
             dgvDepositsAndPayments.Columns("numPart70Fee").DisplayIndex = 6
-            dgvDepositsAndPayments.Columns("numPart70Fee").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("numSMFee").HeaderText = "SM Fee"
             dgvDepositsAndPayments.Columns("numSMFee").DisplayIndex = 7
-            dgvDepositsAndPayments.Columns("numSMFee").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("numNSPSFee").HeaderText = "NSPS Fee"
             dgvDepositsAndPayments.Columns("numNSPSFee").DisplayIndex = 8
-            dgvDepositsAndPayments.Columns("numNSPSFee").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("numTotalFee").HeaderText = "Fees Total"
             dgvDepositsAndPayments.Columns("numTotalFee").DisplayIndex = 9
-            dgvDepositsAndPayments.Columns("numTotalFee").DefaultCellStyle.Format = "c"
-
             dgvDepositsAndPayments.Columns("numAdminFee").HeaderText = "Admin Fees"
             dgvDepositsAndPayments.Columns("numAdminFee").DisplayIndex = 10
-            dgvDepositsAndPayments.Columns("numAdminFee").DefaultCellStyle.Format = "c"
 
-            txtCount.Text = dgvDepositsAndPayments.RowCount.ToString
-
+            dgvDepositsAndPayments.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -813,12 +806,6 @@ Public Class PASPFeeStatistics
 
             dgvDepositsAndPayments.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvDepositsAndPayments.AllowUserToResizeColumns = True
-            dgvDepositsAndPayments.AllowUserToResizeRows = True
-            dgvDepositsAndPayments.AllowUserToAddRows = False
-            dgvDepositsAndPayments.AllowUserToDeleteRows = False
-            dgvDepositsAndPayments.AllowUserToOrderColumns = True
             dgvDepositsAndPayments.Columns("AIRSNUmber").HeaderText = "AIRS Number"
             dgvDepositsAndPayments.Columns("AIRSNUmber").DisplayIndex = 0
             dgvDepositsAndPayments.Columns("strFacilityName").HeaderText = "Facility Name"
@@ -830,12 +817,10 @@ Public Class PASPFeeStatistics
             dgvDepositsAndPayments.Columns("strPayTypedesc").DisplayIndex = 3
             dgvDepositsAndPayments.Columns("numPayment").HeaderText = "Amount Paid"
             dgvDepositsAndPayments.Columns("numPayment").DisplayIndex = 4
-            dgvDepositsAndPayments.Columns("numPayment").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("strDepositNo").HeaderText = "Deposit #"
             dgvDepositsAndPayments.Columns("strDepositNo").DisplayIndex = 5
             dgvDepositsAndPayments.Columns("datTransactionDate").HeaderText = "Pay Date"
             dgvDepositsAndPayments.Columns("datTransactionDate").DisplayIndex = 6
-            dgvDepositsAndPayments.Columns("datTransactionDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvDepositsAndPayments.Columns("strCheckNo").HeaderText = "Check #"
             dgvDepositsAndPayments.Columns("strCheckNo").DisplayIndex = 7
             dgvDepositsAndPayments.Columns("InvoiceID").HeaderText = "Invoice #"
@@ -846,26 +831,18 @@ Public Class PASPFeeStatistics
             dgvDepositsAndPayments.Columns("strClass").DisplayIndex = 10
             dgvDepositsAndPayments.Columns("numPart70Fee").HeaderText = "Part 70 Fee"
             dgvDepositsAndPayments.Columns("numPart70Fee").DisplayIndex = 11
-            dgvDepositsAndPayments.Columns("numPart70Fee").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("numSMFee").HeaderText = "SM Fee"
             dgvDepositsAndPayments.Columns("numSMFee").DisplayIndex = 12
-            dgvDepositsAndPayments.Columns("numSMFee").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("numNSPSFee").HeaderText = "NSPS Fee"
             dgvDepositsAndPayments.Columns("numNSPSFee").DisplayIndex = 13
-            dgvDepositsAndPayments.Columns("numNSPSFee").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("numTotalFee").HeaderText = "Fees Total"
             dgvDepositsAndPayments.Columns("numTotalFee").DisplayIndex = 14
-            dgvDepositsAndPayments.Columns("numTotalFee").DefaultCellStyle.Format = "c"
-
             dgvDepositsAndPayments.Columns("numAdminFee").HeaderText = "Admin Fees"
             dgvDepositsAndPayments.Columns("numAdminFee").DisplayIndex = 15
-            dgvDepositsAndPayments.Columns("numAdminFee").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("Due").HeaderText = "Total Due"
             dgvDepositsAndPayments.Columns("Due").DisplayIndex = 16
-            dgvDepositsAndPayments.Columns("Due").DefaultCellStyle.Format = "c"
 
-            txtCount.Text = dgvDepositsAndPayments.RowCount.ToString
-
+            dgvDepositsAndPayments.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -888,9 +865,6 @@ Public Class PASPFeeStatistics
         End If
 
         Try
-            Dim temp As String
-            Dim SQL2 As String = ""
-
             Dim SQL As String = "SELECT fa.STRAIRSNUMBER, fa.NUMFEEYEAR, fa.INTSUBMITTAL, fa.DATSUBMITTAL, fa.STRCOMMENT, st.STRIAIPDESC " &
                 "FROM FS_Admin AS fa " &
                 "INNER JOIN fslk_admin_status AS st ON fa.NUMCURRENTSTATUS = st.ID " &
@@ -905,7 +879,7 @@ Public Class PASPFeeStatistics
                 If IsDBNull(dr.Item("intSubmittal")) Then
                     txtOnlineSubmittalStatus.Text = ""
                 Else
-                    If dr.Item("IntSubmittal") = "0" Then
+                    If dr.Item("IntSubmittal").ToString = "0" Then
                         txtOnlineSubmittalStatus.Text = "Not Finalized"
                     Else
                         txtOnlineSubmittalStatus.Text = "Finalized"
@@ -920,16 +894,8 @@ Public Class PASPFeeStatistics
                         txtDateSubmitted.Text = ""
                     End If
                 End If
-                If IsDBNull(dr.Item("strComment")) Then
-                    txtSubmittalComments.Text = ""
-                Else
-                    txtSubmittalComments.Text = dr.Item("strComment")
-                End If
-                If IsDBNull(dr.Item("strIAIPDesc")) Then
-                    txtIAIPStatus.Clear()
-                Else
-                    txtIAIPStatus.Text = dr.Item("strIAIPDesc")
-                End If
+                txtSubmittalComments.Text = GetNullableString(dr.Item("strComment"))
+                txtIAIPStatus.Text = GetNullableString(dr.Item("strIAIPDesc"))
             End If
 
             SQL = "Select " &
@@ -951,26 +917,11 @@ Public Class PASPFeeStatistics
 
             dr = DB.GetDataRow(SQL, p)
             If dr IsNot Nothing Then
-                If IsDBNull(dr.Item("intVOCTons")) Then
-                    txtVOCTons.Clear()
-                Else
-                    txtVOCTons.Text = dr.Item("intVOCTons")
-                End If
-                If IsDBNull(dr.Item("intPMTons")) Then
-                    txtPMTons.Clear()
-                Else
-                    txtPMTons.Text = dr.Item("intPMTons")
-                End If
-                If IsDBNull(dr.Item("intSO2Tons")) Then
-                    txtSO2Tons.Clear()
-                Else
-                    txtSO2Tons.Text = dr.Item("intSO2Tons")
-                End If
-                If IsDBNull(dr.Item("intNOxTons")) Then
-                    txtNOxTons.Clear()
-                Else
-                    txtNOxTons.Text = dr.Item("intNOxTons")
-                End If
+
+                txtVOCTons.Text = GetNullableString(dr.Item("intVOCTons"))
+                txtPMTons.Text = GetNullableString(dr.Item("intPMTons"))
+                txtSO2Tons.Text = GetNullableString(dr.Item("intSO2Tons"))
+                txtNOxTons.Text = GetNullableString(dr.Item("intNOxTons"))
                 If IsDBNull(dr.Item("numPart70Fee")) Then
                     txtPart70Fee.Clear()
                 Else
@@ -990,8 +941,8 @@ Public Class PASPFeeStatistics
                     txtNSPSExempt.Clear()
                     txtNSPSExemptReason.Clear()
                 Else
-                    txtNSPSExempt.Text = dr.Item("strNSPSExempt")
-                    If dr.Item("strNSPSexempt") = "1" Then
+                    txtNSPSExempt.Text = dr.Item("strNSPSExempt").ToString
+                    If dr.Item("strNSPSexempt").ToString = "1" Then
                         txtNSPSExempt.Text = "YES"
                     Else
                         txtNSPSExempt.Clear()
@@ -1001,7 +952,7 @@ Public Class PASPFeeStatistics
                     If IsDBNull(dr.Item("strNSPSExemptReason")) Then
                         txtNSPSExemptReason.Clear()
                     Else
-                        txtNSPSExemptReason.Text = dr.Item("strNSPSExemptReason")
+                        txtNSPSExemptReason.Text = dr.Item("strNSPSExemptReason").ToString
                     End If
                 Else
                     txtNSPSExemptReason.Clear()
@@ -1009,7 +960,7 @@ Public Class PASPFeeStatistics
                 If IsDBNull(dr.Item("strOperate")) Then
                     txtOperate.Clear()
                 Else
-                    txtOperate.Text = dr.Item("strOperate")
+                    txtOperate.Text = dr.Item("strOperate").ToString
                     If txtOperate.Text = "1" Then
                         txtOperate.Text = "YES"
                     Else
@@ -1025,7 +976,7 @@ Public Class PASPFeeStatistics
                 If IsDBNull(dr.Item("strPart70")) Then
                     txtPart70.Clear()
                 Else
-                    txtPart70.Text = dr.Item("strPart70")
+                    txtPart70.Text = dr.Item("strPart70").ToString
                     If txtPart70.Text = "1" Then
                         txtPart70.Text = "YES"
                     Else
@@ -1035,7 +986,7 @@ Public Class PASPFeeStatistics
                 If IsDBNull(dr.Item("strSyntheticMinor")) Then
                     txtSyntheticMinor.Clear()
                 Else
-                    txtSyntheticMinor.Text = dr.Item("strSyntheticMinor")
+                    txtSyntheticMinor.Text = dr.Item("strSyntheticMinor").ToString
                     If txtSyntheticMinor.Text = "1" Then
                         txtSyntheticMinor.Text = "YES"
                     Else
@@ -1047,15 +998,11 @@ Public Class PASPFeeStatistics
                 Else
                     txtCalculatedFee.Text = Format(dr.Item("numCalculatedFee"), "c")
                 End If
-                If IsDBNull(dr.Item("strClass")) Then
-                    txtClass.Clear()
-                Else
-                    txtClass.Text = dr.Item("strClass")
-                End If
+                txtClass.Text = GetNullableString(dr.Item("strClass"))
                 If IsDBNull(dr.Item("strNSPS")) Then
                     txtNSPS.Clear()
                 Else
-                    txtNSPS.Text = dr.Item("strNSPS")
+                    txtNSPS.Text = dr.Item("strNSPS").ToString
                     If txtNSPS.Text = "1" Then
                         txtNSPS.Text = "YES"
                     Else
@@ -1072,11 +1019,7 @@ Public Class PASPFeeStatistics
                 Else
                     txtAllFees.Text = Format(dr.Item("numTotalFee"), "c")
                 End If
-                If IsDBNull(dr.Item("strPaymentPlan")) Then
-                    txtPaymentType.Text = ""
-                Else
-                    txtPaymentType.Text = dr.Item("strPaymentPlan")
-                End If
+                txtPaymentType.Text = GetNullableString(dr.Item("strPaymentPlan"))
                 If IsDBNull(dr.Item("datshutDown")) Then
                     txtShutDown.Clear()
                 Else
@@ -1085,8 +1028,11 @@ Public Class PASPFeeStatistics
             End If
 
             If txtNSPSExempt.Text = "YES" Then
-                temp = txtNSPSExemptReason.Text
+                Dim temp As String = txtNSPSExemptReason.Text
+
                 If txtNSPSExemptReason.Text.Contains(",") Then
+                    Dim sql2 As New StringBuilder()
+
                     Do While txtNSPSExemptReason.Text <> ""
                         If txtNSPSExemptReason.Text.Contains(",") Then
                             temp = Mid(txtNSPSExemptReason.Text, 1, InStr(txtNSPSExemptReason.Text, ",", CompareMethod.Text) - 1)
@@ -1096,12 +1042,13 @@ Public Class PASPFeeStatistics
                             txtNSPSExemptReason.Text = Replace(txtNSPSExemptReason.Text, temp, "")
                         End If
 
-                        SQL2 = SQL2 & " or nspsreasoncode = '" & temp & "' "
+                        sql2.Append(" or nspsreasoncode = '" & temp & "' ")
                         temp = ""
                     Loop
+
                     SQL = "Select description " &
                     "from FSLK_NSPSReason " &
-                    "where nspsreasoncode = '0' " & SQL2
+                    "where nspsreasoncode = '0' " & sql2.ToString
                 Else
                     SQL = "Select description " &
                     "from FSLK_NSPSReason " &
@@ -1112,9 +1059,8 @@ Public Class PASPFeeStatistics
 
                 Dim dt As DataTable = DB.GetDataTable(SQL)
                 For Each dr2 As DataRow In dt.Rows
-                    If IsDBNull(dr2.Item("description")) Then
-                    Else
-                        txtNSPSExemptReason.Text = "- " & txtNSPSExemptReason.Text & dr2.Item("description") & vbCrLf
+                    If Not IsDBNull(dr2.Item("description")) Then
+                        txtNSPSExemptReason.Text = "- " & txtNSPSExemptReason.Text & dr2.Item("description").ToString & vbCrLf
                     End If
                 Next
             Else
@@ -1182,17 +1128,13 @@ Public Class PASPFeeStatistics
 
     Private Sub dgvDepositsAndPayments_SelectionChanged(sender As Object, e As EventArgs) Handles dgvDepositsAndPayments.SelectionChanged
         If dgvDepositsAndPayments.SelectedRows.Count = 1 Then
-            txtSelectedAIRSNumber.Text = dgvDepositsAndPayments.CurrentRow.Cells(0).Value
-            txtSelectedFacilityName.Text = dgvDepositsAndPayments.CurrentRow.Cells(1).Value
+            txtSelectedAIRSNumber.Text = dgvDepositsAndPayments.CurrentRow.Cells(0).Value.ToString
+            txtSelectedFacilityName.Text = dgvDepositsAndPayments.CurrentRow.Cells(1).Value.ToString
             txtSelectedYear.Text = cboStatYear.Text
             If pnlDetails.Dock <> DockStyle.None Then
                 LoadSelectedFeeData()
             End If
         End If
-    End Sub
-
-    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
-        dgvDepositsAndPayments.ExportToExcel(Me)
     End Sub
 
     Private Sub chbDepositDateSearch_CheckedChanged(sender As Object, e As EventArgs) Handles chbDepositDateSearch.CheckedChanged
@@ -1250,12 +1192,6 @@ Public Class PASPFeeStatistics
 
             dgvDepositsAndPayments.DataSource = DB.GetDataTable(query, parameters)
 
-            dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvDepositsAndPayments.AllowUserToResizeColumns = True
-            dgvDepositsAndPayments.AllowUserToResizeRows = True
-            dgvDepositsAndPayments.AllowUserToAddRows = False
-            dgvDepositsAndPayments.AllowUserToDeleteRows = False
-            dgvDepositsAndPayments.AllowUserToOrderColumns = True
             dgvDepositsAndPayments.Columns("AIRSNUmber").HeaderText = "AIRS Number"
             dgvDepositsAndPayments.Columns("AIRSNUmber").DisplayIndex = 0
             dgvDepositsAndPayments.Columns("strFacilityName").HeaderText = "Facility Name"
@@ -1264,14 +1200,12 @@ Public Class PASPFeeStatistics
             dgvDepositsAndPayments.Columns("transactionTypeCode").DisplayIndex = 2
             dgvDepositsAndPayments.Columns("PaidAmount").HeaderText = "Amount Paid"
             dgvDepositsAndPayments.Columns("PaidAmount").DisplayIndex = 3
-            dgvDepositsAndPayments.Columns("PaidAmount").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("strDepositNo").HeaderText = "Deposit #"
             dgvDepositsAndPayments.Columns("strDepositNo").DisplayIndex = 5
             dgvDepositsAndPayments.Columns("strBatchNo").HeaderText = "Batch #"
             dgvDepositsAndPayments.Columns("strBatchNo").DisplayIndex = 6
             dgvDepositsAndPayments.Columns("datTransactionDate").HeaderText = "Pay Date"
             dgvDepositsAndPayments.Columns("datTransactionDate").DisplayIndex = 7
-            dgvDepositsAndPayments.Columns("datTransactionDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvDepositsAndPayments.Columns("strCheckNo").HeaderText = "Check #"
             dgvDepositsAndPayments.Columns("strCheckNo").DisplayIndex = 8
             dgvDepositsAndPayments.Columns("InvoiceID").HeaderText = "Invoice #"
@@ -1280,9 +1214,6 @@ Public Class PASPFeeStatistics
             dgvDepositsAndPayments.Columns("numFeeYear").DisplayIndex = 4
 
             dgvDepositsAndPayments.SanelyResizeColumns()
-
-            txtCount.Text = dgvDepositsAndPayments.RowCount.ToString
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1333,12 +1264,13 @@ Public Class PASPFeeStatistics
             Dim SQL As String = "Select * from VW_Facility_Fee " &
             "where strAIRSNumber = @airs "
 
-            Dim p As New SqlParameter("@airs", "0413" & cboAirsNo.SelectedValue)
+            Dim p As New SqlParameter("@airs", "0413" & cboAirsNo.SelectedValue.ToString)
 
             rpt.SetDataSource(DB.GetDataTable(SQL, p))
 
-            Dim crParameterDiscreteValue As New ParameterDiscreteValue
-            crParameterDiscreteValue.Value = "0413" & cboAirsNo.SelectedValue
+            Dim crParameterDiscreteValue As New ParameterDiscreteValue With {
+                .Value = "0413" & cboAirsNo.SelectedValue.ToString
+            }
             Dim crParameterFieldDefinitions As ParameterFieldDefinitions = rpt.DataDefinition.ParameterFields
             Dim crParameterFieldDefinition As ParameterFieldDefinition = crParameterFieldDefinitions.Item("AirsNo")
             Dim crParameterValues As ParameterValues = crParameterFieldDefinition.CurrentValues
@@ -1750,112 +1682,27 @@ Public Class PASPFeeStatistics
 
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
             If dr IsNot Nothing Then
-                If IsDBNull(dr.Item("feeUniverse")) Then
-                    txtFSFeeUniverse.Text = ""
-                Else
-                    txtFSFeeUniverse.Text = dr.Item("FeeUniverse")
-                End If
-                If IsDBNull(dr.Item("Unenrolled")) Then
-                    txtFSUnEnrolled.Text = ""
-                Else
-                    txtFSUnEnrolled.Text = dr.Item("Unenrolled")
-                End If
-                If IsDBNull(dr.Item("CeaseCollections")) Then
-                    txtFSCeaseCollection.Text = ""
-                Else
-                    txtFSCeaseCollection.Text = dr.Item("CeaseCollections")
-                End If
-                If IsDBNull(dr.Item("Enrolled")) Then
-                    txtFSEnrolled.Text = ""
-                Else
-                    txtFSEnrolled.Text = dr.Item("Enrolled")
-                End If
-                If IsDBNull(dr.Item("Mailout")) Then
-                    txtFSMailout.Text = ""
-                Else
-                    txtFSMailout.Text = dr.Item("MailOut")
-                End If
-                If IsDBNull(dr.Item("AddOnMailout")) Then
-                    txtFSAdditions.Text = ""
-                Else
-                    txtFSAdditions.Text = dr.Item("AddOnMailOut")
-                End If
-                If IsDBNull(dr.Item("NotReported")) Then
-                    txtFSNotReported.Text = ""
-                Else
-                    txtFSNotReported.Text = dr.Item("NotReported")
-                End If
-                If IsDBNull(dr.Item("InProgress")) Then
-                    txtFSInProgress.Text = ""
-                Else
-                    txtFSInProgress.Text = dr.Item("InProgress")
-                End If
-                If IsDBNull(dr.Item("Finalized")) Then
-                    txtFSFinalized.Text = ""
-                Else
-                    txtFSFinalized.Text = dr.Item("Finalized")
-                End If
-                If IsDBNull(dr.Item("OnTime")) Then
-                    txtFSOnTimeResponse.Text = ""
-                Else
-                    txtFSOnTimeResponse.Text = dr.Item("OnTime")
-                End If
-                If IsDBNull(dr.Item("LateNoFees")) Then
-                    txtFSLateResponse.Text = ""
-                Else
-                    txtFSLateResponse.Text = dr.Item("LateNoFees")
-                End If
-                If IsDBNull(dr.Item("LateWithFees")) Then
-                    txtFSLateFee.Text = ""
-                Else
-                    txtFSLateFee.Text = dr.Item("LateWithFees")
-                End If
-                If IsDBNull(dr.Item("NotPaid")) Then
-                    txtFSNotPaid.Text = ""
-                Else
-                    txtFSNotPaid.Text = dr.Item("NotPaid")
-                End If
-                If IsDBNull(dr.Item("OutOfBalance")) Then
-                    txtFSOutOfBalance.Text = ""
-                Else
-                    txtFSOutOfBalance.Text = dr.Item("OutOfBalance")
-                End If
-                If IsDBNull(dr.Item("UnderPaid")) Then
-                    txtFSPartial.Text = ""
-                Else
-                    txtFSPartial.Text = dr.Item("UnderPaid")
-                End If
-                If IsDBNull(dr.Item("OverPaid")) Then
-                    txtFSOverPaid.Text = ""
-                Else
-                    txtFSOverPaid.Text = dr.Item("OverPaid")
-                End If
-                If IsDBNull(dr.Item("OutofBalanceAnnual")) Then
-                    txtFSAnnual.Text = ""
-                Else
-                    txtFSAnnual.Text = dr.Item("OutOfBalanceAnnual")
-                End If
-                If IsDBNull(dr.Item("OutOfbalanceQuarterly")) Then
-                    txtFSQuarterly.Text = ""
-                Else
-                    txtFSQuarterly.Text = dr.Item("OutofBalanceQuarterly")
-                End If
-                If IsDBNull(dr.Item("PaidInFull")) Then
-                    txtFSPaidInFull.Text = ""
-                Else
-                    txtFSPaidInFull.Text = dr.Item("PaidInFull")
-                End If
-                If IsDBNull(dr.Item("FinalPaid")) Then
-                    txtFSPaidFinalized.Text = ""
-                Else
-                    txtFSPaidFinalized.Text = dr.Item("FinalPaid")
-                End If
-                If IsDBNull(dr.Item("NotFinalPaid")) Then
-                    txtFSPaidNotFinalized.Text = ""
-                Else
-                    txtFSPaidNotFinalized.Text = dr.Item("NotFinalPaid")
-                End If
-
+                txtFSFeeUniverse.Text = GetNullableString(dr.Item("FeeUniverse"))
+                txtFSUnEnrolled.Text = GetNullableString(dr.Item("Unenrolled"))
+                txtFSCeaseCollection.Text = GetNullableString(dr.Item("CeaseCollections"))
+                txtFSEnrolled.Text = GetNullableString(dr.Item("Enrolled"))
+                txtFSMailout.Text = GetNullableString(dr.Item("MailOut"))
+                txtFSAdditions.Text = GetNullableString(dr.Item("AddOnMailOut"))
+                txtFSNotReported.Text = GetNullableString(dr.Item("NotReported"))
+                txtFSInProgress.Text = GetNullableString(dr.Item("InProgress"))
+                txtFSFinalized.Text = GetNullableString(dr.Item("Finalized"))
+                txtFSOnTimeResponse.Text = GetNullableString(dr.Item("OnTime"))
+                txtFSLateResponse.Text = GetNullableString(dr.Item("LateNoFees"))
+                txtFSLateFee.Text = GetNullableString(dr.Item("LateWithFees"))
+                txtFSNotPaid.Text = GetNullableString(dr.Item("NotPaid"))
+                txtFSOutOfBalance.Text = GetNullableString(dr.Item("OutOfBalance"))
+                txtFSPartial.Text = GetNullableString(dr.Item("UnderPaid"))
+                txtFSOverPaid.Text = GetNullableString(dr.Item("OverPaid"))
+                txtFSAnnual.Text = GetNullableString(dr.Item("OutOfBalanceAnnual"))
+                txtFSQuarterly.Text = GetNullableString(dr.Item("OutofBalanceQuarterly"))
+                txtFSPaidInFull.Text = GetNullableString(dr.Item("PaidInFull"))
+                txtFSPaidFinalized.Text = GetNullableString(dr.Item("FinalPaid"))
+                txtFSPaidNotFinalized.Text = GetNullableString(dr.Item("NotFinalPaid"))
             End If
 
         Catch ex As Exception
@@ -1865,8 +1712,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryFeeUniverse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryFeeUniverse.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -1883,29 +1729,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1913,8 +1746,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryUnEnrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryUnEnrolled.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -1932,30 +1764,18 @@ Public Class PASPFeeStatistics
             Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
             dgvFeeStats.AllowUserToResizeRows = True
 
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1963,8 +1783,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryCeaseCollection_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryCeaseCollection.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -1984,29 +1803,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2014,8 +1820,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryEnrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryEnrolled.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2035,29 +1840,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2065,8 +1857,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryMailOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryMailOut.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2087,29 +1878,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2117,8 +1895,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryAdditions_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryAdditions.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2139,29 +1916,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2169,8 +1933,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryNotReported_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryNotReported.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2190,29 +1953,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2220,8 +1970,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryInProgress_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryInProgress.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2242,29 +1991,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2272,8 +2008,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryFinalized.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2299,29 +2034,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2329,8 +2051,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryOnTime_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryOnTime.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2353,29 +2074,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2383,8 +2091,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryLateResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryLateResponse.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2408,29 +2115,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2438,8 +2132,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryLateWithFee_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryLateWithFee.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2462,29 +2155,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2492,8 +2172,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryNotPaid_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryNotPaid.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2513,32 +2192,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
-            dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-            dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2546,8 +2209,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryOutofBalance_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryOutofBalance.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2567,29 +2229,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2597,8 +2246,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryPaidInFull_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidInFull.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2618,29 +2266,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2648,8 +2283,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryPaidFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidFinalized.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2670,28 +2304,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
+            dgvFeeStats.SanelyResizeColumns()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2700,8 +2322,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbFSSummaryPaidNotFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidNotFinalized.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2722,29 +2343,16 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2752,8 +2360,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailFeeUniverse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailFeeUniverse.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2816,26 +2423,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -2863,7 +2458,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -2872,16 +2466,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2889,8 +2479,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailUnEnrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailUnEnrolled.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -2957,26 +2546,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -3004,7 +2581,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -3013,17 +2589,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3031,8 +2602,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailCeaseCollection_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailCeaseCollection.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -3100,26 +2670,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -3147,7 +2705,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -3156,17 +2713,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3174,8 +2726,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailEnrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailEnrolled.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -3243,26 +2794,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -3290,7 +2829,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -3299,17 +2837,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3317,8 +2850,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailMailout_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailMailout.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -3387,26 +2919,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -3434,7 +2954,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -3443,17 +2962,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3461,8 +2975,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailAdditions_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailAdditions.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -3531,26 +3044,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -3578,7 +3079,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -3587,16 +3087,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3604,8 +3100,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailNotReported_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailNotReported.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -3671,26 +3166,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRFIRSTNAME").DisplayIndex = 4
@@ -3712,13 +3195,8 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRFACILITYCITY").DisplayIndex = 12
             dgvFeeStats.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zip Code"
             dgvFeeStats.Columns("STRFACILITYZIPCODE").DisplayIndex = 13
-            'dgvFeeStats.Columns("STRCONTACTEMAIL").HeaderText = "Contact Email"
-            'dgvFeeStats.Columns("STRCONTACTEMAIL").DisplayIndex = 14
-            'dgvFeeStats.Columns("STRCONTACTPhoneNumber").HeaderText = "Contact Phone Number"
-            'dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 14
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 15
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -3727,17 +3205,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 17
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 18
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 19
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 20
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3745,8 +3218,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailInProgress_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailInProgress.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -3815,26 +3287,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -3862,7 +3322,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -3871,16 +3330,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3888,8 +3343,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailFinalized.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -3963,27 +3417,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -4011,7 +3452,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -4020,17 +3460,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4038,8 +3473,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailLateResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailLateResponse.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -4111,27 +3545,15 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -4159,7 +3581,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -4168,17 +3589,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4186,8 +3602,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailLateWithFee_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailLateWithFee.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -4259,26 +3674,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -4306,7 +3709,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -4315,17 +3717,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4333,8 +3730,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailNotPaid_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailNotPaid.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -4421,26 +3817,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -4468,7 +3852,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -4477,17 +3860,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4495,8 +3873,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailOutOfBalance_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailOutOfBalance.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -4564,26 +3941,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -4611,7 +3976,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -4620,17 +3984,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4638,8 +3997,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailPaidInFull_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailPaidInFull.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -4708,26 +4066,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -4755,7 +4101,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -4764,17 +4109,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4782,8 +4122,7 @@ Public Class PASPFeeStatistics
 
     Private Sub llbDetailPaidFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailPaidFinalized.LinkClicked
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -4853,26 +4192,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -4900,7 +4227,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -4909,17 +4235,12 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4928,8 +4249,7 @@ Public Class PASPFeeStatistics
     Private Sub llbDetailPaidNotFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailPaidNotFinalized.LinkClicked
 
         Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
+            If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
                 Return
             End If
 
@@ -4999,26 +4319,14 @@ Public Class PASPFeeStatistics
 
             dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
             dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
             dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
             dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
             dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
             dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
             dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
             dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
 
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
             dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
@@ -5046,7 +4354,6 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
             dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
             dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvFeeStats.Columns("strClass").HeaderText = "Classification"
             dgvFeeStats.Columns("strClass").DisplayIndex = 17
             dgvFeeStats.Columns("Operating").HeaderText = "Operating"
@@ -5055,23 +4362,18 @@ Public Class PASPFeeStatistics
             dgvFeeStats.Columns("Part70").DisplayIndex = 19
             dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
             dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
             dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
             dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
             dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
 
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
+            dgvFeeStats.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnExportFeeStats_Click(sender As Object, e As EventArgs) Handles btnExportFeeStats.Click
+    Private Sub btnExportFeeStats_Click(sender As Object, e As EventArgs)
         dgvFeeStats.ExportToExcel(Me)
     End Sub
 
@@ -5082,11 +4384,7 @@ Public Class PASPFeeStatistics
             If dgvFeeStats.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
                 dgvFeeStats.Columns(0).HeaderText = "Airs No." Then
 
-                If IsDBNull(dgvFeeStats(0, hti.RowIndex).Value) Then
-                    txtFeeStatAirsNumber.Clear()
-                Else
-                    txtFeeStatAirsNumber.Text = dgvFeeStats(0, hti.RowIndex).Value
-                End If
+                txtFeeStatAirsNumber.Text = GetNullableString(dgvFeeStats(0, hti.RowIndex).Value)
             End If
 
         Catch ex As Exception
@@ -5344,12 +4642,6 @@ Public Class PASPFeeStatistics
 
                 dgvDepositsAndPayments.DataSource = DB.GetDataTable(SQL, p)
 
-                dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvDepositsAndPayments.AllowUserToResizeColumns = True
-                dgvDepositsAndPayments.AllowUserToResizeRows = True
-                dgvDepositsAndPayments.AllowUserToAddRows = False
-                dgvDepositsAndPayments.AllowUserToDeleteRows = False
-                dgvDepositsAndPayments.AllowUserToOrderColumns = True
                 dgvDepositsAndPayments.Columns("AIRSNUmber").HeaderText = "AIRS Number"
                 dgvDepositsAndPayments.Columns("AIRSNUmber").DisplayIndex = 0
                 dgvDepositsAndPayments.Columns("strFacilityName").HeaderText = "Facility Name"
@@ -5357,38 +4649,31 @@ Public Class PASPFeeStatistics
                 dgvDepositsAndPayments.Columns("strFacilityName").Width = 300
                 dgvDepositsAndPayments.Columns("strPaymentPlan").HeaderText = "Payment Plan"
                 dgvDepositsAndPayments.Columns("strPaymentPlan").DisplayIndex = 2
+
                 Select Case cboStatPayType.Text
                     Case "QUARTER ONE", "QUARTER TWO", "QUARTER THREE", "QUARTER FOUR", "ALL QUARTERS"
                         dgvDepositsAndPayments.Columns("Due").HeaderText = "Amount Invoiced per Quarter"
                     Case Else
                         dgvDepositsAndPayments.Columns("Due").HeaderText = "Amount Invoiced"
                 End Select
+
                 dgvDepositsAndPayments.Columns("Due").DisplayIndex = 3
-                dgvDepositsAndPayments.Columns("Due").DefaultCellStyle.Format = "c"
                 dgvDepositsAndPayments.Columns("numFeeYear").HeaderText = "Year"
                 dgvDepositsAndPayments.Columns("numFeeYear").DisplayIndex = 4
-
                 dgvDepositsAndPayments.Columns("strClass").HeaderText = "Classification"
                 dgvDepositsAndPayments.Columns("strClass").DisplayIndex = 5
-
                 dgvDepositsAndPayments.Columns("numPart70Fee").HeaderText = "Part 70 Fee"
                 dgvDepositsAndPayments.Columns("numPart70Fee").DisplayIndex = 6
-                dgvDepositsAndPayments.Columns("numPart70Fee").DefaultCellStyle.Format = "c"
                 dgvDepositsAndPayments.Columns("numSMFee").HeaderText = "SM Fee"
                 dgvDepositsAndPayments.Columns("numSMFee").DisplayIndex = 7
-                dgvDepositsAndPayments.Columns("numSMFee").DefaultCellStyle.Format = "c"
                 dgvDepositsAndPayments.Columns("numNSPSFee").HeaderText = "NSPS Fee"
                 dgvDepositsAndPayments.Columns("numNSPSFee").DisplayIndex = 8
-                dgvDepositsAndPayments.Columns("numNSPSFee").DefaultCellStyle.Format = "c"
                 dgvDepositsAndPayments.Columns("numTotalFee").HeaderText = "Fees Total"
                 dgvDepositsAndPayments.Columns("numTotalFee").DisplayIndex = 9
-                dgvDepositsAndPayments.Columns("numTotalFee").DefaultCellStyle.Format = "c"
-
                 dgvDepositsAndPayments.Columns("numAdminFee").HeaderText = "Admin Fees"
                 dgvDepositsAndPayments.Columns("numAdminFee").DisplayIndex = 10
-                dgvDepositsAndPayments.Columns("numAdminFee").DefaultCellStyle.Format = "c"
 
-                txtCount.Text = dgvDepositsAndPayments.RowCount.ToString
+                dgvDepositsAndPayments.SanelyResizeColumns()
             End If
 
         Catch ex As Exception
@@ -5441,29 +4726,19 @@ Public Class PASPFeeStatistics
 
             dgvDepositsAndPayments.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvDepositsAndPayments.AllowUserToResizeColumns = True
-            dgvDepositsAndPayments.AllowUserToResizeRows = True
-            dgvDepositsAndPayments.AllowUserToAddRows = False
-            dgvDepositsAndPayments.AllowUserToDeleteRows = False
-            dgvDepositsAndPayments.AllowUserToOrderColumns = True
             dgvDepositsAndPayments.Columns("strAIRSNumber").HeaderText = "AIRS Number"
             dgvDepositsAndPayments.Columns("strAIRSNumber").DisplayIndex = 0
             dgvDepositsAndPayments.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvDepositsAndPayments.Columns("strFacilityName").DisplayIndex = 1
             dgvDepositsAndPayments.Columns("strFacilityName").Width = 300
-
             dgvDepositsAndPayments.Columns("numfeeyear").HeaderText = "Fee Year"
             dgvDepositsAndPayments.Columns("numfeeyear").DisplayIndex = 2
             dgvDepositsAndPayments.Columns("TotalInvoiced").HeaderText = "Invoiced Amount"
             dgvDepositsAndPayments.Columns("TotalInvoiced").DisplayIndex = 3
-            dgvDepositsAndPayments.Columns("TotalInvoiced").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("TotalReported").HeaderText = "Reported Amount"
             dgvDepositsAndPayments.Columns("TotalReported").DisplayIndex = 4
-            dgvDepositsAndPayments.Columns("TotalReported").DefaultCellStyle.Format = "c"
 
-            txtCount.Text = dgvDepositsAndPayments.RowCount.ToString
-
+            dgvDepositsAndPayments.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -5633,21 +4908,15 @@ Public Class PASPFeeStatistics
             End Select
 
             If chbNonZeroBalance.Checked Then
-                SQL = SQL & " where balance <> 0 "
+                SQL &= " where balance <> 0 "
             End If
 
-            SQL = SQL & " ORDER BY strairsnumber "
+            SQL &= " ORDER BY strairsnumber "
 
             Dim p As New SqlParameter("@year", cboStatYear.Text)
 
             dgvDepositsAndPayments.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvDepositsAndPayments.AllowUserToResizeColumns = True
-            dgvDepositsAndPayments.AllowUserToResizeRows = True
-            dgvDepositsAndPayments.AllowUserToAddRows = False
-            dgvDepositsAndPayments.AllowUserToDeleteRows = False
-            dgvDepositsAndPayments.AllowUserToOrderColumns = True
             dgvDepositsAndPayments.Columns("strAIRSNUmber").HeaderText = "AIRS Number"
             dgvDepositsAndPayments.Columns("strAIRSNUmber").DisplayIndex = 0
             dgvDepositsAndPayments.Columns("strFacilityName").HeaderText = "Facility Name"
@@ -5657,21 +4926,16 @@ Public Class PASPFeeStatistics
             dgvDepositsAndPayments.Columns("PayType").DisplayIndex = 2
             dgvDepositsAndPayments.Columns("FeeReported").HeaderText = "Amount Reported"
             dgvDepositsAndPayments.Columns("FeeReported").DisplayIndex = 3
-            dgvDepositsAndPayments.Columns("FeeReported").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("AmountOwed").HeaderText = "Amount Invoiced"
             dgvDepositsAndPayments.Columns("AmountOwed").DisplayIndex = 4
-            dgvDepositsAndPayments.Columns("AmountOwed").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("Payment").HeaderText = "Amount Paid"
             dgvDepositsAndPayments.Columns("Payment").DisplayIndex = 5
-            dgvDepositsAndPayments.Columns("Payment").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("Balance").HeaderText = "Balance Due"
             dgvDepositsAndPayments.Columns("Balance").DisplayIndex = 6
-            dgvDepositsAndPayments.Columns("Balance").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("numFeeYear").HeaderText = "Year"
             dgvDepositsAndPayments.Columns("numFeeYear").DisplayIndex = 7
 
-            txtCount.Text = dgvDepositsAndPayments.RowCount.ToString
-
+            dgvDepositsAndPayments.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -5713,10 +4977,6 @@ Public Class PASPFeeStatistics
 
         dgvReported.DataSource = DB.GetDataTable(query, param)
         dgvReported.SanelyResizeColumns()
-    End Sub
-
-    Private Sub btnReportedExport_Click(sender As Object, e As EventArgs) Handles btnReportedExport.Click
-        dgvReported.ExportToExcel(Me)
     End Sub
 
 End Class
