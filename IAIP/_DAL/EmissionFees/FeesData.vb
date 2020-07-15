@@ -30,7 +30,7 @@ Namespace DAL
             Return DB.GetDataTable(query, parameters)
         End Function
 
-        Public Function Update_FS_Admin_Status(feeYear As Integer, airsNumber As Apb.ApbFacilityId) As Boolean
+        Public Function UpdateFeeAdminStatus(feeYear As Integer, airsNumber As Apb.ApbFacilityId) As Boolean
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@FEEYEAR", SqlDbType.SmallInt) With {.Value = feeYear},
                 New SqlParameter("@AIRSNUMBER", SqlDbType.VarChar) With {.Value = airsNumber.DbFormattedString}
@@ -189,6 +189,76 @@ Namespace DAL
             Dim dt As DataTable = DB.GetDataTable(query)
             dt.PrimaryKey = {dt.Columns("STRAIRSNUMBER")}
             Return dt
+        End Function
+
+        Public Function UpdateFeeRates(FeeYear As Integer, FeePeriodStart As Date,
+                                   FeePeriodEnd As Date, Part70Fee As Decimal, SMFee As Decimal,
+                                   PerTonRate As Decimal, NSPSFee As Decimal, FeeDueDate As Date,
+                                   AdminFeeRate As Decimal, AdminFeeDate As Date, Comments As String,
+                                   FirstQrtDue As Date, SecondQrtDue As Date,
+                                   ThirdQrtDue As Date, FourthQrtDue As Date,
+                                   AAThresh As Integer, NAThresh As Integer,
+                                   MaintenanceFeeRate As Decimal) As Boolean
+
+            Dim SQL As String = "Update FS_FeeRate set " &
+                "datFeePeriodStart = @datFeePeriodStart, " &
+                "datFeePeriodEnd = @datFeePeriodEnd, " &
+                "numPart70Fee = @numPart70Fee, " &
+                "numSMFee = @numSMFee, " &
+                "numPerTonRate = @numPerTonRate, " &
+                "numNSPSFee = @numNSPSFee, " &
+                "datFeeDueDate = @datFeeDueDate, " &
+                "numAdminFeeRate = @numAdminFeeRate / 100, " &
+                "datAdminApplicable = @datAdminApplicable, " &
+                "strComments = @strComments, " &
+                "UpdateUser = @UpdateUser, " &
+                "upDateDateTime = getdate(), " &
+                "datFirstQrtDue = @datFirstQrtDue, " &
+                "datSecondQrtDue = @datSecondQrtDue, " &
+                "datThirdQrtDue = @datThirdQrtDue, " &
+                "datFourthQrtDue = @datFourthQrtDue, " &
+                "numAAThres = @numAAThres, " &
+                "numNAThres = @numNAThres, " &
+                "MaintenanceFeeRate = @MaintenanceFeeRate " &
+                "where numFeeYear = @numFeeYear "
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@numFeeYear", FeeYear),
+                New SqlParameter("@datFeePeriodStart", FeePeriodStart),
+                New SqlParameter("@datFeePeriodEnd", FeePeriodEnd),
+                New SqlParameter("@numPart70Fee", Part70Fee),
+                New SqlParameter("@numSMFee", SMFee),
+                New SqlParameter("@numPerTonRate", PerTonRate),
+                New SqlParameter("@numNSPSFee", NSPSFee),
+                New SqlParameter("@datFeeDueDate", FeeDueDate),
+                New SqlParameter("@numAdminFeeRate", AdminFeeRate),
+                New SqlParameter("@datAdminApplicable", AdminFeeDate),
+                New SqlParameter("@strComments", Comments),
+                New SqlParameter("@UpdateUser", CurrentUser.UserID),
+                New SqlParameter("@datFirstQrtDue", FirstQrtDue),
+                New SqlParameter("@datSecondQrtDue", SecondQrtDue),
+                New SqlParameter("@datThirdQrtDue", ThirdQrtDue),
+                New SqlParameter("@datFourthQrtDue", FourthQrtDue),
+                New SqlParameter("@numAAThres", AAThresh),
+                New SqlParameter("@numNAThres", NAThresh),
+                New SqlParameter("@MaintenanceFeeRate", MaintenanceFeeRate)
+            }
+
+            Return DB.RunCommand(SQL, p)
+        End Function
+
+        Public Function GetFeeRates() As DataTable
+            Dim sql As String = "select convert(int, NUMFEEYEAR) as [Fee Year], DATFEEPERIODSTART as [Start Date], DATFEEPERIODEND as [End Date],
+                NUMPART70FEE as [Part 70 Fee], MaintenanceFeeRate as [Maintenance Fee], NUMSMFEE as [SM Annual Fee],
+                NUMNSPSFEE as [NSPS Annual Fee], NUMPERTONRATE as [Per Ton Fee Rate], DATFEEDUEDATE as [Due Date],
+                NUMADMINFEERATE * 100 as [Admin Fee Percent], DATADMINAPPLICABLE as [Admin Fee Date],
+                DATFIRSTQRTDUE as [Q1 Due Date], DATSECONDQRTDUE as [Q2 Due Date], DATTHIRDQRTDUE as [Q3 Due Date],
+                DATFOURTHQRTDUE as [Q4 Due Date], NUMAATHRES as [Attainment Area Threshold],
+                NUMNATHRES as [Non-attainment Area Threshold], STRCOMMENTS as [Notes]
+                from FS_FEERATE
+                order by NUMFEEYEAR desc"
+
+            Return DB.GetDataTable(sql)
         End Function
 
     End Module

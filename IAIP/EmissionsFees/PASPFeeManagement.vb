@@ -1,242 +1,129 @@
-﻿Imports System.Data.SqlClient
-Imports System.Collections.Generic
+﻿Imports System.Collections.Generic
+Imports System.Data.SqlClient
 Imports System.Text
+Imports EpdIt.DBUtilities
 
 Public Class PASPFeeManagement
 
     Private Sub PASPFeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Try
-            LoadFeeRates()
-            LoadNSPSExemptions()
-            LoadNSPSExemptions2("1")
-            LoadFeeYears()
-            LoadSelectedNSPSExemptions()
+        LoadFeeRates()
+        LoadNSPSExemptions()
+        LoadNSPSExemptions2("1")
+        LoadFeeYears()
+        FormatSelectedNSPSExemptions()
 
-            FeeManagementListCountLabel.Text = ""
-            btnExportToExcel.Visible = False
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        FeeManagementListCountLabel.Text = ""
     End Sub
 
     Private Sub LoadFeeRates()
-        Try
-            Dim SQL As String
+        Dim ind As Integer = -1
 
-            SQL = "Select " &
-            "numFeeRateID, " &
-            "numFeeYear, " &
-            "datFeePeriodStart, datFeePeriodEnd, " &
-            "numPart70Fee, numSMFee, " &
-            "numPerTonRate, numNSPSFee, " &
-            "datFeeDueDate, " &
-            "numAdminFeeRate, datAdminApplicable, " &
-            "datFirstQrtDue, datSecondQrtDue, " &
-            "datThirdQrtDue, datFourthQrtDue, " &
-            "strComments, " &
-            "numAAThres, numNAThres " &
-            "from FS_FeeRate " &
-            "where Active = '1' " &
-            "order by numFeeYear desc "
+        If dgvFeeRates.Rows.Count > 0 Then
+            ind = dgvFeeRates.SelectedRows(0).Index
+        End If
 
-            dgvFeeRates.DataSource = DB.GetDataTable(SQL)
+        dgvFeeRates.DataSource = DAL.GetFeeRates()
+        dgvFeeRates.SanelyResizeColumns()
 
-            dgvFeeRates.RowHeadersVisible = False
-            dgvFeeRates.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeRates.AllowUserToResizeColumns = True
-            dgvFeeRates.AllowUserToAddRows = False
-            dgvFeeRates.AllowUserToDeleteRows = False
-            dgvFeeRates.AllowUserToOrderColumns = True
-            dgvFeeRates.AllowUserToResizeRows = False
+        If dgvFeeRates.Rows.Count > 0 Then
+            dgvFeeRates.SelectNone()
 
-            dgvFeeRates.Columns("numFeeRateID").HeaderText = "ID"
-            dgvFeeRates.Columns("numFeeRateID").DisplayIndex = 0
-            dgvFeeRates.Columns("numFeeRateID").Visible = False
-            dgvFeeRates.Columns("numFeeYear").HeaderText = "Fee Year"
-            dgvFeeRates.Columns("numFeeYear").DisplayIndex = 1
-            dgvFeeRates.Columns("numFeeYear").Width = 40
-            dgvFeeRates.Columns("datFeePeriodStart").HeaderText = "Start Date"
-            dgvFeeRates.Columns("datFeePeriodStart").DisplayIndex = 2
-            dgvFeeRates.Columns("datFeePeriodStart").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvFeeRates.Columns("datFeePeriodStart").Width = 75
-            dgvFeeRates.Columns("datFeePeriodEnd").HeaderText = "End Date"
-            dgvFeeRates.Columns("datFeePeriodEnd").DisplayIndex = 3
-            dgvFeeRates.Columns("datFeePeriodEnd").Width = 75
-            dgvFeeRates.Columns("datFeePeriodEnd").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvFeeRates.Columns("numPart70Fee").HeaderText = "Part 70 Fee"
-            dgvFeeRates.Columns("numPart70Fee").DisplayIndex = 4
-            dgvFeeRates.Columns("numPart70Fee").Width = 75
-            dgvFeeRates.Columns("numPart70Fee").DefaultCellStyle.Format = "c"
-            dgvFeeRates.Columns("numSMFee").HeaderText = "SM Fee"
-            dgvFeeRates.Columns("numSMFee").DisplayIndex = 5
-            dgvFeeRates.Columns("numSMFee").Width = 75
-            dgvFeeRates.Columns("numSMFee").DefaultCellStyle.Format = "c"
-            dgvFeeRates.Columns("numPerTonRate").HeaderText = "Per Ton Rate"
-            dgvFeeRates.Columns("numPerTonRate").DisplayIndex = 6
-            dgvFeeRates.Columns("numPerTonRate").Width = 75
-            dgvFeeRates.Columns("numPerTonRate").DefaultCellStyle.Format = "c"
-            dgvFeeRates.Columns("numNSPSFee").HeaderText = "NSPS Fee"
-            dgvFeeRates.Columns("numNSPSFee").DisplayIndex = 7
-            dgvFeeRates.Columns("numNSPSFee").Width = 75
-            dgvFeeRates.Columns("numNSPSFee").DefaultCellStyle.Format = "c"
-            dgvFeeRates.Columns("numAAThres").HeaderText = "Attainment Threshold"
-            dgvFeeRates.Columns("numAAThres").DisplayIndex = 8
-            dgvFeeRates.Columns("numAAThres").Width = 75
-            dgvFeeRates.Columns("numNAThres").HeaderText = "NonAttainment Threshold"
-            dgvFeeRates.Columns("numNAThres").DisplayIndex = 9
-            dgvFeeRates.Columns("numNAThres").Width = 75
-
-            dgvFeeRates.Columns("datFeeDueDate").HeaderText = "Due Date"
-            dgvFeeRates.Columns("datFeeDueDate").DisplayIndex = 10
-            dgvFeeRates.Columns("datFeeDueDate").Width = 75
-            dgvFeeRates.Columns("datFeeDueDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvFeeRates.Columns("numAdminFeeRate").HeaderText = "Admin Fee"
-            dgvFeeRates.Columns("numAdminFeeRate").DisplayIndex = 11
-            dgvFeeRates.Columns("numAdminFeeRate").Width = 75
-            dgvFeeRates.Columns("datAdminApplicable").HeaderText = "Admin. Fee Applicable"
-            dgvFeeRates.Columns("datAdminApplicable").DisplayIndex = 12
-            dgvFeeRates.Columns("datAdminApplicable").Width = 75
-            dgvFeeRates.Columns("datAdminApplicable").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
-            dgvFeeRates.Columns("datFirstQrtDue").HeaderText = "1st Qrt Due Date"
-            dgvFeeRates.Columns("datFirstQrtDue").DisplayIndex = 13
-            dgvFeeRates.Columns("datFirstQrtDue").Width = 125
-            dgvFeeRates.Columns("datFirstQrtDue").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvFeeRates.Columns("datSecondQrtDue").HeaderText = "2nd Qrt Due Date"
-            dgvFeeRates.Columns("datSecondQrtDue").DisplayIndex = 14
-            dgvFeeRates.Columns("datSecondQrtDue").Width = 125
-            dgvFeeRates.Columns("datSecondQrtDue").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvFeeRates.Columns("datThirdQrtDue").HeaderText = "3rd Qrt Due Date"
-            dgvFeeRates.Columns("datThirdQrtDue").DisplayIndex = 15
-            dgvFeeRates.Columns("datThirdQrtDue").Width = 125
-            dgvFeeRates.Columns("datThirdQrtDue").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvFeeRates.Columns("datFourthQrtDue").HeaderText = "4th Qrt Due Date"
-            dgvFeeRates.Columns("datFourthQrtDue").DisplayIndex = 16
-            dgvFeeRates.Columns("datFourthQrtDue").Width = 125
-            dgvFeeRates.Columns("datFourthQrtDue").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
-            dgvFeeRates.Columns("strComments").HeaderText = "Notes"
-            dgvFeeRates.Columns("strComments").DisplayIndex = 17
-            dgvFeeRates.Columns("strComments").Width = 200
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub ClearFeeData()
-        txtFeeID.Clear()
-        txtFeeYear.Clear()
-        dtpFeePeriodStart.Value = Today
-        dtpFeePeriodEnd.Value = Today
-        txtTitleVfee.Clear()
-        txtAnnualSMFee.Clear()
-        txtAnnualNSPSFee.Clear()
-        txtperTonRate.Clear()
-        dtpFeeDueDate.Value = Today
-        txtAdminFeePercent.Clear()
-        dtpAdminApplicable.Value = Today
-        txtFeeNotes.Clear()
+            If ind > -1 Then
+                dgvFeeRates.Rows(ind).Selected = True
+                dgvFeeRates.CurrentCell = dgvFeeRates.Rows(ind).Cells(0)
+                dgvFeeRates.FirstDisplayedScrollingRowIndex = ind
+            Else
+                dgvFeeRates.Rows(0).Selected = True
+                dgvFeeRates.CurrentCell = dgvFeeRates.Rows(0).Cells(0)
+                dgvFeeRates.FirstDisplayedScrollingRowIndex = 0
+            End If
+        End If
     End Sub
 
     Private Sub LoadNSPSExemptions()
-        Try
-            Dim SQL As String
+        Dim SQL As String = "Select " &
+        "NSPSReasonCode, Description, " &
+        "(strLastName+', '+strFirstName) as UpdatingUser, " &
+        "UpdateDateTime, CreateDateTime, " &
+        "case " &
+        "when Active = '0' then 'Flagged as deleted' " &
+        "else 'Active' " &
+        "end ActiveStatus " &
+        "from FSLK_NSPSReason inner join EPDUserProfiles " &
+        "on FSLK_NSPSReason.UpdateUser = EPDUserProfiles.numUserID " &
+        "where Active = '1' " &
+        "order by NSPSReasonCode "
 
-            SQL = "Select " &
-            "NSPSReasonCode, Description, " &
-            "(strLastName+', '+strFirstName) as UpdatingUser, " &
-            "UpdateDateTime, CreateDateTime, " &
-            "case " &
-            "when Active = '0' then 'Flagged as deleted' " &
-            "else 'Active' " &
-            "end ActiveStatus " &
-            "from FSLK_NSPSReason inner join EPDUserProfiles " &
-            "on FSLK_NSPSReason.UpdateUser = EPDUserProfiles.numUserID " &
-            "where Active = '1' " &
-            "order by NSPSReasonCode "
+        dgvNSPSExemptions.DataSource = DB.GetDataTable(SQL)
 
-            dgvNSPSExemptions.DataSource = DB.GetDataTable(SQL)
+        dgvNSPSExemptions.RowHeadersVisible = False
+        dgvNSPSExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+        dgvNSPSExemptions.AllowUserToResizeColumns = True
+        dgvNSPSExemptions.AllowUserToResizeRows = False
+        dgvNSPSExemptions.AllowUserToAddRows = False
+        dgvNSPSExemptions.AllowUserToDeleteRows = False
+        dgvNSPSExemptions.AllowUserToOrderColumns = False
+        dgvNSPSExemptions.Columns("NSPSReasonCode").HeaderText = "ID"
+        dgvNSPSExemptions.Columns("NSPSReasonCode").DisplayIndex = 0
+        dgvNSPSExemptions.Columns("Description").HeaderText = "NSPS Exemption Reason"
+        dgvNSPSExemptions.Columns("Description").DisplayIndex = 1
+        dgvNSPSExemptions.Columns("UpdatingUser").HeaderText = "Updating User"
+        dgvNSPSExemptions.Columns("UpdatingUser").DisplayIndex = 2
+        dgvNSPSExemptions.Columns("UpdateDateTime").HeaderText = "Updated Date"
+        dgvNSPSExemptions.Columns("UpdateDateTime").DisplayIndex = 3
+        dgvNSPSExemptions.Columns("UpdateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        dgvNSPSExemptions.Columns("CreateDateTime").HeaderText = "Created Date"
+        dgvNSPSExemptions.Columns("CreateDateTime").DisplayIndex = 4
+        dgvNSPSExemptions.Columns("CreateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        dgvNSPSExemptions.Columns("ActiveStatus").HeaderText = "Active Status"
+        dgvNSPSExemptions.Columns("ActiveStatus").DisplayIndex = 5
 
-            dgvNSPSExemptions.RowHeadersVisible = False
-            dgvNSPSExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvNSPSExemptions.AllowUserToResizeColumns = True
-            dgvNSPSExemptions.AllowUserToResizeRows = False
-            dgvNSPSExemptions.AllowUserToAddRows = False
-            dgvNSPSExemptions.AllowUserToDeleteRows = False
-            dgvNSPSExemptions.AllowUserToOrderColumns = False
-            dgvNSPSExemptions.Columns("NSPSReasonCode").HeaderText = "ID"
-            dgvNSPSExemptions.Columns("NSPSReasonCode").DisplayIndex = 0
-            dgvNSPSExemptions.Columns("Description").HeaderText = "NSPS Exemption Reason"
-            dgvNSPSExemptions.Columns("Description").DisplayIndex = 1
-            dgvNSPSExemptions.Columns("UpdatingUser").HeaderText = "Updating User"
-            dgvNSPSExemptions.Columns("UpdatingUser").DisplayIndex = 2
-            dgvNSPSExemptions.Columns("UpdateDateTime").HeaderText = "Updated Date"
-            dgvNSPSExemptions.Columns("UpdateDateTime").DisplayIndex = 3
-            dgvNSPSExemptions.Columns("UpdateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvNSPSExemptions.Columns("CreateDateTime").HeaderText = "Created Date"
-            dgvNSPSExemptions.Columns("CreateDateTime").DisplayIndex = 4
-            dgvNSPSExemptions.Columns("CreateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvNSPSExemptions.Columns("ActiveStatus").HeaderText = "Active Status"
-            dgvNSPSExemptions.Columns("ActiveStatus").DisplayIndex = 5
-
-            dgvNSPSExemptions.AutoResizeColumns()
-            dgvNSPSExemptions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        dgvNSPSExemptions.AutoResizeColumns()
+        dgvNSPSExemptions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
     End Sub
 
     Private Sub LoadNSPSExemptions2(ActiveStatus As String)
-        Try
-            Dim SQL As String
+        Dim SQL As String = "Select " &
+        "NSPSReasonCode, Description, " &
+        "(strLastName+', '+strFirstName) as UpdatingUser, " &
+        "UpdateDateTime, CreateDateTime, " &
+        "case " &
+        "when Active = '0' then 'Flagged as deleted' " &
+        "else 'Active' " &
+        "end ActiveStatus " &
+        "from FSLK_NSPSReason inner join EPDUserProfiles " &
+        "on FSLK_NSPSReason.UpdateUser = EPDUserProfiles.numUserID " &
+        "where Active = @Active " &
+        "order by NSPSReasonCode "
 
-            SQL = "Select " &
-            "NSPSReasonCode, Description, " &
-            "(strLastName+', '+strFirstName) as UpdatingUser, " &
-            "UpdateDateTime, CreateDateTime, " &
-            "case " &
-            "when Active = '0' then 'Flagged as deleted' " &
-            "else 'Active' " &
-            "end ActiveStatus " &
-            "from FSLK_NSPSReason inner join EPDUserProfiles " &
-            "on FSLK_NSPSReason.UpdateUser = EPDUserProfiles.numUserID " &
-            "where Active = @Active " &
-            "order by NSPSReasonCode "
+        Dim p As New SqlParameter("@Active", ActiveStatus)
 
-            Dim p As New SqlParameter("@Active", ActiveStatus)
+        dgvExistingExemptions.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvExistingExemptions.DataSource = DB.GetDataTable(SQL, p)
+        dgvExistingExemptions.RowHeadersVisible = False
+        dgvExistingExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+        dgvExistingExemptions.AllowUserToResizeColumns = True
+        dgvExistingExemptions.AllowUserToResizeRows = False
+        dgvExistingExemptions.AllowUserToAddRows = False
+        dgvExistingExemptions.AllowUserToDeleteRows = False
+        dgvExistingExemptions.AllowUserToOrderColumns = True
+        dgvExistingExemptions.Columns("NSPSReasonCode").HeaderText = "ID"
+        dgvExistingExemptions.Columns("NSPSReasonCode").DisplayIndex = 0
+        dgvExistingExemptions.Columns("Description").HeaderText = "NSPS Exemption Reason"
+        dgvExistingExemptions.Columns("Description").DisplayIndex = 1
+        dgvExistingExemptions.Columns("UpdatingUser").HeaderText = "Updating User"
+        dgvExistingExemptions.Columns("UpdatingUser").DisplayIndex = 2
+        dgvExistingExemptions.Columns("UpdateDateTime").HeaderText = "Updated Date"
+        dgvExistingExemptions.Columns("UpdateDateTime").DisplayIndex = 3
+        dgvExistingExemptions.Columns("UpdateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        dgvExistingExemptions.Columns("CreateDateTime").HeaderText = "Created Date"
+        dgvExistingExemptions.Columns("CreateDateTime").DisplayIndex = 4
+        dgvExistingExemptions.Columns("CreateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        dgvExistingExemptions.Columns("ActiveStatus").HeaderText = "Active Status"
+        dgvExistingExemptions.Columns("ActiveStatus").DisplayIndex = 5
 
-            dgvExistingExemptions.RowHeadersVisible = False
-            dgvExistingExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvExistingExemptions.AllowUserToResizeColumns = True
-            dgvExistingExemptions.AllowUserToResizeRows = False
-            dgvExistingExemptions.AllowUserToAddRows = False
-            dgvExistingExemptions.AllowUserToDeleteRows = False
-            dgvExistingExemptions.AllowUserToOrderColumns = True
-            dgvExistingExemptions.Columns("NSPSReasonCode").HeaderText = "ID"
-            dgvExistingExemptions.Columns("NSPSReasonCode").DisplayIndex = 0
-            dgvExistingExemptions.Columns("Description").HeaderText = "NSPS Exemption Reason"
-            dgvExistingExemptions.Columns("Description").DisplayIndex = 1
-            dgvExistingExemptions.Columns("UpdatingUser").HeaderText = "Updating User"
-            dgvExistingExemptions.Columns("UpdatingUser").DisplayIndex = 2
-            dgvExistingExemptions.Columns("UpdateDateTime").HeaderText = "Updated Date"
-            dgvExistingExemptions.Columns("UpdateDateTime").DisplayIndex = 3
-            dgvExistingExemptions.Columns("UpdateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvExistingExemptions.Columns("CreateDateTime").HeaderText = "Created Date"
-            dgvExistingExemptions.Columns("CreateDateTime").DisplayIndex = 4
-            dgvExistingExemptions.Columns("CreateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvExistingExemptions.Columns("ActiveStatus").HeaderText = "Active Status"
-            dgvExistingExemptions.Columns("ActiveStatus").DisplayIndex = 5
-
-            dgvExistingExemptions.AutoResizeColumns()
-            dgvExistingExemptions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        dgvExistingExemptions.AutoResizeColumns()
+        dgvExistingExemptions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
     End Sub
 
     Private Sub LoadFeeYears()
@@ -245,167 +132,92 @@ Public Class PASPFeeManagement
         cboAvailableFeeYears.DataSource = allFeeYears
     End Sub
 
-    Private Sub LoadSelectedNSPSExemptions()
-        Try
-            dgvNSPSExemptionsByYear.RowHeadersVisible = False
-            dgvNSPSExemptionsByYear.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvNSPSExemptionsByYear.AllowUserToResizeColumns = True
-            dgvNSPSExemptionsByYear.AllowUserToAddRows = False
-            dgvNSPSExemptionsByYear.AllowUserToDeleteRows = False
-            dgvNSPSExemptionsByYear.AllowUserToOrderColumns = False
-            dgvNSPSExemptionsByYear.AllowUserToResizeRows = False
-            dgvNSPSExemptionsByYear.ColumnHeadersHeight = 35
+    Private Sub FormatSelectedNSPSExemptions()
+        dgvNSPSExemptionsByYear.RowHeadersVisible = False
+        dgvNSPSExemptionsByYear.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+        dgvNSPSExemptionsByYear.AllowUserToResizeColumns = True
+        dgvNSPSExemptionsByYear.AllowUserToAddRows = False
+        dgvNSPSExemptionsByYear.AllowUserToDeleteRows = False
+        dgvNSPSExemptionsByYear.AllowUserToOrderColumns = False
+        dgvNSPSExemptionsByYear.AllowUserToResizeRows = False
+        dgvNSPSExemptionsByYear.ColumnHeadersHeight = 35
 
-            dgvNSPSExemptionsByYear.Columns.Add("numFeeYear", "Year")
-            dgvNSPSExemptionsByYear.Columns("numFeeYear").DisplayIndex = 0
-            dgvNSPSExemptionsByYear.Columns("numFeeYear").Width = CInt(Math.Floor(dgvNSPSExemptionsByYear.Width * 0.1))
-            dgvNSPSExemptionsByYear.Columns("numFeeYear").Visible = True
+        dgvNSPSExemptionsByYear.Columns.Add("numFeeYear", "Year")
+        dgvNSPSExemptionsByYear.Columns("numFeeYear").DisplayIndex = 0
+        dgvNSPSExemptionsByYear.Columns("numFeeYear").Width = CInt(Math.Floor(dgvNSPSExemptionsByYear.Width * 0.1))
+        dgvNSPSExemptionsByYear.Columns("numFeeYear").Visible = True
 
-            dgvNSPSExemptionsByYear.Columns.Add("NSPSReasonCode", "NSPS ID")
-            dgvNSPSExemptionsByYear.Columns("NSPSReasonCode").DisplayIndex = 1
-            dgvNSPSExemptionsByYear.Columns("NSPSReasonCode").Width = CInt(Math.Floor(dgvNSPSExemptionsByYear.Width * 0.15))
-            dgvNSPSExemptionsByYear.Columns("NSPSReasonCode").ReadOnly = True
+        dgvNSPSExemptionsByYear.Columns.Add("NSPSReasonCode", "NSPS ID")
+        dgvNSPSExemptionsByYear.Columns("NSPSReasonCode").DisplayIndex = 1
+        dgvNSPSExemptionsByYear.Columns("NSPSReasonCode").Width = CInt(Math.Floor(dgvNSPSExemptionsByYear.Width * 0.15))
+        dgvNSPSExemptionsByYear.Columns("NSPSReasonCode").ReadOnly = True
 
-            dgvNSPSExemptionsByYear.Columns.Add("displayOrder", "Display Order")
-            dgvNSPSExemptionsByYear.Columns("displayOrder").DisplayIndex = 2
-            dgvNSPSExemptionsByYear.Columns("displayOrder").Width = CInt(Math.Floor(dgvNSPSExemptionsByYear.Width * 0.15))
-            dgvNSPSExemptionsByYear.Columns("displayOrder").ReadOnly = False
+        dgvNSPSExemptionsByYear.Columns.Add("displayOrder", "Display Order")
+        dgvNSPSExemptionsByYear.Columns("displayOrder").DisplayIndex = 2
+        dgvNSPSExemptionsByYear.Columns("displayOrder").Width = CInt(Math.Floor(dgvNSPSExemptionsByYear.Width * 0.15))
+        dgvNSPSExemptionsByYear.Columns("displayOrder").ReadOnly = False
 
-            dgvNSPSExemptionsByYear.Columns.Add("Description", "NSPS Exemption Reason")
-            dgvNSPSExemptionsByYear.Columns("Description").DisplayIndex = 3
-            dgvNSPSExemptionsByYear.Columns("Description").Width = CInt(Math.Floor(dgvNSPSExemptionsByYear.Width * 0.6))
-            dgvNSPSExemptionsByYear.Columns("Description").ReadOnly = True
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnClearFeeData_Click(sender As Object, e As EventArgs) Handles btnClearFeeData.Click
-        ClearFeeData()
+        dgvNSPSExemptionsByYear.Columns.Add("Description", "NSPS Exemption Reason")
+        dgvNSPSExemptionsByYear.Columns("Description").DisplayIndex = 3
+        dgvNSPSExemptionsByYear.Columns("Description").Width = CInt(Math.Floor(dgvNSPSExemptionsByYear.Width * 0.6))
+        dgvNSPSExemptionsByYear.Columns("Description").ReadOnly = True
     End Sub
 
     Private Sub dgvFeeRates_SelectionChanged(sender As Object, e As EventArgs) Handles dgvFeeRates.SelectionChanged
         If dgvFeeRates.SelectedRows.Count = 1 Then
-            Dim row As DataGridViewRow = dgvFeeRates.CurrentRow
+            Dim row As DataGridViewRow = dgvFeeRates.SelectedRows(0)
 
-            ClearFeeData()
-            If IsDBNull(row.Cells(0).Value) Then
-                Return
-            Else
-                txtFeeID.Text = row.Cells(0).Value.ToString
-            End If
-            If IsDBNull(row.Cells(1).Value) Then
-                txtFeeYear.Clear()
-            Else
-                txtFeeYear.Text = row.Cells(1).Value.ToString
-            End If
-            If IsDBNull(row.Cells(2).Value) Then
-                dtpFeePeriodStart.Value = Today
-            Else
-                dtpFeePeriodStart.Text = row.Cells(2).Value.ToString
-            End If
-            If IsDBNull(row.Cells(3).Value) Then
-                dtpFeePeriodEnd.Value = Today
-            Else
-                dtpFeePeriodEnd.Text = row.Cells(3).Value.ToString
-            End If
-            If IsDBNull(row.Cells(4).Value) Then
-                txtTitleVfee.Clear()
-            Else
-                txtTitleVfee.Text = row.Cells(4).Value.ToString
-            End If
-            If IsDBNull(row.Cells(5).Value) Then
-                txtAnnualSMFee.Clear()
-            Else
-                txtAnnualSMFee.Text = row.Cells(5).Value.ToString
-            End If
-            If IsDBNull(row.Cells(7).Value) Then
-                txtAnnualNSPSFee.Clear()
-            Else
-                txtAnnualNSPSFee.Text = row.Cells(7).Value.ToString
-            End If
-            If IsDBNull(row.Cells(6).Value) Then
-                txtperTonRate.Clear()
-            Else
-                txtperTonRate.Text = row.Cells(6).Value.ToString
-            End If
-            If IsDBNull(row.Cells(16).Value) Then
-                txtAttainmentThreshold.Clear()
-            Else
-                txtAttainmentThreshold.Text = row.Cells(16).Value.ToString
-            End If
-            If IsDBNull(row.Cells(17).Value) Then
-                txtNonAttainmentThreshold.Clear()
-            Else
-                txtNonAttainmentThreshold.Text = row.Cells(17).Value.ToString
-            End If
-
-            If IsDBNull(row.Cells(8).Value) Then
-                dtpFeeDueDate.Value = Today
-            Else
-                dtpFeeDueDate.Text = row.Cells(8).Value.ToString
-            End If
-            If IsDBNull(row.Cells(9).Value) Then
-                txtAdminFeePercent.Clear()
-            Else
-                txtAdminFeePercent.Text = row.Cells(9).Value.ToString
-            End If
-            If IsDBNull(row.Cells(10).Value) Then
-                dtpAdminApplicable.Value = Today
-            Else
-                dtpAdminApplicable.Text = row.Cells(10).Value.ToString
-            End If
-
-            If IsDBNull(row.Cells(11).Value) Then
-                dtpFirstQrtDue.Value = Today
-            Else
-                dtpFirstQrtDue.Text = row.Cells(11).Value.ToString
-            End If
-            If IsDBNull(row.Cells(12).Value) Then
-                dtpSecondQrtDue.Value = Today
-            Else
-                dtpSecondQrtDue.Text = row.Cells(12).Value.ToString
-            End If
-            If IsDBNull(row.Cells(13).Value) Then
-                dtpThirdQrtDue.Value = Today
-            Else
-                dtpThirdQrtDue.Text = row.Cells(13).Value.ToString
-            End If
-            If IsDBNull(row.Cells(14).Value) Then
-                dtpFourthQrtDue.Value = Today
-            Else
-                dtpFourthQrtDue.Text = row.Cells(14).Value.ToString
-            End If
-
-            If IsDBNull(row.Cells(15).Value) Then
-                txtFeeNotes.Clear()
-            Else
-                txtFeeNotes.Text = row.Cells(15).Value.ToString
-            End If
+            txtFeeYear.Text = row.Cells("Fee Year").Value.ToString
+            dtpFeePeriodStart.Value = CDate(row.Cells("Start Date").Value)
+            dtpFeePeriodEnd.Value = CDate(row.Cells("End Date").Value)
+            txtPart70Fee.Text = CDec(row.Cells("Part 70 Fee").Value).ToString("0.##")
+            txtPart70MaintenanceFee.Text = CDec(row.Cells("Maintenance Fee").Value).ToString("0.##")
+            txtAnnualSMFee.Text = CDec(row.Cells("SM Annual Fee").Value).ToString("0.##")
+            txtAnnualNSPSFee.Text = CDec(row.Cells("NSPS Annual Fee").Value).ToString("0.##")
+            txtPerTonRate.Text = CDec(row.Cells("Per Ton Fee Rate").Value).ToString("0.##")
+            dtpFeeDueDate.Value = CDate(row.Cells("Due Date").Value)
+            txtAdminFeePercent.Text = CDec(row.Cells("Admin Fee Percent").Value).ToString("0.##")
+            dtpAdminApplicableDate.Value = CDate(row.Cells("Admin Fee Date").Value.ToString)
+            dtpFirstQrtDue.Value = CDate(row.Cells("Q1 Due Date").Value)
+            dtpSecondQrtDue.Value = CDate(row.Cells("Q2 Due Date").Value)
+            dtpThirdQrtDue.Value = CDate(row.Cells("Q3 Due Date").Value)
+            dtpFourthQrtDue.Value = CDate(row.Cells("Q4 Due Date").Value)
+            txtAttainmentThreshold.Text = row.Cells("Attainment Area Threshold").Value.ToString
+            txtNonAttainmentThreshold.Text = row.Cells("Non-attainment Area Threshold").Value.ToString
+            txtFeeNotes.Text = GetNullableString(row.Cells("Notes").Value)
         End If
     End Sub
 
     Private Sub btnUpdateFeeData_Click(sender As Object, e As EventArgs) Handles btnUpdateFeeData.Click
-        Try
-            If txtFeeID.Text <> "" Then
-                If Update_FS_FeeRate(txtFeeID.Text, txtFeeYear.Text, dtpFeePeriodStart.Text, dtpFeePeriodEnd.Text,
-                                         txtTitleVfee.Text, txtAnnualSMFee.Text, txtperTonRate.Text, txtAnnualNSPSFee.Text,
-                                         dtpFeeDueDate.Text, txtAdminFeePercent.Text, dtpAdminApplicable.Text,
-                                         txtFeeNotes.Text, "1", dtpFirstQrtDue.Text, dtpSecondQrtDue.Text,
-                                         dtpThirdQrtDue.Text, dtpFourthQrtDue.Text, txtAttainmentThreshold.Text,
-                                         txtNonAttainmentThreshold.Text) Then
+        If String.IsNullOrEmpty(txtFeeYear.Text) OrElse Not IsNumeric(txtFeeYear.Text) Then
+            MsgBox("Select a fee year record first.")
+        End If
 
-                    LoadFeeRates()
-                    ClearFeeData()
-                    MsgBox("Update completed", MsgBoxStyle.Information, Me.Text)
-                Else
-                    MsgBox("Did not update", MsgBoxStyle.Information, Me.Text)
-                End If
-            End If
+        If Not IsNumeric(txtPart70Fee.Text) OrElse
+            Not IsNumeric(txtAnnualSMFee.Text) OrElse
+            Not IsNumeric(txtAnnualNSPSFee.Text) OrElse
+            Not IsNumeric(txtPerTonRate.Text) OrElse
+            Not IsNumeric(txtAdminFeePercent.Text) OrElse
+            Not IsNumeric(txtAttainmentThreshold.Text) OrElse
+            Not IsNumeric(txtNonAttainmentThreshold.Text) OrElse
+            Not IsNumeric(txtPart70MaintenanceFee.Text) Then
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+            MsgBox("No update: Please check for data errors.", MsgBoxStyle.Information, Me.Text)
+            Return
+        End If
+
+        If DAL.UpdateFeeRates(CInt(txtFeeYear.Text), dtpFeePeriodStart.Value, dtpFeePeriodEnd.Value,
+                              CDec(txtPart70Fee.Text), CDec(txtAnnualSMFee.Text), CDec(txtPerTonRate.Text),
+                              CDec(txtAnnualNSPSFee.Text), dtpFeeDueDate.Value, CDec(txtAdminFeePercent.Text),
+                              dtpAdminApplicableDate.Value, txtFeeNotes.Text, dtpFirstQrtDue.Value, dtpSecondQrtDue.Value,
+                              dtpThirdQrtDue.Value, dtpFourthQrtDue.Value, CInt(txtAttainmentThreshold.Text),
+                              CInt(txtNonAttainmentThreshold.Text), CDec(txtPart70MaintenanceFee.Text)) Then
+
+            LoadFeeRates()
+            MsgBox("Update completed", MsgBoxStyle.Information, Me.Text)
+        Else
+            MsgBox("Error updating fee rates.", MsgBoxStyle.Critical)
+        End If
     End Sub
 
     Private Sub LoadNSPSExemptionByYear()
@@ -456,7 +268,7 @@ Public Class PASPFeeManagement
                 End If
 
                 Dim rgxPattern As String = "\b" & ReasonID & "-" & DisplayOrder & ","
-                NSPStemp = System.Text.RegularExpressions.Regex.Replace(NSPStemp, rgxPattern, "")
+                NSPStemp = RegularExpressions.Regex.Replace(NSPStemp, rgxPattern, "")
 
                 Dim x As Integer = 0
                 While x < dgvNSPSExemptions.Rows.Count
@@ -528,7 +340,7 @@ Public Class PASPFeeManagement
     End Sub
 
     Private Sub btnViewNSPSExemptionsByYear_Click(sender As Object, e As EventArgs) Handles btnViewNSPSExemptionsByYear.Click
-        If cboNSPSExemptionYear.Text <> "" Then
+        If Not String.IsNullOrEmpty(cboNSPSExemptionYear.Text) Then
             LoadNSPSExemptionByYear()
         End If
     End Sub
@@ -555,41 +367,36 @@ Public Class PASPFeeManagement
     End Sub
 
     Private Sub btnUnselectForm_Click(sender As Object, e As EventArgs) Handles btnUnselectForm.Click
-        Try
-            If dgvNSPSExemptionsByYear.RowCount > 0 Then
-                Dim ReasonID As String = dgvNSPSExemptionsByYear(1, dgvNSPSExemptionsByYear.CurrentRow.Index).Value.ToString
+        If dgvNSPSExemptionsByYear.RowCount > 0 Then
+            Dim ReasonID As String = dgvNSPSExemptionsByYear(1, dgvNSPSExemptionsByYear.CurrentRow.Index).Value.ToString
 
-                Dim SQL As String = "SELECT COUNT(*) " &
-                    " FROM FS_FEEDATA " &
-                    " WHERE NUMFEEYEAR = @year " &
-                    " AND (STRNSPSEXEMPTREASON LIKE @reason1 " &
-                    " OR STRNSPSEXEMPTREASON = @reason2 " &
-                    " OR STRNSPSEXEMPTREASON LIKE @reason3 " &
-                    " OR STRNSPSEXEMPTREASON LIKE @reason4) "
+            Dim SQL As String = "SELECT COUNT(*) " &
+                " FROM FS_FEEDATA " &
+                " WHERE NUMFEEYEAR = @year " &
+                " AND (STRNSPSEXEMPTREASON LIKE @reason1 " &
+                " OR STRNSPSEXEMPTREASON = @reason2 " &
+                " OR STRNSPSEXEMPTREASON LIKE @reason3 " &
+                " OR STRNSPSEXEMPTREASON LIKE @reason4) "
 
-                Dim p As SqlParameter() = {
-                    New SqlParameter("@year", dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value),
-                    New SqlParameter("@reason1", ReasonID & ",%"),
-                    New SqlParameter("@reason2", ReasonID),
-                    New SqlParameter("@reason3", "%," & ReasonID),
-                    New SqlParameter("@reason4", "%," & ReasonID & ",%")
-                }
+            Dim p As SqlParameter() = {
+                New SqlParameter("@year", dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value),
+                New SqlParameter("@reason1", ReasonID & ",%"),
+                New SqlParameter("@reason2", ReasonID),
+                New SqlParameter("@reason3", "%," & ReasonID),
+                New SqlParameter("@reason4", "%," & ReasonID & ",%")
+            }
 
-                If DB.GetInteger(SQL, p) > 0 Then
-                    MessageBox.Show("Unable to Remove this exemption from this year because this exemption has been used.")
-                Else
-                    dgvNSPSExemptionsByYear.Rows.Remove(dgvNSPSExemptionsByYear.CurrentRow)
-                End If
+            If DB.GetInteger(SQL, p) > 0 Then
+                MessageBox.Show("Unable to Remove this exemption from this year because this exemption has been used.")
+            Else
+                dgvNSPSExemptionsByYear.Rows.Remove(dgvNSPSExemptionsByYear.CurrentRow)
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        End If
     End Sub
 
     Private Sub btnUpdateNSPSbyYear_Click(sender As Object, e As EventArgs) Handles btnUpdateNSPSbyYear.Click
         If cboNSPSExemptionYear.Text = "" OrElse Not IsNumeric(cboNSPSExemptionYear.Text) Then
-            MessageBox.Show("Please select a Fee Year first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Select a Fee Year first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
@@ -621,7 +428,7 @@ Public Class PASPFeeManagement
 
                 SQL = "Select DisplayOrder from FSLK_NSPSReasonYear where numFeeYear = @year and NSPSReasonCode = @reasoncode "
                 Dim p2 As SqlParameter() = {
-                    New SqlParameter("@year", cint(cboNSPSExemptionYear.Text)),
+                    New SqlParameter("@year", CInt(cboNSPSExemptionYear.Text)),
                     New SqlParameter("@reasoncode", ReasonID)
                 }
                 Dim dr As DataRow = DB.GetDataRow(SQL, p2)
@@ -775,16 +582,16 @@ Public Class PASPFeeManagement
             DB.RunCommand(SQL, p2)
 
             SQL = "Update FS_Admin set " &
-            "datInitialEnrollment = datEnrollment " &
+            "datInitialEnrollment = getdate() " &
             "where numFeeYear = @year " &
             "and datInitialEnrollment is null " &
             "and ACTIVE = '1' "
             DB.RunCommand(SQL, p)
 
             Dim p3 As SqlParameter() = {
-                    New SqlParameter("@FeeYear", SqlDbType.Decimal) With {.Value = cboAvailableFeeYears.Text},
-                    New SqlParameter("@AIRSNumber", "")
-                }
+                New SqlParameter("@FeeYear", SqlDbType.Decimal) With {.Value = cboAvailableFeeYears.Text},
+                New SqlParameter("@AIRSNumber", "")
+            }
             DB.SPRunCommand("dbo.PD_FEE_DATA", p3)
 
             ViewEnrolledFacilities()
@@ -798,8 +605,6 @@ Public Class PASPFeeManagement
 
     Private Sub btnUnenrollFeeYear_Click(sender As Object, e As EventArgs) Handles btnUnenrollFeeYear.Click
         Try
-            Dim SQL As String
-
             If cboAvailableFeeYears.Text = "" Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Select a fee year first.", MsgBoxStyle.Exclamation, Me.Text)
                 Return
@@ -811,19 +616,13 @@ Public Class PASPFeeManagement
                 Return
             End If
 
-            Dim Result As DialogResult
-            Result = MessageBox.Show("Are you positive you want to reset enrollment for this year?",
-              Me.Text, MessageBoxButtons.YesNoCancel,
-                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+            If DialogResult.No = MessageBox.Show("Are you positive you want to reset enrollment for this year?",
+                                                 Me.Text, MessageBoxButtons.YesNo,
+                                                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) Then
+                Return
+            End If
 
-            Select Case Result
-                Case DialogResult.Yes
-
-                Case Else
-                    Return
-            End Select
-
-            SQL = "Update FS_Admin set " &
+            Dim SQL As String = "Update FS_Admin set " &
             "strEnrolled = '0', " &
             "datEnrollment = null, " &
             "datInitialEnrollment = null, " &
@@ -930,12 +729,6 @@ Public Class PASPFeeManagement
             dgvFeeManagementLists.Columns("strGECOUserEmail").DisplayIndex = 17
 
             FeeManagementListCountLabel.Text = String.Format("Viewing {0} Fee Year: {1} result{2}", cboAvailableFeeYears.Text, dgvFeeManagementLists.RowCount.ToString, If(dgvFeeManagementLists.RowCount = 1, "", "s"))
-            If dgvFeeManagementLists.RowCount > 0 Then
-                btnExportToExcel.Visible = True
-            Else
-                btnExportToExcel.Visible = False
-            End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1072,12 +865,6 @@ Public Class PASPFeeManagement
             dgvFeeManagementLists.Columns("strGECOUserEmail").DisplayIndex = 17
 
             FeeManagementListCountLabel.Text = String.Format("Viewing {0} Fee Year: {1} result{2}", cboAvailableFeeYears.Text, dgvFeeManagementLists.RowCount.ToString, If(dgvFeeManagementLists.RowCount = 1, "", "s"))
-            If dgvFeeManagementLists.RowCount > 0 Then
-                btnExportToExcel.Visible = True
-            Else
-                btnExportToExcel.Visible = False
-            End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1085,16 +872,14 @@ Public Class PASPFeeManagement
 
     Private Sub btnUpdateContactData_Click(sender As Object, e As EventArgs) Handles btnUpdateContactData.Click
         ' Warn user
-        Dim confirm As DialogResult = MessageBox.Show("This will replace mailout contact data with the current " & vbNewLine &
-            "fee contact for all sources in the mailout list. " &
-            vbNewLine & vbNewLine &
-            "Are you sure you want to proceed? ",
-            "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2)
-
-        If confirm = DialogResult.No Then
+        If DialogResult.No = MessageBox.Show("This will replace mailout contact data with the current " & vbNewLine &
+                                             "fee contact for all sources in the mailout list. " &
+                                             vbNewLine & vbNewLine &
+                                             "Are you sure you want to proceed? ",
+                                             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation,
+                                             MessageBoxDefaultButton.Button2) Then
             Return
         End If
-
 
         Dim SelectedYear As Integer
 
@@ -1139,10 +924,6 @@ Public Class PASPFeeManagement
         ViewMailOut()
     End Sub
 
-    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
-        dgvFeeManagementLists.ExportToExcel(Me)
-    End Sub
-
     Private Sub dgvExistingExemptions_SelectionChanged(sender As Object, e As EventArgs) Handles dgvExistingExemptions.SelectionChanged
         If dgvExistingExemptions.SelectedRows.Count = 1 Then
             Dim row As DataGridViewRow = dgvExistingExemptions.CurrentRow
@@ -1163,11 +944,7 @@ Public Class PASPFeeManagement
     End Sub
 
     Private Sub btnRefreshNSPSExemptions_Click(sender As Object, e As EventArgs) Handles btnRefreshNSPSExemptions.Click
-        Try
-            LoadNSPSExemptions2("1")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        LoadNSPSExemptions2("1")
     End Sub
 
     Private Sub btnClearNSPSExemptions_Click(sender As Object, e As EventArgs) Handles btnClearNSPSExemptions.Click
@@ -1255,21 +1032,14 @@ Public Class PASPFeeManagement
             dgvFeeManagementLists.Columns("strMailoutSent").DisplayIndex = 12
 
             FeeManagementListCountLabel.Text = String.Format("Viewing {0} Fee Year: {1} result{2}", cboAvailableFeeYears.Text, dgvFeeManagementLists.RowCount.ToString, If(dgvFeeManagementLists.RowCount = 1, "", "s"))
-            If dgvFeeManagementLists.RowCount > 0 Then
-                btnExportToExcel.Visible = True
-            Else
-                btnExportToExcel.Visible = False
-            End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub btnSetMailoutDate_Click(sender As Object, e As EventArgs) Handles btnSetMailoutDate.Click
-        Dim confirm As DialogResult = MessageBox.Show("Are you sure you want to set the initial mailout date for all sources in the mailout list?",
-            "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
-        If confirm = DialogResult.No Then
+        If DialogResult.No = MessageBox.Show("Are you sure you want to set the initial mailout date for all sources in the mailout list?",
+                                             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1) Then
             Return
         End If
 
@@ -1314,6 +1084,21 @@ Public Class PASPFeeManagement
         End If
     End Sub
 
+    Private Sub dgvFeeManagementLists_CellLinkSelected(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvFeeManagementLists.CellLinkSelected
+        mtbCheckAIRSNumber.Text = e.LinkValue.ToString
+    End Sub
+
+    Private Sub dgvFeeManagementLists_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvFeeManagementLists.CellLinkActivated
+        Dim parameters As New Dictionary(Of FormParameter, String)
+
+        If Apb.ApbFacilityId.IsValidAirsNumberFormat(e.LinkValue.ToString) Then
+            parameters(FormParameter.AirsNumber) = e.LinkValue.ToString
+        End If
+
+        parameters(FormParameter.FeeYear) = cboAvailableFeeYears.Text
+        OpenSingleForm(PASPFeeAuditLog, parameters:=parameters, closeFirst:=True)
+    End Sub
+
     Private Sub btnOpenFeesLog_Click(sender As Object, e As EventArgs) Handles btnOpenFeesLog.Click
         Dim parameters As New Dictionary(Of FormParameter, String)
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbCheckAIRSNumber.Text) Then
@@ -1323,86 +1108,6 @@ Public Class PASPFeeManagement
 
         OpenSingleForm(PASPFeeAuditLog, parameters:=parameters, closeFirst:=True)
     End Sub
-
-    Private Sub dgvFeeManagementLists_SelectionChanged(sender As Object, e As EventArgs) Handles dgvFeeManagementLists.SelectionChanged
-        mtbCheckAIRSNumber.Clear()
-        If dgvFeeManagementLists.SelectedRows.Count = 1 Then
-            mtbCheckAIRSNumber.Text = dgvFeeManagementLists.CurrentRow.Cells("AIRSNumber").Value.ToString
-        End If
-    End Sub
-
-    Private Function Update_FS_FeeRate(FeeRateID As String, FeeYear As String, PeriodStart As String,
-                          PeriodEnd As String, Part70Fee As String, SMFee As String,
-                          PerTonRate As String, NSPSFee As String, FeeDueDate As String,
-                          AdminFee As String, AdminApplicable As String, Comments As String,
-                          Active As String, FirstQrtDue As String, SecondQrtDue As String,
-                          ThridQrtDue As String, FourthQrtDue As String, AAThres As String,
-                          NAThres As String) As Boolean
-        Try
-            If Not IsNumeric(FeeRateID) OrElse
-                Not IsNumeric(FeeYear) OrElse
-                Not IsNumeric(Part70Fee) OrElse
-                Not IsNumeric(SMFee) OrElse
-                Not IsNumeric(PerTonRate) OrElse
-                Not IsNumeric(NSPSFee) OrElse
-                Not IsNumeric(AdminFee) OrElse
-                Not IsNumeric(AAThres) OrElse
-                Not IsNumeric(NAThres) Then
-                Return False
-            End If
-
-            Dim SQL As String = "Update FS_FeeRate set " &
-            "numFeeYear = @numFeeYear, " &
-            "datFeePeriodStart = @datFeePeriodStart, " &
-            "datFeePeriodEnd = @datFeePeriodEnd, " &
-            "numPart70Fee = @numPart70Fee, " &
-            "numSMFee = @numSMFee, " &
-            "numPerTonRate = @numPerTonRate, " &
-            "numNSPSFee = @numNSPSFee, " &
-            "datFeeDueDate = @datFeeDueDate, " &
-            "numAdminFeeRate = @numAdminFeeRate, " &
-            "datAdminApplicable = @datAdminApplicable, " &
-            "strComments = @strComments, " &
-            "Active = @Active, " &
-            "UpdateUser = @UpdateUser, " &
-            "upDateDateTime = getdate(), " &
-            "datFirstQrtDue = @datFirstQrtDue, " &
-            "datSecondQrtDue = @datSecondQrtDue, " &
-            "datThirdQrtDue = @datThirdQrtDue, " &
-            "datFourthQrtDue = @datFourthQrtDue, " &
-            "numAAThres = @numAAThres, " &
-            "numNAThres = @numNAThres " &
-            "where numFeeRateID = @numFeeRateID "
-
-            Dim p As SqlParameter() = {
-                New SqlParameter("@numFeeYear", FeeYear),
-                New SqlParameter("@datFeePeriodStart", PeriodStart),
-                New SqlParameter("@datFeePeriodEnd", PeriodEnd),
-                New SqlParameter("@numPart70Fee", Part70Fee),
-                New SqlParameter("@numSMFee", SMFee),
-                New SqlParameter("@numPerTonRate", PerTonRate),
-                New SqlParameter("@numNSPSFee", NSPSFee),
-                New SqlParameter("@datFeeDueDate", FeeDueDate),
-                New SqlParameter("@numAdminFeeRate", AdminFee),
-                New SqlParameter("@datAdminApplicable", AdminApplicable),
-                New SqlParameter("@strComments", Comments),
-                New SqlParameter("@Active", Active),
-                New SqlParameter("@UpdateUser", CurrentUser.UserID),
-                New SqlParameter("@datFirstQrtDue", FirstQrtDue),
-                New SqlParameter("@datSecondQrtDue", SecondQrtDue),
-                New SqlParameter("@datThirdQrtDue", ThridQrtDue),
-                New SqlParameter("@datFourthQrtDue", FourthQrtDue),
-                New SqlParameter("@numAAThres", AAThres),
-                New SqlParameter("@numNAThres", NAThres),
-                New SqlParameter("@numFeeRateID", FeeRateID)
-            }
-
-            Return DB.RunCommand(SQL, p)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-            Return False
-        End Try
-    End Function
 
     Private Function Insert_FSLK_NSPSReason(Description As String) As Boolean
         Try

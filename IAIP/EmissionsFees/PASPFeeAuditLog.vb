@@ -2430,7 +2430,7 @@ Public Class PASPFeeAuditLog
             End If
 
             InvoiceStatusCheck(txtInvoiceID.Text)
-            If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber) Then
+            If Not DAL.UpdateFeeAdminStatus(FeeYear, AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -2623,7 +2623,7 @@ Public Class PASPFeeAuditLog
 
             InvoiceStatusCheck(txtInvoiceID.Text)
 
-            If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber) Then
+            If Not DAL.UpdateFeeAdminStatus(FeeYear, AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
             RefreshAdminStatus()
@@ -2669,7 +2669,7 @@ Public Class PASPFeeAuditLog
             DB.RunCommand(SQL, p)
 
             InvoiceStatusCheck(txtInvoiceID.Text)
-            If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber) Then
+            If Not DAL.UpdateFeeAdminStatus(Me.FeeYear, Me.AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
             RefreshAdminStatus()
@@ -3402,7 +3402,7 @@ Public Class PASPFeeAuditLog
 
             DB.RunCommand(SQL, p)
 
-            If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber) Then
+            If Not DAL.UpdateFeeAdminStatus(FeeYear, AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -4505,7 +4505,7 @@ Public Class PASPFeeAuditLog
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
 
-            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber) Then
+            If Not DAL.UpdateFeeAdminStatus(FeeYear, AIRSNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -4609,7 +4609,7 @@ Public Class PASPFeeAuditLog
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
 
-            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber) Then
+            If Not DAL.UpdateFeeAdminStatus(FeeYear, AIRSNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -4642,7 +4642,7 @@ Public Class PASPFeeAuditLog
             If Not DB.RunCommand(SQL, parameters) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Else
-                If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber) Then
+                If Not DAL.UpdateFeeAdminStatus(FeeYear, AirsNumber) Then
                     MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
             End If
