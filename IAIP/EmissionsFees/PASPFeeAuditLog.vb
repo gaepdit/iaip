@@ -4596,8 +4596,8 @@ Public Class PASPFeeAuditLog
             "and datInitialEnrollment is null "
 
             Dim params2 As SqlParameter() = {
-                New SqlParameter("@FeeYear", SqlDbType.SmallInt) With {.Value = FeeYear},
-                New SqlParameter("@AIRSNumber", SqlDbType.VarChar) With {.Value = AIRSNumber.DbFormattedString}
+                New SqlParameter("@FeeYear", FeeYear),
+                New SqlParameter("@AIRSNumber", AIRSNumber.DbFormattedString)
             }
             DB.RunCommand(SQL, params2)
 

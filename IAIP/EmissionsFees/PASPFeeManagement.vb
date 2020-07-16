@@ -589,7 +589,7 @@ Public Class PASPFeeManagement
             DB.RunCommand(SQL, p)
 
             Dim p3 As SqlParameter() = {
-                New SqlParameter("@FeeYear", SqlDbType.Decimal) With {.Value = cboAvailableFeeYears.Text},
+                New SqlParameter("@FeeYear", cboAvailableFeeYears.Text),
                 New SqlParameter("@AIRSNumber", "")
             }
             DB.SPRunCommand("dbo.PD_FEE_DATA", p3)
@@ -759,7 +759,7 @@ Public Class PASPFeeManagement
 
             If temp < 1 Then
                 Dim p2 As SqlParameter() = {
-                    New SqlParameter("@FeeYear", SqlDbType.Decimal) With {.Value = cboAvailableFeeYears.Text},
+                    New SqlParameter("@FeeYear", cboAvailableFeeYears.Text),
                     New SqlParameter("@AIRSNumber", "")
                 }
                 DB.SPRunCommand("dbo.PD_FEE_MAILOUT", p2)
