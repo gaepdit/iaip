@@ -67,7 +67,9 @@ Partial Class FeesStatistics
         Me.txtSO2Tons = New System.Windows.Forms.TextBox()
         Me.Label71 = New System.Windows.Forms.Label()
         Me.txtNOxTons = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.Label70 = New System.Windows.Forms.Label()
+        Me.txtPart70MaintenanceFee = New System.Windows.Forms.TextBox()
         Me.txtPart70Fee = New System.Windows.Forms.TextBox()
         Me.Label69 = New System.Windows.Forms.Label()
         Me.Label68 = New System.Windows.Forms.Label()
@@ -93,6 +95,7 @@ Partial Class FeesStatistics
         Me.btnRunDepositReport = New System.Windows.Forms.Button()
         Me.Label112 = New System.Windows.Forms.Label()
         Me.Label111 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.Label110 = New System.Windows.Forms.Label()
         Me.dtpEndDepositDate = New System.Windows.Forms.DateTimePicker()
         Me.dtpStartDepositDate = New System.Windows.Forms.DateTimePicker()
@@ -111,7 +114,6 @@ Partial Class FeesStatistics
         Me.txtBalance = New System.Windows.Forms.TextBox()
         Me.txtTotalPaid = New System.Windows.Forms.TextBox()
         Me.cboStatYear = New System.Windows.Forms.ComboBox()
-        Me.btnViewDepositsStats = New System.Windows.Forms.Button()
         Me.cboStatPayType = New System.Windows.Forms.ComboBox()
         Me.txtTotalPaymentDue = New System.Windows.Forms.TextBox()
         Me.TPFeeStatistics2 = New System.Windows.Forms.TabPage()
@@ -316,7 +318,7 @@ Partial Class FeesStatistics
         '
         'lblCountDepositsPayments
         '
-        Me.lblCountDepositsPayments.Location = New System.Drawing.Point(813, 112)
+        Me.lblCountDepositsPayments.Location = New System.Drawing.Point(813, 133)
         Me.lblCountDepositsPayments.Name = "lblCountDepositsPayments"
         Me.lblCountDepositsPayments.Size = New System.Drawing.Size(100, 23)
         Me.lblCountDepositsPayments.TabIndex = 415
@@ -362,7 +364,9 @@ Partial Class FeesStatistics
         Me.pnlDetails.Controls.Add(Me.txtSO2Tons)
         Me.pnlDetails.Controls.Add(Me.Label71)
         Me.pnlDetails.Controls.Add(Me.txtNOxTons)
+        Me.pnlDetails.Controls.Add(Me.Label5)
         Me.pnlDetails.Controls.Add(Me.Label70)
+        Me.pnlDetails.Controls.Add(Me.txtPart70MaintenanceFee)
         Me.pnlDetails.Controls.Add(Me.txtPart70Fee)
         Me.pnlDetails.Controls.Add(Me.Label69)
         Me.pnlDetails.Controls.Add(Me.Label68)
@@ -445,7 +449,7 @@ Partial Class FeesStatistics
         '
         'txtSMfee
         '
-        Me.txtSMfee.Location = New System.Drawing.Point(558, 27)
+        Me.txtSMfee.Location = New System.Drawing.Point(559, 50)
         Me.txtSMfee.Name = "txtSMfee"
         Me.txtSMfee.ReadOnly = True
         Me.txtSMfee.Size = New System.Drawing.Size(89, 20)
@@ -453,7 +457,7 @@ Partial Class FeesStatistics
         '
         'txtNSPSfee
         '
-        Me.txtNSPSfee.Location = New System.Drawing.Point(558, 51)
+        Me.txtNSPSfee.Location = New System.Drawing.Point(559, 74)
         Me.txtNSPSfee.Name = "txtNSPSfee"
         Me.txtNSPSfee.ReadOnly = True
         Me.txtNSPSfee.Size = New System.Drawing.Size(89, 20)
@@ -548,7 +552,7 @@ Partial Class FeesStatistics
         'Label86
         '
         Me.Label86.AutoSize = True
-        Me.Label86.Location = New System.Drawing.Point(296, 31)
+        Me.Label86.Location = New System.Drawing.Point(296, 30)
         Me.Label86.Name = "Label86"
         Me.Label86.Size = New System.Drawing.Size(80, 13)
         Me.Label86.TabIndex = 44
@@ -644,7 +648,7 @@ Partial Class FeesStatistics
         'Label78
         '
         Me.Label78.AutoSize = True
-        Me.Label78.Location = New System.Drawing.Point(498, 55)
+        Me.Label78.Location = New System.Drawing.Point(499, 78)
         Me.Label78.Name = "Label78"
         Me.Label78.Size = New System.Drawing.Size(57, 13)
         Me.Label78.TabIndex = 28
@@ -701,6 +705,15 @@ Partial Class FeesStatistics
         Me.txtNOxTons.Size = New System.Drawing.Size(68, 20)
         Me.txtNOxTons.TabIndex = 21
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(465, 30)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(90, 13)
+        Me.Label5.TabIndex = 20
+        Me.Label5.Text = "Maintenance Fee"
+        '
         'Label70
         '
         Me.Label70.AutoSize = True
@@ -709,6 +722,14 @@ Partial Class FeesStatistics
         Me.Label70.Size = New System.Drawing.Size(67, 13)
         Me.Label70.TabIndex = 20
         Me.Label70.Text = "Part 70 Fees"
+        '
+        'txtPart70MaintenanceFee
+        '
+        Me.txtPart70MaintenanceFee.Location = New System.Drawing.Point(558, 27)
+        Me.txtPart70MaintenanceFee.Name = "txtPart70MaintenanceFee"
+        Me.txtPart70MaintenanceFee.ReadOnly = True
+        Me.txtPart70MaintenanceFee.Size = New System.Drawing.Size(89, 20)
+        Me.txtPart70MaintenanceFee.TabIndex = 19
         '
         'txtPart70Fee
         '
@@ -721,7 +742,7 @@ Partial Class FeesStatistics
         'Label69
         '
         Me.Label69.AutoSize = True
-        Me.Label69.Location = New System.Drawing.Point(511, 31)
+        Me.Label69.Location = New System.Drawing.Point(512, 54)
         Me.Label69.Name = "Label69"
         Me.Label69.Size = New System.Drawing.Size(44, 13)
         Me.Label69.TabIndex = 18
@@ -785,7 +806,7 @@ Partial Class FeesStatistics
         'Label61
         '
         Me.Label61.AutoSize = True
-        Me.Label61.Location = New System.Drawing.Point(47, 31)
+        Me.Label61.Location = New System.Drawing.Point(47, 30)
         Me.Label61.Name = "Label61"
         Me.Label61.Size = New System.Drawing.Size(83, 13)
         Me.Label61.TabIndex = 10
@@ -823,6 +844,7 @@ Partial Class FeesStatistics
         Me.Panel1.Controls.Add(Me.btnRunDepositReport)
         Me.Panel1.Controls.Add(Me.Label112)
         Me.Panel1.Controls.Add(Me.Label111)
+        Me.Panel1.Controls.Add(Me.Label6)
         Me.Panel1.Controls.Add(Me.Label110)
         Me.Panel1.Controls.Add(Me.dtpEndDepositDate)
         Me.Panel1.Controls.Add(Me.dtpStartDepositDate)
@@ -841,7 +863,6 @@ Partial Class FeesStatistics
         Me.Panel1.Controls.Add(Me.txtBalance)
         Me.Panel1.Controls.Add(Me.txtTotalPaid)
         Me.Panel1.Controls.Add(Me.cboStatYear)
-        Me.Panel1.Controls.Add(Me.btnViewDepositsStats)
         Me.Panel1.Controls.Add(Me.cboStatPayType)
         Me.Panel1.Controls.Add(Me.txtTotalPaymentDue)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
@@ -971,10 +992,19 @@ Partial Class FeesStatistics
         Me.Label111.TabIndex = 402
         Me.Label111.Text = "Start Date"
         '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(149, 4)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(75, 13)
+        Me.Label6.TabIndex = 401
+        Me.Label6.Text = "Payment Type"
+        '
         'Label110
         '
         Me.Label110.AutoSize = True
-        Me.Label110.Location = New System.Drawing.Point(4, 4)
+        Me.Label110.Location = New System.Drawing.Point(14, 4)
         Me.Label110.Name = "Label110"
         Me.Label110.Size = New System.Drawing.Size(50, 13)
         Me.Label110.TabIndex = 401
@@ -1058,7 +1088,7 @@ Partial Class FeesStatistics
         'Label64
         '
         Me.Label64.AutoSize = True
-        Me.Label64.Location = New System.Drawing.Point(8, 139)
+        Me.Label64.Location = New System.Drawing.Point(8, 138)
         Me.Label64.Name = "Label64"
         Me.Label64.Size = New System.Drawing.Size(72, 13)
         Me.Label64.TabIndex = 21
@@ -1076,7 +1106,7 @@ Partial Class FeesStatistics
         '
         Me.btnViewSelectedFeeData.AutoSize = True
         Me.btnViewSelectedFeeData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewSelectedFeeData.Location = New System.Drawing.Point(648, 134)
+        Me.btnViewSelectedFeeData.Location = New System.Drawing.Point(645, 133)
         Me.btnViewSelectedFeeData.Name = "btnViewSelectedFeeData"
         Me.btnViewSelectedFeeData.Size = New System.Drawing.Size(84, 23)
         Me.btnViewSelectedFeeData.TabIndex = 19
@@ -1139,17 +1169,6 @@ Partial Class FeesStatistics
         Me.cboStatYear.Name = "cboStatYear"
         Me.cboStatYear.Size = New System.Drawing.Size(121, 21)
         Me.cboStatYear.TabIndex = 0
-        '
-        'btnViewDepositsStats
-        '
-        Me.btnViewDepositsStats.AutoSize = True
-        Me.btnViewDepositsStats.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewDepositsStats.Location = New System.Drawing.Point(304, 18)
-        Me.btnViewDepositsStats.Name = "btnViewDepositsStats"
-        Me.btnViewDepositsStats.Size = New System.Drawing.Size(75, 23)
-        Me.btnViewDepositsStats.TabIndex = 2
-        Me.btnViewDepositsStats.Text = "View Report"
-        Me.btnViewDepositsStats.UseVisualStyleBackColor = True
         '
         'cboStatPayType
         '
@@ -2584,14 +2603,14 @@ Partial Class FeesStatistics
         Me.btnFacInfoChange.Text = "Change in Facility Info"
         Me.btnFacInfoChange.UseVisualStyleBackColor = False
         '
-        'PASPFeeStatistics
+        'FeesStatistics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(944, 718)
         Me.Controls.Add(Me.TCMailoutAndStats)
         Me.MinimumSize = New System.Drawing.Size(960, 756)
-        Me.Name = "PASPFeeStatistics"
+        Me.Name = "FeesStatistics"
         Me.Text = "Annual Fees - Statistics and Reports"
         Me.TCMailoutAndStats.ResumeLayout(False)
         Me.TPDepositAndPaymentStats.ResumeLayout(False)
@@ -2702,7 +2721,6 @@ Partial Class FeesStatistics
     Friend WithEvents txtBalance As System.Windows.Forms.TextBox
     Friend WithEvents txtTotalPaid As System.Windows.Forms.TextBox
     Friend WithEvents cboStatYear As System.Windows.Forms.ComboBox
-    Friend WithEvents btnViewDepositsStats As System.Windows.Forms.Button
     Friend WithEvents cboStatPayType As System.Windows.Forms.ComboBox
     Friend WithEvents txtTotalPaymentDue As System.Windows.Forms.TextBox
     Friend WithEvents TPReports As System.Windows.Forms.TabPage
@@ -2852,4 +2870,7 @@ Partial Class FeesStatistics
     Friend WithEvents btnClassification As Button
     Friend WithEvents cbBalanceYear As ComboBox
     Friend WithEvents lblCountDepositsPayments As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents txtPart70MaintenanceFee As TextBox
+    Friend WithEvents Label6 As Label
 End Class

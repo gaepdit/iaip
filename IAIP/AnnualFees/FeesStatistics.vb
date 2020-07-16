@@ -69,10 +69,15 @@ Public Class FeesStatistics
         End With
     End Sub
 
-    Private Sub btnViewDepositsStats_Click(sender As Object, e As EventArgs) Handles btnViewDepositsStats.Click
-        Dim SQLReported As String = ""
-        Dim SQLInvoiced As String = ""
-        Dim SQLPaid As String = ""
+    Private Sub cboStatYear_SelectedIndexChanged(sender As Object, e As EventArgs) _
+        Handles cboStatYear.SelectedIndexChanged, cboStatPayType.SelectedIndexChanged
+        LoadTotals()
+    End Sub
+
+    Private Sub LoadTotals()
+        Dim SQLReported As String
+        Dim SQLInvoiced As String
+        Dim SQLPaid As String
 
         Select Case cboStatPayType.Text
 
@@ -282,6 +287,8 @@ Public Class FeesStatistics
                     "and numCurrentStatus <> '12' " &
                     "and strpaymentplan is null "
 
+                SQLInvoiced = ""
+
                 SQLPaid = "select sum(numPayment) as TotalPaid " &
                     "from FS_Transactions, FS_FeeInvoice " &
                     "where FS_Transactions.InvoiceID = FS_FeeInvoice.invoiceID " &
@@ -300,6 +307,8 @@ Public Class FeesStatistics
                     "and numCurrentStatus <> '12' " &
                     "and strpaymentplan is null "
 
+                SQLInvoiced = ""
+
                 SQLPaid = "select sum(numPayment) as TotalPaid " &
                     "from FS_Transactions inner join FS_FeeInvoice " &
                     "on FS_Transactions.InvoiceID = FS_FeeInvoice.invoiceID " &
@@ -316,6 +325,8 @@ Public Class FeesStatistics
                     "and FS_FeeAuditedData.Active = '1' " &
                     "and FS_Admin.Active = '1' " &
                     "and numCurrentStatus <> '12' "
+
+                SQLInvoiced = ""
 
                 SQLPaid = "select sum(numPayment) as TotalPaid " &
                     "from FS_Transactions inner join FS_FeeInvoice " &
@@ -334,6 +345,8 @@ Public Class FeesStatistics
                     "and FS_Admin.Active = '1' " &
                     "and numCurrentStatus <> '12' "
 
+                SQLInvoiced = ""
+
                 SQLPaid = "Select sum(numPayment) as TotalPaid " &
                     "from FS_Transactions " &
                     "where numFeeYear = @year " &
@@ -344,42 +357,21 @@ Public Class FeesStatistics
         Dim p As New SqlParameter("@year", cboStatYear.Text)
 
         If SQLReported <> "" Then
-            Dim dr As DataRow = DB.GetDataRow(SQLReported, p)
-            If dr IsNot Nothing Then
-                If IsDBNull(dr.Item("TotalDue")) Then
-                    txtTotalPaymentDue.Text = CDec("0").ToString("c")
-                Else
-                    txtTotalPaymentDue.Text = CDec(dr.Item("TotalDue")).ToString("c")
-                End If
-            End If
+            txtTotalPaymentDue.Text = DB.GetSingleValue(Of Decimal)(SQLReported, p).ToString("c")
         Else
-            txtTotalPaymentDue.Text = CDec("0").ToString("c")
+            txtTotalPaymentDue.Text = "$0"
         End If
 
         If SQLInvoiced <> "" Then
-            Dim dr As DataRow = DB.GetDataRow(SQLInvoiced, p)
-            If dr IsNot Nothing Then
-                If IsDBNull(dr.Item("TotalInvoiced")) Then
-                    txtTotalPaymentInvoiced.Text = CDec("0").ToString("c")
-                Else
-                    txtTotalPaymentInvoiced.Text = CDec(dr.Item("TotalInvoiced")).ToString("c")
-                End If
-            End If
+            txtTotalPaymentInvoiced.Text = DB.GetSingleValue(Of Decimal)(SQLInvoiced, p).ToString("c")
         Else
-            txtTotalPaymentInvoiced.Text = CDec("0").ToString("c")
+            txtTotalPaymentInvoiced.Text = "$0"
         End If
 
         If SQLPaid <> "" Then
-            Dim dr As DataRow = DB.GetDataRow(SQLPaid, p)
-            If dr IsNot Nothing Then
-                If IsDBNull(dr.Item("TotalPaid")) Then
-                    txtTotalPaid.Text = CDec("0").ToString("c")
-                Else
-                    txtTotalPaid.Text = CDec(dr.Item("TotalPaid")).ToString("c")
-                End If
-            End If
+            txtTotalPaid.Text = DB.GetSingleValue(Of Decimal)(SQLPaid, p).ToString("c")
         Else
-            txtTotalPaid.Text = CDec("0").ToString("c")
+            txtTotalPaid.Text = "$0"
         End If
 
         txtBalance.Text = (CDec(txtTotalPaymentDue.Text) - CDec(txtTotalPaid.Text)).ToString("c")
@@ -387,7 +379,7 @@ Public Class FeesStatistics
     End Sub
 
     Private Sub btnViewPaymentDue_Click(sender As Object, e As EventArgs) Handles btnViewPaymentDue.Click
-        Dim SQL As String = ""
+        Dim SQL As String
 
         Select Case cboStatPayType.Text
 
@@ -396,7 +388,7 @@ Public Class FeesStatistics
                     "substring(APBFacilityInformation.strAIRSNumber, 5, 8) as AIRSNumber,  " &
                     "strFacilityName, strPaymentPlan,  " &
                     "(numTotalFee ) as Due, FS_FeeAuditedData.numFeeYear,  " &
-                    "numPart70Fee, numSMFee, numNSPSFee,  " &
+                    "convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, numSMFee, numNSPSFee,  " &
                     "numTotalFee, strClass, numAdminFee  " &
                     "From APBFacilityInformation inner join FS_FeeAuditedData " &
                     "on APBFacilityInformation.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber  " &
@@ -413,7 +405,7 @@ Public Class FeesStatistics
                     "substring(APBFacilityInformation.strAIRSNumber, 5, 8) as AIRSNumber,  " &
                     "strFacilityName, strPaymentPlan,  " &
                     "(numTotalFee) as Due, FS_FeeAuditedData.numFeeYear,  " &
-                    "numPart70Fee, numSMFee, numNSPSFee,  " &
+                    "convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, numSMFee, numNSPSFee,  " &
                     "numTotalFee, strClass, numAdminFee  " &
                     "From APBFacilityInformation inner join FS_FeeAuditedData " &
                     "on APBFacilityInformation.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber  " &
@@ -431,7 +423,7 @@ Public Class FeesStatistics
                     "substring(APBFacilityInformation.strAIRSNumber, 5, 8) as AIRSNumber,  " &
                     "strFacilityName, strPaymentPlan,  " &
                     "(numTotalFee)/4 as Due, FS_FeeAuditedData.numFeeYear,  " &
-                    "numPart70Fee, numSMFee, numNSPSFee,  " &
+                    "convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, numSMFee, numNSPSFee,  " &
                     "numTotalFee, strClass, numAdminFee  " &
                     "From APBFacilityInformation inner join FS_FeeAuditedData " &
                     "on APBFacilityInformation.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber  " &
@@ -449,7 +441,7 @@ Public Class FeesStatistics
                     "substring(APBFacilityInformation.strAIRSNumber, 5, 8) as AIRSNumber,  " &
                     "strFacilityName, strPaymentPlan,  " &
                     "(numTotalFee)/4 as Due, FS_FeeAuditedData.numFeeYear,  " &
-                    "numPart70Fee, numSMFee, numNSPSFee,  " &
+                    "convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, numSMFee, numNSPSFee,  " &
                     "numTotalFee, strClass, numAdminFee  " &
                     "From APBFacilityInformation inner join FS_FeeAuditedData " &
                     "on APBFacilityInformation.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber  " &
@@ -467,7 +459,7 @@ Public Class FeesStatistics
                     "substring(APBFacilityInformation.strAIRSNumber, 5, 8) as AIRSNumber,  " &
                     "strFacilityName, strPaymentPlan,  " &
                     "(numTotalFee) as Due, FS_FeeAuditedData.numFeeYear,  " &
-                    "numPart70Fee, numSMFee, numNSPSFee,  " &
+                    "convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, numSMFee, numNSPSFee,  " &
                     "numTotalFee, strClass, numAdminFee  " &
                     "From APBFacilityInformation inner join FS_FeeAuditedData " &
                     "on APBFacilityInformation.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber  " &
@@ -507,20 +499,22 @@ Public Class FeesStatistics
         dgvDepositsAndPayments.Columns("strClass").DisplayIndex = 5
         dgvDepositsAndPayments.Columns("numPart70Fee").HeaderText = "Part 70 Fee"
         dgvDepositsAndPayments.Columns("numPart70Fee").DisplayIndex = 6
+        dgvDepositsAndPayments.Columns("MaintenanceFee").HeaderText = "Part 70 Maintenance Fee"
+        dgvDepositsAndPayments.Columns("MaintenanceFee").DisplayIndex = 7
         dgvDepositsAndPayments.Columns("numSMFee").HeaderText = "SM Fee"
-        dgvDepositsAndPayments.Columns("numSMFee").DisplayIndex = 7
+        dgvDepositsAndPayments.Columns("numSMFee").DisplayIndex = 8
         dgvDepositsAndPayments.Columns("numNSPSFee").HeaderText = "NSPS Fee"
-        dgvDepositsAndPayments.Columns("numNSPSFee").DisplayIndex = 8
+        dgvDepositsAndPayments.Columns("numNSPSFee").DisplayIndex = 9
         dgvDepositsAndPayments.Columns("numTotalFee").HeaderText = "Fees Total"
-        dgvDepositsAndPayments.Columns("numTotalFee").DisplayIndex = 9
+        dgvDepositsAndPayments.Columns("numTotalFee").DisplayIndex = 10
         dgvDepositsAndPayments.Columns("numAdminFee").HeaderText = "Admin Fees"
-        dgvDepositsAndPayments.Columns("numAdminFee").DisplayIndex = 10
+        dgvDepositsAndPayments.Columns("numAdminFee").DisplayIndex = 11
 
         dgvDepositsAndPayments.SanelyResizeColumns()
     End Sub
 
     Private Sub bntViewTotalPaid_Click(sender As Object, e As EventArgs) Handles btnViewTotalPaid.Click
-        Dim SQL As String = ""
+        Dim SQL As String
 
         Select Case cboStatPayType.Text
 
@@ -530,7 +524,7 @@ Public Class FeesStatistics
                         "strFacilityName, " &
                         "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
                         "datTransactionDate, strCheckNo, FS_Transactions.InvoiceID, " &
-                        "FS_Transactions.numFeeYear, numPart70Fee, " &
+                        "FS_Transactions.numFeeYear, convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, " &
                         "numSMFee, numNSPSFee, numTotalFee, strClass, " &
                         "numAdminFee, (numTotalFee) as Due " &
                         "From APBFacilityInformation inner join FS_Transactions " &
@@ -553,7 +547,7 @@ Public Class FeesStatistics
                         "strFacilityName, " &
                         "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
                         "datTransactionDate, strCheckNo, FS_Transactions.InvoiceID, " &
-                        "FS_Transactions.numFeeYear, numPart70Fee, " &
+                        "FS_Transactions.numFeeYear, convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, " &
                         "numSMFee, numNSPSFee, numTotalFee, strClass, " &
                         "numAdminFee, (numTotalFee) as Due " &
                         "From APBFacilityInformation inner join FS_Transactions " &
@@ -577,7 +571,7 @@ Public Class FeesStatistics
                         "strFacilityName, " &
                         "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
                         "datTransactionDate, strCheckNo, FS_Transactions.InvoiceID, " &
-                        "FS_Transactions.numFeeYear, numPart70Fee, " &
+                        "FS_Transactions.numFeeYear, convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, " &
                         "numSMFee, numNSPSFee, numTotalFee, strClass, " &
                         "numAdminFee, (numTotalFee) as Due " &
                         "From APBFacilityInformation inner join FS_Transactions " &
@@ -601,7 +595,7 @@ Public Class FeesStatistics
                         "strFacilityName, " &
                         "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
                         "datTransactionDate, strCheckNo, FS_Transactions.InvoiceID, " &
-                        "FS_Transactions.numFeeYear, numPart70Fee, " &
+                        "FS_Transactions.numFeeYear, convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, " &
                         "numSMFee, numNSPSFee, numTotalFee, strClass, " &
                         "numAdminFee, (numTotalFee) as Due " &
                         "From APBFacilityInformation inner join FS_Transactions " &
@@ -625,7 +619,7 @@ Public Class FeesStatistics
                         "strFacilityName, " &
                         "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
                         "datTransactionDate, strCheckNo, FS_Transactions.InvoiceID, " &
-                        "FS_Transactions.numFeeYear, numPart70Fee, " &
+                        "FS_Transactions.numFeeYear, convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, " &
                         "numSMFee, numNSPSFee, numTotalFee, strClass, " &
                         "numAdminFee, (numTotalFee) as Due " &
                         "From APBFacilityInformation inner join FS_Transactions " &
@@ -649,7 +643,7 @@ Public Class FeesStatistics
                         "strFacilityName, " &
                         "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
                         "datTransactionDate, strCheckNo, FS_Transactions.InvoiceID, " &
-                        "FS_Transactions.numFeeYear, numPart70Fee, " &
+                        "FS_Transactions.numFeeYear, convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, " &
                         "numSMFee, numNSPSFee, numTotalFee, strClass, " &
                         "numAdminFee, (numTotalFee) as Due " &
                         "From APBFacilityInformation inner join FS_Transactions " &
@@ -673,7 +667,7 @@ Public Class FeesStatistics
                         "strFacilityName, " &
                         "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
                         "datTransactionDate, strCheckNo, FS_Transactions.InvoiceID, " &
-                        "FS_Transactions.numFeeYear, numPart70Fee, " &
+                        "FS_Transactions.numFeeYear, convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, " &
                         "numSMFee, numNSPSFee, numTotalFee, strClass, " &
                         "numAdminFee, (numTotalFee) as Due " &
                         "From APBFacilityInformation inner join FS_Transactions " &
@@ -697,7 +691,7 @@ Public Class FeesStatistics
                         "strFacilityName, " &
                         "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
                         "datTransactionDate, strCheckNo, FS_Transactions.InvoiceID, " &
-                        "FS_Transactions.numFeeYear, numPart70Fee, " &
+                        "FS_Transactions.numFeeYear, convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, " &
                         "numSMFee, numNSPSFee, numTotalFee, strClass, " &
                         "numAdminFee, (numTotalFee) as Due " &
                         "From APBFacilityInformation inner join FS_Transactions " &
@@ -721,7 +715,7 @@ Public Class FeesStatistics
                         "strFacilityName, " &
                         "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
                         "datTransactionDate, strCheckNo, FS_Transactions.InvoiceID, " &
-                        "FS_Transactions.numFeeYear, numPart70Fee, " &
+                        "FS_Transactions.numFeeYear, convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, " &
                         "numSMFee, numNSPSFee, numTotalFee, strClass, " &
                         "numAdminFee, (numTotalFee) as Due " &
                         "From APBFacilityInformation inner join FS_Transactions " &
@@ -745,7 +739,7 @@ Public Class FeesStatistics
                         "strFacilityName, " &
                         "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
                         "datTransactionDate, strCheckNo, FS_Transactions.InvoiceID, " &
-                        "FS_Transactions.numFeeYear, numPart70Fee, " &
+                        "FS_Transactions.numFeeYear, convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, " &
                         "numSMFee, numNSPSFee, numTotalFee, strClass, " &
                         "numAdminFee, (numTotalFee) as Due " &
                         "From APBFacilityInformation inner join FS_Transactions " &
@@ -769,7 +763,7 @@ Public Class FeesStatistics
                         "strFacilityName, " &
                         "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
                         "datTransactionDate, strCheckNo, FS_Transactions.InvoiceID, " &
-                        "FS_Transactions.numFeeYear, numPart70Fee, " &
+                        "FS_Transactions.numFeeYear, convert(decimal(9, 2), NUMPART70FEE) as numPart70Fee, MaintenanceFee, " &
                         "numSMFee, numNSPSFee, numTotalFee, strClass, " &
                         "numAdminFee, (numTotalFee) as Due " &
                         "From APBFacilityInformation inner join FS_Transactions " &
@@ -816,16 +810,18 @@ Public Class FeesStatistics
         dgvDepositsAndPayments.Columns("strClass").DisplayIndex = 10
         dgvDepositsAndPayments.Columns("numPart70Fee").HeaderText = "Part 70 Fee"
         dgvDepositsAndPayments.Columns("numPart70Fee").DisplayIndex = 11
+        dgvDepositsAndPayments.Columns("MaintenanceFee").HeaderText = "Part 70 Maintenance Fee"
+        dgvDepositsAndPayments.Columns("MaintenanceFee").DisplayIndex = 12
         dgvDepositsAndPayments.Columns("numSMFee").HeaderText = "SM Fee"
-        dgvDepositsAndPayments.Columns("numSMFee").DisplayIndex = 12
+        dgvDepositsAndPayments.Columns("numSMFee").DisplayIndex = 13
         dgvDepositsAndPayments.Columns("numNSPSFee").HeaderText = "NSPS Fee"
-        dgvDepositsAndPayments.Columns("numNSPSFee").DisplayIndex = 13
+        dgvDepositsAndPayments.Columns("numNSPSFee").DisplayIndex = 14
         dgvDepositsAndPayments.Columns("numTotalFee").HeaderText = "Fees Total"
-        dgvDepositsAndPayments.Columns("numTotalFee").DisplayIndex = 14
+        dgvDepositsAndPayments.Columns("numTotalFee").DisplayIndex = 15
         dgvDepositsAndPayments.Columns("numAdminFee").HeaderText = "Admin Fees"
-        dgvDepositsAndPayments.Columns("numAdminFee").DisplayIndex = 15
+        dgvDepositsAndPayments.Columns("numAdminFee").DisplayIndex = 16
         dgvDepositsAndPayments.Columns("Due").HeaderText = "Total Due"
-        dgvDepositsAndPayments.Columns("Due").DisplayIndex = 16
+        dgvDepositsAndPayments.Columns("Due").DisplayIndex = 17
 
         dgvDepositsAndPayments.SanelyResizeColumns()
     End Sub
@@ -882,7 +878,7 @@ Public Class FeesStatistics
         SQL = "Select " &
             "intVOCTons, intPMTons, " &
             "intSO2Tons, intNOxTons, " &
-            "numPart70Fee, numSMFee, " &
+            "numPart70Fee, MaintenanceFee, numSMFee, " &
             "numNSPSFee, numTotalFee, " &
             "strNSPSExempt, " &
             "strOperate, numFeeRate, " &
@@ -907,6 +903,11 @@ Public Class FeesStatistics
                 txtPart70Fee.Clear()
             Else
                 txtPart70Fee.Text = Format(dr.Item("numPart70Fee"), "c")
+            End If
+            If IsDBNull(dr.Item("MaintenanceFee")) Then
+                txtPart70MaintenanceFee.Clear()
+            Else
+                txtPart70MaintenanceFee.Text = Format(dr.Item("MaintenanceFee"), "c")
             End If
             If IsDBNull(dr.Item("numSMFee")) Then
                 txtSMfee.Clear()
@@ -1024,7 +1025,6 @@ Public Class FeesStatistics
                     End If
 
                     sql2.Append(" or nspsreasoncode = '" & temp & "' ")
-                    temp = ""
                 Loop
 
                 SQL = "Select description " &
@@ -1121,20 +1121,36 @@ Public Class FeesStatistics
             btnRunDepositReport.Enabled = True
             cboStatYear.Enabled = False
             cboStatPayType.Enabled = False
-            btnViewDepositsStats.Enabled = False
             btnViewPaymentDue.Enabled = False
             btnViewTotalPaid.Enabled = False
             chbNonZeroBalance.Enabled = False
+            btnInvoicedPaymentDue.Enabled = False
+            btnInvoiceReportVariance.Enabled = False
+            btnViewInvoicedBalance.Enabled = False
+
+            txtTotalPaymentDue.Enabled = False
+            txtTotalPaid.Enabled = False
+            txtTotalPaymentInvoiced.Enabled = False
+            txtBalance.Enabled = False
+            txtInvoicedBalance.Enabled = False
         Else
             dtpStartDepositDate.Enabled = False
             dtpEndDepositDate.Enabled = False
             btnRunDepositReport.Enabled = False
             cboStatYear.Enabled = True
             cboStatPayType.Enabled = True
-            btnViewDepositsStats.Enabled = True
             btnViewPaymentDue.Enabled = True
             btnViewTotalPaid.Enabled = True
             chbNonZeroBalance.Enabled = True
+            btnInvoicedPaymentDue.Enabled = True
+            btnInvoiceReportVariance.Enabled = True
+            btnViewInvoicedBalance.Enabled = True
+
+            txtTotalPaymentDue.Enabled = True
+            txtTotalPaid.Enabled = True
+            txtTotalPaymentInvoiced.Enabled = True
+            txtBalance.Enabled = True
+            txtInvoicedBalance.Enabled = True
         End If
     End Sub
 
@@ -4266,8 +4282,7 @@ Public Class FeesStatistics
                         "End strPaymentPlan, " &
                         "numAmount as Due,  " &
                         "FS_FeeInvoice.numFeeYear,   " &
-                        "'' as numPart70Fee, '' as numSMFee, '' as numNSPSFee,   " &
-                        "numAmount as numTotalFee, strClass, '' as numAdminFee   " &
+                        "numAmount as numTotalFee, strClass " &
                         "From APBFacilityInformation inner join FS_FeeInvoice " &
                         "on APBFacilityInformation.strAIRSNumber = FS_FeeInvoice.strAIRSNumber   " &
                         "inner join APBHeaderData " &
@@ -4293,8 +4308,7 @@ Public Class FeesStatistics
                         "End strPaymentPlan, " &
                         "numAmount as Due,  " &
                         "FS_FeeInvoice.numFeeYear,   " &
-                        "'' as numPart70Fee, '' as numSMFee, '' as numNSPSFee,   " &
-                        "numAmount as numTotalFee, strClass, '' as numAdminFee   " &
+                        "numAmount as numTotalFee, strClass " &
                         "From APBFacilityInformation inner join FS_FeeInvoice " &
                         "on APBFacilityInformation.strAIRSNumber = FS_FeeInvoice.strAIRSNumber   " &
                         "inner join APBHeaderData " &
@@ -4321,8 +4335,7 @@ Public Class FeesStatistics
                         "End strPaymentPlan, " &
                         "numAmount as Due,  " &
                         "FS_FeeInvoice.numFeeYear,   " &
-                        "'' as numPart70Fee, '' as numSMFee, '' as numNSPSFee,   " &
-                        "numAmount as numTotalFee, strClass, '' as numAdminFee   " &
+                        "numAmount as numTotalFee, strClass " &
                         "From APBFacilityInformation inner join FS_FeeInvoice " &
                         "on APBFacilityInformation.strAIRSNumber = FS_FeeInvoice.strAIRSNumber   " &
                         "inner join APBHeaderData " &
@@ -4352,8 +4365,7 @@ Public Class FeesStatistics
                         "End strPaymentPlan, " &
                         "numAmount as Due,  " &
                         "FS_FeeInvoice.numFeeYear,   " &
-                        "'' as numPart70Fee, '' as numSMFee, '' as numNSPSFee,   " &
-                        "numAmount *5 as numTotalFee, strClass, '' as numAdminFee   " &
+                        "numAmount *5 as numTotalFee, strClass " &
                         "From APBFacilityInformation inner join FS_FeeInvoice " &
                         "on APBFacilityInformation.strAIRSNumber = FS_FeeInvoice.strAIRSNumber   " &
                         "inner join APBHeaderData " &
@@ -4380,8 +4392,7 @@ Public Class FeesStatistics
                         "End strPaymentPlan, " &
                         "numAmount as Due,  " &
                         "FS_FeeInvoice.numFeeYear,   " &
-                        "'' as numPart70Fee, '' as numSMFee, '' as numNSPSFee,   " &
-                        "numAmount *5 as numTotalFee, strClass, '' as numAdminFee   " &
+                        "numAmount *5 as numTotalFee, strClass " &
                         "From APBFacilityInformation inner join FS_FeeInvoice " &
                         "on APBFacilityInformation.strAIRSNumber = FS_FeeInvoice.strAIRSNumber   " &
                         "inner join APBHeaderData " &
@@ -4408,8 +4419,7 @@ Public Class FeesStatistics
                         "End strPaymentPlan, " &
                         "numAmount as Due,  " &
                         "FS_FeeInvoice.numFeeYear,   " &
-                        "'' as numPart70Fee, '' as numSMFee, '' as numNSPSFee,   " &
-                        "numAmount *5 as numTotalFee, strClass, '' as numAdminFee   " &
+                        "numAmount *5 as numTotalFee, strClass " &
                         "From APBFacilityInformation inner join FS_FeeInvoice " &
                         "on APBFacilityInformation.strAIRSNumber = FS_FeeInvoice.strAIRSNumber   " &
                         "inner join APBHeaderData " &
@@ -4436,8 +4446,7 @@ Public Class FeesStatistics
                         "End strPaymentPlan, " &
                         "numAmount as Due,  " &
                         "FS_FeeInvoice.numFeeYear,   " &
-                        "'' as numPart70Fee, '' as numSMFee, '' as numNSPSFee,   " &
-                        "numAmount *5 as numTotalFee, strClass, '' as numAdminFee   " &
+                        "numAmount *5 as numTotalFee, strClass " &
                         "From APBFacilityInformation inner join FS_FeeInvoice " &
                         "on APBFacilityInformation.strAIRSNumber = FS_FeeInvoice.strAIRSNumber   " &
                         "inner join APBHeaderData " &
@@ -4480,16 +4489,8 @@ Public Class FeesStatistics
             dgvDepositsAndPayments.Columns("numFeeYear").DisplayIndex = 4
             dgvDepositsAndPayments.Columns("strClass").HeaderText = "Classification"
             dgvDepositsAndPayments.Columns("strClass").DisplayIndex = 5
-            dgvDepositsAndPayments.Columns("numPart70Fee").HeaderText = "Part 70 Fee"
-            dgvDepositsAndPayments.Columns("numPart70Fee").DisplayIndex = 6
-            dgvDepositsAndPayments.Columns("numSMFee").HeaderText = "SM Fee"
-            dgvDepositsAndPayments.Columns("numSMFee").DisplayIndex = 7
-            dgvDepositsAndPayments.Columns("numNSPSFee").HeaderText = "NSPS Fee"
-            dgvDepositsAndPayments.Columns("numNSPSFee").DisplayIndex = 8
             dgvDepositsAndPayments.Columns("numTotalFee").HeaderText = "Fees Total"
-            dgvDepositsAndPayments.Columns("numTotalFee").DisplayIndex = 9
-            dgvDepositsAndPayments.Columns("numAdminFee").HeaderText = "Admin Fees"
-            dgvDepositsAndPayments.Columns("numAdminFee").DisplayIndex = 10
+            dgvDepositsAndPayments.Columns("numTotalFee").DisplayIndex = 6
 
             dgvDepositsAndPayments.SanelyResizeColumns()
         End If
@@ -4555,7 +4556,7 @@ Public Class FeesStatistics
     End Sub
 
     Private Sub btnViewInvoicedBalance_Click(sender As Object, e As EventArgs) Handles btnViewInvoicedBalance.Click
-        Dim SQL As String = ""
+        Dim SQL As String
 
         Select Case cboStatPayType.Text
 
@@ -4769,7 +4770,8 @@ Public Class FeesStatistics
             INTSO2TONS        as [SO2 Tons],
             INTNOXTONS        as [NOx Tons],
             NUMFEERATE        as [$ Per Ton Fee Rate],
-            NUMPART70FEE      as [Part 70 Fees],
+            convert(decimal(9, 2), NUMPART70FEE) as [Part 70 Fees],
+            MaintenanceFee as [Part 70 Maintenance Fee],
             NUMSMFEE          as [SM Fees],
             NUMNSPSFEE        as [NSPS Fees],
             NUMADMINFEE       as [Admin Fees],
