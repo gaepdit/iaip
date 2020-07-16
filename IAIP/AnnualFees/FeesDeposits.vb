@@ -1,6 +1,6 @@
 Imports System.Data.SqlClient
 
-Public Class PASPDepositsAmendments
+Public Class FeesDeposits
     Dim dtInvoice As DataTable
     Dim dtDeposit As DataTable
     Dim mousing As Boolean = False

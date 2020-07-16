@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class PASPFeeManagement
+Partial Class FeesManagement
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
@@ -1210,7 +1210,7 @@ Partial Class PASPFeeManagement
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MinimumSize = New System.Drawing.Size(660, 648)
         Me.Name = "PASPFeeManagement"
-        Me.Text = "Emissions Fee System Management"
+        Me.Text = "Annual Fees - Management"
         Me.FeeManagementTabControl.ResumeLayout(False)
         Me.TPFeeAdminTools.ResumeLayout(False)
         Me.TabControl2.ResumeLayout(False)

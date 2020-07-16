@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class PASPFeeStatistics
+Partial Class FeesStatistics
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
@@ -2592,7 +2592,7 @@ Partial Class PASPFeeStatistics
         Me.Controls.Add(Me.TCMailoutAndStats)
         Me.MinimumSize = New System.Drawing.Size(960, 756)
         Me.Name = "PASPFeeStatistics"
-        Me.Text = "Emissions Fee Statistics"
+        Me.Text = "Annual Fees - Statistics and Reports"
         Me.TCMailoutAndStats.ResumeLayout(False)
         Me.TPDepositAndPaymentStats.ResumeLayout(False)
         CType(Me.dgvDepositsAndPayments, System.ComponentModel.ISupportInitialize).EndInit()

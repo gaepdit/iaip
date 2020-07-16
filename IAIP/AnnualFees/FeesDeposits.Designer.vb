@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class PASPDepositsAmendments
+Partial Class FeesDeposits
     Inherits BaseForm
 
     'Required by the Windows Form Designer
@@ -11,6 +11,7 @@ Partial Class PASPDepositsAmendments
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.pnlDepositsEntry = New System.Windows.Forms.Panel()
+        Me.cbYear2 = New System.Windows.Forms.ComboBox()
         Me.txtCreditCardNo = New System.Windows.Forms.TextBox()
         Me.Label56 = New System.Windows.Forms.Label()
         Me.txtInvoiceForDeposit = New System.Windows.Forms.TextBox()
@@ -63,7 +64,6 @@ Partial Class PASPDepositsAmendments
         Me.btnSearchDeposits = New System.Windows.Forms.Button()
         Me.dgvDeposits = New System.Windows.Forms.DataGridView()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.cbYear2 = New System.Windows.Forms.ComboBox()
         Me.pnlDepositsEntry.SuspendLayout()
         CType(Me.dgvInvoices, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlInvoiceSearch.SuspendLayout()
@@ -109,6 +109,15 @@ Partial Class PASPDepositsAmendments
         Me.pnlDepositsEntry.Name = "pnlDepositsEntry"
         Me.pnlDepositsEntry.Size = New System.Drawing.Size(811, 208)
         Me.pnlDepositsEntry.TabIndex = 0
+        '
+        'cbYear2
+        '
+        Me.cbYear2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbYear2.FormattingEnabled = True
+        Me.cbYear2.Location = New System.Drawing.Point(74, 62)
+        Me.cbYear2.Name = "cbYear2"
+        Me.cbYear2.Size = New System.Drawing.Size(65, 21)
+        Me.cbYear2.TabIndex = 0
         '
         'txtCreditCardNo
         '
@@ -652,15 +661,6 @@ Partial Class PASPDepositsAmendments
         Me.SplitContainer1.SplitterDistance = 484
         Me.SplitContainer1.TabIndex = 35
         '
-        'cbYear2
-        '
-        Me.cbYear2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbYear2.FormattingEnabled = True
-        Me.cbYear2.Location = New System.Drawing.Point(74, 62)
-        Me.cbYear2.Name = "cbYear2"
-        Me.cbYear2.Size = New System.Drawing.Size(65, 21)
-        Me.cbYear2.TabIndex = 0
-        '
         'PASPDepositsAmendments
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -669,7 +669,7 @@ Partial Class PASPDepositsAmendments
         Me.Controls.Add(Me.SplitContainer1)
         Me.MinimumSize = New System.Drawing.Size(818, 488)
         Me.Name = "PASPDepositsAmendments"
-        Me.Text = "Fee Deposits"
+        Me.Text = "Annual Fees - Deposits"
         Me.pnlDepositsEntry.ResumeLayout(False)
         Me.pnlDepositsEntry.PerformLayout()
         CType(Me.dgvInvoices, System.ComponentModel.ISupportInitialize).EndInit()
