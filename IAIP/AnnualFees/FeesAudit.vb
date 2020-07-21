@@ -706,27 +706,11 @@ Public Class FeesAudit
 
     Private Sub LoadFeeInvoiceData()
         Try
-            Dim SQL As String = "select " &
-            "FS_FEEDATA.NUMFEEYEAR, " &
-            "FS_FEEDATA.STRAIRSNUMBER, " &
-            "STRSYNTHETICMINOR, NUMSMFEE, " &
-            "STRPART70, NUMPART70FEE, " &
-            "INTVOCTONS, INTPMTONS, " &
-            "INTSO2TONS, INTNOXTONS, " &
-            "NUMCALCULATEDFEE, NUMFEERATE, " &
-            "STRNSPS, NUMNSPSFEE, " &
-            "STRNSPSEXEMPT, STRNSPSEXEMPTREASON, " &
-            "NUMADMINFEE, NUMTOTALFEE, " &
-            "STRCLASS, STROPERATE, " &
-            "DATSHUTDOWN, STROFFICIALNAME, " &
-            "strOfficialTitle, " &
-            "strPaymentPlan, STRCONFIRMATIONNUMBER, " &
-            "FS_FEEDATA.strComment, " &
-            "updateUser, " &
-            "UpdateDateTime, CreateDateTime " &
-            "from FS_FEEDATA " &
-            "where numFeeYear = @numFeeYear " &
-            "and strAIRSNumber = @strAIRSNumber "
+            Dim SQL As String = "select NUMFEEYEAR, STRAIRSNUMBER, STRSYNTHETICMINOR, NUMSMFEE, STRPART70, NUMPART70FEE, MaintenanceFee, 
+                INTVOCTONS, INTPMTONS, INTSO2TONS, INTNOXTONS, NUMCALCULATEDFEE, NUMFEERATE, STRNSPS, NUMNSPSFEE, STRNSPSEXEMPT,
+                STRNSPSEXEMPTREASON, NUMADMINFEE, NUMTOTALFEE, STRCLASS, STROPERATE, DATSHUTDOWN, STROFFICIALNAME,
+                STROFFICIALTITLE, STRPAYMENTPLAN, STRCONFIRMATIONNUMBER, STRCOMMENT, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME
+                from FS_FEEDATA where numFeeYear = @numFeeYear and strAIRSNumber = @strAIRSNumber "
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@numFeeYear", Me.FeeYear),
@@ -735,20 +719,17 @@ Public Class FeesAudit
 
             Dim dr As DataRow = DB.GetDataRow(SQL, params)
 
-            txtGECOExceptions.Clear()
+            txtGecoNspsExemptions.Clear()
+
             If dr IsNot Nothing Then
-                If IsDBNull(dr.Item("strClass")) Then
-                    txtInvoiceClassification.Clear()
-                    txtGECOClass.Clear()
-                Else
-                    txtInvoiceClassification.Text = dr.Item("strClass")
-                    txtGECOClass.Text = txtInvoiceClassification.Text
-                End If
+                txtInvoiceClassification.Text = GetNullableString(dr.Item("strClass"))
+                txtGECOClass.Text = GetNullableString(txtInvoiceClassification.Text)
+
                 If IsDBNull(dr.Item("strOperate")) Then
                     chbInvoiceDataOperating.Checked = False
                     txtGECOOpStatus.Clear()
                 Else
-                    If dr.Item("strOperate") = "1" Then
+                    If dr.Item("strOperate").ToString = "1" Then
                         chbInvoiceDataOperating.Checked = True
                         txtGECOOpStatus.Text = "True"
                     Else
@@ -756,11 +737,12 @@ Public Class FeesAudit
                         txtGECOOpStatus.Text = "False"
                     End If
                 End If
+
                 If IsDBNull(dr.Item("strNSPS")) Then
                     chbInvoiceDataNSPS.Checked = False
                     txtGECONSPS.Clear()
                 Else
-                    If dr.Item("strNSPS") = "1" Then
+                    If dr.Item("strNSPS").ToString = "1" Then
                         chbInvoiceDataNSPS.Checked = True
                         txtGECONSPS.Text = "True"
                     Else
@@ -769,13 +751,11 @@ Public Class FeesAudit
                     End If
                 End If
 
-                Dim nspsExemptionList As String = GetNullableString(dr.Item("STRNSPSEXEMPTREASON"))
-
                 If IsDBNull(dr.Item("strPart70")) Then
                     chbInvoiceDataPart70.Checked = False
                     txtGECOPart70.Clear()
                 Else
-                    If dr.Item("strPart70") = "1" Then
+                    If dr.Item("strPart70").ToString = "1" Then
                         chbInvoiceDataPart70.Checked = True
                         txtGECOPart70.Text = "True"
                     Else
@@ -783,11 +763,12 @@ Public Class FeesAudit
                         txtGECOPart70.Text = "False"
                     End If
                 End If
+
                 If IsDBNull(dr.Item("strSyntheticMinor")) Then
                     chbInvoiceDataSyntheticMinor.Checked = False
                     txtGECOSM.Clear()
                 Else
-                    If dr.Item("strSyntheticMinor") = "1" Then
+                    If dr.Item("strSyntheticMinor").ToString = "1" Then
                         chbInvoiceDataSyntheticMinor.Checked = True
                         txtGECOSM.Text = "True"
                     Else
@@ -795,89 +776,76 @@ Public Class FeesAudit
                         txtGECOSM.Text = "False"
                     End If
                 End If
-                If IsDBNull(dr.Item("intVOCTons")) Then
-                    txtInvoiceDataVOCTons.Clear()
-                    txtGECOVOCTons.Clear()
-                Else
-                    txtInvoiceDataVOCTons.Text = dr.Item("intVOCTons")
-                    txtGECOVOCTons.Text = txtInvoiceDataVOCTons.Text
-                End If
-                If IsDBNull(dr.Item("intPMTons")) Then
-                    txtInvoiceDataPMTons.Clear()
-                    txtGECOPMTons.Clear()
-                Else
-                    txtInvoiceDataPMTons.Text = dr.Item("intPMTons")
-                    txtGECOPMTons.Text = txtInvoiceDataPMTons.Text
-                End If
-                If IsDBNull(dr.Item("intSO2Tons")) Then
-                    txtInvoiceDataSO2Tons.Clear()
-                    txtGECOSO2Tons.Clear()
-                Else
-                    txtInvoiceDataSO2Tons.Text = dr.Item("intSO2Tons")
-                    txtGECOSO2Tons.Text = txtInvoiceDataSO2Tons.Text
-                End If
-                If IsDBNull(dr.Item("intNOxTons")) Then
-                    txtInvoiceDataNOxTons.Clear()
-                    txtGECONOxTons.Clear()
-                Else
-                    txtInvoiceDataNOxTons.Text = dr.Item("intNOxTons")
-                    txtGECONOxTons.Text = txtInvoiceDataNOxTons.Text
-                End If
+
+                txtInvoiceDataVOCTons.Text = GetNullableString(dr.Item("intVOCTons"))
+                txtGECOVOCTons.Text = txtInvoiceDataVOCTons.Text
+                txtInvoiceDataPMTons.Text = GetNullableString(dr.Item("intPMTons"))
+                txtGECOPMTons.Text = txtInvoiceDataPMTons.Text
+                txtInvoiceDataSO2Tons.Text = GetNullableString(dr.Item("intSO2Tons"))
+                txtGECOSO2Tons.Text = txtInvoiceDataSO2Tons.Text
+                txtInvoiceDataNOxTons.Text = GetNullableString(dr.Item("intNOxTons"))
+                txtGECONOxTons.Text = txtInvoiceDataNOxTons.Text
+
                 If IsDBNull(dr.Item("numFeeRate")) Then
                     txtInvoiceDataFeeRate.Clear()
                     txtGECOFeeRate.Clear()
                 Else
-                    txtInvoiceDataFeeRate.Text = Format(dr.Item("numFeeRate"), "c")
+                    txtInvoiceDataFeeRate.Text = CDec(dr.Item("numFeeRate")).ToString("c")
                     txtGECOFeeRate.Text = txtInvoiceDataFeeRate.Text
                 End If
-
-                'NUMCALCULATEDFEE
                 If IsDBNull(dr.Item("NUMCALCULATEDFEE")) Then
                     txtGECOCalculatedFee.Clear()
                 Else
-                    txtGECOCalculatedFee.Text = Format(dr.Item("NUMCALCULATEDFEE"), "c")
+                    txtGECOCalculatedFee.Text = CDec(dr.Item("NUMCALCULATEDFEE")).ToString("c")
                 End If
-
                 If IsDBNull(dr.Item("numPart70Fee")) Then
                     txtInvoiceDataPart70Fee.Clear()
                     txtGECOPart70Fee.Clear()
                 Else
-                    txtInvoiceDataPart70Fee.Text = Format(dr.Item("numPart70Fee"), "c")
+                    txtInvoiceDataPart70Fee.Text = CDec(dr.Item("numPart70Fee")).ToString("c")
                     txtGECOPart70Fee.Text = txtInvoiceDataPart70Fee.Text
+                End If
+                If IsDBNull(dr.Item("MaintenanceFee")) Then
+                    txtInvoiceDataMaintenanceFee.Clear()
+                    txtGecoMaintenanceFee.Clear()
+                Else
+                    txtInvoiceDataMaintenanceFee.Text = CDec(dr.Item("MaintenanceFee")).ToString("c")
+                    txtGecoMaintenanceFee.Text = txtInvoiceDataMaintenanceFee.Text
                 End If
                 If IsDBNull(dr.Item("numSMFee")) Then
                     txtInvoiceDataSMFee.Clear()
                     txtGECOSMFee.Clear()
                 Else
-                    txtInvoiceDataSMFee.Text = Format(dr.Item("numSMFee"), "c")
+                    txtInvoiceDataSMFee.Text = CDec(dr.Item("numSMFee")).ToString("c")
                     txtGECOSMFee.Text = txtInvoiceDataSMFee.Text
                 End If
                 If IsDBNull(dr.Item("numNSPSFee")) Then
                     txtInvoiceDataNSPSFee.Clear()
                     txtGECONSPSFee.Clear()
                 Else
-                    txtInvoiceDataNSPSFee.Text = Format(dr.Item("numNSPSFee"), "c")
+                    txtInvoiceDataNSPSFee.Text = CDec(dr.Item("numNSPSFee")).ToString("c")
                     txtGECONSPSFee.Text = txtInvoiceDataNSPSFee.Text
                 End If
                 If IsDBNull(dr.Item("numAdminFee")) Then
                     txtInvoiceDataAdminFee.Clear()
                     txtGECOAdminFee.Clear()
                 Else
-                    txtInvoiceDataAdminFee.Text = Format(dr.Item("numAdminFee"), "c")
+                    txtInvoiceDataAdminFee.Text = CDec(dr.Item("numAdminFee")).ToString("c")
                     txtGECOAdminFee.Text = txtInvoiceDataAdminFee.Text
                 End If
                 If IsDBNull(dr.Item("numTotalFee")) Then
                     txtInvoiceDataTotalFees.Clear()
                     txtGECOTotalFees.Clear()
                 Else
-                    txtInvoiceDataTotalFees.Text = Format(dr.Item("numTotalFee"), "c")
+                    txtInvoiceDataTotalFees.Text = CDec(dr.Item("numTotalFee")).ToString("c")
                     txtGECOTotalFees.Text = txtInvoiceDataTotalFees.Text
                 End If
+
                 If IsDBNull(dr.Item("strNSPSExempt")) Then
                     chbInvoiceDataNSPSExempt.Checked = False
                     txtGECONSPSExempt.Clear()
                 Else
-                    If dr.Item("strNSPSExempt") = "1" Then
+                    If dr.Item("strNSPSExempt").ToString = "1" Then
                         chbInvoiceDataNSPSExempt.Checked = True
                         txtGECONSPSExempt.Text = "True"
                     Else
@@ -885,63 +853,36 @@ Public Class FeesAudit
                         txtGECONSPSExempt.Text = "False"
                     End If
                 End If
-                If IsDBNull(dr.Item("strOfficialName")) Then
-                    txtInvoiceDataOfficialName.Clear()
-                    txtGECOOfficialName.Clear()
-                Else
-                    txtInvoiceDataOfficialName.Text = dr.Item("strOfficialName")
-                    txtGECOOfficialName.Text = txtInvoiceDataOfficialName.Text
-                End If
-                If IsDBNull(dr.Item("strOfficialTitle")) Then
-                    txtInvoiceDataOfficialTitle.Clear()
-                    txtGECOOfficialTitle.Clear()
-                Else
-                    txtInvoiceDataOfficialTitle.Text = dr.Item("strOfficialTitle")
-                    txtGECOOfficialTitle.Text = txtInvoiceDataOfficialTitle.Text
-                End If
-                If IsDBNull(dr.Item("strconfirmationNumber")) Then
-                    txtInvoiceDataConfirmationNumber.Clear()
-                Else
-                    txtInvoiceDataConfirmationNumber.Text = dr.Item("strConfirmationNumber")
-                End If
-                If IsDBNull(dr.Item("strPaymentPlan")) Then
-                    txtInvoiceDataPaymentType.Clear()
-                    txtGECOPaymentType.Clear()
-                Else
-                    txtInvoiceDataPaymentType.Text = dr.Item("strPaymentPlan")
-                    txtGECOPaymentType.Text = txtInvoiceDataPaymentType.Text
-                End If
-                If IsDBNull(dr.Item("strComment")) Then
-                    txtInvoiceDataGECOComments.Clear()
-                Else
-                    txtInvoiceDataGECOComments.Text = dr.Item("strComment")
-                End If
-                If IsDBNull(dr.Item("updateUser")) Then
-                    txtInvoiceDataUpdate.Clear()
-                Else
-                    txtInvoiceDataUpdate.Text = dr.Item("UpdateUser")
-                End If
+
+                txtInvoiceDataOfficialName.Text = GetNullableString(dr.Item("strOfficialName"))
+                txtGECOOfficialName.Text = txtInvoiceDataOfficialName.Text
+                txtInvoiceDataOfficialTitle.Text = GetNullableString(dr.Item("strOfficialTitle"))
+                txtGECOOfficialTitle.Text = txtInvoiceDataOfficialTitle.Text
+                txtInvoiceDataConfirmationNumber.Text = GetNullableString(dr.Item("strConfirmationNumber"))
+                txtInvoiceDataPaymentType.Text = GetNullableString(dr.Item("strPaymentPlan"))
+                txtGECOPaymentType.Text = txtInvoiceDataPaymentType.Text
+                txtInvoiceDataGECOComments.Text = GetNullableString(dr.Item("strComment"))
+                txtInvoiceDataUpdate.Text = GetNullableString(dr.Item("UpdateUser"))
+
                 If IsDBNull(dr.Item("updateDateTime")) Then
                     dtpInvoiceDataDateUpdated.Value = Today
                 Else
-                    dtpInvoiceDataDateUpdated.Text = dr.Item("UpdateDateTime")
+                    dtpInvoiceDataDateUpdated.Value = CDate(dr.Item("UpdateDateTime"))
                 End If
                 If IsDBNull(dr.Item("CreateDateTime")) Then
                     dtpInvoiceDataCreatedDate.Value = Today
                 Else
-                    dtpInvoiceDataCreatedDate.Text = dr.Item("CreateDateTime")
+                    dtpInvoiceDataCreatedDate.Value = CDate(dr.Item("CreateDateTime"))
                 End If
                 If IsDBNull(dr.Item("DATSHUTDOWN")) Then
                     txtGECOShutDown.Clear()
                 Else
-                    txtGECOShutDown.Text = dr.Item("DATSHUTDOWN")
+                    txtGECOShutDown.Text = CDate(dr.Item("DATSHUTDOWN")).ToString(DateFormat)
                 End If
 
-                txtGECOExceptions.Clear()
-
+                Dim nspsExemptionList As String = GetNullableString(dr.Item("STRNSPSEXEMPTREASON"))
                 If Not String.IsNullOrEmpty(nspsExemptionList) Then
-                    SQL = "Select Description " &
-                        "from FSLK_NSPSReason " &
+                    SQL = "Select Description from FSLK_NSPSReason " &
                         "where NSPSReasonCode in (" & nspsExemptionList & ")"
 
                     Dim sb As New StringBuilder()
@@ -950,16 +891,13 @@ Public Class FeesAudit
                         sb.AppendLine("- " & row(0).ToString & vbCrLf)
                     Next
 
-                    txtGECOExceptions.Text = sb.ToString
+                    txtGecoNspsExemptions.Text = sb.ToString
                 End If
 
                 If chbInvoiceDataNSPSExempt.Checked AndAlso Not String.IsNullOrEmpty(nspsExemptionList) Then
-                    SQL = "Select Description " &
-                        "from FSLK_NSPSReason " &
+                    SQL = "Select Description as [NSPS Exemption Reason] from FSLK_NSPSReason " &
                         "where NSPSReasonCode in (" & nspsExemptionList & ")"
-
                     dgvInvoiceDataNSPSExemptions.DataSource = DB.GetDataTable(SQL)
-
                     dgvInvoiceDataNSPSExemptions.RowHeadersVisible = False
                     dgvInvoiceDataNSPSExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                     dgvInvoiceDataNSPSExemptions.AllowUserToResizeColumns = True
@@ -967,30 +905,15 @@ Public Class FeesAudit
                     dgvInvoiceDataNSPSExemptions.AllowUserToAddRows = False
                     dgvInvoiceDataNSPSExemptions.AllowUserToDeleteRows = False
                     dgvInvoiceDataNSPSExemptions.AllowUserToOrderColumns = True
-                    dgvInvoiceDataNSPSExemptions.Columns("Description").HeaderText = "NSPS Exemption Reason"
-                    dgvInvoiceDataNSPSExemptions.Columns("Description").DisplayIndex = 0
-                    dgvInvoiceDataNSPSExemptions.Columns("Description").Width = dgvInvoiceDataNSPSExemptions.Width
+                    dgvInvoiceDataNSPSExemptions.Columns("NSPS Exemption Reason").Width = dgvInvoiceDataNSPSExemptions.Width
                 Else
                     dgvInvoiceDataNSPSExemptions.DataSource = Nothing
                 End If
 
-                SQL = "Select " &
-                "strNonAttainment " &
-                "from LookUpCountyInformation " &
-                "where strCountyCode = @strCountyCode "
-
+                SQL = "select convert(bit, count(*)) from LOOKUPCOUNTYINFORMATION
+                    where STRCOUNTYCODE = @strCountyCode and substring(STRNONATTAINMENT, 2, 1) = '1'"
                 Dim param As New SqlParameter("@strCountyCode", AirsNumber.CountySubstring)
-
-                Dim temp As String = DB.GetString(SQL, param)
-                If String.IsNullOrEmpty(temp) Then
-                    chbInvoicedataNonAttainment.Checked = False
-                Else
-                    If Mid(temp, 2, 1) = "1" Then
-                        chbInvoicedataNonAttainment.Checked = True
-                    Else
-                        chbInvoicedataNonAttainment.Checked = False
-                    End If
-                End If
+                chbInvoicedataNonAttainment.Checked = DB.GetBoolean(SQL, param)
             End If
 
             SQL = "Select " &
@@ -1018,29 +941,30 @@ Public Class FeesAudit
             dgvInvoiceData.AllowUserToOrderColumns = True
             dgvInvoiceData.Columns("InvoiceID").HeaderText = "Invoice ID"
             dgvInvoiceData.Columns("InvoiceID").DisplayIndex = 0
-            dgvInvoiceData.Columns("InvoiceID").Width = dgvInvoiceData.Width * 0.075
+            dgvInvoiceData.Columns("InvoiceID").Width = CInt(dgvInvoiceData.Width * 0.075)
 
             dgvInvoiceData.Columns("numAmount").HeaderText = "Invoice Amount"
             dgvInvoiceData.Columns("numAmount").DisplayIndex = 1
-            dgvInvoiceData.Columns("numAmount").Width = dgvInvoiceData.Width * 0.15
+            dgvInvoiceData.Columns("numAmount").Width = CInt(dgvInvoiceData.Width * 0.15)
             dgvInvoiceData.Columns("numAmount").DefaultCellStyle.Format = "c"
             dgvInvoiceData.Columns("strPayTypeDesc").HeaderText = "Invoice Type"
             dgvInvoiceData.Columns("strPayTypeDesc").DisplayIndex = 2
-            dgvInvoiceData.Columns("strPayTypeDesc").Width = dgvInvoiceData.Width * 0.15
+            dgvInvoiceData.Columns("strPayTypeDesc").Width = CInt(dgvInvoiceData.Width * 0.15)
             dgvInvoiceData.Columns("datInvoiceDate").HeaderText = "Invoiced Date"
             dgvInvoiceData.Columns("datInvoiceDate").DisplayIndex = 3
-            dgvInvoiceData.Columns("datInvoiceDate").Width = dgvInvoiceData.Width * 0.15
+            dgvInvoiceData.Columns("datInvoiceDate").Width = CInt(dgvInvoiceData.Width * 0.15)
             dgvInvoiceData.Columns("datInvoiceDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvInvoiceData.Columns("InvoiceStatus").HeaderText = "Invoice Status"
             dgvInvoiceData.Columns("InvoiceStatus").DisplayIndex = 4
-            dgvInvoiceData.Columns("InvoiceStatus").Width = dgvInvoiceData.Width * 0.15
+            dgvInvoiceData.Columns("InvoiceStatus").Width = CInt(dgvInvoiceData.Width * 0.15)
             dgvInvoiceData.Columns("strComment").HeaderText = "GECO Comments"
             dgvInvoiceData.Columns("strComment").DisplayIndex = 5
-            dgvInvoiceData.Columns("strComment").Width = dgvInvoiceData.Width * 0.45
+            dgvInvoiceData.Columns("strComment").Width = CInt(dgvInvoiceData.Width * 0.45)
 
             rdbInvoiceDataPaidStatus.Checked = True
+
             For i As Integer = 0 To dgvInvoiceData.RowCount - 1
-                If dgvInvoiceData(5, i).Value = "Unpaid" Then
+                If dgvInvoiceData(5, i).Value.ToString = "Unpaid" Then
                     rdbInvoiceDataUnpaidStatus.Checked = True
                 End If
             Next
@@ -1222,6 +1146,10 @@ Public Class FeesAudit
             "FROM cte " &
             "WHERE numPart70Fee IS NOT NULL " &
             ") AS NUMPART70FEE, " &
+            "(SELECT TOP 1 MaintenanceFee " &
+            "FROM cte " &
+            "WHERE MaintenanceFee IS NOT NULL " &
+            ") AS MaintenanceFee, " &
             "(SELECT TOP 1 INTVOCTONS " &
             "FROM cte " &
             "WHERE INtVOCTONS IS NOT NULL " &
@@ -1338,6 +1266,11 @@ Public Class FeesAudit
                     txtAuditedPart70Fee.Clear()
                 Else
                     txtAuditedPart70Fee.Text = Format(dr.Item("numPart70Fee"), "c")
+                End If
+                If IsDBNull(dr.Item("MaintenanceFee")) Then
+                    txtAuditedMaintenanceFee.Clear()
+                Else
+                    txtAuditedMaintenanceFee.Text = Format(dr.Item("MaintenanceFee"), "c")
                 End If
                 If IsDBNull(dr.Item("intVOCTons")) Then
                     txtAuditedVOCTons.Clear()
@@ -1473,7 +1406,7 @@ Public Class FeesAudit
             "case when strPart70 = '1' then 'True' " &
                "when strPart70 is null then '' " &
             "else 'False' " &
-            "end Part70, numPart70Fee, " &
+            "end Part70, numPart70Fee, MaintenanceFee, " &
             "intVOCTons, intPMTons, " &
             "intSO2Tons, intNOXTons, " &
             "numCalculatedFee, numFeeRate, " &
@@ -1526,71 +1459,75 @@ Public Class FeesAudit
             dgvAuditHistory.Columns("numPart70Fee").DisplayIndex = 4
             dgvAuditHistory.Columns("numPart70Fee").Width = 100
             dgvAuditHistory.Columns("numPart70Fee").DefaultCellStyle.Format = "c"
+            dgvAuditHistory.Columns("MaintenanceFee").HeaderText = "Maintenance Fee"
+            dgvAuditHistory.Columns("MaintenanceFee").DisplayIndex = 5
+            dgvAuditHistory.Columns("MaintenanceFee").Width = 100
+            dgvAuditHistory.Columns("MaintenanceFee").DefaultCellStyle.Format = "c"
             dgvAuditHistory.Columns("intVOCTons").HeaderText = "VOC Tons"
-            dgvAuditHistory.Columns("intVOCTons").DisplayIndex = 5
+            dgvAuditHistory.Columns("intVOCTons").DisplayIndex = 6
             dgvAuditHistory.Columns("intVOCTons").Width = 50
             dgvAuditHistory.Columns("intPMTons").HeaderText = "PM Tons"
-            dgvAuditHistory.Columns("intPMTons").DisplayIndex = 6
+            dgvAuditHistory.Columns("intPMTons").DisplayIndex = 7
             dgvAuditHistory.Columns("intPMTons").Width = 50
             dgvAuditHistory.Columns("intSO2Tons").HeaderText = "SO2 Tons"
-            dgvAuditHistory.Columns("intSO2Tons").DisplayIndex = 7
+            dgvAuditHistory.Columns("intSO2Tons").DisplayIndex = 8
             dgvAuditHistory.Columns("intSO2Tons").Width = 50
             dgvAuditHistory.Columns("intNOXTons").HeaderText = "NOx Tons"
-            dgvAuditHistory.Columns("intNOXTons").DisplayIndex = 8
+            dgvAuditHistory.Columns("intNOXTons").DisplayIndex = 9
             dgvAuditHistory.Columns("intNOXTons").Width = 50
             dgvAuditHistory.Columns("numCalculatedFee").HeaderText = "Calculated Fee"
-            dgvAuditHistory.Columns("numCalculatedFee").DisplayIndex = 9
+            dgvAuditHistory.Columns("numCalculatedFee").DisplayIndex = 10
             dgvAuditHistory.Columns("numCalculatedFee").Width = 100
             dgvAuditHistory.Columns("numFeeRate").HeaderText = "Fee Rate"
-            dgvAuditHistory.Columns("numFeeRate").DisplayIndex = 10
+            dgvAuditHistory.Columns("numFeeRate").DisplayIndex = 11
             dgvAuditHistory.Columns("numFeeRate").Width = 100
             dgvAuditHistory.Columns("numFeeRate").DefaultCellStyle.Format = "c"
             dgvAuditHistory.Columns("NSPS").HeaderText = "NSPS Status"
-            dgvAuditHistory.Columns("NSPS").DisplayIndex = 11
+            dgvAuditHistory.Columns("NSPS").DisplayIndex = 12
             dgvAuditHistory.Columns("NSPS").Width = 50
             dgvAuditHistory.Columns("numNSPSFee").HeaderText = "NSPS Fee"
-            dgvAuditHistory.Columns("numNSPSFee").DisplayIndex = 12
+            dgvAuditHistory.Columns("numNSPSFee").DisplayIndex = 13
             dgvAuditHistory.Columns("numNSPSFee").Width = 100
             dgvAuditHistory.Columns("numNSPSFee").DefaultCellStyle.Format = "c"
             dgvAuditHistory.Columns("NSPSExempt").HeaderText = "NSPS Exempt Status"
-            dgvAuditHistory.Columns("NSPSExempt").DisplayIndex = 13
+            dgvAuditHistory.Columns("NSPSExempt").DisplayIndex = 14
             dgvAuditHistory.Columns("NSPSExempt").Width = 50
             dgvAuditHistory.Columns("numAdminFee").HeaderText = "Admin Fee"
-            dgvAuditHistory.Columns("numAdminFee").DisplayIndex = 14
+            dgvAuditHistory.Columns("numAdminFee").DisplayIndex = 15
             dgvAuditHistory.Columns("numAdminFee").Width = 100
             dgvAuditHistory.Columns("numAdminFee").DefaultCellStyle.Format = "c"
             dgvAuditHistory.Columns("numTotalFee").HeaderText = "Total Fee"
-            dgvAuditHistory.Columns("numTotalFee").DisplayIndex = 15
+            dgvAuditHistory.Columns("numTotalFee").DisplayIndex = 16
             dgvAuditHistory.Columns("numTotalFee").Width = 100
             dgvAuditHistory.Columns("numTotalFee").DefaultCellStyle.Format = "c"
             dgvAuditHistory.Columns("strClass").HeaderText = "Class"
-            dgvAuditHistory.Columns("strClass").DisplayIndex = 16
+            dgvAuditHistory.Columns("strClass").DisplayIndex = 17
             dgvAuditHistory.Columns("strClass").Width = 50
             dgvAuditHistory.Columns("strOperate").HeaderText = "Op. Status"
-            dgvAuditHistory.Columns("strOperate").DisplayIndex = 17
+            dgvAuditHistory.Columns("strOperate").DisplayIndex = 18
             dgvAuditHistory.Columns("strOperate").Width = 50
             dgvAuditHistory.Columns("datShutdown").HeaderText = "Shutdown"
-            dgvAuditHistory.Columns("datShutdown").DisplayIndex = 18
+            dgvAuditHistory.Columns("datShutdown").DisplayIndex = 19
             dgvAuditHistory.Columns("datShutdown").Width = 100
             dgvAuditHistory.Columns("datShutdown").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvAuditHistory.Columns("strOfficialname").HeaderText = "Official Name"
-            dgvAuditHistory.Columns("strOfficialname").DisplayIndex = 19
+            dgvAuditHistory.Columns("strOfficialname").DisplayIndex = 20
             dgvAuditHistory.Columns("strOfficialname").Width = 100
             dgvAuditHistory.Columns("strOfficialTitle").HeaderText = "Official Title"
-            dgvAuditHistory.Columns("strOfficialTitle").DisplayIndex = 20
+            dgvAuditHistory.Columns("strOfficialTitle").DisplayIndex = 21
             dgvAuditHistory.Columns("strOfficialTitle").Width = 100
             dgvAuditHistory.Columns("strPaymentPlan").HeaderText = "Payment Plan"
-            dgvAuditHistory.Columns("strPaymentPlan").DisplayIndex = 21
+            dgvAuditHistory.Columns("strPaymentPlan").DisplayIndex = 22
             dgvAuditHistory.Columns("strPaymentPlan").Width = 100
             dgvAuditHistory.Columns("IAIPUpdate").HeaderText = "IAIP Update"
-            dgvAuditHistory.Columns("IAIPUpdate").DisplayIndex = 22
+            dgvAuditHistory.Columns("IAIPUpdate").DisplayIndex = 23
             dgvAuditHistory.Columns("IAIPUpdate").Width = 75
             dgvAuditHistory.Columns("UpdateDateTime").HeaderText = "Date Updated"
-            dgvAuditHistory.Columns("UpdateDateTime").DisplayIndex = 23
+            dgvAuditHistory.Columns("UpdateDateTime").DisplayIndex = 24
             dgvAuditHistory.Columns("UpdateDateTime").Width = 100
             dgvAuditHistory.Columns("UpdateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvAuditHistory.Columns("CreateDateTime").HeaderText = "Date Created"
-            dgvAuditHistory.Columns("CreateDateTime").DisplayIndex = 24
+            dgvAuditHistory.Columns("CreateDateTime").DisplayIndex = 25
             dgvAuditHistory.Columns("CreateDateTime").Width = 100
             dgvAuditHistory.Columns("CreateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
 
@@ -2007,6 +1944,7 @@ Public Class FeesAudit
             txtInvoiceDataNOxTons.Clear()
             txtInvoiceDataFeeRate.Clear()
             txtInvoiceDataPart70Fee.Clear()
+            txtInvoiceDataMaintenanceFee.Clear()
             txtInvoiceDataSMFee.Clear()
             txtInvoiceDataNSPSFee.Clear()
             txtInvoiceDataAdminFee.Clear()
@@ -2743,6 +2681,7 @@ Public Class FeesAudit
             Dim NOxTons As String = ""
             Dim FeeRate As String = ""
             Dim Part70Fee As String = ""
+            Dim MaintenanceFee As String = ""
             Dim CalculatedFee As String = ""
             Dim SMFee As String = ""
             Dim NSPSFee As String = ""
@@ -2829,6 +2768,11 @@ Public Class FeesAudit
                 Part70Fee = txtEditPart70Fee.Text
             Else
                 Part70Fee = Nothing
+            End If
+            If txtEditMaintenanceFee.Text <> "" Then
+                MaintenanceFee = txtEditMaintenanceFee.Text
+            Else
+                MaintenanceFee = Nothing
             End If
             If txtEditSMFee.Text <> "" Then
                 SMFee = txtEditSMFee.Text
@@ -3024,7 +2968,7 @@ Public Class FeesAudit
             If chbMakeEdits.Checked Then
                 SQL = "INSERT INTO FS_FEEAMENDMENT " &
                     "( AUDITID, STRAIRSNUMBER, NUMFEEYEAR, STRSYNTHETICMINOR, " &
-                    "NUMSMFEE, STRPART70, NUMPART70FEE, INTVOCTONS, " &
+                    "NUMSMFEE, STRPART70, NUMPART70FEE, MaintenanceFee, INTVOCTONS, " &
                     "INTPMTONS, INTSO2TONS, INTNOXTONS, NUMCALCULATEDFEE, " &
                     "NUMFEERATE, STRNSPS, NUMNSPSFEE, STRNSPSEXEMPT, " &
                     "STRNSPSEXEMPTREASON, NUMADMINFEE, NUMTOTALFEE, STRCLASS, " &
@@ -3032,7 +2976,7 @@ Public Class FeesAudit
                     "STRPAYMENTPLAN, ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME ) " &
                     "VALUES " &
                     "( @AUDITID, @STRAIRSNUMBER, @NUMFEEYEAR, @STRSYNTHETICMINOR, " &
-                    "@NUMSMFEE, @STRPART70, @NUMPART70FEE, @INTVOCTONS, " &
+                    "@NUMSMFEE, @STRPART70, @NUMPART70FEE, @MaintenanceFee, @INTVOCTONS, " &
                     "@INTPMTONS, @INTSO2TONS, @INTNOXTONS, @NUMCALCULATEDFEE, " &
                     "@NUMFEERATE, @STRNSPS, @NUMNSPSFEE, @STRNSPSEXEMPT, " &
                     "@STRNSPSEXEMPTREASON, @NUMADMINFEE, @NUMTOTALFEE, @STRCLASS, " &
@@ -3046,6 +2990,7 @@ Public Class FeesAudit
                     New SqlParameter("@NUMSMFEE", SMFee),
                     New SqlParameter("@STRPART70", If(Part70 = "", SqlString.Null, Part70)),
                     New SqlParameter("@NUMPART70FEE", Part70Fee),
+                    New SqlParameter("@MaintenanceFee", MaintenanceFee),
                     New SqlParameter("@INTVOCTONS", VOCTons),
                     New SqlParameter("@INTPMTONS", PMTons),
                     New SqlParameter("@INTSO2TONS", SO2Tons),
@@ -3110,6 +3055,7 @@ Public Class FeesAudit
             txtEditFeeRate.Clear()
             txtEditCalculatedFee.Clear()
             txtEditPart70Fee.Clear()
+            txtEditMaintenanceFee.Clear()
             txtEditSMFee.Clear()
             txtEditNSPSFee.Clear()
             txtEditAdminFee.Clear()
@@ -3576,6 +3522,7 @@ Public Class FeesAudit
             Dim NOxTons As String = ""
             Dim FeeRate As String = ""
             Dim Part70Fee As String = ""
+            Dim MaintenanceFee As String = ""
             Dim CalculatedFee As String = ""
             Dim SMFee As String = ""
             Dim NSPSFee As String = ""
@@ -3667,6 +3614,11 @@ Public Class FeesAudit
                 Part70Fee = txtEditPart70Fee.Text
             Else
                 Part70Fee = Nothing
+            End If
+            If txtEditMaintenanceFee.Text <> "" Then
+                MaintenanceFee = txtEditMaintenanceFee.Text
+            Else
+                MaintenanceFee = Nothing
             End If
             If txtEditSMFee.Text <> "" Then
                 SMFee = txtEditSMFee.Text
@@ -3766,6 +3718,7 @@ Public Class FeesAudit
                         "numSMFee = @numSMFee, " &
                         "strPart70 = @strPart70, " &
                         "numPart70Fee = @numPart70Fee, " &
+                        "MaintenanceFee = @MaintenanceFee, " &
                         "intVOCTons = @intVOCTons, " &
                         "intPMTons = @intPMTons, " &
                         "intSO2Tons = @intSO2Tons, " &
@@ -3792,6 +3745,7 @@ Public Class FeesAudit
                         New SqlParameter("@numSMFee", SMFee),
                         New SqlParameter("@strPart70", If(Part70 = "", SqlString.Null, Part70)),
                         New SqlParameter("@numPart70Fee", Part70Fee),
+                        New SqlParameter("@MaintenanceFee", MaintenanceFee),
                         New SqlParameter("@intVOCTons", VOCTons),
                         New SqlParameter("@intPMTons", PMTons),
                         New SqlParameter("@intSO2Tons", SO2Tons),
@@ -3817,7 +3771,7 @@ Public Class FeesAudit
                 Else
                     SQL = "INSERT INTO FS_FEEAMENDMENT " &
                         "( AUDITID, STRAIRSNUMBER, NUMFEEYEAR, STRSYNTHETICMINOR, " &
-                        "NUMSMFEE, STRPART70, NUMPART70FEE, INTVOCTONS, " &
+                        "NUMSMFEE, STRPART70, NUMPART70FEE, MaintenanceFee, INTVOCTONS, " &
                         "INTPMTONS, INTSO2TONS, INTNOXTONS, NUMCALCULATEDFEE, " &
                         "NUMFEERATE, STRNSPS, NUMNSPSFEE, STRNSPSEXEMPT, " &
                         "STRNSPSEXEMPTREASON, NUMADMINFEE, NUMTOTALFEE, STRCLASS, " &
@@ -3825,7 +3779,7 @@ Public Class FeesAudit
                         "STRPAYMENTPLAN, ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME ) " &
                         "VALUES " &
                         "( @AUDITID, @STRAIRSNUMBER, @NUMFEEYEAR, @STRSYNTHETICMINOR, " &
-                        "@NUMSMFEE, @STRPART70, @NUMPART70FEE, @INTVOCTONS, " &
+                        "@NUMSMFEE, @STRPART70, @NUMPART70FEE, @MaintenanceFee, @INTVOCTONS, " &
                         "@INTPMTONS, @INTSO2TONS, @INTNOXTONS, @NUMCALCULATEDFEE, " &
                         "@NUMFEERATE, @STRNSPS, @NUMNSPSFEE, @STRNSPSEXEMPT, " &
                         "@STRNSPSEXEMPTREASON, @NUMADMINFEE, @NUMTOTALFEE, @STRCLASS, " &
@@ -3839,6 +3793,7 @@ Public Class FeesAudit
                         New SqlParameter("@NUMSMFEE", SMFee),
                         New SqlParameter("@STRPART70", If(Part70 = "", SqlString.Null, Part70)),
                         New SqlParameter("@NUMPART70FEE", Part70Fee),
+                        New SqlParameter("@MaintenanceFee", MaintenanceFee),
                         New SqlParameter("@INTVOCTONS", VOCTons),
                         New SqlParameter("@INTPMTONS", PMTons),
                         New SqlParameter("@INTSO2TONS", SO2Tons),
@@ -4078,6 +4033,11 @@ Public Class FeesAudit
                 Else
                     txtEditPart70Fee.Text = dr.Item("numPart70Fee")
                 End If
+                If IsDBNull(dr.Item("MaintenanceFee")) Then
+                    txtEditMaintenanceFee.Clear()
+                Else
+                    txtEditMaintenanceFee.Text = dr.Item("MaintenanceFee")
+                End If
                 If IsDBNull(dr.Item("intVOCTons")) Then
                     txtEditVOCTons.Clear()
                 Else
@@ -4244,6 +4204,7 @@ Public Class FeesAudit
         txtEditFeeRate.Clear()
         txtEditCalculatedFee.Clear()
         txtEditPart70Fee.Clear()
+        txtEditMaintenanceFee.Clear()
         txtEditSMFee.Clear()
         txtEditNSPSFee.Clear()
         txtEditAdminFee.Clear()
