@@ -46,7 +46,6 @@ Public Class IAIPFacilitySummary
         Permits
         PermitApplicationFees
         EmissionsFeesSummary
-        EmissionsFeesData
         EmissionsFeesInvoices
         EmissionsFeesDeposits
         EIPost2009
@@ -120,7 +119,6 @@ Public Class IAIPFacilitySummary
         AddDataTable(FacilityDataTable.Permits)
         AddDataTable(FacilityDataTable.PermitApplicationFees)
         AddDataTable(FacilityDataTable.EmissionsFeesDeposits)
-        AddDataTable(FacilityDataTable.EmissionsFeesData)
         AddDataTable(FacilityDataTable.EmissionsFeesInvoices)
         AddDataTable(FacilityDataTable.EIPost2009)
         AddDataTable(FacilityDataTable.EIPre2009)
@@ -617,12 +615,10 @@ Public Class IAIPFacilitySummary
                 ' Emissions Fees
             Case FacilityDataTable.EmissionsFeesSummary
                 SetUpFeesTab()
+                SetUpDataGridSource(FinancialFeeGrid, FacilityDataTable.EmissionsFeesSummary)
 
             Case FacilityDataTable.EmissionsFeesDeposits
                 SetUpDataGridSource(FinancialDepositsGrid, FacilityDataTable.EmissionsFeesDeposits)
-
-            Case FacilityDataTable.EmissionsFeesData
-                SetUpDataGridSource(FinancialFeeGrid, FacilityDataTable.EmissionsFeesData)
 
             Case FacilityDataTable.EmissionsFeesInvoices
                 SetUpDataGridSource(FinancialInvoicesGrid, FacilityDataTable.EmissionsFeesInvoices)
@@ -737,7 +733,6 @@ Public Class IAIPFacilitySummary
     Private Sub LoadEmissionsFeesData()
         LoadDataTable(FacilityDataTable.EmissionsFeesSummary)
         LoadDataTable(FacilityDataTable.EmissionsFeesDeposits)
-        LoadDataTable(FacilityDataTable.EmissionsFeesData)
         LoadDataTable(FacilityDataTable.EmissionsFeesInvoices)
     End Sub
 
@@ -760,25 +755,28 @@ Public Class IAIPFacilitySummary
             With FeeYearSelect
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString)
                 .DisplayMember = "FeesData"
-                .ValueMember = "intYear"
+                .ValueMember = "Fee Year"
                 .SelectedIndex = 0
             End With
 
             Dim textBoxDataBindings As New Dictionary(Of TextBox, String) From {
-                {FeeFacilityClassDisplay, "strClass"},
-                {FeeDateSubmitDisplay, "DateSubmit"},
-                {FeeStatusDisplay, "strIAIPDesc"}
+                {FeeFacilityClassDisplay, "Classification"},
+                {FeeStatusDisplay, "Status"}
             }
 
             For Each item As KeyValuePair(Of TextBox, String) In textBoxDataBindings
                 item.Key.DataBindings.Add(New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), item.Value))
             Next
 
+            Dim binding As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), "Date submitted")
+            AddHandler binding.Format, AddressOf BindingShortDate
+            FeeDateSubmitDisplay.DataBindings.Add(binding)
+
             Dim textBoxDataBindingsTons As New Dictionary(Of TextBox, String) From {
-                {FeeVocDisplay, "intVOCTons"},
-                {FeePmDisplay, "intPMTons"},
-                {FeeSO2Display, "intSO2Tons"},
-                {FeeNOxDisplay, "intNOXtons"}
+                {FeeVocDisplay, "VOC tons"},
+                {FeePmDisplay, "PM tons"},
+                {FeeSO2Display, "SO2 tons"},
+                {FeeNOxDisplay, "NOx tons"}
             }
 
             For Each item As KeyValuePair(Of TextBox, String) In textBoxDataBindingsTons
@@ -788,13 +786,14 @@ Public Class IAIPFacilitySummary
             Next
 
             Dim textBoxDataBindingsDollars As New Dictionary(Of TextBox, String) From {
-                {FeeTotalDisplay, "NumTotalFee"},
-                {FeePaidDisplay, "TotalPaid"},
-                {FeePart70Display, "NumPart70Fee"},
-                {FeeSmDisplay, "NumSMFee"},
-                {FeeNspsDisplay, "NumNSPSFee"},
-                {FeeAdminDisplay, "NumAdminFee"},
-                {FeePollutantTotalDisplay, "numCalculatedFee"}
+                {FeeTotalDisplay, "Total fee"},
+                {FeePaidDisplay, "Total paid"},
+                {FeePart70Display, "Part 70 fee"},
+                {FeePart70MaintDisplay, "Part 70 maintenance fee"},
+                {FeeSmDisplay, "SM fee"},
+                {FeeNspsDisplay, "NSPS fee"},
+                {FeeAdminDisplay, "Admin fee"},
+                {FeePollutantTotalDisplay, "Calculated emission fee"}
             }
 
             For Each item As KeyValuePair(Of TextBox, String) In textBoxDataBindingsDollars
@@ -803,20 +802,31 @@ Public Class IAIPFacilitySummary
                 item.Key.DataBindings.Add(b)
             Next
 
-            Dim binding As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), "NumFeeRate")
+            binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), "Fee rate")
             AddHandler binding.Format, AddressOf BindingFormatDollarsPerTon
             FeeRateDisplay.DataBindings.Add(binding)
 
             Dim checkBoxDataBindings As New Dictionary(Of CheckBox, String) From {
-                {FeeFacilityOperatingDisplay, "strOperate"},
-                {FeeFacilityPart70Display, "strPart70"},
-                {FeeFacilityNspsExemptDisplay, "strNSPSExempt"}
+                {FeeFacilityOperatingDisplay, "Operating"},
+                {FeeFacilityPart70Display, "Part 70"},
+                {FeeFacilityNspsDisplay, "NSPS"},
+                {FeeFacilityNspsExemptDisplay, "NSPS fee exempt"}
             }
 
             For Each item As KeyValuePair(Of CheckBox, String) In checkBoxDataBindings
-                item.Key.DataBindings.Add(New Binding("Checked", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), item.Value))
+                item.Key.DataBindings.Add(New Binding("Checked", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), item.Value, True))
             Next
 
+        End If
+    End Sub
+
+    Private Sub BindingShortDate(sender As Object, cevent As ConvertEventArgs)
+        Dim d As Date? = DBUtilities.GetNullableDateTime(cevent.Value)
+
+        If d.HasValue Then
+            cevent.Value = d.Value.ToString(DateFormat)
+        Else
+            cevent.Value = ""
         End If
     End Sub
 
@@ -844,8 +854,12 @@ Public Class IAIPFacilitySummary
         cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
 
         If Decimal.TryParse(cevent.Value.ToString, num) Then
-            cevent.Value = "$" & num.ToString("N2") & " /ton"
+            cevent.Value = "$" & num.ToString("N2") & "/ton"
         End If
+    End Sub
+
+    Private Sub BindingFormatThreeWayBoolean(sender As Object, cevent As ConvertEventArgs)
+        cevent.Value = DBUtilities.GetNullable(Of Boolean?)(cevent.Value)
     End Sub
 
     Private Sub EditContactsButton_Click(sender As Object, e As EventArgs) Handles EditContactsButton.Click
