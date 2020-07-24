@@ -826,7 +826,7 @@ Public Class IAIPFacilitySummary
         If d.HasValue Then
             cevent.Value = d.Value.ToString(DateFormat)
         Else
-            cevent.Value = ""
+            cevent.Value = "Not Submitted"
         End If
     End Sub
 
