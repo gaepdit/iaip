@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.0.0\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.0.0\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
   <Import Project="..\packages\Microsoft.NetFramework.Analyzers.3.0.0\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.3.0.0\build\Microsoft.NetFramework.Analyzers.props')" />
@@ -618,10 +618,10 @@
     <Compile Include="_Code\ListViewItemComparer.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EmissionsFees\PASPFeeStatistics.Designer.vb">
-      <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
+    <Compile Include="AnnualFees\FeesStatistics.Designer.vb">
+      <DependentUpon>FeesStatistics.vb</DependentUpon>
     </Compile>
-    <Compile Include="EmissionsFees\PASPFeeStatistics.vb">
+    <Compile Include="AnnualFees\FeesStatistics.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Crystal Reports\SSPP\crAPBPrintOut2.vb">
@@ -744,10 +744,10 @@
     <Compile Include="ISMP\SubPages\ISMPStaffReports.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EmissionsFees\PASPFeeAuditLog.Designer.vb">
-      <DependentUpon>PASPFeeAuditLog.vb</DependentUpon>
+    <Compile Include="AnnualFees\FeesAudit.Designer.vb">
+      <DependentUpon>FeesAudit.vb</DependentUpon>
     </Compile>
-    <Compile Include="EmissionsFees\PASPFeeAuditLog.vb">
+    <Compile Include="AnnualFees\FeesAudit.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Events\MASPRegistrationTool.Designer.vb">
@@ -756,22 +756,22 @@
     <Compile Include="Events\MASPRegistrationTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EmissionsFees\PASPDepositsAmendments.Designer.vb">
-      <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
+    <Compile Include="AnnualFees\FeesDeposits.Designer.vb">
+      <DependentUpon>FeesDeposits.vb</DependentUpon>
     </Compile>
-    <Compile Include="EmissionsFees\PASPDepositsAmendments.vb">
+    <Compile Include="AnnualFees\FeesDeposits.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EmissionsFees\PASPFeeManagement.Designer.vb">
-      <DependentUpon>PASPFeeManagement.vb</DependentUpon>
+    <Compile Include="AnnualFees\FeesManagement.Designer.vb">
+      <DependentUpon>FeesManagement.vb</DependentUpon>
     </Compile>
-    <Compile Include="EmissionsFees\PASPFeeManagement.vb">
+    <Compile Include="AnnualFees\FeesManagement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EmissionsFees\PASPFeesLog.Designer.vb">
-      <DependentUpon>PASPFeesLog.vb</DependentUpon>
+    <Compile Include="AnnualFees\FeesLog.Designer.vb">
+      <DependentUpon>FeesLog.vb</DependentUpon>
     </Compile>
-    <Compile Include="EmissionsFees\PASPFeesLog.vb">
+    <Compile Include="AnnualFees\FeesLog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ISMP\ISMPTestReports.Designer.vb">
@@ -1214,8 +1214,8 @@
     <EmbeddedResource Include="DMU\DmuEdtErrorMessages.resx">
       <DependentUpon>DmuEdtErrorMessages.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EmissionsFees\PASPFeeStatistics.resx">
-      <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
+    <EmbeddedResource Include="AnnualFees\FeesStatistics.resx">
+      <DependentUpon>FeesStatistics.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\SBEAPCaseLog.resx">
       <DependentUpon>SBEAPCaseLog.vb</DependentUpon>
@@ -1329,20 +1329,20 @@
     <EmbeddedResource Include="ISMP\SubPages\ISMPStaffReports.resx">
       <DependentUpon>ISMPStaffReports.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EmissionsFees\PASPFeeAuditLog.resx">
-      <DependentUpon>PASPFeeAuditLog.vb</DependentUpon>
+    <EmbeddedResource Include="AnnualFees\FeesAudit.resx">
+      <DependentUpon>FeesAudit.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Events\MASPRegistrationTool.resx">
       <DependentUpon>MASPRegistrationTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EmissionsFees\PASPDepositsAmendments.resx">
-      <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
+    <EmbeddedResource Include="AnnualFees\FeesDeposits.resx">
+      <DependentUpon>FeesDeposits.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EmissionsFees\PASPFeeManagement.resx">
-      <DependentUpon>PASPFeeManagement.vb</DependentUpon>
+    <EmbeddedResource Include="AnnualFees\FeesManagement.resx">
+      <DependentUpon>FeesManagement.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EmissionsFees\PASPFeesLog.resx">
-      <DependentUpon>PASPFeesLog.vb</DependentUpon>
+    <EmbeddedResource Include="AnnualFees\FeesLog.resx">
+      <DependentUpon>FeesLog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ISMP\ISMPTestReports.resx">
       <SubType>Designer</SubType>

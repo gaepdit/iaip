@@ -38,7 +38,7 @@ Public Class IaipDataGridView
             If _LinkifyFirstColumn <> value Then
                 _LinkifyFirstColumn = value
 
-                If value = True Then
+                If value Then
                     LinkifyColumnByName = Nothing
                 End If
             End If
