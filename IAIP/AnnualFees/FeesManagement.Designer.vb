@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class PASPFeeManagement
+Partial Class FeesManagement
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
@@ -22,12 +22,14 @@ Partial Class PASPFeeManagement
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.FeeManagementTabControl = New System.Windows.Forms.TabControl()
         Me.TPFeeAdminTools = New System.Windows.Forms.TabPage()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Panel12 = New System.Windows.Forms.Panel()
-        Me.dgvFeeRates = New System.Windows.Forms.DataGridView()
+        Me.dgvFeeRates = New Iaip.IaipDataGridView()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.txtNonAttainmentThreshold = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -44,28 +46,27 @@ Partial Class PASPFeeManagement
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label37 = New System.Windows.Forms.Label()
         Me.dtpFeeDueDate = New System.Windows.Forms.DateTimePicker()
-        Me.btnClearFeeData = New System.Windows.Forms.Button()
         Me.btnUpdateFeeData = New System.Windows.Forms.Button()
         Me.Label36 = New System.Windows.Forms.Label()
         Me.txtFeeNotes = New System.Windows.Forms.TextBox()
         Me.Label35 = New System.Windows.Forms.Label()
         Me.txtFeeYear = New System.Windows.Forms.TextBox()
-        Me.Label34 = New System.Windows.Forms.Label()
-        Me.txtFeeID = New System.Windows.Forms.TextBox()
         Me.Label248 = New System.Windows.Forms.Label()
         Me.dtpFeePeriodStart = New System.Windows.Forms.DateTimePicker()
         Me.txtAdminFeePercent = New System.Windows.Forms.TextBox()
         Me.dtpFeePeriodEnd = New System.Windows.Forms.DateTimePicker()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.Label55 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtperTonRate = New System.Windows.Forms.TextBox()
+        Me.txtPerTonRate = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label57 = New System.Windows.Forms.Label()
+        Me.txtPart70MaintenanceFee = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtTitleVfee = New System.Windows.Forms.TextBox()
+        Me.txtPart70Fee = New System.Windows.Forms.TextBox()
         Me.Label58 = New System.Windows.Forms.Label()
         Me.Label59 = New System.Windows.Forms.Label()
-        Me.dtpAdminApplicable = New System.Windows.Forms.DateTimePicker()
+        Me.dtpAdminApplicableDate = New System.Windows.Forms.DateTimePicker()
         Me.txtAnnualNSPSFee = New System.Windows.Forms.TextBox()
         Me.Label60 = New System.Windows.Forms.Label()
         Me.txtAnnualSMFee = New System.Windows.Forms.TextBox()
@@ -100,8 +101,7 @@ Partial Class PASPFeeManagement
         Me.Label107 = New System.Windows.Forms.Label()
         Me.TPFeeManagementTools = New System.Windows.Forms.TabPage()
         Me.FeeManagementSidePanel = New System.Windows.Forms.Panel()
-        Me.dgvFeeManagementLists = New System.Windows.Forms.DataGridView()
-        Me.btnExportToExcel = New System.Windows.Forms.Button()
+        Me.dgvFeeManagementLists = New Iaip.IaipDataGridView()
         Me.FeeManagementListCountLabel = New System.Windows.Forms.Label()
         Me.mtbCheckAIRSNumber = New System.Windows.Forms.MaskedTextBox()
         Me.btnOpenFeesLog = New System.Windows.Forms.Button()
@@ -150,8 +150,8 @@ Partial Class PASPFeeManagement
         Me.FeeManagementTabControl.Location = New System.Drawing.Point(0, 0)
         Me.FeeManagementTabControl.Name = "FeeManagementTabControl"
         Me.FeeManagementTabControl.SelectedIndex = 0
-        Me.FeeManagementTabControl.Size = New System.Drawing.Size(1001, 692)
-        Me.FeeManagementTabControl.TabIndex = 257
+        Me.FeeManagementTabControl.Size = New System.Drawing.Size(826, 646)
+        Me.FeeManagementTabControl.TabIndex = 0
         '
         'TPFeeAdminTools
         '
@@ -159,7 +159,7 @@ Partial Class PASPFeeManagement
         Me.TPFeeAdminTools.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeAdminTools.Name = "TPFeeAdminTools"
         Me.TPFeeAdminTools.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPFeeAdminTools.Size = New System.Drawing.Size(993, 666)
+        Me.TPFeeAdminTools.Size = New System.Drawing.Size(818, 620)
         Me.TPFeeAdminTools.TabIndex = 0
         Me.TPFeeAdminTools.Text = "Fee Admin Tools"
         Me.TPFeeAdminTools.UseVisualStyleBackColor = True
@@ -173,8 +173,8 @@ Partial Class PASPFeeManagement
         Me.TabControl2.Location = New System.Drawing.Point(3, 3)
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(987, 660)
-        Me.TabControl2.TabIndex = 402
+        Me.TabControl2.Size = New System.Drawing.Size(812, 614)
+        Me.TabControl2.TabIndex = 0
         '
         'TabPage1
         '
@@ -182,7 +182,7 @@ Partial Class PASPFeeManagement
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(979, 634)
+        Me.TabPage1.Size = New System.Drawing.Size(804, 588)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Annual Fee Rates"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -206,56 +206,60 @@ Partial Class PASPFeeManagement
         Me.Panel12.Controls.Add(Me.Label19)
         Me.Panel12.Controls.Add(Me.Label37)
         Me.Panel12.Controls.Add(Me.dtpFeeDueDate)
-        Me.Panel12.Controls.Add(Me.btnClearFeeData)
         Me.Panel12.Controls.Add(Me.btnUpdateFeeData)
         Me.Panel12.Controls.Add(Me.Label36)
         Me.Panel12.Controls.Add(Me.txtFeeNotes)
         Me.Panel12.Controls.Add(Me.Label35)
         Me.Panel12.Controls.Add(Me.txtFeeYear)
-        Me.Panel12.Controls.Add(Me.Label34)
-        Me.Panel12.Controls.Add(Me.txtFeeID)
         Me.Panel12.Controls.Add(Me.Label248)
         Me.Panel12.Controls.Add(Me.dtpFeePeriodStart)
         Me.Panel12.Controls.Add(Me.txtAdminFeePercent)
         Me.Panel12.Controls.Add(Me.dtpFeePeriodEnd)
+        Me.Panel12.Controls.Add(Me.Label5)
         Me.Panel12.Controls.Add(Me.Label55)
         Me.Panel12.Controls.Add(Me.Label3)
-        Me.Panel12.Controls.Add(Me.txtperTonRate)
+        Me.Panel12.Controls.Add(Me.txtPerTonRate)
         Me.Panel12.Controls.Add(Me.Label2)
         Me.Panel12.Controls.Add(Me.Label57)
+        Me.Panel12.Controls.Add(Me.txtPart70MaintenanceFee)
         Me.Panel12.Controls.Add(Me.Label1)
-        Me.Panel12.Controls.Add(Me.txtTitleVfee)
+        Me.Panel12.Controls.Add(Me.txtPart70Fee)
         Me.Panel12.Controls.Add(Me.Label58)
         Me.Panel12.Controls.Add(Me.Label59)
-        Me.Panel12.Controls.Add(Me.dtpAdminApplicable)
+        Me.Panel12.Controls.Add(Me.dtpAdminApplicableDate)
         Me.Panel12.Controls.Add(Me.txtAnnualNSPSFee)
         Me.Panel12.Controls.Add(Me.Label60)
         Me.Panel12.Controls.Add(Me.txtAnnualSMFee)
         Me.Panel12.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel12.Location = New System.Drawing.Point(3, 3)
         Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(973, 628)
-        Me.Panel12.TabIndex = 405
+        Me.Panel12.Size = New System.Drawing.Size(798, 582)
+        Me.Panel12.TabIndex = 0
         '
         'dgvFeeRates
         '
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvFeeRates.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvFeeRates.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvFeeRates.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvFeeRates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFeeRates.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.dgvFeeRates.DecimalFieldFormat = "#,0.##"
+        Me.dgvFeeRates.LinkifyColumnByName = Nothing
         Me.dgvFeeRates.Location = New System.Drawing.Point(0, 0)
-        Me.dgvFeeRates.MultiSelect = False
         Me.dgvFeeRates.Name = "dgvFeeRates"
-        Me.dgvFeeRates.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvFeeRates.Size = New System.Drawing.Size(682, 628)
-        Me.dgvFeeRates.TabIndex = 404
+        Me.dgvFeeRates.ResultsCountLabel = Nothing
+        Me.dgvFeeRates.ResultsCountLabelFormat = "{0} found"
+        Me.dgvFeeRates.Size = New System.Drawing.Size(507, 582)
+        Me.dgvFeeRates.StandardTab = True
+        Me.dgvFeeRates.TabIndex = 1
         '
         'Label16
         '
         Me.Label16.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(697, 497)
+        Me.Label16.Location = New System.Drawing.Point(518, 481)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(133, 13)
         Me.Label16.TabIndex = 501
@@ -264,16 +268,17 @@ Partial Class PASPFeeManagement
         'txtNonAttainmentThreshold
         '
         Me.txtNonAttainmentThreshold.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNonAttainmentThreshold.Location = New System.Drawing.Point(881, 494)
+        Me.txtNonAttainmentThreshold.Location = New System.Drawing.Point(695, 479)
         Me.txtNonAttainmentThreshold.Name = "txtNonAttainmentThreshold"
-        Me.txtNonAttainmentThreshold.Size = New System.Drawing.Size(89, 20)
-        Me.txtNonAttainmentThreshold.TabIndex = 500
+        Me.txtNonAttainmentThreshold.Size = New System.Drawing.Size(100, 20)
+        Me.txtNonAttainmentThreshold.TabIndex = 18
+        Me.txtNonAttainmentThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label15
         '
         Me.Label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(697, 469)
+        Me.Label15.Location = New System.Drawing.Point(518, 457)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(110, 13)
         Me.Label15.TabIndex = 499
@@ -282,16 +287,17 @@ Partial Class PASPFeeManagement
         'txtAttainmentThreshold
         '
         Me.txtAttainmentThreshold.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtAttainmentThreshold.Location = New System.Drawing.Point(881, 466)
+        Me.txtAttainmentThreshold.Location = New System.Drawing.Point(695, 455)
         Me.txtAttainmentThreshold.Name = "txtAttainmentThreshold"
-        Me.txtAttainmentThreshold.Size = New System.Drawing.Size(89, 20)
-        Me.txtAttainmentThreshold.TabIndex = 498
+        Me.txtAttainmentThreshold.Size = New System.Drawing.Size(100, 20)
+        Me.txtAttainmentThreshold.TabIndex = 17
+        Me.txtAttainmentThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label12
         '
         Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(697, 414)
+        Me.Label12.Location = New System.Drawing.Point(518, 385)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(112, 13)
         Me.Label12.TabIndex = 497
@@ -302,16 +308,16 @@ Partial Class PASPFeeManagement
         Me.dtpFourthQrtDue.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtpFourthQrtDue.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFourthQrtDue.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFourthQrtDue.Location = New System.Drawing.Point(881, 411)
+        Me.dtpFourthQrtDue.Location = New System.Drawing.Point(695, 381)
         Me.dtpFourthQrtDue.Name = "dtpFourthQrtDue"
-        Me.dtpFourthQrtDue.Size = New System.Drawing.Size(89, 20)
-        Me.dtpFourthQrtDue.TabIndex = 496
+        Me.dtpFourthQrtDue.Size = New System.Drawing.Size(100, 20)
+        Me.dtpFourthQrtDue.TabIndex = 14
         '
         'Label14
         '
         Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(697, 388)
+        Me.Label14.Location = New System.Drawing.Point(518, 359)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(112, 13)
         Me.Label14.TabIndex = 495
@@ -322,16 +328,16 @@ Partial Class PASPFeeManagement
         Me.dtpThirdQrtDue.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtpThirdQrtDue.CustomFormat = "dd-MMM-yyyy"
         Me.dtpThirdQrtDue.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpThirdQrtDue.Location = New System.Drawing.Point(881, 385)
+        Me.dtpThirdQrtDue.Location = New System.Drawing.Point(695, 355)
         Me.dtpThirdQrtDue.Name = "dtpThirdQrtDue"
-        Me.dtpThirdQrtDue.Size = New System.Drawing.Size(89, 20)
-        Me.dtpThirdQrtDue.TabIndex = 494
+        Me.dtpThirdQrtDue.Size = New System.Drawing.Size(100, 20)
+        Me.dtpThirdQrtDue.TabIndex = 13
         '
         'Label11
         '
         Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(697, 363)
+        Me.Label11.Location = New System.Drawing.Point(518, 333)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(115, 13)
         Me.Label11.TabIndex = 493
@@ -342,16 +348,16 @@ Partial Class PASPFeeManagement
         Me.dtpSecondQrtDue.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtpSecondQrtDue.CustomFormat = "dd-MMM-yyyy"
         Me.dtpSecondQrtDue.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpSecondQrtDue.Location = New System.Drawing.Point(881, 360)
+        Me.dtpSecondQrtDue.Location = New System.Drawing.Point(695, 330)
         Me.dtpSecondQrtDue.Name = "dtpSecondQrtDue"
-        Me.dtpSecondQrtDue.Size = New System.Drawing.Size(89, 20)
-        Me.dtpSecondQrtDue.TabIndex = 492
+        Me.dtpSecondQrtDue.Size = New System.Drawing.Size(100, 20)
+        Me.dtpSecondQrtDue.TabIndex = 12
         '
         'Label9
         '
         Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(697, 337)
+        Me.Label9.Location = New System.Drawing.Point(518, 307)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(111, 13)
         Me.Label9.TabIndex = 491
@@ -362,10 +368,10 @@ Partial Class PASPFeeManagement
         Me.dtpFirstQrtDue.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtpFirstQrtDue.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFirstQrtDue.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFirstQrtDue.Location = New System.Drawing.Point(881, 334)
+        Me.dtpFirstQrtDue.Location = New System.Drawing.Point(695, 304)
         Me.dtpFirstQrtDue.Name = "dtpFirstQrtDue"
-        Me.dtpFirstQrtDue.Size = New System.Drawing.Size(89, 20)
-        Me.dtpFirstQrtDue.TabIndex = 490
+        Me.dtpFirstQrtDue.Size = New System.Drawing.Size(100, 20)
+        Me.dtpFirstQrtDue.TabIndex = 11
         '
         'btnReloadFeeRate
         '
@@ -373,11 +379,12 @@ Partial Class PASPFeeManagement
         Me.btnReloadFeeRate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnReloadFeeRate.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
         Me.btnReloadFeeRate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnReloadFeeRate.Location = New System.Drawing.Point(903, 3)
+        Me.btnReloadFeeRate.Location = New System.Drawing.Point(522, 518)
         Me.btnReloadFeeRate.Name = "btnReloadFeeRate"
-        Me.btnReloadFeeRate.Size = New System.Drawing.Size(67, 25)
-        Me.btnReloadFeeRate.TabIndex = 488
-        Me.btnReloadFeeRate.Text = "Reload"
+        Me.btnReloadFeeRate.Padding = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.btnReloadFeeRate.Size = New System.Drawing.Size(100, 23)
+        Me.btnReloadFeeRate.TabIndex = 20
+        Me.btnReloadFeeRate.Text = "Reload Table"
         Me.btnReloadFeeRate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.btnReloadFeeRate.UseVisualStyleBackColor = True
         '
@@ -385,7 +392,7 @@ Partial Class PASPFeeManagement
         '
         Me.Label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(955, 213)
+        Me.Label19.Location = New System.Drawing.Point(779, 433)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(15, 13)
         Me.Label19.TabIndex = 413
@@ -395,7 +402,7 @@ Partial Class PASPFeeManagement
         '
         Me.Label37.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(697, 189)
+        Me.Label37.Location = New System.Drawing.Point(518, 282)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(95, 13)
         Me.Label37.TabIndex = 412
@@ -406,38 +413,31 @@ Partial Class PASPFeeManagement
         Me.dtpFeeDueDate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtpFeeDueDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFeeDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFeeDueDate.Location = New System.Drawing.Point(870, 186)
+        Me.dtpFeeDueDate.Location = New System.Drawing.Point(695, 280)
         Me.dtpFeeDueDate.Name = "dtpFeeDueDate"
         Me.dtpFeeDueDate.Size = New System.Drawing.Size(100, 20)
-        Me.dtpFeeDueDate.TabIndex = 411
-        '
-        'btnClearFeeData
-        '
-        Me.btnClearFeeData.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClearFeeData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearFeeData.Location = New System.Drawing.Point(838, 4)
-        Me.btnClearFeeData.Name = "btnClearFeeData"
-        Me.btnClearFeeData.Size = New System.Drawing.Size(59, 23)
-        Me.btnClearFeeData.TabIndex = 3
-        Me.btnClearFeeData.Text = "Clear"
-        Me.btnClearFeeData.UseVisualStyleBackColor = True
+        Me.dtpFeeDueDate.TabIndex = 10
         '
         'btnUpdateFeeData
         '
         Me.btnUpdateFeeData.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnUpdateFeeData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUpdateFeeData.Location = New System.Drawing.Point(832, 437)
+        Me.btnUpdateFeeData.Image = Global.Iaip.My.Resources.Resources.SaveIcon
+        Me.btnUpdateFeeData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnUpdateFeeData.Location = New System.Drawing.Point(678, 518)
         Me.btnUpdateFeeData.Name = "btnUpdateFeeData"
-        Me.btnUpdateFeeData.Size = New System.Drawing.Size(138, 23)
-        Me.btnUpdateFeeData.TabIndex = 15
-        Me.btnUpdateFeeData.Text = "Update Fee Rate Data"
+        Me.btnUpdateFeeData.Padding = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.btnUpdateFeeData.Size = New System.Drawing.Size(117, 23)
+        Me.btnUpdateFeeData.TabIndex = 19
+        Me.btnUpdateFeeData.Text = "Update Fee Year"
+        Me.btnUpdateFeeData.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.btnUpdateFeeData.UseVisualStyleBackColor = True
         '
         'Label36
         '
         Me.Label36.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(697, 263)
+        Me.Label36.Location = New System.Drawing.Point(518, 208)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(38, 13)
         Me.Label36.TabIndex = 408
@@ -446,123 +446,114 @@ Partial Class PASPFeeManagement
         'txtFeeNotes
         '
         Me.txtFeeNotes.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtFeeNotes.Location = New System.Drawing.Point(741, 260)
+        Me.txtFeeNotes.Location = New System.Drawing.Point(559, 206)
         Me.txtFeeNotes.Multiline = True
         Me.txtFeeNotes.Name = "txtFeeNotes"
-        Me.txtFeeNotes.Size = New System.Drawing.Size(229, 68)
-        Me.txtFeeNotes.TabIndex = 13
+        Me.txtFeeNotes.Size = New System.Drawing.Size(236, 68)
+        Me.txtFeeNotes.TabIndex = 9
         '
         'Label35
         '
         Me.Label35.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(697, 9)
+        Me.Label35.Location = New System.Drawing.Point(518, 8)
         Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(50, 13)
+        Me.Label35.Size = New System.Drawing.Size(95, 13)
         Me.Label35.TabIndex = 406
-        Me.Label35.Text = "Fee Year"
+        Me.Label35.Text = "Selected Fee Year"
         '
         'txtFeeYear
         '
         Me.txtFeeYear.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtFeeYear.Location = New System.Drawing.Point(753, 6)
+        Me.txtFeeYear.Location = New System.Drawing.Point(695, 5)
         Me.txtFeeYear.Name = "txtFeeYear"
         Me.txtFeeYear.ReadOnly = True
-        Me.txtFeeYear.Size = New System.Drawing.Size(79, 20)
-        Me.txtFeeYear.TabIndex = 4
-        '
-        'Label34
-        '
-        Me.Label34.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(697, 597)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(18, 13)
-        Me.Label34.TabIndex = 404
-        Me.Label34.Text = "ID"
-        Me.Label34.Visible = False
-        '
-        'txtFeeID
-        '
-        Me.txtFeeID.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtFeeID.Location = New System.Drawing.Point(721, 594)
-        Me.txtFeeID.Name = "txtFeeID"
-        Me.txtFeeID.ReadOnly = True
-        Me.txtFeeID.Size = New System.Drawing.Size(44, 20)
-        Me.txtFeeID.TabIndex = 2
-        Me.txtFeeID.Visible = False
+        Me.txtFeeYear.Size = New System.Drawing.Size(100, 20)
+        Me.txtFeeYear.TabIndex = 1
         '
         'Label248
         '
         Me.Label248.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label248.AutoSize = True
-        Me.Label248.Location = New System.Drawing.Point(697, 165)
+        Me.Label248.Location = New System.Drawing.Point(518, 184)
         Me.Label248.Name = "Label248"
-        Me.Label248.Size = New System.Drawing.Size(82, 13)
+        Me.Label248.Size = New System.Drawing.Size(98, 13)
         Me.Label248.TabIndex = 381
-        Me.Label248.Text = "Per Ton Rates: "
+        Me.Label248.Text = "Per Ton Fee Rate: "
         '
         'dtpFeePeriodStart
         '
         Me.dtpFeePeriodStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtpFeePeriodStart.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFeePeriodStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFeePeriodStart.Location = New System.Drawing.Point(732, 64)
+        Me.dtpFeePeriodStart.Location = New System.Drawing.Point(553, 59)
         Me.dtpFeePeriodStart.Name = "dtpFeePeriodStart"
         Me.dtpFeePeriodStart.Size = New System.Drawing.Size(100, 20)
-        Me.dtpFeePeriodStart.TabIndex = 5
+        Me.dtpFeePeriodStart.TabIndex = 2
         '
         'txtAdminFeePercent
         '
         Me.txtAdminFeePercent.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtAdminFeePercent.Location = New System.Drawing.Point(870, 210)
+        Me.txtAdminFeePercent.Location = New System.Drawing.Point(695, 430)
         Me.txtAdminFeePercent.Name = "txtAdminFeePercent"
         Me.txtAdminFeePercent.Size = New System.Drawing.Size(79, 20)
-        Me.txtAdminFeePercent.TabIndex = 11
+        Me.txtAdminFeePercent.TabIndex = 16
+        Me.txtAdminFeePercent.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'dtpFeePeriodEnd
         '
         Me.dtpFeePeriodEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtpFeePeriodEnd.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFeePeriodEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFeePeriodEnd.Location = New System.Drawing.Point(870, 64)
+        Me.dtpFeePeriodEnd.Location = New System.Drawing.Point(695, 59)
         Me.dtpFeePeriodEnd.Name = "dtpFeePeriodEnd"
         Me.dtpFeePeriodEnd.Size = New System.Drawing.Size(100, 20)
-        Me.dtpFeePeriodEnd.TabIndex = 6
+        Me.dtpFeePeriodEnd.TabIndex = 3
+        '
+        'Label5
+        '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(518, 112)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(130, 13)
+        Me.Label5.TabIndex = 378
+        Me.Label5.Text = "Part 70 Maintenance Fee:"
         '
         'Label55
         '
         Me.Label55.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label55.AutoSize = True
-        Me.Label55.Location = New System.Drawing.Point(697, 93)
+        Me.Label55.Location = New System.Drawing.Point(518, 87)
         Me.Label55.Name = "Label55"
-        Me.Label55.Size = New System.Drawing.Size(122, 13)
+        Me.Label55.Size = New System.Drawing.Size(65, 13)
         Me.Label55.TabIndex = 378
-        Me.Label55.Text = "Title V Fee (Part70 Fee):"
+        Me.Label55.Text = "Part 70 Fee:"
         '
         'Label3
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(697, 67)
+        Me.Label3.Location = New System.Drawing.Point(518, 62)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(29, 13)
         Me.Label3.TabIndex = 401
         Me.Label3.Text = "Start"
         '
-        'txtperTonRate
+        'txtPerTonRate
         '
-        Me.txtperTonRate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtperTonRate.Location = New System.Drawing.Point(870, 162)
-        Me.txtperTonRate.Name = "txtperTonRate"
-        Me.txtperTonRate.Size = New System.Drawing.Size(100, 20)
-        Me.txtperTonRate.TabIndex = 10
+        Me.txtPerTonRate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtPerTonRate.Location = New System.Drawing.Point(695, 182)
+        Me.txtPerTonRate.Name = "txtPerTonRate"
+        Me.txtPerTonRate.Size = New System.Drawing.Size(100, 20)
+        Me.txtPerTonRate.TabIndex = 8
+        Me.txtPerTonRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label2
         '
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(838, 67)
+        Me.Label2.Location = New System.Drawing.Point(663, 62)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(26, 13)
         Me.Label2.TabIndex = 400
@@ -572,73 +563,84 @@ Partial Class PASPFeeManagement
         '
         Me.Label57.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label57.AutoSize = True
-        Me.Label57.Location = New System.Drawing.Point(697, 117)
+        Me.Label57.Location = New System.Drawing.Point(518, 136)
         Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(47, 13)
+        Me.Label57.Size = New System.Drawing.Size(83, 13)
         Me.Label57.TabIndex = 379
-        Me.Label57.Text = "SM Fee:"
+        Me.Label57.Text = "SM Annual Fee:"
+        '
+        'txtPart70MaintenanceFee
+        '
+        Me.txtPart70MaintenanceFee.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtPart70MaintenanceFee.Location = New System.Drawing.Point(695, 109)
+        Me.txtPart70MaintenanceFee.Name = "txtPart70MaintenanceFee"
+        Me.txtPart70MaintenanceFee.Size = New System.Drawing.Size(100, 20)
+        Me.txtPart70MaintenanceFee.TabIndex = 5
+        Me.txtPart70MaintenanceFee.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label1
         '
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(697, 46)
+        Me.Label1.Location = New System.Drawing.Point(518, 41)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(58, 13)
         Me.Label1.TabIndex = 399
         Me.Label1.Text = "Fee Period"
         '
-        'txtTitleVfee
+        'txtPart70Fee
         '
-        Me.txtTitleVfee.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtTitleVfee.Location = New System.Drawing.Point(870, 90)
-        Me.txtTitleVfee.Name = "txtTitleVfee"
-        Me.txtTitleVfee.Size = New System.Drawing.Size(100, 20)
-        Me.txtTitleVfee.TabIndex = 7
+        Me.txtPart70Fee.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtPart70Fee.Location = New System.Drawing.Point(695, 85)
+        Me.txtPart70Fee.Name = "txtPart70Fee"
+        Me.txtPart70Fee.Size = New System.Drawing.Size(100, 20)
+        Me.txtPart70Fee.TabIndex = 4
+        Me.txtPart70Fee.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label58
         '
         Me.Label58.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label58.AutoSize = True
-        Me.Label58.Location = New System.Drawing.Point(697, 237)
+        Me.Label58.Location = New System.Drawing.Point(518, 409)
         Me.Label58.Name = "Label58"
-        Me.Label58.Size = New System.Drawing.Size(89, 13)
+        Me.Label58.Size = New System.Drawing.Size(138, 13)
         Me.Label58.TabIndex = 383
-        Me.Label58.Text = "Admin Fee Date: "
+        Me.Label58.Text = "Date Admin Fee Applicable:"
         '
         'Label59
         '
         Me.Label59.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label59.AutoSize = True
-        Me.Label59.Location = New System.Drawing.Point(697, 141)
+        Me.Label59.Location = New System.Drawing.Point(518, 160)
         Me.Label59.Name = "Label59"
-        Me.Label59.Size = New System.Drawing.Size(63, 13)
+        Me.Label59.Size = New System.Drawing.Size(99, 13)
         Me.Label59.TabIndex = 380
-        Me.Label59.Text = "NSPS Fee: "
+        Me.Label59.Text = "NSPS Annual Fee: "
         '
-        'dtpAdminApplicable
+        'dtpAdminApplicableDate
         '
-        Me.dtpAdminApplicable.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dtpAdminApplicable.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpAdminApplicable.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpAdminApplicable.Location = New System.Drawing.Point(870, 234)
-        Me.dtpAdminApplicable.Name = "dtpAdminApplicable"
-        Me.dtpAdminApplicable.Size = New System.Drawing.Size(100, 20)
-        Me.dtpAdminApplicable.TabIndex = 12
+        Me.dtpAdminApplicableDate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dtpAdminApplicableDate.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpAdminApplicableDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpAdminApplicableDate.Location = New System.Drawing.Point(695, 406)
+        Me.dtpAdminApplicableDate.Name = "dtpAdminApplicableDate"
+        Me.dtpAdminApplicableDate.Size = New System.Drawing.Size(100, 20)
+        Me.dtpAdminApplicableDate.TabIndex = 15
         '
         'txtAnnualNSPSFee
         '
         Me.txtAnnualNSPSFee.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtAnnualNSPSFee.Location = New System.Drawing.Point(870, 138)
+        Me.txtAnnualNSPSFee.Location = New System.Drawing.Point(695, 158)
         Me.txtAnnualNSPSFee.Name = "txtAnnualNSPSFee"
         Me.txtAnnualNSPSFee.Size = New System.Drawing.Size(100, 20)
-        Me.txtAnnualNSPSFee.TabIndex = 9
+        Me.txtAnnualNSPSFee.TabIndex = 7
+        Me.txtAnnualNSPSFee.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label60
         '
         Me.Label60.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label60.AutoSize = True
-        Me.Label60.Location = New System.Drawing.Point(697, 213)
+        Me.Label60.Location = New System.Drawing.Point(518, 433)
         Me.Label60.Name = "Label60"
         Me.Label60.Size = New System.Drawing.Size(103, 13)
         Me.Label60.TabIndex = 382
@@ -647,10 +649,11 @@ Partial Class PASPFeeManagement
         'txtAnnualSMFee
         '
         Me.txtAnnualSMFee.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtAnnualSMFee.Location = New System.Drawing.Point(870, 114)
+        Me.txtAnnualSMFee.Location = New System.Drawing.Point(695, 134)
         Me.txtAnnualSMFee.Name = "txtAnnualSMFee"
         Me.txtAnnualSMFee.Size = New System.Drawing.Size(100, 20)
-        Me.txtAnnualSMFee.TabIndex = 8
+        Me.txtAnnualSMFee.TabIndex = 6
+        Me.txtAnnualSMFee.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'TabPage3
         '
@@ -658,7 +661,7 @@ Partial Class PASPFeeManagement
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(979, 634)
+        Me.TabPage3.Size = New System.Drawing.Size(804, 588)
         Me.TabPage3.TabIndex = 1
         Me.TabPage3.Text = "NSPS Exemption Tool"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -676,16 +679,16 @@ Partial Class PASPFeeManagement
         Me.pnlNSPSExemptions.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlNSPSExemptions.Location = New System.Drawing.Point(3, 3)
         Me.pnlNSPSExemptions.Name = "pnlNSPSExemptions"
-        Me.pnlNSPSExemptions.Size = New System.Drawing.Size(973, 628)
+        Me.pnlNSPSExemptions.Size = New System.Drawing.Size(798, 582)
         Me.pnlNSPSExemptions.TabIndex = 400
         '
         'Panel14
         '
         Me.Panel14.Controls.Add(Me.Panel13)
         Me.Panel14.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel14.Location = New System.Drawing.Point(0, 359)
+        Me.Panel14.Location = New System.Drawing.Point(0, 313)
         Me.Panel14.Name = "Panel14"
-        Me.Panel14.Size = New System.Drawing.Size(973, 269)
+        Me.Panel14.Size = New System.Drawing.Size(798, 269)
         Me.Panel14.TabIndex = 415
         '
         'Panel13
@@ -698,7 +701,7 @@ Partial Class PASPFeeManagement
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel13.Location = New System.Drawing.Point(0, 0)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(973, 269)
+        Me.Panel13.Size = New System.Drawing.Size(798, 269)
         Me.Panel13.TabIndex = 414
         '
         'Label100
@@ -720,7 +723,7 @@ Partial Class PASPFeeManagement
         Me.dgvNSPSExemptions.Name = "dgvNSPSExemptions"
         Me.dgvNSPSExemptions.ReadOnly = True
         Me.dgvNSPSExemptions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvNSPSExemptions.Size = New System.Drawing.Size(971, 232)
+        Me.dgvNSPSExemptions.Size = New System.Drawing.Size(796, 232)
         Me.dgvNSPSExemptions.TabIndex = 0
         '
         'btnSelectForm
@@ -799,7 +802,7 @@ Partial Class PASPFeeManagement
         Me.dgvNSPSExemptionsByYear.Name = "dgvNSPSExemptionsByYear"
         Me.dgvNSPSExemptionsByYear.ReadOnly = True
         Me.dgvNSPSExemptionsByYear.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvNSPSExemptionsByYear.Size = New System.Drawing.Size(971, 288)
+        Me.dgvNSPSExemptionsByYear.Size = New System.Drawing.Size(797, 242)
         Me.dgvNSPSExemptionsByYear.TabIndex = 403
         '
         'Label108
@@ -825,7 +828,7 @@ Partial Class PASPFeeManagement
         Me.TabPage2.Controls.Add(Me.Panel15)
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Size = New System.Drawing.Size(979, 634)
+        Me.TabPage2.Size = New System.Drawing.Size(804, 588)
         Me.TabPage2.TabIndex = 2
         Me.TabPage2.Text = "Edit Exemptions"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -848,7 +851,7 @@ Partial Class PASPFeeManagement
         Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel15.Location = New System.Drawing.Point(0, 0)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(979, 634)
+        Me.Panel15.Size = New System.Drawing.Size(804, 588)
         Me.Panel15.TabIndex = 415
         '
         'btnClearNSPSExemptions
@@ -896,7 +899,7 @@ Partial Class PASPFeeManagement
         Me.dgvExistingExemptions.Name = "dgvExistingExemptions"
         Me.dgvExistingExemptions.ReadOnly = True
         Me.dgvExistingExemptions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvExistingExemptions.Size = New System.Drawing.Size(977, 397)
+        Me.dgvExistingExemptions.Size = New System.Drawing.Size(802, 352)
         Me.dgvExistingExemptions.TabIndex = 403
         '
         'btnUpdateNSPSExemption
@@ -984,7 +987,7 @@ Partial Class PASPFeeManagement
         Me.TPFeeManagementTools.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeManagementTools.Name = "TPFeeManagementTools"
         Me.TPFeeManagementTools.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPFeeManagementTools.Size = New System.Drawing.Size(993, 666)
+        Me.TPFeeManagementTools.Size = New System.Drawing.Size(818, 620)
         Me.TPFeeManagementTools.TabIndex = 2
         Me.TPFeeManagementTools.Text = "Fee Management Tools"
         Me.TPFeeManagementTools.UseVisualStyleBackColor = True
@@ -992,53 +995,41 @@ Partial Class PASPFeeManagement
         'FeeManagementSidePanel
         '
         Me.FeeManagementSidePanel.Controls.Add(Me.dgvFeeManagementLists)
-        Me.FeeManagementSidePanel.Controls.Add(Me.btnExportToExcel)
         Me.FeeManagementSidePanel.Controls.Add(Me.FeeManagementListCountLabel)
         Me.FeeManagementSidePanel.Controls.Add(Me.mtbCheckAIRSNumber)
         Me.FeeManagementSidePanel.Controls.Add(Me.btnOpenFeesLog)
         Me.FeeManagementSidePanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FeeManagementSidePanel.Location = New System.Drawing.Point(188, 3)
         Me.FeeManagementSidePanel.Name = "FeeManagementSidePanel"
-        Me.FeeManagementSidePanel.Size = New System.Drawing.Size(802, 660)
+        Me.FeeManagementSidePanel.Size = New System.Drawing.Size(627, 614)
         Me.FeeManagementSidePanel.TabIndex = 0
         '
         'dgvFeeManagementLists
         '
-        Me.dgvFeeManagementLists.AllowUserToAddRows = False
-        Me.dgvFeeManagementLists.AllowUserToDeleteRows = False
-        Me.dgvFeeManagementLists.AllowUserToOrderColumns = True
-        Me.dgvFeeManagementLists.AllowUserToResizeRows = False
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvFeeManagementLists.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvFeeManagementLists.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvFeeManagementLists.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvFeeManagementLists.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFeeManagementLists.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.dgvFeeManagementLists.DecimalFieldFormat = "G2"
         Me.dgvFeeManagementLists.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvFeeManagementLists.LinkifyColumnByName = Nothing
+        Me.dgvFeeManagementLists.LinkifyFirstColumn = True
         Me.dgvFeeManagementLists.Location = New System.Drawing.Point(0, 39)
-        Me.dgvFeeManagementLists.MultiSelect = False
         Me.dgvFeeManagementLists.Name = "dgvFeeManagementLists"
-        Me.dgvFeeManagementLists.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvFeeManagementLists.ResultsCountLabel = Nothing
+        Me.dgvFeeManagementLists.ResultsCountLabelFormat = "{0} found"
         Me.dgvFeeManagementLists.ShowEditingIcon = False
-        Me.dgvFeeManagementLists.Size = New System.Drawing.Size(802, 618)
+        Me.dgvFeeManagementLists.Size = New System.Drawing.Size(627, 573)
+        Me.dgvFeeManagementLists.StandardTab = True
         Me.dgvFeeManagementLists.TabIndex = 3
-        '
-        'btnExportToExcel
-        '
-        Me.btnExportToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnExportToExcel.Location = New System.Drawing.Point(679, 10)
-        Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Size = New System.Drawing.Size(118, 23)
-        Me.btnExportToExcel.TabIndex = 2
-        Me.btnExportToExcel.Text = " Export to Excel"
-        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnExportToExcel.UseVisualStyleBackColor = True
         '
         'FeeManagementListCountLabel
         '
         Me.FeeManagementListCountLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.FeeManagementListCountLabel.Location = New System.Drawing.Point(489, 15)
+        Me.FeeManagementListCountLabel.Location = New System.Drawing.Point(438, 13)
         Me.FeeManagementListCountLabel.Name = "FeeManagementListCountLabel"
         Me.FeeManagementListCountLabel.Size = New System.Drawing.Size(184, 17)
         Me.FeeManagementListCountLabel.TabIndex = 464
@@ -1077,7 +1068,7 @@ Partial Class PASPFeeManagement
         Me.FeeManagementToolPanel.Dock = System.Windows.Forms.DockStyle.Left
         Me.FeeManagementToolPanel.Location = New System.Drawing.Point(3, 3)
         Me.FeeManagementToolPanel.Name = "FeeManagementToolPanel"
-        Me.FeeManagementToolPanel.Size = New System.Drawing.Size(185, 660)
+        Me.FeeManagementToolPanel.Size = New System.Drawing.Size(185, 614)
         Me.FeeManagementToolPanel.TabIndex = 0
         '
         'EnrollmentGroupbox
@@ -1214,10 +1205,12 @@ Partial Class PASPFeeManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1001, 692)
+        Me.ClientSize = New System.Drawing.Size(826, 646)
         Me.Controls.Add(Me.FeeManagementTabControl)
+        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.MinimumSize = New System.Drawing.Size(660, 648)
         Me.Name = "PASPFeeManagement"
-        Me.Text = "Emissions Fee System Management"
+        Me.Text = "Annual Fees - Management"
         Me.FeeManagementTabControl.ResumeLayout(False)
         Me.TPFeeAdminTools.ResumeLayout(False)
         Me.TabControl2.ResumeLayout(False)
@@ -1257,32 +1250,29 @@ Partial Class PASPFeeManagement
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents Label37 As System.Windows.Forms.Label
     Friend WithEvents dtpFeeDueDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents btnClearFeeData As System.Windows.Forms.Button
     Friend WithEvents btnUpdateFeeData As System.Windows.Forms.Button
     Friend WithEvents Label36 As System.Windows.Forms.Label
     Friend WithEvents txtFeeNotes As System.Windows.Forms.TextBox
     Friend WithEvents Label35 As System.Windows.Forms.Label
     Friend WithEvents txtFeeYear As System.Windows.Forms.TextBox
-    Friend WithEvents Label34 As System.Windows.Forms.Label
-    Friend WithEvents txtFeeID As System.Windows.Forms.TextBox
     Friend WithEvents Label248 As System.Windows.Forms.Label
     Friend WithEvents dtpFeePeriodStart As System.Windows.Forms.DateTimePicker
     Friend WithEvents txtAdminFeePercent As System.Windows.Forms.TextBox
     Friend WithEvents dtpFeePeriodEnd As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label55 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents txtperTonRate As System.Windows.Forms.TextBox
+    Friend WithEvents txtPerTonRate As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label57 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents txtTitleVfee As System.Windows.Forms.TextBox
+    Friend WithEvents txtPart70Fee As System.Windows.Forms.TextBox
     Friend WithEvents Label58 As System.Windows.Forms.Label
     Friend WithEvents Label59 As System.Windows.Forms.Label
-    Friend WithEvents dtpAdminApplicable As System.Windows.Forms.DateTimePicker
+    Friend WithEvents dtpAdminApplicableDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents txtAnnualNSPSFee As System.Windows.Forms.TextBox
     Friend WithEvents Label60 As System.Windows.Forms.Label
     Friend WithEvents txtAnnualSMFee As System.Windows.Forms.TextBox
-    Friend WithEvents dgvFeeRates As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvFeeRates As IaipDataGridView
     Friend WithEvents TabPage3 As System.Windows.Forms.TabPage
     Friend WithEvents pnlNSPSExemptions As System.Windows.Forms.Panel
     Friend WithEvents Panel14 As System.Windows.Forms.Panel
@@ -1308,9 +1298,8 @@ Partial Class PASPFeeManagement
     Friend WithEvents Label108 As System.Windows.Forms.Label
     Friend WithEvents cboNSPSExemptionYear As System.Windows.Forms.ComboBox
     Friend WithEvents TPFeeManagementTools As System.Windows.Forms.TabPage
-    Friend WithEvents dgvFeeManagementLists As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvFeeManagementLists As IaipDataGridView
     Friend WithEvents FeeManagementToolPanel As System.Windows.Forms.Panel
-    Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
     Friend WithEvents FeeManagementListCountLabel As System.Windows.Forms.Label
     Friend WithEvents btnGenerateMailoutList As System.Windows.Forms.Button
     Friend WithEvents btnUnenrollFeeYear As System.Windows.Forms.Button
@@ -1345,4 +1334,6 @@ Partial Class PASPFeeManagement
     Friend WithEvents InitialMailoutGroupbox As System.Windows.Forms.GroupBox
     Friend WithEvents EnrollmentGroupbox As System.Windows.Forms.GroupBox
     Friend WithEvents FeeManagementSidePanel As System.Windows.Forms.Panel
+    Friend WithEvents Label5 As Label
+    Friend WithEvents txtPart70MaintenanceFee As TextBox
 End Class

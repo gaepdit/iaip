@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class PASPFeeAuditLog
+Partial Class FeesAudit
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
@@ -66,7 +66,9 @@ Partial Class PASPFeeAuditLog
         Me.txtInvoiceDataSMFee = New System.Windows.Forms.TextBox()
         Me.Label86 = New System.Windows.Forms.Label()
         Me.txtInvoiceDataPart70Fee = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.Label85 = New System.Windows.Forms.Label()
+        Me.txtInvoiceDataMaintenanceFee = New System.Windows.Forms.TextBox()
         Me.txtInvoiceDataFeeRate = New System.Windows.Forms.TextBox()
         Me.Label84 = New System.Windows.Forms.Label()
         Me.txtInvoiceDataNOxTons = New System.Windows.Forms.TextBox()
@@ -211,6 +213,7 @@ Partial Class PASPFeeAuditLog
         Me.txtEditAdminFee = New System.Windows.Forms.TextBox()
         Me.txtEditTotalFees = New System.Windows.Forms.TextBox()
         Me.txtEditNSPSFee = New System.Windows.Forms.TextBox()
+        Me.txtEditMaintenanceFee = New System.Windows.Forms.TextBox()
         Me.txtEditSMFee = New System.Windows.Forms.TextBox()
         Me.txtEditPart70Fee = New System.Windows.Forms.TextBox()
         Me.txtEditFeeRate = New System.Windows.Forms.TextBox()
@@ -222,6 +225,7 @@ Partial Class PASPFeeAuditLog
         Me.txtAuditedTotalFees = New System.Windows.Forms.TextBox()
         Me.txtAuditedNSPSFee = New System.Windows.Forms.TextBox()
         Me.txtAuditedSMFee = New System.Windows.Forms.TextBox()
+        Me.txtAuditedMaintenanceFee = New System.Windows.Forms.TextBox()
         Me.txtAuditedPart70Fee = New System.Windows.Forms.TextBox()
         Me.txtAuditedFeeRate = New System.Windows.Forms.TextBox()
         Me.txtAuditedVOCTons = New System.Windows.Forms.TextBox()
@@ -244,7 +248,9 @@ Partial Class PASPFeeAuditLog
         Me.Label133 = New System.Windows.Forms.Label()
         Me.txtGECONSPSFee = New System.Windows.Forms.TextBox()
         Me.Label134 = New System.Windows.Forms.Label()
+        Me.txtGecoMaintenanceFee = New System.Windows.Forms.TextBox()
         Me.txtGECOSMFee = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.Label135 = New System.Windows.Forms.Label()
         Me.txtGECOPart70Fee = New System.Windows.Forms.TextBox()
         Me.Label136 = New System.Windows.Forms.Label()
@@ -287,7 +293,7 @@ Partial Class PASPFeeAuditLog
         Me.Label122 = New System.Windows.Forms.Label()
         Me.txtAuditedExemptions = New System.Windows.Forms.TextBox()
         Me.Label148 = New System.Windows.Forms.Label()
-        Me.txtGECOExceptions = New System.Windows.Forms.TextBox()
+        Me.txtGecoNspsExemptions = New System.Windows.Forms.TextBox()
         Me.Label127 = New System.Windows.Forms.Label()
         Me.txtAuditedNSPSExempt = New System.Windows.Forms.TextBox()
         Me.Label125 = New System.Windows.Forms.Label()
@@ -579,7 +585,9 @@ Partial Class PASPFeeAuditLog
         Me.Panel7.Controls.Add(Me.txtInvoiceDataSMFee)
         Me.Panel7.Controls.Add(Me.Label86)
         Me.Panel7.Controls.Add(Me.txtInvoiceDataPart70Fee)
+        Me.Panel7.Controls.Add(Me.Label4)
         Me.Panel7.Controls.Add(Me.Label85)
+        Me.Panel7.Controls.Add(Me.txtInvoiceDataMaintenanceFee)
         Me.Panel7.Controls.Add(Me.txtInvoiceDataFeeRate)
         Me.Panel7.Controls.Add(Me.Label84)
         Me.Panel7.Controls.Add(Me.txtInvoiceDataNOxTons)
@@ -834,7 +842,7 @@ Partial Class PASPFeeAuditLog
         Me.txtInvoiceDataPaymentType.Location = New System.Drawing.Point(131, 143)
         Me.txtInvoiceDataPaymentType.Name = "txtInvoiceDataPaymentType"
         Me.txtInvoiceDataPaymentType.ReadOnly = True
-        Me.txtInvoiceDataPaymentType.Size = New System.Drawing.Size(172, 20)
+        Me.txtInvoiceDataPaymentType.Size = New System.Drawing.Size(139, 20)
         Me.txtInvoiceDataPaymentType.TabIndex = 501
         '
         'dgvInvoiceDataNSPSExemptions
@@ -964,14 +972,31 @@ Partial Class PASPFeeAuditLog
         Me.txtInvoiceDataPart70Fee.Size = New System.Drawing.Size(83, 20)
         Me.txtInvoiceDataPart70Fee.TabIndex = 487
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(286, 143)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(57, 13)
+        Me.Label4.TabIndex = 486
+        Me.Label4.Text = "Maint. Fee"
+        '
         'Label85
         '
         Me.Label85.AutoSize = True
         Me.Label85.Location = New System.Drawing.Point(286, 117)
         Me.Label85.Name = "Label85"
-        Me.Label85.Size = New System.Drawing.Size(51, 13)
+        Me.Label85.Size = New System.Drawing.Size(33, 13)
         Me.Label85.TabIndex = 486
-        Me.Label85.Text = "Fee Rate"
+        Me.Label85.Text = "$/ton"
+        '
+        'txtInvoiceDataMaintenanceFee
+        '
+        Me.txtInvoiceDataMaintenanceFee.Location = New System.Drawing.Point(343, 140)
+        Me.txtInvoiceDataMaintenanceFee.Name = "txtInvoiceDataMaintenanceFee"
+        Me.txtInvoiceDataMaintenanceFee.ReadOnly = True
+        Me.txtInvoiceDataMaintenanceFee.Size = New System.Drawing.Size(79, 20)
+        Me.txtInvoiceDataMaintenanceFee.TabIndex = 485
         '
         'txtInvoiceDataFeeRate
         '
@@ -2207,6 +2232,7 @@ Partial Class PASPFeeAuditLog
         Me.pnlInvoiceData.Controls.Add(Me.txtEditAdminFee)
         Me.pnlInvoiceData.Controls.Add(Me.txtEditTotalFees)
         Me.pnlInvoiceData.Controls.Add(Me.txtEditNSPSFee)
+        Me.pnlInvoiceData.Controls.Add(Me.txtEditMaintenanceFee)
         Me.pnlInvoiceData.Controls.Add(Me.txtEditSMFee)
         Me.pnlInvoiceData.Controls.Add(Me.txtEditPart70Fee)
         Me.pnlInvoiceData.Controls.Add(Me.txtEditFeeRate)
@@ -2218,6 +2244,7 @@ Partial Class PASPFeeAuditLog
         Me.pnlInvoiceData.Controls.Add(Me.txtAuditedTotalFees)
         Me.pnlInvoiceData.Controls.Add(Me.txtAuditedNSPSFee)
         Me.pnlInvoiceData.Controls.Add(Me.txtAuditedSMFee)
+        Me.pnlInvoiceData.Controls.Add(Me.txtAuditedMaintenanceFee)
         Me.pnlInvoiceData.Controls.Add(Me.txtAuditedPart70Fee)
         Me.pnlInvoiceData.Controls.Add(Me.txtAuditedFeeRate)
         Me.pnlInvoiceData.Controls.Add(Me.txtAuditedVOCTons)
@@ -2240,7 +2267,9 @@ Partial Class PASPFeeAuditLog
         Me.pnlInvoiceData.Controls.Add(Me.Label133)
         Me.pnlInvoiceData.Controls.Add(Me.txtGECONSPSFee)
         Me.pnlInvoiceData.Controls.Add(Me.Label134)
+        Me.pnlInvoiceData.Controls.Add(Me.txtGecoMaintenanceFee)
         Me.pnlInvoiceData.Controls.Add(Me.txtGECOSMFee)
+        Me.pnlInvoiceData.Controls.Add(Me.Label5)
         Me.pnlInvoiceData.Controls.Add(Me.Label135)
         Me.pnlInvoiceData.Controls.Add(Me.txtGECOPart70Fee)
         Me.pnlInvoiceData.Controls.Add(Me.Label136)
@@ -2302,14 +2331,14 @@ Partial Class PASPFeeAuditLog
         '
         'txtEditCalculatedFee
         '
-        Me.txtEditCalculatedFee.Location = New System.Drawing.Point(341, 223)
+        Me.txtEditCalculatedFee.Location = New System.Drawing.Point(342, 223)
         Me.txtEditCalculatedFee.Name = "txtEditCalculatedFee"
         Me.txtEditCalculatedFee.Size = New System.Drawing.Size(102, 20)
         Me.txtEditCalculatedFee.TabIndex = 607
         '
         'txtAuditedCalculatedFee
         '
-        Me.txtAuditedCalculatedFee.Location = New System.Drawing.Point(220, 223)
+        Me.txtAuditedCalculatedFee.Location = New System.Drawing.Point(222, 223)
         Me.txtAuditedCalculatedFee.Name = "txtAuditedCalculatedFee"
         Me.txtAuditedCalculatedFee.ReadOnly = True
         Me.txtAuditedCalculatedFee.Size = New System.Drawing.Size(102, 20)
@@ -2318,7 +2347,7 @@ Partial Class PASPFeeAuditLog
         'Label155
         '
         Me.Label155.AutoSize = True
-        Me.Label155.Location = New System.Drawing.Point(10, 227)
+        Me.Label155.Location = New System.Drawing.Point(7, 226)
         Me.Label155.Name = "Label155"
         Me.Label155.Size = New System.Drawing.Size(78, 13)
         Me.Label155.TabIndex = 605
@@ -2326,7 +2355,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtGECOCalculatedFee
         '
-        Me.txtGECOCalculatedFee.Location = New System.Drawing.Point(99, 223)
+        Me.txtGECOCalculatedFee.Location = New System.Drawing.Point(101, 223)
         Me.txtGECOCalculatedFee.Name = "txtGECOCalculatedFee"
         Me.txtGECOCalculatedFee.ReadOnly = True
         Me.txtGECOCalculatedFee.Size = New System.Drawing.Size(102, 20)
@@ -2334,7 +2363,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtAuditedShutdown
         '
-        Me.txtAuditedShutdown.Location = New System.Drawing.Point(221, 48)
+        Me.txtAuditedShutdown.Location = New System.Drawing.Point(222, 48)
         Me.txtAuditedShutdown.Name = "txtAuditedShutdown"
         Me.txtAuditedShutdown.ReadOnly = True
         Me.txtAuditedShutdown.Size = New System.Drawing.Size(102, 20)
@@ -2342,7 +2371,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtAuditedOpStatus
         '
-        Me.txtAuditedOpStatus.Location = New System.Drawing.Point(221, 23)
+        Me.txtAuditedOpStatus.Location = New System.Drawing.Point(222, 23)
         Me.txtAuditedOpStatus.Name = "txtAuditedOpStatus"
         Me.txtAuditedOpStatus.ReadOnly = True
         Me.txtAuditedOpStatus.Size = New System.Drawing.Size(102, 20)
@@ -2350,7 +2379,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtGECOShutDown
         '
-        Me.txtGECOShutDown.Location = New System.Drawing.Point(99, 48)
+        Me.txtGECOShutDown.Location = New System.Drawing.Point(101, 48)
         Me.txtGECOShutDown.Name = "txtGECOShutDown"
         Me.txtGECOShutDown.ReadOnly = True
         Me.txtGECOShutDown.Size = New System.Drawing.Size(102, 20)
@@ -2358,7 +2387,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtGECOOpStatus
         '
-        Me.txtGECOOpStatus.Location = New System.Drawing.Point(99, 23)
+        Me.txtGECOOpStatus.Location = New System.Drawing.Point(101, 23)
         Me.txtGECOOpStatus.Name = "txtGECOOpStatus"
         Me.txtGECOOpStatus.ReadOnly = True
         Me.txtGECOOpStatus.Size = New System.Drawing.Size(102, 20)
@@ -2367,7 +2396,7 @@ Partial Class PASPFeeAuditLog
         'Label152
         '
         Me.Label152.AutoSize = True
-        Me.Label152.Location = New System.Drawing.Point(7, 52)
+        Me.Label152.Location = New System.Drawing.Point(4, 51)
         Me.Label152.Name = "Label152"
         Me.Label152.Size = New System.Drawing.Size(81, 13)
         Me.Label152.TabIndex = 570
@@ -2376,7 +2405,7 @@ Partial Class PASPFeeAuditLog
         'Label151
         '
         Me.Label151.AutoSize = True
-        Me.Label151.Location = New System.Drawing.Point(31, 27)
+        Me.Label151.Location = New System.Drawing.Point(28, 26)
         Me.Label151.Name = "Label151"
         Me.Label151.Size = New System.Drawing.Size(57, 13)
         Me.Label151.TabIndex = 569
@@ -2405,28 +2434,35 @@ Partial Class PASPFeeAuditLog
         '
         'txtEditAdminFee
         '
-        Me.txtEditAdminFee.Location = New System.Drawing.Point(342, 323)
+        Me.txtEditAdminFee.Location = New System.Drawing.Point(342, 348)
         Me.txtEditAdminFee.Name = "txtEditAdminFee"
         Me.txtEditAdminFee.Size = New System.Drawing.Size(102, 20)
         Me.txtEditAdminFee.TabIndex = 557
         '
         'txtEditTotalFees
         '
-        Me.txtEditTotalFees.Location = New System.Drawing.Point(342, 348)
+        Me.txtEditTotalFees.Location = New System.Drawing.Point(342, 373)
         Me.txtEditTotalFees.Name = "txtEditTotalFees"
         Me.txtEditTotalFees.Size = New System.Drawing.Size(102, 20)
         Me.txtEditTotalFees.TabIndex = 556
         '
         'txtEditNSPSFee
         '
-        Me.txtEditNSPSFee.Location = New System.Drawing.Point(342, 298)
+        Me.txtEditNSPSFee.Location = New System.Drawing.Point(342, 323)
         Me.txtEditNSPSFee.Name = "txtEditNSPSFee"
         Me.txtEditNSPSFee.Size = New System.Drawing.Size(102, 20)
         Me.txtEditNSPSFee.TabIndex = 555
         '
+        'txtEditMaintenanceFee
+        '
+        Me.txtEditMaintenanceFee.Location = New System.Drawing.Point(342, 273)
+        Me.txtEditMaintenanceFee.Name = "txtEditMaintenanceFee"
+        Me.txtEditMaintenanceFee.Size = New System.Drawing.Size(102, 20)
+        Me.txtEditMaintenanceFee.TabIndex = 554
+        '
         'txtEditSMFee
         '
-        Me.txtEditSMFee.Location = New System.Drawing.Point(342, 273)
+        Me.txtEditSMFee.Location = New System.Drawing.Point(342, 298)
         Me.txtEditSMFee.Name = "txtEditSMFee"
         Me.txtEditSMFee.Size = New System.Drawing.Size(102, 20)
         Me.txtEditSMFee.TabIndex = 554
@@ -2454,7 +2490,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtAuditedNOxTons
         '
-        Me.txtAuditedNOxTons.Location = New System.Drawing.Point(221, 173)
+        Me.txtAuditedNOxTons.Location = New System.Drawing.Point(222, 173)
         Me.txtAuditedNOxTons.Name = "txtAuditedNOxTons"
         Me.txtAuditedNOxTons.ReadOnly = True
         Me.txtAuditedNOxTons.Size = New System.Drawing.Size(102, 20)
@@ -2462,7 +2498,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtAuditedSO2Tons
         '
-        Me.txtAuditedSO2Tons.Location = New System.Drawing.Point(221, 148)
+        Me.txtAuditedSO2Tons.Location = New System.Drawing.Point(222, 148)
         Me.txtAuditedSO2Tons.Name = "txtAuditedSO2Tons"
         Me.txtAuditedSO2Tons.ReadOnly = True
         Me.txtAuditedSO2Tons.Size = New System.Drawing.Size(102, 20)
@@ -2470,7 +2506,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtAuditedPMTons
         '
-        Me.txtAuditedPMTons.Location = New System.Drawing.Point(221, 123)
+        Me.txtAuditedPMTons.Location = New System.Drawing.Point(222, 123)
         Me.txtAuditedPMTons.Name = "txtAuditedPMTons"
         Me.txtAuditedPMTons.ReadOnly = True
         Me.txtAuditedPMTons.Size = New System.Drawing.Size(102, 20)
@@ -2478,7 +2514,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtAuditedAdminFee
         '
-        Me.txtAuditedAdminFee.Location = New System.Drawing.Point(221, 323)
+        Me.txtAuditedAdminFee.Location = New System.Drawing.Point(222, 348)
         Me.txtAuditedAdminFee.Name = "txtAuditedAdminFee"
         Me.txtAuditedAdminFee.ReadOnly = True
         Me.txtAuditedAdminFee.Size = New System.Drawing.Size(102, 20)
@@ -2486,7 +2522,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtAuditedTotalFees
         '
-        Me.txtAuditedTotalFees.Location = New System.Drawing.Point(221, 348)
+        Me.txtAuditedTotalFees.Location = New System.Drawing.Point(222, 373)
         Me.txtAuditedTotalFees.Name = "txtAuditedTotalFees"
         Me.txtAuditedTotalFees.ReadOnly = True
         Me.txtAuditedTotalFees.Size = New System.Drawing.Size(102, 20)
@@ -2494,7 +2530,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtAuditedNSPSFee
         '
-        Me.txtAuditedNSPSFee.Location = New System.Drawing.Point(221, 298)
+        Me.txtAuditedNSPSFee.Location = New System.Drawing.Point(222, 323)
         Me.txtAuditedNSPSFee.Name = "txtAuditedNSPSFee"
         Me.txtAuditedNSPSFee.ReadOnly = True
         Me.txtAuditedNSPSFee.Size = New System.Drawing.Size(102, 20)
@@ -2502,15 +2538,23 @@ Partial Class PASPFeeAuditLog
         '
         'txtAuditedSMFee
         '
-        Me.txtAuditedSMFee.Location = New System.Drawing.Point(221, 273)
+        Me.txtAuditedSMFee.Location = New System.Drawing.Point(222, 298)
         Me.txtAuditedSMFee.Name = "txtAuditedSMFee"
         Me.txtAuditedSMFee.ReadOnly = True
         Me.txtAuditedSMFee.Size = New System.Drawing.Size(102, 20)
         Me.txtAuditedSMFee.TabIndex = 543
         '
+        'txtAuditedMaintenanceFee
+        '
+        Me.txtAuditedMaintenanceFee.Location = New System.Drawing.Point(222, 273)
+        Me.txtAuditedMaintenanceFee.Name = "txtAuditedMaintenanceFee"
+        Me.txtAuditedMaintenanceFee.ReadOnly = True
+        Me.txtAuditedMaintenanceFee.Size = New System.Drawing.Size(102, 20)
+        Me.txtAuditedMaintenanceFee.TabIndex = 542
+        '
         'txtAuditedPart70Fee
         '
-        Me.txtAuditedPart70Fee.Location = New System.Drawing.Point(221, 248)
+        Me.txtAuditedPart70Fee.Location = New System.Drawing.Point(222, 248)
         Me.txtAuditedPart70Fee.Name = "txtAuditedPart70Fee"
         Me.txtAuditedPart70Fee.ReadOnly = True
         Me.txtAuditedPart70Fee.Size = New System.Drawing.Size(102, 20)
@@ -2518,7 +2562,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtAuditedFeeRate
         '
-        Me.txtAuditedFeeRate.Location = New System.Drawing.Point(221, 198)
+        Me.txtAuditedFeeRate.Location = New System.Drawing.Point(222, 198)
         Me.txtAuditedFeeRate.Name = "txtAuditedFeeRate"
         Me.txtAuditedFeeRate.ReadOnly = True
         Me.txtAuditedFeeRate.Size = New System.Drawing.Size(102, 20)
@@ -2526,7 +2570,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtAuditedVOCTons
         '
-        Me.txtAuditedVOCTons.Location = New System.Drawing.Point(221, 98)
+        Me.txtAuditedVOCTons.Location = New System.Drawing.Point(222, 98)
         Me.txtAuditedVOCTons.Name = "txtAuditedVOCTons"
         Me.txtAuditedVOCTons.ReadOnly = True
         Me.txtAuditedVOCTons.Size = New System.Drawing.Size(102, 20)
@@ -2534,7 +2578,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtAuditedClass
         '
-        Me.txtAuditedClass.Location = New System.Drawing.Point(221, 73)
+        Me.txtAuditedClass.Location = New System.Drawing.Point(222, 73)
         Me.txtAuditedClass.Name = "txtAuditedClass"
         Me.txtAuditedClass.ReadOnly = True
         Me.txtAuditedClass.Size = New System.Drawing.Size(102, 20)
@@ -2542,7 +2586,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtGECONOxTons
         '
-        Me.txtGECONOxTons.Location = New System.Drawing.Point(99, 173)
+        Me.txtGECONOxTons.Location = New System.Drawing.Point(101, 173)
         Me.txtGECONOxTons.Name = "txtGECONOxTons"
         Me.txtGECONOxTons.ReadOnly = True
         Me.txtGECONOxTons.Size = New System.Drawing.Size(102, 20)
@@ -2550,7 +2594,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtGECOSO2Tons
         '
-        Me.txtGECOSO2Tons.Location = New System.Drawing.Point(99, 148)
+        Me.txtGECOSO2Tons.Location = New System.Drawing.Point(101, 148)
         Me.txtGECOSO2Tons.Name = "txtGECOSO2Tons"
         Me.txtGECOSO2Tons.ReadOnly = True
         Me.txtGECOSO2Tons.Size = New System.Drawing.Size(102, 20)
@@ -2558,7 +2602,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtGECOPMTons
         '
-        Me.txtGECOPMTons.Location = New System.Drawing.Point(99, 123)
+        Me.txtGECOPMTons.Location = New System.Drawing.Point(101, 123)
         Me.txtGECOPMTons.Name = "txtGECOPMTons"
         Me.txtGECOPMTons.ReadOnly = True
         Me.txtGECOPMTons.Size = New System.Drawing.Size(102, 20)
@@ -2569,7 +2613,7 @@ Partial Class PASPFeeAuditLog
         Me.Label147.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label147.Location = New System.Drawing.Point(91, 7)
         Me.Label147.Name = "Label147"
-        Me.Label147.Size = New System.Drawing.Size(1, 360)
+        Me.Label147.Size = New System.Drawing.Size(1, 385)
         Me.Label147.TabIndex = 532
         '
         'Label146
@@ -2577,7 +2621,7 @@ Partial Class PASPFeeAuditLog
         Me.Label146.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label146.Location = New System.Drawing.Point(335, 7)
         Me.Label146.Name = "Label146"
-        Me.Label146.Size = New System.Drawing.Size(1, 360)
+        Me.Label146.Size = New System.Drawing.Size(1, 385)
         Me.Label146.TabIndex = 531
         '
         'Label145
@@ -2585,7 +2629,7 @@ Partial Class PASPFeeAuditLog
         Me.Label145.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label145.Location = New System.Drawing.Point(211, 7)
         Me.Label145.Name = "Label145"
-        Me.Label145.Size = New System.Drawing.Size(1, 360)
+        Me.Label145.Size = New System.Drawing.Size(1, 385)
         Me.Label145.TabIndex = 530
         '
         'Label144
@@ -2599,7 +2643,7 @@ Partial Class PASPFeeAuditLog
         'Label143
         '
         Me.Label143.AutoSize = True
-        Me.Label143.Location = New System.Drawing.Point(343, 4)
+        Me.Label143.Location = New System.Drawing.Point(342, 4)
         Me.Label143.Name = "Label143"
         Me.Label143.Size = New System.Drawing.Size(25, 13)
         Me.Label143.TabIndex = 528
@@ -2608,7 +2652,7 @@ Partial Class PASPFeeAuditLog
         'Label142
         '
         Me.Label142.AutoSize = True
-        Me.Label142.Location = New System.Drawing.Point(212, 4)
+        Me.Label142.Location = New System.Drawing.Point(219, 4)
         Me.Label142.Name = "Label142"
         Me.Label142.Size = New System.Drawing.Size(69, 13)
         Me.Label142.TabIndex = 527
@@ -2617,7 +2661,7 @@ Partial Class PASPFeeAuditLog
         'Label123
         '
         Me.Label123.AutoSize = True
-        Me.Label123.Location = New System.Drawing.Point(94, 4)
+        Me.Label123.Location = New System.Drawing.Point(98, 4)
         Me.Label123.Name = "Label123"
         Me.Label123.Size = New System.Drawing.Size(63, 13)
         Me.Label123.TabIndex = 526
@@ -2637,7 +2681,7 @@ Partial Class PASPFeeAuditLog
         'Label131
         '
         Me.Label131.AutoSize = True
-        Me.Label131.Location = New System.Drawing.Point(31, 327)
+        Me.Label131.Location = New System.Drawing.Point(28, 351)
         Me.Label131.Name = "Label131"
         Me.Label131.Size = New System.Drawing.Size(57, 13)
         Me.Label131.TabIndex = 496
@@ -2645,7 +2689,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtGECOAdminFee
         '
-        Me.txtGECOAdminFee.Location = New System.Drawing.Point(99, 323)
+        Me.txtGECOAdminFee.Location = New System.Drawing.Point(101, 348)
         Me.txtGECOAdminFee.Name = "txtGECOAdminFee"
         Me.txtGECOAdminFee.ReadOnly = True
         Me.txtGECOAdminFee.Size = New System.Drawing.Size(102, 20)
@@ -2654,7 +2698,7 @@ Partial Class PASPFeeAuditLog
         'Label132
         '
         Me.Label132.AutoSize = True
-        Me.Label132.Location = New System.Drawing.Point(24, 352)
+        Me.Label132.Location = New System.Drawing.Point(28, 376)
         Me.Label132.Name = "Label132"
         Me.Label132.Size = New System.Drawing.Size(57, 13)
         Me.Label132.TabIndex = 494
@@ -2662,7 +2706,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtGECOTotalFees
         '
-        Me.txtGECOTotalFees.Location = New System.Drawing.Point(99, 348)
+        Me.txtGECOTotalFees.Location = New System.Drawing.Point(101, 373)
         Me.txtGECOTotalFees.Name = "txtGECOTotalFees"
         Me.txtGECOTotalFees.ReadOnly = True
         Me.txtGECOTotalFees.Size = New System.Drawing.Size(102, 20)
@@ -2671,7 +2715,7 @@ Partial Class PASPFeeAuditLog
         'Label133
         '
         Me.Label133.AutoSize = True
-        Me.Label133.Location = New System.Drawing.Point(31, 302)
+        Me.Label133.Location = New System.Drawing.Point(28, 325)
         Me.Label133.Name = "Label133"
         Me.Label133.Size = New System.Drawing.Size(57, 13)
         Me.Label133.TabIndex = 492
@@ -2679,7 +2723,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtGECONSPSFee
         '
-        Me.txtGECONSPSFee.Location = New System.Drawing.Point(99, 298)
+        Me.txtGECONSPSFee.Location = New System.Drawing.Point(101, 323)
         Me.txtGECONSPSFee.Name = "txtGECONSPSFee"
         Me.txtGECONSPSFee.ReadOnly = True
         Me.txtGECONSPSFee.Size = New System.Drawing.Size(102, 20)
@@ -2688,24 +2732,41 @@ Partial Class PASPFeeAuditLog
         'Label134
         '
         Me.Label134.AutoSize = True
-        Me.Label134.Location = New System.Drawing.Point(44, 277)
+        Me.Label134.Location = New System.Drawing.Point(41, 301)
         Me.Label134.Name = "Label134"
         Me.Label134.Size = New System.Drawing.Size(44, 13)
         Me.Label134.TabIndex = 490
         Me.Label134.Text = "SM Fee"
         '
+        'txtGecoMaintenanceFee
+        '
+        Me.txtGecoMaintenanceFee.Location = New System.Drawing.Point(101, 273)
+        Me.txtGecoMaintenanceFee.Name = "txtGecoMaintenanceFee"
+        Me.txtGecoMaintenanceFee.ReadOnly = True
+        Me.txtGecoMaintenanceFee.Size = New System.Drawing.Size(102, 20)
+        Me.txtGecoMaintenanceFee.TabIndex = 489
+        '
         'txtGECOSMFee
         '
-        Me.txtGECOSMFee.Location = New System.Drawing.Point(99, 273)
+        Me.txtGECOSMFee.Location = New System.Drawing.Point(101, 298)
         Me.txtGECOSMFee.Name = "txtGECOSMFee"
         Me.txtGECOSMFee.ReadOnly = True
         Me.txtGECOSMFee.Size = New System.Drawing.Size(102, 20)
         Me.txtGECOSMFee.TabIndex = 489
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(-5, 276)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(90, 13)
+        Me.Label5.TabIndex = 488
+        Me.Label5.Text = "Maintenance Fee"
+        '
         'Label135
         '
         Me.Label135.AutoSize = True
-        Me.Label135.Location = New System.Drawing.Point(26, 252)
+        Me.Label135.Location = New System.Drawing.Point(23, 251)
         Me.Label135.Name = "Label135"
         Me.Label135.Size = New System.Drawing.Size(62, 13)
         Me.Label135.TabIndex = 488
@@ -2713,7 +2774,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtGECOPart70Fee
         '
-        Me.txtGECOPart70Fee.Location = New System.Drawing.Point(99, 248)
+        Me.txtGECOPart70Fee.Location = New System.Drawing.Point(101, 248)
         Me.txtGECOPart70Fee.Name = "txtGECOPart70Fee"
         Me.txtGECOPart70Fee.ReadOnly = True
         Me.txtGECOPart70Fee.Size = New System.Drawing.Size(102, 20)
@@ -2722,7 +2783,7 @@ Partial Class PASPFeeAuditLog
         'Label136
         '
         Me.Label136.AutoSize = True
-        Me.Label136.Location = New System.Drawing.Point(37, 202)
+        Me.Label136.Location = New System.Drawing.Point(34, 201)
         Me.Label136.Name = "Label136"
         Me.Label136.Size = New System.Drawing.Size(51, 13)
         Me.Label136.TabIndex = 486
@@ -2730,7 +2791,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtGECOFeeRate
         '
-        Me.txtGECOFeeRate.Location = New System.Drawing.Point(99, 198)
+        Me.txtGECOFeeRate.Location = New System.Drawing.Point(101, 198)
         Me.txtGECOFeeRate.Name = "txtGECOFeeRate"
         Me.txtGECOFeeRate.ReadOnly = True
         Me.txtGECOFeeRate.Size = New System.Drawing.Size(102, 20)
@@ -2739,7 +2800,7 @@ Partial Class PASPFeeAuditLog
         'Label137
         '
         Me.Label137.AutoSize = True
-        Me.Label137.Location = New System.Drawing.Point(33, 177)
+        Me.Label137.Location = New System.Drawing.Point(30, 176)
         Me.Label137.Name = "Label137"
         Me.Label137.Size = New System.Drawing.Size(55, 13)
         Me.Label137.TabIndex = 484
@@ -2748,7 +2809,7 @@ Partial Class PASPFeeAuditLog
         'Label138
         '
         Me.Label138.AutoSize = True
-        Me.Label138.Location = New System.Drawing.Point(33, 152)
+        Me.Label138.Location = New System.Drawing.Point(30, 151)
         Me.Label138.Name = "Label138"
         Me.Label138.Size = New System.Drawing.Size(55, 13)
         Me.Label138.TabIndex = 482
@@ -2757,7 +2818,7 @@ Partial Class PASPFeeAuditLog
         'Label139
         '
         Me.Label139.AutoSize = True
-        Me.Label139.Location = New System.Drawing.Point(38, 127)
+        Me.Label139.Location = New System.Drawing.Point(35, 126)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(50, 13)
         Me.Label139.TabIndex = 480
@@ -2766,7 +2827,7 @@ Partial Class PASPFeeAuditLog
         'Label140
         '
         Me.Label140.AutoSize = True
-        Me.Label140.Location = New System.Drawing.Point(32, 102)
+        Me.Label140.Location = New System.Drawing.Point(29, 101)
         Me.Label140.Name = "Label140"
         Me.Label140.Size = New System.Drawing.Size(56, 13)
         Me.Label140.TabIndex = 478
@@ -2774,7 +2835,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtGECOVOCTons
         '
-        Me.txtGECOVOCTons.Location = New System.Drawing.Point(99, 98)
+        Me.txtGECOVOCTons.Location = New System.Drawing.Point(101, 98)
         Me.txtGECOVOCTons.Name = "txtGECOVOCTons"
         Me.txtGECOVOCTons.ReadOnly = True
         Me.txtGECOVOCTons.Size = New System.Drawing.Size(102, 20)
@@ -2783,7 +2844,7 @@ Partial Class PASPFeeAuditLog
         'Label141
         '
         Me.Label141.AutoSize = True
-        Me.Label141.Location = New System.Drawing.Point(20, 77)
+        Me.Label141.Location = New System.Drawing.Point(17, 76)
         Me.Label141.Name = "Label141"
         Me.Label141.Size = New System.Drawing.Size(68, 13)
         Me.Label141.TabIndex = 476
@@ -2791,7 +2852,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtGECOClass
         '
-        Me.txtGECOClass.Location = New System.Drawing.Point(99, 73)
+        Me.txtGECOClass.Location = New System.Drawing.Point(101, 73)
         Me.txtGECOClass.Name = "txtGECOClass"
         Me.txtGECOClass.ReadOnly = True
         Me.txtGECOClass.Size = New System.Drawing.Size(102, 20)
@@ -3030,7 +3091,7 @@ Partial Class PASPFeeAuditLog
         Me.pnlFacilityData.Controls.Add(Me.Label122)
         Me.pnlFacilityData.Controls.Add(Me.txtAuditedExemptions)
         Me.pnlFacilityData.Controls.Add(Me.Label148)
-        Me.pnlFacilityData.Controls.Add(Me.txtGECOExceptions)
+        Me.pnlFacilityData.Controls.Add(Me.txtGecoNspsExemptions)
         Me.pnlFacilityData.Controls.Add(Me.Label127)
         Me.pnlFacilityData.Controls.Add(Me.txtAuditedNSPSExempt)
         Me.pnlFacilityData.Controls.Add(Me.Label125)
@@ -3137,15 +3198,15 @@ Partial Class PASPFeeAuditLog
         Me.Label148.TabIndex = 562
         Me.Label148.Text = "GECO Data"
         '
-        'txtGECOExceptions
+        'txtGecoNspsExemptions
         '
-        Me.txtGECOExceptions.Location = New System.Drawing.Point(92, 198)
-        Me.txtGECOExceptions.Multiline = True
-        Me.txtGECOExceptions.Name = "txtGECOExceptions"
-        Me.txtGECOExceptions.ReadOnly = True
-        Me.txtGECOExceptions.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtGECOExceptions.Size = New System.Drawing.Size(136, 168)
-        Me.txtGECOExceptions.TabIndex = 601
+        Me.txtGecoNspsExemptions.Location = New System.Drawing.Point(92, 198)
+        Me.txtGecoNspsExemptions.Multiline = True
+        Me.txtGecoNspsExemptions.Name = "txtGecoNspsExemptions"
+        Me.txtGecoNspsExemptions.ReadOnly = True
+        Me.txtGecoNspsExemptions.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtGecoNspsExemptions.Size = New System.Drawing.Size(136, 168)
+        Me.txtGecoNspsExemptions.TabIndex = 601
         '
         'Label127
         '
@@ -4794,7 +4855,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpFeeAdminStatusDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpFeeAdminStatusDate.TabIndex = 15
         '
-        'PASPFeeAuditLog
+        'FeesAudit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -4802,8 +4863,8 @@ Partial Class PASPFeeAuditLog
         Me.Controls.Add(Me.TabControl3)
         Me.Controls.Add(Me.Panel4)
         Me.MinimumSize = New System.Drawing.Size(1003, 716)
-        Me.Name = "PASPFeeAuditLog"
-        Me.Text = "Emissions Fee Audit Log"
+        Me.Name = "FeesAudit"
+        Me.Text = "Annual Fees - Audit"
         Me.TabControl3.ResumeLayout(False)
         Me.TPGECOSubmittal.ResumeLayout(False)
         CType(Me.dgvInvoiceData, System.ComponentModel.ISupportInitialize).EndInit()
@@ -5216,7 +5277,7 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents txtGECONSPSExempt As System.Windows.Forms.TextBox
     Friend WithEvents Label153 As System.Windows.Forms.Label
     Friend WithEvents dgvEditExemptions As System.Windows.Forms.DataGridView
-    Friend WithEvents txtGECOExceptions As System.Windows.Forms.TextBox
+    Friend WithEvents txtGecoNspsExemptions As System.Windows.Forms.TextBox
     Friend WithEvents txtAuditedExemptions As System.Windows.Forms.TextBox
     Friend WithEvents Label154 As System.Windows.Forms.Label
     Friend WithEvents txtEditCalculatedFee As System.Windows.Forms.TextBox
@@ -5312,4 +5373,10 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents lnkPrintSelectedInvoice As LinkLabel
     Friend WithEvents UrlToolTip As ToolTip
     Friend WithEvents lnkPrintActiveInvoices As LinkLabel
+    Friend WithEvents Label4 As Label
+    Friend WithEvents txtInvoiceDataMaintenanceFee As TextBox
+    Friend WithEvents txtEditMaintenanceFee As TextBox
+    Friend WithEvents txtAuditedMaintenanceFee As TextBox
+    Friend WithEvents txtGecoMaintenanceFee As TextBox
+    Friend WithEvents Label5 As Label
 End Class

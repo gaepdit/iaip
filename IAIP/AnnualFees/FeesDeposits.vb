@@ -1,6 +1,6 @@
 Imports System.Data.SqlClient
 
-Public Class PASPDepositsAmendments
+Public Class FeesDeposits
     Dim dtInvoice As DataTable
     Dim dtDeposit As DataTable
     Dim mousing As Boolean = False
@@ -509,7 +509,7 @@ Public Class PASPDepositsAmendments
                     Return
                 End If
 
-                If Not DAL.Update_FS_Admin_Status(CInt(cbYear2.Text), New Apb.ApbFacilityId(mtbAIRSNumber.Text)) Then
+                If Not DAL.UpdateFeeAdminStatus(CInt(cbYear2.Text), New Apb.ApbFacilityId(mtbAIRSNumber.Text)) Then
                     MessageBox.Show("There was an error updating the database.", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
 
@@ -597,7 +597,7 @@ Public Class PASPDepositsAmendments
                         Return
                     End If
 
-                    If Not DAL.Update_FS_Admin_Status(CInt(cbYear2.Text), New Apb.ApbFacilityId(mtbAIRSNumber.Text)) Then
+                    If Not DAL.UpdateFeeAdminStatus(CInt(cbYear2.Text), New Apb.ApbFacilityId(mtbAIRSNumber.Text)) Then
                         MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
 

@@ -56,9 +56,6 @@ Namespace DAL
                 Case FacilityDataTable.EmissionsFeesDeposits
                     Return "iaip_facility.FinancialDeposits"
 
-                Case FacilityDataTable.EmissionsFeesData
-                    Return "iaip_facility.FinancialFees"
-
                 Case FacilityDataTable.EmissionsFeesInvoices
                     Return "iaip_facility.FinancialInvoices"
 

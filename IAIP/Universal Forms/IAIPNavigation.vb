@@ -907,7 +907,7 @@ Public Class IAIPNavigation
         ISMP
         SSPP
         SSCP
-        EmissionFees
+        AnnualFees
         Finance
         DMU
         MASP
@@ -920,7 +920,7 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.ISMP, "Industrial Source Monitoring Program", "ISMU")
         AddNavButtonCategory(NavButtonCategories.SSPP, "Stationary Source Permitting Program")
         AddNavButtonCategory(NavButtonCategories.SSCP, "Stationary Source Compliance Program")
-        AddNavButtonCategory(NavButtonCategories.EmissionFees, "Financial Management Unit", "Emission Fees")
+        AddNavButtonCategory(NavButtonCategories.AnnualFees, "Financial Management Unit", "Annual Fees")
         AddNavButtonCategory(NavButtonCategories.Finance, "Financial Management Unit", "Application Fees")
         AddNavButtonCategory(NavButtonCategories.DMU, "Data Management Unit")
         AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program")
@@ -956,10 +956,10 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(17, "ISMU Management", NameOf(ISMPManagersTools), NavButtonCategories.ISMP)
 
         ' Emission Fees
-        AddNavButtonIfAccountHasFormAccess(135, "Fees Log", NameOf(PASPFeesLog), NavButtonCategories.EmissionFees)
-        AddNavButtonIfAccountHasFormAccess(139, "Fee Management", NameOf(PASPFeeManagement), NavButtonCategories.EmissionFees)
-        AddNavButtonIfAccountHasFormAccess(12, "Statistics && Reports", NameOf(PASPFeeStatistics), NavButtonCategories.EmissionFees)
-        AddNavButtonIfAccountHasFormAccess(18, "Deposits", NameOf(PASPDepositsAmendments), NavButtonCategories.EmissionFees)
+        AddNavButtonIfAccountHasFormAccess(135, "Fees Log", NameOf(FeesLog), NavButtonCategories.AnnualFees)
+        AddNavButtonIfAccountHasFormAccess(139, "Fee Management", NameOf(FeesManagement), NavButtonCategories.AnnualFees)
+        AddNavButtonIfAccountHasFormAccess(12, "Statistics && Reports", NameOf(FeesStatistics), NavButtonCategories.AnnualFees)
+        AddNavButtonIfAccountHasFormAccess(18, "Deposits", NameOf(FeesDeposits), NavButtonCategories.AnnualFees)
 
         ' Finance
         AddNavButtonIfUserHasPermission({118, 123, 124, 125}, "New Deposit", NameOf(FinDepositView), NavButtonCategories.Finance)

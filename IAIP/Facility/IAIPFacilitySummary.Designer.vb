@@ -177,21 +177,24 @@ Partial Class IAIPFacilitySummary
         Me.FSEmissionsFees = New System.Windows.Forms.TabPage()
         Me.EmissionsFeesTabControl = New System.Windows.Forms.TabControl()
         Me.TPEmissionsAnnual = New System.Windows.Forms.TabPage()
-        Me.FeePaidDisplay = New System.Windows.Forms.TextBox()
-        Me.FeeTotalDisplay = New System.Windows.Forms.TextBox()
-        Me.FeeStatusDisplay = New System.Windows.Forms.TextBox()
-        Me.FeeDateSubmitDisplay = New System.Windows.Forms.TextBox()
-        Me.FeeStatusLabel = New System.Windows.Forms.Label()
+        Me.FeeStatusGroupBox = New System.Windows.Forms.GroupBox()
         Me.FeeSubmitDateLabel = New System.Windows.Forms.Label()
+        Me.FeePaidDisplay = New System.Windows.Forms.TextBox()
+        Me.FeeDueLabel = New System.Windows.Forms.Label()
+        Me.FeeTotalDisplay = New System.Windows.Forms.TextBox()
         Me.FeePaidLabel = New System.Windows.Forms.Label()
+        Me.FeeStatusDisplay = New System.Windows.Forms.TextBox()
+        Me.FeeStatusLabel = New System.Windows.Forms.Label()
+        Me.FeeDateSubmitDisplay = New System.Windows.Forms.TextBox()
         Me.FeeRegGroupBox = New System.Windows.Forms.GroupBox()
-        Me.FeeAdminWarningLabel = New System.Windows.Forms.Label()
         Me.FeeAdminLabel = New System.Windows.Forms.Label()
         Me.FeeAdminDisplay = New System.Windows.Forms.TextBox()
         Me.FeeNspsDisplay = New System.Windows.Forms.TextBox()
         Me.FeeSmDisplay = New System.Windows.Forms.TextBox()
+        Me.FeePart70MaintDisplay = New System.Windows.Forms.TextBox()
         Me.FeePart70Display = New System.Windows.Forms.TextBox()
         Me.FeeNspsLabel = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.FeeSmLabel = New System.Windows.Forms.Label()
         Me.FeePart70Label = New System.Windows.Forms.Label()
         Me.FeeEmissionGroupBox = New System.Windows.Forms.GroupBox()
@@ -211,9 +214,9 @@ Partial Class IAIPFacilitySummary
         Me.FeeFacilityClassDisplay = New System.Windows.Forms.TextBox()
         Me.FeeFacilityOperatingDisplay = New System.Windows.Forms.CheckBox()
         Me.FeesClassLabel = New System.Windows.Forms.Label()
+        Me.FeeFacilityNspsDisplay = New System.Windows.Forms.CheckBox()
         Me.FeeFacilityPart70Display = New System.Windows.Forms.CheckBox()
         Me.FeeFacilityNspsExemptDisplay = New System.Windows.Forms.CheckBox()
-        Me.FeeDueLabel = New System.Windows.Forms.Label()
         Me.FeeYearSelect = New System.Windows.Forms.ComboBox()
         Me.FeeYearLabel = New System.Windows.Forms.Label()
         Me.TPEmissionsData = New System.Windows.Forms.TabPage()
@@ -296,6 +299,7 @@ Partial Class IAIPFacilitySummary
         Me.FSEmissionsFees.SuspendLayout()
         Me.EmissionsFeesTabControl.SuspendLayout()
         Me.TPEmissionsAnnual.SuspendLayout()
+        Me.FeeStatusGroupBox.SuspendLayout()
         Me.FeeRegGroupBox.SuspendLayout()
         Me.FeeEmissionGroupBox.SuspendLayout()
         Me.FeeDataGroupBox.SuspendLayout()
@@ -2061,17 +2065,10 @@ Partial Class IAIPFacilitySummary
         '
         'TPEmissionsAnnual
         '
-        Me.TPEmissionsAnnual.Controls.Add(Me.FeePaidDisplay)
-        Me.TPEmissionsAnnual.Controls.Add(Me.FeeTotalDisplay)
-        Me.TPEmissionsAnnual.Controls.Add(Me.FeeStatusDisplay)
-        Me.TPEmissionsAnnual.Controls.Add(Me.FeeDateSubmitDisplay)
-        Me.TPEmissionsAnnual.Controls.Add(Me.FeeStatusLabel)
-        Me.TPEmissionsAnnual.Controls.Add(Me.FeeSubmitDateLabel)
-        Me.TPEmissionsAnnual.Controls.Add(Me.FeePaidLabel)
+        Me.TPEmissionsAnnual.Controls.Add(Me.FeeStatusGroupBox)
         Me.TPEmissionsAnnual.Controls.Add(Me.FeeRegGroupBox)
         Me.TPEmissionsAnnual.Controls.Add(Me.FeeEmissionGroupBox)
         Me.TPEmissionsAnnual.Controls.Add(Me.FeeDataGroupBox)
-        Me.TPEmissionsAnnual.Controls.Add(Me.FeeDueLabel)
         Me.TPEmissionsAnnual.Controls.Add(Me.FeeYearSelect)
         Me.TPEmissionsAnnual.Controls.Add(Me.FeeYearLabel)
         Me.TPEmissionsAnnual.Location = New System.Drawing.Point(4, 22)
@@ -2081,33 +2078,86 @@ Partial Class IAIPFacilitySummary
         Me.TPEmissionsAnnual.Text = "Annual Summary"
         Me.TPEmissionsAnnual.UseVisualStyleBackColor = True
         '
+        'FeeStatusGroupBox
+        '
+        Me.FeeStatusGroupBox.Controls.Add(Me.FeeSubmitDateLabel)
+        Me.FeeStatusGroupBox.Controls.Add(Me.FeePaidDisplay)
+        Me.FeeStatusGroupBox.Controls.Add(Me.FeeDueLabel)
+        Me.FeeStatusGroupBox.Controls.Add(Me.FeeTotalDisplay)
+        Me.FeeStatusGroupBox.Controls.Add(Me.FeePaidLabel)
+        Me.FeeStatusGroupBox.Controls.Add(Me.FeeStatusDisplay)
+        Me.FeeStatusGroupBox.Controls.Add(Me.FeeStatusLabel)
+        Me.FeeStatusGroupBox.Controls.Add(Me.FeeDateSubmitDisplay)
+        Me.FeeStatusGroupBox.Location = New System.Drawing.Point(12, 58)
+        Me.FeeStatusGroupBox.Name = "FeeStatusGroupBox"
+        Me.FeeStatusGroupBox.Size = New System.Drawing.Size(226, 138)
+        Me.FeeStatusGroupBox.TabIndex = 185
+        Me.FeeStatusGroupBox.TabStop = False
+        Me.FeeStatusGroupBox.Text = "Fee Status Summary"
+        '
+        'FeeSubmitDateLabel
+        '
+        Me.FeeSubmitDateLabel.AutoSize = True
+        Me.FeeSubmitDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeeSubmitDateLabel.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.FeeSubmitDateLabel.Location = New System.Drawing.Point(5, 19)
+        Me.FeeSubmitDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeSubmitDateLabel.Name = "FeeSubmitDateLabel"
+        Me.FeeSubmitDateLabel.Size = New System.Drawing.Size(54, 13)
+        Me.FeeSubmitDateLabel.TabIndex = 184
+        Me.FeeSubmitDateLabel.Text = "Submitted"
+        '
         'FeePaidDisplay
         '
         Me.FeePaidDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.FeePaidDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FeePaidDisplay.Location = New System.Drawing.Point(67, 143)
+        Me.FeePaidDisplay.Location = New System.Drawing.Point(63, 113)
         Me.FeePaidDisplay.Name = "FeePaidDisplay"
         Me.FeePaidDisplay.ReadOnly = True
         Me.FeePaidDisplay.Size = New System.Drawing.Size(108, 13)
         Me.FeePaidDisplay.TabIndex = 4
         Me.FeePaidDisplay.Text = "N/A"
         '
+        'FeeDueLabel
+        '
+        Me.FeeDueLabel.AutoSize = True
+        Me.FeeDueLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeeDueLabel.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.FeeDueLabel.Location = New System.Drawing.Point(4, 89)
+        Me.FeeDueLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeDueLabel.Name = "FeeDueLabel"
+        Me.FeeDueLabel.Size = New System.Drawing.Size(54, 13)
+        Me.FeeDueLabel.TabIndex = 178
+        Me.FeeDueLabel.Text = "Total Due"
+        '
         'FeeTotalDisplay
         '
         Me.FeeTotalDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.FeeTotalDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FeeTotalDisplay.Location = New System.Drawing.Point(67, 119)
+        Me.FeeTotalDisplay.Location = New System.Drawing.Point(63, 89)
         Me.FeeTotalDisplay.Name = "FeeTotalDisplay"
         Me.FeeTotalDisplay.ReadOnly = True
         Me.FeeTotalDisplay.Size = New System.Drawing.Size(108, 13)
         Me.FeeTotalDisplay.TabIndex = 3
         Me.FeeTotalDisplay.Text = "N/A"
         '
+        'FeePaidLabel
+        '
+        Me.FeePaidLabel.AutoSize = True
+        Me.FeePaidLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeePaidLabel.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.FeePaidLabel.Location = New System.Drawing.Point(3, 113)
+        Me.FeePaidLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeePaidLabel.Name = "FeePaidLabel"
+        Me.FeePaidLabel.Size = New System.Drawing.Size(55, 13)
+        Me.FeePaidLabel.TabIndex = 182
+        Me.FeePaidLabel.Text = "Total Paid"
+        '
         'FeeStatusDisplay
         '
         Me.FeeStatusDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.FeeStatusDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FeeStatusDisplay.Location = New System.Drawing.Point(67, 71)
+        Me.FeeStatusDisplay.Location = New System.Drawing.Point(63, 41)
         Me.FeeStatusDisplay.Multiline = True
         Me.FeeStatusDisplay.Name = "FeeStatusDisplay"
         Me.FeeStatusDisplay.ReadOnly = True
@@ -2115,102 +2165,68 @@ Partial Class IAIPFacilitySummary
         Me.FeeStatusDisplay.TabIndex = 2
         Me.FeeStatusDisplay.Text = "GECO User has update the Fee Calculations" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3"
         '
-        'FeeDateSubmitDisplay
-        '
-        Me.FeeDateSubmitDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.FeeDateSubmitDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FeeDateSubmitDisplay.Location = New System.Drawing.Point(67, 49)
-        Me.FeeDateSubmitDisplay.Name = "FeeDateSubmitDisplay"
-        Me.FeeDateSubmitDisplay.ReadOnly = True
-        Me.FeeDateSubmitDisplay.Size = New System.Drawing.Size(108, 13)
-        Me.FeeDateSubmitDisplay.TabIndex = 1
-        Me.FeeDateSubmitDisplay.Text = "N/A"
-        '
         'FeeStatusLabel
         '
         Me.FeeStatusLabel.AutoSize = True
         Me.FeeStatusLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FeeStatusLabel.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.FeeStatusLabel.Location = New System.Drawing.Point(26, 71)
+        Me.FeeStatusLabel.Location = New System.Drawing.Point(22, 41)
         Me.FeeStatusLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FeeStatusLabel.Name = "FeeStatusLabel"
         Me.FeeStatusLabel.Size = New System.Drawing.Size(37, 13)
         Me.FeeStatusLabel.TabIndex = 184
         Me.FeeStatusLabel.Text = "Status"
         '
-        'FeeSubmitDateLabel
+        'FeeDateSubmitDisplay
         '
-        Me.FeeSubmitDateLabel.AutoSize = True
-        Me.FeeSubmitDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FeeSubmitDateLabel.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.FeeSubmitDateLabel.Location = New System.Drawing.Point(9, 49)
-        Me.FeeSubmitDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.FeeSubmitDateLabel.Name = "FeeSubmitDateLabel"
-        Me.FeeSubmitDateLabel.Size = New System.Drawing.Size(54, 13)
-        Me.FeeSubmitDateLabel.TabIndex = 184
-        Me.FeeSubmitDateLabel.Text = "Submitted"
-        '
-        'FeePaidLabel
-        '
-        Me.FeePaidLabel.AutoSize = True
-        Me.FeePaidLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FeePaidLabel.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.FeePaidLabel.Location = New System.Drawing.Point(7, 143)
-        Me.FeePaidLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.FeePaidLabel.Name = "FeePaidLabel"
-        Me.FeePaidLabel.Size = New System.Drawing.Size(55, 13)
-        Me.FeePaidLabel.TabIndex = 182
-        Me.FeePaidLabel.Text = "Total Paid"
+        Me.FeeDateSubmitDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeeDateSubmitDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeeDateSubmitDisplay.Location = New System.Drawing.Point(63, 19)
+        Me.FeeDateSubmitDisplay.Name = "FeeDateSubmitDisplay"
+        Me.FeeDateSubmitDisplay.ReadOnly = True
+        Me.FeeDateSubmitDisplay.Size = New System.Drawing.Size(108, 13)
+        Me.FeeDateSubmitDisplay.TabIndex = 1
+        Me.FeeDateSubmitDisplay.Text = "N/A"
         '
         'FeeRegGroupBox
         '
-        Me.FeeRegGroupBox.Controls.Add(Me.FeeAdminWarningLabel)
         Me.FeeRegGroupBox.Controls.Add(Me.FeeAdminLabel)
         Me.FeeRegGroupBox.Controls.Add(Me.FeeAdminDisplay)
         Me.FeeRegGroupBox.Controls.Add(Me.FeeNspsDisplay)
         Me.FeeRegGroupBox.Controls.Add(Me.FeeSmDisplay)
+        Me.FeeRegGroupBox.Controls.Add(Me.FeePart70MaintDisplay)
         Me.FeeRegGroupBox.Controls.Add(Me.FeePart70Display)
         Me.FeeRegGroupBox.Controls.Add(Me.FeeNspsLabel)
+        Me.FeeRegGroupBox.Controls.Add(Me.Label2)
         Me.FeeRegGroupBox.Controls.Add(Me.FeeSmLabel)
         Me.FeeRegGroupBox.Controls.Add(Me.FeePart70Label)
         Me.FeeRegGroupBox.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.FeeRegGroupBox.Location = New System.Drawing.Point(199, 23)
+        Me.FeeRegGroupBox.Location = New System.Drawing.Point(254, 220)
         Me.FeeRegGroupBox.Margin = New System.Windows.Forms.Padding(2)
         Me.FeeRegGroupBox.Name = "FeeRegGroupBox"
         Me.FeeRegGroupBox.Padding = New System.Windows.Forms.Padding(2)
-        Me.FeeRegGroupBox.Size = New System.Drawing.Size(195, 133)
+        Me.FeeRegGroupBox.Size = New System.Drawing.Size(226, 126)
         Me.FeeRegGroupBox.TabIndex = 6
         Me.FeeRegGroupBox.TabStop = False
         Me.FeeRegGroupBox.Text = "Regulatory Fees"
-        '
-        'FeeAdminWarningLabel
-        '
-        Me.FeeAdminWarningLabel.AutoSize = True
-        Me.FeeAdminWarningLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FeeAdminWarningLabel.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.FeeAdminWarningLabel.Location = New System.Drawing.Point(6, 96)
-        Me.FeeAdminWarningLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.FeeAdminWarningLabel.Name = "FeeAdminWarningLabel"
-        Me.FeeAdminWarningLabel.Size = New System.Drawing.Size(182, 13)
-        Me.FeeAdminWarningLabel.TabIndex = 161
-        Me.FeeAdminWarningLabel.Text = "(Admin fee not included in Total Due)"
         '
         'FeeAdminLabel
         '
         Me.FeeAdminLabel.AutoSize = True
         Me.FeeAdminLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FeeAdminLabel.Location = New System.Drawing.Point(6, 77)
+        Me.FeeAdminLabel.Location = New System.Drawing.Point(38, 94)
         Me.FeeAdminLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FeeAdminLabel.Name = "FeeAdminLabel"
         Me.FeeAdminLabel.Size = New System.Drawing.Size(72, 13)
         Me.FeeAdminLabel.TabIndex = 159
         Me.FeeAdminLabel.Text = "Administrative"
+        Me.FeeAdminLabel.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'FeeAdminDisplay
         '
         Me.FeeAdminDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.FeeAdminDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FeeAdminDisplay.Location = New System.Drawing.Point(83, 77)
+        Me.FeeAdminDisplay.Location = New System.Drawing.Point(115, 94)
         Me.FeeAdminDisplay.Name = "FeeAdminDisplay"
         Me.FeeAdminDisplay.ReadOnly = True
         Me.FeeAdminDisplay.Size = New System.Drawing.Size(107, 13)
@@ -2221,7 +2237,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeeNspsDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.FeeNspsDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FeeNspsDisplay.Location = New System.Drawing.Point(83, 58)
+        Me.FeeNspsDisplay.Location = New System.Drawing.Point(115, 75)
         Me.FeeNspsDisplay.Name = "FeeNspsDisplay"
         Me.FeeNspsDisplay.ReadOnly = True
         Me.FeeNspsDisplay.Size = New System.Drawing.Size(107, 13)
@@ -2232,18 +2248,29 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeeSmDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.FeeSmDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FeeSmDisplay.Location = New System.Drawing.Point(83, 39)
+        Me.FeeSmDisplay.Location = New System.Drawing.Point(115, 56)
         Me.FeeSmDisplay.Name = "FeeSmDisplay"
         Me.FeeSmDisplay.ReadOnly = True
         Me.FeeSmDisplay.Size = New System.Drawing.Size(107, 13)
         Me.FeeSmDisplay.TabIndex = 1
         Me.FeeSmDisplay.Text = "N/A"
         '
+        'FeePart70MaintDisplay
+        '
+        Me.FeePart70MaintDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeePart70MaintDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeePart70MaintDisplay.Location = New System.Drawing.Point(115, 37)
+        Me.FeePart70MaintDisplay.Name = "FeePart70MaintDisplay"
+        Me.FeePart70MaintDisplay.ReadOnly = True
+        Me.FeePart70MaintDisplay.Size = New System.Drawing.Size(107, 13)
+        Me.FeePart70MaintDisplay.TabIndex = 0
+        Me.FeePart70MaintDisplay.Text = "N/A"
+        '
         'FeePart70Display
         '
         Me.FeePart70Display.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.FeePart70Display.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FeePart70Display.Location = New System.Drawing.Point(83, 20)
+        Me.FeePart70Display.Location = New System.Drawing.Point(115, 18)
         Me.FeePart70Display.Name = "FeePart70Display"
         Me.FeePart70Display.ReadOnly = True
         Me.FeePart70Display.Size = New System.Drawing.Size(107, 13)
@@ -2254,34 +2281,49 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeeNspsLabel.AutoSize = True
         Me.FeeNspsLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FeeNspsLabel.Location = New System.Drawing.Point(42, 58)
+        Me.FeeNspsLabel.Location = New System.Drawing.Point(74, 75)
         Me.FeeNspsLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FeeNspsLabel.Name = "FeeNspsLabel"
         Me.FeeNspsLabel.Size = New System.Drawing.Size(36, 13)
         Me.FeeNspsLabel.TabIndex = 155
         Me.FeeNspsLabel.Text = "NSPS"
+        Me.FeeNspsLabel.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(4, 37)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(106, 13)
+        Me.Label2.TabIndex = 153
+        Me.Label2.Text = "Part 70 Maintenance"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'FeeSmLabel
         '
         Me.FeeSmLabel.AutoSize = True
         Me.FeeSmLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FeeSmLabel.Location = New System.Drawing.Point(55, 39)
+        Me.FeeSmLabel.Location = New System.Drawing.Point(87, 56)
         Me.FeeSmLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FeeSmLabel.Name = "FeeSmLabel"
         Me.FeeSmLabel.Size = New System.Drawing.Size(23, 13)
         Me.FeeSmLabel.TabIndex = 154
         Me.FeeSmLabel.Text = "SM"
+        Me.FeeSmLabel.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'FeePart70Label
         '
         Me.FeePart70Label.AutoSize = True
         Me.FeePart70Label.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FeePart70Label.Location = New System.Drawing.Point(37, 20)
+        Me.FeePart70Label.Location = New System.Drawing.Point(69, 18)
         Me.FeePart70Label.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FeePart70Label.Name = "FeePart70Label"
         Me.FeePart70Label.Size = New System.Drawing.Size(41, 13)
         Me.FeePart70Label.TabIndex = 153
         Me.FeePart70Label.Text = "Part 70"
+        Me.FeePart70Label.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'FeeEmissionGroupBox
         '
@@ -2298,20 +2340,20 @@ Partial Class IAIPFacilitySummary
         Me.FeeEmissionGroupBox.Controls.Add(Me.FeeNOxLabel)
         Me.FeeEmissionGroupBox.Controls.Add(Me.FeeRateLabel)
         Me.FeeEmissionGroupBox.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.FeeEmissionGroupBox.Location = New System.Drawing.Point(199, 169)
+        Me.FeeEmissionGroupBox.Location = New System.Drawing.Point(254, 58)
         Me.FeeEmissionGroupBox.Margin = New System.Windows.Forms.Padding(2)
         Me.FeeEmissionGroupBox.Name = "FeeEmissionGroupBox"
         Me.FeeEmissionGroupBox.Padding = New System.Windows.Forms.Padding(2)
-        Me.FeeEmissionGroupBox.Size = New System.Drawing.Size(195, 138)
+        Me.FeeEmissionGroupBox.Size = New System.Drawing.Size(226, 138)
         Me.FeeEmissionGroupBox.TabIndex = 7
         Me.FeeEmissionGroupBox.TabStop = False
-        Me.FeeEmissionGroupBox.Text = "Emission Fees"
+        Me.FeeEmissionGroupBox.Text = "Emission Fee Calculation"
         '
         'FeeVocLabel
         '
         Me.FeeVocLabel.AutoSize = True
         Me.FeeVocLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FeeVocLabel.Location = New System.Drawing.Point(50, 20)
+        Me.FeeVocLabel.Location = New System.Drawing.Point(82, 18)
         Me.FeeVocLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FeeVocLabel.Name = "FeeVocLabel"
         Me.FeeVocLabel.Size = New System.Drawing.Size(29, 13)
@@ -2322,7 +2364,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeePollutantTotalDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.FeePollutantTotalDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FeePollutantTotalDisplay.Location = New System.Drawing.Point(83, 115)
+        Me.FeePollutantTotalDisplay.Location = New System.Drawing.Point(115, 113)
         Me.FeePollutantTotalDisplay.Name = "FeePollutantTotalDisplay"
         Me.FeePollutantTotalDisplay.ReadOnly = True
         Me.FeePollutantTotalDisplay.Size = New System.Drawing.Size(107, 13)
@@ -2333,7 +2375,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeeRateDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.FeeRateDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FeeRateDisplay.Location = New System.Drawing.Point(83, 96)
+        Me.FeeRateDisplay.Location = New System.Drawing.Point(115, 94)
         Me.FeeRateDisplay.Name = "FeeRateDisplay"
         Me.FeeRateDisplay.ReadOnly = True
         Me.FeeRateDisplay.Size = New System.Drawing.Size(107, 13)
@@ -2344,7 +2386,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeeNOxDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.FeeNOxDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FeeNOxDisplay.Location = New System.Drawing.Point(83, 77)
+        Me.FeeNOxDisplay.Location = New System.Drawing.Point(115, 75)
         Me.FeeNOxDisplay.Name = "FeeNOxDisplay"
         Me.FeeNOxDisplay.ReadOnly = True
         Me.FeeNOxDisplay.Size = New System.Drawing.Size(107, 13)
@@ -2355,7 +2397,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeeSO2Display.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.FeeSO2Display.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FeeSO2Display.Location = New System.Drawing.Point(83, 58)
+        Me.FeeSO2Display.Location = New System.Drawing.Point(115, 56)
         Me.FeeSO2Display.Name = "FeeSO2Display"
         Me.FeeSO2Display.ReadOnly = True
         Me.FeeSO2Display.Size = New System.Drawing.Size(107, 13)
@@ -2366,7 +2408,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeePmDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.FeePmDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FeePmDisplay.Location = New System.Drawing.Point(83, 39)
+        Me.FeePmDisplay.Location = New System.Drawing.Point(115, 37)
         Me.FeePmDisplay.Name = "FeePmDisplay"
         Me.FeePmDisplay.ReadOnly = True
         Me.FeePmDisplay.Size = New System.Drawing.Size(107, 13)
@@ -2377,7 +2419,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeeVocDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.FeeVocDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FeeVocDisplay.Location = New System.Drawing.Point(83, 20)
+        Me.FeeVocDisplay.Location = New System.Drawing.Point(115, 18)
         Me.FeeVocDisplay.Name = "FeeVocDisplay"
         Me.FeeVocDisplay.ReadOnly = True
         Me.FeeVocDisplay.Size = New System.Drawing.Size(107, 13)
@@ -2388,7 +2430,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeePmLabel.AutoSize = True
         Me.FeePmLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FeePmLabel.Location = New System.Drawing.Point(55, 39)
+        Me.FeePmLabel.Location = New System.Drawing.Point(87, 37)
         Me.FeePmLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FeePmLabel.Name = "FeePmLabel"
         Me.FeePmLabel.Size = New System.Drawing.Size(23, 13)
@@ -2399,7 +2441,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeeSO2Label.AutoSize = True
         Me.FeeSO2Label.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FeeSO2Label.Location = New System.Drawing.Point(50, 58)
+        Me.FeeSO2Label.Location = New System.Drawing.Point(82, 56)
         Me.FeeSO2Label.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FeeSO2Label.Name = "FeeSO2Label"
         Me.FeeSO2Label.Size = New System.Drawing.Size(28, 13)
@@ -2410,7 +2452,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeeEmissionTotalLabel.AutoSize = True
         Me.FeeEmissionTotalLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FeeEmissionTotalLabel.Location = New System.Drawing.Point(47, 115)
+        Me.FeeEmissionTotalLabel.Location = New System.Drawing.Point(79, 113)
         Me.FeeEmissionTotalLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FeeEmissionTotalLabel.Name = "FeeEmissionTotalLabel"
         Me.FeeEmissionTotalLabel.Size = New System.Drawing.Size(31, 13)
@@ -2421,7 +2463,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeeNOxLabel.AutoSize = True
         Me.FeeNOxLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FeeNOxLabel.Location = New System.Drawing.Point(50, 77)
+        Me.FeeNOxLabel.Location = New System.Drawing.Point(82, 75)
         Me.FeeNOxLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FeeNOxLabel.Name = "FeeNOxLabel"
         Me.FeeNOxLabel.Size = New System.Drawing.Size(28, 13)
@@ -2432,7 +2474,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeeRateLabel.AutoSize = True
         Me.FeeRateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FeeRateLabel.Location = New System.Drawing.Point(27, 96)
+        Me.FeeRateLabel.Location = New System.Drawing.Point(59, 94)
         Me.FeeRateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FeeRateLabel.Name = "FeeRateLabel"
         Me.FeeRateLabel.Size = New System.Drawing.Size(51, 13)
@@ -2444,17 +2486,18 @@ Partial Class IAIPFacilitySummary
         Me.FeeDataGroupBox.Controls.Add(Me.FeeFacilityClassDisplay)
         Me.FeeDataGroupBox.Controls.Add(Me.FeeFacilityOperatingDisplay)
         Me.FeeDataGroupBox.Controls.Add(Me.FeesClassLabel)
+        Me.FeeDataGroupBox.Controls.Add(Me.FeeFacilityNspsDisplay)
         Me.FeeDataGroupBox.Controls.Add(Me.FeeFacilityPart70Display)
         Me.FeeDataGroupBox.Controls.Add(Me.FeeFacilityNspsExemptDisplay)
         Me.FeeDataGroupBox.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.FeeDataGroupBox.Location = New System.Drawing.Point(11, 169)
+        Me.FeeDataGroupBox.Location = New System.Drawing.Point(12, 220)
         Me.FeeDataGroupBox.Margin = New System.Windows.Forms.Padding(2)
         Me.FeeDataGroupBox.Name = "FeeDataGroupBox"
         Me.FeeDataGroupBox.Padding = New System.Windows.Forms.Padding(2)
-        Me.FeeDataGroupBox.Size = New System.Drawing.Size(163, 138)
+        Me.FeeDataGroupBox.Size = New System.Drawing.Size(226, 126)
         Me.FeeDataGroupBox.TabIndex = 5
         Me.FeeDataGroupBox.TabStop = False
-        Me.FeeDataGroupBox.Text = "Recorded Facility Data"
+        Me.FeeDataGroupBox.Text = "Reported Facility Data"
         '
         'FeeFacilityClassDisplay
         '
@@ -2492,6 +2535,18 @@ Partial Class IAIPFacilitySummary
         Me.FeesClassLabel.TabIndex = 164
         Me.FeesClassLabel.Text = "Classification"
         '
+        'FeeFacilityNspsDisplay
+        '
+        Me.FeeFacilityNspsDisplay.AutoCheck = False
+        Me.FeeFacilityNspsDisplay.AutoSize = True
+        Me.FeeFacilityNspsDisplay.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.FeeFacilityNspsDisplay.Location = New System.Drawing.Point(9, 80)
+        Me.FeeFacilityNspsDisplay.Margin = New System.Windows.Forms.Padding(2)
+        Me.FeeFacilityNspsDisplay.Name = "FeeFacilityNspsDisplay"
+        Me.FeeFacilityNspsDisplay.Size = New System.Drawing.Size(106, 17)
+        Me.FeeFacilityNspsDisplay.TabIndex = 3
+        Me.FeeFacilityNspsDisplay.Text = "Subject to NSPS"
+        '
         'FeeFacilityPart70Display
         '
         Me.FeeFacilityPart70Display.AutoCheck = False
@@ -2509,29 +2564,17 @@ Partial Class IAIPFacilitySummary
         Me.FeeFacilityNspsExemptDisplay.AutoCheck = False
         Me.FeeFacilityNspsExemptDisplay.AutoSize = True
         Me.FeeFacilityNspsExemptDisplay.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.FeeFacilityNspsExemptDisplay.Location = New System.Drawing.Point(9, 80)
+        Me.FeeFacilityNspsExemptDisplay.Location = New System.Drawing.Point(9, 101)
         Me.FeeFacilityNspsExemptDisplay.Margin = New System.Windows.Forms.Padding(2)
         Me.FeeFacilityNspsExemptDisplay.Name = "FeeFacilityNspsExemptDisplay"
-        Me.FeeFacilityNspsExemptDisplay.Size = New System.Drawing.Size(93, 17)
+        Me.FeeFacilityNspsExemptDisplay.Size = New System.Drawing.Size(110, 17)
         Me.FeeFacilityNspsExemptDisplay.TabIndex = 3
-        Me.FeeFacilityNspsExemptDisplay.Text = "NSPS Exempt"
-        '
-        'FeeDueLabel
-        '
-        Me.FeeDueLabel.AutoSize = True
-        Me.FeeDueLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FeeDueLabel.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.FeeDueLabel.Location = New System.Drawing.Point(8, 119)
-        Me.FeeDueLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.FeeDueLabel.Name = "FeeDueLabel"
-        Me.FeeDueLabel.Size = New System.Drawing.Size(54, 13)
-        Me.FeeDueLabel.TabIndex = 178
-        Me.FeeDueLabel.Text = "Total Due"
+        Me.FeeFacilityNspsExemptDisplay.Text = "NSPS fee exempt"
         '
         'FeeYearSelect
         '
         Me.FeeYearSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.FeeYearSelect.Location = New System.Drawing.Point(67, 19)
+        Me.FeeYearSelect.Location = New System.Drawing.Point(75, 19)
         Me.FeeYearSelect.Margin = New System.Windows.Forms.Padding(2)
         Me.FeeYearSelect.Name = "FeeYearSelect"
         Me.FeeYearSelect.Size = New System.Drawing.Size(108, 21)
@@ -2541,7 +2584,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FeeYearLabel.AutoSize = True
         Me.FeeYearLabel.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.FeeYearLabel.Location = New System.Drawing.Point(34, 23)
+        Me.FeeYearLabel.Location = New System.Drawing.Point(42, 23)
         Me.FeeYearLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FeeYearLabel.Name = "FeeYearLabel"
         Me.FeeYearLabel.Size = New System.Drawing.Size(29, 13)
@@ -2870,6 +2913,8 @@ Partial Class IAIPFacilitySummary
         Me.EmissionsFeesTabControl.ResumeLayout(False)
         Me.TPEmissionsAnnual.ResumeLayout(False)
         Me.TPEmissionsAnnual.PerformLayout()
+        Me.FeeStatusGroupBox.ResumeLayout(False)
+        Me.FeeStatusGroupBox.PerformLayout()
         Me.FeeRegGroupBox.ResumeLayout(False)
         Me.FeeRegGroupBox.PerformLayout()
         Me.FeeEmissionGroupBox.ResumeLayout(False)
@@ -2958,7 +3003,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents EditContactsPanel As System.Windows.Forms.Panel
     Friend WithEvents EditContactsButton As System.Windows.Forms.Button
     Friend WithEvents FeeAdminLabel As System.Windows.Forms.Label
-    Friend WithEvents FeeAdminWarningLabel As System.Windows.Forms.Label
     Friend WithEvents TPEmissionsInvoices As System.Windows.Forms.TabPage
     Friend WithEvents TPPermits As System.Windows.Forms.TabPage
     Friend WithEvents ViewDataButton As System.Windows.Forms.Button
@@ -3086,4 +3130,8 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents OwnershipDisplay As TextBox
     Friend WithEvents TPApplicationInvoices As TabPage
     Friend WithEvents PermitApplicationInvoicesGrid As IaipDataGridView
+    Friend WithEvents FeeFacilityNspsDisplay As CheckBox
+    Friend WithEvents FeeStatusGroupBox As GroupBox
+    Friend WithEvents FeePart70MaintDisplay As TextBox
+    Friend WithEvents Label2 As Label
 End Class
