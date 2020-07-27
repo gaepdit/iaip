@@ -35,7 +35,7 @@ The IAIP is a WinForms Application targeting the .NET Framework version 4.5.2. U
 
 The IAIP repository uses the [git-flow branching model](http://nvie.com/posts/a-successful-git-branching-model/). There are two permanent branches in the repository:
 
-* `master` contains production-ready code. Releases are built from `master` and tagged with the version number using the format `version/X.X.X`.
+* `main` contains production-ready code. Releases are built from `main` and tagged with the version number using the format `version5/5.X.X`.
 * `develop` is an integration branch for new feature development.
 
 ## Release instructions
