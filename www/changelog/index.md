@@ -9,6 +9,16 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.19.0 <span>(2020-07-27)</span>
+
+Implements the new Part 70 annual maintenance fee.
+
+Fixes SSPP Application info request table not updating after save.
+
+## Version 5.18.0 <span>(2020-07-13)</span>
+
+Improved handling of missing network connection, improved application update experience, and various bug fixes.
+
 ## Version 5.17.1 <span>(2020-06-05)</span>
 
 Rewrite the Public Notice document.
