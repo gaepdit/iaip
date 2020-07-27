@@ -2773,47 +2773,47 @@ Public Class SSCPManagersTools
 
     Private Sub btnRunTitleVSearch_Click(sender As Object, e As EventArgs) Handles btnRunTitleVSearch.Click
         Try
-            Dim SQL As String = "SELECT
-                SUBSTRING(f.STRAIRSNUMBER, 5, 8)            AS [AIRS #],
-                f.STRFACILITYNAME                           AS [Facility Name],
-                h.STROPERATIONALSTATUS                      AS [Op. Status],
-                concat(p.STRLASTNAME, ', ', p.STRFIRSTNAME) AS [Staff Responsible]
-            FROM APBFACILITYINFORMATION AS f
-                INNER JOIN APBHEADERDATA AS h ON f.STRAIRSNUMBER = h.STRAIRSNUMBER
-                INNER JOIN (SELECT h.STRAIRSNUMBER
-                            FROM SSPPAPPLICATIONMASTER AS m
-                                INNER JOIN APBHEADERDATA AS h ON h.STRAIRSNUMBER = m.STRAIRSNUMBER
-                                INNER JOIN SSPPAPPLICATIONTRACKING AS a ON m.STRAPPLICATIONNUMBER = a.STRAPPLICATIONNUMBER
-                                INNER JOIN SSPPAPPLICATIONDATA AS d ON m.STRAPPLICATIONNUMBER = d.STRAPPLICATIONNUMBER
-                            WHERE d.STRPERMITNUMBER LIKE '%V__0'
+            Dim SQL As String = "SELECT SUBSTRING(f.STRAIRSNUMBER, 5, 8)            AS [AIRS #],
+                       f.STRFACILITYNAME                           AS [Facility Name],
+                       h.STROPERATIONALSTATUS                      AS [Op. Status],
+                       concat(p.STRLASTNAME, ', ', p.STRFIRSTNAME) AS [Staff Responsible]
+                FROM APBFACILITYINFORMATION AS f
+                    INNER JOIN APBHEADERDATA AS h
+                    ON f.STRAIRSNUMBER = h.STRAIRSNUMBER
+                    INNER JOIN (SELECT h.STRAIRSNUMBER
+                                FROM SSPPAPPLICATIONMASTER AS m
+                                    INNER JOIN APBHEADERDATA AS h
+                                    ON h.STRAIRSNUMBER = m.STRAIRSNUMBER
+                                    INNER JOIN SSPPAPPLICATIONTRACKING AS a
+                                    ON m.STRAPPLICATIONNUMBER = a.STRAPPLICATIONNUMBER
+                                    INNER JOIN SSPPAPPLICATIONDATA AS d
+                                    ON m.STRAPPLICATIONNUMBER = d.STRAPPLICATIONNUMBER
+                                WHERE (m.STRAPPLICATIONTYPE IN ('14', '16', '27') OR d.STRPERMITNUMBER LIKE '%V__0')
                                   AND h.STROPERATIONALSTATUS <> 'X'
                                   AND SUBSTRING(h.STRAIRPROGRAMCODES, 13, 1) = '1'
                                   AND (a.DATPERMITISSUED < DATEADD(MONTH, -51, GETDATE())
-                                       OR a.DATEFFECTIVE < DATEADD(MONTH, -51, GETDATE()))
-                            EXCEPT
-                            SELECT m.STRAIRSNUMBER
-                            FROM SSPPAPPLICATIONMASTER AS m
-                                INNER JOIN SSPPAPPLICATIONDATA AS d ON m.STRAPPLICATIONNUMBER = d.STRAPPLICATIONNUMBER
-                                INNER JOIN SSPPAPPLICATIONTRACKING AS a ON m.STRAPPLICATIONNUMBER = a.STRAPPLICATIONNUMBER
-                            WHERE (m.STRAPPLICATIONTYPE IN ('14', '16', '27') OR d.STRPERMITNUMBER LIKE '%V__0')
-                                  AND ((a.DATPERMITISSUED BETWEEN DATEADD(MONTH, -51, GETDATE()) AND GETDATE()
-                                       AND a.DATEFFECTIVE BETWEEN DATEADD(MONTH, -51, GETDATE()) AND GETDATE())
-                                       OR a.DATRECEIVEDDATE BETWEEN DATEADD(MONTH, -51, GETDATE()) AND GETDATE())) AS t
+                                    OR a.DATEFFECTIVE < DATEADD(MONTH, -51, GETDATE()))
+                                    except
+                                SELECT m.STRAIRSNUMBER
+                                FROM SSPPAPPLICATIONMASTER AS m
+                                    INNER JOIN SSPPAPPLICATIONDATA AS d
+                                    ON m.STRAPPLICATIONNUMBER = d.STRAPPLICATIONNUMBER
+                                    INNER JOIN SSPPAPPLICATIONTRACKING AS a
+                                    ON m.STRAPPLICATIONNUMBER = a.STRAPPLICATIONNUMBER
+                                WHERE m.STRAPPLICATIONTYPE IN ('14', '16')
+                                  AND (a.DATPERMITISSUED > DATEADD(MONTH, -51, GETDATE())
+                                    or a.DATEFFECTIVE > DATEADD(MONTH, -51, GETDATE())
+                                    or a.DATRECEIVEDDATE > DATEADD(MONTH, -51, GETDATE()))) AS t
                     ON t.STRAIRSNUMBER = f.STRAIRSNUMBER
-                LEFT JOIN (SELECT
-                               u.STRAIRSNUMBER,
-                               u.NUMSSCPENGINEER
-                           FROM (SELECT
-                                     MAX(INTYEAR)
-                                     OVER ( PARTITION BY STRAIRSNUMBER) AS MaxInspYear,
-                                     INTYEAR,
-                                     STRAIRSNUMBER,
-                                     NUMSSCPENGINEER
-                                 FROM SSCPINSPECTIONSREQUIRED) u
-                           WHERE u.INTYEAR = u.MaxInspYear) AS i
+                    LEFT JOIN (SELECT u.STRAIRSNUMBER, u.NUMSSCPENGINEER
+                               FROM (SELECT MAX(INTYEAR) OVER (PARTITION BY STRAIRSNUMBER) AS MaxInspYear,
+                                            INTYEAR, STRAIRSNUMBER, NUMSSCPENGINEER
+                                     FROM SSCPINSPECTIONSREQUIRED) u
+                               WHERE u.INTYEAR = u.MaxInspYear) AS i
                     ON i.STRAIRSNUMBER = f.STRAIRSNUMBER
-                LEFT JOIN EPDUSERPROFILES AS p ON p.NUMUSERID = i.NUMSSCPENGINEER
-            ORDER BY [AIRS #]"
+                    LEFT JOIN EPDUSERPROFILES AS p
+                    ON p.NUMUSERID = i.NUMSSCPENGINEER
+                ORDER BY [AIRS #]"
 
             dgvStatisticalReports.DataSource = DB.GetDataTable(SQL)
 
