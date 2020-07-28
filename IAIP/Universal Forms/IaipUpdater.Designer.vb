@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IaipUpdater
-    Inherits BaseForm
+    Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -67,7 +67,7 @@ Partial Class IaipUpdater
         Me.Name = "IaipUpdater"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "IAIP Updater"
+        Me.Text = "IAIP Updating"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

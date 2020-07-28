@@ -7,11 +7,14 @@ Public Class IaipUpdater
     Private ReadOnly ad As ApplicationDeployment = ApplicationDeployment.CurrentDeployment
     Private updating As Boolean = True
 
-    Private Sub IaipUpdater_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Protected Overrides Sub OnLoad(e As EventArgs)
         AddHandler ad.UpdateCompleted, AddressOf ad_UpdateCompleted
         AddHandler ad.UpdateProgressChanged, AddressOf ad_UpdateProgressChanged
 
         updaterButton.Visible = Not Mandatory
+
+        MyBase.OnLoad(e)
+
         ad.UpdateAsync()
     End Sub
 
