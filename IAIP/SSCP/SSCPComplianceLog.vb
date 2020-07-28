@@ -141,41 +141,89 @@ Public Class SSCPComplianceLog
     Private Sub LoadDgvWork()
         Try
 
-            Dim SQL As String = "SELECT * FROM ( " &
-                "SELECT SUBSTRING(m.STRAIRSNUMBER, 5, 8) AS [AIRS #], f.STRFACILITYNAME AS [Facility Name], h.STRCLASS AS Class, " &
-                "CASE WHEN m.STREVENTTYPE = '05' THEN CONCAT(c.STRACTIVITYNAME, '-', l.STRNOTIFICATIONDESC) ELSE c.STRACTIVITYNAME END AS [Work Type], CONCAT(u.STRLASTNAME, ', ', u.STRFIRSTNAME) AS Staff, m.STRTRACKINGNUMBER AS [Unique #], " &
-                "CASE WHEN m.STRDELETE IS NOT NULL THEN 'Deleted' WHEN m.DATCOMPLETEDATE IS NOT NULL THEN 'Closed' ELSE 'Open' END AS Status, m.DATRECEIVEDDATE AS [Received Date], i.DATINSPECTIONDATESTART AS [Inspection Date], NULL AS [FCE Date], NULL AS [Discovery Date], m.DATCOMPLETEDATE AS [Date Completed], n.STRNOTIFICATIONTYPE AS [Notification Type], " &
-                "CASE WHEN m.STREVENTTYPE = '01' THEN r.DATMODIFINGDATE WHEN m.STREVENTTYPE = '02' THEN i.DATMODIFINGDATE WHEN m.STREVENTTYPE = '03' THEN t.DATMODIFINGDATE WHEN m.STREVENTTYPE = '04' THEN a.DATMODIFINGDATE WHEN m.STREVENTTYPE = '05' THEN n.DATMODIFINGDATE WHEN m.STREVENTTYPE = '07' THEN i.DATMODIFINGDATE END AS [Last Modified], 'IT' AS Flag, " &
-                "u.NUMUSERID as [User ID] " &
-                "FROM SSCPITEMMASTER AS m " &
-                "INNER JOIN LOOKUPCOMPLIANCEACTIVITIES AS c ON m.STREVENTTYPE = c.STRACTIVITYTYPE " &
-                "INNER JOIN APBFACILITYINFORMATION AS f ON m.STRAIRSNUMBER = f.STRAIRSNUMBER " &
-                "INNER JOIN APBHEADERDATA AS h ON f.STRAIRSNUMBER = h.STRAIRSNUMBER " &
-                "INNER JOIN EPDUSERPROFILES AS u ON m.STRRESPONSIBLESTAFF = u.NUMUSERID " &
-                "LEFT JOIN SSCPTESTREPORTS AS t ON m.STRTRACKINGNUMBER = t.STRTRACKINGNUMBER " &
-                "LEFT JOIN SSCPINSPECTIONS AS i ON m.STRTRACKINGNUMBER = i.STRTRACKINGNUMBER " &
-                "LEFT JOIN SSCPACCS AS a ON m.STRTRACKINGNUMBER = a.STRTRACKINGNUMBER " &
-                "LEFT JOIN SSCPREPORTS AS r ON m.STRTRACKINGNUMBER = r.STRTRACKINGNUMBER " &
-                "LEFT JOIN SSCPNOTIFICATIONS AS n ON m.STRTRACKINGNUMBER = n.STRTRACKINGNUMBER " &
-                "LEFT JOIN LOOKUPSSCPNOTIFICATIONS AS l ON n.STRNOTIFICATIONTYPE = l.STRNOTIFICATIONKEY " &
-                "UNION " &
-                "SELECT SUBSTRING(i.STRAIRSNUMBER, 5, 8), i.STRFACILITYNAME, h.STRCLASS, 'Full Compliance Evaluation', CONCAT(u.STRLASTNAME, ', ', u.STRFIRSTNAME), fm.STRFCENUMBER, " &
-                "CASE when fm.IsDeleted = 1 then 'Deleted' WHEN f.DATFCECOMPLETED IS NOT NULL THEN 'Closed' ELSE 'Open' END, NULL, NULL, f.DATFCECOMPLETED, NULL, f.DATFCECOMPLETED, NULL, f.DATMODIFINGDATE, 'FC', " &
-                "u.NUMUSERID as [User ID] " &
-                "FROM APBFACILITYINFORMATION AS i " &
-                "INNER JOIN APBHeaderData AS h ON h.STRAIRSNUMBER = i.STRAIRSNUMBER " &
-                "INNER JOIN SSCPFCEMASTER AS fm ON i.STRAIRSNUMBER = fm.STRAIRSNUMBER " &
-                "INNER JOIN SSCPFCE AS f ON fm.STRFCENUMBER = f.STRFCENUMBER " &
-                "INNER JOIN EPDUSERPROFILES AS u ON f.STRREVIEWER = u.NUMUSERID " &
-                "UNION " &
-                "SELECT SUBSTRING(i.STRAIRSNUMBER, 5, 8), i.STRFACILITYNAME, h.STRCLASS, CONCAT('Enforcement-', e.STRACTIONTYPE), CONCAT(u.STRLASTNAME, ', ', u.STRFIRSTNAME), e.STRENFORCEMENTNUMBER, " &
-                "CASE when e.IsDeleted = 1 then 'Deleted' WHEN e.DATENFORCEMENTFINALIZED IS NOT NULL THEN 'Closed' ELSE 'Open' END, NULL, NULL, NULL, e.DATDISCOVERYDATE, e.DATENFORCEMENTFINALIZED, NULL, e.DATMODIFINGDATE, 'EN', " &
-                "u.NUMUSERID as [User ID] " &
-                "FROM APBFACILITYINFORMATION AS i " &
-                "INNER JOIN SSCP_AUDITEDENFORCEMENT AS e ON i.STRAIRSNUMBER = e.STRAIRSNUMBER " &
-                "INNER JOIN EPDUSERPROFILES AS u ON e.NUMSTAFFRESPONSIBLE = u.NUMUSERID " &
-                "INNER JOIN APBHEADERDATA AS h ON h.STRAIRSNUMBER = i.STRAIRSNUMBER) AS AllData " &
-                "WHERE 1 = 1 "
+            Dim SQL As String = "SELECT *
+                FROM (
+                    SELECT SUBSTRING(m.STRAIRSNUMBER, 5, 8)            AS [AIRS #], f.STRFACILITYNAME AS [Facility Name],
+                           h.STRCLASS                                  AS Class,
+                           CASE
+                               WHEN m.STREVENTTYPE = '05' THEN CONCAT(c.STRACTIVITYNAME, '-', l.STRNOTIFICATIONDESC)
+                               ELSE c.STRACTIVITYNAME
+                           END                                         AS [Work Type],
+                           CONCAT(u.STRLASTNAME, ', ', u.STRFIRSTNAME) AS Staff, m.STRTRACKINGNUMBER AS [Unique #],
+                           CASE
+                               WHEN m.STRDELETE IS NOT NULL THEN 'Deleted'
+                               WHEN m.DATCOMPLETEDATE IS NOT NULL THEN 'Closed'
+                               ELSE 'Open'
+                           END                                         AS Status,
+                           m
+                               .DATRECEIVEDDATE                        AS [Received Date],
+                           i.DATINSPECTIONDATESTART                    AS [Inspection Date], NULL AS [FCE Date],
+                           NULL                                        AS [Enf Discovery Date],
+                           t.STRREFERENCENUMBER                        as [Stack Test Ref], m.DATCOMPLETEDATE AS [Date Completed],
+                           l.STRNOTIFICATIONDESC                       AS [Notification Type],
+                           CASE
+                               WHEN m.STREVENTTYPE = '01' THEN r.DATMODIFINGDATE
+                               WHEN m.STREVENTTYPE = '02' THEN i.DATMODIFINGDATE
+                               WHEN m.STREVENTTYPE = '03' THEN t.DATMODIFINGDATE
+                               WHEN m.STREVENTTYPE = '04' THEN a.DATMODIFINGDATE
+                               WHEN m.STREVENTTYPE = '05' THEN n.DATMODIFINGDATE
+                               WHEN m.STREVENTTYPE = '07' THEN i.DATMODIFINGDATE
+                           END                                         AS [Last Modified],
+                           'IT'                                        AS Flag, u.NUMUSERID as [User ID]
+                    FROM SSCPITEMMASTER AS m
+                        INNER JOIN LOOKUPCOMPLIANCEACTIVITIES AS c
+                        ON m.STREVENTTYPE = c.STRACTIVITYTYPE
+                        INNER JOIN APBFACILITYINFORMATION AS f
+                        ON m.STRAIRSNUMBER = f.STRAIRSNUMBER
+                        INNER JOIN APBHEADERDATA AS h
+                        ON f.STRAIRSNUMBER = h.STRAIRSNUMBER
+                        INNER JOIN EPDUSERPROFILES AS u
+                        ON m.STRRESPONSIBLESTAFF = u.NUMUSERID
+                        LEFT JOIN SSCPTESTREPORTS AS t
+                        ON m.STRTRACKINGNUMBER = t.STRTRACKINGNUMBER
+                        LEFT JOIN SSCPINSPECTIONS AS i
+                        ON m.STRTRACKINGNUMBER = i.STRTRACKINGNUMBER
+                        LEFT JOIN SSCPACCS AS a
+                        ON m.STRTRACKINGNUMBER = a.STRTRACKINGNUMBER
+                        LEFT JOIN SSCPREPORTS AS r
+                        ON m.STRTRACKINGNUMBER = r.STRTRACKINGNUMBER
+                        LEFT JOIN SSCPNOTIFICATIONS AS n
+                        ON m.STRTRACKINGNUMBER = n.STRTRACKINGNUMBER
+                        LEFT JOIN LOOKUPSSCPNOTIFICATIONS AS l
+                        ON n.STRNOTIFICATIONTYPE = l.STRNOTIFICATIONKEY
+                    UNION
+                    SELECT SUBSTRING(i.STRAIRSNUMBER, 5, 8), i.STRFACILITYNAME, h.STRCLASS, 'Full Compliance Evaluation',
+                           CONCAT(u.STRLASTNAME, ', ', u.STRFIRSTNAME), fm.STRFCENUMBER,
+                           CASE when fm.IsDeleted = 1 then 'Deleted' WHEN f.DATFCECOMPLETED IS NOT NULL THEN 'Closed' ELSE 'Open' END,
+                           NULL, NULL, f.DATFCECOMPLETED, NULL, null, f.DATFCECOMPLETED, NULL, f.DATMODIFINGDATE, 'FC',
+                           u.NUMUSERID as [User ID]
+                    FROM APBFACILITYINFORMATION AS i
+                        INNER JOIN APBHeaderData AS h
+                        ON h.STRAIRSNUMBER = i.STRAIRSNUMBER
+                        INNER JOIN SSCPFCEMASTER AS fm
+                        ON i.STRAIRSNUMBER = fm.STRAIRSNUMBER
+                        INNER JOIN SSCPFCE AS f
+                        ON fm.STRFCENUMBER = f.STRFCENUMBER
+                        INNER JOIN EPDUSERPROFILES AS u
+                        ON f.STRREVIEWER = u.NUMUSERID
+                    UNION
+                    SELECT SUBSTRING(i.STRAIRSNUMBER, 5, 8), i.STRFACILITYNAME, h.STRCLASS, CONCAT('Enforcement-', e.STRACTIONTYPE),
+                           CONCAT(u.STRLASTNAME, ', ', u.STRFIRSTNAME), e.STRENFORCEMENTNUMBER,
+                           CASE
+                               when e.IsDeleted = 1 then 'Deleted'
+                               WHEN e.DATENFORCEMENTFINALIZED IS NOT NULL THEN 'Closed'
+                               ELSE 'Open'
+                           END,
+                           NULL, NULL, NULL, e.DATDISCOVERYDATE, null, e.DATENFORCEMENTFINALIZED, NULL, e.DATMODIFINGDATE, 'EN',
+                           u.NUMUSERID as [User ID]
+                    FROM APBFACILITYINFORMATION AS i
+                        INNER JOIN SSCP_AUDITEDENFORCEMENT AS e
+                        ON i.STRAIRSNUMBER = e.STRAIRSNUMBER
+                        INNER JOIN EPDUSERPROFILES AS u
+                        ON e.NUMSTAFFRESPONSIBLE = u.NUMUSERID
+                        INNER JOIN APBHEADERDATA AS h
+                        ON h.STRAIRSNUMBER = i.STRAIRSNUMBER) AS AllData
+                WHERE 1 = 1 "
 
             Dim SqlFilter As String = ""
 
@@ -354,7 +402,7 @@ Public Class SSCPComplianceLog
             dgvWork.Columns("Received Date").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvWork.Columns("Inspection Date").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvWork.Columns("FCE Date").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvWork.Columns("Discovery Date").DefaultCellStyle.Format = "dd-MMM-yyyy"
+            dgvWork.Columns("Enf Discovery Date").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvWork.Columns("Date Completed").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvWork.Columns("Last Modified").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvWork.Columns("Flag").Visible = False
