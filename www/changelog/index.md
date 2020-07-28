@@ -9,6 +9,11 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.19.1 <span>(2020-07-28)</span>
+
++ Fix the Title V renewal warning tool
++ Add a stack test reference number column to the Compliance Log
+
 ## Version 5.19.0 <span>(2020-07-27)</span>
 
 Implements the new Part 70 annual maintenance fee.
