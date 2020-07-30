@@ -11,8 +11,8 @@ Public Class FeesAudit
     Private Property tempContact As Contact
     Private Property tempFacility As Facility
 
-    Public Property FeeYear() As String
-    Public Property AirsNumber() As Apb.ApbFacilityId
+    Public Property FeeYear As String
+    Public Property AirsNumber As Apb.ApbFacilityId
 
 #End Region
 
@@ -3348,7 +3348,13 @@ Public Class FeesAudit
 
             DB.RunCommand(SQL, p)
 
-            If Not DAL.UpdateFeeAdminStatus(FeeYear, AirsNumber) Then
+            Dim p5 As SqlParameter() = {
+                New SqlParameter("@AIRSNumber", AirsNumber.DbFormattedString),
+                New SqlParameter("@FeeYear", CInt(FeeYear))
+            }
+            DB.SPRunCommand("dbo.PD_FEEAMENDMENT", p5)
+
+            If Not DAL.UpdateFeeAdminStatus(CInt(FeeYear), AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
