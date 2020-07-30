@@ -273,14 +273,14 @@ Public Class SSCPComplianceLog
                     SqlFilter = SqlFilter & " ([Received Date] between @datestart and @dateend " &
                     "or [Inspection Date] between @datestart and @dateend " &
                     "or [FCE Date] between @datestart and @dateend " &
-                    "or [Discovery Date] between @datestart and @dateend " &
+                    "or [Enf Discovery Date] between @datestart and @dateend " &
                     "or [Last Modified] between @datestart and @dateend) or "
                 Else
                     If chbACCs.Checked Then
                         SqlFilter = SqlFilter & " [Received Date] between @datestart and @dateend or "
                     End If
                     If chbEnforcement.Checked Then
-                        SqlFilter = SqlFilter & " [Discovery Date] between @datestart and @dateend or "
+                        SqlFilter = SqlFilter & " [Enf Discovery Date] between @datestart and @dateend or "
                     End If
                     If chbFCE.Checked Then
                         SqlFilter = SqlFilter & " [FCE Date] between @datestart and @dateend or "
