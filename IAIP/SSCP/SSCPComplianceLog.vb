@@ -14,8 +14,6 @@ Public Class SSCPComplianceLog
 
             DTPFilterStart.Enabled = False
             DTPFilterEnd.Enabled = False
-            DTPFilterStart.Value = Today.AddMonths(-1)
-            DTPFilterEnd.Value = Today
 
             LoadDefaultSettings()
             LoadComboBoxes()
@@ -118,7 +116,7 @@ Public Class SSCPComplianceLog
         chbDeletedWork.Checked = False
 
         txtWorkNumber.Clear()
-        DTPFilterStart.Value = Today
+        DTPFilterStart.Value = Today.AddMonths(-1)
         DTPFilterEnd.Value = Today
         chbFilterDates.Checked = False
 
@@ -389,7 +387,7 @@ Public Class SSCPComplianceLog
 
             Dim p As SqlParameter() = {
                 New SqlParameter("@datestart", DTPFilterStart.Value),
-                New SqlParameter("@dateend", DTPFilterEnd.Value),
+                New SqlParameter("@dateend", DTPFilterEnd.Value.AddDays(1)),
                 New SqlParameter("@airs", "%" & txtAIRSNumberFilter.Text & "%"),
                 New SqlParameter("@trk", "%" & txtTrackingNumberFilter.Text & "%"),
                 New SqlParameter("@enf", "%" & txtEnforcementNumberFilter.Text & "%"),
