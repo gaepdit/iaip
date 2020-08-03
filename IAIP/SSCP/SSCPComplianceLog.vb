@@ -14,8 +14,6 @@ Public Class SSCPComplianceLog
 
             DTPFilterStart.Enabled = False
             DTPFilterEnd.Enabled = False
-            DTPFilterStart.Value = Today.AddMonths(-1)
-            DTPFilterEnd.Value = Today
 
             LoadDefaultSettings()
             LoadComboBoxes()
@@ -118,7 +116,7 @@ Public Class SSCPComplianceLog
         chbDeletedWork.Checked = False
 
         txtWorkNumber.Clear()
-        DTPFilterStart.Value = Today
+        DTPFilterStart.Value = Today.AddMonths(-1)
         DTPFilterEnd.Value = Today
         chbFilterDates.Checked = False
 
@@ -273,14 +271,14 @@ Public Class SSCPComplianceLog
                     SqlFilter = SqlFilter & " ([Received Date] between @datestart and @dateend " &
                     "or [Inspection Date] between @datestart and @dateend " &
                     "or [FCE Date] between @datestart and @dateend " &
-                    "or [Discovery Date] between @datestart and @dateend " &
+                    "or [Enf Discovery Date] between @datestart and @dateend " &
                     "or [Last Modified] between @datestart and @dateend) or "
                 Else
                     If chbACCs.Checked Then
                         SqlFilter = SqlFilter & " [Received Date] between @datestart and @dateend or "
                     End If
                     If chbEnforcement.Checked Then
-                        SqlFilter = SqlFilter & " [Discovery Date] between @datestart and @dateend or "
+                        SqlFilter = SqlFilter & " [Enf Discovery Date] between @datestart and @dateend or "
                     End If
                     If chbFCE.Checked Then
                         SqlFilter = SqlFilter & " [FCE Date] between @datestart and @dateend or "
@@ -389,7 +387,7 @@ Public Class SSCPComplianceLog
 
             Dim p As SqlParameter() = {
                 New SqlParameter("@datestart", DTPFilterStart.Value),
-                New SqlParameter("@dateend", DTPFilterEnd.Value),
+                New SqlParameter("@dateend", DTPFilterEnd.Value.AddDays(1)),
                 New SqlParameter("@airs", "%" & txtAIRSNumberFilter.Text & "%"),
                 New SqlParameter("@trk", "%" & txtTrackingNumberFilter.Text & "%"),
                 New SqlParameter("@enf", "%" & txtEnforcementNumberFilter.Text & "%"),
