@@ -28,15 +28,15 @@ Public Class UnitTestTests
 
     End Sub
 
-    Private Function Add(x As Integer, y As Integer) As Integer
+    Private Shared Function Add(x As Integer, y As Integer) As Integer
         Return x + y
     End Function
 
-    Private Function IsOdd(x As Integer) As Boolean
+    Private Shared Function IsOdd(x As Integer) As Boolean
         Return x Mod 2 = 1
     End Function
 
-    Private Function IsEven(x As Integer) As Boolean
+    Private Shared Function IsEven(x As Integer) As Boolean
         Return x Mod 2 = 0
     End Function
 
