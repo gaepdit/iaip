@@ -7,7 +7,7 @@ Namespace DAL
             ' Default to Air Branch if no branch code is provided
             Dim query As String =
                 " SELECT NUMUSERID, CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS AlphaName, STRPHONE " &
-                " FROM EPDUSERPROFILES " &
+                " FROM dbo.EPDUSERPROFILES " &
                 " WHERE NUMBRANCH = @branch "
 
             If Not includeInactive Then
