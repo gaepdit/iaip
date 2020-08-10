@@ -923,7 +923,7 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.AnnualFees, "Financial Management Unit", "Annual Fees")
         AddNavButtonCategory(NavButtonCategories.Finance, "Financial Management Unit", "Application Fees")
         AddNavButtonCategory(NavButtonCategories.DMU, "Data Management Unit")
-        AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program")
+        AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program", "Events")
         AddNavButtonCategory(NavButtonCategories.EIS, "Emission Inventory System")
         AddNavButtonCategory(NavButtonCategories.SBEAP, "Small Business Environmental Assistance Program")
     End Sub
@@ -970,7 +970,7 @@ Public Class IAIPNavigation
         AddNavButton("Statistics && Reports", NameOf(FinStatistics), NavButtonCategories.Finance)
 
         ' MASP
-        AddNavButtonIfAccountHasFormAccess(137, "EPD Events", NameOf(MASPRegistrationTool), NavButtonCategories.MASP)
+        AddNavButtonIfAccountHasFormAccess(137, "EPD Events", NameOf(EventsManagement), NavButtonCategories.MASP)
 
         ' DMU
         AddNavButtonIfUserHasPermission({118, 19, 28}, "EDT Errors", NameOf(DmuEdtErrorMessages), NavButtonCategories.DMU)

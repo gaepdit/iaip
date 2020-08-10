@@ -161,9 +161,8 @@ Public Class FinFeeRateManagement
         Dim index As Integer? = dgvRateItems.Columns("Key").RowIndexForValue(id)
 
         If index.HasValue Then
-            dgvRateItems.Rows(index.Value).Selected = True
+            dgvRateItems.SelectRow(index.Value)
             SelectRateItem(id)
-            dgvRateItems.FirstDisplayedScrollingRowIndex = index.Value
         End If
 
         Select Case result
@@ -192,9 +191,8 @@ Public Class FinFeeRateManagement
                     Dim index As Integer? = dgvRateItems.Columns("Key").RowIndexForValue(frm.NewRateItemID)
 
                     If index.HasValue Then
-                        dgvRateItems.Rows(index.Value).Selected = True
+                        dgvRateItems.SelectRow(index.Value)
                         SelectRateItem(frm.NewRateItemID)
-                        dgvRateItems.FirstDisplayedScrollingRowIndex = index.Value
                     End If
 
                     lblMessage.ShowMessage("The new rate item was added.", ErrorLevel.Success)
@@ -231,9 +229,8 @@ Public Class FinFeeRateManagement
         Dim index As Integer? = dgvRateItems.Columns("Key").RowIndexForValue(id)
 
         If index.HasValue Then
-            dgvRateItems.Rows(index.Value).Selected = True
+            dgvRateItems.SelectRow(index.Value)
             SelectRateItem(id)
-            dgvRateItems.FirstDisplayedScrollingRowIndex = index.Value
         End If
 
         dgvRateItemHistory.FirstDisplayedScrollingRowIndex = dgvRateItemHistory.RowCount - 1
@@ -287,9 +284,8 @@ Public Class FinFeeRateManagement
         Dim index As Integer? = dgvRateItems.Columns("Key").RowIndexForValue(id)
 
         If index.HasValue Then
-            dgvRateItems.Rows(index.Value).Selected = True
+            dgvRateItems.SelectRow(index.Value)
             SelectRateItem(id)
-            dgvRateItems.FirstDisplayedScrollingRowIndex = index.Value
         End If
 
         dgvRateItemHistory.FirstDisplayedScrollingRowIndex = 0

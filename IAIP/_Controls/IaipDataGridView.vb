@@ -210,6 +210,21 @@ Public Class IaipDataGridView
         CurrentCell = Nothing
     End Sub
 
+    Public Sub SelectRow(rowIndex As Integer)
+        If Rows.Count = 0 Then
+            Return
+        End If
+
+        If rowIndex < 0 Then
+            SelectNone()
+            Return
+        End If
+
+        Rows(rowIndex).Selected = True
+        If Rows(rowIndex).Visible Then CurrentCell = Rows(rowIndex).Cells(FirstDisplayedScrollingColumnIndex)
+        FirstDisplayedScrollingRowIndex = rowIndex
+    End Sub
+
     ' Data Source
 
     Private Sub IaipDataGridView_DataSourceChanged(sender As Object, e As EventArgs) Handles MyBase.DataSourceChanged

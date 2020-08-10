@@ -25,18 +25,10 @@ Public Class FeesManagement
         dgvFeeRates.DataSource = DAL.GetFeeRates()
         dgvFeeRates.SanelyResizeColumns()
 
-        If dgvFeeRates.Rows.Count > 0 Then
-            dgvFeeRates.SelectNone()
-
-            If ind > -1 Then
-                dgvFeeRates.Rows(ind).Selected = True
-                dgvFeeRates.CurrentCell = dgvFeeRates.Rows(ind).Cells(0)
-                dgvFeeRates.FirstDisplayedScrollingRowIndex = ind
-            Else
-                dgvFeeRates.Rows(0).Selected = True
-                dgvFeeRates.CurrentCell = dgvFeeRates.Rows(0).Cells(0)
-                dgvFeeRates.FirstDisplayedScrollingRowIndex = 0
-            End If
+        If ind > -1 Then
+            dgvFeeRates.SelectRow(ind)
+        Else
+            dgvFeeRates.SelectRow(0)
         End If
     End Sub
 

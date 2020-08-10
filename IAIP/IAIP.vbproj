@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.0.0\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.0.0\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
   <Import Project="..\packages\Microsoft.NetFramework.Analyzers.3.0.0\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.3.0.0\build\Microsoft.NetFramework.Analyzers.props')" />
@@ -61,11 +61,11 @@
     <UpdateUrl>https://iaip.gaepd.org/install/</UpdateUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>5.19.2.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>5.20.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>5.19.2.0</ApplicationVersion>
+    <ApplicationVersion>5.20.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -750,10 +750,10 @@
     <Compile Include="AnnualFees\FeesAudit.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Events\MASPRegistrationTool.Designer.vb">
-      <DependentUpon>MASPRegistrationTool.vb</DependentUpon>
+    <Compile Include="Events\EventsManagement.Designer.vb">
+      <DependentUpon>EventsManagement.vb</DependentUpon>
     </Compile>
-    <Compile Include="Events\MASPRegistrationTool.vb">
+    <Compile Include="Events\EventsManagement.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AnnualFees\FeesDeposits.Designer.vb">
@@ -1332,8 +1332,8 @@
     <EmbeddedResource Include="AnnualFees\FeesAudit.resx">
       <DependentUpon>FeesAudit.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Events\MASPRegistrationTool.resx">
-      <DependentUpon>MASPRegistrationTool.vb</DependentUpon>
+    <EmbeddedResource Include="Events\EventsManagement.resx">
+      <DependentUpon>EventsManagement.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AnnualFees\FeesDeposits.resx">
       <DependentUpon>FeesDeposits.vb</DependentUpon>
@@ -1788,7 +1788,7 @@
     </Compile>
     <Compile Include="_DAL\SSCP\EnforcementData.vb" />
     <Compile Include="_DAL\Misc\DocumentData.vb" />
-    <Compile Include="_DAL\Events\EventRegistrationData.vb" />
+    <Compile Include="_DAL\Events\EventsData.vb" />
     <Compile Include="_Code\BitFields.vb" />
     <Compile Include="_Code\CrystalReports.vb" />
     <Compile Include="_Controls\CueTextBox.vb">
