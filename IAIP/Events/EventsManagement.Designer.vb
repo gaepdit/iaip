@@ -22,14 +22,13 @@ Partial Class EventsManagement
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.lblEventMessage = New System.Windows.Forms.Label()
         Me.txtWebsiteURL = New Iaip.CueTextBox()
         Me.btnCancelEvent = New System.Windows.Forms.Button()
         Me.lnkGecoLink = New System.Windows.Forms.LinkLabel()
-        Me.lblGecoLinkLabel = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.txtEventTitle = New System.Windows.Forms.TextBox()
@@ -113,7 +112,6 @@ Partial Class EventsManagement
         Me.Panel4.Controls.Add(Me.txtWebsiteURL)
         Me.Panel4.Controls.Add(Me.btnCancelEvent)
         Me.Panel4.Controls.Add(Me.lnkGecoLink)
-        Me.Panel4.Controls.Add(Me.lblGecoLinkLabel)
         Me.Panel4.Controls.Add(Me.Label48)
         Me.Panel4.Controls.Add(Me.Label47)
         Me.Panel4.Controls.Add(Me.txtEventTitle)
@@ -186,21 +184,12 @@ Partial Class EventsManagement
         'lnkGecoLink
         '
         Me.lnkGecoLink.AutoSize = True
-        Me.lnkGecoLink.Location = New System.Drawing.Point(418, 283)
+        Me.lnkGecoLink.Location = New System.Drawing.Point(221, 283)
         Me.lnkGecoLink.Name = "lnkGecoLink"
-        Me.lnkGecoLink.Size = New System.Drawing.Size(23, 13)
+        Me.lnkGecoLink.Size = New System.Drawing.Size(120, 13)
         Me.lnkGecoLink.TabIndex = 20
         Me.lnkGecoLink.TabStop = True
-        Me.lnkGecoLink.Text = "link"
-        '
-        'lblGecoLinkLabel
-        '
-        Me.lblGecoLinkLabel.AutoSize = True
-        Me.lblGecoLinkLabel.Location = New System.Drawing.Point(280, 283)
-        Me.lblGecoLinkLabel.Name = "lblGecoLinkLabel"
-        Me.lblGecoLinkLabel.Size = New System.Drawing.Size(132, 13)
-        Me.lblGecoLinkLabel.TabIndex = 454
-        Me.lblGecoLinkLabel.Text = "Link to GECO event page:"
+        Me.lnkGecoLink.Text = "View GECO event page"
         '
         'Label48
         '
@@ -403,16 +392,17 @@ Partial Class EventsManagement
         'lblEventStatus
         '
         Me.lblEventStatus.AutoSize = True
-        Me.lblEventStatus.Location = New System.Drawing.Point(357, 264)
+        Me.lblEventStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblEventStatus.Location = New System.Drawing.Point(298, 264)
         Me.lblEventStatus.Name = "lblEventStatus"
-        Me.lblEventStatus.Size = New System.Drawing.Size(37, 13)
+        Me.lblEventStatus.Size = New System.Drawing.Size(43, 13)
         Me.lblEventStatus.TabIndex = 3
         Me.lblEventStatus.Text = "Status"
         '
         'lblEventStatusLabel
         '
         Me.lblEventStatusLabel.AutoSize = True
-        Me.lblEventStatusLabel.Location = New System.Drawing.Point(280, 264)
+        Me.lblEventStatusLabel.Location = New System.Drawing.Point(221, 264)
         Me.lblEventStatusLabel.Name = "lblEventStatusLabel"
         Me.lblEventStatusLabel.Size = New System.Drawing.Size(71, 13)
         Me.lblEventStatusLabel.TabIndex = 3
@@ -553,8 +543,8 @@ Partial Class EventsManagement
         '
         'dgvRegistrants
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvRegistrants.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvRegistrants.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvRegistrants.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvRegistrants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvRegistrants.Dock = System.Windows.Forms.DockStyle.Fill
@@ -808,8 +798,8 @@ Partial Class EventsManagement
         '
         'dgvEvents
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvEvents.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEvents.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvEvents.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -917,7 +907,6 @@ Partial Class EventsManagement
     Friend WithEvents pnlEventTitle As System.Windows.Forms.Panel
     Friend WithEvents chkShowPast As CheckBox
     Friend WithEvents lnkGecoLink As LinkLabel
-    Friend WithEvents lblGecoLinkLabel As Label
     Friend WithEvents lblEmail As Label
     Friend WithEvents txtOvCancelled As TextBox
     Friend WithEvents txtOvWaitingList As TextBox
