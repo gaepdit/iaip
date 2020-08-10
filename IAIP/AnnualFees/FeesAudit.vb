@@ -3422,8 +3422,6 @@ Public Class FeesAudit
 
     Private Sub btnVOIDAllUnpaid_Click(sender As Object, e As EventArgs) Handles btnVOIDAllUnpaid.Click
         Try
-            Dim InvoiceID As String = ""
-
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
                                 "Please double-check and try again." &
@@ -3432,39 +3430,24 @@ Public Class FeesAudit
                 Return
             End If
 
-            Dim SQL As String = "Select distinct " &
-            "FS_FeeInvoice.InvoiceID " &
-            "from FS_FeeInvoice " &
-            "left join FS_Transactions " &
-            "on FS_FeeInvoice.invoiceid = FS_Transactions.InvoiceID " &
-            "where FS_FeeInvoice.Active = '1' " &
-            "and FS_FeeInvoice.strAIRSNumber = @airs " &
-            "and FS_FeeInvoice.numFeeYear = @year " &
-            "and (numPayment is null or numPayment = '0' ) "
+            Dim SQL As String = "update FS_FEEINVOICE
+                set ACTIVE = '0'
+                where INVOICEID in
+                (select distinct i.INVOICEID
+                from FS_FEEINVOICE i
+                   left join FS_TRANSACTIONS t
+                   on i.INVOICEID = t.INVOICEID
+                where i.ACTIVE = '1'
+                 and i.STRAIRSNUMBER = @airs
+                 and i.NUMFEEYEAR = @year
+                 and (t.NUMPAYMENT is null or t.NUMPAYMENT = '0')) "
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@airs", AirsNumber.DbFormattedString),
                 New SqlParameter("@year", FeeYear)
             }
 
-            Dim dr As DataRow = DB.GetDataRow(SQL, params)
-            If dr IsNot Nothing Then
-                If IsDBNull(dr.Item("InvoiceID")) Then
-                    InvoiceID = ""
-                Else
-                    InvoiceID = dr.Item("InvoiceID")
-                End If
-
-                If InvoiceID <> "" Then
-                    SQL = "Update FS_FeeInvoice set " &
-                    "Active = '0' " &
-                    "where invoiceID = @invoiceID "
-
-                    Dim p As New SqlParameter("@invoiceID", InvoiceID)
-
-                    DB.RunCommand(SQL, p)
-                End If
-            End If
+            DB.RunCommand(SQL, params)
 
             LoadInvoices()
             LoadTransactionData()
