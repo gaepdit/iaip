@@ -20,10 +20,21 @@ Namespace DAL
         End Function
 
         Public Function GetResEventsAsDataTable(showPastEvents As Boolean) As DataTable
-            Dim query As String = " SELECT e.NUMRES_EVENTID as [ID],
-                   convert(date, e.DATSTARTDATE)  as [Date],
-                   s.STREVENTSTATUS               as [Status],
-                   e.STRTITLE                     as [Event]
+            Dim query As String = "SELECT e.NUMRES_EVENTID as [ID],
+                   convert(date, e.DATSTARTDATE) as [Date],
+                   s.STREVENTSTATUS as [Status],
+                   e.STRTITLE as [Event],
+                   e.NUMCAPACITY as [Capacity],
+                   (SELECT count(*)
+                    FROM dbo.RES_REGISTRATION
+                    WHERE NUMRES_EVENTID = e.NUMRES_EVENTID
+                      AND ACTIVE = '1'
+                      AND NUMREGISTRATIONSTATUSCODE = 1) AS [Confirmed],
+                   (SELECT count(*)
+                    FROM dbo.RES_REGISTRATION
+                    WHERE NUMRES_EVENTID = e.NUMRES_EVENTID
+                      AND ACTIVE = '1'
+                      AND NUMREGISTRATIONSTATUSCODE = 2) AS [WaitingList]
             FROM dbo.RES_EVENT e
                 left join dbo.RESLK_EVENTSTATUS s
                 on e.NUMEVENTSTATUSCODE = s.NUMRESLK_EVENTSTATUSID
