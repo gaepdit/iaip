@@ -228,8 +228,8 @@ Public Class EventsManagement
             btnGeneratePasscode.Visible = True
         End If
 
-        lblEventStatus.Visible = False
-        lblEventStatusLabel.Visible = False
+        lblEventStatus.Visible = True
+        lblEventStatusLabel.Visible = True
         lblEventStatus.Text = selectedEvent.EventStatus.GetDescription()
 
         If selectedEvent.EventStatus = ResEvent.EventState.Cancelled Then
@@ -239,9 +239,8 @@ Public Class EventsManagement
         End If
 
         Dim link As New Uri(GecoUrl, $"/EventRegistration/Details.aspx?eventid={selectedEventId}")
-        lnkGecoLink.Text = link.ToString
-        lnkGecoLink.Visible = False
-        lblGecoLinkLabel.Visible = False
+        lnkGecoLink.Links.Add(0, lnkGecoLink.Text.Length, link)
+        lnkGecoLink.Visible = True
     End Sub
 
     Private Sub LoadRegistrationManagementForm()
@@ -500,7 +499,7 @@ Public Class EventsManagement
         lblEventStatus.Visible = False
         lblEventStatusLabel.Visible = False
         lnkGecoLink.Visible = False
-        lblGecoLinkLabel.Visible = False
+        lnkGecoLink.Links.Clear()
         btnGeneratePasscode.Visible = False
 
         lblEventMessage.ClearMessage()
@@ -622,7 +621,7 @@ Public Class EventsManagement
         End If
 
         body &= vbNewLine & "Venue: " & selectedEvent.Venue & vbNewLine & vbNewLine &
-            "Event link: " & lnkGecoLink.Text & vbNewLine
+            "Event link: " & selectedEvent.WebLink & vbNewLine
 
         Dim recipientsBCC As List(Of String) = GetCorrectRecipients(statusFilter)
 
@@ -671,7 +670,9 @@ Public Class EventsManagement
     End Sub
 
     Private Sub lnkGecoLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkGecoLink.LinkClicked
-        OpenUri(New Uri(lnkGecoLink.Text))
+        If e.Link.LinkData IsNot Nothing Then
+            OpenUri(CType(e.Link.LinkData, Uri))
+        End If
     End Sub
 
 End Class
