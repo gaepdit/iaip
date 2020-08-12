@@ -9,6 +9,12 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.20.1 <span>(2020-08-10)</span>
+
+The Events Management tool has been completely overhauled.
+
+Also, fixed a bug when voiding all unpaid invoices for annual fees.
+
 ## Version 5.19.1 <span>(2020-07-28)</span>
 
 + Fix the Title V renewal warning tool
