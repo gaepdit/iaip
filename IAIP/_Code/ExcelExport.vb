@@ -143,7 +143,8 @@ Public Module ExcelExport
 
         ' Create Excel Workbook 
         Using workbook As New XLWorkbook()
-            workbook.AddWorksheetWithFixedDates(table)
+            Dim ws As IXLWorksheet = workbook.AddWorksheetWithFixedDates(table)
+            ws.Columns().AdjustToContents(2, 8.0R, 80.0R)
 
             Try
                 workbook.SaveAs(filePath)
