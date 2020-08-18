@@ -1,0 +1,6 @@
+# NOTE: Requires **VS2019 16.3** or later
+
+# Code files
+[*.{cs,vb}]
+
+dotnet_diagnostic.CA1303.severity = none

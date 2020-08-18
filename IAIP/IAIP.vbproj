@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.0\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.0\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
   <Import Project="..\packages\Microsoft.NetFramework.Analyzers.3.3.0\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.3.3.0\build\Microsoft.NetFramework.Analyzers.props')" />
@@ -84,7 +84,8 @@
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <CodeAnalysisRuleSet>..\Code Analysis\ModifiedMinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
     <DocumentationFile>IAIP.xml</DocumentationFile>
     <WarningsAsErrors>42020,42021,42022</WarningsAsErrors>
   </PropertyGroup>
@@ -100,7 +101,8 @@
     </NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisRuleSet>..\Code Analysis\ModifiedMinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
     <DefineConstants>UAT = 0</DefineConstants>
     <WarningsAsErrors>42020,42021,42022</WarningsAsErrors>
@@ -116,7 +118,8 @@
     </NoWarn>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <CodeAnalysisRuleSet>..\Code Analysis\ModifiedMinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
     <DefineConstants>UAT = 0</DefineConstants>
     <DebugSymbols>true</DebugSymbols>
@@ -265,7 +268,6 @@
     <Compile Include="GECO\GecoTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="Universal Forms\IaipUpdater.Designer.vb">
       <DependentUpon>IaipUpdater.vb</DependentUpon>
     </Compile>
@@ -444,6 +446,7 @@
     <EmbeddedResource Include="_Controls\IaipDataGridView.resx">
       <DependentUpon>IaipDataGridView.vb</DependentUpon>
     </EmbeddedResource>
+    <None Include=".editorconfig" />
     <None Include="app.config">
       <SubType>Designer</SubType>
       <TransformOnBuild>true</TransformOnBuild>
