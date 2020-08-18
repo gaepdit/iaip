@@ -1,6 +1,7 @@
 Option Strict On
 
 Imports System.Collections.Generic
+Imports System.Runtime.CompilerServices
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Shared
 
@@ -134,7 +135,7 @@ Public Class CRViewerForm
 
     Private Sub CrystalReportViewerForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Me.CRReportDocument IsNot Nothing Then
-            If Me.CRParameters IsNot Nothing Then CRSetParameters(CRReportDocument, CRParameters)
+            If Me.CRParameters IsNot Nothing Then CRReportDocument.SetParameters(CRParameters)
             CRViewerControl.ReportSource = Me.CRReportDocument
             CRViewerControl.ShowHideViewerTabs(VisibleOrNot.NotVisible)
 
@@ -144,21 +145,21 @@ Public Class CRViewerForm
 
 #End Region
 
-#Region " Utilities "
+End Class
 
-    Private Sub CRSetParameters(document As ReportClass, parameters As Dictionary(Of String, String))
+Friend Module ReportClassExtensions
+
+    <Extension>
+    Public Sub SetParameters(document As ReportClass, parameters As Dictionary(Of String, String))
         Dim fieldDefinitions As ParameterFieldDefinitions = document.DataDefinition.ParameterFields
         Dim parameterValues As ParameterValues = New ParameterValues()
 
         For Each parameter As KeyValuePair(Of String, String) In parameters
-            Dim discreteValue As ParameterDiscreteValue = New ParameterDiscreteValue()
-            discreteValue.Value = parameter.Value
+            Dim discreteValue As ParameterDiscreteValue = New ParameterDiscreteValue With {.Value = parameter.Value}
             parameterValues.Add(discreteValue)
             Dim fieldDefinition As ParameterFieldDefinition = fieldDefinitions(parameter.Key)
             fieldDefinition.ApplyCurrentValues(parameterValues)
         Next
     End Sub
 
-#End Region
-
-End Class
+End Module
