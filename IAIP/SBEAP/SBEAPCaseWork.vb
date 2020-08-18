@@ -1,7 +1,7 @@
 Imports System.Data.SqlClient
 
 Public Class SBEAPCaseWork
-    Dim FixDtpCheckBox As Boolean = False
+    Dim FixDtpCheckBox As Boolean
 
     Private Sub SBEAPCaseLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try

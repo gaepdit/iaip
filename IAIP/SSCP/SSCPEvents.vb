@@ -11,7 +11,7 @@ Public Class SSCPEvents
     Public Property TrackingNumber As Integer
     Private Property EventType As WorkItemEventType
     Private Property AirsNumber As Apb.ApbFacilityId
-    Private Property ItemIsDeleted As Boolean = False
+    Private Property ItemIsDeleted As Boolean
 
 #End Region
 

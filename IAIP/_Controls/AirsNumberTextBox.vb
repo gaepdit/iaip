@@ -78,7 +78,7 @@ Public Class AirsNumberTextBox
 
     ' Local fields
 
-    Private isValidating As Boolean = False
+    Private isValidating As Boolean
 
     ' Constructor
 

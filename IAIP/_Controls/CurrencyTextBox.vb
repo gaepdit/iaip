@@ -68,7 +68,7 @@ Friend Class CurrencyTextBox
 
     ' Local fields
 
-    Private isValidating As Boolean = False
+    Private isValidating As Boolean
 
     ' Constructor
 

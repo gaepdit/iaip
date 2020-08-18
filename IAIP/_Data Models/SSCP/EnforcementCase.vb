@@ -80,7 +80,7 @@ Namespace Apb.Sscp
                 End If
             End Set
         End Property
-        Public Property IsDeleted As Boolean = False
+        Public Property IsDeleted As Boolean
 
         ' Discovery
         Public Property DiscoveryDate As Date? ' STRDISCOVERYDATE	VARCHAR2(5 BYTE); DATDISCOVERYDATE	DATE

@@ -3,7 +3,7 @@ Imports System.Reflection
 
 Public Module AppVersion
 
-    Private CurrentVersion As Version = Nothing
+    Private CurrentVersion As Version
 
     Public Function GetCurrentVersion() As Version
         ' This is the currently installed (running) version

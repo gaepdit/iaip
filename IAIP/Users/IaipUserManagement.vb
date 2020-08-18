@@ -5,7 +5,7 @@ Public Class IaipUserManagement
 
 #Region " Properties "
 
-    Private Property SelectedUserID As Integer = 0
+    Private Property SelectedUserID As Integer
     Private Property SelectedUserRoles As IaipRoles
 
     Private Property Message As New IaipMessage
@@ -431,9 +431,9 @@ Public Class IaipUserManagement
         For Each c As Control In InvalidEntries
             i = i + 1
             If i < 5 Then
-                sb.AppendLine("ï¿½ " & EP.GetError(c))
+                sb.AppendLine("• " & EP.GetError(c))
             ElseIf i = 5 Then
-                sb.AppendLine("ï¿½ ...")
+                sb.AppendLine("• ...")
             End If
         Next
 

@@ -18,17 +18,17 @@ Public Class SSPPApplicationTrackingLog
 
 #Region " Properties and fields "
 
-    Private Property AppNumber As Integer = 0
+    Private Property AppNumber As Integer
 
     Private Property AirsId As ApbFacilityId
-    Private Property NewApplication As Boolean = False
+    Private Property NewApplication As Boolean
 
     Private Property LastModificationDateAsLoaded As DateTimeOffset = Nothing
-    Private Property FacilityApplicationHistoryLoaded As Boolean = False
+    Private Property FacilityApplicationHistoryLoaded As Boolean 
 
     Private MasterApp As String
     Private FormStatus As String
-    Private UpdatingValues As Boolean = False
+    Private UpdatingValues As Boolean 
     Private FeeChangesAllowed As Boolean = True
 
     Private _applicationFeeAmount As Decimal = 0

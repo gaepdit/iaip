@@ -10,10 +10,10 @@ Public Class IAIPNavigation
     Private Property WorkViewerTable As DataTable
     Private Property CurrentNavWorkListContext As NavWorkListContext
     Private Property CurrentNavWorkListScope As NavWorkListScope
-    Private Property CurrentNavWorkListParameter As Integer? = Nothing
+    Private Property CurrentNavWorkListParameter As Integer?
     Private Property NavWorkListContextDictionary As Dictionary(Of NavWorkListContext, String)
 
-    Private Property CheckingNetwork As Boolean = False
+    Private Property CheckingNetwork As Boolean
 
 #End Region
 
@@ -121,7 +121,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private networkCheckTimer As Timer
-    Private networkCheckTimerCount As Integer = 0
+    Private networkCheckTimerCount As Integer
     Private ReadOnly networkCheckTimerCountMax As Integer = 45
 
     Private Sub StartNetworkCheckTimer()

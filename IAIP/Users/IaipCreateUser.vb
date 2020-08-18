@@ -1,11 +1,11 @@
-Imports System.Collections.Generic
+﻿Imports System.Collections.Generic
 Imports System.Text
 
 Public Class IaipCreateUser
 
 #Region " Properties "
 
-    Friend Property NewUserId As Integer = 0
+    Friend Property NewUserId As Integer
     Friend Property Message As New IaipMessage
     Private Property InvalidEntries As New List(Of Control)
     Private Property OrganizationDataSet As DataSet = GetSharedData(SharedDataSet.EpdOrganization)

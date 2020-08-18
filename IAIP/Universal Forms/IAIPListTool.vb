@@ -3,7 +3,7 @@ Imports System.Data.SqlClient
 Public Class IAIPListTool
     Private formAccessText As String = ""
     Private dtOrganization As DataTable
-    Private loading As Boolean = False
+    Private loading As Boolean
 
 #Region "Page Load"
 

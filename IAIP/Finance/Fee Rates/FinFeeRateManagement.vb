@@ -8,8 +8,8 @@ Imports Iaip.DAL.Finance
 Public Class FinFeeRateManagement
 
     Private feeRatesSchedule As Dictionary(Of Integer, FeeRateItem)
-    Private selectedRateItem As FeeRateItem = Nothing
-    Private updating As Boolean = False
+    Private selectedRateItem As FeeRateItem
+    Private updating As Boolean
 
     Private Class FeeRateItemDisplay
         Public Property Key As Integer

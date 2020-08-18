@@ -1,5 +1,5 @@
 ﻿Public Class IAIPLookUpTables
-    Private AppTypesLoaded As Boolean = False
+    Private AppTypesLoaded As Boolean
 
     Private Sub IAIPLookUpTables_Load(sender As Object, e As EventArgs) Handles Me.Load
         LoadAPBManagement()
