@@ -174,6 +174,7 @@ Public Module ExcelExport
     ''' <param name="table">The DataTable to add to the Workbook as a Worksheet.</param>
     ''' <returns>Returns a reference to the added worksheet.</returns>
     <Extension>
+    <CLSCompliant(False)>
     Public Function AddWorksheetWithFixedDates(workbook As XLWorkbook, table As DataTable) As IXLWorksheet
         ArgumentNotNull(workbook, NameOf(workbook))
         ArgumentNotNull(table, NameOf(table))
