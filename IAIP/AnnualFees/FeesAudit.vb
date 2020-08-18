@@ -4483,44 +4483,44 @@ Public Class FeesAudit
                 SQL = SQL & "strEnrolled = '0', " &
                 "datEnrollment = null, "
             Else
-                SQL = SQL & "strEnrolled = '1', "
-                SQL = SQL & "datEnrollment = @datEnrollment, "
+                SQL &= "strEnrolled = '1', "
+                SQL &= "datEnrollment = @datEnrollment, "
             End If
 
             If Not Active Then
-                SQL = SQL & "Active = '0', "
+                SQL &= "Active = '0', "
             Else
-                SQL = SQL & "Active = '1', "
+                SQL &= "Active = '1', "
             End If
 
             If Not InitialMailOut Then
-                SQL = SQL & "strInitialMailOut = '0', "
+                SQL &= "strInitialMailOut = '0', "
             Else
-                SQL = SQL & "strInitialMailOut = '1', "
+                SQL &= "strInitialMailOut = '1', "
             End If
 
             If Not MailoutSent Then
                 SQL = SQL & "strMailOutsent = '0', " &
                 "datMailOutSent = null, "
             Else
-                SQL = SQL & "strMailOutSent = '1', "
-                SQL = SQL & "datMailOutSent = @datMailOutSent, "
+                SQL &= "strMailOutSent = '1', "
+                SQL &= "datMailOutSent = @datMailOutSent, "
             End If
 
             If Not Submittal Then
-                SQL = SQL & "intSubmittal = '0', "
-                SQL = SQL & "datSubmittal = null, "
+                SQL &= "intSubmittal = '0', "
+                SQL &= "datSubmittal = null, "
             Else
-                SQL = SQL & "intsubmittal = '1', "
-                SQL = SQL & "datSubmittal = @datSubmittal, "
+                SQL &= "intsubmittal = '1', "
+                SQL &= "datSubmittal = @datSubmittal, "
             End If
 
             If SQL = "" Then
                 Return False
             Else
-                SQL = SQL & "strComment = @strComment, "
-                SQL = SQL & "updateUser = @updateUser, "
-                SQL = SQL & "updateDateTime = getdate() "
+                SQL &= "strComment = @strComment, "
+                SQL &= "updateUser = @updateUser, "
+                SQL &= "updateDateTime = getdate() "
             End If
 
             SQL = "Update FS_Admin set " & SQL &
