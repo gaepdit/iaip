@@ -118,12 +118,14 @@ Public Class EisTool
         dgvEISStats.AllowUserToResizeRows = False
         dgvEISStats.ColumnHeadersHeight = "35"
 
-        Dim colSelect As New DataGridViewCheckBoxColumn
-        colSelect.ThreeState = False
-        colSelect.TrueValue = True
-        colSelect.FalseValue = False
-        colSelect.HeaderText = "Select"
-        colSelect.Name = "Select"
+        Dim colSelect As New DataGridViewCheckBoxColumn With {
+            .ThreeState = False,
+            .TrueValue = True,
+            .FalseValue = False,
+            .HeaderText = "Select",
+            .Name = "Select"
+        }
+
         dgvEISStats.Columns.Add(colSelect)
         dgvEISStats.Columns(0).Width = 50
 

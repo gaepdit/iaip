@@ -349,8 +349,10 @@ Public Class IaipUserManagement
     End Sub
 
     Private Sub DisplayRoles(filter As String, listBox As ListBox)
-        Dim dv As New DataView(iaipAccountRoles)
-        dv.RowFilter = filter
+        Dim dv As New DataView(iaipAccountRoles) With {
+            .RowFilter = filter
+        }
+
         With listBox
             .DataSource = dv
             .DisplayMember = "Role"
@@ -429,9 +431,9 @@ Public Class IaipUserManagement
         For Each c As Control In InvalidEntries
             i = i + 1
             If i < 5 Then
-                sb.AppendLine("• " & EP.GetError(c))
+                sb.AppendLine("ï¿½ " & EP.GetError(c))
             ElseIf i = 5 Then
-                sb.AppendLine("• ...")
+                sb.AppendLine("ï¿½ ...")
             End If
         Next
 
