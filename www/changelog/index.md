@@ -9,6 +9,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.20.2 <span>(2020-08-21)</span>
+
+Make Excel exports a little nicer with automatically sized columns.
+
 ## Version 5.20.1 <span>(2020-08-10)</span>
 
 The Events Management tool has been completely overhauled.
