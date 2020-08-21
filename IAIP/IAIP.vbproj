@@ -86,7 +86,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
-    <DocumentationFile>IAIP.xml</DocumentationFile>
+    <DocumentationFile>IaipHorizon.xml</DocumentationFile>
     <WarningsAsErrors>42020,42021,42022</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
