@@ -19,7 +19,7 @@ Public Class ISMPTestReports
     Dim DocumentType As String
     Dim ApplicableRequirment As String
     Dim ReportComments As String
-    Dim ReportClosed As Boolean = False
+    Dim ReportClosed As Boolean
     Dim ControlEquipment As String
 
     Public Property ReferenceNumber As String = ""

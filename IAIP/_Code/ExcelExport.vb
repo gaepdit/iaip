@@ -143,7 +143,8 @@ Public Module ExcelExport
 
         ' Create Excel Workbook 
         Using workbook As New XLWorkbook()
-            workbook.AddWorksheetWithFixedDates(table)
+            Dim ws As IXLWorksheet = workbook.AddWorksheetWithFixedDates(table)
+            ws.Columns().AdjustToContents(2, 8.0R, 80.0R)
 
             Try
                 workbook.SaveAs(filePath)
@@ -173,6 +174,7 @@ Public Module ExcelExport
     ''' <param name="table">The DataTable to add to the Workbook as a Worksheet.</param>
     ''' <returns>Returns a reference to the added worksheet.</returns>
     <Extension>
+    <CLSCompliant(False)>
     Public Function AddWorksheetWithFixedDates(workbook As XLWorkbook, table As DataTable) As IXLWorksheet
         ArgumentNotNull(workbook, NameOf(workbook))
         ArgumentNotNull(table, NameOf(table))

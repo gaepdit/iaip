@@ -12,8 +12,8 @@
         ErrorReport
     End Enum
 
-    Private Property DisplayLabel As Label = Nothing
-    Private Property ErrorProvider As ErrorProvider = Nothing
+    Private Property DisplayLabel As Label
+    Private Property ErrorProvider As ErrorProvider
 
 #End Region
 

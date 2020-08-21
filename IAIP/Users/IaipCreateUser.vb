@@ -5,7 +5,7 @@ Public Class IaipCreateUser
 
 #Region " Properties "
 
-    Friend Property NewUserId As Integer = 0
+    Friend Property NewUserId As Integer
     Friend Property Message As New IaipMessage
     Private Property InvalidEntries As New List(Of Control)
     Private Property OrganizationDataSet As DataSet = GetSharedData(SharedDataSet.EpdOrganization)
@@ -23,8 +23,9 @@ Public Class IaipCreateUser
         Program.DataSource = Nothing
         Unit.DataSource = Nothing
 
-        Dim view As DataView = New DataView(OrganizationDataSet.Tables("Branches"))
-        view.Sort = "Description"
+        Dim view As DataView = New DataView(OrganizationDataSet.Tables("Branches")) With {
+            .Sort = "Description"
+        }
 
         With Branch
             .DisplayMember = "Description"
@@ -39,9 +40,10 @@ Public Class IaipCreateUser
         Unit.DataSource = Nothing
 
         If Branch.SelectedValue > 0 Then
-            Dim view As DataView = New DataView(OrganizationDataSet.Tables("Programs"))
-            view.RowFilter = "BranchCode = " & Branch.SelectedValue & " OR ProgramCode = 0 "
-            view.Sort = "Description"
+            Dim view As DataView = New DataView(OrganizationDataSet.Tables("Programs")) With {
+                .RowFilter = "BranchCode = " & Branch.SelectedValue & " OR ProgramCode = 0 ",
+                .Sort = "Description"
+            }
 
             With Program
                 .DisplayMember = "Description"
@@ -56,9 +58,10 @@ Public Class IaipCreateUser
         Unit.DataSource = Nothing
 
         If Program.SelectedValue > 0 Then
-            Dim view As DataView = New DataView(OrganizationDataSet.Tables("Units"))
-            view.RowFilter = "ProgramCode = " & Program.SelectedValue & " OR UnitCode = 0 "
-            view.Sort = "Description"
+            Dim view As DataView = New DataView(OrganizationDataSet.Tables("Units")) With {
+                .RowFilter = "ProgramCode = " & Program.SelectedValue & " OR UnitCode = 0 ",
+                .Sort = "Description"
+            }
 
             With Unit
                 .DisplayMember = "Description"

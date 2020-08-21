@@ -15,7 +15,7 @@ Public Class SSPPFeeContact
         End Set
     End Property
 
-    Private _appNum As Integer = 0
+    Private _appNum As Integer
     Public Property AppNumber As Integer
         Get
             Return _appNum

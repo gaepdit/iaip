@@ -2639,7 +2639,10 @@ Public Class FeesAudit
             "where invoiceId = @invoiceId " &
             "and Active = '1' ) Payments "
 
-            Dim p As New SqlParameter("@invoiceId", invoiceID)
+            Dim p As SqlParameter() = {
+                New SqlParameter("@invoiceId", invoiceID),
+                New SqlParameter("@updateuser", "IAIP||" & CurrentUser.AlphaName)
+            }
 
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
@@ -2652,11 +2655,15 @@ Public Class FeesAudit
             If temp <> "0" Then
                 'Not Paid in full
                 SQL = "Update FS_FeeInvoice set " &
+                "updatedatetime = getdate(), " &
+                "updateuser = @updateuser, " &
                 "strInvoicestatus = '0' " &
                 "where invoiceId = @invoiceId "
             Else
                 'Paid in Full 
                 SQL = "Update FS_FeeInvoice set " &
+                "updatedatetime = getdate(), " &
+                "updateuser = @updateuser, " &
                 "strInvoicestatus = '1' " &
                 "where invoiceId = @invoiceId "
             End If
@@ -3331,7 +3338,7 @@ Public Class FeesAudit
                 " values " &
                 "( NEXT VALUE FOR FEEINVOICE_ID, @STRAIRSNUMBER, @NUMFEEYEAR, @NUMAMOUNT, " &
                 " @DATINVOICEDATE, @STRCOMMENT, '1', @UPDATEUSER, " &
-                " @UPDATEDATETIME, @CREATEDATETIME, @STRPAYTYPE, @STRINVOICESTATUS) "
+                " getdate(), getdate(), @STRPAYTYPE, @STRINVOICESTATUS) "
 
             Dim p As SqlParameter() = {
                 New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
@@ -3340,8 +3347,6 @@ Public Class FeesAudit
                 New SqlParameter("@DATINVOICEDATE", DTPInvoiceDate.Value),
                 New SqlParameter("@STRCOMMENT", txtInvoiceComments.Text),
                 New SqlParameter("@UPDATEUSER", "IAIP||" & CurrentUser.AlphaName),
-                New SqlParameter("@UPDATEDATETIME", Today),
-                New SqlParameter("@CREATEDATETIME", Today),
                 New SqlParameter("@STRPAYTYPE", cboInvoiceType.SelectedValue),
                 New SqlParameter("@STRINVOICESTATUS", InvoiceStatus)
             }
@@ -3393,7 +3398,10 @@ Public Class FeesAudit
             "where invoiceID = @invoiceID " &
             "and Active <> '0' "
 
-            Dim p As New SqlParameter("@invoiceID", txtInvoice.Text)
+            Dim p As SqlParameter() = {
+                New SqlParameter("@invoiceID", txtInvoice.Text),
+                New SqlParameter("@updateuser", "IAIP||" & CurrentUser.AlphaName)
+            }
 
             Dim payment As Double = DB.GetSingleValue(Of Double)(query, p)
 
@@ -3405,6 +3413,8 @@ Public Class FeesAudit
             End If
 
             query = "Update FS_FeeInvoice set " &
+                "updatedatetime = getdate(), " &
+                "updateuser = @updateuser, " &
             "Active = '0' " &
             "where invoiceID = @invoiceID "
 
@@ -3430,8 +3440,10 @@ Public Class FeesAudit
                 Return
             End If
 
-            Dim SQL As String = "update FS_FEEINVOICE
-                set ACTIVE = '0'
+            Dim SQL As String = "update FS_FEEINVOICE set
+                updatedatetime = getdate(),
+                updateuser = @updateuser,
+                ACTIVE = '0'
                 where INVOICEID in
                 (select distinct i.INVOICEID
                 from FS_FEEINVOICE i
@@ -3443,6 +3455,7 @@ Public Class FeesAudit
                  and (t.NUMPAYMENT is null or t.NUMPAYMENT = '0')) "
 
             Dim params As SqlParameter() = {
+                New SqlParameter("@updateuser", "IAIP||" & CurrentUser.AlphaName),
                 New SqlParameter("@airs", AirsNumber.DbFormattedString),
                 New SqlParameter("@year", FeeYear)
             }
@@ -3469,9 +3482,16 @@ Public Class FeesAudit
 
             If txtInvoice.Text <> "" Then
                 Dim SQL As String = "Update FS_FeeInvoice set " &
+                "updatedatetime = getdate(), " &
+                "updateuser = @updateuser, " &
                 "Active = '1' " &
                 "where invoiceID = @invoiceID "
-                Dim p As New SqlParameter("@invoiceID", txtInvoice.Text)
+
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@invoiceID", txtInvoice.Text),
+                    New SqlParameter("@updateuser", "IAIP||" & CurrentUser.AlphaName)
+                }
+
                 DB.RunCommand(SQL, p)
 
                 txtStatus.Text = "Active"
@@ -4483,44 +4503,44 @@ Public Class FeesAudit
                 SQL = SQL & "strEnrolled = '0', " &
                 "datEnrollment = null, "
             Else
-                SQL = SQL & "strEnrolled = '1', "
-                SQL = SQL & "datEnrollment = @datEnrollment, "
+                SQL &= "strEnrolled = '1', "
+                SQL &= "datEnrollment = @datEnrollment, "
             End If
 
             If Not Active Then
-                SQL = SQL & "Active = '0', "
+                SQL &= "Active = '0', "
             Else
-                SQL = SQL & "Active = '1', "
+                SQL &= "Active = '1', "
             End If
 
             If Not InitialMailOut Then
-                SQL = SQL & "strInitialMailOut = '0', "
+                SQL &= "strInitialMailOut = '0', "
             Else
-                SQL = SQL & "strInitialMailOut = '1', "
+                SQL &= "strInitialMailOut = '1', "
             End If
 
             If Not MailoutSent Then
                 SQL = SQL & "strMailOutsent = '0', " &
                 "datMailOutSent = null, "
             Else
-                SQL = SQL & "strMailOutSent = '1', "
-                SQL = SQL & "datMailOutSent = @datMailOutSent, "
+                SQL &= "strMailOutSent = '1', "
+                SQL &= "datMailOutSent = @datMailOutSent, "
             End If
 
             If Not Submittal Then
-                SQL = SQL & "intSubmittal = '0', "
-                SQL = SQL & "datSubmittal = null, "
+                SQL &= "intSubmittal = '0', "
+                SQL &= "datSubmittal = null, "
             Else
-                SQL = SQL & "intsubmittal = '1', "
-                SQL = SQL & "datSubmittal = @datSubmittal, "
+                SQL &= "intsubmittal = '1', "
+                SQL &= "datSubmittal = @datSubmittal, "
             End If
 
             If SQL = "" Then
                 Return False
             Else
-                SQL = SQL & "strComment = @strComment, "
-                SQL = SQL & "updateUser = @updateUser, "
-                SQL = SQL & "updateDateTime = getdate() "
+                SQL &= "strComment = @strComment, "
+                SQL &= "updateUser = @updateUser, "
+                SQL &= "updateDateTime = getdate() "
             End If
 
             SQL = "Update FS_Admin set " & SQL &
@@ -4584,7 +4604,7 @@ Public Class FeesAudit
             "and active = '1' "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("@Username", CurrentUser.AlphaName),
+                New SqlParameter("@Username", "IAIP||" & CurrentUser.AlphaName),
                 New SqlParameter("@FeeYear", FeeYear),
                 New SqlParameter("@AirsNumber", AirsNumber.DbFormattedString)
             }

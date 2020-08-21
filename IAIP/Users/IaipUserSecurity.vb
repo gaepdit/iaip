@@ -5,7 +5,7 @@ Public Class IaipUserSecurity
 #Region " Properties "
 
     Private Property savedSessions As DataTable
-    Private Property selectedSession As String = Nothing
+    Private Property selectedSession As String
 
 #End Region
 

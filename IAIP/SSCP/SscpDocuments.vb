@@ -9,7 +9,7 @@ Public Class SscpDocuments
 
 #Region "Properties"
     Private Documents As List(Of EnforcementDocument)
-    Private NewDocumentPath As String = Nothing
+    Private NewDocumentPath As String
     Private enforcementInfo As EnforcementInfo
     Private enforcementNumber As String
     Private _message As IaipMessage

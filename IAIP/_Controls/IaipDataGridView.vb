@@ -44,7 +44,7 @@ Public Class IaipDataGridView
             End If
         End Set
     End Property
-    Private _LinkifyFirstColumn As Boolean = False
+    Private _LinkifyFirstColumn As Boolean
 
     <Category("Behavior"), Description("Format named column like a link.")>
     Public Property LinkifyColumnByName As String
@@ -61,7 +61,7 @@ Public Class IaipDataGridView
             End If
         End Set
     End Property
-    Private _LinkifyColumnByName As String = Nothing
+    Private _LinkifyColumnByName As String
 
     Private ReadOnly Property LinkifiedByColumnName As Boolean
         Get
@@ -253,7 +253,7 @@ Public Class IaipDataGridView
 
     ' Export to Excel button
 
-    Private gridHoveredOrFocused As Boolean = False
+    Private gridHoveredOrFocused As Boolean
 
     Private Sub AddExcelExportButton()
         Controls.Add(ExportToExcelButton)

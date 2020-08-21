@@ -5,7 +5,7 @@ Public Class IaipUserManagement
 
 #Region " Properties "
 
-    Private Property SelectedUserID As Integer = 0
+    Private Property SelectedUserID As Integer
     Private Property SelectedUserRoles As IaipRoles
 
     Private Property Message As New IaipMessage
@@ -349,8 +349,10 @@ Public Class IaipUserManagement
     End Sub
 
     Private Sub DisplayRoles(filter As String, listBox As ListBox)
-        Dim dv As New DataView(iaipAccountRoles)
-        dv.RowFilter = filter
+        Dim dv As New DataView(iaipAccountRoles) With {
+            .RowFilter = filter
+        }
+
         With listBox
             .DataSource = dv
             .DisplayMember = "Role"

@@ -13,7 +13,7 @@
     End Property
 
     Private errorProvider As ErrorProvider
-    Private _hasError As Boolean = False
+    Private _hasError As Boolean
 
     ' Constructor
 

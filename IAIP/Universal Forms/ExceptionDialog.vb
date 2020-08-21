@@ -351,15 +351,15 @@ Friend Class ExceptionDialog
             '-- build method name
             .Append("   ")
             .Append(mi.DeclaringType.Namespace)
-            .Append(".")
+            .Append("."c)
             .Append(mi.DeclaringType.Name)
-            .Append(".")
+            .Append("."c)
             .Append(mi.Name)
 
             '-- build method params
             Dim objParameters As ParameterInfo() = sf.GetMethod.GetParameters()
             Dim objParameter As ParameterInfo
-            .Append("(")
+            .Append("("c)
             intParam = 0
             For Each objParameter In objParameters
                 intParam += 1
@@ -368,7 +368,7 @@ Friend Class ExceptionDialog
                 .Append(" As ")
                 .Append(objParameter.ParameterType.Name)
             Next
-            .Append(")")
+            .Append(")"c)
             .Append(Environment.NewLine)
 
             '-- if source code is available, append location info

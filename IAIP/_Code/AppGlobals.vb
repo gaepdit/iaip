@@ -20,15 +20,15 @@ Module AppGlobals
 
     ' Network connection
 
-    Friend ExternalIPAddress As IPAddress = Nothing
+    Friend ExternalIPAddress As IPAddress
     Friend NetworkStatus As IaipNetworkStatus
 
     ' App info
 
-    Friend AppFirstRun As Boolean = False
-    Friend AppUpdated As Boolean = False
-    Friend IaipExiting As Boolean = False
-    Friend LoggingOff As Boolean = False
+    Friend AppFirstRun As Boolean
+    Friend AppUpdated As Boolean
+    Friend IaipExiting As Boolean
+    Friend LoggingOff As Boolean
 
     ' App constants
 

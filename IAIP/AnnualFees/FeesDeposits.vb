@@ -3,7 +3,7 @@ Imports System.Data.SqlClient
 Public Class FeesDeposits
     Dim dtInvoice As DataTable
     Dim dtDeposit As DataTable
-    Dim mousing As Boolean = False
+    Dim mousing As Boolean
 
 #Region "Page Load Functions"
 

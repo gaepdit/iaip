@@ -29,8 +29,8 @@ Public Class DmuEdtErrorMessageDetail
     Private statusOfSelectedRows As SelectedRowsState
     Private headerSuccess As Boolean
     Private activeUsersList As Dictionary(Of Integer, String)
-    Private totalCount As Integer = 0
-    Private shownCount As Integer = 0
+    Private totalCount As Integer
+    Private shownCount As Integer
 
 #End Region
 

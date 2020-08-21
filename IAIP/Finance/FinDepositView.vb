@@ -24,8 +24,8 @@ Public Class FinDepositView
 
     ' Local fields
 
-    Private thisDeposit As Deposit = Nothing
-    Private selectedInvoice As Invoice = Nothing
+    Private thisDeposit As Deposit
+    Private selectedInvoice As Invoice
     Private originalSize As Size
 
     ' Load form

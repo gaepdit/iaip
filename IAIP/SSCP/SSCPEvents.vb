@@ -11,7 +11,7 @@ Public Class SSCPEvents
     Public Property TrackingNumber As Integer
     Private Property EventType As WorkItemEventType
     Private Property AirsNumber As Apb.ApbFacilityId
-    Private Property ItemIsDeleted As Boolean = False
+    Private Property ItemIsDeleted As Boolean
 
 #End Region
 
@@ -1685,24 +1685,27 @@ Public Class SSCPEvents
             objGrid.ReadOnly = True
             objGrid.RowHeadersVisible = False
 
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strSubmittalNumber"
-            objtextcol.HeaderText = "#"
-            objtextcol.Width = 30
+            objtextcol = New DataGridTextBoxColumn With {
+                .MappingName = "strSubmittalNumber",
+                .HeaderText = "#",
+                .Width = 30
+            }
             objGrid.GridColumnStyles.Add(objtextcol)
 
             'Setting the Column Headings
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "datModifingDate"
-            objtextcol.HeaderText = "Date"
-            objtextcol.Width = 50
+            objtextcol = New DataGridTextBoxColumn With {
+                .MappingName = "datModifingDate",
+                .HeaderText = "Date",
+                .Width = 50
+            }
             objGrid.GridColumnStyles.Add(objtextcol)
 
             'Setting the Column Headings
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "UserName"
-            objtextcol.HeaderText = "Modifying Individual"
-            objtextcol.Width = 180
+            objtextcol = New DataGridTextBoxColumn With {
+                .MappingName = "UserName",
+                .HeaderText = "Modifying Individual",
+                .Width = 180
+            }
             objGrid.GridColumnStyles.Add(objtextcol)
 
             'Applying the above formating 
@@ -2167,24 +2170,27 @@ Public Class SSCPEvents
             objGrid.ReadOnly = True
             objGrid.RowHeadersVisible = False
 
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strSubmittalNumber"
-            objtextcol.HeaderText = "#"
-            objtextcol.Width = 30
+            objtextcol = New DataGridTextBoxColumn With {
+                .MappingName = "strSubmittalNumber",
+                .HeaderText = "#",
+                .Width = 30
+            }
             objGrid.GridColumnStyles.Add(objtextcol)
 
             'Setting the Column Headings
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "datModifingDate"
-            objtextcol.HeaderText = "Date"
-            objtextcol.Width = 50
+            objtextcol = New DataGridTextBoxColumn With {
+                .MappingName = "datModifingDate",
+                .HeaderText = "Date",
+                .Width = 50
+            }
             objGrid.GridColumnStyles.Add(objtextcol)
 
             'Setting the Column Headings
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "UserName"
-            objtextcol.HeaderText = "Modifying Individual"
-            objtextcol.Width = 180
+            objtextcol = New DataGridTextBoxColumn With {
+                .MappingName = "UserName",
+                .HeaderText = "Modifying Individual",
+                .Width = 180
+            }
             objGrid.GridColumnStyles.Add(objtextcol)
 
             'Applying the above formating 

@@ -6,8 +6,8 @@ Public Class FinCreateRateItem
 
     Public Property SelectedCategory As FeeRateCategory
     Public Property NewRateItemID As Integer = -1
-    Public Property Success As Boolean = False
-    Private updating As Boolean = False
+    Public Property Success As Boolean
+    Private updating As Boolean
 
     Protected Overrides Sub OnLoad(e As EventArgs)
         lblMessage.ClearMessage()

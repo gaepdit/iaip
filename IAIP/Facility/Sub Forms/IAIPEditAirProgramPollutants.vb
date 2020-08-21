@@ -7,7 +7,7 @@ Public Class IAIPEditAirProgramPollutants
 
     Public Property AirsNumber As Apb.ApbFacilityId
     Public Property FacilityName As String
-    Public Property SomethingChanged As Boolean = False
+    Public Property SomethingChanged As Boolean
     Public Property FacilityPollutantsSet As HashSet(Of String)
 
     Private facilityOperatingStatus As FacilityOperationalStatus = FacilityOperationalStatus.O

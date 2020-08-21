@@ -11,7 +11,7 @@ Public Class IAIPFacilitySummary
 
 #Region " Properties and fields "
 
-    Private _airsNumber As ApbFacilityId = Nothing
+    Private _airsNumber As ApbFacilityId
     Public Property AirsNumber() As ApbFacilityId
         Get
             Return _airsNumber

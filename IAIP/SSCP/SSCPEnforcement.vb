@@ -9,7 +9,7 @@ Public Class SscpEnforcement
 
 #Region " Properties and Fields "
 
-    Public Property EnforcementId As Integer = 0
+    Public Property EnforcementId As Integer
     Public Property EnforcementCase As New EnforcementCase
     Public Property AirsNumber As ApbFacilityId
     Public Property Facility As Facilities.Facility
@@ -22,7 +22,7 @@ Public Class SscpEnforcement
 
     Private violationTypes As DataTable
     Private existingFiles As List(Of EnforcementDocument)
-    Private selectedStipulatedPenaltyItem As Integer = 0
+    Private selectedStipulatedPenaltyItem As Integer
     Private validationErrors As Dictionary(Of Control, String)
     Private nextAfsKey As Integer
 
