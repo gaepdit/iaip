@@ -208,7 +208,7 @@ Namespace DAL
                 "numPerTonRate = @numPerTonRate, " &
                 "numNSPSFee = @numNSPSFee, " &
                 "datFeeDueDate = @datFeeDueDate, " &
-                "numAdminFeeRate = @numAdminFeeRate / 100, " &
+                "numAdminFeeRate = @numAdminFeeRate, " &
                 "datAdminApplicable = @datAdminApplicable, " &
                 "strComments = @strComments, " &
                 "UpdateUser = @UpdateUser, " &
@@ -251,7 +251,7 @@ Namespace DAL
             Dim sql As String = "select convert(int, NUMFEEYEAR) as [Fee Year], DATFEEPERIODSTART as [Start Date], DATFEEPERIODEND as [End Date],
                 NUMPART70FEE as [Part 70 Fee], MaintenanceFeeRate as [Maintenance Fee], NUMSMFEE as [SM Annual Fee],
                 NUMNSPSFEE as [NSPS Annual Fee], NUMPERTONRATE as [Per Ton Fee Rate], DATFEEDUEDATE as [Due Date],
-                NUMADMINFEERATE * 100 as [Admin Fee Percent], DATADMINAPPLICABLE as [Admin Fee Date],
+                NUMADMINFEERATE as [Admin Fee Percent], DATADMINAPPLICABLE as [Admin Fee Date],
                 DATFIRSTQRTDUE as [Q1 Due Date], DATSECONDQRTDUE as [Q2 Due Date], DATTHIRDQRTDUE as [Q3 Due Date],
                 DATFOURTHQRTDUE as [Q4 Due Date], NUMAATHRES as [Attainment Area Threshold],
                 NUMNATHRES as [Non-attainment Area Threshold], STRCOMMENTS as [Notes]
