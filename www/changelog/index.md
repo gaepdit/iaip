@@ -9,6 +9,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.20.3 <span>(2020-10-07)</span>
+
+Fixed a bug in the annual emission fees maintenance form.
+
 ## Version 5.20.2 <span>(2020-08-21)</span>
 
 Make Excel exports a little nicer with automatically sized columns.
