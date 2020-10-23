@@ -99,7 +99,8 @@ Public Class ISMPMonitoringLog
                 "ISMPREportInformation.mmoCommentArea,  " &
                 "LookUpEPDUnits.strUnitDesc, " &
                 "ISMPTestLogLink.strTestLogNumber, " &
-                "strPreComplianceStatus " &
+                "strPreComplianceStatus, " &
+                "LOOKUPTESTINGFIRMS.STRTESTINGFIRM as [Testing Firm] " &
                 "FROM ISMPMaster " &
                 " INNER JOIN APBFacilityInformation  " &
                 " ON ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSnumber " &
@@ -123,6 +124,7 @@ Public Class ISMPMonitoringLog
                 " ON ISMPMaster.strReferenceNumber = ISMPWitnessingEng.strReferenceNumber " &
                 " INNER JOIN LookUpEPDUnits " &
                 " ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                " left join LOOKUPTESTINGFIRMS on ISMPREPORTINFORMATION.STRTESTINGFIRM = LOOKUPTESTINGFIRMS.STRTESTINGFIRMKEY " &
                 "WHERE (strDelete is Null or strDelete <> 'DELETE') "
 
                 If chbReviewingEngineer.Checked Then
@@ -363,6 +365,11 @@ Public Class ISMPMonitoringLog
                                                "like '%" & txtPollutantFilter.Text & "%' "
                 End If
 
+                If txtTestingFirm.Text <> "" Then
+                    SQLWhere = SQLWhere & "and LOOKUPTESTINGFIRMS.STRTESTINGFIRM " &
+                        "like '%" & Replace(txtTestingFirm.Text, "'", "''") & "%' "
+                End If
+
                 query = query & SQLWhere
 
                 dgvTestReportViewer.DataSource = DB.GetDataTable(query)
@@ -588,7 +595,8 @@ Public Class ISMPMonitoringLog
                " LEFT JOIN ISMPTestNotification " &
                "ON ismptestfirmcomments.strtestlognumber = ismptestnotification.strtestlognumber " &
                " LEFT JOIN LookUpCountyInformation " &
-               "ON SUBSTRING(ISMPTestFirmComments.strAIRSNUmber, 5, 3)  = LookUpCountyInformation.strCountycode "
+               "ON SUBSTRING(ISMPTestFirmComments.strAIRSNUmber, 5, 3)  = LookUpCountyInformation.strCountycode " &
+               " where 1=1 "
 
                 If chbReviewingEngineer.Checked Then
                     SQLWhere = SQLWhere & " and ( "
