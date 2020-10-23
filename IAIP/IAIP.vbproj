@@ -84,8 +84,6 @@
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
     <DocumentationFile>IaipHorizon.xml</DocumentationFile>
     <WarningsAsErrors>42020,42021,42022</WarningsAsErrors>
   </PropertyGroup>
@@ -101,8 +99,6 @@
     </NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
     <DefineConstants>UAT = 0</DefineConstants>
     <WarningsAsErrors>42020,42021,42022</WarningsAsErrors>
@@ -118,8 +114,6 @@
     </NoWarn>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
     <DefineConstants>UAT = 0</DefineConstants>
     <DebugSymbols>true</DebugSymbols>
