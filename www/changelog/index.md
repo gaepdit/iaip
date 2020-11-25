@@ -9,6 +9,14 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.20.5 <span>(2020-11-25)</span>
+
+🦃 Fixed some bugs in the ISMP log and emissions fees summary.
+
+## Version 5.20.4 <span>(2020-10-23)</span>
+
+Searching by test firm in the ISMP log works now.
+
 ## Version 5.20.3 <span>(2020-10-07)</span>
 
 Fixed a bug in the annual emission fees maintenance form.
