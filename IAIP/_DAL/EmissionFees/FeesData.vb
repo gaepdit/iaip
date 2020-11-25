@@ -78,8 +78,8 @@ Namespace DAL
         End Function
 
         Public Function FeeMailoutEntryExists(airsNumber As Apb.ApbFacilityId, feeYear As String) As Boolean
-            Dim feeYearDecimal As Decimal
-            If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
+            Dim feeYearShort As Short
+            If Not Short.TryParse(feeYear, feeYearShort) Then Return False
 
             Dim query As String = "SELECT 1 " &
                 " FROM FS_Mailout " &
@@ -88,15 +88,15 @@ Namespace DAL
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@airsnumber", airsNumber.DbFormattedString),
-                New SqlParameter("@feeyear", feeYearDecimal)
+                New SqlParameter("@feeyear", feeYearShort)
             }
 
             Return DB.ValueExists(query, parameters)
         End Function
 
         Public Function UpdateFeeMailoutContact(contact As Contact, airsNumber As String, feeYear As String) As Boolean
-            Dim feeYearDecimal As Decimal
-            If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
+            Dim feeYearShort As Short
+            If Not Short.TryParse(feeYear, feeYearShort) Then Return False
 
             Dim query As String = "UPDATE FS_MAILOUT " &
                 " SET STRFIRSTNAME      = @STRFIRSTNAME, " &
@@ -131,15 +131,15 @@ Namespace DAL
                 New SqlParameter("@STRGECOUSEREMAIL", contact.EmailAddress),
                 New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
                 New SqlParameter("@STRAIRSNUMBER", airsNumber),
-                New SqlParameter("@NUMFEEYEAR", feeYearDecimal)
+                New SqlParameter("@NUMFEEYEAR", feeYearShort)
             }
 
             Return DB.RunCommand(query, parameters)
         End Function
 
         Public Function UpdateFeeMailoutFacility(facility As Apb.Facilities.Facility, airsNumber As String, feeYear As String) As Boolean
-            Dim feeYearDecimal As Decimal
-            If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
+            Dim feeYearShort As Short
+            If Not Short.TryParse(feeYear, feeYearShort) Then Return False
 
             Dim query As String = "UPDATE FS_MAILOUT " &
                 " SET STROPERATIONALSTATUS = @STROPERATIONALSTATUS, " &
@@ -172,7 +172,7 @@ Namespace DAL
                 New SqlParameter("@STRCOMMENT", facility.Comment),
                 New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
                 New SqlParameter("@STRAIRSNUMBER", airsNumber),
-                New SqlParameter("@NUMFEEYEAR", feeYearDecimal)
+                New SqlParameter("@NUMFEEYEAR", feeYearShort)
             }
 
             Return DB.RunCommand(query, parameters)
