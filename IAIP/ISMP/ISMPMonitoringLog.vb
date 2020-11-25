@@ -512,7 +512,7 @@ Public Class ISMPMonitoringLog
                                                "like '%" & txtEmissionSourceTestedFilter.Text & "%' "
                 End If
                 If txtCommentFieldFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPTestNotification.mmoComments " &
+                    SQLWhere = SQLWhere & " and ISMPTestNotification.strComments " &
                                                "like '%" & txtCommentFieldFilter.Text & "%' "
                 End If
                 If txtPollutantFilter.Text <> "" Then

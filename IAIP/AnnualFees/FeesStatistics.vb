@@ -4365,7 +4365,7 @@ Public Class FeesStatistics
                         "End strPaymentPlan, " &
                         "numAmount as Due,  " &
                         "FS_FeeInvoice.numFeeYear,   " &
-                        "numAmount *5 as numTotalFee, strClass " &
+                        "numAmount * 4 as numTotalFee, strClass " &
                         "From APBFacilityInformation inner join FS_FeeInvoice " &
                         "on APBFacilityInformation.strAIRSNumber = FS_FeeInvoice.strAIRSNumber   " &
                         "inner join APBHeaderData " &
@@ -4392,7 +4392,7 @@ Public Class FeesStatistics
                         "End strPaymentPlan, " &
                         "numAmount as Due,  " &
                         "FS_FeeInvoice.numFeeYear,   " &
-                        "numAmount *5 as numTotalFee, strClass " &
+                        "numAmount * 4 as numTotalFee, strClass " &
                         "From APBFacilityInformation inner join FS_FeeInvoice " &
                         "on APBFacilityInformation.strAIRSNumber = FS_FeeInvoice.strAIRSNumber   " &
                         "inner join APBHeaderData " &
@@ -4419,7 +4419,7 @@ Public Class FeesStatistics
                         "End strPaymentPlan, " &
                         "numAmount as Due,  " &
                         "FS_FeeInvoice.numFeeYear,   " &
-                        "numAmount *5 as numTotalFee, strClass " &
+                        "numAmount * 4 as numTotalFee, strClass " &
                         "From APBFacilityInformation inner join FS_FeeInvoice " &
                         "on APBFacilityInformation.strAIRSNumber = FS_FeeInvoice.strAIRSNumber   " &
                         "inner join APBHeaderData " &
@@ -4446,7 +4446,7 @@ Public Class FeesStatistics
                         "End strPaymentPlan, " &
                         "numAmount as Due,  " &
                         "FS_FeeInvoice.numFeeYear,   " &
-                        "numAmount *5 as numTotalFee, strClass " &
+                        "numAmount * 4 as numTotalFee, strClass " &
                         "From APBFacilityInformation inner join FS_FeeInvoice " &
                         "on APBFacilityInformation.strAIRSNumber = FS_FeeInvoice.strAIRSNumber   " &
                         "inner join APBHeaderData " &
