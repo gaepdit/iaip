@@ -22,6 +22,7 @@ Partial Class EisTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPEISLog = New System.Windows.Forms.TabPage()
         Me.TabControl6 = New System.Windows.Forms.TabControl()
@@ -418,6 +419,17 @@ Partial Class EisTool
         Me.btnViewEISStats = New System.Windows.Forms.Button()
         Me.Label74 = New System.Windows.Forms.Label()
         Me.cboEISStatisticsYear = New System.Windows.Forms.ComboBox()
+        Me.TPHistory = New System.Windows.Forms.TabPage()
+        Me.dgvEIResults = New Iaip.IaipDataGridView()
+        Me.lblHistoryCount = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cboEIPollutants = New System.Windows.Forms.ComboBox()
+        Me.btnViewEISummaryByPollutant = New System.Windows.Forms.Button()
+        Me.btnEISummary = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.cboEIYear = New System.Windows.Forms.ComboBox()
         Me.TCDMUTools.SuspendLayout()
         Me.TPEISLog.SuspendLayout()
         Me.TabControl6.SuspendLayout()
@@ -460,12 +472,16 @@ Partial Class EisTool
         Me.Panel1.SuspendLayout()
         Me.TPStageData.SuspendLayout()
         Me.Panel21.SuspendLayout()
+        Me.TPHistory.SuspendLayout()
+        CType(Me.dgvEIResults, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TCDMUTools
         '
         Me.TCDMUTools.Controls.Add(Me.TPEISLog)
         Me.TCDMUTools.Controls.Add(Me.TPEisTools)
+        Me.TCDMUTools.Controls.Add(Me.TPHistory)
         Me.TCDMUTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCDMUTools.Location = New System.Drawing.Point(0, 0)
         Me.TCDMUTools.MinimumSize = New System.Drawing.Size(1016, 713)
@@ -482,7 +498,7 @@ Partial Class EisTool
         Me.TPEISLog.Name = "TPEISLog"
         Me.TPEISLog.Size = New System.Drawing.Size(1008, 687)
         Me.TPEISLog.TabIndex = 13
-        Me.TPEISLog.Text = "Emission Inventory Log"
+        Me.TPEISLog.Text = "Emissions Inventory Log"
         Me.TPEISLog.UseVisualStyleBackColor = True
         '
         'TabControl6
@@ -2661,7 +2677,7 @@ Partial Class EisTool
         Me.TPEisTools.Name = "TPEisTools"
         Me.TPEisTools.Size = New System.Drawing.Size(1008, 687)
         Me.TPEisTools.TabIndex = 14
-        Me.TPEisTools.Text = "EIS Tools"
+        Me.TPEisTools.Text = "Stats & Tools"
         Me.TPEisTools.UseVisualStyleBackColor = True
         '
         'Panel17
@@ -4431,6 +4447,129 @@ Partial Class EisTool
         Me.cboEISStatisticsYear.Size = New System.Drawing.Size(97, 21)
         Me.cboEISStatisticsYear.TabIndex = 8
         '
+        'TPHistory
+        '
+        Me.TPHistory.Controls.Add(Me.dgvEIResults)
+        Me.TPHistory.Controls.Add(Me.Panel2)
+        Me.TPHistory.Location = New System.Drawing.Point(4, 22)
+        Me.TPHistory.Name = "TPHistory"
+        Me.TPHistory.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPHistory.Size = New System.Drawing.Size(1008, 687)
+        Me.TPHistory.TabIndex = 15
+        Me.TPHistory.Text = "Emissions History"
+        Me.TPHistory.UseVisualStyleBackColor = True
+        '
+        'dgvEIResults
+        '
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEIResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvEIResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvEIResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvEIResults.DecimalFieldFormat = "N3"
+        Me.dgvEIResults.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvEIResults.LinkifyColumnByName = Nothing
+        Me.dgvEIResults.Location = New System.Drawing.Point(3, 66)
+        Me.dgvEIResults.Name = "dgvEIResults"
+        Me.dgvEIResults.ResultsCountLabel = Me.lblHistoryCount
+        Me.dgvEIResults.ResultsCountLabelFormat = "Count: {0}"
+        Me.dgvEIResults.Size = New System.Drawing.Size(1002, 618)
+        Me.dgvEIResults.StandardTab = True
+        Me.dgvEIResults.TabIndex = 2
+        '
+        'lblHistoryCount
+        '
+        Me.lblHistoryCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblHistoryCount.AutoSize = True
+        Me.lblHistoryCount.Location = New System.Drawing.Point(775, 16)
+        Me.lblHistoryCount.Name = "lblHistoryCount"
+        Me.lblHistoryCount.Size = New System.Drawing.Size(38, 13)
+        Me.lblHistoryCount.TabIndex = 7
+        Me.lblHistoryCount.Text = "Count:"
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.lblHistoryCount)
+        Me.Panel2.Controls.Add(Me.Label6)
+        Me.Panel2.Controls.Add(Me.cboEIPollutants)
+        Me.Panel2.Controls.Add(Me.btnViewEISummaryByPollutant)
+        Me.Panel2.Controls.Add(Me.btnEISummary)
+        Me.Panel2.Controls.Add(Me.Label3)
+        Me.Panel2.Controls.Add(Me.Label8)
+        Me.Panel2.Controls.Add(Me.cboEIYear)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel2.Location = New System.Drawing.Point(3, 3)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(1002, 63)
+        Me.Panel2.TabIndex = 3
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(285, 16)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(48, 13)
+        Me.Label6.TabIndex = 6
+        Me.Label6.Text = "Pollutant"
+        '
+        'cboEIPollutants
+        '
+        Me.cboEIPollutants.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cboEIPollutants.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboEIPollutants.FormattingEnabled = True
+        Me.cboEIPollutants.Location = New System.Drawing.Point(339, 12)
+        Me.cboEIPollutants.Name = "cboEIPollutants"
+        Me.cboEIPollutants.Size = New System.Drawing.Size(272, 21)
+        Me.cboEIPollutants.TabIndex = 2
+        '
+        'btnViewEISummaryByPollutant
+        '
+        Me.btnViewEISummaryByPollutant.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnViewEISummaryByPollutant.AutoSize = True
+        Me.btnViewEISummaryByPollutant.Location = New System.Drawing.Point(617, 11)
+        Me.btnViewEISummaryByPollutant.Name = "btnViewEISummaryByPollutant"
+        Me.btnViewEISummaryByPollutant.Size = New System.Drawing.Size(130, 23)
+        Me.btnViewEISummaryByPollutant.TabIndex = 3
+        Me.btnViewEISummaryByPollutant.Text = "View Pollutant Summary"
+        Me.btnViewEISummaryByPollutant.UseVisualStyleBackColor = True
+        '
+        'btnEISummary
+        '
+        Me.btnEISummary.AutoSize = True
+        Me.btnEISummary.Location = New System.Drawing.Point(125, 11)
+        Me.btnEISummary.Name = "btnEISummary"
+        Me.btnEISummary.Size = New System.Drawing.Size(105, 23)
+        Me.btnEISummary.TabIndex = 1
+        Me.btnEISummary.Text = "View Full Summary"
+        Me.btnEISummary.UseVisualStyleBackColor = True
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(37, 37)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(148, 13)
+        Me.Label3.TabIndex = 1
+        Me.Label3.Text = "* Data after 2018 is in CAERS"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(5, 16)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(29, 13)
+        Me.Label8.TabIndex = 1
+        Me.Label8.Text = "Year"
+        '
+        'cboEIYear
+        '
+        Me.cboEIYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboEIYear.FormattingEnabled = True
+        Me.cboEIYear.Location = New System.Drawing.Point(40, 12)
+        Me.cboEIYear.Name = "cboEIYear"
+        Me.cboEIYear.Size = New System.Drawing.Size(79, 21)
+        Me.cboEIYear.TabIndex = 0
+        '
         'EisTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -4439,7 +4578,7 @@ Partial Class EisTool
         Me.Controls.Add(Me.TCDMUTools)
         Me.MinimumSize = New System.Drawing.Size(1032, 751)
         Me.Name = "EisTool"
-        Me.Text = "Emission Inventory Tools"
+        Me.Text = "Emissions Inventory System"
         Me.TCDMUTools.ResumeLayout(False)
         Me.TPEISLog.ResumeLayout(False)
         Me.TabControl6.ResumeLayout(False)
@@ -4506,6 +4645,10 @@ Partial Class EisTool
         Me.TPStageData.PerformLayout()
         Me.Panel21.ResumeLayout(False)
         Me.Panel21.PerformLayout()
+        Me.TPHistory.ResumeLayout(False)
+        CType(Me.dgvEIResults, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -4906,4 +5049,15 @@ Partial Class EisTool
     Friend WithEvents Label1 As Label
     Friend WithEvents lblColocated As Label
     Friend WithEvents lblOptOutReason As Label
+    Friend WithEvents TPHistory As TabPage
+    Friend WithEvents dgvEIResults As IaipDataGridView
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents lblHistoryCount As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents cboEIPollutants As ComboBox
+    Friend WithEvents btnViewEISummaryByPollutant As Button
+    Friend WithEvents btnEISummary As Button
+    Friend WithEvents Label8 As Label
+    Friend WithEvents cboEIYear As ComboBox
+    Friend WithEvents Label3 As Label
 End Class

@@ -14,6 +14,7 @@ Public Class EisTool
         LoadStats()
         LoadEISYear()
         LoadOperStatus()
+        LoadHistoryComboBoxes()
     End Sub
 
     Private Sub LoadOperStatus()
@@ -3855,6 +3856,173 @@ Public Class EisTool
         Me.Cursor = Cursors.WaitCursor
         StageEisData(EisStagingProcedure.PointSource, EisStagingSet.All)
         Me.Cursor = Cursors.Default
+    End Sub
+
+#End Region
+
+#Region " History "
+
+    Private Sub LoadHistoryComboBoxes()
+        Dim sql As String = "SELECT INVENTORYYEAR AS EIYear
+            FROM EIS_ADMIN
+            where INVENTORYYEAR < 2019
+            UNION
+            SELECT STRINVENTORYYEAR
+            FROM EISI
+            ORDER BY EIYear DESC"
+
+        With cboEIYear
+            .DataSource = DB.GetDataTable(sql)
+            .DisplayMember = "EIYear"
+            .ValueMember = "EIYear"
+            .SelectedIndex = 0
+        End With
+
+        sql = "select e.STRPOLLUTANTCODE As Pollutant,
+                   p.STRDESC          as Description
+            from EIEM e
+                inner JOIN dbo.EISLK_POLLUTANTCODE p
+                ON e.STRPOLLUTANTCODE = p.POLLUTANTCODE
+            union
+            select e.POLLUTANTCODE,
+                   p.STRDESC
+            FROM dbo.EIS_REPORTINGPERIODEMISSIONS e
+                inner JOIN dbo.EISLK_POLLUTANTCODE p
+                ON e.POLLUTANTCODE = p.POLLUTANTCODE
+            order by Description "
+
+        With cboEIPollutants
+            .DataSource = DB.GetDataTable(sql)
+            .DisplayMember = "Description"
+            .ValueMember = "Pollutant"
+            .SelectedIndex = 0
+        End With
+    End Sub
+
+    Private Sub btnEISummary_Click(sender As Object, e As EventArgs) Handles btnEISummary.Click
+        Dim sql As String
+        Dim year As Integer
+
+        If Integer.TryParse(cboEIYear.Text, year) Then
+            If CInt(cboEIYear.Text) < 2010 Then
+                sql = "SELECT AIRSNumber, FacilityName, SO2, NOX, VOC, CO, NH3, Lead, PMFIL, PMPRI, PM10PRI, PM25PRI
+                    FROM (SELECT SUBSTRING(strairsnumber, 5, 8) AS AIRSNumber,
+                                 strfacilityname                AS FacilityName,
+                                 SO2, NOX, PMPRI, PMFIL, PM10PRI, PM25PRI, VOC, CO, NH3, Lead
+                          FROM (SELECT dt.strairsnumber, dt.strfacilityname,
+                                       SUM(IIF(dt.strpollutantcode = 'SO2', pollutanttotal, NULL))      AS SO2,
+                                       SUM(IIF(dt.strpollutantcode = 'NOX', pollutanttotal, NULL))      AS NOx,
+                                       SUM(IIF(dt.strpollutantcode = 'PM-PRI', pollutanttotal, NULL))   AS PMPRI,
+                                       SUM(IIF(dt.strpollutantcode = 'PM-FIL', pollutanttotal, NULL))   AS PMFIL,
+                                       SUM(IIF(dt.strpollutantcode = 'PM10-PRI', pollutanttotal, NULL)) AS PM10PRI,
+                                       SUM(IIF(dt.strpollutantcode = 'PM25-PRI', pollutanttotal, NULL)) AS PM25PRI,
+                                       SUM(IIF(dt.strpollutantcode = 'VOC', pollutanttotal, NULL))      AS VOC,
+                                       SUM(IIF(dt.strpollutantcode = 'CO', pollutanttotal, NULL))       AS CO,
+                                       SUM(IIF(dt.strpollutantcode = 'NH3', pollutanttotal, NULL))      AS NH3,
+                                       SUM(IIF(dt.strpollutantcode = '7439921', pollutanttotal, NULL))  AS Lead
+                                FROM (SELECT dtSumPollutant.strairsnumber, eisi.strfacilityname, dtSumPollutant.strpollutantcode,
+                                             dtSumPollutant.PollutantTotal
+                                      FROM eisi
+                                          inner join
+                                      (SELECT strairsnumber, strpollutantcode,
+                                              SUM(dblemissionnumericvalue) AS PollutantTotal, strinventoryyear
+                                       FROM eiem
+                                       WHERE strinventoryyear = @year
+                                       GROUP BY strairsnumber, strpollutantcode, strinventoryyear) AS dtSumPollutant
+                                          on eisi.strairsnumber = dtSumPollutant.strairsnumber
+                                              AND eisi.strinventoryyear = dtSumPollutant.strinventoryyear) AS dt
+                                GROUP BY dt.strairsnumber, dt.strfacilityname) AS t1) AS t2
+                    order by AIRSNumber"
+
+                Dim param As New SqlParameter("@year", cboEIYear.Text)
+
+                dgvEIResults.DataSource = DB.GetDataTable(sql, param)
+
+                dgvEIResults.Columns("AIRSNumber").HeaderText = "Airs No."
+                dgvEIResults.Columns("AIRSNumber").Width = 75
+                dgvEIResults.Columns("FacilityName").HeaderText = "Facility Name"
+                dgvEIResults.Columns("FacilityName").Width = 225
+                dgvEIResults.Columns("SO2").HeaderText = "Sulfur Dioxide"
+                dgvEIResults.Columns("NOX").HeaderText = "Nitrogen Oxides"
+                dgvEIResults.Columns("VOC").HeaderText = "Volatile Organic Compounds"
+                dgvEIResults.Columns("CO").HeaderText = "Carbon Monoxide"
+                dgvEIResults.Columns("NH3").HeaderText = "Ammonia "
+                dgvEIResults.Columns("Lead").HeaderText = "Lead"
+                dgvEIResults.Columns("PMPRI").HeaderText = "PM Primary - old EI"
+                dgvEIResults.Columns("PM10PRI").HeaderText = "Primary PM10 (Includes Filterables + Condensibles)"
+                dgvEIResults.Columns("PM25PRI").HeaderText = "Primary PM 2.5 (Includes Filterables + Condensibles)"
+                dgvEIResults.Columns("PMFIL").HeaderText = "Filterable PM 2.5"
+            Else
+                sql = "select AIRSNumber, FacilityName, SO2, NOX, VOC, CO, NH3, Lead, PMCON, PM10PRI, PM10FIL, PM25PRI, PMFIL
+                    from VW_EIS_EMISSIONSUMMARY
+                    WHERE INTINVENTORYYEAR = @year
+                    order by AIRSNumber"
+
+                Dim param As New SqlParameter("@year", cboEIYear.Text)
+
+                dgvEIResults.DataSource = DB.GetDataTable(sql, param)
+
+                dgvEIResults.Columns("AIRSNumber").HeaderText = "Airs No."
+                dgvEIResults.Columns("AIRSNumber").Width = 75
+                dgvEIResults.Columns("FacilityName").HeaderText = "Facility Name"
+                dgvEIResults.Columns("FacilityName").Width = 225
+                dgvEIResults.Columns("SO2").HeaderText = "Sulfur Dioxide"
+                dgvEIResults.Columns("NOX").HeaderText = "Nitrogen Oxides"
+                dgvEIResults.Columns("VOC").HeaderText = "Volatile Organic Compounds"
+                dgvEIResults.Columns("CO").HeaderText = "Carbon Monoxide"
+                dgvEIResults.Columns("NH3").HeaderText = "Ammonia "
+                dgvEIResults.Columns("Lead").HeaderText = "Lead"
+                dgvEIResults.Columns("PMCON").HeaderText = "Condensible PM"
+                dgvEIResults.Columns("PM10PRI").HeaderText = "Primary PM10 (Includes Filterables + Condensibles)"
+                dgvEIResults.Columns("PM10FIL").HeaderText = "Filterable PM10"
+                dgvEIResults.Columns("PM25PRI").HeaderText = "Primary PM 2.5 (Includes Filterables + Condensibles)"
+                dgvEIResults.Columns("PMFIL").HeaderText = "Filterable PM 2.5"
+            End If
+        End If
+    End Sub
+
+    Private Sub btnViewEISummaryByPollutant_Click(sender As Object, e As EventArgs) Handles btnViewEISummaryByPollutant.Click
+        Dim sql As String
+        Dim year As Integer
+
+        If Integer.TryParse(cboEIYear.Text, year) Then
+            If CInt(cboEIYear.Text) < 2010 Then
+                sql = "SELECT right(m.STRAIRSNUMBER, 8)      as AIRSNumber,
+                           i.STRFACILITYNAME              AS FacilityName,
+                           SUM(m.DBLEMISSIONNUMERICVALUE) AS Pollutant
+                    FROM eiem m
+                        inner join eisi i
+                        on m.STRAIRSNUMBER = i.STRAIRSNUMBER
+                            AND m.STRINVENTORYYEAR = i.STRINVENTORYYEAR
+                    WHERE m.STRINVENTORYYEAR = @year
+                      AND m.STRPOLLUTANTCODE = @poll
+                    GROUP BY m.STRAIRSNUMBER, i.STRFACILITYNAME
+                    order by m.STRAIRSNUMBER"
+            Else
+                sql = "SELECT FACILITYSITEID as AIRSNumber, f.STRFACILITYNAME AS FacilityName, SUM(FLTTOTALEMISSIONS) AS Pollutant
+                    FROM VW_EIS_RPEMISSIONS e
+                        inner join APBFACILITYINFORMATION f
+                        on right(f.STRAIRSNUMBER, 8) = e.FACILITYSITEID
+                    WHERE INTINVENTORYYEAR = @year
+                      AND POLLUTANTCODE = @poll
+                      and RPTPERIODTYPECODE = 'A'
+                    GROUP BY FACILITYSITEID, f.STRFACILITYNAME, POLLUTANTCODE
+                    order by FACILITYSITEID "
+            End If
+
+            Dim params As SqlParameter() = {
+                New SqlParameter("@year", cboEIYear.Text),
+                New SqlParameter("@poll", cboEIPollutants.SelectedValue)
+            }
+
+            dgvEIResults.DataSource = DB.GetDataTable(sql, params)
+
+            dgvEIResults.Columns("AIRSNumber").HeaderText = "Airs No."
+            dgvEIResults.Columns("AIRSNumber").Width = 75
+            dgvEIResults.Columns("FacilityName").HeaderText = "Facility Name"
+            dgvEIResults.Columns("FacilityName").Width = 225
+            dgvEIResults.Columns("Pollutant").HeaderText = cboEIPollutants.Text
+        End If
     End Sub
 
 #End Region
