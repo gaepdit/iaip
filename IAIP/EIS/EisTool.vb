@@ -3662,7 +3662,6 @@ Public Class EisTool
             "ORDER BY ef.FACILITYSITEID"
         dgvOperStatusMismatch.DataSource = DB.GetDataTable(query)
         dgvOperStatusMismatch.SanelyResizeColumns
-        lblOperStatusCount.Text = dgvOperStatusMismatch.RowCount.ToString
     End Sub
 
 #Region " EIS Staging "

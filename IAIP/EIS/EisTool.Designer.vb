@@ -23,6 +23,10 @@ Partial Class EisTool
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPEISLog = New System.Windows.Forms.TabPage()
         Me.TabControl6 = New System.Windows.Forms.TabControl()
@@ -244,9 +248,9 @@ Partial Class EisTool
         Me.mtbEILogAIRSNumber = New System.Windows.Forms.MaskedTextBox()
         Me.Label48 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
-        Me.TPEisTools = New System.Windows.Forms.TabPage()
+        Me.TPInvYear = New System.Windows.Forms.TabPage()
         Me.Panel17 = New System.Windows.Forms.Panel()
-        Me.dgvEISStats = New System.Windows.Forms.DataGridView()
+        Me.dgvEISStats = New Iaip.IaipDataGridView()
         Me.Panel18 = New System.Windows.Forms.Panel()
         Me.lblEisStageSelectedCount = New System.Windows.Forms.Label()
         Me.btnLoadEISLog = New System.Windows.Forms.Button()
@@ -375,9 +379,22 @@ Partial Class EisTool
         Me.Label275 = New System.Windows.Forms.Label()
         Me.btnEISStatsRemoveEnrollment = New System.Windows.Forms.Button()
         Me.btnEISStatsEnrollment = New System.Windows.Forms.Button()
+        Me.TPStageData = New System.Windows.Forms.TabPage()
+        Me.btnEisStagePseAll = New System.Windows.Forms.Button()
+        Me.btnEisStagePseSelected = New System.Windows.Forms.Button()
+        Me.btnEisStageFiAll = New System.Windows.Forms.Button()
+        Me.btnEisStageFiSelected = New System.Windows.Forms.Button()
+        Me.btnEisStageViewSubmitted = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Panel21 = New System.Windows.Forms.Panel()
+        Me.btnViewEISStats = New System.Windows.Forms.Button()
+        Me.Label74 = New System.Windows.Forms.Label()
+        Me.cboEISStatisticsYear = New System.Windows.Forms.ComboBox()
+        Me.TPAdmin = New System.Windows.Forms.TabPage()
+        Me.TCAdmin = New System.Windows.Forms.TabControl()
         Me.TPEISThresholds = New System.Windows.Forms.TabPage()
         Me.Panel23 = New System.Windows.Forms.Panel()
-        Me.dgvThresholdPollutants = New System.Windows.Forms.DataGridView()
+        Me.dgvThresholdPollutants = New Iaip.IaipDataGridView()
         Me.Panel24 = New System.Windows.Forms.Panel()
         Me.btnUpdatePollutant = New System.Windows.Forms.Button()
         Me.btnAddNewPollutant = New System.Windows.Forms.Button()
@@ -401,24 +418,13 @@ Partial Class EisTool
         Me.btnAddEISYear = New System.Windows.Forms.Button()
         Me.rdbEISThreeYear = New System.Windows.Forms.RadioButton()
         Me.rdbEISAnnual = New System.Windows.Forms.RadioButton()
-        Me.dgvEISYear = New System.Windows.Forms.DataGridView()
+        Me.dgvEISYear = New Iaip.IaipDataGridView()
         Me.Label292 = New System.Windows.Forms.Label()
         Me.TPOperStatus = New System.Windows.Forms.TabPage()
-        Me.dgvOperStatusMismatch = New System.Windows.Forms.DataGridView()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.dgvOperStatusMismatch = New Iaip.IaipDataGridView()
         Me.lblOperStatusCount = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.llbOperatingStatusMismatch = New System.Windows.Forms.LinkLabel()
-        Me.TPStageData = New System.Windows.Forms.TabPage()
-        Me.btnEisStagePseAll = New System.Windows.Forms.Button()
-        Me.btnEisStagePseSelected = New System.Windows.Forms.Button()
-        Me.btnEisStageFiAll = New System.Windows.Forms.Button()
-        Me.btnEisStageFiSelected = New System.Windows.Forms.Button()
-        Me.btnEisStageViewSubmitted = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Panel21 = New System.Windows.Forms.Panel()
-        Me.btnViewEISStats = New System.Windows.Forms.Button()
-        Me.Label74 = New System.Windows.Forms.Label()
-        Me.cboEISStatisticsYear = New System.Windows.Forms.ComboBox()
         Me.TPHistory = New System.Windows.Forms.TabPage()
         Me.dgvEIResults = New Iaip.IaipDataGridView()
         Me.lblHistoryCount = New System.Windows.Forms.Label()
@@ -450,7 +456,7 @@ Partial Class EisTool
         Me.Panel15.SuspendLayout()
         Me.Panel14.SuspendLayout()
         Me.Panel13.SuspendLayout()
-        Me.TPEisTools.SuspendLayout()
+        Me.TPInvYear.SuspendLayout()
         Me.Panel17.SuspendLayout()
         CType(Me.dgvEISStats, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel18.SuspendLayout()
@@ -460,6 +466,10 @@ Partial Class EisTool
         Me.Panel22.SuspendLayout()
         Me.TPEISStatMailout.SuspendLayout()
         Me.TPEISEnrollment.SuspendLayout()
+        Me.TPStageData.SuspendLayout()
+        Me.Panel21.SuspendLayout()
+        Me.TPAdmin.SuspendLayout()
+        Me.TCAdmin.SuspendLayout()
         Me.TPEISThresholds.SuspendLayout()
         Me.Panel23.SuspendLayout()
         CType(Me.dgvThresholdPollutants, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -470,8 +480,6 @@ Partial Class EisTool
         Me.TPOperStatus.SuspendLayout()
         CType(Me.dgvOperStatusMismatch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
-        Me.TPStageData.SuspendLayout()
-        Me.Panel21.SuspendLayout()
         Me.TPHistory.SuspendLayout()
         CType(Me.dgvEIResults, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
@@ -480,7 +488,8 @@ Partial Class EisTool
         'TCDMUTools
         '
         Me.TCDMUTools.Controls.Add(Me.TPEISLog)
-        Me.TCDMUTools.Controls.Add(Me.TPEisTools)
+        Me.TCDMUTools.Controls.Add(Me.TPInvYear)
+        Me.TCDMUTools.Controls.Add(Me.TPAdmin)
         Me.TCDMUTools.Controls.Add(Me.TPHistory)
         Me.TCDMUTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCDMUTools.Location = New System.Drawing.Point(0, 0)
@@ -2669,16 +2678,16 @@ Partial Class EisTool
         Me.Label47.TabIndex = 0
         Me.Label47.Text = "EIS Year"
         '
-        'TPEisTools
+        'TPInvYear
         '
-        Me.TPEisTools.Controls.Add(Me.Panel17)
-        Me.TPEisTools.Controls.Add(Me.Panel19)
-        Me.TPEisTools.Location = New System.Drawing.Point(4, 22)
-        Me.TPEisTools.Name = "TPEisTools"
-        Me.TPEisTools.Size = New System.Drawing.Size(1008, 687)
-        Me.TPEisTools.TabIndex = 14
-        Me.TPEisTools.Text = "Stats & Tools"
-        Me.TPEisTools.UseVisualStyleBackColor = True
+        Me.TPInvYear.Controls.Add(Me.Panel17)
+        Me.TPInvYear.Controls.Add(Me.Panel19)
+        Me.TPInvYear.Location = New System.Drawing.Point(4, 22)
+        Me.TPInvYear.Name = "TPInvYear"
+        Me.TPInvYear.Size = New System.Drawing.Size(1008, 687)
+        Me.TPInvYear.TabIndex = 14
+        Me.TPInvYear.Text = "Inventory Year"
+        Me.TPInvYear.UseVisualStyleBackColor = True
         '
         'Panel17
         '
@@ -2692,16 +2701,18 @@ Partial Class EisTool
         '
         'dgvEISStats
         '
-        Me.dgvEISStats.AllowUserToAddRows = False
-        Me.dgvEISStats.AllowUserToDeleteRows = False
-        Me.dgvEISStats.AllowUserToResizeRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEISStats.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvEISStats.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvEISStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEISStats.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvEISStats.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.dgvEISStats.LinkifyColumnByName = Nothing
         Me.dgvEISStats.Location = New System.Drawing.Point(0, 62)
         Me.dgvEISStats.Name = "dgvEISStats"
-        Me.dgvEISStats.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvEISStats.ResultsCountLabel = Nothing
+        Me.dgvEISStats.ResultsCountLabelFormat = "Count: {0}"
         Me.dgvEISStats.Size = New System.Drawing.Size(562, 625)
+        Me.dgvEISStats.StandardTab = True
         Me.dgvEISStats.TabIndex = 1
         '
         'Panel18
@@ -2722,9 +2733,10 @@ Partial Class EisTool
         '
         'lblEisStageSelectedCount
         '
+        Me.lblEisStageSelectedCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblEisStageSelectedCount.AutoSize = True
         Me.lblEisStageSelectedCount.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEisStageSelectedCount.Location = New System.Drawing.Point(415, 37)
+        Me.lblEisStageSelectedCount.Location = New System.Drawing.Point(481, 37)
         Me.lblEisStageSelectedCount.Name = "lblEisStageSelectedCount"
         Me.lblEisStageSelectedCount.Size = New System.Drawing.Size(61, 13)
         Me.lblEisStageSelectedCount.TabIndex = 7
@@ -2741,7 +2753,8 @@ Partial Class EisTool
         '
         'btnEisStageSelectNone
         '
-        Me.btnEisStageSelectNone.Location = New System.Drawing.Point(337, 32)
+        Me.btnEisStageSelectNone.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnEisStageSelectNone.Location = New System.Drawing.Point(403, 32)
         Me.btnEisStageSelectNone.Name = "btnEisStageSelectNone"
         Me.btnEisStageSelectNone.Size = New System.Drawing.Size(72, 23)
         Me.btnEisStageSelectNone.TabIndex = 2
@@ -2759,7 +2772,8 @@ Partial Class EisTool
         '
         'btnSelectHighlighted
         '
-        Me.btnSelectHighlighted.Location = New System.Drawing.Point(229, 32)
+        Me.btnSelectHighlighted.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSelectHighlighted.Location = New System.Drawing.Point(295, 32)
         Me.btnSelectHighlighted.Name = "btnSelectHighlighted"
         Me.btnSelectHighlighted.Size = New System.Drawing.Size(102, 23)
         Me.btnSelectHighlighted.TabIndex = 1
@@ -2768,7 +2782,8 @@ Partial Class EisTool
         '
         'btnEisStageSelectAll
         '
-        Me.btnEisStageSelectAll.Location = New System.Drawing.Point(151, 32)
+        Me.btnEisStageSelectAll.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnEisStageSelectAll.Location = New System.Drawing.Point(217, 32)
         Me.btnEisStageSelectAll.Name = "btnEisStageSelectAll"
         Me.btnEisStageSelectAll.Size = New System.Drawing.Size(72, 23)
         Me.btnEisStageSelectAll.TabIndex = 1
@@ -2811,8 +2826,6 @@ Partial Class EisTool
         Me.TCEISStats.Controls.Add(Me.TPEISStatSummary)
         Me.TCEISStats.Controls.Add(Me.TPEISStatMailout)
         Me.TCEISStats.Controls.Add(Me.TPEISEnrollment)
-        Me.TCEISStats.Controls.Add(Me.TPEISThresholds)
-        Me.TCEISStats.Controls.Add(Me.TPOperStatus)
         Me.TCEISStats.Controls.Add(Me.TPStageData)
         Me.TCEISStats.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCEISStats.Location = New System.Drawing.Point(0, 44)
@@ -3994,348 +4007,6 @@ Partial Class EisTool
         Me.btnEISStatsEnrollment.Text = "Enroll Selected Facilities"
         Me.btnEISStatsEnrollment.UseVisualStyleBackColor = True
         '
-        'TPEISThresholds
-        '
-        Me.TPEISThresholds.Controls.Add(Me.Panel23)
-        Me.TPEISThresholds.Controls.Add(Me.Panel25)
-        Me.TPEISThresholds.Controls.Add(Me.Panel26)
-        Me.TPEISThresholds.Location = New System.Drawing.Point(4, 22)
-        Me.TPEISThresholds.Name = "TPEISThresholds"
-        Me.TPEISThresholds.Size = New System.Drawing.Size(438, 617)
-        Me.TPEISThresholds.TabIndex = 6
-        Me.TPEISThresholds.Text = "EI Thresholds"
-        Me.TPEISThresholds.UseVisualStyleBackColor = True
-        '
-        'Panel23
-        '
-        Me.Panel23.Controls.Add(Me.dgvThresholdPollutants)
-        Me.Panel23.Controls.Add(Me.Panel24)
-        Me.Panel23.Controls.Add(Me.GroupBox3)
-        Me.Panel23.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel23.Location = New System.Drawing.Point(0, 252)
-        Me.Panel23.Name = "Panel23"
-        Me.Panel23.Size = New System.Drawing.Size(438, 365)
-        Me.Panel23.TabIndex = 36
-        '
-        'dgvThresholdPollutants
-        '
-        Me.dgvThresholdPollutants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvThresholdPollutants.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvThresholdPollutants.Location = New System.Drawing.Point(0, 117)
-        Me.dgvThresholdPollutants.Name = "dgvThresholdPollutants"
-        Me.dgvThresholdPollutants.Size = New System.Drawing.Size(438, 248)
-        Me.dgvThresholdPollutants.TabIndex = 33
-        '
-        'Panel24
-        '
-        Me.Panel24.Controls.Add(Me.btnUpdatePollutant)
-        Me.Panel24.Controls.Add(Me.btnAddNewPollutant)
-        Me.Panel24.Controls.Add(Me.txtNonAttainmentThreshold)
-        Me.Panel24.Controls.Add(Me.txtThreshold)
-        Me.Panel24.Controls.Add(Me.txtPollutant)
-        Me.Panel24.Controls.Add(Me.Label295)
-        Me.Panel24.Controls.Add(Me.Label294)
-        Me.Panel24.Controls.Add(Me.Label293)
-        Me.Panel24.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel24.Location = New System.Drawing.Point(0, 35)
-        Me.Panel24.Name = "Panel24"
-        Me.Panel24.Size = New System.Drawing.Size(438, 82)
-        Me.Panel24.TabIndex = 37
-        '
-        'btnUpdatePollutant
-        '
-        Me.btnUpdatePollutant.AutoSize = True
-        Me.btnUpdatePollutant.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUpdatePollutant.Location = New System.Drawing.Point(167, 54)
-        Me.btnUpdatePollutant.Name = "btnUpdatePollutant"
-        Me.btnUpdatePollutant.Size = New System.Drawing.Size(96, 23)
-        Me.btnUpdatePollutant.TabIndex = 7
-        Me.btnUpdatePollutant.Text = "Update Pollutant"
-        Me.btnUpdatePollutant.UseVisualStyleBackColor = True
-        '
-        'btnAddNewPollutant
-        '
-        Me.btnAddNewPollutant.AutoSize = True
-        Me.btnAddNewPollutant.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnAddNewPollutant.Location = New System.Drawing.Point(56, 54)
-        Me.btnAddNewPollutant.Name = "btnAddNewPollutant"
-        Me.btnAddNewPollutant.Size = New System.Drawing.Size(105, 23)
-        Me.btnAddNewPollutant.TabIndex = 6
-        Me.btnAddNewPollutant.Text = "Add New Pollutant"
-        Me.btnAddNewPollutant.UseVisualStyleBackColor = True
-        '
-        'txtNonAttainmentThreshold
-        '
-        Me.txtNonAttainmentThreshold.Location = New System.Drawing.Point(266, 28)
-        Me.txtNonAttainmentThreshold.Name = "txtNonAttainmentThreshold"
-        Me.txtNonAttainmentThreshold.Size = New System.Drawing.Size(100, 20)
-        Me.txtNonAttainmentThreshold.TabIndex = 5
-        '
-        'txtThreshold
-        '
-        Me.txtThreshold.Location = New System.Drawing.Point(56, 28)
-        Me.txtThreshold.Name = "txtThreshold"
-        Me.txtThreshold.Size = New System.Drawing.Size(100, 20)
-        Me.txtThreshold.TabIndex = 4
-        '
-        'txtPollutant
-        '
-        Me.txtPollutant.Location = New System.Drawing.Point(56, 5)
-        Me.txtPollutant.Name = "txtPollutant"
-        Me.txtPollutant.Size = New System.Drawing.Size(100, 20)
-        Me.txtPollutant.TabIndex = 3
-        '
-        'Label295
-        '
-        Me.Label295.AutoSize = True
-        Me.Label295.Location = New System.Drawing.Point(180, 32)
-        Me.Label295.Name = "Label295"
-        Me.Label295.Size = New System.Drawing.Size(80, 13)
-        Me.Label295.TabIndex = 2
-        Me.Label295.Text = "Non-Attainment"
-        '
-        'Label294
-        '
-        Me.Label294.AutoSize = True
-        Me.Label294.Location = New System.Drawing.Point(1, 32)
-        Me.Label294.Name = "Label294"
-        Me.Label294.Size = New System.Drawing.Size(54, 13)
-        Me.Label294.TabIndex = 1
-        Me.Label294.Text = "Threshold"
-        '
-        'Label293
-        '
-        Me.Label293.AutoSize = True
-        Me.Label293.Location = New System.Drawing.Point(4, 12)
-        Me.Label293.Name = "Label293"
-        Me.Label293.Size = New System.Drawing.Size(48, 13)
-        Me.Label293.TabIndex = 0
-        Me.Label293.Text = "Pollutant"
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.GroupBox3.Controls.Add(Me.rdbThreeYearPollutants)
-        Me.GroupBox3.Controls.Add(Me.llbViewThresholdPollutants)
-        Me.GroupBox3.Controls.Add(Me.rdbAnnualPollutants)
-        Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox3.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(438, 35)
-        Me.GroupBox3.TabIndex = 35
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Threshold Pollutants"
-        '
-        'rdbThreeYearPollutants
-        '
-        Me.rdbThreeYearPollutants.AutoSize = True
-        Me.rdbThreeYearPollutants.Location = New System.Drawing.Point(71, 15)
-        Me.rdbThreeYearPollutants.Name = "rdbThreeYearPollutants"
-        Me.rdbThreeYearPollutants.Size = New System.Drawing.Size(56, 17)
-        Me.rdbThreeYearPollutants.TabIndex = 1
-        Me.rdbThreeYearPollutants.TabStop = True
-        Me.rdbThreeYearPollutants.Text = "3 Year"
-        Me.rdbThreeYearPollutants.UseVisualStyleBackColor = True
-        '
-        'llbViewThresholdPollutants
-        '
-        Me.llbViewThresholdPollutants.AutoSize = True
-        Me.llbViewThresholdPollutants.Location = New System.Drawing.Point(145, 15)
-        Me.llbViewThresholdPollutants.Name = "llbViewThresholdPollutants"
-        Me.llbViewThresholdPollutants.Size = New System.Drawing.Size(79, 13)
-        Me.llbViewThresholdPollutants.TabIndex = 34
-        Me.llbViewThresholdPollutants.TabStop = True
-        Me.llbViewThresholdPollutants.Text = "View Pollutants"
-        '
-        'rdbAnnualPollutants
-        '
-        Me.rdbAnnualPollutants.AutoSize = True
-        Me.rdbAnnualPollutants.Location = New System.Drawing.Point(7, 15)
-        Me.rdbAnnualPollutants.Name = "rdbAnnualPollutants"
-        Me.rdbAnnualPollutants.Size = New System.Drawing.Size(58, 17)
-        Me.rdbAnnualPollutants.TabIndex = 0
-        Me.rdbAnnualPollutants.TabStop = True
-        Me.rdbAnnualPollutants.Text = "Annual"
-        Me.rdbAnnualPollutants.UseVisualStyleBackColor = True
-        '
-        'Panel25
-        '
-        Me.Panel25.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel25.Location = New System.Drawing.Point(0, 211)
-        Me.Panel25.Name = "Panel25"
-        Me.Panel25.Size = New System.Drawing.Size(438, 41)
-        Me.Panel25.TabIndex = 37
-        '
-        'Panel26
-        '
-        Me.Panel26.Controls.Add(Me.mtbThresholdYear)
-        Me.Panel26.Controls.Add(Me.llbClearEISYear)
-        Me.Panel26.Controls.Add(Me.Label272)
-        Me.Panel26.Controls.Add(Me.dtpEISDeadline)
-        Me.Panel26.Controls.Add(Me.btnUpdateEISYear)
-        Me.Panel26.Controls.Add(Me.btnAddEISYear)
-        Me.Panel26.Controls.Add(Me.rdbEISThreeYear)
-        Me.Panel26.Controls.Add(Me.rdbEISAnnual)
-        Me.Panel26.Controls.Add(Me.dgvEISYear)
-        Me.Panel26.Controls.Add(Me.Label292)
-        Me.Panel26.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel26.Location = New System.Drawing.Point(0, 0)
-        Me.Panel26.Name = "Panel26"
-        Me.Panel26.Size = New System.Drawing.Size(438, 211)
-        Me.Panel26.TabIndex = 38
-        '
-        'mtbThresholdYear
-        '
-        Me.mtbThresholdYear.Location = New System.Drawing.Point(71, 7)
-        Me.mtbThresholdYear.Mask = "0000"
-        Me.mtbThresholdYear.Name = "mtbThresholdYear"
-        Me.mtbThresholdYear.Size = New System.Drawing.Size(40, 20)
-        Me.mtbThresholdYear.TabIndex = 506
-        '
-        'llbClearEISYear
-        '
-        Me.llbClearEISYear.AutoSize = True
-        Me.llbClearEISYear.Location = New System.Drawing.Point(316, 7)
-        Me.llbClearEISYear.Name = "llbClearEISYear"
-        Me.llbClearEISYear.Size = New System.Drawing.Size(31, 13)
-        Me.llbClearEISYear.TabIndex = 505
-        Me.llbClearEISYear.TabStop = True
-        Me.llbClearEISYear.Text = "Clear"
-        '
-        'Label272
-        '
-        Me.Label272.AutoSize = True
-        Me.Label272.Location = New System.Drawing.Point(16, 36)
-        Me.Label272.Name = "Label272"
-        Me.Label272.Size = New System.Drawing.Size(49, 13)
-        Me.Label272.TabIndex = 504
-        Me.Label272.Text = "Deadline"
-        '
-        'dtpEISDeadline
-        '
-        Me.dtpEISDeadline.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpEISDeadline.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEISDeadline.Location = New System.Drawing.Point(71, 32)
-        Me.dtpEISDeadline.Name = "dtpEISDeadline"
-        Me.dtpEISDeadline.Size = New System.Drawing.Size(86, 20)
-        Me.dtpEISDeadline.TabIndex = 503
-        '
-        'btnUpdateEISYear
-        '
-        Me.btnUpdateEISYear.AutoSize = True
-        Me.btnUpdateEISYear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUpdateEISYear.Location = New System.Drawing.Point(190, 60)
-        Me.btnUpdateEISYear.Name = "btnUpdateEISYear"
-        Me.btnUpdateEISYear.Size = New System.Drawing.Size(97, 23)
-        Me.btnUpdateEISYear.TabIndex = 39
-        Me.btnUpdateEISYear.Text = "Update EIS Year"
-        Me.btnUpdateEISYear.UseVisualStyleBackColor = True
-        '
-        'btnAddEISYear
-        '
-        Me.btnAddEISYear.AutoSize = True
-        Me.btnAddEISYear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnAddEISYear.Location = New System.Drawing.Point(79, 60)
-        Me.btnAddEISYear.Name = "btnAddEISYear"
-        Me.btnAddEISYear.Size = New System.Drawing.Size(81, 23)
-        Me.btnAddEISYear.TabIndex = 38
-        Me.btnAddEISYear.Text = "Add EIS Year"
-        Me.btnAddEISYear.UseVisualStyleBackColor = True
-        '
-        'rdbEISThreeYear
-        '
-        Me.rdbEISThreeYear.AutoSize = True
-        Me.rdbEISThreeYear.Location = New System.Drawing.Point(247, 7)
-        Me.rdbEISThreeYear.Name = "rdbEISThreeYear"
-        Me.rdbEISThreeYear.Size = New System.Drawing.Size(56, 17)
-        Me.rdbEISThreeYear.TabIndex = 35
-        Me.rdbEISThreeYear.TabStop = True
-        Me.rdbEISThreeYear.Text = "3 Year"
-        Me.rdbEISThreeYear.UseVisualStyleBackColor = True
-        '
-        'rdbEISAnnual
-        '
-        Me.rdbEISAnnual.AutoSize = True
-        Me.rdbEISAnnual.Location = New System.Drawing.Point(183, 7)
-        Me.rdbEISAnnual.Name = "rdbEISAnnual"
-        Me.rdbEISAnnual.Size = New System.Drawing.Size(58, 17)
-        Me.rdbEISAnnual.TabIndex = 34
-        Me.rdbEISAnnual.TabStop = True
-        Me.rdbEISAnnual.Text = "Annual"
-        Me.rdbEISAnnual.UseVisualStyleBackColor = True
-        '
-        'dgvEISYear
-        '
-        Me.dgvEISYear.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvEISYear.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.dgvEISYear.Location = New System.Drawing.Point(0, 89)
-        Me.dgvEISYear.Name = "dgvEISYear"
-        Me.dgvEISYear.Size = New System.Drawing.Size(438, 122)
-        Me.dgvEISYear.TabIndex = 33
-        '
-        'Label292
-        '
-        Me.Label292.AutoSize = True
-        Me.Label292.Location = New System.Drawing.Point(14, 9)
-        Me.Label292.Name = "Label292"
-        Me.Label292.Size = New System.Drawing.Size(49, 13)
-        Me.Label292.TabIndex = 32
-        Me.Label292.Text = "EIS Year"
-        '
-        'TPOperStatus
-        '
-        Me.TPOperStatus.Controls.Add(Me.dgvOperStatusMismatch)
-        Me.TPOperStatus.Controls.Add(Me.Panel1)
-        Me.TPOperStatus.Location = New System.Drawing.Point(4, 22)
-        Me.TPOperStatus.Name = "TPOperStatus"
-        Me.TPOperStatus.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPOperStatus.Size = New System.Drawing.Size(438, 617)
-        Me.TPOperStatus.TabIndex = 7
-        Me.TPOperStatus.Text = "Operating Status"
-        Me.TPOperStatus.UseVisualStyleBackColor = True
-        '
-        'dgvOperStatusMismatch
-        '
-        Me.dgvOperStatusMismatch.AllowUserToAddRows = False
-        Me.dgvOperStatusMismatch.AllowUserToDeleteRows = False
-        Me.dgvOperStatusMismatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvOperStatusMismatch.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvOperStatusMismatch.Location = New System.Drawing.Point(3, 44)
-        Me.dgvOperStatusMismatch.Name = "dgvOperStatusMismatch"
-        Me.dgvOperStatusMismatch.ReadOnly = True
-        Me.dgvOperStatusMismatch.RowHeadersVisible = False
-        Me.dgvOperStatusMismatch.Size = New System.Drawing.Size(432, 570)
-        Me.dgvOperStatusMismatch.TabIndex = 113
-        '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.lblOperStatusCount)
-        Me.Panel1.Controls.Add(Me.llbOperatingStatusMismatch)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel1.Location = New System.Drawing.Point(3, 3)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(432, 41)
-        Me.Panel1.TabIndex = 115
-        '
-        'lblOperStatusCount
-        '
-        Me.lblOperStatusCount.Location = New System.Drawing.Point(329, 13)
-        Me.lblOperStatusCount.Name = "lblOperStatusCount"
-        Me.lblOperStatusCount.Size = New System.Drawing.Size(100, 13)
-        Me.lblOperStatusCount.TabIndex = 114
-        Me.lblOperStatusCount.Text = "0"
-        Me.lblOperStatusCount.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'llbOperatingStatusMismatch
-        '
-        Me.llbOperatingStatusMismatch.AutoSize = True
-        Me.llbOperatingStatusMismatch.Location = New System.Drawing.Point(2, 13)
-        Me.llbOperatingStatusMismatch.Name = "llbOperatingStatusMismatch"
-        Me.llbOperatingStatusMismatch.Size = New System.Drawing.Size(229, 13)
-        Me.llbOperatingStatusMismatch.TabIndex = 112
-        Me.llbOperatingStatusMismatch.TabStop = True
-        Me.llbOperatingStatusMismatch.Text = "View sources with mismatched operating status"
-        '
         'TPStageData
         '
         Me.TPStageData.Controls.Add(Me.btnEisStagePseAll)
@@ -4447,6 +4118,386 @@ Partial Class EisTool
         Me.cboEISStatisticsYear.Size = New System.Drawing.Size(97, 21)
         Me.cboEISStatisticsYear.TabIndex = 8
         '
+        'TPAdmin
+        '
+        Me.TPAdmin.Controls.Add(Me.TCAdmin)
+        Me.TPAdmin.Location = New System.Drawing.Point(4, 22)
+        Me.TPAdmin.Name = "TPAdmin"
+        Me.TPAdmin.Size = New System.Drawing.Size(1008, 687)
+        Me.TPAdmin.TabIndex = 16
+        Me.TPAdmin.Text = "Admin Tools"
+        Me.TPAdmin.UseVisualStyleBackColor = True
+        '
+        'TCAdmin
+        '
+        Me.TCAdmin.Controls.Add(Me.TPEISThresholds)
+        Me.TCAdmin.Controls.Add(Me.TPOperStatus)
+        Me.TCAdmin.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TCAdmin.Location = New System.Drawing.Point(0, 0)
+        Me.TCAdmin.Name = "TCAdmin"
+        Me.TCAdmin.SelectedIndex = 0
+        Me.TCAdmin.Size = New System.Drawing.Size(1008, 687)
+        Me.TCAdmin.TabIndex = 0
+        '
+        'TPEISThresholds
+        '
+        Me.TPEISThresholds.Controls.Add(Me.Panel23)
+        Me.TPEISThresholds.Controls.Add(Me.Panel25)
+        Me.TPEISThresholds.Controls.Add(Me.Panel26)
+        Me.TPEISThresholds.Location = New System.Drawing.Point(4, 22)
+        Me.TPEISThresholds.Name = "TPEISThresholds"
+        Me.TPEISThresholds.Size = New System.Drawing.Size(1000, 661)
+        Me.TPEISThresholds.TabIndex = 6
+        Me.TPEISThresholds.Text = "EI Thresholds"
+        Me.TPEISThresholds.UseVisualStyleBackColor = True
+        '
+        'Panel23
+        '
+        Me.Panel23.Controls.Add(Me.dgvThresholdPollutants)
+        Me.Panel23.Controls.Add(Me.Panel24)
+        Me.Panel23.Controls.Add(Me.GroupBox3)
+        Me.Panel23.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel23.Location = New System.Drawing.Point(0, 252)
+        Me.Panel23.Name = "Panel23"
+        Me.Panel23.Size = New System.Drawing.Size(1000, 409)
+        Me.Panel23.TabIndex = 36
+        '
+        'dgvThresholdPollutants
+        '
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvThresholdPollutants.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvThresholdPollutants.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvThresholdPollutants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvThresholdPollutants.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvThresholdPollutants.LinkifyColumnByName = Nothing
+        Me.dgvThresholdPollutants.Location = New System.Drawing.Point(0, 117)
+        Me.dgvThresholdPollutants.Name = "dgvThresholdPollutants"
+        Me.dgvThresholdPollutants.ResultsCountLabel = Nothing
+        Me.dgvThresholdPollutants.ResultsCountLabelFormat = "{0} found"
+        Me.dgvThresholdPollutants.Size = New System.Drawing.Size(1000, 292)
+        Me.dgvThresholdPollutants.StandardTab = True
+        Me.dgvThresholdPollutants.TabIndex = 33
+        '
+        'Panel24
+        '
+        Me.Panel24.Controls.Add(Me.btnUpdatePollutant)
+        Me.Panel24.Controls.Add(Me.btnAddNewPollutant)
+        Me.Panel24.Controls.Add(Me.txtNonAttainmentThreshold)
+        Me.Panel24.Controls.Add(Me.txtThreshold)
+        Me.Panel24.Controls.Add(Me.txtPollutant)
+        Me.Panel24.Controls.Add(Me.Label295)
+        Me.Panel24.Controls.Add(Me.Label294)
+        Me.Panel24.Controls.Add(Me.Label293)
+        Me.Panel24.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel24.Location = New System.Drawing.Point(0, 35)
+        Me.Panel24.Name = "Panel24"
+        Me.Panel24.Size = New System.Drawing.Size(1000, 82)
+        Me.Panel24.TabIndex = 37
+        '
+        'btnUpdatePollutant
+        '
+        Me.btnUpdatePollutant.AutoSize = True
+        Me.btnUpdatePollutant.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnUpdatePollutant.Location = New System.Drawing.Point(167, 54)
+        Me.btnUpdatePollutant.Name = "btnUpdatePollutant"
+        Me.btnUpdatePollutant.Size = New System.Drawing.Size(96, 23)
+        Me.btnUpdatePollutant.TabIndex = 7
+        Me.btnUpdatePollutant.Text = "Update Pollutant"
+        Me.btnUpdatePollutant.UseVisualStyleBackColor = True
+        '
+        'btnAddNewPollutant
+        '
+        Me.btnAddNewPollutant.AutoSize = True
+        Me.btnAddNewPollutant.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnAddNewPollutant.Location = New System.Drawing.Point(56, 54)
+        Me.btnAddNewPollutant.Name = "btnAddNewPollutant"
+        Me.btnAddNewPollutant.Size = New System.Drawing.Size(105, 23)
+        Me.btnAddNewPollutant.TabIndex = 6
+        Me.btnAddNewPollutant.Text = "Add New Pollutant"
+        Me.btnAddNewPollutant.UseVisualStyleBackColor = True
+        '
+        'txtNonAttainmentThreshold
+        '
+        Me.txtNonAttainmentThreshold.Location = New System.Drawing.Point(266, 28)
+        Me.txtNonAttainmentThreshold.Name = "txtNonAttainmentThreshold"
+        Me.txtNonAttainmentThreshold.Size = New System.Drawing.Size(100, 20)
+        Me.txtNonAttainmentThreshold.TabIndex = 5
+        '
+        'txtThreshold
+        '
+        Me.txtThreshold.Location = New System.Drawing.Point(56, 28)
+        Me.txtThreshold.Name = "txtThreshold"
+        Me.txtThreshold.Size = New System.Drawing.Size(100, 20)
+        Me.txtThreshold.TabIndex = 4
+        '
+        'txtPollutant
+        '
+        Me.txtPollutant.Location = New System.Drawing.Point(56, 5)
+        Me.txtPollutant.Name = "txtPollutant"
+        Me.txtPollutant.Size = New System.Drawing.Size(100, 20)
+        Me.txtPollutant.TabIndex = 3
+        '
+        'Label295
+        '
+        Me.Label295.AutoSize = True
+        Me.Label295.Location = New System.Drawing.Point(180, 32)
+        Me.Label295.Name = "Label295"
+        Me.Label295.Size = New System.Drawing.Size(80, 13)
+        Me.Label295.TabIndex = 2
+        Me.Label295.Text = "Non-Attainment"
+        '
+        'Label294
+        '
+        Me.Label294.AutoSize = True
+        Me.Label294.Location = New System.Drawing.Point(1, 32)
+        Me.Label294.Name = "Label294"
+        Me.Label294.Size = New System.Drawing.Size(54, 13)
+        Me.Label294.TabIndex = 1
+        Me.Label294.Text = "Threshold"
+        '
+        'Label293
+        '
+        Me.Label293.AutoSize = True
+        Me.Label293.Location = New System.Drawing.Point(4, 12)
+        Me.Label293.Name = "Label293"
+        Me.Label293.Size = New System.Drawing.Size(48, 13)
+        Me.Label293.TabIndex = 0
+        Me.Label293.Text = "Pollutant"
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.GroupBox3.Controls.Add(Me.rdbThreeYearPollutants)
+        Me.GroupBox3.Controls.Add(Me.llbViewThresholdPollutants)
+        Me.GroupBox3.Controls.Add(Me.rdbAnnualPollutants)
+        Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.GroupBox3.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(1000, 35)
+        Me.GroupBox3.TabIndex = 35
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Threshold Pollutants"
+        '
+        'rdbThreeYearPollutants
+        '
+        Me.rdbThreeYearPollutants.AutoSize = True
+        Me.rdbThreeYearPollutants.Location = New System.Drawing.Point(71, 15)
+        Me.rdbThreeYearPollutants.Name = "rdbThreeYearPollutants"
+        Me.rdbThreeYearPollutants.Size = New System.Drawing.Size(56, 17)
+        Me.rdbThreeYearPollutants.TabIndex = 1
+        Me.rdbThreeYearPollutants.TabStop = True
+        Me.rdbThreeYearPollutants.Text = "3 Year"
+        Me.rdbThreeYearPollutants.UseVisualStyleBackColor = True
+        '
+        'llbViewThresholdPollutants
+        '
+        Me.llbViewThresholdPollutants.AutoSize = True
+        Me.llbViewThresholdPollutants.Location = New System.Drawing.Point(145, 15)
+        Me.llbViewThresholdPollutants.Name = "llbViewThresholdPollutants"
+        Me.llbViewThresholdPollutants.Size = New System.Drawing.Size(79, 13)
+        Me.llbViewThresholdPollutants.TabIndex = 34
+        Me.llbViewThresholdPollutants.TabStop = True
+        Me.llbViewThresholdPollutants.Text = "View Pollutants"
+        '
+        'rdbAnnualPollutants
+        '
+        Me.rdbAnnualPollutants.AutoSize = True
+        Me.rdbAnnualPollutants.Location = New System.Drawing.Point(7, 15)
+        Me.rdbAnnualPollutants.Name = "rdbAnnualPollutants"
+        Me.rdbAnnualPollutants.Size = New System.Drawing.Size(58, 17)
+        Me.rdbAnnualPollutants.TabIndex = 0
+        Me.rdbAnnualPollutants.TabStop = True
+        Me.rdbAnnualPollutants.Text = "Annual"
+        Me.rdbAnnualPollutants.UseVisualStyleBackColor = True
+        '
+        'Panel25
+        '
+        Me.Panel25.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel25.Location = New System.Drawing.Point(0, 211)
+        Me.Panel25.Name = "Panel25"
+        Me.Panel25.Size = New System.Drawing.Size(1000, 41)
+        Me.Panel25.TabIndex = 37
+        '
+        'Panel26
+        '
+        Me.Panel26.Controls.Add(Me.mtbThresholdYear)
+        Me.Panel26.Controls.Add(Me.llbClearEISYear)
+        Me.Panel26.Controls.Add(Me.Label272)
+        Me.Panel26.Controls.Add(Me.dtpEISDeadline)
+        Me.Panel26.Controls.Add(Me.btnUpdateEISYear)
+        Me.Panel26.Controls.Add(Me.btnAddEISYear)
+        Me.Panel26.Controls.Add(Me.rdbEISThreeYear)
+        Me.Panel26.Controls.Add(Me.rdbEISAnnual)
+        Me.Panel26.Controls.Add(Me.dgvEISYear)
+        Me.Panel26.Controls.Add(Me.Label292)
+        Me.Panel26.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel26.Location = New System.Drawing.Point(0, 0)
+        Me.Panel26.Name = "Panel26"
+        Me.Panel26.Size = New System.Drawing.Size(1000, 211)
+        Me.Panel26.TabIndex = 38
+        '
+        'mtbThresholdYear
+        '
+        Me.mtbThresholdYear.Location = New System.Drawing.Point(71, 7)
+        Me.mtbThresholdYear.Mask = "0000"
+        Me.mtbThresholdYear.Name = "mtbThresholdYear"
+        Me.mtbThresholdYear.Size = New System.Drawing.Size(40, 20)
+        Me.mtbThresholdYear.TabIndex = 506
+        '
+        'llbClearEISYear
+        '
+        Me.llbClearEISYear.AutoSize = True
+        Me.llbClearEISYear.Location = New System.Drawing.Point(316, 7)
+        Me.llbClearEISYear.Name = "llbClearEISYear"
+        Me.llbClearEISYear.Size = New System.Drawing.Size(31, 13)
+        Me.llbClearEISYear.TabIndex = 505
+        Me.llbClearEISYear.TabStop = True
+        Me.llbClearEISYear.Text = "Clear"
+        '
+        'Label272
+        '
+        Me.Label272.AutoSize = True
+        Me.Label272.Location = New System.Drawing.Point(16, 36)
+        Me.Label272.Name = "Label272"
+        Me.Label272.Size = New System.Drawing.Size(49, 13)
+        Me.Label272.TabIndex = 504
+        Me.Label272.Text = "Deadline"
+        '
+        'dtpEISDeadline
+        '
+        Me.dtpEISDeadline.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpEISDeadline.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpEISDeadline.Location = New System.Drawing.Point(71, 32)
+        Me.dtpEISDeadline.Name = "dtpEISDeadline"
+        Me.dtpEISDeadline.Size = New System.Drawing.Size(86, 20)
+        Me.dtpEISDeadline.TabIndex = 503
+        '
+        'btnUpdateEISYear
+        '
+        Me.btnUpdateEISYear.AutoSize = True
+        Me.btnUpdateEISYear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnUpdateEISYear.Location = New System.Drawing.Point(190, 60)
+        Me.btnUpdateEISYear.Name = "btnUpdateEISYear"
+        Me.btnUpdateEISYear.Size = New System.Drawing.Size(97, 23)
+        Me.btnUpdateEISYear.TabIndex = 39
+        Me.btnUpdateEISYear.Text = "Update EIS Year"
+        Me.btnUpdateEISYear.UseVisualStyleBackColor = True
+        '
+        'btnAddEISYear
+        '
+        Me.btnAddEISYear.AutoSize = True
+        Me.btnAddEISYear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnAddEISYear.Location = New System.Drawing.Point(79, 60)
+        Me.btnAddEISYear.Name = "btnAddEISYear"
+        Me.btnAddEISYear.Size = New System.Drawing.Size(81, 23)
+        Me.btnAddEISYear.TabIndex = 38
+        Me.btnAddEISYear.Text = "Add EIS Year"
+        Me.btnAddEISYear.UseVisualStyleBackColor = True
+        '
+        'rdbEISThreeYear
+        '
+        Me.rdbEISThreeYear.AutoSize = True
+        Me.rdbEISThreeYear.Location = New System.Drawing.Point(247, 7)
+        Me.rdbEISThreeYear.Name = "rdbEISThreeYear"
+        Me.rdbEISThreeYear.Size = New System.Drawing.Size(56, 17)
+        Me.rdbEISThreeYear.TabIndex = 35
+        Me.rdbEISThreeYear.TabStop = True
+        Me.rdbEISThreeYear.Text = "3 Year"
+        Me.rdbEISThreeYear.UseVisualStyleBackColor = True
+        '
+        'rdbEISAnnual
+        '
+        Me.rdbEISAnnual.AutoSize = True
+        Me.rdbEISAnnual.Location = New System.Drawing.Point(183, 7)
+        Me.rdbEISAnnual.Name = "rdbEISAnnual"
+        Me.rdbEISAnnual.Size = New System.Drawing.Size(58, 17)
+        Me.rdbEISAnnual.TabIndex = 34
+        Me.rdbEISAnnual.TabStop = True
+        Me.rdbEISAnnual.Text = "Annual"
+        Me.rdbEISAnnual.UseVisualStyleBackColor = True
+        '
+        'dgvEISYear
+        '
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEISYear.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvEISYear.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvEISYear.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvEISYear.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.dgvEISYear.LinkifyColumnByName = Nothing
+        Me.dgvEISYear.Location = New System.Drawing.Point(0, 89)
+        Me.dgvEISYear.Name = "dgvEISYear"
+        Me.dgvEISYear.ResultsCountLabel = Nothing
+        Me.dgvEISYear.ResultsCountLabelFormat = "{0} found"
+        Me.dgvEISYear.Size = New System.Drawing.Size(1000, 122)
+        Me.dgvEISYear.StandardTab = True
+        Me.dgvEISYear.TabIndex = 33
+        '
+        'Label292
+        '
+        Me.Label292.AutoSize = True
+        Me.Label292.Location = New System.Drawing.Point(14, 9)
+        Me.Label292.Name = "Label292"
+        Me.Label292.Size = New System.Drawing.Size(49, 13)
+        Me.Label292.TabIndex = 32
+        Me.Label292.Text = "EIS Year"
+        '
+        'TPOperStatus
+        '
+        Me.TPOperStatus.Controls.Add(Me.dgvOperStatusMismatch)
+        Me.TPOperStatus.Controls.Add(Me.Panel1)
+        Me.TPOperStatus.Location = New System.Drawing.Point(4, 22)
+        Me.TPOperStatus.Name = "TPOperStatus"
+        Me.TPOperStatus.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPOperStatus.Size = New System.Drawing.Size(1000, 661)
+        Me.TPOperStatus.TabIndex = 7
+        Me.TPOperStatus.Text = "Operating Status"
+        Me.TPOperStatus.UseVisualStyleBackColor = True
+        '
+        'dgvOperStatusMismatch
+        '
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvOperStatusMismatch.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        Me.dgvOperStatusMismatch.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvOperStatusMismatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvOperStatusMismatch.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvOperStatusMismatch.LinkifyColumnByName = Nothing
+        Me.dgvOperStatusMismatch.Location = New System.Drawing.Point(3, 44)
+        Me.dgvOperStatusMismatch.Name = "dgvOperStatusMismatch"
+        Me.dgvOperStatusMismatch.ResultsCountLabel = Me.lblOperStatusCount
+        Me.dgvOperStatusMismatch.ResultsCountLabelFormat = "{0} found"
+        Me.dgvOperStatusMismatch.Size = New System.Drawing.Size(994, 614)
+        Me.dgvOperStatusMismatch.StandardTab = True
+        Me.dgvOperStatusMismatch.TabIndex = 113
+        '
+        'lblOperStatusCount
+        '
+        Me.lblOperStatusCount.Location = New System.Drawing.Point(329, 13)
+        Me.lblOperStatusCount.Name = "lblOperStatusCount"
+        Me.lblOperStatusCount.Size = New System.Drawing.Size(100, 13)
+        Me.lblOperStatusCount.TabIndex = 114
+        Me.lblOperStatusCount.Text = "0"
+        Me.lblOperStatusCount.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.lblOperStatusCount)
+        Me.Panel1.Controls.Add(Me.llbOperatingStatusMismatch)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(3, 3)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(994, 41)
+        Me.Panel1.TabIndex = 115
+        '
+        'llbOperatingStatusMismatch
+        '
+        Me.llbOperatingStatusMismatch.AutoSize = True
+        Me.llbOperatingStatusMismatch.Location = New System.Drawing.Point(2, 13)
+        Me.llbOperatingStatusMismatch.Name = "llbOperatingStatusMismatch"
+        Me.llbOperatingStatusMismatch.Size = New System.Drawing.Size(229, 13)
+        Me.llbOperatingStatusMismatch.TabIndex = 112
+        Me.llbOperatingStatusMismatch.TabStop = True
+        Me.llbOperatingStatusMismatch.Text = "View sources with mismatched operating status"
+        '
         'TPHistory
         '
         Me.TPHistory.Controls.Add(Me.dgvEIResults)
@@ -4461,8 +4512,8 @@ Partial Class EisTool
         '
         'dgvEIResults
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvEIResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEIResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
         Me.dgvEIResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvEIResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEIResults.DecimalFieldFormat = "N3"
@@ -4613,7 +4664,7 @@ Partial Class EisTool
         Me.Panel14.PerformLayout()
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
-        Me.TPEisTools.ResumeLayout(False)
+        Me.TPInvYear.ResumeLayout(False)
         Me.Panel17.ResumeLayout(False)
         CType(Me.dgvEISStats, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel18.ResumeLayout(False)
@@ -4627,6 +4678,12 @@ Partial Class EisTool
         Me.TPEISStatMailout.PerformLayout()
         Me.TPEISEnrollment.ResumeLayout(False)
         Me.TPEISEnrollment.PerformLayout()
+        Me.TPStageData.ResumeLayout(False)
+        Me.TPStageData.PerformLayout()
+        Me.Panel21.ResumeLayout(False)
+        Me.Panel21.PerformLayout()
+        Me.TPAdmin.ResumeLayout(False)
+        Me.TCAdmin.ResumeLayout(False)
         Me.TPEISThresholds.ResumeLayout(False)
         Me.Panel23.ResumeLayout(False)
         CType(Me.dgvThresholdPollutants, System.ComponentModel.ISupportInitialize).EndInit()
@@ -4641,10 +4698,6 @@ Partial Class EisTool
         CType(Me.dgvOperStatusMismatch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        Me.TPStageData.ResumeLayout(False)
-        Me.TPStageData.PerformLayout()
-        Me.Panel21.ResumeLayout(False)
-        Me.Panel21.PerformLayout()
         Me.TPHistory.ResumeLayout(False)
         CType(Me.dgvEIResults, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
@@ -4814,9 +4867,9 @@ Partial Class EisTool
     Friend WithEvents Label240 As System.Windows.Forms.Label
     Friend WithEvents btnEIModifyCopy As System.Windows.Forms.Button
     Friend WithEvents btnEILogUpdate As System.Windows.Forms.Button
-    Friend WithEvents TPEisTools As System.Windows.Forms.TabPage
+    Friend WithEvents TPInvYear As System.Windows.Forms.TabPage
     Friend WithEvents Panel17 As System.Windows.Forms.Panel
-    Friend WithEvents dgvEISStats As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvEISStats As IaipDataGridView
     Friend WithEvents Panel18 As System.Windows.Forms.Panel
     Friend WithEvents TCEISStats As System.Windows.Forms.TabControl
     Friend WithEvents TPEISStatSummary As System.Windows.Forms.TabPage
@@ -4945,7 +4998,7 @@ Partial Class EisTool
     Friend WithEvents btnEISComplete As System.Windows.Forms.Button
     Friend WithEvents HRule2 As System.Windows.Forms.Label
     Friend WithEvents Label292 As System.Windows.Forms.Label
-    Friend WithEvents dgvThresholdPollutants As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvThresholdPollutants As IaipDataGridView
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents rdbThreeYearPollutants As System.Windows.Forms.RadioButton
     Friend WithEvents llbViewThresholdPollutants As System.Windows.Forms.LinkLabel
@@ -4962,7 +5015,7 @@ Partial Class EisTool
     Friend WithEvents txtPollutant As System.Windows.Forms.TextBox
     Friend WithEvents Panel26 As System.Windows.Forms.Panel
     Friend WithEvents Panel25 As System.Windows.Forms.Panel
-    Friend WithEvents dgvEISYear As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvEISYear As IaipDataGridView
     Friend WithEvents rdbEISThreeYear As System.Windows.Forms.RadioButton
     Friend WithEvents rdbEISAnnual As System.Windows.Forms.RadioButton
     Friend WithEvents btnUpdateEISYear As System.Windows.Forms.Button
@@ -5021,7 +5074,7 @@ Partial Class EisTool
     Friend WithEvents txtEIModifyLocation As System.Windows.Forms.TextBox
     Friend WithEvents Label62 As System.Windows.Forms.Label
     Friend WithEvents TPOperStatus As TabPage
-    Friend WithEvents dgvOperStatusMismatch As DataGridView
+    Friend WithEvents dgvOperStatusMismatch As IaipDataGridView
     Friend WithEvents llbOperatingStatusMismatch As LinkLabel
     Friend WithEvents lblOperStatusCount As Label
     Friend WithEvents Panel1 As Panel
@@ -5060,4 +5113,6 @@ Partial Class EisTool
     Friend WithEvents Label8 As Label
     Friend WithEvents cboEIYear As ComboBox
     Friend WithEvents Label3 As Label
+    Friend WithEvents TPAdmin As TabPage
+    Friend WithEvents TCAdmin As TabControl
 End Class
