@@ -924,7 +924,7 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.Finance, "Financial Management Unit", "Application Fees")
         AddNavButtonCategory(NavButtonCategories.DMU, "Data Management Unit")
         AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program", "Events")
-        AddNavButtonCategory(NavButtonCategories.EIS, "Emission Inventory System")
+        AddNavButtonCategory(NavButtonCategories.EIS, "Emission Inventory System", "EI/ES")
         AddNavButtonCategory(NavButtonCategories.SBEAP, "Small Business Environmental Assistance Program")
     End Sub
 
@@ -980,7 +980,8 @@ Public Class IAIPNavigation
 
         ' EIS
         AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", NameOf(EisEmissionSummaryTool), NavButtonCategories.EIS)
-        AddNavButtonIfAccountHasFormAccess(130, "Emission Inventory Tools", NameOf(EisTool), NavButtonCategories.EIS)
+        AddNavButtonIfAccountHasFormAccess(130, "Emissions Inventory", NameOf(EisTool), NavButtonCategories.EIS)
+        AddNavButtonIfAccountHasFormAccess(130, "Emissions Statement", NameOf(EmissionsStatement), NavButtonCategories.EIS)
 
         'SBEAP
         AddNavButtonIfUserHasPermission({142, 143, 118}, "Customer Summary", NameOf(SBEAPClientSummary), NavButtonCategories.SBEAP)
