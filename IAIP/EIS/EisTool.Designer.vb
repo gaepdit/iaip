@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class EisTool
     Inherits BaseForm
 
@@ -2718,9 +2718,11 @@ Partial Class EisTool
         Me.dgvEISStats.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvEISStats.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvEISStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvEISStats.DecimalFieldFormat = "G"
         Me.dgvEISStats.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvEISStats.LinkifyColumnByName = Nothing
         Me.dgvEISStats.Location = New System.Drawing.Point(0, 73)
+        Me.dgvEISStats.MultiSelect = True
         Me.dgvEISStats.Name = "dgvEISStats"
         Me.dgvEISStats.ResultsCountLabel = Nothing
         Me.dgvEISStats.ResultsCountLabelFormat = "Count: {0}"
