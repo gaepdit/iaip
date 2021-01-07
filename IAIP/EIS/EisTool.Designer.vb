@@ -1,4 +1,4 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class EisTool
     Inherits BaseForm
 
@@ -380,13 +380,6 @@ Partial Class EisTool
         Me.Label275 = New System.Windows.Forms.Label()
         Me.btnEISStatsRemoveEnrollment = New System.Windows.Forms.Button()
         Me.btnEISStatsEnrollment = New System.Windows.Forms.Button()
-        Me.TPStageData = New System.Windows.Forms.TabPage()
-        Me.btnEisStagePseAll = New System.Windows.Forms.Button()
-        Me.btnEisStagePseSelected = New System.Windows.Forms.Button()
-        Me.btnEisStageFiAll = New System.Windows.Forms.Button()
-        Me.btnEisStageFiSelected = New System.Windows.Forms.Button()
-        Me.btnEisStageViewSubmitted = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel21 = New System.Windows.Forms.Panel()
         Me.btnViewEISStats = New System.Windows.Forms.Button()
         Me.Label74 = New System.Windows.Forms.Label()
@@ -473,7 +466,6 @@ Partial Class EisTool
         Me.Panel22.SuspendLayout()
         Me.TPEISStatMailout.SuspendLayout()
         Me.TPEISEnrollment.SuspendLayout()
-        Me.TPStageData.SuspendLayout()
         Me.Panel21.SuspendLayout()
         Me.TPAdmin.SuspendLayout()
         Me.TCAdmin.SuspendLayout()
@@ -2841,7 +2833,6 @@ Partial Class EisTool
         Me.TCEISStats.Controls.Add(Me.TPEISStatSummary)
         Me.TCEISStats.Controls.Add(Me.TPEISStatMailout)
         Me.TCEISStats.Controls.Add(Me.TPEISEnrollment)
-        Me.TCEISStats.Controls.Add(Me.TPStageData)
         Me.TCEISStats.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCEISStats.Location = New System.Drawing.Point(0, 47)
         Me.TCEISStats.Name = "TCEISStats"
@@ -4025,78 +4016,6 @@ Partial Class EisTool
         Me.btnEISStatsEnrollment.Text = "Enroll Selected Facilities"
         Me.btnEISStatsEnrollment.UseVisualStyleBackColor = True
         '
-        'TPStageData
-        '
-        Me.TPStageData.Controls.Add(Me.btnEisStagePseAll)
-        Me.TPStageData.Controls.Add(Me.btnEisStagePseSelected)
-        Me.TPStageData.Controls.Add(Me.btnEisStageFiAll)
-        Me.TPStageData.Controls.Add(Me.btnEisStageFiSelected)
-        Me.TPStageData.Controls.Add(Me.btnEisStageViewSubmitted)
-        Me.TPStageData.Controls.Add(Me.Label2)
-        Me.TPStageData.Location = New System.Drawing.Point(4, 22)
-        Me.TPStageData.Name = "TPStageData"
-        Me.TPStageData.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPStageData.Size = New System.Drawing.Size(438, 614)
-        Me.TPStageData.TabIndex = 8
-        Me.TPStageData.Text = "Stage to EPA"
-        Me.TPStageData.UseVisualStyleBackColor = True
-        '
-        'btnEisStagePseAll
-        '
-        Me.btnEisStagePseAll.Location = New System.Drawing.Point(177, 209)
-        Me.btnEisStagePseAll.Name = "btnEisStagePseAll"
-        Me.btnEisStagePseAll.Size = New System.Drawing.Size(150, 51)
-        Me.btnEisStagePseAll.TabIndex = 6
-        Me.btnEisStagePseAll.Text = "Stage Point Source Emission Data " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for all facilities"
-        Me.btnEisStagePseAll.UseVisualStyleBackColor = True
-        '
-        'btnEisStagePseSelected
-        '
-        Me.btnEisStagePseSelected.Location = New System.Drawing.Point(177, 137)
-        Me.btnEisStagePseSelected.Name = "btnEisStagePseSelected"
-        Me.btnEisStagePseSelected.Size = New System.Drawing.Size(150, 51)
-        Me.btnEisStagePseSelected.TabIndex = 4
-        Me.btnEisStagePseSelected.Text = "Stage Point Source Emission Data " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for selected facilities"
-        Me.btnEisStagePseSelected.UseVisualStyleBackColor = True
-        '
-        'btnEisStageFiAll
-        '
-        Me.btnEisStageFiAll.Location = New System.Drawing.Point(14, 209)
-        Me.btnEisStageFiAll.Name = "btnEisStageFiAll"
-        Me.btnEisStageFiAll.Size = New System.Drawing.Size(150, 51)
-        Me.btnEisStageFiAll.TabIndex = 5
-        Me.btnEisStageFiAll.Text = "Stage Facility Information " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for all facilities"
-        Me.btnEisStageFiAll.UseVisualStyleBackColor = True
-        '
-        'btnEisStageFiSelected
-        '
-        Me.btnEisStageFiSelected.Location = New System.Drawing.Point(14, 137)
-        Me.btnEisStageFiSelected.Name = "btnEisStageFiSelected"
-        Me.btnEisStageFiSelected.Size = New System.Drawing.Size(150, 51)
-        Me.btnEisStageFiSelected.TabIndex = 3
-        Me.btnEisStageFiSelected.Text = "Stage Facility Information " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for selected facilities"
-        Me.btnEisStageFiSelected.UseVisualStyleBackColor = True
-        '
-        'btnEisStageViewSubmitted
-        '
-        Me.btnEisStageViewSubmitted.Location = New System.Drawing.Point(14, 44)
-        Me.btnEisStageViewSubmitted.Name = "btnEisStageViewSubmitted"
-        Me.btnEisStageViewSubmitted.Size = New System.Drawing.Size(150, 48)
-        Me.btnEisStageViewSubmitted.TabIndex = 0
-        Me.btnEisStageViewSubmitted.Text = "Display facilities that have submitted EIS data"
-        Me.btnEisStageViewSubmitted.UseVisualStyleBackColor = True
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.Label2.Location = New System.Drawing.Point(10, 10)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(276, 22)
-        Me.Label2.TabIndex = 2
-        Me.Label2.Text = "Stage Data for Submittal to EPA"
-        '
         'Panel21
         '
         Me.Panel21.Controls.Add(Me.btnViewEISStats)
@@ -4763,8 +4682,6 @@ Partial Class EisTool
         Me.TPEISStatMailout.PerformLayout()
         Me.TPEISEnrollment.ResumeLayout(False)
         Me.TPEISEnrollment.PerformLayout()
-        Me.TPStageData.ResumeLayout(False)
-        Me.TPStageData.PerformLayout()
         Me.Panel21.ResumeLayout(False)
         Me.Panel21.PerformLayout()
         Me.TPAdmin.ResumeLayout(False)
@@ -5168,16 +5085,9 @@ Partial Class EisTool
     Friend WithEvents Label179 As Label
     Friend WithEvents btnUpdateEisOperStatus As Button
     Friend WithEvents cbIaipOperStatus As ComboBox
-    Friend WithEvents TPStageData As TabPage
-    Friend WithEvents btnEisStageViewSubmitted As Button
-    Friend WithEvents Label2 As Label
     Friend WithEvents lblEisStageSelectedCount As Label
     Friend WithEvents btnEisStageSelectNone As Button
     Friend WithEvents btnEisStageSelectAll As Button
-    Friend WithEvents btnEisStagePseAll As Button
-    Friend WithEvents btnEisStagePseSelected As Button
-    Friend WithEvents btnEisStageFiAll As Button
-    Friend WithEvents btnEisStageFiSelected As Button
     Friend WithEvents btnSelectHighlighted As Button
     Friend WithEvents gbColocate As GroupBox
     Friend WithEvents txtColocatedWith As TextBox

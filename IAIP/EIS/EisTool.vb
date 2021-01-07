@@ -3674,20 +3674,7 @@ Public Class EisTool
         dgvOperStatusMismatch.SanelyResizeColumns
     End Sub
 
-#Region " EIS Staging "
-
-    Private Sub btnEisStageViewSubmitted_Click(sender As Object, e As EventArgs) Handles btnEisStageViewSubmitted.Click
-        If cboEISStatisticsYear.Text = "" Then
-            MessageBox.Show("Please select a valid year first.")
-            Return
-        End If
-
-        EIS_VIEW(cboEISStatisticsYear.Text, "", "1", "1", "0", " and EISStatusCode >= 3 ", "", "")
-
-        lblEISCount.Text = "Submitted Count: " & dgvEISStats.RowCount.ToString
-
-        DisplayEisStageCount(0)
-    End Sub
+#Region " EIS Stats selection tools "
 
     Private Sub dgvEISStats_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEISStats.CellClick
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvEISStats.RowCount Then
@@ -3698,7 +3685,7 @@ Public Class EisTool
             End If
         End If
 
-        DisplayEisStageCount(CountSelectedEisStageFacilities)
+        DisplayEisStageCount(CountSelectedEisStageFacilities())
     End Sub
 
     Private Sub DisplayEisStageCount(count As Integer)
@@ -3709,7 +3696,7 @@ Public Class EisTool
         Dim count As Integer = 0
 
         For Each row As DataGridViewRow In dgvEISStats.Rows
-            If row.Cells("Select").Value Then
+            If CBool(row.Cells("Select").Value) Then
                 count += 1
             End If
         Next
@@ -3739,132 +3726,6 @@ Public Class EisTool
         Next
 
         DisplayEisStageCount(0)
-    End Sub
-
-    Private Function GatherSelectedEisFacilities(what As EisStagingSet) As List(Of String)
-        Dim facList As New List(Of String)
-
-        If what = EisStagingSet.Selected Then
-            For Each row As DataGridViewRow In dgvEISStats.Rows
-                If row.Cells("Select").Value Then
-                    facList.Add(row.Cells("FacilitySiteID").Value)
-                End If
-            Next
-        End If
-
-        Return facList
-    End Function
-
-    Private Enum EisStagingProcedure
-        Facility
-        PointSource
-    End Enum
-
-    Private Enum EisStagingSet
-        All
-        Selected
-    End Enum
-
-    Private Function ConfirmUserIntentions(procedure As EisStagingProcedure, what As EisStagingSet) As Boolean
-        If cboEISStatisticsYear.Text = "" Then
-            MessageBox.Show("Please select a valid year first.")
-            Return False
-        End If
-
-        Dim selectedFacilityCount As Integer = CountSelectedEisStageFacilities()
-        If what = EisStagingSet.Selected AndAlso selectedFacilityCount = 0 Then
-            MessageBox.Show("Please select desired facilities first." & vbNewLine & vbNewLine &
-                            "If you want to stage all facilities for a year, please choose one of the buttons to stage all facilities.")
-            Return False
-        End If
-
-        Dim message As String = "This will stage {0} {1} data" & vbNewLine & "for {2} facilit{3}. " & vbNewLine & vbNewLine &
-            "Are you sure you want to proceed?"
-
-        Dim messYear As String = cboEISStatisticsYear.Text
-        Dim messProc As String = ""
-        Dim messSet As String = ""
-        Dim messSuffix As String = ""
-
-        Select Case procedure
-            Case EisStagingProcedure.Facility
-                messProc = "Facility Information"
-            Case EisStagingProcedure.PointSource
-                messProc = "Point Source Emission"
-        End Select
-
-        Select Case what
-            Case EisStagingSet.All
-                messSet = "all"
-                messSuffix = "ies"
-            Case EisStagingSet.Selected
-                messSet = selectedFacilityCount.ToString
-                messSuffix = If(selectedFacilityCount = 1, "y", "ies")
-        End Select
-
-        Dim result As DialogResult = MessageBox.Show(String.Format(message, {messYear, messProc, messSet, messSuffix}),
-                                                     "Confirm", MessageBoxButtons.OKCancel)
-
-        If result = DialogResult.Cancel Then
-            Return False
-        End If
-
-        Return True
-    End Function
-
-    Private Sub StageEisData(procedure As EisStagingProcedure, what As EisStagingSet)
-        If ConfirmUserIntentions(procedure, what) Then
-            Dim facList As List(Of String) = GatherSelectedEisFacilities(what)
-
-            Dim SPName As String = ""
-
-            Select Case procedure
-                Case EisStagingProcedure.Facility
-                    SPName = "etl.SP_EIS_FI_LOAD_STAGING"
-                Case EisStagingProcedure.PointSource
-                    SPName = "etl.SP_EIS_PSE_LOAD_STAGING"
-            End Select
-
-            Dim params As SqlParameter() = {
-                New SqlParameter("@Inventory_Year", CInt(cboEISStatisticsYear.Text)),
-                New SqlParameter("@User", CurrentUser.EmailAddress.Truncate(50))
-            }
-
-            If facList IsNot Nothing AndAlso facList.Any() Then
-                ' Don't add empty/null TVP: https://stackoverflow.com/a/6107942/212978
-                params.Add(facList.AsTvpSqlParameter("@Facility_List"))
-            End If
-
-            If DB.SPRunCommand(SPName, params) Then
-                MessageBox.Show("Done")
-            Else
-                MessageBox.Show("There was an error staging the data.")
-            End If
-        End If
-    End Sub
-
-    Private Sub btnEisStageFiSelected_Click(sender As Object, e As EventArgs) Handles btnEisStageFiSelected.Click
-        Me.Cursor = Cursors.WaitCursor
-        StageEisData(EisStagingProcedure.Facility, EisStagingSet.Selected)
-        Me.Cursor = Cursors.Default
-    End Sub
-
-    Private Sub btnEisStagePseSelected_Click(sender As Object, e As EventArgs) Handles btnEisStagePseSelected.Click
-        Me.Cursor = Cursors.WaitCursor
-        StageEisData(EisStagingProcedure.PointSource, EisStagingSet.Selected)
-        Me.Cursor = Cursors.Default
-    End Sub
-
-    Private Sub btnEisStageFiAll_Click(sender As Object, e As EventArgs) Handles btnEisStageFiAll.Click
-        Me.Cursor = Cursors.WaitCursor
-        StageEisData(EisStagingProcedure.Facility, EisStagingSet.All)
-        Me.Cursor = Cursors.Default
-    End Sub
-
-    Private Sub btnEisStagePseAll_Click(sender As Object, e As EventArgs) Handles btnEisStagePseAll.Click
-        Me.Cursor = Cursors.WaitCursor
-        StageEisData(EisStagingProcedure.PointSource, EisStagingSet.All)
-        Me.Cursor = Cursors.Default
     End Sub
 
 #End Region
