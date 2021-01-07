@@ -3643,7 +3643,7 @@ Public Class EisTool
         Me.AcceptButton = btnUpdateLatLong
     End Sub
 
-    Private Sub llbOperatingStatusMismatch_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbOperatingStatusMismatch.LinkClicked
+    Private Sub btnMismatchedStatus_Click(sender As Object, e As EventArgs) Handles btnMismatchedStatus.Click
         ShowMismatchedOperatingStatus()
     End Sub
 
@@ -4031,6 +4031,26 @@ Public Class EisTool
             dgvEIResults.Columns("FacilityName").HeaderText = "Facility Name"
             dgvEIResults.Columns("FacilityName").Width = 225
             dgvEIResults.Columns("Pollutant").HeaderText = cboEIPollutants.Text
+        End If
+    End Sub
+
+#End Region
+
+#Region " CAERS Users "
+
+    Private Sub btnCaersView_Click(sender As Object, e As EventArgs) Handles btnCaersView.Click
+        Dim param As SqlParameter = New SqlParameter("@includeDeleted", chkCaersShowDeleted.Checked)
+        dgvCaersUsers.DataSource = DB.SPGetDataTable("geco.Caer_GetAllContacts", param)
+        dgvCaersUsers.Columns("Deleted").Visible = chkCaersShowDeleted.Checked
+    End Sub
+
+    Private Sub dgvCaersUsers_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvCaersUsers.CellFormatting
+        If e IsNot Nothing AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) Then
+            If dgvCaersUsers.Columns(e.ColumnIndex).HeaderText.ToUpper = "AIRS #" AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value.ToString()) Then
+                e.Value = New Apb.ApbFacilityId(e.Value.ToString).FormattedString
+            ElseIf TypeOf e.Value Is Date Then
+                e.CellStyle.Format = DateFormat
+            End If
         End If
     End Sub
 

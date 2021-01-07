@@ -22,11 +22,12 @@ Partial Class EisTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPEISLog = New System.Windows.Forms.TabPage()
         Me.TabControl6 = New System.Windows.Forms.TabControl()
@@ -424,7 +425,13 @@ Partial Class EisTool
         Me.dgvOperStatusMismatch = New Iaip.IaipDataGridView()
         Me.lblOperStatusCount = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.llbOperatingStatusMismatch = New System.Windows.Forms.LinkLabel()
+        Me.btnMismatchedStatus = New System.Windows.Forms.Button()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.TPCaersUsers = New System.Windows.Forms.TabPage()
+        Me.dgvCaersUsers = New Iaip.IaipDataGridView()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.chkCaersShowDeleted = New System.Windows.Forms.CheckBox()
+        Me.btnCaersView = New System.Windows.Forms.Button()
         Me.TPHistory = New System.Windows.Forms.TabPage()
         Me.dgvEIResults = New Iaip.IaipDataGridView()
         Me.lblHistoryCount = New System.Windows.Forms.Label()
@@ -480,6 +487,9 @@ Partial Class EisTool
         Me.TPOperStatus.SuspendLayout()
         CType(Me.dgvOperStatusMismatch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        Me.TPCaersUsers.SuspendLayout()
+        CType(Me.dgvCaersUsers, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel3.SuspendLayout()
         Me.TPHistory.SuspendLayout()
         CType(Me.dgvEIResults, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
@@ -2704,8 +2714,8 @@ Partial Class EisTool
         '
         'dgvEISStats
         '
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvEISStats.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEISStats.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvEISStats.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvEISStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEISStats.Dock = System.Windows.Forms.DockStyle.Fill
@@ -4138,6 +4148,7 @@ Partial Class EisTool
         '
         Me.TCAdmin.Controls.Add(Me.TPEISThresholds)
         Me.TCAdmin.Controls.Add(Me.TPOperStatus)
+        Me.TCAdmin.Controls.Add(Me.TPCaersUsers)
         Me.TCAdmin.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCAdmin.Location = New System.Drawing.Point(0, 0)
         Me.TCAdmin.Name = "TCAdmin"
@@ -4170,8 +4181,8 @@ Partial Class EisTool
         '
         'dgvThresholdPollutants
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvThresholdPollutants.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvThresholdPollutants.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvThresholdPollutants.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvThresholdPollutants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvThresholdPollutants.Dock = System.Windows.Forms.DockStyle.Fill
@@ -4424,8 +4435,8 @@ Partial Class EisTool
         '
         'dgvEISYear
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvEISYear.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEISYear.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvEISYear.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvEISYear.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEISYear.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -4461,8 +4472,8 @@ Partial Class EisTool
         '
         'dgvOperStatusMismatch
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvOperStatusMismatch.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvOperStatusMismatch.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvOperStatusMismatch.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvOperStatusMismatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvOperStatusMismatch.Dock = System.Windows.Forms.DockStyle.Fill
@@ -4477,7 +4488,8 @@ Partial Class EisTool
         '
         'lblOperStatusCount
         '
-        Me.lblOperStatusCount.Location = New System.Drawing.Point(329, 13)
+        Me.lblOperStatusCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblOperStatusCount.Location = New System.Drawing.Point(891, 13)
         Me.lblOperStatusCount.Name = "lblOperStatusCount"
         Me.lblOperStatusCount.Size = New System.Drawing.Size(100, 13)
         Me.lblOperStatusCount.TabIndex = 114
@@ -4486,23 +4498,88 @@ Partial Class EisTool
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.btnMismatchedStatus)
+        Me.Panel1.Controls.Add(Me.Label9)
         Me.Panel1.Controls.Add(Me.lblOperStatusCount)
-        Me.Panel1.Controls.Add(Me.llbOperatingStatusMismatch)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(994, 41)
         Me.Panel1.TabIndex = 115
         '
-        'llbOperatingStatusMismatch
+        'btnMismatchedStatus
         '
-        Me.llbOperatingStatusMismatch.AutoSize = True
-        Me.llbOperatingStatusMismatch.Location = New System.Drawing.Point(2, 13)
-        Me.llbOperatingStatusMismatch.Name = "llbOperatingStatusMismatch"
-        Me.llbOperatingStatusMismatch.Size = New System.Drawing.Size(229, 13)
-        Me.llbOperatingStatusMismatch.TabIndex = 112
-        Me.llbOperatingStatusMismatch.TabStop = True
-        Me.llbOperatingStatusMismatch.Text = "View sources with mismatched operating status"
+        Me.btnMismatchedStatus.Location = New System.Drawing.Point(225, 8)
+        Me.btnMismatchedStatus.Name = "btnMismatchedStatus"
+        Me.btnMismatchedStatus.Size = New System.Drawing.Size(75, 23)
+        Me.btnMismatchedStatus.TabIndex = 116
+        Me.btnMismatchedStatus.Text = "View"
+        Me.btnMismatchedStatus.UseVisualStyleBackColor = True
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(14, 13)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(205, 13)
+        Me.Label9.TabIndex = 115
+        Me.Label9.Text = "Sources with mismatched operating status"
+        '
+        'TPCaersUsers
+        '
+        Me.TPCaersUsers.Controls.Add(Me.dgvCaersUsers)
+        Me.TPCaersUsers.Controls.Add(Me.Panel3)
+        Me.TPCaersUsers.Location = New System.Drawing.Point(4, 22)
+        Me.TPCaersUsers.Name = "TPCaersUsers"
+        Me.TPCaersUsers.Size = New System.Drawing.Size(1000, 661)
+        Me.TPCaersUsers.TabIndex = 8
+        Me.TPCaersUsers.Text = "CAERS Users"
+        Me.TPCaersUsers.UseVisualStyleBackColor = True
+        '
+        'dgvCaersUsers
+        '
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvCaersUsers.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        Me.dgvCaersUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvCaersUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvCaersUsers.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvCaersUsers.LinkifyColumnByName = Nothing
+        Me.dgvCaersUsers.Location = New System.Drawing.Point(0, 53)
+        Me.dgvCaersUsers.Name = "dgvCaersUsers"
+        Me.dgvCaersUsers.ResultsCountLabel = Nothing
+        Me.dgvCaersUsers.ResultsCountLabelFormat = "{0} found"
+        Me.dgvCaersUsers.Size = New System.Drawing.Size(1000, 608)
+        Me.dgvCaersUsers.StandardTab = True
+        Me.dgvCaersUsers.TabIndex = 1
+        '
+        'Panel3
+        '
+        Me.Panel3.Controls.Add(Me.chkCaersShowDeleted)
+        Me.Panel3.Controls.Add(Me.btnCaersView)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel3.Location = New System.Drawing.Point(0, 0)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(1000, 53)
+        Me.Panel3.TabIndex = 0
+        '
+        'chkCaersShowDeleted
+        '
+        Me.chkCaersShowDeleted.AutoSize = True
+        Me.chkCaersShowDeleted.Location = New System.Drawing.Point(105, 17)
+        Me.chkCaersShowDeleted.Name = "chkCaersShowDeleted"
+        Me.chkCaersShowDeleted.Size = New System.Drawing.Size(137, 17)
+        Me.chkCaersShowDeleted.TabIndex = 1
+        Me.chkCaersShowDeleted.Text = "Include deleted records"
+        Me.chkCaersShowDeleted.UseVisualStyleBackColor = True
+        '
+        'btnCaersView
+        '
+        Me.btnCaersView.Location = New System.Drawing.Point(14, 13)
+        Me.btnCaersView.Name = "btnCaersView"
+        Me.btnCaersView.Size = New System.Drawing.Size(75, 23)
+        Me.btnCaersView.TabIndex = 0
+        Me.btnCaersView.Text = "View"
+        Me.btnCaersView.UseVisualStyleBackColor = True
         '
         'TPHistory
         '
@@ -4518,8 +4595,8 @@ Partial Class EisTool
         '
         'dgvEIResults
         '
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvEIResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEIResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvEIResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvEIResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEIResults.DecimalFieldFormat = "N3"
@@ -4704,6 +4781,10 @@ Partial Class EisTool
         CType(Me.dgvOperStatusMismatch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.TPCaersUsers.ResumeLayout(False)
+        CType(Me.dgvCaersUsers, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
         Me.TPHistory.ResumeLayout(False)
         CType(Me.dgvEIResults, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
@@ -5078,7 +5159,6 @@ Partial Class EisTool
     Friend WithEvents Label62 As System.Windows.Forms.Label
     Friend WithEvents TPOperStatus As TabPage
     Friend WithEvents dgvOperStatusMismatch As IaipDataGridView
-    Friend WithEvents llbOperatingStatusMismatch As LinkLabel
     Friend WithEvents lblOperStatusCount As Label
     Friend WithEvents Panel1 As Panel
     Friend WithEvents cbEisModifyOperStatus As ComboBox
@@ -5121,4 +5201,11 @@ Partial Class EisTool
     Friend WithEvents mtbEILogAIRSNumber As AirsNumberTextBox
     Friend WithEvents txtEILogSelectedAIRSNumber As AirsNumberTextBox
     Friend WithEvents mtbEISLogAIRSNumber As AirsNumberTextBox
+    Friend WithEvents btnMismatchedStatus As Button
+    Friend WithEvents Label9 As Label
+    Friend WithEvents TPCaersUsers As TabPage
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents chkCaersShowDeleted As CheckBox
+    Friend WithEvents btnCaersView As Button
+    Friend WithEvents dgvCaersUsers As IaipDataGridView
 End Class
