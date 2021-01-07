@@ -244,22 +244,25 @@ Public Class EisTool
                 Return
             End If
 
-            If mtbEILogAIRSNumber.Text = "" OrElse mtbEILogAIRSNumber.Text.Length <> 8 Then
-                MsgBox("Please enter a valid AIRS # into the EIS AIRS #", MsgBoxStyle.Exclamation, Me.Text)
+            If Not mtbEILogAIRSNumber.IsValid Then
+                MsgBox("Please enter a valid AIRS #.", MsgBoxStyle.Exclamation, Me.Text)
                 Return
             End If
 
             txtEILogSelectedYear.Text = cboEILogYear.Text
-            txtEILogSelectedAIRSNumber.Text = mtbEILogAIRSNumber.Text
+            txtEILogSelectedAIRSNumber.AirsNumber = mtbEILogAIRSNumber.AirsNumber
 
-            LoadAdminData()
+            If Not LoadAdminData() Then
+                MsgBox("AIRS # does not exist for the selected EIS year.", MsgBoxStyle.Exclamation, Me.Text)
+                Return
+            End If
 
             Dim SQL As String = "select  " &
             "strFacilitySiteName, STRFACILITYSITESTATUSCODE " &
             "from EIS_FacilitySite " &
             "where FacilitySiteId = @FacilitySiteId "
 
-            Dim param As New SqlParameter("@FacilitySiteId", txtEILogSelectedAIRSNumber.Text)
+            Dim param As New SqlParameter("@FacilitySiteId", txtEILogSelectedAIRSNumber.AirsNumber.ShortString)
 
             Dim dr As DataRow = DB.GetDataRow(SQL, param)
 
@@ -346,7 +349,7 @@ Public Class EisTool
                 "  hd.STRAIRSNUMBER " &
                 "WHERE fi.STRAIRSNUMBER = @airs "
 
-            Dim param2 As New SqlParameter("@airs", "0413" & txtEILogSelectedAIRSNumber.Text)
+            Dim param2 As New SqlParameter("@airs", txtEILogSelectedAIRSNumber.AirsNumber.DbFormattedString)
 
             dr = DB.GetDataRow(SQL, param2)
 
@@ -395,7 +398,7 @@ Public Class EisTool
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@intInventoryYear", txtEILogSelectedYear.Text),
-                New SqlParameter("@FacilitySiteID", txtEILogSelectedAIRSNumber.Text)
+                New SqlParameter("@FacilitySiteID", txtEILogSelectedAIRSNumber.AirsNumber.ShortString)
             }
 
             dr = DB.GetDataRow(SQL, params)
@@ -478,22 +481,21 @@ Public Class EisTool
                 End If
             End If
 
-            SQL = "select " &
-            "strContactFirstName, strContactLastName, " &
-            "strContactPrefix, strContactSuffix, " &
-            "strContactTitle, strContactPhoneNumber1, " &
-            "strContactPhoneNumber2, strContactFaxNumber, " &
-            "strContactEmail, strContactCompanyName, " &
-            "strContactAddress1, strContactAddress2, " &
-            "strContactCity, strContactState, " &
-            "strContactZipCode, strContactDescription, " &
-            "datModifingDate, (strLastName+', '+strFirstName) as ModifingPerson " &
-            "from APBContactInformation, EPDUserProfiles " &
-            "where APBContactInformation.strModifingPerson = " &
-            "EPDUserProfiles.numUserID  " &
-            "and strContactKey = @key "
+            SQL = "select strContactFirstName, strContactLastName,
+                       strContactPrefix, strContactSuffix,
+                       strContactTitle, strContactPhoneNumber1,
+                       strContactPhoneNumber2, strContactFaxNumber,
+                       strContactEmail, strContactCompanyName,
+                       strContactAddress1, strContactAddress2,
+                       strContactCity, strContactState,
+                       strContactZipCode, strContactDescription,
+                       datModifingDate, (strLastName + ', ' + strFirstName) as ModifingPerson
+                from APBContactInformation
+                    inner join EPDUserProfiles
+                    on APBContactInformation.strModifingPerson = EPDUserProfiles.numUserID
+                where strContactKey = @key "
 
-            Dim param3 As New SqlParameter("@key", "0413" & txtEILogSelectedAIRSNumber.Text & "41")
+            Dim param3 As New SqlParameter("@key", txtEILogSelectedAIRSNumber.AirsNumber.DbFormattedString & "41")
 
             dr = DB.GetDataRow(SQL, param3)
 
@@ -597,7 +599,7 @@ Public Class EisTool
         End Try
     End Sub
 
-    Private Sub LoadAdminData()
+    Private Function LoadAdminData() As Boolean
         Try
             dtpDeadlineEIS.Checked = False
             txtEISDeadlineComment.Clear()
@@ -610,7 +612,7 @@ Public Class EisTool
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@inventoryYear", txtEILogSelectedYear.Text),
-                New SqlParameter("@FacilitySiteID", txtEILogSelectedAIRSNumber.Text)
+                New SqlParameter("@FacilitySiteID", txtEILogSelectedAIRSNumber.AirsNumber.ShortString)
             }
 
             Dim dr As DataRow = DB.GetDataRow(SQL, params)
@@ -737,12 +739,17 @@ Public Class EisTool
                 Else
                     txtAllEISDeadlineComment.Text = dr.Item("strEISDeadlineComment")
                 End If
+
+                Return True
+            Else
+                Return False
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
-    End Sub
+    End Function
 
     Private Sub LoadQASpecificData()
         Try
@@ -773,7 +780,7 @@ Public Class EisTool
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@inventoryYear", cboEILogYear.Text),
-                New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
+                New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.AirsNumber.ShortString)
             }
 
             Dim dr As DataRow = DB.GetDataRow(SQL, params)
@@ -1197,7 +1204,7 @@ Public Class EisTool
                 End If
             Else
                 If hti.RowIndex <> -1 Then
-                    mtbEISLogAIRSNumber.Text = dgvEISStats(1, hti.RowIndex).Value
+                    mtbEISLogAIRSNumber.AirsNumber = New Apb.ApbFacilityId(dgvEISStats(1, hti.RowIndex).Value.ToString)
                 End If
             End If
 
@@ -1685,7 +1692,7 @@ Public Class EisTool
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@inventoryyear", cboEILogYear.Text),
-                New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
+                New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.AirsNumber.ShortString)
             }
 
             If Not DB.ValueExists(SQL, params) Then
@@ -1724,7 +1731,7 @@ Public Class EisTool
                 New SqlParameter("@active", ActiveStatus),
                 New SqlParameter("@updateUser", CurrentUser.AlphaName),
                 New SqlParameter("@inventoryyear", cboEILogYear.Text),
-                New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
+                New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.AirsNumber.ShortString)
             }
 
             DB.RunCommand(SQL, params2)
@@ -1748,7 +1755,7 @@ Public Class EisTool
                         New SqlParameter("@datEISDeadline", dtpDeadlineEIS.Text),
                         New SqlParameter("@strEISDeadlineComment", DeadLineComments),
                         New SqlParameter("@INventoryyear", cboEILogYear.Text),
-                        New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
+                        New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.AirsNumber.ShortString)
                     }
 
                     DB.RunCommand(SQL, params3)
@@ -1867,7 +1874,7 @@ Public Class EisTool
                     New SqlParameter("@STRPOINTTRACKINGNUMBER", pointTracking),
                     New SqlParameter("@strpointerror", If(pointError = "", SqlString.Null, pointError)),
                     New SqlParameter("@INventoryyear", cboEILogYear.Text),
-                    New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
+                    New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.AirsNumber.ShortString)
                 }
 
                 DB.RunCommand(SQL, params4)
@@ -1887,7 +1894,7 @@ Public Class EisTool
         Try
             Dim spname As String = "dbo.PD_EIS_Data"
             Dim params As SqlParameter() = {
-                New SqlParameter("@AIRSNUM", txtEILogSelectedAIRSNumber.Text),
+                New SqlParameter("@AIRSNUM", txtEILogSelectedAIRSNumber.AirsNumber.ShortString),
                 New SqlParameter("@INTYEAR", txtEILogSelectedYear.Text)
             }
             DB.SPRunCommand(spname, params)
@@ -2014,7 +2021,7 @@ Public Class EisTool
                 New SqlParameter("@STRPOINTTRACKINGNUMBER", PointTracking),
                 New SqlParameter("@strpointerror", If(PointError = "", SqlString.Null, PointError)),
                 New SqlParameter("@INventoryyear", cboEILogYear.Text),
-                New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
+                New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.AirsNumber.ShortString)
             }
 
             DB.RunCommand(SQL, params)
@@ -2024,7 +2031,7 @@ Public Class EisTool
             If dtpQACompleted.Checked Then
                 Dim spname As String = "dbo.PD_EIS_QA_Done"
                 Dim params2 As SqlParameter() = {
-                    New SqlParameter("@AIRSNUM", txtEILogSelectedAIRSNumber.Text),
+                    New SqlParameter("@AIRSNUM", txtEILogSelectedAIRSNumber.AirsNumber.ShortString),
                     New SqlParameter("@INTYEAR", txtEILogSelectedYear.Text),
                     New SqlParameter("@DATLASTSUBMIT", dtpQACompleted.Value)
                 }
@@ -2040,7 +2047,7 @@ Public Class EisTool
 
     Private Sub btnEIModifyUpdateLocation_Click(sender As Object, e As EventArgs) Handles btnEIModifyUpdateLocation.Click
 
-        If txtEILogSelectedAIRSNumber.Text = "" Then
+        If Not txtEILogSelectedAIRSNumber.IsValid Then
             MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
             Return
         End If
@@ -2060,7 +2067,7 @@ Public Class EisTool
                 New SqlParameter("@Address", Address),
                 New SqlParameter("@City", City),
                 New SqlParameter("@PostalCode", PostalCode),
-                New SqlParameter("@AirsNumber", txtEILogSelectedAIRSNumber.Text)
+                New SqlParameter("@AirsNumber", txtEILogSelectedAIRSNumber.AirsNumber.ShortString)
             }
 
             DB.RunCommand(query, parameters)
@@ -2073,7 +2080,7 @@ Public Class EisTool
 
     Private Sub btnEIModifyUpdateMailing_Click(sender As Object, e As EventArgs) Handles btnEIModifyUpdateMailing.Click
 
-        If txtEILogSelectedAIRSNumber.Text = "" Then
+        If Not txtEILogSelectedAIRSNumber.IsValid Then
             MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
             Return
         End If
@@ -2093,7 +2100,7 @@ Public Class EisTool
                 New SqlParameter("@Address", Address),
                 New SqlParameter("@City", City),
                 New SqlParameter("@PostalCode", PostalCode),
-                New SqlParameter("@AirsNumber", txtEILogSelectedAIRSNumber.Text)
+                New SqlParameter("@AirsNumber", txtEILogSelectedAIRSNumber.AirsNumber.ShortString)
             }
 
             DB.RunCommand(query, parameters)
@@ -2105,7 +2112,7 @@ Public Class EisTool
     End Sub
 
     Private Sub btnEIModifyUpdateName_Click(sender As Object, e As EventArgs) Handles btnEIModifyUpdateName.Click
-        If txtEILogSelectedAIRSNumber.Text = "" Then
+        If Not txtEILogSelectedAIRSNumber.IsValid Then
             MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
             Return
         End If
@@ -2123,7 +2130,7 @@ Public Class EisTool
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@FacilityName", FacilityName),
-                New SqlParameter("@AirsNumber", txtEILogSelectedAIRSNumber.Text)
+                New SqlParameter("@AirsNumber", txtEILogSelectedAIRSNumber.AirsNumber.ShortString)
             }
 
             DB.RunCommand(query, parameters)
@@ -2136,7 +2143,7 @@ Public Class EisTool
 
     Sub UpdateFacilityGEOCoord()
         Try
-            If txtEILogSelectedAIRSNumber.Text = "" Then
+            If Not txtEILogSelectedAIRSNumber.IsValid Then
                 MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
                 Return
             End If
@@ -2148,9 +2155,9 @@ Public Class EisTool
                 "where facilitySiteID = @facilitySiteID "
 
                 Dim params As SqlParameter() = {
-                    New SqlParameter("@numLatitudeMeasure", mtbEIModifyLatitude.Text),
-                    New SqlParameter("@numLongitudeMeasure", -mtbEIModifyLongitude.Text),
-                    New SqlParameter("@facilitySiteID", txtEILogSelectedAIRSNumber.Text)
+                    New SqlParameter("@numLatitudeMeasure", CDec(mtbEIModifyLatitude.Text)),
+                    New SqlParameter("@numLongitudeMeasure", -CDec(mtbEIModifyLongitude.Text)),
+                    New SqlParameter("@facilitySiteID", txtEILogSelectedAIRSNumber.AirsNumber.ShortString)
                 }
 
                 DB.RunCommand(SQL, params)
@@ -2164,11 +2171,11 @@ Public Class EisTool
                     "where strAIRSNumber = @strAIRSNumber "
 
                 Dim params2 As SqlParameter() = {
-                    New SqlParameter("@numFacilityLongitude", -mtbEIModifyLongitude.Text),
+                    New SqlParameter("@numFacilityLongitude", -CDec(mtbEIModifyLongitude.Text)),
                     New SqlParameter("@numFacilityLatitude", mtbEIModifyLatitude.Text),
                     New SqlParameter("@strComments", "Updated by " & CurrentUser.AlphaName & " through DMU Staff Tools - Emissions Inventory Log. "),
                     New SqlParameter("@strModifingPerson", CurrentUser.UserID),
-                    New SqlParameter("@strAIRSNumber", "0413" & txtEILogSelectedAIRSNumber.Text)
+                    New SqlParameter("@strAIRSNumber", txtEILogSelectedAIRSNumber.AirsNumber.DbFormattedString)
                 }
 
                 DB.RunCommand(SQL, params2)
@@ -2189,7 +2196,7 @@ Public Class EisTool
     End Sub
 
     Private Sub btnUpdateEisOperStatus_Click(sender As Object, e As EventArgs) Handles btnUpdateEisOperStatus.Click
-        If txtEILogSelectedAIRSNumber.Text = "" Then
+        If Not txtEILogSelectedAIRSNumber.IsValid Then
             MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
         Else
             Dim query As String = "UPDATE EIS_FACILITYSITE " &
@@ -2203,7 +2210,7 @@ Public Class EisTool
                 New SqlParameter("@statuscode", cbEisModifyOperStatus.SelectedValue.ToString),
                 New SqlParameter("@sitecomment", "Site status updated from IAIP"),
                 New SqlParameter("@updateuser", CurrentUser.UserID & "-" & CurrentUser.AlphaName),
-                New SqlParameter("@siteid", txtEILogSelectedAIRSNumber.Text)
+                New SqlParameter("@siteid", txtEILogSelectedAIRSNumber.AirsNumber.ShortString)
             }
 
             If DB.RunCommand(query, parameters) Then
@@ -2239,7 +2246,7 @@ Public Class EisTool
     Private Sub btnEISMailoutUpdate_Click(sender As Object, e As EventArgs) Handles btnEISMailoutUpdate.Click
         Try
 
-            If txtEILogSelectedAIRSNumber.Text = "" Then
+            If Not txtEILogSelectedAIRSNumber.IsValid Then
                 MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
                 Return
             End If
@@ -2273,7 +2280,7 @@ Public Class EisTool
                 New SqlParameter("@strContactPrefix", txtEISMailoutEditPrefix.Text),
                 New SqlParameter("@strContactEmail", txtEISMailoutEditEmailAddress.Text),
                 New SqlParameter("@strComment", txtEISMailoutEditComments.Text),
-                New SqlParameter("@FacilitySiteid", txtEILogSelectedAIRSNumber.Text),
+                New SqlParameter("@FacilitySiteid", txtEILogSelectedAIRSNumber.AirsNumber.ShortString),
                 New SqlParameter("@intInventoryYear", txtEILogSelectedYear.Text)
             }
 
@@ -3129,19 +3136,22 @@ Public Class EisTool
     End Sub
 
     Private Sub btnLoadEISLog_Click(sender As Object, e As EventArgs) Handles btnLoadEISLog.Click
-        Try
-            If mtbEISLogAIRSNumber.Text <> "" AndAlso cboEISStatisticsYear.Text.Length = 4 Then
-                mtbEILogAIRSNumber.Text = mtbEISLogAIRSNumber.Text
-                cboEILogYear.Text = cboEISStatisticsYear.Text
+        If Not mtbEISLogAIRSNumber.IsValid Then
+            MsgBox("Enter a valid AIRS number.")
+            Return
+        End If
 
-                LoadFSData()
+        If cboEISStatisticsYear.Text.Length <> 4 Then
+            MsgBox("Select a year.")
+            Return
+        End If
 
-                TCDMUTools.SelectedIndex = 0
-            End If
+        mtbEILogAIRSNumber.AirsNumber = mtbEISLogAIRSNumber.AirsNumber
+        cboEILogYear.Text = cboEISStatisticsYear.Text
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        LoadFSData()
+
+        TCDMUTools.SelectedIndex = 0
     End Sub
 
     Private Sub llbEISStatsFipassed_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsFipassed.LinkClicked
@@ -3171,7 +3181,7 @@ Public Class EisTool
                 "and facilitysiteid = @facilitysiteid "
                 Dim params1 As SqlParameter() = {
                     New SqlParameter("@inventoryyear", EISConfirm),
-                    New SqlParameter("@facilitysiteid", txtEILogSelectedAIRSNumber.Text)
+                    New SqlParameter("@facilitysiteid", txtEILogSelectedAIRSNumber.AirsNumber.ShortString)
                 }
 
                 Dim SQL2 As String = "Update EIS_Admin set " &
@@ -3185,7 +3195,7 @@ Public Class EisTool
                 Dim params2 As SqlParameter() = {
                     New SqlParameter("@UpdateUser", CurrentUser.AlphaName),
                     New SqlParameter("@inventoryYear", EISConfirm),
-                    New SqlParameter("@facilitysiteid", txtEILogSelectedAIRSNumber.Text)
+                    New SqlParameter("@facilitysiteid", txtEILogSelectedAIRSNumber.AirsNumber.ShortString)
                 }
 
                 Dim querylist As New List(Of String) From {SQL1, SQL2}
