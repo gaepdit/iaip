@@ -60,6 +60,13 @@ Public Class AirsNumberTextBox
     End Property
     Private _validationStatus As AirsNumberValidationResult
 
+    <Browsable(False)>
+    Public ReadOnly Property IsValid As Boolean
+        Get
+            Return _validationStatus = AirsNumberValidationResult.Valid
+        End Get
+    End Property
+
     <Category("Appearance"), Description("Specifies the placeholder text to display in the TextBox.")>
     <DefaultValue("000-00000")>
     Public Overrides Property Cue As String
