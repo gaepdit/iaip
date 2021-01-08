@@ -517,7 +517,7 @@ figcaption {
 /* === Download links === */
 
 a[href$=".application"],
-a[href="setup.exe"] {
+a[href$=".msi"] {
   display: block;
   width: 250px;
   padding: 15px 30px;
@@ -544,17 +544,17 @@ a[href$=".application"]:active {
   box-shadow: 0px 1px 0px hsl(208, 40%, 70%), 0 2px hsl(208, 40%, 50%);
 }
 
-a[href="setup.exe"] {
+a[href$=".msi"] {
   width: 275px;
   background-color: hsl(112, 40%, 65%);
   box-shadow: 0px 1px 0px hsl(112, 30%, 75%), 0 5px hsl(112, 25%, 55%);
 }
-a[href="setup.exe"]:hover,
-a[href="setup.exe"]:focus {
+a[href$=".msi"]:hover,
+a[href$=".msi"]:focus {
   top: 1px;
   box-shadow: 0px 1px 0px hsl(112, 30%, 75%), 0 4px hsl(112, 25%, 55%);
 }
-a[href="setup.exe"]:active {
+a[href$=".msi"]:active {
   top: 3px;
   box-shadow: 0px 1px 0px hsl(112, 30%, 75%), 0 2px hsl(112, 25%, 55%);
 }
