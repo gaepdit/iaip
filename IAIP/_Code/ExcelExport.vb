@@ -119,6 +119,10 @@ Public Module ExcelExport
                 Return Nothing
             End If
 
+            If Not dialog.FileName.EndsWith(".xlsx", StringComparison.CurrentCultureIgnoreCase) Then
+                dialog.FileName &= ".xlsx"
+            End If
+
             Return dialog.FileName
         End Using
     End Function
