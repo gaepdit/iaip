@@ -4106,6 +4106,7 @@ Partial Class EisTool
         Me.dgvThresholdPollutants.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvThresholdPollutants.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvThresholdPollutants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvThresholdPollutants.DecimalFieldFormat = "G"
         Me.dgvThresholdPollutants.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvThresholdPollutants.LinkifyColumnByName = Nothing
         Me.dgvThresholdPollutants.Location = New System.Drawing.Point(0, 117)
@@ -4360,6 +4361,7 @@ Partial Class EisTool
         Me.dgvEISYear.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvEISYear.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvEISYear.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvEISYear.DecimalFieldFormat = "G"
         Me.dgvEISYear.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.dgvEISYear.LinkifyColumnByName = Nothing
         Me.dgvEISYear.Location = New System.Drawing.Point(0, 89)
@@ -4397,6 +4399,7 @@ Partial Class EisTool
         Me.dgvOperStatusMismatch.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvOperStatusMismatch.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvOperStatusMismatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvOperStatusMismatch.DecimalFieldFormat = "G"
         Me.dgvOperStatusMismatch.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvOperStatusMismatch.LinkifyColumnByName = Nothing
         Me.dgvOperStatusMismatch.Location = New System.Drawing.Point(3, 44)
@@ -4463,6 +4466,7 @@ Partial Class EisTool
         Me.dgvCaersUsers.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
         Me.dgvCaersUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvCaersUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvCaersUsers.DecimalFieldFormat = "G"
         Me.dgvCaersUsers.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvCaersUsers.LinkifyColumnByName = Nothing
         Me.dgvCaersUsers.Location = New System.Drawing.Point(0, 53)
