@@ -4,7 +4,6 @@ Imports System.Data.SqlTypes
 Imports System.Linq
 Imports EpdIt
 Imports Iaip.Apb.Facilities
-Imports Iaip.DAL
 
 Public Class EisTool
 
@@ -2826,7 +2825,7 @@ Public Class EisTool
             dgvThresholdPollutants.Columns("strPollutant").DisplayIndex = 0
             dgvThresholdPollutants.Columns("numThreshold").HeaderText = "Threshold"
             dgvThresholdPollutants.Columns("numThreshold").DisplayIndex = 1
-            dgvThresholdPollutants.Columns("numThresholdNAA").HeaderText = "NonAttainment Area Threshold"
+            dgvThresholdPollutants.Columns("numThresholdNAA").HeaderText = "Nonattainment Area Threshold"
             dgvThresholdPollutants.Columns("numThresholdNAA").DisplayIndex = 2
 
         Catch ex As Exception
