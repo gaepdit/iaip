@@ -33,10 +33,9 @@ The IAIP is a WinForms Application targeting the .NET Framework version 4.5.2. U
 
 ## Branches
 
-The IAIP repository uses the [git-flow branching model](http://nvie.com/posts/a-successful-git-branching-model/). There are two permanent branches in the repository:
+The IAIP repository uses the [GitHub flow workflow](https://guides.github.com/introduction/flow/). The `main` branch should always be deployable. New work should be done on branches created off of `main`.
 
-* `main` contains production-ready code. Releases are built from `main` and tagged with the version number using the format `version5/5.X.X`.
-* `develop` is an integration branch for new feature development.
+There are also two utility branches, `deploy/DEV` and `deploy/UAT`.
 
 ## Release instructions
 
@@ -46,14 +45,12 @@ See the [Release Instructions](docs/Release-Instructions.md) file in the "docs" 
 
 Several projects revolve around the "airbranch" database and work together:
 
-* [GECO](https://bitbucket.org/gaepdit/geco/): a web application for use by the regulated community.
-* [Airbranch DB](https://bitbucket.org/gaepdit/airbranch-db/): Tracks development of the `airbranch` database used by IAIP, GECO, etc.
+* [GECO](https://github.com/gaepdit/geco): a web application for use by the regulated community.
+* [Airbranch DB](https://github.com/gaepdit/airbranch-db): Tracks development of the `airbranch` database used by IAIP, GECO, etc.
 * Data Exchanges: Database code used to exchange data with EPA and Enfotech.
-    * [ICIS-Air Data Exchange](https://bitbucket.org/gaepdit/icis-air-data-exchange/)
-    * [EIS Data Exchange](https://bitbucket.org/gaepdit/eis-data-exchange/)
-    * [GEOS/FIS/FIMS Data Exchange](https://bitbucket.org/gaepdit/geos-fis-fims-data-exchange/)
-* [permitsearch.gaepd.org](https://bitbucket.org/gaepdit/permitsearch.gaepd.org/): Website for searching for issued Air Quality Permits.
-* [gatv.gaepd.org](https://bitbucket.org/gaepdit/gatv.gaepd.org/): Website providing read-only access to old Title V application data (does not interact with data from any other application).
-* [IAIP Website](https://bitbucket.org/gaepdit/iaip-website/): A static website where the IAIP installation files are stored along with a changelog and some other documentation.
-* [IAIP Framework](https://bitbucket.org/gaepdit/iaip-framework/): An installer that ensures required prerequisites are available prior to installing the IAIP.
-* [DB Helper](https://bitbucket.org/gaepdit/db-helper/): A library to consolidate and simplify database interactions (included in IAIP as a NuGet package).
+    * [ICIS-Air Data Exchange](https://github.com/gaepdit/icis-air-data-exchange)
+    * [GEOS/FIS/FIMS Data Exchange](https://github.com/gaepdit/geos-fis-fims-data-exchange)
+* [Permit Search](https://github.com/gaepdit/permit-search): Website for searching for issued Air Quality Permits.
+* [GATV](https://github.com/gaepdit/gatv): Website providing read-only access to old Title V application data (does not interact with data from any other application).
+* [IAIP Website](https://github.com/gaepdit/iaip-website): A static website where the IAIP installation files are stored along with a changelog and some other documentation.
+* [DB Helper](https://github.com/gaepdit/db-helper): A library to consolidate and simplify database interactions (included in IAIP as a NuGet package).
