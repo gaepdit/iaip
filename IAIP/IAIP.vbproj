@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.0\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.0\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
   <Import Project="..\packages\Microsoft.NetFramework.Analyzers.3.3.0\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.3.3.0\build\Microsoft.NetFramework.Analyzers.props')" />
@@ -61,11 +61,11 @@
     <UpdateUrl>https://iaip.gaepd.org/install/</UpdateUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>5.20.5.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>5.21.0.2</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>5.20.5.0</ApplicationVersion>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>5.21.0.3</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -196,6 +196,12 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EIS\EmissionsStatement.Designer.vb">
+      <DependentUpon>EmissionsStatement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EIS\EmissionsStatement.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Finance\FinStatistics.Designer.vb">
       <DependentUpon>FinStatistics.vb</DependentUpon>
     </Compile>
@@ -380,6 +386,10 @@
     <Compile Include="_Data Models\Users\IaipRoles.vb" />
     <Compile Include="_Code\RegexPatterns.vb" />
     <Compile Include="_Code\IaipValidation.vb" />
+    <EmbeddedResource Include="EIS\EmissionsStatement.resx">
+      <DependentUpon>EmissionsStatement.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Finance\FinStatistics.resx">
       <DependentUpon>FinStatistics.vb</DependentUpon>
     </EmbeddedResource>
@@ -951,12 +961,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
-    <Compile Include="EIS\EisEmissionSummaryTool.Designer.vb">
-      <DependentUpon>EisEmissionSummaryTool.vb</DependentUpon>
-    </Compile>
-    <Compile Include="EIS\EisEmissionSummaryTool.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="SSCP\SSCPManagersTools.Designer.vb">
       <DependentUpon>SSCPManagersTools.vb</DependentUpon>
     </Compile>
@@ -1481,10 +1485,6 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EIS\EisEmissionSummaryTool.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>EisEmissionSummaryTool.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SSCPManagersTools.resx">
       <SubType>Designer</SubType>

@@ -22,6 +22,10 @@ Partial Class EisTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
@@ -32,6 +36,8 @@ Partial Class EisTool
         Me.txtColocatedWith = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.lblColocated = New System.Windows.Forms.Label()
+        Me.lblOptOutReason = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cbEisModifyOperStatus = New System.Windows.Forms.ComboBox()
@@ -198,6 +204,8 @@ Partial Class EisTool
         Me.txtEILogPrePopYear = New System.Windows.Forms.TextBox()
         Me.Label233 = New System.Windows.Forms.Label()
         Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.txtEILogSelectedAIRSNumber = New Iaip.AirsNumberTextBox()
+        Me.mtbEILogAIRSNumber = New Iaip.AirsNumberTextBox()
         Me.txtEILogStatusCode = New System.Windows.Forms.TextBox()
         Me.Panel20 = New System.Windows.Forms.Panel()
         Me.rdbEILogActiveNo = New System.Windows.Forms.RadioButton()
@@ -212,7 +220,6 @@ Partial Class EisTool
         Me.cboEILogYear = New System.Windows.Forms.ComboBox()
         Me.Label230 = New System.Windows.Forms.Label()
         Me.btnReloadFSData = New System.Windows.Forms.Button()
-        Me.txtEILogSelectedAIRSNumber = New System.Windows.Forms.TextBox()
         Me.btnEILogAddNewFacility = New System.Windows.Forms.Button()
         Me.btnEILogUpdate = New System.Windows.Forms.Button()
         Me.Label182 = New System.Windows.Forms.Label()
@@ -240,17 +247,16 @@ Partial Class EisTool
         Me.txtEILogSelectedYear = New System.Windows.Forms.TextBox()
         Me.txtEILogFacilityName = New System.Windows.Forms.TextBox()
         Me.Label49 = New System.Windows.Forms.Label()
-        Me.mtbEILogAIRSNumber = New System.Windows.Forms.MaskedTextBox()
         Me.Label48 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
-        Me.TPEisTools = New System.Windows.Forms.TabPage()
+        Me.TPInvYear = New System.Windows.Forms.TabPage()
         Me.Panel17 = New System.Windows.Forms.Panel()
-        Me.dgvEISStats = New System.Windows.Forms.DataGridView()
+        Me.dgvEISStats = New Iaip.IaipDataGridView()
         Me.Panel18 = New System.Windows.Forms.Panel()
+        Me.mtbEISLogAIRSNumber = New Iaip.AirsNumberTextBox()
         Me.lblEisStageSelectedCount = New System.Windows.Forms.Label()
         Me.btnLoadEISLog = New System.Windows.Forms.Button()
         Me.btnEisStageSelectNone = New System.Windows.Forms.Button()
-        Me.mtbEISLogAIRSNumber = New System.Windows.Forms.MaskedTextBox()
         Me.btnSelectHighlighted = New System.Windows.Forms.Button()
         Me.btnEisStageSelectAll = New System.Windows.Forms.Button()
         Me.lblEISCount = New System.Windows.Forms.Label()
@@ -374,9 +380,15 @@ Partial Class EisTool
         Me.Label275 = New System.Windows.Forms.Label()
         Me.btnEISStatsRemoveEnrollment = New System.Windows.Forms.Button()
         Me.btnEISStatsEnrollment = New System.Windows.Forms.Button()
+        Me.Panel21 = New System.Windows.Forms.Panel()
+        Me.btnViewEISStats = New System.Windows.Forms.Button()
+        Me.Label74 = New System.Windows.Forms.Label()
+        Me.cboEISStatisticsYear = New System.Windows.Forms.ComboBox()
+        Me.TPAdmin = New System.Windows.Forms.TabPage()
+        Me.TCAdmin = New System.Windows.Forms.TabControl()
         Me.TPEISThresholds = New System.Windows.Forms.TabPage()
         Me.Panel23 = New System.Windows.Forms.Panel()
-        Me.dgvThresholdPollutants = New System.Windows.Forms.DataGridView()
+        Me.dgvThresholdPollutants = New Iaip.IaipDataGridView()
         Me.Panel24 = New System.Windows.Forms.Panel()
         Me.btnUpdatePollutant = New System.Windows.Forms.Button()
         Me.btnAddNewPollutant = New System.Windows.Forms.Button()
@@ -400,210 +412,30 @@ Partial Class EisTool
         Me.btnAddEISYear = New System.Windows.Forms.Button()
         Me.rdbEISThreeYear = New System.Windows.Forms.RadioButton()
         Me.rdbEISAnnual = New System.Windows.Forms.RadioButton()
-        Me.dgvEISYear = New System.Windows.Forms.DataGridView()
+        Me.dgvEISYear = New Iaip.IaipDataGridView()
         Me.Label292 = New System.Windows.Forms.Label()
         Me.TPOperStatus = New System.Windows.Forms.TabPage()
-        Me.dgvOperStatusMismatch = New System.Windows.Forms.DataGridView()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.dgvOperStatusMismatch = New Iaip.IaipDataGridView()
         Me.lblOperStatusCount = New System.Windows.Forms.Label()
-        Me.llbOperatingStatusMismatch = New System.Windows.Forms.LinkLabel()
-        Me.TPStageData = New System.Windows.Forms.TabPage()
-        Me.btnEisStagePseAll = New System.Windows.Forms.Button()
-        Me.btnEisStagePseSelected = New System.Windows.Forms.Button()
-        Me.btnEisStageFiAll = New System.Windows.Forms.Button()
-        Me.btnEisStageFiSelected = New System.Windows.Forms.Button()
-        Me.btnEisStageViewSubmitted = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Panel21 = New System.Windows.Forms.Panel()
-        Me.btnViewEISStats = New System.Windows.Forms.Button()
-        Me.Label74 = New System.Windows.Forms.Label()
-        Me.cboEISStatisticsYear = New System.Windows.Forms.ComboBox()
-        Me.TPESTools = New System.Windows.Forms.TabPage()
-        Me.TabControl2 = New System.Windows.Forms.TabControl()
-        Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btnMismatchedStatus = New System.Windows.Forms.Button()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.TPCaersUsers = New System.Windows.Forms.TabPage()
+        Me.dgvCaersUsers = New Iaip.IaipDataGridView()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.chkCaersShowDeleted = New System.Windows.Forms.CheckBox()
+        Me.btnCaersView = New System.Windows.Forms.Button()
+        Me.TPHistory = New System.Windows.Forms.TabPage()
+        Me.dgvEIResults = New Iaip.IaipDataGridView()
+        Me.lblHistoryCount = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.dgvESDataCount = New System.Windows.Forms.DataGridView()
-        Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.lblRecordNumber = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cboEIPollutants = New System.Windows.Forms.ComboBox()
+        Me.btnViewEISummaryByPollutant = New System.Windows.Forms.Button()
+        Me.btnEISummary = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.btnExporttoExcel = New System.Windows.Forms.Button()
-        Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.TabControl3 = New System.Windows.Forms.TabControl()
-        Me.tabSummary = New System.Windows.Forms.TabPage()
-        Me.lblviewextraNonresponse = New System.Windows.Forms.LinkLabel()
-        Me.txtESextranonresponder = New System.Windows.Forms.TextBox()
-        Me.Label197 = New System.Windows.Forms.Label()
-        Me.lblviewmailoutnonresponder = New System.Windows.Forms.LinkLabel()
-        Me.txtESmailoutNonResponder = New System.Windows.Forms.TextBox()
-        Me.Label196 = New System.Windows.Forms.Label()
-        Me.lblviewESremovedfacility = New System.Windows.Forms.LinkLabel()
-        Me.txtESremovedFacilities = New System.Windows.Forms.TextBox()
-        Me.Label195 = New System.Windows.Forms.Label()
-        Me.lblviewESextraresponder = New System.Windows.Forms.LinkLabel()
-        Me.txtESextraResponders = New System.Windows.Forms.TextBox()
-        Me.Label194 = New System.Windows.Forms.Label()
-        Me.lblViewMailOut = New System.Windows.Forms.LinkLabel()
-        Me.Label76 = New System.Windows.Forms.Label()
-        Me.txtResponseCount = New System.Windows.Forms.TextBox()
-        Me.lblViewTotalResponse = New System.Windows.Forms.LinkLabel()
-        Me.txtTotalResponse = New System.Windows.Forms.TextBox()
-        Me.Label77 = New System.Windows.Forms.Label()
-        Me.lblViewExtraOptOut = New System.Windows.Forms.LinkLabel()
-        Me.txtExtraOptout = New System.Windows.Forms.TextBox()
-        Me.Label78 = New System.Windows.Forms.Label()
-        Me.lblViewExtraOptIn = New System.Windows.Forms.LinkLabel()
-        Me.txtExtraOptin = New System.Windows.Forms.TextBox()
-        Me.Label79 = New System.Windows.Forms.Label()
-        Me.lblViewOptOut = New System.Windows.Forms.LinkLabel()
-        Me.txtMailOutOptOut = New System.Windows.Forms.TextBox()
-        Me.Label80 = New System.Windows.Forms.Label()
-        Me.lblViewOptIn = New System.Windows.Forms.LinkLabel()
-        Me.txtMailoutOptin = New System.Windows.Forms.TextBox()
-        Me.Label81 = New System.Windows.Forms.Label()
-        Me.Label82 = New System.Windows.Forms.Label()
-        Me.lblextraResponse = New System.Windows.Forms.LinkLabel()
-        Me.txtextraResponse = New System.Windows.Forms.TextBox()
-        Me.Label83 = New System.Windows.Forms.Label()
-        Me.lblViewNonResponse = New System.Windows.Forms.LinkLabel()
-        Me.lblViewOutofcompliance = New System.Windows.Forms.LinkLabel()
-        Me.lblViewINCompliance = New System.Windows.Forms.LinkLabel()
-        Me.lblViewTotalOptOut = New System.Windows.Forms.LinkLabel()
-        Me.lblViewTotalOptin = New System.Windows.Forms.LinkLabel()
-        Me.txtTotaloutofcompliance = New System.Windows.Forms.TextBox()
-        Me.Label84 = New System.Windows.Forms.Label()
-        Me.txtTotalincompliance = New System.Windows.Forms.TextBox()
-        Me.Label85 = New System.Windows.Forms.Label()
-        Me.txtNonResponseCount = New System.Windows.Forms.TextBox()
-        Me.Label86 = New System.Windows.Forms.Label()
-        Me.txtTotalOptOutCount = New System.Windows.Forms.TextBox()
-        Me.Label87 = New System.Windows.Forms.Label()
-        Me.txtTotalOptInCount = New System.Windows.Forms.TextBox()
-        Me.Label89 = New System.Windows.Forms.Label()
-        Me.txtESMailOutCount = New System.Windows.Forms.TextBox()
-        Me.Label92 = New System.Windows.Forms.Label()
-        Me.lblYear = New System.Windows.Forms.Label()
-        Me.Label93 = New System.Windows.Forms.Label()
-        Me.tabMailOut = New System.Windows.Forms.TabPage()
-        Me.lblViewESMailOut = New System.Windows.Forms.LinkLabel()
-        Me.txtcontactAddress1 = New System.Windows.Forms.TextBox()
-        Me.Label94 = New System.Windows.Forms.Label()
-        Me.btnESDelete = New System.Windows.Forms.Button()
-        Me.btnSave = New System.Windows.Forms.Button()
-        Me.txtcontactEmail = New System.Windows.Forms.TextBox()
-        Me.Label97 = New System.Windows.Forms.Label()
-        Me.txtcontactZipCode = New System.Windows.Forms.TextBox()
-        Me.Label98 = New System.Windows.Forms.Label()
-        Me.txtcontactState = New System.Windows.Forms.TextBox()
-        Me.Label99 = New System.Windows.Forms.Label()
-        Me.txtcontactCity = New System.Windows.Forms.TextBox()
-        Me.Label104 = New System.Windows.Forms.Label()
-        Me.txtcontactAddress2 = New System.Windows.Forms.TextBox()
-        Me.Label105 = New System.Windows.Forms.Label()
-        Me.txtEScompanyName = New System.Windows.Forms.TextBox()
-        Me.Label106 = New System.Windows.Forms.Label()
-        Me.txtESLastName = New System.Windows.Forms.TextBox()
-        Me.Label107 = New System.Windows.Forms.Label()
-        Me.txtESFirstName = New System.Windows.Forms.TextBox()
-        Me.Label108 = New System.Windows.Forms.Label()
-        Me.txtESprefix = New System.Windows.Forms.TextBox()
-        Me.Label109 = New System.Windows.Forms.Label()
-        Me.txtESFacilityName = New System.Windows.Forms.TextBox()
-        Me.Label110 = New System.Windows.Forms.Label()
-        Me.txtESAIRSNo2 = New System.Windows.Forms.TextBox()
-        Me.Label111 = New System.Windows.Forms.Label()
-        Me.TabDetails = New System.Windows.Forms.TabPage()
-        Me.txtESAirsNo = New System.Windows.Forms.TextBox()
-        Me.Label112 = New System.Windows.Forms.Label()
-        Me.txtESContactLastName = New System.Windows.Forms.TextBox()
-        Me.Label113 = New System.Windows.Forms.Label()
-        Me.lblViewESData = New System.Windows.Forms.LinkLabel()
-        Me.txtFirstConfirmedDate = New System.Windows.Forms.TextBox()
-        Me.Label114 = New System.Windows.Forms.Label()
-        Me.txtNOXEmission = New System.Windows.Forms.TextBox()
-        Me.txtVOCEmission = New System.Windows.Forms.TextBox()
-        Me.Label115 = New System.Windows.Forms.Label()
-        Me.Label116 = New System.Windows.Forms.Label()
-        Me.Label117 = New System.Windows.Forms.Label()
-        Me.txtConfirmationNbr = New System.Windows.Forms.TextBox()
-        Me.txtConfirmationNumber = New System.Windows.Forms.TextBox()
-        Me.Label120 = New System.Windows.Forms.Label()
-        Me.Label121 = New System.Windows.Forms.Label()
-        Me.txtESEmail = New System.Windows.Forms.TextBox()
-        Me.txtFax = New System.Windows.Forms.TextBox()
-        Me.txtPhone = New System.Windows.Forms.TextBox()
-        Me.Label122 = New System.Windows.Forms.Label()
-        Me.txtZip = New System.Windows.Forms.TextBox()
-        Me.txtState = New System.Windows.Forms.TextBox()
-        Me.txtCity = New System.Windows.Forms.TextBox()
-        Me.txtAddress2 = New System.Windows.Forms.TextBox()
-        Me.txtAddress1 = New System.Windows.Forms.TextBox()
-        Me.txtCompany = New System.Windows.Forms.TextBox()
-        Me.txtTitle = New System.Windows.Forms.TextBox()
-        Me.txtESContactFirstName = New System.Windows.Forms.TextBox()
-        Me.Label123 = New System.Windows.Forms.Label()
-        Me.Label124 = New System.Windows.Forms.Label()
-        Me.Label125 = New System.Windows.Forms.Label()
-        Me.Label126 = New System.Windows.Forms.Label()
-        Me.Label127 = New System.Windows.Forms.Label()
-        Me.Label128 = New System.Windows.Forms.Label()
-        Me.Label129 = New System.Windows.Forms.Label()
-        Me.Label130 = New System.Windows.Forms.Label()
-        Me.Label131 = New System.Windows.Forms.Label()
-        Me.Label132 = New System.Windows.Forms.Label()
-        Me.txtHORIZONTALREFERENCECODE = New System.Windows.Forms.TextBox()
-        Me.txtFACILITYADDRESS = New System.Windows.Forms.TextBox()
-        Me.txtFACILITYCITY = New System.Windows.Forms.TextBox()
-        Me.txtFACILITYSTATE = New System.Windows.Forms.TextBox()
-        Me.txtFACILITYZIP = New System.Windows.Forms.TextBox()
-        Me.txtCOUNTY = New System.Windows.Forms.TextBox()
-        Me.txtXCOORDINATE = New System.Windows.Forms.TextBox()
-        Me.txtYCOORDINATE = New System.Windows.Forms.TextBox()
-        Me.txtHORIZONTALCOLLECTIONCODE = New System.Windows.Forms.TextBox()
-        Me.txtHORIZONTALACCURACYMEASURE = New System.Windows.Forms.TextBox()
-        Me.txtFACILITYNAME = New System.Windows.Forms.TextBox()
-        Me.Label133 = New System.Windows.Forms.Label()
-        Me.Label134 = New System.Windows.Forms.Label()
-        Me.Label135 = New System.Windows.Forms.Label()
-        Me.Label136 = New System.Windows.Forms.Label()
-        Me.Label137 = New System.Windows.Forms.Label()
-        Me.Label138 = New System.Windows.Forms.Label()
-        Me.Label139 = New System.Windows.Forms.Label()
-        Me.Label140 = New System.Windows.Forms.Label()
-        Me.Label141 = New System.Windows.Forms.Label()
-        Me.Label142 = New System.Windows.Forms.Label()
-        Me.Label143 = New System.Windows.Forms.Label()
-        Me.Label144 = New System.Windows.Forms.Label()
-        Me.Label145 = New System.Windows.Forms.Label()
-        Me.tabgenerateESmailout = New System.Windows.Forms.TabPage()
-        Me.Label174 = New System.Windows.Forms.Label()
-        Me.lblviewselectedyearMailoutList = New System.Windows.Forms.LinkLabel()
-        Me.btnDelMailOut = New System.Windows.Forms.Button()
-        Me.cboMailoutYear = New System.Windows.Forms.ComboBox()
-        Me.btnGenMailOut = New System.Windows.Forms.Button()
-        Me.tabenroll = New System.Windows.Forms.TabPage()
-        Me.lblviewESenrollment = New System.Windows.Forms.LinkLabel()
-        Me.cboESYear = New System.Windows.Forms.ComboBox()
-        Me.Label189 = New System.Windows.Forms.Label()
-        Me.btnESdeenrollment = New System.Windows.Forms.Button()
-        Me.btnESenrollment = New System.Windows.Forms.Button()
-        Me.tabaddRemovefacility = New System.Windows.Forms.TabPage()
-        Me.Label190 = New System.Windows.Forms.Label()
-        Me.Label191 = New System.Windows.Forms.Label()
-        Me.btnCheckESstatus = New System.Windows.Forms.Button()
-        Me.btnremoveFacilityES = New System.Windows.Forms.Button()
-        Me.Label192 = New System.Windows.Forms.Label()
-        Me.txtESYearforFacility = New System.Windows.Forms.TextBox()
-        Me.btnaddfacilitytoES = New System.Windows.Forms.Button()
-        Me.Label193 = New System.Windows.Forms.Label()
-        Me.txtESairNumber = New System.Windows.Forms.TextBox()
-        Me.PnlESYear = New System.Windows.Forms.Panel()
-        Me.txtESYear = New System.Windows.Forms.TextBox()
-        Me.btnView = New System.Windows.Forms.Button()
-        Me.Label31 = New System.Windows.Forms.Label()
-        Me.cboYear = New System.Windows.Forms.ComboBox()
-        Me.lblOptOutReason = New System.Windows.Forms.Label()
-        Me.lblColocated = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.cboEIYear = New System.Windows.Forms.ComboBox()
         Me.TCDMUTools.SuspendLayout()
         Me.TPEISLog.SuspendLayout()
         Me.TabControl6.SuspendLayout()
@@ -624,7 +456,7 @@ Partial Class EisTool
         Me.Panel15.SuspendLayout()
         Me.Panel14.SuspendLayout()
         Me.Panel13.SuspendLayout()
-        Me.TPEisTools.SuspendLayout()
+        Me.TPInvYear.SuspendLayout()
         Me.Panel17.SuspendLayout()
         CType(Me.dgvEISStats, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel18.SuspendLayout()
@@ -634,6 +466,9 @@ Partial Class EisTool
         Me.Panel22.SuspendLayout()
         Me.TPEISStatMailout.SuspendLayout()
         Me.TPEISEnrollment.SuspendLayout()
+        Me.Panel21.SuspendLayout()
+        Me.TPAdmin.SuspendLayout()
+        Me.TCAdmin.SuspendLayout()
         Me.TPEISThresholds.SuspendLayout()
         Me.Panel23.SuspendLayout()
         CType(Me.dgvThresholdPollutants, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -644,31 +479,20 @@ Partial Class EisTool
         Me.TPOperStatus.SuspendLayout()
         CType(Me.dgvOperStatusMismatch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
-        Me.TPStageData.SuspendLayout()
-        Me.Panel21.SuspendLayout()
-        Me.TPESTools.SuspendLayout()
-        Me.TabControl2.SuspendLayout()
-        Me.TabPage3.SuspendLayout()
-        Me.Panel10.SuspendLayout()
+        Me.TPCaersUsers.SuspendLayout()
+        CType(Me.dgvCaersUsers, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel3.SuspendLayout()
+        Me.TPHistory.SuspendLayout()
+        CType(Me.dgvEIResults, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
-        CType(Me.dgvESDataCount, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel4.SuspendLayout()
-        Me.Panel5.SuspendLayout()
-        Me.TabControl3.SuspendLayout()
-        Me.tabSummary.SuspendLayout()
-        Me.tabMailOut.SuspendLayout()
-        Me.TabDetails.SuspendLayout()
-        Me.tabgenerateESmailout.SuspendLayout()
-        Me.tabenroll.SuspendLayout()
-        Me.tabaddRemovefacility.SuspendLayout()
-        Me.PnlESYear.SuspendLayout()
         Me.SuspendLayout()
         '
         'TCDMUTools
         '
         Me.TCDMUTools.Controls.Add(Me.TPEISLog)
-        Me.TCDMUTools.Controls.Add(Me.TPEisTools)
-        Me.TCDMUTools.Controls.Add(Me.TPESTools)
+        Me.TCDMUTools.Controls.Add(Me.TPInvYear)
+        Me.TCDMUTools.Controls.Add(Me.TPAdmin)
+        Me.TCDMUTools.Controls.Add(Me.TPHistory)
         Me.TCDMUTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCDMUTools.Location = New System.Drawing.Point(0, 0)
         Me.TCDMUTools.MinimumSize = New System.Drawing.Size(1016, 713)
@@ -685,7 +509,7 @@ Partial Class EisTool
         Me.TPEISLog.Name = "TPEISLog"
         Me.TPEISLog.Size = New System.Drawing.Size(1008, 687)
         Me.TPEISLog.TabIndex = 13
-        Me.TPEISLog.Text = "Emission Inventory Log"
+        Me.TPEISLog.Text = "Emissions Inventory Log"
         Me.TPEISLog.UseVisualStyleBackColor = True
         '
         'TabControl6
@@ -784,6 +608,24 @@ Partial Class EisTool
         Me.Label5.Size = New System.Drawing.Size(58, 13)
         Me.Label5.TabIndex = 3
         Me.Label5.Text = "Colocated:"
+        '
+        'lblColocated
+        '
+        Me.lblColocated.AutoSize = True
+        Me.lblColocated.Location = New System.Drawing.Point(99, 65)
+        Me.lblColocated.Name = "lblColocated"
+        Me.lblColocated.Size = New System.Drawing.Size(60, 13)
+        Me.lblColocated.TabIndex = 3
+        Me.lblColocated.Text = "(colocated)"
+        '
+        'lblOptOutReason
+        '
+        Me.lblOptOutReason.AutoSize = True
+        Me.lblOptOutReason.Location = New System.Drawing.Point(99, 39)
+        Me.lblOptOutReason.Name = "lblOptOutReason"
+        Me.lblOptOutReason.Size = New System.Drawing.Size(45, 13)
+        Me.lblOptOutReason.TabIndex = 3
+        Me.lblOptOutReason.Text = "(reason)"
         '
         'Label4
         '
@@ -2367,6 +2209,8 @@ Partial Class EisTool
         '
         'Panel9
         '
+        Me.Panel9.Controls.Add(Me.txtEILogSelectedAIRSNumber)
+        Me.Panel9.Controls.Add(Me.mtbEILogAIRSNumber)
         Me.Panel9.Controls.Add(Me.txtEILogStatusCode)
         Me.Panel9.Controls.Add(Me.Panel20)
         Me.Panel9.Controls.Add(Me.Label234)
@@ -2379,7 +2223,6 @@ Partial Class EisTool
         Me.Panel9.Controls.Add(Me.cboEILogYear)
         Me.Panel9.Controls.Add(Me.Label230)
         Me.Panel9.Controls.Add(Me.btnReloadFSData)
-        Me.Panel9.Controls.Add(Me.txtEILogSelectedAIRSNumber)
         Me.Panel9.Controls.Add(Me.btnEILogAddNewFacility)
         Me.Panel9.Controls.Add(Me.btnEILogUpdate)
         Me.Panel9.Controls.Add(Me.Label182)
@@ -2401,7 +2244,6 @@ Partial Class EisTool
         Me.Panel9.Controls.Add(Me.txtEILogSelectedYear)
         Me.Panel9.Controls.Add(Me.txtEILogFacilityName)
         Me.Panel9.Controls.Add(Me.Label49)
-        Me.Panel9.Controls.Add(Me.mtbEILogAIRSNumber)
         Me.Panel9.Controls.Add(Me.Label48)
         Me.Panel9.Controls.Add(Me.Label47)
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Top
@@ -2410,9 +2252,29 @@ Partial Class EisTool
         Me.Panel9.Size = New System.Drawing.Size(1008, 169)
         Me.Panel9.TabIndex = 0
         '
+        'txtEILogSelectedAIRSNumber
+        '
+        Me.txtEILogSelectedAIRSNumber.AirsNumber = Nothing
+        Me.txtEILogSelectedAIRSNumber.Cue = ""
+        Me.txtEILogSelectedAIRSNumber.Location = New System.Drawing.Point(407, 7)
+        Me.txtEILogSelectedAIRSNumber.MaxLength = 9
+        Me.txtEILogSelectedAIRSNumber.Name = "txtEILogSelectedAIRSNumber"
+        Me.txtEILogSelectedAIRSNumber.ReadOnly = True
+        Me.txtEILogSelectedAIRSNumber.Size = New System.Drawing.Size(86, 20)
+        Me.txtEILogSelectedAIRSNumber.TabIndex = 506
+        '
+        'mtbEILogAIRSNumber
+        '
+        Me.mtbEILogAIRSNumber.AirsNumber = Nothing
+        Me.mtbEILogAIRSNumber.Location = New System.Drawing.Point(77, 26)
+        Me.mtbEILogAIRSNumber.MaxLength = 9
+        Me.mtbEILogAIRSNumber.Name = "mtbEILogAIRSNumber"
+        Me.mtbEILogAIRSNumber.Size = New System.Drawing.Size(63, 20)
+        Me.mtbEILogAIRSNumber.TabIndex = 1
+        '
         'txtEILogStatusCode
         '
-        Me.txtEILogStatusCode.Location = New System.Drawing.Point(294, 55)
+        Me.txtEILogStatusCode.Location = New System.Drawing.Point(294, 56)
         Me.txtEILogStatusCode.Name = "txtEILogStatusCode"
         Me.txtEILogStatusCode.ReadOnly = True
         Me.txtEILogStatusCode.Size = New System.Drawing.Size(152, 20)
@@ -2424,7 +2286,7 @@ Partial Class EisTool
         Me.Panel20.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel20.Controls.Add(Me.rdbEILogActiveNo)
         Me.Panel20.Controls.Add(Me.rdbEILogActiveYes)
-        Me.Panel20.Location = New System.Drawing.Point(868, 80)
+        Me.Panel20.Location = New System.Drawing.Point(868, 81)
         Me.Panel20.Name = "Panel20"
         Me.Panel20.Size = New System.Drawing.Size(90, 22)
         Me.Panel20.TabIndex = 18
@@ -2454,7 +2316,7 @@ Partial Class EisTool
         'Label234
         '
         Me.Label234.AutoSize = True
-        Me.Label234.Location = New System.Drawing.Point(795, 84)
+        Me.Label234.Location = New System.Drawing.Point(792, 85)
         Me.Label234.Name = "Label234"
         Me.Label234.Size = New System.Drawing.Size(70, 13)
         Me.Label234.TabIndex = 505
@@ -2463,7 +2325,7 @@ Partial Class EisTool
         'Label239
         '
         Me.Label239.AutoSize = True
-        Me.Label239.Location = New System.Drawing.Point(647, 13)
+        Me.Label239.Location = New System.Drawing.Point(647, 10)
         Me.Label239.Name = "Label239"
         Me.Label239.Size = New System.Drawing.Size(69, 13)
         Me.Label239.TabIndex = 505
@@ -2471,7 +2333,7 @@ Partial Class EisTool
         '
         'txtEILogStatusMgt
         '
-        Me.txtEILogStatusMgt.Location = New System.Drawing.Point(722, 10)
+        Me.txtEILogStatusMgt.Location = New System.Drawing.Point(722, 7)
         Me.txtEILogStatusMgt.Multiline = True
         Me.txtEILogStatusMgt.Name = "txtEILogStatusMgt"
         Me.txtEILogStatusMgt.ReadOnly = True
@@ -2482,7 +2344,7 @@ Partial Class EisTool
         '
         Me.dtpEILogDateEnrolled.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEILogDateEnrolled.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEILogDateEnrolled.Location = New System.Drawing.Point(59, 142)
+        Me.dtpEILogDateEnrolled.Location = New System.Drawing.Point(60, 137)
         Me.dtpEILogDateEnrolled.Name = "dtpEILogDateEnrolled"
         Me.dtpEILogDateEnrolled.Size = New System.Drawing.Size(100, 20)
         Me.dtpEILogDateEnrolled.TabIndex = 6
@@ -2490,7 +2352,7 @@ Partial Class EisTool
         'Label232
         '
         Me.Label232.AutoSize = True
-        Me.Label232.Location = New System.Drawing.Point(9, 146)
+        Me.Label232.Location = New System.Drawing.Point(9, 139)
         Me.Label232.Name = "Label232"
         Me.Label232.Size = New System.Drawing.Size(45, 13)
         Me.Label232.TabIndex = 501
@@ -2500,7 +2362,7 @@ Partial Class EisTool
         '
         Me.dtpEILogStatusDateSubmit.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEILogStatusDateSubmit.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEILogStatusDateSubmit.Location = New System.Drawing.Point(650, 75)
+        Me.dtpEILogStatusDateSubmit.Location = New System.Drawing.Point(639, 79)
         Me.dtpEILogStatusDateSubmit.Name = "dtpEILogStatusDateSubmit"
         Me.dtpEILogStatusDateSubmit.Size = New System.Drawing.Size(100, 20)
         Me.dtpEILogStatusDateSubmit.TabIndex = 13
@@ -2508,7 +2370,7 @@ Partial Class EisTool
         'Label229
         '
         Me.Label229.AutoSize = True
-        Me.Label229.Location = New System.Drawing.Point(613, 59)
+        Me.Label229.Location = New System.Drawing.Point(610, 59)
         Me.Label229.Name = "Label229"
         Me.Label229.Size = New System.Drawing.Size(137, 13)
         Me.Label229.TabIndex = 499
@@ -2518,7 +2380,7 @@ Partial Class EisTool
         '
         Me.cboEILogYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEILogYear.FormattingEnabled = True
-        Me.cboEILogYear.Location = New System.Drawing.Point(59, 6)
+        Me.cboEILogYear.Location = New System.Drawing.Point(8, 26)
         Me.cboEILogYear.Name = "cboEILogYear"
         Me.cboEILogYear.Size = New System.Drawing.Size(63, 21)
         Me.cboEILogYear.TabIndex = 0
@@ -2526,7 +2388,7 @@ Partial Class EisTool
         'Label230
         '
         Me.Label230.AutoSize = True
-        Me.Label230.Location = New System.Drawing.Point(457, 10)
+        Me.Label230.Location = New System.Drawing.Point(218, 10)
         Me.Label230.Name = "Label230"
         Me.Label230.Size = New System.Drawing.Size(117, 13)
         Me.Label230.TabIndex = 498
@@ -2535,26 +2397,18 @@ Partial Class EisTool
         'btnReloadFSData
         '
         Me.btnReloadFSData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnReloadFSData.Location = New System.Drawing.Point(128, 5)
+        Me.btnReloadFSData.Location = New System.Drawing.Point(146, 25)
         Me.btnReloadFSData.Name = "btnReloadFSData"
         Me.btnReloadFSData.Size = New System.Drawing.Size(56, 22)
-        Me.btnReloadFSData.TabIndex = 1
+        Me.btnReloadFSData.TabIndex = 2
         Me.btnReloadFSData.Text = "View"
         Me.btnReloadFSData.UseVisualStyleBackColor = True
-        '
-        'txtEILogSelectedAIRSNumber
-        '
-        Me.txtEILogSelectedAIRSNumber.Location = New System.Drawing.Point(360, 7)
-        Me.txtEILogSelectedAIRSNumber.Name = "txtEILogSelectedAIRSNumber"
-        Me.txtEILogSelectedAIRSNumber.ReadOnly = True
-        Me.txtEILogSelectedAIRSNumber.Size = New System.Drawing.Size(86, 20)
-        Me.txtEILogSelectedAIRSNumber.TabIndex = 8
         '
         'btnEILogAddNewFacility
         '
         Me.btnEILogAddNewFacility.AutoSize = True
         Me.btnEILogAddNewFacility.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEILogAddNewFacility.Location = New System.Drawing.Point(868, 42)
+        Me.btnEILogAddNewFacility.Location = New System.Drawing.Point(868, 36)
         Me.btnEILogAddNewFacility.Name = "btnEILogAddNewFacility"
         Me.btnEILogAddNewFacility.Size = New System.Drawing.Size(133, 23)
         Me.btnEILogAddNewFacility.TabIndex = 17
@@ -2565,7 +2419,7 @@ Partial Class EisTool
         '
         Me.btnEILogUpdate.AutoSize = True
         Me.btnEILogUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEILogUpdate.Location = New System.Drawing.Point(868, 13)
+        Me.btnEILogUpdate.Location = New System.Drawing.Point(868, 7)
         Me.btnEILogUpdate.Name = "btnEILogUpdate"
         Me.btnEILogUpdate.Size = New System.Drawing.Size(110, 23)
         Me.btnEILogUpdate.TabIndex = 16
@@ -2575,7 +2429,7 @@ Partial Class EisTool
         'Label182
         '
         Me.Label182.AutoSize = True
-        Me.Label182.Location = New System.Drawing.Point(769, 143)
+        Me.Label182.Location = New System.Drawing.Point(769, 139)
         Me.Label182.Name = "Label182"
         Me.Label182.Size = New System.Drawing.Size(93, 13)
         Me.Label182.TabIndex = 458
@@ -2592,7 +2446,7 @@ Partial Class EisTool
         'Label176
         '
         Me.Label176.AutoSize = True
-        Me.Label176.Location = New System.Drawing.Point(796, 117)
+        Me.Label176.Location = New System.Drawing.Point(799, 113)
         Me.Label176.Name = "Label176"
         Me.Label176.Size = New System.Drawing.Size(63, 13)
         Me.Label176.TabIndex = 456
@@ -2608,7 +2462,7 @@ Partial Class EisTool
         '
         'txtEILogComments
         '
-        Me.txtEILogComments.Location = New System.Drawing.Point(294, 116)
+        Me.txtEILogComments.Location = New System.Drawing.Point(291, 109)
         Me.txtEILogComments.Multiline = True
         Me.txtEILogComments.Name = "txtEILogComments"
         Me.txtEILogComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -2618,7 +2472,7 @@ Partial Class EisTool
         'Label175
         '
         Me.Label175.AutoSize = True
-        Me.Label175.Location = New System.Drawing.Point(232, 117)
+        Me.Label175.Location = New System.Drawing.Point(218, 112)
         Me.Label175.Name = "Label175"
         Me.Label175.Size = New System.Drawing.Size(56, 13)
         Me.Label175.TabIndex = 441
@@ -2628,7 +2482,7 @@ Partial Class EisTool
         '
         Me.cboEILogAccessCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEILogAccessCode.FormattingEnabled = True
-        Me.cboEILogAccessCode.Location = New System.Drawing.Point(294, 84)
+        Me.cboEILogAccessCode.Location = New System.Drawing.Point(294, 82)
         Me.cboEILogAccessCode.Name = "cboEILogAccessCode"
         Me.cboEILogAccessCode.Size = New System.Drawing.Size(310, 21)
         Me.cboEILogAccessCode.TabIndex = 12
@@ -2636,7 +2490,7 @@ Partial Class EisTool
         'Label103
         '
         Me.Label103.AutoSize = True
-        Me.Label103.Location = New System.Drawing.Point(218, 88)
+        Me.Label103.Location = New System.Drawing.Point(218, 85)
         Me.Label103.Name = "Label103"
         Me.Label103.Size = New System.Drawing.Size(70, 13)
         Me.Label103.TabIndex = 439
@@ -2646,7 +2500,7 @@ Partial Class EisTool
         '
         Me.cboEILogStatusCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEILogStatusCode.FormattingEnabled = True
-        Me.cboEILogStatusCode.Location = New System.Drawing.Point(452, 55)
+        Me.cboEILogStatusCode.Location = New System.Drawing.Point(452, 56)
         Me.cboEILogStatusCode.Name = "cboEILogStatusCode"
         Me.cboEILogStatusCode.Size = New System.Drawing.Size(152, 21)
         Me.cboEILogStatusCode.TabIndex = 11
@@ -2663,7 +2517,7 @@ Partial Class EisTool
         'Label101
         '
         Me.Label101.AutoSize = True
-        Me.Label101.Location = New System.Drawing.Point(10, 119)
+        Me.Label101.Location = New System.Drawing.Point(9, 112)
         Me.Label101.Name = "Label101"
         Me.Label101.Size = New System.Drawing.Size(44, 13)
         Me.Label101.TabIndex = 435
@@ -2675,7 +2529,7 @@ Partial Class EisTool
         Me.Panel15.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel15.Controls.Add(Me.rdbEILogOpOutNo)
         Me.Panel15.Controls.Add(Me.rdbEILogOpOutYes)
-        Me.Panel15.Location = New System.Drawing.Point(59, 116)
+        Me.Panel15.Location = New System.Drawing.Point(59, 109)
         Me.Panel15.Name = "Panel15"
         Me.Panel15.Size = New System.Drawing.Size(91, 22)
         Me.Panel15.TabIndex = 5
@@ -2705,7 +2559,7 @@ Partial Class EisTool
         'Label96
         '
         Me.Label96.AutoSize = True
-        Me.Label96.Location = New System.Drawing.Point(13, 64)
+        Me.Label96.Location = New System.Drawing.Point(9, 59)
         Me.Label96.Name = "Label96"
         Me.Label96.Size = New System.Drawing.Size(41, 13)
         Me.Label96.TabIndex = 433
@@ -2717,7 +2571,7 @@ Partial Class EisTool
         Me.Panel14.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel14.Controls.Add(Me.rdbEILogMailoutNo)
         Me.Panel14.Controls.Add(Me.rdbEILogMailoutYes)
-        Me.Panel14.Location = New System.Drawing.Point(59, 58)
+        Me.Panel14.Location = New System.Drawing.Point(59, 53)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Size = New System.Drawing.Size(91, 22)
         Me.Panel14.TabIndex = 3
@@ -2747,7 +2601,7 @@ Partial Class EisTool
         'Label95
         '
         Me.Label95.AutoSize = True
-        Me.Label95.Location = New System.Drawing.Point(9, 91)
+        Me.Label95.Location = New System.Drawing.Point(9, 85)
         Me.Label95.Name = "Label95"
         Me.Label95.Size = New System.Drawing.Size(45, 13)
         Me.Label95.TabIndex = 431
@@ -2759,7 +2613,7 @@ Partial Class EisTool
         Me.Panel13.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel13.Controls.Add(Me.rdbEILogEnrolledNo)
         Me.Panel13.Controls.Add(Me.rdbEILogEnrolledYes)
-        Me.Panel13.Location = New System.Drawing.Point(59, 86)
+        Me.Panel13.Location = New System.Drawing.Point(59, 80)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(91, 22)
         Me.Panel13.TabIndex = 4
@@ -2788,7 +2642,7 @@ Partial Class EisTool
         '
         'txtEILogSelectedYear
         '
-        Me.txtEILogSelectedYear.Location = New System.Drawing.Point(294, 7)
+        Me.txtEILogSelectedYear.Location = New System.Drawing.Point(341, 7)
         Me.txtEILogSelectedYear.Name = "txtEILogSelectedYear"
         Me.txtEILogSelectedYear.ReadOnly = True
         Me.txtEILogSelectedYear.Size = New System.Drawing.Size(60, 20)
@@ -2799,31 +2653,22 @@ Partial Class EisTool
         Me.txtEILogFacilityName.Location = New System.Drawing.Point(294, 30)
         Me.txtEILogFacilityName.Name = "txtEILogFacilityName"
         Me.txtEILogFacilityName.ReadOnly = True
-        Me.txtEILogFacilityName.Size = New System.Drawing.Size(322, 20)
+        Me.txtEILogFacilityName.Size = New System.Drawing.Size(310, 20)
         Me.txtEILogFacilityName.TabIndex = 9
         '
         'Label49
         '
         Me.Label49.AutoSize = True
-        Me.Label49.Location = New System.Drawing.Point(200, 34)
+        Me.Label49.Location = New System.Drawing.Point(218, 33)
         Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(90, 13)
+        Me.Label49.Size = New System.Drawing.Size(70, 13)
         Me.Label49.TabIndex = 4
-        Me.Label49.Text = "EIS Facility Name"
-        '
-        'mtbEILogAIRSNumber
-        '
-        Me.mtbEILogAIRSNumber.Location = New System.Drawing.Point(59, 32)
-        Me.mtbEILogAIRSNumber.Mask = "000-00000"
-        Me.mtbEILogAIRSNumber.Name = "mtbEILogAIRSNumber"
-        Me.mtbEILogAIRSNumber.Size = New System.Drawing.Size(63, 20)
-        Me.mtbEILogAIRSNumber.TabIndex = 2
-        Me.mtbEILogAIRSNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        Me.Label49.Text = "Facility Name"
         '
         'Label48
         '
         Me.Label48.AutoSize = True
-        Me.Label48.Location = New System.Drawing.Point(12, 37)
+        Me.Label48.Location = New System.Drawing.Point(77, 10)
         Me.Label48.Name = "Label48"
         Me.Label48.Size = New System.Drawing.Size(42, 13)
         Me.Label48.TabIndex = 1
@@ -2832,22 +2677,22 @@ Partial Class EisTool
         'Label47
         '
         Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(5, 10)
+        Me.Label47.Location = New System.Drawing.Point(9, 10)
         Me.Label47.Name = "Label47"
         Me.Label47.Size = New System.Drawing.Size(49, 13)
         Me.Label47.TabIndex = 0
         Me.Label47.Text = "EIS Year"
         '
-        'TPEisTools
+        'TPInvYear
         '
-        Me.TPEisTools.Controls.Add(Me.Panel17)
-        Me.TPEisTools.Controls.Add(Me.Panel19)
-        Me.TPEisTools.Location = New System.Drawing.Point(4, 22)
-        Me.TPEisTools.Name = "TPEisTools"
-        Me.TPEisTools.Size = New System.Drawing.Size(1008, 687)
-        Me.TPEisTools.TabIndex = 14
-        Me.TPEisTools.Text = "EIS Tools"
-        Me.TPEisTools.UseVisualStyleBackColor = True
+        Me.TPInvYear.Controls.Add(Me.Panel17)
+        Me.TPInvYear.Controls.Add(Me.Panel19)
+        Me.TPInvYear.Location = New System.Drawing.Point(4, 22)
+        Me.TPInvYear.Name = "TPInvYear"
+        Me.TPInvYear.Size = New System.Drawing.Size(1008, 687)
+        Me.TPInvYear.TabIndex = 14
+        Me.TPInvYear.Text = "Inventory Year"
+        Me.TPInvYear.UseVisualStyleBackColor = True
         '
         'Panel17
         '
@@ -2857,28 +2702,32 @@ Partial Class EisTool
         Me.Panel17.Location = New System.Drawing.Point(446, 0)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Size = New System.Drawing.Size(562, 687)
-        Me.Panel17.TabIndex = 0
+        Me.Panel17.TabIndex = 1
         '
         'dgvEISStats
         '
-        Me.dgvEISStats.AllowUserToAddRows = False
-        Me.dgvEISStats.AllowUserToDeleteRows = False
-        Me.dgvEISStats.AllowUserToResizeRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEISStats.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvEISStats.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvEISStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvEISStats.DecimalFieldFormat = "G"
         Me.dgvEISStats.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvEISStats.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvEISStats.Location = New System.Drawing.Point(0, 62)
+        Me.dgvEISStats.LinkifyColumnByName = Nothing
+        Me.dgvEISStats.Location = New System.Drawing.Point(0, 73)
+        Me.dgvEISStats.MultiSelect = True
         Me.dgvEISStats.Name = "dgvEISStats"
-        Me.dgvEISStats.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvEISStats.Size = New System.Drawing.Size(562, 625)
+        Me.dgvEISStats.ResultsCountLabel = Nothing
+        Me.dgvEISStats.ResultsCountLabelFormat = "Count: {0}"
+        Me.dgvEISStats.Size = New System.Drawing.Size(562, 614)
+        Me.dgvEISStats.StandardTab = True
         Me.dgvEISStats.TabIndex = 1
         '
         'Panel18
         '
+        Me.Panel18.Controls.Add(Me.mtbEISLogAIRSNumber)
         Me.Panel18.Controls.Add(Me.lblEisStageSelectedCount)
         Me.Panel18.Controls.Add(Me.btnLoadEISLog)
         Me.Panel18.Controls.Add(Me.btnEisStageSelectNone)
-        Me.Panel18.Controls.Add(Me.mtbEISLogAIRSNumber)
         Me.Panel18.Controls.Add(Me.btnSelectHighlighted)
         Me.Panel18.Controls.Add(Me.btnEisStageSelectAll)
         Me.Panel18.Controls.Add(Me.lblEISCount)
@@ -2886,68 +2735,72 @@ Partial Class EisTool
         Me.Panel18.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel18.Location = New System.Drawing.Point(0, 0)
         Me.Panel18.Name = "Panel18"
-        Me.Panel18.Size = New System.Drawing.Size(562, 62)
+        Me.Panel18.Size = New System.Drawing.Size(562, 73)
         Me.Panel18.TabIndex = 0
+        '
+        'mtbEISLogAIRSNumber
+        '
+        Me.mtbEISLogAIRSNumber.AirsNumber = Nothing
+        Me.mtbEISLogAIRSNumber.Location = New System.Drawing.Point(9, 12)
+        Me.mtbEISLogAIRSNumber.MaxLength = 9
+        Me.mtbEISLogAIRSNumber.Name = "mtbEISLogAIRSNumber"
+        Me.mtbEISLogAIRSNumber.Size = New System.Drawing.Size(63, 20)
+        Me.mtbEISLogAIRSNumber.TabIndex = 0
         '
         'lblEisStageSelectedCount
         '
+        Me.lblEisStageSelectedCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblEisStageSelectedCount.AutoSize = True
         Me.lblEisStageSelectedCount.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEisStageSelectedCount.Location = New System.Drawing.Point(415, 37)
+        Me.lblEisStageSelectedCount.Location = New System.Drawing.Point(476, 44)
         Me.lblEisStageSelectedCount.Name = "lblEisStageSelectedCount"
         Me.lblEisStageSelectedCount.Size = New System.Drawing.Size(61, 13)
-        Me.lblEisStageSelectedCount.TabIndex = 7
+        Me.lblEisStageSelectedCount.TabIndex = 6
         Me.lblEisStageSelectedCount.Text = "Selected: 0"
         '
         'btnLoadEISLog
         '
-        Me.btnLoadEISLog.Location = New System.Drawing.Point(75, 3)
+        Me.btnLoadEISLog.Location = New System.Drawing.Point(78, 10)
         Me.btnLoadEISLog.Name = "btnLoadEISLog"
         Me.btnLoadEISLog.Size = New System.Drawing.Size(95, 23)
-        Me.btnLoadEISLog.TabIndex = 108
+        Me.btnLoadEISLog.TabIndex = 1
         Me.btnLoadEISLog.Text = "Load Log Data"
         Me.btnLoadEISLog.UseVisualStyleBackColor = True
         '
         'btnEisStageSelectNone
         '
-        Me.btnEisStageSelectNone.Location = New System.Drawing.Point(337, 32)
+        Me.btnEisStageSelectNone.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnEisStageSelectNone.Location = New System.Drawing.Point(398, 39)
         Me.btnEisStageSelectNone.Name = "btnEisStageSelectNone"
         Me.btnEisStageSelectNone.Size = New System.Drawing.Size(72, 23)
-        Me.btnEisStageSelectNone.TabIndex = 2
+        Me.btnEisStageSelectNone.TabIndex = 5
         Me.btnEisStageSelectNone.Text = "Select none"
         Me.btnEisStageSelectNone.UseVisualStyleBackColor = True
         '
-        'mtbEISLogAIRSNumber
-        '
-        Me.mtbEISLogAIRSNumber.Location = New System.Drawing.Point(6, 5)
-        Me.mtbEISLogAIRSNumber.Mask = "000-00000"
-        Me.mtbEISLogAIRSNumber.Name = "mtbEISLogAIRSNumber"
-        Me.mtbEISLogAIRSNumber.Size = New System.Drawing.Size(63, 20)
-        Me.mtbEISLogAIRSNumber.TabIndex = 107
-        Me.mtbEISLogAIRSNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
         'btnSelectHighlighted
         '
-        Me.btnSelectHighlighted.Location = New System.Drawing.Point(229, 32)
+        Me.btnSelectHighlighted.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSelectHighlighted.Location = New System.Drawing.Point(290, 39)
         Me.btnSelectHighlighted.Name = "btnSelectHighlighted"
         Me.btnSelectHighlighted.Size = New System.Drawing.Size(102, 23)
-        Me.btnSelectHighlighted.TabIndex = 1
+        Me.btnSelectHighlighted.TabIndex = 4
         Me.btnSelectHighlighted.Text = "Select highlighted"
         Me.btnSelectHighlighted.UseVisualStyleBackColor = True
         '
         'btnEisStageSelectAll
         '
-        Me.btnEisStageSelectAll.Location = New System.Drawing.Point(151, 32)
+        Me.btnEisStageSelectAll.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnEisStageSelectAll.Location = New System.Drawing.Point(212, 39)
         Me.btnEisStageSelectAll.Name = "btnEisStageSelectAll"
         Me.btnEisStageSelectAll.Size = New System.Drawing.Size(72, 23)
-        Me.btnEisStageSelectAll.TabIndex = 1
+        Me.btnEisStageSelectAll.TabIndex = 3
         Me.btnEisStageSelectAll.Text = "Select all"
         Me.btnEisStageSelectAll.UseVisualStyleBackColor = True
         '
         'lblEISCount
         '
         Me.lblEISCount.AutoSize = True
-        Me.lblEISCount.Location = New System.Drawing.Point(6, 37)
+        Me.lblEISCount.Location = New System.Drawing.Point(6, 44)
         Me.lblEISCount.Name = "lblEISCount"
         Me.lblEISCount.Size = New System.Drawing.Size(38, 13)
         Me.lblEISCount.TabIndex = 104
@@ -2957,10 +2810,10 @@ Partial Class EisTool
         '
         Me.btnEISSummaryToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnEISSummaryToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnEISSummaryToExcel.Location = New System.Drawing.Point(433, 3)
+        Me.btnEISSummaryToExcel.Location = New System.Drawing.Point(433, 10)
         Me.btnEISSummaryToExcel.Name = "btnEISSummaryToExcel"
         Me.btnEISSummaryToExcel.Size = New System.Drawing.Size(121, 23)
-        Me.btnEISSummaryToExcel.TabIndex = 105
+        Me.btnEISSummaryToExcel.TabIndex = 2
         Me.btnEISSummaryToExcel.Text = " Export To Excel"
         Me.btnEISSummaryToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnEISSummaryToExcel.UseVisualStyleBackColor = True
@@ -2973,21 +2826,18 @@ Partial Class EisTool
         Me.Panel19.Location = New System.Drawing.Point(0, 0)
         Me.Panel19.Name = "Panel19"
         Me.Panel19.Size = New System.Drawing.Size(446, 687)
-        Me.Panel19.TabIndex = 2
+        Me.Panel19.TabIndex = 0
         '
         'TCEISStats
         '
         Me.TCEISStats.Controls.Add(Me.TPEISStatSummary)
         Me.TCEISStats.Controls.Add(Me.TPEISStatMailout)
         Me.TCEISStats.Controls.Add(Me.TPEISEnrollment)
-        Me.TCEISStats.Controls.Add(Me.TPEISThresholds)
-        Me.TCEISStats.Controls.Add(Me.TPOperStatus)
-        Me.TCEISStats.Controls.Add(Me.TPStageData)
         Me.TCEISStats.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCEISStats.Location = New System.Drawing.Point(0, 44)
+        Me.TCEISStats.Location = New System.Drawing.Point(0, 47)
         Me.TCEISStats.Name = "TCEISStats"
         Me.TCEISStats.SelectedIndex = 0
-        Me.TCEISStats.Size = New System.Drawing.Size(446, 643)
+        Me.TCEISStats.Size = New System.Drawing.Size(446, 640)
         Me.TCEISStats.TabIndex = 1
         '
         'TPEISStatSummary
@@ -2997,7 +2847,7 @@ Partial Class EisTool
         Me.TPEISStatSummary.Location = New System.Drawing.Point(4, 22)
         Me.TPEISStatSummary.Name = "TPEISStatSummary"
         Me.TPEISStatSummary.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPEISStatSummary.Size = New System.Drawing.Size(438, 617)
+        Me.TPEISStatSummary.Size = New System.Drawing.Size(438, 614)
         Me.TPEISStatSummary.TabIndex = 0
         Me.TPEISStatSummary.Text = "Summary"
         Me.TPEISStatSummary.UseVisualStyleBackColor = True
@@ -3074,7 +2924,7 @@ Partial Class EisTool
         Me.Panel22.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel22.Location = New System.Drawing.Point(3, 3)
         Me.Panel22.Name = "Panel22"
-        Me.Panel22.Size = New System.Drawing.Size(432, 611)
+        Me.Panel22.Size = New System.Drawing.Size(432, 608)
         Me.Panel22.TabIndex = 96
         '
         'llbEISStatsSubmittedBeganwithBothErrors
@@ -3083,7 +2933,7 @@ Partial Class EisTool
         Me.llbEISStatsSubmittedBeganwithBothErrors.Location = New System.Drawing.Point(200, 422)
         Me.llbEISStatsSubmittedBeganwithBothErrors.Name = "llbEISStatsSubmittedBeganwithBothErrors"
         Me.llbEISStatsSubmittedBeganwithBothErrors.Size = New System.Drawing.Size(74, 13)
-        Me.llbEISStatsSubmittedBeganwithBothErrors.TabIndex = 157
+        Me.llbEISStatsSubmittedBeganwithBothErrors.TabIndex = 40
         Me.llbEISStatsSubmittedBeganwithBothErrors.TabStop = True
         Me.llbEISStatsSubmittedBeganwithBothErrors.Text = "View w/ Both "
         '
@@ -3093,7 +2943,7 @@ Partial Class EisTool
         Me.llbEISStatsSubmittedBeganwFIErrors.Location = New System.Drawing.Point(200, 391)
         Me.llbEISStatsSubmittedBeganwFIErrors.Name = "llbEISStatsSubmittedBeganwFIErrors"
         Me.llbEISStatsSubmittedBeganwFIErrors.Size = New System.Drawing.Size(88, 13)
-        Me.llbEISStatsSubmittedBeganwFIErrors.TabIndex = 156
+        Me.llbEISStatsSubmittedBeganwFIErrors.TabIndex = 37
         Me.llbEISStatsSubmittedBeganwFIErrors.TabStop = True
         Me.llbEISStatsSubmittedBeganwFIErrors.Text = "View w/ FI Errors"
         '
@@ -3103,7 +2953,7 @@ Partial Class EisTool
         Me.llbEISStatsSubmittedBeganwithoutErrors.Location = New System.Drawing.Point(200, 437)
         Me.llbEISStatsSubmittedBeganwithoutErrors.Name = "llbEISStatsSubmittedBeganwithoutErrors"
         Me.llbEISStatsSubmittedBeganwithoutErrors.Size = New System.Drawing.Size(82, 13)
-        Me.llbEISStatsSubmittedBeganwithoutErrors.TabIndex = 155
+        Me.llbEISStatsSubmittedBeganwithoutErrors.TabIndex = 41
         Me.llbEISStatsSubmittedBeganwithoutErrors.TabStop = True
         Me.llbEISStatsSubmittedBeganwithoutErrors.Text = "View w/o Errors"
         '
@@ -3113,7 +2963,7 @@ Partial Class EisTool
         Me.llbEISStatsSubmittedBeganwithEIErrors.Location = New System.Drawing.Point(200, 407)
         Me.llbEISStatsSubmittedBeganwithEIErrors.Name = "llbEISStatsSubmittedBeganwithEIErrors"
         Me.llbEISStatsSubmittedBeganwithEIErrors.Size = New System.Drawing.Size(89, 13)
-        Me.llbEISStatsSubmittedBeganwithEIErrors.TabIndex = 154
+        Me.llbEISStatsSubmittedBeganwithEIErrors.TabIndex = 39
         Me.llbEISStatsSubmittedBeganwithEIErrors.TabStop = True
         Me.llbEISStatsSubmittedBeganwithEIErrors.Text = "View w/ EI Errors"
         '
@@ -3124,7 +2974,7 @@ Partial Class EisTool
         Me.btnCleanUp.Location = New System.Drawing.Point(105, 487)
         Me.btnCleanUp.Name = "btnCleanUp"
         Me.btnCleanUp.Size = New System.Drawing.Size(61, 23)
-        Me.btnCleanUp.TabIndex = 153
+        Me.btnCleanUp.TabIndex = 47
         Me.btnCleanUp.Text = "Clean Up"
         Me.btnCleanUp.UseVisualStyleBackColor = True
         '
@@ -3134,7 +2984,7 @@ Partial Class EisTool
         Me.llbEISStatsFipassed.Location = New System.Drawing.Point(164, 423)
         Me.llbEISStatsFipassed.Name = "llbEISStatsFipassed"
         Me.llbEISStatsFipassed.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISStatsFipassed.TabIndex = 152
+        Me.llbEISStatsFipassed.TabIndex = 34
         Me.llbEISStatsFipassed.TabStop = True
         Me.llbEISStatsFipassed.Text = "View"
         '
@@ -3144,7 +2994,7 @@ Partial Class EisTool
         Me.txtEISFIPassed.Name = "txtEISFIPassed"
         Me.txtEISFIPassed.ReadOnly = True
         Me.txtEISFIPassed.Size = New System.Drawing.Size(69, 20)
-        Me.txtEISFIPassed.TabIndex = 151
+        Me.txtEISFIPassed.TabIndex = 33
         '
         'Label297
         '
@@ -3162,7 +3012,7 @@ Partial Class EisTool
         Me.btnEISComplete.Location = New System.Drawing.Point(9, 487)
         Me.btnEISComplete.Name = "btnEISComplete"
         Me.btnEISComplete.Size = New System.Drawing.Size(81, 23)
-        Me.btnEISComplete.TabIndex = 148
+        Me.btnEISComplete.TabIndex = 46
         Me.btnEISComplete.Text = "EIS Complete"
         Me.btnEISComplete.UseVisualStyleBackColor = True
         '
@@ -3180,7 +3030,7 @@ Partial Class EisTool
         Me.llbEISStatsOptedOutSubmittedToEPA.Location = New System.Drawing.Point(384, 448)
         Me.llbEISStatsOptedOutSubmittedToEPA.Name = "llbEISStatsOptedOutSubmittedToEPA"
         Me.llbEISStatsOptedOutSubmittedToEPA.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISStatsOptedOutSubmittedToEPA.TabIndex = 146
+        Me.llbEISStatsOptedOutSubmittedToEPA.TabIndex = 45
         Me.llbEISStatsOptedOutSubmittedToEPA.TabStop = True
         Me.llbEISStatsOptedOutSubmittedToEPA.Text = "View"
         '
@@ -3190,7 +3040,7 @@ Partial Class EisTool
         Me.txtEISOpOutToEPA.Name = "txtEISOpOutToEPA"
         Me.txtEISOpOutToEPA.ReadOnly = True
         Me.txtEISOpOutToEPA.Size = New System.Drawing.Size(69, 20)
-        Me.txtEISOpOutToEPA.TabIndex = 145
+        Me.txtEISOpOutToEPA.TabIndex = 44
         '
         'llbEISStatsOptedOutBegan
         '
@@ -3198,7 +3048,7 @@ Partial Class EisTool
         Me.llbEISStatsOptedOutBegan.Location = New System.Drawing.Point(384, 400)
         Me.llbEISStatsOptedOutBegan.Name = "llbEISStatsOptedOutBegan"
         Me.llbEISStatsOptedOutBegan.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISStatsOptedOutBegan.TabIndex = 144
+        Me.llbEISStatsOptedOutBegan.TabIndex = 43
         Me.llbEISStatsOptedOutBegan.TabStop = True
         Me.llbEISStatsOptedOutBegan.Text = "View"
         '
@@ -3208,7 +3058,7 @@ Partial Class EisTool
         Me.txtEISOpOutBegan.Name = "txtEISOpOutBegan"
         Me.txtEISOpOutBegan.ReadOnly = True
         Me.txtEISOpOutBegan.Size = New System.Drawing.Size(69, 20)
-        Me.txtEISOpOutBegan.TabIndex = 143
+        Me.txtEISOpOutBegan.TabIndex = 42
         '
         'llbEISStatsOptedOutToDo
         '
@@ -3216,7 +3066,7 @@ Partial Class EisTool
         Me.llbEISStatsOptedOutToDo.Location = New System.Drawing.Point(384, 342)
         Me.llbEISStatsOptedOutToDo.Name = "llbEISStatsOptedOutToDo"
         Me.llbEISStatsOptedOutToDo.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISStatsOptedOutToDo.TabIndex = 142
+        Me.llbEISStatsOptedOutToDo.TabIndex = 24
         Me.llbEISStatsOptedOutToDo.TabStop = True
         Me.llbEISStatsOptedOutToDo.Text = "View"
         '
@@ -3226,7 +3076,7 @@ Partial Class EisTool
         Me.txtEISOpOutToDo.Name = "txtEISOpOutToDo"
         Me.txtEISOpOutToDo.ReadOnly = True
         Me.txtEISOpOutToDo.Size = New System.Drawing.Size(69, 20)
-        Me.txtEISOpOutToDo.TabIndex = 141
+        Me.txtEISOpOutToDo.TabIndex = 23
         '
         'llbEISStatsSubmittedToDo
         '
@@ -3234,7 +3084,7 @@ Partial Class EisTool
         Me.llbEISStatsSubmittedToDo.Location = New System.Drawing.Point(164, 342)
         Me.llbEISStatsSubmittedToDo.Name = "llbEISStatsSubmittedToDo"
         Me.llbEISStatsSubmittedToDo.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISStatsSubmittedToDo.TabIndex = 140
+        Me.llbEISStatsSubmittedToDo.TabIndex = 22
         Me.llbEISStatsSubmittedToDo.TabStop = True
         Me.llbEISStatsSubmittedToDo.Text = "View"
         '
@@ -3244,7 +3094,7 @@ Partial Class EisTool
         Me.txtEISSubmittedToDo.Name = "txtEISSubmittedToDo"
         Me.txtEISSubmittedToDo.ReadOnly = True
         Me.txtEISSubmittedToDo.Size = New System.Drawing.Size(69, 20)
-        Me.txtEISSubmittedToDo.TabIndex = 139
+        Me.txtEISSubmittedToDo.TabIndex = 21
         '
         'llbEISStatsSubmittedBegan
         '
@@ -3252,7 +3102,7 @@ Partial Class EisTool
         Me.llbEISStatsSubmittedBegan.Location = New System.Drawing.Point(164, 397)
         Me.llbEISStatsSubmittedBegan.Name = "llbEISStatsSubmittedBegan"
         Me.llbEISStatsSubmittedBegan.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISStatsSubmittedBegan.TabIndex = 138
+        Me.llbEISStatsSubmittedBegan.TabIndex = 32
         Me.llbEISStatsSubmittedBegan.TabStop = True
         Me.llbEISStatsSubmittedBegan.Text = "View"
         '
@@ -3262,7 +3112,7 @@ Partial Class EisTool
         Me.txtEISSubmittedBegan.Name = "txtEISSubmittedBegan"
         Me.txtEISSubmittedBegan.ReadOnly = True
         Me.txtEISSubmittedBegan.Size = New System.Drawing.Size(69, 20)
-        Me.txtEISSubmittedBegan.TabIndex = 137
+        Me.txtEISSubmittedBegan.TabIndex = 31
         '
         'Label281
         '
@@ -3297,7 +3147,7 @@ Partial Class EisTool
         Me.Label278.Location = New System.Drawing.Point(82, 323)
         Me.Label278.Name = "Label278"
         Me.Label278.Size = New System.Drawing.Size(54, 13)
-        Me.Label278.TabIndex = 133
+        Me.Label278.TabIndex = 20
         Me.Label278.Text = "Submitted"
         '
         'Label276
@@ -3335,7 +3185,7 @@ Partial Class EisTool
         Me.btnEISBeginQA.Location = New System.Drawing.Point(85, 365)
         Me.btnEISBeginQA.Name = "btnEISBeginQA"
         Me.btnEISBeginQA.Size = New System.Drawing.Size(195, 23)
-        Me.btnEISBeginQA.TabIndex = 125
+        Me.btnEISBeginQA.TabIndex = 25
         Me.btnEISBeginQA.Text = "Start QA process for selected facilities"
         Me.btnEISBeginQA.UseVisualStyleBackColor = True
         '
@@ -3345,7 +3195,7 @@ Partial Class EisTool
         Me.llbEISNoActivity.Location = New System.Drawing.Point(270, 144)
         Me.llbEISNoActivity.Name = "llbEISNoActivity"
         Me.llbEISNoActivity.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISNoActivity.TabIndex = 123
+        Me.llbEISNoActivity.TabIndex = 9
         Me.llbEISNoActivity.TabStop = True
         Me.llbEISNoActivity.Text = "View"
         '
@@ -3355,7 +3205,7 @@ Partial Class EisTool
         Me.txtEISNoActivity.Name = "txtEISNoActivity"
         Me.txtEISNoActivity.ReadOnly = True
         Me.txtEISNoActivity.Size = New System.Drawing.Size(100, 20)
-        Me.txtEISNoActivity.TabIndex = 122
+        Me.txtEISNoActivity.TabIndex = 8
         '
         'Label251
         '
@@ -3372,7 +3222,7 @@ Partial Class EisTool
         Me.llbEISFinalized.Location = New System.Drawing.Point(228, 275)
         Me.llbEISFinalized.Name = "llbEISFinalized"
         Me.llbEISFinalized.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISFinalized.TabIndex = 120
+        Me.llbEISFinalized.TabIndex = 19
         Me.llbEISFinalized.TabStop = True
         Me.llbEISFinalized.Text = "View"
         '
@@ -3382,7 +3232,7 @@ Partial Class EisTool
         Me.txtEISFinalized.Name = "txtEISFinalized"
         Me.txtEISFinalized.ReadOnly = True
         Me.txtEISFinalized.Size = New System.Drawing.Size(100, 20)
-        Me.txtEISFinalized.TabIndex = 119
+        Me.txtEISFinalized.TabIndex = 18
         '
         'Label250
         '
@@ -3399,7 +3249,7 @@ Partial Class EisTool
         Me.llbEISInProgress.Location = New System.Drawing.Point(312, 223)
         Me.llbEISInProgress.Name = "llbEISInProgress"
         Me.llbEISInProgress.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISInProgress.TabIndex = 117
+        Me.llbEISInProgress.TabIndex = 15
         Me.llbEISInProgress.TabStop = True
         Me.llbEISInProgress.Text = "View"
         '
@@ -3409,7 +3259,7 @@ Partial Class EisTool
         Me.txtEISInProgress.Name = "txtEISInProgress"
         Me.txtEISInProgress.ReadOnly = True
         Me.txtEISInProgress.Size = New System.Drawing.Size(100, 20)
-        Me.txtEISInProgress.TabIndex = 116
+        Me.txtEISInProgress.TabIndex = 14
         '
         'Label246
         '
@@ -3426,7 +3276,7 @@ Partial Class EisTool
         Me.llbEISSubmitted.Location = New System.Drawing.Point(312, 249)
         Me.llbEISSubmitted.Name = "llbEISSubmitted"
         Me.llbEISSubmitted.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISSubmitted.TabIndex = 114
+        Me.llbEISSubmitted.TabIndex = 17
         Me.llbEISSubmitted.TabStop = True
         Me.llbEISSubmitted.Text = "View"
         '
@@ -3436,7 +3286,7 @@ Partial Class EisTool
         Me.txtEISSubmitted.Name = "txtEISSubmitted"
         Me.txtEISSubmitted.ReadOnly = True
         Me.txtEISSubmitted.Size = New System.Drawing.Size(100, 20)
-        Me.txtEISSubmitted.TabIndex = 113
+        Me.txtEISSubmitted.TabIndex = 16
         '
         'Label249
         '
@@ -3453,7 +3303,7 @@ Partial Class EisTool
         Me.llbEISQABegan.Location = New System.Drawing.Point(197, 520)
         Me.llbEISQABegan.Name = "llbEISQABegan"
         Me.llbEISQABegan.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISQABegan.TabIndex = 111
+        Me.llbEISQABegan.TabIndex = 50
         Me.llbEISQABegan.TabStop = True
         Me.llbEISQABegan.Text = "View"
         Me.llbEISQABegan.Visible = False
@@ -3464,7 +3314,7 @@ Partial Class EisTool
         Me.txtEISQABegan.Name = "txtEISQABegan"
         Me.txtEISQABegan.ReadOnly = True
         Me.txtEISQABegan.Size = New System.Drawing.Size(100, 20)
-        Me.txtEISQABegan.TabIndex = 110
+        Me.txtEISQABegan.TabIndex = 49
         Me.txtEISQABegan.Visible = False
         '
         'Label248
@@ -3473,7 +3323,7 @@ Partial Class EisTool
         Me.Label248.Location = New System.Drawing.Point(21, 519)
         Me.Label248.Name = "Label248"
         Me.Label248.Size = New System.Drawing.Size(56, 13)
-        Me.Label248.TabIndex = 112
+        Me.Label248.TabIndex = 48
         Me.Label248.Text = "QA Began"
         Me.Label248.Visible = False
         '
@@ -3483,7 +3333,7 @@ Partial Class EisTool
         Me.llbEISSubmittedToEPA.Location = New System.Drawing.Point(164, 448)
         Me.llbEISSubmittedToEPA.Name = "llbEISSubmittedToEPA"
         Me.llbEISSubmittedToEPA.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISSubmittedToEPA.TabIndex = 108
+        Me.llbEISSubmittedToEPA.TabIndex = 36
         Me.llbEISSubmittedToEPA.TabStop = True
         Me.llbEISSubmittedToEPA.Text = "View"
         '
@@ -3493,7 +3343,7 @@ Partial Class EisTool
         Me.txtEISSubmittedToEPA.Name = "txtEISSubmittedToEPA"
         Me.txtEISSubmittedToEPA.ReadOnly = True
         Me.txtEISSubmittedToEPA.Size = New System.Drawing.Size(69, 20)
-        Me.txtEISSubmittedToEPA.TabIndex = 107
+        Me.txtEISSubmittedToEPA.TabIndex = 35
         '
         'Label247
         '
@@ -3511,6 +3361,7 @@ Partial Class EisTool
         Me.txtSelectedEISStatYear.ReadOnly = True
         Me.txtSelectedEISStatYear.Size = New System.Drawing.Size(65, 20)
         Me.txtSelectedEISStatYear.TabIndex = 2
+        Me.txtSelectedEISStatYear.TabStop = False
         '
         'llbEISOptedOut
         '
@@ -3518,7 +3369,7 @@ Partial Class EisTool
         Me.llbEISOptedOut.Location = New System.Drawing.Point(270, 169)
         Me.llbEISOptedOut.Name = "llbEISOptedOut"
         Me.llbEISOptedOut.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISOptedOut.TabIndex = 67
+        Me.llbEISOptedOut.TabIndex = 11
         Me.llbEISOptedOut.TabStop = True
         Me.llbEISOptedOut.Text = "View"
         '
@@ -3528,7 +3379,7 @@ Partial Class EisTool
         Me.txtEISOptedOut.Name = "txtEISOptedOut"
         Me.txtEISOptedOut.ReadOnly = True
         Me.txtEISOptedOut.Size = New System.Drawing.Size(100, 20)
-        Me.txtEISOptedOut.TabIndex = 66
+        Me.txtEISOptedOut.TabIndex = 10
         '
         'Label242
         '
@@ -3545,7 +3396,7 @@ Partial Class EisTool
         Me.llbEISOptedIn.Location = New System.Drawing.Point(270, 193)
         Me.llbEISOptedIn.Name = "llbEISOptedIn"
         Me.llbEISOptedIn.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISOptedIn.TabIndex = 64
+        Me.llbEISOptedIn.TabIndex = 13
         Me.llbEISOptedIn.TabStop = True
         Me.llbEISOptedIn.Text = "View"
         '
@@ -3555,7 +3406,7 @@ Partial Class EisTool
         Me.txtEISOptedIn.Name = "txtEISOptedIn"
         Me.txtEISOptedIn.ReadOnly = True
         Me.txtEISOptedIn.Size = New System.Drawing.Size(100, 20)
-        Me.txtEISOptedIn.TabIndex = 63
+        Me.txtEISOptedIn.TabIndex = 12
         '
         'Label243
         '
@@ -3572,7 +3423,7 @@ Partial Class EisTool
         Me.llbEISUnenrolled.Location = New System.Drawing.Point(228, 87)
         Me.llbEISUnenrolled.Name = "llbEISUnenrolled"
         Me.llbEISUnenrolled.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISUnenrolled.TabIndex = 61
+        Me.llbEISUnenrolled.TabIndex = 5
         Me.llbEISUnenrolled.TabStop = True
         Me.llbEISUnenrolled.Text = "View"
         '
@@ -3582,7 +3433,7 @@ Partial Class EisTool
         Me.txtEISUnenrolled.Name = "txtEISUnenrolled"
         Me.txtEISUnenrolled.ReadOnly = True
         Me.txtEISUnenrolled.Size = New System.Drawing.Size(100, 20)
-        Me.txtEISUnenrolled.TabIndex = 60
+        Me.txtEISUnenrolled.TabIndex = 4
         '
         'Label244
         '
@@ -3599,7 +3450,7 @@ Partial Class EisTool
         Me.llbEISEIUniverse.Location = New System.Drawing.Point(228, 38)
         Me.llbEISEIUniverse.Name = "llbEISEIUniverse"
         Me.llbEISEIUniverse.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISEIUniverse.TabIndex = 56
+        Me.llbEISEIUniverse.TabIndex = 1
         Me.llbEISEIUniverse.TabStop = True
         Me.llbEISEIUniverse.Text = "View"
         '
@@ -3609,7 +3460,7 @@ Partial Class EisTool
         Me.txtEISActiveEIUniverse.Name = "txtEISActiveEIUniverse"
         Me.txtEISActiveEIUniverse.ReadOnly = True
         Me.txtEISActiveEIUniverse.Size = New System.Drawing.Size(100, 20)
-        Me.txtEISActiveEIUniverse.TabIndex = 54
+        Me.txtEISActiveEIUniverse.TabIndex = 0
         '
         'Label245
         '
@@ -3626,7 +3477,7 @@ Partial Class EisTool
         Me.llbEISMailOutTotal.Location = New System.Drawing.Point(228, 64)
         Me.llbEISMailOutTotal.Name = "llbEISMailOutTotal"
         Me.llbEISMailOutTotal.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISMailOutTotal.TabIndex = 53
+        Me.llbEISMailOutTotal.TabIndex = 3
         Me.llbEISMailOutTotal.TabStop = True
         Me.llbEISMailOutTotal.Text = "View"
         '
@@ -3636,7 +3487,7 @@ Partial Class EisTool
         Me.llbEISEnrolled.Location = New System.Drawing.Point(228, 117)
         Me.llbEISEnrolled.Name = "llbEISEnrolled"
         Me.llbEISEnrolled.Size = New System.Drawing.Size(30, 13)
-        Me.llbEISEnrolled.TabIndex = 58
+        Me.llbEISEnrolled.TabIndex = 7
         Me.llbEISEnrolled.TabStop = True
         Me.llbEISEnrolled.Text = "View"
         '
@@ -3646,7 +3497,7 @@ Partial Class EisTool
         Me.txtEISEnrolled.Name = "txtEISEnrolled"
         Me.txtEISEnrolled.ReadOnly = True
         Me.txtEISEnrolled.Size = New System.Drawing.Size(100, 20)
-        Me.txtEISEnrolled.TabIndex = 57
+        Me.txtEISEnrolled.TabIndex = 6
         '
         'Label252
         '
@@ -3663,7 +3514,7 @@ Partial Class EisTool
         Me.txtEISMailout.Name = "txtEISMailout"
         Me.txtEISMailout.ReadOnly = True
         Me.txtEISMailout.Size = New System.Drawing.Size(100, 20)
-        Me.txtEISMailout.TabIndex = 52
+        Me.txtEISMailout.TabIndex = 2
         '
         'Label253
         '
@@ -3730,7 +3581,7 @@ Partial Class EisTool
         Me.TPEISStatMailout.Location = New System.Drawing.Point(4, 22)
         Me.TPEISStatMailout.Name = "TPEISStatMailout"
         Me.TPEISStatMailout.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPEISStatMailout.Size = New System.Drawing.Size(438, 617)
+        Me.TPEISStatMailout.Size = New System.Drawing.Size(438, 614)
         Me.TPEISStatMailout.TabIndex = 1
         Me.TPEISStatMailout.Text = "Mailout"
         Me.TPEISStatMailout.UseVisualStyleBackColor = True
@@ -3742,7 +3593,7 @@ Partial Class EisTool
         Me.btnRemoveAllMailout.Location = New System.Drawing.Point(309, 38)
         Me.btnRemoveAllMailout.Name = "btnRemoveAllMailout"
         Me.btnRemoveAllMailout.Size = New System.Drawing.Size(108, 23)
-        Me.btnRemoveAllMailout.TabIndex = 74
+        Me.btnRemoveAllMailout.TabIndex = 4
         Me.btnRemoveAllMailout.Text = "Remove All Mailout"
         Me.btnRemoveAllMailout.UseVisualStyleBackColor = True
         '
@@ -3753,7 +3604,7 @@ Partial Class EisTool
         Me.btnGenerateMailout.Location = New System.Drawing.Point(205, 38)
         Me.btnGenerateMailout.Name = "btnGenerateMailout"
         Me.btnGenerateMailout.Size = New System.Drawing.Size(98, 23)
-        Me.btnGenerateMailout.TabIndex = 73
+        Me.btnGenerateMailout.TabIndex = 3
         Me.btnGenerateMailout.Text = "Generate Mailout"
         Me.btnGenerateMailout.UseVisualStyleBackColor = True
         '
@@ -3764,7 +3615,7 @@ Partial Class EisTool
         Me.btnViewMailoutData.Location = New System.Drawing.Point(106, 38)
         Me.btnViewMailoutData.Name = "btnViewMailoutData"
         Me.btnViewMailoutData.Size = New System.Drawing.Size(77, 23)
-        Me.btnViewMailoutData.TabIndex = 72
+        Me.btnViewMailoutData.TabIndex = 2
         Me.btnViewMailoutData.Text = "View Mailout"
         Me.btnViewMailoutData.UseVisualStyleBackColor = True
         '
@@ -3773,7 +3624,7 @@ Partial Class EisTool
         Me.btnAddtoEISMailout.Location = New System.Drawing.Point(259, 9)
         Me.btnAddtoEISMailout.Name = "btnAddtoEISMailout"
         Me.btnAddtoEISMailout.Size = New System.Drawing.Size(155, 23)
-        Me.btnAddtoEISMailout.TabIndex = 71
+        Me.btnAddtoEISMailout.TabIndex = 1
         Me.btnAddtoEISMailout.Text = "Add selected to Maillout"
         Me.btnAddtoEISMailout.UseVisualStyleBackColor = True
         Me.btnAddtoEISMailout.Visible = False
@@ -3784,7 +3635,7 @@ Partial Class EisTool
         Me.llbSearchForFacility.Location = New System.Drawing.Point(225, 73)
         Me.llbSearchForFacility.Name = "llbSearchForFacility"
         Me.llbSearchForFacility.Size = New System.Drawing.Size(91, 13)
-        Me.llbSearchForFacility.TabIndex = 70
+        Me.llbSearchForFacility.TabIndex = 6
         Me.llbSearchForFacility.TabStop = True
         Me.llbSearchForFacility.Text = "Search for Facility"
         '
@@ -3794,7 +3645,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutCreateDate.Name = "txtEISStatsMailoutCreateDate"
         Me.txtEISStatsMailoutCreateDate.ReadOnly = True
         Me.txtEISStatsMailoutCreateDate.Size = New System.Drawing.Size(221, 20)
-        Me.txtEISStatsMailoutCreateDate.TabIndex = 68
+        Me.txtEISStatsMailoutCreateDate.TabIndex = 21
         '
         'Label271
         '
@@ -3811,7 +3662,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutUpdateDate.Name = "txtEISStatsMailoutUpdateDate"
         Me.txtEISStatsMailoutUpdateDate.ReadOnly = True
         Me.txtEISStatsMailoutUpdateDate.Size = New System.Drawing.Size(221, 20)
-        Me.txtEISStatsMailoutUpdateDate.TabIndex = 66
+        Me.txtEISStatsMailoutUpdateDate.TabIndex = 20
         '
         'Label270
         '
@@ -3828,7 +3679,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutUpdateUser.Name = "txtEISStatsMailoutUpdateUser"
         Me.txtEISStatsMailoutUpdateUser.ReadOnly = True
         Me.txtEISStatsMailoutUpdateUser.Size = New System.Drawing.Size(221, 20)
-        Me.txtEISStatsMailoutUpdateUser.TabIndex = 64
+        Me.txtEISStatsMailoutUpdateUser.TabIndex = 19
         '
         'Label269
         '
@@ -3845,7 +3696,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutComments.Multiline = True
         Me.txtEISStatsMailoutComments.Name = "txtEISStatsMailoutComments"
         Me.txtEISStatsMailoutComments.Size = New System.Drawing.Size(221, 44)
-        Me.txtEISStatsMailoutComments.TabIndex = 62
+        Me.txtEISStatsMailoutComments.TabIndex = 18
         '
         'Label268
         '
@@ -3862,7 +3713,8 @@ Partial Class EisTool
         Me.txtSelectedEISMailout.Name = "txtSelectedEISMailout"
         Me.txtSelectedEISMailout.ReadOnly = True
         Me.txtSelectedEISMailout.Size = New System.Drawing.Size(65, 20)
-        Me.txtSelectedEISMailout.TabIndex = 61
+        Me.txtSelectedEISMailout.TabIndex = 0
+        Me.txtSelectedEISMailout.TabStop = False
         '
         'Label267
         '
@@ -3880,7 +3732,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutAddress1.Location = New System.Drawing.Point(106, 225)
         Me.txtEISStatsMailoutAddress1.Name = "txtEISStatsMailoutAddress1"
         Me.txtEISStatsMailoutAddress1.Size = New System.Drawing.Size(221, 20)
-        Me.txtEISStatsMailoutAddress1.TabIndex = 42
+        Me.txtEISStatsMailoutAddress1.TabIndex = 12
         '
         'Label255
         '
@@ -3897,7 +3749,7 @@ Partial Class EisTool
         Me.btnSaveEISStatMailout.Location = New System.Drawing.Point(103, 521)
         Me.btnSaveEISStatMailout.Name = "btnSaveEISStatMailout"
         Me.btnSaveEISStatMailout.Size = New System.Drawing.Size(115, 23)
-        Me.btnSaveEISStatMailout.TabIndex = 51
+        Me.btnSaveEISStatMailout.TabIndex = 22
         Me.btnSaveEISStatMailout.Text = "Update Mailout Data"
         Me.btnSaveEISStatMailout.UseVisualStyleBackColor = True
         '
@@ -3906,7 +3758,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutEmailAddress.Location = New System.Drawing.Point(106, 355)
         Me.txtEISStatsMailoutEmailAddress.Name = "txtEISStatsMailoutEmailAddress"
         Me.txtEISStatsMailoutEmailAddress.Size = New System.Drawing.Size(221, 20)
-        Me.txtEISStatsMailoutEmailAddress.TabIndex = 49
+        Me.txtEISStatsMailoutEmailAddress.TabIndex = 17
         '
         'Label256
         '
@@ -3922,7 +3774,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutZipCode.Location = New System.Drawing.Point(106, 329)
         Me.txtEISStatsMailoutZipCode.Name = "txtEISStatsMailoutZipCode"
         Me.txtEISStatsMailoutZipCode.Size = New System.Drawing.Size(147, 20)
-        Me.txtEISStatsMailoutZipCode.TabIndex = 48
+        Me.txtEISStatsMailoutZipCode.TabIndex = 16
         '
         'Label257
         '
@@ -3938,7 +3790,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutState.Location = New System.Drawing.Point(106, 303)
         Me.txtEISStatsMailoutState.Name = "txtEISStatsMailoutState"
         Me.txtEISStatsMailoutState.Size = New System.Drawing.Size(147, 20)
-        Me.txtEISStatsMailoutState.TabIndex = 46
+        Me.txtEISStatsMailoutState.TabIndex = 15
         '
         'Label258
         '
@@ -3954,7 +3806,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutCity.Location = New System.Drawing.Point(106, 277)
         Me.txtEISStatsMailoutCity.Name = "txtEISStatsMailoutCity"
         Me.txtEISStatsMailoutCity.Size = New System.Drawing.Size(147, 20)
-        Me.txtEISStatsMailoutCity.TabIndex = 44
+        Me.txtEISStatsMailoutCity.TabIndex = 14
         '
         'Label259
         '
@@ -3970,7 +3822,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutAddress2.Location = New System.Drawing.Point(106, 251)
         Me.txtEISStatsMailoutAddress2.Name = "txtEISStatsMailoutAddress2"
         Me.txtEISStatsMailoutAddress2.Size = New System.Drawing.Size(221, 20)
-        Me.txtEISStatsMailoutAddress2.TabIndex = 43
+        Me.txtEISStatsMailoutAddress2.TabIndex = 13
         '
         'Label260
         '
@@ -3986,7 +3838,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutCompanyName.Location = New System.Drawing.Point(106, 199)
         Me.txtEISStatsMailoutCompanyName.Name = "txtEISStatsMailoutCompanyName"
         Me.txtEISStatsMailoutCompanyName.Size = New System.Drawing.Size(221, 20)
-        Me.txtEISStatsMailoutCompanyName.TabIndex = 40
+        Me.txtEISStatsMailoutCompanyName.TabIndex = 11
         '
         'Label261
         '
@@ -4002,7 +3854,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutLastName.Location = New System.Drawing.Point(106, 173)
         Me.txtEISStatsMailoutLastName.Name = "txtEISStatsMailoutLastName"
         Me.txtEISStatsMailoutLastName.Size = New System.Drawing.Size(147, 20)
-        Me.txtEISStatsMailoutLastName.TabIndex = 39
+        Me.txtEISStatsMailoutLastName.TabIndex = 10
         '
         'Label262
         '
@@ -4018,7 +3870,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutFirstName.Location = New System.Drawing.Point(106, 147)
         Me.txtEISStatsMailoutFirstName.Name = "txtEISStatsMailoutFirstName"
         Me.txtEISStatsMailoutFirstName.Size = New System.Drawing.Size(147, 20)
-        Me.txtEISStatsMailoutFirstName.TabIndex = 37
+        Me.txtEISStatsMailoutFirstName.TabIndex = 9
         '
         'Label263
         '
@@ -4034,7 +3886,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutPrefix.Location = New System.Drawing.Point(106, 121)
         Me.txtEISStatsMailoutPrefix.Name = "txtEISStatsMailoutPrefix"
         Me.txtEISStatsMailoutPrefix.Size = New System.Drawing.Size(110, 20)
-        Me.txtEISStatsMailoutPrefix.TabIndex = 36
+        Me.txtEISStatsMailoutPrefix.TabIndex = 8
         '
         'Label264
         '
@@ -4050,7 +3902,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutFacilityName.Location = New System.Drawing.Point(106, 95)
         Me.txtEISStatsMailoutFacilityName.Name = "txtEISStatsMailoutFacilityName"
         Me.txtEISStatsMailoutFacilityName.Size = New System.Drawing.Size(221, 20)
-        Me.txtEISStatsMailoutFacilityName.TabIndex = 35
+        Me.txtEISStatsMailoutFacilityName.TabIndex = 7
         '
         'Label265
         '
@@ -4066,7 +3918,7 @@ Partial Class EisTool
         Me.txtEISStatsMailoutAIRSNumber.Location = New System.Drawing.Point(106, 69)
         Me.txtEISStatsMailoutAIRSNumber.Name = "txtEISStatsMailoutAIRSNumber"
         Me.txtEISStatsMailoutAIRSNumber.Size = New System.Drawing.Size(110, 20)
-        Me.txtEISStatsMailoutAIRSNumber.TabIndex = 33
+        Me.txtEISStatsMailoutAIRSNumber.TabIndex = 5
         '
         'Label266
         '
@@ -4088,7 +3940,7 @@ Partial Class EisTool
         Me.TPEISEnrollment.Controls.Add(Me.btnEISStatsEnrollment)
         Me.TPEISEnrollment.Location = New System.Drawing.Point(4, 22)
         Me.TPEISEnrollment.Name = "TPEISEnrollment"
-        Me.TPEISEnrollment.Size = New System.Drawing.Size(438, 617)
+        Me.TPEISEnrollment.Size = New System.Drawing.Size(438, 614)
         Me.TPEISEnrollment.TabIndex = 4
         Me.TPEISEnrollment.Text = "Enrollment"
         Me.TPEISEnrollment.UseVisualStyleBackColor = True
@@ -4100,7 +3952,7 @@ Partial Class EisTool
         Me.btnRemoveEISEnrolled.Location = New System.Drawing.Point(14, 211)
         Me.btnRemoveEISEnrolled.Name = "btnRemoveEISEnrolled"
         Me.btnRemoveEISEnrolled.Size = New System.Drawing.Size(118, 23)
-        Me.btnRemoveEISEnrolled.TabIndex = 75
+        Me.btnRemoveEISEnrolled.TabIndex = 5
         Me.btnRemoveEISEnrolled.Text = "Removed All Enrolled"
         Me.btnRemoveEISEnrolled.UseVisualStyleBackColor = True
         '
@@ -4111,7 +3963,7 @@ Partial Class EisTool
         Me.btnEISEnrollMailoutList.Location = New System.Drawing.Point(14, 170)
         Me.btnEISEnrollMailoutList.Name = "btnEISEnrollMailoutList"
         Me.btnEISEnrollMailoutList.Size = New System.Drawing.Size(129, 23)
-        Me.btnEISEnrollMailoutList.TabIndex = 74
+        Me.btnEISEnrollMailoutList.TabIndex = 4
         Me.btnEISEnrollMailoutList.Text = "Enroll Entire Mailout List"
         Me.btnEISEnrollMailoutList.UseVisualStyleBackColor = True
         '
@@ -4122,7 +3974,7 @@ Partial Class EisTool
         Me.btnViewEISEnrolled.Location = New System.Drawing.Point(14, 132)
         Me.btnViewEISEnrolled.Name = "btnViewEISEnrolled"
         Me.btnViewEISEnrolled.Size = New System.Drawing.Size(81, 23)
-        Me.btnViewEISEnrolled.TabIndex = 73
+        Me.btnViewEISEnrolled.TabIndex = 3
         Me.btnViewEISEnrolled.Text = "View Enrolled"
         Me.btnViewEISEnrolled.UseVisualStyleBackColor = True
         '
@@ -4132,7 +3984,8 @@ Partial Class EisTool
         Me.txtEISStatsEnrollmentYear.Name = "txtEISStatsEnrollmentYear"
         Me.txtEISStatsEnrollmentYear.ReadOnly = True
         Me.txtEISStatsEnrollmentYear.Size = New System.Drawing.Size(65, 20)
-        Me.txtEISStatsEnrollmentYear.TabIndex = 63
+        Me.txtEISStatsEnrollmentYear.TabIndex = 0
+        Me.txtEISStatsEnrollmentYear.TabStop = False
         '
         'Label275
         '
@@ -4150,7 +4003,7 @@ Partial Class EisTool
         Me.btnEISStatsRemoveEnrollment.Location = New System.Drawing.Point(14, 70)
         Me.btnEISStatsRemoveEnrollment.Name = "btnEISStatsRemoveEnrollment"
         Me.btnEISStatsRemoveEnrollment.Size = New System.Drawing.Size(165, 23)
-        Me.btnEISStatsRemoveEnrollment.TabIndex = 21
+        Me.btnEISStatsRemoveEnrollment.TabIndex = 2
         Me.btnEISStatsRemoveEnrollment.Text = "Remove Mailout Enrollment"
         Me.btnEISStatsRemoveEnrollment.UseVisualStyleBackColor = True
         '
@@ -4159,9 +4012,70 @@ Partial Class EisTool
         Me.btnEISStatsEnrollment.Location = New System.Drawing.Point(14, 41)
         Me.btnEISStatsEnrollment.Name = "btnEISStatsEnrollment"
         Me.btnEISStatsEnrollment.Size = New System.Drawing.Size(165, 23)
-        Me.btnEISStatsEnrollment.TabIndex = 20
+        Me.btnEISStatsEnrollment.TabIndex = 1
         Me.btnEISStatsEnrollment.Text = "Enroll Selected Facilities"
         Me.btnEISStatsEnrollment.UseVisualStyleBackColor = True
+        '
+        'Panel21
+        '
+        Me.Panel21.Controls.Add(Me.btnViewEISStats)
+        Me.Panel21.Controls.Add(Me.Label74)
+        Me.Panel21.Controls.Add(Me.cboEISStatisticsYear)
+        Me.Panel21.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel21.Location = New System.Drawing.Point(0, 0)
+        Me.Panel21.Name = "Panel21"
+        Me.Panel21.Size = New System.Drawing.Size(446, 47)
+        Me.Panel21.TabIndex = 0
+        '
+        'btnViewEISStats
+        '
+        Me.btnViewEISStats.AutoSize = True
+        Me.btnViewEISStats.Location = New System.Drawing.Point(195, 10)
+        Me.btnViewEISStats.Name = "btnViewEISStats"
+        Me.btnViewEISStats.Size = New System.Drawing.Size(112, 23)
+        Me.btnViewEISStats.TabIndex = 1
+        Me.btnViewEISStats.Text = "View EIS Stats"
+        Me.btnViewEISStats.UseVisualStyleBackColor = True
+        '
+        'Label74
+        '
+        Me.Label74.AutoSize = True
+        Me.Label74.Location = New System.Drawing.Point(9, 15)
+        Me.Label74.Name = "Label74"
+        Me.Label74.Size = New System.Drawing.Size(71, 13)
+        Me.Label74.TabIndex = 10
+        Me.Label74.Text = "Select a Year"
+        '
+        'cboEISStatisticsYear
+        '
+        Me.cboEISStatisticsYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboEISStatisticsYear.FormattingEnabled = True
+        Me.cboEISStatisticsYear.Location = New System.Drawing.Point(86, 12)
+        Me.cboEISStatisticsYear.Name = "cboEISStatisticsYear"
+        Me.cboEISStatisticsYear.Size = New System.Drawing.Size(97, 21)
+        Me.cboEISStatisticsYear.TabIndex = 0
+        '
+        'TPAdmin
+        '
+        Me.TPAdmin.Controls.Add(Me.TCAdmin)
+        Me.TPAdmin.Location = New System.Drawing.Point(4, 22)
+        Me.TPAdmin.Name = "TPAdmin"
+        Me.TPAdmin.Size = New System.Drawing.Size(1008, 687)
+        Me.TPAdmin.TabIndex = 16
+        Me.TPAdmin.Text = "Admin Tools"
+        Me.TPAdmin.UseVisualStyleBackColor = True
+        '
+        'TCAdmin
+        '
+        Me.TCAdmin.Controls.Add(Me.TPEISThresholds)
+        Me.TCAdmin.Controls.Add(Me.TPOperStatus)
+        Me.TCAdmin.Controls.Add(Me.TPCaersUsers)
+        Me.TCAdmin.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TCAdmin.Location = New System.Drawing.Point(0, 0)
+        Me.TCAdmin.Name = "TCAdmin"
+        Me.TCAdmin.SelectedIndex = 0
+        Me.TCAdmin.Size = New System.Drawing.Size(1008, 687)
+        Me.TCAdmin.TabIndex = 0
         '
         'TPEISThresholds
         '
@@ -4170,7 +4084,7 @@ Partial Class EisTool
         Me.TPEISThresholds.Controls.Add(Me.Panel26)
         Me.TPEISThresholds.Location = New System.Drawing.Point(4, 22)
         Me.TPEISThresholds.Name = "TPEISThresholds"
-        Me.TPEISThresholds.Size = New System.Drawing.Size(438, 617)
+        Me.TPEISThresholds.Size = New System.Drawing.Size(1000, 661)
         Me.TPEISThresholds.TabIndex = 6
         Me.TPEISThresholds.Text = "EI Thresholds"
         Me.TPEISThresholds.UseVisualStyleBackColor = True
@@ -4183,17 +4097,25 @@ Partial Class EisTool
         Me.Panel23.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel23.Location = New System.Drawing.Point(0, 252)
         Me.Panel23.Name = "Panel23"
-        Me.Panel23.Size = New System.Drawing.Size(438, 365)
+        Me.Panel23.Size = New System.Drawing.Size(1000, 409)
         Me.Panel23.TabIndex = 36
         '
         'dgvThresholdPollutants
         '
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvThresholdPollutants.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvThresholdPollutants.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvThresholdPollutants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvThresholdPollutants.DecimalFieldFormat = "G"
         Me.dgvThresholdPollutants.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvThresholdPollutants.LinkifyColumnByName = Nothing
         Me.dgvThresholdPollutants.Location = New System.Drawing.Point(0, 117)
         Me.dgvThresholdPollutants.Name = "dgvThresholdPollutants"
-        Me.dgvThresholdPollutants.Size = New System.Drawing.Size(438, 248)
-        Me.dgvThresholdPollutants.TabIndex = 33
+        Me.dgvThresholdPollutants.ResultsCountLabel = Nothing
+        Me.dgvThresholdPollutants.ResultsCountLabelFormat = "{0} found"
+        Me.dgvThresholdPollutants.Size = New System.Drawing.Size(1000, 292)
+        Me.dgvThresholdPollutants.StandardTab = True
+        Me.dgvThresholdPollutants.TabIndex = 2
         '
         'Panel24
         '
@@ -4208,8 +4130,8 @@ Partial Class EisTool
         Me.Panel24.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel24.Location = New System.Drawing.Point(0, 35)
         Me.Panel24.Name = "Panel24"
-        Me.Panel24.Size = New System.Drawing.Size(438, 82)
-        Me.Panel24.TabIndex = 37
+        Me.Panel24.Size = New System.Drawing.Size(1000, 82)
+        Me.Panel24.TabIndex = 1
         '
         'btnUpdatePollutant
         '
@@ -4218,7 +4140,7 @@ Partial Class EisTool
         Me.btnUpdatePollutant.Location = New System.Drawing.Point(167, 54)
         Me.btnUpdatePollutant.Name = "btnUpdatePollutant"
         Me.btnUpdatePollutant.Size = New System.Drawing.Size(96, 23)
-        Me.btnUpdatePollutant.TabIndex = 7
+        Me.btnUpdatePollutant.TabIndex = 4
         Me.btnUpdatePollutant.Text = "Update Pollutant"
         Me.btnUpdatePollutant.UseVisualStyleBackColor = True
         '
@@ -4229,7 +4151,7 @@ Partial Class EisTool
         Me.btnAddNewPollutant.Location = New System.Drawing.Point(56, 54)
         Me.btnAddNewPollutant.Name = "btnAddNewPollutant"
         Me.btnAddNewPollutant.Size = New System.Drawing.Size(105, 23)
-        Me.btnAddNewPollutant.TabIndex = 6
+        Me.btnAddNewPollutant.TabIndex = 3
         Me.btnAddNewPollutant.Text = "Add New Pollutant"
         Me.btnAddNewPollutant.UseVisualStyleBackColor = True
         '
@@ -4238,21 +4160,21 @@ Partial Class EisTool
         Me.txtNonAttainmentThreshold.Location = New System.Drawing.Point(266, 28)
         Me.txtNonAttainmentThreshold.Name = "txtNonAttainmentThreshold"
         Me.txtNonAttainmentThreshold.Size = New System.Drawing.Size(100, 20)
-        Me.txtNonAttainmentThreshold.TabIndex = 5
+        Me.txtNonAttainmentThreshold.TabIndex = 2
         '
         'txtThreshold
         '
         Me.txtThreshold.Location = New System.Drawing.Point(56, 28)
         Me.txtThreshold.Name = "txtThreshold"
         Me.txtThreshold.Size = New System.Drawing.Size(100, 20)
-        Me.txtThreshold.TabIndex = 4
+        Me.txtThreshold.TabIndex = 1
         '
         'txtPollutant
         '
         Me.txtPollutant.Location = New System.Drawing.Point(56, 5)
         Me.txtPollutant.Name = "txtPollutant"
         Me.txtPollutant.Size = New System.Drawing.Size(100, 20)
-        Me.txtPollutant.TabIndex = 3
+        Me.txtPollutant.TabIndex = 0
         '
         'Label295
         '
@@ -4290,8 +4212,8 @@ Partial Class EisTool
         Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupBox3.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(438, 35)
-        Me.GroupBox3.TabIndex = 35
+        Me.GroupBox3.Size = New System.Drawing.Size(1000, 35)
+        Me.GroupBox3.TabIndex = 0
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Threshold Pollutants"
         '
@@ -4312,7 +4234,7 @@ Partial Class EisTool
         Me.llbViewThresholdPollutants.Location = New System.Drawing.Point(145, 15)
         Me.llbViewThresholdPollutants.Name = "llbViewThresholdPollutants"
         Me.llbViewThresholdPollutants.Size = New System.Drawing.Size(79, 13)
-        Me.llbViewThresholdPollutants.TabIndex = 34
+        Me.llbViewThresholdPollutants.TabIndex = 2
         Me.llbViewThresholdPollutants.TabStop = True
         Me.llbViewThresholdPollutants.Text = "View Pollutants"
         '
@@ -4332,7 +4254,7 @@ Partial Class EisTool
         Me.Panel25.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel25.Location = New System.Drawing.Point(0, 211)
         Me.Panel25.Name = "Panel25"
-        Me.Panel25.Size = New System.Drawing.Size(438, 41)
+        Me.Panel25.Size = New System.Drawing.Size(1000, 41)
         Me.Panel25.TabIndex = 37
         '
         'Panel26
@@ -4350,7 +4272,7 @@ Partial Class EisTool
         Me.Panel26.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel26.Location = New System.Drawing.Point(0, 0)
         Me.Panel26.Name = "Panel26"
-        Me.Panel26.Size = New System.Drawing.Size(438, 211)
+        Me.Panel26.Size = New System.Drawing.Size(1000, 211)
         Me.Panel26.TabIndex = 38
         '
         'mtbThresholdYear
@@ -4359,7 +4281,7 @@ Partial Class EisTool
         Me.mtbThresholdYear.Mask = "0000"
         Me.mtbThresholdYear.Name = "mtbThresholdYear"
         Me.mtbThresholdYear.Size = New System.Drawing.Size(40, 20)
-        Me.mtbThresholdYear.TabIndex = 506
+        Me.mtbThresholdYear.TabIndex = 0
         '
         'llbClearEISYear
         '
@@ -4367,7 +4289,7 @@ Partial Class EisTool
         Me.llbClearEISYear.Location = New System.Drawing.Point(316, 7)
         Me.llbClearEISYear.Name = "llbClearEISYear"
         Me.llbClearEISYear.Size = New System.Drawing.Size(31, 13)
-        Me.llbClearEISYear.TabIndex = 505
+        Me.llbClearEISYear.TabIndex = 3
         Me.llbClearEISYear.TabStop = True
         Me.llbClearEISYear.Text = "Clear"
         '
@@ -4387,7 +4309,7 @@ Partial Class EisTool
         Me.dtpEISDeadline.Location = New System.Drawing.Point(71, 32)
         Me.dtpEISDeadline.Name = "dtpEISDeadline"
         Me.dtpEISDeadline.Size = New System.Drawing.Size(86, 20)
-        Me.dtpEISDeadline.TabIndex = 503
+        Me.dtpEISDeadline.TabIndex = 4
         '
         'btnUpdateEISYear
         '
@@ -4396,7 +4318,7 @@ Partial Class EisTool
         Me.btnUpdateEISYear.Location = New System.Drawing.Point(190, 60)
         Me.btnUpdateEISYear.Name = "btnUpdateEISYear"
         Me.btnUpdateEISYear.Size = New System.Drawing.Size(97, 23)
-        Me.btnUpdateEISYear.TabIndex = 39
+        Me.btnUpdateEISYear.TabIndex = 6
         Me.btnUpdateEISYear.Text = "Update EIS Year"
         Me.btnUpdateEISYear.UseVisualStyleBackColor = True
         '
@@ -4407,7 +4329,7 @@ Partial Class EisTool
         Me.btnAddEISYear.Location = New System.Drawing.Point(79, 60)
         Me.btnAddEISYear.Name = "btnAddEISYear"
         Me.btnAddEISYear.Size = New System.Drawing.Size(81, 23)
-        Me.btnAddEISYear.TabIndex = 38
+        Me.btnAddEISYear.TabIndex = 5
         Me.btnAddEISYear.Text = "Add EIS Year"
         Me.btnAddEISYear.UseVisualStyleBackColor = True
         '
@@ -4417,7 +4339,7 @@ Partial Class EisTool
         Me.rdbEISThreeYear.Location = New System.Drawing.Point(247, 7)
         Me.rdbEISThreeYear.Name = "rdbEISThreeYear"
         Me.rdbEISThreeYear.Size = New System.Drawing.Size(56, 17)
-        Me.rdbEISThreeYear.TabIndex = 35
+        Me.rdbEISThreeYear.TabIndex = 2
         Me.rdbEISThreeYear.TabStop = True
         Me.rdbEISThreeYear.Text = "3 Year"
         Me.rdbEISThreeYear.UseVisualStyleBackColor = True
@@ -4428,19 +4350,27 @@ Partial Class EisTool
         Me.rdbEISAnnual.Location = New System.Drawing.Point(183, 7)
         Me.rdbEISAnnual.Name = "rdbEISAnnual"
         Me.rdbEISAnnual.Size = New System.Drawing.Size(58, 17)
-        Me.rdbEISAnnual.TabIndex = 34
+        Me.rdbEISAnnual.TabIndex = 1
         Me.rdbEISAnnual.TabStop = True
         Me.rdbEISAnnual.Text = "Annual"
         Me.rdbEISAnnual.UseVisualStyleBackColor = True
         '
         'dgvEISYear
         '
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEISYear.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvEISYear.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvEISYear.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvEISYear.DecimalFieldFormat = "G"
         Me.dgvEISYear.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.dgvEISYear.LinkifyColumnByName = Nothing
         Me.dgvEISYear.Location = New System.Drawing.Point(0, 89)
         Me.dgvEISYear.Name = "dgvEISYear"
-        Me.dgvEISYear.Size = New System.Drawing.Size(438, 122)
-        Me.dgvEISYear.TabIndex = 33
+        Me.dgvEISYear.ResultsCountLabel = Nothing
+        Me.dgvEISYear.ResultsCountLabelFormat = "{0} found"
+        Me.dgvEISYear.Size = New System.Drawing.Size(1000, 122)
+        Me.dgvEISYear.StandardTab = True
+        Me.dgvEISYear.TabIndex = 7
         '
         'Label292
         '
@@ -4458,1995 +4388,246 @@ Partial Class EisTool
         Me.TPOperStatus.Location = New System.Drawing.Point(4, 22)
         Me.TPOperStatus.Name = "TPOperStatus"
         Me.TPOperStatus.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPOperStatus.Size = New System.Drawing.Size(438, 617)
+        Me.TPOperStatus.Size = New System.Drawing.Size(1000, 661)
         Me.TPOperStatus.TabIndex = 7
         Me.TPOperStatus.Text = "Operating Status"
         Me.TPOperStatus.UseVisualStyleBackColor = True
         '
         'dgvOperStatusMismatch
         '
-        Me.dgvOperStatusMismatch.AllowUserToAddRows = False
-        Me.dgvOperStatusMismatch.AllowUserToDeleteRows = False
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvOperStatusMismatch.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        Me.dgvOperStatusMismatch.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvOperStatusMismatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvOperStatusMismatch.DecimalFieldFormat = "G"
         Me.dgvOperStatusMismatch.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvOperStatusMismatch.LinkifyColumnByName = Nothing
         Me.dgvOperStatusMismatch.Location = New System.Drawing.Point(3, 44)
         Me.dgvOperStatusMismatch.Name = "dgvOperStatusMismatch"
-        Me.dgvOperStatusMismatch.ReadOnly = True
-        Me.dgvOperStatusMismatch.RowHeadersVisible = False
-        Me.dgvOperStatusMismatch.Size = New System.Drawing.Size(432, 570)
+        Me.dgvOperStatusMismatch.ResultsCountLabel = Me.lblOperStatusCount
+        Me.dgvOperStatusMismatch.ResultsCountLabelFormat = "{0} found"
+        Me.dgvOperStatusMismatch.Size = New System.Drawing.Size(994, 614)
+        Me.dgvOperStatusMismatch.StandardTab = True
         Me.dgvOperStatusMismatch.TabIndex = 113
-        '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.lblOperStatusCount)
-        Me.Panel1.Controls.Add(Me.llbOperatingStatusMismatch)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel1.Location = New System.Drawing.Point(3, 3)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(432, 41)
-        Me.Panel1.TabIndex = 115
         '
         'lblOperStatusCount
         '
-        Me.lblOperStatusCount.Location = New System.Drawing.Point(329, 13)
+        Me.lblOperStatusCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblOperStatusCount.Location = New System.Drawing.Point(891, 13)
         Me.lblOperStatusCount.Name = "lblOperStatusCount"
         Me.lblOperStatusCount.Size = New System.Drawing.Size(100, 13)
         Me.lblOperStatusCount.TabIndex = 114
         Me.lblOperStatusCount.Text = "0"
         Me.lblOperStatusCount.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
-        'llbOperatingStatusMismatch
+        'Panel1
         '
-        Me.llbOperatingStatusMismatch.AutoSize = True
-        Me.llbOperatingStatusMismatch.Location = New System.Drawing.Point(2, 13)
-        Me.llbOperatingStatusMismatch.Name = "llbOperatingStatusMismatch"
-        Me.llbOperatingStatusMismatch.Size = New System.Drawing.Size(229, 13)
-        Me.llbOperatingStatusMismatch.TabIndex = 112
-        Me.llbOperatingStatusMismatch.TabStop = True
-        Me.llbOperatingStatusMismatch.Text = "View sources with mismatched operating status"
+        Me.Panel1.Controls.Add(Me.btnMismatchedStatus)
+        Me.Panel1.Controls.Add(Me.Label9)
+        Me.Panel1.Controls.Add(Me.lblOperStatusCount)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(3, 3)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(994, 41)
+        Me.Panel1.TabIndex = 115
         '
-        'TPStageData
+        'btnMismatchedStatus
         '
-        Me.TPStageData.Controls.Add(Me.btnEisStagePseAll)
-        Me.TPStageData.Controls.Add(Me.btnEisStagePseSelected)
-        Me.TPStageData.Controls.Add(Me.btnEisStageFiAll)
-        Me.TPStageData.Controls.Add(Me.btnEisStageFiSelected)
-        Me.TPStageData.Controls.Add(Me.btnEisStageViewSubmitted)
-        Me.TPStageData.Controls.Add(Me.Label2)
-        Me.TPStageData.Location = New System.Drawing.Point(4, 22)
-        Me.TPStageData.Name = "TPStageData"
-        Me.TPStageData.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPStageData.Size = New System.Drawing.Size(438, 617)
-        Me.TPStageData.TabIndex = 8
-        Me.TPStageData.Text = "Stage to EPA"
-        Me.TPStageData.UseVisualStyleBackColor = True
+        Me.btnMismatchedStatus.Location = New System.Drawing.Point(225, 8)
+        Me.btnMismatchedStatus.Name = "btnMismatchedStatus"
+        Me.btnMismatchedStatus.Size = New System.Drawing.Size(75, 23)
+        Me.btnMismatchedStatus.TabIndex = 116
+        Me.btnMismatchedStatus.Text = "View"
+        Me.btnMismatchedStatus.UseVisualStyleBackColor = True
         '
-        'btnEisStagePseAll
+        'Label9
         '
-        Me.btnEisStagePseAll.Location = New System.Drawing.Point(177, 209)
-        Me.btnEisStagePseAll.Name = "btnEisStagePseAll"
-        Me.btnEisStagePseAll.Size = New System.Drawing.Size(150, 51)
-        Me.btnEisStagePseAll.TabIndex = 6
-        Me.btnEisStagePseAll.Text = "Stage Point Source Emission Data " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for all facilities"
-        Me.btnEisStagePseAll.UseVisualStyleBackColor = True
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(14, 13)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(205, 13)
+        Me.Label9.TabIndex = 115
+        Me.Label9.Text = "Sources with mismatched operating status"
         '
-        'btnEisStagePseSelected
+        'TPCaersUsers
         '
-        Me.btnEisStagePseSelected.Location = New System.Drawing.Point(177, 137)
-        Me.btnEisStagePseSelected.Name = "btnEisStagePseSelected"
-        Me.btnEisStagePseSelected.Size = New System.Drawing.Size(150, 51)
-        Me.btnEisStagePseSelected.TabIndex = 4
-        Me.btnEisStagePseSelected.Text = "Stage Point Source Emission Data " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for selected facilities"
-        Me.btnEisStagePseSelected.UseVisualStyleBackColor = True
+        Me.TPCaersUsers.Controls.Add(Me.dgvCaersUsers)
+        Me.TPCaersUsers.Controls.Add(Me.Panel3)
+        Me.TPCaersUsers.Location = New System.Drawing.Point(4, 22)
+        Me.TPCaersUsers.Name = "TPCaersUsers"
+        Me.TPCaersUsers.Size = New System.Drawing.Size(1000, 661)
+        Me.TPCaersUsers.TabIndex = 8
+        Me.TPCaersUsers.Text = "CAERS Users"
+        Me.TPCaersUsers.UseVisualStyleBackColor = True
         '
-        'btnEisStageFiAll
+        'dgvCaersUsers
         '
-        Me.btnEisStageFiAll.Location = New System.Drawing.Point(14, 209)
-        Me.btnEisStageFiAll.Name = "btnEisStageFiAll"
-        Me.btnEisStageFiAll.Size = New System.Drawing.Size(150, 51)
-        Me.btnEisStageFiAll.TabIndex = 5
-        Me.btnEisStageFiAll.Text = "Stage Facility Information " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for all facilities"
-        Me.btnEisStageFiAll.UseVisualStyleBackColor = True
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvCaersUsers.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        Me.dgvCaersUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvCaersUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvCaersUsers.DecimalFieldFormat = "G"
+        Me.dgvCaersUsers.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvCaersUsers.LinkifyColumnByName = Nothing
+        Me.dgvCaersUsers.Location = New System.Drawing.Point(0, 53)
+        Me.dgvCaersUsers.Name = "dgvCaersUsers"
+        Me.dgvCaersUsers.ResultsCountLabel = Nothing
+        Me.dgvCaersUsers.ResultsCountLabelFormat = "{0} found"
+        Me.dgvCaersUsers.Size = New System.Drawing.Size(1000, 608)
+        Me.dgvCaersUsers.StandardTab = True
+        Me.dgvCaersUsers.TabIndex = 1
         '
-        'btnEisStageFiSelected
+        'Panel3
         '
-        Me.btnEisStageFiSelected.Location = New System.Drawing.Point(14, 137)
-        Me.btnEisStageFiSelected.Name = "btnEisStageFiSelected"
-        Me.btnEisStageFiSelected.Size = New System.Drawing.Size(150, 51)
-        Me.btnEisStageFiSelected.TabIndex = 3
-        Me.btnEisStageFiSelected.Text = "Stage Facility Information " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for selected facilities"
-        Me.btnEisStageFiSelected.UseVisualStyleBackColor = True
+        Me.Panel3.Controls.Add(Me.chkCaersShowDeleted)
+        Me.Panel3.Controls.Add(Me.btnCaersView)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel3.Location = New System.Drawing.Point(0, 0)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(1000, 53)
+        Me.Panel3.TabIndex = 0
         '
-        'btnEisStageViewSubmitted
+        'chkCaersShowDeleted
         '
-        Me.btnEisStageViewSubmitted.Location = New System.Drawing.Point(14, 44)
-        Me.btnEisStageViewSubmitted.Name = "btnEisStageViewSubmitted"
-        Me.btnEisStageViewSubmitted.Size = New System.Drawing.Size(150, 48)
-        Me.btnEisStageViewSubmitted.TabIndex = 0
-        Me.btnEisStageViewSubmitted.Text = "Display facilities that have submitted EIS data"
-        Me.btnEisStageViewSubmitted.UseVisualStyleBackColor = True
+        Me.chkCaersShowDeleted.AutoSize = True
+        Me.chkCaersShowDeleted.Location = New System.Drawing.Point(105, 17)
+        Me.chkCaersShowDeleted.Name = "chkCaersShowDeleted"
+        Me.chkCaersShowDeleted.Size = New System.Drawing.Size(137, 17)
+        Me.chkCaersShowDeleted.TabIndex = 1
+        Me.chkCaersShowDeleted.Text = "Include deleted records"
+        Me.chkCaersShowDeleted.UseVisualStyleBackColor = True
         '
-        'Label2
+        'btnCaersView
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.Label2.Location = New System.Drawing.Point(10, 10)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(276, 22)
-        Me.Label2.TabIndex = 2
-        Me.Label2.Text = "Stage Data for Submittal to EPA"
+        Me.btnCaersView.Location = New System.Drawing.Point(14, 13)
+        Me.btnCaersView.Name = "btnCaersView"
+        Me.btnCaersView.Size = New System.Drawing.Size(75, 23)
+        Me.btnCaersView.TabIndex = 0
+        Me.btnCaersView.Text = "View"
+        Me.btnCaersView.UseVisualStyleBackColor = True
         '
-        'Panel21
+        'TPHistory
         '
-        Me.Panel21.Controls.Add(Me.btnViewEISStats)
-        Me.Panel21.Controls.Add(Me.Label74)
-        Me.Panel21.Controls.Add(Me.cboEISStatisticsYear)
-        Me.Panel21.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel21.Location = New System.Drawing.Point(0, 0)
-        Me.Panel21.Name = "Panel21"
-        Me.Panel21.Size = New System.Drawing.Size(446, 44)
-        Me.Panel21.TabIndex = 2
+        Me.TPHistory.Controls.Add(Me.dgvEIResults)
+        Me.TPHistory.Controls.Add(Me.Panel2)
+        Me.TPHistory.Location = New System.Drawing.Point(4, 22)
+        Me.TPHistory.Name = "TPHistory"
+        Me.TPHistory.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPHistory.Size = New System.Drawing.Size(1008, 687)
+        Me.TPHistory.TabIndex = 15
+        Me.TPHistory.Text = "Emissions History"
+        Me.TPHistory.UseVisualStyleBackColor = True
         '
-        'btnViewEISStats
+        'dgvEIResults
         '
-        Me.btnViewEISStats.AutoSize = True
-        Me.btnViewEISStats.Location = New System.Drawing.Point(195, 10)
-        Me.btnViewEISStats.Name = "btnViewEISStats"
-        Me.btnViewEISStats.Size = New System.Drawing.Size(112, 23)
-        Me.btnViewEISStats.TabIndex = 9
-        Me.btnViewEISStats.Text = "View EIS Stats"
-        Me.btnViewEISStats.UseVisualStyleBackColor = True
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEIResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        Me.dgvEIResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvEIResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvEIResults.DecimalFieldFormat = "N3"
+        Me.dgvEIResults.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvEIResults.LinkifyColumnByName = Nothing
+        Me.dgvEIResults.Location = New System.Drawing.Point(3, 66)
+        Me.dgvEIResults.Name = "dgvEIResults"
+        Me.dgvEIResults.ResultsCountLabel = Me.lblHistoryCount
+        Me.dgvEIResults.ResultsCountLabelFormat = "Count: {0}"
+        Me.dgvEIResults.Size = New System.Drawing.Size(1002, 618)
+        Me.dgvEIResults.StandardTab = True
+        Me.dgvEIResults.TabIndex = 2
         '
-        'Label74
+        'lblHistoryCount
         '
-        Me.Label74.AutoSize = True
-        Me.Label74.Location = New System.Drawing.Point(9, 15)
-        Me.Label74.Name = "Label74"
-        Me.Label74.Size = New System.Drawing.Size(71, 13)
-        Me.Label74.TabIndex = 10
-        Me.Label74.Text = "Select a Year"
-        '
-        'cboEISStatisticsYear
-        '
-        Me.cboEISStatisticsYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboEISStatisticsYear.FormattingEnabled = True
-        Me.cboEISStatisticsYear.Location = New System.Drawing.Point(86, 12)
-        Me.cboEISStatisticsYear.Name = "cboEISStatisticsYear"
-        Me.cboEISStatisticsYear.Size = New System.Drawing.Size(97, 21)
-        Me.cboEISStatisticsYear.TabIndex = 8
-        '
-        'TPESTools
-        '
-        Me.TPESTools.AutoScroll = True
-        Me.TPESTools.Controls.Add(Me.TabControl2)
-        Me.TPESTools.Location = New System.Drawing.Point(4, 22)
-        Me.TPESTools.Name = "TPESTools"
-        Me.TPESTools.Size = New System.Drawing.Size(1008, 687)
-        Me.TPESTools.TabIndex = 11
-        Me.TPESTools.Text = "ES Tools"
-        Me.TPESTools.UseVisualStyleBackColor = True
-        '
-        'TabControl2
-        '
-        Me.TabControl2.Controls.Add(Me.TabPage3)
-        Me.TabControl2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl2.Location = New System.Drawing.Point(0, 0)
-        Me.TabControl2.Name = "TabControl2"
-        Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(1008, 687)
-        Me.TabControl2.TabIndex = 65
-        '
-        'TabPage3
-        '
-        Me.TabPage3.Controls.Add(Me.Panel10)
-        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(1000, 661)
-        Me.TabPage3.TabIndex = 0
-        Me.TabPage3.Text = "ES Statistics"
-        Me.TabPage3.UseVisualStyleBackColor = True
-        '
-        'Panel10
-        '
-        Me.Panel10.Controls.Add(Me.Panel2)
-        Me.Panel10.Controls.Add(Me.Panel5)
-        Me.Panel10.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel10.Location = New System.Drawing.Point(3, 3)
-        Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(994, 655)
-        Me.Panel10.TabIndex = 0
+        Me.lblHistoryCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblHistoryCount.AutoSize = True
+        Me.lblHistoryCount.Location = New System.Drawing.Point(775, 16)
+        Me.lblHistoryCount.Name = "lblHistoryCount"
+        Me.lblHistoryCount.Size = New System.Drawing.Size(38, 13)
+        Me.lblHistoryCount.TabIndex = 7
+        Me.lblHistoryCount.Text = "Count:"
         '
         'Panel2
         '
-        Me.Panel2.Controls.Add(Me.dgvESDataCount)
-        Me.Panel2.Controls.Add(Me.Panel4)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(556, 0)
+        Me.Panel2.Controls.Add(Me.lblHistoryCount)
+        Me.Panel2.Controls.Add(Me.Label6)
+        Me.Panel2.Controls.Add(Me.cboEIPollutants)
+        Me.Panel2.Controls.Add(Me.btnViewEISummaryByPollutant)
+        Me.Panel2.Controls.Add(Me.btnEISummary)
+        Me.Panel2.Controls.Add(Me.Label3)
+        Me.Panel2.Controls.Add(Me.Label8)
+        Me.Panel2.Controls.Add(Me.cboEIYear)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel2.Location = New System.Drawing.Point(3, 3)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(438, 655)
+        Me.Panel2.Size = New System.Drawing.Size(1002, 63)
         Me.Panel2.TabIndex = 3
         '
-        'dgvESDataCount
+        'Label6
         '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
-        Me.dgvESDataCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle6
-        Me.dgvESDataCount.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvESDataCount.Location = New System.Drawing.Point(0, 39)
-        Me.dgvESDataCount.Name = "dgvESDataCount"
-        Me.dgvESDataCount.ReadOnly = True
-        Me.dgvESDataCount.Size = New System.Drawing.Size(438, 616)
-        Me.dgvESDataCount.TabIndex = 1
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(285, 16)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(48, 13)
+        Me.Label6.TabIndex = 6
+        Me.Label6.Text = "Pollutant"
         '
-        'Panel4
+        'cboEIPollutants
         '
-        Me.Panel4.Controls.Add(Me.lblRecordNumber)
-        Me.Panel4.Controls.Add(Me.Label3)
-        Me.Panel4.Controls.Add(Me.btnExporttoExcel)
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel4.Location = New System.Drawing.Point(0, 0)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(438, 39)
-        Me.Panel4.TabIndex = 2
+        Me.cboEIPollutants.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cboEIPollutants.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboEIPollutants.FormattingEnabled = True
+        Me.cboEIPollutants.Location = New System.Drawing.Point(339, 12)
+        Me.cboEIPollutants.Name = "cboEIPollutants"
+        Me.cboEIPollutants.Size = New System.Drawing.Size(272, 21)
+        Me.cboEIPollutants.TabIndex = 2
         '
-        'lblRecordNumber
+        'btnViewEISummaryByPollutant
         '
-        Me.lblRecordNumber.AutoSize = True
-        Me.lblRecordNumber.Location = New System.Drawing.Point(41, 15)
-        Me.lblRecordNumber.Name = "lblRecordNumber"
-        Me.lblRecordNumber.Size = New System.Drawing.Size(13, 13)
-        Me.lblRecordNumber.TabIndex = 105
-        Me.lblRecordNumber.Text = "0"
+        Me.btnViewEISummaryByPollutant.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnViewEISummaryByPollutant.AutoSize = True
+        Me.btnViewEISummaryByPollutant.Location = New System.Drawing.Point(617, 11)
+        Me.btnViewEISummaryByPollutant.Name = "btnViewEISummaryByPollutant"
+        Me.btnViewEISummaryByPollutant.Size = New System.Drawing.Size(130, 23)
+        Me.btnViewEISummaryByPollutant.TabIndex = 3
+        Me.btnViewEISummaryByPollutant.Text = "View Pollutant Summary"
+        Me.btnViewEISummaryByPollutant.UseVisualStyleBackColor = True
+        '
+        'btnEISummary
+        '
+        Me.btnEISummary.AutoSize = True
+        Me.btnEISummary.Location = New System.Drawing.Point(125, 11)
+        Me.btnEISummary.Name = "btnEISummary"
+        Me.btnEISummary.Size = New System.Drawing.Size(105, 23)
+        Me.btnEISummary.TabIndex = 1
+        Me.btnEISummary.Text = "View Full Summary"
+        Me.btnEISummary.UseVisualStyleBackColor = True
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(6, 15)
+        Me.Label3.Location = New System.Drawing.Point(37, 37)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(38, 13)
-        Me.Label3.TabIndex = 106
-        Me.Label3.Text = "Count:"
-        '
-        'btnExporttoExcel
-        '
-        Me.btnExporttoExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExporttoExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnExporttoExcel.Location = New System.Drawing.Point(313, 10)
-        Me.btnExporttoExcel.Name = "btnExporttoExcel"
-        Me.btnExporttoExcel.Size = New System.Drawing.Size(122, 23)
-        Me.btnExporttoExcel.TabIndex = 1
-        Me.btnExporttoExcel.Text = " Export to Excel"
-        Me.btnExporttoExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnExporttoExcel.UseVisualStyleBackColor = True
-        '
-        'Panel5
-        '
-        Me.Panel5.Controls.Add(Me.TabControl3)
-        Me.Panel5.Controls.Add(Me.PnlESYear)
-        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel5.Location = New System.Drawing.Point(0, 0)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(556, 655)
-        Me.Panel5.TabIndex = 11
-        '
-        'TabControl3
-        '
-        Me.TabControl3.Controls.Add(Me.tabSummary)
-        Me.TabControl3.Controls.Add(Me.tabMailOut)
-        Me.TabControl3.Controls.Add(Me.TabDetails)
-        Me.TabControl3.Controls.Add(Me.tabgenerateESmailout)
-        Me.TabControl3.Controls.Add(Me.tabenroll)
-        Me.TabControl3.Controls.Add(Me.tabaddRemovefacility)
-        Me.TabControl3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl3.Location = New System.Drawing.Point(0, 57)
-        Me.TabControl3.Name = "TabControl3"
-        Me.TabControl3.SelectedIndex = 0
-        Me.TabControl3.Size = New System.Drawing.Size(556, 598)
-        Me.TabControl3.TabIndex = 8
-        '
-        'tabSummary
-        '
-        Me.tabSummary.AutoScroll = True
-        Me.tabSummary.Controls.Add(Me.lblviewextraNonresponse)
-        Me.tabSummary.Controls.Add(Me.txtESextranonresponder)
-        Me.tabSummary.Controls.Add(Me.Label197)
-        Me.tabSummary.Controls.Add(Me.lblviewmailoutnonresponder)
-        Me.tabSummary.Controls.Add(Me.txtESmailoutNonResponder)
-        Me.tabSummary.Controls.Add(Me.Label196)
-        Me.tabSummary.Controls.Add(Me.lblviewESremovedfacility)
-        Me.tabSummary.Controls.Add(Me.txtESremovedFacilities)
-        Me.tabSummary.Controls.Add(Me.Label195)
-        Me.tabSummary.Controls.Add(Me.lblviewESextraresponder)
-        Me.tabSummary.Controls.Add(Me.txtESextraResponders)
-        Me.tabSummary.Controls.Add(Me.Label194)
-        Me.tabSummary.Controls.Add(Me.lblViewMailOut)
-        Me.tabSummary.Controls.Add(Me.Label76)
-        Me.tabSummary.Controls.Add(Me.txtResponseCount)
-        Me.tabSummary.Controls.Add(Me.lblViewTotalResponse)
-        Me.tabSummary.Controls.Add(Me.txtTotalResponse)
-        Me.tabSummary.Controls.Add(Me.Label77)
-        Me.tabSummary.Controls.Add(Me.lblViewExtraOptOut)
-        Me.tabSummary.Controls.Add(Me.txtExtraOptout)
-        Me.tabSummary.Controls.Add(Me.Label78)
-        Me.tabSummary.Controls.Add(Me.lblViewExtraOptIn)
-        Me.tabSummary.Controls.Add(Me.txtExtraOptin)
-        Me.tabSummary.Controls.Add(Me.Label79)
-        Me.tabSummary.Controls.Add(Me.lblViewOptOut)
-        Me.tabSummary.Controls.Add(Me.txtMailOutOptOut)
-        Me.tabSummary.Controls.Add(Me.Label80)
-        Me.tabSummary.Controls.Add(Me.lblViewOptIn)
-        Me.tabSummary.Controls.Add(Me.txtMailoutOptin)
-        Me.tabSummary.Controls.Add(Me.Label81)
-        Me.tabSummary.Controls.Add(Me.Label82)
-        Me.tabSummary.Controls.Add(Me.lblextraResponse)
-        Me.tabSummary.Controls.Add(Me.txtextraResponse)
-        Me.tabSummary.Controls.Add(Me.Label83)
-        Me.tabSummary.Controls.Add(Me.lblViewNonResponse)
-        Me.tabSummary.Controls.Add(Me.lblViewOutofcompliance)
-        Me.tabSummary.Controls.Add(Me.lblViewINCompliance)
-        Me.tabSummary.Controls.Add(Me.lblViewTotalOptOut)
-        Me.tabSummary.Controls.Add(Me.lblViewTotalOptin)
-        Me.tabSummary.Controls.Add(Me.txtTotaloutofcompliance)
-        Me.tabSummary.Controls.Add(Me.Label84)
-        Me.tabSummary.Controls.Add(Me.txtTotalincompliance)
-        Me.tabSummary.Controls.Add(Me.Label85)
-        Me.tabSummary.Controls.Add(Me.txtNonResponseCount)
-        Me.tabSummary.Controls.Add(Me.Label86)
-        Me.tabSummary.Controls.Add(Me.txtTotalOptOutCount)
-        Me.tabSummary.Controls.Add(Me.Label87)
-        Me.tabSummary.Controls.Add(Me.txtTotalOptInCount)
-        Me.tabSummary.Controls.Add(Me.Label89)
-        Me.tabSummary.Controls.Add(Me.txtESMailOutCount)
-        Me.tabSummary.Controls.Add(Me.Label92)
-        Me.tabSummary.Controls.Add(Me.lblYear)
-        Me.tabSummary.Controls.Add(Me.Label93)
-        Me.tabSummary.Location = New System.Drawing.Point(4, 22)
-        Me.tabSummary.Name = "tabSummary"
-        Me.tabSummary.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabSummary.Size = New System.Drawing.Size(548, 572)
-        Me.tabSummary.TabIndex = 0
-        Me.tabSummary.Text = "Summary"
-        Me.tabSummary.UseVisualStyleBackColor = True
-        '
-        'lblviewextraNonresponse
-        '
-        Me.lblviewextraNonresponse.AutoSize = True
-        Me.lblviewextraNonresponse.Location = New System.Drawing.Point(274, 186)
-        Me.lblviewextraNonresponse.Name = "lblviewextraNonresponse"
-        Me.lblviewextraNonresponse.Size = New System.Drawing.Size(30, 13)
-        Me.lblviewextraNonresponse.TabIndex = 11
-        Me.lblviewextraNonresponse.TabStop = True
-        Me.lblviewextraNonresponse.Text = "View"
-        '
-        'txtESextranonresponder
-        '
-        Me.txtESextranonresponder.Location = New System.Drawing.Point(168, 183)
-        Me.txtESextranonresponder.Name = "txtESextranonresponder"
-        Me.txtESextranonresponder.Size = New System.Drawing.Size(100, 20)
-        Me.txtESextranonresponder.TabIndex = 10
-        '
-        'Label197
-        '
-        Me.Label197.AutoSize = True
-        Me.Label197.Location = New System.Drawing.Point(26, 186)
-        Me.Label197.Name = "Label197"
-        Me.Label197.Size = New System.Drawing.Size(108, 13)
-        Me.Label197.TabIndex = 51
-        Me.Label197.Text = "Extra Non-Response:"
-        '
-        'lblviewmailoutnonresponder
-        '
-        Me.lblviewmailoutnonresponder.AutoSize = True
-        Me.lblviewmailoutnonresponder.Location = New System.Drawing.Point(274, 160)
-        Me.lblviewmailoutnonresponder.Name = "lblviewmailoutnonresponder"
-        Me.lblviewmailoutnonresponder.Size = New System.Drawing.Size(30, 13)
-        Me.lblviewmailoutnonresponder.TabIndex = 9
-        Me.lblviewmailoutnonresponder.TabStop = True
-        Me.lblviewmailoutnonresponder.Text = "View"
-        '
-        'txtESmailoutNonResponder
-        '
-        Me.txtESmailoutNonResponder.Location = New System.Drawing.Point(168, 157)
-        Me.txtESmailoutNonResponder.Name = "txtESmailoutNonResponder"
-        Me.txtESmailoutNonResponder.Size = New System.Drawing.Size(100, 20)
-        Me.txtESmailoutNonResponder.TabIndex = 8
-        '
-        'Label196
-        '
-        Me.Label196.AutoSize = True
-        Me.Label196.Location = New System.Drawing.Point(26, 160)
-        Me.Label196.Name = "Label196"
-        Me.Label196.Size = New System.Drawing.Size(118, 13)
-        Me.Label196.TabIndex = 48
-        Me.Label196.Text = "Mailout Non-Response:"
-        '
-        'lblviewESremovedfacility
-        '
-        Me.lblviewESremovedfacility.AutoSize = True
-        Me.lblviewESremovedfacility.Location = New System.Drawing.Point(274, 134)
-        Me.lblviewESremovedfacility.Name = "lblviewESremovedfacility"
-        Me.lblviewESremovedfacility.Size = New System.Drawing.Size(30, 13)
-        Me.lblviewESremovedfacility.TabIndex = 7
-        Me.lblviewESremovedfacility.TabStop = True
-        Me.lblviewESremovedfacility.Text = "View"
-        '
-        'txtESremovedFacilities
-        '
-        Me.txtESremovedFacilities.Location = New System.Drawing.Point(168, 131)
-        Me.txtESremovedFacilities.Name = "txtESremovedFacilities"
-        Me.txtESremovedFacilities.Size = New System.Drawing.Size(100, 20)
-        Me.txtESremovedFacilities.TabIndex = 6
-        '
-        'Label195
-        '
-        Me.Label195.AutoSize = True
-        Me.Label195.Location = New System.Drawing.Point(26, 134)
-        Me.Label195.Name = "Label195"
-        Me.Label195.Size = New System.Drawing.Size(136, 13)
-        Me.Label195.TabIndex = 45
-        Me.Label195.Text = "Removed Mailout Facilities:"
-        '
-        'lblviewESextraresponder
-        '
-        Me.lblviewESextraresponder.AutoSize = True
-        Me.lblviewESextraresponder.Location = New System.Drawing.Point(274, 82)
-        Me.lblviewESextraresponder.Name = "lblviewESextraresponder"
-        Me.lblviewESextraresponder.Size = New System.Drawing.Size(30, 13)
-        Me.lblviewESextraresponder.TabIndex = 3
-        Me.lblviewESextraresponder.TabStop = True
-        Me.lblviewESextraresponder.Text = "View"
-        '
-        'txtESextraResponders
-        '
-        Me.txtESextraResponders.Location = New System.Drawing.Point(103, 79)
-        Me.txtESextraResponders.Name = "txtESextraResponders"
-        Me.txtESextraResponders.Size = New System.Drawing.Size(100, 20)
-        Me.txtESextraResponders.TabIndex = 2
-        '
-        'Label194
-        '
-        Me.Label194.AutoSize = True
-        Me.Label194.Location = New System.Drawing.Point(12, 82)
-        Me.Label194.Name = "Label194"
-        Me.Label194.Size = New System.Drawing.Size(85, 13)
-        Me.Label194.TabIndex = 42
-        Me.Label194.Text = "Extra Response:"
-        '
-        'lblViewMailOut
-        '
-        Me.lblViewMailOut.AutoSize = True
-        Me.lblViewMailOut.Location = New System.Drawing.Point(274, 53)
-        Me.lblViewMailOut.Name = "lblViewMailOut"
-        Me.lblViewMailOut.Size = New System.Drawing.Size(30, 13)
-        Me.lblViewMailOut.TabIndex = 1
-        Me.lblViewMailOut.TabStop = True
-        Me.lblViewMailOut.Text = "View"
-        '
-        'Label76
-        '
-        Me.Label76.AutoSize = True
-        Me.Label76.Location = New System.Drawing.Point(12, 223)
-        Me.Label76.Name = "Label76"
-        Me.Label76.Size = New System.Drawing.Size(58, 13)
-        Me.Label76.TabIndex = 8
-        Me.Label76.Text = "Response:"
-        '
-        'txtResponseCount
-        '
-        Me.txtResponseCount.Location = New System.Drawing.Point(103, 220)
-        Me.txtResponseCount.Name = "txtResponseCount"
-        Me.txtResponseCount.Size = New System.Drawing.Size(100, 20)
-        Me.txtResponseCount.TabIndex = 12
-        '
-        'lblViewTotalResponse
-        '
-        Me.lblViewTotalResponse.AutoSize = True
-        Me.lblViewTotalResponse.Location = New System.Drawing.Point(274, 408)
-        Me.lblViewTotalResponse.Name = "lblViewTotalResponse"
-        Me.lblViewTotalResponse.Size = New System.Drawing.Size(30, 13)
-        Me.lblViewTotalResponse.TabIndex = 24
-        Me.lblViewTotalResponse.TabStop = True
-        Me.lblViewTotalResponse.Text = "View"
-        '
-        'txtTotalResponse
-        '
-        Me.txtTotalResponse.Location = New System.Drawing.Point(103, 405)
-        Me.txtTotalResponse.Name = "txtTotalResponse"
-        Me.txtTotalResponse.Size = New System.Drawing.Size(100, 20)
-        Me.txtTotalResponse.TabIndex = 23
-        '
-        'Label77
-        '
-        Me.Label77.AutoSize = True
-        Me.Label77.Location = New System.Drawing.Point(12, 492)
-        Me.Label77.Name = "Label77"
-        Me.Label77.Size = New System.Drawing.Size(95, 13)
-        Me.Label77.TabIndex = 34
-        Me.Label77.Text = "Compliance Status"
-        '
-        'lblViewExtraOptOut
-        '
-        Me.lblViewExtraOptOut.AutoSize = True
-        Me.lblViewExtraOptOut.Location = New System.Drawing.Point(274, 368)
-        Me.lblViewExtraOptOut.Name = "lblViewExtraOptOut"
-        Me.lblViewExtraOptOut.Size = New System.Drawing.Size(30, 13)
-        Me.lblViewExtraOptOut.TabIndex = 22
-        Me.lblViewExtraOptOut.TabStop = True
-        Me.lblViewExtraOptOut.Text = "View"
-        '
-        'txtExtraOptout
-        '
-        Me.txtExtraOptout.Location = New System.Drawing.Point(156, 365)
-        Me.txtExtraOptout.Name = "txtExtraOptout"
-        Me.txtExtraOptout.Size = New System.Drawing.Size(100, 20)
-        Me.txtExtraOptout.TabIndex = 21
-        '
-        'Label78
-        '
-        Me.Label78.AutoSize = True
-        Me.Label78.Location = New System.Drawing.Point(103, 368)
-        Me.Label78.Name = "Label78"
-        Me.Label78.Size = New System.Drawing.Size(47, 13)
-        Me.Label78.TabIndex = 22
-        Me.Label78.Text = "Opt-Out:"
-        '
-        'lblViewExtraOptIn
-        '
-        Me.lblViewExtraOptIn.AutoSize = True
-        Me.lblViewExtraOptIn.Location = New System.Drawing.Point(274, 342)
-        Me.lblViewExtraOptIn.Name = "lblViewExtraOptIn"
-        Me.lblViewExtraOptIn.Size = New System.Drawing.Size(30, 13)
-        Me.lblViewExtraOptIn.TabIndex = 20
-        Me.lblViewExtraOptIn.TabStop = True
-        Me.lblViewExtraOptIn.Text = "View"
-        '
-        'txtExtraOptin
-        '
-        Me.txtExtraOptin.Location = New System.Drawing.Point(156, 339)
-        Me.txtExtraOptin.Name = "txtExtraOptin"
-        Me.txtExtraOptin.Size = New System.Drawing.Size(100, 20)
-        Me.txtExtraOptin.TabIndex = 19
-        '
-        'Label79
-        '
-        Me.Label79.AutoSize = True
-        Me.Label79.Location = New System.Drawing.Point(111, 342)
-        Me.Label79.Name = "Label79"
-        Me.Label79.Size = New System.Drawing.Size(39, 13)
-        Me.Label79.TabIndex = 19
-        Me.Label79.Text = "Opt-In:"
-        '
-        'lblViewOptOut
-        '
-        Me.lblViewOptOut.AutoSize = True
-        Me.lblViewOptOut.Location = New System.Drawing.Point(274, 275)
-        Me.lblViewOptOut.Name = "lblViewOptOut"
-        Me.lblViewOptOut.Size = New System.Drawing.Size(30, 13)
-        Me.lblViewOptOut.TabIndex = 16
-        Me.lblViewOptOut.TabStop = True
-        Me.lblViewOptOut.Text = "View"
-        '
-        'txtMailOutOptOut
-        '
-        Me.txtMailOutOptOut.Location = New System.Drawing.Point(156, 272)
-        Me.txtMailOutOptOut.Name = "txtMailOutOptOut"
-        Me.txtMailOutOptOut.Size = New System.Drawing.Size(100, 20)
-        Me.txtMailOutOptOut.TabIndex = 15
-        '
-        'Label80
-        '
-        Me.Label80.AutoSize = True
-        Me.Label80.Location = New System.Drawing.Point(103, 275)
-        Me.Label80.Name = "Label80"
-        Me.Label80.Size = New System.Drawing.Size(47, 13)
-        Me.Label80.TabIndex = 13
-        Me.Label80.Text = "Opt-Out:"
-        '
-        'lblViewOptIn
-        '
-        Me.lblViewOptIn.AutoSize = True
-        Me.lblViewOptIn.Location = New System.Drawing.Point(274, 249)
-        Me.lblViewOptIn.Name = "lblViewOptIn"
-        Me.lblViewOptIn.Size = New System.Drawing.Size(30, 13)
-        Me.lblViewOptIn.TabIndex = 14
-        Me.lblViewOptIn.TabStop = True
-        Me.lblViewOptIn.Text = "View"
-        '
-        'txtMailoutOptin
-        '
-        Me.txtMailoutOptin.Location = New System.Drawing.Point(156, 246)
-        Me.txtMailoutOptin.Name = "txtMailoutOptin"
-        Me.txtMailoutOptin.Size = New System.Drawing.Size(100, 20)
-        Me.txtMailoutOptin.TabIndex = 13
-        '
-        'Label81
-        '
-        Me.Label81.AutoSize = True
-        Me.Label81.Location = New System.Drawing.Point(111, 249)
-        Me.Label81.Name = "Label81"
-        Me.Label81.Size = New System.Drawing.Size(39, 13)
-        Me.Label81.TabIndex = 10
-        Me.Label81.Text = "Opt-In:"
-        '
-        'Label82
-        '
-        Me.Label82.AutoSize = True
-        Me.Label82.Location = New System.Drawing.Point(12, 408)
-        Me.Label82.Name = "Label82"
-        Me.Label82.Size = New System.Drawing.Size(85, 13)
-        Me.Label82.TabIndex = 25
-        Me.Label82.Text = "Total Response:"
-        '
-        'lblextraResponse
-        '
-        Me.lblextraResponse.AutoSize = True
-        Me.lblextraResponse.Location = New System.Drawing.Point(274, 314)
-        Me.lblextraResponse.Name = "lblextraResponse"
-        Me.lblextraResponse.Size = New System.Drawing.Size(30, 13)
-        Me.lblextraResponse.TabIndex = 18
-        Me.lblextraResponse.TabStop = True
-        Me.lblextraResponse.Text = "View"
-        '
-        'txtextraResponse
-        '
-        Me.txtextraResponse.Location = New System.Drawing.Point(103, 311)
-        Me.txtextraResponse.Name = "txtextraResponse"
-        Me.txtextraResponse.Size = New System.Drawing.Size(100, 20)
-        Me.txtextraResponse.TabIndex = 17
-        '
-        'Label83
-        '
-        Me.Label83.AutoSize = True
-        Me.Label83.Location = New System.Drawing.Point(12, 314)
-        Me.Label83.Name = "Label83"
-        Me.Label83.Size = New System.Drawing.Size(85, 13)
-        Me.Label83.TabIndex = 16
-        Me.Label83.Text = "Extra Response:"
-        '
-        'lblViewNonResponse
-        '
-        Me.lblViewNonResponse.AutoSize = True
-        Me.lblViewNonResponse.Location = New System.Drawing.Point(274, 108)
-        Me.lblViewNonResponse.Name = "lblViewNonResponse"
-        Me.lblViewNonResponse.Size = New System.Drawing.Size(30, 13)
-        Me.lblViewNonResponse.TabIndex = 5
-        Me.lblViewNonResponse.TabStop = True
-        Me.lblViewNonResponse.Text = "View"
-        '
-        'lblViewOutofcompliance
-        '
-        Me.lblViewOutofcompliance.AutoSize = True
-        Me.lblViewOutofcompliance.Location = New System.Drawing.Point(274, 541)
-        Me.lblViewOutofcompliance.Name = "lblViewOutofcompliance"
-        Me.lblViewOutofcompliance.Size = New System.Drawing.Size(30, 13)
-        Me.lblViewOutofcompliance.TabIndex = 33
-        Me.lblViewOutofcompliance.TabStop = True
-        Me.lblViewOutofcompliance.Text = "View"
-        '
-        'lblViewINCompliance
-        '
-        Me.lblViewINCompliance.AutoSize = True
-        Me.lblViewINCompliance.Location = New System.Drawing.Point(274, 515)
-        Me.lblViewINCompliance.Name = "lblViewINCompliance"
-        Me.lblViewINCompliance.Size = New System.Drawing.Size(30, 13)
-        Me.lblViewINCompliance.TabIndex = 30
-        Me.lblViewINCompliance.TabStop = True
-        Me.lblViewINCompliance.Text = "View"
-        '
-        'lblViewTotalOptOut
-        '
-        Me.lblViewTotalOptOut.AutoSize = True
-        Me.lblViewTotalOptOut.Location = New System.Drawing.Point(274, 460)
-        Me.lblViewTotalOptOut.Name = "lblViewTotalOptOut"
-        Me.lblViewTotalOptOut.Size = New System.Drawing.Size(30, 13)
-        Me.lblViewTotalOptOut.TabIndex = 28
-        Me.lblViewTotalOptOut.TabStop = True
-        Me.lblViewTotalOptOut.Text = "View"
-        '
-        'lblViewTotalOptin
-        '
-        Me.lblViewTotalOptin.AutoSize = True
-        Me.lblViewTotalOptin.Location = New System.Drawing.Point(274, 434)
-        Me.lblViewTotalOptin.Name = "lblViewTotalOptin"
-        Me.lblViewTotalOptin.Size = New System.Drawing.Size(30, 13)
-        Me.lblViewTotalOptin.TabIndex = 26
-        Me.lblViewTotalOptin.TabStop = True
-        Me.lblViewTotalOptin.Text = "View"
-        '
-        'txtTotaloutofcompliance
-        '
-        Me.txtTotaloutofcompliance.Location = New System.Drawing.Point(117, 538)
-        Me.txtTotaloutofcompliance.Name = "txtTotaloutofcompliance"
-        Me.txtTotaloutofcompliance.Size = New System.Drawing.Size(100, 20)
-        Me.txtTotaloutofcompliance.TabIndex = 31
-        '
-        'Label84
-        '
-        Me.Label84.AutoSize = True
-        Me.Label84.Location = New System.Drawing.Point(14, 541)
-        Me.Label84.Name = "Label84"
-        Me.Label84.Size = New System.Drawing.Size(97, 13)
-        Me.Label84.TabIndex = 38
-        Me.Label84.Text = "Out of Compliance:"
-        '
-        'txtTotalincompliance
-        '
-        Me.txtTotalincompliance.Location = New System.Drawing.Point(117, 512)
-        Me.txtTotalincompliance.Name = "txtTotalincompliance"
-        Me.txtTotalincompliance.Size = New System.Drawing.Size(100, 20)
-        Me.txtTotalincompliance.TabIndex = 29
-        '
-        'Label85
-        '
-        Me.Label85.AutoSize = True
-        Me.Label85.Location = New System.Drawing.Point(34, 515)
-        Me.Label85.Name = "Label85"
-        Me.Label85.Size = New System.Drawing.Size(77, 13)
-        Me.Label85.TabIndex = 35
-        Me.Label85.Text = "In Compliance:"
-        '
-        'txtNonResponseCount
-        '
-        Me.txtNonResponseCount.Location = New System.Drawing.Point(168, 105)
-        Me.txtNonResponseCount.Name = "txtNonResponseCount"
-        Me.txtNonResponseCount.Size = New System.Drawing.Size(100, 20)
-        Me.txtNonResponseCount.TabIndex = 4
-        '
-        'Label86
-        '
-        Me.Label86.AutoSize = True
-        Me.Label86.Location = New System.Drawing.Point(26, 108)
-        Me.Label86.Name = "Label86"
-        Me.Label86.Size = New System.Drawing.Size(81, 13)
-        Me.Label86.TabIndex = 5
-        Me.Label86.Text = "Non-Response:"
-        '
-        'txtTotalOptOutCount
-        '
-        Me.txtTotalOptOutCount.Location = New System.Drawing.Point(156, 457)
-        Me.txtTotalOptOutCount.Name = "txtTotalOptOutCount"
-        Me.txtTotalOptOutCount.Size = New System.Drawing.Size(100, 20)
-        Me.txtTotalOptOutCount.TabIndex = 27
-        '
-        'Label87
-        '
-        Me.Label87.AutoSize = True
-        Me.Label87.Location = New System.Drawing.Point(103, 460)
-        Me.Label87.Name = "Label87"
-        Me.Label87.Size = New System.Drawing.Size(47, 13)
-        Me.Label87.TabIndex = 31
-        Me.Label87.Text = "Opt-Out:"
-        '
-        'txtTotalOptInCount
-        '
-        Me.txtTotalOptInCount.Location = New System.Drawing.Point(156, 431)
-        Me.txtTotalOptInCount.Name = "txtTotalOptInCount"
-        Me.txtTotalOptInCount.Size = New System.Drawing.Size(100, 20)
-        Me.txtTotalOptInCount.TabIndex = 25
-        '
-        'Label89
-        '
-        Me.Label89.AutoSize = True
-        Me.Label89.Location = New System.Drawing.Point(111, 434)
-        Me.Label89.Name = "Label89"
-        Me.Label89.Size = New System.Drawing.Size(39, 13)
-        Me.Label89.TabIndex = 28
-        Me.Label89.Text = "Opt-In:"
-        '
-        'txtESMailOutCount
-        '
-        Me.txtESMailOutCount.Location = New System.Drawing.Point(103, 50)
-        Me.txtESMailOutCount.Name = "txtESMailOutCount"
-        Me.txtESMailOutCount.Size = New System.Drawing.Size(100, 20)
-        Me.txtESMailOutCount.TabIndex = 0
-        '
-        'Label92
-        '
-        Me.Label92.AutoSize = True
-        Me.Label92.Location = New System.Drawing.Point(12, 53)
-        Me.Label92.Name = "Label92"
-        Me.Label92.Size = New System.Drawing.Size(71, 13)
-        Me.Label92.TabIndex = 2
-        Me.Label92.Text = "Mailout Total:"
-        '
-        'lblYear
-        '
-        Me.lblYear.AutoSize = True
-        Me.lblYear.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblYear.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.lblYear.Location = New System.Drawing.Point(339, 16)
-        Me.lblYear.Name = "lblYear"
-        Me.lblYear.Size = New System.Drawing.Size(48, 22)
-        Me.lblYear.TabIndex = 1
-        Me.lblYear.Text = "Year"
-        '
-        'Label93
-        '
-        Me.Label93.AutoSize = True
-        Me.Label93.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label93.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.Label93.Location = New System.Drawing.Point(11, 16)
-        Me.Label93.Name = "Label93"
-        Me.Label93.Size = New System.Drawing.Size(322, 22)
-        Me.Label93.TabIndex = 0
-        Me.Label93.Text = "Emission Statement Summary of Year "
-        '
-        'tabMailOut
-        '
-        Me.tabMailOut.AutoScroll = True
-        Me.tabMailOut.Controls.Add(Me.lblViewESMailOut)
-        Me.tabMailOut.Controls.Add(Me.txtcontactAddress1)
-        Me.tabMailOut.Controls.Add(Me.Label94)
-        Me.tabMailOut.Controls.Add(Me.btnESDelete)
-        Me.tabMailOut.Controls.Add(Me.btnSave)
-        Me.tabMailOut.Controls.Add(Me.txtcontactEmail)
-        Me.tabMailOut.Controls.Add(Me.Label97)
-        Me.tabMailOut.Controls.Add(Me.txtcontactZipCode)
-        Me.tabMailOut.Controls.Add(Me.Label98)
-        Me.tabMailOut.Controls.Add(Me.txtcontactState)
-        Me.tabMailOut.Controls.Add(Me.Label99)
-        Me.tabMailOut.Controls.Add(Me.txtcontactCity)
-        Me.tabMailOut.Controls.Add(Me.Label104)
-        Me.tabMailOut.Controls.Add(Me.txtcontactAddress2)
-        Me.tabMailOut.Controls.Add(Me.Label105)
-        Me.tabMailOut.Controls.Add(Me.txtEScompanyName)
-        Me.tabMailOut.Controls.Add(Me.Label106)
-        Me.tabMailOut.Controls.Add(Me.txtESLastName)
-        Me.tabMailOut.Controls.Add(Me.Label107)
-        Me.tabMailOut.Controls.Add(Me.txtESFirstName)
-        Me.tabMailOut.Controls.Add(Me.Label108)
-        Me.tabMailOut.Controls.Add(Me.txtESprefix)
-        Me.tabMailOut.Controls.Add(Me.Label109)
-        Me.tabMailOut.Controls.Add(Me.txtESFacilityName)
-        Me.tabMailOut.Controls.Add(Me.Label110)
-        Me.tabMailOut.Controls.Add(Me.txtESAIRSNo2)
-        Me.tabMailOut.Controls.Add(Me.Label111)
-        Me.tabMailOut.Location = New System.Drawing.Point(4, 22)
-        Me.tabMailOut.Name = "tabMailOut"
-        Me.tabMailOut.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabMailOut.Size = New System.Drawing.Size(548, 572)
-        Me.tabMailOut.TabIndex = 1
-        Me.tabMailOut.Text = "MailOut"
-        Me.tabMailOut.UseVisualStyleBackColor = True
-        '
-        'lblViewESMailOut
-        '
-        Me.lblViewESMailOut.AutoSize = True
-        Me.lblViewESMailOut.Location = New System.Drawing.Point(14, 7)
-        Me.lblViewESMailOut.Name = "lblViewESMailOut"
-        Me.lblViewESMailOut.Size = New System.Drawing.Size(103, 13)
-        Me.lblViewESMailOut.TabIndex = 0
-        Me.lblViewESMailOut.TabStop = True
-        Me.lblViewESMailOut.Text = "View All ES Mail Out"
-        '
-        'txtcontactAddress1
-        '
-        Me.txtcontactAddress1.Location = New System.Drawing.Point(375, 133)
-        Me.txtcontactAddress1.Name = "txtcontactAddress1"
-        Me.txtcontactAddress1.Size = New System.Drawing.Size(147, 20)
-        Me.txtcontactAddress1.TabIndex = 12
-        '
-        'Label94
-        '
-        Me.Label94.AutoSize = True
-        Me.Label94.Location = New System.Drawing.Point(263, 136)
-        Me.Label94.Name = "Label94"
-        Me.Label94.Size = New System.Drawing.Size(107, 13)
-        Me.Label94.TabIndex = 20
-        Me.Label94.Text = "Company Address 1: "
-        '
-        'btnESDelete
-        '
-        Me.btnESDelete.Location = New System.Drawing.Point(317, 306)
-        Me.btnESDelete.Name = "btnESDelete"
-        Me.btnESDelete.Size = New System.Drawing.Size(75, 23)
-        Me.btnESDelete.TabIndex = 19
-        Me.btnESDelete.Text = "Delete"
-        Me.btnESDelete.UseVisualStyleBackColor = True
-        '
-        'btnSave
-        '
-        Me.btnSave.Location = New System.Drawing.Point(143, 306)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 18
-        Me.btnSave.Text = "Save"
-        Me.btnSave.UseVisualStyleBackColor = True
-        '
-        'txtcontactEmail
-        '
-        Me.txtcontactEmail.Location = New System.Drawing.Point(375, 263)
-        Me.txtcontactEmail.Name = "txtcontactEmail"
-        Me.txtcontactEmail.Size = New System.Drawing.Size(147, 20)
-        Me.txtcontactEmail.TabIndex = 17
-        '
-        'Label97
-        '
-        Me.Label97.AutoSize = True
-        Me.Label97.Location = New System.Drawing.Point(291, 267)
-        Me.Label97.Name = "Label97"
-        Me.Label97.Size = New System.Drawing.Size(79, 13)
-        Me.Label97.TabIndex = 30
-        Me.Label97.Text = "Email Address: "
-        '
-        'txtcontactZipCode
-        '
-        Me.txtcontactZipCode.Location = New System.Drawing.Point(375, 237)
-        Me.txtcontactZipCode.Name = "txtcontactZipCode"
-        Me.txtcontactZipCode.Size = New System.Drawing.Size(147, 20)
-        Me.txtcontactZipCode.TabIndex = 16
-        '
-        'Label98
-        '
-        Me.Label98.AutoSize = True
-        Me.Label98.Location = New System.Drawing.Point(314, 241)
-        Me.Label98.Name = "Label98"
-        Me.Label98.Size = New System.Drawing.Size(56, 13)
-        Me.Label98.TabIndex = 28
-        Me.Label98.Text = "Zip Code: "
-        '
-        'txtcontactState
-        '
-        Me.txtcontactState.Location = New System.Drawing.Point(375, 211)
-        Me.txtcontactState.Name = "txtcontactState"
-        Me.txtcontactState.Size = New System.Drawing.Size(147, 20)
-        Me.txtcontactState.TabIndex = 15
-        '
-        'Label99
-        '
-        Me.Label99.AutoSize = True
-        Me.Label99.Location = New System.Drawing.Point(288, 215)
-        Me.Label99.Name = "Label99"
-        Me.Label99.Size = New System.Drawing.Size(82, 13)
-        Me.Label99.TabIndex = 26
-        Me.Label99.Text = "Company State:"
-        '
-        'txtcontactCity
-        '
-        Me.txtcontactCity.Location = New System.Drawing.Point(375, 185)
-        Me.txtcontactCity.Name = "txtcontactCity"
-        Me.txtcontactCity.Size = New System.Drawing.Size(147, 20)
-        Me.txtcontactCity.TabIndex = 14
-        '
-        'Label104
-        '
-        Me.Label104.AutoSize = True
-        Me.Label104.Location = New System.Drawing.Point(296, 189)
-        Me.Label104.Name = "Label104"
-        Me.Label104.Size = New System.Drawing.Size(74, 13)
-        Me.Label104.TabIndex = 24
-        Me.Label104.Text = "Company City:"
-        '
-        'txtcontactAddress2
-        '
-        Me.txtcontactAddress2.Location = New System.Drawing.Point(375, 159)
-        Me.txtcontactAddress2.Name = "txtcontactAddress2"
-        Me.txtcontactAddress2.Size = New System.Drawing.Size(147, 20)
-        Me.txtcontactAddress2.TabIndex = 13
-        '
-        'Label105
-        '
-        Me.Label105.AutoSize = True
-        Me.Label105.Location = New System.Drawing.Point(263, 162)
-        Me.Label105.Name = "Label105"
-        Me.Label105.Size = New System.Drawing.Size(107, 13)
-        Me.Label105.TabIndex = 22
-        Me.Label105.Text = "Company Address 2: "
-        '
-        'txtEScompanyName
-        '
-        Me.txtEScompanyName.Location = New System.Drawing.Point(102, 263)
-        Me.txtEScompanyName.Name = "txtEScompanyName"
-        Me.txtEScompanyName.Size = New System.Drawing.Size(147, 20)
-        Me.txtEScompanyName.TabIndex = 11
-        '
-        'Label106
-        '
-        Me.Label106.AutoSize = True
-        Me.Label106.Location = New System.Drawing.Point(9, 267)
-        Me.Label106.Name = "Label106"
-        Me.Label106.Size = New System.Drawing.Size(88, 13)
-        Me.Label106.TabIndex = 18
-        Me.Label106.Text = "Company Name: "
-        '
-        'txtESLastName
-        '
-        Me.txtESLastName.Location = New System.Drawing.Point(102, 237)
-        Me.txtESLastName.Name = "txtESLastName"
-        Me.txtESLastName.Size = New System.Drawing.Size(147, 20)
-        Me.txtESLastName.TabIndex = 10
-        '
-        'Label107
-        '
-        Me.Label107.AutoSize = True
-        Me.Label107.Location = New System.Drawing.Point(9, 241)
-        Me.Label107.Name = "Label107"
-        Me.Label107.Size = New System.Drawing.Size(64, 13)
-        Me.Label107.TabIndex = 16
-        Me.Label107.Text = "Last Name: "
-        '
-        'txtESFirstName
-        '
-        Me.txtESFirstName.Location = New System.Drawing.Point(102, 211)
-        Me.txtESFirstName.Name = "txtESFirstName"
-        Me.txtESFirstName.Size = New System.Drawing.Size(147, 20)
-        Me.txtESFirstName.TabIndex = 9
-        '
-        'Label108
-        '
-        Me.Label108.AutoSize = True
-        Me.Label108.Location = New System.Drawing.Point(9, 215)
-        Me.Label108.Name = "Label108"
-        Me.Label108.Size = New System.Drawing.Size(63, 13)
-        Me.Label108.TabIndex = 14
-        Me.Label108.Text = "First Name: "
-        '
-        'txtESprefix
-        '
-        Me.txtESprefix.Location = New System.Drawing.Point(102, 185)
-        Me.txtESprefix.Name = "txtESprefix"
-        Me.txtESprefix.Size = New System.Drawing.Size(147, 20)
-        Me.txtESprefix.TabIndex = 8
-        '
-        'Label109
-        '
-        Me.Label109.AutoSize = True
-        Me.Label109.Location = New System.Drawing.Point(9, 189)
-        Me.Label109.Name = "Label109"
-        Me.Label109.Size = New System.Drawing.Size(39, 13)
-        Me.Label109.TabIndex = 12
-        Me.Label109.Text = "Prefix: "
-        '
-        'txtESFacilityName
-        '
-        Me.txtESFacilityName.Location = New System.Drawing.Point(102, 159)
-        Me.txtESFacilityName.Name = "txtESFacilityName"
-        Me.txtESFacilityName.Size = New System.Drawing.Size(147, 20)
-        Me.txtESFacilityName.TabIndex = 7
-        '
-        'Label110
-        '
-        Me.Label110.AutoSize = True
-        Me.Label110.Location = New System.Drawing.Point(9, 163)
-        Me.Label110.Name = "Label110"
-        Me.Label110.Size = New System.Drawing.Size(76, 13)
-        Me.Label110.TabIndex = 10
-        Me.Label110.Text = "Facility Name: "
-        '
-        'txtESAIRSNo2
-        '
-        Me.txtESAIRSNo2.Location = New System.Drawing.Point(102, 133)
-        Me.txtESAIRSNo2.Name = "txtESAIRSNo2"
-        Me.txtESAIRSNo2.Size = New System.Drawing.Size(147, 20)
-        Me.txtESAIRSNo2.TabIndex = 6
-        '
-        'Label111
-        '
-        Me.Label111.AutoSize = True
-        Me.Label111.Location = New System.Drawing.Point(9, 137)
-        Me.Label111.Name = "Label111"
-        Me.Label111.Size = New System.Drawing.Size(50, 13)
-        Me.Label111.TabIndex = 6
-        Me.Label111.Text = "Airs No.: "
-        '
-        'TabDetails
-        '
-        Me.TabDetails.AutoScroll = True
-        Me.TabDetails.Controls.Add(Me.txtESAirsNo)
-        Me.TabDetails.Controls.Add(Me.Label112)
-        Me.TabDetails.Controls.Add(Me.txtESContactLastName)
-        Me.TabDetails.Controls.Add(Me.Label113)
-        Me.TabDetails.Controls.Add(Me.lblViewESData)
-        Me.TabDetails.Controls.Add(Me.txtFirstConfirmedDate)
-        Me.TabDetails.Controls.Add(Me.Label114)
-        Me.TabDetails.Controls.Add(Me.txtNOXEmission)
-        Me.TabDetails.Controls.Add(Me.txtVOCEmission)
-        Me.TabDetails.Controls.Add(Me.Label115)
-        Me.TabDetails.Controls.Add(Me.Label116)
-        Me.TabDetails.Controls.Add(Me.Label117)
-        Me.TabDetails.Controls.Add(Me.txtConfirmationNbr)
-        Me.TabDetails.Controls.Add(Me.txtConfirmationNumber)
-        Me.TabDetails.Controls.Add(Me.Label120)
-        Me.TabDetails.Controls.Add(Me.Label121)
-        Me.TabDetails.Controls.Add(Me.txtESEmail)
-        Me.TabDetails.Controls.Add(Me.txtFax)
-        Me.TabDetails.Controls.Add(Me.txtPhone)
-        Me.TabDetails.Controls.Add(Me.Label122)
-        Me.TabDetails.Controls.Add(Me.txtZip)
-        Me.TabDetails.Controls.Add(Me.txtState)
-        Me.TabDetails.Controls.Add(Me.txtCity)
-        Me.TabDetails.Controls.Add(Me.txtAddress2)
-        Me.TabDetails.Controls.Add(Me.txtAddress1)
-        Me.TabDetails.Controls.Add(Me.txtCompany)
-        Me.TabDetails.Controls.Add(Me.txtTitle)
-        Me.TabDetails.Controls.Add(Me.txtESContactFirstName)
-        Me.TabDetails.Controls.Add(Me.Label123)
-        Me.TabDetails.Controls.Add(Me.Label124)
-        Me.TabDetails.Controls.Add(Me.Label125)
-        Me.TabDetails.Controls.Add(Me.Label126)
-        Me.TabDetails.Controls.Add(Me.Label127)
-        Me.TabDetails.Controls.Add(Me.Label128)
-        Me.TabDetails.Controls.Add(Me.Label129)
-        Me.TabDetails.Controls.Add(Me.Label130)
-        Me.TabDetails.Controls.Add(Me.Label131)
-        Me.TabDetails.Controls.Add(Me.Label132)
-        Me.TabDetails.Controls.Add(Me.txtHORIZONTALREFERENCECODE)
-        Me.TabDetails.Controls.Add(Me.txtFACILITYADDRESS)
-        Me.TabDetails.Controls.Add(Me.txtFACILITYCITY)
-        Me.TabDetails.Controls.Add(Me.txtFACILITYSTATE)
-        Me.TabDetails.Controls.Add(Me.txtFACILITYZIP)
-        Me.TabDetails.Controls.Add(Me.txtCOUNTY)
-        Me.TabDetails.Controls.Add(Me.txtXCOORDINATE)
-        Me.TabDetails.Controls.Add(Me.txtYCOORDINATE)
-        Me.TabDetails.Controls.Add(Me.txtHORIZONTALCOLLECTIONCODE)
-        Me.TabDetails.Controls.Add(Me.txtHORIZONTALACCURACYMEASURE)
-        Me.TabDetails.Controls.Add(Me.txtFACILITYNAME)
-        Me.TabDetails.Controls.Add(Me.Label133)
-        Me.TabDetails.Controls.Add(Me.Label134)
-        Me.TabDetails.Controls.Add(Me.Label135)
-        Me.TabDetails.Controls.Add(Me.Label136)
-        Me.TabDetails.Controls.Add(Me.Label137)
-        Me.TabDetails.Controls.Add(Me.Label138)
-        Me.TabDetails.Controls.Add(Me.Label139)
-        Me.TabDetails.Controls.Add(Me.Label140)
-        Me.TabDetails.Controls.Add(Me.Label141)
-        Me.TabDetails.Controls.Add(Me.Label142)
-        Me.TabDetails.Controls.Add(Me.Label143)
-        Me.TabDetails.Controls.Add(Me.Label144)
-        Me.TabDetails.Controls.Add(Me.Label145)
-        Me.TabDetails.Location = New System.Drawing.Point(4, 22)
-        Me.TabDetails.Name = "TabDetails"
-        Me.TabDetails.Size = New System.Drawing.Size(548, 572)
-        Me.TabDetails.TabIndex = 2
-        Me.TabDetails.Text = "Details"
-        Me.TabDetails.UseVisualStyleBackColor = True
-        '
-        'txtESAirsNo
-        '
-        Me.txtESAirsNo.Location = New System.Drawing.Point(120, 46)
-        Me.txtESAirsNo.Name = "txtESAirsNo"
-        Me.txtESAirsNo.ReadOnly = True
-        Me.txtESAirsNo.Size = New System.Drawing.Size(148, 20)
-        Me.txtESAirsNo.TabIndex = 3
-        '
-        'Label112
-        '
-        Me.Label112.AutoSize = True
-        Me.Label112.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label112.Location = New System.Drawing.Point(63, 49)
-        Me.Label112.Name = "Label112"
-        Me.Label112.Size = New System.Drawing.Size(47, 13)
-        Me.Label112.TabIndex = 2
-        Me.Label112.Text = "Airs No.:"
-        '
-        'txtESContactLastName
-        '
-        Me.txtESContactLastName.Location = New System.Drawing.Point(373, 72)
-        Me.txtESContactLastName.Name = "txtESContactLastName"
-        Me.txtESContactLastName.Size = New System.Drawing.Size(148, 20)
-        Me.txtESContactLastName.TabIndex = 30
-        '
-        'Label113
-        '
-        Me.Label113.AutoSize = True
-        Me.Label113.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.Label113.Location = New System.Drawing.Point(301, 71)
-        Me.Label113.Name = "Label113"
-        Me.Label113.Size = New System.Drawing.Size(61, 13)
-        Me.Label113.TabIndex = 29
-        Me.Label113.Text = "Last Name:"
-        '
-        'lblViewESData
-        '
-        Me.lblViewESData.AutoSize = True
-        Me.lblViewESData.Location = New System.Drawing.Point(6, 20)
-        Me.lblViewESData.Name = "lblViewESData"
-        Me.lblViewESData.Size = New System.Drawing.Size(87, 13)
-        Me.lblViewESData.TabIndex = 0
-        Me.lblViewESData.TabStop = True
-        Me.lblViewESData.Text = "View All ES Data"
-        '
-        'txtFirstConfirmedDate
-        '
-        Me.txtFirstConfirmedDate.Location = New System.Drawing.Point(373, 408)
-        Me.txtFirstConfirmedDate.Name = "txtFirstConfirmedDate"
-        Me.txtFirstConfirmedDate.Size = New System.Drawing.Size(148, 20)
-        Me.txtFirstConfirmedDate.TabIndex = 60
-        '
-        'Label114
-        '
-        Me.Label114.AutoSize = True
-        Me.Label114.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label114.ForeColor = System.Drawing.Color.MediumBlue
-        Me.Label114.Location = New System.Drawing.Point(373, 390)
-        Me.Label114.Name = "Label114"
-        Me.Label114.Size = New System.Drawing.Size(139, 15)
-        Me.Label114.TabIndex = 59
-        Me.Label114.Text = "First Confirmed Date"
-        '
-        'txtNOXEmission
-        '
-        Me.txtNOXEmission.Location = New System.Drawing.Point(120, 357)
-        Me.txtNOXEmission.Name = "txtNOXEmission"
-        Me.txtNOXEmission.Size = New System.Drawing.Size(148, 20)
-        Me.txtNOXEmission.TabIndex = 53
-        '
-        'txtVOCEmission
-        '
-        Me.txtVOCEmission.Location = New System.Drawing.Point(373, 357)
-        Me.txtVOCEmission.Name = "txtVOCEmission"
-        Me.txtVOCEmission.Size = New System.Drawing.Size(148, 20)
-        Me.txtVOCEmission.TabIndex = 55
-        '
-        'Label115
-        '
-        Me.Label115.AutoSize = True
-        Me.Label115.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.Label115.Location = New System.Drawing.Point(327, 361)
-        Me.Label115.Name = "Label115"
-        Me.Label115.Size = New System.Drawing.Size(32, 13)
-        Me.Label115.TabIndex = 54
-        Me.Label115.Text = "VOC:"
-        '
-        'Label116
-        '
-        Me.Label116.AutoSize = True
-        Me.Label116.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.Label116.Location = New System.Drawing.Point(81, 361)
-        Me.Label116.Name = "Label116"
-        Me.Label116.Size = New System.Drawing.Size(33, 13)
-        Me.Label116.TabIndex = 52
-        Me.Label116.Text = "NOX:"
-        '
-        'Label117
-        '
-        Me.Label117.AutoSize = True
-        Me.Label117.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label117.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Label117.Location = New System.Drawing.Point(120, 390)
-        Me.Label117.Name = "Label117"
-        Me.Label117.Size = New System.Drawing.Size(144, 15)
-        Me.Label117.TabIndex = 56
-        Me.Label117.Text = "Confirmation Number"
-        '
-        'txtConfirmationNbr
-        '
-        Me.txtConfirmationNbr.Location = New System.Drawing.Point(120, 408)
-        Me.txtConfirmationNbr.Name = "txtConfirmationNbr"
-        Me.txtConfirmationNbr.Size = New System.Drawing.Size(150, 20)
-        Me.txtConfirmationNbr.TabIndex = 58
-        '
-        'txtConfirmationNumber
-        '
-        Me.txtConfirmationNumber.Location = New System.Drawing.Point(30, 408)
-        Me.txtConfirmationNumber.Name = "txtConfirmationNumber"
-        Me.txtConfirmationNumber.Size = New System.Drawing.Size(73, 20)
-        Me.txtConfirmationNumber.TabIndex = 57
-        Me.txtConfirmationNumber.Visible = False
-        '
-        'Label120
-        '
-        Me.Label120.AutoSize = True
-        Me.Label120.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label120.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Label120.Location = New System.Drawing.Point(196, 334)
-        Me.Label120.Name = "Label120"
-        Me.Label120.Size = New System.Drawing.Size(143, 15)
-        Me.Label120.TabIndex = 51
-        Me.Label120.Text = "Emission Information"
-        '
-        'Label121
-        '
-        Me.Label121.AutoSize = True
-        Me.Label121.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.Label121.Location = New System.Drawing.Point(320, 306)
-        Me.Label121.Name = "Label121"
-        Me.Label121.Size = New System.Drawing.Size(35, 13)
-        Me.Label121.TabIndex = 49
-        Me.Label121.Text = "Email:"
-        '
-        'txtESEmail
-        '
-        Me.txtESEmail.Location = New System.Drawing.Point(373, 303)
-        Me.txtESEmail.Name = "txtESEmail"
-        Me.txtESEmail.Size = New System.Drawing.Size(148, 20)
-        Me.txtESEmail.TabIndex = 50
-        '
-        'txtFax
-        '
-        Me.txtFax.Location = New System.Drawing.Point(373, 280)
-        Me.txtFax.Name = "txtFax"
-        Me.txtFax.Size = New System.Drawing.Size(148, 20)
-        Me.txtFax.TabIndex = 48
-        '
-        'txtPhone
-        '
-        Me.txtPhone.Location = New System.Drawing.Point(373, 257)
-        Me.txtPhone.Name = "txtPhone"
-        Me.txtPhone.Size = New System.Drawing.Size(148, 20)
-        Me.txtPhone.TabIndex = 46
-        '
-        'Label122
-        '
-        Me.Label122.AutoSize = True
-        Me.Label122.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.Label122.Location = New System.Drawing.Point(303, 165)
-        Me.Label122.Name = "Label122"
-        Me.Label122.Size = New System.Drawing.Size(57, 13)
-        Me.Label122.TabIndex = 37
-        Me.Label122.Text = "Address 2:"
-        '
-        'txtZip
-        '
-        Me.txtZip.Location = New System.Drawing.Point(373, 234)
-        Me.txtZip.Name = "txtZip"
-        Me.txtZip.Size = New System.Drawing.Size(148, 20)
-        Me.txtZip.TabIndex = 44
-        '
-        'txtState
-        '
-        Me.txtState.Location = New System.Drawing.Point(373, 211)
-        Me.txtState.Name = "txtState"
-        Me.txtState.Size = New System.Drawing.Size(148, 20)
-        Me.txtState.TabIndex = 42
-        '
-        'txtCity
-        '
-        Me.txtCity.Location = New System.Drawing.Point(373, 188)
-        Me.txtCity.Name = "txtCity"
-        Me.txtCity.Size = New System.Drawing.Size(148, 20)
-        Me.txtCity.TabIndex = 40
-        '
-        'txtAddress2
-        '
-        Me.txtAddress2.Location = New System.Drawing.Point(373, 165)
-        Me.txtAddress2.Name = "txtAddress2"
-        Me.txtAddress2.Size = New System.Drawing.Size(148, 20)
-        Me.txtAddress2.TabIndex = 38
-        '
-        'txtAddress1
-        '
-        Me.txtAddress1.Location = New System.Drawing.Point(373, 143)
-        Me.txtAddress1.Name = "txtAddress1"
-        Me.txtAddress1.Size = New System.Drawing.Size(148, 20)
-        Me.txtAddress1.TabIndex = 36
-        '
-        'txtCompany
-        '
-        Me.txtCompany.Location = New System.Drawing.Point(373, 119)
-        Me.txtCompany.Name = "txtCompany"
-        Me.txtCompany.Size = New System.Drawing.Size(148, 20)
-        Me.txtCompany.TabIndex = 34
-        '
-        'txtTitle
-        '
-        Me.txtTitle.Location = New System.Drawing.Point(373, 94)
-        Me.txtTitle.Name = "txtTitle"
-        Me.txtTitle.Size = New System.Drawing.Size(148, 20)
-        Me.txtTitle.TabIndex = 32
-        '
-        'txtESContactFirstName
-        '
-        Me.txtESContactFirstName.Location = New System.Drawing.Point(373, 46)
-        Me.txtESContactFirstName.Name = "txtESContactFirstName"
-        Me.txtESContactFirstName.Size = New System.Drawing.Size(148, 20)
-        Me.txtESContactFirstName.TabIndex = 28
-        '
-        'Label123
-        '
-        Me.Label123.AutoSize = True
-        Me.Label123.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.Label123.Location = New System.Drawing.Point(330, 283)
-        Me.Label123.Name = "Label123"
-        Me.Label123.Size = New System.Drawing.Size(27, 13)
-        Me.Label123.TabIndex = 47
-        Me.Label123.Text = "Fax:"
-        '
-        'Label124
-        '
-        Me.Label124.AutoSize = True
-        Me.Label124.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.Label124.Location = New System.Drawing.Point(317, 260)
-        Me.Label124.Name = "Label124"
-        Me.Label124.Size = New System.Drawing.Size(41, 13)
-        Me.Label124.TabIndex = 45
-        Me.Label124.Text = "Phone:"
-        '
-        'Label125
-        '
-        Me.Label125.AutoSize = True
-        Me.Label125.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.Label125.Location = New System.Drawing.Point(331, 238)
-        Me.Label125.Name = "Label125"
-        Me.Label125.Size = New System.Drawing.Size(25, 13)
-        Me.Label125.TabIndex = 43
-        Me.Label125.Text = "Zip:"
-        '
-        'Label126
-        '
-        Me.Label126.AutoSize = True
-        Me.Label126.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.Label126.Location = New System.Drawing.Point(324, 215)
-        Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(35, 13)
-        Me.Label126.TabIndex = 41
-        Me.Label126.Text = "State:"
-        '
-        'Label127
-        '
-        Me.Label127.AutoSize = True
-        Me.Label127.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.Label127.Location = New System.Drawing.Point(327, 191)
-        Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(27, 13)
-        Me.Label127.TabIndex = 39
-        Me.Label127.Text = "City:"
-        '
-        'Label128
-        '
-        Me.Label128.AutoSize = True
-        Me.Label128.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.Label128.Location = New System.Drawing.Point(312, 146)
-        Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(48, 13)
-        Me.Label128.TabIndex = 35
-        Me.Label128.Text = "Address:"
-        '
-        'Label129
-        '
-        Me.Label129.AutoSize = True
-        Me.Label129.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.Label129.Location = New System.Drawing.Point(302, 122)
-        Me.Label129.Name = "Label129"
-        Me.Label129.Size = New System.Drawing.Size(54, 13)
-        Me.Label129.TabIndex = 33
-        Me.Label129.Text = "Company:"
-        '
-        'Label130
-        '
-        Me.Label130.AutoSize = True
-        Me.Label130.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.Label130.Location = New System.Drawing.Point(319, 94)
-        Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(39, 13)
-        Me.Label130.TabIndex = 31
-        Me.Label130.Text = "PreFix:"
-        '
-        'Label131
-        '
-        Me.Label131.AutoSize = True
-        Me.Label131.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.Label131.Location = New System.Drawing.Point(301, 49)
-        Me.Label131.Name = "Label131"
-        Me.Label131.Size = New System.Drawing.Size(60, 13)
-        Me.Label131.TabIndex = 27
-        Me.Label131.Text = "First Name:"
-        '
-        'Label132
-        '
-        Me.Label132.AutoSize = True
-        Me.Label132.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label132.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Label132.Location = New System.Drawing.Point(373, 16)
-        Me.Label132.Name = "Label132"
-        Me.Label132.Size = New System.Drawing.Size(132, 15)
-        Me.Label132.TabIndex = 26
-        Me.Label132.Text = "Contact Information"
-        '
-        'txtHORIZONTALREFERENCECODE
-        '
-        Me.txtHORIZONTALREFERENCECODE.Location = New System.Drawing.Point(120, 303)
-        Me.txtHORIZONTALREFERENCECODE.Name = "txtHORIZONTALREFERENCECODE"
-        Me.txtHORIZONTALREFERENCECODE.Size = New System.Drawing.Size(148, 20)
-        Me.txtHORIZONTALREFERENCECODE.TabIndex = 25
-        '
-        'txtFACILITYADDRESS
-        '
-        Me.txtFACILITYADDRESS.Location = New System.Drawing.Point(120, 96)
-        Me.txtFACILITYADDRESS.Name = "txtFACILITYADDRESS"
-        Me.txtFACILITYADDRESS.Size = New System.Drawing.Size(148, 20)
-        Me.txtFACILITYADDRESS.TabIndex = 7
-        '
-        'txtFACILITYCITY
-        '
-        Me.txtFACILITYCITY.Location = New System.Drawing.Point(120, 119)
-        Me.txtFACILITYCITY.Name = "txtFACILITYCITY"
-        Me.txtFACILITYCITY.Size = New System.Drawing.Size(148, 20)
-        Me.txtFACILITYCITY.TabIndex = 9
-        '
-        'txtFACILITYSTATE
-        '
-        Me.txtFACILITYSTATE.Location = New System.Drawing.Point(120, 142)
-        Me.txtFACILITYSTATE.Name = "txtFACILITYSTATE"
-        Me.txtFACILITYSTATE.Size = New System.Drawing.Size(148, 20)
-        Me.txtFACILITYSTATE.TabIndex = 11
-        '
-        'txtFACILITYZIP
-        '
-        Me.txtFACILITYZIP.Location = New System.Drawing.Point(120, 165)
-        Me.txtFACILITYZIP.Name = "txtFACILITYZIP"
-        Me.txtFACILITYZIP.Size = New System.Drawing.Size(148, 20)
-        Me.txtFACILITYZIP.TabIndex = 13
-        '
-        'txtCOUNTY
-        '
-        Me.txtCOUNTY.Location = New System.Drawing.Point(120, 188)
-        Me.txtCOUNTY.Name = "txtCOUNTY"
-        Me.txtCOUNTY.Size = New System.Drawing.Size(148, 20)
-        Me.txtCOUNTY.TabIndex = 15
-        '
-        'txtXCOORDINATE
-        '
-        Me.txtXCOORDINATE.Location = New System.Drawing.Point(120, 211)
-        Me.txtXCOORDINATE.Name = "txtXCOORDINATE"
-        Me.txtXCOORDINATE.Size = New System.Drawing.Size(148, 20)
-        Me.txtXCOORDINATE.TabIndex = 17
-        '
-        'txtYCOORDINATE
-        '
-        Me.txtYCOORDINATE.Location = New System.Drawing.Point(120, 234)
-        Me.txtYCOORDINATE.Name = "txtYCOORDINATE"
-        Me.txtYCOORDINATE.Size = New System.Drawing.Size(148, 20)
-        Me.txtYCOORDINATE.TabIndex = 19
-        '
-        'txtHORIZONTALCOLLECTIONCODE
-        '
-        Me.txtHORIZONTALCOLLECTIONCODE.Location = New System.Drawing.Point(120, 257)
-        Me.txtHORIZONTALCOLLECTIONCODE.Name = "txtHORIZONTALCOLLECTIONCODE"
-        Me.txtHORIZONTALCOLLECTIONCODE.Size = New System.Drawing.Size(148, 20)
-        Me.txtHORIZONTALCOLLECTIONCODE.TabIndex = 21
-        '
-        'txtHORIZONTALACCURACYMEASURE
-        '
-        Me.txtHORIZONTALACCURACYMEASURE.Location = New System.Drawing.Point(120, 280)
-        Me.txtHORIZONTALACCURACYMEASURE.Name = "txtHORIZONTALACCURACYMEASURE"
-        Me.txtHORIZONTALACCURACYMEASURE.Size = New System.Drawing.Size(148, 20)
-        Me.txtHORIZONTALACCURACYMEASURE.TabIndex = 23
-        '
-        'txtFACILITYNAME
-        '
-        Me.txtFACILITYNAME.Location = New System.Drawing.Point(120, 73)
-        Me.txtFACILITYNAME.Name = "txtFACILITYNAME"
-        Me.txtFACILITYNAME.ReadOnly = True
-        Me.txtFACILITYNAME.Size = New System.Drawing.Size(148, 20)
-        Me.txtFACILITYNAME.TabIndex = 5
-        '
-        'Label133
-        '
-        Me.Label133.AutoSize = True
-        Me.Label133.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label133.Location = New System.Drawing.Point(4, 283)
-        Me.Label133.Name = "Label133"
-        Me.Label133.Size = New System.Drawing.Size(109, 13)
-        Me.Label133.TabIndex = 22
-        Me.Label133.Text = "Horiz Accur Measure:"
-        '
-        'Label134
-        '
-        Me.Label134.AutoSize = True
-        Me.Label134.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label134.Location = New System.Drawing.Point(66, 96)
-        Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(48, 13)
-        Me.Label134.TabIndex = 6
-        Me.Label134.Text = "Address:"
-        '
-        'Label135
-        '
-        Me.Label135.AutoSize = True
-        Me.Label135.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label135.Location = New System.Drawing.Point(81, 122)
-        Me.Label135.Name = "Label135"
-        Me.Label135.Size = New System.Drawing.Size(27, 13)
-        Me.Label135.TabIndex = 8
-        Me.Label135.Text = "City:"
-        '
-        'Label136
-        '
-        Me.Label136.AutoSize = True
-        Me.Label136.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label136.Location = New System.Drawing.Point(78, 144)
-        Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(35, 13)
-        Me.Label136.TabIndex = 10
-        Me.Label136.Text = "State:"
-        '
-        'Label137
-        '
-        Me.Label137.AutoSize = True
-        Me.Label137.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label137.Location = New System.Drawing.Point(85, 168)
-        Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(25, 13)
-        Me.Label137.TabIndex = 12
-        Me.Label137.Text = "Zip:"
-        '
-        'Label138
-        '
-        Me.Label138.AutoSize = True
-        Me.Label138.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label138.Location = New System.Drawing.Point(67, 188)
-        Me.Label138.Name = "Label138"
-        Me.Label138.Size = New System.Drawing.Size(43, 13)
-        Me.Label138.TabIndex = 14
-        Me.Label138.Text = "County:"
-        '
-        'Label139
-        '
-        Me.Label139.AutoSize = True
-        Me.Label139.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label139.Location = New System.Drawing.Point(63, 214)
-        Me.Label139.Name = "Label139"
-        Me.Label139.Size = New System.Drawing.Size(48, 13)
-        Me.Label139.TabIndex = 16
-        Me.Label139.Text = "Latitude:"
-        '
-        'Label140
-        '
-        Me.Label140.AutoSize = True
-        Me.Label140.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label140.Location = New System.Drawing.Point(55, 237)
-        Me.Label140.Name = "Label140"
-        Me.Label140.Size = New System.Drawing.Size(57, 13)
-        Me.Label140.TabIndex = 18
-        Me.Label140.Text = "Longitude:"
-        '
-        'Label141
-        '
-        Me.Label141.AutoSize = True
-        Me.Label141.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label141.Location = New System.Drawing.Point(-2, 260)
-        Me.Label141.Name = "Label141"
-        Me.Label141.Size = New System.Drawing.Size(111, 13)
-        Me.Label141.TabIndex = 20
-        Me.Label141.Text = "Horiz Collection Code:"
-        '
-        'Label142
-        '
-        Me.Label142.AutoSize = True
-        Me.Label142.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label142.Location = New System.Drawing.Point(41, 306)
-        Me.Label142.Name = "Label142"
-        Me.Label142.Size = New System.Drawing.Size(68, 13)
-        Me.Label142.TabIndex = 24
-        Me.Label142.Text = "Horiz Datum:"
-        '
-        'Label143
-        '
-        Me.Label143.AutoSize = True
-        Me.Label143.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label143.Location = New System.Drawing.Point(39, 79)
-        Me.Label143.Name = "Label143"
-        Me.Label143.Size = New System.Drawing.Size(73, 13)
-        Me.Label143.TabIndex = 4
-        Me.Label143.Text = "Facility Name:"
-        '
-        'Label144
-        '
-        Me.Label144.AutoSize = True
-        Me.Label144.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label144.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Label144.Location = New System.Drawing.Point(120, 18)
-        Me.Label144.Name = "Label144"
-        Me.Label144.Size = New System.Drawing.Size(129, 15)
-        Me.Label144.TabIndex = 1
-        Me.Label144.Text = "Facility Information"
-        '
-        'Label145
-        '
-        Me.Label145.AutoSize = True
-        Me.Label145.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label145.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Label145.Location = New System.Drawing.Point(230, -37)
-        Me.Label145.Name = "Label145"
-        Me.Label145.Size = New System.Drawing.Size(297, 24)
-        Me.Label145.TabIndex = 62
-        Me.Label145.Text = "Emission Statement Information"
-        '
-        'tabgenerateESmailout
-        '
-        Me.tabgenerateESmailout.AutoScroll = True
-        Me.tabgenerateESmailout.Controls.Add(Me.Label174)
-        Me.tabgenerateESmailout.Controls.Add(Me.lblviewselectedyearMailoutList)
-        Me.tabgenerateESmailout.Controls.Add(Me.btnDelMailOut)
-        Me.tabgenerateESmailout.Controls.Add(Me.cboMailoutYear)
-        Me.tabgenerateESmailout.Controls.Add(Me.btnGenMailOut)
-        Me.tabgenerateESmailout.Location = New System.Drawing.Point(4, 22)
-        Me.tabgenerateESmailout.Name = "tabgenerateESmailout"
-        Me.tabgenerateESmailout.Size = New System.Drawing.Size(548, 572)
-        Me.tabgenerateESmailout.TabIndex = 3
-        Me.tabgenerateESmailout.Text = "Generate Mailout"
-        Me.tabgenerateESmailout.UseVisualStyleBackColor = True
-        '
-        'Label174
-        '
-        Me.Label174.AutoSize = True
-        Me.Label174.Location = New System.Drawing.Point(129, 28)
-        Me.Label174.Name = "Label174"
-        Me.Label174.Size = New System.Drawing.Size(137, 13)
-        Me.Label174.TabIndex = 10
-        Me.Label174.Text = "Choose the Year for mailout"
-        '
-        'lblviewselectedyearMailoutList
-        '
-        Me.lblviewselectedyearMailoutList.AutoSize = True
-        Me.lblviewselectedyearMailoutList.Location = New System.Drawing.Point(126, 146)
-        Me.lblviewselectedyearMailoutList.Name = "lblviewselectedyearMailoutList"
-        Me.lblviewselectedyearMailoutList.Size = New System.Drawing.Size(173, 13)
-        Me.lblviewselectedyearMailoutList.TabIndex = 9
-        Me.lblviewselectedyearMailoutList.TabStop = True
-        Me.lblviewselectedyearMailoutList.Text = "View Selected Year ES Mailout List"
-        '
-        'btnDelMailOut
-        '
-        Me.btnDelMailOut.Location = New System.Drawing.Point(129, 108)
-        Me.btnDelMailOut.Name = "btnDelMailOut"
-        Me.btnDelMailOut.Size = New System.Drawing.Size(159, 23)
-        Me.btnDelMailOut.TabIndex = 8
-        Me.btnDelMailOut.Text = "Delete Mail Out List by Year"
-        Me.btnDelMailOut.UseVisualStyleBackColor = True
-        '
-        'cboMailoutYear
-        '
-        Me.cboMailoutYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboMailoutYear.FormattingEnabled = True
-        Me.cboMailoutYear.Location = New System.Drawing.Point(129, 52)
-        Me.cboMailoutYear.Name = "cboMailoutYear"
-        Me.cboMailoutYear.Size = New System.Drawing.Size(159, 21)
-        Me.cboMailoutYear.TabIndex = 6
-        '
-        'btnGenMailOut
-        '
-        Me.btnGenMailOut.Location = New System.Drawing.Point(129, 79)
-        Me.btnGenMailOut.Name = "btnGenMailOut"
-        Me.btnGenMailOut.Size = New System.Drawing.Size(159, 23)
-        Me.btnGenMailOut.TabIndex = 7
-        Me.btnGenMailOut.Text = "Generate Mail Out List by Year"
-        Me.btnGenMailOut.UseVisualStyleBackColor = True
-        '
-        'tabenroll
-        '
-        Me.tabenroll.AutoScroll = True
-        Me.tabenroll.Controls.Add(Me.lblviewESenrollment)
-        Me.tabenroll.Controls.Add(Me.cboESYear)
-        Me.tabenroll.Controls.Add(Me.Label189)
-        Me.tabenroll.Controls.Add(Me.btnESdeenrollment)
-        Me.tabenroll.Controls.Add(Me.btnESenrollment)
-        Me.tabenroll.Location = New System.Drawing.Point(4, 22)
-        Me.tabenroll.Name = "tabenroll"
-        Me.tabenroll.Size = New System.Drawing.Size(548, 572)
-        Me.tabenroll.TabIndex = 4
-        Me.tabenroll.Text = "Enrollment"
-        Me.tabenroll.UseVisualStyleBackColor = True
-        '
-        'lblviewESenrollment
-        '
-        Me.lblviewESenrollment.AutoSize = True
-        Me.lblviewESenrollment.Location = New System.Drawing.Point(290, 76)
-        Me.lblviewESenrollment.Name = "lblviewESenrollment"
-        Me.lblviewESenrollment.Size = New System.Drawing.Size(82, 13)
-        Me.lblviewESenrollment.TabIndex = 19
-        Me.lblviewESenrollment.TabStop = True
-        Me.lblviewESenrollment.Text = "View Enrollment"
-        '
-        'cboESYear
-        '
-        Me.cboESYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboESYear.FormattingEnabled = True
-        Me.cboESYear.Location = New System.Drawing.Point(273, 38)
-        Me.cboESYear.Name = "cboESYear"
-        Me.cboESYear.Size = New System.Drawing.Size(88, 21)
-        Me.cboESYear.TabIndex = 18
-        '
-        'Label189
-        '
-        Me.Label189.AutoSize = True
-        Me.Label189.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label189.Location = New System.Drawing.Point(115, 39)
-        Me.Label189.Name = "Label189"
-        Me.Label189.Size = New System.Drawing.Size(152, 16)
-        Me.Label189.TabIndex = 17
-        Me.Label189.Text = "Mailout Enrollment Year:"
-        '
-        'btnESdeenrollment
-        '
-        Me.btnESdeenrollment.Location = New System.Drawing.Point(118, 100)
-        Me.btnESdeenrollment.Name = "btnESdeenrollment"
-        Me.btnESdeenrollment.Size = New System.Drawing.Size(165, 23)
-        Me.btnESdeenrollment.TabIndex = 16
-        Me.btnESdeenrollment.Text = "Remove Mailout Enrollment"
-        Me.btnESdeenrollment.UseVisualStyleBackColor = True
-        '
-        'btnESenrollment
-        '
-        Me.btnESenrollment.Location = New System.Drawing.Point(118, 71)
-        Me.btnESenrollment.Name = "btnESenrollment"
-        Me.btnESenrollment.Size = New System.Drawing.Size(165, 23)
-        Me.btnESenrollment.TabIndex = 15
-        Me.btnESenrollment.Text = "Enroll Mailout List"
-        Me.btnESenrollment.UseVisualStyleBackColor = True
-        '
-        'tabaddRemovefacility
-        '
-        Me.tabaddRemovefacility.AutoScroll = True
-        Me.tabaddRemovefacility.Controls.Add(Me.Label190)
-        Me.tabaddRemovefacility.Controls.Add(Me.Label191)
-        Me.tabaddRemovefacility.Controls.Add(Me.btnCheckESstatus)
-        Me.tabaddRemovefacility.Controls.Add(Me.btnremoveFacilityES)
-        Me.tabaddRemovefacility.Controls.Add(Me.Label192)
-        Me.tabaddRemovefacility.Controls.Add(Me.txtESYearforFacility)
-        Me.tabaddRemovefacility.Controls.Add(Me.btnaddfacilitytoES)
-        Me.tabaddRemovefacility.Controls.Add(Me.Label193)
-        Me.tabaddRemovefacility.Controls.Add(Me.txtESairNumber)
-        Me.tabaddRemovefacility.Location = New System.Drawing.Point(4, 22)
-        Me.tabaddRemovefacility.Name = "tabaddRemovefacility"
-        Me.tabaddRemovefacility.Size = New System.Drawing.Size(548, 572)
-        Me.tabaddRemovefacility.TabIndex = 5
-        Me.tabaddRemovefacility.Text = "Add/Remove ES Facility"
-        Me.tabaddRemovefacility.UseVisualStyleBackColor = True
-        '
-        'Label190
-        '
-        Me.Label190.AutoSize = True
-        Me.Label190.Location = New System.Drawing.Point(189, 64)
-        Me.Label190.Name = "Label190"
-        Me.Label190.Size = New System.Drawing.Size(49, 13)
-        Me.Label190.TabIndex = 25
-        Me.Label190.Text = "Ex: 2008"
-        '
-        'Label191
-        '
-        Me.Label191.AutoSize = True
-        Me.Label191.Location = New System.Drawing.Point(189, 25)
-        Me.Label191.Name = "Label191"
-        Me.Label191.Size = New System.Drawing.Size(76, 13)
-        Me.Label191.TabIndex = 24
-        Me.Label191.Text = "Ex: 00100001 "
-        '
-        'btnCheckESstatus
-        '
-        Me.btnCheckESstatus.AutoSize = True
-        Me.btnCheckESstatus.Location = New System.Drawing.Point(108, 174)
-        Me.btnCheckESstatus.Name = "btnCheckESstatus"
-        Me.btnCheckESstatus.Size = New System.Drawing.Size(168, 23)
-        Me.btnCheckESstatus.TabIndex = 23
-        Me.btnCheckESstatus.Text = "Check Facility Enrollment Status"
-        Me.btnCheckESstatus.UseVisualStyleBackColor = True
-        '
-        'btnremoveFacilityES
-        '
-        Me.btnremoveFacilityES.AutoSize = True
-        Me.btnremoveFacilityES.Location = New System.Drawing.Point(107, 145)
-        Me.btnremoveFacilityES.Name = "btnremoveFacilityES"
-        Me.btnremoveFacilityES.Size = New System.Drawing.Size(169, 23)
-        Me.btnremoveFacilityES.TabIndex = 22
-        Me.btnremoveFacilityES.Text = "Remove Facility from ES List"
-        Me.btnremoveFacilityES.UseVisualStyleBackColor = True
-        '
-        'Label192
-        '
-        Me.Label192.AutoSize = True
-        Me.Label192.Location = New System.Drawing.Point(105, 81)
-        Me.Label192.Name = "Label192"
-        Me.Label192.Size = New System.Drawing.Size(52, 13)
-        Me.Label192.TabIndex = 21
-        Me.Label192.Text = "ES Year: "
-        '
-        'txtESYearforFacility
-        '
-        Me.txtESYearforFacility.Location = New System.Drawing.Point(189, 78)
-        Me.txtESYearforFacility.Name = "txtESYearforFacility"
-        Me.txtESYearforFacility.Size = New System.Drawing.Size(87, 20)
-        Me.txtESYearforFacility.TabIndex = 20
-        '
-        'btnaddfacilitytoES
-        '
-        Me.btnaddfacilitytoES.AutoSize = True
-        Me.btnaddfacilitytoES.Location = New System.Drawing.Point(107, 116)
-        Me.btnaddfacilitytoES.Name = "btnaddfacilitytoES"
-        Me.btnaddfacilitytoES.Size = New System.Drawing.Size(169, 23)
-        Me.btnaddfacilitytoES.TabIndex = 19
-        Me.btnaddfacilitytoES.Text = "Add Facility to ES List"
-        Me.btnaddfacilitytoES.UseVisualStyleBackColor = True
-        '
-        'Label193
-        '
-        Me.Label193.AutoSize = True
-        Me.Label193.Location = New System.Drawing.Point(104, 44)
-        Me.Label193.Name = "Label193"
-        Me.Label193.Size = New System.Drawing.Size(78, 13)
-        Me.Label193.TabIndex = 18
-        Me.Label193.Text = "AIRS Number: "
-        '
-        'txtESairNumber
-        '
-        Me.txtESairNumber.Location = New System.Drawing.Point(188, 41)
-        Me.txtESairNumber.MaxLength = 8
-        Me.txtESairNumber.Name = "txtESairNumber"
-        Me.txtESairNumber.Size = New System.Drawing.Size(88, 20)
-        Me.txtESairNumber.TabIndex = 17
-        '
-        'PnlESYear
-        '
-        Me.PnlESYear.Controls.Add(Me.txtESYear)
-        Me.PnlESYear.Controls.Add(Me.btnView)
-        Me.PnlESYear.Controls.Add(Me.Label31)
-        Me.PnlESYear.Controls.Add(Me.cboYear)
-        Me.PnlESYear.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PnlESYear.Location = New System.Drawing.Point(0, 0)
-        Me.PnlESYear.Name = "PnlESYear"
-        Me.PnlESYear.Size = New System.Drawing.Size(556, 57)
-        Me.PnlESYear.TabIndex = 10
-        '
-        'txtESYear
-        '
-        Me.txtESYear.Location = New System.Drawing.Point(297, 12)
-        Me.txtESYear.Name = "txtESYear"
-        Me.txtESYear.Size = New System.Drawing.Size(100, 20)
-        Me.txtESYear.TabIndex = 7
-        Me.txtESYear.Visible = False
-        '
-        'btnView
-        '
-        Me.btnView.AutoSize = True
-        Me.btnView.Location = New System.Drawing.Point(196, 12)
-        Me.btnView.Name = "btnView"
-        Me.btnView.Size = New System.Drawing.Size(40, 23)
-        Me.btnView.TabIndex = 1
-        Me.btnView.Text = "View"
-        Me.btnView.UseVisualStyleBackColor = True
-        '
-        'Label31
-        '
-        Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(16, 15)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(71, 13)
-        Me.Label31.TabIndex = 4
-        Me.Label31.Text = "Select a Year"
-        '
-        'cboYear
-        '
-        Me.cboYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboYear.FormattingEnabled = True
-        Me.cboYear.Location = New System.Drawing.Point(93, 12)
-        Me.cboYear.Name = "cboYear"
-        Me.cboYear.Size = New System.Drawing.Size(97, 21)
-        Me.cboYear.TabIndex = 0
-        '
-        'lblOptOutReason
-        '
-        Me.lblOptOutReason.AutoSize = True
-        Me.lblOptOutReason.Location = New System.Drawing.Point(99, 39)
-        Me.lblOptOutReason.Name = "lblOptOutReason"
-        Me.lblOptOutReason.Size = New System.Drawing.Size(45, 13)
-        Me.lblOptOutReason.TabIndex = 3
-        Me.lblOptOutReason.Text = "(reason)"
-        '
-        'lblColocated
-        '
-        Me.lblColocated.AutoSize = True
-        Me.lblColocated.Location = New System.Drawing.Point(99, 65)
-        Me.lblColocated.Name = "lblColocated"
-        Me.lblColocated.Size = New System.Drawing.Size(60, 13)
-        Me.lblColocated.TabIndex = 3
-        Me.lblColocated.Text = "(colocated)"
+        Me.Label3.Size = New System.Drawing.Size(148, 13)
+        Me.Label3.TabIndex = 1
+        Me.Label3.Text = "* Data after 2018 is in CAERS"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(5, 16)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(29, 13)
+        Me.Label8.TabIndex = 1
+        Me.Label8.Text = "Year"
+        '
+        'cboEIYear
+        '
+        Me.cboEIYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboEIYear.FormattingEnabled = True
+        Me.cboEIYear.Location = New System.Drawing.Point(40, 12)
+        Me.cboEIYear.Name = "cboEIYear"
+        Me.cboEIYear.Size = New System.Drawing.Size(79, 21)
+        Me.cboEIYear.TabIndex = 0
         '
         'EisTool
         '
@@ -6456,7 +4637,7 @@ Partial Class EisTool
         Me.Controls.Add(Me.TCDMUTools)
         Me.MinimumSize = New System.Drawing.Size(1032, 751)
         Me.Name = "EisTool"
-        Me.Text = "Emission Inventory Tools"
+        Me.Text = "Emissions Inventory System"
         Me.TCDMUTools.ResumeLayout(False)
         Me.TPEISLog.ResumeLayout(False)
         Me.TabControl6.ResumeLayout(False)
@@ -6491,7 +4672,7 @@ Partial Class EisTool
         Me.Panel14.PerformLayout()
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
-        Me.TPEisTools.ResumeLayout(False)
+        Me.TPInvYear.ResumeLayout(False)
         Me.Panel17.ResumeLayout(False)
         CType(Me.dgvEISStats, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel18.ResumeLayout(False)
@@ -6505,6 +4686,10 @@ Partial Class EisTool
         Me.TPEISStatMailout.PerformLayout()
         Me.TPEISEnrollment.ResumeLayout(False)
         Me.TPEISEnrollment.PerformLayout()
+        Me.Panel21.ResumeLayout(False)
+        Me.Panel21.PerformLayout()
+        Me.TPAdmin.ResumeLayout(False)
+        Me.TCAdmin.ResumeLayout(False)
         Me.TPEISThresholds.ResumeLayout(False)
         Me.Panel23.ResumeLayout(False)
         CType(Me.dgvThresholdPollutants, System.ComponentModel.ISupportInitialize).EndInit()
@@ -6519,223 +4704,23 @@ Partial Class EisTool
         CType(Me.dgvOperStatusMismatch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        Me.TPStageData.ResumeLayout(False)
-        Me.TPStageData.PerformLayout()
-        Me.Panel21.ResumeLayout(False)
-        Me.Panel21.PerformLayout()
-        Me.TPESTools.ResumeLayout(False)
-        Me.TabControl2.ResumeLayout(False)
-        Me.TabPage3.ResumeLayout(False)
-        Me.Panel10.ResumeLayout(False)
+        Me.TPCaersUsers.ResumeLayout(False)
+        CType(Me.dgvCaersUsers, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
+        Me.TPHistory.ResumeLayout(False)
+        CType(Me.dgvEIResults, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
-        CType(Me.dgvESDataCount, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel4.ResumeLayout(False)
-        Me.Panel4.PerformLayout()
-        Me.Panel5.ResumeLayout(False)
-        Me.TabControl3.ResumeLayout(False)
-        Me.tabSummary.ResumeLayout(False)
-        Me.tabSummary.PerformLayout()
-        Me.tabMailOut.ResumeLayout(False)
-        Me.tabMailOut.PerformLayout()
-        Me.TabDetails.ResumeLayout(False)
-        Me.TabDetails.PerformLayout()
-        Me.tabgenerateESmailout.ResumeLayout(False)
-        Me.tabgenerateESmailout.PerformLayout()
-        Me.tabenroll.ResumeLayout(False)
-        Me.tabenroll.PerformLayout()
-        Me.tabaddRemovefacility.ResumeLayout(False)
-        Me.tabaddRemovefacility.PerformLayout()
-        Me.PnlESYear.ResumeLayout(False)
-        Me.PnlESYear.PerformLayout()
+        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents TCDMUTools As System.Windows.Forms.TabControl
-    Friend WithEvents TPESTools As System.Windows.Forms.TabPage
-    Friend WithEvents TabControl2 As System.Windows.Forms.TabControl
-    Friend WithEvents TabPage3 As System.Windows.Forms.TabPage
-    Friend WithEvents Panel10 As System.Windows.Forms.Panel
-    Friend WithEvents PnlESYear As System.Windows.Forms.Panel
-    Friend WithEvents txtESYear As System.Windows.Forms.TextBox
-    Friend WithEvents btnView As System.Windows.Forms.Button
-    Friend WithEvents Label31 As System.Windows.Forms.Label
-    Friend WithEvents cboYear As System.Windows.Forms.ComboBox
-    Friend WithEvents dgvESDataCount As System.Windows.Forms.DataGridView
-    Friend WithEvents TabControl3 As System.Windows.Forms.TabControl
-    Friend WithEvents tabSummary As System.Windows.Forms.TabPage
-    Friend WithEvents lblviewextraNonresponse As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtESextranonresponder As System.Windows.Forms.TextBox
-    Friend WithEvents Label197 As System.Windows.Forms.Label
-    Friend WithEvents lblviewmailoutnonresponder As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtESmailoutNonResponder As System.Windows.Forms.TextBox
-    Friend WithEvents Label196 As System.Windows.Forms.Label
-    Friend WithEvents lblviewESremovedfacility As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtESremovedFacilities As System.Windows.Forms.TextBox
-    Friend WithEvents Label195 As System.Windows.Forms.Label
-    Friend WithEvents lblviewESextraresponder As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtESextraResponders As System.Windows.Forms.TextBox
-    Friend WithEvents Label194 As System.Windows.Forms.Label
-    Friend WithEvents lblViewMailOut As System.Windows.Forms.LinkLabel
-    Friend WithEvents Label76 As System.Windows.Forms.Label
-    Friend WithEvents txtResponseCount As System.Windows.Forms.TextBox
-    Friend WithEvents lblViewTotalResponse As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtTotalResponse As System.Windows.Forms.TextBox
-    Friend WithEvents Label77 As System.Windows.Forms.Label
-    Friend WithEvents lblViewExtraOptOut As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtExtraOptout As System.Windows.Forms.TextBox
-    Friend WithEvents Label78 As System.Windows.Forms.Label
-    Friend WithEvents lblViewExtraOptIn As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtExtraOptin As System.Windows.Forms.TextBox
-    Friend WithEvents Label79 As System.Windows.Forms.Label
-    Friend WithEvents lblViewOptOut As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtMailOutOptOut As System.Windows.Forms.TextBox
-    Friend WithEvents Label80 As System.Windows.Forms.Label
-    Friend WithEvents lblViewOptIn As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtMailoutOptin As System.Windows.Forms.TextBox
-    Friend WithEvents Label81 As System.Windows.Forms.Label
-    Friend WithEvents Label82 As System.Windows.Forms.Label
-    Friend WithEvents lblextraResponse As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtextraResponse As System.Windows.Forms.TextBox
-    Friend WithEvents Label83 As System.Windows.Forms.Label
-    Friend WithEvents lblViewNonResponse As System.Windows.Forms.LinkLabel
-    Friend WithEvents lblViewOutofcompliance As System.Windows.Forms.LinkLabel
-    Friend WithEvents lblViewINCompliance As System.Windows.Forms.LinkLabel
-    Friend WithEvents lblViewTotalOptOut As System.Windows.Forms.LinkLabel
-    Friend WithEvents lblViewTotalOptin As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtTotaloutofcompliance As System.Windows.Forms.TextBox
-    Friend WithEvents Label84 As System.Windows.Forms.Label
-    Friend WithEvents txtTotalincompliance As System.Windows.Forms.TextBox
-    Friend WithEvents Label85 As System.Windows.Forms.Label
-    Friend WithEvents txtNonResponseCount As System.Windows.Forms.TextBox
-    Friend WithEvents Label86 As System.Windows.Forms.Label
-    Friend WithEvents txtTotalOptOutCount As System.Windows.Forms.TextBox
-    Friend WithEvents Label87 As System.Windows.Forms.Label
-    Friend WithEvents txtTotalOptInCount As System.Windows.Forms.TextBox
-    Friend WithEvents Label89 As System.Windows.Forms.Label
-    Friend WithEvents txtESMailOutCount As System.Windows.Forms.TextBox
-    Friend WithEvents Label92 As System.Windows.Forms.Label
-    Friend WithEvents lblYear As System.Windows.Forms.Label
-    Friend WithEvents Label93 As System.Windows.Forms.Label
-    Friend WithEvents tabMailOut As System.Windows.Forms.TabPage
-    Friend WithEvents lblViewESMailOut As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtcontactAddress1 As System.Windows.Forms.TextBox
-    Friend WithEvents Label94 As System.Windows.Forms.Label
-    Friend WithEvents btnESDelete As System.Windows.Forms.Button
-    Friend WithEvents btnSave As System.Windows.Forms.Button
-    Friend WithEvents txtcontactEmail As System.Windows.Forms.TextBox
-    Friend WithEvents Label97 As System.Windows.Forms.Label
-    Friend WithEvents txtcontactZipCode As System.Windows.Forms.TextBox
-    Friend WithEvents Label98 As System.Windows.Forms.Label
-    Friend WithEvents txtcontactState As System.Windows.Forms.TextBox
-    Friend WithEvents Label99 As System.Windows.Forms.Label
-    Friend WithEvents txtcontactCity As System.Windows.Forms.TextBox
-    Friend WithEvents Label104 As System.Windows.Forms.Label
-    Friend WithEvents txtcontactAddress2 As System.Windows.Forms.TextBox
-    Friend WithEvents Label105 As System.Windows.Forms.Label
-    Friend WithEvents txtEScompanyName As System.Windows.Forms.TextBox
-    Friend WithEvents Label106 As System.Windows.Forms.Label
-    Friend WithEvents txtESLastName As System.Windows.Forms.TextBox
-    Friend WithEvents Label107 As System.Windows.Forms.Label
-    Friend WithEvents txtESFirstName As System.Windows.Forms.TextBox
-    Friend WithEvents Label108 As System.Windows.Forms.Label
-    Friend WithEvents txtESprefix As System.Windows.Forms.TextBox
-    Friend WithEvents Label109 As System.Windows.Forms.Label
-    Friend WithEvents txtESFacilityName As System.Windows.Forms.TextBox
-    Friend WithEvents Label110 As System.Windows.Forms.Label
-    Friend WithEvents txtESAIRSNo2 As System.Windows.Forms.TextBox
-    Friend WithEvents Label111 As System.Windows.Forms.Label
-    Friend WithEvents btnExporttoExcel As System.Windows.Forms.Button
-    Friend WithEvents TabDetails As System.Windows.Forms.TabPage
-    Friend WithEvents txtESAirsNo As System.Windows.Forms.TextBox
-    Friend WithEvents Label112 As System.Windows.Forms.Label
-    Friend WithEvents txtESContactLastName As System.Windows.Forms.TextBox
-    Friend WithEvents Label113 As System.Windows.Forms.Label
-    Friend WithEvents lblViewESData As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtFirstConfirmedDate As System.Windows.Forms.TextBox
-    Friend WithEvents Label114 As System.Windows.Forms.Label
-    Friend WithEvents txtNOXEmission As System.Windows.Forms.TextBox
-    Friend WithEvents txtVOCEmission As System.Windows.Forms.TextBox
-    Friend WithEvents Label115 As System.Windows.Forms.Label
-    Friend WithEvents Label116 As System.Windows.Forms.Label
-    Friend WithEvents Label117 As System.Windows.Forms.Label
-    Friend WithEvents txtConfirmationNbr As System.Windows.Forms.TextBox
-    Friend WithEvents txtConfirmationNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label120 As System.Windows.Forms.Label
-    Friend WithEvents Label121 As System.Windows.Forms.Label
-    Friend WithEvents txtESEmail As System.Windows.Forms.TextBox
-    Friend WithEvents txtFax As System.Windows.Forms.TextBox
-    Friend WithEvents txtPhone As System.Windows.Forms.TextBox
-    Friend WithEvents Label122 As System.Windows.Forms.Label
-    Friend WithEvents txtZip As System.Windows.Forms.TextBox
-    Friend WithEvents txtState As System.Windows.Forms.TextBox
-    Friend WithEvents txtCity As System.Windows.Forms.TextBox
-    Friend WithEvents txtAddress2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtAddress1 As System.Windows.Forms.TextBox
-    Friend WithEvents txtCompany As System.Windows.Forms.TextBox
-    Friend WithEvents txtTitle As System.Windows.Forms.TextBox
-    Friend WithEvents txtESContactFirstName As System.Windows.Forms.TextBox
-    Friend WithEvents Label123 As System.Windows.Forms.Label
-    Friend WithEvents Label124 As System.Windows.Forms.Label
-    Friend WithEvents Label125 As System.Windows.Forms.Label
-    Friend WithEvents Label126 As System.Windows.Forms.Label
-    Friend WithEvents Label127 As System.Windows.Forms.Label
-    Friend WithEvents Label128 As System.Windows.Forms.Label
-    Friend WithEvents Label129 As System.Windows.Forms.Label
-    Friend WithEvents Label130 As System.Windows.Forms.Label
-    Friend WithEvents Label131 As System.Windows.Forms.Label
-    Friend WithEvents Label132 As System.Windows.Forms.Label
-    Friend WithEvents txtHORIZONTALREFERENCECODE As System.Windows.Forms.TextBox
-    Friend WithEvents txtFACILITYADDRESS As System.Windows.Forms.TextBox
-    Friend WithEvents txtFACILITYCITY As System.Windows.Forms.TextBox
-    Friend WithEvents txtFACILITYSTATE As System.Windows.Forms.TextBox
-    Friend WithEvents txtFACILITYZIP As System.Windows.Forms.TextBox
-    Friend WithEvents txtCOUNTY As System.Windows.Forms.TextBox
-    Friend WithEvents txtXCOORDINATE As System.Windows.Forms.TextBox
-    Friend WithEvents txtYCOORDINATE As System.Windows.Forms.TextBox
-    Friend WithEvents txtHORIZONTALCOLLECTIONCODE As System.Windows.Forms.TextBox
-    Friend WithEvents txtHORIZONTALACCURACYMEASURE As System.Windows.Forms.TextBox
-    Friend WithEvents txtFACILITYNAME As System.Windows.Forms.TextBox
-    Friend WithEvents Label133 As System.Windows.Forms.Label
-    Friend WithEvents Label134 As System.Windows.Forms.Label
-    Friend WithEvents Label135 As System.Windows.Forms.Label
-    Friend WithEvents Label136 As System.Windows.Forms.Label
-    Friend WithEvents Label137 As System.Windows.Forms.Label
-    Friend WithEvents Label138 As System.Windows.Forms.Label
-    Friend WithEvents Label139 As System.Windows.Forms.Label
-    Friend WithEvents Label140 As System.Windows.Forms.Label
-    Friend WithEvents Label141 As System.Windows.Forms.Label
-    Friend WithEvents Label142 As System.Windows.Forms.Label
-    Friend WithEvents Label143 As System.Windows.Forms.Label
-    Friend WithEvents Label144 As System.Windows.Forms.Label
-    Friend WithEvents Label145 As System.Windows.Forms.Label
-    Friend WithEvents tabgenerateESmailout As System.Windows.Forms.TabPage
-    Friend WithEvents Label174 As System.Windows.Forms.Label
-    Friend WithEvents lblviewselectedyearMailoutList As System.Windows.Forms.LinkLabel
-    Friend WithEvents btnDelMailOut As System.Windows.Forms.Button
-    Friend WithEvents cboMailoutYear As System.Windows.Forms.ComboBox
-    Friend WithEvents btnGenMailOut As System.Windows.Forms.Button
-    Friend WithEvents tabenroll As System.Windows.Forms.TabPage
-    Friend WithEvents lblviewESenrollment As System.Windows.Forms.LinkLabel
-    Friend WithEvents btnESdeenrollment As System.Windows.Forms.Button
-    Friend WithEvents btnESenrollment As System.Windows.Forms.Button
-    Friend WithEvents tabaddRemovefacility As System.Windows.Forms.TabPage
-    Friend WithEvents Label190 As System.Windows.Forms.Label
-    Friend WithEvents Label191 As System.Windows.Forms.Label
-    Friend WithEvents btnCheckESstatus As System.Windows.Forms.Button
-    Friend WithEvents btnremoveFacilityES As System.Windows.Forms.Button
-    Friend WithEvents Label192 As System.Windows.Forms.Label
-    Friend WithEvents txtESYearforFacility As System.Windows.Forms.TextBox
-    Friend WithEvents btnaddfacilitytoES As System.Windows.Forms.Button
-    Friend WithEvents Label193 As System.Windows.Forms.Label
-    Friend WithEvents txtESairNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Panel4 As System.Windows.Forms.Panel
-    Friend WithEvents Panel5 As System.Windows.Forms.Panel
     Friend WithEvents TPEISLog As System.Windows.Forms.TabPage
     Friend WithEvents Panel9 As System.Windows.Forms.Panel
     Friend WithEvents Label48 As System.Windows.Forms.Label
     Friend WithEvents Label47 As System.Windows.Forms.Label
     Friend WithEvents Label49 As System.Windows.Forms.Label
-    Friend WithEvents mtbEILogAIRSNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents txtEILogSelectedYear As System.Windows.Forms.TextBox
     Friend WithEvents txtEILogFacilityName As System.Windows.Forms.TextBox
     Friend WithEvents Label95 As System.Windows.Forms.Label
@@ -6863,7 +4848,6 @@ Partial Class EisTool
     Friend WithEvents txtEISContactUpdateDateTime As System.Windows.Forms.TextBox
     Friend WithEvents Label226 As System.Windows.Forms.Label
     Friend WithEvents txtEISContactUpdateUser As System.Windows.Forms.TextBox
-    Friend WithEvents txtEILogSelectedAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label230 As System.Windows.Forms.Label
     Friend WithEvents btnReloadFSData As System.Windows.Forms.Button
     Friend WithEvents cboEILogYear As System.Windows.Forms.ComboBox
@@ -6891,9 +4875,9 @@ Partial Class EisTool
     Friend WithEvents Label240 As System.Windows.Forms.Label
     Friend WithEvents btnEIModifyCopy As System.Windows.Forms.Button
     Friend WithEvents btnEILogUpdate As System.Windows.Forms.Button
-    Friend WithEvents TPEisTools As System.Windows.Forms.TabPage
+    Friend WithEvents TPInvYear As System.Windows.Forms.TabPage
     Friend WithEvents Panel17 As System.Windows.Forms.Panel
-    Friend WithEvents dgvEISStats As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvEISStats As IaipDataGridView
     Friend WithEvents Panel18 As System.Windows.Forms.Panel
     Friend WithEvents TCEISStats As System.Windows.Forms.TabControl
     Friend WithEvents TPEISStatSummary As System.Windows.Forms.TabPage
@@ -6978,8 +4962,6 @@ Partial Class EisTool
     Friend WithEvents Label269 As System.Windows.Forms.Label
     Friend WithEvents txtEISStatsMailoutComments As System.Windows.Forms.TextBox
     Friend WithEvents Label268 As System.Windows.Forms.Label
-    Friend WithEvents cboESYear As System.Windows.Forms.ComboBox
-    Friend WithEvents Label189 As System.Windows.Forms.Label
     Friend WithEvents btnEISStatsRemoveEnrollment As System.Windows.Forms.Button
     Friend WithEvents btnEISStatsEnrollment As System.Windows.Forms.Button
     Friend WithEvents TPEISThresholds As System.Windows.Forms.TabPage
@@ -7024,7 +5006,7 @@ Partial Class EisTool
     Friend WithEvents btnEISComplete As System.Windows.Forms.Button
     Friend WithEvents HRule2 As System.Windows.Forms.Label
     Friend WithEvents Label292 As System.Windows.Forms.Label
-    Friend WithEvents dgvThresholdPollutants As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvThresholdPollutants As IaipDataGridView
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents rdbThreeYearPollutants As System.Windows.Forms.RadioButton
     Friend WithEvents llbViewThresholdPollutants As System.Windows.Forms.LinkLabel
@@ -7041,7 +5023,7 @@ Partial Class EisTool
     Friend WithEvents txtPollutant As System.Windows.Forms.TextBox
     Friend WithEvents Panel26 As System.Windows.Forms.Panel
     Friend WithEvents Panel25 As System.Windows.Forms.Panel
-    Friend WithEvents dgvEISYear As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvEISYear As IaipDataGridView
     Friend WithEvents rdbEISThreeYear As System.Windows.Forms.RadioButton
     Friend WithEvents rdbEISAnnual As System.Windows.Forms.RadioButton
     Friend WithEvents btnUpdateEISYear As System.Windows.Forms.Button
@@ -7051,7 +5033,6 @@ Partial Class EisTool
     Friend WithEvents llbClearEISYear As System.Windows.Forms.LinkLabel
     Friend WithEvents mtbThresholdYear As System.Windows.Forms.MaskedTextBox
     Friend WithEvents btnLoadEISLog As System.Windows.Forms.Button
-    Friend WithEvents mtbEISLogAIRSNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents lblEISCount As System.Windows.Forms.Label
     Friend WithEvents btnEISSummaryToExcel As System.Windows.Forms.Button
     Friend WithEvents Label273 As System.Windows.Forms.Label
@@ -7100,8 +5081,7 @@ Partial Class EisTool
     Friend WithEvents txtEIModifyLocation As System.Windows.Forms.TextBox
     Friend WithEvents Label62 As System.Windows.Forms.Label
     Friend WithEvents TPOperStatus As TabPage
-    Friend WithEvents dgvOperStatusMismatch As DataGridView
-    Friend WithEvents llbOperatingStatusMismatch As LinkLabel
+    Friend WithEvents dgvOperStatusMismatch As IaipDataGridView
     Friend WithEvents lblOperStatusCount As Label
     Friend WithEvents Panel1 As Panel
     Friend WithEvents cbEisModifyOperStatus As ComboBox
@@ -7109,19 +5089,9 @@ Partial Class EisTool
     Friend WithEvents Label179 As Label
     Friend WithEvents btnUpdateEisOperStatus As Button
     Friend WithEvents cbIaipOperStatus As ComboBox
-    Friend WithEvents TPStageData As TabPage
-    Friend WithEvents btnEisStageViewSubmitted As Button
-    Friend WithEvents Label2 As Label
     Friend WithEvents lblEisStageSelectedCount As Label
     Friend WithEvents btnEisStageSelectNone As Button
     Friend WithEvents btnEisStageSelectAll As Button
-    Friend WithEvents btnEisStagePseAll As Button
-    Friend WithEvents btnEisStagePseSelected As Button
-    Friend WithEvents btnEisStageFiAll As Button
-    Friend WithEvents btnEisStageFiSelected As Button
-    Friend WithEvents Panel2 As Panel
-    Friend WithEvents lblRecordNumber As Label
-    Friend WithEvents Label3 As Label
     Friend WithEvents btnSelectHighlighted As Button
     Friend WithEvents gbColocate As GroupBox
     Friend WithEvents txtColocatedWith As TextBox
@@ -7131,4 +5101,27 @@ Partial Class EisTool
     Friend WithEvents Label1 As Label
     Friend WithEvents lblColocated As Label
     Friend WithEvents lblOptOutReason As Label
+    Friend WithEvents TPHistory As TabPage
+    Friend WithEvents dgvEIResults As IaipDataGridView
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents lblHistoryCount As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents cboEIPollutants As ComboBox
+    Friend WithEvents btnViewEISummaryByPollutant As Button
+    Friend WithEvents btnEISummary As Button
+    Friend WithEvents Label8 As Label
+    Friend WithEvents cboEIYear As ComboBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents TPAdmin As TabPage
+    Friend WithEvents TCAdmin As TabControl
+    Friend WithEvents mtbEILogAIRSNumber As AirsNumberTextBox
+    Friend WithEvents txtEILogSelectedAIRSNumber As AirsNumberTextBox
+    Friend WithEvents mtbEISLogAIRSNumber As AirsNumberTextBox
+    Friend WithEvents btnMismatchedStatus As Button
+    Friend WithEvents Label9 As Label
+    Friend WithEvents TPCaersUsers As TabPage
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents chkCaersShowDeleted As CheckBox
+    Friend WithEvents btnCaersView As Button
+    Friend WithEvents dgvCaersUsers As IaipDataGridView
 End Class

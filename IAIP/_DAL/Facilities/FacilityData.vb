@@ -191,7 +191,7 @@ Namespace DAL
         'Used when you don't know whether an Airs Number entry by the user is in a valid format or exists already in the database 
 
         'Added to make sure AirsNumber entered is Not Null and is of the correct Pattern and can be used separately from ValidateAirsNumber
-        Public Function ValidateAirsPattern(ByVal airsInput As String) As AirsNumberValidationResult
+        Public Function ValidateAirsPattern(airsInput As String) As AirsNumberValidationResult
             If airsInput = "" Then
                 Return AirsNumberValidationResult.Empty
             End If
@@ -204,7 +204,7 @@ Namespace DAL
         End Function
 
         'Added to make sure that an AirsNumber entered by user actually exists in the database
-        Public Function ValidateAirsFacility(ByVal airsInput As String) As AirsNumberValidationResult
+        Public Function ValidateAirsFacility(airsInput As String) As AirsNumberValidationResult
             If airsInput = "" Then
                 Return AirsNumberValidationResult.Empty
             End If
@@ -220,7 +220,7 @@ Namespace DAL
             Return AirsNumberValidationResult.Valid
         End Function
 
-        Public Function GetAirsValidationMsg(ByVal result As AirsNumberValidationResult) As String
+        Public Function GetAirsValidationMsg(result As AirsNumberValidationResult) As String
             Select Case result
                 Case AirsNumberValidationResult.InvalidFormat
                     Return "The AIRS Number is not formatted correctly. " &
