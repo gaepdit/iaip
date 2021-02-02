@@ -29,9 +29,7 @@ Your username and password for the VPN are the same as the ones you use to log i
 
 On Windows 10, you will likely get a security alert when you install the IAIP. Click the "More info" link, then click the button labeled "Run anyway".
 
-![Windows 10 security alert](assets/images/win10-security-warning.png) 
-
-![Windows 10 security alert: Run anyway](assets/images/win10-security-warning-run-anyway.png)
+![Windows 10 security alert](assets/images/win10-security-warning.png) ![Windows 10 security alert: Run anyway](assets/images/win10-security-warning-run-anyway.png)
 
 ## What's New
 
