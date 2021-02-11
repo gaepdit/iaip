@@ -19,23 +19,29 @@ Friend Module ExceptionManager
     ''' <param name="ex">The exception to be handled.</param>
     ''' <param name="supplementalMessage">An string containing supplementary information to be logged.</param>
     ''' <param name="context">A string representing the calling function.</param>
-    Friend Sub ErrorReport(
+    Friend Function ErrorReport(
             ex As Exception,
             supplementalMessage As String,
             context As String,
             Optional displayErrorToUser As Boolean = True,
-            Optional unrecoverable As Boolean = False)
+            Optional unrecoverable As Boolean = False) As Boolean
 
         ' Don't log missing Crystal Reports runtime
+        ' and don't exit application
         If SeemsLikeACrystalReportsIssue(ex) Then
             ShowCrystalReportsSupportMessage()
-            Return
+            Return False
         End If
 
         ' Don't log network down
         If SeemsLikeANetworkIssue(ex) Then
             ShowNetworkDownSupportMessage()
-            Return
+            Return unrecoverable
+        End If
+
+        ' If Task Canceled Exception, don't exit application
+        If IsATaskCanceledException(ex) Then
+            unrecoverable = False
         End If
 
         ' First, log the exception.
@@ -46,7 +52,12 @@ Friend Module ExceptionManager
             ShowErrorDialog(ex, unrecoverable, logged)
         End If
 
-    End Sub
+        Return unrecoverable
+    End Function
+
+    Private Function IsATaskCanceledException(ex As Exception) As Boolean
+        Return ex.GetType() = GetType(Threading.Tasks.TaskCanceledException)
+    End Function
 
     Private Function SeemsLikeANetworkIssue(ex As Exception) As Boolean
         If ex.GetType() = GetType(SqlException) AndAlso
