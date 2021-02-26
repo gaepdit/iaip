@@ -19,8 +19,6 @@ Public Class ISMPManagersTools
             LoadComboBoxes()
             LoadTestReportAssignmentDataSet()
             LoadLVTestReportAssignment()
-            FormatEngineerTestReportGrid()
-            FormatTestSummaryGrid()
 
             DTPUnitStatsStartDate.Value = Today.AddDays(-30)
             DTPUnitStatsEndDate.Value = Today
@@ -172,77 +170,18 @@ Public Class ISMPManagersTools
     Private Sub FormatEngineerTestReportGrid()
         Try
 
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As DataGridTextBoxColumn
+            'Formatting our DataGridView
+            dgrEngineersFacilityList.Columns("strReferenceNumber").HeaderText = "Reference #"
+            dgrEngineersFacilityList.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgrEngineersFacilityList.Columns("AIRSNumber").HeaderText = "AIRS Number"
+            dgrEngineersFacilityList.Columns("strClosed").HeaderText = "Record Status"
+            dgrEngineersFacilityList.Columns("ForDatTestDateStart").HeaderText = "Date Started"
+            dgrEngineersFacilityList.Columns("ForDatReceivedDate").HeaderText = "Date Received"
+            dgrEngineersFacilityList.Columns("ForDatCompleteDate").HeaderText = "Date Completed"
+            dgrEngineersFacilityList.Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
+            dgrEngineersFacilityList.Columns("WitnessingEngineer").HeaderText = "Witnessing Engineer"
+            dgrEngineersFacilityList.SanelyResizeColumns()
 
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "EngineerGrid"
-            objGrid.RowHeadersVisible = False
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strReferenceNumber"
-            objtextcol.HeaderText = "Reference #"
-            objtextcol.Width = 80
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strFacilityName"
-            objtextcol.HeaderText = "Facility Name"
-            objtextcol.Width = 300
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "AIRSNumber"
-            objtextcol.HeaderText = "AIRS Number"
-            objtextcol.Width = 80
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strClosed"
-            objtextcol.HeaderText = "Record Status"
-            objtextcol.Width = 80
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ForDatTestDateStart"
-            objtextcol.HeaderText = "Date Started"
-            objtextcol.Width = 80
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ForDatReceivedDate"
-            objtextcol.HeaderText = "Date Received"
-            objtextcol.Width = 80
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ForDatCompleteDate"
-            objtextcol.HeaderText = "Date Completed"
-            objtextcol.Width = 80
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReviewingEngineer"
-            objtextcol.HeaderText = "Reviewing Engineer"
-            objtextcol.Width = 120
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "WitnessingEngineer"
-            objtextcol.HeaderText = "Witnessing Engineer"
-            objtextcol.Width = 120
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrEngineersFacilityList.TableStyles.Clear()
-            dgrEngineersFacilityList.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrEngineersFacilityList.CaptionText = "Engineer Test Reports"
-            dgrEngineersFacilityList.ColumnHeadersVisible = True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -250,47 +189,13 @@ Public Class ISMPManagersTools
     Private Sub FormatTestSummaryGrid()
         Try
 
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As DataGridTextBoxColumn
+            'Formatting our DataGridView
+            dgrTestSummary.Columns("Staff").HeaderText = "Staff"
+            dgrTestSummary.Columns("OpenReports").HeaderText = "# of Open Reports"
+            dgrTestSummary.Columns("OpenFiftys").HeaderText = "Reports Open >50 days"
+            dgrTestSummary.Columns("ClosedReports").HeaderText = "Reports Closed Last 60 days"
+            dgrTestSummary.SanelyResizeColumns()
 
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "Test Summary"
-            objGrid.RowHeadersVisible = False
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "Staff"
-            objtextcol.HeaderText = "Staff"
-            objtextcol.Width = 80
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "OpenReports"
-            objtextcol.HeaderText = "# of Open Reports"
-            objtextcol.Width = 150
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "OpenFiftys"
-            objtextcol.HeaderText = "Reports Open >50 days"
-            objtextcol.Width = 150
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ClosedReports"
-            objtextcol.HeaderText = "Reports Closed Last 60 days"
-            objtextcol.Width = 150
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrTestSummary.TableStyles.Clear()
-            dgrTestSummary.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrTestSummary.CaptionText = "Source Test Summary"
-            dgrTestSummary.ColumnHeadersVisible = True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -686,9 +591,12 @@ Public Class ISMPManagersTools
             }
 
             dtEngineerGrid = DB.GetDataTable(query, p)
-            dtEngineerGrid.TableName = "EngineerGrid"
 
-            dgrEngineersFacilityList.DataSource = dtEngineerGrid
+            If dtEngineerGrid IsNot Nothing Then
+                dtEngineerGrid.TableName = "EngineerGrid"
+                dgrEngineersFacilityList.DataSource = dtEngineerGrid
+                FormatEngineerTestReportGrid()
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1013,8 +921,12 @@ Public Class ISMPManagersTools
              "Order by Staff "
 
             dtSummaryReport = DB.GetDataTable(query)
-            dtSummaryReport.TableName = "Test Summary"
-            dgrTestSummary.DataSource = dtSummaryReport
+
+            If dtSummaryReport IsNot Nothing Then
+                dtSummaryReport.TableName = "Test Summary"
+                dgrTestSummary.DataSource = dtSummaryReport
+                FormatTestSummaryGrid()
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2055,39 +1967,13 @@ Public Class ISMPManagersTools
         End Try
     End Sub
     Private Sub dgrEngineersFacilityList_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrEngineersFacilityList.MouseUp
-        Dim hti As DataGrid.HitTestInfo = dgrEngineersFacilityList.HitTest(e.X, e.Y)
+        Dim hti As DataGridView.HitTestInfo = dgrEngineersFacilityList.HitTest(e.X, e.Y)
 
         Try
 
-            If hti.Type = DataGrid.HitTestType.Cell Then
-                If IsDBNull(dgrEngineersFacilityList(hti.Row, 0)) Then
-                Else
-                    If IsDBNull(dgrEngineersFacilityList(hti.Row, 1)) Then
-                    Else
-                        If IsDBNull(dgrEngineersFacilityList(hti.Row, 2)) Then
-                        Else
-                            If IsDBNull(dgrEngineersFacilityList(hti.Row, 3)) Then
-                            Else
-                                If IsDBNull(dgrEngineersFacilityList(hti.Row, 4)) Then
-                                Else
-                                    If IsDBNull(dgrEngineersFacilityList(hti.Row, 5)) Then
-                                    Else
-                                        If IsDBNull(dgrEngineersFacilityList(hti.Row, 6)) Then
-                                        Else
-                                            If IsDBNull(dgrEngineersFacilityList(hti.Row, 7)) Then
-                                            Else
-                                                If IsDBNull(dgrEngineersFacilityList(hti.Row, 8)) Then
-                                                Else
-                                                    txtReferenceNumber.Text = dgrEngineersFacilityList(hti.Row, 0)
-                                                End If
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
+            If hti.Type = DataGridViewHitTestType.Cell AndAlso
+                Not IsDBNull(dgrEngineersFacilityList(0, hti.RowIndex)) Then
+                txtReferenceNumber.Text = dgrEngineersFacilityList(0, hti.RowIndex).Value.ToString
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
