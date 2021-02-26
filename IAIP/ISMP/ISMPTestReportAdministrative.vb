@@ -1743,13 +1743,7 @@ Public Class ISMPTestReportAdministrative
         End Try
 
     End Sub
-    Private Sub cmiPrintTestReport_Click(sender As Object, e As EventArgs) Handles cmiPrintTestReport.Click
-        Try
-            OpenFormTestReportPrintout(txtReferenceNumber.Text)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+
     Private Sub LLFacilityName_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLFacilityName.LinkClicked
         OpenFacilityLookupTool()
     End Sub

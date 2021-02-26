@@ -63,8 +63,6 @@ Partial Class ISMPTestReportAdministrative
         Me.mmiAddTestingFirm = New System.Windows.Forms.MenuItem()
         Me.mmiAddPollutant = New System.Windows.Forms.MenuItem()
         Me.mmiRefreshLists = New System.Windows.Forms.MenuItem()
-        Me.cmPrint = New System.Windows.Forms.ContextMenu()
-        Me.cmiPrintTestReport = New System.Windows.Forms.MenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnLoadCombos = New System.Windows.Forms.Button()
         Me.btnSearchForAIRS = New System.Windows.Forms.Button()
@@ -419,15 +417,6 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.mmiRefreshLists.Index = 5
         Me.mmiRefreshLists.Text = "Refresh Lists"
-        '
-        'cmPrint
-        '
-        Me.cmPrint.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.cmiPrintTestReport})
-        '
-        'cmiPrintTestReport
-        '
-        Me.cmiPrintTestReport.Index = 0
-        Me.cmiPrintTestReport.Text = "Print Test Report"
         '
         'GroupBox1
         '
@@ -1285,8 +1274,6 @@ End Sub
     Friend WithEvents mmiAddTestingFirm As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAddPollutant As System.Windows.Forms.MenuItem
     Friend WithEvents mmiRefreshLists As System.Windows.Forms.MenuItem
-    Friend WithEvents cmPrint As System.Windows.Forms.ContextMenu
-    Friend WithEvents cmiPrintTestReport As System.Windows.Forms.MenuItem
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents DTPDateReceived As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label21 As System.Windows.Forms.Label
