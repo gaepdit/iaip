@@ -122,9 +122,10 @@ Public Class ISMPTestMemoViewer
 
         Try
 
-            If hti.Type = DataGrid.HitTestType.Cell AndAlso
+            If hti.Type = DataGridViewHitTestType.Cell AndAlso
                 Not IsDBNull(dgrMemoViewer(0, hti.RowIndex)) AndAlso
                 Not IsDBNull(dgrMemoViewer(1, hti.RowIndex)) Then
+
                 txtReferenceNumber.Text = dgrMemoViewer(0, hti.RowIndex).Value.ToString
                 txtReferenceNumber2.Text = dgrMemoViewer(0, hti.RowIndex).Value.ToString
             End If

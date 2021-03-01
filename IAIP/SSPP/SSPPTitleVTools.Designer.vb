@@ -22,10 +22,11 @@ Partial Class SSPPTitleVTools
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.bgwTransfer = New System.ComponentModel.BackgroundWorker()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPWebPublishing = New System.Windows.Forms.TabPage()
-        Me.dgrWebPublisher = New System.Windows.Forms.DataGrid()
+        Me.dgrWebPublisher = New Iaip.IaipDataGridView()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txtTVCount = New System.Windows.Forms.TextBox()
@@ -97,6 +98,8 @@ Partial Class SSPPTitleVTools
         Me.txtRenewalCount = New System.Windows.Forms.TextBox()
         Me.Label57 = New System.Windows.Forms.Label()
         Me.Label56 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.TCDMUTools.SuspendLayout()
         Me.TPWebPublishing.SuspendLayout()
         CType(Me.dgrWebPublisher, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -107,6 +110,7 @@ Partial Class SSPPTitleVTools
         Me.Panel6.SuspendLayout()
         Me.TPTitleVRenewals.SuspendLayout()
         Me.GBTitleVRenewals.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TCDMUTools
@@ -124,6 +128,7 @@ Partial Class SSPPTitleVTools
         'TPWebPublishing
         '
         Me.TPWebPublishing.Controls.Add(Me.dgrWebPublisher)
+        Me.TPWebPublishing.Controls.Add(Me.Panel1)
         Me.TPWebPublishing.Controls.Add(Me.Panel4)
         Me.TPWebPublishing.Location = New System.Drawing.Point(4, 22)
         Me.TPWebPublishing.Name = "TPWebPublishing"
@@ -134,13 +139,17 @@ Partial Class SSPPTitleVTools
         '
         'dgrWebPublisher
         '
-        Me.dgrWebPublisher.DataMember = ""
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrWebPublisher.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgrWebPublisher.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrWebPublisher.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgrWebPublisher.HeaderForeColor = System.Drawing.SystemColors.ControlText
-        Me.dgrWebPublisher.Location = New System.Drawing.Point(419, 0)
+        Me.dgrWebPublisher.LinkifyColumnByName = Nothing
+        Me.dgrWebPublisher.Location = New System.Drawing.Point(419, 33)
         Me.dgrWebPublisher.Name = "dgrWebPublisher"
-        Me.dgrWebPublisher.ReadOnly = True
-        Me.dgrWebPublisher.Size = New System.Drawing.Size(396, 516)
+        Me.dgrWebPublisher.ResultsCountLabel = Nothing
+        Me.dgrWebPublisher.ResultsCountLabelFormat = "{0} found"
+        Me.dgrWebPublisher.Size = New System.Drawing.Size(396, 483)
+        Me.dgrWebPublisher.StandardTab = True
         Me.dgrWebPublisher.TabIndex = 2
         '
         'Panel4
@@ -568,7 +577,7 @@ Partial Class SSPPTitleVTools
         Me.Label70.AutoSize = True
         Me.Label70.Location = New System.Drawing.Point(210, 8)
         Me.Label70.Name = "Label70"
-        Me.Label70.Size = New System.Drawing.Size(195, 13)
+        Me.Label70.Size = New System.Drawing.Size(189, 13)
         Me.Label70.TabIndex = 19
         Me.Label70.Text = "Generate Email from list of Applications"
         Me.Label70.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -578,7 +587,7 @@ Partial Class SSPPTitleVTools
         Me.Label60.AutoSize = True
         Me.Label60.Location = New System.Drawing.Point(5, 8)
         Me.Label60.Name = "Label60"
-        Me.Label60.Size = New System.Drawing.Size(142, 13)
+        Me.Label60.Size = New System.Drawing.Size(136, 13)
         Me.Label60.TabIndex = 18
         Me.Label60.Text = "Preview List of Applications"
         Me.Label60.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -877,6 +886,25 @@ Partial Class SSPPTitleVTools
         Me.Label56.TabIndex = 374
         Me.Label56.Text = "Start Date:"
         '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.Label2)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(419, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(396, 33)
+        Me.Panel1.TabIndex = 3
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(3, 10)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(267, 15)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = "Web Publisher Active Title V Applications"
+        '
         'SSPPTitleVTools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -900,13 +928,15 @@ Partial Class SSPPTitleVTools
         Me.TPTitleVRenewals.ResumeLayout(False)
         Me.GBTitleVRenewals.ResumeLayout(False)
         Me.GBTitleVRenewals.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents bgwTransfer As System.ComponentModel.BackgroundWorker
     Friend WithEvents TCDMUTools As System.Windows.Forms.TabControl
     Friend WithEvents TPWebPublishing As System.Windows.Forms.TabPage
-    Friend WithEvents dgrWebPublisher As System.Windows.Forms.DataGrid
+    Friend WithEvents dgrWebPublisher As IaipDataGridView
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents txtTVCount As System.Windows.Forms.TextBox
@@ -978,4 +1008,6 @@ Partial Class SSPPTitleVTools
     Friend WithEvents txtRenewalCount As System.Windows.Forms.TextBox
     Friend WithEvents Label57 As System.Windows.Forms.Label
     Friend WithEvents Label56 As System.Windows.Forms.Label
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Label2 As Label
 End Class

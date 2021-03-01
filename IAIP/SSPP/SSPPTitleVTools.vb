@@ -11,6 +11,14 @@ Public Class SSPPTitleVTools
         Try
             query = "SELECT " &
             "CONVERT(int, SSPPApplicationMaster.strApplicationNumber) AS ApplicationNumber,  " &
+            "strFacilityName,  " &
+            "CASE   " &
+            "   WHEN strPermitNumber IS NULL THEN ' '   " &
+            "   ELSE concat(SUBSTRING(strPermitNumber, 1, 4), '-' ,SUBSTRING(strPermitNumber, 5, 3), '-'   " &
+            "    ,SUBSTRING(strPermitNumber, 8, 4), '-' ,SUBSTRING(strPermitNumber, 12, 1), '-'         " &
+            "    ,SUBSTRING(strPermitNumber, 13, 2), '-' ,SUBSTRING(strPermitNumber, 15, 1) ) " &
+            "END AS strPermitNumber,  " &
+            "strApplicationTypeDesc, " &
             "CASE  " &
             "   WHEN datDraftIssued IS NULL THEN ' '  " &
             "   ELSE format(datDraftIssued, 'yyyy-MM-dd') " &
@@ -22,15 +30,7 @@ Public Class SSPPTitleVTools
             "CASE  " &
             "   WHEN datExperationDate IS NULL THEN ' '  " &
             "   ELSE format(datExperationDate, 'yyyy-MM-dd') " &
-            "END datExperationDate,  " &
-            "strFacilityName,  " &
-            "CASE   " &
-            "   WHEN strPermitNumber IS NULL THEN ' '   " &
-            "   ELSE concat(SUBSTRING(strPermitNumber, 1, 4), '-' ,SUBSTRING(strPermitNumber, 5, 3), '-'   " &
-            "    ,SUBSTRING(strPermitNumber, 8, 4), '-' ,SUBSTRING(strPermitNumber, 12, 1), '-'         " &
-            "    ,SUBSTRING(strPermitNumber, 13, 2), '-' ,SUBSTRING(strPermitNumber, 15, 1) ) " &
-            "END AS strPermitNumber,  " &
-            "strApplicationTypeDesc  " &
+            "END datExperationDate  " &
             "from SSPPApplicationTracking, SSPPApplicationData,  " &
             "SSPPApplicationMaster, LookUpApplicationTypes " &
             "WHERE SSPPApplicationTracking.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
@@ -67,10 +67,21 @@ Public Class SSPPTitleVTools
             " order by ApplicationNumber Desc "
 
             Dim dt As DataTable = DB.GetDataTable(query)
-            dt.TableName = "WebPublisher"
-            dgrWebPublisher.DataSource = dt
 
-            txtTVCount.Text = dt.Rows.Count
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+                dgrWebPublisher.DataSource = dt
+
+                dgrWebPublisher.Columns("ApplicationNumber").HeaderText = "APL #"
+                dgrWebPublisher.Columns("strFacilityName").HeaderText = "Facility Name"
+                dgrWebPublisher.Columns("strPermitNumber").HeaderText = "Permit Number"
+                dgrWebPublisher.Columns("strApplicationTypeDesc").HeaderText = "App Type"
+                dgrWebPublisher.Columns("datDraftIssued").HeaderText = "Draft Issued"
+                dgrWebPublisher.Columns("datPermitIssued").HeaderText = "Final Action"
+                dgrWebPublisher.Columns("datExperationDate").HeaderText = "Expiration Date"
+                dgrWebPublisher.SanelyResizeColumns()
+
+                txtTVCount.Text = dt.Rows.Count.ToString()
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -78,75 +89,6 @@ Public Class SSPPTitleVTools
 
         End Try
 
-
-    End Sub
-    Private Sub FormatWebPublisherDataGrid()
-        Try
-
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As DataGridTextBoxColumn
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "WebPublisher"
-            objGrid.RowHeadersVisible = False
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ApplicationNumber"
-            objtextcol.HeaderText = "APL #"
-            objtextcol.Width = 80
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strFacilityName"
-            objtextcol.HeaderText = "Facility Name"
-            objtextcol.Width = 250
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strPermitNumber"
-            objtextcol.HeaderText = "Permit Number"
-            objtextcol.Width = 150
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strApplicationTypeDesc"
-            objtextcol.HeaderText = "App Type"
-            objtextcol.Width = 100
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "datDraftIssued"
-            objtextcol.HeaderText = "Draft Issued"
-            objtextcol.Width = 100
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "datPermitIssued"
-            objtextcol.HeaderText = "Final Action"
-            objtextcol.Width = 100
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "datExpirationDate"
-            objtextcol.HeaderText = "Expiration Date"
-            objtextcol.Width = 100
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrWebPublisher.TableStyles.Clear()
-            dgrWebPublisher.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrWebPublisher.CaptionText = "Web Publisher Active Title V Applications"
-            dgrWebPublisher.ColumnHeadersVisible = True
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
 
     End Sub
     Private Sub CheckForLinks()
@@ -219,7 +161,6 @@ Public Class SSPPTitleVTools
                 TCDMUTools.TabPages.Add(TPTitleVRenewals)
 
                 LoadWebPublisherDataGrid()
-                FormatWebPublisherDataGrid()
 
                 DTPNotifiedAppReceived.Value = Today
                 DTPDraftOnWeb.Value = Today
@@ -2747,17 +2688,17 @@ Public Class SSPPTitleVTools
 
     End Sub
     Private Sub dgrWebPublisher_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrWebPublisher.MouseUp
-        Dim hti As DataGrid.HitTestInfo = dgrWebPublisher.HitTest(e.X, e.Y)
+        Dim hti As DataGridView.HitTestInfo = dgrWebPublisher.HitTest(e.X, e.Y)
         Try
 
-            If hti.Type = DataGrid.HitTestType.Cell Then
-                If IsDBNull(dgrWebPublisher(hti.Row, 0)) Then
-                Else
-                    txtWebPublisherApplicationNumber.Text = dgrWebPublisher(hti.Row, 0)
-                    If txtWebPublisherApplicationNumber.Text <> "" Then
-                        LoadWebPublisherApplicationData()
-                        LoadWebPublishingFacilityInformation()
-                    End If
+            If hti.Type = DataGridViewHitTestType.Cell AndAlso
+                Not IsDBNull(dgrWebPublisher(0, hti.RowIndex)) Then
+
+                txtWebPublisherApplicationNumber.Text = dgrWebPublisher(0, hti.RowIndex).Value.ToString
+
+                If txtWebPublisherApplicationNumber.Text <> "" Then
+                    LoadWebPublisherApplicationData()
+                    LoadWebPublishingFacilityInformation()
                 End If
             End If
         Catch ex As Exception
