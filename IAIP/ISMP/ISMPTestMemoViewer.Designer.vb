@@ -1,4 +1,4 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class ISMPTestMemoViewer
     Inherits BaseForm
 
@@ -13,7 +13,7 @@ Partial Class ISMPTestMemoViewer
 
     End Sub
 
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overloads Overrides Sub Dispose(ByVal disposing As Boolean)
         If disposing Then
             If Not (components Is Nothing) Then
@@ -48,14 +48,14 @@ Partial Class ISMPTestMemoViewer
     Friend WithEvents LLRunSearch As System.Windows.Forms.LinkLabel
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtFilterText1 As System.Windows.Forms.TextBox
-    Friend WithEvents Splitter1 As System.Windows.Forms.Splitter
     Friend WithEvents GBFilterAndSortOption As System.Windows.Forms.GroupBox
-    Friend WithEvents dgrMemoViewer As System.Windows.Forms.DataGrid
+    Friend WithEvents dgrMemoViewer As IaipDataGridView
     Private components As System.ComponentModel.IContainer
 
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.dgrMemoViewer = New System.Windows.Forms.DataGrid()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.dgrMemoViewer = New Iaip.IaipDataGridView()
         Me.GBFilterAndSortOption = New System.Windows.Forms.GroupBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.chbClosed = New System.Windows.Forms.CheckBox()
@@ -78,7 +78,6 @@ Partial Class ISMPTestMemoViewer
         Me.LLRunSearch = New System.Windows.Forms.LinkLabel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtFilterText1 = New System.Windows.Forms.TextBox()
-        Me.Splitter1 = New System.Windows.Forms.Splitter()
         CType(Me.dgrMemoViewer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GBFilterAndSortOption.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -89,13 +88,17 @@ Partial Class ISMPTestMemoViewer
         '
         'dgrMemoViewer
         '
-        Me.dgrMemoViewer.DataMember = ""
-        Me.dgrMemoViewer.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.dgrMemoViewer.HeaderForeColor = System.Drawing.SystemColors.ControlText
-        Me.dgrMemoViewer.Location = New System.Drawing.Point(0, 286)
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrMemoViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgrMemoViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgrMemoViewer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgrMemoViewer.LinkifyColumnByName = Nothing
+        Me.dgrMemoViewer.Location = New System.Drawing.Point(0, 162)
         Me.dgrMemoViewer.Name = "dgrMemoViewer"
-        Me.dgrMemoViewer.ReadOnly = True
-        Me.dgrMemoViewer.Size = New System.Drawing.Size(950, 352)
+        Me.dgrMemoViewer.ResultsCountLabel = Nothing
+        Me.dgrMemoViewer.ResultsCountLabelFormat = "{0} found"
+        Me.dgrMemoViewer.Size = New System.Drawing.Size(950, 476)
+        Me.dgrMemoViewer.StandardTab = True
         Me.dgrMemoViewer.TabIndex = 232
         '
         'GBFilterAndSortOption
@@ -108,10 +111,10 @@ Partial Class ISMPTestMemoViewer
         Me.GBFilterAndSortOption.Controls.Add(Me.LLRunSearch)
         Me.GBFilterAndSortOption.Controls.Add(Me.Label1)
         Me.GBFilterAndSortOption.Controls.Add(Me.txtFilterText1)
-        Me.GBFilterAndSortOption.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GBFilterAndSortOption.Dock = System.Windows.Forms.DockStyle.Top
         Me.GBFilterAndSortOption.Location = New System.Drawing.Point(0, 0)
         Me.GBFilterAndSortOption.Name = "GBFilterAndSortOption"
-        Me.GBFilterAndSortOption.Size = New System.Drawing.Size(950, 286)
+        Me.GBFilterAndSortOption.Size = New System.Drawing.Size(950, 162)
         Me.GBFilterAndSortOption.TabIndex = 236
         Me.GBFilterAndSortOption.TabStop = False
         Me.GBFilterAndSortOption.Text = "Filter Options"
@@ -311,22 +314,13 @@ Partial Class ISMPTestMemoViewer
         Me.txtFilterText1.Size = New System.Drawing.Size(248, 20)
         Me.txtFilterText1.TabIndex = 247
         '
-        'Splitter1
-        '
-        Me.Splitter1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Splitter1.Location = New System.Drawing.Point(0, 283)
-        Me.Splitter1.Name = "Splitter1"
-        Me.Splitter1.Size = New System.Drawing.Size(950, 3)
-        Me.Splitter1.TabIndex = 237
-        Me.Splitter1.TabStop = False
-        '
         'ISMPTestMemoViewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(950, 638)
-        Me.Controls.Add(Me.Splitter1)
-        Me.Controls.Add(Me.GBFilterAndSortOption)
         Me.Controls.Add(Me.dgrMemoViewer)
+        Me.Controls.Add(Me.GBFilterAndSortOption)
+        Me.MinimumSize = New System.Drawing.Size(819, 330)
         Me.Name = "ISMPTestMemoViewer"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "ISMP Test Memo Viewer"
@@ -342,5 +336,4 @@ Partial Class ISMPTestMemoViewer
         Me.ResumeLayout(False)
 
     End Sub
-
 End Class

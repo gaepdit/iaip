@@ -5,7 +5,6 @@ Public Class ISMPTestMemoViewer
     Private Sub ISMPTestMemoViewer_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
             LoadDataSet(True)
-            FormatdgrTestReportViewer()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -79,51 +78,13 @@ Public Class ISMPTestMemoViewer
             }
 
             Dim dt As DataTable = DB.GetDataTable(query, p)
-            dt.TableName = "TestMemoViewer"
 
-            dgrMemoViewer.DataSource = dt
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub FormatdgrTestReportViewer()
-        Try
-
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As DataGridTextBoxColumn
-            'Dim objDateCol As New DataGridTimePickerColumn
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "TestMemoViewer"
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-            objGrid.RowHeadersVisible = False
-
-            'Setting the Column Headings  1
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strReferenceNumber"
-            objtextcol.HeaderText = "Reference Number"
-            objtextcol.Alignment = HorizontalAlignment.Center
-            objtextcol.Width = 110
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings   2
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strMemorandumField"
-            objtextcol.HeaderText = "Memo Text Body"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 400
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrMemoViewer.TableStyles.Clear()
-            dgrMemoViewer.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrMemoViewer.CaptionText = "Test Memo Viewer"
-            dgrMemoViewer.ColumnHeadersVisible = True
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+                dgrMemoViewer.DataSource = dt
+                dgrMemoViewer.Columns("strReferenceNumber").HeaderText = "Reference Number"
+                dgrMemoViewer.Columns("strMemorandumField").HeaderText = "Memo Text Body"
+                dgrMemoViewer.SanelyResizeColumns()
+            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -157,19 +118,15 @@ Public Class ISMPTestMemoViewer
         End Try
     End Sub
     Private Sub dgrMemoViewer_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrMemoViewer.MouseUp
-        Dim hti As DataGrid.HitTestInfo = dgrMemoViewer.HitTest(e.X, e.Y)
+        Dim hti As DataGridView.HitTestInfo = dgrMemoViewer.HitTest(e.X, e.Y)
 
         Try
 
-            If hti.Type = DataGrid.HitTestType.Cell Then
-                If IsDBNull(dgrMemoViewer(hti.Row, 0)) Then
-                Else
-                    If IsDBNull(dgrMemoViewer(hti.Row, 1)) Then
-                    Else
-                        txtReferenceNumber.Text = dgrMemoViewer(hti.Row, 0)
-                        txtReferenceNumber2.Text = dgrMemoViewer(hti.Row, 0)
-                    End If
-                End If
+            If hti.Type = DataGrid.HitTestType.Cell AndAlso
+                Not IsDBNull(dgrMemoViewer(0, hti.RowIndex)) AndAlso
+                Not IsDBNull(dgrMemoViewer(1, hti.RowIndex)) Then
+                txtReferenceNumber.Text = dgrMemoViewer(0, hti.RowIndex).Value.ToString
+                txtReferenceNumber2.Text = dgrMemoViewer(0, hti.RowIndex).Value.ToString
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
