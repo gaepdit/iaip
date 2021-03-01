@@ -61,7 +61,6 @@ Partial Class ISMPTestReportAdministrative
         Me.MenuItem5 = New System.Windows.Forms.MenuItem()
         Me.mmiMemo = New System.Windows.Forms.MenuItem()
         Me.mmiAddTestingFirm = New System.Windows.Forms.MenuItem()
-        Me.mmiAddPollutant = New System.Windows.Forms.MenuItem()
         Me.mmiRefreshLists = New System.Windows.Forms.MenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnLoadCombos = New System.Windows.Forms.Button()
@@ -385,7 +384,7 @@ Partial Class ISMPTestReportAdministrative
         'MenuItem4
         '
         Me.MenuItem4.Index = 3
-        Me.MenuItem4.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiShowToolbar, Me.MenuItem5, Me.mmiMemo, Me.mmiAddTestingFirm, Me.mmiAddPollutant, Me.mmiRefreshLists})
+        Me.MenuItem4.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiShowToolbar, Me.MenuItem5, Me.mmiMemo, Me.mmiAddTestingFirm, Me.mmiRefreshLists})
         Me.MenuItem4.Text = "Tools"
         '
         'MmiShowToolbar
@@ -408,14 +407,9 @@ Partial Class ISMPTestReportAdministrative
         Me.mmiAddTestingFirm.Index = 3
         Me.mmiAddTestingFirm.Text = "Add Testing Firm"
         '
-        'mmiAddPollutant
-        '
-        Me.mmiAddPollutant.Index = 4
-        Me.mmiAddPollutant.Text = "Add Pollutant"
-        '
         'mmiRefreshLists
         '
-        Me.mmiRefreshLists.Index = 5
+        Me.mmiRefreshLists.Index = 4
         Me.mmiRefreshLists.Text = "Refresh Lists"
         '
         'GroupBox1
@@ -1272,7 +1266,6 @@ End Sub
     Friend WithEvents MenuItem5 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiMemo As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAddTestingFirm As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiAddPollutant As System.Windows.Forms.MenuItem
     Friend WithEvents mmiRefreshLists As System.Windows.Forms.MenuItem
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents DTPDateReceived As System.Windows.Forms.DateTimePicker

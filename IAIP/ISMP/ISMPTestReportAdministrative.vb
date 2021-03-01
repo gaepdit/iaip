@@ -1811,13 +1811,6 @@ Public Class ISMPTestReportAdministrative
         End Try
 
     End Sub
-    Private Sub mmiAddPollutant_Click(sender As Object, e As EventArgs) Handles mmiAddPollutant.Click
-        Dim ISMPAddPollutant As New ISMPAddPollutants
-
-        If ISMPAddPollutant IsNot Nothing AndAlso Not ISMPAddPollutant.IsDisposed Then
-            ISMPAddPollutant.Show()
-        End If
-    End Sub
     Private Sub mmiRefreshLists_Click(sender As Object, e As EventArgs) Handles mmiRefreshLists.Click
         Try
 

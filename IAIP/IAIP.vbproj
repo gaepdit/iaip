@@ -584,9 +584,6 @@
     <Compile Include="ISMP\ISMPTestMemoViewer.Designer.vb">
       <DependentUpon>ISMPTestMemoViewer.vb</DependentUpon>
     </Compile>
-    <Compile Include="ISMP\SubPages\ISMPAddPollutants.Designer.vb">
-      <DependentUpon>ISMPAddPollutants.vb</DependentUpon>
-    </Compile>
     <Compile Include="ISMP\SubPages\ISMPAddTestingFirms.Designer.vb">
       <DependentUpon>ISMPAddTestingFirms.vb</DependentUpon>
     </Compile>
@@ -949,9 +946,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ISMP\ISMPTestMemoViewer.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ISMP\SubPages\ISMPAddPollutants.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ISMP\SubPages\ISMPAddTestingFirms.vb">
@@ -1470,10 +1464,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ISMP\ISMPTestMemoViewer.resx">
       <DependentUpon>ISMPTestMemoViewer.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SubPages\ISMPAddPollutants.resx">
-      <DependentUpon>ISMPAddPollutants.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ISMP\SubPages\ISMPAddTestingFirms.resx">
