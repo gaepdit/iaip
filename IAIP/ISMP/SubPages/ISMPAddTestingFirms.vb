@@ -3,20 +3,8 @@ Imports System.Data.SqlClient
 Public Class ISMPAddTestingFirms
     Dim query As String
 
-#Region "Page Load"
-
     Private Sub ISMPAddTestingFirms_Load(sender As Object, e As EventArgs) Handles Me.Load
-
-        Try
-
-            LoadDataSet()
-            FormatdgrTestingFirms()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        LoadDataSet()
     End Sub
 
     Private Sub LoadDataSet()
@@ -31,8 +19,24 @@ Public Class ISMPAddTestingFirms
                  "Order by strTestingFirm "
 
             Dim dt As DataTable = DB.GetDataTable(query)
-            dt.TableName = "TestingFirms"
-            dgrTestingFirms.DataSource = dt
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+                dgrTestingFirms.DataSource = dt
+
+                dgrTestingFirms.Columns("strTestingFirmKey").HeaderText = "Key"
+                dgrTestingFirms.Columns("strTestingFirm").HeaderText = "Testing Firm"
+                dgrTestingFirms.Columns("strFirmAddress1").HeaderText = "Firm Address"
+                dgrTestingFirms.Columns("strFirmAddress2").HeaderText = "Firm Address 2"
+                dgrTestingFirms.Columns("strFirmCity").HeaderText = "Firm City"
+                dgrTestingFirms.Columns("strFirmState").HeaderText = "Firm State"
+                dgrTestingFirms.Columns("strFirmZipCode").HeaderText = "Firm Zip Code"
+                dgrTestingFirms.Columns("strFirmPhoneNumber1").HeaderText = "Firm Phone Number 1"
+                dgrTestingFirms.Columns("strFirmPhoneNumber2").HeaderText = "Firm Phone Number 2"
+                dgrTestingFirms.Columns("strFirmFax").HeaderText = "Firm Fax Number"
+                dgrTestingFirms.Columns("strFirmEmail").HeaderText = "Firm Email Address"
+
+                dgrTestingFirms.SanelyResizeColumns()
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -41,115 +45,6 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
-    Private Sub FormatdgrTestingFirms()
-        Try
-
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As DataGridTextBoxColumn
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "TestingFirms"
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-            objGrid.RowHeadersVisible = False
-
-            'Setting the Column Headings  0
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strTestingFirmKey"
-            objtextcol.HeaderText = "Key"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 50
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings  1
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strTestingFirm"
-            objtextcol.HeaderText = "Testing Firm"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 250
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    2
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strFirmAddress1"
-            objtextcol.HeaderText = "Firm Address"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 150
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    3
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strFirmCity"
-            objtextcol.HeaderText = "Firm City"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 120
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    4
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strFirmState"
-            objtextcol.HeaderText = "Firm State"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 70
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    5
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strFirmZipCode"
-            objtextcol.HeaderText = "Firm Zip Code"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 80
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    6
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strFirmPhoneNumber1"
-            objtextcol.HeaderText = "Firm Phone Number 1"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 130
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    7
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strFirmPhoneNumber2"
-            objtextcol.HeaderText = "Firm Phone Number 2"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 130
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    8
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strFirmFax"
-            objtextcol.HeaderText = "Firm Fax Number"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 130
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    9
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strFirmEmail"
-            objtextcol.HeaderText = "Firm Email Address"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 200
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrTestingFirms.TableStyles.Clear()
-            dgrTestingFirms.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrTestingFirms.CaptionText = "Testing Firms"
-            dgrTestingFirms.ColumnHeadersVisible = True
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
-#End Region
 
     Private Sub LoadTestingFirmInfo()
         Try
@@ -465,42 +360,14 @@ Public Class ISMPAddTestingFirms
     End Sub
 
     Private Sub dgrTestingFirms_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrTestingFirms.MouseUp
-        Dim hti As DataGrid.HitTestInfo = dgrTestingFirms.HitTest(e.X, e.Y)
+        Dim hti As DataGridView.HitTestInfo = dgrTestingFirms.HitTest(e.X, e.Y)
 
         Try
 
-            If hti.Type = DataGrid.HitTestType.Cell Then
-                If IsDBNull(dgrTestingFirms(hti.Row, 0)) Then
-                Else
-                    If IsDBNull(dgrTestingFirms(hti.Row, 1)) Then
-                    Else
-                        If IsDBNull(dgrTestingFirms(hti.Row, 2)) Then
-                        Else
-                            If IsDBNull(dgrTestingFirms(hti.Row, 3)) Then
-                            Else
-                                If IsDBNull(dgrTestingFirms(hti.Row, 4)) Then
-                                Else
-                                    If IsDBNull(dgrTestingFirms(hti.Row, 5)) Then
-                                    Else
-                                        If IsDBNull(dgrTestingFirms(hti.Row, 6)) Then
-                                        Else
-                                            If IsDBNull(dgrTestingFirms(hti.Row, 7)) Then
-                                            Else
-                                                If IsDBNull(dgrTestingFirms(hti.Row, 8)) Then
-                                                Else
-                                                    If IsDBNull(dgrTestingFirms(hti.Row, 9)) Then
-                                                    Else
-                                                        txtTestingFirmKey.Text = dgrTestingFirms(hti.Row, 0)
-                                                    End If
-                                                End If
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
+            If hti.Type = DataGridViewHitTestType.Cell AndAlso
+                Not IsDBNull(dgrTestingFirms(0, hti.RowIndex)) Then
+
+                txtTestingFirmKey.Text = dgrTestingFirms(0, hti.RowIndex).Value.ToString()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

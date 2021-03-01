@@ -49,13 +49,14 @@ Partial Class ISMPAddTestingFirms
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents txtTestingFirm As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents dgrTestingFirms As System.Windows.Forms.DataGrid
+    Friend WithEvents dgrTestingFirms As IaipDataGridView
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Private components As System.ComponentModel.IContainer
 
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtTestingFirmKey = New System.Windows.Forms.TextBox()
@@ -79,7 +80,7 @@ Partial Class ISMPAddTestingFirms
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtTestingFirm = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.dgrTestingFirms = New System.Windows.Forms.DataGrid()
+        Me.dgrTestingFirms = New Iaip.IaipDataGridView()
         Me.MmiSave = New System.Windows.Forms.MenuItem()
         Me.MenuItem1 = New System.Windows.Forms.MenuItem()
         Me.mmiClear = New System.Windows.Forms.MenuItem()
@@ -308,13 +309,17 @@ Partial Class ISMPAddTestingFirms
         '
         'dgrTestingFirms
         '
-        Me.dgrTestingFirms.DataMember = ""
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrTestingFirms.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgrTestingFirms.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrTestingFirms.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgrTestingFirms.HeaderForeColor = System.Drawing.SystemColors.ControlText
+        Me.dgrTestingFirms.LinkifyColumnByName = Nothing
         Me.dgrTestingFirms.Location = New System.Drawing.Point(0, 174)
         Me.dgrTestingFirms.Name = "dgrTestingFirms"
-        Me.dgrTestingFirms.ReadOnly = True
+        Me.dgrTestingFirms.ResultsCountLabel = Nothing
+        Me.dgrTestingFirms.ResultsCountLabelFormat = "{0} found"
         Me.dgrTestingFirms.Size = New System.Drawing.Size(680, 171)
+        Me.dgrTestingFirms.StandardTab = True
         Me.dgrTestingFirms.TabIndex = 147
         '
         'MmiSave
