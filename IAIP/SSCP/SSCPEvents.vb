@@ -140,7 +140,6 @@ Public Class SSCPEvents
                 AddReportsCombo()
                 LoadReport()
                 LoadReportSubmittalDGR()
-                FormatReportsDGR()
 
             Case WorkItemEventType.Inspection
                 TCItems.TabPages.Add(TPInspection)
@@ -162,7 +161,6 @@ Public Class SSCPEvents
                 dtpAccReportingYear.Checked = True
                 LoadACC()
                 LoadACCSubmittalDGR()
-                FormatACCDGR()
                 btnPrint.Visible = True
 
             Case WorkItemEventType.Notification
@@ -1660,7 +1658,8 @@ Public Class SSCPEvents
 
     Private Sub LoadReportSubmittalDGR()
         Try
-            Dim SQL As String = "SELECT STRSUBMITTALNUMBER, DATMODIFINGDATE, CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS UserName " &
+            Dim SQL As String = "SELECT convert(int, STRSUBMITTALNUMBER) as STRSUBMITTALNUMBER, DATMODIFINGDATE, " &
+                "CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS UserName " &
                 "FROM SSCPREPORTSHISTORY " &
                 "INNER JOIN EPDUSERPROFILES ON SSCPREPORTSHISTORY.STRMODIFINGPERSON = EPDUSERPROFILES.NUMUSERID " &
                 "WHERE STRTRACKINGNUMBER = @num " &
@@ -1668,53 +1667,15 @@ Public Class SSCPEvents
 
             Dim p As New SqlParameter("@num", TrackingNumber)
 
-            dgrReportResubmittal.DataSource = DB.GetDataTable(SQL, p)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
 
-    Private Sub FormatReportsDGR()
-        Try
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As DataGridTextBoxColumn
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "Reports"
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-            objGrid.RowHeadersVisible = False
-
-            objtextcol = New DataGridTextBoxColumn With {
-                .MappingName = "strSubmittalNumber",
-                .HeaderText = "#",
-                .Width = 30
-            }
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings
-            objtextcol = New DataGridTextBoxColumn With {
-                .MappingName = "datModifingDate",
-                .HeaderText = "Date",
-                .Width = 50
-            }
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings
-            objtextcol = New DataGridTextBoxColumn With {
-                .MappingName = "UserName",
-                .HeaderText = "Modifying Individual",
-                .Width = 180
-            }
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrReportResubmittal.TableStyles.Clear()
-            dgrReportResubmittal.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrReportResubmittal.CaptionText = "Submittal History"
-            dgrReportResubmittal.ColumnHeadersVisible = True
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+                dgrReportResubmittal.DataSource = dt
+                dgrReportResubmittal.Columns("STRSUBMITTALNUMBER").HeaderText = "#"
+                dgrReportResubmittal.Columns("DATMODIFINGDATE").HeaderText = "Date"
+                dgrReportResubmittal.Columns("UserName").HeaderText = "Modifying Individual"
+                dgrReportResubmittal.SanelyResizeColumns
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2143,7 +2104,7 @@ Public Class SSCPEvents
 
     Private Sub LoadACCSubmittalDGR()
         Try
-            Dim SQL As String = "Select strSubmittalNumber, datModifingDate, " &
+            Dim SQL As String = "Select convert(int, strSubmittalNumber) as strSubmittalNumber, datModifingDate, " &
                 "concat(strLastName, ', ' ,strFirstName) as UserName " &
                 "from SSCPACCSHistory inner join EPDUserProfiles " &
                 "on SSCPACCSHistory.strModifingPerson = EPDUserProfiles.numUserID " &
@@ -2151,55 +2112,15 @@ Public Class SSCPEvents
                 "order by strsubmittalnumber"
             Dim p As New SqlParameter("@num", TrackingNumber)
 
-            DGRACCResubmittal.DataSource = DB.GetDataTable(SQL, p)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
 
-    Private Sub FormatACCDGR()
-        Try
-
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As DataGridTextBoxColumn
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "ACCs"
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-            objGrid.RowHeadersVisible = False
-
-            objtextcol = New DataGridTextBoxColumn With {
-                .MappingName = "strSubmittalNumber",
-                .HeaderText = "#",
-                .Width = 30
-            }
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings
-            objtextcol = New DataGridTextBoxColumn With {
-                .MappingName = "datModifingDate",
-                .HeaderText = "Date",
-                .Width = 50
-            }
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings
-            objtextcol = New DataGridTextBoxColumn With {
-                .MappingName = "UserName",
-                .HeaderText = "Modifying Individual",
-                .Width = 180
-            }
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            DGRACCResubmittal.TableStyles.Clear()
-            DGRACCResubmittal.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            DGRACCResubmittal.CaptionText = "Submittal History"
-            DGRACCResubmittal.ColumnHeadersVisible = True
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+                DGRACCResubmittal.DataSource = dt
+                DGRACCResubmittal.Columns("strSubmittalNumber").HeaderText = "#"
+                DGRACCResubmittal.Columns("datModifingDate").HeaderText = "Date"
+                DGRACCResubmittal.Columns("UserName").HeaderText = "Modifying Individual"
+                DGRACCResubmittal.SanelyResizeColumns
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2886,20 +2807,13 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub dgrReportResubmittal_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrReportResubmittal.MouseUp
-        Dim hti As DataGrid.HitTestInfo = dgrReportResubmittal.HitTest(e.X, e.Y)
+        Dim hti As DataGridView.HitTestInfo = dgrReportResubmittal.HitTest(e.X, e.Y)
         Try
-            If hti.Type = DataGrid.HitTestType.Cell Then
-                If IsDBNull(dgrReportResubmittal(hti.Row, 0)) Then
-                Else
-                    If IsDBNull(dgrReportResubmittal(hti.Row, 1)) Then
-                    Else
-                        If IsDBNull(dgrReportResubmittal(hti.Row, 2)) Then
-                        Else
-                            NUPReportSubmittal.Value = dgrReportResubmittal(hti.Row, 0)
-                            LoadReportFromSubmittal()
-                        End If
-                    End If
-                End If
+            If hti.Type = DataGridViewHitTestType.Cell AndAlso
+                Not IsDBNull(dgrReportResubmittal(0, hti.RowIndex)) Then
+
+                NUPReportSubmittal.Value = dgrReportResubmittal(0, hti.RowIndex).Value.ToString
+                LoadReportFromSubmittal()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2907,20 +2821,13 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub DGRACCResubmittal_MouseUp(sender As Object, e As MouseEventArgs) Handles DGRACCResubmittal.MouseUp
-        Dim hti As DataGrid.HitTestInfo = DGRACCResubmittal.HitTest(e.X, e.Y)
+        Dim hti As DataGridView.HitTestInfo = DGRACCResubmittal.HitTest(e.X, e.Y)
         Try
-            If hti.Type = DataGrid.HitTestType.Cell Then
-                If IsDBNull(DGRACCResubmittal(hti.Row, 0)) Then
-                Else
-                    If IsDBNull(DGRACCResubmittal(hti.Row, 1)) Then
-                    Else
-                        If IsDBNull(DGRACCResubmittal(hti.Row, 2)) Then
-                        Else
-                            NUPACCSubmittal.Value = DGRACCResubmittal(hti.Row, 0)
-                            LoadACCFromSubmittal()
-                        End If
-                    End If
-                End If
+            If hti.Type = DataGrid.HitTestType.Cell AndAlso
+                Not IsDBNull(DGRACCResubmittal(0, hti.RowIndex)) Then
+
+                NUPACCSubmittal.Value = DGRACCResubmittal(0, hti.RowIndex).Value.ToString
+                LoadACCFromSubmittal()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

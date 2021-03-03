@@ -148,7 +148,7 @@ Partial Class SSCPEvents
     Friend WithEvents Label50 As System.Windows.Forms.Label
     Friend WithEvents Label46 As System.Windows.Forms.Label
     Friend WithEvents Label38 As System.Windows.Forms.Label
-    Friend WithEvents DGRACCResubmittal As System.Windows.Forms.DataGrid
+    Friend WithEvents DGRACCResubmittal As IaipDataGridView
     Friend WithEvents wrnACCDatePostmarked As System.Windows.Forms.Label
     Friend WithEvents wrnACCConditions As System.Windows.Forms.Label
     Friend WithEvents PanelACC As System.Windows.Forms.Panel
@@ -204,7 +204,7 @@ Partial Class SSCPEvents
     Friend WithEvents wrnInspectionOperating As System.Windows.Forms.Label
     Friend WithEvents SplitterReport As System.Windows.Forms.Splitter
     Friend WithEvents PanelReports As System.Windows.Forms.Panel
-    Friend WithEvents dgrReportResubmittal As System.Windows.Forms.DataGrid
+    Friend WithEvents dgrReportResubmittal As IaipDataGridView
     Friend WithEvents DTPInspectionDateStart As System.Windows.Forms.DateTimePicker
     Friend WithEvents dtpInspectionTimeStart As System.Windows.Forms.DateTimePicker
     Friend WithEvents dtpInspectionTimeEnd As System.Windows.Forms.DateTimePicker
@@ -249,6 +249,8 @@ Partial Class SSCPEvents
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiSave = New System.Windows.Forms.MenuItem()
@@ -311,7 +313,7 @@ Partial Class SSCPEvents
         Me.DTPReportPeriodEnd = New System.Windows.Forms.DateTimePicker()
         Me.DTPReportPeriodStart = New System.Windows.Forms.DateTimePicker()
         Me.SplitterReport = New System.Windows.Forms.Splitter()
-        Me.dgrReportResubmittal = New System.Windows.Forms.DataGrid()
+        Me.dgrReportResubmittal = New Iaip.IaipDataGridView()
         Me.TPTestReports = New System.Windows.Forms.TabPage()
         Me.PanelSSCPCompliance2 = New System.Windows.Forms.Panel()
         Me.DTPTestReportReceivedDate = New System.Windows.Forms.DateTimePicker()
@@ -463,7 +465,7 @@ Partial Class SSCPEvents
         Me.rdbACCConditionsNo = New System.Windows.Forms.RadioButton()
         Me.Label39 = New System.Windows.Forms.Label()
         Me.SplitterACC = New System.Windows.Forms.Splitter()
-        Me.DGRACCResubmittal = New System.Windows.Forms.DataGrid()
+        Me.DGRACCResubmittal = New Iaip.IaipDataGridView()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TextBox6 = New System.Windows.Forms.TextBox()
         Me.ListView1 = New System.Windows.Forms.ListView()
@@ -1125,14 +1127,18 @@ Partial Class SSCPEvents
         '
         'dgrReportResubmittal
         '
-        Me.dgrReportResubmittal.DataMember = ""
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrReportResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgrReportResubmittal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrReportResubmittal.Dock = System.Windows.Forms.DockStyle.Left
         Me.dgrReportResubmittal.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgrReportResubmittal.HeaderForeColor = System.Drawing.SystemColors.ControlText
+        Me.dgrReportResubmittal.LinkifyColumnByName = Nothing
         Me.dgrReportResubmittal.Location = New System.Drawing.Point(0, 0)
         Me.dgrReportResubmittal.Name = "dgrReportResubmittal"
-        Me.dgrReportResubmittal.ReadOnly = True
+        Me.dgrReportResubmittal.ResultsCountLabel = Nothing
+        Me.dgrReportResubmittal.ResultsCountLabelFormat = "{0} found"
         Me.dgrReportResubmittal.Size = New System.Drawing.Size(10, 370)
+        Me.dgrReportResubmittal.StandardTab = True
         Me.dgrReportResubmittal.TabIndex = 30
         '
         'TPTestReports
@@ -1690,7 +1696,7 @@ Partial Class SSCPEvents
         Me.Label20.AutoSize = True
         Me.Label20.Location = New System.Drawing.Point(8, 122)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(136, 13)
+        Me.Label20.Size = New System.Drawing.Size(130, 13)
         Me.Label20.TabIndex = 18
         Me.Label20.Text = "Facility Inspection Guides:"
         '
@@ -2665,15 +2671,18 @@ Partial Class SSCPEvents
         '
         'DGRACCResubmittal
         '
-        Me.DGRACCResubmittal.DataMember = ""
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.DGRACCResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        Me.DGRACCResubmittal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.DGRACCResubmittal.Dock = System.Windows.Forms.DockStyle.Left
         Me.DGRACCResubmittal.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DGRACCResubmittal.HeaderForeColor = System.Drawing.SystemColors.ControlText
+        Me.DGRACCResubmittal.LinkifyColumnByName = Nothing
         Me.DGRACCResubmittal.Location = New System.Drawing.Point(0, 0)
         Me.DGRACCResubmittal.Name = "DGRACCResubmittal"
-        Me.DGRACCResubmittal.ReadOnly = True
-        Me.DGRACCResubmittal.RowHeadersVisible = False
+        Me.DGRACCResubmittal.ResultsCountLabel = Nothing
+        Me.DGRACCResubmittal.ResultsCountLabelFormat = "{0} found"
         Me.DGRACCResubmittal.Size = New System.Drawing.Size(10, 370)
+        Me.DGRACCResubmittal.StandardTab = True
         Me.DGRACCResubmittal.TabIndex = 18
         Me.DGRACCResubmittal.TabStop = False
         '
@@ -2696,6 +2705,7 @@ Partial Class SSCPEvents
         'ListView1
         '
         Me.ListView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ListView1.HideSelection = False
         Me.ListView1.Location = New System.Drawing.Point(0, 0)
         Me.ListView1.Name = "ListView1"
         Me.ListView1.Size = New System.Drawing.Size(200, 350)
