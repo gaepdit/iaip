@@ -136,10 +136,6 @@ Partial Class ISMPManagersTools
     Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
-    Friend WithEvents DataGridBoolColumn2 As System.Windows.Forms.DataGridBoolColumn
-    Friend WithEvents DataGridBoolColumn1 As System.Windows.Forms.DataGridBoolColumn
-    Friend WithEvents DataGridTextBoxColumn2 As System.Windows.Forms.DataGridTextBoxColumn
-    Friend WithEvents DataGridTextBoxColumn1 As System.Windows.Forms.DataGridTextBoxColumn
     Friend WithEvents MmiAllNoDoc As System.Windows.Forms.MenuItem
     Friend WithEvents MmiAllMethod22 As System.Windows.Forms.MenuItem
     Friend WithEvents MmiAllMethod9Multi As System.Windows.Forms.MenuItem
@@ -487,10 +483,6 @@ Partial Class ISMPManagersTools
         Me.txtAddTestReportRefNum = New System.Windows.Forms.TextBox()
         Me.btnAddTestReport = New System.Windows.Forms.Button()
         Me.Label61 = New System.Windows.Forms.Label()
-        Me.DataGridTextBoxColumn1 = New System.Windows.Forms.DataGridTextBoxColumn()
-        Me.DataGridTextBoxColumn2 = New System.Windows.Forms.DataGridTextBoxColumn()
-        Me.DataGridBoolColumn1 = New System.Windows.Forms.DataGridBoolColumn()
-        Me.DataGridBoolColumn2 = New System.Windows.Forms.DataGridBoolColumn()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.bSave = New System.Windows.Forms.ToolStripMenuItem()
         Me.bClear = New System.Windows.Forms.ToolStripMenuItem()
@@ -2434,26 +2426,6 @@ Partial Class ISMPManagersTools
         Me.Label61.Size = New System.Drawing.Size(97, 13)
         Me.Label61.TabIndex = 2
         Me.Label61.Text = "Reference Number"
-        '
-        'DataGridTextBoxColumn1
-        '
-        Me.DataGridTextBoxColumn1.Format = ""
-        Me.DataGridTextBoxColumn1.FormatInfo = Nothing
-        Me.DataGridTextBoxColumn1.Width = 75
-        '
-        'DataGridTextBoxColumn2
-        '
-        Me.DataGridTextBoxColumn2.Format = ""
-        Me.DataGridTextBoxColumn2.FormatInfo = Nothing
-        Me.DataGridTextBoxColumn2.Width = 75
-        '
-        'DataGridBoolColumn1
-        '
-        Me.DataGridBoolColumn1.Width = 75
-        '
-        'DataGridBoolColumn2
-        '
-        Me.DataGridBoolColumn2.Width = 75
         '
         'MenuStrip1
         '
