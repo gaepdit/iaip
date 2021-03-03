@@ -34,14 +34,6 @@ Public Class SSCPFCEWork
         LoadReviewerCombo()
         FillFCEData()
 
-        FormatFCEInspection()
-        FormatFCEACC()
-        FormatFCEReports()
-        FormatFCECorrespondance()
-        FormatFCEPerformanceTests()
-        FormatFCEEnforcement()
-        FormatISMPSummaryReports()
-
         DTPFCECompleteDate.Value = Today
         DTPFilterStartDate.Value = Today.AddDays(-365)
         DTPFilterEndDate.Value = Today
@@ -157,7 +149,7 @@ Public Class SSCPFCEWork
 #Region " Load Datasets "
 
     Private Sub LoadFCEInspectionData()
-        Dim SQL As String = "select SSCPInspections.strTrackingNumber, " &
+        Dim SQL As String = "select convert(int, SSCPInspections.strTrackingNumber) as strTrackingNumber, " &
         "datReceivedDate as ReceivedDate,  " &
         "CONCAT(strLastName, ', ', strFirstName) as ReviewingEngineer, " &
         "datInspectionDateStart as InspectionDateStart,  " &
@@ -179,12 +171,29 @@ Public Class SSCPFCEWork
         "and (strDelete is Null or strDelete <> 'True') " &
         "Order by SSCPInspections.strTrackingNumber DESC  "
 
-        dgrFCEInspections.DataSource = DB.GetDataTable(SQL, paramWithDates)
+        Dim dt As DataTable = DB.GetDataTable(SQL, paramWithDates)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+            dgrFCEInspections.DataSource = dt
+            dgrFCEInspections.Columns("strTrackingNumber").HeaderText = "Tracking Number"
+            dgrFCEInspections.Columns("ReceivedDate").HeaderText = "Date Received"
+            dgrFCEInspections.Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
+            dgrFCEInspections.Columns("InspectionDateStart").HeaderText = "Inspection Start Date"
+            dgrFCEInspections.Columns("InspectionTimeStart").HeaderText = "Inspection Start Time"
+            dgrFCEInspections.Columns("InspectionTimeEnd").HeaderText = "Inspection End Time"
+            dgrFCEInspections.Columns("strInspectionReason").HeaderText = "Inspection Reason"
+            dgrFCEInspections.Columns("strWeatherConditions").HeaderText = "Weather Conditions"
+            dgrFCEInspections.Columns("strInspectionGuide").HeaderText = "Inspection Guide"
+            dgrFCEInspections.Columns("InspectionReportComplete").HeaderText = "Inspection Complete Date"
+            dgrFCEInspections.Columns("AcknowledgmentLetterSent").HeaderText = "Date Acknowledgment Letter Sent"
+            dgrFCEInspections.Columns("strInspectionComments").HeaderText = "Comments"
+            dgrFCEInspections.SanelyResizeColumns
+        End If
     End Sub
 
     Private Sub LoadFCEACCData()
         Dim SQL As String = "SELECT
-            b.strTrackingNumber,
+            convert(int, b.strTrackingNumber) as strTrackingNumber,
             datReceivedDate                         AS ReceivedDate,
             CONCAT(strLastName, ', ', strFirstName) AS ReviewingEngineer,
             strPostMarkedOnTime,
@@ -208,12 +217,31 @@ Public Class SSCPFCEWork
               AND b.strAIrsnumber = @airs
               AND (strDelete IS NULL OR strDelete <> 'True')"
 
-        dgrFCEACC.DataSource = DB.GetDataTable(SQL, paramWithDates)
+        Dim dt As DataTable = DB.GetDataTable(SQL, paramWithDates)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+            dgrFCEACC.DataSource = dt
+            dgrFCEACC.Columns("strTrackingNumber").HeaderText = "Tracking Number"
+            dgrFCEACC.Columns("ReceivedDate").HeaderText = "Date Received"
+            dgrFCEACC.Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
+            dgrFCEACC.Columns("strPostMarkedOnTime").HeaderText = "Postmarked On Time"
+            dgrFCEACC.Columns("PostmarkDate").HeaderText = "Date Postmarked"
+            dgrFCEACC.Columns("strSignedByRO").HeaderText = "Signed by Responsible Official"
+            dgrFCEACC.Columns("strCorrectACCForms").HeaderText = "Correct Forms Used"
+            dgrFCEACC.Columns("strTitleVConditionsListed").HeaderText = "Listed Title V Conditions"
+            dgrFCEACC.Columns("strACCCorrectlyFilledOut").HeaderText = "ACC Correctly Filled Out"
+            dgrFCEACC.Columns("strReportedDeviations").HeaderText = "Deviations Reported"
+            dgrFCEACC.Columns("strDeviationsUnreported").HeaderText = "Any Unreported Deviations"
+            dgrFCEACC.Columns("strEnforcementNeeded").HeaderText = "Enforcement Needed"
+            dgrFCEACC.Columns("CompleteDate").HeaderText = "Date Completed"
+            dgrFCEACC.Columns("strComments").HeaderText = "Comments"
+            dgrFCEACC.SanelyResizeColumns
+        End If
     End Sub
 
     Private Sub LoadFCEReports()
         Dim SQL As String = "SELECT
-            b.strTrackingNumber,
+            convert(int, b.strTrackingNumber) as strTrackingNumber,
             datReceivedDate         AS ReceivedDate,
             strReportPeriod,
             DatReportingPeriodStart AS ReportingStartDate,
@@ -233,12 +261,29 @@ Public Class SSCPFCEWork
               AND (strDelete IS NULL OR strDelete <> 'True')
               AND b.strAIrsnumber = @airs"
 
-        dgrFCEReports.DataSource = DB.GetDataTable(SQL, paramWithDates)
+        Dim dt As DataTable = DB.GetDataTable(SQL, paramWithDates)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+            dgrFCEReports.DataSource = dt
+            dgrFCEReports.Columns("strTrackingNumber").HeaderText = "Tracking Number"
+            dgrFCEReports.Columns("ReceivedDate").HeaderText = "Date Received"
+            dgrFCEReports.Columns("strReportPeriod").HeaderText = "Reporting Period"
+            dgrFCEReports.Columns("ReportingStartDate").HeaderText = "Report Start Date"
+            dgrFCEReports.Columns("ReportingEndDate").HeaderText = "Report End Date"
+            dgrFCEReports.Columns("strReportingPeriodComments").HeaderText = "Reporting Period Comments"
+            dgrFCEReports.Columns("ReportDueDate").HeaderText = "Report Due Date"
+            dgrFCEReports.Columns("DateSentByFacility").HeaderText = "Date Report Sent by Facility"
+            dgrFCEReports.Columns("strCompleteStatus").HeaderText = "Report Complete Status"
+            dgrFCEReports.Columns("strEnforcementNeeded").HeaderText = "Enforcement Needed"
+            dgrFCEReports.Columns("strShowDeviation").HeaderText = "Deviations"
+            dgrFCEReports.Columns("strGeneralComments").HeaderText = "Comments"
+            dgrFCEReports.SanelyResizeColumns
+        End If
     End Sub
 
     Private Sub LoadFCECorrespondance()
         Dim SQL As String = "SELECT
-            b.strTrackingNumber,
+            convert(int, b.strTrackingNumber) as strTrackingNumber,
             datReceivedDate                AS ReceivedDate,
             CASE WHEN strNotificationDue = 'True'
                 THEN datNotificationDue
@@ -262,12 +307,23 @@ Public Class SSCPFCEWork
               AND (strDelete IS NULL OR strDelete <> 'True')
               AND b.strAIrsnumber = @airs"
 
-        dgrFCECorrespondance.DataSource = DB.GetDataTable(SQL, paramWithDates)
+        Dim dt As DataTable = DB.GetDataTable(SQL, paramWithDates)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+            dgrFCECorrespondance.DataSource = dt
+            dgrFCECorrespondance.Columns("strTrackingNumber").HeaderText = "Tracking Number"
+            dgrFCECorrespondance.Columns("ReceivedDate").HeaderText = "Date Received"
+            dgrFCECorrespondance.Columns("NotificationDate").HeaderText = "Notification Due Date"
+            dgrFCECorrespondance.Columns("NotificationSent").HeaderText = "Date Notification Sent"
+            dgrFCECorrespondance.Columns("Notification").HeaderText = "Notification Type"
+            dgrFCECorrespondance.Columns("strNotificationComment").HeaderText = "Comments"
+            dgrFCECorrespondance.SanelyResizeColumns
+        End If
     End Sub
 
     Private Sub LoadFCESummaryReports()
         Dim SQL As String = "SELECT
-            b.strReferenceNumber,
+            convert(int, b.strReferenceNumber) as strReferenceNumber,
             b.strEmissionSource,
             c.strPollutantDescription,
             d.strReportType,
@@ -306,12 +362,29 @@ Public Class SSCPFCEWork
               AND (b.strDelete IS NULL OR b.strDelete <> 'True')
         ORDER BY b.strReferenceNumber DESC"
 
-        dgrISMPSummaryReports.DataSource = DB.GetDataTable(SQL, paramWithDates)
+        Dim dt As DataTable = DB.GetDataTable(SQL, paramWithDates)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+            dgrISMPSummaryReports.DataSource = dt
+            dgrISMPSummaryReports.Columns("strReferenceNumber").HeaderText = "Reference Number"
+            dgrISMPSummaryReports.Columns("strEmissionSource").HeaderText = "Emission Source"
+            dgrISMPSummaryReports.Columns("strPollutantDescription").HeaderText = "Pollutant"
+            dgrISMPSummaryReports.Columns("strReportType").HeaderText = "Report Type"
+            dgrISMPSummaryReports.Columns("strDocumentType").HeaderText = "Document Type"
+            dgrISMPSummaryReports.Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
+            dgrISMPSummaryReports.Columns("TestDateStart").HeaderText = "Test Date"
+            dgrISMPSummaryReports.Columns("ReceivedDate").HeaderText = "Received Date"
+            dgrISMPSummaryReports.Columns("CompleteDate").HeaderText = "Complete Date"
+            dgrISMPSummaryReports.Columns("Status").HeaderText = "Report Open/Closed"
+            dgrISMPSummaryReports.Columns("strComplianceStatus").HeaderText = "Compliance Status"
+            dgrISMPSummaryReports.Columns("mmoCommentAREA").HeaderText = "Comment Field"
+            dgrISMPSummaryReports.SanelyResizeColumns
+        End If
     End Sub
 
     Private Sub LoadFCEPerformanceTests()
         Dim SQL As String = "SELECT
-            b.strTrackingNumber,
+            convert(int, b.strTrackingNumber) as strTrackingNumber,
             datReceivedDate                         AS ReceivedDate,
             CONCAT(strLastName, ', ', strFirstName) AS ReviewingEngineer,
             strReferenceNumber,
@@ -328,12 +401,24 @@ Public Class SSCPFCEWork
               AND (strDelete IS NULL OR strDelete <> 'True')
               AND a.strAIrsnumber = @airs"
 
-        dgrPerformanceTests.DataSource = DB.GetDataTable(SQL, paramWithDates)
+        Dim dt As DataTable = DB.GetDataTable(SQL, paramWithDates)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+            dgrPerformanceTests.DataSource = dt
+            dgrPerformanceTests.Columns("strTrackingNumber").HeaderText = "Tracking Number"
+            dgrPerformanceTests.Columns("ReceivedDate").HeaderText = "Date Received"
+            dgrPerformanceTests.Columns("ReviewingEngineer").HeaderText = "Staff Responsible"
+            dgrPerformanceTests.Columns("strReferenceNumber").HeaderText = "ISMP Reference Number"
+            dgrPerformanceTests.Columns("CompleteDate").HeaderText = "Complete Date"
+            dgrPerformanceTests.Columns("strTestReportFollowUp").HeaderText = "Enforcement Needed"
+            dgrPerformanceTests.Columns("strTestReportComments").HeaderText = "Comments"
+            dgrPerformanceTests.SanelyResizeColumns
+        End If
     End Sub
 
     Private Sub LoadFCEEnforcement()
         Dim SQL As String = "SELECT
-            a.strEnforcementNumber,
+            convert(int, a.strEnforcementNumber) as strEnforcementNumber,
             datEnforcementFinalized                 AS EnforcementFinalized,
             CONCAT(strLastName, ', ', strFirstName) AS StaffResponsible,
             strActionType
@@ -345,746 +430,16 @@ Public Class SSCPFCEWork
               AND strAIrsnumber = @airs
               and (IsDeleted = 0 or IsDeleted is null)"
 
-        dgrFCEEnforcement.DataSource = DB.GetDataTable(SQL, paramWithDates)
-    End Sub
-
-#End Region
-
-#Region " FormatDataGrids "
-
-    Private Sub FormatFCEInspection()
-        Try
-
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As DataGridTextBoxColumn
-            'Dim objDateCol As New DataGridTimePickerColumn
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            'objGrid.MappingName = "Inspections"
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-            objGrid.RowHeadersVisible = False
-
-            'Setting the Column Headings  1
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strTrackingNumber"
-            objtextcol.HeaderText = "Tracking Number"
-            objtextcol.Alignment = HorizontalAlignment.Center
-            objtextcol.Width = 110
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    2
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReceivedDate"
-            objtextcol.HeaderText = "Date Received"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    3
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReviewingEngineer"
-            objtextcol.HeaderText = "Reviewing Engineer"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    4
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "InspectionDateStart"
-            objtextcol.HeaderText = "Inspection Start Date"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    5
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "InspectionTimeStart"
-            objtextcol.HeaderText = "Inspection Start Time"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    6
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "InspectionTimeEnd"
-            objtextcol.HeaderText = "Inspection End Time"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    7
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strInspectionReason"
-            objtextcol.HeaderText = "Inspection Reason"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    8
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strWeatherConditions"
-            objtextcol.HeaderText = "Weather Conditions"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    9
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strInspectionGuide"
-            objtextcol.HeaderText = "Inspection Guide"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    10
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "InspectionReportComplete"
-            objtextcol.HeaderText = "Inspection Complete Date"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    11
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "AcknowledgmentLetterSent"
-            objtextcol.HeaderText = "Date Acknowledgment Letter Sent"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    12
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strInspectionComments"
-            objtextcol.HeaderText = "Comments"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrFCEInspections.TableStyles.Clear()
-            dgrFCEInspections.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrFCEInspections.CaptionText = "Inspections"
-            dgrFCEInspections.ColumnHeadersVisible = True
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub FormatFCEACC()
-        Try
-
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As DataGridTextBoxColumn
-            'Dim objDateCol As New DataGridTimePickerColumn
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-            objGrid.RowHeadersVisible = False
-
-            'Setting the Column Headings  1
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strTrackingNumber"
-            objtextcol.HeaderText = "Tracking Number"
-            objtextcol.Alignment = HorizontalAlignment.Center
-            objtextcol.Width = 110
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    2
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReceivedDate"
-            objtextcol.HeaderText = "Date Received"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    3
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReviewingEngineer"
-            objtextcol.HeaderText = "Reviewing Engineer"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    4
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strPostMarkedOnTime"
-            objtextcol.HeaderText = "Postmarked On Time"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    5
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "PostmarkDate"
-            objtextcol.HeaderText = "Date Postmarked"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    6
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strSignedByRO"
-            objtextcol.HeaderText = "Signed by Responsible Official"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    7
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strCorrectACCForms"
-            objtextcol.HeaderText = "Correct Forms Used"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    8
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strTitleVConditionsListed"
-            objtextcol.HeaderText = "Listed Title V Conditions"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    9
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strACCCorrectlyFilledOut"
-            objtextcol.HeaderText = "ACC Correctly Filled Out"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    10
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strReportedDeviations"
-            objtextcol.HeaderText = "Deviations Reported"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    11
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strDeviationsUnreported"
-            objtextcol.HeaderText = "Any Unreported Deviations"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    12
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strEnforcementNeeded"
-            objtextcol.HeaderText = "Enforcement Needed"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    13
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "CompleteDate"
-            objtextcol.HeaderText = "Date Completed"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    14
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strComments"
-            objtextcol.HeaderText = "Comments"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrFCEACC.TableStyles.Clear()
-            dgrFCEACC.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrFCEACC.CaptionText = "Title V Annual Certifications"
-            dgrFCEACC.ColumnHeadersVisible = True
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-    End Sub
-
-    Private Sub FormatFCEReports()
-        Try
-
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As DataGridTextBoxColumn
-            'Dim objDateCol As New DataGridTimePickerColumn
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-            objGrid.RowHeadersVisible = False
-
-            'Setting the Column Headings  1
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strTrackingNumber"
-            objtextcol.HeaderText = "Tracking Number"
-            objtextcol.Alignment = HorizontalAlignment.Center
-            objtextcol.Width = 110
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    2
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReceivedDate"
-            objtextcol.HeaderText = "Date Received"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    3
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strReportPeriod"
-            objtextcol.HeaderText = "Reporting Period"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    4
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReportingStartDate"
-            objtextcol.HeaderText = "Report Start Date"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    5
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReportingEndDate"
-            objtextcol.HeaderText = "Report End Date"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    6
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strReportingPeriodComments"
-            objtextcol.HeaderText = "Reporting Period Comments"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 225
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    7
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReportDueDate"
-            objtextcol.HeaderText = "Report Due Date"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    8
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "DateSentByFacility"
-            objtextcol.HeaderText = "Date Report Sent by Facility"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    9
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strCompleteStatus"
-            objtextcol.HeaderText = "Report Complete Status"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    10
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strEnforcementNeeded"
-            objtextcol.HeaderText = "Enforcement Needed"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    11
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strShowDeviation"
-            objtextcol.HeaderText = "Deviations"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    12
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strGeneralComments"
-            objtextcol.HeaderText = "Comments"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrFCEReports.TableStyles.Clear()
-            dgrFCEReports.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrFCEReports.CaptionText = "Reports"
-            dgrFCEReports.ColumnHeadersVisible = True
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-    End Sub
-
-    Private Sub FormatFCECorrespondance()
-        Try
-
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As DataGridTextBoxColumn
-            'Dim objDateCol As New DataGridTimePickerColumn
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-            objGrid.RowHeadersVisible = False
-
-            'Setting the Column Headings  1
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strTrackingNumber"
-            objtextcol.HeaderText = "Tracking Number"
-            objtextcol.Alignment = HorizontalAlignment.Center
-            objtextcol.Width = 110
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    2
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReceivedDate"
-            objtextcol.HeaderText = "Date Received"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    3
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "NotificationDate"
-            objtextcol.HeaderText = "Notification Due Date"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    4
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "NotificationSent"
-            objtextcol.HeaderText = "Date Notification Sent"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    5
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "Notification"
-            objtextcol.HeaderText = "Notification Type"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    6
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strNotificationComment"
-            objtextcol.HeaderText = "Comments"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 225
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrFCECorrespondance.TableStyles.Clear()
-            dgrFCECorrespondance.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrFCECorrespondance.CaptionText = "Notifications"
-            dgrFCECorrespondance.ColumnHeadersVisible = True
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub FormatISMPSummaryReports()
-        Try
-
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As DataGridTextBoxColumn
-            'Dim objDateCol As New DataGridTimePickerColumn
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-            objGrid.RowHeadersVisible = False
-
-            'Setting the Column Headings  1
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strReferenceNumber"
-            objtextcol.HeaderText = "Reference Number"
-            objtextcol.Alignment = HorizontalAlignment.Center
-            objtextcol.Width = 110
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    2
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strEmissionSource"
-            objtextcol.HeaderText = "Emission Source"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    3
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strPollutantDescription"
-            objtextcol.HeaderText = "Pollutant"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    4
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strReportType"
-            objtextcol.HeaderText = "Report Type"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 100
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings     5
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strDocumentType"
-            objtextcol.HeaderText = "Document Type"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    6 
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strUnitTitle"
-            objtextcol.HeaderText = "Reviewing Unit"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 120
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    7
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReviewingEngineer"
-            objtextcol.HeaderText = "Reviewing Engineer"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    8
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "TestDateStart"
-            objtextcol.HeaderText = "Test Date"
-            objtextcol.Alignment = HorizontalAlignment.Center
-            objtextcol.Width = 90
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings     9
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReceivedDate"
-            objtextcol.HeaderText = "Received Date"
-            objtextcol.Alignment = HorizontalAlignment.Center
-            objtextcol.Width = 90
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    10
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "CompleteDate"
-            objtextcol.HeaderText = "Complete Date"
-            objtextcol.Alignment = HorizontalAlignment.Center
-            objtextcol.Width = 90
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    11
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "Status"
-            objtextcol.HeaderText = "Report Open/Closed"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 110
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings     12
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strComplianceStatus"
-            objtextcol.HeaderText = "Compliance Status"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 180
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings     13
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "mmoCommentAREA"
-            objtextcol.HeaderText = "Comment Field"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 400
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrISMPSummaryReports.TableStyles.Clear()
-            dgrISMPSummaryReports.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrISMPSummaryReports.CaptionText = "Performance Tests"
-            dgrISMPSummaryReports.ColumnHeadersVisible = True
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub FormatFCEEnforcement()
-        Try
-
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As DataGridTextBoxColumn
-            'Dim objDateCol As New DataGridTimePickerColumn
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-            objGrid.RowHeadersVisible = False
-
-            'Setting the Column Headings  1
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strEnforcementNumber"
-            objtextcol.HeaderText = "Enforcement Number"
-            objtextcol.Alignment = HorizontalAlignment.Center
-            objtextcol.Width = 110
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    2
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strActionType"
-            objtextcol.HeaderText = "Enforcement Type"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    3
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "EnforcementFinalized"
-            objtextcol.HeaderText = "Enforcement Resolved"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    4
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "StaffResponsible"
-            objtextcol.HeaderText = "Staff Responsible"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrFCEEnforcement.TableStyles.Clear()
-            dgrFCEEnforcement.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrFCEEnforcement.CaptionText = "Enforcement Activity"
-            dgrFCEEnforcement.ColumnHeadersVisible = True
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub FormatFCEPerformanceTests()
-        Try
-
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As DataGridTextBoxColumn
-            'Dim objDateCol As New DataGridTimePickerColumn
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-            objGrid.RowHeadersVisible = False
-
-            'Setting the Column Headings  1
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strTrackingNumber"
-            objtextcol.HeaderText = "Tracking Number"
-            objtextcol.Alignment = HorizontalAlignment.Center
-            objtextcol.Width = 110
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    2
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReceivedDate"
-            objtextcol.HeaderText = "Date Received"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    3
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReviewingEngineer"
-            objtextcol.HeaderText = "Staff Responsible"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    4
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strReferenceNumber"
-            objtextcol.HeaderText = "ISMP Reference Number"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    5
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "CompleteDate"
-            objtextcol.HeaderText = "Complete Date"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    6
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strTestReportFollowUp"
-            objtextcol.HeaderText = "Enforcement Needed"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Setting the Column Headings    7
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strTestReportComments"
-            objtextcol.HeaderText = "Comments"
-            objtextcol.Alignment = HorizontalAlignment.Left
-            objtextcol.Width = 135
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrPerformanceTests.TableStyles.Clear()
-            dgrPerformanceTests.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrPerformanceTests.CaptionText = "Performance Tests"
-            dgrPerformanceTests.ColumnHeadersVisible = True
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        Dim dt As DataTable = DB.GetDataTable(SQL, paramWithDates)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+            dgrFCEEnforcement.DataSource = dt
+            dgrFCEEnforcement.Columns("strEnforcementNumber").HeaderText = "Enforcement Number"
+            dgrFCEEnforcement.Columns("strActionType").HeaderText = "Enforcement Type"
+            dgrFCEEnforcement.Columns("EnforcementFinalized").HeaderText = "Enforcement Resolved"
+            dgrFCEEnforcement.Columns("StaffResponsible").HeaderText = "Staff Responsible"
+            dgrFCEEnforcement.SanelyResizeColumns
+        End If
     End Sub
 
 #End Region
@@ -1152,8 +507,6 @@ Public Class SSCPFCEWork
 
     Private Sub llbViewFCEData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewFCEData.LinkClicked
         LoadFCEInspectionData()
-        FormatFCEInspection()
-        FormatFCEACC()
         LoadFCEACCData()
         LoadFCEReports()
         LoadFCECorrespondance()
@@ -1167,11 +520,11 @@ Public Class SSCPFCEWork
 #Region " DataGrid mouse events "
 
     Private Sub dgrFCEACC_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrFCEACC.MouseUp
-        Dim hti As DataGrid.HitTestInfo = dgrFCEACC.HitTest(e.X, e.Y)
+        Dim hti As DataGridView.HitTestInfo = dgrFCEACC.HitTest(e.X, e.Y)
         Try
-            If hti.Type = DataGrid.HitTestType.Cell Then
+            If hti.Type = DataGridViewHitTestType.Cell Then
 
-                txtACCTrackingNumber.Text = dgrFCEACC(hti.Row, 0)
+                txtACCTrackingNumber.Text = dgrFCEACC(0, hti.RowIndex).Value.ToString
             End If
         Catch ex As Exception
             ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1179,10 +532,10 @@ Public Class SSCPFCEWork
     End Sub
 
     Private Sub dgrFCECorrespondance_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrFCECorrespondance.MouseUp
-        Dim hti As DataGrid.HitTestInfo = dgrFCECorrespondance.HitTest(e.X, e.Y)
+        Dim hti As DataGridView.HitTestInfo = dgrFCECorrespondance.HitTest(e.X, e.Y)
         Try
-            If hti.Type = DataGrid.HitTestType.Cell Then
-                txtNotificationTrackingNumber.Text = dgrFCECorrespondance(hti.Row, 0)
+            If hti.Type = DataGridViewHitTestType.Cell Then
+                txtNotificationTrackingNumber.Text = dgrFCECorrespondance(0, hti.RowIndex).Value.ToString
             End If
         Catch ex As Exception
             ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1190,10 +543,10 @@ Public Class SSCPFCEWork
     End Sub
 
     Private Sub dgrFCEEnforcement_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrFCEEnforcement.MouseUp
-        Dim hti As DataGrid.HitTestInfo = dgrFCEEnforcement.HitTest(e.X, e.Y)
+        Dim hti As DataGridView.HitTestInfo = dgrFCEEnforcement.HitTest(e.X, e.Y)
         Try
-            If hti.Type = DataGrid.HitTestType.Cell Then
-                txtEnforcement.Text = dgrFCEEnforcement(hti.Row, 0)
+            If hti.Type = DataGridViewHitTestType.Cell Then
+                txtEnforcement.Text = dgrFCEEnforcement(0, hti.RowIndex).Value.ToString
             End If
         Catch ex As Exception
             ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1201,10 +554,10 @@ Public Class SSCPFCEWork
     End Sub
 
     Private Sub dgrFCEInspections_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrFCEInspections.MouseUp
-        Dim hti As DataGrid.HitTestInfo = dgrFCEInspections.HitTest(e.X, e.Y)
+        Dim hti As DataGridView.HitTestInfo = dgrFCEInspections.HitTest(e.X, e.Y)
         Try
-            If hti.Type = DataGrid.HitTestType.Cell Then
-                txtInspectionTrackingNumber.Text = dgrFCEInspections(hti.Row, 0)
+            If hti.Type = DataGridViewHitTestType.Cell Then
+                txtInspectionTrackingNumber.Text = dgrFCEInspections(0, hti.RowIndex).Value.ToString
             End If
         Catch ex As Exception
             ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1212,10 +565,10 @@ Public Class SSCPFCEWork
     End Sub
 
     Private Sub dgrISMPSummaryReports_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrISMPSummaryReports.MouseUp
-        Dim hti As DataGrid.HitTestInfo = dgrISMPSummaryReports.HitTest(e.X, e.Y)
+        Dim hti As DataGridView.HitTestInfo = dgrISMPSummaryReports.HitTest(e.X, e.Y)
         Try
-            If hti.Type = DataGrid.HitTestType.Cell Then
-                txtISMPReferenceNumber.Text = dgrISMPSummaryReports(hti.Row, 0)
+            If hti.Type = DataGridViewHitTestType.Cell Then
+                txtISMPReferenceNumber.Text = dgrISMPSummaryReports(0, hti.RowIndex).Value.ToString
             End If
         Catch ex As Exception
             ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1223,10 +576,10 @@ Public Class SSCPFCEWork
     End Sub
 
     Private Sub dgrFCEReports_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrFCEReports.MouseUp
-        Dim hti As DataGrid.HitTestInfo = dgrFCEReports.HitTest(e.X, e.Y)
+        Dim hti As DataGridView.HitTestInfo = dgrFCEReports.HitTest(e.X, e.Y)
         Try
-            If hti.Type = DataGrid.HitTestType.Cell Then
-                txtReportTrackingNumber.Text = dgrFCEReports(hti.Row, 0)
+            If hti.Type = DataGridViewHitTestType.Cell Then
+                txtReportTrackingNumber.Text = dgrFCEReports(0, hti.RowIndex).Value.ToString
             End If
         Catch ex As Exception
             ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1234,10 +587,10 @@ Public Class SSCPFCEWork
     End Sub
 
     Private Sub dgrPerformanceTests_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrPerformanceTests.MouseUp
-        Dim hti As DataGrid.HitTestInfo = dgrPerformanceTests.HitTest(e.X, e.Y)
+        Dim hti As DataGridView.HitTestInfo = dgrPerformanceTests.HitTest(e.X, e.Y)
         Try
-            If hti.Type = DataGrid.HitTestType.Cell Then
-                txtPerformanceTests.Text = dgrPerformanceTests(hti.Row, 0)
+            If hti.Type = DataGridViewHitTestType.Cell Then
+                txtPerformanceTests.Text = dgrPerformanceTests(0, hti.RowIndex).Value.ToString
             End If
         Catch ex As Exception
             ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

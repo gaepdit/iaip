@@ -11,6 +11,13 @@ Partial Class SSCPFCEWork
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.MenuFile = New System.Windows.Forms.MenuItem()
         Me.MenuSave = New System.Windows.Forms.MenuItem()
@@ -18,44 +25,44 @@ Partial Class SSCPFCEWork
         Me.MenuClose = New System.Windows.Forms.MenuItem()
         Me.ReviewDataTabs = New System.Windows.Forms.TabControl()
         Me.TPInspections = New System.Windows.Forms.TabPage()
-        Me.dgrFCEInspections = New System.Windows.Forms.DataGrid()
+        Me.dgrFCEInspections = New Iaip.IaipDataGridView()
         Me.PanelFCE = New System.Windows.Forms.Panel()
         Me.llbFCEInspections = New System.Windows.Forms.LinkLabel()
         Me.txtInspectionTrackingNumber = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.TPCorrespondance = New System.Windows.Forms.TabPage()
         Me.PanelNotifications = New System.Windows.Forms.Panel()
-        Me.dgrFCECorrespondance = New System.Windows.Forms.DataGrid()
+        Me.dgrFCECorrespondance = New Iaip.IaipDataGridView()
         Me.PanelFCENotifications = New System.Windows.Forms.Panel()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.txtNotificationTrackingNumber = New System.Windows.Forms.TextBox()
         Me.llbNotification = New System.Windows.Forms.LinkLabel()
         Me.TPTitleVACC = New System.Windows.Forms.TabPage()
-        Me.dgrFCEACC = New System.Windows.Forms.DataGrid()
+        Me.dgrFCEACC = New Iaip.IaipDataGridView()
         Me.PanelFCE3 = New System.Windows.Forms.Panel()
         Me.llbFCEACC = New System.Windows.Forms.LinkLabel()
         Me.txtACCTrackingNumber = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.TPReports = New System.Windows.Forms.TabPage()
-        Me.dgrFCEReports = New System.Windows.Forms.DataGrid()
+        Me.dgrFCEReports = New Iaip.IaipDataGridView()
         Me.PanelFCE2 = New System.Windows.Forms.Panel()
         Me.llbFCEReports = New System.Windows.Forms.LinkLabel()
         Me.txtReportTrackingNumber = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TPISMPSummaryReports = New System.Windows.Forms.TabPage()
-        Me.dgrISMPSummaryReports = New System.Windows.Forms.DataGrid()
+        Me.dgrISMPSummaryReports = New Iaip.IaipDataGridView()
         Me.PanelFCE5 = New System.Windows.Forms.Panel()
         Me.llbISMPSummaryReports = New System.Windows.Forms.LinkLabel()
         Me.txtISMPReferenceNumber = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.TPPerformanceTests = New System.Windows.Forms.TabPage()
-        Me.dgrPerformanceTests = New System.Windows.Forms.DataGrid()
+        Me.dgrPerformanceTests = New Iaip.IaipDataGridView()
         Me.PanelPerformanceTests = New System.Windows.Forms.Panel()
         Me.llbPerformanceTests = New System.Windows.Forms.LinkLabel()
         Me.txtPerformanceTests = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TPEnforcement = New System.Windows.Forms.TabPage()
-        Me.dgrFCEEnforcement = New System.Windows.Forms.DataGrid()
+        Me.dgrFCEEnforcement = New Iaip.IaipDataGridView()
         Me.PanelEnforcement = New System.Windows.Forms.Panel()
         Me.llbFCEEnforcement = New System.Windows.Forms.LinkLabel()
         Me.txtEnforcement = New System.Windows.Forms.TextBox()
@@ -181,14 +188,18 @@ Partial Class SSCPFCEWork
         '
         'dgrFCEInspections
         '
-        Me.dgrFCEInspections.DataMember = ""
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCEInspections.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgrFCEInspections.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCEInspections.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrFCEInspections.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgrFCEInspections.HeaderForeColor = System.Drawing.SystemColors.ControlText
+        Me.dgrFCEInspections.LinkifyColumnByName = Nothing
         Me.dgrFCEInspections.Location = New System.Drawing.Point(0, 39)
         Me.dgrFCEInspections.Name = "dgrFCEInspections"
-        Me.dgrFCEInspections.ReadOnly = True
+        Me.dgrFCEInspections.ResultsCountLabel = Nothing
+        Me.dgrFCEInspections.ResultsCountLabelFormat = "{0} found"
         Me.dgrFCEInspections.Size = New System.Drawing.Size(849, 142)
+        Me.dgrFCEInspections.StandardTab = True
         Me.dgrFCEInspections.TabIndex = 3
         '
         'PanelFCE
@@ -253,13 +264,17 @@ Partial Class SSCPFCEWork
         '
         'dgrFCECorrespondance
         '
-        Me.dgrFCECorrespondance.DataMember = ""
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCECorrespondance.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        Me.dgrFCECorrespondance.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCECorrespondance.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgrFCECorrespondance.HeaderForeColor = System.Drawing.SystemColors.ControlText
+        Me.dgrFCECorrespondance.LinkifyColumnByName = Nothing
         Me.dgrFCECorrespondance.Location = New System.Drawing.Point(0, 40)
         Me.dgrFCECorrespondance.Name = "dgrFCECorrespondance"
-        Me.dgrFCECorrespondance.ReadOnly = True
+        Me.dgrFCECorrespondance.ResultsCountLabel = Nothing
+        Me.dgrFCECorrespondance.ResultsCountLabelFormat = "{0} found"
         Me.dgrFCECorrespondance.Size = New System.Drawing.Size(849, 141)
+        Me.dgrFCECorrespondance.StandardTab = True
         Me.dgrFCECorrespondance.TabIndex = 8
         '
         'PanelFCENotifications
@@ -315,13 +330,17 @@ Partial Class SSCPFCEWork
         '
         'dgrFCEACC
         '
-        Me.dgrFCEACC.DataMember = ""
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCEACC.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgrFCEACC.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCEACC.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgrFCEACC.HeaderForeColor = System.Drawing.SystemColors.ControlText
+        Me.dgrFCEACC.LinkifyColumnByName = Nothing
         Me.dgrFCEACC.Location = New System.Drawing.Point(0, 40)
         Me.dgrFCEACC.Name = "dgrFCEACC"
-        Me.dgrFCEACC.ReadOnly = True
+        Me.dgrFCEACC.ResultsCountLabel = Nothing
+        Me.dgrFCEACC.ResultsCountLabelFormat = "{0} found"
         Me.dgrFCEACC.Size = New System.Drawing.Size(849, 141)
+        Me.dgrFCEACC.StandardTab = True
         Me.dgrFCEACC.TabIndex = 3
         '
         'PanelFCE3
@@ -378,14 +397,18 @@ Partial Class SSCPFCEWork
         '
         'dgrFCEReports
         '
-        Me.dgrFCEReports.DataMember = ""
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCEReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        Me.dgrFCEReports.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCEReports.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrFCEReports.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgrFCEReports.HeaderForeColor = System.Drawing.SystemColors.ControlText
+        Me.dgrFCEReports.LinkifyColumnByName = Nothing
         Me.dgrFCEReports.Location = New System.Drawing.Point(0, 40)
         Me.dgrFCEReports.Name = "dgrFCEReports"
-        Me.dgrFCEReports.ReadOnly = True
+        Me.dgrFCEReports.ResultsCountLabel = Nothing
+        Me.dgrFCEReports.ResultsCountLabelFormat = "{0} found"
         Me.dgrFCEReports.Size = New System.Drawing.Size(849, 141)
+        Me.dgrFCEReports.StandardTab = True
         Me.dgrFCEReports.TabIndex = 2
         '
         'PanelFCE2
@@ -441,14 +464,17 @@ Partial Class SSCPFCEWork
         '
         'dgrISMPSummaryReports
         '
-        Me.dgrISMPSummaryReports.CaptionFont = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgrISMPSummaryReports.DataMember = ""
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrISMPSummaryReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        Me.dgrISMPSummaryReports.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrISMPSummaryReports.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgrISMPSummaryReports.HeaderForeColor = System.Drawing.SystemColors.ControlText
+        Me.dgrISMPSummaryReports.LinkifyColumnByName = Nothing
         Me.dgrISMPSummaryReports.Location = New System.Drawing.Point(0, 40)
         Me.dgrISMPSummaryReports.Name = "dgrISMPSummaryReports"
-        Me.dgrISMPSummaryReports.ReadOnly = True
+        Me.dgrISMPSummaryReports.ResultsCountLabel = Nothing
+        Me.dgrISMPSummaryReports.ResultsCountLabelFormat = "{0} found"
         Me.dgrISMPSummaryReports.Size = New System.Drawing.Size(849, 141)
+        Me.dgrISMPSummaryReports.StandardTab = True
         Me.dgrISMPSummaryReports.TabIndex = 4
         '
         'PanelFCE5
@@ -504,14 +530,18 @@ Partial Class SSCPFCEWork
         '
         'dgrPerformanceTests
         '
-        Me.dgrPerformanceTests.DataMember = ""
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrPerformanceTests.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        Me.dgrPerformanceTests.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrPerformanceTests.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrPerformanceTests.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgrPerformanceTests.HeaderForeColor = System.Drawing.SystemColors.ControlText
+        Me.dgrPerformanceTests.LinkifyColumnByName = Nothing
         Me.dgrPerformanceTests.Location = New System.Drawing.Point(0, 40)
         Me.dgrPerformanceTests.Name = "dgrPerformanceTests"
-        Me.dgrPerformanceTests.ReadOnly = True
+        Me.dgrPerformanceTests.ResultsCountLabel = Nothing
+        Me.dgrPerformanceTests.ResultsCountLabelFormat = "{0} found"
         Me.dgrPerformanceTests.Size = New System.Drawing.Size(849, 141)
+        Me.dgrPerformanceTests.StandardTab = True
         Me.dgrPerformanceTests.TabIndex = 4
         '
         'PanelPerformanceTests
@@ -567,13 +597,17 @@ Partial Class SSCPFCEWork
         '
         'dgrFCEEnforcement
         '
-        Me.dgrFCEEnforcement.DataMember = ""
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCEEnforcement.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        Me.dgrFCEEnforcement.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCEEnforcement.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgrFCEEnforcement.HeaderForeColor = System.Drawing.SystemColors.ControlText
+        Me.dgrFCEEnforcement.LinkifyColumnByName = Nothing
         Me.dgrFCEEnforcement.Location = New System.Drawing.Point(0, 40)
         Me.dgrFCEEnforcement.Name = "dgrFCEEnforcement"
-        Me.dgrFCEEnforcement.ReadOnly = True
+        Me.dgrFCEEnforcement.ResultsCountLabel = Nothing
+        Me.dgrFCEEnforcement.ResultsCountLabelFormat = "{0} found"
         Me.dgrFCEEnforcement.Size = New System.Drawing.Size(849, 141)
+        Me.dgrFCEEnforcement.StandardTab = True
         Me.dgrFCEEnforcement.TabIndex = 2
         '
         'PanelEnforcement
@@ -970,44 +1004,44 @@ Partial Class SSCPFCEWork
     Friend WithEvents TbbPrint As System.Windows.Forms.ToolBarButton
     Friend WithEvents ReviewDataTabs As System.Windows.Forms.TabControl
     Friend WithEvents TPInspections As System.Windows.Forms.TabPage
-    Friend WithEvents dgrFCEInspections As System.Windows.Forms.DataGrid
+    Friend WithEvents dgrFCEInspections As IaipDataGridView
     Friend WithEvents PanelFCE As System.Windows.Forms.Panel
     Friend WithEvents llbFCEInspections As System.Windows.Forms.LinkLabel
     Friend WithEvents txtInspectionTrackingNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents TPCorrespondance As System.Windows.Forms.TabPage
     Friend WithEvents PanelNotifications As System.Windows.Forms.Panel
-    Friend WithEvents dgrFCECorrespondance As System.Windows.Forms.DataGrid
+    Friend WithEvents dgrFCECorrespondance As IaipDataGridView
     Friend WithEvents PanelFCENotifications As System.Windows.Forms.Panel
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents txtNotificationTrackingNumber As System.Windows.Forms.TextBox
     Friend WithEvents llbNotification As System.Windows.Forms.LinkLabel
     Friend WithEvents TPTitleVACC As System.Windows.Forms.TabPage
-    Friend WithEvents dgrFCEACC As System.Windows.Forms.DataGrid
+    Friend WithEvents dgrFCEACC As IaipDataGridView
     Friend WithEvents PanelFCE3 As System.Windows.Forms.Panel
     Friend WithEvents llbFCEACC As System.Windows.Forms.LinkLabel
     Friend WithEvents txtACCTrackingNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents TPReports As System.Windows.Forms.TabPage
-    Friend WithEvents dgrFCEReports As System.Windows.Forms.DataGrid
+    Friend WithEvents dgrFCEReports As IaipDataGridView
     Friend WithEvents PanelFCE2 As System.Windows.Forms.Panel
     Friend WithEvents llbFCEReports As System.Windows.Forms.LinkLabel
     Friend WithEvents txtReportTrackingNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents TPISMPSummaryReports As System.Windows.Forms.TabPage
-    Friend WithEvents dgrISMPSummaryReports As System.Windows.Forms.DataGrid
+    Friend WithEvents dgrISMPSummaryReports As IaipDataGridView
     Friend WithEvents PanelFCE5 As System.Windows.Forms.Panel
     Friend WithEvents llbISMPSummaryReports As System.Windows.Forms.LinkLabel
     Friend WithEvents txtISMPReferenceNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents TPPerformanceTests As System.Windows.Forms.TabPage
-    Friend WithEvents dgrPerformanceTests As System.Windows.Forms.DataGrid
+    Friend WithEvents dgrPerformanceTests As IaipDataGridView
     Friend WithEvents PanelPerformanceTests As System.Windows.Forms.Panel
     Friend WithEvents llbPerformanceTests As System.Windows.Forms.LinkLabel
     Friend WithEvents txtPerformanceTests As System.Windows.Forms.TextBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents TPEnforcement As System.Windows.Forms.TabPage
-    Friend WithEvents dgrFCEEnforcement As System.Windows.Forms.DataGrid
+    Friend WithEvents dgrFCEEnforcement As IaipDataGridView
     Friend WithEvents PanelEnforcement As System.Windows.Forms.Panel
     Friend WithEvents llbFCEEnforcement As System.Windows.Forms.LinkLabel
     Friend WithEvents txtEnforcement As System.Windows.Forms.TextBox
