@@ -4542,10 +4542,6 @@ Public Class ISMPConfidentialData
         End Try
     End Sub
 
-    Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
-        SaveConfidentialData()
-    End Sub
-
     Private Sub mmiSave_Click(sender As Object, e As EventArgs) Handles mmiSave.Click
         SaveConfidentialData()
     End Sub
