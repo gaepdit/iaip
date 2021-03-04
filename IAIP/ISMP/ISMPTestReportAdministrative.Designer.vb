@@ -10,58 +10,47 @@ Partial Class ISMPTestReportAdministrative
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
-        Me.MmiSave = New System.Windows.Forms.MenuItem()
-        Me.MenuItem7 = New System.Windows.Forms.MenuItem()
-        Me.MmiReferenceNumber = New System.Windows.Forms.MenuItem()
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
-        Me.MmiClear = New System.Windows.Forms.MenuItem()
-        Me.MenuItem6 = New System.Windows.Forms.MenuItem()
-        Me.MmiDelete = New System.Windows.Forms.MenuItem()
-        Me.MenuItem3 = New System.Windows.Forms.MenuItem()
-        Me.MmiOpenRecords = New System.Windows.Forms.MenuItem()
-        Me.MmiClosedRecords = New System.Windows.Forms.MenuItem()
-        Me.MenuItem12 = New System.Windows.Forms.MenuItem()
-        Me.MmiViewByTestType = New System.Windows.Forms.MenuItem()
-        Me.MmiAllTestReports = New System.Windows.Forms.MenuItem()
-        Me.MenuItem10 = New System.Windows.Forms.MenuItem()
-        Me.MmiUnassigned = New System.Windows.Forms.MenuItem()
-        Me.MenuItem29 = New System.Windows.Forms.MenuItem()
-        Me.MmiOneStackTwoRun = New System.Windows.Forms.MenuItem()
-        Me.MmiOneStackThreeRun = New System.Windows.Forms.MenuItem()
-        Me.MmiOneStackFourRun = New System.Windows.Forms.MenuItem()
-        Me.MenuItem30 = New System.Windows.Forms.MenuItem()
-        Me.MmiTwoStackStandard = New System.Windows.Forms.MenuItem()
-        Me.MmiTwoStackDRE = New System.Windows.Forms.MenuItem()
-        Me.MenuItem31 = New System.Windows.Forms.MenuItem()
-        Me.MmiLoadingRack = New System.Windows.Forms.MenuItem()
-        Me.MmiFlare = New System.Windows.Forms.MenuItem()
-        Me.MenuItem32 = New System.Windows.Forms.MenuItem()
-        Me.MmiPondTreatment = New System.Windows.Forms.MenuItem()
-        Me.MmiGasConcentration = New System.Windows.Forms.MenuItem()
-        Me.MenuItem33 = New System.Windows.Forms.MenuItem()
-        Me.MmiRata = New System.Windows.Forms.MenuItem()
-        Me.MmiPEMS = New System.Windows.Forms.MenuItem()
-        Me.MenuItem34 = New System.Windows.Forms.MenuItem()
-        Me.MmiMemoStandard = New System.Windows.Forms.MenuItem()
-        Me.MmiMemoToFile = New System.Windows.Forms.MenuItem()
-        Me.MmiMemoPTE = New System.Windows.Forms.MenuItem()
-        Me.MenuItem35 = New System.Windows.Forms.MenuItem()
-        Me.MmiMethod9Single = New System.Windows.Forms.MenuItem()
-        Me.MmiMethod9Multi = New System.Windows.Forms.MenuItem()
-        Me.MmiMethod22 = New System.Windows.Forms.MenuItem()
-        Me.MenuItem14 = New System.Windows.Forms.MenuItem()
-        Me.MmiShowDeletedRecords = New System.Windows.Forms.MenuItem()
-        Me.MenuItem13 = New System.Windows.Forms.MenuItem()
-        Me.MmiViewByFacility = New System.Windows.Forms.MenuItem()
-        Me.MenuItem4 = New System.Windows.Forms.MenuItem()
-        Me.MmiShowToolbar = New System.Windows.Forms.MenuItem()
-        Me.MenuItem5 = New System.Windows.Forms.MenuItem()
-        Me.mmiMemo = New System.Windows.Forms.MenuItem()
-        Me.mmiAddTestingFirm = New System.Windows.Forms.MenuItem()
-        Me.mmiRefreshLists = New System.Windows.Forms.MenuItem()
+        Me.MainMenu1 = New System.Windows.Forms.MenuStrip()
+        Me.MenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiSave = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MmiReferenceNumber = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiClear = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MmiDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiOpenRecords = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiClosedRecords = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MmiViewByTestType = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiAllTestReports = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiUnassigned = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiOneStackTwoRun = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiOneStackThreeRun = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiOneStackFourRun = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiTwoStackStandard = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiTwoStackDRE = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiLoadingRack = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiFlare = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiPondTreatment = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiGasConcentration = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiRata = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiPEMS = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiMemoStandard = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiMemoToFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiMemoPTE = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiMethod9Single = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiMethod9Multi = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MmiMethod22 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MmiShowDeletedRecords = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MmiViewByFacility = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiMemo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiAddTestingFirm = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiRefreshLists = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnLoadCombos = New System.Windows.Forms.Button()
         Me.btnSearchForAIRS = New System.Windows.Forms.Button()
@@ -141,6 +130,15 @@ Partial Class ISMPTestReportAdministrative
         Me.OpenMemoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClearToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator9 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator12 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MainMenu1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GBRecordStatus.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -155,261 +153,285 @@ Partial Class ISMPTestReportAdministrative
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.MenuItem3, Me.MenuItem4})
+        Me.MainMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuItem1, Me.MenuItem2, Me.MenuItem3, Me.MenuItem4})
+        Me.MainMenu1.Location = New System.Drawing.Point(0, 0)
+        Me.MainMenu1.Name = "MainMenu1"
+        Me.MainMenu1.Size = New System.Drawing.Size(816, 24)
+        Me.MainMenu1.TabIndex = 0
         '
         'MenuItem1
         '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiSave, Me.MenuItem7, Me.MmiReferenceNumber})
-        Me.MenuItem1.Text = "File"
+        Me.MenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MmiSave, Me.ToolStripSeparator1, Me.MmiReferenceNumber})
+        Me.MenuItem1.MergeIndex = 0
+        Me.MenuItem1.Name = "MenuItem1"
+        Me.MenuItem1.Size = New System.Drawing.Size(37, 20)
+        Me.MenuItem1.Text = "&File"
         '
         'MmiSave
         '
-        Me.MmiSave.Index = 0
+        Me.MmiSave.MergeIndex = 0
+        Me.MmiSave.Name = "MmiSave"
+        Me.MmiSave.Size = New System.Drawing.Size(221, 22)
         Me.MmiSave.Text = "&Save"
         '
-        'MenuItem7
+        'ToolStripSeparator1
         '
-        Me.MenuItem7.Index = 1
-        Me.MenuItem7.Text = "-"
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(218, 6)
         '
         'MmiReferenceNumber
         '
-        Me.MmiReferenceNumber.Index = 2
+        Me.MmiReferenceNumber.MergeIndex = 2
+        Me.MmiReferenceNumber.Name = "MmiReferenceNumber"
+        Me.MmiReferenceNumber.Size = New System.Drawing.Size(221, 22)
         Me.MmiReferenceNumber.Text = "Get New Reference Number"
         '
         'MenuItem2
         '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiClear, Me.MenuItem6, Me.MmiDelete})
-        Me.MenuItem2.Text = "Edit"
+        Me.MenuItem2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MmiClear, Me.ToolStripSeparator2, Me.MmiDelete})
+        Me.MenuItem2.MergeIndex = 1
+        Me.MenuItem2.Name = "MenuItem2"
+        Me.MenuItem2.Size = New System.Drawing.Size(39, 20)
+        Me.MenuItem2.Text = "&Edit"
         '
         'MmiClear
         '
-        Me.MmiClear.Index = 0
+        Me.MmiClear.MergeIndex = 0
+        Me.MmiClear.Name = "MmiClear"
+        Me.MmiClear.Size = New System.Drawing.Size(180, 22)
         Me.MmiClear.Text = "Clear Page"
         '
-        'MenuItem6
+        'ToolStripSeparator2
         '
-        Me.MenuItem6.Index = 1
-        Me.MenuItem6.Text = "-"
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
         '
         'MmiDelete
         '
-        Me.MmiDelete.Index = 2
+        Me.MmiDelete.MergeIndex = 2
+        Me.MmiDelete.Name = "MmiDelete"
+        Me.MmiDelete.Size = New System.Drawing.Size(180, 22)
         Me.MmiDelete.Text = "Delete Record"
         '
         'MenuItem3
         '
-        Me.MenuItem3.Index = 2
-        Me.MenuItem3.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiOpenRecords, Me.MmiClosedRecords, Me.MenuItem12, Me.MmiViewByTestType, Me.MenuItem14, Me.MmiShowDeletedRecords, Me.MenuItem13, Me.MmiViewByFacility})
-        Me.MenuItem3.Text = "View"
+        Me.MenuItem3.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MmiOpenRecords, Me.MmiClosedRecords, Me.ToolStripSeparator3, Me.MmiViewByTestType, Me.ToolStripSeparator5, Me.MmiShowDeletedRecords, Me.ToolStripSeparator4, Me.MmiViewByFacility})
+        Me.MenuItem3.MergeIndex = 2
+        Me.MenuItem3.Name = "MenuItem3"
+        Me.MenuItem3.Size = New System.Drawing.Size(44, 20)
+        Me.MenuItem3.Text = "&View"
         '
         'MmiOpenRecords
         '
-        Me.MmiOpenRecords.Index = 0
+        Me.MmiOpenRecords.MergeIndex = 0
+        Me.MmiOpenRecords.Name = "MmiOpenRecords"
+        Me.MmiOpenRecords.Size = New System.Drawing.Size(187, 22)
         Me.MmiOpenRecords.Text = "View Open Records"
         '
         'MmiClosedRecords
         '
-        Me.MmiClosedRecords.Index = 1
+        Me.MmiClosedRecords.MergeIndex = 1
+        Me.MmiClosedRecords.Name = "MmiClosedRecords"
+        Me.MmiClosedRecords.Size = New System.Drawing.Size(187, 22)
         Me.MmiClosedRecords.Text = "View Closed Records"
         '
-        'MenuItem12
+        'ToolStripSeparator3
         '
-        Me.MenuItem12.Index = 2
-        Me.MenuItem12.Text = "-"
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(184, 6)
         '
         'MmiViewByTestType
         '
-        Me.MmiViewByTestType.Index = 3
-        Me.MmiViewByTestType.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiAllTestReports, Me.MenuItem10, Me.MmiUnassigned, Me.MenuItem29, Me.MmiOneStackTwoRun, Me.MmiOneStackThreeRun, Me.MmiOneStackFourRun, Me.MenuItem30, Me.MmiTwoStackStandard, Me.MmiTwoStackDRE, Me.MenuItem31, Me.MmiLoadingRack, Me.MmiFlare, Me.MenuItem32, Me.MmiPondTreatment, Me.MmiGasConcentration, Me.MenuItem33, Me.MmiRata, Me.MmiPEMS, Me.MenuItem34, Me.MmiMemoStandard, Me.MmiMemoToFile, Me.MmiMemoPTE, Me.MenuItem35, Me.MmiMethod9Single, Me.MmiMethod9Multi, Me.MmiMethod22})
+        Me.MmiViewByTestType.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MmiAllTestReports, Me.ToolStripSeparator13, Me.MmiUnassigned, Me.ToolStripSeparator12, Me.MmiOneStackTwoRun, Me.MmiOneStackThreeRun, Me.MmiOneStackFourRun, Me.ToolStripSeparator11, Me.MmiTwoStackStandard, Me.MmiTwoStackDRE, Me.ToolStripSeparator10, Me.MmiLoadingRack, Me.MmiFlare, Me.ToolStripSeparator9, Me.MmiPondTreatment, Me.MmiGasConcentration, Me.ToolStripSeparator8, Me.MmiRata, Me.MmiPEMS, Me.ToolStripSeparator7, Me.MmiMemoStandard, Me.MmiMemoToFile, Me.MmiMemoPTE, Me.ToolStripSeparator6, Me.MmiMethod9Single, Me.MmiMethod9Multi, Me.MmiMethod22})
+        Me.MmiViewByTestType.MergeIndex = 3
+        Me.MmiViewByTestType.Name = "MmiViewByTestType"
+        Me.MmiViewByTestType.Size = New System.Drawing.Size(187, 22)
         Me.MmiViewByTestType.Text = "View By Test Type"
         '
         'MmiAllTestReports
         '
-        Me.MmiAllTestReports.Index = 0
+        Me.MmiAllTestReports.MergeIndex = 0
+        Me.MmiAllTestReports.Name = "MmiAllTestReports"
+        Me.MmiAllTestReports.Size = New System.Drawing.Size(240, 22)
         Me.MmiAllTestReports.Text = "All Test Reports"
-        '
-        'MenuItem10
-        '
-        Me.MenuItem10.Index = 1
-        Me.MenuItem10.Text = "-"
         '
         'MmiUnassigned
         '
-        Me.MmiUnassigned.Index = 2
+        Me.MmiUnassigned.MergeIndex = 2
+        Me.MmiUnassigned.Name = "MmiUnassigned"
+        Me.MmiUnassigned.Size = New System.Drawing.Size(240, 22)
         Me.MmiUnassigned.Text = "Unassigned"
-        '
-        'MenuItem29
-        '
-        Me.MenuItem29.Index = 3
-        Me.MenuItem29.Text = "-"
         '
         'MmiOneStackTwoRun
         '
-        Me.MmiOneStackTwoRun.Index = 4
+        Me.MmiOneStackTwoRun.MergeIndex = 4
+        Me.MmiOneStackTwoRun.Name = "MmiOneStackTwoRun"
+        Me.MmiOneStackTwoRun.Size = New System.Drawing.Size(240, 22)
         Me.MmiOneStackTwoRun.Text = "One Stack (Two Runs)"
         '
         'MmiOneStackThreeRun
         '
-        Me.MmiOneStackThreeRun.Index = 5
+        Me.MmiOneStackThreeRun.MergeIndex = 5
+        Me.MmiOneStackThreeRun.Name = "MmiOneStackThreeRun"
+        Me.MmiOneStackThreeRun.Size = New System.Drawing.Size(240, 22)
         Me.MmiOneStackThreeRun.Text = "One Stack (Three Runs)"
         '
         'MmiOneStackFourRun
         '
-        Me.MmiOneStackFourRun.Index = 6
+        Me.MmiOneStackFourRun.MergeIndex = 6
+        Me.MmiOneStackFourRun.Name = "MmiOneStackFourRun"
+        Me.MmiOneStackFourRun.Size = New System.Drawing.Size(240, 22)
         Me.MmiOneStackFourRun.Text = "One Stack (Four Runs)"
-        '
-        'MenuItem30
-        '
-        Me.MenuItem30.Index = 7
-        Me.MenuItem30.Text = "-"
         '
         'MmiTwoStackStandard
         '
-        Me.MmiTwoStackStandard.Index = 8
+        Me.MmiTwoStackStandard.MergeIndex = 8
+        Me.MmiTwoStackStandard.Name = "MmiTwoStackStandard"
+        Me.MmiTwoStackStandard.Size = New System.Drawing.Size(240, 22)
         Me.MmiTwoStackStandard.Text = "Two Stack (Standard)"
         '
         'MmiTwoStackDRE
         '
-        Me.MmiTwoStackDRE.Index = 9
+        Me.MmiTwoStackDRE.MergeIndex = 9
+        Me.MmiTwoStackDRE.Name = "MmiTwoStackDRE"
+        Me.MmiTwoStackDRE.Size = New System.Drawing.Size(240, 22)
         Me.MmiTwoStackDRE.Text = "Two Stack (DRE)"
-        '
-        'MenuItem31
-        '
-        Me.MenuItem31.Index = 10
-        Me.MenuItem31.Text = "-"
         '
         'MmiLoadingRack
         '
-        Me.MmiLoadingRack.Index = 11
+        Me.MmiLoadingRack.MergeIndex = 11
+        Me.MmiLoadingRack.Name = "MmiLoadingRack"
+        Me.MmiLoadingRack.Size = New System.Drawing.Size(240, 22)
         Me.MmiLoadingRack.Text = "Loading Rack"
         '
         'MmiFlare
         '
-        Me.MmiFlare.Index = 12
+        Me.MmiFlare.MergeIndex = 12
+        Me.MmiFlare.Name = "MmiFlare"
+        Me.MmiFlare.Size = New System.Drawing.Size(240, 22)
         Me.MmiFlare.Text = "Flare"
-        '
-        'MenuItem32
-        '
-        Me.MenuItem32.Index = 13
-        Me.MenuItem32.Text = "-"
         '
         'MmiPondTreatment
         '
-        Me.MmiPondTreatment.Index = 14
+        Me.MmiPondTreatment.MergeIndex = 14
+        Me.MmiPondTreatment.Name = "MmiPondTreatment"
+        Me.MmiPondTreatment.Size = New System.Drawing.Size(240, 22)
         Me.MmiPondTreatment.Text = "Pond Treatment"
         '
         'MmiGasConcentration
         '
-        Me.MmiGasConcentration.Index = 15
+        Me.MmiGasConcentration.MergeIndex = 15
+        Me.MmiGasConcentration.Name = "MmiGasConcentration"
+        Me.MmiGasConcentration.Size = New System.Drawing.Size(240, 22)
         Me.MmiGasConcentration.Text = "Gas Concentration"
-        '
-        'MenuItem33
-        '
-        Me.MenuItem33.Index = 16
-        Me.MenuItem33.Text = "-"
         '
         'MmiRata
         '
-        Me.MmiRata.Index = 17
+        Me.MmiRata.MergeIndex = 17
+        Me.MmiRata.Name = "MmiRata"
+        Me.MmiRata.Size = New System.Drawing.Size(240, 22)
         Me.MmiRata.Text = "Rata"
         '
         'MmiPEMS
         '
-        Me.MmiPEMS.Index = 18
+        Me.MmiPEMS.MergeIndex = 18
+        Me.MmiPEMS.Name = "MmiPEMS"
+        Me.MmiPEMS.Size = New System.Drawing.Size(240, 22)
         Me.MmiPEMS.Text = "PEMS"
-        '
-        'MenuItem34
-        '
-        Me.MenuItem34.Index = 19
-        Me.MenuItem34.Text = "-"
         '
         'MmiMemoStandard
         '
-        Me.MmiMemoStandard.Index = 20
+        Me.MmiMemoStandard.MergeIndex = 20
+        Me.MmiMemoStandard.Name = "MmiMemoStandard"
+        Me.MmiMemoStandard.Size = New System.Drawing.Size(240, 22)
         Me.MmiMemoStandard.Text = "Memorandum (Standard)"
         '
         'MmiMemoToFile
         '
-        Me.MmiMemoToFile.Index = 21
+        Me.MmiMemoToFile.MergeIndex = 21
+        Me.MmiMemoToFile.Name = "MmiMemoToFile"
+        Me.MmiMemoToFile.Size = New System.Drawing.Size(240, 22)
         Me.MmiMemoToFile.Text = "Memorandum (To File)"
         '
         'MmiMemoPTE
         '
-        Me.MmiMemoPTE.Index = 22
+        Me.MmiMemoPTE.MergeIndex = 22
+        Me.MmiMemoPTE.Name = "MmiMemoPTE"
+        Me.MmiMemoPTE.Size = New System.Drawing.Size(240, 22)
         Me.MmiMemoPTE.Text = "PTE (Perminate Total Enclosure)"
-        '
-        'MenuItem35
-        '
-        Me.MenuItem35.Index = 23
-        Me.MenuItem35.Text = "-"
         '
         'MmiMethod9Single
         '
-        Me.MmiMethod9Single.Index = 24
+        Me.MmiMethod9Single.MergeIndex = 24
+        Me.MmiMethod9Single.Name = "MmiMethod9Single"
+        Me.MmiMethod9Single.Size = New System.Drawing.Size(240, 22)
         Me.MmiMethod9Single.Text = "Method 9 (Single)"
         '
         'MmiMethod9Multi
         '
-        Me.MmiMethod9Multi.Index = 25
+        Me.MmiMethod9Multi.MergeIndex = 25
+        Me.MmiMethod9Multi.Name = "MmiMethod9Multi"
+        Me.MmiMethod9Multi.Size = New System.Drawing.Size(240, 22)
         Me.MmiMethod9Multi.Text = "Method9 (Multi.)"
         '
         'MmiMethod22
         '
-        Me.MmiMethod22.Index = 26
+        Me.MmiMethod22.MergeIndex = 26
+        Me.MmiMethod22.Name = "MmiMethod22"
+        Me.MmiMethod22.Size = New System.Drawing.Size(240, 22)
         Me.MmiMethod22.Text = "Method 22"
         '
-        'MenuItem14
+        'ToolStripSeparator5
         '
-        Me.MenuItem14.Index = 4
-        Me.MenuItem14.Text = "-"
+        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(184, 6)
         '
         'MmiShowDeletedRecords
         '
-        Me.MmiShowDeletedRecords.Index = 5
+        Me.MmiShowDeletedRecords.MergeIndex = 5
+        Me.MmiShowDeletedRecords.Name = "MmiShowDeletedRecords"
+        Me.MmiShowDeletedRecords.Size = New System.Drawing.Size(187, 22)
         Me.MmiShowDeletedRecords.Text = "View Deleted Records"
         '
-        'MenuItem13
+        'ToolStripSeparator4
         '
-        Me.MenuItem13.Index = 6
-        Me.MenuItem13.Text = "-"
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(184, 6)
         '
         'MmiViewByFacility
         '
-        Me.MmiViewByFacility.Index = 7
+        Me.MmiViewByFacility.MergeIndex = 7
+        Me.MmiViewByFacility.Name = "MmiViewByFacility"
+        Me.MmiViewByFacility.Size = New System.Drawing.Size(187, 22)
         Me.MmiViewByFacility.Text = "View By Facility"
         '
         'MenuItem4
         '
-        Me.MenuItem4.Index = 3
-        Me.MenuItem4.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiShowToolbar, Me.MenuItem5, Me.mmiMemo, Me.mmiAddTestingFirm, Me.mmiRefreshLists})
-        Me.MenuItem4.Text = "Tools"
-        '
-        'MmiShowToolbar
-        '
-        Me.MmiShowToolbar.Index = 0
-        Me.MmiShowToolbar.Text = "Show Toolbar"
-        '
-        'MenuItem5
-        '
-        Me.MenuItem5.Index = 1
-        Me.MenuItem5.Text = "-"
+        Me.MenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiMemo, Me.mmiAddTestingFirm, Me.mmiRefreshLists})
+        Me.MenuItem4.MergeIndex = 3
+        Me.MenuItem4.Name = "MenuItem4"
+        Me.MenuItem4.Size = New System.Drawing.Size(46, 20)
+        Me.MenuItem4.Text = "&Tools"
         '
         'mmiMemo
         '
-        Me.mmiMemo.Index = 2
+        Me.mmiMemo.MergeIndex = 2
+        Me.mmiMemo.Name = "mmiMemo"
+        Me.mmiMemo.Size = New System.Drawing.Size(180, 22)
         Me.mmiMemo.Text = "Add Memo"
         '
         'mmiAddTestingFirm
         '
-        Me.mmiAddTestingFirm.Index = 3
+        Me.mmiAddTestingFirm.MergeIndex = 3
+        Me.mmiAddTestingFirm.Name = "mmiAddTestingFirm"
+        Me.mmiAddTestingFirm.Size = New System.Drawing.Size(180, 22)
         Me.mmiAddTestingFirm.Text = "Add Testing Firm"
         '
         'mmiRefreshLists
         '
-        Me.mmiRefreshLists.Index = 4
+        Me.mmiRefreshLists.MergeIndex = 4
+        Me.mmiRefreshLists.Name = "mmiRefreshLists"
+        Me.mmiRefreshLists.Size = New System.Drawing.Size(180, 22)
         Me.mmiRefreshLists.Text = "Refresh Lists"
         '
         'GroupBox1
@@ -835,9 +857,9 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.GroupBox2.Controls.Add(Me.dgvFacilityInfo)
         Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox2.Location = New System.Drawing.Point(0, 338)
+        Me.GroupBox2.Location = New System.Drawing.Point(0, 362)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(816, 207)
+        Me.GroupBox2.Size = New System.Drawing.Size(816, 183)
         Me.GroupBox2.TabIndex = 213
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Test Reports"
@@ -849,7 +871,7 @@ Partial Class ISMPTestReportAdministrative
         Me.dgvFacilityInfo.Location = New System.Drawing.Point(3, 16)
         Me.dgvFacilityInfo.Name = "dgvFacilityInfo"
         Me.dgvFacilityInfo.ReadOnly = True
-        Me.dgvFacilityInfo.Size = New System.Drawing.Size(810, 188)
+        Me.dgvFacilityInfo.Size = New System.Drawing.Size(810, 164)
         Me.dgvFacilityInfo.TabIndex = 213
         '
         'TCTestReports
@@ -857,7 +879,7 @@ Partial Class ISMPTestReportAdministrative
         Me.TCTestReports.Controls.Add(Me.TPNewTestReports)
         Me.TCTestReports.Controls.Add(Me.TPHistoricalReports)
         Me.TCTestReports.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TCTestReports.Location = New System.Drawing.Point(0, 24)
+        Me.TCTestReports.Location = New System.Drawing.Point(0, 48)
         Me.TCTestReports.Name = "TCTestReports"
         Me.TCTestReports.SelectedIndex = 0
         Me.TCTestReports.Size = New System.Drawing.Size(816, 314)
@@ -1144,7 +1166,7 @@ Partial Class ISMPTestReportAdministrative
         'MenuStrip1
         '
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveToolStripMenuItem, Me.SearchToolStripMenuItem, Me.OpenTestToolStripMenuItem, Me.OpenMemoToolStripMenuItem, Me.ClearToolStripMenuItem, Me.DeleteToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 24)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(816, 24)
         Me.MenuStrip1.TabIndex = 215
@@ -1186,6 +1208,46 @@ Partial Class ISMPTestReportAdministrative
         Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
         Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(28, 20)
         '
+        'ToolStripSeparator6
+        '
+        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(237, 6)
+        '
+        'ToolStripSeparator7
+        '
+        Me.ToolStripSeparator7.Name = "ToolStripSeparator7"
+        Me.ToolStripSeparator7.Size = New System.Drawing.Size(237, 6)
+        '
+        'ToolStripSeparator8
+        '
+        Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
+        Me.ToolStripSeparator8.Size = New System.Drawing.Size(237, 6)
+        '
+        'ToolStripSeparator9
+        '
+        Me.ToolStripSeparator9.Name = "ToolStripSeparator9"
+        Me.ToolStripSeparator9.Size = New System.Drawing.Size(237, 6)
+        '
+        'ToolStripSeparator10
+        '
+        Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
+        Me.ToolStripSeparator10.Size = New System.Drawing.Size(237, 6)
+        '
+        'ToolStripSeparator11
+        '
+        Me.ToolStripSeparator11.Name = "ToolStripSeparator11"
+        Me.ToolStripSeparator11.Size = New System.Drawing.Size(237, 6)
+        '
+        'ToolStripSeparator12
+        '
+        Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(237, 6)
+        '
+        'ToolStripSeparator13
+        '
+        Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
+        Me.ToolStripSeparator13.Size = New System.Drawing.Size(237, 6)
+        '
         'ISMPTestReportAdministrative
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1194,10 +1256,11 @@ Partial Class ISMPTestReportAdministrative
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.TCTestReports)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.MainMenuStrip = Me.MenuStrip1
-        Me.Menu = Me.MainMenu1
+        Me.Controls.Add(Me.MainMenu1)
         Me.Name = "ISMPTestReportAdministrative"
         Me.Text = "ISMP Test Report Administrative"
+        Me.MainMenu1.ResumeLayout(False)
+        Me.MainMenu1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GBRecordStatus.ResumeLayout(False)
@@ -1216,57 +1279,42 @@ Partial Class ISMPTestReportAdministrative
         Me.PerformLayout
 
 End Sub
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem7 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiReferenceNumber As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiClear As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem6 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiDelete As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiOpenRecords As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiClosedRecords As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem12 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiViewByTestType As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiAllTestReports As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem10 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiUnassigned As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem29 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiOneStackTwoRun As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiOneStackThreeRun As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiOneStackFourRun As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem30 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiTwoStackStandard As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiTwoStackDRE As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem31 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiLoadingRack As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiFlare As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem32 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiPondTreatment As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiGasConcentration As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem33 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiRata As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiPEMS As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem34 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiMemoStandard As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiMemoToFile As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiMemoPTE As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem35 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiMethod9Single As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiMethod9Multi As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiMethod22 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem14 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiShowDeletedRecords As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem13 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiViewByFacility As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiShowToolbar As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem5 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiMemo As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiAddTestingFirm As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiRefreshLists As System.Windows.Forms.MenuItem
+    Friend WithEvents MainMenu1 As System.Windows.Forms.MenuStrip
+    Friend WithEvents MenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiSave As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiReferenceNumber As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MenuItem2 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiClear As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiDelete As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MenuItem3 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiOpenRecords As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiClosedRecords As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiViewByTestType As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiAllTestReports As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiUnassigned As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiOneStackTwoRun As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiOneStackThreeRun As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiOneStackFourRun As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiTwoStackStandard As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiTwoStackDRE As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiLoadingRack As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiFlare As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiPondTreatment As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiGasConcentration As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiRata As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiPEMS As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiMemoStandard As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiMemoToFile As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiMemoPTE As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiMethod9Single As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiMethod9Multi As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiMethod22 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiShowDeletedRecords As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MmiViewByFacility As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MenuItem4 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiMemo As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiAddTestingFirm As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiRefreshLists As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents DTPDateReceived As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label21 As System.Windows.Forms.Label
@@ -1346,4 +1394,17 @@ End Sub
     Friend WithEvents OpenMemoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ClearToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DeleteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator13 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator12 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator11 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator10 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator9 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator8 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator7 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator6 As ToolStripSeparator
 End Class

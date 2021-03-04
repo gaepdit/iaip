@@ -1657,23 +1657,6 @@ Public Class ISMPTestReportAdministrative
     Private Sub MmiViewByFacility_Click(sender As Object, e As EventArgs) Handles MmiViewByFacility.Click
         OpenFacilityLookupTool()
     End Sub
-    Private Sub MmiShowToolbar_Click(sender As Object, e As EventArgs) Handles MmiShowToolbar.Click
-        Try
-
-            If MenuStrip1.Visible Then
-                MenuStrip1.Visible = False
-                MmiShowToolbar.Checked = True
-            Else
-                MenuStrip1.Visible = True
-                MmiShowToolbar.Checked = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
 
 #End Region
 
