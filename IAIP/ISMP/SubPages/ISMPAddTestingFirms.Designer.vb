@@ -55,7 +55,6 @@ Partial Class ISMPAddTestingFirms
 
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -81,11 +80,6 @@ Partial Class ISMPAddTestingFirms
         Me.txtTestingFirm = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgrTestingFirms = New Iaip.IaipDataGridView()
-        Me.MmiSave = New System.Windows.Forms.MenuItem()
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
-        Me.mmiClear = New System.Windows.Forms.MenuItem()
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.bSave = New System.Windows.Forms.ToolStripMenuItem()
         Me.bClear = New System.Windows.Forms.ToolStripMenuItem()
@@ -322,32 +316,6 @@ Partial Class ISMPAddTestingFirms
         Me.dgrTestingFirms.StandardTab = True
         Me.dgrTestingFirms.TabIndex = 147
         '
-        'MmiSave
-        '
-        Me.MmiSave.Index = 0
-        Me.MmiSave.Text = "Save"
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiSave})
-        Me.MenuItem1.Text = "File"
-        '
-        'mmiClear
-        '
-        Me.mmiClear.Index = 0
-        Me.mmiClear.Text = "Clear"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiClear})
-        Me.MenuItem2.Text = "Edit"
-        '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2})
-        '
         'MenuStrip1
         '
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.bSave, Me.bClear})
@@ -362,14 +330,14 @@ Partial Class ISMPAddTestingFirms
         Me.bSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
         Me.bSave.Name = "bSave"
         Me.bSave.Size = New System.Drawing.Size(59, 20)
-        Me.bSave.Text = "Save"
+        Me.bSave.Text = "&Save"
         '
         'bClear
         '
         Me.bClear.Image = Global.Iaip.My.Resources.Resources.EraseIcon
         Me.bClear.Name = "bClear"
         Me.bClear.Size = New System.Drawing.Size(62, 20)
-        Me.bClear.Text = "Clear"
+        Me.bClear.Text = "&Clear"
         '
         'ISMPAddTestingFirms
         '
@@ -379,7 +347,6 @@ Partial Class ISMPAddTestingFirms
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Menu = Me.MainMenu1
         Me.Name = "ISMPAddTestingFirms"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "ISMP Add Testing Firms"
@@ -392,12 +359,6 @@ Partial Class ISMPAddTestingFirms
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents MmiSave As MenuItem
-    Friend WithEvents MenuItem1 As MenuItem
-    Friend WithEvents mmiClear As MenuItem
-    Friend WithEvents MenuItem2 As MenuItem
-    Friend WithEvents MainMenu1 As MainMenu
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents bSave As ToolStripMenuItem
     Friend WithEvents bClear As ToolStripMenuItem

@@ -390,32 +390,6 @@ Public Class ISMPAddTestingFirms
 
     End Sub
 
-#Region "Main Menu Item"
-    Private Sub MmiSave_Click(sender As Object, e As EventArgs) Handles MmiSave.Click
-        Try
-
-            Save()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiClear_Click(sender As Object, e As EventArgs) Handles mmiClear.Click
-        Try
-
-            Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
-#End Region
-
     Private Sub bSave_Click(sender As Object, e As EventArgs) Handles bSave.Click
         Save()
     End Sub
