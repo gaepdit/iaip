@@ -1065,37 +1065,6 @@ Public Class ISMPManagersTools
         End If
     End Sub
 
-#Region "Menu Items"
-
-    Private Sub MmiSave_Click(sender As Object, e As EventArgs) Handles MmiSave.Click
-        Try
-
-            If TPReportAssignment.Focus Then
-                SaveTestReportsAssignments()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub MmiClear_Click(sender As Object, e As EventArgs) Handles MmiClear.Click
-        Try
-
-            ClearTestReportAssignmentTab()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub MmiClearTab_Click(sender As Object, e As EventArgs) Handles MmiClearTab.Click
-        Try
-
-            If TPReportAssignment.Focus Then
-                ClearTestReportAssignmentTab()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
 #Region "Viewing Options"
 
     Private Sub MmiViewTestReports_Click(sender As Object, e As EventArgs) Handles MmiViewTestReports.Click
@@ -1923,8 +1892,6 @@ Public Class ISMPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
-#End Region
 
 #End Region
 
