@@ -41,9 +41,7 @@ Partial Class SSCPEvents
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents txtRMPID As System.Windows.Forms.TextBox
     Friend WithEvents lblRMPID As System.Windows.Forms.Label
-    Friend WithEvents mmiDelete As System.Windows.Forms.MenuItem
     Friend WithEvents Label25 As System.Windows.Forms.Label
-    Friend WithEvents mmiPrint As System.Windows.Forms.MenuItem
     Friend WithEvents dtpAccReportingYear As System.Windows.Forms.DateTimePicker
     Friend WithEvents lblAccReportingYear As System.Windows.Forms.Label
     Friend WithEvents wrnACCResubmittalRequested As System.Windows.Forms.Label
@@ -238,27 +236,12 @@ Partial Class SSCPEvents
     Friend WithEvents TPInspection As System.Windows.Forms.TabPage
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem10 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
     Private components As System.ComponentModel.IContainer
 
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.mmiFile = New System.Windows.Forms.MenuItem()
-        Me.mmiSave = New System.Windows.Forms.MenuItem()
-        Me.mmiPrint = New System.Windows.Forms.MenuItem()
-        Me.MenuItem10 = New System.Windows.Forms.MenuItem()
-        Me.mmiClose = New System.Windows.Forms.MenuItem()
-        Me.mmiTools = New System.Windows.Forms.MenuItem()
-        Me.mmiDelete = New System.Windows.Forms.MenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.llEnforcementCases = New System.Windows.Forms.LinkLabel()
         Me.cboStaffResponsible = New System.Windows.Forms.ComboBox()
@@ -474,6 +457,7 @@ Partial Class SSCPEvents
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.btnSave = New System.Windows.Forms.ToolStripButton()
         Me.btnPrint = New System.Windows.Forms.ToolStripButton()
+        Me.btnDelete = New System.Windows.Forms.ToolStripButton()
         Me.GroupBox1.SuspendLayout()
         Me.TCItems.SuspendLayout()
         Me.TPReport.SuspendLayout()
@@ -512,50 +496,6 @@ Partial Class SSCPEvents
         Me.PanelSSCPCompliance.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools})
-        '
-        'mmiFile
-        '
-        Me.mmiFile.Index = 0
-        Me.mmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.mmiPrint, Me.MenuItem10, Me.mmiClose})
-        Me.mmiFile.Text = "&File"
-        '
-        'mmiSave
-        '
-        Me.mmiSave.Index = 0
-        Me.mmiSave.Shortcut = System.Windows.Forms.Shortcut.CtrlS
-        Me.mmiSave.Text = "&Save"
-        '
-        'mmiPrint
-        '
-        Me.mmiPrint.Index = 1
-        Me.mmiPrint.Shortcut = System.Windows.Forms.Shortcut.CtrlP
-        Me.mmiPrint.Text = "&Print"
-        '
-        'MenuItem10
-        '
-        Me.MenuItem10.Index = 2
-        Me.MenuItem10.Text = "-"
-        '
-        'mmiClose
-        '
-        Me.mmiClose.Index = 3
-        Me.mmiClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
-        Me.mmiClose.Text = "&Close"
-        '
-        'mmiTools
-        '
-        Me.mmiTools.Index = 1
-        Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiDelete})
-        Me.mmiTools.Text = "&Tools"
-        '
-        'mmiDelete
-        '
-        Me.mmiDelete.Index = 0
-        Me.mmiDelete.Text = "Delete This Item"
         '
         'GroupBox1
         '
@@ -1127,8 +1067,8 @@ Partial Class SSCPEvents
         '
         'dgrReportResubmittal
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrReportResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrReportResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgrReportResubmittal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrReportResubmittal.Dock = System.Windows.Forms.DockStyle.Left
         Me.dgrReportResubmittal.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -2671,8 +2611,8 @@ Partial Class SSCPEvents
         '
         'DGRACCResubmittal
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.DGRACCResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.DGRACCResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.DGRACCResubmittal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.DGRACCResubmittal.Dock = System.Windows.Forms.DockStyle.Left
         Me.DGRACCResubmittal.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -2734,7 +2674,8 @@ Partial Class SSCPEvents
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnSave, Me.btnPrint})
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnSave, Me.btnPrint, Me.btnDelete})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
@@ -2747,7 +2688,7 @@ Partial Class SSCPEvents
         Me.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(51, 22)
-        Me.btnSave.Text = "Save"
+        Me.btnSave.Text = "&Save"
         '
         'btnPrint
         '
@@ -2755,8 +2696,16 @@ Partial Class SSCPEvents
         Me.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(52, 22)
-        Me.btnPrint.Text = "Print"
+        Me.btnPrint.Text = "&Print"
         Me.btnPrint.Visible = False
+        '
+        'btnDelete
+        '
+        Me.btnDelete.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
+        Me.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Size = New System.Drawing.Size(60, 22)
+        Me.btnDelete.Text = "Delete"
         '
         'SSCPEvents
         '
@@ -2767,7 +2716,6 @@ Partial Class SSCPEvents
         Me.Controls.Add(Me.Splitter3)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Menu = Me.MainMenu1
         Me.Name = "SSCPEvents"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Compliance Events"
@@ -2828,4 +2776,5 @@ Partial Class SSCPEvents
     Friend WithEvents Label13 As Label
     Friend WithEvents cboStaffResponsible As ComboBox
     Friend WithEvents llEnforcementCases As LinkLabel
+    Friend WithEvents btnDelete As ToolStripButton
 End Class

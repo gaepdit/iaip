@@ -23,10 +23,12 @@ Public Class SSCPEvents
 
         If AccountFormAccess(49, 2) = "1" OrElse AccountFormAccess(49, 3) = "1" OrElse AccountFormAccess(49, 4) = "1" Then
             ToolStrip1.Visible = True
-            mmiSave.Visible = True
+            btnSave.Visible = True
+            btnDelete.Visible = True
         Else
             ToolStrip1.Visible = False
-            mmiSave.Visible = False
+            btnSave.Visible = False
+            btnDelete.Visible = False
         End If
     End Sub
 
@@ -161,7 +163,7 @@ Public Class SSCPEvents
                 dtpAccReportingYear.Checked = True
                 LoadACC()
                 LoadACCSubmittalDGR()
-                btnPrint.Visible = True
+                btnPrint.Visible = ToolStrip1.Visible
 
             Case WorkItemEventType.Notification
                 TCItems.TabPages.Add(TPNotifications)
@@ -3042,22 +3044,10 @@ Public Class SSCPEvents
 
 #End Region
 
-#Region " Main menu/toolbar "
+#Region " Toolbar "
 
-    Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
-        Me.Close()
-    End Sub
-
-    Private Sub mmiDelete_Click(sender As Object, e As EventArgs) Handles mmiDelete.Click
+    Private Sub mmiDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         DeleteSSCPData()
-    End Sub
-
-    Private Sub mmiSave_Click(sender As Object, e As EventArgs) Handles mmiSave.Click
-        SaveMaster()
-    End Sub
-
-    Private Sub mmiPrint_Click(sender As Object, e As EventArgs) Handles mmiPrint.Click
-        PrintACC()
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
