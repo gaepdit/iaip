@@ -13,7 +13,6 @@ Public Class ISMPNotificationLog
             DTPTestDateEnd.Value = Today
 
             If AccountFormAccess(66, 2) <> "1" AndAlso AccountFormAccess(66, 3) <> "1" Then
-                bbtSave.Visible = False
                 SaveToolStripMenuItem.Visible = False
                 btnNewTestNotification.Visible = False
             End If
@@ -499,18 +498,6 @@ Public Class ISMPNotificationLog
 
 #Region "form events"
 
-    Private Sub bbtSave_Click(sender As Object, e As EventArgs) Handles bbtSave.Click
-        Try
-            If txtTestNotificationNumber.Text <> "" Then
-                SaveNotification()
-            Else
-                MsgBox("First Select New Test Notification.", MsgBoxStyle.Exclamation, "Notification Log")
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
     Private Sub btnNewTestNotification_Click(sender As Object, e As EventArgs) Handles btnNewTestNotification.Click
         Try
             SelectNewTestNotifcationNumber()

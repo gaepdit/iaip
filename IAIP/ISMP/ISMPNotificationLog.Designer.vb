@@ -38,10 +38,7 @@ Partial Class ISMPNotificationLog
         Me.cboFacilityName = New System.Windows.Forms.ComboBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.bbtSave = New System.Windows.Forms.ToolStripButton()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtContactFirstName = New System.Windows.Forms.TextBox()
         Me.txtContactLastName = New System.Windows.Forms.TextBox()
@@ -76,7 +73,6 @@ Partial Class ISMPNotificationLog
         Me.DTPTestPlanReceived = New System.Windows.Forms.DateTimePicker()
         Me.txtReferenceNumber = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel3X.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -125,7 +121,7 @@ Partial Class ISMPNotificationLog
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(8, 84)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(84, 13)
+        Me.Label6.Size = New System.Drawing.Size(75, 13)
         Me.Label6.TabIndex = 5
         Me.Label6.Text = "Emission Units"
         '
@@ -234,45 +230,21 @@ Partial Class ISMPNotificationLog
         Me.Label10.Text = "Facility Name"
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.BottomRight
         '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.bbtSave})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(719, 25)
-        Me.ToolStrip1.TabIndex = 142
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'bbtSave
-        '
-        Me.bbtSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.bbtSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
-        Me.bbtSave.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.bbtSave.Name = "bbtSave"
-        Me.bbtSave.Size = New System.Drawing.Size(23, 22)
-        Me.bbtSave.Text = "Save"
-        '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(719, 24)
         Me.MenuStrip1.TabIndex = 143
         Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveToolStripMenuItem})
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
         'SaveToolStripMenuItem
         '
+        Me.SaveToolStripMenuItem.Image = Global.Iaip.My.Resources.Resources.SaveIcon
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(98, 22)
-        Me.SaveToolStripMenuItem.Text = "Save"
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(59, 20)
+        Me.SaveToolStripMenuItem.Text = "&Save"
         '
         'txtContactFirstName
         '
@@ -393,7 +365,7 @@ Partial Class ISMPNotificationLog
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(7, 60)
+        Me.Label3.Location = New System.Drawing.Point(7, 36)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(123, 14)
         Me.Label3.TabIndex = 153
@@ -402,7 +374,7 @@ Partial Class ISMPNotificationLog
         '
         'txtTestNotificationNumber
         '
-        Me.txtTestNotificationNumber.Location = New System.Drawing.Point(137, 57)
+        Me.txtTestNotificationNumber.Location = New System.Drawing.Point(137, 33)
         Me.txtTestNotificationNumber.Name = "txtTestNotificationNumber"
         Me.txtTestNotificationNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtTestNotificationNumber.TabIndex = 154
@@ -447,7 +419,7 @@ Partial Class ISMPNotificationLog
         '
         Me.btnNewTestNotification.AutoSize = True
         Me.btnNewTestNotification.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNewTestNotification.Location = New System.Drawing.Point(243, 54)
+        Me.btnNewTestNotification.Location = New System.Drawing.Point(243, 30)
         Me.btnNewTestNotification.Name = "btnNewTestNotification"
         Me.btnNewTestNotification.Size = New System.Drawing.Size(119, 23)
         Me.btnNewTestNotification.TabIndex = 160
@@ -484,7 +456,7 @@ Partial Class ISMPNotificationLog
         Me.GroupBox1.Controls.Add(Me.txtEmissionUnit)
         Me.GroupBox1.Controls.Add(Me.DTPTestDateEnd)
         Me.GroupBox1.Controls.Add(Me.DTPTestDateStart)
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 77)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 53)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(719, 283)
         Me.GroupBox1.TabIndex = 161
@@ -563,7 +535,7 @@ Partial Class ISMPNotificationLog
         Me.GroupBox2.Controls.Add(Me.txtISMPComments)
         Me.GroupBox2.Controls.Add(Me.Panel3X)
         Me.GroupBox2.Controls.Add(Me.Panel4)
-        Me.GroupBox2.Location = New System.Drawing.Point(0, 366)
+        Me.GroupBox2.Location = New System.Drawing.Point(0, 342)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(719, 175)
         Me.GroupBox2.TabIndex = 162
@@ -639,12 +611,9 @@ Partial Class ISMPNotificationLog
         Me.Controls.Add(Me.btnNewTestNotification)
         Me.Controls.Add(Me.txtTestNotificationNumber)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Name = "ISMPNotificationLog"
         Me.Text = "ISMP Notification Log"
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.Panel3X.ResumeLayout(False)
@@ -675,10 +644,7 @@ Partial Class ISMPNotificationLog
     Friend WithEvents cboFacilityName As System.Windows.Forms.ComboBox
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents bbtSave As System.Windows.Forms.ToolStripButton
     Friend WithEvents SaveToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents txtContactFirstName As System.Windows.Forms.TextBox
     Friend WithEvents txtContactLastName As System.Windows.Forms.TextBox
