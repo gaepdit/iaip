@@ -19,17 +19,9 @@ Partial Class SSPPApplicationLog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.mmiFile = New System.Windows.Forms.MenuItem()
-        Me.mmiClose = New System.Windows.Forms.MenuItem()
-        Me.mmiTools = New System.Windows.Forms.MenuItem()
-        Me.mmiNewApplication = New System.Windows.Forms.MenuItem()
-        Me.mmiOpen = New System.Windows.Forms.MenuItem()
-        Me.mmiResetSearch = New System.Windows.Forms.MenuItem()
-        Me.MenuItem8 = New System.Windows.Forms.MenuItem()
-        Me.mmiExport = New System.Windows.Forms.MenuItem()
+        Me.MainMenu1 = New System.Windows.Forms.MenuStrip()
+        Me.mmiNewApplication = New System.Windows.Forms.ToolStripMenuItem()
         Me.cboSortOrder2 = New System.Windows.Forms.ComboBox()
         Me.cboSort2 = New System.Windows.Forms.ComboBox()
         Me.cboSortOrder1 = New System.Windows.Forms.ComboBox()
@@ -49,15 +41,15 @@ Partial Class SSPPApplicationLog
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
-        Me.MenuItem3 = New System.Windows.Forms.MenuItem()
+        Me.MenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnOpen = New System.Windows.Forms.Button()
-        Me.MenuItem4 = New System.Windows.Forms.MenuItem()
-        Me.MenuItem5 = New System.Windows.Forms.MenuItem()
-        Me.MenuItem6 = New System.Windows.Forms.MenuItem()
+        Me.MenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuItem5 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuItem6 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DTPSearchDate2 = New System.Windows.Forms.DateTimePicker()
-        Me.MenuItem7 = New System.Windows.Forms.MenuItem()
+        Me.MenuItem7 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DTPSearchDate1 = New System.Windows.Forms.DateTimePicker()
         Me.btnResetSearch = New System.Windows.Forms.Button()
         Me.btnFind = New System.Windows.Forms.Button()
@@ -85,6 +77,7 @@ Partial Class SSPPApplicationLog
         Me.lblMessage = New System.Windows.Forms.Label()
         Me.bgwApplicationLog = New System.ComponentModel.BackgroundWorker()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.MainMenu1.SuspendLayout()
         CType(Me.dgvApplicationLog, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         Me.SortGroupBox.SuspendLayout()
@@ -94,55 +87,22 @@ Partial Class SSPPApplicationLog
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools})
-        '
-        'mmiFile
-        '
-        Me.mmiFile.Index = 0
-        Me.mmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiClose})
-        Me.mmiFile.Text = "&File"
-        '
-        'mmiClose
-        '
-        Me.mmiClose.Index = 0
-        Me.mmiClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
-        Me.mmiClose.Text = "&Close"
-        '
-        'mmiTools
-        '
-        Me.mmiTools.Index = 1
-        Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiNewApplication, Me.mmiOpen, Me.mmiResetSearch, Me.MenuItem8, Me.mmiExport})
-        Me.mmiTools.Text = "&Tools"
+        Me.MainMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiNewApplication})
+        Me.MainMenu1.Location = New System.Drawing.Point(0, 0)
+        Me.MainMenu1.Name = "MainMenu1"
+        Me.MainMenu1.Size = New System.Drawing.Size(812, 24)
+        Me.MainMenu1.TabIndex = 0
         '
         'mmiNewApplication
         '
-        Me.mmiNewApplication.Index = 0
-        Me.mmiNewApplication.Shortcut = System.Windows.Forms.Shortcut.CtrlN
-        Me.mmiNewApplication.Text = "Start &New Application"
+        Me.mmiNewApplication.Image = Global.Iaip.My.Resources.Resources.DocumentTextIcon
+        Me.mmiNewApplication.MergeIndex = 0
+        Me.mmiNewApplication.Name = "mmiNewApplication"
+        Me.mmiNewApplication.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
+        Me.mmiNewApplication.Size = New System.Drawing.Size(123, 20)
+        Me.mmiNewApplication.Text = "&New Application"
+        Me.mmiNewApplication.ToolTipText = "New Application (Ctrl-N)"
         Me.mmiNewApplication.Visible = False
-        '
-        'mmiOpen
-        '
-        Me.mmiOpen.Index = 1
-        Me.mmiOpen.Shortcut = System.Windows.Forms.Shortcut.CtrlO
-        Me.mmiOpen.Text = "&Open Selected Application"
-        '
-        'mmiResetSearch
-        '
-        Me.mmiResetSearch.Index = 2
-        Me.mmiResetSearch.Shortcut = System.Windows.Forms.Shortcut.CtrlR
-        Me.mmiResetSearch.Text = "&Reset Search Form"
-        '
-        'MenuItem8
-        '
-        Me.MenuItem8.Index = 3
-        Me.MenuItem8.Text = "-"
-        '
-        'mmiExport
-        '
-        Me.mmiExport.Index = 4
-        Me.mmiExport.Shortcut = System.Windows.Forms.Shortcut.CtrlE
-        Me.mmiExport.Text = "&Export to Excel"
         '
         'cboSortOrder2
         '
@@ -326,18 +286,23 @@ Partial Class SSPPApplicationLog
         '
         'MenuItem1
         '
-        Me.MenuItem1.Index = -1
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem2})
+        Me.MenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuItem2})
+        Me.MenuItem1.Name = "MenuItem1"
+        Me.MenuItem1.Size = New System.Drawing.Size(32, 19)
         Me.MenuItem1.Text = "View"
         '
         'MenuItem2
         '
-        Me.MenuItem2.Index = 0
+        Me.MenuItem2.MergeIndex = 0
+        Me.MenuItem2.Name = "MenuItem2"
+        Me.MenuItem2.Size = New System.Drawing.Size(102, 22)
         Me.MenuItem2.Text = "Reset"
         '
         'MenuItem3
         '
-        Me.MenuItem3.Index = 0
+        Me.MenuItem3.MergeIndex = 0
+        Me.MenuItem3.Name = "MenuItem3"
+        Me.MenuItem3.Size = New System.Drawing.Size(99, 22)
         Me.MenuItem3.Text = "Back"
         '
         'btnOpen
@@ -351,19 +316,23 @@ Partial Class SSPPApplicationLog
         '
         'MenuItem4
         '
-        Me.MenuItem4.Index = 0
+        Me.MenuItem4.MergeIndex = 0
+        Me.MenuItem4.Name = "MenuItem4"
+        Me.MenuItem4.Size = New System.Drawing.Size(187, 22)
         Me.MenuItem4.Text = "Add New Application"
         '
         'MenuItem5
         '
-        Me.MenuItem5.Index = -1
-        Me.MenuItem5.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem4})
+        Me.MenuItem5.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuItem4})
+        Me.MenuItem5.Name = "MenuItem5"
+        Me.MenuItem5.Size = New System.Drawing.Size(32, 19)
         Me.MenuItem5.Text = "Tracking Log"
         Me.MenuItem5.Visible = False
         '
         'MenuItem6
         '
-        Me.MenuItem6.Index = -1
+        Me.MenuItem6.Name = "MenuItem6"
+        Me.MenuItem6.Size = New System.Drawing.Size(32, 19)
         Me.MenuItem6.Text = "Help"
         '
         'DTPSearchDate2
@@ -379,8 +348,9 @@ Partial Class SSPPApplicationLog
         '
         'MenuItem7
         '
-        Me.MenuItem7.Index = -1
-        Me.MenuItem7.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem3})
+        Me.MenuItem7.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuItem3})
+        Me.MenuItem7.Name = "MenuItem7"
+        Me.MenuItem7.Size = New System.Drawing.Size(32, 19)
         Me.MenuItem7.Text = "File"
         '
         'DTPSearchDate1
@@ -471,7 +441,7 @@ Partial Class SSPPApplicationLog
         Me.dgvApplicationLog.ReadOnly = True
         Me.dgvApplicationLog.RowHeadersVisible = False
         Me.dgvApplicationLog.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvApplicationLog.Size = New System.Drawing.Size(812, 379)
+        Me.dgvApplicationLog.Size = New System.Drawing.Size(812, 355)
         Me.dgvApplicationLog.TabIndex = 253
         Me.dgvApplicationLog.Visible = False
         '
@@ -631,9 +601,9 @@ Partial Class SSPPApplicationLog
         Me.pnlDataGridView.Controls.Add(Me.lblMessage)
         Me.pnlDataGridView.Controls.Add(Me.dgvApplicationLog)
         Me.pnlDataGridView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlDataGridView.Location = New System.Drawing.Point(0, 0)
+        Me.pnlDataGridView.Location = New System.Drawing.Point(0, 24)
         Me.pnlDataGridView.Name = "pnlDataGridView"
-        Me.pnlDataGridView.Size = New System.Drawing.Size(812, 379)
+        Me.pnlDataGridView.Size = New System.Drawing.Size(812, 355)
         Me.pnlDataGridView.TabIndex = 256
         '
         'lblMessage
@@ -707,9 +677,11 @@ Partial Class SSPPApplicationLog
         Me.Controls.Add(Me.pnlDataGridView)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Menu = Me.MainMenu1
+        Me.Controls.Add(Me.MainMenu1)
         Me.Name = "SSPPApplicationLog"
         Me.Text = "SSPP Application Log"
+        Me.MainMenu1.ResumeLayout(False)
+        Me.MainMenu1.PerformLayout()
         CType(Me.dgvApplicationLog, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
@@ -723,11 +695,8 @@ Partial Class SSPPApplicationLog
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiResetSearch As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiNewApplication As System.Windows.Forms.MenuItem
+    Friend WithEvents MainMenu1 As System.Windows.Forms.MenuStrip
+    Friend WithEvents mmiNewApplication As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cboSortOrder2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboSort2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboSortOrder1 As System.Windows.Forms.ComboBox
@@ -747,15 +716,15 @@ Partial Class SSPPApplicationLog
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MenuItem2 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MenuItem3 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents btnOpen As System.Windows.Forms.Button
-    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem5 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem6 As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem4 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MenuItem5 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MenuItem6 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DTPSearchDate2 As System.Windows.Forms.DateTimePicker
-    Friend WithEvents MenuItem7 As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem7 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DTPSearchDate1 As System.Windows.Forms.DateTimePicker
     Friend WithEvents btnResetSearch As System.Windows.Forms.Button
     Friend WithEvents btnFind As System.Windows.Forms.Button
@@ -779,12 +748,8 @@ Partial Class SSPPApplicationLog
     Friend WithEvents cboNSPS2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboNESHAP2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboNESHAP1 As System.Windows.Forms.ComboBox
-    Friend WithEvents mmiExport As System.Windows.Forms.MenuItem
     Friend WithEvents btnExport As System.Windows.Forms.Button
     Friend WithEvents lblMessage As System.Windows.Forms.Label
     Friend WithEvents SortGroupBox As System.Windows.Forms.GroupBox
-    Friend WithEvents mmiOpen As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem8 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
 End Class

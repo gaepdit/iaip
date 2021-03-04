@@ -57,9 +57,6 @@ Public Class SSPPApplicationLog
         btnResetSearch.Enabled = True
         btnOpen.Enabled = False
         btnExport.Enabled = False
-        mmiResetSearch.Enabled = True
-        mmiOpen.Enabled = False
-        mmiExport.Enabled = False
 
         LoadComboBoxes()
         LoadDefaults()
@@ -340,7 +337,13 @@ Public Class SSPPApplicationLog
         End If
 
         If CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
+            MainMenu1.Visible = True
             mmiNewApplication.Visible = True
+            mmiNewApplication.Enabled = True
+        Else
+            MainMenu1.Visible = False
+            mmiNewApplication.Visible = False
+            mmiNewApplication.Enabled = False
         End If
     End Sub
 
@@ -361,9 +364,6 @@ Public Class SSPPApplicationLog
         btnResetSearch.Enabled = False
         btnOpen.Enabled = False
         btnExport.Enabled = False
-        mmiResetSearch.Enabled = False
-        mmiOpen.Enabled = False
-        mmiExport.Enabled = False
 
         ' Load form data into variables for use by background worker
         FieldType1 = cboFieldType1.Text
@@ -1108,11 +1108,8 @@ Public Class SSPPApplicationLog
     Private Sub bgwApplicationLog_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwApplicationLog.RunWorkerCompleted
         btnFind.Enabled = True
         btnResetSearch.Enabled = True
-        mmiResetSearch.Enabled = True
         btnOpen.Enabled = False
-        mmiOpen.Enabled = False
         btnExport.Enabled = False
-        mmiExport.Enabled = False
 
         If e.Cancelled Then
             dtApplicationLog = Nothing
@@ -1179,7 +1176,6 @@ Public Class SSPPApplicationLog
 
             lblMessage.Visible = False
             btnExport.Enabled = True
-            mmiExport.Enabled = True
         End If
     End Sub
 
@@ -2519,7 +2515,6 @@ Public Class SSPPApplicationLog
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvApplicationLog.RowCount Then
             selectedApp = dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value
             btnOpen.Enabled = True
-            mmiOpen.Enabled = True
         End If
 
         ' Only within the cell content of first column (App #)
@@ -2541,7 +2536,6 @@ Public Class SSPPApplicationLog
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvApplicationLog.RowCount Then
             selectedApp = dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value
             btnOpen.Enabled = True
-            mmiOpen.Enabled = True
         End If
     End Sub
 
@@ -2553,19 +2547,15 @@ Public Class SSPPApplicationLog
         StartNewApplication()
     End Sub
 
-    Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
-        Me.Close()
-    End Sub
-
-    Private Sub mmiOpen_Click(sender As Object, e As EventArgs) Handles mmiOpen.Click, btnOpen.Click
+    Private Sub mmiOpen_Click(sender As Object, e As EventArgs) Handles btnOpen.Click
         If selectedApp <> "" Then OpenApplication(selectedApp)
     End Sub
 
-    Private Sub mmiReset_Click(sender As Object, e As EventArgs) Handles mmiResetSearch.Click, btnResetSearch.Click
+    Private Sub mmiReset_Click(sender As Object, e As EventArgs) Handles btnResetSearch.Click
         LoadDefaults()
     End Sub
 
-    Private Sub mmiExport_Click(sender As Object, e As EventArgs) Handles mmiExport.Click, btnExport.Click
+    Private Sub mmiExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
         ExportToExcel()
     End Sub
 
