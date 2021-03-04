@@ -19,16 +19,7 @@ Partial Class SSCPComplianceLog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.mmiFile = New System.Windows.Forms.MenuItem()
-        Me.mmiClose = New System.Windows.Forms.MenuItem()
-        Me.mmiTools = New System.Windows.Forms.MenuItem()
-        Me.mmiSearch = New System.Windows.Forms.MenuItem()
-        Me.mmiRunFilter = New System.Windows.Forms.MenuItem()
-        Me.mmiClear = New System.Windows.Forms.MenuItem()
-        Me.mmiExport = New System.Windows.Forms.MenuItem()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.pnlFilterPanel = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -116,10 +107,10 @@ Partial Class SSCPComplianceLog
         Me.txtNewAIRSNumber = New System.Windows.Forms.TextBox()
         Me.dgvWork = New System.Windows.Forms.DataGridView()
         Me.Splitter1 = New System.Windows.Forms.Splitter()
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.btnSearch = New System.Windows.Forms.ToolStripButton()
-        Me.btnClear = New System.Windows.Forms.ToolStripButton()
-        Me.btnExport = New System.Windows.Forms.ToolStripButton()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.FacilitySearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClearFormToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExportToExcelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         Me.pnlFilterPanel.SuspendLayout()
         Me.GBWorkTypes.SuspendLayout()
@@ -135,57 +126,15 @@ Partial Class SSCPComplianceLog
         Me.pnlOtherEvents.SuspendLayout()
         Me.Panel4.SuspendLayout()
         CType(Me.dgvWork, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ToolStrip1.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools})
-        '
-        'mmiFile
-        '
-        Me.mmiFile.Index = 0
-        Me.mmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiClose})
-        Me.mmiFile.Text = "&File"
-        '
-        'mmiClose
-        '
-        Me.mmiClose.Index = 0
-        Me.mmiClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
-        Me.mmiClose.Text = "&Close"
-        '
-        'mmiTools
-        '
-        Me.mmiTools.Index = 1
-        Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiRunFilter, Me.mmiSearch, Me.mmiClear, Me.mmiExport})
-        Me.mmiTools.Text = "&Tools"
-        '
-        'mmiSearch
-        '
-        Me.mmiSearch.Index = 1
-        Me.mmiSearch.Text = "&Facility Search"
-        '
-        'mmiRunFilter
-        '
-        Me.mmiRunFilter.Index = 0
-        Me.mmiRunFilter.Text = "&Run Filter"
-        '
-        'mmiClear
-        '
-        Me.mmiClear.Index = 2
-        Me.mmiClear.Text = "&Clear Form"
-        '
-        'mmiExport
-        '
-        Me.mmiExport.Index = 3
-        Me.mmiExport.Text = "&Export List to Excel"
         '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.pnlFilterPanel)
         Me.GroupBox1.Controls.Add(Me.TCComplianceLog)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 25)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 24)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(831, 430)
         Me.GroupBox1.TabIndex = 4
@@ -1053,64 +1002,62 @@ Partial Class SSCPComplianceLog
         Me.dgvWork.AllowUserToAddRows = False
         Me.dgvWork.AllowUserToDeleteRows = False
         Me.dgvWork.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvWork.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWork.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvWork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvWork.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvWork.Location = New System.Drawing.Point(0, 455)
+        Me.dgvWork.Location = New System.Drawing.Point(0, 454)
         Me.dgvWork.MultiSelect = False
         Me.dgvWork.Name = "dgvWork"
         Me.dgvWork.ReadOnly = True
         Me.dgvWork.RowHeadersVisible = False
         Me.dgvWork.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvWork.Size = New System.Drawing.Size(831, 233)
+        Me.dgvWork.Size = New System.Drawing.Size(831, 234)
         Me.dgvWork.TabIndex = 5
         '
         'Splitter1
         '
         Me.Splitter1.BackColor = System.Drawing.Color.Blue
         Me.Splitter1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Splitter1.Location = New System.Drawing.Point(0, 455)
+        Me.Splitter1.Location = New System.Drawing.Point(0, 454)
         Me.Splitter1.Name = "Splitter1"
         Me.Splitter1.Size = New System.Drawing.Size(831, 5)
         Me.Splitter1.TabIndex = 6
         Me.Splitter1.TabStop = False
         '
-        'ToolStrip1
+        'MenuStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnSearch, Me.btnClear, Me.btnExport})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(831, 25)
-        Me.ToolStrip1.TabIndex = 7
-        Me.ToolStrip1.Text = "ToolStrip1"
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FacilitySearchToolStripMenuItem, Me.ClearFormToolStripMenuItem, Me.ExportToExcelToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(831, 24)
+        Me.MenuStrip1.TabIndex = 8
+        Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'btnSearch
+        'FacilitySearchToolStripMenuItem
         '
-        Me.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnSearch.Image = Global.Iaip.My.Resources.Resources.FindIcon
-        Me.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(23, 22)
-        Me.btnSearch.Text = "Search"
+        Me.FacilitySearchToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.FacilitySearchToolStripMenuItem.Image = Global.Iaip.My.Resources.Resources.FindIcon
+        Me.FacilitySearchToolStripMenuItem.Name = "FacilitySearchToolStripMenuItem"
+        Me.FacilitySearchToolStripMenuItem.Size = New System.Drawing.Size(28, 20)
+        Me.FacilitySearchToolStripMenuItem.Text = "&Facility Search"
+        Me.FacilitySearchToolStripMenuItem.ToolTipText = "Facility Search"
         '
-        'btnClear
+        'ClearFormToolStripMenuItem
         '
-        Me.btnClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnClear.Image = Global.Iaip.My.Resources.Resources.EraseIcon
-        Me.btnClear.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(23, 22)
-        Me.btnClear.Text = "Clear"
+        Me.ClearFormToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.ClearFormToolStripMenuItem.Image = Global.Iaip.My.Resources.Resources.EraseIcon
+        Me.ClearFormToolStripMenuItem.Name = "ClearFormToolStripMenuItem"
+        Me.ClearFormToolStripMenuItem.Size = New System.Drawing.Size(28, 20)
+        Me.ClearFormToolStripMenuItem.Text = "&Clear Form"
         '
-        'btnExport
+        'ExportToExcelToolStripMenuItem
         '
-        Me.btnExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnExport.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnExport.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(23, 22)
-        Me.btnExport.Text = "Export to Excel"
+        Me.ExportToExcelToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.ExportToExcelToolStripMenuItem.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.ExportToExcelToolStripMenuItem.Name = "ExportToExcelToolStripMenuItem"
+        Me.ExportToExcelToolStripMenuItem.Size = New System.Drawing.Size(28, 20)
+        Me.ExportToExcelToolStripMenuItem.Text = "&Export to Excel"
         '
         'SSCPComplianceLog
         '
@@ -1121,8 +1068,8 @@ Partial Class SSCPComplianceLog
         Me.Controls.Add(Me.Splitter1)
         Me.Controls.Add(Me.dgvWork)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.ToolStrip1)
-        Me.Menu = Me.MainMenu1
+        Me.Controls.Add(Me.MenuStrip1)
+        Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "SSCPComplianceLog"
         Me.Text = "Compliance Log"
         Me.GroupBox1.ResumeLayout(False)
@@ -1150,15 +1097,12 @@ Partial Class SSCPComplianceLog
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         CType(Me.dgvWork, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents dgvWork As System.Windows.Forms.DataGridView
     Friend WithEvents txtFacilityCity As System.Windows.Forms.TextBox
@@ -1197,11 +1141,6 @@ Partial Class SSCPComplianceLog
     Friend WithEvents btnUndeleteWork As System.Windows.Forms.Button
     Friend WithEvents btnOpenSummary As System.Windows.Forms.Button
     Friend WithEvents rdbPerformanceTest As System.Windows.Forms.RadioButton
-    Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiRunFilter As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiExport As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiClear As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSearch As System.Windows.Forms.MenuItem
     Friend WithEvents pnlFilterPanel As System.Windows.Forms.Panel
     Friend WithEvents GBWorkTypes As System.Windows.Forms.GroupBox
     Friend WithEvents chbRMPInspections As System.Windows.Forms.CheckBox
@@ -1251,8 +1190,8 @@ Partial Class SSCPComplianceLog
     Friend WithEvents clbEngineer As System.Windows.Forms.CheckedListBox
     Friend WithEvents chbEngineer As System.Windows.Forms.CheckBox
     Friend WithEvents Label7 As Label
-    Friend WithEvents ToolStrip1 As ToolStrip
-    Friend WithEvents btnSearch As ToolStripButton
-    Friend WithEvents btnClear As ToolStripButton
-    Friend WithEvents btnExport As ToolStripButton
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents FacilitySearchToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ClearFormToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ExportToExcelToolStripMenuItem As ToolStripMenuItem
 End Class

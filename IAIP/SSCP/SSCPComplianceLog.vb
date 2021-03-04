@@ -779,36 +779,16 @@ Public Class SSCPComplianceLog
 
 #Region " Toolbar and Menu "
 
-    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+    Private Sub FacilitySearchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FacilitySearchToolStripMenuItem.Click
         OpenFacilityLookupTool()
     End Sub
 
-    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+    Private Sub ClearFormToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearFormToolStripMenuItem.Click
         LoadDefaultSettings()
     End Sub
 
-    Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
+    Private Sub ExportToExcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportToExcelToolStripMenuItem.Click
         dgvWork.ExportToExcel()
-    End Sub
-
-    Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
-        Close()
-    End Sub
-
-    Private Sub mmiExport_Click(sender As Object, e As EventArgs) Handles mmiExport.Click
-        dgvWork.ExportToExcel()
-    End Sub
-
-    Private Sub mmiClear_Click(sender As Object, e As EventArgs) Handles mmiClear.Click
-        LoadDefaultSettings()
-    End Sub
-
-    Private Sub mmiSearch_Click(sender As Object, e As EventArgs) Handles mmiSearch.Click
-        OpenFacilityLookupTool()
-    End Sub
-
-    Private Sub mmiRunFilter_Click(sender As Object, e As EventArgs) Handles mmiRunFilter.Click
-        LoadDgvWork()
     End Sub
 
 #End Region
