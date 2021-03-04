@@ -2825,7 +2825,7 @@ Public Class SSCPEvents
     Private Sub DGRACCResubmittal_MouseUp(sender As Object, e As MouseEventArgs) Handles DGRACCResubmittal.MouseUp
         Dim hti As DataGridView.HitTestInfo = DGRACCResubmittal.HitTest(e.X, e.Y)
         Try
-            If hti.Type = DataGrid.HitTestType.Cell AndAlso
+            If hti.Type = DataGridViewHitTestType.Cell AndAlso
                 Not IsDBNull(DGRACCResubmittal(0, hti.RowIndex)) Then
 
                 NUPACCSubmittal.Value = DGRACCResubmittal(0, hti.RowIndex).Value.ToString
