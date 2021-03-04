@@ -1498,16 +1498,6 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem13 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiExit As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCut As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCopy As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiPaste As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents TBWork_Entry As System.Windows.Forms.ToolBar
     Friend WithEvents tbbClear As System.Windows.Forms.ToolBarButton
@@ -1560,8 +1550,6 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents tbbCut As System.Windows.Forms.ToolBarButton
     Friend WithEvents tbCopy As System.Windows.Forms.ToolBarButton
     Friend WithEvents tbbPaste As System.Windows.Forms.ToolBarButton
-    Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiClear As System.Windows.Forms.MenuItem
     Friend WithEvents GBFacilityInformation As System.Windows.Forms.GroupBox
     Friend WithEvents mtbCDSZipCode As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label103 As System.Windows.Forms.Label
