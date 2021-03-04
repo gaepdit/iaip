@@ -19,29 +19,26 @@ Partial Class IAIPNavigation
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.mmiFile = New System.Windows.Forms.MenuItem()
-        Me.mmiExit = New System.Windows.Forms.MenuItem()
-        Me.mmiTools = New System.Windows.Forms.MenuItem()
-        Me.mmiExport = New System.Windows.Forms.MenuItem()
-        Me.mmiAccount = New System.Windows.Forms.MenuItem()
-        Me.mmiUsernameDisplay = New System.Windows.Forms.MenuItem()
-        Me.mmiUsernameSeparator = New System.Windows.Forms.MenuItem()
-        Me.mmiUpdateProfile = New System.Windows.Forms.MenuItem()
-        Me.mmiChangePassword = New System.Windows.Forms.MenuItem()
-        Me.mmiSecurity = New System.Windows.Forms.MenuItem()
-        Me.mmiLogOut = New System.Windows.Forms.MenuItem()
-        Me.mmiHelp = New System.Windows.Forms.MenuItem()
-        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem()
-        Me.mmiResetForm = New System.Windows.Forms.MenuItem()
-        Me.mmiSeparator1 = New System.Windows.Forms.MenuItem()
-        Me.mmiCheckForUpdates = New System.Windows.Forms.MenuItem()
-        Me.mmiAbout = New System.Windows.Forms.MenuItem()
-        Me.TestingMenu = New System.Windows.Forms.MenuItem()
-        Me.RunTest = New System.Windows.Forms.MenuItem()
-        Me.RunTest2 = New System.Windows.Forms.MenuItem()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.MainMenu1 = New System.Windows.Forms.MenuStrip()
+        Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiExit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiTools = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiExport = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiAccount = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiUsernameDisplay = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiUpdateProfile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiChangePassword = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiSecurity = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiLogOut = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiOnlineHelp = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiResetForm = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiCheckForUpdates = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiAbout = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TestingMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RunTest = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RunTest2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel()
         Me.grpQuickAccess = New System.Windows.Forms.GroupBox()
@@ -96,6 +93,9 @@ Partial Class IAIPNavigation
         Me.lblWarningHeader = New System.Windows.Forms.Label()
         Me.lblConnectionWarning = New System.Windows.Forms.Label()
         Me.bgrNetworkChecker = New System.ComponentModel.BackgroundWorker()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MainMenu1.SuspendLayout()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -108,115 +108,143 @@ Partial Class IAIPNavigation
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiAccount, Me.mmiHelp, Me.TestingMenu})
+        Me.MainMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.mmiTools, Me.mmiAccount, Me.mmiHelp, Me.TestingMenu})
+        Me.MainMenu1.Location = New System.Drawing.Point(0, 0)
+        Me.MainMenu1.Name = "MainMenu1"
+        Me.MainMenu1.Size = New System.Drawing.Size(804, 24)
+        Me.MainMenu1.TabIndex = 0
         '
         'mmiFile
         '
-        Me.mmiFile.Index = 0
-        Me.mmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiExit})
+        Me.mmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiExit})
+        Me.mmiFile.MergeIndex = 0
+        Me.mmiFile.Name = "mmiFile"
+        Me.mmiFile.Size = New System.Drawing.Size(37, 20)
         Me.mmiFile.Text = "&File"
         '
         'mmiExit
         '
-        Me.mmiExit.Index = 0
-        Me.mmiExit.Shortcut = System.Windows.Forms.Shortcut.CtrlQ
+        Me.mmiExit.MergeIndex = 0
+        Me.mmiExit.Name = "mmiExit"
+        Me.mmiExit.Size = New System.Drawing.Size(180, 22)
         Me.mmiExit.Text = "E&xit IAIP"
         '
         'mmiTools
         '
-        Me.mmiTools.Index = 1
-        Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiExport})
+        Me.mmiTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiExport})
+        Me.mmiTools.MergeIndex = 1
+        Me.mmiTools.Name = "mmiTools"
+        Me.mmiTools.Size = New System.Drawing.Size(46, 20)
         Me.mmiTools.Text = "&Tools"
         '
         'mmiExport
         '
-        Me.mmiExport.Index = 0
+        Me.mmiExport.MergeIndex = 0
+        Me.mmiExport.Name = "mmiExport"
+        Me.mmiExport.Size = New System.Drawing.Size(180, 22)
         Me.mmiExport.Text = "&Export list to Excel"
         '
         'mmiAccount
         '
-        Me.mmiAccount.Index = 2
-        Me.mmiAccount.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiUsernameDisplay, Me.mmiUsernameSeparator, Me.mmiUpdateProfile, Me.mmiChangePassword, Me.mmiSecurity, Me.mmiLogOut})
+        Me.mmiAccount.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiUsernameDisplay, Me.ToolStripSeparator1, Me.mmiUpdateProfile, Me.mmiChangePassword, Me.mmiSecurity, Me.mmiLogOut})
+        Me.mmiAccount.MergeIndex = 2
+        Me.mmiAccount.Name = "mmiAccount"
+        Me.mmiAccount.Size = New System.Drawing.Size(64, 20)
         Me.mmiAccount.Text = "&Account"
         '
         'mmiUsernameDisplay
         '
         Me.mmiUsernameDisplay.Enabled = False
-        Me.mmiUsernameDisplay.Index = 0
+        Me.mmiUsernameDisplay.MergeIndex = 0
+        Me.mmiUsernameDisplay.Name = "mmiUsernameDisplay"
+        Me.mmiUsernameDisplay.Size = New System.Drawing.Size(196, 22)
         Me.mmiUsernameDisplay.Text = "Logged in as username"
-        '
-        'mmiUsernameSeparator
-        '
-        Me.mmiUsernameSeparator.Index = 1
-        Me.mmiUsernameSeparator.Text = "-"
         '
         'mmiUpdateProfile
         '
-        Me.mmiUpdateProfile.Index = 2
+        Me.mmiUpdateProfile.MergeIndex = 2
+        Me.mmiUpdateProfile.Name = "mmiUpdateProfile"
+        Me.mmiUpdateProfile.Size = New System.Drawing.Size(196, 22)
         Me.mmiUpdateProfile.Text = "&Update profile"
         '
         'mmiChangePassword
         '
-        Me.mmiChangePassword.Index = 3
+        Me.mmiChangePassword.MergeIndex = 3
+        Me.mmiChangePassword.Name = "mmiChangePassword"
+        Me.mmiChangePassword.Size = New System.Drawing.Size(196, 22)
         Me.mmiChangePassword.Text = "&Change password"
         '
         'mmiSecurity
         '
-        Me.mmiSecurity.Index = 4
+        Me.mmiSecurity.MergeIndex = 4
+        Me.mmiSecurity.Name = "mmiSecurity"
+        Me.mmiSecurity.Size = New System.Drawing.Size(196, 22)
         Me.mmiSecurity.Text = "&Security"
         '
         'mmiLogOut
         '
-        Me.mmiLogOut.Index = 5
+        Me.mmiLogOut.MergeIndex = 5
+        Me.mmiLogOut.Name = "mmiLogOut"
+        Me.mmiLogOut.Size = New System.Drawing.Size(196, 22)
         Me.mmiLogOut.Text = "&Log out"
         '
         'mmiHelp
         '
-        Me.mmiHelp.Index = 3
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.mmiSeparator1, Me.mmiCheckForUpdates, Me.mmiAbout})
+        Me.mmiHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.ToolStripSeparator2, Me.mmiCheckForUpdates, Me.mmiAbout})
+        Me.mmiHelp.MergeIndex = 3
+        Me.mmiHelp.Name = "mmiHelp"
+        Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
         Me.mmiHelp.Text = "&Help"
         '
         'mmiOnlineHelp
         '
-        Me.mmiOnlineHelp.Index = 0
-        Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
+        Me.mmiOnlineHelp.MergeIndex = 0
+        Me.mmiOnlineHelp.Name = "mmiOnlineHelp"
+        Me.mmiOnlineHelp.Size = New System.Drawing.Size(180, 22)
         Me.mmiOnlineHelp.Text = "Online &Help"
         '
         'mmiResetForm
         '
-        Me.mmiResetForm.Index = 1
+        Me.mmiResetForm.MergeIndex = 1
+        Me.mmiResetForm.Name = "mmiResetForm"
+        Me.mmiResetForm.Size = New System.Drawing.Size(180, 22)
         Me.mmiResetForm.Text = "&Reset all IAIP forms"
-        '
-        'mmiSeparator1
-        '
-        Me.mmiSeparator1.Index = 2
-        Me.mmiSeparator1.Text = "-"
         '
         'mmiCheckForUpdates
         '
-        Me.mmiCheckForUpdates.Index = 3
+        Me.mmiCheckForUpdates.MergeIndex = 3
+        Me.mmiCheckForUpdates.Name = "mmiCheckForUpdates"
+        Me.mmiCheckForUpdates.Size = New System.Drawing.Size(180, 22)
         Me.mmiCheckForUpdates.Text = "Check for &Updates"
         '
         'mmiAbout
         '
-        Me.mmiAbout.Index = 4
+        Me.mmiAbout.MergeIndex = 4
+        Me.mmiAbout.Name = "mmiAbout"
+        Me.mmiAbout.Size = New System.Drawing.Size(180, 22)
         Me.mmiAbout.Text = "&About IAIP"
         '
         'TestingMenu
         '
-        Me.TestingMenu.Index = 4
-        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.RunTest, Me.RunTest2})
+        Me.TestingMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RunTest, Me.RunTest2})
+        Me.TestingMenu.MergeIndex = 4
+        Me.TestingMenu.Name = "TestingMenu"
+        Me.TestingMenu.Size = New System.Drawing.Size(56, 20)
         Me.TestingMenu.Text = "T&esting"
         Me.TestingMenu.Visible = False
         '
         'RunTest
         '
-        Me.RunTest.Index = 0
+        Me.RunTest.MergeIndex = 0
+        Me.RunTest.Name = "RunTest"
+        Me.RunTest.Size = New System.Drawing.Size(187, 22)
         Me.RunTest.Text = "Handled Exception"
         '
         'RunTest2
         '
-        Me.RunTest2.Index = 1
+        Me.RunTest2.MergeIndex = 1
+        Me.RunTest2.Name = "RunTest2"
+        Me.RunTest2.Size = New System.Drawing.Size(187, 22)
         Me.RunTest2.Text = "Unhandled Exception"
         '
         'lblTitle
@@ -225,7 +253,7 @@ Partial Class IAIPNavigation
         Me.lblTitle.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTitle.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.lblTitle.Location = New System.Drawing.Point(118, 0)
+        Me.lblTitle.Location = New System.Drawing.Point(118, 24)
         Me.lblTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblTitle.Name = "lblTitle"
         Me.lblTitle.Size = New System.Drawing.Size(686, 33)
@@ -237,10 +265,10 @@ Partial Class IAIPNavigation
         '
         Me.flpNavButtons.AutoScroll = True
         Me.flpNavButtons.Dock = System.Windows.Forms.DockStyle.Left
-        Me.flpNavButtons.Location = New System.Drawing.Point(0, 0)
+        Me.flpNavButtons.Location = New System.Drawing.Point(0, 24)
         Me.flpNavButtons.Name = "flpNavButtons"
         Me.flpNavButtons.Padding = New System.Windows.Forms.Padding(3, 0, 3, 3)
-        Me.flpNavButtons.Size = New System.Drawing.Size(118, 398)
+        Me.flpNavButtons.Size = New System.Drawing.Size(118, 374)
         Me.flpNavButtons.TabIndex = 0
         '
         'grpQuickAccess
@@ -769,18 +797,18 @@ Partial Class IAIPNavigation
         '
         'dgvWorkViewer
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvWorkViewer.ColumnHeadersHeight = 35
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvWorkViewer.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvWorkViewer.LinkifyColumnByName = Nothing
-        Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 33)
+        Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 57)
         Me.dgvWorkViewer.Name = "dgvWorkViewer"
         Me.dgvWorkViewer.ResultsCountLabel = Me.lblResultsCount
         Me.dgvWorkViewer.ResultsCountLabelFormat = "{0} found"
-        Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 170)
+        Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 146)
         Me.dgvWorkViewer.StandardTab = True
         Me.dgvWorkViewer.TabIndex = 4
         '
@@ -844,6 +872,16 @@ Partial Class IAIPNavigation
         'bgrNetworkChecker
         '
         '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(193, 6)
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -857,12 +895,14 @@ Partial Class IAIPNavigation
         Me.Controls.Add(Me.lblTitle)
         Me.Controls.Add(Me.flpNavButtons)
         Me.Controls.Add(Me.lblMessageLabel)
+        Me.Controls.Add(Me.MainMenu1)
         Me.Margin = New System.Windows.Forms.Padding(2)
-        Me.Menu = Me.MainMenu1
         Me.MinimumSize = New System.Drawing.Size(762, 330)
         Me.Name = "IAIPNavigation"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "IAIP Navigation Screen"
+        Me.MainMenu1.ResumeLayout(False)
+        Me.MainMenu1.PerformLayout()
         Me.grpQuickAccess.ResumeLayout(False)
         Me.grpQuickAccess.PerformLayout()
         Me.SbeapQuickAccessPanel.ResumeLayout(False)
@@ -881,12 +921,12 @@ Partial Class IAIPNavigation
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiExit As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
+    Friend WithEvents MainMenu1 As System.Windows.Forms.MenuStrip
+    Friend WithEvents mmiFile As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiExit As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiTools As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiHelp As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiAbout As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lblTitle As System.Windows.Forms.Label
     Friend WithEvents grpQuickAccess As System.Windows.Forms.GroupBox
     Friend WithEvents lblOpenSscpItem As System.Windows.Forms.Label
@@ -900,17 +940,16 @@ Partial Class IAIPNavigation
     Friend WithEvents lblOpenFacilitySummary As System.Windows.Forms.Label
     Friend WithEvents pnlDbEnv As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents lblMessageLabel As System.Windows.Forms.Label
-    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents btnLoadNavWorkList As System.Windows.Forms.Button
     Friend WithEvents lblWorkViewerContext As System.Windows.Forms.Label
     Friend WithEvents rdbAllView As System.Windows.Forms.RadioButton
     Friend WithEvents rdbUnitView As System.Windows.Forms.RadioButton
     Friend WithEvents rdbStaffView As System.Windows.Forms.RadioButton
-    Friend WithEvents mmiExport As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSeparator1 As System.Windows.Forms.MenuItem
-    Friend WithEvents TestingMenu As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiExport As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents TestingMenu As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiResetForm As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents pnlCurrentList As System.Windows.Forms.Panel
     Friend WithEvents NavWorkListScopePanel As System.Windows.Forms.Panel
     Friend WithEvents flpNavButtons As System.Windows.Forms.FlowLayoutPanel
@@ -937,18 +976,17 @@ Partial Class IAIPNavigation
     Private WithEvents bgrUserPermissions As System.ComponentModel.BackgroundWorker
     Friend WithEvents dgvWorkViewer As IaipDataGridView
     Friend WithEvents NavWorkListChangerPanel As System.Windows.Forms.Panel
-    Friend WithEvents RunTest As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiAccount As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiUpdateProfile As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiChangePassword As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiLogOut As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiUsernameDisplay As MenuItem
+    Friend WithEvents RunTest As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiAccount As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiUpdateProfile As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiChangePassword As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiLogOut As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiUsernameDisplay As ToolStripMenuItem
     Friend WithEvents cboNavWorkListContext As ComboBox
-    Friend WithEvents mmiUsernameSeparator As MenuItem
-    Friend WithEvents mmiSecurity As MenuItem
-    Friend WithEvents RunTest2 As MenuItem
+    Friend WithEvents mmiSecurity As ToolStripMenuItem
+    Friend WithEvents RunTest2 As ToolStripMenuItem
     Friend WithEvents lblResultsCount As Label
-    Friend WithEvents mmiCheckForUpdates As MenuItem
+    Friend WithEvents mmiCheckForUpdates As ToolStripMenuItem
     Friend WithEvents pnlConnectionStatus As ToolStripStatusLabel
     Friend WithEvents pnlConnectionWarning As Panel
     Friend WithEvents btnRetryConnection As Button
@@ -956,4 +994,6 @@ Partial Class IAIPNavigation
     Friend WithEvents lblWarningHeader As Label
     Friend WithEvents bgrNetworkChecker As System.ComponentModel.BackgroundWorker
     Friend WithEvents lblNetworkCheckCountdown As Label
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
 End Class
