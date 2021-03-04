@@ -19,26 +19,22 @@ Partial Class IAIPLogIn
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.mmiFile = New System.Windows.Forms.MenuItem()
-        Me.mmiExit = New System.Windows.Forms.MenuItem()
-        Me.mmiTools = New System.Windows.Forms.MenuItem()
-        Me.mmiForgotUsername = New System.Windows.Forms.MenuItem()
-        Me.mmiForgotPassword = New System.Windows.Forms.MenuItem()
-        Me.mmiPasswordReset = New System.Windows.Forms.MenuItem()
-        Me.mmiSeparator1 = New System.Windows.Forms.MenuItem()
-        Me.mmiRefreshUserID = New System.Windows.Forms.MenuItem()
-        Me.mmiResetAllForms = New System.Windows.Forms.MenuItem()
-        Me.mmiHelp = New System.Windows.Forms.MenuItem()
-        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem()
-        Me.mmiSeparator2 = New System.Windows.Forms.MenuItem()
-        Me.mmiCheckForUpdate = New System.Windows.Forms.MenuItem()
-        Me.mmiSeparator3 = New System.Windows.Forms.MenuItem()
-        Me.mmiAbout = New System.Windows.Forms.MenuItem()
-        Me.mmiTestingMenu = New System.Windows.Forms.MenuItem()
-        Me.mmiThrowHandledError = New System.Windows.Forms.MenuItem()
-        Me.mmiThrowUnhandledError = New System.Windows.Forms.MenuItem()
+        Me.MainMenu1 = New System.Windows.Forms.MenuStrip()
+        Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiExit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiTools = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiForgotUsername = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiForgotPassword = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiPasswordReset = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiRefreshUserID = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiResetAllForms = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiOnlineHelp = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiCheckForUpdate = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiAbout = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiTestingMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiThrowHandledError = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiThrowUnhandledError = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnLoginButton = New System.Windows.Forms.Button()
         Me.LogoBox = New System.Windows.Forms.PictureBox()
         Me.lblCurrentVersionMessage = New System.Windows.Forms.Label()
@@ -56,109 +52,132 @@ Partial Class IAIPLogIn
         Me.chkRemember = New System.Windows.Forms.CheckBox()
         Me.lblIAIP = New System.Windows.Forms.Label()
         Me.lnkChangelog = New System.Windows.Forms.LinkLabel()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MainMenu1.SuspendLayout()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiHelp, Me.mmiTestingMenu})
+        Me.MainMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.mmiTools, Me.mmiHelp, Me.mmiTestingMenu})
+        Me.MainMenu1.Location = New System.Drawing.Point(0, 0)
+        Me.MainMenu1.Name = "MainMenu1"
+        Me.MainMenu1.Size = New System.Drawing.Size(756, 24)
+        Me.MainMenu1.TabIndex = 39
         '
         'mmiFile
         '
-        Me.mmiFile.Index = 0
-        Me.mmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiExit})
+        Me.mmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiExit})
+        Me.mmiFile.MergeIndex = 0
+        Me.mmiFile.Name = "mmiFile"
+        Me.mmiFile.Size = New System.Drawing.Size(37, 20)
         Me.mmiFile.Text = "&File"
         '
         'mmiExit
         '
-        Me.mmiExit.Index = 0
-        Me.mmiExit.Shortcut = System.Windows.Forms.Shortcut.CtrlQ
+        Me.mmiExit.MergeIndex = 0
+        Me.mmiExit.Name = "mmiExit"
+        Me.mmiExit.Size = New System.Drawing.Size(180, 22)
         Me.mmiExit.Text = "E&xit IAIP"
         '
         'mmiTools
         '
-        Me.mmiTools.Index = 1
-        Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiForgotUsername, Me.mmiForgotPassword, Me.mmiPasswordReset, Me.mmiSeparator1, Me.mmiRefreshUserID, Me.mmiResetAllForms})
+        Me.mmiTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiForgotUsername, Me.mmiForgotPassword, Me.mmiPasswordReset, Me.ToolStripSeparator3, Me.mmiRefreshUserID, Me.mmiResetAllForms})
+        Me.mmiTools.MergeIndex = 1
+        Me.mmiTools.Name = "mmiTools"
+        Me.mmiTools.Size = New System.Drawing.Size(46, 20)
         Me.mmiTools.Text = "&Tools"
         '
         'mmiForgotUsername
         '
-        Me.mmiForgotUsername.Index = 0
+        Me.mmiForgotUsername.MergeIndex = 0
+        Me.mmiForgotUsername.Name = "mmiForgotUsername"
+        Me.mmiForgotUsername.Size = New System.Drawing.Size(216, 22)
         Me.mmiForgotUsername.Text = "Forgot Username"
         '
         'mmiForgotPassword
         '
-        Me.mmiForgotPassword.Index = 1
+        Me.mmiForgotPassword.MergeIndex = 1
+        Me.mmiForgotPassword.Name = "mmiForgotPassword"
+        Me.mmiForgotPassword.Size = New System.Drawing.Size(216, 22)
         Me.mmiForgotPassword.Text = "Forgot Password"
         '
         'mmiPasswordReset
         '
-        Me.mmiPasswordReset.Index = 2
+        Me.mmiPasswordReset.MergeIndex = 2
+        Me.mmiPasswordReset.Name = "mmiPasswordReset"
+        Me.mmiPasswordReset.Size = New System.Drawing.Size(216, 22)
         Me.mmiPasswordReset.Text = "Enter Password Reset Code"
         Me.mmiPasswordReset.Visible = False
         '
-        'mmiSeparator1
-        '
-        Me.mmiSeparator1.Index = 3
-        Me.mmiSeparator1.Text = "-"
-        '
         'mmiRefreshUserID
         '
-        Me.mmiRefreshUserID.Index = 4
+        Me.mmiRefreshUserID.MergeIndex = 4
+        Me.mmiRefreshUserID.Name = "mmiRefreshUserID"
+        Me.mmiRefreshUserID.Size = New System.Drawing.Size(216, 22)
         Me.mmiRefreshUserID.Text = "Reset Default Username"
         '
         'mmiResetAllForms
         '
-        Me.mmiResetAllForms.Index = 5
+        Me.mmiResetAllForms.MergeIndex = 5
+        Me.mmiResetAllForms.Name = "mmiResetAllForms"
+        Me.mmiResetAllForms.Size = New System.Drawing.Size(216, 22)
         Me.mmiResetAllForms.Text = "&Reset All Form Sizes"
         '
         'mmiHelp
         '
-        Me.mmiHelp.Index = 2
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiSeparator2, Me.mmiCheckForUpdate, Me.mmiSeparator3, Me.mmiAbout})
+        Me.mmiHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOnlineHelp, Me.ToolStripSeparator1, Me.mmiCheckForUpdate, Me.ToolStripSeparator2, Me.mmiAbout})
+        Me.mmiHelp.MergeIndex = 2
+        Me.mmiHelp.Name = "mmiHelp"
+        Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
         Me.mmiHelp.Text = "&Help"
         '
         'mmiOnlineHelp
         '
-        Me.mmiOnlineHelp.Index = 0
-        Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
+        Me.mmiOnlineHelp.MergeIndex = 0
+        Me.mmiOnlineHelp.Name = "mmiOnlineHelp"
+        Me.mmiOnlineHelp.Size = New System.Drawing.Size(180, 22)
         Me.mmiOnlineHelp.Text = "Online &Help "
-        '
-        'mmiSeparator2
-        '
-        Me.mmiSeparator2.Index = 1
-        Me.mmiSeparator2.Text = "-"
         '
         'mmiCheckForUpdate
         '
-        Me.mmiCheckForUpdate.Index = 2
+        Me.mmiCheckForUpdate.MergeIndex = 2
+        Me.mmiCheckForUpdate.Name = "mmiCheckForUpdate"
+        Me.mmiCheckForUpdate.Size = New System.Drawing.Size(180, 22)
         Me.mmiCheckForUpdate.Text = "Check for &Updates"
-        '
-        'mmiSeparator3
-        '
-        Me.mmiSeparator3.Index = 3
-        Me.mmiSeparator3.Text = "-"
         '
         'mmiAbout
         '
-        Me.mmiAbout.Index = 4
+        Me.mmiAbout.MergeIndex = 4
+        Me.mmiAbout.Name = "mmiAbout"
+        Me.mmiAbout.Size = New System.Drawing.Size(180, 22)
         Me.mmiAbout.Text = "&About IAIP"
         '
         'mmiTestingMenu
         '
-        Me.mmiTestingMenu.Index = 3
-        Me.mmiTestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiThrowHandledError, Me.mmiThrowUnhandledError})
+        Me.mmiTestingMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiThrowHandledError, Me.mmiThrowUnhandledError})
+        Me.mmiTestingMenu.MergeIndex = 3
+        Me.mmiTestingMenu.Name = "mmiTestingMenu"
+        Me.mmiTestingMenu.Size = New System.Drawing.Size(39, 20)
         Me.mmiTestingMenu.Text = "T&est"
         Me.mmiTestingMenu.Visible = False
         '
         'mmiThrowHandledError
         '
-        Me.mmiThrowHandledError.Index = 0
+        Me.mmiThrowHandledError.MergeIndex = 0
+        Me.mmiThrowHandledError.Name = "mmiThrowHandledError"
+        Me.mmiThrowHandledError.Size = New System.Drawing.Size(187, 22)
         Me.mmiThrowHandledError.Text = "Handled Exception"
         '
         'mmiThrowUnhandledError
         '
-        Me.mmiThrowUnhandledError.Index = 1
+        Me.mmiThrowUnhandledError.MergeIndex = 1
+        Me.mmiThrowUnhandledError.Name = "mmiThrowUnhandledError"
+        Me.mmiThrowUnhandledError.Size = New System.Drawing.Size(187, 22)
         Me.mmiThrowUnhandledError.Text = "Unhandled Exception"
         '
         'btnLoginButton
@@ -358,48 +377,76 @@ Partial Class IAIPLogIn
         Me.lnkChangelog.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.lnkChangelog.Visible = False
         '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.lblTitle)
+        Me.Panel1.Controls.Add(Me.btnLoginButton)
+        Me.Panel1.Controls.Add(Me.lnkChangelog)
+        Me.Panel1.Controls.Add(Me.lblGeneralMessage)
+        Me.Panel1.Controls.Add(Me.chkRemember)
+        Me.Panel1.Controls.Add(Me.lblSubTitle)
+        Me.Panel1.Controls.Add(Me.RetryButton)
+        Me.Panel1.Controls.Add(Me.lblIAIP)
+        Me.Panel1.Controls.Add(Me.ForgotPasswordLink)
+        Me.Panel1.Controls.Add(Me.txtUserID)
+        Me.Panel1.Controls.Add(Me.ForgotUsernameLink)
+        Me.Panel1.Controls.Add(Me.txtUserPassword)
+        Me.Panel1.Controls.Add(Me.LogoBox)
+        Me.Panel1.Controls.Add(Me.lblUserID)
+        Me.Panel1.Controls.Add(Me.lblCurrentVersionMessage)
+        Me.Panel1.Controls.Add(Me.lblPassword)
+        Me.Panel1.Controls.Add(Me.lblLicenseLabel)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.Location = New System.Drawing.Point(0, 24)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(756, 423)
+        Me.Panel1.TabIndex = 0
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(213, 6)
+        '
         'IAIPLogIn
         '
         Me.AcceptButton = Me.btnLoginButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(756, 418)
-        Me.Controls.Add(Me.lnkChangelog)
-        Me.Controls.Add(Me.chkRemember)
-        Me.Controls.Add(Me.RetryButton)
-        Me.Controls.Add(Me.ForgotPasswordLink)
-        Me.Controls.Add(Me.ForgotUsernameLink)
-        Me.Controls.Add(Me.LogoBox)
-        Me.Controls.Add(Me.lblCurrentVersionMessage)
-        Me.Controls.Add(Me.lblLicenseLabel)
-        Me.Controls.Add(Me.lblPassword)
-        Me.Controls.Add(Me.lblUserID)
-        Me.Controls.Add(Me.txtUserPassword)
-        Me.Controls.Add(Me.txtUserID)
-        Me.Controls.Add(Me.lblIAIP)
-        Me.Controls.Add(Me.lblSubTitle)
-        Me.Controls.Add(Me.lblTitle)
-        Me.Controls.Add(Me.lblGeneralMessage)
-        Me.Controls.Add(Me.btnLoginButton)
+        Me.ClientSize = New System.Drawing.Size(756, 447)
+        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.MainMenu1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MaximizeBox = False
-        Me.Menu = Me.MainMenu1
         Me.MinimizeBox = False
         Me.Name = "IAIPLogIn"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Integrated Air Information Platform"
+        Me.MainMenu1.ResumeLayout(False)
+        Me.MainMenu1.PerformLayout()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiExit As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
+    Friend WithEvents MainMenu1 As System.Windows.Forms.MenuStrip
+    Friend WithEvents mmiFile As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiExit As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiHelp As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lblPassword As System.Windows.Forms.Label
     Friend WithEvents lblUserID As System.Windows.Forms.Label
     Friend WithEvents txtUserPassword As System.Windows.Forms.TextBox
@@ -408,28 +455,29 @@ Partial Class IAIPLogIn
     Friend WithEvents lblTitle As System.Windows.Forms.Label
     Friend WithEvents btnLoginButton As System.Windows.Forms.Button
     Friend WithEvents lblLicenseLabel As System.Windows.Forms.Label
-    Friend WithEvents mmiRefreshUserID As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiRefreshUserID As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lblCurrentVersionMessage As System.Windows.Forms.Label
     Friend WithEvents lblGeneralMessage As System.Windows.Forms.Label
     Friend WithEvents LogoBox As System.Windows.Forms.PictureBox
-    Friend WithEvents mmiSeparator2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiResetAllForms As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCheckForUpdate As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSeparator3 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiTestingMenu As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiForgotUsername As MenuItem
-    Friend WithEvents mmiForgotPassword As MenuItem
-    Friend WithEvents mmiSeparator1 As MenuItem
+    Friend WithEvents mmiAbout As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiTools As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiResetAllForms As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiCheckForUpdate As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiTestingMenu As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiForgotUsername As ToolStripMenuItem
+    Friend WithEvents mmiForgotPassword As ToolStripMenuItem
     Friend WithEvents ForgotPasswordLink As LinkLabel
     Friend WithEvents ForgotUsernameLink As LinkLabel
-    Friend WithEvents mmiPasswordReset As MenuItem
+    Friend WithEvents mmiPasswordReset As ToolStripMenuItem
     Friend WithEvents RetryButton As Button
-    Friend WithEvents mmiThrowUnhandledError As MenuItem
-    Friend WithEvents mmiThrowHandledError As MenuItem
+    Friend WithEvents mmiThrowUnhandledError As ToolStripMenuItem
+    Friend WithEvents mmiThrowHandledError As ToolStripMenuItem
     Friend WithEvents chkRemember As CheckBox
     Friend WithEvents lblIAIP As Label
     Friend WithEvents lnkChangelog As LinkLabel
+    Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents Panel1 As Panel
 End Class
