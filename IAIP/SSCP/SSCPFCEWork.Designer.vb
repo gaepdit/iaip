@@ -964,7 +964,6 @@ Partial Class SSCPFCEWork
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents TbbPrint As System.Windows.Forms.ToolBarButton
     Friend WithEvents ReviewDataTabs As System.Windows.Forms.TabControl
     Friend WithEvents TPInspections As System.Windows.Forms.TabPage
     Friend WithEvents dgrFCEInspections As IaipDataGridView

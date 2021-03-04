@@ -2939,8 +2939,6 @@ Partial Class IAIPFacilitySummary
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents tbbFacilityLookup As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbClearForm As System.Windows.Forms.ToolBarButton
     Friend WithEvents NavigationPanel As System.Windows.Forms.Panel
     Friend WithEvents FSMainTabControl As System.Windows.Forms.TabControl
     Friend WithEvents FSInfo As System.Windows.Forms.TabPage

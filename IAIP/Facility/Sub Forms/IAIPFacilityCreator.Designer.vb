@@ -1499,10 +1499,6 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
-    Friend WithEvents TBWork_Entry As System.Windows.Forms.ToolBar
-    Friend WithEvents tbbClear As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbBack As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tcSearchOptions As System.Windows.Forms.TabControl
     Friend WithEvents tpAIRSNumber As System.Windows.Forms.TabPage
     Friend WithEvents btnAIRSNumberSearch As System.Windows.Forms.Button
     Friend WithEvents txtAIRSNumberSearch As System.Windows.Forms.TextBox
@@ -1547,9 +1543,6 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents rdbPart60 As System.Windows.Forms.RadioButton
     Friend WithEvents rdbPart61 As System.Windows.Forms.RadioButton
     Friend WithEvents rdbGASIP As System.Windows.Forms.RadioButton
-    Friend WithEvents tbbCut As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbCopy As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbPaste As System.Windows.Forms.ToolBarButton
     Friend WithEvents GBFacilityInformation As System.Windows.Forms.GroupBox
     Friend WithEvents mtbCDSZipCode As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label103 As System.Windows.Forms.Label
