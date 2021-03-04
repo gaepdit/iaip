@@ -39,7 +39,6 @@ Public Class SSCPFCEWork
         DTPFilterEndDate.Value = Today
 
         If Not (AccountFormAccess(50, 1) = "1" OrElse AccountFormAccess(50, 2) = "1" OrElse AccountFormAccess(50, 3) = "1" OrElse AccountFormAccess(50, 4) = "1") Then
-            MenuSave.Visible = False
             btnSave.Visible = False
         End If
     End Sub
@@ -847,18 +846,7 @@ Public Class SSCPFCEWork
 
 #End Region
 
-#Region "Menu and toolbar"
-    Private Sub MenuSave_Click(sender As Object, e As EventArgs) Handles MenuSave.Click
-        SaveFCE()
-    End Sub
-
-    Private Sub MenuPrint_Click(sender As Object, e As EventArgs) Handles MenuPrint.Click
-        LoadSSCPFCEReport()
-    End Sub
-
-    Private Sub MenuClose_Click(sender As Object, e As EventArgs) Handles MenuClose.Click
-        Me.Close()
-    End Sub
+#Region "Toolbar"
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         SaveFCE()

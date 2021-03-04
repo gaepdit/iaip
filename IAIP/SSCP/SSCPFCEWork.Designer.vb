@@ -10,19 +10,13 @@ Partial Class SSCPFCEWork
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuFile = New System.Windows.Forms.MenuItem()
-        Me.MenuSave = New System.Windows.Forms.MenuItem()
-        Me.MenuPrint = New System.Windows.Forms.MenuItem()
-        Me.MenuClose = New System.Windows.Forms.MenuItem()
         Me.ReviewDataTabs = New System.Windows.Forms.TabControl()
         Me.TPInspections = New System.Windows.Forms.TabPage()
         Me.dgrFCEInspections = New Iaip.IaipDataGridView()
@@ -128,34 +122,6 @@ Partial Class SSCPFCEWork
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuFile})
-        '
-        'MenuFile
-        '
-        Me.MenuFile.Index = 0
-        Me.MenuFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuSave, Me.MenuPrint, Me.MenuClose})
-        Me.MenuFile.Text = "&File"
-        '
-        'MenuSave
-        '
-        Me.MenuSave.Index = 0
-        Me.MenuSave.Shortcut = System.Windows.Forms.Shortcut.CtrlS
-        Me.MenuSave.Text = "&Save"
-        '
-        'MenuPrint
-        '
-        Me.MenuPrint.Index = 1
-        Me.MenuPrint.Shortcut = System.Windows.Forms.Shortcut.CtrlP
-        Me.MenuPrint.Text = "&Print Preview"
-        '
-        'MenuClose
-        '
-        Me.MenuClose.Index = 2
-        Me.MenuClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
-        Me.MenuClose.Text = "&Close"
-        '
         'ReviewDataTabs
         '
         Me.ReviewDataTabs.Controls.Add(Me.TPInspections)
@@ -188,8 +154,8 @@ Partial Class SSCPFCEWork
         '
         'dgrFCEInspections
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrFCEInspections.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle8.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCEInspections.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
         Me.dgrFCEInspections.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCEInspections.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrFCEInspections.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -264,8 +230,8 @@ Partial Class SSCPFCEWork
         '
         'dgrFCECorrespondance
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrFCECorrespondance.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCECorrespondance.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgrFCECorrespondance.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCECorrespondance.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrFCECorrespondance.LinkifyColumnByName = Nothing
@@ -330,8 +296,8 @@ Partial Class SSCPFCEWork
         '
         'dgrFCEACC
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrFCEACC.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCEACC.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgrFCEACC.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCEACC.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrFCEACC.LinkifyColumnByName = Nothing
@@ -397,8 +363,8 @@ Partial Class SSCPFCEWork
         '
         'dgrFCEReports
         '
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrFCEReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCEReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgrFCEReports.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCEReports.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrFCEReports.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -464,8 +430,8 @@ Partial Class SSCPFCEWork
         '
         'dgrISMPSummaryReports
         '
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrISMPSummaryReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrISMPSummaryReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgrISMPSummaryReports.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrISMPSummaryReports.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrISMPSummaryReports.LinkifyColumnByName = Nothing
@@ -530,8 +496,8 @@ Partial Class SSCPFCEWork
         '
         'dgrPerformanceTests
         '
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrPerformanceTests.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrPerformanceTests.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
         Me.dgrPerformanceTests.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrPerformanceTests.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrPerformanceTests.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -597,8 +563,8 @@ Partial Class SSCPFCEWork
         '
         'dgrFCEEnforcement
         '
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrFCEEnforcement.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCEEnforcement.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
         Me.dgrFCEEnforcement.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCEEnforcement.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrFCEEnforcement.LinkifyColumnByName = Nothing
@@ -918,6 +884,7 @@ Partial Class SSCPFCEWork
         '
         'ToolStrip1
         '
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnSave, Me.btnPrint})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
@@ -948,7 +915,6 @@ Partial Class SSCPFCEWork
         Me.ClientSize = New System.Drawing.Size(877, 642)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.TabControlFCE)
-        Me.Menu = Me.MainMenu1
         Me.Name = "SSCPFCEWork"
         Me.Text = "Full Compliance Evaluation"
         Me.ReviewDataTabs.ResumeLayout(False)
@@ -998,9 +964,6 @@ Partial Class SSCPFCEWork
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuFile As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuSave As System.Windows.Forms.MenuItem
     Friend WithEvents TbbPrint As System.Windows.Forms.ToolBarButton
     Friend WithEvents ReviewDataTabs As System.Windows.Forms.TabControl
     Friend WithEvents TPInspections As System.Windows.Forms.TabPage
@@ -1066,8 +1029,6 @@ Partial Class SSCPFCEWork
     Friend WithEvents TabControlFCE As System.Windows.Forms.TabControl
     Friend WithEvents TabPageFCEData As System.Windows.Forms.TabPage
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
-    Friend WithEvents MenuPrint As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuClose As System.Windows.Forms.MenuItem
     Friend WithEvents DTPFCECompleteDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents ReviewDataGroup As System.Windows.Forms.GroupBox
     Friend WithEvents FacilityInfoPanel As System.Windows.Forms.Panel
