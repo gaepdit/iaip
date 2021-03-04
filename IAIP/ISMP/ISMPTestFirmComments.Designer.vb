@@ -63,6 +63,7 @@ Partial Class ISMPTestFirmComments
         '
         'ToolStrip1
         '
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbLookUpAirNumber})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
@@ -285,7 +286,7 @@ Partial Class ISMPTestFirmComments
         Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(500, 38)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(68, 13)
+        Me.Label5.Size = New System.Drawing.Size(62, 13)
         Me.Label5.TabIndex = 13
         Me.Label5.Text = "Test Dates:"
         '
@@ -400,7 +401,7 @@ Partial Class ISMPTestFirmComments
         Me.txtAllComments.Multiline = True
         Me.txtAllComments.Name = "txtAllComments"
         Me.txtAllComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtAllComments.Size = New System.Drawing.Size(768, 242)
+        Me.txtAllComments.Size = New System.Drawing.Size(768, 241)
         Me.txtAllComments.TabIndex = 4
         '
         'ISMPTestFirmComments

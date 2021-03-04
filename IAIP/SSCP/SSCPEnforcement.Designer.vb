@@ -747,7 +747,6 @@ Partial Class SscpEnforcement
         Me.StaffResponsible.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.StaffResponsible.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.StaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.StaffResponsible.Enabled = True
         Me.StaffResponsible.Location = New System.Drawing.Point(510, 21)
         Me.StaffResponsible.Name = "StaffResponsible"
         Me.StaffResponsible.Size = New System.Drawing.Size(192, 21)
@@ -974,6 +973,7 @@ Partial Class SscpEnforcement
         Me.PollutantsListView.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.PollutantsListView.CheckBoxes = True
         Me.PollutantsListView.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PollutantsListView.HideSelection = False
         Me.PollutantsListView.Location = New System.Drawing.Point(16, 39)
         Me.PollutantsListView.MultiSelect = False
         Me.PollutantsListView.Name = "PollutantsListView"
@@ -1018,6 +1018,7 @@ Partial Class SscpEnforcement
         Me.ProgramsListView.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ProgramsListView.CheckBoxes = True
         Me.ProgramsListView.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ProgramsListView.HideSelection = False
         Me.ProgramsListView.Location = New System.Drawing.Point(16, 39)
         Me.ProgramsListView.Name = "ProgramsListView"
         Me.ProgramsListView.Size = New System.Drawing.Size(331, 356)
@@ -2568,6 +2569,7 @@ Partial Class SscpEnforcement
         '
         'ToolStrip1
         '
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveButton})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
@@ -2604,26 +2606,26 @@ Partial Class SscpEnforcement
         '
         Me.SaveMenuItem.Name = "SaveMenuItem"
         Me.SaveMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.SaveMenuItem.Size = New System.Drawing.Size(148, 22)
+        Me.SaveMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.SaveMenuItem.Text = "&Save"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
         '
         'CloseMenuItem
         '
         Me.CloseMenuItem.Name = "CloseMenuItem"
         Me.CloseMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W), System.Windows.Forms.Keys)
-        Me.CloseMenuItem.Size = New System.Drawing.Size(148, 22)
+        Me.CloseMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.CloseMenuItem.Text = "&Close"
         '
         'ToolsMenu
         '
         Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClearMessageMenuItem, Me.ClearErrorsMenuItem, Me.EnforcementToolStripSeparator, Me.ShowAuditHistoryMenuItem, Me.ShowEpaActionNumbersMenuItem, Me.DeleteEnforcementToolStripSeparator, Me.DeleteEnforcementMenuItem})
         Me.ToolsMenu.Name = "ToolsMenu"
-        Me.ToolsMenu.Size = New System.Drawing.Size(47, 20)
+        Me.ToolsMenu.Size = New System.Drawing.Size(46, 20)
         Me.ToolsMenu.Text = "&Tools"
         '
         'ClearMessageMenuItem

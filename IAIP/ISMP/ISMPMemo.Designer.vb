@@ -171,6 +171,7 @@ Partial Class ISMPMemo
         '
         'ToolStrip1
         '
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.bbtSave})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
@@ -180,11 +181,10 @@ Partial Class ISMPMemo
         '
         'bbtSave
         '
-        Me.bbtSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.bbtSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
         Me.bbtSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.bbtSave.Name = "bbtSave"
-        Me.bbtSave.Size = New System.Drawing.Size(23, 22)
+        Me.bbtSave.Size = New System.Drawing.Size(51, 22)
         Me.bbtSave.Text = "Save"
         '
         'ISMPMemo

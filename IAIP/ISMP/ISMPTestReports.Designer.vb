@@ -979,7 +979,7 @@ Partial Class ISMPTestReports
         '
         Me.mmiTool.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOpenTestLogNotification, Me.mmiOpenExcelFile, Me.mmiPrePopulate, Me.mmiDefaultCompliance, Me.mmiPrintNonConf})
         Me.mmiTool.Name = "mmiTool"
-        Me.mmiTool.Size = New System.Drawing.Size(47, 20)
+        Me.mmiTool.Size = New System.Drawing.Size(46, 20)
         Me.mmiTool.Text = "Tools"
         '
         'mmiOpenTestLogNotification
@@ -1015,6 +1015,7 @@ Partial Class ISMPTestReports
         '
         'ToolStrip1
         '
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbSearch, Me.tsbPrePopulate, Me.tsbPrint, Me.tsbClear, Me.tsbResize, Me.tsbMemo, Me.tsbTestLogLink, Me.tsbDelete, Me.tsbConfidentialData})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
@@ -1563,7 +1564,7 @@ Partial Class ISMPTestReports
         Me.Label11.AutoSize = True
         Me.Label11.Location = New System.Drawing.Point(13, 290)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(147, 13)
+        Me.Label11.Size = New System.Drawing.Size(141, 13)
         Me.Label11.TabIndex = 10
         Me.Label11.Text = "Other Witnessing Engineers:"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.BottomLeft
@@ -1683,7 +1684,7 @@ Partial Class ISMPTestReports
         Me.lblDatesTested.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblDatesTested.Location = New System.Drawing.Point(428, 143)
         Me.lblDatesTested.Name = "lblDatesTested"
-        Me.lblDatesTested.Size = New System.Drawing.Size(80, 13)
+        Me.lblDatesTested.Size = New System.Drawing.Size(74, 13)
         Me.lblDatesTested.TabIndex = 48
         Me.lblDatesTested.Text = "Dates Tested:"
         '

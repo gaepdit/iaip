@@ -183,13 +183,13 @@ Partial Class SBEAPClientSummary
         '
         Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiDeleteClient})
         Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(42, 20)
+        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(41, 20)
         Me.ToolToolStripMenuItem.Text = "Tool"
         '
         'mmiDeleteClient
         '
         Me.mmiDeleteClient.Name = "mmiDeleteClient"
-        Me.mmiDeleteClient.Size = New System.Drawing.Size(162, 22)
+        Me.mmiDeleteClient.Size = New System.Drawing.Size(180, 22)
         Me.mmiDeleteClient.Text = "Delete Customer"
         '
         'HelpToolStripMenuItem
@@ -200,6 +200,7 @@ Partial Class SBEAPClientSummary
         '
         'ToolStrip1
         '
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbSearchTool, Me.tsbClear})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"

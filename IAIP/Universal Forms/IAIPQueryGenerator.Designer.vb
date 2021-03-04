@@ -501,6 +501,7 @@ Partial Class IAIPQueryGenerator
         '
         'ToolStrip1
         '
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbExport, Me.tsbSaveQuery, Me.tsbSearchQuery, Me.tsbReSizeFilterOptions})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
@@ -4488,30 +4489,30 @@ Partial Class IAIPQueryGenerator
         '
         Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveSearchQueryToolStripMenuItem, Me.OpenSavedSearchToolStripMenuItem, Me.ToolStripSeparator1, Me.mmiExport})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(47, 20)
+        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
         Me.ToolsToolStripMenuItem.Text = "&Tools"
         '
         'SaveSearchQueryToolStripMenuItem
         '
         Me.SaveSearchQueryToolStripMenuItem.Name = "SaveSearchQueryToolStripMenuItem"
-        Me.SaveSearchQueryToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.SaveSearchQueryToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.SaveSearchQueryToolStripMenuItem.Text = "&Save Search Query"
         '
         'OpenSavedSearchToolStripMenuItem
         '
         Me.OpenSavedSearchToolStripMenuItem.Name = "OpenSavedSearchToolStripMenuItem"
-        Me.OpenSavedSearchToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.OpenSavedSearchToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.OpenSavedSearchToolStripMenuItem.Text = "&Open Saved Query"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(169, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
         'mmiExport
         '
         Me.mmiExport.Name = "mmiExport"
-        Me.mmiExport.Size = New System.Drawing.Size(172, 22)
+        Me.mmiExport.Size = New System.Drawing.Size(180, 22)
         Me.mmiExport.Text = "&Export to Excel"
         '
         'MenuStrip1

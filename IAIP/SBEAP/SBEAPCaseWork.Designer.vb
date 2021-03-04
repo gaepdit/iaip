@@ -214,6 +214,7 @@ Partial Class SBEAPCaseWork
         '
         'ToolStrip1
         '
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbClientSearch, Me.tsbClearFrom})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
@@ -261,19 +262,19 @@ Partial Class SBEAPCaseWork
         '
         Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiAddNewClient, Me.tsmDeleteCaseWork})
         Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(42, 20)
+        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(41, 20)
         Me.ToolToolStripMenuItem.Text = "Tool"
         '
         'mmiAddNewClient
         '
         Me.mmiAddNewClient.Name = "mmiAddNewClient"
-        Me.mmiAddNewClient.Size = New System.Drawing.Size(166, 22)
+        Me.mmiAddNewClient.Size = New System.Drawing.Size(180, 22)
         Me.mmiAddNewClient.Text = "Add New Client"
         '
         'tsmDeleteCaseWork
         '
         Me.tsmDeleteCaseWork.Name = "tsmDeleteCaseWork"
-        Me.tsmDeleteCaseWork.Size = New System.Drawing.Size(166, 22)
+        Me.tsmDeleteCaseWork.Size = New System.Drawing.Size(180, 22)
         Me.tsmDeleteCaseWork.Text = "Delete Case Work"
         '
         'txtCaseID
@@ -1666,7 +1667,7 @@ Partial Class SBEAPCaseWork
         Me.Label42.AutoSize = True
         Me.Label42.Location = New System.Drawing.Point(92, 0)
         Me.Label42.Name = "Label42"
-        Me.Label42.Size = New System.Drawing.Size(62, 13)
+        Me.Label42.Size = New System.Drawing.Size(56, 13)
         Me.Label42.TabIndex = 3
         Me.Label42.Text = "Customers"
         '
@@ -1694,7 +1695,7 @@ Partial Class SBEAPCaseWork
         Me.Label13.AutoSize = True
         Me.Label13.Location = New System.Drawing.Point(0, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(86, 13)
+        Me.Label13.Size = New System.Drawing.Size(80, 13)
         Me.Label13.TabIndex = 0
         Me.Label13.Text = "Add Clustomers"
         '

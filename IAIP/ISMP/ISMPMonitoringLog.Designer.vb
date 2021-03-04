@@ -247,7 +247,7 @@ Partial Class ISMPMonitoringLog
         '
         Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiReports, Me.ExportToExcelToolStripMenuItem})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(47, 20)
+        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
         Me.ToolsToolStripMenuItem.Text = "&Tools"
         '
         'mmiReports
@@ -264,6 +264,7 @@ Partial Class ISMPMonitoringLog
         '
         'ToolStrip1
         '
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbClear, Me.tsbFacilitySearch, Me.tsbResize, Me.tsbExportToExcel})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
@@ -701,7 +702,7 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox5.Controls.Add(Me.chbTestReports)
         Me.GroupBox5.Location = New System.Drawing.Point(7, 51)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(117, 96)
+        Me.GroupBox5.Size = New System.Drawing.Size(111, 96)
         Me.GroupBox5.TabIndex = 1
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Work Types"
@@ -711,7 +712,7 @@ Partial Class ISMPMonitoringLog
         Me.chbTestFirmComments.AutoSize = True
         Me.chbTestFirmComments.Location = New System.Drawing.Point(6, 60)
         Me.chbTestFirmComments.Name = "chbTestFirmComments"
-        Me.chbTestFirmComments.Size = New System.Drawing.Size(105, 17)
+        Me.chbTestFirmComments.Size = New System.Drawing.Size(99, 17)
         Me.chbTestFirmComments.TabIndex = 2
         Me.chbTestFirmComments.Text = "Test Comments"
         '
@@ -731,7 +732,7 @@ Partial Class ISMPMonitoringLog
         Me.chbTestReports.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chbTestReports.Location = New System.Drawing.Point(6, 22)
         Me.chbTestReports.Name = "chbTestReports"
-        Me.chbTestReports.Size = New System.Drawing.Size(93, 17)
+        Me.chbTestReports.Size = New System.Drawing.Size(87, 17)
         Me.chbTestReports.TabIndex = 0
         Me.chbTestReports.Text = "Test Reports"
         '
