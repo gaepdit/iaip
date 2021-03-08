@@ -218,8 +218,8 @@ Partial Class ISMPManagersTools
 
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ViewMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MmiViewTestReports = New System.Windows.Forms.ToolStripMenuItem()
         Me.MmiUnassignedTestReports = New System.Windows.Forms.ToolStripMenuItem()
@@ -1072,9 +1072,9 @@ Partial Class ISMPManagersTools
         '
         'TPReportAssignment
         '
+        Me.TPReportAssignment.Controls.Add(Me.LVTestReportAssignment)
         Me.TPReportAssignment.Controls.Add(Me.SplitterTestReportAssignment)
         Me.TPReportAssignment.Controls.Add(Me.PanelReportAssignment)
-        Me.TPReportAssignment.Controls.Add(Me.LVTestReportAssignment)
         Me.TPReportAssignment.Controls.Add(Me.MenuStrip1)
         Me.TPReportAssignment.Location = New System.Drawing.Point(4, 22)
         Me.TPReportAssignment.Name = "TPReportAssignment"
@@ -1086,8 +1086,8 @@ Partial Class ISMPManagersTools
         'SplitterTestReportAssignment
         '
         Me.SplitterTestReportAssignment.BackColor = System.Drawing.SystemColors.HotTrack
-        Me.SplitterTestReportAssignment.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.SplitterTestReportAssignment.Location = New System.Drawing.Point(0, 243)
+        Me.SplitterTestReportAssignment.Dock = System.Windows.Forms.DockStyle.Top
+        Me.SplitterTestReportAssignment.Location = New System.Drawing.Point(0, 143)
         Me.SplitterTestReportAssignment.MinExtra = 10
         Me.SplitterTestReportAssignment.Name = "SplitterTestReportAssignment"
         Me.SplitterTestReportAssignment.Size = New System.Drawing.Size(1134, 4)
@@ -1102,16 +1102,16 @@ Partial Class ISMPManagersTools
         Me.PanelReportAssignment.Controls.Add(Me.lblTestReportAssignment)
         Me.PanelReportAssignment.Controls.Add(Me.Label1)
         Me.PanelReportAssignment.Controls.Add(Me.cboEngineer)
-        Me.PanelReportAssignment.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelReportAssignment.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelReportAssignment.Location = New System.Drawing.Point(0, 24)
         Me.PanelReportAssignment.Name = "PanelReportAssignment"
-        Me.PanelReportAssignment.Size = New System.Drawing.Size(1134, 223)
+        Me.PanelReportAssignment.Size = New System.Drawing.Size(1134, 119)
         Me.PanelReportAssignment.TabIndex = 43
         '
         'chbNonComplianceTestReport
         '
         Me.chbNonComplianceTestReport.AutoSize = True
-        Me.chbNonComplianceTestReport.Location = New System.Drawing.Point(176, 83)
+        Me.chbNonComplianceTestReport.Location = New System.Drawing.Point(8, 60)
         Me.chbNonComplianceTestReport.Name = "chbNonComplianceTestReport"
         Me.chbNonComplianceTestReport.Size = New System.Drawing.Size(206, 17)
         Me.chbNonComplianceTestReport.TabIndex = 44
@@ -1121,7 +1121,7 @@ Partial Class ISMPManagersTools
         'Label107
         '
         Me.Label107.AutoSize = True
-        Me.Label107.Location = New System.Drawing.Point(384, 8)
+        Me.Label107.Location = New System.Drawing.Point(428, 8)
         Me.Label107.Name = "Label107"
         Me.Label107.Size = New System.Drawing.Size(41, 13)
         Me.Label107.TabIndex = 41
@@ -1129,7 +1129,7 @@ Partial Class ISMPManagersTools
         '
         'txtTestReportCount
         '
-        Me.txtTestReportCount.Location = New System.Drawing.Point(440, 8)
+        Me.txtTestReportCount.Location = New System.Drawing.Point(484, 8)
         Me.txtTestReportCount.Name = "txtTestReportCount"
         Me.txtTestReportCount.ReadOnly = True
         Me.txtTestReportCount.Size = New System.Drawing.Size(24, 20)
@@ -1138,9 +1138,11 @@ Partial Class ISMPManagersTools
         '
         'lblTestReportAssignment
         '
-        Me.lblTestReportAssignment.Location = New System.Drawing.Point(176, 8)
+        Me.lblTestReportAssignment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblTestReportAssignment.Location = New System.Drawing.Point(220, 8)
         Me.lblTestReportAssignment.Name = "lblTestReportAssignment"
-        Me.lblTestReportAssignment.Size = New System.Drawing.Size(200, 69)
+        Me.lblTestReportAssignment.Size = New System.Drawing.Size(200, 95)
         Me.lblTestReportAssignment.TabIndex = 39
         '
         'Label1
@@ -1165,11 +1167,11 @@ Partial Class ISMPManagersTools
         'LVTestReportAssignment
         '
         Me.LVTestReportAssignment.AllowColumnReorder = True
-        Me.LVTestReportAssignment.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.LVTestReportAssignment.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LVTestReportAssignment.HideSelection = False
-        Me.LVTestReportAssignment.Location = New System.Drawing.Point(0, 247)
+        Me.LVTestReportAssignment.Location = New System.Drawing.Point(0, 147)
         Me.LVTestReportAssignment.Name = "LVTestReportAssignment"
-        Me.LVTestReportAssignment.Size = New System.Drawing.Size(1134, 440)
+        Me.LVTestReportAssignment.Size = New System.Drawing.Size(1134, 540)
         Me.LVTestReportAssignment.TabIndex = 41
         Me.LVTestReportAssignment.UseCompatibleStateImageBehavior = False
         '
@@ -1742,8 +1744,8 @@ Partial Class ISMPManagersTools
         '
         'dgrEngineersFacilityList
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrEngineersFacilityList.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrEngineersFacilityList.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgrEngineersFacilityList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrEngineersFacilityList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrEngineersFacilityList.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -2091,8 +2093,8 @@ Partial Class ISMPManagersTools
         '
         'dgrTestSummary
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrTestSummary.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrTestSummary.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgrTestSummary.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrTestSummary.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrTestSummary.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
