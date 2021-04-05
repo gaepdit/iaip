@@ -98,4 +98,9 @@ Public Module StringFunctions
         End If
     End Function
 
+    Public Function SqlQuote(input As String) As String
+        input = Replace(input, "'", "''")
+        Return input
+    End Function
+
 End Module

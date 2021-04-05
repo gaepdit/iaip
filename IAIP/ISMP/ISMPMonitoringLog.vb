@@ -334,40 +334,40 @@ Public Class ISMPMonitoringLog
                 End If
 
                 If txtAIRSNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPMaster.strAIRSnumber like '%" & txtAIRSNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPMaster.strAIRSnumber like '%" & SqlQuote(txtAIRSNumberFilter.Text) & "%' "
                 End If
                 If txtFacilityNameFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityName like '%" & txtFacilityNameFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityName like '%" & SqlQuote(txtFacilityNameFilter.Text) & "%' "
                 End If
                 If txtReferenceNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPMaster.strReferenceNumber like '%" & txtReferenceNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPMaster.strReferenceNumber like '%" & SqlQuote(txtReferenceNumberFilter.Text) & "%' "
                 End If
                 If txtNotificationNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPTestLogLink.strTestLogNumber like '%" & txtNotificationNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPTestLogLink.strTestLogNumber like '%" & SqlQuote(txtNotificationNumberFilter.Text) & "%' "
                 End If
                 If txtCityFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityCity like '%" & txtCityFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityCity like '%" & SqlQuote(txtCityFilter.Text) & "%' "
                 End If
                 If txtCountyFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and LookUpCountyInformation.strCountyName like '%" & txtCountyFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and LookUpCountyInformation.strCountyName like '%" & SqlQuote(txtCountyFilter.Text) & "%' "
                 End If
                 If txtEmissionSourceTestedFilter.Text <> "" Then
                     SQLWhere = SQLWhere & " and ISMPReportInformation.strEmissionSource " &
-                                               "like '%" & txtEmissionSourceTestedFilter.Text & "%' "
+                                               "like '%" & SqlQuote(txtEmissionSourceTestedFilter.Text) & "%' "
                 End If
                 If txtCommentFieldFilter.Text <> "" Then
                     SQLWhere = SQLWhere & " and ISMPReportInformation.mmoCommentArea " &
-                                               "like '%" & txtCommentFieldFilter.Text & "%' "
+                                               "like '%" & SqlQuote(txtCommentFieldFilter.Text) & "%' "
                 End If
 
                 If txtPollutantFilter.Text <> "" Then
                     SQLWhere = SQLWhere & " and LookUpPollutants.strPollutantDescription " &
-                                               "like '%" & txtPollutantFilter.Text & "%' "
+                                               "like '%" & SqlQuote(txtPollutantFilter.Text) & "%' "
                 End If
 
                 If txtTestingFirm.Text <> "" Then
                     SQLWhere = SQLWhere & "and LOOKUPTESTINGFIRMS.STRTESTINGFIRM " &
-                        "like '%" & Replace(txtTestingFirm.Text, "'", "''") & "%' "
+                        "like '%" & SqlQuote(txtTestingFirm.Text) & "%' "
                 End If
 
                 query = query & SQLWhere
@@ -490,30 +490,30 @@ Public Class ISMPMonitoringLog
                     SQLWhere = SQLWhere & " and datproposedstartdate > DATEADD(day, -90, GETDATE()) "
                 End If
                 If txtAIRSNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPTestNotification.strAIRSnumber like '%" & txtAIRSNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPTestNotification.strAIRSnumber like '%" & SqlQuote(txtAIRSNumberFilter.Text) & "%' "
                 End If
                 If txtFacilityNameFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityName like '%" & txtFacilityNameFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityName like '%" & SqlQuote(txtFacilityNameFilter.Text) & "%' "
                 End If
                 If txtReferenceNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPTestLogLink.strReferenceNumber like '%" & txtReferenceNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPTestLogLink.strReferenceNumber like '%" & SqlQuote(txtReferenceNumberFilter.Text) & "%' "
                 End If
                 If txtNotificationNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPTestNotification.strTestLogNumber like '%" & txtNotificationNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPTestNotification.strTestLogNumber like '%" & SqlQuote(txtNotificationNumberFilter.Text) & "%' "
                 End If
                 If txtCityFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityCity like '%" & txtCityFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityCity like '%" & SqlQuote(txtCityFilter.Text) & "%' "
                 End If
                 If txtCountyFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and LookUpCountyInformation.strCountyName like '%" & txtCountyFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and LookUpCountyInformation.strCountyName like '%" & SqlQuote(txtCountyFilter.Text) & "%' "
                 End If
                 If txtEmissionSourceTestedFilter.Text <> "" Then
                     SQLWhere = SQLWhere & " and ISMPTestNotification.strEmissionUnit " &
-                                               "like '%" & txtEmissionSourceTestedFilter.Text & "%' "
+                                               "like '%" & SqlQuote(txtEmissionSourceTestedFilter.Text) & "%' "
                 End If
                 If txtCommentFieldFilter.Text <> "" Then
                     SQLWhere = SQLWhere & " and ISMPTestNotification.strComments " &
-                                               "like '%" & txtCommentFieldFilter.Text & "%' "
+                                               "like '%" & SqlQuote(txtCommentFieldFilter.Text) & "%' "
                 End If
                 If txtPollutantFilter.Text <> "" Then
 
@@ -624,35 +624,35 @@ Public Class ISMPMonitoringLog
                 End If
 
                 If txtAIRSNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPTestFirmComments.strAIRSnumber like '%" & txtAIRSNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPTestFirmComments.strAIRSnumber like '%" & SqlQuote(txtAIRSNumberFilter.Text) & "%' "
                 End If
                 If txtFacilityNameFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityName like '%" & txtFacilityNameFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityName like '%" & SqlQuote(txtFacilityNameFilter.Text) & "%' "
                 End If
                 If txtReferenceNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPTestFirmComments.strReferenceNumber like '%" & txtReferenceNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPTestFirmComments.strReferenceNumber like '%" & SqlQuote(txtReferenceNumberFilter.Text) & "%' "
                 End If
                 If txtNotificationNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPTestFirmComments.strTestLogNumber like '%" & txtNotificationNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPTestFirmComments.strTestLogNumber like '%" & SqlQuote(txtNotificationNumberFilter.Text) & "%' "
                 End If
                 If txtCityFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityCity like '%" & txtCityFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityCity like '%" & SqlQuote(txtCityFilter.Text) & "%' "
                 End If
                 If txtCountyFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and LookUpCountyInformation.strCountyName like '%" & txtCountyFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and LookUpCountyInformation.strCountyName like '%" & SqlQuote(txtCountyFilter.Text) & "%' "
                 End If
                 If txtEmissionSourceTestedFilter.Text <> "" Then
                     SQLWhere = SQLWhere & " and ISMPTestNotification.strEmissionUnit " &
-                                               "like '%" & txtEmissionSourceTestedFilter.Text & "%' "
+                                               "like '%" & SqlQuote(txtEmissionSourceTestedFilter.Text) & "%' "
                 End If
                 If txtCommentFieldFilter.Text <> "" Then
                     SQLWhere = SQLWhere & " and ISMPTestFirmComments.strComments " &
-                                               "like '%" & Replace(txtCommentFieldFilter.Text, "'", "''") & "%' "
+                                               "like '%" & SqlQuote(txtCommentFieldFilter.Text) & "%' "
                 End If
 
                 If txtTestingFirm.Text <> "" Then
                     SQLWhere = SQLWhere & "and LookUpTestingFirms.strTestingFirm " &
-                                                "like '%" & Replace(txtTestingFirm.Text, "'", "''") & "%' "
+                                                "like '%" & SqlQuote(txtTestingFirm.Text) & "%' "
                 End If
 
                 query = query & SQLWhere

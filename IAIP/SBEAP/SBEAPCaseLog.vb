@@ -142,26 +142,26 @@
 
             Select Case cboFieldType1.Text
                 Case "Action Type"
-                    SQLAction = " and (numActionType = '" & Replace(cboSearchText1.SelectedValue, "'", "''") & "' ) "
+                    SQLAction = " and (numActionType = '" & SqlQuote(cboSearchText1.SelectedValue) & "' ) "
                     SQLSearch1 = " Actiontype = 'Action' "
                 Case "Case ID"
-                    SQLSearch1 = " numCaseID like '%" & Replace(txtSearchText1.Text, "'", "''") & "%' "
+                    SQLSearch1 = " numCaseID like '%" & SqlQuote(txtSearchText1.Text) & "%' "
                 Case "Customer ID"
-                    SQLSearch1 = " clientID like '%" & Replace(txtSearchText1.Text, "'", "''") & "%' "
+                    SQLSearch1 = " clientID like '%" & SqlQuote(txtSearchText1.Text) & "%' "
                 Case "Date Case Opened"
                     SQLSearch1 = "  CaseOpened between '" & DTPSearchDate1.Text & "' and '" & DTPSearchDate2.Text & "' "
                 Case "Date Case Closed"
                     SQLSearch1 = "  CaseClosed between '" & DTPSearchDate1.Text & "' and '" & DTPSearchDate2.Text & "' "
                 Case "Staff First Name"
-                    SQLSearch1 = "  StaffResponsible like '%, " & Replace(txtSearchText1.Text, "'", "''") & "%' "
+                    SQLSearch1 = "  StaffResponsible like '%, " & SqlQuote(txtSearchText1.Text) & "%' "
                 Case "Staff Last Name"
-                    SQLSearch1 = "  StaffResponsible like '%" & Replace(txtSearchText1.Text, "'", "''") & ", %' "
+                    SQLSearch1 = "  StaffResponsible like '%" & SqlQuote(txtSearchText1.Text) & ", %' "
                 Case "Staff Responsible"
                     If cboSearchText1.SelectedIndex > 0 Then
-                        SQLSearch1 = "  StaffResponsible = '" & Replace(cboSearchText1.Text, "'", "''") & "' "
+                        SQLSearch1 = "  StaffResponsible = '" & SqlQuote(cboSearchText1.Text) & "' "
                     End If
                 Case "Case Description"
-                    SQLSearch1 = "  strCaseSummary like '%" & Replace(txtSearchText1.Text, "'", "''") & "%' "
+                    SQLSearch1 = "  strCaseSummary like '%" & SqlQuote(txtSearchText1.Text) & "%' "
                 Case Else
 
             End Select
@@ -170,29 +170,29 @@
                 Case "Action Type"
                     If SQLAction <> "" Then
                         SQLAction = Mid(SQLAction, 1, SQLAction.Length - 2)
-                        SQLAction = SQLAction & " or numActionType = '" & Replace(cboSearchText2.SelectedValue, "'", "''") & "' ) "
+                        SQLAction = SQLAction & " or numActionType = '" & SqlQuote(cboSearchText2.SelectedValue) & "' ) "
                     Else
-                        SQLAction = "and numActionType = '" & Replace(cboSearchText2.SelectedValue, "'", "''") & "' "
+                        SQLAction = "and numActionType = '" & SqlQuote(cboSearchText2.SelectedValue) & "' "
                     End If
                     SQLSearch1 = " Actiontype = 'Action' "
                 Case "Case ID"
-                    SQLSearch2 = " numCaseID like '%" & Replace(txtSearchText2.Text, "'", "''") & "%' "
+                    SQLSearch2 = " numCaseID like '%" & SqlQuote(txtSearchText2.Text) & "%' "
                 Case "Customer ID"
-                    SQLSearch2 = " ClientID like '%" & Replace(txtSearchText2.Text, "'", "''") & "%' "
+                    SQLSearch2 = " ClientID like '%" & SqlQuote(txtSearchText2.Text) & "%' "
                 Case "Date Case Opened"
                     SQLSearch2 = " CaseOpened between '" & DTPSearchDate3.Text & "' and '" & DTPSearchDate4.Text & "' "
                 Case "Date Case Closed"
                     SQLSearch2 = " CaseClosed between '" & DTPSearchDate3.Text & "' and '" & DTPSearchDate4.Text & "' "
                 Case "Staff First Name"
-                    SQLSearch2 = " StaffResponsible like '%, " & Replace(txtSearchText2.Text, "'", "''") & "%' "
+                    SQLSearch2 = " StaffResponsible like '%, " & SqlQuote(txtSearchText2.Text) & "%' "
                 Case "Staff Last Name"
-                    SQLSearch2 = " StaffResponsible like '%" & Replace(txtSearchText2.Text, "'", "''") & ", %' "
+                    SQLSearch2 = " StaffResponsible like '%" & SqlQuote(txtSearchText2.Text) & ", %' "
                 Case "Staff Responsible"
                     If cboSearchText2.SelectedIndex > 0 Then
-                        SQLSearch2 = " StaffResponsible = '" & Replace(cboSearchText2.Text, "'", "''") & "' "
+                        SQLSearch2 = " StaffResponsible = '" & SqlQuote(cboSearchText2.Text) & "' "
                     End If
                 Case "Case Description"
-                    SQLSearch2 = " strCaseSummary like '%" & Replace(txtSearchText2.Text, "'", "''") & "%' "
+                    SQLSearch2 = " strCaseSummary like '%" & SqlQuote(txtSearchText2.Text) & "%' "
                 Case Else
                     SQLSearch2 = " datCaseClosed is null "
             End Select

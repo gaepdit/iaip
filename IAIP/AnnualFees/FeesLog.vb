@@ -76,10 +76,10 @@
                 OpStatus = " ( " & OpStatus & " ) "
             End If
             If mtbSearchAirsNumber.Text <> "" Then
-                AIRSNumber = " a.strAIRSNumber like '%" & mtbSearchAirsNumber.Text & "%' "
+                AIRSNumber = " a.strAIRSNumber like '%" & SqlQuote(mtbSearchAirsNumber.Text) & "%' "
             End If
             If txtSearchFacilityName.Text <> "" Then
-                FacilityName = " f.strFacilityName like '%" & txtSearchFacilityName.Text & "%' "
+                FacilityName = " f.strFacilityName like '%" & SqlQuote(txtSearchFacilityName.Text) & "%' "
             End If
             If chbOwesFees.Checked Then
                 CollectionStatus = " numCurrentStatus < 10 "
