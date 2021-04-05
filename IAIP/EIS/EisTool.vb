@@ -30,10 +30,12 @@ Public Class EisTool
         For Each dr As DataRow In dt.Rows
             cboEILogYear.Items.Add(dr.Item("InvYear"))
             cboEISStatisticsYear.Items.Add(dr.Item("InvYear"))
+            cboAllContacts.Items.Add(dr.Item("InvYear"))
         Next
 
         cboEILogYear.SelectedIndex = 0
         cboEISStatisticsYear.SelectedIndex = 0
+        cboAllContacts.SelectedIndex = 0
 
         SQL = "select distinct strDMUResponsibleStaff as DMUStafff " &
             "from EIS_QAAdmin " &
@@ -3407,7 +3409,8 @@ Public Class EisTool
             "STRPOINTTRACKINGNUMBER as PointTrackingNumber " &
             " from VW_EIS_Stats " &
             "where inventoryyear = @inventoryyear " &
-            "and Active = @Active "
+            "and Active = @Active " &
+            "ORDER BY ea.INVENTORYYEAR DESC, ea.FACILITYSITEID"
 
             If EISMailout <> "" Then
                 SQL = SQL & " and strMailout = @strMailout "
@@ -3912,6 +3915,13 @@ Public Class EisTool
                 e.CellStyle.Format = DateFormat
             End If
         End If
+    End Sub
+
+    Private Sub btnViewAllContacts_Click(sender As Object, e As EventArgs) Handles btnViewAllContacts.Click
+        Dim param As SqlParameter = New SqlParameter("@InventoryYear", cboAllContacts.Text)
+        Dim dt As DataTable = DB.SPGetDataTable("dbo.PD_EI_Status_And_Contacts", param)
+        dt.PrimaryKey = Nothing
+        dgvAllContacts.DataSource = dt
     End Sub
 
 #End Region

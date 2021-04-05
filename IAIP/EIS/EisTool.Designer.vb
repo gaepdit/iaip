@@ -27,6 +27,7 @@ Partial Class EisTool
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPEISLog = New System.Windows.Forms.TabPage()
@@ -425,6 +426,7 @@ Partial Class EisTool
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.chkCaersShowDeleted = New System.Windows.Forms.CheckBox()
         Me.btnCaersView = New System.Windows.Forms.Button()
+        Me.TPYearContacts = New System.Windows.Forms.TabPage()
         Me.TPHistory = New System.Windows.Forms.TabPage()
         Me.dgvEIResults = New Iaip.IaipDataGridView()
         Me.lblHistoryCount = New System.Windows.Forms.Label()
@@ -436,6 +438,10 @@ Partial Class EisTool
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.cboEIYear = New System.Windows.Forms.ComboBox()
+        Me.dgvAllContacts = New Iaip.IaipDataGridView()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.cboAllContacts = New System.Windows.Forms.ComboBox()
+        Me.btnViewAllContacts = New System.Windows.Forms.Button()
         Me.TCDMUTools.SuspendLayout()
         Me.TPEISLog.SuspendLayout()
         Me.TabControl6.SuspendLayout()
@@ -482,9 +488,12 @@ Partial Class EisTool
         Me.TPCaersUsers.SuspendLayout()
         CType(Me.dgvCaersUsers, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
+        Me.TPYearContacts.SuspendLayout()
         Me.TPHistory.SuspendLayout()
         CType(Me.dgvEIResults, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
+        CType(Me.dgvAllContacts, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel4.SuspendLayout()
         Me.SuspendLayout()
         '
         'TCDMUTools
@@ -4070,6 +4079,7 @@ Partial Class EisTool
         Me.TCAdmin.Controls.Add(Me.TPEISThresholds)
         Me.TCAdmin.Controls.Add(Me.TPOperStatus)
         Me.TCAdmin.Controls.Add(Me.TPCaersUsers)
+        Me.TCAdmin.Controls.Add(Me.TPYearContacts)
         Me.TCAdmin.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCAdmin.Location = New System.Drawing.Point(0, 0)
         Me.TCAdmin.Name = "TCAdmin"
@@ -4506,6 +4516,18 @@ Partial Class EisTool
         Me.btnCaersView.Text = "View"
         Me.btnCaersView.UseVisualStyleBackColor = True
         '
+        'TPYearContacts
+        '
+        Me.TPYearContacts.Controls.Add(Me.dgvAllContacts)
+        Me.TPYearContacts.Controls.Add(Me.Panel4)
+        Me.TPYearContacts.Location = New System.Drawing.Point(4, 22)
+        Me.TPYearContacts.Name = "TPYearContacts"
+        Me.TPYearContacts.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPYearContacts.Size = New System.Drawing.Size(1000, 661)
+        Me.TPYearContacts.TabIndex = 5
+        Me.TPYearContacts.Text = "All EI Contacts"
+        Me.TPYearContacts.UseVisualStyleBackColor = True
+        '
         'TPHistory
         '
         Me.TPHistory.Controls.Add(Me.dgvEIResults)
@@ -4520,8 +4542,8 @@ Partial Class EisTool
         '
         'dgvEIResults
         '
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvEIResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEIResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvEIResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvEIResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEIResults.DecimalFieldFormat = "N3"
@@ -4629,6 +4651,50 @@ Partial Class EisTool
         Me.cboEIYear.Size = New System.Drawing.Size(79, 21)
         Me.cboEIYear.TabIndex = 0
         '
+        'dgvAllContacts
+        '
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvAllContacts.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        Me.dgvAllContacts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvAllContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvAllContacts.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvAllContacts.LinkifyColumnByName = Nothing
+        Me.dgvAllContacts.Location = New System.Drawing.Point(3, 56)
+        Me.dgvAllContacts.Name = "dgvAllContacts"
+        Me.dgvAllContacts.ResultsCountLabel = Nothing
+        Me.dgvAllContacts.ResultsCountLabelFormat = "{0} found"
+        Me.dgvAllContacts.Size = New System.Drawing.Size(994, 602)
+        Me.dgvAllContacts.StandardTab = True
+        Me.dgvAllContacts.TabIndex = 0
+        '
+        'Panel4
+        '
+        Me.Panel4.Controls.Add(Me.btnViewAllContacts)
+        Me.Panel4.Controls.Add(Me.cboAllContacts)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel4.Location = New System.Drawing.Point(3, 3)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(994, 53)
+        Me.Panel4.TabIndex = 1
+        '
+        'cboAllContacts
+        '
+        Me.cboAllContacts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboAllContacts.FormattingEnabled = True
+        Me.cboAllContacts.Location = New System.Drawing.Point(14, 13)
+        Me.cboAllContacts.Name = "cboAllContacts"
+        Me.cboAllContacts.Size = New System.Drawing.Size(97, 21)
+        Me.cboAllContacts.TabIndex = 1
+        '
+        'btnViewAllContacts
+        '
+        Me.btnViewAllContacts.Location = New System.Drawing.Point(117, 12)
+        Me.btnViewAllContacts.Name = "btnViewAllContacts"
+        Me.btnViewAllContacts.Size = New System.Drawing.Size(75, 23)
+        Me.btnViewAllContacts.TabIndex = 2
+        Me.btnViewAllContacts.Text = "View"
+        Me.btnViewAllContacts.UseVisualStyleBackColor = True
+        '
         'EisTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -4708,10 +4774,13 @@ Partial Class EisTool
         CType(Me.dgvCaersUsers, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
+        Me.TPYearContacts.ResumeLayout(False)
         Me.TPHistory.ResumeLayout(False)
         CType(Me.dgvEIResults, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        CType(Me.dgvAllContacts, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel4.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -5124,4 +5193,9 @@ Partial Class EisTool
     Friend WithEvents chkCaersShowDeleted As CheckBox
     Friend WithEvents btnCaersView As Button
     Friend WithEvents dgvCaersUsers As IaipDataGridView
+    Friend WithEvents TPYearContacts As TabPage
+    Friend WithEvents dgvAllContacts As IaipDataGridView
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents btnViewAllContacts As Button
+    Friend WithEvents cboAllContacts As ComboBox
 End Class
