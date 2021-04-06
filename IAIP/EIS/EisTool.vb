@@ -3385,6 +3385,7 @@ Public Class EisTool
             If EISYear = "" Then
                 Return
             End If
+
             If EISActive = "" Then
                 EISActive = "1"
             End If
@@ -3409,36 +3410,37 @@ Public Class EisTool
             "STRPOINTTRACKINGNUMBER as PointTrackingNumber " &
             " from VW_EIS_Stats " &
             "where inventoryyear = @inventoryyear " &
-            "and Active = @Active " &
-            "ORDER BY ea.INVENTORYYEAR DESC, ea.FACILITYSITEID"
+            "and Active = @Active "
 
             If EISMailout <> "" Then
-                SQL = SQL & " and strMailout = @strMailout "
+                SQL &= " and strMailout = @strMailout "
             End If
             If EISEnrollment <> "" Then
-                SQL = SQL & " and strEnrollment = @strEnrollment "
+                SQL &= " and strEnrollment = @strEnrollment "
             End If
             If Optout <> "" Then
                 Select Case Optout
                     Case "Null"
-                        SQL = SQL & " and strOptOut is null "
+                        SQL &= " and strOptOut is null "
                     Case "0"
-                        SQL = SQL & " and strOptOut = '0' "
+                        SQL &= " and strOptOut = '0' "
                     Case "1"
-                        SQL = SQL & " and strOptOut = '1'  "
+                        SQL &= " and strOptOut = '1'  "
                     Case Else
-                        SQL = SQL & Optout
+                        SQL &= Optout
                 End Select
             End If
             If EISStatus <> "" Then
-                SQL = SQL & EISStatus
+                SQL &= EISStatus
             End If
             If EISAccess <> "" Then
-                SQL = SQL & EISAccess
+                SQL &= EISAccess
             End If
             If QAStatus <> "" Then
-                SQL = SQL & QAStatus
+                SQL &= QAStatus
             End If
+
+            SQL &= " ORDER BY INVENTORYYEAR DESC, FACILITYSITEID "
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@inventoryyear", EISYear),
