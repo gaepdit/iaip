@@ -83,8 +83,10 @@ Friend Module ExceptionManager
         Return False
     End Function
 
-    Private Sub ShowNetworkDownSupportMessage()
-        Dim nav As IAIPNavigation = CType(SingleForm(IAIPNavigation.Name), IAIPNavigation)
+    Public Sub ShowNetworkDownSupportMessage()
+        Dim nav As IAIPNavigation = GetSingleForm(Of IAIPNavigation)()
+        If nav Is Nothing Then Return
+
         nav.CheckNetworkConnection()
 
         Using bgw As New BackgroundWorker

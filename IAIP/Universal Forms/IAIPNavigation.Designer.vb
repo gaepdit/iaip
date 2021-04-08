@@ -8,6 +8,9 @@ Partial Class IAIPNavigation
         If disposing AndAlso components IsNot Nothing Then
             components.Dispose()
         End If
+        If disposing AndAlso networkCheckTimer IsNot Nothing Then
+            networkCheckTimer.Dispose()
+        End If
         MyBase.Dispose(disposing)
     End Sub
 

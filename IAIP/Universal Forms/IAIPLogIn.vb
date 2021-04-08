@@ -157,12 +157,12 @@ Public Class IAIPLogIn
         currentVersion = GetCurrentVersionAsMajorMinorBuild()
 
         If AppUpdated Then
-            msgText = "The IAIP has been updated." & vbNewLine & $"Current version:  {currentVersion.ToString}"
+            msgText = "The IAIP has been updated." & vbNewLine & $"Current version:  {currentVersion}"
             msg = New IaipMessage(msgText, IaipMessage.WarningLevels.Info)
             lnkChangelog.Visible = True
             lnkChangelog.BackColor = IaipColors.InfoBackColor
         Else
-            msgText = $"Version: {currentVersion.ToString}"
+            msgText = $"Version: {currentVersion}"
             msg = New IaipMessage(msgText, IaipMessage.WarningLevels.None)
         End If
 

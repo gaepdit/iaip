@@ -2,8 +2,8 @@
 Imports Iaip.BaseForm
 
 Module FormHandler
-    Public MultiForm As Dictionary(Of String, Dictionary(Of Integer, BaseForm))
-    Public SingleForm As Dictionary(Of String, BaseForm)
+    Private MultiForm As Dictionary(Of String, Dictionary(Of Integer, BaseForm))
+    Private SingleForm As Dictionary(Of String, BaseForm)
 
     Public Function OpenMultiForm(formClass As BaseForm,
                                   id As Integer,
@@ -102,6 +102,21 @@ Module FormHandler
             SingleForm(formName) IsNot Nothing AndAlso
             Not SingleForm(formName).IsDisposed)
     End Function
+
+    Public Function GetSingleForm(Of T As BaseForm)() As T
+        If SingleForm Is Nothing Then Return Nothing
+        Dim formName As String = GetType(T).Name
+        If Not SingleForm.ContainsKey(formName) Then Return Nothing
+        Return TryCast(SingleForm(formName), T)
+    End Function
+
+    Public Sub RemoveForm(formName As String, Optional id As Integer = -1)
+        If MultiForm IsNot Nothing AndAlso MultiForm.ContainsKey(formName) AndAlso MultiForm(formName).ContainsKey(id) Then
+            MultiForm(formName).Remove(id)
+        ElseIf SingleForm IsNot Nothing AndAlso SingleForm.ContainsKey(formName) Then
+            SingleForm.Remove(formName)
+        End If
+    End Sub
 
     Private Function GetFormTypeByName(formName As String) As Type
         ' See: http://vbcity.com/forums/t/32930.aspx

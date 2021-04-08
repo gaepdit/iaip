@@ -38,13 +38,7 @@ Public Class BaseForm
 
     Protected Overrides Sub OnFormClosed(e As FormClosedEventArgs)
         SaveThisFormSettings()
-
-        If MultiForm IsNot Nothing AndAlso MultiForm.ContainsKey(Name) AndAlso MultiForm(Name).ContainsKey(ID) Then
-            MultiForm(Name).Remove(ID)
-        ElseIf SingleForm IsNot Nothing AndAlso SingleForm.ContainsKey(Name) Then
-            SingleForm.Remove(Name)
-        End If
-
+        RemoveForm(Name, ID)
         MyBase.OnFormClosed(e)
     End Sub
 

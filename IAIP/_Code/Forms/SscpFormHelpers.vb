@@ -15,17 +15,22 @@ Module SscpFormHelpers
 
         If Integer.TryParse(id, idInt) AndAlso DAL.Sscp.WorkItemExists(idInt) Then
             Dim refNum As String = ""
-            If DAL.Sscp.TryGetRefNumForWorkItem(idInt, refNum) Then
-                Return OpenFormTestReportEntry(refNum)
-            ElseIf SingleFormIsOpen(SSCPEvents) _
-                    AndAlso CType(SingleForm(SSCPEvents.Name), SSCPEvents).TrackingNumber = idInt Then
-                SingleForm(SSCPEvents.Name).Activate()
-                Return SingleForm(SSCPEvents.Name)
-            Else
-                Dim sscpReport As SSCPEvents = CType(OpenSingleForm(SSCPEvents, idInt, closeFirst:=True), SSCPEvents)
-                sscpReport.TrackingNumber = idInt
-                Return sscpReport
+
+            If DAL.Sscp.TryGetRefNumForWorkItem(idInt, refNum) Then Return OpenFormTestReportEntry(refNum)
+
+            If SingleFormIsOpen(SSCPEvents) Then
+                Dim item As SSCPEvents = GetSingleForm(Of SSCPEvents)()
+
+                If item.TrackingNumber = idInt Then
+                    item.Activate()
+                    Return item
+                End If
             End If
+
+            Dim sscpReport As SSCPEvents = CType(OpenSingleForm(SSCPEvents, idInt, closeFirst:=True), SSCPEvents)
+            sscpReport.TrackingNumber = idInt
+            Return sscpReport
+
         Else
             MessageBox.Show("Tracking number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
