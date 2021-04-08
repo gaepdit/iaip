@@ -103,26 +103,25 @@ Public Class ISMPTestFirmComments
 
             For Each dr As DataRow In dt.Rows
                 If txtAllComments.Text <> "" Then
-                    txtAllComments.Text = txtAllComments.Text & "-------------" & vbCrLf
+                    txtAllComments.Text &= "-------------" & vbCrLf
                 End If
                 If IsDBNull(dr.Item("strCommentType")) Then
                     CommentType = ""
                 Else
-                    CommentType = dr.Item("strCommentType")
+                    CommentType = dr.Item("strCommentType").ToString
                 End If
                 Select Case CommentType
                     Case "1"
-                        CommentLine = "This comment was made before the actual test event by " & dr.Item("staffresponsible") & " on " & dr.Item("CommentDate")
+                        CommentLine = "This comment was made before the actual test event by " & dr.Item("staffresponsible").ToString & " on " & dr.Item("CommentDate").ToString
                     Case "2"
                         CommentLine = "This comment was made in relation to information on the day of the test " _
-                                           & dr.Item("staffresponsible") & " on " & dr.Item("CommentDate")
+                                           & dr.Item("staffresponsible").ToString & " on " & dr.Item("CommentDate").ToString
                     Case "3"
-                        CommentLine = "This comment was made after the actual test event by " & dr.Item("staffresponsible") & " on " & dr.Item("CommentDate")
+                        CommentLine = "This comment was made after the actual test event by " & dr.Item("staffresponsible").ToString & " on " & dr.Item("CommentDate").ToString
                     Case Else
-                        CommentLine = "Unknown Comment Type by " & dr.Item("StaffResponsible") & " on " & dr.Item("CommentDate")
+                        CommentLine = "Unknown Comment Type by " & dr.Item("StaffResponsible").ToString & " on " & dr.Item("CommentDate").ToString
                 End Select
-                txtAllComments.Text = txtAllComments.Text & dr.Item("numCommentsID") & ") " & CommentLine & vbCrLf &
-                     dr.Item("strComment") & vbCrLf
+                txtAllComments.Text &= dr.Item("numCommentsID").ToString & ") " & CommentLine & vbCrLf & dr.Item("strComment").ToString & vbCrLf
 
                 cboCommentNumber.Items.Add(dr.Item("numCommentsId"))
             Next
@@ -151,14 +150,14 @@ Public Class ISMPTestFirmComments
                         If IsDBNull(dr2.Item("datTestDateStart")) Then
 
                         Else
-                            txtTestDateStart.Text = dr2.Item("datTestDateStart")
+                            txtTestDateStart.Text = dr2.Item("datTestDateStart").ToString
                         End If
                     Else
-                        If dr2.Item("datTestDateEnd") = dr2.Item("datTestDateStart") Then
-                            txtTestDateStart.Text = dr2.Item("datTestDateStart")
+                        If dr2.Item("datTestDateEnd").ToString = dr2.Item("datTestDateStart").ToString Then
+                            txtTestDateStart.Text = dr2.Item("datTestDateStart").ToString
                         Else
-                            txtTestDateStart.Text = dr2.Item("datTestDateStart")
-                            txtTestDateEnd.Text = dr2.Item("datTestDateEnd")
+                            txtTestDateStart.Text = dr2.Item("datTestDateStart").ToString
+                            txtTestDateEnd.Text = dr2.Item("datTestDateEnd").ToString
                         End If
                     End If
                 Else
