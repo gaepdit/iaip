@@ -10,3 +10,6 @@ dotnet_diagnostic.CA1305.severity = none
 dotnet_diagnostic.CA1307.severity = none
 dotnet_diagnostic.CA3075.severity = none
 dotnet_diagnostic.S1075.severity = none
+
+# BC42016: Implicit conversion
+dotnet_diagnostic.BC42016.severity = none
