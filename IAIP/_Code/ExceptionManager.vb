@@ -112,9 +112,12 @@ Friend Module ExceptionManager
                     End If
                 End Sub
 
-                ' when the task dialog is closed, it throws an unhandled exception that ends 
-                ' the background worker, but it still works as long as .Buttons is defined above
-                td.Show()
+                Try
+                    td.Show()
+                Catch ex As Exception
+                    ' when the task dialog is closed, it throws an unhandled exception that ends 
+                    ' the background worker, but it still works as long as .Buttons is defined above
+                End Try
             End Sub
 
             bgw.RunWorkerAsync()
