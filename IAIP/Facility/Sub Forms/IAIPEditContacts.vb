@@ -5,9 +5,9 @@ Public Class IAIPEditContacts
 
 #Region "Properties"
 
-    Public Property AirsNumber() As Apb.ApbFacilityId
-    Public Property FacilityName() As String
-    Friend Property Key() As ContactKey
+    Public Property AirsNumber As Apb.ApbFacilityId
+    Public Property FacilityName As String
+    Friend Property Key As ContactKey
 
 #End Region
 
@@ -25,18 +25,18 @@ Public Class IAIPEditContacts
         If Parameters IsNot Nothing Then
             If Parameters.ContainsKey(FormParameter.AirsNumber) Then
                 Try
-                    Me.AirsNumber = Parameters(FormParameter.AirsNumber)
-                    lblAirsNumber.Text = Me.AirsNumber.FormattedString
+                    AirsNumber = Parameters(FormParameter.AirsNumber)
+                    lblAirsNumber.Text = AirsNumber.FormattedString
                 Catch ex As Exception
-                    Me.AirsNumber = Nothing
+                    AirsNumber = Nothing
                 End Try
             End If
             If Parameters.ContainsKey(FormParameter.FacilityName) Then
-                Me.FacilityName = Parameters(FormParameter.FacilityName)
+                FacilityName = Parameters(FormParameter.FacilityName)
                 lblFacilityName.Text = FacilityName
             End If
             If Parameters.ContainsKey(FormParameter.Key) Then
-                Me.Key = [Enum].Parse(GetType(ContactKey), Parameters(FormParameter.Key))
+                Key = [Enum].Parse(GetType(ContactKey), Parameters(FormParameter.Key))
             End If
         End If
     End Sub
@@ -45,7 +45,7 @@ Public Class IAIPEditContacts
         Try
             If AirsNumber.ToString IsNot Nothing Then
 
-                Dim SQL As String = "Select " &
+                Dim query As String = "Select " &
                 "case " &
                 "when strKey = '10' then 'Current Monitoring Contact'" &
                 "when strKey = '20' then 'Current Compliance Contact' " &
@@ -84,7 +84,7 @@ Public Class IAIPEditContacts
 
                 Dim p As New SqlParameter("@airs", AirsNumber.DbFormattedString)
 
-                ContactsDataGrid.DataSource = DB.GetDataTable(SQL, p)
+                ContactsDataGrid.DataSource = DB.GetDataTable(query, p)
 
                 ContactsDataGrid.RowHeadersVisible = False
                 ContactsDataGrid.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -150,7 +150,7 @@ Public Class IAIPEditContacts
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -160,17 +160,17 @@ Public Class IAIPEditContacts
 
     Private Sub NewContactDataLoad()
         Try
-            If Me.AirsNumber.ToString IsNot Nothing AndAlso Key <> ContactKey.None Then
+            If AirsNumber.ToString IsNot Nothing AndAlso Key <> ContactKey.None Then
                 Dim query As String = "Select * from APBContactInformation " &
                 "where strAIRSNumber = @airsnumber " &
                 "and strKey = @key "
 
-                Dim parameters As SqlParameter() = {
-                    New SqlParameter("@airsnumber", Me.AirsNumber.DbFormattedString),
+                Dim parameterArray As SqlParameter() = {
+                    New SqlParameter("@airsnumber", AirsNumber.DbFormattedString),
                     New SqlParameter("@key", Key.ToString("D"))
                 }
 
-                Dim dr As DataRow = DB.GetDataRow(query, parameters)
+                Dim dr As DataRow = DB.GetDataRow(query, parameterArray)
                 If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strContactFirstName")) Then
                         txtNewFirstName.Clear()
@@ -273,7 +273,7 @@ Public Class IAIPEditContacts
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -289,7 +289,7 @@ Public Class IAIPEditContacts
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -328,12 +328,12 @@ Public Class IAIPEditContacts
                    Not rdbNewMonitoringContact.Checked AndAlso
                    Not rdbNewPermittingContact.Checked Then
 
-                    MsgBox("Please select a Contact Type first" & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Me.Text)
+                    MsgBox("Please select a Contact Type first" & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Text)
                     Return
                 End If
 
                 If Key <> ContactKey.None Then
-                    Dim Sql As String = "UPDATE APBCONTACTINFORMATION " &
+                    Dim query As String = "UPDATE APBCONTACTINFORMATION " &
                         "SET STRCONTACTFIRSTNAME = @STRCONTACTFIRSTNAME " &
                         ", STRCONTACTLASTNAME = @STRCONTACTLASTNAME " &
                         ", STRCONTACTPREFIX = @STRCONTACTPREFIX " &
@@ -375,7 +375,7 @@ Public Class IAIPEditContacts
                         New SqlParameter("@STRKEY", Key.ToString("D"))
                     }
 
-                    DB.RunCommand(Sql, p)
+                    DB.RunCommand(query, p)
                 Else
                     If rdbNewMonitoringContact.Checked Then
                         newKey = "10"
@@ -392,7 +392,7 @@ Public Class IAIPEditContacts
                     End If
 
                     If newKey <> "" Then
-                        Dim Sql As String = "UPDATE APBCONTACTINFORMATION " &
+                        Dim query As String = "UPDATE APBCONTACTINFORMATION " &
                             "SET STRCONTACTFIRSTNAME = @STRCONTACTFIRSTNAME " &
                             ", STRCONTACTLASTNAME = @STRCONTACTLASTNAME " &
                             ", STRCONTACTPREFIX = @STRCONTACTPREFIX " &
@@ -434,23 +434,23 @@ Public Class IAIPEditContacts
                             New SqlParameter("@STRKEY", newKey)
                         }
 
-                        DB.RunCommand(Sql, p)
+                        DB.RunCommand(query, p)
                     End If
 
                 End If
                 LoadContactsDataset()
-                MsgBox("Data Updated", MsgBoxStyle.Information, Me.Text)
+                MsgBox("Data Updated", MsgBoxStyle.Information, Text)
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub btnNewSave_Click(sender As Object, e As EventArgs) Handles btnNewSave.Click
         Try
             Dim newKey As String = ""
-            Dim SQL As String = ""
+            Dim query As String
 
             If AirsNumber.ToString <> "" Then
                 If rdbNewMonitoringContact.Checked Then
@@ -468,12 +468,12 @@ Public Class IAIPEditContacts
                 End If
 
                 If newKey = "" Then
-                    MsgBox("Please select a Contact Type first" & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Me.Text)
+                    MsgBox("Please select a Contact Type first" & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Text)
                     Return
                 Else
                     Select Case newKey
                         Case "10", "20", "30"
-                            SQL = "delete APBContactInformation " &
+                            query = "delete APBContactInformation " &
                             "where strAIRSnumber = @airs " &
                             "and strKey = @key "
 
@@ -482,9 +482,9 @@ Public Class IAIPEditContacts
                                 New SqlParameter("@key", Mid(newKey, 1, 1) & "9")
                             }
 
-                            DB.RunCommand(SQL, p)
+                            DB.RunCommand(query, p)
 
-                            SQL = "Update APBContactInformation set " &
+                            query = "Update APBContactInformation set " &
                             "strKey = concat(substring(strKey, 1,1), substring(strKey, 2,1) + 1), " &
                             "strContactKey = concat(substring(strContactKey, 1, 13), substring(strContactKey, 14, 1) + 1) " &
                             "where strAIRSNumber = @airs " &
@@ -495,9 +495,9 @@ Public Class IAIPEditContacts
                                 New SqlParameter("@key", Mid(newKey, 1, 1) & "%")
                             }
 
-                            DB.RunCommand(SQL, p2)
+                            DB.RunCommand(query, p2)
 
-                            SQL = "INSERT INTO APBCONTACTINFORMATION " &
+                            query = "INSERT INTO APBCONTACTINFORMATION " &
                                 "(STRCONTACTKEY, STRAIRSNUMBER, STRKEY, STRCONTACTFIRSTNAME, " &
                                 "STRCONTACTLASTNAME, STRCONTACTPREFIX, STRCONTACTSUFFIX, STRCONTACTTITLE, " &
                                 "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1, STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER, " &
@@ -538,10 +538,10 @@ Public Class IAIPEditContacts
                                 New SqlParameter("@STRCONTACTDESCRIPTION", txtNewDescrption.Text)
                             }
 
-                            DB.RunCommand(SQL, p3)
+                            DB.RunCommand(query, p3)
 
                         Case Else
-                            SQL = "INSERT INTO APBCONTACTINFORMATION " &
+                            query = "INSERT INTO APBCONTACTINFORMATION " &
                                 "(STRCONTACTKEY, STRAIRSNUMBER, STRKEY, STRCONTACTFIRSTNAME, " &
                                 "STRCONTACTLASTNAME, STRCONTACTPREFIX, STRCONTACTSUFFIX, STRCONTACTTITLE, " &
                                 "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1, STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER, " &
@@ -582,16 +582,16 @@ Public Class IAIPEditContacts
                                 New SqlParameter("@STRCONTACTDESCRIPTION", txtNewDescrption.Text)
                             }
 
-                            DB.RunCommand(SQL, p3)
+                            DB.RunCommand(query, p3)
                     End Select
 
                     LoadContactsDataset()
-                    MsgBox("Data Inserted", MsgBoxStyle.Information, Me.Text)
+                    MsgBox("Data Inserted", MsgBoxStyle.Information, Text)
                 End If
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
