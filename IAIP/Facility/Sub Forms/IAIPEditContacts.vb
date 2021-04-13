@@ -53,9 +53,6 @@ Public Class IAIPEditContacts
                 "when strKey = '40' then 'Current Fee Contact' " &
                 "when strkey = '41' then 'Current EIS Contact' " &
                 "when strKey = '42' then 'Current ES Contact' " &
-                "when strKey = '50' then 'Current Ambient Contact' " &
-                "when strKey = '60' then 'Current Planning Contact' " &
-                "when strKey = '70' then 'Current District Contact' " &
                 "Else 'Past Contact' " &
                 "end ContactType, " &
                  "strContactKey, " &
@@ -82,6 +79,7 @@ Public Class IAIPEditContacts
                  "END as ContactDescription " &
                  "from APBContactInformation " &
                  "where strAIRSnumber = @airs " &
+                 "and convert(int, STRKEY) < 50 " &
                  "order by substring(strKey, 2, 1), strKey "
 
                 Dim p As New SqlParameter("@airs", AirsNumber.DbFormattedString)
@@ -257,9 +255,6 @@ Public Class IAIPEditContacts
                 rdbNewFeeContact.Checked = False
                 rdbNewEISContact.Checked = False
                 rdbNewESContact.Checked = False
-                rdbNewAmbientContact.Checked = False
-                rdbNewPlanningContact.Checked = False
-                rdbNewDistrictContact.Checked = False
 
                 Select Case Key
                     Case ContactKey.IndustrialSourceMonitoring
@@ -274,12 +269,6 @@ Public Class IAIPEditContacts
                         rdbNewEISContact.Checked = True
                     Case ContactKey.EmissionStatement
                         rdbNewESContact.Checked = True
-                    Case ContactKey.AmbientMonitoring
-                        rdbNewAmbientContact.Checked = True
-                    Case ContactKey.PlanningAndSupport
-                        rdbNewPlanningContact.Checked = True
-                    Case ContactKey.DistrictOffices
-                        rdbNewDistrictContact.Checked = True
                 End Select
 
             End If
@@ -332,15 +321,12 @@ Public Class IAIPEditContacts
             Dim newKey As String = ""
 
             If AirsNumber.ToString <> "" Then
-                If Not rdbNewAmbientContact.Checked AndAlso
-                   Not rdbNewComplianceContact.Checked AndAlso
-                   Not rdbNewDistrictContact.Checked AndAlso
+                If Not rdbNewComplianceContact.Checked AndAlso
                    Not rdbNewEISContact.Checked AndAlso
                    Not rdbNewESContact.Checked AndAlso
                    Not rdbNewFeeContact.Checked AndAlso
                    Not rdbNewMonitoringContact.Checked AndAlso
-                   Not rdbNewPermittingContact.Checked AndAlso
-                   Not rdbNewPlanningContact.Checked Then
+                   Not rdbNewPermittingContact.Checked Then
 
                     MsgBox("Please select a Contact Type first" & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Me.Text)
                     Return
@@ -403,12 +389,6 @@ Public Class IAIPEditContacts
                         newKey = "41"
                     ElseIf rdbNewESContact.Checked Then
                         newKey = "42"
-                    ElseIf rdbNewAmbientContact.Checked Then
-                        newKey = "50"
-                    ElseIf rdbNewPlanningContact.Checked Then
-                        newKey = "60"
-                    ElseIf rdbNewDistrictContact.Checked Then
-                        newKey = "70"
                     End If
 
                     If newKey <> "" Then
@@ -485,12 +465,6 @@ Public Class IAIPEditContacts
                     newKey = "41"
                 ElseIf rdbNewESContact.Checked Then
                     newKey = "42"
-                ElseIf rdbNewAmbientContact.Checked Then
-                    newKey = "50"
-                ElseIf rdbNewPlanningContact.Checked Then
-                    newKey = "60"
-                ElseIf rdbNewDistrictContact.Checked Then
-                    newKey = "70"
                 End If
 
                 If newKey = "" Then
@@ -498,7 +472,7 @@ Public Class IAIPEditContacts
                     Return
                 Else
                     Select Case newKey
-                        Case "10", "20", "30", "50", "60", "70"
+                        Case "10", "20", "30"
                             SQL = "delete APBContactInformation " &
                             "where strAIRSnumber = @airs " &
                             "and strKey = @key "

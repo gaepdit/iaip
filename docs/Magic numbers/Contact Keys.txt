@@ -1,21 +1,14 @@
-Contacts in APBCONTACTINFORMATION
+Contact keys in APBCONTACTINFORMATION
 
-10 - ISMP
-20 - SSCP
+10 - GECO Testing Contact
+20 - IAIP Compliance Contact
 30 - GECO Permitting Contact
 40 - GECO Fees Contact
 41 - GECO EI Contact
 42 - GECO ES Contact
-50 - Ambient Monitoring
-60 - Planning & Support
-70 - District
 
-10 - 'Current Monitoring Contact'
-20 - 'Current Compliance Contact'
-30 - 'Current Permitting Contact'
-40 - 'Current Fee Contact'
-41 - 'Current EIS Contact'
-42 - 'Current ES Contact'
-50 - 'Current Ambient Contact'
-60 - 'Current Planning Contact'
-70 - 'Current District Contact'
+These keys exist in the database, but are not currently used in the IAIP:
+
+50 - IAIP Ambient Monitoring Contact
+60 - IAIP Planning & Support Contact
+70 - IAIP District Contact

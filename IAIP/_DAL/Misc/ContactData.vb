@@ -12,8 +12,11 @@ Namespace DAL
             Fees = 40
             EmissionInventory = 41
             EmissionStatement = 42
+            <Obsolete("Ambient contact no longer used", True)>
             AmbientMonitoring = 50
+            <Obsolete("Planning and Support contact no longer used", True)>
             PlanningAndSupport = 60
+            <Obsolete("District Office contact no longer used", True)>
             DistrictOffices = 70
         End Enum
 

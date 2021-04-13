@@ -21,10 +21,8 @@ Partial Class IAIPEditContacts
     Private Sub InitializeComponent()
         Me.ContactsDataGrid = New System.Windows.Forms.DataGridView()
         Me.pnlInfoPanel = New System.Windows.Forms.Panel()
+        Me.txtNewPhoneNumber = New Iaip.CueTextBox()
         Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.rdbNewDistrictContact = New System.Windows.Forms.RadioButton()
-        Me.rdbNewPlanningContact = New System.Windows.Forms.RadioButton()
-        Me.rdbNewAmbientContact = New System.Windows.Forms.RadioButton()
         Me.rdbNewESContact = New System.Windows.Forms.RadioButton()
         Me.rdbNewPermittingContact = New System.Windows.Forms.RadioButton()
         Me.rdbNewEISContact = New System.Windows.Forms.RadioButton()
@@ -64,7 +62,6 @@ Partial Class IAIPEditContacts
         Me.pnlHeaderPanel = New System.Windows.Forms.Panel()
         Me.lblAirsNumber = New System.Windows.Forms.Label()
         Me.lblFacilityName = New System.Windows.Forms.Label()
-        Me.txtNewPhoneNumber = New Iaip.CueTextBox()
         CType(Me.ContactsDataGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlInfoPanel.SuspendLayout()
         Me.Panel6.SuspendLayout()
@@ -128,12 +125,17 @@ Partial Class IAIPEditContacts
         Me.pnlInfoPanel.Size = New System.Drawing.Size(799, 261)
         Me.pnlInfoPanel.TabIndex = 246
         '
+        'txtNewPhoneNumber
+        '
+        Me.txtNewPhoneNumber.Cue = "(___) ___-____"
+        Me.txtNewPhoneNumber.Location = New System.Drawing.Point(488, 11)
+        Me.txtNewPhoneNumber.Name = "txtNewPhoneNumber"
+        Me.txtNewPhoneNumber.Size = New System.Drawing.Size(92, 20)
+        Me.txtNewPhoneNumber.TabIndex = 253
+        '
         'Panel6
         '
         Me.Panel6.AutoSize = True
-        Me.Panel6.Controls.Add(Me.rdbNewDistrictContact)
-        Me.Panel6.Controls.Add(Me.rdbNewPlanningContact)
-        Me.Panel6.Controls.Add(Me.rdbNewAmbientContact)
         Me.Panel6.Controls.Add(Me.rdbNewESContact)
         Me.Panel6.Controls.Add(Me.rdbNewPermittingContact)
         Me.Panel6.Controls.Add(Me.rdbNewEISContact)
@@ -142,41 +144,8 @@ Partial Class IAIPEditContacts
         Me.Panel6.Controls.Add(Me.rdbNewMonitoringContact)
         Me.Panel6.Location = New System.Drawing.Point(661, 6)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(126, 209)
+        Me.Panel6.Size = New System.Drawing.Size(126, 145)
         Me.Panel6.TabIndex = 252
-        '
-        'rdbNewDistrictContact
-        '
-        Me.rdbNewDistrictContact.AutoSize = True
-        Me.rdbNewDistrictContact.Location = New System.Drawing.Point(3, 189)
-        Me.rdbNewDistrictContact.Name = "rdbNewDistrictContact"
-        Me.rdbNewDistrictContact.Size = New System.Drawing.Size(97, 17)
-        Me.rdbNewDistrictContact.TabIndex = 8
-        Me.rdbNewDistrictContact.TabStop = True
-        Me.rdbNewDistrictContact.Text = "District Contact"
-        Me.rdbNewDistrictContact.UseVisualStyleBackColor = True
-        '
-        'rdbNewPlanningContact
-        '
-        Me.rdbNewPlanningContact.AutoSize = True
-        Me.rdbNewPlanningContact.Location = New System.Drawing.Point(3, 166)
-        Me.rdbNewPlanningContact.Name = "rdbNewPlanningContact"
-        Me.rdbNewPlanningContact.Size = New System.Drawing.Size(106, 17)
-        Me.rdbNewPlanningContact.TabIndex = 7
-        Me.rdbNewPlanningContact.TabStop = True
-        Me.rdbNewPlanningContact.Text = "Planning Contact"
-        Me.rdbNewPlanningContact.UseVisualStyleBackColor = True
-        '
-        'rdbNewAmbientContact
-        '
-        Me.rdbNewAmbientContact.AutoSize = True
-        Me.rdbNewAmbientContact.Location = New System.Drawing.Point(3, 143)
-        Me.rdbNewAmbientContact.Name = "rdbNewAmbientContact"
-        Me.rdbNewAmbientContact.Size = New System.Drawing.Size(103, 17)
-        Me.rdbNewAmbientContact.TabIndex = 6
-        Me.rdbNewAmbientContact.TabStop = True
-        Me.rdbNewAmbientContact.Text = "Ambient Contact"
-        Me.rdbNewAmbientContact.UseVisualStyleBackColor = True
         '
         'rdbNewESContact
         '
@@ -553,14 +522,6 @@ Partial Class IAIPEditContacts
         Me.lblFacilityName.TabIndex = 0
         Me.lblFacilityName.Text = "Facility Name"
         '
-        'txtNewPhoneNumber
-        '
-        Me.txtNewPhoneNumber.Cue = "(___) ___-____"
-        Me.txtNewPhoneNumber.Location = New System.Drawing.Point(488, 11)
-        Me.txtNewPhoneNumber.Name = "txtNewPhoneNumber"
-        Me.txtNewPhoneNumber.Size = New System.Drawing.Size(92, 20)
-        Me.txtNewPhoneNumber.TabIndex = 253
-        '
         'IAIPEditContacts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -584,9 +545,6 @@ Partial Class IAIPEditContacts
     Friend WithEvents ContactsDataGrid As System.Windows.Forms.DataGridView
     Friend WithEvents pnlInfoPanel As System.Windows.Forms.Panel
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
-    Friend WithEvents rdbNewDistrictContact As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNewPlanningContact As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNewAmbientContact As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNewESContact As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNewPermittingContact As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNewEISContact As System.Windows.Forms.RadioButton
