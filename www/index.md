@@ -11,7 +11,7 @@ IAIP Installer](install/IAIP.application)
 
 ## Support
 
-For account creation or management, please speak to your supervisor in EPD or Sean Taylor. For general application support or to report a bug, please create an [EPD-IT Support Ticket](https://gaepd.zendesk.com/hc/en-us/requests/new).
+For account creation or management, please speak to your supervisor in EPD or Sean Taylor. For general application support or to report a bug, please create an EPD-IT Support Ticket.
 
 Some additional documentation can be found on the [IAIP Documentation site](https://sites.google.com/site/iaipdocs/).
 

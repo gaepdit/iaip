@@ -173,7 +173,7 @@ The database infrastructure that powers the IAIP has been completely changed. Th
 
 Overall, IAIP functionality should be the same as before, though we did take the time to fix many bugs in the user interface and in the database connection code. You should experience a more stable, less error-prone connection when using the IAIP. Hopefully, you will not notice the improvement.
 
-Please bear in mind that the IAIP is a large application (with over a quarter-million lines of code), and it was impossible to test all user scenarios. If you encounter a bug or error while using the program, please send an email to <epd_it@dnr.ga.gov> and we will address it as soon as possible. 
+Please bear in mind that the IAIP is a large application (with over a quarter-million lines of code), and it was impossible to test all user scenarios. If you encounter a bug or error while using the program, please contact EPD-IT and we will address it as soon as possible. 
 
 Thanks for all you do in service to the environment and the citizens of the State of Georgia! ♥
 

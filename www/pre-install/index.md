@@ -11,4 +11,4 @@ IAIP Tools Installer](setup.exe)
 
 * The Tools only need to be installed once per machine. (The [IAIP](../) is installed separately for each user.) 
 
-* The Tools must be installed with administrator permissions. If you don't have admin rights on your computer, please create an [EPD-IT Support Ticket](https://gaepd.zendesk.com/hc/en-us/requests/new).
+* The Tools must be installed with administrator permissions. If you don't have admin rights on your computer, please create an EPD-IT Support Ticket.
