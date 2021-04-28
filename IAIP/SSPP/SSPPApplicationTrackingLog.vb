@@ -24,11 +24,11 @@ Public Class SSPPApplicationTrackingLog
     Private Property NewApplication As Boolean
 
     Private Property LastModificationDateAsLoaded As DateTimeOffset = Nothing
-    Private Property FacilityApplicationHistoryLoaded As Boolean 
+    Private Property FacilityApplicationHistoryLoaded As Boolean
 
     Private MasterApp As String
     Private FormStatus As String
-    Private UpdatingValues As Boolean 
+    Private UpdatingValues As Boolean
     Private FeeChangesAllowed As Boolean = True
 
     Private _applicationFeeAmount As Decimal = 0
@@ -7383,7 +7383,7 @@ Public Class SSPPApplicationTrackingLog
             GBSignificationComments.Visible = False
 
             Select Case cboApplicationType.Text
-                Case "502(b)10"
+                Case "502(b)10", "PBR", "SM"
                     DTPEPAWaived.Visible = False
                     lblEPAWaived.Visible = False
                     DTPEPAEnds.Visible = False
@@ -7396,6 +7396,7 @@ Public Class SSPPApplicationTrackingLog
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
+
                 Case "AA"
                     DTPEPAWaived.Visible = False
                     lblEPAWaived.Visible = False
@@ -7422,6 +7423,7 @@ Public Class SSPPApplicationTrackingLog
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
+
                 Case "Acid Rain"
                     DTPEPAWaived.Visible = False
                     lblEPAWaived.Visible = False
@@ -7443,7 +7445,8 @@ Public Class SSPPApplicationTrackingLog
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
-                Case "Closed"
+
+                Case "Closed", "OFF PERMIT"
                     DTPEPAWaived.Visible = False
                     lblEPAWaived.Visible = False
                     DTPEPAEnds.Visible = False
@@ -7467,6 +7470,7 @@ Public Class SSPPApplicationTrackingLog
                         chbPAReady.Visible = True
                     End If
                     txtPermitNumber.Text = " "
+
                 Case "ERC"
                     DTPEPAWaived.Visible = False
                     lblEPAWaived.Visible = False
@@ -7493,6 +7497,7 @@ Public Class SSPPApplicationTrackingLog
                     If Mid(txtPermitNumber.Text, 1, 3) <> "ERC" Then
                         txtPermitNumber.Text = " "
                     End If
+
                 Case "MAW"
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
@@ -7501,6 +7506,7 @@ Public Class SSPPApplicationTrackingLog
                     chbPNReady.Visible = False
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
+
                 Case "MAWO"
                     cboPublicAdvisory.Visible = False
                     lblPublicAdvisory.Visible = False
@@ -7518,6 +7524,7 @@ Public Class SSPPApplicationTrackingLog
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
+
                 Case "NC"
                     DTPEPAWaived.Visible = False
                     lblEPAWaived.Visible = False
@@ -7544,49 +7551,13 @@ Public Class SSPPApplicationTrackingLog
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
-                Case "OFF PERMIT"
-                    DTPEPAWaived.Visible = False
-                    lblEPAWaived.Visible = False
-                    DTPEPAEnds.Visible = False
-                    lblEPAEnds.Visible = False
-                    DTPDraftIssued.Visible = False
-                    lblDraftIssued.Visible = False
-                    DTPDatePNExpires.Visible = False
-                    lblDatePNExpires.Visible = False
-                    chbPNReady.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
-                    Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
-                    End If
-                    txtPermitNumber.Text = " "
 
-                Case "PBR"
-                    DTPEPAWaived.Visible = False
-                    lblEPAWaived.Visible = False
-                    DTPEPAEnds.Visible = False
-                    lblEPAEnds.Visible = False
-                    DTPDraftIssued.Visible = False
-                    lblDraftIssued.Visible = False
-                    DTPDatePNExpires.Visible = False
-                    lblDatePNExpires.Visible = False
-                    chbPNReady.Visible = False
-                    If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
-                        txtPermitNumber.Text = " "
-                    End If
                 Case "SAW"
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
                     GBSignificationComments.Visible = True
+
                 Case "SAWO"
                     If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
                         cboPublicAdvisory.Visible = False
@@ -7605,6 +7576,7 @@ Public Class SSPPApplicationTrackingLog
                         txtPermitNumber.Text = " "
                     End If
                     GBSignificationComments.Visible = True
+
                 Case "SIP"
                     DTPEPAWaived.Visible = False
                     lblEPAWaived.Visible = False
@@ -7626,37 +7598,8 @@ Public Class SSPPApplicationTrackingLog
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
-                Case "SM"
-                    DTPEPAWaived.Visible = False
-                    lblEPAWaived.Visible = False
-                    DTPEPAEnds.Visible = False
-                    lblEPAEnds.Visible = False
-                    DTPDraftIssued.Visible = False
-                    lblDraftIssued.Visible = False
-                    DTPDatePNExpires.Visible = False
-                    lblDatePNExpires.Visible = False
-                    chbPNReady.Visible = False
-                    If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
-                        txtPermitNumber.Text = " "
-                    End If
-                Case "TV-Initial"
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
-                    Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
-                    End If
-                    If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
-                        txtPermitNumber.Text = " "
-                    End If
-                Case "TV-Renewal"
+
+                Case "TV-Initial", "TV-Renewal"
                     If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
                         cboPublicAdvisory.Visible = False
                         lblPublicAdvisory.Visible = False

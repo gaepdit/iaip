@@ -28,7 +28,7 @@ Public Class ISMPConfidentialData
             End If
 
             Select Case DocumentType
-                Case "001"
+                Case "001", "017"
                     TCDocuments.TabPages.Remove(Me.TPOneStack)
                     TCDocuments.TabPages.Remove(Me.TPLoadingRack)
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
@@ -242,18 +242,6 @@ Public Class ISMPConfidentialData
 
                     TCMemorandum.TabPages.Remove(Me.TPStandard)
                     TCMemorandum.TabPages.Remove(Me.TPToFile)
-                Case Else
-                    TCDocuments.TabPages.Remove(Me.TPOneStack)
-                    TCDocuments.TabPages.Remove(Me.TPLoadingRack)
-                    TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
-                    TCDocuments.TabPages.Remove(Me.TPGasConcentration)
-                    TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPMethod9)
-                    TCDocuments.TabPages.Remove(Me.TPMemorandum)
-                    TCDocuments.TabPages.Remove(Me.TPRATA)
-                    TCDocuments.TabPages.Remove(Me.TPTwoStack)
-                    TCDocuments.TabPages.Remove(Me.TPMethod22)
-                    TCDocuments.TabPages.Remove(Me.TPSSCPWork)
             End Select
 
             If ConfidentialData <> "" AndAlso Mid(ConfidentialData, 1, 1) = "1" Then

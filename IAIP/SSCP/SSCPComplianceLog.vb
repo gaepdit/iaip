@@ -521,19 +521,7 @@ Public Class SSCPComplianceLog
                     MessageBox.Show("Done")
                 End If
 
-            Case "Inspection"
-                response = MessageBox.Show("Are you sure you want to delete this item?",
-                                           "Delete Work Entry", MessageBoxButtons.YesNo,
-                                           MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
-                If response = DialogResult.Yes Then
-                    SQL = "Update SSCPItemMaster set strDelete = 'True' where strTrackingNumber = @num"
-                    DB.RunCommand(SQL, p)
-
-                    LoadDgvWork()
-                    MessageBox.Show("Done")
-                End If
-
-            Case "Notification" To "Notification-z"
+            Case "Inspection", "Report", "Notification" To "Notification-z"
                 response = MessageBox.Show("Are you sure you want to delete this item?",
                                            "Delete Work Entry", MessageBoxButtons.YesNo,
                                            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
@@ -547,18 +535,6 @@ Public Class SSCPComplianceLog
 
             Case "Performance Tests"
                 MessageBox.Show("Performance tests must be deleted by ISMP.", "Can't Delete", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-
-            Case "Report"
-                response = MessageBox.Show("Are you sure you want to delete this item?",
-                                           "Delete Work Entry", MessageBoxButtons.YesNo,
-                                           MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
-                If response = DialogResult.Yes Then
-                    SQL = "Update SSCPItemMaster set strDelete = 'True' where strTrackingNumber = @num"
-                    DB.RunCommand(SQL, p)
-
-                    LoadDgvWork()
-                    MessageBox.Show("Done")
-                End If
 
         End Select
 

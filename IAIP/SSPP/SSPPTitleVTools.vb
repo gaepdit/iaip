@@ -2356,25 +2356,25 @@ Public Class SSPPTitleVTools
             Dim temp As String = ""
 
             Select Case txtEmailType.Text
-                Case "AppReceived"
+                Case "AppReceived", "DraftOnWeb", "MinorOnWeb", "FinalOnWeb"
                     query = "Select " &
-                   "SSPPApplicationMaster.strApplicationNumber, " &
-                   "strFacilityName, strFacilityCity, " &
-                   "strApplicationTypeDesc, " &
-                   " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
-                   "strUnitDesc " &
-                    "FROM SSPPApplicationMaster " &
-                    " INNER JOIN SSPPApplicationData " &
-                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-                    " INNER JOIN LookUpApplicationTypes " &
-                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-                    " INNER JOIN SSPPApplicationTracking " &
-                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                    " INNER JOIN EPDUserProfiles " &
-                    "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
-                    " LEFT JOIN LookUpEPDUnits " &
-                    "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
-                    "where SSPPApplicationMaster.strApplicationNumber = @app "
+                        "SSPPApplicationMaster.strApplicationNumber, " &
+                        "strFacilityName, strFacilityCity, " &
+                        "strApplicationTypeDesc, " &
+                        " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
+                        "strUnitDesc " &
+                        "FROM SSPPApplicationMaster " &
+                        " INNER JOIN SSPPApplicationData " &
+                        "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                        " INNER JOIN LookUpApplicationTypes " &
+                        "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                        " INNER JOIN SSPPApplicationTracking " &
+                        "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                        " INNER JOIN EPDUserProfiles " &
+                        "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
+                        " LEFT JOIN LookUpEPDUnits " &
+                        "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                        "where SSPPApplicationMaster.strApplicationNumber = @app "
 
                     Dim p As New SqlParameter("@app", txtApplicationNumberToAdd.Text)
 
@@ -2402,236 +2402,6 @@ Public Class SSPPTitleVTools
                             AppType = dr.Item("strApplicationTypeDesc")
                         End If
 
-                        If IsDBNull(dr.Item("StaffResponsible")) Then
-                            Staff = ""
-                        Else
-                            Staff = dr.Item("StaffResponsible")
-                        End If
-                        If IsDBNull(dr.Item("strUnitDesc")) Then
-                            Unit = ""
-                        Else
-                            Unit = dr.Item("strUnitDesc")
-                        End If
-
-                        temp = AppNumber & " - " & FacName & " - (" & FacCity & ") - " & AppType
-
-                        Select Case temp.Length
-                            Case Is < 40
-                                temp = temp & vbTab & vbTab & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                            Case 40 To 49
-                                temp = temp & vbTab & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                            Case 50 To 51
-                                temp = temp & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                            Case Else
-                                temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                        End Select
-
-                        If Not clbTitleVEmailList.Items.Contains(temp) Then
-                            clbTitleVEmailList.Items.Add(temp)
-                            clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
-                        End If
-                    Else
-                        MsgBox("Unable to add this Application to list.", MsgBoxStyle.Information, "Data Management Tools")
-                    End If
-                Case "DraftOnWeb"
-                    query = "Select " &
-                   "SSPPApplicationMaster.strApplicationNumber, " &
-                   "strFacilityName, strFacilityCity, " &
-                   "strApplicationTypeDesc, " &
-                   " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
-                   "strUnitDesc " &
-                    "FROM SSPPApplicationMaster " &
-                    " INNER JOIN SSPPApplicationData " &
-                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-                    " INNER JOIN LookUpApplicationTypes " &
-                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-                    " INNER JOIN SSPPApplicationTracking " &
-                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                    " INNER JOIN EPDUserProfiles " &
-                    "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
-                    " LEFT JOIN LookUpEPDUnits " &
-                    "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
-                    "where SSPPApplicationMaster.strApplicationNumber = @app "
-
-                    Dim p As New SqlParameter("@app", txtApplicationNumberToAdd.Text)
-
-                    Dim dr As DataRow = DB.GetDataRow(query, p)
-
-                    If dr IsNot Nothing Then
-                        If IsDBNull(dr.Item("strApplicationNumber")) Then
-                            AppNumber = ""
-                        Else
-                            AppNumber = dr.Item("strApplicationNumber")
-                        End If
-                        If IsDBNull(dr.Item("strFacilityName")) Then
-                            FacName = ""
-                        Else
-                            FacName = dr.Item("strFacilityName")
-                        End If
-                        If IsDBNull(dr.Item("strFacilityCity")) Then
-                            FacCity = ""
-                        Else
-                            FacCity = dr.Item("strFacilityCity")
-                        End If
-                        If IsDBNull(dr.Item("strApplicationTypeDesc")) Then
-                            AppType = ""
-                        Else
-                            AppType = dr.Item("strApplicationTypeDesc")
-                        End If
-                        If IsDBNull(dr.Item("StaffResponsible")) Then
-                            Staff = ""
-                        Else
-                            Staff = dr.Item("StaffResponsible")
-                        End If
-                        If IsDBNull(dr.Item("strUnitDesc")) Then
-                            Unit = ""
-                        Else
-                            Unit = dr.Item("strUnitDesc")
-                        End If
-
-                        temp = AppNumber & " - " & FacName & " - (" & FacCity & ") - " & AppType
-
-                        Select Case temp.Length
-                            Case Is < 40
-                                temp = temp & vbTab & vbTab & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                            Case 40 To 49
-                                temp = temp & vbTab & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                            Case 50 To 51
-                                temp = temp & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                            Case Else
-                                temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                        End Select
-
-                        If Not clbTitleVEmailList.Items.Contains(temp) Then
-                            clbTitleVEmailList.Items.Add(temp)
-                            clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
-                        End If
-
-                    Else
-                        MsgBox("Unable to add this Application to list.", MsgBoxStyle.Information, "Data Management Tools")
-                    End If
-                Case "MinorOnWeb"
-                    query = "Select " &
-                   "SSPPApplicationMaster.strApplicationNumber, " &
-                   "strFacilityName, strFacilityCity, " &
-                   "strApplicationTypeDesc, " &
-                   " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
-                   "strUnitDesc " &
-                    "FROM SSPPApplicationMaster " &
-                    " INNER JOIN SSPPApplicationData " &
-                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-                    " INNER JOIN LookUpApplicationTypes " &
-                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-                    " INNER JOIN SSPPApplicationTracking " &
-                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                    " INNER JOIN EPDUserProfiles " &
-                    "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
-                    " LEFT JOIN LookUpEPDUnits " &
-                    "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
-                    "where SSPPApplicationMaster.strApplicationNumber = @app "
-
-                    Dim p As New SqlParameter("@app", txtApplicationNumberToAdd.Text)
-
-                    Dim dr As DataRow = DB.GetDataRow(query, p)
-
-                    If dr IsNot Nothing Then
-                        If IsDBNull(dr.Item("strApplicationNumber")) Then
-                            AppNumber = ""
-                        Else
-                            AppNumber = dr.Item("strApplicationNumber")
-                        End If
-                        If IsDBNull(dr.Item("strFacilityName")) Then
-                            FacName = ""
-                        Else
-                            FacName = dr.Item("strFacilityName")
-                        End If
-                        If IsDBNull(dr.Item("strFacilityCity")) Then
-                            FacCity = ""
-                        Else
-                            FacCity = dr.Item("strFacilityCity")
-                        End If
-                        If IsDBNull(dr.Item("strApplicationTypeDesc")) Then
-                            AppType = ""
-                        Else
-                            AppType = dr.Item("strApplicationTypeDesc")
-                        End If
-                        If IsDBNull(dr.Item("StaffResponsible")) Then
-                            Staff = ""
-                        Else
-                            Staff = dr.Item("StaffResponsible")
-                        End If
-                        If IsDBNull(dr.Item("strUnitDesc")) Then
-                            Unit = ""
-                        Else
-                            Unit = dr.Item("strUnitDesc")
-                        End If
-
-                        temp = AppNumber & " - " & FacName & " - (" & FacCity & ") - " & AppType
-
-                        Select Case temp.Length
-                            Case Is < 40
-                                temp = temp & vbTab & vbTab & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                            Case 40 To 49
-                                temp = temp & vbTab & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                            Case 50 To 51
-                                temp = temp & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                            Case Else
-                                temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                        End Select
-
-                        If Not clbTitleVEmailList.Items.Contains(temp) Then
-                            clbTitleVEmailList.Items.Add(temp)
-                            clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
-                        End If
-
-                    Else
-                        MsgBox("Unable to add this Application to list.", MsgBoxStyle.Information, "Data Management Tools")
-                    End If
-                Case "FinalOnWeb"
-                    query = "Select " &
-                    "SSPPApplicationMaster.strApplicationNumber, " &
-                    "strFacilityName, strFacilityCity, " &
-                    "strApplicationTypeDesc, " &
-                    " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
-                    "strUnitDesc " &
-                    "FROM SSPPApplicationMaster " &
-                    " INNER JOIN SSPPApplicationData " &
-                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-                    " INNER JOIN LookUpApplicationTypes " &
-                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-                    " INNER JOIN SSPPApplicationTracking " &
-                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                    " INNER JOIN EPDUserProfiles " &
-                    "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
-                    " LEFT JOIN LookUpEPDUnits " &
-                    "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
-                    "where SSPPApplicationMaster.strApplicationNumber = @app "
-
-                    Dim p As New SqlParameter("@app", txtApplicationNumberToAdd.Text)
-
-                    Dim dr As DataRow = DB.GetDataRow(query, p)
-
-                    If dr IsNot Nothing Then
-                        If IsDBNull(dr.Item("strApplicationNumber")) Then
-                            AppNumber = ""
-                        Else
-                            AppNumber = dr.Item("strApplicationNumber")
-                        End If
-                        If IsDBNull(dr.Item("strFacilityName")) Then
-                            FacName = ""
-                        Else
-                            FacName = dr.Item("strFacilityName")
-                        End If
-                        If IsDBNull(dr.Item("strFacilityCity")) Then
-                            FacCity = ""
-                        Else
-                            FacCity = dr.Item("strFacilityCity")
-                        End If
-                        If IsDBNull(dr.Item("strApplicationTypeDesc")) Then
-                            AppType = ""
-                        Else
-                            AppType = dr.Item("strApplicationTypeDesc")
-                        End If
                         If IsDBNull(dr.Item("StaffResponsible")) Then
                             Staff = ""
                         Else

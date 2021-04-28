@@ -1205,15 +1205,6 @@ Public Class SSPPApplicationLog
 
     Private Sub cboFieldType1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboFieldType1.SelectedIndexChanged
         Select Case cboFieldType1.Text
-            Case "AIRS No."
-                txtSearchText1.Visible = True
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
             Case "Applicable Rules"
                 txtSearchText1.Visible = False
                 DTPSearchDate1.Visible = False
@@ -1235,15 +1226,6 @@ Public Class SSPPApplicationLog
                 cboSearchText1.Items.Add("Expedited Permit")
                 cboSearchText1.Items.Add("Confidential information submitted")
                 cboSearchText1.Text = cboSearchText1.Items.Item(0)
-            Case "Application No."
-                txtSearchText1.Visible = True
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
 
             Case "Application Status"
                 txtSearchText1.Visible = False
@@ -1317,16 +1299,10 @@ Public Class SSPPApplicationLog
                 cboSearchText1.Items.Add("VOC Permitting")
                 cboSearchText1.Text = cboSearchText1.Items.Item(0)
 
-            Case "Applog Comments"
-                txtSearchText1.Visible = True
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Date Acknowledged"
+            Case "Date Acknowledged", "Date APL Completed", "Date APL Dated", "Date APL Received", "Date Assigned",
+                 "Date Draft Issued", "Date PA Expires", "Date Finalized", "Date PN Expires", "Date Started Review",
+                 "Date to BC", "Date to DO", "Date to PM", "Date to UC", "Date Withdrawn", "Deadline",
+                 "EPA 45-day Waived", "EPA 45-day Ends", "Status Date"
                 txtSearchText1.Visible = False
                 DTPSearchDate1.Visible = True
                 DTPSearchDate1b.Visible = True
@@ -1335,78 +1311,7 @@ Public Class SSPPApplicationLog
                 cboNESHAP1.Visible = False
                 cboNSPS1.Visible = False
                 cboMACT1.Visible = False
-            Case "Date APL Completed"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Date APL Dated"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Date APL Received"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Date Assigned"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Date Draft Issued"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Date PA Expires"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Date Finalized"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Date PN Expires"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
+
             Case "Date Reassigned"
                 txtSearchText1.Visible = False
                 cboSearchText1.Visible = False
@@ -1416,151 +1321,10 @@ Public Class SSPPApplicationLog
                 cboNESHAP1.Visible = False
                 cboNSPS1.Visible = False
                 cboMACT1.Visible = False
-            Case "Date Started Review"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Date to BC"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Date to DO"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Date to PM"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Date to UC"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Date Withdrawn"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Deadline"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Engineer Firstname"
-                txtSearchText1.Visible = True
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Engineer Lastname"
-                txtSearchText1.Visible = True
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Engineer Unit Code"
-                txtSearchText1.Visible = True
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "EPA 45-day Waived"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "EPA 45-day Ends"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Facility City"
-                txtSearchText1.Visible = True
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Facility County"
-                txtSearchText1.Visible = True
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Facility Name"
-                txtSearchText1.Visible = True
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Facility Street"
-                txtSearchText1.Visible = True
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "HAPs Major"
+
+            Case "HAPs Major", "NAA 1Hr-Yes", "NAA 1Hr-Contr.", "NAA 1Hr-No", "NAA 8Hr-Atlanta", "NAA 8Hr-Macon",
+                 "NAA 8Hr-No", "NAA PM-Atlanta", "NAA PM-Chattanooga", "NAA PM-Floyd", "NAA PM-Macon", "NAA PM-No",
+                 "NSR/PSD Major", "PA Ready", "PN Ready"
                 txtSearchText1.Visible = False
                 DTPSearchDate1.Visible = False
                 DTPSearchDate1b.Visible = False
@@ -1569,132 +1333,7 @@ Public Class SSPPApplicationLog
                 cboNESHAP1.Visible = False
                 cboNSPS1.Visible = False
                 cboMACT1.Visible = False
-            Case "NAA 1Hr-Yes"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "NAA 1Hr-Contr."
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "NAA 1Hr-No"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "NAA 8Hr-Atlanta"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "NAA 8Hr-Macon"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "NAA 8Hr-No"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "NAA PM-Atlanta"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "NAA PM-Chattanooga"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "NAA PM-Floyd"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "NAA PM-Macon"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "NAA PM-No"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "NSR/PSD Major"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "PA Ready"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "Permit Number"
-                txtSearchText1.Visible = True
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
+
             Case "Permit Type"
                 txtSearchText1.Visible = False
                 DTPSearchDate1.Visible = False
@@ -1716,24 +1355,7 @@ Public Class SSPPApplicationLog
                 cboSearchText1.Items.Add("Revoked")
                 cboSearchText1.Items.Add("Withdrawn")
                 cboSearchText1.Text = cboSearchText1.Items.Item(0)
-            Case "Plant Description"
-                txtSearchText1.Visible = True
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "PN Ready"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
+
             Case "Public Advisory"
                 txtSearchText1.Visible = False
                 DTPSearchDate1.Visible = False
@@ -1750,15 +1372,6 @@ Public Class SSPPApplicationLog
                 cboSearchText1.Items.Add("Not Decided")
                 cboSearchText1.Text = cboSearchText1.Items.Item(0)
 
-            Case "Reason APL Submitted"
-                txtSearchText1.Visible = True
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
             Case "Regional District"
                 txtSearchText1.Visible = False
                 DTPSearchDate1.Visible = False
@@ -1781,24 +1394,6 @@ Public Class SSPPApplicationLog
                 cboSearchText1.Items.Add("West Central")
                 cboSearchText1.Text = cboSearchText1.Items.Item(0)
 
-            Case "Status Date"
-                txtSearchText1.Visible = False
-                DTPSearchDate1.Visible = True
-                DTPSearchDate1b.Visible = True
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
-            Case "SIC Code"
-                txtSearchText1.Visible = True
-                DTPSearchDate1.Visible = False
-                DTPSearchDate1b.Visible = False
-                cboSearchText1.Visible = False
-                cboSIP1.Visible = False
-                cboNESHAP1.Visible = False
-                cboNSPS1.Visible = False
-                cboMACT1.Visible = False
             Case "Subpart - SIP"
                 txtSearchText1.Visible = True
                 DTPSearchDate1.Visible = False
@@ -1836,6 +1431,10 @@ Public Class SSPPApplicationLog
                 cboNSPS1.Visible = False
                 cboMACT1.Visible = True
             Case Else
+                'Case "AIRS No.", "Application No.", "Applog Comments", "Engineer Firstname", "Engineer Lastname",
+                '     "Engineer Unit Code", "Facility City", "Facility County", "Facility Name", "Facility Street",
+                '     "Permit Number", "Plant Description", "Reason APL Submitted", "SIC Code"
+
                 txtSearchText1.Visible = True
                 DTPSearchDate1.Visible = False
                 DTPSearchDate1b.Visible = False
@@ -1849,15 +1448,7 @@ Public Class SSPPApplicationLog
 
     Private Sub cboFieldType2_TextChanged(sender As Object, e As EventArgs) Handles cboFieldType2.SelectedIndexChanged
         Select Case cboFieldType2.Text
-            Case "AIRS No."
-                txtSearchText2.Visible = True
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
+
             Case "Applicable Rules"
                 txtSearchText2.Visible = False
                 DTPSearchDate2.Visible = False
@@ -1879,15 +1470,7 @@ Public Class SSPPApplicationLog
                 cboSearchText2.Items.Add("Expedited Permit")
                 cboSearchText2.Items.Add("Confidential information submitted")
                 cboSearchText2.Text = cboSearchText2.Items.Item(0)
-            Case "Application No."
-                txtSearchText2.Visible = True
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
+
             Case "Application Status"
                 txtSearchText2.Visible = False
                 DTPSearchDate2.Visible = False
@@ -1961,16 +1544,11 @@ Public Class SSPPApplicationLog
                 cboSearchText2.Items.Add("VOC Permitting")
                 cboSearchText2.Text = cboSearchText2.Items.Item(0)
 
-            Case "Applog Comments"
-                txtSearchText2.Visible = True
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date Acknowledged"
+            Case "Date Acknowledged", "Date APL Completed", "Date APL Dated", "Date APL Received",
+                 "Date Assigned", "Date Draft Issued", "Date PA Expires", "Date Finalized", "Date PN Expires",
+                 "Date Reassigned", "Date Started Review", "Date to BC", "Date to DO", "Date to PM",
+                 "Date to UC", "Date Withdrawn", "Deadline", "EPA 45-day Waived", "EPA 45-day Ends",
+                 "Status Date"
                 txtSearchText2.Visible = False
                 DTPSearchDate2.Visible = True
                 DTPSearchDate2b.Visible = True
@@ -1979,232 +1557,10 @@ Public Class SSPPApplicationLog
                 cboNESHAP2.Visible = False
                 cboNSPS2.Visible = False
                 cboMACT2.Visible = False
-            Case "Date APL Completed"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date APL Dated"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date APL Received"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date Assigned"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date Draft Issued"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date PA Expires"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date Finalized"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date PN Expires"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date Reassigned"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date Started Review"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date to BC"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date to DO"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date to PM"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date to UC"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Date Withdrawn"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Deadline"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Engineer Firstname"
-                txtSearchText2.Visible = True
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Engineer Lastname"
-                txtSearchText2.Visible = True
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Engineer Unit Code"
-                txtSearchText2.Visible = True
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "EPA 45-day Waived"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "EPA 45-day Ends"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Facility City"
-                txtSearchText2.Visible = True
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Facility County"
-                txtSearchText2.Visible = True
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Facility Name"
-                txtSearchText2.Visible = True
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Facility Street"
-                txtSearchText2.Visible = True
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "HAPs Major"
+
+            Case "HAPs Major", "NAA 1Hr-Yes", "NAA 1Hr-Contr.", "NAA 1Hr-No", "NAA 8Hr-Atlanta", "NAA 8Hr-Macon",
+                 "NAA 8Hr-No", "NAA PM-Atlanta", "NAA PM-Chattanooga", "NAA PM-Floyd", "NAA PM-Macon", "NAA PM-No",
+                 "NSR/PSD Major", "PA Ready", "PN Ready"
                 txtSearchText2.Visible = False
                 DTPSearchDate2.Visible = False
                 DTPSearchDate2b.Visible = False
@@ -2213,132 +1569,7 @@ Public Class SSPPApplicationLog
                 cboNESHAP2.Visible = False
                 cboNSPS2.Visible = False
                 cboMACT2.Visible = False
-            Case "NAA 1Hr-Yes"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "NAA 1Hr-Contr."
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "NAA 1Hr-No"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "NAA 8Hr-Atlanta"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "NAA 8Hr-Macon"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "NAA 8Hr-No"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "NAA PM-Atlanta"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "NAA PM-Chattanooga"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "NAA PM-Floyd"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "NAA PM-Macon"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "NAA PM-No"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "NSR/PSD Major"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "PA Ready"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "Permit Number"
-                txtSearchText2.Visible = True
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
+
             Case "Permit Type"
                 txtSearchText2.Visible = False
                 DTPSearchDate2.Visible = False
@@ -2360,24 +1591,7 @@ Public Class SSPPApplicationLog
                 cboSearchText2.Items.Add("Revoked")
                 cboSearchText2.Items.Add("Withdrawn")
                 cboSearchText2.Text = cboSearchText2.Items.Item(0)
-            Case "Plant Description"
-                txtSearchText2.Visible = True
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "PN Ready"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
+
             Case "Public Advisory"
                 txtSearchText2.Visible = False
                 DTPSearchDate2.Visible = False
@@ -2394,15 +1608,6 @@ Public Class SSPPApplicationLog
                 cboSearchText2.Items.Add("Not Decided")
                 cboSearchText2.Text = cboSearchText2.Items.Item(0)
 
-            Case "Reason APL Submitted"
-                txtSearchText2.Visible = True
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
             Case "Regional District"
                 txtSearchText2.Visible = False
                 DTPSearchDate2.Visible = False
@@ -2425,25 +1630,6 @@ Public Class SSPPApplicationLog
                 cboSearchText2.Items.Add("West Central")
                 cboSearchText2.Text = cboSearchText2.Items.Item(0)
 
-            Case "Status Date"
-                txtSearchText2.Visible = False
-                DTPSearchDate2.Visible = True
-                DTPSearchDate2b.Visible = True
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-            Case "SIC Code"
-                txtSearchText2.Visible = True
-                DTPSearchDate2.Visible = False
-                DTPSearchDate2b.Visible = False
-                cboSearchText2.Visible = False
-                cboSIP2.Visible = False
-                cboNESHAP2.Visible = False
-                cboNSPS2.Visible = False
-                cboMACT2.Visible = False
-
             Case "Subpart - SIP"
                 txtSearchText2.Visible = False
                 DTPSearchDate2.Visible = False
@@ -2453,6 +1639,7 @@ Public Class SSPPApplicationLog
                 cboNESHAP2.Visible = False
                 cboNSPS2.Visible = False
                 cboMACT2.Visible = False
+
             Case "Subpart - NESHAP (Part 61)"
                 txtSearchText2.Visible = False
                 DTPSearchDate2.Visible = False
@@ -2462,6 +1649,7 @@ Public Class SSPPApplicationLog
                 cboNESHAP2.Visible = True
                 cboNSPS2.Visible = False
                 cboMACT2.Visible = False
+
             Case "Subpart - NSPS (Part 60)"
                 txtSearchText2.Visible = False
                 DTPSearchDate2.Visible = False
@@ -2471,6 +1659,7 @@ Public Class SSPPApplicationLog
                 cboNESHAP2.Visible = False
                 cboNSPS2.Visible = True
                 cboMACT2.Visible = False
+
             Case "Subpart - MACT (Part 63)"
                 txtSearchText2.Visible = False
                 DTPSearchDate2.Visible = False
@@ -2480,7 +1669,11 @@ Public Class SSPPApplicationLog
                 cboNESHAP2.Visible = False
                 cboNSPS2.Visible = False
                 cboMACT2.Visible = True
+
             Case Else
+                'Case "AIRS No.", "Application No.", "Applog Comments", "Engineer Firstname", "Engineer Lastname",
+                '     "Engineer Unit Code", "Facility City", "Facility County", "Facility Name", "Facility Street",
+                '      "Permit Number", "Plant Description", "Reason APL Submitted", "SIC Code"
                 txtSearchText2.Visible = True
                 DTPSearchDate2.Visible = False
                 DTPSearchDate2b.Visible = False

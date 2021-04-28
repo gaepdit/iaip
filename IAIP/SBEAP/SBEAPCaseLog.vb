@@ -355,36 +355,16 @@
                         .ValueMember = "numActionType"
                         .SelectedIndex = 0
                     End With
-                Case "Case ID"
+                Case "Case ID", "Customer ID", "Staff First Name", "Staff Last Name", "Case Description"
                     txtSearchText1.Visible = True
                     cboSearchText1.Visible = False
                     DTPSearchDate1.Visible = False
                     DTPSearchDate2.Visible = False
-                Case "Customer ID"
-                    txtSearchText1.Visible = True
-                    cboSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate2.Visible = False
-                Case "Date Case Opened"
+                Case "Date Case Opened", "Date Case Closed"
                     txtSearchText1.Visible = False
                     cboSearchText1.Visible = False
                     DTPSearchDate1.Visible = True
                     DTPSearchDate2.Visible = True
-                Case "Date Case Closed"
-                    txtSearchText1.Visible = False
-                    cboSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate2.Visible = True
-                Case "Staff First Name"
-                    txtSearchText1.Visible = True
-                    cboSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate2.Visible = False
-                Case "Staff Last Name"
-                    txtSearchText1.Visible = True
-                    cboSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate2.Visible = False
                 Case "Staff Responsible"
                     txtSearchText1.Visible = False
                     cboSearchText1.Visible = True
@@ -397,11 +377,6 @@
                         .ValueMember = "numUserID"
                         .SelectedIndex = 0
                     End With
-                Case "Case Description"
-                    txtSearchText1.Visible = True
-                    cboSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate2.Visible = False
                 Case Else
                     txtSearchText1.Visible = False
                     cboSearchText1.Visible = False
@@ -434,36 +409,16 @@
                         .ValueMember = "numActionType"
                         .SelectedIndex = 0
                     End With
-                Case "Case ID"
+                Case "Case ID", "Customer ID", "Staff First Name", "Staff Last Name", "Case Description"
                     txtSearchText2.Visible = True
                     cboSearchText2.Visible = False
                     DTPSearchDate3.Visible = False
                     DTPSearchDate4.Visible = False
-                Case "Customer ID"
-                    txtSearchText2.Visible = True
-                    cboSearchText2.Visible = False
-                    DTPSearchDate3.Visible = False
-                    DTPSearchDate4.Visible = False
-                Case "Date Case Opened"
+                Case "Date Case Opened", "Date Case Closed"
                     txtSearchText2.Visible = False
                     cboSearchText2.Visible = False
                     DTPSearchDate3.Visible = True
                     DTPSearchDate4.Visible = True
-                Case "Date Case Closed"
-                    txtSearchText2.Visible = False
-                    cboSearchText2.Visible = False
-                    DTPSearchDate3.Visible = True
-                    DTPSearchDate4.Visible = True
-                Case "Staff First Name"
-                    txtSearchText2.Visible = True
-                    cboSearchText2.Visible = False
-                    DTPSearchDate3.Visible = False
-                    DTPSearchDate4.Visible = False
-                Case "Staff Last Name"
-                    txtSearchText2.Visible = True
-                    cboSearchText2.Visible = False
-                    DTPSearchDate3.Visible = False
-                    DTPSearchDate4.Visible = False
                 Case "Staff Responsible"
                     txtSearchText2.Visible = False
                     cboSearchText2.Visible = True
@@ -476,11 +431,6 @@
                         .ValueMember = "numUserID"
                         .SelectedIndex = 0
                     End With
-                Case "Case Description"
-                    txtSearchText2.Visible = True
-                    cboSearchText2.Visible = False
-                    DTPSearchDate3.Visible = False
-                    DTPSearchDate4.Visible = False
                 Case Else
                     txtSearchText2.Visible = False
                     cboSearchText2.Visible = False
