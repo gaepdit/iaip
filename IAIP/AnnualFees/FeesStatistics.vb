@@ -1263,7 +1263,7 @@ Public Class FeesStatistics
             crParameterValues.Add(crParameterDiscreteValue)
             crParameterFieldDefinition.ApplyCurrentValues(crParameterValues)
 
-            SetUpCrystalReportViewer(rpt, CRFeesReports, cboAirsNo.Text)
+            SetUpCrystalReportViewer(rpt, CRFeesReports)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1289,7 +1289,7 @@ Public Class FeesStatistics
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
 
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Classification Totals")
+            SetUpCrystalReportViewer(rpt, CRFeesReports)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1360,11 +1360,7 @@ Public Class FeesStatistics
             'Load Variables into the Fields
             CRFeesReports.ParameterFieldInfo = ParameterFields
 
-            If Not chbFacilityBalance.Checked Then
-                SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Fee Balance")
-            Else
-                SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Fee Balance with Zero Balance")
-            End If
+            SetUpCrystalReportViewer(rpt, CRFeesReports)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1388,7 +1384,7 @@ Public Class FeesStatistics
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
 
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "Overall Fee Balance")
+            SetUpCrystalReportViewer(rpt, CRFeesReports)
             CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
 
         Catch ex As Exception
@@ -1411,7 +1407,7 @@ Public Class FeesStatistics
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
 
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "Total Fee by Year")
+            SetUpCrystalReportViewer(rpt, CRFeesReports)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1448,7 +1444,7 @@ Public Class FeesStatistics
         Dim rpt As ReportClass = New DepositQA11
         rpt.SetDataSource(DB.GetDataTable(query, parameters))
 
-        SetUpCrystalReportViewer(rpt, CRFeesReports, "Deposits")
+        SetUpCrystalReportViewer(rpt, CRFeesReports)
         Me.Cursor = Cursors.Default
     End Sub
 
@@ -1471,7 +1467,7 @@ Public Class FeesStatistics
             Dim rpt As ReportClass = New DepositQA11
             rpt.SetDataSource(DB.GetDataTable(query, parameter))
 
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "Deposits")
+            SetUpCrystalReportViewer(rpt, CRFeesReports)
         End If
     End Sub
 
@@ -1492,7 +1488,7 @@ Public Class FeesStatistics
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
 
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "Deposits")
+            SetUpCrystalReportViewer(rpt, CRFeesReports)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1516,7 +1512,7 @@ Public Class FeesStatistics
             Dim rpt As ReportClass = New NSPSStatus10
             rpt.SetDataSource(DB.GetDataTable(SQL))
 
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "NSPS Exempt - Subject but exempt")
+            SetUpCrystalReportViewer(rpt, CRFeesReports)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1539,7 +1535,7 @@ Public Class FeesStatistics
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
 
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "NSPS Subject - Not subject")
+            SetUpCrystalReportViewer(rpt, CRFeesReports)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1562,7 +1558,7 @@ Public Class FeesStatistics
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
 
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "NSPS, Did not Operate")
+            SetUpCrystalReportViewer(rpt, CRFeesReports)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1582,7 +1578,7 @@ Public Class FeesStatistics
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
 
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "Did Not Operate")
+            SetUpCrystalReportViewer(rpt, CRFeesReports)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1608,7 +1604,7 @@ Public Class FeesStatistics
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
 
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Info")
+            SetUpCrystalReportViewer(rpt, CRFeesReports)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

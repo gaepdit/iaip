@@ -84,7 +84,7 @@ Module CrystalReports
 
 #Region " Crystal Reports displayer "
 
-    Public Sub SetUpCrystalReportViewer(report As ReportClass, crReportViewer As CrystalReportViewer, TabText As String)
+    Public Sub SetUpCrystalReportViewer(report As ReportClass, crReportViewer As CrystalReportViewer)
         crReportViewer.ReportSource = report
 
         crReportViewer.ToolPanelView = ToolPanelViewType.None
@@ -94,23 +94,7 @@ Module CrystalReports
         crReportViewer.ShowGroupTreeButton = False
         crReportViewer.ShowLogo = False
         crReportViewer.ShowParameterPanelButton = False
-
-        Dim i As Integer
-        Do While i < crReportViewer.Controls.Count
-            If TypeOf (crReportViewer.Controls(i)) Is PageView Then
-                Dim j As Integer
-                Do While j < crReportViewer.Controls(i).Controls.Count
-                    If CType(crReportViewer.Controls(i).Controls(j), TabControl).TabPages.Count > 0 Then
-                        ' Change the tab text
-                        CType(crReportViewer.Controls(i).Controls(j), TabControl).TabPages.Item(0).Text = TabText
-                        Exit Do
-                    End If
-                Loop
-                Exit Do
-            Else
-                crReportViewer.Controls(i).Visible = False
-            End If
-        Loop
+        crReportViewer.ShowHideViewerTabs(VisibleOrNot.NotVisible)
 
         crReportViewer.Refresh()
 
