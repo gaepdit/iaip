@@ -292,29 +292,29 @@ Public Class SSPPTitleVTools
 
         Try
 
-            If chbNotifiedAppReceived.Checked = True Then
+            If chbNotifiedAppReceived.Checked Then
                 EPAStatesNotifiedAppRec = DTPNotifiedAppReceived.Text
             End If
-            If chbDraftOnWeb.Checked = True Then
+            If chbDraftOnWeb.Checked Then
                 DraftOnWeb = DTPDraftOnWeb.Text
             End If
-            If chbEPAandStatesNotified.Checked = True Then
+            If chbEPAandStatesNotified.Checked Then
                 EPAStatesNotified = DTPEPAStatesNotified.Text
             End If
-            If chbFinalOnWeb.Checked = True Then
+            If chbFinalOnWeb.Checked Then
                 FinalOnWeb = DTPFinalOnWeb.Text
             End If
-            If chbEPANotifiedPermitOnWeb.Checked = True Then
+            If chbEPANotifiedPermitOnWeb.Checked Then
                 EPANotifiedPermitOnWeb = DTPEPANotifiedPermitOnWeb.Text
             End If
-            If chbEffectiveDateOfPermit.Checked = True Then
+            If chbEffectiveDateOfPermit.Checked Then
                 EffectiveDateOnPermit = DTPEffectiveDateofPermit.Text
             End If
-            If chbExpirationDate.Checked = True Then
+            If chbExpirationDate.Checked Then
                 ExperationDate = DTPExperationDate.Text
             End If
             TargetedComments = Mid(txtEPATargetedComments.Text, 1, 4000)
-            If chbPNExpires.Checked = True Then
+            If chbPNExpires.Checked Then
                 PNExpires = DTPPNExpires.Text
             End If
 
@@ -355,7 +355,7 @@ Public Class SSPPTitleVTools
 
                 DB.RunCommand(query2, p2)
 
-                If lblLinkWarning.Visible = True Then
+                If lblLinkWarning.Visible Then
                     Dim LinkedApplication As String
                     Dim i As Integer
 
@@ -663,7 +663,7 @@ Public Class SSPPTitleVTools
                         temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
                 End Select
 
-                If clbTitleVEmailList.Items.Contains(temp) = False Then
+                If Not clbTitleVEmailList.Items.Contains(temp) Then
                     clbTitleVEmailList.Items.Add(temp)
                     clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                 End If
@@ -874,7 +874,7 @@ Public Class SSPPTitleVTools
                         temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
                 End Select
 
-                If clbTitleVEmailList.Items.Contains(temp) = False Then
+                If Not clbTitleVEmailList.Items.Contains(temp) Then
                     clbTitleVEmailList.Items.Add(temp)
                     clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                 End If
@@ -961,7 +961,7 @@ Public Class SSPPTitleVTools
                                 temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
                         End Select
 
-                        If clbTitleVEmailList.Items.Contains(temp) = False Then
+                        If Not clbTitleVEmailList.Items.Contains(temp) Then
                             clbTitleVEmailList.Items.Add(temp)
                             clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                         End If
@@ -1457,7 +1457,7 @@ Public Class SSPPTitleVTools
                         temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
                 End Select
 
-                If clbTitleVEmailList.Items.Contains(temp) = False Then
+                If Not clbTitleVEmailList.Items.Contains(temp) Then
                     clbTitleVEmailList.Items.Add(temp)
                     clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                 End If
@@ -1542,7 +1542,7 @@ Public Class SSPPTitleVTools
                                 temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
                         End Select
 
-                        If clbTitleVEmailList.Items.Contains(temp) = False Then
+                        If Not clbTitleVEmailList.Items.Contains(temp) Then
                             clbTitleVEmailList.Items.Add(temp)
                             clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                         End If
@@ -2023,7 +2023,7 @@ Public Class SSPPTitleVTools
                         temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
                 End Select
 
-                If clbTitleVEmailList.Items.Contains(temp) = False Then
+                If Not clbTitleVEmailList.Items.Contains(temp) Then
                     clbTitleVEmailList.Items.Add(temp)
                     clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                 End If
@@ -2110,7 +2110,7 @@ Public Class SSPPTitleVTools
                                 temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
                         End Select
 
-                        If clbTitleVEmailList.Items.Contains(temp) = False Then
+                        If Not clbTitleVEmailList.Items.Contains(temp) Then
                             clbTitleVEmailList.Items.Add(temp)
                             clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                         End If
@@ -2426,7 +2426,7 @@ Public Class SSPPTitleVTools
                                 temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
                         End Select
 
-                        If clbTitleVEmailList.Items.Contains(temp) = False Then
+                        If Not clbTitleVEmailList.Items.Contains(temp) Then
                             clbTitleVEmailList.Items.Add(temp)
                             clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                         End If
@@ -2502,7 +2502,7 @@ Public Class SSPPTitleVTools
                                 temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
                         End Select
 
-                        If clbTitleVEmailList.Items.Contains(temp) = False Then
+                        If Not clbTitleVEmailList.Items.Contains(temp) Then
                             clbTitleVEmailList.Items.Add(temp)
                             clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                         End If
@@ -2579,7 +2579,7 @@ Public Class SSPPTitleVTools
                                 temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
                         End Select
 
-                        If clbTitleVEmailList.Items.Contains(temp) = False Then
+                        If Not clbTitleVEmailList.Items.Contains(temp) Then
                             clbTitleVEmailList.Items.Add(temp)
                             clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                         End If
@@ -2656,7 +2656,7 @@ Public Class SSPPTitleVTools
                                 temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
                         End Select
 
-                        If clbTitleVEmailList.Items.Contains(temp) = False Then
+                        If Not clbTitleVEmailList.Items.Contains(temp) Then
                             clbTitleVEmailList.Items.Add(temp)
                             clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                         End If
@@ -2711,7 +2711,7 @@ Public Class SSPPTitleVTools
     Private Sub chbNotifiedAppReceived_CheckedChanged(sender As Object, e As EventArgs) Handles chbNotifiedAppReceived.CheckedChanged
         Try
 
-            If chbNotifiedAppReceived.Checked = True Then
+            If chbNotifiedAppReceived.Checked Then
                 DTPNotifiedAppReceived.Visible = True
             Else
                 DTPNotifiedAppReceived.Visible = False
@@ -2726,7 +2726,7 @@ Public Class SSPPTitleVTools
     Private Sub chbDraftOnWeb_CheckedChanged(sender As Object, e As EventArgs) Handles chbDraftOnWeb.CheckedChanged
         Try
 
-            If chbDraftOnWeb.Checked = True Then
+            If chbDraftOnWeb.Checked Then
                 DTPDraftOnWeb.Visible = True
             Else
                 DTPDraftOnWeb.Visible = False
@@ -2744,7 +2744,7 @@ Public Class SSPPTitleVTools
     Private Sub chbEPAandStatesNotified_CheckedChanged(sender As Object, e As EventArgs) Handles chbEPAandStatesNotified.CheckedChanged
         Try
 
-            If chbEPAandStatesNotified.Checked = True Then
+            If chbEPAandStatesNotified.Checked Then
                 DTPEPAStatesNotified.Visible = True
             Else
                 DTPEPAStatesNotified.Visible = False
@@ -2759,7 +2759,7 @@ Public Class SSPPTitleVTools
     Private Sub chbFinalOnWeb_CheckedChanged(sender As Object, e As EventArgs) Handles chbFinalOnWeb.CheckedChanged
         Try
 
-            If chbFinalOnWeb.Checked = True Then
+            If chbFinalOnWeb.Checked Then
                 DTPFinalOnWeb.Visible = True
             Else
                 DTPFinalOnWeb.Visible = False
@@ -2774,7 +2774,7 @@ Public Class SSPPTitleVTools
     Private Sub chbEPANotifiedPermitOnWeb_CheckedChanged(sender As Object, e As EventArgs) Handles chbEPANotifiedPermitOnWeb.CheckedChanged
         Try
 
-            If chbEPANotifiedPermitOnWeb.Checked = True Then
+            If chbEPANotifiedPermitOnWeb.Checked Then
                 DTPEPANotifiedPermitOnWeb.Visible = True
             Else
                 DTPEPANotifiedPermitOnWeb.Visible = False
@@ -2789,7 +2789,7 @@ Public Class SSPPTitleVTools
     Private Sub chbEffectiveDateOfPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbEffectiveDateOfPermit.CheckedChanged
         Try
 
-            If chbEffectiveDateOfPermit.Checked = True Then
+            If chbEffectiveDateOfPermit.Checked Then
                 DTPEffectiveDateofPermit.Visible = True
             Else
                 DTPEffectiveDateofPermit.Visible = False
@@ -2804,7 +2804,7 @@ Public Class SSPPTitleVTools
     Private Sub chbExperationDate_CheckedChanged(sender As Object, e As EventArgs) Handles chbExpirationDate.CheckedChanged
         Try
 
-            If chbExpirationDate.Checked = True Then
+            If chbExpirationDate.Checked Then
                 DTPExperationDate.Visible = True
             Else
                 DTPExperationDate.Visible = False

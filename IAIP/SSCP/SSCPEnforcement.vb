@@ -770,7 +770,7 @@ Public Class SscpEnforcement
 #Region " General tab: Submit to UC/EPA buttons "
 
     Private Sub SubmitToUC_Click(sender As Object, e As EventArgs) Handles SubmitToUC.Click
-        If EnforcementCase.SubmittedToUc = True Then Return
+        If EnforcementCase.SubmittedToUc Then Return
 
         EnforcementCase.SubmittedToUc = True
         If ValidateAndSave() Then
@@ -783,7 +783,7 @@ Public Class SscpEnforcement
     Private Sub SubmitToEpa_Click(sender As Object, e As EventArgs) _
         Handles SubmitToEpa.Click, SubmitToEpa2.Click
 
-        If EnforcementCase.SubmittedToEpa = True Then
+        If EnforcementCase.SubmittedToEpa Then
             SubmitToEpa.Visible = False
             SubmitToEpa2.Visible = False
             ShowEpaValues()

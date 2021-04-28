@@ -84,8 +84,8 @@ Public Class SSPPStatisticalTools
             Dim EngineerLine As String = ""
             Dim query As String
 
-            If chbAllApps.Checked = False Then
-                If clbEngineers.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps.Checked Then
+                If clbEngineers.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
@@ -702,8 +702,8 @@ Public Class SSPPStatisticalTools
             Dim EngineerLine As String = ""
             Dim query As String
 
-            If chbAllApps2.Checked = False Then
-                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps2.Checked Then
+                If clbEngineers2.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers2.CheckedItems
@@ -856,8 +856,8 @@ Public Class SSPPStatisticalTools
             Dim EngineerLine As String = ""
             Dim query As String
 
-            If chbAllApps3.Checked = False Then
-                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps3.Checked Then
+                If clbEngineers3.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers3.CheckedItems
@@ -938,8 +938,8 @@ Public Class SSPPStatisticalTools
             Dim EngineerLine As String = ""
             Dim query As String
 
-            If chbAllApps3.Checked = False Then
-                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps3.Checked Then
+                If clbEngineers3.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers3.CheckedItems
@@ -1050,7 +1050,7 @@ Public Class SSPPStatisticalTools
             Dim query As String
 
             If cboEPAYear.Text <> "" Then
-                If rdbJanuaryReport.Checked = True Then
+                If rdbJanuaryReport.Checked Then
                     StartDate = New Date(CInt(cboEPAYear.Text) - 1, 12, 31)
                     EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
@@ -1423,8 +1423,8 @@ Public Class SSPPStatisticalTools
                 New SqlParameter("@LastDay", LastDay)
             }
 
-            If chbAllApps.Checked = False Then
-                If clbEngineers.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps.Checked Then
+                If clbEngineers.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
@@ -1571,8 +1571,8 @@ Public Class SSPPStatisticalTools
                 New SqlParameter("@LastDay", LastDay)
             }
 
-            If chbAllApps.Checked = False Then
-                If clbEngineers.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps.Checked Then
+                If clbEngineers.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
@@ -1669,8 +1669,8 @@ Public Class SSPPStatisticalTools
                 New SqlParameter("@LastDay", LastDay)
             }
 
-            If chbAllApps.Checked = False Then
-                If clbEngineers.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps.Checked Then
+                If clbEngineers.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
@@ -1767,8 +1767,8 @@ Public Class SSPPStatisticalTools
                 New SqlParameter("@LastDay", LastDay)
             }
 
-            If chbAllApps.Checked = False Then
-                If clbEngineers.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps.Checked Then
+                If clbEngineers.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
@@ -1865,8 +1865,8 @@ Public Class SSPPStatisticalTools
                 New SqlParameter("@LastDay", LastDay)
             }
 
-            If chbAllApps.Checked = False Then
-                If clbEngineers.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps.Checked Then
+                If clbEngineers.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
@@ -1963,8 +1963,8 @@ Public Class SSPPStatisticalTools
                 New SqlParameter("@LastDay", LastDay)
             }
 
-            If chbAllApps.Checked = False Then
-                If clbEngineers.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps.Checked Then
+                If clbEngineers.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
@@ -2061,8 +2061,8 @@ Public Class SSPPStatisticalTools
                 New SqlParameter("@LastDay", LastDay)
             }
 
-            If chbAllApps.Checked = False Then
-                If clbEngineers.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps.Checked Then
+                If clbEngineers.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
@@ -2159,8 +2159,8 @@ Public Class SSPPStatisticalTools
                 New SqlParameter("@LastDay", LastDay)
             }
 
-            If chbAllApps.Checked = False Then
-                If clbEngineers.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps.Checked Then
+                If clbEngineers.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
@@ -2259,8 +2259,8 @@ Public Class SSPPStatisticalTools
                 New SqlParameter("@LastDay", LastDay)
             }
 
-            If chbAllApps.Checked = False Then
-                If clbEngineers.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps.Checked Then
+                If clbEngineers.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
@@ -2364,8 +2364,8 @@ Public Class SSPPStatisticalTools
                 New SqlParameter("@LastDay", LastDay)
             }
 
-            If chbAllApps.Checked = False Then
-                If clbEngineers.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps.Checked Then
+                If clbEngineers.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
@@ -2466,8 +2466,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps2.Checked = False Then
-                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps2.Checked Then
+                If clbEngineers2.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers2.CheckedItems
@@ -2549,8 +2549,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps2.Checked = False Then
-                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps2.Checked Then
+                If clbEngineers2.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers2.CheckedItems
@@ -2634,8 +2634,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps2.Checked = False Then
-                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps2.Checked Then
+                If clbEngineers2.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers2.CheckedItems
@@ -2719,8 +2719,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps2.Checked = False Then
-                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps2.Checked Then
+                If clbEngineers2.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers2.CheckedItems
@@ -2804,8 +2804,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps2.Checked = False Then
-                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps2.Checked Then
+                If clbEngineers2.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers2.CheckedItems
@@ -2893,8 +2893,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps2.Checked = False Then
-                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps2.Checked Then
+                If clbEngineers2.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers2.CheckedItems
@@ -2983,8 +2983,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps2.Checked = False Then
-                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps2.Checked Then
+                If clbEngineers2.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers2.CheckedItems
@@ -3074,8 +3074,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps2.Checked = False Then
-                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps2.Checked Then
+                If clbEngineers2.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers2.CheckedItems
@@ -3177,8 +3177,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps3.Checked = False Then
-                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps3.Checked Then
+                If clbEngineers3.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers3.CheckedItems
@@ -3268,8 +3268,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps3.Checked = False Then
-                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps3.Checked Then
+                If clbEngineers3.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers3.CheckedItems
@@ -3358,8 +3358,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps3.Checked = False Then
-                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps3.Checked Then
+                If clbEngineers3.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers3.CheckedItems
@@ -3449,8 +3449,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps3.Checked = False Then
-                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps3.Checked Then
+                If clbEngineers3.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers3.CheckedItems
@@ -3552,8 +3552,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps3.Checked = False Then
-                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps3.Checked Then
+                If clbEngineers3.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers3.CheckedItems
@@ -3642,8 +3642,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps3.Checked = False Then
-                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps3.Checked Then
+                If clbEngineers3.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers3.CheckedItems
@@ -3733,8 +3733,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps3.Checked = False Then
-                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps3.Checked Then
+                If clbEngineers3.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers3.CheckedItems
@@ -3825,8 +3825,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps3.Checked = False Then
-                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps3.Checked Then
+                If clbEngineers3.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers3.CheckedItems
@@ -3917,8 +3917,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps3.Checked = False Then
-                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps3.Checked Then
+                If clbEngineers3.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers3.CheckedItems
@@ -4009,8 +4009,8 @@ Public Class SSPPStatisticalTools
             Dim query As String
             Dim EngineerLine As String = ""
 
-            If chbAllApps3.Checked = False Then
-                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+            If Not chbAllApps3.Checked Then
+                If clbEngineers3.CheckedIndices.Contains(0) Then
                     EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers3.CheckedItems
@@ -4098,7 +4098,7 @@ Public Class SSPPStatisticalTools
     Private Sub btnRunEPAReport_Click(sender As Object, e As EventArgs) Handles btnRunEPAReport.Click
         Try
 
-            If cboEPAYear.Text <> "" AndAlso (rdbJanuaryReport.Checked = True OrElse rdbJulyReport.Checked = True) Then
+            If cboEPAYear.Text <> "" AndAlso (rdbJanuaryReport.Checked OrElse rdbJulyReport.Checked) Then
                 RunEPAReport()
             Else
                 MsgBox("Either a year is not selected or the reporting period is not selected.", MsgBoxStyle.Information, "Reports and Statistical Tools")
@@ -4314,7 +4314,7 @@ Public Class SSPPStatisticalTools
             Dim query As String
 
             If cboEPAYear.Text <> "" Then
-                If rdbJanuaryReport.Checked = True Then
+                If rdbJanuaryReport.Checked Then
                     StartDate = New Date(CInt(cboEPAYear.Text) - 1, 12, 31)
                     EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
@@ -4404,7 +4404,7 @@ Public Class SSPPStatisticalTools
             Dim query As String
 
             If cboEPAYear.Text <> "" Then
-                If rdbJanuaryReport.Checked = True Then
+                If rdbJanuaryReport.Checked Then
                     StartDate = New Date(CInt(cboEPAYear.Text) - 1, 12, 31)
                     EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
@@ -4495,7 +4495,7 @@ Public Class SSPPStatisticalTools
             Dim query As String
 
             If cboEPAYear.Text <> "" Then
-                If rdbJanuaryReport.Checked = True Then
+                If rdbJanuaryReport.Checked Then
                     EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
                     EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
@@ -4573,7 +4573,7 @@ Public Class SSPPStatisticalTools
             Dim query As String
 
             If cboEPAYear.Text <> "" Then
-                If rdbJanuaryReport.Checked = True Then
+                If rdbJanuaryReport.Checked Then
                     EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
                     EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
@@ -4650,7 +4650,7 @@ Public Class SSPPStatisticalTools
             Dim query As String
 
             If cboEPAYear.Text <> "" Then
-                If rdbJanuaryReport.Checked = True Then
+                If rdbJanuaryReport.Checked Then
                     EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
                     EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
@@ -4735,7 +4735,7 @@ Public Class SSPPStatisticalTools
             Dim query As String
 
             If cboEPAYear.Text <> "" Then
-                If rdbJanuaryReport.Checked = True Then
+                If rdbJanuaryReport.Checked Then
                     EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
                     EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
@@ -4870,7 +4870,7 @@ Public Class SSPPStatisticalTools
             Dim query As String
 
             If cboEPAYear.Text <> "" Then
-                If rdbJanuaryReport.Checked = True Then
+                If rdbJanuaryReport.Checked Then
                     StartDate = New Date(CInt(cboEPAYear.Text) - 1, 12, 31)
                     EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
@@ -4960,7 +4960,7 @@ Public Class SSPPStatisticalTools
             Dim query As String
 
             If cboEPAYear.Text <> "" Then
-                If rdbJanuaryReport.Checked = True Then
+                If rdbJanuaryReport.Checked Then
                     StartDate = New Date(CInt(cboEPAYear.Text) - 1, 12, 31)
                     EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
@@ -5051,7 +5051,7 @@ Public Class SSPPStatisticalTools
             Dim query As String
 
             If cboEPAYear.Text <> "" Then
-                If rdbJanuaryReport.Checked = True Then
+                If rdbJanuaryReport.Checked Then
                     StartDate = New Date(CInt(cboEPAYear.Text) - 1, 12, 31)
                     EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
@@ -5141,7 +5141,7 @@ Public Class SSPPStatisticalTools
             Dim query As String
 
             If cboEPAYear.Text <> "" Then
-                If rdbJanuaryReport.Checked = True Then
+                If rdbJanuaryReport.Checked Then
                     EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
                     EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)

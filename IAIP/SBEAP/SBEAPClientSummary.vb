@@ -617,7 +617,7 @@ Public Class SBEAPClientSummary
             Else
                 ZipCode = ""
             End If
-            If Me.chbMainClientContact.Checked = True Then
+            If Me.chbMainClientContact.Checked Then
                 MainContact = "True"
             Else
                 MainContact = "False"
@@ -792,7 +792,7 @@ Public Class SBEAPClientSummary
             Else
                 ZipCode = ""
             End If
-            If Me.chbMainClientContact.Checked = True Then
+            If Me.chbMainClientContact.Checked Then
                 MainContact = "True"
             Else
                 MainContact = "False"
@@ -1214,77 +1214,77 @@ Public Class SBEAPClientSummary
                 AIRSNumber = ""
             End If
 
-            If chbSIP.Checked = True Then
+            If chbSIP.Checked Then
                 AirCodes = "1"
             Else
                 AirCodes = "0"
             End If
-            If chbFederalSIP.Checked = True Then
+            If chbFederalSIP.Checked Then
                 AirCodes = AirCodes & "1"
             Else
                 AirCodes = AirCodes & "0"
             End If
-            If chbNonFedSIP.Checked = True Then
+            If chbNonFedSIP.Checked Then
                 AirCodes = AirCodes & "1"
             Else
                 AirCodes = AirCodes & "0"
             End If
-            If chbCFCTracking.Checked = True Then
+            If chbCFCTracking.Checked Then
                 AirCodes = AirCodes & "1"
             Else
                 AirCodes = AirCodes & "0"
             End If
-            If chbPSD.Checked = True Then
+            If chbPSD.Checked Then
                 AirCodes = AirCodes & "1"
             Else
                 AirCodes = AirCodes & "0"
             End If
-            If chbNSR.Checked = True Then
+            If chbNSR.Checked Then
                 AirCodes = AirCodes & "1"
             Else
                 AirCodes = AirCodes & "0"
             End If
-            If chbNESHAP.Checked = True Then
+            If chbNESHAP.Checked Then
                 AirCodes = AirCodes & "1"
             Else
                 AirCodes = AirCodes & "0"
             End If
-            If chbNSPS.Checked = True Then
+            If chbNSPS.Checked Then
                 AirCodes = AirCodes & "1"
             Else
                 AirCodes = AirCodes & "0"
             End If
-            If chbAcidPrecip.Checked = True Then
+            If chbAcidPrecip.Checked Then
                 AirCodes = AirCodes & "1"
             Else
                 AirCodes = AirCodes & "0"
             End If
-            If chbFESOP.Checked = True Then
+            If chbFESOP.Checked Then
                 AirCodes = AirCodes & "1"
             Else
                 AirCodes = AirCodes & "0"
             End If
-            If chbNativeAmer.Checked = True Then
+            If chbNativeAmer.Checked Then
                 AirCodes = AirCodes & "1"
             Else
                 AirCodes = AirCodes & "0"
             End If
-            If chbMACT.Checked = True Then
+            If chbMACT.Checked Then
                 AirCodes = AirCodes & "1"
             Else
                 AirCodes = AirCodes & "0"
             End If
-            If chbTitleV.Checked = True Then
+            If chbTitleV.Checked Then
                 AirCodes = AirCodes & "1"
             Else
                 AirCodes = AirCodes & "0"
             End If
-            If chbNSRPSD.Checked = True Then
+            If chbNSRPSD.Checked Then
                 StateCodes = "1"
             Else
                 StateCodes = "0"
             End If
-            If chbHAPs.Checked = True Then
+            If chbHAPs.Checked Then
                 StateCodes = StateCodes & "1"
             Else
                 StateCodes = StateCodes & "0"

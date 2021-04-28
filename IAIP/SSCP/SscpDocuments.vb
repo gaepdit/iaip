@@ -399,7 +399,7 @@ Public Class SscpDocuments
             Function(doc) _
                 doc.DocumentTypeId = ddlNewDocumentType.SelectedValue
         )
-        Return If(index = -1, False, True)
+        Return index <> -1
     End Function
 
     Private Sub ddlDocumentType_SelectedIndexChanged(sender As Object, e As EventArgs)

@@ -188,13 +188,13 @@ Public Class SSPPAttainmentStatus
 
             AttainmentStatus = DB.GetString(query, p)
 
-            If rdbOneHourNo.Checked = True Then
+            If rdbOneHourNo.Checked Then
                 AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "0" & Mid(AttainmentStatus, 3)
             End If
-            If rdbOneHourYes.Checked = True Then
+            If rdbOneHourYes.Checked Then
                 AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "1" & Mid(AttainmentStatus, 3)
             End If
-            If rdbOneHourCont.Checked = True Then
+            If rdbOneHourCont.Checked Then
                 AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "2" & Mid(AttainmentStatus, 3)
             End If
 
@@ -226,15 +226,15 @@ Public Class SSPPAttainmentStatus
                     AttainmentStatus = dr.Item("strAttainmentStatus")
                 End If
 
-                If rdbOneHourNo.Checked = True Then
+                If rdbOneHourNo.Checked Then
                     AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "0" & Mid(AttainmentStatus, 3)
                 End If
 
-                If rdbOneHourYes.Checked = True Then
+                If rdbOneHourYes.Checked Then
                     AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "1" & Mid(AttainmentStatus, 3)
                 End If
 
-                If rdbOneHourCont.Checked = True Then
+                If rdbOneHourCont.Checked Then
                     AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "2" & Mid(AttainmentStatus, 3)
                 End If
 
@@ -266,13 +266,13 @@ Public Class SSPPAttainmentStatus
 
             AttainmentStatus = DB.GetString(query, p)
 
-            If rdbEightHourNo.Checked = True Then
+            If rdbEightHourNo.Checked Then
                 AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "0" & Mid(AttainmentStatus, 4)
             End If
-            If rdbEightHourAtlanta.Checked = True Then
+            If rdbEightHourAtlanta.Checked Then
                 AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "1" & Mid(AttainmentStatus, 4)
             End If
-            If rdbEightHourMacon.Checked = True Then
+            If rdbEightHourMacon.Checked Then
                 AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "2" & Mid(AttainmentStatus, 4)
             End If
 
@@ -304,15 +304,15 @@ Public Class SSPPAttainmentStatus
                     AttainmentStatus = dr.Item("strAttainmentStatus")
                 End If
 
-                If rdbEightHourNo.Checked = True Then
+                If rdbEightHourNo.Checked Then
                     AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "0" & Mid(AttainmentStatus, 4)
                 End If
 
-                If rdbEightHourAtlanta.Checked = True Then
+                If rdbEightHourAtlanta.Checked Then
                     AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "1" & Mid(AttainmentStatus, 4)
                 End If
 
-                If rdbEightHourMacon.Checked = True Then
+                If rdbEightHourMacon.Checked Then
                     AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "2" & Mid(AttainmentStatus, 4)
                 End If
 
@@ -344,19 +344,19 @@ Public Class SSPPAttainmentStatus
 
             AttainmentStatus = DB.GetString(query, p)
 
-            If rdbPMFineNo.Checked = True Then
+            If rdbPMFineNo.Checked Then
                 AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "0" & Mid(AttainmentStatus, 5)
             End If
-            If rdbPMFineAtlanta.Checked = True Then
+            If rdbPMFineAtlanta.Checked Then
                 AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "1" & Mid(AttainmentStatus, 5)
             End If
-            If rdbPMFineChattanooga.Checked = True Then
+            If rdbPMFineChattanooga.Checked Then
                 AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "2" & Mid(AttainmentStatus, 5)
             End If
-            If rdbPMFineFloyd.Checked = True Then
+            If rdbPMFineFloyd.Checked Then
                 AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "3" & Mid(AttainmentStatus, 5)
             End If
-            If rdbPMFineMacon.Checked = True Then
+            If rdbPMFineMacon.Checked Then
                 AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "4" & Mid(AttainmentStatus, 5)
             End If
 
@@ -388,23 +388,23 @@ Public Class SSPPAttainmentStatus
                     AttainmentStatus = dr.Item("strAttainmentStatus")
                 End If
 
-                If rdbPMFineNo.Checked = True Then
+                If rdbPMFineNo.Checked Then
                     AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "0" & Mid(AttainmentStatus, 5)
                 End If
 
-                If rdbPMFineAtlanta.Checked = True Then
+                If rdbPMFineAtlanta.Checked Then
                     AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "1" & Mid(AttainmentStatus, 5)
                 End If
 
-                If rdbPMFineChattanooga.Checked = True Then
+                If rdbPMFineChattanooga.Checked Then
                     AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "2" & Mid(AttainmentStatus, 5)
                 End If
 
-                If rdbPMFineFloyd.Checked = True Then
+                If rdbPMFineFloyd.Checked Then
                     AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "3" & Mid(AttainmentStatus, 5)
                 End If
 
-                If rdbPMFineMacon.Checked = True Then
+                If rdbPMFineMacon.Checked Then
                     AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "4" & Mid(AttainmentStatus, 5)
                 End If
 

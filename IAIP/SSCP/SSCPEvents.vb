@@ -319,7 +319,7 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub CompleteReport()
-        If chbEventComplete.Checked = True Then
+        If chbEventComplete.Checked Then
             DTPAcknowledgmentLetterSent.Enabled = False
             chbNotificationReceivedByAPB.Enabled = False
             cboStaffResponsible.Enabled = False
@@ -606,9 +606,9 @@ Public Class SSCPEvents
         Try
             ValidateALLReport()
 
-            If wrnCompleteReport.Visible = True OrElse wrnEnforcementNeeded.Visible = True _
-                    OrElse wrnReportPeriod.Visible = True OrElse wrnShowDeviation.Visible = True _
-                    OrElse wrnReportSubmittal.Visible = True Then
+            If wrnCompleteReport.Visible OrElse wrnEnforcementNeeded.Visible _
+                    OrElse wrnReportPeriod.Visible OrElse wrnShowDeviation.Visible _
+                    OrElse wrnReportSubmittal.Visible Then
                 MsgBox("Data not saved")
                 Return False
             Else
@@ -803,7 +803,7 @@ Public Class SSCPEvents
                     End If
                 End If
 
-                If chbReportReceivedByAPB.Checked = True Then
+                If chbReportReceivedByAPB.Checked Then
                     sqlList.Add("Update SSCPItemMaster set " &
                             "datReceivedDate = @date " &
                             "where strTrackingNumber = @num ")
@@ -834,9 +834,9 @@ Public Class SSCPEvents
 
             ValidateAllInspection()
 
-            If wrnInspectionOperating.Visible = True _
-                OrElse wrnInspectionComplianceStatus.Visible = True _
-                OrElse wrnInspectionDates.Visible = True Then
+            If wrnInspectionOperating.Visible _
+                OrElse wrnInspectionComplianceStatus.Visible _
+                OrElse wrnInspectionDates.Visible Then
                 MsgBox("Data not saved")
 
                 Return False
@@ -945,13 +945,13 @@ Public Class SSCPEvents
 
             ValidateAllACC()
 
-            If wrnACCConditions.Visible = True OrElse wrnACCCorrect.Visible = True _
-            OrElse wrnACCCorrectACC.Visible = True _
-            OrElse wrnACCDatePostmarked.Visible = True OrElse wrnACCDeviationsReported.Visible = True _
-            OrElse wrnACCEnforcementNeeded.Visible = True OrElse wrnACCPostmark.Visible = True _
-            OrElse wrnACCPreviousDeviations.Visible = True OrElse wrnACCAllDeviationsReported.Visible _
+            If wrnACCConditions.Visible OrElse wrnACCCorrect.Visible _
+            OrElse wrnACCCorrectACC.Visible _
+            OrElse wrnACCDatePostmarked.Visible OrElse wrnACCDeviationsReported.Visible _
+            OrElse wrnACCEnforcementNeeded.Visible OrElse wrnACCPostmark.Visible _
+            OrElse wrnACCPreviousDeviations.Visible OrElse wrnACCAllDeviationsReported.Visible _
             OrElse wrnACCResubmittalRequested.Visible _
-            OrElse wrnACCRO.Visible = True OrElse wrnACCSubmittal.Visible = True Then
+            OrElse wrnACCRO.Visible OrElse wrnACCSubmittal.Visible Then
                 MsgBox("Data not saved", MsgBoxStyle.Information, "SSCP Events.")
                 Return False
             End If
@@ -961,37 +961,37 @@ Public Class SSCPEvents
             Else
                 AccReportingYear = DBNull.Value
             End If
-            If rdbACCPostmarkYes.Checked = True Then
+            If rdbACCPostmarkYes.Checked Then
                 PostedOnTime = "True"
             Else
                 PostedOnTime = "False"
             End If
-            If rdbACCROYes.Checked = True Then
+            If rdbACCROYes.Checked Then
                 SignedByRO = "True"
             Else
                 SignedByRO = "False"
             End If
-            If rdbACCCorrectACCYes.Checked = True Then
+            If rdbACCCorrectACCYes.Checked Then
                 CorrectACCForm = "True"
             Else
                 CorrectACCForm = "False"
             End If
-            If rdbACCConditionsYes.Checked = True Then
+            If rdbACCConditionsYes.Checked Then
                 TitleVConditions = "True"
             Else
                 TitleVConditions = "False"
             End If
-            If rdbACCCorrectYes.Checked = True Then
+            If rdbACCCorrectYes.Checked Then
                 ACCCorrectlyFilledOut = "True"
             Else
                 ACCCorrectlyFilledOut = "False"
             End If
-            If rdbACCDeviationsReportedYes.Checked = True Then
+            If rdbACCDeviationsReportedYes.Checked Then
                 ReportedDeviations = "True"
             Else
                 ReportedDeviations = "False"
             End If
-            If rdbACCPreviouslyUnreportedDeviationsYes.Checked = True Then
+            If rdbACCPreviouslyUnreportedDeviationsYes.Checked Then
                 ReportedUnReportedDeviations = "True"
             Else
                 ReportedUnReportedDeviations = "False"
@@ -1001,7 +1001,7 @@ Public Class SSCPEvents
             Else
                 ACCComments = txtACCComments.Text
             End If
-            If rdbACCEnforcementNeededYes.Checked = True Then
+            If rdbACCEnforcementNeededYes.Checked Then
                 EnforcementNeeded = "True"
             Else
                 EnforcementNeeded = "False"
@@ -1224,7 +1224,7 @@ Public Class SSCPEvents
                     })
                 End If
 
-                If chbACCReceivedByAPB.Checked = True Then
+                If chbACCReceivedByAPB.Checked Then
                     sqlList.Add("Update SSCPItemMaster set " &
                         "datReceivedDate = @date " &
                         "where strTrackingNumber = @num ")
@@ -1257,7 +1257,7 @@ Public Class SSCPEvents
             If txtISMPReferenceNumber.Text = "" Then
                 txtISMPReferenceNumber.Text = "N/A"
             End If
-            If rdbTestReportFollowUpYes.Checked = True Then
+            If rdbTestReportFollowUpYes.Checked Then
                 TestReportFollowUp = "True"
             Else
                 TestReportFollowUp = "False"
@@ -1327,7 +1327,7 @@ Public Class SSCPEvents
                 })
             End If
 
-            If chbISMPTestReportReceivedByAPB.Checked = True Then
+            If chbISMPTestReportReceivedByAPB.Checked Then
                 sqlList.Add("Update SSCPItemMaster set " &
                     "datReceivedDate = @date " &
                     "where strTrackingNumber = @num")
@@ -1358,14 +1358,14 @@ Public Class SSCPEvents
 
         Try
 
-            If dtpNotificationDate.Checked = True OrElse dtpNotificationDate.ShowCheckBox = False Then
+            If dtpNotificationDate.Checked OrElse Not dtpNotificationDate.ShowCheckBox Then
                 NotificationDue = "False"
                 NotificationDueDate = dtpNotificationDate.Value
             Else
                 NotificationDueDate = DBNull.Value
             End If
 
-            If dtpNotificationDate2.Checked = True Then
+            If dtpNotificationDate2.Checked Then
                 NotificationSent = "False"
                 NotificationSentDate = dtpNotificationDate2.Text
             Else
@@ -1382,7 +1382,7 @@ Public Class SSCPEvents
             Else
                 NotificationComment = txtNotificationComments.Text
             End If
-            If rdbNotificationFollowUpYes.Checked = True Then
+            If rdbNotificationFollowUpYes.Checked Then
                 NotificationFollowUp = "True"
             Else
                 NotificationFollowUp = "False"
@@ -1434,7 +1434,7 @@ Public Class SSCPEvents
                 New SqlParameter("@num", TrackingNumber)
             })
 
-            If chbNotificationReceivedByAPB.Checked = True Then
+            If chbNotificationReceivedByAPB.Checked Then
                 sqlList.Add("Update SSCPItemMaster set " &
                     "datReceivedDate = @date " &
                     "where strTrackingNumber = @num")
@@ -2257,7 +2257,7 @@ Public Class SSCPEvents
                         dtpNotificationDate.Value = Today
                     End If
                 End If
-                If dtpNotificationDate.ShowCheckBox = True Then
+                If dtpNotificationDate.ShowCheckBox Then
                     'If value is True then leave field blank 
                     If IsDBNull(dr.Item("strNotificationDue")) Then
                         dtpNotificationDate.Checked = False
@@ -2313,7 +2313,7 @@ Public Class SSCPEvents
             Else
                 dtpNotificationDate.Checked = False
                 dtpNotificationDate.Value = Today
-                If dtpNotificationDate.ShowCheckBox = True Then
+                If dtpNotificationDate.ShowCheckBox Then
                     dtpNotificationDate.Checked = False
                 End If
                 dtpNotificationDate2.Text = Today
@@ -2546,7 +2546,7 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub ValidateReportComplete()
-        If rdbReportCompleteYes.Checked = False AndAlso rdbReportCompleteNo.Checked = False Then
+        If Not rdbReportCompleteYes.Checked AndAlso Not rdbReportCompleteNo.Checked Then
             wrnCompleteReport.Visible = True
         Else
             wrnCompleteReport.Visible = False
@@ -2554,7 +2554,7 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub ValidateShowDeviation()
-        If rdbReportDeviationYes.Checked = False AndAlso rdbReportDeviationNo.Checked = False Then
+        If Not rdbReportDeviationYes.Checked AndAlso Not rdbReportDeviationNo.Checked Then
             wrnShowDeviation.Visible = True
         Else
             wrnShowDeviation.Visible = False
@@ -2562,7 +2562,7 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub ValidateEnforcementNeeded()
-        If rdbReportEnforcementYes.Checked = False AndAlso rdbReportEnforcementNo.Checked = False Then
+        If Not rdbReportEnforcementYes.Checked AndAlso Not rdbReportEnforcementNo.Checked Then
             wrnEnforcementNeeded.Visible = True
         Else
             wrnEnforcementNeeded.Visible = False
@@ -2596,7 +2596,7 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub ValidateFacilityOperating()
-        If rdbInspectionFacilityOperatingYes.Checked = False AndAlso rdbInspectionFacilityOperatingNo.Checked = False Then
+        If Not rdbInspectionFacilityOperatingYes.Checked AndAlso Not rdbInspectionFacilityOperatingNo.Checked Then
             wrnInspectionOperating.Visible = True
         Else
             wrnInspectionOperating.Visible = False
@@ -2637,7 +2637,7 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub ValidatePostmarkDate()
-        If rdbACCPostmarkYes.Checked = False AndAlso rdbACCPostmarkNo.Checked = False Then
+        If Not rdbACCPostmarkYes.Checked AndAlso Not rdbACCPostmarkNo.Checked Then
             wrnACCPostmark.Visible = True
         Else
             wrnACCPostmark.Visible = False
@@ -2645,7 +2645,7 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub ValidateROSigned()
-        If rdbACCROYes.Checked = False AndAlso rdbACCRONo.Checked = False Then
+        If Not rdbACCROYes.Checked AndAlso Not rdbACCRONo.Checked Then
             wrnACCRO.Visible = True
         Else
             wrnACCRO.Visible = False
@@ -2653,7 +2653,7 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub ValidateCorrectACCForms()
-        If rdbACCCorrectACCYes.Checked = False AndAlso rdbACCCorrectACCNo.Checked = False Then
+        If Not rdbACCCorrectACCYes.Checked AndAlso Not rdbACCCorrectACCNo.Checked Then
             wrnACCCorrectACC.Visible = True
         Else
             wrnACCCorrectACC.Visible = False
@@ -2661,7 +2661,7 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub ValidateTitleVConditions()
-        If rdbACCConditionsYes.Checked = False AndAlso rdbACCConditionsNo.Checked = False Then
+        If Not rdbACCConditionsYes.Checked AndAlso Not rdbACCConditionsNo.Checked Then
             wrnACCConditions.Visible = True
         Else
             wrnACCConditions.Visible = False
@@ -2669,7 +2669,7 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub ValidateCorrectlyFilledOut()
-        If rdbACCCorrectYes.Checked = False AndAlso rdbACCCorrectNo.Checked = False Then
+        If Not rdbACCCorrectYes.Checked AndAlso Not rdbACCCorrectNo.Checked Then
             wrnACCCorrect.Visible = True
         Else
             wrnACCCorrect.Visible = False
@@ -2677,7 +2677,7 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub ValidateReportedDeviations()
-        If rdbACCDeviationsReportedYes.Checked = False AndAlso rdbACCDeviationsReportedNo.Checked = False Then
+        If Not rdbACCDeviationsReportedYes.Checked AndAlso Not rdbACCDeviationsReportedNo.Checked Then
             wrnACCDeviationsReported.Visible = True
         Else
             wrnACCDeviationsReported.Visible = False
@@ -2685,7 +2685,7 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub ValidatePreviouslyReportedDeviations()
-        If rdbACCPreviouslyUnreportedDeviationsYes.Checked = False AndAlso rdbACCPreviouslyUnreportedDeviationsNo.Checked = False Then
+        If Not rdbACCPreviouslyUnreportedDeviationsYes.Checked AndAlso Not rdbACCPreviouslyUnreportedDeviationsNo.Checked Then
             wrnACCPreviousDeviations.Visible = True
         Else
             wrnACCPreviousDeviations.Visible = False
@@ -2693,7 +2693,7 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub ValidateACCEnforcementNeeded()
-        If rdbACCEnforcementNeededYes.Checked = False AndAlso rdbACCEnforcementNeededNo.Checked = False Then
+        If Not rdbACCEnforcementNeededYes.Checked AndAlso Not rdbACCEnforcementNeededNo.Checked Then
             wrnACCEnforcementNeeded.Visible = True
         Else
             wrnACCEnforcementNeeded.Visible = False
@@ -2838,7 +2838,7 @@ Public Class SSCPEvents
 
     Private Sub chbTestReportChangeDueDate_CheckedChanged(sender As Object, e As EventArgs) Handles chbTestReportChangeDueDate.CheckedChanged
         Try
-            If chbTestReportChangeDueDate.Checked = False Then
+            If Not chbTestReportChangeDueDate.Checked Then
                 DTPTestReportDueDate.Visible = False
             Else
                 DTPTestReportDueDate.Visible = True
@@ -2850,7 +2850,7 @@ Public Class SSCPEvents
 
     Private Sub DTPTestReportDueDate_TextChanged(sender As Object, e As EventArgs) Handles DTPTestReportDueDate.TextChanged
         Try
-            If chbTestReportChangeDueDate.Checked = True Then
+            If chbTestReportChangeDueDate.Checked Then
                 txtTestReportDueDate.Text = DTPTestReportDueDate.Value
             End If
         Catch ex As Exception
@@ -2944,7 +2944,7 @@ Public Class SSCPEvents
 
     Private Sub chbReportReceivedByAPB_CheckedChanged(sender As Object, e As EventArgs) Handles chbReportReceivedByAPB.CheckedChanged
         Try
-            If chbReportReceivedByAPB.Checked = True Then
+            If chbReportReceivedByAPB.Checked Then
                 DTPReportReceivedDate.Enabled = True
             Else
                 DTPReportReceivedDate.Enabled = False
@@ -2956,7 +2956,7 @@ Public Class SSCPEvents
 
     Private Sub chbISMPTestReportReceivedByAPB_CheckedChanged(sender As Object, e As EventArgs) Handles chbISMPTestReportReceivedByAPB.CheckedChanged
         Try
-            If chbISMPTestReportReceivedByAPB.Checked = True Then
+            If chbISMPTestReportReceivedByAPB.Checked Then
                 DTPTestReportReceivedDate.Enabled = True
             Else
                 DTPTestReportReceivedDate.Enabled = False
@@ -2968,7 +2968,7 @@ Public Class SSCPEvents
 
     Private Sub chbNotificationReceivedByAPB_CheckedChanged(sender As Object, e As EventArgs) Handles chbNotificationReceivedByAPB.CheckedChanged
         Try
-            If chbNotificationReceivedByAPB.Checked = True Then
+            If chbNotificationReceivedByAPB.Checked Then
                 DTPNotificationReceived.Enabled = True
             Else
                 DTPNotificationReceived.Enabled = False
@@ -2980,7 +2980,7 @@ Public Class SSCPEvents
 
     Private Sub chbACCReceivedByAPB_CheckedChanged(sender As Object, e As EventArgs) Handles chbACCReceivedByAPB.CheckedChanged
         Try
-            If chbACCReceivedByAPB.Checked = True Then
+            If chbACCReceivedByAPB.Checked Then
                 DTPACCReceivedDate.Enabled = True
             Else
                 DTPACCReceivedDate.Enabled = False

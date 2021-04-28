@@ -67,22 +67,22 @@ Public Class ISMPStaffReports
                 New SqlParameter("@userid", EngineerGCode)
             }
 
-            If rdbUnitDateTestStarted.Checked = True Then
+            If rdbUnitDateTestStarted.Checked Then
                 DateBias = "datTestDateStart between @startdate " &
                 "and @enddate"
                 DateStatement = "For all Tests Conducted between (" & DTPUnitStart.Text & ") and (" & DTPUnitEnd.Text & ") there were:"
             End If
-            If rdbUnitDateReceived.Checked = True Then
+            If rdbUnitDateReceived.Checked Then
                 DateBias = "datReceivedDate between @startdate " &
                 "and @enddate"
                 DateStatement = "For all Test Reports Received between (" & DTPUnitStart.Text & ") and (" & DTPUnitEnd.Text & ") there were:"
             End If
-            If rdbUnitDateCompleted.Checked = True Then
+            If rdbUnitDateCompleted.Checked Then
                 DateBias = "datCompleteDate between @startdate " &
                 "and @enddate"
                 DateStatement = "For all Test Reports Completed between (" & DTPUnitStart.Text & ") and (" & DTPUnitEnd.Text & ") there were:"
             End If
-            If rdbUnitStatsAll.Checked = True Then
+            If rdbUnitStatsAll.Checked Then
                 DateBias = "datReceivedDate between '04-Jul-1776' " &
                 "and '09-Sep-9998'"
                 DateStatement = "For all Test Reports in the database there were: "

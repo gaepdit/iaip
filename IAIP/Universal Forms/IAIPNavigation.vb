@@ -548,7 +548,7 @@ Public Class IAIPNavigation
 #Region " Nav Work List formatters "
 
     Private Sub FormatWorkViewer()
-        If dgvWorkViewer.Visible = True Then
+        If dgvWorkViewer.Visible Then
             dgvWorkViewer.SanelyResizeColumns()
             dgvWorkViewer.MakeColumnLookLikeLinks(0)
         End If

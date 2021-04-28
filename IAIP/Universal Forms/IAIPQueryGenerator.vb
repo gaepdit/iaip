@@ -46,7 +46,7 @@ Public Class IAIPQueryGenerator
         cboPart63Search1.Visible = False
         cboPart63Search2.Visible = False
 
-        If bgwQueryGenerator.IsBusy = True Then
+        If bgwQueryGenerator.IsBusy Then
             bgwQueryGenerator.CancelAsync()
         Else
             bgwQueryGenerator.WorkerReportsProgress = True
@@ -353,7 +353,7 @@ Public Class IAIPQueryGenerator
             SQLWhere = " Where APBMasterAIRS.strAIRSNumber = APBFacilityInformation.strAIRSNumber "
 
             'Adding Select/From to SQL statements
-            If chbFacilityStreet1.Checked = True Then
+            If chbFacilityStreet1.Checked Then
                 SQLSelect = SQLSelect &
                 "APBFacilityInformation.strFacilityStreet1, "
 
@@ -364,7 +364,7 @@ Public Class IAIPQueryGenerator
                     SQLWhere = SQLWhere & " and APBMasterAIRS.strAIRSNumber = APBFacilityInformation.strAIRSNumber "
                 End If
             End If
-            If chbFacilityStreet2.Checked = True Then
+            If chbFacilityStreet2.Checked Then
                 SQLSelect = SQLSelect &
                 "APBFacilityInformation.strFacilityStreet2, "
 
@@ -376,7 +376,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbFacilityCity.Checked = True Then
+            If chbFacilityCity.Checked Then
                 SQLSelect = SQLSelect &
                 "APBFacilityInformation.strFacilityCity, "
 
@@ -388,7 +388,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbFacilityZipCode.Checked = True Then
+            If chbFacilityZipCode.Checked Then
                 SQLSelect = SQLSelect &
                 "APBFacilityInformation.strFacilityZipCode, "
 
@@ -400,7 +400,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbFacilityLatitude.Checked = True Then
+            If chbFacilityLatitude.Checked Then
                 SQLSelect = SQLSelect &
                 "APBFacilityInformation.numFacilityLatitude, "
 
@@ -412,7 +412,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbSSCPEngineer.Checked = True Then
+            If chbSSCPEngineer.Checked Then
                 SQLSelect = SQLSelect &
                 " concat(StrLastName, ', ', strFirstname) as SSCPEngineer, "
 
@@ -430,7 +430,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbFacilityLongitude.Checked = True Then
+            If chbFacilityLongitude.Checked Then
                 SQLSelect = SQLSelect &
                 "APBFacilityInformation.numFacilityLongitude, "
 
@@ -442,7 +442,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbCounty.Checked = True Then
+            If chbCounty.Checked Then
                 SQLSelect = SQLSelect &
                 "LookUpCountyInformation.strCountyName, "
 
@@ -455,7 +455,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbDistrict.Checked = True Then
+            If chbDistrict.Checked Then
                 SQLSelect = SQLSelect &
                 "LookUpDistricts.strDistrictName, "
 
@@ -469,13 +469,13 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbDistrictResponsible.Checked = True Then
+            If chbDistrictResponsible.Checked Then
                 If SQLFrom.IndexOf("SSCPDistrictResponsible") <> -1 Then
 
                 Else
                     SQLFrom = SQLFrom & " SSCPDistrictResponsible, "
                     SQLWhere = SQLWhere & " AND APBMasterAIRS.strAIRSnumber = SSCPDistrictResponsible.strAIRSNumber "
-                    If rdbDistrictResponsibleTrue.Checked = True Then
+                    If rdbDistrictResponsibleTrue.Checked Then
                         SQLWhere = SQLWhere & " and SSCPDistrictResponsible.strDistrictResponsible = 'True' "
                     Else
                         SQLWhere = SQLWhere & " and SSCPDistrictResponsible.strDistrictResponsible = 'False' "
@@ -484,7 +484,7 @@ Public Class IAIPQueryGenerator
             End If
 
 
-            If chbOperationStatus.Checked = True Then
+            If chbOperationStatus.Checked Then
                 SQLSelect = SQLSelect &
                 "APBHeaderData.strOperationalStatus, "
 
@@ -496,7 +496,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbClassification.Checked = True Then
+            If chbClassification.Checked Then
                 SQLSelect = SQLSelect &
                 "APBHeaderData.strClass, "
 
@@ -508,7 +508,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbSICCode.Checked = True Then
+            If chbSICCode.Checked Then
                 SQLSelect = SQLSelect &
                 "APBHeaderData.strSICCode, "
 
@@ -520,7 +520,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbNAICSCode.Checked = True Then
+            If chbNAICSCode.Checked Then
                 SQLSelect = SQLSelect &
                 "APBHeaderData.strNAICSCode, "
 
@@ -532,7 +532,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbStartUpDate.Checked = True Then
+            If chbStartUpDate.Checked Then
                 SQLSelect = SQLSelect &
                 "APBHeaderData.datStartUpDate, "
 
@@ -544,7 +544,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbShutDownDate.Checked = True Then
+            If chbShutDownDate.Checked Then
                 SQLSelect = SQLSelect &
                 "APBHeaderData.datShutDownDate, "
 
@@ -556,7 +556,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbCMSUniverse.Checked = True Then
+            If chbCMSUniverse.Checked Then
                 SQLSelect = SQLSelect &
                 "APBSupplamentalData.strCMSMember, "
 
@@ -568,7 +568,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbPlantDescription.Checked = True Then
+            If chbPlantDescription.Checked Then
                 SQLSelect = SQLSelect &
                 "APBHeaderData.strPlantDescription, "
 
@@ -580,7 +580,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbAttainmentStatus.Checked = True Then
+            If chbAttainmentStatus.Checked Then
                 SQLSelect = SQLSelect & "case " &
                 "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) = '1' then '1-Hr Yes' " &
                 "Else null end OneHrYes, " &
@@ -622,7 +622,7 @@ Public Class IAIPQueryGenerator
                     SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                 End If
             Else
-                If chb1HrYes.Checked = True Then
+                If chb1HrYes.Checked Then
                     SQLSelect = SQLSelect & "case " &
                     "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) = '1' then '1-Hr Yes' " &
                     "Else null end OneHrYes, "
@@ -634,7 +634,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chb1HrNo.Checked = True Then
+                If chb1HrNo.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) = '0' then '1-Hr No' " &
@@ -647,7 +647,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chb1HrContribute.Checked = True Then
+                If chb1HrContribute.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) = '2' then '1-Hr Contribute' " &
@@ -660,7 +660,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chb8HrAtlanta.Checked = True Then
+                If chb8HrAtlanta.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(APBHeaderData.strAttainmentStatus, 3, 1) = '1' then '8-Hr Atlanta' " &
@@ -673,7 +673,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chb8HrMacon.Checked = True Then
+                If chb8HrMacon.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(APBHeaderData.strAttainmentStatus, 3, 1) = '2' then '8-Hr Macon' " &
@@ -686,7 +686,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chb8HrNo.Checked = True Then
+                If chb8HrNo.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(APBHeaderData.strAttainmentStatus, 3, 1) = '0' then '8-Hr No' " &
@@ -699,7 +699,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbPMAtlanta.Checked = True Then
+                If chbPMAtlanta.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '1' then 'PM-2.5 Atlanta' " &
@@ -712,7 +712,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbPMChattanooga.Checked = True Then
+                If chbPMChattanooga.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '2' then 'PM-2.5 Chattanooga' " &
@@ -725,7 +725,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbPMFloyd.Checked = True Then
+                If chbPMFloyd.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '3' then 'PM-2.5 Floyd' " &
@@ -738,7 +738,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbPMMacon.Checked = True Then
+                If chbPMMacon.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '4' then 'PM-2.5 Macon' " &
@@ -751,7 +751,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbPMNo.Checked = True Then
+                If chbPMNo.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '0' then 'PM-2.5 No' " &
@@ -765,7 +765,7 @@ Public Class IAIPQueryGenerator
                     End If
                 End If
             End If
-            If chbStateProgramCodes.Checked = True Then
+            If chbStateProgramCodes.Checked Then
                 SQLSelect = SQLSelect & "case " &
                 "when SUBSTRING(strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major' " &
                 "Else null end NSRPSD, " &
@@ -780,7 +780,7 @@ Public Class IAIPQueryGenerator
                     SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                 End If
             Else
-                If chbNSRPSDMajor.Checked = True Then
+                If chbNSRPSDMajor.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major' " &
@@ -794,7 +794,7 @@ Public Class IAIPQueryGenerator
                     End If
                 End If
 
-                If chbHAPMajor.Checked = True Then
+                If chbHAPMajor.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strStateProgramCodes, 2, 1) = '1' then 'HAPs Major' " &
@@ -809,7 +809,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbViewAirPrograms.Checked = True Then
+            If chbViewAirPrograms.Checked Then
                 SQLSelect = SQLSelect &
                 "case " &
                 "when SUBSTRING(strAirProgramCodes, 1, 1) = '1' then '0 - SIP' " &
@@ -858,7 +858,7 @@ Public Class IAIPQueryGenerator
                     SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                 End If
             Else
-                If chbAPC0.Checked = True Then
+                If chbAPC0.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strAirProgramCodes, 1, 1) = '1' then '0 - SIP' " &
@@ -871,7 +871,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbAPC1.Checked = True Then
+                If chbAPC1.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strAirProgramCodes, 2, 1) = '1' then '1 - Federal SIP' " &
@@ -884,7 +884,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbAPC3.Checked = True Then
+                If chbAPC3.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strAirProgramCodes, 3, 1) = '1' then '3 - Non-Fed' " &
@@ -897,7 +897,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbAPC4.Checked = True Then
+                If chbAPC4.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strAirProgramCodes, 4, 1) = '1' then '4 - CFC Tracking' " &
@@ -910,7 +910,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbAPC6.Checked = True Then
+                If chbAPC6.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strAirProgramCodes, 5, 1) = '1' then '6 - PSD' " &
@@ -923,7 +923,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbAPC7.Checked = True Then
+                If chbAPC7.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strAirProgramCodes, 6, 1) = '1' then '7 - NSR' " &
@@ -936,7 +936,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbAPC8.Checked = True Then
+                If chbAPC8.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strAirProgramCodes, 7, 1) = '1' then '8 - NESHAP' " &
@@ -949,7 +949,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbAPC9.Checked = True Then
+                If chbAPC9.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strAirProgramCodes, 8, 1) = '1' then '9 - NSPS' " &
@@ -962,7 +962,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbAPCA.Checked = True Then
+                If chbAPCA.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strAirProgramCodes, 9, 1) = '1' then 'A - Acid Precipitation' " &
@@ -975,7 +975,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbAPCF.Checked = True Then
+                If chbAPCF.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strAirProgramCodes, 10, 1) = '1' then 'F - FESHOP' " &
@@ -988,7 +988,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbAPCI.Checked = True Then
+                If chbAPCI.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strAirProgramCodes, 11, 1) = '1' then 'I - Native American' " &
@@ -1001,7 +1001,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbAPCM.Checked = True Then
+                If chbAPCM.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strAirProgramCodes, 12, 1) = '1' then 'M - MACT' " &
@@ -1014,7 +1014,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = SQLWhere & " and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber "
                     End If
                 End If
-                If chbAPCV.Checked = True Then
+                If chbAPCV.Checked Then
                     SQLSelect = SQLSelect &
                     "case " &
                     "when SUBSTRING(strAirProgramCodes, 13, 1) = '1' then 'V - Title V' " &
@@ -1029,7 +1029,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbAllSubparts.Checked = True Then
+            If chbAllSubparts.Checked Then
                 SQLSelect = SQLSelect &
                    " case " &
                    "when SUBSTRING(strSubPartKey, 13, 1) = '0' and ACTIVE = 1 then strSubPart " &
@@ -1053,7 +1053,7 @@ Public Class IAIPQueryGenerator
                     " and strSubPart Is not Null and apbsubpartdata.active = '1' "
                 End If
             Else
-                If chbSIP.Checked = True Then
+                If chbSIP.Checked Then
                     SQLSelect = SQLSelect &
                     " case " &
                     "when SUBSTRING(strSubPartKey, 13, 1) = '0' and ACTIVE = 1 then strSubPart " &
@@ -1068,7 +1068,7 @@ Public Class IAIPQueryGenerator
                         " and strSubPart Is not Null "
                     End If
                 End If
-                If chbPart61Subpart.Checked = True Then
+                If chbPart61Subpart.Checked Then
                     SQLSelect = SQLSelect &
                     " case " &
                     "when SUBSTRING(strSubPartKey, 13, 1) = '8' and ACTIVE = 1 then strSubPart " &
@@ -1083,7 +1083,7 @@ Public Class IAIPQueryGenerator
                         " and strSubPart Is not Null and apbsubpartdata.active = '1' "
                     End If
                 End If
-                If chbPart60Subpart.Checked = True Then
+                If chbPart60Subpart.Checked Then
                     SQLSelect = SQLSelect &
                     " case " &
                     "when SUBSTRING(strSubPartKey, 13, 1) = '9' and ACTIVE = 1 then strSubPart " &
@@ -1098,7 +1098,7 @@ Public Class IAIPQueryGenerator
                         " and strSubPart Is not Null and apbsubpartdata.active = '1' "
                     End If
                 End If
-                If chbPart63Subpart.Checked = True Then
+                If chbPart63Subpart.Checked Then
                     SQLSelect = SQLSelect &
                     " case " &
                     "when SUBSTRING(strSubPartKey, 13, 1) = 'M' and ACTIVE = 1 then strSubPart " &
@@ -1115,7 +1115,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbLastFCE.Checked = True Then
+            If chbLastFCE.Checked Then
                 SQLSelect = SQLSelect &
                 "LastFCE, "
 
@@ -1127,7 +1127,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbSSCPUnit.Checked = True Then
+            If chbSSCPUnit.Checked Then
                 SQLSelect = SQLSelect &
                 "strUnitDesc, "
 
@@ -1149,12 +1149,12 @@ Public Class IAIPQueryGenerator
 
 
             'Adding Where to SQL Statement
-            If rdbAIRSNumberOr.Checked = True Then
+            If rdbAIRSNumberOr.Checked Then
                 SQLWhereCase1 = " OR "
             Else
                 SQLWhereCase1 = " AND "
             End If
-            If rdbAIRSNumberEqual.Checked = True Then
+            If rdbAIRSNumberEqual.Checked Then
                 SQLWhereCase2 = " Like "
             Else
                 SQLWhereCase2 = " Not Like "
@@ -1174,12 +1174,12 @@ Public Class IAIPQueryGenerator
                 params.Add(New SqlParameter("@airs2", "0413%" & txtAIRSNumberSearch2.Text & "%"))
             End If
 
-            If rdbFacilityNameOr.Checked = True Then
+            If rdbFacilityNameOr.Checked Then
                 SQLWhereCase1 = " OR "
             Else
                 SQLWhereCase1 = " AND "
             End If
-            If rdbFacilityNameEqual.Checked = True Then
+            If rdbFacilityNameEqual.Checked Then
                 SQLWhereCase2 = " Like "
             Else
                 SQLWhereCase2 = " Not Like "
@@ -1198,13 +1198,13 @@ Public Class IAIPQueryGenerator
                 params.Add(New SqlParameter("@name2", "%" & txtFacilityNameSearch2.Text & "%"))
             End If
 
-            If chbFacilityStreet1.Checked = True Then
-                If rdbFacilityStreet1Or.Checked = True Then
+            If chbFacilityStreet1.Checked Then
+                If rdbFacilityStreet1Or.Checked Then
                     SQLWhereCase1 = " OR "
                 Else
                     SQLWhereCase1 = " AND "
                 End If
-                If rdbFacilityStreet1Equal.Checked = True Then
+                If rdbFacilityStreet1Equal.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
                     SQLWhereCase2 = " Not Like "
@@ -1224,13 +1224,13 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbFacilityStreet2.Checked = True Then
-                If rdbFacilityStreet2Or.Checked = True Then
+            If chbFacilityStreet2.Checked Then
+                If rdbFacilityStreet2Or.Checked Then
                     SQLWhereCase1 = " OR "
                 Else
                     SQLWhereCase1 = " AND "
                 End If
-                If rdbFacilityStreet2Equal.Checked = True Then
+                If rdbFacilityStreet2Equal.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
                     SQLWhereCase2 = " Not Like "
@@ -1250,13 +1250,13 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbFacilityCity.Checked = True Then
-                If rdbFacilityCityOr.Checked = True Then
+            If chbFacilityCity.Checked Then
+                If rdbFacilityCityOr.Checked Then
                     SQLWhereCase1 = " OR "
                 Else
                     SQLWhereCase1 = " AND "
                 End If
-                If rdbFacilityCityEqual.Checked = True Then
+                If rdbFacilityCityEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
                     SQLWhereCase2 = " Not Like "
@@ -1276,13 +1276,13 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbFacilityZipCode.Checked = True Then
-                If rdbFacilityZipCodeOr.Checked = True Then
+            If chbFacilityZipCode.Checked Then
+                If rdbFacilityZipCodeOr.Checked Then
                     SQLWhereCase1 = " OR "
                 Else
                     SQLWhereCase1 = " AND "
                 End If
-                If rdbFacilityZipCodeEqual.Checked = True Then
+                If rdbFacilityZipCodeEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
                     SQLWhereCase2 = " Not Like "
@@ -1302,7 +1302,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbFacilityLatitude.Checked = True AndAlso
+            If chbFacilityLatitude.Checked AndAlso
                 (txtFacilityLatitudeSearch1.Text <> "" OrElse txtFacilityLatitudeSearch2.Text <> "") Then
                 If txtFacilityLatitudeSearch1.Text <> "" AndAlso txtFacilityLatitudeSearch2.Text = "" Then
                     params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch1.Text))
@@ -1322,7 +1322,7 @@ Public Class IAIPQueryGenerator
                     " numFacilityLatitude between @lat2 and @lat1 ) "
             End If
 
-            If chbFacilityLongitude.Checked = True AndAlso
+            If chbFacilityLongitude.Checked AndAlso
                 ((txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) OrElse
                 (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text))) Then
 
@@ -1342,13 +1342,13 @@ Public Class IAIPQueryGenerator
                     " numFacilityLongitude between @long2 and @long1 ) "
             End If
 
-            If chbCounty.Checked = True Then
-                If rdbCountyOr.Checked = True Then
+            If chbCounty.Checked Then
+                If rdbCountyOr.Checked Then
                     SQLWhereCase1 = " OR "
                 Else
                     SQLWhereCase1 = " AND "
                 End If
-                If rdbCountyEqual.Checked = True Then
+                If rdbCountyEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
                     SQLWhereCase2 = " Not Like "
@@ -1368,13 +1368,13 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbSSCPEngineer.Checked = True Then
-                If rdbSSCPEngineerOr.Checked = True Then
+            If chbSSCPEngineer.Checked Then
+                If rdbSSCPEngineerOr.Checked Then
                     SQLWhereCase1 = " OR "
                 Else
                     SQLWhereCase1 = " AND "
                 End If
-                If rdbSSCPEngineerEqual.Checked = True Then
+                If rdbSSCPEngineerEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
                     SQLWhereCase2 = " Not Like "
@@ -1394,13 +1394,13 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbDistrict.Checked = True Then
-                If rdbDistrictOr.Checked = True Then
+            If chbDistrict.Checked Then
+                If rdbDistrictOr.Checked Then
                     SQLWhereCase1 = " OR "
                 Else
                     SQLWhereCase1 = " AND "
                 End If
-                If rdbDistrictEqual.Checked = True Then
+                If rdbDistrictEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
                     SQLWhereCase2 = " Not Like "
@@ -1420,13 +1420,13 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbOperationStatus.Checked = True Then
-                If rdbOperationalStatusOr.Checked = True Then
+            If chbOperationStatus.Checked Then
+                If rdbOperationalStatusOr.Checked Then
                     SQLWhereCase1 = " OR "
                 Else
                     SQLWhereCase1 = " AND "
                 End If
-                If rdbOperationStatusEqual.Checked = True Then
+                If rdbOperationStatusEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
                     SQLWhereCase2 = " Not Like "
@@ -1446,13 +1446,13 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbClassification.Checked = True Then
-                If rdbClassificationOr.Checked = True Then
+            If chbClassification.Checked Then
+                If rdbClassificationOr.Checked Then
                     SQLWhereCase1 = " OR "
                 Else
                     SQLWhereCase1 = " AND "
                 End If
-                If rdbClassificationEqual.Checked = True Then
+                If rdbClassificationEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
                     SQLWhereCase2 = " Not Like "
@@ -1472,13 +1472,13 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbSICCode.Checked = True Then
-                If rdbSICCodeOr.Checked = True Then
+            If chbSICCode.Checked Then
+                If rdbSICCodeOr.Checked Then
                     SQLWhereCase1 = " OR "
                 Else
                     SQLWhereCase1 = " AND "
                 End If
-                If rdbSICCodeEqual.Checked = True Then
+                If rdbSICCodeEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
                     SQLWhereCase2 = " Not Like "
@@ -1498,13 +1498,13 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbNAICSCode.Checked = True Then
-                If rdbNAICSCodeOr.Checked = True Then
+            If chbNAICSCode.Checked Then
+                If rdbNAICSCodeOr.Checked Then
                     SQLWhereCase1 = " OR "
                 Else
                     SQLWhereCase1 = " AND "
                 End If
-                If rdbNAICSCodeEqual.Checked = True Then
+                If rdbNAICSCodeEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
                     SQLWhereCase2 = " Not Like "
@@ -1524,65 +1524,65 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbStartUpDate.Checked = True AndAlso
-                (DTPStartUpDateSearch1.Checked = True OrElse DTPStartUpDateSearch2.Checked = True) Then
-                If DTPStartUpDateSearch1.Checked = True AndAlso DTPStartUpDateSearch2.Checked = False Then
+            If chbStartUpDate.Checked AndAlso
+                (DTPStartUpDateSearch1.Checked OrElse DTPStartUpDateSearch2.Checked) Then
+                If DTPStartUpDateSearch1.Checked AndAlso Not DTPStartUpDateSearch2.Checked Then
                     params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch1.Value))
                     params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch1.Value))
                 End If
-                If DTPStartUpDateSearch1.Checked = False AndAlso DTPStartUpDateSearch2.Checked = True Then
+                If Not DTPStartUpDateSearch1.Checked AndAlso DTPStartUpDateSearch2.Checked Then
                     params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch2.Value))
                     params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch2.Value))
                 End If
-                If DTPStartUpDateSearch1.Checked = True AndAlso DTPStartUpDateSearch2.Checked = True Then
+                If DTPStartUpDateSearch1.Checked AndAlso DTPStartUpDateSearch2.Checked Then
                     params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch1.Value))
                     params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch2.Value))
                 End If
                 SQLWhere = SQLWhere & " and datStartUpDate between @stdate1 and @stdate2 "
             End If
 
-            If chbShutDownDate.Checked = True AndAlso
-                (DTPShutDownDateSearch1.Checked = True OrElse DTPShutDownDateSearch2.Checked = True) Then
+            If chbShutDownDate.Checked AndAlso
+                (DTPShutDownDateSearch1.Checked OrElse DTPShutDownDateSearch2.Checked) Then
 
-                If DTPShutDownDateSearch1.Checked = True AndAlso DTPShutDownDateSearch2.Checked = False Then
+                If DTPShutDownDateSearch1.Checked AndAlso Not DTPShutDownDateSearch2.Checked Then
                     params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch1.Value))
                     params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch1.Value))
                 End If
-                If DTPShutDownDateSearch1.Checked = False AndAlso DTPShutDownDateSearch2.Checked = True Then
+                If Not DTPShutDownDateSearch1.Checked AndAlso DTPShutDownDateSearch2.Checked Then
                     params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch2.Value))
                     params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch2.Value))
                 End If
-                If DTPShutDownDateSearch1.Checked = True AndAlso DTPShutDownDateSearch2.Checked = True Then
+                If DTPShutDownDateSearch1.Checked AndAlso DTPShutDownDateSearch2.Checked Then
                     params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch1.Value))
                     params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch2.Value))
                 End If
                 SQLWhere = SQLWhere & " and datShutdownDate between @shdate1 and @shdate2 "
             End If
 
-            If chbLastFCE.Checked = True AndAlso
-                DTPLastFCESearch1.Checked = True OrElse DTPLastFCESearch2.Checked = True Then
-                If DTPLastFCESearch1.Checked = True AndAlso DTPLastFCESearch2.Checked = False Then
+            If chbLastFCE.Checked AndAlso
+                DTPLastFCESearch1.Checked OrElse DTPLastFCESearch2.Checked Then
+                If DTPLastFCESearch1.Checked AndAlso Not DTPLastFCESearch2.Checked Then
                     params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
                     params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch1.Value))
                 End If
-                If DTPLastFCESearch1.Checked = False AndAlso DTPLastFCESearch2.Checked = True Then
+                If Not DTPLastFCESearch1.Checked AndAlso DTPLastFCESearch2.Checked Then
                     params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch2.Value))
                     params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch2.Value))
                 End If
-                If DTPLastFCESearch1.Checked = True AndAlso DTPLastFCESearch2.Checked = True Then
+                If DTPLastFCESearch1.Checked AndAlso DTPLastFCESearch2.Checked Then
                     params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
                     params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch2.Value))
                 End If
                 SQLWhere = SQLWhere & " and LastFCE between @fcedate1 and @fcedate2 "
             End If
 
-            If chbCMSUniverse.Checked = True Then
-                If rdbCMSUniverseOR.Checked = True Then
+            If chbCMSUniverse.Checked Then
+                If rdbCMSUniverseOR.Checked Then
                     SQLWhereCase1 = " OR "
                 Else
                     SQLWhereCase1 = " AND "
                 End If
-                If rdbCMSUniverseEqual.Checked = True Then
+                If rdbCMSUniverseEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
                     SQLWhereCase2 = " Not Like "
@@ -1602,13 +1602,13 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbPlantDescription.Checked = True Then
-                If rdbPlantDescriptionOR.Checked = True Then
+            If chbPlantDescription.Checked Then
+                If rdbPlantDescriptionOR.Checked Then
                     SQLWhereCase1 = " OR "
                 Else
                     SQLWhereCase1 = " AND "
                 End If
-                If rdbPlantDescriptionEqual.Checked = True Then
+                If rdbPlantDescriptionEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
                     SQLWhereCase2 = " Not Like "
@@ -1629,13 +1629,13 @@ Public Class IAIPQueryGenerator
             End If
 
 
-            If chbSSCPUnit.Checked = True Then
-                If rdbSSCPUnitOr.Checked = True Then
+            If chbSSCPUnit.Checked Then
+                If rdbSSCPUnitOr.Checked Then
                     SQLWhereCase1 = " OR "
                 Else
                     SQLWhereCase1 = " AND "
                 End If
-                If rdbSSCPUnitEqual.Checked = True Then
+                If rdbSSCPUnitEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
                     SQLWhereCase2 = " Not Like "
@@ -1672,131 +1672,131 @@ Public Class IAIPQueryGenerator
                      OrElse txtAPCFOrder.Text <> "" OrElse txtAPCIOrder.Text <> "" _
                      OrElse txtAPCMOrder.Text <> "" OrElse txtAPCVOrder.Text <> "" Then
                 i = 1
-                If txtFacilityAIRSNumberOrder.Text <> "" AndAlso chbAIRSNumber.Checked = True Then
+                If txtFacilityAIRSNumberOrder.Text <> "" AndAlso chbAIRSNumber.Checked Then
                     temp = temp & txtFacilityAIRSNumberOrder.Text & "-AIRSNumber, "
                     i += 1
                 End If
-                If txtFacilityNameOrder.Text <> "" AndAlso chbFacilityName.Checked = True Then
+                If txtFacilityNameOrder.Text <> "" AndAlso chbFacilityName.Checked Then
                     temp = temp & txtFacilityNameOrder.Text & "-strFacilityName, "
                     i += 1
                 End If
-                If txtFacilityStreet1Order.Text <> "" AndAlso chbFacilityStreet1.Checked = True Then
+                If txtFacilityStreet1Order.Text <> "" AndAlso chbFacilityStreet1.Checked Then
                     temp = temp & txtFacilityStreet1Order.Text & "-strFacilityStreet1, "
                     i += 1
                 End If
-                If txtFacilityStreet2Order.Text <> "" AndAlso chbFacilityStreet2.Checked = True Then
+                If txtFacilityStreet2Order.Text <> "" AndAlso chbFacilityStreet2.Checked Then
                     temp = temp & txtFacilityStreet2Order.Text & "-strFacilityStreet2, "
                     i += 1
                 End If
-                If txtFacilityCityOrder.Text <> "" AndAlso chbFacilityCity.Checked = True Then
+                If txtFacilityCityOrder.Text <> "" AndAlso chbFacilityCity.Checked Then
                     temp = temp & txtFacilityCityOrder.Text & "-strFacilityCity, "
                     i += 1
                 End If
-                If txtFacilityZipCodeOrder.Text <> "" AndAlso chbFacilityZipCode.Checked = True Then
+                If txtFacilityZipCodeOrder.Text <> "" AndAlso chbFacilityZipCode.Checked Then
                     temp = temp & txtFacilityZipCodeOrder.Text & "-strFacilityZipCode, "
                     i += 1
                 End If
-                If txtFacilityLatitudeOrder.Text <> "" AndAlso chbFacilityLatitude.Checked = True Then
+                If txtFacilityLatitudeOrder.Text <> "" AndAlso chbFacilityLatitude.Checked Then
                     temp = temp & txtFacilityLatitudeOrder.Text & "-numFacilityLatitude, "
                     i += 1
                 End If
-                If txtFacilityLongitudeOrder.Text <> "" AndAlso chbFacilityLongitude.Checked = True Then
+                If txtFacilityLongitudeOrder.Text <> "" AndAlso chbFacilityLongitude.Checked Then
                     temp = temp & txtFacilityLongitudeOrder.Text & "-numFacilityLongitude, "
                     i += 1
                 End If
-                If txtCountyOrder.Text <> "" AndAlso chbCounty.Checked = True Then
+                If txtCountyOrder.Text <> "" AndAlso chbCounty.Checked Then
                     temp = temp & txtCountyOrder.Text & "-strCountyName, "
                     i += 1
                 End If
-                If txtDistrictOrder.Text <> "" AndAlso chbDistrict.Checked = True Then
+                If txtDistrictOrder.Text <> "" AndAlso chbDistrict.Checked Then
                     temp = temp & txtDistrictOrder.Text & "-strDistrictName, "
                     i += 1
                 End If
-                If txtOperationStatusOrder.Text <> "" AndAlso chbOperationStatus.Checked = True Then
+                If txtOperationStatusOrder.Text <> "" AndAlso chbOperationStatus.Checked Then
                     temp = temp & txtOperationStatusOrder.Text & "-strOperationalStatus, "
                     i += 1
                 End If
-                If txtClassificationOrder.Text <> "" AndAlso chbClassification.Checked = True Then
+                If txtClassificationOrder.Text <> "" AndAlso chbClassification.Checked Then
                     temp = temp & txtClassificationOrder.Text & "-strClass, "
                     i += 1
                 End If
-                If txtSICCodeOrder.Text <> "" AndAlso chbSICCode.Checked = True Then
+                If txtSICCodeOrder.Text <> "" AndAlso chbSICCode.Checked Then
                     temp = temp & txtSICCodeOrder.Text & "-strSICCode, "
                     i += 1
                 End If
-                If txtNAICSCodeOrder.Text <> "" AndAlso chbNAICSCode.Checked = True Then
+                If txtNAICSCodeOrder.Text <> "" AndAlso chbNAICSCode.Checked Then
                     temp = temp & txtNAICSCodeOrder.Text & "-strNAICSCode, "
                     i += 1
                 End If
-                If txtStartUpDateOrder.Text <> "" AndAlso chbStartUpDate.Checked = True Then
+                If txtStartUpDateOrder.Text <> "" AndAlso chbStartUpDate.Checked Then
                     temp = temp & txtStartUpDateOrder.Text & "-datStartUpDate, "
                     i += 1
                 End If
-                If txtShutDownDateOrder.Text <> "" AndAlso chbShutDownDate.Checked = True Then
+                If txtShutDownDateOrder.Text <> "" AndAlso chbShutDownDate.Checked Then
                     temp = temp & txtShutDownDateOrder.Text & "-datShutDownDate, "
                     i += 1
                 End If
-                If txtLastFCEOrder.Text <> "" AndAlso chbLastFCE.Checked = True Then
+                If txtLastFCEOrder.Text <> "" AndAlso chbLastFCE.Checked Then
                     temp = temp & txtLastFCEOrder.Text & "-LastFCE, "
                     i += 1
                 End If
-                If txtCMSUniverseOrder.Text <> "" AndAlso chbCMSUniverse.Checked = True Then
+                If txtCMSUniverseOrder.Text <> "" AndAlso chbCMSUniverse.Checked Then
                     temp = temp & txtCMSUniverseOrder.Text & "-strCMSmember, "
                     i += 1
                 End If
-                If txtPlantDescriptionOrder.Text <> "" AndAlso chbPlantDescription.Checked = True Then
+                If txtPlantDescriptionOrder.Text <> "" AndAlso chbPlantDescription.Checked Then
                     temp = temp & txtPlantDescriptionOrder.Text & "-strPlantDescription, "
                     i += 1
                 End If
-                If txtAPC0Order.Text <> "" AndAlso chbAPC0.Checked = True Then
+                If txtAPC0Order.Text <> "" AndAlso chbAPC0.Checked Then
                     temp = temp & txtAPC0Order.Text & "-APC0, "
                     i += 1
                 End If
-                If txtAPC1Order.Text <> "" AndAlso chbAPC1.Checked = True Then
+                If txtAPC1Order.Text <> "" AndAlso chbAPC1.Checked Then
                     temp = temp & txtAPC1Order.Text & "-APC1, "
                     i += 1
                 End If
-                If txtAPC3Order.Text <> "" AndAlso chbAPC3.Checked = True Then
+                If txtAPC3Order.Text <> "" AndAlso chbAPC3.Checked Then
                     temp = temp & txtAPC3Order.Text & "-APC3, "
                     i += 1
                 End If
-                If txtAPC4Order.Text <> "" AndAlso chbAPC4.Checked = True Then
+                If txtAPC4Order.Text <> "" AndAlso chbAPC4.Checked Then
                     temp = temp & txtAPC4Order.Text & "-APC4, "
                     i += 1
                 End If
-                If txtAPC6Order.Text <> "" AndAlso chbAPC6.Checked = True Then
+                If txtAPC6Order.Text <> "" AndAlso chbAPC6.Checked Then
                     temp = temp & txtAPC6Order.Text & "-APC6, "
                     i += 1
                 End If
-                If txtAPC7Order.Text <> "" AndAlso chbAPC7.Checked = True Then
+                If txtAPC7Order.Text <> "" AndAlso chbAPC7.Checked Then
                     temp = temp & txtAPC7Order.Text & "-APC7, "
                     i += 1
                 End If
-                If txtAPC8Order.Text <> "" AndAlso chbAPC8.Checked = True Then
+                If txtAPC8Order.Text <> "" AndAlso chbAPC8.Checked Then
                     temp = temp & txtAPC8Order.Text & "-APC8, "
                     i += 1
                 End If
-                If txtAPC9Order.Text <> "" AndAlso chbAPC9.Checked = True Then
+                If txtAPC9Order.Text <> "" AndAlso chbAPC9.Checked Then
                     temp = temp & txtAPC9Order.Text & "-APC9, "
                     i += 1
                 End If
-                If txtAPCAOrder.Text <> "" AndAlso chbAPCA.Checked = True Then
+                If txtAPCAOrder.Text <> "" AndAlso chbAPCA.Checked Then
                     temp = temp & txtAPCAOrder.Text & "-APCA, "
                     i += 1
                 End If
-                If txtAPCFOrder.Text <> "" AndAlso chbAPCF.Checked = True Then
+                If txtAPCFOrder.Text <> "" AndAlso chbAPCF.Checked Then
                     temp = temp & txtAPCFOrder.Text & "-APCF, "
                     i += 1
                 End If
-                If txtAPCIOrder.Text <> "" AndAlso chbAPCI.Checked = True Then
+                If txtAPCIOrder.Text <> "" AndAlso chbAPCI.Checked Then
                     temp = temp & txtAPCIOrder.Text & "-APCI, "
                     i += 1
                 End If
-                If txtAPCMOrder.Text <> "" AndAlso chbAPCM.Checked = True Then
+                If txtAPCMOrder.Text <> "" AndAlso chbAPCM.Checked Then
                     temp = temp & txtAPCMOrder.Text & "-APCM, "
                     i += 1
                 End If
-                If txtAPCVOrder.Text <> "" AndAlso chbAPCV.Checked = True Then
+                If txtAPCVOrder.Text <> "" AndAlso chbAPCV.Checked Then
                     temp = temp & txtAPCVOrder.Text & "-APCV, "
                     i += 1
                 End If
@@ -1829,298 +1829,295 @@ Public Class IAIPQueryGenerator
             "from (" & query & ") MasterSQL " &
             "Where AIRSNumber is Not Null "
 
-            If chb1HrYes.Checked = True Then
-                If rdb1HrYesEqual.Checked = True Then
+            If chb1HrYes.Checked Then
+                If rdb1HrYesEqual.Checked Then
                     MasterSQL = MasterSQL & " and OneHRYes is not null "
                 Else
                     MasterSQL = MasterSQL & " and OneHRYes is null "
                 End If
             End If
 
-            If chb1HrNo.Checked = True Then
-                If rdb1HrNoEqual.Checked = True Then
+            If chb1HrNo.Checked Then
+                If rdb1HrNoEqual.Checked Then
                     MasterSQL = MasterSQL & " and OneHRNo is not null "
                 Else
                     MasterSQL = MasterSQL & " and OneHRNo is null "
                 End If
             End If
 
-            If chb1HrContribute.Checked = True Then
-                If rdb1HrContributeEqual.Checked = True Then
+            If chb1HrContribute.Checked Then
+                If rdb1HrContributeEqual.Checked Then
                     MasterSQL = MasterSQL & " and OneHRContribute is not null "
                 Else
                     MasterSQL = MasterSQL & " and OneHRContribute is null "
                 End If
             End If
 
-            If chb8HrAtlanta.Checked = True Then
-                If rdb8HrAtlantaEqual.Checked = True Then
+            If chb8HrAtlanta.Checked Then
+                If rdb8HrAtlantaEqual.Checked Then
                     MasterSQL = MasterSQL & " and EightHRAtlanta is not null "
                 Else
                     MasterSQL = MasterSQL & " and EightHRAtlanta is null "
                 End If
             End If
 
-            If chb8HrMacon.Checked = True Then
-                If rdb8HrMaconEqual.Checked = True Then
+            If chb8HrMacon.Checked Then
+                If rdb8HrMaconEqual.Checked Then
                     MasterSQL = MasterSQL & " and EightHRMacon is not null "
                 Else
                     MasterSQL = MasterSQL & " and EightHRMacon is null "
                 End If
             End If
 
-            If chb8HrNo.Checked = True Then
-                If rdb8HrNoEqual.Checked = True Then
+            If chb8HrNo.Checked Then
+                If rdb8HrNoEqual.Checked Then
                     MasterSQL = MasterSQL & " and EightHRNo is not null "
                 Else
                     MasterSQL = MasterSQL & " and EightHRNo is null "
                 End If
             End If
 
-            If chbPMAtlanta.Checked = True Then
-                If rdbPMAtlantaEqual.Checked = True Then
+            If chbPMAtlanta.Checked Then
+                If rdbPMAtlantaEqual.Checked Then
                     MasterSQL = MasterSQL & " and PMAtlanta is not null "
                 Else
                     MasterSQL = MasterSQL & " and PMAtlanta is null "
                 End If
             End If
 
-            If chbPMChattanooga.Checked = True Then
-                If rdbPMChattanoogaEqual.Checked = True Then
+            If chbPMChattanooga.Checked Then
+                If rdbPMChattanoogaEqual.Checked Then
                     MasterSQL = MasterSQL & " and PMChattanooga is not null "
                 Else
                     MasterSQL = MasterSQL & " and PMChattanooga is null "
                 End If
             End If
 
-            If chbPMFloyd.Checked = True Then
-                If rdbPMFloydEqual.Checked = True Then
+            If chbPMFloyd.Checked Then
+                If rdbPMFloydEqual.Checked Then
                     MasterSQL = MasterSQL & " and PMFloyd is not null "
                 Else
                     MasterSQL = MasterSQL & " and PMFloyd is null "
                 End If
             End If
 
-            If chbPMMacon.Checked = True Then
-                If rdbPMMaconEqual.Checked = True Then
+            If chbPMMacon.Checked Then
+                If rdbPMMaconEqual.Checked Then
                     MasterSQL = MasterSQL & " and PMMacon is not null "
                 Else
                     MasterSQL = MasterSQL & " and PMMacon is null "
                 End If
             End If
 
-            If chbPMNo.Checked = True Then
-                If rdbPMNoEqual.Checked = True Then
+            If chbPMNo.Checked Then
+                If rdbPMNoEqual.Checked Then
                     MasterSQL = MasterSQL & " and PMNo is not null "
                 Else
                     MasterSQL = MasterSQL & " and PMNo is null "
                 End If
             End If
 
-            If chbNSRPSDMajor.Checked = True Then
-                If rdbNSRPSDMajorEqual.Checked = True Then
+            If chbNSRPSDMajor.Checked Then
+                If rdbNSRPSDMajorEqual.Checked Then
                     MasterSQL = MasterSQL & " and NSRPSD is not Null "
                 Else
                     MasterSQL = MasterSQL & " and NSRPSD is Null "
                 End If
             End If
 
-            If chbHAPMajor.Checked = True Then
-                If rdbHAPMajorEqual.Checked = True Then
+            If chbHAPMajor.Checked Then
+                If rdbHAPMajorEqual.Checked Then
                     MasterSQL = MasterSQL & " and HAP is not Null "
                 Else
                     MasterSQL = MasterSQL & " and HAP is Null "
                 End If
             End If
 
-            If rdbAPCAnd.Checked = True Then
-                If chbAPC0.Checked = True Then
-                    If rdbAPC0Equal.Checked = True Then
+            If rdbAPCAnd.Checked Then
+                If chbAPC0.Checked Then
+                    If rdbAPC0Equal.Checked Then
                         MasterSQL = MasterSQL & " and APC0 is not null "
                     Else
                         MasterSQL = MasterSQL & " and APC0 is null "
                     End If
                 End If
-                If chbAPC1.Checked = True Then
-                    If rdbAPC1Equal.Checked = True Then
+                If chbAPC1.Checked Then
+                    If rdbAPC1Equal.Checked Then
                         MasterSQL = MasterSQL & " and APC1 is not null "
                     Else
                         MasterSQL = MasterSQL & " and APC1 is null "
                     End If
                 End If
-                If chbAPC3.Checked = True Then
-                    If rdbAPC3Equal.Checked = True Then
+                If chbAPC3.Checked Then
+                    If rdbAPC3Equal.Checked Then
                         MasterSQL = MasterSQL & " and APC3 is not null "
                     Else
                         MasterSQL = MasterSQL & " and APC3 is null "
                     End If
                 End If
-                If chbAPC4.Checked = True Then
-                    If rdbAPC4Equal.Checked = True Then
+                If chbAPC4.Checked Then
+                    If rdbAPC4Equal.Checked Then
                         MasterSQL = MasterSQL & " and APC4 is not null "
                     Else
                         MasterSQL = MasterSQL & " and APC4 is null "
                     End If
                 End If
-                If chbAPC6.Checked = True Then
-                    If rdbAPC6Equal.Checked = True Then
+                If chbAPC6.Checked Then
+                    If rdbAPC6Equal.Checked Then
                         MasterSQL = MasterSQL & " and APC6 is not null "
                     Else
                         MasterSQL = MasterSQL & " and APC6 is null "
                     End If
                 End If
-                If chbAPC7.Checked = True Then
-                    If rdbAPC7Equal.Checked = True Then
+                If chbAPC7.Checked Then
+                    If rdbAPC7Equal.Checked Then
                         MasterSQL = MasterSQL & " and APC7 is not null "
                     Else
                         MasterSQL = MasterSQL & " and APC7 is null "
                     End If
                 End If
-                If chbAPC8.Checked = True Then
-                    If rdbAPC8Equal.Checked = True Then
+                If chbAPC8.Checked Then
+                    If rdbAPC8Equal.Checked Then
                         MasterSQL = MasterSQL & " and APC8 is not null "
                     Else
                         MasterSQL = MasterSQL & " and APC8 is null "
                     End If
                 End If
-                If chbAPC9.Checked = True Then
-                    If rdbAPC9Equal.Checked = True Then
+                If chbAPC9.Checked Then
+                    If rdbAPC9Equal.Checked Then
                         MasterSQL = MasterSQL & " and APC9 is not null "
                     Else
                         MasterSQL = MasterSQL & " and APC9 is null "
                     End If
                 End If
-                If chbAPCA.Checked = True Then
-                    If rdbAPCAEqual.Checked = True Then
+                If chbAPCA.Checked Then
+                    If rdbAPCAEqual.Checked Then
                         MasterSQL = MasterSQL & " and APCA is not null "
                     Else
                         MasterSQL = MasterSQL & " and APCA is null "
                     End If
                 End If
-                If chbAPCF.Checked = True Then
-                    If rdbAPCFEqual.Checked = True Then
+                If chbAPCF.Checked Then
+                    If rdbAPCFEqual.Checked Then
                         MasterSQL = MasterSQL & " and APCF is not null "
                     Else
                         MasterSQL = MasterSQL & " and APCF is null "
                     End If
                 End If
-                If chbAPCI.Checked = True Then
-                    If rdbAPCIEqual.Checked = True Then
+                If chbAPCI.Checked Then
+                    If rdbAPCIEqual.Checked Then
                         MasterSQL = MasterSQL & " and APCI is not null "
                     Else
                         MasterSQL = MasterSQL & " and APCI is null "
                     End If
                 End If
-                If chbAPCM.Checked = True Then
-                    If rdbAPCMEqual.Checked = True Then
+                If chbAPCM.Checked Then
+                    If rdbAPCMEqual.Checked Then
                         MasterSQL = MasterSQL & " and APCM is not null "
                     Else
                         MasterSQL = MasterSQL & " and APCM is null "
                     End If
                 End If
-                If chbAPCV.Checked = True Then
-                    If rdbAPCVEqual.Checked = True Then
+                If chbAPCV.Checked Then
+                    If rdbAPCVEqual.Checked Then
                         MasterSQL = MasterSQL & " and APCV is not null "
                     Else
                         MasterSQL = MasterSQL & " and APCV is null "
                     End If
                 End If
             Else
-                If chbAPC0.Checked = True OrElse chbAPC1.Checked = True _
-                 OrElse chbAPC3.Checked = True OrElse chbAPC4.Checked = True _
-                  OrElse chbAPC6.Checked = True OrElse chbAPC7.Checked = True _
-                   OrElse chbAPC8.Checked = True OrElse chbAPC9.Checked = True _
-                    OrElse chbAPCA.Checked = True OrElse chbAPCF.Checked = True _
-                     OrElse chbAPCI.Checked = True OrElse chbAPCM.Checked = True _
-                      OrElse chbAPCV.Checked = True Then
+                If chbAPC0.Checked OrElse chbAPC1.Checked OrElse chbAPC3.Checked OrElse chbAPC4.Checked _
+                  OrElse chbAPC6.Checked OrElse chbAPC7.Checked OrElse chbAPC8.Checked OrElse chbAPC9.Checked _
+                    OrElse chbAPCA.Checked OrElse chbAPCF.Checked OrElse chbAPCI.Checked OrElse chbAPCM.Checked _
+                      OrElse chbAPCV.Checked Then
                     MasterSQL = MasterSQL & " and ("
 
-                    If chbAPC0.Checked = True Then
-                        If rdbAPC0Equal.Checked = True Then
+                    If chbAPC0.Checked Then
+                        If rdbAPC0Equal.Checked Then
                             MasterSQL = MasterSQL & " APC0 is not null or "
                         Else
                             MasterSQL = MasterSQL & " APC0 is null or "
                         End If
                     End If
-                    If chbAPC1.Checked = True Then
-                        If rdbAPC1Equal.Checked = True Then
+                    If chbAPC1.Checked Then
+                        If rdbAPC1Equal.Checked Then
                             MasterSQL = MasterSQL & " APC1 is not null or "
                         Else
                             MasterSQL = MasterSQL & " APC1 is null or "
                         End If
                     End If
-                    If chbAPC3.Checked = True Then
-                        If rdbAPC3Equal.Checked = True Then
+                    If chbAPC3.Checked Then
+                        If rdbAPC3Equal.Checked Then
                             MasterSQL = MasterSQL & " APC3 is not null or "
                         Else
                             MasterSQL = MasterSQL & " APC3 is null or "
                         End If
                     End If
-                    If chbAPC4.Checked = True Then
-                        If rdbAPC4Equal.Checked = True Then
+                    If chbAPC4.Checked Then
+                        If rdbAPC4Equal.Checked Then
                             MasterSQL = MasterSQL & " APC4 is not null or "
                         Else
                             MasterSQL = MasterSQL & " APC4 is null or "
                         End If
                     End If
-                    If chbAPC6.Checked = True Then
-                        If rdbAPC6Equal.Checked = True Then
+                    If chbAPC6.Checked Then
+                        If rdbAPC6Equal.Checked Then
                             MasterSQL = MasterSQL & " APC6 is not null or "
                         Else
                             MasterSQL = MasterSQL & " APC6 is null or "
                         End If
                     End If
-                    If chbAPC7.Checked = True Then
-                        If rdbAPC7Equal.Checked = True Then
+                    If chbAPC7.Checked Then
+                        If rdbAPC7Equal.Checked Then
                             MasterSQL = MasterSQL & " APC7 is not null or "
                         Else
                             MasterSQL = MasterSQL & " APC7 is null or "
                         End If
                     End If
-                    If chbAPC8.Checked = True Then
-                        If rdbAPC8Equal.Checked = True Then
+                    If chbAPC8.Checked Then
+                        If rdbAPC8Equal.Checked Then
                             MasterSQL = MasterSQL & " APC8 is not null or "
                         Else
                             MasterSQL = MasterSQL & " APC8 is null or "
                         End If
                     End If
-                    If chbAPC9.Checked = True Then
-                        If rdbAPC9Equal.Checked = True Then
+                    If chbAPC9.Checked Then
+                        If rdbAPC9Equal.Checked Then
                             MasterSQL = MasterSQL & " APC9 is not null or "
                         Else
                             MasterSQL = MasterSQL & " APC9 is null or "
                         End If
                     End If
-                    If chbAPCA.Checked = True Then
-                        If rdbAPCAEqual.Checked = True Then
+                    If chbAPCA.Checked Then
+                        If rdbAPCAEqual.Checked Then
                             MasterSQL = MasterSQL & " APCA is not null or "
                         Else
                             MasterSQL = MasterSQL & " APCA is null or "
                         End If
                     End If
-                    If chbAPCF.Checked = True Then
-                        If rdbAPCFEqual.Checked = True Then
+                    If chbAPCF.Checked Then
+                        If rdbAPCFEqual.Checked Then
                             MasterSQL = MasterSQL & " APCF is not null or "
                         Else
                             MasterSQL = MasterSQL & " APCF is null or "
                         End If
                     End If
-                    If chbAPCI.Checked = True Then
-                        If rdbAPCIEqual.Checked = True Then
+                    If chbAPCI.Checked Then
+                        If rdbAPCIEqual.Checked Then
                             MasterSQL = MasterSQL & " APCI is not null or "
                         Else
                             MasterSQL = MasterSQL & " APCI is null or "
                         End If
                     End If
-                    If chbAPCM.Checked = True Then
-                        If rdbAPCMEqual.Checked = True Then
+                    If chbAPCM.Checked Then
+                        If rdbAPCMEqual.Checked Then
                             MasterSQL = MasterSQL & " APCM is not null or "
                         Else
                             MasterSQL = MasterSQL & " APCM is null or "
                         End If
                     End If
-                    If chbAPCV.Checked = True Then
-                        If rdbAPCVEqual.Checked = True Then
+                    If chbAPCV.Checked Then
+                        If rdbAPCVEqual.Checked Then
                             MasterSQL = MasterSQL & " APCV is not null or "
                         Else
                             MasterSQL = MasterSQL & " APCV is null or "
@@ -2130,46 +2127,46 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbAllSubparts.Checked = True Then
-                If chbSIP.Checked = True Then
-                    If rdbSIPEqual.Checked = True Then
+            If chbAllSubparts.Checked Then
+                If chbSIP.Checked Then
+                    If rdbSIPEqual.Checked Then
                         MasterSQL = MasterSQL & " and GASIP is not null "
                     Else
                         MasterSQL = MasterSQL & " and GASIP is null "
                     End If
                 End If
 
-                If chbPart61Subpart.Checked = True Then
-                    If rdbPart61Equal.Checked = True Then
+                If chbPart61Subpart.Checked Then
+                    If rdbPart61Equal.Checked Then
                         MasterSQL = MasterSQL & " and Part61 is not null "
                     Else
                         MasterSQL = MasterSQL & " and Part61 is null "
                     End If
                 End If
 
-                If chbPart60Subpart.Checked = True Then
-                    If rdbPart60Equal.Checked = True Then
+                If chbPart60Subpart.Checked Then
+                    If rdbPart60Equal.Checked Then
                         MasterSQL = MasterSQL & " and Part60 is not null "
                     Else
                         MasterSQL = MasterSQL & " and Part60 is null "
                     End If
                 End If
 
-                If chbPart63Subpart.Checked = True Then
-                    If rdbPart63Equal.Checked = True Then
+                If chbPart63Subpart.Checked Then
+                    If rdbPart63Equal.Checked Then
                         MasterSQL = MasterSQL & " and Part63 is not null "
                     Else
                         MasterSQL = MasterSQL & " and Part63 is null "
                     End If
                 End If
             Else
-                If chbSIP.Checked = True Then
-                    If rdbSIPSubPartOr.Checked = True Then
+                If chbSIP.Checked Then
+                    If rdbSIPSubPartOr.Checked Then
                         SQLWhereCase1 = " OR "
                     Else
                         SQLWhereCase1 = " AND "
                     End If
-                    If rdbSIPEqual.Checked = True Then
+                    If rdbSIPEqual.Checked Then
                         SQLWhereCase2 = " = "
                     Else
                         SQLWhereCase2 = " <> "
@@ -2189,13 +2186,13 @@ Public Class IAIPQueryGenerator
                     End If
                 End If
 
-                If chbPart61Subpart.Checked = True Then
-                    If rdbPart61SubPartOr.Checked = True Then
+                If chbPart61Subpart.Checked Then
+                    If rdbPart61SubPartOr.Checked Then
                         SQLWhereCase1 = " OR "
                     Else
                         SQLWhereCase1 = " AND "
                     End If
-                    If rdbPart61Equal.Checked = True Then
+                    If rdbPart61Equal.Checked Then
                         SQLWhereCase2 = " = "
                     Else
                         SQLWhereCase2 = " <> "
@@ -2215,13 +2212,13 @@ Public Class IAIPQueryGenerator
                     End If
                 End If
 
-                If chbPart60Subpart.Checked = True Then
-                    If rdbPart60SubPartOr.Checked = True Then
+                If chbPart60Subpart.Checked Then
+                    If rdbPart60SubPartOr.Checked Then
                         SQLWhereCase1 = " OR "
                     Else
                         SQLWhereCase1 = " AND "
                     End If
-                    If rdbPart60Equal.Checked = True Then
+                    If rdbPart60Equal.Checked Then
                         SQLWhereCase2 = " = "
                     Else
                         SQLWhereCase2 = " <> "
@@ -2241,13 +2238,13 @@ Public Class IAIPQueryGenerator
                     End If
                 End If
 
-                If chbPart63Subpart.Checked = True Then
-                    If rdbPart63SubPartOR.Checked = True Then
+                If chbPart63Subpart.Checked Then
+                    If rdbPart63SubPartOR.Checked Then
                         SQLWhereCase1 = " OR "
                     Else
                         SQLWhereCase1 = " AND "
                     End If
-                    If rdbPart63Equal.Checked = True Then
+                    If rdbPart63Equal.Checked Then
                         SQLWhereCase2 = " = "
                     Else
                         SQLWhereCase2 = " <> "
@@ -2266,21 +2263,21 @@ Public Class IAIPQueryGenerator
                         params.Add(New SqlParameter("@p63b", cboPart63Search2.Text))
                     End If
                 End If
-                If chbSIP.Checked = True OrElse chbPart60Subpart.Checked = True OrElse chbPart61Subpart.Checked = True OrElse chbPart63Subpart.Checked = True Then
-                    If chbSIP.Checked = True AndAlso chbPart60Subpart.Checked = True AndAlso chbPart61Subpart.Checked = True AndAlso chbPart63Subpart.Checked = True Then
+                If chbSIP.Checked OrElse chbPart60Subpart.Checked OrElse chbPart61Subpart.Checked OrElse chbPart63Subpart.Checked Then
+                    If chbSIP.Checked AndAlso chbPart60Subpart.Checked AndAlso chbPart61Subpart.Checked AndAlso chbPart63Subpart.Checked Then
                         MasterSQL = MasterSQL & " and (Part60 is not null or GASIP is not null or Part61 is not null or Part63 is not null) "
                     Else
                         MasterSQL = MasterSQL & " and ( "
-                        If chbSIP.Checked = True Then
+                        If chbSIP.Checked Then
                             MasterSQL = MasterSQL & " GASIP is not Null or "
                         End If
-                        If chbPart60Subpart.Checked = True Then
+                        If chbPart60Subpart.Checked Then
                             MasterSQL = MasterSQL & " Part60 is not Null or "
                         End If
-                        If chbPart61Subpart.Checked = True Then
+                        If chbPart61Subpart.Checked Then
                             MasterSQL = MasterSQL & " Part61 is not Null or "
                         End If
-                        If chbPart63Subpart.Checked = True Then
+                        If chbPart63Subpart.Checked Then
                             MasterSQL = MasterSQL & " Part63 is not Null or "
                         End If
                         MasterSQL = Mid(MasterSQL, 1, (MasterSQL.Length - 3)) & " ) "
@@ -2304,105 +2301,105 @@ Public Class IAIPQueryGenerator
 
             i += 1
 
-            If chbFacilityStreet1.Checked = True Then
+            If chbFacilityStreet1.Checked Then
                 dgvQueryGenerator.Columns("strFacilityStreet1").HeaderText = "Street Address 1"
                 dgvQueryGenerator.Columns("strFacilityStreet1").DisplayIndex = i
                 i += 1
             End If
-            If chbFacilityStreet2.Checked = True Then
+            If chbFacilityStreet2.Checked Then
                 dgvQueryGenerator.Columns("strFacilityStreet2").HeaderText = "Street Address 2"
                 dgvQueryGenerator.Columns("strFacilityStreet2").DisplayIndex = i
                 i += 1
             End If
-            If chbFacilityCity.Checked = True Then
+            If chbFacilityCity.Checked Then
                 dgvQueryGenerator.Columns("strFacilityCity").HeaderText = "City"
                 dgvQueryGenerator.Columns("strFacilityCity").DisplayIndex = i
                 i += 1
             End If
-            If chbFacilityZipCode.Checked = True Then
+            If chbFacilityZipCode.Checked Then
                 dgvQueryGenerator.Columns("strFacilityZipCode").HeaderText = "Zip Code"
                 dgvQueryGenerator.Columns("strFacilityZipCode").DisplayIndex = i
                 i += 1
             End If
-            If chbFacilityLatitude.Checked = True Then
+            If chbFacilityLatitude.Checked Then
                 dgvQueryGenerator.Columns("numFacilityLatitude").HeaderText = "Latitude"
                 dgvQueryGenerator.Columns("numFacilityLatitude").DisplayIndex = i
                 i += 1
             End If
-            If chbFacilityLongitude.Checked = True Then
+            If chbFacilityLongitude.Checked Then
                 dgvQueryGenerator.Columns("numFacilityLongitude").HeaderText = "Longitude"
                 dgvQueryGenerator.Columns("numFacilityLongitude").DisplayIndex = i
                 i += 1
             End If
-            If chbCounty.Checked = True Then
+            If chbCounty.Checked Then
                 dgvQueryGenerator.Columns("strCountyName").HeaderText = "County"
                 dgvQueryGenerator.Columns("strCountyName").DisplayIndex = i
                 i += 1
             End If
-            If chbSSCPEngineer.Checked = True Then
+            If chbSSCPEngineer.Checked Then
                 dgvQueryGenerator.Columns("SSCPEngineer").HeaderText = "Compliance Engineer"
                 dgvQueryGenerator.Columns("SSCPEngineer").DisplayIndex = i
                 i += 1
             End If
-            If chbSSCPUnit.Checked = True Then
+            If chbSSCPUnit.Checked Then
                 dgvQueryGenerator.Columns("strUnitDesc").HeaderText = "Compliance Unit"
                 dgvQueryGenerator.Columns("strUnitDesc").DisplayIndex = i
                 i += 1
             End If
-            If chbDistrict.Checked = True Then
+            If chbDistrict.Checked Then
                 dgvQueryGenerator.Columns("strDistrictName").HeaderText = "District"
                 dgvQueryGenerator.Columns("strDistrictName").DisplayIndex = i
                 i += 1
             End If
-            If chbOperationStatus.Checked = True Then
+            If chbOperationStatus.Checked Then
                 dgvQueryGenerator.Columns("strOperationalStatus").HeaderText = "Operation Status"
                 dgvQueryGenerator.Columns("strOperationalStatus").DisplayIndex = i
                 i += 1
             End If
-            If chbClassification.Checked = True Then
+            If chbClassification.Checked Then
                 dgvQueryGenerator.Columns("strClass").HeaderText = "Classification"
                 dgvQueryGenerator.Columns("strClass").DisplayIndex = i
                 i += 1
             End If
-            If chbSICCode.Checked = True Then
+            If chbSICCode.Checked Then
                 dgvQueryGenerator.Columns("strSICCode").HeaderText = "SIC"
                 dgvQueryGenerator.Columns("strSICCode").DisplayIndex = i
                 i += 1
             End If
-            If chbNAICSCode.Checked = True Then
+            If chbNAICSCode.Checked Then
                 dgvQueryGenerator.Columns("strNAICSCode").HeaderText = "NAICS"
                 dgvQueryGenerator.Columns("strNAICSCode").DisplayIndex = i
                 i += 1
             End If
-            If chbStartUpDate.Checked = True Then
+            If chbStartUpDate.Checked Then
                 dgvQueryGenerator.Columns("datStartUpDate").HeaderText = "Startup Date"
                 dgvQueryGenerator.Columns("datStartUpDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
                 dgvQueryGenerator.Columns("datStartUpDate").DisplayIndex = i
                 i += 1
             End If
-            If chbShutDownDate.Checked = True Then
+            If chbShutDownDate.Checked Then
                 dgvQueryGenerator.Columns("datShutDownDate").HeaderText = "Permit Revocation Date"
                 dgvQueryGenerator.Columns("datShutDownDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
                 dgvQueryGenerator.Columns("datShutDownDate").DisplayIndex = i
                 i += 1
             End If
-            If chbLastFCE.Checked = True Then
+            If chbLastFCE.Checked Then
                 dgvQueryGenerator.Columns("LastFCE").HeaderText = "Last FCE"
                 dgvQueryGenerator.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
                 dgvQueryGenerator.Columns("LastFCE").DisplayIndex = i
                 i += 1
             End If
-            If chbCMSUniverse.Checked = True Then
+            If chbCMSUniverse.Checked Then
                 dgvQueryGenerator.Columns("strCMSMember").HeaderText = "CMS"
                 dgvQueryGenerator.Columns("strCMSMember").DisplayIndex = i
                 i += 1
             End If
-            If chbPlantDescription.Checked = True Then
+            If chbPlantDescription.Checked Then
                 dgvQueryGenerator.Columns("strPlantDescription").HeaderText = "Plant Description"
                 dgvQueryGenerator.Columns("strPlantDescription").DisplayIndex = i
                 i += 1
             End If
-            If chbAttainmentStatus.Checked = True Then
+            If chbAttainmentStatus.Checked Then
                 dgvQueryGenerator.Columns("OneHRYes").HeaderText = "One HR Yes"
                 dgvQueryGenerator.Columns("OneHRYes").DisplayIndex = i
                 i += 1
@@ -2437,63 +2434,63 @@ Public Class IAIPQueryGenerator
                 dgvQueryGenerator.Columns("PMNo").DisplayIndex = i
                 i += 1
             Else
-                If chb1HrYes.Checked = True Then
+                If chb1HrYes.Checked Then
                     dgvQueryGenerator.Columns("OneHRYes").HeaderText = "One HR Yes"
                     dgvQueryGenerator.Columns("OneHRYes").DisplayIndex = i
                     i += 1
                 End If
-                If chb1HrContribute.Checked = True Then
+                If chb1HrContribute.Checked Then
                     dgvQueryGenerator.Columns("OneHRContribute").HeaderText = "One Hr Contributing"
                     dgvQueryGenerator.Columns("OneHRContribute").DisplayIndex = i
                     i += 1
                 End If
-                If chb1HrNo.Checked = True Then
+                If chb1HrNo.Checked Then
                     dgvQueryGenerator.Columns("OneHRNo").HeaderText = "One Hr No"
                     dgvQueryGenerator.Columns("OneHRNo").DisplayIndex = i
                     i += 1
                 End If
-                If chb8HrAtlanta.Checked = True Then
+                If chb8HrAtlanta.Checked Then
                     dgvQueryGenerator.Columns("EightHRAtlanta").HeaderText = "8-Hr Atlanta"
                     dgvQueryGenerator.Columns("EightHRAtlanta").DisplayIndex = i
                     i += 1
                 End If
-                If chb8HrMacon.Checked = True Then
+                If chb8HrMacon.Checked Then
                     dgvQueryGenerator.Columns("EightHRMacon").HeaderText = "8-Hr Macon"
                     dgvQueryGenerator.Columns("EightHRMacon").DisplayIndex = i
                     i += 1
                 End If
-                If chb8HrNo.Checked = True Then
+                If chb8HrNo.Checked Then
                     dgvQueryGenerator.Columns("EightHRNo").HeaderText = "8-Hr No"
                     dgvQueryGenerator.Columns("EightHRNo").DisplayIndex = i
                     i += 1
                 End If
-                If chbPMAtlanta.Checked = True Then
+                If chbPMAtlanta.Checked Then
                     dgvQueryGenerator.Columns("PMAtlanta").HeaderText = "PM Atlanta"
                     dgvQueryGenerator.Columns("PMAtlanta").DisplayIndex = i
                     i += 1
                 End If
-                If chbPMChattanooga.Checked = True Then
+                If chbPMChattanooga.Checked Then
                     dgvQueryGenerator.Columns("PMChattanooga").HeaderText = "PM Chattanooga"
                     dgvQueryGenerator.Columns("PMChattanooga").DisplayIndex = i
                     i += 1
                 End If
-                If chbPMFloyd.Checked = True Then
+                If chbPMFloyd.Checked Then
                     dgvQueryGenerator.Columns("PMFloyd").HeaderText = "PM Floyd"
                     dgvQueryGenerator.Columns("PMFloyd").DisplayIndex = i
                     i += 1
                 End If
-                If chbPMMacon.Checked = True Then
+                If chbPMMacon.Checked Then
                     dgvQueryGenerator.Columns("PMMacon").HeaderText = "PM Macon"
                     dgvQueryGenerator.Columns("PMMacon").DisplayIndex = i
                     i += 1
                 End If
-                If chbPMNo.Checked = True Then
+                If chbPMNo.Checked Then
                     dgvQueryGenerator.Columns("PMNo").HeaderText = "PM No"
                     dgvQueryGenerator.Columns("PMNo").DisplayIndex = i
                     i += 1
                 End If
             End If
-            If chbStateProgramCodes.Checked = True Then
+            If chbStateProgramCodes.Checked Then
                 dgvQueryGenerator.Columns("NSRPSD").HeaderText = "NSR/PSD"
                 dgvQueryGenerator.Columns("NSRPSD").DisplayIndex = i
                 i += 1
@@ -2501,18 +2498,18 @@ Public Class IAIPQueryGenerator
                 dgvQueryGenerator.Columns("HAP").DisplayIndex = i
                 i += 1
             Else
-                If chbNSRPSDMajor.Checked = True Then
+                If chbNSRPSDMajor.Checked Then
                     dgvQueryGenerator.Columns("NSRPSD").HeaderText = "NSR/PSD"
                     dgvQueryGenerator.Columns("NSRPSD").DisplayIndex = i
                     i += 1
                 End If
-                If chbHAPMajor.Checked = True Then
+                If chbHAPMajor.Checked Then
                     dgvQueryGenerator.Columns("HAP").HeaderText = "HAPs"
                     dgvQueryGenerator.Columns("HAP").DisplayIndex = i
                     i += 1
                 End If
             End If
-            If chbViewAirPrograms.Checked = True Then
+            If chbViewAirPrograms.Checked Then
                 dgvQueryGenerator.Columns("APC0").HeaderText = "0 - SIP"
                 dgvQueryGenerator.Columns("APC0").DisplayIndex = i
                 i += 1
@@ -2553,73 +2550,73 @@ Public Class IAIPQueryGenerator
                 dgvQueryGenerator.Columns("APCV").DisplayIndex = i
                 i += 1
             Else
-                If chbAPC0.Checked = True Then
+                If chbAPC0.Checked Then
                     dgvQueryGenerator.Columns("APC0").HeaderText = "0 - SIP"
                     dgvQueryGenerator.Columns("APC0").DisplayIndex = i
                     i += 1
                 End If
-                If chbAPC1.Checked = True Then
+                If chbAPC1.Checked Then
                     dgvQueryGenerator.Columns("APC1").HeaderText = "1 - Federal SIP"
                     dgvQueryGenerator.Columns("APC1").DisplayIndex = i
                     i += 1
                 End If
-                If chbAPC3.Checked = True Then
+                If chbAPC3.Checked Then
                     dgvQueryGenerator.Columns("APC3").HeaderText = "3 - Non-Federal SIP"
                     dgvQueryGenerator.Columns("APC3").DisplayIndex = i
                     i += 1
                 End If
-                If chbAPC4.Checked = True Then
+                If chbAPC4.Checked Then
                     dgvQueryGenerator.Columns("APC4").HeaderText = "4 - CFC Tracking"
                     dgvQueryGenerator.Columns("APC4").DisplayIndex = i
                     i += 1
                 End If
-                If chbAPC6.Checked = True Then
+                If chbAPC6.Checked Then
                     dgvQueryGenerator.Columns("APC6").HeaderText = "6 - PSD"
                     dgvQueryGenerator.Columns("APC6").DisplayIndex = i
                     i += 1
                 End If
-                If chbAPC7.Checked = True Then
+                If chbAPC7.Checked Then
                     dgvQueryGenerator.Columns("APC7").HeaderText = "7 - NSR"
                     dgvQueryGenerator.Columns("APC7").DisplayIndex = i
                     i += 1
                 End If
-                If chbAPC8.Checked = True Then
+                If chbAPC8.Checked Then
                     dgvQueryGenerator.Columns("APC8").HeaderText = "8 - NESHAP"
                     dgvQueryGenerator.Columns("APC8").DisplayIndex = i
                     i += 1
                 End If
-                If chbAPC9.Checked = True Then
+                If chbAPC9.Checked Then
                     dgvQueryGenerator.Columns("APC9").HeaderText = "9 - NSPS"
                     dgvQueryGenerator.Columns("APC9").DisplayIndex = i
                     i += 1
                 End If
-                If chbAPCA.Checked = True Then
+                If chbAPCA.Checked Then
                     dgvQueryGenerator.Columns("APCA").HeaderText = "A - Acid Precipitation"
                     dgvQueryGenerator.Columns("APCA").DisplayIndex = i
                     i += 1
                 End If
-                If chbAPCF.Checked = True Then
+                If chbAPCF.Checked Then
                     dgvQueryGenerator.Columns("APCF").HeaderText = "F - FESOP"
                     dgvQueryGenerator.Columns("APCF").DisplayIndex = i
                     i += 1
                 End If
-                If chbAPCI.Checked = True Then
+                If chbAPCI.Checked Then
                     dgvQueryGenerator.Columns("APCI").HeaderText = "I - Native American"
                     dgvQueryGenerator.Columns("APCI").DisplayIndex = i
                     i += 1
                 End If
-                If chbAPCM.Checked = True Then
+                If chbAPCM.Checked Then
                     dgvQueryGenerator.Columns("APCM").HeaderText = "M - MACT"
                     dgvQueryGenerator.Columns("APCM").DisplayIndex = i
                     i += 1
                 End If
-                If chbAPCV.Checked = True Then
+                If chbAPCV.Checked Then
                     dgvQueryGenerator.Columns("APCV").HeaderText = "V - Title V"
                     dgvQueryGenerator.Columns("APCV").DisplayIndex = i
                     i += 1
                 End If
             End If
-            If chbAllSubparts.Checked = True Then
+            If chbAllSubparts.Checked Then
                 dgvQueryGenerator.Columns("GASIP").HeaderText = "GA SIP"
                 dgvQueryGenerator.Columns("GASIP").DisplayIndex = i
                 i += 1
@@ -2633,22 +2630,22 @@ Public Class IAIPQueryGenerator
                 dgvQueryGenerator.Columns("Part63").DisplayIndex = i
                 i += 1
             Else
-                If chbSIP.Checked = True Then
+                If chbSIP.Checked Then
                     dgvQueryGenerator.Columns("GASIP").HeaderText = "GA SIP"
                     dgvQueryGenerator.Columns("GASIP").DisplayIndex = i
                     i += 1
                 End If
-                If chbPart61Subpart.Checked = True Then
+                If chbPart61Subpart.Checked Then
                     dgvQueryGenerator.Columns("Part61").HeaderText = "NESHAP"
                     dgvQueryGenerator.Columns("Part61").DisplayIndex = i
                     i += 1
                 End If
-                If chbPart60Subpart.Checked = True Then
+                If chbPart60Subpart.Checked Then
                     dgvQueryGenerator.Columns("Part60").HeaderText = "NSPS"
                     dgvQueryGenerator.Columns("Part60").DisplayIndex = i
                     i += 1
                 End If
-                If chbPart63Subpart.Checked = True Then
+                If chbPart63Subpart.Checked Then
                     dgvQueryGenerator.Columns("Part63").HeaderText = "MACT"
                     dgvQueryGenerator.Columns("Part63").DisplayIndex = i
                     i += 1
@@ -2895,7 +2892,7 @@ Public Class IAIPQueryGenerator
 
         Try
 
-            If Me.chbAIRSNumber.Checked = True Then
+            If Me.chbAIRSNumber.Checked Then
                 DefaultsText = DefaultsText & "AIRSNumber"
                 If txtAIRSNumberSearch1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & txtAIRSNumberSearch1.Text & "-#"
@@ -2903,12 +2900,12 @@ Public Class IAIPQueryGenerator
                 If txtAIRSNumberSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & txtAIRSNumberSearch2.Text & "-%"
                 End If
-                If rdbAIRSNumberAnd.Checked = True Then
+                If rdbAIRSNumberAnd.Checked Then
                     DefaultsText = DefaultsText & "*-AND-*"
                 Else
                     DefaultsText = DefaultsText & "*-OR-*"
                 End If
-                If rdbAIRSNumberEqual.Checked = True Then
+                If rdbAIRSNumberEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
@@ -2918,7 +2915,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "rebmuNSRIA"
             End If
-            If Me.chbFacilityName.Checked = True Then
+            If Me.chbFacilityName.Checked Then
                 DefaultsText = DefaultsText & "FacilityName"
                 If txtFacilityNameSearch1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & txtFacilityNameSearch1.Text & "-#"
@@ -2926,12 +2923,12 @@ Public Class IAIPQueryGenerator
                 If txtFacilityNameSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & txtFacilityNameSearch2.Text & "-%"
                 End If
-                If rdbFacilityNameAnd.Checked = True Then
+                If rdbFacilityNameAnd.Checked Then
                     DefaultsText = DefaultsText & "*-AND-*"
                 Else
                     DefaultsText = DefaultsText & "*-OR-*"
                 End If
-                If rdbFacilityNameEqual.Checked = True Then
+                If rdbFacilityNameEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
@@ -2941,7 +2938,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "emaNytilicaF"
             End If
-            If Me.chbFacilityStreet1.Checked = True Then
+            If Me.chbFacilityStreet1.Checked Then
                 DefaultsText = DefaultsText & "Street1"
                 If txtFacilityStreet1Search1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & txtFacilityStreet1Search1.Text & "-#"
@@ -2949,12 +2946,12 @@ Public Class IAIPQueryGenerator
                 If txtFacilityStreet1Search2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & txtFacilityStreet1Search2.Text & "-%"
                 End If
-                If rdbFacilityStreet1And.Checked = True Then
+                If rdbFacilityStreet1And.Checked Then
                     DefaultsText = DefaultsText & "*-AND-*"
                 Else
                     DefaultsText = DefaultsText & "*-OR-*"
                 End If
-                If rdbFacilityStreet1Equal.Checked = True Then
+                If rdbFacilityStreet1Equal.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
@@ -2964,7 +2961,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "1teertS"
             End If
-            If Me.chbFacilityStreet2.Checked = True Then
+            If Me.chbFacilityStreet2.Checked Then
                 DefaultsText = DefaultsText & "Street2"
                 If txtFacilityStreet2Search1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & txtFacilityStreet2Search1.Text & "-#"
@@ -2972,12 +2969,12 @@ Public Class IAIPQueryGenerator
                 If txtFacilityStreet2Search2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & txtFacilityStreet2Search2.Text & "-%"
                 End If
-                If rdbFacilityStreet2And.Checked = True Then
+                If rdbFacilityStreet2And.Checked Then
                     DefaultsText = DefaultsText & "*-AND-*"
                 Else
                     DefaultsText = DefaultsText & "*-OR-*"
                 End If
-                If rdbFacilityStreet2Equal.Checked = True Then
+                If rdbFacilityStreet2Equal.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
@@ -2987,7 +2984,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "2teertS"
             End If
-            If Me.chbFacilityCity.Checked = True Then
+            If Me.chbFacilityCity.Checked Then
                 DefaultsText = DefaultsText & "City"
                 If txtFacilityCitySearch1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & txtFacilityCitySearch1.Text & "-#"
@@ -2995,12 +2992,12 @@ Public Class IAIPQueryGenerator
                 If txtFacilityCitySearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & txtFacilityCitySearch2.Text & "-%"
                 End If
-                If rdbFacilityCityAnd.Checked = True Then
+                If rdbFacilityCityAnd.Checked Then
                     DefaultsText = DefaultsText & "*-AND-*"
                 Else
                     DefaultsText = DefaultsText & "*-OR-*"
                 End If
-                If rdbFacilityCityEqual.Checked = True Then
+                If rdbFacilityCityEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
@@ -3010,7 +3007,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "ytiC"
             End If
-            If Me.chbFacilityZipCode.Checked = True Then
+            If Me.chbFacilityZipCode.Checked Then
                 DefaultsText = DefaultsText & "ZipCode"
                 If txtFacilityZipCodeSearch1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & txtFacilityZipCodeSearch1.Text & "-#"
@@ -3018,12 +3015,12 @@ Public Class IAIPQueryGenerator
                 If txtFacilityZipCodeSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & txtFacilityZipCodeSearch2.Text & "-%"
                 End If
-                If rdbFacilityZipCodeAnd.Checked = True Then
+                If rdbFacilityZipCodeAnd.Checked Then
                     DefaultsText = DefaultsText & "*-AND-*"
                 Else
                     DefaultsText = DefaultsText & "*-OR-*"
                 End If
-                If rdbFacilityZipCodeEqual.Checked = True Then
+                If rdbFacilityZipCodeEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
@@ -3033,7 +3030,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "edoCpiZ"
             End If
-            If Me.chbFacilityLongitude.Checked = True Then
+            If Me.chbFacilityLongitude.Checked Then
                 DefaultsText = DefaultsText & "Longitude"
                 If txtFacilityLongitudeSearch1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & txtFacilityLongitudeSearch1.Text & "-#"
@@ -3046,7 +3043,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "edutignoL"
             End If
-            If Me.chbFacilityLatitude.Checked = True Then
+            If Me.chbFacilityLatitude.Checked Then
                 DefaultsText = DefaultsText & "Latitude"
                 If txtFacilityLatitudeSearch1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & txtFacilityLatitudeSearch1.Text & "-#"
@@ -3059,7 +3056,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "edutitaL"
             End If
-            If Me.chbCounty.Checked = True Then
+            If Me.chbCounty.Checked Then
                 DefaultsText = DefaultsText & "County"
                 If cboCountySearch1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & cboCountySearch1.Text & "-#"
@@ -3067,12 +3064,12 @@ Public Class IAIPQueryGenerator
                 If cboCountySearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & cboCountySearch2.Text & "-%"
                 End If
-                If rdbCountyAnd.Checked = True Then
+                If rdbCountyAnd.Checked Then
                     DefaultsText = DefaultsText & "*-AND-*"
                 Else
                     DefaultsText = DefaultsText & "*-OR-*"
                 End If
-                If rdbCountyEqual.Checked = True Then
+                If rdbCountyEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
@@ -3082,7 +3079,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "ytnuoC"
             End If
-            If Me.chbDistrict.Checked = True Then
+            If Me.chbDistrict.Checked Then
                 DefaultsText = DefaultsText & "District"
                 If cboDistrictSearch1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & cboDistrictSearch1.Text & "-#"
@@ -3090,12 +3087,12 @@ Public Class IAIPQueryGenerator
                 If cboDistrictSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & cboDistrictSearch2.Text & "-%"
                 End If
-                If rdbDistrictAnd.Checked = True Then
+                If rdbDistrictAnd.Checked Then
                     DefaultsText = DefaultsText & "*-AND-*"
                 Else
                     DefaultsText = DefaultsText & "*-OR-*"
                 End If
-                If rdbDistrictEqual.Checked = True Then
+                If rdbDistrictEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
@@ -3105,7 +3102,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "tcirtsiD"
             End If
-            If Me.chbOperationStatus.Checked = True Then
+            If Me.chbOperationStatus.Checked Then
                 DefaultsText = DefaultsText & "OpStatus"
                 If cboOperationStatusSearch1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & cboOperationStatusSearch1.Text & "-#"
@@ -3113,12 +3110,12 @@ Public Class IAIPQueryGenerator
                 If cboOperationStatusSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & cboOperationStatusSearch2.Text & "-%"
                 End If
-                If rdbOperationalStatusAnd.Checked = True Then
+                If rdbOperationalStatusAnd.Checked Then
                     DefaultsText = DefaultsText & "*-AND-*"
                 Else
                     DefaultsText = DefaultsText & "*-OR-*"
                 End If
-                If rdbOperationStatusEqual.Checked = True Then
+                If rdbOperationStatusEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
@@ -3128,7 +3125,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "sutatSpO"
             End If
-            If Me.chbClassification.Checked = True Then
+            If Me.chbClassification.Checked Then
                 DefaultsText = DefaultsText & "Classification"
                 If cboClassificationSearch1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & cboClassificationSearch1.Text & "-#"
@@ -3136,12 +3133,12 @@ Public Class IAIPQueryGenerator
                 If cboClassificationSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & cboClassificationSearch2.Text & "-%"
                 End If
-                If rdbClassificationAnd.Checked = True Then
+                If rdbClassificationAnd.Checked Then
                     DefaultsText = DefaultsText & "*-AND-*"
                 Else
                     DefaultsText = DefaultsText & "*-OR-*"
                 End If
-                If rdbClassificationEqual.Checked = True Then
+                If rdbClassificationEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
@@ -3151,7 +3148,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "noitacifissalC"
             End If
-            If Me.chbSICCode.Checked = True Then
+            If Me.chbSICCode.Checked Then
                 DefaultsText = DefaultsText & "SIC"
                 If txtSICCodeSearch1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & txtSICCodeSearch1.Text & "-#"
@@ -3159,12 +3156,12 @@ Public Class IAIPQueryGenerator
                 If txtSICCodeSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & txtSICCodeSearch2.Text & "-%"
                 End If
-                If rdbSICCodeAnd.Checked = True Then
+                If rdbSICCodeAnd.Checked Then
                     DefaultsText = DefaultsText & "*-AND-*"
                 Else
                     DefaultsText = DefaultsText & "*-OR-*"
                 End If
-                If rdbSICCodeEqual.Checked = True Then
+                If rdbSICCodeEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
@@ -3174,7 +3171,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "CIS"
             End If
-            If Me.chbNAICSCode.Checked = True Then
+            If Me.chbNAICSCode.Checked Then
                 DefaultsText = DefaultsText & "NAICS"
                 If txtNAICSCodeSearch1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & txtNAICSCodeSearch1.Text & "-#"
@@ -3182,12 +3179,12 @@ Public Class IAIPQueryGenerator
                 If txtNAICSCodeSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & txtNAICSCodeSearch2.Text & "-%"
                 End If
-                If rdbNAICSCodeAnd.Checked = True Then
+                If rdbNAICSCodeAnd.Checked Then
                     DefaultsText = DefaultsText & "*-AND-*"
                 Else
                     DefaultsText = DefaultsText & "*-OR-*"
                 End If
-                If rdbNAICSCodeEqual.Checked = True Then
+                If rdbNAICSCodeEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
@@ -3197,15 +3194,15 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "SCIAN"
             End If
-            If Me.chbStartUpDate.Checked = True Then
+            If Me.chbStartUpDate.Checked Then
                 DefaultsText = DefaultsText & "StartUp"
-                If DTPStartUpDateSearch1.Checked = True Then
+                If DTPStartUpDateSearch1.Checked Then
                     DefaultsText = DefaultsText & "#-" & DTPStartUpDateSearch1.Text & "-#"
                 End If
-                If DTPStartUpDateSearch2.Checked = True Then
+                If DTPStartUpDateSearch2.Checked Then
                     DefaultsText = DefaultsText & "%-" & DTPStartUpDateSearch2.Text & "-%"
                 End If
-                If rdbStartUpDateBetween.Checked = True Then
+                If rdbStartUpDateBetween.Checked Then
                     DefaultsText = DefaultsText & "*-BETWEEN-*"
                 End If
                 If txtStartUpDateOrder.Text <> "" Then
@@ -3213,15 +3210,15 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "pUtratS"
             End If
-            If Me.chbShutDownDate.Checked = True Then
+            If Me.chbShutDownDate.Checked Then
                 DefaultsText = DefaultsText & "ShutDown"
-                If DTPShutDownDateSearch1.Checked = True Then
+                If DTPShutDownDateSearch1.Checked Then
                     DefaultsText = DefaultsText & "#-" & DTPShutDownDateSearch1.Text & "-#"
                 End If
-                If DTPShutDownDateSearch2.Checked = True Then
+                If DTPShutDownDateSearch2.Checked Then
                     DefaultsText = DefaultsText & "%-" & DTPShutDownDateSearch2.Text & "-%"
                 End If
-                If rdbShutDownDateBetween.Checked = True Then
+                If rdbShutDownDateBetween.Checked Then
                     DefaultsText = DefaultsText & "*-BETWEEN-*"
                 End If
                 If txtShutDownDateOrder.Text <> "" Then
@@ -3229,7 +3226,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "nwoDtuhS"
             End If
-            If Me.chbCMSUniverse.Checked = True Then
+            If Me.chbCMSUniverse.Checked Then
                 DefaultsText = DefaultsText & "CMS"
                 If cboCMSUniverseSearch1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & cboCMSUniverseSearch1.Text & "-#"
@@ -3237,12 +3234,12 @@ Public Class IAIPQueryGenerator
                 If cboCMSUniverseSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & cboCMSUniverseSearch2.Text & "-%"
                 End If
-                If rdbCMSUniverseAnd.Checked = True Then
+                If rdbCMSUniverseAnd.Checked Then
                     DefaultsText = DefaultsText & "*-AND-*"
                 Else
                     DefaultsText = DefaultsText & "*-OR-*"
                 End If
-                If rdbCMSUniverseEqual.Checked = True Then
+                If rdbCMSUniverseEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
@@ -3252,7 +3249,7 @@ Public Class IAIPQueryGenerator
                 End If
                 DefaultsText = DefaultsText & "SMC"
             End If
-            If Me.chbPlantDescription.Checked = True Then
+            If Me.chbPlantDescription.Checked Then
                 DefaultsText = DefaultsText & "Plant"
                 If txtPlantDescriptionSearch1.Text <> "" Then
                     DefaultsText = DefaultsText & "#-" & txtPlantDescriptionSearch1.Text & "-#"
@@ -3260,12 +3257,12 @@ Public Class IAIPQueryGenerator
                 If txtPlantDescriptionSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & txtPlantDescriptionSearch2.Text & "-%"
                 End If
-                If rdbPlantDescriptionAND.Checked = True Then
+                If rdbPlantDescriptionAND.Checked Then
                     DefaultsText = DefaultsText & "*-AND-*"
                 Else
                     DefaultsText = DefaultsText & "*-OR-*"
                 End If
-                If rdbPlantDescriptionEqual.Checked = True Then
+                If rdbPlantDescriptionEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"

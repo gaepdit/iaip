@@ -208,10 +208,10 @@ Public Class SBEAPClientSearchTool
 #Region " Search buttons "
 
     Private Sub btnSearchCompanyName_Click(sender As Object, e As EventArgs) Handles btnSearchCompanyName.Click
-        If chbSearchHistoricalNames.Checked = False Then
-            ClientSearch("CompanyName")
-        Else
+        If chbSearchHistoricalNames.Checked Then
             ClientSearch("HistoricalCompanyName")
+        Else
+            ClientSearch("CompanyName")
         End If
     End Sub
 

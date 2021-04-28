@@ -608,8 +608,8 @@ Public Class SSPPPermitUploader
             Dim docOnFile As String = ""
             Dim SQL As String
 
-            If rdbTitleVPermit.Checked = True Then
-                If chbTVNarrative.Checked = True Then    'Prefix VN-
+            If rdbTitleVPermit.Checked Then
+                If chbTVNarrative.Checked Then    'Prefix VN-
                     doc = ""
                     pdf = ""
                     docOnFile = ""
@@ -640,7 +640,7 @@ Public Class SSPPPermitUploader
                         UploadFile("VN-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
-                If chbTVDraft.Checked = True Then         'Prefix VD-
+                If chbTVDraft.Checked Then         'Prefix VD-
                     doc = ""
                     pdf = ""
                     docOnFile = ""
@@ -670,7 +670,7 @@ Public Class SSPPPermitUploader
                         UploadFile("VD-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
-                If chbTVPublicNotice.Checked = True Then   'Prefix VP-
+                If chbTVPublicNotice.Checked Then   'Prefix VP-
                     doc = ""
                     pdf = ""
                     docOnFile = ""
@@ -700,7 +700,7 @@ Public Class SSPPPermitUploader
                         UploadFile("VP-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
-                If chbTVFinal.Checked = True Then          'Prefix VF-
+                If chbTVFinal.Checked Then          'Prefix VF-
                     doc = ""
                     pdf = ""
                     docOnFile = ""
@@ -745,8 +745,8 @@ Public Class SSPPPermitUploader
 
                 End If
             End If
-            If rdbPSDPermit.Checked = True Then
-                If chbPSDApplicationSummary.Checked = True Then 'Prefix PA-
+            If rdbPSDPermit.Checked Then
+                If chbPSDApplicationSummary.Checked Then 'Prefix PA-
                     doc = ""
                     pdf = ""
                     docOnFile = ""
@@ -776,7 +776,7 @@ Public Class SSPPPermitUploader
                         UploadFile("PA-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
-                If chbPSDPrelimDet.Checked = True Then          'Prefix PP-
+                If chbPSDPrelimDet.Checked Then          'Prefix PP-
                     doc = ""
                     pdf = ""
                     docOnFile = ""
@@ -806,7 +806,7 @@ Public Class SSPPPermitUploader
                         UploadFile("PP-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
-                If chbPSDNarrative.Checked = True Then          'Prefix PT-
+                If chbPSDNarrative.Checked Then          'Prefix PT-
                     doc = ""
                     pdf = ""
                     docOnFile = ""
@@ -836,7 +836,7 @@ Public Class SSPPPermitUploader
                         UploadFile("PT-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
-                If chbPSDDraftPermit.Checked = True Then        'Prefix PD-
+                If chbPSDDraftPermit.Checked Then        'Prefix PD-
                     doc = ""
                     pdf = ""
                     docOnFile = ""
@@ -866,7 +866,7 @@ Public Class SSPPPermitUploader
                         UploadFile("PD-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
-                If chbPSDPublicNotice.Checked = True Then       'Prefix PN-
+                If chbPSDPublicNotice.Checked Then       'Prefix PN-
                     doc = ""
                     pdf = ""
                     docOnFile = ""
@@ -896,7 +896,7 @@ Public Class SSPPPermitUploader
                         UploadFile("PN-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
-                If chbPSDHearingNotice.Checked = True Then      'Prefix PH-
+                If chbPSDHearingNotice.Checked Then      'Prefix PH-
                     doc = ""
                     pdf = ""
                     docOnFile = ""
@@ -926,7 +926,7 @@ Public Class SSPPPermitUploader
                         UploadFile("PH-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
-                If chbPSDFinalDet.Checked = True Then           'Prefix PF- 
+                If chbPSDFinalDet.Checked Then           'Prefix PF- 
                     doc = ""
                     pdf = ""
                     docOnFile = ""
@@ -956,7 +956,7 @@ Public Class SSPPPermitUploader
                         UploadFile("PF-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
-                If chbPSDFinalPermit.Checked = True Then        'Prefix PI-
+                If chbPSDFinalPermit.Checked Then        'Prefix PI-
                     doc = ""
                     pdf = ""
                     docOnFile = ""
@@ -1001,8 +1001,8 @@ Public Class SSPPPermitUploader
 
                 End If
             End If
-            If rdbOtherPermit.Checked = True Then
-                If chbOtherNarrative.Checked = True Then       'Prefix ON-
+            If rdbOtherPermit.Checked Then
+                If chbOtherNarrative.Checked Then       'Prefix ON-
                     doc = ""
                     pdf = ""
                     docOnFile = ""
@@ -1032,7 +1032,7 @@ Public Class SSPPPermitUploader
                         UploadFile("ON-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
-                If chbOtherPermit.Checked = True Then             'Prefix OP-
+                If chbOtherPermit.Checked Then             'Prefix OP-
                     doc = ""
                     pdf = ""
                     docOnFile = ""
@@ -1133,11 +1133,11 @@ Public Class SSPPPermitUploader
             If TCPermitUploader.TabPages.Contains(TPOther) Then
                 TCPermitUploader.TabPages.Remove(TPOther)
             End If
-            If rdbTitleVPermit.Checked = True Then
+            If rdbTitleVPermit.Checked Then
                 TCPermitUploader.TabPages.Add(TPTV)
-            ElseIf rdbPSDPermit.Checked = True Then
+            ElseIf rdbPSDPermit.Checked Then
                 TCPermitUploader.TabPages.Add(TPPSD)
-            ElseIf rdbOtherPermit.Checked = True Then
+            ElseIf rdbOtherPermit.Checked Then
                 TCPermitUploader.TabPages.Add(TPOther)
             End If
         Catch ex As Exception
@@ -1160,7 +1160,7 @@ Public Class SSPPPermitUploader
 
             DisplayPermitPanel()
 
-            If rdbTitleVPermit.Checked = True AndAlso MasterApp <> "" Then
+            If rdbTitleVPermit.Checked AndAlso MasterApp <> "" Then
                 SQL = "select " &
                 "strFileName " &
                 "from APBPermits " &
@@ -1225,7 +1225,7 @@ Public Class SSPPPermitUploader
 
             DisplayPermitPanel()
 
-            If rdbPSDPermit.Checked = True AndAlso MasterApp <> "" Then
+            If rdbPSDPermit.Checked AndAlso MasterApp <> "" Then
                 SQL = "select " &
                 "strFileName " &
                 "from APBPermits " &
@@ -1298,7 +1298,7 @@ Public Class SSPPPermitUploader
 
             DisplayPermitPanel()
 
-            If rdbOtherPermit.Checked = True AndAlso MasterApp <> "" Then
+            If rdbOtherPermit.Checked AndAlso MasterApp <> "" Then
                 SQL = "select " &
                 "strFileName " &
                 "from APBPermits " &
@@ -1338,7 +1338,7 @@ Public Class SSPPPermitUploader
         Try
             Dim SQL As String
 
-            If chbTVNarrative.Checked = True AndAlso MasterApp <> "" Then
+            If chbTVNarrative.Checked AndAlso MasterApp <> "" Then
 
                 txtTVNarrativeDoc.Visible = True
                 txtTVNarrativePDF.Visible = True
@@ -1458,7 +1458,7 @@ Public Class SSPPPermitUploader
         Try
             Dim SQL As String
 
-            If chbTVDraft.Checked = True AndAlso MasterApp <> "" Then
+            If chbTVDraft.Checked AndAlso MasterApp <> "" Then
                 txtTVDraftDoc.Visible = True
                 txtTVDraftPDF.Visible = True
                 btnTVDraft.Visible = True
@@ -1576,7 +1576,7 @@ Public Class SSPPPermitUploader
         Try
             Dim SQL As String
 
-            If chbTVPublicNotice.Checked = True AndAlso MasterApp <> "" Then
+            If chbTVPublicNotice.Checked AndAlso MasterApp <> "" Then
                 txtTVPublicNoticeDoc.Visible = True
                 txtTVPublicNoticePDF.Visible = True
                 btnTVPublicNotice.Visible = True
@@ -1694,7 +1694,7 @@ Public Class SSPPPermitUploader
         Try
             Dim SQL As String
 
-            If chbTVFinal.Checked = True AndAlso MasterApp <> "" Then
+            If chbTVFinal.Checked AndAlso MasterApp <> "" Then
                 txtTVFinalDoc.Visible = True
                 txtTVFinalPDF.Visible = True
                 btnTVFinal.Visible = True
@@ -1812,7 +1812,7 @@ Public Class SSPPPermitUploader
         Try
             Dim SQL As String
 
-            If chbPSDApplicationSummary.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDApplicationSummary.Checked AndAlso MasterApp <> "" Then
                 txtPSDAppSummaryDoc.Visible = True
 
                 txtPSDAppSummaryPDF.Visible = True
@@ -1930,7 +1930,7 @@ Public Class SSPPPermitUploader
         Try
             Dim SQL As String
 
-            If chbPSDPrelimDet.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDPrelimDet.Checked AndAlso MasterApp <> "" Then
                 txtPSDPrelimDetDoc.Visible = True
                 txtPSDPrelimDetPDF.Visible = True
                 btnPSDPrelimDet.Visible = True
@@ -2059,7 +2059,7 @@ Public Class SSPPPermitUploader
         Try
             Dim SQL As String
 
-            If chbPSDNarrative.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDNarrative.Checked AndAlso MasterApp <> "" Then
                 txtPSDNarrativeDoc.Visible = True
                 txtPSDNarrativePDF.Visible = True
                 btnPSDNarrative.Visible = True
@@ -2176,7 +2176,7 @@ Public Class SSPPPermitUploader
         Try
             Dim SQL As String
 
-            If chbPSDDraftPermit.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDDraftPermit.Checked AndAlso MasterApp <> "" Then
                 txtPSDDraftPermitDoc.Visible = True
                 txtPSDDraftPermitPDF.Visible = True
                 btnPSDDraftPermit.Visible = True
@@ -2293,7 +2293,7 @@ Public Class SSPPPermitUploader
         Try
             Dim SQL As String
 
-            If chbPSDPublicNotice.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDPublicNotice.Checked AndAlso MasterApp <> "" Then
                 txtPSDPublicNoticeDoc.Visible = True
                 txtPSDPublicNoticePDF.Visible = True
                 btnPSDPublicNotice.Visible = True
@@ -2410,7 +2410,7 @@ Public Class SSPPPermitUploader
         Try
             Dim SQL As String
 
-            If chbPSDHearingNotice.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDHearingNotice.Checked AndAlso MasterApp <> "" Then
                 txtPSDHearingNoticeDoc.Visible = True
                 txtPSDHearingNoticePDF.Visible = True
                 btnPSDHearingNotice.Visible = True
@@ -2527,7 +2527,7 @@ Public Class SSPPPermitUploader
         Try
             Dim SQL As String
 
-            If chbPSDFinalDet.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDFinalDet.Checked AndAlso MasterApp <> "" Then
                 txtPSDFinalDetDoc.Visible = True
                 txtPSDFinalDetPDF.Visible = True
                 btnPSDFinalDet.Visible = True
@@ -2644,7 +2644,7 @@ Public Class SSPPPermitUploader
         Try
             Dim SQL As String
 
-            If chbPSDFinalPermit.Checked = True AndAlso MasterApp <> "" Then
+            If chbPSDFinalPermit.Checked AndAlso MasterApp <> "" Then
                 txtPSDFinalPermitDoc.Visible = True
                 txtPSDFinalPermitPDF.Visible = True
                 btnPSDFinalPermit.Visible = True
@@ -2761,7 +2761,7 @@ Public Class SSPPPermitUploader
         Try
             Dim SQL As String
 
-            If chbOtherNarrative.Checked = True AndAlso MasterApp <> "" Then
+            If chbOtherNarrative.Checked AndAlso MasterApp <> "" Then
                 txtOtherNarrativeDoc.Visible = True
                 txtOtherNarrativePDF.Visible = True
                 btnOtherNarrative.Visible = True
@@ -2879,7 +2879,7 @@ Public Class SSPPPermitUploader
         Try
             Dim SQL As String
 
-            If chbOtherPermit.Checked = True AndAlso MasterApp <> "" Then
+            If chbOtherPermit.Checked AndAlso MasterApp <> "" Then
                 txtOtherPermitDoc.Visible = True
                 txtOtherPermitPDF.Visible = True
                 btnOtherPermit.Visible = True

@@ -310,7 +310,7 @@ Public Class SSPPPublicNoticesAndAdvisories
 
         newFileName = "PA" & FileMonth & FileYear & "-" & FileWeek
 
-        Do While Flag = False
+        Do While Not Flag
             If DB.SPGetBoolean("dbo.PAandPNFileNameExists", New SqlParameter("@FileName", newFileName)) Then
                 If newFileName.Length <= 8 Then
                     newFileName &= "a"

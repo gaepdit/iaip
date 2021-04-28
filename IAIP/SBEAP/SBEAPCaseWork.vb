@@ -5,7 +5,7 @@ Public Class SBEAPCaseWork
 
     Private Sub SBEAPCaseLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            If IsNumeric(txtCaseID.Text) = True Then
+            If IsNumeric(txtCaseID.Text) Then
                 btnAddNewAction.Enabled = True
                 btnViewActionType.Enabled = True
             Else
@@ -475,7 +475,7 @@ Public Class SBEAPCaseWork
                         End If
                 End Select
 
-                If IsNumeric(txtActionID.Text) = True Then
+                If IsNumeric(txtActionID.Text) Then
                     TCCaseSpecificData.Visible = True
                 Else
                     TCCaseSpecificData.Visible = False
@@ -1068,7 +1068,7 @@ Public Class SBEAPCaseWork
             Else
                 Staff = Nothing
             End If
-            If DTPCaseClosed.Checked = True Then
+            If DTPCaseClosed.Checked Then
                 CloseDate = DTPCaseClosed.Value
             End If
             If cboInteragency.Text <> "" Then
@@ -1081,15 +1081,15 @@ Public Class SBEAPCaseWork
             Else
                 ReferralComments = Nothing
             End If
-            If DTPReferralDate.Checked = True Then
+            If DTPReferralDate.Checked Then
                 ReferralDate = DTPReferralDate.Value
             End If
-            If chbComplaintBased.Checked = True Then
+            If chbComplaintBased.Checked Then
                 ComplaintBased = "True"
             Else
                 ComplaintBased = "False"
             End If
-            If chbCaseClosureLetter.Checked = True Then
+            If chbCaseClosureLetter.Checked Then
                 CaseClosedLetter = "True"
             Else
                 CaseClosedLetter = "False"
@@ -1150,7 +1150,7 @@ Public Class SBEAPCaseWork
                 txtCaseID.Text = DB.GetInteger(SQL2).ToString
             End If
 
-            If rdbSingleClient.Checked = True Then
+            If rdbSingleClient.Checked Then
                 ClientID = txtClientID.Text
 
                 SQL = "Delete SBEAPCaseLogLink " &
@@ -1268,42 +1268,42 @@ Public Class SBEAPCaseWork
             Dim OtherAssist As String = ""
             Dim Comments As String = ""
 
-            If chbAirAssist.Checked = True Then
+            If chbAirAssist.Checked Then
                 AirAssist = "True"
             Else
                 AirAssist = "False"
             End If
-            If chbStormWaterAssist.Checked = True Then
+            If chbStormWaterAssist.Checked Then
                 StormWaterAssist = "True"
             Else
                 StormWaterAssist = "False"
             End If
-            If chbHazardousWasteAssist.Checked = True Then
+            If chbHazardousWasteAssist.Checked Then
                 HazWasteAssist = "True"
             Else
                 HazWasteAssist = "False"
             End If
-            If chbSolidWasteAssist.Checked = True Then
+            If chbSolidWasteAssist.Checked Then
                 SolidWasteAssist = "True"
             Else
                 SolidWasteAssist = "False"
             End If
-            If chbUSTAssist.Checked = True Then
+            If chbUSTAssist.Checked Then
                 USTAssist = "True"
             Else
                 USTAssist = "False"
             End If
-            If chbScrapTireAssist.Checked = True Then
+            If chbScrapTireAssist.Checked Then
                 ScrapTireAssist = "True"
             Else
                 ScrapTireAssist = "False"
             End If
-            If chbLeadAndAsbestosAssist.Checked = True Then
+            If chbLeadAndAsbestosAssist.Checked Then
                 LeadAssist = "True"
             Else
                 LeadAssist = "False"
             End If
-            If chbOtherAssist.Checked = True Then
+            If chbOtherAssist.Checked Then
                 OtherAssist = "True"
             Else
                 OtherAssist = "False"
@@ -1372,161 +1372,161 @@ Public Class SBEAPCaseWork
             Else
                 AssistType = ""
             End If
-            If DTPTechAssistInitialContact.Checked = True Then
+            If DTPTechAssistInitialContact.Checked Then
                 ContactDate = DTPTechAssistInitialContact.Value
             End If
-            If DTPTechAssistStart.Checked = True Then
+            If DTPTechAssistStart.Checked Then
                 AssistStart = DTPTechAssistStart.Value
             End If
-            If DTPTechAssistEnd.Checked = True Then
+            If DTPTechAssistEnd.Checked Then
                 AssistEnd = DTPTechAssistEnd.Value
             End If
-            If chbAirAppPrep.Checked = True Then
+            If chbAirAppPrep.Checked Then
                 AssistRequest = "1"
             Else
                 AssistRequest = "0"
             End If
-            If chbAirEmissInv.Checked = True Then
+            If chbAirEmissInv.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbAirCompCert.Checked = True Then
+            If chbAirCompCert.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbAirPermitAssit.Checked = True Then
+            If chbAirPermitAssit.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbAirRecordAssist.Checked = True Then
+            If chbAirRecordAssist.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbAirEnforceAssist.Checked = True Then
+            If chbAirEnforceAssist.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbAirOther.Checked = True Then
+            If chbAirOther.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWaterConstruction.Checked = True Then
+            If chbWaterConstruction.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWaterIndustrial.Checked = True Then
+            If chbWaterIndustrial.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWaterSPCCC.Checked = True Then
+            If chbWaterSPCCC.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWaterEandS.Checked = True Then
+            If chbWaterEandS.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWaterNPDES.Checked = True Then
+            If chbWaterNPDES.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWaterPOTW.Checked = True Then
+            If chbWaterPOTW.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWaterWetlands.Checked = True Then
+            If chbWaterWetlands.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWaterOther.Checked = True Then
+            If chbWaterOther.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWasteFormR.Checked = True Then
+            If chbWasteFormR.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWasteTier2.Checked = True Then
+            If chbWasteTier2.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWasteHazWaste.Checked = True Then
+            If chbWasteHazWaste.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWasteSolidWaste.Checked = True Then
+            If chbWasteSolidWaste.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWasteUST.Checked = True Then
+            If chbWasteUST.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWasteAST.Checked = True Then
+            If chbWasteAST.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbWasteOther.Checked = True Then
+            If chbWasteOther.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbGeneralMultiMedia.Checked = True Then
+            If chbGeneralMultiMedia.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbGeneralEMS.Checked = True Then
+            If chbGeneralEMS.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbGeneralOther.Checked = True Then
+            If chbGeneralOther.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbPollEnergy.Checked = True Then
+            If chbPollEnergy.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbPollWaste.Checked = True Then
+            If chbPollWaste.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbPollSovent.Checked = True Then
+            If chbPollSovent.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbPollWater.Checked = True Then
+            If chbPollWater.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
             End If
-            If chbPollOther.Checked = True Then
+            If chbPollOther.Checked Then
                 AssistRequest = AssistRequest & "1"
             Else
                 AssistRequest = AssistRequest & "0"
@@ -1677,7 +1677,7 @@ Public Class SBEAPCaseWork
             Else
                 ConferenceEnd = DTPConferenceEnd.Value
             End If
-            If rdbSBEAPPresentationYes.Checked = True Then
+            If rdbSBEAPPresentationYes.Checked Then
                 SBEAPPresentation = "True"
             Else
                 SBEAPPresentation = "False"
@@ -1694,7 +1694,7 @@ Public Class SBEAPCaseWork
             End If
 
             For i = 0 To clbStaffAttending.Items.Count - 1
-                If clbStaffAttending.GetItemChecked(i) = True Then
+                If clbStaffAttending.GetItemChecked(i) Then
                     clbStaffAttending.SelectedIndex = i
                     StaffAttendies = StaffAttendies & clbStaffAttending.SelectedValue & ","
                 End If
@@ -1996,7 +1996,7 @@ Public Class SBEAPCaseWork
     Private Sub DTPCaseClosed_ValueChanged(sender As Object, e As EventArgs) Handles DTPCaseClosed.ValueChanged
         Try
             If Not FixDtpCheckBox Then
-                If DTPCaseClosed.Checked = True Then
+                If DTPCaseClosed.Checked Then
                     FormStatus(EnableOrDisable.Disable)
                     DTPCaseClosed.Enabled = True
                     tsbSave.Enabled = True
@@ -2063,7 +2063,7 @@ Public Class SBEAPCaseWork
     End Sub
 
     Private Sub txtCaseID_TextChanged(sender As Object, e As EventArgs) Handles txtCaseID.TextChanged
-        If IsNumeric(txtCaseID.Text) = True Then
+        If IsNumeric(txtCaseID.Text) Then
             btnAddNewAction.Enabled = True
             btnViewActionType.Enabled = True
         Else
@@ -2177,11 +2177,11 @@ Public Class SBEAPCaseWork
     End Sub
 
     Private Sub rdbSingleClient_CheckedChanged(sender As Object, e As EventArgs) Handles rdbSingleClient.CheckedChanged
-        If rdbSingleClient.Checked = True Then
+        If rdbSingleClient.Checked Then
             pnlSingleClient.Visible = True
             pnlMultiClient.Visible = False
         Else
-            If rdbMultiClient.Checked = True Then
+            If rdbMultiClient.Checked Then
                 pnlMultiClient.Visible = True
                 pnlSingleClient.Visible = False
             Else
@@ -2192,11 +2192,11 @@ Public Class SBEAPCaseWork
     End Sub
 
     Private Sub rdbMultiClient_CheckedChanged(sender As Object, e As EventArgs) Handles rdbMultiClient.CheckedChanged
-        If rdbMultiClient.Checked = True Then
+        If rdbMultiClient.Checked Then
             pnlMultiClient.Visible = True
             pnlSingleClient.Visible = False
         Else
-            If rdbSingleClient.Checked = True Then
+            If rdbSingleClient.Checked Then
                 pnlSingleClient.Visible = True
                 pnlMultiClient.Visible = False
             Else

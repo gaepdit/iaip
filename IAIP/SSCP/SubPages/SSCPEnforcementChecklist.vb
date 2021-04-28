@@ -61,15 +61,15 @@ Public Class SSCPEnforcementChecklist
                 eventTypes.Add("'04'")
             End If
 
-            If chbInspections.Checked = True Then
+            If chbInspections.Checked Then
                 eventTypes.Add("'02'")
             End If
 
-            If chbPerformanceTests.Checked = True Then
+            If chbPerformanceTests.Checked Then
                 eventTypes.Add("'03'")
             End If
 
-            If chbReports.Checked = True Then
+            If chbReports.Checked Then
                 eventTypes.Add("'01'")
             End If
 

@@ -173,7 +173,7 @@ Public Class SBEAPPhoneLog
                 Else
                     Staff = ""
                 End If
-                If DTPCaseClosed.Checked = True Then
+                If DTPCaseClosed.Checked Then
                     CloseDate = DTPCaseClosed.Text
                 Else
                     CloseDate = ""
@@ -198,19 +198,19 @@ Public Class SBEAPPhoneLog
                 Else
                     PhoneCallNotes = ""
                 End If
-                If chbOnetimeAssist.Checked = True Then
+                If chbOnetimeAssist.Checked Then
                     OneTimeAssist = "True"
                 Else
                     OneTimeAssist = "False"
                 End If
-                If chbFrontDeskCall.Checked = True Then
+                If chbFrontDeskCall.Checked Then
                     FrontDeskCall = "True"
                 Else
                     FrontDeskCall = "False"
                 End If
 
 
-                If rdbExistingClient.Checked = True Then
+                If rdbExistingClient.Checked Then
                     If txtClientID.Text <> "" AndAlso txtClientInformation.Text <> "" Then
                         If txtClientID.Text <> "" Then
                             ClientID = txtClientID.Text
@@ -221,7 +221,7 @@ Public Class SBEAPPhoneLog
                         MsgBox("Please enter valid Client ID and validate it.", MsgBoxStyle.Information, "Phone Log")
                     End If
                 End If
-                If rdbNewClient.Checked = True Then
+                If rdbNewClient.Checked Then
                     ClientID = ""
                 End If
 
@@ -473,7 +473,7 @@ Public Class SBEAPPhoneLog
     End Sub
 
     Private Sub chbOnetimeAssist_CheckStateChanged(sender As Object, e As EventArgs) Handles chbOnetimeAssist.CheckStateChanged
-        If chbOnetimeAssist.Checked = True Then
+        If chbOnetimeAssist.Checked Then
             btnCreateNewClient.Visible = False
         Else
             btnCreateNewClient.Visible = True

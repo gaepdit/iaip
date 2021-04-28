@@ -396,7 +396,7 @@ Public Class SSPPApplicationLog
 
         dtApplicationLog = Nothing
 
-        If bgwApplicationLog.IsBusy = False Then
+        If Not bgwApplicationLog.IsBusy Then
             bgwApplicationLog.RunWorkerAsync()
         End If
     End Sub

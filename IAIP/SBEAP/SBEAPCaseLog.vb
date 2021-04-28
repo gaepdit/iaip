@@ -287,15 +287,15 @@
                 SQLOrder1 = " "
             End If
 
-            If rdbOpenCases.Checked = True Then
+            If rdbOpenCases.Checked Then
                 SQLSearch3 = " CaseClosed is null "
                 rdbOpenCases.Checked = True
             End If
-            If rdbClosedCase.Checked = True Then
+            If rdbClosedCase.Checked Then
                 SQLSearch3 = " CaseClosed is not Null "
                 rdbClosedCase.Checked = True
             End If
-            If rdbAllCases.Checked = True Then
+            If rdbAllCases.Checked Then
                 SQLSearch3 = " (CaseClosed is null or CaseClosed is not Null) "
                 rdbAllCases.Checked = True
             End If

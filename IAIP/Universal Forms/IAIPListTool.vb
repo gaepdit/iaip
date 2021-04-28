@@ -364,22 +364,22 @@ Public Class IAIPListTool
 
             For i = 0 To dgvSelectedForms.Rows.Count - 1
                 temp = "(" & dgvSelectedForms(0, i).Value & "-"
-                If dgvSelectedForms(3, i).Value = True Then
+                If dgvSelectedForms(3, i).Value Then
                     temp = temp & "1,"
                 Else
                     temp = temp & "0,"
                 End If
-                If dgvSelectedForms(4, i).Value = True Then
+                If dgvSelectedForms(4, i).Value Then
                     temp = temp & "1,"
                 Else
                     temp = temp & "0,"
                 End If
-                If dgvSelectedForms(5, i).Value = True Then
+                If dgvSelectedForms(5, i).Value Then
                     temp = temp & "1,"
                 Else
                     temp = temp & "0,"
                 End If
-                If dgvSelectedForms(6, i).Value = True Then
+                If dgvSelectedForms(6, i).Value Then
                     temp = temp & "1"
                 Else
                     temp = temp & "0"
@@ -394,10 +394,10 @@ Public Class IAIPListTool
 
             Dim code As Integer
 
-            If chbCascadeBranch.Checked = True Then
+            If chbCascadeBranch.Checked Then
                 SQLLine = " numBranchcode = @code "
                 code = CInt(cboBranch.SelectedValue)
-            ElseIf chbCascadeProgram.Checked = True Then
+            ElseIf chbCascadeProgram.Checked Then
                 SQLLine = " numProgramcode = @code "
                 code = CInt(cboProgram.SelectedValue)
             ElseIf lbAccounts.SelectedItems.Count = 1 Then
@@ -936,7 +936,7 @@ Public Class IAIPListTool
 
             If hti.RowIndex = -1 AndAlso hti.ColumnIndex <> -1 Then
                 If dgvSelectedForms.Columns(hti.ColumnIndex).HeaderText = "Read Only" Then
-                    If dgvSelectedForms(3, 0).Value = True Then
+                    If dgvSelectedForms(3, 0).Value Then
                         For i = 0 To dgvSelectedForms.Rows.Count - 1
                             dgvSelectedForms(3, i).Value = False
                         Next
@@ -947,7 +947,7 @@ Public Class IAIPListTool
                     End If
                 End If
                 If dgvSelectedForms.Columns(hti.ColumnIndex).HeaderText = "Write" Then
-                    If dgvSelectedForms(4, 0).Value = True Then
+                    If dgvSelectedForms(4, 0).Value Then
                         For i = 0 To dgvSelectedForms.Rows.Count - 1
                             dgvSelectedForms(4, i).Value = False
                         Next
@@ -958,7 +958,7 @@ Public Class IAIPListTool
                     End If
                 End If
                 If dgvSelectedForms.Columns(hti.ColumnIndex).HeaderText = "Full Access" Then
-                    If dgvSelectedForms(5, 0).Value = True Then
+                    If dgvSelectedForms(5, 0).Value Then
                         For i = 0 To dgvSelectedForms.Rows.Count - 1
                             dgvSelectedForms(5, i).Value = False
                         Next
@@ -969,7 +969,7 @@ Public Class IAIPListTool
                     End If
                 End If
                 If dgvSelectedForms.Columns(hti.ColumnIndex).HeaderText = "Special Permissions" Then
-                    If dgvSelectedForms(6, 0).Value = True Then
+                    If dgvSelectedForms(6, 0).Value Then
                         For i = 0 To dgvSelectedForms.Rows.Count - 1
                             dgvSelectedForms(6, i).Value = False
                         Next
