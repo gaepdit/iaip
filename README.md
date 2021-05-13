@@ -7,15 +7,13 @@ Some data from the Platform are also fed to EPA's ICIS-Air and EIS databases.
 
 ## Application
 
-The IAIP is a WinForms Application targeting the .NET Framework version 4.5.2. Users must [install the application](https://iaip.gaepd.org/) locally and connect to the [DNR VPN](https://sslx.gta.ga.gov/dnr/) in order to use it.
+The IAIP is a WinForms Application targeting the .NET Framework version 4.8. Users must [install the application](https://iaip.gaepd.org/) locally and connect to the [DNR VPN](https://sslx.gta.ga.gov/dnr/) in order to use it.
 
 ## Prerequisites for developing
 
 + [Visual Studio](https://www.visualstudio.com/) (any recent version)
 
 + [Visual Studio 2015](https://my.visualstudio.com/Downloads?pid=1881) (if modifying any Crystal Reports)
-
-+ [Microsoft .NET Framework 4.5.2 Developer Pack](http://www.microsoft.com/en-us/download/details.aspx?id=42637)
 
 + [SAP Crystal Reports, developer version for Microsoft Visual Studio SP 20](http://downloads.businessobjects.com/akdlm/cr4vs2010/CRforVS_13_0_20.exe) and [Crystal Reports runtime engine SP 20](http://downloads.businessobjects.com/akdlm/cr4vs2010/CRforVS_redist_install_32bit_13_0_20.zip)
 

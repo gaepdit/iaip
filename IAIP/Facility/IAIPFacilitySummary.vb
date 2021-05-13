@@ -12,19 +12,19 @@ Public Class IAIPFacilitySummary
 #Region " Properties and fields "
 
     Private _airsNumber As ApbFacilityId
-    Public Property AirsNumber() As ApbFacilityId
+    Public Property AirsNumber As ApbFacilityId
         Get
             Return _airsNumber
         End Get
-        Set(value As ApbFacilityId)
-            _airsNumber = value
+        Set
+            _airsNumber = Value
             ReloadAllData()
         End Set
     End Property
 
-    Private ThisFacility As Facility
-    Private FacilitySummaryDataSet As DataSet
-    Private DataDates As DataRow
+    Private Property ThisFacility As Facility
+    Private Property FacilitySummaryDataSet As DataSet
+    Private Property DataDates As DataRow
     Private bgw As BackgroundWorker
 
     Friend Enum FacilityDataTable
@@ -65,26 +65,10 @@ Public Class IAIPFacilitySummary
         MyBase.OnLoad(e)
     End Sub
 
-    Private Sub IAIPFacilitySummary_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        'If AirsNumber Is Nothing Then
-        '    AirsNumberEntry.Focus()
-        'End If
-    End Sub
-
     Private Sub LoadPermissions()
-        ' TODO DWW: Better permissions definition
-
         ' Menu items
         UpdateEpaMenuItem.Available = CurrentUser.HasRole({19, 118})
-
-        CreateFacilityMenuItem.Available = (
-            AccountFormAccess(138, 0) IsNot Nothing AndAlso
-            AccountFormAccess(138, 0) = "138" AndAlso
-            (AccountFormAccess(138, 1) = "1" OrElse
-            AccountFormAccess(138, 2) = "1" OrElse
-            AccountFormAccess(138, 3) = "1" OrElse
-            AccountFormAccess(138, 4) = "1"))
-
+        CreateFacilityMenuItem.Available = CurrentUser.HasPermission(UserCan.CreateFacility)
         ToolsMenuSeparator.Visible = (CreateFacilityMenuItem.Available AndAlso UpdateEpaMenuItem.Available)
 
         ' Edit location/header data
@@ -261,9 +245,7 @@ Public Class IAIPFacilitySummary
                 If .County IsNot Nothing Then
                     MapCountyLink.Enabled = True
                 End If
-                LatLonDisplay.Text = .Latitude.ToString &
-                    ", " &
-                    .Longitude.ToString
+                LatLonDisplay.Text = .Latitude.ToString & ", " & .Longitude.ToString
                 If .Latitude.HasValue AndAlso .Longitude.HasValue Then
                     MapLatLonLink.Enabled = True
                 End If
@@ -285,7 +267,7 @@ Public Class IAIPFacilitySummary
             End With
 
             'Compliance Status
-            Dim enforcementCount As Integer = Sscp.GetOpenEnforcementCountForFacility(AirsNumber)
+            Dim enforcementCount As Integer = DAL.Sscp.GetOpenEnforcementCountForFacility(AirsNumber)
             If enforcementCount = 0 Then
                 ComplianceStatusDisplay.Text = "No open enforcement cases"
             ElseIf enforcementCount = 1 Then
@@ -395,16 +377,16 @@ Public Class IAIPFacilitySummary
 
         MapPictureBox.Visible = False
 
-        Dim StaticMapsUrl As New Text.StringBuilder("https://maps.googleapis.com/maps/api/staticmap?")
-        StaticMapsUrl.Append("key=" & GOOGLE_MAPS_API_KEY)
-        StaticMapsUrl.Append("&size=" & MapPictureBox.Width.ToString & "x" & MapPictureBox.Height.ToString)
-        StaticMapsUrl.Append("&zoom=6&center=32.9,-83.3")
+        Dim staticMapsUrl As New Text.StringBuilder("https://maps.googleapis.com/maps/api/staticmap?")
+        staticMapsUrl.Append("key=" & GOOGLE_MAPS_API_KEY)
+        staticMapsUrl.Append("&size=" & MapPictureBox.Width.ToString & "x" & MapPictureBox.Height.ToString)
+        staticMapsUrl.Append("&zoom=6&center=32.9,-83.3")
 
         With ThisFacility.FacilityLocation
             If .Latitude.HasValue AndAlso .Longitude.HasValue Then
-                StaticMapsUrl.Append("&markers=" & Math.Round(.Latitude.Value, 6).ToString & "," & Math.Round(.Longitude.Value, 6).ToString)
+                staticMapsUrl.Append("&markers=" & Math.Round(.Latitude.Value, 6).ToString & "," & Math.Round(.Longitude.Value, 6).ToString)
             ElseIf Not String.IsNullOrWhiteSpace(.Address.ToLinearString) Then
-                StaticMapsUrl.Append("&markers=" & .Address.ToLinearString)
+                staticMapsUrl.Append("&markers=" & .Address.ToLinearString)
             Else
                 Return
             End If
@@ -412,9 +394,9 @@ Public Class IAIPFacilitySummary
 
         MapPictureBox.Visible = True
 
-        Console.WriteLine(StaticMapsUrl.ToString)
+        Console.WriteLine(staticMapsUrl.ToString)
         Try
-            MapPictureBox.LoadAsync(StaticMapsUrl.ToString)
+            MapPictureBox.LoadAsync(staticMapsUrl.ToString)
         Catch ex As Exception
             ' Log error but don't display error to user
             ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name, False)
@@ -484,26 +466,26 @@ Public Class IAIPFacilitySummary
             HeaderDescDisplay.Text = .FacilityDescription
 
             'Air Programs
-            Dim tempAP As AirPrograms = .AirPrograms
+            Dim tempAp As AirPrograms = .AirPrograms
             With AirProgramsListBox.Items
                 .Clear()
-                If tempAP = AirPrograms.None Then
+                If tempAp = AirPrograms.None Then
                     .Add(AirPrograms.None.GetDescription)
                 Else
-                    If CBool(tempAP And AirPrograms.SIP) Then .Add(AirPrograms.SIP.GetDescription)
-                    If CBool(tempAP And AirPrograms.FederalSIP) Then AirProgramsListBox.Items.Add(AirPrograms.FederalSIP.GetDescription)
-                    If CBool(tempAP And AirPrograms.NonFederalSIP) Then AirProgramsListBox.Items.Add(AirPrograms.NonFederalSIP.GetDescription)
-                    If CBool(tempAP And AirPrograms.CfcTracking) Then AirProgramsListBox.Items.Add(AirPrograms.CfcTracking.GetDescription)
-                    If CBool(tempAP And AirPrograms.PSD) Then AirProgramsListBox.Items.Add(AirPrograms.PSD.GetDescription)
-                    If CBool(tempAP And AirPrograms.NSR) Then AirProgramsListBox.Items.Add(AirPrograms.NSR.GetDescription)
-                    If CBool(tempAP And AirPrograms.TitleV) Then AirProgramsListBox.Items.Add(AirPrograms.TitleV.GetDescription)
-                    If CBool(tempAP And AirPrograms.MACT) Then AirProgramsListBox.Items.Add(AirPrograms.MACT.GetDescription)
-                    If CBool(tempAP And AirPrograms.NESHAP) Then AirProgramsListBox.Items.Add(AirPrograms.NESHAP.GetDescription)
-                    If CBool(tempAP And AirPrograms.NSPS) Then AirProgramsListBox.Items.Add(AirPrograms.NSPS.GetDescription)
-                    If CBool(tempAP And AirPrograms.AcidPrecipitation) Then AirProgramsListBox.Items.Add(AirPrograms.AcidPrecipitation.GetDescription)
-                    If CBool(tempAP And AirPrograms.FESOP) Then AirProgramsListBox.Items.Add(AirPrograms.FESOP.GetDescription)
-                    If CBool(tempAP And AirPrograms.NativeAmerican) Then AirProgramsListBox.Items.Add(AirPrograms.NativeAmerican.GetDescription)
-                    If CBool(tempAP And AirPrograms.RMP) Then AirProgramsListBox.Items.Add(AirPrograms.RMP.GetDescription)
+                    If CBool(tempAp And AirPrograms.SIP) Then .Add(AirPrograms.SIP.GetDescription)
+                    If CBool(tempAp And AirPrograms.FederalSIP) Then AirProgramsListBox.Items.Add(AirPrograms.FederalSIP.GetDescription)
+                    If CBool(tempAp And AirPrograms.NonFederalSIP) Then AirProgramsListBox.Items.Add(AirPrograms.NonFederalSIP.GetDescription)
+                    If CBool(tempAp And AirPrograms.CfcTracking) Then AirProgramsListBox.Items.Add(AirPrograms.CfcTracking.GetDescription)
+                    If CBool(tempAp And AirPrograms.PSD) Then AirProgramsListBox.Items.Add(AirPrograms.PSD.GetDescription)
+                    If CBool(tempAp And AirPrograms.NSR) Then AirProgramsListBox.Items.Add(AirPrograms.NSR.GetDescription)
+                    If CBool(tempAp And AirPrograms.TitleV) Then AirProgramsListBox.Items.Add(AirPrograms.TitleV.GetDescription)
+                    If CBool(tempAp And AirPrograms.MACT) Then AirProgramsListBox.Items.Add(AirPrograms.MACT.GetDescription)
+                    If CBool(tempAp And AirPrograms.NESHAP) Then AirProgramsListBox.Items.Add(AirPrograms.NESHAP.GetDescription)
+                    If CBool(tempAp And AirPrograms.NSPS) Then AirProgramsListBox.Items.Add(AirPrograms.NSPS.GetDescription)
+                    If CBool(tempAp And AirPrograms.AcidPrecipitation) Then AirProgramsListBox.Items.Add(AirPrograms.AcidPrecipitation.GetDescription)
+                    If CBool(tempAp And AirPrograms.FESOP) Then AirProgramsListBox.Items.Add(AirPrograms.FESOP.GetDescription)
+                    If CBool(tempAp And AirPrograms.NativeAmerican) Then AirProgramsListBox.Items.Add(AirPrograms.NativeAmerican.GetDescription)
+                    If CBool(tempAp And AirPrograms.RMP) Then AirProgramsListBox.Items.Add(AirPrograms.RMP.GetDescription)
                 End If
             End With
 
@@ -649,36 +631,36 @@ Public Class IAIPFacilitySummary
 
 #Region " Grid Item events "
 
-    Private Sub OpenItem(dgv As IaipDataGridView, id As String)
+    Private Sub OpenItem(dgv As IaipDataGridView, itemId As String)
         Select Case dgv.Name
 
             ' Compliance
             Case ComplianceEnforcementGrid.Name
-                OpenFormEnforcement(id)
+                OpenFormEnforcement(itemId)
             Case ComplianceFceGrid.Name
-                OpenFormFce(AirsNumber, id)
+                OpenFormFce(AirsNumber, itemId)
             Case ComplianceWorkGrid.Name
-                OpenFormSscpWorkItem(id)
+                OpenFormSscpWorkItem(itemId)
 
                 ' Testing
             Case TestReportsGrid.Name
-                OpenFormTestReport(id)
+                OpenFormTestReport(itemId)
             Case TestNotificationsGrid.Name
-                OpenFormTestNotification(id)
+                OpenFormTestNotification(itemId)
             Case TestMemosGrid.Name
-                OpenFormTestMemo(id)
+                OpenFormTestMemo(itemId)
 
                 ' Permitting
             Case PermitApplicationGrid.Name
-                OpenFormPermitApplication(id)
+                OpenFormPermitApplication(itemId)
             Case PermitApplicationInvoicesGrid.Name
-                OpenInvoiceView(CInt(id))
+                OpenInvoiceView(CInt(itemId))
 
         End Select
     End Sub
 
     Private Sub InitializeGridEvents()
-        Dim GridsWithEvents As New List(Of IaipDataGridView) From {
+        Dim gridsWithEvents As New List(Of IaipDataGridView) From {
             ComplianceEnforcementGrid,
             ComplianceFceGrid,
             ComplianceWorkGrid,
@@ -689,7 +671,7 @@ Public Class IAIPFacilitySummary
             PermitApplicationInvoicesGrid
         }
 
-        For Each dgv As IaipDataGridView In GridsWithEvents
+        For Each dgv As IaipDataGridView In gridsWithEvents
             dgv.LinkifyFirstColumn = True
             AddHandler dgv.CellLinkActivated, AddressOf HandleGrid_CellLinkActivated
         Next
@@ -768,9 +750,9 @@ Public Class IAIPFacilitySummary
                 item.Key.DataBindings.Add(New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), item.Value))
             Next
 
-            Dim binding As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), "Date submitted")
-            AddHandler binding.Format, AddressOf BindingShortDate
-            FeeDateSubmitDisplay.DataBindings.Add(binding)
+            Dim feeDateBinding As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), "Date submitted")
+            AddHandler feeDateBinding.Format, AddressOf BindingShortDate
+            FeeDateSubmitDisplay.DataBindings.Add(feeDateBinding)
 
             Dim textBoxDataBindingsTons As New Dictionary(Of TextBox, String) From {
                 {FeeVocDisplay, "VOC tons"},
@@ -802,9 +784,9 @@ Public Class IAIPFacilitySummary
                 item.Key.DataBindings.Add(b)
             Next
 
-            binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), "Fee rate")
-            AddHandler binding.Format, AddressOf BindingFormatDollarsPerTon
-            FeeRateDisplay.DataBindings.Add(binding)
+            Dim feeRateBinding As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), "Fee rate")
+            AddHandler feeRateBinding.Format, AddressOf BindingFormatDollarsPerTon
+            FeeRateDisplay.DataBindings.Add(feeRateBinding)
 
             Dim checkBoxDataBindings As New Dictionary(Of CheckBox, String) From {
                 {FeeFacilityOperatingDisplay, "Operating"},
@@ -820,54 +802,50 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Sub BindingShortDate(sender As Object, cevent As ConvertEventArgs)
-        Dim d As Date? = DBUtilities.GetNullableDateTime(cevent.Value)
+    Private Sub BindingShortDate(sender As Object, e As ConvertEventArgs)
+        Dim d As Date? = DBUtilities.GetNullableDateTime(e.Value)
 
         If d.HasValue Then
-            cevent.Value = d.Value.ToString(DateFormat)
+            e.Value = d.Value.ToString(DateFormat)
         Else
-            cevent.Value = "Not Submitted"
+            e.Value = "Not Submitted"
         End If
     End Sub
 
-    Private Sub BindingFormatTons(sender As Object, cevent As ConvertEventArgs)
+    Private Sub BindingFormatTons(sender As Object, e As ConvertEventArgs)
         Dim num As Decimal = 0
-        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
+        e.Value = DBUtilities.GetNullable(Of String)(e.Value)
 
-        If Decimal.TryParse(cevent.Value.ToString, num) Then
-            cevent.Value = num.ToString("N0") & " ton"
-            If num <> 1 Then cevent.Value = cevent.Value.ToString & "s"
+        If Decimal.TryParse(e.Value.ToString, num) Then
+            e.Value = num.ToString("N0") & " ton"
+            If num <> 1 Then e.Value = e.Value.ToString & "s"
         End If
     End Sub
 
-    Private Sub BindingFormatDollars(sender As Object, cevent As ConvertEventArgs)
+    Private Sub BindingFormatDollars(sender As Object, e As ConvertEventArgs)
         Dim num As Decimal = 0
-        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
+        e.Value = DBUtilities.GetNullable(Of String)(e.Value)
 
-        If Decimal.TryParse(cevent.Value.ToString, num) Then
-            cevent.Value = "$" & num.ToString("N0")
+        If Decimal.TryParse(e.Value.ToString, num) Then
+            e.Value = "$" & num.ToString("N0")
         End If
     End Sub
 
-    Private Sub BindingFormatDollarsPerTon(sender As Object, cevent As ConvertEventArgs)
+    Private Sub BindingFormatDollarsPerTon(sender As Object, e As ConvertEventArgs)
         Dim num As Decimal = 0
-        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
+        e.Value = DBUtilities.GetNullable(Of String)(e.Value)
 
-        If Decimal.TryParse(cevent.Value.ToString, num) Then
-            cevent.Value = "$" & num.ToString("N2") & "/ton"
+        If Decimal.TryParse(e.Value.ToString, num) Then
+            e.Value = "$" & num.ToString("N2") & "/ton"
         End If
-    End Sub
-
-    Private Sub BindingFormatThreeWayBoolean(sender As Object, cevent As ConvertEventArgs)
-        cevent.Value = DBUtilities.GetNullable(Of Boolean?)(cevent.Value)
     End Sub
 
     Private Sub EditContactsButton_Click(sender As Object, e As EventArgs) Handles EditContactsButton.Click
         If AirsNumber IsNot Nothing Then
-            Dim parameters As New Dictionary(Of FormParameter, String)
-            parameters(FormParameter.AirsNumber) = AirsNumber.ShortString
-            parameters(FormParameter.FacilityName) = ThisFacility.FacilityName
-            OpenMultiForm(IAIPEditContacts, AirsNumber.ToInt, parameters)
+            Dim params As New Dictionary(Of FormParameter, String)
+            params(FormParameter.AirsNumber) = AirsNumber.ShortString
+            params(FormParameter.FacilityName) = ThisFacility.FacilityName
+            OpenMultiForm(IAIPEditContacts, AirsNumber.ToInt, params)
         End If
     End Sub
 
@@ -1026,8 +1004,8 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-    'Form overrides dispose to clean up the component list. 
-    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+    'Form overrides dispose to clean up the component list.
+    Protected Overrides Sub Dispose(disposing As Boolean)
         Try
             If disposing Then
                 If FacilitySummaryDataSet IsNot Nothing Then FacilitySummaryDataSet.Dispose()
