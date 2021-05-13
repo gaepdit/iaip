@@ -1,4 +1,4 @@
-Imports System.Collections.Generic
+﻿Imports System.Collections.Generic
 Imports System.Text.RegularExpressions
 
 Namespace Apb.Facilities
@@ -90,6 +90,9 @@ Namespace Apb.Facilities
                 Return dr.Item(1).ToString
             End Get
         End Property
+
+        Public Const NspsFeeExemptDesc As String = "NSPS Fee Exempt"
+        Public Property NspsFeeExempt As Boolean
 
         Public Property FacilityDescription As String
             Get

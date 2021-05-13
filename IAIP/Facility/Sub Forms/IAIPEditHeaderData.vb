@@ -89,6 +89,7 @@ Public Class IAIPEditHeaderData
 
         FacilityHistoryDataGridView.Columns("STRRMPID").Visible = False
         FacilityHistoryDataGridView.Columns("FacilityOwnershipTypeCode").Visible = False
+        FacilityHistoryDataGridView.Columns("NspsFeeExempt").Visible = False
         FacilityHistoryDataGridView.Columns("STRCMSMEMBER").Visible = False
         FacilityHistoryDataGridView.Columns("STRAIRSNUMBER").Visible = False
         FacilityHistoryDataGridView.Columns("STRAIRPROGRAMCODES").Visible = False
@@ -140,7 +141,7 @@ Public Class IAIPEditHeaderData
             NonattainmentStatuses,
             FacilityDescription,
             RmpId,
-            OwnershipGroupBox,
+            OtherGroupBox,
             Comments,
             SaveChangesButton,
             CancelEditButton
@@ -169,7 +170,7 @@ Public Class IAIPEditHeaderData
             NonattainmentStatuses,
             FacilityDescription,
             RmpId,
-            OwnershipGroupBox,
+            OtherGroupBox,
             Comments,
             SaveChangesButton,
             CancelEditButton
@@ -220,7 +221,7 @@ Public Class IAIPEditHeaderData
                 NonattainmentStatuses,
                 FacilityDescription,
                 RmpId,
-                OwnershipGroupBox
+                OtherGroupBox
             }
             If UserIsTryingToCloseFacility() Then
                 PreventControls(nonShutdownControls)
@@ -310,8 +311,9 @@ Public Class IAIPEditHeaderData
 
             ' Currently we are only tracking federally-owned facilities. Eventually 
             ' this could be expanded to use a drop-down with all ownership types.
-            FederallyOwned.Checked = CBool(.OwnershipTypeCode = FacilityHeaderData.FederallyOwnedTypeCode)
+            FederallyOwned.Checked = .OwnershipTypeCode = FacilityHeaderData.FederallyOwnedTypeCode
 
+            NspsFeeExempt.Checked = .NspsFeeExempt
             OneHourOzoneDropDown.SelectedValue = .OneHourOzoneNonAttainment
             EightHourOzoneDropDown.SelectedValue = .EightHourOzoneNonAttainment
             PmFineDropDown.SelectedValue = .PMFineNonAttainmentState
@@ -381,6 +383,7 @@ Public Class IAIPEditHeaderData
             ' Currently we are only tracking federally-owned facilities, represented by this OwnershipTypeCode
             .OwnershipTypeCode = If(FederallyOwned.Checked, FacilityHeaderData.FederallyOwnedTypeCode, Nothing)
 
+            .NspsFeeExempt = NspsFeeExempt.Checked
             .OneHourOzoneNonAttainment = CType(OneHourOzoneDropDown.SelectedValue, OneHourOzoneNonattainmentStatus)
             .EightHourOzoneNonAttainment = CType(EightHourOzoneDropDown.SelectedValue, EightHourOzoneNonattainmentStatus)
             .PMFineNonAttainmentState = CType(PmFineDropDown.SelectedValue, PMFineNonattainmentStatus)
@@ -437,6 +440,7 @@ Public Class IAIPEditHeaderData
         If facility1.OperationalStatusCode <> facility2.OperationalStatusCode Then Return True
         If facility1.RmpId <> facility2.RmpId Then Return True
         If facility1.OwnershipTypeCode <> facility2.OwnershipTypeCode Then Return True
+        If facility1.NspsFeeExempt = Not facility2.NspsFeeExempt Then Return True
         If Not Nullable.Equals(facility1.ShutdownDate, facility2.ShutdownDate) Then Return True
         If facility1.SicCode <> facility2.SicCode Then Return True
         If Not Nullable.Equals(facility1.StartupDate, facility2.StartupDate) Then Return True
@@ -552,8 +556,7 @@ Public Class IAIPEditHeaderData
                                               editedFacility.HeaderUpdateComment,
                                               HeaderDataModificationLocation.HeaderDataEditor)
             Else
-                result = DAL.SaveFacilityHeaderData(editedFacility,
-                                                    HeaderDataModificationLocation.HeaderDataEditor)
+                result = DAL.SaveFacilityHeaderData(editedFacility, HeaderDataModificationLocation.HeaderDataEditor)
             End If
 
             If result Then

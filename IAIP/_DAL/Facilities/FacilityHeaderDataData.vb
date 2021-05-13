@@ -89,6 +89,7 @@ Namespace DAL
                 .Naics = DBUtilities.GetNullable(Of String)(row("STRNAICSCODE"))
                 .RmpId = DBUtilities.GetNullable(Of String)(row("STRRMPID"))
                 .OwnershipTypeCode = DBUtilities.GetNullableString(row("FacilityOwnershipTypeCode"))
+                .NspsFeeExempt = row("NspsFeeExempt")
                 .FacilityDescription = DBUtilities.GetNullable(Of String)(row("STRPLANTDESCRIPTION"))
                 .AirProgramsCode = DBUtilities.GetNullable(Of String)(row("STRAIRPROGRAMCODES"))
                 .AirProgramClassificationsCode = DBUtilities.GetNullable(Of String)(row("STRSTATEPROGRAMCODES"))
@@ -176,6 +177,7 @@ Namespace DAL
                 New SqlParameter("@fromLocation", Convert.ToInt32(fromLocation)),
                 New SqlParameter("@rmpId", headerData.RmpId),
                 New SqlParameter("@facilityOwnershipTypeCode", headerData.OwnershipTypeCode),
+                New SqlParameter("@nspsFeeExempt", headerData.NspsFeeExempt),
                 New SqlParameter("@modifiedBy", CurrentUser.UserID)
             }
 

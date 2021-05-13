@@ -507,6 +507,12 @@ Public Class IAIPFacilitySummary
                 End If
             End If
 
+            'Other Header Data
+            OtherHeaderDataListBox.Items.Clear()
+            If .NspsFeeExempt Then
+                OtherHeaderDataListBox.Items.Add(FacilityHeaderData.NspsFeeExemptDesc)
+            End If
+
             'Nonattainment
             OneHourOzoneDisplay.Text = .OneHourOzoneNonAttainment.ToString
             EightHourOzoneDisplay.Text = .EightHourOzoneNonAttainment.ToString

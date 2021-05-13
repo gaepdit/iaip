@@ -244,6 +244,8 @@ Partial Class IAIPFacilitySummary
         Me.UpdateEpaMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OtherHeaderData = New System.Windows.Forms.GroupBox()
+        Me.OtherHeaderDataListBox = New System.Windows.Forms.ListBox()
         Me.NavigationPanel.SuspendLayout()
         Me.FSMainTabControl.SuspendLayout()
         Me.FSInfo.SuspendLayout()
@@ -316,6 +318,7 @@ Partial Class IAIPFacilitySummary
         Me.TpEiPre2009.SuspendLayout()
         CType(Me.EiPre2009Grid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FSMenuStrip.SuspendLayout()
+        Me.OtherHeaderData.SuspendLayout()
         Me.SuspendLayout()
         '
         'NavigationPanel
@@ -872,6 +875,7 @@ Partial Class IAIPFacilitySummary
         '
         'FSHeaderData
         '
+        Me.FSHeaderData.Controls.Add(Me.OtherHeaderData)
         Me.FSHeaderData.Controls.Add(Me.ProgramClassificationsGroupBox)
         Me.FSHeaderData.Controls.Add(Me.AirProgramsGroupBox)
         Me.FSHeaderData.Controls.Add(Me.lblOwnership)
@@ -910,7 +914,7 @@ Partial Class IAIPFacilitySummary
         Me.ProgramClassificationsGroupBox.ForeColor = System.Drawing.SystemColors.GrayText
         Me.ProgramClassificationsGroupBox.Location = New System.Drawing.Point(306, 189)
         Me.ProgramClassificationsGroupBox.Name = "ProgramClassificationsGroupBox"
-        Me.ProgramClassificationsGroupBox.Size = New System.Drawing.Size(253, 68)
+        Me.ProgramClassificationsGroupBox.Size = New System.Drawing.Size(253, 55)
         Me.ProgramClassificationsGroupBox.TabIndex = 13
         Me.ProgramClassificationsGroupBox.TabStop = False
         Me.ProgramClassificationsGroupBox.Text = "Program Classifications"
@@ -923,7 +927,7 @@ Partial Class IAIPFacilitySummary
         Me.ProgramClassificationsListBox.Location = New System.Drawing.Point(6, 19)
         Me.ProgramClassificationsListBox.Name = "ProgramClassificationsListBox"
         Me.ProgramClassificationsListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.ProgramClassificationsListBox.Size = New System.Drawing.Size(145, 39)
+        Me.ProgramClassificationsListBox.Size = New System.Drawing.Size(145, 26)
         Me.ProgramClassificationsListBox.TabIndex = 0
         '
         'AirProgramsGroupBox
@@ -1101,7 +1105,7 @@ Partial Class IAIPFacilitySummary
         Me.NonattainmentStatuses.Controls.Add(Me.EightHourOzoneDisplay)
         Me.NonattainmentStatuses.Controls.Add(Me.OneHourOzoneDisplay)
         Me.NonattainmentStatuses.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.NonattainmentStatuses.Location = New System.Drawing.Point(306, 263)
+        Me.NonattainmentStatuses.Location = New System.Drawing.Point(306, 250)
         Me.NonattainmentStatuses.Name = "NonattainmentStatuses"
         Me.NonattainmentStatuses.Size = New System.Drawing.Size(253, 90)
         Me.NonattainmentStatuses.TabIndex = 14
@@ -2806,7 +2810,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CreateFacilityMenuItem, Me.ToolsMenuSeparator, Me.UpdateEpaMenuItem})
         Me.ToolsMenu.Name = "ToolsMenu"
-        Me.ToolsMenu.Size = New System.Drawing.Size(47, 20)
+        Me.ToolsMenu.Size = New System.Drawing.Size(46, 20)
         Me.ToolsMenu.Text = "&Tools"
         '
         'CreateFacilityMenuItem
@@ -2839,6 +2843,27 @@ Partial Class IAIPFacilitySummary
         Me.HelpMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.H), System.Windows.Forms.Keys)
         Me.HelpMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.HelpMenuItem.Text = "Online &Help"
+        '
+        'OtherHeaderData
+        '
+        Me.OtherHeaderData.Controls.Add(Me.OtherHeaderDataListBox)
+        Me.OtherHeaderData.Location = New System.Drawing.Point(306, 347)
+        Me.OtherHeaderData.Name = "OtherHeaderData"
+        Me.OtherHeaderData.Size = New System.Drawing.Size(252, 55)
+        Me.OtherHeaderData.TabIndex = 352
+        Me.OtherHeaderData.TabStop = False
+        Me.OtherHeaderData.Text = "Other"
+        '
+        'OtherHeaderDataListBox
+        '
+        Me.OtherHeaderDataListBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.OtherHeaderDataListBox.FormattingEnabled = True
+        Me.OtherHeaderDataListBox.Items.AddRange(New Object() {"NSR/PSD Major", "HAPs Major"})
+        Me.OtherHeaderDataListBox.Location = New System.Drawing.Point(6, 19)
+        Me.OtherHeaderDataListBox.Name = "OtherHeaderDataListBox"
+        Me.OtherHeaderDataListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
+        Me.OtherHeaderDataListBox.Size = New System.Drawing.Size(145, 26)
+        Me.OtherHeaderDataListBox.TabIndex = 0
         '
         'IAIPFacilitySummary
         '
@@ -2935,6 +2960,7 @@ Partial Class IAIPFacilitySummary
         CType(Me.EiPre2009Grid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FSMenuStrip.ResumeLayout(False)
         Me.FSMenuStrip.PerformLayout()
+        Me.OtherHeaderData.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3132,4 +3158,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents FeeStatusGroupBox As GroupBox
     Friend WithEvents FeePart70MaintDisplay As TextBox
     Friend WithEvents Label2 As Label
+    Friend WithEvents OtherHeaderData As GroupBox
+    Friend WithEvents OtherHeaderDataListBox As ListBox
 End Class
