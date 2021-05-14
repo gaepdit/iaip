@@ -1,3 +1,7 @@
+# Air Program Codes
+
+Facility air programs are stored in the database in `APBHEADERDATA.STRAIRPROGRAMCODES` as a 15-character coded string. In the IAIP, these are transformed into the `FacilityEnums.AirPrograms` Flag Enum
+
 | Bit | Legacy | Desc                 | New      | In use |
 |-----|--------|----------------------|----------|--------|
 | 1   | 0      | SIP                  | CAASIP   | Y      |
