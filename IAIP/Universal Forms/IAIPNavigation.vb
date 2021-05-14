@@ -254,7 +254,8 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessButton_Click(sender As Object, e As EventArgs) _
-    Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenSscpItem.Click, btnOpenSbeapClient.Click, btnOpenSbeapCaseLog.Click, btnOpenEnforcement.Click, btnOpenApplication.Click
+    Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenSscpItem.Click,
+    btnOpenSbeapClient.Click, btnOpenSbeapCaseLog.Click, btnOpenEnforcement.Click, btnOpenApplication.Click
         Cursor = Cursors.WaitCursor
 
         Dim thisButton As Button = CType(sender, Button)

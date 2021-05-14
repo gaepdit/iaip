@@ -13,3 +13,9 @@ dotnet_diagnostic.S1075.severity = none
 
 # BC42016: Implicit conversion
 dotnet_diagnostic.BC42016.severity = none
+
+[*.vb]
+
+# S927: Parameter names should match base declaration
+# Doesn't work in VB since names are not case sensitive
+dotnet_diagnostic.S927.severity = none
