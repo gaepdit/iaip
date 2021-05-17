@@ -20,7 +20,7 @@ Namespace DAL
             If sicCode Is Nothing OrElse String.IsNullOrEmpty(sicCode) Then Return False
             If Not Regex.IsMatch(sicCode, SicCodePattern) Then Return False
 
-            Dim spName As String = "iaip_facility.IsSicValid"
+            Const spName As String = "iaip_facility.IsSicValid"
             Dim parameter As New SqlParameter("@sic_code", sicCode)
 
             Return DB.SPGetBoolean(spName, parameter)
@@ -37,7 +37,7 @@ Namespace DAL
             If naicsCode Is Nothing OrElse String.IsNullOrEmpty(naicsCode) Then Return allowEmpty
             If Not Regex.IsMatch(naicsCode, NaicsCodePattern) Then Return False
 
-            Dim spName As String = "iaip_facility.IsNaicsValid"
+            Const spName As String = "iaip_facility.IsNaicsValid"
             Dim parameter As New SqlParameter("@naics_code", naicsCode)
 
             Return DB.SPGetBoolean(spName, parameter)
@@ -54,7 +54,7 @@ Namespace DAL
         ''' <returns>DataRow containing header data for the specified facility</returns>
         ''' <remarks>Data retrieved from VW_FACILITY_HEADERDATA view.</remarks>
         Public Function GetFacilityHeaderDataAsDataRow(airsNumber As ApbFacilityId) As DataRow
-            Dim spName As String = "iaip_facility.GetFacilityHeaderData"
+            Const spName As String = "iaip_facility.GetFacilityHeaderData"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataRow(spName, parameter)
         End Function
@@ -89,6 +89,7 @@ Namespace DAL
                 .Naics = DBUtilities.GetNullable(Of String)(row("STRNAICSCODE"))
                 .RmpId = DBUtilities.GetNullable(Of String)(row("STRRMPID"))
                 .OwnershipTypeCode = DBUtilities.GetNullableString(row("FacilityOwnershipTypeCode"))
+                .NspsFeeExempt = row("NspsFeeExempt")
                 .FacilityDescription = DBUtilities.GetNullable(Of String)(row("STRPLANTDESCRIPTION"))
                 .AirProgramsCode = DBUtilities.GetNullable(Of String)(row("STRAIRPROGRAMCODES"))
                 .AirProgramClassificationsCode = DBUtilities.GetNullable(Of String)(row("STRSTATEPROGRAMCODES"))
@@ -108,13 +109,13 @@ Namespace DAL
         ''' <returns>A DataTable of historical header data for the specified facility</returns>
         ''' <remarks>Data retrieved from VW_HB_APBHEADERDATA view.</remarks>
         Public Function GetFacilityHeaderDataHistoryAsDataTable(airsNumber As ApbFacilityId) As DataTable
-            Dim spName As String = "iaip_facility.GetFacilityHeaderDataHistory"
+            Const spName As String = "iaip_facility.GetFacilityHeaderDataHistory"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
         Public Function GetFacilityOperationalStatus(airsNumber As ApbFacilityId) As FacilityOperationalStatus
-            Dim query As String = "SELECT STROPERATIONALSTATUS FROM APBHEADERDATA WHERE STRAIRSNUMBER = @airsNumber"
+            Const query As String = "SELECT STROPERATIONALSTATUS FROM APBHEADERDATA WHERE STRAIRSNUMBER = @airsNumber"
             Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
             Return [Enum].Parse(GetType(FacilityOperationalStatus), DB.GetString(query, parameter))
         End Function
@@ -142,7 +143,7 @@ Namespace DAL
             '  4. For any inactive APC, change any existing subparts in ApbSubpartData to inactive
             '  5. Change update status in AfsAirPollutantData to 'C' where currently 'N'
 
-            Dim spName As String = "iaip_facility.UpdateFacilityHeaderData"
+            Const spName As String = "iaip_facility.UpdateFacilityHeaderData"
 
             ' Build active and inactive apc lists...
             Dim activeApcList As New List(Of String)
@@ -176,6 +177,7 @@ Namespace DAL
                 New SqlParameter("@fromLocation", Convert.ToInt32(fromLocation)),
                 New SqlParameter("@rmpId", headerData.RmpId),
                 New SqlParameter("@facilityOwnershipTypeCode", headerData.OwnershipTypeCode),
+                New SqlParameter("@nspsFeeExempt", headerData.NspsFeeExempt),
                 New SqlParameter("@modifiedBy", CurrentUser.UserID)
             }
 

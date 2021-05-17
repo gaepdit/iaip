@@ -387,10 +387,13 @@ Partial Class SSPPApplicationTrackingLog
         Me.lblSSCPUnit = New System.Windows.Forms.Label()
         Me.cboSSCPUnits = New System.Windows.Forms.ComboBox()
         Me.TPOtherInfo = New System.Windows.Forms.TabPage()
+        Me.OtherInfoGroup = New System.Windows.Forms.GroupBox()
+        Me.chbNspsFeeExempt = New System.Windows.Forms.CheckBox()
+        Me.chbFederallyOwned = New System.Windows.Forms.CheckBox()
+        Me.chbConfidential = New System.Windows.Forms.CheckBox()
         Me.GBSignificationComments = New System.Windows.Forms.GroupBox()
         Me.txtSignificantComments = New System.Windows.Forms.TextBox()
         Me.ApplicableRulesGroup = New System.Windows.Forms.GroupBox()
-        Me.chbConfidential = New System.Windows.Forms.CheckBox()
         Me.chbPal = New System.Windows.Forms.CheckBox()
         Me.chbRuleyy = New System.Windows.Forms.CheckBox()
         Me.chbRulett = New System.Windows.Forms.CheckBox()
@@ -410,7 +413,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.lblPNReady = New System.Windows.Forms.Label()
         Me.lblReceived = New System.Windows.Forms.Label()
         Me.GBOther = New System.Windows.Forms.GroupBox()
-        Me.chbFederallyOwned = New System.Windows.Forms.CheckBox()
         Me.chbHAPsMajor = New System.Windows.Forms.CheckBox()
         Me.chbNSRMajor = New System.Windows.Forms.CheckBox()
         Me.lblPermitNumber = New System.Windows.Forms.Label()
@@ -585,6 +587,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel5.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.TPOtherInfo.SuspendLayout()
+        Me.OtherInfoGroup.SuspendLayout()
         Me.GBSignificationComments.SuspendLayout()
         Me.ApplicableRulesGroup.SuspendLayout()
         Me.TPTrackingLog.SuspendLayout()
@@ -4529,6 +4532,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'TPOtherInfo
         '
+        Me.TPOtherInfo.Controls.Add(Me.OtherInfoGroup)
         Me.TPOtherInfo.Controls.Add(Me.GBSignificationComments)
         Me.TPOtherInfo.Controls.Add(Me.ApplicableRulesGroup)
         Me.TPOtherInfo.Location = New System.Drawing.Point(4, 22)
@@ -4537,6 +4541,49 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPOtherInfo.TabIndex = 5
         Me.TPOtherInfo.Text = "Other Information"
         Me.TPOtherInfo.UseVisualStyleBackColor = True
+        '
+        'OtherInfoGroup
+        '
+        Me.OtherInfoGroup.Controls.Add(Me.chbNspsFeeExempt)
+        Me.OtherInfoGroup.Controls.Add(Me.chbFederallyOwned)
+        Me.OtherInfoGroup.Controls.Add(Me.chbConfidential)
+        Me.OtherInfoGroup.Location = New System.Drawing.Point(3, 150)
+        Me.OtherInfoGroup.Name = "OtherInfoGroup"
+        Me.OtherInfoGroup.Size = New System.Drawing.Size(189, 87)
+        Me.OtherInfoGroup.TabIndex = 2
+        Me.OtherInfoGroup.TabStop = False
+        Me.OtherInfoGroup.Text = "Other Information"
+        '
+        'chbNspsFeeExempt
+        '
+        Me.chbNspsFeeExempt.AutoSize = True
+        Me.chbNspsFeeExempt.Location = New System.Drawing.Point(6, 55)
+        Me.chbNspsFeeExempt.Name = "chbNspsFeeExempt"
+        Me.chbNspsFeeExempt.Size = New System.Drawing.Size(114, 17)
+        Me.chbNspsFeeExempt.TabIndex = 8
+        Me.chbNspsFeeExempt.Text = "NSPS Fee Exempt"
+        Me.chbNspsFeeExempt.UseVisualStyleBackColor = True
+        '
+        'chbFederallyOwned
+        '
+        Me.chbFederallyOwned.AutoSize = True
+        Me.chbFederallyOwned.Location = New System.Drawing.Point(6, 37)
+        Me.chbFederallyOwned.Name = "chbFederallyOwned"
+        Me.chbFederallyOwned.Size = New System.Drawing.Size(135, 17)
+        Me.chbFederallyOwned.TabIndex = 8
+        Me.chbFederallyOwned.Text = "Federally-owned facility"
+        Me.chbFederallyOwned.UseVisualStyleBackColor = True
+        '
+        'chbConfidential
+        '
+        Me.chbConfidential.AutoSize = True
+        Me.chbConfidential.Enabled = False
+        Me.chbConfidential.Location = New System.Drawing.Point(6, 19)
+        Me.chbConfidential.Name = "chbConfidential"
+        Me.chbConfidential.Size = New System.Drawing.Size(183, 17)
+        Me.chbConfidential.TabIndex = 7
+        Me.chbConfidential.Text = "Confidential information submitted"
+        Me.chbConfidential.UseVisualStyleBackColor = True
         '
         'GBSignificationComments
         '
@@ -4562,7 +4609,6 @@ Partial Class SSPPApplicationTrackingLog
         '
         'ApplicableRulesGroup
         '
-        Me.ApplicableRulesGroup.Controls.Add(Me.chbConfidential)
         Me.ApplicableRulesGroup.Controls.Add(Me.chbPal)
         Me.ApplicableRulesGroup.Controls.Add(Me.chbRuleyy)
         Me.ApplicableRulesGroup.Controls.Add(Me.chbRulett)
@@ -4571,21 +4617,10 @@ Partial Class SSPPApplicationTrackingLog
         Me.ApplicableRulesGroup.Controls.Add(Me.chbPSD)
         Me.ApplicableRulesGroup.Location = New System.Drawing.Point(3, 3)
         Me.ApplicableRulesGroup.Name = "ApplicableRulesGroup"
-        Me.ApplicableRulesGroup.Size = New System.Drawing.Size(189, 165)
+        Me.ApplicableRulesGroup.Size = New System.Drawing.Size(189, 141)
         Me.ApplicableRulesGroup.TabIndex = 0
         Me.ApplicableRulesGroup.TabStop = False
         Me.ApplicableRulesGroup.Text = "Applicable Rules"
-        '
-        'chbConfidential
-        '
-        Me.chbConfidential.AutoSize = True
-        Me.chbConfidential.Enabled = False
-        Me.chbConfidential.Location = New System.Drawing.Point(6, 130)
-        Me.chbConfidential.Name = "chbConfidential"
-        Me.chbConfidential.Size = New System.Drawing.Size(183, 17)
-        Me.chbConfidential.TabIndex = 7
-        Me.chbConfidential.Text = "Confidential information submitted"
-        Me.chbConfidential.UseVisualStyleBackColor = True
         '
         'chbPal
         '
@@ -4829,32 +4864,21 @@ Partial Class SSPPApplicationTrackingLog
         '
         'GBOther
         '
-        Me.GBOther.Controls.Add(Me.chbFederallyOwned)
         Me.GBOther.Controls.Add(Me.chbHAPsMajor)
         Me.GBOther.Controls.Add(Me.chbNSRMajor)
         Me.GBOther.Location = New System.Drawing.Point(639, 326)
         Me.GBOther.Name = "GBOther"
-        Me.GBOther.Size = New System.Drawing.Size(136, 82)
+        Me.GBOther.Size = New System.Drawing.Size(136, 64)
         Me.GBOther.TabIndex = 39
         Me.GBOther.TabStop = False
         Me.GBOther.Text = "Other"
-        '
-        'chbFederallyOwned
-        '
-        Me.chbFederallyOwned.AutoSize = True
-        Me.chbFederallyOwned.Location = New System.Drawing.Point(6, 19)
-        Me.chbFederallyOwned.Name = "chbFederallyOwned"
-        Me.chbFederallyOwned.Size = New System.Drawing.Size(135, 17)
-        Me.chbFederallyOwned.TabIndex = 0
-        Me.chbFederallyOwned.Text = "Federally-owned facility"
-        Me.chbFederallyOwned.UseVisualStyleBackColor = True
         '
         'chbHAPsMajor
         '
         Me.chbHAPsMajor.AutoSize = True
         Me.chbHAPsMajor.Enabled = False
         Me.chbHAPsMajor.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbHAPsMajor.Location = New System.Drawing.Point(6, 59)
+        Me.chbHAPsMajor.Location = New System.Drawing.Point(6, 38)
         Me.chbHAPsMajor.Margin = New System.Windows.Forms.Padding(2)
         Me.chbHAPsMajor.Name = "chbHAPsMajor"
         Me.chbHAPsMajor.Size = New System.Drawing.Size(82, 17)
@@ -4866,7 +4890,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbNSRMajor.AutoSize = True
         Me.chbNSRMajor.Enabled = False
         Me.chbNSRMajor.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbNSRMajor.Location = New System.Drawing.Point(6, 39)
+        Me.chbNSRMajor.Location = New System.Drawing.Point(6, 18)
         Me.chbNSRMajor.Margin = New System.Windows.Forms.Padding(2)
         Me.chbNSRMajor.Name = "chbNSRMajor"
         Me.chbNSRMajor.Size = New System.Drawing.Size(105, 17)
@@ -6274,6 +6298,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.TPOtherInfo.ResumeLayout(False)
+        Me.OtherInfoGroup.ResumeLayout(False)
+        Me.OtherInfoGroup.PerformLayout()
         Me.GBSignificationComments.ResumeLayout(False)
         Me.GBSignificationComments.PerformLayout()
         Me.ApplicableRulesGroup.ResumeLayout(False)
@@ -6770,7 +6796,6 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents chbConfidential As System.Windows.Forms.CheckBox
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents SaveButton As System.Windows.Forms.ToolStripButton
-    Friend WithEvents chbFederallyOwned As CheckBox
     Friend WithEvents HeaderPanel As Panel
     Friend WithEvents Label1 As Label
     Friend WithEvents Label3 As Label
@@ -6812,4 +6837,7 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Panel1 As Panel
     Friend WithEvents txtContactPhoneNumber As TextBox
+    Friend WithEvents OtherInfoGroup As GroupBox
+    Friend WithEvents chbNspsFeeExempt As CheckBox
+    Friend WithEvents chbFederallyOwned As CheckBox
 End Class

@@ -8,20 +8,19 @@ Public Class IAIPEditHeaderData
 
 #Region " Form properties and variables "
 
-    Public Property AirsNumber() As ApbFacilityId
-    Public Property FacilityName() As String
-    Public Property SomethingWasSaved() As Boolean
-
-    Private FacilityHeaderDataHistory As DataTable
-    Private CurrentFacilityHeaderData As FacilityHeaderData
+    Public Property AirsNumber As ApbFacilityId
+    Public Property FacilityName As String
+    Public Property SomethingWasSaved As Boolean
+    Private Property FacilityHeaderDataHistory As DataTable
+    Private Property CurrentFacilityHeaderData As FacilityHeaderData
 
 #End Region
 
 #Region " Form Load "
 
     Private Sub IAIPEditHeaderData_Load(sender As Object, e As EventArgs) Handles Me.Load
-        AirsNumberDisplay.Text = Me.AirsNumber.FormattedString
-        FacilityNameDisplay.Text = Me.FacilityName
+        AirsNumberDisplay.Text = AirsNumber.FormattedString
+        FacilityNameDisplay.Text = FacilityName
 
         DisableEditing()
         PreloadComboBoxes()
@@ -90,6 +89,7 @@ Public Class IAIPEditHeaderData
 
         FacilityHistoryDataGridView.Columns("STRRMPID").Visible = False
         FacilityHistoryDataGridView.Columns("FacilityOwnershipTypeCode").Visible = False
+        FacilityHistoryDataGridView.Columns("NspsFeeExempt").Visible = False
         FacilityHistoryDataGridView.Columns("STRCMSMEMBER").Visible = False
         FacilityHistoryDataGridView.Columns("STRAIRSNUMBER").Visible = False
         FacilityHistoryDataGridView.Columns("STRAIRPROGRAMCODES").Visible = False
@@ -130,7 +130,7 @@ Public Class IAIPEditHeaderData
         DisplayFacilityData(CurrentFacilityHeaderData)
         Comments.Clear()
 
-        Dim EditableControls As Control() = {
+        Dim editableControls As Control() = {
             ClassificationDropDown,
             OperationalDropDown,
             SicCode,
@@ -141,12 +141,12 @@ Public Class IAIPEditHeaderData
             NonattainmentStatuses,
             FacilityDescription,
             RmpId,
-            OwnershipGroupBox,
+            OtherGroupBox,
             Comments,
             SaveChangesButton,
             CancelEditButton
         }
-        AllowControls(EditableControls)
+        AllowControls(editableControls)
 
         If CurrentFacilityHeaderData.OperationalStatus = FacilityOperationalStatus.X Then
             OperationalDropDown.Enabled = False
@@ -158,7 +158,7 @@ Public Class IAIPEditHeaderData
     Private Sub DisableEditing()
         ResetControlHighlights()
 
-        Dim EditableControls As Control() = {
+        Dim editableControls As Control() = {
             ClassificationDropDown,
             OperationalDropDown,
             SicCode,
@@ -170,12 +170,12 @@ Public Class IAIPEditHeaderData
             NonattainmentStatuses,
             FacilityDescription,
             RmpId,
-            OwnershipGroupBox,
+            OtherGroupBox,
             Comments,
             SaveChangesButton,
             CancelEditButton
         }
-        PreventControls(EditableControls)
+        PreventControls(editableControls)
 
         FacilityHistoryDataGridView.Enabled = True
     End Sub
@@ -211,7 +211,7 @@ Public Class IAIPEditHeaderData
 
     Private Sub OperationalDropDown_SelectedIndexChanged(sender As Object, e As EventArgs) Handles OperationalDropDown.SelectedIndexChanged
         If EditData.Checked Then
-            Dim NonShutdownControls As Control() = {
+            Dim nonShutdownControls As Control() = {
                 ClassificationDropDown,
                 SicCode,
                 StartUpDate,
@@ -221,10 +221,10 @@ Public Class IAIPEditHeaderData
                 NonattainmentStatuses,
                 FacilityDescription,
                 RmpId,
-                OwnershipGroupBox
+                OtherGroupBox
             }
             If UserIsTryingToCloseFacility() Then
-                PreventControls(NonShutdownControls)
+                PreventControls(nonShutdownControls)
                 ShutdownDate.Checked = True
                 ShutdownDate.Enabled = True
                 ModifiedDescDisplay.Text = "When changing operating status to Closed/Dismantled, " &
@@ -234,7 +234,7 @@ Public Class IAIPEditHeaderData
                 ModifiedDescDisplay.BackColor = Color.Yellow
             Else
                 ResetControlHighlights()
-                AllowControls(NonShutdownControls)
+                AllowControls(nonShutdownControls)
                 ShutdownDate.Checked = False
                 ShutdownDate.Enabled = False
                 ModifiedDescDisplay.Text = "Editing current facility data."
@@ -311,8 +311,9 @@ Public Class IAIPEditHeaderData
 
             ' Currently we are only tracking federally-owned facilities. Eventually 
             ' this could be expanded to use a drop-down with all ownership types.
-            FederallyOwned.Checked = CBool(.OwnershipTypeCode = FacilityHeaderData.FederallyOwnedTypeCode)
+            FederallyOwned.Checked = .OwnershipTypeCode = FacilityHeaderData.FederallyOwnedTypeCode
 
+            NspsFeeExempt.Checked = .NspsFeeExempt
             OneHourOzoneDropDown.SelectedValue = .OneHourOzoneNonAttainment
             EightHourOzoneDropDown.SelectedValue = .EightHourOzoneNonAttainment
             PmFineDropDown.SelectedValue = .PMFineNonAttainmentState
@@ -382,6 +383,7 @@ Public Class IAIPEditHeaderData
             ' Currently we are only tracking federally-owned facilities, represented by this OwnershipTypeCode
             .OwnershipTypeCode = If(FederallyOwned.Checked, FacilityHeaderData.FederallyOwnedTypeCode, Nothing)
 
+            .NspsFeeExempt = NspsFeeExempt.Checked
             .OneHourOzoneNonAttainment = CType(OneHourOzoneDropDown.SelectedValue, OneHourOzoneNonattainmentStatus)
             .EightHourOzoneNonAttainment = CType(EightHourOzoneDropDown.SelectedValue, EightHourOzoneNonattainmentStatus)
             .PMFineNonAttainmentState = CType(PmFineDropDown.SelectedValue, PMFineNonattainmentStatus)
@@ -438,6 +440,7 @@ Public Class IAIPEditHeaderData
         If facility1.OperationalStatusCode <> facility2.OperationalStatusCode Then Return True
         If facility1.RmpId <> facility2.RmpId Then Return True
         If facility1.OwnershipTypeCode <> facility2.OwnershipTypeCode Then Return True
+        If facility1.NspsFeeExempt = Not facility2.NspsFeeExempt Then Return True
         If Not Nullable.Equals(facility1.ShutdownDate, facility2.ShutdownDate) Then Return True
         If facility1.SicCode <> facility2.SicCode Then Return True
         If Not Nullable.Equals(facility1.StartupDate, facility2.StartupDate) Then Return True
@@ -520,7 +523,7 @@ Public Class IAIPEditHeaderData
     End Function
 
     Private Sub ResetControlHighlights()
-        Dim resetableControls As New List(Of Control)(New Control() {
+        Dim controlsToReset As New List(Of Control)(New Control() {
           ClassificationLabel,
           OperationalStatusLabel,
           SicCodeLabel,
@@ -532,7 +535,7 @@ Public Class IAIPEditHeaderData
           RmpIdLabel
         })
 
-        For Each c As Control In resetableControls
+        For Each c As Control In controlsToReset
             c.BackColor = SystemColors.Control
         Next
     End Sub
@@ -553,18 +556,17 @@ Public Class IAIPEditHeaderData
                                               editedFacility.HeaderUpdateComment,
                                               HeaderDataModificationLocation.HeaderDataEditor)
             Else
-                result = DAL.SaveFacilityHeaderData(editedFacility,
-                                                    HeaderDataModificationLocation.HeaderDataEditor)
+                result = DAL.SaveFacilityHeaderData(editedFacility, HeaderDataModificationLocation.HeaderDataEditor)
             End If
 
             If result Then
                 ' If successful, report back to Facility Summary 
-                Me.SomethingWasSaved = True
+                SomethingWasSaved = True
 
                 ' replace local variable with current facility data
                 CurrentFacilityHeaderData = editedFacility
 
-                ' Add to datagridview
+                ' Add to gridview
                 Dim currentData As DataRow = DAL.GetFacilityHeaderDataAsDataRow(AirsNumber)
                 currentData.Table.Columns("STRKEY").ReadOnly = False
                 currentData.Item("STRKEY") = Convert.ToInt32(FacilityHeaderDataHistory.AsEnumerable().Max(Function(row) Convert.ToInt32(row("STRKEY")))) + 1
@@ -585,7 +587,7 @@ Public Class IAIPEditHeaderData
 #End Region
 
     'Form overrides dispose to clean up the component list. 
-    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+    Protected Overrides Sub Dispose(disposing As Boolean)
         Try
             If disposing Then
                 If FacilityHeaderDataHistory IsNot Nothing Then FacilityHeaderDataHistory.Dispose()

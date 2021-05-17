@@ -61,13 +61,14 @@ Partial Class IAIPEditHeaderData
         Me.CancelEditButton = New System.Windows.Forms.Button()
         Me.EditData = New System.Windows.Forms.CheckBox()
         Me.AirProgramClassificationsGroupbox = New System.Windows.Forms.GroupBox()
-        Me.OwnershipGroupBox = New System.Windows.Forms.GroupBox()
+        Me.OtherGroupBox = New System.Windows.Forms.GroupBox()
         Me.FederallyOwned = New System.Windows.Forms.CheckBox()
+        Me.NspsFeeExempt = New System.Windows.Forms.CheckBox()
         CType(Me.FacilityHistoryDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AirProgramCodes.SuspendLayout()
         Me.NonattainmentStatuses.SuspendLayout()
         Me.AirProgramClassificationsGroupbox.SuspendLayout()
-        Me.OwnershipGroupBox.SuspendLayout()
+        Me.OtherGroupBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'FacilityDescription
@@ -605,20 +606,21 @@ Partial Class IAIPEditHeaderData
         Me.AirProgramClassificationsGroupbox.Controls.Add(Me.HapMajor)
         Me.AirProgramClassificationsGroupbox.Location = New System.Drawing.Point(264, 120)
         Me.AirProgramClassificationsGroupbox.Name = "AirProgramClassificationsGroupbox"
-        Me.AirProgramClassificationsGroupbox.Size = New System.Drawing.Size(144, 70)
+        Me.AirProgramClassificationsGroupbox.Size = New System.Drawing.Size(144, 62)
         Me.AirProgramClassificationsGroupbox.TabIndex = 9
         Me.AirProgramClassificationsGroupbox.TabStop = False
         Me.AirProgramClassificationsGroupbox.Text = "Air Program Classifications"
         '
-        'OwnershipGroupBox
+        'OtherGroupBox
         '
-        Me.OwnershipGroupBox.Controls.Add(Me.FederallyOwned)
-        Me.OwnershipGroupBox.Location = New System.Drawing.Point(264, 196)
-        Me.OwnershipGroupBox.Name = "OwnershipGroupBox"
-        Me.OwnershipGroupBox.Size = New System.Drawing.Size(144, 69)
-        Me.OwnershipGroupBox.TabIndex = 10
-        Me.OwnershipGroupBox.TabStop = False
-        Me.OwnershipGroupBox.Text = "Ownership Type"
+        Me.OtherGroupBox.Controls.Add(Me.FederallyOwned)
+        Me.OtherGroupBox.Controls.Add(Me.NspsFeeExempt)
+        Me.OtherGroupBox.Location = New System.Drawing.Point(264, 188)
+        Me.OtherGroupBox.Name = "OtherGroupBox"
+        Me.OtherGroupBox.Size = New System.Drawing.Size(144, 77)
+        Me.OtherGroupBox.TabIndex = 10
+        Me.OtherGroupBox.TabStop = False
+        Me.OtherGroupBox.Text = "Other"
         '
         'FederallyOwned
         '
@@ -631,12 +633,21 @@ Partial Class IAIPEditHeaderData
         Me.FederallyOwned.Text = "Federal Facility " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(U.S. Government)"
         Me.FederallyOwned.UseVisualStyleBackColor = True
         '
+        'NspsFeeExempt
+        '
+        Me.NspsFeeExempt.AutoSize = True
+        Me.NspsFeeExempt.Location = New System.Drawing.Point(5, 53)
+        Me.NspsFeeExempt.Name = "NspsFeeExempt"
+        Me.NspsFeeExempt.Size = New System.Drawing.Size(114, 17)
+        Me.NspsFeeExempt.TabIndex = 9
+        Me.NspsFeeExempt.Text = "NSPS Fee Exempt"
+        '
         'IAIPEditHeaderData
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(612, 560)
-        Me.Controls.Add(Me.OwnershipGroupBox)
+        Me.Controls.Add(Me.OtherGroupBox)
         Me.Controls.Add(Me.AirProgramClassificationsGroupbox)
         Me.Controls.Add(Me.EditData)
         Me.Controls.Add(Me.CancelEditButton)
@@ -678,8 +689,8 @@ Partial Class IAIPEditHeaderData
         Me.NonattainmentStatuses.PerformLayout()
         Me.AirProgramClassificationsGroupbox.ResumeLayout(False)
         Me.AirProgramClassificationsGroupbox.PerformLayout()
-        Me.OwnershipGroupBox.ResumeLayout(False)
-        Me.OwnershipGroupBox.PerformLayout()
+        Me.OtherGroupBox.ResumeLayout(False)
+        Me.OtherGroupBox.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -734,6 +745,7 @@ Partial Class IAIPEditHeaderData
     Friend WithEvents CancelEditButton As System.Windows.Forms.Button
     Friend WithEvents EditData As System.Windows.Forms.CheckBox
     Friend WithEvents AirProgramClassificationsGroupbox As System.Windows.Forms.GroupBox
-    Friend WithEvents OwnershipGroupBox As GroupBox
+    Friend WithEvents OtherGroupBox As GroupBox
     Friend WithEvents FederallyOwned As CheckBox
+    Friend WithEvents NspsFeeExempt As CheckBox
 End Class

@@ -114,8 +114,6 @@ Namespace DAL
                             query = query & " AND u.NUMUNIT = @pid "
                     End Select
 
-                    query = query & " ORDER BY [Enforcement #] DESC"
-
                 Case NavWorkListContext.FacilitiesMissingSubparts
                     query = "SELECT convert(varchar(max), h.STRAIRSNUMBER) as [AIRS #],
                                f.STRFACILITYNAME                      as Facility,
@@ -148,8 +146,7 @@ Namespace DAL
                           and p.OperatingStatusCode <> 'CLS'
                           and p.ICIS_PROGRAM_CODE in ('CAANSPS', 'CAAMACT', 'CAANESH')
                           and i.ICIS_STATUS_FLAG = 'A'
-                          and s.STRAIRSNUMBER is null
-                        order by [AIRS #] "
+                          and s.STRAIRSNUMBER is null "
 
                 Case NavWorkListContext.MonitoringTestNotifications
                     query = "SELECT n.STRTESTLOGNUMBER     AS [Test Log #],
@@ -322,6 +319,7 @@ Namespace DAL
 
             End Select
 
+            query &= " ORDER BY 1, 2 "
             Return query
         End Function
 

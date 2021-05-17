@@ -32,12 +32,12 @@
         ''' from a mailing address. Facility Location may not have a real 
         ''' postal address, but will have some of the elements of a postal address
         ''' </summary>
-        Public Property FacilityLocation() As Location
-        Public Property HeaderData() As FacilityHeaderData
-        Public Property Comment() As String
-        Public Property ApprovedByApb() As Boolean
-        Public Property DistrictOfficeLocation() As String
-        Public Property DistrictResponsible() As Boolean?
+        Public Property FacilityLocation As Location
+        Public Property HeaderData As FacilityHeaderData
+        Public Property Comment As String
+        Public Property ApprovedByApb As Boolean
+        Public Property DistrictOfficeLocation As String
+        Public Property DistrictResponsible As Boolean?
 
 #End Region
 

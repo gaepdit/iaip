@@ -65,7 +65,6 @@ Public Module StringFunctions
         End If
     End Function
 
-    <Extension>
     Public Function RealStringOrNothing(s As String) As String
         Return If(String.IsNullOrEmpty(s), Nothing, s)
     End Function

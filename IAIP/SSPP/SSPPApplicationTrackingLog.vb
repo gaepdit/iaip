@@ -148,8 +148,11 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub LoadDefaultDates()
-        'Application Tracking Tab
+        'Other info
         chbFederallyOwned.Checked = False
+        chbNspsFeeExempt.Checked = False
+
+        'Application Tracking Tab
         DTPDateSent.Value = Today
         DTPDateReceived.Value = Today
         DTPDateAssigned.Value = Today
@@ -180,7 +183,6 @@ Public Class SSPPApplicationTrackingLog
         DTPFinalAction.Checked = False
         DTPDeadline.Value = Today
         DTPDeadline.Checked = False
-        chbFederallyOwned.Checked = False
 
         'ISMP and SSCP Reviews Tab
         DTPReviewSubmitted.Value = Today
@@ -2301,6 +2303,17 @@ Public Class SSPPApplicationTrackingLog
                 chbFederallyOwned.BackColor = Color.LightBlue
             End If
 
+            'chbNspsFeeExempt
+            If AccountFormAccess(129, 3) = "1" OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
+                chbNspsFeeExempt.Enabled = True
+            End If
+            If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then
+                chbNspsFeeExempt.BackColor = Color.LightBlue
+            End If
+
             'txtPermitNumber
             If AccountFormAccess(129, 3) = "1" OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
@@ -2655,6 +2668,7 @@ Public Class SSPPApplicationTrackingLog
         Dim PlantLine As String = "Plant Description - "
         Dim DistResponsible As String = "False"
         Dim OwnershipTypeCode As String = Nothing
+        Dim NspsFeeExempt As Boolean = False
 
         Try
             Dim query As String = "select
@@ -2673,7 +2687,8 @@ Public Class SSPPApplicationTrackingLog
                 h.strAttainmentStatus,
                 h.strStateProgramCodes,
                 r.strDistrictResponsible,
-                s.FacilityOwnershipTypeCode
+                s.FacilityOwnershipTypeCode,
+                s.NspsFeeExempt
             from APBFACILITYINFORMATION f
                 inner join APBHEADERDATA h
                     on f.strAIRSNumber = h.strAIRSNumber
@@ -2708,6 +2723,7 @@ Public Class SSPPApplicationTrackingLog
                 NAICS = If(DBUtilities.GetNullableString(dr.Item("strNAICSCode")), "N/A")
                 NAICSLine = "NAICS Code - " & NAICS
                 OwnershipTypeCode = DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode"))
+                NspsFeeExempt = dr.Item("NspsFeeExempt")
                 CountyName = If(DBUtilities.GetNullableString(dr.Item("strCountyName")), "N/A")
                 District = If(DBUtilities.GetNullableString(dr.Item("strDistrictName")), "N/A")
                 Attainment = If(DBUtilities.GetNullableString(dr.Item("strAttainmentstatus")), "00000")
@@ -2877,7 +2893,9 @@ Public Class SSPPApplicationTrackingLog
 
                 ' Currently we are only tracking federally-owned facilities. Eventually 
                 ' this could be expanded to use a drop-down with all ownership types.
-                chbFederallyOwned.Checked = (OwnershipTypeCode = FederallyOwnedTypeCode)
+                chbFederallyOwned.Checked = OwnershipTypeCode = FederallyOwnedTypeCode
+
+                chbNspsFeeExempt.Checked = NspsFeeExempt
 
                 Select Case OperationalStatus
                     Case "O"
@@ -3351,40 +3369,59 @@ Public Class SSPPApplicationTrackingLog
         Try
             LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
 
-            query = "Select " &
-            "strAIRSNumber, strStaffResponsible,  " &
-            "strApplicationType, strPermitType,  " &
-            "APBUnit, datFinalizedDate,  " &
-            "strFacilityName, strFacilityStreet1,  " &
-            "strFacilityCity, strFacilityZipCode,  " &
-            "strOperationalStatus, strClass,  " &
-            "strAirProgramCodes, strSICCode,  " &
-            "strNAICSCode, " &
-            "strPermitNumber, strPlantDescription,  " &
-            "SSPPApplicationData.strComments as DataComments,  " &
-            "strApplicationNotes, " &
-            "strStateProgramCodes,  " &
-            "datReceivedDate, datSentByFacility,  " &
-            "datAssignedToEngineer, datReassignedToEngineer,  " &
-            "datAcknowledgementLetterSent, strPublicInvolvement,  " &
-            "datToPMI, datToPMII,  " &
-            "datReturnedToEngineer, datPermitIssued,  " &
-            "datApplicationDeadline, datDraftIssued,  " &
-            "strPAReady,  " &
-            "strPNReady, datEPAWaived,  " &
-            "datEPAEnds, datToBranchCheif,  " &
-            "datToDirector, " &
-            "datPAExpires, datPNExpires, " &
-            "strStateprogramcodes, " &
-            "strTrackedRules, STRSIGNIFICANTCOMMENTS, " &
-                    "strPAPosted, strPNPosted, SSPPApplicationData.FacilityOwnershipTypeCode " &
-            "from  " &
-            "SSPPApplicationMaster  " &
-            "left join SSPPApplicationTracking  " &
-            "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-            "left join SSPPApplicationData " &
-            "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-            "where SSPPApplicationMaster.strApplicationNumber = @appnumber"
+            query = "select strAIRSNumber,
+                   strStaffResponsible,
+                   strApplicationType,
+                   strPermitType,
+                   APBUnit,
+                   datFinalizedDate,
+                   strFacilityName,
+                   strFacilityStreet1,
+                   strFacilityCity,
+                   strFacilityZipCode,
+                   strOperationalStatus,
+                   strClass,
+                   strAirProgramCodes,
+                   strSICCode,
+                   strNAICSCode,
+                   strPermitNumber,
+                   strPlantDescription,
+                   strComments as DataComments,
+                   strApplicationNotes,
+                   strStateProgramCodes,
+                   datReceivedDate,
+                   datSentByFacility,
+                   datAssignedToEngineer,
+                   datReassignedToEngineer,
+                   datAcknowledgementLetterSent,
+                   strPublicInvolvement,
+                   datToPMI,
+                   datToPMII,
+                   datReturnedToEngineer,
+                   datPermitIssued,
+                   datApplicationDeadline,
+                   datDraftIssued,
+                   strPAReady,
+                   strPNReady,
+                   datEPAWaived,
+                   datEPAEnds,
+                   datToBranchCheif,
+                   datToDirector,
+                   datPAExpires,
+                   datPNExpires,
+                   strStateprogramcodes,
+                   strTrackedRules,
+                   STRSIGNIFICANTCOMMENTS,
+                   strPAPosted,
+                   strPNPosted,
+                   FacilityOwnershipTypeCode,
+                   NspsFeeExempt
+            from SSPPApplicationMaster m
+                left join SSPPApplicationTracking t
+                on m.strApplicationNumber = t.strApplicationNumber
+                left join SSPPApplicationData d
+                on m.strApplicationNumber = d.strApplicationNumber
+            where m.strApplicationNumber = @appnumber"
 
             dr = DB.GetDataRow(query, parameter)
 
@@ -3631,7 +3668,9 @@ Public Class SSPPApplicationTrackingLog
                     txtNAICSCode.Text = dr.Item("strNAICSCode")
                 End If
 
-                chbFederallyOwned.Checked = (DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode")) = FederallyOwnedTypeCode)
+                chbFederallyOwned.Checked = DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode")) = FederallyOwnedTypeCode
+
+                chbNspsFeeExempt.Checked = dr.Item("NspsFeeExempt")
 
                 If IsDBNull(dr.Item("strPermitNumber")) Then
                     txtPermitNumber.Clear()
@@ -4079,6 +4118,7 @@ Public Class SSPPApplicationTrackingLog
             Dim PlantDesc As String = "N/A"
             Dim PlantLine As String = "Plant Description - "
             Dim OwnershipTypeCode As String = Nothing
+            Dim NspsFeeExempt As Boolean = False
 
             Dim query As String = "Select
                 strFacilityName,
@@ -4095,7 +4135,8 @@ Public Class SSPPApplicationTrackingLog
                 strStateProgramCodes,
                 strcountyName,
                 strDistrictName,
-                s.FacilityOwnershipTypeCode
+                s.FacilityOwnershipTypeCode,
+                s.NspsFeeExempt
             from APBFACILITYINFORMATION f
                 inner join APBHEADERDATA h
                     on f.STRAIRSNUMBER = h.STRAIRSNUMBER
@@ -4165,6 +4206,8 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
                 OwnershipTypeCode = DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode"))
+
+                NspsFeeExempt = dr.Item("NspsFeeExempt")
 
                 If IsDBNull(dr.Item("strCountyName")) Then
                     CountyName = "N/A"
@@ -4349,7 +4392,9 @@ Public Class SSPPApplicationTrackingLog
 
             ' Currently we are only tracking federally-owned facilities. Eventually  
             ' this could be expanded to use a drop-down with all ownership types. 
-            chbFederallyOwned.Checked = (OwnershipTypeCode = FederallyOwnedTypeCode)
+            chbFederallyOwned.Checked = OwnershipTypeCode = FederallyOwnedTypeCode
+
+            chbNspsFeeExempt.Checked = NspsFeeExempt
 
             Select Case OperationalStatus
                 Case "O"
@@ -4651,6 +4696,7 @@ Public Class SSPPApplicationTrackingLog
         Dim PAExpires As String
         Dim PNExpires As String
         Dim OwnershipTypeCode As String
+        Dim NspsFeeExempt As Boolean
 
         Dim queriesList As New List(Of String)
         Dim parametersList As New List(Of SqlParameter())
@@ -4790,9 +4836,8 @@ Public Class SSPPApplicationTrackingLog
 
             SIC = txtSICCode.Text
             NAICS = txtNAICSCode.Text
-
             OwnershipTypeCode = If(chbFederallyOwned.Checked, FederallyOwnedTypeCode, Nothing)
-
+            NspsFeeExempt = chbNspsFeeExempt.Checked
             PermitNumber = txtPermitNumber.Text?.Replace("-", "")
             PlantDesc = txtPlantDescription.Text
             Comments = txtComments.Text
@@ -4903,7 +4948,8 @@ Public Class SSPPApplicationTrackingLog
             "strClass = @Classification, " &
             "strAirProgramCodes = @AirProgramCodes, " &
             "strSICCode = @SIC, " &
-                "FacilityOwnershipTypeCode = @OwnershipTypeCode, " &
+            "FacilityOwnershipTypeCode = @OwnershipTypeCode, " &
+            "NspsFeeExempt= @NspsFeeExempt, " &
             "strNAICSCode = @NAICS, " &
             "strPermitNumber = @PermitNumber, " &
             "strPlantDescription = @PlantDesc, " &
@@ -4930,6 +4976,7 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("@SIC", RealStringOrNothing(SIC)),
                 New SqlParameter("@NAICS", RealStringOrNothing(NAICS)),
                 New SqlParameter("@OwnershipTypeCode", OwnershipTypeCode),
+                New SqlParameter("@NspsFeeExempt", NspsFeeExempt),
                 New SqlParameter("@PermitNumber", PermitNumber),
                 New SqlParameter("@PlantDesc", PlantDesc),
                 New SqlParameter("@Comments", Comments),
@@ -5922,6 +5969,7 @@ Public Class SSPPApplicationTrackingLog
                 txtSICCode.ReadOnly = True
                 txtNAICSCode.ReadOnly = True
                 chbFederallyOwned.Enabled = False
+                chbNspsFeeExempt.Enabled = False
                 cboOperationalStatus.Enabled = False
                 cboClassification.Enabled = False
                 chbCDS_0.Enabled = False
@@ -6452,6 +6500,7 @@ Public Class SSPPApplicationTrackingLog
         Dim SICCode As String
         Dim NAICSCode As String
         Dim OwnershipTypeCode As String
+        Dim NspsFeeExempt As Boolean
         Dim PlantDescription As String
         Dim StateProgramCodes As String
 
@@ -6469,7 +6518,7 @@ Public Class SSPPApplicationTrackingLog
             "strFacilityState, strFacilityZipCode, " &
             "strOperationalStatus, strClass, " &
             "strAIRProgramCodes, strSICCode, " &
-            "strNAICSCode, FacilityOwnershipTypeCode, " &
+            "strNAICSCode, FacilityOwnershipTypeCode, NspsFeeExempt, " &
             "strPlantDescription, " &
             "strStateProgramCodes " &
             "from SSPPApplicationData " &
@@ -6543,6 +6592,8 @@ Public Class SSPPApplicationTrackingLog
 
                 OwnershipTypeCode = DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode"))
 
+                NspsFeeExempt = dr.Item("NspsFeeExempt")
+
                 queryList.Add("Update APBFacilityInformation set " &
                     "strFacilityName = @FacilityName, " &
                     "strFacilityStreet1 = @FacilityStreet1, " &
@@ -6593,12 +6644,15 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@airs", AirsId.DbFormattedString)
                     })
 
-                queryList.Add("update APBSUPPLAMENTALDATA " &
-                    " set FacilityOwnershipTypeCode = @OwnershipTypeCode " &
-                    " where STRAIRSNUMBER = @airs")
+                queryList.Add("update APBSUPPLAMENTALDATA
+                    set FacilityOwnershipTypeCode = @OwnershipTypeCode,
+                        NspsFeeExempt             = @NspsFeeExempt
+                    where STRAIRSNUMBER = @airs")
                 paramsList.Add(
                     {New SqlParameter("@OwnershipTypeCode", OwnershipTypeCode),
-                    New SqlParameter("@airs", AirsId.DbFormattedString)})
+                    New SqlParameter("@NspsFeeExempt", NspsFeeExempt),
+                    New SqlParameter("@airs", AirsId.DbFormattedString)
+                    })
 
                 DB.RunCommand(queryList, paramsList)
                 queryList.Clear()

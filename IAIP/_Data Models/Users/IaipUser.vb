@@ -107,6 +107,10 @@
             Case UserCan.ShutDownFacility
                 ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liaison, SSPP Program Manager
                 Return HasRole({114, 19, 102, 27, 28})
+                
+            Case UserCan.CreateFacility
+                ' SSPP Program Manager, SSPP Administrative, SSPP Unit Manager
+                Return HasRole({28, 29, 121})
 
             ' === User management caps
             Case UserCan.EditAllUsers
@@ -163,6 +167,7 @@ Public Enum UserCan
     AddPollutantsToFacility
     EditFacilityHeaderData
     ShutDownFacility
+    CreateFacility
     EditAllUsers
     EditDirectReports
     OverrideFeeAmount

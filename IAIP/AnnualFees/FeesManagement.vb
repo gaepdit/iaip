@@ -33,18 +33,17 @@ Public Class FeesManagement
     End Sub
 
     Private Sub LoadNSPSExemptions()
-        Dim SQL As String = "Select " &
-        "NSPSReasonCode, Description, " &
-        "(strLastName+', '+strFirstName) as UpdatingUser, " &
-        "UpdateDateTime, CreateDateTime, " &
-        "case " &
-        "when Active = '0' then 'Flagged as deleted' " &
-        "else 'Active' " &
-        "end ActiveStatus " &
-        "from FSLK_NSPSReason inner join EPDUserProfiles " &
-        "on FSLK_NSPSReason.UpdateUser = EPDUserProfiles.numUserID " &
-        "where Active = '1' " &
-        "order by NSPSReasonCode "
+        Dim SQL As String = "Select NSPSReasonCode,
+               Description,
+               strLastName + ', ' + strFirstName as UpdatingUser,
+               UpdateDateTime,
+               CreateDateTime,
+               IIF(Active = '0', 'Flagged as deleted', 'Active') as ActiveStatus
+        from FSLK_NSPSReason
+            inner join EPDUserProfiles
+            on FSLK_NSPSReason.UpdateUser = EPDUserProfiles.numUserID
+        where Active = '1'
+        order by NSPSReasonCode "
 
         dgvNSPSExemptions.DataSource = DB.GetDataTable(SQL)
 
@@ -75,18 +74,17 @@ Public Class FeesManagement
     End Sub
 
     Private Sub LoadNSPSExemptions2(ActiveStatus As String)
-        Dim SQL As String = "Select " &
-        "NSPSReasonCode, Description, " &
-        "(strLastName+', '+strFirstName) as UpdatingUser, " &
-        "UpdateDateTime, CreateDateTime, " &
-        "case " &
-        "when Active = '0' then 'Flagged as deleted' " &
-        "else 'Active' " &
-        "end ActiveStatus " &
-        "from FSLK_NSPSReason inner join EPDUserProfiles " &
-        "on FSLK_NSPSReason.UpdateUser = EPDUserProfiles.numUserID " &
-        "where Active = @Active " &
-        "order by NSPSReasonCode "
+        Dim SQL As String = "select NSPSReasonCode,
+                Description,
+                strLastName + ', ' + strFirstName as UpdatingUser,
+                UpdateDateTime,
+                CreateDateTime,
+                IIF(Active = '0', 'Flagged as deleted', 'Active') as ActiveStatus
+        from FSLK_NSPSReason
+            inner join EPDUserProfiles
+            on FSLK_NSPSReason.UpdateUser = EPDUserProfiles.numUserID
+        where Active = @Active
+        order by NSPSReasonCode "
 
         Dim p As New SqlParameter("@Active", ActiveStatus)
 

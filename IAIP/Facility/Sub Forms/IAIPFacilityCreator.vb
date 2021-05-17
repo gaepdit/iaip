@@ -10,10 +10,7 @@ Public Class IAIPFacilityCreator
             TCFacilityTools.TabPages.Remove(TPApproveNewFacility)
             TCFacilityTools.TabPages.Remove(TPDeleteFacility)
 
-            If AccountFormAccess(138, 0) IsNot Nothing AndAlso
-                AccountFormAccess(138, 0) = "138" AndAlso
-                (AccountFormAccess(138, 3) = "1" OrElse AccountFormAccess(138, 4) = "1") Then
-
+            If CurrentUser.HasPermission(UserCan.CreateFacility) Then
                 TCFacilityTools.TabPages.Add(TPApproveNewFacility)
                 dtpStartFilter.Value = Today
                 dtpEndFilter.Value = Today
