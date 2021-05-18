@@ -637,38 +637,23 @@ Public Class FeesManagement
 
     Private Sub ViewEnrolledFacilities()
         Try
-            Dim SQL As String = "Select " &
-                "substring(fS_Admin.strAIRSnumber, 5, 8) as AIRSNumber,  " &
-                "strFacilityname,  " &
-                "strFacilityAddress1, strFacilityCity,  " &
-                "strFacilityZipCode,  " &
-                "strFirstName, strLastName, " &
-                "strContactCoName, strContactAddress1,  " &
-                "strContactCity, strcontactState,  " &
-                "strContactZipCode, strGECOUserEmail,  " &
-                "case " &
-                "when strOperationalStatus = '1' then 'Yes' " &
-                "when strOperationalStatus = '0' then 'No' " &
-                "else 'No' " &
-                "end strOperationalStatus, " &
-                "strClass,  " &
-                "case " &
-                "when strNSPS = '1' then 'Yes' " &
-                "when strNSPS = '0' then 'No' " &
-                "else 'No' " &
-                "end strNSPS, " &
-                "case " &
-                "when strPart70 = '1' then 'Yes' " &
-                "when strPart70 = '0' then 'No' " &
-                "else 'No' " &
-                "end strPart70, " &
-                "datShutdowndate  " &
-                "From FS_Admin inner join FS_MailOut  " &
-                "on FS_Admin.strAIRSnumber = FS_MailOut.strAIRSnumber  " &
-                "and FS_Admin.numFeeYear = FS_MailOut.numFeeYear  " &
-                "where FS_Admin.numFeeYear = @year " &
-                "and (strEnrolled = '1')  " &
-                "AND FS_Admin.Active = '1' "
+            Dim SQL As String = "select substring(a.strAIRSnumber, 5, 8)             as AIRSNumber,
+                   strFacilityname, strFacilityAddress1, strFacilityCity, strFacilityZipCode, strFirstName, strLastName,
+                   strContactCoName, strContactAddress1, strContactCity, strcontactState, strContactZipCode, strGECOUserEmail,
+                   IIF(strOperationalStatus = '1', 'Yes', 'No') as strOperationalStatus,
+                   strClass,
+                   IIF(strNSPS = '1', 'Yes', 'No')              as strNSPS,
+                   iif(NspsFeeExempt = 1, 'Yes', 'No')          as NspsFeeExempt,
+                   IIF(strPart70 = '1', 'Yes', 'No')            as strPart70,
+                   datShutdowndate
+            From FS_Admin a
+                inner join FS_MailOut m
+                on a.strAIRSnumber = m.strAIRSnumber
+                    and a.numFeeYear = m.numFeeYear
+            where a.numFeeYear = @year
+              and (strEnrolled = '1')
+              AND a.Active = '1'"
+
             Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
 
             dgvFeeManagementLists.DataSource = DB.GetDataTable(SQL, p)
@@ -691,32 +676,34 @@ Public Class FeesManagement
             dgvFeeManagementLists.Columns("STRCLASS").DisplayIndex = 3
             dgvFeeManagementLists.Columns("strNSPS").HeaderText = "NSPS"
             dgvFeeManagementLists.Columns("STRNSPS").DisplayIndex = 4
+            dgvFeeManagementLists.Columns("NspsFeeExempt").HeaderText = "NSPS Fee Exempt"
+            dgvFeeManagementLists.Columns("NspsFeeExempt").DisplayIndex = 5
             dgvFeeManagementLists.Columns("STRPART70").HeaderText = "TV Source"
-            dgvFeeManagementLists.Columns("STRPART70").DisplayIndex = 5
+            dgvFeeManagementLists.Columns("STRPART70").DisplayIndex = 6
             dgvFeeManagementLists.Columns("DATSHUTDOWNDATE").HeaderText = "Shut Down Date"
-            dgvFeeManagementLists.Columns("DATSHUTDOWNDATE").DisplayIndex = 6
+            dgvFeeManagementLists.Columns("DATSHUTDOWNDATE").DisplayIndex = 7
             dgvFeeManagementLists.Columns("strFirstName").HeaderText = "Contact First Name"
-            dgvFeeManagementLists.Columns("strFirstName").DisplayIndex = 7
+            dgvFeeManagementLists.Columns("strFirstName").DisplayIndex = 8
             dgvFeeManagementLists.Columns("STRlASTNAME").HeaderText = "Contact Last Name"
-            dgvFeeManagementLists.Columns("STRLASTNAME").DisplayIndex = 8
+            dgvFeeManagementLists.Columns("STRLASTNAME").DisplayIndex = 9
             dgvFeeManagementLists.Columns("strContactCoName").HeaderText = "Contact Company"
-            dgvFeeManagementLists.Columns("strContactCoName").DisplayIndex = 9
+            dgvFeeManagementLists.Columns("strContactCoName").DisplayIndex = 10
             dgvFeeManagementLists.Columns("strContactAddress1").HeaderText = "Address"
-            dgvFeeManagementLists.Columns("strContactAddress1").DisplayIndex = 10
+            dgvFeeManagementLists.Columns("strContactAddress1").DisplayIndex = 11
             dgvFeeManagementLists.Columns("STRCONTACTCITY").HeaderText = "City"
-            dgvFeeManagementLists.Columns("STRCONTACTCITY").DisplayIndex = 11
+            dgvFeeManagementLists.Columns("STRCONTACTCITY").DisplayIndex = 12
             dgvFeeManagementLists.Columns("STRCONTACTSTATE").HeaderText = "State"
-            dgvFeeManagementLists.Columns("STRCONTACTSTATE").DisplayIndex = 12
+            dgvFeeManagementLists.Columns("STRCONTACTSTATE").DisplayIndex = 13
             dgvFeeManagementLists.Columns("STRCONTACTZIPCODE").HeaderText = "Zip"
-            dgvFeeManagementLists.Columns("STRCONTACTZIPCODE").DisplayIndex = 13
+            dgvFeeManagementLists.Columns("STRCONTACTZIPCODE").DisplayIndex = 14
             dgvFeeManagementLists.Columns("strFacilityAddress1").HeaderText = "Facility Street"
-            dgvFeeManagementLists.Columns("strFacilityAddress1").DisplayIndex = 14
+            dgvFeeManagementLists.Columns("strFacilityAddress1").DisplayIndex = 15
             dgvFeeManagementLists.Columns("STRFACILITYCITY").HeaderText = "Facility City"
-            dgvFeeManagementLists.Columns("STRFACILITYCITY").DisplayIndex = 15
+            dgvFeeManagementLists.Columns("STRFACILITYCITY").DisplayIndex = 16
             dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zip Code"
-            dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").DisplayIndex = 16
+            dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").DisplayIndex = 17
             dgvFeeManagementLists.Columns("strGECOUserEmail").HeaderText = "Contact Email"
-            dgvFeeManagementLists.Columns("strGECOUserEmail").DisplayIndex = 17
+            dgvFeeManagementLists.Columns("strGECOUserEmail").DisplayIndex = 18
 
             FeeManagementListCountLabel.Text = String.Format("Viewing {0} Fee Year: {1} result{2}", cboAvailableFeeYears.Text, dgvFeeManagementLists.RowCount.ToString, If(dgvFeeManagementLists.RowCount = 1, "", "s"))
         Catch ex As Exception
@@ -774,37 +761,21 @@ Public Class FeesManagement
 
     Private Sub ViewMailOut()
         Try
-            Dim SQL As String = "Select " &
-                "substring(fS_Admin.strAIRSnumber, 5, 8) as AIRSNumber,  " &
-                "strFacilityname,  " &
-                "strFacilityAddress1, strFacilityCity,  " &
-                "strFacilityZipCode,  " &
-                "strFirstName, strLastName, " &
-                "strContactCoName, strContactAddress1,  " &
-                "strContactCity, strcontactState,  " &
-                "strContactZipCode, strGECOUserEmail,  " &
-                "case " &
-                "when strOperationalStatus = '1' then 'Yes' " &
-                "when strOperationalStatus = 'X' then 'No' " &
-                "else 'Yes' " &
-                "end strOperationalStatus, " &
-                "strClass, " &
-                "case " &
-                "when strNSPS = '1' then 'Yes' " &
-                "when strNSPS = '0' then 'No' " &
-                "else 'No' " &
-                "end strNSPS, " &
-                "case " &
-                "when strPart70 = '1' then 'Yes'" &
-                "when strPart70 = '0' then 'No' " &
-                "else 'No' " &
-                "end strPart70, " &
-                "datShutdowndate  " &
-                "From FS_Admin inner join FS_MailOut " &
-                "on FS_Admin.strAIRSnumber = FS_MailOut.strAIRSnumber " &
-                "and FS_Admin.numFeeYear = FS_MailOut.numFeeYear  " &
-                "where FS_Admin.numFeeYear = @year " &
-                "AND FS_Admin.Active = '1' "
+            Dim SQL As String = "Select substring(fS_Admin.strAIRSnumber, 5, 8)      as AIRSNumber,
+                   strFacilityname, strFacilityAddress1, strFacilityCity, strFacilityZipCode, strFirstName, strLastName,
+                   strContactCoName, strContactAddress1, strContactCity, strcontactState, strContactZipCode, strGECOUserEmail,
+                   IIF(strOperationalStatus = 'X', 'No', 'Yes') as strOperationalStatus,
+                   strClass,
+                   IIF(strNSPS = '1', 'Yes', 'No')              as strNSPS,
+                   iif(NspsFeeExempt = 1, 'Yes', 'No')          as NspsFeeExempt,
+                   IIF(strPart70 = '1', 'Yes', 'No')            as strPart70,
+                   datShutdowndate
+            From FS_Admin
+                inner join FS_MailOut
+                on FS_Admin.strAIRSnumber = FS_MailOut.strAIRSnumber
+                    and FS_Admin.numFeeYear = FS_MailOut.numFeeYear
+            where FS_Admin.numFeeYear = @year
+              AND FS_Admin.Active = '1' "
             Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
 
             dgvFeeManagementLists.DataSource = DB.GetDataTable(SQL, p)
@@ -827,32 +798,34 @@ Public Class FeesManagement
             dgvFeeManagementLists.Columns("STRCLASS").DisplayIndex = 3
             dgvFeeManagementLists.Columns("strNSPS").HeaderText = "NSPS - Snapshot"
             dgvFeeManagementLists.Columns("STRNSPS").DisplayIndex = 4
+            dgvFeeManagementLists.Columns("NspsFeeExempt").HeaderText = "NSPS Fee Exempt - Snapshot"
+            dgvFeeManagementLists.Columns("NspsFeeExempt").DisplayIndex = 5
             dgvFeeManagementLists.Columns("STRPART70").HeaderText = "TV Source - Snapshot"
-            dgvFeeManagementLists.Columns("STRPART70").DisplayIndex = 5
+            dgvFeeManagementLists.Columns("STRPART70").DisplayIndex = 6
             dgvFeeManagementLists.Columns("DATSHUTDOWNDATE").HeaderText = "Shut Down Date - Snapshot"
-            dgvFeeManagementLists.Columns("DATSHUTDOWNDATE").DisplayIndex = 6
+            dgvFeeManagementLists.Columns("DATSHUTDOWNDATE").DisplayIndex = 7
             dgvFeeManagementLists.Columns("strFirstName").HeaderText = "Contact First Name "
-            dgvFeeManagementLists.Columns("strFirstName").DisplayIndex = 7
+            dgvFeeManagementLists.Columns("strFirstName").DisplayIndex = 8
             dgvFeeManagementLists.Columns("STRlASTNAME").HeaderText = "Contact Last Name"
-            dgvFeeManagementLists.Columns("STRLASTNAME").DisplayIndex = 8
+            dgvFeeManagementLists.Columns("STRLASTNAME").DisplayIndex = 9
             dgvFeeManagementLists.Columns("strContactCoName").HeaderText = "Contact Company "
-            dgvFeeManagementLists.Columns("strContactCoName").DisplayIndex = 9
+            dgvFeeManagementLists.Columns("strContactCoName").DisplayIndex = 10
             dgvFeeManagementLists.Columns("strContactAddress1").HeaderText = "Address"
-            dgvFeeManagementLists.Columns("strContactAddress1").DisplayIndex = 10
+            dgvFeeManagementLists.Columns("strContactAddress1").DisplayIndex = 11
             dgvFeeManagementLists.Columns("STRCONTACTCITY").HeaderText = "City"
-            dgvFeeManagementLists.Columns("STRCONTACTCITY").DisplayIndex = 11
+            dgvFeeManagementLists.Columns("STRCONTACTCITY").DisplayIndex = 12
             dgvFeeManagementLists.Columns("STRCONTACTSTATE").HeaderText = "State"
-            dgvFeeManagementLists.Columns("STRCONTACTSTATE").DisplayIndex = 12
+            dgvFeeManagementLists.Columns("STRCONTACTSTATE").DisplayIndex = 13
             dgvFeeManagementLists.Columns("STRCONTACTZIPCODE").HeaderText = "Zip"
-            dgvFeeManagementLists.Columns("STRCONTACTZIPCODE").DisplayIndex = 13
+            dgvFeeManagementLists.Columns("STRCONTACTZIPCODE").DisplayIndex = 14
             dgvFeeManagementLists.Columns("strFacilityAddress1").HeaderText = "Facility Street"
-            dgvFeeManagementLists.Columns("strFacilityAddress1").DisplayIndex = 14
+            dgvFeeManagementLists.Columns("strFacilityAddress1").DisplayIndex = 15
             dgvFeeManagementLists.Columns("STRFACILITYCITY").HeaderText = "Facility City"
-            dgvFeeManagementLists.Columns("STRFACILITYCITY").DisplayIndex = 15
+            dgvFeeManagementLists.Columns("STRFACILITYCITY").DisplayIndex = 16
             dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zip Code"
-            dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").DisplayIndex = 16
+            dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").DisplayIndex = 17
             dgvFeeManagementLists.Columns("strGECOUserEmail").HeaderText = "Contact Email"
-            dgvFeeManagementLists.Columns("strGECOUserEmail").DisplayIndex = 17
+            dgvFeeManagementLists.Columns("strGECOUserEmail").DisplayIndex = 18
 
             FeeManagementListCountLabel.Text = String.Format("Viewing {0} Fee Year: {1} result{2}", cboAvailableFeeYears.Text, dgvFeeManagementLists.RowCount.ToString, If(dgvFeeManagementLists.RowCount = 1, "", "s"))
         Catch ex As Exception
@@ -944,43 +917,27 @@ Public Class FeesManagement
 
     Private Sub btnViewFacilitiesSubjectToFees_Click(sender As Object, e As EventArgs) Handles btnViewFacilitiesSubjectToFees.Click
         Try
-            Dim SQL As String = "Select " &
-                "substring(fS_Admin.strAIRSnumber, 5, 8) as AIRSNumber,  " &
-                "strFacilityname,  " &
-                "strFacilityStreet1, strFacilityCity,  " &
-                "strFacilityZipCode,  " &
-                "strOperationalStatus, strClass,  " &
-                "case " &
-                "when substring(strAIRProgramCodes, 8, 1) = '1' then 'Yes' " &
-                "else 'No' " &
-                "end strNSPS, " &
-                "case " &
-                "when substring(strAIRProgramCodes, 13, 1) = '1' then 'Yes' " &
-                "else 'No' " &
-                "end strPArt70, " &
-                "case " &
-                "when strOperationalStatus = 'X' then datShutDownDate " &
-                "end datShutdowndate,  " &
-                "case " &
-                "when strEnrolled = '1' then 'Yes' " &
-                "else 'No' " &
-                "end strEnrolled, " &
-                "case " &
-                "when strInitialMailout = '1' then 'Yes' " &
-                "else 'No' " &
-                "end strInitialMailout, " &
-                "case " &
-                "when strMailoutSent = '1' then 'Yes' " &
-                "else 'No' " &
-                "end strMailoutSent " &
-                "From FS_Admin inner join APBFacilityInformation " &
-                "on FS_Admin.strAIRSnumber = APBFacilityInformation.strAIRSnumber " &
-                "inner join APBHeaderData " &
-                "on FS_admin.strAIRSNumber = APBheaderData.strAIRSNumber " &
-                "where FS_Admin.numFeeYear = @year " &
-                "AND FS_Admin.Active = '1' "
-            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
+            Dim SQL As String = "select substring(f.strAIRSnumber, 5, 8)                             as AIRSNumber,
+                   strFacilityname, strFacilityStreet1, strFacilityCity,
+                   strFacilityZipCode, strOperationalStatus, strClass,
+                   IIF(substring(strAIRProgramCodes, 8, 1) = '1', 'Yes', 'No')  as strNSPS,
+                   iif(s.NspsFeeExempt = 1, 'Yes', 'No')                        as NspsFeeExempt,
+                   IIF(substring(strAIRProgramCodes, 13, 1) = '1', 'Yes', 'No') as strPArt70,
+                   IIF(strOperationalStatus = 'X', datShutDownDate, null)       as datShutdowndate,
+                   IIF(strEnrolled = '1', 'Yes', 'No')                          as strEnrolled,
+                   IIF(strInitialMailout = '1', 'Yes', 'No')                    as strInitialMailout,
+                   IIF(strMailoutSent = '1', 'Yes', 'No')                       as strMailoutSent
+            From FS_ADMIN f
+                inner join APBFACILITYINFORMATION i
+                on f.strAIRSnumber = i.strAIRSnumber
+                inner join APBHEADERDATA h
+                on f.strAIRSNumber = h.strAIRSNumber
+                inner join APBSUPPLAMENTALDATA s
+                on f.STRAIRSNUMBER = s.STRAIRSNUMBER
+            where f.numFeeYear = @year
+              AND f.Active = '1'"
 
+            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
             dgvFeeManagementLists.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeManagementLists.RowHeadersVisible = False
@@ -1008,18 +965,20 @@ Public Class FeesManagement
             dgvFeeManagementLists.Columns("STRCLASS").DisplayIndex = 6
             dgvFeeManagementLists.Columns("strNSPS").HeaderText = "NSPS - Current Data"
             dgvFeeManagementLists.Columns("STRNSPS").DisplayIndex = 7
+            dgvFeeManagementLists.Columns("NspsFeeExempt").HeaderText = "NSPS Fee Exempt - Current Data"
+            dgvFeeManagementLists.Columns("NspsFeeExempt").DisplayIndex = 8
             dgvFeeManagementLists.Columns("STRPART70").HeaderText = "TV Source - Current Data"
-            dgvFeeManagementLists.Columns("STRPART70").DisplayIndex = 8
+            dgvFeeManagementLists.Columns("STRPART70").DisplayIndex = 9
             dgvFeeManagementLists.Columns("DATSHUTDOWNDATE").HeaderText = "Shut Down Date - Current Data"
-            dgvFeeManagementLists.Columns("DATSHUTDOWNDATE").DisplayIndex = 9
+            dgvFeeManagementLists.Columns("DATSHUTDOWNDATE").DisplayIndex = 10
             dgvFeeManagementLists.Columns("DATSHUTDOWNDATE").DefaultCellStyle.Format = "dd-MMM-yyyy"
 
             dgvFeeManagementLists.Columns("strEnrolled").HeaderText = "Enrolled Facility"
-            dgvFeeManagementLists.Columns("strEnrolled").DisplayIndex = 10
+            dgvFeeManagementLists.Columns("strEnrolled").DisplayIndex = 11
             dgvFeeManagementLists.Columns("strInitialMailout").HeaderText = "In Initial Mailout"
-            dgvFeeManagementLists.Columns("strInitialMailout").DisplayIndex = 11
+            dgvFeeManagementLists.Columns("strInitialMailout").DisplayIndex = 12
             dgvFeeManagementLists.Columns("strMailoutSent").HeaderText = "In Mailout"
-            dgvFeeManagementLists.Columns("strMailoutSent").DisplayIndex = 12
+            dgvFeeManagementLists.Columns("strMailoutSent").DisplayIndex = 13
 
             FeeManagementListCountLabel.Text = String.Format("Viewing {0} Fee Year: {1} result{2}", cboAvailableFeeYears.Text, dgvFeeManagementLists.RowCount.ToString, If(dgvFeeManagementLists.RowCount = 1, "", "s"))
         Catch ex As Exception
