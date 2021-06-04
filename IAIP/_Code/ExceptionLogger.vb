@@ -12,15 +12,15 @@ Friend Module ExceptionLogger
             unrecoverable As Boolean) As Boolean
         ' Only log if UAT or Prod
 #If DEBUG Then
-        Return False
+        'Return False
 #End If
 
-        Dim raygunClient As New RaygunClient(ConfigurationManager.AppSettings("RAYGUN_API_KEY")) With {
+        Dim client As New RaygunClient(ConfigurationManager.AppSettings("RAYGUN_API_KEY")) With {
             .ApplicationVersion = GetCurrentVersionAsMajorMinorBuild().ToString
         }
 
         If CurrentUser IsNot Nothing Then
-            raygunClient.UserInfo = New RaygunIdentifierMessage(CurrentUser.UserID.ToString) With {
+            client.UserInfo = New RaygunIdentifierMessage(CurrentUser.UserID.ToString) With {
                 .Email = CurrentUser.EmailAddress,
                 .FirstName = CurrentUser.Username,
                 .FullName = CurrentUser.FullName,
@@ -28,7 +28,7 @@ Friend Module ExceptionLogger
                 .UUID = Environment.MachineName
             }
         Else
-            raygunClient.UserInfo = New RaygunIdentifierMessage("") With {
+            client.UserInfo = New RaygunIdentifierMessage("") With {
                 .IsAnonymous = True,
                 .UUID = Environment.MachineName
             }
@@ -48,9 +48,9 @@ Friend Module ExceptionLogger
 
         Try
             If unrecoverable Then
-                raygunClient.Send(ex, tags, customData)
+                client.Send(ex, tags, customData)
             Else
-                raygunClient.SendInBackground(ex, tags, customData)
+                client.SendInBackground(ex, tags, customData)
             End If
 
             Return True
@@ -58,5 +58,10 @@ Friend Module ExceptionLogger
             Return False
         End Try
     End Function
+
+    Friend Sub AddBreadcrumb(message As String, data As Dictionary(Of String, Object))
+        Dim crumb As New RaygunBreadcrumb With {.Message = message, .CustomData = data}
+        RaygunClient.RecordBreadcrumb(crumb)
+    End Sub
 
 End Module

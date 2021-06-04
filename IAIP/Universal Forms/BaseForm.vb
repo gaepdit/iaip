@@ -5,8 +5,8 @@ Public Class BaseForm
 
 #Region "Properties"
 
-    Public Property ID() As Integer
-    Public Property Parameters() As Dictionary(Of FormParameter, String)
+    Public Property ID As Integer
+    Public Property Parameters As Dictionary(Of FormParameter, String)
 
     Public Enum FormParameter
         AirsNumber
@@ -32,6 +32,7 @@ Public Class BaseForm
 #End If
 
         LoadThisFormSettings()
+        OpenBreadcrumb()
 
         MyBase.OnLoad(e)
     End Sub
@@ -39,7 +40,26 @@ Public Class BaseForm
     Protected Overrides Sub OnFormClosed(e As FormClosedEventArgs)
         SaveThisFormSettings()
         RemoveForm(Name, ID)
+        CloseBreadcrumb()
+
         MyBase.OnFormClosed(e)
+    End Sub
+
+    Private Sub OpenBreadcrumb()
+        Dim data As New Dictionary(Of String, Object) From {{"ID", ID}}
+
+        If Parameters IsNot Nothing Then
+            For Each kvp As KeyValuePair(Of FormParameter, String) In Parameters
+                data.Add(kvp.Key.ToString, kvp.Value)
+            Next
+        End If
+
+        AddBreadcrumb($"Form opened: {Name}", data)
+    End Sub
+
+    Private Sub CloseBreadcrumb()
+        AddBreadcrumb($"Form closed: {Name}",
+            New Dictionary(Of String, Object) From {{"ID", ID}})
     End Sub
 
 #End Region
@@ -112,7 +132,7 @@ Public Class BaseForm
     ''' </summary>
     ''' <param name="pt">The System.Drawing.Point to test</param>
     ''' <returns>True if the Point is located within the bounds of a connected screen; otherwise, false.</returns>
-    Private Function PointIsOnAConnectedScreen(pt As Point) As Boolean
+    Private Shared Function PointIsOnAConnectedScreen(pt As Point) As Boolean
         For Each s As Screen In Screen.AllScreens
             If s.Bounds.Contains(pt) Then
                 Return True

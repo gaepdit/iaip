@@ -1,5 +1,4 @@
 ﻿Imports System.Configuration
-Imports System.Net
 
 Friend Module StartupShutdown
 
