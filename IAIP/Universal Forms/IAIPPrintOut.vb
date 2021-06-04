@@ -1,3 +1,4 @@
+Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports CrystalDecisions.Shared
 Imports Iaip.DAL
@@ -35,6 +36,13 @@ Public Class IAIPPrintOut
 #Region " Form events "
 
     Private Sub IAIPPrintOut_Load(sender As Object, e As EventArgs) Handles Me.Load
+        AddBreadcrumb("IAIPPrintOut", New Dictionary(Of String, Object) From {
+                      {"Printout Type", PrintoutType.ToString},
+                      {"Printout Subype", PrintoutSubtype.ToString},
+                      {"ReferenceValue", ReferenceValue},
+                      {"StartDate", StartDate},
+                      {"EndDate", EndDate}}, Me)
+
         If CrystalReportsIsAvailable() Then
             LoadCorrectReport()
             CRViewer.ShowHideViewerTabs(VisibleOrNot.NotVisible)

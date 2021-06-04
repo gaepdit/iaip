@@ -118,6 +118,7 @@ Public Class IAIPFacilitySummary
         If _airsNumber Is Nothing Then
             AirsNumberEntry.Focus()
         Else
+            AddBreadcrumb($"Facility Summary: load facility", New Dictionary(Of String, Object) From {{"AIRS #", AirsNumber.FormattedString}}, Me)
             LoadBasicFacilityAndHeaderData()
             FSMainTabControl.Focus()
         End If
@@ -951,6 +952,12 @@ Public Class IAIPFacilitySummary
 
     Private Sub FSMainTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles FSMainTabControl.SelectedIndexChanged
         Cursor = Cursors.WaitCursor
+
+        Dim data As New Dictionary(Of String, Object) From {
+            {"Name", Name},
+            {"AIRS #", AirsNumber.FormattedString},
+            {"Tab", FSMainTabControl.SelectedTab.Name}}
+        AddBreadcrumb($"Facility Summary: tab changed", data, Me)
 
         Select Case FSMainTabControl.SelectedTab.Name
             Case FSCompliance.Name

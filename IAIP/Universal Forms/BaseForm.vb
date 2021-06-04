@@ -31,16 +31,16 @@ Public Class BaseForm
         Icon = My.Resources.UatIcon
 #End If
 
-        LoadThisFormSettings()
         OpenBreadcrumb()
+        LoadThisFormSettings()
 
         MyBase.OnLoad(e)
     End Sub
 
     Protected Overrides Sub OnFormClosed(e As FormClosedEventArgs)
+        AddBreadcrumb($"Form closed: {Name}", New Dictionary(Of String, Object) From {{"ID", ID}}, Me)
         SaveThisFormSettings()
         RemoveForm(Name, ID)
-        CloseBreadcrumb()
 
         MyBase.OnFormClosed(e)
     End Sub
@@ -54,12 +54,7 @@ Public Class BaseForm
             Next
         End If
 
-        AddBreadcrumb($"Form opened: {Name}", data)
-    End Sub
-
-    Private Sub CloseBreadcrumb()
-        AddBreadcrumb($"Form closed: {Name}",
-            New Dictionary(Of String, Object) From {{"ID", ID}})
+        AddBreadcrumb($"Form opened: {Name}", data, Me)
     End Sub
 
 #End Region
@@ -119,7 +114,7 @@ Public Class BaseForm
 
         If thisFormSettings.ContainsKey(FormSetting.Size.ToString) Then
             Dim sizeConverter As TypeConverter = TypeDescriptor.GetConverter(GetType(Size))
-            Dim s As Size = CType(sizeConverter.ConvertFromString(thisFormSettings(FormSetting.Size.ToString)), Size)
+            Dim s As Size = sizeConverter.ConvertFromString(thisFormSettings(FormSetting.Size.ToString))
 
             s.Width = Math.Max(s.Width, MinimumSize.Width)
             s.Height = Math.Max(s.Height, MinimumSize.Height)

@@ -99,6 +99,7 @@ Public Class SSPPApplicationTrackingLog
 
         If AppNumber > 0 Then
             If ApplicationExists(AppNumber) Then
+                AddBreadcrumb("SSPP Application Tracking Log: load application", New Dictionary(Of String, Object) From {{"Application #", AppNumber}}, Me)
                 LoadApplication()
             Else
                 MessageBox.Show("Application #" & AppNumber.ToString & " does not exist.")
@@ -123,6 +124,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SetUpForNewApplication()
+        AddBreadcrumb("SSPP Application Tracking Log: new application", Me)
         If Not CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
             MessageBox.Show("You do not have permission to create a new application. Please contact your manager.", "Forbidden", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Me.Close()

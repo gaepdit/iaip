@@ -59,9 +59,14 @@ Friend Module ExceptionLogger
         End Try
     End Function
 
-    Friend Sub AddBreadcrumb(message As String, data As Dictionary(Of String, Object))
-        Dim crumb As New RaygunBreadcrumb With {.Message = message, .CustomData = data}
-        RaygunClient.RecordBreadcrumb(crumb)
+    Friend Sub AddBreadcrumb(message As String, Optional sender As Object = Nothing)
+        AddBreadcrumb(message, Nothing, sender)
+    End Sub
+
+    Friend Sub AddBreadcrumb(message As String, data As Dictionary(Of String, Object), Optional sender As Object = Nothing)
+        If data Is Nothing Then data = New Dictionary(Of String, Object)
+        If TypeOf sender Is Control Then data.Add("Sender", CType(sender, Control).Name)
+        RaygunClient.RecordBreadcrumb(New RaygunBreadcrumb With {.Message = message, .CustomData = data})
     End Sub
 
 End Module
