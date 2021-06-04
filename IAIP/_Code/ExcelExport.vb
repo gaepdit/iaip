@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Collections.Generic
+Imports System.IO
 Imports System.Reflection
 Imports System.Runtime.CompilerServices
 Imports ClosedXML.Excel
@@ -12,13 +13,21 @@ Public Module ExcelExport
     <Extension>
     Public Sub ExportToExcel(dataGridView As DataGridView, Optional sender As Object = Nothing)
         If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then
+            AddBreadcrumb("ExportToExcel: Empty")
             MessageBox.Show("Table is empty", "Nothing to export", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
+        AddDetailedBreadcrumb(sender)
+
         Using dataTable As DataTable = GetDataTableFromDataGridView(dataGridView)
             dataTable.ExportToExcel(sender)
         End Using
+    End Sub
+
+    Private Sub AddDetailedBreadcrumb(sender As Object)
+        Dim data As New Dictionary(Of String, Object) From {{"Sender", CType(sender, Control).Name}}
+        AddBreadcrumb("ExportToExcel", data)
     End Sub
 
     Private Function GetDataTableFromDataGridView(dataGridView As DataGridView) As DataTable

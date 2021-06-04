@@ -5,8 +5,8 @@ Public Class BaseForm
 
 #Region "Properties"
 
-    Public Property ID() As Integer
-    Public Property Parameters() As Dictionary(Of FormParameter, String)
+    Public Property ID As Integer
+    Public Property Parameters As Dictionary(Of FormParameter, String)
 
     Public Enum FormParameter
         AirsNumber
@@ -31,15 +31,30 @@ Public Class BaseForm
         Icon = My.Resources.UatIcon
 #End If
 
+        OpenBreadcrumb()
         LoadThisFormSettings()
 
         MyBase.OnLoad(e)
     End Sub
 
     Protected Overrides Sub OnFormClosed(e As FormClosedEventArgs)
+        AddBreadcrumb($"Form closed: {Name}", New Dictionary(Of String, Object) From {{"ID", ID}}, Me)
         SaveThisFormSettings()
         RemoveForm(Name, ID)
+
         MyBase.OnFormClosed(e)
+    End Sub
+
+    Private Sub OpenBreadcrumb()
+        Dim data As New Dictionary(Of String, Object) From {{"ID", ID}}
+
+        If Parameters IsNot Nothing Then
+            For Each kvp As KeyValuePair(Of FormParameter, String) In Parameters
+                data.Add(kvp.Key.ToString, kvp.Value)
+            Next
+        End If
+
+        AddBreadcrumb($"Form opened: {Name}", data, Me)
     End Sub
 
 #End Region
@@ -99,7 +114,7 @@ Public Class BaseForm
 
         If thisFormSettings.ContainsKey(FormSetting.Size.ToString) Then
             Dim sizeConverter As TypeConverter = TypeDescriptor.GetConverter(GetType(Size))
-            Dim s As Size = CType(sizeConverter.ConvertFromString(thisFormSettings(FormSetting.Size.ToString)), Size)
+            Dim s As Size = sizeConverter.ConvertFromString(thisFormSettings(FormSetting.Size.ToString))
 
             s.Width = Math.Max(s.Width, MinimumSize.Width)
             s.Height = Math.Max(s.Height, MinimumSize.Height)
@@ -112,7 +127,7 @@ Public Class BaseForm
     ''' </summary>
     ''' <param name="pt">The System.Drawing.Point to test</param>
     ''' <returns>True if the Point is located within the bounds of a connected screen; otherwise, false.</returns>
-    Private Function PointIsOnAConnectedScreen(pt As Point) As Boolean
+    Private Shared Function PointIsOnAConnectedScreen(pt As Point) As Boolean
         For Each s As Screen In Screen.AllScreens
             If s.Bounds.Contains(pt) Then
                 Return True

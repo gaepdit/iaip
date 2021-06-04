@@ -4,6 +4,8 @@ Imports System.Linq
 Public Module AppUpdater
 
     Public Sub CheckForUpdate(Optional silent As Boolean = False)
+        AddBreadcrumb($"AppUpdater: CheckForUpdate started")
+
         Dim openFormCount As Integer = 0
         Dim okayForms As String() = {NameOf(IAIPLogIn), NameOf(IAIPNavigation), NameOf(IaipAbout)}
 
@@ -23,6 +25,7 @@ Public Module AppUpdater
         Dim info As UpdateCheckInfo
 
         If Not ApplicationDeployment.IsNetworkDeployed Then
+            AddBreadcrumb($"AppUpdater: Not Network Deployed")
             If Not silent Then MessageBox.Show("Not running as a Network Deployed Application.", "Error")
             Return
         End If
@@ -32,12 +35,14 @@ Public Module AppUpdater
         Try
             info = ad.CheckForDetailedUpdate(False)
         Catch dde As DeploymentDownloadException
+            AddBreadcrumb($"AppUpdater: DeploymentDownloadException")
             MessageBox.Show("The IAIP cannot be updated right now. " & vbNewLine & vbNewLine &
                             "Please check your network connection or try again later. " & vbNewLine & vbNewLine &
                             "Error: " & dde.Message,
                             "Error")
             Return
         Catch ioe As InvalidOperationException
+            AddBreadcrumb($"AppUpdater: InvalidOperationException")
             MessageBox.Show("This application cannot be updated. Please contact support for more information. " & vbNewLine & vbNewLine &
                             "Error: " & ioe.Message,
                             "Error")
@@ -45,6 +50,7 @@ Public Module AppUpdater
         End Try
 
         If Not info.UpdateAvailable Then
+            AddBreadcrumb($"AppUpdater: No update available")
             If Not silent Then MessageBox.Show("You have the latest version. No updates are available. :)",
                                                "No Update Available")
             Return
@@ -52,7 +58,10 @@ Public Module AppUpdater
 
         Dim doUpdate As Boolean = True
 
-        If Not info.IsUpdateRequired Then
+        If info.IsUpdateRequired Then
+            AddBreadcrumb($"AppUpdater: Update required")
+        Else
+            AddBreadcrumb($"AppUpdater: Update available")
             Dim dr As DialogResult
             dr = MessageBox.Show("An update is available (" &
                                  GetVersionAsMajorMinorBuild(info.AvailableVersion).ToString &
@@ -71,7 +80,7 @@ Public Module AppUpdater
 
     Public ReadOnly Property JustUpdated As Boolean
         Get
-            If (ApplicationDeployment.IsNetworkDeployed) Then
+            If ApplicationDeployment.IsNetworkDeployed Then
                 Return ApplicationDeployment.CurrentDeployment.IsFirstRun
             Else
                 Return False

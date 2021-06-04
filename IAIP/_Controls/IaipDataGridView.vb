@@ -1,4 +1,5 @@
-﻿Imports System.ComponentModel
+﻿Imports System.Collections.Generic
+Imports System.ComponentModel
 Imports Iaip.Apb
 
 ''' <summary>
@@ -228,13 +229,18 @@ Public Class IaipDataGridView
     ' Data Source
 
     Private Sub IaipDataGridView_DataSourceChanged(sender As Object, e As EventArgs) Handles MyBase.DataSourceChanged
+        Dim data As New Dictionary(Of String, Object) From {{"Name", Name}}
+
         If DataSource Is Nothing Then
+            AddBreadcrumb("IaipDataGridView: datasource removed", data, Me)
             RemoveExcelExportButton()
 
             If ResultsCountLabel IsNot Nothing Then
                 ResultsCountLabel.Text = String.Empty
             End If
         Else
+            AddBreadcrumb("IaipDataGridView: datasource changed", data, Me)
+
             AddExcelExportButton()
 
             SanelyResizeColumns()

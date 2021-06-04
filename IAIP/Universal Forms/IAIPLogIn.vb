@@ -167,7 +167,7 @@ Public Class IAIPLogIn
         End If
 
 #If UAT Then
-        msg.MessageText = msg.MessageText & " UAT"
+        msg.MessageText &= " UAT"
 #End If
 
         msg.Display(lblCurrentVersionMessage)

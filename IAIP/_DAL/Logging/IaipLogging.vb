@@ -9,6 +9,8 @@ Namespace DAL
                 Return False
             End If
 
+            AddBreadcrumb($"Crystal Report opened: {report.ResourceName}")
+
             Dim query As String = "insert into IAIP_CrystaLReportsLog (ReportName, UserId) values (@ReportName, @UserId)"
 
             Dim parameters As SqlParameter() = {

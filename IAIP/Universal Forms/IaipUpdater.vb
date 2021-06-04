@@ -10,12 +10,21 @@ Public Class IaipUpdater
     Protected Overrides Sub OnLoad(e As EventArgs)
         AddHandler ad.UpdateCompleted, AddressOf ad_UpdateCompleted
         AddHandler ad.UpdateProgressChanged, AddressOf ad_UpdateProgressChanged
+        AddHandler ad.CheckForUpdateCompleted, AddressOf ad_CheckForUpdateCompleted
 
         updaterButton.Visible = Not Mandatory
 
+        AddBreadcrumb($"IaipUpdater: opened", New Generic.Dictionary(Of String, Object) From {{"Mandatory", Mandatory}}, Me)
         MyBase.OnLoad(e)
 
         ad.UpdateAsync()
+    End Sub
+
+    Private Sub ad_CheckForUpdateCompleted(sender As Object, e As CheckForUpdateCompletedEventArgs)
+        AddBreadcrumb($"IaipUpdater: check completed",
+                      New Generic.Dictionary(Of String, Object) From {
+                      {"CurrentVersion", ad.CurrentVersion}, {"UpdatedVersion", ad.UpdatedVersion}}, Me)
+
     End Sub
 
     Private Sub ad_UpdateProgressChanged(sender As Object, e As DeploymentProgressChangedEventArgs)
@@ -39,6 +48,7 @@ Public Class IaipUpdater
             updaterButton.Visible = True
             updaterButton.Focus()
 
+            AddBreadcrumb($"IaipUpdater: update canceled", Me)
             Return
         End If
 
@@ -61,9 +71,11 @@ Public Class IaipUpdater
             updaterButton.Visible = True
             updaterButton.Focus()
 
+            AddBreadcrumb($"IaipUpdater: udpate error", New Generic.Dictionary(Of String, Object) From {{"Error Type", e.Error.GetType}}, Me)
             Return
         End If
 
+        AddBreadcrumb($"IaipUpdater: restarting", Me)
         Application.Restart()
     End Sub
 
