@@ -17,6 +17,7 @@ Public Module Email
                          Optional recipientsTo As String() = Nothing,
                          Optional recipientsCC As String() = Nothing,
                          Optional recipientsBCC As String() = Nothing) As CreateEmailResult
+        Dim emailUriString As String = ""
 
         Try
             Dim subjectParam As String = Nothing
@@ -58,8 +59,6 @@ Public Module Email
 
             Dim uriQueryString As String = ConcatNonEmptyStrings("&", {subjectParam, bodyParam, ccParam, bccParam})
 
-            Dim emailUriString As String
-
             If String.IsNullOrEmpty(uriQueryString) Then
                 emailUriString = $"mailto:{toParam}"
             Else
@@ -68,13 +67,12 @@ Public Module Email
 
             Dim result As Boolean = False
 
-            Dim emailUri As Uri = New Uri(emailUriString)
 
-            If emailUri.ToString.Length < 2084 Then
+            If emailUriString.Length < 2084 Then
                 ' The OpenUri method is preferable, but is limited by URI length, 
                 ' which can be exceeded if a lot of recipients are added
                 ' Ref: https://support.microsoft.com/en-us/help/208427/maximum-url-length-is-2-083-characters-in-internet-explorer
-                result = OpenUri(emailUri, isMailto:=True)
+                result = OpenUri(New Uri(emailUriString), isMailto:=True)
             Else
                 ' Failover is to create a text file with instructions to user
                 OpenEmailAsTextFile(subject, body, toParam, cc, bcc)
@@ -88,7 +86,7 @@ Public Module Email
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, $"emailUriString: {emailUriString}", Reflection.MethodBase.GetCurrentMethod.Name)
             Return CreateEmailResult.FunctionError
         End Try
     End Function
