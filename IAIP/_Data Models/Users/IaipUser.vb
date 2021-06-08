@@ -55,6 +55,7 @@
         Return IaipRoles.HasRole(permissionCodes)
     End Function
 
+    ' Numbered roles come from AIRBRANCH.dbo.LOOKUPIAIPACCOUNTS
     Public Function HasRoleType(roleType As RoleType) As Boolean
         Select Case roleType
             Case RoleType.BranchAdmin
@@ -109,8 +110,8 @@
                 Return HasRole({114, 19, 102, 27, 28})
                 
             Case UserCan.CreateFacility
-                ' SSPP Program Manager, SSPP Administrative, SSPP Unit Manager
-                Return HasRole({28, 29, 121})
+                ' SSPP Program Manager, SSPP Administrative, SSPP Unit Manager, SSCP Program Manager
+                Return HasRole({28, 29, 121, 19})
 
             ' === User management caps
             Case UserCan.EditAllUsers
