@@ -10,6 +10,14 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.25.1 <span>(2021-06-08)</span>
+
+This release fixes a permissions bug.
+
+## Version 5.25.0 <span>(2021-05-18)</span>
+
+Facilities can now be marked as NSPS Fee Exempt.
+
 ## Version 5.24.0 <span>(2021-04-28)</span>
 
 This is a quality/security release. No new functionality was added.
