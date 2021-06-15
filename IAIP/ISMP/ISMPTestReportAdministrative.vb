@@ -236,8 +236,6 @@ Public Class ISMPTestReportAdministrative
     End Sub
 
     Private Sub FillTestReportList()
-        Dim dt As DataTable = Nothing
-
         Try
             clbReferenceNumbers.Items.Clear()
 
@@ -263,12 +261,16 @@ Public Class ISMPTestReportAdministrative
                     New SqlParameter("@date", DTPDateReceived.Value)
                 }
 
-                dt = DB.GetDataTable(query, p)
+                Dim dt As DataTable = DB.GetDataTable(query, p)
+
+                If dt Is Nothing OrElse dt.Rows.Count = 0 Then
+                    Return
+                End If
 
                 For Each dr As DataRow In dt.Rows
                     clbReferenceNumbers.Items.Add(String.Concat(dr.Item("strReferenceNumber"), " - ", dr.Item("strEmissionSource"), " - ", dr.Item("strPollutantDescription")))
 
-                    If clbReferenceNumbers.Items.Contains(String.Concat(txtReferenceNumber.Text, " - ", dr.Item("strEmissionSource"), " - ", dr.Item("strPollutantDescription"))) Then
+                    If clbReferenceNumbers.Items.Contains(String.Concat(txtReferenceNumber.Text, " - ", dr.Item("StrEmissionSource"), " - ", dr.Item("strPollutantDescription"))) Then
                         clbReferenceNumbers.SetItemCheckState(clbReferenceNumbers.FindString(txtReferenceNumber.Text), CheckState.Checked)
                     End If
                 Next
@@ -278,7 +280,6 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ex.Data.AddAsUniqueIfExists("AIRS#", cboAIRSNumber.Text)
             ex.Data.AddAsUniqueIfExists("Date", DTPDateReceived.Value)
-            ex.Data.AddAsUniqueIfExists("DataTable", dt)
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
