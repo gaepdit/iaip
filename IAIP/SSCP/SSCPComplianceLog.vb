@@ -764,7 +764,7 @@ Public Class SSCPComplianceLog
     End Sub
 
     Private Sub ExportToExcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportToExcelToolStripMenuItem.Click
-        dgvWork.ExportToExcel()
+        dgvWork.ExportToExcel(Me)
     End Sub
 
 #End Region

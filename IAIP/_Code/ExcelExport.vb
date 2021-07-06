@@ -11,7 +11,7 @@ Public Module ExcelExport
     Private ReadOnly BaseDate As Date = New Date(1900, 1, 1)
 
     <Extension>
-    Public Sub ExportToExcel(dataGridView As DataGridView, Optional sender As Object = Nothing)
+    Public Sub ExportToExcel(dataGridView As DataGridView, sender As Object)
         If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then
             AddBreadcrumb("ExportToExcel: Empty")
             MessageBox.Show("Table is empty", "Nothing to export", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -26,8 +26,10 @@ Public Module ExcelExport
     End Sub
 
     Private Sub AddDetailedBreadcrumb(sender As Object)
-        Dim data As New Dictionary(Of String, Object) From {{"Sender", CType(sender, Control).Name}}
-        AddBreadcrumb("ExportToExcel", data)
+        If sender IsNot Nothing Then
+            Dim data As New Dictionary(Of String, Object) From {{"Sender", CType(sender, Control).Name}}
+            AddBreadcrumb("ExportToExcel", data)
+        End If
     End Sub
 
     Private Function GetDataTableFromDataGridView(dataGridView As DataGridView) As DataTable
