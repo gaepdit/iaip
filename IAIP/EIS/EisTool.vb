@@ -3,6 +3,7 @@ Imports System.Data.SqlClient
 Imports System.Data.SqlTypes
 Imports System.Linq
 Imports EpdIt
+Imports EpdIt.DBUtilities
 Imports Iaip.Apb.Facilities
 
 Public Class EisTool
@@ -133,7 +134,7 @@ Public Class EisTool
         dgvEISStats.Columns("QASTATUS").DisplayIndex = 11
         dgvEISStats.Columns("QASTATUS").Visible = True
 
-        dgvEISStats.Columns.Add("datQAStatus", "QA Status Data")
+        dgvEISStats.Columns.Add("datQAStatus", "QA Status Date")
         dgvEISStats.Columns("datQAStatus").DisplayIndex = 12
         dgvEISStats.Columns("datQAStatus").Visible = True
         dgvEISStats.Columns("datQAStatus").DefaultCellStyle.Format = "dd-MMM-yyyy"
@@ -3518,11 +3519,9 @@ Public Class EisTool
                     Else
                         dgvRow.Cells(11).Value = dr.Item("QASTATUS")
                     End If
-                    If IsDBNull(dr.Item("DATQASTATUS")) Then
-                        dgvRow.Cells(12).Value = ""
-                    Else
-                        dgvRow.Cells(12).Value = dr.Item("DATQASTATUS")
-                    End If
+
+                    dgvRow.Cells(12).Value = GetNullableDateTime(dr.Item("DATQASTATUS"))
+
                     If IsDBNull(dr.Item("IAIPPrefix")) Then
                         dgvRow.Cells(13).Value = ""
                     Else
@@ -3590,15 +3589,10 @@ Public Class EisTool
                         dgvRow.Cells(25).Value = dr.Item("EISLASTNAME")
                     End If
 
-                    If IsDBNull(dr.Item("DATFINALIZE")) Then
-                        dgvRow.Cells(26).Value = ""
-                    Else
-                        dgvRow.Cells(26).Value = dr.Item("DATFINALIZE")
-                    End If
-
-                    dgvRow.Cells(27).Value = DBUtilities.GetNullable(Of String)(dr.Item("FITrackingNumber"))
-                    dgvRow.Cells(28).Value = DBUtilities.GetNullable(Of String)(dr.Item("PointTrackingNumber"))
-                    dgvRow.Cells(29).Value = DBUtilities.GetNullable(Of String)(dr.Item("Comments"))
+                    dgvRow.Cells(26).Value = GetNullableDateTime(dr.Item("DATFINALIZE"))
+                    dgvRow.Cells(27).Value = GetNullable(Of String)(dr.Item("FITrackingNumber"))
+                    dgvRow.Cells(28).Value = GetNullable(Of String)(dr.Item("PointTrackingNumber"))
+                    dgvRow.Cells(29).Value = GetNullable(Of String)(dr.Item("Comments"))
 
                     dgvEISStats.Rows.Add(dgvRow)
                 End Using
