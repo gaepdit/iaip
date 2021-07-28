@@ -31,12 +31,10 @@ Public Class IAIPFacilitySummary
         ComplianceWork
         ComplianceEnforcement
         ComplianceFCE
-        ContactsState
-        ContactsWebSite
-        ContactsPermitting
-        ContactsTesting
-        ContactsCompliance
-        ContactsGeco
+        ContactsStaff
+        ContactsGecoFacility
+        ContactsGecoUsers
+        ContactsIaipFacility
         TestReports
         TestNotifications
         TestMemos
@@ -88,12 +86,10 @@ Public Class IAIPFacilitySummary
         AddDataTable(FacilityDataTable.ComplianceEnforcement)
         AddDataTable(FacilityDataTable.ComplianceFCE)
         AddDataTable(FacilityDataTable.EmissionsFeesSummary)
-        AddDataTable(FacilityDataTable.ContactsCompliance)
-        AddDataTable(FacilityDataTable.ContactsGeco)
-        AddDataTable(FacilityDataTable.ContactsPermitting)
-        AddDataTable(FacilityDataTable.ContactsState)
-        AddDataTable(FacilityDataTable.ContactsTesting)
-        AddDataTable(FacilityDataTable.ContactsWebSite)
+        AddDataTable(FacilityDataTable.ContactsGecoFacility)
+        AddDataTable(FacilityDataTable.ContactsGecoUsers)
+        AddDataTable(FacilityDataTable.ContactsIaipFacility)
+        AddDataTable(FacilityDataTable.ContactsStaff)
         AddDataTable(FacilityDataTable.TestReports)
         AddDataTable(FacilityDataTable.TestNotifications)
         AddDataTable(FacilityDataTable.TestMemos)
@@ -141,7 +137,7 @@ Public Class IAIPFacilitySummary
         PrintFacilitySummaryMenuItem.Enabled = False
 
         FSMainTabControl.SelectedTab = FSInfo
-        ContactsTabControl.SelectedTab = TPStateContacts
+        ContactsTabControl.SelectedTab = TPContactsStaff
         TestingTabControl.SelectedTab = TPTestReport
         ComplianceTabControl.SelectedTab = TPComplianceWork
         PermittingTabControl.SelectedTab = TPAppTrackingLog
@@ -548,76 +544,70 @@ Public Class IAIPFacilitySummary
 
             ' Compliance
             Case FacilityDataTable.ComplianceWork
-                SetUpDataGridSource(ComplianceWorkGrid, FacilityDataTable.ComplianceWork)
+                SetUpDataGridSource(ComplianceWorkGrid, table)
 
             Case FacilityDataTable.ComplianceFCE
-                SetUpDataGridSource(ComplianceFceGrid, FacilityDataTable.ComplianceFCE)
+                SetUpDataGridSource(ComplianceFceGrid, table)
 
             Case FacilityDataTable.ComplianceEnforcement
-                SetUpDataGridSource(ComplianceEnforcementGrid, FacilityDataTable.ComplianceEnforcement)
+                SetUpDataGridSource(ComplianceEnforcementGrid, table)
 
                 ' Contacts
-            Case FacilityDataTable.ContactsState
-                SetUpDataGridSource(ContactsStateGrid, FacilityDataTable.ContactsState)
+            Case FacilityDataTable.ContactsStaff
+                SetUpDataGridSource(ContactsStaffGrid, table)
 
-            Case FacilityDataTable.ContactsWebSite
-                SetUpDataGridSource(ContactsWebSiteGrid, FacilityDataTable.ContactsWebSite)
+            Case FacilityDataTable.ContactsGecoFacility
+                SetUpDataGridSource(ContactsGecoFacilityGrid, table)
 
-            Case FacilityDataTable.ContactsPermitting
-                SetUpDataGridSource(ContactsPermittingGrid, FacilityDataTable.ContactsPermitting)
+            Case FacilityDataTable.ContactsIaipFacility
+                SetUpDataGridSource(ContactsIaipFacilityGrid, table)
 
-            Case FacilityDataTable.ContactsTesting
-                SetUpDataGridSource(ContactsTestingGrid, FacilityDataTable.ContactsTesting)
-
-            Case FacilityDataTable.ContactsCompliance
-                SetUpDataGridSource(ContactsComplianceGrid, FacilityDataTable.ContactsCompliance)
-
-            Case FacilityDataTable.ContactsGeco
-                SetUpDataGridSource(ContactsGecoGrid, FacilityDataTable.ContactsGeco)
+            Case FacilityDataTable.ContactsGecoUsers
+                SetUpDataGridSource(ContactsGecoUsersGrid, table)
 
                 ' Testing
             Case FacilityDataTable.TestReports
-                SetUpDataGridSource(TestReportsGrid, FacilityDataTable.TestReports)
+                SetUpDataGridSource(TestReportsGrid, table)
 
             Case FacilityDataTable.TestNotifications
-                SetUpDataGridSource(TestNotificationsGrid, FacilityDataTable.TestNotifications)
+                SetUpDataGridSource(TestNotificationsGrid, table)
 
             Case FacilityDataTable.TestMemos
-                SetUpDataGridSource(TestMemosGrid, FacilityDataTable.TestMemos)
+                SetUpDataGridSource(TestMemosGrid, table)
 
                 ' Permitting
             Case FacilityDataTable.PermitApplications
-                SetUpDataGridSource(PermitApplicationGrid, FacilityDataTable.PermitApplications)
+                SetUpDataGridSource(PermitApplicationGrid, table)
 
             Case FacilityDataTable.PermitRuleHistory
-                SetUpDataGridSource(PermitRuleHistoryGrid, FacilityDataTable.PermitRuleHistory)
+                SetUpDataGridSource(PermitRuleHistoryGrid, table)
 
             Case FacilityDataTable.PermitRules
-                SetUpDataGridSource(PermitRulesGrid, FacilityDataTable.PermitRules)
+                SetUpDataGridSource(PermitRulesGrid, table)
 
             Case FacilityDataTable.Permits
-                SetUpDataGridSource(PermitsGrid, FacilityDataTable.Permits)
+                SetUpDataGridSource(PermitsGrid, table)
 
             Case FacilityDataTable.PermitApplicationFees
-                SetUpDataGridSource(PermitApplicationInvoicesGrid, FacilityDataTable.PermitApplicationFees)
+                SetUpDataGridSource(PermitApplicationInvoicesGrid, table)
 
                 ' Emissions Fees
             Case FacilityDataTable.EmissionsFeesSummary
                 SetUpFeesTab()
-                SetUpDataGridSource(FinancialFeeGrid, FacilityDataTable.EmissionsFeesSummary)
+                SetUpDataGridSource(FinancialFeeGrid, table)
 
             Case FacilityDataTable.EmissionsFeesDeposits
-                SetUpDataGridSource(FinancialDepositsGrid, FacilityDataTable.EmissionsFeesDeposits)
+                SetUpDataGridSource(FinancialDepositsGrid, table)
 
             Case FacilityDataTable.EmissionsFeesInvoices
-                SetUpDataGridSource(FinancialInvoicesGrid, FacilityDataTable.EmissionsFeesInvoices)
+                SetUpDataGridSource(FinancialInvoicesGrid, table)
 
                 ' Emission Inventory
             Case FacilityDataTable.EIPost2009
-                SetUpDataGridSource(EiPost2009Grid, FacilityDataTable.EIPost2009)
+                SetUpDataGridSource(EiPost2009Grid, table)
 
             Case FacilityDataTable.EIPre2009
-                SetUpDataGridSource(EiPre2009Grid, FacilityDataTable.EIPre2009)
+                SetUpDataGridSource(EiPre2009Grid, table)
 
         End Select
     End Sub
@@ -706,12 +696,10 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub LoadContactsData()
-        LoadDataTable(FacilityDataTable.ContactsState)
-        LoadDataTable(FacilityDataTable.ContactsWebSite)
-        LoadDataTable(FacilityDataTable.ContactsPermitting)
-        LoadDataTable(FacilityDataTable.ContactsTesting)
-        LoadDataTable(FacilityDataTable.ContactsCompliance)
-        LoadDataTable(FacilityDataTable.ContactsGeco)
+        LoadDataTable(FacilityDataTable.ContactsStaff)
+        LoadDataTable(FacilityDataTable.ContactsGecoFacility)
+        LoadDataTable(FacilityDataTable.ContactsIaipFacility)
+        LoadDataTable(FacilityDataTable.ContactsGecoUsers)
     End Sub
 
     Private Sub LoadEmissionInventoryData()
