@@ -1887,7 +1887,6 @@ Public Class FeesAudit
         Dim parameters As New Generic.Dictionary(Of FormParameter, String)
         parameters(FormParameter.AirsNumber) = AirsNumber.ToString
         parameters(FormParameter.FacilityName) = txtFeeAdminFacilityName.Text
-        parameters(FormParameter.Key) = DAL.ContactKey.Fees.ToString
         OpenMultiForm(IAIPEditContacts, AirsNumber.ToInt, parameters)
     End Sub
 

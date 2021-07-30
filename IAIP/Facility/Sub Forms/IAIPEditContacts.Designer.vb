@@ -19,19 +19,20 @@ Partial Class IAIPEditContacts
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.ContactsDataGrid = New System.Windows.Forms.DataGridView()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.ContactsDataGrid = New Iaip.IaipDataGridView()
         Me.pnlInfoPanel = New System.Windows.Forms.Panel()
         Me.txtNewPhoneNumber = New Iaip.CueTextBox()
-        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.ContactKeyPanel = New System.Windows.Forms.Panel()
         Me.rdbNewESContact = New System.Windows.Forms.RadioButton()
         Me.rdbNewPermittingContact = New System.Windows.Forms.RadioButton()
         Me.rdbNewEISContact = New System.Windows.Forms.RadioButton()
         Me.rdbNewFeeContact = New System.Windows.Forms.RadioButton()
         Me.rdbNewComplianceContact = New System.Windows.Forms.RadioButton()
         Me.rdbNewMonitoringContact = New System.Windows.Forms.RadioButton()
-        Me.btnNewClear = New System.Windows.Forms.Button()
-        Me.btnNewUpdate = New System.Windows.Forms.Button()
-        Me.btnNewSave = New System.Windows.Forms.Button()
+        Me.btnClearForm = New System.Windows.Forms.Button()
+        Me.btnUpdateContact = New System.Windows.Forms.Button()
+        Me.btnSaveNewContact = New System.Windows.Forms.Button()
         Me.mtbNewFaxNumber = New System.Windows.Forms.MaskedTextBox()
         Me.mtbNewPhoneNumber2 = New System.Windows.Forms.MaskedTextBox()
         Me.mtbNewZipCode = New System.Windows.Forms.MaskedTextBox()
@@ -64,34 +65,35 @@ Partial Class IAIPEditContacts
         Me.lblFacilityName = New System.Windows.Forms.Label()
         CType(Me.ContactsDataGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlInfoPanel.SuspendLayout()
-        Me.Panel6.SuspendLayout()
+        Me.ContactKeyPanel.SuspendLayout()
         Me.pnlHeaderPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'ContactsDataGrid
         '
         Me.ContactsDataGrid.AccessibleDescription = "Contacts"
-        Me.ContactsDataGrid.AllowUserToAddRows = False
-        Me.ContactsDataGrid.AllowUserToDeleteRows = False
-        Me.ContactsDataGrid.AllowUserToOrderColumns = True
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ContactsDataGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.ContactsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.ContactsDataGrid.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ContactsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ContactsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ContactsDataGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.ContactsDataGrid.LinkifyColumnByName = Nothing
         Me.ContactsDataGrid.Location = New System.Drawing.Point(0, 294)
         Me.ContactsDataGrid.Name = "ContactsDataGrid"
-        Me.ContactsDataGrid.ReadOnly = True
-        Me.ContactsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ContactsDataGrid.ResultsCountLabel = Nothing
+        Me.ContactsDataGrid.ResultsCountLabelFormat = "{0} found"
         Me.ContactsDataGrid.Size = New System.Drawing.Size(799, 307)
+        Me.ContactsDataGrid.StandardTab = True
         Me.ContactsDataGrid.TabIndex = 243
         '
         'pnlInfoPanel
         '
         Me.pnlInfoPanel.Controls.Add(Me.txtNewPhoneNumber)
-        Me.pnlInfoPanel.Controls.Add(Me.Panel6)
-        Me.pnlInfoPanel.Controls.Add(Me.btnNewClear)
-        Me.pnlInfoPanel.Controls.Add(Me.btnNewUpdate)
-        Me.pnlInfoPanel.Controls.Add(Me.btnNewSave)
+        Me.pnlInfoPanel.Controls.Add(Me.ContactKeyPanel)
+        Me.pnlInfoPanel.Controls.Add(Me.btnClearForm)
+        Me.pnlInfoPanel.Controls.Add(Me.btnUpdateContact)
+        Me.pnlInfoPanel.Controls.Add(Me.btnSaveNewContact)
         Me.pnlInfoPanel.Controls.Add(Me.mtbNewFaxNumber)
         Me.pnlInfoPanel.Controls.Add(Me.mtbNewPhoneNumber2)
         Me.pnlInfoPanel.Controls.Add(Me.mtbNewZipCode)
@@ -133,19 +135,19 @@ Partial Class IAIPEditContacts
         Me.txtNewPhoneNumber.Size = New System.Drawing.Size(92, 20)
         Me.txtNewPhoneNumber.TabIndex = 253
         '
-        'Panel6
+        'ContactKeyPanel
         '
-        Me.Panel6.AutoSize = True
-        Me.Panel6.Controls.Add(Me.rdbNewESContact)
-        Me.Panel6.Controls.Add(Me.rdbNewPermittingContact)
-        Me.Panel6.Controls.Add(Me.rdbNewEISContact)
-        Me.Panel6.Controls.Add(Me.rdbNewFeeContact)
-        Me.Panel6.Controls.Add(Me.rdbNewComplianceContact)
-        Me.Panel6.Controls.Add(Me.rdbNewMonitoringContact)
-        Me.Panel6.Location = New System.Drawing.Point(661, 6)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(126, 145)
-        Me.Panel6.TabIndex = 252
+        Me.ContactKeyPanel.AutoSize = True
+        Me.ContactKeyPanel.Controls.Add(Me.rdbNewESContact)
+        Me.ContactKeyPanel.Controls.Add(Me.rdbNewPermittingContact)
+        Me.ContactKeyPanel.Controls.Add(Me.rdbNewEISContact)
+        Me.ContactKeyPanel.Controls.Add(Me.rdbNewFeeContact)
+        Me.ContactKeyPanel.Controls.Add(Me.rdbNewComplianceContact)
+        Me.ContactKeyPanel.Controls.Add(Me.rdbNewMonitoringContact)
+        Me.ContactKeyPanel.Location = New System.Drawing.Point(661, 6)
+        Me.ContactKeyPanel.Name = "ContactKeyPanel"
+        Me.ContactKeyPanel.Size = New System.Drawing.Size(126, 145)
+        Me.ContactKeyPanel.TabIndex = 252
         '
         'rdbNewESContact
         '
@@ -213,36 +215,37 @@ Partial Class IAIPEditContacts
         Me.rdbNewMonitoringContact.Text = "Monitoring Contact"
         Me.rdbNewMonitoringContact.UseVisualStyleBackColor = True
         '
-        'btnNewClear
+        'btnClearForm
         '
-        Me.btnNewClear.AutoSize = True
-        Me.btnNewClear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNewClear.Location = New System.Drawing.Point(582, 221)
-        Me.btnNewClear.Name = "btnNewClear"
-        Me.btnNewClear.Size = New System.Drawing.Size(67, 23)
-        Me.btnNewClear.TabIndex = 17
-        Me.btnNewClear.Text = "Clear Form"
-        Me.btnNewClear.UseVisualStyleBackColor = True
+        Me.btnClearForm.AutoSize = True
+        Me.btnClearForm.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnClearForm.Location = New System.Drawing.Point(488, 221)
+        Me.btnClearForm.Name = "btnClearForm"
+        Me.btnClearForm.Size = New System.Drawing.Size(67, 23)
+        Me.btnClearForm.TabIndex = 17
+        Me.btnClearForm.Text = "Clear Form"
+        Me.btnClearForm.UseVisualStyleBackColor = True
         '
-        'btnNewUpdate
+        'btnUpdateContact
         '
-        Me.btnNewUpdate.AutoSize = True
-        Me.btnNewUpdate.Location = New System.Drawing.Point(230, 221)
-        Me.btnNewUpdate.Name = "btnNewUpdate"
-        Me.btnNewUpdate.Size = New System.Drawing.Size(137, 23)
-        Me.btnNewUpdate.TabIndex = 16
-        Me.btnNewUpdate.Text = "Update Selected Contact"
-        Me.btnNewUpdate.UseVisualStyleBackColor = True
+        Me.btnUpdateContact.AutoSize = True
+        Me.btnUpdateContact.Enabled = False
+        Me.btnUpdateContact.Location = New System.Drawing.Point(230, 221)
+        Me.btnUpdateContact.Name = "btnUpdateContact"
+        Me.btnUpdateContact.Size = New System.Drawing.Size(137, 23)
+        Me.btnUpdateContact.TabIndex = 16
+        Me.btnUpdateContact.Text = "Update Selected Contact"
+        Me.btnUpdateContact.UseVisualStyleBackColor = True
         '
-        'btnNewSave
+        'btnSaveNewContact
         '
-        Me.btnNewSave.AutoSize = True
-        Me.btnNewSave.Location = New System.Drawing.Point(111, 221)
-        Me.btnNewSave.Name = "btnNewSave"
-        Me.btnNewSave.Size = New System.Drawing.Size(107, 23)
-        Me.btnNewSave.TabIndex = 15
-        Me.btnNewSave.Text = "Save New Contact"
-        Me.btnNewSave.UseVisualStyleBackColor = True
+        Me.btnSaveNewContact.AutoSize = True
+        Me.btnSaveNewContact.Location = New System.Drawing.Point(111, 221)
+        Me.btnSaveNewContact.Name = "btnSaveNewContact"
+        Me.btnSaveNewContact.Size = New System.Drawing.Size(107, 23)
+        Me.btnSaveNewContact.TabIndex = 15
+        Me.btnSaveNewContact.Text = "Save New Contact"
+        Me.btnSaveNewContact.UseVisualStyleBackColor = True
         '
         'mtbNewFaxNumber
         '
@@ -535,25 +538,25 @@ Partial Class IAIPEditContacts
         CType(Me.ContactsDataGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlInfoPanel.ResumeLayout(False)
         Me.pnlInfoPanel.PerformLayout()
-        Me.Panel6.ResumeLayout(False)
-        Me.Panel6.PerformLayout()
+        Me.ContactKeyPanel.ResumeLayout(False)
+        Me.ContactKeyPanel.PerformLayout()
         Me.pnlHeaderPanel.ResumeLayout(False)
         Me.pnlHeaderPanel.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents ContactsDataGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents ContactsDataGrid As IaipDataGridView
     Friend WithEvents pnlInfoPanel As System.Windows.Forms.Panel
-    Friend WithEvents Panel6 As System.Windows.Forms.Panel
+    Friend WithEvents ContactKeyPanel As System.Windows.Forms.Panel
     Friend WithEvents rdbNewESContact As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNewPermittingContact As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNewEISContact As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNewFeeContact As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNewComplianceContact As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNewMonitoringContact As System.Windows.Forms.RadioButton
-    Friend WithEvents btnNewClear As System.Windows.Forms.Button
-    Friend WithEvents btnNewUpdate As System.Windows.Forms.Button
-    Friend WithEvents btnNewSave As System.Windows.Forms.Button
+    Friend WithEvents btnClearForm As System.Windows.Forms.Button
+    Friend WithEvents btnUpdateContact As System.Windows.Forms.Button
+    Friend WithEvents btnSaveNewContact As System.Windows.Forms.Button
     Friend WithEvents mtbNewFaxNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mtbNewPhoneNumber2 As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mtbNewZipCode As System.Windows.Forms.MaskedTextBox
