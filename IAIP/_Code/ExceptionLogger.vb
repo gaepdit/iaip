@@ -10,9 +10,10 @@ Friend Module ExceptionLogger
             context As String,
             supplementalMessage As String,
             unrecoverable As Boolean) As Boolean
-        ' Only log if UAT or Prod
+
 #If DEBUG Then
-        'Return False
+        ' Only log if UAT or Prod
+        Return False
 #End If
 
         Dim client As New RaygunClient(ConfigurationManager.AppSettings("RAYGUN_API_KEY")) With {
