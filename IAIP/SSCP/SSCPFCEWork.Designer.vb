@@ -10,13 +10,13 @@ Partial Class SSCPFCEWork
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ReviewDataTabs = New System.Windows.Forms.TabControl()
         Me.TPInspections = New System.Windows.Forms.TabPage()
         Me.dgrFCEInspections = New Iaip.IaipDataGridView()
@@ -124,6 +124,9 @@ Partial Class SSCPFCEWork
         '
         'ReviewDataTabs
         '
+        Me.ReviewDataTabs.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ReviewDataTabs.Controls.Add(Me.TPInspections)
         Me.ReviewDataTabs.Controls.Add(Me.TPCorrespondance)
         Me.ReviewDataTabs.Controls.Add(Me.TPTitleVACC)
@@ -131,13 +134,12 @@ Partial Class SSCPFCEWork
         Me.ReviewDataTabs.Controls.Add(Me.TPISMPSummaryReports)
         Me.ReviewDataTabs.Controls.Add(Me.TPPerformanceTests)
         Me.ReviewDataTabs.Controls.Add(Me.TPEnforcement)
-        Me.ReviewDataTabs.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ReviewDataTabs.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ReviewDataTabs.HotTrack = True
         Me.ReviewDataTabs.Location = New System.Drawing.Point(3, 45)
         Me.ReviewDataTabs.Name = "ReviewDataTabs"
         Me.ReviewDataTabs.SelectedIndex = 0
-        Me.ReviewDataTabs.Size = New System.Drawing.Size(857, 207)
+        Me.ReviewDataTabs.Size = New System.Drawing.Size(776, 230)
         Me.ReviewDataTabs.TabIndex = 238
         '
         'TPInspections
@@ -147,15 +149,15 @@ Partial Class SSCPFCEWork
         Me.TPInspections.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TPInspections.Location = New System.Drawing.Point(4, 22)
         Me.TPInspections.Name = "TPInspections"
-        Me.TPInspections.Size = New System.Drawing.Size(849, 181)
+        Me.TPInspections.Size = New System.Drawing.Size(768, 204)
         Me.TPInspections.TabIndex = 0
         Me.TPInspections.Text = "Inspections"
         Me.TPInspections.UseVisualStyleBackColor = True
         '
         'dgrFCEInspections
         '
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrFCEInspections.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCEInspections.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgrFCEInspections.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCEInspections.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrFCEInspections.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -164,7 +166,7 @@ Partial Class SSCPFCEWork
         Me.dgrFCEInspections.Name = "dgrFCEInspections"
         Me.dgrFCEInspections.ResultsCountLabel = Nothing
         Me.dgrFCEInspections.ResultsCountLabelFormat = "{0} found"
-        Me.dgrFCEInspections.Size = New System.Drawing.Size(849, 142)
+        Me.dgrFCEInspections.Size = New System.Drawing.Size(768, 165)
         Me.dgrFCEInspections.StandardTab = True
         Me.dgrFCEInspections.TabIndex = 3
         '
@@ -176,7 +178,7 @@ Partial Class SSCPFCEWork
         Me.PanelFCE.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelFCE.Location = New System.Drawing.Point(0, 0)
         Me.PanelFCE.Name = "PanelFCE"
-        Me.PanelFCE.Size = New System.Drawing.Size(849, 39)
+        Me.PanelFCE.Size = New System.Drawing.Size(768, 39)
         Me.PanelFCE.TabIndex = 1
         '
         'llbFCEInspections
@@ -213,7 +215,7 @@ Partial Class SSCPFCEWork
         Me.TPCorrespondance.Controls.Add(Me.PanelNotifications)
         Me.TPCorrespondance.Location = New System.Drawing.Point(4, 22)
         Me.TPCorrespondance.Name = "TPCorrespondance"
-        Me.TPCorrespondance.Size = New System.Drawing.Size(849, 181)
+        Me.TPCorrespondance.Size = New System.Drawing.Size(768, 204)
         Me.TPCorrespondance.TabIndex = 3
         Me.TPCorrespondance.Text = "Notifications"
         Me.TPCorrespondance.UseVisualStyleBackColor = True
@@ -225,13 +227,13 @@ Partial Class SSCPFCEWork
         Me.PanelNotifications.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelNotifications.Location = New System.Drawing.Point(0, 0)
         Me.PanelNotifications.Name = "PanelNotifications"
-        Me.PanelNotifications.Size = New System.Drawing.Size(849, 181)
+        Me.PanelNotifications.Size = New System.Drawing.Size(768, 204)
         Me.PanelNotifications.TabIndex = 1
         '
         'dgrFCECorrespondance
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrFCECorrespondance.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCECorrespondance.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgrFCECorrespondance.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCECorrespondance.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrFCECorrespondance.LinkifyColumnByName = Nothing
@@ -239,7 +241,7 @@ Partial Class SSCPFCEWork
         Me.dgrFCECorrespondance.Name = "dgrFCECorrespondance"
         Me.dgrFCECorrespondance.ResultsCountLabel = Nothing
         Me.dgrFCECorrespondance.ResultsCountLabelFormat = "{0} found"
-        Me.dgrFCECorrespondance.Size = New System.Drawing.Size(849, 141)
+        Me.dgrFCECorrespondance.Size = New System.Drawing.Size(768, 164)
         Me.dgrFCECorrespondance.StandardTab = True
         Me.dgrFCECorrespondance.TabIndex = 8
         '
@@ -251,7 +253,7 @@ Partial Class SSCPFCEWork
         Me.PanelFCENotifications.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelFCENotifications.Location = New System.Drawing.Point(0, 0)
         Me.PanelFCENotifications.Name = "PanelFCENotifications"
-        Me.PanelFCENotifications.Size = New System.Drawing.Size(849, 40)
+        Me.PanelFCENotifications.Size = New System.Drawing.Size(768, 40)
         Me.PanelFCENotifications.TabIndex = 6
         '
         'Label13
@@ -289,15 +291,15 @@ Partial Class SSCPFCEWork
         Me.TPTitleVACC.Controls.Add(Me.PanelFCE3)
         Me.TPTitleVACC.Location = New System.Drawing.Point(4, 22)
         Me.TPTitleVACC.Name = "TPTitleVACC"
-        Me.TPTitleVACC.Size = New System.Drawing.Size(849, 181)
+        Me.TPTitleVACC.Size = New System.Drawing.Size(768, 204)
         Me.TPTitleVACC.TabIndex = 2
         Me.TPTitleVACC.Text = "Title V Annual Certification"
         Me.TPTitleVACC.UseVisualStyleBackColor = True
         '
         'dgrFCEACC
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrFCEACC.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCEACC.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgrFCEACC.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCEACC.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrFCEACC.LinkifyColumnByName = Nothing
@@ -305,7 +307,7 @@ Partial Class SSCPFCEWork
         Me.dgrFCEACC.Name = "dgrFCEACC"
         Me.dgrFCEACC.ResultsCountLabel = Nothing
         Me.dgrFCEACC.ResultsCountLabelFormat = "{0} found"
-        Me.dgrFCEACC.Size = New System.Drawing.Size(849, 141)
+        Me.dgrFCEACC.Size = New System.Drawing.Size(768, 164)
         Me.dgrFCEACC.StandardTab = True
         Me.dgrFCEACC.TabIndex = 3
         '
@@ -317,7 +319,7 @@ Partial Class SSCPFCEWork
         Me.PanelFCE3.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelFCE3.Location = New System.Drawing.Point(0, 0)
         Me.PanelFCE3.Name = "PanelFCE3"
-        Me.PanelFCE3.Size = New System.Drawing.Size(849, 40)
+        Me.PanelFCE3.Size = New System.Drawing.Size(768, 40)
         Me.PanelFCE3.TabIndex = 1
         '
         'llbFCEACC
@@ -356,15 +358,15 @@ Partial Class SSCPFCEWork
         Me.TPReports.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TPReports.Location = New System.Drawing.Point(4, 22)
         Me.TPReports.Name = "TPReports"
-        Me.TPReports.Size = New System.Drawing.Size(849, 181)
+        Me.TPReports.Size = New System.Drawing.Size(768, 204)
         Me.TPReports.TabIndex = 1
         Me.TPReports.Text = "Reports"
         Me.TPReports.UseVisualStyleBackColor = True
         '
         'dgrFCEReports
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrFCEReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCEReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgrFCEReports.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCEReports.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrFCEReports.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -373,7 +375,7 @@ Partial Class SSCPFCEWork
         Me.dgrFCEReports.Name = "dgrFCEReports"
         Me.dgrFCEReports.ResultsCountLabel = Nothing
         Me.dgrFCEReports.ResultsCountLabelFormat = "{0} found"
-        Me.dgrFCEReports.Size = New System.Drawing.Size(849, 141)
+        Me.dgrFCEReports.Size = New System.Drawing.Size(768, 164)
         Me.dgrFCEReports.StandardTab = True
         Me.dgrFCEReports.TabIndex = 2
         '
@@ -385,7 +387,7 @@ Partial Class SSCPFCEWork
         Me.PanelFCE2.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelFCE2.Location = New System.Drawing.Point(0, 0)
         Me.PanelFCE2.Name = "PanelFCE2"
-        Me.PanelFCE2.Size = New System.Drawing.Size(849, 40)
+        Me.PanelFCE2.Size = New System.Drawing.Size(768, 40)
         Me.PanelFCE2.TabIndex = 0
         '
         'llbFCEReports
@@ -423,15 +425,15 @@ Partial Class SSCPFCEWork
         Me.TPISMPSummaryReports.Controls.Add(Me.PanelFCE5)
         Me.TPISMPSummaryReports.Location = New System.Drawing.Point(4, 22)
         Me.TPISMPSummaryReports.Name = "TPISMPSummaryReports"
-        Me.TPISMPSummaryReports.Size = New System.Drawing.Size(849, 181)
+        Me.TPISMPSummaryReports.Size = New System.Drawing.Size(768, 204)
         Me.TPISMPSummaryReports.TabIndex = 4
         Me.TPISMPSummaryReports.Text = "ISMP Summary Reports"
         Me.TPISMPSummaryReports.UseVisualStyleBackColor = True
         '
         'dgrISMPSummaryReports
         '
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrISMPSummaryReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrISMPSummaryReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
         Me.dgrISMPSummaryReports.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrISMPSummaryReports.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrISMPSummaryReports.LinkifyColumnByName = Nothing
@@ -439,7 +441,7 @@ Partial Class SSCPFCEWork
         Me.dgrISMPSummaryReports.Name = "dgrISMPSummaryReports"
         Me.dgrISMPSummaryReports.ResultsCountLabel = Nothing
         Me.dgrISMPSummaryReports.ResultsCountLabelFormat = "{0} found"
-        Me.dgrISMPSummaryReports.Size = New System.Drawing.Size(849, 141)
+        Me.dgrISMPSummaryReports.Size = New System.Drawing.Size(768, 164)
         Me.dgrISMPSummaryReports.StandardTab = True
         Me.dgrISMPSummaryReports.TabIndex = 4
         '
@@ -451,7 +453,7 @@ Partial Class SSCPFCEWork
         Me.PanelFCE5.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelFCE5.Location = New System.Drawing.Point(0, 0)
         Me.PanelFCE5.Name = "PanelFCE5"
-        Me.PanelFCE5.Size = New System.Drawing.Size(849, 40)
+        Me.PanelFCE5.Size = New System.Drawing.Size(768, 40)
         Me.PanelFCE5.TabIndex = 2
         '
         'llbISMPSummaryReports
@@ -489,15 +491,15 @@ Partial Class SSCPFCEWork
         Me.TPPerformanceTests.Controls.Add(Me.PanelPerformanceTests)
         Me.TPPerformanceTests.Location = New System.Drawing.Point(4, 22)
         Me.TPPerformanceTests.Name = "TPPerformanceTests"
-        Me.TPPerformanceTests.Size = New System.Drawing.Size(849, 181)
+        Me.TPPerformanceTests.Size = New System.Drawing.Size(768, 204)
         Me.TPPerformanceTests.TabIndex = 6
         Me.TPPerformanceTests.Text = "PerformanceTest Reviews"
         Me.TPPerformanceTests.UseVisualStyleBackColor = True
         '
         'dgrPerformanceTests
         '
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrPerformanceTests.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrPerformanceTests.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
         Me.dgrPerformanceTests.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrPerformanceTests.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrPerformanceTests.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -506,7 +508,7 @@ Partial Class SSCPFCEWork
         Me.dgrPerformanceTests.Name = "dgrPerformanceTests"
         Me.dgrPerformanceTests.ResultsCountLabel = Nothing
         Me.dgrPerformanceTests.ResultsCountLabelFormat = "{0} found"
-        Me.dgrPerformanceTests.Size = New System.Drawing.Size(849, 141)
+        Me.dgrPerformanceTests.Size = New System.Drawing.Size(768, 164)
         Me.dgrPerformanceTests.StandardTab = True
         Me.dgrPerformanceTests.TabIndex = 4
         '
@@ -518,7 +520,7 @@ Partial Class SSCPFCEWork
         Me.PanelPerformanceTests.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelPerformanceTests.Location = New System.Drawing.Point(0, 0)
         Me.PanelPerformanceTests.Name = "PanelPerformanceTests"
-        Me.PanelPerformanceTests.Size = New System.Drawing.Size(849, 40)
+        Me.PanelPerformanceTests.Size = New System.Drawing.Size(768, 40)
         Me.PanelPerformanceTests.TabIndex = 2
         '
         'llbPerformanceTests
@@ -556,15 +558,15 @@ Partial Class SSCPFCEWork
         Me.TPEnforcement.Controls.Add(Me.PanelEnforcement)
         Me.TPEnforcement.Location = New System.Drawing.Point(4, 22)
         Me.TPEnforcement.Name = "TPEnforcement"
-        Me.TPEnforcement.Size = New System.Drawing.Size(849, 181)
+        Me.TPEnforcement.Size = New System.Drawing.Size(768, 204)
         Me.TPEnforcement.TabIndex = 5
         Me.TPEnforcement.Text = "Enforcement"
         Me.TPEnforcement.UseVisualStyleBackColor = True
         '
         'dgrFCEEnforcement
         '
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrFCEEnforcement.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrFCEEnforcement.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
         Me.dgrFCEEnforcement.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrFCEEnforcement.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrFCEEnforcement.LinkifyColumnByName = Nothing
@@ -572,7 +574,7 @@ Partial Class SSCPFCEWork
         Me.dgrFCEEnforcement.Name = "dgrFCEEnforcement"
         Me.dgrFCEEnforcement.ResultsCountLabel = Nothing
         Me.dgrFCEEnforcement.ResultsCountLabelFormat = "{0} found"
-        Me.dgrFCEEnforcement.Size = New System.Drawing.Size(849, 141)
+        Me.dgrFCEEnforcement.Size = New System.Drawing.Size(768, 164)
         Me.dgrFCEEnforcement.StandardTab = True
         Me.dgrFCEEnforcement.TabIndex = 2
         '
@@ -584,7 +586,7 @@ Partial Class SSCPFCEWork
         Me.PanelEnforcement.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelEnforcement.Location = New System.Drawing.Point(0, 0)
         Me.PanelEnforcement.Name = "PanelEnforcement"
-        Me.PanelEnforcement.Size = New System.Drawing.Size(849, 40)
+        Me.PanelEnforcement.Size = New System.Drawing.Size(768, 40)
         Me.PanelEnforcement.TabIndex = 0
         '
         'llbFCEEnforcement
@@ -631,7 +633,7 @@ Partial Class SSCPFCEWork
         Me.FceDataGroup.Dock = System.Windows.Forms.DockStyle.Top
         Me.FceDataGroup.Location = New System.Drawing.Point(3, 103)
         Me.FceDataGroup.Name = "FceDataGroup"
-        Me.FceDataGroup.Size = New System.Drawing.Size(863, 126)
+        Me.FceDataGroup.Size = New System.Drawing.Size(782, 126)
         Me.FceDataGroup.TabIndex = 0
         Me.FceDataGroup.TabStop = False
         Me.FceDataGroup.Text = "FCE Entry"
@@ -687,11 +689,13 @@ Partial Class SSCPFCEWork
         'txtFCEComments
         '
         Me.txtFCEComments.AcceptsReturn = True
+        Me.txtFCEComments.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtFCEComments.Location = New System.Drawing.Point(476, 31)
         Me.txtFCEComments.MaxLength = 3900
         Me.txtFCEComments.Multiline = True
         Me.txtFCEComments.Name = "txtFCEComments"
-        Me.txtFCEComments.Size = New System.Drawing.Size(384, 56)
+        Me.txtFCEComments.Size = New System.Drawing.Size(297, 56)
         Me.txtFCEComments.TabIndex = 4
         '
         'Label8
@@ -809,7 +813,7 @@ Partial Class SSCPFCEWork
         Me.TabControlFCE.Location = New System.Drawing.Point(0, 0)
         Me.TabControlFCE.Name = "TabControlFCE"
         Me.TabControlFCE.SelectedIndex = 0
-        Me.TabControlFCE.Size = New System.Drawing.Size(877, 642)
+        Me.TabControlFCE.Size = New System.Drawing.Size(796, 555)
         Me.TabControlFCE.TabIndex = 243
         '
         'TabPageFCEData
@@ -820,7 +824,7 @@ Partial Class SSCPFCEWork
         Me.TabPageFCEData.Location = New System.Drawing.Point(4, 22)
         Me.TabPageFCEData.Name = "TabPageFCEData"
         Me.TabPageFCEData.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageFCEData.Size = New System.Drawing.Size(869, 616)
+        Me.TabPageFCEData.Size = New System.Drawing.Size(788, 529)
         Me.TabPageFCEData.TabIndex = 0
         Me.TabPageFCEData.Text = "FCE Data"
         Me.TabPageFCEData.UseVisualStyleBackColor = True
@@ -832,7 +836,7 @@ Partial Class SSCPFCEWork
         Me.FacilityInfoPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.FacilityInfoPanel.Location = New System.Drawing.Point(3, 3)
         Me.FacilityInfoPanel.Name = "FacilityInfoPanel"
-        Me.FacilityInfoPanel.Size = New System.Drawing.Size(863, 100)
+        Me.FacilityInfoPanel.Size = New System.Drawing.Size(782, 100)
         Me.FacilityInfoPanel.TabIndex = 242
         '
         'txtFacilityInformation
@@ -844,7 +848,7 @@ Partial Class SSCPFCEWork
         Me.txtFacilityInformation.Name = "txtFacilityInformation"
         Me.txtFacilityInformation.ReadOnly = True
         Me.txtFacilityInformation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtFacilityInformation.Size = New System.Drawing.Size(753, 83)
+        Me.txtFacilityInformation.Size = New System.Drawing.Size(672, 83)
         Me.txtFacilityInformation.TabIndex = 236
         '
         'labReferenceNumber
@@ -859,12 +863,14 @@ Partial Class SSCPFCEWork
         '
         'ReviewDataGroup
         '
+        Me.ReviewDataGroup.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ReviewDataGroup.Controls.Add(Me.ReviewDataSelectorPanel)
         Me.ReviewDataGroup.Controls.Add(Me.ReviewDataTabs)
-        Me.ReviewDataGroup.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ReviewDataGroup.Location = New System.Drawing.Point(3, 358)
+        Me.ReviewDataGroup.Location = New System.Drawing.Point(3, 254)
         Me.ReviewDataGroup.Name = "ReviewDataGroup"
-        Me.ReviewDataGroup.Size = New System.Drawing.Size(863, 255)
+        Me.ReviewDataGroup.Size = New System.Drawing.Size(782, 278)
         Me.ReviewDataGroup.TabIndex = 1
         Me.ReviewDataGroup.TabStop = False
         Me.ReviewDataGroup.Text = "Review Facility Data"
@@ -876,10 +882,10 @@ Partial Class SSCPFCEWork
         Me.ReviewDataSelectorPanel.Controls.Add(Me.DTPFilterStartDate)
         Me.ReviewDataSelectorPanel.Controls.Add(Me.llbViewFCEData)
         Me.ReviewDataSelectorPanel.Controls.Add(Me.Label4)
-        Me.ReviewDataSelectorPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ReviewDataSelectorPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.ReviewDataSelectorPanel.Location = New System.Drawing.Point(3, 16)
         Me.ReviewDataSelectorPanel.Name = "ReviewDataSelectorPanel"
-        Me.ReviewDataSelectorPanel.Size = New System.Drawing.Size(857, 29)
+        Me.ReviewDataSelectorPanel.Size = New System.Drawing.Size(776, 29)
         Me.ReviewDataSelectorPanel.TabIndex = 3
         '
         'ToolStrip1
@@ -888,7 +894,7 @@ Partial Class SSCPFCEWork
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnSave, Me.btnPrint})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(877, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(796, 25)
         Me.ToolStrip1.TabIndex = 244
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -912,9 +918,10 @@ Partial Class SSCPFCEWork
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(877, 642)
+        Me.ClientSize = New System.Drawing.Size(796, 555)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.TabControlFCE)
+        Me.MinimumSize = New System.Drawing.Size(722, 512)
         Me.Name = "SSCPFCEWork"
         Me.Text = "Full Compliance Evaluation"
         Me.ReviewDataTabs.ResumeLayout(False)
