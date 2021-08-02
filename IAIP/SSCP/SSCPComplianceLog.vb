@@ -153,8 +153,7 @@ Public Class SSCPComplianceLog
                                WHEN m.DATCOMPLETEDATE IS NOT NULL THEN 'Closed'
                                ELSE 'Open'
                            END                                         AS Status,
-                           m
-                               .DATRECEIVEDDATE                        AS [Received Date],
+                           m.DATRECEIVEDDATE                           AS [Received Date],
                            i.DATINSPECTIONDATESTART                    AS [Inspection Date], NULL AS [FCE Date],
                            NULL                                        AS [Enf Discovery Date],
                            t.STRREFERENCENUMBER                        as [Stack Test Ref], m.DATCOMPLETEDATE AS [Date Completed],
@@ -268,38 +267,38 @@ Public Class SSCPComplianceLog
 
             If chbFilterDates.Checked Then
                 If chbAllWork.Checked Then
-                    SqlFilter = SqlFilter & " ([Received Date] between @datestart and @dateend " &
-                    "or [Inspection Date] between @datestart and @dateend " &
-                    "or [FCE Date] between @datestart and @dateend " &
-                    "or [Enf Discovery Date] between @datestart and @dateend " &
-                    "or [Last Modified] between @datestart and @dateend) or "
+                    SqlFilter = SqlFilter & " (convert(date, [Received Date]) between @datestart and @dateend
+                        or convert(date, [Inspection Date]) between @datestart and @dateend
+                        or convert(date, [FCE Date]) between @datestart and @dateend
+                        or convert(date, [Enf Discovery Date]) between @datestart and @dateend
+                        or convert(date, [Last Modified]) between @datestart and @dateend) or "
                 Else
                     If chbACCs.Checked Then
-                        SqlFilter = SqlFilter & " [Received Date] between @datestart and @dateend or "
+                        SqlFilter = SqlFilter & " convert(date, [Received Date]) between @datestart and @dateend or "
                     End If
                     If chbEnforcement.Checked Then
-                        SqlFilter = SqlFilter & " [Enf Discovery Date] between @datestart and @dateend or "
+                        SqlFilter = SqlFilter & " convert(date, [Enf Discovery Date]) between @datestart and @dateend or "
                     End If
                     If chbFCE.Checked Then
-                        SqlFilter = SqlFilter & " [FCE Date] between @datestart and @dateend or "
+                        SqlFilter = SqlFilter & " convert(date, [FCE Date]) between @datestart and @dateend or "
                     End If
                     If chbInspections.Checked Then
-                        SqlFilter = SqlFilter & " [Inspection Date] between @datestart and @dateend or "
+                        SqlFilter = SqlFilter & " convert(date, [Inspection Date]) between @datestart and @dateend or "
                     End If
                     If chbNotifications.Checked Then
-                        SqlFilter = SqlFilter & " [Received Date] between @datestart and @dateend or "
+                        SqlFilter = SqlFilter & " convert(date, [Received Date]) between @datestart and @dateend or "
                     End If
                     If chbPerformanceTests.Checked Then
-                        SqlFilter = SqlFilter & " [Received Date] between @datestart and @dateend or "
+                        SqlFilter = SqlFilter & " convert(date, [Received Date]) between @datestart and @dateend or "
                     End If
                     If chbReports.Checked Then
-                        SqlFilter = SqlFilter & " [Received Date] between @datestart and @dateend or "
+                        SqlFilter = SqlFilter & " convert(date, [Received Date]) between @datestart and @dateend or "
                     End If
                     If chbRMPInspections.Checked Then
-                        SqlFilter = SqlFilter & " [Received Date] between @datestart and @dateend or "
+                        SqlFilter = SqlFilter & " convert(date, [Received Date]) between @datestart and @dateend or "
                     End If
                     If chbLastModifiedDate.Checked Then
-                        SqlFilter = SqlFilter & " [Last Modified] between @datestart and @dateend or "
+                        SqlFilter = SqlFilter & " convert(date, [Last Modified]) between @datestart and @dateend or "
                     End If
                 End If
 
@@ -387,7 +386,7 @@ Public Class SSCPComplianceLog
 
             Dim p As SqlParameter() = {
                 New SqlParameter("@datestart", DTPFilterStart.Value),
-                New SqlParameter("@dateend", DTPFilterEnd.Value.AddDays(1)),
+                New SqlParameter("@dateend", DTPFilterEnd.Value),
                 New SqlParameter("@airs", "%" & txtAIRSNumberFilter.Text & "%"),
                 New SqlParameter("@trk", "%" & txtTrackingNumberFilter.Text & "%"),
                 New SqlParameter("@enf", "%" & txtEnforcementNumberFilter.Text & "%"),
