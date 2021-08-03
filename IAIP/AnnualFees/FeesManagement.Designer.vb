@@ -1201,7 +1201,7 @@ Partial Class FeesManagement
         Me.btnUpdateContactData.Text = "Update Mailout List With Current Fee Contacts"
         Me.btnUpdateContactData.UseVisualStyleBackColor = True
         '
-        'PASPFeeManagement
+        'FeesManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -1209,7 +1209,7 @@ Partial Class FeesManagement
         Me.Controls.Add(Me.FeeManagementTabControl)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MinimumSize = New System.Drawing.Size(660, 648)
-        Me.Name = "PASPFeeManagement"
+        Me.Name = "FeesManagement"
         Me.Text = "Annual Fees - Management"
         Me.FeeManagementTabControl.ResumeLayout(False)
         Me.TPFeeAdminTools.ResumeLayout(False)

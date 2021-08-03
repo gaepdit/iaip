@@ -1238,6 +1238,9 @@ Public Class FeesStatistics
 #Region "Facility Specific"
 
     Private Sub btnViewFacilitySpecificData_Click(sender As Object, e As EventArgs) Handles btnViewFacilitySpecificData.Click
+        GridFeesReports.Visible = False
+        CRFeesReports.Visible = True
+
         If Not CrystalReportsIsAvailable() Then
             Return
         End If
@@ -1277,144 +1280,88 @@ Public Class FeesStatistics
 #Region "Year Specific"
 
     Private Sub btnClassification_Click(sender As Object, e As EventArgs) Handles btnClassification.Click
-        If Not CrystalReportsIsAvailable() Then
-            Return
-        End If
+        GridFeesReports.Visible = True
+        CRFeesReports.Visible = False
+        Cursor = Cursors.WaitCursor
 
-        Try
-            Me.Cursor = Cursors.WaitCursor
-            Dim rpt As ReportClass = New FacilityClassification10
+        Dim query As String = "select * from VW_FACILITY_CLASS_COUNTS order by [Fee Year] desc"
 
-            Dim SQL As String = "Select * from VW_Facility_Class_Counts "
-
-            rpt.SetDataSource(DB.GetDataTable(SQL))
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            Me.Cursor = Cursors.Default
-        End Try
+        GridFeesReports.DataSource = DB.GetDataTable(query)
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnRunBalanceReport_Click(sender As Object, e As EventArgs) Handles btnRunBalanceReport.Click
-        If Not CrystalReportsIsAvailable() Then
-            Return
-        End If
+        GridFeesReports.Visible = True
+        CRFeesReports.Visible = False
+        Cursor = Cursors.WaitCursor
+        Dim selectedYear As Integer = CInt(cbBalanceYear.Text)
 
-        Try
-            Me.Cursor = Cursors.WaitCursor
-            Dim selectedYear As Integer = CInt(cbBalanceYear.Text)
+        Dim query As String = "SELECT iaip_facility.FormatAirsNumber(d.STRAIRSNUMBER) as [AIRS Number],
+                    i.STRFACILITYNAME        as [Facility Name],
+                    d.TOTALDUE               as [Fees Due],
+                    d.TOTALPAID              as [Fees Paid],
+                    d.TOTALDUE - d.TOTALPAID as [Balance]
+            FROM APBFACILITYINFORMATION i
+                inner join FEEDETAILS d
+                on i.STRAIRSNUMBER = d.STRAIRSNUMBER
+            where d.intyear = @year
+            order by i.STRAIRSNUMBER"
 
-            Dim ParameterFields As ParameterFields
-            Dim ParameterField As ParameterField
-            Dim spValue As ParameterDiscreteValue
+        Dim p As New SqlParameter("@year", selectedYear.ToString)
 
-            Dim rpt As ReportClass
-            If Not chbFacilityBalance.Checked Then
-                rpt = New FacilityBalance10
-            Else
-                rpt = New FacilityBalancewithZero10
-            End If
-
-            Dim SQL As String = "SELECT " &
-        "strFacilityName, " &
-        "FeeDetails.strAIRSNumber, " &
-        "FeeDetails.intyear, " &
-        "totalDue, totalPaid, " &
-        "strContactFirstName, strContactLastName, " &
-        "strContactPhoneNumber1, strContactFaxNumber, " &
-        "strContactEmail, strContactAddress1, " &
-        "strContactCity, strContactState, " &
-        "strContactZipCode, strSICCode, " &
-        "numPayment, PaidYear   " &
-        "FROM APBFacilityInformation " &
-        "inner join FeeDetails " &
-        "on APBFacilityInformation.strAIRSNumber = FeeDetails.strAIRSNumber " &
-        "inner join FeesContact " &
-        "on APBFacilityInformation.strAIRSNumber = FeesContact.strAIRSnumber " &
-        "inner join APBHeaderData " &
-        "on APBFacilityInformation.strAIRSnumber = APBHeaderData.strAIRSNumber " &
-        "inner join FS_Transactions  " &
-        "on APBFacilityInformation.strAIRSNumber = FS_Transactions.strAIRSNumber " &
-        "and feedetails.intyear = FS_Transactions.numFeeYear " &
-        "where feedetails.intyear = @year " &
-        "order by strairsnumber "
-            Dim p As New SqlParameter("@year", selectedYear.ToString)
-
-            rpt.SetDataSource(DB.GetDataTable(SQL, p))
-
-            'Do this just once at the start
-            ParameterFields = New ParameterFields
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New ParameterField
-            spValue = New ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "Year"
-            spValue.Value = selectedYear.ToString
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Load Variables into the Fields
-            CRFeesReports.ParameterFieldInfo = ParameterFields
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            Me.Cursor = Cursors.Default
-        End Try
+        GridFeesReports.DataSource = DB.GetDataTable(query, p)
+        Cursor = Cursors.Default
     End Sub
 
 #End Region
 
 #Region "Financial"
     Private Sub btnPayment_Click(sender As Object, e As EventArgs) Handles btnPayment.Click
-        If Not CrystalReportsIsAvailable() Then
-            Return
-        End If
+        GridFeesReports.Visible = True
+        CRFeesReports.Visible = False
+        Cursor = Cursors.Default
 
-        Try
-            Me.Cursor = Cursors.Default
-            Dim rpt As ReportClass = New TotalPayment10
-            Dim SQL As String = "Select * from VW_Total_PAYMENT "
+        Dim query As String = "SELECT paid.Year,
+                   paid.[Total Paid],
+                   due.[Total Due],
+                   due.[Total Due] - paid.[Total Paid] as Balance
+            FROM (SELECT sum(TOTALPAID) AS [Total Paid],
+                         INTYEAR        AS Year
+                  FROM dbo.FEESPAID
+                  GROUP BY INTYEAR) AS paid
+                LEFT JOIN (SELECT sum(TOTALDUE) AS [Total Due],
+                                  INTYEAR       AS Year
+                           FROM dbo.FEESDUE
+                           GROUP BY INTYEAR) AS due
+                ON paid.Year = due.Year
+            ORDER BY paid.Year desc"
 
-            rpt.SetDataSource(DB.GetDataTable(SQL))
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports)
-            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            Me.Cursor = Cursors.Default
-        End Try
-
+        GridFeesReports.DataSource = DB.GetDataTable(query)
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnFeeByYear_Click(sender As Object, e As EventArgs) Handles btnFeeByYear.Click
+        GridFeesReports.Visible = False
+        CRFeesReports.Visible = True
+
         If Not CrystalReportsIsAvailable() Then
             Return
         End If
 
         Try
-            Me.Cursor = Cursors.WaitCursor
+            Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New feeByYear10
-            Dim SQL As String = "Select * from FeesDue "
+            Dim query As String = "select iaip_facility.FormatAirsNumber(STRAIRSNUMBER) as STRAIRSNUMBER, TOTALDUE, INTYEAR from dbo.FeesDue"
 
-            rpt.SetDataSource(DB.GetDataTable(SQL))
+            rpt.SetDataSource(DB.GetDataTable(query))
 
             SetUpCrystalReportViewer(rpt, CRFeesReports)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            Me.Cursor = Cursors.Default
+            Cursor = Cursors.Default
         End Try
-
     End Sub
 
 #End Region
@@ -1422,52 +1369,59 @@ Public Class FeesStatistics
 #Region "Deposits"
 
     Private Sub btnViewDepositsReportByDate_Click(sender As Object, e As EventArgs) Handles btnViewDepositsReportByDate.Click
-        If Not CrystalReportsIsAvailable() Then
-            Return
-        End If
+        GridFeesReports.Visible = True
+        CRFeesReports.Visible = False
+        Cursor = Cursors.WaitCursor
 
-        Me.Cursor = Cursors.WaitCursor
-        Dim query As String = "SELECT TRANSACTIONID, INVOICEID, TRANSACTIONTYPECODE, " &
-        "  DATTRANSACTIONDATE, NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, " &
-        "  STRBATCHNO, STRENTRYPERSON, STRCOMMENT, ACTIVE, UPDATEUSER, " &
-        "  UPDATEDATETIME, CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, " &
-        "  STRCREDITCARDNO " &
-        "FROM FS_TRANSACTIONS " &
-        "WHERE ACTIVE = '1' AND DATTRANSACTIONDATE BETWEEN @StartDate " &
-        "  AND @EndDate " &
-        "ORDER BY NUMFEEYEAR DESC"
+        Dim query As String = "SELECT STRBATCHNO         as [Batch Number],
+                   iaip_facility.FormatAirsNumber(STRAIRSNUMBER)
+                                      as [AIRS Number],
+                   NUMPAYMENT         as [Payment Amount],
+                   STRCHECKNO         as [Check Number],
+                   DATTRANSACTIONDATE as [Payment Date],
+                   IIF(TRANSACTIONTYPECODE = 1, 'Deposit', 'Refund')
+                                      as [Transaction Type],
+                   NUMFEEYEAR         as [Fee Year],
+                   TRANSACTIONID      as [Transaction ID]
+            FROM FS_TRANSACTIONS
+            WHERE ACTIVE = '1'
+              AND DATTRANSACTIONDATE BETWEEN @StartDate AND @EndDate
+            ORDER BY [Batch Number], NUMFEEYEAR DESC, [AIRS Number], TRANSACTIONID"
+
         Dim parameters As SqlParameter() = {
             New SqlParameter("@StartDate", dtpDepositReportStartDate.Value),
             New SqlParameter("@EndDate", dtpDepositReportEndDate.Value)
         }
 
-        Dim rpt As ReportClass = New DepositQA11
-        rpt.SetDataSource(DB.GetDataTable(query, parameters))
-
-        SetUpCrystalReportViewer(rpt, CRFeesReports)
-        Me.Cursor = Cursors.Default
+        GridFeesReports.DataSource = DB.GetDataTable(query, parameters)
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnViewFacilityDepositsReport_Click(sender As Object, e As EventArgs) Handles btnViewFacilityDepositsReport.Click
-        If Not CrystalReportsIsAvailable() Then
-            Return
-        End If
+        GridFeesReports.Visible = True
+        CRFeesReports.Visible = False
 
         If cboAirs.Text <> "" Then
-            Dim query As String = "SELECT TRANSACTIONID, INVOICEID, TRANSACTIONTYPECODE, " &
-                "  DATTRANSACTIONDATE, NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, " &
-                "  STRBATCHNO, STRENTRYPERSON, STRCOMMENT, ACTIVE, UPDATEUSER, " &
-                "  UPDATEDATETIME, CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, " &
-                "  STRCREDITCARDNO " &
-                "FROM FS_TRANSACTIONS " &
-                "WHERE ACTIVE = '1' AND STRAIRSNUMBER = @airs " &
-                "ORDER BY NUMFEEYEAR DESC"
+            Cursor = Cursors.WaitCursor
+
+            Dim query As String = "SELECT STRBATCHNO         as [Batch Number],
+                       iaip_facility.FormatAirsNumber(STRAIRSNUMBER)
+                                          as [AIRS Number],
+                       NUMPAYMENT         as [Payment Amount],
+                       STRCHECKNO         as [Check Number],
+                       DATTRANSACTIONDATE as [Payment Date],
+                       IIF(TRANSACTIONTYPECODE = 1, 'Deposit', 'Refund')
+                                          as [Transaction Type],
+                       NUMFEEYEAR         as [Fee Year],
+                       TRANSACTIONID      as [Transaction ID]
+                FROM FS_TRANSACTIONS
+                WHERE ACTIVE = '1'
+                  AND STRAIRSNUMBER = @airs
+                ORDER BY [Batch Number], NUMFEEYEAR DESC, TRANSACTIONID"
             Dim parameter As New SqlParameter("@airs", "0413" & cboAirs.Text)
 
-            Dim rpt As ReportClass = New DepositQA11
-            rpt.SetDataSource(DB.GetDataTable(query, parameter))
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports)
+            GridFeesReports.DataSource = DB.GetDataTable(query, parameter)
+            Cursor = Cursors.Default
         End If
     End Sub
 
@@ -1476,97 +1430,85 @@ Public Class FeesStatistics
 #Region "Compliance"
 
     Private Sub btnClassChange_Click(sender As Object, e As EventArgs) Handles btnClassChange.Click
-        If Not CrystalReportsIsAvailable() Then
-            Return
-        End If
+        GridFeesReports.Visible = True
+        CRFeesReports.Visible = False
+        Cursor = Cursors.WaitCursor
 
-        Try
-            Me.Cursor = Cursors.WaitCursor
-            Dim rpt As ReportClass = New ClassChanged10
+        Dim query As String = "SELECT f.NUMFEEYEAR AS [Fee Year],
+                       iaip_facility.FormatAirsNumber(f.STRAIRSNUMBER)
+                                    as [AIRS Number],
+                       h.STRCLASS   as [APB Class],
+                       f.STRCLASS   AS [Fee Form Class]
+                FROM dbo.FS_FEEAUDITEDDATA f
+                    INNER JOIN dbo.APBHEADERDATA h
+                    ON h.STRAIRSNUMBER = f.STRAIRSNUMBER
+                        AND h.STRCLASS <> f.STRCLASS
+                WHERE f.NUMFEEYEAR >= (year(getdate()) - 5)
+                order by [Fee Year] desc, [AIRS Number]"
 
-            Dim SQL As String = "SELECT * FROM VW_CLASS_CHANGED WHERE INTYEAR >= (year(getdate()) - 5)"
-
-            rpt.SetDataSource(DB.GetDataTable(SQL))
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            Me.Cursor = Cursors.Default
-        End Try
+        GridFeesReports.DataSource = DB.GetDataTable(query)
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub lblNSPS1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS1.LinkClicked
-        If Not CrystalReportsIsAvailable() Then
-            Return
-        End If
+        GridFeesReports.Visible = True
+        CRFeesReports.Visible = False
+        Cursor = Cursors.WaitCursor
 
-        Try
-            Me.Cursor = Cursors.WaitCursor
+        Dim query As String = "select [Fee Year],
+                   [AIRS Number],
+                   [Subject to NSPS],
+                   [NSPS Exempt],
+                   [NSPS Exempt Reasons]
+            from VW_NSPS_STATUS
+            where [Subject to NSPS] = 'YES'
+              and [NSPS Exempt] = 'YES'
+            order by [Fee Year] desc, [AIRS Number]"
 
-            Dim SQL As String = "Select * " &
-            "from VW_NSPS_Status " &
-            "where strnsps = 'YES' " &
-            "and STRnspsexempt = '1'"
-
-            Dim rpt As ReportClass = New NSPSStatus10
-            rpt.SetDataSource(DB.GetDataTable(SQL))
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            Me.Cursor = Cursors.Default
-        End Try
+        GridFeesReports.DataSource = DB.GetDataTable(query)
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub lblNSPS2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS2.LinkClicked
-        If Not CrystalReportsIsAvailable() Then
-            Return
-        End If
+        GridFeesReports.Visible = True
+        CRFeesReports.Visible = False
+        Cursor = Cursors.WaitCursor
 
-        Try
-            Me.Cursor = Cursors.WaitCursor
-            Dim rpt As ReportClass = New NSPSStatus1_10
-            Dim SQL As String = "Select * " &
-            "from VW_NSPS_Status " &
-            "where Strnsps1 = 'YES' " &
-            "and strnsps = 'NO'"
+        Dim query As String = "select [Fee Year],
+                   [AIRS Number],
+                   [Subject to NSPS],
+                   [Indicated as NSPS]
+            from VW_NSPS_STATUS
+            where [Subject to NSPS] = 'NO'
+              and [Indicated as NSPS] = 'YES'
+            order by [Fee Year] desc, [AIRS Number]"
 
-            rpt.SetDataSource(DB.GetDataTable(SQL))
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            Me.Cursor = Cursors.Default
-        End Try
+        GridFeesReports.DataSource = DB.GetDataTable(query)
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub lblNSPS3_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS3.LinkClicked
-        If Not CrystalReportsIsAvailable() Then
-            Return
-        End If
+        GridFeesReports.Visible = True
+        CRFeesReports.Visible = False
+        Cursor = Cursors.WaitCursor
 
-        Try
-            Me.Cursor = Cursors.WaitCursor
-            Dim rpt As ReportClass = New NSPSStatus2_10
-            Dim SQL As String = "Select * " &
-            "from VW_NSPS_Status " &
-            "where strnsps = 'YES' " &
-            "and STRoperate <> 'YES'"
+        Dim query As String = "select [Fee Year],
+                   [AIRS Number],
+                   [Subject to NSPS],
+                   Operated
+            from VW_NSPS_STATUS
+            where [Subject to NSPS] = 'YES'
+              and Operated = 'NO'
+            order by [Fee Year] desc, [AIRS Number]"
 
-            rpt.SetDataSource(DB.GetDataTable(SQL))
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            Me.Cursor = Cursors.Default
-        End Try
+        GridFeesReports.DataSource = DB.GetDataTable(query)
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnNoOperate_Click(sender As Object, e As EventArgs) Handles btnNoOperate.Click
+        GridFeesReports.Visible = False
+        CRFeesReports.Visible = True
+
         If Not CrystalReportsIsAvailable() Then
             Return
         End If
@@ -1574,7 +1516,12 @@ Public Class FeesStatistics
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New NoOperate10
-            Dim SQL As String = "SELECT * FROM VW_NO_OPERATE WHERE INTYEAR >= (year(getdate()) - 5)"
+            Dim SQL As String = "SELECT iaip_facility.FormatAirsNumber(STRAIRSNUMBER) as STRAIRSNUMBER,
+                'NO' AS STROPERATE, DATSHUTDOWN AS SHUTDATE, NUMFEEYEAR  AS INTYEAR
+                FROM FS_FEEAUDITEDDATA
+                WHERE (STROPERATE IS NULL OR STROPERATE = '0')
+                  and NUMFEEYEAR >= (year(getdate()) - 5)
+                order by STRAIRSNUMBER"
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
 
@@ -1593,14 +1540,30 @@ Public Class FeesStatistics
 #Region "General"
 
     Private Sub btnFacInfoChange_Click(sender As Object, e As EventArgs) Handles btnFacInfoChange.Click
+        GridFeesReports.Visible = False
+        CRFeesReports.Visible = True
+
         If Not CrystalReportsIsAvailable() Then
             Return
         End If
 
         Try
-            Me.Cursor = Cursors.WaitCursor
+            Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New FacilityInfo10
-            Dim SQL As String = "Select * from VW_Facility_Info "
+            Dim SQL As String = "select iaip_facility.FormatAirsNumber(STRAIRSNUMBER) as STRAIRSNUMBER,
+                       STRFACILITYNAME,
+                       STRFACILITYSTREET1,
+                       STRFACILITYCITY,
+                       iaip_facility.FormatAirsNumber(STRAIRSNUMBERTEMP) as STRAIRSNUMBERTEMP,
+                       STRFACILITYNAMETEMP,
+                       STRFACILITYSTREET1TEMP,
+                       STRFACILITYCITYTEMP,
+                       STRCONTACTFIRSTNAME,
+                       STRCONTACTLASTNAME,
+                       STRCONTACTCOMPANYNAME,
+                       STRCONTACTPHONENUMBER1,
+                       STRCONTACTEMAIL
+                from VW_FACILITY_INFO"
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
 
@@ -1608,7 +1571,7 @@ Public Class FeesStatistics
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            Me.Cursor = Cursors.Default
+            Cursor = Cursors.Default
         End Try
     End Sub
 

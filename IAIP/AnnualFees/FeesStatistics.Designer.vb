@@ -22,6 +22,7 @@ Partial Class FeesStatistics
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -226,7 +227,6 @@ Partial Class FeesStatistics
         Me.btnPayment = New System.Windows.Forms.Button()
         Me.TPAnnualBalance = New System.Windows.Forms.TabPage()
         Me.cbBalanceYear = New System.Windows.Forms.ComboBox()
-        Me.chbFacilityBalance = New System.Windows.Forms.CheckBox()
         Me.lblFacilityBalanceReportTag = New System.Windows.Forms.Label()
         Me.btnRunBalanceReport = New System.Windows.Forms.Button()
         Me.TPDeposits = New System.Windows.Forms.TabPage()
@@ -249,6 +249,8 @@ Partial Class FeesStatistics
         Me.TPFacility = New System.Windows.Forms.TabPage()
         Me.btnClassification = New System.Windows.Forms.Button()
         Me.btnFacInfoChange = New System.Windows.Forms.Button()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.GridFeesReports = New Iaip.IaipDataGridView()
         Me.TCMailoutAndStats.SuspendLayout()
         Me.TPDepositAndPaymentStats.SuspendLayout()
         CType(Me.dgvDepositsAndPayments, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -272,6 +274,8 @@ Partial Class FeesStatistics
         Me.TPCompliance.SuspendLayout()
         Me.TPNsps.SuspendLayout()
         Me.TPFacility.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        CType(Me.GridFeesReports, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TCMailoutAndStats
@@ -301,8 +305,8 @@ Partial Class FeesStatistics
         '
         'dgvDepositsAndPayments
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
         Me.dgvDepositsAndPayments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvDepositsAndPayments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDepositsAndPayments.Dock = System.Windows.Forms.DockStyle.Fill
@@ -1212,8 +1216,8 @@ Partial Class FeesStatistics
         '
         'dgvFeeStats
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvFeeStats.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvFeeStats.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvFeeStats.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvFeeStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvFeeStats.Dock = System.Windows.Forms.DockStyle.Fill
@@ -2146,8 +2150,8 @@ Partial Class FeesStatistics
         '
         'dgvReported
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvReported.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvReported.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvReported.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvReported.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvReported.Dock = System.Windows.Forms.DockStyle.Fill
@@ -2190,7 +2194,7 @@ Partial Class FeesStatistics
         '
         'TPReports
         '
-        Me.TPReports.Controls.Add(Me.CRFeesReports)
+        Me.TPReports.Controls.Add(Me.Panel2)
         Me.TPReports.Controls.Add(Me.tabReport)
         Me.TPReports.Location = New System.Drawing.Point(4, 22)
         Me.TPReports.Name = "TPReports"
@@ -2202,11 +2206,13 @@ Partial Class FeesStatistics
         'CRFeesReports
         '
         Me.CRFeesReports.ActiveViewIndex = -1
+        Me.CRFeesReports.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CRFeesReports.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CRFeesReports.Cursor = System.Windows.Forms.Cursors.Default
         Me.CRFeesReports.DisplayToolbar = False
-        Me.CRFeesReports.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.CRFeesReports.Location = New System.Drawing.Point(0, 114)
+        Me.CRFeesReports.Location = New System.Drawing.Point(0, 0)
         Me.CRFeesReports.Margin = New System.Windows.Forms.Padding(2)
         Me.CRFeesReports.Name = "CRFeesReports"
         Me.CRFeesReports.SelectionFormula = ""
@@ -2336,7 +2342,6 @@ Partial Class FeesStatistics
         'TPAnnualBalance
         '
         Me.TPAnnualBalance.Controls.Add(Me.cbBalanceYear)
-        Me.TPAnnualBalance.Controls.Add(Me.chbFacilityBalance)
         Me.TPAnnualBalance.Controls.Add(Me.lblFacilityBalanceReportTag)
         Me.TPAnnualBalance.Controls.Add(Me.btnRunBalanceReport)
         Me.TPAnnualBalance.Location = New System.Drawing.Point(4, 22)
@@ -2354,16 +2359,6 @@ Partial Class FeesStatistics
         Me.cbBalanceYear.Name = "cbBalanceYear"
         Me.cbBalanceYear.Size = New System.Drawing.Size(72, 21)
         Me.cbBalanceYear.TabIndex = 13
-        '
-        'chbFacilityBalance
-        '
-        Me.chbFacilityBalance.AutoSize = True
-        Me.chbFacilityBalance.Location = New System.Drawing.Point(240, 12)
-        Me.chbFacilityBalance.Name = "chbFacilityBalance"
-        Me.chbFacilityBalance.Size = New System.Drawing.Size(133, 17)
-        Me.chbFacilityBalance.TabIndex = 11
-        Me.chbFacilityBalance.Text = "Include Zero Balances"
-        Me.chbFacilityBalance.UseVisualStyleBackColor = True
         '
         'lblFacilityBalanceReportTag
         '
@@ -2603,6 +2598,34 @@ Partial Class FeesStatistics
         Me.btnFacInfoChange.Text = "Change in Facility Info"
         Me.btnFacInfoChange.UseVisualStyleBackColor = False
         '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.GridFeesReports)
+        Me.Panel2.Controls.Add(Me.CRFeesReports)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel2.Location = New System.Drawing.Point(0, 114)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(936, 578)
+        Me.Panel2.TabIndex = 271
+        '
+        'GridFeesReports
+        '
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.GridFeesReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        Me.GridFeesReports.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GridFeesReports.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.GridFeesReports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.GridFeesReports.LinkifyColumnByName = Nothing
+        Me.GridFeesReports.Location = New System.Drawing.Point(0, 0)
+        Me.GridFeesReports.Name = "GridFeesReports"
+        Me.GridFeesReports.ResultsCountLabel = Nothing
+        Me.GridFeesReports.ResultsCountLabelFormat = "{0} found"
+        Me.GridFeesReports.Size = New System.Drawing.Size(936, 578)
+        Me.GridFeesReports.StandardTab = True
+        Me.GridFeesReports.TabIndex = 271
+        '
         'FeesStatistics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2645,6 +2668,8 @@ Partial Class FeesStatistics
         Me.TPNsps.PerformLayout()
         Me.TPFacility.ResumeLayout(False)
         Me.TPFacility.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        CType(Me.GridFeesReports, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2849,7 +2874,6 @@ Partial Class FeesStatistics
     Friend WithEvents TPAnnualBalance As TabPage
     Friend WithEvents btnRunBalanceReport As Button
     Friend WithEvents lblFacilityBalanceReportTag As Label
-    Friend WithEvents chbFacilityBalance As CheckBox
     Friend WithEvents btnViewFacilityDepositsReport As Button
     Friend WithEvents TPNsps As TabPage
     Friend WithEvents lblNSPS1 As LinkLabel
@@ -2873,4 +2897,6 @@ Partial Class FeesStatistics
     Friend WithEvents Label5 As Label
     Friend WithEvents txtPart70MaintenanceFee As TextBox
     Friend WithEvents Label6 As Label
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents GridFeesReports As IaipDataGridView
 End Class
