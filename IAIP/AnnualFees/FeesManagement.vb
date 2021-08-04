@@ -723,18 +723,12 @@ Public Class FeesManagement
                 Return
             End If
 
-            Dim SQL As String = "select count(*) as ContactTotals " &
+            Dim query As String = "select count(*) as ContactTotals " &
                 "from FS_MailOut " &
                 "where numfeeyear = @year "
             Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
-            Dim dr As DataRow = DB.GetDataRow(SQL, p)
-            Dim temp As Integer = 0
 
-            If dr IsNot Nothing AndAlso Not IsDBNull(dr.Item("ContactTotals")) Then
-                temp = CInt(dr.Item("ContactTotals"))
-            End If
-
-            If temp < 1 Then
+            If DB.GetInteger(query, p) = 0 Then
                 Dim p2 As SqlParameter() = {
                     New SqlParameter("@FeeYear", cboAvailableFeeYears.Text),
                     New SqlParameter("@AIRSNumber", "")
@@ -742,14 +736,14 @@ Public Class FeesManagement
                 DB.SPRunCommand("dbo.PD_FEE_MAILOUT", p2)
                 DB.SPRunCommand("dbo.PD_FEE_DATA", p2)
 
-                SQL = "Update FS_Admin set " &
+                query = "Update FS_Admin set " &
                     "numCurrentStatus = 2, " &
                     "strInitialMailout = '1'  " &
                     "where numFeeYear = @year " &
                     "and strInitialMailout ='0' " &
                     "and strMailoutSent <> '0' " &
                     "and numCurrentStatus < 5 "
-                DB.RunCommand(SQL, p)
+                DB.RunCommand(query, p)
             End If
 
             ViewMailOut()

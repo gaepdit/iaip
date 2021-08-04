@@ -1579,46 +1579,48 @@ Public Class FeesStatistics
 
 #End Region
 
-    Private Sub btnViewStats_Click(sender As Object, e As EventArgs) Handles btnViewStats.Click
+    Private Sub cboFeeStatYear_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboFeeStatYear.SelectedIndexChanged
         ViewFeeStats()
     End Sub
 
     Private Sub ViewFeeStats()
+        Cursor = Cursors.WaitCursor
+
         Dim SQL As String = "SELECT (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numFeeyear = @year AND Active = '1') AS FeeUniverse, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numFeeyear = @year AND (strEnrolled = '0' OR strEnrolled IS NULL) AND Active = '1') AS UnEnrolled, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numFeeyear = @year AND numCurrentStatus = '12' AND strEnrolled = '1' AND Active = '1') AS CeaseCollections, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numFeeyear = @year AND numCurrentStatus <> '12' AND strEnrolled = '1' AND Active = '1') AS Enrolled, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numFeeyear = @year AND numCurrentStatus <> '12' AND strEnrolled = '1' AND strInitialMailout = '1' AND Active = '1') AS MailOUt, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numFeeyear = @year AND numCurrentStatus <> '12' AND strEnrolled = '1' AND strInitialMailout = '0' AND Active = '1') AS AddOnMailOut, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numFeeyear = @year AND numcurrentstatus < '5' AND strEnrolled = '1' AND Active = '1') AS NotReported, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numFeeyear = @year AND numcurrentstatus > '4' AND numCurrentStatus < '8' AND strEnrolled = '1' AND Active = '1') AS InProgress, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numFeeyear = @year AND numcurrentstatus > '7' AND strEnrolled = '1' AND Active = '1' AND NOT EXISTS (SELECT * FROM fs_feeAudit " &
-    "WHERE fs_admin.strairsnumber = fs_feeAudit.strAIRSnumber AND fs_admin.numfeeyear = fs_feeAudit.numfeeyear AND fs_feeAudit.numfeeyear = @year AND fs_feeAudit.strendcollections = 'True') ) AS Finalized, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numFeeyear = @year AND numcurrentstatus > '4' AND numcurrentstatus < '12' AND datSubmittal <= (SELECT datFeeDueDate FROM FS_FeeRate " &
-    "WHERE numFeeyear = @year) AND Intsubmittal = '1' AND strEnrolled = '1' AND Active = '1') AS OnTime, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numFeeyear = @year AND numcurrentstatus > '4' AND numcurrentstatus < '12' AND datSubmittal > (SELECT datFeeDueDate FROM FS_FeeRate " &
-    "WHERE numFeeyear = @year) AND datSubmittal <= (SELECT datAdminApplicable FROM FS_FeeRate " &
-    "WHERE numFeeyear = @year) AND Intsubmittal = '1' AND strEnrolled = '1' AND Active = '1') AS LateNoFees, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numFeeyear = @year AND numcurrentstatus > '4' AND numcurrentstatus < '12' AND datSubmittal > (SELECT datAdminApplicable FROM FS_FeeRate " &
-    "WHERE numFeeyear = @year) AND Intsubmittal = '1' AND strEnrolled = '1' AND Active = '1') AS LateWithFees, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND numcurrentstatus <= '8') AS NotPaid, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND (numcurrentstatus = '9' OR numcurrentstatus = '11') ) AS OutOfBalance, (SELECT COUNT(*) FROM (SELECT numTotalFee - SUM(numAmount) AS TotalPaid FROM FS_Admin " &
-    "INNER JOIN FS_FeeAuditedData ON FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSnumber AND FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeyear " &
-    "INNER JOIN FS_FeeInvoice ON FS_Admin.strAIRSNumber = FS_FeeInvoice.strAIRSNumber AND FS_Admin.numFeeYear = FS_FeeInvoice.numFeeyear " &
-    "WHERE FS_Admin.numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND FS_Admin.active = '1' AND numcurrentstatus = '9' " &
-    "GROUP BY numtotalfee) AS t " &
-    "WHERE totalpaid > 0) AS UnderPaid, (SELECT COUNT(*) FROM FS_Admin " &
-    "INNER JOIN FS_FeeAuditedData ON FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSnumber AND FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeyear " &
-    "INNER JOIN FS_FeeInvoice ON FS_Admin.strAIRSNumber = FS_FeeInvoice.strAIRSNumber AND FS_Admin.numFeeYear = FS_FeeInvoice.numFeeyear " &
-    "WHERE FS_Admin.numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND FS_Admin.active = '1' AND (numcurrentstatus = '9' OR numcurrentstatus = '11') ) AS OverPaid, (SELECT COUNT(*) FROM FS_Admin " &
-    "INNER JOIN fs_feeAuditedData ON fs_admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber AND fs_admin.nuMFeeYear = FS_FeeAuditedData.nuMFeeYear " &
-    "WHERE FS_Admin.numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND FS_Admin.active = '1' AND numcurrentstatus = '9' AND (strPaymentPlan = 'Entire Annual Year' OR strPaymentPlan IS NULL) ) AS OutOfBalanceAnnual, (SELECT COUNT(*) FROM FS_Admin " &
-    "INNER JOIN fs_feeAuditedData ON fs_admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber AND fs_admin.nuMFeeYear = FS_FeeAuditedData.nuMFeeYear " &
-    "WHERE FS_Admin.numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND FS_Admin.active = '1' AND numcurrentstatus = '9' AND strPaymentPlan = 'Four Quarterly Payments') AS OutOfBalanceQuarterly, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND numcurrentstatus = '10') AS PaidInFull, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND numcurrentstatus = '10' AND intSubmittal = '1') AS FinalPaid, (SELECT COUNT(*) FROM FS_Admin " &
-    "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND numcurrentstatus = '10' AND (intSubmittal = '0' OR intsubmittal IS NULL) ) AS NotFinalPaid "
+            "WHERE numFeeyear = @year AND Active = '1') AS FeeUniverse, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numFeeyear = @year AND (strEnrolled = '0' OR strEnrolled IS NULL) AND Active = '1') AS UnEnrolled, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numFeeyear = @year AND numCurrentStatus = '12' AND strEnrolled = '1' AND Active = '1') AS CeaseCollections, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numFeeyear = @year AND numCurrentStatus <> '12' AND strEnrolled = '1' AND Active = '1') AS Enrolled, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numFeeyear = @year AND numCurrentStatus <> '12' AND strEnrolled = '1' AND strInitialMailout = '1' AND Active = '1') AS MailOUt, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numFeeyear = @year AND numCurrentStatus <> '12' AND strEnrolled = '1' AND strInitialMailout = '0' AND Active = '1') AS AddOnMailOut, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numFeeyear = @year AND numcurrentstatus < '5' AND strEnrolled = '1' AND Active = '1') AS NotReported, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numFeeyear = @year AND numcurrentstatus > '4' AND numCurrentStatus < '8' AND strEnrolled = '1' AND Active = '1') AS InProgress, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numFeeyear = @year AND numcurrentstatus > '7' AND strEnrolled = '1' AND Active = '1' AND NOT EXISTS (SELECT * FROM fs_feeAudit " &
+            "WHERE fs_admin.strairsnumber = fs_feeAudit.strAIRSnumber AND fs_admin.numfeeyear = fs_feeAudit.numfeeyear AND fs_feeAudit.numfeeyear = @year AND fs_feeAudit.strendcollections = 'True') ) AS Finalized, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numFeeyear = @year AND numcurrentstatus > '4' AND numcurrentstatus < '12' AND datSubmittal <= (SELECT datFeeDueDate FROM FS_FeeRate " &
+            "WHERE numFeeyear = @year) AND Intsubmittal = '1' AND strEnrolled = '1' AND Active = '1') AS OnTime, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numFeeyear = @year AND numcurrentstatus > '4' AND numcurrentstatus < '12' AND datSubmittal > (SELECT datFeeDueDate FROM FS_FeeRate " &
+            "WHERE numFeeyear = @year) AND datSubmittal <= (SELECT datAdminApplicable FROM FS_FeeRate " &
+            "WHERE numFeeyear = @year) AND Intsubmittal = '1' AND strEnrolled = '1' AND Active = '1') AS LateNoFees, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numFeeyear = @year AND numcurrentstatus > '4' AND numcurrentstatus < '12' AND datSubmittal > (SELECT datAdminApplicable FROM FS_FeeRate " &
+            "WHERE numFeeyear = @year) AND Intsubmittal = '1' AND strEnrolled = '1' AND Active = '1') AS LateWithFees, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND numcurrentstatus <= '8') AS NotPaid, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND (numcurrentstatus = '9' OR numcurrentstatus = '11') ) AS OutOfBalance, (SELECT COUNT(*) FROM (SELECT numTotalFee - SUM(numAmount) AS TotalPaid FROM FS_Admin " &
+            "INNER JOIN FS_FeeAuditedData ON FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSnumber AND FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeyear " &
+            "INNER JOIN FS_FeeInvoice ON FS_Admin.strAIRSNumber = FS_FeeInvoice.strAIRSNumber AND FS_Admin.numFeeYear = FS_FeeInvoice.numFeeyear " &
+            "WHERE FS_Admin.numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND FS_Admin.active = '1' AND numcurrentstatus = '9' " &
+            "GROUP BY numtotalfee) AS t " &
+            "WHERE totalpaid > 0) AS UnderPaid, (SELECT COUNT(*) FROM FS_Admin " &
+            "INNER JOIN FS_FeeAuditedData ON FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSnumber AND FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeyear " &
+            "INNER JOIN FS_FeeInvoice ON FS_Admin.strAIRSNumber = FS_FeeInvoice.strAIRSNumber AND FS_Admin.numFeeYear = FS_FeeInvoice.numFeeyear " &
+            "WHERE FS_Admin.numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND FS_Admin.active = '1' AND (numcurrentstatus = '9' OR numcurrentstatus = '11') ) AS OverPaid, (SELECT COUNT(*) FROM FS_Admin " &
+            "INNER JOIN fs_feeAuditedData ON fs_admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber AND fs_admin.nuMFeeYear = FS_FeeAuditedData.nuMFeeYear " &
+            "WHERE FS_Admin.numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND FS_Admin.active = '1' AND numcurrentstatus = '9' AND (strPaymentPlan = 'Entire Annual Year' OR strPaymentPlan IS NULL) ) AS OutOfBalanceAnnual, (SELECT COUNT(*) FROM FS_Admin " &
+            "INNER JOIN fs_feeAuditedData ON fs_admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber AND fs_admin.nuMFeeYear = FS_FeeAuditedData.nuMFeeYear " &
+            "WHERE FS_Admin.numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND FS_Admin.active = '1' AND numcurrentstatus = '9' AND strPaymentPlan = 'Four Quarterly Payments') AS OutOfBalanceQuarterly, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND numcurrentstatus = '10') AS PaidInFull, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND numcurrentstatus = '10' AND intSubmittal = '1') AS FinalPaid, (SELECT COUNT(*) FROM FS_Admin " &
+            "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND numcurrentstatus = '10' AND (intSubmittal = '0' OR intsubmittal IS NULL) ) AS NotFinalPaid "
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
@@ -1646,12 +1648,16 @@ Public Class FeesStatistics
             txtFSPaidFinalized.Text = GetNullableString(dr.Item("FinalPaid"))
             txtFSPaidNotFinalized.Text = GetNullableString(dr.Item("NotFinalPaid"))
         End If
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryFeeUniverse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryFeeUniverse.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -1676,12 +1682,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryUnEnrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryUnEnrolled.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -1709,12 +1719,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryCeaseCollection_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryCeaseCollection.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -1742,12 +1756,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryEnrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryEnrolled.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -1775,12 +1793,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryMailOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryMailOut.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -1809,12 +1831,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryAdditions_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryAdditions.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -1843,12 +1869,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryNotReported_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryNotReported.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -1876,12 +1906,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryInProgress_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryInProgress.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -1910,12 +1944,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryFinalized.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -1949,12 +1987,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryOnTime_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryOnTime.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -1985,12 +2027,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryLateResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryLateResponse.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -2022,12 +2068,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryLateWithFee_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryLateWithFee.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -2058,12 +2108,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryNotPaid_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryNotPaid.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -2091,12 +2145,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryOutofBalance_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryOutofBalance.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -2124,12 +2182,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryPaidInFull_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidInFull.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -2157,12 +2219,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryPaidFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidFinalized.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
           "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -2191,12 +2257,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbFSSummaryPaidNotFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidNotFinalized.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
           "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
@@ -2225,12 +2295,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("strComment").DisplayIndex = 3
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailFeeUniverse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailFeeUniverse.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, " &
@@ -2340,12 +2414,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailUnEnrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailUnEnrolled.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
@@ -2459,12 +2537,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailCeaseCollection_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailCeaseCollection.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
@@ -2579,12 +2661,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailEnrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailEnrolled.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
@@ -2699,12 +2785,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailMailout_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailMailout.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
@@ -2820,12 +2910,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailAdditions_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailAdditions.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
@@ -2941,12 +3035,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailNotReported_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailNotReported.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, FS_Admin.strcomment, " &
@@ -3055,12 +3153,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 20
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailInProgress_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailInProgress.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
@@ -3176,12 +3278,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailFinalized.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
@@ -3302,12 +3408,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailLateResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailLateResponse.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
@@ -3427,12 +3537,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailLateWithFee_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailLateWithFee.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
@@ -3551,12 +3665,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailNotPaid_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailNotPaid.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "SELECT   SUBSTRing(AD.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, " &
             "    FI.STRFACILITYNAME, " &
@@ -3690,12 +3808,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailOutOfBalance_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailOutOfBalance.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
@@ -3810,12 +3932,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailPaidInFull_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailPaidInFull.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
@@ -3931,12 +4057,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailPaidFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailPaidFinalized.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, " &
@@ -4053,12 +4183,16 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub llbDetailPaidNotFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailPaidNotFinalized.LinkClicked
         If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim SQL As String = "Select  " &
             "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, " &
@@ -4175,6 +4309,8 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
         dgvFeeStats.SanelyResizeColumns()
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnExportFeeStats_Click(sender As Object, e As EventArgs)
@@ -4193,6 +4329,8 @@ Public Class FeesStatistics
 
     Private Sub btnCheckInvoices_Click(sender As Object, e As EventArgs) Handles btnCheckInvoices.Click
         If cboFeeStatYear.Text IsNot Nothing Then
+            Cursor = Cursors.WaitCursor
+
             Dim feeYear As Integer = CInt(cboFeeStatYear.Text)
 
             Dim query As String = "Update FS_FeeInvoice set " &
@@ -4204,7 +4342,7 @@ Public Class FeesStatistics
             "and strInvoiceStatus = '0' " &
             "and active = '1' "
 
-            Dim feeYearParam As SqlParameter = New SqlParameter("@FeeYear", SqlDbType.SmallInt) With {.Value = feeYear}
+            Dim feeYearParam As New SqlParameter("@FeeYear", SqlDbType.SmallInt) With {.Value = feeYear}
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@Username", CurrentUser.AlphaName),
@@ -4221,6 +4359,8 @@ Public Class FeesStatistics
             MsgBox("Fee Invoices validated.", MsgBoxStyle.Information, Me.Text)
 
             ViewFeeStats()
+
+            Cursor = Cursors.Default
         End If
     End Sub
 
