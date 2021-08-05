@@ -3848,14 +3848,6 @@ Public Class IAIPQueryGenerator
 
     Private Sub RunCannedPermitContact()
         Try
-            Dim warning As String = "This report may take a long time to run and may time out. " &
-                "If you get an error, please just try again. If you continue to get errors after " &
-                "trying three times, please contact EPD IT."
-
-            If MessageBox.Show(warning, "Warning", MessageBoxButtons.OKCancel) = DialogResult.Cancel Then
-                Return
-            End If
-
             query = "select " &
             "distinct substring(STRAIRSNUMBER, 5, 3) + '-' + substring(STRAIRSNUMBER, 8, 5) as AIRSNumber, " &
             "strFacilityName, strFacilityStreet1, " &
