@@ -32,9 +32,16 @@ Public Class BaseForm
 #End If
 
         OpenBreadcrumb()
+        LogMe()
         LoadThisFormSettings()
 
         MyBase.OnLoad(e)
+    End Sub
+
+    Private Sub LogMe()
+        Dim bgw As New BackgroundWorker()
+        AddHandler bgw.DoWork, Sub() DAL.LogFormUsage(Me.Name)
+        bgw.RunWorkerAsync()
     End Sub
 
     Protected Overrides Sub OnFormClosed(e As FormClosedEventArgs)
