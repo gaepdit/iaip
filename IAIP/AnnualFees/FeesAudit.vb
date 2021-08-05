@@ -675,9 +675,9 @@ Public Class FeesAudit
                     mtbGECOContactZipCode.Text = dr.Item("strContactZipCode")
                 End If
                 If IsDBNull(dr.Item("strContactPhoneNumber")) Then
-                    txtGECOContactPhontNumber.Clear()
+                    txtGECOContactPhoneNumber.Clear()
                 Else
-                    txtGECOContactPhontNumber.Text = dr.Item("strContactPhoneNumber")
+                    txtGECOContactPhoneNumber.Text = dr.Item("strContactPhoneNumber")
                 End If
                 If IsDBNull(dr.Item("strContactFaxNumber")) Then
                     mtbGECOContactFaxNumber.Clear()
@@ -688,11 +688,6 @@ Public Class FeesAudit
                     txtGECOContactEmail.Clear()
                 Else
                     txtGECOContactEmail.Text = dr.Item("strContactEmail")
-                End If
-                If IsDBNull(dr.Item("strComment")) Then
-                    txtGECOContactComments.Clear()
-                Else
-                    txtGECOContactComments.Text = dr.Item("strComment")
                 End If
             End If
 
@@ -898,14 +893,7 @@ Public Class FeesAudit
                     SQL = "Select Description as [NSPS Exemption Reason] from FSLK_NSPSReason " &
                         "where NSPSReasonCode in (" & nspsExemptionList & ")"
                     dgvInvoiceDataNSPSExemptions.DataSource = DB.GetDataTable(SQL)
-                    dgvInvoiceDataNSPSExemptions.RowHeadersVisible = False
-                    dgvInvoiceDataNSPSExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                    dgvInvoiceDataNSPSExemptions.AllowUserToResizeColumns = True
-                    dgvInvoiceDataNSPSExemptions.AllowUserToResizeRows = True
-                    dgvInvoiceDataNSPSExemptions.AllowUserToAddRows = False
-                    dgvInvoiceDataNSPSExemptions.AllowUserToDeleteRows = False
-                    dgvInvoiceDataNSPSExemptions.AllowUserToOrderColumns = True
-                    dgvInvoiceDataNSPSExemptions.Columns("NSPS Exemption Reason").Width = dgvInvoiceDataNSPSExemptions.Width
+                    dgvInvoiceDataNSPSExemptions.Columns("NSPS Exemption Reason").Width = dgvInvoiceDataNSPSExemptions.Width - 10
                 Else
                     dgvInvoiceDataNSPSExemptions.DataSource = Nothing
                 End If
@@ -917,7 +905,7 @@ Public Class FeesAudit
             End If
 
             SQL = "Select " &
-            "InvoiceID, numAmount, " &
+            "convert(int, InvoiceID) as InvoiceID, convert(int, numAmount) as numAmount, " &
             "datInvoiceDate, strComment, " &
             "strPayTypeDesc, " &
             "case " &
@@ -932,34 +920,20 @@ Public Class FeesAudit
 
             dgvInvoiceData.DataSource = DB.GetDataTable(SQL, params)
 
-            dgvInvoiceData.RowHeadersVisible = False
-            dgvInvoiceData.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvInvoiceData.AllowUserToResizeColumns = True
-            dgvInvoiceData.AllowUserToResizeRows = True
-            dgvInvoiceData.AllowUserToAddRows = False
-            dgvInvoiceData.AllowUserToDeleteRows = False
-            dgvInvoiceData.AllowUserToOrderColumns = True
             dgvInvoiceData.Columns("InvoiceID").HeaderText = "Invoice ID"
             dgvInvoiceData.Columns("InvoiceID").DisplayIndex = 0
-            dgvInvoiceData.Columns("InvoiceID").Width = CInt(dgvInvoiceData.Width * 0.075)
-
             dgvInvoiceData.Columns("numAmount").HeaderText = "Invoice Amount"
             dgvInvoiceData.Columns("numAmount").DisplayIndex = 1
-            dgvInvoiceData.Columns("numAmount").Width = CInt(dgvInvoiceData.Width * 0.15)
             dgvInvoiceData.Columns("numAmount").DefaultCellStyle.Format = "c"
             dgvInvoiceData.Columns("strPayTypeDesc").HeaderText = "Invoice Type"
             dgvInvoiceData.Columns("strPayTypeDesc").DisplayIndex = 2
-            dgvInvoiceData.Columns("strPayTypeDesc").Width = CInt(dgvInvoiceData.Width * 0.15)
             dgvInvoiceData.Columns("datInvoiceDate").HeaderText = "Invoiced Date"
             dgvInvoiceData.Columns("datInvoiceDate").DisplayIndex = 3
-            dgvInvoiceData.Columns("datInvoiceDate").Width = CInt(dgvInvoiceData.Width * 0.15)
             dgvInvoiceData.Columns("datInvoiceDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvInvoiceData.Columns("InvoiceStatus").HeaderText = "Invoice Status"
             dgvInvoiceData.Columns("InvoiceStatus").DisplayIndex = 4
-            dgvInvoiceData.Columns("InvoiceStatus").Width = CInt(dgvInvoiceData.Width * 0.15)
             dgvInvoiceData.Columns("strComment").HeaderText = "GECO Comments"
             dgvInvoiceData.Columns("strComment").DisplayIndex = 5
-            dgvInvoiceData.Columns("strComment").Width = CInt(dgvInvoiceData.Width * 0.45)
 
             rdbInvoiceDataPaidStatus.Checked = True
 
@@ -982,7 +956,7 @@ Public Class FeesAudit
     Private Sub LoadTransactionData()
         Try
             Dim SQL As String = "select " &
-            "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " &
+            "convert(int, TRANSACTIONID) as TRANSACTIONID, convert(int, INVOICES.INVOICEID) as INVOICEID, DATTRANSACTIONDATE, " &
             "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
             "ENTRYPERSON, " &
             "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
@@ -1023,7 +997,7 @@ Public Class FeesAudit
             "on TRANSACTIONS.UPDATEUSER  = epduserProfiles.numUserID   " &
             " union " &
             "select " &
-            "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " &
+            "convert(int, TRANSACTIONID) as TRANSACTIONID, convert(int, INVOICES.INVOICEID) as INVOICEID, DATTRANSACTIONDATE, " &
             "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
             "ENTRYPERSON, " &
             "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
@@ -1069,13 +1043,6 @@ Public Class FeesAudit
 
             dgvTransactions.DataSource = DB.GetDataTable(SQL, params)
 
-            dgvTransactions.RowHeadersVisible = False
-            dgvTransactions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvTransactions.AllowUserToResizeColumns = True
-            dgvTransactions.AllowUserToResizeRows = True
-            dgvTransactions.AllowUserToAddRows = False
-            dgvTransactions.AllowUserToDeleteRows = False
-            dgvTransactions.AllowUserToOrderColumns = True
             dgvTransactions.Columns("transactionID").HeaderText = "Transaction ID"
             dgvTransactions.Columns("transactionID").DisplayIndex = 0
             dgvTransactions.Columns("INVOICEID").HeaderText = "Invoice ID"
@@ -1398,7 +1365,7 @@ Public Class FeesAudit
             End If
 
             SQL = "Select " &
-            "FS_FeeAudit.AuditID, " &
+            "convert(int, FS_FeeAudit.AuditID) as AuditID, " &
             "case when strSyntheticMinor = '1' then 'True' " &
             "when strSYntheticMinor is null then '' " &
             "else 'False' " &
@@ -1433,14 +1400,6 @@ Public Class FeesAudit
             "and FS_FeeAudit.numFeeyear  = @year "
 
             dgvAuditHistory.DataSource = DB.GetDataTable(SQL, params)
-
-            dgvAuditHistory.RowHeadersVisible = False
-            dgvAuditHistory.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvAuditHistory.AllowUserToResizeColumns = True
-            dgvAuditHistory.AllowUserToAddRows = False
-            dgvAuditHistory.AllowUserToDeleteRows = False
-            dgvAuditHistory.AllowUserToOrderColumns = True
-            dgvAuditHistory.AllowUserToResizeRows = True
 
             dgvAuditHistory.Columns("AuditID").HeaderText = "Audit ID"
             dgvAuditHistory.Columns("AuditID").DisplayIndex = 0
@@ -1969,10 +1928,9 @@ Public Class FeesAudit
             txtGECOContactCity.Clear()
             txtGECOContactState.Clear()
             mtbGECOContactZipCode.Clear()
-            txtGECOContactPhontNumber.Clear()
+            txtGECOContactPhoneNumber.Clear()
             mtbGECOContactFaxNumber.Clear()
             txtGECOContactEmail.Clear()
-            txtGECOContactComments.Clear()
 
             dgvGECOFeeContacts.DataSource = Nothing
 
@@ -2002,10 +1960,9 @@ Public Class FeesAudit
             txtGECOContactCity.ReadOnly = True
             txtGECOContactState.ReadOnly = True
             mtbGECOContactZipCode.ReadOnly = True
-            txtGECOContactPhontNumber.ReadOnly = True
+            txtGECOContactPhoneNumber.ReadOnly = True
             mtbGECOContactFaxNumber.ReadOnly = True
             txtGECOContactEmail.ReadOnly = True
-            txtGECOContactComments.ReadOnly = True
 
             MailoutEditingToggle(False)
             ClearEditData()
@@ -2118,26 +2075,29 @@ Public Class FeesAudit
 
     Private Sub btnGECOViewPastContacts_Click(sender As Object, e As EventArgs) Handles btnGECOViewPastContacts.Click
         Try
-            Dim query As String = "Select * " &
-            "from FS_ContactInfo " &
-            "where strAIRSnumber = @strAIRSnumber " &
-            "order by numFeeYear desc "
+            Dim query As String = "select NUMFEEYEAR,
+                       STRCONTACTFIRSTNAME,
+                       STRCONTACTLASTNAME,
+                       STRCONTACTPREFIX,
+                       STRCONTACTTITLE,
+                       STRCONTACTCOMPANYNAME,
+                       STRCONTACTADDRESS,
+                       STRCONTACTCITY,
+                       STRCONTACTSTATE,
+                       STRCONTACTZIPCODE,
+                       STRCONTACTPHONENUMBER,
+                       STRCONTACTFAXNUMBER,
+                       STRCONTACTEMAIL
+                from FS_CONTACTINFO
+                where STRAIRSNUMBER = @strAIRSnumber
+                order by NUMFEEYEAR desc "
 
             Dim parameter As New SqlParameter("@strAIRSnumber", AirsNumber.DbFormattedString)
 
             dgvGECOFeeContacts.DataSource = DB.GetDataTable(query, parameter)
 
-            dgvGECOFeeContacts.RowHeadersVisible = False
-            dgvGECOFeeContacts.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvGECOFeeContacts.AllowUserToResizeColumns = True
-            dgvGECOFeeContacts.AllowUserToAddRows = False
-            dgvGECOFeeContacts.AllowUserToDeleteRows = False
-            dgvGECOFeeContacts.AllowUserToOrderColumns = True
-            dgvGECOFeeContacts.AllowUserToResizeRows = True
-
             dgvGECOFeeContacts.Columns("numFeeYear").HeaderText = "Year"
             dgvGECOFeeContacts.Columns("numFeeYear").DisplayIndex = 0
-            dgvGECOFeeContacts.Columns("numFeeYear").Width = 40
             dgvGECOFeeContacts.Columns("strContactFirstName").HeaderText = "First Name"
             dgvGECOFeeContacts.Columns("strContactFirstName").DisplayIndex = 1
             dgvGECOFeeContacts.Columns("strContactLastName").HeaderText = "Last Name"
@@ -2162,108 +2122,26 @@ Public Class FeesAudit
             dgvGECOFeeContacts.Columns("strContactFaxNumber").DisplayIndex = 11
             dgvGECOFeeContacts.Columns("strContactEmail").HeaderText = "Email Address"
             dgvGECOFeeContacts.Columns("strContactEmail").DisplayIndex = 12
-            dgvGECOFeeContacts.Columns("strComment").HeaderText = "Comments"
-            dgvGECOFeeContacts.Columns("strComment").DisplayIndex = 13
-            dgvGECOFeeContacts.Columns("strAIRSnumber").HeaderText = "AIRS #"
-            dgvGECOFeeContacts.Columns("strAIRSNumber").DisplayIndex = 14
-            dgvGECOFeeContacts.Columns("strAIRSnumber").Visible = False
-
-            dgvGECOFeeContacts.Columns("Active").HeaderText = "Active"
-            dgvGECOFeeContacts.Columns("Active").DisplayIndex = 15
-            dgvGECOFeeContacts.Columns("UpdateUser").HeaderText = "UpdateUser"
-            dgvGECOFeeContacts.Columns("UpdateUser").DisplayIndex = 16
-
-            dgvGECOFeeContacts.Columns("UpdateDateTime").HeaderText = "Update Date Time"
-            dgvGECOFeeContacts.Columns("UpdateDateTime").DisplayIndex = 17
-            dgvGECOFeeContacts.Columns("UpdateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvGECOFeeContacts.Columns("CreateDateTime").HeaderText = "Create Date Time"
-            dgvGECOFeeContacts.Columns("CreateDateTime").DisplayIndex = 18
-            dgvGECOFeeContacts.Columns("CreateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub dgvGECOFeeContacts_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvGECOFeeContacts.MouseUp
-        Try
-            Dim hti As DataGridView.HitTestInfo = dgvGECOFeeContacts.HitTest(e.X, e.Y)
-            If dgvGECOFeeContacts.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
-                If IsDBNull(dgvGECOFeeContacts(2, hti.RowIndex).Value) Then
-                    txtGECOContactFirstName.Clear()
-                Else
-                    txtGECOContactFirstName.Text = dgvGECOFeeContacts(2, hti.RowIndex).Value
-                End If
-
-                If IsDBNull(dgvGECOFeeContacts(3, hti.RowIndex).Value) Then
-                    txtGECOContactLastName.Clear()
-                Else
-                    txtGECOContactLastName.Text = dgvGECOFeeContacts(3, hti.RowIndex).Value
-                End If
-
-                If IsDBNull(dgvGECOFeeContacts(4, hti.RowIndex).Value) Then
-                    txtGECOContactSalutation.Clear()
-                Else
-                    txtGECOContactSalutation.Text = dgvGECOFeeContacts(4, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvGECOFeeContacts(5, hti.RowIndex).Value) Then
-                    txtGECOContactTitle.Clear()
-                Else
-                    txtGECOContactTitle.Text = dgvGECOFeeContacts(5, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvGECOFeeContacts(6, hti.RowIndex).Value) Then
-                    txtGECOContactCompanyName.Clear()
-                Else
-                    txtGECOContactCompanyName.Text = dgvGECOFeeContacts(6, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvGECOFeeContacts(7, hti.RowIndex).Value) Then
-                    txtGECOContactStreetAddress.Clear()
-                Else
-                    txtGECOContactStreetAddress.Text = dgvGECOFeeContacts(7, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvGECOFeeContacts(8, hti.RowIndex).Value) Then
-                    txtGECOContactCity.Clear()
-                Else
-                    txtGECOContactCity.Text = dgvGECOFeeContacts(8, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvGECOFeeContacts(9, hti.RowIndex).Value) Then
-                    txtGECOContactState.Clear()
-                Else
-                    txtGECOContactState.Text = dgvGECOFeeContacts(9, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvGECOFeeContacts(10, hti.RowIndex).Value) Then
-                    mtbGECOContactZipCode.Clear()
-                Else
-                    mtbGECOContactZipCode.Text = dgvGECOFeeContacts(10, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvGECOFeeContacts(11, hti.RowIndex).Value) Then
-                    txtGECOContactPhontNumber.Clear()
-                Else
-                    txtGECOContactPhontNumber.Text = dgvGECOFeeContacts(11, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvGECOFeeContacts(12, hti.RowIndex).Value) Then
-                    mtbGECOContactFaxNumber.Clear()
-                Else
-                    mtbGECOContactFaxNumber.Text = dgvGECOFeeContacts(12, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvGECOFeeContacts(13, hti.RowIndex).Value) Then
-                    txtGECOContactEmail.Clear()
-                Else
-                    txtGECOContactEmail.Text = dgvGECOFeeContacts(13, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvGECOFeeContacts(14, hti.RowIndex).Value) Then
-                    txtGECOContactComments.Clear()
-                Else
-                    txtGECOContactComments.Text = dgvGECOFeeContacts(14, hti.RowIndex).Value
-                End If
-
-
-            End If
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub dgvGECOFeeContacts_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvGECOFeeContacts.CellEnter
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvGECOFeeContacts.RowCount AndAlso dgvGECOFeeContacts.SelectedRows.Count = 1 Then
+            txtGECOContactFirstName.Text = GetNullableString(dgvGECOFeeContacts("strContactFirstName", e.RowIndex).Value)
+            txtGECOContactLastName.Text = GetNullableString(dgvGECOFeeContacts("strContactLastName", e.RowIndex).Value)
+            txtGECOContactSalutation.Text = GetNullableString(dgvGECOFeeContacts("strContactPrefix", e.RowIndex).Value)
+            txtGECOContactTitle.Text = GetNullableString(dgvGECOFeeContacts("strContactTitle", e.RowIndex).Value)
+            txtGECOContactCompanyName.Text = GetNullableString(dgvGECOFeeContacts("strContactCompanyName", e.RowIndex).Value)
+            txtGECOContactStreetAddress.Text = GetNullableString(dgvGECOFeeContacts("strContactAddress", e.RowIndex).Value)
+            txtGECOContactCity.Text = GetNullableString(dgvGECOFeeContacts("strContactCity", e.RowIndex).Value)
+            txtGECOContactState.Text = GetNullableString(dgvGECOFeeContacts("strContactState", e.RowIndex).Value)
+            mtbGECOContactZipCode.Text = GetNullableString(dgvGECOFeeContacts("strContactZipCode", e.RowIndex).Value)
+            txtGECOContactPhoneNumber.Text = GetNullableString(dgvGECOFeeContacts("strContactPhoneNumber", e.RowIndex).Value)
+            mtbGECOContactFaxNumber.Text = GetNullableString(dgvGECOFeeContacts("strContactFaxNumber", e.RowIndex).Value)
+            txtGECOContactEmail.Text = GetNullableString(dgvGECOFeeContacts("strContactEmail", e.RowIndex).Value)
+        End If
     End Sub
 
     Private Function InvoiceCheck() As Boolean
@@ -3162,7 +3040,7 @@ Public Class FeesAudit
 
         Try
             Dim SQL As String = "select distinct " &
-            "FS_FeeInvoice.InvoiceID, " &
+            "convert(int, FS_FeeInvoice.InvoiceID) as InvoiceID, " &
             "FS_FeeInvoice.numAmount, " &
             "datInvoiceDate, " &
             "case " &
@@ -3189,14 +3067,6 @@ Public Class FeesAudit
             }
 
             dgvInvoices.DataSource = DB.GetDataTable(SQL, params)
-
-            dgvInvoices.RowHeadersVisible = False
-            dgvInvoices.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvInvoices.AllowUserToResizeColumns = True
-            dgvInvoices.AllowUserToAddRows = False
-            dgvInvoices.AllowUserToDeleteRows = False
-            dgvInvoices.AllowUserToOrderColumns = True
-            dgvInvoices.AllowUserToResizeRows = True
 
             dgvInvoices.Columns("InvoiceID").HeaderText = "ID"
             dgvInvoices.Columns("InvoiceID").DisplayIndex = 0
@@ -4256,7 +4126,8 @@ Public Class FeesAudit
             If rdbCurrentFeeyear.Checked Then
                 LoadTransactionData()
             Else
-                Dim SQL As String = "SELECT tr.TRANSACTIONID, inv.INVOICEID, tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.STRCHECKNO, tr.STRDEPOSITNO, tr.STRBATCHNO, tr.ENTRYPERSON, tr.STRCOMMENT, tr.STRCREDITCARDNO, tr.TRANSACTIONTYPECODE, " &
+                Dim SQL As String = "SELECT " &
+                    "convert(int, tr.TRANSACTIONID) as TRANSACTIONID, convert(int, inv.INVOICEID) as INVOICEID, tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.STRCHECKNO, tr.STRDEPOSITNO, tr.STRBATCHNO, tr.ENTRYPERSON, tr.STRCOMMENT, tr.STRCREDITCARDNO, tr.TRANSACTIONTYPECODE, " &
                     "CASE WHEN tr.UPDATEUSER IS NOT NULL THEN u.STRLASTNAME+', '+u.STRFIRSTNAME ELSE '' END AS UpdateUser, tr.UPDATEDATETIME, tr.CREATEDATETIME, tr.NUMFEEYEAR " &
                     "FROM (SELECT t.TRANSACTIONID, t.INVOICEID, t.DATTRANSACTIONDATE, t.NUMPAYMENT, t.STRCHECKNO, t.STRDEPOSITNO, t.STRBATCHNO, p.STRLASTNAME+', '+p.STRFIRSTNAME AS ENTRYPERSON, t.STRCOMMENT, t.STRCREDITCARDNO, t.TRANSACTIONTYPECODE, t.UPDATEUSER, t.UPDATEDATETIME, t.CREATEDATETIME, t.STRAIRSNUMBER, t.NUMFEEYEAR " &
                     "FROM FS_TRANSACTIONS AS t " &
@@ -4267,7 +4138,7 @@ Public Class FeesAudit
                     "WHERE i.STRAIRSNUMBER = @airs AND i.ACTIVE = '1') AS inv ON tr.INVOICEID = inv.INVOICEID AND tr.STRAIRSNUMBER = inv.STRAIRSNUMBER AND tr.NUMFEEYEAR = inv.NUMFEEYEAR " &
                     "LEFT JOIN EPDUSERPROFILES AS u ON tr.UPDATEUSER = u.NUMUSERID " &
                     "UNION " &
-                    "SELECT tr.TRANSACTIONID, inv.INVOICEID, tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.STRCHECKNO, tr.STRDEPOSITNO, tr.STRBATCHNO, tr.ENTRYPERSON, tr.STRCOMMENT, tr.STRCREDITCARDNO, tr.TRANSACTIONTYPECODE, " &
+                    "SELECT convert(int, tr.TRANSACTIONID) as TRANSACTIONID, convert(int, inv.INVOICEID) as INVOICEID, tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.STRCHECKNO, tr.STRDEPOSITNO, tr.STRBATCHNO, tr.ENTRYPERSON, tr.STRCOMMENT, tr.STRCREDITCARDNO, tr.TRANSACTIONTYPECODE, " &
                     "CASE WHEN tr.UPDATEUSER IS NOT NULL THEN p.STRLASTNAME+', '+p.STRFIRSTNAME ELSE '' END AS UpdateUser, tr.UPDATEDATETIME, tr.CREATEDATETIME, tr.NUMFEEYEAR " &
                     "FROM (SELECT t.TRANSACTIONID, t.INVOICEID, t.DATTRANSACTIONDATE, t.NUMPAYMENT, t.STRCHECKNO, t.STRDEPOSITNO, t.STRBATCHNO, p.STRLASTNAME+', '+p.STRFIRSTNAME AS ENTRYPERSON, t.STRCOMMENT, t.STRCREDITCARDNO, t.TRANSACTIONTYPECODE, t.UPDATEUSER, t.UPDATEDATETIME, t.CREATEDATETIME, t.STRAIRSNUMBER, t.NUMFEEYEAR " &
                     "FROM FS_TRANSACTIONS AS t " &
@@ -4282,13 +4153,6 @@ Public Class FeesAudit
 
                 dgvTransactions.DataSource = DB.GetDataTable(SQL, p)
 
-                dgvTransactions.RowHeadersVisible = False
-                dgvTransactions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvTransactions.AllowUserToResizeColumns = True
-                dgvTransactions.AllowUserToResizeRows = True
-                dgvTransactions.AllowUserToAddRows = False
-                dgvTransactions.AllowUserToDeleteRows = False
-                dgvTransactions.AllowUserToOrderColumns = True
                 dgvTransactions.Columns("transactionID").HeaderText = "Transaction ID"
                 dgvTransactions.Columns("transactionID").DisplayIndex = 0
                 dgvTransactions.Columns("INVOICEID").HeaderText = "Invoice ID"
