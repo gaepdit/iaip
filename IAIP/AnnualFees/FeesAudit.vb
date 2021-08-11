@@ -4271,40 +4271,47 @@ Public Class FeesAudit
         FeeYearsComboBox.SelectedIndex = 0
     End Sub
 
-    Private Function Insert_FS_Admin(FeeYear As String, AIRSNumber As Apb.ApbFacilityId,
-                         Enrolled As Boolean,
-                         DateEnrolled As Date, InitialMailOut As Boolean,
-                         MailoutSent As Boolean, DateMailOutSent As Date,
-                         Submittal As Boolean, DateSubmittal As Date,
-                         Comment As String) As Boolean
+    Private Function Insert_FS_Admin(FeeYear As String,
+                                     AIRSNumber As Apb.ApbFacilityId,
+                                     Enrolled As Boolean,
+                                     DateEnrolled As Date,
+                                     InitialMailOut As Boolean,
+                                     MailoutSent As Boolean,
+                                     DateMailOutSent As Date,
+                                     Submittal As Boolean,
+                                     DateSubmittal As Date,
+                                     Comment As String) As Boolean
         Try
             If String.IsNullOrEmpty(FeeYear) Then
                 Return False
             End If
+
             If AIRSNumber Is Nothing Then
                 Return False
             End If
 
-            Dim SQL As String = "Select " &
-                "count(*)  " &
+            Dim query As String = "Select " &
+                "convert(bit, count(*)) " &
                 "from FS_Admin " &
                 "where numFeeYear = @FeeYear " &
                 "and strAIRSNumber = @AIRSNumber "
+
             Dim params As SqlParameter() = {
                 New SqlParameter("@FeeYear", FeeYear),
                 New SqlParameter("@AIRSNumber", AIRSNumber.DbFormattedString)
             }
 
-            If DB.GetInteger(SQL, params) > 0 Then
+            If DB.GetBoolean(query, params) Then
                 Return False
             End If
 
-            SQL = "Insert into FS_Admin " &
-                "(NUMFEEYEAR, STRAIRSNUMBER, STRENROLLED, DATENROLLMENT, STRINITIALMAILOUT, " &
+            ' Same date (@DATENROLLMENT) for both DATENROLLMENT & DATINITIALENROLLMENT
+            query = "Insert into FS_Admin " &
+                "(NUMFEEYEAR, STRAIRSNUMBER, STRENROLLED, DATENROLLMENT, DATINITIALENROLLMENT, STRINITIALMAILOUT, " &
                 "STRMAILOUTSENT, DATMAILOUTSENT, INTSUBMITTAL, DATSUBMITTAL, NUMCURRENTSTATUS, DATSTATUSDATE, STRCOMMENT, " &
                 "ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME) " &
                 "values " &
-                "(@NUMFEEYEAR, @STRAIRSNUMBER, @STRENROLLED, @DATENROLLMENT, @STRINITIALMAILOUT, " &
+                "(@NUMFEEYEAR, @STRAIRSNUMBER, @STRENROLLED, @DATENROLLMENT, @DATENROLLMENT, @STRINITIALMAILOUT, " &
                 "@STRMAILOUTSENT, @DATMAILOUTSENT, @INTSUBMITTAL, @DATSUBMITTAL, 1, getdate(), @STRCOMMENT, " &
                 "1, @UPDATEUSER, getdate(), getdate() ) "
 
@@ -4321,18 +4328,10 @@ Public Class FeesAudit
                 New SqlParameter("@STRCOMMENT", Comment),
                 New SqlParameter("@UPDATEUSER", "IAIP||" & CurrentUser.AlphaName)
             }
-            DB.RunCommand(SQL, params2)
-
-            SQL = "Update FS_Admin set " &
-               "datInitialEnrollment = datEnrollment " &
-               "where numFeeYear = @FeeYear " &
-               "and strAIRSnumber = @AIRSNumber " &
-               "and datInitialEnrollment is null "
-            DB.RunCommand(SQL, params)
+            DB.RunCommand(query, params2)
 
             Try
-                DB.SPRunCommand("dbo.PD_FEE_MAILOUT", params)
-                DB.SPRunCommand("dbo.PD_FEE_DATA", params)
+                DB.SPRunCommand("dbo.PD_FEE_MAILOUT_FACILITY", params)
             Catch ex As Exception
                 ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -4363,11 +4362,9 @@ Public Class FeesAudit
             Dim SQL As String = ""
 
             If Not Enrolled Then
-                SQL = SQL & "strEnrolled = '0', " &
-                "datEnrollment = null, "
+                SQL &= "strEnrolled = '0', datEnrollment = null, "
             Else
-                SQL &= "strEnrolled = '1', "
-                SQL &= "datEnrollment = @datEnrollment, "
+                SQL &= "strEnrolled = '1', datEnrollment = @datEnrollment, "
             End If
 
             If Not Active Then
@@ -4383,32 +4380,27 @@ Public Class FeesAudit
             End If
 
             If Not MailoutSent Then
-                SQL = SQL & "strMailOutsent = '0', " &
-                "datMailOutSent = null, "
+                SQL &= "strMailOutsent = '0', datMailOutSent = null, "
             Else
-                SQL &= "strMailOutSent = '1', "
-                SQL &= "datMailOutSent = @datMailOutSent, "
+                SQL &= "strMailOutSent = '1', datMailOutSent = @datMailOutSent, "
             End If
 
             If Not Submittal Then
-                SQL &= "intSubmittal = '0', "
-                SQL &= "datSubmittal = null, "
+                SQL &= "intSubmittal = '0', datSubmittal = null, "
             Else
-                SQL &= "intsubmittal = '1', "
-                SQL &= "datSubmittal = @datSubmittal, "
+                SQL &= "intsubmittal = '1', datSubmittal = @datSubmittal, "
             End If
 
             If SQL = "" Then
                 Return False
             Else
-                SQL &= "strComment = @strComment, "
-                SQL &= "updateUser = @updateUser, "
-                SQL &= "updateDateTime = getdate() "
+                SQL &= "strComment = @strComment, updateUser = @updateUser, updateDateTime = getdate(), " &
+                    "DATINITIALENROLLMENT = coalesce(DATINITIALENROLLMENT, DATENROLLMENT) "
             End If
 
             SQL = "Update FS_Admin set " & SQL &
             " where numFeeYear = @year " &
-            "and strAIRSNumber = @airs "
+            " and strAIRSNumber = @airs "
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@airs", AIRSNumber.DbFormattedString),
@@ -4422,21 +4414,13 @@ Public Class FeesAudit
 
             DB.RunCommand(SQL, params)
 
-            SQL = "Update FS_Admin set " &
-            "datInitialEnrollment = datEnrollment " &
-            "where numFeeYear = @FeeYear " &
-            "and strAIRSnumber = @AIRSNumber " &
-            "and datInitialEnrollment is null "
-
             Dim params2 As SqlParameter() = {
                 New SqlParameter("@FeeYear", FeeYear),
                 New SqlParameter("@AIRSNumber", AIRSNumber.DbFormattedString)
             }
-            DB.RunCommand(SQL, params2)
 
             Try
-                DB.SPRunCommand("dbo.PD_FEE_MAILOUT", params2)
-                DB.SPRunCommand("dbo.PD_FEE_DATA", params2)
+                DB.SPRunCommand("dbo.PD_FEE_MAILOUT_FACILITY", params2)
             Catch ex As Exception
                 ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
