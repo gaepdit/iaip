@@ -38,38 +38,40 @@ Public Class IAIPEditContacts
 
     Private Sub LoadContactsDataset()
         Dim query As String = "select case
-                       when strKey = '10' then 'Current Monitoring Contact'
-                       when strKey = '20' then 'Current Compliance Contact'
-                       when strKey = '30' then 'Current Permitting Contact'
-                       when strKey = '40' then 'Current Fee Contact'
-                       when strkey = '41' then 'Current EIS Contact'
-                       when strKey = '42' then 'Current ES Contact'
-                       when left(strKey, 1) = '1' then 'Past Monitoring Contact'
-                       when left(strKey, 1) = '2' then 'Past Compliance Contact'
-                       when left(strKey, 1) = '3' then 'Past Permitting Contact'
-                       else 'Unknown'
-                   end as ContactType,
-                   strContactDescription,
-                   strKey,
-                   strContactFirstName,
-                   strContactLastname,
-                   strContactPrefix,
-                   strContactSuffix,
-                   strContactTitle,
-                   strContactCompanyName,
-                   strContactPhoneNumber1,
-                   strContactPhoneNumber2,
-                   strContactFaxNumber,
-                   strContactEmail,
-                   strContactAddress1,
-                   strContactAddress2,
-                   strContactCity,
-                   strContactState,
-                   strContactZipCode
-            from APBContactInformation
-            where strAIRSnumber = @airs
-              and convert(int, STRKEY) < 50
-            order by substring(strKey, 1, 1), strKey"
+                   when strKey = '10' then 'Current Monitoring Contact'
+                   when strKey = '20' then 'Current Compliance Contact'
+                   when strKey = '30' then 'Current Permitting Contact'
+                   when strKey = '40' then 'Current Fee Contact'
+                   when strkey = '41' then 'Current EIS Contact'
+                   when strKey = '42' then 'Current ES Contact'
+                   when left(strKey, 1) = '1' then 'Past Monitoring Contact ' + right(STRKEY, 1)
+                   when left(strKey, 1) = '2' then 'Past Compliance Contact ' + right(STRKEY, 1)
+                   when left(strKey, 1) = '3' then 'Past Permitting Contact ' + right(STRKEY, 1)
+                   else 'Unknown'
+               end as ContactType,
+               convert(date, DATMODIFINGDATE)
+                   as [Updated],
+               strContactDescription,
+               strKey,
+               strContactFirstName,
+               strContactLastname,
+               strContactPrefix,
+               strContactSuffix,
+               strContactTitle,
+               strContactCompanyName,
+               strContactPhoneNumber1,
+               strContactPhoneNumber2,
+               strContactFaxNumber,
+               strContactEmail,
+               strContactAddress1,
+               strContactAddress2,
+               strContactCity,
+               strContactState,
+               strContactZipCode
+        from APBContactInformation
+        where strAIRSnumber = @airs
+          and convert(int, STRKEY) < 50
+        order by substring(strKey, 1, 1), strKey"
 
         Dim p As New SqlParameter("@airs", AirsNumber.DbFormattedString)
 
@@ -240,12 +242,12 @@ Public Class IAIPEditContacts
         Else
             MsgBox("An error occurred.")
         End If
+
+        LoadContactsDataset()
     End Sub
 
     Private Sub btnSaveNewContact_Click(sender As Object, e As EventArgs) Handles btnSaveNewContact.Click
         Dim newKey As String
-        Dim queryList As New List(Of String)
-        Dim paramsList As New List(Of SqlParameter())
 
         If rdbNewMonitoringContact.Checked Then
             newKey = "10"
@@ -264,124 +266,38 @@ Public Class IAIPEditContacts
             Return
         End If
 
-        Select Case newKey
-            Case "10", "20", "30"
-                queryList.Add("delete APBContactInformation " &
-                              "where strAIRSnumber = @airs " &
-                              "and strKey = @key ")
+        Dim spName As String = "iaip_facility.SaveApbContact"
 
-                paramsList.Add({
-                    New SqlParameter("@airs", AirsNumber.DbFormattedString),
-                    New SqlParameter("@key", Mid(newKey, 1, 1) & "9")
-                })
+        Dim p As SqlParameter() = {
+            New SqlParameter("@key", newKey),
+            New SqlParameter("@facilityId", AirsNumber.DbFormattedString),
+            New SqlParameter("@firstName", txtNewFirstName.Text),
+            New SqlParameter("@lastName", txtNewLastName.Text),
+            New SqlParameter("@prefix", txtNewPrefix.Text),
+            New SqlParameter("@suffix", txtNewSuffix.Text),
+            New SqlParameter("@title", txtNewTitle.Text),
+            New SqlParameter("@organization", txtNewCompany.Text),
+            New SqlParameter("@telephone", txtNewPhoneNumber.Text),
+            New SqlParameter("@telephone2", mtbNewPhoneNumber2.Text),
+            New SqlParameter("@fax", mtbNewFaxNumber.Text),
+            New SqlParameter("@email", txtNewEmail.Text),
+            New SqlParameter("@address1", txtNewAddress.Text),
+            New SqlParameter("@address2", Nothing),
+            New SqlParameter("@city", txtNewCity.Text),
+            New SqlParameter("@state", txtNewState.Text),
+            New SqlParameter("@postalCode", mtbNewZipCode.Text),
+            New SqlParameter("@userId", CurrentUser.UserID),
+            New SqlParameter("@description", txtNewDescrption.Text)
+        }
 
-                queryList.Add("Update APBContactInformation set " &
-                              "strKey = concat(substring(strKey, 1, 1), substring(strKey, 2, 1) + 1), " &
-                              "strContactKey = concat(substring(strContactKey, 1, 13), substring(strContactKey, 14, 1) + 1) " &
-                              "where strAIRSNumber = @airs " &
-                              "and strKey like @key ")
+        Dim returnValue As Integer
+        DB.SPRunCommand(spName, p, returnValue:=returnValue)
 
-                paramsList.Add({
-                    New SqlParameter("@airs", AirsNumber.DbFormattedString),
-                    New SqlParameter("@key", Mid(newKey, 1, 1) & "%")
-                })
-
-                queryList.Add("INSERT INTO APBCONTACTINFORMATION " &
-                        "(STRCONTACTKEY, STRAIRSNUMBER, STRKEY, STRCONTACTFIRSTNAME, " &
-                        "STRCONTACTLASTNAME, STRCONTACTPREFIX, STRCONTACTSUFFIX, STRCONTACTTITLE, " &
-                        "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1, STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER, " &
-                        "STRCONTACTEMAIL, STRCONTACTADDRESS1, STRCONTACTADDRESS2, STRCONTACTCITY, " &
-                        "STRCONTACTSTATE, STRCONTACTZIPCODE, STRMODIFINGPERSON, DATMODIFINGDATE, " &
-                        "STRCONTACTDESCRIPTION) " &
-                        "select " &
-                        "@STRCONTACTKEY, @STRAIRSNUMBER, @STRKEY, @STRCONTACTFIRSTNAME, " &
-                        "@STRCONTACTLASTNAME, @STRCONTACTPREFIX, @STRCONTACTSUFFIX, @STRCONTACTTITLE, " &
-                        "@STRCONTACTCOMPANYNAME, @STRCONTACTPHONENUMBER1, @STRCONTACTPHONENUMBER2, @STRCONTACTFAXNUMBER, " &
-                        "@STRCONTACTEMAIL, @STRCONTACTADDRESS1, @STRCONTACTADDRESS2, @STRCONTACTCITY, " &
-                        "@STRCONTACTSTATE, @STRCONTACTZIPCODE, @STRMODIFINGPERSON, getdate(), " &
-                        "@STRCONTACTDESCRIPTION " &
-                        "WHERE NOT EXISTS " &
-                        "(SELECT * FROM APBCONTACTINFORMATION " &
-                        "WHERE STRKEY = @STRKEY " &
-                        "AND STRAIRSNUMBER = @STRAIRSNUMBER) ")
-
-                paramsList.Add({
-                    New SqlParameter("@STRCONTACTKEY", AirsNumber.DbFormattedString & newKey),
-                    New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
-                    New SqlParameter("@STRKEY", newKey),
-                    New SqlParameter("@STRCONTACTFIRSTNAME", txtNewFirstName.Text),
-                    New SqlParameter("@STRCONTACTLASTNAME", txtNewLastName.Text),
-                    New SqlParameter("@STRCONTACTPREFIX", txtNewPrefix.Text),
-                    New SqlParameter("@STRCONTACTSUFFIX", txtNewSuffix.Text),
-                    New SqlParameter("@STRCONTACTTITLE", txtNewTitle.Text),
-                    New SqlParameter("@STRCONTACTCOMPANYNAME", txtNewCompany.Text),
-                    New SqlParameter("@STRCONTACTPHONENUMBER1", txtNewPhoneNumber.Text),
-                    New SqlParameter("@STRCONTACTPHONENUMBER2", mtbNewPhoneNumber2.Text),
-                    New SqlParameter("@STRCONTACTFAXNUMBER", mtbNewFaxNumber.Text),
-                    New SqlParameter("@STRCONTACTEMAIL", txtNewEmail.Text),
-                    New SqlParameter("@STRCONTACTADDRESS1", txtNewAddress.Text),
-                    New SqlParameter("@STRCONTACTADDRESS2", ""),
-                    New SqlParameter("@STRCONTACTCITY", txtNewCity.Text),
-                    New SqlParameter("@STRCONTACTSTATE", txtNewState.Text),
-                    New SqlParameter("@STRCONTACTZIPCODE", mtbNewZipCode.Text),
-                    New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
-                    New SqlParameter("@STRCONTACTDESCRIPTION", txtNewDescrption.Text)
-                })
-
-                If DB.RunCommand(queryList, paramsList) Then
-                    MsgBox("Contact added.", MsgBoxStyle.Information, Text)
-                Else
-                    MsgBox("An error occurred.")
-                End If
-            Case Else
-                Dim query As String = "INSERT INTO APBCONTACTINFORMATION " &
-                    "(STRCONTACTKEY, STRAIRSNUMBER, STRKEY, STRCONTACTFIRSTNAME, " &
-                    "STRCONTACTLASTNAME, STRCONTACTPREFIX, STRCONTACTSUFFIX, STRCONTACTTITLE, " &
-                    "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1, STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER, " &
-                    "STRCONTACTEMAIL, STRCONTACTADDRESS1, STRCONTACTADDRESS2, STRCONTACTCITY, " &
-                    "STRCONTACTSTATE, STRCONTACTZIPCODE, STRMODIFINGPERSON, DATMODIFINGDATE, " &
-                    "STRCONTACTDESCRIPTION) " &
-                    "select " &
-                    "@STRCONTACTKEY, @STRAIRSNUMBER, @STRKEY, @STRCONTACTFIRSTNAME, " &
-                    "@STRCONTACTLASTNAME, @STRCONTACTPREFIX, @STRCONTACTSUFFIX, @STRCONTACTTITLE, " &
-                    "@STRCONTACTCOMPANYNAME, @STRCONTACTPHONENUMBER1, @STRCONTACTPHONENUMBER2, @STRCONTACTFAXNUMBER, " &
-                    "@STRCONTACTEMAIL, @STRCONTACTADDRESS1, @STRCONTACTADDRESS2, @STRCONTACTCITY, " &
-                    "@STRCONTACTSTATE, @STRCONTACTZIPCODE, @STRMODIFINGPERSON, getdate(), " &
-                    "@STRCONTACTDESCRIPTION " &
-                    "WHERE NOT EXISTS " &
-                    "(SELECT * FROM APBCONTACTINFORMATION " &
-                    "WHERE STRKEY = @STRKEY " &
-                    "AND STRAIRSNUMBER = @STRAIRSNUMBER) "
-
-                Dim p As SqlParameter() = {
-                    New SqlParameter("@STRCONTACTKEY", AirsNumber.DbFormattedString & newKey),
-                    New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
-                    New SqlParameter("@STRKEY", newKey),
-                    New SqlParameter("@STRCONTACTFIRSTNAME", txtNewFirstName.Text),
-                    New SqlParameter("@STRCONTACTLASTNAME", txtNewLastName.Text),
-                    New SqlParameter("@STRCONTACTPREFIX", txtNewPrefix.Text),
-                    New SqlParameter("@STRCONTACTSUFFIX", txtNewSuffix.Text),
-                    New SqlParameter("@STRCONTACTTITLE", txtNewTitle.Text),
-                    New SqlParameter("@STRCONTACTCOMPANYNAME", txtNewCompany.Text),
-                    New SqlParameter("@STRCONTACTPHONENUMBER1", txtNewPhoneNumber.Text),
-                    New SqlParameter("@STRCONTACTPHONENUMBER2", mtbNewPhoneNumber2.Text),
-                    New SqlParameter("@STRCONTACTFAXNUMBER", mtbNewFaxNumber.Text),
-                    New SqlParameter("@STRCONTACTEMAIL", txtNewEmail.Text),
-                    New SqlParameter("@STRCONTACTADDRESS1", txtNewAddress.Text),
-                    New SqlParameter("@STRCONTACTADDRESS2", ""),
-                    New SqlParameter("@STRCONTACTCITY", txtNewCity.Text),
-                    New SqlParameter("@STRCONTACTSTATE", txtNewState.Text),
-                    New SqlParameter("@STRCONTACTZIPCODE", mtbNewZipCode.Text),
-                    New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
-                    New SqlParameter("@STRCONTACTDESCRIPTION", txtNewDescrption.Text)
-                }
-
-                If DB.RunCommand(query, p) Then
-                    MsgBox("Contact added.", MsgBoxStyle.Information, Text)
-                Else
-                    MsgBox("An error occurred.")
-                End If
-        End Select
+        If returnValue = 0 Then
+            MsgBox("Contact added.", MsgBoxStyle.Information, Text)
+        Else
+            MsgBox("An error occurred.")
+        End If
 
         LoadContactsDataset()
     End Sub
