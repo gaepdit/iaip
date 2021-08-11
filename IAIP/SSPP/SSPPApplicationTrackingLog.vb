@@ -1043,20 +1043,6 @@ Public Class SSPPApplicationTrackingLog
                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnDeleteInformationRequest.BackColor = Color.Yellow
             End If
-            'btnGoToFeeContact 
-
-            If AccountFormAccess(129, 3) = "1" OrElse
-           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
-           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
-           (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
-           (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
-           (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") OrElse
-           (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
-           (AccountFormAccess(51, 3) = "1" AndAlso AccountFormAccess(20, 3) = "1" AndAlso AccountFormAccess(51, 1) = "0") Then
-                btnGoToFeeContact.Visible = True
-            Else
-                btnGoToFeeContact.Visible = False
-            End If
 
             'btnLinkApplications
             If AccountFormAccess(129, 3) = "1" OrElse
@@ -13874,21 +13860,6 @@ Public Class SSPPApplicationTrackingLog
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
-
-    Private Sub btnUpdateFeeContact_Click(sender As Object, e As EventArgs) Handles btnGoToFeeContact.Click
-        If AirsId Is Nothing Then
-            MessageBox.Show("Select a facility first.")
-            Return
-        End If
-
-        Dim feeContact As New SSPPFeeContact
-
-        If feeContact IsNot Nothing AndAlso Not feeContact.IsDisposed Then
-            feeContact.AirsId = AirsId
-            feeContact.AppNumber = AppNumber
-            feeContact.Show()
-        End If
     End Sub
 
     Private Sub txtAIRSNumber_Enter(sender As Object, e As EventArgs) Handles txtAIRSNumber.AirsTextEnter
