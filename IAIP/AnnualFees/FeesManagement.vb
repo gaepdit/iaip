@@ -1,4 +1,4 @@
-﻿Imports System.Collections.Generic
+Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Text
 Imports EpdIt.DBUtilities
@@ -827,22 +827,27 @@ Public Class FeesManagement
 
         Cursor = Cursors.WaitCursor
 
-        Dim query As String = " update FS_MAILOUT " &
-            " set STRFIRSTNAME       = c.STRCONTACTFIRSTNAME, " &
-            "     STRLASTNAME        = c.STRCONTACTLASTNAME, " &
-            "     STRPREFIX          = c.STRCONTACTPREFIX, " &
-            "     STRTITLE           = c.STRCONTACTSUFFIX, " &
-            "     STRCONTACTCONAME   = left(c.STRCONTACTCOMPANYNAME, 80), " &
-            "     STRCONTACTADDRESS1 = c.STRCONTACTADDRESS1, " &
-            "     STRCONTACTADDRESS2 = left(c.STRCONTACTADDRESS2, 50), " &
-            "     STRCONTACTCITY     = c.STRCONTACTCITY, " &
-            "     STRCONTACTSTATE    = c.STRCONTACTSTATE, " &
-            "     STRCONTACTZIPCODE  = c.STRCONTACTZIPCODE " &
-            " from FS_MAILOUT m " &
-            "     inner join APBCONTACTINFORMATION c " &
-            "         on c.STRAIRSNUMBER = m.STRAIRSNUMBER " &
-            "            and c.STRKEY = '40' " &
-            " where m.NUMFEEYEAR = @year "
+        Dim query As String = "update FS_MAILOUT
+            set STRFIRSTNAME = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.FirstName, c.STRCONTACTFIRSTNAME)),
+                STRLASTNAME = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.LastName, c.STRCONTACTLASTNAME)),
+                STRPREFIX = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.Prefix, c.STRCONTACTPREFIX)),
+                STRTITLE = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.Title, c.STRCONTACTTITLE)),
+                STRCONTACTCONAME = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.Organization, c.STRCONTACTCOMPANYNAME)),
+                STRCONTACTADDRESS1 = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.Address1, c.STRCONTACTADDRESS1)),
+                STRCONTACTADDRESS2 = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.Address2, c.STRCONTACTADDRESS2)),
+                STRCONTACTCITY = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.City, c.STRCONTACTCITY)),
+                STRCONTACTSTATE = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.State, c.STRCONTACTSTATE)),
+                STRCONTACTZIPCODE = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.PostalCode, c.STRCONTACTZIPCODE))
+            from FS_MAILOUT f
+                left join Geco_MailContact m
+                on f.STRAIRSNUMBER = m.FacilityId
+                    and m.LatestConfirmationDate is not null
+                    and m.Category = 'Fees'
+                left join dbo.APBCONTACTINFORMATION c
+                on f.STRAIRSNUMBER = c.STRAIRSNUMBER
+                    and c.STRKEY = '40'
+            where f.NUMFEEYEAR = @year
+              and (m.Id is not null or c.STRKEY is not null)"
 
         Dim param As New SqlParameter("@year", SelectedYear)
 
