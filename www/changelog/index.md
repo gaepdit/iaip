@@ -10,6 +10,14 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.25.3 <span>(2021-08-09)</span>
+
+Fix date sorting and filtering in the EI tools and compliance log.
+
+## Version 5.25.2 <span>(2021-07-06)</span>
+
+Minor bug fix release.
+
 ## Version 5.25.1 <span>(2021-06-08)</span>
 
 This release fixes a permissions bug.
