@@ -229,21 +229,16 @@ Public Class IaipDataGridView
     ' Data Source
 
     Private Sub IaipDataGridView_DataSourceChanged(sender As Object, e As EventArgs) Handles MyBase.DataSourceChanged
-        Dim data As New Dictionary(Of String, Object) From {{"Name", Name}}
-
         If DataSource Is Nothing Then
-            AddBreadcrumb("IaipDataGridView: datasource removed", data, Me)
+            AddBreadcrumb("IaipDataGridView: datasource removed", "Name", Name, Me)
             RemoveExcelExportButton()
 
             If ResultsCountLabel IsNot Nothing Then
                 ResultsCountLabel.Text = String.Empty
             End If
         Else
-            AddBreadcrumb("IaipDataGridView: datasource changed", data, Me)
-
+            AddBreadcrumb("IaipDataGridView: datasource changed", "Name", Name, Me)
             AddExcelExportButton()
-
-            SanelyResizeColumns()
 
             If LinkifyFirstColumn Then
                 MakeColumnLookLikeLinks(0)
@@ -254,8 +249,25 @@ Public Class IaipDataGridView
             If ResultsCountLabel IsNot Nothing Then
                 ResultsCountLabel.Text = String.Format(ResultsCountLabelFormat, Rows.Count)
             End If
+
+            If Visible Then
+                SanelyResizeColumns()
+                resized = True
+            Else
+                resized = False
+            End If
         End If
     End Sub
+
+    Private resized As Boolean = False
+
+    Private Sub IaipDataGridView_VisibleChanged(sender As Object, e As EventArgs) Handles MyBase.VisibleChanged
+        If Not resized AndAlso Visible AndAlso DataSource IsNot Nothing Then
+            SanelyResizeColumns()
+            resized = True
+        End If
+    End Sub
+
 
     ' Export to Excel button
 
@@ -413,6 +425,7 @@ Public Class IaipDataGridView
     End Sub
 
     Public Delegate Sub IaipDataGridViewCellLinkEventHandler(sender As Object, e As IaipDataGridViewCellLinkEventArgs)
+
 End Class
 
 Public Class IaipDataGridViewCellLinkEventArgs
