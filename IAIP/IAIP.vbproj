@@ -647,12 +647,6 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Fees\FacilityInfo10.vb">
-      <DependentUpon>FacilityInfo10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Crystal Reports\Fees\feeByYear10.vb">
       <DependentUpon>feeByYear10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1199,10 +1193,6 @@
     <EmbeddedResource Include="Crystal Reports\Fees\FacilityFee10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FacilityFee10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Fees\FacilityInfo10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>FacilityInfo10.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Fees\feeByYear10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

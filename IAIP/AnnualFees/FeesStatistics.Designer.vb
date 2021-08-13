@@ -240,6 +240,7 @@ Partial Class FeesStatistics
         Me.cboAirs = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TPCompliance = New System.Windows.Forms.TabPage()
+        Me.btnClassification = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.btnClassChange = New System.Windows.Forms.Button()
         Me.btnNoOperate = New System.Windows.Forms.Button()
@@ -247,9 +248,6 @@ Partial Class FeesStatistics
         Me.lblNSPS3 = New System.Windows.Forms.LinkLabel()
         Me.lblNSPS2 = New System.Windows.Forms.LinkLabel()
         Me.lblNSPS1 = New System.Windows.Forms.LinkLabel()
-        Me.TPFacility = New System.Windows.Forms.TabPage()
-        Me.btnClassification = New System.Windows.Forms.Button()
-        Me.btnFacInfoChange = New System.Windows.Forms.Button()
         Me.TCMailoutAndStats.SuspendLayout()
         Me.TPDepositAndPaymentStats.SuspendLayout()
         CType(Me.dgvDepositsAndPayments, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -274,7 +272,6 @@ Partial Class FeesStatistics
         Me.TPDeposits.SuspendLayout()
         Me.TPCompliance.SuspendLayout()
         Me.TPNsps.SuspendLayout()
-        Me.TPFacility.SuspendLayout()
         Me.SuspendLayout()
         '
         'TCMailoutAndStats
@@ -2245,7 +2242,6 @@ Partial Class FeesStatistics
         Me.tabReport.Controls.Add(Me.TPDeposits)
         Me.tabReport.Controls.Add(Me.TPCompliance)
         Me.tabReport.Controls.Add(Me.TPNsps)
-        Me.tabReport.Controls.Add(Me.TPFacility)
         Me.tabReport.Dock = System.Windows.Forms.DockStyle.Top
         Me.tabReport.Location = New System.Drawing.Point(0, 0)
         Me.tabReport.Margin = New System.Windows.Forms.Padding(2)
@@ -2493,6 +2489,7 @@ Partial Class FeesStatistics
         '
         'TPCompliance
         '
+        Me.TPCompliance.Controls.Add(Me.btnClassification)
         Me.TPCompliance.Controls.Add(Me.Label4)
         Me.TPCompliance.Controls.Add(Me.btnClassChange)
         Me.TPCompliance.Controls.Add(Me.btnNoOperate)
@@ -2501,13 +2498,23 @@ Partial Class FeesStatistics
         Me.TPCompliance.Name = "TPCompliance"
         Me.TPCompliance.Size = New System.Drawing.Size(928, 88)
         Me.TPCompliance.TabIndex = 4
-        Me.TPCompliance.Text = "Compliance"
+        Me.TPCompliance.Text = "Class"
         Me.TPCompliance.UseVisualStyleBackColor = True
+        '
+        'btnClassification
+        '
+        Me.btnClassification.CausesValidation = False
+        Me.btnClassification.Location = New System.Drawing.Point(3, 4)
+        Me.btnClassification.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnClassification.Name = "btnClassification"
+        Me.btnClassification.Size = New System.Drawing.Size(129, 23)
+        Me.btnClassification.TabIndex = 5
+        Me.btnClassification.Text = "Classification Totals"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(236, 9)
+        Me.Label4.Location = New System.Drawing.Point(270, 29)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(128, 13)
         Me.Label4.TabIndex = 4
@@ -2516,7 +2523,7 @@ Partial Class FeesStatistics
         'btnClassChange
         '
         Me.btnClassChange.CausesValidation = False
-        Me.btnClassChange.Location = New System.Drawing.Point(4, 4)
+        Me.btnClassChange.Location = New System.Drawing.Point(136, 4)
         Me.btnClassChange.Margin = New System.Windows.Forms.Padding(2)
         Me.btnClassChange.Name = "btnClassChange"
         Me.btnClassChange.Size = New System.Drawing.Size(129, 23)
@@ -2527,7 +2534,7 @@ Partial Class FeesStatistics
         'btnNoOperate
         '
         Me.btnNoOperate.CausesValidation = False
-        Me.btnNoOperate.Location = New System.Drawing.Point(137, 4)
+        Me.btnNoOperate.Location = New System.Drawing.Point(269, 4)
         Me.btnNoOperate.Margin = New System.Windows.Forms.Padding(2)
         Me.btnNoOperate.Name = "btnNoOperate"
         Me.btnNoOperate.Size = New System.Drawing.Size(94, 23)
@@ -2580,40 +2587,6 @@ Partial Class FeesStatistics
         Me.lblNSPS1.TabStop = True
         Me.lblNSPS1.Text = "All facilities that are subject to NSPS, but chose to exempt from NSPS"
         '
-        'TPFacility
-        '
-        Me.TPFacility.Controls.Add(Me.btnClassification)
-        Me.TPFacility.Controls.Add(Me.btnFacInfoChange)
-        Me.TPFacility.Location = New System.Drawing.Point(4, 22)
-        Me.TPFacility.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPFacility.Name = "TPFacility"
-        Me.TPFacility.Size = New System.Drawing.Size(928, 88)
-        Me.TPFacility.TabIndex = 5
-        Me.TPFacility.Text = "Facility Info"
-        Me.TPFacility.UseVisualStyleBackColor = True
-        '
-        'btnClassification
-        '
-        Me.btnClassification.CausesValidation = False
-        Me.btnClassification.Location = New System.Drawing.Point(129, 4)
-        Me.btnClassification.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnClassification.Name = "btnClassification"
-        Me.btnClassification.Size = New System.Drawing.Size(145, 23)
-        Me.btnClassification.TabIndex = 4
-        Me.btnClassification.Text = "Facility Classification Totals"
-        '
-        'btnFacInfoChange
-        '
-        Me.btnFacInfoChange.AutoSize = True
-        Me.btnFacInfoChange.CausesValidation = False
-        Me.btnFacInfoChange.Location = New System.Drawing.Point(4, 4)
-        Me.btnFacInfoChange.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnFacInfoChange.Name = "btnFacInfoChange"
-        Me.btnFacInfoChange.Size = New System.Drawing.Size(121, 23)
-        Me.btnFacInfoChange.TabIndex = 3
-        Me.btnFacInfoChange.Text = "Change in Facility Info"
-        Me.btnFacInfoChange.UseVisualStyleBackColor = False
-        '
         'FeesStatistics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2656,8 +2629,6 @@ Partial Class FeesStatistics
         Me.TPCompliance.PerformLayout()
         Me.TPNsps.ResumeLayout(False)
         Me.TPNsps.PerformLayout()
-        Me.TPFacility.ResumeLayout(False)
-        Me.TPFacility.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2752,8 +2723,6 @@ Partial Class FeesStatistics
     Friend WithEvents TPCompliance As System.Windows.Forms.TabPage
     Friend WithEvents btnNoOperate As System.Windows.Forms.Button
     Friend WithEvents btnClassChange As System.Windows.Forms.Button
-    Friend WithEvents TPFacility As System.Windows.Forms.TabPage
-    Friend WithEvents btnFacInfoChange As System.Windows.Forms.Button
     Friend WithEvents TPFeeStatistics2 As System.Windows.Forms.TabPage
     Friend WithEvents dgvFeeStats As Iaip.IaipDataGridView
     Friend WithEvents Panel10 As System.Windows.Forms.Panel
@@ -2878,7 +2847,6 @@ Partial Class FeesStatistics
     Friend WithEvents Panel6 As Panel
     Friend WithEvents cbReportedYear As ComboBox
     Friend WithEvents btnExportedRun As Button
-    Friend WithEvents btnClassification As Button
     Friend WithEvents cbBalanceYear As ComboBox
     Friend WithEvents lblCountDepositsPayments As Label
     Friend WithEvents Label5 As Label
@@ -2886,4 +2854,5 @@ Partial Class FeesStatistics
     Friend WithEvents Label6 As Label
     Friend WithEvents Panel2 As Panel
     Friend WithEvents GridFeesReports As IaipDataGridView
+    Friend WithEvents btnClassification As Button
 End Class

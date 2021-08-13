@@ -1,4 +1,4 @@
-﻿Imports System.Collections.Generic
+Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Text
 Imports CrystalDecisions.CrystalReports.Engine
@@ -1533,46 +1533,6 @@ Public Class FeesStatistics
             Me.Cursor = Cursors.Default
         End Try
 
-    End Sub
-
-#End Region
-
-#Region "General"
-
-    Private Sub btnFacInfoChange_Click(sender As Object, e As EventArgs) Handles btnFacInfoChange.Click
-        GridFeesReports.Visible = False
-        CRFeesReports.Visible = True
-
-        If Not CrystalReportsIsAvailable() Then
-            Return
-        End If
-
-        Try
-            Cursor = Cursors.WaitCursor
-            Dim rpt As ReportClass = New FacilityInfo10
-            Dim SQL As String = "select iaip_facility.FormatAirsNumber(STRAIRSNUMBER) as STRAIRSNUMBER,
-                       STRFACILITYNAME,
-                       STRFACILITYSTREET1,
-                       STRFACILITYCITY,
-                       iaip_facility.FormatAirsNumber(STRAIRSNUMBERTEMP) as STRAIRSNUMBERTEMP,
-                       STRFACILITYNAMETEMP,
-                       STRFACILITYSTREET1TEMP,
-                       STRFACILITYCITYTEMP,
-                       STRCONTACTFIRSTNAME,
-                       STRCONTACTLASTNAME,
-                       STRCONTACTCOMPANYNAME,
-                       STRCONTACTPHONENUMBER1,
-                       STRCONTACTEMAIL
-                from VW_FACILITY_INFO"
-
-            rpt.SetDataSource(DB.GetDataTable(SQL))
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            Cursor = Cursors.Default
-        End Try
     End Sub
 
 #End Region
