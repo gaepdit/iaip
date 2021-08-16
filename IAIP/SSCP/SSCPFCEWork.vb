@@ -1,4 +1,4 @@
-Imports System.Collections.Generic
+﻿Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Text
 Imports Iaip.Apb
@@ -52,7 +52,8 @@ Public Class SSCPFCEWork
         End If
 
         Dim sb As New StringBuilder
-        sb.AppendLine(AirsNumber.FormattedString & " � " & facility.FacilityName)
+        sb.AppendLine(AirsNumber.FormattedString)
+        sb.AppendLine(facility.FacilityName)
         sb.AppendLine(facility.DisplayFacilityAddress)
         sb.AppendLine(facility.DisplayCounty & " County")
         sb.AppendLine("Classification: " & facility.DisplayClassification)

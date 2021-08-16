@@ -27,8 +27,7 @@ Public Module ExcelExport
 
     Private Sub AddDetailedBreadcrumb(sender As Object)
         If sender IsNot Nothing Then
-            Dim data As New Dictionary(Of String, Object) From {{"Sender", CType(sender, Control).Name}}
-            AddBreadcrumb("ExportToExcel", data)
+            AddBreadcrumb("ExportToExcel", "Sender", CType(sender, Control).Name)
         End If
     End Sub
 

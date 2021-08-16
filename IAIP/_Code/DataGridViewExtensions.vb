@@ -14,12 +14,12 @@ Module DataGridViewExtensions
 
         ' Loop through columns & explicitly set column width and undo AutoSizeMode
         Dim currentWidth As Integer
+
         For Each column As DataGridViewColumn In datagridview.Columns
             column.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
             currentWidth = column.Width
-            column.AutoSizeMode = DataGridViewAutoSizeColumnMode.None
-            column.Width = Math.Max(minWidth, currentWidth)
-            column.Width = Math.Min(maxWidth, column.Width)
+            'column.AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+            column.Width = Math.Min(maxWidth, Math.Max(minWidth, currentWidth))
         Next
 
         ' Allow user resizing of columns:

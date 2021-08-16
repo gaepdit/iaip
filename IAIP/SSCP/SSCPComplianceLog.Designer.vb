@@ -19,7 +19,7 @@ Partial Class SSCPComplianceLog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.pnlFilterPanel = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -137,7 +137,7 @@ Partial Class SSCPComplianceLog
         Me.GroupBox1.Location = New System.Drawing.Point(0, 24)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(831, 430)
-        Me.GroupBox1.TabIndex = 4
+        Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Filter and Sort Option"
         '
@@ -180,7 +180,7 @@ Partial Class SSCPComplianceLog
         Me.GBWorkTypes.Location = New System.Drawing.Point(2, 96)
         Me.GBWorkTypes.Name = "GBWorkTypes"
         Me.GBWorkTypes.Size = New System.Drawing.Size(198, 310)
-        Me.GBWorkTypes.TabIndex = 2
+        Me.GBWorkTypes.TabIndex = 3
         Me.GBWorkTypes.TabStop = False
         Me.GBWorkTypes.Text = "Work Type"
         '
@@ -307,7 +307,7 @@ Partial Class SSCPComplianceLog
         Me.GBEnforcementDates.Location = New System.Drawing.Point(441, 260)
         Me.GBEnforcementDates.Name = "GBEnforcementDates"
         Me.GBEnforcementDates.Size = New System.Drawing.Size(144, 147)
-        Me.GBEnforcementDates.TabIndex = 5
+        Me.GBEnforcementDates.TabIndex = 6
         Me.GBEnforcementDates.TabStop = False
         Me.GBEnforcementDates.Text = "Date Bias"
         '
@@ -317,7 +317,7 @@ Partial Class SSCPComplianceLog
         Me.chbLastModifiedDate.Location = New System.Drawing.Point(9, 120)
         Me.chbLastModifiedDate.Name = "chbLastModifiedDate"
         Me.chbLastModifiedDate.Size = New System.Drawing.Size(122, 17)
-        Me.chbLastModifiedDate.TabIndex = 2
+        Me.chbLastModifiedDate.TabIndex = 3
         Me.chbLastModifiedDate.Text = "Include last modified"
         Me.chbLastModifiedDate.UseVisualStyleBackColor = True
         '
@@ -346,7 +346,7 @@ Partial Class SSCPComplianceLog
         Me.DTPFilterEnd.Location = New System.Drawing.Point(9, 94)
         Me.DTPFilterEnd.Name = "DTPFilterEnd"
         Me.DTPFilterEnd.Size = New System.Drawing.Size(100, 20)
-        Me.DTPFilterEnd.TabIndex = 3
+        Me.DTPFilterEnd.TabIndex = 2
         '
         'Label14
         '
@@ -372,7 +372,7 @@ Partial Class SSCPComplianceLog
         Me.txtWorkCount.Name = "txtWorkCount"
         Me.txtWorkCount.ReadOnly = True
         Me.txtWorkCount.Size = New System.Drawing.Size(48, 20)
-        Me.txtWorkCount.TabIndex = 301
+        Me.txtWorkCount.TabIndex = 1
         '
         'btnRunFilter
         '
@@ -392,7 +392,7 @@ Partial Class SSCPComplianceLog
         Me.GroupBox5.Location = New System.Drawing.Point(2, 26)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(198, 68)
-        Me.GroupBox5.TabIndex = 1
+        Me.GroupBox5.TabIndex = 2
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Open/Closed/Deleted"
         '
@@ -437,14 +437,14 @@ Partial Class SSCPComplianceLog
         Me.GroupBox7.Location = New System.Drawing.Point(206, 260)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(229, 146)
-        Me.GroupBox7.TabIndex = 4
+        Me.GroupBox7.TabIndex = 5
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Misc. "
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(6, 114)
+        Me.Label15.Location = New System.Drawing.Point(6, 110)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(70, 13)
         Me.Label15.TabIndex = 39
@@ -452,7 +452,7 @@ Partial Class SSCPComplianceLog
         '
         'txtFacilityNameFilter
         '
-        Me.txtFacilityNameFilter.Location = New System.Drawing.Point(119, 110)
+        Me.txtFacilityNameFilter.Location = New System.Drawing.Point(119, 107)
         Me.txtFacilityNameFilter.MaxLength = 8
         Me.txtFacilityNameFilter.Name = "txtFacilityNameFilter"
         Me.txtFacilityNameFilter.Size = New System.Drawing.Size(100, 20)
@@ -538,7 +538,7 @@ Partial Class SSCPComplianceLog
         Me.GBEngineer.Location = New System.Drawing.Point(206, 1)
         Me.GBEngineer.Name = "GBEngineer"
         Me.GBEngineer.Size = New System.Drawing.Size(379, 253)
-        Me.GBEngineer.TabIndex = 3
+        Me.GBEngineer.TabIndex = 4
         Me.GBEngineer.TabStop = False
         Me.GBEngineer.Text = "Staff Search Criteria"
         '
@@ -566,7 +566,7 @@ Partial Class SSCPComplianceLog
         Me.clbDistrictOffices.Location = New System.Drawing.Point(191, 152)
         Me.clbDistrictOffices.Name = "clbDistrictOffices"
         Me.clbDistrictOffices.Size = New System.Drawing.Size(179, 94)
-        Me.clbDistrictOffices.TabIndex = 6
+        Me.clbDistrictOffices.TabIndex = 4
         '
         'clbAirBranchUnits
         '
@@ -574,7 +574,7 @@ Partial Class SSCPComplianceLog
         Me.clbAirBranchUnits.Location = New System.Drawing.Point(191, 62)
         Me.clbAirBranchUnits.Name = "clbAirBranchUnits"
         Me.clbAirBranchUnits.Size = New System.Drawing.Size(179, 64)
-        Me.clbAirBranchUnits.TabIndex = 4
+        Me.clbAirBranchUnits.TabIndex = 3
         '
         'Panel5
         '
@@ -650,7 +650,7 @@ Partial Class SSCPComplianceLog
         Me.TCComplianceLog.Name = "TCComplianceLog"
         Me.TCComplianceLog.SelectedIndex = 0
         Me.TCComplianceLog.Size = New System.Drawing.Size(232, 411)
-        Me.TCComplianceLog.TabIndex = 1
+        Me.TCComplianceLog.TabIndex = 0
         '
         'TPSelectWork
         '
@@ -693,7 +693,7 @@ Partial Class SSCPComplianceLog
         Me.btnUndeleteWork.Location = New System.Drawing.Point(128, 219)
         Me.btnUndeleteWork.Name = "btnUndeleteWork"
         Me.btnUndeleteWork.Size = New System.Drawing.Size(89, 23)
-        Me.btnUndeleteWork.TabIndex = 9
+        Me.btnUndeleteWork.TabIndex = 8
         Me.btnUndeleteWork.Text = "Undelete Work"
         Me.btnUndeleteWork.UseVisualStyleBackColor = True
         '
@@ -703,7 +703,7 @@ Partial Class SSCPComplianceLog
         Me.btnDeleteWork.Location = New System.Drawing.Point(9, 219)
         Me.btnDeleteWork.Name = "btnDeleteWork"
         Me.btnDeleteWork.Size = New System.Drawing.Size(77, 23)
-        Me.btnDeleteWork.TabIndex = 8
+        Me.btnDeleteWork.TabIndex = 7
         Me.btnDeleteWork.Text = "Delete Work"
         Me.btnDeleteWork.UseVisualStyleBackColor = True
         '
@@ -750,7 +750,7 @@ Partial Class SSCPComplianceLog
         Me.txtFacilityCity.Name = "txtFacilityCity"
         Me.txtFacilityCity.ReadOnly = True
         Me.txtFacilityCity.Size = New System.Drawing.Size(208, 20)
-        Me.txtFacilityCity.TabIndex = 6
+        Me.txtFacilityCity.TabIndex = 5
         '
         'txtFacilityName
         '
@@ -784,7 +784,7 @@ Partial Class SSCPComplianceLog
         Me.txtTestType.Name = "txtTestType"
         Me.txtTestType.ReadOnly = True
         Me.txtTestType.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestType.TabIndex = 5
+        Me.txtTestType.TabIndex = 6
         '
         'txtAIRSNumber
         '
@@ -832,7 +832,7 @@ Partial Class SSCPComplianceLog
         Me.pnlOtherEvents.Location = New System.Drawing.Point(0, 216)
         Me.pnlOtherEvents.Name = "pnlOtherEvents"
         Me.pnlOtherEvents.Size = New System.Drawing.Size(217, 137)
-        Me.pnlOtherEvents.TabIndex = 2
+        Me.pnlOtherEvents.TabIndex = 3
         Me.pnlOtherEvents.Visible = False
         '
         'txtTrackingNumber
@@ -905,7 +905,7 @@ Partial Class SSCPComplianceLog
         Me.Panel4.Location = New System.Drawing.Point(9, 132)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(208, 84)
-        Me.Panel4.TabIndex = 1
+        Me.Panel4.TabIndex = 2
         '
         'rdbPerformanceTest
         '
@@ -957,7 +957,7 @@ Partial Class SSCPComplianceLog
         Me.btnAddNewEntry.Location = New System.Drawing.Point(9, 359)
         Me.btnAddNewEntry.Name = "btnAddNewEntry"
         Me.btnAddNewEntry.Size = New System.Drawing.Size(88, 23)
-        Me.btnAddNewEntry.TabIndex = 3
+        Me.btnAddNewEntry.TabIndex = 4
         Me.btnAddNewEntry.Text = "&Add New Entry"
         '
         'Label5
@@ -977,7 +977,7 @@ Partial Class SSCPComplianceLog
         Me.txtFacilityInformation.ReadOnly = True
         Me.txtFacilityInformation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtFacilityInformation.Size = New System.Drawing.Size(208, 64)
-        Me.txtFacilityInformation.TabIndex = 100
+        Me.txtFacilityInformation.TabIndex = 1
         Me.txtFacilityInformation.TabStop = False
         '
         'Label4
@@ -1002,8 +1002,8 @@ Partial Class SSCPComplianceLog
         Me.dgvWork.AllowUserToAddRows = False
         Me.dgvWork.AllowUserToDeleteRows = False
         Me.dgvWork.AllowUserToResizeRows = False
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvWork.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWork.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvWork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvWork.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvWork.Location = New System.Drawing.Point(0, 454)
@@ -1013,7 +1013,7 @@ Partial Class SSCPComplianceLog
         Me.dgvWork.RowHeadersVisible = False
         Me.dgvWork.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvWork.Size = New System.Drawing.Size(831, 234)
-        Me.dgvWork.TabIndex = 5
+        Me.dgvWork.TabIndex = 2
         '
         'Splitter1
         '
@@ -1031,7 +1031,7 @@ Partial Class SSCPComplianceLog
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(831, 24)
-        Me.MenuStrip1.TabIndex = 8
+        Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
         'FacilitySearchToolStripMenuItem

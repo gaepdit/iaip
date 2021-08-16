@@ -29,12 +29,20 @@ Public Class BaseForm
         Icon = My.Resources.DevIcon
 #ElseIf UAT Then
         Icon = My.Resources.UatIcon
+#Else
+        LogMe()
 #End If
 
         OpenBreadcrumb()
         LoadThisFormSettings()
 
         MyBase.OnLoad(e)
+    End Sub
+
+    Private Sub LogMe()
+        Dim bgw As New BackgroundWorker()
+        AddHandler bgw.DoWork, Sub() DAL.LogFormUsage(Me.Name)
+        bgw.RunWorkerAsync()
     End Sub
 
     Protected Overrides Sub OnFormClosed(e As FormClosedEventArgs)

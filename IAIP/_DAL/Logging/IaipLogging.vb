@@ -25,6 +25,21 @@ Namespace DAL
             End Try
         End Function
 
+        Public Sub LogFormUsage(formName As String)
+            Dim query As String = "insert into dbo.IAIP_FormsLog (FormName, UserId) values (@formName, @userId)"
+
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@formName", formName),
+                New SqlParameter("@userId", CurrentUser?.UserID)
+            }
+
+            Try
+                DB.RunCommand(query, parameters)
+            Catch ex As Exception
+                Return
+            End Try
+        End Sub
+
         Public Function LogSystemProperties(isVpn As Boolean) As Boolean
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@UserId", CurrentUser.UserID),
