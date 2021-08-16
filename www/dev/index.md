@@ -5,7 +5,6 @@ Click the button to download and run the setup file.
 [Download the
 IAIP Dev Edition](IaipDev.application)
 
-
 ## Important Notes -- Please Read
 
 The IAIP Development Edition is for EPD IT testing use only.
@@ -23,11 +22,5 @@ graph TD;
 </pre>
 
 <script src="https://use.fontawesome.com/73014ea0c4.js"></script>
-<script src="https://unpkg.com/mermaid@8.0.0-rc.8/dist/mermaid.min.js"></script>
-<script>
-    var config = {
-        startOnLoad:true,
-        flowchart:{htmlLabels:true}
-    };
-    mermaid.initialize(config);
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.11.5/mermaid.min.js" integrity="sha512-LEGEAp7eSh0xL8TV4ARXWfBz3TpnIDrGT61hbqAN/xjn+CnaoNfsJzdyMSO0IYhaAom+bCs9ELiGzljsi11qjw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>

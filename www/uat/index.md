@@ -5,7 +5,6 @@ Click the button to download and run the setup file.
 [Download the
 IAIP UAT Edition](IaipHorizon.application)
 
-
 ## Important Notes -- Please Read
 
 The IAIP UAT (User Acceptance Testing) Edition is made available when users are requested to test new features or bugfixes before they are released to production. Unless someone in EPD IT has asked you to install this, you probably don't need it.
@@ -21,11 +20,5 @@ graph TD;
 </pre>
 
 <script src="https://use.fontawesome.com/73014ea0c4.js"></script>
-<script src="https://unpkg.com/mermaid@8.0.0-rc.8/dist/mermaid.min.js"></script>
-<script>
-    var config = {
-        startOnLoad:true,
-        flowchart:{htmlLabels:true}
-    };
-    mermaid.initialize(config);
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.11.5/mermaid.min.js" integrity="sha512-LEGEAp7eSh0xL8TV4ARXWfBz3TpnIDrGT61hbqAN/xjn+CnaoNfsJzdyMSO0IYhaAom+bCs9ELiGzljsi11qjw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
