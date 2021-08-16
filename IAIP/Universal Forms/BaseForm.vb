@@ -29,10 +29,11 @@ Public Class BaseForm
         Icon = My.Resources.DevIcon
 #ElseIf UAT Then
         Icon = My.Resources.UatIcon
+#Else
+        LogMe()
 #End If
 
         OpenBreadcrumb()
-        LogMe()
         LoadThisFormSettings()
 
         MyBase.OnLoad(e)
