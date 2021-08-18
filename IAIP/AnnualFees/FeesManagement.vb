@@ -761,7 +761,7 @@ Public Class FeesManagement
             from FS_MAILOUT f
                 left join Geco_MailContact m
                 on f.STRAIRSNUMBER = m.FacilityId
-                    and m.LatestConfirmationDate is not null
+                    and m.Confirmed = 1
                     and m.Category = 'Fees'
                 left join dbo.APBCONTACTINFORMATION c
                 on f.STRAIRSNUMBER = c.STRAIRSNUMBER

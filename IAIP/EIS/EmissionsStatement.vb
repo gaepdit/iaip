@@ -1316,7 +1316,7 @@ Public Class EmissionsStatement
                     on h.STRAIRSNUMBER = f.STRAIRSNUMBER
                     left join dbo.Geco_MailContact m
                     on h.STRAIRSNUMBER = m.FacilityId
-                        and m.LatestConfirmationDate is not null
+                        and m.Confirmed = 1
                         and m.Category = 'ES'
                     left join dbo.APBCONTACTINFORMATION c42
                     on h.STRAIRSNUMBER = c42.STRAIRSNUMBER
