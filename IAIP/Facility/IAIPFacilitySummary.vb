@@ -137,7 +137,7 @@ Public Class IAIPFacilitySummary
         PrintFacilitySummaryMenuItem.Enabled = False
 
         FSMainTabControl.SelectedTab = FSInfo
-        ContactsTabControl.SelectedTab = TPContactsStaff
+        ContactsTabControl.SelectedTab = TPContactsGeco
         TestingTabControl.SelectedTab = TPTestReport
         ComplianceTabControl.SelectedTab = TPComplianceWork
         PermittingTabControl.SelectedTab = TPAppTrackingLog
