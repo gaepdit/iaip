@@ -4,11 +4,11 @@
 <noscript>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
 </noscript>
-<link rel="stylesheet" href="/assets/style.css?20210816">
+<link rel="stylesheet" href="/assets/style.css?20210824">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=69kRrvbXdL">
 <link rel="icon" type="image/png" href="/favicon-32x32.png?v=69kRrvbXdL" sizes="32x32">
 <link rel="icon" type="image/png" href="/favicon-16x16.png?v=69kRrvbXdL" sizes="16x16">
-<link rel="manifest" href="/manifest.json?v=69kRrvbXdL">
+<link rel="manifest" href="/site.webmanifest?v=69kRrvbXdL">
 <link rel="mask-icon" href="/safari-pinned-tab.svg?v=69kRrvbXdL" color="#5bbad5">
 <link rel="shortcut icon" href="/favicon.ico?v=69kRrvbXdL">
 <meta name="theme-color" content="#e5f6fa">

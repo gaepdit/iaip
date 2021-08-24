@@ -1,5 +1,8 @@
 {
 	"name": "Georgia EPD",
+	"short_name": "Georgia EPD",
+	"start_url": "/",
+	"display": "browser",
 	"icons": [
 		{
 			"src": "\/android-chrome-192x192.png?v=69kRrvbXdL",
