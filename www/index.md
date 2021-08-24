@@ -21,7 +21,7 @@ If this is the first time the IAIP is being installed on your computer, you may 
 
 ## Connecting remotely
 
-The IAIP may be used from remote locations (outside of EPD offices) *only* by connecting through the DNR VPN. [Instructions for accessing the VPN](https://dnrintranet.org/it/SSLvpn) are available on the DNR Intranet.
+The IAIP may be used from remote locations (outside of EPD offices) *only* by connecting through the DNR VPN. [Instructions for accessing the VPN](https://dnrintranet.org/vpn) are available on the DNR Intranet.
 
 Your username and password for the VPN are the same as the ones you use to log in to your work computer (not the same as your IAIP username/password).
 
