@@ -510,7 +510,6 @@ Public Class FeesStatistics
         dgvDepositsAndPayments.Columns("numAdminFee").HeaderText = "Admin Fees"
         dgvDepositsAndPayments.Columns("numAdminFee").DisplayIndex = 11
 
-        dgvDepositsAndPayments.SanelyResizeColumns()
     End Sub
 
     Private Sub bntViewTotalPaid_Click(sender As Object, e As EventArgs) Handles btnViewTotalPaid.Click
@@ -823,7 +822,6 @@ Public Class FeesStatistics
         dgvDepositsAndPayments.Columns("Due").HeaderText = "Total Due"
         dgvDepositsAndPayments.Columns("Due").DisplayIndex = 17
 
-        dgvDepositsAndPayments.SanelyResizeColumns()
     End Sub
 
     Private Sub btnViewSelectedFeeData_Click(sender As Object, e As EventArgs) Handles btnViewSelectedFeeData.Click
@@ -1201,7 +1199,6 @@ Public Class FeesStatistics
         dgvDepositsAndPayments.Columns("numFeeYear").HeaderText = "Year"
         dgvDepositsAndPayments.Columns("numFeeYear").DisplayIndex = 4
 
-        dgvDepositsAndPayments.SanelyResizeColumns()
     End Sub
 
 #Region "Fee Reports "
@@ -1619,29 +1616,27 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-            "and FS_Admin.Active = '1' " &
-            "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+               STRFACILITYNAME                  as [Facility Name],
+               IIF(p.CommunicationPreference is null, 'Not set',
+                   p.CommunicationPreference)   as [Communication Preference],
+               STRIAIPDESC                      as [Fee Status],
+               STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where NUMFEEYEAR = @year
+          and a.ACTIVE = '1'
+        order by 1"
+
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -1653,32 +1648,28 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-            "and (strEnrolled = '0' or strEnrolled is null)  " &
-            "and FS_Admin.Active = '1' " &
-            "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+               STRFACILITYNAME                  as [Facility Name],
+               IIF(p.CommunicationPreference is null, 'Not set',
+                   p.CommunicationPreference)   as [Communication Preference],
+               STRIAIPDESC                      as [Fee Status],
+               STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where NUMFEEYEAR = @year
+          and a.ACTIVE = '1'
+          and (STRENROLLED = '0' or STRENROLLED is null)
+        order by 1 "
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-        dgvFeeStats.AllowUserToResizeRows = True
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -1690,32 +1681,29 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                        "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = @year " &
-            "and numCurrentStatus = '12'  " &
-            "and strEnrolled = '1'  " &
-            "and FS_Admin.Active = '1' " &
-            "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+               STRFACILITYNAME                  as [Facility Name],
+               IIF(p.CommunicationPreference is null, 'Not set',
+                   p.CommunicationPreference)   as [Communication Preference],
+               STRIAIPDESC                      as [Fee Status],
+               STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where NUMFEEYEAR = @year
+          and a.ACTIVE = '1'
+          and numCurrentStatus = '12'
+          and strEnrolled = '1'
+        order by 1 "
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -1727,32 +1715,29 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-            "and numCurrentStatus <> '12'  " &
-            "and strEnrolled = '1'  " &
-            "and FS_Admin.Active = '1' " &
-            "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+               STRFACILITYNAME                  as [Facility Name],
+               IIF(p.CommunicationPreference is null, 'Not set',
+                   p.CommunicationPreference)   as [Communication Preference],
+               STRIAIPDESC                      as [Fee Status],
+               STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where NUMFEEYEAR = @year
+          and a.ACTIVE = '1'
+          and NUMCURRENTSTATUS <> '12'
+          and STRENROLLED = '1'
+        order by 1 "
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -1764,33 +1749,30 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-            "and numCurrentStatus <> '12'  " &
-            "and strEnrolled = '1'  " &
-            "and strInitialMailout = '1'  " &
-            "and FS_Admin.Active = '1' " &
-            "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+               STRFACILITYNAME                  as [Facility Name],
+               IIF(p.CommunicationPreference is null, 'Not set',
+                   p.CommunicationPreference)   as [Communication Preference],
+               STRIAIPDESC                      as [Fee Status],
+               STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where NUMFEEYEAR = @year
+          and a.ACTIVE = '1'
+          and NUMCURRENTSTATUS <> '12'
+          and STRENROLLED = '1'
+          and STRINITIALMAILOUT = '1'
+        order by 1"
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -1802,33 +1784,30 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-            "and numCurrentStatus <> '12'  " &
-            "and strEnrolled = '1'  " &
-            "and strInitialMailout = '0'  " &
-            "and FS_Admin.Active = '1' " &
-            "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+                STRFACILITYNAME                  as [Facility Name],
+                IIF(p.CommunicationPreference is null, 'Not set',
+                    p.CommunicationPreference)   as [Communication Preference],
+                STRIAIPDESC                      as [Fee Status],
+                STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where NUMFEEYEAR = @year
+            and a.ACTIVE = '1'
+            and NUMCURRENTSTATUS <> '12'
+            and STRENROLLED = '1'
+            and STRINITIALMAILOUT = '0'
+        order by 1 "
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -1840,32 +1819,29 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-            "and numcurrentstatus < '5'  " &
-            "and strEnrolled = '1'  " &
-            "and FS_Admin.Active = '1' " &
-            "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+                STRFACILITYNAME                  as [Facility Name],
+                IIF(p.CommunicationPreference is null, 'Not set',
+                    p.CommunicationPreference)   as [Communication Preference],
+                STRIAIPDESC                      as [Fee Status],
+                STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where NUMFEEYEAR = @year
+            and a.ACTIVE = '1'
+            and NUMCURRENTSTATUS < '5'
+            and STRENROLLED = '1'
+        order by 1"
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -1877,33 +1853,30 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-            "and numcurrentstatus > '4' " &
-            "and numCurrentStatus < '8' " &
-            "and strEnrolled = '1'  " &
-            "and FS_Admin.Active = '1' " &
-            "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+               STRFACILITYNAME                  as [Facility Name],
+               IIF(p.CommunicationPreference is null, 'Not set',
+                   p.CommunicationPreference)   as [Communication Preference],
+               STRIAIPDESC                      as [Fee Status],
+               STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where NUMFEEYEAR = @year
+          and a.ACTIVE = '1'
+          and NUMCURRENTSTATUS > '4'
+          and NUMCURRENTSTATUS < '8'
+          and STRENROLLED = '1'
+        order by 1"
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -1915,38 +1888,34 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-            "and numcurrentstatus > '7' " &
-            "and strEnrolled = '1'  " &
-            "and FS_Admin.Active = '1' " &
-                "and not exists (select * " &
-                "from fs_feeAudit " &
-                "where fs_admin.strairsnumber = fs_feeAudit.strAIRSnumber " &
-                "and fs_admin.numfeeyear = fs_feeAudit.numfeeyear " &
-                "and fs_feeAudit.numfeeyear = @year " &
-                "and fs_feeAudit.strendcollections = 'True')" &
-                "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+               STRFACILITYNAME                  as [Facility Name],
+               IIF(p.CommunicationPreference is null, 'Not set',
+                   p.CommunicationPreference)   as [Communication Preference],
+               STRIAIPDESC                      as [Fee Status],
+               STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+            left join FS_FEEAUDIT u
+            on a.STRAIRSNUMBER = u.STRAIRSNUMBER
+                and a.NUMFEEYEAR = u.NUMFEEYEAR
+                and u.STRENDCOLLECTIONS = 'True'
+        where a.NUMFEEYEAR = @year
+          and a.ACTIVE = '1'
+          and NUMCURRENTSTATUS > '7'
+          and STRENROLLED = '1'
+          and u.NUMFEEYEAR is null
+        order by 1"
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -1958,35 +1927,31 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-            "and numcurrentstatus > '4' " &
-            "and numcurrentstatus < '12'  " &
-            "and datSubmittal <= (select datFeeDueDate from FS_FeeRate where numFeeyear = @year) " &
-            "and Intsubmittal = '1' " &
-            "and strEnrolled = '1'  " &
-            "and FS_Admin.Active = '1' " &
-            "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+               STRFACILITYNAME                  as [Facility Name],
+               IIF(p.CommunicationPreference is null, 'Not set',
+                   p.CommunicationPreference)   as [Communication Preference],
+               STRIAIPDESC                      as [Fee Status],
+               STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where a.NUMFEEYEAR = @year
+          and a.ACTIVE = '1'
+          and NUMCURRENTSTATUS between 5 and 11
+          and DATSUBMITTAL <= (select DATFEEDUEDATE from FS_FEERATE where NUMFEEYEAR = @year)
+          and INTSUBMITTAL = '1'
+          and STRENROLLED = '1'
+        order by 1 "
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -1998,36 +1963,32 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-           "and numcurrentstatus > '4' " &
-            "and numcurrentstatus < '12'  " &
-            "and datSubmittal > (select datFeeDueDate from FS_FeeRate where numFeeyear = @year) " &
-            "and datSubmittal <= (select datAdminApplicable from FS_FeeRate where numFeeyear = @year) " &
-            "and Intsubmittal = '1' " &
-            "and strEnrolled = '1'  " &
-            "and FS_Admin.Active = '1' " &
-            "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+                STRFACILITYNAME                  as [Facility Name],
+                IIF(p.CommunicationPreference is null, 'Not set',
+                    p.CommunicationPreference)   as [Communication Preference],
+                STRIAIPDESC                      as [Fee Status],
+                STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where a.NUMFEEYEAR = @year
+            and a.ACTIVE = '1'
+            and NUMCURRENTSTATUS between 5 and 11
+            and DATSUBMITTAL > (select DATFEEDUEDATE from FS_FEERATE where NUMFEEYEAR = @year)
+            and datSubmittal <= (select DATADMINAPPLICABLE from FS_FEERATE where NUMFEEYEAR = @year)
+            and INTSUBMITTAL = '1'
+            and STRENROLLED = '1'
+        order by 1 "
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -2039,35 +2000,31 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-            "and numcurrentstatus > '4' " &
-            "and numcurrentstatus < '12'  " &
-            "and datSubmittal > (select datAdminApplicable from FS_FeeRate where numFeeyear = @year) " &
-            "and Intsubmittal = '1' " &
-            "and strEnrolled = '1'  " &
-            "and FS_Admin.Active = '1' " &
-            "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+               STRFACILITYNAME                  as [Facility Name],
+               IIF(p.CommunicationPreference is null, 'Not set',
+                   p.CommunicationPreference)   as [Communication Preference],
+               STRIAIPDESC                      as [Fee Status],
+               STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where a.NUMFEEYEAR = @year
+          and a.ACTIVE = '1'
+          and NUMCURRENTSTATUS between 5 and 11
+          and datSubmittal > (select DATADMINAPPLICABLE from FS_FEERATE where NUMFEEYEAR = @year)
+          and INTSUBMITTAL = '1'
+          and STRENROLLED = '1'
+        order by 1 "
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -2079,32 +2036,29 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-            "and (strEnrolled = '1' or strEnrolled is null)  " &
-            "and numcurrentstatus <= '8' " &
-            "and FS_Admin.Active = '1' " &
-            "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+               STRFACILITYNAME                  as [Facility Name],
+               IIF(p.CommunicationPreference is null, 'Not set',
+                   p.CommunicationPreference)   as [Communication Preference],
+               STRIAIPDESC                      as [Fee Status],
+               STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where a.NUMFEEYEAR = @year
+          and a.ACTIVE = '1'
+          and NUMCURRENTSTATUS <= 8
+          and (STRENROLLED = '1' or STRENROLLED is null)
+        order by 1 "
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -2116,32 +2070,29 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-            "and (strEnrolled = '1' or strEnrolled is null)  " &
-            "and (numcurrentstatus = '9' or numcurrentstatus = '11' ) " &
-            "and FS_Admin.Active = '1' " &
-            "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+               STRFACILITYNAME                  as [Facility Name],
+               IIF(p.CommunicationPreference is null, 'Not set',
+                   p.CommunicationPreference)   as [Communication Preference],
+               STRIAIPDESC                      as [Fee Status],
+               STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where a.NUMFEEYEAR = @year
+          and a.ACTIVE = '1'
+          and (STRENROLLED = '1' or STRENROLLED is null)
+          and (NUMCURRENTSTATUS = 9 or NUMCURRENTSTATUS = 11)
+        order by 1 "
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -2153,32 +2104,29 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-            "and (strEnrolled = '1' or strEnrolled is null)  " &
-            "and numcurrentstatus = '10' " &
-            "and FS_Admin.Active = '1' " &
-            "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+               STRFACILITYNAME                  as [Facility Name],
+               IIF(p.CommunicationPreference is null, 'Not set',
+                   p.CommunicationPreference)   as [Communication Preference],
+               STRIAIPDESC                      as [Fee Status],
+               STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where a.NUMFEEYEAR = @year
+          and a.ACTIVE = '1'
+          and (STRENROLLED = '1' or STRENROLLED is null)
+          and NUMCURRENTSTATUS = 10
+        order by 1 "
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -2190,33 +2138,30 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-          "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-          "and (strEnrolled = '1' or strEnrolled is null)  " &
-          "and numcurrentstatus = '10' " &
-          "and intSubmittal = '1' " &
-          "and FS_Admin.Active = '1' " &
-          "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+               STRFACILITYNAME                  as [Facility Name],
+               IIF(p.CommunicationPreference is null, 'Not set',
+                   p.CommunicationPreference)   as [Communication Preference],
+               STRIAIPDESC                      as [Fee Status],
+               STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where a.NUMFEEYEAR = @year
+          and a.ACTIVE = '1'
+          and (STRENROLLED = '1' or STRENROLLED is null)
+          and NUMCURRENTSTATUS = 10
+          and INTSUBMITTAL = '1'
+        order by 1 "
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -2228,33 +2173,30 @@ Public Class FeesStatistics
 
         Cursor = Cursors.WaitCursor
 
-        Dim SQL As String = "Select  " &
-          "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin inner join APBFacilityInformation " &
-            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            " inner join FSLK_Admin_Status " &
-            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "where numFeeyear = @year " &
-          "and (strEnrolled = '1' or strEnrolled is null)  " &
-          "and numcurrentstatus = '10' " &
-          "and (intSubmittal = '0' or intsubmittal is null) " &
-          "and FS_Admin.Active = '1' " &
-          "order by strAIRSNumber "
+        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+               STRFACILITYNAME                  as [Facility Name],
+               IIF(p.CommunicationPreference is null, 'Not set',
+                   p.CommunicationPreference)   as [Communication Preference],
+               STRIAIPDESC                      as [Fee Status],
+               STRCOMMENT                       as [Comment]
+        from dbo.FS_ADMIN a
+            inner join dbo.APBFACILITYINFORMATION f
+            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
+            left join dbo.FSLK_ADMIN_STATUS s
+            on a.NUMCURRENTSTATUS = s.ID
+            left join dbo.Geco_CommunicationPreference p
+            on a.STRAIRSNUMBER = p.FacilityId
+                and p.Category = 'Fees'
+        where a.NUMFEEYEAR = @year
+          and a.ACTIVE = '1'
+          and (STRENROLLED = '1' or STRENROLLED is null)
+          and NUMCURRENTSTATUS = 10
+          and (INTSUBMITTAL = '0' or INTSUBMITTAL is null)
+        order by 1"
 
         Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
         dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-        dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-        dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-        dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-        dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-        dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-        dgvFeeStats.Columns("strComment").DisplayIndex = 3
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -2372,8 +2314,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -2495,8 +2435,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -2620,8 +2558,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
-        dgvFeeStats.SanelyResizeColumns()
-
         Cursor = Cursors.Default
     End Sub
 
@@ -2743,8 +2679,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -2869,8 +2803,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
-        dgvFeeStats.SanelyResizeColumns()
-
         Cursor = Cursors.Default
     End Sub
 
@@ -2994,8 +2926,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
-        dgvFeeStats.SanelyResizeColumns()
-
         Cursor = Cursors.Default
     End Sub
 
@@ -3111,8 +3041,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("numTotalFee").DisplayIndex = 19
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 20
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -3236,8 +3164,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -3367,8 +3293,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
-        dgvFeeStats.SanelyResizeColumns()
-
         Cursor = Cursors.Default
     End Sub
 
@@ -3496,8 +3420,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
-        dgvFeeStats.SanelyResizeColumns()
-
         Cursor = Cursors.Default
     End Sub
 
@@ -3623,8 +3545,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -3767,8 +3687,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
-        dgvFeeStats.SanelyResizeColumns()
-
         Cursor = Cursors.Default
     End Sub
 
@@ -3890,8 +3808,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -4015,8 +3931,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -4142,8 +4056,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
 
-        dgvFeeStats.SanelyResizeColumns()
-
         Cursor = Cursors.Default
     End Sub
 
@@ -4267,8 +4179,6 @@ Public Class FeesStatistics
         dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
         dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
         dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-
-        dgvFeeStats.SanelyResizeColumns()
 
         Cursor = Cursors.Default
     End Sub
@@ -4551,7 +4461,6 @@ Public Class FeesStatistics
             dgvDepositsAndPayments.Columns("numTotalFee").HeaderText = "Fees Total"
             dgvDepositsAndPayments.Columns("numTotalFee").DisplayIndex = 6
 
-            dgvDepositsAndPayments.SanelyResizeColumns()
         End If
     End Sub
 
@@ -4611,7 +4520,6 @@ Public Class FeesStatistics
         dgvDepositsAndPayments.Columns("TotalReported").HeaderText = "Reported Amount"
         dgvDepositsAndPayments.Columns("TotalReported").DisplayIndex = 4
 
-        dgvDepositsAndPayments.SanelyResizeColumns()
     End Sub
 
     Private Sub btnViewInvoicedBalance_Click(sender As Object, e As EventArgs) Handles btnViewInvoicedBalance.Click
@@ -4804,7 +4712,6 @@ Public Class FeesStatistics
         dgvDepositsAndPayments.Columns("numFeeYear").HeaderText = "Year"
         dgvDepositsAndPayments.Columns("numFeeYear").DisplayIndex = 7
 
-        dgvDepositsAndPayments.SanelyResizeColumns()
     End Sub
 
     Private Sub btnExportedRun_Click(sender As Object, e As EventArgs) Handles btnExportedRun.Click
@@ -4843,7 +4750,6 @@ Public Class FeesStatistics
         Dim param As New SqlParameter("@year", cbReportedYear.Text)
 
         dgvReported.DataSource = DB.GetDataTable(query, param)
-        dgvReported.SanelyResizeColumns()
     End Sub
 
 End Class
