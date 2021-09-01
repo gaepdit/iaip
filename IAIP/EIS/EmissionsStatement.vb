@@ -1306,7 +1306,12 @@ Public Class EmissionsStatement
                                    when c42.STRKEY is not null then c42.STRCONTACTPREFIX
                                    else c30.STRCONTACTPREFIX
                                end),
-                       '' as Email,
+                       isnull(dbo.NullIfNaOrEmpty(
+                                      case
+                                          when m.Id is not null then m.Email
+                                          when c42.STRKEY is not null then c42.STRCONTACTEMAIL
+                                          else c30.STRCONTACTEMAIL
+                                      end), '') as Email,
                        @selectedYear,
                        concat(h.STRAIRSNUMBER, @selectedYear),
                        h.STROPERATIONALSTATUS,

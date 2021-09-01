@@ -757,7 +757,8 @@ Public Class FeesManagement
                 STRCONTACTADDRESS2 = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.Address2, c.STRCONTACTADDRESS2)),
                 STRCONTACTCITY = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.City, c.STRCONTACTCITY)),
                 STRCONTACTSTATE = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.State, c.STRCONTACTSTATE)),
-                STRCONTACTZIPCODE = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.PostalCode, c.STRCONTACTZIPCODE))
+                STRCONTACTZIPCODE = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.PostalCode, c.STRCONTACTZIPCODE)),
+                STRGECOUSEREMAIL = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.Email, c.STRCONTACTEMAIL))
             from FS_MAILOUT f
                 left join Geco_MailContact m
                 on f.STRAIRSNUMBER = m.FacilityId
