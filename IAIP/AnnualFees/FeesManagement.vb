@@ -758,7 +758,9 @@ Public Class FeesManagement
                 STRCONTACTCITY = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.City, c.STRCONTACTCITY)),
                 STRCONTACTSTATE = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.State, c.STRCONTACTSTATE)),
                 STRCONTACTZIPCODE = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.PostalCode, c.STRCONTACTZIPCODE)),
-                STRGECOUSEREMAIL = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.Email, c.STRCONTACTEMAIL))
+                STRGECOUSEREMAIL = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.Email, c.STRCONTACTEMAIL)),
+                UPDATEDATETIME     = getdate(),
+                UPDATEUSER         = @userId
             from FS_MAILOUT f
                 left join Geco_MailContact m
                 on f.STRAIRSNUMBER = m.FacilityId
@@ -770,12 +772,15 @@ Public Class FeesManagement
             where f.NUMFEEYEAR = @year
               and (m.Id is not null or c.STRKEY is not null)"
 
-        Dim param As New SqlParameter("@year", SelectedYear)
+        Dim p As SqlParameter() = {
+            New SqlParameter("@year", SelectedYear),
+            New SqlParameter("@userId", CurrentUser.UserID)
+        }
 
         Dim rowsaffected As Integer = 0
 
         Try
-            DB.RunCommand(query, param, rowsaffected)
+            DB.RunCommand(query, p, rowsaffected)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
