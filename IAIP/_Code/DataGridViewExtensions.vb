@@ -1,5 +1,4 @@
-﻿Imports System.Collections.Generic
-Imports System.Linq
+﻿Imports System.Linq
 Imports System.Runtime.CompilerServices
 
 Module DataGridViewExtensions
@@ -18,7 +17,7 @@ Module DataGridViewExtensions
         For Each column As DataGridViewColumn In datagridview.Columns
             column.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
             currentWidth = column.Width
-            'column.AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+            column.AutoSizeMode = DataGridViewAutoSizeColumnMode.None
             column.Width = Math.Min(maxWidth, Math.Max(minWidth, currentWidth))
         Next
 
