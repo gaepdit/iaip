@@ -10,6 +10,11 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.25.4 <span>(2021-09-15)</span>
+
+- Improve the tab order in the Compliance Log.
+- Fix auto column sizing in some data tables.
+
 ## Version 5.25.3 <span>(2021-08-09)</span>
 
 Fix date sorting and filtering in the EI tools and compliance log.
