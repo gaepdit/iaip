@@ -1362,7 +1362,7 @@ Partial Class FeesStatistics
         Me.btnCheckInvoices.Location = New System.Drawing.Point(23, 478)
         Me.btnCheckInvoices.Name = "btnCheckInvoices"
         Me.btnCheckInvoices.Size = New System.Drawing.Size(124, 23)
-        Me.btnCheckInvoices.TabIndex = 218
+        Me.btnCheckInvoices.TabIndex = 36
         Me.btnCheckInvoices.Text = "Revalidate all Invoices"
         Me.btnCheckInvoices.UseVisualStyleBackColor = True
         '
@@ -1372,7 +1372,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryPaidNotFinalized.Location = New System.Drawing.Point(328, 743)
         Me.llbFSSummaryPaidNotFinalized.Name = "llbFSSummaryPaidNotFinalized"
         Me.llbFSSummaryPaidNotFinalized.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryPaidNotFinalized.TabIndex = 215
+        Me.llbFSSummaryPaidNotFinalized.TabIndex = 54
         Me.llbFSSummaryPaidNotFinalized.TabStop = True
         Me.llbFSSummaryPaidNotFinalized.Text = "Summary"
         Me.llbFSSummaryPaidNotFinalized.UseCompatibleTextRendering = True
@@ -1391,7 +1391,7 @@ Partial Class FeesStatistics
         Me.txtFSPaidNotFinalized.Location = New System.Drawing.Point(180, 741)
         Me.txtFSPaidNotFinalized.Name = "txtFSPaidNotFinalized"
         Me.txtFSPaidNotFinalized.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSPaidNotFinalized.TabIndex = 214
+        Me.txtFSPaidNotFinalized.TabIndex = 53
         '
         'llbDetailPaidNotFinalized
         '
@@ -1399,7 +1399,7 @@ Partial Class FeesStatistics
         Me.llbDetailPaidNotFinalized.Location = New System.Drawing.Point(413, 743)
         Me.llbDetailPaidNotFinalized.Name = "llbDetailPaidNotFinalized"
         Me.llbDetailPaidNotFinalized.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailPaidNotFinalized.TabIndex = 216
+        Me.llbDetailPaidNotFinalized.TabIndex = 55
         Me.llbDetailPaidNotFinalized.TabStop = True
         Me.llbDetailPaidNotFinalized.Text = "Detail"
         Me.llbDetailPaidNotFinalized.UseCompatibleTextRendering = True
@@ -1410,7 +1410,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryPaidFinalized.Location = New System.Drawing.Point(328, 717)
         Me.llbFSSummaryPaidFinalized.Name = "llbFSSummaryPaidFinalized"
         Me.llbFSSummaryPaidFinalized.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryPaidFinalized.TabIndex = 211
+        Me.llbFSSummaryPaidFinalized.TabIndex = 51
         Me.llbFSSummaryPaidFinalized.TabStop = True
         Me.llbFSSummaryPaidFinalized.Text = "Summary"
         Me.llbFSSummaryPaidFinalized.UseCompatibleTextRendering = True
@@ -1429,7 +1429,7 @@ Partial Class FeesStatistics
         Me.txtFSPaidFinalized.Location = New System.Drawing.Point(180, 715)
         Me.txtFSPaidFinalized.Name = "txtFSPaidFinalized"
         Me.txtFSPaidFinalized.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSPaidFinalized.TabIndex = 210
+        Me.txtFSPaidFinalized.TabIndex = 50
         '
         'llbDetailPaidFinalized
         '
@@ -1437,7 +1437,7 @@ Partial Class FeesStatistics
         Me.llbDetailPaidFinalized.Location = New System.Drawing.Point(413, 717)
         Me.llbDetailPaidFinalized.Name = "llbDetailPaidFinalized"
         Me.llbDetailPaidFinalized.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailPaidFinalized.TabIndex = 212
+        Me.llbDetailPaidFinalized.TabIndex = 52
         Me.llbDetailPaidFinalized.TabStop = True
         Me.llbDetailPaidFinalized.Text = "Detail"
         Me.llbDetailPaidFinalized.UseCompatibleTextRendering = True
@@ -1457,7 +1457,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryLateWithFee.Location = New System.Drawing.Point(328, 460)
         Me.llbFSSummaryLateWithFee.Name = "llbFSSummaryLateWithFee"
         Me.llbFSSummaryLateWithFee.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryLateWithFee.TabIndex = 206
+        Me.llbFSSummaryLateWithFee.TabIndex = 34
         Me.llbFSSummaryLateWithFee.TabStop = True
         Me.llbFSSummaryLateWithFee.Text = "Summary"
         Me.llbFSSummaryLateWithFee.UseCompatibleTextRendering = True
@@ -1476,7 +1476,7 @@ Partial Class FeesStatistics
         Me.txtFSLateFee.Location = New System.Drawing.Point(180, 458)
         Me.txtFSLateFee.Name = "txtFSLateFee"
         Me.txtFSLateFee.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSLateFee.TabIndex = 205
+        Me.txtFSLateFee.TabIndex = 33
         '
         'llbDetailLateWithFee
         '
@@ -1484,7 +1484,7 @@ Partial Class FeesStatistics
         Me.llbDetailLateWithFee.Location = New System.Drawing.Point(413, 460)
         Me.llbDetailLateWithFee.Name = "llbDetailLateWithFee"
         Me.llbDetailLateWithFee.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailLateWithFee.TabIndex = 207
+        Me.llbDetailLateWithFee.TabIndex = 35
         Me.llbDetailLateWithFee.TabStop = True
         Me.llbDetailLateWithFee.Text = "Detail"
         Me.llbDetailLateWithFee.UseCompatibleTextRendering = True
@@ -1495,7 +1495,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryLateResponse.Location = New System.Drawing.Point(328, 434)
         Me.llbFSSummaryLateResponse.Name = "llbFSSummaryLateResponse"
         Me.llbFSSummaryLateResponse.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryLateResponse.TabIndex = 200
+        Me.llbFSSummaryLateResponse.TabIndex = 31
         Me.llbFSSummaryLateResponse.TabStop = True
         Me.llbFSSummaryLateResponse.Text = "Summary"
         Me.llbFSSummaryLateResponse.UseCompatibleTextRendering = True
@@ -1514,7 +1514,7 @@ Partial Class FeesStatistics
         Me.txtFSOnTimeResponse.Location = New System.Drawing.Point(180, 408)
         Me.txtFSOnTimeResponse.Name = "txtFSOnTimeResponse"
         Me.txtFSOnTimeResponse.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSOnTimeResponse.TabIndex = 197
+        Me.txtFSOnTimeResponse.TabIndex = 28
         '
         'Label57
         '
@@ -1530,7 +1530,7 @@ Partial Class FeesStatistics
         Me.txtFSLateResponse.Location = New System.Drawing.Point(180, 432)
         Me.txtFSLateResponse.Name = "txtFSLateResponse"
         Me.txtFSLateResponse.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSLateResponse.TabIndex = 199
+        Me.txtFSLateResponse.TabIndex = 30
         '
         'llbFSSummaryOnTime
         '
@@ -1538,7 +1538,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryOnTime.Location = New System.Drawing.Point(328, 410)
         Me.llbFSSummaryOnTime.Name = "llbFSSummaryOnTime"
         Me.llbFSSummaryOnTime.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryOnTime.TabIndex = 198
+        Me.llbFSSummaryOnTime.TabIndex = 29
         Me.llbFSSummaryOnTime.TabStop = True
         Me.llbFSSummaryOnTime.Text = "Summary"
         Me.llbFSSummaryOnTime.UseCompatibleTextRendering = True
@@ -1549,7 +1549,7 @@ Partial Class FeesStatistics
         Me.llbDetailLateResponse.Location = New System.Drawing.Point(413, 434)
         Me.llbDetailLateResponse.Name = "llbDetailLateResponse"
         Me.llbDetailLateResponse.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailLateResponse.TabIndex = 201
+        Me.llbDetailLateResponse.TabIndex = 32
         Me.llbDetailLateResponse.TabStop = True
         Me.llbDetailLateResponse.Text = "Detail"
         Me.llbDetailLateResponse.UseCompatibleTextRendering = True
@@ -1577,7 +1577,7 @@ Partial Class FeesStatistics
         Me.txtFSQuarterly.Location = New System.Drawing.Point(222, 621)
         Me.txtFSQuarterly.Name = "txtFSQuarterly"
         Me.txtFSQuarterly.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSQuarterly.TabIndex = 193
+        Me.txtFSQuarterly.TabIndex = 45
         '
         'Label53
         '
@@ -1593,7 +1593,7 @@ Partial Class FeesStatistics
         Me.txtFSAnnual.Location = New System.Drawing.Point(222, 595)
         Me.txtFSAnnual.Name = "txtFSAnnual"
         Me.txtFSAnnual.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSAnnual.TabIndex = 189
+        Me.txtFSAnnual.TabIndex = 44
         '
         'Label52
         '
@@ -1609,7 +1609,7 @@ Partial Class FeesStatistics
         Me.txtFSOverPaid.Location = New System.Drawing.Point(180, 654)
         Me.txtFSOverPaid.Name = "txtFSOverPaid"
         Me.txtFSOverPaid.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSOverPaid.TabIndex = 185
+        Me.txtFSOverPaid.TabIndex = 46
         '
         'Label51
         '
@@ -1625,7 +1625,7 @@ Partial Class FeesStatistics
         Me.txtFSPartial.Location = New System.Drawing.Point(180, 563)
         Me.txtFSPartial.Name = "txtFSPartial"
         Me.txtFSPartial.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSPartial.TabIndex = 181
+        Me.txtFSPartial.TabIndex = 43
         '
         'llbFSSummaryPaidInFull
         '
@@ -1633,7 +1633,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryPaidInFull.Location = New System.Drawing.Point(328, 689)
         Me.llbFSSummaryPaidInFull.Name = "llbFSSummaryPaidInFull"
         Me.llbFSSummaryPaidInFull.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryPaidInFull.TabIndex = 178
+        Me.llbFSSummaryPaidInFull.TabIndex = 48
         Me.llbFSSummaryPaidInFull.TabStop = True
         Me.llbFSSummaryPaidInFull.Text = "Summary"
         Me.llbFSSummaryPaidInFull.UseCompatibleTextRendering = True
@@ -1652,7 +1652,7 @@ Partial Class FeesStatistics
         Me.txtFSPaidInFull.Location = New System.Drawing.Point(143, 687)
         Me.txtFSPaidInFull.Name = "txtFSPaidInFull"
         Me.txtFSPaidInFull.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSPaidInFull.TabIndex = 177
+        Me.txtFSPaidInFull.TabIndex = 47
         '
         'llbDetailPaidInFull
         '
@@ -1660,7 +1660,7 @@ Partial Class FeesStatistics
         Me.llbDetailPaidInFull.Location = New System.Drawing.Point(413, 689)
         Me.llbDetailPaidInFull.Name = "llbDetailPaidInFull"
         Me.llbDetailPaidInFull.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailPaidInFull.TabIndex = 179
+        Me.llbDetailPaidInFull.TabIndex = 49
         Me.llbDetailPaidInFull.TabStop = True
         Me.llbDetailPaidInFull.Text = "Detail"
         Me.llbDetailPaidInFull.UseCompatibleTextRendering = True
@@ -1671,7 +1671,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryOutofBalance.Location = New System.Drawing.Point(328, 535)
         Me.llbFSSummaryOutofBalance.Name = "llbFSSummaryOutofBalance"
         Me.llbFSSummaryOutofBalance.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryOutofBalance.TabIndex = 174
+        Me.llbFSSummaryOutofBalance.TabIndex = 41
         Me.llbFSSummaryOutofBalance.TabStop = True
         Me.llbFSSummaryOutofBalance.Text = "Summary"
         Me.llbFSSummaryOutofBalance.UseCompatibleTextRendering = True
@@ -1690,7 +1690,7 @@ Partial Class FeesStatistics
         Me.txtFSOutOfBalance.Location = New System.Drawing.Point(143, 533)
         Me.txtFSOutOfBalance.Name = "txtFSOutOfBalance"
         Me.txtFSOutOfBalance.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSOutOfBalance.TabIndex = 173
+        Me.txtFSOutOfBalance.TabIndex = 40
         '
         'llbDetailOutOfBalance
         '
@@ -1698,7 +1698,7 @@ Partial Class FeesStatistics
         Me.llbDetailOutOfBalance.Location = New System.Drawing.Point(413, 535)
         Me.llbDetailOutOfBalance.Name = "llbDetailOutOfBalance"
         Me.llbDetailOutOfBalance.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailOutOfBalance.TabIndex = 175
+        Me.llbDetailOutOfBalance.TabIndex = 42
         Me.llbDetailOutOfBalance.TabStop = True
         Me.llbDetailOutOfBalance.Text = "Detail"
         Me.llbDetailOutOfBalance.UseCompatibleTextRendering = True
@@ -1709,7 +1709,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryNotPaid.Location = New System.Drawing.Point(328, 509)
         Me.llbFSSummaryNotPaid.Name = "llbFSSummaryNotPaid"
         Me.llbFSSummaryNotPaid.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryNotPaid.TabIndex = 170
+        Me.llbFSSummaryNotPaid.TabIndex = 38
         Me.llbFSSummaryNotPaid.TabStop = True
         Me.llbFSSummaryNotPaid.Text = "Summary"
         Me.llbFSSummaryNotPaid.UseCompatibleTextRendering = True
@@ -1728,7 +1728,7 @@ Partial Class FeesStatistics
         Me.txtFSNotPaid.Location = New System.Drawing.Point(143, 507)
         Me.txtFSNotPaid.Name = "txtFSNotPaid"
         Me.txtFSNotPaid.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSNotPaid.TabIndex = 169
+        Me.txtFSNotPaid.TabIndex = 37
         '
         'llbDetailNotPaid
         '
@@ -1736,7 +1736,7 @@ Partial Class FeesStatistics
         Me.llbDetailNotPaid.Location = New System.Drawing.Point(413, 509)
         Me.llbDetailNotPaid.Name = "llbDetailNotPaid"
         Me.llbDetailNotPaid.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailNotPaid.TabIndex = 171
+        Me.llbDetailNotPaid.TabIndex = 39
         Me.llbDetailNotPaid.TabStop = True
         Me.llbDetailNotPaid.Text = "Detail"
         Me.llbDetailNotPaid.UseCompatibleTextRendering = True
@@ -1747,7 +1747,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryFinalized.Location = New System.Drawing.Point(328, 356)
         Me.llbFSSummaryFinalized.Name = "llbFSSummaryFinalized"
         Me.llbFSSummaryFinalized.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryFinalized.TabIndex = 165
+        Me.llbFSSummaryFinalized.TabIndex = 26
         Me.llbFSSummaryFinalized.TabStop = True
         Me.llbFSSummaryFinalized.Text = "Summary"
         Me.llbFSSummaryFinalized.UseCompatibleTextRendering = True
@@ -1766,7 +1766,7 @@ Partial Class FeesStatistics
         Me.txtFSFinalized.Location = New System.Drawing.Point(143, 354)
         Me.txtFSFinalized.Name = "txtFSFinalized"
         Me.txtFSFinalized.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSFinalized.TabIndex = 164
+        Me.txtFSFinalized.TabIndex = 25
         '
         'llbDetailFinalized
         '
@@ -1774,7 +1774,7 @@ Partial Class FeesStatistics
         Me.llbDetailFinalized.Location = New System.Drawing.Point(413, 356)
         Me.llbDetailFinalized.Name = "llbDetailFinalized"
         Me.llbDetailFinalized.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailFinalized.TabIndex = 166
+        Me.llbDetailFinalized.TabIndex = 27
         Me.llbDetailFinalized.TabStop = True
         Me.llbDetailFinalized.Text = "Detail"
         Me.llbDetailFinalized.UseCompatibleTextRendering = True
@@ -1785,7 +1785,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryInProgress.Location = New System.Drawing.Point(328, 330)
         Me.llbFSSummaryInProgress.Name = "llbFSSummaryInProgress"
         Me.llbFSSummaryInProgress.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryInProgress.TabIndex = 161
+        Me.llbFSSummaryInProgress.TabIndex = 23
         Me.llbFSSummaryInProgress.TabStop = True
         Me.llbFSSummaryInProgress.Text = "Summary"
         Me.llbFSSummaryInProgress.UseCompatibleTextRendering = True
@@ -1804,7 +1804,7 @@ Partial Class FeesStatistics
         Me.txtFSInProgress.Location = New System.Drawing.Point(143, 328)
         Me.txtFSInProgress.Name = "txtFSInProgress"
         Me.txtFSInProgress.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSInProgress.TabIndex = 160
+        Me.txtFSInProgress.TabIndex = 22
         '
         'llbDetailInProgress
         '
@@ -1812,7 +1812,7 @@ Partial Class FeesStatistics
         Me.llbDetailInProgress.Location = New System.Drawing.Point(413, 330)
         Me.llbDetailInProgress.Name = "llbDetailInProgress"
         Me.llbDetailInProgress.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailInProgress.TabIndex = 162
+        Me.llbDetailInProgress.TabIndex = 24
         Me.llbDetailInProgress.TabStop = True
         Me.llbDetailInProgress.Text = "Detail"
         Me.llbDetailInProgress.UseCompatibleTextRendering = True
@@ -1823,7 +1823,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryNotReported.Location = New System.Drawing.Point(328, 304)
         Me.llbFSSummaryNotReported.Name = "llbFSSummaryNotReported"
         Me.llbFSSummaryNotReported.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryNotReported.TabIndex = 157
+        Me.llbFSSummaryNotReported.TabIndex = 20
         Me.llbFSSummaryNotReported.TabStop = True
         Me.llbFSSummaryNotReported.Text = "Summary"
         Me.llbFSSummaryNotReported.UseCompatibleTextRendering = True
@@ -1842,7 +1842,7 @@ Partial Class FeesStatistics
         Me.txtFSNotReported.Location = New System.Drawing.Point(143, 302)
         Me.txtFSNotReported.Name = "txtFSNotReported"
         Me.txtFSNotReported.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSNotReported.TabIndex = 156
+        Me.txtFSNotReported.TabIndex = 19
         '
         'llbDetailNotReported
         '
@@ -1850,7 +1850,7 @@ Partial Class FeesStatistics
         Me.llbDetailNotReported.Location = New System.Drawing.Point(413, 304)
         Me.llbDetailNotReported.Name = "llbDetailNotReported"
         Me.llbDetailNotReported.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailNotReported.TabIndex = 158
+        Me.llbDetailNotReported.TabIndex = 21
         Me.llbDetailNotReported.TabStop = True
         Me.llbDetailNotReported.Text = "Detail"
         Me.llbDetailNotReported.UseCompatibleTextRendering = True
@@ -1870,7 +1870,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryAdditions.Location = New System.Drawing.Point(328, 242)
         Me.llbFSSummaryAdditions.Name = "llbFSSummaryAdditions"
         Me.llbFSSummaryAdditions.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryAdditions.TabIndex = 149
+        Me.llbFSSummaryAdditions.TabIndex = 17
         Me.llbFSSummaryAdditions.TabStop = True
         Me.llbFSSummaryAdditions.Text = "Summary"
         Me.llbFSSummaryAdditions.UseCompatibleTextRendering = True
@@ -1889,7 +1889,7 @@ Partial Class FeesStatistics
         Me.txtFSAdditions.Location = New System.Drawing.Point(180, 240)
         Me.txtFSAdditions.Name = "txtFSAdditions"
         Me.txtFSAdditions.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSAdditions.TabIndex = 148
+        Me.txtFSAdditions.TabIndex = 16
         '
         'llbDetailAdditions
         '
@@ -1897,7 +1897,7 @@ Partial Class FeesStatistics
         Me.llbDetailAdditions.Location = New System.Drawing.Point(413, 242)
         Me.llbDetailAdditions.Name = "llbDetailAdditions"
         Me.llbDetailAdditions.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailAdditions.TabIndex = 150
+        Me.llbDetailAdditions.TabIndex = 18
         Me.llbDetailAdditions.TabStop = True
         Me.llbDetailAdditions.Text = "Detail"
         Me.llbDetailAdditions.UseCompatibleTextRendering = True
@@ -1908,7 +1908,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryMailOut.Location = New System.Drawing.Point(328, 216)
         Me.llbFSSummaryMailOut.Name = "llbFSSummaryMailOut"
         Me.llbFSSummaryMailOut.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryMailOut.TabIndex = 145
+        Me.llbFSSummaryMailOut.TabIndex = 14
         Me.llbFSSummaryMailOut.TabStop = True
         Me.llbFSSummaryMailOut.Text = "Summary"
         Me.llbFSSummaryMailOut.UseCompatibleTextRendering = True
@@ -1927,7 +1927,7 @@ Partial Class FeesStatistics
         Me.txtFSMailout.Location = New System.Drawing.Point(180, 214)
         Me.txtFSMailout.Name = "txtFSMailout"
         Me.txtFSMailout.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSMailout.TabIndex = 144
+        Me.txtFSMailout.TabIndex = 13
         '
         'llbDetailMailout
         '
@@ -1935,7 +1935,7 @@ Partial Class FeesStatistics
         Me.llbDetailMailout.Location = New System.Drawing.Point(413, 216)
         Me.llbDetailMailout.Name = "llbDetailMailout"
         Me.llbDetailMailout.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailMailout.TabIndex = 146
+        Me.llbDetailMailout.TabIndex = 15
         Me.llbDetailMailout.TabStop = True
         Me.llbDetailMailout.Text = "Detail"
         Me.llbDetailMailout.UseCompatibleTextRendering = True
@@ -1946,7 +1946,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryEnrolled.Location = New System.Drawing.Point(328, 188)
         Me.llbFSSummaryEnrolled.Name = "llbFSSummaryEnrolled"
         Me.llbFSSummaryEnrolled.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryEnrolled.TabIndex = 137
+        Me.llbFSSummaryEnrolled.TabIndex = 11
         Me.llbFSSummaryEnrolled.TabStop = True
         Me.llbFSSummaryEnrolled.Text = "Summary"
         Me.llbFSSummaryEnrolled.UseCompatibleTextRendering = True
@@ -1965,7 +1965,7 @@ Partial Class FeesStatistics
         Me.txtFSEnrolled.Location = New System.Drawing.Point(143, 186)
         Me.txtFSEnrolled.Name = "txtFSEnrolled"
         Me.txtFSEnrolled.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSEnrolled.TabIndex = 136
+        Me.txtFSEnrolled.TabIndex = 10
         '
         'llbDetailEnrolled
         '
@@ -1973,7 +1973,7 @@ Partial Class FeesStatistics
         Me.llbDetailEnrolled.Location = New System.Drawing.Point(413, 188)
         Me.llbDetailEnrolled.Name = "llbDetailEnrolled"
         Me.llbDetailEnrolled.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailEnrolled.TabIndex = 138
+        Me.llbDetailEnrolled.TabIndex = 12
         Me.llbDetailEnrolled.TabStop = True
         Me.llbDetailEnrolled.Text = "Detail"
         Me.llbDetailEnrolled.UseCompatibleTextRendering = True
@@ -1984,7 +1984,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryCeaseCollection.Location = New System.Drawing.Point(328, 162)
         Me.llbFSSummaryCeaseCollection.Name = "llbFSSummaryCeaseCollection"
         Me.llbFSSummaryCeaseCollection.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryCeaseCollection.TabIndex = 133
+        Me.llbFSSummaryCeaseCollection.TabIndex = 8
         Me.llbFSSummaryCeaseCollection.TabStop = True
         Me.llbFSSummaryCeaseCollection.Text = "Summary"
         Me.llbFSSummaryCeaseCollection.UseCompatibleTextRendering = True
@@ -2003,7 +2003,7 @@ Partial Class FeesStatistics
         Me.txtFSCeaseCollection.Location = New System.Drawing.Point(143, 160)
         Me.txtFSCeaseCollection.Name = "txtFSCeaseCollection"
         Me.txtFSCeaseCollection.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSCeaseCollection.TabIndex = 132
+        Me.txtFSCeaseCollection.TabIndex = 7
         '
         'llbDetailCeaseCollection
         '
@@ -2011,7 +2011,7 @@ Partial Class FeesStatistics
         Me.llbDetailCeaseCollection.Location = New System.Drawing.Point(413, 162)
         Me.llbDetailCeaseCollection.Name = "llbDetailCeaseCollection"
         Me.llbDetailCeaseCollection.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailCeaseCollection.TabIndex = 134
+        Me.llbDetailCeaseCollection.TabIndex = 9
         Me.llbDetailCeaseCollection.TabStop = True
         Me.llbDetailCeaseCollection.Text = "Detail"
         Me.llbDetailCeaseCollection.UseCompatibleTextRendering = True
@@ -2022,7 +2022,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryUnEnrolled.Location = New System.Drawing.Point(328, 136)
         Me.llbFSSummaryUnEnrolled.Name = "llbFSSummaryUnEnrolled"
         Me.llbFSSummaryUnEnrolled.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryUnEnrolled.TabIndex = 129
+        Me.llbFSSummaryUnEnrolled.TabIndex = 5
         Me.llbFSSummaryUnEnrolled.TabStop = True
         Me.llbFSSummaryUnEnrolled.Text = "Summary"
         Me.llbFSSummaryUnEnrolled.UseCompatibleTextRendering = True
@@ -2041,7 +2041,7 @@ Partial Class FeesStatistics
         Me.txtFSUnEnrolled.Location = New System.Drawing.Point(143, 134)
         Me.txtFSUnEnrolled.Name = "txtFSUnEnrolled"
         Me.txtFSUnEnrolled.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSUnEnrolled.TabIndex = 128
+        Me.txtFSUnEnrolled.TabIndex = 4
         '
         'llbDetailUnEnrolled
         '
@@ -2049,7 +2049,7 @@ Partial Class FeesStatistics
         Me.llbDetailUnEnrolled.Location = New System.Drawing.Point(413, 136)
         Me.llbDetailUnEnrolled.Name = "llbDetailUnEnrolled"
         Me.llbDetailUnEnrolled.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailUnEnrolled.TabIndex = 130
+        Me.llbDetailUnEnrolled.TabIndex = 6
         Me.llbDetailUnEnrolled.TabStop = True
         Me.llbDetailUnEnrolled.Text = "Detail"
         Me.llbDetailUnEnrolled.UseCompatibleTextRendering = True
@@ -2060,7 +2060,7 @@ Partial Class FeesStatistics
         Me.llbFSSummaryFeeUniverse.Location = New System.Drawing.Point(328, 109)
         Me.llbFSSummaryFeeUniverse.Name = "llbFSSummaryFeeUniverse"
         Me.llbFSSummaryFeeUniverse.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryFeeUniverse.TabIndex = 125
+        Me.llbFSSummaryFeeUniverse.TabIndex = 2
         Me.llbFSSummaryFeeUniverse.TabStop = True
         Me.llbFSSummaryFeeUniverse.Text = "Summary"
         Me.llbFSSummaryFeeUniverse.UseCompatibleTextRendering = True
@@ -2079,7 +2079,7 @@ Partial Class FeesStatistics
         Me.txtFSFeeUniverse.Location = New System.Drawing.Point(97, 107)
         Me.txtFSFeeUniverse.Name = "txtFSFeeUniverse"
         Me.txtFSFeeUniverse.Size = New System.Drawing.Size(100, 20)
-        Me.txtFSFeeUniverse.TabIndex = 124
+        Me.txtFSFeeUniverse.TabIndex = 1
         '
         'llbDetailFeeUniverse
         '
@@ -2087,7 +2087,7 @@ Partial Class FeesStatistics
         Me.llbDetailFeeUniverse.Location = New System.Drawing.Point(413, 109)
         Me.llbDetailFeeUniverse.Name = "llbDetailFeeUniverse"
         Me.llbDetailFeeUniverse.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailFeeUniverse.TabIndex = 126
+        Me.llbDetailFeeUniverse.TabIndex = 3
         Me.llbDetailFeeUniverse.TabStop = True
         Me.llbDetailFeeUniverse.Text = "Detail"
         Me.llbDetailFeeUniverse.UseCompatibleTextRendering = True
@@ -2119,7 +2119,7 @@ Partial Class FeesStatistics
         Me.cboFeeStatYear.Location = New System.Drawing.Point(100, 57)
         Me.cboFeeStatYear.Name = "cboFeeStatYear"
         Me.cboFeeStatYear.Size = New System.Drawing.Size(97, 21)
-        Me.cboFeeStatYear.TabIndex = 118
+        Me.cboFeeStatYear.TabIndex = 0
         '
         'TPReported
         '
