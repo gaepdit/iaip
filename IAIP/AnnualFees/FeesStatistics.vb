@@ -1201,8 +1201,6 @@ Public Class FeesStatistics
 
     End Sub
 
-#Region "Fee Reports "
-
     Private Sub LoadComboBoxesF()
         With cboAirsNo
             .DataSource = GetSharedData(SharedTable.AllFeeFacilities)
@@ -1231,8 +1229,6 @@ Public Class FeesStatistics
             LoadComboBoxesD()
         End If
     End Sub
-
-#Region "Facility Specific"
 
     Private Sub btnViewFacilitySpecificData_Click(sender As Object, e As EventArgs) Handles btnViewFacilitySpecificData.Click
         GridFeesReports.Visible = False
@@ -1272,10 +1268,6 @@ Public Class FeesStatistics
         End Try
     End Sub
 
-#End Region
-
-#Region "Year Specific"
-
     Private Sub btnClassification_Click(sender As Object, e As EventArgs) Handles btnClassification.Click
         GridFeesReports.Visible = True
         CRFeesReports.Visible = False
@@ -1310,9 +1302,6 @@ Public Class FeesStatistics
         Cursor = Cursors.Default
     End Sub
 
-#End Region
-
-#Region "Financial"
     Private Sub btnPayment_Click(sender As Object, e As EventArgs) Handles btnPayment.Click
         GridFeesReports.Visible = True
         CRFeesReports.Visible = False
@@ -1360,10 +1349,6 @@ Public Class FeesStatistics
             Cursor = Cursors.Default
         End Try
     End Sub
-
-#End Region
-
-#Region "Deposits"
 
     Private Sub btnViewDepositsReportByDate_Click(sender As Object, e As EventArgs) Handles btnViewDepositsReportByDate.Click
         GridFeesReports.Visible = True
@@ -1421,10 +1406,6 @@ Public Class FeesStatistics
             Cursor = Cursors.Default
         End If
     End Sub
-
-#End Region
-
-#Region "Compliance"
 
     Private Sub btnClassChange_Click(sender As Object, e As EventArgs) Handles btnClassChange.Click
         GridFeesReports.Visible = True
@@ -1532,10 +1513,6 @@ Public Class FeesStatistics
 
     End Sub
 
-#End Region
-
-#End Region
-
     Private Sub cboFeeStatYear_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboFeeStatYear.SelectedIndexChanged
         ViewFeeStats()
     End Sub
@@ -1609,286 +1586,7 @@ Public Class FeesStatistics
         Cursor = Cursors.Default
     End Sub
 
-    Private Sub llbFSSummaryFeeUniverse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryFeeUniverse.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-               STRFACILITYNAME                  as [Facility Name],
-               IIF(p.CommunicationPreference is null, 'Not set',
-                   p.CommunicationPreference)   as [Communication Preference],
-               STRIAIPDESC                      as [Fee Status],
-               STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where NUMFEEYEAR = @year
-          and a.ACTIVE = '1'
-        order by 1"
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
-    End Sub
-
-    Private Sub llbFSSummaryUnEnrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryUnEnrolled.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-               STRFACILITYNAME                  as [Facility Name],
-               IIF(p.CommunicationPreference is null, 'Not set',
-                   p.CommunicationPreference)   as [Communication Preference],
-               STRIAIPDESC                      as [Fee Status],
-               STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where NUMFEEYEAR = @year
-          and a.ACTIVE = '1'
-          and (STRENROLLED = '0' or STRENROLLED is null)
-        order by 1 "
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
-    End Sub
-
-    Private Sub llbFSSummaryCeaseCollection_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryCeaseCollection.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-               STRFACILITYNAME                  as [Facility Name],
-               IIF(p.CommunicationPreference is null, 'Not set',
-                   p.CommunicationPreference)   as [Communication Preference],
-               STRIAIPDESC                      as [Fee Status],
-               STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where NUMFEEYEAR = @year
-          and a.ACTIVE = '1'
-          and numCurrentStatus = '12'
-          and strEnrolled = '1'
-        order by 1 "
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
-    End Sub
-
-    Private Sub llbFSSummaryEnrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryEnrolled.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-               STRFACILITYNAME                  as [Facility Name],
-               IIF(p.CommunicationPreference is null, 'Not set',
-                   p.CommunicationPreference)   as [Communication Preference],
-               STRIAIPDESC                      as [Fee Status],
-               STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where NUMFEEYEAR = @year
-          and a.ACTIVE = '1'
-          and NUMCURRENTSTATUS <> '12'
-          and STRENROLLED = '1'
-        order by 1 "
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
-    End Sub
-
-    Private Sub llbFSSummaryMailOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryMailOut.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-               STRFACILITYNAME                  as [Facility Name],
-               IIF(p.CommunicationPreference is null, 'Not set',
-                   p.CommunicationPreference)   as [Communication Preference],
-               STRIAIPDESC                      as [Fee Status],
-               STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where NUMFEEYEAR = @year
-          and a.ACTIVE = '1'
-          and NUMCURRENTSTATUS <> '12'
-          and STRENROLLED = '1'
-          and STRINITIALMAILOUT = '1'
-        order by 1"
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
-    End Sub
-
-    Private Sub llbFSSummaryAdditions_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryAdditions.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-                STRFACILITYNAME                  as [Facility Name],
-                IIF(p.CommunicationPreference is null, 'Not set',
-                    p.CommunicationPreference)   as [Communication Preference],
-                STRIAIPDESC                      as [Fee Status],
-                STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where NUMFEEYEAR = @year
-            and a.ACTIVE = '1'
-            and NUMCURRENTSTATUS <> '12'
-            and STRENROLLED = '1'
-            and STRINITIALMAILOUT = '0'
-        order by 1 "
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
-    End Sub
-
-    Private Sub llbFSSummaryNotReported_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryNotReported.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-                STRFACILITYNAME                  as [Facility Name],
-                IIF(p.CommunicationPreference is null, 'Not set',
-                    p.CommunicationPreference)   as [Communication Preference],
-                STRIAIPDESC                      as [Fee Status],
-                STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where NUMFEEYEAR = @year
-            and a.ACTIVE = '1'
-            and NUMCURRENTSTATUS < '5'
-            and STRENROLLED = '1'
-        order by 1"
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
-    End Sub
-
-    Private Sub llbFSSummaryInProgress_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryInProgress.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-               STRFACILITYNAME                  as [Facility Name],
-               IIF(p.CommunicationPreference is null, 'Not set',
-                   p.CommunicationPreference)   as [Communication Preference],
-               STRIAIPDESC                      as [Fee Status],
-               STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where NUMFEEYEAR = @year
-          and a.ACTIVE = '1'
-          and NUMCURRENTSTATUS > '4'
-          and NUMCURRENTSTATUS < '8'
-          and STRENROLLED = '1'
-        order by 1"
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
-    End Sub
-
-    Private Sub llbFSSummaryFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryFinalized.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
+    Const StatisticsSummarySQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
                STRFACILITYNAME                  as [Facility Name],
                IIF(p.CommunicationPreference is null, 'Not set',
                    p.CommunicationPreference)   as [Communication Preference],
@@ -1907,298 +1605,89 @@ Public Class FeesStatistics
                 and a.NUMFEEYEAR = u.NUMFEEYEAR
                 and u.STRENDCOLLECTIONS = 'True'
         where a.NUMFEEYEAR = @year
-          and a.ACTIVE = '1'
-          and NUMCURRENTSTATUS > '7'
-          and STRENROLLED = '1'
-          and u.NUMFEEYEAR is null
-        order by 1"
+          and a.ACTIVE = '1' "
 
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
+    Private Sub ShowFeeStatisticsSummaryData(filter As String)
+        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then Return
+        Dim year As Short
+        If Not Short.TryParse(cboFeeStatYear.Text, year) Then Return
+        Cursor = Cursors.WaitCursor
+        Dim query As String = StatisticsSummarySQL & filter & " order by 1"
+        Dim p As New SqlParameter("@year", year)
+        dgvFeeStats.DataSource = DB.GetDataTable(query, p)
         Cursor = Cursors.Default
+    End Sub
+
+    Private Sub llbFSSummaryFeeUniverse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryFeeUniverse.LinkClicked
+        ShowFeeStatisticsSummaryData("")
+    End Sub
+
+    Private Sub llbFSSummaryUnEnrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryUnEnrolled.LinkClicked
+        ShowFeeStatisticsSummaryData("and (STRENROLLED = '0' or STRENROLLED is null)")
+    End Sub
+
+    Private Sub llbFSSummaryCeaseCollection_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryCeaseCollection.LinkClicked
+        ShowFeeStatisticsSummaryData("and numCurrentStatus = '12' and strEnrolled = '1'")
+    End Sub
+
+    Private Sub llbFSSummaryEnrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryEnrolled.LinkClicked
+        ShowFeeStatisticsSummaryData("and NUMCURRENTSTATUS <> '12' and STRENROLLED = '1'")
+    End Sub
+
+    Private Sub llbFSSummaryMailOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryMailOut.LinkClicked
+        ShowFeeStatisticsSummaryData("and NUMCURRENTSTATUS <> '12' and STRENROLLED = '1' and STRINITIALMAILOUT = '1'")
+    End Sub
+
+    Private Sub llbFSSummaryAdditions_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryAdditions.LinkClicked
+        ShowFeeStatisticsSummaryData("and NUMCURRENTSTATUS <> '12' and STRENROLLED = '1' and STRINITIALMAILOUT = '0'")
+    End Sub
+
+    Private Sub llbFSSummaryNotReported_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryNotReported.LinkClicked
+        ShowFeeStatisticsSummaryData("and NUMCURRENTSTATUS < '5' and STRENROLLED = '1'")
+    End Sub
+
+    Private Sub llbFSSummaryInProgress_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryInProgress.LinkClicked
+        ShowFeeStatisticsSummaryData("and NUMCURRENTSTATUS > '4' and NUMCURRENTSTATUS < '8' and STRENROLLED = '1'")
+    End Sub
+
+    Private Sub llbFSSummaryFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryFinalized.LinkClicked
+        ShowFeeStatisticsSummaryData("and NUMCURRENTSTATUS > '7' and STRENROLLED = '1' and u.NUMFEEYEAR is null")
     End Sub
 
     Private Sub llbFSSummaryOnTime_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryOnTime.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-               STRFACILITYNAME                  as [Facility Name],
-               IIF(p.CommunicationPreference is null, 'Not set',
-                   p.CommunicationPreference)   as [Communication Preference],
-               STRIAIPDESC                      as [Fee Status],
-               STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where a.NUMFEEYEAR = @year
-          and a.ACTIVE = '1'
-          and NUMCURRENTSTATUS between 5 and 11
-          and DATSUBMITTAL <= (select DATFEEDUEDATE from FS_FEERATE where NUMFEEYEAR = @year)
-          and INTSUBMITTAL = '1'
-          and STRENROLLED = '1'
-        order by 1 "
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
+        ShowFeeStatisticsSummaryData("and NUMCURRENTSTATUS between 5 and 11 and INTSUBMITTAL = '1' and STRENROLLED = '1'
+          and DATSUBMITTAL <= (select DATFEEDUEDATE from FS_FEERATE where NUMFEEYEAR = @year)")
     End Sub
 
     Private Sub llbFSSummaryLateResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryLateResponse.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-                STRFACILITYNAME                  as [Facility Name],
-                IIF(p.CommunicationPreference is null, 'Not set',
-                    p.CommunicationPreference)   as [Communication Preference],
-                STRIAIPDESC                      as [Fee Status],
-                STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where a.NUMFEEYEAR = @year
-            and a.ACTIVE = '1'
-            and NUMCURRENTSTATUS between 5 and 11
+        ShowFeeStatisticsSummaryData("and NUMCURRENTSTATUS between 5 and 11 and INTSUBMITTAL = '1' and STRENROLLED = '1'
             and DATSUBMITTAL > (select DATFEEDUEDATE from FS_FEERATE where NUMFEEYEAR = @year)
-            and datSubmittal <= (select DATADMINAPPLICABLE from FS_FEERATE where NUMFEEYEAR = @year)
-            and INTSUBMITTAL = '1'
-            and STRENROLLED = '1'
-        order by 1 "
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
+            and datSubmittal <= (select DATADMINAPPLICABLE from FS_FEERATE where NUMFEEYEAR = @year)")
     End Sub
 
     Private Sub llbFSSummaryLateWithFee_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryLateWithFee.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-               STRFACILITYNAME                  as [Facility Name],
-               IIF(p.CommunicationPreference is null, 'Not set',
-                   p.CommunicationPreference)   as [Communication Preference],
-               STRIAIPDESC                      as [Fee Status],
-               STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where a.NUMFEEYEAR = @year
-          and a.ACTIVE = '1'
-          and NUMCURRENTSTATUS between 5 and 11
-          and datSubmittal > (select DATADMINAPPLICABLE from FS_FEERATE where NUMFEEYEAR = @year)
-          and INTSUBMITTAL = '1'
-          and STRENROLLED = '1'
-        order by 1 "
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
+        ShowFeeStatisticsSummaryData("and NUMCURRENTSTATUS between 5 and 11 and INTSUBMITTAL = '1' and STRENROLLED = '1'
+          and datSubmittal > (select DATADMINAPPLICABLE from FS_FEERATE where NUMFEEYEAR = @year)")
     End Sub
 
     Private Sub llbFSSummaryNotPaid_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryNotPaid.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-               STRFACILITYNAME                  as [Facility Name],
-               IIF(p.CommunicationPreference is null, 'Not set',
-                   p.CommunicationPreference)   as [Communication Preference],
-               STRIAIPDESC                      as [Fee Status],
-               STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where a.NUMFEEYEAR = @year
-          and a.ACTIVE = '1'
-          and NUMCURRENTSTATUS <= 8
-          and (STRENROLLED = '1' or STRENROLLED is null)
-        order by 1 "
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
+        ShowFeeStatisticsSummaryData("and NUMCURRENTSTATUS <= 8 and (STRENROLLED = '1' or STRENROLLED is null)")
     End Sub
 
     Private Sub llbFSSummaryOutofBalance_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryOutofBalance.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-               STRFACILITYNAME                  as [Facility Name],
-               IIF(p.CommunicationPreference is null, 'Not set',
-                   p.CommunicationPreference)   as [Communication Preference],
-               STRIAIPDESC                      as [Fee Status],
-               STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where a.NUMFEEYEAR = @year
-          and a.ACTIVE = '1'
-          and (STRENROLLED = '1' or STRENROLLED is null)
-          and (NUMCURRENTSTATUS = 9 or NUMCURRENTSTATUS = 11)
-        order by 1 "
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
+        ShowFeeStatisticsSummaryData("and (STRENROLLED = '1' or STRENROLLED is null) and (NUMCURRENTSTATUS = 9 or NUMCURRENTSTATUS = 11)")
     End Sub
 
     Private Sub llbFSSummaryPaidInFull_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidInFull.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-               STRFACILITYNAME                  as [Facility Name],
-               IIF(p.CommunicationPreference is null, 'Not set',
-                   p.CommunicationPreference)   as [Communication Preference],
-               STRIAIPDESC                      as [Fee Status],
-               STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where a.NUMFEEYEAR = @year
-          and a.ACTIVE = '1'
-          and (STRENROLLED = '1' or STRENROLLED is null)
-          and NUMCURRENTSTATUS = 10
-        order by 1 "
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
+        ShowFeeStatisticsSummaryData("and (STRENROLLED = '1' or STRENROLLED is null) and NUMCURRENTSTATUS = 10")
     End Sub
 
     Private Sub llbFSSummaryPaidFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidFinalized.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-               STRFACILITYNAME                  as [Facility Name],
-               IIF(p.CommunicationPreference is null, 'Not set',
-                   p.CommunicationPreference)   as [Communication Preference],
-               STRIAIPDESC                      as [Fee Status],
-               STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where a.NUMFEEYEAR = @year
-          and a.ACTIVE = '1'
-          and (STRENROLLED = '1' or STRENROLLED is null)
-          and NUMCURRENTSTATUS = 10
-          and INTSUBMITTAL = '1'
-        order by 1 "
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
+        ShowFeeStatisticsSummaryData("and (STRENROLLED = '1' or STRENROLLED is null) and NUMCURRENTSTATUS = 10 and INTSUBMITTAL = '1'")
     End Sub
 
     Private Sub llbFSSummaryPaidNotFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidNotFinalized.LinkClicked
-        If String.IsNullOrEmpty(cboFeeStatYear.Text) Then
-            Return
-        End If
-
-        Cursor = Cursors.WaitCursor
-
-        Dim SQL As String = "select substring(a.STRAIRSNUMBER, 5, 8) as [Airs No.],
-               STRFACILITYNAME                  as [Facility Name],
-               IIF(p.CommunicationPreference is null, 'Not set',
-                   p.CommunicationPreference)   as [Communication Preference],
-               STRIAIPDESC                      as [Fee Status],
-               STRCOMMENT                       as [Comment]
-        from dbo.FS_ADMIN a
-            inner join dbo.APBFACILITYINFORMATION f
-            on a.STRAIRSNUMBER = f.STRAIRSNUMBER
-            left join dbo.FSLK_ADMIN_STATUS s
-            on a.NUMCURRENTSTATUS = s.ID
-            left join dbo.Geco_CommunicationPreference p
-            on a.STRAIRSNUMBER = p.FacilityId
-                and p.Category = 'Fees'
-        where a.NUMFEEYEAR = @year
-          and a.ACTIVE = '1'
-          and (STRENROLLED = '1' or STRENROLLED is null)
-          and NUMCURRENTSTATUS = 10
-          and (INTSUBMITTAL = '0' or INTSUBMITTAL is null)
-        order by 1"
-
-        Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
-
-        dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
-
-        Cursor = Cursors.Default
+        ShowFeeStatisticsSummaryData("and (STRENROLLED = '1' or STRENROLLED is null) and NUMCURRENTSTATUS = 10 and (INTSUBMITTAL = '0' or INTSUBMITTAL is null)")
     End Sub
 
     Private Sub llbDetailFeeUniverse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailFeeUniverse.LinkClicked
