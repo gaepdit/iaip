@@ -4,6 +4,8 @@ Imports System.Text
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Shared
 Imports EpdIt.DBUtilities
+Imports Iaip.Apb
+Imports Iaip.Apb.ApbFacilityId
 
 Public Class FeesStatistics
 
@@ -1839,16 +1841,6 @@ Public Class FeesStatistics
         dgvFeeStats.ExportToExcel(Me)
     End Sub
 
-    Private Sub dgvFeeStats_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvFeeStats.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvFeeStats.HitTest(e.X, e.Y)
-
-        If dgvFeeStats.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
-                dgvFeeStats.Columns(0).HeaderText = "Airs No." Then
-
-            txtFeeStatAirsNumber.Text = GetNullableString(dgvFeeStats(0, hti.RowIndex).Value)
-        End If
-    End Sub
-
     Private Sub btnCheckInvoices_Click(sender As Object, e As EventArgs) Handles btnCheckInvoices.Click
         If cboFeeStatYear.Text IsNot Nothing Then
             Cursor = Cursors.WaitCursor
@@ -2117,8 +2109,8 @@ Public Class FeesStatistics
     End Sub
 
     Private Sub btnOpenFeesLog_Click(sender As Object, e As EventArgs) Handles btnOpenFeesLog.Click
-        Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
-        If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtFeeStatAirsNumber.Text) Then
+        Dim parameters As New Dictionary(Of FormParameter, String)
+        If IsValidAirsNumberFormat(txtFeeStatAirsNumber.Text) Then
             parameters(FormParameter.AirsNumber) = txtFeeStatAirsNumber.Text
         End If
         parameters(FormParameter.FeeYear) = cboFeeStatYear.Text
@@ -2402,6 +2394,32 @@ Public Class FeesStatistics
         Dim param As New SqlParameter("@year", cbReportedYear.Text)
 
         dgvReported.DataSource = DB.GetDataTable(query, param)
+    End Sub
+
+    Private Sub dgvFeeStats_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvFeeStats.CellFormatting
+        If e IsNot Nothing AndAlso
+            e.Value IsNot Nothing AndAlso
+            Not IsDBNull(e.Value) AndAlso
+            dgvFeeStats.Columns(e.ColumnIndex).HeaderText = "Airs No." AndAlso
+            IsValidAirsNumberFormat(e.Value.ToString()) Then
+            e.Value = New ApbFacilityId(e.Value.ToString).FormattedString
+            Console.WriteLine(e.Value)
+        End If
+    End Sub
+
+    Private Sub dgvFeeStats_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvFeeStats.CellLinkActivated
+        Dim parameters As New Dictionary(Of FormParameter, String)
+
+        If IsValidAirsNumberFormat(e.LinkValue.ToString) Then
+            parameters(FormParameter.AirsNumber) = e.LinkValue.ToString
+        End If
+
+        parameters(FormParameter.FeeYear) = cboFeeStatYear.Text
+        OpenSingleForm(FeesAudit, parameters:=parameters, closeFirst:=True)
+    End Sub
+
+    Private Sub dgvFeeStats_CellLinkSelected(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvFeeStats.CellLinkSelected
+        txtFeeStatAirsNumber.Text = TryCastApbFacilityId(e.LinkValue)?.FormattedString
     End Sub
 
 End Class

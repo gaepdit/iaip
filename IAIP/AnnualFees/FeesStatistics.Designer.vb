@@ -1219,6 +1219,7 @@ Partial Class FeesStatistics
         Me.dgvFeeStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvFeeStats.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvFeeStats.LinkifyColumnByName = Nothing
+        Me.dgvFeeStats.LinkifyFirstColumn = True
         Me.dgvFeeStats.Location = New System.Drawing.Point(3, 57)
         Me.dgvFeeStats.Name = "dgvFeeStats"
         Me.dgvFeeStats.ResultsCountLabel = Me.lblCountFeeStats

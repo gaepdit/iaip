@@ -819,6 +819,7 @@ Public Class FeesManagement
         txtDeleteNSPSExemptions.Clear()
         txtNSPSExemption.Clear()
     End Sub
+
     Private Sub dgvFeeManagementLists_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvFeeManagementLists.CellFormatting
         If e IsNot Nothing AndAlso
             e.Value IsNot Nothing AndAlso
@@ -829,7 +830,6 @@ Public Class FeesManagement
             Console.WriteLine(e.Value)
         End If
     End Sub
-
 
     Private Sub btnViewFacilitiesSubjectToFees_Click(sender As Object, e As EventArgs) Handles btnViewFacilitiesSubjectToFees.Click
         Try

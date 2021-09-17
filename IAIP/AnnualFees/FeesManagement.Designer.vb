@@ -1025,7 +1025,6 @@ Partial Class FeesManagement
         Me.dgvFeeManagementLists.Name = "dgvFeeManagementLists"
         Me.dgvFeeManagementLists.ResultsCountLabel = Nothing
         Me.dgvFeeManagementLists.ResultsCountLabelFormat = "{0} found"
-        Me.dgvFeeManagementLists.ShowEditingIcon = False
         Me.dgvFeeManagementLists.Size = New System.Drawing.Size(627, 586)
         Me.dgvFeeManagementLists.StandardTab = True
         Me.dgvFeeManagementLists.TabIndex = 3
