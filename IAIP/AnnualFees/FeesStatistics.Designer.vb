@@ -144,6 +144,7 @@ Partial Class FeesStatistics
         Me.txtFSOnTimeResponse = New System.Windows.Forms.TextBox()
         Me.Label57 = New System.Windows.Forms.Label()
         Me.txtFSLateResponse = New System.Windows.Forms.TextBox()
+        Me.llbFSDetailOnTime = New System.Windows.Forms.LinkLabel()
         Me.llbFSSummaryOnTime = New System.Windows.Forms.LinkLabel()
         Me.llbDetailLateResponse = New System.Windows.Forms.LinkLabel()
         Me.Label58 = New System.Windows.Forms.Label()
@@ -1228,12 +1229,13 @@ Partial Class FeesStatistics
         '
         'lblCountFeeStats
         '
-        Me.lblCountFeeStats.Location = New System.Drawing.Point(333, 9)
+        Me.lblCountFeeStats.AutoSize = True
+        Me.lblCountFeeStats.Location = New System.Drawing.Point(193, 11)
         Me.lblCountFeeStats.Name = "lblCountFeeStats"
-        Me.lblCountFeeStats.Size = New System.Drawing.Size(114, 17)
+        Me.lblCountFeeStats.Size = New System.Drawing.Size(43, 13)
         Me.lblCountFeeStats.TabIndex = 122
         Me.lblCountFeeStats.Text = "0 found"
-        Me.lblCountFeeStats.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblCountFeeStats.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel11
         '
@@ -1250,7 +1252,7 @@ Partial Class FeesStatistics
         '
         Me.btnOpenFeesLog.Location = New System.Drawing.Point(92, 6)
         Me.btnOpenFeesLog.Name = "btnOpenFeesLog"
-        Me.btnOpenFeesLog.Size = New System.Drawing.Size(95, 23)
+        Me.btnOpenFeesLog.Size = New System.Drawing.Size(101, 23)
         Me.btnOpenFeesLog.TabIndex = 124
         Me.btnOpenFeesLog.Text = "Open Fees Log"
         Me.btnOpenFeesLog.UseVisualStyleBackColor = True
@@ -1286,6 +1288,7 @@ Partial Class FeesStatistics
         Me.Panel10.Controls.Add(Me.txtFSOnTimeResponse)
         Me.Panel10.Controls.Add(Me.Label57)
         Me.Panel10.Controls.Add(Me.txtFSLateResponse)
+        Me.Panel10.Controls.Add(Me.llbFSDetailOnTime)
         Me.Panel10.Controls.Add(Me.llbFSSummaryOnTime)
         Me.Panel10.Controls.Add(Me.llbDetailLateResponse)
         Me.Panel10.Controls.Add(Me.Label58)
@@ -1531,6 +1534,17 @@ Partial Class FeesStatistics
         Me.txtFSLateResponse.Name = "txtFSLateResponse"
         Me.txtFSLateResponse.Size = New System.Drawing.Size(100, 20)
         Me.txtFSLateResponse.TabIndex = 30
+        '
+        'llbFSDetailOnTime
+        '
+        Me.llbFSDetailOnTime.AutoSize = True
+        Me.llbFSDetailOnTime.Location = New System.Drawing.Point(413, 410)
+        Me.llbFSDetailOnTime.Name = "llbFSDetailOnTime"
+        Me.llbFSDetailOnTime.Size = New System.Drawing.Size(33, 17)
+        Me.llbFSDetailOnTime.TabIndex = 29
+        Me.llbFSDetailOnTime.TabStop = True
+        Me.llbFSDetailOnTime.Text = "Detail"
+        Me.llbFSDetailOnTime.UseCompatibleTextRendering = True
         '
         'llbFSSummaryOnTime
         '
@@ -2855,4 +2869,5 @@ Partial Class FeesStatistics
     Friend WithEvents Panel2 As Panel
     Friend WithEvents GridFeesReports As IaipDataGridView
     Friend WithEvents btnClassification As Button
+    Friend WithEvents llbFSDetailOnTime As LinkLabel
 End Class
