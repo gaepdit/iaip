@@ -3162,28 +3162,28 @@ Public Class FeesAudit
         End If
 
         Try
-            Dim SQL As String = "select distinct " &
-            "FS_FeeInvoice.InvoiceID, " &
-            "FS_FeeInvoice.numAmount, " &
-            "datInvoiceDate, " &
-            "case " &
-            "when FS_FeeInvoice.active = '1' then 'Active' " &
-            "when FS_FeeInvoice.active = '0' then 'VOID' " &
-            "end InvoiceStatus, strPayTypeDesc, " &
-            "case " &
-            "when strInvoiceStatus = '1' then 'Paid in Full' " &
-            "when strInvoiceStatus = '0' and " &
-            "(numPayment <> '0' and numPayment is not null and FS_Transactions.active = '1') then 'Partial Payment' " &
-            "when strInvoicestatus = '0' then 'Unpaid' " &
-            "end PayStatus, " &
-            "FS_FeeInvoice.strComment " &
-            "from FS_FeeInvoice " &
-            "inner join FSLK_PayType " &
-            "on FS_FeeInvoice.strPayType = FSLK_PayType.nuMPayTypeID " &
-            "left join FS_Transactions " &
-            "on FS_FeeInvoice.InvoiceID = FS_Transactions.InvoiceID " &
-            "where FS_FeeInvoice.strAIRSNumber = @airs " &
-            "and FS_FeeInvoice.numFeeYear = @year "
+            Dim SQL As String = "select distinct i.InvoiceID,
+                                i.numAmount,
+                                i.datInvoiceDate,
+                                IIF(i.active = '0', 'VOID', 'Active') as InvoiceStatus,
+                                lp.strPayTypeDesc,
+                                case
+                                    when i.strInvoiceStatus = '1' then 'Paid in Full'
+                                    when i.strInvoiceStatus = '0' and
+                                         t.numPayment <> 0 and
+                                         t.active = '1' then 'Partial Payment'
+                                    when i.strInvoicestatus = '0' then 'Unpaid'
+                                end                                   as PayStatus,
+                                i.strComment
+                from dbo.FS_FeeInvoice i
+                    inner join dbo.FSLK_PayType lp
+                    on i.strPayType = lp.nuMPayTypeID
+                    left join dbo.FS_Transactions t
+                    on i.InvoiceID = t.InvoiceID
+                        and t.ACTIVE = '1'
+                where i.strAIRSNumber = @airs
+                  and i.numFeeYear = @year "
+
             Dim params As SqlParameter() = {
                 New SqlParameter("@airs", AirsNumber.DbFormattedString),
                 New SqlParameter("@year", FeeYear)
@@ -3392,11 +3392,7 @@ Public Class FeesAudit
                 Return
             End If
 
-            Dim query As String = "Select " &
-            "numPayment " &
-            "from FS_Transactions " &
-            "where invoiceID = @invoiceID " &
-            "and Active <> '0' "
+            Dim query As String = "select numPayment from FS_TRANSACTIONS where invoiceID = @invoiceID and Active = '1'"
 
             Dim p As SqlParameter() = {
                 New SqlParameter("@invoiceID", txtInvoice.Text),
@@ -3446,13 +3442,14 @@ Public Class FeesAudit
                 ACTIVE = '0'
                 where INVOICEID in
                 (select distinct i.INVOICEID
-                from FS_FEEINVOICE i
-                   left join FS_TRANSACTIONS t
-                   on i.INVOICEID = t.INVOICEID
-                where i.ACTIVE = '1'
-                 and i.STRAIRSNUMBER = @airs
-                 and i.NUMFEEYEAR = @year
-                 and (t.NUMPAYMENT is null or t.NUMPAYMENT = '0')) "
+                    from FS_FEEINVOICE i
+                        left join FS_TRANSACTIONS t
+                        on i.INVOICEID = t.INVOICEID
+                            and t.ACTIVE = '1'
+                    where i.ACTIVE = '1'
+                      and i.STRAIRSNUMBER = @airs
+                      and i.NUMFEEYEAR = @year
+                      and (t.NUMPAYMENT is null or t.NUMPAYMENT = '0')) "
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@updateuser", "IAIP||" & CurrentUser.AlphaName),
