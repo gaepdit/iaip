@@ -1746,6 +1746,7 @@ Public Class FeesStatistics
                               NUMFEEYEAR,
                               sum(NUMPAYMENT) as [Total Paid]
                        from FS_TRANSACTIONS t
+                       where ACTIVE = '1'
                        group by STRAIRSNUMBER, NUMFEEYEAR) t
             on a.STRAIRSNUMBER = t.STRAIRSNUMBER
                 and a.NUMFEEYEAR = t.NUMFEEYEAR
