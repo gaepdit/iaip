@@ -2621,9 +2621,7 @@ Public Class FeesAudit
 
     Private Sub InvoiceStatusCheck(invoiceID As String)
         Try
-            Dim temp As String
-
-            Dim SQL As String = "select " &
+            Dim query As String = "select " &
             "(invoiceTotal - PaymentTotal) as Balance " &
             "from (select " &
             "sum(numAmount) as InvoiceTotal " &
@@ -2644,31 +2642,25 @@ Public Class FeesAudit
                 New SqlParameter("@updateuser", "IAIP||" & CurrentUser.AlphaName)
             }
 
-            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+            Dim balance As Decimal? = DB.GetSingleValue(Of Decimal?)(query, p)
 
-            If dr Is Nothing OrElse IsDBNull(dr.Item("Balance")) Then
-                temp = "1"
-            Else
-                temp = dr.Item("Balance")
-            End If
-
-            If temp <> "0" Then
-                'Not Paid in full
-                SQL = "Update FS_FeeInvoice set " &
-                "updatedatetime = getdate(), " &
-                "updateuser = @updateuser, " &
-                "strInvoicestatus = '0' " &
-                "where invoiceId = @invoiceId "
-            Else
+            If balance.HasValue AndAlso balance.Value = 0 Then
                 'Paid in Full 
-                SQL = "Update FS_FeeInvoice set " &
+                query = "Update FS_FeeInvoice set " &
                 "updatedatetime = getdate(), " &
                 "updateuser = @updateuser, " &
                 "strInvoicestatus = '1' " &
                 "where invoiceId = @invoiceId "
+            Else
+                'Not Paid in full
+                query = "Update FS_FeeInvoice set " &
+                "updatedatetime = getdate(), " &
+                "updateuser = @updateuser, " &
+                "strInvoicestatus = '0' " &
+                "where invoiceId = @invoiceId "
             End If
 
-            DB.RunCommand(SQL, p)
+            DB.RunCommand(query, p)
 
             LoadFeeInvoiceData()
         Catch ex As Exception
