@@ -10,6 +10,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.25.5 <span>(2021-09-22)</span>
+
+Fixed a bug where deleted fee transactions would be included in some places where they shouldn't have been.
+
 ## Version 5.25.4 <span>(2021-09-15)</span>
 
 - Improve the tab order in the Compliance Log.
