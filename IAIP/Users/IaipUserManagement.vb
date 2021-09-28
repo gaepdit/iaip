@@ -81,15 +81,16 @@ Public Class IaipUserManagement
     End Sub
 
     Private Shared Sub BranchCboSelectionChanged(branchCbo As ComboBox, programCbo As ComboBox)
-        If branchCbo.SelectedValue > 0 Then
+        If CInt(branchCbo.SelectedValue) > 0 Then
             SetComboBoxFilter(programCbo, "BranchCode = " & branchCbo.SelectedValue.ToString & " OR ProgramCode = 0 ")
         Else
             SetComboBoxFilter(programCbo, "BranchCode = 0")
         End If
     End Sub
-    Private Sub ProgramCboSelectionChanged(programCbo As ComboBox, unitCbo As ComboBox)
-        If programCbo.SelectedValue > 0 Then
-            SetComboBoxFilter(unitCbo, "ProgramCode = " & programCbo.SelectedValue & " OR UnitCode = 0 ")
+
+    Private Shared Sub ProgramCboSelectionChanged(programCbo As ComboBox, unitCbo As ComboBox)
+        If CInt(programCbo.SelectedValue) > 0 Then
+            SetComboBoxFilter(unitCbo, "ProgramCode = " & programCbo.SelectedValue.ToString & " OR UnitCode = 0 ")
         Else
             SetComboBoxFilter(unitCbo, "ProgramCode = 0")
         End If
@@ -218,6 +219,17 @@ Public Class IaipUserManagement
     End Sub
 
     Private Sub SetEditPermissions()
+        SaveProfileChanges.Enabled = False
+        RemoveRoles.Enabled = False
+        AddNewRoles.Enabled = False
+
+        ProfileBranch.Enabled = False
+        ProfileProgram.Enabled = False
+        ProfileUnit.Enabled = False
+        ProfileStatusSelection.Enabled = False
+        RolesBranch.Enabled = False
+        RolesProgram.Enabled = False
+
         If CurrentUser.HasPermission(UserCan.EditAllUsers) Then
             SaveProfileChanges.Enabled = True
             RemoveRoles.Enabled = True
@@ -229,41 +241,38 @@ Public Class IaipUserManagement
             ProfileStatusSelection.Enabled = True
             RolesBranch.Enabled = True
             RolesProgram.Enabled = True
-        ElseIf CurrentUser.HasPermission(UserCan.EditDirectReports) Then
-            If CurrentUser.HasRoleType(RoleType.UnitManager) AndAlso CurrentUser.UnitId = ProfileUnit.SelectedValue Then
-                SaveProfileChanges.Enabled = True
-                RemoveRoles.Enabled = True
-                AddNewRoles.Enabled = True
 
-                ProfileBranch.Enabled = False
-                ProfileProgram.Enabled = False
-                ProfileUnit.Enabled = True
-                ProfileStatusSelection.Enabled = True
-                RolesBranch.Enabled = False
-                RolesProgram.Enabled = False
-            ElseIf CurrentUser.HasRoleType(RoleType.ProgramManager) AndAlso CurrentUser.ProgramID = ProfileProgram.SelectedValue Then
-                SaveProfileChanges.Enabled = True
-                RemoveRoles.Enabled = True
-                AddNewRoles.Enabled = True
+            Return
+        End If
 
-                ProfileBranch.Enabled = False
-                ProfileProgram.Enabled = True
-                ProfileUnit.Enabled = True
-                ProfileStatusSelection.Enabled = True
-                RolesBranch.Enabled = False
-                RolesProgram.Enabled = True
-            End If
-        Else
-            SaveProfileChanges.Enabled = False
-            RemoveRoles.Enabled = False
-            AddNewRoles.Enabled = False
+        If Not CurrentUser.HasPermission(UserCan.EditDirectReports) Then
+            Return
+        End If
 
-            ProfileBranch.Enabled = False
-            ProfileProgram.Enabled = False
-            ProfileUnit.Enabled = False
-            ProfileStatusSelection.Enabled = False
-            RolesBranch.Enabled = False
-            RolesProgram.Enabled = False
+        If CurrentUser.HasRoleType(RoleType.UnitManager) AndAlso
+          CurrentUser.UnitId = CInt(ProfileUnit.SelectedValue) Then
+
+            SaveProfileChanges.Enabled = True
+            RemoveRoles.Enabled = True
+            AddNewRoles.Enabled = True
+
+            ProfileUnit.Enabled = True
+            ProfileStatusSelection.Enabled = True
+
+            Return
+        End If
+
+        If CurrentUser.HasRoleType(RoleType.ProgramManager) AndAlso
+          CurrentUser.ProgramID = CInt(ProfileProgram.SelectedValue) Then
+
+            SaveProfileChanges.Enabled = True
+            RemoveRoles.Enabled = True
+            AddNewRoles.Enabled = True
+
+            ProfileProgram.Enabled = True
+            ProfileUnit.Enabled = True
+            ProfileStatusSelection.Enabled = True
+            RolesProgram.Enabled = True
         End If
     End Sub
 
@@ -429,7 +438,7 @@ Public Class IaipUserManagement
 
         Dim i As Integer = 1
         For Each c As Control In InvalidEntries
-            i = i + 1
+            i += 1
             If i < 5 Then
                 sb.AppendLine("• " & EP.GetError(c))
             ElseIf i = 5 Then
