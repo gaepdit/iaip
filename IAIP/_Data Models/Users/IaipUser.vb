@@ -97,8 +97,8 @@
             ' === Facility caps
             Case UserCan.AddPollutantsToFacility
                 ' Air Branch
-                Return BranchID = 1 OrElse
-                    BranchID = 5
+                Return BranchID = 1 OrElse ' Air Branch
+                    BranchID = 5 ' District Offices
 
             Case UserCan.EditFacilityHeaderData
                 ' Branch Chief; SSCP Unit Manager; SSCP, ISMP, or SSPP Program Manager; District Manager
@@ -111,7 +111,8 @@
                 
             Case UserCan.CreateFacility
                 ' SSPP Program Manager, SSPP Administrative, SSPP Unit Manager, SSCP Program Manager
-                Return HasRole({28, 29, 121, 19})
+                Return HasRole({28, 29, 121, 19}) OrElse
+                    (HasRoleType(RoleType.UnitManager) AndAlso UnitId = 30) ' SSCP Air Toxics Unit Manager
 
             ' === User management caps
             Case UserCan.EditAllUsers

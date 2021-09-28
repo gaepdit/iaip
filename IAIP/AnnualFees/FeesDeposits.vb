@@ -643,11 +643,17 @@ Public Class FeesDeposits
                                                          MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
             If result = System.Windows.Forms.DialogResult.Yes Then
                 Dim query As String = "Update FS_Transactions set " &
-                        "active = '0' " &
-                        "where TransactionId = @trID "
-                Dim param As New SqlParameter("@trID", txtTransactionID.Text)
+                    "active = '0', " &
+                    "updateUser = @updateUser, " &
+                    "updateDateTime = getdate() " &
+                    "where TransactionId = @trID "
 
-                If DB.RunCommand(query, param) Then
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@updateUser", CurrentUser.UserID),
+                    New SqlParameter("@trID", txtTransactionID.Text)
+                }
+
+                If DB.RunCommand(query, p) Then
                     If Not ViewInvoices() Then
                         MsgBox("There was an error loading invoices.", MsgBoxStyle.Exclamation, "Invoice Search Error")
                     Else

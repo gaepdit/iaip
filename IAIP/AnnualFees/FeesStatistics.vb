@@ -338,21 +338,11 @@ Public Class FeesStatistics
                     "and FS_Transactions.active = '1' "
 
             Case Else
-                SQLReported = "Select sum(numtotalFee) as TotalDue " &
-                    "from FS_FeeAuditedData inner join FS_Admin  " &
-                    "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSnumber " &
-                    "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
-                    "where FS_FeeAuditedData.numFeeYear = @year " &
-                    "and FS_FeeAuditedData.Active = '1' " &
-                    "and FS_Admin.Active = '1' " &
-                    "and numCurrentStatus <> '12' "
+                SQLReported = ""
 
                 SQLInvoiced = ""
 
-                SQLPaid = "Select sum(numPayment) as TotalPaid " &
-                    "from FS_Transactions " &
-                    "where numFeeYear = @year " &
-                    "and Active = '1' "
+                SQLPaid = ""
 
         End Select
 
@@ -1220,8 +1210,10 @@ Public Class FeesStatistics
     End Sub
 
     Private Sub LoadComboBoxesD()
-        Dim query As String = "Select distinct substring(strairsnumber, 5, 8) as strairsnumber " &
-            "from FS_Transactions order by strairsnumber"
+        Dim query As String = "select distinct substring(STRAIRSNUMBER, 5, 8) as strairsnumber
+            from FS_TRANSACTIONS
+            where ACTIVE = '1'
+            order by strairsnumber"
         cboAirs.DataSource = DB.GetDataTable(query)
         cboAirs.DisplayMember = "strairsnumber"
     End Sub

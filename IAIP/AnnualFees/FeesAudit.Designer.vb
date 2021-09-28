@@ -1885,13 +1885,13 @@ Partial Class FeesAudit
         Me.rdbAllYears.Name = "rdbAllYears"
         Me.rdbAllYears.Size = New System.Drawing.Size(66, 17)
         Me.rdbAllYears.TabIndex = 1
-        Me.rdbAllYears.TabStop = True
         Me.rdbAllYears.Text = "All Years"
         Me.rdbAllYears.UseVisualStyleBackColor = True
         '
         'rdbCurrentFeeyear
         '
         Me.rdbCurrentFeeyear.AutoSize = True
+        Me.rdbCurrentFeeyear.Checked = True
         Me.rdbCurrentFeeyear.Location = New System.Drawing.Point(3, 2)
         Me.rdbCurrentFeeyear.Name = "rdbCurrentFeeyear"
         Me.rdbCurrentFeeyear.Size = New System.Drawing.Size(105, 17)

@@ -1,5 +1,6 @@
-# This workflow registers a new deployment with Raygun
-name: Raygun Deployment
+# Workflow to register a new application deployment with Raygun.
+
+name: Raygun Deployment Tracking
 
 # Production tags in this repository begin with "version5/"
 on:
@@ -12,9 +13,10 @@ jobs:
     steps:
       - name: Get the version number
         id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/version5/}
+        run: echo ::set-output name=VERSION::${GITHUB_REF##*/}
 
       - name: Send to the Raygun Deployments API
+        id: send_deployment
         uses: fjogeleit/http-request-action@master
         with:
           url: https://app.raygun.com/deployments?authToken=${{ secrets.RAYGUN_AUTHTOKEN }}
@@ -25,5 +27,8 @@ jobs:
               "version": "${{ steps.get_version.outputs.VERSION }}",
               "ownerName": "${{ github.event.pusher.name }}",
               "emailAddress": "${{ github.event.pusher.email }}",
-              "scmIdentifier": "${{ github.sha }}",
+              "scmIdentifier": "${{ github.sha }}"
             }
+
+      - name: Show response
+        run: echo ${{ steps.send_deployment.outputs.response }}
