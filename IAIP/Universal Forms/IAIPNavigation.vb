@@ -851,6 +851,14 @@ Public Class IAIPNavigation
                                         buttonText, formName, category)
     End Sub
 
+    Private Sub AddNavButtonIfUserCan(userCan As UserCan,
+                                      buttonText As String, formName As String,
+                                      category As NavButtonCategories)
+        If CurrentUser.HasPermission(userCan) Then
+            AddNavButton(buttonText, formName, category)
+        End If
+    End Sub
+
     Private Sub AddNavButtonCategory(category As NavButtonCategories, name As String, Optional shortname As String = Nothing)
         If CurrentUser.ProgramName = name OrElse CurrentUser.UnitName = name Then
             AllTheNavButtonCategories.Insert(0, New NavButtonCategory(category, name, shortname))
@@ -957,10 +965,10 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(17, "ISMU Management", NameOf(ISMPManagersTools), NavButtonCategories.ISMP)
 
         ' Emission Fees
-        AddNavButtonIfAccountHasFormAccess(135, "Fees Log", NameOf(FeesLog), NavButtonCategories.AnnualFees)
-        AddNavButtonIfAccountHasFormAccess(139, "Fee Management", NameOf(FeesManagement), NavButtonCategories.AnnualFees)
+        AddNavButtonIfUserCan(UserCan.EditAnnualFees, "Fees Log", NameOf(FeesLog), NavButtonCategories.AnnualFees)
+        AddNavButtonIfUserCan(UserCan.ManageAnnualFees, "Fee Management", NameOf(FeesManagement), NavButtonCategories.AnnualFees)
         AddNavButtonIfAccountHasFormAccess(12, "Statistics && Reports", NameOf(FeesStatistics), NavButtonCategories.AnnualFees)
-        AddNavButtonIfAccountHasFormAccess(18, "Deposits", NameOf(FeesDeposits), NavButtonCategories.AnnualFees)
+        AddNavButtonIfUserCan(UserCan.EditAnnualFeesDeposits, "Deposits", NameOf(FeesDeposits), NavButtonCategories.AnnualFees)
 
         ' Finance
         AddNavButtonIfUserHasPermission({118, 123, 124, 125}, "New Deposit", NameOf(FinDepositView), NavButtonCategories.Finance)

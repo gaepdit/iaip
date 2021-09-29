@@ -27,10 +27,7 @@ Public Class FeesStatistics
 
             LoadComboBoxesF()
 
-            If AccountFormAccess(135, 1) = "1" OrElse
-                AccountFormAccess(135, 2) = "1" OrElse
-                AccountFormAccess(135, 3) = "1" OrElse
-                AccountFormAccess(135, 4) = "1" Then
+            If CurrentUser.HasPermission(UserCan.EditAnnualFees) Then
                 btnOpenFeesLog.Visible = True
                 txtFeeStatAirsNumber.Visible = True
             End If
