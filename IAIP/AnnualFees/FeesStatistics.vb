@@ -30,6 +30,8 @@ Public Class FeesStatistics
             If CurrentUser.HasPermission(UserCan.EditAnnualFees) Then
                 btnOpenFeesLog.Visible = True
                 txtFeeStatAirsNumber.Visible = True
+            Else
+                dgvFeeStats.LinkifyFirstColumn = False
             End If
 
         Catch ex As Exception
@@ -2398,6 +2400,10 @@ Public Class FeesStatistics
     End Sub
 
     Private Sub dgvFeeStats_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvFeeStats.CellLinkActivated
+        If Not CurrentUser.HasPermission(UserCan.EditAnnualFees) Then
+            Return
+        End If
+
         Dim parameters As New Dictionary(Of FormParameter, String)
 
         If IsValidAirsNumberFormat(e.LinkValue.ToString) Then
