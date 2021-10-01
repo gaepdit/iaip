@@ -22,11 +22,8 @@ Public Class SSCPManagersTools
 
             LoadSelectedFacilitesGrid()
 
-            TCNewFacilitySearch.TabPages.Remove(TPCopyYear)
-
-            If AccountFormAccess(129, 3) = "1" OrElse
-                (AccountFormAccess(22, 4) = "1" AndAlso AccountFormAccess(22, 3) = "0") Then
-                TCNewFacilitySearch.TabPages.Add(TPCopyYear)
+            If Not CurrentUser.HasRoleType(RoleType.ProgramManager) OrElse CurrentUser.HasRoleType(RoleType.BranchChief) Then
+                TCNewFacilitySearch.TabPages.Remove(TPCopyYear)
             End If
 
             If AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" Then
