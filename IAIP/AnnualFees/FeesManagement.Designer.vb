@@ -106,6 +106,9 @@ Partial Class FeesManagement
         Me.mtbCheckAIRSNumber = New System.Windows.Forms.MaskedTextBox()
         Me.btnOpenFeesLog = New System.Windows.Forms.Button()
         Me.FeeManagementToolPanel = New System.Windows.Forms.Panel()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.btnViewEmailList = New System.Windows.Forms.Button()
+        Me.btnViewPhysicalMailList = New System.Windows.Forms.Button()
         Me.EnrollmentGroupbox = New System.Windows.Forms.GroupBox()
         Me.btnUnenrollFeeYear = New System.Windows.Forms.Button()
         Me.btnFirstEnrollment = New System.Windows.Forms.Button()
@@ -138,6 +141,7 @@ Partial Class FeesManagement
         Me.FeeManagementSidePanel.SuspendLayout()
         CType(Me.dgvFeeManagementLists, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FeeManagementToolPanel.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.EnrollmentGroupbox.SuspendLayout()
         Me.InitialMailoutGroupbox.SuspendLayout()
         Me.SuspendLayout()
@@ -150,7 +154,7 @@ Partial Class FeesManagement
         Me.FeeManagementTabControl.Location = New System.Drawing.Point(0, 0)
         Me.FeeManagementTabControl.Name = "FeeManagementTabControl"
         Me.FeeManagementTabControl.SelectedIndex = 0
-        Me.FeeManagementTabControl.Size = New System.Drawing.Size(826, 646)
+        Me.FeeManagementTabControl.Size = New System.Drawing.Size(826, 659)
         Me.FeeManagementTabControl.TabIndex = 0
         '
         'TPFeeAdminTools
@@ -159,7 +163,7 @@ Partial Class FeesManagement
         Me.TPFeeAdminTools.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeAdminTools.Name = "TPFeeAdminTools"
         Me.TPFeeAdminTools.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPFeeAdminTools.Size = New System.Drawing.Size(818, 620)
+        Me.TPFeeAdminTools.Size = New System.Drawing.Size(818, 633)
         Me.TPFeeAdminTools.TabIndex = 0
         Me.TPFeeAdminTools.Text = "Fee Admin Tools"
         Me.TPFeeAdminTools.UseVisualStyleBackColor = True
@@ -173,7 +177,7 @@ Partial Class FeesManagement
         Me.TabControl2.Location = New System.Drawing.Point(3, 3)
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(812, 614)
+        Me.TabControl2.Size = New System.Drawing.Size(812, 627)
         Me.TabControl2.TabIndex = 0
         '
         'TabPage1
@@ -182,7 +186,7 @@ Partial Class FeesManagement
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(804, 588)
+        Me.TabPage1.Size = New System.Drawing.Size(804, 601)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Annual Fee Rates"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -233,7 +237,7 @@ Partial Class FeesManagement
         Me.Panel12.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel12.Location = New System.Drawing.Point(3, 3)
         Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(798, 582)
+        Me.Panel12.Size = New System.Drawing.Size(798, 595)
         Me.Panel12.TabIndex = 0
         '
         'dgvFeeRates
@@ -251,7 +255,7 @@ Partial Class FeesManagement
         Me.dgvFeeRates.Name = "dgvFeeRates"
         Me.dgvFeeRates.ResultsCountLabel = Nothing
         Me.dgvFeeRates.ResultsCountLabelFormat = "{0} found"
-        Me.dgvFeeRates.Size = New System.Drawing.Size(507, 582)
+        Me.dgvFeeRates.Size = New System.Drawing.Size(507, 595)
         Me.dgvFeeRates.StandardTab = True
         Me.dgvFeeRates.TabIndex = 1
         '
@@ -661,7 +665,7 @@ Partial Class FeesManagement
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(804, 588)
+        Me.TabPage3.Size = New System.Drawing.Size(804, 601)
         Me.TabPage3.TabIndex = 1
         Me.TabPage3.Text = "NSPS Exemption Tool"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -679,14 +683,14 @@ Partial Class FeesManagement
         Me.pnlNSPSExemptions.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlNSPSExemptions.Location = New System.Drawing.Point(3, 3)
         Me.pnlNSPSExemptions.Name = "pnlNSPSExemptions"
-        Me.pnlNSPSExemptions.Size = New System.Drawing.Size(798, 582)
+        Me.pnlNSPSExemptions.Size = New System.Drawing.Size(798, 595)
         Me.pnlNSPSExemptions.TabIndex = 400
         '
         'Panel14
         '
         Me.Panel14.Controls.Add(Me.Panel13)
         Me.Panel14.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel14.Location = New System.Drawing.Point(0, 313)
+        Me.Panel14.Location = New System.Drawing.Point(0, 326)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Size = New System.Drawing.Size(798, 269)
         Me.Panel14.TabIndex = 415
@@ -802,7 +806,7 @@ Partial Class FeesManagement
         Me.dgvNSPSExemptionsByYear.Name = "dgvNSPSExemptionsByYear"
         Me.dgvNSPSExemptionsByYear.ReadOnly = True
         Me.dgvNSPSExemptionsByYear.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvNSPSExemptionsByYear.Size = New System.Drawing.Size(797, 242)
+        Me.dgvNSPSExemptionsByYear.Size = New System.Drawing.Size(797, 255)
         Me.dgvNSPSExemptionsByYear.TabIndex = 403
         '
         'Label108
@@ -828,7 +832,7 @@ Partial Class FeesManagement
         Me.TabPage2.Controls.Add(Me.Panel15)
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Size = New System.Drawing.Size(804, 588)
+        Me.TabPage2.Size = New System.Drawing.Size(804, 601)
         Me.TabPage2.TabIndex = 2
         Me.TabPage2.Text = "Edit Exemptions"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -851,7 +855,7 @@ Partial Class FeesManagement
         Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel15.Location = New System.Drawing.Point(0, 0)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(804, 588)
+        Me.Panel15.Size = New System.Drawing.Size(804, 601)
         Me.Panel15.TabIndex = 415
         '
         'btnClearNSPSExemptions
@@ -899,7 +903,7 @@ Partial Class FeesManagement
         Me.dgvExistingExemptions.Name = "dgvExistingExemptions"
         Me.dgvExistingExemptions.ReadOnly = True
         Me.dgvExistingExemptions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvExistingExemptions.Size = New System.Drawing.Size(802, 352)
+        Me.dgvExistingExemptions.Size = New System.Drawing.Size(802, 365)
         Me.dgvExistingExemptions.TabIndex = 403
         '
         'btnUpdateNSPSExemption
@@ -987,7 +991,7 @@ Partial Class FeesManagement
         Me.TPFeeManagementTools.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeManagementTools.Name = "TPFeeManagementTools"
         Me.TPFeeManagementTools.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPFeeManagementTools.Size = New System.Drawing.Size(818, 620)
+        Me.TPFeeManagementTools.Size = New System.Drawing.Size(818, 633)
         Me.TPFeeManagementTools.TabIndex = 2
         Me.TPFeeManagementTools.Text = "Fee Management Tools"
         Me.TPFeeManagementTools.UseVisualStyleBackColor = True
@@ -1001,7 +1005,7 @@ Partial Class FeesManagement
         Me.FeeManagementSidePanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FeeManagementSidePanel.Location = New System.Drawing.Point(188, 3)
         Me.FeeManagementSidePanel.Name = "FeeManagementSidePanel"
-        Me.FeeManagementSidePanel.Size = New System.Drawing.Size(627, 614)
+        Me.FeeManagementSidePanel.Size = New System.Drawing.Size(627, 627)
         Me.FeeManagementSidePanel.TabIndex = 0
         '
         'dgvFeeManagementLists
@@ -1021,17 +1025,16 @@ Partial Class FeesManagement
         Me.dgvFeeManagementLists.Name = "dgvFeeManagementLists"
         Me.dgvFeeManagementLists.ResultsCountLabel = Nothing
         Me.dgvFeeManagementLists.ResultsCountLabelFormat = "{0} found"
-        Me.dgvFeeManagementLists.ShowEditingIcon = False
-        Me.dgvFeeManagementLists.Size = New System.Drawing.Size(627, 573)
+        Me.dgvFeeManagementLists.Size = New System.Drawing.Size(627, 586)
         Me.dgvFeeManagementLists.StandardTab = True
         Me.dgvFeeManagementLists.TabIndex = 3
         '
         'FeeManagementListCountLabel
         '
-        Me.FeeManagementListCountLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.FeeManagementListCountLabel.Location = New System.Drawing.Point(438, 13)
+        Me.FeeManagementListCountLabel.AutoSize = True
+        Me.FeeManagementListCountLabel.Location = New System.Drawing.Point(179, 14)
         Me.FeeManagementListCountLabel.Name = "FeeManagementListCountLabel"
-        Me.FeeManagementListCountLabel.Size = New System.Drawing.Size(184, 17)
+        Me.FeeManagementListCountLabel.Size = New System.Drawing.Size(35, 13)
         Me.FeeManagementListCountLabel.TabIndex = 464
         Me.FeeManagementListCountLabel.Text = "Count"
         Me.FeeManagementListCountLabel.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1058,6 +1061,7 @@ Partial Class FeesManagement
         '
         'FeeManagementToolPanel
         '
+        Me.FeeManagementToolPanel.Controls.Add(Me.GroupBox1)
         Me.FeeManagementToolPanel.Controls.Add(Me.EnrollmentGroupbox)
         Me.FeeManagementToolPanel.Controls.Add(Me.btnViewMailout)
         Me.FeeManagementToolPanel.Controls.Add(Me.btnViewEnrolledFacilities)
@@ -1068,14 +1072,43 @@ Partial Class FeesManagement
         Me.FeeManagementToolPanel.Dock = System.Windows.Forms.DockStyle.Left
         Me.FeeManagementToolPanel.Location = New System.Drawing.Point(3, 3)
         Me.FeeManagementToolPanel.Name = "FeeManagementToolPanel"
-        Me.FeeManagementToolPanel.Size = New System.Drawing.Size(185, 614)
+        Me.FeeManagementToolPanel.Size = New System.Drawing.Size(185, 627)
         Me.FeeManagementToolPanel.TabIndex = 0
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.btnViewEmailList)
+        Me.GroupBox1.Controls.Add(Me.btnViewPhysicalMailList)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 470)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(151, 110)
+        Me.GroupBox1.TabIndex = 6
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Mailout Communication"
+        '
+        'btnViewEmailList
+        '
+        Me.btnViewEmailList.Location = New System.Drawing.Point(6, 61)
+        Me.btnViewEmailList.Name = "btnViewEmailList"
+        Me.btnViewEmailList.Size = New System.Drawing.Size(137, 36)
+        Me.btnViewEmailList.TabIndex = 0
+        Me.btnViewEmailList.Text = "View Mailout List for Email"
+        Me.btnViewEmailList.UseVisualStyleBackColor = True
+        '
+        'btnViewPhysicalMailList
+        '
+        Me.btnViewPhysicalMailList.Location = New System.Drawing.Point(6, 19)
+        Me.btnViewPhysicalMailList.Name = "btnViewPhysicalMailList"
+        Me.btnViewPhysicalMailList.Size = New System.Drawing.Size(137, 36)
+        Me.btnViewPhysicalMailList.TabIndex = 0
+        Me.btnViewPhysicalMailList.Text = "View Mailout List for Physical Mail"
+        Me.btnViewPhysicalMailList.UseVisualStyleBackColor = True
         '
         'EnrollmentGroupbox
         '
         Me.EnrollmentGroupbox.Controls.Add(Me.btnUnenrollFeeYear)
         Me.EnrollmentGroupbox.Controls.Add(Me.btnFirstEnrollment)
-        Me.EnrollmentGroupbox.Location = New System.Drawing.Point(12, 367)
+        Me.EnrollmentGroupbox.Location = New System.Drawing.Point(12, 352)
         Me.EnrollmentGroupbox.Name = "EnrollmentGroupbox"
         Me.EnrollmentGroupbox.Size = New System.Drawing.Size(151, 99)
         Me.EnrollmentGroupbox.TabIndex = 5
@@ -1109,7 +1142,7 @@ Partial Class FeesManagement
         Me.btnViewMailout.Name = "btnViewMailout"
         Me.btnViewMailout.Size = New System.Drawing.Size(137, 23)
         Me.btnViewMailout.TabIndex = 2
-        Me.btnViewMailout.Text = "View Mailout List"
+        Me.btnViewMailout.Text = "View Mailout Facilities"
         Me.btnViewMailout.UseVisualStyleBackColor = True
         '
         'btnViewEnrolledFacilities
@@ -1135,7 +1168,7 @@ Partial Class FeesManagement
         '
         Me.cboAvailableFeeYears.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboAvailableFeeYears.FormattingEnabled = True
-        Me.cboAvailableFeeYears.Location = New System.Drawing.Point(74, 10)
+        Me.cboAvailableFeeYears.Location = New System.Drawing.Point(74, 11)
         Me.cboAvailableFeeYears.Name = "cboAvailableFeeYears"
         Me.cboAvailableFeeYears.Size = New System.Drawing.Size(81, 21)
         Me.cboAvailableFeeYears.TabIndex = 0
@@ -1155,7 +1188,7 @@ Partial Class FeesManagement
         Me.InitialMailoutGroupbox.Controls.Add(Me.btnSetMailoutDate)
         Me.InitialMailoutGroupbox.Controls.Add(Me.btnGenerateMailoutList)
         Me.InitialMailoutGroupbox.Controls.Add(Me.btnUpdateContactData)
-        Me.InitialMailoutGroupbox.Location = New System.Drawing.Point(12, 145)
+        Me.InitialMailoutGroupbox.Location = New System.Drawing.Point(12, 139)
         Me.InitialMailoutGroupbox.Name = "InitialMailoutGroupbox"
         Me.InitialMailoutGroupbox.Size = New System.Drawing.Size(151, 194)
         Me.InitialMailoutGroupbox.TabIndex = 4
@@ -1201,15 +1234,15 @@ Partial Class FeesManagement
         Me.btnUpdateContactData.Text = "Update Mailout List With Current Fee Contacts"
         Me.btnUpdateContactData.UseVisualStyleBackColor = True
         '
-        'PASPFeeManagement
+        'FeesManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(826, 646)
+        Me.ClientSize = New System.Drawing.Size(826, 659)
         Me.Controls.Add(Me.FeeManagementTabControl)
         Me.Margin = New System.Windows.Forms.Padding(4)
-        Me.MinimumSize = New System.Drawing.Size(660, 648)
-        Me.Name = "PASPFeeManagement"
+        Me.MinimumSize = New System.Drawing.Size(842, 698)
+        Me.Name = "FeesManagement"
         Me.Text = "Annual Fees - Management"
         Me.FeeManagementTabControl.ResumeLayout(False)
         Me.TPFeeAdminTools.ResumeLayout(False)
@@ -1236,6 +1269,7 @@ Partial Class FeesManagement
         CType(Me.dgvFeeManagementLists, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FeeManagementToolPanel.ResumeLayout(False)
         Me.FeeManagementToolPanel.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
         Me.EnrollmentGroupbox.ResumeLayout(False)
         Me.InitialMailoutGroupbox.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -1336,4 +1370,7 @@ Partial Class FeesManagement
     Friend WithEvents FeeManagementSidePanel As System.Windows.Forms.Panel
     Friend WithEvents Label5 As Label
     Friend WithEvents txtPart70MaintenanceFee As TextBox
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents btnViewEmailList As Button
+    Friend WithEvents btnViewPhysicalMailList As Button
 End Class

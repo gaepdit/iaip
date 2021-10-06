@@ -51,7 +51,7 @@ Partial Class IaipDataGridView
         Me.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.GridColor = System.Drawing.Color.Gainsboro
+        Me.GridColor = System.Drawing.SystemColors.ControlLight
         Me.MultiSelect = False
         Me.ReadOnly = True
         Me.RowHeadersVisible = False

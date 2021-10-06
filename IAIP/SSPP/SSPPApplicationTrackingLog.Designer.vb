@@ -264,7 +264,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbOtherPermit = New System.Windows.Forms.CheckBox()
         Me.TPContactInformation = New System.Windows.Forms.TabPage()
         Me.txtContactPhoneNumber = New System.Windows.Forms.TextBox()
-        Me.btnGoToFeeContact = New System.Windows.Forms.Button()
         Me.btnEmailAcknowledgmentLetter = New System.Windows.Forms.Button()
         Me.btnAcknowledgementLetter = New System.Windows.Forms.Button()
         Me.btnGetCurrentPermittingContact = New System.Windows.Forms.Button()
@@ -3212,7 +3211,6 @@ Partial Class SSPPApplicationTrackingLog
         'TPContactInformation
         '
         Me.TPContactInformation.Controls.Add(Me.txtContactPhoneNumber)
-        Me.TPContactInformation.Controls.Add(Me.btnGoToFeeContact)
         Me.TPContactInformation.Controls.Add(Me.btnEmailAcknowledgmentLetter)
         Me.TPContactInformation.Controls.Add(Me.btnAcknowledgementLetter)
         Me.TPContactInformation.Controls.Add(Me.btnGetCurrentPermittingContact)
@@ -3256,17 +3254,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactPhoneNumber.Name = "txtContactPhoneNumber"
         Me.txtContactPhoneNumber.Size = New System.Drawing.Size(149, 20)
         Me.txtContactPhoneNumber.TabIndex = 366
-        '
-        'btnGoToFeeContact
-        '
-        Me.btnGoToFeeContact.AutoSize = True
-        Me.btnGoToFeeContact.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnGoToFeeContact.Location = New System.Drawing.Point(616, 5)
-        Me.btnGoToFeeContact.Name = "btnGoToFeeContact"
-        Me.btnGoToFeeContact.Size = New System.Drawing.Size(104, 23)
-        Me.btnGoToFeeContact.TabIndex = 1
-        Me.btnGoToFeeContact.Text = "Go to Fee Contact"
-        Me.btnGoToFeeContact.UseVisualStyleBackColor = True
         '
         'btnEmailAcknowledgmentLetter
         '
@@ -6789,7 +6776,6 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents Panel32 As System.Windows.Forms.Panel
     Friend WithEvents btnAddNewMACTSubpart As System.Windows.Forms.Button
     Friend WithEvents cboMACTSubpart As System.Windows.Forms.ComboBox
-    Friend WithEvents btnGoToFeeContact As System.Windows.Forms.Button
     Friend WithEvents txtNAICSCode As System.Windows.Forms.TextBox
     Friend WithEvents Label72 As System.Windows.Forms.Label
     Friend WithEvents chbCDS_RMP As System.Windows.Forms.CheckBox

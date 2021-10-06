@@ -1043,20 +1043,6 @@ Public Class SSPPApplicationTrackingLog
                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 btnDeleteInformationRequest.BackColor = Color.Yellow
             End If
-            'btnGoToFeeContact 
-
-            If AccountFormAccess(129, 3) = "1" OrElse
-           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
-           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
-           (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
-           (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
-           (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") OrElse
-           (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
-           (AccountFormAccess(51, 3) = "1" AndAlso AccountFormAccess(20, 3) = "1" AndAlso AccountFormAccess(51, 1) = "0") Then
-                btnGoToFeeContact.Visible = True
-            Else
-                btnGoToFeeContact.Visible = False
-            End If
 
             'btnLinkApplications
             If AccountFormAccess(129, 3) = "1" OrElse
@@ -5578,81 +5564,55 @@ Public Class SSPPApplicationTrackingLog
             Dim ContactSuffix As String = " "
             Dim ContactTitle As String = " "
             Dim ContactCompany As String = " "
-            Dim ContactPhone As String = " "
-            Dim ContactFax As String = " "
+            Dim ContactPhone As String = "0000000000"
+            Dim ContactFax As String = "0000000000"
             Dim ContactEmail As String = " "
             Dim ContactAddress As String = " "
             Dim ContactCity As String = " "
             Dim ContactState As String = " "
-            Dim ContactZipCode As String = " "
+            Dim ContactZipCode As String = "00000"
             Dim ContactDescription As String = " "
             Dim query As String
             Dim params As SqlParameter()
 
             If txtContactFirstName.Text <> "" Then
                 ContactFirstName = txtContactFirstName.Text
-            Else
-                ContactFirstName = " "
             End If
             If txtContactLastName.Text <> "" Then
                 ContactLastname = txtContactLastName.Text
-            Else
-                ContactLastname = " "
             End If
             If txtContactSocialTitle.Text <> "" Then
                 ContactPrefix = txtContactSocialTitle.Text
-            Else
-                ContactPrefix = " "
             End If
             If txtContactPedigree.Text <> "" Then
                 ContactSuffix = txtContactPedigree.Text
-            Else
-                ContactSuffix = " "
             End If
             If txtContactTitle.Text <> "" Then
                 ContactTitle = txtContactTitle.Text
-            Else
-                ContactTitle = " "
             End If
             If txtContactCompanyName.Text <> "" Then
                 ContactCompany = txtContactCompanyName.Text
-            Else
-                ContactCompany = " "
             End If
             If txtContactPhoneNumber.Text <> "" Then
                 ContactPhone = txtContactPhoneNumber.Text
-            Else
-                ContactPhone = "0000000000"
             End If
             If mtbContactFaxNumber.Text <> "" Then
                 ContactFax = mtbContactFaxNumber.Text
-            Else
-                ContactFax = "0000000000"
             End If
             If txtContactEmailAddress.Text <> "" Then
                 ContactEmail = txtContactEmailAddress.Text
-            Else
-                ContactEmail = " "
             End If
             If txtContactStreetAddress.Text <> "" Then
                 ContactAddress = txtContactStreetAddress.Text
-            Else
-                ContactAddress = " "
             End If
             If txtContactCity.Text <> "" Then
                 ContactCity = txtContactCity.Text
-            Else
-                ContactCity = " "
             End If
             If txtContactState.Text <> "" Then
                 ContactState = txtContactState.Text
-            Else
-                ContactState = " "
             End If
             If mtbContactZipCode.Text <> "" Then
                 ContactZipCode = mtbContactZipCode.Text
-            Else
-                ContactZipCode = "00000"
             End If
 
             If txtContactDescription.Text <> "" Then
@@ -5745,23 +5705,24 @@ Public Class SSPPApplicationTrackingLog
             DB.RunCommand(query, params)
 
             If chbClosedOut.Checked AndAlso AirsId IsNot Nothing Then
+
                 query = "select strKey " &
-                "from APBContactInformation inner join SSPPApplicationContact  " &
-                "on APBContactInformation.strContactFirstName = SSPPApplicationContact.strContactFirstName " &
-                "and APBContactInformation.strContactLastName = SSPPApplicationContact.strContactLastName  " &
-                "and APBContactInformation.strContactPrefix = SSPPApplicationContact.strContactPrefix " &
-                "and APBContactInformation.strContactSuffix = SSPPApplicationContact.strContactSuffix  " &
-                "and APBContactInformation.strContactTitle = SSPPApplicationContact.strContactTitle  " &
-                "and APBContactInformation.strContactCompanyName = SSPPApplicationContact.strContactCompanyName  " &
-                "and APBContactInformation.strContactPhoneNumber1 = SSPPApplicationContact.strContactPhoneNumber1  " &
-                "and APBContactInformation.strContactFaxNumber = SSPPApplicationContact.strContactFaxNumber  " &
-                "and APBContactInformation.strContactEmail = SSPPApplicationContact.strContactEmail  " &
-                "and APBContactInformation.strCOntactAddress1 = SSPPApplicationContact.strContactAddress1  " &
-                "and APBContactInformation.strCOntactCity = SSPPApplicationContact.strContactCity  " &
-                "and APBContactInformation.strContactZipCode = SSPPApplicationcontact.strContactZipCode  " &
-                "and APBContactInformation.strContactDescription = SSPPApplicationContact.strContactDescription  " &
-                "where APBContactInformation.strContactKey = @pKey " &
-                "and SSPPApplicationContact.strApplicationNumber = @app "
+                    "from APBContactInformation inner join SSPPApplicationContact  " &
+                    "on APBContactInformation.strContactFirstName = SSPPApplicationContact.strContactFirstName " &
+                    "and APBContactInformation.strContactLastName = SSPPApplicationContact.strContactLastName  " &
+                    "and APBContactInformation.strContactPrefix = SSPPApplicationContact.strContactPrefix " &
+                    "and APBContactInformation.strContactSuffix = SSPPApplicationContact.strContactSuffix  " &
+                    "and APBContactInformation.strContactTitle = SSPPApplicationContact.strContactTitle  " &
+                    "and APBContactInformation.strContactCompanyName = SSPPApplicationContact.strContactCompanyName  " &
+                    "and APBContactInformation.strContactPhoneNumber1 = SSPPApplicationContact.strContactPhoneNumber1  " &
+                    "and APBContactInformation.strContactFaxNumber = SSPPApplicationContact.strContactFaxNumber  " &
+                    "and APBContactInformation.strContactEmail = SSPPApplicationContact.strContactEmail  " &
+                    "and APBContactInformation.strCOntactAddress1 = SSPPApplicationContact.strContactAddress1  " &
+                    "and APBContactInformation.strCOntactCity = SSPPApplicationContact.strContactCity  " &
+                    "and APBContactInformation.strContactZipCode = SSPPApplicationcontact.strContactZipCode  " &
+                    "and APBContactInformation.strContactDescription = SSPPApplicationContact.strContactDescription  " &
+                    "where APBContactInformation.strContactKey = @pKey " &
+                    "and SSPPApplicationContact.strApplicationNumber = @app "
 
                 params = {
                     New SqlParameter("@pKey", AirsId.DbFormattedString & "30"),
@@ -5769,187 +5730,32 @@ Public Class SSPPApplicationTrackingLog
                 }
 
                 If Not DB.ValueExists(query, params) Then
-                    query = "select Max(strKey) as MaxKey " &
-                    "from APBContactInformation " &
-                    "where strAIRSNumber = @airs " &
-                    "and SUBSTRING(strkey, 1, 1) = '3' "
 
-                    params = {New SqlParameter("@airs", AirsId.DbFormattedString)}
+                    Dim spName As String = "iaip_facility.SaveApbContact"
 
-                    MaxKey = DB.GetString(query, params)
-
-                    i = CInt(Mid(MaxKey, 2))
-
-                    If MaxKey <> "39" Then
-                        query = "Insert into APBContactInformation " &
-                        "(strContactKey, strAIRSnumber, strKey, " &
-                        "strContactFirstName, strContactLastName,  " &
-                        "strContactPrefix, strContactSuffix,  " &
-                        "strContactTitle, strContactCompanyName,  " &
-                        "strContactPhoneNumber1, strContactPhoneNumber2,  " &
-                        "strContactFaxNumber, strContactEmail,  " &
-                        "strContactAddress1, strContactAddress2,  " &
-                        "strContactCity, strContactState,  " &
-                        "strContactZipCode, strModifingPerson,  " &
-                        "datModifingDate, strContactDescription)  " &
-                        "select  " &
-                        " concat('0' , convert(bigint, strContactKey) + 1) as strContactKey,  " &
-                        "strAIRSnumber,  " &
-                        "(strKey+1) as strKey, " &
-                        "strContactFirstName, strContactLastName,  " &
-                        "strContactPrefix, strContactSuffix,  " &
-                        "strContactTitle, strContactCompanyName,  " &
-                        "strContactPhoneNumber1, strContactPhoneNumber2,  " &
-                        "strContactFaxNumber, strContactEmail,  " &
-                        "strContactAddress1, strContactAddress2,  " &
-                        "strContactCity, strContactState,  " &
-                        "strContactZipCode, strModifingPerson,  " &
-                        "datModifingDate, strContactDescription " &
-                        "from APBContactInformation  " &
-                        "where strAIRSnumber = @airs " &
-                        "and strKey = @pKey "
-                        params = {
-                            New SqlParameter("@airs", AirsId.DbFormattedString),
-                            New SqlParameter("@pKey", "3" & i.ToString)
-                        }
-                        DB.RunCommand(query, params)
-                    End If
-
-                    Do While i > 0
-                        query = "Select strKey " &
-                            "from APBContactInformation " &
-                            "where strAIRSNumber = @airs " &
-                            "and strKey = @pKey "
-                        params = {
-                            New SqlParameter("@airs", AirsId.DbFormattedString),
-                            New SqlParameter("@pKey", "3" & i.ToString)
-                        }
-
-                        i -= 1
-
-                        If DB.ValueExists(query, params) Then
-                            query = "Update APBContactInformation set " &
-                            "strContactFirstName = (select strContactFirstName from APBContactInformation " &
-                            "where strContactKey = @oldKey),  " &
-                            "strContactLastname = (select strContactLastname from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
-                            "strContactPrefix = (select strContactPrefix from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
-                            "strContactSuffix = (select strContactSuffix from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
-                            "strContactTitle = (select strContactTitle from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
-                            "strContactCompanyName = (select strContactCompanyName from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
-                            "strContactPhoneNumber1 = (select strContactPhoneNumber1 from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
-                            "strContactPhoneNumber2 = null,  " &
-                            "strContactFaxNumber = (select strContactFaxNumber from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
-                            "strContactEmail = (select strContactEmail from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
-                            "strContactAddress1 = (select strContactAddress1 from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
-                            "strContactAddress2 = null,  " &
-                            "strContactCity = (select strContactCity from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
-                            "strContactState = (select strContactState from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
-                            "strContactZipCode = (select strContactZipCode from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
-                            "strModifingPerson = '0',  " &
-                            "datModifingDate = getdate(),  " &
-                            "strContactDescription = (select strContactDescription from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey) " &
-                            "where strContactKey = @newKey "
-
-                            params = {
-                                New SqlParameter("@oldKey", AirsId.DbFormattedString & "3" & i.ToString),
-                                New SqlParameter("@newKey", AirsId.DbFormattedString & "3" & (i + 1).ToString)
-                            }
-                        Else
-                            query = "Insert into APBContactInformation " &
-                            "(strContactKey, strAIRSnumber, strKey, " &
-                            "strContactFirstName, strContactLastName,  " &
-                            "strContactPrefix, strContactSuffix,  " &
-                            "strContactTitle, strContactCompanyName,  " &
-                            "strContactPhoneNumber1, strContactPhoneNumber2,  " &
-                            "strContactFaxNumber, strContactEmail,  " &
-                            "strContactAddress1, strContactAddress2,  " &
-                            "strContactCity, strContactState,  " &
-                            "strContactZipCode, strModifingPerson,  " &
-                            "datModifingDate, strContactDescription)  " &
-                            "select  " &
-                            " concat('0' , (strContactKey+1)) as strContactKey,  " &
-                            "strAIRSnumber,  " &
-                            "(strKey+1) as strKey, " &
-                            "strContactFirstName, strContactLastName,  " &
-                            "strContactPrefix, strContactSuffix,  " &
-                            "strContactTitle, strContactCompanyName,  " &
-                            "strContactPhoneNumber1, strContactPhoneNumber2,  " &
-                            "strContactFaxNumber, strContactEmail,  " &
-                            "strContactAddress1, strContactAddress2,  " &
-                            "strContactCity, strContactState,  " &
-                            "strContactZipCode, strModifingPerson,  " &
-                            "datModifingDate, strContactDescription " &
-                            "from APBContactInformation  " &
-                            "where strAIRSnumber = @airs " &
-                            "and strKey = @pKey "
-
-                            params = {
-                                New SqlParameter("@airs", AirsId.DbFormattedString),
-                                New SqlParameter("@pKey", "3" & (i + 1).ToString)
-                            }
-                        End If
-
-                        DB.RunCommand(query, params)
-                    Loop
-
-                    query = "Update APBContactInformation set " &
-                           "strContactFirstName = (select strContactFirstName from SSPPApplicationContact " &
-                           "where strApplicationNumber = @appNum),  " &
-                           "strContactLastname = (select strContactLastname from SSPPApplicationContact " &
-                           "where strApplicationNumber = @appNum),  " &
-                           "strContactPrefix = (select strContactPrefix from SSPPApplicationContact " &
-                           "where strApplicationNumber = @appNum),  " &
-                           "strContactSuffix = (select strContactSuffix from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum),  " &
-                           "strContactTitle = (select strContactTitle from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum),  " &
-                           "strContactCompanyName = (select strContactCompanyName from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum),  " &
-                           "strContactPhoneNumber1 = (select strContactPhoneNumber1 from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum),  " &
-                           "strContactPhoneNumber2 = (select strContactPhoneNumber2 from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum),  " &
-                           "strContactFaxNumber = (select strContactFaxNumber from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum),  " &
-                           "strContactEmail = (select strContactEmail from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum),  " &
-                           "strContactAddress1 = (select strContactAddress1 from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum),  " &
-                           "strContactAddress2 = (select strContactAddress2 from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum),  " &
-                           "strContactCity = (select strContactCity from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum),  " &
-                           "strContactState = (select strContactState from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum),  " &
-                           "strContactZipCode = (select strContactZipCode from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum),  " &
-                           "strModifingPerson = (select strModifingPerson from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum),  " &
-                           "datModifingDate = (select datModifingDate from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum),  " &
-                           "strContactDescription = (select strContactDescription from SSPPApplicationContact " &
-                            "where strApplicationNumber = @appNum)  " &
-                           "where strContactKey = @pKey "
-
-                    params = {
-                        New SqlParameter("@appNum", AppNumber),
-                        New SqlParameter("@pKey", AirsId.DbFormattedString & "3" & i.ToString)
+                    Dim p As SqlParameter() = {
+                        New SqlParameter("@key", "30"),
+                        New SqlParameter("@facilityId", AirsId.DbFormattedString),
+                        New SqlParameter("@firstName", Trim(ContactFirstName)),
+                        New SqlParameter("@lastName", Trim(ContactLastname)),
+                        New SqlParameter("@prefix", Trim(ContactPrefix)),
+                        New SqlParameter("@suffix", Trim(ContactSuffix)),
+                        New SqlParameter("@title", Trim(ContactTitle)),
+                        New SqlParameter("@organization", Trim(ContactCompany)),
+                        New SqlParameter("@telephone", Trim(ContactPhone)),
+                        New SqlParameter("@telephone2", Nothing),
+                        New SqlParameter("@fax", Trim(ContactFax?.Replace("(", "")?.Replace(")", "")?.Replace("-", "")?.Replace(" ", ""))),
+                        New SqlParameter("@email", Trim(ContactEmail)),
+                        New SqlParameter("@address1", Trim(ContactAddress)),
+                        New SqlParameter("@address2", Nothing),
+                        New SqlParameter("@city", Trim(ContactCity)),
+                        New SqlParameter("@state", Trim(ContactState)),
+                        New SqlParameter("@postalCode", Trim(ContactZipCode.Replace("-", ""))),
+                        New SqlParameter("@userId", CurrentUser.UserID),
+                        New SqlParameter("@description", Trim(ContactDescription))
                     }
 
-                    DB.RunCommand(query, params)
+                    DB.SPRunCommand(spName, p)
 
                 End If
             End If
@@ -13874,21 +13680,6 @@ Public Class SSPPApplicationTrackingLog
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
-
-    Private Sub btnUpdateFeeContact_Click(sender As Object, e As EventArgs) Handles btnGoToFeeContact.Click
-        If AirsId Is Nothing Then
-            MessageBox.Show("Select a facility first.")
-            Return
-        End If
-
-        Dim feeContact As New SSPPFeeContact
-
-        If feeContact IsNot Nothing AndAlso Not feeContact.IsDisposed Then
-            feeContact.AirsId = AirsId
-            feeContact.AppNumber = AppNumber
-            feeContact.Show()
-        End If
     End Sub
 
     Private Sub txtAIRSNumber_Enter(sender As Object, e As EventArgs) Handles txtAIRSNumber.AirsTextEnter

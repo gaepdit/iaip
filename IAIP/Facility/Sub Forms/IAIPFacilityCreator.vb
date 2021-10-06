@@ -496,11 +496,11 @@ Public Class IAIPFacilityCreator
                 Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & TodayFormatted & vbCrLf
             End If
 
-            If txtFacilityComments.Text.Contains("Created by Facility Creator by " & CurrentUser.AlphaName & " on " & TodayFormatted) Then
-            Else
+            If Not txtFacilityComments.Text.Contains("Created by Facility Creator by " & CurrentUser.AlphaName & " on " & TodayFormatted) Then
                 Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & TodayFormatted &
-                               vbCrLf & txtFacilityComments.Text & vbCrLf
+                    vbCrLf & txtFacilityComments.Text & vbCrLf
             End If
+
             If String.IsNullOrWhiteSpace(txtApplicationNumber.Text) AndAlso
                 Not txtFacilityComments.Text.Contains(txtApplicationNumber.Text) Then
                 Comments = Comments & "Pre-loaded with Application " & txtApplicationNumber.Text
@@ -612,52 +612,31 @@ Public Class IAIPFacilityCreator
 
             DB.RunCommand(SQL, p5)
 
-            SQL = "insert into APBContactInformation " &
-            "(strContactKey, strAIRSNumber, strKey, " &
-            "strContactFirstName, strContactLastName, " &
-            "strContactPrefix, strContactSuffix, " &
-            "strContactTitle, strContactCompanyName, " &
-            "strContactPhoneNumber1, strContactPhoneNumber2, " &
-            "strContactFaxNumber, strContactEmail, " &
-            "strContactAddress1, strContactAddress2, " &
-            "strContactCity, strContactState, " &
-            "strContactZipCode, strModifingPerson, " &
-            "datModifingDate) " &
-            "values " &
-            "(@strContactKey, @strAIRSNumber, @strKey, " &
-            "@strContactFirstName, @strContactLastName, " &
-            "@strContactPrefix, @strContactSuffix, " &
-            "@strContactTitle, @strContactCompanyName, " &
-            "@strContactPhoneNumber1, @strContactPhoneNumber2, " &
-            "@strContactFaxNumber, @strContactEmail, " &
-            "@strContactAddress1, @strContactAddress2, " &
-            "@strContactCity, @strContactState, " &
-            "@strContactZipCode, @strModifingPerson, " &
-            "getdate() ) "
+            Dim spName As String = "iaip_facility.SaveApbContact"
 
             Dim p6 As SqlParameter() = {
-                    New SqlParameter("@strContactKey", AIRSNumber & "30"),
-                    New SqlParameter("@strAIRSNumber", AIRSNumber),
-                    New SqlParameter("@strKey", "30"),
-                    New SqlParameter("@strContactFirstName", ContactFirstName),
-                    New SqlParameter("@strContactLastName", ContactLastName),
-                    New SqlParameter("@strContactPrefix", ContactPrefix),
-                    New SqlParameter("@strContactSuffix", ContactSuffix),
-                    New SqlParameter("@strContactTitle", ContactTitle),
-                    New SqlParameter("@strContactCompanyName", "N/A"),
-                    New SqlParameter("@strContactPhoneNumber1", ContactPhoneNumber),
-                    New SqlParameter("@strContactPhoneNumber2", "N/A"),
-                    New SqlParameter("@strContactFaxNumber", "N/A"),
-                    New SqlParameter("@strContactEmail", "N/A"),
-                    New SqlParameter("@strContactAddress1", MailingStreet),
-                    New SqlParameter("@strContactAddress2", "N/A"),
-                    New SqlParameter("@strContactCity", MailingCity),
-                    New SqlParameter("@strContactState", MailingState),
-                    New SqlParameter("@strContactZipCode", MailingZipCode),
-                    New SqlParameter("@strModifingPerson", CurrentUser.UserID)
+                New SqlParameter("@key", "30"),
+                New SqlParameter("@facilityId", AIRSNumber),
+                New SqlParameter("@firstName", ContactFirstName),
+                New SqlParameter("@lastName", ContactLastName),
+                New SqlParameter("@prefix", ContactPrefix),
+                New SqlParameter("@suffix", ContactSuffix),
+                New SqlParameter("@title", ContactTitle),
+                New SqlParameter("@organization", Nothing),
+                New SqlParameter("@telephone", ContactPhoneNumber),
+                New SqlParameter("@telephone2", Nothing),
+                New SqlParameter("@fax", Nothing),
+                New SqlParameter("@email", Nothing),
+                New SqlParameter("@address1", MailingStreet),
+                New SqlParameter("@address2", Nothing),
+                New SqlParameter("@city", MailingCity),
+                New SqlParameter("@state", MailingState),
+                New SqlParameter("@postalCode", MailingZipCode),
+                New SqlParameter("@userId", CurrentUser.UserID),
+                New SqlParameter("@description", Comments)
             }
 
-            DB.RunCommand(SQL, p6)
+            DB.SPRunCommand(spName, p6)
 
             Dim os As FacilityOperationalStatus = CType([Enum].Parse(GetType(FacilityOperationalStatus), OperatingStatus), FacilityOperationalStatus)
 

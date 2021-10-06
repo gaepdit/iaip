@@ -11,6 +11,10 @@ Partial Class IAIPFacilitySummary
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPFacilitySummary))
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -19,10 +23,6 @@ Partial Class IAIPFacilitySummary
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -43,14 +43,6 @@ Partial Class IAIPFacilitySummary
         Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle40 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.NavigationPanel = New System.Windows.Forms.Panel()
         Me.FacilitySearchButton = New System.Windows.Forms.Button()
         Me.AirsNumberEntry = New Iaip.CueTextBox()
@@ -96,6 +88,8 @@ Partial Class IAIPFacilitySummary
         Me.MapCountyLink = New System.Windows.Forms.LinkLabel()
         Me.MapAddressLink = New System.Windows.Forms.LinkLabel()
         Me.FSHeaderData = New System.Windows.Forms.TabPage()
+        Me.OtherHeaderData = New System.Windows.Forms.GroupBox()
+        Me.OtherHeaderDataListBox = New System.Windows.Forms.ListBox()
         Me.ProgramClassificationsGroupBox = New System.Windows.Forms.GroupBox()
         Me.ProgramClassificationsListBox = New System.Windows.Forms.ListBox()
         Me.AirProgramsGroupBox = New System.Windows.Forms.GroupBox()
@@ -130,20 +124,19 @@ Partial Class IAIPFacilitySummary
         Me.EditPollutantsButton = New System.Windows.Forms.Button()
         Me.FSContacts = New System.Windows.Forms.TabPage()
         Me.ContactsTabControl = New System.Windows.Forms.TabControl()
-        Me.TPStateContacts = New System.Windows.Forms.TabPage()
-        Me.ContactsStateGrid = New Iaip.IaipDataGridView()
-        Me.TPWebContacts = New System.Windows.Forms.TabPage()
-        Me.ContactsWebSiteGrid = New Iaip.IaipDataGridView()
-        Me.TPSSPPContacts = New System.Windows.Forms.TabPage()
-        Me.ContactsPermittingGrid = New Iaip.IaipDataGridView()
-        Me.TPISMPContacts = New System.Windows.Forms.TabPage()
-        Me.ContactsTestingGrid = New Iaip.IaipDataGridView()
-        Me.TPSSCPContacts = New System.Windows.Forms.TabPage()
-        Me.ContactsComplianceGrid = New Iaip.IaipDataGridView()
-        Me.TPGECOContacts = New System.Windows.Forms.TabPage()
-        Me.ContactsGecoGrid = New Iaip.IaipDataGridView()
-        Me.EditContactsPanel = New System.Windows.Forms.Panel()
+        Me.TPContactsStaff = New System.Windows.Forms.TabPage()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.ContactsStaffGrid = New Iaip.IaipDataGridView()
+        Me.TPContactsGeco = New System.Windows.Forms.TabPage()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.ContactsGecoFacilityGrid = New Iaip.IaipDataGridView()
+        Me.TPContactsFacility = New System.Windows.Forms.TabPage()
         Me.EditContactsButton = New System.Windows.Forms.Button()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.ContactsIaipFacilityGrid = New Iaip.IaipDataGridView()
+        Me.TPGecoUsers = New System.Windows.Forms.TabPage()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.ContactsGecoUsersGrid = New Iaip.IaipDataGridView()
         Me.FSTesting = New System.Windows.Forms.TabPage()
         Me.TestingTabControl = New System.Windows.Forms.TabControl()
         Me.TPTestReport = New System.Windows.Forms.TabPage()
@@ -244,31 +237,25 @@ Partial Class IAIPFacilitySummary
         Me.UpdateEpaMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OtherHeaderData = New System.Windows.Forms.GroupBox()
-        Me.OtherHeaderDataListBox = New System.Windows.Forms.ListBox()
         Me.NavigationPanel.SuspendLayout()
         Me.FSMainTabControl.SuspendLayout()
         Me.FSInfo.SuspendLayout()
         CType(Me.MapPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FSHeaderData.SuspendLayout()
+        Me.OtherHeaderData.SuspendLayout()
         Me.ProgramClassificationsGroupBox.SuspendLayout()
         Me.AirProgramsGroupBox.SuspendLayout()
         Me.NonattainmentStatuses.SuspendLayout()
         Me.FSContacts.SuspendLayout()
         Me.ContactsTabControl.SuspendLayout()
-        Me.TPStateContacts.SuspendLayout()
-        CType(Me.ContactsStateGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPWebContacts.SuspendLayout()
-        CType(Me.ContactsWebSiteGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPSSPPContacts.SuspendLayout()
-        CType(Me.ContactsPermittingGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPISMPContacts.SuspendLayout()
-        CType(Me.ContactsTestingGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPSSCPContacts.SuspendLayout()
-        CType(Me.ContactsComplianceGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPGECOContacts.SuspendLayout()
-        CType(Me.ContactsGecoGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.EditContactsPanel.SuspendLayout()
+        Me.TPContactsStaff.SuspendLayout()
+        CType(Me.ContactsStaffGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TPContactsGeco.SuspendLayout()
+        CType(Me.ContactsGecoFacilityGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TPContactsFacility.SuspendLayout()
+        CType(Me.ContactsIaipFacilityGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TPGecoUsers.SuspendLayout()
+        CType(Me.ContactsGecoUsersGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FSTesting.SuspendLayout()
         Me.TestingTabControl.SuspendLayout()
         Me.TPTestReport.SuspendLayout()
@@ -318,7 +305,6 @@ Partial Class IAIPFacilitySummary
         Me.TpEiPre2009.SuspendLayout()
         CType(Me.EiPre2009Grid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FSMenuStrip.SuspendLayout()
-        Me.OtherHeaderData.SuspendLayout()
         Me.SuspendLayout()
         '
         'NavigationPanel
@@ -908,6 +894,27 @@ Partial Class IAIPFacilitySummary
         Me.FSHeaderData.Text = "Header Data"
         Me.FSHeaderData.UseVisualStyleBackColor = True
         '
+        'OtherHeaderData
+        '
+        Me.OtherHeaderData.Controls.Add(Me.OtherHeaderDataListBox)
+        Me.OtherHeaderData.Location = New System.Drawing.Point(306, 347)
+        Me.OtherHeaderData.Name = "OtherHeaderData"
+        Me.OtherHeaderData.Size = New System.Drawing.Size(252, 55)
+        Me.OtherHeaderData.TabIndex = 352
+        Me.OtherHeaderData.TabStop = False
+        Me.OtherHeaderData.Text = "Other"
+        '
+        'OtherHeaderDataListBox
+        '
+        Me.OtherHeaderDataListBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.OtherHeaderDataListBox.FormattingEnabled = True
+        Me.OtherHeaderDataListBox.Items.AddRange(New Object() {"NSR/PSD Major", "HAPs Major"})
+        Me.OtherHeaderDataListBox.Location = New System.Drawing.Point(6, 19)
+        Me.OtherHeaderDataListBox.Name = "OtherHeaderDataListBox"
+        Me.OtherHeaderDataListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
+        Me.OtherHeaderDataListBox.Size = New System.Drawing.Size(145, 26)
+        Me.OtherHeaderDataListBox.TabIndex = 0
+        '
         'ProgramClassificationsGroupBox
         '
         Me.ProgramClassificationsGroupBox.Controls.Add(Me.ProgramClassificationsListBox)
@@ -1277,7 +1284,6 @@ Partial Class IAIPFacilitySummary
         'FSContacts
         '
         Me.FSContacts.Controls.Add(Me.ContactsTabControl)
-        Me.FSContacts.Controls.Add(Me.EditContactsPanel)
         Me.FSContacts.Location = New System.Drawing.Point(4, 22)
         Me.FSContacts.Name = "FSContacts"
         Me.FSContacts.Size = New System.Drawing.Size(596, 424)
@@ -1287,12 +1293,10 @@ Partial Class IAIPFacilitySummary
         '
         'ContactsTabControl
         '
-        Me.ContactsTabControl.Controls.Add(Me.TPStateContacts)
-        Me.ContactsTabControl.Controls.Add(Me.TPWebContacts)
-        Me.ContactsTabControl.Controls.Add(Me.TPSSPPContacts)
-        Me.ContactsTabControl.Controls.Add(Me.TPISMPContacts)
-        Me.ContactsTabControl.Controls.Add(Me.TPSSCPContacts)
-        Me.ContactsTabControl.Controls.Add(Me.TPGECOContacts)
+        Me.ContactsTabControl.Controls.Add(Me.TPContactsGeco)
+        Me.ContactsTabControl.Controls.Add(Me.TPContactsFacility)
+        Me.ContactsTabControl.Controls.Add(Me.TPContactsStaff)
+        Me.ContactsTabControl.Controls.Add(Me.TPGecoUsers)
         Me.ContactsTabControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ContactsTabControl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ContactsTabControl.HotTrack = True
@@ -1300,132 +1304,39 @@ Partial Class IAIPFacilitySummary
         Me.ContactsTabControl.Margin = New System.Windows.Forms.Padding(2)
         Me.ContactsTabControl.Name = "ContactsTabControl"
         Me.ContactsTabControl.SelectedIndex = 0
-        Me.ContactsTabControl.Size = New System.Drawing.Size(596, 384)
+        Me.ContactsTabControl.Size = New System.Drawing.Size(596, 424)
         Me.ContactsTabControl.TabIndex = 0
         '
-        'TPStateContacts
+        'TPContactsStaff
         '
-        Me.TPStateContacts.Controls.Add(Me.ContactsStateGrid)
-        Me.TPStateContacts.Location = New System.Drawing.Point(4, 22)
-        Me.TPStateContacts.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPStateContacts.Name = "TPStateContacts"
-        Me.TPStateContacts.Size = New System.Drawing.Size(588, 358)
-        Me.TPStateContacts.TabIndex = 4
-        Me.TPStateContacts.Text = "State Contacts"
-        Me.TPStateContacts.UseVisualStyleBackColor = True
+        Me.TPContactsStaff.Controls.Add(Me.Label4)
+        Me.TPContactsStaff.Controls.Add(Me.ContactsStaffGrid)
+        Me.TPContactsStaff.Location = New System.Drawing.Point(4, 22)
+        Me.TPContactsStaff.Margin = New System.Windows.Forms.Padding(2)
+        Me.TPContactsStaff.Name = "TPContactsStaff"
+        Me.TPContactsStaff.Size = New System.Drawing.Size(588, 398)
+        Me.TPContactsStaff.TabIndex = 4
+        Me.TPContactsStaff.Text = "EPD Staff"
+        Me.TPContactsStaff.UseVisualStyleBackColor = True
         '
-        'ContactsStateGrid
+        'Label4
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ContactsStateGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.ContactsStateGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        Me.ContactsStateGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsStateGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Me.ContactsStateGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.ContactsStateGrid.DefaultCellStyle = DataGridViewCellStyle3
-        Me.ContactsStateGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ContactsStateGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.ContactsStateGrid.LinkifyColumnByName = Nothing
-        Me.ContactsStateGrid.Location = New System.Drawing.Point(0, 0)
-        Me.ContactsStateGrid.Name = "ContactsStateGrid"
-        Me.ContactsStateGrid.ResultsCountLabel = Nothing
-        Me.ContactsStateGrid.ResultsCountLabelFormat = "{0} found"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsStateGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
-        Me.ContactsStateGrid.Size = New System.Drawing.Size(588, 358)
-        Me.ContactsStateGrid.StandardTab = True
-        Me.ContactsStateGrid.TabIndex = 0
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(4, 13)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(343, 13)
+        Me.Label4.TabIndex = 1
+        Me.Label4.Text = "This table lists EPD staff who have most recently worked on this facility."
         '
-        'TPWebContacts
-        '
-        Me.TPWebContacts.Controls.Add(Me.ContactsWebSiteGrid)
-        Me.TPWebContacts.Location = New System.Drawing.Point(4, 22)
-        Me.TPWebContacts.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPWebContacts.Name = "TPWebContacts"
-        Me.TPWebContacts.Size = New System.Drawing.Size(588, 358)
-        Me.TPWebContacts.TabIndex = 0
-        Me.TPWebContacts.Text = "Web Site"
-        Me.TPWebContacts.UseVisualStyleBackColor = True
-        '
-        'ContactsWebSiteGrid
-        '
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ContactsWebSiteGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
-        Me.ContactsWebSiteGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        Me.ContactsWebSiteGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsWebSiteGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
-        Me.ContactsWebSiteGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.ContactsWebSiteGrid.DefaultCellStyle = DataGridViewCellStyle7
-        Me.ContactsWebSiteGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ContactsWebSiteGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.ContactsWebSiteGrid.LinkifyColumnByName = Nothing
-        Me.ContactsWebSiteGrid.Location = New System.Drawing.Point(0, 0)
-        Me.ContactsWebSiteGrid.Name = "ContactsWebSiteGrid"
-        Me.ContactsWebSiteGrid.ResultsCountLabel = Nothing
-        Me.ContactsWebSiteGrid.ResultsCountLabelFormat = "{0} found"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsWebSiteGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
-        Me.ContactsWebSiteGrid.Size = New System.Drawing.Size(588, 358)
-        Me.ContactsWebSiteGrid.StandardTab = True
-        Me.ContactsWebSiteGrid.TabIndex = 7
-        '
-        'TPSSPPContacts
-        '
-        Me.TPSSPPContacts.Controls.Add(Me.ContactsPermittingGrid)
-        Me.TPSSPPContacts.Location = New System.Drawing.Point(4, 22)
-        Me.TPSSPPContacts.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPSSPPContacts.Name = "TPSSPPContacts"
-        Me.TPSSPPContacts.Size = New System.Drawing.Size(588, 358)
-        Me.TPSSPPContacts.TabIndex = 1
-        Me.TPSSPPContacts.Text = "Permitting"
-        Me.TPSSPPContacts.UseVisualStyleBackColor = True
-        '
-        'ContactsPermittingGrid
+        'ContactsStaffGrid
         '
         DataGridViewCellStyle9.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ContactsPermittingGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
-        Me.ContactsPermittingGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        Me.ContactsPermittingGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.ContactsStaffGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        Me.ContactsStaffGrid.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ContactsStaffGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.ContactsStaffGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1433,8 +1344,8 @@ Partial Class IAIPFacilitySummary
         DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsPermittingGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
-        Me.ContactsPermittingGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.ContactsStaffGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        Me.ContactsStaffGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1442,14 +1353,13 @@ Partial Class IAIPFacilitySummary
         DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.ContactsPermittingGrid.DefaultCellStyle = DataGridViewCellStyle11
-        Me.ContactsPermittingGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ContactsPermittingGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.ContactsPermittingGrid.LinkifyColumnByName = Nothing
-        Me.ContactsPermittingGrid.Location = New System.Drawing.Point(0, 0)
-        Me.ContactsPermittingGrid.Name = "ContactsPermittingGrid"
-        Me.ContactsPermittingGrid.ResultsCountLabel = Nothing
-        Me.ContactsPermittingGrid.ResultsCountLabelFormat = "{0} found"
+        Me.ContactsStaffGrid.DefaultCellStyle = DataGridViewCellStyle11
+        Me.ContactsStaffGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ContactsStaffGrid.LinkifyColumnByName = Nothing
+        Me.ContactsStaffGrid.Location = New System.Drawing.Point(0, 42)
+        Me.ContactsStaffGrid.Name = "ContactsStaffGrid"
+        Me.ContactsStaffGrid.ResultsCountLabel = Nothing
+        Me.ContactsStaffGrid.ResultsCountLabelFormat = "{0} found"
         DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1457,28 +1367,181 @@ Partial Class IAIPFacilitySummary
         DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsPermittingGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
-        Me.ContactsPermittingGrid.Size = New System.Drawing.Size(588, 358)
-        Me.ContactsPermittingGrid.StandardTab = True
-        Me.ContactsPermittingGrid.TabIndex = 7
+        Me.ContactsStaffGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+        Me.ContactsStaffGrid.Size = New System.Drawing.Size(588, 356)
+        Me.ContactsStaffGrid.StandardTab = True
+        Me.ContactsStaffGrid.TabIndex = 0
         '
-        'TPISMPContacts
+        'TPContactsGeco
         '
-        Me.TPISMPContacts.Controls.Add(Me.ContactsTestingGrid)
-        Me.TPISMPContacts.Location = New System.Drawing.Point(4, 22)
-        Me.TPISMPContacts.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPISMPContacts.Name = "TPISMPContacts"
-        Me.TPISMPContacts.Size = New System.Drawing.Size(588, 358)
-        Me.TPISMPContacts.TabIndex = 2
-        Me.TPISMPContacts.Text = "Source Monitoring"
-        Me.TPISMPContacts.UseVisualStyleBackColor = True
+        Me.TPContactsGeco.Controls.Add(Me.Label3)
+        Me.TPContactsGeco.Controls.Add(Me.ContactsGecoFacilityGrid)
+        Me.TPContactsGeco.Location = New System.Drawing.Point(4, 22)
+        Me.TPContactsGeco.Name = "TPContactsGeco"
+        Me.TPContactsGeco.Size = New System.Drawing.Size(588, 398)
+        Me.TPContactsGeco.TabIndex = 6
+        Me.TPContactsGeco.Text = "GECO Contacts"
+        Me.TPContactsGeco.UseVisualStyleBackColor = True
         '
-        'ContactsTestingGrid
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(4, 13)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(339, 13)
+        Me.Label3.TabIndex = 9
+        Me.Label3.Text = "This table lists contacts entered and/or verified by the facility in GECO."
+        '
+        'ContactsGecoFacilityGrid
+        '
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ContactsGecoFacilityGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.ContactsGecoFacilityGrid.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ContactsGecoFacilityGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsGecoFacilityGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        Me.ContactsGecoFacilityGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.ContactsGecoFacilityGrid.DefaultCellStyle = DataGridViewCellStyle3
+        Me.ContactsGecoFacilityGrid.LinkifyColumnByName = Nothing
+        Me.ContactsGecoFacilityGrid.Location = New System.Drawing.Point(0, 42)
+        Me.ContactsGecoFacilityGrid.Name = "ContactsGecoFacilityGrid"
+        Me.ContactsGecoFacilityGrid.ResultsCountLabel = Nothing
+        Me.ContactsGecoFacilityGrid.ResultsCountLabelFormat = "{0} found"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsGecoFacilityGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
+        Me.ContactsGecoFacilityGrid.Size = New System.Drawing.Size(588, 356)
+        Me.ContactsGecoFacilityGrid.StandardTab = True
+        Me.ContactsGecoFacilityGrid.TabIndex = 0
+        '
+        'TPContactsFacility
+        '
+        Me.TPContactsFacility.Controls.Add(Me.EditContactsButton)
+        Me.TPContactsFacility.Controls.Add(Me.Label6)
+        Me.TPContactsFacility.Controls.Add(Me.ContactsIaipFacilityGrid)
+        Me.TPContactsFacility.Location = New System.Drawing.Point(4, 22)
+        Me.TPContactsFacility.Margin = New System.Windows.Forms.Padding(2)
+        Me.TPContactsFacility.Name = "TPContactsFacility"
+        Me.TPContactsFacility.Size = New System.Drawing.Size(588, 398)
+        Me.TPContactsFacility.TabIndex = 0
+        Me.TPContactsFacility.Text = "Facility Contacts"
+        Me.TPContactsFacility.UseVisualStyleBackColor = True
+        '
+        'EditContactsButton
+        '
+        Me.EditContactsButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.EditContactsButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.EditContactsButton.Location = New System.Drawing.Point(4, 371)
+        Me.EditContactsButton.Name = "EditContactsButton"
+        Me.EditContactsButton.Size = New System.Drawing.Size(97, 23)
+        Me.EditContactsButton.TabIndex = 0
+        Me.EditContactsButton.Text = "Edit Contacts"
+        Me.EditContactsButton.UseVisualStyleBackColor = True
+        '
+        'Label6
+        '
+        Me.Label6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label6.Location = New System.Drawing.Point(4, 13)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(580, 26)
+        Me.Label6.TabIndex = 8
+        Me.Label6.Text = resources.GetString("Label6.Text")
+        '
+        'ContactsIaipFacilityGrid
+        '
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ContactsIaipFacilityGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        Me.ContactsIaipFacilityGrid.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ContactsIaipFacilityGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.ContactsIaipFacilityGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsIaipFacilityGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
+        Me.ContactsIaipFacilityGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.ContactsIaipFacilityGrid.DefaultCellStyle = DataGridViewCellStyle7
+        Me.ContactsIaipFacilityGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ContactsIaipFacilityGrid.LinkifyColumnByName = Nothing
+        Me.ContactsIaipFacilityGrid.Location = New System.Drawing.Point(0, 55)
+        Me.ContactsIaipFacilityGrid.Name = "ContactsIaipFacilityGrid"
+        Me.ContactsIaipFacilityGrid.ResultsCountLabel = Nothing
+        Me.ContactsIaipFacilityGrid.ResultsCountLabelFormat = "{0} found"
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsIaipFacilityGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
+        Me.ContactsIaipFacilityGrid.Size = New System.Drawing.Size(588, 310)
+        Me.ContactsIaipFacilityGrid.StandardTab = True
+        Me.ContactsIaipFacilityGrid.TabIndex = 7
+        '
+        'TPGecoUsers
+        '
+        Me.TPGecoUsers.Controls.Add(Me.Label5)
+        Me.TPGecoUsers.Controls.Add(Me.ContactsGecoUsersGrid)
+        Me.TPGecoUsers.Location = New System.Drawing.Point(4, 22)
+        Me.TPGecoUsers.Name = "TPGecoUsers"
+        Me.TPGecoUsers.Size = New System.Drawing.Size(588, 398)
+        Me.TPGecoUsers.TabIndex = 5
+        Me.TPGecoUsers.Text = "GECO Online Users"
+        Me.TPGecoUsers.UseVisualStyleBackColor = True
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(4, 13)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(389, 13)
+        Me.Label5.TabIndex = 8
+        Me.Label5.Text = "This table lists the GECO user accounts that have access to this facility in GECO" &
+    "."
+        '
+        'ContactsGecoUsersGrid
         '
         DataGridViewCellStyle13.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ContactsTestingGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
-        Me.ContactsTestingGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        Me.ContactsTestingGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.ContactsGecoUsersGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        Me.ContactsGecoUsersGrid.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ContactsGecoUsersGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.ContactsGecoUsersGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1486,8 +1549,8 @@ Partial Class IAIPFacilitySummary
         DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsTestingGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
-        Me.ContactsTestingGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.ContactsGecoUsersGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
+        Me.ContactsGecoUsersGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1495,14 +1558,13 @@ Partial Class IAIPFacilitySummary
         DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.ContactsTestingGrid.DefaultCellStyle = DataGridViewCellStyle15
-        Me.ContactsTestingGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ContactsTestingGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.ContactsTestingGrid.LinkifyColumnByName = Nothing
-        Me.ContactsTestingGrid.Location = New System.Drawing.Point(0, 0)
-        Me.ContactsTestingGrid.Name = "ContactsTestingGrid"
-        Me.ContactsTestingGrid.ResultsCountLabel = Nothing
-        Me.ContactsTestingGrid.ResultsCountLabelFormat = "{0} found"
+        Me.ContactsGecoUsersGrid.DefaultCellStyle = DataGridViewCellStyle15
+        Me.ContactsGecoUsersGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ContactsGecoUsersGrid.LinkifyColumnByName = Nothing
+        Me.ContactsGecoUsersGrid.Location = New System.Drawing.Point(0, 42)
+        Me.ContactsGecoUsersGrid.Name = "ContactsGecoUsersGrid"
+        Me.ContactsGecoUsersGrid.ResultsCountLabel = Nothing
+        Me.ContactsGecoUsersGrid.ResultsCountLabelFormat = "{0} found"
         DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1510,135 +1572,10 @@ Partial Class IAIPFacilitySummary
         DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsTestingGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle16
-        Me.ContactsTestingGrid.Size = New System.Drawing.Size(588, 358)
-        Me.ContactsTestingGrid.StandardTab = True
-        Me.ContactsTestingGrid.TabIndex = 7
-        '
-        'TPSSCPContacts
-        '
-        Me.TPSSCPContacts.Controls.Add(Me.ContactsComplianceGrid)
-        Me.TPSSCPContacts.Location = New System.Drawing.Point(4, 22)
-        Me.TPSSCPContacts.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPSSCPContacts.Name = "TPSSCPContacts"
-        Me.TPSSCPContacts.Size = New System.Drawing.Size(588, 358)
-        Me.TPSSCPContacts.TabIndex = 3
-        Me.TPSSCPContacts.Text = "Compliance"
-        Me.TPSSCPContacts.UseVisualStyleBackColor = True
-        '
-        'ContactsComplianceGrid
-        '
-        DataGridViewCellStyle17.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ContactsComplianceGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle17
-        Me.ContactsComplianceGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        Me.ContactsComplianceGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsComplianceGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle18
-        Me.ContactsComplianceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.ContactsComplianceGrid.DefaultCellStyle = DataGridViewCellStyle19
-        Me.ContactsComplianceGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ContactsComplianceGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.ContactsComplianceGrid.LinkifyColumnByName = Nothing
-        Me.ContactsComplianceGrid.Location = New System.Drawing.Point(0, 0)
-        Me.ContactsComplianceGrid.Name = "ContactsComplianceGrid"
-        Me.ContactsComplianceGrid.ResultsCountLabel = Nothing
-        Me.ContactsComplianceGrid.ResultsCountLabelFormat = "{0} found"
-        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsComplianceGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle20
-        Me.ContactsComplianceGrid.Size = New System.Drawing.Size(588, 358)
-        Me.ContactsComplianceGrid.StandardTab = True
-        Me.ContactsComplianceGrid.TabIndex = 7
-        '
-        'TPGECOContacts
-        '
-        Me.TPGECOContacts.Controls.Add(Me.ContactsGecoGrid)
-        Me.TPGECOContacts.Location = New System.Drawing.Point(4, 22)
-        Me.TPGECOContacts.Name = "TPGECOContacts"
-        Me.TPGECOContacts.Size = New System.Drawing.Size(588, 358)
-        Me.TPGECOContacts.TabIndex = 5
-        Me.TPGECOContacts.Text = "GECO (online users)"
-        Me.TPGECOContacts.UseVisualStyleBackColor = True
-        '
-        'ContactsGecoGrid
-        '
-        DataGridViewCellStyle21.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ContactsGecoGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle21
-        Me.ContactsGecoGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        Me.ContactsGecoGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsGecoGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle22
-        Me.ContactsGecoGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.ContactsGecoGrid.DefaultCellStyle = DataGridViewCellStyle23
-        Me.ContactsGecoGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ContactsGecoGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.ContactsGecoGrid.LinkifyColumnByName = Nothing
-        Me.ContactsGecoGrid.Location = New System.Drawing.Point(0, 0)
-        Me.ContactsGecoGrid.Name = "ContactsGecoGrid"
-        Me.ContactsGecoGrid.ResultsCountLabel = Nothing
-        Me.ContactsGecoGrid.ResultsCountLabelFormat = "{0} found"
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsGecoGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle24
-        Me.ContactsGecoGrid.Size = New System.Drawing.Size(588, 358)
-        Me.ContactsGecoGrid.StandardTab = True
-        Me.ContactsGecoGrid.TabIndex = 7
-        '
-        'EditContactsPanel
-        '
-        Me.EditContactsPanel.Controls.Add(Me.EditContactsButton)
-        Me.EditContactsPanel.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.EditContactsPanel.Location = New System.Drawing.Point(0, 384)
-        Me.EditContactsPanel.Name = "EditContactsPanel"
-        Me.EditContactsPanel.Size = New System.Drawing.Size(596, 40)
-        Me.EditContactsPanel.TabIndex = 1
-        '
-        'EditContactsButton
-        '
-        Me.EditContactsButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.EditContactsButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.EditContactsButton.Location = New System.Drawing.Point(8, 9)
-        Me.EditContactsButton.Name = "EditContactsButton"
-        Me.EditContactsButton.Size = New System.Drawing.Size(97, 23)
-        Me.EditContactsButton.TabIndex = 0
-        Me.EditContactsButton.Text = "Edit Contacts"
-        Me.EditContactsButton.UseVisualStyleBackColor = True
+        Me.ContactsGecoUsersGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle16
+        Me.ContactsGecoUsersGrid.Size = New System.Drawing.Size(588, 356)
+        Me.ContactsGecoUsersGrid.StandardTab = True
+        Me.ContactsGecoUsersGrid.TabIndex = 7
         '
         'FSTesting
         '
@@ -1675,8 +1612,8 @@ Partial Class IAIPFacilitySummary
         '
         'TestReportsGrid
         '
-        DataGridViewCellStyle25.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.TestReportsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
+        DataGridViewCellStyle17.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.TestReportsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle17
         Me.TestReportsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.TestReportsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.TestReportsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -1704,8 +1641,8 @@ Partial Class IAIPFacilitySummary
         '
         'TestNotificationsGrid
         '
-        DataGridViewCellStyle26.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.TestNotificationsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle18.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.TestNotificationsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle18
         Me.TestNotificationsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.TestNotificationsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.TestNotificationsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -1733,8 +1670,8 @@ Partial Class IAIPFacilitySummary
         '
         'TestMemosGrid
         '
-        DataGridViewCellStyle27.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.TestMemosGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle27
+        DataGridViewCellStyle19.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.TestMemosGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle19
         Me.TestMemosGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.TestMemosGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.TestMemosGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -1785,8 +1722,8 @@ Partial Class IAIPFacilitySummary
         '
         'ComplianceWorkGrid
         '
-        DataGridViewCellStyle28.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ComplianceWorkGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle28
+        DataGridViewCellStyle20.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ComplianceWorkGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle20
         Me.ComplianceWorkGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.ComplianceWorkGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.ComplianceWorkGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -1814,8 +1751,8 @@ Partial Class IAIPFacilitySummary
         '
         'ComplianceFceGrid
         '
-        DataGridViewCellStyle29.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ComplianceFceGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle29
+        DataGridViewCellStyle21.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ComplianceFceGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle21
         Me.ComplianceFceGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.ComplianceFceGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.ComplianceFceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -1843,8 +1780,8 @@ Partial Class IAIPFacilitySummary
         '
         'ComplianceEnforcementGrid
         '
-        DataGridViewCellStyle30.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ComplianceEnforcementGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle30
+        DataGridViewCellStyle22.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ComplianceEnforcementGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle22
         Me.ComplianceEnforcementGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.ComplianceEnforcementGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.ComplianceEnforcementGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -1897,8 +1834,8 @@ Partial Class IAIPFacilitySummary
         '
         'PermitApplicationGrid
         '
-        DataGridViewCellStyle31.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.PermitApplicationGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle31
+        DataGridViewCellStyle23.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PermitApplicationGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle23
         Me.PermitApplicationGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.PermitApplicationGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.PermitApplicationGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -1925,8 +1862,8 @@ Partial Class IAIPFacilitySummary
         '
         'PermitApplicationInvoicesGrid
         '
-        DataGridViewCellStyle32.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.PermitApplicationInvoicesGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle32
+        DataGridViewCellStyle24.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PermitApplicationInvoicesGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle24
         Me.PermitApplicationInvoicesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.PermitApplicationInvoicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.PermitApplicationInvoicesGrid.Dock = System.Windows.Forms.DockStyle.Fill
@@ -1951,8 +1888,8 @@ Partial Class IAIPFacilitySummary
         '
         'PermitRulesGrid
         '
-        DataGridViewCellStyle33.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.PermitRulesGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle33
+        DataGridViewCellStyle25.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PermitRulesGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
         Me.PermitRulesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.PermitRulesGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.PermitRulesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -1979,8 +1916,8 @@ Partial Class IAIPFacilitySummary
         '
         'PermitRuleHistoryGrid
         '
-        DataGridViewCellStyle34.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.PermitRuleHistoryGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle34
+        DataGridViewCellStyle26.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PermitRuleHistoryGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle26
         Me.PermitRuleHistoryGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.PermitRuleHistoryGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.PermitRuleHistoryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -2008,8 +1945,8 @@ Partial Class IAIPFacilitySummary
         '
         'PermitsGrid
         '
-        DataGridViewCellStyle35.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.PermitsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle35
+        DataGridViewCellStyle27.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PermitsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle27
         Me.PermitsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.PermitsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.PermitsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -2607,8 +2544,8 @@ Partial Class IAIPFacilitySummary
         '
         'FinancialFeeGrid
         '
-        DataGridViewCellStyle36.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.FinancialFeeGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle36
+        DataGridViewCellStyle28.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.FinancialFeeGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle28
         Me.FinancialFeeGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.FinancialFeeGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.FinancialFeeGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -2635,8 +2572,8 @@ Partial Class IAIPFacilitySummary
         '
         'FinancialInvoicesGrid
         '
-        DataGridViewCellStyle37.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.FinancialInvoicesGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle37
+        DataGridViewCellStyle29.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.FinancialInvoicesGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle29
         Me.FinancialInvoicesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.FinancialInvoicesGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.FinancialInvoicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -2663,8 +2600,8 @@ Partial Class IAIPFacilitySummary
         '
         'FinancialDepositsGrid
         '
-        DataGridViewCellStyle38.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.FinancialDepositsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle38
+        DataGridViewCellStyle30.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.FinancialDepositsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle30
         Me.FinancialDepositsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.FinancialDepositsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.FinancialDepositsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -2713,8 +2650,8 @@ Partial Class IAIPFacilitySummary
         '
         'EiPost2009Grid
         '
-        DataGridViewCellStyle39.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.EiPost2009Grid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle39
+        DataGridViewCellStyle31.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.EiPost2009Grid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle31
         Me.EiPost2009Grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.EiPost2009Grid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.EiPost2009Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -2742,8 +2679,8 @@ Partial Class IAIPFacilitySummary
         '
         'EiPre2009Grid
         '
-        DataGridViewCellStyle40.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.EiPre2009Grid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle40
+        DataGridViewCellStyle32.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.EiPre2009Grid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle32
         Me.EiPre2009Grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.EiPre2009Grid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.EiPre2009Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -2844,27 +2781,6 @@ Partial Class IAIPFacilitySummary
         Me.HelpMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.HelpMenuItem.Text = "Online &Help"
         '
-        'OtherHeaderData
-        '
-        Me.OtherHeaderData.Controls.Add(Me.OtherHeaderDataListBox)
-        Me.OtherHeaderData.Location = New System.Drawing.Point(306, 347)
-        Me.OtherHeaderData.Name = "OtherHeaderData"
-        Me.OtherHeaderData.Size = New System.Drawing.Size(252, 55)
-        Me.OtherHeaderData.TabIndex = 352
-        Me.OtherHeaderData.TabStop = False
-        Me.OtherHeaderData.Text = "Other"
-        '
-        'OtherHeaderDataListBox
-        '
-        Me.OtherHeaderDataListBox.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.OtherHeaderDataListBox.FormattingEnabled = True
-        Me.OtherHeaderDataListBox.Items.AddRange(New Object() {"NSR/PSD Major", "HAPs Major"})
-        Me.OtherHeaderDataListBox.Location = New System.Drawing.Point(6, 19)
-        Me.OtherHeaderDataListBox.Name = "OtherHeaderDataListBox"
-        Me.OtherHeaderDataListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.OtherHeaderDataListBox.Size = New System.Drawing.Size(145, 26)
-        Me.OtherHeaderDataListBox.TabIndex = 0
-        '
         'IAIPFacilitySummary
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2885,25 +2801,24 @@ Partial Class IAIPFacilitySummary
         CType(Me.MapPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FSHeaderData.ResumeLayout(False)
         Me.FSHeaderData.PerformLayout()
+        Me.OtherHeaderData.ResumeLayout(False)
         Me.ProgramClassificationsGroupBox.ResumeLayout(False)
         Me.AirProgramsGroupBox.ResumeLayout(False)
         Me.NonattainmentStatuses.ResumeLayout(False)
         Me.NonattainmentStatuses.PerformLayout()
         Me.FSContacts.ResumeLayout(False)
         Me.ContactsTabControl.ResumeLayout(False)
-        Me.TPStateContacts.ResumeLayout(False)
-        CType(Me.ContactsStateGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPWebContacts.ResumeLayout(False)
-        CType(Me.ContactsWebSiteGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPSSPPContacts.ResumeLayout(False)
-        CType(Me.ContactsPermittingGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPISMPContacts.ResumeLayout(False)
-        CType(Me.ContactsTestingGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPSSCPContacts.ResumeLayout(False)
-        CType(Me.ContactsComplianceGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPGECOContacts.ResumeLayout(False)
-        CType(Me.ContactsGecoGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.EditContactsPanel.ResumeLayout(False)
+        Me.TPContactsStaff.ResumeLayout(False)
+        Me.TPContactsStaff.PerformLayout()
+        CType(Me.ContactsStaffGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TPContactsGeco.ResumeLayout(False)
+        Me.TPContactsGeco.PerformLayout()
+        CType(Me.ContactsGecoFacilityGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TPContactsFacility.ResumeLayout(False)
+        CType(Me.ContactsIaipFacilityGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TPGecoUsers.ResumeLayout(False)
+        Me.TPGecoUsers.PerformLayout()
+        CType(Me.ContactsGecoUsersGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FSTesting.ResumeLayout(False)
         Me.TestingTabControl.ResumeLayout(False)
         Me.TPTestReport.ResumeLayout(False)
@@ -2960,7 +2875,6 @@ Partial Class IAIPFacilitySummary
         CType(Me.EiPre2009Grid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FSMenuStrip.ResumeLayout(False)
         Me.FSMenuStrip.PerformLayout()
-        Me.OtherHeaderData.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2981,12 +2895,9 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents EditPollutantsButton As System.Windows.Forms.Button
     Friend WithEvents EditSubpartsButton As System.Windows.Forms.Button
     Friend WithEvents ContactsTabControl As System.Windows.Forms.TabControl
-    Friend WithEvents TPStateContacts As System.Windows.Forms.TabPage
-    Friend WithEvents TPWebContacts As System.Windows.Forms.TabPage
-    Friend WithEvents TPSSPPContacts As System.Windows.Forms.TabPage
-    Friend WithEvents TPISMPContacts As System.Windows.Forms.TabPage
-    Friend WithEvents TPSSCPContacts As System.Windows.Forms.TabPage
-    Friend WithEvents TPGECOContacts As System.Windows.Forms.TabPage
+    Friend WithEvents TPContactsStaff As System.Windows.Forms.TabPage
+    Friend WithEvents TPContactsFacility As System.Windows.Forms.TabPage
+    Friend WithEvents TPGecoUsers As System.Windows.Forms.TabPage
     Friend WithEvents FeeSubmitDateLabel As System.Windows.Forms.Label
     Friend WithEvents FeePaidLabel As System.Windows.Forms.Label
     Friend WithEvents FeeRegGroupBox As System.Windows.Forms.GroupBox
@@ -3024,7 +2935,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents TPEmissionsDeposits As System.Windows.Forms.TabPage
     Friend WithEvents EditFacilityLocationButton As System.Windows.Forms.Button
     Friend WithEvents EditHeaderDataButton As System.Windows.Forms.Button
-    Friend WithEvents EditContactsPanel As System.Windows.Forms.Panel
     Friend WithEvents EditContactsButton As System.Windows.Forms.Button
     Friend WithEvents FeeAdminLabel As System.Windows.Forms.Label
     Friend WithEvents TPEmissionsInvoices As System.Windows.Forms.TabPage
@@ -3122,12 +3032,9 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents CountyDisplay As System.Windows.Forms.TextBox
     Friend WithEvents AirsNumberEntry As Iaip.CueTextBox
     Friend WithEvents FacilitySearchButton As System.Windows.Forms.Button
-    Friend WithEvents ContactsStateGrid As Iaip.IaipDataGridView
-    Friend WithEvents ContactsWebSiteGrid As Iaip.IaipDataGridView
-    Friend WithEvents ContactsPermittingGrid As Iaip.IaipDataGridView
-    Friend WithEvents ContactsTestingGrid As Iaip.IaipDataGridView
-    Friend WithEvents ContactsComplianceGrid As Iaip.IaipDataGridView
-    Friend WithEvents ContactsGecoGrid As Iaip.IaipDataGridView
+    Friend WithEvents ContactsStaffGrid As Iaip.IaipDataGridView
+    Friend WithEvents ContactsIaipFacilityGrid As Iaip.IaipDataGridView
+    Friend WithEvents ContactsGecoUsersGrid As Iaip.IaipDataGridView
     Friend WithEvents TPTestReport As System.Windows.Forms.TabPage
     Friend WithEvents TestReportsGrid As Iaip.IaipDataGridView
     Friend WithEvents TestNotificationsGrid As Iaip.IaipDataGridView
@@ -3160,4 +3067,10 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents Label2 As Label
     Friend WithEvents OtherHeaderData As GroupBox
     Friend WithEvents OtherHeaderDataListBox As ListBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents TPContactsGeco As TabPage
+    Friend WithEvents ContactsGecoFacilityGrid As IaipDataGridView
+    Friend WithEvents Label3 As Label
 End Class

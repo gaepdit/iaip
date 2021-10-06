@@ -23,9 +23,15 @@ Partial Class FeesAudit
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TabControl3 = New System.Windows.Forms.TabControl()
         Me.TPGECOSubmittal = New System.Windows.Forms.TabPage()
-        Me.dgvInvoiceData = New System.Windows.Forms.DataGridView()
+        Me.dgvInvoiceData = New Iaip.IaipDataGridView()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.lnkPrintActiveInvoices = New System.Windows.Forms.LinkLabel()
         Me.llbAuditPerformed = New System.Windows.Forms.Label()
@@ -52,7 +58,7 @@ Partial Class FeesAudit
         Me.txtInvoiceDataOfficialName = New System.Windows.Forms.TextBox()
         Me.Label79 = New System.Windows.Forms.Label()
         Me.txtInvoiceDataPaymentType = New System.Windows.Forms.TextBox()
-        Me.dgvInvoiceDataNSPSExemptions = New System.Windows.Forms.DataGridView()
+        Me.dgvInvoiceDataNSPSExemptions = New Iaip.IaipDataGridView()
         Me.chbInvoiceDataSyntheticMinor = New System.Windows.Forms.CheckBox()
         Me.chbInvoiceDataPart70 = New System.Windows.Forms.CheckBox()
         Me.chbInvoicedataNonAttainment = New System.Windows.Forms.CheckBox()
@@ -83,9 +89,9 @@ Partial Class FeesAudit
         Me.Label80 = New System.Windows.Forms.Label()
         Me.txtInvoiceClassification = New System.Windows.Forms.TextBox()
         Me.TPGECOSubmittalContact = New System.Windows.Forms.TabPage()
-        Me.dgvGECOFeeContacts = New System.Windows.Forms.DataGridView()
+        Me.dgvGECOFeeContacts = New Iaip.IaipDataGridView()
         Me.Panel16 = New System.Windows.Forms.Panel()
-        Me.txtGECOContactPhontNumber = New System.Windows.Forms.TextBox()
+        Me.txtGECOContactPhoneNumber = New System.Windows.Forms.TextBox()
         Me.txtGECOContactSalutation = New System.Windows.Forms.TextBox()
         Me.btnGECOViewPastContacts = New System.Windows.Forms.Button()
         Me.txtGECOContactFirstName = New System.Windows.Forms.TextBox()
@@ -106,14 +112,12 @@ Partial Class FeesAudit
         Me.txtGECOContactCompanyName = New System.Windows.Forms.TextBox()
         Me.txtGECOContactEmail = New System.Windows.Forms.TextBox()
         Me.Label71 = New System.Windows.Forms.Label()
-        Me.Label75 = New System.Windows.Forms.Label()
         Me.txtGECOContactTitle = New System.Windows.Forms.TextBox()
-        Me.txtGECOContactComments = New System.Windows.Forms.TextBox()
         Me.Label72 = New System.Windows.Forms.Label()
         Me.Label74 = New System.Windows.Forms.Label()
         Me.Label73 = New System.Windows.Forms.Label()
         Me.TPInvoices = New System.Windows.Forms.TabPage()
-        Me.dgvInvoices = New System.Windows.Forms.DataGridView()
+        Me.dgvInvoices = New Iaip.IaipDataGridView()
         Me.Panel34 = New System.Windows.Forms.Panel()
         Me.lnkPrintSelectedInvoice = New System.Windows.Forms.LinkLabel()
         Me.lblAdminFee = New System.Windows.Forms.Label()
@@ -147,7 +151,7 @@ Partial Class FeesAudit
         Me.txtInvoice = New System.Windows.Forms.TextBox()
         Me.btnVOIDAllUnpaid = New System.Windows.Forms.Button()
         Me.TPTransactions = New System.Windows.Forms.TabPage()
-        Me.dgvTransactions = New System.Windows.Forms.DataGridView()
+        Me.dgvTransactions = New Iaip.IaipDataGridView()
         Me.Panel9 = New System.Windows.Forms.Panel()
         Me.chbChangeInvoiceNumber = New System.Windows.Forms.CheckBox()
         Me.Label163 = New System.Windows.Forms.Label()
@@ -315,7 +319,7 @@ Partial Class FeesAudit
         Me.txtAuditedPart70 = New System.Windows.Forms.TextBox()
         Me.txtAuditedSM = New System.Windows.Forms.TextBox()
         Me.TPFullHistory = New System.Windows.Forms.TabPage()
-        Me.dgvAuditHistory = New System.Windows.Forms.DataGridView()
+        Me.dgvAuditHistory = New Iaip.IaipDataGridView()
         Me.Panel38 = New System.Windows.Forms.Panel()
         Me.btnExportAuditToExcel = New System.Windows.Forms.Button()
         Me.btnSelectAuditToEdit = New System.Windows.Forms.Button()
@@ -538,12 +542,18 @@ Partial Class FeesAudit
         '
         'dgvInvoiceData
         '
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvInvoiceData.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvInvoiceData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvInvoiceData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvInvoiceData.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvInvoiceData.LinkifyColumnByName = Nothing
         Me.dgvInvoiceData.Location = New System.Drawing.Point(3, 269)
         Me.dgvInvoiceData.Name = "dgvInvoiceData"
-        Me.dgvInvoiceData.ReadOnly = True
+        Me.dgvInvoiceData.ResultsCountLabel = Nothing
+        Me.dgvInvoiceData.ResultsCountLabelFormat = "{0} found"
         Me.dgvInvoiceData.Size = New System.Drawing.Size(983, 172)
+        Me.dgvInvoiceData.StandardTab = True
         Me.dgvInvoiceData.TabIndex = 478
         '
         'Panel7
@@ -847,11 +857,17 @@ Partial Class FeesAudit
         '
         'dgvInvoiceDataNSPSExemptions
         '
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvInvoiceDataNSPSExemptions.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvInvoiceDataNSPSExemptions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvInvoiceDataNSPSExemptions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvInvoiceDataNSPSExemptions.LinkifyColumnByName = Nothing
         Me.dgvInvoiceDataNSPSExemptions.Location = New System.Drawing.Point(628, 35)
         Me.dgvInvoiceDataNSPSExemptions.Name = "dgvInvoiceDataNSPSExemptions"
-        Me.dgvInvoiceDataNSPSExemptions.ReadOnly = True
+        Me.dgvInvoiceDataNSPSExemptions.ResultsCountLabel = Nothing
+        Me.dgvInvoiceDataNSPSExemptions.ResultsCountLabelFormat = "{0} found"
         Me.dgvInvoiceDataNSPSExemptions.Size = New System.Drawing.Size(350, 100)
+        Me.dgvInvoiceDataNSPSExemptions.StandardTab = True
         Me.dgvInvoiceDataNSPSExemptions.TabIndex = 500
         '
         'chbInvoiceDataSyntheticMinor
@@ -1126,17 +1142,23 @@ Partial Class FeesAudit
         '
         'dgvGECOFeeContacts
         '
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvGECOFeeContacts.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvGECOFeeContacts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvGECOFeeContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvGECOFeeContacts.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvGECOFeeContacts.LinkifyColumnByName = Nothing
         Me.dgvGECOFeeContacts.Location = New System.Drawing.Point(0, 156)
         Me.dgvGECOFeeContacts.Name = "dgvGECOFeeContacts"
-        Me.dgvGECOFeeContacts.ReadOnly = True
+        Me.dgvGECOFeeContacts.ResultsCountLabel = Nothing
+        Me.dgvGECOFeeContacts.ResultsCountLabelFormat = "{0} found"
         Me.dgvGECOFeeContacts.Size = New System.Drawing.Size(989, 288)
+        Me.dgvGECOFeeContacts.StandardTab = True
         Me.dgvGECOFeeContacts.TabIndex = 481
         '
         'Panel16
         '
-        Me.Panel16.Controls.Add(Me.txtGECOContactPhontNumber)
+        Me.Panel16.Controls.Add(Me.txtGECOContactPhoneNumber)
         Me.Panel16.Controls.Add(Me.txtGECOContactSalutation)
         Me.Panel16.Controls.Add(Me.btnGECOViewPastContacts)
         Me.Panel16.Controls.Add(Me.txtGECOContactFirstName)
@@ -1157,9 +1179,7 @@ Partial Class FeesAudit
         Me.Panel16.Controls.Add(Me.txtGECOContactCompanyName)
         Me.Panel16.Controls.Add(Me.txtGECOContactEmail)
         Me.Panel16.Controls.Add(Me.Label71)
-        Me.Panel16.Controls.Add(Me.Label75)
         Me.Panel16.Controls.Add(Me.txtGECOContactTitle)
-        Me.Panel16.Controls.Add(Me.txtGECOContactComments)
         Me.Panel16.Controls.Add(Me.Label72)
         Me.Panel16.Controls.Add(Me.Label74)
         Me.Panel16.Controls.Add(Me.Label73)
@@ -1169,13 +1189,13 @@ Partial Class FeesAudit
         Me.Panel16.Size = New System.Drawing.Size(989, 156)
         Me.Panel16.TabIndex = 489
         '
-        'txtGECOContactPhontNumber
+        'txtGECOContactPhoneNumber
         '
-        Me.txtGECOContactPhontNumber.Location = New System.Drawing.Point(621, 6)
-        Me.txtGECOContactPhontNumber.Name = "txtGECOContactPhontNumber"
-        Me.txtGECOContactPhontNumber.ReadOnly = True
-        Me.txtGECOContactPhontNumber.Size = New System.Drawing.Size(123, 20)
-        Me.txtGECOContactPhontNumber.TabIndex = 489
+        Me.txtGECOContactPhoneNumber.Location = New System.Drawing.Point(621, 6)
+        Me.txtGECOContactPhoneNumber.Name = "txtGECOContactPhoneNumber"
+        Me.txtGECOContactPhoneNumber.ReadOnly = True
+        Me.txtGECOContactPhoneNumber.Size = New System.Drawing.Size(123, 20)
+        Me.txtGECOContactPhoneNumber.TabIndex = 489
         '
         'txtGECOContactSalutation
         '
@@ -1354,15 +1374,6 @@ Partial Class FeesAudit
         Me.Label71.TabIndex = 466
         Me.Label71.Text = "Company Name"
         '
-        'Label75
-        '
-        Me.Label75.AutoSize = True
-        Me.Label75.Location = New System.Drawing.Point(537, 87)
-        Me.Label75.Name = "Label75"
-        Me.Label75.Size = New System.Drawing.Size(56, 13)
-        Me.Label75.TabIndex = 474
-        Me.Label75.Text = "Comments"
-        '
         'txtGECOContactTitle
         '
         Me.txtGECOContactTitle.Location = New System.Drawing.Point(67, 85)
@@ -1370,15 +1381,6 @@ Partial Class FeesAudit
         Me.txtGECOContactTitle.ReadOnly = True
         Me.txtGECOContactTitle.Size = New System.Drawing.Size(172, 20)
         Me.txtGECOContactTitle.TabIndex = 467
-        '
-        'txtGECOContactComments
-        '
-        Me.txtGECOContactComments.Location = New System.Drawing.Point(621, 84)
-        Me.txtGECOContactComments.Multiline = True
-        Me.txtGECOContactComments.Name = "txtGECOContactComments"
-        Me.txtGECOContactComments.ReadOnly = True
-        Me.txtGECOContactComments.Size = New System.Drawing.Size(349, 46)
-        Me.txtGECOContactComments.TabIndex = 473
         '
         'Label72
         '
@@ -1420,12 +1422,18 @@ Partial Class FeesAudit
         '
         'dgvInvoices
         '
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvInvoices.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        Me.dgvInvoices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvInvoices.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvInvoices.LinkifyColumnByName = Nothing
         Me.dgvInvoices.Location = New System.Drawing.Point(505, 0)
         Me.dgvInvoices.Name = "dgvInvoices"
-        Me.dgvInvoices.ReadOnly = True
+        Me.dgvInvoices.ResultsCountLabel = Nothing
+        Me.dgvInvoices.ResultsCountLabelFormat = "{0} found"
         Me.dgvInvoices.Size = New System.Drawing.Size(484, 444)
+        Me.dgvInvoices.StandardTab = True
         Me.dgvInvoices.TabIndex = 0
         '
         'Panel34
@@ -1759,12 +1767,18 @@ Partial Class FeesAudit
         '
         'dgvTransactions
         '
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvTransactions.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        Me.dgvTransactions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvTransactions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvTransactions.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvTransactions.LinkifyColumnByName = Nothing
         Me.dgvTransactions.Location = New System.Drawing.Point(0, 226)
         Me.dgvTransactions.Name = "dgvTransactions"
-        Me.dgvTransactions.ReadOnly = True
+        Me.dgvTransactions.ResultsCountLabel = Nothing
+        Me.dgvTransactions.ResultsCountLabelFormat = "{0} found"
         Me.dgvTransactions.Size = New System.Drawing.Size(989, 218)
+        Me.dgvTransactions.StandardTab = True
         Me.dgvTransactions.TabIndex = 506
         '
         'Panel9
@@ -3385,12 +3399,18 @@ Partial Class FeesAudit
         '
         'dgvAuditHistory
         '
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvAuditHistory.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        Me.dgvAuditHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvAuditHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvAuditHistory.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvAuditHistory.LinkifyColumnByName = Nothing
         Me.dgvAuditHistory.Location = New System.Drawing.Point(0, 40)
         Me.dgvAuditHistory.Name = "dgvAuditHistory"
-        Me.dgvAuditHistory.ReadOnly = True
+        Me.dgvAuditHistory.ResultsCountLabel = Nothing
+        Me.dgvAuditHistory.ResultsCountLabelFormat = "{0} found"
         Me.dgvAuditHistory.Size = New System.Drawing.Size(634, 378)
+        Me.dgvAuditHistory.StandardTab = True
         Me.dgvAuditHistory.TabIndex = 1
         '
         'Panel38
@@ -5066,13 +5086,11 @@ Partial Class FeesAudit
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents txtGECOContactFirstName As System.Windows.Forms.TextBox
     Friend WithEvents Label74 As System.Windows.Forms.Label
-    Friend WithEvents dgvGECOFeeContacts As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvGECOFeeContacts As IaipDataGridView
     Friend WithEvents Label78 As System.Windows.Forms.Label
     Friend WithEvents Label77 As System.Windows.Forms.Label
     Friend WithEvents Label76 As System.Windows.Forms.Label
     Friend WithEvents txtGECOContactEmail As System.Windows.Forms.TextBox
-    Friend WithEvents Label75 As System.Windows.Forms.Label
-    Friend WithEvents txtGECOContactComments As System.Windows.Forms.TextBox
     Friend WithEvents mtbGECOContactFaxNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mtbGECOContactZipCode As System.Windows.Forms.MaskedTextBox
     Friend WithEvents btnGECOViewPastContacts As System.Windows.Forms.Button
@@ -5080,7 +5098,7 @@ Partial Class FeesAudit
     Friend WithEvents chbInvoiceDataNSPS As System.Windows.Forms.CheckBox
     Friend WithEvents Label80 As System.Windows.Forms.Label
     Friend WithEvents txtInvoiceClassification As System.Windows.Forms.TextBox
-    Friend WithEvents dgvInvoiceData As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvInvoiceData As IaipDataGridView
     Friend WithEvents Panel7 As System.Windows.Forms.Panel
     Friend WithEvents Label85 As System.Windows.Forms.Label
     Friend WithEvents txtInvoiceDataFeeRate As System.Windows.Forms.TextBox
@@ -5109,7 +5127,7 @@ Partial Class FeesAudit
     Friend WithEvents txtInvoiceDataOfficialName As System.Windows.Forms.TextBox
     Friend WithEvents Label79 As System.Windows.Forms.Label
     Friend WithEvents txtInvoiceDataPaymentType As System.Windows.Forms.TextBox
-    Friend WithEvents dgvInvoiceDataNSPSExemptions As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvInvoiceDataNSPSExemptions As IaipDataGridView
     Friend WithEvents Label93 As System.Windows.Forms.Label
     Friend WithEvents txtInvoiceDataGECOComments As System.Windows.Forms.TextBox
     Friend WithEvents dtpInvoiceDataDateInvoiced As System.Windows.Forms.DateTimePicker
@@ -5129,7 +5147,7 @@ Partial Class FeesAudit
     Friend WithEvents Label102 As System.Windows.Forms.Label
     Friend WithEvents txtInvoiceDataConfirmationNumber As System.Windows.Forms.TextBox
     Friend WithEvents chbInvoiceDataOperating As System.Windows.Forms.CheckBox
-    Friend WithEvents dgvTransactions As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvTransactions As IaipDataGridView
     Friend WithEvents Panel9 As System.Windows.Forms.Panel
     Friend WithEvents txtTransactionID As System.Windows.Forms.TextBox
     Friend WithEvents Label98 As System.Windows.Forms.Label
@@ -5289,7 +5307,7 @@ Partial Class FeesAudit
     Friend WithEvents pnlFacilityData2 As System.Windows.Forms.Panel
     Friend WithEvents Panel30 As System.Windows.Forms.Panel
     Friend WithEvents Label156 As System.Windows.Forms.Label
-    Friend WithEvents dgvInvoices As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvInvoices As IaipDataGridView
     Friend WithEvents Panel34 As System.Windows.Forms.Panel
     Friend WithEvents btnVOIDAllUnpaid As System.Windows.Forms.Button
     Friend WithEvents Panel35 As System.Windows.Forms.Panel
@@ -5322,7 +5340,7 @@ Partial Class FeesAudit
     Friend WithEvents btnRemoveVOID As System.Windows.Forms.Button
     Friend WithEvents btnVOIDInvoice As System.Windows.Forms.Button
     Friend WithEvents TPFullHistory As System.Windows.Forms.TabPage
-    Friend WithEvents dgvAuditHistory As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvAuditHistory As IaipDataGridView
     Friend WithEvents Panel38 As System.Windows.Forms.Panel
     Friend WithEvents btnExportAuditToExcel As System.Windows.Forms.Button
     Friend WithEvents btnSelectAuditToEdit As System.Windows.Forms.Button
@@ -5369,7 +5387,7 @@ Partial Class FeesAudit
     Friend WithEvents MailoutCancelEditingContactButton As System.Windows.Forms.Button
     Friend WithEvents MailoutSaveFacilityButton As System.Windows.Forms.Button
     Friend WithEvents MailoutCancelEditFacilityButton As System.Windows.Forms.Button
-    Friend WithEvents txtGECOContactPhontNumber As TextBox
+    Friend WithEvents txtGECOContactPhoneNumber As TextBox
     Friend WithEvents lnkPrintSelectedInvoice As LinkLabel
     Friend WithEvents UrlToolTip As ToolTip
     Friend WithEvents lnkPrintActiveInvoices As LinkLabel

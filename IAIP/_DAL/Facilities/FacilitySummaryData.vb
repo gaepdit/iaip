@@ -26,23 +26,17 @@ Namespace DAL
                 Case FacilityDataTable.ComplianceWork
                     Return "iaip_facility.GetSummaryCompliance"
 
-                Case FacilityDataTable.ContactsCompliance
-                    Return "iaip_facility.GetContactsCompliance"
+                Case FacilityDataTable.ContactsGecoFacility
+                    Return "iaip_facility.GetContactsGecoFacility"
 
-                Case FacilityDataTable.ContactsGeco
-                    Return "iaip_facility.GetContactsGeco"
+                Case FacilityDataTable.ContactsGecoUsers
+                    Return "iaip_facility.GetContactsGecoUsers"
 
-                Case FacilityDataTable.ContactsPermitting
-                    Return "iaip_facility.GetContactsPermitting"
+                Case FacilityDataTable.ContactsIaipFacility
+                    Return "iaip_facility.GetContactsIaipFacility"
 
-                Case FacilityDataTable.ContactsState
-                    Return "iaip_facility.GetContactsState"
-
-                Case FacilityDataTable.ContactsTesting
-                    Return "iaip_facility.GetContactsTesting"
-
-                Case FacilityDataTable.ContactsWebSite
-                    Return "iaip_facility.GetContactsWebSite"
+                Case FacilityDataTable.ContactsStaff
+                    Return "iaip_facility.GetContactsStaff"
 
                 Case FacilityDataTable.EIPost2009
                     Return "iaip_facility.GetSummaryEiPost2009"

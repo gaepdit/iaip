@@ -156,6 +156,21 @@
                 ' SSPP Program Manager, SSPP Administrative, Web Publisher
                 Return HasRole({28, 29, 120})
 
+                ' === Annual Fees
+            Case UserCan.ManageAnnualFees
+                'Planning & Support Manager, Financial Administrative, Financial Manager
+                Return HasRole({11, 123, 124})
+
+            Case UserCan.EditAnnualFees
+                ' Planning & Support Manager, SSCP Program Manager, DMU User,
+                ' Financial Administrative, Financial Manager, SBEAP Assistance Provider
+                Return HasRole({11, 19, 119, 123, 124, 142})
+
+            Case UserCan.EditAnnualFeesDeposits
+                ' ISMP Program Manager, Planning & Support Manager, Financial Administrative,
+                ' Financial Manager, Financial Staff, Planning & Support Hourly Worker
+                Return HasRole({2, 11, 123, 124, 125, 127})
+
             Case Else
                 Return False
         End Select
@@ -178,6 +193,9 @@ Public Enum UserCan
     EditPermitApp
     UploadPermitFile
     DeletePermitFile
+    ManageAnnualFees
+    EditAnnualFees
+    EditAnnualFeesDeposits
 End Enum
 
 Public Enum RoleType
