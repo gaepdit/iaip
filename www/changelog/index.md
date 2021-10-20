@@ -14,6 +14,10 @@
 
 Updated how facility contacts are handled. This comes with a large number of usability improvements and bug fixes in several places.
 
+## Version 5.25.6 <span>(2021-09-28)</span>
+
+Updated some user permissions.
+
 ## Version 5.25.5 <span>(2021-09-22)</span>
 
 Fixed a bug where deleted fee transactions would be included in some places where they shouldn't have been.
