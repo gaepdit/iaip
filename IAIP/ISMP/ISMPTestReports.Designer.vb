@@ -887,7 +887,7 @@ Partial Class ISMPTestReports
         Me.Label323 = New System.Windows.Forms.Label()
         Me.DTPTestReportDueDate = New System.Windows.Forms.DateTimePicker()
         Me.chbTestReportChangeDueDate = New System.Windows.Forms.CheckBox()
-        Me.DTPTestReportNewDueDate = New System.Windows.Forms.DateTimePicker()
+        Me.DTPTestReportNextDueDate = New System.Windows.Forms.DateTimePicker()
         Me.Label325 = New System.Windows.Forms.Label()
         Me.txtTestReportComments = New System.Windows.Forms.TextBox()
         Me.Label326 = New System.Windows.Forms.Label()
@@ -9777,7 +9777,7 @@ Partial Class ISMPTestReports
         Me.TPSSCPWork.Controls.Add(Me.Label323)
         Me.TPSSCPWork.Controls.Add(Me.DTPTestReportDueDate)
         Me.TPSSCPWork.Controls.Add(Me.chbTestReportChangeDueDate)
-        Me.TPSSCPWork.Controls.Add(Me.DTPTestReportNewDueDate)
+        Me.TPSSCPWork.Controls.Add(Me.DTPTestReportNextDueDate)
         Me.TPSSCPWork.Controls.Add(Me.Label325)
         Me.TPSSCPWork.Controls.Add(Me.txtTestReportComments)
         Me.TPSSCPWork.Controls.Add(Me.Label326)
@@ -9972,15 +9972,15 @@ Partial Class ISMPTestReports
         Me.chbTestReportChangeDueDate.TabIndex = 10
         Me.chbTestReportChangeDueDate.Text = "Change Required Date"
         '
-        'DTPTestReportNewDueDate
+        'DTPTestReportNextDueDate
         '
-        Me.DTPTestReportNewDueDate.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPTestReportNewDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPTestReportNewDueDate.Location = New System.Drawing.Point(558, 131)
-        Me.DTPTestReportNewDueDate.Name = "DTPTestReportNewDueDate"
-        Me.DTPTestReportNewDueDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPTestReportNewDueDate.TabIndex = 9
-        Me.DTPTestReportNewDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
+        Me.DTPTestReportNextDueDate.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPTestReportNextDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPTestReportNextDueDate.Location = New System.Drawing.Point(558, 131)
+        Me.DTPTestReportNextDueDate.Name = "DTPTestReportNextDueDate"
+        Me.DTPTestReportNextDueDate.Size = New System.Drawing.Size(100, 20)
+        Me.DTPTestReportNextDueDate.TabIndex = 9
+        Me.DTPTestReportNextDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'Label325
         '
@@ -10965,7 +10965,7 @@ End Sub
     Friend WithEvents Label323 As System.Windows.Forms.Label
     Friend WithEvents DTPTestReportDueDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents chbTestReportChangeDueDate As System.Windows.Forms.CheckBox
-    Friend WithEvents DTPTestReportNewDueDate As System.Windows.Forms.DateTimePicker
+    Friend WithEvents DTPTestReportNextDueDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label325 As System.Windows.Forms.Label
     Friend WithEvents txtTestReportComments As System.Windows.Forms.TextBox
     Friend WithEvents Label326 As System.Windows.Forms.Label

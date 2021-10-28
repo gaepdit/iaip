@@ -816,31 +816,32 @@ Public Class ISMPTestReportAdministrative
                 Return
             End If
 
-            For Each RefNum As String In Me.clbReferenceNumbers.CheckedItems
+            For Each RefNum As String In clbReferenceNumbers.CheckedItems
+                Dim queryList As New List(Of String)
+                Dim paramList As New List(Of SqlParameter())
+
                 RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
 
-                If DAL.Ismp.StackTestExists(RefNum) Then
+                If Not DAL.Ismp.StackTestExists(RefNum) Then
+                    MessageBox.Show("Stack test " & RefNum & " does not exist.", "No such thing", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
                     Dim parameter As New SqlParameter("@ref", RefNum)
 
-                    query = "Update ISMPReportInformation set " &
-                        " strDelete = 'DELETE' where strReferenceNumber = @ref"
-                    DB.RunCommand(query, parameter)
+                    queryList.Add("Update ISMPReportInformation set " &
+                        " strDelete = 'DELETE' where strReferenceNumber = @ref")
+                    paramList.Add({parameter})
 
-                    query = "SELECT STRTRACKINGNUMBER FROM SSCPTESTREPORTS WHERE STRREFERENCENUMBER = @ref"
-                    Dim trackingNumber As String = DB.GetString(query, parameter)
+                    queryList.Add("update a
+                        set a.STRDELETE = 'True'
+                        from SSCPITEMMASTER a
+                            inner join SSCPTESTREPORTS r
+                            on a.STRTRACKINGNUMBER = r.STRTRACKINGNUMBER
+                        where r.STRREFERENCENUMBER = @ref")
+                    paramList.Add({parameter})
 
-                    If trackingNumber IsNot Nothing Then
-                        parameter = New SqlParameter("@trackingnum", trackingNumber)
-                        query = " UPDATE SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " &
-                        " WHERE STRTRACKINGNUMBER = @trackingnum "
-                        DB.RunCommand(query, parameter)
-                    End If
-
+                    DB.RunCommand(queryList, paramList)
                     MessageBox.Show("Test no. " & RefNum & " deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None)
-                Else
-                    MessageBox.Show("Stack test " & RefNum & " does not exist.", "No such thing", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
-
             Next
 
             bgw1.WorkerReportsProgress = True
@@ -852,106 +853,42 @@ Public Class ISMPTestReportAdministrative
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub StartComplianceWork(RefNum As String)
-        Try
+    Private Sub StartComplianceWork(ReferenceNumber As String)
+        ' AIRS number required
+        If cboAIRSNumber.Text = "" Then Return
 
-            Dim StaffResponsible As String = ""
-            Dim TrackingNumber As String = ""
-            Dim TestReportDue As String = ""
+        ' Check if SSCP data already exists
+        query = "select convert(bit, count(*)) from dbo.SSCPTESTREPORTS where STRREFERENCENUMBER = @ReferenceNumber "
+        Dim paramRefNum As New SqlParameter("@ReferenceNumber", ReferenceNumber)
+        If DB.GetBoolean(query, paramRefNum) Then Return
 
-            If cboAIRSNumber.Text <> "" Then
-                query = "select convert(bit, count(*))
-                    from SSCPTESTREPORTS
-                    where STRREFERENCENUMBER = @ref "
-                Dim p As New SqlParameter("@ref", RefNum)
+        ' Best guess at SSCP staff
+        query = "select [Staff ID] from iaip_facility.VW_FacilityAssignments_Compliance where AIRS = @airs"
+        Dim paramAirs As New SqlParameter("@airs", "0413" & cboAIRSNumber.Text)
+        Dim StaffResponsible As String = DB.GetString(query, paramAirs)
+        If String.IsNullOrEmpty(StaffResponsible) Then StaffResponsible = "0"
 
-                If DB.GetBoolean(query, p) Then
-                    Return
-                End If
+        ' Best guess at due date of current test (seems unlikely to be correct)
+        query = "select DATSSCPTESTREPORTDUE from dbo.APBSUPPLAMENTALDATA where STRAIRSNUMBER = @airs "
+        Dim TestDue As Date? = DB.GetSingleValue(Of Date?)(query, paramAirs)
+        If TestDue Is Nothing Then TestDue = DTPDateClosed.Value
 
-                query = "Select " &
-                "numSSCPEngineer " &
-                "from SSCPInspectionsRequired, " &
-                "(select max(intyear) as MaxYear, SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " &
-                "from SSCPINSPECTIONSREQUIRED " &
-                "where SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = @airs " &
-                "group by SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " &
-                "where SSCPINSPECTIONSREQUIRED.strAIRSNumber = @airs " &
-                "and SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " &
-                "group by numSSCPEngineer "
+        Dim DateReceivedBySscp As Date = DTPDateClosed.Value
 
-                Dim p2 As New SqlParameter("@airs", "0413" & cboAIRSNumber.Text)
-                StaffResponsible = DB.GetString(query, p2)
-                If String.IsNullOrEmpty(StaffResponsible) Then
-                    StaffResponsible = "0"
-                End If
+        Dim params As SqlParameter() = {
+            paramRefNum,
+            New SqlParameter("@StaffResponsible", StaffResponsible),
+            New SqlParameter("@UserId", CurrentUser.UserID),
+            SqlParameterAsNull("@CompleteDate", SqlDbType.DateTime2),
+            SqlParameterAsNull("@AckLetter", SqlDbType.DateTime2),
+            New SqlParameter("@TestDue", TestDue),
+            SqlParameterAsNull("@TestReportComments", SqlDbType.VarChar),
+            New SqlParameter("@FollowUp", Boolean.FalseString),
+            SqlParameterAsNull("@NextTest", SqlDbType.DateTime2),
+            New SqlParameter("@DateReceivedBySscp", DateReceivedBySscp)
+        }
 
-                query = "select datSSCPTestReportDue " &
-                "from APBSupplamentalData " &
-                "where strAIRSNumber = @airs "
-
-                Dim dr2 As DataRow = DB.GetDataRow(query, p2)
-                If dr2 IsNot Nothing Then
-                    If IsDBNull(dr2.Item("datSSCPTestReportDue")) Then
-                        TestReportDue = DTPDateClosed.Text
-                    Else
-                        TestReportDue = Format(dr2.Item("datSSCPTestReportDue"), "dd-MMM-yyyy")
-                    End If
-                Else
-                    TestReportDue = DTPDateClosed.Text
-                End If
-
-                query = "Insert into SSCPItemMaster " &
-                "(strTrackingNumber, strAIRSNumber, " &
-                "datReceivedDate, strEventType, " &
-                "strResponsibleStaff, datCompleteDate, " &
-                "strModifingPerson, datModifingDate) " &
-                "values " &
-                "(NEXT VALUE FOR SSCPTrackingNumber, @airs, " &
-                "@cd, '03', " &
-                "@sr, null, " &
-                "@user, GETDATE() )"
-
-                Dim p3 As SqlParameter() = {
-                    New SqlParameter("@airs", "0413" & cboAIRSNumber.Text),
-                    New SqlParameter("@cd", DTPDateClosed.Value),
-                    New SqlParameter("@sr", StaffResponsible),
-                    New SqlParameter("@user", CurrentUser.UserID)
-                }
-                DB.RunCommand(query, p3)
-
-                query = "select current_value FROM sys.sequences WHERE name = 'sscptrackingnumber'"
-
-                TrackingNumber = DB.GetString(query)
-
-                query = "Insert into SSCPTestReports " &
-                "(strTrackingNumber, strReferenceNumber, " &
-                "datTestReportDue, " &
-                "strTestReportComments, strTestReportFollowUp, " &
-                "strModifingPerson, datModifingDate) " &
-                "Values " &
-                "(@strTrackingNumber, @strReferenceNumber, " &
-                "@datTestReportDue, " &
-                "' ', 'False', " &
-                "@strModifingPerson, getdate()) "
-
-                Dim p4 As SqlParameter() = {
-                    New SqlParameter("@strTrackingNumber", TrackingNumber),
-                    New SqlParameter("@strReferenceNumber", RefNum),
-                    New SqlParameter("@datTestReportDue", TestReportDue),
-                    New SqlParameter("@strModifingPerson", CurrentUser.UserID)
-                }
-
-                DB.RunCommand(query, p4)
-
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        DB.SPRunCommand("dbo.SaveStackTestSccpData", params)
     End Sub
 
 #Region "Main Menu"

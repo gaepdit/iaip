@@ -1848,7 +1848,7 @@ Public Class FeesStatistics
             "and strInvoiceStatus = '0' " &
             "and active = '1' "
 
-            Dim feeYearParam As New SqlParameter("@FeeYear", SqlDbType.SmallInt) With {.Value = feeYear}
+            Dim feeYearParam As SqlParameter = SqlParameterWithDbType("@FeeYear", SqlDbType.SmallInt, feeYear)
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@Username", CurrentUser.AlphaName),

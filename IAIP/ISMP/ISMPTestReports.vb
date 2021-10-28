@@ -7614,7 +7614,7 @@ Public Class ISMPTestReports
                 cboStaffResponsible.Enabled = True
                 chbAcknoledgmentLetterSent.Enabled = True
                 DTPAcknoledgmentLetterSent.Enabled = True
-                DTPTestReportNewDueDate.Enabled = True
+                DTPTestReportNextDueDate.Enabled = True
                 chbTestReportChangeDueDate.Enabled = True
                 DTPTestReportDueDate.Enabled = True
                 txtTestReportComments.ReadOnly = False
@@ -7630,7 +7630,7 @@ Public Class ISMPTestReports
                 DTPAcknoledgmentLetterSent.Enabled = False
                 txtTestReportReceivedbySSCPDate.ReadOnly = True
                 txtTestReportDueDate.ReadOnly = True
-                DTPTestReportNewDueDate.Enabled = False
+                DTPTestReportNextDueDate.Enabled = False
                 chbTestReportChangeDueDate.Enabled = False
                 DTPTestReportDueDate.Enabled = False
                 txtTestReportComments.ReadOnly = True
@@ -7677,16 +7677,18 @@ Public Class ISMPTestReports
     Private Sub LoadSSCPData()
         Try
             If txtAirsNumber.Text <> "" Then
-                query = "Select " &
-                "SSCPTestReports.strTrackingNumber, " &
-                "datTestReportDue, strTestReportComments, " &
-                "strTestReportFollowUp, datREceivedDate, " &
-                "strResponsibleStaff, datCompleteDate, " &
-                "datAcknoledgmentLetterSent " &
-                "from SSCPTestReports, " &
-                "SSCPItemMaster  " &
-                "where SSCPTestReports.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
-                "and strReferenceNumber = @RefNum "
+                query = "select r.strTrackingNumber,
+                       r.datTestReportDue,
+                       r.strTestReportComments,
+                       r.strTestReportFollowUp,
+                       s.datREceivedDate,
+                       s.strResponsibleStaff,
+                       s.datCompleteDate,
+                       s.datAcknoledgmentLetterSent
+                    from SSCPTestReports r
+                        inner join SSCPITEMMASTER s
+                        on s.STRTRACKINGNUMBER = r.STRTRACKINGNUMBER
+                    where strReferenceNumber = @RefNum"
 
                 Dim p As New SqlParameter("@RefNum", ReferenceNumber)
 
@@ -7775,12 +7777,12 @@ Public Class ISMPTestReports
 
                 If dr3 IsNot Nothing Then
                     If IsDBNull(dr3.Item("datSSCPTestReportDue")) Then
-                        DTPTestReportNewDueDate.Value = Today
+                        DTPTestReportNextDueDate.Value = Today
                     Else
-                        DTPTestReportNewDueDate.Value = CDate(dr3.Item("datSSCPTestReportDue"))
+                        DTPTestReportNextDueDate.Value = CDate(dr3.Item("datSSCPTestReportDue"))
                     End If
                 Else
-                    DTPTestReportNewDueDate.Value = Today
+                    DTPTestReportNextDueDate.Value = Today
                 End If
 
             End If
@@ -7801,7 +7803,7 @@ Public Class ISMPTestReports
                 DTPAcknoledgmentLetterSent.Enabled = False
                 chbTestReportChangeDueDate.Enabled = False
                 DTPTestReportDueDate.Enabled = False
-                DTPTestReportNewDueDate.Enabled = False
+                DTPTestReportNextDueDate.Enabled = False
                 DTPEventCompleteDate.Enabled = True
             Else
                 cboStaffResponsible.Enabled = True
@@ -7812,7 +7814,7 @@ Public Class ISMPTestReports
                 DTPAcknoledgmentLetterSent.Enabled = True
                 chbTestReportChangeDueDate.Enabled = True
                 DTPTestReportDueDate.Enabled = True
-                DTPTestReportNewDueDate.Enabled = True
+                DTPTestReportNextDueDate.Enabled = True
                 DTPEventCompleteDate.Enabled = False
             End If
 
@@ -8435,7 +8437,7 @@ Public Class ISMPTestReports
             txtTestReportReceivedbySSCPDate.Clear()
             txtTestReportDueDate.Clear()
             DTPTestReportDueDate.Value = Today
-            DTPTestReportNewDueDate.Value = Today
+            DTPTestReportNextDueDate.Value = Today
             txtTestReportComments.Clear()
             rdbTestReportFollowUpYes.Checked = False
             rdbTestReportFollowUpNo.Checked = False
@@ -8842,6 +8844,8 @@ Public Class ISMPTestReports
 
             If AccountFormAccess(69, 4) = "1" AndAlso SaveSSCPWork() Then
                 MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
+            Else
+                MsgBox("SSCP Work NOT SAVED", MsgBoxStyle.Exclamation, "SSCP Work")
             End If
 
         Catch ex As Exception
@@ -9821,39 +9825,37 @@ Public Class ISMPTestReports
     End Function
 
     Private Function SaveSSCPWork() As Boolean
+        If ReferenceNumber = "" Then Return False
+
         Try
             Dim StaffResponsible As Integer = CurrentUser.UserID
-            Dim CompleteDate As Date? = Today
-            Dim AckLetter As Date? = Today
-            Dim TestDue As Date? = Today
-            Dim NextTest As Date? = Today
-            Dim TestReportComments As String = " "
-            Dim FollowUp As Boolean = False
-
             If cboStaffResponsible.SelectedValue IsNot Nothing AndAlso cboStaffResponsible.Text <> " " AndAlso cboStaffResponsible.Text <> "" Then
                 StaffResponsible = CInt(cboStaffResponsible.SelectedValue)
-            Else
-                StaffResponsible = CurrentUser.UserID
             End If
+
+            Dim CompleteDate As Date? = Nothing
             If chbEventComplete.Checked Then
                 CompleteDate = DTPEventCompleteDate.Value
-            Else
-                CompleteDate = Nothing
             End If
+
+            Dim AckLetter As Date? = Nothing
+
             If chbAcknoledgmentLetterSent.Checked Then
                 AckLetter = DTPAcknoledgmentLetterSent.Value
-            Else
-                AckLetter = Nothing
             End If
-            If DTPTestReportNewDueDate.Text <> "" Then
-                NextTest = DTPTestReportNewDueDate.Value
+
+            Dim NextTest As Date
+            If chbTestReportChangeDueDate.Checked Then
+                NextTest = DTPTestReportNextDueDate.Value
             Else
-                If txtTestReportDueDate.Text <> "" Then
-                    NextTest = CDate(txtTestReportDueDate.Text).AddYears(1)
-                Else
+                If txtTestReportDueDate.Text = "" Then
                     NextTest = Today.AddYears(1)
+                Else
+                    NextTest = CDate(txtTestReportDueDate.Text).AddYears(1)
                 End If
             End If
+
+            Dim TestDue As Date
             If chbTestReportChangeDueDate.Checked Then
                 TestDue = DTPTestReportDueDate.Value
             Else
@@ -9863,137 +9865,33 @@ Public Class ISMPTestReports
                     TestDue = CDate(txtReceivedByAPB.Text)
                 End If
             End If
+
+            Dim TestReportComments As String = " "
             If txtTestReportComments.Text <> "" Then
                 TestReportComments = txtTestReportComments.Text
-            Else
-                TestReportComments = " "
-            End If
-            If rdbTestReportFollowUpYes.Checked Then
-                FollowUp = True
-            Else
-                FollowUp = False
-            End If
-            If txtTrackingNumber.Text = "" Then
-                query = "Insert into SSCPItemMaster " &
-                "(strTrackingNumber, strAIRSNumber, " &
-                "datReceivedDate, strEventType, " &
-                "strResponsibleStaff, datCompleteDate, " &
-                "strModifingPerson, datModifingDate) " &
-                "values " &
-                "(NEXT VALUE FOR SSCPTrackingNumber, @airs , " &
-                " GETDATE() , '03', " &
-                "@StaffResponsible, null, " &
-                "@user,  GETDATE() )"
-
-                Dim p6 As SqlParameter() = {
-                    New SqlParameter("@airs", "0413" & txtAirsNumber.Text),
-                    New SqlParameter("@StaffResponsible", StaffResponsible),
-                    New SqlParameter("@user", CurrentUser.UserID)
-                }
-
-                DB.RunCommand(query, p6)
-
-                query = "select current_value FROM sys.sequences WHERE Name = 'sscptrackingnumber'"
-
-                txtTrackingNumber.Text = DB.GetInteger(query).ToString
-
-                query = "Insert into SSCPTestReports " &
-                "(strTrackingNumber, strReferenceNumber, " &
-                "datTestReportDue, " &
-                "strTestReportComments, strTestReportFollowUp, " &
-                "strModifingPerson, datModifingDate) " &
-                "Values " &
-                "(@track, @ref, " &
-                " GETDATE() , " &
-                "' ', 'False', " &
-                "@user,  GETDATE() ) "
-
-                Dim p7 As SqlParameter() = {
-                    New SqlParameter("@track", txtTrackingNumber.Text),
-                    New SqlParameter("@ref", ReferenceNumber),
-                    New SqlParameter("@user", CurrentUser.UserID)
-                }
-
-                DB.RunCommand(query, p7)
             End If
 
-            If txtTrackingNumber.Text <> "" Then
-                query = "Select strTrackingNumber " &
-                "from SSCPItemMaster " &
-                "where strTrackingNumber = @track"
+            Dim FollowUp As Boolean = rdbTestReportFollowUpYes.Checked
 
-                Dim p8 As New SqlParameter("@track", txtTrackingNumber.Text)
-
-                If DB.ValueExists(query, p8) Then
-                    query = "Update SSCPItemMaster set " &
-                    "strResponsibleStaff = @strResponsibleStaff, " &
-                    "datCompleteDate = @datCompleteDate, " &
-                    "datAcknoledgmentLetterSent = @datAcknoledgmentLetterSent, " &
-                    "strModifingPerson = @strModifingPerson, " &
-                    "datModifingDate =  GETDATE()  " &
-                    "where strTrackingNumber = @strTrackingNumber "
-
-                    Dim p9 As SqlParameter() = {
-                        New SqlParameter("@strResponsibleStaff", StaffResponsible),
-                        New SqlParameter("@datCompleteDate", CompleteDate),
-                        New SqlParameter("@datAcknoledgmentLetterSent", AckLetter),
-                        New SqlParameter("@strModifingPerson", CurrentUser.UserID),
-                        New SqlParameter("@strTrackingNumber", txtTrackingNumber.Text)
-                    }
-
-                    DB.RunCommand(query, p9)
-
-                    query = "Select strTrackingNumber " &
-                    "from SSCPTestReports " &
-                    "where strTrackingNumber = @track "
-
-                    If DB.ValueExists(query, p8) Then
-                        query = "Update SSCPTestReports set " &
-                        "datTestReportDue = @datTestReportDue, " &
-                        "strTestReportComments = @strTestReportComments, " &
-                        "strTestReportFollowUp = @strTestReportFollowUp, " &
-                        "strModifingPerson = @strModifingPerson, " &
-                        "datModifingDate =  GETDATE()  " &
-                        "where strTrackingNumber = @strTrackingNumber "
-
-                        Dim p10 As SqlParameter() = {
-                            New SqlParameter("@datTestReportDue", TestDue),
-                            New SqlParameter("@strTestReportComments", TestReportComments),
-                            New SqlParameter("@strTestReportFollowUp", FollowUp.ToString),
-                            New SqlParameter("@strModifingPerson", CurrentUser.UserID),
-                            New SqlParameter("@strTrackingNumber", txtTrackingNumber.Text)
-                        }
-
-                        DB.RunCommand(query, p10)
-                    End If
-
-                    If txtAirsNumber.Text.Length = 8 Then
-                        query = "Select strAIRSNumber " &
-                        "from APBSupplamentalData " &
-                        "where strAIRSNumber = @airs "
-
-                        Dim p11 As New SqlParameter("@airs", "0413" & txtAirsNumber.Text)
-
-                        If DB.ValueExists(query, p11) Then
-                            query = "Update APBSupplamentalData set " &
-                            "DatSSCPTestReportDue = @DatSSCPTestReportDue, " &
-                            "strModifingPerson = @strModifingPerson, " &
-                            "datModifingdate =  GETDATE()  " &
-                            "where strAIRSnumber = @strAIRSnumber "
-
-                            Dim p12 As SqlParameter() = {
-                                New SqlParameter("@DatSSCPTestReportDue", NextTest),
-                                New SqlParameter("@strModifingPerson", CurrentUser.UserID),
-                                New SqlParameter("@strAIRSnumber", "0413" & txtAirsNumber.Text)
-                            }
-
-                            DB.RunCommand(query, p12)
-                        End If
-                    End If
-                End If
+            Dim DateReceivedBySscp As Date = Today
+            If txtTestReportReceivedbySSCPDate.Text <> "" Then
+                DateReceivedBySscp = CDate(txtTestReportReceivedbySSCPDate.Text)
             End If
 
-            Return True
+            Dim params As SqlParameter() = {
+                New SqlParameter("@ReferenceNumber", ReferenceNumber),
+                New SqlParameter("@StaffResponsible", StaffResponsible),
+                New SqlParameter("@UserId", CurrentUser.UserID),
+                New SqlParameter("@CompleteDate", CompleteDate),
+                New SqlParameter("@AckLetter", AckLetter),
+                New SqlParameter("@TestDue", TestDue),
+                New SqlParameter("@TestReportComments", TestReportComments),
+                New SqlParameter("@FollowUp", FollowUp.ToString),
+                New SqlParameter("@NextTest", NextTest),
+                New SqlParameter("@DateReceivedBySscp", DateReceivedBySscp)
+            }
+
+            Return DB.SPReturnValue("dbo.SaveStackTestSccpData", params) = 0
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
             Return False
@@ -16359,9 +16257,9 @@ Public Class ISMPTestReports
                                                             Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                             temp = CDec(txtPollConcOneStackFourRun1A.Text)
                                                         Else
-                                                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) Andalso 
-                                                                IsNumeric(txtPollConcOneStackFourRun1B.Text) Andalso 
-                                                                Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) Andalso 
+                                                            If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) AndAlso
+                                                                IsNumeric(txtPollConcOneStackFourRun1B.Text) AndAlso
+                                                                Not (IsNumeric(txtPollConcOneStackFourRun1C.Text)) AndAlso
                                                                 Not (IsNumeric(txtPollConcOneStackFourRun1D.Text)) Then
                                                                 temp = CDec(txtPollConcOneStackFourRun1B.Text)
                                                             Else
@@ -20827,6 +20725,8 @@ Public Class ISMPTestReports
     Private Sub btnSaveSSCPData_Click(sender As Object, e As EventArgs) Handles btnSaveSSCPData.Click
         If AccountFormAccess(69, 4) = "1" AndAlso SaveSSCPWork() Then
             MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
+        Else
+            MsgBox("SSCP Work NOT SAVED", MsgBoxStyle.Exclamation, "SSCP Work")
         End If
     End Sub
     Private Sub llbTestNotifiactionNumber_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbTestNotifiactionNumber.LinkClicked

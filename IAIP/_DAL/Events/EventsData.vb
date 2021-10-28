@@ -197,7 +197,7 @@ Namespace DAL
                 New SqlParameter("@STREVENTSTARTTIME", resEvent.StartTime),
                 New SqlParameter("@STREVENTENDTIME", resEvent.EndTime),
                 New SqlParameter("@STRWEBURL", resEvent.WebLink),
-                New SqlParameter("@NUMZIPCODE", SqlDbType.VarChar) With {.Value = resEvent.PostalCode},
+                SqlParameterWithDbType("@NUMZIPCODE", SqlDbType.VarChar, resEvent.PostalCode),
                 New SqlParameter("@NUMWEBPHONENUMBER", resEvent.WebContactPhone)
             }
 
@@ -247,7 +247,7 @@ Namespace DAL
                 New SqlParameter("@STREVENTSTARTTIME", resEvent.StartTime),
                 New SqlParameter("@STREVENTENDTIME", resEvent.EndTime),
                 New SqlParameter("@STRWEBURL", resEvent.WebLink),
-                New SqlParameter("@NUMZIPCODE", SqlDbType.VarChar) With {.Value = resEvent.PostalCode},
+                SqlParameterWithDbType("@NUMZIPCODE", SqlDbType.VarChar, resEvent.PostalCode),
                 New SqlParameter("@NUMWEBPHONENUMBER", resEvent.WebContactPhone)
             }
 

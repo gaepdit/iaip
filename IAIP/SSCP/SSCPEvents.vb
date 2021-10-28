@@ -154,6 +154,7 @@ Public Class SSCPEvents
                 TCItems.TabPages.Add(TPTestReports)
                 txtTestReportReceivedbySSCPDate.Text = ReceivedDate
                 LoadTestReport()
+                btnSave.Enabled = False
 
             Case WorkItemEventType.TvAcc
                 TCItems.TabPages.Add(TPACC)
@@ -321,7 +322,6 @@ Public Class SSCPEvents
     Private Sub CompleteReport()
         If chbEventComplete.Checked Then
             DTPAcknowledgmentLetterSent.Enabled = False
-            chbNotificationReceivedByAPB.Enabled = False
             cboStaffResponsible.Enabled = False
 
             'Report
@@ -340,6 +340,7 @@ Public Class SSCPEvents
             rdbReportDeviationYes.Enabled = False
             rdbReportDeviationNo.Enabled = False
             txtReportsGeneralComments.ReadOnly = True
+            chbReportReceivedByAPB.Enabled = False
 
             'Test Report
             txtISMPReferenceNumber.ReadOnly = True
@@ -351,6 +352,7 @@ Public Class SSCPEvents
             DTPTestReportNewDueDate.Enabled = False
             rdbTestReportFollowUpYes.Enabled = False
             rdbTestReportFollowUpNo.Enabled = False
+            chbISMPTestReportReceivedByAPB.Enabled = False
 
             'Inspection
             DTPInspectionDateStart.Enabled = False
@@ -375,6 +377,7 @@ Public Class SSCPEvents
             txtNotificationComments.ReadOnly = True
             rdbNotificationFollowUpYes.Enabled = False
             rdbNotificationFollowUpNo.Enabled = False
+            chbNotificationReceivedByAPB.Enabled = False
 
             'ACC
             NUPACCSubmittal.Enabled = False
@@ -403,9 +406,10 @@ Public Class SSCPEvents
             rdbACCAllDeviationsReportedYes.Enabled = False
             rdbACCAllDeviationsReportedNo.Enabled = False
             rdbACCAllDeviationsReportedUnknown.Enabled = False
+            chbACCReceivedByAPB.Enabled = False
+
         Else
             DTPAcknowledgmentLetterSent.Enabled = True
-            chbNotificationReceivedByAPB.Enabled = True
             cboStaffResponsible.Enabled = True
 
             'Report
@@ -424,6 +428,7 @@ Public Class SSCPEvents
             rdbReportDeviationYes.Enabled = True
             rdbReportDeviationNo.Enabled = True
             txtReportsGeneralComments.ReadOnly = False
+            chbReportReceivedByAPB.Enabled = True
 
             'Test Report
             txtISMPReferenceNumber.ReadOnly = False
@@ -435,6 +440,7 @@ Public Class SSCPEvents
             DTPTestReportNewDueDate.Enabled = True
             rdbTestReportFollowUpYes.Enabled = True
             rdbTestReportFollowUpNo.Enabled = True
+            chbISMPTestReportReceivedByAPB.Enabled = True
 
             'Inspection
             DTPInspectionDateStart.Enabled = True
@@ -459,12 +465,14 @@ Public Class SSCPEvents
             txtNotificationComments.ReadOnly = False
             rdbNotificationFollowUpYes.Enabled = True
             rdbNotificationFollowUpNo.Enabled = True
+            chbNotificationReceivedByAPB.Enabled = True
 
             'ACC
             NUPACCSubmittal.Enabled = True
             DTPACCPostmarked.Enabled = True
             dtpAccReportingYear.Enabled = True
             txtACCComments.ReadOnly = False
+            chbACCReceivedByAPB.Enabled = True
 
             If NUPACCSubmittal.Value > 1 Then
                 rdbACCPostmarkYes.Enabled = False
@@ -577,7 +585,9 @@ Public Class SSCPEvents
                         result = SaveACC()
                         LoadACCSubmittalDGR()
                     Case WorkItemEventType.StackTest
-                        result = SaveISMPTestReport()
+                        MsgBox("Stack tests cannot be saved from this form." & vbCrLf &
+                               "Please open the stack test from to update SSCP information.", MsgBoxStyle.Exclamation, Me.Text)
+                        Return
                     Case WorkItemEventType.Notification
                         If cboNotificationType.SelectedValue.ToString = "07" OrElse cboNotificationType.SelectedValue.ToString = "08" Then
                             MsgBox("Malfunctions/deviations are no longer saved as notifications." & vbCrLf &
@@ -1240,106 +1250,6 @@ Public Class SSCPEvents
 
             Return DB.RunCommand(sqlList, paramList)
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-            Return False
-        End Try
-    End Function
-
-    Private Function SaveISMPTestReport() As Boolean
-        Dim TestReportDue As String
-        Dim TestReportComments As String
-        Dim TestReportFollowUp As String
-        Dim ReferenceNumber As String
-        Dim sqlList As New List(Of String)
-        Dim plist As New List(Of SqlParameter())
-
-        Try
-            If txtISMPReferenceNumber.Text = "" Then
-                txtISMPReferenceNumber.Text = "N/A"
-            End If
-            If rdbTestReportFollowUpYes.Checked Then
-                TestReportFollowUp = "True"
-            Else
-                TestReportFollowUp = "False"
-            End If
-            If txtTestReportDueDate.Text = "Unknown" Then
-                TestReportDue = "04-Jul-1776"
-            Else
-                TestReportDue = txtTestReportDueDate.Text
-            End If
-            If txtTestReportComments.Text = "" Then
-                TestReportComments = "N/A"
-            Else
-                TestReportComments = txtTestReportComments.Text
-            End If
-            If txtISMPReferenceNumber.Text = "" Then
-                ReferenceNumber = "N/A"
-            Else
-                ReferenceNumber = txtISMPReferenceNumber.Text
-            End If
-
-            Dim SQL As String = "Select convert(bit, count(*)) from SSCPTestReports where strTrackingNumber = @num"
-
-            Dim p As New SqlParameter("@num", TrackingNumber)
-
-            If DB.GetBoolean(SQL, p) Then
-                sqlList.Add("Update SSCPTestReports set " &
-                    "strReferenceNumber = @strReferenceNumber, " &
-                    "datTestReportDue = @datTestReportDue, " &
-                    "strTestReportComments = @strTestReportComments, " &
-                    "strTestReportFollowUp = @strTestReportFollowUp, " &
-                    "strModifingPerson = @strModifingPerson, " &
-                    "datModifingDate =  GETDATE() " &
-                    "where strTrackingNumber = @num")
-            Else
-                sqlList.Add("Insert into SSCPTestReports " &
-                    "(strTrackingNumber, strReferenceNumber, " &
-                    "datTestReportDue, " &
-                    "strTestReportComments, strTestReportFollowUp, " &
-                    "strModifingPerson, datModifingDate) " &
-                    "Values " &
-                    "(@num, @strReferenceNumber, " &
-                    "@datTestReportDue, " &
-                    "@strTestReportComments, @strTestReportFollowUp, " &
-                    "@strModifingPerson, GETDATE() ) ")
-            End If
-            plist.Add({
-                New SqlParameter("@strReferenceNumber", ReferenceNumber),
-                New SqlParameter("@datTestReportDue", TestReportDue),
-                New SqlParameter("@strTestReportComments", TestReportComments),
-                New SqlParameter("@strTestReportFollowUp", TestReportFollowUp),
-                New SqlParameter("@strModifingPerson", CurrentUser.UserID),
-                New SqlParameter("@num", TrackingNumber)
-            })
-
-            SQL = "Select 1 from APBSupplamentalData where strAIRSNumber = @airs "
-
-            Dim p2 As New SqlParameter("@airs", AirsNumber.DbFormattedString)
-
-            If DB.ValueExists(SQL, p2) Then
-                sqlList.Add("Update APBSupplamentalData set " &
-                            "datSSCPTestReportDue = @date " &
-                            "where strAIRSNUmber = @airs ")
-
-                plist.Add({
-                    New SqlParameter("@date", DTPTestReportNewDueDate.Value),
-                    New SqlParameter("@airs", AirsNumber.DbFormattedString)
-                })
-            End If
-
-            If chbISMPTestReportReceivedByAPB.Checked Then
-                sqlList.Add("Update SSCPItemMaster set " &
-                    "datReceivedDate = @date " &
-                    "where strTrackingNumber = @num")
-
-                plist.Add({
-                    New SqlParameter("@date", DTPTestReportReceivedDate.Value),
-                    New SqlParameter("@num", TrackingNumber)
-                })
-            End If
-
-            Return DB.RunCommand(sqlList, plist)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
             Return False

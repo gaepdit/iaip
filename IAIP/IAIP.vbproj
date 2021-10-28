@@ -372,6 +372,7 @@
     <Compile Include="_Controls\IaipDataGridView.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="_DAL\DbHelpers.vb" />
     <Compile Include="_DAL\Facilities\FacilityProgramHistory.vb" />
     <Compile Include="_DAL\Misc\Organization.vb" />
     <Compile Include="_DAL\GECO\Geco.vb" />

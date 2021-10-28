@@ -32,8 +32,8 @@ Namespace DAL
 
         Public Function UpdateFeeAdminStatus(feeYear As Integer, airsNumber As Apb.ApbFacilityId) As Boolean
             Dim parameters As SqlParameter() = {
-                New SqlParameter("@FEEYEAR", SqlDbType.SmallInt) With {.Value = feeYear},
-                New SqlParameter("@AIRSNUMBER", SqlDbType.VarChar) With {.Value = airsNumber.DbFormattedString}
+                SqlParameterWithDbType("@FEEYEAR", SqlDbType.SmallInt, feeYear),
+                SqlParameterWithDbType("@AIRSNUMBER", SqlDbType.VarChar, airsNumber.DbFormattedString)
             }
 
             Try
