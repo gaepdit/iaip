@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="..\packages\Microsoft.CodeAnalysis.NetAnalyzers.5.0.3\build\Microsoft.CodeAnalysis.NetAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.NetAnalyzers.5.0.3\build\Microsoft.CodeAnalysis.NetAnalyzers.props')" />
   <PropertyGroup>
@@ -956,13 +956,6 @@
     <Compile Include="_Data Models\Facilities\Location.vb" />
     <Compile Include="_Data Models\SSCP\EnforcementCase.vb" />
     <Compile Include="_Data Models\SSCP\Fce.vb" />
-    <Compile Include="_Data Models\SSCP\Work Item\Inspection.vb" />
-    <Compile Include="_Data Models\SSCP\Work Item\Notification.vb" />
-    <Compile Include="_Data Models\SSCP\Work Item\AccSubmittals.vb" />
-    <Compile Include="_Data Models\SSCP\Work Item\ReportSubmittals.vb" />
-    <Compile Include="_Data Models\SSCP\Work Item\Report.vb" />
-    <Compile Include="_Data Models\SSCP\Work Item\RmpInspection.vb" />
-    <Compile Include="_Data Models\SSCP\Work Item\StackTest.vb" />
     <Compile Include="_Code\SharedData.vb" />
     <Compile Include="_Code\ExcelExport.vb" />
     <Compile Include="_Code\ArrayExtensions.vb" />
@@ -1731,12 +1724,12 @@
   <ItemGroup>
     <PublishFile Include="log4net">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

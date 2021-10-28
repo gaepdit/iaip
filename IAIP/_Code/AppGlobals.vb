@@ -14,9 +14,7 @@ Module AppGlobals
     ' User info
 
     Friend CurrentUser As IaipUser
-#Disable Warning CA1814 ' Prefer jagged arrays over multidimensional
     Friend AccountFormAccess(150, 4) As String
-#Enable Warning CA1814 ' Prefer jagged arrays over multidimensional
 
     ' Network connection
 
