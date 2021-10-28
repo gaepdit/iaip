@@ -109,19 +109,19 @@ Public Class SSCPEvents
         End If
 
         txtFacilityInformation.Text = txtFacilityInformation.Text & vbNewLine &
-            dr.Item("strFacilityName") & vbNewLine &
-            dr.Item("strFacilityStreet1") & vbNewLine &
-            dr.Item("StrFacilityCity") & ", " & dr.Item("strFacilityState") & " " &
+            dr.Item("strFacilityName").ToString & vbNewLine &
+            dr.Item("strFacilityStreet1").ToString & vbNewLine &
+            dr.Item("StrFacilityCity").ToString & ", " & dr.Item("strFacilityState").ToString & " " &
             Address.FormatPostalCode(dr.Item("strFacilityZipCode")) & vbNewLine & vbNewLine &
-            "County - " & dr.Item("strCountyName")
+            "County - " & dr.Item("strCountyName").ToString
 
         txtEventInformation.Text = "Tracking # " & TrackingNumber & vbNewLine &
-            "Staff Responsible: " & dr.Item("strFirstName") & " " & dr.Item("strLastName") & vbNewLine &
-            "Classification: " & dr.Item("strClass") & vbNewLine &
+            "Staff Responsible: " & dr.Item("strFirstName").ToString & " " & dr.Item("strLastName").ToString & vbNewLine &
+            "Classification: " & dr.Item("strClass").ToString & vbNewLine &
             "Air Program Codes: " & vbNewLine
 
         If Not IsDBNull(dr.Item("INSPECTION_ID")) Then
-            txtEventInformation.Text = "GEOS Inspection ID " & dr.Item("INSPECTION_ID") & vbNewLine & txtEventInformation.Text
+            txtEventInformation.Text = "GEOS Inspection ID " & dr.Item("INSPECTION_ID").ToString & vbNewLine & txtEventInformation.Text
         End If
 
         If Not IsDBNull(dr.Item("strResponsibleStaff")) Then
@@ -519,6 +519,7 @@ Public Class SSCPEvents
         End If
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Minor Code Smell", "S1643:Strings should not be concatenated using ""+"" or ""&"" in a loop", Justification:="Minor")>
     Private Sub DisplayEnforcementCases()
         Dim dt As DataTable = DAL.Sscp.GetAllEnforcementForTrackingNumber(TrackingNumber)
         If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
@@ -841,7 +842,7 @@ Public Class SSCPEvents
 
                 Return False
             Else
-                If cboInspectionReason.Items.Contains(cboInspectionReason.Text) AndAlso cboInspectionReason.Text <> cboInspectionReason.Items.Item(0) Then
+                If cboInspectionReason.Items.Contains(cboInspectionReason.Text) AndAlso cboInspectionReason.Text <> cboInspectionReason.Items.Item(0).ToString Then
                     InspectionReason = cboInspectionReason.Text
                 Else
                     InspectionReason = "N/A"
@@ -1585,17 +1586,17 @@ Public Class SSCPEvents
                 txtReportPeriodComments.Text = dr.Item("strReportingPeriodComments")
                 dtpDueDate.Value = dr.Item("datreportduedate")
                 DTPSentDate.Value = dr.Item("datsentbyfacilitydate")
-                If dr.Item("strCompletestatus") = "True" Then
+                If dr.Item("strCompletestatus").ToString = "True" Then
                     rdbReportCompleteYes.Checked = True
                 Else
                     rdbReportCompleteNo.Checked = True
                 End If
-                If dr.Item("strEnforcementneeded") = "True" Then
+                If dr.Item("strEnforcementneeded").ToString = "True" Then
                     rdbReportEnforcementYes.Checked = True
                 Else
                     rdbReportEnforcementNo.Checked = True
                 End If
-                If dr.Item("strShowDeviation") = "True" Then
+                If dr.Item("strShowDeviation").ToString = "True" Then
                     rdbReportDeviationYes.Checked = True
                 Else
                     rdbReportDeviationNo.Checked = True
@@ -1705,14 +1706,14 @@ Public Class SSCPEvents
                 cboInspectionReason.Text = dr.Item("strInspectionReason")
                 txtWeatherConditions.Text = dr.Item("strWeatherConditions")
                 txtInspectionGuide.Text = dr.Item("strInspectionguide")
-                If dr.Item("strFacilityOperating") = "True" Then
+                If dr.Item("strFacilityOperating").ToString = "True" Then
                     rdbInspectionFacilityOperatingYes.Checked = True
                 Else
                     rdbInspectionFacilityOperatingNo.Checked = True
                 End If
                 cboInspectionComplianceStatus.Text = dr.Item("strInspectioncompliancestatus")
                 txtInspectionConclusion.Text = dr.Item("strInspectionComments")
-                If dr.Item("strInspectionFollowUp") = "True" Then
+                If dr.Item("strInspectionFollowUp").ToString = "True" Then
                     rdbInspectionFollowUpYes.Checked = True
                 Else
                     rdbInspectionFollowUpNo.Checked = True
@@ -1752,55 +1753,51 @@ Public Class SSCPEvents
 
             If dr IsNot Nothing Then
                 NUPACCSubmittal.Value = dr.Item("strSubmittalNumber")
-                If dr.Item("strPostMarkedOnTime") = "True" Then
+                If dr.Item("strPostMarkedOnTime").ToString = "True" Then
                     rdbACCPostmarkYes.Checked = True
                 Else
                     rdbACCPostmarkNo.Checked = True
                 End If
-                If IsDBNull(dr.Item("datAccReportingYear")) OrElse dr.Item("datAccReportingYear") = "04-Jul-1776" Then
+                If NormalizeDbDate(dr.Item("datAccReportingYear")) Is Nothing Then
                     dtpAccReportingYear.Value = Today.AddYears(-1)
                     dtpAccReportingYear.Checked = False
                 Else
-                    dtpAccReportingYear.Value = dr.Item("datAccReportingYear")
+                    dtpAccReportingYear.Value = NormalizeDbDate(dr.Item("datAccReportingYear"))
                     dtpAccReportingYear.Checked = True
                 End If
-                If dr.Item("DATPostmarkDate") = "04-Jul-1776" Then
-                    DTPACCPostmarked.Value = Today
-                Else
-                    DTPACCPostmarked.Value = dr.Item("datPostmarkDate")
-                End If
-                If dr.Item("strSignedByRO") = "True" Then
+                DTPACCPostmarked.Value = RealDateOrToday(NormalizeDbDate(dr.Item("datPostmarkDate")))
+                If dr.Item("strSignedByRO").ToString = "True" Then
                     rdbACCROYes.Checked = True
                 Else
                     rdbACCRONo.Checked = True
                 End If
-                If dr.Item("strCorrectACCForms") = "True" Then
+                If dr.Item("strCorrectACCForms").ToString = "True" Then
                     rdbACCCorrectACCYes.Checked = True
                 Else
                     rdbACCCorrectACCNo.Checked = True
                 End If
-                If dr.Item("strTitleVConditionsListed") = "True" Then
+                If dr.Item("strTitleVConditionsListed").ToString = "True" Then
                     rdbACCConditionsYes.Checked = True
                 Else
                     rdbACCConditionsNo.Checked = True
                 End If
-                If dr.Item("strACCCorrectlyFilledOut") = "True" Then
+                If dr.Item("strACCCorrectlyFilledOut").ToString = "True" Then
                     rdbACCCorrectYes.Checked = True
                 Else
                     rdbACCCorrectNo.Checked = True
                 End If
-                If dr.Item("strReportedDeviations") = "True" Then
+                If dr.Item("strReportedDeviations").ToString = "True" Then
                     rdbACCDeviationsReportedYes.Checked = True
                 Else
                     rdbACCDeviationsReportedNo.Checked = True
                 End If
-                If dr.Item("strDeviationsUnreported") = "True" Then
+                If dr.Item("strDeviationsUnreported").ToString = "True" Then
                     rdbACCPreviouslyUnreportedDeviationsYes.Checked = True
                 Else
                     rdbACCPreviouslyUnreportedDeviationsNo.Checked = True
                 End If
                 txtACCComments.Text = dr.Item("strcomments")
-                If dr.Item("strEnforcementNeeded") = "True" Then
+                If dr.Item("strEnforcementNeeded").ToString = "True" Then
                     rdbACCEnforcementNeededYes.Checked = True
                 Else
                     rdbACCEnforcementNeededNo.Checked = True
@@ -1938,18 +1935,14 @@ Public Class SSCPEvents
                     rdbACCPostmarkYes.Checked = False
                     rdbACCPostmarkNo.Checked = True
                 End If
-                If IsDBNull(dr.Item("datAccReportingYear")) OrElse dr.Item("datAccReportingYear") = "04-Jul-1776" Then
+                If NormalizeDbDate(dr.Item("datAccReportingYear")) Is Nothing Then
                     dtpAccReportingYear.Value = Today.AddYears(-1)
                     dtpAccReportingYear.Checked = False
                 Else
-                    dtpAccReportingYear.Value = dr.Item("datAccReportingYear")
+                    dtpAccReportingYear.Value = NormalizeDbDate(dr.Item("datAccReportingYear"))
                     dtpAccReportingYear.Checked = True
                 End If
-                If dr.Item("DATPostmarkDate") = "04-Jul-1776" Then
-                    DTPACCPostmarked.Value = Today
-                Else
-                    DTPACCPostmarked.Value = dr.Item("datPostmarkDate")
-                End If
+                DTPACCPostmarked.Value = RealDateOrToday(NormalizeDbDate(dr.Item("DATPostmarkDate")))
                 SignedByRO = dr.Item("strSignedByRO")
                 If SignedByRO = "True" Then
                     rdbACCROYes.Checked = True
@@ -2248,41 +2241,25 @@ Public Class SSCPEvents
                     cboNotificationType.SelectedValue = dr.Item("strNotificationType")
                 End If
 
-                If IsDBNull(dr.Item("datNotificationDue")) Then
-                    dtpNotificationDate.Value = Today
-                Else
-                    If dr.Item("datNotificationDue") <> "04-Jul-1776" Then
-                        dtpNotificationDate.Value = dr.Item("datNotificationDue")
-                    Else
-                        dtpNotificationDate.Value = Today
-                    End If
-                End If
+                dtpNotificationDate.Value = RealDateOrToday(NormalizeDbDate(dr.Item("datNotificationDue")))
                 If dtpNotificationDate.ShowCheckBox Then
                     'If value is True then leave field blank 
                     If IsDBNull(dr.Item("strNotificationDue")) Then
                         dtpNotificationDate.Checked = False
                     Else
-                        If dr.Item("strNotificationDue") = "True" Then
+                        If dr.Item("strNotificationDue").ToString = "True" Then
                             dtpNotificationDate.Checked = False
                         Else
                             dtpNotificationDate.Checked = True
                         End If
                     End If
                 End If
-                If IsDBNull(dr.Item("datNotificationSent")) Then
-                    dtpNotificationDate2.Text = Today
-                Else
-                    If dr.Item("datNotificationSent") <> "04-Jul-1776" Then
-                        dtpNotificationDate2.Text = dr.Item("datNotificationSent")
-                    Else
-                        dtpNotificationDate2.Text = Today
-                    End If
-                End If
+                dtpNotificationDate2.Text = RealDateOrToday(NormalizeDbDate(dr.Item("datNotificationSent")))
                 'If value is True then leave field blank 
                 If IsDBNull(dr.Item("strNotificationSent")) Then
                     dtpNotificationDate2.Checked = False
                 Else
-                    If dr.Item("strNotificationSent") = "True" Then
+                    If dr.Item("strNotificationSent").ToString = "True" Then
                         dtpNotificationDate2.Checked = False
                     Else
                         dtpNotificationDate2.Checked = True
@@ -2292,7 +2269,7 @@ Public Class SSCPEvents
                 If IsDBNull(dr.Item("strNotificationTypeOther")) Then
                     txtNotificationTypeOther.Text = ""
                 Else
-                    If dr.Item("strNotificationTypeOther") <> "N/A" Then
+                    If dr.Item("strNotificationTypeOther").ToString <> "N/A" Then
                         txtNotificationTypeOther.Text = dr.Item("strNotificationTypeOther")
                     End If
                 End If
@@ -2304,7 +2281,7 @@ Public Class SSCPEvents
                 If IsDBNull(dr.Item("strNotificationFollowUp")) Then
                     rdbNotificationFollowUpNo.Checked = True
                 Else
-                    If dr.Item("strNotificationFollowUp") = "True" Then
+                    If dr.Item("strNotificationFollowUp").ToString = "True" Then
                         rdbNotificationFollowUpYes.Checked = True
                     Else
                         rdbNotificationFollowUpNo.Checked = True
