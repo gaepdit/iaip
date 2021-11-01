@@ -10,6 +10,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.26.1 <span>(2021-11-01)</span>
+
+This update attempts to fix a bug where SSCP stack test reviews could break, preventing updates.
+
 ## Version 5.26.0 <span>(2021-10-06)</span>
 
 Updated how facility contacts are handled. This comes with a large number of usability improvements and bug fixes in several places.
