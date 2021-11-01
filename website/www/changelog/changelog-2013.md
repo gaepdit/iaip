@@ -164,3 +164,5 @@
 - FIX: State Contact data not refreshed correctly when loading new facility (#50)
 - FIX: Bug in counting of stipulated penalties (#53)
 - FIX: FCE did not include work done on the same day as the FCE (#54)
+
+*Changelog begins here.*
