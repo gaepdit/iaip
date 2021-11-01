@@ -1,0 +1,6 @@
+{
+    "files.exclude": {
+        "**/*.html": true
+    },
+    "liveServer.settings.root": "/www"
+}
