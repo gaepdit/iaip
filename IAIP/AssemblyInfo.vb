@@ -2,7 +2,7 @@ Imports System.Resources
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
-<Assembly: AssemblyVersion("5.26.0.0")>
+<Assembly: AssemblyVersion("5.26.1.0")>
 <Assembly: AssemblyCompany("State of Georgia")>
 <Assembly: AssemblyCopyright("Copyright © 2021")>
 <Assembly: CLSCompliant(True)>
