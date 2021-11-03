@@ -524,6 +524,7 @@ Partial Class IAIPEditContacts
         Me.lblFacilityName.Size = New System.Drawing.Size(83, 13)
         Me.lblFacilityName.TabIndex = 0
         Me.lblFacilityName.Text = "Facility Name"
+        Me.lblFacilityName.UseMnemonic = False
         '
         'IAIPEditContacts
         '

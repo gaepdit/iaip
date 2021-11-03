@@ -319,6 +319,7 @@ Partial Class IAIPEditSubParts
         Me.txtFacilityName.Size = New System.Drawing.Size(90, 16)
         Me.txtFacilityName.TabIndex = 1
         Me.txtFacilityName.Text = "Facility Name"
+        Me.txtFacilityName.UseMnemonic = False
         '
         'IAIPEditSubParts
         '

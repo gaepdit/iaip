@@ -22,6 +22,9 @@ Partial Class IAIPEditAirProgramPollutants
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.FacilityAirProgramPollutants = New System.Windows.Forms.DataGridView()
         Me.HeaderPanel = New System.Windows.Forms.Panel()
+        Me.FacilityOperatingStatusDisplay = New System.Windows.Forms.Label()
+        Me.FacilityDisplay = New System.Windows.Forms.Label()
+        Me.AirsNumberDisplay = New System.Windows.Forms.Label()
         Me.ControlPanel = New System.Windows.Forms.Panel()
         Me.SaveButton = New System.Windows.Forms.Button()
         Me.OperatingStatusSelect = New System.Windows.Forms.ComboBox()
@@ -30,9 +33,6 @@ Partial Class IAIPEditAirProgramPollutants
         Me.AirProgramSelect = New System.Windows.Forms.ComboBox()
         Me.PollutantSelect = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.FacilityOperatingStatusDisplay = New System.Windows.Forms.Label()
-        Me.FacilityDisplay = New System.Windows.Forms.Label()
-        Me.AirsNumberDisplay = New System.Windows.Forms.Label()
         CType(Me.FacilityAirProgramPollutants, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.HeaderPanel.SuspendLayout()
         Me.ControlPanel.SuspendLayout()
@@ -66,6 +66,41 @@ Partial Class IAIPEditAirProgramPollutants
         Me.HeaderPanel.Name = "HeaderPanel"
         Me.HeaderPanel.Size = New System.Drawing.Size(484, 84)
         Me.HeaderPanel.TabIndex = 1
+        '
+        'FacilityOperatingStatusDisplay
+        '
+        Me.FacilityOperatingStatusDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.FacilityOperatingStatusDisplay.AutoSize = True
+        Me.FacilityOperatingStatusDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FacilityOperatingStatusDisplay.Location = New System.Drawing.Point(12, 48)
+        Me.FacilityOperatingStatusDisplay.Name = "FacilityOperatingStatusDisplay"
+        Me.FacilityOperatingStatusDisplay.Size = New System.Drawing.Size(101, 17)
+        Me.FacilityOperatingStatusDisplay.TabIndex = 240
+        Me.FacilityOperatingStatusDisplay.Text = "Facility status: "
+        '
+        'FacilityDisplay
+        '
+        Me.FacilityDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.FacilityDisplay.AutoSize = True
+        Me.FacilityDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FacilityDisplay.Location = New System.Drawing.Point(92, 18)
+        Me.FacilityDisplay.Name = "FacilityDisplay"
+        Me.FacilityDisplay.Size = New System.Drawing.Size(92, 17)
+        Me.FacilityDisplay.TabIndex = 240
+        Me.FacilityDisplay.Text = "Facility Name"
+        Me.FacilityDisplay.UseMnemonic = False
+        '
+        'AirsNumberDisplay
+        '
+        Me.AirsNumberDisplay.AutoSize = True
+        Me.AirsNumberDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AirsNumberDisplay.Location = New System.Drawing.Point(12, 18)
+        Me.AirsNumberDisplay.Name = "AirsNumberDisplay"
+        Me.AirsNumberDisplay.Size = New System.Drawing.Size(77, 17)
+        Me.AirsNumberDisplay.TabIndex = 239
+        Me.AirsNumberDisplay.Text = "000-00000"
         '
         'ControlPanel
         '
@@ -148,40 +183,6 @@ Partial Class IAIPEditAirProgramPollutants
         Me.Label3.Size = New System.Drawing.Size(48, 13)
         Me.Label3.TabIndex = 232
         Me.Label3.Text = "Pollutant"
-        '
-        'FacilityOperatingStatusDisplay
-        '
-        Me.FacilityOperatingStatusDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.FacilityOperatingStatusDisplay.AutoSize = True
-        Me.FacilityOperatingStatusDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FacilityOperatingStatusDisplay.Location = New System.Drawing.Point(12, 48)
-        Me.FacilityOperatingStatusDisplay.Name = "FacilityOperatingStatusDisplay"
-        Me.FacilityOperatingStatusDisplay.Size = New System.Drawing.Size(101, 17)
-        Me.FacilityOperatingStatusDisplay.TabIndex = 240
-        Me.FacilityOperatingStatusDisplay.Text = "Facility status: "
-        '
-        'FacilityDisplay
-        '
-        Me.FacilityDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.FacilityDisplay.AutoSize = True
-        Me.FacilityDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FacilityDisplay.Location = New System.Drawing.Point(92, 18)
-        Me.FacilityDisplay.Name = "FacilityDisplay"
-        Me.FacilityDisplay.Size = New System.Drawing.Size(92, 17)
-        Me.FacilityDisplay.TabIndex = 240
-        Me.FacilityDisplay.Text = "Facility Name"
-        '
-        'AirsNumberDisplay
-        '
-        Me.AirsNumberDisplay.AutoSize = True
-        Me.AirsNumberDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AirsNumberDisplay.Location = New System.Drawing.Point(12, 18)
-        Me.AirsNumberDisplay.Name = "AirsNumberDisplay"
-        Me.AirsNumberDisplay.Size = New System.Drawing.Size(77, 17)
-        Me.AirsNumberDisplay.TabIndex = 239
-        Me.AirsNumberDisplay.Text = "000-00000"
         '
         'IAIPEditAirProgramPollutants
         '

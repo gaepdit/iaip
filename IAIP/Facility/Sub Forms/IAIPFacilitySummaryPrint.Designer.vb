@@ -23,13 +23,13 @@ Partial Class IaipFacilitySummaryPrint
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.FacilityDisplay = New System.Windows.Forms.Label()
         Me.ShowFullReportButton = New System.Windows.Forms.Button()
         Me.ShowBasicReportButton = New System.Windows.Forms.Button()
         Me.EndDateLabel = New System.Windows.Forms.Label()
         Me.StartDateLabel = New System.Windows.Forms.Label()
         Me.FullPrintEndDate = New System.Windows.Forms.DateTimePicker()
         Me.FullPrintStartDate = New System.Windows.Forms.DateTimePicker()
-        Me.FacilityDisplay = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -47,6 +47,17 @@ Partial Class IaipFacilitySummaryPrint
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(406, 162)
         Me.Panel1.TabIndex = 0
+        '
+        'FacilityDisplay
+        '
+        Me.FacilityDisplay.AutoSize = True
+        Me.FacilityDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FacilityDisplay.Location = New System.Drawing.Point(18, 19)
+        Me.FacilityDisplay.Name = "FacilityDisplay"
+        Me.FacilityDisplay.Size = New System.Drawing.Size(130, 17)
+        Me.FacilityDisplay.TabIndex = 384
+        Me.FacilityDisplay.Text = " No facility selected"
+        Me.FacilityDisplay.UseMnemonic = False
         '
         'ShowFullReportButton
         '
@@ -103,16 +114,6 @@ Partial Class IaipFacilitySummaryPrint
         Me.FullPrintStartDate.Size = New System.Drawing.Size(100, 20)
         Me.FullPrintStartDate.TabIndex = 2
         Me.FullPrintStartDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'FacilityDisplay
-        '
-        Me.FacilityDisplay.AutoSize = True
-        Me.FacilityDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FacilityDisplay.Location = New System.Drawing.Point(18, 19)
-        Me.FacilityDisplay.Name = "FacilityDisplay"
-        Me.FacilityDisplay.Size = New System.Drawing.Size(130, 17)
-        Me.FacilityDisplay.TabIndex = 384
-        Me.FacilityDisplay.Text = " No facility selected"
         '
         'IaipFacilitySummaryPrint
         '
