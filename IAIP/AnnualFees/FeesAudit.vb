@@ -955,86 +955,127 @@ Public Class FeesAudit
 
     Private Sub LoadTransactionData()
         Try
-            Dim SQL As String = "select " &
-            "convert(int, TRANSACTIONID) as TRANSACTIONID, convert(int, INVOICES.INVOICEID) as INVOICEID, DATTRANSACTIONDATE, " &
-            "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
-            "ENTRYPERSON, " &
-            "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
-            "case " &
-            "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME+', '+STRFIRSTNAME) " &
-            "else '' " &
-            "end  UpdateUser, " &
-            "TRANSACTIONS.UPDATEDATETIME, " &
-            "TRANSACTIONS.CREATEDATETIME, " &
-            "strPayTypedesc " &
-            " from " &
-            "(select " &
-            "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " &
-            "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
-            "(STRLASTNAME+', '+STRFIRSTNAME) as ENTRYPERSON, " &
-            "STRCOMMENT, strCreditcardno, " &
-            "transactiontypecode, " &
-            "UPDATEUSER, UPDATEDATETIME, " &
-            "createDateTime, strairsnumber, numfeeyear " &
-            "from FS_TRANSACTIONS left join EPDUSERPROFILES " &
-            "on FS_TRANSACTIONS.STRENTRYPERSON = EPDUSERPROFILES.NUMUSERID " &
-            "where FS_TRANSACTIONS.STRAIRSNUMBER = @airs " &
-            "and FS_TRANSACTIONS.NUMFEEYEAR = @year " &
-            "and active = 1) as TRANSACTIONS left join  " &
-            "(select " &
-            "INVOICEID, " &
-            "FS_feeINVOICE.UPDATEUSER, FS_feeINVOICE.UPDATEDATETIME, " &
-            "FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strpaytypedesc " &
-            "from FS_feeINVOICE inner join FSLK_PayType " &
-            "on FS_FeeInvoice.strPayType = FSLK_PayType.numPayTypeID " &
-            "where STRAIRSNUMBER = @airs " &
-            "and NUMFEEYEAR = @year " &
-            "and FS_feeINVOICE.Active = '1' ) as INVOICES " &
-            "on TRANSACTIONS.STRAIRSNUMBER  =  INVOICES.STRAIRSNUMBER " &
-            "and TRANSACTIONS.NUMFEEYEAR  =  INVOICES.NUMFEEYEAR  " &
-            "and TRANSACTIONS.INVOICEID  =  INVOICES.INVOICEID  " &
-            "left join EPDUSERPROFILES " &
-            "on TRANSACTIONS.UPDATEUSER  = epduserProfiles.numUserID   " &
-            " union " &
-            "select " &
-            "convert(int, TRANSACTIONID) as TRANSACTIONID, convert(int, INVOICES.INVOICEID) as INVOICEID, DATTRANSACTIONDATE, " &
-            "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
-            "ENTRYPERSON, " &
-            "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
-            "case " &
-            "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME+', '+STRFIRSTNAME) " &
-            "else '' " &
-            "end  UpdateUser, " &
-            "TRANSACTIONS.UPDATEDATETIME, " &
-            "TRANSACTIONS.CREATEDATETIME, strPayTypeDesc " &
-            " from " &
-            "(select " &
-            "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " &
-            "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
-            "(STRLASTNAME+', '+STRFIRSTNAME) as ENTRYPERSON, " &
-            "STRCOMMENT, strCreditcardno, " &
-            "transactiontypecode, " &
-            "UPDATEUSER, UPDATEDATETIME, " &
-            "createDateTime, strairsnumber, numfeeyear " &
-            "from FS_TRANSACTIONS left join EPDUSERPROFILES " &
-            "on FS_TRANSACTIONS.STRENTRYPERSON = EPDUSERPROFILES.NUMUSERID " &
-            "where FS_TRANSACTIONS.STRAIRSNUMBER = @airs " &
-            "and FS_TRANSACTIONS.NUMFEEYEAR = @year " &
-            "and active = 1) as TRANSACTIONS right join  " &
-            "(select " &
-            "INVOICEID, " &
-            "FS_feeINVOICE.UPDATEUSER, FS_feeINVOICE.UPDATEDATETIME, " &
-            "FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strPayTypeDesc " &
-            "from FS_feeINVOICE inner join fsLK_Paytype " &
-            "on FS_feeINVOICE.strPayType = fsLK_Paytype.numPayTypeID " &
-            "where STRAIRSNUMBER = @airs " &
-            "and NUMFEEYEAR = @year " &
-            "and FS_feeINVOICE.Active = '1') as INVOICES " &
-            "on INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER " &
-            "and INVOICES.NUMFEEYEAR  =  TRANSACTIONS.NUMFEEYEAR  " &
-            "and INVOICES.INVOICEID  =  TRANSACTIONS.INVOICEID " &
-            "left join EPDUSERPROFILES " &
-            "on TRANSACTIONS.UPDATEUSER  = epduserProfiles.numUserID "
+            Dim SQL As String = "select convert(int, TRANSACTIONID)                                                       as TRANSACTIONID,
+                   convert(int, INVOICES.INVOICEID)                                                  as INVOICEID,
+                   DATTRANSACTIONDATE,
+                   NUMPAYMENT,
+                   STRCHECKNO,
+                   STRDEPOSITNO,
+                   STRBATCHNO,
+                   ENTRYPERSON,
+                   STRCOMMENT,
+                   STRCREDITCARDNO,
+                         TRANSACTIONTYPECODE,
+                          IIF(TRANSACTIONS.UPDATEUSER is not null, (STRLASTNAME + ', ' + STRFIRSTNAME), '') as UpdateUser,
+                   TRANSACTIONS.UPDATEDATETIME,
+                   TRANSACTIONS.CREATEDATETIME,
+                   strPayTypedesc,
+                   DESCRIPTION
+            from (select TRANSACTIONID,
+                         INVOICEID,
+                         DATTRANSACTIONDATE,
+                         NUMPAYMENT,
+                         STRCHECKNO,
+                         STRDEPOSITNO,
+                         STRBATCHNO,
+                         (STRLASTNAME + ', ' + STRFIRSTNAME) as ENTRYPERSON,
+                         STRCOMMENT,
+                         strCreditcardno,
+                         FS_TRANSACTIONS.TRANSACTIONTYPECODE,
+                         FSLK_TRANSACTIONTYPE.DESCRIPTION,
+                         FS_TRANSACTIONS.UPDATEUSER,
+                         FS_TRANSACTIONS.UPDATEDATETIME,
+                         FS_TRANSACTIONS.createDateTime,
+                         strairsnumber,
+                         numfeeyear
+                  from FS_TRANSACTIONS
+                      left join EPDUSERPROFILES
+                      on FS_TRANSACTIONS.STRENTRYPERSON = EPDUSERPROFILES.NUMUSERID
+                      left join FSLK_TRANSACTIONTYPE
+                      on FS_TRANSACTIONS.TRANSACTIONTYPECODE = FSLK_TRANSACTIONTYPE.TRANSACTIONTYPECODE
+                  where FS_TRANSACTIONS.STRAIRSNUMBER = @airs
+                    and FS_TRANSACTIONS.NUMFEEYEAR = @year
+                    and FS_TRANSACTIONS.active = 1) as TRANSACTIONS
+                left join
+            (select INVOICEID,
+                    FS_feeINVOICE.UPDATEUSER,
+                    FS_feeINVOICE.UPDATEDATETIME,
+                    FS_feeINVOICE.CREATEDATETIME,
+                    STRAIRSNUMBER,
+                    NUMFEEYEAR,
+                    strpaytypedesc
+             from FS_feeINVOICE
+                 inner join FSLK_PayType
+                 on FS_FeeInvoice.strPayType = FSLK_PayType.numPayTypeID
+             where STRAIRSNUMBER = @airs
+               and NUMFEEYEAR = @year
+               and FS_feeINVOICE.Active = '1') as INVOICES
+                on TRANSACTIONS.STRAIRSNUMBER = INVOICES.STRAIRSNUMBER
+                    and TRANSACTIONS.NUMFEEYEAR = INVOICES.NUMFEEYEAR
+                    and TRANSACTIONS.INVOICEID = INVOICES.INVOICEID
+                left join EPDUSERPROFILES
+                on TRANSACTIONS.UPDATEUSER = epduserProfiles.numUserID
+            union
+            select convert(int, TRANSACTIONID)                                                       as TRANSACTIONID,
+                   convert(int, INVOICES.INVOICEID)                                                  as INVOICEID,
+                   DATTRANSACTIONDATE,
+                   NUMPAYMENT,
+                   STRCHECKNO,
+                   STRDEPOSITNO,
+                   STRBATCHNO,
+                   ENTRYPERSON,
+                   STRCOMMENT,
+                   STRCREDITCARDNO,
+                   TRANSACTIONTYPECODE,
+                   IIF(TRANSACTIONS.UPDATEUSER is not null, (STRLASTNAME + ', ' + STRFIRSTNAME), '') as UpdateUser,
+                   TRANSACTIONS.UPDATEDATETIME,
+                   TRANSACTIONS.CREATEDATETIME,
+                   strPayTypeDesc,
+                   DESCRIPTION
+            from (select TRANSACTIONID,
+                         INVOICEID,
+                         DATTRANSACTIONDATE,
+                         NUMPAYMENT,
+                         STRCHECKNO,
+                         STRDEPOSITNO,
+                         STRBATCHNO,
+                         (STRLASTNAME + ', ' + STRFIRSTNAME) as ENTRYPERSON,
+                         STRCOMMENT,
+                         strCreditcardno,
+                         FS_TRANSACTIONS.TRANSACTIONTYPECODE,
+                         FSLK_TRANSACTIONTYPE.DESCRIPTION,
+                         FS_TRANSACTIONS.UPDATEUSER,
+                         FS_TRANSACTIONS.UPDATEDATETIME,
+                         FS_TRANSACTIONS.createDateTime,
+                         strairsnumber,
+                         numfeeyear
+                  from FS_TRANSACTIONS
+                      left join EPDUSERPROFILES
+                      on FS_TRANSACTIONS.STRENTRYPERSON = EPDUSERPROFILES.NUMUSERID
+                      left join FSLK_TRANSACTIONTYPE
+                      on FS_TRANSACTIONS.TRANSACTIONTYPECODE = FSLK_TRANSACTIONTYPE.TRANSACTIONTYPECODE
+                  where FS_TRANSACTIONS.STRAIRSNUMBER = @airs
+                    and FS_TRANSACTIONS.NUMFEEYEAR = @year
+                    and FS_TRANSACTIONS.active = 1) as TRANSACTIONS
+                right join
+            (select INVOICEID,
+                    FS_feeINVOICE.UPDATEUSER,
+                    FS_feeINVOICE.UPDATEDATETIME,
+                    FS_feeINVOICE.CREATEDATETIME,
+                    STRAIRSNUMBER,
+                    NUMFEEYEAR,
+                    strPayTypeDesc
+             from FS_feeINVOICE
+                 inner join fsLK_Paytype
+                 on FS_feeINVOICE.strPayType = fsLK_Paytype.numPayTypeID
+             where STRAIRSNUMBER = @airs
+               and NUMFEEYEAR = @year
+               and FS_feeINVOICE.Active = '1') as INVOICES
+                on INVOICES.STRAIRSNUMBER = TRANSACTIONS.STRAIRSNUMBER
+                    and INVOICES.NUMFEEYEAR = TRANSACTIONS.NUMFEEYEAR
+                    and INVOICES.INVOICEID = TRANSACTIONS.INVOICEID
+                left join EPDUSERPROFILES
+                on TRANSACTIONS.UPDATEUSER = epduserProfiles.numUserID"
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@airs", AirsNumber.DbFormattedString),
@@ -1069,9 +1110,9 @@ Public Class FeesAudit
             dgvTransactions.Columns("strComment").HeaderText = "Comments"
             dgvTransactions.Columns("strComment").DisplayIndex = 10
 
-            dgvTransactions.Columns("TRANSACTIONTYPECODE").HeaderText = "Transaction Type"
+            dgvTransactions.Columns("TRANSACTIONTYPECODE").HeaderText = "Transaction Type Code"
             dgvTransactions.Columns("TRANSACTIONTYPECODE").DisplayIndex = 11
-            dgvTransactions.Columns("TRANSACTIONTYPECODE").Width = 0
+            dgvTransactions.Columns("TRANSACTIONTYPECODE").Visible = False
             dgvTransactions.Columns("UPDATEUSER").HeaderText = "Update User"
             dgvTransactions.Columns("UPDATEUSER").DisplayIndex = 12
             dgvTransactions.Columns("UPDATEDATETIME").HeaderText = "Update Time"
@@ -1080,6 +1121,7 @@ Public Class FeesAudit
             dgvTransactions.Columns("CREATEDATETIME").HeaderText = "Create Time"
             dgvTransactions.Columns("CREATEDATETIME").DisplayIndex = 14
             dgvTransactions.Columns("CREATEDATETIME").DefaultCellStyle.Format = "dd-MMM-yyyy"
+            dgvTransactions.Columns("DESCRIPTION").HeaderText = "Transaction Type"
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -4115,28 +4157,111 @@ Public Class FeesAudit
             If rdbCurrentFeeyear.Checked Then
                 LoadTransactionData()
             Else
-                Dim SQL As String = "SELECT " &
-                    "convert(int, tr.TRANSACTIONID) as TRANSACTIONID, convert(int, inv.INVOICEID) as INVOICEID, tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.STRCHECKNO, tr.STRDEPOSITNO, tr.STRBATCHNO, tr.ENTRYPERSON, tr.STRCOMMENT, tr.STRCREDITCARDNO, tr.TRANSACTIONTYPECODE, " &
-                    "CASE WHEN tr.UPDATEUSER IS NOT NULL THEN u.STRLASTNAME+', '+u.STRFIRSTNAME ELSE '' END AS UpdateUser, tr.UPDATEDATETIME, tr.CREATEDATETIME, tr.NUMFEEYEAR " &
-                    "FROM (SELECT t.TRANSACTIONID, t.INVOICEID, t.DATTRANSACTIONDATE, t.NUMPAYMENT, t.STRCHECKNO, t.STRDEPOSITNO, t.STRBATCHNO, p.STRLASTNAME+', '+p.STRFIRSTNAME AS ENTRYPERSON, t.STRCOMMENT, t.STRCREDITCARDNO, t.TRANSACTIONTYPECODE, t.UPDATEUSER, t.UPDATEDATETIME, t.CREATEDATETIME, t.STRAIRSNUMBER, t.NUMFEEYEAR " &
-                    "FROM FS_TRANSACTIONS AS t " &
-                    "INNER JOIN EPDUSERPROFILES AS p ON t.STRENTRYPERSON = p.NUMUSERID " &
-                    "WHERE t.STRAIRSNUMBER = @airs AND t.ACTIVE = 1) AS tr " &
-                    "LEFT JOIN (SELECT i.INVOICEID, i.UPDATEUSER, i.UPDATEDATETIME, i.CREATEDATETIME, i.STRAIRSNUMBER, i.NUMFEEYEAR " &
-                    "FROM FS_feeINVOICE AS i " &
-                    "WHERE i.STRAIRSNUMBER = @airs AND i.ACTIVE = '1') AS inv ON tr.INVOICEID = inv.INVOICEID AND tr.STRAIRSNUMBER = inv.STRAIRSNUMBER AND tr.NUMFEEYEAR = inv.NUMFEEYEAR " &
-                    "LEFT JOIN EPDUSERPROFILES AS u ON tr.UPDATEUSER = u.NUMUSERID " &
-                    "UNION " &
-                    "SELECT convert(int, tr.TRANSACTIONID) as TRANSACTIONID, convert(int, inv.INVOICEID) as INVOICEID, tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.STRCHECKNO, tr.STRDEPOSITNO, tr.STRBATCHNO, tr.ENTRYPERSON, tr.STRCOMMENT, tr.STRCREDITCARDNO, tr.TRANSACTIONTYPECODE, " &
-                    "CASE WHEN tr.UPDATEUSER IS NOT NULL THEN p.STRLASTNAME+', '+p.STRFIRSTNAME ELSE '' END AS UpdateUser, tr.UPDATEDATETIME, tr.CREATEDATETIME, tr.NUMFEEYEAR " &
-                    "FROM (SELECT t.TRANSACTIONID, t.INVOICEID, t.DATTRANSACTIONDATE, t.NUMPAYMENT, t.STRCHECKNO, t.STRDEPOSITNO, t.STRBATCHNO, p.STRLASTNAME+', '+p.STRFIRSTNAME AS ENTRYPERSON, t.STRCOMMENT, t.STRCREDITCARDNO, t.TRANSACTIONTYPECODE, t.UPDATEUSER, t.UPDATEDATETIME, t.CREATEDATETIME, t.STRAIRSNUMBER, t.NUMFEEYEAR " &
-                    "FROM FS_TRANSACTIONS AS t " &
-                    "INNER JOIN EPDUSERPROFILES AS p ON t.STRENTRYPERSON = p.NUMUSERID " &
-                    "WHERE t.STRAIRSNUMBER = @airs AND t.ACTIVE = 1) AS tr " &
-                    "LEFT JOIN EPDUSERPROFILES AS p ON tr.UPDATEUSER = p.NUMUSERID " &
-                    "RIGHT JOIN (SELECT i.INVOICEID, i.UPDATEUSER, i.UPDATEDATETIME, i.CREATEDATETIME, i.STRAIRSNUMBER, i.NUMFEEYEAR " &
-                    "FROM FS_feeINVOICE AS i " &
-                    "WHERE i.STRAIRSNUMBER = @airs AND i.ACTIVE = '1') AS inv ON inv.INVOICEID = tr.INVOICEID AND inv.STRAIRSNUMBER = tr.STRAIRSNUMBER AND inv.NUMFEEYEAR = tr.NUMFEEYEAR "
+                Dim SQL As String = "SELECT convert(int, tr.TRANSACTIONID)                                            as TRANSACTIONID,
+                   convert(int, inv.INVOICEID)                                               as INVOICEID,
+                   tr.DATTRANSACTIONDATE,
+                   tr.NUMPAYMENT,
+                   tr.STRCHECKNO,
+                   tr.STRDEPOSITNO,
+                   tr.STRBATCHNO,
+                   tr.ENTRYPERSON,
+                   tr.STRCOMMENT,
+                   tr.STRCREDITCARDNO,
+                   tr.TRANSACTIONTYPECODE,
+                   IIF(tr.UPDATEUSER IS NOT NULL, u.STRLASTNAME + ', ' + u.STRFIRSTNAME, '') AS UpdateUser,
+                   tr.UPDATEDATETIME,
+                   tr.CREATEDATETIME,
+                   tr.NUMFEEYEAR,
+                   tr.DESCRIPTION
+            FROM (SELECT t.TRANSACTIONID,
+                         t.INVOICEID,
+                         t.DATTRANSACTIONDATE,
+                         t.NUMPAYMENT,
+                         t.STRCHECKNO,
+                         t.STRDEPOSITNO,
+                         t.STRBATCHNO,
+                         p.STRLASTNAME + ', ' + p.STRFIRSTNAME AS ENTRYPERSON,
+                         t.STRCOMMENT,
+                         t.STRCREDITCARDNO,
+                         t.TRANSACTIONTYPECODE,
+                         t.UPDATEUSER,
+                         t.UPDATEDATETIME,
+                         t.CREATEDATETIME,
+                         t.STRAIRSNUMBER,
+                         t.NUMFEEYEAR,
+                         l.DESCRIPTION
+                  FROM FS_TRANSACTIONS AS t
+                      INNER JOIN EPDUSERPROFILES AS p
+                      ON t.STRENTRYPERSON = p.NUMUSERID
+                      left join FSLK_TRANSACTIONTYPE l
+                      on t.TRANSACTIONTYPECODE = l.TRANSACTIONTYPECODE
+                  WHERE t.STRAIRSNUMBER = @airs
+                    AND t.ACTIVE = 1) AS tr
+                LEFT JOIN (SELECT i.INVOICEID,
+                                  i.UPDATEUSER,
+                                  i.UPDATEDATETIME,
+                                  i.CREATEDATETIME,
+                                  i.STRAIRSNUMBER,
+                                  i.NUMFEEYEAR
+                           FROM FS_feeINVOICE AS i
+                           WHERE i.STRAIRSNUMBER = @airs
+                             AND i.ACTIVE = '1') AS inv
+                ON tr.INVOICEID = inv.INVOICEID AND tr.STRAIRSNUMBER = inv.STRAIRSNUMBER AND tr.NUMFEEYEAR = inv.NUMFEEYEAR
+                LEFT JOIN EPDUSERPROFILES AS u
+                ON tr.UPDATEUSER = u.NUMUSERID
+            UNION
+            SELECT convert(int, tr.TRANSACTIONID)                                            as TRANSACTIONID,
+                   convert(int, inv.INVOICEID)                                               as INVOICEID,
+                   tr.DATTRANSACTIONDATE,
+                   tr.NUMPAYMENT,
+                   tr.STRCHECKNO,
+                   tr.STRDEPOSITNO,
+                   tr.STRBATCHNO,
+                   tr.ENTRYPERSON,
+                   tr.STRCOMMENT,
+                   tr.STRCREDITCARDNO,
+                   tr.TRANSACTIONTYPECODE,
+                   IIF(tr.UPDATEUSER IS NOT NULL, p.STRLASTNAME + ', ' + p.STRFIRSTNAME, '') AS UpdateUser,
+                   tr.UPDATEDATETIME,
+                   tr.CREATEDATETIME,
+                   tr.NUMFEEYEAR,
+                   tr.DESCRIPTION
+            FROM (SELECT t.TRANSACTIONID,
+                         t.INVOICEID,
+                         t.DATTRANSACTIONDATE,
+                         t.NUMPAYMENT,
+                         t.STRCHECKNO,
+                         t.STRDEPOSITNO,
+                         t.STRBATCHNO,
+                         p.STRLASTNAME + ', ' + p.STRFIRSTNAME AS ENTRYPERSON,
+                         t.STRCOMMENT,
+                         t.STRCREDITCARDNO,
+                         t.TRANSACTIONTYPECODE,
+                         t.UPDATEUSER,
+                         t.UPDATEDATETIME,
+                         t.CREATEDATETIME,
+                         t.STRAIRSNUMBER,
+                         t.NUMFEEYEAR,
+                         l.DESCRIPTION
+                  FROM FS_TRANSACTIONS AS t
+                      INNER JOIN EPDUSERPROFILES AS p
+                      ON t.STRENTRYPERSON = p.NUMUSERID
+                      left join FSLK_TRANSACTIONTYPE l
+                      on t.TRANSACTIONTYPECODE = l.TRANSACTIONTYPECODE
+                  WHERE t.STRAIRSNUMBER = @airs
+                    AND t.ACTIVE = 1) AS tr
+                LEFT JOIN EPDUSERPROFILES AS p
+                ON tr.UPDATEUSER = p.NUMUSERID
+                RIGHT JOIN (SELECT i.INVOICEID,
+                                   i.UPDATEUSER,
+                                   i.UPDATEDATETIME,
+                                   i.CREATEDATETIME,
+                                   i.STRAIRSNUMBER,
+                                   i.NUMFEEYEAR
+                            FROM FS_feeINVOICE AS i
+                            WHERE i.STRAIRSNUMBER = @airs
+                              AND i.ACTIVE = '1') AS inv
+                ON inv.INVOICEID = tr.INVOICEID AND inv.STRAIRSNUMBER = tr.STRAIRSNUMBER AND inv.NUMFEEYEAR = tr.NUMFEEYEAR"
 
                 Dim p As New SqlParameter("@airs", AirsNumber.DbFormattedString)
 
@@ -4167,7 +4292,7 @@ Public Class FeesAudit
 
                 dgvTransactions.Columns("TRANSACTIONTYPECODE").HeaderText = "Transaction Type"
                 dgvTransactions.Columns("TRANSACTIONTYPECODE").DisplayIndex = 10
-                dgvTransactions.Columns("TRANSACTIONTYPECODE").Width = 0
+                dgvTransactions.Columns("TRANSACTIONTYPECODE").Visible = False
                 dgvTransactions.Columns("UPDATEUSER").HeaderText = "Update User"
                 dgvTransactions.Columns("UPDATEUSER").DisplayIndex = 11
                 dgvTransactions.Columns("UPDATEDATETIME").HeaderText = "Update Time"
@@ -4178,6 +4303,7 @@ Public Class FeesAudit
                 dgvTransactions.Columns("CREATEDATETIME").DefaultCellStyle.Format = "dd-MMM-yyyy"
                 dgvTransactions.Columns("numFeeYear").HeaderText = "Fee Year"
                 dgvTransactions.Columns("numFeeYear").DisplayIndex = 14
+                dgvTransactions.Columns("DESCRIPTION").HeaderText = "Transaction Type"
             End If
 
         Catch ex As Exception
