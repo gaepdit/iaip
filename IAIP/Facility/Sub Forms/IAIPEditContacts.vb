@@ -10,7 +10,12 @@ Public Class IAIPEditContacts
     Friend Property Key As ContactKey
 
     Protected Overrides Sub OnLoad(e As EventArgs)
+        MyBase.OnLoad(e)
         ParseParameters()
+    End Sub
+
+    Protected Overrides Sub OnShown(e As EventArgs)
+        MyBase.OnShown(e)
         LoadContactsDataset()
     End Sub
 
@@ -95,6 +100,8 @@ Public Class IAIPEditContacts
         ContactsDataGrid.Columns("strContactState").HeaderText = "State"
         ContactsDataGrid.Columns("strContactZipCode").HeaderText = "Zip Code"
         ContactsDataGrid.Columns("strContactDescription").HeaderText = "Description"
+
+        ClearForm()
     End Sub
 
     Private Sub LoadSelectedContact()
@@ -156,6 +163,8 @@ Public Class IAIPEditContacts
         If e.RowIndex <> -1 AndAlso e.RowIndex < ContactsDataGrid.RowCount AndAlso ContactsDataGrid.SelectedRows.Count = 1 Then
             Key = ContactsDataGrid("strKey", e.RowIndex).Value
             LoadSelectedContact()
+            btnSaveNewContact.Visible = False
+            btnUpdateContact.Visible = True
         End If
     End Sub
 
@@ -191,6 +200,8 @@ Public Class IAIPEditContacts
 
         btnSaveNewContact.Enabled = True
         btnUpdateContact.Enabled = False
+        btnSaveNewContact.Visible = True
+        btnUpdateContact.Visible = False
         ContactsDataGrid.SelectNone()
     End Sub
 

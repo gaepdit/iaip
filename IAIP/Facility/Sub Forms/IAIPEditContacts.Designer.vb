@@ -78,6 +78,7 @@ Partial Class IAIPEditContacts
         Me.ContactsDataGrid.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ContactsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ContactsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ContactsDataGrid.GridColor = System.Drawing.SystemColors.ControlLight
         Me.ContactsDataGrid.LinkifyColumnByName = Nothing
         Me.ContactsDataGrid.Location = New System.Drawing.Point(0, 294)
         Me.ContactsDataGrid.Name = "ContactsDataGrid"
@@ -219,18 +220,18 @@ Partial Class IAIPEditContacts
         '
         Me.btnClearForm.AutoSize = True
         Me.btnClearForm.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearForm.Location = New System.Drawing.Point(488, 221)
+        Me.btnClearForm.Location = New System.Drawing.Point(634, 221)
         Me.btnClearForm.Name = "btnClearForm"
-        Me.btnClearForm.Size = New System.Drawing.Size(67, 23)
+        Me.btnClearForm.Size = New System.Drawing.Size(151, 23)
         Me.btnClearForm.TabIndex = 17
-        Me.btnClearForm.Text = "Clear Form"
+        Me.btnClearForm.Text = "Clear form/start new contact"
         Me.btnClearForm.UseVisualStyleBackColor = True
         '
         'btnUpdateContact
         '
         Me.btnUpdateContact.AutoSize = True
         Me.btnUpdateContact.Enabled = False
-        Me.btnUpdateContact.Location = New System.Drawing.Point(230, 221)
+        Me.btnUpdateContact.Location = New System.Drawing.Point(111, 221)
         Me.btnUpdateContact.Name = "btnUpdateContact"
         Me.btnUpdateContact.Size = New System.Drawing.Size(137, 23)
         Me.btnUpdateContact.TabIndex = 16
