@@ -338,6 +338,7 @@ Partial Class GecoTool
         Me.lblChangeEmailAddress.Size = New System.Drawing.Size(173, 26)
         Me.lblChangeEmailAddress.TabIndex = 284
         Me.lblChangeEmailAddress.Text = "User will be required to confirm this " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "email address before it is active."
+        Me.lblChangeEmailAddress.Visible = False
         '
         'btnChangeEmailAddress
         '
