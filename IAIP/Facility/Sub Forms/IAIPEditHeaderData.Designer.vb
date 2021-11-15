@@ -450,6 +450,7 @@ Partial Class IAIPEditHeaderData
         Me.FacilityNameDisplay.Size = New System.Drawing.Size(388, 34)
         Me.FacilityNameDisplay.TabIndex = 1
         Me.FacilityNameDisplay.Text = "Facility Name"
+        Me.FacilityNameDisplay.UseMnemonic = False
         '
         'AirsNumberDisplay
         '
