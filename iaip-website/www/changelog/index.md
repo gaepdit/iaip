@@ -10,6 +10,17 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.26.2 <span>(2021-11-15)</span>
+
+This update fixes some UI bugs:
+
+- Correctly display the transaction type in Fees Audit log tables.
+- Correctly display facility names that contain ampersands.
+- Improve the clarity of the facility contacts editor.
+- Hide a warning message that was showing in the GECO users tool when it wasn't needed.
+- Fix the permit application fee invoice search.
+- Allow the application fee deposit window to be closed without requiring an invoice.
+
 ## Version 5.26.1 <span>(2021-11-01)</span>
 
 This update attempts to fix a bug where SSCP stack test reviews could break, preventing updates.
