@@ -103,7 +103,7 @@ Namespace DAL.Finance
                                        facilityName As String,
                                        startDate As Date?,
                                        endDate As Date?,
-                                       category As Char?,
+                                       category As String,
                                        onlyOpen As Boolean,
                                        includeVoid As Boolean) As DataTable
 
@@ -112,7 +112,7 @@ Namespace DAL.Finance
                 New SqlParameter("@FacilityName", If(String.IsNullOrEmpty(facilityName), Nothing, "%" & facilityName & "%")),
                 New SqlParameter("@StartDate", If(startDate, Nothing)),
                 New SqlParameter("@EndDate", If(endDate, Nothing)),
-                New SqlParameter("@Category", If(category, Nothing)),
+                New SqlParameter("@Category", category),
                 New SqlParameter("@OnlyOpen", onlyOpen),
                 New SqlParameter("@IncludeVoid", includeVoid)
             }

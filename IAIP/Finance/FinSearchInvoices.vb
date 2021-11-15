@@ -22,11 +22,11 @@ Public Class FinSearchInvoices
     ' Search
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-        Dim category As Char = Nothing
+        Dim category As String = Nothing
         If rdbCategoryApplicationFees.Checked Then
-            category = "P"c
+            category = "P"
         ElseIf rdbCategoryEmissionFees.Checked Then
-            category = "E"c
+            category = "E"
         End If
 
         dgvSearchResults.DataSource = SearchInvoices(
