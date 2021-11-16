@@ -33,15 +33,17 @@ Friend Module ExceptionManager
             Return False
         End If
 
-        ' Don't log network down
+        ' Don't log network issues
+        ' and don't exit application
         If SeemsLikeANetworkIssue(ex) Then
             ShowNetworkDownSupportMessage()
-            Return unrecoverable
+            Return False
         End If
 
-        ' If Task Canceled Exception, don't exit application
+        ' Don't log Task Canceled Exception
+        ' and don't exit application
         If IsATaskCanceledException(ex) Then
-            unrecoverable = False
+            Return False
         End If
 
         ' First, log the exception.
@@ -64,6 +66,11 @@ Friend Module ExceptionManager
             (ex.Message.Contains("A network-related or instance-specific error occurred while establishing a connection to SQL Server.") OrElse
             ex.Message.Contains("A transport-level error has occurred when receiving results from the server.") OrElse
             ex.Message.Contains("The timeout period elapsed prior to completion of the operation or the server is not responding.")) Then
+            Return True
+        End If
+
+        If ex.GetType() = GetType(InvalidOperationException) AndAlso
+            ex.Message.Contains("Timeout expired. The timeout period elapsed prior to obtaining a connection from the pool.") Then
             Return True
         End If
 
