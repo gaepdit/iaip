@@ -261,5 +261,48 @@ Namespace DAL
             Return DB.GetDataTable(sql)
         End Function
 
+        Public Function InvoiceStatusCheck(invoiceID As String) As Boolean
+            Dim query As String = "select " &
+            "(invoiceTotal - PaymentTotal) as Balance " &
+            "from (select " &
+            "sum(numAmount) as InvoiceTotal " &
+            "from FS_Feeinvoice " &
+            "where invoiceId = @invoiceId " &
+            "and Active = '1' ) INVOICED, " &
+            "(select " &
+            "case " &
+            "when sum(NumPayment) is null then 0 " &
+            "else sum(numPayment) " &
+            "End PaymentTotal " &
+            "from FS_TRANSACTIONS " &
+            "where invoiceId = @invoiceId " &
+            "and Active = '1' ) Payments "
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@invoiceId", invoiceID),
+                New SqlParameter("@updateuser", "IAIP||" & CurrentUser.AlphaName)
+            }
+
+            Dim balance As Decimal? = DB.GetSingleValue(Of Decimal?)(query, p)
+
+            If balance.HasValue AndAlso balance.Value = 0 Then
+                'Paid in Full 
+                query = "Update FS_FeeInvoice set " &
+                    "updatedatetime = getdate(), " &
+                    "updateuser = @updateuser, " &
+                    "strInvoicestatus = '1' " &
+                    "where invoiceId = @invoiceId "
+            Else
+                'Not Paid in full
+                query = "Update FS_FeeInvoice set " &
+                    "updatedatetime = getdate(), " &
+                    "updateuser = @updateuser, " &
+                    "strInvoicestatus = '0' " &
+                    "where invoiceId = @invoiceId "
+            End If
+
+            Return DB.RunCommand(query, p)
+        End Function
+
     End Module
 End Namespace

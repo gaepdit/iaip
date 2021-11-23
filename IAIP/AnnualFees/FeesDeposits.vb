@@ -637,48 +637,57 @@ Public Class FeesDeposits
                 Return
             End If
 
-            Dim result As DialogResult = MessageBox.Show("Are you sure you want to remove " & txtCheckNumberField.Text &
-                                                         " for AIRS # - " & mtbAIRSNumber.Text & "?",
-                                                         "PASP Fee Tool", MessageBoxButtons.YesNo,
-                                                         MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-            If result = System.Windows.Forms.DialogResult.Yes Then
-                Dim query As String = "Update FS_Transactions set " &
-                    "active = '0', " &
-                    "updateUser = @updateUser, " &
-                    "updateDateTime = getdate() " &
-                    "where TransactionId = @trID "
+            Dim result As DialogResult =
+                MessageBox.Show("Are you sure you want to remove transaction #" & txtTransactionID.Text &
+                                " for AIRS # - " & mtbAIRSNumber.Text & "?",
+                                "Fee Tool", MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
-                Dim p As SqlParameter() = {
-                    New SqlParameter("@updateUser", CurrentUser.UserID),
-                    New SqlParameter("@trID", txtTransactionID.Text)
-                }
-
-                If DB.RunCommand(query, p) Then
-                    If Not ViewInvoices() Then
-                        MsgBox("There was an error loading invoices.", MsgBoxStyle.Exclamation, "Invoice Search Error")
-                    Else
-                        If Not LoadInvoicesGridview() Then
-                            MsgBox("There was an error filling the invoices grid.", MsgBoxStyle.Exclamation, "Invoice Search Error")
-                        End If
-                    End If
-
-                    txtCheckNumber.Clear()
-                    lblAIRSNumber.Text = "AIRS #"
-                    lblFacilityName.Text = "Facility Name"
-                    cbYear2.SelectedIndex = 0
-                    txtDepositAmount.Clear()
-                    txtTransactionID.Clear()
-                    txtDepositComments.Clear()
-                    txtDepositNumberField.Clear()
-                    txtBatchNoField.Clear()
-                    txtCheckNumberField.Clear()
-                    dtpBatchDepositDateField.Text = Date.Today
-
-                    MsgBox("The deposit has been deleted successfully.", MsgBoxStyle.Information, Me.Text)
-                Else
-                    MsgBox("There was an error deleting the deposit.", MsgBoxStyle.Information, Me.Text)
-                End If
+            If result = System.Windows.Forms.DialogResult.No Then
+                Return
             End If
+
+            Dim query As String = "Update FS_Transactions set " &
+                "active = '0', " &
+                "updateUser = @updateUser, " &
+                "updateDateTime = getdate() " &
+                "where TransactionId = @trID "
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@updateUser", CurrentUser.UserID),
+                New SqlParameter("@trID", txtTransactionID.Text)
+            }
+
+            If Not DB.RunCommand(query, p) Then
+                MsgBox("There was an error deleting the deposit.", MsgBoxStyle.Information, Me.Text)
+                Return
+            End If
+
+            If Not DAL.InvoiceStatusCheck(txtInvoiceForDeposit.Text) Then
+                MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
+            If Not DAL.UpdateFeeAdminStatus(cbYear2.Text, mtbAIRSNumber.Text) Then
+                MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
+            If Not ViewInvoices() OrElse Not LoadInvoicesGridview() Then
+                MsgBox("There was an error loading invoices.", MsgBoxStyle.Exclamation, "Invoice Search Error")
+            End If
+
+            txtCheckNumber.Clear()
+            lblAIRSNumber.Text = "AIRS #"
+            lblFacilityName.Text = "Facility Name"
+            cbYear2.SelectedIndex = 0
+            txtDepositAmount.Clear()
+            txtTransactionID.Clear()
+            txtDepositComments.Clear()
+            txtDepositNumberField.Clear()
+            txtBatchNoField.Clear()
+            txtCheckNumberField.Clear()
+            dtpBatchDepositDateField.Text = Date.Today
+
+            MsgBox("The deposit has been deleted successfully.", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

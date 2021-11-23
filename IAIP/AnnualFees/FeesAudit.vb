@@ -2286,7 +2286,10 @@ Public Class FeesAudit
                 txtTransactionID.Text = dr.Item(0)
             End If
 
-            InvoiceStatusCheck(txtInvoiceID.Text)
+            If Not DAL.InvoiceStatusCheck(txtInvoiceID.Text) Then
+                MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
             If Not DAL.UpdateFeeAdminStatus(FeeYear, AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
@@ -2478,11 +2481,14 @@ Public Class FeesAudit
 
             DB.RunCommand(SQL, p)
 
-            InvoiceStatusCheck(txtInvoiceID.Text)
+            If Not DAL.InvoiceStatusCheck(txtInvoiceID.Text) Then
+                MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
 
             If Not DAL.UpdateFeeAdminStatus(FeeYear, AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
+
             RefreshAdminStatus()
 
             LoadTransactionData()
@@ -2507,8 +2513,18 @@ Public Class FeesAudit
                 MsgBox("Please select a valid transaction to update." & vbCrLf & "No data modified", MsgBoxStyle.Exclamation, Me.Text)
                 Return
             End If
+
             If Not InvoiceCheck() Then
                 MsgBox("The Invoice Number entered is not valid." & vbCrLf & "No Data saved", MsgBoxStyle.Exclamation, Me.Text)
+                Return
+            End If
+
+            Dim result As DialogResult =
+                MessageBox.Show("Are you sure you want to remove transaction #" & txtTransactionID.Text & "?",
+                                "Fees Audit", MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+
+            If result = DialogResult.No Then
                 Return
             End If
 
@@ -2525,63 +2541,19 @@ Public Class FeesAudit
 
             DB.RunCommand(SQL, p)
 
-            InvoiceStatusCheck(txtInvoiceID.Text)
+            If Not DAL.InvoiceStatusCheck(txtInvoiceID.Text) Then
+                MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
             If Not DAL.UpdateFeeAdminStatus(Me.FeeYear, Me.AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
+
+            LoadFeeInvoiceData()
             RefreshAdminStatus()
 
             LoadTransactionData()
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub InvoiceStatusCheck(invoiceID As String)
-        Try
-            Dim query As String = "select " &
-            "(invoiceTotal - PaymentTotal) as Balance " &
-            "from (select " &
-            "sum(numAmount) as InvoiceTotal " &
-            "from FS_Feeinvoice " &
-            "where invoiceId = @invoiceId " &
-            "and Active = '1' ) INVOICED, " &
-            "(select " &
-            "case " &
-            "when sum(NumPayment) is null then 0 " &
-            "else sum(numPayment) " &
-            "End PaymentTotal " &
-            "from FS_TRANSACTIONS " &
-            "where invoiceId = @invoiceId " &
-            "and Active = '1' ) Payments "
-
-            Dim p As SqlParameter() = {
-                New SqlParameter("@invoiceId", invoiceID),
-                New SqlParameter("@updateuser", "IAIP||" & CurrentUser.AlphaName)
-            }
-
-            Dim balance As Decimal? = DB.GetSingleValue(Of Decimal?)(query, p)
-
-            If balance.HasValue AndAlso balance.Value = 0 Then
-                'Paid in Full 
-                query = "Update FS_FeeInvoice set " &
-                "updatedatetime = getdate(), " &
-                "updateuser = @updateuser, " &
-                "strInvoicestatus = '1' " &
-                "where invoiceId = @invoiceId "
-            Else
-                'Not Paid in full
-                query = "Update FS_FeeInvoice set " &
-                "updatedatetime = getdate(), " &
-                "updateuser = @updateuser, " &
-                "strInvoicestatus = '0' " &
-                "where invoiceId = @invoiceId "
-            End If
-
-            DB.RunCommand(query, p)
-
-            LoadFeeInvoiceData()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
