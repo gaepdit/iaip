@@ -32,7 +32,7 @@
     </UpgradeBackupLocation>
     <TargetZone>LocalIntranet</TargetZone>
     <GenerateManifests>true</GenerateManifests>
-    <ManifestCertificateThumbprint>DE55EFB46829A4D6CC3A1BC609DC8FB54F479036</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>2EA578FD3618A23FC614DBC11179423E91E0FB34</ManifestCertificateThumbprint>
     <ManifestKeyFile>IAIP_TemporaryKey.pfx</ManifestKeyFile>
     <SignManifests>true</SignManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
