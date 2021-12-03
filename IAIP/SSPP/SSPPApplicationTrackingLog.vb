@@ -333,7 +333,7 @@ Public Class SSPPApplicationTrackingLog
 
             query = "SELECT STRUNITDESC, NUMUNITCODE " &
                 "FROM LOOKUPEPDUNITS " &
-                "WHERE NUMPROGRAMCODE = 5 " &
+                "WHERE NUMPROGRAMCODE = 5 and Active = 1 " &
                 "UNION " &
                 "SELECT ' ', 0 ORDER BY STRUNITDESC"
             Dim dtSSPPUnit As DataTable = DB.GetDataTable(query)
@@ -346,7 +346,7 @@ Public Class SSPPApplicationTrackingLog
 
             query = "SELECT STRUNITDESC, NUMUNITCODE " &
                 "FROM LOOKUPEPDUNITS " &
-                "WHERE NUMPROGRAMCODE = 4 " &
+                "WHERE NUMPROGRAMCODE = 4 and Active = 1 " &
                 "UNION " &
                 "SELECT 'No Review Needed', 0 ORDER BY STRUNITDESC"
             Dim dtSSCPUnit As DataTable = DB.GetDataTable(query)
@@ -359,7 +359,7 @@ Public Class SSPPApplicationTrackingLog
 
             query = "SELECT STRUNITDESC, NUMUNITCODE " &
                 "FROM LOOKUPEPDUNITS " &
-                "WHERE NUMPROGRAMCODE = 3 " &
+                "WHERE NUMPROGRAMCODE = 3 and Active = 1 " &
                 "UNION " &
                 "SELECT 'No Review Needed', 0 ORDER BY STRUNITDESC"
             Dim dtISMPUnit As DataTable = DB.GetDataTable(query)
