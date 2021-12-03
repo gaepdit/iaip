@@ -941,12 +941,12 @@ Public Class IAIPNavigation
 
         ' General
         AddNavButton("Facility Summary", NameOf(IAIPFacilitySummary), NavButtonCategories.General)
-        AddNavButtonIfAccountHasFormAccess(7, "Query Generator", NameOf(IAIPQueryGenerator), NavButtonCategories.General)
-        AddNavButtonIfAccountHasFormAccess(8, "User Management", NameOf(IaipUserManagement), NavButtonCategories.General)
+        AddNavButton("Query Generator", NameOf(IAIPQueryGenerator), NavButtonCategories.General)
+        AddNavButton("User Management", NameOf(IaipUserManagement), NavButtonCategories.General)
         AddNavButtonIfUserHasPermission({123, 124}, "GECO User Management", NameOf(GecoTool), NavButtonCategories.General)
 
         ' SSPP
-        AddNavButtonIfAccountHasFormAccess(3, "Application Log", NameOf(SSPPApplicationLog), NavButtonCategories.SSPP)
+        AddNavButton("Application Log", NameOf(SSPPApplicationLog), NavButtonCategories.SSPP)
         AddNavButtonIfAccountHasFormAccess(9, "Permit File Uploader", NameOf(SSPPPermitUploader), NavButtonCategories.SSPP)
         AddNavButtonIfAccountHasFormAccess(19, "Attainment Status Tool", NameOf(SSPPAttainmentStatus), NavButtonCategories.SSPP)
         AddNavButtonIfAccountHasFormAccess(23, "PA/PN Report", NameOf(SSPPPublicNoticesAndAdvisories), NavButtonCategories.SSPP)
@@ -954,12 +954,12 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(131, "Title V Tools", NameOf(SSPPTitleVTools), NavButtonCategories.SSPP)
 
         ' SSCP
-        AddNavButtonIfAccountHasFormAccess(4, "Compliance Log", NameOf(SSCPComplianceLog), NavButtonCategories.SSCP)
+        AddNavButton("Compliance Log", NameOf(SSCPComplianceLog), NavButtonCategories.SSCP)
         AddNavButtonIfAccountHasFormAccess(22, "Compliance Management", NameOf(SSCPManagersTools), NavButtonCategories.SSCP)
         AddNavButtonIfUserHasPermission({19, 20, 21, 23, 25, 114}, "Enforcement Documents", NameOf(SscpDocuments), NavButtonCategories.SSCP)
 
         ' ISMP
-        AddNavButtonIfAccountHasFormAccess(5, "Monitoring Log", NameOf(ISMPMonitoringLog), NavButtonCategories.ISMP)
+        AddNavButton("Monitoring Log", NameOf(ISMPMonitoringLog), NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(14, "Test Report Information", NameOf(ISMPTestReportAdministrative), NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(15, "Memo Viewer", NameOf(ISMPTestMemoViewer), NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(17, "ISMU Management", NameOf(ISMPManagersTools), NavButtonCategories.ISMP)
