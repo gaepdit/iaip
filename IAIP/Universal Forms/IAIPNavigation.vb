@@ -839,7 +839,7 @@ Public Class IAIPNavigation
     Private Sub AddNavButtonIfUserHasPermission(permissionsAllowed As Integer(),
                                                  buttonText As String, formName As String,
                                                  category As NavButtonCategories)
-        If CurrentUser.HasRole(permissionsAllowed) Then
+        If CurrentUser.HasRole(permissionsAllowed) OrElse CurrentUser.HasRole(118) Then
             AddNavButton(buttonText, formName, category)
         End If
     End Sub
@@ -943,7 +943,7 @@ Public Class IAIPNavigation
         AddNavButton("Facility Summary", NameOf(IAIPFacilitySummary), NavButtonCategories.General)
         AddNavButtonIfAccountHasFormAccess(7, "Query Generator", NameOf(IAIPQueryGenerator), NavButtonCategories.General)
         AddNavButtonIfAccountHasFormAccess(8, "User Management", NameOf(IaipUserManagement), NavButtonCategories.General)
-        AddNavButtonIfUserHasPermission({118, 119, 123, 124}, "GECO User Management", NameOf(GecoTool), NavButtonCategories.General)
+        AddNavButtonIfUserHasPermission({123, 124}, "GECO User Management", NameOf(GecoTool), NavButtonCategories.General)
 
         ' SSPP
         AddNavButtonIfAccountHasFormAccess(3, "Application Log", NameOf(SSPPApplicationLog), NavButtonCategories.SSPP)
@@ -956,7 +956,7 @@ Public Class IAIPNavigation
         ' SSCP
         AddNavButtonIfAccountHasFormAccess(4, "Compliance Log", NameOf(SSCPComplianceLog), NavButtonCategories.SSCP)
         AddNavButtonIfAccountHasFormAccess(22, "Compliance Management", NameOf(SSCPManagersTools), NavButtonCategories.SSCP)
-        AddNavButtonIfUserHasPermission({19, 20, 21, 23, 25, 118, 114}, "Enforcement Documents", NameOf(SscpDocuments), NavButtonCategories.SSCP)
+        AddNavButtonIfUserHasPermission({19, 20, 21, 23, 25, 114}, "Enforcement Documents", NameOf(SscpDocuments), NavButtonCategories.SSCP)
 
         ' ISMP
         AddNavButtonIfAccountHasFormAccess(5, "Monitoring Log", NameOf(ISMPMonitoringLog), NavButtonCategories.ISMP)
@@ -971,31 +971,31 @@ Public Class IAIPNavigation
         AddNavButtonIfUserCan(UserCan.EditAnnualFeesDeposits, "Deposits", NameOf(FeesDeposits), NavButtonCategories.AnnualFees)
 
         ' Finance
-        AddNavButtonIfUserHasPermission({118, 123, 124, 125}, "New Deposit", NameOf(FinDepositView), NavButtonCategories.Finance)
-        AddNavButtonIfUserHasPermission({118, 123, 124, 125}, "Search Deposits", NameOf(FinSearchDeposits), NavButtonCategories.Finance)
+        AddNavButtonIfUserHasPermission({123, 124, 125}, "New Deposit", NameOf(FinDepositView), NavButtonCategories.Finance)
+        AddNavButtonIfUserHasPermission({123, 124, 125}, "Search Deposits", NameOf(FinSearchDeposits), NavButtonCategories.Finance)
         AddNavButton("Search Invoices", NameOf(FinSearchInvoices), NavButtonCategories.Finance)
         AddNavButton("Search Facilities", NameOf(FinSearchFacilities), NavButtonCategories.Finance)
-        AddNavButtonIfUserHasPermission({118, 124, 28}, "Manage Fee Rates", NameOf(FinFeeRateManagement), NavButtonCategories.Finance)
+        AddNavButtonIfUserHasPermission({124, 28}, "Manage Fee Rates", NameOf(FinFeeRateManagement), NavButtonCategories.Finance)
         AddNavButton("Statistics && Reports", NameOf(FinStatistics), NavButtonCategories.Finance)
 
         ' MASP
         AddNavButtonIfAccountHasFormAccess(137, "EPD Events", NameOf(EventsManagement), NavButtonCategories.MASP)
 
         ' DMU
-        AddNavButtonIfUserHasPermission({118, 19, 28}, "EDT Errors", NameOf(DmuEdtErrorMessages), NavButtonCategories.DMU)
+        AddNavButtonIfUserHasPermission({19, 28}, "EDT Errors", NameOf(DmuEdtErrorMessages), NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(10, "District Tools", NameOf(IAIPDistrictSourceTool), NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(133, "Lookup Tables", NameOf(IAIPLookUpTables), NavButtonCategories.DMU)
 
         ' EIS
-        AddNavButtonIfAccountHasFormAccess(130, "Emissions Inventory", NameOf(EisTool), NavButtonCategories.EIS)
-        AddNavButtonIfAccountHasFormAccess(130, "Emissions Statement", NameOf(EmissionsStatement), NavButtonCategories.EIS)
+        AddNavButtonIfUserCan(UserCan.AccessEmissionsInventory, "Emissions Inventory", NameOf(EisTool), NavButtonCategories.EIS)
+        AddNavButtonIfUserCan(UserCan.AccessEmissionsInventory, "Emissions Statement", NameOf(EmissionsStatement), NavButtonCategories.EIS)
 
         'SBEAP
-        AddNavButtonIfUserHasPermission({142, 143, 118}, "Customer Summary", NameOf(SBEAPClientSummary), NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143, 118}, "Case Log", NameOf(SBEAPCaseLog), NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143, 118}, "Report Tool", NameOf(SBEAPReports), NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143, 118}, "Phone Log", NameOf(SBEAPPhoneLog), NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143, 118}, "Contact Data", NameOf(SBEAPMiscTools), NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143}, "Customer Summary", NameOf(SBEAPClientSummary), NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143}, "Case Log", NameOf(SBEAPCaseLog), NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143}, "Report Tool", NameOf(SBEAPReports), NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143}, "Phone Log", NameOf(SBEAPPhoneLog), NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143}, "Contact Data", NameOf(SBEAPMiscTools), NavButtonCategories.SBEAP)
 
     End Sub
 
