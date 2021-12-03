@@ -1057,12 +1057,6 @@
     <Compile Include="Facility\Sub Forms\IAIPFacilitySummaryPrint.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\IAIPListTool.Designer.vb">
-      <DependentUpon>IAIPListTool.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Universal Forms\IAIPListTool.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <EmbeddedResource Include="Crystal Reports\CRViewerForm.resx">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
     </EmbeddedResource>
@@ -1467,10 +1461,6 @@
     <EmbeddedResource Include="Facility\Sub Forms\IAIPFacilitySummaryPrint.resx">
       <DependentUpon>IAIPFacilitySummaryPrint.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\IAIPListTool.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>IAIPListTool.vb</DependentUpon>
     </EmbeddedResource>
     <Compile Include="_DAL\SSPP\ApplicationFees.vb" />
   </ItemGroup>
