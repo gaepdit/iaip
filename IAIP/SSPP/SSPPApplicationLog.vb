@@ -372,7 +372,7 @@ Public Class SSPPApplicationLog
         AppUnit = cboApplicationUnit.SelectedValue
         AppUnitText = cboApplicationUnit.Text
         AppStatus = cboApplicationStatus.Text
-        Engineer = If(cboEngineer.SelectedValue = "", "XXX", cboEngineer.SelectedValue.ToString)
+        Engineer = If(cboEngineer.SelectedValue.ToString = "", "XXX", cboEngineer.SelectedValue.ToString)
         SubpartSIP1 = cboSIP1.SelectedValue.ToString
         SubpartSIP2 = cboSIP2.SelectedValue.ToString
         SubpartNESHAP1 = cboNESHAP1.SelectedValue.ToString
@@ -950,9 +950,9 @@ Public Class SSPPApplicationLog
             If AppType <> "All" Then
                 Select Case AppType
                     Case "Title V"
-                        SQLLine = SQLLine & "and strApplicationTypeDesc like '%TV%' "
+                        SQLLine &= "and strApplicationTypeDesc like '%TV%' "
                     Case "SIP (Non Title V)"
-                        SQLLine = SQLLine & "and strApplicationTypeDesc not like '%TV%' "
+                        SQLLine &= "and strApplicationTypeDesc not like '%TV%' "
                 End Select
             End If
             If AppUnitText <> "All" Then
@@ -962,13 +962,13 @@ Public Class SSPPApplicationLog
             If AppStatus <> "All" Then
                 Select Case AppStatus
                     Case "Active"
-                        SQLLine = SQLLine & "and datFinalizedDate is NULL "
+                        SQLLine &= "and datFinalizedDate is NULL "
                     Case "Closed"
-                        SQLLine = SQLLine & "and datFinalizedDate is Not NULL "
+                        SQLLine &= "and datFinalizedDate is Not NULL "
                 End Select
             End If
             If Engineer <> "XXX" Then
-                SQLLine = SQLLine & "and numUserID like @Engineer "
+                SQLLine &= "and numUserID like @Engineer "
             End If
 
             SQLOrder = " order by "
@@ -1009,7 +1009,7 @@ Public Class SSPPApplicationLog
             End Select
 
             If SQLOrder <> " order by " Then
-                SQLOrder = SQLOrder & ", "
+                SQLOrder &= ", "
             End If
 
             If SortOrder2 = "Descending Order" Then
@@ -1063,9 +1063,9 @@ Public Class SSPPApplicationLog
                 SQLOrder = Mid(SQLOrder, 1, (Len(SQLOrder) - 2))
             End If
 
-            SQLLine = SQLLine & SQLOrder
+            SQLLine &= SQLOrder
 
-            SQL = SQL & SQLLine
+            SQL &= SQLLine
 
             If bgwApplicationLog.CancellationPending Then
                 e.Cancel = True

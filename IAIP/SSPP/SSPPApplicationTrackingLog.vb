@@ -3816,7 +3816,7 @@ Public Class SSPPApplicationTrackingLog
                 If IsDBNull(dr.Item("strPAReady")) Then
                     chbPAReady.Checked = False
                 Else
-                    If dr.Item("strPAReady") = "True" Then
+                    If dr.Item("strPAReady").ToString = "True" Then
                         chbPAReady.Checked = True
                     Else
                         chbPAReady.Checked = False
@@ -3825,7 +3825,7 @@ Public Class SSPPApplicationTrackingLog
                 If IsDBNull(dr.Item("strPNReady")) Then
                     chbPNReady.Checked = False
                 Else
-                    If dr.Item("strPNReady") = "True" Then
+                    If dr.Item("strPNReady").ToString = "True" Then
                         chbPNReady.Checked = True
                     Else
                         chbPNReady.Checked = False
@@ -3946,7 +3946,7 @@ Public Class SSPPApplicationTrackingLog
                         rdbSSCPNo.Checked = True
                         txtSSCPComments.Clear()
                     Else
-                        If dr.Item("strSSCPComments") = "N/A" Then
+                        If dr.Item("strSSCPComments").ToString = "N/A" Then
                             rdbSSCPNo.Checked = True
                             txtSSCPComments.Text = ""
                         Else
@@ -3971,7 +3971,7 @@ Public Class SSPPApplicationTrackingLog
                         rdbISMPNo.Checked = True
                         txtISMPComments.Clear()
                     Else
-                        If dr.Item("strISMPComments") = "N/A" Then
+                        If dr.Item("strISMPComments").ToString = "N/A" Then
                             rdbISMPNo.Checked = True
                             txtISMPComments.Text = ""
                         Else
@@ -5556,8 +5556,6 @@ Public Class SSPPApplicationTrackingLog
         End If
 
         Try
-            Dim MaxKey As String = ""
-            Dim i As Integer
             Dim ContactFirstName As String = " "
             Dim ContactLastname As String = " "
             Dim ContactPrefix As String = " "
@@ -10258,7 +10256,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Removed"
                         temp = ""
                         For i = 0 To dgvSIPSubParts.Rows.Count - 1
-                            If SubPart = dgvSIPSubParts(1, i).Value Then
+                            If SubPart = dgvSIPSubParts(1, i).Value.ToString Then
                                 dgvSIPSubParts(0, i).Value = AppNum
                                 dgvSIPSubParts(4, i).Value = "Removed"
                                 temp = "Removed"
@@ -10285,7 +10283,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Added"
                         temp = ""
                         For i = 0 To dgvSIPSubParts.Rows.Count - 1
-                            If SubPart = dgvSIPSubParts(1, i).Value Then
+                            If SubPart = dgvSIPSubParts(1, i).Value.ToString Then
                                 dgvSIPSubParts(0, i).Value = AppNum
                                 dgvSIPSubParts(4, i).Value = "Added"
                                 temp = "Added"
@@ -10316,7 +10314,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Modified"
                         temp = ""
                         For i = 0 To dgvSIPSubParts.Rows.Count - 1
-                            If SubPart = dgvSIPSubParts(1, i).Value Then
+                            If SubPart = dgvSIPSubParts(1, i).Value.ToString Then
                                 dgvSIPSubParts(0, i).Value = AppNum
                                 temp = "Modify"
                                 dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
@@ -10355,7 +10353,7 @@ Public Class SSPPApplicationTrackingLog
             Action = dgvSIPSubParts(4, dgvSIPSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
-                If dgvSIPSubpartAddEdit(0, i).Value = Subpart Then
+                If dgvSIPSubpartAddEdit(0, i).Value.ToString = Subpart Then
                     temp2 = "Message"
                 End If
             Next
@@ -10373,7 +10371,7 @@ Public Class SSPPApplicationTrackingLog
             If i > 0 Then
                 temp = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
                 For i = 0 To dgvSIPSubPartDelete.Rows.Count - 1
-                    If dgvSIPSubPartDelete(0, i).Value = temp Then
+                    If dgvSIPSubPartDelete(0, i).Value.ToString = temp Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -10413,7 +10411,7 @@ Public Class SSPPApplicationTrackingLog
             If dgvSIPSubPartDelete.Rows.Count > 0 Then
                 Subpart = dgvSIPSubPartDelete(0, dgvSIPSubPartDelete.CurrentRow.Index).Value
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    If dgvSIPSubParts(1, j).Value = Subpart Then
+                    If dgvSIPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -10440,7 +10438,7 @@ Public Class SSPPApplicationTrackingLog
                 Action = dgvSIPSubParts(4, i).Value
 
                 For j = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
-                    If dgvSIPSubpartAddEdit(0, j).Value = Subpart Then
+                    If dgvSIPSubpartAddEdit(0, j).Value.ToString = Subpart Then
                         temp2 = "Message"
                     End If
                 Next
@@ -10455,7 +10453,7 @@ Public Class SSPPApplicationTrackingLog
 
                 temp2 = ""
                 For j = 0 To dgvSIPSubPartDelete.Rows.Count - 1
-                    If dgvSIPSubPartDelete(0, j).Value = Subpart Then
+                    If dgvSIPSubPartDelete(0, j).Value.ToString = Subpart Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -10482,7 +10480,7 @@ Public Class SSPPApplicationTrackingLog
             For i As Integer = 0 To dgvSIPSubPartDelete.Rows.Count - 1
                 Subpart = dgvSIPSubPartDelete(0, i).Value
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    If dgvSIPSubParts(1, j).Value = Subpart Then
+                    If dgvSIPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -10502,7 +10500,7 @@ Public Class SSPPApplicationTrackingLog
             For i As Integer = 0 To dgvSIPSubPartDelete.Rows.Count - 1
                 Subpart = dgvSIPSubPartDelete(0, i).Value
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    If dgvSIPSubParts(1, j).Value = Subpart Then
+                    If dgvSIPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -10536,7 +10534,7 @@ Public Class SSPPApplicationTrackingLog
 
             temp2 = ""
             For i = 0 To dgvSIPSubParts.Rows.Count - 1
-                If dgvSIPSubParts(1, i).Value = Subpart Then
+                If dgvSIPSubParts(1, i).Value.ToString = Subpart Then
                     temp2 = "Ignore"
                     MsgBox("The SIP Subpart already exists for this application.", MsgBoxStyle.Information,
                            "Application Tracking")
@@ -10559,7 +10557,7 @@ Public Class SSPPApplicationTrackingLog
 
             temp2 = ""
             For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
-                If dgvSIPSubpartAddEdit(1, i).Value = Subpart Then
+                If dgvSIPSubpartAddEdit(1, i).Value.ToString = Subpart Then
                     temp2 = "Ignore"
                 End If
             Next
@@ -10597,7 +10595,7 @@ Public Class SSPPApplicationTrackingLog
             Action = dgvSIPSubParts(4, dgvSIPSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvSIPSubPartDelete.Rows.Count - 1
-                If dgvSIPSubPartDelete(0, i).Value = Subpart Then
+                If dgvSIPSubPartDelete(0, i).Value.ToString = Subpart Then
                     temp2 = "Message"
                 End If
             Next
@@ -10615,7 +10613,7 @@ Public Class SSPPApplicationTrackingLog
             If i > 0 Then
                 temp = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
                 For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
-                    If dgvSIPSubpartAddEdit(0, i).Value = temp Then
+                    If dgvSIPSubpartAddEdit(0, i).Value.ToString = temp Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -10659,7 +10657,7 @@ Public Class SSPPApplicationTrackingLog
                 Subpart = dgvSIPSubpartAddEdit(0, dgvSIPSubpartAddEdit.CurrentRow.Index).Value
                 Action = dgvSIPSubpartAddEdit(3, dgvSIPSubpartAddEdit.CurrentRow.Index).Value
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    If dgvSIPSubParts(1, j).Value = Subpart Then
+                    If dgvSIPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -10686,7 +10684,7 @@ Public Class SSPPApplicationTrackingLog
                 Action = dgvSIPSubParts(4, i).Value
 
                 For j As Integer = 0 To dgvSIPSubPartDelete.Rows.Count - 1
-                    If dgvSIPSubPartDelete(0, j).Value = Subpart Then
+                    If dgvSIPSubPartDelete(0, j).Value.ToString = Subpart Then
                         temp2 = "Message"
                     End If
                 Next
@@ -10701,7 +10699,7 @@ Public Class SSPPApplicationTrackingLog
 
                 temp2 = ""
                 For j As Integer = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
-                    If dgvSIPSubpartAddEdit(0, j).Value = Subpart Then
+                    If dgvSIPSubpartAddEdit(0, j).Value.ToString = Subpart Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -10730,7 +10728,7 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvSIPSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    If dgvSIPSubParts(1, j).Value = Subpart AndAlso dgvSIPSubParts(4, j).Value = "Existing" Then
+                    If dgvSIPSubParts(1, j).Value.ToString = Subpart AndAlso dgvSIPSubParts(4, j).Value.ToString = "Existing" Then
                         dgvSIPSubParts.Rows(j).DefaultCellStyle.BackColor = Color.White
                         TempRemove = i & "," & TempRemove
                     End If
@@ -10759,7 +10757,7 @@ Public Class SSPPApplicationTrackingLog
                 temp2 = ""
                 Action = ""
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    If dgvSIPSubParts(1, j).Value = Subpart Then
+                    If dgvSIPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                         Action = dgvSIPSubParts(4, j).Value
                     End If
@@ -11097,7 +11095,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Removed"
                         temp = ""
                         For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                            If SubPart = dgvNSPSSubParts(1, i).Value Then
+                            If SubPart = dgvNSPSSubParts(1, i).Value.ToString Then
                                 dgvNSPSSubParts(0, i).Value = AppNum
                                 dgvNSPSSubParts(4, i).Value = "Removed"
                                 temp = "Removed"
@@ -11126,7 +11124,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Added"
                         temp = ""
                         For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                            If SubPart = dgvNSPSSubParts(1, i).Value Then
+                            If SubPart = dgvNSPSSubParts(1, i).Value.ToString Then
                                 dgvNSPSSubParts(4, i).Value = "Added"
                                 temp = "Added"
                                 dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
@@ -11158,7 +11156,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Modified"
                         temp = ""
                         For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                            If SubPart = dgvNSPSSubParts(1, i).Value Then
+                            If SubPart = dgvNSPSSubParts(1, i).Value.ToString Then
                                 dgvNSPSSubParts(0, i).Value = AppNum
                                 temp = "Modify"
                                 dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
@@ -11197,7 +11195,7 @@ Public Class SSPPApplicationTrackingLog
             Action = dgvNSPSSubParts(4, dgvNSPSSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                If dgvNSPSSubpartAddEdit(0, i).Value = Subpart Then
+                If dgvNSPSSubpartAddEdit(0, i).Value.ToString = Subpart Then
                     temp2 = "Message"
                 End If
             Next
@@ -11215,7 +11213,7 @@ Public Class SSPPApplicationTrackingLog
             If i > 0 Then
                 temp = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
                 For i = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
-                    If dgvNSPSSubPartDelete(0, i).Value = temp Then
+                    If dgvNSPSSubPartDelete(0, i).Value.ToString = temp Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -11255,7 +11253,7 @@ Public Class SSPPApplicationTrackingLog
             If dgvNSPSSubPartDelete.Rows.Count > 0 Then
                 Subpart = dgvNSPSSubPartDelete(0, dgvNSPSSubPartDelete.CurrentRow.Index).Value
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    If dgvNSPSSubParts(1, j).Value = Subpart Then
+                    If dgvNSPSSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -11282,7 +11280,7 @@ Public Class SSPPApplicationTrackingLog
                 Action = dgvNSPSSubParts(4, i).Value
 
                 For j = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                    If dgvNSPSSubpartAddEdit(0, j).Value = Subpart Then
+                    If dgvNSPSSubpartAddEdit(0, j).Value.ToString = Subpart Then
                         temp2 = "Message"
                     End If
                 Next
@@ -11297,7 +11295,7 @@ Public Class SSPPApplicationTrackingLog
 
                 temp2 = ""
                 For j = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
-                    If dgvNSPSSubPartDelete(0, j).Value = Subpart Then
+                    If dgvNSPSSubPartDelete(0, j).Value.ToString = Subpart Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -11323,7 +11321,7 @@ Public Class SSPPApplicationTrackingLog
             For i As Integer = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
                 Subpart = dgvNSPSSubPartDelete(0, i).Value
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    If dgvNSPSSubParts(1, j).Value = Subpart Then
+                    If dgvNSPSSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -11343,7 +11341,7 @@ Public Class SSPPApplicationTrackingLog
             For i As Integer = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
                 Subpart = dgvNSPSSubPartDelete(0, i).Value
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    If dgvNSPSSubParts(1, j).Value = Subpart Then
+                    If dgvNSPSSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -11377,7 +11375,7 @@ Public Class SSPPApplicationTrackingLog
 
             temp2 = ""
             For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                If dgvNSPSSubParts(1, i).Value = Subpart Then
+                If dgvNSPSSubParts(1, i).Value.ToString = Subpart Then
                     temp2 = "Ignore"
                     MsgBox("The NSPS Subpart already exists for this application.", MsgBoxStyle.Information,
                         "Application Tracking")
@@ -11400,7 +11398,7 @@ Public Class SSPPApplicationTrackingLog
 
             temp2 = ""
             For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                If dgvNSPSSubpartAddEdit(1, i).Value = Subpart Then
+                If dgvNSPSSubpartAddEdit(1, i).Value.ToString = Subpart Then
                     temp2 = "Ignore"
                 End If
             Next
@@ -11438,7 +11436,7 @@ Public Class SSPPApplicationTrackingLog
             Action = dgvNSPSSubParts(4, dgvNSPSSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
-                If dgvNSPSSubPartDelete(0, i).Value = Subpart Then
+                If dgvNSPSSubPartDelete(0, i).Value.ToString = Subpart Then
                     temp2 = "Message"
                 End If
             Next
@@ -11456,7 +11454,7 @@ Public Class SSPPApplicationTrackingLog
             If i > 0 Then
                 temp = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
                 For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                    If dgvNSPSSubpartAddEdit(0, i).Value = temp Then
+                    If dgvNSPSSubpartAddEdit(0, i).Value.ToString = temp Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -11500,7 +11498,7 @@ Public Class SSPPApplicationTrackingLog
                 Subpart = dgvNSPSSubpartAddEdit(0, dgvNSPSSubpartAddEdit.CurrentRow.Index).Value
                 Action = dgvNSPSSubpartAddEdit(3, dgvNSPSSubpartAddEdit.CurrentRow.Index).Value
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    If dgvNSPSSubParts(1, j).Value = Subpart Then
+                    If dgvNSPSSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -11527,7 +11525,7 @@ Public Class SSPPApplicationTrackingLog
                 Action = dgvNSPSSubParts(4, i).Value
 
                 For j As Integer = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
-                    If dgvNSPSSubPartDelete(0, j).Value = Subpart Then
+                    If dgvNSPSSubPartDelete(0, j).Value.ToString = Subpart Then
                         temp2 = "Message"
                     End If
                 Next
@@ -11542,7 +11540,7 @@ Public Class SSPPApplicationTrackingLog
 
                 temp2 = ""
                 For j As Integer = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                    If dgvNSPSSubpartAddEdit(0, j).Value = Subpart Then
+                    If dgvNSPSSubpartAddEdit(0, j).Value.ToString = Subpart Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -11571,7 +11569,7 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvNSPSSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    If dgvNSPSSubParts(1, j).Value = Subpart AndAlso dgvNSPSSubParts(4, j).Value = "Existing" Then
+                    If dgvNSPSSubParts(1, j).Value.ToString = Subpart AndAlso dgvNSPSSubParts(4, j).Value.ToString = "Existing" Then
                         dgvNSPSSubParts.Rows(j).DefaultCellStyle.BackColor = Color.White
                         TempRemove = i & "," & TempRemove
                     End If
@@ -11601,7 +11599,7 @@ Public Class SSPPApplicationTrackingLog
                 temp2 = ""
                 Action = ""
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    If dgvNSPSSubParts(1, j).Value = Subpart Then
+                    If dgvNSPSSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                         Action = dgvNSPSSubParts(4, j).Value
                     End If
@@ -11938,7 +11936,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Removed"
                         temp = ""
                         For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                            If SubPart = dgvNESHAPSubParts(1, i).Value Then
+                            If SubPart = dgvNESHAPSubParts(1, i).Value.ToString Then
                                 dgvNESHAPSubParts(0, i).Value = AppNum
                                 dgvNESHAPSubParts(4, i).Value = "Removed"
                                 temp = "Removed"
@@ -11967,7 +11965,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Added"
                         temp = ""
                         For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                            If SubPart = dgvNESHAPSubParts(1, i).Value Then
+                            If SubPart = dgvNESHAPSubParts(1, i).Value.ToString Then
                                 dgvNESHAPSubParts(4, i).Value = "Added"
                                 temp = "Added"
                                 dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
@@ -11999,7 +11997,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Modified"
                         temp = ""
                         For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                            If SubPart = dgvNESHAPSubParts(1, i).Value Then
+                            If SubPart = dgvNESHAPSubParts(1, i).Value.ToString Then
                                 dgvNESHAPSubParts(0, i).Value = AppNum
                                 temp = "Modify"
                                 dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
@@ -12038,7 +12036,7 @@ Public Class SSPPApplicationTrackingLog
             Action = dgvNESHAPSubParts(4, dgvNESHAPSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
-                If dgvNESHAPSubpartAddEdit(0, i).Value = Subpart Then
+                If dgvNESHAPSubpartAddEdit(0, i).Value.ToString = Subpart Then
                     temp2 = "Message"
                 End If
             Next
@@ -12056,7 +12054,7 @@ Public Class SSPPApplicationTrackingLog
             If i > 0 Then
                 temp = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
                 For i = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
-                    If dgvNESHAPSubPartDelete(0, i).Value = temp Then
+                    If dgvNESHAPSubPartDelete(0, i).Value.ToString = temp Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -12096,7 +12094,7 @@ Public Class SSPPApplicationTrackingLog
             If dgvNESHAPSubPartDelete.Rows.Count > 0 Then
                 Subpart = dgvNESHAPSubPartDelete(0, dgvNESHAPSubPartDelete.CurrentRow.Index).Value
                 For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                    If dgvNESHAPSubParts(1, j).Value = Subpart Then
+                    If dgvNESHAPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -12123,7 +12121,7 @@ Public Class SSPPApplicationTrackingLog
                 Action = dgvNESHAPSubParts(4, i).Value
 
                 For j = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
-                    If dgvNESHAPSubpartAddEdit(0, j).Value = Subpart Then
+                    If dgvNESHAPSubpartAddEdit(0, j).Value.ToString = Subpart Then
                         temp2 = "Message"
                     End If
                 Next
@@ -12138,7 +12136,7 @@ Public Class SSPPApplicationTrackingLog
 
                 temp2 = ""
                 For j = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
-                    If dgvNESHAPSubPartDelete(0, j).Value = Subpart Then
+                    If dgvNESHAPSubPartDelete(0, j).Value.ToString = Subpart Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -12165,7 +12163,7 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
                 Subpart = dgvNESHAPSubPartDelete(0, i).Value
                 For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                    If dgvNESHAPSubParts(1, j).Value = Subpart Then
+                    If dgvNESHAPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -12186,7 +12184,7 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
                 Subpart = dgvNESHAPSubPartDelete(0, i).Value
                 For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                    If dgvNESHAPSubParts(1, j).Value = Subpart Then
+                    If dgvNESHAPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -12221,7 +12219,7 @@ Public Class SSPPApplicationTrackingLog
             temp2 = ""
             If dgvNESHAPSubParts.Rows.Count <> 0 Then
                 For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                    If dgvNESHAPSubParts(1, i).Value = Subpart Then
+                    If dgvNESHAPSubParts(1, i).Value.ToString = Subpart Then
                         temp2 = "Ignore"
                         MsgBox("The NESHAP Subpart already exists for this application.", MsgBoxStyle.Information,
                         "Application Tracking")
