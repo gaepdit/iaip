@@ -1554,9 +1554,7 @@ Public Class SSPPApplicationTrackingLog
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
-                AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1" OrElse
-                AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing OrElse
-                AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0" Then
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbPAReady.Enabled = True
             End If
             If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
@@ -4072,7 +4070,9 @@ Public Class SSPPApplicationTrackingLog
 
             CheckForLinkedApplications()
 
-            CloseOutApplication(CloseOut)
+            If CloseOut Then
+                CloseOutApplication(CloseOut)
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, "App #: " & AppNumber & "; temp: " & temp, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -7237,12 +7237,8 @@ Public Class SSPPApplicationTrackingLog
             DTPDatePNExpires.Visible = True
             lblDatePNExpires.Visible = True
             chbPNReady.Visible = True
-            DTPDatePAExpires.Visible = True
-            lblDatePAExpires.Visible = True
-            chbPAReady.Visible = True
-            cboPublicAdvisory.Visible = True
-            lblPublicAdvisory.Visible = True
             GBSignificationComments.Visible = False
+            SetPAVisibility(True)
 
             Select Case cboApplicationType.Text
                 Case "502(b)10", "PBR", "SM"
@@ -7269,19 +7265,13 @@ Public Class SSPPApplicationTrackingLog
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
                     chbPNReady.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
+
+                    If cboPublicAdvisory.Text = "PA Needed" Then
+                        SetPAVisibility(True)
                     Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
+                        SetPAVisibility(False)
                     End If
+
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
@@ -7291,19 +7281,13 @@ Public Class SSPPApplicationTrackingLog
                     lblEPAWaived.Visible = False
                     DTPEPAEnds.Visible = False
                     lblEPAEnds.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
+
+                    If cboPublicAdvisory.Text = "PA Needed" Then
+                        SetPAVisibility(True)
                     Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
+                        SetPAVisibility(False)
                     End If
+
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
@@ -7318,19 +7302,13 @@ Public Class SSPPApplicationTrackingLog
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
                     chbPNReady.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
+
+                    If cboPublicAdvisory.Text = "PA Needed" Then
+                        SetPAVisibility(True)
                     Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
+                        SetPAVisibility(False)
                     End If
+
                     txtPermitNumber.Text = " "
 
                 Case "ERC"
@@ -7343,19 +7321,13 @@ Public Class SSPPApplicationTrackingLog
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
                     chbPNReady.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
+
+                    If cboPublicAdvisory.Text = "PA Needed" Then
+                        SetPAVisibility(True)
                     Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
+                        SetPAVisibility(False)
                     End If
+
                     If Mid(txtPermitNumber.Text, 1, 3) <> "ERC" Then
                         txtPermitNumber.Text = " "
                     End If
@@ -7370,11 +7342,7 @@ Public Class SSPPApplicationTrackingLog
                     lblDatePNExpires.Visible = False
 
                 Case "MAWO"
-                    cboPublicAdvisory.Visible = False
-                    lblPublicAdvisory.Visible = False
-                    DTPDatePAExpires.Visible = False
-                    lblDatePAExpires.Visible = False
-                    chbPAReady.Visible = False
+                    SetPAVisibility(False)
                     chbPNReady.Visible = False
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
@@ -7397,19 +7365,13 @@ Public Class SSPPApplicationTrackingLog
                     chbPNReady.Visible = False
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
+
+                    If cboPublicAdvisory.Text = "PA Needed" Then
+                        SetPAVisibility(True)
                     Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
+                        SetPAVisibility(False)
                     End If
+
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
@@ -7421,22 +7383,16 @@ Public Class SSPPApplicationTrackingLog
                     GBSignificationComments.Visible = True
 
                 Case "SAWO"
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
+                    If cboPublicAdvisory.Text = "PA Needed" Then
+                        SetPAVisibility(True)
                     Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
+                        SetPAVisibility(False)
                     End If
+
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
+
                     GBSignificationComments.Visible = True
 
                 Case "SIP"
@@ -7462,19 +7418,12 @@ Public Class SSPPApplicationTrackingLog
                     End If
 
                 Case "TV-Initial", "TV-Renewal"
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
+                    If cboPublicAdvisory.Text = "PA Needed" Then
+                        SetPAVisibility(True)
                     Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
+                        SetPAVisibility(False)
                     End If
+
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
@@ -7483,6 +7432,15 @@ Public Class SSPPApplicationTrackingLog
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub SetPAVisibility(visible As Boolean)
+        cboPublicAdvisory.Visible = visible
+        lblPublicAdvisory.Visible = visible
+        DTPDatePAExpires.Visible = visible
+        lblDatePAExpires.Visible = visible
+        chbPAReady.Visible = visible
+        lblPAReady.Visible = visible
     End Sub
 
     Private Sub chb112_CheckedChanged(sender As Object, e As EventArgs) Handles chb112g.CheckedChanged
@@ -7533,17 +7491,30 @@ Public Class SSPPApplicationTrackingLog
         End If
     End Sub
 
-    Private Sub cboPublicAdvisory_TextChanged(sender As Object, e As EventArgs) Handles cboPublicAdvisory.TextChanged
-        If cboPublicAdvisory.Text = "PA Not Needed" Then
-            chbPAReady.Checked = False
-            chbPAReady.Visible = False
-            DTPDatePAExpires.Value = Today
-            DTPDatePAExpires.Visible = False
-            lblDatePAExpires.Visible = False
-        ElseIf cboPublicAdvisory.Visible Then
+    Private Sub cboPublicAdvisory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboPublicAdvisory.SelectedIndexChanged
+        If cboPublicAdvisory.Text = "PA Needed" Then
             chbPAReady.Visible = True
             DTPDatePAExpires.Visible = True
             lblDatePAExpires.Visible = True
+            lblPAReady.Visible = True
+        Else
+            chbPAReady.Checked = False
+            DTPDatePAExpires.Value = Today
+            DTPDatePAExpires.Checked = False
+
+            chbPAReady.Visible = False
+            DTPDatePAExpires.Visible = False
+            lblDatePAExpires.Visible = False
+            lblPAReady.Visible = False
+        End If
+    End Sub
+
+    Private Sub chbPAReady_CheckedChanged(sender As Object, e As EventArgs) Handles chbPAReady.CheckedChanged
+        If chbPAReady.Checked Then
+            cboPublicAdvisory.Text = "PA Needed"
+            cboPublicAdvisory.Enabled = False
+        Else
+            cboPublicAdvisory.Enabled = True
         End If
     End Sub
 
