@@ -3890,6 +3890,8 @@ Public Class SSPPApplicationTrackingLog
                     lblPAReady.Text = ""
                 Else
                     lblPAReady.Text = dr.Item("strPAPosted")
+                    chbPAReady.Checked = True
+                    chbPAReady.Enabled = False
                 End If
                 If IsDBNull(dr.Item("strPNPosted")) Then
                     lblPNReady.Text = ""
@@ -5792,28 +5794,19 @@ Public Class SSPPApplicationTrackingLog
                 DTPDateSent.Enabled = False
                 DTPDateReceived.Enabled = False
                 DTPDateAssigned.Enabled = False
-                DTPDateAssigned.Enabled = False
-                DTPDateReassigned.Enabled = False
                 DTPDateReassigned.Enabled = False
                 DTPDateAcknowledge.Enabled = False
-                DTPDateAcknowledge.Enabled = False
-                DTPDatePAExpires.Enabled = False
                 DTPDatePAExpires.Enabled = False
                 DTPDatePNExpires.Enabled = False
-                DTPDatePNExpires.Enabled = False
-                DTPDeadline.Enabled = False
                 DTPDeadline.Enabled = False
                 DTPDateToUC.Enabled = False
-                DTPDateToUC.Enabled = False
-                DTPDateToPM.Enabled = False
                 DTPDateToPM.Enabled = False
                 DTPFinalAction.Enabled = False
-                DTPFinalAction.Enabled = False
-                DTPDraftIssued.Enabled = False
                 DTPDraftIssued.Enabled = False
                 txtPermitNumber.ReadOnly = True
                 cboPermitAction.Enabled = False
                 cboPublicAdvisory.Enabled = False
+                chbPAReady.Enabled = False
                 txtReasonAppSubmitted.ReadOnly = True
                 txtComments.ReadOnly = True
                 btnSaveInformationRequest.Enabled = False
@@ -5923,11 +5916,17 @@ Public Class SSPPApplicationTrackingLog
                 btnMACTUneditAll.Enabled = False
             Else
                 LoadPermissions()
+                CheckPASettings()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub CheckPASettings()
+        If Not String.IsNullOrEmpty(lblPAReady.Text) Then chbPAReady.Enabled = False
+        If chbPAReady.Checked Then cboPublicAdvisory.Enabled = False
     End Sub
 
     Private Sub LinkApplications()
