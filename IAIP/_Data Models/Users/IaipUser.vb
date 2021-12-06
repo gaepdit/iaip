@@ -55,7 +55,8 @@
         Return IaipRoles.HasRole(permissionCodes)
     End Function
 
-    ' Numbered roles come from AIRBRANCH.dbo.LOOKUPIAIPACCOUNTS
+    ' Numbered roles are described in AIRBRANCH.dbo.LOOKUPIAIPACCOUNTS
+    ' and stored per user in AIRBRANCH.dbo.IAIPPERMISSIONS
     Public Function HasRoleType(roleType As RoleType) As Boolean
         Select Case roleType
             Case RoleType.BranchAdmin
@@ -156,7 +157,7 @@
                 ' SSPP Program Manager, SSPP Administrative, Web Publisher
                 Return HasRole({28, 29, 120})
 
-                ' === Annual Fees
+            ' === Annual Fees
             Case UserCan.ManageAnnualFees
                 'Planning & Support Manager, Financial Administrative, Financial Manager
                 Return HasRole({11, 123, 124})
@@ -170,6 +171,10 @@
                 ' ISMP Program Manager, Planning & Support Manager, Financial Administrative,
                 ' Financial Manager, Financial Staff, Planning & Support Hourly Worker
                 Return HasRole({2, 11, 123, 124, 125, 127})
+
+            ' === ECSU
+            Case UserCan.AccessEmissionsInventory
+                Return HasRole({144, 145})
 
             Case Else
                 Return False
@@ -196,6 +201,7 @@ Public Enum UserCan
     ManageAnnualFees
     EditAnnualFees
     EditAnnualFeesDeposits
+    AccessEmissionsInventory
 End Enum
 
 Public Enum RoleType

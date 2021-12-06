@@ -128,8 +128,8 @@ Public Class ISMPTestReports
 
             query = "Select " &
                 "strUnitDesc, numUnitCode  " &
-                "from LookUpEPDUnits  " &
-                "where numProgramCode = '3' or numProgramCode = '0' "
+                "from LookUpEPDUnits " &
+                "where numProgramCode = 3 and Active = 1 "
 
             dtISMPUnits = DB.GetDataTable(query)
 

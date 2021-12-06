@@ -76,8 +76,6 @@ Public Class IaipUserManagement
         AddHandler SearchBranch.SelectedIndexChanged, AddressOf SearchBranch_SelectedIndexChanged
         AddHandler ProfileBranch.SelectedIndexChanged, AddressOf ProfileBranch_SelectedIndexChanged
         AddHandler RolesBranch.SelectedIndexChanged, AddressOf RolesBranch_SelectedIndexChanged
-
-        SearchBranch.SelectedValue = CurrentUser.BranchID
     End Sub
 
     Private Shared Sub BranchCboSelectionChanged(branchCbo As ComboBox, programCbo As ComboBox)

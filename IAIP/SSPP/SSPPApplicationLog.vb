@@ -221,7 +221,7 @@ Public Class SSPPApplicationLog
         Dim SQL As String = "select 'All' as strUnitDesc, 'All' as numUnitCode UNION " &
         "select strUnitDesc, convert(varchar,numUnitCode) " &
         "from LookUpEPDUnits " &
-        "where numProgramCode = 5 " &
+        "where numProgramCode = 5 and Active = 1 " &
         "order by strUnitDesc "
 
         With cboApplicationUnit

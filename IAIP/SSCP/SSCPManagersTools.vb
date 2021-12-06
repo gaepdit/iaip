@@ -98,9 +98,11 @@ Public Class SSCPManagersTools
                 .ValueMember = "NUMUSERID"
             End With
 
-            SQL = "SELECT STRUNITDESC, NUMUNITCODE FROM LOOKUPEPDUNITS 
-                WHERE NUMPROGRAMCODE = 4 OR NUMUNITCODE 
-                IN(44, 43, 42, 41, 40, 39, 38, 37)"
+            SQL = "SELECT *
+                FROM LOOKUPEPDUNITS
+                WHERE (NUMPROGRAMCODE = 4
+                    OR NUMUNITCODE IN (44, 43, 42, 41, 40, 39, 38, 37))
+                and Active = 1"
 
             Dim dtUnits As DataTable = DB.GetDataTable(SQL)
 

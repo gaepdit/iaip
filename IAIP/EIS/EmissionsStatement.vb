@@ -14,7 +14,7 @@ Public Class EmissionsStatement
     End Sub
 
     Private Sub LoadPermissions()
-        If AccountFormAccess(130, 3) <> "1" AndAlso AccountFormAccess(130, 4) <> "1" Then
+        If Not CurrentUser.HasPermission(UserCan.AccessEmissionsInventory) Then
             Close()
         End If
     End Sub

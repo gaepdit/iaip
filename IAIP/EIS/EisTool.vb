@@ -1,14 +1,16 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Data.SqlTypes
-Imports System.Linq
-Imports EpdIt
 Imports EpdIt.DBUtilities
 Imports Iaip.Apb.Facilities
 
 Public Class EisTool
 
     Private Sub EisTool_Load(sender As Object, e As EventArgs) Handles Me.Load
+        If Not CurrentUser.HasPermission(UserCan.AccessEmissionsInventory) Then
+            Close()
+        End If
+
         LoadcboEISstatusCodes()
         LoadEISLog()
         LoadStats()

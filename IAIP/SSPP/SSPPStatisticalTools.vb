@@ -39,9 +39,9 @@ Public Class SSPPStatisticalTools
     Private Sub LoadComboBoxs()
         Try
             Dim query As String = "select " &
-            "strUnitDesc, numUnitCode  " &
+            "strUnitDesc, numUnitCode " &
             "from LookUpEPDUnits  " &
-            "where numProgramCode = '5'  " &
+            "where numProgramCode = 5 and Active = 1 " &
             "order by strUnitDesc "
 
             Dim dtPermittingUnits As DataTable = DB.GetDataTable(query)
