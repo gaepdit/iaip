@@ -146,7 +146,7 @@ Public Class IAIPQueryGenerator
             query = "select " &
             "numUnitCode, strUnitDesc " &
             "from LookUpEPDUnits " &
-            "where numProgramcode = 4 Active = 1 "
+            "where numProgramcode = 4 and Active = 1 "
 
             dtcboSSCPUnitSearch1 = DB.GetDataTable(query)
             dtcboSSCPUnitSearch2 = dtcboSSCPUnitSearch1.Copy
