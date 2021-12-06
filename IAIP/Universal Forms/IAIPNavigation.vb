@@ -933,7 +933,7 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.Finance, "Financial Management Unit", "Application Fees")
         AddNavButtonCategory(NavButtonCategories.DMU, "Data Management Unit")
         AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program", "Events")
-        AddNavButtonCategory(NavButtonCategories.EIS, "Emission Inventory System", "EI/ES")
+        AddNavButtonCategory(NavButtonCategories.EIS, "Emissions and Control Strategies", "EI/ES")
         AddNavButtonCategory(NavButtonCategories.SBEAP, "Small Business Environmental Assistance Program")
     End Sub
 
