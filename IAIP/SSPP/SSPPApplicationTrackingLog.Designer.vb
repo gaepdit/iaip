@@ -5309,7 +5309,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbPAReady.AutoSize = True
         Me.chbPAReady.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.chbPAReady.Enabled = False
-        Me.chbPAReady.Location = New System.Drawing.Point(-1, 249)
+        Me.chbPAReady.Location = New System.Drawing.Point(-2, 251)
         Me.chbPAReady.Name = "chbPAReady"
         Me.chbPAReady.Size = New System.Drawing.Size(98, 17)
         Me.chbPAReady.TabIndex = 18
@@ -5802,6 +5802,7 @@ Partial Class SSPPApplicationTrackingLog
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvApplicationInvoices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvApplicationInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvApplicationInvoices.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvApplicationInvoices.LinkifyColumnByName = Nothing
         Me.dgvApplicationInvoices.LinkifyFirstColumn = True
         Me.dgvApplicationInvoices.Location = New System.Drawing.Point(10, 29)
@@ -5873,6 +5874,7 @@ Partial Class SSPPApplicationTrackingLog
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvApplicationPayments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvApplicationPayments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvApplicationPayments.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvApplicationPayments.LinkifyColumnByName = Nothing
         Me.dgvApplicationPayments.LinkifyFirstColumn = True
         Me.dgvApplicationPayments.Location = New System.Drawing.Point(16, 29)

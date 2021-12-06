@@ -1554,9 +1554,7 @@ Public Class SSPPApplicationTrackingLog
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
-                AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1" OrElse
-                AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing OrElse
-                AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0" Then
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 chbPAReady.Enabled = True
             End If
             If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
@@ -3818,7 +3816,7 @@ Public Class SSPPApplicationTrackingLog
                 If IsDBNull(dr.Item("strPAReady")) Then
                     chbPAReady.Checked = False
                 Else
-                    If dr.Item("strPAReady") = "True" Then
+                    If dr.Item("strPAReady").ToString = "True" Then
                         chbPAReady.Checked = True
                     Else
                         chbPAReady.Checked = False
@@ -3827,7 +3825,7 @@ Public Class SSPPApplicationTrackingLog
                 If IsDBNull(dr.Item("strPNReady")) Then
                     chbPNReady.Checked = False
                 Else
-                    If dr.Item("strPNReady") = "True" Then
+                    If dr.Item("strPNReady").ToString = "True" Then
                         chbPNReady.Checked = True
                     Else
                         chbPNReady.Checked = False
@@ -3892,6 +3890,8 @@ Public Class SSPPApplicationTrackingLog
                     lblPAReady.Text = ""
                 Else
                     lblPAReady.Text = dr.Item("strPAPosted")
+                    chbPAReady.Checked = True
+                    chbPAReady.Enabled = False
                 End If
                 If IsDBNull(dr.Item("strPNPosted")) Then
                     lblPNReady.Text = ""
@@ -3948,7 +3948,7 @@ Public Class SSPPApplicationTrackingLog
                         rdbSSCPNo.Checked = True
                         txtSSCPComments.Clear()
                     Else
-                        If dr.Item("strSSCPComments") = "N/A" Then
+                        If dr.Item("strSSCPComments").ToString = "N/A" Then
                             rdbSSCPNo.Checked = True
                             txtSSCPComments.Text = ""
                         Else
@@ -3973,7 +3973,7 @@ Public Class SSPPApplicationTrackingLog
                         rdbISMPNo.Checked = True
                         txtISMPComments.Clear()
                     Else
-                        If dr.Item("strISMPComments") = "N/A" Then
+                        If dr.Item("strISMPComments").ToString = "N/A" Then
                             rdbISMPNo.Checked = True
                             txtISMPComments.Text = ""
                         Else
@@ -4072,7 +4072,9 @@ Public Class SSPPApplicationTrackingLog
 
             CheckForLinkedApplications()
 
-            CloseOutApplication(CloseOut)
+            If CloseOut Then
+                CloseOutApplication(CloseOut)
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, "App #: " & AppNumber & "; temp: " & temp, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -5556,8 +5558,6 @@ Public Class SSPPApplicationTrackingLog
         End If
 
         Try
-            Dim MaxKey As String = ""
-            Dim i As Integer
             Dim ContactFirstName As String = " "
             Dim ContactLastname As String = " "
             Dim ContactPrefix As String = " "
@@ -5794,28 +5794,19 @@ Public Class SSPPApplicationTrackingLog
                 DTPDateSent.Enabled = False
                 DTPDateReceived.Enabled = False
                 DTPDateAssigned.Enabled = False
-                DTPDateAssigned.Enabled = False
-                DTPDateReassigned.Enabled = False
                 DTPDateReassigned.Enabled = False
                 DTPDateAcknowledge.Enabled = False
-                DTPDateAcknowledge.Enabled = False
-                DTPDatePAExpires.Enabled = False
                 DTPDatePAExpires.Enabled = False
                 DTPDatePNExpires.Enabled = False
-                DTPDatePNExpires.Enabled = False
-                DTPDeadline.Enabled = False
                 DTPDeadline.Enabled = False
                 DTPDateToUC.Enabled = False
-                DTPDateToUC.Enabled = False
-                DTPDateToPM.Enabled = False
                 DTPDateToPM.Enabled = False
                 DTPFinalAction.Enabled = False
-                DTPFinalAction.Enabled = False
-                DTPDraftIssued.Enabled = False
                 DTPDraftIssued.Enabled = False
                 txtPermitNumber.ReadOnly = True
                 cboPermitAction.Enabled = False
                 cboPublicAdvisory.Enabled = False
+                chbPAReady.Enabled = False
                 txtReasonAppSubmitted.ReadOnly = True
                 txtComments.ReadOnly = True
                 btnSaveInformationRequest.Enabled = False
@@ -5925,11 +5916,17 @@ Public Class SSPPApplicationTrackingLog
                 btnMACTUneditAll.Enabled = False
             Else
                 LoadPermissions()
+                CheckPASettings()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub CheckPASettings()
+        If Not String.IsNullOrEmpty(lblPAReady.Text) Then chbPAReady.Enabled = False
+        If chbPAReady.Checked Then cboPublicAdvisory.Enabled = False
     End Sub
 
     Private Sub LinkApplications()
@@ -7237,12 +7234,8 @@ Public Class SSPPApplicationTrackingLog
             DTPDatePNExpires.Visible = True
             lblDatePNExpires.Visible = True
             chbPNReady.Visible = True
-            DTPDatePAExpires.Visible = True
-            lblDatePAExpires.Visible = True
-            chbPAReady.Visible = True
-            cboPublicAdvisory.Visible = True
-            lblPublicAdvisory.Visible = True
             GBSignificationComments.Visible = False
+            SetPAVisibility(True)
 
             Select Case cboApplicationType.Text
                 Case "502(b)10", "PBR", "SM"
@@ -7269,19 +7262,13 @@ Public Class SSPPApplicationTrackingLog
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
                     chbPNReady.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
+
+                    If cboPublicAdvisory.Text = "PA Needed" Then
+                        SetPAVisibility(True)
                     Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
+                        SetPAVisibility(False)
                     End If
+
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
@@ -7291,19 +7278,13 @@ Public Class SSPPApplicationTrackingLog
                     lblEPAWaived.Visible = False
                     DTPEPAEnds.Visible = False
                     lblEPAEnds.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
+
+                    If cboPublicAdvisory.Text = "PA Needed" Then
+                        SetPAVisibility(True)
                     Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
+                        SetPAVisibility(False)
                     End If
+
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
@@ -7318,19 +7299,13 @@ Public Class SSPPApplicationTrackingLog
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
                     chbPNReady.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
+
+                    If cboPublicAdvisory.Text = "PA Needed" Then
+                        SetPAVisibility(True)
                     Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
+                        SetPAVisibility(False)
                     End If
+
                     txtPermitNumber.Text = " "
 
                 Case "ERC"
@@ -7343,19 +7318,13 @@ Public Class SSPPApplicationTrackingLog
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
                     chbPNReady.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
+
+                    If cboPublicAdvisory.Text = "PA Needed" Then
+                        SetPAVisibility(True)
                     Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
+                        SetPAVisibility(False)
                     End If
+
                     If Mid(txtPermitNumber.Text, 1, 3) <> "ERC" Then
                         txtPermitNumber.Text = " "
                     End If
@@ -7370,11 +7339,7 @@ Public Class SSPPApplicationTrackingLog
                     lblDatePNExpires.Visible = False
 
                 Case "MAWO"
-                    cboPublicAdvisory.Visible = False
-                    lblPublicAdvisory.Visible = False
-                    DTPDatePAExpires.Visible = False
-                    lblDatePAExpires.Visible = False
-                    chbPAReady.Visible = False
+                    SetPAVisibility(False)
                     chbPNReady.Visible = False
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
@@ -7397,19 +7362,13 @@ Public Class SSPPApplicationTrackingLog
                     chbPNReady.Visible = False
                     DTPDatePNExpires.Visible = False
                     lblDatePNExpires.Visible = False
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
+
+                    If cboPublicAdvisory.Text = "PA Needed" Then
+                        SetPAVisibility(True)
                     Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
+                        SetPAVisibility(False)
                     End If
+
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
@@ -7421,22 +7380,16 @@ Public Class SSPPApplicationTrackingLog
                     GBSignificationComments.Visible = True
 
                 Case "SAWO"
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
+                    If cboPublicAdvisory.Text = "PA Needed" Then
+                        SetPAVisibility(True)
                     Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
+                        SetPAVisibility(False)
                     End If
+
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
+
                     GBSignificationComments.Visible = True
 
                 Case "SIP"
@@ -7462,19 +7415,12 @@ Public Class SSPPApplicationTrackingLog
                     End If
 
                 Case "TV-Initial", "TV-Renewal"
-                    If cboPublicAdvisory.Text = "Not Decided" OrElse cboPublicAdvisory.Text = "" OrElse cboPublicAdvisory.Text = "PA Not Needed" Then
-                        cboPublicAdvisory.Visible = False
-                        lblPublicAdvisory.Visible = False
-                        DTPDatePAExpires.Visible = False
-                        lblDatePAExpires.Visible = False
-                        chbPAReady.Visible = False
+                    If cboPublicAdvisory.Text = "PA Needed" Then
+                        SetPAVisibility(True)
                     Else
-                        cboPublicAdvisory.Visible = True
-                        lblPublicAdvisory.Visible = True
-                        DTPDatePAExpires.Visible = True
-                        lblDatePAExpires.Visible = True
-                        chbPAReady.Visible = True
+                        SetPAVisibility(False)
                     End If
+
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If
@@ -7483,6 +7429,15 @@ Public Class SSPPApplicationTrackingLog
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub SetPAVisibility(visible As Boolean)
+        cboPublicAdvisory.Visible = visible
+        lblPublicAdvisory.Visible = visible
+        DTPDatePAExpires.Visible = visible
+        lblDatePAExpires.Visible = visible
+        chbPAReady.Visible = visible
+        lblPAReady.Visible = visible
     End Sub
 
     Private Sub chb112_CheckedChanged(sender As Object, e As EventArgs) Handles chb112g.CheckedChanged
@@ -7533,17 +7488,30 @@ Public Class SSPPApplicationTrackingLog
         End If
     End Sub
 
-    Private Sub cboPublicAdvisory_TextChanged(sender As Object, e As EventArgs) Handles cboPublicAdvisory.TextChanged
-        If cboPublicAdvisory.Text = "PA Not Needed" Then
-            chbPAReady.Checked = False
-            chbPAReady.Visible = False
-            DTPDatePAExpires.Value = Today
-            DTPDatePAExpires.Visible = False
-            lblDatePAExpires.Visible = False
-        ElseIf cboPublicAdvisory.Visible Then
+    Private Sub cboPublicAdvisory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboPublicAdvisory.SelectedIndexChanged
+        If cboPublicAdvisory.Text = "PA Needed" Then
             chbPAReady.Visible = True
             DTPDatePAExpires.Visible = True
             lblDatePAExpires.Visible = True
+            lblPAReady.Visible = True
+        Else
+            chbPAReady.Checked = False
+            DTPDatePAExpires.Value = Today
+            DTPDatePAExpires.Checked = False
+
+            chbPAReady.Visible = False
+            DTPDatePAExpires.Visible = False
+            lblDatePAExpires.Visible = False
+            lblPAReady.Visible = False
+        End If
+    End Sub
+
+    Private Sub chbPAReady_CheckedChanged(sender As Object, e As EventArgs) Handles chbPAReady.CheckedChanged
+        If chbPAReady.Checked Then
+            cboPublicAdvisory.Text = "PA Needed"
+            cboPublicAdvisory.Enabled = False
+        Else
+            cboPublicAdvisory.Enabled = True
         End If
     End Sub
 
@@ -10287,7 +10255,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Removed"
                         temp = ""
                         For i = 0 To dgvSIPSubParts.Rows.Count - 1
-                            If SubPart = dgvSIPSubParts(1, i).Value Then
+                            If SubPart = dgvSIPSubParts(1, i).Value.ToString Then
                                 dgvSIPSubParts(0, i).Value = AppNum
                                 dgvSIPSubParts(4, i).Value = "Removed"
                                 temp = "Removed"
@@ -10314,7 +10282,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Added"
                         temp = ""
                         For i = 0 To dgvSIPSubParts.Rows.Count - 1
-                            If SubPart = dgvSIPSubParts(1, i).Value Then
+                            If SubPart = dgvSIPSubParts(1, i).Value.ToString Then
                                 dgvSIPSubParts(0, i).Value = AppNum
                                 dgvSIPSubParts(4, i).Value = "Added"
                                 temp = "Added"
@@ -10345,7 +10313,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Modified"
                         temp = ""
                         For i = 0 To dgvSIPSubParts.Rows.Count - 1
-                            If SubPart = dgvSIPSubParts(1, i).Value Then
+                            If SubPart = dgvSIPSubParts(1, i).Value.ToString Then
                                 dgvSIPSubParts(0, i).Value = AppNum
                                 temp = "Modify"
                                 dgvSIPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
@@ -10384,7 +10352,7 @@ Public Class SSPPApplicationTrackingLog
             Action = dgvSIPSubParts(4, dgvSIPSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
-                If dgvSIPSubpartAddEdit(0, i).Value = Subpart Then
+                If dgvSIPSubpartAddEdit(0, i).Value.ToString = Subpart Then
                     temp2 = "Message"
                 End If
             Next
@@ -10402,7 +10370,7 @@ Public Class SSPPApplicationTrackingLog
             If i > 0 Then
                 temp = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
                 For i = 0 To dgvSIPSubPartDelete.Rows.Count - 1
-                    If dgvSIPSubPartDelete(0, i).Value = temp Then
+                    If dgvSIPSubPartDelete(0, i).Value.ToString = temp Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -10442,7 +10410,7 @@ Public Class SSPPApplicationTrackingLog
             If dgvSIPSubPartDelete.Rows.Count > 0 Then
                 Subpart = dgvSIPSubPartDelete(0, dgvSIPSubPartDelete.CurrentRow.Index).Value
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    If dgvSIPSubParts(1, j).Value = Subpart Then
+                    If dgvSIPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -10469,7 +10437,7 @@ Public Class SSPPApplicationTrackingLog
                 Action = dgvSIPSubParts(4, i).Value
 
                 For j = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
-                    If dgvSIPSubpartAddEdit(0, j).Value = Subpart Then
+                    If dgvSIPSubpartAddEdit(0, j).Value.ToString = Subpart Then
                         temp2 = "Message"
                     End If
                 Next
@@ -10484,7 +10452,7 @@ Public Class SSPPApplicationTrackingLog
 
                 temp2 = ""
                 For j = 0 To dgvSIPSubPartDelete.Rows.Count - 1
-                    If dgvSIPSubPartDelete(0, j).Value = Subpart Then
+                    If dgvSIPSubPartDelete(0, j).Value.ToString = Subpart Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -10511,7 +10479,7 @@ Public Class SSPPApplicationTrackingLog
             For i As Integer = 0 To dgvSIPSubPartDelete.Rows.Count - 1
                 Subpart = dgvSIPSubPartDelete(0, i).Value
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    If dgvSIPSubParts(1, j).Value = Subpart Then
+                    If dgvSIPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -10531,7 +10499,7 @@ Public Class SSPPApplicationTrackingLog
             For i As Integer = 0 To dgvSIPSubPartDelete.Rows.Count - 1
                 Subpart = dgvSIPSubPartDelete(0, i).Value
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    If dgvSIPSubParts(1, j).Value = Subpart Then
+                    If dgvSIPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -10565,7 +10533,7 @@ Public Class SSPPApplicationTrackingLog
 
             temp2 = ""
             For i = 0 To dgvSIPSubParts.Rows.Count - 1
-                If dgvSIPSubParts(1, i).Value = Subpart Then
+                If dgvSIPSubParts(1, i).Value.ToString = Subpart Then
                     temp2 = "Ignore"
                     MsgBox("The SIP Subpart already exists for this application.", MsgBoxStyle.Information,
                            "Application Tracking")
@@ -10588,7 +10556,7 @@ Public Class SSPPApplicationTrackingLog
 
             temp2 = ""
             For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
-                If dgvSIPSubpartAddEdit(1, i).Value = Subpart Then
+                If dgvSIPSubpartAddEdit(1, i).Value.ToString = Subpart Then
                     temp2 = "Ignore"
                 End If
             Next
@@ -10626,7 +10594,7 @@ Public Class SSPPApplicationTrackingLog
             Action = dgvSIPSubParts(4, dgvSIPSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvSIPSubPartDelete.Rows.Count - 1
-                If dgvSIPSubPartDelete(0, i).Value = Subpart Then
+                If dgvSIPSubPartDelete(0, i).Value.ToString = Subpart Then
                     temp2 = "Message"
                 End If
             Next
@@ -10644,7 +10612,7 @@ Public Class SSPPApplicationTrackingLog
             If i > 0 Then
                 temp = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
                 For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
-                    If dgvSIPSubpartAddEdit(0, i).Value = temp Then
+                    If dgvSIPSubpartAddEdit(0, i).Value.ToString = temp Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -10688,7 +10656,7 @@ Public Class SSPPApplicationTrackingLog
                 Subpart = dgvSIPSubpartAddEdit(0, dgvSIPSubpartAddEdit.CurrentRow.Index).Value
                 Action = dgvSIPSubpartAddEdit(3, dgvSIPSubpartAddEdit.CurrentRow.Index).Value
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    If dgvSIPSubParts(1, j).Value = Subpart Then
+                    If dgvSIPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -10715,7 +10683,7 @@ Public Class SSPPApplicationTrackingLog
                 Action = dgvSIPSubParts(4, i).Value
 
                 For j As Integer = 0 To dgvSIPSubPartDelete.Rows.Count - 1
-                    If dgvSIPSubPartDelete(0, j).Value = Subpart Then
+                    If dgvSIPSubPartDelete(0, j).Value.ToString = Subpart Then
                         temp2 = "Message"
                     End If
                 Next
@@ -10730,7 +10698,7 @@ Public Class SSPPApplicationTrackingLog
 
                 temp2 = ""
                 For j As Integer = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
-                    If dgvSIPSubpartAddEdit(0, j).Value = Subpart Then
+                    If dgvSIPSubpartAddEdit(0, j).Value.ToString = Subpart Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -10759,7 +10727,7 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvSIPSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    If dgvSIPSubParts(1, j).Value = Subpart AndAlso dgvSIPSubParts(4, j).Value = "Existing" Then
+                    If dgvSIPSubParts(1, j).Value.ToString = Subpart AndAlso dgvSIPSubParts(4, j).Value.ToString = "Existing" Then
                         dgvSIPSubParts.Rows(j).DefaultCellStyle.BackColor = Color.White
                         TempRemove = i & "," & TempRemove
                     End If
@@ -10788,7 +10756,7 @@ Public Class SSPPApplicationTrackingLog
                 temp2 = ""
                 Action = ""
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    If dgvSIPSubParts(1, j).Value = Subpart Then
+                    If dgvSIPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                         Action = dgvSIPSubParts(4, j).Value
                     End If
@@ -11126,7 +11094,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Removed"
                         temp = ""
                         For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                            If SubPart = dgvNSPSSubParts(1, i).Value Then
+                            If SubPart = dgvNSPSSubParts(1, i).Value.ToString Then
                                 dgvNSPSSubParts(0, i).Value = AppNum
                                 dgvNSPSSubParts(4, i).Value = "Removed"
                                 temp = "Removed"
@@ -11155,7 +11123,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Added"
                         temp = ""
                         For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                            If SubPart = dgvNSPSSubParts(1, i).Value Then
+                            If SubPart = dgvNSPSSubParts(1, i).Value.ToString Then
                                 dgvNSPSSubParts(4, i).Value = "Added"
                                 temp = "Added"
                                 dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
@@ -11187,7 +11155,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Modified"
                         temp = ""
                         For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                            If SubPart = dgvNSPSSubParts(1, i).Value Then
+                            If SubPart = dgvNSPSSubParts(1, i).Value.ToString Then
                                 dgvNSPSSubParts(0, i).Value = AppNum
                                 temp = "Modify"
                                 dgvNSPSSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
@@ -11226,7 +11194,7 @@ Public Class SSPPApplicationTrackingLog
             Action = dgvNSPSSubParts(4, dgvNSPSSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                If dgvNSPSSubpartAddEdit(0, i).Value = Subpart Then
+                If dgvNSPSSubpartAddEdit(0, i).Value.ToString = Subpart Then
                     temp2 = "Message"
                 End If
             Next
@@ -11244,7 +11212,7 @@ Public Class SSPPApplicationTrackingLog
             If i > 0 Then
                 temp = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
                 For i = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
-                    If dgvNSPSSubPartDelete(0, i).Value = temp Then
+                    If dgvNSPSSubPartDelete(0, i).Value.ToString = temp Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -11284,7 +11252,7 @@ Public Class SSPPApplicationTrackingLog
             If dgvNSPSSubPartDelete.Rows.Count > 0 Then
                 Subpart = dgvNSPSSubPartDelete(0, dgvNSPSSubPartDelete.CurrentRow.Index).Value
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    If dgvNSPSSubParts(1, j).Value = Subpart Then
+                    If dgvNSPSSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -11311,7 +11279,7 @@ Public Class SSPPApplicationTrackingLog
                 Action = dgvNSPSSubParts(4, i).Value
 
                 For j = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                    If dgvNSPSSubpartAddEdit(0, j).Value = Subpart Then
+                    If dgvNSPSSubpartAddEdit(0, j).Value.ToString = Subpart Then
                         temp2 = "Message"
                     End If
                 Next
@@ -11326,7 +11294,7 @@ Public Class SSPPApplicationTrackingLog
 
                 temp2 = ""
                 For j = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
-                    If dgvNSPSSubPartDelete(0, j).Value = Subpart Then
+                    If dgvNSPSSubPartDelete(0, j).Value.ToString = Subpart Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -11352,7 +11320,7 @@ Public Class SSPPApplicationTrackingLog
             For i As Integer = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
                 Subpart = dgvNSPSSubPartDelete(0, i).Value
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    If dgvNSPSSubParts(1, j).Value = Subpart Then
+                    If dgvNSPSSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -11372,7 +11340,7 @@ Public Class SSPPApplicationTrackingLog
             For i As Integer = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
                 Subpart = dgvNSPSSubPartDelete(0, i).Value
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    If dgvNSPSSubParts(1, j).Value = Subpart Then
+                    If dgvNSPSSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -11406,7 +11374,7 @@ Public Class SSPPApplicationTrackingLog
 
             temp2 = ""
             For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                If dgvNSPSSubParts(1, i).Value = Subpart Then
+                If dgvNSPSSubParts(1, i).Value.ToString = Subpart Then
                     temp2 = "Ignore"
                     MsgBox("The NSPS Subpart already exists for this application.", MsgBoxStyle.Information,
                         "Application Tracking")
@@ -11429,7 +11397,7 @@ Public Class SSPPApplicationTrackingLog
 
             temp2 = ""
             For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                If dgvNSPSSubpartAddEdit(1, i).Value = Subpart Then
+                If dgvNSPSSubpartAddEdit(1, i).Value.ToString = Subpart Then
                     temp2 = "Ignore"
                 End If
             Next
@@ -11467,7 +11435,7 @@ Public Class SSPPApplicationTrackingLog
             Action = dgvNSPSSubParts(4, dgvNSPSSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
-                If dgvNSPSSubPartDelete(0, i).Value = Subpart Then
+                If dgvNSPSSubPartDelete(0, i).Value.ToString = Subpart Then
                     temp2 = "Message"
                 End If
             Next
@@ -11485,7 +11453,7 @@ Public Class SSPPApplicationTrackingLog
             If i > 0 Then
                 temp = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
                 For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                    If dgvNSPSSubpartAddEdit(0, i).Value = temp Then
+                    If dgvNSPSSubpartAddEdit(0, i).Value.ToString = temp Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -11529,7 +11497,7 @@ Public Class SSPPApplicationTrackingLog
                 Subpart = dgvNSPSSubpartAddEdit(0, dgvNSPSSubpartAddEdit.CurrentRow.Index).Value
                 Action = dgvNSPSSubpartAddEdit(3, dgvNSPSSubpartAddEdit.CurrentRow.Index).Value
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    If dgvNSPSSubParts(1, j).Value = Subpart Then
+                    If dgvNSPSSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -11556,7 +11524,7 @@ Public Class SSPPApplicationTrackingLog
                 Action = dgvNSPSSubParts(4, i).Value
 
                 For j As Integer = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
-                    If dgvNSPSSubPartDelete(0, j).Value = Subpart Then
+                    If dgvNSPSSubPartDelete(0, j).Value.ToString = Subpart Then
                         temp2 = "Message"
                     End If
                 Next
@@ -11571,7 +11539,7 @@ Public Class SSPPApplicationTrackingLog
 
                 temp2 = ""
                 For j As Integer = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
-                    If dgvNSPSSubpartAddEdit(0, j).Value = Subpart Then
+                    If dgvNSPSSubpartAddEdit(0, j).Value.ToString = Subpart Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -11600,7 +11568,7 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvNSPSSubpartAddEdit(0, i).Value
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    If dgvNSPSSubParts(1, j).Value = Subpart AndAlso dgvNSPSSubParts(4, j).Value = "Existing" Then
+                    If dgvNSPSSubParts(1, j).Value.ToString = Subpart AndAlso dgvNSPSSubParts(4, j).Value.ToString = "Existing" Then
                         dgvNSPSSubParts.Rows(j).DefaultCellStyle.BackColor = Color.White
                         TempRemove = i & "," & TempRemove
                     End If
@@ -11630,7 +11598,7 @@ Public Class SSPPApplicationTrackingLog
                 temp2 = ""
                 Action = ""
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    If dgvNSPSSubParts(1, j).Value = Subpart Then
+                    If dgvNSPSSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                         Action = dgvNSPSSubParts(4, j).Value
                     End If
@@ -11967,7 +11935,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Removed"
                         temp = ""
                         For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                            If SubPart = dgvNESHAPSubParts(1, i).Value Then
+                            If SubPart = dgvNESHAPSubParts(1, i).Value.ToString Then
                                 dgvNESHAPSubParts(0, i).Value = AppNum
                                 dgvNESHAPSubParts(4, i).Value = "Removed"
                                 temp = "Removed"
@@ -11996,7 +11964,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Added"
                         temp = ""
                         For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                            If SubPart = dgvNESHAPSubParts(1, i).Value Then
+                            If SubPart = dgvNESHAPSubParts(1, i).Value.ToString Then
                                 dgvNESHAPSubParts(4, i).Value = "Added"
                                 temp = "Added"
                                 dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightGreen
@@ -12028,7 +11996,7 @@ Public Class SSPPApplicationTrackingLog
                     Case "Modified"
                         temp = ""
                         For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                            If SubPart = dgvNESHAPSubParts(1, i).Value Then
+                            If SubPart = dgvNESHAPSubParts(1, i).Value.ToString Then
                                 dgvNESHAPSubParts(0, i).Value = AppNum
                                 temp = "Modify"
                                 dgvNESHAPSubParts.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
@@ -12067,7 +12035,7 @@ Public Class SSPPApplicationTrackingLog
             Action = dgvNESHAPSubParts(4, dgvNESHAPSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
-                If dgvNESHAPSubpartAddEdit(0, i).Value = Subpart Then
+                If dgvNESHAPSubpartAddEdit(0, i).Value.ToString = Subpart Then
                     temp2 = "Message"
                 End If
             Next
@@ -12085,7 +12053,7 @@ Public Class SSPPApplicationTrackingLog
             If i > 0 Then
                 temp = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
                 For i = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
-                    If dgvNESHAPSubPartDelete(0, i).Value = temp Then
+                    If dgvNESHAPSubPartDelete(0, i).Value.ToString = temp Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -12125,7 +12093,7 @@ Public Class SSPPApplicationTrackingLog
             If dgvNESHAPSubPartDelete.Rows.Count > 0 Then
                 Subpart = dgvNESHAPSubPartDelete(0, dgvNESHAPSubPartDelete.CurrentRow.Index).Value
                 For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                    If dgvNESHAPSubParts(1, j).Value = Subpart Then
+                    If dgvNESHAPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -12152,7 +12120,7 @@ Public Class SSPPApplicationTrackingLog
                 Action = dgvNESHAPSubParts(4, i).Value
 
                 For j = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
-                    If dgvNESHAPSubpartAddEdit(0, j).Value = Subpart Then
+                    If dgvNESHAPSubpartAddEdit(0, j).Value.ToString = Subpart Then
                         temp2 = "Message"
                     End If
                 Next
@@ -12167,7 +12135,7 @@ Public Class SSPPApplicationTrackingLog
 
                 temp2 = ""
                 For j = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
-                    If dgvNESHAPSubPartDelete(0, j).Value = Subpart Then
+                    If dgvNESHAPSubPartDelete(0, j).Value.ToString = Subpart Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -12194,7 +12162,7 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
                 Subpart = dgvNESHAPSubPartDelete(0, i).Value
                 For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                    If dgvNESHAPSubParts(1, j).Value = Subpart Then
+                    If dgvNESHAPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -12215,7 +12183,7 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
                 Subpart = dgvNESHAPSubPartDelete(0, i).Value
                 For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                    If dgvNESHAPSubParts(1, j).Value = Subpart Then
+                    If dgvNESHAPSubParts(1, j).Value.ToString = Subpart Then
                         temp2 = j
                     End If
                 Next
@@ -12250,7 +12218,7 @@ Public Class SSPPApplicationTrackingLog
             temp2 = ""
             If dgvNESHAPSubParts.Rows.Count <> 0 Then
                 For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                    If dgvNESHAPSubParts(1, i).Value = Subpart Then
+                    If dgvNESHAPSubParts(1, i).Value.ToString = Subpart Then
                         temp2 = "Ignore"
                         MsgBox("The NESHAP Subpart already exists for this application.", MsgBoxStyle.Information,
                         "Application Tracking")
