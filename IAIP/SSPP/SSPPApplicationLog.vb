@@ -336,6 +336,9 @@ Public Class SSPPApplicationLog
             cboEngineer.SelectedValue = CurrentUser.UserID
         End If
 
+        If cboApplicationUnit.SelectedIndex = -1 Then cboApplicationUnit.SelectedIndex = 0
+        If cboEngineer.SelectedIndex = -1 Then cboEngineer.SelectedIndex = 0
+
         If CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
             MainMenu1.Visible = True
             mmiNewApplication.Visible = True
@@ -372,7 +375,7 @@ Public Class SSPPApplicationLog
         AppUnit = cboApplicationUnit.SelectedValue
         AppUnitText = cboApplicationUnit.Text
         AppStatus = cboApplicationStatus.Text
-        Engineer = If(cboEngineer.SelectedValue.ToString = "", "XXX", cboEngineer.SelectedValue.ToString)
+        Engineer = If(cboEngineer.SelectedValue?.ToString = "", "XXX", cboEngineer.SelectedValue.ToString)
         SubpartSIP1 = cboSIP1.SelectedValue.ToString
         SubpartSIP2 = cboSIP2.SelectedValue.ToString
         SubpartNESHAP1 = cboNESHAP1.SelectedValue.ToString
