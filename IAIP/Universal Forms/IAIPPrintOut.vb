@@ -3134,6 +3134,7 @@ Public Class IAIPPrintOut
                 Case "Monitor Certification"
                     spValue.Value = "MONITOR CERTIFICATION"
                 Case Else
+                    spValue.Value = ReportType
             End Select
             If Mid(ConfidentialData, 1, 1) <> "0" AndAlso Mid(ConfidentialData, 6, 1) = "1" Then
                 spValue.Value = "--Conf--"
