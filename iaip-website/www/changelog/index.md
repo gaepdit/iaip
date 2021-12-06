@@ -10,6 +10,14 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.26.3 <span>(2021-12-06)</span>
+
+This update fixes the following:
+
+- Fee payment status was not updating after a transaction was deleted.
+- The public advisory tools in a permit application allowed invalid data to be saved.
+- The user management tool was updated to add new roles for the Emissions Control Strategies Unit and to remove unused organization units.
+
 ## Version 5.26.2 <span>(2021-11-15)</span>
 
 This update fixes some UI bugs:
