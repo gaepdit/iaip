@@ -10,6 +10,15 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.26.4 <span>(2021-12-06)</span>
+
+This update fixes a bug that prevented printing stack test reports if an invalid report type was set.
+
+Two bugs introduced in 5.26.3 are also fixed:
+
+- An error shown when opening the Query Generator.
+- An error shown in the Application Log if the current user is not in SSPP.
+
 ## Version 5.26.3 <span>(2021-12-06)</span>
 
 This update fixes the following:
