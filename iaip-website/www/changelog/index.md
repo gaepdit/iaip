@@ -17,6 +17,7 @@ This update fixes the following:
 - Fee payment status was not updating after a transaction was deleted.
 - The public advisory tools in a permit application allowed invalid data to be saved.
 - The user management tool was updated to add new roles for the Emissions Control Strategies Unit and to remove unused organization units.
+- Invalid dates were being shown in the Facility Summary Test Reports tab.
 
 ## Version 5.26.2 <span>(2021-11-15)</span>
 
