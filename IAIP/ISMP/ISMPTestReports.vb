@@ -1227,8 +1227,7 @@ Public Class ISMPTestReports
                 TCDocumentTypes.TabPages.Remove(TPSSCPWork)
             End If
 
-            If ConfidentialData.Contains("1") AndAlso
-                Mid(ConfidentialData, 1, 1) = "1" Then
+            If Mid(ConfidentialData, 1, 1) = "1" Then
                 LoadConfidentialData(ConfidentialData)
             End If
 

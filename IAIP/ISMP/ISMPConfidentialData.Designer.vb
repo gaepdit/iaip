@@ -412,7 +412,6 @@ Partial Class ISMPConfidentialData
         Me.chbMethod22OpCapacity = New System.Windows.Forms.CheckBox()
         Me.chbMethod22MaxOpCapacity = New System.Windows.Forms.CheckBox()
         Me.chbMethod22AllowEmiss = New System.Windows.Forms.CheckBox()
-        Me.TPSSCPWork = New System.Windows.Forms.TabPage()
         Me.chbAIRSNumber = New System.Windows.Forms.CheckBox()
         Me.chbFacilityName = New System.Windows.Forms.CheckBox()
         Me.chbLocation = New System.Windows.Forms.CheckBox()
@@ -440,6 +439,7 @@ Partial Class ISMPConfidentialData
         Me.Label1 = New System.Windows.Forms.Label()
         Me.mmiSave = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.tpCommon = New System.Windows.Forms.TabPage()
         Me.TCDocuments.SuspendLayout()
         Me.TPOneStack.SuspendLayout()
         Me.TCOneStack.SuspendLayout()
@@ -466,6 +466,7 @@ Partial Class ISMPConfidentialData
         Me.TPDRE.SuspendLayout()
         Me.TPMethod22.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
+        Me.tpCommon.SuspendLayout()
         Me.SuspendLayout()
         '
         'TCDocuments
@@ -480,9 +481,9 @@ Partial Class ISMPConfidentialData
         Me.TCDocuments.Controls.Add(Me.TPRATA)
         Me.TCDocuments.Controls.Add(Me.TPTwoStack)
         Me.TCDocuments.Controls.Add(Me.TPMethod22)
-        Me.TCDocuments.Controls.Add(Me.TPSSCPWork)
+        Me.TCDocuments.Controls.Add(Me.tpCommon)
         Me.TCDocuments.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TCDocuments.Location = New System.Drawing.Point(0, 259)
+        Me.TCDocuments.Location = New System.Drawing.Point(0, 58)
         Me.TCDocuments.Name = "TCDocuments"
         Me.TCDocuments.SelectedIndex = 0
         Me.TCDocuments.Size = New System.Drawing.Size(794, 366)
@@ -1567,7 +1568,7 @@ Partial Class ISMPConfidentialData
         Me.TPLoadingRack.Location = New System.Drawing.Point(4, 22)
         Me.TPLoadingRack.Name = "TPLoadingRack"
         Me.TPLoadingRack.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPLoadingRack.Size = New System.Drawing.Size(786, 315)
+        Me.TPLoadingRack.Size = New System.Drawing.Size(786, 340)
         Me.TPLoadingRack.TabIndex = 1
         Me.TPLoadingRack.Text = "Loading Rack"
         Me.TPLoadingRack.UseVisualStyleBackColor = True
@@ -1741,7 +1742,7 @@ Partial Class ISMPConfidentialData
         Me.TPPulpCondensate.Controls.Add(Me.chbPulpAllowEmiss1)
         Me.TPPulpCondensate.Location = New System.Drawing.Point(4, 22)
         Me.TPPulpCondensate.Name = "TPPulpCondensate"
-        Me.TPPulpCondensate.Size = New System.Drawing.Size(786, 315)
+        Me.TPPulpCondensate.Size = New System.Drawing.Size(786, 340)
         Me.TPPulpCondensate.TabIndex = 2
         Me.TPPulpCondensate.Text = "Pulping Process Condenstate"
         Me.TPPulpCondensate.UseVisualStyleBackColor = True
@@ -2014,7 +2015,7 @@ Partial Class ISMPConfidentialData
         Me.TPGasConcentration.Controls.Add(Me.chbGasAllowEmiss1)
         Me.TPGasConcentration.Location = New System.Drawing.Point(4, 22)
         Me.TPGasConcentration.Name = "TPGasConcentration"
-        Me.TPGasConcentration.Size = New System.Drawing.Size(786, 315)
+        Me.TPGasConcentration.Size = New System.Drawing.Size(786, 340)
         Me.TPGasConcentration.TabIndex = 3
         Me.TPGasConcentration.Text = "Gas Concentration"
         Me.TPGasConcentration.UseVisualStyleBackColor = True
@@ -2286,7 +2287,7 @@ Partial Class ISMPConfidentialData
         Me.TPFlare.Controls.Add(Me.chbFlareAllowLimitations)
         Me.TPFlare.Location = New System.Drawing.Point(4, 22)
         Me.TPFlare.Name = "TPFlare"
-        Me.TPFlare.Size = New System.Drawing.Size(786, 315)
+        Me.TPFlare.Size = New System.Drawing.Size(786, 340)
         Me.TPFlare.TabIndex = 4
         Me.TPFlare.Text = "Flare"
         Me.TPFlare.UseVisualStyleBackColor = True
@@ -2527,7 +2528,7 @@ Partial Class ISMPConfidentialData
         Me.TPMethod9.Controls.Add(Me.TCMethod9)
         Me.TPMethod9.Location = New System.Drawing.Point(4, 22)
         Me.TPMethod9.Name = "TPMethod9"
-        Me.TPMethod9.Size = New System.Drawing.Size(786, 315)
+        Me.TPMethod9.Size = New System.Drawing.Size(786, 340)
         Me.TPMethod9.TabIndex = 6
         Me.TPMethod9.Text = "Method 9"
         Me.TPMethod9.UseVisualStyleBackColor = True
@@ -2540,7 +2541,7 @@ Partial Class ISMPConfidentialData
         Me.TCMethod9.Location = New System.Drawing.Point(0, 0)
         Me.TCMethod9.Name = "TCMethod9"
         Me.TCMethod9.SelectedIndex = 0
-        Me.TCMethod9.Size = New System.Drawing.Size(786, 315)
+        Me.TCMethod9.Size = New System.Drawing.Size(786, 340)
         Me.TCMethod9.TabIndex = 0
         '
         'TPMethod9Single
@@ -2556,7 +2557,7 @@ Partial Class ISMPConfidentialData
         Me.TPMethod9Single.Location = New System.Drawing.Point(4, 22)
         Me.TPMethod9Single.Name = "TPMethod9Single"
         Me.TPMethod9Single.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPMethod9Single.Size = New System.Drawing.Size(778, 289)
+        Me.TPMethod9Single.Size = New System.Drawing.Size(778, 314)
         Me.TPMethod9Single.TabIndex = 0
         Me.TPMethod9Single.Text = "Single"
         Me.TPMethod9Single.UseVisualStyleBackColor = True
@@ -3037,7 +3038,7 @@ Partial Class ISMPConfidentialData
         Me.TPMemorandum.Controls.Add(Me.TCMemorandum)
         Me.TPMemorandum.Location = New System.Drawing.Point(4, 22)
         Me.TPMemorandum.Name = "TPMemorandum"
-        Me.TPMemorandum.Size = New System.Drawing.Size(786, 315)
+        Me.TPMemorandum.Size = New System.Drawing.Size(786, 340)
         Me.TPMemorandum.TabIndex = 7
         Me.TPMemorandum.Text = "Memorandum"
         Me.TPMemorandum.UseVisualStyleBackColor = True
@@ -3064,7 +3065,7 @@ Partial Class ISMPConfidentialData
         Me.TCMemorandum.Location = New System.Drawing.Point(0, 26)
         Me.TCMemorandum.Name = "TCMemorandum"
         Me.TCMemorandum.SelectedIndex = 0
-        Me.TCMemorandum.Size = New System.Drawing.Size(761, 293)
+        Me.TCMemorandum.Size = New System.Drawing.Size(761, 290)
         Me.TCMemorandum.TabIndex = 0
         '
         'TPStandard
@@ -3073,7 +3074,7 @@ Partial Class ISMPConfidentialData
         Me.TPStandard.Location = New System.Drawing.Point(4, 22)
         Me.TPStandard.Name = "TPStandard"
         Me.TPStandard.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPStandard.Size = New System.Drawing.Size(753, 267)
+        Me.TPStandard.Size = New System.Drawing.Size(753, 264)
         Me.TPStandard.TabIndex = 0
         Me.TPStandard.Text = "Standard"
         Me.TPStandard.UseVisualStyleBackColor = True
@@ -3097,7 +3098,7 @@ Partial Class ISMPConfidentialData
         Me.TPToFile.Location = New System.Drawing.Point(4, 22)
         Me.TPToFile.Name = "TPToFile"
         Me.TPToFile.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPToFile.Size = New System.Drawing.Size(753, 267)
+        Me.TPToFile.Size = New System.Drawing.Size(753, 264)
         Me.TPToFile.TabIndex = 1
         Me.TPToFile.Text = "To File"
         Me.TPToFile.UseVisualStyleBackColor = True
@@ -3146,7 +3147,7 @@ Partial Class ISMPConfidentialData
         Me.TPPTE.Controls.Add(Me.chbMemoPTEAllowEmiss1)
         Me.TPPTE.Location = New System.Drawing.Point(4, 22)
         Me.TPPTE.Name = "TPPTE"
-        Me.TPPTE.Size = New System.Drawing.Size(753, 267)
+        Me.TPPTE.Size = New System.Drawing.Size(753, 264)
         Me.TPPTE.TabIndex = 2
         Me.TPPTE.Text = "PTE"
         Me.TPPTE.UseVisualStyleBackColor = True
@@ -3263,7 +3264,7 @@ Partial Class ISMPConfidentialData
         Me.TPRATA.Controls.Add(Me.chbRATAAppRegulation)
         Me.TPRATA.Location = New System.Drawing.Point(4, 22)
         Me.TPRATA.Name = "TPRATA"
-        Me.TPRATA.Size = New System.Drawing.Size(786, 315)
+        Me.TPRATA.Size = New System.Drawing.Size(786, 340)
         Me.TPRATA.TabIndex = 8
         Me.TPRATA.Text = "RATA"
         Me.TPRATA.UseVisualStyleBackColor = True
@@ -3622,7 +3623,7 @@ Partial Class ISMPConfidentialData
         Me.TPTwoStack.Controls.Add(Me.chbTwoStackAllowEmiss1)
         Me.TPTwoStack.Location = New System.Drawing.Point(4, 22)
         Me.TPTwoStack.Name = "TPTwoStack"
-        Me.TPTwoStack.Size = New System.Drawing.Size(786, 315)
+        Me.TPTwoStack.Size = New System.Drawing.Size(786, 340)
         Me.TPTwoStack.TabIndex = 9
         Me.TPTwoStack.Text = "TwoStack"
         Me.TPTwoStack.UseVisualStyleBackColor = True
@@ -5030,7 +5031,7 @@ Partial Class ISMPConfidentialData
         Me.TPMethod22.Controls.Add(Me.chbMethod22AllowEmiss)
         Me.TPMethod22.Location = New System.Drawing.Point(4, 22)
         Me.TPMethod22.Name = "TPMethod22"
-        Me.TPMethod22.Size = New System.Drawing.Size(786, 315)
+        Me.TPMethod22.Size = New System.Drawing.Size(786, 340)
         Me.TPMethod22.TabIndex = 10
         Me.TPMethod22.Text = "Method 22"
         Me.TPMethod22.UseVisualStyleBackColor = True
@@ -5112,20 +5113,12 @@ Partial Class ISMPConfidentialData
         Me.chbMethod22AllowEmiss.Text = "Allowable Emission Rate"
         Me.chbMethod22AllowEmiss.UseVisualStyleBackColor = True
         '
-        'TPSSCPWork
-        '
-        Me.TPSSCPWork.Location = New System.Drawing.Point(4, 22)
-        Me.TPSSCPWork.Name = "TPSSCPWork"
-        Me.TPSSCPWork.Size = New System.Drawing.Size(786, 315)
-        Me.TPSSCPWork.TabIndex = 11
-        Me.TPSSCPWork.Text = "SSCP Work"
-        Me.TPSSCPWork.UseVisualStyleBackColor = True
-        '
         'chbAIRSNumber
         '
         Me.chbAIRSNumber.AutoSize = True
         Me.chbAIRSNumber.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbAIRSNumber.Location = New System.Drawing.Point(72, 49)
+        Me.chbAIRSNumber.Enabled = False
+        Me.chbAIRSNumber.Location = New System.Drawing.Point(72, 48)
         Me.chbAIRSNumber.Name = "chbAIRSNumber"
         Me.chbAIRSNumber.Size = New System.Drawing.Size(91, 17)
         Me.chbAIRSNumber.TabIndex = 2
@@ -5136,7 +5129,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbFacilityName.AutoSize = True
         Me.chbFacilityName.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbFacilityName.Location = New System.Drawing.Point(74, 66)
+        Me.chbFacilityName.Enabled = False
+        Me.chbFacilityName.Location = New System.Drawing.Point(74, 65)
         Me.chbFacilityName.Name = "chbFacilityName"
         Me.chbFacilityName.Size = New System.Drawing.Size(89, 17)
         Me.chbFacilityName.TabIndex = 3
@@ -5147,7 +5141,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbLocation.AutoSize = True
         Me.chbLocation.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbLocation.Location = New System.Drawing.Point(96, 83)
+        Me.chbLocation.Enabled = False
+        Me.chbLocation.Location = New System.Drawing.Point(96, 82)
         Me.chbLocation.Name = "chbLocation"
         Me.chbLocation.Size = New System.Drawing.Size(67, 17)
         Me.chbLocation.TabIndex = 4
@@ -5158,7 +5153,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbReportType.AutoSize = True
         Me.chbReportType.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbReportType.Location = New System.Drawing.Point(78, 100)
+        Me.chbReportType.Enabled = False
+        Me.chbReportType.Location = New System.Drawing.Point(78, 99)
         Me.chbReportType.Name = "chbReportType"
         Me.chbReportType.Size = New System.Drawing.Size(85, 17)
         Me.chbReportType.TabIndex = 5
@@ -5169,7 +5165,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbISMPReviewer.AutoSize = True
         Me.chbISMPReviewer.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbISMPReviewer.Location = New System.Drawing.Point(63, 117)
+        Me.chbISMPReviewer.Enabled = False
+        Me.chbISMPReviewer.Location = New System.Drawing.Point(63, 116)
         Me.chbISMPReviewer.Name = "chbISMPReviewer"
         Me.chbISMPReviewer.Size = New System.Drawing.Size(100, 17)
         Me.chbISMPReviewer.TabIndex = 6
@@ -5180,7 +5177,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbISMPUnit.AutoSize = True
         Me.chbISMPUnit.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbISMPUnit.Location = New System.Drawing.Point(89, 134)
+        Me.chbISMPUnit.Enabled = False
+        Me.chbISMPUnit.Location = New System.Drawing.Point(89, 133)
         Me.chbISMPUnit.Name = "chbISMPUnit"
         Me.chbISMPUnit.Size = New System.Drawing.Size(74, 17)
         Me.chbISMPUnit.TabIndex = 7
@@ -5191,7 +5189,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbISMPProgramManager.AutoSize = True
         Me.chbISMPProgramManager.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbISMPProgramManager.Location = New System.Drawing.Point(24, 151)
+        Me.chbISMPProgramManager.Enabled = False
+        Me.chbISMPProgramManager.Location = New System.Drawing.Point(24, 150)
         Me.chbISMPProgramManager.Name = "chbISMPProgramManager"
         Me.chbISMPProgramManager.Size = New System.Drawing.Size(139, 17)
         Me.chbISMPProgramManager.TabIndex = 8
@@ -5202,7 +5201,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbISMPUnitManager.AutoSize = True
         Me.chbISMPUnitManager.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbISMPUnitManager.Location = New System.Drawing.Point(44, 168)
+        Me.chbISMPUnitManager.Enabled = False
+        Me.chbISMPUnitManager.Location = New System.Drawing.Point(44, 167)
         Me.chbISMPUnitManager.Name = "chbISMPUnitManager"
         Me.chbISMPUnitManager.Size = New System.Drawing.Size(119, 17)
         Me.chbISMPUnitManager.TabIndex = 9
@@ -5213,7 +5213,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbTestNotification.AutoSize = True
         Me.chbTestNotification.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbTestNotification.Location = New System.Drawing.Point(20, 185)
+        Me.chbTestNotification.Enabled = False
+        Me.chbTestNotification.Location = New System.Drawing.Point(20, 184)
         Me.chbTestNotification.Name = "chbTestNotification"
         Me.chbTestNotification.Size = New System.Drawing.Size(143, 17)
         Me.chbTestNotification.TabIndex = 10
@@ -5224,7 +5225,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbWitnessingEngineer.AutoSize = True
         Me.chbWitnessingEngineer.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbWitnessingEngineer.Location = New System.Drawing.Point(48, 202)
+        Me.chbWitnessingEngineer.Enabled = False
+        Me.chbWitnessingEngineer.Location = New System.Drawing.Point(48, 201)
         Me.chbWitnessingEngineer.Name = "chbWitnessingEngineer"
         Me.chbWitnessingEngineer.Size = New System.Drawing.Size(115, 17)
         Me.chbWitnessingEngineer.TabIndex = 11
@@ -5235,18 +5237,20 @@ Partial Class ISMPConfidentialData
         '
         Me.chbOtherWitnessingEngineer.AutoSize = True
         Me.chbOtherWitnessingEngineer.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbOtherWitnessingEngineer.Location = New System.Drawing.Point(11, 219)
+        Me.chbOtherWitnessingEngineer.Enabled = False
+        Me.chbOtherWitnessingEngineer.Location = New System.Drawing.Point(11, 218)
         Me.chbOtherWitnessingEngineer.Name = "chbOtherWitnessingEngineer"
         Me.chbOtherWitnessingEngineer.Size = New System.Drawing.Size(152, 17)
         Me.chbOtherWitnessingEngineer.TabIndex = 12
-        Me.chbOtherWitnessingEngineer.Text = "Other Witnessing Engiener"
+        Me.chbOtherWitnessingEngineer.Text = "Other Witnessing Engineer"
         Me.chbOtherWitnessingEngineer.UseVisualStyleBackColor = True
         '
         'chbCC
         '
         Me.chbCC.AutoSize = True
         Me.chbCC.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbCC.Location = New System.Drawing.Point(374, 219)
+        Me.chbCC.Enabled = False
+        Me.chbCC.Location = New System.Drawing.Point(352, 218)
         Me.chbCC.Name = "chbCC"
         Me.chbCC.Size = New System.Drawing.Size(38, 17)
         Me.chbCC.TabIndex = 24
@@ -5257,7 +5261,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbComplianceManager.AutoSize = True
         Me.chbComplianceManager.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbComplianceManager.Location = New System.Drawing.Point(286, 202)
+        Me.chbComplianceManager.Enabled = False
+        Me.chbComplianceManager.Location = New System.Drawing.Point(264, 201)
         Me.chbComplianceManager.Name = "chbComplianceManager"
         Me.chbComplianceManager.Size = New System.Drawing.Size(126, 17)
         Me.chbComplianceManager.TabIndex = 23
@@ -5268,7 +5273,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbCompletedByISMP.AutoSize = True
         Me.chbCompletedByISMP.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbCompletedByISMP.Location = New System.Drawing.Point(293, 185)
+        Me.chbCompletedByISMP.Enabled = False
+        Me.chbCompletedByISMP.Location = New System.Drawing.Point(271, 184)
         Me.chbCompletedByISMP.Name = "chbCompletedByISMP"
         Me.chbCompletedByISMP.Size = New System.Drawing.Size(119, 17)
         Me.chbCompletedByISMP.TabIndex = 22
@@ -5279,7 +5285,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbAssignedToEngineer.AutoSize = True
         Me.chbAssignedToEngineer.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbAssignedToEngineer.Location = New System.Drawing.Point(257, 168)
+        Me.chbAssignedToEngineer.Enabled = False
+        Me.chbAssignedToEngineer.Location = New System.Drawing.Point(235, 167)
         Me.chbAssignedToEngineer.Name = "chbAssignedToEngineer"
         Me.chbAssignedToEngineer.Size = New System.Drawing.Size(155, 17)
         Me.chbAssignedToEngineer.TabIndex = 21
@@ -5290,7 +5297,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbReceivedByAPB.AutoSize = True
         Me.chbReceivedByAPB.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbReceivedByAPB.Location = New System.Drawing.Point(259, 151)
+        Me.chbReceivedByAPB.Enabled = False
+        Me.chbReceivedByAPB.Location = New System.Drawing.Point(237, 150)
         Me.chbReceivedByAPB.Name = "chbReceivedByAPB"
         Me.chbReceivedByAPB.Size = New System.Drawing.Size(153, 17)
         Me.chbReceivedByAPB.TabIndex = 20
@@ -5301,7 +5309,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbDaysInAPB.AutoSize = True
         Me.chbDaysInAPB.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbDaysInAPB.Location = New System.Drawing.Point(280, 134)
+        Me.chbDaysInAPB.Enabled = False
+        Me.chbDaysInAPB.Location = New System.Drawing.Point(258, 133)
         Me.chbDaysInAPB.Name = "chbDaysInAPB"
         Me.chbDaysInAPB.Size = New System.Drawing.Size(132, 17)
         Me.chbDaysInAPB.TabIndex = 19
@@ -5312,7 +5321,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbDatesTested.AutoSize = True
         Me.chbDatesTested.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbDatesTested.Location = New System.Drawing.Point(316, 117)
+        Me.chbDatesTested.Enabled = False
+        Me.chbDatesTested.Location = New System.Drawing.Point(300, 116)
         Me.chbDatesTested.Name = "chbDatesTested"
         Me.chbDatesTested.Size = New System.Drawing.Size(90, 17)
         Me.chbDatesTested.TabIndex = 18
@@ -5323,7 +5333,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbISMPComplianceDetermination.AutoSize = True
         Me.chbISMPComplianceDetermination.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbISMPComplianceDetermination.Location = New System.Drawing.Point(234, 100)
+        Me.chbISMPComplianceDetermination.Enabled = False
+        Me.chbISMPComplianceDetermination.Location = New System.Drawing.Point(212, 99)
         Me.chbISMPComplianceDetermination.Name = "chbISMPComplianceDetermination"
         Me.chbISMPComplianceDetermination.Size = New System.Drawing.Size(178, 17)
         Me.chbISMPComplianceDetermination.TabIndex = 17
@@ -5334,7 +5345,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbTestingFirm.AutoSize = True
         Me.chbTestingFirm.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbTestingFirm.Location = New System.Drawing.Point(329, 83)
+        Me.chbTestingFirm.Enabled = False
+        Me.chbTestingFirm.Location = New System.Drawing.Point(307, 82)
         Me.chbTestingFirm.Name = "chbTestingFirm"
         Me.chbTestingFirm.Size = New System.Drawing.Size(83, 17)
         Me.chbTestingFirm.TabIndex = 16
@@ -5345,7 +5357,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbMethodUsed.AutoSize = True
         Me.chbMethodUsed.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbMethodUsed.Location = New System.Drawing.Point(259, 66)
+        Me.chbMethodUsed.Enabled = False
+        Me.chbMethodUsed.Location = New System.Drawing.Point(237, 65)
         Me.chbMethodUsed.Name = "chbMethodUsed"
         Me.chbMethodUsed.Size = New System.Drawing.Size(153, 17)
         Me.chbMethodUsed.TabIndex = 15
@@ -5356,7 +5369,7 @@ Partial Class ISMPConfidentialData
         '
         Me.chbPollutant.AutoSize = True
         Me.chbPollutant.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbPollutant.Location = New System.Drawing.Point(288, 49)
+        Me.chbPollutant.Location = New System.Drawing.Point(39, 16)
         Me.chbPollutant.Name = "chbPollutant"
         Me.chbPollutant.Size = New System.Drawing.Size(124, 17)
         Me.chbPollutant.TabIndex = 14
@@ -5367,7 +5380,8 @@ Partial Class ISMPConfidentialData
         '
         Me.chbSourceTested.AutoSize = True
         Me.chbSourceTested.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbSourceTested.Location = New System.Drawing.Point(316, 32)
+        Me.chbSourceTested.Enabled = False
+        Me.chbSourceTested.Location = New System.Drawing.Point(294, 48)
         Me.chbSourceTested.Name = "chbSourceTested"
         Me.chbSourceTested.Size = New System.Drawing.Size(96, 17)
         Me.chbSourceTested.TabIndex = 13
@@ -5376,7 +5390,7 @@ Partial Class ISMPConfidentialData
         '
         'txtReferenceNumber
         '
-        Me.txtReferenceNumber.Location = New System.Drawing.Point(169, 30)
+        Me.txtReferenceNumber.Location = New System.Drawing.Point(110, 27)
         Me.txtReferenceNumber.Name = "txtReferenceNumber"
         Me.txtReferenceNumber.ReadOnly = True
         Me.txtReferenceNumber.Size = New System.Drawing.Size(66, 20)
@@ -5385,7 +5399,7 @@ Partial Class ISMPConfidentialData
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(66, 33)
+        Me.Label1.Location = New System.Drawing.Point(7, 30)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(97, 13)
         Me.Label1.TabIndex = 26
@@ -5407,40 +5421,53 @@ Partial Class ISMPConfidentialData
         Me.MenuStrip1.TabIndex = 3
         Me.MenuStrip1.Text = "MenuStrip1"
         '
+        'tpCommon
+        '
+        Me.tpCommon.Controls.Add(Me.chbAIRSNumber)
+        Me.tpCommon.Controls.Add(Me.chbTestNotification)
+        Me.tpCommon.Controls.Add(Me.chbWitnessingEngineer)
+        Me.tpCommon.Controls.Add(Me.chbComplianceManager)
+        Me.tpCommon.Controls.Add(Me.chbISMPUnitManager)
+        Me.tpCommon.Controls.Add(Me.chbCompletedByISMP)
+        Me.tpCommon.Controls.Add(Me.chbOtherWitnessingEngineer)
+        Me.tpCommon.Controls.Add(Me.chbAssignedToEngineer)
+        Me.tpCommon.Controls.Add(Me.chbISMPProgramManager)
+        Me.tpCommon.Controls.Add(Me.chbISMPUnit)
+        Me.tpCommon.Controls.Add(Me.chbReceivedByAPB)
+        Me.tpCommon.Controls.Add(Me.chbISMPReviewer)
+        Me.tpCommon.Controls.Add(Me.chbDaysInAPB)
+        Me.tpCommon.Controls.Add(Me.chbReportType)
+        Me.tpCommon.Controls.Add(Me.chbDatesTested)
+        Me.tpCommon.Controls.Add(Me.chbLocation)
+        Me.tpCommon.Controls.Add(Me.chbISMPComplianceDetermination)
+        Me.tpCommon.Controls.Add(Me.chbFacilityName)
+        Me.tpCommon.Controls.Add(Me.chbTestingFirm)
+        Me.tpCommon.Controls.Add(Me.chbSourceTested)
+        Me.tpCommon.Controls.Add(Me.chbMethodUsed)
+        Me.tpCommon.Controls.Add(Me.chbCC)
+        Me.tpCommon.Controls.Add(Me.chbPollutant)
+        Me.tpCommon.Location = New System.Drawing.Point(4, 22)
+        Me.tpCommon.Name = "tpCommon"
+        Me.tpCommon.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpCommon.Size = New System.Drawing.Size(786, 340)
+        Me.tpCommon.TabIndex = 12
+        Me.tpCommon.Text = "Common"
+        Me.tpCommon.UseVisualStyleBackColor = True
+        '
         'ISMPConfidentialData
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(794, 625)
+        Me.ClientSize = New System.Drawing.Size(794, 424)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txtReferenceNumber)
         Me.Controls.Add(Me.TCDocuments)
-        Me.Controls.Add(Me.chbComplianceManager)
-        Me.Controls.Add(Me.chbCompletedByISMP)
-        Me.Controls.Add(Me.chbAssignedToEngineer)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Controls.Add(Me.chbReceivedByAPB)
-        Me.Controls.Add(Me.chbDaysInAPB)
-        Me.Controls.Add(Me.chbAIRSNumber)
-        Me.Controls.Add(Me.chbDatesTested)
-        Me.Controls.Add(Me.chbFacilityName)
-        Me.Controls.Add(Me.chbISMPComplianceDetermination)
-        Me.Controls.Add(Me.chbLocation)
-        Me.Controls.Add(Me.chbTestingFirm)
-        Me.Controls.Add(Me.chbReportType)
-        Me.Controls.Add(Me.chbMethodUsed)
-        Me.Controls.Add(Me.chbISMPReviewer)
-        Me.Controls.Add(Me.chbPollutant)
-        Me.Controls.Add(Me.chbISMPUnit)
-        Me.Controls.Add(Me.chbSourceTested)
-        Me.Controls.Add(Me.chbISMPProgramManager)
-        Me.Controls.Add(Me.chbOtherWitnessingEngineer)
-        Me.Controls.Add(Me.chbISMPUnitManager)
-        Me.Controls.Add(Me.chbWitnessingEngineer)
-        Me.Controls.Add(Me.chbTestNotification)
-        Me.Controls.Add(Me.chbCC)
         Me.Location = New System.Drawing.Point(25, 0)
+        Me.MaximumSize = New System.Drawing.Size(810, 463)
+        Me.MinimumSize = New System.Drawing.Size(810, 463)
         Me.Name = "ISMPConfidentialData"
+        Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "ISMP Confidential Data"
         Me.TCDocuments.ResumeLayout(False)
@@ -5489,6 +5516,8 @@ Partial Class ISMPConfidentialData
         Me.TPMethod22.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.tpCommon.ResumeLayout(False)
+        Me.tpCommon.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -5545,7 +5574,6 @@ Partial Class ISMPConfidentialData
     Friend WithEvents TPRATA As System.Windows.Forms.TabPage
     Friend WithEvents TPTwoStack As System.Windows.Forms.TabPage
     Friend WithEvents TPMethod22 As System.Windows.Forms.TabPage
-    Friend WithEvents TPSSCPWork As System.Windows.Forms.TabPage
     Friend WithEvents chbOneStackOtherInfo As System.Windows.Forms.CheckBox
     Friend WithEvents chbOneStackPercentAllow As System.Windows.Forms.CheckBox
     Friend WithEvents chbOneStack2Poll1 As System.Windows.Forms.CheckBox
@@ -5911,4 +5939,5 @@ Partial Class ISMPConfidentialData
     Friend WithEvents chbMethod9MultiAppRequire As System.Windows.Forms.CheckBox
     Friend WithEvents mmiSave As ToolStripMenuItem
     Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents tpCommon As TabPage
 End Class
