@@ -21,7 +21,11 @@ Public Class SSCPEvents
         DefaultDateTimePickers()
         LoadCombos()
 
-        If AccountFormAccess(49, 2) = "1" OrElse AccountFormAccess(49, 3) = "1" OrElse AccountFormAccess(49, 4) = "1" Then
+        If AccountFormAccess(49, 2) = "1" OrElse
+            AccountFormAccess(49, 3) = "1" OrElse
+            AccountFormAccess(49, 4) = "1" OrElse
+            CurrentUser.HasRole(118) Then
+
             ToolStrip1.Visible = True
             btnSave.Visible = True
             btnDelete.Visible = True
