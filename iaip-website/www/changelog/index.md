@@ -10,6 +10,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.26.5 <span>(2021-12-14)</span>
+
+This release fixes permissions for some tools and fixes additional cases where stack test reports could not be printed.
+
 ## Version 5.26.4 <span>(2021-12-06)</span>
 
 This update fixes a bug that prevented printing stack test reports if an invalid report type was set.
