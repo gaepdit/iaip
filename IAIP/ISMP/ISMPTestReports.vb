@@ -5152,10 +5152,11 @@ Public Class ISMPTestReports
     End Sub
     Private Sub LoadUserPermissions()
         Try
-            If AccountFormAccess(69, 1) = "1" OrElse
+            If Not (AccountFormAccess(69, 1) = "1" OrElse
                 AccountFormAccess(69, 2) = "1" OrElse AccountFormAccess(69, 3) = "1" OrElse
-                AccountFormAccess(69, 4) = "1" Then
-            Else
+                AccountFormAccess(69, 4) = "1" OrElse
+                CurrentUser.HasRole(118)) Then
+
                 tsbSave.Visible = False
                 mmiSave.Visible = False
                 btnSaveSSCPData.Visible = False
