@@ -831,7 +831,7 @@ Public Class IAIPNavigation
     Private Sub AddNavButtonIfAccountHasFormAccess(index As Integer,
                                                     buttonText As String, formName As String,
                                                     category As NavButtonCategories)
-        If AccountHasAccessToForm(index) Then
+        If AccountHasAccessToForm(index) OrElse CurrentUser.HasRole(118) Then
             AddNavButton(buttonText, formName, category)
         End If
     End Sub
@@ -943,7 +943,7 @@ Public Class IAIPNavigation
         AddNavButton("Facility Summary", NameOf(IAIPFacilitySummary), NavButtonCategories.General)
         AddNavButton("Query Generator", NameOf(IAIPQueryGenerator), NavButtonCategories.General)
         AddNavButton("User Management", NameOf(IaipUserManagement), NavButtonCategories.General)
-        AddNavButtonIfUserHasPermission({123, 124}, "GECO User Management", NameOf(GecoTool), NavButtonCategories.General)
+        AddNavButtonIfUserCan(UserCan.AccessGecoUserManagement, "GECO User Management", NameOf(GecoTool), NavButtonCategories.General)
 
         ' SSPP
         AddNavButton("Application Log", NameOf(SSPPApplicationLog), NavButtonCategories.SSPP)
@@ -983,8 +983,8 @@ Public Class IAIPNavigation
 
         ' DMU
         AddNavButtonIfUserHasPermission({19, 28}, "EDT Errors", NameOf(DmuEdtErrorMessages), NavButtonCategories.DMU)
-        AddNavButtonIfAccountHasFormAccess(10, "District Tools", NameOf(IAIPDistrictSourceTool), NavButtonCategories.DMU)
-        AddNavButtonIfAccountHasFormAccess(133, "Lookup Tables", NameOf(IAIPLookUpTables), NavButtonCategories.DMU)
+        AddNavButtonIfUserHasPermission(118, "District Tools", NameOf(IAIPDistrictSourceTool), NavButtonCategories.DMU)
+        AddNavButtonIfUserHasPermission(118, "Lookup Tables", NameOf(IAIPLookUpTables), NavButtonCategories.DMU)
 
         ' EIS
         AddNavButtonIfUserCan(UserCan.AccessEmissionsInventory, "Emissions Inventory", NameOf(EisTool), NavButtonCategories.EIS)

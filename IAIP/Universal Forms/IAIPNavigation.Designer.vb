@@ -30,6 +30,7 @@ Partial Class IAIPNavigation
         Me.mmiExport = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiAccount = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiUsernameDisplay = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mmiUpdateProfile = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiChangePassword = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiSecurity = New System.Windows.Forms.ToolStripMenuItem()
@@ -37,6 +38,7 @@ Partial Class IAIPNavigation
         Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiOnlineHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiResetForm = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.mmiCheckForUpdates = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiAbout = New System.Windows.Forms.ToolStripMenuItem()
         Me.TestingMenu = New System.Windows.Forms.ToolStripMenuItem()
@@ -96,8 +98,6 @@ Partial Class IAIPNavigation
         Me.lblWarningHeader = New System.Windows.Forms.Label()
         Me.lblConnectionWarning = New System.Windows.Forms.Label()
         Me.bgrNetworkChecker = New System.ComponentModel.BackgroundWorker()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.MainMenu1.SuspendLayout()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
@@ -129,7 +129,7 @@ Partial Class IAIPNavigation
         '
         Me.mmiExit.MergeIndex = 0
         Me.mmiExit.Name = "mmiExit"
-        Me.mmiExit.Size = New System.Drawing.Size(180, 22)
+        Me.mmiExit.Size = New System.Drawing.Size(117, 22)
         Me.mmiExit.Text = "E&xit IAIP"
         '
         'mmiTools
@@ -144,7 +144,7 @@ Partial Class IAIPNavigation
         '
         Me.mmiExport.MergeIndex = 0
         Me.mmiExport.Name = "mmiExport"
-        Me.mmiExport.Size = New System.Drawing.Size(180, 22)
+        Me.mmiExport.Size = New System.Drawing.Size(170, 22)
         Me.mmiExport.Text = "&Export list to Excel"
         '
         'mmiAccount
@@ -162,6 +162,11 @@ Partial Class IAIPNavigation
         Me.mmiUsernameDisplay.Name = "mmiUsernameDisplay"
         Me.mmiUsernameDisplay.Size = New System.Drawing.Size(196, 22)
         Me.mmiUsernameDisplay.Text = "Logged in as username"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(193, 6)
         '
         'mmiUpdateProfile
         '
@@ -203,28 +208,33 @@ Partial Class IAIPNavigation
         '
         Me.mmiOnlineHelp.MergeIndex = 0
         Me.mmiOnlineHelp.Name = "mmiOnlineHelp"
-        Me.mmiOnlineHelp.Size = New System.Drawing.Size(180, 22)
+        Me.mmiOnlineHelp.Size = New System.Drawing.Size(175, 22)
         Me.mmiOnlineHelp.Text = "Online &Help"
         '
         'mmiResetForm
         '
         Me.mmiResetForm.MergeIndex = 1
         Me.mmiResetForm.Name = "mmiResetForm"
-        Me.mmiResetForm.Size = New System.Drawing.Size(180, 22)
+        Me.mmiResetForm.Size = New System.Drawing.Size(175, 22)
         Me.mmiResetForm.Text = "&Reset all IAIP forms"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(172, 6)
         '
         'mmiCheckForUpdates
         '
         Me.mmiCheckForUpdates.MergeIndex = 3
         Me.mmiCheckForUpdates.Name = "mmiCheckForUpdates"
-        Me.mmiCheckForUpdates.Size = New System.Drawing.Size(180, 22)
+        Me.mmiCheckForUpdates.Size = New System.Drawing.Size(175, 22)
         Me.mmiCheckForUpdates.Text = "Check for &Updates"
         '
         'mmiAbout
         '
         Me.mmiAbout.MergeIndex = 4
         Me.mmiAbout.Name = "mmiAbout"
-        Me.mmiAbout.Size = New System.Drawing.Size(180, 22)
+        Me.mmiAbout.Size = New System.Drawing.Size(175, 22)
         Me.mmiAbout.Text = "&About IAIP"
         '
         'TestingMenu
@@ -493,9 +503,9 @@ Partial Class IAIPNavigation
         Me.Label8.Location = New System.Drawing.Point(328, 73)
         Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(110, 13)
+        Me.Label8.Size = New System.Drawing.Size(114, 13)
         Me.Label8.TabIndex = 268
-        Me.Label8.Text = "ISMPTest Notification"
+        Me.Label8.Text = "ISMU Test Notification"
         '
         'lblOpenFacilitySummary
         '
@@ -597,9 +607,9 @@ Partial Class IAIPNavigation
         Me.lblOpenTestReport.Location = New System.Drawing.Point(328, 21)
         Me.lblOpenTestReport.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblOpenTestReport.Name = "lblOpenTestReport"
-        Me.lblOpenTestReport.Size = New System.Drawing.Size(92, 13)
+        Me.lblOpenTestReport.Size = New System.Drawing.Size(93, 13)
         Me.lblOpenTestReport.TabIndex = 249
-        Me.lblOpenTestReport.Text = "ISMP Test Report"
+        Me.lblOpenTestReport.Text = "ISMU Test Report"
         '
         'txtOpenTestReport
         '
@@ -874,16 +884,6 @@ Partial Class IAIPNavigation
         '
         'bgrNetworkChecker
         '
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(193, 6)
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
         '
         'IAIPNavigation
         '

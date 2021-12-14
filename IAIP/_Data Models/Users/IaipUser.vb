@@ -176,6 +176,9 @@
             Case UserCan.AccessEmissionsInventory
                 Return HasRole({144, 145})
 
+            Case UserCan.AccessGecoUserManagement
+                Return HasRole({123, 124, 144, 145})
+
             Case Else
                 Return False
         End Select
@@ -202,6 +205,7 @@ Public Enum UserCan
     EditAnnualFees
     EditAnnualFeesDeposits
     AccessEmissionsInventory
+    AccessGecoUserManagement
 End Enum
 
 Public Enum RoleType
