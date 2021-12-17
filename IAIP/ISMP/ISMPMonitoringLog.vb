@@ -205,7 +205,6 @@ Public Class ISMPMonitoringLog
                         chbMethod9Single.Checked OrElse
                         chbMethod9Multi.Checked OrElse
                         chbMethod22.Checked OrElse
-                        chbPEMS.Checked OrElse
                         chbPTE.Checked Then
 
                         SQLWhere = SQLWhere & " and ( "
@@ -257,9 +256,6 @@ Public Class ISMPMonitoringLog
                         End If
                         If chbMethod22.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '015' Or "
-                        End If
-                        If chbPEMS.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '017' Or "
                         End If
                         If chbPTE.Checked Then
                             SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '018' Or "

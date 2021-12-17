@@ -142,7 +142,6 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.chbAll = New System.Windows.Forms.CheckBox()
         Me.chbPTE = New System.Windows.Forms.CheckBox()
-        Me.chbPEMS = New System.Windows.Forms.CheckBox()
         Me.chbMethod22 = New System.Windows.Forms.CheckBox()
         Me.chbMethod9Single = New System.Windows.Forms.CheckBox()
         Me.chbMethod9Multi = New System.Windows.Forms.CheckBox()
@@ -240,7 +239,7 @@ Partial Class ISMPMonitoringLog
         'mmiReset
         '
         Me.mmiReset.Name = "mmiReset"
-        Me.mmiReset.Size = New System.Drawing.Size(180, 22)
+        Me.mmiReset.Size = New System.Drawing.Size(133, 22)
         Me.mmiReset.Text = "&Reset Form"
         '
         'ToolsToolStripMenuItem
@@ -253,13 +252,13 @@ Partial Class ISMPMonitoringLog
         'mmiReports
         '
         Me.mmiReports.Name = "mmiReports"
-        Me.mmiReports.Size = New System.Drawing.Size(180, 22)
+        Me.mmiReports.Size = New System.Drawing.Size(173, 22)
         Me.mmiReports.Text = "Open Staff &Reports"
         '
         'ExportToExcelToolStripMenuItem
         '
         Me.ExportToExcelToolStripMenuItem.Name = "ExportToExcelToolStripMenuItem"
-        Me.ExportToExcelToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExportToExcelToolStripMenuItem.Size = New System.Drawing.Size(173, 22)
         Me.ExportToExcelToolStripMenuItem.Text = "&Export to Excel"
         '
         'ToolStrip1
@@ -312,6 +311,7 @@ Partial Class ISMPMonitoringLog
         '
         Me.SCMonitoringLog.BackColor = System.Drawing.Color.Blue
         Me.SCMonitoringLog.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SCMonitoringLog.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
         Me.SCMonitoringLog.Location = New System.Drawing.Point(0, 49)
         Me.SCMonitoringLog.Name = "SCMonitoringLog"
         Me.SCMonitoringLog.Orientation = System.Windows.Forms.Orientation.Horizontal
@@ -326,7 +326,7 @@ Partial Class ISMPMonitoringLog
         Me.SCMonitoringLog.Panel2.BackColor = System.Drawing.SystemColors.Control
         Me.SCMonitoringLog.Panel2.Controls.Add(Me.TCMonitoringGrids)
         Me.SCMonitoringLog.Size = New System.Drawing.Size(1016, 661)
-        Me.SCMonitoringLog.SplitterDistance = 557
+        Me.SCMonitoringLog.SplitterDistance = 500
         Me.SCMonitoringLog.TabIndex = 2
         '
         'GBFilterAndSortOptions
@@ -352,7 +352,7 @@ Partial Class ISMPMonitoringLog
         Me.GBFilterAndSortOptions.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GBFilterAndSortOptions.Location = New System.Drawing.Point(0, 0)
         Me.GBFilterAndSortOptions.Name = "GBFilterAndSortOptions"
-        Me.GBFilterAndSortOptions.Size = New System.Drawing.Size(1016, 557)
+        Me.GBFilterAndSortOptions.Size = New System.Drawing.Size(1016, 500)
         Me.GBFilterAndSortOptions.TabIndex = 0
         Me.GBFilterAndSortOptions.TabStop = False
         Me.GBFilterAndSortOptions.Text = "Filter and Sort Options"
@@ -745,7 +745,7 @@ Partial Class ISMPMonitoringLog
         Me.TCMonitoringSelection.Location = New System.Drawing.Point(752, 16)
         Me.TCMonitoringSelection.Name = "TCMonitoringSelection"
         Me.TCMonitoringSelection.SelectedIndex = 0
-        Me.TCMonitoringSelection.Size = New System.Drawing.Size(261, 538)
+        Me.TCMonitoringSelection.Size = New System.Drawing.Size(261, 481)
         Me.TCMonitoringSelection.TabIndex = 11
         '
         'TPSelectTestReport
@@ -754,7 +754,7 @@ Partial Class ISMPMonitoringLog
         Me.TPSelectTestReport.Location = New System.Drawing.Point(4, 22)
         Me.TPSelectTestReport.Name = "TPSelectTestReport"
         Me.TPSelectTestReport.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPSelectTestReport.Size = New System.Drawing.Size(253, 512)
+        Me.TPSelectTestReport.Size = New System.Drawing.Size(253, 455)
         Me.TPSelectTestReport.TabIndex = 0
         Me.TPSelectTestReport.Text = "Test Report"
         Me.TPSelectTestReport.UseVisualStyleBackColor = True
@@ -779,7 +779,7 @@ Partial Class ISMPMonitoringLog
         Me.GBSelectedTestReport.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GBSelectedTestReport.Location = New System.Drawing.Point(3, 3)
         Me.GBSelectedTestReport.Name = "GBSelectedTestReport"
-        Me.GBSelectedTestReport.Size = New System.Drawing.Size(247, 506)
+        Me.GBSelectedTestReport.Size = New System.Drawing.Size(247, 449)
         Me.GBSelectedTestReport.TabIndex = 0
         Me.GBSelectedTestReport.TabStop = False
         '
@@ -1268,7 +1268,6 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GroupBox4.Controls.Add(Me.chbAll)
         Me.GroupBox4.Controls.Add(Me.chbPTE)
-        Me.GroupBox4.Controls.Add(Me.chbPEMS)
         Me.GroupBox4.Controls.Add(Me.chbMethod22)
         Me.GroupBox4.Controls.Add(Me.chbMethod9Single)
         Me.GroupBox4.Controls.Add(Me.chbMethod9Multi)
@@ -1287,7 +1286,7 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox4.Controls.Add(Me.chbUnassigned)
         Me.GroupBox4.Location = New System.Drawing.Point(221, 16)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(156, 358)
+        Me.GroupBox4.Size = New System.Drawing.Size(156, 342)
         Me.GroupBox4.TabIndex = 5
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Document Type"
@@ -1304,20 +1303,11 @@ Partial Class ISMPMonitoringLog
         'chbPTE
         '
         Me.chbPTE.AutoSize = True
-        Me.chbPTE.Location = New System.Drawing.Point(8, 254)
+        Me.chbPTE.Location = New System.Drawing.Point(8, 238)
         Me.chbPTE.Name = "chbPTE"
         Me.chbPTE.Size = New System.Drawing.Size(47, 17)
         Me.chbPTE.TabIndex = 14
         Me.chbPTE.Text = "PTE"
-        '
-        'chbPEMS
-        '
-        Me.chbPEMS.AutoSize = True
-        Me.chbPEMS.Location = New System.Drawing.Point(8, 220)
-        Me.chbPEMS.Name = "chbPEMS"
-        Me.chbPEMS.Size = New System.Drawing.Size(56, 17)
-        Me.chbPEMS.TabIndex = 12
-        Me.chbPEMS.Text = "PEMS"
         '
         'chbMethod22
         '
@@ -1367,7 +1357,7 @@ Partial Class ISMPMonitoringLog
         'chbRata
         '
         Me.chbRata.AutoSize = True
-        Me.chbRata.Location = New System.Drawing.Point(8, 271)
+        Me.chbRata.Location = New System.Drawing.Point(8, 255)
         Me.chbRata.Name = "chbRata"
         Me.chbRata.Size = New System.Drawing.Size(49, 17)
         Me.chbRata.TabIndex = 15
@@ -1394,7 +1384,7 @@ Partial Class ISMPMonitoringLog
         'chbPondTreatment
         '
         Me.chbPondTreatment.AutoSize = True
-        Me.chbPondTreatment.Location = New System.Drawing.Point(8, 237)
+        Me.chbPondTreatment.Location = New System.Drawing.Point(8, 221)
         Me.chbPondTreatment.Name = "chbPondTreatment"
         Me.chbPondTreatment.Size = New System.Drawing.Size(102, 17)
         Me.chbPondTreatment.TabIndex = 13
@@ -1412,7 +1402,7 @@ Partial Class ISMPMonitoringLog
         'chbTwoStackDRE
         '
         Me.chbTwoStackDRE.AutoSize = True
-        Me.chbTwoStackDRE.Location = New System.Drawing.Point(8, 305)
+        Me.chbTwoStackDRE.Location = New System.Drawing.Point(8, 289)
         Me.chbTwoStackDRE.Name = "chbTwoStackDRE"
         Me.chbTwoStackDRE.Size = New System.Drawing.Size(110, 17)
         Me.chbTwoStackDRE.TabIndex = 17
@@ -1421,7 +1411,7 @@ Partial Class ISMPMonitoringLog
         'chbTwoStackStandard
         '
         Me.chbTwoStackStandard.AutoSize = True
-        Me.chbTwoStackStandard.Location = New System.Drawing.Point(8, 288)
+        Me.chbTwoStackStandard.Location = New System.Drawing.Point(8, 272)
         Me.chbTwoStackStandard.Name = "chbTwoStackStandard"
         Me.chbTwoStackStandard.Size = New System.Drawing.Size(130, 17)
         Me.chbTwoStackStandard.TabIndex = 16
@@ -1457,7 +1447,7 @@ Partial Class ISMPMonitoringLog
         'chbUnassigned
         '
         Me.chbUnassigned.AutoSize = True
-        Me.chbUnassigned.Location = New System.Drawing.Point(8, 322)
+        Me.chbUnassigned.Location = New System.Drawing.Point(8, 306)
         Me.chbUnassigned.Name = "chbUnassigned"
         Me.chbUnassigned.Size = New System.Drawing.Size(82, 17)
         Me.chbUnassigned.TabIndex = 18
@@ -1701,7 +1691,7 @@ Partial Class ISMPMonitoringLog
         Me.TCMonitoringGrids.Location = New System.Drawing.Point(0, 0)
         Me.TCMonitoringGrids.Name = "TCMonitoringGrids"
         Me.TCMonitoringGrids.SelectedIndex = 0
-        Me.TCMonitoringGrids.Size = New System.Drawing.Size(1016, 100)
+        Me.TCMonitoringGrids.Size = New System.Drawing.Size(1016, 157)
         Me.TCMonitoringGrids.TabIndex = 0
         '
         'TPTestReports
@@ -1710,7 +1700,7 @@ Partial Class ISMPMonitoringLog
         Me.TPTestReports.Location = New System.Drawing.Point(4, 22)
         Me.TPTestReports.Name = "TPTestReports"
         Me.TPTestReports.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPTestReports.Size = New System.Drawing.Size(1008, 74)
+        Me.TPTestReports.Size = New System.Drawing.Size(1008, 131)
         Me.TPTestReports.TabIndex = 0
         Me.TPTestReports.Text = "Test Reports"
         Me.TPTestReports.UseVisualStyleBackColor = True
@@ -1746,7 +1736,7 @@ Partial Class ISMPMonitoringLog
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvTestReportViewer.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        Me.dgvTestReportViewer.Size = New System.Drawing.Size(1002, 68)
+        Me.dgvTestReportViewer.Size = New System.Drawing.Size(1002, 125)
         Me.dgvTestReportViewer.TabIndex = 0
         '
         'TPNotifications
@@ -1905,7 +1895,6 @@ Partial Class ISMPMonitoringLog
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
     Friend WithEvents chbAll As System.Windows.Forms.CheckBox
     Friend WithEvents chbPTE As System.Windows.Forms.CheckBox
-    Friend WithEvents chbPEMS As System.Windows.Forms.CheckBox
     Friend WithEvents chbMethod22 As System.Windows.Forms.CheckBox
     Friend WithEvents chbMethod9Single As System.Windows.Forms.CheckBox
     Friend WithEvents chbMethod9Multi As System.Windows.Forms.CheckBox

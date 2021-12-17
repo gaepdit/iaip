@@ -1280,20 +1280,6 @@ Public Class ISMPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub MmiPEMS_Click(sender As Object, e As EventArgs) Handles MmiPEMS.Click
-        Try
-
-            Dim ReportType As String
-            LVTestReportAssignment.Clear()
-            lblTestReportAssignment.Items.Clear()
-            txtTestReportCount.Text = "0"
-            ReportType = "017"
-            LoadByTestReportTestReportAssignmentDataSet(ReportType)
-            LoadLVTestReportAssignment()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
     Private Sub MmiMemoStandard_Click(sender As Object, e As EventArgs) Handles MmiMemoStandard.Click
         Try
 
@@ -1537,20 +1523,6 @@ Public Class ISMPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub MmiAssignedPEMS_Click(sender As Object, e As EventArgs) Handles MmiAssignedPEMS.Click
-        Try
-
-            Dim ReportType As String
-            LVTestReportAssignment.Clear()
-            lblTestReportAssignment.Items.Clear()
-            txtTestReportCount.Text = "0"
-            ReportType = "017"
-            LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
-            LoadLVTestReportAssignment()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
     Private Sub MmiAssignedMemoStandard_Click(sender As Object, e As EventArgs) Handles MmiAssignedMemoStandard.Click
         Try
 
@@ -1788,20 +1760,6 @@ Public Class ISMPManagersTools
             lblTestReportAssignment.Items.Clear()
             txtTestReportCount.Text = "0"
             ReportType = "011"
-            LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
-            LoadLVTestReportAssignment()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub MmiAllPEMS_Click(sender As Object, e As EventArgs) Handles MmiAllPEMS.Click
-        Try
-
-            Dim ReportType As String
-            LVTestReportAssignment.Clear()
-            lblTestReportAssignment.Items.Clear()
-            txtTestReportCount.Text = "0"
-            ReportType = "017"
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception

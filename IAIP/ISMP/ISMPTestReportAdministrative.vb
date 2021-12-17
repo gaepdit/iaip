@@ -1290,35 +1290,6 @@ Public Class ISMPTestReportAdministrative
         End Try
 
     End Sub
-    Private Sub MmiPEMS_Click(sender As Object, e As EventArgs) Handles MmiPEMS.Click
-        Dim query As String
-
-        Try
-
-            query = "select ISMPMaster.strReferenceNumber,  " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-                "ISMPDocumentType.strDocumentType " &
-                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                "and strDelete is NULL " &
-                 "and strClosed = 'False' " &
-                "and ISMPDocumentType.strDocumentType = 'PEMS' " &
-                "order by ISMPMaster.strReferenceNumber"
-
-            dtGrid = DB.GetDataTable(query)
-            dgvFacilityInfo.DataSource = dtGrid
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub MmiMemoStandard_Click(sender As Object, e As EventArgs) Handles MmiMemoStandard.Click
         Dim query As String
 

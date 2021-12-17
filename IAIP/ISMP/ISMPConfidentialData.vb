@@ -36,18 +36,6 @@ Public Class ISMPConfidentialData
         End Try
 
         Select Case DocumentType
-            Case "001", "017"
-                TCDocuments.TabPages.Remove(TPOneStack)
-                TCDocuments.TabPages.Remove(TPLoadingRack)
-                TCDocuments.TabPages.Remove(TPPulpCondensate)
-                TCDocuments.TabPages.Remove(TPGasConcentration)
-                TCDocuments.TabPages.Remove(TPFlare)
-                TCDocuments.TabPages.Remove(TPMethod9)
-                TCDocuments.TabPages.Remove(TPMemorandum)
-                TCDocuments.TabPages.Remove(TPRATA)
-                TCDocuments.TabPages.Remove(TPTwoStack)
-                TCDocuments.TabPages.Remove(TPMethod22)
-
             Case "002"
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
@@ -239,6 +227,18 @@ Public Class ISMPConfidentialData
                 TCDocuments.TabPages.Remove(TPMethod22)
                 TCMemorandum.TabPages.Remove(TPStandard)
                 TCMemorandum.TabPages.Remove(TPToFile)
+
+            Case Else ' "001", "017"
+                TCDocuments.TabPages.Remove(TPOneStack)
+                TCDocuments.TabPages.Remove(TPLoadingRack)
+                TCDocuments.TabPages.Remove(TPPulpCondensate)
+                TCDocuments.TabPages.Remove(TPGasConcentration)
+                TCDocuments.TabPages.Remove(TPFlare)
+                TCDocuments.TabPages.Remove(TPMethod9)
+                TCDocuments.TabPages.Remove(TPMemorandum)
+                TCDocuments.TabPages.Remove(TPRATA)
+                TCDocuments.TabPages.Remove(TPTwoStack)
+                TCDocuments.TabPages.Remove(TPMethod22)
 
         End Select
 

@@ -25,21 +25,28 @@ Partial Class ISMPTestReportAdministrative
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.MmiViewByTestType = New System.Windows.Forms.ToolStripMenuItem()
         Me.MmiAllTestReports = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
         Me.MmiUnassigned = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator12 = New System.Windows.Forms.ToolStripSeparator()
         Me.MmiOneStackTwoRun = New System.Windows.Forms.ToolStripMenuItem()
         Me.MmiOneStackThreeRun = New System.Windows.Forms.ToolStripMenuItem()
         Me.MmiOneStackFourRun = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator()
         Me.MmiTwoStackStandard = New System.Windows.Forms.ToolStripMenuItem()
         Me.MmiTwoStackDRE = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
         Me.MmiLoadingRack = New System.Windows.Forms.ToolStripMenuItem()
         Me.MmiFlare = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator9 = New System.Windows.Forms.ToolStripSeparator()
         Me.MmiPondTreatment = New System.Windows.Forms.ToolStripMenuItem()
         Me.MmiGasConcentration = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
         Me.MmiRata = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MmiPEMS = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator()
         Me.MmiMemoStandard = New System.Windows.Forms.ToolStripMenuItem()
         Me.MmiMemoToFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.MmiMemoPTE = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
         Me.MmiMethod9Single = New System.Windows.Forms.ToolStripMenuItem()
         Me.MmiMethod9Multi = New System.Windows.Forms.ToolStripMenuItem()
         Me.MmiMethod22 = New System.Windows.Forms.ToolStripMenuItem()
@@ -130,14 +137,6 @@ Partial Class ISMPTestReportAdministrative
         Me.OpenMemoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClearToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator9 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator12 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
         Me.MainMenu1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GBRecordStatus.SuspendLayout()
@@ -198,19 +197,19 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.MmiClear.MergeIndex = 0
         Me.MmiClear.Name = "MmiClear"
-        Me.MmiClear.Size = New System.Drawing.Size(180, 22)
+        Me.MmiClear.Size = New System.Drawing.Size(147, 22)
         Me.MmiClear.Text = "Clear Page"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(144, 6)
         '
         'MmiDelete
         '
         Me.MmiDelete.MergeIndex = 2
         Me.MmiDelete.Name = "MmiDelete"
-        Me.MmiDelete.Size = New System.Drawing.Size(180, 22)
+        Me.MmiDelete.Size = New System.Drawing.Size(147, 22)
         Me.MmiDelete.Text = "Delete Record"
         '
         'MenuItem3
@@ -242,7 +241,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'MmiViewByTestType
         '
-        Me.MmiViewByTestType.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MmiAllTestReports, Me.ToolStripSeparator13, Me.MmiUnassigned, Me.ToolStripSeparator12, Me.MmiOneStackTwoRun, Me.MmiOneStackThreeRun, Me.MmiOneStackFourRun, Me.ToolStripSeparator11, Me.MmiTwoStackStandard, Me.MmiTwoStackDRE, Me.ToolStripSeparator10, Me.MmiLoadingRack, Me.MmiFlare, Me.ToolStripSeparator9, Me.MmiPondTreatment, Me.MmiGasConcentration, Me.ToolStripSeparator8, Me.MmiRata, Me.MmiPEMS, Me.ToolStripSeparator7, Me.MmiMemoStandard, Me.MmiMemoToFile, Me.MmiMemoPTE, Me.ToolStripSeparator6, Me.MmiMethod9Single, Me.MmiMethod9Multi, Me.MmiMethod22})
+        Me.MmiViewByTestType.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MmiAllTestReports, Me.ToolStripSeparator13, Me.MmiUnassigned, Me.ToolStripSeparator12, Me.MmiOneStackTwoRun, Me.MmiOneStackThreeRun, Me.MmiOneStackFourRun, Me.ToolStripSeparator11, Me.MmiTwoStackStandard, Me.MmiTwoStackDRE, Me.ToolStripSeparator10, Me.MmiLoadingRack, Me.MmiFlare, Me.ToolStripSeparator9, Me.MmiPondTreatment, Me.MmiGasConcentration, Me.ToolStripSeparator8, Me.MmiRata, Me.ToolStripSeparator7, Me.MmiMemoStandard, Me.MmiMemoToFile, Me.MmiMemoPTE, Me.ToolStripSeparator6, Me.MmiMethod9Single, Me.MmiMethod9Multi, Me.MmiMethod22})
         Me.MmiViewByTestType.MergeIndex = 3
         Me.MmiViewByTestType.Name = "MmiViewByTestType"
         Me.MmiViewByTestType.Size = New System.Drawing.Size(187, 22)
@@ -255,12 +254,22 @@ Partial Class ISMPTestReportAdministrative
         Me.MmiAllTestReports.Size = New System.Drawing.Size(240, 22)
         Me.MmiAllTestReports.Text = "All Test Reports"
         '
+        'ToolStripSeparator13
+        '
+        Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
+        Me.ToolStripSeparator13.Size = New System.Drawing.Size(237, 6)
+        '
         'MmiUnassigned
         '
         Me.MmiUnassigned.MergeIndex = 2
         Me.MmiUnassigned.Name = "MmiUnassigned"
         Me.MmiUnassigned.Size = New System.Drawing.Size(240, 22)
         Me.MmiUnassigned.Text = "Unassigned"
+        '
+        'ToolStripSeparator12
+        '
+        Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(237, 6)
         '
         'MmiOneStackTwoRun
         '
@@ -283,6 +292,11 @@ Partial Class ISMPTestReportAdministrative
         Me.MmiOneStackFourRun.Size = New System.Drawing.Size(240, 22)
         Me.MmiOneStackFourRun.Text = "One Stack (Four Runs)"
         '
+        'ToolStripSeparator11
+        '
+        Me.ToolStripSeparator11.Name = "ToolStripSeparator11"
+        Me.ToolStripSeparator11.Size = New System.Drawing.Size(237, 6)
+        '
         'MmiTwoStackStandard
         '
         Me.MmiTwoStackStandard.MergeIndex = 8
@@ -296,6 +310,11 @@ Partial Class ISMPTestReportAdministrative
         Me.MmiTwoStackDRE.Name = "MmiTwoStackDRE"
         Me.MmiTwoStackDRE.Size = New System.Drawing.Size(240, 22)
         Me.MmiTwoStackDRE.Text = "Two Stack (DRE)"
+        '
+        'ToolStripSeparator10
+        '
+        Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
+        Me.ToolStripSeparator10.Size = New System.Drawing.Size(237, 6)
         '
         'MmiLoadingRack
         '
@@ -311,6 +330,11 @@ Partial Class ISMPTestReportAdministrative
         Me.MmiFlare.Size = New System.Drawing.Size(240, 22)
         Me.MmiFlare.Text = "Flare"
         '
+        'ToolStripSeparator9
+        '
+        Me.ToolStripSeparator9.Name = "ToolStripSeparator9"
+        Me.ToolStripSeparator9.Size = New System.Drawing.Size(237, 6)
+        '
         'MmiPondTreatment
         '
         Me.MmiPondTreatment.MergeIndex = 14
@@ -325,6 +349,11 @@ Partial Class ISMPTestReportAdministrative
         Me.MmiGasConcentration.Size = New System.Drawing.Size(240, 22)
         Me.MmiGasConcentration.Text = "Gas Concentration"
         '
+        'ToolStripSeparator8
+        '
+        Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
+        Me.ToolStripSeparator8.Size = New System.Drawing.Size(237, 6)
+        '
         'MmiRata
         '
         Me.MmiRata.MergeIndex = 17
@@ -332,12 +361,10 @@ Partial Class ISMPTestReportAdministrative
         Me.MmiRata.Size = New System.Drawing.Size(240, 22)
         Me.MmiRata.Text = "Rata"
         '
-        'MmiPEMS
+        'ToolStripSeparator7
         '
-        Me.MmiPEMS.MergeIndex = 18
-        Me.MmiPEMS.Name = "MmiPEMS"
-        Me.MmiPEMS.Size = New System.Drawing.Size(240, 22)
-        Me.MmiPEMS.Text = "PEMS"
+        Me.ToolStripSeparator7.Name = "ToolStripSeparator7"
+        Me.ToolStripSeparator7.Size = New System.Drawing.Size(237, 6)
         '
         'MmiMemoStandard
         '
@@ -359,6 +386,11 @@ Partial Class ISMPTestReportAdministrative
         Me.MmiMemoPTE.Name = "MmiMemoPTE"
         Me.MmiMemoPTE.Size = New System.Drawing.Size(240, 22)
         Me.MmiMemoPTE.Text = "PTE (Perminate Total Enclosure)"
+        '
+        'ToolStripSeparator6
+        '
+        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(237, 6)
         '
         'MmiMethod9Single
         '
@@ -417,21 +449,21 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.mmiMemo.MergeIndex = 2
         Me.mmiMemo.Name = "mmiMemo"
-        Me.mmiMemo.Size = New System.Drawing.Size(180, 22)
+        Me.mmiMemo.Size = New System.Drawing.Size(163, 22)
         Me.mmiMemo.Text = "Add Memo"
         '
         'mmiAddTestingFirm
         '
         Me.mmiAddTestingFirm.MergeIndex = 3
         Me.mmiAddTestingFirm.Name = "mmiAddTestingFirm"
-        Me.mmiAddTestingFirm.Size = New System.Drawing.Size(180, 22)
+        Me.mmiAddTestingFirm.Size = New System.Drawing.Size(163, 22)
         Me.mmiAddTestingFirm.Text = "Add Testing Firm"
         '
         'mmiRefreshLists
         '
         Me.mmiRefreshLists.MergeIndex = 4
         Me.mmiRefreshLists.Name = "mmiRefreshLists"
-        Me.mmiRefreshLists.Size = New System.Drawing.Size(180, 22)
+        Me.mmiRefreshLists.Size = New System.Drawing.Size(163, 22)
         Me.mmiRefreshLists.Text = "Refresh Lists"
         '
         'GroupBox1
@@ -1208,46 +1240,6 @@ Partial Class ISMPTestReportAdministrative
         Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
         Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(28, 20)
         '
-        'ToolStripSeparator6
-        '
-        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(237, 6)
-        '
-        'ToolStripSeparator7
-        '
-        Me.ToolStripSeparator7.Name = "ToolStripSeparator7"
-        Me.ToolStripSeparator7.Size = New System.Drawing.Size(237, 6)
-        '
-        'ToolStripSeparator8
-        '
-        Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
-        Me.ToolStripSeparator8.Size = New System.Drawing.Size(237, 6)
-        '
-        'ToolStripSeparator9
-        '
-        Me.ToolStripSeparator9.Name = "ToolStripSeparator9"
-        Me.ToolStripSeparator9.Size = New System.Drawing.Size(237, 6)
-        '
-        'ToolStripSeparator10
-        '
-        Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
-        Me.ToolStripSeparator10.Size = New System.Drawing.Size(237, 6)
-        '
-        'ToolStripSeparator11
-        '
-        Me.ToolStripSeparator11.Name = "ToolStripSeparator11"
-        Me.ToolStripSeparator11.Size = New System.Drawing.Size(237, 6)
-        '
-        'ToolStripSeparator12
-        '
-        Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
-        Me.ToolStripSeparator12.Size = New System.Drawing.Size(237, 6)
-        '
-        'ToolStripSeparator13
-        '
-        Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
-        Me.ToolStripSeparator13.Size = New System.Drawing.Size(237, 6)
-        '
         'ISMPTestReportAdministrative
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1302,7 +1294,6 @@ End Sub
     Friend WithEvents MmiPondTreatment As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MmiGasConcentration As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MmiRata As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents MmiPEMS As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MmiMemoStandard As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MmiMemoToFile As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MmiMemoPTE As System.Windows.Forms.ToolStripMenuItem
