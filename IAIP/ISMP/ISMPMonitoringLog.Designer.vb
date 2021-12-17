@@ -31,6 +31,9 @@ Partial Class ISMPMonitoringLog
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiReset = New System.Windows.Forms.ToolStripMenuItem()
@@ -184,11 +187,11 @@ Partial Class ISMPMonitoringLog
         Me.chbComplianceStatus1 = New System.Windows.Forms.CheckBox()
         Me.TCMonitoringGrids = New System.Windows.Forms.TabControl()
         Me.TPTestReports = New System.Windows.Forms.TabPage()
-        Me.dgvTestReportViewer = New System.Windows.Forms.DataGridView()
+        Me.dgvTestReportViewer = New Iaip.IaipDataGridView()
         Me.TPNotifications = New System.Windows.Forms.TabPage()
-        Me.dgvNotificationLog = New System.Windows.Forms.DataGridView()
+        Me.dgvNotificationLog = New Iaip.IaipDataGridView()
         Me.TPTestFirmComments = New System.Windows.Forms.TabPage()
-        Me.dgvTestFirmComments = New System.Windows.Forms.DataGridView()
+        Me.dgvTestFirmComments = New Iaip.IaipDataGridView()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.SCMonitoringLog, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -325,7 +328,7 @@ Partial Class ISMPMonitoringLog
         '
         Me.SCMonitoringLog.Panel2.BackColor = System.Drawing.SystemColors.Control
         Me.SCMonitoringLog.Panel2.Controls.Add(Me.TCMonitoringGrids)
-        Me.SCMonitoringLog.Size = New System.Drawing.Size(1016, 661)
+        Me.SCMonitoringLog.Size = New System.Drawing.Size(1016, 700)
         Me.SCMonitoringLog.SplitterDistance = 500
         Me.SCMonitoringLog.TabIndex = 2
         '
@@ -931,7 +934,7 @@ Partial Class ISMPMonitoringLog
         Me.TPSelectTestLog.Location = New System.Drawing.Point(4, 22)
         Me.TPSelectTestLog.Name = "TPSelectTestLog"
         Me.TPSelectTestLog.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPSelectTestLog.Size = New System.Drawing.Size(253, 512)
+        Me.TPSelectTestLog.Size = New System.Drawing.Size(253, 455)
         Me.TPSelectTestLog.TabIndex = 1
         Me.TPSelectTestLog.Text = "Test Log"
         Me.TPSelectTestLog.UseVisualStyleBackColor = True
@@ -1087,7 +1090,7 @@ Partial Class ISMPMonitoringLog
         Me.TPTestFirmComment.Controls.Add(Me.txtCommentNumber)
         Me.TPTestFirmComment.Location = New System.Drawing.Point(4, 22)
         Me.TPTestFirmComment.Name = "TPTestFirmComment"
-        Me.TPTestFirmComment.Size = New System.Drawing.Size(253, 512)
+        Me.TPTestFirmComment.Size = New System.Drawing.Size(253, 455)
         Me.TPTestFirmComment.TabIndex = 2
         Me.TPTestFirmComment.Text = "Test Firm Comments"
         Me.TPTestFirmComment.UseVisualStyleBackColor = True
@@ -1691,7 +1694,7 @@ Partial Class ISMPMonitoringLog
         Me.TCMonitoringGrids.Location = New System.Drawing.Point(0, 0)
         Me.TCMonitoringGrids.Name = "TCMonitoringGrids"
         Me.TCMonitoringGrids.SelectedIndex = 0
-        Me.TCMonitoringGrids.Size = New System.Drawing.Size(1016, 157)
+        Me.TCMonitoringGrids.Size = New System.Drawing.Size(1016, 196)
         Me.TCMonitoringGrids.TabIndex = 0
         '
         'TPTestReports
@@ -1700,43 +1703,51 @@ Partial Class ISMPMonitoringLog
         Me.TPTestReports.Location = New System.Drawing.Point(4, 22)
         Me.TPTestReports.Name = "TPTestReports"
         Me.TPTestReports.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPTestReports.Size = New System.Drawing.Size(1008, 131)
+        Me.TPTestReports.Size = New System.Drawing.Size(1008, 170)
         Me.TPTestReports.TabIndex = 0
         Me.TPTestReports.Text = "Test Reports"
         Me.TPTestReports.UseVisualStyleBackColor = True
         '
         'dgvTestReportViewer
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvTestReportViewer.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvTestReportViewer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvTestReportViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvTestReportViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvTestReportViewer.DefaultCellStyle = DataGridViewCellStyle2
-        Me.dgvTestReportViewer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvTestReportViewer.Location = New System.Drawing.Point(3, 3)
-        Me.dgvTestReportViewer.Name = "dgvTestReportViewer"
-        Me.dgvTestReportViewer.ReadOnly = True
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvTestReportViewer.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvTestReportViewer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvTestReportViewer.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        Me.dgvTestReportViewer.Size = New System.Drawing.Size(1002, 125)
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvTestReportViewer.DefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvTestReportViewer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvTestReportViewer.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvTestReportViewer.LinkifyColumnByName = Nothing
+        Me.dgvTestReportViewer.LinkifyFirstColumn = True
+        Me.dgvTestReportViewer.Location = New System.Drawing.Point(3, 3)
+        Me.dgvTestReportViewer.Name = "dgvTestReportViewer"
+        Me.dgvTestReportViewer.ResultsCountLabel = Nothing
+        Me.dgvTestReportViewer.ResultsCountLabelFormat = "{0} found"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvTestReportViewer.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
+        Me.dgvTestReportViewer.Size = New System.Drawing.Size(1002, 164)
+        Me.dgvTestReportViewer.StandardTab = True
         Me.dgvTestReportViewer.TabIndex = 0
         '
         'TPNotifications
@@ -1745,34 +1756,16 @@ Partial Class ISMPMonitoringLog
         Me.TPNotifications.Location = New System.Drawing.Point(4, 22)
         Me.TPNotifications.Name = "TPNotifications"
         Me.TPNotifications.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPNotifications.Size = New System.Drawing.Size(1008, 74)
+        Me.TPNotifications.Size = New System.Drawing.Size(1008, 170)
         Me.TPNotifications.TabIndex = 1
         Me.TPNotifications.Text = "Test Notifications"
         Me.TPNotifications.UseVisualStyleBackColor = True
         '
         'dgvNotificationLog
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvNotificationLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
-        Me.dgvNotificationLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvNotificationLog.DefaultCellStyle = DataGridViewCellStyle5
-        Me.dgvNotificationLog.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvNotificationLog.Location = New System.Drawing.Point(3, 3)
-        Me.dgvNotificationLog.Name = "dgvNotificationLog"
-        Me.dgvNotificationLog.ReadOnly = True
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvNotificationLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        Me.dgvNotificationLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1780,8 +1773,33 @@ Partial Class ISMPMonitoringLog
         DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvNotificationLog.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
-        Me.dgvNotificationLog.Size = New System.Drawing.Size(1002, 68)
+        Me.dgvNotificationLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
+        Me.dgvNotificationLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvNotificationLog.DefaultCellStyle = DataGridViewCellStyle7
+        Me.dgvNotificationLog.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvNotificationLog.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvNotificationLog.LinkifyColumnByName = "strTestLogNumber"
+        Me.dgvNotificationLog.Location = New System.Drawing.Point(3, 3)
+        Me.dgvNotificationLog.Name = "dgvNotificationLog"
+        Me.dgvNotificationLog.ResultsCountLabel = Nothing
+        Me.dgvNotificationLog.ResultsCountLabelFormat = "{0} found"
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvNotificationLog.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
+        Me.dgvNotificationLog.Size = New System.Drawing.Size(1002, 164)
+        Me.dgvNotificationLog.StandardTab = True
         Me.dgvNotificationLog.TabIndex = 1
         '
         'TPTestFirmComments
@@ -1789,50 +1807,58 @@ Partial Class ISMPMonitoringLog
         Me.TPTestFirmComments.Controls.Add(Me.dgvTestFirmComments)
         Me.TPTestFirmComments.Location = New System.Drawing.Point(4, 22)
         Me.TPTestFirmComments.Name = "TPTestFirmComments"
-        Me.TPTestFirmComments.Size = New System.Drawing.Size(1008, 74)
+        Me.TPTestFirmComments.Size = New System.Drawing.Size(1008, 170)
         Me.TPTestFirmComments.TabIndex = 2
         Me.TPTestFirmComments.Text = "Test Firm Comments"
         Me.TPTestFirmComments.UseVisualStyleBackColor = True
         '
         'dgvTestFirmComments
         '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvTestFirmComments.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle9.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvTestFirmComments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        Me.dgvTestFirmComments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvTestFirmComments.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
         Me.dgvTestFirmComments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvTestFirmComments.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvTestFirmComments.DefaultCellStyle = DataGridViewCellStyle11
         Me.dgvTestFirmComments.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvTestFirmComments.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvTestFirmComments.LinkifyColumnByName = Nothing
+        Me.dgvTestFirmComments.LinkifyFirstColumn = True
         Me.dgvTestFirmComments.Location = New System.Drawing.Point(0, 0)
         Me.dgvTestFirmComments.Name = "dgvTestFirmComments"
-        Me.dgvTestFirmComments.ReadOnly = True
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvTestFirmComments.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
-        Me.dgvTestFirmComments.Size = New System.Drawing.Size(1008, 74)
+        Me.dgvTestFirmComments.ResultsCountLabel = Nothing
+        Me.dgvTestFirmComments.ResultsCountLabelFormat = "{0} found"
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvTestFirmComments.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+        Me.dgvTestFirmComments.Size = New System.Drawing.Size(1008, 170)
+        Me.dgvTestFirmComments.StandardTab = True
         Me.dgvTestFirmComments.TabIndex = 1
         '
         'ISMPMonitoringLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1016, 710)
+        Me.ClientSize = New System.Drawing.Size(1016, 749)
         Me.Controls.Add(Me.SCMonitoringLog)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MenuStrip1)
@@ -1953,9 +1979,9 @@ Partial Class ISMPMonitoringLog
     Friend WithEvents TPSelectTestLog As System.Windows.Forms.TabPage
     Friend WithEvents TCMonitoringGrids As System.Windows.Forms.TabControl
     Friend WithEvents TPTestReports As System.Windows.Forms.TabPage
-    Friend WithEvents dgvTestReportViewer As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvTestReportViewer As Iaip.IaipDataGridView
     Friend WithEvents TPNotifications As System.Windows.Forms.TabPage
-    Friend WithEvents dgvNotificationLog As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvNotificationLog As Iaip.IaipDataGridView
     Friend WithEvents mmiReset As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsbResize As System.Windows.Forms.ToolStripButton
     Friend WithEvents llbSelectTestLog As System.Windows.Forms.LinkLabel
@@ -2010,7 +2036,7 @@ Partial Class ISMPMonitoringLog
     Friend WithEvents chbNotificationUnlinked As System.Windows.Forms.CheckBox
     Friend WithEvents chbNotificationLinked As System.Windows.Forms.CheckBox
     Friend WithEvents TPTestFirmComments As System.Windows.Forms.TabPage
-    Friend WithEvents dgvTestFirmComments As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvTestFirmComments As Iaip.IaipDataGridView
     Friend WithEvents chbTestFirmComments As System.Windows.Forms.CheckBox
     Friend WithEvents Label28 As System.Windows.Forms.Label
     Friend WithEvents txtTestingFirm As System.Windows.Forms.TextBox

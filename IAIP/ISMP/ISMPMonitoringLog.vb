@@ -370,14 +370,6 @@ Public Class ISMPMonitoringLog
 
                 dgvTestReportViewer.DataSource = DB.GetDataTable(query)
 
-                dgvTestReportViewer.RowHeadersVisible = False
-                dgvTestReportViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvTestReportViewer.AllowUserToResizeColumns = True
-                dgvTestReportViewer.AllowUserToAddRows = False
-                dgvTestReportViewer.AllowUserToDeleteRows = False
-                dgvTestReportViewer.AllowUserToOrderColumns = True
-                dgvTestReportViewer.AllowUserToResizeRows = True
-                dgvTestReportViewer.ColumnHeadersHeight = 35
                 dgvTestReportViewer.Columns("strReferenceNumber").HeaderText = "Reference #"
                 dgvTestReportViewer.Columns("strReferenceNumber").DisplayIndex = 0
                 dgvTestReportViewer.Columns("strAIRSNumber").HeaderText = "AIRS #"
@@ -427,7 +419,7 @@ Public Class ISMPMonitoringLog
                 dgvTestReportViewer.SanelyResizeColumns()
                 txtReportCount.Text = dgvTestReportViewer.RowCount.ToString()
 
-                LoadCompliaceColor()
+                LoadComplianceColor()
 
             End If  'Test Reports
 
@@ -525,14 +517,6 @@ Public Class ISMPMonitoringLog
 
                 dgvNotificationLog.DataSource = DB.GetDataTable(query)
 
-                dgvNotificationLog.RowHeadersVisible = False
-                dgvNotificationLog.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvNotificationLog.AllowUserToResizeColumns = True
-                dgvNotificationLog.AllowUserToAddRows = False
-                dgvNotificationLog.AllowUserToDeleteRows = False
-                dgvNotificationLog.AllowUserToOrderColumns = True
-                dgvNotificationLog.AllowUserToResizeRows = True
-                dgvNotificationLog.ColumnHeadersHeight = "35"
                 dgvNotificationLog.Columns("AIRSNumber").HeaderText = "AIRS #"
                 dgvNotificationLog.Columns("AIRSNumber").DisplayIndex = 2
                 dgvNotificationLog.Columns("strFacilityName").HeaderText = "Facility Name"
@@ -655,14 +639,6 @@ Public Class ISMPMonitoringLog
 
                 dgvTestFirmComments.DataSource = DB.GetDataTable(query)
 
-                dgvTestFirmComments.RowHeadersVisible = False
-                dgvTestFirmComments.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvTestFirmComments.AllowUserToResizeColumns = True
-                dgvTestFirmComments.AllowUserToAddRows = False
-                dgvTestFirmComments.AllowUserToDeleteRows = False
-                dgvTestFirmComments.AllowUserToOrderColumns = True
-                dgvTestFirmComments.AllowUserToResizeRows = True
-                dgvTestFirmComments.ColumnHeadersHeight = "35"
                 dgvTestFirmComments.Columns("numCommentsID").HeaderText = "Comment #"
                 dgvTestFirmComments.Columns("numcommentsID").DisplayIndex = 0
                 dgvTestFirmComments.Columns("strTestingFirm").HeaderText = "Testing Firm Name"
@@ -700,23 +676,22 @@ Public Class ISMPMonitoringLog
 
     Private Sub LoadTestLogData()
         Try
-            Dim query As String
 
             If txtTestLogNumber.Text <> "" Then
-                query = "Select " &
-                "strTestLogNumber,  " &
-                "APBFacilityInformation.strFacilityName,  " &
-                "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,  " &
-                "strEmissionUnit,  " &
-                "APBFacilityInformation.strFacilityCity,  " &
-                "strCountyName,  " &
-                "datProposedStartDate  " &
-                " FROM ISMPTestNotification " &
-                " LEFT JOIN APBFacilityINformation " &
-                "ON concat('0413',ISMPTestNotification.strAIRSnumber) = APBFacilityInformation.strAIRSNumber " &
-                " LEFT JOIN LookUpCountyInformation  " &
-                "ON SUBSTRING(ISMPTestNotification.strAIRSNumber, 1, 3) = LookUpCountyInformation.strCountyCode " &
-                "WHERE strTestLogNumber = @log "
+                Dim query As String = "Select " &
+                    "strTestLogNumber,  " &
+                    "APBFacilityInformation.strFacilityName,  " &
+                    "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,  " &
+                    "strEmissionUnit,  " &
+                    "APBFacilityInformation.strFacilityCity,  " &
+                    "strCountyName,  " &
+                    "datProposedStartDate  " &
+                    " FROM ISMPTestNotification " &
+                    " LEFT JOIN APBFacilityINformation " &
+                    "ON concat('0413',ISMPTestNotification.strAIRSnumber) = APBFacilityInformation.strAIRSNumber " &
+                    " LEFT JOIN LookUpCountyInformation  " &
+                    "ON SUBSTRING(ISMPTestNotification.strAIRSNumber, 1, 3) = LookUpCountyInformation.strCountyCode " &
+                    "WHERE strTestLogNumber = @log "
 
                 Dim p As New SqlParameter("@log", txtTestLogNumber.Text)
 
@@ -762,11 +737,7 @@ Public Class ISMPMonitoringLog
         End Try
     End Sub
     Private Sub SelectTestReport()
-        Try
-            OpenFormTestReport(txtReferenceNumber.Text)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormTestReport(txtReferenceNumber.Text)
     End Sub
     Private Sub ResetOptions()
         Try
@@ -798,189 +769,18 @@ Public Class ISMPMonitoringLog
     End Sub
 
     Private Sub LLSelectReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
-        Try
-
-            SelectTestReport()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        SelectTestReport()
     End Sub
     Private Sub btnRunFilter_Click(sender As Object, e As EventArgs) Handles btnRunFilter.Click
-        Try
-
-            LoadDataSet()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        LoadDataSet()
     End Sub
     Private Sub MmiReset_Click(sender As Object, e As EventArgs) Handles mmiReset.Click
-        Try
-
-            ResetOptions()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ResetOptions()
     End Sub
-    Private Sub dgvTestReportViewer_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvTestReportViewer.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvTestReportViewer.HitTest(e.X, e.Y)
 
-        Try
-
-
-            If dgvTestReportViewer.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
-                txtReferenceNumber.Text = dgvTestReportViewer(0, hti.RowIndex).Value
-                If IsDBNull(dgvTestReportViewer(2, hti.RowIndex).Value) Then
-                    txtFacilityName.Text = ""
-                Else
-                    txtFacilityName.Text = dgvTestReportViewer(2, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvTestReportViewer(1, hti.RowIndex).Value) Then
-                    txtAIRSNumber.Text = ""
-                Else
-                    txtAIRSNumber.Text = dgvTestReportViewer(1, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvTestReportViewer(7, hti.RowIndex).Value) Then
-                    txtTestType.Text = ""
-                Else
-                    txtTestType.Text = dgvTestReportViewer(7, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvTestReportViewer(3, hti.RowIndex).Value) Then
-                    txtFacilityCity.Text = ""
-                Else
-                    txtFacilityCity.Text = dgvTestReportViewer(3, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvTestReportViewer(4, hti.RowIndex).Value) Then
-                    txtFacilityCounty.Text = ""
-                Else
-                    txtFacilityCounty.Text = dgvTestReportViewer(4, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvTestReportViewer(6, hti.RowIndex).Value) Then
-                    txtPollutant.Text = ""
-                Else
-                    txtPollutant.Text = dgvTestReportViewer(6, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvTestReportViewer(19, hti.RowIndex).Value) Then
-                Else
-                    txtTestLogNumber.Text = dgvTestReportViewer(19, hti.RowIndex).Value
-                    LoadTestLogData()
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub dgvTestFirmComments_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvTestFirmComments.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvTestFirmComments.HitTest(e.X, e.Y)
-
-        Try
-            If dgvTestFirmComments.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
-                txtCommentNumber.Text = dgvTestFirmComments(0, hti.RowIndex).Value
-
-                If IsDBNull(dgvTestFirmComments(3, hti.RowIndex).Value) Then
-                    txtTestFirmFacilityName.Text = ""
-                Else
-                    txtTestFirmFacilityName.Text = dgvTestFirmComments(3, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvTestFirmComments(2, hti.RowIndex).Value) Then
-                    txtTestFirmAirsNumber.Text = ""
-                Else
-                    txtTestFirmAirsNumber.Text = dgvTestFirmComments(2, hti.RowIndex).Value
-                End If
-
-                If IsDBNull(dgvTestFirmComments(1, hti.RowIndex).Value) Then
-                    txtTestFirmName.Text = ""
-                Else
-                    txtTestFirmName.Text = dgvTestFirmComments(1, hti.RowIndex).Value
-                End If
-
-                If IsDBNull(dgvTestFirmComments(6, hti.RowIndex).Value) Then
-                    txtTestFirmCommentType.Text = ""
-                Else
-                    txtTestFirmCommentType.Text = dgvTestFirmComments(6, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvTestFirmComments(10, hti.RowIndex).Value) Then
-                    txtTestFirmFacilityCity.Text = ""
-                Else
-                    txtTestFirmFacilityCity.Text = dgvTestFirmComments(10, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvTestFirmComments(11, hti.RowIndex).Value) Then
-                    txtTestFirmCounty.Text = ""
-                Else
-                    txtTestFirmCounty.Text = dgvTestFirmComments(11, hti.RowIndex).Value
-                End If
-
-                If IsDBNull(dgvTestFirmComments(5, hti.RowIndex).Value) Then
-                    txtTestFirmReferenceNumber.Text = ""
-                Else
-                    txtTestFirmReferenceNumber.Text = dgvTestFirmComments(5, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvTestFirmComments(4, hti.RowIndex).Value) Then
-                    txtTestFirmTestLogNumber.Text = ""
-                Else
-                    txtTestFirmTestLogNumber.Text = dgvTestFirmComments(4, hti.RowIndex).Value
-                End If
-
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
     Private Sub tsbResize_Click(sender As Object, e As EventArgs) Handles tsbResize.Click
         Try
             SCMonitoringLog.ToggleSplitterDistance(235, 500)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub dgvNotificationLog_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvNotificationLog.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvNotificationLog.HitTest(e.X, e.Y)
-
-        Try
-
-
-            If dgvNotificationLog.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
-                txtTestLogNumber.Text = dgvNotificationLog(4, hti.RowIndex).Value
-                If IsDBNull(dgvNotificationLog(1, hti.RowIndex).Value) Then
-                    txtNotificationFacilityName.Text = ""
-                Else
-                    txtNotificationFacilityName.Text = dgvNotificationLog(1, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvNotificationLog(0, hti.RowIndex).Value) Then
-                    txtNotificationAIRSNumber.Text = ""
-                Else
-                    txtNotificationAIRSNumber.Text = dgvNotificationLog(0, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvNotificationLog(5, hti.RowIndex).Value) Then
-                    txtNotificationEmissionUnit.Text = ""
-                Else
-                    txtNotificationEmissionUnit.Text = dgvNotificationLog(5, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvNotificationLog(2, hti.RowIndex).Value) Then
-                    txtNotificationCity.Text = ""
-                Else
-                    txtNotificationCity.Text = dgvNotificationLog(2, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvNotificationLog(3, hti.RowIndex).Value) Then
-                    txtNotificationCounty.Text = ""
-                Else
-                    txtNotificationCounty.Text = dgvNotificationLog(3, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvNotificationLog(6, hti.RowIndex).Value) Then
-                    txtNotificationTestStart.Text = ""
-                Else
-                    txtNotificationTestStart.Text = Format(dgvNotificationLog(6, hti.RowIndex).Value, "dd-MMM-yyyy")
-                End If
-                If IsDBNull(dgvNotificationLog(10, hti.RowIndex).Value) Then
-
-                Else
-                    txtReferenceNumber.Text = dgvNotificationLog(10, hti.RowIndex).Value
-                End If
-
-            End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1037,15 +837,15 @@ Public Class ISMPMonitoringLog
         dgvTestReportViewer.ExportToExcel(Me)
     End Sub
 
-    Private Sub LoadCompliaceColor()
+    Private Sub LoadComplianceColor()
         Try
             For Each row As DataGridViewRow In dgvTestReportViewer.Rows
                 If Not row.IsNewRow Then
-                    If row.Cells(20).Value IsNot DBNull.Value AndAlso row.Cells(20).Value = "True" Then
+                    If row.Cells(20).Value IsNot DBNull.Value AndAlso row.Cells(20).Value.ToString = "True" Then
                         row.DefaultCellStyle.BackColor = Color.Pink
                     End If
                     If row.Cells(16).Value IsNot DBNull.Value AndAlso
-                        row.Cells(16).Value = "Not In Compliance" Then
+                        row.Cells(16).Value.ToString = "Not In Compliance" Then
                         row.DefaultCellStyle.BackColor = Color.Tomato
                     End If
                 End If
@@ -1057,7 +857,7 @@ Public Class ISMPMonitoringLog
 
     Private Sub dgvTestReportViewer_Sorted(sender As Object, e As EventArgs) Handles dgvTestReportViewer.Sorted
         Try
-            LoadCompliaceColor()
+            LoadComplianceColor()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1078,4 +878,75 @@ Public Class ISMPMonitoringLog
     Private Sub ExportToExcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportToExcelToolStripMenuItem.Click
         ExportGridToExcel()
     End Sub
+
+    Private Sub dgvTestReportViewer_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvTestReportViewer.CellEnter
+        If e.RowIndex = -1 OrElse e.RowIndex >= dgvTestReportViewer.RowCount Then Return
+
+        txtReferenceNumber.Text = ToStringIfNotNull(dgvTestReportViewer(0, e.RowIndex).Value, "")
+        txtAIRSNumber.Text = ToStringIfNotNull(dgvTestReportViewer(1, e.RowIndex).Value, "")
+        txtFacilityName.Text = ToStringIfNotNull(dgvTestReportViewer(2, e.RowIndex).Value, "")
+        txtTestType.Text = ToStringIfNotNull(dgvTestReportViewer(7, e.RowIndex).Value, "")
+        txtFacilityCity.Text = ToStringIfNotNull(dgvTestReportViewer(3, e.RowIndex).Value, "")
+        txtFacilityCounty.Text = ToStringIfNotNull(dgvTestReportViewer(4, e.RowIndex).Value, "")
+        txtPollutant.Text = ToStringIfNotNull(dgvTestReportViewer(6, e.RowIndex).Value, "")
+        txtTestLogNumber.Text = ToStringIfNotNull(dgvTestReportViewer(19, e.RowIndex).Value, "")
+
+        LoadTestLogData()
+    End Sub
+
+    Private Sub dgvTestReportViewer_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvTestReportViewer.CellLinkActivated
+        OpenFormTestReport(e.LinkValue.ToString)
+    End Sub
+
+    Private Sub dgvNotificationLog_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvNotificationLog.CellEnter
+        If e.RowIndex = -1 OrElse e.RowIndex >= dgvNotificationLog.RowCount Then Return
+
+        txtTestLogNumber.Text = ToStringIfNotNull(dgvNotificationLog(4, e.RowIndex).Value, "")
+        txtNotificationFacilityName.Text = ToStringIfNotNull(dgvNotificationLog(1, e.RowIndex).Value, "")
+        txtNotificationAIRSNumber.Text = ToStringIfNotNull(dgvNotificationLog(0, e.RowIndex).Value, "")
+        txtNotificationEmissionUnit.Text = ToStringIfNotNull(dgvNotificationLog(5, e.RowIndex).Value, "")
+        txtNotificationCity.Text = ToStringIfNotNull(dgvNotificationLog(2, e.RowIndex).Value, "")
+        txtNotificationCounty.Text = ToStringIfNotNull(dgvNotificationLog(3, e.RowIndex).Value, "")
+        txtNotificationTestStart.Text = ToStringIfNotNull(dgvNotificationLog(6, e.RowIndex).Value, "")
+
+        If dgvNotificationLog(10, e.RowIndex).Value IsNot Nothing AndAlso dgvNotificationLog(10, e.RowIndex).Value IsNot DBNull.Value Then
+            txtReferenceNumber.Text = dgvNotificationLog(10, e.RowIndex).Value
+        End If
+    End Sub
+
+    Private Sub dgvNotificationLog_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvNotificationLog.CellLinkActivated
+        OpenFormTestNotification(e.LinkValue.ToString)
+    End Sub
+
+    Private Sub dgvTestFirmComments_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvTestFirmComments.CellEnter
+        If e.RowIndex = -1 OrElse e.RowIndex >= dgvTestFirmComments.RowCount Then Return
+
+        txtCommentNumber.Text = ToStringIfNotNull(dgvTestFirmComments(0, e.RowIndex).Value, "")
+        txtTestFirmFacilityName.Text = ToStringIfNotNull(dgvTestFirmComments(3, e.RowIndex).Value, "")
+        txtTestFirmAirsNumber.Text = ToStringIfNotNull(dgvTestFirmComments(2, e.RowIndex).Value, "")
+        txtTestFirmName.Text = ToStringIfNotNull(dgvTestFirmComments(1, e.RowIndex).Value, "")
+        txtTestFirmCommentType.Text = ToStringIfNotNull(dgvTestFirmComments(6, e.RowIndex).Value, "")
+        txtTestFirmFacilityCity.Text = ToStringIfNotNull(dgvTestFirmComments(10, e.RowIndex).Value, "")
+        txtTestFirmCounty.Text = ToStringIfNotNull(dgvTestFirmComments(11, e.RowIndex).Value, "")
+        txtTestFirmReferenceNumber.Text = ToStringIfNotNull(dgvTestFirmComments(5, e.RowIndex).Value, "")
+        txtTestFirmTestLogNumber.Text = ToStringIfNotNull(dgvTestFirmComments(4, e.RowIndex).Value, "")
+    End Sub
+
+    Private Sub dgvTestFirmComments_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvTestFirmComments.CellLinkActivated
+        Dim rowIndex As Integer = dgvTestFirmComments.CurrentRow.Index
+
+        Dim TestFirmComments As New ISMPTestFirmComments
+
+        If TestFirmComments IsNot Nothing AndAlso Not TestFirmComments.IsDisposed Then
+            TestFirmComments.txtAIRSNumber.Text = ToStringIfNotNull(dgvTestFirmComments(2, rowIndex).Value, "")
+            TestFirmComments.txtFacilityTested.Text = ToStringIfNotNull(dgvTestFirmComments(3, rowIndex).Value, "")
+            TestFirmComments.cboTestingFirm.Text = ToStringIfNotNull(dgvTestFirmComments(1, rowIndex).Value, "")
+            TestFirmComments.txtTestReportNumber.Text = ToStringIfNotNull(dgvTestFirmComments(5, rowIndex).Value, "")
+            TestFirmComments.txtTestNotificationNumber.Text = ToStringIfNotNull(dgvTestFirmComments(4, rowIndex).Value, "")
+            TestFirmComments.txtCommentID.Text = ToStringIfNotNull(dgvTestFirmComments(0, rowIndex).Value, "")
+
+            TestFirmComments.Show()
+        End If
+    End Sub
+
 End Class
