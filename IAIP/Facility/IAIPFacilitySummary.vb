@@ -72,10 +72,8 @@ Public Class IAIPFacilitySummary
         ' Edit location/header data
         If CurrentUser.UnitId = 0 OrElse AccountFormAccess(22, 3) = "1" OrElse AccountFormAccess(1, 3) = "1" Then
             EditFacilityLocationButton.Visible = True
-            EditHeaderDataButton.Visible = True
         Else
             EditFacilityLocationButton.Visible = False
-            EditHeaderDataButton.Visible = False
         End If
     End Sub
 
