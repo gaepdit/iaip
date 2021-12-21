@@ -74,6 +74,10 @@ Public Module StringFunctions
         Return If(String.IsNullOrEmpty(s), alternate, s)
     End Function
 
+    Public Function ToStringIfNotNull(s As Object, alternate As String) As String
+        Return If(s Is Nothing OrElse s Is DBNull.Value OrElse String.IsNullOrEmpty(s), alternate, s.ToString)
+    End Function
+
     <Extension>
     Public Function Truncate(value As String, maxLength As Integer) As String
         Return If(String.IsNullOrEmpty(value), value, value.Substring(0, Math.Min(maxLength, value.Length)))
