@@ -16,7 +16,6 @@ Public Class IAIPPrintOut
 
     Public Enum PrintType
         IsmpTestReport
-        SsppConfirm
         TitleVRenewal
     End Enum
 
@@ -67,9 +66,6 @@ Public Class IAIPPrintOut
         Try
 
             Select Case PrintoutType
-                Case PrintType.SsppConfirm
-                    PrintSsppAcknowledgmentLetter()
-
                 Case PrintType.IsmpTestReport
                     PrintIsmpReport()
 
@@ -12409,33 +12405,6 @@ Public Class IAIPPrintOut
 #End Region
 
 #Region " SSPP Reports "
-
-    Private Sub PrintSsppAcknowledgmentLetter()
-        Dim ParameterFields As New ParameterFields
-
-        ParameterFields.AddParameterField("Director", GetEpdManagerName(EpdManagementTypes.EpdDirector))
-        ParameterFields.AddParameterField("Commissioner", GetEpdManagerName(EpdManagementTypes.DnrCommissioner))
-        ParameterFields.AddParameterField("ReportType", "SSPP Confirm")
-
-        Dim SQL As String = "Select * " &
-            "from VW_SSPP_Acknowledge " &
-            "where strApplicationNumber = @ref "
-
-        Dim p As New SqlParameter("@ref", ReferenceValue)
-
-        Using ds As New DataSet
-            Dim dt As DataTable = DB.GetDataTable(SQL, p)
-            dt.TableName = "VW_SSPP_Acknowledge"
-            ds.Tables.Add(dt)
-
-            Dim rpt As New crAPBPrintOut2
-            rpt.SetDataSource(ds)
-
-            CRViewer.ParameterFieldInfo = ParameterFields
-            CRViewer.ReportSource = rpt
-            CRViewer.Refresh()
-        End Using
-    End Sub
 
     Private Sub PrintOutTitleVRenewals()
         Dim SQL As String

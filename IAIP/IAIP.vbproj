@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build"
-  xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="..\packages\Microsoft.CodeAnalysis.NetAnalyzers.5.0.3\build\Microsoft.CodeAnalysis.NetAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.NetAnalyzers.5.0.3\build\Microsoft.CodeAnalysis.NetAnalyzers.props')" />
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -637,12 +636,6 @@
     <Compile Include="AnnualFees\FeesStatistics.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\SSPP\crAPBPrintOut2.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crAPBPrintOut2.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Crystal Reports\Fees\FacilityFee10.vb">
       <DependentUpon>FacilityFee10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1174,10 +1167,6 @@
     <EmbeddedResource Include="SSCP\SscpEnforcement.resx">
       <DependentUpon>SscpEnforcement.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SSPP\crAPBPrintOut2.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crAPBPrintOut2.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Fees\FacilityFee10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

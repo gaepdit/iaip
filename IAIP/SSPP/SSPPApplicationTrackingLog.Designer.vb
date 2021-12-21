@@ -20,8 +20,8 @@ Partial Class SSPPApplicationTrackingLog
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshAIRSNo = New System.Windows.Forms.Button()
         Me.lblLinkWarning = New System.Windows.Forms.Label()
         Me.rtbFacilityInformation = New System.Windows.Forms.RichTextBox()
@@ -265,7 +265,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPContactInformation = New System.Windows.Forms.TabPage()
         Me.txtContactPhoneNumber = New System.Windows.Forms.TextBox()
         Me.btnEmailAcknowledgmentLetter = New System.Windows.Forms.Button()
-        Me.btnAcknowledgementLetter = New System.Windows.Forms.Button()
         Me.btnGetCurrentPermittingContact = New System.Windows.Forms.Button()
         Me.mtbContactZipCode = New System.Windows.Forms.MaskedTextBox()
         Me.mtbContactFaxNumber = New System.Windows.Forms.MaskedTextBox()
@@ -3212,7 +3211,6 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.TPContactInformation.Controls.Add(Me.txtContactPhoneNumber)
         Me.TPContactInformation.Controls.Add(Me.btnEmailAcknowledgmentLetter)
-        Me.TPContactInformation.Controls.Add(Me.btnAcknowledgementLetter)
         Me.TPContactInformation.Controls.Add(Me.btnGetCurrentPermittingContact)
         Me.TPContactInformation.Controls.Add(Me.mtbContactZipCode)
         Me.TPContactInformation.Controls.Add(Me.mtbContactFaxNumber)
@@ -3265,19 +3263,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnEmailAcknowledgmentLetter.TabIndex = 17
         Me.btnEmailAcknowledgmentLetter.Text = "Email Acknowledgment Letter"
         Me.btnEmailAcknowledgmentLetter.UseVisualStyleBackColor = True
-        '
-        'btnAcknowledgementLetter
-        '
-        Me.btnAcknowledgementLetter.AutoSize = True
-        Me.btnAcknowledgementLetter.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnAcknowledgementLetter.Enabled = False
-        Me.btnAcknowledgementLetter.Location = New System.Drawing.Point(404, 173)
-        Me.btnAcknowledgementLetter.Name = "btnAcknowledgementLetter"
-        Me.btnAcknowledgementLetter.Size = New System.Drawing.Size(129, 23)
-        Me.btnAcknowledgementLetter.TabIndex = 16
-        Me.btnAcknowledgementLetter.Text = "Acknowledgment Letter"
-        Me.btnAcknowledgementLetter.UseVisualStyleBackColor = True
-        Me.btnAcknowledgementLetter.Visible = False
         '
         'btnGetCurrentPermittingContact
         '
@@ -5797,8 +5782,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'dgvApplicationInvoices
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvApplicationInvoices.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvApplicationInvoices.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvApplicationInvoices.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -5869,8 +5854,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'dgvApplicationPayments
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvApplicationPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvApplicationPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvApplicationPayments.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -6683,7 +6668,6 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents txtDistrict As System.Windows.Forms.TextBox
     Friend WithEvents TCApplicationTrackingLog As System.Windows.Forms.TabControl
-    Friend WithEvents btnAcknowledgementLetter As System.Windows.Forms.Button
     Friend WithEvents btnEmailAcknowledgmentLetter As System.Windows.Forms.Button
     Friend WithEvents Panel13 As System.Windows.Forms.Panel
     Friend WithEvents dgvSIPSubParts As System.Windows.Forms.DataGridView

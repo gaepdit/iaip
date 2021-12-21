@@ -145,7 +145,6 @@ Public Class SSPPApplicationTrackingLog
 
         chbClosedOut.Enabled = False
 
-        btnAcknowledgementLetter.Enabled = False
         btnEmailAcknowledgmentLetter.Enabled = False
     End Sub
 
@@ -9913,24 +9912,6 @@ Public Class SSPPApplicationTrackingLog
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
-
-    Private Sub btnAcknowledgementLetter_Click(sender As Object, e As EventArgs) Handles btnAcknowledgementLetter.Click
-        If txtContactSocialTitle.Text = "N/A" Then
-            MessageBox.Show("Invalid social title, please correct.", "Error", MessageBoxButtons.OK)
-            Return
-        End If
-
-        Using PrintOut As New IAIPPrintOut With {
-            .PrintoutType = IAIPPrintOut.PrintType.SsppConfirm,
-            .ReferenceValue = AppNumber.ToString
-        }
-            If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
-                PrintOut.Show()
-            Else
-                MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
-        End Using
     End Sub
 
     Private Sub btnEmailAcknowledgmentLetter_Click(sender As Object, e As EventArgs) Handles btnEmailAcknowledgmentLetter.Click
