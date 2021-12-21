@@ -3270,12 +3270,14 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnAcknowledgementLetter.AutoSize = True
         Me.btnAcknowledgementLetter.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnAcknowledgementLetter.Enabled = False
         Me.btnAcknowledgementLetter.Location = New System.Drawing.Point(404, 173)
         Me.btnAcknowledgementLetter.Name = "btnAcknowledgementLetter"
         Me.btnAcknowledgementLetter.Size = New System.Drawing.Size(129, 23)
         Me.btnAcknowledgementLetter.TabIndex = 16
         Me.btnAcknowledgementLetter.Text = "Acknowledgment Letter"
         Me.btnAcknowledgementLetter.UseVisualStyleBackColor = True
+        Me.btnAcknowledgementLetter.Visible = False
         '
         'btnGetCurrentPermittingContact
         '
