@@ -769,10 +769,7 @@ Public Class SSPPTitleVTools
                 Next
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "Please reply to acknowledge receipt of this notification. " &
-                "Any questions regarding this permit application may be directed to: " & vbCrLf & vbCrLf &
-                "Eric Cornwell " & vbCrLf & "Program Manager" & vbCrLf &
-                "Stationary Source Permitting Program " & vbCrLf &
-                "404/363-7020"
+                "Any questions regarding this permit application may be directed to the Air Permit Manager by calling (404) 363-7000."
 
                 DB.RunCommand(query2)
 
@@ -1161,10 +1158,7 @@ Public Class SSPPTitleVTools
                 "https://epd.georgia.gov/draft-title-v-permitsamendments" & vbCrLf & vbCrLf &
                 "The public comment deadline is posted on the Title V web page. " & vbCrLf & vbCrLf &
                 "Please reply to acknowledge receipt of this notification. Any questions regarding the draft permits and " &
-                "amendments may be directed to: " & vbCrLf & vbCrLf &
-                "Eric Cornwell " & vbCrLf & "Program Manager" & vbCrLf &
-                "Stationary Source Permitting Program " & vbCrLf &
-                "404/363-7020"
+                "amendments may be directed to the Air Permit Manager by calling (404) 363-7000."
 
                 DB.RunCommand(query2)
 
@@ -1352,10 +1346,7 @@ Public Class SSPPTitleVTools
                 "https://epd.georgia.gov/draft-title-v-permitsamendments" & vbCrLf & vbCrLf &
                 "The public comment deadline is posted on the Title V web page. " & vbCrLf & vbCrLf &
                 "Please reply to acknowledge receipt of this notification. Any questions regarding the draft permits and " &
-                "amendments may be directed to: " & vbCrLf & vbCrLf &
-                "Eric Cornwell " & vbCrLf & "Program Manager" & vbCrLf &
-                "Stationary Source Permitting Program " & vbCrLf &
-                "404/363-7020"
+                "amendments may be directed to the Air Permit Manager by calling (404) 363-7000."
 
                 DB.RunCommand(query2)
 
@@ -1728,11 +1719,7 @@ Public Class SSPPTitleVTools
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "EPA's review of the proposed minor amendment extends from 45 days following the date of this " &
                 "message. Please reply to acknowledge receipt of this notification. Any questions regarding this " &
-                "proposed permit amendment may be directed to: " &
-                vbCrLf & vbCrLf &
-                "Eric Cornwell " & vbCrLf & "Program Manager" & vbCrLf &
-                "Stationary Source Permitting Program " & vbCrLf &
-                "404/363-7020"
+                "proposed permit amendment may be directed to the Air Permit Manager by calling (404) 363-7000."
 
                 DB.RunCommand(query2)
 
@@ -1914,10 +1901,7 @@ Public Class SSPPTitleVTools
                 query2 = query2 & SQLLine2
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "Please reply to acknowledge receipt of this notification. Any questions regarding this proposed " &
-                "permit amendment may be directed to: " & vbCrLf & vbCrLf &
-                "Eric Cornwell " & vbCrLf & "Program Manager" & vbCrLf &
-                "Stationary Source Permitting Program " & vbCrLf &
-                "404/363-7020"
+                "permit amendment may be directed to the Air Permit Manager by calling (404) 363-7000."
 
                 DB.RunCommand(query2)
 
@@ -2323,10 +2307,7 @@ Public Class SSPPTitleVTools
                 vbCrLf & vbCrLf &
                 "https://permitsearch.gaepd.org/" & vbCrLf & vbCrLf &
                 "Please reply to acknowledge receipt of this notification. Any questions regarding the final permits " &
-                "may be directed to: " & vbCrLf & vbCrLf &
-                "Eric Cornwell " & vbCrLf & "Program Manager" & vbCrLf &
-                "Stationary Source Permitting Program " & vbCrLf &
-                "404/363-7020"
+                "may be directed to the Air Permit Manager by calling (404) 363-7000."
 
                 DB.RunCommand(query2)
 
