@@ -3648,28 +3648,29 @@ Public Class EisTool
     End Sub
 
     Private Sub ShowMismatchedOperatingStatus()
-        Dim query As String = "SELECT ef.FACILITYSITEID AS ""AIRS Number"", " &
-            "  ef.STRFACILITYSITENAME AS ""Facility Name"", " &
-            "  ef.STRFACILITYSITESTATUSCODE AS ""EIS Site Status"", " &
-            "  hd.STROPERATIONALSTATUS AS ""IAIP Site Status"" " &
-            "FROM EIS_FACILITYSITE ef " &
-            "INNER JOIN APBHEADERDATA hd ON ef.FACILITYSITEID = RIGHT( " &
-            "  hd.STRAIRSNUMBER, 8) " &
-            "WHERE(ef.STRFACILITYSITESTATUSCODE = 'OP' AND " &
-            "  hd.STROPERATIONALSTATUS <> 'O') OR( " &
-            "  ef.STRFACILITYSITESTATUSCODE = 'PS' AND " &
-            "  hd.STROPERATIONALSTATUS <> 'X') OR( " &
-            "  ef.STRFACILITYSITESTATUSCODE = 'TS' AND " &
-            "  hd.STROPERATIONALSTATUS <> 'T') OR( " &
-            "  ef.STRFACILITYSITESTATUSCODE <> 'OP' AND " &
-            "  hd.STROPERATIONALSTATUS = 'O') OR( " &
-            "  ef.STRFACILITYSITESTATUSCODE <> 'PS' AND " &
-            "  hd.STROPERATIONALSTATUS = 'X') OR( " &
-            "  ef.STRFACILITYSITESTATUSCODE <> 'TS' AND " &
-            "  hd.STROPERATIONALSTATUS = 'T') OR " &
-            "  ef.STRFACILITYSITESTATUSCODE IS NULL OR " &
-            "  hd.STROPERATIONALSTATUS IS NULL " &
-            "ORDER BY ef.FACILITYSITEID"
+        Dim query As String = "SELECT e.FACILITYSITEID                AS [AIRS Number],
+                   e.STRFACILITYSITENAME           AS [Facility Name],
+                   h.STROPERATIONALSTATUS          AS [IAIP Site Status],
+                   e.STRFACILITYSITESTATUSCODE     AS [EIS Site Status],
+                   e.INTFACILITYSITESTATUSCODEYEAR as [EIS Status Code Year]
+            FROM EIS_FACILITYSITE e
+                INNER JOIN APBHEADERDATA h
+                ON e.FACILITYSITEID = RIGHT(h.STRAIRSNUMBER, 8)
+            WHERE (e.STRFACILITYSITESTATUSCODE = 'OP' AND
+                   h.STROPERATIONALSTATUS <> 'O')
+               OR (e.STRFACILITYSITESTATUSCODE = 'PS' AND
+                   h.STROPERATIONALSTATUS <> 'X')
+               OR (e.STRFACILITYSITESTATUSCODE = 'TS' AND
+                   h.STROPERATIONALSTATUS <> 'T')
+               OR (e.STRFACILITYSITESTATUSCODE <> 'OP' AND
+                   h.STROPERATIONALSTATUS = 'O')
+               OR (e.STRFACILITYSITESTATUSCODE <> 'PS' AND
+                   h.STROPERATIONALSTATUS = 'X')
+               OR (e.STRFACILITYSITESTATUSCODE <> 'TS' AND
+                   h.STROPERATIONALSTATUS = 'T')
+               OR e.STRFACILITYSITESTATUSCODE IS NULL
+            ORDER BY e.FACILITYSITEID"
+
         dgvOperStatusMismatch.DataSource = DB.GetDataTable(query)
         dgvOperStatusMismatch.SanelyResizeColumns
     End Sub
