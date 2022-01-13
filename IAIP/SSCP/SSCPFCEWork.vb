@@ -179,6 +179,7 @@ Public Class SSCPFCEWork
             dgrFCEInspections.Columns("ReceivedDate").HeaderText = "Date Received"
             dgrFCEInspections.Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
             dgrFCEInspections.Columns("InspectionDateStart").HeaderText = "Inspection Start Date"
+            dgrFCEInspections.Columns("InspectionDateEnd").HeaderText = "Inspection End Date"
             dgrFCEInspections.Columns("InspectionTimeStart").HeaderText = "Inspection Start Time"
             dgrFCEInspections.Columns("InspectionTimeEnd").HeaderText = "Inspection End Time"
             dgrFCEInspections.Columns("strInspectionReason").HeaderText = "Inspection Reason"
