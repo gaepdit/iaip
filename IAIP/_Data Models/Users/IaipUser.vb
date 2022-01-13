@@ -174,9 +174,15 @@
 
             ' === ECSU
             Case UserCan.AccessEmissionsInventory
+                ' 144 - ECSU Staff
+                ' 145 - ECSU Manager
                 Return HasRole({144, 145})
 
             Case UserCan.AccessGecoUserManagement
+                ' 123 - Financial Administrative
+                ' 124 - Financial Manager
+                ' 144 - ECSU Staff
+                ' 145 - ECSU Manager
                 Return HasRole({123, 124, 144, 145})
 
             Case Else
