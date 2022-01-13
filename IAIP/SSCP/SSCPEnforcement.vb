@@ -403,10 +403,12 @@ Public Class SscpEnforcement
     Private Sub EnableDisableChanges(enabler As EnableOrDisable)
         Dim enabled As Boolean = (enabler = EnableOrDisable.Enable)
 
-        'InfoTabPage.Enabled = enabled
+        EnforcementTypePanel.Enabled = enabled
+
+        ' InfoTabPage
         DiscoveryDate.Enabled = enabled
         StaffResponsible.Enabled = enabled
-        GeneralComments.Enabled = enabled
+        GeneralComments.ReadOnly = Not enabled
         LinkToEvent.Enabled = enabled
         RemoveLinkedEvent.Enabled = enabled
         ViolationTypeGroupbox.Enabled = enabled
@@ -414,13 +416,46 @@ Public Class SscpEnforcement
         SubmitToUC.Enabled = enabled
 
         PollutantsTabPage.Enabled = enabled
-        LonTabPage.Enabled = enabled
-        NovTabPage.Enabled = enabled
-        COTabPage.Enabled = enabled
-        AOTabPage.Enabled = enabled
+
+        ' LonTabPage
+        LonToUC.Enabled = enabled
+        LonSent.Enabled = enabled
+        LonResolved.Enabled = enabled
+        LonComments.ReadOnly = Not enabled
+
+        ' NovTabPage
+        NovToUC.Enabled = enabled
+        NovToPM.Enabled = enabled
+        NovSent.Enabled = enabled
+        NovResponseReceived.Enabled = enabled
+        NfaToUC.Enabled = enabled
+        NfaToPM.Enabled = enabled
+        NfaSent.Enabled = enabled
+        NovComments.ReadOnly = Not enabled
+
+        ' COTabPage
+        COToUC.Enabled = enabled
+        COToPM.Enabled = enabled
+        COProposed.Enabled = enabled
+        COReceivedfromCompany.Enabled = enabled
+        COReceivedFromDirector.Enabled = enabled
+        COExecuted.Enabled = enabled
+        COResolved.Enabled = enabled
+        CoNumber.Enabled = enabled
+        COComments.ReadOnly = Not enabled
+        COPenaltyAmount.Enabled = enabled
+        COPenaltyComments.ReadOnly = Not enabled
+        StipulatedPenaltyAmount.Enabled = enabled
+        StipulatedPenaltyControls.Enabled = enabled
+        StipulatedPenaltyComments.ReadOnly = Not enabled
+
+        ' AOTabPage
+        AOExecuted.Enabled = enabled
+        AOAppealed.Enabled = enabled
+        AOResolved.Enabled = enabled
+        AOComments.ReadOnly = Not enabled
+
         DocumentsTabPage.Enabled = enabled
-        EpaValuesTabPage.Enabled = enabled
-        EnforcementTypePanel.Enabled = enabled
     End Sub
 
     Private Sub AirsNumberDisplay_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles AirsNumberDisplay.LinkClicked

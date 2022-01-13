@@ -2606,19 +2606,19 @@ Partial Class SscpEnforcement
         '
         Me.SaveMenuItem.Name = "SaveMenuItem"
         Me.SaveMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.SaveMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SaveMenuItem.Size = New System.Drawing.Size(148, 22)
         Me.SaveMenuItem.Text = "&Save"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(145, 6)
         '
         'CloseMenuItem
         '
         Me.CloseMenuItem.Name = "CloseMenuItem"
         Me.CloseMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W), System.Windows.Forms.Keys)
-        Me.CloseMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CloseMenuItem.Size = New System.Drawing.Size(148, 22)
         Me.CloseMenuItem.Text = "&Close"
         '
         'ToolsMenu
