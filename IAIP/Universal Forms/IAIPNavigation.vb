@@ -747,19 +747,22 @@ Public Class IAIPNavigation
         Dim accountFormAccessString As String
 
         For Each account As Integer In CurrentUser.IaipRoles.RoleCodes
-            accountFormAccessString = AccountFormAccessLookup.Rows.Find(account)("FormAccess").ToString
+            Dim accountInfo As DataRow = AccountFormAccessLookup.Rows.Find(account)
+            If accountInfo IsNot Nothing Then
+                accountFormAccessString = accountInfo("FormAccess").ToString
 
-            If accountFormAccessString.Length > 0 Then
-                Dim formAccessArray As String() = accountFormAccessString.Split({"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries)
+                If accountFormAccessString.Length > 0 Then
+                    Dim formAccessArray As String() = accountFormAccessString.Split({"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries)
 
-                For Each formAccessString As String In formAccessArray
-                    Dim formAccessSplit As String() = formAccessString.Split({"-"c, ","c})
-                    Dim formNumber As Integer = CInt(formAccessSplit(0))
-                    AccountFormAccess(formNumber, 0) = formNumber.ToString()
-                    For i As Integer = 1 To 4
-                        AccountFormAccess(formNumber, i) = (Convert.ToInt32(AccountFormAccess(formNumber, i)) Or Convert.ToInt32(formAccessSplit(i))).ToString
+                    For Each formAccessString As String In formAccessArray
+                        Dim formAccessSplit As String() = formAccessString.Split({"-"c, ","c})
+                        Dim formNumber As Integer = CInt(formAccessSplit(0))
+                        AccountFormAccess(formNumber, 0) = formNumber.ToString()
+                        For i As Integer = 1 To 4
+                            AccountFormAccess(formNumber, i) = (Convert.ToInt32(AccountFormAccess(formNumber, i)) Or Convert.ToInt32(formAccessSplit(i))).ToString
+                        Next
                     Next
-                Next
+                End If
             End If
         Next
     End Sub
