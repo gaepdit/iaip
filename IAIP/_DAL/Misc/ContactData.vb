@@ -1,14 +1,15 @@
 ﻿Imports System.Data.SqlClient
 Imports EpdIt
+Imports Iaip.Apb
 
 Namespace DAL
     Module ContactData
 
         Public Enum ContactKey
             None = 0
-            IndustrialSourceMonitoring = 10
-            StationarySourceCompliance = 20
-            StationarySourcePermitting = 30
+            Monitoring = 10
+            Compliance = 20
+            Permitting = 30
             Fees = 40
             EmissionInventory = 41
             EmissionStatement = 42
@@ -76,6 +77,18 @@ Namespace DAL
             End With
 
             Return contact
+        End Function
+
+        Public Function ContactKeyExists(reKey As ContactKey, airsNumber As ApbFacilityId) As Boolean
+            Dim query As String = "select convert(bit, count(*)) from APBCONTACTINFORMATION 
+                where STRKEY = @key and STRAIRSNUMBER = @airs"
+
+            Dim params As SqlParameter() = {
+                New SqlParameter("@key", reKey.ToString("D")),
+                New SqlParameter("@airs", airsNumber.DbFormattedString)
+            }
+
+            Return DB.GetBoolean(query, params)
         End Function
 
     End Module
