@@ -2,7 +2,7 @@ Imports System.Data.SqlClient
 Imports Iaip.DAL
 Imports Iaip.Apb
 Imports EpdIt.DBUtilities
-Imports System.Collections.Generic
+Imports System.Text
 
 Public Class IAIPEditContacts
 
@@ -42,64 +42,52 @@ Public Class IAIPEditContacts
     End Sub
 
     Private Sub LoadContactsDataset()
-        Dim query As String = "select case
-                   when strKey = '10' then 'Current Monitoring Contact'
-                   when strKey = '20' then 'Current Compliance Contact'
-                   when strKey = '30' then 'Current Permitting Contact'
-                   when strKey = '40' then 'Current Fee Contact'
-                   when strkey = '41' then 'Current EIS Contact'
-                   when strKey = '42' then 'Current ES Contact'
-                   when left(strKey, 1) = '1' then 'Past Monitoring Contact ' + right(STRKEY, 1)
-                   when left(strKey, 1) = '2' then 'Past Compliance Contact ' + right(STRKEY, 1)
-                   when left(strKey, 1) = '3' then 'Past Permitting Contact ' + right(STRKEY, 1)
+        Dim query As New StringBuilder("select STRKEY as [Key],
+               case
+                   when STRKEY = '10' then 'Current Monitoring Contact'
+                   when STRKEY = '20' then 'Current Compliance Contact'
+                   when STRKEY = '30' then 'Current Permitting Contact'
+                   when STRKEY = '40' then 'Current Fee Contact'
+                   when STRKEY = '41' then 'Current EIS Contact'
+                   when STRKEY = '42' then 'Current ES Contact'
+                   when left(STRKEY, 1) = '1'
+                       then 'Past Monitoring Contact ' + right(STRKEY, 1)
+                   when left(STRKEY, 1) = '2'
+                       then 'Past Compliance Contact ' + right(STRKEY, 1)
+                   when left(STRKEY, 1) = '3'
+                       then 'Past Permitting Contact ' + right(STRKEY, 1)
                    else 'Unknown'
-               end as ContactType,
-               convert(date, DATMODIFINGDATE)
-                   as [Updated],
-               strContactDescription,
-               strKey,
-               strContactFirstName,
-               strContactLastname,
-               strContactPrefix,
-               strContactSuffix,
-               strContactTitle,
-               strContactCompanyName,
-               strContactPhoneNumber1,
-               strContactPhoneNumber2,
-               strContactFaxNumber,
-               strContactEmail,
-               strContactAddress1,
-               strContactAddress2,
-               strContactCity,
-               strContactState,
-               strContactZipCode
-        from APBContactInformation
-        where strAIRSnumber = @airs
-          and convert(int, STRKEY) < 50
-        order by substring(strKey, 1, 1), strKey"
+               end                            as [Contact type],
+               convert(date, DATMODIFINGDATE) as [Updated],
+               STRCONTACTFIRSTNAME            as [First name],
+               STRCONTACTLASTNAME             as [Last name],
+               STRCONTACTPREFIX               as Honorific,
+               STRCONTACTSUFFIX               as Suffix,
+               STRCONTACTTITLE                as Title,
+               STRCONTACTCOMPANYNAME          as [Company name],
+               STRCONTACTPHONENUMBER1         as [Phone number 1],
+               STRCONTACTPHONENUMBER2         as [Phone number 2],
+               STRCONTACTFAXNUMBER            as [Fax number],
+               STRCONTACTEMAIL                as [Email address],
+               STRCONTACTADDRESS1             as [Address line 1],
+               STRCONTACTCITY                 as City,
+               STRCONTACTSTATE                as State,
+               STRCONTACTZIPCODE              as [Postal code],
+               STRCONTACTDESCRIPTION          as Comments
+        from APBCONTACTINFORMATION
+        where STRAIRSNUMBER = @airs
+          and convert(int, STRKEY) < 50 ")
+
+        If Not chkShowHistory.Checked Then
+            query.Append(" and not (left(STRKEY, 1) in ('1', '2', '3') and right(STRKEY, 1) <> '0') ")
+        End If
+
+        query.Append(" order by [Contact type]")
 
         Dim p As New SqlParameter("@airs", AirsNumber.DbFormattedString)
 
-        ContactsDataGrid.DataSource = DB.GetDataTable(query, p)
-
-        ContactsDataGrid.Columns("ContactType").HeaderText = "Contact Type"
-        ContactsDataGrid.Columns("strKey").Visible = False
-        ContactsDataGrid.Columns("strContactPrefix").HeaderText = "Social Title"
-        ContactsDataGrid.Columns("strContactFirstName").HeaderText = "First Name"
-        ContactsDataGrid.Columns("strContactLastName").HeaderText = "Last Name"
-        ContactsDataGrid.Columns("strContactSuffix").HeaderText = "Suffix"
-        ContactsDataGrid.Columns("strContactTitle").HeaderText = "Title"
-        ContactsDataGrid.Columns("strContactCompanyName").HeaderText = "Company Name"
-        ContactsDataGrid.Columns("strContactPhoneNumber1").HeaderText = "Phone Number 1"
-        ContactsDataGrid.Columns("strContactPhoneNumber2").HeaderText = "Phone Number 2"
-        ContactsDataGrid.Columns("strContactFaxNumber").HeaderText = "Fax Number"
-        ContactsDataGrid.Columns("strContactEmail").HeaderText = "Email Address"
-        ContactsDataGrid.Columns("strContactAddress1").HeaderText = "Address Line 1"
-        ContactsDataGrid.Columns("strContactAddress2").HeaderText = "Address Line 2"
-        ContactsDataGrid.Columns("strContactCity").HeaderText = "City"
-        ContactsDataGrid.Columns("strContactState").HeaderText = "State"
-        ContactsDataGrid.Columns("strContactZipCode").HeaderText = "Zip Code"
-        ContactsDataGrid.Columns("strContactDescription").HeaderText = "Description"
+        ContactsDataGrid.DataSource = DB.GetDataTable(query.ToString, p)
+        ContactsDataGrid.Columns("Key").Visible = False
 
         ClearForm()
     End Sub
@@ -112,21 +100,21 @@ Public Class IAIPEditContacts
             Return
         End If
 
-        txtNewFirstName.Text = GetNullableString(row.Cells("strContactFirstName").Value)
-        txtNewLastName.Text = GetNullableString(row.Cells("strContactLastName").Value)
-        txtNewPrefix.Text = GetNullableString(row.Cells("strContactPrefix").Value)
-        txtNewSuffix.Text = GetNullableString(row.Cells("strContactSuffix").Value)
-        txtNewTitle.Text = GetNullableString(row.Cells("STRCONTACTTITLE").Value)
-        txtNewCompany.Text = GetNullableString(row.Cells("STRCONTACTCOMPANYNAME").Value)
-        txtNewPhoneNumber.Text = GetNullableString(row.Cells("STRCONTACTPHONENUMBER1").Value)
-        mtbNewPhoneNumber2.Text = GetNullableString(row.Cells("STRCONTACTPHONENUMBER2").Value)
-        mtbNewFaxNumber.Text = GetNullableString(row.Cells("STRCONTACTFAXNUMBER").Value)
-        txtNewEmail.Text = GetNullableString(row.Cells("STRCONTACTEMAIL").Value)
-        txtNewAddress.Text = GetNullableString(row.Cells("STRCONTACTADDRESS1").Value)
-        txtNewCity.Text = GetNullableString(row.Cells("STRCONTACTCITY").Value)
-        txtNewState.Text = GetNullableString(row.Cells("STRCONTACTSTATE").Value)
-        mtbNewZipCode.Text = GetNullableString(row.Cells("STRCONTACTZIPCODE").Value)
-        txtNewDescrption.Text = GetNullableString(row.Cells("STRCONTACTDESCRIPTION").Value)
+        txtNewFirstName.Text = GetNullableString(row.Cells("First name").Value)
+        txtNewLastName.Text = GetNullableString(row.Cells("Last name").Value)
+        txtNewPrefix.Text = GetNullableString(row.Cells("Honorific").Value)
+        txtNewSuffix.Text = GetNullableString(row.Cells("Suffix").Value)
+        txtNewTitle.Text = GetNullableString(row.Cells("Title").Value)
+        txtNewCompany.Text = GetNullableString(row.Cells("Company name").Value)
+        txtNewPhoneNumber.Text = GetNullableString(row.Cells("Phone number 1").Value)
+        mtbNewPhoneNumber2.Text = GetNullableString(row.Cells("Phone number 2").Value)
+        mtbNewFaxNumber.Text = GetNullableString(row.Cells("Fax number").Value)
+        txtNewEmail.Text = GetNullableString(row.Cells("Email address").Value)
+        txtNewAddress.Text = GetNullableString(row.Cells("Address line 1").Value)
+        txtNewCity.Text = GetNullableString(row.Cells("City").Value)
+        txtNewState.Text = GetNullableString(row.Cells("State").Value)
+        mtbNewZipCode.Text = GetNullableString(row.Cells("Postal code").Value)
+        txtNewDescrption.Text = GetNullableString(row.Cells("Comments").Value)
 
         rdbNewMonitoringContact.Checked = False
         rdbNewComplianceContact.Checked = False
@@ -135,36 +123,41 @@ Public Class IAIPEditContacts
         rdbNewEISContact.Checked = False
         rdbNewESContact.Checked = False
 
-        Select Case Key
-            Case ContactKey.IndustrialSourceMonitoring
+        Select Case CInt(row.Cells("Key").Value)
+            Case 10 To 19
+                Key = ContactKey.Monitoring
                 rdbNewMonitoringContact.Checked = True
-            Case ContactKey.StationarySourceCompliance
+            Case 20 To 29
+                Key = ContactKey.Compliance
                 rdbNewComplianceContact.Checked = True
-            Case ContactKey.StationarySourcePermitting
+            Case 30 To 39
+                Key = ContactKey.Permitting
                 rdbNewPermittingContact.Checked = True
-            Case ContactKey.Fees
+            Case 40
+                Key = ContactKey.Fees
                 rdbNewFeeContact.Checked = True
-            Case ContactKey.EmissionInventory
+            Case 41
+                Key = ContactKey.EmissionInventory
                 rdbNewEISContact.Checked = True
-            Case ContactKey.EmissionStatement
+            Case 42
+                Key = ContactKey.EmissionStatement
                 rdbNewESContact.Checked = True
         End Select
-
-        ContactKeyPanel.Enabled = False
+        btnSaveNewContact.Visible = False
         btnSaveNewContact.Enabled = False
+        btnUpdateContact.Visible = True
         btnUpdateContact.Enabled = True
+        btnUpdateContact.Text = "Update selected contact"
 
-        If row.Cells("ContactType").Value.ToString.Substring(0, 4) = "Past" Then
-            btnUpdateContact.Enabled = False
+        If row.Cells("Contact type").Value.ToString.Substring(0, 4) = "Past" Then
+            btnUpdateContact.Text = "Save as new contact"
+            Key = ContactKey.None
         End If
     End Sub
 
     Private Sub ContactsDataGrid_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles ContactsDataGrid.CellEnter
         If e.RowIndex <> -1 AndAlso e.RowIndex < ContactsDataGrid.RowCount AndAlso ContactsDataGrid.SelectedRows.Count = 1 Then
-            Key = ContactsDataGrid("strKey", e.RowIndex).Value
             LoadSelectedContact()
-            btnSaveNewContact.Visible = False
-            btnUpdateContact.Visible = True
         End If
     End Sub
 
@@ -196,91 +189,126 @@ Public Class IAIPEditContacts
         rdbNewESContact.Checked = False
 
         Key = ContactKey.None
-        ContactKeyPanel.Enabled = True
 
         btnSaveNewContact.Enabled = True
         btnUpdateContact.Enabled = False
         btnSaveNewContact.Visible = True
         btnUpdateContact.Visible = False
+
         ContactsDataGrid.SelectNone()
     End Sub
 
     Private Sub btnUpdateContact_Click(sender As Object, e As EventArgs) Handles btnUpdateContact.Click
-        Dim query As String = "UPDATE APBCONTACTINFORMATION " &
-            "SET STRCONTACTFIRSTNAME = @STRCONTACTFIRSTNAME " &
-            ", STRCONTACTLASTNAME = @STRCONTACTLASTNAME " &
-            ", STRCONTACTPREFIX = @STRCONTACTPREFIX " &
-            ", STRCONTACTSUFFIX = @STRCONTACTSUFFIX " &
-            ", STRCONTACTTITLE = @STRCONTACTTITLE " &
-            ", STRCONTACTCOMPANYNAME = @STRCONTACTCOMPANYNAME " &
-            ", STRCONTACTPHONENUMBER1 = @STRCONTACTPHONENUMBER1 " &
-            ", STRCONTACTPHONENUMBER2 = @STRCONTACTPHONENUMBER2 " &
-            ", STRCONTACTFAXNUMBER = @STRCONTACTFAXNUMBER " &
-            ", STRCONTACTEMAIL = @STRCONTACTEMAIL " &
-            ", STRCONTACTADDRESS1 = @STRCONTACTADDRESS1 " &
-            ", STRCONTACTCITY = @STRCONTACTCITY " &
-            ", STRCONTACTSTATE = @STRCONTACTSTATE " &
-            ", STRCONTACTZIPCODE = @STRCONTACTZIPCODE " &
-            ", STRMODIFINGPERSON = @STRMODIFINGPERSON " &
-            ", DATMODIFINGDATE = GETDATE() " &
-            ", STRCONTACTDESCRIPTION = @STRCONTACTDESCRIPTION " &
-            "WHERE  STRAIRSNUMBER = @STRAIRSNUMBER " &
-            "AND STRKEY = @STRKEY "
-
-        Dim p As SqlParameter() = {
-            New SqlParameter("@STRCONTACTFIRSTNAME", txtNewFirstName.Text),
-            New SqlParameter("@STRCONTACTLASTNAME", txtNewLastName.Text),
-            New SqlParameter("@STRCONTACTPREFIX", txtNewPrefix.Text),
-            New SqlParameter("@STRCONTACTSUFFIX", txtNewSuffix.Text),
-            New SqlParameter("@STRCONTACTTITLE", txtNewTitle.Text),
-            New SqlParameter("@STRCONTACTCOMPANYNAME", txtNewCompany.Text),
-            New SqlParameter("@STRCONTACTPHONENUMBER1", txtNewPhoneNumber.Text),
-            New SqlParameter("@STRCONTACTPHONENUMBER2", mtbNewPhoneNumber2.Text),
-            New SqlParameter("@STRCONTACTFAXNUMBER", mtbNewFaxNumber.Text),
-            New SqlParameter("@STRCONTACTEMAIL", txtNewEmail.Text),
-            New SqlParameter("@STRCONTACTADDRESS1", txtNewAddress.Text),
-            New SqlParameter("@STRCONTACTCITY", txtNewCity.Text),
-            New SqlParameter("@STRCONTACTSTATE", txtNewState.Text),
-            New SqlParameter("@STRCONTACTZIPCODE", mtbNewZipCode.Text),
-            New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
-            New SqlParameter("@STRCONTACTDESCRIPTION", txtNewDescrption.Text),
-            New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
-            New SqlParameter("@STRKEY", Key.ToString("D"))
-        }
-
-        If DB.RunCommand(query, p) Then
-            MsgBox("Contact updated.", MsgBoxStyle.Information, Text)
-        Else
-            MsgBox("An error occurred.")
-        End If
-
-        LoadContactsDataset()
-    End Sub
-
-    Private Sub btnSaveNewContact_Click(sender As Object, e As EventArgs) Handles btnSaveNewContact.Click
-        Dim newKey As String
+        Dim reKey As ContactKey
 
         If rdbNewMonitoringContact.Checked Then
-            newKey = "10"
+            reKey = ContactKey.Monitoring
         ElseIf rdbNewComplianceContact.Checked Then
-            newKey = "20"
+            reKey = ContactKey.Compliance
         ElseIf rdbNewPermittingContact.Checked Then
-            newKey = "30"
+            reKey = ContactKey.Permitting
         ElseIf rdbNewFeeContact.Checked Then
-            newKey = "40"
+            reKey = ContactKey.Fees
         ElseIf rdbNewEISContact.Checked Then
-            newKey = "41"
+            reKey = ContactKey.EmissionInventory
         ElseIf rdbNewESContact.Checked Then
-            newKey = "42"
+            reKey = ContactKey.EmissionStatement
         Else
             MsgBox("Select a Contact Type first." & vbCrLf & "No data saved.", MsgBoxStyle.Information, Text)
             Return
         End If
 
+        If reKey = Key Then
+            Dim query As String = "UPDATE APBCONTACTINFORMATION " &
+                "SET STRCONTACTFIRSTNAME = @STRCONTACTFIRSTNAME " &
+                ", STRCONTACTLASTNAME = @STRCONTACTLASTNAME " &
+                ", STRCONTACTPREFIX = @STRCONTACTPREFIX " &
+                ", STRCONTACTSUFFIX = @STRCONTACTSUFFIX " &
+                ", STRCONTACTTITLE = @STRCONTACTTITLE " &
+                ", STRCONTACTCOMPANYNAME = @STRCONTACTCOMPANYNAME " &
+                ", STRCONTACTPHONENUMBER1 = @STRCONTACTPHONENUMBER1 " &
+                ", STRCONTACTPHONENUMBER2 = @STRCONTACTPHONENUMBER2 " &
+                ", STRCONTACTFAXNUMBER = @STRCONTACTFAXNUMBER " &
+                ", STRCONTACTEMAIL = @STRCONTACTEMAIL " &
+                ", STRCONTACTADDRESS1 = @STRCONTACTADDRESS1 " &
+                ", STRCONTACTCITY = @STRCONTACTCITY " &
+                ", STRCONTACTSTATE = @STRCONTACTSTATE " &
+                ", STRCONTACTZIPCODE = @STRCONTACTZIPCODE " &
+                ", STRMODIFINGPERSON = @STRMODIFINGPERSON " &
+                ", DATMODIFINGDATE = GETDATE() " &
+                ", STRCONTACTDESCRIPTION = @STRCONTACTDESCRIPTION " &
+                "WHERE  STRAIRSNUMBER = @STRAIRSNUMBER " &
+                "AND STRKEY = @STRKEY "
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@STRCONTACTFIRSTNAME", txtNewFirstName.Text),
+                New SqlParameter("@STRCONTACTLASTNAME", txtNewLastName.Text),
+                New SqlParameter("@STRCONTACTPREFIX", txtNewPrefix.Text),
+                New SqlParameter("@STRCONTACTSUFFIX", txtNewSuffix.Text),
+                New SqlParameter("@STRCONTACTTITLE", txtNewTitle.Text),
+                New SqlParameter("@STRCONTACTCOMPANYNAME", txtNewCompany.Text),
+                New SqlParameter("@STRCONTACTPHONENUMBER1", txtNewPhoneNumber.Text),
+                New SqlParameter("@STRCONTACTPHONENUMBER2", mtbNewPhoneNumber2.Text),
+                New SqlParameter("@STRCONTACTFAXNUMBER", mtbNewFaxNumber.Text),
+                New SqlParameter("@STRCONTACTEMAIL", txtNewEmail.Text),
+                New SqlParameter("@STRCONTACTADDRESS1", txtNewAddress.Text),
+                New SqlParameter("@STRCONTACTCITY", txtNewCity.Text),
+                New SqlParameter("@STRCONTACTSTATE", txtNewState.Text),
+                New SqlParameter("@STRCONTACTZIPCODE", mtbNewZipCode.Text),
+                New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
+                New SqlParameter("@STRCONTACTDESCRIPTION", txtNewDescrption.Text),
+                New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
+                New SqlParameter("@STRKEY", Key.ToString("D"))
+            }
+
+            If DB.RunCommand(query, p) Then
+                MsgBox("Contact updated.", MsgBoxStyle.Information, Text)
+            Else
+                MsgBox("An error occurred.")
+            End If
+
+            LoadContactsDataset()
+            Return
+        End If
+
+        SaveNewContact(reKey)
+    End Sub
+
+    Private Sub btnSaveNewContact_Click(sender As Object, e As EventArgs) Handles btnSaveNewContact.Click
+        Dim reKey As ContactKey
+
+        If rdbNewMonitoringContact.Checked Then
+            reKey = ContactKey.Monitoring
+        ElseIf rdbNewComplianceContact.Checked Then
+            reKey = ContactKey.Compliance
+        ElseIf rdbNewPermittingContact.Checked Then
+            reKey = ContactKey.Permitting
+        ElseIf rdbNewFeeContact.Checked Then
+            reKey = ContactKey.Fees
+        ElseIf rdbNewEISContact.Checked Then
+            reKey = ContactKey.EmissionInventory
+        ElseIf rdbNewESContact.Checked Then
+            reKey = ContactKey.EmissionStatement
+        Else
+            MsgBox("Select a Contact Type first." & vbCrLf & "No data saved.", MsgBoxStyle.Information, Text)
+            Return
+        End If
+
+        SaveNewContact(reKey)
+    End Sub
+
+    Private Sub SaveNewContact(reKey As ContactKey)
+        If ContactKeyExists(reKey, AirsNumber) Then
+            Dim response As DialogResult = MessageBox.Show("A contact of that type already exists. Do you want to replace it?",
+                                                           "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
+                                                           MessageBoxDefaultButton.Button2)
+            If response = DialogResult.No Then Return
+        End If
+
         Dim spName As String = "iaip_facility.SaveApbContact"
 
         Dim p As SqlParameter() = {
-            New SqlParameter("@key", newKey),
+            New SqlParameter("@key", reKey.ToString("D")),
             New SqlParameter("@facilityId", AirsNumber.DbFormattedString),
             New SqlParameter("@firstName", txtNewFirstName.Text),
             New SqlParameter("@lastName", txtNewLastName.Text),
@@ -311,6 +339,48 @@ Public Class IAIPEditContacts
         End If
 
         LoadContactsDataset()
+    End Sub
+
+    Private Sub chkShowHistory_CheckedChanged(sender As Object, e As EventArgs) Handles chkShowHistory.CheckedChanged
+        LoadContactsDataset()
+    End Sub
+
+    Private Sub ContactsDataGrid_RowPrePaint(sender As Object, e As DataGridViewRowPrePaintEventArgs) Handles ContactsDataGrid.RowPrePaint
+        If ContactsDataGrid.Rows(e.RowIndex).Cells("Contact type").Value.ToString.StartsWith("Past ") Then
+            ContactsDataGrid.Rows(e.RowIndex).DefaultCellStyle.BackColor = Color.FromArgb(&HFFDDBBBB)
+        End If
+    End Sub
+
+    Private Sub rdbNewMonitoringContact_CheckedChanged(sender As Object, e As EventArgs) Handles _
+            rdbNewMonitoringContact.CheckedChanged, rdbNewComplianceContact.CheckedChanged,
+            rdbNewPermittingContact.CheckedChanged, rdbNewFeeContact.CheckedChanged,
+            rdbNewEISContact.CheckedChanged, rdbNewESContact.CheckedChanged
+
+        If Not btnUpdateContact.Visible Then Return
+
+        Dim reKey As ContactKey
+
+        If rdbNewMonitoringContact.Checked Then
+            reKey = ContactKey.Monitoring
+        ElseIf rdbNewComplianceContact.Checked Then
+            reKey = ContactKey.Compliance
+        ElseIf rdbNewPermittingContact.Checked Then
+            reKey = ContactKey.Permitting
+        ElseIf rdbNewFeeContact.Checked Then
+            reKey = ContactKey.Fees
+        ElseIf rdbNewEISContact.Checked Then
+            reKey = ContactKey.EmissionInventory
+        ElseIf rdbNewESContact.Checked Then
+            reKey = ContactKey.EmissionStatement
+        Else
+            Return
+        End If
+
+        If reKey = Key Then
+            btnUpdateContact.Text = "Update selected contact"
+        Else
+            btnUpdateContact.Text = "Save as new contact"
+        End If
     End Sub
 
 End Class
