@@ -67,19 +67,35 @@ Public Class EventsManagement
     End Sub
 
     Private Sub btnCreateNewEvent_Click(sender As Object, e As EventArgs) Handles btnCreateNewEvent.Click
-        ChangeFormToNewEventCreator()
+        ChangeFormToNewEventCreator(True)
     End Sub
 
-    Private Sub ChangeFormToNewEventCreator()
-        ' clear loaded data
-        ClearSelectedEventData()
+    Private Sub ChangeFormToNewEventCreator(clearFirst As Boolean)
+        If clearFirst Then
+            ' clear loaded data
+            ClearSelectedEventData()
+        End If
+
         lblEventTitle.Text = "Create New Event"
 
         ' disable/hide unused form controls
         chkShowPast.Enabled = False
         btnCreateNewEvent.Enabled = False
         dgvEvents.Enabled = False
-        dgvEvents.SelectNone()
+
+        If clearFirst Then
+            dgvEvents.SelectNone()
+        Else
+            dgvRegistrants.DataSource = Nothing
+            ClearRegistrationManagementForm()
+            lblEventStatus.Visible = False
+            lblEventStatusLabel.Visible = False
+            lnkGecoLink.Visible = False
+            lnkGecoLink.Links.Clear()
+            btnCancelEvent.Visible = False
+            btnDuplicateEvent.Visible = False
+        End If
+
         tabsEventDetails.SelectedTab = tabEventManagement
 
         ' enable necessary controls
@@ -168,6 +184,7 @@ Public Class EventsManagement
     Private Sub LoadEventManagementForm()
         btnSave.Enabled = True
         btnCancelEvent.Visible = True
+        btnDuplicateEvent.Visible = True
 
         txtEventTitle.Enabled = True
         txtEventDescription.Enabled = True
@@ -473,6 +490,7 @@ Public Class EventsManagement
 
         btnSave.Enabled = False
         btnCancelEvent.Visible = False
+        btnDuplicateEvent.Visible = False
 
         txtEventTitle.Clear()
         txtEventDescription.Clear()
@@ -673,6 +691,10 @@ Public Class EventsManagement
         If e.Link.LinkData IsNot Nothing Then
             OpenUri(CType(e.Link.LinkData, Uri))
         End If
+    End Sub
+
+    Private Sub btnDuplicateEvent_Click(sender As Object, e As EventArgs) Handles btnDuplicateEvent.Click
+        ChangeFormToNewEventCreator(False)
     End Sub
 
 End Class
