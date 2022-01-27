@@ -22,9 +22,10 @@ Partial Class EventsManagement
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.btnDuplicateEvent = New System.Windows.Forms.Button()
         Me.lblEventMessage = New System.Windows.Forms.Label()
         Me.txtWebsiteURL = New Iaip.CueTextBox()
         Me.btnCancelEvent = New System.Windows.Forms.Button()
@@ -108,6 +109,7 @@ Partial Class EventsManagement
         'Panel4
         '
         Me.Panel4.AutoSize = True
+        Me.Panel4.Controls.Add(Me.btnDuplicateEvent)
         Me.Panel4.Controls.Add(Me.lblEventMessage)
         Me.Panel4.Controls.Add(Me.txtWebsiteURL)
         Me.Panel4.Controls.Add(Me.btnCancelEvent)
@@ -152,6 +154,17 @@ Partial Class EventsManagement
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(852, 308)
         Me.Panel4.TabIndex = 0
+        '
+        'btnDuplicateEvent
+        '
+        Me.btnDuplicateEvent.AutoSize = True
+        Me.btnDuplicateEvent.Location = New System.Drawing.Point(505, 269)
+        Me.btnDuplicateEvent.Name = "btnDuplicateEvent"
+        Me.btnDuplicateEvent.Size = New System.Drawing.Size(112, 23)
+        Me.btnDuplicateEvent.TabIndex = 2
+        Me.btnDuplicateEvent.Text = "Duplicate this event"
+        Me.btnDuplicateEvent.UseVisualStyleBackColor = True
+        Me.btnDuplicateEvent.Visible = False
         '
         'lblEventMessage
         '
@@ -543,11 +556,12 @@ Partial Class EventsManagement
         '
         'dgvRegistrants
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvRegistrants.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvRegistrants.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvRegistrants.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvRegistrants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvRegistrants.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvRegistrants.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvRegistrants.LinkifyColumnByName = Nothing
         Me.dgvRegistrants.Location = New System.Drawing.Point(3, 3)
         Me.dgvRegistrants.Name = "dgvRegistrants"
@@ -798,13 +812,14 @@ Partial Class EventsManagement
         '
         'dgvEvents
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvEvents.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEvents.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvEvents.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvEvents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvEvents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvEvents.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvEvents.LinkifyColumnByName = Nothing
         Me.dgvEvents.Location = New System.Drawing.Point(12, 41)
         Me.dgvEvents.Name = "dgvEvents"
@@ -930,4 +945,5 @@ Partial Class EventsManagement
     Friend WithEvents btnCancelCreateEvent As Button
     Friend WithEvents lblStatusUpdateResult As Label
     Friend WithEvents lblEventMessage As Label
+    Friend WithEvents btnDuplicateEvent As Button
 End Class
