@@ -11,6 +11,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.27.0 <span>(2022-01-27)</span>
+
+Events can be duplicated making it easier to create multiple events with the same details.
+
 ## Version 5.26.7 <span>(2022-01-19)</span>
 
 This update restores the ability to copy a facility contact if it needs to be used for multiple contact types.
