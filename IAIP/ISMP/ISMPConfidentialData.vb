@@ -36,7 +36,7 @@ Public Class ISMPConfidentialData
         End Try
 
         Select Case DocumentType
-            Case "002"
+            Case "002" ' One Stack (Two Runs)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
                 TCDocuments.TabPages.Remove(TPGasConcentration)
@@ -49,7 +49,7 @@ Public Class ISMPConfidentialData
                 TCOneStack.TabPages.Remove(TPThreeRuns)
                 TCOneStack.TabPages.Remove(TPFourRuns)
 
-            Case "003"
+            Case "003" ' One Stack (Three Runs)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
                 TCDocuments.TabPages.Remove(TPGasConcentration)
@@ -62,7 +62,7 @@ Public Class ISMPConfidentialData
                 TCOneStack.TabPages.Remove(TPTwoRuns)
                 TCOneStack.TabPages.Remove(TPFourRuns)
 
-            Case "004"
+            Case "004" ' One Stack (Four Runs)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
                 TCDocuments.TabPages.Remove(TPGasConcentration)
@@ -75,7 +75,7 @@ Public Class ISMPConfidentialData
                 TCOneStack.TabPages.Remove(TPTwoRuns)
                 TCOneStack.TabPages.Remove(TPThreeRuns)
 
-            Case "005"
+            Case "005" ' Two Stack (Standard)
                 TCDocuments.TabPages.Remove(TPOneStack)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
@@ -87,7 +87,7 @@ Public Class ISMPConfidentialData
                 TCDocuments.TabPages.Remove(TPMethod22)
                 TCTwoStack.TabPages.Remove(TPDRE)
 
-            Case "006"
+            Case "006" ' Two Stack (DRE)
                 TCDocuments.TabPages.Remove(TPOneStack)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
@@ -99,7 +99,7 @@ Public Class ISMPConfidentialData
                 TCDocuments.TabPages.Remove(TPMethod22)
                 TCTwoStack.TabPages.Remove(TPTwoStackStandard)
 
-            Case "007"
+            Case "007" ' Loading Rack
                 TCDocuments.TabPages.Remove(TPOneStack)
                 TCDocuments.TabPages.Remove(TPTwoStack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
@@ -110,7 +110,7 @@ Public Class ISMPConfidentialData
                 TCDocuments.TabPages.Remove(TPRATA)
                 TCDocuments.TabPages.Remove(TPMethod22)
 
-            Case "008"
+            Case "008" ' Pond Treatment (Pulping Process Condensate)
                 TCDocuments.TabPages.Remove(TPOneStack)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPTwoStack)
@@ -121,7 +121,7 @@ Public Class ISMPConfidentialData
                 TCDocuments.TabPages.Remove(TPRATA)
                 TCDocuments.TabPages.Remove(TPMethod22)
 
-            Case "009"
+            Case "009" ' Gas Concentration
                 TCDocuments.TabPages.Remove(TPOneStack)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
@@ -132,7 +132,7 @@ Public Class ISMPConfidentialData
                 TCDocuments.TabPages.Remove(TPRATA)
                 TCDocuments.TabPages.Remove(TPMethod22)
 
-            Case "010"
+            Case "010" ' Flare
                 TCDocuments.TabPages.Remove(TPOneStack)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
@@ -143,7 +143,7 @@ Public Class ISMPConfidentialData
                 TCDocuments.TabPages.Remove(TPRATA)
                 TCDocuments.TabPages.Remove(TPMethod22)
 
-            Case "011"
+            Case "011" ' Rata
                 TCDocuments.TabPages.Remove(TPOneStack)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
@@ -154,7 +154,7 @@ Public Class ISMPConfidentialData
                 TCDocuments.TabPages.Remove(TPTwoStack)
                 TCDocuments.TabPages.Remove(TPMethod22)
 
-            Case "012"
+            Case "012" ' Memorandum (Standard)
                 TCDocuments.TabPages.Remove(TPOneStack)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
@@ -167,7 +167,7 @@ Public Class ISMPConfidentialData
                 TCMemorandum.TabPages.Remove(TPToFile)
                 TCMemorandum.TabPages.Remove(TPPTE)
 
-            Case "013"
+            Case "013" ' Memorandum (To File)
                 TCDocuments.TabPages.Remove(TPOneStack)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
@@ -180,7 +180,7 @@ Public Class ISMPConfidentialData
                 TCMemorandum.TabPages.Remove(TPStandard)
                 TCMemorandum.TabPages.Remove(TPPTE)
 
-            Case "014"
+            Case "014" ' Method 9 (Multi.)
                 TCDocuments.TabPages.Remove(TPOneStack)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
@@ -192,7 +192,7 @@ Public Class ISMPConfidentialData
                 TCDocuments.TabPages.Remove(TPMethod22)
                 TCMethod9.TabPages.Remove(TPMethod9Single)
 
-            Case "015"
+            Case "015" ' Method 22
                 TCDocuments.TabPages.Remove(TPOneStack)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
@@ -203,7 +203,7 @@ Public Class ISMPConfidentialData
                 TCDocuments.TabPages.Remove(TPRATA)
                 TCDocuments.TabPages.Remove(TPTwoStack)
 
-            Case "016"
+            Case "016" ' Method9 (Single)
                 TCDocuments.TabPages.Remove(TPOneStack)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
@@ -215,7 +215,7 @@ Public Class ISMPConfidentialData
                 TCDocuments.TabPages.Remove(TPMethod22)
                 TCMethod9.TabPages.Remove(TPMethod9Multi)
 
-            Case "018"
+            Case "018" ' PTE (Permanent Total Enclosure)
                 TCDocuments.TabPages.Remove(TPOneStack)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
@@ -228,7 +228,7 @@ Public Class ISMPConfidentialData
                 TCMemorandum.TabPages.Remove(TPStandard)
                 TCMemorandum.TabPages.Remove(TPToFile)
 
-            Case Else ' "001", "017"
+            Case Else ' "001", "017" ' Unassigned, PEMS
                 TCDocuments.TabPages.Remove(TPOneStack)
                 TCDocuments.TabPages.Remove(TPLoadingRack)
                 TCDocuments.TabPages.Remove(TPPulpCondensate)
@@ -732,18 +732,23 @@ Public Class ISMPConfidentialData
         ConfidentialData &= If(chbCC.Checked, "1", "0") ' 25
 
         Select Case DocumentType
-            Case "002"
+            Case "002" ' One Stack (Two Runs)
                 ConfidentialData = "A" & ConfidentialData ' 2
 
                 ConfidentialData &= If(chbOneStackMaxOpCapacity.Checked, "1", "0") ' 26
                 ConfidentialData &= If(chbOneStackOpCapacity.Checked, "1", "0") ' 27
+
+                ' Allowable emissions
                 ConfidentialData &= If(chbOneStackAllowEmiss1.Checked, "1", "0") ' 28
                 ConfidentialData &= If(chbOneStackAllowEmiss2.Checked, "1", "0") ' 29
                 ConfidentialData &= If(chbOneStackAllowEmiss3.Checked, "1", "0") ' 30
+
                 ConfidentialData &= If(chbOneStackAppRequire.Checked, "1", "0") ' 31
                 ConfidentialData &= If(chbOneStackControlEquip.Checked, "1", "0") ' 32
                 ConfidentialData &= If(chbOneStackPercentAllow.Checked, "1", "0") ' 33
                 ConfidentialData &= If(chbOneStackOtherInfo.Checked, "1", "0") ' 34
+
+                ' Test runs
                 ConfidentialData &= If(chbOneStack2Run1.Checked, "1", "0") ' 35
                 ConfidentialData &= If(chbOneStack2Temp1.Checked, "1", "0") ' 36
                 ConfidentialData &= If(chbOneStack2Moist1.Checked, "1", "0") ' 37
@@ -751,6 +756,7 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbOneStack2DSCFM1.Checked, "1", "0") ' 39
                 ConfidentialData &= If(chbOneStack2Poll1.Checked, "1", "0") ' 40
                 ConfidentialData &= If(chbOneStack2Emiss1.Checked, "1", "0") ' 41
+
                 ConfidentialData &= If(chbOneStack2Run2.Checked, "1", "0") ' 42
                 ConfidentialData &= If(chbOneStack2Temp2.Checked, "1", "0") ' 43
                 ConfidentialData &= If(chbOneStack2Moist2.Checked, "1", "0") ' 44
@@ -758,61 +764,75 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbOneStack2DSCFM2.Checked, "1", "0") ' 46
                 ConfidentialData &= If(chbOneStack2Poll2.Checked, "1", "0") ' 47
                 ConfidentialData &= If(chbOneStack2Emiss2.Checked, "1", "0") ' 48
+
                 ConfidentialData &= If(chbOneStack2PollUnit.Checked, "1", "0") ' 49
                 ConfidentialData &= If(chbOneStack2PollAvg.Checked, "1", "0") ' 50
                 ConfidentialData &= If(chbOneStack2EmissUnit.Checked, "1", "0") ' 51
                 ConfidentialData &= If(chbOneStack2EmissAvg.Checked, "1", "0") ' 52
 
-            Case "003"
+            Case "003" ' One Stack (Three Runs)
                 ConfidentialData = "B" & ConfidentialData ' 2
 
                 ConfidentialData &= If(chbOneStackMaxOpCapacity.Checked, "1", "0") ' 26
                 ConfidentialData &= If(chbOneStackOpCapacity.Checked, "1", "0") ' 27
+
+                ' Allowable emissions
                 ConfidentialData &= If(chbOneStackAllowEmiss1.Checked, "1", "0") ' 28
                 ConfidentialData &= If(chbOneStackAllowEmiss2.Checked, "1", "0") ' 29
                 ConfidentialData &= If(chbOneStackAllowEmiss3.Checked, "1", "0") ' 30
+
                 ConfidentialData &= If(chbOneStackAppRequire.Checked, "1", "0") ' 31
                 ConfidentialData &= If(chbOneStackControlEquip.Checked, "1", "0") ' 32
                 ConfidentialData &= If(chbOneStackPercentAllow.Checked, "1", "0") ' 33
                 ConfidentialData &= If(chbOneStackOtherInfo.Checked, "1", "0") ' 34
-                ConfidentialData &= If(chbOneStack3Run1.Checked, "1", "0") ' 35
-                ConfidentialData &= If(chbOneStack3Temp1.Checked, "1", "0") ' 36
-                ConfidentialData &= If(chbOneStack3Moist1.Checked, "1", "0") ' 37
-                ConfidentialData &= If(chbOneStack3ACFM1.Checked, "1", "0") ' 38
-                ConfidentialData &= If(chbOneStack3DSCFM1.Checked, "1", "0") ' 39
-                ConfidentialData &= If(chbOneStack3Poll1.Checked, "1", "0") ' 40
-                ConfidentialData &= If(chbOneStack3Emiss1.Checked, "1", "0") ' 41
-                ConfidentialData &= If(chbOneStack3Run2.Checked, "1", "0") ' 42
-                ConfidentialData &= If(chbOneStack3Temp2.Checked, "1", "0") ' 43
-                ConfidentialData &= If(chbOneStack3Moist2.Checked, "1", "0") ' 44
-                ConfidentialData &= If(chbOneStack3ACFM2.Checked, "1", "0") ' 45
-                ConfidentialData &= If(chbOneStack3DSCFM2.Checked, "1", "0") ' 46
-                ConfidentialData &= If(chbOneStack3Poll2.Checked, "1", "0") ' 47
-                ConfidentialData &= If(chbOneStack3Emiss2.Checked, "1", "0") ' 48
-                ConfidentialData &= If(chbOneStack3Run3.Checked, "1", "0") ' 49
-                ConfidentialData &= If(chbOneStack3Temp3.Checked, "1", "0") ' 50
-                ConfidentialData &= If(chbOneStack3Moist3.Checked, "1", "0") ' 51
-                ConfidentialData &= If(chbOneStack3ACFM3.Checked, "1", "0") ' 52
-                ConfidentialData &= If(chbOneStack3DSCFM3.Checked, "1", "0") ' 53
-                ConfidentialData &= If(chbOneStack3Poll3.Checked, "1", "0") ' 54
-                ConfidentialData &= If(chbOneStack3Emiss3.Checked, "1", "0") ' 55
+
+                ' Test runs
+                ConfidentialData &= If(chbOneStack3Run1.Checked, "1", "0") ' 35 (1)
+                ConfidentialData &= If(chbOneStack3Temp1.Checked, "1", "0") ' 36 (2)
+                ConfidentialData &= If(chbOneStack3Moist1.Checked, "1", "0") ' 37 (3)
+                ConfidentialData &= If(chbOneStack3ACFM1.Checked, "1", "0") ' 38 (4)
+                ConfidentialData &= If(chbOneStack3DSCFM1.Checked, "1", "0") ' 39 (5)
+                ConfidentialData &= If(chbOneStack3Poll1.Checked, "1", "0") ' 40 (6)
+                ConfidentialData &= If(chbOneStack3Emiss1.Checked, "1", "0") ' 41 (7)
+
+                ConfidentialData &= If(chbOneStack3Run2.Checked, "1", "0") ' 42 (1)
+                ConfidentialData &= If(chbOneStack3Temp2.Checked, "1", "0") ' 43 (2)
+                ConfidentialData &= If(chbOneStack3Moist2.Checked, "1", "0") ' 44 (3)
+                ConfidentialData &= If(chbOneStack3ACFM2.Checked, "1", "0") ' 45 (4)
+                ConfidentialData &= If(chbOneStack3DSCFM2.Checked, "1", "0") ' 46 (5)
+                ConfidentialData &= If(chbOneStack3Poll2.Checked, "1", "0") ' 47 (6)
+                ConfidentialData &= If(chbOneStack3Emiss2.Checked, "1", "0") ' 48 (7)
+
+                ConfidentialData &= If(chbOneStack3Run3.Checked, "1", "0") ' 49 (1)
+                ConfidentialData &= If(chbOneStack3Temp3.Checked, "1", "0") ' 50 (2)
+                ConfidentialData &= If(chbOneStack3Moist3.Checked, "1", "0") ' 51 (3)
+                ConfidentialData &= If(chbOneStack3ACFM3.Checked, "1", "0") ' 52 (4)
+                ConfidentialData &= If(chbOneStack3DSCFM3.Checked, "1", "0") ' 53 (5)
+                ConfidentialData &= If(chbOneStack3Poll3.Checked, "1", "0") ' 54 (6)
+                ConfidentialData &= If(chbOneStack3Emiss3.Checked, "1", "0") ' 55 (7)
+
                 ConfidentialData &= If(chbOneStack3PollUnit.Checked, "1", "0") ' 56
                 ConfidentialData &= If(chbOneStack3PollAvg.Checked, "1", "0") ' 57
                 ConfidentialData &= If(chbOneStack3EmissUnit.Checked, "1", "0") ' 58
                 ConfidentialData &= If(chbOneStack3EmissAvg.Checked, "1", "0") ' 59
 
-            Case "004"
+            Case "004" ' One Stack (Four Runs)
                 ConfidentialData = "C" & ConfidentialData ' 2
 
                 ConfidentialData &= If(chbOneStackMaxOpCapacity.Checked, "1", "0") ' 26
                 ConfidentialData &= If(chbOneStackOpCapacity.Checked, "1", "0") ' 27
+
+                ' Allowable emissions
                 ConfidentialData &= If(chbOneStackAllowEmiss1.Checked, "1", "0") ' 28
                 ConfidentialData &= If(chbOneStackAllowEmiss2.Checked, "1", "0") ' 29
                 ConfidentialData &= If(chbOneStackAllowEmiss3.Checked, "1", "0") ' 30
+
                 ConfidentialData &= If(chbOneStackAppRequire.Checked, "1", "0") ' 31
                 ConfidentialData &= If(chbOneStackControlEquip.Checked, "1", "0") ' 32
                 ConfidentialData &= If(chbOneStackPercentAllow.Checked, "1", "0") ' 33
                 ConfidentialData &= If(chbOneStackOtherInfo.Checked, "1", "0") ' 34
+
+                ' Test runs
                 ConfidentialData &= If(chbOneStack4Run1.Checked, "1", "0") ' 35
                 ConfidentialData &= If(chbOneStack4Temp1.Checked, "1", "0") ' 36
                 ConfidentialData &= If(chbOneStack4Moist1.Checked, "1", "0") ' 37
@@ -820,6 +840,7 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbOneStack4DSCFM1.Checked, "1", "0") ' 39
                 ConfidentialData &= If(chbOneStack4Poll1.Checked, "1", "0") ' 40
                 ConfidentialData &= If(chbOneStack4Emiss1.Checked, "1", "0") ' 41
+
                 ConfidentialData &= If(chbOneStack4Run2.Checked, "1", "0") ' 42
                 ConfidentialData &= If(chbOneStack4Temp2.Checked, "1", "0") ' 43
                 ConfidentialData &= If(chbOneStack4Moist2.Checked, "1", "0") ' 44
@@ -827,6 +848,7 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbOneStack4DSCFM2.Checked, "1", "0") ' 46
                 ConfidentialData &= If(chbOneStack4Poll2.Checked, "1", "0") ' 47
                 ConfidentialData &= If(chbOneStack4Emiss2.Checked, "1", "0") ' 48
+
                 ConfidentialData &= If(chbOneStack4Run3.Checked, "1", "0") ' 49
                 ConfidentialData &= If(chbOneStack4Temp3.Checked, "1", "0") ' 50
                 ConfidentialData &= If(chbOneStack4Moist3.Checked, "1", "0") ' 51
@@ -834,6 +856,7 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbOneStack4DSCFM3.Checked, "1", "0") ' 53
                 ConfidentialData &= If(chbOneStack4Poll3.Checked, "1", "0") ' 54
                 ConfidentialData &= If(chbOneStack4Emiss3.Checked, "1", "0") ' 55
+
                 ConfidentialData &= If(chbOneStack4Run4.Checked, "1", "0") ' 56
                 ConfidentialData &= If(chbOneStack4Temp4.Checked, "1", "0") ' 57
                 ConfidentialData &= If(chbOneStack4Moist4.Checked, "1", "0") ' 58
@@ -841,13 +864,14 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbOneStack4DSCFM4.Checked, "1", "0") ' 60
                 ConfidentialData &= If(chbOneStack4Poll4.Checked, "1", "0") ' 61
                 ConfidentialData &= If(chbOneStack4Emiss4.Checked, "1", "0") ' 62
+
                 ConfidentialData &= If(chbOneStack4PollUnit.Checked, "1", "0") ' 63
                 ConfidentialData &= If(chbOneStack4PollAvg.Checked, "1", "0") ' 64
                 ConfidentialData &= If(chbOneStack4EmissUnit.Checked, "1", "0") ' 65
                 ConfidentialData &= If(chbOneStack4EmissAvg.Checked, "1", "0") ' 66
 
 
-            Case "005"
+            Case "005" ' Two Stack (Standard)
                 ConfidentialData = "D" & ConfidentialData ' 2
 
                 ConfidentialData &= If(chbTwoStackMaxOpCapacity.Checked, "1", "0") ' 26
@@ -858,63 +882,75 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbTwoStackAppRequire.Checked, "1", "0") ' 31
                 ConfidentialData &= If(chbTwoStackControlEquip.Checked, "1", "0") ' 32
                 ConfidentialData &= If(chbTwoStackOtherInfo.Checked, "1", "0") ' 33
+
+                ' Stacks
                 ConfidentialData &= If(chbTwoStackStandName1.Checked, "1", "0") ' 34
                 ConfidentialData &= If(chbTwoStackStandName2.Checked, "1", "0") ' 35
-                ConfidentialData &= If(chbTwoStackStandRun1a.Checked, "1", "0") ' 36
-                ConfidentialData &= If(chbTwoStackStandTemp1a.Checked, "1", "0") ' 37
-                ConfidentialData &= If(chbTwoStackStandMoist1a.Checked, "1", "0") ' 38
-                ConfidentialData &= If(chbTwoStackStandACFM1a.Checked, "1", "0") ' 39
-                ConfidentialData &= If(chbTwoStackStandDSCFM1a.Checked, "1", "0") ' 40
-                ConfidentialData &= If(chbTwoStackStandPoll1a.Checked, "1", "0") ' 41
-                ConfidentialData &= If(chbTwoStackStandEmiss1a.Checked, "1", "0") ' 42
-                ConfidentialData &= If(chbTwoStackStandRun2a.Checked, "1", "0") ' 43
-                ConfidentialData &= If(chbTwoStackStandTemp2a.Checked, "1", "0") ' 44
-                ConfidentialData &= If(chbTwoStackStandMoist2a.Checked, "1", "0") ' 45
-                ConfidentialData &= If(chbTwoStackStandACFM2a.Checked, "1", "0") ' 46
-                ConfidentialData &= If(chbTwoStackStandDSCFM2a.Checked, "1", "0") ' 47
-                ConfidentialData &= If(chbTwoStackStandPoll2a.Checked, "1", "0") ' 48
-                ConfidentialData &= If(chbTwoStackStandEmiss2a.Checked, "1", "0") ' 49
-                ConfidentialData &= If(chbTwoStackStandRun3a.Checked, "1", "0") ' 50
-                ConfidentialData &= If(chbTwoStackStandTemp3a.Checked, "1", "0") ' 51
-                ConfidentialData &= If(chbTwoStackStandMoist3a.Checked, "1", "0") ' 52
-                ConfidentialData &= If(chbTwoStackStandACFM3a.Checked, "1", "0") ' 53
-                ConfidentialData &= If(chbTwoStackStandDSCFM3a.Checked, "1", "0") ' 54
-                ConfidentialData &= If(chbTwoStackStandPoll3a.Checked, "1", "0") ' 55
-                ConfidentialData &= If(chbTwoStackStandEmiss3a.Checked, "1", "0") ' 56
-                ConfidentialData &= If(chbTwoStackStandRun1b.Checked, "1", "0") ' 57
-                ConfidentialData &= If(chbTwoStackStandTemp1b.Checked, "1", "0") ' 58
-                ConfidentialData &= If(chbTwoStackStandMoist1b.Checked, "1", "0") ' 59
-                ConfidentialData &= If(chbTwoStackStandACFM1b.Checked, "1", "0") ' 60
-                ConfidentialData &= If(chbTwoStackStandDSCFM1b.Checked, "1", "0") ' 61
-                ConfidentialData &= If(chbTwoStackStandPoll1b.Checked, "1", "0") ' 62
-                ConfidentialData &= If(chbTwoStackStandEmiss1b.Checked, "1", "0") ' 63
-                ConfidentialData &= If(chbTwoStackStandRun2b.Checked, "1", "0") ' 64
-                ConfidentialData &= If(chbTwoStackStandTemp2b.Checked, "1", "0") ' 65
-                ConfidentialData &= If(chbTwoStackStandMoist2b.Checked, "1", "0") ' 66
-                ConfidentialData &= If(chbTwoStackStandACFM2b.Checked, "1", "0") ' 67
-                ConfidentialData &= If(chbTwoStackStandDSCFM2b.Checked, "1", "0") ' 68
-                ConfidentialData &= If(chbTwoStackStandPoll2b.Checked, "1", "0") ' 69
-                ConfidentialData &= If(chbTwoStackStandEmiss2b.Checked, "1", "0") ' 70
-                ConfidentialData &= If(chbTwoStackStandRun3b.Checked, "1", "0") ' 71
-                ConfidentialData &= If(chbTwoStackStandTemp3b.Checked, "1", "0") ' 72
-                ConfidentialData &= If(chbTwoStackStandMoist3b.Checked, "1", "0") ' 73
-                ConfidentialData &= If(chbTwoStackStandACFM3b.Checked, "1", "0") ' 74
-                ConfidentialData &= If(chbTwoStackStandDSCFM3b.Checked, "1", "0") ' 75
-                ConfidentialData &= If(chbTwoStackStandPoll3b.Checked, "1", "0") ' 76
-                ConfidentialData &= If(chbTwoStackStandEmiss3b.Checked, "1", "0") ' 77
+
+                ' Stack One Test Runs
+                ConfidentialData &= If(chbTwoStackStandRun1a.Checked, "1", "0") ' 36 (1 - run 1)
+                ConfidentialData &= If(chbTwoStackStandTemp1a.Checked, "1", "0") ' 37 (2 - run 1)
+                ConfidentialData &= If(chbTwoStackStandMoist1a.Checked, "1", "0") ' 38 (3 - run 1)
+                ConfidentialData &= If(chbTwoStackStandACFM1a.Checked, "1", "0") ' 39 (4 - run 1)
+                ConfidentialData &= If(chbTwoStackStandDSCFM1a.Checked, "1", "0") ' 40 (5 - run 1)
+                ConfidentialData &= If(chbTwoStackStandPoll1a.Checked, "1", "0") ' 41 (6 - run 1)
+                ConfidentialData &= If(chbTwoStackStandEmiss1a.Checked, "1", "0") ' 42 (7 - run 1)
+
+                ConfidentialData &= If(chbTwoStackStandRun2a.Checked, "1", "0") ' 43 (1 - run 2)
+                ConfidentialData &= If(chbTwoStackStandTemp2a.Checked, "1", "0") ' 44 (2 - run 2)
+                ConfidentialData &= If(chbTwoStackStandMoist2a.Checked, "1", "0") ' 45 (3 - run 2)
+                ConfidentialData &= If(chbTwoStackStandACFM2a.Checked, "1", "0") ' 46 (4 - run 2)
+                ConfidentialData &= If(chbTwoStackStandDSCFM2a.Checked, "1", "0") ' 47 (5 - run 2)
+                ConfidentialData &= If(chbTwoStackStandPoll2a.Checked, "1", "0") ' 48 (6 - run 2)
+                ConfidentialData &= If(chbTwoStackStandEmiss2a.Checked, "1", "0") ' 49 (7 - run 2)
+
+                ConfidentialData &= If(chbTwoStackStandRun3a.Checked, "1", "0") ' 50 (1 - run 3)
+                ConfidentialData &= If(chbTwoStackStandTemp3a.Checked, "1", "0") ' 51 (2 - run 3)
+                ConfidentialData &= If(chbTwoStackStandMoist3a.Checked, "1", "0") ' 52 (3 - run 3)
+                ConfidentialData &= If(chbTwoStackStandACFM3a.Checked, "1", "0") ' 53 (4 - run 3)
+                ConfidentialData &= If(chbTwoStackStandDSCFM3a.Checked, "1", "0") ' 54 (5 - run 3)
+                ConfidentialData &= If(chbTwoStackStandPoll3a.Checked, "1", "0") ' 55 (6 - run 3)
+                ConfidentialData &= If(chbTwoStackStandEmiss3a.Checked, "1", "0") ' 56 (7 - run 3)
+
+                ' Stack Two Test Runs
+                ConfidentialData &= If(chbTwoStackStandRun1b.Checked, "1", "0") ' 57 (N/A - run 1)
+                ConfidentialData &= If(chbTwoStackStandTemp1b.Checked, "1", "0") ' 58 (8 - run 1)
+                ConfidentialData &= If(chbTwoStackStandMoist1b.Checked, "1", "0") ' 59 (9 - run 1)
+                ConfidentialData &= If(chbTwoStackStandACFM1b.Checked, "1", "0") ' 60 (10 - run 1)
+                ConfidentialData &= If(chbTwoStackStandDSCFM1b.Checked, "1", "0") ' 61 (11 - run 1)
+                ConfidentialData &= If(chbTwoStackStandPoll1b.Checked, "1", "0") ' 62 (12 - run 1)
+                ConfidentialData &= If(chbTwoStackStandEmiss1b.Checked, "1", "0") ' 63 (13 - run 1)
+
+                ConfidentialData &= If(chbTwoStackStandRun2b.Checked, "1", "0") ' 64 (N/A - run 2)
+                ConfidentialData &= If(chbTwoStackStandTemp2b.Checked, "1", "0") ' 65 (8 - run 2)
+                ConfidentialData &= If(chbTwoStackStandMoist2b.Checked, "1", "0") ' 66 (9 - run 2)
+                ConfidentialData &= If(chbTwoStackStandACFM2b.Checked, "1", "0") ' 67 (10 - run 2)
+                ConfidentialData &= If(chbTwoStackStandDSCFM2b.Checked, "1", "0") ' 68 (11 - run 2)
+                ConfidentialData &= If(chbTwoStackStandPoll2b.Checked, "1", "0") ' 69 (12 - run 2)
+                ConfidentialData &= If(chbTwoStackStandEmiss2b.Checked, "1", "0") ' 70 (13 - run 2)
+
+                ConfidentialData &= If(chbTwoStackStandRun3b.Checked, "1", "0") ' 71 (N/A - run 3)
+                ConfidentialData &= If(chbTwoStackStandTemp3b.Checked, "1", "0") ' 72 (8 - run 3)
+                ConfidentialData &= If(chbTwoStackStandMoist3b.Checked, "1", "0") ' 73 (9 - run 3)
+                ConfidentialData &= If(chbTwoStackStandACFM3b.Checked, "1", "0") ' 74 (10 - run 3)
+                ConfidentialData &= If(chbTwoStackStandDSCFM3b.Checked, "1", "0") ' 75 (11 - run 3)
+                ConfidentialData &= If(chbTwoStackStandPoll3b.Checked, "1", "0") ' 76 (12 - run 3)
+                ConfidentialData &= If(chbTwoStackStandEmiss3b.Checked, "1", "0") ' 77 (13 - run 3)
+
+                ' Stack Totals and Averages
                 ConfidentialData &= If(chbTwoStackStandPollUnit.Checked, "1", "0") ' 78
                 ConfidentialData &= If(chbTwoStackStandPollAvg1.Checked, "1", "0") ' 79
                 ConfidentialData &= If(chbTwoStackStandPollAvg2.Checked, "1", "0") ' 80
                 ConfidentialData &= If(chbTwoStackStandEmissUnit.Checked, "1", "0") ' 81
                 ConfidentialData &= If(chbTwoStackStandEmissAvg1.Checked, "1", "0") ' 82
                 ConfidentialData &= If(chbTwoStackStandEmissAvg2.Checked, "1", "0") ' 83
-                ConfidentialData &= If(chbTwoStackStandTotal1.Checked, "1", "0") ' 84
-                ConfidentialData &= If(chbTwoStackStandTotal2.Checked, "1", "0") ' 85
-                ConfidentialData &= If(chbTwoStackStandTotal3.Checked, "1", "0") ' 86
+                ConfidentialData &= If(chbTwoStackStandTotal1.Checked, "1", "0") ' 84 (14 - run 1)
+                ConfidentialData &= If(chbTwoStackStandTotal2.Checked, "1", "0") ' 85 (14 - run 2)
+                ConfidentialData &= If(chbTwoStackStandTotal3.Checked, "1", "0") ' 86 (14 - run 3)
                 ConfidentialData &= If(chbTwoStackStandTotalAvg.Checked, "1", "0") ' 87
                 ConfidentialData &= If(chbTwoStackStandPercentAllow.Checked, "1", "0") ' 88
 
-            Case "006"
+            Case "006" ' Two Stack (DRE)
                 ConfidentialData = "E" & ConfidentialData ' 2
 
                 ConfidentialData &= If(chbTwoStackMaxOpCapacity.Checked, "1", "0") ' 26
@@ -925,8 +961,12 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbTwoStackAppRequire.Checked, "1", "0") ' 31
                 ConfidentialData &= If(chbTwoStackControlEquip.Checked, "1", "0") ' 32
                 ConfidentialData &= If(chbTwoStackOtherInfo.Checked, "1", "0") ' 33
+
+                ' Stacks
                 ConfidentialData &= If(chbTwoStackDREName1.Checked, "1", "0") ' 34
                 ConfidentialData &= If(chbTwoStackDREName2.Checked, "1", "0") ' 35
+
+                ' Stack One Test Runs
                 ConfidentialData &= If(chbTwoStackDRERun1a.Checked, "1", "0") ' 36
                 ConfidentialData &= If(chbTwoStackDRETemp1a.Checked, "1", "0") ' 37
                 ConfidentialData &= If(chbTwoStackDREMoist1a.Checked, "1", "0") ' 38
@@ -934,6 +974,7 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbTwoStackDREDSCFM1a.Checked, "1", "0") ' 40
                 ConfidentialData &= If(chbTwoStackDREPoll1a.Checked, "1", "0") ' 41
                 ConfidentialData &= If(chbTwoStackDREEmiss1a.Checked, "1", "0") ' 42
+
                 ConfidentialData &= If(chbTwoStackDRERun2a.Checked, "1", "0") ' 43
                 ConfidentialData &= If(chbTwoStackDRETemp2a.Checked, "1", "0") ' 44
                 ConfidentialData &= If(chbTwoStackDREMoist2a.Checked, "1", "0") ' 45
@@ -941,6 +982,7 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbTwoStackDREDSCFM2a.Checked, "1", "0") ' 47
                 ConfidentialData &= If(chbTwoStackDREPoll2a.Checked, "1", "0") ' 48
                 ConfidentialData &= If(chbTwoStackDREEmiss2a.Checked, "1", "0") ' 49
+
                 ConfidentialData &= If(chbTwoStackDRERun3a.Checked, "1", "0") ' 50
                 ConfidentialData &= If(chbTwoStackDRETEmp3a.Checked, "1", "0") ' 51
                 ConfidentialData &= If(chbTwoStackDREMoist3a.Checked, "1", "0") ' 52
@@ -948,6 +990,8 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbTwoStackDREDSCFM3a.Checked, "1", "0") ' 54
                 ConfidentialData &= If(chbTwoStackDREPoll3a.Checked, "1", "0") ' 55
                 ConfidentialData &= If(chbTwoStackDREEmiss3a.Checked, "1", "0") ' 56
+
+                ' Stack Two Test Runs
                 ConfidentialData &= If(chbTwoStackDRERun1b.Checked, "1", "0") ' 57
                 ConfidentialData &= If(chbTwoStackDRETemp1b.Checked, "1", "0") ' 58
                 ConfidentialData &= If(chbTwoStackDREMoist1b.Checked, "1", "0") ' 59
@@ -955,6 +999,7 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbTwoStackDREDSCFM1b.Checked, "1", "0") ' 61
                 ConfidentialData &= If(chbTwoStackDREPoll1b.Checked, "1", "0") ' 62
                 ConfidentialData &= If(chbTwoStackDREEmiss1b.Checked, "1", "0") ' 63
+
                 ConfidentialData &= If(chbTwoStackDRERun2b.Checked, "1", "0") ' 64
                 ConfidentialData &= If(chbTwoStackDRETemp2b.Checked, "1", "0") ' 65
                 ConfidentialData &= If(chbTwoStackDREMoist2b.Checked, "1", "0") ' 66
@@ -962,6 +1007,7 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbTwoStackDREDSCFM2b.Checked, "1", "0") ' 68
                 ConfidentialData &= If(chbTwoStackDREPoll2b.Checked, "1", "0") ' 69
                 ConfidentialData &= If(chbTwoStackDREEmiss2b.Checked, "1", "0") ' 70
+
                 ConfidentialData &= If(chbTwoStackDRERun3b.Checked, "1", "0") ' 71
                 ConfidentialData &= If(chbTwoStackDRETemp3b.Checked, "1", "0") ' 72
                 ConfidentialData &= If(chbTwoStackDREMoist3b.Checked, "1", "0") ' 73
@@ -969,6 +1015,8 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbTwoStackDREDSCFM3b.Checked, "1", "0") ' 75
                 ConfidentialData &= If(chbTwoStackDREPoll3b.Checked, "1", "0") ' 76
                 ConfidentialData &= If(chbTwoStackDREEmiss3b.Checked, "1", "0") ' 77
+
+                ' Stack Totals and Averages
                 ConfidentialData &= If(chbTwoStackDREPollUnit.Checked, "1", "0") ' 78
                 ConfidentialData &= If(chbTwoStackDREPollAvg1.Checked, "1", "0") ' 79
                 ConfidentialData &= If(chbTwoStackDREPollAvg2.Checked, "1", "0") ' 80
@@ -977,7 +1025,7 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbTwoStackDREEmissAvg2.Checked, "1", "0") ' 83
                 ConfidentialData &= If(chbTwoStackDREDestructionEff.Checked, "1", "0") ' 84
 
-            Case "007"
+            Case "007" ' Loading Rack
                 ConfidentialData = "F" & ConfidentialData ' 2
 
                 ConfidentialData &= If(chbLoadingRackMaxOpCapacity.Checked, "1", "0") ' 26
@@ -995,7 +1043,7 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbLoadingRackOtherInfo.Checked, "1", "0") ' 38
 
 
-            Case "008"
+            Case "008" ' Pond Treatment (Pulping Process Condensate)
                 ConfidentialData = "G" & ConfidentialData ' 2
 
                 ConfidentialData &= If(chbPulpMaxOpCapacity.Checked, "1", "0") ' 26
@@ -1021,7 +1069,7 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbPulpDestructEffic.Checked, "1", "0") ' 46
                 ConfidentialData &= If(chbPulpOtherInfo.Checked, "1", "0") ' 47
 
-            Case "009"
+            Case "009" ' Gas Concentration
                 ConfidentialData = "H" & ConfidentialData ' 2
 
                 ConfidentialData &= If(chbGasMaxOpCapacity.Checked, "1", "0") ' 26
@@ -1047,7 +1095,7 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbGasPercentAllow.Checked, "1", "0") ' 46
                 ConfidentialData &= If(chbGasOtherInfo.Checked, "1", "0") ' 47
 
-            Case "010"
+            Case "010" ' Flare
                 ConfidentialData = "I" & ConfidentialData ' 2
 
                 ConfidentialData &= If(chbFlareMaxOpCapacity.Checked, "1", "0") ' 26
@@ -1056,6 +1104,8 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbFlareHeatContent.Checked, "1", "0") ' 29
                 ConfidentialData &= If(chbFlareAppRequire.Checked, "1", "0") ' 30
                 ConfidentialData &= If(chbFlareMonitor.Checked, "1", "0") ' 31
+
+                ' Test runs
                 ConfidentialData &= If(chbFlareRun1.Checked, "1", "0") ' 32
                 ConfidentialData &= If(chbFlareHeating1.Checked, "1", "0") ' 33
                 ConfidentialData &= If(chbFlareVelocity1.Checked, "1", "0") ' 34
@@ -1065,6 +1115,7 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbFlareRun3.Checked, "1", "0") ' 38
                 ConfidentialData &= If(chbFlareHeating3.Checked, "1", "0") ' 39
                 ConfidentialData &= If(chbFlareVelocity3.Checked, "1", "0") ' 40
+
                 ConfidentialData &= If(chbFlareHeatingUnit.Checked, "1", "0") ' 41
                 ConfidentialData &= If(chbFlareHeatingAvg.Checked, "1", "0") ' 42
                 ConfidentialData &= If(chbFlareVelocityUnit.Checked, "1", "0") ' 43
@@ -1072,7 +1123,7 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbFlarePercentAllow.Checked, "1", "0") ' 45
                 ConfidentialData &= If(chbFlareOtherInfo.Checked, "1", "0") ' 46
 
-            Case "011"
+            Case "011" ' RATA
                 ConfidentialData = "J" & ConfidentialData ' 2
 
                 ConfidentialData &= If(chbRATAAppStandard.Checked, "1", "0") ' 26
@@ -1107,13 +1158,13 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbRATAStatement.Checked, "1", "0") ' 55
                 ConfidentialData &= If(chbRATAOtherInformation.Checked, "1", "0") ' 56
 
-            Case "012"
+            Case "012" ' Memorandum (Standard)
                 ConfidentialData = "K" & ConfidentialData ' 2
 
                 ConfidentialData &= If(chbMemoAppRequire.Checked, "1", "0") ' 26
                 ConfidentialData &= If(chbMemoStandardMemo.Checked, "1", "0") ' 27
 
-            Case "013"
+            Case "013" ' Memorandum (To File)
                 ConfidentialData = "L" & ConfidentialData ' 2
 
                 ConfidentialData &= If(chbMemoAppRequire.Checked, "1", "0") ' 26
@@ -1121,65 +1172,65 @@ Public Class ISMPConfidentialData
                 ConfidentialData &= If(chbMemoToFileSerial.Checked, "1", "0") ' 28
                 ConfidentialData &= If(chbMemoToFileMemo.Checked, "1", "0") ' 29
 
-            Case "014"
+            Case "014" ' Method 9 (Multi.)
                 ConfidentialData = "M" & ConfidentialData ' 2
 
-                ConfidentialData &= If(chbMethod9MultiMaxOpCapacity1.Checked, "1", "0") ' 26
-                ConfidentialData &= If(chbMethod9MultiMaxOpCapacity2.Checked, "1", "0") ' 27
-                ConfidentialData &= If(chbMethod9MultiMaxOpCapacity3.Checked, "1", "0") ' 28
-                ConfidentialData &= If(chbMethod9MultiMaxOpCapacity4.Checked, "1", "0") ' 29
-                ConfidentialData &= If(chbMethod9MultiMaxOpCapacity5.Checked, "1", "0") ' 30
-                ConfidentialData &= If(chbMethod9MultiMaxOpCapacityUnit.Checked, "1", "0") ' 31
-                ConfidentialData &= If(chbMethod9MultiOpCapacity1.Checked, "1", "0") ' 32
-                ConfidentialData &= If(chbMethod9MultiOpCapacity2.Checked, "1", "0") ' 33
-                ConfidentialData &= If(chbMethod9MultiOpCapacity3.Checked, "1", "0") ' 34
-                ConfidentialData &= If(chbMethod9MultiOpCapacity4.Checked, "1", "0") ' 35
-                ConfidentialData &= If(chbMethod9MultiOpCapacity5.Checked, "1", "0") ' 36
-                ConfidentialData &= If(chbMethod9MultiOpCapacityUnit.Checked, "1", "0") ' 37
-                ConfidentialData &= If(chbMethod9MultiAllowEmiss1.Checked, "1", "0") ' 38
-                ConfidentialData &= If(chbMethod9MultiAllowEmiss2.Checked, "1", "0") ' 39
-                ConfidentialData &= If(chbMethod9MultiAllowEmiss3.Checked, "1", "0") ' 40
-                ConfidentialData &= If(chbMethod9MultiAllowEmiss4.Checked, "1", "0") ' 41
-                ConfidentialData &= If(chbMethod9MultiAllowEmiss5.Checked, "1", "0") ' 42
-                ConfidentialData &= If(chbMethod9MultiAllowEmissUnit.Checked, "1", "0") ' 43
-                ConfidentialData &= If(chbMethod9MultiAppRequire.Checked, "1", "0") ' 44
+                ConfidentialData &= If(chbMethod9MultiMaxOpCapacity1.Checked, "1", "0") ' 26 (2 for run 1)
+                ConfidentialData &= If(chbMethod9MultiMaxOpCapacity2.Checked, "1", "0") ' 27 (2 for run 2)
+                ConfidentialData &= If(chbMethod9MultiMaxOpCapacity3.Checked, "1", "0") ' 28 (2 for run 3)
+                ConfidentialData &= If(chbMethod9MultiMaxOpCapacity4.Checked, "1", "0") ' 29 (2 for run 4)
+                ConfidentialData &= If(chbMethod9MultiMaxOpCapacity5.Checked, "1", "0") ' 30 (2 for run 5)
+                ConfidentialData &= If(chbMethod9MultiMaxOpCapacityUnit.Checked, "1", "0") ' 31 (unused)
+                ConfidentialData &= If(chbMethod9MultiOpCapacity1.Checked, "1", "0") ' 32 (3 for run 1)
+                ConfidentialData &= If(chbMethod9MultiOpCapacity2.Checked, "1", "0") ' 33 (3 for run 2)
+                ConfidentialData &= If(chbMethod9MultiOpCapacity3.Checked, "1", "0") ' 34 (3 for run 3)
+                ConfidentialData &= If(chbMethod9MultiOpCapacity4.Checked, "1", "0") ' 35 (3 for run 4)
+                ConfidentialData &= If(chbMethod9MultiOpCapacity5.Checked, "1", "0") ' 36 (3 for run 5)
+                ConfidentialData &= If(chbMethod9MultiOpCapacityUnit.Checked, "1", "0") ' 37 (unused)
+                ConfidentialData &= If(chbMethod9MultiAllowEmiss1.Checked, "1", "0") ' 38 (unused)
+                ConfidentialData &= If(chbMethod9MultiAllowEmiss2.Checked, "1", "0") ' 39 (unused)
+                ConfidentialData &= If(chbMethod9MultiAllowEmiss3.Checked, "1", "0") ' 40 (unused)
+                ConfidentialData &= If(chbMethod9MultiAllowEmiss4.Checked, "1", "0") ' 41 (unused)
+                ConfidentialData &= If(chbMethod9MultiAllowEmiss5.Checked, "1", "0") ' 42 (unused)
+                ConfidentialData &= If(chbMethod9MultiAllowEmissUnit.Checked, "1", "0") ' 43 (unused)
+                ConfidentialData &= If(chbMethod9MultiAppRequire.Checked, "1", "0") ' 44 (unused)
                 ConfidentialData &= If(chbMethod9MultiControlEquip.Checked, "1", "0") ' 45
-                ConfidentialData &= If(chbMethod9MultiAvg1.Checked, "1", "0") ' 46
-                ConfidentialData &= If(chbMethod9MultiAvg2.Checked, "1", "0") ' 47
-                ConfidentialData &= If(chbMethod9MultiAvg3.Checked, "1", "0") ' 48
-                ConfidentialData &= If(chbMethod9MultiAvg4.Checked, "1", "0") ' 49
-                ConfidentialData &= If(chbMethod9MultiAvg5.Checked, "1", "0") ' 50
+                ConfidentialData &= If(chbMethod9MultiAvg1.Checked, "1", "0") ' 46 (unused)
+                ConfidentialData &= If(chbMethod9MultiAvg2.Checked, "1", "0") ' 47 (unused)
+                ConfidentialData &= If(chbMethod9MultiAvg3.Checked, "1", "0") ' 48 (unused)
+                ConfidentialData &= If(chbMethod9MultiAvg4.Checked, "1", "0") ' 49 (unused)
+                ConfidentialData &= If(chbMethod9MultiAvg5.Checked, "1", "0") ' 50 (unused)
                 ConfidentialData &= If(chbMethod9MultiOtherInfor.Checked, "1", "0") ' 51
-                ConfidentialData &= If(chbMethod9MultiEquip1.Checked, "1", "0") ' 52
-                ConfidentialData &= If(chbMethod9MultiEquip2.Checked, "1", "0") ' 53
-                ConfidentialData &= If(chbMethod9MultiEquip3.Checked, "1", "0") ' 54
-                ConfidentialData &= If(chbMethod9MultiEquip4.Checked, "1", "0") ' 55
-                ConfidentialData &= If(chbMethod9MultiEquip5.Checked, "1", "0") ' 56
+                ConfidentialData &= If(chbMethod9MultiEquip1.Checked, "1", "0") ' 52 (4 for run 1)
+                ConfidentialData &= If(chbMethod9MultiEquip2.Checked, "1", "0") ' 53 (4 for run 2)
+                ConfidentialData &= If(chbMethod9MultiEquip3.Checked, "1", "0") ' 54 (4 for run 3)
+                ConfidentialData &= If(chbMethod9MultiEquip4.Checked, "1", "0") ' 55 (4 for run 4)
+                ConfidentialData &= If(chbMethod9MultiEquip5.Checked, "1", "0") ' 56 (4 for run 5)
 
-            Case "015"
+            Case "015" ' Method 22
                 ConfidentialData = "N" & ConfidentialData ' 2
 
-                ConfidentialData &= If(chbMethod22MaxOpCapacity.Checked, "1", "0") ' 26
-                ConfidentialData &= If(chbMethod22OpCapacity.Checked, "1", "0") ' 27
-                ConfidentialData &= If(chbMethod22AllowEmiss.Checked, "1", "0") ' 28
-                ConfidentialData &= If(chbMethod22AppReg.Checked, "1", "0") ' 29
+                ConfidentialData &= If(chbMethod22MaxOpCapacity.Checked, "1", "0") ' 26 (2 for run)
+                ConfidentialData &= If(chbMethod22OpCapacity.Checked, "1", "0") ' 27 (3 for run)
+                ConfidentialData &= If(chbMethod22AllowEmiss.Checked, "1", "0") ' 28 (unused)
+                ConfidentialData &= If(chbMethod22AppReg.Checked, "1", "0") ' 29 (unused)
                 ConfidentialData &= If(chbMethod22TestDuration.Checked, "1", "0") ' 30
-                ConfidentialData &= If(chbMethod22Emission.Checked, "1", "0") ' 31
+                ConfidentialData &= If(chbMethod22Emission.Checked, "1", "0") ' 31 (unused)
                 ConfidentialData &= If(chbMethod22OtherInfo.Checked, "1", "0") ' 32
 
-            Case "016"
+            Case "016" ' Method9 (Single)
                 ConfidentialData = "O" & ConfidentialData ' 2
 
-                ConfidentialData &= If(chbMethod9MaxOpCapacity.Checked, "1", "0") ' 26
-                ConfidentialData &= If(chbMethod9OpCapacity.Checked, "1", "0") ' 27
-                ConfidentialData &= If(chbMethod9AllowEmiss.Checked, "1", "0") ' 28
-                ConfidentialData &= If(chbMethod9AppRequire.Checked, "1", "0") ' 29
+                ConfidentialData &= If(chbMethod9MaxOpCapacity.Checked, "1", "0") ' 26 (2 for run)
+                ConfidentialData &= If(chbMethod9OpCapacity.Checked, "1", "0") ' 27 (3 for run)
+                ConfidentialData &= If(chbMethod9AllowEmiss.Checked, "1", "0") ' 28 (unused)
+                ConfidentialData &= If(chbMethod9AppRequire.Checked, "1", "0") ' 29 (unused)
                 ConfidentialData &= If(chbMethod9ControlEquip.Checked, "1", "0") ' 30
                 ConfidentialData &= If(chbMethod9TestDuration.Checked, "1", "0") ' 31
-                ConfidentialData &= If(chbMethod9Opacity.Checked, "1", "0") ' 32
+                ConfidentialData &= If(chbMethod9Opacity.Checked, "1", "0") ' 32 (unused)
                 ConfidentialData &= If(chbMethod9OtherInfo.Checked, "1", "0") ' 33
 
-            Case "018"
+            Case "018" ' PTE (Permanent Total Enclosure)
                 ConfidentialData = "Q" & ConfidentialData ' 2
 
                 ConfidentialData &= If(chbMemoAppRequire.Checked, "1", "0") ' 26
