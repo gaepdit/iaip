@@ -18,7 +18,9 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.dtpExpirationDate = New System.Windows.Forms.DateTimePicker()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.lblPreviewCopied = New System.Windows.Forms.Label()
         Me.lblFileName = New System.Windows.Forms.Label()
+        Me.btnCopyPreviewDocument = New System.Windows.Forms.Button()
         Me.btnPreviewDocument = New System.Windows.Forms.Button()
         Me.btnPublishDocument = New System.Windows.Forms.Button()
         Me.dgvApplications = New Iaip.IaipDataGridView()
@@ -37,11 +39,12 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.rtbDocument = New System.Windows.Forms.RichTextBox()
         Me.PanelSide = New System.Windows.Forms.Panel()
         Me.btnOpenDocument = New System.Windows.Forms.Button()
-        Me.btnUpdateDocumentChanges = New System.Windows.Forms.Button()
-        Me.btnDownloadAsPdf = New System.Windows.Forms.Button()
+        Me.btnCopyDocument = New System.Windows.Forms.Button()
+        Me.btnDownloadDocument = New System.Windows.Forms.Button()
         Me.lblExpirationDate = New System.Windows.Forms.Label()
         Me.cboPAPNReports = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.lblDocumentCopied = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblDocumentName = New System.Windows.Forms.Label()
         Me.TCPublicNotices.SuspendLayout()
@@ -101,7 +104,9 @@ Partial Class SSPPPublicNoticesAndAdvisories
         '
         Me.Panel3.Controls.Add(Me.dtpExpirationDate)
         Me.Panel3.Controls.Add(Me.Label4)
+        Me.Panel3.Controls.Add(Me.lblPreviewCopied)
         Me.Panel3.Controls.Add(Me.lblFileName)
+        Me.Panel3.Controls.Add(Me.btnCopyPreviewDocument)
         Me.Panel3.Controls.Add(Me.btnPreviewDocument)
         Me.Panel3.Controls.Add(Me.btnPublishDocument)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Left
@@ -131,14 +136,35 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.Label4.TabIndex = 14
         Me.Label4.Text = "Date PA Expires"
         '
+        'lblPreviewCopied
+        '
+        Me.lblPreviewCopied.AutoSize = True
+        Me.lblPreviewCopied.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.lblPreviewCopied.Location = New System.Drawing.Point(13, 157)
+        Me.lblPreviewCopied.Name = "lblPreviewCopied"
+        Me.lblPreviewCopied.Size = New System.Drawing.Size(43, 13)
+        Me.lblPreviewCopied.TabIndex = 3
+        Me.lblPreviewCopied.Text = "Copied!"
+        Me.lblPreviewCopied.Visible = False
+        '
         'lblFileName
         '
         Me.lblFileName.AutoSize = True
-        Me.lblFileName.Location = New System.Drawing.Point(13, 168)
+        Me.lblFileName.Location = New System.Drawing.Point(13, 234)
         Me.lblFileName.Name = "lblFileName"
         Me.lblFileName.Size = New System.Drawing.Size(49, 13)
         Me.lblFileName.TabIndex = 3
         Me.lblFileName.Text = "Filename"
+        '
+        'btnCopyPreviewDocument
+        '
+        Me.btnCopyPreviewDocument.Enabled = False
+        Me.btnCopyPreviewDocument.Location = New System.Drawing.Point(13, 109)
+        Me.btnCopyPreviewDocument.Name = "btnCopyPreviewDocument"
+        Me.btnCopyPreviewDocument.Size = New System.Drawing.Size(131, 45)
+        Me.btnCopyPreviewDocument.TabIndex = 1
+        Me.btnCopyPreviewDocument.Text = "Copy contents of current preview document"
+        Me.btnCopyPreviewDocument.UseVisualStyleBackColor = True
         '
         'btnPreviewDocument
         '
@@ -152,11 +178,11 @@ Partial Class SSPPPublicNoticesAndAdvisories
         'btnPublishDocument
         '
         Me.btnPublishDocument.Enabled = False
-        Me.btnPublishDocument.Location = New System.Drawing.Point(13, 120)
+        Me.btnPublishDocument.Location = New System.Drawing.Point(13, 186)
         Me.btnPublishDocument.Name = "btnPublishDocument"
         Me.btnPublishDocument.Size = New System.Drawing.Size(131, 45)
         Me.btnPublishDocument.TabIndex = 2
-        Me.btnPublishDocument.Text = "Publish PA/PN and download PDF"
+        Me.btnPublishDocument.Text = "Publish PA/PN and download file"
         Me.btnPublishDocument.UseVisualStyleBackColor = True
         '
         'dgvApplications
@@ -166,6 +192,7 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.dgvApplications.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvApplications.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvApplications.Dock = System.Windows.Forms.DockStyle.Top
+        Me.dgvApplications.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvApplications.LinkifyColumnByName = "App Number"
         Me.dgvApplications.Location = New System.Drawing.Point(3, 69)
         Me.dgvApplications.Name = "dgvApplications"
@@ -317,11 +344,12 @@ Partial Class SSPPPublicNoticesAndAdvisories
         'PanelSide
         '
         Me.PanelSide.Controls.Add(Me.btnOpenDocument)
-        Me.PanelSide.Controls.Add(Me.btnUpdateDocumentChanges)
-        Me.PanelSide.Controls.Add(Me.btnDownloadAsPdf)
+        Me.PanelSide.Controls.Add(Me.btnCopyDocument)
+        Me.PanelSide.Controls.Add(Me.btnDownloadDocument)
         Me.PanelSide.Controls.Add(Me.lblExpirationDate)
         Me.PanelSide.Controls.Add(Me.cboPAPNReports)
         Me.PanelSide.Controls.Add(Me.Label9)
+        Me.PanelSide.Controls.Add(Me.lblDocumentCopied)
         Me.PanelSide.Controls.Add(Me.Label3)
         Me.PanelSide.Controls.Add(Me.lblDocumentName)
         Me.PanelSide.Dock = System.Windows.Forms.DockStyle.Left
@@ -340,26 +368,25 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.btnOpenDocument.Text = "Open PA/PN Document"
         Me.btnOpenDocument.UseVisualStyleBackColor = True
         '
-        'btnUpdateDocumentChanges
+        'btnCopyDocument
         '
-        Me.btnUpdateDocumentChanges.Enabled = False
-        Me.btnUpdateDocumentChanges.Location = New System.Drawing.Point(8, 306)
-        Me.btnUpdateDocumentChanges.Name = "btnUpdateDocumentChanges"
-        Me.btnUpdateDocumentChanges.Size = New System.Drawing.Size(123, 46)
-        Me.btnUpdateDocumentChanges.TabIndex = 5
-        Me.btnUpdateDocumentChanges.Text = "Update missing data in PA/PN"
-        Me.btnUpdateDocumentChanges.UseVisualStyleBackColor = True
-        Me.btnUpdateDocumentChanges.Visible = False
+        Me.btnCopyDocument.Enabled = False
+        Me.btnCopyDocument.Location = New System.Drawing.Point(8, 228)
+        Me.btnCopyDocument.Name = "btnCopyDocument"
+        Me.btnCopyDocument.Size = New System.Drawing.Size(123, 46)
+        Me.btnCopyDocument.TabIndex = 4
+        Me.btnCopyDocument.Text = "Copy contents of current document"
+        Me.btnCopyDocument.UseVisualStyleBackColor = True
         '
-        'btnDownloadAsPdf
+        'btnDownloadDocument
         '
-        Me.btnDownloadAsPdf.Enabled = False
-        Me.btnDownloadAsPdf.Location = New System.Drawing.Point(8, 228)
-        Me.btnDownloadAsPdf.Name = "btnDownloadAsPdf"
-        Me.btnDownloadAsPdf.Size = New System.Drawing.Size(123, 46)
-        Me.btnDownloadAsPdf.TabIndex = 4
-        Me.btnDownloadAsPdf.Text = "Download as PDF"
-        Me.btnDownloadAsPdf.UseVisualStyleBackColor = True
+        Me.btnDownloadDocument.Enabled = False
+        Me.btnDownloadDocument.Location = New System.Drawing.Point(8, 306)
+        Me.btnDownloadDocument.Name = "btnDownloadDocument"
+        Me.btnDownloadDocument.Size = New System.Drawing.Size(123, 46)
+        Me.btnDownloadDocument.TabIndex = 4
+        Me.btnDownloadDocument.Text = "Download"
+        Me.btnDownloadDocument.UseVisualStyleBackColor = True
         '
         'lblExpirationDate
         '
@@ -387,6 +414,17 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.Label9.Size = New System.Drawing.Size(99, 13)
         Me.Label9.TabIndex = 20
         Me.Label9.Text = "PA Expiration Date:"
+        '
+        'lblDocumentCopied
+        '
+        Me.lblDocumentCopied.AutoSize = True
+        Me.lblDocumentCopied.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.lblDocumentCopied.Location = New System.Drawing.Point(8, 277)
+        Me.lblDocumentCopied.Name = "lblDocumentCopied"
+        Me.lblDocumentCopied.Size = New System.Drawing.Size(43, 13)
+        Me.lblDocumentCopied.TabIndex = 15
+        Me.lblDocumentCopied.Text = "Copied!"
+        Me.lblDocumentCopied.Visible = False
         '
         'Label3
         '
@@ -439,7 +477,7 @@ Partial Class SSPPPublicNoticesAndAdvisories
     Friend WithEvents tpPrevious As System.Windows.Forms.TabPage
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents cboPAPNReports As System.Windows.Forms.ComboBox
-    Friend WithEvents btnDownloadAsPdf As System.Windows.Forms.Button
+    Friend WithEvents btnDownloadDocument As System.Windows.Forms.Button
     Friend WithEvents rtbDocument As System.Windows.Forms.RichTextBox
     Friend WithEvents lblExpirationDate As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
@@ -448,7 +486,6 @@ Partial Class SSPPPublicNoticesAndAdvisories
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents rdbPublicNotice As System.Windows.Forms.RadioButton
     Friend WithEvents rdbPublicAdvisories As System.Windows.Forms.RadioButton
-    Friend WithEvents btnUpdateDocumentChanges As System.Windows.Forms.Button
     Friend WithEvents dtpExpirationDate As DateTimePicker
     Friend WithEvents Label4 As Label
     Friend WithEvents btnPublishDocument As Button
@@ -463,4 +500,8 @@ Partial Class SSPPPublicNoticesAndAdvisories
     Friend WithEvents Panel3 As Panel
     Friend WithEvents PanelTop As Panel
     Friend WithEvents PanelSide As Panel
+    Friend WithEvents btnCopyPreviewDocument As Button
+    Friend WithEvents lblPreviewCopied As Label
+    Friend WithEvents btnCopyDocument As Button
+    Friend WithEvents lblDocumentCopied As Label
 End Class

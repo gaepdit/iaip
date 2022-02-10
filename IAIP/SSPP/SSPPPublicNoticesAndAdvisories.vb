@@ -294,6 +294,8 @@ Public Class SSPPPublicNoticesAndAdvisories
 
         rtbPreview.Rtf = rtfDocument.ToString()
         btnPublishDocument.Enabled = True
+        btnCopyPreviewDocument.Enabled = True
+        lblPreviewCopied.Visible = False
     End Sub
 
     Private Sub GenerateFileName()
@@ -440,8 +442,9 @@ Public Class SSPPPublicNoticesAndAdvisories
     End Sub
 
     Private Sub OpenExistingDocument()
-        btnDownloadAsPdf.Enabled = False
-        btnUpdateDocumentChanges.Enabled = False
+        btnDownloadDocument.Enabled = False
+        btnCopyDocument.Enabled = False
+        lblDocumentCopied.Visible = False
 
         Dim dr As DataRow = DB.SPGetDataRow("dbo.OpenPAandPNDocument", New SqlParameter("@filename", cboPAPNReports.Text))
 
@@ -465,8 +468,9 @@ Public Class SSPPPublicNoticesAndAdvisories
                 rtbDocument.LoadFile(ms, RichTextBoxStreamType.RichText)
             End Using
 
-            btnDownloadAsPdf.Enabled = True
-            btnUpdateDocumentChanges.Enabled = True
+            btnDownloadDocument.Enabled = True
+            btnCopyDocument.Enabled = True
+            lblDocumentCopied.Visible = False
         Else
             OpenedDocument = Nothing
 
@@ -542,7 +546,9 @@ Public Class SSPPPublicNoticesAndAdvisories
             ExportPDF(rtbPreview.Rtf, newFileName)
             LoadOldPDFs()
             rtbDocument.Rtf = rtbPreview.Rtf
-            btnDownloadAsPdf.Enabled = True
+            btnDownloadDocument.Enabled = True
+            btnCopyDocument.Enabled = True
+            lblDocumentCopied.Visible = False
         Else
             MessageBox.Show("There was an error saving the document. Contact EPD-IT for assistance.", "Error")
         End If
@@ -552,7 +558,7 @@ Public Class SSPPPublicNoticesAndAdvisories
         OpenExistingDocument()
     End Sub
 
-    Private Sub btnViewOldPDFs_Click(sender As Object, e As EventArgs) Handles btnDownloadAsPdf.Click
+    Private Sub btnDownloadDocument_Click(sender As Object, e As EventArgs) Handles btnDownloadDocument.Click
         If OpenedDocument IsNot Nothing AndAlso Not String.IsNullOrEmpty(OpenedDocument.FileName) Then
             ExportPDF(rtbDocument.Rtf, OpenedDocument.FileName)
         End If
@@ -629,4 +635,17 @@ Public Class SSPPPublicNoticesAndAdvisories
         End Try
     End Sub
 
+    Private Sub btnCopyPreviewDocument_Click(sender As Object, e As EventArgs) Handles btnCopyPreviewDocument.Click
+        rtbPreview.SelectAll()
+        rtbPreview.Copy()
+        rtbDocument.Select(0, 0)
+        lblPreviewCopied.Visible = True
+    End Sub
+
+    Private Sub btnCopyDocument_Click(sender As Object, e As EventArgs) Handles btnCopyDocument.Click
+        rtbDocument.SelectAll()
+        rtbDocument.Copy()
+        rtbDocument.Select(0, 0)
+        lblDocumentCopied.Visible = True
+    End Sub
 End Class
