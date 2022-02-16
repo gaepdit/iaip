@@ -355,7 +355,12 @@
     <Compile Include="_Code\StringFunctions.vb" />
     <Compile Include="_Code\TaskbarProgress.vb" />
     <Compile Include="_Code\TemporalCollection.vb" />
-    <Compile Include="_Code\UrlHandler.vb" />
+    <Compile Include="_Code\UrlHelpers\EventUrls.vb" />
+    <Compile Include="_Code\UrlHelpers\SupportUrls.vb" />
+    <Compile Include="_Code\UrlHelpers\GecoUrls.vb" />
+    <Compile Include="_Code\UrlHelpers\MapUrls.vb" />
+    <Compile Include="_Code\UrlHelpers\PermitSearchUrls.vb" />
+    <Compile Include="_Code\UrlHelpers\UrlHandler.vb" />
     <Compile Include="_Controls\AirNumberEntryForm.Designer.vb">
       <DependentUpon>AirNumberEntryForm.vb</DependentUpon>
     </Compile>

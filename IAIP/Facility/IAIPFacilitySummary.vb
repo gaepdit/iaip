@@ -2,10 +2,11 @@
 Imports System.ComponentModel
 Imports EpdIt
 Imports Iaip.Apb
-Imports Iaip.Apb.Facilities
 Imports Iaip.Apb.ApbFacilityId
+Imports Iaip.Apb.Facilities
 Imports Iaip.DAL
 Imports Iaip.DAL.FacilitySummaryData
+Imports Iaip.UrlHelpers
 
 Public Class IAIPFacilitySummary
 
@@ -355,15 +356,15 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub MapAddressLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles MapAddressLink.LinkClicked
-        OpenMapUrl(ThisFacility.FacilityLocation.Address.ToLinearString, Me)
+        OpenGoogleMapUrl(ThisFacility.FacilityLocation.Address.ToLinearString, Me)
     End Sub
 
     Private Sub MapCountyLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles MapCountyLink.LinkClicked
-        OpenMapUrl(ThisFacility.FacilityLocation.County & " County", Me)
+        OpenGoogleMapUrl(ThisFacility.FacilityLocation.County & " County", Me)
     End Sub
 
     Private Sub MapLatLonLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles MapLatLonLink.LinkClicked
-        OpenMapUrl(ThisFacility.FacilityLocation.Latitude.ToString & "," &
+        OpenGoogleMapUrl(ThisFacility.FacilityLocation.Latitude.ToString & "," &
                    ThisFacility.FacilityLocation.Longitude.ToString, Me)
     End Sub
 

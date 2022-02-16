@@ -4,6 +4,7 @@ Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.Windows.Forms
 Imports Daramee.TaskDialogSharp
+Imports Iaip.UrlHelpers
 
 Module CrystalReports
 

@@ -4,6 +4,7 @@ Imports Iaip.Apb.Facilities
 Imports Iaip.DAL
 Imports Iaip.DAL.FacilityData
 Imports Iaip.DAL.Geco
+Imports Iaip.UrlHelpers
 
 Public Class GecoTool
 
@@ -537,8 +538,8 @@ Public Class GecoTool
                     Case UpdateGecoUserEmailResult.Success
                         MessageBox.Show("The new email has been saved. A web page will now open to confirm a link has been sent to the user.",
                                         "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Dim uri As New Uri(GecoUrl, $"Account.aspx?action=change-email&acct={txtEditEmail.Text}&token={token}")
-                        OpenUri(uri, Me)
+                        OpenEmailChangeSuccessPage(txtEditEmail.Text, token)
+
 
                     Case UpdateGecoUserEmailResult.NewEmailExists
                         MessageBox.Show("An account already exists for that email address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)

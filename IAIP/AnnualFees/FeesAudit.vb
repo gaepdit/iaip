@@ -3,6 +3,7 @@ Imports System.Data.SqlTypes
 Imports System.Text
 Imports EpdIt.DBUtilities
 Imports Iaip.Apb.Facilities
+Imports Iaip.UrlHelpers
 
 Public Class FeesAudit
 
@@ -3107,7 +3108,7 @@ Public Class FeesAudit
 
     Private Sub EnablePrintActiveInvoicesLink()
         lnkPrintActiveInvoices.Enabled = True
-        UrlToolTip.SetToolTip(lnkPrintActiveInvoices, GetEmissionFeeInvoiceLinkAddress(AirsNumber, CInt(FeeYear)))
+        UrlToolTip.SetToolTip(lnkPrintActiveInvoices, GetEmissionFeeInvoiceUrl(AirsNumber, CInt(FeeYear)).ToString())
     End Sub
 
     Private Sub DisablePrintActiveInvoicesLink()
@@ -3117,7 +3118,7 @@ Public Class FeesAudit
 
     Private Sub EnablePrintSelectedInvoiceLink()
         lnkPrintSelectedInvoice.Enabled = True
-        UrlToolTip.SetToolTip(lnkPrintSelectedInvoice, GetEmissionFeeInvoiceLinkAddress(AirsNumber, CInt(FeeYear), CInt(txtInvoice.Text)))
+        UrlToolTip.SetToolTip(lnkPrintSelectedInvoice, GetEmissionFeeInvoiceUrl(AirsNumber, CInt(FeeYear), CInt(txtInvoice.Text)).ToString())
     End Sub
 
     Private Sub DisablePrintSelectedInvoiceLink()

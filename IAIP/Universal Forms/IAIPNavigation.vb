@@ -2,6 +2,7 @@ Imports System.Collections.Generic
 Imports System.ComponentModel
 Imports System.Net.NetworkInformation
 Imports Iaip.DAL.NavigationScreenData
+Imports Iaip.UrlHelpers
 
 Public Class IAIPNavigation
 
