@@ -2,6 +2,7 @@ Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Linq
+Imports System.Reflection
 Imports System.Text
 Imports CrystalDecisions.Shared
 Imports EpdIt.DBUtilities
@@ -45,7 +46,7 @@ Public Class SSPPPublicNoticesAndAdvisories
         ClearMessages()
         AddDgvSelectCheckBox()
         LoadPublicNoticesList()
-        LoadOldPDFs()
+        LoadExistingDocuments()
 
         MyBase.OnLoad(e)
     End Sub
@@ -77,7 +78,7 @@ Public Class SSPPPublicNoticesAndAdvisories
         SelectUnselectAll(True)
     End Sub
 
-    Private Sub LoadOldPDFs()
+    Private Sub LoadExistingDocuments()
         cboPAPNReports.DataSource = DB.SPGetDataTable("dbo.GetPublishedPAandPN")
         cboPAPNReports.DisplayMember = "FileName"
         cboPAPNReports.ValueMember = "FileName"
@@ -294,6 +295,8 @@ Public Class SSPPPublicNoticesAndAdvisories
 
         rtbPreview.Rtf = rtfDocument.ToString()
         btnPublishDocument.Enabled = True
+        btnCopyPreviewDocument.Enabled = True
+        lblPreviewCopied.Visible = False
     End Sub
 
     Private Sub GenerateFileName()
@@ -408,40 +411,53 @@ Public Class SSPPPublicNoticesAndAdvisories
         End With
     End Function
 
-    Private Sub ExportPDF(richTextDocument As String, fileName As String)
-        If Not CrystalReportsIsAvailable() Then
-            Return
-        End If
-
+    Private Sub ExportDocument(whichTextBox As RichTextBox, fileName As String)
         Using dialog As New SaveFileDialog() With {
-            .Filter = "PDF Files (*.pdf)|*.pdf",
-            .DefaultExt = ".pdf",
-            .FileName = String.Concat(fileName, ".pdf"),
+            .Filter = "Rich Text Format (*.rtf)|*.rtf",
+            .DefaultExt = ".rtf",
+            .FileName = String.Concat(fileName, ".rtf"),
             .InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
         }
 
-            If dialog.ShowDialog() = DialogResult.OK Then
-                If Path.GetDirectoryName(dialog.FileName) <> dialog.InitialDirectory Then
-                    SaveUserSetting(UserSetting.FileDownloadLocation, Path.GetDirectoryName(dialog.FileName))
-                End If
+            If dialog.ShowDialog() <> DialogResult.OK Then
+                Return
+            End If
 
+            If Not dialog.FileName.EndsWith(".rtf", StringComparison.CurrentCultureIgnoreCase) Then
+                dialog.FileName &= ".rtf"
+            End If
+
+            If Path.GetDirectoryName(dialog.FileName) <> dialog.InitialDirectory Then
+                SaveUserSetting(UserSetting.FileDownloadLocation, Path.GetDirectoryName(dialog.FileName))
+            End If
+
+            Try
                 UseWaitCursor = True
-
-                Dim rpt As New SSPPPublicNotice()
-                rpt.SetParameterValue("PublicNotice", richTextDocument)
-                rpt.ExportToDisk(ExportFormatType.PortableDocFormat, dialog.FileName)
-                LogCrystalReportsUsage(rpt)
+                whichTextBox.SaveFile(dialog.FileName)
                 Process.Start("explorer.exe", "/select,""" & dialog.FileName & """")
 
+            Catch ex As IOException
+                If ex.Message.Contains("The process cannot access the file") AndAlso
+                  ex.Message.Contains("because it is being used by another process") Then
+
+                    MessageBox.Show("The selected file is in use. Please close it or select a different filename and try again.",
+                                    "File in use", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Else
+                    MessageBox.Show("There was an error creating the file.",
+                                    "File error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+            Catch ex As Exception
+                ErrorReport(ex, $"FileName: {dialog.FileName}", MethodBase.GetCurrentMethod.Name)
+            Finally
                 UseWaitCursor = False
-                rpt.Dispose()
-            End If
+            End Try
         End Using
     End Sub
 
     Private Sub OpenExistingDocument()
-        btnDownloadAsPdf.Enabled = False
-        btnUpdateDocumentChanges.Enabled = False
+        btnDownloadDocument.Enabled = False
+        btnCopyDocument.Enabled = False
+        lblDocumentCopied.Visible = False
 
         Dim dr As DataRow = DB.SPGetDataRow("dbo.OpenPAandPNDocument", New SqlParameter("@filename", cboPAPNReports.Text))
 
@@ -461,12 +477,12 @@ Public Class SSPPPublicNoticesAndAdvisories
             lblDocumentName.Text = OpenedDocument.FileName
             lblExpirationDate.Text = OpenedDocument.CommentsDate?.ToShortDateString
 
-            Using ms As MemoryStream = New MemoryStream(OpenedDocument.GetFileData())
+            Using ms As New MemoryStream(OpenedDocument.GetFileData())
                 rtbDocument.LoadFile(ms, RichTextBoxStreamType.RichText)
             End Using
 
-            btnDownloadAsPdf.Enabled = True
-            btnUpdateDocumentChanges.Enabled = True
+            btnDownloadDocument.Enabled = True
+            btnCopyDocument.Enabled = True
         Else
             OpenedDocument = Nothing
 
@@ -539,10 +555,11 @@ Public Class SSPPPublicNoticesAndAdvisories
 
         If SaveDocument() = 0 Then
             lblFileName.Text = String.Format("Saved as: {0}", newFileName)
-            ExportPDF(rtbPreview.Rtf, newFileName)
-            LoadOldPDFs()
-            rtbDocument.Rtf = rtbPreview.Rtf
-            btnDownloadAsPdf.Enabled = True
+            ExportDocument(rtbPreview, newFileName)
+            LoadExistingDocuments()
+            cboPAPNReports.Text = newFileName
+            OpenExistingDocument()
+            TCPublicNotices.SelectedTab = tpPrevious
         Else
             MessageBox.Show("There was an error saving the document. Contact EPD-IT for assistance.", "Error")
         End If
@@ -552,9 +569,9 @@ Public Class SSPPPublicNoticesAndAdvisories
         OpenExistingDocument()
     End Sub
 
-    Private Sub btnViewOldPDFs_Click(sender As Object, e As EventArgs) Handles btnDownloadAsPdf.Click
+    Private Sub btnDownloadDocument_Click(sender As Object, e As EventArgs) Handles btnDownloadDocument.Click
         If OpenedDocument IsNot Nothing AndAlso Not String.IsNullOrEmpty(OpenedDocument.FileName) Then
-            ExportPDF(rtbDocument.Rtf, OpenedDocument.FileName)
+            ExportDocument(rtbDocument, OpenedDocument.FileName)
         End If
     End Sub
 
@@ -629,4 +646,17 @@ Public Class SSPPPublicNoticesAndAdvisories
         End Try
     End Sub
 
+    Private Sub btnCopyPreviewDocument_Click(sender As Object, e As EventArgs) Handles btnCopyPreviewDocument.Click
+        rtbPreview.SelectAll()
+        rtbPreview.Copy()
+        rtbDocument.Select(0, 0)
+        lblPreviewCopied.Visible = True
+    End Sub
+
+    Private Sub btnCopyDocument_Click(sender As Object, e As EventArgs) Handles btnCopyDocument.Click
+        rtbDocument.SelectAll()
+        rtbDocument.Copy()
+        rtbDocument.Select(0, 0)
+        lblDocumentCopied.Visible = True
+    End Sub
 End Class

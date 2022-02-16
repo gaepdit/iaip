@@ -10,7 +10,7 @@ Partial Class SSPPPublicNoticesAndAdvisories
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCPublicNotices = New System.Windows.Forms.TabControl()
         Me.tpPublish = New System.Windows.Forms.TabPage()
         Me.PanelBottom = New System.Windows.Forms.Panel()
@@ -18,7 +18,9 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.dtpExpirationDate = New System.Windows.Forms.DateTimePicker()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.lblPreviewCopied = New System.Windows.Forms.Label()
         Me.lblFileName = New System.Windows.Forms.Label()
+        Me.btnCopyPreviewDocument = New System.Windows.Forms.Button()
         Me.btnPreviewDocument = New System.Windows.Forms.Button()
         Me.btnPublishDocument = New System.Windows.Forms.Button()
         Me.dgvApplications = New Iaip.IaipDataGridView()
@@ -37,11 +39,12 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.rtbDocument = New System.Windows.Forms.RichTextBox()
         Me.PanelSide = New System.Windows.Forms.Panel()
         Me.btnOpenDocument = New System.Windows.Forms.Button()
-        Me.btnUpdateDocumentChanges = New System.Windows.Forms.Button()
-        Me.btnDownloadAsPdf = New System.Windows.Forms.Button()
+        Me.btnCopyDocument = New System.Windows.Forms.Button()
+        Me.btnDownloadDocument = New System.Windows.Forms.Button()
         Me.lblExpirationDate = New System.Windows.Forms.Label()
         Me.cboPAPNReports = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.lblDocumentCopied = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblDocumentName = New System.Windows.Forms.Label()
         Me.TCPublicNotices.SuspendLayout()
@@ -62,7 +65,7 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.TCPublicNotices.Location = New System.Drawing.Point(0, 0)
         Me.TCPublicNotices.Name = "TCPublicNotices"
         Me.TCPublicNotices.SelectedIndex = 0
-        Me.TCPublicNotices.Size = New System.Drawing.Size(741, 700)
+        Me.TCPublicNotices.Size = New System.Drawing.Size(741, 698)
         Me.TCPublicNotices.TabIndex = 0
         '
         'tpPublish
@@ -73,7 +76,7 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.tpPublish.Location = New System.Drawing.Point(4, 22)
         Me.tpPublish.Name = "tpPublish"
         Me.tpPublish.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpPublish.Size = New System.Drawing.Size(733, 674)
+        Me.tpPublish.Size = New System.Drawing.Size(733, 672)
         Me.tpPublish.TabIndex = 0
         Me.tpPublish.Text = "Publish PA/PN"
         Me.tpPublish.UseVisualStyleBackColor = True
@@ -85,15 +88,15 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.PanelBottom.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelBottom.Location = New System.Drawing.Point(3, 332)
         Me.PanelBottom.Name = "PanelBottom"
-        Me.PanelBottom.Size = New System.Drawing.Size(727, 339)
+        Me.PanelBottom.Size = New System.Drawing.Size(727, 337)
         Me.PanelBottom.TabIndex = 2
         '
         'rtbPreview
         '
         Me.rtbPreview.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rtbPreview.Location = New System.Drawing.Point(200, 0)
+        Me.rtbPreview.Location = New System.Drawing.Point(165, 0)
         Me.rtbPreview.Name = "rtbPreview"
-        Me.rtbPreview.Size = New System.Drawing.Size(527, 339)
+        Me.rtbPreview.Size = New System.Drawing.Size(562, 337)
         Me.rtbPreview.TabIndex = 1
         Me.rtbPreview.Text = ""
         '
@@ -101,13 +104,15 @@ Partial Class SSPPPublicNoticesAndAdvisories
         '
         Me.Panel3.Controls.Add(Me.dtpExpirationDate)
         Me.Panel3.Controls.Add(Me.Label4)
+        Me.Panel3.Controls.Add(Me.lblPreviewCopied)
         Me.Panel3.Controls.Add(Me.lblFileName)
+        Me.Panel3.Controls.Add(Me.btnCopyPreviewDocument)
         Me.Panel3.Controls.Add(Me.btnPreviewDocument)
         Me.Panel3.Controls.Add(Me.btnPublishDocument)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(200, 339)
+        Me.Panel3.Size = New System.Drawing.Size(165, 337)
         Me.Panel3.TabIndex = 0
         '
         'dtpExpirationDate
@@ -119,7 +124,7 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.dtpExpirationDate.Location = New System.Drawing.Point(13, 31)
         Me.dtpExpirationDate.Name = "dtpExpirationDate"
         Me.dtpExpirationDate.ShowCheckBox = True
-        Me.dtpExpirationDate.Size = New System.Drawing.Size(131, 21)
+        Me.dtpExpirationDate.Size = New System.Drawing.Size(128, 21)
         Me.dtpExpirationDate.TabIndex = 0
         '
         'Label4
@@ -131,20 +136,44 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.Label4.TabIndex = 14
         Me.Label4.Text = "Date PA Expires"
         '
+        'lblPreviewCopied
+        '
+        Me.lblPreviewCopied.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblPreviewCopied.AutoSize = True
+        Me.lblPreviewCopied.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.lblPreviewCopied.Location = New System.Drawing.Point(13, 309)
+        Me.lblPreviewCopied.Name = "lblPreviewCopied"
+        Me.lblPreviewCopied.Size = New System.Drawing.Size(43, 13)
+        Me.lblPreviewCopied.TabIndex = 3
+        Me.lblPreviewCopied.Text = "Copied!"
+        Me.lblPreviewCopied.Visible = False
+        '
         'lblFileName
         '
         Me.lblFileName.AutoSize = True
-        Me.lblFileName.Location = New System.Drawing.Point(13, 168)
+        Me.lblFileName.Location = New System.Drawing.Point(13, 170)
         Me.lblFileName.Name = "lblFileName"
         Me.lblFileName.Size = New System.Drawing.Size(49, 13)
         Me.lblFileName.TabIndex = 3
         Me.lblFileName.Text = "Filename"
         '
+        'btnCopyPreviewDocument
+        '
+        Me.btnCopyPreviewDocument.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnCopyPreviewDocument.Enabled = False
+        Me.btnCopyPreviewDocument.Location = New System.Drawing.Point(13, 261)
+        Me.btnCopyPreviewDocument.Name = "btnCopyPreviewDocument"
+        Me.btnCopyPreviewDocument.Size = New System.Drawing.Size(128, 45)
+        Me.btnCopyPreviewDocument.TabIndex = 1
+        Me.btnCopyPreviewDocument.Text = "Copy contents of current preview "
+        Me.btnCopyPreviewDocument.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnCopyPreviewDocument.UseVisualStyleBackColor = True
+        '
         'btnPreviewDocument
         '
         Me.btnPreviewDocument.Location = New System.Drawing.Point(13, 58)
         Me.btnPreviewDocument.Name = "btnPreviewDocument"
-        Me.btnPreviewDocument.Size = New System.Drawing.Size(131, 45)
+        Me.btnPreviewDocument.Size = New System.Drawing.Size(128, 45)
         Me.btnPreviewDocument.TabIndex = 1
         Me.btnPreviewDocument.Text = "Preview Document"
         Me.btnPreviewDocument.UseVisualStyleBackColor = True
@@ -152,20 +181,21 @@ Partial Class SSPPPublicNoticesAndAdvisories
         'btnPublishDocument
         '
         Me.btnPublishDocument.Enabled = False
-        Me.btnPublishDocument.Location = New System.Drawing.Point(13, 120)
+        Me.btnPublishDocument.Location = New System.Drawing.Point(13, 122)
         Me.btnPublishDocument.Name = "btnPublishDocument"
-        Me.btnPublishDocument.Size = New System.Drawing.Size(131, 45)
+        Me.btnPublishDocument.Size = New System.Drawing.Size(128, 45)
         Me.btnPublishDocument.TabIndex = 2
-        Me.btnPublishDocument.Text = "Publish PA/PN and download PDF"
+        Me.btnPublishDocument.Text = "Publish PA/PN and download file"
         Me.btnPublishDocument.UseVisualStyleBackColor = True
         '
         'dgvApplications
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvApplications.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvApplications.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvApplications.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvApplications.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvApplications.Dock = System.Windows.Forms.DockStyle.Top
+        Me.dgvApplications.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvApplications.LinkifyColumnByName = "App Number"
         Me.dgvApplications.Location = New System.Drawing.Point(3, 69)
         Me.dgvApplications.Name = "dgvApplications"
@@ -300,7 +330,7 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.tpPrevious.Controls.Add(Me.PanelSide)
         Me.tpPrevious.Location = New System.Drawing.Point(4, 22)
         Me.tpPrevious.Name = "tpPrevious"
-        Me.tpPrevious.Size = New System.Drawing.Size(733, 674)
+        Me.tpPrevious.Size = New System.Drawing.Size(733, 672)
         Me.tpPrevious.TabIndex = 2
         Me.tpPrevious.Text = "Previous Documents"
         Me.tpPrevious.UseVisualStyleBackColor = True
@@ -308,63 +338,65 @@ Partial Class SSPPPublicNoticesAndAdvisories
         'rtbDocument
         '
         Me.rtbDocument.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rtbDocument.Location = New System.Drawing.Point(150, 0)
+        Me.rtbDocument.Location = New System.Drawing.Point(168, 0)
         Me.rtbDocument.Name = "rtbDocument"
-        Me.rtbDocument.Size = New System.Drawing.Size(583, 674)
+        Me.rtbDocument.Size = New System.Drawing.Size(565, 672)
         Me.rtbDocument.TabIndex = 1
         Me.rtbDocument.Text = ""
         '
         'PanelSide
         '
         Me.PanelSide.Controls.Add(Me.btnOpenDocument)
-        Me.PanelSide.Controls.Add(Me.btnUpdateDocumentChanges)
-        Me.PanelSide.Controls.Add(Me.btnDownloadAsPdf)
+        Me.PanelSide.Controls.Add(Me.btnCopyDocument)
+        Me.PanelSide.Controls.Add(Me.btnDownloadDocument)
         Me.PanelSide.Controls.Add(Me.lblExpirationDate)
         Me.PanelSide.Controls.Add(Me.cboPAPNReports)
         Me.PanelSide.Controls.Add(Me.Label9)
+        Me.PanelSide.Controls.Add(Me.lblDocumentCopied)
         Me.PanelSide.Controls.Add(Me.Label3)
         Me.PanelSide.Controls.Add(Me.lblDocumentName)
         Me.PanelSide.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelSide.Location = New System.Drawing.Point(0, 0)
         Me.PanelSide.Name = "PanelSide"
-        Me.PanelSide.Size = New System.Drawing.Size(150, 674)
+        Me.PanelSide.Size = New System.Drawing.Size(168, 672)
         Me.PanelSide.TabIndex = 0
         '
         'btnOpenDocument
         '
         Me.btnOpenDocument.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnOpenDocument.Location = New System.Drawing.Point(8, 59)
+        Me.btnOpenDocument.Location = New System.Drawing.Point(16, 59)
         Me.btnOpenDocument.Name = "btnOpenDocument"
-        Me.btnOpenDocument.Size = New System.Drawing.Size(123, 46)
+        Me.btnOpenDocument.Size = New System.Drawing.Size(128, 46)
         Me.btnOpenDocument.TabIndex = 1
         Me.btnOpenDocument.Text = "Open PA/PN Document"
         Me.btnOpenDocument.UseVisualStyleBackColor = True
         '
-        'btnUpdateDocumentChanges
+        'btnCopyDocument
         '
-        Me.btnUpdateDocumentChanges.Enabled = False
-        Me.btnUpdateDocumentChanges.Location = New System.Drawing.Point(8, 306)
-        Me.btnUpdateDocumentChanges.Name = "btnUpdateDocumentChanges"
-        Me.btnUpdateDocumentChanges.Size = New System.Drawing.Size(123, 46)
-        Me.btnUpdateDocumentChanges.TabIndex = 5
-        Me.btnUpdateDocumentChanges.Text = "Update missing data in PA/PN"
-        Me.btnUpdateDocumentChanges.UseVisualStyleBackColor = True
-        Me.btnUpdateDocumentChanges.Visible = False
+        Me.btnCopyDocument.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnCopyDocument.Enabled = False
+        Me.btnCopyDocument.Location = New System.Drawing.Point(16, 592)
+        Me.btnCopyDocument.Name = "btnCopyDocument"
+        Me.btnCopyDocument.Size = New System.Drawing.Size(128, 46)
+        Me.btnCopyDocument.TabIndex = 4
+        Me.btnCopyDocument.Text = "Copy contents of current preview "
+        Me.btnCopyDocument.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnCopyDocument.UseVisualStyleBackColor = True
         '
-        'btnDownloadAsPdf
+        'btnDownloadDocument
         '
-        Me.btnDownloadAsPdf.Enabled = False
-        Me.btnDownloadAsPdf.Location = New System.Drawing.Point(8, 228)
-        Me.btnDownloadAsPdf.Name = "btnDownloadAsPdf"
-        Me.btnDownloadAsPdf.Size = New System.Drawing.Size(123, 46)
-        Me.btnDownloadAsPdf.TabIndex = 4
-        Me.btnDownloadAsPdf.Text = "Download as PDF"
-        Me.btnDownloadAsPdf.UseVisualStyleBackColor = True
+        Me.btnDownloadDocument.Enabled = False
+        Me.btnDownloadDocument.Location = New System.Drawing.Point(16, 228)
+        Me.btnDownloadDocument.Name = "btnDownloadDocument"
+        Me.btnDownloadDocument.Size = New System.Drawing.Size(128, 46)
+        Me.btnDownloadDocument.TabIndex = 4
+        Me.btnDownloadDocument.Text = "Download file"
+        Me.btnDownloadDocument.UseVisualStyleBackColor = True
         '
         'lblExpirationDate
         '
         Me.lblExpirationDate.AutoSize = True
-        Me.lblExpirationDate.Location = New System.Drawing.Point(17, 186)
+        Me.lblExpirationDate.Location = New System.Drawing.Point(25, 186)
         Me.lblExpirationDate.Name = "lblExpirationDate"
         Me.lblExpirationDate.Size = New System.Drawing.Size(101, 13)
         Me.lblExpirationDate.TabIndex = 3
@@ -374,24 +406,36 @@ Partial Class SSPPPublicNoticesAndAdvisories
         '
         Me.cboPAPNReports.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPAPNReports.FormattingEnabled = True
-        Me.cboPAPNReports.Location = New System.Drawing.Point(8, 32)
+        Me.cboPAPNReports.Location = New System.Drawing.Point(16, 32)
         Me.cboPAPNReports.Name = "cboPAPNReports"
-        Me.cboPAPNReports.Size = New System.Drawing.Size(123, 21)
+        Me.cboPAPNReports.Size = New System.Drawing.Size(128, 21)
         Me.cboPAPNReports.TabIndex = 0
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(8, 173)
+        Me.Label9.Location = New System.Drawing.Point(16, 173)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(99, 13)
         Me.Label9.TabIndex = 20
         Me.Label9.Text = "PA Expiration Date:"
         '
+        'lblDocumentCopied
+        '
+        Me.lblDocumentCopied.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblDocumentCopied.AutoSize = True
+        Me.lblDocumentCopied.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.lblDocumentCopied.Location = New System.Drawing.Point(16, 641)
+        Me.lblDocumentCopied.Name = "lblDocumentCopied"
+        Me.lblDocumentCopied.Size = New System.Drawing.Size(43, 13)
+        Me.lblDocumentCopied.TabIndex = 15
+        Me.lblDocumentCopied.Text = "Copied!"
+        Me.lblDocumentCopied.Visible = False
+        '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(8, 134)
+        Me.Label3.Location = New System.Drawing.Point(16, 134)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(47, 13)
         Me.Label3.TabIndex = 15
@@ -400,7 +444,7 @@ Partial Class SSPPPublicNoticesAndAdvisories
         'lblDocumentName
         '
         Me.lblDocumentName.AutoSize = True
-        Me.lblDocumentName.Location = New System.Drawing.Point(17, 147)
+        Me.lblDocumentName.Location = New System.Drawing.Point(25, 147)
         Me.lblDocumentName.Name = "lblDocumentName"
         Me.lblDocumentName.Size = New System.Drawing.Size(95, 13)
         Me.lblDocumentName.TabIndex = 2
@@ -410,9 +454,9 @@ Partial Class SSPPPublicNoticesAndAdvisories
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(741, 700)
+        Me.ClientSize = New System.Drawing.Size(741, 698)
         Me.Controls.Add(Me.TCPublicNotices)
-        Me.MinimumSize = New System.Drawing.Size(723, 604)
+        Me.MinimumSize = New System.Drawing.Size(723, 671)
         Me.Name = "SSPPPublicNoticesAndAdvisories"
         Me.Text = "SSPP Public Notices And Advisories"
         Me.TCPublicNotices.ResumeLayout(False)
@@ -439,7 +483,7 @@ Partial Class SSPPPublicNoticesAndAdvisories
     Friend WithEvents tpPrevious As System.Windows.Forms.TabPage
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents cboPAPNReports As System.Windows.Forms.ComboBox
-    Friend WithEvents btnDownloadAsPdf As System.Windows.Forms.Button
+    Friend WithEvents btnDownloadDocument As System.Windows.Forms.Button
     Friend WithEvents rtbDocument As System.Windows.Forms.RichTextBox
     Friend WithEvents lblExpirationDate As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
@@ -448,7 +492,6 @@ Partial Class SSPPPublicNoticesAndAdvisories
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents rdbPublicNotice As System.Windows.Forms.RadioButton
     Friend WithEvents rdbPublicAdvisories As System.Windows.Forms.RadioButton
-    Friend WithEvents btnUpdateDocumentChanges As System.Windows.Forms.Button
     Friend WithEvents dtpExpirationDate As DateTimePicker
     Friend WithEvents Label4 As Label
     Friend WithEvents btnPublishDocument As Button
@@ -463,4 +506,8 @@ Partial Class SSPPPublicNoticesAndAdvisories
     Friend WithEvents Panel3 As Panel
     Friend WithEvents PanelTop As Panel
     Friend WithEvents PanelSide As Panel
+    Friend WithEvents btnCopyPreviewDocument As Button
+    Friend WithEvents lblPreviewCopied As Label
+    Friend WithEvents btnCopyDocument As Button
+    Friend WithEvents lblDocumentCopied As Label
 End Class
