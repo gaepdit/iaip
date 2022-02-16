@@ -331,14 +331,15 @@ Public Class IAIPQueryGenerator
 #End Region
 
     Private Sub GenerateSQL2()
+        Dim MasterSQL As String = ""
+        Dim SQLSelect As String = ""
+        Dim SQLFrom As String = ""
+        Dim SQLWhere As String = ""
+        Dim SQLOrder As String = ""
+        Dim SQLWhereCase1 As String = ""
+        Dim SQLWhereCase2 As String = ""
+
         Try
-            Dim MasterSQL As String = ""
-            Dim SQLSelect As String = ""
-            Dim SQLFrom As String = ""
-            Dim SQLWhere As String = ""
-            Dim SQLOrder As String = ""
-            Dim SQLWhereCase1 As String = ""
-            Dim SQLWhereCase2 As String = ""
             Dim params As New List(Of SqlParameter)
             Dim temp As String = ""
             Dim i As Integer = 0
@@ -2653,9 +2654,31 @@ Public Class IAIPQueryGenerator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Dim queryStrings As New QueryGeneratorStrings() With {
+                .MasterSQL = MasterSQL,
+                .SQLFrom = SQLFrom,
+                .SQLOrder = SQLOrder,
+                .SQLSelect = SQLSelect,
+                .SQLWhere = SQLWhere,
+                .SQLWhereCase1 = SQLWhereCase1,
+                .SQLWhereCase2 = SQLWhereCase2
+            }
+
+            Dim queryInfo As String = Newtonsoft.Json.JsonConvert.SerializeObject(queryStrings)
+
+            ErrorReport(ex, queryInfo, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
+    Private Class QueryGeneratorStrings
+        Public MasterSQL As String
+        Public SQLSelect As String
+        Public SQLFrom As String
+        Public SQLWhere As String
+        Public SQLOrder As String
+        Public SQLWhereCase1 As String
+        Public SQLWhereCase2 As String
+    End Class
 
     Sub ExportToExcel()
         dgvQueryGenerator.ExportToExcel(Me)
