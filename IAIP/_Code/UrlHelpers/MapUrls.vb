@@ -2,12 +2,12 @@
 
     Public Module MapUrls
 
-        Public Sub OpenGoogleMapUrl(addressString As String, Optional objectSender As Form = Nothing)
-            OpenUrl(New Uri($"https://maps.google.com/maps?q={addressString}"), objectSender)
+        Public Sub OpenGoogleMapUrl(addressString As String, Optional sender As Form = Nothing)
+            OpenUrl(New Uri($"https://maps.google.com/maps?q={addressString}"), sender)
         End Sub
 
-        Public Sub OpenAcmeMapUrl(Optional objectSender As Form = Nothing)
-            OpenUrl(New Uri("https://mapper.acme.com/"), objectSender)
+        Public Sub OpenAcmeMapUrl(Optional sender As Form = Nothing)
+            OpenUrl(New Uri("https://mapper.acme.com/"), sender)
         End Sub
 
     End Module

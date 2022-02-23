@@ -2,11 +2,11 @@
 
     Public Module PermitSearchUrls
 
-        Private PermitSearchUrl As New Uri("https://permitsearch.gaepd.org/")
+        Private ReadOnly PermitSearchUrl As New Uri("https://permitsearch.gaepd.org/")
 
-        Public Sub OpenPermitSearchUrl(airsNumber As Apb.ApbFacilityId, Optional objectSender As Form = Nothing)
+        Public Sub OpenPermitSearchUrl(airsNumber As Apb.ApbFacilityId, Optional sender As Form = Nothing)
             ArgumentNotNull(airsNumber, NameOf(airsNumber))
-            OpenUrl(New Uri(PermitSearchUrl, $"?AirsNumber={airsNumber.ShortString}"), objectSender)
+            OpenUrl(New Uri(PermitSearchUrl, $"?AirsNumber={airsNumber.ShortString}"), sender)
         End Sub
 
     End Module

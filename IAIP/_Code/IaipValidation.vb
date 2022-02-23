@@ -9,7 +9,6 @@ Module IaipValidation
         Return True
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId:="testEmail")>
     <CodeAnalysis.SuppressMessage("Minor Code Smell", "S1481:Unused local variables should be removed")>
     <Extension>
     Public Function IsValidEmailAddress(emailAddress As String, Optional requireDnrAddress As Boolean = False) As Boolean
