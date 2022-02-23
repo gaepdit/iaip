@@ -22,10 +22,10 @@ Partial Class FeesStatistics
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCMailoutAndStats = New System.Windows.Forms.TabControl()
         Me.TPDepositAndPaymentStats = New System.Windows.Forms.TabPage()
         Me.dgvDepositsAndPayments = New Iaip.IaipDataGridView()
@@ -216,16 +216,8 @@ Partial Class FeesStatistics
         Me.TPReports = New System.Windows.Forms.TabPage()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.GridFeesReports = New Iaip.IaipDataGridView()
-        Me.CRFeesReports = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.tabReport = New System.Windows.Forms.TabControl()
-        Me.TPFacilitySpecific = New System.Windows.Forms.TabPage()
-        Me.btnViewFacilitySpecificData = New System.Windows.Forms.Button()
-        Me.cboFacilityName = New System.Windows.Forms.ComboBox()
-        Me.cboAirsNo = New System.Windows.Forms.ComboBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label = New System.Windows.Forms.Label()
         Me.TPFinancial = New System.Windows.Forms.TabPage()
-        Me.btnFeeByYear = New System.Windows.Forms.Button()
         Me.btnPayment = New System.Windows.Forms.Button()
         Me.TPAnnualBalance = New System.Windows.Forms.TabPage()
         Me.cbBalanceYear = New System.Windows.Forms.ComboBox()
@@ -242,9 +234,7 @@ Partial Class FeesStatistics
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TPCompliance = New System.Windows.Forms.TabPage()
         Me.btnClassification = New System.Windows.Forms.Button()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.btnClassChange = New System.Windows.Forms.Button()
-        Me.btnNoOperate = New System.Windows.Forms.Button()
         Me.TPNsps = New System.Windows.Forms.TabPage()
         Me.lblNSPS3 = New System.Windows.Forms.LinkLabel()
         Me.lblNSPS2 = New System.Windows.Forms.LinkLabel()
@@ -267,7 +257,6 @@ Partial Class FeesStatistics
         Me.Panel2.SuspendLayout()
         CType(Me.GridFeesReports, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabReport.SuspendLayout()
-        Me.TPFacilitySpecific.SuspendLayout()
         Me.TPFinancial.SuspendLayout()
         Me.TPAnnualBalance.SuspendLayout()
         Me.TPDeposits.SuspendLayout()
@@ -302,11 +291,12 @@ Partial Class FeesStatistics
         '
         'dgvDepositsAndPayments
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvDepositsAndPayments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvDepositsAndPayments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDepositsAndPayments.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvDepositsAndPayments.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvDepositsAndPayments.LinkifyColumnByName = Nothing
         Me.dgvDepositsAndPayments.Location = New System.Drawing.Point(0, 525)
         Me.dgvDepositsAndPayments.Name = "dgvDepositsAndPayments"
@@ -1213,11 +1203,12 @@ Partial Class FeesStatistics
         '
         'dgvFeeStats
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvFeeStats.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvFeeStats.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvFeeStats.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvFeeStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvFeeStats.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvFeeStats.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvFeeStats.LinkifyColumnByName = Nothing
         Me.dgvFeeStats.LinkifyFirstColumn = True
         Me.dgvFeeStats.Location = New System.Drawing.Point(3, 57)
@@ -2150,11 +2141,12 @@ Partial Class FeesStatistics
         '
         'dgvReported
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvReported.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvReported.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
         Me.dgvReported.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvReported.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvReported.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvReported.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvReported.LinkifyColumnByName = Nothing
         Me.dgvReported.Location = New System.Drawing.Point(3, 52)
         Me.dgvReported.Name = "dgvReported"
@@ -2206,7 +2198,6 @@ Partial Class FeesStatistics
         'Panel2
         '
         Me.Panel2.Controls.Add(Me.GridFeesReports)
-        Me.Panel2.Controls.Add(Me.CRFeesReports)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 114)
         Me.Panel2.Name = "Panel2"
@@ -2215,13 +2206,14 @@ Partial Class FeesStatistics
         '
         'GridFeesReports
         '
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.GridFeesReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.GridFeesReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.GridFeesReports.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GridFeesReports.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.GridFeesReports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.GridFeesReports.GridColor = System.Drawing.SystemColors.ControlLight
         Me.GridFeesReports.LinkifyColumnByName = Nothing
         Me.GridFeesReports.Location = New System.Drawing.Point(0, 0)
         Me.GridFeesReports.Name = "GridFeesReports"
@@ -2231,27 +2223,8 @@ Partial Class FeesStatistics
         Me.GridFeesReports.StandardTab = True
         Me.GridFeesReports.TabIndex = 271
         '
-        'CRFeesReports
-        '
-        Me.CRFeesReports.ActiveViewIndex = -1
-        Me.CRFeesReports.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.CRFeesReports.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CRFeesReports.Cursor = System.Windows.Forms.Cursors.Default
-        Me.CRFeesReports.DisplayToolbar = False
-        Me.CRFeesReports.Location = New System.Drawing.Point(0, 0)
-        Me.CRFeesReports.Margin = New System.Windows.Forms.Padding(2)
-        Me.CRFeesReports.Name = "CRFeesReports"
-        Me.CRFeesReports.SelectionFormula = ""
-        Me.CRFeesReports.Size = New System.Drawing.Size(936, 578)
-        Me.CRFeesReports.TabIndex = 270
-        Me.CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-        Me.CRFeesReports.ViewTimeSelectionFormula = ""
-        '
         'tabReport
         '
-        Me.tabReport.Controls.Add(Me.TPFacilitySpecific)
         Me.tabReport.Controls.Add(Me.TPFinancial)
         Me.tabReport.Controls.Add(Me.TPAnnualBalance)
         Me.tabReport.Controls.Add(Me.TPDeposits)
@@ -2265,77 +2238,8 @@ Partial Class FeesStatistics
         Me.tabReport.Size = New System.Drawing.Size(936, 114)
         Me.tabReport.TabIndex = 269
         '
-        'TPFacilitySpecific
-        '
-        Me.TPFacilitySpecific.Controls.Add(Me.btnViewFacilitySpecificData)
-        Me.TPFacilitySpecific.Controls.Add(Me.cboFacilityName)
-        Me.TPFacilitySpecific.Controls.Add(Me.cboAirsNo)
-        Me.TPFacilitySpecific.Controls.Add(Me.Label10)
-        Me.TPFacilitySpecific.Controls.Add(Me.Label)
-        Me.TPFacilitySpecific.Location = New System.Drawing.Point(4, 22)
-        Me.TPFacilitySpecific.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPFacilitySpecific.Name = "TPFacilitySpecific"
-        Me.TPFacilitySpecific.Padding = New System.Windows.Forms.Padding(2)
-        Me.TPFacilitySpecific.Size = New System.Drawing.Size(928, 88)
-        Me.TPFacilitySpecific.TabIndex = 0
-        Me.TPFacilitySpecific.Text = "Facility Summary"
-        Me.TPFacilitySpecific.UseVisualStyleBackColor = True
-        '
-        'btnViewFacilitySpecificData
-        '
-        Me.btnViewFacilitySpecificData.Location = New System.Drawing.Point(463, 6)
-        Me.btnViewFacilitySpecificData.Name = "btnViewFacilitySpecificData"
-        Me.btnViewFacilitySpecificData.Size = New System.Drawing.Size(75, 23)
-        Me.btnViewFacilitySpecificData.TabIndex = 150
-        Me.btnViewFacilitySpecificData.Text = "View Data"
-        Me.btnViewFacilitySpecificData.UseVisualStyleBackColor = True
-        '
-        'cboFacilityName
-        '
-        Me.cboFacilityName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboFacilityName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboFacilityName.Location = New System.Drawing.Point(83, 8)
-        Me.cboFacilityName.Margin = New System.Windows.Forms.Padding(2)
-        Me.cboFacilityName.Name = "cboFacilityName"
-        Me.cboFacilityName.Size = New System.Drawing.Size(194, 21)
-        Me.cboFacilityName.TabIndex = 145
-        '
-        'cboAirsNo
-        '
-        Me.cboAirsNo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboAirsNo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboAirsNo.Location = New System.Drawing.Point(360, 8)
-        Me.cboAirsNo.Margin = New System.Windows.Forms.Padding(2)
-        Me.cboAirsNo.Name = "cboAirsNo"
-        Me.cboAirsNo.Size = New System.Drawing.Size(98, 21)
-        Me.cboAirsNo.TabIndex = 146
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(281, 11)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(75, 13)
-        Me.Label10.TabIndex = 148
-        Me.Label10.Text = "AIRS Number:"
-        '
-        'Label
-        '
-        Me.Label.AutoSize = True
-        Me.Label.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label.Location = New System.Drawing.Point(6, 11)
-        Me.Label.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label.Name = "Label"
-        Me.Label.Size = New System.Drawing.Size(73, 13)
-        Me.Label.TabIndex = 147
-        Me.Label.Text = "Facility Name:"
-        Me.Label.TextAlign = System.Drawing.ContentAlignment.BottomLeft
-        '
         'TPFinancial
         '
-        Me.TPFinancial.Controls.Add(Me.btnFeeByYear)
         Me.TPFinancial.Controls.Add(Me.btnPayment)
         Me.TPFinancial.Location = New System.Drawing.Point(4, 22)
         Me.TPFinancial.Margin = New System.Windows.Forms.Padding(2)
@@ -2345,16 +2249,6 @@ Partial Class FeesStatistics
         Me.TPFinancial.TabIndex = 1
         Me.TPFinancial.Text = "Financial"
         Me.TPFinancial.UseVisualStyleBackColor = True
-        '
-        'btnFeeByYear
-        '
-        Me.btnFeeByYear.CausesValidation = False
-        Me.btnFeeByYear.Location = New System.Drawing.Point(121, 4)
-        Me.btnFeeByYear.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnFeeByYear.Name = "btnFeeByYear"
-        Me.btnFeeByYear.Size = New System.Drawing.Size(109, 23)
-        Me.btnFeeByYear.TabIndex = 3
-        Me.btnFeeByYear.Text = "Facility Fee by Year"
         '
         'btnPayment
         '
@@ -2505,9 +2399,7 @@ Partial Class FeesStatistics
         'TPCompliance
         '
         Me.TPCompliance.Controls.Add(Me.btnClassification)
-        Me.TPCompliance.Controls.Add(Me.Label4)
         Me.TPCompliance.Controls.Add(Me.btnClassChange)
-        Me.TPCompliance.Controls.Add(Me.btnNoOperate)
         Me.TPCompliance.Location = New System.Drawing.Point(4, 22)
         Me.TPCompliance.Margin = New System.Windows.Forms.Padding(2)
         Me.TPCompliance.Name = "TPCompliance"
@@ -2526,15 +2418,6 @@ Partial Class FeesStatistics
         Me.btnClassification.TabIndex = 5
         Me.btnClassification.Text = "Classification Totals"
         '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(270, 29)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(128, 13)
-        Me.Label4.TabIndex = 4
-        Me.Label4.Text = "(Most recent 5 years only)"
-        '
         'btnClassChange
         '
         Me.btnClassChange.CausesValidation = False
@@ -2545,17 +2428,6 @@ Partial Class FeesStatistics
         Me.btnClassChange.TabIndex = 0
         Me.btnClassChange.Text = "Change in Classification"
         Me.btnClassChange.UseVisualStyleBackColor = False
-        '
-        'btnNoOperate
-        '
-        Me.btnNoOperate.CausesValidation = False
-        Me.btnNoOperate.Location = New System.Drawing.Point(269, 4)
-        Me.btnNoOperate.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNoOperate.Name = "btnNoOperate"
-        Me.btnNoOperate.Size = New System.Drawing.Size(94, 23)
-        Me.btnNoOperate.TabIndex = 3
-        Me.btnNoOperate.Text = "Did Not Operate"
-        Me.btnNoOperate.UseVisualStyleBackColor = False
         '
         'TPNsps
         '
@@ -2633,15 +2505,12 @@ Partial Class FeesStatistics
         Me.Panel2.ResumeLayout(False)
         CType(Me.GridFeesReports, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabReport.ResumeLayout(False)
-        Me.TPFacilitySpecific.ResumeLayout(False)
-        Me.TPFacilitySpecific.PerformLayout()
         Me.TPFinancial.ResumeLayout(False)
         Me.TPAnnualBalance.ResumeLayout(False)
         Me.TPAnnualBalance.PerformLayout()
         Me.TPDeposits.ResumeLayout(False)
         Me.TPDeposits.PerformLayout()
         Me.TPCompliance.ResumeLayout(False)
-        Me.TPCompliance.PerformLayout()
         Me.TPNsps.ResumeLayout(False)
         Me.TPNsps.PerformLayout()
         Me.ResumeLayout(False)
@@ -2724,19 +2593,12 @@ Partial Class FeesStatistics
     Friend WithEvents txtTotalPaymentDue As System.Windows.Forms.TextBox
     Friend WithEvents TPReports As System.Windows.Forms.TabPage
     Friend WithEvents tabReport As System.Windows.Forms.TabControl
-    Friend WithEvents TPFacilitySpecific As System.Windows.Forms.TabPage
-    Friend WithEvents cboFacilityName As System.Windows.Forms.ComboBox
-    Friend WithEvents cboAirsNo As System.Windows.Forms.ComboBox
-    Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents Label As System.Windows.Forms.Label
     Friend WithEvents TPFinancial As System.Windows.Forms.TabPage
-    Friend WithEvents btnFeeByYear As System.Windows.Forms.Button
     Friend WithEvents btnPayment As System.Windows.Forms.Button
     Friend WithEvents TPDeposits As System.Windows.Forms.TabPage
     Friend WithEvents cboAirs As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents TPCompliance As System.Windows.Forms.TabPage
-    Friend WithEvents btnNoOperate As System.Windows.Forms.Button
     Friend WithEvents btnClassChange As System.Windows.Forms.Button
     Friend WithEvents TPFeeStatistics2 As System.Windows.Forms.TabPage
     Friend WithEvents dgvFeeStats As Iaip.IaipDataGridView
@@ -2841,7 +2703,6 @@ Partial Class FeesStatistics
     Friend WithEvents btnViewInvoicedBalance As System.Windows.Forms.Button
     Friend WithEvents txtIAIPStatus As System.Windows.Forms.TextBox
     Friend WithEvents Label20 As System.Windows.Forms.Label
-    Friend WithEvents btnViewFacilitySpecificData As Button
     Friend WithEvents TPAnnualBalance As TabPage
     Friend WithEvents btnRunBalanceReport As Button
     Friend WithEvents lblFacilityBalanceReportTag As Label
@@ -2855,8 +2716,6 @@ Partial Class FeesStatistics
     Friend WithEvents dtpDepositReportEndDate As DateTimePicker
     Friend WithEvents dtpDepositReportStartDate As DateTimePicker
     Friend WithEvents Label2 As Label
-    Private WithEvents CRFeesReports As CrystalDecisions.Windows.Forms.CrystalReportViewer
-    Friend WithEvents Label4 As Label
     Friend WithEvents TPReported As TabPage
     Friend WithEvents dgvReported As Iaip.IaipDataGridView
     Friend WithEvents Panel6 As Panel
