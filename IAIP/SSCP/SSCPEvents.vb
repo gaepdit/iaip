@@ -3,6 +3,7 @@ Imports System.Data.SqlClient
 Imports EpdIt
 Imports Iaip.Apb.Sscp
 Imports Iaip.Apb.Sscp.WorkItem
+Imports Iaip.UrlHelpers
 
 Public Class SSCPEvents
 
@@ -2887,22 +2888,13 @@ Public Class SSCPEvents
 
     Private Sub PrintACC()
         LoadACC()
+
         If Not dtpAccReportingYear.Checked Then
             MsgBox("Please save a reporting year before printing this ACC.", MsgBoxStyle.Critical, "Print Error")
             Return
         End If
-        Try
-            Dim acc As Acc = LoadAccFromForm()
-            Dim accList As New List(Of Acc) From {acc}
 
-            Using dataTable As DataTable = ConvertToDataTable(Of Acc)(accList)
-                Dim title As String = acc.AccReportingYear & " ACC for " & acc.Facility.AirsNumber.FormattedString
-                Dim crv As New CRViewerForm(New CR.Reports.AccMemo, dataTable, title:=title)
-                crv.Show()
-            End Using
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenAccUrl(AirsNumber, dtpAccReportingYear.Value.Year, Me)
     End Sub
 
     Private Function LoadAccFromForm() As Acc
