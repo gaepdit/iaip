@@ -133,7 +133,6 @@ Public Class IAIPFacilitySummary
     Private Sub DisableFacilityTools()
         FSMainTabControl.Enabled = False
         UpdateEpaMenuItem.Enabled = False
-        PrintFacilitySummaryMenuItem.Enabled = False
 
         FSMainTabControl.SelectedTab = FSInfo
         ContactsTabControl.SelectedTab = TPContactsGeco
@@ -147,7 +146,6 @@ Public Class IAIPFacilitySummary
     Private Sub EnableFacilityTools()
         FSMainTabControl.Enabled = True
         UpdateEpaMenuItem.Enabled = True
-        PrintFacilitySummaryMenuItem.Enabled = True
     End Sub
 
 #End Region
@@ -909,10 +907,6 @@ Public Class IAIPFacilitySummary
         OpenFacilityLookupTool()
     End Sub
 
-    Private Sub PrintFacilitySummaryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintFacilitySummaryMenuItem.Click
-        OpenFacilitySummaryPrintTool()
-    End Sub
-
     Private Sub ClearFormToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearFormMenuItem.Click
         AirsNumber = Nothing
     End Sub
@@ -986,19 +980,6 @@ Public Class IAIPFacilitySummary
 
         If t.Text = "" Then
             t.Text = "N/A"
-        End If
-    End Sub
-
-    Private Sub OpenFacilitySummaryPrintTool()
-        If AirsNumber IsNot Nothing Then
-            Dim facilityPrintOut As New IaipFacilitySummaryPrint With {
-                .AirsNumber = AirsNumber,
-                .FacilityName = ThisFacility.FacilityName
-            }
-
-            If facilityPrintOut IsNot Nothing AndAlso Not facilityPrintOut.IsDisposed Then
-                facilityPrintOut.Show()
-            End If
         End If
     End Sub
 
