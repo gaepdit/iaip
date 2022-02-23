@@ -7,7 +7,7 @@ Namespace UrlHelpers
 
         Private ReadOnly ReportsUrl As New Uri(ConfigurationManager.AppSettings("AirReportsUrl"))
 
-        Public Function GetAccUrl(facilityId As ApbFacilityId, year As Integer) As Uri
+        Private Function GetAccUrl(facilityId As ApbFacilityId, year As Integer) As Uri
             Return New Uri(ReportsUrl, $"facility/{facilityId.FormattedString}/acc-report/{year}")
         End Function
 
@@ -17,7 +17,7 @@ Namespace UrlHelpers
             OpenUrl(url, sender)
         End Sub
 
-        Public Function GetFceUrl(facilityId As ApbFacilityId, id As Integer) As Uri
+        Private Function GetFceUrl(facilityId As ApbFacilityId, id As Integer) As Uri
             Return New Uri(ReportsUrl, $"facility/{facilityId.FormattedString}/fce/{id}")
         End Function
 
@@ -27,7 +27,7 @@ Namespace UrlHelpers
             OpenUrl(url, sender)
         End Sub
 
-        Public Function GetStackTestUrl(facilityId As ApbFacilityId, referenceNumber As Integer) As Uri
+        Private Function GetStackTestUrl(facilityId As ApbFacilityId, referenceNumber As Integer) As Uri
             Return New Uri(ReportsUrl, $"facility/{facilityId.FormattedString}/stack-test/{referenceNumber}")
         End Function
 
