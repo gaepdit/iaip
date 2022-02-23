@@ -25,6 +25,25 @@ Namespace DAL
             End Try
         End Function
 
+        Public Sub LogReportUsage(type As String, path As String)
+            ArgumentNotNullOrEmpty(type, NameOf(type))
+            ArgumentNotNullOrEmpty(path, NameOf(path))
+
+            AddBreadcrumb($"Report type {type} opened: {path}")
+
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@type", type),
+                New SqlParameter("@path", path),
+                New SqlParameter("@userId", (CurrentUser?.UserID))
+            }
+
+            Try
+                DB.SPRunCommand("dbo.LogReport", parameters)
+            Catch ex As Exception
+                Return
+            End Try
+        End Sub
+
         Public Sub LogFormUsage(formName As String)
             Dim query As String = "insert into dbo.IAIP_FormsLog (FormName, UserId) values (@formName, @userId)"
 
