@@ -22,11 +22,13 @@ Partial Class SSPPTitleVTools
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.bgwTransfer = New System.ComponentModel.BackgroundWorker()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPWebPublishing = New System.Windows.Forms.TabPage()
         Me.dgrWebPublisher = New Iaip.IaipDataGridView()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txtTVCount = New System.Windows.Forms.TextBox()
@@ -84,40 +86,21 @@ Partial Class SSPPTitleVTools
         Me.btnEmailFinalOnWeb = New System.Windows.Forms.Button()
         Me.btnEmailDraftOnWeb = New System.Windows.Forms.Button()
         Me.btnPreviewDraftOnWeb = New System.Windows.Forms.Button()
-        Me.TPTitleVRenewals = New System.Windows.Forms.TabPage()
-        Me.clbTitleVRenewals = New System.Windows.Forms.CheckedListBox()
-        Me.GBTitleVRenewals = New System.Windows.Forms.GroupBox()
-        Me.lblEndDate = New System.Windows.Forms.Label()
-        Me.lblStartDate = New System.Windows.Forms.Label()
-        Me.btnPrintSingleTitleVRenewal = New System.Windows.Forms.Button()
-        Me.txtTitleVSingleLetter = New System.Windows.Forms.TextBox()
-        Me.btnPrintRenewalLetters = New System.Windows.Forms.Button()
-        Me.DTPTitleVRenewalEnd = New System.Windows.Forms.DateTimePicker()
-        Me.DTPTitleVRenewalStart = New System.Windows.Forms.DateTimePicker()
-        Me.btnRunTitleVReport = New System.Windows.Forms.Button()
-        Me.txtRenewalCount = New System.Windows.Forms.TextBox()
-        Me.Label57 = New System.Windows.Forms.Label()
-        Me.Label56 = New System.Windows.Forms.Label()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.TCDMUTools.SuspendLayout()
         Me.TPWebPublishing.SuspendLayout()
         CType(Me.dgrWebPublisher, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.TPTVEmails.SuspendLayout()
         Me.Panel8.SuspendLayout()
         Me.Panel7.SuspendLayout()
         Me.Panel6.SuspendLayout()
-        Me.TPTitleVRenewals.SuspendLayout()
-        Me.GBTitleVRenewals.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TCDMUTools
         '
         Me.TCDMUTools.Controls.Add(Me.TPWebPublishing)
         Me.TCDMUTools.Controls.Add(Me.TPTVEmails)
-        Me.TCDMUTools.Controls.Add(Me.TPTitleVRenewals)
         Me.TCDMUTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCDMUTools.Location = New System.Drawing.Point(0, 0)
         Me.TCDMUTools.Name = "TCDMUTools"
@@ -139,10 +122,11 @@ Partial Class SSPPTitleVTools
         '
         'dgrWebPublisher
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrWebPublisher.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrWebPublisher.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgrWebPublisher.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrWebPublisher.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgrWebPublisher.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgrWebPublisher.LinkifyColumnByName = Nothing
         Me.dgrWebPublisher.Location = New System.Drawing.Point(419, 33)
         Me.dgrWebPublisher.Name = "dgrWebPublisher"
@@ -151,6 +135,25 @@ Partial Class SSPPTitleVTools
         Me.dgrWebPublisher.Size = New System.Drawing.Size(396, 483)
         Me.dgrWebPublisher.StandardTab = True
         Me.dgrWebPublisher.TabIndex = 2
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.Label2)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(419, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(396, 33)
+        Me.Panel1.TabIndex = 3
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(3, 10)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(267, 15)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = "Web Publisher Active Title V Applications"
         '
         'Panel4
         '
@@ -743,168 +746,6 @@ Partial Class SSPPTitleVTools
         Me.btnPreviewDraftOnWeb.Text = "Drafts on Web"
         Me.btnPreviewDraftOnWeb.UseVisualStyleBackColor = True
         '
-        'TPTitleVRenewals
-        '
-        Me.TPTitleVRenewals.Controls.Add(Me.clbTitleVRenewals)
-        Me.TPTitleVRenewals.Controls.Add(Me.GBTitleVRenewals)
-        Me.TPTitleVRenewals.Location = New System.Drawing.Point(4, 22)
-        Me.TPTitleVRenewals.Name = "TPTitleVRenewals"
-        Me.TPTitleVRenewals.Size = New System.Drawing.Size(815, 516)
-        Me.TPTitleVRenewals.TabIndex = 6
-        Me.TPTitleVRenewals.Text = "Title V Renewals"
-        Me.TPTitleVRenewals.UseVisualStyleBackColor = True
-        '
-        'clbTitleVRenewals
-        '
-        Me.clbTitleVRenewals.CheckOnClick = True
-        Me.clbTitleVRenewals.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbTitleVRenewals.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.clbTitleVRenewals.FormattingEnabled = True
-        Me.clbTitleVRenewals.HorizontalScrollbar = True
-        Me.clbTitleVRenewals.Location = New System.Drawing.Point(0, 147)
-        Me.clbTitleVRenewals.Name = "clbTitleVRenewals"
-        Me.clbTitleVRenewals.ScrollAlwaysVisible = True
-        Me.clbTitleVRenewals.Size = New System.Drawing.Size(815, 369)
-        Me.clbTitleVRenewals.TabIndex = 1
-        '
-        'GBTitleVRenewals
-        '
-        Me.GBTitleVRenewals.Controls.Add(Me.lblEndDate)
-        Me.GBTitleVRenewals.Controls.Add(Me.lblStartDate)
-        Me.GBTitleVRenewals.Controls.Add(Me.btnPrintSingleTitleVRenewal)
-        Me.GBTitleVRenewals.Controls.Add(Me.txtTitleVSingleLetter)
-        Me.GBTitleVRenewals.Controls.Add(Me.btnPrintRenewalLetters)
-        Me.GBTitleVRenewals.Controls.Add(Me.DTPTitleVRenewalEnd)
-        Me.GBTitleVRenewals.Controls.Add(Me.DTPTitleVRenewalStart)
-        Me.GBTitleVRenewals.Controls.Add(Me.btnRunTitleVReport)
-        Me.GBTitleVRenewals.Controls.Add(Me.txtRenewalCount)
-        Me.GBTitleVRenewals.Controls.Add(Me.Label57)
-        Me.GBTitleVRenewals.Controls.Add(Me.Label56)
-        Me.GBTitleVRenewals.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GBTitleVRenewals.Location = New System.Drawing.Point(0, 0)
-        Me.GBTitleVRenewals.Name = "GBTitleVRenewals"
-        Me.GBTitleVRenewals.Size = New System.Drawing.Size(815, 147)
-        Me.GBTitleVRenewals.TabIndex = 0
-        Me.GBTitleVRenewals.TabStop = False
-        Me.GBTitleVRenewals.Text = "Title V Renewals"
-        '
-        'lblEndDate
-        '
-        Me.lblEndDate.AutoSize = True
-        Me.lblEndDate.Location = New System.Drawing.Point(164, 66)
-        Me.lblEndDate.Name = "lblEndDate"
-        Me.lblEndDate.Size = New System.Drawing.Size(52, 13)
-        Me.lblEndDate.TabIndex = 380
-        Me.lblEndDate.Text = "End Date"
-        '
-        'lblStartDate
-        '
-        Me.lblStartDate.AutoSize = True
-        Me.lblStartDate.Location = New System.Drawing.Point(30, 66)
-        Me.lblStartDate.Name = "lblStartDate"
-        Me.lblStartDate.Size = New System.Drawing.Size(55, 13)
-        Me.lblStartDate.TabIndex = 379
-        Me.lblStartDate.Text = "Start Date"
-        '
-        'btnPrintSingleTitleVRenewal
-        '
-        Me.btnPrintSingleTitleVRenewal.AutoSize = True
-        Me.btnPrintSingleTitleVRenewal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnPrintSingleTitleVRenewal.Location = New System.Drawing.Point(157, 96)
-        Me.btnPrintSingleTitleVRenewal.Name = "btnPrintSingleTitleVRenewal"
-        Me.btnPrintSingleTitleVRenewal.Size = New System.Drawing.Size(148, 23)
-        Me.btnPrintSingleTitleVRenewal.TabIndex = 378
-        Me.btnPrintSingleTitleVRenewal.Text = "Print Single Title V Renewal"
-        Me.btnPrintSingleTitleVRenewal.UseVisualStyleBackColor = True
-        '
-        'txtTitleVSingleLetter
-        '
-        Me.txtTitleVSingleLetter.Location = New System.Drawing.Point(42, 96)
-        Me.txtTitleVSingleLetter.Name = "txtTitleVSingleLetter"
-        Me.txtTitleVSingleLetter.Size = New System.Drawing.Size(100, 20)
-        Me.txtTitleVSingleLetter.TabIndex = 377
-        '
-        'btnPrintRenewalLetters
-        '
-        Me.btnPrintRenewalLetters.Location = New System.Drawing.Point(440, 42)
-        Me.btnPrintRenewalLetters.Name = "btnPrintRenewalLetters"
-        Me.btnPrintRenewalLetters.Size = New System.Drawing.Size(73, 20)
-        Me.btnPrintRenewalLetters.TabIndex = 376
-        Me.btnPrintRenewalLetters.Text = "Print Letters"
-        '
-        'DTPTitleVRenewalEnd
-        '
-        Me.DTPTitleVRenewalEnd.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPTitleVRenewalEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPTitleVRenewalEnd.Location = New System.Drawing.Point(167, 42)
-        Me.DTPTitleVRenewalEnd.Name = "DTPTitleVRenewalEnd"
-        Me.DTPTitleVRenewalEnd.Size = New System.Drawing.Size(100, 20)
-        Me.DTPTitleVRenewalEnd.TabIndex = 371
-        Me.DTPTitleVRenewalEnd.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPTitleVRenewalStart
-        '
-        Me.DTPTitleVRenewalStart.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPTitleVRenewalStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPTitleVRenewalStart.Location = New System.Drawing.Point(33, 42)
-        Me.DTPTitleVRenewalStart.Name = "DTPTitleVRenewalStart"
-        Me.DTPTitleVRenewalStart.Size = New System.Drawing.Size(100, 20)
-        Me.DTPTitleVRenewalStart.TabIndex = 372
-        Me.DTPTitleVRenewalStart.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'btnRunTitleVReport
-        '
-        Me.btnRunTitleVReport.Location = New System.Drawing.Point(287, 42)
-        Me.btnRunTitleVReport.Name = "btnRunTitleVReport"
-        Me.btnRunTitleVReport.Size = New System.Drawing.Size(86, 20)
-        Me.btnRunTitleVReport.TabIndex = 0
-        Me.btnRunTitleVReport.Text = "Run Report"
-        '
-        'txtRenewalCount
-        '
-        Me.txtRenewalCount.Location = New System.Drawing.Point(400, 42)
-        Me.txtRenewalCount.Name = "txtRenewalCount"
-        Me.txtRenewalCount.ReadOnly = True
-        Me.txtRenewalCount.Size = New System.Drawing.Size(27, 20)
-        Me.txtRenewalCount.TabIndex = 373
-        '
-        'Label57
-        '
-        Me.Label57.AutoSize = True
-        Me.Label57.Location = New System.Drawing.Point(140, 21)
-        Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(55, 13)
-        Me.Label57.TabIndex = 375
-        Me.Label57.Text = "End Date:"
-        '
-        'Label56
-        '
-        Me.Label56.AutoSize = True
-        Me.Label56.Location = New System.Drawing.Point(7, 21)
-        Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(58, 13)
-        Me.Label56.TabIndex = 374
-        Me.Label56.Text = "Start Date:"
-        '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.Label2)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel1.Location = New System.Drawing.Point(419, 0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(396, 33)
-        Me.Panel1.TabIndex = 3
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(3, 10)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(267, 15)
-        Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Web Publisher Active Title V Applications"
-        '
         'SSPPTitleVTools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -917,6 +758,8 @@ Partial Class SSPPTitleVTools
         Me.TCDMUTools.ResumeLayout(False)
         Me.TPWebPublishing.ResumeLayout(False)
         CType(Me.dgrWebPublisher, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.TPTVEmails.ResumeLayout(False)
@@ -925,11 +768,6 @@ Partial Class SSPPTitleVTools
         Me.Panel7.ResumeLayout(False)
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
-        Me.TPTitleVRenewals.ResumeLayout(False)
-        Me.GBTitleVRenewals.ResumeLayout(False)
-        Me.GBTitleVRenewals.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -994,20 +832,6 @@ Partial Class SSPPTitleVTools
     Friend WithEvents btnEmailFinalOnWeb As System.Windows.Forms.Button
     Friend WithEvents btnEmailDraftOnWeb As System.Windows.Forms.Button
     Friend WithEvents btnPreviewDraftOnWeb As System.Windows.Forms.Button
-    Friend WithEvents TPTitleVRenewals As System.Windows.Forms.TabPage
-    Friend WithEvents clbTitleVRenewals As System.Windows.Forms.CheckedListBox
-    Friend WithEvents GBTitleVRenewals As System.Windows.Forms.GroupBox
-    Friend WithEvents lblEndDate As System.Windows.Forms.Label
-    Friend WithEvents lblStartDate As System.Windows.Forms.Label
-    Friend WithEvents btnPrintSingleTitleVRenewal As System.Windows.Forms.Button
-    Friend WithEvents txtTitleVSingleLetter As System.Windows.Forms.TextBox
-    Friend WithEvents btnPrintRenewalLetters As System.Windows.Forms.Button
-    Friend WithEvents DTPTitleVRenewalEnd As System.Windows.Forms.DateTimePicker
-    Friend WithEvents DTPTitleVRenewalStart As System.Windows.Forms.DateTimePicker
-    Friend WithEvents btnRunTitleVReport As System.Windows.Forms.Button
-    Friend WithEvents txtRenewalCount As System.Windows.Forms.TextBox
-    Friend WithEvents Label57 As System.Windows.Forms.Label
-    Friend WithEvents Label56 As System.Windows.Forms.Label
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label2 As Label
 End Class

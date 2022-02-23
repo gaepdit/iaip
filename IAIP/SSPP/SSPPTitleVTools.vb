@@ -148,39 +148,16 @@ Public Class SSPPTitleVTools
 
     End Sub
     Private Sub LoadPermissions()
-        Try
+        LoadWebPublisherDataGrid()
 
-            TCDMUTools.TabPages.Remove(TPWebPublishing)
-            TCDMUTools.TabPages.Remove(TPTVEmails)
-            TCDMUTools.TabPages.Remove(TPTitleVRenewals)
-
-            'Web Publishers
-            If AccountFormAccess(131, 2) = "1" Then
-                TCDMUTools.TabPages.Add(TPWebPublishing)
-                TCDMUTools.TabPages.Add(TPTVEmails)
-                TCDMUTools.TabPages.Add(TPTitleVRenewals)
-
-                LoadWebPublisherDataGrid()
-
-                DTPNotifiedAppReceived.Value = Today
-                DTPDraftOnWeb.Value = Today
-                DTPEffectiveDateofPermit.Value = Today
-                DTPEPANotifiedPermitOnWeb.Value = Today
-                DTPEPAStatesNotified.Value = Today
-                DTPFinalOnWeb.Value = Today
-                DTPTitleVRenewalStart.Value = Today
-                DTPTitleVRenewalEnd.Value = Today
-                DTPTitleVRenewalStart.Value = Today
-                DTPPNExpires.Value = Today
-                DTPExperationDate.Value = Today
-                DTPTitleVRenewalEnd.Value = Today.AddMonths(1)
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        DTPNotifiedAppReceived.Value = Today
+        DTPDraftOnWeb.Value = Today
+        DTPEffectiveDateofPermit.Value = Today
+        DTPEPANotifiedPermitOnWeb.Value = Today
+        DTPEPAStatesNotified.Value = Today
+        DTPFinalOnWeb.Value = Today
+        DTPPNExpires.Value = Today
+        DTPExperationDate.Value = Today
     End Sub
     Private Sub LoadWebPublisherApplicationData()
         Try
@@ -408,122 +385,6 @@ Public Class SSPPTitleVTools
         Finally
 
         End Try
-
-    End Sub
-    Private Sub RunTitleVRenewalReport()
-        Dim ApplicationNumber As String
-        Dim AIRSNumber As String
-        Dim FacilityName As String
-        Dim PermitNumber As String
-        Dim DateIssued As String
-        Dim EffectiveDate As String
-        Dim temp As String
-
-        Try
-
-            Dim Startdate As Date = DTPTitleVRenewalStart.Value.AddMonths(-51)
-            Dim EndDate As Date = DTPTitleVRenewalEnd.Value.AddMonths(-51)
-
-            lblStartDate.Text = Format(Startdate, "dd-MMM-yyyy")
-            lblEndDate.Text = Format(EndDate, "dd-MMM-yyyy")
-
-            clbTitleVRenewals.Items.Clear()
-
-            temp = "App #   Airs #   Facility Name                             (     Permit Number    )  Issued Date  Effective Date"
-            If clbTitleVRenewals.Items.Contains(temp) Then
-            Else
-                clbTitleVRenewals.Items.Add(temp)
-            End If
-
-
-            query =
-            "SELECT am.STRAPPLICATIONNUMBER , SUBSTRING( fi.STRAIRSNUMBER, 5,8 ) " &
-            "  AS AIRSNumber , fi.STRFACILITYNAME ,concat( " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 1, 4 ) , '-' ,  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 5, 3 ) , '-' ,  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 8, 4 ) , '-' ,  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 12, 1 ) , '-' ,  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 13, 2 ) , '-' ,  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 15, 1 ) ) AS PermitNumber ,  " &
-            "  format( ar.DATPERMITISSUED, 'dd-MMM-yyyy' ) AS PermitIssued , format " &
-            "  ( ar.DATEFFECTIVE, 'dd-MMM-yyyy' ) AS EffectiveDate " &
-            "FROM SSPPApplicationMaster am " &
-            "INNER JOIN SSPPApplicationData ad " &
-            "ON ad.STRAPPLICATIONNUMBER = am.STRAPPLICATIONNUMBER " &
-            "INNER JOIN SSPPApplicationTracking ar " &
-            "ON am.STRAPPLICATIONNUMBER = ar.STRAPPLICATIONNUMBER " &
-            "INNER JOIN APBHeaderData hd " &
-            "ON am.STRAIRSNUMBER = hd.STRAIRSNUMBER " &
-            "INNER JOIN APBFacilityInformation fi " &
-            "ON fi.STRAIRSNUMBER = am.STRAIRSNUMBER " &
-            "WHERE ad.STRPERMITNUMBER LIKE '%V__0' AND " &
-            "  hd.STROPERATIONALSTATUS <> 'X' AND " &
-            "  SUBSTRING( hd.STRAIRPROGRAMCODES, 13, 1 ) = '1' AND ar.DATEFFECTIVE " &
-            "  BETWEEN @Startdate AND @EndDate AND( am.STRAPPLICATIONTYPE = " &
-            "  '14' OR am.STRAPPLICATIONTYPE = '16' OR am.STRAPPLICATIONTYPE " &
-            "  = '27' )"
-
-            Dim p As SqlParameter() = {
-                New SqlParameter("@Startdate", Startdate),
-                New SqlParameter("@EndDate", EndDate)
-            }
-
-            Dim dt As DataTable = DB.GetDataTable(query, p)
-
-            For Each dr As DataRow In dt.Rows
-                If IsDBNull(dr.Item("strApplicationNumber")) Then
-                    ApplicationNumber = ""
-                Else
-                    ApplicationNumber = dr.Item("strApplicationNumber")
-                End If
-                If IsDBNull(dr.Item("AIRSNumber")) Then
-                    AIRSNumber = ""
-                Else
-                    AIRSNumber = dr.Item("AIRSNumber")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    FacilityName = "N/A"
-                Else
-                    FacilityName = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("PermitNumber")) Then
-                    PermitNumber = "PermitNumber"
-                Else
-                    PermitNumber = dr.Item("PermitNumber")
-                End If
-                If IsDBNull(dr.Item("PermitIssued")) Then
-                    DateIssued = "N/A"
-                Else
-                    DateIssued = dr.Item("PermitIssued")
-                End If
-                If IsDBNull(dr.Item("EffectiveDate")) Then
-                    EffectiveDate = "N/A"
-                Else
-                    EffectiveDate = dr.Item("EffectiveDate")
-                End If
-
-                If AIRSNumber <> "" Then
-                    temp = ApplicationNumber & "  " & AIRSNumber & "  " & FacilityName.Truncate(40).PadRight(40)
-                    temp = temp & "  ( " & PermitNumber & " ) " & " " & DateIssued & "  " & EffectiveDate
-
-                    If clbTitleVRenewals.Items.Contains(temp) Then
-                    Else
-                        clbTitleVRenewals.Items.Add(temp)
-                        clbTitleVRenewals.SetItemChecked(clbTitleVRenewals.Items.IndexOf(temp), True)
-                    End If
-
-                End If
-
-                txtRenewalCount.Text = clbTitleVRenewals.Items.Count - 1
-
-            Next
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
 
     End Sub
     Private Sub LoadWebPublishingFacilityInformation()
@@ -2651,37 +2512,6 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnRunTitleVReport_Click(sender As Object, e As EventArgs) Handles btnRunTitleVReport.Click
-        Try
-
-            RunTitleVRenewalReport()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnPrintRenewalLetters_Click(sender As Object, e As EventArgs) Handles btnPrintRenewalLetters.Click
-        Try
-            If txtRenewalCount.Text <> "" AndAlso txtRenewalCount.Text <> "0" Then
-                Dim PrintOut As New IAIPPrintOut With {
-                    .PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal,
-                    .ReferenceValue = "*",
-                    .StartDate = DTPTitleVRenewalStart.Value.AddMonths(-51),
-                    .EndDate = DTPTitleVRenewalEnd.Value.AddMonths(-51)
-                }
-
-                If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
-                    PrintOut.Show()
-                Else
-                    MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
     Private Sub btnPreviewESNReceived_Click(sender As Object, e As EventArgs) Handles btnPreviewESNReceived.Click
         Try
 
@@ -3002,35 +2832,6 @@ Public Class SSPPTitleVTools
 
         End Try
 
-    End Sub
-    Private Sub btnPrintSingleTitleVRenewal_Click(sender As Object, e As EventArgs) Handles btnPrintSingleTitleVRenewal.Click
-        Try
-            Dim AppNumber As String = "*"
-
-            If txtTitleVSingleLetter.Text <> "" Then
-                AppNumber = txtTitleVSingleLetter.Text
-            Else
-                AppNumber = "*"
-            End If
-
-            If (Me.txtRenewalCount.Text <> "" AndAlso txtRenewalCount.Text <> "0") OrElse txtTitleVSingleLetter.Text <> "" Then
-                Dim PrintOut As New IAIPPrintOut With {
-                    .PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal,
-                    .ReferenceValue = AppNumber,
-                    .StartDate = New Date(1990, 1, 1),
-                    .EndDate = New Date(2099, 1, 1)
-                }
-
-                If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
-                    PrintOut.Show()
-                Else
-                    MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
     End Sub
 
 End Class

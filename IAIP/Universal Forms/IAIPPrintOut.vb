@@ -16,7 +16,6 @@ Public Class IAIPPrintOut
 
     Public Enum PrintType
         IsmpTestReport
-        TitleVRenewal
     End Enum
 
     Public Enum PrintSubtype
@@ -68,9 +67,6 @@ Public Class IAIPPrintOut
             Select Case PrintoutType
                 Case PrintType.IsmpTestReport
                     PrintIsmpReport()
-
-                Case PrintType.TitleVRenewal
-                    PrintOutTitleVRenewals()
 
                 Case Else
                     MsgBox("Unable to print; please contact EPD IT.")
@@ -12400,49 +12396,6 @@ Public Class IAIPPrintOut
             Me.Close()
         End If
 
-    End Sub
-
-#End Region
-
-#Region " SSPP Reports "
-
-    Private Sub PrintOutTitleVRenewals()
-        Dim SQL As String
-
-        If ReferenceValue = "*" Then
-            SQL = "Select * " &
-                "from VW_Title_V_Renewals " &
-                "where datPermitIssued between @start " &
-                "and @end " &
-                "or datEffective between @start " &
-                "and @end "
-        Else
-            SQL = "Select * " &
-                "from VW_Title_V_Renewals " &
-                "where strApplicationNumber = @ref "
-        End If
-
-        Dim p As SqlParameter() = {
-            New SqlParameter("@start", StartDate),
-            New SqlParameter("@end", EndDate),
-            New SqlParameter("@ref", ReferenceValue)
-        }
-
-        Dim dt As DataTable = DB.GetDataTable(SQL, p)
-        dt.TableName = "VW_Title_V_Renewals"
-
-        Dim ParameterFields As New ParameterFields
-
-        ParameterFields.AddParameterField("Director", GetEpdManagerName(EpdManagementTypes.EpdDirector))
-        ParameterFields.AddParameterField("Commissioner", GetEpdManagerName(EpdManagementTypes.DnrCommissioner))
-        ParameterFields.AddParameterField("ProgramManager", GetEpdManagerName(EpdManagementTypes.SsppProgramManager))
-
-        Dim rpt As New CRTitleVRenewal10
-        rpt.SetDataSource(dt)
-
-        CRViewer.ParameterFieldInfo = ParameterFields
-        CRViewer.ReportSource = rpt
-        CRViewer.Refresh()
     End Sub
 
 #End Region
