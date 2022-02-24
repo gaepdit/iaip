@@ -27,12 +27,19 @@ Namespace UrlHelpers
             OpenUrl(url, sender)
         End Sub
 
-        Private Function GetStackTestUrl(facilityId As ApbFacilityId, referenceNumber As Integer) As Uri
-            Return New Uri(ReportsUrl, $"facility/{facilityId.FormattedString}/stack-test/{referenceNumber}")
+        Private Function GetStackTestUrl(facilityId As ApbFacilityId,
+                                         referenceNumber As Integer,
+                                         includeConfidentialInfo As Boolean) As Uri
+
+            Dim query As String = If(includeConfidentialInfo, "?includeConfidentialInfo=true", "")
+            Return New Uri(ReportsUrl, $"facility/{facilityId.FormattedString}/stack-test/{referenceNumber}{query}")
         End Function
 
-        Public Sub OpenStackTestUrl(facilityId As ApbFacilityId, referenceNumber As Integer, Optional sender As Form = Nothing)
-            Dim url As Uri = GetStackTestUrl(facilityId, referenceNumber)
+        Public Sub OpenStackTestUrl(facilityId As ApbFacilityId,
+                                    referenceNumber As Integer,
+                                    includeConfidentialInfo As Boolean,
+                                    Optional sender As Form = Nothing)
+            Dim url As Uri = GetStackTestUrl(facilityId, referenceNumber, includeConfidentialInfo)
             DAL.LogReportUsage("stack test", url.ToString)
             OpenUrl(url, sender)
         End Sub

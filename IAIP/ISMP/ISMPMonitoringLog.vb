@@ -737,7 +737,7 @@ Public Class ISMPMonitoringLog
         End Try
     End Sub
     Private Sub SelectTestReport()
-        OpenFormTestReport(txtReferenceNumber.Text)
+        OpenFormTestReport(txtReferenceNumber.Text, Me)
     End Sub
     Private Sub ResetOptions()
         Try
@@ -895,7 +895,7 @@ Public Class ISMPMonitoringLog
     End Sub
 
     Private Sub dgvTestReportViewer_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvTestReportViewer.CellLinkActivated
-        OpenFormTestReport(e.LinkValue.ToString)
+        OpenFormTestReport(e.LinkValue.ToString, Me)
     End Sub
 
     Private Sub dgvNotificationLog_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvNotificationLog.CellEnter

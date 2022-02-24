@@ -15700,13 +15700,15 @@ Public Class ISMPTestReports
         End Try
 
     End Sub
+
     Private Sub tsbPrint_Click(sender As Object, e As EventArgs) Handles tsbPrint.Click
-        Try
-            OpenFormTestReportPrintout(ReferenceNumber)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormTestReportPrintout(txtAirsNumber.Text, ReferenceNumber, Me)
     End Sub
+
+    Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
+        OpenFormTestReportPrintout(txtAirsNumber.Text, ReferenceNumber, Me)
+    End Sub
+
     Private Sub tsbClear_Click(sender As Object, e As EventArgs) Handles tsbClear.Click
         Try
 
@@ -20766,14 +20768,8 @@ Public Class ISMPTestReports
         End Try
     End Sub
     Private Sub mmiPrintNonConf_Click(sender As Object, e As EventArgs) Handles mmiPrintNonConf.Click
-        Try
-            OpenFormTestReportPrintout(ReferenceNumber, noConf:=True)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        OpenFormTestReportPrintout(txtAirsNumber.Text, ReferenceNumber, Me, includeConfidentialInfo:=True)
     End Sub
-
     Private Sub mmiOpenMemo_Click(sender As Object, e As EventArgs) Handles mmiOpenMemo.Click
         Try
             OpenMemo()

@@ -774,7 +774,7 @@ Public Class SSCPFCEWork
     End Sub
 
     Private Sub llbISMPSummaryReports_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbISMPSummaryReports.LinkClicked
-        OpenFormTestReportPrintout(txtISMPReferenceNumber.Text)
+        OpenFormTestReportPrintout(AirsNumber, txtISMPReferenceNumber.Text, Me)
     End Sub
 
     Private Sub llbFCEEnforcement_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFCEEnforcement.LinkClicked

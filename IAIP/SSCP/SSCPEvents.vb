@@ -2810,13 +2810,9 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub btnViewTestReport_Click(sender As Object, e As EventArgs) Handles btnViewTestReport.Click
-        Try
-            If txtISMPReferenceNumber.Text <> "N/A" Then
-                OpenFormTestReportPrintout(txtISMPReferenceNumber.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If txtISMPReferenceNumber.Text <> "N/A" Then
+            OpenFormTestReportPrintout(AirsNumber, txtISMPReferenceNumber.Text, Me)
+        End If
     End Sub
 
     Private Sub btnACCSubmittals_Click(sender As Object, e As EventArgs) Handles btnACCSubmittals.Click

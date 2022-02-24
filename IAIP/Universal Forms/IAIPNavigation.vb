@@ -362,7 +362,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenTestReport()
-        OpenFormTestReport(txtOpenTestReport.Text)
+        OpenFormTestReport(txtOpenTestReport.Text, Me)
     End Sub
 
     Private Sub OpenEnforcement()

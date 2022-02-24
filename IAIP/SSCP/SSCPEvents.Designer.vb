@@ -240,8 +240,8 @@ Partial Class SSCPEvents
 
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.llEnforcementCases = New System.Windows.Forms.LinkLabel()
         Me.cboStaffResponsible = New System.Windows.Forms.ComboBox()
@@ -1067,11 +1067,12 @@ Partial Class SSCPEvents
         '
         'dgrReportResubmittal
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrReportResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrReportResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgrReportResubmittal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrReportResubmittal.Dock = System.Windows.Forms.DockStyle.Left
         Me.dgrReportResubmittal.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgrReportResubmittal.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgrReportResubmittal.LinkifyColumnByName = Nothing
         Me.dgrReportResubmittal.Location = New System.Drawing.Point(0, 0)
         Me.dgrReportResubmittal.Name = "dgrReportResubmittal"
@@ -2611,11 +2612,12 @@ Partial Class SSCPEvents
         '
         'DGRACCResubmittal
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.DGRACCResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.DGRACCResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.DGRACCResubmittal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.DGRACCResubmittal.Dock = System.Windows.Forms.DockStyle.Left
         Me.DGRACCResubmittal.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DGRACCResubmittal.GridColor = System.Drawing.SystemColors.ControlLight
         Me.DGRACCResubmittal.LinkifyColumnByName = Nothing
         Me.DGRACCResubmittal.Location = New System.Drawing.Point(0, 0)
         Me.DGRACCResubmittal.Name = "DGRACCResubmittal"

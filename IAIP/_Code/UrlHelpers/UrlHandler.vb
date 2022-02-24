@@ -10,7 +10,7 @@
         Private Function OpenUri(uriString As String, Optional sender As Form = Nothing, Optional isMailto As Boolean = False) As Boolean
             ' Reference: https://faithlife.codes/blog/2008/01/using_processstart_to_link_to/
             Try
-                sender.Cursor = Cursors.AppStarting
+                If sender IsNot Nothing Then sender.Cursor = Cursors.AppStarting
 
                 If String.IsNullOrEmpty(uriString) OrElse Not IsValidURL(uriString, isMailto) Then Return False
 
@@ -23,7 +23,7 @@
             TypeOf ee Is IO.FileNotFoundException
                 Return False
             Finally
-                sender.Cursor = Nothing
+                If sender IsNot Nothing Then sender.Cursor = Nothing
             End Try
         End Function
 
