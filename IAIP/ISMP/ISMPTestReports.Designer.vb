@@ -19,7 +19,6 @@ Partial Class ISMPTestReports
         Me.mmiOpenMemo = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiTool = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiOpenTestLogNotification = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mmiOpenExcelFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiPrePopulate = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiDefaultCompliance = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiPrintNonConf = New System.Windows.Forms.ToolStripMenuItem()
@@ -953,21 +952,21 @@ Partial Class ISMPTestReports
         '
         Me.mmiSave.Name = "mmiSave"
         Me.mmiSave.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.mmiSave.Size = New System.Drawing.Size(148, 22)
+        Me.mmiSave.Size = New System.Drawing.Size(180, 22)
         Me.mmiSave.Text = "&Save"
         '
         'PrintToolStripMenuItem
         '
         Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
         Me.PrintToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
-        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
+        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PrintToolStripMenuItem.Text = "&Print"
         '
         'mmiClose
         '
         Me.mmiClose.Name = "mmiClose"
         Me.mmiClose.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W), System.Windows.Forms.Keys)
-        Me.mmiClose.Size = New System.Drawing.Size(148, 22)
+        Me.mmiClose.Size = New System.Drawing.Size(180, 22)
         Me.mmiClose.Text = "&Close"
         '
         'mmiView
@@ -985,7 +984,7 @@ Partial Class ISMPTestReports
         '
         'mmiTool
         '
-        Me.mmiTool.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOpenTestLogNotification, Me.mmiOpenExcelFile, Me.mmiPrePopulate, Me.mmiDefaultCompliance, Me.mmiPrintNonConf})
+        Me.mmiTool.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOpenTestLogNotification, Me.mmiPrePopulate, Me.mmiDefaultCompliance, Me.mmiPrintNonConf})
         Me.mmiTool.Name = "mmiTool"
         Me.mmiTool.Size = New System.Drawing.Size(46, 20)
         Me.mmiTool.Text = "&Tools"
@@ -996,12 +995,6 @@ Partial Class ISMPTestReports
         Me.mmiOpenTestLogNotification.Size = New System.Drawing.Size(278, 22)
         Me.mmiOpenTestLogNotification.Text = "Test Log &Notification"
         Me.mmiOpenTestLogNotification.ToolTipText = "Open Test Notification"
-        '
-        'mmiOpenExcelFile
-        '
-        Me.mmiOpenExcelFile.Name = "mmiOpenExcelFile"
-        Me.mmiOpenExcelFile.Size = New System.Drawing.Size(278, 22)
-        Me.mmiOpenExcelFile.Text = "Open &Excel File"
         '
         'mmiPrePopulate
         '
@@ -10127,7 +10120,6 @@ End Sub
     Friend WithEvents mmiOpenMemo As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiTool As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiOpenTestLogNotification As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiOpenExcelFile As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiPrePopulate As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents tsbSave As System.Windows.Forms.ToolStripButton
