@@ -7,12 +7,12 @@ Namespace UrlHelpers
 
         Private ReadOnly ReportsUrl As New Uri(ConfigurationManager.AppSettings("AirReportsUrl"))
 
-        Private Function GetAccUrl(facilityId As ApbFacilityId, year As Integer) As Uri
-            Return New Uri(ReportsUrl, $"facility/{facilityId.FormattedString}/acc-report/{year}")
+        Private Function GetAccUrl(facilityId As ApbFacilityId, id As Integer) As Uri
+            Return New Uri(ReportsUrl, $"facility/{facilityId.FormattedString}/acc-report/{id}")
         End Function
 
-        Public Sub OpenAccUrl(facilityId As ApbFacilityId, year As Integer, Optional sender As Form = Nothing)
-            Dim url As Uri = GetAccUrl(facilityId, year)
+        Public Sub OpenAccUrl(facilityId As ApbFacilityId, id As Integer, Optional sender As Form = Nothing)
+            Dim url As Uri = GetAccUrl(facilityId, id)
             DAL.LogReportUsage("acc", url.ToString)
             OpenUrl(url, sender)
         End Sub

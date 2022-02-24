@@ -2894,7 +2894,7 @@ Public Class SSCPEvents
             Return
         End If
 
-        OpenAccUrl(AirsNumber, dtpAccReportingYear.Value.Year, Me)
+        OpenAccUrl(AirsNumber, TrackingNumber, Me)
     End Sub
 
     Private Function LoadAccFromForm() As Acc
