@@ -993,12 +993,6 @@
     <Compile Include="SSPP\SSPPPermitUploader.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\IAIPPrintOut.Designer.vb">
-      <DependentUpon>IAIPPrintOut.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Universal Forms\IAIPPrintOut.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Universal Forms\IAIPLogIn.Designer.vb">
       <DependentUpon>IAIPLogIn.vb</DependentUpon>
     </Compile>
@@ -1406,10 +1400,6 @@
     <EmbeddedResource Include="SSPP\SSPPPermitUploader.resx">
       <SubType>Designer</SubType>
       <DependentUpon>SSPPPermitUploader.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\IAIPPrintOut.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>IAIPPrintOut.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IAIPLogIn.resx">
       <SubType>Designer</SubType>
