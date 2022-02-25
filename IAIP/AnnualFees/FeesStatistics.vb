@@ -1,8 +1,6 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Text
-Imports CrystalDecisions.CrystalReports.Engine
-Imports CrystalDecisions.Shared
 Imports EpdIt.DBUtilities
 Imports Iaip.Apb
 Imports Iaip.Apb.ApbFacilityId
