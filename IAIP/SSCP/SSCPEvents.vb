@@ -1,8 +1,7 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports EpdIt
-Imports Iaip.Apb.Sscp
-Imports Iaip.Apb.Sscp.WorkItem
+Imports Iaip.Apb.Sscp.WorkItemEnums
 Imports Iaip.UrlHelpers
 
 Public Class SSCPEvents
@@ -2892,34 +2891,6 @@ Public Class SSCPEvents
 
         OpenAccUrl(AirsNumber, TrackingNumber, Me)
     End Sub
-
-    Private Function LoadAccFromForm() As Acc
-        Dim thisAcc As New Acc
-
-        With thisAcc
-            If dtpAccReportingYear.Checked Then .AccReportingYear = dtpAccReportingYear.Value.Year
-            .AllDeviationsReported = rdbACCAllDeviationsReportedYes.Checked
-            .AllTitleVConditionsListed = rdbACCConditionsYes.Checked
-            .Comments = txtACCComments.Text
-            .CorrectFormsUsed = rdbACCCorrectACCYes.Checked
-            .CorrectlyFilledOut = rdbACCCorrectYes.Checked
-            If DTPAcknowledgmentLetterSent.Checked Then .DateAcknowledgmentLetterSent = DTPAcknowledgmentLetterSent.Value
-            If chbEventComplete.Checked Then .DateComplete = DTPEventCompleteDate.Value
-            .DatePostmarked = DTPACCPostmarked.Value
-            .DateReceived = DTPACCReceivedDate.Value
-            .Deleted = ItemIsDeleted
-            .DeviationsReported = rdbACCDeviationsReportedYes.Checked
-            .EnforcementNeeded = rdbACCEnforcementNeededYes.Checked
-            .Facility = DAL.GetFacility(AirsNumber)
-            .PostmarkedByDeadline = rdbACCPostmarkYes.Checked
-            .ResubmittalRequested = rdbACCResubmittalRequestedYes.Checked
-            .SignedByResponsibleOfficial = rdbACCROYes.Checked
-            .StaffResponsible = DAL.GetIaipUserByUserId(cboStaffResponsible.SelectedValue)
-            .UnreportedDeviationsReported = rdbACCPreviouslyUnreportedDeviationsYes.Checked
-        End With
-
-        Return thisAcc
-    End Function
 
 #End Region
 

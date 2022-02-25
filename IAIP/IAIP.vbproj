@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="..\packages\Microsoft.CodeAnalysis.NetAnalyzers.6.0.0\build\Microsoft.CodeAnalysis.NetAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.NetAnalyzers.6.0.0\build\Microsoft.CodeAnalysis.NetAnalyzers.props')" />
   <PropertyGroup>
@@ -731,7 +731,6 @@
     <Compile Include="_Data Models\Events\EventRegistration.vb" />
     <Compile Include="_Data Models\Facilities\Location.vb" />
     <Compile Include="_Data Models\SSCP\EnforcementCase.vb" />
-    <Compile Include="_Data Models\SSCP\Fce.vb" />
     <Compile Include="_Code\SharedData.vb" />
     <Compile Include="_Code\ExcelExport.vb" />
     <Compile Include="_Code\ArrayExtensions.vb" />
@@ -1197,12 +1196,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Code\CollectionHelper.vb" />
-    <Compile Include="_Data Models\SSCP\Work Item\WorkItem.vb" />
+    <Compile Include="_Data Models\SSCP\WorkItemEnums.vb" />
     <Compile Include="_Data Models\People\Person.vb" />
     <Compile Include="_Data Models\Events\ResEvent.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Data Models\SSCP\Work Item\Acc.vb" />
     <Compile Include="_DAL\Facilities\FacilityData.vb" />
     <Compile Include="_DAL\Users\StaffData.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">
