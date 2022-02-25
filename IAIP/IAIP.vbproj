@@ -489,16 +489,6 @@
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="Crystal Reports\CrDataSet.xsc">
-      <DependentUpon>CrDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Crystal Reports\CrDataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-    </None>
-    <None Include="Crystal Reports\CrDataSet.xss">
-      <DependentUpon>CrDataSet.xsd</DependentUpon>
-    </None>
     <None Include="IAIP_TemporaryKey.pfx" />
     <None Include="My Project\Settings.settings">
       <CustomToolNamespace>My</CustomToolNamespace>
@@ -509,87 +499,6 @@
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="AssemblyInfo.vb">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\CrDataSet.vb">
-      <DependentUpon>CrDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Crystal Reports\Facility\FacilityBasicReport.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FacilityBasicReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Facility\FacilityDetailedReport1.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FacilityDetailedReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\SSCP\SscpFceReport.vb">
-      <DependentUpon>SscpFceReport.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\Fees\FeesFacilitySum.vb">
-      <DependentUpon>FeesFacilitySum.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpEnforcementSum.vb">
-      <DependentUpon>SscpEnforcementSum.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpFce.vb">
-      <DependentUpon>SscpFce.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpNotifications.vb">
-      <DependentUpon>SscpNotifications.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpStackTests.vb">
-      <DependentUpon>SscpStackTests.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpRmpInspections.vb">
-      <DependentUpon>SscpRmpInspections.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpReports.vb">
-      <DependentUpon>SscpReports.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpAcc.vb">
-      <DependentUpon>SscpAcc.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpInspections.vb">
-      <DependentUpon>SscpInspections.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\Facility\FacilityBasicInfo.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FacilityBasicInfo.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ISMP\ISMPManagersTools.Designer.vb">
       <DependentUpon>ISMPManagersTools.vb</DependentUpon>
@@ -643,36 +552,6 @@
     </Compile>
     <Compile Include="AnnualFees\FeesStatistics.vb">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Fees\FacilityFee10.vb">
-      <DependentUpon>FacilityFee10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Fees\feeByYear10.vb">
-      <DependentUpon>feeByYear10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Fees\NoOperate10.vb">
-      <DependentUpon>NoOperate10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\SSPP\CRTitleVRenewal10.vb">
-      <DependentUpon>CRTitleVRenewal10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\Letterhead.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Letterhead.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="EIS\EisTool.Designer.vb">
       <DependentUpon>EisTool.vb</DependentUpon>
@@ -774,108 +653,6 @@
     </Compile>
     <Compile Include="ISMP\ISMPTestFirmComments.vb">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRFlare.vb">
-      <DependentUpon>CRFlare.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRGasConcentration.vb">
-      <DependentUpon>CRGasConcentration.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRLoadingRack.vb">
-      <DependentUpon>CRLoadingRack.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRMemorandumPTE.vb">
-      <DependentUpon>CRMemorandumPTE.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRMemorandumStandard.vb">
-      <DependentUpon>CRMemorandumStandard.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRMemorandumToFile.vb">
-      <DependentUpon>CRMemorandumToFile.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRMethod22.vb">
-      <DependentUpon>CRMethod22.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRMethod9Multi.vb">
-      <DependentUpon>CRMethod9Multi.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRMethod9Single.vb">
-      <DependentUpon>CRMethod9Single.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CROneStackFourRuns.vb">
-      <DependentUpon>CROneStackFourRuns.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CROneStackThreeRuns.vb">
-      <DependentUpon>CROneStackThreeRuns.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CROneStackTwoRuns.vb">
-      <DependentUpon>CROneStackTwoRuns.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRPondTreatment.vb">
-      <DependentUpon>CRPondTreatment.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRRata.vb">
-      <DependentUpon>CRRata.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRTwoStackDRE.vb">
-      <DependentUpon>CRTwoStackDRE.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRTwoStackStandard.vb">
-      <DependentUpon>CRTwoStackStandard.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\SSPP\SSPPPublicNotice.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SSPPPublicNotice.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ISMP\ISMPTestReportAdministrative.Designer.vb">
       <DependentUpon>ISMPTestReportAdministrative.vb</DependentUpon>
@@ -1047,79 +824,6 @@
     <Compile Include="Facility\Sub Forms\IAIPFacilityLookUpTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <EmbeddedResource Include="Crystal Reports\CRViewerForm.resx">
-      <DependentUpon>CRViewerForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Facility\FacilityDetailedReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
-      <LastGenOutput>FacilityDetailedReport1.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Facility\FacilityBasicReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>FacilityBasicReport.vb</LastGenOutput>
-      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SSCP\SscpFceReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpFceReport.vb</LastGenOutput>
-      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\Fees\FeesFacilitySum.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>FeesFacilitySum.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpEnforcementSum.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpEnforcementSum.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpFce.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpFce.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpNotifications.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpNotifications.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpStackTests.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpStackTests.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpRmpInspections.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpRmpInspections.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpReports.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpReports.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpAcc.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpAcc.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpInspections.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpInspections.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\Facility\FacilityBasicInfo.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>FacilityBasicInfo.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SSCP\AccMemo.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>AccMemo.vb</LastGenOutput>
-      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
-    </EmbeddedResource>
     <EmbeddedResource Include="DMU\DmuEdtErrorDetail.resx">
       <DependentUpon>DmuEdtErrorDetail.vb</DependentUpon>
     </EmbeddedResource>
@@ -1163,27 +867,6 @@
     <EmbeddedResource Include="SSCP\SscpEnforcement.resx">
       <DependentUpon>SscpEnforcement.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Fees\FacilityFee10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>FacilityFee10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Fees\feeByYear10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>feeByYear10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Fees\NoOperate10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>NoOperate10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SSPP\CRTitleVRenewal10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRTitleVRenewal10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\Letterhead.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Letterhead.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="EIS\EisTool.resx">
       <DependentUpon>EisTool.vb</DependentUpon>
@@ -1250,78 +933,6 @@
     <EmbeddedResource Include="ISMP\ISMPTestFirmComments.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ISMPTestFirmComments.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRFlare.resx">
-      <DependentUpon>CRFlare.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRFlare.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRFlare.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRGasConcentration.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRGasConcentration.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRLoadingRack.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRLoadingRack.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRMemorandumPTE.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRMemorandumPTE.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRMemorandumStandard.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRMemorandumStandard.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRMemorandumToFile.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRMemorandumToFile.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRMethod22.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRMethod22.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRMethod9Multi.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRMethod9Multi.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRMethod9Single.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRMethod9Single.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CROneStackFourRuns.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CROneStackFourRuns.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CROneStackThreeRuns.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CROneStackThreeRuns.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CROneStackTwoRuns.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CROneStackTwoRuns.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRPondTreatment.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPondTreatment.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRRata.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRRata.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRTwoStackDRE.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRTwoStackDRE.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRTwoStackStandard.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRTwoStackStandard.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SSPP\SSPPPublicNotice.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SSPPPublicNotice.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ISMP\ISMPTestReportAdministrative.resx">
       <SubType>Designer</SubType>
@@ -1535,18 +1146,6 @@
     </Compile>
     <Compile Include="_DAL\SSPP\PermitData.vb" />
     <Compile Include="_Code\DbConnections.vb" />
-    <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
-      <DependentUpon>CRViewerForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Crystal Reports\CRViewerForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\SSCP\AccMemo.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AccMemo.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SBEAP\SBEAPCaseLog.Designer.vb">
       <DependentUpon>SBEAPCaseLog.vb</DependentUpon>
     </Compile>
