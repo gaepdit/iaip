@@ -4,32 +4,6 @@ Imports System.Data.SqlClient
 Namespace DAL
     Module FeesData
 
-        ''' <summary>
-        ''' Returns a DataTable of fees summary data for a given facility
-        ''' </summary>
-        ''' <param name="startFeeYear">Beginning year of a date range to filter for.</param>
-        ''' <param name="endFeeYear">Ending year of a date range to filter for.</param>
-        ''' <param name="airs">An optional Facility ID to filter for.</param>
-        ''' <returns>A DataTable of fees summary data</returns>
-        Public Function GetFeesFacilitySummaryAsDataTable(
-                startFeeYear As Integer, endFeeYear As Integer,
-                Optional airs As Apb.ApbFacilityId = Nothing) As DataTable
-
-            Dim query As String =
-                "SELECT * FROM VW_FEES_FACILITY_SUMMARY " &
-                " WHERE NUMFEEYEAR BETWEEN @startFeeYear AND @endFeeYear " &
-                " AND (@airs IS NULL OR STRAIRSNUMBER = @airs) " &
-                " ORDER BY STRAIRSNUMBER, NUMFEEYEAR DESC "
-
-            Dim parameters As SqlParameter() = {
-                New SqlParameter("@startFeeYear", startFeeYear),
-                New SqlParameter("@endFeeYear", endFeeYear),
-                New SqlParameter("@airs", airs.DbFormattedString)
-            }
-
-            Return DB.GetDataTable(query, parameters)
-        End Function
-
         Public Function UpdateFeeAdminStatus(feeYear As Integer, airsNumber As Apb.ApbFacilityId) As Boolean
             Dim parameters As SqlParameter() = {
                 SqlParameterWithDbType("@FEEYEAR", SqlDbType.SmallInt, feeYear),
