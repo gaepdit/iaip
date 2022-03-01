@@ -11,6 +11,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 5.27.1 <span>(2022-03-01)</span>
+
+In this update, the PA/PN tool has been updated to use RTF files instead of PDF files.
+
 ## Version 5.27.0 <span>(2022-01-27)</span>
 
 Events can be duplicated making it easier to create multiple events with the same details.
