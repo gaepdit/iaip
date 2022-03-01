@@ -2,6 +2,7 @@ Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.IO
 Imports Iaip.Apb.Facilities
+Imports Jil
 
 Public Class IAIPQueryGenerator
     Dim query As String
@@ -2664,7 +2665,7 @@ Public Class IAIPQueryGenerator
                 .SQLWhereCase2 = SQLWhereCase2
             }
 
-            Dim queryInfo As String = Newtonsoft.Json.JsonConvert.SerializeObject(queryStrings)
+            Dim queryInfo As String = JSON.Serialize(queryStrings)
 
             ErrorReport(ex, queryInfo, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
