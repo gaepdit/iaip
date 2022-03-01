@@ -228,7 +228,14 @@ Public Class IAIPFacilitySummary
         With ThisFacility
 
             FacilityNameDisplay.Text = .FacilityName
-            FacilityApprovalLinkLabel.Visible = Not .ApprovedByApb
+
+            If Not .ApprovedByApb Then
+                FacilityApprovalLinkLabel.Visible = True
+
+                If Not CurrentUser.HasPermission(UserCan.CreateFacility) Then
+                    FacilityApprovalLinkLabel.LinkArea = New LinkArea()
+                End If
+            End If
 
             With .FacilityLocation
                 'Location

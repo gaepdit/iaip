@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class IAIPFacilitySummary
     Inherits BaseForm
 
@@ -350,10 +350,13 @@ Partial Class IAIPFacilitySummary
         'FacilityApprovalLinkLabel
         '
         Me.FacilityApprovalLinkLabel.AutoSize = True
+        Me.FacilityApprovalLinkLabel.BackColor = System.Drawing.SystemColors.Info
+        Me.FacilityApprovalLinkLabel.ForeColor = System.Drawing.SystemColors.InfoText
         Me.FacilityApprovalLinkLabel.LinkArea = New System.Windows.Forms.LinkArea(29, 63)
         Me.FacilityApprovalLinkLabel.Location = New System.Drawing.Point(12, 36)
         Me.FacilityApprovalLinkLabel.Name = "FacilityApprovalLinkLabel"
-        Me.FacilityApprovalLinkLabel.Size = New System.Drawing.Size(244, 17)
+        Me.FacilityApprovalLinkLabel.Padding = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.FacilityApprovalLinkLabel.Size = New System.Drawing.Size(250, 27)
         Me.FacilityApprovalLinkLabel.TabIndex = 4
         Me.FacilityApprovalLinkLabel.TabStop = True
         Me.FacilityApprovalLinkLabel.Text = "Facility not approved in the Facility Creator Tool"
