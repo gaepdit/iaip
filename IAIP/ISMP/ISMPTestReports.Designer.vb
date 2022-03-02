@@ -3950,9 +3950,9 @@ Partial Class ISMPTestReports
         Me.Label140.AutoSize = True
         Me.Label140.Location = New System.Drawing.Point(3, 196)
         Me.Label140.Name = "Label140"
-        Me.Label140.Size = New System.Drawing.Size(128, 13)
+        Me.Label140.Size = New System.Drawing.Size(130, 13)
         Me.Label140.TabIndex = 344
-        Me.Label140.Text = "Destruction Efficancy (%):"
+        Me.Label140.Text = "Destruction Efficiency (%):"
         Me.Label140.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
         'Label142

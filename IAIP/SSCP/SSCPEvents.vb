@@ -26,13 +26,11 @@ Public Class SSCPEvents
             AccountFormAccess(49, 4) = "1" OrElse
             CurrentUser.HasRole(118) Then
 
-            ToolStrip1.Visible = True
-            btnSave.Visible = True
-            btnDelete.Visible = True
+            btnSave.Available = True
+            btnDelete.Available = True
         Else
-            ToolStrip1.Visible = False
-            btnSave.Visible = False
-            btnDelete.Visible = False
+            btnSave.Available = False
+            btnDelete.Available = False
         End If
     End Sub
 
@@ -168,7 +166,7 @@ Public Class SSCPEvents
                 dtpAccReportingYear.Checked = True
                 LoadACC()
                 LoadACCSubmittalDGR()
-                btnPrint.Visible = ToolStrip1.Visible
+                btnPrint.Available = True
 
             Case WorkItemEventType.Notification
                 TCItems.TabPages.Add(TPNotifications)
@@ -188,6 +186,8 @@ Public Class SSCPEvents
             Case Else
 
         End Select
+
+        ToolStrip1.Visible = btnPrint.Available OrElse btnSave.Available OrElse btnDelete.Available
 
         AddAirProgramCodes(dr.Item("StrAirProgramCodes"))
         CheckCompleteDate()
