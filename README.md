@@ -17,9 +17,13 @@ There are several associated repositories that interact with this project:
 
 ## Development Setup
 
-The IAIP is a VB.NET Winforms Application targeting .NET Framework version 4.8. Open the solution in Visual Studio, restore Nuget packages, and build.
+The IAIP is a VB.NET Winforms Application targeting .NET Framework version 4.8. 
 
-You must build the solution before you can open any Windows Forms in design view in Visual Studio. (Each form inherits from a custom `BaseForm` which is only available after building the project.)
+After cloning the repository, copy any required config files from the "app-config" repo into the root of the "IAIP" project. At minimum, copy the "app.Debug.config" file to connect to the DEV environment.
+
+Open the solution in Visual Studio, restore Nuget packages, and build.
+
+*Note:* You must build the solution before you can open any Windows Forms in design view in Visual Studio. (Each form inherits from a custom `BaseForm` which is only available after building the project.)
 
 ### Branching
 
