@@ -13,7 +13,7 @@ Namespace UrlHelpers
 
         Public Sub OpenAccUrl(facilityId As ApbFacilityId, id As Integer, Optional sender As Form = Nothing)
             Dim url As Uri = GetAccUrl(facilityId, id)
-            DAL.LogReportUsage("acc", url.ToString)
+            DAL.LogReportUsage("acc", url)
             OpenUrl(url, sender)
         End Sub
 
@@ -23,7 +23,7 @@ Namespace UrlHelpers
 
         Public Sub OpenFceUrl(facilityId As ApbFacilityId, id As Integer, Optional sender As Form = Nothing)
             Dim url As Uri = GetFceUrl(facilityId, id)
-            DAL.LogReportUsage("fce", url.ToString)
+            DAL.LogReportUsage("fce", url)
             OpenUrl(url, sender)
         End Sub
 
@@ -40,7 +40,7 @@ Namespace UrlHelpers
                                     includeConfidentialInfo As Boolean,
                                     Optional sender As Form = Nothing)
             Dim url As Uri = GetStackTestUrl(facilityId, referenceNumber, includeConfidentialInfo)
-            DAL.LogReportUsage("stack test", url.ToString)
+            DAL.LogReportUsage("stack test", url)
             OpenUrl(url, sender)
         End Sub
 

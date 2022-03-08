@@ -3,20 +3,21 @@ Imports System.Data.SqlClient
 Namespace DAL
     Module IaipLogging
 
-        Public Sub LogReportUsage(type As String, path As String)
+        Public Sub LogReportUsage(type As String, url As Uri)
             ArgumentNotNullOrEmpty(type, NameOf(type))
-            ArgumentNotNullOrEmpty(path, NameOf(path))
+            ArgumentNotNull(url, NameOf(url))
 
-            AddBreadcrumb($"Report type {type} opened: {path}")
+            AddBreadcrumb($"Report type {type} opened: {url}")
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@type", type),
-                New SqlParameter("@path", path),
+                New SqlParameter("@path", url.PathAndQuery),
+                New SqlParameter("@host", url.Authority),
                 New SqlParameter("@userId", (CurrentUser?.UserID))
             }
 
             Try
-                DB.SPRunCommand("dbo.LogReport", parameters)
+                DB.SPRunCommand("dbo.LogIaipReport", parameters)
             Catch ex As Exception
                 Return
             End Try
