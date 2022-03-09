@@ -316,9 +316,14 @@ Public Class SSCPEvents
             If IsDBNull(dr.Item("datCompleteDate")) Then
                 chbEventComplete.Checked = False
                 DTPEventCompleteDate.Value = Today
+
+                If btnPrint.Available Then
+                    btnPrint.Enabled = False
+                End If
             Else
                 chbEventComplete.Checked = True
                 DTPEventCompleteDate.Value = dr.Item("datCompleteDate")
+                btnPrint.Enabled = btnPrint.Available
             End If
         End If
     End Sub
@@ -606,6 +611,7 @@ Public Class SSCPEvents
                 If result AndAlso SaveDate() Then
                     MsgBox("Save Complete", MsgBoxStyle.Information, "SSCP Events")
                 End If
+                CheckCompleteDate()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2883,9 +2889,15 @@ Public Class SSCPEvents
 
     Private Sub PrintACC()
         LoadACC()
+        CheckCompleteDate()
+
+        If Not chbEventComplete.Checked Then
+            MsgBox("Close out and save this ACC before printing.", MsgBoxStyle.Critical, "Print Error")
+            Return
+        End If
 
         If Not dtpAccReportingYear.Checked Then
-            MsgBox("Please save a reporting year before printing this ACC.", MsgBoxStyle.Critical, "Print Error")
+            MsgBox("Save a reporting year before printing this ACC.", MsgBoxStyle.Critical, "Print Error")
             Return
         End If
 
