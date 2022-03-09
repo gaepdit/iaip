@@ -2,8 +2,7 @@
 
 Click the button to download and run the setup file.
 
-[Download the
-IAIP UAT Edition](IaipHorizon.application)
+[Download the IAIP<br />UAT Edition](IaipHorizon.application)
 
 ## Important Notes -- Please Read
 
@@ -12,13 +11,19 @@ The IAIP UAT (User Acceptance Testing) Edition is made available when users are 
 The UAT version of the IAIP can be installed side-by-side with the production version of the IAIP. Both can be used simultaneously and will not interfere with each other. The UAT version will *only* access the testing (UAT) database, so no changes to production data can be made.
 
 <pre class="mermaid">
-graph TD;
-    A[fa:fa-desktop IAIP] --> B(fa:fa-database production database);
-    G[fa:fa-laptop GECO] --> B;
-    C[fa:fa-desktop IAIP UAT] --> D(fa:fa-database test database);
-    H[fa:fa-laptop GECO UAT] --> D;
+flowchart TD;
+    subgraph UAT["UAT (You are here)"]
+        D[fa:fa-tablet IAIP UAT] --> E(fa:fa-database test database);
+        F[fa:fa-tablet GECO UAT] --> E;
+    end
+    subgraph Production
+        A[fa:fa-tablet IAIP] --> B(fa:fa-database production database);
+        C[fa:fa-tablet GECO] --> B;
+    end
+    style Production stroke:#6e6e6e,fill:#f0f0f0
+    style UAT stroke:#8fc982,fill:#dff0db
 </pre>
 
 <script src="https://use.fontawesome.com/73014ea0c4.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.11.5/mermaid.min.js" integrity="sha512-LEGEAp7eSh0xL8TV4ARXWfBz3TpnIDrGT61hbqAN/xjn+CnaoNfsJzdyMSO0IYhaAom+bCs9ELiGzljsi11qjw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.14.0/mermaid.min.js" integrity="sha512-vLumCjg7NKEQKGM+xAgBYTvQ90DVu6Eo7vS1T/iPf2feNLcrpGxvumuUUmE3CPiCUPgviyKbtpWGDbhnVnmJxg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'neutral'});</script>
