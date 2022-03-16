@@ -106,6 +106,11 @@
                 Return HasRole({102, 114, 2, 19, 28}) OrElse
                     HasRoleType(RoleType.DistrictManager)
 
+            Case UserCan.EditFacilityAddress
+                ' ISMP Program Manager, SSCP Program Manager, District Liaison, SSPP Program Manager,
+                ' SSPP Administrative, Branch Chief, SSCP Unit Manager, SSPP Unit Manager
+                Return HasRole({2, 19, 27, 28, 29, 102, 114, 121})
+
             Case UserCan.ShutDownFacility
                 ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liaison, SSPP Program Manager
                 Return HasRole({114, 19, 102, 27, 28})
@@ -197,6 +202,7 @@ Public Enum UserCan
     ResolveEnforcement
     AddPollutantsToFacility
     EditFacilityHeaderData
+    EditFacilityAddress
     ShutDownFacility
     CreateFacility
     EditAllUsers

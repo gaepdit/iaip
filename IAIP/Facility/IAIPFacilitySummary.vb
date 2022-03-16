@@ -70,11 +70,7 @@ Public Class IAIPFacilitySummary
         ToolsMenuSeparator.Visible = (CreateFacilityMenuItem.Available AndAlso UpdateEpaMenuItem.Available)
 
         ' Edit location/header data
-        If CurrentUser.UnitId = 0 OrElse AccountFormAccess(22, 3) = "1" OrElse AccountFormAccess(1, 3) = "1" Then
-            EditFacilityLocationButton.Visible = True
-        Else
-            EditFacilityLocationButton.Visible = False
-        End If
+        EditFacilityLocationButton.Visible = CurrentUser.HasPermission(UserCan.EditFacilityAddress)
     End Sub
 
     Private Sub InitializeDataTables()

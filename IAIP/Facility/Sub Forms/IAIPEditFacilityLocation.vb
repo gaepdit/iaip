@@ -105,7 +105,7 @@ Public Class IAIPEditFacilityLocation
     End Sub
 
     Private Sub Save()
-        If Not (AccountFormAccess(28, 2) = "1" OrElse AccountFormAccess(28, 3) = "1" OrElse AccountFormAccess(28, 4) = "1") Then
+        If Not CurrentUser.HasPermission(UserCan.EditFacilityAddress) Then
             MessageBox.Show("You do not have permissions to change facility location information.")
             Return
         End If
