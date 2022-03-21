@@ -2,7 +2,7 @@
 
 The Integrated Air Information Platform ("IAIP" or "the Platform") was built beginning in 2004 to collect and organize the data required to operate an efficient air quality program for the State of Georgia Environmental Protection Division. It is currently used by several programs in the Air Protection Branch and the District Offices.
 
-Users must [install the application](https://iaip.gaepd.org/) locally and connect to the state network in order to use it.
+Users must [install the application](https://iaip.gaepd.org/) locally and connect to the state network in order to use it. (A separate [UAT version](https://iaip.gaepd.org/uat) is also available.)
 
 There are several associated repositories that interact with this project:
 
@@ -18,8 +18,6 @@ There are several associated repositories that interact with this project:
 ## Development Setup
 
 The IAIP is a VB.NET Winforms Application targeting .NET Framework version 4.8. 
-
-After cloning the repository, copy any required config files from the "app-config" repo into the root of the "IAIP" project. At minimum, copy the "app.Debug.config" file to connect to the DEV environment.
 
 Open the solution in Visual Studio, restore Nuget packages, and build.
 
