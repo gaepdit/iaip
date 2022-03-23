@@ -2,6 +2,7 @@ Imports System.Collections.Generic
 Imports System.ComponentModel
 Imports System.Net.NetworkInformation
 Imports Iaip.DAL.NavigationScreenData
+Imports Iaip.UrlHelpers
 
 Public Class IAIPNavigation
 
@@ -361,7 +362,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenTestReport()
-        OpenFormTestReport(txtOpenTestReport.Text)
+        OpenFormTestReport(txtOpenTestReport.Text, Me)
     End Sub
 
     Private Sub OpenEnforcement()

@@ -1,6 +1,4 @@
-﻿Imports System.Runtime.CompilerServices
-
-Public Module Guard
+﻿Public Module Guard
 
     Public Sub ArgumentNotNull(Of T)(value As T, parameterName As String)
         If value Is Nothing Then

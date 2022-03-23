@@ -3,6 +3,7 @@ Imports System.Data.SqlClient
 Imports System.Text
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
+Imports Iaip.UrlHelpers
 
 Public Class SSCPFCEWork
 
@@ -136,7 +137,7 @@ Public Class SSCPFCEWork
                 End With
             End If
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -455,52 +456,57 @@ Public Class SSCPFCEWork
                 rdbFCENoOnsite.Checked = False
                 DTPFCECompleteDate.Value = Today
                 txtFCEComments.Clear()
-            Else
-                Dim SQL As String = "SELECT
-                    datFCECompleted,
-                    strFCEComments,
-                    CASE WHEN strSiteInspection IS NULL
-                        THEN 'False'
-                    ELSE strSiteInspection END strSiteInspection,
-                    strReviewer,
-                    strFCEYear
-                FROM SSCPFCE
-                WHERE strFCENumber = @fce"
+                btnPrint.Enabled = False
+                Return
+            End If
 
-                Dim p As New SqlParameter("@fce", txtFCENumber.Text)
+            Dim SQL As String = "SELECT
+                datFCECompleted,
+                strFCEComments,
+                CASE WHEN strSiteInspection IS NULL
+                    THEN 'False'
+                ELSE strSiteInspection END strSiteInspection,
+                strReviewer,
+                strFCEYear
+            FROM SSCPFCE
+            WHERE strFCENumber = @fce"
 
-                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+            Dim p As New SqlParameter("@fce", txtFCENumber.Text)
 
-                If dr IsNot Nothing Then
-                    If IsDBNull(dr.Item("datFCECompleted")) Then
-                        DTPFCECompleteDate.Value = Today
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("datFCECompleted")) Then
+                    DTPFCECompleteDate.Value = Today
+                Else
+                    DTPFCECompleteDate.Text = dr.Item("datFCECompleted")
+                End If
+                If IsDBNull(dr.Item("strFCEComments")) Then
+                    txtFCEComments.Text = "No Comments"
+                Else
+                    txtFCEComments.Text = dr.Item("strFCEComments")
+                End If
+                If IsDBNull(dr.Item("strReviewer")) Then
+                    cboReviewer.SelectedValue = CurrentUser.UserID
+                Else
+                    cboReviewer.SelectedValue = dr.Item("strReviewer")
+                End If
+                If IsDBNull(dr.Item("strSiteInspection")) Then
+                    rdbFCENoOnsite.Checked = True
+                Else
+                    If dr.Item("strSiteInspection") = "True" Then
+                        rdbFCEOnSite.Checked = True
                     Else
-                        DTPFCECompleteDate.Text = dr.Item("datFCECompleted")
-                    End If
-                    If IsDBNull(dr.Item("strFCEComments")) Then
-                        txtFCEComments.Text = "No Comments"
-                    Else
-                        txtFCEComments.Text = dr.Item("strFCEComments")
-                    End If
-                    If IsDBNull(dr.Item("strReviewer")) Then
-                        cboReviewer.SelectedValue = CurrentUser.UserID
-                    Else
-                        cboReviewer.SelectedValue = dr.Item("strReviewer")
-                    End If
-                    If IsDBNull(dr.Item("strSiteInspection")) Then
                         rdbFCENoOnsite.Checked = True
-                    Else
-                        If dr.Item("strSiteInspection") = "True" Then
-                            rdbFCEOnSite.Checked = True
-                        Else
-                            rdbFCENoOnsite.Checked = True
-                        End If
-                    End If
-                    If Not IsDBNull(dr.Item("strFCEYear")) Then
-                        cboFCEYear.Text = dr.Item("strFCEYear")
                     End If
                 End If
+                If Not IsDBNull(dr.Item("strFCEYear")) Then
+                    cboFCEYear.Text = dr.Item("strFCEYear")
+                End If
             End If
+
+            btnPrint.Enabled = True
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -768,7 +774,7 @@ Public Class SSCPFCEWork
     End Sub
 
     Private Sub llbISMPSummaryReports_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbISMPSummaryReports.LinkClicked
-        OpenFormTestReportPrintout(txtISMPReferenceNumber.Text)
+        OpenFormTestReportPrintout(AirsNumber, txtISMPReferenceNumber.Text, Me)
     End Sub
 
     Private Sub llbFCEEnforcement_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFCEEnforcement.LinkClicked
@@ -779,71 +785,13 @@ Public Class SSCPFCEWork
 
 #Region "Print"
 
-    Private Sub LoadSSCPFCEReport()
-        If Not CrystalReportsIsAvailable() Then
+    Private Sub OpenFceReport()
+        If String.IsNullOrWhiteSpace(txtFCENumber.Text) Then
+            MessageBox.Show("Select an existing FCE before printing.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
-        Cursor = Cursors.WaitCursor
-
-        Try
-            Dim rpt As New CR.Reports.SscpFceReport
-
-            Dim endDate As Date = DTPFCECompleteDate.Value
-            Dim startDate As Date = endDate.AddYears(-FCE_DATA_PERIOD)
-            Dim enforcementStartDate As Date = endDate.AddYears(-FCE_ENFORCEMENT_DATA_PERIOD)
-
-            Dim dt1 As New DataTable
-            dt1 = CollectionHelper.ConvertToDataTable(Of Facility)({facility})
-            rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt1)
-
-            Dim dt2 As New DataTable("VW_SSCP_INSPECTIONS")
-            dt2 = DAL.Sscp.GetInspectionDataTable(startDate, endDate, AirsNumber)
-            rpt.Subreports("SscpInspections.rpt").SetDataSource(dt2)
-
-            Dim dt3 As New DataTable("VW_SSCP_RMPINSPECTIONS")
-            dt3 = DAL.Sscp.GetRmpInspectionDataTable(startDate, endDate, AirsNumber)
-            rpt.Subreports("SscpRmpInspections.rpt").SetDataSource(dt3)
-
-            Dim dt4 As New DataTable("VW_SSCP_ACCS")
-            dt4 = DAL.Sscp.GetAccDataTable(startDate, endDate, AirsNumber)
-            rpt.Subreports("SscpAcc.rpt").SetDataSource(dt4)
-
-            Dim dt5 As New DataTable("VW_SSCP_REPORTS")
-            dt5 = DAL.Sscp.GetCompReportsDataTable(startDate, endDate, AirsNumber)
-            rpt.Subreports("SscpReports.rpt").SetDataSource(dt5)
-
-            Dim dt6 As New DataTable("VW_SSCP_NOTIFICATIONS")
-            dt6 = DAL.Sscp.GetCompNotificationsDataTable(startDate, endDate, AirsNumber)
-            rpt.Subreports("SscpNotifications.rpt").SetDataSource(dt6)
-
-            Dim dt7 As New DataTable("VW_SSCP_STACKTESTS")
-            dt7 = DAL.Sscp.GetCompStackTestDataTable(startDate, endDate, AirsNumber)
-            rpt.Subreports("SscpStackTests.rpt").SetDataSource(dt7)
-
-            Dim dt9 As New DataTable("VW_SSCP_FCES")
-            dt9 = DAL.Sscp.GetFceDataTable(AirsNumber, year:=cboFCEYear.Text)
-            rpt.SetDataSource(dt9)
-
-            Dim dt10 As New DataTable("VW_FEES_FACILITY_SUMMARY")
-            dt10 = DAL.FeesData.GetFeesFacilitySummaryAsDataTable(enforcementStartDate.Year, endDate.Year, AirsNumber)
-            rpt.Subreports("FeesFacilitySum.rpt").SetDataSource(dt10)
-
-            Dim dt11 As New DataTable("VW_SSCP_ENFORCEMENT_SUMMARY")
-            dt11 = DAL.Sscp.GetEnforcementSummaryDataTable(enforcementStartDate, endDate, AirsNumber)
-            rpt.Subreports("SscpEnforcementSum.rpt").SetDataSource(dt11)
-
-            Dim pd As New Dictionary(Of String, String) From {
-                {"StartDate", String.Format("{0:MMMM d, yyyy}", startDate)},
-                {"EndDate", String.Format("{0:MMMM d, yyyy}", endDate)}
-            }
-
-            Dim cr As New CRViewerForm(rpt, pd)
-            cr.Show()
-
-        Finally
-            Cursor = Nothing
-        End Try
+        OpenFceUrl(AirsNumber, txtFCENumber.Text, Me)
     End Sub
 
 #End Region
@@ -855,7 +803,7 @@ Public Class SSCPFCEWork
     End Sub
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
-        LoadSSCPFCEReport()
+        OpenFceReport()
     End Sub
 
 #End Region

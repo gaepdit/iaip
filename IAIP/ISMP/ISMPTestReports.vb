@@ -67,7 +67,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
@@ -185,7 +184,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, query, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadCombos()
@@ -770,7 +768,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadUcCombo()
@@ -844,7 +841,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadData()
@@ -903,7 +899,7 @@ Public Class ISMPTestReports
             "ON fac.STRAIRSNUMBER = mas.STRAIRSNUMBER " &
             "WHERE mas.STRREFERENCENUMBER = @RefNumber"
 
-            Dim p As SqlParameter = New SqlParameter("@RefNumber", ReferenceNumber)
+            Dim p As New SqlParameter("@RefNumber", ReferenceNumber)
 
             Dim dr As DataRow = DB.GetDataRow(query, p)
 
@@ -1177,7 +1173,7 @@ Public Class ISMPTestReports
                     End If
                 End If
 
-                DeletedTestFlag.Visible = (Not IsDBNull(dr.Item("STRDELETE")) AndAlso dr.Item("STRDELETE") = "DELETE")
+                DeletedTestFlag.Visible = (Not IsDBNull(dr.Item("STRDELETE")) AndAlso dr.Item("STRDELETE").ToString = "DELETE")
 
                 cboComplianceStatus.BackColor = Color.White
                 If cboComplianceStatus.SelectedValue = "05" Then
@@ -1250,7 +1246,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadOneStack(RefNum As String)
@@ -2038,7 +2033,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadTwoStack(RefNum As String)
@@ -3225,7 +3219,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadLoadingRack(RefNum As String)
@@ -3411,7 +3404,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadPondTreatment(RefNum As String)
@@ -3648,7 +3640,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadGasConcentration(RefNum As String)
@@ -3885,7 +3876,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadFlare(RefNum As String)
@@ -4067,7 +4057,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadRata(RefNum As String)
@@ -4451,7 +4440,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadMemo(RefNum As String)
@@ -4651,7 +4639,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadMethod9(RefNum As String)
@@ -5051,7 +5038,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadMethod22(RefNum As String)
@@ -5146,7 +5132,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadUserPermissions()
@@ -5164,7 +5149,6 @@ Public Class ISMPTestReports
                 tsbMemo.Visible = False
                 tsbConfidentialData.Visible = False
                 mmiOpenTestLogNotification.Visible = False
-                mmiOpenExcelFile.Visible = False
                 tsbDelete.Visible = False
                 If txtCompleteDate.Text = "" Then
                     TCDocumentTypes.Visible = False
@@ -7643,7 +7627,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadOtherWitnessingEng()
@@ -7673,7 +7656,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadSSCPData()
@@ -7791,7 +7773,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub CloseSSCPWork(Status As Boolean)
@@ -7822,9 +7803,7 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
     Private Sub LoadTestNotifications()
         Try
@@ -7882,7 +7861,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub LoadDefaultComplianceManager()
@@ -7931,7 +7909,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
@@ -8451,7 +8428,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub PrePopulate()
@@ -8780,9 +8756,7 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
 
     Private Sub OpenMemo()
@@ -10567,7 +10541,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub SaveTwoStack(ReportType As String)
@@ -11410,7 +11383,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub SaveLoadingRack()
@@ -11632,7 +11604,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub SavePondTreatment()
@@ -11889,7 +11860,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub SaveGas()
@@ -12146,7 +12116,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub SaveFlare()
@@ -12336,7 +12305,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub SaveRata()
@@ -12724,7 +12692,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub SaveMemorandum(ReportType As String)
@@ -12898,7 +12865,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub SaveMethodOpacity(ReportType As String)
@@ -13303,7 +13269,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
@@ -15606,7 +15571,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
@@ -15626,9 +15590,7 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
 
     Private Sub chbAcknoledgmentLetterSent_CheckedChanged(sender As Object, e As EventArgs) Handles chbAcknoledgmentLetterSent.CheckedChanged
@@ -15641,9 +15603,7 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
 
 #End Region
@@ -15692,31 +15652,19 @@ Public Class ISMPTestReports
         End Try
     End Sub
     Private Sub tsbPrePopulate_Click(sender As Object, e As EventArgs) Handles tsbPrePopulate.Click
-        Try
-            PrePopulate()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
+        PrePopulate()
     End Sub
+
     Private Sub tsbPrint_Click(sender As Object, e As EventArgs) Handles tsbPrint.Click
-        Try
-            OpenFormTestReportPrintout(ReferenceNumber)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormTestReportPrintout(txtAirsNumber.Text, ReferenceNumber, Me)
     End Sub
+
+    Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
+        OpenFormTestReportPrintout(txtAirsNumber.Text, ReferenceNumber, Me)
+    End Sub
+
     Private Sub tsbClear_Click(sender As Object, e As EventArgs) Handles tsbClear.Click
-        Try
-
-            ClearAll()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
+        ClearAll()
     End Sub
     Private Sub tsbResize_Click(sender As Object, e As EventArgs) Handles tsbResize.Click
         Try
@@ -15726,13 +15674,7 @@ Public Class ISMPTestReports
         End Try
     End Sub
     Private Sub tsbMemo_Click(sender As Object, e As EventArgs) Handles tsbMemo.Click
-        Try
-            OpenMemo()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
+        OpenMemo()
     End Sub
     Private Sub tsbTestLogLink_Click(sender As Object, e As EventArgs) Handles tsbTestLogLink.Click
         Try
@@ -15745,16 +15687,10 @@ Public Class ISMPTestReports
             OpenFormTestNotification(NotificationNumber)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub tsbDelete_Click(sender As Object, e As EventArgs) Handles tsbDelete.Click
-        Try
-            ClearTestReportData()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        ClearTestReportData()
     End Sub
 
 #End Region
@@ -15775,17 +15711,10 @@ Public Class ISMPTestReports
             OpenFormTestNotification(NotificationNumber)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub mmiPrePopulate_Click(sender As Object, e As EventArgs) Handles mmiPrePopulate.Click
-        Try
-            PrePopulate()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
+        PrePopulate()
     End Sub
 
 #End Region
@@ -15816,7 +15745,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ' ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub txtPollConcOneStackTwoRun1B_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackTwoRun1B.Leave
@@ -15842,8 +15770,7 @@ Public Class ISMPTestReports
             txtPollConcAvgOneStackTwoRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateOneStackTwoRun1A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackTwoRun1A.Leave
@@ -15869,7 +15796,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgOneStackTwoRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateOneStackTwoRun1B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackTwoRun1B.Leave
@@ -15895,7 +15822,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgOneStackTwoRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcOneStackThreeRun1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackThreeRun1A.Leave
@@ -15945,8 +15872,7 @@ Public Class ISMPTestReports
             txtPollConcAvgOneStackThreeRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcOneStackThreeRun1B_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackThreeRun1B.Leave
@@ -15997,8 +15923,7 @@ Public Class ISMPTestReports
             txtPollConcAvgOneStackThreeRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcOneStackThreeRun1C_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackThreeRun1C.Leave
@@ -16048,8 +15973,7 @@ Public Class ISMPTestReports
             txtPollConcAvgOneStackThreeRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateOneStackThreeRun1A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackThreeRun1A.Leave
@@ -16099,7 +16023,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgOneStackThreeRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateOneStackThreeRun1B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackThreeRun1B.Leave
@@ -16149,7 +16073,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgOneStackThreeRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateOneStackThreeRun1C_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackThreeRun1C.Leave
@@ -16199,7 +16123,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgOneStackThreeRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcOneStackFourRun1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackFourRun1A.Leave
@@ -16300,8 +16224,7 @@ Public Class ISMPTestReports
             txtPollConcAvgOneStackFourRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcOneStackFourRun1B_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackFourRun1B.Leave
@@ -16402,8 +16325,7 @@ Public Class ISMPTestReports
             txtPollConcAvgOneStackFourRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcOneStackFourRun1C_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackFourRun1C.Leave
@@ -16504,8 +16426,7 @@ Public Class ISMPTestReports
             txtPollConcAvgOneStackFourRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcOneStackFourRun1D_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackFourRun1D.Leave
@@ -16606,8 +16527,7 @@ Public Class ISMPTestReports
             txtPollConcAvgOneStackFourRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateOneStackFourRun1A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackFourRun1A.Leave
@@ -16712,7 +16632,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgOneStackFourRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateOneStackFourRun1B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackFourRun1B.Leave
@@ -16817,7 +16737,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgOneStackFourRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateOneStackFourRun1C_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackFourRun1C.Leave
@@ -16922,7 +16842,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgOneStackFourRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateOneStackFourRun1D_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackFourRun1D.Leave
@@ -17027,7 +16947,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgOneStackFourRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcPond1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcPond1A.Leave
@@ -17071,7 +16991,7 @@ Public Class ISMPTestReports
             txtPollConcAvgPond.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcPond1B_Leave(sender As Object, e As EventArgs) Handles txtPollConcPond1B.Leave
@@ -17115,7 +17035,7 @@ Public Class ISMPTestReports
             txtPollConcAvgPond.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcPond1C_Leave(sender As Object, e As EventArgs) Handles txtPollConcPond1C.Leave
@@ -17159,7 +17079,7 @@ Public Class ISMPTestReports
             txtPollConcAvgPond.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtTreatmentRatePond1A_Leave(sender As Object, e As EventArgs) Handles txtTreatmentRatePond1A.Leave
@@ -17205,7 +17125,7 @@ Public Class ISMPTestReports
             txtTreatmentRateAvgPond.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtTreatmentRatePond1B_Leave(sender As Object, e As EventArgs) Handles txtTreatmentRatePond1B.Leave
@@ -17251,7 +17171,7 @@ Public Class ISMPTestReports
             txtTreatmentRateAvgPond.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtTreatmentRatePond1C_Leave(sender As Object, e As EventArgs) Handles txtTreatmentRatePond1C.Leave
@@ -17297,7 +17217,7 @@ Public Class ISMPTestReports
             txtTreatmentRateAvgPond.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtTreatmentRateAvgPond_TextChanged(sender As Object, e As EventArgs) Handles txtTreatmentRateAvgPond.TextChanged
@@ -17315,7 +17235,7 @@ Public Class ISMPTestReports
             txtDestructionEfficancyPond.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcAvgPond_TextChanged(sender As Object, e As EventArgs) Handles txtPollConcAvgPond.TextChanged
@@ -17333,7 +17253,7 @@ Public Class ISMPTestReports
             txtDestructionEfficancyPond.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcGas1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcGas1A.Leave
@@ -17380,7 +17300,7 @@ Public Class ISMPTestReports
             txtPollConcAvgGas.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcGas1B_Leave(sender As Object, e As EventArgs) Handles txtPollConcGas1B.Leave
@@ -17427,7 +17347,7 @@ Public Class ISMPTestReports
             txtPollConcAvgGas.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcGas1C_Leave(sender As Object, e As EventArgs) Handles txtPollConcGas1C.Leave
@@ -17474,7 +17394,7 @@ Public Class ISMPTestReports
             txtPollConcAvgGas.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateGas1A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateGas1A.Leave
@@ -17521,7 +17441,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgGas.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateGas1B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateGas1B.Leave
@@ -17568,7 +17488,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgGas.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateGas1C_Leave(sender As Object, e As EventArgs) Handles txtEmissRateGas1C.Leave
@@ -17615,7 +17535,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgGas.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtHeatingValue1AFlare_Leave(sender As Object, e As EventArgs) Handles txtHeatingValue1AFlare.Leave
@@ -17662,7 +17582,7 @@ Public Class ISMPTestReports
             txtHeatingValuesAvgFlare.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtHeatingValue1BFlare_Leave(sender As Object, e As EventArgs) Handles txtHeatingValue1BFlare.Leave
@@ -17709,7 +17629,7 @@ Public Class ISMPTestReports
             txtHeatingValuesAvgFlare.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtHeatingValue1CFlare_Leave(sender As Object, e As EventArgs) Handles txtHeatingValue1CFlare.Leave
@@ -17756,7 +17676,7 @@ Public Class ISMPTestReports
             txtHeatingValuesAvgFlare.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtVelocity1AFlare_Leave(sender As Object, e As EventArgs) Handles txtVelocity1AFlare.Leave
@@ -17803,7 +17723,7 @@ Public Class ISMPTestReports
             txtVelocityAvgFlare.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtVelocity1BFlare_Leave(sender As Object, e As EventArgs) Handles txtVelocity1BFlare.Leave
@@ -17850,7 +17770,7 @@ Public Class ISMPTestReports
             txtVelocityAvgFlare.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtVelocity1CFlare_Leave(sender As Object, e As EventArgs) Handles txtVelocity1CFlare.Leave
@@ -17897,7 +17817,7 @@ Public Class ISMPTestReports
             txtVelocityAvgFlare.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub RATACalc()
@@ -18178,341 +18098,124 @@ Public Class ISMPTestReports
 
                 Try
 
-                    'txtRelativeAccuracy.Text = Mid(RelAccuracy, 1, x)
                     txtRelativeAccuracy.Text = Math.Round(CDec(RelAccuracy), 3).ToString
 
                 Catch ex As Exception
-
+                    ErrorReport(ex, $"RelAccuracy: {RelAccuracy}", Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
                 End Try
 
             End If
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtRefMethodRata1_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata1.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtRefMethodRata2_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata2.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtRefMethodRata3_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata3.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtRefMethodRata4_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata4.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtRefMethodRata5_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata5.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtRefMethodRata6_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata6.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtRefMethodRata7_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata7.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtRefMethodRata8_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata8.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtRefMethodRata9_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata9.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtRefMethodRata10_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata10.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtRefMethodRata11_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata11.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtRefMethodRata12_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata12.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtCMSRata1_Leave(sender As Object, e As EventArgs) Handles txtCMSRata1.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtCMSRata2_Leave(sender As Object, e As EventArgs) Handles txtCMSRata2.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtCMSRata3_Leave(sender As Object, e As EventArgs) Handles txtCMSRata3.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtCMSRata4_Leave(sender As Object, e As EventArgs) Handles txtCMSRata4.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtCMSRata5_Leave(sender As Object, e As EventArgs) Handles txtCMSRata5.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtCMSRata6_Leave(sender As Object, e As EventArgs) Handles txtCMSRata6.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtCMSRata7_Leave(sender As Object, e As EventArgs) Handles txtCMSRata7.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtCMSRata8_Leave(sender As Object, e As EventArgs) Handles txtCMSRata8.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtCMSRata9_Leave(sender As Object, e As EventArgs) Handles txtCMSRata9.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtCMSRata10_Leave(sender As Object, e As EventArgs) Handles txtCMSRata10.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtCMSRata11_Leave(sender As Object, e As EventArgs) Handles txtCMSRata11.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtCMSRata12_Leave(sender As Object, e As EventArgs) Handles txtCMSRata12.Leave
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub chbOmitRunRata1_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata1.CheckedChanged
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub chbOmitRunRata2_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata2.CheckedChanged
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub chbOmitRunRata3_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata3.CheckedChanged
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub chbOmitRunRata4_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata4.CheckedChanged
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub chbOmitRunRata5_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata5.CheckedChanged
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub chbOmitRunRata6_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata6.CheckedChanged
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub chbOmitRunRata7_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata7.CheckedChanged
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub chbOmitRunRata8_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata8.CheckedChanged
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub chbOmitRunRata9_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata9.CheckedChanged
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub chbOmitRunRata10_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata10.CheckedChanged
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub chbOmitRunRata11_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata11.CheckedChanged
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub chbOmitRunRata12_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata12.CheckedChanged
-        Try
-
-            RATACalc()
-
-        Catch ex As Exception
-
-        End Try
+        RATACalc()
     End Sub
     Private Sub txtPollConcTwoStackStandard1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackStandard1A.Leave
         Try
@@ -18561,8 +18264,7 @@ Public Class ISMPTestReports
             txtPollConcAvgTwoStackStandard1.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcTwoStackStandard1B_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackStandard1B.Leave
@@ -18612,8 +18314,7 @@ Public Class ISMPTestReports
             txtPollConcAvgTwoStackStandard1.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcTwoStackStandard1C_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackStandard1C.Leave
@@ -18663,8 +18364,7 @@ Public Class ISMPTestReports
             txtPollConcAvgTwoStackStandard1.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcTwoStackStandard2A_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackStandard2A.Leave
@@ -18714,9 +18414,7 @@ Public Class ISMPTestReports
             txtPollConcAvgTwoStackStandard2.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcTwoStackStandard2B_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackStandard2B.Leave
@@ -18766,9 +18464,7 @@ Public Class ISMPTestReports
             txtPollConcAvgTwoStackStandard2.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcTwoStackStandard2C_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackStandard2C.Leave
@@ -18818,9 +18514,7 @@ Public Class ISMPTestReports
             txtPollConcAvgTwoStackStandard2.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackStandard1A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackStandard1A.Leave
@@ -18931,9 +18625,7 @@ Public Class ISMPTestReports
             txtEmissRateTotalAvgTwoStackStandard.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackStandard1B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackStandard1B.Leave
@@ -19043,9 +18735,7 @@ Public Class ISMPTestReports
             txtEmissRateTotalAvgTwoStackStandard.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackStandard1C_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackStandard1C.Leave
@@ -19155,9 +18845,7 @@ Public Class ISMPTestReports
             txtEmissRateTotalAvgTwoStackStandard.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackStandard2A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackStandard2A.Leave
@@ -19267,9 +18955,7 @@ Public Class ISMPTestReports
             txtEmissRateTotalAvgTwoStackStandard.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackStandard2B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackStandard2B.Leave
@@ -19379,9 +19065,7 @@ Public Class ISMPTestReports
             txtEmissRateTotalAvgTwoStackStandard.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackStandard2C_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackStandard2C.Leave
@@ -19491,9 +19175,7 @@ Public Class ISMPTestReports
             txtEmissRateTotalAvgTwoStackStandard.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTotalTwoStackStandard1_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTotalTwoStackStandard1.Leave
@@ -19544,7 +19226,7 @@ Public Class ISMPTestReports
             txtEmissRateTotalAvgTwoStackStandard.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTotalTwoStackStandard2_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTotalTwoStackStandard2.Leave
@@ -19595,7 +19277,7 @@ Public Class ISMPTestReports
             txtEmissRateTotalAvgTwoStackStandard.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTotalTwoStackStandard3_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTotalTwoStackStandard3.Leave
@@ -19646,7 +19328,7 @@ Public Class ISMPTestReports
             txtEmissRateTotalAvgTwoStackStandard.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcTwoStackDRE1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackDRE1A.Leave
@@ -19749,7 +19431,7 @@ Public Class ISMPTestReports
             txtDestructionEfficiencyTwoStackDRE.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcTwoStackDRE1B_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackDRE1B.Leave
@@ -19852,7 +19534,7 @@ Public Class ISMPTestReports
             txtDestructionEfficiencyTwoStackDRE.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcTwoStackDRE1C_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackDRE1C.Leave
@@ -19955,7 +19637,7 @@ Public Class ISMPTestReports
             txtDestructionEfficiencyTwoStackDRE.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcTwoStackDRE2A_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackDRE2A.Leave
@@ -20058,7 +19740,7 @@ Public Class ISMPTestReports
             txtDestructionEfficiencyTwoStackDRE.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcTwoStackDRE2B_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackDRE2B.Leave
@@ -20161,7 +19843,7 @@ Public Class ISMPTestReports
             txtDestructionEfficiencyTwoStackDRE.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtPollConcTwoStackDRE2C_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackDRE2C.Leave
@@ -20264,7 +19946,7 @@ Public Class ISMPTestReports
             txtDestructionEfficiencyTwoStackDRE.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackDRE1A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackDRE1A.Leave
@@ -20313,7 +19995,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgTwoStackDRE1.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackDRE1B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackDRE1B.Leave
@@ -20362,7 +20044,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgTwoStackDRE1.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackDRE1C_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackDRE1C.Leave
@@ -20411,7 +20093,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgTwoStackDRE1.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackDRE2A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackDRE2A.Leave
@@ -20460,7 +20142,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgTwoStackDRE2.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackDRE2B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackDRE2B.Leave
@@ -20509,7 +20191,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgTwoStackDRE2.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackDRE2C_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackDRE2C.Leave
@@ -20558,7 +20240,7 @@ Public Class ISMPTestReports
             txtEmissRateAvgTwoStackDRE2.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -20590,10 +20272,7 @@ Public Class ISMPTestReports
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub txtApplicableStandardPercentRata_TextChanged(sender As Object, e As EventArgs) Handles txtApplicableStandardPercentRata.TextChanged
         Try
@@ -20619,9 +20298,7 @@ Public Class ISMPTestReports
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
     Private Sub cboDiluentRata_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboDiluentRata.SelectedValueChanged
         Try
@@ -20647,9 +20324,7 @@ Public Class ISMPTestReports
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
     Private Sub txtPart75Statement_TextChanged(sender As Object, e As EventArgs) Handles txtPart75Statement.TextChanged
         Try
@@ -20675,9 +20350,7 @@ Public Class ISMPTestReports
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
     Private Sub cboDiluentRata_MouseDown(sender As Object, e As MouseEventArgs) Handles cboDiluentRata.MouseDown
         Try
@@ -20690,9 +20363,7 @@ Public Class ISMPTestReports
             cboDiluentRata.Enabled = True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
     Private Sub cboDiluentRata_KeyDown(sender As Object, e As KeyEventArgs) Handles cboDiluentRata.KeyDown
         Try
@@ -20705,9 +20376,7 @@ Public Class ISMPTestReports
             cboDiluentRata.Enabled = True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
     Private Sub cboDiluentRata_GotFocus(sender As Object, e As EventArgs) Handles cboDiluentRata.GotFocus
         Try
@@ -20720,9 +20389,7 @@ Public Class ISMPTestReports
             cboDiluentRata.Enabled = True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
     Private Sub btnSaveSSCPData_Click(sender As Object, e As EventArgs) Handles btnSaveSSCPData.Click
         If AccountFormAccess(69, 4) = "1" AndAlso SaveSSCPWork() Then
@@ -20738,7 +20405,6 @@ Public Class ISMPTestReports
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub tsbConfidentialData_Click(sender As Object, e As EventArgs) Handles tsbConfidentialData.Click
@@ -20753,7 +20419,6 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub mmiDefaultCompliance_Click(sender As Object, e As EventArgs) Handles mmiDefaultCompliance.Click
@@ -20762,24 +20427,16 @@ Public Class ISMPTestReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub mmiPrintNonConf_Click(sender As Object, e As EventArgs) Handles mmiPrintNonConf.Click
-        Try
-            OpenFormTestReportPrintout(ReferenceNumber, noConf:=True)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        OpenFormTestReportPrintout(txtAirsNumber.Text, ReferenceNumber, Me, includeConfidentialInfo:=True)
     End Sub
-
     Private Sub mmiOpenMemo_Click(sender As Object, e As EventArgs) Handles mmiOpenMemo.Click
         Try
             OpenMemo()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
@@ -20808,4 +20465,7 @@ Public Class ISMPTestReports
         End Try
     End Sub
 
+    Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
+        Close()
+    End Sub
 End Class

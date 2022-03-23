@@ -1,6 +1,7 @@
 Imports Iaip.Apb.Finance
 Imports Iaip.DAL.FacilityData
 Imports Iaip.DAL.Finance
+Imports Iaip.UrlHelpers
 
 Public Class FinInvoiceView
 
@@ -51,7 +52,7 @@ Public Class FinInvoiceView
             lblInvoiceID.Text = "Invoice " & .InvoiceID
             lblStatus.Text = "Status: "
 
-            UrlToolTip.SetToolTip(lnkViewInvoice, GetInvoiceLinkAddress(thisInvoice.InvoiceGuid))
+            UrlToolTip.SetToolTip(lnkViewInvoice, GetInvoiceUrl(thisInvoice.InvoiceGuid).ToString())
 
             If .Voided Then
                 lblStatus.Text &= "VOID"

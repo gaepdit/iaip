@@ -53,8 +53,17 @@ Namespace DAL.Ismp
             Return DB.GetBoolean(query, parameter)
         End Function
 
+        Public Function GetFacilityIdForStackTest(referenceNumber As String) As String
+            If String.IsNullOrEmpty(referenceNumber) Then Return Nothing
+
+            Dim query As String = "select STRAIRSNUMBER from dbo.ISMPMASTER where STRREFERENCENUMBER = @ref"
+            Dim parameter As New SqlParameter("@ref", referenceNumber)
+
+            Return DB.GetString(query, parameter)
+        End Function
+
         Private Function GetStackTestDbTable(referenceNumber As String) As String
-            If String.IsNullOrEmpty(referenceNumber) Then Return False
+            If String.IsNullOrEmpty(referenceNumber) Then Return Nothing
 
             Dim query As String =
             "SELECT dt.STRTABLENAME " &

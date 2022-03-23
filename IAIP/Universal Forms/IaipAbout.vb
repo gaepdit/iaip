@@ -1,7 +1,9 @@
-﻿Public Class IaipAbout
+﻿Imports Iaip.UrlHelpers
+
+Public Class IaipAbout
 
     Private Sub IaipAbout_Load(sender As Object, e As EventArgs) Handles Me.Load
-        
+
         lblVersion.Text = "Version " & GetCurrentVersion().ToString
 
 #If DEBUG Then

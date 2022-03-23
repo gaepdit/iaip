@@ -1,8 +1,8 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports EpdIt
-Imports Iaip.Apb.Sscp
-Imports Iaip.Apb.Sscp.WorkItem
+Imports Iaip.Apb.Sscp.WorkItemEnums
+Imports Iaip.UrlHelpers
 
 Public Class SSCPEvents
 
@@ -316,9 +316,14 @@ Public Class SSCPEvents
             If IsDBNull(dr.Item("datCompleteDate")) Then
                 chbEventComplete.Checked = False
                 DTPEventCompleteDate.Value = Today
+
+                If btnPrint.Available Then
+                    btnPrint.Enabled = False
+                End If
             Else
                 chbEventComplete.Checked = True
                 DTPEventCompleteDate.Value = dr.Item("datCompleteDate")
+                btnPrint.Enabled = btnPrint.Available
             End If
         End If
     End Sub
@@ -606,6 +611,7 @@ Public Class SSCPEvents
                 If result AndAlso SaveDate() Then
                     MsgBox("Save Complete", MsgBoxStyle.Information, "SSCP Events")
                 End If
+                CheckCompleteDate()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2809,13 +2815,9 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub btnViewTestReport_Click(sender As Object, e As EventArgs) Handles btnViewTestReport.Click
-        Try
-            If txtISMPReferenceNumber.Text <> "N/A" Then
-                OpenFormTestReportPrintout(txtISMPReferenceNumber.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If txtISMPReferenceNumber.Text <> "N/A" Then
+            OpenFormTestReportPrintout(AirsNumber, txtISMPReferenceNumber.Text, Me)
+        End If
     End Sub
 
     Private Sub btnACCSubmittals_Click(sender As Object, e As EventArgs) Handles btnACCSubmittals.Click
@@ -2887,51 +2889,20 @@ Public Class SSCPEvents
 
     Private Sub PrintACC()
         LoadACC()
-        If Not dtpAccReportingYear.Checked Then
-            MsgBox("Please save a reporting year before printing this ACC.", MsgBoxStyle.Critical, "Print Error")
+        CheckCompleteDate()
+
+        If Not chbEventComplete.Checked Then
+            MsgBox("Close out and save this ACC before printing.", MsgBoxStyle.Critical, "Print Error")
             Return
         End If
-        Try
-            Dim acc As Acc = LoadAccFromForm()
-            Dim accList As New List(Of Acc) From {acc}
 
-            Using dataTable As DataTable = ConvertToDataTable(Of Acc)(accList)
-                Dim title As String = acc.AccReportingYear & " ACC for " & acc.Facility.AirsNumber.FormattedString
-                Dim crv As New CRViewerForm(New CR.Reports.AccMemo, dataTable, title:=title)
-                crv.Show()
-            End Using
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If Not dtpAccReportingYear.Checked Then
+            MsgBox("Save a reporting year before printing this ACC.", MsgBoxStyle.Critical, "Print Error")
+            Return
+        End If
+
+        OpenAccUrl(AirsNumber, TrackingNumber, Me)
     End Sub
-
-    Private Function LoadAccFromForm() As Acc
-        Dim thisAcc As New Acc
-
-        With thisAcc
-            If dtpAccReportingYear.Checked Then .AccReportingYear = dtpAccReportingYear.Value.Year
-            .AllDeviationsReported = rdbACCAllDeviationsReportedYes.Checked
-            .AllTitleVConditionsListed = rdbACCConditionsYes.Checked
-            .Comments = txtACCComments.Text
-            .CorrectFormsUsed = rdbACCCorrectACCYes.Checked
-            .CorrectlyFilledOut = rdbACCCorrectYes.Checked
-            If DTPAcknowledgmentLetterSent.Checked Then .DateAcknowledgmentLetterSent = DTPAcknowledgmentLetterSent.Value
-            If chbEventComplete.Checked Then .DateComplete = DTPEventCompleteDate.Value
-            .DatePostmarked = DTPACCPostmarked.Value
-            .DateReceived = DTPACCReceivedDate.Value
-            .Deleted = ItemIsDeleted
-            .DeviationsReported = rdbACCDeviationsReportedYes.Checked
-            .EnforcementNeeded = rdbACCEnforcementNeededYes.Checked
-            .Facility = DAL.GetFacility(AirsNumber)
-            .PostmarkedByDeadline = rdbACCPostmarkYes.Checked
-            .ResubmittalRequested = rdbACCResubmittalRequestedYes.Checked
-            .SignedByResponsibleOfficial = rdbACCROYes.Checked
-            .StaffResponsible = DAL.GetIaipUserByUserId(cboStaffResponsible.SelectedValue)
-            .UnreportedDeviationsReported = rdbACCPreviouslyUnreportedDeviationsYes.Checked
-        End With
-
-        Return thisAcc
-    End Function
 
 #End Region
 

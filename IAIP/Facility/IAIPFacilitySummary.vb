@@ -2,10 +2,11 @@
 Imports System.ComponentModel
 Imports EpdIt
 Imports Iaip.Apb
-Imports Iaip.Apb.Facilities
 Imports Iaip.Apb.ApbFacilityId
+Imports Iaip.Apb.Facilities
 Imports Iaip.DAL
 Imports Iaip.DAL.FacilitySummaryData
+Imports Iaip.UrlHelpers
 
 Public Class IAIPFacilitySummary
 
@@ -128,7 +129,6 @@ Public Class IAIPFacilitySummary
     Private Sub DisableFacilityTools()
         FSMainTabControl.Enabled = False
         UpdateEpaMenuItem.Enabled = False
-        PrintFacilitySummaryMenuItem.Enabled = False
 
         FSMainTabControl.SelectedTab = FSInfo
         ContactsTabControl.SelectedTab = TPContactsGeco
@@ -142,7 +142,6 @@ Public Class IAIPFacilitySummary
     Private Sub EnableFacilityTools()
         FSMainTabControl.Enabled = True
         UpdateEpaMenuItem.Enabled = True
-        PrintFacilitySummaryMenuItem.Enabled = True
     End Sub
 
 #End Region
@@ -358,15 +357,15 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub MapAddressLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles MapAddressLink.LinkClicked
-        OpenMapUrl(ThisFacility.FacilityLocation.Address.ToLinearString, Me)
+        OpenGoogleMapUrl(ThisFacility.FacilityLocation.Address.ToLinearString, Me)
     End Sub
 
     Private Sub MapCountyLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles MapCountyLink.LinkClicked
-        OpenMapUrl(ThisFacility.FacilityLocation.County & " County", Me)
+        OpenGoogleMapUrl(ThisFacility.FacilityLocation.County & " County", Me)
     End Sub
 
     Private Sub MapLatLonLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles MapLatLonLink.LinkClicked
-        OpenMapUrl(ThisFacility.FacilityLocation.Latitude.ToString & "," &
+        OpenGoogleMapUrl(ThisFacility.FacilityLocation.Latitude.ToString & "," &
                    ThisFacility.FacilityLocation.Longitude.ToString, Me)
     End Sub
 
@@ -642,7 +641,7 @@ Public Class IAIPFacilitySummary
 
                 ' Testing
             Case TestReportsGrid.Name
-                OpenFormTestReport(itemId)
+                OpenFormTestReport(itemId, Me)
             Case TestNotificationsGrid.Name
                 OpenFormTestNotification(itemId)
             Case TestMemosGrid.Name
@@ -911,10 +910,6 @@ Public Class IAIPFacilitySummary
         OpenFacilityLookupTool()
     End Sub
 
-    Private Sub PrintFacilitySummaryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintFacilitySummaryMenuItem.Click
-        OpenFacilitySummaryPrintTool()
-    End Sub
-
     Private Sub ClearFormToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearFormMenuItem.Click
         AirsNumber = Nothing
     End Sub
@@ -988,19 +983,6 @@ Public Class IAIPFacilitySummary
 
         If t.Text = "" Then
             t.Text = "N/A"
-        End If
-    End Sub
-
-    Private Sub OpenFacilitySummaryPrintTool()
-        If AirsNumber IsNot Nothing Then
-            Dim facilityPrintOut As New IaipFacilitySummaryPrint With {
-                .AirsNumber = AirsNumber,
-                .FacilityName = ThisFacility.FacilityName
-            }
-
-            If facilityPrintOut IsNot Nothing AndAlso Not facilityPrintOut.IsDisposed Then
-                facilityPrintOut.Show()
-            End If
         End If
     End Sub
 

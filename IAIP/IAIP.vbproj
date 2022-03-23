@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
-  <Import Project="..\packages\Microsoft.CodeAnalysis.NetAnalyzers.6.0.0\build\Microsoft.CodeAnalysis.NetAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.NetAnalyzers.6.0.0\build\Microsoft.CodeAnalysis.NetAnalyzers.props')" />
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.30729</ProductVersion>
@@ -57,11 +56,11 @@
     <UpdateUrl>https://iaip.gaepd.org/install/</UpdateUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>5.27.1.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>5.26.6.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>5.27.1.0</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>5.27.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -117,44 +116,7 @@
     <WarningsAsErrors>42020,42021,42022</WarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClosedXML, Version=0.95.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ClosedXML.0.95.4\lib\net46\ClosedXML.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="DocumentFormat.OpenXml, Version=2.15.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
-      <HintPath>..\packages\DocumentFormat.OpenXml.2.15.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
-    </Reference>
-    <Reference Include="EpdIt.DbHelper, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EpdIt.DbHelper.3.0.2\lib\net452\EpdIt.DbHelper.dll</HintPath>
-    </Reference>
-    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
-    </Reference>
-    <Reference Include="FastMember, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FastMember.1.5.0\lib\net461\FastMember.dll</HintPath>
-    </Reference>
-    <Reference Include="Jil, Version=2.17.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Jil.2.17.0\lib\net45\Jil.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Mindscape.Raygun4Net, Version=5.12.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mindscape.Raygun4Net.5.13.0\lib\net40\Mindscape.Raygun4Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Mindscape.Raygun4Net4, Version=5.13.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mindscape.Raygun4Net.5.13.0\lib\net40\Mindscape.Raygun4Net4.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Sigil, Version=5.0.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sigil.5.0.0\lib\net461\Sigil.dll</HintPath>
-    </Reference>
-    <Reference Include="Syroot.KnownFolders, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Syroot.Windows.IO.KnownFolders.1.2.3\lib\netstandard2.0\Syroot.KnownFolders.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -168,21 +130,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.IO.Packaging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.Packaging.6.0.0\lib\net461\System.IO.Packaging.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime" />
     <Reference Include="System.Runtime.InteropServices" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -195,9 +146,6 @@
     </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="TaskDialogSharp, Version=1.0.2.0, Culture=neutral, PublicKeyToken=6672d4e390fea69b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Daramee.TaskDialogSharp.1.0.2\lib\net40\TaskDialogSharp.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -355,7 +303,13 @@
     <Compile Include="_Code\StringFunctions.vb" />
     <Compile Include="_Code\TaskbarProgress.vb" />
     <Compile Include="_Code\TemporalCollection.vb" />
-    <Compile Include="_Code\UrlHandler.vb" />
+    <Compile Include="_Code\UrlHelpers\EventUrls.vb" />
+    <Compile Include="_Code\UrlHelpers\Reports.vb" />
+    <Compile Include="_Code\UrlHelpers\SupportUrls.vb" />
+    <Compile Include="_Code\UrlHelpers\GecoUrls.vb" />
+    <Compile Include="_Code\UrlHelpers\MapUrls.vb" />
+    <Compile Include="_Code\UrlHelpers\PermitSearchUrls.vb" />
+    <Compile Include="_Code\UrlHelpers\UrlHandler.vb" />
     <Compile Include="_Controls\AirNumberEntryForm.Designer.vb">
       <DependentUpon>AirNumberEntryForm.vb</DependentUpon>
     </Compile>
@@ -483,16 +437,6 @@
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="Crystal Reports\CrDataSet.xsc">
-      <DependentUpon>CrDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Crystal Reports\CrDataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-    </None>
-    <None Include="Crystal Reports\CrDataSet.xss">
-      <DependentUpon>CrDataSet.xsd</DependentUpon>
-    </None>
     <None Include="IAIP_TemporaryKey.pfx" />
     <None Include="My Project\Settings.settings">
       <CustomToolNamespace>My</CustomToolNamespace>
@@ -503,87 +447,6 @@
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="AssemblyInfo.vb">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\CrDataSet.vb">
-      <DependentUpon>CrDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Crystal Reports\Facility\FacilityBasicReport.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FacilityBasicReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Facility\FacilityDetailedReport1.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FacilityDetailedReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\SSCP\SscpFceReport.vb">
-      <DependentUpon>SscpFceReport.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\Fees\FeesFacilitySum.vb">
-      <DependentUpon>FeesFacilitySum.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpEnforcementSum.vb">
-      <DependentUpon>SscpEnforcementSum.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpFce.vb">
-      <DependentUpon>SscpFce.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpNotifications.vb">
-      <DependentUpon>SscpNotifications.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpStackTests.vb">
-      <DependentUpon>SscpStackTests.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpRmpInspections.vb">
-      <DependentUpon>SscpRmpInspections.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpReports.vb">
-      <DependentUpon>SscpReports.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpAcc.vb">
-      <DependentUpon>SscpAcc.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\SSCP\SscpInspections.vb">
-      <DependentUpon>SscpInspections.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\Facility\FacilityBasicInfo.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FacilityBasicInfo.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ISMP\ISMPManagersTools.Designer.vb">
       <DependentUpon>ISMPManagersTools.vb</DependentUpon>
@@ -637,36 +500,6 @@
     </Compile>
     <Compile Include="AnnualFees\FeesStatistics.vb">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Fees\FacilityFee10.vb">
-      <DependentUpon>FacilityFee10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Fees\feeByYear10.vb">
-      <DependentUpon>feeByYear10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Fees\NoOperate10.vb">
-      <DependentUpon>NoOperate10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\SSPP\CRTitleVRenewal10.vb">
-      <DependentUpon>CRTitleVRenewal10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Subreports\Letterhead.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Letterhead.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="EIS\EisTool.Designer.vb">
       <DependentUpon>EisTool.vb</DependentUpon>
@@ -769,108 +602,6 @@
     <Compile Include="ISMP\ISMPTestFirmComments.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRFlare.vb">
-      <DependentUpon>CRFlare.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRGasConcentration.vb">
-      <DependentUpon>CRGasConcentration.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRLoadingRack.vb">
-      <DependentUpon>CRLoadingRack.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRMemorandumPTE.vb">
-      <DependentUpon>CRMemorandumPTE.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRMemorandumStandard.vb">
-      <DependentUpon>CRMemorandumStandard.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRMemorandumToFile.vb">
-      <DependentUpon>CRMemorandumToFile.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRMethod22.vb">
-      <DependentUpon>CRMethod22.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRMethod9Multi.vb">
-      <DependentUpon>CRMethod9Multi.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRMethod9Single.vb">
-      <DependentUpon>CRMethod9Single.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CROneStackFourRuns.vb">
-      <DependentUpon>CROneStackFourRuns.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CROneStackThreeRuns.vb">
-      <DependentUpon>CROneStackThreeRuns.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CROneStackTwoRuns.vb">
-      <DependentUpon>CROneStackTwoRuns.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRPondTreatment.vb">
-      <DependentUpon>CRPondTreatment.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRRata.vb">
-      <DependentUpon>CRRata.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRTwoStackDRE.vb">
-      <DependentUpon>CRTwoStackDRE.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\ISMP\CRTwoStackStandard.vb">
-      <DependentUpon>CRTwoStackStandard.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Crystal Reports\SSPP\SSPPPublicNotice.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SSPPPublicNotice.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ISMP\ISMPTestReportAdministrative.Designer.vb">
       <DependentUpon>ISMPTestReportAdministrative.vb</DependentUpon>
     </Compile>
@@ -952,7 +683,6 @@
     <Compile Include="_Data Models\Events\EventRegistration.vb" />
     <Compile Include="_Data Models\Facilities\Location.vb" />
     <Compile Include="_Data Models\SSCP\EnforcementCase.vb" />
-    <Compile Include="_Data Models\SSCP\Fce.vb" />
     <Compile Include="_Code\SharedData.vb" />
     <Compile Include="_Code\ExcelExport.vb" />
     <Compile Include="_Code\ArrayExtensions.vb" />
@@ -985,12 +715,6 @@
       <DependentUpon>SSPPPermitUploader.vb</DependentUpon>
     </Compile>
     <Compile Include="SSPP\SSPPPermitUploader.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Universal Forms\IAIPPrintOut.Designer.vb">
-      <DependentUpon>IAIPPrintOut.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Universal Forms\IAIPPrintOut.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Universal Forms\IAIPLogIn.Designer.vb">
@@ -1047,85 +771,6 @@
     <Compile Include="Facility\Sub Forms\IAIPFacilityLookUpTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facility\Sub Forms\IAIPFacilitySummaryPrint.Designer.vb">
-      <DependentUpon>IAIPFacilitySummaryPrint.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Facility\Sub Forms\IAIPFacilitySummaryPrint.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <EmbeddedResource Include="Crystal Reports\CRViewerForm.resx">
-      <DependentUpon>CRViewerForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Facility\FacilityDetailedReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
-      <LastGenOutput>FacilityDetailedReport1.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Facility\FacilityBasicReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>FacilityBasicReport.vb</LastGenOutput>
-      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SSCP\SscpFceReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpFceReport.vb</LastGenOutput>
-      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\Fees\FeesFacilitySum.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>FeesFacilitySum.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpEnforcementSum.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpEnforcementSum.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpFce.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpFce.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpNotifications.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpNotifications.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpStackTests.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpStackTests.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpRmpInspections.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpRmpInspections.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpReports.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpReports.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpAcc.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpAcc.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpInspections.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SscpInspections.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\Facility\FacilityBasicInfo.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>FacilityBasicInfo.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SSCP\AccMemo.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>AccMemo.vb</LastGenOutput>
-      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
-    </EmbeddedResource>
     <EmbeddedResource Include="DMU\DmuEdtErrorDetail.resx">
       <DependentUpon>DmuEdtErrorDetail.vb</DependentUpon>
     </EmbeddedResource>
@@ -1169,27 +814,6 @@
     <EmbeddedResource Include="SSCP\SscpEnforcement.resx">
       <DependentUpon>SscpEnforcement.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Fees\FacilityFee10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>FacilityFee10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Fees\feeByYear10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>feeByYear10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Fees\NoOperate10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>NoOperate10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SSPP\CRTitleVRenewal10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRTitleVRenewal10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\Letterhead.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Letterhead.vb</LastGenOutput>
-      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="EIS\EisTool.resx">
       <DependentUpon>EisTool.vb</DependentUpon>
@@ -1256,78 +880,6 @@
     <EmbeddedResource Include="ISMP\ISMPTestFirmComments.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ISMPTestFirmComments.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRFlare.resx">
-      <DependentUpon>CRFlare.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRFlare.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRFlare.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRGasConcentration.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRGasConcentration.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRLoadingRack.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRLoadingRack.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRMemorandumPTE.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRMemorandumPTE.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRMemorandumStandard.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRMemorandumStandard.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRMemorandumToFile.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRMemorandumToFile.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRMethod22.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRMethod22.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRMethod9Multi.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRMethod9Multi.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRMethod9Single.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRMethod9Single.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CROneStackFourRuns.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CROneStackFourRuns.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CROneStackThreeRuns.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CROneStackThreeRuns.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CROneStackTwoRuns.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CROneStackTwoRuns.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRPondTreatment.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPondTreatment.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRRata.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRRata.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRTwoStackDRE.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRTwoStackDRE.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\ISMP\CRTwoStackStandard.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRTwoStackStandard.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SSPP\SSPPPublicNotice.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SSPPPublicNotice.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ISMP\ISMPTestReportAdministrative.resx">
       <SubType>Designer</SubType>
@@ -1407,10 +959,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>SSPPPermitUploader.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\IAIPPrintOut.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>IAIPPrintOut.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IAIPLogIn.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPLogIn.vb</DependentUpon>
@@ -1449,10 +997,6 @@
     <EmbeddedResource Include="Facility\Sub Forms\IAIPFacilityLookUpTool.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPFacilityLookUpTool.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Facility\Sub Forms\IAIPFacilitySummaryPrint.resx">
-      <DependentUpon>IAIPFacilitySummaryPrint.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="_DAL\SSPP\ApplicationFees.vb" />
   </ItemGroup>
@@ -1493,7 +1037,6 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </Content>
-    <None Include="packages.config" />
     <None Include="Resources\EraseIcon.png" />
     <None Include="Resources\FindIcon.png" />
     <None Include="Resources\SaveIcon.png" />
@@ -1549,18 +1092,6 @@
     </Compile>
     <Compile Include="_DAL\SSPP\PermitData.vb" />
     <Compile Include="_Code\DbConnections.vb" />
-    <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
-      <DependentUpon>CRViewerForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Crystal Reports\CRViewerForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\SSCP\AccMemo.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AccMemo.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SBEAP\SBEAPCaseLog.Designer.vb">
       <DependentUpon>SBEAPCaseLog.vb</DependentUpon>
     </Compile>
@@ -1616,12 +1147,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Code\CollectionHelper.vb" />
-    <Compile Include="_Data Models\SSCP\Work Item\WorkItem.vb" />
+    <Compile Include="_Data Models\SSCP\WorkItemEnums.vb" />
     <Compile Include="_Data Models\People\Person.vb" />
     <Compile Include="_Data Models\Events\ResEvent.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Data Models\SSCP\Work Item\Acc.vb" />
     <Compile Include="_DAL\Facilities\FacilityData.vb" />
     <Compile Include="_DAL\Users\StaffData.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">
@@ -1652,7 +1182,6 @@
     <Compile Include="_DAL\Misc\DocumentData.vb" />
     <Compile Include="_DAL\Events\EventsData.vb" />
     <Compile Include="_Code\BitFields.vb" />
-    <Compile Include="_Code\CrystalReports.vb" />
     <Compile Include="_Controls\CueTextBox.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -1668,60 +1197,72 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+    <PackageReference Include="ClosedXML">
+      <Version>0.95.4</Version>
+    </PackageReference>
+    <PackageReference Include="Daramee.TaskDialogSharp">
+      <Version>1.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="DocumentFormat.OpenXml">
+      <Version>2.16.0</Version>
+    </PackageReference>
+    <PackageReference Include="EpdIt.DbHelper">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="ExcelNumberFormat">
+      <Version>1.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="FastMember">
+      <Version>1.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Jil">
+      <Version>2.17.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers">
+      <Version>6.0.0</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.SlowCheetah">
+      <Version>4.0.8</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Mindscape.Raygun4Net">
+      <Version>5.13.0</Version>
+    </PackageReference>
+    <PackageReference Include="Sigil">
+      <Version>5.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="SonarAnalyzer.VisualBasic">
+      <Version>8.36.1.44192</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Syroot.Windows.IO.KnownFolders">
+      <Version>1.2.3</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.FileSystem.Primitives">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.Packaging">
+      <Version>6.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Security.Principal.Windows">
+      <Version>5.0.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
       <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5</ProductName>
-      <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-    <BootstrapperPackage Include="SAP.CrystalReports14.NET.2.0">
-      <Visible>False</Visible>
-      <ProductName>SAP Crystal Reports Runtime Engine for .NET Framework</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <PublishFile Include="log4net">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.NetAnalyzers.6.0.0\analyzers\dotnet\vb\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.NetAnalyzers.6.0.0\analyzers\dotnet\vb\Microsoft.CodeAnalysis.VisualBasic.NetAnalyzers.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.VisualBasic.8.35.0.42613\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.VisualBasic.8.35.0.42613\analyzers\SonarAnalyzer.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.VisualBasic.8.35.0.42613\analyzers\SonarAnalyzer.VisualBasic.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
@@ -1730,14 +1271,4 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.VisualStudio.SlowCheetah.4.0.8\build\Microsoft.VisualStudio.SlowCheetah.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VisualStudio.SlowCheetah.4.0.8\build\Microsoft.VisualStudio.SlowCheetah.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.NetAnalyzers.6.0.0\build\Microsoft.CodeAnalysis.NetAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.NetAnalyzers.6.0.0\build\Microsoft.CodeAnalysis.NetAnalyzers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.NetAnalyzers.6.0.0\build\Microsoft.CodeAnalysis.NetAnalyzers.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.NetAnalyzers.6.0.0\build\Microsoft.CodeAnalysis.NetAnalyzers.targets'))" />
-  </Target>
-  <Import Project="..\packages\Microsoft.VisualStudio.SlowCheetah.4.0.8\build\Microsoft.VisualStudio.SlowCheetah.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SlowCheetah.4.0.8\build\Microsoft.VisualStudio.SlowCheetah.targets')" />
-  <Import Project="..\packages\Microsoft.CodeAnalysis.NetAnalyzers.6.0.0\build\Microsoft.CodeAnalysis.NetAnalyzers.targets" Condition="Exists('..\packages\Microsoft.CodeAnalysis.NetAnalyzers.6.0.0\build\Microsoft.CodeAnalysis.NetAnalyzers.targets')" />
 </Project>

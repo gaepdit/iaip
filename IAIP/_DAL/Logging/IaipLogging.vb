@@ -1,29 +1,27 @@
 Imports System.Data.SqlClient
-Imports CrystalDecisions.CrystalReports.Engine
 
 Namespace DAL
     Module IaipLogging
 
-        Public Function LogCrystalReportsUsage(report As ReportClass) As Boolean
-            If report Is Nothing Then
-                Return False
-            End If
+        Public Sub LogReportUsage(type As String, url As Uri)
+            ArgumentNotNullOrEmpty(type, NameOf(type))
+            ArgumentNotNull(url, NameOf(url))
 
-            AddBreadcrumb($"Crystal Report opened: {report.ResourceName}")
-
-            Dim query As String = "insert into IAIP_CrystaLReportsLog (ReportName, UserId) values (@ReportName, @UserId)"
+            AddBreadcrumb($"Report type {type} opened: {url}")
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("@UserId", CurrentUser.UserID),
-                New SqlParameter("@ReportName", report.ResourceName)
+                New SqlParameter("@type", type),
+                New SqlParameter("@path", url.PathAndQuery),
+                New SqlParameter("@host", url.Authority),
+                New SqlParameter("@userId", (CurrentUser?.UserID))
             }
 
             Try
-                Return DB.RunCommand(query, parameters)
+                DB.SPRunCommand("dbo.LogIaipReport", parameters)
             Catch ex As Exception
-                Return False
+                Return
             End Try
-        End Function
+        End Sub
 
         Public Sub LogFormUsage(formName As String)
             Dim query As String = "insert into dbo.IAIP_FormsLog (FormName, UserId) values (@formName, @userId)"

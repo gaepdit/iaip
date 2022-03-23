@@ -26,13 +26,6 @@ Friend Module ExceptionManager
             Optional displayErrorToUser As Boolean = True,
             Optional unrecoverable As Boolean = False) As Boolean
 
-        ' Don't log missing Crystal Reports runtime
-        ' and don't exit application
-        If SeemsLikeACrystalReportsIssue(ex) Then
-            ShowCrystalReportsSupportMessage()
-            Return False
-        End If
-
         ' Don't log network issues
         ' and don't exit application
         If SeemsLikeANetworkIssue(ex) Then
@@ -71,19 +64,6 @@ Friend Module ExceptionManager
 
         If ex.GetType() = GetType(InvalidOperationException) AndAlso
             ex.Message.Contains("Timeout expired. The timeout period elapsed prior to obtaining a connection from the pool.") Then
-            Return True
-        End If
-
-        Return False
-    End Function
-
-    Private Function SeemsLikeACrystalReportsIssue(ex As Exception) As Boolean
-        If (ex.GetType() = GetType(IO.FileNotFoundException) AndAlso
-            ex.Message.Contains("Could not load file or assembly 'CrystalDecisions.CrystalReports.Engine,")) OrElse
-            (ex.GetType() = GetType(CrystalDecisions.CrystalReports.Engine.LoadSaveReportException) AndAlso
-            ex.Message.Contains("Could not load file or assembly 'CrystalDecisions.CrystalReports.Engine,")) OrElse
-            (ex.GetType() = GetType(TypeInitializationException) AndAlso
-            ex.Message.Contains("The type initializer for 'CrystalDecisions.CrystalReports.Engine.ReportDocument' threw an exception.")) Then
             Return True
         End If
 

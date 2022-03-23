@@ -1,19 +1,24 @@
 Imports System.Collections.Generic
+Imports Iaip.Apb
 Imports Iaip.BaseForm
+Imports Iaip.UrlHelpers
 
 Module IsmuFormHelpers
 
-    Public Function OpenFormTestReport(referenceNumber As String) As ISMPTestReports
+    Public Function OpenFormTestReport(referenceNumber As String, Optional sender As Form = Nothing) As ISMPTestReports
+
         If CurrentUser.ProgramID = 3 Then
             Return OpenFormTestReportEntry(referenceNumber)
         End If
 
         If Not DAL.Ismp.StackTestIsClosedOut(referenceNumber) Then
-            MessageBox.Show("Test report has not been closed out by ISMP.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Test report has not been closed out by ISMP.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
         End If
 
-        OpenFormTestReportPrintout(referenceNumber)
+        Dim airsNumber As ApbFacilityId = DAL.Ismp.GetFacilityIdForStackTest(referenceNumber)
+
+        OpenFormTestReportPrintout(airsNumber, referenceNumber, sender)
         Return Nothing
     End Function
 
@@ -24,7 +29,7 @@ Module IsmuFormHelpers
         End If
 
         If Not DAL.Ismp.StackTestExists(referenceNumber) Then
-            MessageBox.Show("Reference number does not exist in the system.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Reference number does not exist in the system.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
         End If
 
@@ -61,31 +66,27 @@ Module IsmuFormHelpers
         End If
     End Function
 
-    Public Function OpenFormTestReportPrintout(referenceNumber As String, Optional noConf As Boolean = False) As IAIPPrintOut
+    Public Sub OpenFormTestReportPrintout(airsNumber As ApbFacilityId,
+                                          referenceNumber As String,
+                                          Optional sender As Form = Nothing,
+                                          Optional includeConfidentialInfo As Boolean = False)
+        If airsNumber Is Nothing Then
+            MessageBox.Show("AIRS number is missing.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
         If String.IsNullOrEmpty(referenceNumber) Then
-            MessageBox.Show("Reference number is blank.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return Nothing
+            MessageBox.Show("Reference number is blank.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
         End If
 
         If Not DAL.Ismp.StackTestExists(referenceNumber) Then
-            MessageBox.Show("Reference number does not exist in the system.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return Nothing
+            MessageBox.Show("Reference number does not exist in the system.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
         End If
 
-        Dim PrintOut As New IAIPPrintOut With {
-            .ReferenceValue = referenceNumber,
-            .PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport,
-            .PrintoutSubtype = If(noConf, IAIPPrintOut.PrintSubtype.ToFile, IAIPPrintOut.PrintSubtype.Other)
-        }
-
-        If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
-            PrintOut.Show()
-            Return PrintOut
-        Else
-            MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return Nothing
-        End If
-    End Function
+        OpenStackTestUrl(airsNumber, referenceNumber, includeConfidentialInfo, sender)
+    End Sub
 
     Public Function OpenFormConfidentialTestData(referenceNumber As String) As ISMPConfidentialData
         Dim conf As ISMPConfidentialData = CType(OpenMultiForm(ISMPConfidentialData, NormalizeReferenceId(referenceNumber)), ISMPConfidentialData)

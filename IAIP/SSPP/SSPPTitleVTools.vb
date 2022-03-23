@@ -1,7 +1,6 @@
-﻿Imports System.Data.SqlClient
+Imports System.Data.SqlClient
 
 Public Class SSPPTitleVTools
-    Dim query, query2 As String
 
     Private Sub DMUTitleVTools_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadPermissions()
@@ -9,7 +8,7 @@ Public Class SSPPTitleVTools
 
     Private Sub LoadWebPublisherDataGrid()
         Try
-            query = "SELECT " &
+            Dim query As String = "SELECT " &
             "CONVERT(int, SSPPApplicationMaster.strApplicationNumber) AS ApplicationNumber,  " &
             "strFacilityName,  " &
             "CASE   " &
@@ -85,33 +84,25 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
 
     End Sub
     Private Sub CheckForLinks()
-        Dim MasterApplication As String
-        Dim ApplicationCount As String = 0
-
         Try
-
-            MasterApplication = ""
             lbLinkApplications.Items.Clear()
 
             If txtWebPublisherApplicationNumber.Text <> "" Then
-                query = "Select " &
+                Dim query As String = "Select " &
                 "strMasterApplication " &
                 "from SSPPApplicationLinking " &
                 "where strApplicationNumber = @app "
 
                 Dim p As New SqlParameter("@app", txtWebPublisherApplicationNumber.Text)
 
-                MasterApplication = DB.GetString(query, p)
+                Dim MasterApplication As String = DB.GetString(query, p)
 
                 If MasterApplication = "" Then
-                    MasterApplication = ""
                     lbLinkApplications.Items.Clear()
                     lblLinkWarning.Visible = False
                 Else
@@ -127,7 +118,6 @@ Public Class SSPPTitleVTools
 
                     For Each dr As DataRow In dt.Rows
                         lbLinkApplications.Items.Add(dr.Item("strApplicationNumber"))
-                        ApplicationCount += 1
                     Next
 
                     lblLinkWarning.Visible = True
@@ -136,56 +126,32 @@ Public Class SSPPTitleVTools
                 lbLinkApplications.Items.Clear()
                 lblLinkWarning.Visible = False
             End If
-            If lbLinkApplications.Items.Contains(txtWebPublisherApplicationNumber.Text) Then
-            Else
+
+            If Not lbLinkApplications.Items.Contains(txtWebPublisherApplicationNumber.Text) Then
                 lbLinkApplications.Items.Add(txtWebPublisherApplicationNumber.Text)
             End If
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub LoadPermissions()
-        Try
+        LoadWebPublisherDataGrid()
 
-            TCDMUTools.TabPages.Remove(TPWebPublishing)
-            TCDMUTools.TabPages.Remove(TPTVEmails)
-            TCDMUTools.TabPages.Remove(TPTitleVRenewals)
-
-            'Web Publishers
-            If AccountFormAccess(131, 2) = "1" Then
-                TCDMUTools.TabPages.Add(TPWebPublishing)
-                TCDMUTools.TabPages.Add(TPTVEmails)
-                TCDMUTools.TabPages.Add(TPTitleVRenewals)
-
-                LoadWebPublisherDataGrid()
-
-                DTPNotifiedAppReceived.Value = Today
-                DTPDraftOnWeb.Value = Today
-                DTPEffectiveDateofPermit.Value = Today
-                DTPEPANotifiedPermitOnWeb.Value = Today
-                DTPEPAStatesNotified.Value = Today
-                DTPFinalOnWeb.Value = Today
-                DTPTitleVRenewalStart.Value = Today
-                DTPTitleVRenewalEnd.Value = Today
-                DTPTitleVRenewalStart.Value = Today
-                DTPPNExpires.Value = Today
-                DTPExperationDate.Value = Today
-                DTPTitleVRenewalEnd.Value = Today.AddMonths(1)
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        DTPNotifiedAppReceived.Value = Today
+        DTPDraftOnWeb.Value = Today
+        DTPEffectiveDateofPermit.Value = Today
+        DTPEPANotifiedPermitOnWeb.Value = Today
+        DTPEPAStatesNotified.Value = Today
+        DTPFinalOnWeb.Value = Today
+        DTPPNExpires.Value = Today
+        DTPExperationDate.Value = Today
     End Sub
     Private Sub LoadWebPublisherApplicationData()
         Try
 
-            query = "Select " &
+            Dim query As String = "Select " &
             "datDraftOnWeb, datEPAStatesNotified, " &
             "datFinalONWeb, DatEPANotified, " &
             "datEffective, strTargeted, " &
@@ -274,8 +240,6 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -319,7 +283,7 @@ Public Class SSPPTitleVTools
             End If
 
             If txtWebPublisherApplicationNumber.Text <> "" Then
-                query = "Update SSPPApplicationTracking set " &
+                Dim query As String = "Update SSPPApplicationTracking set " &
                 "datDraftOnWeb = @datDraftOnWeb, " &
                 "datEPAStatesNotified = @datEPAStatesNotified, " &
                 "datFinalOnWeb = @datFinalOnWeb, " &
@@ -344,7 +308,7 @@ Public Class SSPPTitleVTools
 
                 DB.RunCommand(query, p)
 
-                query2 = "Update SSPPApplicationData set " &
+                Dim query2 As String = "Update SSPPApplicationData set " &
                 "strTargeted = @strTargeted " &
                 "where strApplicationNumber = @strApplicationNumber "
 
@@ -360,7 +324,7 @@ Public Class SSPPTitleVTools
                     Dim i As Integer
 
                     For i = 0 To lbLinkApplications.Items.Count - 1
-                        If lbLinkApplications.Items.Item(i) <> txtWebPublisherApplicationNumber.Text Then
+                        If lbLinkApplications.Items.Item(i).ToString <> txtWebPublisherApplicationNumber.Text Then
                             LinkedApplication = lbLinkApplications.Items.Item(i)
                         Else
                             LinkedApplication = ""
@@ -405,125 +369,7 @@ Public Class SSPPTitleVTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-    End Sub
-    Private Sub RunTitleVRenewalReport()
-        Dim ApplicationNumber As String
-        Dim AIRSNumber As String
-        Dim FacilityName As String
-        Dim PermitNumber As String
-        Dim DateIssued As String
-        Dim EffectiveDate As String
-        Dim temp As String
-
-        Try
-
-            Dim Startdate As Date = DTPTitleVRenewalStart.Value.AddMonths(-51)
-            Dim EndDate As Date = DTPTitleVRenewalEnd.Value.AddMonths(-51)
-
-            lblStartDate.Text = Format(Startdate, "dd-MMM-yyyy")
-            lblEndDate.Text = Format(EndDate, "dd-MMM-yyyy")
-
-            clbTitleVRenewals.Items.Clear()
-
-            temp = "App #   Airs #   Facility Name                             (     Permit Number    )  Issued Date  Effective Date"
-            If clbTitleVRenewals.Items.Contains(temp) Then
-            Else
-                clbTitleVRenewals.Items.Add(temp)
-            End If
-
-
-            query =
-            "SELECT am.STRAPPLICATIONNUMBER , SUBSTRING( fi.STRAIRSNUMBER, 5,8 ) " &
-            "  AS AIRSNumber , fi.STRFACILITYNAME ,concat( " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 1, 4 ) , '-' ,  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 5, 3 ) , '-' ,  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 8, 4 ) , '-' ,  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 12, 1 ) , '-' ,  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 13, 2 ) , '-' ,  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 15, 1 ) ) AS PermitNumber ,  " &
-            "  format( ar.DATPERMITISSUED, 'dd-MMM-yyyy' ) AS PermitIssued , format " &
-            "  ( ar.DATEFFECTIVE, 'dd-MMM-yyyy' ) AS EffectiveDate " &
-            "FROM SSPPApplicationMaster am " &
-            "INNER JOIN SSPPApplicationData ad " &
-            "ON ad.STRAPPLICATIONNUMBER = am.STRAPPLICATIONNUMBER " &
-            "INNER JOIN SSPPApplicationTracking ar " &
-            "ON am.STRAPPLICATIONNUMBER = ar.STRAPPLICATIONNUMBER " &
-            "INNER JOIN APBHeaderData hd " &
-            "ON am.STRAIRSNUMBER = hd.STRAIRSNUMBER " &
-            "INNER JOIN APBFacilityInformation fi " &
-            "ON fi.STRAIRSNUMBER = am.STRAIRSNUMBER " &
-            "WHERE ad.STRPERMITNUMBER LIKE '%V__0' AND " &
-            "  hd.STROPERATIONALSTATUS <> 'X' AND " &
-            "  SUBSTRING( hd.STRAIRPROGRAMCODES, 13, 1 ) = '1' AND ar.DATEFFECTIVE " &
-            "  BETWEEN @Startdate AND @EndDate AND( am.STRAPPLICATIONTYPE = " &
-            "  '14' OR am.STRAPPLICATIONTYPE = '16' OR am.STRAPPLICATIONTYPE " &
-            "  = '27' )"
-
-            Dim p As SqlParameter() = {
-                New SqlParameter("@Startdate", Startdate),
-                New SqlParameter("@EndDate", EndDate)
-            }
-
-            Dim dt As DataTable = DB.GetDataTable(query, p)
-
-            For Each dr As DataRow In dt.Rows
-                If IsDBNull(dr.Item("strApplicationNumber")) Then
-                    ApplicationNumber = ""
-                Else
-                    ApplicationNumber = dr.Item("strApplicationNumber")
-                End If
-                If IsDBNull(dr.Item("AIRSNumber")) Then
-                    AIRSNumber = ""
-                Else
-                    AIRSNumber = dr.Item("AIRSNumber")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    FacilityName = "N/A"
-                Else
-                    FacilityName = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("PermitNumber")) Then
-                    PermitNumber = "PermitNumber"
-                Else
-                    PermitNumber = dr.Item("PermitNumber")
-                End If
-                If IsDBNull(dr.Item("PermitIssued")) Then
-                    DateIssued = "N/A"
-                Else
-                    DateIssued = dr.Item("PermitIssued")
-                End If
-                If IsDBNull(dr.Item("EffectiveDate")) Then
-                    EffectiveDate = "N/A"
-                Else
-                    EffectiveDate = dr.Item("EffectiveDate")
-                End If
-
-                If AIRSNumber <> "" Then
-                    temp = ApplicationNumber & "  " & AIRSNumber & "  " & FacilityName.Truncate(40).PadRight(40)
-                    temp = temp & "  ( " & PermitNumber & " ) " & " " & DateIssued & "  " & EffectiveDate
-
-                    If clbTitleVRenewals.Items.Contains(temp) Then
-                    Else
-                        clbTitleVRenewals.Items.Add(temp)
-                        clbTitleVRenewals.SetItemChecked(clbTitleVRenewals.Items.IndexOf(temp), True)
-                    End If
-
-                End If
-
-                txtRenewalCount.Text = clbTitleVRenewals.Items.Count - 1
-
-            Next
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
 
     End Sub
     Private Sub LoadWebPublishingFacilityInformation()
@@ -535,7 +381,7 @@ Public Class SSPPTitleVTools
             Dim ZipCode As String = ""
 
             If txtWebPublisherApplicationNumber.Text <> "" Then
-                query = "Select " &
+                Dim query As String = "Select " &
                 "strFacilityName, strFacilityStreet1, " &
                 "strFacilityCity, strFacilityState, " &
                 "strFacilityZipCode " &
@@ -580,8 +426,6 @@ Public Class SSPPTitleVTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -597,7 +441,7 @@ Public Class SSPPTitleVTools
 
             clbTitleVEmailList.Items.Clear()
 
-            query = "Select " &
+            Dim query As String = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
@@ -674,8 +518,6 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -696,7 +538,7 @@ Public Class SSPPTitleVTools
                 "Georgia EPD has received an application for the modification of an existing Part 70 permit for the " &
                 "following sources: " & vbCrLf & vbCrLf
 
-                query = "Select " &
+                Dim query As String = "Select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strFacilityCity,  " &
                 "strApplicationTypeDesc,  " &
@@ -707,7 +549,7 @@ Public Class SSPPTitleVTools
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                 "and SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode  "
 
-                query2 = "Update SSPPApplicationData set " &
+                Dim query2 As String = "Update SSPPApplicationData set " &
                 "strAppReceivedNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
@@ -718,9 +560,9 @@ Public Class SSPPTitleVTools
                 Next
 
                 SQLLine = "And ( " & Mid(SQLLine, 1, (SQLLine.Length - 3)) & " ) "
-                SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
+                SQLLine2 = Mid(SQLLine2, 1, SQLLine2.Length - 3)
                 query = query & SQLLine & " order by strFacilityName "
-                query2 = query2 & SQLLine2
+                query2 &= SQLLine2
 
                 Dim dt As DataTable = DB.GetDataTable(query)
 
@@ -780,8 +622,6 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -799,7 +639,7 @@ Public Class SSPPTitleVTools
 
             clbTitleVEmailList.Items.Clear()
 
-            query = "Select " &
+            Dim query As String = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
@@ -830,7 +670,7 @@ Public Class SSPPTitleVTools
                     AppNumber = ""
                 Else
                     AppNumber = dr.Item("strApplicationNumber")
-                    LinkedApps = LinkedApps & dr.Item("strApplicationNumber") & ","
+                    LinkedApps &= dr.Item("strApplicationNumber").ToString & ","
                 End If
                 If IsDBNull(dr.Item("strFacilityName")) Then
                     FacName = ""
@@ -972,8 +812,6 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
 
@@ -996,14 +834,14 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with Georgia's Title V Implementation Agreement, attached are the public notices for the " &
                 "draft/proposed permits and amendments for the following sources: " & vbCrLf & vbCrLf
 
-                query2 = "Update SSPPApplicationData set " &
+                Dim query2 As String = "Update SSPPApplicationData set " &
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
                     temp = strObject
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
-                    query = "Select strMasterApplication " &
+                    Dim query As String = "Select strMasterApplication " &
                     "from SSPPApplicationLinking " &
                     "where strApplicationNumber = @app "
 
@@ -1136,19 +974,18 @@ Public Class SSPPTitleVTools
                         AppLine = Mid(AppLine, 1, (AppLine.Length - 2))
                     End If
 
-                    If txtEmailLetter.Text.Contains(AppLine) Then
-                    Else
+                    If Not txtEmailLetter.Text.Contains(AppLine) Then
                         txtEmailLetter.Text = txtEmailLetter.Text & FacName & vbCrLf &
                         FacCity & " (" & County & " County), GA" & vbCrLf &
                         AppLine & vbCrLf &
                         "30-day expires: " & PNExpires & vbCrLf & vbCrLf
-
                     End If
+
                     SQLLine2 = SQLLine2 & " SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
-                query2 = query2 & SQLLine2
+                query2 &= SQLLine2
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "The public notices are to be published by each facility in a newspaper of general " &
                 "circulation in the area where the facility is located within 14/30 days following their receipt of the draft permit and/or " &
@@ -1169,8 +1006,6 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1191,14 +1026,14 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.8(b)(1), attached are the public notices for the draft/proposed permits and " &
                 "amendments for the following sources: " & vbCrLf & vbCrLf
 
-                query2 = "Update SSPPApplicationData set " &
+                Dim query2 As String = "Update SSPPApplicationData set " &
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
                     temp = strObject
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
-                    query = "Select strMasterApplication " &
+                    Dim query As String = "Select strMasterApplication " &
                     "from SSPPApplicationLinking " &
                     "where strApplicationNumber = @app "
 
@@ -1326,17 +1161,17 @@ Public Class SSPPTitleVTools
                         AppLine = Mid(AppLine, 1, (AppLine.Length - 2))
                     End If
 
-                    If txtEmailLetter.Text.Contains(AppLine) Then
-                    Else
+                    If Not txtEmailLetter.Text.Contains(AppLine) Then
                         txtEmailLetter.Text = txtEmailLetter.Text & FacName & vbCrLf &
                         FacCity & " (" & County & " County), GA" & vbCrLf &
                         AppLine & vbCrLf & vbCrLf
                     End If
+
                     SQLLine2 = SQLLine2 & " SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
-                query2 = query2 & SQLLine2
+                query2 &= SQLLine2
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "The public notices are to be published by each facility in a newspaper of general " &
                 "circulation in the area where the facility is located within 14/30 days following their receipt of the draft permit and/or " &
@@ -1358,8 +1193,6 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
 
@@ -1378,7 +1211,7 @@ Public Class SSPPTitleVTools
 
             clbTitleVEmailList.Items.Clear()
 
-            query = "Select " &
+            Dim query As String = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
@@ -1407,7 +1240,7 @@ Public Class SSPPTitleVTools
                     AppNumber = ""
                 Else
                     AppNumber = dr.Item("strApplicationNumber")
-                    LinkedApps = LinkedApps & dr.Item("strApplicationNumber") & ","
+                    LinkedApps &= dr.Item("strApplicationNumber").ToString & ","
                 End If
                 If IsDBNull(dr.Item("strFacilityName")) Then
                     FacName = ""
@@ -1548,8 +1381,6 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1570,14 +1401,14 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with Georgia's Title V Implementation Agreement, attached is the proposed Part " &
                 "70 permit modification and permit amendment narrative for the following: " & vbCrLf & vbCrLf
 
-                query2 = "Update SSPPApplicationData set " &
+                Dim query2 As String = "Update SSPPApplicationData set " &
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
                     temp = strObject
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
-                    query = "Select strMasterApplication " &
+                    Dim query As String = "Select strMasterApplication " &
                     "from SSPPApplicationLinking " &
                     "where strApplicationNumber = @app "
 
@@ -1705,17 +1536,17 @@ Public Class SSPPTitleVTools
                         AppLine = Mid(AppLine, 1, (AppLine.Length - 2))
                     End If
 
-                    If txtEmailLetter.Text.Contains(AppLine) Then
-                    Else
+                    If Not txtEmailLetter.Text.Contains(AppLine) Then
                         txtEmailLetter.Text = txtEmailLetter.Text & FacName & vbCrLf &
                         FacCity & " (" & County & " County), GA" & vbCrLf &
                         AppLine & vbCrLf & vbCrLf
                     End If
+
                     SQLLine2 = SQLLine2 & " SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
-                query2 = query2 & SQLLine2
+                query2 &= SQLLine2
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "EPA's review of the proposed minor amendment extends from 45 days following the date of this " &
                 "message. Please reply to acknowledge receipt of this notification. Any questions regarding this " &
@@ -1731,8 +1562,6 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1753,14 +1582,14 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.8(b)(1), attached is the proposed Part 70 permit modification and  " &
                 "permit amendment narrative for the following source: " & vbCrLf & vbCrLf
 
-                query2 = "Update SSPPApplicationData set " &
+                Dim query2 As String = "Update SSPPApplicationData set " &
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
                     temp = strObject
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
-                    query = "Select strMasterApplication " &
+                    Dim query As String = "Select strMasterApplication " &
                     "from SSPPApplicationLinking " &
                     "where strApplicationNumber = @app "
 
@@ -1888,17 +1717,17 @@ Public Class SSPPTitleVTools
                         AppLine = Mid(AppLine, 1, (AppLine.Length - 2))
                     End If
 
-                    If txtEmailLetter.Text.Contains(AppLine) Then
-                    Else
-                        txtEmailLetter.Text = txtEmailLetter.Text & FacName & vbCrLf &
+                    If Not txtEmailLetter.Text.Contains(AppLine) Then
+                        txtEmailLetter.Text &= FacName & vbCrLf &
                         FacCity & " (" & County & " County), GA" & vbCrLf &
                         AppLine & vbCrLf & vbCrLf
                     End If
+
                     SQLLine2 = SQLLine2 & " SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
-                query2 = query2 & SQLLine2
+                query2 &= SQLLine2
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "Please reply to acknowledge receipt of this notification. Any questions regarding this proposed " &
                 "permit amendment may be directed to the Air Permit Manager by calling (404) 363-7000."
@@ -1913,8 +1742,6 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
 
@@ -1933,7 +1760,7 @@ Public Class SSPPTitleVTools
 
             clbTitleVEmailList.Items.Clear()
 
-            query = "Select " &
+            Dim query As String = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
@@ -1966,7 +1793,7 @@ Public Class SSPPTitleVTools
                     AppNumber = ""
                 Else
                     AppNumber = dr.Item("strApplicationNumber")
-                    LinkedApps = LinkedApps & dr.Item("strApplicationNumber") & ","
+                    LinkedApps &= dr.Item("strApplicationNumber").ToString & ","
                 End If
                 If IsDBNull(dr.Item("strFacilityName")) Then
                     FacName = ""
@@ -2108,10 +1935,7 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
 
     End Sub
     Private Sub GenerateFinalOnWeb()
@@ -2133,14 +1957,14 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with condition V.A.1.a of Georgia's Title V Agreement, the final Part 70 " &
                 "Permits were issued to the following sources:" & vbCrLf & vbCrLf
 
-                query2 = "Update SSPPApplicationData set " &
+                Dim query2 As String = "Update SSPPApplicationData set " &
                 "strFinalOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
                     temp = strObject
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
-                    query = "Select strMasterApplication " &
+                    Dim query As String = "Select strMasterApplication " &
                     "from SSPPApplicationLinking " &
                     "where strApplicationNumber = @app "
 
@@ -2199,10 +2023,10 @@ Public Class SSPPTitleVTools
                             If IsDBNull(dr.Item("datEffective")) Then
                                 DateIssued = ""
                             Else
-                                DateIssued = "Effective: " & dr.Item("datEffective")
+                                DateIssued = "Effective: " & dr.Item("datEffective").ToString
                             End If
                         Else
-                            DateIssued = "Effective: " & dr.Item("datPermitIssued")
+                            DateIssued = "Effective: " & dr.Item("datPermitIssued").ToString
                         End If
                         If IsDBNull(dr.Item("strApplicationTypeDesc")) Then
                             AppType = ""
@@ -2289,18 +2113,18 @@ Public Class SSPPTitleVTools
                         AppLine = Mid(AppLine, 1, (AppLine.Length - 2))
                     End If
 
-                    If txtEmailLetter.Text.Contains(AppLine) Then
-                    Else
+                    If Not txtEmailLetter.Text.Contains(AppLine) Then
                         txtEmailLetter.Text = txtEmailLetter.Text & FacName & vbCrLf &
                         FacCity & " (" & County & " County), GA" & vbCrLf &
                         AppLine & vbCrLf &
                         PermitNumber & vbCrLf & DateIssued & vbCrLf & vbCrLf
                     End If
+
                     SQLLine2 = SQLLine2 & " SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
-                query2 = query2 & SQLLine2
+                query2 &= SQLLine2
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "The final permit, permit review narrative and in most cases the " &
                 "permit application will be available from the Georgia Air Permit Search Engine web page located at: " &
@@ -2319,8 +2143,6 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -2338,7 +2160,7 @@ Public Class SSPPTitleVTools
 
             Select Case txtEmailType.Text
                 Case "AppReceived", "DraftOnWeb", "MinorOnWeb", "FinalOnWeb"
-                    query = "Select " &
+                    Dim query As String = "Select " &
                         "SSPPApplicationMaster.strApplicationNumber, " &
                         "strFacilityName, strFacilityCity, " &
                         "strApplicationTypeDesc, " &
@@ -2418,8 +2240,6 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -2428,14 +2248,8 @@ Public Class SSPPTitleVTools
         OpenFormPermitApplication(txtWebPublisherApplicationNumber.Text)
     End Sub
     Private Sub btnReloadGrid_Click(sender As Object, e As EventArgs) Handles btnReloadGrid.Click
-        Try
 
-            LoadWebPublisherDataGrid()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        LoadWebPublisherDataGrid()
 
     End Sub
     Private Sub dgrWebPublisher_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrWebPublisher.MouseUp
@@ -2454,8 +2268,6 @@ Public Class SSPPTitleVTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -2469,8 +2281,6 @@ Public Class SSPPTitleVTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -2484,8 +2294,6 @@ Public Class SSPPTitleVTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -2502,8 +2310,6 @@ Public Class SSPPTitleVTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -2517,8 +2323,6 @@ Public Class SSPPTitleVTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -2532,8 +2336,6 @@ Public Class SSPPTitleVTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -2547,8 +2349,6 @@ Public Class SSPPTitleVTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -2562,20 +2362,12 @@ Public Class SSPPTitleVTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnSaveWebPublisher_Click(sender As Object, e As EventArgs) Handles btnSaveWebPublisher.Click
-        Try
 
-            SaveWebPublisherData()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        SaveWebPublisherData()
 
     End Sub
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
@@ -2604,23 +2396,13 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnSearchForApplication_Click(sender As Object, e As EventArgs) Handles btnSearchForApplication.Click
-        Try
 
-
-            LoadWebPublisherApplicationData()
-            LoadWebPublishingFacilityInformation()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        LoadWebPublisherApplicationData()
+        LoadWebPublishingFacilityInformation()
 
     End Sub
     Private Sub txtWebPublisherApplicationNumber_Leave(sender As Object, e As EventArgs) Handles txtWebPublisherApplicationNumber.Leave
@@ -2632,59 +2414,24 @@ Public Class SSPPTitleVTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub txtWebPublisherApplicationNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtWebPublisherApplicationNumber.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) AndAlso
+            If e.KeyChar = ChrW(13) AndAlso
                 txtWebPublisherApplicationNumber.Text <> "" Then
                 LoadWebPublisherApplicationData()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
 
         End Try
 
-    End Sub
-    Private Sub btnRunTitleVReport_Click(sender As Object, e As EventArgs) Handles btnRunTitleVReport.Click
-        Try
-
-            RunTitleVRenewalReport()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnPrintRenewalLetters_Click(sender As Object, e As EventArgs) Handles btnPrintRenewalLetters.Click
-        Try
-            If txtRenewalCount.Text <> "" AndAlso txtRenewalCount.Text <> "0" Then
-                Dim PrintOut As New IAIPPrintOut With {
-                    .PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal,
-                    .ReferenceValue = "*",
-                    .StartDate = DTPTitleVRenewalStart.Value.AddMonths(-51),
-                    .EndDate = DTPTitleVRenewalEnd.Value.AddMonths(-51)
-                }
-
-                If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
-                    PrintOut.Show()
-                Else
-                    MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
     End Sub
     Private Sub btnPreviewESNReceived_Click(sender As Object, e As EventArgs) Handles btnPreviewESNReceived.Click
         Try
-
 
             PreviewAppReceivedEmail()
 
@@ -2692,15 +2439,13 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnPreviewESNReceived_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnPreviewESNReceived.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+            If e.KeyChar = ChrW(13) Then
                 PreviewAppReceivedEmail()
 
                 txtApplicationCount.Text = clbTitleVEmailList.Items.Count
@@ -2708,14 +2453,11 @@ Public Class SSPPTitleVTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnPreviewDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnPreviewDraftOnWeb.Click
         Try
-
 
             PreviewDraftOnWeb()
 
@@ -2723,29 +2465,24 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnPreviewDraftOnWeb_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnPreviewDraftOnWeb.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+            If e.KeyChar = ChrW(13) Then
                 PreviewDraftOnWeb()
 
                 txtApplicationCount.Text = clbTitleVEmailList.Items.Count
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnPreviewMinorMod_Click(sender As Object, e As EventArgs) Handles btnPreviewMinorMod.Click
         Try
-
 
             PreviewMinorModOnWeb()
 
@@ -2753,15 +2490,13 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnPreviewMinorMod_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnPreviewMinorMod.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+            If e.KeyChar = ChrW(13) Then
                 PreviewMinorModOnWeb()
 
                 txtApplicationCount.Text = clbTitleVEmailList.Items.Count
@@ -2769,14 +2504,11 @@ Public Class SSPPTitleVTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnPreviewFinalOnWeb_Click(sender As Object, e As EventArgs) Handles btnPreviewFinalOnWeb.Click
         Try
-
 
             PreviewFinalOnWeb()
 
@@ -2784,180 +2516,118 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnPreviewFinalOnWeb_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnPreviewFinalOnWeb.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+            If e.KeyChar = ChrW(13) Then
                 PreviewFinalOnWeb()
 
                 txtApplicationCount.Text = clbTitleVEmailList.Items.Count
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnEmailESNReceived_Click(sender As Object, e As EventArgs) Handles btnEmailESNReceived.Click
-        Try
 
-
-            GenerateAppReceivedEmail()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        GenerateAppReceivedEmail()
 
     End Sub
     Private Sub btnEmailESNReceived_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnEmailESNReceived.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+            If e.KeyChar = ChrW(13) Then
                 GenerateAppReceivedEmail()
 
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnEmailDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnEmailDraftOnWeb.Click
-        Try
 
-
-            GenerateDraftOnWebEmail()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        GenerateDraftOnWebEmail()
 
     End Sub
     Private Sub btnEmailDraftOnWeb_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnEmailDraftOnWeb.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+            If e.KeyChar = ChrW(13) Then
                 GenerateDraftOnWebEmail()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnEmailDraftOnWebState_Click(sender As Object, e As EventArgs) Handles btnEmailDraftOnWebState.Click
-        Try
 
-            GenerateDraftOnWebState()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        GenerateDraftOnWebState()
 
     End Sub
     Private Sub btnEmailDraftOnWebState_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnEmailDraftOnWebState.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+            If e.KeyChar = ChrW(13) Then
                 GenerateDraftOnWebState()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnMinorModOnWebEPD_Click(sender As Object, e As EventArgs) Handles btnMinorModOnWebEPD.Click
-        Try
 
-
-            GenerateMinorOnWebEmail()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        GenerateMinorOnWebEmail()
 
     End Sub
     Private Sub btnMinorModOnWebEPD_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnMinorModOnWebEPD.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+            If e.KeyChar = ChrW(13) Then
                 GenerateMinorOnWebEmail()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnMinorModOnWebState_Click(sender As Object, e As EventArgs) Handles btnMinorModOnWebState.Click
-        Try
 
-
-            GenerateMinorOnWebState()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        GenerateMinorOnWebState()
 
     End Sub
     Private Sub btnMinorModOnWebState_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnMinorModOnWebState.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+            If e.KeyChar = ChrW(13) Then
                 GenerateMinorOnWebState()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnEmailFinalOnWeb_Click(sender As Object, e As EventArgs) Handles btnEmailFinalOnWeb.Click
-        Try
 
-            GenerateFinalOnWeb()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        GenerateFinalOnWeb()
 
     End Sub
     Private Sub btnEmailFinalOnWeb_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnEmailFinalOnWeb.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+            If e.KeyChar = ChrW(13) Then
 
                 GenerateFinalOnWeb()
 
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -2970,67 +2640,32 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub txtApplicationNumberToAdd_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtApplicationNumberToAdd.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+            If e.KeyChar = ChrW(13) Then
                 AddAppToList()
 
                 txtApplicationCount.Text = clbTitleVEmailList.Items.Count
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub txtEmailLetter_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtEmailLetter.KeyPress
         Try
 
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(1) Then
+            If e.KeyChar = ChrW(1) Then
                 txtEmailLetter.SelectAll()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
-    End Sub
-    Private Sub btnPrintSingleTitleVRenewal_Click(sender As Object, e As EventArgs) Handles btnPrintSingleTitleVRenewal.Click
-        Try
-            Dim AppNumber As String = "*"
-
-            If txtTitleVSingleLetter.Text <> "" Then
-                AppNumber = txtTitleVSingleLetter.Text
-            Else
-                AppNumber = "*"
-            End If
-
-            If (Me.txtRenewalCount.Text <> "" AndAlso txtRenewalCount.Text <> "0") OrElse txtTitleVSingleLetter.Text <> "" Then
-                Dim PrintOut As New IAIPPrintOut With {
-                    .PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal,
-                    .ReferenceValue = AppNumber,
-                    .StartDate = New Date(1990, 1, 1),
-                    .EndDate = New Date(2099, 1, 1)
-                }
-
-                If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
-                    PrintOut.Show()
-                Else
-                    MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
     End Sub
 
 End Class

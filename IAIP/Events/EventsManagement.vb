@@ -1,6 +1,7 @@
 Imports System.Collections.Generic
 Imports Iaip.DAL.EventsData
 Imports Iaip.Apb.Res
+Imports Iaip.UrlHelpers
 
 Public Class EventsManagement
 
@@ -255,7 +256,7 @@ Public Class EventsManagement
             btnCancelEvent.Text = "Cancel Event"
         End If
 
-        Dim link As New Uri(GecoUrl, $"/EventRegistration/Details.aspx?eventid={selectedEventId}")
+        Dim link As Uri = GetEventRegistrationLinkAddress(selectedEventId)
         lnkGecoLink.Links.Add(0, lnkGecoLink.Text.Length, link)
         lnkGecoLink.Visible = True
     End Sub
@@ -689,7 +690,7 @@ Public Class EventsManagement
 
     Private Sub lnkGecoLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkGecoLink.LinkClicked
         If e.Link.LinkData IsNot Nothing Then
-            OpenUri(CType(e.Link.LinkData, Uri))
+            OpenUrl(CType(e.Link.LinkData, Uri))
         End If
     End Sub
 

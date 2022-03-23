@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.Data.SqlClient
-Imports Iaip.Apb.Sscp
 Imports EpdIt.DBUtilities
+Imports Iaip.Apb.Sscp
 
 Namespace DAL.Sscp
 
@@ -24,38 +24,6 @@ Namespace DAL.Sscp
             Dim parameter As SqlParameter = New SqlParameter("@airs", airs.DbFormattedString)
 
             Return DB.GetInteger(query, parameter)
-        End Function
-
-        ''' <summary>
-        ''' Returns a DataTable of enforcement summary data for a given facility for a given date range.
-        ''' </summary>
-        ''' <param name="dateRangeEnd">Ending date of a date range to filter for.</param>
-        ''' <param name="dateRangeStart">Starting date of a date range to filter for.</param>
-        ''' <param name="airs">An optional Facility ID to filter for.</param>
-        ''' <param name="staffId">An optional Staff ID to filter for.</param>
-        ''' <returns>A DataTable of enforcement summary data</returns>
-        Public Function GetEnforcementSummaryDataTable(
-                dateRangeStart As Date, dateRangeEnd As Date,
-                airs As Apb.ApbFacilityId,
-                Optional staffId As String = Nothing) As DataTable
-
-            Dim query As String =
-                "SELECT * FROM VW_SSCP_ENFORCEMENT_SUMMARY " &
-                " WHERE EnforcementDate BETWEEN @datestart AND @dateend " &
-                " AND STRAIRSNUMBER = @airs "
-
-            If Not String.IsNullOrEmpty(staffId) Then query &= " AND NUMSTAFFRESPONSIBLE = @staffId "
-
-            query &= " ORDER BY STRAIRSNUMBER, ENFORCEMENTDATE DESC, STRENFORCEMENTNUMBER DESC "
-
-            Dim parameters As SqlParameter() = {
-                New SqlParameter("@datestart", dateRangeStart),
-                New SqlParameter("@dateend", dateRangeEnd),
-                New SqlParameter("@airs", airs.DbFormattedString),
-                New SqlParameter("@staffId", staffId)
-            }
-
-            Return DB.GetDataTable(query, parameters)
         End Function
 
         ''' <summary>

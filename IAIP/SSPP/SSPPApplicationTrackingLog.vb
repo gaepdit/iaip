@@ -13,6 +13,7 @@ Imports Iaip.Apb.Sspp.Permit
 Imports Iaip.DAL.FacilityHeaderDataData
 Imports Iaip.DAL.Finance
 Imports Iaip.DAL.Sspp
+Imports Iaip.UrlHelpers
 
 Public Class SSPPApplicationTrackingLog
 
@@ -7544,7 +7545,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub SetUpPublicAppViewLink()
         lklOpenAppOnline.Visible = True
-        ToolTip1.SetToolTip(lklOpenAppOnline, GetPermitApplicationLinkAddress(AppNumber))
+        ToolTip1.SetToolTip(lklOpenAppOnline, GetPermitApplicationUrl(AppNumber).ToString())
     End Sub
 
     Private Sub btnRefreshAIRSNo_Click(sender As Object, e As EventArgs) Handles btnRefreshAIRSNo.Click
@@ -9799,7 +9800,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
             End Select
 
-            If URL <> "" Then OpenUri(New Uri(URL), Me)
+            If URL <> "" Then OpenUrl(New Uri(URL), Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -14064,7 +14065,7 @@ Public Class SSPPApplicationTrackingLog
         End If
 
         body.Append("The applicant must complete the submittal process by paying the above referenced fee. ")
-        body.AppendFormat("A printable fee invoice is accessible through GECO at {0} ", GetPermitApplicationLinkAddress(AppNumber))
+        body.AppendFormat("A printable fee invoice is accessible through GECO at {0} ", GetPermitApplicationUrl(AppNumber).ToString())
         body.AppendLine()
         body.AppendLine()
         body.Append("FEE PAYMENT INSTRUCTIONS: Don’t send payment to the Air Branch office address; pay by check to the PO Box ")

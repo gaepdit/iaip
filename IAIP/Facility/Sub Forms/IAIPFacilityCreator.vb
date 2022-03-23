@@ -1,6 +1,7 @@
 Imports System.Data.SqlClient
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
+Imports Iaip.UrlHelpers
 
 Public Class IAIPFacilityCreator
 
@@ -972,7 +973,7 @@ Public Class IAIPFacilityCreator
             Dim MappingAddress As String = txtCDSStreetAddress.Text & ", " & txtCDSCity.Text & ", GA," & mtbCDSZipCode.Text
             Clipboard.SetDataObject(MappingAddress, True)
 
-            OpenUri(New Uri("https://mapper.acme.com/"), Me)
+            OpenAcmeMapUrl()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
