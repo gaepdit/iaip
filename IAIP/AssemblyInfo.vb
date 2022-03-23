@@ -9,18 +9,7 @@ Imports System.Runtime.InteropServices
 <Assembly: ComVisible(False)>
 <Assembly: NeutralResourcesLanguage("en-US")>
 
-#If UAT Then
-
-<Assembly: AssemblyTitle("IAIP Horizon")>
-<Assembly: AssemblyDescription("GA Air Protection Branch integrated information system; user acceptance testing version")>
-<Assembly: AssemblyProduct("IAIP Horizon")> 
-<Assembly: Guid("4d6ff346-89e3-4388-9b75-0077e47a7e46")>
-
-#Else
-
-<Assembly: AssemblyTitle("Integrated Air Information Platform")>
-<Assembly: AssemblyDescription("GA Air Protection Branch integrated information system")>
+<Assembly: AssemblyTitle("IAIP Dev")>
+<Assembly: AssemblyDescription("GA Air Protection Branch integrated database system")>
 <Assembly: AssemblyProduct("Integrated Air Information Platform")>
-<Assembly: Guid("9F83B6AF-EE06-4324-83E9-7AB1D5E8BE5F")>
-
-#End If
+<Assembly: Guid("2632D7AB-595C-4C09-B74B-9F7B59874740")>

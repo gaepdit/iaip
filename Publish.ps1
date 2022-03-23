@@ -1,6 +1,6 @@
 # Config
 
-$configuration = "Release"
+$configuration = "Debug"
 $projectDir = "IAIP"
 $publishDir = "_publish"
 $publishPath = Join-Path -Path $projectDir -ChildPath $publishDir
