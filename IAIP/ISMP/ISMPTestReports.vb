@@ -1,3 +1,4 @@
+Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Linq
 
@@ -5165,7 +5166,7 @@ Public Class ISMPTestReports
                 mmiDefaultCompliance.Visible = False
             End If
 
-            If AccountFormAccess(69, 3) = "1" AndAlso Not ReportClosed Then
+            If Not ReportClosed AndAlso (AccountFormAccess(69, 3) = "1" OrElse CurrentUser.HasRole(118)) Then
                 txtSourceTested.ReadOnly = False
                 cboPollutantDetermined.Enabled = True
                 cboMethodDetermined.Enabled = True
@@ -17821,402 +17822,126 @@ Public Class ISMPTestReports
         End Try
     End Sub
     Private Sub RATACalc()
+        Dim ReferenceMethodValues As New List(Of Decimal)
+        Dim DiffValues As New List(Of Decimal)
+
         Try
-            Dim RunNum As Integer = 0
-            Dim Ref1 As Decimal = 0
-            Dim Ref2 As Decimal = 0
-            Dim Ref3 As Decimal = 0
-            Dim Ref4 As Decimal = 0
-            Dim Ref5 As Decimal = 0
-            Dim Ref6 As Decimal = 0
-            Dim Ref7 As Decimal = 0
-            Dim Ref8 As Decimal = 0
-            Dim Ref9 As Decimal = 0
-            Dim Ref10 As Decimal = 0
-            Dim Ref11 As Decimal = 0
-            Dim Ref12 As Decimal = 0
-            Dim CMS1 As Decimal = 0
-            Dim CMS2 As Decimal = 0
-            Dim CMS3 As Decimal = 0
-            Dim CMS4 As Decimal = 0
-            Dim CMS5 As Decimal = 0
-            Dim CMS6 As Decimal = 0
-            Dim CMS7 As Decimal = 0
-            Dim CMS8 As Decimal = 0
-            Dim CMS9 As Decimal = 0
-            Dim CMS10 As Decimal = 0
-            Dim CMS11 As Decimal = 0
-            Dim CMS12 As Decimal = 0
-            Dim RefSum As Decimal = 0
-            Dim CMSSum As Decimal = 0
-            Dim DiffSum As Decimal = 0
-            Dim MeanDiff As Decimal = 0
-            Dim StrDev As Double
-            Dim tValue As Double
-            Dim ConfidenceCoeff As Double
-            Dim RelAccuracy As Double
-            Dim x As Integer = 0
-
-            If txtRefMethodRata1.Text <> "" AndAlso IsNumeric(txtRefMethodRata1.Text) AndAlso Not chbOmitRunRata1.Checked Then
-                Ref1 = txtRefMethodRata1.Text
-                RunNum += 1
-                x = Math.Max(x, txtRefMethodRata1.Text.Length)
-            Else
-                Ref1 = 0
+            If IsNumeric(txtRefMethodRata1.Text) AndAlso IsNumeric(txtCMSRata1.Text) AndAlso Not chbOmitRunRata1.Checked Then
+                ReferenceMethodValues.Add(txtRefMethodRata1.Text)
+                DiffValues.Add(CDec(txtRefMethodRata1.Text) - CDec(txtCMSRata1.Text))
             End If
-            If txtRefMethodRata2.Text <> "" AndAlso IsNumeric(txtRefMethodRata2.Text) AndAlso Not chbOmitRunRata2.Checked Then
-                Ref2 = txtRefMethodRata2.Text
-                RunNum += 1
-                x = Math.Max(x, txtRefMethodRata2.Text.Length)
-            Else
-                Ref2 = 0
+            If IsNumeric(txtRefMethodRata2.Text) AndAlso IsNumeric(txtCMSRata2.Text) AndAlso Not chbOmitRunRata2.Checked Then
+                ReferenceMethodValues.Add(txtRefMethodRata2.Text)
+                DiffValues.Add(CDec(txtRefMethodRata2.Text) - CDec(txtCMSRata2.Text))
             End If
-            If txtRefMethodRata3.Text <> "" AndAlso IsNumeric(txtRefMethodRata3.Text) AndAlso Not chbOmitRunRata3.Checked Then
-                Ref3 = txtRefMethodRata3.Text
-                RunNum += 1
-                x = Math.Max(x, txtRefMethodRata3.Text.Length)
-            Else
-                Ref3 = 0
+            If IsNumeric(txtRefMethodRata3.Text) AndAlso IsNumeric(txtCMSRata3.Text) AndAlso Not chbOmitRunRata3.Checked Then
+                ReferenceMethodValues.Add(txtRefMethodRata3.Text)
+                DiffValues.Add(CDec(txtRefMethodRata3.Text) - CDec(txtCMSRata3.Text))
             End If
-            If txtRefMethodRata4.Text <> "" AndAlso IsNumeric(txtRefMethodRata4.Text) AndAlso Not chbOmitRunRata4.Checked Then
-                Ref4 = txtRefMethodRata4.Text
-                RunNum += 1
-                x = Math.Max(x, txtRefMethodRata4.Text.Length)
-            Else
-                Ref4 = 0
+            If IsNumeric(txtRefMethodRata4.Text) AndAlso IsNumeric(txtCMSRata4.Text) AndAlso Not chbOmitRunRata4.Checked Then
+                ReferenceMethodValues.Add(txtRefMethodRata4.Text)
+                DiffValues.Add(CDec(txtRefMethodRata4.Text) - CDec(txtCMSRata4.Text))
             End If
-            If txtRefMethodRata5.Text <> "" AndAlso IsNumeric(txtRefMethodRata5.Text) AndAlso Not chbOmitRunRata5.Checked Then
-                Ref5 = txtRefMethodRata5.Text
-                RunNum += 1
-                x = Math.Max(x, txtRefMethodRata5.Text.Length)
-            Else
-                Ref5 = 0
+            If IsNumeric(txtRefMethodRata5.Text) AndAlso IsNumeric(txtCMSRata5.Text) AndAlso Not chbOmitRunRata5.Checked Then
+                ReferenceMethodValues.Add(txtRefMethodRata5.Text)
+                DiffValues.Add(CDec(txtRefMethodRata5.Text) - CDec(txtCMSRata5.Text))
             End If
-            If txtRefMethodRata6.Text <> "" AndAlso IsNumeric(txtRefMethodRata6.Text) AndAlso Not chbOmitRunRata6.Checked Then
-                Ref6 = txtRefMethodRata6.Text
-                RunNum += 1
-                x = Math.Max(x, txtRefMethodRata6.Text.Length)
-            Else
-                Ref6 = 0
+            If IsNumeric(txtRefMethodRata6.Text) AndAlso IsNumeric(txtCMSRata6.Text) AndAlso Not chbOmitRunRata6.Checked Then
+                ReferenceMethodValues.Add(txtRefMethodRata6.Text)
+                DiffValues.Add(CDec(txtRefMethodRata6.Text) - CDec(txtCMSRata6.Text))
             End If
-            If txtRefMethodRata7.Text <> "" AndAlso IsNumeric(txtRefMethodRata7.Text) AndAlso Not chbOmitRunRata7.Checked Then
-                Ref7 = txtRefMethodRata7.Text
-                RunNum += 1
-                x = Math.Max(x, txtRefMethodRata7.Text.Length)
-            Else
-                Ref7 = 0
+            If IsNumeric(txtRefMethodRata7.Text) AndAlso IsNumeric(txtCMSRata7.Text) AndAlso Not chbOmitRunRata7.Checked Then
+                ReferenceMethodValues.Add(txtRefMethodRata7.Text)
+                DiffValues.Add(CDec(txtRefMethodRata7.Text) - CDec(txtCMSRata7.Text))
             End If
-            If txtRefMethodRata8.Text <> "" AndAlso IsNumeric(txtRefMethodRata8.Text) AndAlso Not chbOmitRunRata8.Checked Then
-                Ref8 = txtRefMethodRata8.Text
-                RunNum += 1
-                x = Math.Max(x, txtRefMethodRata8.Text.Length)
-            Else
-                Ref8 = 0
+            If IsNumeric(txtRefMethodRata8.Text) AndAlso IsNumeric(txtCMSRata8.Text) AndAlso Not chbOmitRunRata8.Checked Then
+                ReferenceMethodValues.Add(txtRefMethodRata8.Text)
+                DiffValues.Add(CDec(txtRefMethodRata8.Text) - CDec(txtCMSRata8.Text))
             End If
-            If txtRefMethodRata9.Text <> "" AndAlso IsNumeric(txtRefMethodRata9.Text) AndAlso Not chbOmitRunRata9.Checked Then
-                Ref9 = txtRefMethodRata9.Text
-                RunNum += 1
-                x = Math.Max(x, txtRefMethodRata9.Text.Length)
-            Else
-                Ref9 = 0
+            If IsNumeric(txtRefMethodRata9.Text) AndAlso IsNumeric(txtCMSRata9.Text) AndAlso Not chbOmitRunRata9.Checked Then
+                ReferenceMethodValues.Add(txtRefMethodRata9.Text)
+                DiffValues.Add(CDec(txtRefMethodRata9.Text) - CDec(txtCMSRata9.Text))
             End If
-            If txtRefMethodRata10.Text <> "" AndAlso IsNumeric(txtRefMethodRata10.Text) AndAlso Not chbOmitRunRata10.Checked Then
-                Ref10 = txtRefMethodRata10.Text
-                RunNum += 1
-                x = Math.Max(x, txtRefMethodRata10.Text.Length)
-            Else
-                Ref10 = 0
+            If IsNumeric(txtRefMethodRata10.Text) AndAlso IsNumeric(txtCMSRata10.Text) AndAlso Not chbOmitRunRata10.Checked Then
+                ReferenceMethodValues.Add(txtRefMethodRata10.Text)
+                DiffValues.Add(CDec(txtRefMethodRata10.Text) - CDec(txtCMSRata10.Text))
             End If
-            If txtRefMethodRata11.Text <> "" AndAlso IsNumeric(txtRefMethodRata11.Text) AndAlso Not chbOmitRunRata11.Checked Then
-                Ref11 = txtRefMethodRata11.Text
-                RunNum += 1
-                x = Math.Max(x, txtRefMethodRata11.Text.Length)
-            Else
-                Ref11 = 0
+            If IsNumeric(txtRefMethodRata11.Text) AndAlso IsNumeric(txtCMSRata11.Text) AndAlso Not chbOmitRunRata11.Checked Then
+                ReferenceMethodValues.Add(txtRefMethodRata11.Text)
+                DiffValues.Add(CDec(txtRefMethodRata11.Text) - CDec(txtCMSRata11.Text))
             End If
-            If txtRefMethodRata12.Text <> "" AndAlso IsNumeric(txtRefMethodRata12.Text) AndAlso Not chbOmitRunRata12.Checked Then
-                Ref12 = txtRefMethodRata12.Text
-                RunNum += 1
-                x = Math.Max(x, txtRefMethodRata12.Text.Length)
-            Else
-                Ref12 = 0
-            End If
-            If txtCMSRata1.Text <> "" AndAlso IsNumeric(txtCMSRata1.Text) AndAlso Not chbOmitRunRata1.Checked Then
-                CMS1 = txtCMSRata1.Text
-                x = Math.Max(x, txtCMSRata1.Text.Length)
-            Else
-                CMS1 = 0
-            End If
-
-            If txtCMSRata2.Text <> "" AndAlso IsNumeric(txtCMSRata2.Text) AndAlso Not chbOmitRunRata2.Checked Then
-                CMS2 = txtCMSRata2.Text
-                x = Math.Max(x, txtCMSRata2.Text.Length)
-            Else
-                CMS2 = 0
-            End If
-            If txtCMSRata3.Text <> "" AndAlso IsNumeric(txtCMSRata3.Text) AndAlso Not chbOmitRunRata3.Checked Then
-                CMS3 = txtCMSRata3.Text
-                x = Math.Max(x, txtCMSRata3.Text.Length)
-            Else
-                CMS3 = 0
-            End If
-            If txtCMSRata4.Text <> "" AndAlso IsNumeric(txtCMSRata4.Text) AndAlso Not chbOmitRunRata4.Checked Then
-                CMS4 = txtCMSRata4.Text
-                x = Math.Max(x, txtCMSRata4.Text.Length)
-            Else
-                CMS4 = 0
-            End If
-            If txtCMSRata5.Text <> "" AndAlso IsNumeric(txtCMSRata5.Text) AndAlso Not chbOmitRunRata5.Checked Then
-                CMS5 = txtCMSRata5.Text
-                x = Math.Max(x, txtCMSRata5.Text.Length)
-            Else
-                CMS5 = 0
-            End If
-            If txtCMSRata6.Text <> "" AndAlso IsNumeric(txtCMSRata6.Text) AndAlso Not chbOmitRunRata6.Checked Then
-                CMS6 = txtCMSRata6.Text
-                x = Math.Max(x, txtCMSRata6.Text.Length)
-            Else
-                CMS6 = 0
-            End If
-            If txtCMSRata7.Text <> "" AndAlso IsNumeric(txtCMSRata7.Text) AndAlso Not chbOmitRunRata7.Checked Then
-                CMS7 = txtCMSRata7.Text
-                x = Math.Max(x, txtCMSRata7.Text.Length)
-            Else
-                CMS7 = 0
-            End If
-            If txtCMSRata8.Text <> "" AndAlso IsNumeric(txtCMSRata8.Text) AndAlso Not chbOmitRunRata8.Checked Then
-                CMS8 = txtCMSRata8.Text
-                x = Math.Max(x, txtCMSRata8.Text.Length)
-            Else
-                CMS8 = 0
-            End If
-            If txtCMSRata9.Text <> "" AndAlso IsNumeric(txtCMSRata9.Text) AndAlso Not chbOmitRunRata9.Checked Then
-                CMS9 = txtCMSRata9.Text
-                x = Math.Max(x, txtCMSRata9.Text.Length)
-            Else
-                CMS9 = 0
-            End If
-            If txtCMSRata10.Text <> "" AndAlso IsNumeric(txtCMSRata10.Text) AndAlso Not chbOmitRunRata10.Checked Then
-                CMS10 = txtCMSRata10.Text
-                x = Math.Max(x, txtCMSRata10.Text.Length)
-            Else
-                CMS10 = 0
-            End If
-            If txtCMSRata11.Text <> "" AndAlso IsNumeric(txtCMSRata11.Text) AndAlso Not chbOmitRunRata11.Checked Then
-                CMS11 = txtCMSRata11.Text
-                x = Math.Max(x, txtCMSRata11.Text.Length)
-            Else
-                CMS11 = 0
-            End If
-            If txtCMSRata12.Text <> "" AndAlso IsNumeric(txtCMSRata12.Text) AndAlso Not chbOmitRunRata12.Checked Then
-                CMS12 = txtCMSRata12.Text
-                x = Math.Max(x, txtCMSRata12.Text.Length)
-            Else
-                CMS12 = 0
-            End If
-
-            If RunNum > 0 Then
-                RefSum = Ref1 + Ref2 + Ref3 + Ref4 + Ref5 + Ref6 + Ref7 + Ref8 + Ref9 + Ref10 + Ref11 + Ref12
-                CMSSum = CMS1 + CMS2 + CMS3 + CMS4 + CMS5 + CMS6 + CMS7 + CMS8 + CMS9 + CMS10 + CMS11 + CMS12
-                DiffSum = ((Ref1 - CMS1) + (Ref2 - CMS2) + (Ref3 - CMS3) + (Ref4 - CMS4) + (Ref5 - CMS5) _
-                           + (Ref6 - CMS6) + (Ref7 - CMS7) + (Ref8 - CMS8) + (Ref9 - CMS9) + (Ref10 - CMS10) _
-                           + (Ref11 - CMS11) + (Ref12 - CMS12))
-                MeanDiff = (DiffSum / RunNum)
-
-                Dim temp, temp2 As Double
-
-                If Not chbOmitRunRata1.Checked AndAlso Ref1 <> 0 AndAlso CMS1 <> 0 Then
-                    temp = ((Ref1 - CMS1) - MeanDiff) * ((Ref1 - CMS1) - MeanDiff)
-                End If
-                If Not chbOmitRunRata2.Checked AndAlso Ref2 <> 0 AndAlso CMS2 <> 0 Then
-                    temp += (((Ref2 - CMS2) - MeanDiff) * ((Ref2 - CMS2) - MeanDiff))
-                End If
-                If Not chbOmitRunRata3.Checked AndAlso Ref3 <> 0 AndAlso CMS3 <> 0 Then
-                    temp += (((Ref3 - CMS3) - MeanDiff) * ((Ref3 - CMS3) - MeanDiff))
-                End If
-                If Not chbOmitRunRata4.Checked AndAlso Ref4 <> 0 AndAlso CMS4 <> 0 Then
-                    temp += (((Ref4 - CMS4) - MeanDiff) * ((Ref4 - CMS4) - MeanDiff))
-                End If
-                If Not chbOmitRunRata5.Checked AndAlso Ref5 <> 0 AndAlso CMS5 <> 0 Then
-                    temp += (((Ref5 - CMS5) - MeanDiff) * ((Ref5 - CMS5) - MeanDiff))
-                End If
-                If Not chbOmitRunRata6.Checked AndAlso Ref6 <> 0 AndAlso CMS6 <> 0 Then
-                    temp += (((Ref6 - CMS6) - MeanDiff) * ((Ref6 - CMS6) - MeanDiff))
-                End If
-                If Not chbOmitRunRata7.Checked AndAlso Ref7 <> 0 AndAlso CMS7 <> 0 Then
-                    temp += (((Ref7 - CMS7) - MeanDiff) * ((Ref7 - CMS7) - MeanDiff))
-                End If
-                If Not chbOmitRunRata8.Checked AndAlso Ref8 <> 0 AndAlso CMS8 <> 0 Then
-                    temp += (((Ref8 - CMS8) - MeanDiff) * ((Ref8 - CMS8) - MeanDiff))
-                End If
-                If Not chbOmitRunRata9.Checked AndAlso Ref9 <> 0 AndAlso CMS9 <> 0 Then
-                    temp += (((Ref9 - CMS9) - MeanDiff) * ((Ref9 - CMS9) - MeanDiff))
-                End If
-                If Not chbOmitRunRata10.Checked AndAlso Ref10 <> 0 AndAlso CMS10 <> 0 Then
-                    temp += (((Ref10 - CMS10) - MeanDiff) * ((Ref10 - CMS10) - MeanDiff))
-                End If
-                If Not chbOmitRunRata11.Checked AndAlso Ref11 <> 0 AndAlso CMS11 <> 0 Then
-                    temp += (((Ref11 - CMS11) - MeanDiff) * ((Ref11 - CMS11) - MeanDiff))
-                End If
-                If Not chbOmitRunRata12.Checked AndAlso Ref12 <> 0 AndAlso CMS12 <> 0 Then
-                    temp += (((Ref12 - CMS12) - MeanDiff) * ((Ref12 - CMS12) - MeanDiff))
-                End If
-
-                temp2 = temp / (RunNum - 1)
-
-                StrDev = Math.Sqrt(temp2)
-
-                Select Case RunNum
-                    Case 2
-                        tValue = "12.706"
-                    Case 3
-                        tValue = "4.303"
-                    Case 4
-                        tValue = "3.182"
-                    Case 5
-                        tValue = "2.776"
-                    Case 6
-                        tValue = "2.571"
-                    Case 7
-                        tValue = "2.447"
-                    Case 8
-                        tValue = "2.365"
-                    Case 9
-                        tValue = "2.306"
-                    Case 10
-                        tValue = "2.262"
-                    Case 11
-                        tValue = "2.228"
-                    Case 12
-                        tValue = "2.201"
-                    Case Else
-                        tValue = "0"
-                End Select
-
-                ConfidenceCoeff = (tValue * StrDev) / Math.Sqrt(RunNum)
-                RelAccuracy = 100 * (Math.Abs(ConfidenceCoeff) + Math.Abs(MeanDiff)) / Math.Abs(RefSum / RunNum)
-
-                Try
-
-                    txtRelativeAccuracy.Text = Math.Round(CDec(RelAccuracy), 3).ToString
-
-                Catch ex As Exception
-                    ErrorReport(ex, $"RelAccuracy: {RelAccuracy}", Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-                End Try
-
+            If IsNumeric(txtRefMethodRata12.Text) AndAlso IsNumeric(txtCMSRata12.Text) AndAlso Not chbOmitRunRata12.Checked Then
+                ReferenceMethodValues.Add(txtRefMethodRata12.Text)
+                DiffValues.Add(CDec(txtRefMethodRata12.Text) - CDec(txtCMSRata12.Text))
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            Return
         End Try
+
+        Dim RunNum As Integer = DiffValues.Count
+
+        If RunNum > 1 Then
+            Dim tValue As Double
+            Select Case RunNum
+                Case 2
+                    tValue = 12.706
+                Case 3
+                    tValue = 4.303
+                Case 4
+                    tValue = 3.182
+                Case 5
+                    tValue = 2.776
+                Case 6
+                    tValue = 2.571
+                Case 7
+                    tValue = 2.447
+                Case 8
+                    tValue = 2.365
+                Case 9
+                    tValue = 2.306
+                Case 10
+                    tValue = 2.262
+                Case 11
+                    tValue = 2.228
+                Case 12
+                    tValue = 2.201
+                Case Else
+                    tValue = 0
+            End Select
+
+            Dim MeanDiff As Decimal = DiffValues.Sum() / RunNum
+            Dim StdDev As Double = Math.Sqrt(DiffValues.Sum(Function(v) (v - MeanDiff) ^ 2) / (RunNum - 1))
+            Dim ConfidenceCoeff As Double = tValue * StdDev / Math.Sqrt(RunNum)
+            Dim RefSum As Decimal = ReferenceMethodValues.Sum()
+
+            Dim RelAccuracy As Double = 0
+
+            If RefSum <> 0 Then
+                RelAccuracy = 100 * (Math.Abs(ConfidenceCoeff) + Math.Abs(MeanDiff)) / Math.Abs(RefSum / RunNum)
+            End If
+
+            Try
+                txtRelativeAccuracy.Text = Math.Round(CDec(RelAccuracy), 3).ToString
+            Catch ex As Exception
+                ErrorReport(ex, $"RelAccuracy: {RelAccuracy}", Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            End Try
+        End If
     End Sub
-    Private Sub txtRefMethodRata1_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata1.Leave
+    Private Sub RataValue_Updated(sender As Object, e As EventArgs) Handles _
+        txtRefMethodRata1.Leave, txtRefMethodRata2.Leave, txtRefMethodRata3.Leave, txtRefMethodRata4.Leave,
+        txtRefMethodRata5.Leave, txtRefMethodRata6.Leave, txtRefMethodRata7.Leave, txtRefMethodRata8.Leave,
+        txtRefMethodRata9.Leave, txtRefMethodRata10.Leave, txtRefMethodRata11.Leave, txtRefMethodRata12.Leave,
+        txtCMSRata1.Leave, txtCMSRata2.Leave, txtCMSRata3.Leave, txtCMSRata4.Leave, txtCMSRata5.Leave, txtCMSRata6.Leave,
+        txtCMSRata7.Leave, txtCMSRata8.Leave, txtCMSRata9.Leave, txtCMSRata10.Leave, txtCMSRata11.Leave, txtCMSRata12.Leave,
+        chbOmitRunRata1.CheckedChanged, chbOmitRunRata2.CheckedChanged, chbOmitRunRata3.CheckedChanged,
+        chbOmitRunRata4.CheckedChanged, chbOmitRunRata5.CheckedChanged, chbOmitRunRata6.CheckedChanged,
+        chbOmitRunRata7.CheckedChanged, chbOmitRunRata8.CheckedChanged, chbOmitRunRata9.CheckedChanged,
+        chbOmitRunRata10.CheckedChanged, chbOmitRunRata11.CheckedChanged, chbOmitRunRata12.CheckedChanged
+
         RATACalc()
     End Sub
-    Private Sub txtRefMethodRata2_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata2.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtRefMethodRata3_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata3.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtRefMethodRata4_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata4.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtRefMethodRata5_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata5.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtRefMethodRata6_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata6.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtRefMethodRata7_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata7.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtRefMethodRata8_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata8.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtRefMethodRata9_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata9.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtRefMethodRata10_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata10.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtRefMethodRata11_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata11.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtRefMethodRata12_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata12.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtCMSRata1_Leave(sender As Object, e As EventArgs) Handles txtCMSRata1.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtCMSRata2_Leave(sender As Object, e As EventArgs) Handles txtCMSRata2.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtCMSRata3_Leave(sender As Object, e As EventArgs) Handles txtCMSRata3.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtCMSRata4_Leave(sender As Object, e As EventArgs) Handles txtCMSRata4.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtCMSRata5_Leave(sender As Object, e As EventArgs) Handles txtCMSRata5.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtCMSRata6_Leave(sender As Object, e As EventArgs) Handles txtCMSRata6.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtCMSRata7_Leave(sender As Object, e As EventArgs) Handles txtCMSRata7.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtCMSRata8_Leave(sender As Object, e As EventArgs) Handles txtCMSRata8.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtCMSRata9_Leave(sender As Object, e As EventArgs) Handles txtCMSRata9.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtCMSRata10_Leave(sender As Object, e As EventArgs) Handles txtCMSRata10.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtCMSRata11_Leave(sender As Object, e As EventArgs) Handles txtCMSRata11.Leave
-        RATACalc()
-    End Sub
-    Private Sub txtCMSRata12_Leave(sender As Object, e As EventArgs) Handles txtCMSRata12.Leave
-        RATACalc()
-    End Sub
-    Private Sub chbOmitRunRata1_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata1.CheckedChanged
-        RATACalc()
-    End Sub
-    Private Sub chbOmitRunRata2_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata2.CheckedChanged
-        RATACalc()
-    End Sub
-    Private Sub chbOmitRunRata3_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata3.CheckedChanged
-        RATACalc()
-    End Sub
-    Private Sub chbOmitRunRata4_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata4.CheckedChanged
-        RATACalc()
-    End Sub
-    Private Sub chbOmitRunRata5_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata5.CheckedChanged
-        RATACalc()
-    End Sub
-    Private Sub chbOmitRunRata6_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata6.CheckedChanged
-        RATACalc()
-    End Sub
-    Private Sub chbOmitRunRata7_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata7.CheckedChanged
-        RATACalc()
-    End Sub
-    Private Sub chbOmitRunRata8_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata8.CheckedChanged
-        RATACalc()
-    End Sub
-    Private Sub chbOmitRunRata9_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata9.CheckedChanged
-        RATACalc()
-    End Sub
-    Private Sub chbOmitRunRata10_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata10.CheckedChanged
-        RATACalc()
-    End Sub
-    Private Sub chbOmitRunRata11_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata11.CheckedChanged
-        RATACalc()
-    End Sub
-    Private Sub chbOmitRunRata12_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata12.CheckedChanged
-        RATACalc()
-    End Sub
+
     Private Sub txtPollConcTwoStackStandard1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackStandard1A.Leave
         Try
             Dim temp As Decimal = 0
