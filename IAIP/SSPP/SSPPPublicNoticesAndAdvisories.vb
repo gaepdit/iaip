@@ -127,11 +127,7 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("\par")
 
         If selectedAdvisoryApps.Count > 0 Then
-            Dim params As SqlParameter() = {
-                New SqlParameter("@PAorPN", True),
-                selectedAdvisoryApps.AsTvpSqlParameter("@AppNums")
-            }
-            Dim dt As DataTable = DB.SPGetDataTable("dbo.GetAppDetailsForPAandPN", params)
+            Dim dt As DataTable = DB.SPGetDataTable("dbo.GetAppDetailsForPA", selectedAdvisoryApps.AsTvpSqlParameter("@AppNums"))
 
             For Each dr As DataRow In dt.Rows
                 rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
@@ -183,11 +179,7 @@ Public Class SSPPPublicNoticesAndAdvisories
 
         ' Public Notices
         If selectedNoticeApps.Count > 0 Then
-            Dim params As SqlParameter() = {
-                New SqlParameter("@PAorPN", False),
-                selectedNoticeApps.AsTvpSqlParameter("@AppNums")
-            }
-            Dim ds As DataSet = DB.SPGetDataSet("dbo.GetAppDetailsForPAandPN", params)
+            Dim ds As DataSet = DB.SPGetDataSet("dbo.GetAppDetailsForPN", selectedNoticeApps.AsTvpSqlParameter("@AppNums"))
 
             ' Initial Title V Permits
             rtfDocument.AppendLine("\pard{\b INITIAL TITLE V OPERATING PERMITS}\par")
