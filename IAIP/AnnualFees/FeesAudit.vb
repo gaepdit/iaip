@@ -906,7 +906,7 @@ Public Class FeesAudit
             End If
 
             SQL = "Select " &
-            "convert(int, InvoiceID) as InvoiceID, convert(int, numAmount) as numAmount, " &
+            "convert(int, InvoiceID) as InvoiceID, numAmount, " &
             "datInvoiceDate, strComment, " &
             "strPayTypeDesc, " &
             "case " &
