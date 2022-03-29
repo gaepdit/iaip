@@ -1362,9 +1362,9 @@ Partial Class ISMPMonitoringLog
         Me.chbRata.AutoSize = True
         Me.chbRata.Location = New System.Drawing.Point(8, 255)
         Me.chbRata.Name = "chbRata"
-        Me.chbRata.Size = New System.Drawing.Size(49, 17)
+        Me.chbRata.Size = New System.Drawing.Size(55, 17)
         Me.chbRata.TabIndex = 15
-        Me.chbRata.Text = "Rata"
+        Me.chbRata.Text = "RATA"
         '
         'chbFlare
         '

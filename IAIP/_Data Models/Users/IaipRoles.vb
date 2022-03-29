@@ -19,7 +19,7 @@ Public Class IaipRoles
         If String.IsNullOrEmpty(dbString) Then
             RoleCodes = New HashSet(Of Integer)({0})
         Else
-            Dim roles As HashSet(Of Integer) = New HashSet(Of Integer)(Array.ConvertAll(dbString.Split({"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries), Function(s) Integer.Parse(s)))
+            Dim roles As New HashSet(Of Integer)(Array.ConvertAll(dbString.Split({"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries), Function(s) Integer.Parse(s)))
             roles.Remove(0)
 
             If roles Is Nothing OrElse roles.Count = 0 Then
