@@ -289,13 +289,13 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("{\b AIR PROTECTION BRANCH}\par")
         rtfDocument.AppendLine("{\b 4244 INTERNATIONAL PARKWAY, SUITE 120, ATLANTA, GA 30354}\par")
         rtfDocument.AppendLine("\par")
-        rtfDocument.AppendLine("\pard\qj The Georgia Environmental Protection Division announces its intent to issue initial Synthetic Minor Operating Permits, Synthetic Minor Modifications, ")
-        rtfDocument.AppendLine("SIP Construction and Operating Permits, and/or other SIP Permit proceedings for the following facilities. The deadlines for submitting comments and requesting ")
-        rtfDocument.AppendLine("a public hearing are specified for each facility.\par")
+        rtfDocument.AppendLine("\pard\qj The Georgia Environmental Protection Division announces its intent to issue initial Synthetic ")
+        rtfDocument.AppendLine("Minor Operating Permits, Synthetic Minor Modifications, and Major Source SIP Permits for the following ")
+        rtfDocument.AppendLine("facilities. The deadlines for submitting comments are specified for each facility.\par")
         rtfDocument.AppendLine("\par")
 
         ' SIP Permits
-        rtfDocument.AppendLine("\pard{\b INITIAL SIP CONSTRUCTION AND OPERATING PERMITS}\par")
+        rtfDocument.AppendLine("\pard{\b MAJOR SOURCE SIP PERMITS}\par")
         rtfDocument.AppendLine("\par")
 
         rows = dtPN.Select("Type = 'SIP'")
@@ -351,7 +351,7 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("Suite 120, Atlanta, Georgia 30354. ")
         rtfDocument.AppendLine("Copies of the draft permits or permit amendments, narratives, and (in most cases) permit applications are also available at our Internet site ")
         rtfDocument.AppendLine("{\ul https://epd.georgia.gov}. ")
-        rtfDocument.AppendLine("The direct link to the draft Title V permits and amendments is {\ul https://epd.georgia.gov/draft-title-v-permitsamendments-other-draft-permits}.\par")
+        rtfDocument.AppendLine("The direct link to the draft permits and amendments is {\ul https://epd.georgia.gov/draft-title-v-permitsamendments-other-draft-permits}.\par")
         rtfDocument.AppendLine("\par")
         rtfDocument.AppendLine("Persons wishing to comment on a draft Synthetic Minor Permit, State Implementation Plan (SIP) Construction and Operating Permit, or other SIP ")
         rtfDocument.AppendLine("Permit proceedings are required to submit their comments in writing. To comment, send written comments via email to epdcomments@dnr.ga.gov (include ")
