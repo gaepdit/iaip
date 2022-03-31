@@ -11,6 +11,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.1.0 <span>(2022-03-31)</span>
+
+Public notices can now be issued for SIP and SM permit applications.
+
 ## Version 6.0.0 <span>(2022-03-23)</span>
 
 📄 The Crystal Reports plugin has been removed and replaced with a new reports generating app. Rather than opening in a stand-alone window, printable reports will now open in a web browser. From there, you can use the built-in browser tools to print the report or save it as a PDF file. Because each report exists as a separate web page, links to each report can be bookmarked and shared publicly.
