@@ -28,6 +28,16 @@ Open the solution in Visual Studio, restore Nuget packages, and build.
 * The `main` branch should always be deployable. When starting new work, create a new branch off the latest commit on `main`. Push your changes when ready and create a pull request.
 * There are also two utility branches, `deploy/DEV` and `deploy/UAT`, that are only used for deploying QA and UAT versions of the IAIP. 
 
+### ClickOnce Signing Certificate
+
+The ClickOnce signing certificate expires after one year, and a new one must be generated. To create a new certificate:
+
+1. Delete the existing certificate ("IAIP_TemporaryKey.pfx") from the VS Solution Explorer.
+2. Open the IAIP project properties. (Select the IAIP project and type <kbd>Alt</kbd>-<kbd>Enter</kbd>, or double-click "My Project" in the Solution Explorer.)
+3. Select "Signing" in the menu on the left, then select "Create Test Certificate..."
+4. Leave the password fields blank, and select "OK".
+5. The `ManifestCertificateThumbprint` element will be updated in the "IAIP.vbproj" file. Save-all and commit the changed files.
+
 ### Release instructions
 
 See the [Release Instructions](docs/Release-Instructions.md) file in the "docs" folder.
