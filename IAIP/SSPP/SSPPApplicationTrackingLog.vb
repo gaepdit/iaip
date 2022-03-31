@@ -7238,7 +7238,7 @@ Public Class SSPPApplicationTrackingLog
             SetPAVisibility(True)
 
             Select Case cboApplicationType.Text
-                Case "502(b)10", "PBR", "SM"
+                Case "502(b)10", "PBR"
                     DTPEPAWaived.Visible = False
                     lblEPAWaived.Visible = False
                     DTPEPAEnds.Visible = False
@@ -7400,16 +7400,33 @@ Public Class SSPPApplicationTrackingLog
                     If chbPSD.Checked OrElse chbNAANSR.Checked OrElse chb112g.Checked Then
                         DTPDraftIssued.Visible = True
                         lblDraftIssued.Visible = True
-                        DTPDatePNExpires.Visible = True
-                        lblDatePNExpires.Visible = True
-                        chbPNReady.Visible = True
                     Else
                         DTPDraftIssued.Visible = False
                         lblDraftIssued.Visible = False
-                        DTPDatePNExpires.Visible = False
-                        lblDatePNExpires.Visible = False
-                        chbPNReady.Visible = False
                     End If
+                    DTPDatePNExpires.Visible = True
+                    lblDatePNExpires.Visible = True
+                    chbPNReady.Visible = True
+
+                    If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
+                        txtPermitNumber.Text = " "
+                    End If
+
+                Case "SM"
+                    DTPEPAWaived.Visible = False
+                    lblEPAWaived.Visible = False
+                    DTPEPAEnds.Visible = False
+                    lblEPAEnds.Visible = False
+                    DTPDraftIssued.Visible = False
+                    lblDraftIssued.Visible = False
+                    DTPDatePNExpires.Visible = True
+                    lblDatePNExpires.Visible = True
+                    chbPNReady.Visible = True
+                    'need to verify permissions for these three "Enables"
+                    'DTPDatePNExpires.Enabled = True
+                    'lblDatePNExpires.Enabled = True
+                    'chbPNReady.Enabled = True
+
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
                     End If

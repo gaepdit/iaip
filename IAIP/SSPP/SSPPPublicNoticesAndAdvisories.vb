@@ -127,11 +127,7 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("\par")
 
         If selectedAdvisoryApps.Count > 0 Then
-            Dim params As SqlParameter() = {
-                New SqlParameter("@PAorPN", True),
-                selectedAdvisoryApps.AsTvpSqlParameter("@AppNums")
-            }
-            Dim dt As DataTable = DB.SPGetDataTable("dbo.GetAppDetailsForPAandPN", params)
+            Dim dt As DataTable = DB.SPGetDataTable("dbo.GetAppDetailsForPA", selectedAdvisoryApps.AsTvpSqlParameter("@AppNums"))
 
             For Each dr As DataRow In dt.Rows
                 rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
@@ -170,7 +166,11 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("For further information, email ask.epd@dnr.ga.gov, or call (404) 363-7000.\par")
         rtfDocument.AppendLine("\par")
 
-        ' Public Notices section header
+        ' All Public Notices
+        Dim dtPN As DataTable = DB.SPGetDataTable("dbo.GetAppDetailsForPN", selectedNoticeApps.AsTvpSqlParameter("@AppNums"))
+        Dim rows As DataRow()
+
+        ' Title V Public Notices section header
         rtfDocument.AppendLine("\pard\qc{\b NOTICE OF DRAFT TITLE V OPERATING PERMITS AND PERMIT MODIFICATIONS}\par")
         rtfDocument.AppendLine("{\b GEORGIA ENVIRONMENTAL PROTECTION DIVISION}\par")
         rtfDocument.AppendLine("{\b AIR PROTECTION BRANCH}\par")
@@ -181,90 +181,81 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("comments and requesting a public hearing are specified for each facility.\par")
         rtfDocument.AppendLine("\par")
 
-        ' Public Notices
-        If selectedNoticeApps.Count > 0 Then
-            Dim params As SqlParameter() = {
-                New SqlParameter("@PAorPN", False),
-                selectedNoticeApps.AsTvpSqlParameter("@AppNums")
-            }
-            Dim ds As DataSet = DB.SPGetDataSet("dbo.GetAppDetailsForPAandPN", params)
+        ' Initial Title V Permits
+        rtfDocument.AppendLine("\pard{\b INITIAL TITLE V OPERATING PERMITS}\par")
+        rtfDocument.AppendLine("\par")
 
-            ' Initial Title V Permits
-            rtfDocument.AppendLine("\pard{\b INITIAL TITLE V OPERATING PERMITS}\par")
-            rtfDocument.AppendLine("\par")
-
-            If ds.Tables(0).Rows.Count = 0 Then
-                rtfDocument.AppendLine("\pard None\par")
+        rows = dtPN.Select("Type = 'TV-Initial'")
+        If rows.Any Then
+            For Each dr As DataRow In rows
+                rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine("{\b Facility Address:} ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
+                rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
                 rtfDocument.AppendLine("\par")
-            Else
-                For Each dr As DataRow In ds.Tables(0).Rows
-                    rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
-                    rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
-                    rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
-                    rtfDocument.AppendLine("{\b Facility Address:} ")
-                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
-                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
-                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
-                    rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
-                    rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
-                    rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
-                    rtfDocument.AppendLine("\par")
-                Next
-            End If
-
-            ' Renewal Title V Permits
-            rtfDocument.AppendLine("\pard{\b RENEWAL TITLE V OPERATING PERMITS}\par")
-            rtfDocument.AppendLine("\par")
-
-            If ds.Tables(1).Rows.Count = 0 Then
-                rtfDocument.AppendLine("\pard None\par")
-                rtfDocument.AppendLine("\par")
-            Else
-                For Each dr As DataRow In ds.Tables(1).Rows
-                    rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
-                    rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
-                    rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
-                    rtfDocument.AppendLine("{\b Facility Address:} ")
-                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
-                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
-                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
-                    rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
-                    rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
-                    rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
-                    rtfDocument.AppendLine("\par")
-                Next
-            End If
-
-            ' Title V Sig Mods
-            rtfDocument.AppendLine("\pard{\b TITLE V SIGNIFICANT MODIFICATIONS}\par")
-            rtfDocument.AppendLine("\par")
-
-            If ds.Tables(2).Rows.Count = 0 Then
-                rtfDocument.AppendLine("\pard None\par")
-                rtfDocument.AppendLine("\par")
-            Else
-                For Each dr As DataRow In ds.Tables(2).Rows
-                    rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
-                    rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
-                    rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
-                    rtfDocument.AppendLine("{\b Facility Address:} ")
-                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
-                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
-                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
-                    rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
-                    rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
-                    rtfDocument.AppendLine($"{{\b Emission Increase/Decrease:}} {GetNullableString(dr.Item("strSignificantComments")).IfEmpty("Unknown")}\par")
-                    rtfDocument.AppendLine($"{{\b Description of Requested Modification/Change:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("N/A")}\par")
-                    rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
-                    rtfDocument.AppendLine("\par")
-                Next
-            End If
+            Next
         Else
-            rtfDocument.AppendLine("\pard{\b NO TITLE V ADVISORIES}\par")
+            rtfDocument.AppendLine("\pard None\par")
             rtfDocument.AppendLine("\par")
         End If
 
-        ' Public Notices section footer
+        ' Renewal Title V Permits
+        rtfDocument.AppendLine("\pard{\b RENEWAL TITLE V OPERATING PERMITS}\par")
+        rtfDocument.AppendLine("\par")
+
+        rows = dtPN.Select("Type = 'TV-Renewal'")
+        If rows.Any Then
+            For Each dr As DataRow In rows
+                rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine("{\b Facility Address:} ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
+                rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+                rtfDocument.AppendLine("\par")
+            Next
+        Else
+            rtfDocument.AppendLine("\pard None\par")
+            rtfDocument.AppendLine("\par")
+        End If
+
+        ' Title V Sig Mods
+        rtfDocument.AppendLine("\pard{\b TITLE V SIGNIFICANT MODIFICATIONS}\par")
+        rtfDocument.AppendLine("\par")
+
+        rows = dtPN.Select("Type IN ('SAWO', 'SAW', 'Acid Rain')")
+        If Not rows.Any Then
+            rtfDocument.AppendLine("\pard None\par")
+            rtfDocument.AppendLine("\par")
+        Else
+            For Each dr As DataRow In rows
+                rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine("{\b Facility Address:} ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
+                rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine($"{{\b Emission Increase/Decrease:}} {GetNullableString(dr.Item("strSignificantComments")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine($"{{\b Description of Requested Modification/Change:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("N/A")}\par")
+                rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+                rtfDocument.AppendLine("\par")
+            Next
+        End If
+
+        ' Title V Public Notices section footer
         rtfDocument.AppendLine("\pard\qj{\b ADDITIONAL INFORMATION:} The draft permits and permit amendments and all information used to develop the draft permits and permit ")
         rtfDocument.AppendLine("amendments are available for review. This includes the application, all relevant supporting materials and all other materials available to the permitting ")
         rtfDocument.AppendLine("authority used in the permit review process. This information is available for review at the office of the Air Protection Branch, 4244 International Parkway, ")
@@ -289,8 +280,91 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("\par")
         rtfDocument.AppendLine("Issued (final) permits are available for public viewing at this link: {\ul https://permitsearch.gaepd.org/} \par")
         rtfDocument.AppendLine("\par")
-        rtfDocument.AppendLine("For further information, email ask.epd@dnr.ga.gov or call (404) 363-7000.\par}")
+        rtfDocument.AppendLine("For further information, email ask.epd@dnr.ga.gov or call (404) 363-7000.\par")
         rtfDocument.AppendLine("\par")
+
+        ' SIP/SM Public Notices section header
+        rtfDocument.AppendLine("\pard\qc{\b NOTICE OF DRAFT SYNTHETIC MINOR AND SIP OPERATING PERMITS AND PERMIT MODIFICATIONS}\par")
+        rtfDocument.AppendLine("{\b GEORGIA ENVIRONMENTAL PROTECTION DIVISION}\par")
+        rtfDocument.AppendLine("{\b AIR PROTECTION BRANCH}\par")
+        rtfDocument.AppendLine("{\b 4244 INTERNATIONAL PARKWAY, SUITE 120, ATLANTA, GA 30354}\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("\pard\qj The Georgia Environmental Protection Division announces its intent to issue initial Synthetic ")
+        rtfDocument.AppendLine("Minor Operating Permits, Synthetic Minor Modifications, and Major Source SIP Permits for the following ")
+        rtfDocument.AppendLine("facilities. The deadlines for submitting comments are specified for each facility.\par")
+        rtfDocument.AppendLine("\par")
+
+        ' SIP Permits
+        rtfDocument.AppendLine("\pard{\b MAJOR SOURCE SIP PERMITS}\par")
+        rtfDocument.AppendLine("\par")
+
+        rows = dtPN.Select("Type = 'SIP'")
+        If rows.Any Then
+            For Each dr As DataRow In rows
+                rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine("{\b Facility Address:} ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
+                rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine($"{{\b Reason for Application:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("N/A")}\par")
+                rtfDocument.AppendLine($"{{\b Comment period expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+                rtfDocument.AppendLine("\par")
+            Next
+        Else
+            rtfDocument.AppendLine("\pard None\par")
+            rtfDocument.AppendLine("\par")
+        End If
+
+        ' SM Permits
+        rtfDocument.AppendLine("\pard{\b SYNTHETIC MINOR PERMITS AND AMENDMENTS}\par")
+        rtfDocument.AppendLine("\par")
+
+        rows = dtPN.Select("Type = 'SM'")
+        If rows.Any Then
+            For Each dr As DataRow In rows
+                rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine("{\b Facility Address:} ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
+                rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                rtfDocument.AppendLine($"{{\b Reason for Application:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("N/A")}\par")
+                rtfDocument.AppendLine($"{{\b Comment period expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+                rtfDocument.AppendLine("\par")
+            Next
+        Else
+            rtfDocument.AppendLine("\pard None\par")
+            rtfDocument.AppendLine("\par")
+        End If
+
+        ' SIP/SM Public Notices section footer
+        rtfDocument.AppendLine("\pard\qj{\b ADDITIONAL INFORMATION:} The draft permits and permit amendments and all information used to develop the draft permits and permit ")
+        rtfDocument.AppendLine("amendments are available for review. This includes the application, all relevant supporting materials and all other materials available to the permitting ")
+        rtfDocument.AppendLine("authority used in the permit review process. This information is available for review at the office of the Air Protection Branch, 4244 International Parkway, ")
+        rtfDocument.AppendLine("Suite 120, Atlanta, Georgia 30354. ")
+        rtfDocument.AppendLine("Copies of the draft permits or permit amendments, narratives, and (in most cases) permit applications are also available at our Internet site ")
+        rtfDocument.AppendLine("{\ul https://epd.georgia.gov}. ")
+        rtfDocument.AppendLine("The direct link to the draft permits and amendments is {\ul https://epd.georgia.gov/draft-title-v-permitsamendments-other-draft-permits}.\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("Persons wishing to comment on a draft Synthetic Minor Permit, State Implementation Plan (SIP) Construction and Operating Permit, or other SIP ")
+        rtfDocument.AppendLine("Permit proceedings are required to submit their comments in writing. To comment, send written comments via email to epdcomments@dnr.ga.gov (include ")
+        rtfDocument.AppendLine("\ldblquote Air permit application\rdblquote  in the subject line) or by mail to Air Permit Manager, 4244 International Parkway, Suite 120, Atlanta, Georgia 30354.\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("Comments must be received by no later than the deadline indicated for the particular facility. (Should the comment period end on a weekend or holiday, ")
+        rtfDocument.AppendLine("comments will be accepted up until the next working day.) All comments received on or prior to the deadline will be considered by the Division in making ")
+        rtfDocument.AppendLine("its final decision to issue the permit or permit amendment.\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("Issued (final) permits are available for public viewing at this link: {\ul https://permitsearch.gaepd.org/} \par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("For further information, email ask.epd@dnr.ga.gov or call (404) 363-7000.\par}")
+
 
         rtbPreview.Rtf = rtfDocument.ToString()
         btnPublishDocument.Enabled = True
