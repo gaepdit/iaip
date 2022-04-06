@@ -69,8 +69,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
     Private Sub RunPermitsIssued()
@@ -691,9 +689,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub RunOpenApplications()
@@ -845,9 +840,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub RunTVAgeOfApplications()
@@ -928,9 +920,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub RunNonTVAgeOfApplications()
@@ -1037,9 +1026,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub RunEPAReport()
@@ -1350,9 +1336,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
 
     End Sub
@@ -1389,23 +1372,10 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub btnRunReport_Click(sender As Object, e As EventArgs) Handles btnRunReport.Click
-        Try
-
-
-            RunPermitsIssued()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
-        End Try
+        RunPermitsIssued()
     End Sub
     Private Sub llbViewTVCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewTVCount.LinkClicked
         Try
@@ -1502,9 +1472,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub dgvApplicationCount_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvApplicationCount.MouseUp
@@ -1533,8 +1500,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1648,9 +1613,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewMinorModCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewMinorModCount.LinkClicked
@@ -1746,9 +1708,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbView502Count_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbView502Count.LinkClicked
@@ -1844,9 +1803,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewAACount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewAACount.LinkClicked
@@ -1942,9 +1898,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewSMCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewSMCount.LinkClicked
@@ -2040,9 +1993,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewPBRCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewPBRCount.LinkClicked
@@ -2138,9 +2088,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewOtherCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewOtherCount.LinkClicked
@@ -2238,9 +2185,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewNoPermitCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewNoPermitCount.LinkClicked
@@ -2343,9 +2287,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewPSDCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewPSDCount.LinkClicked
@@ -2443,23 +2384,10 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub btnRunOpenReport_Click(sender As Object, e As EventArgs) Handles btnRunOpenReport.Click
-        Try
-
-
-            RunOpenApplications()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
-        End Try
+        RunOpenApplications()
     End Sub
     Private Sub llbViewAllOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewAllOpenCount.LinkClicked
         Try
@@ -2539,9 +2467,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewToBCDOCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewToBCDOCount.LinkClicked
@@ -2624,9 +2549,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewOpen45DayCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewOpen45DayCount.LinkClicked
@@ -2709,9 +2631,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewPublicNoticeCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewPublicNoticeCount.LinkClicked
@@ -2794,9 +2713,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewDraftIssuedCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewDraftIssuedCount.LinkClicked
@@ -2883,9 +2799,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewToPMCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewToPMCount.LinkClicked
@@ -2973,9 +2886,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewToUCCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewToUCCount.LinkClicked
@@ -3064,9 +2974,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewWStaffCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewWStaffCount.LinkClicked
@@ -3154,23 +3061,10 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub btnRunTVAge_Click(sender As Object, e As EventArgs) Handles btnRunTVAge.Click
-        Try
-
-
-            RunTVAgeOfApplications()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
-        End Try
+        RunTVAgeOfApplications()
     End Sub
     Private Sub llbViewTVTotalOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewTVTotalOpenCount.LinkClicked
         Try
@@ -3258,9 +3152,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewTVOneYearCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewTVOneYearCount.LinkClicked
@@ -3348,9 +3239,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewTVTwelveCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewTVTwelveCount.LinkClicked
@@ -3439,9 +3327,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llvViewTVGreaterCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llvViewTVGreaterCount.LinkClicked
@@ -3529,23 +3414,10 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub btnRunAge_Click(sender As Object, e As EventArgs) Handles btnRunAge.Click
-        Try
-
-
-            RunNonTVAgeOfApplications()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
-        End Try
+        RunNonTVAgeOfApplications()
     End Sub
     Private Sub llbViewTotalOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewTotalOpenCount.LinkClicked
         Try
@@ -3632,9 +3504,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewThreeMonthOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewThreeMonthOpenCount.LinkClicked
@@ -3723,9 +3592,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewSixMonthOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewSixMonthOpenCount.LinkClicked
@@ -3815,9 +3681,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewNineMonthOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewNineMonthOpenCount.LinkClicked
@@ -3907,9 +3770,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewTwelveMonthOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewTwelveMonthOpenCount.LinkClicked
@@ -3999,9 +3859,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewGreaterThanOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewGreaterThanOpenCount.LinkClicked
@@ -4090,9 +3947,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub btnRunEPAReport_Click(sender As Object, e As EventArgs) Handles btnRunEPAReport.Click
@@ -4106,9 +3960,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewEPA2a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA2a.LinkClicked
@@ -4175,9 +4026,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewEPA2d_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA2d.LinkClicked
@@ -4252,9 +4100,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewEPA3a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA3a.LinkClicked
@@ -4302,9 +4147,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewEPA4a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA4a.LinkClicked
@@ -4392,9 +4234,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewEPA4b_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA4b.LinkClicked
@@ -4484,9 +4323,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewEPA5a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA5a.LinkClicked
@@ -4562,9 +4398,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewEPA6a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA6a.LinkClicked
@@ -4639,9 +4472,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewEPA6b_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA6b.LinkClicked
@@ -4724,9 +4554,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewEPA6c_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA6c.LinkClicked
@@ -4858,9 +4685,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewEPA7a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA7a.LinkClicked
@@ -4948,9 +4772,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewEPA7b_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA7b.LinkClicked
@@ -5039,9 +4860,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewEPA7c_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA7c.LinkClicked
@@ -5130,9 +4948,6 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub llbViewEPA8a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA8a.LinkClicked
@@ -5211,23 +5026,10 @@ Public Class SSPPStatisticalTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub btnUpdateEPAReport_Click(sender As Object, e As EventArgs) Handles btnUpdateEPAReport.Click
-        Try
-
-
-            UpdateEPAReport()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
-        End Try
+        UpdateEPAReport()
     End Sub
     Private Sub cboSSPPUnits_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSSPPUnits.SelectedIndexChanged
         Try
@@ -5287,8 +5089,6 @@ Public Class SSPPStatisticalTools
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -5297,55 +5097,37 @@ Public Class SSPPStatisticalTools
     Private Sub clbEngineers_SelectedIndexChanged(sender As Object, e As EventArgs) Handles clbEngineers.SelectedIndexChanged
         Try
 
-
             For Index As Integer = clbEngineers.Items.Count - 1 To 0 Step -1
                 clbEngineers2.SetItemCheckState(Index, clbEngineers.GetItemCheckState(Index))
                 clbEngineers3.SetItemCheckState(Index, clbEngineers.GetItemCheckState(Index))
             Next Index
 
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub clbEngineers2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles clbEngineers2.SelectedIndexChanged
         Try
-
 
             For Index As Integer = clbEngineers2.Items.Count - 1 To 0 Step -1
                 clbEngineers.SetItemCheckState(Index, clbEngineers2.GetItemCheckState(Index))
                 clbEngineers3.SetItemCheckState(Index, clbEngineers2.GetItemCheckState(Index))
             Next Index
 
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub clbEngineers3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles clbEngineers3.SelectedIndexChanged
         Try
-
 
             For Index As Integer = clbEngineers3.Items.Count - 1 To 0 Step -1
                 clbEngineers.SetItemCheckState(Index, clbEngineers3.GetItemCheckState(Index))
                 clbEngineers2.SetItemCheckState(Index, clbEngineers3.GetItemCheckState(Index))
             Next Index
 
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub chbAllApps_CheckedChanged(sender As Object, e As EventArgs) Handles chbAllApps.CheckedChanged
@@ -5371,13 +5153,8 @@ Public Class SSPPStatisticalTools
                 clbEngineers3.Enabled = True
             End If
 
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub chbAllApps2_CheckedChanged(sender As Object, e As EventArgs) Handles chbAllApps2.CheckedChanged
@@ -5403,13 +5180,8 @@ Public Class SSPPStatisticalTools
                 clbEngineers3.Enabled = True
             End If
 
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
     Private Sub chbAllApps3_CheckedChanged(sender As Object, e As EventArgs) Handles chbAllApps3.CheckedChanged
@@ -5435,13 +5207,8 @@ Public Class SSPPStatisticalTools
                 clbEngineers3.Enabled = True
             End If
 
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
         End Try
     End Sub
 

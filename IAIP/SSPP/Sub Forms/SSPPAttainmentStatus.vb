@@ -28,8 +28,6 @@ Public Class SSPPAttainmentStatus
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -48,8 +46,6 @@ Public Class SSPPAttainmentStatus
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -168,11 +164,7 @@ Public Class SSPPAttainmentStatus
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
 
     End Sub
 
@@ -248,8 +240,6 @@ Public Class SSPPAttainmentStatus
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -326,8 +316,6 @@ Public Class SSPPAttainmentStatus
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -417,8 +405,6 @@ Public Class SSPPAttainmentStatus
             Next
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -426,32 +412,11 @@ Public Class SSPPAttainmentStatus
 #Region " Button and DGV click events "
 
     Private Sub btnViewSelectedData_Click(sender As Object, e As EventArgs) Handles btnViewSelectedData.Click
-        Try
-
-
-            ViewSelectedData()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        ViewSelectedData()
     End Sub
 
     Private Sub btnViewCountyInfo_Click(sender As Object, e As EventArgs) Handles btnViewCountyInfo.Click
-        Try
-
-
-            ViewCountyInformation()
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        ViewCountyInformation()
     End Sub
 
     Private Sub dgvAttainmentStatus_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvAttainmentStatus.MouseUp
@@ -465,17 +430,12 @@ Public Class SSPPAttainmentStatus
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
 
     End Sub
 
     Private Sub btnSaveChanges_Click(sender As Object, e As EventArgs) Handles btnSaveChanges.Click
         Try
-
 
             SaveOneHourChanges()
             SaveEightHourChanges()
@@ -484,8 +444,6 @@ Public Class SSPPAttainmentStatus
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -497,8 +455,6 @@ Public Class SSPPAttainmentStatus
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -510,8 +466,6 @@ Public Class SSPPAttainmentStatus
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -523,8 +477,6 @@ Public Class SSPPAttainmentStatus
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub

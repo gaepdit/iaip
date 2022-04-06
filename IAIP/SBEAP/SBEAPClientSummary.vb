@@ -2377,7 +2377,6 @@ Public Class SBEAPClientSummary
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 

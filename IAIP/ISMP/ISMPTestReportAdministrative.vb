@@ -33,8 +33,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -82,8 +80,6 @@ Public Class ISMPTestReportAdministrative
             End With
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -229,8 +225,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -303,10 +297,7 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
 
     End Sub
     Private Sub Save()
@@ -488,8 +479,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, txtReferenceNumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -639,11 +628,7 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
 
     End Sub
     Private Sub Find()
@@ -744,8 +729,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -791,8 +774,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -892,37 +873,13 @@ Public Class ISMPTestReportAdministrative
 #Region "Main Menu"
 
     Private Sub MmiSave_Click(sender As Object, e As EventArgs) Handles MmiSave.Click
-        Try
-
-            Save()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        Save()
     End Sub
     Private Sub MmiReferenceNumber_Click(sender As Object, e As EventArgs) Handles MmiReferenceNumber.Click
-        Try
-
-            GetNextReferenceNumber()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        GetNextReferenceNumber()
     End Sub
     Private Sub MmiClear_Click(sender As Object, e As EventArgs) Handles MmiClear.Click
-        Try
-
-            Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        Clear()
     End Sub
     Private Sub MmiDelete_Click(sender As Object, e As EventArgs) Handles MmiDelete.Click
         DeleteTestReport()
@@ -950,21 +907,11 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub MmiViewByTestType_Click(sender As Object, e As EventArgs) Handles MmiViewByTestType.Click
-        Try
-
-            MsgBox("Select a Test Report Type from the drop down list.", MsgBoxStyle.MsgBoxHelp, "View by Test Report Type.")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        MsgBox("Select a Test Report Type from the drop down list.", MsgBoxStyle.MsgBoxHelp, "View by Test Report Type.")
     End Sub
 
 #Region "View by Test Reports"
@@ -993,8 +940,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1022,8 +967,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1051,8 +994,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1080,8 +1021,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1109,8 +1048,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1138,8 +1075,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1167,8 +1102,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1196,8 +1129,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1225,8 +1156,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1254,8 +1183,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1283,8 +1210,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1312,8 +1237,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1341,8 +1264,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1370,8 +1291,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1399,8 +1318,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1428,8 +1345,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1457,8 +1372,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1485,8 +1398,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1513,8 +1424,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1541,8 +1450,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1606,7 +1513,6 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-
             If dgvFacilityInfo.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
                 dgvFacilityInfo.Columns(0).HeaderText = "Reference #" Then
 
@@ -1615,8 +1521,6 @@ Public Class ISMPTestReportAdministrative
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1628,8 +1532,6 @@ Public Class ISMPTestReportAdministrative
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1656,20 +1558,10 @@ Public Class ISMPTestReportAdministrative
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
     Private Sub mmiMemo_Click(sender As Object, e As EventArgs) Handles mmiMemo.Click
-        Try
-
-            OpenMemo()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        OpenMemo()
     End Sub
     Private Sub chbOverright_CheckedChanged(sender As Object, e As EventArgs) Handles chbOverright.CheckedChanged
         Try
@@ -1682,8 +1574,6 @@ Public Class ISMPTestReportAdministrative
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1696,8 +1586,6 @@ Public Class ISMPTestReportAdministrative
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -1710,56 +1598,20 @@ Public Class ISMPTestReportAdministrative
             FillTestingFirmsCombo()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
     Private Sub btnInsert_Click(sender As Object, e As EventArgs) Handles btnInsert.Click
-        Try
-
-            Save()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        Save()
     End Sub
     Private Sub btnDeleteTestReport_Click(sender As Object, e As EventArgs) Handles btnDeleteTestReport.Click
-        Try
-
-            DeleteTestReport()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        DeleteTestReport()
     End Sub
     Private Sub btnClearReferenceNumber_Click(sender As Object, e As EventArgs) Handles btnClearReferenceNumber.Click
-        Try
-            txtReferenceNumber.Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        txtReferenceNumber.Clear()
     End Sub
     Private Sub btnCloseTestReport_Click(sender As Object, e As EventArgs) Handles btnCloseTestReport.Click
-        Try
-
-            CloseTestReport()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        CloseTestReport()
     End Sub
 
     Private Sub btnAddTestReport_Click(sender As Object, e As EventArgs) Handles btnAddTestReport.Click
