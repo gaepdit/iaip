@@ -69,6 +69,7 @@ Public Class AirsNumberTextBox
 
     <Category("Appearance"), Description("Specifies the placeholder text to display in the TextBox.")>
     <DefaultValue("000-00000")>
+    <CodeAnalysis.SuppressMessage("Critical Bug", "S4275:Getters and setters should access the expected fields", Justification:="<Pending>")>
     Public Overrides Property Cue As String
         Get
             Return MyBase.Cue
