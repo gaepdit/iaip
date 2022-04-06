@@ -1190,7 +1190,7 @@ Public Class SSPPApplicationLog
         dgvApplicationLog.ExportToExcel(Me)
     End Sub
 
-    Private Sub StartNewApplication()
+    Private Shared Sub StartNewApplication()
         If CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
             OpenFormNewPermitApplication()
         Else
@@ -1198,7 +1198,7 @@ Public Class SSPPApplicationLog
         End If
     End Sub
 
-    Private Sub OpenApplication(applicationNumber As String)
+    Private Shared Sub OpenApplication(applicationNumber As String)
         OpenFormPermitApplication(applicationNumber)
     End Sub
 
