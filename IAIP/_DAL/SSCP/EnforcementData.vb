@@ -21,7 +21,7 @@ Namespace DAL.Sscp
                 " AND STRAIRSNUMBER = @airs " &
                 " and (IsDeleted = 0 or IsDeleted is null) "
 
-            Dim parameter As SqlParameter = New SqlParameter("@airs", airs.DbFormattedString)
+            Dim parameter As New SqlParameter("@airs", airs.DbFormattedString)
 
             Return DB.GetInteger(query, parameter)
         End Function

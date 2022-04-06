@@ -4,7 +4,7 @@ Imports System.Runtime.Serialization
 ' Adapted from https://stackoverflow.com/a/11801369/212978
 Friend Class SettingsHelper
     Private Shared _keySettingsDictionary As Dictionary(Of String, String)
-    Private Shared ReadOnly _initLock As Object = New Object()
+    Private Shared ReadOnly _initLock As New Object()
 
     Public Shared ReadOnly Property KeySettingsDictionary() As Dictionary(Of String, String)
         Get

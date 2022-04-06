@@ -745,7 +745,7 @@ Public Class IAIPFacilitySummary
                 item.Key.DataBindings.Add(New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), item.Value))
             Next
 
-            Dim feeDateBinding As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), "Date submitted")
+            Dim feeDateBinding As New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), "Date submitted")
             AddHandler feeDateBinding.Format, AddressOf BindingShortDate
             FeeDateSubmitDisplay.DataBindings.Add(feeDateBinding)
 
@@ -757,7 +757,7 @@ Public Class IAIPFacilitySummary
             }
 
             For Each item As KeyValuePair(Of TextBox, String) In textBoxDataBindingsTons
-                Dim b As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), item.Value)
+                Dim b As New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), item.Value)
                 AddHandler b.Format, AddressOf BindingFormatTons
                 item.Key.DataBindings.Add(b)
             Next
@@ -774,12 +774,12 @@ Public Class IAIPFacilitySummary
             }
 
             For Each item As KeyValuePair(Of TextBox, String) In textBoxDataBindingsDollars
-                Dim b As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), item.Value)
+                Dim b As New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), item.Value)
                 AddHandler b.Format, AddressOf BindingFormatDollars
                 item.Key.DataBindings.Add(b)
             Next
 
-            Dim feeRateBinding As Binding = New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), "Fee rate")
+            Dim feeRateBinding As New Binding("Text", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), "Fee rate")
             AddHandler feeRateBinding.Format, AddressOf BindingFormatDollarsPerTon
             FeeRateDisplay.DataBindings.Add(feeRateBinding)
 

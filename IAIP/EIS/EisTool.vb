@@ -3901,7 +3901,7 @@ Public Class EisTool
 #Region " CAERS Users "
 
     Private Sub btnCaersView_Click(sender As Object, e As EventArgs) Handles btnCaersView.Click
-        Dim param As SqlParameter = New SqlParameter("@includeDeleted", chkCaersShowDeleted.Checked)
+        Dim param As New SqlParameter("@includeDeleted", chkCaersShowDeleted.Checked)
         dgvCaersUsers.DataSource = DB.SPGetDataTable("geco.Caer_GetAllContacts", param)
         dgvCaersUsers.Columns("Deleted").Visible = chkCaersShowDeleted.Checked
     End Sub
@@ -3917,7 +3917,7 @@ Public Class EisTool
     End Sub
 
     Private Sub btnViewAllContacts_Click(sender As Object, e As EventArgs) Handles btnViewAllContacts.Click
-        Dim param As SqlParameter = New SqlParameter("@InventoryYear", cboAllContacts.Text)
+        Dim param As New SqlParameter("@InventoryYear", cboAllContacts.Text)
         Dim dt As DataTable = DB.SPGetDataTable("dbo.PD_EI_Status_And_Contacts", param)
         dt.PrimaryKey = Nothing
         dgvAllContacts.DataSource = dt

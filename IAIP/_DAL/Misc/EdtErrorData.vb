@@ -44,7 +44,7 @@ Namespace DAL.Dmu
         ''' <returns>A DataTable</returns>
         Public Function GetErrorCounts(userID As Integer) As DataTable
             Dim spName As String = "icis_edt.GetErrorCounts"
-            Dim parameter As SqlParameter = New SqlParameter("@userID", userID)
+            Dim parameter As New SqlParameter("@userID", userID)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
@@ -55,7 +55,7 @@ Namespace DAL.Dmu
         ''' <returns>A DataTable</returns>
         Public Function GetErrors(errorCode As String) As DataTable
             Dim spName As String = "icis_edt.GetErrors"
-            Dim parameter As SqlParameter = New SqlParameter("@ErrorCode", errorCode)
+            Dim parameter As New SqlParameter("@ErrorCode", errorCode)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
@@ -68,7 +68,7 @@ Namespace DAL.Dmu
             Dim er As EdtError = Nothing
 
             Dim spName As String = "icis_edt.GetErrorDetail"
-            Dim parameter As SqlParameter = New SqlParameter("@errorId", errorID)
+            Dim parameter As New SqlParameter("@errorId", errorID)
 
             Dim dt As DataTable = DB.SPGetDataTable(spName, parameter)
 

@@ -3,7 +3,7 @@
 Module FacilityFormHelpers
 
     Public Function OpenFormFacilitySummary() As Form
-        Dim facilitySummary As IAIPFacilitySummary = New IAIPFacilitySummary
+        Dim facilitySummary As New IAIPFacilitySummary
 
         If facilitySummary IsNot Nothing AndAlso Not facilitySummary.IsDisposed Then
             facilitySummary.Show()
@@ -31,7 +31,7 @@ Module FacilityFormHelpers
             MessageBox.Show("Facility does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
         Else
-            Dim facilitySummary As IAIPFacilitySummary = New IAIPFacilitySummary
+            Dim facilitySummary As New IAIPFacilitySummary
 
             If facilitySummary IsNot Nothing AndAlso Not facilitySummary.IsDisposed Then
                 facilitySummary.Show()

@@ -3360,7 +3360,7 @@ Public Class IAIPQueryGenerator
                     End If
 
                     If File.Exists(DestFilePath) Then
-                        Dim reader As StreamReader = New StreamReader(DestFilePath)
+                        Dim reader As New StreamReader(DestFilePath)
                         Do
                             DefaultsText = DefaultsText & reader.ReadLine
                         Loop Until reader.Peek = -1
