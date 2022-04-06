@@ -7422,10 +7422,6 @@ Public Class SSPPApplicationTrackingLog
                     DTPDatePNExpires.Visible = True
                     lblDatePNExpires.Visible = True
                     chbPNReady.Visible = True
-                    'need to verify permissions for these three "Enables"
-                    'DTPDatePNExpires.Enabled = True
-                    'lblDatePNExpires.Enabled = True
-                    'chbPNReady.Enabled = True
 
                     If Mid(txtPermitNumber.Text, 1, 4) <> txtSICCode.Text Then
                         txtPermitNumber.Text = " "
