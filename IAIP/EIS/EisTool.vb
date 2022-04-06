@@ -732,15 +732,11 @@ Public Class EisTool
                 Else
                     txtEILogPrePopYear.Text = dr.Item("intPrepopYear")
                 End If
-                If IsDBNull(dr.Item("datEISDeadline")) Then
-
-                Else
+                If Not IsDBNull(dr.Item("datEISDeadline")) Then
                     dtpDeadlineEIS.Text = dr.Item("datEISDeadline")
                     dtpDeadlineEIS.Checked = False
                 End If
-                If IsDBNull(dr.Item("strEISDeadlineComment")) Then
-
-                Else
+                If Not IsDBNull(dr.Item("strEISDeadlineComment")) Then
                     txtAllEISDeadlineComment.Text = dr.Item("strEISDeadlineComment")
                 End If
 
@@ -1742,9 +1738,8 @@ Public Class EisTool
 
             If dtpDeadlineEIS.Checked Then
                 Dim DeadLineComments As String = ""
-                If txtAllEISDeadlineComment.Text.Contains(dtpDeadlineEIS.Text & "(deadline)- " & CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf &
+                If Not txtAllEISDeadlineComment.Text.Contains(dtpDeadlineEIS.Text & "(deadline)- " & CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf &
                 txtEISDeadlineComment.Text) Then
-                Else
                     DeadLineComments = dtpDeadlineEIS.Text & "(deadline)- " & CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf &
                     txtEISDeadlineComment.Text &
                     vbCrLf & vbCrLf & txtAllEISDeadlineComment.Text
@@ -3901,7 +3896,7 @@ Public Class EisTool
 #Region " CAERS Users "
 
     Private Sub btnCaersView_Click(sender As Object, e As EventArgs) Handles btnCaersView.Click
-        Dim param As SqlParameter = New SqlParameter("@includeDeleted", chkCaersShowDeleted.Checked)
+        Dim param As New SqlParameter("@includeDeleted", chkCaersShowDeleted.Checked)
         dgvCaersUsers.DataSource = DB.SPGetDataTable("geco.Caer_GetAllContacts", param)
         dgvCaersUsers.Columns("Deleted").Visible = chkCaersShowDeleted.Checked
     End Sub
@@ -3917,7 +3912,7 @@ Public Class EisTool
     End Sub
 
     Private Sub btnViewAllContacts_Click(sender As Object, e As EventArgs) Handles btnViewAllContacts.Click
-        Dim param As SqlParameter = New SqlParameter("@InventoryYear", cboAllContacts.Text)
+        Dim param As New SqlParameter("@InventoryYear", cboAllContacts.Text)
         Dim dt As DataTable = DB.SPGetDataTable("dbo.PD_EI_Status_And_Contacts", param)
         dt.PrimaryKey = Nothing
         dgvAllContacts.DataSource = dt

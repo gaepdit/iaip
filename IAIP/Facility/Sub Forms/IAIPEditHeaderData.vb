@@ -265,7 +265,7 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Sub DisplayFacilityData(row As DataRow)
-        Dim displayedFacility As FacilityHeaderData = New FacilityHeaderData(AirsNumber)
+        Dim displayedFacility As New FacilityHeaderData(AirsNumber)
         DAL.FillFacilityHeaderDataFromDataRow(row, displayedFacility)
 
         DisplayFacilityData(displayedFacility)

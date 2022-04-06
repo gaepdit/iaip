@@ -52,8 +52,8 @@ Public Class ApbFacilityIdTest
     <InlineData("00100001", "001-00001")>
     <InlineData("041300100001", "04-13-001-00001")>
     Private Sub EqualityTrue(input1 As String, input2 As String)
-        Dim airs1 As ApbFacilityId = New ApbFacilityId(input1)
-        Dim airs2 As ApbFacilityId = New ApbFacilityId(input2)
+        Dim airs1 As New ApbFacilityId(input1)
+        Dim airs2 As New ApbFacilityId(input2)
 
         Assert.True(airs1 = airs2)
     End Sub
@@ -61,8 +61,8 @@ Public Class ApbFacilityIdTest
     <Theory>
     <InlineData("00100001", "00100002")>
     Private Sub EqualityFalse(input1 As String, input2 As String)
-        Dim airs1 As ApbFacilityId = New ApbFacilityId(input1)
-        Dim airs2 As ApbFacilityId = New ApbFacilityId(input2)
+        Dim airs1 As New ApbFacilityId(input1)
+        Dim airs2 As New ApbFacilityId(input2)
 
         Assert.False(airs1 = airs2)
     End Sub
@@ -70,8 +70,8 @@ Public Class ApbFacilityIdTest
     <Theory>
     <InlineData("00100001", "00100002")>
     Private Sub InequalityTrue(input1 As String, input2 As String)
-        Dim airs1 As ApbFacilityId = New ApbFacilityId(input1)
-        Dim airs2 As ApbFacilityId = New ApbFacilityId(input2)
+        Dim airs1 As New ApbFacilityId(input1)
+        Dim airs2 As New ApbFacilityId(input2)
 
         Assert.True(airs1 <> airs2)
     End Sub
@@ -79,8 +79,8 @@ Public Class ApbFacilityIdTest
     <Theory>
     <InlineData("00100001", "001-00001")>
     Private Sub InequalityFalse(input1 As String, input2 As String)
-        Dim airs1 As ApbFacilityId = New ApbFacilityId(input1)
-        Dim airs2 As ApbFacilityId = New ApbFacilityId(input2)
+        Dim airs1 As New ApbFacilityId(input1)
+        Dim airs2 As New ApbFacilityId(input2)
 
         Assert.False(airs1 <> airs2)
     End Sub
@@ -96,7 +96,7 @@ Public Class ApbFacilityIdTest
     <Theory>
     <InlineData("00100001")>
     Private Sub NullInequality(input As String)
-        Dim airs As ApbFacilityId = New ApbFacilityId(input)
+        Dim airs As New ApbFacilityId(input)
 
         Assert.True(airs <> Nothing)
     End Sub

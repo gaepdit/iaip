@@ -23,7 +23,7 @@ Public Class IaipCreateUser
         Program.DataSource = Nothing
         Unit.DataSource = Nothing
 
-        Dim view As DataView = New DataView(OrganizationDataSet.Tables("Branches")) With {
+        Dim view As New DataView(OrganizationDataSet.Tables("Branches")) With {
             .Sort = "Description"
         }
 
@@ -40,7 +40,7 @@ Public Class IaipCreateUser
         Unit.DataSource = Nothing
 
         If Branch.SelectedValue > 0 Then
-            Dim view As DataView = New DataView(OrganizationDataSet.Tables("Programs")) With {
+            Dim view As New DataView(OrganizationDataSet.Tables("Programs")) With {
                 .RowFilter = "BranchCode = " & Branch.SelectedValue & " OR ProgramCode = 0 ",
                 .Sort = "Description"
             }
@@ -58,7 +58,7 @@ Public Class IaipCreateUser
         Unit.DataSource = Nothing
 
         If Program.SelectedValue > 0 Then
-            Dim view As DataView = New DataView(OrganizationDataSet.Tables("Units")) With {
+            Dim view As New DataView(OrganizationDataSet.Tables("Units")) With {
                 .RowFilter = "ProgramCode = " & Program.SelectedValue & " OR UnitCode = 0 ",
                 .Sort = "Description"
             }

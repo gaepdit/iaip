@@ -10,6 +10,7 @@
                 End If
             End If
         Catch ex As Exception
+            ' Skip any error reporting
         End Try
     End Sub
 

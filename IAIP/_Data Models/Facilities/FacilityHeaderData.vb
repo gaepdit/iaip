@@ -265,8 +265,7 @@ Namespace Apb.Facilities
 
         Private Const AirProgramsCodeLength As Integer = 15
 
-        Public Shared ReadOnly ConvertAirProgramLegacyCodes As Dictionary(Of String, AirPrograms) =
-            New Dictionary(Of String, AirPrograms) From {
+        Public Shared ReadOnly ConvertAirProgramLegacyCodes As New Dictionary(Of String, AirPrograms) From {
             {"0", AirPrograms.SIP},
             {"1", AirPrograms.FederalSIP},
             {"3", AirPrograms.NonFederalSIP},
@@ -281,10 +280,9 @@ Namespace Apb.Facilities
             {"M", AirPrograms.MACT},
             {"V", AirPrograms.TitleV},
             {"R", AirPrograms.RMP}
-            }
+        }
 
-        Public Shared ReadOnly ConvertAirProgramToLegacyCode As Dictionary(Of String, String) =
-            New Dictionary(Of String, String) From {
+        Public Shared ReadOnly ConvertAirProgramToLegacyCode As New Dictionary(Of String, String) From {
             {AirPrograms.SIP.ToString, "0"},
             {AirPrograms.FederalSIP.ToString, "1"},
             {AirPrograms.NonFederalSIP.ToString, "3"},
@@ -299,7 +297,7 @@ Namespace Apb.Facilities
             {AirPrograms.MACT.ToString, "M"},
             {AirPrograms.TitleV.ToString, "V"},
             {AirPrograms.RMP.ToString, "R"}
-            }
+        }
 
         Public Property AirProgramClassifications As AirProgramClassifications
 

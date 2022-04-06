@@ -40,8 +40,6 @@ Public Class ISMPAddTestingFirms
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -106,10 +104,7 @@ Public Class ISMPAddTestingFirms
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
 
     End Sub
     Private Sub GetNextKey()
@@ -165,10 +160,7 @@ Public Class ISMPAddTestingFirms
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
 
     End Sub
     Private Sub Save()
@@ -329,8 +321,6 @@ Public Class ISMPAddTestingFirms
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -353,8 +343,6 @@ Public Class ISMPAddTestingFirms
             txtTestingFirmEmail.Clear()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -371,8 +359,6 @@ Public Class ISMPAddTestingFirms
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -384,8 +370,6 @@ Public Class ISMPAddTestingFirms
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub

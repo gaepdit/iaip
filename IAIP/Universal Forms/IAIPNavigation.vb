@@ -573,7 +573,7 @@ Public Class IAIPNavigation
                 End If
             Next
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

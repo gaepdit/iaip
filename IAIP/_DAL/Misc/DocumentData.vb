@@ -197,7 +197,7 @@ Namespace DAL
             Dim query As String = " SELECT IAIP_BINARYFILES.BLOBDOCUMENT " &
                 " FROM IAIP_BINARYFILES " &
                 " WHERE IAIP_BINARYFILES.BINARYFILEID = @FileID "
-            Dim parameter As SqlParameter = New SqlParameter("@FileID", id)
+            Dim parameter As New SqlParameter("@FileID", id)
             Return SaveBinaryFileFromDB(filePath, query, parameter)
         End Function
 
@@ -284,7 +284,7 @@ Namespace DAL
             End If
 
             Dim query As String = " DELETE FROM IAIP_BINARYFILES WHERE BINARYFILEID = @FileID "
-            Dim parameter As SqlParameter = New SqlParameter("@FileID", id)
+            Dim parameter As New SqlParameter("@FileID", id)
 
             Dim result As Boolean = DB.RunCommand(query, parameter)
 

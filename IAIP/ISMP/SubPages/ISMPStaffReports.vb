@@ -457,70 +457,70 @@ Public Class ISMPStaffReports
             Next
 
             If MedianArrayByDateOpen.GetLength(0) Mod 2 = 0 Then
-                    OpenMedianByDate = (MedianArrayByDateOpen((MedianArrayByDateOpen.GetLength(0) / 2) - 1) + MedianArrayByDateOpen((MedianArrayByDateOpen.GetLength(0) / 2))) / 2
-                    If MedianArrayByDateOpen.GetLength(0) <= 2 Then
-                        OpenPercentileByDate = "Unavailable"
-                    Else
-                        OpenPercentileByDate = (MedianArrayByDateOpen((MedianArrayByDateOpen.GetLength(0) * 0.8) - 1) + MedianArrayByDateOpen((MedianArrayByDateOpen.GetLength(0) * 0.8))) / 2
-                    End If
+                OpenMedianByDate = (MedianArrayByDateOpen((MedianArrayByDateOpen.GetLength(0) / 2) - 1) + MedianArrayByDateOpen((MedianArrayByDateOpen.GetLength(0) / 2))) / 2
+                If MedianArrayByDateOpen.GetLength(0) <= 2 Then
+                    OpenPercentileByDate = "Unavailable"
                 Else
-                    OpenMedianByDate = MedianArrayByDateOpen(MedianArrayByDateOpen.GetLength(0) \ 2)
-                    If MedianArrayByDateOpen.GetLength(0) <= 2 Then
-                        OpenPercentileByDate = "Unavailable"
-                    Else
-                        OpenPercentileByDate = MedianArrayByDateOpen(MedianArrayByDateOpen.GetLength(0) * 0.8)
-                    End If
+                    OpenPercentileByDate = (MedianArrayByDateOpen((MedianArrayByDateOpen.GetLength(0) * 0.8) - 1) + MedianArrayByDateOpen((MedianArrayByDateOpen.GetLength(0) * 0.8))) / 2
                 End If
-
-                If MedianArrayByDateClose.GetLength(0) Mod 2 = 0 Then
-                    CloseMedianByDate = (MedianArrayByDateClose((MedianArrayByDateClose.GetLength(0) / 2) - 1) + MedianArrayByDateClose((MedianArrayByDateClose.GetLength(0) / 2))) / 2
-                    If MedianArrayByDateClose.GetLength(0) <= 2 Then
-                        ClosePercentileByDate = "Unavailable"
-                    Else
-                        ClosePercentileByDate = (MedianArrayByDateClose((MedianArrayByDateClose.GetLength(0) * 0.8) - 1) + MedianArrayByDateClose((MedianArrayByDateClose.GetLength(0) * 0.8))) / 2
-                    End If
+            Else
+                OpenMedianByDate = MedianArrayByDateOpen(MedianArrayByDateOpen.GetLength(0) \ 2)
+                If MedianArrayByDateOpen.GetLength(0) <= 2 Then
+                    OpenPercentileByDate = "Unavailable"
                 Else
-                    CloseMedianByDate = MedianArrayByDateClose(MedianArrayByDateClose.GetLength(0) \ 2)
-                    If MedianArrayByDateClose.GetLength(0) <= 2 Then
-                        ClosePercentileByDate = "Unavailable"
-                    Else
-                        ClosePercentileByDate = MedianArrayByDateClose(MedianArrayByDateClose.GetLength(0) * 0.8)
-                    End If
+                    OpenPercentileByDate = MedianArrayByDateOpen(MedianArrayByDateOpen.GetLength(0) * 0.8)
                 End If
+            End If
 
-                If MedianArrayOpen.GetLength(0) Mod 2 = 0 Then
-                    OpenMedianTotal = (MedianArrayOpen((MedianArrayOpen.GetLength(0) / 2) - 1) + MedianArrayOpen((MedianArrayOpen.GetLength(0) / 2))) / 2
-                    If MedianArrayOpen.GetLength(0) <= 2 Then
-                        PercentileOpenTotalDay = "Unavailable"
-                    Else
-                        PercentileOpenTotalDay = (MedianArrayOpen((MedianArrayOpen.GetLength(0) * 0.8) - 1) + MedianArrayOpen((MedianArrayOpen.GetLength(0) * 0.8))) / 2
-                    End If
+            If MedianArrayByDateClose.GetLength(0) Mod 2 = 0 Then
+                CloseMedianByDate = (MedianArrayByDateClose((MedianArrayByDateClose.GetLength(0) / 2) - 1) + MedianArrayByDateClose((MedianArrayByDateClose.GetLength(0) / 2))) / 2
+                If MedianArrayByDateClose.GetLength(0) <= 2 Then
+                    ClosePercentileByDate = "Unavailable"
                 Else
-                    OpenMedianTotal = MedianArrayOpen(MedianArrayOpen.GetLength(0) \ 2)
-                    If MedianArrayOpen.GetLength(0) <= 2 Then
-                        PercentileOpenTotalDay = "Unavailable"
-                    Else
-                        PercentileOpenTotalDay = MedianArrayOpen(MedianArrayOpen.GetLength(0) * 0.8)
-                    End If
+                    ClosePercentileByDate = (MedianArrayByDateClose((MedianArrayByDateClose.GetLength(0) * 0.8) - 1) + MedianArrayByDateClose((MedianArrayByDateClose.GetLength(0) * 0.8))) / 2
                 End If
-
-                If MedianArrayClosed.GetLength(0) Mod 2 = 0 Then
-                    ClosedMedianTotal = (MedianArrayClosed((MedianArrayClosed.GetLength(0) / 2) - 1) + MedianArrayClosed((MedianArrayClosed.GetLength(0) / 2))) / 2
-                    If MedianArrayClosed.GetLength(0) <= 2 Then
-                        PercentileClosedTotalDay = "Unavailable"
-                    Else
-                        PercentileClosedTotalDay = (MedianArrayClosed((MedianArrayClosed.GetLength(0) * 0.8) - 1) + MedianArrayClosed((MedianArrayClosed.GetLength(0) * 0.8))) / 2
-                    End If
+            Else
+                CloseMedianByDate = MedianArrayByDateClose(MedianArrayByDateClose.GetLength(0) \ 2)
+                If MedianArrayByDateClose.GetLength(0) <= 2 Then
+                    ClosePercentileByDate = "Unavailable"
                 Else
-                    ClosedMedianTotal = MedianArrayClosed(MedianArrayClosed.GetLength(0) \ 2)
-                    If MedianArrayClosed.GetLength(0) <= 2 Then
-                        PercentileClosedTotalDay = "Unavailable"
-                    Else
-                        PercentileClosedTotalDay = MedianArrayClosed(MedianArrayClosed.GetLength(0) * 0.8)
-                    End If
+                    ClosePercentileByDate = MedianArrayByDateClose(MedianArrayByDateClose.GetLength(0) * 0.8)
                 End If
+            End If
 
-                Statement = Statement &
+            If MedianArrayOpen.GetLength(0) Mod 2 = 0 Then
+                OpenMedianTotal = (MedianArrayOpen((MedianArrayOpen.GetLength(0) / 2) - 1) + MedianArrayOpen((MedianArrayOpen.GetLength(0) / 2))) / 2
+                If MedianArrayOpen.GetLength(0) <= 2 Then
+                    PercentileOpenTotalDay = "Unavailable"
+                Else
+                    PercentileOpenTotalDay = (MedianArrayOpen((MedianArrayOpen.GetLength(0) * 0.8) - 1) + MedianArrayOpen((MedianArrayOpen.GetLength(0) * 0.8))) / 2
+                End If
+            Else
+                OpenMedianTotal = MedianArrayOpen(MedianArrayOpen.GetLength(0) \ 2)
+                If MedianArrayOpen.GetLength(0) <= 2 Then
+                    PercentileOpenTotalDay = "Unavailable"
+                Else
+                    PercentileOpenTotalDay = MedianArrayOpen(MedianArrayOpen.GetLength(0) * 0.8)
+                End If
+            End If
+
+            If MedianArrayClosed.GetLength(0) Mod 2 = 0 Then
+                ClosedMedianTotal = (MedianArrayClosed((MedianArrayClosed.GetLength(0) / 2) - 1) + MedianArrayClosed((MedianArrayClosed.GetLength(0) / 2))) / 2
+                If MedianArrayClosed.GetLength(0) <= 2 Then
+                    PercentileClosedTotalDay = "Unavailable"
+                Else
+                    PercentileClosedTotalDay = (MedianArrayClosed((MedianArrayClosed.GetLength(0) * 0.8) - 1) + MedianArrayClosed((MedianArrayClosed.GetLength(0) * 0.8))) / 2
+                End If
+            Else
+                ClosedMedianTotal = MedianArrayClosed(MedianArrayClosed.GetLength(0) \ 2)
+                If MedianArrayClosed.GetLength(0) <= 2 Then
+                    PercentileClosedTotalDay = "Unavailable"
+                Else
+                    PercentileClosedTotalDay = MedianArrayClosed(MedianArrayClosed.GetLength(0) * 0.8)
+                End If
+            End If
+
+            Statement = Statement &
                 "For the Staff member: " & Staff & vbCrLf &
                 vbTab & DateStatement & vbCrLf & vbCrLf &
                 "1. " & ReceivedByDate & " Test Reports Received " & vbCrLf &
@@ -553,12 +553,10 @@ Public Class ISMPStaffReports
                 "28. The median time of the " & ClosedTotal & " Closed Test Reports was " & ClosedMedianTotal & "-days" & vbCrLf &
                 "29. The 80% Percentile Time of the " & ClosedTotal & " Closed Test Reports was " & PercentileClosedTotalDay & "-days" & vbCrLf & vbCrLf & vbCrLf
 
-                txtEngineerStatistics.Text = txtEngineerStatistics.Text & Statement
+            txtEngineerStatistics.Text = txtEngineerStatistics.Text & Statement
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub

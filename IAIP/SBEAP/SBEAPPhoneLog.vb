@@ -102,16 +102,13 @@ Public Class SBEAPPhoneLog
                 Else
                     CompanyName = dr.Item("strCompanyName") & vbCrLf
                 End If
-                If IsDBNull(dr.Item("strCompanyAddress")) Then
-                Else
+                If Not IsDBNull(dr.Item("strCompanyAddress")) Then
                     CompanyAddress = CompanyAddress & dr.Item("strCompanyAddress") & vbCrLf
                 End If
-                If IsDBNull(dr.Item("strCompanyCity")) Then
-                Else
+                If Not IsDBNull(dr.Item("strCompanyCity")) Then
                     CompanyAddress = CompanyAddress & dr.Item("strCompanyCity")
                 End If
-                If IsDBNull(dr.Item("strCompanyState")) Then
-                Else
+                If Not IsDBNull(dr.Item("strCompanyState")) Then
                     CompanyAddress = CompanyAddress & ", " & dr.Item("strCompanyState")
                 End If
                 If IsDBNull(dr.Item("strCompanyZipCode")) Then

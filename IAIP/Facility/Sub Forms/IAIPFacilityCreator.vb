@@ -1871,8 +1871,7 @@ Public Class IAIPFacilityCreator
                 Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & Format(Today, DateFormat) & vbCrLf
             End If
 
-            If txtFacilityComments.Text.Contains("Created by Facility Creator by " & CurrentUser.AlphaName & " on " & Format(Today, DateFormat)) Then
-            Else
+            If Not txtFacilityComments.Text.Contains("Created by Facility Creator by " & CurrentUser.AlphaName & " on " & Format(Today, DateFormat)) Then
                 Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & Format(Today, DateFormat) &
                                vbCrLf & txtFacilityComments.Text & vbCrLf
             End If

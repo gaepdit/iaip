@@ -158,16 +158,13 @@ Public Class SBEAPCaseWork
                 Else
                     CompanyName = dr.Item("strCompanyName") & vbCrLf
                 End If
-                If IsDBNull(dr.Item("strCompanyAddress")) Then
-                Else
+                If Not IsDBNull(dr.Item("strCompanyAddress")) Then
                     CompanyAddress = CompanyAddress & dr.Item("strCompanyAddress") & vbCrLf
                 End If
-                If IsDBNull(dr.Item("strCompanyCity")) Then
-                Else
+                If Not IsDBNull(dr.Item("strCompanyCity")) Then
                     CompanyAddress = CompanyAddress & dr.Item("strCompanyCity")
                 End If
-                If IsDBNull(dr.Item("strCompanyState")) Then
-                Else
+                If Not IsDBNull(dr.Item("strCompanyState")) Then
                     CompanyAddress = CompanyAddress & ", " & dr.Item("strCompanyState")
                 End If
                 If IsDBNull(dr.Item("strCompanyZipCode")) Then
@@ -424,8 +421,7 @@ Public Class SBEAPCaseWork
                         TCCaseSpecificData.TabPages.Remove(TPPhoneCalls)
                         TCCaseSpecificData.TabPages.Remove(TPConferences)
                         TCCaseSpecificData.TabPages.Remove(TPTechnicalAssist)
-                        If TCCaseSpecificData.TabPages.Contains(TPComplianceAssistance) Then
-                        Else
+                        If Not TCCaseSpecificData.TabPages.Contains(TPComplianceAssistance) Then
                             TCCaseSpecificData.TabPages.Add(TPComplianceAssistance)
                             LoadComplianceAssist()
                         End If
@@ -434,8 +430,7 @@ Public Class SBEAPCaseWork
                         TCCaseSpecificData.TabPages.Remove(TPOtherCases)
                         TCCaseSpecificData.TabPages.Remove(TPPhoneCalls)
                         TCCaseSpecificData.TabPages.Remove(TPConferences)
-                        If TCCaseSpecificData.TabPages.Contains(TPTechnicalAssist) Then
-                        Else
+                        If Not TCCaseSpecificData.TabPages.Contains(TPTechnicalAssist) Then
                             TCCaseSpecificData.TabPages.Add(TPTechnicalAssist)
                             LoadTechnicalAssist()
                         End If
@@ -444,8 +439,7 @@ Public Class SBEAPCaseWork
                         TCCaseSpecificData.TabPages.Remove(TPTechnicalAssist)
                         TCCaseSpecificData.TabPages.Remove(TPOtherCases)
                         TCCaseSpecificData.TabPages.Remove(TPConferences)
-                        If TCCaseSpecificData.TabPages.Contains(TPPhoneCalls) Then
-                        Else
+                        If Not TCCaseSpecificData.TabPages.Contains(TPPhoneCalls) Then
                             TCCaseSpecificData.TabPages.Add(TPPhoneCalls)
                             LoadPhoneCall()
                         End If
@@ -454,8 +448,7 @@ Public Class SBEAPCaseWork
                         TCCaseSpecificData.TabPages.Remove(TPOtherCases)
                         TCCaseSpecificData.TabPages.Remove(TPPhoneCalls)
                         TCCaseSpecificData.TabPages.Remove(TPTechnicalAssist)
-                        If TCCaseSpecificData.TabPages.Contains(TPConferences) Then
-                        Else
+                        If Not TCCaseSpecificData.TabPages.Contains(TPConferences) Then
                             TCCaseSpecificData.TabPages.Add(TPConferences)
                             LoadAttendingStaff()
                             LoadConference()
@@ -466,8 +459,7 @@ Public Class SBEAPCaseWork
                             TCCaseSpecificData.TabPages.Remove(TPTechnicalAssist)
                             TCCaseSpecificData.TabPages.Remove(TPPhoneCalls)
                             TCCaseSpecificData.TabPages.Remove(TPConferences)
-                            If TCCaseSpecificData.TabPages.Contains(TPOtherCases) Then
-                            Else
+                            If Not TCCaseSpecificData.TabPages.Contains(TPOtherCases) Then
                                 TCCaseSpecificData.TabPages.Add(TPOtherCases)
                                 LoadOther()
                             End If
@@ -1947,11 +1939,8 @@ Public Class SBEAPCaseWork
                     End If
                 End If
 
-                If Client.Length > 7 Then
-                    If txtMultiClients.Text.Contains(Client) Then
-                    Else
-                        txtMultiClients.Text = txtMultiClients.Text & Client & " - " & CompanyName & " - " & CompanyAddress & ", " & CompanyCity & vbCrLf
-                    End If
+                If Client.Length > 7 AndAlso Not txtMultiClients.Text.Contains(Client) Then
+                    txtMultiClients.Text = txtMultiClients.Text & Client & " - " & CompanyName & " - " & CompanyAddress & ", " & CompanyCity & vbCrLf
                 End If
             Loop
 

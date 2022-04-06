@@ -4,8 +4,8 @@ Imports System.Threading.Tasks
 
 Module GtaNetworkCheck
 
-    Private ReadOnly externalUri As Uri = New Uri("https://api.ipify.org")
-    Private ReadOnly gtaNetworkIpRange As IPAddressRange = New IPAddressRange("167.192.0.0", "167.200.255.255")
+    Private ReadOnly externalUri As New Uri("https://api.ipify.org")
+    Private ReadOnly gtaNetworkIpRange As New IPAddressRange("167.192.0.0", "167.200.255.255")
 
     Public Enum CheckGtaNetworkResponse
         NoNetwork

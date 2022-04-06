@@ -44,7 +44,7 @@ Module SscpFormHelpers
             MessageBox.Show("AIRS number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
         Else
-            Dim SSCPFCE As SSCPFCEWork = New SSCPFCEWork With {
+            Dim SSCPFCE As New SSCPFCEWork With {
                 .AirsNumber = airsNumber
             }
 

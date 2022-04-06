@@ -4,3 +4,6 @@
 [*.{cs,vb}]
 
 dotnet_diagnostic.CA1303.severity = none
+
+# IDE0051: Remove unused private members
+dotnet_diagnostic.IDE0051.severity = none

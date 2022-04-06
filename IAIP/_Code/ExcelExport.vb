@@ -8,7 +8,7 @@ Public Module ExcelExport
 
 #Region " DataGridView Extension "
 
-    Private ReadOnly BaseDate As Date = New Date(1900, 1, 1)
+    Private ReadOnly BaseDate As New Date(1900, 1, 1)
 
     <Extension>
     Public Sub ExportToExcel(dataGridView As DataGridView, sender As Object)

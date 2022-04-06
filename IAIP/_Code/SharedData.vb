@@ -2,7 +2,7 @@
 Imports Iaip.Apb.Facilities
 
 Public Module SharedData
-    Private ReadOnly _initLock As Object = New Object()
+    Private ReadOnly _initLock As New Object()
     Private _tDictionary As Dictionary(Of SharedTable, DataTable)
     Private _dsDictionary As Dictionary(Of SharedDataSet, DataSet)
     Private _dictDictionary As Dictionary(Of SharedLookupDictionary, Dictionary(Of Integer, String))

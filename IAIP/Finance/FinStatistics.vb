@@ -55,7 +55,7 @@ Public Class FinStatistics
                 spName = "fees.GetApplicationTypeDepositSummary"
         End Select
 
-        Dim params As SqlParameter() = {}
+        Dim params As SqlParameter() = Array.Empty(Of SqlParameter)()
 
         If chkApplyDates.Checked Then
             params = {

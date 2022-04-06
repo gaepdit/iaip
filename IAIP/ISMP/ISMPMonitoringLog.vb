@@ -186,82 +186,79 @@ Public Class ISMPMonitoringLog
                     SQLWhere = SQLWhere & " and strClosed = 'True' "
                 End If
 
-                If chbAll.Checked Then
+                If Not chbAll.Checked AndAlso
+                    (chbUnassigned.Checked OrElse
+                    chbOneStackTwoRun.Checked OrElse
+                    chbOneStackThreeRun.Checked OrElse
+                    chbOneStackFourRun.Checked OrElse
+                    chbTwoStackStandard.Checked OrElse
+                    chbTwoStackDRE.Checked OrElse
+                    chbLoadingRack.Checked OrElse
+                    chbPondTreatment.Checked OrElse
+                    chbGasConcentration.Checked OrElse
+                    chbFlare.Checked OrElse
+                    chbRata.Checked OrElse
+                    chbMemorandumStandard.Checked OrElse
+                    chbMemorandumToFile.Checked OrElse
+                    chbMethod9Single.Checked OrElse
+                    chbMethod9Multi.Checked OrElse
+                    chbMethod22.Checked OrElse
+                    chbPTE.Checked) Then
 
-                Else
-                    If chbUnassigned.Checked OrElse
-                        chbOneStackTwoRun.Checked OrElse
-                        chbOneStackThreeRun.Checked OrElse
-                        chbOneStackFourRun.Checked OrElse
-                        chbTwoStackStandard.Checked OrElse
-                        chbTwoStackDRE.Checked OrElse
-                        chbLoadingRack.Checked OrElse
-                        chbPondTreatment.Checked OrElse
-                        chbGasConcentration.Checked OrElse
-                        chbFlare.Checked OrElse
-                        chbRata.Checked OrElse
-                        chbMemorandumStandard.Checked OrElse
-                        chbMemorandumToFile.Checked OrElse
-                        chbMethod9Single.Checked OrElse
-                        chbMethod9Multi.Checked OrElse
-                        chbMethod22.Checked OrElse
-                        chbPTE.Checked Then
+                    SQLWhere = SQLWhere & " and ( "
 
-                        SQLWhere = SQLWhere & " and ( "
-
-                        If chbUnassigned.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '001' Or "
-                        End If
-                        If chbOneStackTwoRun.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '002' Or "
-                        End If
-                        If chbOneStackThreeRun.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '003' Or "
-                        End If
-                        If chbOneStackFourRun.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '004' Or "
-                        End If
-                        If chbTwoStackStandard.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '005' Or "
-                        End If
-                        If chbTwoStackDRE.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '006' Or "
-                        End If
-                        If chbLoadingRack.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '007' Or "
-                        End If
-                        If chbPondTreatment.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '008' Or "
-                        End If
-                        If chbGasConcentration.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '009' Or "
-                        End If
-                        If chbFlare.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '010' Or "
-                        End If
-                        If chbRata.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '011' Or "
-                        End If
-                        If chbMemorandumStandard.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '012' Or "
-                        End If
-                        If chbMemorandumToFile.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '013' Or "
-                        End If
-                        If chbMethod9Single.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '016' Or "
-                        End If
-                        If chbMethod9Multi.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '014' Or "
-                        End If
-                        If chbMethod22.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '015' Or "
-                        End If
-                        If chbPTE.Checked Then
-                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '018' Or "
-                        End If
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 3)) & " ) "
+                    If chbUnassigned.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '001' Or "
                     End If
+                    If chbOneStackTwoRun.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '002' Or "
+                    End If
+                    If chbOneStackThreeRun.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '003' Or "
+                    End If
+                    If chbOneStackFourRun.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '004' Or "
+                    End If
+                    If chbTwoStackStandard.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '005' Or "
+                    End If
+                    If chbTwoStackDRE.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '006' Or "
+                    End If
+                    If chbLoadingRack.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '007' Or "
+                    End If
+                    If chbPondTreatment.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '008' Or "
+                    End If
+                    If chbGasConcentration.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '009' Or "
+                    End If
+                    If chbFlare.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '010' Or "
+                    End If
+                    If chbRata.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '011' Or "
+                    End If
+                    If chbMemorandumStandard.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '012' Or "
+                    End If
+                    If chbMemorandumToFile.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '013' Or "
+                    End If
+                    If chbMethod9Single.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '016' Or "
+                    End If
+                    If chbMethod9Multi.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '014' Or "
+                    End If
+                    If chbMethod22.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '015' Or "
+                    End If
+                    If chbPTE.Checked Then
+                        SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '018' Or "
+                    End If
+                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 3)) & " ) "
                 End If
 
                 If chbMonitorCertification.Checked OrElse
@@ -315,9 +312,7 @@ Public Class ISMPMonitoringLog
                     SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 3)) & " ) "
                 End If
 
-                If rdbNA.Checked Then
-
-                Else
+                If Not rdbNA.Checked Then
                     If rdbFacilityDateReceived.Checked Then
                         SQLWhere = SQLWhere & "AND datReceivedDate between '" & DTPStartDate.Text & "' and '" & DTPEndDate.Text & "' "
                     End If
@@ -502,9 +497,6 @@ Public Class ISMPMonitoringLog
                 If txtCommentFieldFilter.Text <> "" Then
                     SQLWhere = SQLWhere & " and ISMPTestNotification.strComments " &
                                                "like '%" & SqlQuote(txtCommentFieldFilter.Text) & "%' "
-                End If
-                If txtPollutantFilter.Text <> "" Then
-
                 End If
                 If chbNotificationLinked.Checked Then
                     SQLWhere = SQLWhere & " and strReferenceNumber is Not Null "

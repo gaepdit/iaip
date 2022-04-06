@@ -169,7 +169,7 @@ Namespace DAL
         ''' <returns>True if successful; otherwise false</returns>
         Public Function DeleteFacility(airsNumber As ApbFacilityId) As Boolean
             Dim spName As String = "iaip_facility.DeleteFacility"
-            Dim parameter As SqlParameter = New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
+            Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
         End Function
 
@@ -180,7 +180,7 @@ Namespace DAL
         ''' <returns>True if successful; otherwise false</returns>
         Public Function TriggerDataUpdateAtEPA(airsnumber As ApbFacilityId) As Boolean
             Dim spName As String = "iaip_facility.TriggerDataUpdateAtEPA"
-            Dim parameter As SqlParameter = New SqlParameter("@AirsNumber", airsnumber.DbFormattedString)
+            Dim parameter As New SqlParameter("@AirsNumber", airsnumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
         End Function
 

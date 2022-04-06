@@ -5,7 +5,7 @@ Namespace DAL
 
         Public Function AppIsEnabled() As Boolean
             Dim spName As String = "dbo.IsIaipEnabled"
-            Dim param As SqlParameter = New SqlParameter("@currentVersion", GetCurrentVersionAsMajorMinorBuild.ToString)
+            Dim param As New SqlParameter("@currentVersion", GetCurrentVersionAsMajorMinorBuild.ToString)
 
             Try
                 Return DB.SPGetBoolean(spName, param)
