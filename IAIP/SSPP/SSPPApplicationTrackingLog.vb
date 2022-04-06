@@ -13764,10 +13764,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub chbFeeDataFinalized_CheckedChanged(sender As Object, e As EventArgs) Handles chbFeeDataFinalized.CheckedChanged
-        If chbFeeDataFinalized.Checked Then
-            dtpFeeDataFinalized.Value = Today
-        End If
-
         AdjustFeesUI()
     End Sub
 
@@ -13794,6 +13790,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub AdjustFeesUI()
         If AirsId Is Nothing OrElse AppNumber = 0 Then
             TPFees.Enabled = False
+            Return
         End If
 
         If Not UpdatingValues Then
@@ -13826,14 +13823,9 @@ Public Class SSPPApplicationTrackingLog
 
             ' Invoicing
             chbFeeDataFinalized.Visible = FeeChangesAllowed AndAlso TotalFeeAmount > 0 AndAlso (chbAppFee.Checked OrElse chbExpFee.Checked)
-            dtpFacilityFeeNotified.Enabled = FeeChangesAllowed
+            lblFeeChangesNotAllowedWarning.Visible = FeeChangesAllowed AndAlso TotalFeeAmount > 0 AndAlso (chbAppFee.Checked OrElse chbExpFee.Checked) AndAlso chbFeeDataFinalized.Checked
 
-            lklGenerateEmail.Visible = chbFeeDataFinalized.Checked AndAlso TotalFeeAmount > 0
-            lblFeeDataFinalized.Visible = chbFeeDataFinalized.Checked
-            dtpFeeDataFinalized.Visible = chbFeeDataFinalized.Checked
-            lblFacilityFeeNotified.Visible = chbFeeDataFinalized.Checked AndAlso (chbAppFee.Checked OrElse chbExpFee.Checked)
-            dtpFacilityFeeNotified.Visible = chbFeeDataFinalized.Checked AndAlso (chbAppFee.Checked OrElse chbExpFee.Checked)
-            lblFeeChangesNotAllowed.Visible = TotalFeeAmount > 0 AndAlso Not FeeChangesAllowed
+            pnlFeeDataFinalized.Visible = Not FeeChangesAllowed AndAlso TotalFeeAmount > 0
 
             ' Fees not applicable labels
             If chbAppFee.Enabled OrElse chbAppFee.Checked Then
@@ -13909,7 +13901,17 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SaveApplicationFees()
-        If AirsId Is Nothing OrElse AppNumber = 0 OrElse Not FeeChangesAllowed Then
+        If AirsId Is Nothing OrElse AppNumber = 0 Then
+            Return
+        End If
+
+        Dim dateFacilityNotified As Date? = If(dtpFacilityFeeNotified.Checked, dtpFacilityFeeNotified.Value, CType(Nothing, Date?))
+
+        If Not FeeChangesAllowed Then
+            If pnlFeeDataFinalized.Visible Then
+                SaveApplicationFeesDateFacilityNotified(AppNumber, dateFacilityNotified)
+            End If
+
             Return
         End If
 
@@ -13921,7 +13923,7 @@ Public Class SSPPApplicationTrackingLog
             .ApplicationFeeType = If(cmbAppFeeType.SelectedIndex > -1, CType(cmbAppFeeType.SelectedValue, Integer), CType(Nothing, Integer?)),
             .ApplicationID = AppNumber,
             .ApplicationWithdrawn = (cboPermitAction.SelectedValue.ToString = "11"),
-            .DateFacilityNotifiedOfFees = If(dtpFacilityFeeNotified.Checked, dtpFacilityFeeNotified.Value, CType(Nothing, Date?)),
+            .DateFacilityNotifiedOfFees = dateFacilityNotified,
             .DateFeeDataFinalized = If(chbFeeDataFinalized.Checked, dtpFeeDataFinalized.Value, CType(Nothing, Date?)),
             .ExpeditedFeeAmount = ExpeditedFeeAmount,
             .ExpeditedFeeApplies = chbExpFee.Checked,
@@ -13934,7 +13936,26 @@ Public Class SSPPApplicationTrackingLog
 
         Select Case SaveApplicationFeesData(feesInfo)
             Case SaveApplicationFeesDataResult.Success
-                ' No action
+
+                If feesInfo.FeeDataFinalized Then
+                    Dim invoiceId As Integer
+                    Dim result As GenerateInvoiceResult = GenerateInvoice(AppNumber, CurrentUser.UserID, invoiceId)
+
+                    Select Case result
+                        Case GenerateInvoiceResult.Success
+                            LoadFeesData()
+
+                        Case GenerateInvoiceResult.InvoiceExists
+                            MessageBox.Show("An invoice has already been generated for this application. Please verify fees information before proceeding.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            LoadFeesData()
+
+                        Case Else
+                            MessageBox.Show("There was an error generating the application fee invoice. Please contact EPD-IT.",
+                                            $"Error ({Convert.ToInt32(result)})", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+                    End Select
+                End If
 
             Case SaveApplicationFeesDataResult.ApplicationDoesNotExist
                 MessageBox.Show("There was an error saving the application fees. Application number not found. Please contact EPD-IT.",
@@ -13952,7 +13973,6 @@ Public Class SSPPApplicationTrackingLog
         End Select
     End Sub
 
-
     Private Sub LoadFeesData()
         UpdatingValues = True
 
@@ -13960,7 +13980,6 @@ Public Class SSPPApplicationTrackingLog
 
         If feesInfo Is Nothing Then
             UpdatingValues = False
-
             Return
         End If
 
