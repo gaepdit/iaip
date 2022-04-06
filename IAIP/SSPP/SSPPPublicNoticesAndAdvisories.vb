@@ -95,7 +95,7 @@ Public Class SSPPPublicNoticesAndAdvisories
         selectedNoticeApps = New List(Of Integer)
 
         For Each row As DataGridViewRow In dgvApplications.Rows
-            If CBool(row.Cells("Select").Value) Then
+            If row.Cells("Select").Value Then
                 If row.Cells("Notification Type").Value.ToString = "Public Advisory" Then
                     selectedAdvisoryApps.Add(CInt(row.Cells("App Number").Value))
                 ElseIf row.Cells("Notification Type").Value.ToString = "Public Notice" Then
@@ -129,19 +129,24 @@ Public Class SSPPPublicNoticesAndAdvisories
         If selectedAdvisoryApps.Count > 0 Then
             Dim dt As DataTable = DB.SPGetDataTable("dbo.GetAppDetailsForPA", selectedAdvisoryApps.AsTvpSqlParameter("@AppNums"))
 
-            For Each dr As DataRow In dt.Rows
-                rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
-                rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine("{\b Facility Address:} ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine("{\b EPD Notice Type:} Permit Application\par")
-                rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine($"{{\b Reason for Application:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("Unknown")}\par")
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+                For Each dr As DataRow In dt.Rows
+                    rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                    rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b Facility Address:} ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b EPD Notice Type:} Permit Application\par")
+                    rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Reason for Application:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("\par")
+                Next
+            Else
+                rtfDocument.AppendLine("\pard None\par")
                 rtfDocument.AppendLine("\par")
-            Next
+            End If
         Else
             rtfDocument.AppendLine("\pard None\par")
             rtfDocument.AppendLine("\par")
@@ -167,8 +172,11 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("\par")
 
         ' All Public Notices
-        Dim dtPN As DataTable = DB.SPGetDataTable("dbo.GetAppDetailsForPN", selectedNoticeApps.AsTvpSqlParameter("@AppNums"))
-        Dim rows As DataRow()
+        Dim dtPN As New DataTable()
+
+        If selectedAdvisoryApps.Count > 0 Then
+            dtPN = DB.SPGetDataTable("dbo.GetAppDetailsForPN", selectedNoticeApps.AsTvpSqlParameter("@AppNums"))
+        End If
 
         ' Title V Public Notices section header
         rtfDocument.AppendLine("\pard\qc{\b NOTICE OF DRAFT TITLE V OPERATING PERMITS AND PERMIT MODIFICATIONS}\par")
@@ -185,21 +193,29 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("\pard{\b INITIAL TITLE V OPERATING PERMITS}\par")
         rtfDocument.AppendLine("\par")
 
-        rows = dtPN.Select("Type = 'TV-Initial'")
-        If rows.Any Then
-            For Each dr As DataRow In rows
-                rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
-                rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine("{\b Facility Address:} ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
-                rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+        Dim rows As DataRow()
+
+        If dtPN.Rows.Count > 0 Then
+            rows = dtPN.Select("Type = 'TV-Initial'")
+
+            If rows.Any Then
+                For Each dr As DataRow In rows
+                    rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                    rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b Facility Address:} ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
+                    rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+                    rtfDocument.AppendLine("\par")
+                Next
+            Else
+                rtfDocument.AppendLine("\pard None\par")
                 rtfDocument.AppendLine("\par")
-            Next
+            End If
         Else
             rtfDocument.AppendLine("\pard None\par")
             rtfDocument.AppendLine("\par")
@@ -209,21 +225,27 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("\pard{\b RENEWAL TITLE V OPERATING PERMITS}\par")
         rtfDocument.AppendLine("\par")
 
-        rows = dtPN.Select("Type = 'TV-Renewal'")
-        If rows.Any Then
-            For Each dr As DataRow In rows
-                rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
-                rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine("{\b Facility Address:} ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
-                rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+        If dtPN.Rows.Count > 0 Then
+            rows = dtPN.Select("Type = 'TV-Renewal'")
+
+            If rows.Any Then
+                For Each dr As DataRow In rows
+                    rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                    rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b Facility Address:} ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
+                    rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+                    rtfDocument.AppendLine("\par")
+                Next
+            Else
+                rtfDocument.AppendLine("\pard None\par")
                 rtfDocument.AppendLine("\par")
-            Next
+            End If
         Else
             rtfDocument.AppendLine("\pard None\par")
             rtfDocument.AppendLine("\par")
@@ -233,26 +255,32 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("\pard{\b TITLE V SIGNIFICANT MODIFICATIONS}\par")
         rtfDocument.AppendLine("\par")
 
-        rows = dtPN.Select("Type IN ('SAWO', 'SAW', 'Acid Rain')")
-        If Not rows.Any Then
+        If dtPN.Rows.Count > 0 Then
+            rows = dtPN.Select("Type IN ('SAWO', 'SAW', 'Acid Rain')")
+
+            If rows.Any Then
+                For Each dr As DataRow In rows
+                    rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                    rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b Facility Address:} ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
+                    rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Emission Increase/Decrease:}} {GetNullableString(dr.Item("strSignificantComments")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Description of Requested Modification/Change:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("N/A")}\par")
+                    rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+                    rtfDocument.AppendLine("\par")
+                Next
+            Else
+                rtfDocument.AppendLine("\pard None\par")
+                rtfDocument.AppendLine("\par")
+            End If
+        Else
             rtfDocument.AppendLine("\pard None\par")
             rtfDocument.AppendLine("\par")
-        Else
-            For Each dr As DataRow In rows
-                rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
-                rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine("{\b Facility Address:} ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
-                rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine($"{{\b Emission Increase/Decrease:}} {GetNullableString(dr.Item("strSignificantComments")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine($"{{\b Description of Requested Modification/Change:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("N/A")}\par")
-                rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
-                rtfDocument.AppendLine("\par")
-            Next
         End If
 
         ' Title V Public Notices section footer
@@ -298,22 +326,28 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("\pard{\b MAJOR SOURCE SIP PERMITS}\par")
         rtfDocument.AppendLine("\par")
 
-        rows = dtPN.Select("Type = 'SIP'")
-        If rows.Any Then
-            For Each dr As DataRow In rows
-                rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
-                rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine("{\b Facility Address:} ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
-                rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine($"{{\b Reason for Application:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("N/A")}\par")
-                rtfDocument.AppendLine($"{{\b Comment period expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+        If dtPN.Rows.Count > 0 Then
+            rows = dtPN.Select("Type = 'SIP'")
+
+            If rows.Any Then
+                For Each dr As DataRow In rows
+                    rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                    rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b Facility Address:} ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
+                    rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Reason for Application:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("N/A")}\par")
+                    rtfDocument.AppendLine($"{{\b Comment period expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+                    rtfDocument.AppendLine("\par")
+                Next
+            Else
+                rtfDocument.AppendLine("\pard None\par")
                 rtfDocument.AppendLine("\par")
-            Next
+            End If
         Else
             rtfDocument.AppendLine("\pard None\par")
             rtfDocument.AppendLine("\par")
@@ -323,22 +357,28 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("\pard{\b SYNTHETIC MINOR PERMITS AND AMENDMENTS}\par")
         rtfDocument.AppendLine("\par")
 
-        rows = dtPN.Select("Type = 'SM'")
-        If rows.Any Then
-            For Each dr As DataRow In rows
-                rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
-                rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine("{\b Facility Address:} ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
-                rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
-                rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
-                rtfDocument.AppendLine($"{{\b Reason for Application:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("N/A")}\par")
-                rtfDocument.AppendLine($"{{\b Comment period expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+        If dtPN.Rows.Count > 0 Then
+            rows = dtPN.Select("Type = 'SM'")
+
+            If rows.Any Then
+                For Each dr As DataRow In rows
+                    rtfDocument.AppendLine($"\pard{{\b {GetNullableString(dr.Item("strCountyName")).IfEmpty("Unknown").ToUpper()} COUNTY}}\par")
+                    rtfDocument.AppendLine($"{{\b Facility Name:}} {GetNullableString(dr.Item("strFacilityName")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Application No:}} {GetNullableString(dr.Item("strApplicationNumber")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b Facility Address:} ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityStreet1")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityCity")).IfEmpty("Unknown")}, ")
+                    rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
+                    rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
+                    rtfDocument.AppendLine($"{{\b Reason for Application:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("N/A")}\par")
+                    rtfDocument.AppendLine($"{{\b Comment period expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
+                    rtfDocument.AppendLine("\par")
+                Next
+            Else
+                rtfDocument.AppendLine("\pard None\par")
                 rtfDocument.AppendLine("\par")
-            Next
+            End If
         Else
             rtfDocument.AppendLine("\pard None\par")
             rtfDocument.AppendLine("\par")
