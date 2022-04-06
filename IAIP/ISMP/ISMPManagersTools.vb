@@ -150,8 +150,9 @@ Public Class ISMPManagersTools
 
             For Each row In drtestReportAssignment
 
-                Dim item1 As New ListViewItem(row("strReferenceNumber").ToString())
-                item1.Checked = False
+                Dim item1 As New ListViewItem(row("strReferenceNumber").ToString()) With {
+                    .Checked = False
+                }
                 item1.SubItems.Add(row("strFacilityName").ToString())
                 item1.SubItems.Add(Mid(row("strAIRSNumber").ToString(), 5))
                 item1.SubItems.Add(row("ForTestDateStart").ToString())
