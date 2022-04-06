@@ -52,7 +52,7 @@ Public Class FinInvoiceView
             lblInvoiceID.Text = "Invoice " & .InvoiceID
             lblStatus.Text = "Status: "
 
-            UrlToolTip.SetToolTip(lnkViewInvoice, GetInvoiceUrl(thisInvoice.InvoiceGuid).ToString())
+            UrlToolTip.SetToolTip(btnViewInvoice, GetInvoiceUrl(thisInvoice.InvoiceGuid).ToString())
 
             If .Voided Then
                 lblStatus.Text &= "VOID"
@@ -117,7 +117,7 @@ Public Class FinInvoiceView
         lblFacilityDisplay.Text = ""
         lblInvoiceDescription.Text = ""
         UrlToolTip.RemoveAll()
-        DisableControls({btnSaveComment, btnNewDeposit, btnVoid, lnkViewInvoice})
+        DisableControls({btnSaveComment, btnNewDeposit, btnVoid, btnViewInvoice})
     End Sub
 
     Private Sub txtSaveComment_Click(sender As Object, e As EventArgs) Handles btnSaveComment.Click
@@ -164,7 +164,7 @@ Public Class FinInvoiceView
         OpenFacilityAccount(thisInvoice.FacilityID)
     End Sub
 
-    Private Sub lnkViewInvoice_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkViewInvoice.LinkClicked
+    Private Sub btnViewInvoice_Click(sender As Object, e As EventArgs) Handles btnViewInvoice.Click
         OpenInvoiceUrl(thisInvoice.InvoiceGuid)
     End Sub
 
