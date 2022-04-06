@@ -282,8 +282,7 @@ Public Class FeesDeposits
                     LoadFacilityData(row.Cells(0).Value)
                     lblAIRSNumber.Text = "AIRS #: " & row.Cells(0).Value
 
-                    If IsDBNull(row.Cells(3).Value) Then
-                    Else
+                    If Not IsDBNull(row.Cells(3).Value) Then
                         txtTransactionID.Text = row.Cells(3).Value
                     End If
 

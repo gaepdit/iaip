@@ -321,8 +321,6 @@ Public Class SBEAPClientSummary
                         AirDescription = dr2.Item("strAirDescription")
                     End If
                 End If
-            Else
-
             End If
 
             txtCompanyName.Text = CompanyName
@@ -1731,37 +1729,25 @@ Public Class SBEAPClientSummary
                 Dim dr2 As DataRow = DB.GetDataRow(query, p)
 
                 If dr2 IsNot Nothing Then
-                    If IsDBNull(dr2.Item("strFacilityStreet1")) Then
-                    Else
+                    If Not IsDBNull(dr2.Item("strFacilityStreet1")) Then
                         txtStreetAddress.Text = dr2.Item("strFacilityStreet1")
                     End If
-                    If IsDBNull(dr2.Item("strFacilityStreet2")) Then
-                    Else
+                    If Not IsDBNull(dr2.Item("strFacilityStreet2")) Then
                         txtStreetAddress2.Text = dr2.Item("strFacilityStreet2")
                     End If
-                    If IsDBNull(dr2.Item("strFacilityCity")) Then
-
-                    Else
+                    If Not IsDBNull(dr2.Item("strFacilityCity")) Then
                         txtCity.Text = dr2.Item("strFacilityCity")
                     End If
-                    If IsDBNull(dr2.Item("strFacilityState")) Then
-
-                    Else
+                    If Not IsDBNull(dr2.Item("strFacilityState")) Then
                         txtState.Text = dr2.Item("strFacilityState")
                     End If
-                    If IsDBNull(dr2.Item("strFacilityZipCode")) Then
-
-                    Else
+                    If Not IsDBNull(dr2.Item("strFacilityZipCode")) Then
                         mtbZipCode.Text = dr2.Item("strFacilityZipCode")
                     End If
-                    If IsDBNull(dr2.Item("numFacilityLongitude")) Then
-
-                    Else
+                    If Not IsDBNull(dr2.Item("numFacilityLongitude")) Then
                         mtbLongitude.Text = dr2.Item("numFacilityLongitude")
                     End If
-                    If IsDBNull(dr2.Item("numFacilityLatitude")) Then
-
-                    Else
+                    If Not IsDBNull(dr2.Item("numFacilityLatitude")) Then
                         mtbLatitude.Text = dr2.Item("numFacilityLatitude")
                     End If
                     cboCounty.SelectedValue = Mid(mtbAIRSNumber.Text, 1, 3)
@@ -2284,20 +2270,12 @@ Public Class SBEAPClientSummary
 
             ClearContactData()
 
-            If dgvContactInformation.RowCount > 0 Then
-                If dgvContactInformation.Columns(0).HeaderText = "Client ID" Then
-                    dgvContactInformation.DataSource = Nothing
-                Else
-
-                End If
+            If dgvContactInformation.RowCount > 0 AndAlso dgvContactInformation.Columns(0).HeaderText = "Client ID" Then
+                dgvContactInformation.DataSource = Nothing
             End If
 
-            If dgvCaseLog.RowCount > 0 Then
-                If dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
-                    dgvCaseLog.DataSource = Nothing
-                Else
-
-                End If
+            If dgvCaseLog.RowCount > 0 AndAlso dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
+                dgvCaseLog.DataSource = Nothing
             End If
 
         Catch ex As Exception

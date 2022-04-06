@@ -271,8 +271,7 @@ Public Class ISMPNotificationLog
             Dim dt As DataTable = DB.GetDataTable(query, p)
 
             For Each dr As DataRow In dt.Rows
-                If IsDBNull(dr.Item("strReferenceNumber")) Then
-                Else
+                If Not IsDBNull(dr.Item("strReferenceNumber")) Then
                     txtReferenceNumber.Text = txtReferenceNumber.Text & dr.Item("strReferenceNumber") & vbCrLf
                 End If
             Next

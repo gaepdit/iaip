@@ -732,15 +732,11 @@ Public Class EisTool
                 Else
                     txtEILogPrePopYear.Text = dr.Item("intPrepopYear")
                 End If
-                If IsDBNull(dr.Item("datEISDeadline")) Then
-
-                Else
+                If Not IsDBNull(dr.Item("datEISDeadline")) Then
                     dtpDeadlineEIS.Text = dr.Item("datEISDeadline")
                     dtpDeadlineEIS.Checked = False
                 End If
-                If IsDBNull(dr.Item("strEISDeadlineComment")) Then
-
-                Else
+                If Not IsDBNull(dr.Item("strEISDeadlineComment")) Then
                     txtAllEISDeadlineComment.Text = dr.Item("strEISDeadlineComment")
                 End If
 
@@ -1742,9 +1738,8 @@ Public Class EisTool
 
             If dtpDeadlineEIS.Checked Then
                 Dim DeadLineComments As String = ""
-                If txtAllEISDeadlineComment.Text.Contains(dtpDeadlineEIS.Text & "(deadline)- " & CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf &
+                If Not txtAllEISDeadlineComment.Text.Contains(dtpDeadlineEIS.Text & "(deadline)- " & CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf &
                 txtEISDeadlineComment.Text) Then
-                Else
                     DeadLineComments = dtpDeadlineEIS.Text & "(deadline)- " & CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf &
                     txtEISDeadlineComment.Text &
                     vbCrLf & vbCrLf & txtAllEISDeadlineComment.Text

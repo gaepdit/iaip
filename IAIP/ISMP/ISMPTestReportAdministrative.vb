@@ -338,14 +338,12 @@ Public Class ISMPTestReportAdministrative
                 End If
             End If
 
-            If cboPollutant.SelectedIndex <> -1 AndAlso cboPollutant.SelectedIndex <> 0 Then
-            Else
+            If cboPollutant.SelectedIndex = -1 OrElse cboPollutant.SelectedIndex = 0 Then
                 MsgBox("The Pollutant does not match any of the provided pollutants." _
                   & vbCr & "This must be corrected before moving on.", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
                 Return
             End If
-            If cboTestingFirms.SelectedIndex <> -1 AndAlso cboTestingFirms.SelectedIndex <> 0 Then
-            Else
+            If cboTestingFirms.SelectedIndex = -1 OrElse cboTestingFirms.SelectedIndex = 0 Then
                 MsgBox("The Testing Firm does not match any of the provided Testing Firms." _
                   & vbCr & "This must be corrected before moving on.", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
                 Return

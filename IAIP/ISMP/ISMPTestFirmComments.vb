@@ -24,11 +24,11 @@ Public Class ISMPTestFirmComments
                 btnOpenManagerTools.Visible = False
             End If
 
-            If AccountFormAccess(67, 1) = "1" OrElse
-                AccountFormAccess(67, 2) = "1" OrElse
-                AccountFormAccess(67, 3) = "1" OrElse
-                AccountFormAccess(67, 4) = "1" Then
-            Else
+            If AccountFormAccess(67, 1) <> "1" AndAlso
+                AccountFormAccess(67, 2) <> "1" AndAlso
+                AccountFormAccess(67, 3) <> "1" AndAlso
+                AccountFormAccess(67, 4) <> "1" Then
+
                 tsbSave.Visible = False
                 btnSavePreTest.Visible = False
                 btnSaveDayOf.Visible = False
@@ -147,9 +147,7 @@ Public Class ISMPTestFirmComments
                 Dim dr2 As DataRow = DB.GetDataRow(query, p2)
                 If dr2 IsNot Nothing Then
                     If IsDBNull(dr2.Item("datTestDateEnd")) Then
-                        If IsDBNull(dr2.Item("datTestDateStart")) Then
-
-                        Else
+                        If Not IsDBNull(dr2.Item("datTestDateStart")) Then
                             txtTestDateStart.Text = dr2.Item("datTestDateStart").ToString
                         End If
                     Else
@@ -160,8 +158,6 @@ Public Class ISMPTestFirmComments
                             txtTestDateEnd.Text = dr2.Item("datTestDateEnd").ToString
                         End If
                     End If
-                Else
-
                 End If
 
             End If
@@ -338,9 +334,7 @@ Public Class ISMPTestFirmComments
                         End If
 
                         If IsDBNull(dr.Item("datTestDateEnd")) Then
-                            If IsDBNull(dr.Item("datTestDateStart")) Then
-
-                            Else
+                            If Not IsDBNull(dr.Item("datTestDateStart")) Then
                                 txtTestDateStart.Text = dr.Item("datTestDateStart")
                             End If
                         Else

@@ -471,17 +471,13 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbDistrictResponsible.Checked Then
-                If SQLFrom.IndexOf("SSCPDistrictResponsible") <> -1 Then
-
+            If chbDistrictResponsible.Checked AndAlso SQLFrom.IndexOf("SSCPDistrictResponsible") = -1 Then
+                SQLFrom = SQLFrom & " SSCPDistrictResponsible, "
+                SQLWhere = SQLWhere & " AND APBMasterAIRS.strAIRSnumber = SSCPDistrictResponsible.strAIRSNumber "
+                If rdbDistrictResponsibleTrue.Checked Then
+                    SQLWhere = SQLWhere & " and SSCPDistrictResponsible.strDistrictResponsible = 'True' "
                 Else
-                    SQLFrom = SQLFrom & " SSCPDistrictResponsible, "
-                    SQLWhere = SQLWhere & " AND APBMasterAIRS.strAIRSnumber = SSCPDistrictResponsible.strAIRSNumber "
-                    If rdbDistrictResponsibleTrue.Checked Then
-                        SQLWhere = SQLWhere & " and SSCPDistrictResponsible.strDistrictResponsible = 'True' "
-                    Else
-                        SQLWhere = SQLWhere & " and SSCPDistrictResponsible.strDistrictResponsible = 'False' "
-                    End If
+                    SQLWhere = SQLWhere & " and SSCPDistrictResponsible.strDistrictResponsible = 'False' "
                 End If
             End If
 
@@ -3745,8 +3741,6 @@ Public Class IAIPQueryGenerator
                             If StartUpDate.IndexOf("*-") <> -1 AndAlso
                                     Mid(StartUpDate, StartUpDate.IndexOf("*-") + 3, (StartUpDate.IndexOf("-*") - (StartUpDate.IndexOf("*-") + 2))) = "Between" Then
                                 rdbStartUpDateBetween.Checked = True
-                            End If
-                            If StartUpDate.IndexOf("@-") <> -1 Then
                             End If
                             If StartUpDate.IndexOf("^-") <> -1 Then
                                 txtStartUpDateOrder.Text = Mid(StartUpDate, StartUpDate.IndexOf("^-") + 3, (StartUpDate.IndexOf("-^") - (StartUpDate.IndexOf("^-") + 2)))
