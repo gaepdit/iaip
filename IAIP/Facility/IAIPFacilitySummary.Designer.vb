@@ -170,6 +170,7 @@ Partial Class IAIPFacilitySummary
         Me.FSEmissionsFees = New System.Windows.Forms.TabPage()
         Me.EmissionsFeesTabControl = New System.Windows.Forms.TabControl()
         Me.TPEmissionsAnnual = New System.Windows.Forms.TabPage()
+        Me.btnViewInvoice = New System.Windows.Forms.Button()
         Me.FeeStatusGroupBox = New System.Windows.Forms.GroupBox()
         Me.FeeSubmitDateLabel = New System.Windows.Forms.Label()
         Me.FeePaidDisplay = New System.Windows.Forms.TextBox()
@@ -2010,6 +2011,7 @@ Partial Class IAIPFacilitySummary
         '
         'TPEmissionsAnnual
         '
+        Me.TPEmissionsAnnual.Controls.Add(Me.btnViewInvoice)
         Me.TPEmissionsAnnual.Controls.Add(Me.FeeStatusGroupBox)
         Me.TPEmissionsAnnual.Controls.Add(Me.FeeRegGroupBox)
         Me.TPEmissionsAnnual.Controls.Add(Me.FeeEmissionGroupBox)
@@ -2022,6 +2024,21 @@ Partial Class IAIPFacilitySummary
         Me.TPEmissionsAnnual.TabIndex = 3
         Me.TPEmissionsAnnual.Text = "Annual Summary"
         Me.TPEmissionsAnnual.UseVisualStyleBackColor = True
+        '
+        'btnViewInvoice
+        '
+        Me.btnViewInvoice.AutoSize = True
+        Me.btnViewInvoice.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight
+        Me.btnViewInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnViewInvoice.ForeColor = System.Drawing.Color.Blue
+        Me.btnViewInvoice.Image = Global.Iaip.My.Resources.Resources.PrintPreviewIcon
+        Me.btnViewInvoice.Location = New System.Drawing.Point(188, 15)
+        Me.btnViewInvoice.Name = "btnViewInvoice"
+        Me.btnViewInvoice.Size = New System.Drawing.Size(177, 29)
+        Me.btnViewInvoice.TabIndex = 343
+        Me.btnViewInvoice.Text = " View Printable Invoice"
+        Me.btnViewInvoice.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnViewInvoice.UseVisualStyleBackColor = True
         '
         'FeeStatusGroupBox
         '
@@ -3069,4 +3086,5 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents TPContactsGeco As TabPage
     Friend WithEvents ContactsGecoFacilityGrid As IaipDataGridView
     Friend WithEvents Label3 As Label
+    Friend WithEvents btnViewInvoice As Button
 End Class
