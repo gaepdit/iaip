@@ -33,7 +33,7 @@ Partial Class FeesAudit
         Me.TPGECOSubmittal = New System.Windows.Forms.TabPage()
         Me.dgvInvoiceData = New Iaip.IaipDataGridView()
         Me.Panel7 = New System.Windows.Forms.Panel()
-        Me.lnkPrintActiveInvoices = New System.Windows.Forms.LinkLabel()
+        Me.btnPrintActiveInvoices = New System.Windows.Forms.Button()
         Me.llbAuditPerformed = New System.Windows.Forms.Label()
         Me.chbInvoiceDataOperating = New System.Windows.Forms.CheckBox()
         Me.Label102 = New System.Windows.Forms.Label()
@@ -119,7 +119,7 @@ Partial Class FeesAudit
         Me.TPInvoices = New System.Windows.Forms.TabPage()
         Me.dgvInvoices = New Iaip.IaipDataGridView()
         Me.Panel34 = New System.Windows.Forms.Panel()
-        Me.lnkPrintSelectedInvoice = New System.Windows.Forms.LinkLabel()
+        Me.btnPrintSelectedInvoice = New System.Windows.Forms.Button()
         Me.lblAdminFee = New System.Windows.Forms.Label()
         Me.txtTotalFee = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -547,6 +547,7 @@ Partial Class FeesAudit
         Me.dgvInvoiceData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvInvoiceData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvInvoiceData.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvInvoiceData.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvInvoiceData.LinkifyColumnByName = Nothing
         Me.dgvInvoiceData.Location = New System.Drawing.Point(3, 269)
         Me.dgvInvoiceData.Name = "dgvInvoiceData"
@@ -558,7 +559,7 @@ Partial Class FeesAudit
         '
         'Panel7
         '
-        Me.Panel7.Controls.Add(Me.lnkPrintActiveInvoices)
+        Me.Panel7.Controls.Add(Me.btnPrintActiveInvoices)
         Me.Panel7.Controls.Add(Me.llbAuditPerformed)
         Me.Panel7.Controls.Add(Me.chbInvoiceDataOperating)
         Me.Panel7.Controls.Add(Me.Label102)
@@ -617,17 +618,20 @@ Partial Class FeesAudit
         Me.Panel7.Size = New System.Drawing.Size(983, 266)
         Me.Panel7.TabIndex = 477
         '
-        'lnkPrintActiveInvoices
+        'btnPrintActiveInvoices
         '
-        Me.lnkPrintActiveInvoices.AutoSize = True
-        Me.lnkPrintActiveInvoices.Enabled = False
-        Me.lnkPrintActiveInvoices.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
-        Me.lnkPrintActiveInvoices.Location = New System.Drawing.Point(5, 243)
-        Me.lnkPrintActiveInvoices.Name = "lnkPrintActiveInvoices"
-        Me.lnkPrintActiveInvoices.Size = New System.Drawing.Size(158, 13)
-        Me.lnkPrintActiveInvoices.TabIndex = 526
-        Me.lnkPrintActiveInvoices.TabStop = True
-        Me.lnkPrintActiveInvoices.Text = "Print active invoices for fee year"
+        Me.btnPrintActiveInvoices.AutoSize = True
+        Me.btnPrintActiveInvoices.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight
+        Me.btnPrintActiveInvoices.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnPrintActiveInvoices.ForeColor = System.Drawing.Color.Blue
+        Me.btnPrintActiveInvoices.Image = Global.Iaip.My.Resources.Resources.PrintPreviewIcon
+        Me.btnPrintActiveInvoices.Location = New System.Drawing.Point(8, 238)
+        Me.btnPrintActiveInvoices.Name = "btnPrintActiveInvoices"
+        Me.btnPrintActiveInvoices.Size = New System.Drawing.Size(189, 25)
+        Me.btnPrintActiveInvoices.TabIndex = 629
+        Me.btnPrintActiveInvoices.Text = " Print active invoices for fee year"
+        Me.btnPrintActiveInvoices.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnPrintActiveInvoices.UseVisualStyleBackColor = True
         '
         'llbAuditPerformed
         '
@@ -861,6 +865,7 @@ Partial Class FeesAudit
         Me.dgvInvoiceDataNSPSExemptions.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvInvoiceDataNSPSExemptions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvInvoiceDataNSPSExemptions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvInvoiceDataNSPSExemptions.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvInvoiceDataNSPSExemptions.LinkifyColumnByName = Nothing
         Me.dgvInvoiceDataNSPSExemptions.Location = New System.Drawing.Point(628, 35)
         Me.dgvInvoiceDataNSPSExemptions.Name = "dgvInvoiceDataNSPSExemptions"
@@ -1147,6 +1152,7 @@ Partial Class FeesAudit
         Me.dgvGECOFeeContacts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvGECOFeeContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvGECOFeeContacts.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvGECOFeeContacts.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvGECOFeeContacts.LinkifyColumnByName = Nothing
         Me.dgvGECOFeeContacts.Location = New System.Drawing.Point(0, 156)
         Me.dgvGECOFeeContacts.Name = "dgvGECOFeeContacts"
@@ -1427,6 +1433,7 @@ Partial Class FeesAudit
         Me.dgvInvoices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvInvoices.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvInvoices.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvInvoices.LinkifyColumnByName = Nothing
         Me.dgvInvoices.Location = New System.Drawing.Point(505, 0)
         Me.dgvInvoices.Name = "dgvInvoices"
@@ -1438,7 +1445,7 @@ Partial Class FeesAudit
         '
         'Panel34
         '
-        Me.Panel34.Controls.Add(Me.lnkPrintSelectedInvoice)
+        Me.Panel34.Controls.Add(Me.btnPrintSelectedInvoice)
         Me.Panel34.Controls.Add(Me.lblAdminFee)
         Me.Panel34.Controls.Add(Me.txtTotalFee)
         Me.Panel34.Controls.Add(Me.Label12)
@@ -1475,17 +1482,20 @@ Partial Class FeesAudit
         Me.Panel34.Size = New System.Drawing.Size(505, 444)
         Me.Panel34.TabIndex = 1
         '
-        'lnkPrintSelectedInvoice
+        'btnPrintSelectedInvoice
         '
-        Me.lnkPrintSelectedInvoice.AutoSize = True
-        Me.lnkPrintSelectedInvoice.Enabled = False
-        Me.lnkPrintSelectedInvoice.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
-        Me.lnkPrintSelectedInvoice.Location = New System.Drawing.Point(272, 19)
-        Me.lnkPrintSelectedInvoice.Name = "lnkPrintSelectedInvoice"
-        Me.lnkPrintSelectedInvoice.Size = New System.Drawing.Size(108, 13)
-        Me.lnkPrintSelectedInvoice.TabIndex = 428
-        Me.lnkPrintSelectedInvoice.TabStop = True
-        Me.lnkPrintSelectedInvoice.Text = "Print selected invoice"
+        Me.btnPrintSelectedInvoice.AutoSize = True
+        Me.btnPrintSelectedInvoice.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight
+        Me.btnPrintSelectedInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnPrintSelectedInvoice.ForeColor = System.Drawing.Color.Blue
+        Me.btnPrintSelectedInvoice.Image = Global.Iaip.My.Resources.Resources.PrintPreviewIcon
+        Me.btnPrintSelectedInvoice.Location = New System.Drawing.Point(275, 13)
+        Me.btnPrintSelectedInvoice.Name = "btnPrintSelectedInvoice"
+        Me.btnPrintSelectedInvoice.Size = New System.Drawing.Size(139, 25)
+        Me.btnPrintSelectedInvoice.TabIndex = 628
+        Me.btnPrintSelectedInvoice.Text = " Print selected invoice"
+        Me.btnPrintSelectedInvoice.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnPrintSelectedInvoice.UseVisualStyleBackColor = True
         '
         'lblAdminFee
         '
@@ -1772,6 +1782,7 @@ Partial Class FeesAudit
         Me.dgvTransactions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvTransactions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvTransactions.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvTransactions.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvTransactions.LinkifyColumnByName = Nothing
         Me.dgvTransactions.Location = New System.Drawing.Point(0, 226)
         Me.dgvTransactions.Name = "dgvTransactions"
@@ -3404,6 +3415,7 @@ Partial Class FeesAudit
         Me.dgvAuditHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvAuditHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvAuditHistory.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvAuditHistory.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvAuditHistory.LinkifyColumnByName = Nothing
         Me.dgvAuditHistory.Location = New System.Drawing.Point(0, 40)
         Me.dgvAuditHistory.Name = "dgvAuditHistory"
@@ -5388,13 +5400,13 @@ Partial Class FeesAudit
     Friend WithEvents MailoutSaveFacilityButton As System.Windows.Forms.Button
     Friend WithEvents MailoutCancelEditFacilityButton As System.Windows.Forms.Button
     Friend WithEvents txtGECOContactPhoneNumber As TextBox
-    Friend WithEvents lnkPrintSelectedInvoice As LinkLabel
     Friend WithEvents UrlToolTip As ToolTip
-    Friend WithEvents lnkPrintActiveInvoices As LinkLabel
     Friend WithEvents Label4 As Label
     Friend WithEvents txtInvoiceDataMaintenanceFee As TextBox
     Friend WithEvents txtEditMaintenanceFee As TextBox
     Friend WithEvents txtAuditedMaintenanceFee As TextBox
     Friend WithEvents txtGecoMaintenanceFee As TextBox
     Friend WithEvents Label5 As Label
+    Friend WithEvents btnPrintSelectedInvoice As Button
+    Friend WithEvents btnPrintActiveInvoices As Button
 End Class

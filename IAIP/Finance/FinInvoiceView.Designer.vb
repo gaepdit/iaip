@@ -35,7 +35,6 @@ Partial Class FinInvoiceView
         Me.lblStatus = New System.Windows.Forms.Label()
         Me.btnVoid = New System.Windows.Forms.Button()
         Me.btnNewDeposit = New System.Windows.Forms.Button()
-        Me.lnkViewInvoice = New System.Windows.Forms.LinkLabel()
         Me.txtComments = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btnSaveComment = New System.Windows.Forms.Button()
@@ -57,6 +56,7 @@ Partial Class FinInvoiceView
         Me.lnkFacility = New System.Windows.Forms.LinkLabel()
         Me.txtDueDate = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.btnViewInvoice = New System.Windows.Forms.Button()
         CType(Me.dgvPaymentsApplied, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvInvoiceItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -157,21 +157,6 @@ Partial Class FinInvoiceView
         Me.btnNewDeposit.UseVisualStyleBackColor = True
         Me.btnNewDeposit.Visible = False
         '
-        'lnkViewInvoice
-        '
-        Me.lnkViewInvoice.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lnkViewInvoice.AutoSize = True
-        Me.lnkViewInvoice.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lnkViewInvoice.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.lnkViewInvoice.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
-        Me.lnkViewInvoice.Location = New System.Drawing.Point(12, 517)
-        Me.lnkViewInvoice.Name = "lnkViewInvoice"
-        Me.lnkViewInvoice.Size = New System.Drawing.Size(144, 17)
-        Me.lnkViewInvoice.TabIndex = 12
-        Me.lnkViewInvoice.TabStop = True
-        Me.lnkViewInvoice.Text = "View printable invoice"
-        Me.lnkViewInvoice.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
         'txtComments
         '
         Me.txtComments.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -210,6 +195,7 @@ Partial Class FinInvoiceView
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvPaymentsApplied.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvPaymentsApplied.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvPaymentsApplied.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvPaymentsApplied.LinkifyColumnByName = Nothing
         Me.dgvPaymentsApplied.LinkifyFirstColumn = True
         Me.dgvPaymentsApplied.Location = New System.Drawing.Point(12, 413)
@@ -339,6 +325,7 @@ Partial Class FinInvoiceView
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvInvoiceItems.DefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvInvoiceItems.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvInvoiceItems.LinkifyColumnByName = Nothing
         Me.dgvInvoiceItems.Location = New System.Drawing.Point(12, 282)
         Me.dgvInvoiceItems.Name = "dgvInvoiceItems"
@@ -412,6 +399,22 @@ Partial Class FinInvoiceView
         Me.Label10.TabIndex = 5
         Me.Label10.Text = "Due Date"
         '
+        'btnViewInvoice
+        '
+        Me.btnViewInvoice.AutoSize = True
+        Me.btnViewInvoice.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control
+        Me.btnViewInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnViewInvoice.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnViewInvoice.ForeColor = System.Drawing.Color.Blue
+        Me.btnViewInvoice.Image = Global.Iaip.My.Resources.Resources.PrintPreviewIcon
+        Me.btnViewInvoice.Location = New System.Drawing.Point(12, 511)
+        Me.btnViewInvoice.Name = "btnViewInvoice"
+        Me.btnViewInvoice.Size = New System.Drawing.Size(177, 29)
+        Me.btnViewInvoice.TabIndex = 342
+        Me.btnViewInvoice.Text = " View Printable Invoice"
+        Me.btnViewInvoice.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnViewInvoice.UseVisualStyleBackColor = True
+        '
         'FinInvoiceView
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -430,7 +433,6 @@ Partial Class FinInvoiceView
         Me.Controls.Add(Me.dgvPaymentsApplied)
         Me.Controls.Add(Me.txtComments)
         Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.lnkViewInvoice)
         Me.Controls.Add(Me.btnNewDeposit)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Label8)
@@ -447,6 +449,7 @@ Partial Class FinInvoiceView
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.btnViewInvoice)
         Me.MinimumSize = New System.Drawing.Size(494, 590)
         Me.Name = "FinInvoiceView"
         Me.Text = "Application Fee Invoice"
@@ -465,7 +468,6 @@ Partial Class FinInvoiceView
     Friend WithEvents lblStatus As Label
     Friend WithEvents btnVoid As Button
     Friend WithEvents btnNewDeposit As Button
-    Friend WithEvents lnkViewInvoice As LinkLabel
     Friend WithEvents txtComments As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents btnSaveComment As Button
@@ -487,4 +489,5 @@ Partial Class FinInvoiceView
     Friend WithEvents lnkFacility As LinkLabel
     Friend WithEvents txtDueDate As TextBox
     Friend WithEvents Label10 As Label
+    Friend WithEvents btnViewInvoice As Button
 End Class

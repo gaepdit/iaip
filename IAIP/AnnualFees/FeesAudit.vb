@@ -3107,30 +3107,30 @@ Public Class FeesAudit
     End Sub
 
     Private Sub EnablePrintActiveInvoicesLink()
-        lnkPrintActiveInvoices.Enabled = True
-        UrlToolTip.SetToolTip(lnkPrintActiveInvoices, GetEmissionFeeInvoiceUrl(AirsNumber, CInt(FeeYear)).ToString())
+        btnPrintActiveInvoices.Enabled = True
+        UrlToolTip.SetToolTip(btnPrintActiveInvoices, GetEmissionFeeInvoiceUrl(AirsNumber, CInt(FeeYear)).ToString())
     End Sub
 
     Private Sub DisablePrintActiveInvoicesLink()
-        lnkPrintActiveInvoices.Enabled = False
-        UrlToolTip.SetToolTip(lnkPrintActiveInvoices, Nothing)
+        btnPrintActiveInvoices.Enabled = False
+        UrlToolTip.SetToolTip(btnPrintActiveInvoices, Nothing)
     End Sub
 
     Private Sub EnablePrintSelectedInvoiceLink()
-        lnkPrintSelectedInvoice.Enabled = True
-        UrlToolTip.SetToolTip(lnkPrintSelectedInvoice, GetEmissionFeeInvoiceUrl(AirsNumber, CInt(FeeYear), CInt(txtInvoice.Text)).ToString())
+        btnPrintSelectedInvoice.Enabled = True
+        UrlToolTip.SetToolTip(btnPrintSelectedInvoice, GetEmissionFeeInvoiceUrl(AirsNumber, CInt(FeeYear), CInt(txtInvoice.Text)).ToString())
     End Sub
 
     Private Sub DisablePrintSelectedInvoiceLink()
-        lnkPrintSelectedInvoice.Enabled = False
-        UrlToolTip.SetToolTip(lnkPrintSelectedInvoice, Nothing)
+        btnPrintSelectedInvoice.Enabled = False
+        UrlToolTip.SetToolTip(btnPrintSelectedInvoice, Nothing)
     End Sub
 
-    Private Sub lnkPrintActiveInvoices_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkPrintActiveInvoices.LinkClicked
+    Private Sub btnPrintActiveInvoices_Click(sender As Object, e As EventArgs) Handles btnPrintActiveInvoices.Click
         OpenEmissionFeeInvoiceUrl(AirsNumber, CInt(FeeYear))
     End Sub
 
-    Private Sub LnkPrintSelectedInvoice_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkPrintSelectedInvoice.LinkClicked
+    Private Sub btnPrintSelectedInvoice_Click(sender As Object, e As EventArgs) Handles btnPrintSelectedInvoice.Click
         OpenEmissionFeeInvoiceUrl(AirsNumber, CInt(FeeYear), CInt(txtInvoice.Text))
     End Sub
 

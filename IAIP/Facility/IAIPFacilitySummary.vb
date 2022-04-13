@@ -653,6 +653,10 @@ Public Class IAIPFacilitySummary
             Case PermitApplicationInvoicesGrid.Name
                 OpenInvoiceView(CInt(itemId))
 
+                ' Emissions Fees
+            Case FinancialInvoicesGrid.Name
+                OpenEmissionFeeInvoiceUrl(AirsNumber, CInt(itemId))
+
         End Select
     End Sub
 
@@ -665,7 +669,8 @@ Public Class IAIPFacilitySummary
             TestNotificationsGrid,
             TestMemosGrid,
             PermitApplicationGrid,
-            PermitApplicationInvoicesGrid
+            PermitApplicationInvoicesGrid,
+            FinancialInvoicesGrid
         }
 
         For Each dgv As IaipDataGridView In gridsWithEvents
@@ -794,7 +799,14 @@ Public Class IAIPFacilitySummary
                 item.Key.DataBindings.Add(New Binding("Checked", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), item.Value, True))
             Next
 
+            Dim feeInvoiceButtonVisibleBinding As New Binding("Enabled", FacilitySummaryDataSet.Tables(FacilityDataTable.EmissionsFeesSummary.ToString), "Invoice generated")
+            btnViewInvoice.DataBindings.Add(feeInvoiceButtonVisibleBinding)
+
         End If
+    End Sub
+
+    Private Sub btnViewInvoice_Click(sender As Object, e As EventArgs) Handles btnViewInvoice.Click
+        OpenEmissionFeeInvoiceUrl(AirsNumber, FeeYearSelect.SelectedValue)
     End Sub
 
     Private Sub BindingShortDate(sender As Object, e As ConvertEventArgs)
