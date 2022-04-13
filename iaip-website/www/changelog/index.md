@@ -11,6 +11,12 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.1.2 <span>(2022-04-13)</span>
+
+Fixed an error message in the PA/PN tool that would display if no PN applications were selected.
+
+Added easier access to fee invoices.
+
 ## Version 6.1.0 <span>(2022-03-31)</span>
 
 Public notices can now be issued for SIP and SM permit applications.
