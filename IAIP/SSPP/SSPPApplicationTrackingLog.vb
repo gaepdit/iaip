@@ -14101,15 +14101,11 @@ Public Class SSPPApplicationTrackingLog
         End If
 
         body.Append("The applicant must complete the submittal process by paying the above referenced fee. ")
-        body.AppendFormat("A printable fee invoice is accessible through GECO at {0} ", GetPermitApplicationUrl(AppNumber).ToString())
+        body.AppendFormat("A printable fee invoice is accessible online at {0} ", GetPermitApplicationUrl(AppNumber).ToString())
         body.AppendLine()
         body.AppendLine()
         body.Append("FEE PAYMENT INSTRUCTIONS: Don’t send payment to the Air Branch office address; pay by check to the PO Box ")
         body.Append("listed on the invoice or by credit card following the instructions on the invoice.")
-        body.AppendLine()
-        body.AppendLine()
-        body.AppendFormat("If you do not have a GECO account, visit {0} and create a new account. ", GecoUrl.ToString)
-        body.Append("You can then request access to this facility for emission fees using the tools in GECO.")
         body.AppendLine()
         body.AppendLine()
         body.Append("The fee must be submitted within 10 business days of the date of this email. Permitting actions will not be finalized ")
