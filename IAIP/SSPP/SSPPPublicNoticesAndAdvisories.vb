@@ -174,7 +174,7 @@ Public Class SSPPPublicNoticesAndAdvisories
         ' All Public Notices
         Dim dtPN As New DataTable()
 
-        If selectedAdvisoryApps.Count > 0 Then
+        If selectedNoticeApps.Count > 0 Then
             dtPN = DB.SPGetDataTable("dbo.GetAppDetailsForPN", selectedNoticeApps.AsTvpSqlParameter("@AppNums"))
         End If
 
