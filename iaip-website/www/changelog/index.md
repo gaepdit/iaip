@@ -11,6 +11,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.2.0 <span>(2022-04-18)</span>
+
+The permit application fee invoicing workflow has been simplified
+
 ## Version 6.1.2 <span>(2022-04-13)</span>
 
 Fixed an error message in the PA/PN tool that would display if no PN applications were selected.
