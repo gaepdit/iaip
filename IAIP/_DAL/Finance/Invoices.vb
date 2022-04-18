@@ -122,6 +122,32 @@ Namespace DAL.Finance
 
         ' Write
 
+        Public Function GenerateInvoice(appNumber As Integer, userId As Integer, ByRef invoiceId As Integer) As GenerateInvoiceResult
+            Dim spName As String = "fees.GenerateInvoiceForPermitApplication"
+
+            Dim params As SqlParameter() = {
+                New SqlParameter("@AppNumber", appNumber),
+                New SqlParameter("@UserID", userId),
+                New SqlParameter("@FromIaip", True)
+            }
+
+            Dim returnValue As Integer
+
+            invoiceId = DB.SPGetInteger(spName, params, returnValue)
+
+            Return returnValue
+        End Function
+
+        Public Enum GenerateInvoiceResult
+            DbError = -1
+            Success = 0
+            NoApplication = 1
+            InvoiceExists = 2
+            NoLineItems = 3
+            InvalidInvoiceTotal = 4
+            InvalidFacilityId = 5
+        End Enum
+
         Public Function SaveInvoiceComment(invoiceId As Integer, comment As String) As Boolean
             Dim spName As String = "fees.SaveInvoiceComment"
 

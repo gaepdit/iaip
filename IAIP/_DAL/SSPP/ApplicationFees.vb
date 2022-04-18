@@ -77,5 +77,21 @@ Namespace DAL.Sspp
             InvoiceAlreadyGenerated = 2
         End Enum
 
+        Public Function SaveApplicationFeesDateFacilityNotified(applicationNumber As Integer, dateFacilityNotifiedOfFees As Date?) As Boolean
+            Dim spName As String = "fees.SaveApplicationFeesDateFacilityNotified"
+
+            Dim params As SqlParameter() = {
+                New SqlParameter("@ApplicationNumber", applicationNumber),
+                New SqlParameter("@DateFacilityNotifiedOfFees", dateFacilityNotifiedOfFees),
+                New SqlParameter("@UserID", CurrentUser.UserID)
+            }
+
+            If DB.SPReturnValue(spName, params) = 0 Then
+                Return True
+            End If
+
+            Return False
+        End Function
+
     End Module
 End Namespace

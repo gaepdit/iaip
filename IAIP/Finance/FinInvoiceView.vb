@@ -154,7 +154,7 @@ Public Class FinInvoiceView
                 lblVoidMessage.ShowMessage("Cannot void invoice because payments have been applied.", ErrorLevel.Error)
 
             Case VoidInvoiceResult.Success
-                lblVoidMessage.ShowMessage("This invoice does not exist.", ErrorLevel.Info)
+                lblVoidMessage.ShowMessage("This invoice has successfully been voided.", ErrorLevel.Info)
                 lblStatus.Text = "Status: VOID"
 
         End Select
