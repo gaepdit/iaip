@@ -643,49 +643,60 @@ Public Class ISMPTestReportAdministrative
 
                     LoadAddress()
 
-                    query = "Select  " &
-              "ISMPReportInformation.strReferenceNumber, " &
-              "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-              "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-              "format(datTestDateEnd, 'dd-MMM-yyyy') as forDatTestDateEnd, " &
-              "format(datReviewedByUnitmanager, 'dd-MMM-yyyy') as forDatReviewedByUnitManager, " &
-              "format(datCompleteDate, 'dd-MMM-yyyy') as forDateComplete, " &
-              "strClosed, " &
-              "ISMpReportType.strReportType, " &
-              "(select concat(strLastName,', ',strFirstName) as ReviewingEngineer " &
-               "from EPDUserProfiles, ISMPReportInformation " &
-               "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
-               "and ISMPReportInformation.strReferencenumber = @ref ) as ReviewingENgineer,  " &
-              "concat(strLastName,', ',strFirstName) as UnitManager, " &
-               "strEmissionSource, " &
-               "LookUpTestingFirms.strTestingFirm, " &
-               "LookUpPollutants.strPollutantDescription,  " &
-               "LookUpEPDUnits.strUnitDesc, " &
-               "ISMPDocumentType.strDocumentType, " &
-               "LookUpISMPComplianceStatus.strComplianceStatus " &
-                "from ISMPMaster " &
-                " INNER JOIN ISMPReportInformation " &
-                "ON ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                " INNER JOIN ISMPReportType " &
-                "ON ISMPReportInformation.strReportType = ISMpReportType.strKey " &
-                " INNER JOIN LookUpTestingFirms " &
-                "ON ISMPREportINformation.strTestingFirm = LookUpTestingFirms.strTestingFirmKey " &
-                " INNER JOIN LookUpPollutants " &
-                "ON ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode " &
-                " LEFT JOIN EPDUSerPRofiles " &
-                "ON ISMPREportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-                " LEFT JOIN LookUpEPDUnits " &
-                "ON EPDUserPRofiles.numUnit = LookUpEPDUnits.numUnitCode " &
-                " INNER JOIN ISMPDocumentType " &
-                "ON ISMPReportInformation.strDocumentTYpe = ISMPDocumentType.strKEy " &
-                " INNER JOIN LookUpISMpComplianceStatus " &
-                "ON ISMPReportINformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey " &
-                "where ISMPMaster.strReferenceNumber = @ref "
+                    query = "select i.strReferenceNumber,
+                               format(i.datReceivedDate, 'dd-MMM-yyyy')              as forDatReceivedDate,
+                               format(i.datTestDateStart, 'dd-MMM-yyyy')             as forDatTestDateStart,
+                               format(i.datTestDateEnd, 'dd-MMM-yyyy')               as forDatTestDateEnd,
+                               format(i.datReviewedByUnitmanager, 'dd-MMM-yyyy')     as forDatReviewedByUnitManager,
+                               format(i.datCompleteDate, 'dd-MMM-yyyy')              as forDateComplete,
+                               i.strClosed,
+                               t.strReportType,
+                               concat(u2.strLastName, ', ', u2.strFirstName)         as ReviewingEngineer,
+                               concat(u.strLastName, ', ', u.strFirstName)           as UnitManager,
+                               i.strEmissionSource,
+                               f.strTestingFirm,
+                               p.strPollutantDescription,
+                               e.strUnitDesc,
+                               d.strDocumentType,
+                               l.strComplianceStatus,
+                               convert(bit, iif(a.STRAFSACTIONNUMBER is null, 0, 1)) as AfsActionNumberExists
+                        from ISMPMASTER m
+                            INNER JOIN ISMPREPORTINFORMATION i
+                            ON m.strReferenceNumber = i.strReferenceNumber
+                            INNER JOIN ISMPREPORTTYPE t
+                            on i.STRREPORTTYPE = t.STRKEY
+                            INNER JOIN LOOKUPTESTINGFIRMS f
+                            ON i.strTestingFirm = f.strTestingFirmKey
+                            INNER JOIN LOOKUPPOLLUTANTS p
+                            ON i.strPollutant = p.strPollutantCode
+                            LEFT JOIN EPDUSERPROFILES u
+                            ON i.numReviewingManager = u.numUserID
+                            LEFT JOIN EPDUSERPROFILES u2
+                            ON i.STRREVIEWINGENGINEER = u2.numUserID
+                            LEFT JOIN LOOKUPEPDUNITS e
+                            ON u.numUnit = e.numUnitCode
+                            INNER JOIN ISMPDOCUMENTTYPE d
+                            ON i.strDocumentTYpe = d.strKEy
+                            INNER JOIN LOOKUPISMPCOMPLIANCESTATUS l
+                            ON i.strComplianceStatus = l.strComplianceKey
+                            left join AFSISMPRECORDS a
+                            on a.STRREFERENCENUMBER = m.STRREFERENCENUMBER
+                        where m.strReferenceNumber = @ref"
 
                     Dim p1 As New SqlParameter("@ref", txtReferenceNumber.Text)
 
                     Dim dr2 As DataRow = DB.GetDataRow(query, p1)
                     If dr2 IsNot Nothing Then
+                        If dr2.Item("AfsActionNumberExists") Then
+                            cboAIRSNumber.Enabled = False
+                            btnSearchForAIRS.Enabled = False
+                            btnLoadCombos.Enabled = False
+                        Else
+                            cboAIRSNumber.Enabled = True
+                            btnSearchForAIRS.Enabled = True
+                            btnLoadCombos.Enabled = True
+                        End If
+
                         DTPDateReceived.Text = dr2.Item("forDatReceivedDate")
                         txtEmissionSource.Text = dr2.Item("strEmissionSource")
                         cboTestingFirms.Text = dr2.Item("strTestingFirm")
@@ -742,6 +753,10 @@ Public Class ISMPTestReportAdministrative
                     cboAIRSNumber.SelectedIndex = 0
                 End If
             End If
+
+            cboAIRSNumber.Enabled = True
+            btnSearchForAIRS.Enabled = True
+            btnLoadCombos.Enabled = True
 
             txtFacilityAddress.Clear()
             txtFacilityCity.Clear()
@@ -1861,6 +1876,9 @@ Public Class ISMPTestReportAdministrative
     Private Sub btnLoadCombos_Click(sender As Object, e As EventArgs) Handles btnLoadCombos.Click
         btnSearchForAIRS.Visible = False
         cboAIRSNumber.Text = ""
+        cboAIRSNumber.Enabled = True
+        btnSearchForAIRS.Enabled = True
+        btnLoadCombos.Enabled = True
         cboFacilityName.Text = ""
         txtFacilityAddress.Clear()
         txtFacilityCity.Clear()
