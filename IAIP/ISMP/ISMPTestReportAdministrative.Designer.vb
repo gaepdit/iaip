@@ -10,6 +10,7 @@ Partial Class ISMPTestReportAdministrative
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MainMenu1 = New System.Windows.Forms.MenuStrip()
         Me.MenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MmiSave = New System.Windows.Forms.ToolStripMenuItem()
@@ -58,7 +59,6 @@ Partial Class ISMPTestReportAdministrative
         Me.mmiMemo = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiAddTestingFirm = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiRefreshLists = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnLoadCombos = New System.Windows.Forms.Button()
         Me.btnSearchForAIRS = New System.Windows.Forms.Button()
         Me.btnClearReferenceNumber = New System.Windows.Forms.Button()
@@ -99,7 +99,7 @@ Partial Class ISMPTestReportAdministrative
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txtReferenceNumber = New System.Windows.Forms.TextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.dgvFacilityInfo = New System.Windows.Forms.DataGridView()
+        Me.dgvFacilityInfo = New Iaip.IaipDataGridView()
         Me.TCTestReports = New System.Windows.Forms.TabControl()
         Me.TPNewTestReports = New System.Windows.Forms.TabPage()
         Me.TPHistoricalReports = New System.Windows.Forms.TabPage()
@@ -138,7 +138,6 @@ Partial Class ISMPTestReportAdministrative
         Me.ClearToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MainMenu1.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.GBRecordStatus.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.dgvFacilityInfo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -466,57 +465,11 @@ Partial Class ISMPTestReportAdministrative
         Me.mmiRefreshLists.Size = New System.Drawing.Size(163, 22)
         Me.mmiRefreshLists.Text = "Refresh Lists"
         '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.btnLoadCombos)
-        Me.GroupBox1.Controls.Add(Me.btnSearchForAIRS)
-        Me.GroupBox1.Controls.Add(Me.btnClearReferenceNumber)
-        Me.GroupBox1.Controls.Add(Me.btnCloseTestReport)
-        Me.GroupBox1.Controls.Add(Me.clbReferenceNumbers)
-        Me.GroupBox1.Controls.Add(Me.btnDeleteTestReport)
-        Me.GroupBox1.Controls.Add(Me.btnInsert)
-        Me.GroupBox1.Controls.Add(Me.DTPTestDateStart)
-        Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.txtDaysInAPB)
-        Me.GroupBox1.Controls.Add(Me.Label24)
-        Me.GroupBox1.Controls.Add(Me.Label45)
-        Me.GroupBox1.Controls.Add(Me.DTPTestDateEnd)
-        Me.GroupBox1.Controls.Add(Me.cboPollutant)
-        Me.GroupBox1.Controls.Add(Me.txtEmissionSource)
-        Me.GroupBox1.Controls.Add(Me.cboTestingFirms)
-        Me.GroupBox1.Controls.Add(Me.Label51)
-        Me.GroupBox1.Controls.Add(Me.Label47)
-        Me.GroupBox1.Controls.Add(Me.Label46)
-        Me.GroupBox1.Controls.Add(Me.LLFacilityName)
-        Me.GroupBox1.Controls.Add(Me.Label41)
-        Me.GroupBox1.Controls.Add(Me.cboFacilityName)
-        Me.GroupBox1.Controls.Add(Me.Label42)
-        Me.GroupBox1.Controls.Add(Me.txtFacilityAddress)
-        Me.GroupBox1.Controls.Add(Me.txtFacilityCity)
-        Me.GroupBox1.Controls.Add(Me.txtFacilityState)
-        Me.GroupBox1.Controls.Add(Me.txtFacilityZipCode)
-        Me.GroupBox1.Controls.Add(Me.cboAIRSNumber)
-        Me.GroupBox1.Controls.Add(Me.Label40)
-        Me.GroupBox1.Controls.Add(Me.DTPDateReceived)
-        Me.GroupBox1.Controls.Add(Me.Label21)
-        Me.GroupBox1.Controls.Add(Me.DTPDateClosed)
-        Me.GroupBox1.Controls.Add(Me.Label17)
-        Me.GroupBox1.Controls.Add(Me.GBRecordStatus)
-        Me.GroupBox1.Controls.Add(Me.chbOverright)
-        Me.GroupBox1.Controls.Add(Me.Label10)
-        Me.GroupBox1.Controls.Add(Me.txtReferenceNumber)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(802, 279)
-        Me.GroupBox1.TabIndex = 48
-        Me.GroupBox1.TabStop = False
-        '
         'btnLoadCombos
         '
         Me.btnLoadCombos.AutoSize = True
         Me.btnLoadCombos.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnLoadCombos.Location = New System.Drawing.Point(652, 13)
+        Me.btnLoadCombos.Location = New System.Drawing.Point(652, 6)
         Me.btnLoadCombos.Name = "btnLoadCombos"
         Me.btnLoadCombos.Size = New System.Drawing.Size(137, 23)
         Me.btnLoadCombos.TabIndex = 221
@@ -527,7 +480,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.btnSearchForAIRS.AutoSize = True
         Me.btnSearchForAIRS.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSearchForAIRS.Location = New System.Drawing.Point(216, 38)
+        Me.btnSearchForAIRS.Location = New System.Drawing.Point(207, 33)
         Me.btnSearchForAIRS.Name = "btnSearchForAIRS"
         Me.btnSearchForAIRS.Size = New System.Drawing.Size(51, 23)
         Me.btnSearchForAIRS.TabIndex = 220
@@ -538,7 +491,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.btnClearReferenceNumber.AutoSize = True
         Me.btnClearReferenceNumber.Image = Global.Iaip.My.Resources.Resources.EraseIcon
-        Me.btnClearReferenceNumber.Location = New System.Drawing.Point(188, 13)
+        Me.btnClearReferenceNumber.Location = New System.Drawing.Point(192, 6)
         Me.btnClearReferenceNumber.Name = "btnClearReferenceNumber"
         Me.btnClearReferenceNumber.Size = New System.Drawing.Size(22, 22)
         Me.btnClearReferenceNumber.TabIndex = 219
@@ -548,7 +501,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.btnCloseTestReport.AutoSize = True
         Me.btnCloseTestReport.Enabled = False
-        Me.btnCloseTestReport.Location = New System.Drawing.Point(629, 196)
+        Me.btnCloseTestReport.Location = New System.Drawing.Point(629, 191)
         Me.btnCloseTestReport.Name = "btnCloseTestReport"
         Me.btnCloseTestReport.Size = New System.Drawing.Size(120, 23)
         Me.btnCloseTestReport.TabIndex = 15
@@ -562,7 +515,7 @@ Partial Class ISMPTestReportAdministrative
         Me.clbReferenceNumbers.CheckOnClick = True
         Me.clbReferenceNumbers.FormattingEnabled = True
         Me.clbReferenceNumbers.HorizontalScrollbar = True
-        Me.clbReferenceNumbers.Location = New System.Drawing.Point(509, 39)
+        Me.clbReferenceNumbers.Location = New System.Drawing.Point(509, 35)
         Me.clbReferenceNumbers.Name = "clbReferenceNumbers"
         Me.clbReferenceNumbers.Size = New System.Drawing.Size(280, 109)
         Me.clbReferenceNumbers.TabIndex = 217
@@ -570,7 +523,7 @@ Partial Class ISMPTestReportAdministrative
         'btnDeleteTestReport
         '
         Me.btnDeleteTestReport.AutoSize = True
-        Me.btnDeleteTestReport.Location = New System.Drawing.Point(301, 250)
+        Me.btnDeleteTestReport.Location = New System.Drawing.Point(301, 246)
         Me.btnDeleteTestReport.Name = "btnDeleteTestReport"
         Me.btnDeleteTestReport.Size = New System.Drawing.Size(120, 23)
         Me.btnDeleteTestReport.TabIndex = 11
@@ -580,7 +533,7 @@ Partial Class ISMPTestReportAdministrative
         'btnInsert
         '
         Me.btnInsert.AutoSize = True
-        Me.btnInsert.Location = New System.Drawing.Point(116, 250)
+        Me.btnInsert.Location = New System.Drawing.Point(116, 246)
         Me.btnInsert.Name = "btnInsert"
         Me.btnInsert.Size = New System.Drawing.Size(135, 23)
         Me.btnInsert.TabIndex = 10
@@ -591,7 +544,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.DTPTestDateStart.CustomFormat = "dd-MMM-yyyy"
         Me.DTPTestDateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPTestDateStart.Location = New System.Drawing.Point(116, 171)
+        Me.DTPTestDateStart.Location = New System.Drawing.Point(116, 167)
         Me.DTPTestDateStart.Name = "DTPTestDateStart"
         Me.DTPTestDateStart.Size = New System.Drawing.Size(104, 20)
         Me.DTPTestDateStart.TabIndex = 5
@@ -599,7 +552,7 @@ Partial Class ISMPTestReportAdministrative
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(390, 146)
+        Me.Label3.Location = New System.Drawing.Point(390, 145)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(31, 13)
         Me.Label3.TabIndex = 201
@@ -607,7 +560,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtDaysInAPB
         '
-        Me.txtDaysInAPB.Location = New System.Drawing.Point(328, 142)
+        Me.txtDaysInAPB.Location = New System.Drawing.Point(328, 141)
         Me.txtDaysInAPB.Name = "txtDaysInAPB"
         Me.txtDaysInAPB.ReadOnly = True
         Me.txtDaysInAPB.Size = New System.Drawing.Size(61, 20)
@@ -616,7 +569,7 @@ Partial Class ISMPTestReportAdministrative
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(226, 146)
+        Me.Label24.Location = New System.Drawing.Point(226, 145)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(96, 13)
         Me.Label24.TabIndex = 199
@@ -625,7 +578,7 @@ Partial Class ISMPTestReportAdministrative
         'Label45
         '
         Me.Label45.AutoSize = True
-        Me.Label45.Location = New System.Drawing.Point(26, 228)
+        Me.Label45.Location = New System.Drawing.Point(30, 223)
         Me.Label45.Name = "Label45"
         Me.Label45.Size = New System.Drawing.Size(80, 13)
         Me.Label45.TabIndex = 188
@@ -635,7 +588,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.DTPTestDateEnd.CustomFormat = "dd-MMM-yyyy"
         Me.DTPTestDateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPTestDateEnd.Location = New System.Drawing.Point(248, 171)
+        Me.DTPTestDateEnd.Location = New System.Drawing.Point(248, 167)
         Me.DTPTestDateEnd.Name = "DTPTestDateEnd"
         Me.DTPTestDateEnd.Size = New System.Drawing.Size(104, 20)
         Me.DTPTestDateEnd.TabIndex = 6
@@ -646,14 +599,14 @@ Partial Class ISMPTestReportAdministrative
         Me.cboPollutant.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboPollutant.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboPollutant.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboPollutant.Location = New System.Drawing.Point(498, 224)
+        Me.cboPollutant.Location = New System.Drawing.Point(509, 220)
         Me.cboPollutant.Name = "cboPollutant"
-        Me.cboPollutant.Size = New System.Drawing.Size(281, 21)
+        Me.cboPollutant.Size = New System.Drawing.Size(280, 21)
         Me.cboPollutant.TabIndex = 9
         '
         'txtEmissionSource
         '
-        Me.txtEmissionSource.Location = New System.Drawing.Point(116, 224)
+        Me.txtEmissionSource.Location = New System.Drawing.Point(116, 220)
         Me.txtEmissionSource.MaxLength = 100
         Me.txtEmissionSource.Name = "txtEmissionSource"
         Me.txtEmissionSource.Size = New System.Drawing.Size(305, 20)
@@ -664,7 +617,7 @@ Partial Class ISMPTestReportAdministrative
         Me.cboTestingFirms.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboTestingFirms.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboTestingFirms.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboTestingFirms.Location = New System.Drawing.Point(116, 197)
+        Me.cboTestingFirms.Location = New System.Drawing.Point(116, 193)
         Me.cboTestingFirms.Name = "cboTestingFirms"
         Me.cboTestingFirms.Size = New System.Drawing.Size(305, 21)
         Me.cboTestingFirms.TabIndex = 7
@@ -672,7 +625,7 @@ Partial Class ISMPTestReportAdministrative
         'Label51
         '
         Me.Label51.AutoSize = True
-        Me.Label51.Location = New System.Drawing.Point(44, 175)
+        Me.Label51.Location = New System.Drawing.Point(48, 173)
         Me.Label51.Name = "Label51"
         Me.Label51.Size = New System.Drawing.Size(62, 13)
         Me.Label51.TabIndex = 187
@@ -681,7 +634,7 @@ Partial Class ISMPTestReportAdministrative
         'Label47
         '
         Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(444, 228)
+        Me.Label47.Location = New System.Drawing.Point(452, 223)
         Me.Label47.Name = "Label47"
         Me.Label47.Size = New System.Drawing.Size(51, 13)
         Me.Label47.TabIndex = 186
@@ -690,7 +643,7 @@ Partial Class ISMPTestReportAdministrative
         'Label46
         '
         Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(39, 201)
+        Me.Label46.Location = New System.Drawing.Point(43, 199)
         Me.Label46.Name = "Label46"
         Me.Label46.Size = New System.Drawing.Size(67, 13)
         Me.Label46.TabIndex = 185
@@ -699,7 +652,7 @@ Partial Class ISMPTestReportAdministrative
         'LLFacilityName
         '
         Me.LLFacilityName.AutoSize = True
-        Me.LLFacilityName.Location = New System.Drawing.Point(33, 67)
+        Me.LLFacilityName.Location = New System.Drawing.Point(37, 65)
         Me.LLFacilityName.Name = "LLFacilityName"
         Me.LLFacilityName.Size = New System.Drawing.Size(73, 13)
         Me.LLFacilityName.TabIndex = 180
@@ -709,7 +662,7 @@ Partial Class ISMPTestReportAdministrative
         'Label41
         '
         Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(23, 94)
+        Me.Label41.Location = New System.Drawing.Point(27, 92)
         Me.Label41.Name = "Label41"
         Me.Label41.Size = New System.Drawing.Size(83, 13)
         Me.Label41.TabIndex = 172
@@ -719,7 +672,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.cboFacilityName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboFacilityName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboFacilityName.Location = New System.Drawing.Point(116, 63)
+        Me.cboFacilityName.Location = New System.Drawing.Point(116, 62)
         Me.cboFacilityName.Name = "cboFacilityName"
         Me.cboFacilityName.Size = New System.Drawing.Size(304, 21)
         Me.cboFacilityName.TabIndex = 2
@@ -727,7 +680,7 @@ Partial Class ISMPTestReportAdministrative
         'Label42
         '
         Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(29, 120)
+        Me.Label42.Location = New System.Drawing.Point(33, 118)
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(77, 13)
         Me.Label42.TabIndex = 173
@@ -735,7 +688,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtFacilityAddress
         '
-        Me.txtFacilityAddress.Location = New System.Drawing.Point(116, 90)
+        Me.txtFacilityAddress.Location = New System.Drawing.Point(116, 89)
         Me.txtFacilityAddress.Name = "txtFacilityAddress"
         Me.txtFacilityAddress.ReadOnly = True
         Me.txtFacilityAddress.Size = New System.Drawing.Size(304, 20)
@@ -744,7 +697,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtFacilityCity
         '
-        Me.txtFacilityCity.Location = New System.Drawing.Point(117, 116)
+        Me.txtFacilityCity.Location = New System.Drawing.Point(116, 115)
         Me.txtFacilityCity.Name = "txtFacilityCity"
         Me.txtFacilityCity.ReadOnly = True
         Me.txtFacilityCity.Size = New System.Drawing.Size(144, 20)
@@ -753,7 +706,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtFacilityState
         '
-        Me.txtFacilityState.Location = New System.Drawing.Point(267, 116)
+        Me.txtFacilityState.Location = New System.Drawing.Point(266, 115)
         Me.txtFacilityState.MaxLength = 5
         Me.txtFacilityState.Name = "txtFacilityState"
         Me.txtFacilityState.ReadOnly = True
@@ -763,7 +716,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtFacilityZipCode
         '
-        Me.txtFacilityZipCode.Location = New System.Drawing.Point(313, 116)
+        Me.txtFacilityZipCode.Location = New System.Drawing.Point(312, 115)
         Me.txtFacilityZipCode.MaxLength = 5
         Me.txtFacilityZipCode.Name = "txtFacilityZipCode"
         Me.txtFacilityZipCode.ReadOnly = True
@@ -775,7 +728,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.cboAIRSNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboAIRSNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboAIRSNumber.Location = New System.Drawing.Point(115, 39)
+        Me.cboAIRSNumber.Location = New System.Drawing.Point(116, 35)
         Me.cboAIRSNumber.MaxLength = 8
         Me.cboAIRSNumber.Name = "cboAIRSNumber"
         Me.cboAIRSNumber.Size = New System.Drawing.Size(85, 21)
@@ -784,7 +737,7 @@ Partial Class ISMPTestReportAdministrative
         'Label40
         '
         Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(31, 43)
+        Me.Label40.Location = New System.Drawing.Point(35, 38)
         Me.Label40.Name = "Label40"
         Me.Label40.Size = New System.Drawing.Size(75, 13)
         Me.Label40.TabIndex = 171
@@ -794,7 +747,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.DTPDateReceived.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateReceived.Location = New System.Drawing.Point(116, 142)
+        Me.DTPDateReceived.Location = New System.Drawing.Point(116, 141)
         Me.DTPDateReceived.Name = "DTPDateReceived"
         Me.DTPDateReceived.Size = New System.Drawing.Size(104, 20)
         Me.DTPDateReceived.TabIndex = 4
@@ -803,7 +756,7 @@ Partial Class ISMPTestReportAdministrative
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(24, 146)
+        Me.Label21.Location = New System.Drawing.Point(28, 144)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(82, 13)
         Me.Label21.TabIndex = 164
@@ -814,7 +767,7 @@ Partial Class ISMPTestReportAdministrative
         Me.DTPDateClosed.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateClosed.Enabled = False
         Me.DTPDateClosed.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateClosed.Location = New System.Drawing.Point(509, 197)
+        Me.DTPDateClosed.Location = New System.Drawing.Point(509, 193)
         Me.DTPDateClosed.Name = "DTPDateClosed"
         Me.DTPDateClosed.Size = New System.Drawing.Size(104, 20)
         Me.DTPDateClosed.TabIndex = 14
@@ -823,7 +776,7 @@ Partial Class ISMPTestReportAdministrative
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(433, 201)
+        Me.Label17.Location = New System.Drawing.Point(435, 196)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(68, 13)
         Me.Label17.TabIndex = 161
@@ -833,7 +786,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.GBRecordStatus.Controls.Add(Me.rdbCloseReport)
         Me.GBRecordStatus.Controls.Add(Me.rdbOpenReport)
-        Me.GBRecordStatus.Location = New System.Drawing.Point(509, 151)
+        Me.GBRecordStatus.Location = New System.Drawing.Point(509, 147)
         Me.GBRecordStatus.Name = "GBRecordStatus"
         Me.GBRecordStatus.Size = New System.Drawing.Size(240, 40)
         Me.GBRecordStatus.TabIndex = 160
@@ -861,7 +814,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'chbOverright
         '
-        Me.chbOverright.Location = New System.Drawing.Point(216, 16)
+        Me.chbOverright.Location = New System.Drawing.Point(220, 10)
         Me.chbOverright.Name = "chbOverright"
         Me.chbOverright.Size = New System.Drawing.Size(200, 16)
         Me.chbOverright.TabIndex = 159
@@ -870,7 +823,7 @@ Partial Class ISMPTestReportAdministrative
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(6, 19)
+        Me.Label10.Location = New System.Drawing.Point(10, 11)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(100, 13)
         Me.Label10.TabIndex = 158
@@ -878,7 +831,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtReferenceNumber
         '
-        Me.txtReferenceNumber.Location = New System.Drawing.Point(112, 15)
+        Me.txtReferenceNumber.Location = New System.Drawing.Point(116, 8)
         Me.txtReferenceNumber.MaxLength = 9
         Me.txtReferenceNumber.Name = "txtReferenceNumber"
         Me.txtReferenceNumber.ReadOnly = True
@@ -898,12 +851,19 @@ Partial Class ISMPTestReportAdministrative
         '
         'dgvFacilityInfo
         '
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvFacilityInfo.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvFacilityInfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvFacilityInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvFacilityInfo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvFacilityInfo.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvFacilityInfo.LinkifyColumnByName = Nothing
         Me.dgvFacilityInfo.Location = New System.Drawing.Point(3, 16)
         Me.dgvFacilityInfo.Name = "dgvFacilityInfo"
-        Me.dgvFacilityInfo.ReadOnly = True
+        Me.dgvFacilityInfo.ResultsCountLabel = Nothing
+        Me.dgvFacilityInfo.ResultsCountLabelFormat = "{0} found"
         Me.dgvFacilityInfo.Size = New System.Drawing.Size(810, 164)
+        Me.dgvFacilityInfo.StandardTab = True
         Me.dgvFacilityInfo.TabIndex = 213
         '
         'TCTestReports
@@ -919,7 +879,43 @@ Partial Class ISMPTestReportAdministrative
         '
         'TPNewTestReports
         '
-        Me.TPNewTestReports.Controls.Add(Me.GroupBox1)
+        Me.TPNewTestReports.Controls.Add(Me.btnLoadCombos)
+        Me.TPNewTestReports.Controls.Add(Me.btnSearchForAIRS)
+        Me.TPNewTestReports.Controls.Add(Me.Label10)
+        Me.TPNewTestReports.Controls.Add(Me.btnClearReferenceNumber)
+        Me.TPNewTestReports.Controls.Add(Me.txtReferenceNumber)
+        Me.TPNewTestReports.Controls.Add(Me.btnCloseTestReport)
+        Me.TPNewTestReports.Controls.Add(Me.chbOverright)
+        Me.TPNewTestReports.Controls.Add(Me.clbReferenceNumbers)
+        Me.TPNewTestReports.Controls.Add(Me.GBRecordStatus)
+        Me.TPNewTestReports.Controls.Add(Me.btnDeleteTestReport)
+        Me.TPNewTestReports.Controls.Add(Me.Label17)
+        Me.TPNewTestReports.Controls.Add(Me.btnInsert)
+        Me.TPNewTestReports.Controls.Add(Me.DTPDateClosed)
+        Me.TPNewTestReports.Controls.Add(Me.DTPTestDateStart)
+        Me.TPNewTestReports.Controls.Add(Me.Label21)
+        Me.TPNewTestReports.Controls.Add(Me.Label3)
+        Me.TPNewTestReports.Controls.Add(Me.DTPDateReceived)
+        Me.TPNewTestReports.Controls.Add(Me.txtDaysInAPB)
+        Me.TPNewTestReports.Controls.Add(Me.Label40)
+        Me.TPNewTestReports.Controls.Add(Me.Label24)
+        Me.TPNewTestReports.Controls.Add(Me.cboAIRSNumber)
+        Me.TPNewTestReports.Controls.Add(Me.Label45)
+        Me.TPNewTestReports.Controls.Add(Me.txtFacilityZipCode)
+        Me.TPNewTestReports.Controls.Add(Me.DTPTestDateEnd)
+        Me.TPNewTestReports.Controls.Add(Me.txtFacilityState)
+        Me.TPNewTestReports.Controls.Add(Me.cboPollutant)
+        Me.TPNewTestReports.Controls.Add(Me.txtFacilityCity)
+        Me.TPNewTestReports.Controls.Add(Me.txtEmissionSource)
+        Me.TPNewTestReports.Controls.Add(Me.txtFacilityAddress)
+        Me.TPNewTestReports.Controls.Add(Me.cboTestingFirms)
+        Me.TPNewTestReports.Controls.Add(Me.Label42)
+        Me.TPNewTestReports.Controls.Add(Me.Label51)
+        Me.TPNewTestReports.Controls.Add(Me.cboFacilityName)
+        Me.TPNewTestReports.Controls.Add(Me.Label47)
+        Me.TPNewTestReports.Controls.Add(Me.Label41)
+        Me.TPNewTestReports.Controls.Add(Me.Label46)
+        Me.TPNewTestReports.Controls.Add(Me.LLFacilityName)
         Me.TPNewTestReports.Location = New System.Drawing.Point(4, 22)
         Me.TPNewTestReports.Name = "TPNewTestReports"
         Me.TPNewTestReports.Padding = New System.Windows.Forms.Padding(3)
@@ -1253,13 +1249,12 @@ Partial Class ISMPTestReportAdministrative
         Me.Text = "ISMP Test Report Administrative"
         Me.MainMenu1.ResumeLayout(False)
         Me.MainMenu1.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.GBRecordStatus.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         CType(Me.dgvFacilityInfo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TCTestReports.ResumeLayout(False)
         Me.TPNewTestReports.ResumeLayout(False)
+        Me.TPNewTestReports.PerformLayout()
         Me.TPHistoricalReports.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
         Me.Panel11.PerformLayout()
@@ -1306,7 +1301,6 @@ End Sub
     Friend WithEvents mmiMemo As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiAddTestingFirm As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiRefreshLists As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents DTPDateReceived As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents DTPDateClosed As System.Windows.Forms.DateTimePicker
@@ -1341,7 +1335,7 @@ End Sub
     Friend WithEvents Label46 As System.Windows.Forms.Label
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents btnInsert As System.Windows.Forms.Button
-    Friend WithEvents dgvFacilityInfo As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvFacilityInfo As IaipDataGridView
     Friend WithEvents btnDeleteTestReport As System.Windows.Forms.Button
     Friend WithEvents clbReferenceNumbers As System.Windows.Forms.CheckedListBox
     Friend WithEvents btnCloseTestReport As System.Windows.Forms.Button

@@ -2,7 +2,6 @@ Imports System.Collections.Generic
 Imports System.Data.SqlClient
 
 Public Class ISMPTestReportAdministrative
-    Dim query As String
     Dim dtGrid As DataTable
 
 #Region "Page Load"
@@ -40,7 +39,7 @@ Public Class ISMPTestReportAdministrative
     Private Sub FillFacilityAndAIRSCombos()
         Try
 
-            query = "select strFacilityName, SUBSTRING(strAIRSNumber, 5,8) as strAIRSNumber, " &
+            Dim query As String = "select strFacilityName, SUBSTRING(strAIRSNumber, 5,8) as strAIRSNumber, " &
             "strFacilityStreet1, strFacilityCity, strFacilityState, " &
             "strFacilityZipCode " &
             "from APBFacilityInformation " &
@@ -85,7 +84,7 @@ Public Class ISMPTestReportAdministrative
     End Sub
     Private Sub FillPollutantCombo()
 
-        query = "Select strPollutantCode, strPollutantDescription from LookUPPollutants " &
+        Dim query As String = "Select strPollutantCode, strPollutantDescription from LookUPPollutants " &
             "union select ' ', ' ' " &
             " order by strPollutantDescription"
 
@@ -98,7 +97,7 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub FillTestingFirmsCombo()
-        query = "Select strTestingFirmKey, strTestingFirm from LookUPTestingFirms " &
+        Dim query As String = "Select strTestingFirmKey, strTestingFirm from LookUPTestingFirms " &
             "union select ' ', ' ' " &
             "order by strTestingFirm"
 
@@ -110,7 +109,7 @@ Public Class ISMPTestReportAdministrative
         End With
     End Sub
     Private Sub FillDateGrid()
-        query = "select ISMPMaster.strReferenceNumber, " &
+        Dim query As String = "select ISMPMaster.strReferenceNumber, " &
         "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
         "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
         " SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as StrAIRSNumber, " &
@@ -144,7 +143,7 @@ Public Class ISMPTestReportAdministrative
                 txtFacilityState.Clear()
                 txtFacilityZipCode.Clear()
 
-                query = "select " &
+                Dim query As String = "select " &
                 "strFacilityName, strFacilityStreet1, " &
                 "strFacilityCity, " &
                 "strFacilityState, strFacilityZipcode " &
@@ -188,7 +187,7 @@ Public Class ISMPTestReportAdministrative
 
             If cboAIRSNumber.SelectedIndex <> -1 Then
 
-                query = "Select strFacilityName, strFacilityStreet1, " &
+                Dim query As String = "Select strFacilityName, strFacilityStreet1, " &
                 "strFacilityCity, strFacilityState, strFacilityZipCode " &
                 "from APBFacilityInformation " &
                 "where strAIRSNumber = @airs "
@@ -234,7 +233,7 @@ Public Class ISMPTestReportAdministrative
             clbReferenceNumbers.Items.Clear()
 
             If DTPDateReceived.Text <> "" AndAlso cboAIRSNumber.Text <> "" Then
-                query = "select
+                Dim query As String = "select
                     m.STRREFERENCENUMBER,
                     STREMISSIONSOURCE,
                     STRPOLLUTANTDESCRIPTION
@@ -280,16 +279,14 @@ Public Class ISMPTestReportAdministrative
     End Sub
 
     Private Sub GetNextReferenceNumber()
-        Dim query As String
-
         Try
 
-            query = "select " &
-            "case when max(strReferenceNumber) is null then CONCAT(YEAR(GETDATE()), '00001')  " &
-            "else max(convert(int, strReferenceNumber) + 1 ) " &
-            "end MaxRefNum  " &
-            "from ISMPMaster  " &
-            "where strReferenceNumber like @ref "
+            Dim query As String = "select " &
+                "case when max(strReferenceNumber) is null then CONCAT(YEAR(GETDATE()), '00001')  " &
+                "else max(convert(int, strReferenceNumber) + 1 ) " &
+                "end MaxRefNum  " &
+                "from ISMPMaster  " &
+                "where strReferenceNumber like @ref "
 
             Dim p As New SqlParameter("@ref", Today.Year.ToString & "%")
 
@@ -353,7 +350,7 @@ Public Class ISMPTestReportAdministrative
                     rdbOpenReport.Checked = True
                 End If
 
-                query = "Select strReferenceNumber from ISMPMaster where strReferenceNumber = @ref "
+                Dim query As String = "Select strReferenceNumber from ISMPMaster where strReferenceNumber = @ref "
 
                 Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
 
@@ -506,7 +503,7 @@ Public Class ISMPTestReportAdministrative
                                 MsgBoxStyle.Exclamation, "Test Report Administration")
                         Return
                     End If
-                    query = "Select strComplianceStatus " &
+                    Dim query As String = "Select strComplianceStatus " &
                     "from ISMPReportInformation " &
                     "where strReferenceNumber = @ref "
 
@@ -632,14 +629,11 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub Find()
-        Dim query As String
-
         Try
-
 
             If txtReferenceNumber.Text <> "" Then
 
-                query = "Select strAIRSNumber from ISMPMaster where strReferenceNumber = @ref "
+                Dim query As String = "Select strAIRSNumber from ISMPMaster where strReferenceNumber = @ref "
                 Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
 
                 Dim dr As DataRow = DB.GetDataRow(query, p)
@@ -700,12 +694,12 @@ Public Class ISMPTestReportAdministrative
                         DTPTestDateEnd.Text = dr2.Item("fordatTestDateEnd")
                         DTPTestDateStart.Text = dr2.Item("forDatTestDateStart")
                         DTPTestDateEnd.Text = dr2.Item("forDatTestDateEnd")
-                        If dr2.Item("forDateComplete") = "04-Jul-1776" Then
+                        If dr2.Item("forDateComplete").ToString = "04-Jul-1776" Then
                             txtDaysInAPB.Text = DateDiff(DateInterval.Day, CDate(dr2.Item("forDatReceivedDate")), Today)
                         Else
                             txtDaysInAPB.Text = DateDiff(DateInterval.Day, CDate(dr2.Item("forDatReceivedDate")), CDate(dr2.Item("forDateComplete")))
                         End If
-                        If dr2.Item("strClosed") = "True" Then
+                        If dr2.Item("strClosed").ToString = "True" Then
                             rdbOpenReport.Checked = False
                             rdbCloseReport.Checked = True
                             SaveToolStripMenuItem.Enabled = False
@@ -715,7 +709,7 @@ Public Class ISMPTestReportAdministrative
                             SaveToolStripMenuItem.Enabled = True
                         End If
 
-                        If dr2.Item("forDateComplete") <> "04-Jul-1776" Then
+                        If dr2.Item("forDateComplete").ToString <> "04-Jul-1776" Then
                             DTPDateClosed.Text = dr2.Item("forDateComplete")
                         Else
                             DTPDateClosed.Value = Today
@@ -837,7 +831,7 @@ Public Class ISMPTestReportAdministrative
         If cboAIRSNumber.Text = "" Then Return
 
         ' Check if SSCP data already exists
-        query = "select convert(bit, count(*)) from dbo.SSCPTESTREPORTS where STRREFERENCENUMBER = @ReferenceNumber "
+        Dim query As String = "select convert(bit, count(*)) from dbo.SSCPTESTREPORTS where STRREFERENCENUMBER = @ReferenceNumber "
         Dim paramRefNum As New SqlParameter("@ReferenceNumber", ReferenceNumber)
         If DB.GetBoolean(query, paramRefNum) Then Return
 
@@ -885,24 +879,21 @@ Public Class ISMPTestReportAdministrative
         DeleteTestReport()
     End Sub
     Private Sub MmiShowDeletedRecords_Click(sender As Object, e As EventArgs) Handles MmiShowDeletedRecords.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber,  " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-                  "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-                  "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-                  "ISMPDocumentType.strDocumentType " &
-                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-                  "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-                  "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-                  "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                  "and strDelete = 'DELETE' " &
-                  "order by ISMPMaster.strReferenceNumber"
+            Dim query As String = "select ISMPMaster.strReferenceNumber,  " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete = 'DELETE' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
-
             dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
@@ -917,23 +908,21 @@ Public Class ISMPTestReportAdministrative
 #Region "View by Test Reports"
 
     Private Sub MmiUnassigned_Click(sender As Object, e As EventArgs) Handles MmiUnassigned.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber,  " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-            "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-            "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-            "ISMPDocumentType.strDocumentType " &
-            "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-            "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-            "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-            "and strDelete is NULL " &
-             "and strClosed = 'False' " &
-            "and ISMPDocumentType.strDocumentType = 'Unassigned' " &
-            "order by ISMPMaster.strReferenceNumber"
+            Dim query As String = "select ISMPMaster.strReferenceNumber,  " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete is NULL " &
+                 "and strClosed = 'False' " &
+                "and ISMPDocumentType.strDocumentType = 'Unassigned' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -944,23 +933,21 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiOneStackTwoRun_Click(sender As Object, e As EventArgs) Handles MmiOneStackTwoRun.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber, " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-                 "ISMPDocumentType.strDocumentType " &
-                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                 "and strDelete is NULL " &
-                  "and strClosed = 'False' " &
-                 "and ISMPDocumentType.strDocumentType = 'One Stack (Two Runs)' " &
-                 "order by ISMPMaster.strReferenceNumber"
+            Dim query As String = "select ISMPMaster.strReferenceNumber, " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete is NULL " &
+                "and strClosed = 'False' " &
+                "and ISMPDocumentType.strDocumentType = 'One Stack (Two Runs)' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -971,12 +958,10 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiOneStackThreeRun_Click(sender As Object, e As EventArgs) Handles MmiOneStackThreeRun.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber, " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+            Dim query As String = "select ISMPMaster.strReferenceNumber, " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                 "ISMPDocumentType.strDocumentType " &
@@ -985,7 +970,7 @@ Public Class ISMPTestReportAdministrative
                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
-                 "and strClosed = 'False' " &
+                "and strClosed = 'False' " &
                 "and ISMPDocumentType.strDocumentType = 'One Stack (Three Runs)' " &
                 "order by ISMPMaster.strReferenceNumber"
 
@@ -998,23 +983,21 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiOneStackFourRun_Click(sender As Object, e As EventArgs) Handles MmiOneStackFourRun.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber, " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-                 "ISMPDocumentType.strDocumentType " &
-                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                 "and strDelete is NULL " &
-                  "and strClosed = 'False' " &
-                 "and ISMPDocumentType.strDocumentType = 'One Stack (Four Runs)' " &
-                 "order by ISMPMaster.strReferenceNumber"
+            Dim query As String = "select ISMPMaster.strReferenceNumber, " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete is NULL " &
+                "and strClosed = 'False' " &
+                "and ISMPDocumentType.strDocumentType = 'One Stack (Four Runs)' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -1025,12 +1008,10 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiTwoStackStandard_Click(sender As Object, e As EventArgs) Handles MmiTwoStackStandard.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber, " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+            Dim query As String = "select ISMPMaster.strReferenceNumber, " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                 "ISMPDocumentType.strDocumentType " &
@@ -1039,7 +1020,7 @@ Public Class ISMPTestReportAdministrative
                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
-                 "and strClosed = 'False' " &
+                "and strClosed = 'False' " &
                 "and ISMPDocumentType.strDocumentType = 'Two Stack (Standard)' " &
                 "order by ISMPMaster.strReferenceNumber"
 
@@ -1052,23 +1033,21 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiTwoStackDRE_Click(sender As Object, e As EventArgs) Handles MmiTwoStackDRE.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber, " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-                 "ISMPDocumentType.strDocumentType " &
-                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                 "and strDelete is NULL " &
-                  "and strClosed = 'False' " &
-                 "and ISMPDocumentType.strDocumentType = 'Two Stack (DRE)' " &
-                 "order by ISMPMaster.strReferenceNumber"
+            Dim query As String = "select ISMPMaster.strReferenceNumber, " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete is NULL " &
+                "and strClosed = 'False' " &
+                "and ISMPDocumentType.strDocumentType = 'Two Stack (DRE)' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -1079,23 +1058,21 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiLoadingRack_Click(sender As Object, e As EventArgs) Handles MmiLoadingRack.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber, " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-               "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-               "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-               "ISMPDocumentType.strDocumentType " &
-               "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-               "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-               "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-               "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-               "and strDelete is NULL " &
+            Dim query As String = "select ISMPMaster.strReferenceNumber, " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete is NULL " &
                 "and strClosed = 'False' " &
-               "and ISMPDocumentType.strDocumentType = 'Loading Rack' " &
-               "order by ISMPMaster.strReferenceNumber"
+                "and ISMPDocumentType.strDocumentType = 'Loading Rack' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -1106,23 +1083,21 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiFlare_Click(sender As Object, e As EventArgs) Handles MmiFlare.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber,  " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-                 "ISMPDocumentType.strDocumentType " &
-                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                 "and strDelete is NULL " &
-                  "and strClosed = 'False' " &
-                 "and ISMPDocumentType.strDocumentType = 'Flare' " &
-                 "order by ISMPMaster.strReferenceNumber"
+            Dim query As String = "select ISMPMaster.strReferenceNumber,  " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete is NULL " &
+                "and strClosed = 'False' " &
+                "and ISMPDocumentType.strDocumentType = 'Flare' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -1133,23 +1108,21 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiPondTreatment_Click(sender As Object, e As EventArgs) Handles MmiPondTreatment.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber, " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-                 "ISMPDocumentType.strDocumentType " &
-                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                 "and strDelete is NULL " &
-                  "and strClosed = 'False' " &
-                 "and ISMPDocumentType.strDocumentType = 'Pond Treatment' " &
-                 "order by ISMPMaster.strReferenceNumber"
+            Dim query As String = "select ISMPMaster.strReferenceNumber, " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete is NULL " &
+                "and strClosed = 'False' " &
+                "and ISMPDocumentType.strDocumentType = 'Pond Treatment' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -1160,23 +1133,21 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiGasConcentration_Click(sender As Object, e As EventArgs) Handles MmiGasConcentration.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber,  " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-                 "ISMPDocumentType.strDocumentType " &
-                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                 "and strDelete is NULL " &
-                  "and strClosed = 'False' " &
-                 "and ISMPDocumentType.strDocumentType = 'Gas Concentration' " &
-                 "order by ISMPMaster.strReferenceNumber"
+            Dim query As String = "select ISMPMaster.strReferenceNumber,  " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete is NULL " &
+                "and strClosed = 'False' " &
+                "and ISMPDocumentType.strDocumentType = 'Gas Concentration' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -1187,23 +1158,21 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiRata_Click(sender As Object, e As EventArgs) Handles MmiRata.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber, " &
+            Dim query As String = "select ISMPMaster.strReferenceNumber, " &
             "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-                 "ISMPDocumentType.strDocumentType " &
-                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                 "and strDelete is NULL " &
-                  "and strClosed = 'False' " &
-                 "and ISMPDocumentType.strDocumentType = 'Rata' " &
-                 "order by ISMPMaster.strReferenceNumber"
+            "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+            "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+            "ISMPDocumentType.strDocumentType " &
+            "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+            "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+            "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and strDelete is NULL " &
+            "and strClosed = 'False' " &
+            "and ISMPDocumentType.strDocumentType = 'Rata' " &
+            "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -1214,12 +1183,10 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiMemoStandard_Click(sender As Object, e As EventArgs) Handles MmiMemoStandard.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber, " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+            Dim query As String = "select ISMPMaster.strReferenceNumber, " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                 "ISMPDocumentType.strDocumentType " &
@@ -1228,7 +1195,7 @@ Public Class ISMPTestReportAdministrative
                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
-                 "and strClosed = 'False' " &
+                "and strClosed = 'False' " &
                 "and ISMPDocumentType.strDocumentType = 'Memorandum (Standard)' " &
                 "order by ISMPMaster.strReferenceNumber"
 
@@ -1241,12 +1208,10 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiMemoToFile_Click(sender As Object, e As EventArgs) Handles MmiMemoToFile.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber,  " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+            Dim query As String = "select ISMPMaster.strReferenceNumber,  " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                 "ISMPDocumentType.strDocumentType " &
@@ -1255,7 +1220,7 @@ Public Class ISMPTestReportAdministrative
                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
-                 "and strClosed = 'False' " &
+                "and strClosed = 'False' " &
                 "and ISMPDocumentType.strDocumentType = 'Memorandum (To File)' " &
                 "order by ISMPMaster.strReferenceNumber"
 
@@ -1268,23 +1233,21 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiMemoPTE_Click(sender As Object, e As EventArgs) Handles MmiMemoPTE.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber,  " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-                  "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-                  "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-                  "ISMPDocumentType.strDocumentType " &
-                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-                  "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-                  "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-                  "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                  "and strDelete is NULL " &
-                   "and strClosed = 'False' " &
-                  "and ISMPDocumentType.strDocumentType = 'PTE (Permanent Total Enclosure)' " &
-                  "order by ISMPMaster.strReferenceNumber"
+            Dim query As String = "select ISMPMaster.strReferenceNumber,  " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete is NULL " &
+                "and strClosed = 'False' " &
+                "and ISMPDocumentType.strDocumentType = 'PTE (Permanent Total Enclosure)' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -1295,23 +1258,21 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiMethod9Single_Click(sender As Object, e As EventArgs) Handles MmiMethod9Single.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber,  " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-                   "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-                   "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-                   "ISMPDocumentType.strDocumentType " &
-                   "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-                   "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-                   "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-                   "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                   "and strDelete is NULL " &
-                    "and strClosed = 'False' " &
-                   "and ISMPDocumentType.strDocumentType = 'Method9 (Single)' " &
-                   "order by ISMPMaster.strReferenceNumber"
+            Dim query As String = "select ISMPMaster.strReferenceNumber,  " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete is NULL " &
+                "and strClosed = 'False' " &
+                "and ISMPDocumentType.strDocumentType = 'Method9 (Single)' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -1322,23 +1283,21 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiMethod9Multi_Click(sender As Object, e As EventArgs) Handles MmiMethod9Multi.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber, " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-                 "ISMPDocumentType.strDocumentType " &
-                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                 "and strDelete is NULL " &
-                  "and strClosed = 'False' " &
-                 "and ISMPDocumentType.strDocumentType = 'Method 9 (Multi.)' " &
-                 "order by ISMPMaster.strReferenceNumber"
+            Dim query As String = "select ISMPMaster.strReferenceNumber, " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete is NULL " &
+                "and strClosed = 'False' " &
+                "and ISMPDocumentType.strDocumentType = 'Method 9 (Multi.)' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -1349,12 +1308,10 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiMethod22_Click(sender As Object, e As EventArgs) Handles MmiMethod22.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber,  " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+            Dim query As String = "select ISMPMaster.strReferenceNumber,  " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                 "ISMPDocumentType.strDocumentType " &
@@ -1363,7 +1320,7 @@ Public Class ISMPTestReportAdministrative
                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
-                 "and strClosed = 'False' " &
+                "and strClosed = 'False' " &
                 "and ISMPDocumentType.strDocumentType = 'Method 22' " &
                 "order by ISMPMaster.strReferenceNumber"
 
@@ -1376,22 +1333,20 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiAllTestReports_Click(sender As Object, e As EventArgs) Handles MmiAllTestReports.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber, " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-                  "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-                  "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-                  "ISMPDocumentType.strDocumentType " &
-                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-                  "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-                  "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-                  "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                  "and strDelete is NULL " &
-                   "and strClosed = 'False' " &
-                  "order by ISMPMaster.strReferenceNumber"
+            Dim query As String = "select ISMPMaster.strReferenceNumber, " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete is NULL " &
+                "and strClosed = 'False' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -1402,22 +1357,20 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiOpenRecords_Click(sender As Object, e As EventArgs) Handles MmiOpenRecords.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber,  " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-               "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-               "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-               "ISMPDocumentType.strDocumentType " &
-               "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-               "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-               "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-               "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-               "and strDelete is NULL " &
-               "and strClosed = 'False' " &
-               "order by ISMPMaster.strReferenceNumber"
+            Dim query As String = "select ISMPMaster.strReferenceNumber,  " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete is NULL " &
+                "and strClosed = 'False' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -1428,22 +1381,20 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiClosedRecords_Click(sender As Object, e As EventArgs) Handles MmiClosedRecords.Click
-        Dim query As String
-
         Try
 
-            query = "select ISMPMaster.strReferenceNumber, " &
-            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
-            "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
-            "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
-            "ISMPDocumentType.strDocumentType " &
-            "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
-            "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
-            "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
-            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-            "and strDelete is NULL " &
-            "and strClosed = 'True' " &
-            "order by ISMPMaster.strReferenceNumber"
+            Dim query As String = "select ISMPMaster.strReferenceNumber, " &
+                "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and strDelete is NULL " &
+                "and strClosed = 'True' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dtGrid = DB.GetDataTable(query)
             dgvFacilityInfo.DataSource = dtGrid
@@ -1460,7 +1411,7 @@ Public Class ISMPTestReportAdministrative
         Try
             Using facilityLookupDialog As New IAIPFacilityLookUpTool
                 If facilityLookupDialog.ShowDialog() = DialogResult.OK AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                    cboAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber
+                    cboAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber.Replace("-", "")
                 End If
             End Using
         Catch ex As Exception
@@ -1508,22 +1459,12 @@ Public Class ISMPTestReportAdministrative
         DeleteTestReport()
     End Sub
 
-    Private Sub dgvFacilityInfo_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvFacilityInfo.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvFacilityInfo.HitTest(e.X, e.Y)
-
-        Try
-
-            If dgvFacilityInfo.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso
-                dgvFacilityInfo.Columns(0).HeaderText = "Reference #" Then
-
-                txtReferenceNumber.Text = dgvFacilityInfo(0, hti.RowIndex).Value
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+    Private Sub dgvFacilityInfo_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvFacilityInfo.CellClick
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvFacilityInfo.RowCount AndAlso dgvFacilityInfo.Columns(0).HeaderText = "Reference #" Then
+            txtReferenceNumber.Text = dgvFacilityInfo(0, e.RowIndex).Value
+        End If
     End Sub
+
     Private Sub txtReferenceNumber_TextChanged(sender As Object, e As EventArgs) Handles txtReferenceNumber.TextChanged
         Try
 
@@ -1662,7 +1603,7 @@ Public Class ISMPTestReportAdministrative
                 DateReceived = dtpAddTestReportDateReceived.Text
                 DateCompleted = DTPAddTestReportDateCompleted.Text
 
-                query = "Select " &
+                Dim query As String = "Select " &
                 "strReferenceNumber " &
                 "from ISMPMaster " &
                 "where strReferenceNumber = @ref "
@@ -1779,14 +1720,6 @@ Public Class ISMPTestReportAdministrative
     Private Sub bgw1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw1.RunWorkerCompleted
         If dtGrid IsNot Nothing Then
             dgvFacilityInfo.DataSource = dtGrid
-
-            dgvFacilityInfo.RowHeadersVisible = False
-            dgvFacilityInfo.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFacilityInfo.AllowUserToResizeColumns = True
-            dgvFacilityInfo.AllowUserToAddRows = False
-            dgvFacilityInfo.AllowUserToDeleteRows = False
-            dgvFacilityInfo.AllowUserToOrderColumns = True
-            dgvFacilityInfo.AllowUserToResizeRows = True
             dgvFacilityInfo.Columns("strReferenceNumber").HeaderText = "Reference #"
             dgvFacilityInfo.Columns("strReferenceNumber").DisplayIndex = 0
             dgvFacilityInfo.Columns("StrAIRSNumber").HeaderText = "AIRS #"
@@ -1805,7 +1738,7 @@ Public Class ISMPTestReportAdministrative
     Private Sub btnCloseHistoricTestReport_Click(sender As Object, e As EventArgs) Handles btnCloseHistoricTestReport.Click
         Try
             If txtCloseTestReportRefNum.Text <> "" Then
-                query = "Select " &
+                Dim query As String = "Select " &
                 "strReferenceNumber " &
                 "from ISMPReportInformation " &
                 "where strReferenceNumber = @ref "
@@ -1836,7 +1769,7 @@ Public Class ISMPTestReportAdministrative
     Private Sub btnReOpenHistoricTestReport_Click(sender As Object, e As EventArgs) Handles btnReOpenHistoricTestReport.Click
         Try
             If txtCloseTestReportRefNum.Text <> "" Then
-                query = "Select " &
+                Dim query As String = "Select " &
                 "strReferenceNumber " &
                 "from ISMPReportInformation " &
                 "where strReferenceNumber = @ref "
@@ -1881,7 +1814,7 @@ Public Class ISMPTestReportAdministrative
                 txtFacilityState.Clear()
                 txtFacilityZipCode.Clear()
 
-                query = "select " &
+                Dim query As String = "select " &
                 "strFacilityName, strFacilityStreet1, " &
                 "strFacilityCity, " &
                 "strFacilityState, strFacilityZipcode " &
