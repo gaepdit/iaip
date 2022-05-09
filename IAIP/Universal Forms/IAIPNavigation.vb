@@ -48,7 +48,7 @@ Public Class IAIPNavigation
     End Sub
 
     Public Sub CheckNetworkConnection()
-        If Not CheckingNetwork Then
+        If Not CheckingNetwork AndAlso Not bgrNetworkChecker.IsBusy Then
             If networkCheckTimer IsNot Nothing Then
                 StopNetworkCheckTimer()
             End If
@@ -66,7 +66,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub bgrNetworkChecker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bgrNetworkChecker.RunWorkerCompleted
-        Dim status As IaipNetworkStatus = CType(e.Result, IaipNetworkStatus)
+        Dim status As IaipNetworkStatus = e.Result
 
         Select Case status
             Case IaipNetworkStatus.Enabled
