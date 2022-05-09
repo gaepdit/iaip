@@ -34,7 +34,7 @@ Public Class AirsNumberTextBoxTests
     <InlineData("001-00001")>
     <InlineData("99999999")>
     <InlineData("999-99999")>
-    Private Sub ValidFormat(input As String)
+    Private Sub ValidInput(input As String)
         Using airs As New AirsNumberTextBox With {.Text = input}
             Dim result As Boolean = airs.Validate()
 
@@ -52,6 +52,17 @@ Public Class AirsNumberTextBoxTests
             Dim result As Boolean = airs.Validate()
 
             Assert.True(result)
+            Assert.Equal(AirsNumberValidationResult.Empty, airs.ValidationStatus)
+            Assert.Equal(String.Empty, airs.Text)
+        End Using
+    End Sub
+
+    <Fact>
+    Private Sub ChangeAirsFromValueToNull()
+        Using airs As New AirsNumberTextBox
+            airs.AirsNumber = New Apb.ApbFacilityId("00100001")
+            airs.AirsNumber = Nothing
+
             Assert.Equal(AirsNumberValidationResult.Empty, airs.ValidationStatus)
             Assert.Equal(String.Empty, airs.Text)
         End Using
