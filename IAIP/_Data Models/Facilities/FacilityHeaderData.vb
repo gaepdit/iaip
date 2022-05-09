@@ -282,7 +282,15 @@ Namespace Apb.Facilities
             {"R", AirPrograms.RMP}
         }
 
-        Public Shared ReadOnly ConvertAirProgramToLegacyCode As New Dictionary(Of String, String) From {
+        Public Shared Function ConvertAirProgramToLegacyCode(key As AirPrograms) As String
+            Return _AirProgramToLegacyCode(key.ToString)
+        End Function
+
+        Public Shared Function ConvertAirProgramToLegacyCode(key As String) As String
+            Return _AirProgramToLegacyCode(key)
+        End Function
+
+        Private Shared ReadOnly _AirProgramToLegacyCode As New Dictionary(Of String, String) From {
             {AirPrograms.SIP.ToString, "0"},
             {AirPrograms.FederalSIP.ToString, "1"},
             {AirPrograms.NonFederalSIP.ToString, "3"},
@@ -324,8 +332,6 @@ Namespace Apb.Facilities
 
 #End Region
 
-#Region " Shared Functions "
-
         ''' <summary>
         ''' Tests whether a given string represents a valid RMP ID in format
         ''' (not whether the RMP ID is actually in use).
@@ -337,41 +343,5 @@ Namespace Apb.Facilities
             Return Regex.IsMatch(rmpID, RmpIdPattern)
         End Function
 
-        Public Shared Function GetAirProgramDbKey(selectedAirProgram As AirPrograms) As String
-            Select Case selectedAirProgram
-                Case AirPrograms.AcidPrecipitation
-                    Return "A"
-                Case AirPrograms.CfcTracking
-                    Return "4"
-                Case AirPrograms.FederalSIP
-                    Return "1"
-                Case AirPrograms.FESOP
-                    Return "F"
-                Case AirPrograms.MACT
-                    Return "M"
-                Case AirPrograms.NativeAmerican
-                    Return "I"
-                Case AirPrograms.NESHAP
-                    Return "8"
-                Case AirPrograms.NonFederalSIP
-                    Return "3"
-                Case AirPrograms.NSPS
-                    Return "9"
-                Case AirPrograms.NSR
-                    Return "7"
-                Case AirPrograms.PSD
-                    Return "6"
-                Case AirPrograms.RMP
-                    Return "R"
-                Case AirPrograms.SIP
-                    Return "0"
-                Case AirPrograms.TitleV
-                    Return "V"
-                Case Else
-                    Return ""
-            End Select
-        End Function
-
-#End Region
     End Class
 End Namespace

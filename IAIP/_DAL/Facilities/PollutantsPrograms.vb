@@ -110,7 +110,7 @@ Namespace DAL
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@STRAIRSNUMBER", airsNumber.DbFormattedString),
-                New SqlParameter("@STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
+                New SqlParameter("@STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram)),
                 New SqlParameter("@STRPOLLUTANTKEY", pollutantCode),
                 New SqlParameter("@STROPERATIONALSTATUS", operatingStatus.ToString),
                 New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID)
@@ -135,7 +135,7 @@ Namespace DAL
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@STROPERATIONALSTATUS", operatingStatus.ToString),
                 New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
-                New SqlParameter("@STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
+                New SqlParameter("@STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram)),
                 New SqlParameter("@STRPOLLUTANTKEY", pollutantCode)
             }
 
@@ -153,7 +153,7 @@ Namespace DAL
                 " AND STRPOLLUTANTKEY = @STRPOLLUTANTKEY "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("@STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
+                New SqlParameter("@STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram)),
                 New SqlParameter("@STRPOLLUTANTKEY", pollutantCode)
             }
 

@@ -136,7 +136,7 @@ Public Class IAIPEditAirProgramPollutants
     Private Sub SaveValue()
         If VerifyUpdate() Then
             Dim result As Boolean =
-            DAL.PollutantsPrograms.SaveFacilityAirProgramPollutant(AirsNumber,
+            DAL.SaveFacilityAirProgramPollutant(AirsNumber,
                                                                    AirProgramSelect.SelectedValue,
                                                                    PollutantSelect.SelectedValue,
                                                                    OperatingStatusSelect.SelectedValue)

@@ -155,9 +155,9 @@ Namespace DAL
                 End If
 
                 If (headerData.AirPrograms.HasFlag(apc)) Then
-                    activeApcList.Add(FacilityHeaderData.GetAirProgramDbKey(apc))
+                    activeApcList.Add(FacilityHeaderData.ConvertAirProgramToLegacyCode(apc))
                 Else
-                    inactiveApcList.Add(FacilityHeaderData.GetAirProgramDbKey(apc))
+                    inactiveApcList.Add(FacilityHeaderData.ConvertAirProgramToLegacyCode(apc))
                 End If
             Next
 
