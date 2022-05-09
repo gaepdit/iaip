@@ -18,7 +18,7 @@ Public Class AirsNumberTextBox
                 _airsNumber = value
 
                 If value Is Nothing Then
-                    Text = String.Empty
+                    Text = Nothing
                 Else
                     Text = value.FormattedString
                 End If
