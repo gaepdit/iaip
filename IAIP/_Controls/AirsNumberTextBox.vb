@@ -17,8 +17,10 @@ Public Class AirsNumberTextBox
             If _airsNumber <> value Then
                 _airsNumber = value
 
-                If value IsNot Nothing Then
-                    Text = _airsNumber.FormattedString
+                If value Is Nothing Then
+                    Text = String.Empty
+                Else
+                    Text = value.FormattedString
                 End If
 
                 If Not isValidating Then
