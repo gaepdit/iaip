@@ -84,7 +84,7 @@ Public Class IAIPQueryGenerator
     Private Sub LoadDataSets()
         Try
 
-            query = "Select strCountyCode, strCountyName, strAttainmentStatus " &
+            query = "Select strCountyCode, strCountyName " &
             "from LookUpCountyInformation " &
             "order by strCountyName "
 
@@ -170,6 +170,7 @@ Public Class IAIPQueryGenerator
         With cboCountySearch2
             .DataSource = dtcboCountySearch2
             .DisplayMember = "strCountyName"
+            .ValueMember = "strCountyCode"
             .SelectedIndex = -1
         End With
 
