@@ -955,7 +955,7 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(19, "Attainment Status Tool", NameOf(SSPPAttainmentStatus), NavButtonCategories.SSPP)
         AddNavButtonIfAccountHasFormAccess(23, "PA/PN Report", NameOf(SSPPPublicNoticesAndAdvisories), NavButtonCategories.SSPP)
         AddNavButtonIfAccountHasFormAccess(24, "SSPP Statistical Tools", NameOf(SSPPStatisticalTools), NavButtonCategories.SSPP)
-        AddNavButtonIfAccountHasFormAccess(131, "Title V Tools", NameOf(SSPPTitleVTools), NavButtonCategories.SSPP)
+        AddNavButtonIfUserHasPermission(120, "Title V Tools", NameOf(SSPPTitleVTools), NavButtonCategories.SSPP)
 
         ' SSCP
         AddNavButton("Compliance Log", NameOf(SSCPComplianceLog), NavButtonCategories.SSCP)
