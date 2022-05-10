@@ -1474,7 +1474,7 @@ Public Class ISMPTestReportAdministrative
         DeleteTestReport()
     End Sub
 
-    Private Sub dgvFacilityInfo_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvFacilityInfo.CellClick
+    Private Sub dgvFacilityInfo_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvFacilityInfo.CellEnter
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvFacilityInfo.RowCount AndAlso dgvFacilityInfo.Columns(0).HeaderText = "Reference #" Then
             txtReferenceNumber.Text = dgvFacilityInfo(0, e.RowIndex).Value
         End If
