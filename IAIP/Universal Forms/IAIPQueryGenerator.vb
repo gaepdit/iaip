@@ -1,6 +1,7 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.IO
+Imports System.Linq
 Imports Iaip.Apb.Facilities
 Imports Jil
 
@@ -339,9 +340,9 @@ Public Class IAIPQueryGenerator
         Dim SQLOrder As String = ""
         Dim SQLWhereCase1 As String = ""
         Dim SQLWhereCase2 As String = ""
+        Dim params As New List(Of SqlParameter)
 
         Try
-            Dim params As New List(Of SqlParameter)
             Dim temp As String = ""
             Dim i As Integer = 0
             Dim j As Integer = 0
@@ -2287,7 +2288,19 @@ Public Class IAIPQueryGenerator
 
             dgvQueryGenerator.DataSource = DB.GetDataTable(MasterSQL, params.ToArray)
 
-            DAL.LogQuery(MasterSQL, dgvQueryGenerator.Rows.Count)
+            Dim qParams As QueryGeneratorParameter() = params.Select(
+                Function(p) New QueryGeneratorParameter() With {
+                    .ParameterName = p.ParameterName,
+                    .Value = p.Value.ToString()
+                }).ToArray()
+
+            Dim queryInfo As String = JSON.Serialize(
+                New QueryGeneratorValues() With {
+                    .Parameters = qParams,
+                    .MasterSQL = MasterSQL
+                })
+
+            DAL.LogQuery(queryInfo, dgvQueryGenerator.Rows.Count)
 
             i = 0
             dgvQueryGenerator.Columns("AIRSNumber").HeaderText = "AIRS #"
@@ -2651,30 +2664,30 @@ Public Class IAIPQueryGenerator
             End If
 
         Catch ex As Exception
-            Dim queryStrings As New QueryGeneratorStrings() With {
-                .MasterSQL = MasterSQL,
-                .SQLFrom = SQLFrom,
-                .SQLOrder = SQLOrder,
-                .SQLSelect = SQLSelect,
-                .SQLWhere = SQLWhere,
-                .SQLWhereCase1 = SQLWhereCase1,
-                .SQLWhereCase2 = SQLWhereCase2
-            }
+            Dim qParams As QueryGeneratorParameter() = params.Select(
+                Function(p) New QueryGeneratorParameter() With {
+                    .ParameterName = p.ParameterName,
+                    .Value = p.Value.ToString()
+                }).ToArray()
 
-            Dim queryInfo As String = JSON.Serialize(queryStrings)
+            Dim queryInfo As String = JSON.Serialize(
+                New QueryGeneratorValues() With {
+                    .Parameters = qParams,
+                    .MasterSQL = MasterSQL
+                })
 
-            ErrorReport(ex, queryInfo, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, queryInfo, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Class QueryGeneratorStrings
+    Private Class QueryGeneratorValues
+        Public Parameters As QueryGeneratorParameter()
         Public MasterSQL As String
-        Public SQLSelect As String
-        Public SQLFrom As String
-        Public SQLWhere As String
-        Public SQLOrder As String
-        Public SQLWhereCase1 As String
-        Public SQLWhereCase2 As String
+    End Class
+
+    Private Class QueryGeneratorParameter
+        Public Value As String
+        Public ParameterName As String
     End Class
 
     Sub ExportToExcel()
