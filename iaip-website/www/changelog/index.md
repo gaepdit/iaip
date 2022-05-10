@@ -11,9 +11,23 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.2.1 <span>(2022-05-10)</span>
+
+This update fixes several bugs/crashes:
+
+- The ISMU Test Report Admin screen works a little better now.
+- Once a test report has been closed, the assigned facility can no longer be changed (preventing erroneous data from being sent to EPA).
+- Sometime the IAIP would crash when it was trying to detect if a network connection was available. I'm hoping it doesn't do that anymore. 🤞
+- The IAIP crashed once when someone tried to add a new program/pollutant to a facility. I couldn't reproduce the error, so I'm not 100% sure that it's fixed now, *but it might be!*
+- Let's see, what else...
+- Oh, this was a weird one. On the main navigation screen, if you click in the table, it fills out the AIRS number in the quick access form below, which is nice right? But then if the next row you click doesn't have an AIRS number, the previous AIRS number stays there in the quick access form. So you would think, OK, if I click to open the facility summary, it should just open that other facility right? But no, if you click to open the facility, it would just crash. Anyway, that's fixed.
+- There were a couple bugs in the query generator that are fixed now. Like if you selected to show a rule subpart and also the compliance unit at the same time. You might not think that would be a problem. Or if you selected a county in the *second* county dropdown. (The first dropdown worked fine.) Those are both fixed.
+
+That's about it. Which bugfix was your favorite?
+
 ## Version 6.2.0 <span>(2022-04-18)</span>
 
-The permit application fee invoicing workflow has been simplified
+The permit application fee invoicing workflow has been simplified.
 
 ## Version 6.1.2 <span>(2022-04-13)</span>
 
