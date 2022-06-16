@@ -2567,12 +2567,10 @@ Public Class IAIPQueryGenerator
             chbFacilityLatitude.Checked = False
             txtFacilityLatitudeSearch1.Clear()
             txtFacilityLatitudeSearch2.Clear()
-            rdbFacilityLatitudeBetween.Checked = True
 
             chbFacilityLongitude.Checked = False
             txtFacilityLongitudeSearch1.Clear()
             txtFacilityLongitudeSearch2.Clear()
-            rdbFacilityLongitudeBetween.Checked = True
 
             chbCounty.Checked = False
             rdbCountyOr.Checked = True
@@ -2607,14 +2605,12 @@ Public Class IAIPQueryGenerator
             DTPStartUpDateSearch1.Value = Today
             DTPStartUpDateSearch2.Checked = False
             DTPStartUpDateSearch2.Value = Today
-            rdbStartUpDateBetween.Checked = True
 
             chbShutDownDate.Checked = False
             DTPShutDownDateSearch1.Checked = False
             DTPShutDownDateSearch1.Value = Today
             DTPShutDownDateSearch2.Checked = False
             DTPShutDownDateSearch2.Value = Today
-            rdbShutDownDateBetween.Checked = True
 
             chbCMSUniverse.Checked = False
             rdbCMSUniverseOR.Checked = True
@@ -2992,9 +2988,6 @@ Public Class IAIPQueryGenerator
                 If DTPStartUpDateSearch2.Checked Then
                     DefaultsText = DefaultsText & "%-" & DTPStartUpDateSearch2.Text & "-%"
                 End If
-                If rdbStartUpDateBetween.Checked Then
-                    DefaultsText = DefaultsText & "*-BETWEEN-*"
-                End If
                 DefaultsText = DefaultsText & "pUtratS"
             End If
             If Me.chbShutDownDate.Checked Then
@@ -3004,9 +2997,6 @@ Public Class IAIPQueryGenerator
                 End If
                 If DTPShutDownDateSearch2.Checked Then
                     DefaultsText = DefaultsText & "%-" & DTPShutDownDateSearch2.Text & "-%"
-                End If
-                If rdbShutDownDateBetween.Checked Then
-                    DefaultsText = DefaultsText & "*-BETWEEN-*"
                 End If
                 DefaultsText = DefaultsText & "nwoDtuhS"
             End If
@@ -3452,10 +3442,6 @@ Public Class IAIPQueryGenerator
                                 DTPStartUpDateSearch2.Checked = True
                                 DTPStartUpDateSearch2.Text = Mid(StartUpDate, (StartUpDate.IndexOf("%-") + 3), (StartUpDate.IndexOf("-%") - (StartUpDate.IndexOf("%-") + 2)))
                             End If
-                            If StartUpDate.IndexOf("*-") <> -1 AndAlso
-                                    Mid(StartUpDate, StartUpDate.IndexOf("*-") + 3, (StartUpDate.IndexOf("-*") - (StartUpDate.IndexOf("*-") + 2))) = "Between" Then
-                                rdbStartUpDateBetween.Checked = True
-                            End If
                         End If
                         If DefaultsText.IndexOf("ShutDown") <> -1 Then
                             ShutDownDate = Mid(DefaultsText, DefaultsText.IndexOf("ShutDown") + 1, (DefaultsText.IndexOf("nwoDtuhS") - DefaultsText.IndexOf("ShutDown") + 8))
@@ -3467,10 +3453,6 @@ Public Class IAIPQueryGenerator
                             If ShutDownDate.IndexOf("%-") <> -1 Then
                                 DTPShutDownDateSearch2.Checked = True
                                 DTPShutDownDateSearch2.Text = Mid(ShutDownDate, (ShutDownDate.IndexOf("%-") + 3), (ShutDownDate.IndexOf("-%") - (ShutDownDate.IndexOf("%-") + 2)))
-                            End If
-                            If ShutDownDate.IndexOf("*-") <> -1 AndAlso
-                                Mid(ShutDownDate, ShutDownDate.IndexOf("*-") + 3, (ShutDownDate.IndexOf("-*") - (ShutDownDate.IndexOf("*-") + 2))) = "Between" Then
-                                rdbShutDownDateBetween.Checked = True
                             End If
                         End If
 

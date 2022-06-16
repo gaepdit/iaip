@@ -63,12 +63,8 @@ Partial Class IAIPQueryGenerator
         Me.cboCountySearch1 = New System.Windows.Forms.ComboBox()
         Me.chbDistrict = New System.Windows.Forms.CheckBox()
         Me.chbCounty = New System.Windows.Forms.CheckBox()
-        Me.Panel17 = New System.Windows.Forms.Panel()
-        Me.rdbFacilityLatitudeBetween = New System.Windows.Forms.RadioButton()
         Me.txtFacilityLatitudeSearch2 = New System.Windows.Forms.TextBox()
         Me.txtFacilityLatitudeSearch1 = New System.Windows.Forms.TextBox()
-        Me.Panel18 = New System.Windows.Forms.Panel()
-        Me.rdbFacilityLongitudeBetween = New System.Windows.Forms.RadioButton()
         Me.txtFacilityLongitudeSearch2 = New System.Windows.Forms.TextBox()
         Me.txtFacilityLongitudeSearch1 = New System.Windows.Forms.TextBox()
         Me.Panel15 = New System.Windows.Forms.Panel()
@@ -153,8 +149,6 @@ Partial Class IAIPQueryGenerator
         Me.DTPShutDownDateSearch1 = New System.Windows.Forms.DateTimePicker()
         Me.DTPStartUpDateSearch2 = New System.Windows.Forms.DateTimePicker()
         Me.DTPStartUpDateSearch1 = New System.Windows.Forms.DateTimePicker()
-        Me.Panel26 = New System.Windows.Forms.Panel()
-        Me.rdbShutDownDateBetween = New System.Windows.Forms.RadioButton()
         Me.Panel21 = New System.Windows.Forms.Panel()
         Me.rdbSICCodeNotEqual = New System.Windows.Forms.RadioButton()
         Me.rdbSICCodeEqual = New System.Windows.Forms.RadioButton()
@@ -168,8 +162,6 @@ Partial Class IAIPQueryGenerator
         Me.Panel19 = New System.Windows.Forms.Panel()
         Me.rdbClassificationNotEqual = New System.Windows.Forms.RadioButton()
         Me.rdbClassificationEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel10 = New System.Windows.Forms.Panel()
-        Me.rdbStartUpDateBetween = New System.Windows.Forms.RadioButton()
         Me.chbShutDownDate = New System.Windows.Forms.CheckBox()
         Me.chbStartUpDate = New System.Windows.Forms.CheckBox()
         Me.chbSICCode = New System.Windows.Forms.CheckBox()
@@ -331,8 +323,6 @@ Partial Class IAIPQueryGenerator
         Me.chbDistrictResponsible = New System.Windows.Forms.CheckBox()
         Me.DTPLastFCESearch2 = New System.Windows.Forms.DateTimePicker()
         Me.DTPLastFCESearch1 = New System.Windows.Forms.DateTimePicker()
-        Me.Panel73 = New System.Windows.Forms.Panel()
-        Me.rdbLastFCEBetween = New System.Windows.Forms.RadioButton()
         Me.chbLastFCE = New System.Windows.Forms.CheckBox()
         Me.Panel71 = New System.Windows.Forms.Panel()
         Me.rdbSSCPUnitOr = New System.Windows.Forms.RadioButton()
@@ -389,8 +379,6 @@ Partial Class IAIPQueryGenerator
         Me.Panel29.SuspendLayout()
         Me.Panel28.SuspendLayout()
         Me.Panel27.SuspendLayout()
-        Me.Panel17.SuspendLayout()
-        Me.Panel18.SuspendLayout()
         Me.Panel15.SuspendLayout()
         Me.Panel16.SuspendLayout()
         Me.Panel13.SuspendLayout()
@@ -409,11 +397,9 @@ Partial Class IAIPQueryGenerator
         Me.Panel31.SuspendLayout()
         Me.Panel32.SuspendLayout()
         Me.Panel20.SuspendLayout()
-        Me.Panel26.SuspendLayout()
         Me.Panel21.SuspendLayout()
         Me.Panel22.SuspendLayout()
         Me.Panel19.SuspendLayout()
-        Me.Panel10.SuspendLayout()
         Me.TPHeaderInformation2.SuspendLayout()
         Me.Panel63.SuspendLayout()
         Me.Panel62.SuspendLayout()
@@ -454,7 +440,6 @@ Partial Class IAIPQueryGenerator
         Me.Panel64.SuspendLayout()
         Me.TPComplianceInfo.SuspendLayout()
         Me.Panel76.SuspendLayout()
-        Me.Panel73.SuspendLayout()
         Me.Panel71.SuspendLayout()
         Me.Panel72.SuspendLayout()
         Me.Panel67.SuspendLayout()
@@ -766,10 +751,8 @@ Partial Class IAIPQueryGenerator
         Me.TPPhysicalLocation.Controls.Add(Me.cboCountySearch1)
         Me.TPPhysicalLocation.Controls.Add(Me.chbDistrict)
         Me.TPPhysicalLocation.Controls.Add(Me.chbCounty)
-        Me.TPPhysicalLocation.Controls.Add(Me.Panel17)
         Me.TPPhysicalLocation.Controls.Add(Me.txtFacilityLatitudeSearch2)
         Me.TPPhysicalLocation.Controls.Add(Me.txtFacilityLatitudeSearch1)
-        Me.TPPhysicalLocation.Controls.Add(Me.Panel18)
         Me.TPPhysicalLocation.Controls.Add(Me.txtFacilityLongitudeSearch2)
         Me.TPPhysicalLocation.Controls.Add(Me.txtFacilityLongitudeSearch1)
         Me.TPPhysicalLocation.Controls.Add(Me.Panel15)
@@ -805,20 +788,18 @@ Partial Class IAIPQueryGenerator
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(508, 140)
+        Me.Label5.Location = New System.Drawing.Point(419, 137)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(79, 9)
+        Me.Label5.Size = New System.Drawing.Size(112, 13)
         Me.Label5.TabIndex = 164
         Me.Label5.Text = "(81.00.00 -> 85.53.00)"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(508, 115)
+        Me.Label4.Location = New System.Drawing.Point(419, 112)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(79, 9)
+        Me.Label4.Size = New System.Drawing.Size(112, 13)
         Me.Label4.TabIndex = 163
         Me.Label4.Text = "(30.31.00 -> 35.00.00)"
         '
@@ -1000,26 +981,6 @@ Partial Class IAIPQueryGenerator
         Me.chbCounty.TabIndex = 58
         Me.chbCounty.Text = "County"
         '
-        'Panel17
-        '
-        Me.Panel17.AutoSize = True
-        Me.Panel17.Controls.Add(Me.rdbFacilityLatitudeBetween)
-        Me.Panel17.Location = New System.Drawing.Point(414, 106)
-        Me.Panel17.Name = "Panel17"
-        Me.Panel17.Size = New System.Drawing.Size(89, 27)
-        Me.Panel17.TabIndex = 174
-        '
-        'rdbFacilityLatitudeBetween
-        '
-        Me.rdbFacilityLatitudeBetween.AutoSize = True
-        Me.rdbFacilityLatitudeBetween.Checked = True
-        Me.rdbFacilityLatitudeBetween.Location = New System.Drawing.Point(7, 7)
-        Me.rdbFacilityLatitudeBetween.Name = "rdbFacilityLatitudeBetween"
-        Me.rdbFacilityLatitudeBetween.Size = New System.Drawing.Size(79, 17)
-        Me.rdbFacilityLatitudeBetween.TabIndex = 51
-        Me.rdbFacilityLatitudeBetween.TabStop = True
-        Me.rdbFacilityLatitudeBetween.Text = "BETWEEN"
-        '
         'txtFacilityLatitudeSearch2
         '
         Me.txtFacilityLatitudeSearch2.Location = New System.Drawing.Point(281, 109)
@@ -1033,26 +994,6 @@ Partial Class IAIPQueryGenerator
         Me.txtFacilityLatitudeSearch1.Name = "txtFacilityLatitudeSearch1"
         Me.txtFacilityLatitudeSearch1.Size = New System.Drawing.Size(127, 20)
         Me.txtFacilityLatitudeSearch1.TabIndex = 49
-        '
-        'Panel18
-        '
-        Me.Panel18.AutoSize = True
-        Me.Panel18.Controls.Add(Me.rdbFacilityLongitudeBetween)
-        Me.Panel18.Location = New System.Drawing.Point(414, 131)
-        Me.Panel18.Name = "Panel18"
-        Me.Panel18.Size = New System.Drawing.Size(89, 27)
-        Me.Panel18.TabIndex = 173
-        '
-        'rdbFacilityLongitudeBetween
-        '
-        Me.rdbFacilityLongitudeBetween.AutoSize = True
-        Me.rdbFacilityLongitudeBetween.Checked = True
-        Me.rdbFacilityLongitudeBetween.Location = New System.Drawing.Point(7, 7)
-        Me.rdbFacilityLongitudeBetween.Name = "rdbFacilityLongitudeBetween"
-        Me.rdbFacilityLongitudeBetween.Size = New System.Drawing.Size(79, 17)
-        Me.rdbFacilityLongitudeBetween.TabIndex = 56
-        Me.rdbFacilityLongitudeBetween.TabStop = True
-        Me.rdbFacilityLongitudeBetween.Text = "BETWEEN"
         '
         'txtFacilityLongitudeSearch2
         '
@@ -1445,7 +1386,6 @@ Partial Class IAIPQueryGenerator
         Me.TPHeaderInformation.Controls.Add(Me.DTPShutDownDateSearch1)
         Me.TPHeaderInformation.Controls.Add(Me.DTPStartUpDateSearch2)
         Me.TPHeaderInformation.Controls.Add(Me.DTPStartUpDateSearch1)
-        Me.TPHeaderInformation.Controls.Add(Me.Panel26)
         Me.TPHeaderInformation.Controls.Add(Me.Panel21)
         Me.TPHeaderInformation.Controls.Add(Me.Panel22)
         Me.TPHeaderInformation.Controls.Add(Me.txtSICCodeSearch2)
@@ -1453,7 +1393,6 @@ Partial Class IAIPQueryGenerator
         Me.TPHeaderInformation.Controls.Add(Me.cboClassificationSearch2)
         Me.TPHeaderInformation.Controls.Add(Me.cboClassificationSearch1)
         Me.TPHeaderInformation.Controls.Add(Me.Panel19)
-        Me.TPHeaderInformation.Controls.Add(Me.Panel10)
         Me.TPHeaderInformation.Controls.Add(Me.chbShutDownDate)
         Me.TPHeaderInformation.Controls.Add(Me.chbStartUpDate)
         Me.TPHeaderInformation.Controls.Add(Me.chbSICCode)
@@ -1888,27 +1827,6 @@ Partial Class IAIPQueryGenerator
         Me.DTPStartUpDateSearch1.TabIndex = 99
         Me.DTPStartUpDateSearch1.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
-        'Panel26
-        '
-        Me.Panel26.AutoSize = True
-        Me.Panel26.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel26.Controls.Add(Me.rdbShutDownDateBetween)
-        Me.Panel26.Location = New System.Drawing.Point(421, 129)
-        Me.Panel26.Name = "Panel26"
-        Me.Panel26.Size = New System.Drawing.Size(89, 27)
-        Me.Panel26.TabIndex = 222
-        '
-        'rdbShutDownDateBetween
-        '
-        Me.rdbShutDownDateBetween.AutoSize = True
-        Me.rdbShutDownDateBetween.Checked = True
-        Me.rdbShutDownDateBetween.Location = New System.Drawing.Point(7, 7)
-        Me.rdbShutDownDateBetween.Name = "rdbShutDownDateBetween"
-        Me.rdbShutDownDateBetween.Size = New System.Drawing.Size(79, 17)
-        Me.rdbShutDownDateBetween.TabIndex = 106
-        Me.rdbShutDownDateBetween.TabStop = True
-        Me.rdbShutDownDateBetween.Text = "BETWEEN"
-        '
         'Panel21
         '
         Me.Panel21.AutoSize = True
@@ -2032,27 +1950,6 @@ Partial Class IAIPQueryGenerator
         Me.rdbClassificationEqual.TabIndex = 87
         Me.rdbClassificationEqual.TabStop = True
         Me.rdbClassificationEqual.Text = "="
-        '
-        'Panel10
-        '
-        Me.Panel10.AutoSize = True
-        Me.Panel10.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel10.Controls.Add(Me.rdbStartUpDateBetween)
-        Me.Panel10.Location = New System.Drawing.Point(421, 104)
-        Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(89, 27)
-        Me.Panel10.TabIndex = 220
-        '
-        'rdbStartUpDateBetween
-        '
-        Me.rdbStartUpDateBetween.AutoSize = True
-        Me.rdbStartUpDateBetween.Checked = True
-        Me.rdbStartUpDateBetween.Location = New System.Drawing.Point(7, 7)
-        Me.rdbStartUpDateBetween.Name = "rdbStartUpDateBetween"
-        Me.rdbStartUpDateBetween.Size = New System.Drawing.Size(79, 17)
-        Me.rdbStartUpDateBetween.TabIndex = 101
-        Me.rdbStartUpDateBetween.TabStop = True
-        Me.rdbStartUpDateBetween.Text = "BETWEEN"
         '
         'chbShutDownDate
         '
@@ -3661,7 +3558,6 @@ Partial Class IAIPQueryGenerator
         Me.TPComplianceInfo.Controls.Add(Me.chbDistrictResponsible)
         Me.TPComplianceInfo.Controls.Add(Me.DTPLastFCESearch2)
         Me.TPComplianceInfo.Controls.Add(Me.DTPLastFCESearch1)
-        Me.TPComplianceInfo.Controls.Add(Me.Panel73)
         Me.TPComplianceInfo.Controls.Add(Me.chbLastFCE)
         Me.TPComplianceInfo.Controls.Add(Me.Panel71)
         Me.TPComplianceInfo.Controls.Add(Me.cboSSCPUnitSearch2)
@@ -3742,27 +3638,6 @@ Partial Class IAIPQueryGenerator
         Me.DTPLastFCESearch1.Size = New System.Drawing.Size(132, 22)
         Me.DTPLastFCESearch1.TabIndex = 229
         Me.DTPLastFCESearch1.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'Panel73
-        '
-        Me.Panel73.AutoSize = True
-        Me.Panel73.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel73.Controls.Add(Me.rdbLastFCEBetween)
-        Me.Panel73.Location = New System.Drawing.Point(417, 61)
-        Me.Panel73.Name = "Panel73"
-        Me.Panel73.Size = New System.Drawing.Size(89, 27)
-        Me.Panel73.TabIndex = 232
-        '
-        'rdbLastFCEBetween
-        '
-        Me.rdbLastFCEBetween.AutoSize = True
-        Me.rdbLastFCEBetween.Checked = True
-        Me.rdbLastFCEBetween.Location = New System.Drawing.Point(7, 7)
-        Me.rdbLastFCEBetween.Name = "rdbLastFCEBetween"
-        Me.rdbLastFCEBetween.Size = New System.Drawing.Size(79, 17)
-        Me.rdbLastFCEBetween.TabIndex = 101
-        Me.rdbLastFCEBetween.TabStop = True
-        Me.rdbLastFCEBetween.Text = "BETWEEN"
         '
         'chbLastFCE
         '
@@ -4239,10 +4114,6 @@ Partial Class IAIPQueryGenerator
         Me.Panel28.PerformLayout()
         Me.Panel27.ResumeLayout(False)
         Me.Panel27.PerformLayout()
-        Me.Panel17.ResumeLayout(False)
-        Me.Panel17.PerformLayout()
-        Me.Panel18.ResumeLayout(False)
-        Me.Panel18.PerformLayout()
         Me.Panel15.ResumeLayout(False)
         Me.Panel15.PerformLayout()
         Me.Panel16.ResumeLayout(False)
@@ -4279,16 +4150,12 @@ Partial Class IAIPQueryGenerator
         Me.Panel32.PerformLayout()
         Me.Panel20.ResumeLayout(False)
         Me.Panel20.PerformLayout()
-        Me.Panel26.ResumeLayout(False)
-        Me.Panel26.PerformLayout()
         Me.Panel21.ResumeLayout(False)
         Me.Panel21.PerformLayout()
         Me.Panel22.ResumeLayout(False)
         Me.Panel22.PerformLayout()
         Me.Panel19.ResumeLayout(False)
         Me.Panel19.PerformLayout()
-        Me.Panel10.ResumeLayout(False)
-        Me.Panel10.PerformLayout()
         Me.TPHeaderInformation2.ResumeLayout(False)
         Me.TPHeaderInformation2.PerformLayout()
         Me.Panel63.ResumeLayout(False)
@@ -4369,8 +4236,6 @@ Partial Class IAIPQueryGenerator
         Me.TPComplianceInfo.PerformLayout()
         Me.Panel76.ResumeLayout(False)
         Me.Panel76.PerformLayout()
-        Me.Panel73.ResumeLayout(False)
-        Me.Panel73.PerformLayout()
         Me.Panel71.ResumeLayout(False)
         Me.Panel71.PerformLayout()
         Me.Panel72.ResumeLayout(False)
@@ -4439,12 +4304,8 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents cboCountySearch1 As System.Windows.Forms.ComboBox
     Friend WithEvents chbDistrict As System.Windows.Forms.CheckBox
     Friend WithEvents chbCounty As System.Windows.Forms.CheckBox
-    Friend WithEvents Panel17 As System.Windows.Forms.Panel
-    Friend WithEvents rdbFacilityLatitudeBetween As System.Windows.Forms.RadioButton
     Friend WithEvents txtFacilityLatitudeSearch2 As System.Windows.Forms.TextBox
     Friend WithEvents txtFacilityLatitudeSearch1 As System.Windows.Forms.TextBox
-    Friend WithEvents Panel18 As System.Windows.Forms.Panel
-    Friend WithEvents rdbFacilityLongitudeBetween As System.Windows.Forms.RadioButton
     Friend WithEvents txtFacilityLongitudeSearch2 As System.Windows.Forms.TextBox
     Friend WithEvents txtFacilityLongitudeSearch1 As System.Windows.Forms.TextBox
     Friend WithEvents Panel15 As System.Windows.Forms.Panel
@@ -4510,8 +4371,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents DTPShutDownDateSearch1 As System.Windows.Forms.DateTimePicker
     Friend WithEvents DTPStartUpDateSearch2 As System.Windows.Forms.DateTimePicker
     Friend WithEvents DTPStartUpDateSearch1 As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Panel26 As System.Windows.Forms.Panel
-    Friend WithEvents rdbShutDownDateBetween As System.Windows.Forms.RadioButton
     Friend WithEvents Panel21 As System.Windows.Forms.Panel
     Friend WithEvents rdbSICCodeNotEqual As System.Windows.Forms.RadioButton
     Friend WithEvents rdbSICCodeEqual As System.Windows.Forms.RadioButton
@@ -4525,8 +4384,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents Panel19 As System.Windows.Forms.Panel
     Friend WithEvents rdbClassificationNotEqual As System.Windows.Forms.RadioButton
     Friend WithEvents rdbClassificationEqual As System.Windows.Forms.RadioButton
-    Friend WithEvents Panel10 As System.Windows.Forms.Panel
-    Friend WithEvents rdbStartUpDateBetween As System.Windows.Forms.RadioButton
     Friend WithEvents chbShutDownDate As System.Windows.Forms.CheckBox
     Friend WithEvents chbStartUpDate As System.Windows.Forms.CheckBox
     Friend WithEvents chbSICCode As System.Windows.Forms.CheckBox
@@ -4713,8 +4570,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents chbSSCPEngineer As System.Windows.Forms.CheckBox
     Friend WithEvents DTPLastFCESearch2 As System.Windows.Forms.DateTimePicker
     Friend WithEvents DTPLastFCESearch1 As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Panel73 As System.Windows.Forms.Panel
-    Friend WithEvents rdbLastFCEBetween As System.Windows.Forms.RadioButton
     Friend WithEvents chbLastFCE As System.Windows.Forms.CheckBox
     Friend WithEvents Panel74 As System.Windows.Forms.Panel
     Friend WithEvents rdbNAICSCodeNotEqual As System.Windows.Forms.RadioButton
