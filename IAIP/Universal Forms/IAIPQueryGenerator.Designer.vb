@@ -10,9 +10,9 @@ Partial Class IAIPQueryGenerator
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbExport = New System.Windows.Forms.ToolStripButton()
         Me.tsbSaveQuery = New System.Windows.Forms.ToolStripButton()
@@ -37,8 +37,6 @@ Partial Class IAIPQueryGenerator
         Me.rdbAIRSNumberAnd = New System.Windows.Forms.RadioButton()
         Me.txtAIRSNumberSearch2 = New System.Windows.Forms.TextBox()
         Me.txtAIRSNumberSearch1 = New System.Windows.Forms.TextBox()
-        Me.chbFacilityName = New System.Windows.Forms.CheckBox()
-        Me.chbAIRSNumber = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -412,6 +410,8 @@ Partial Class IAIPQueryGenerator
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mmiExport = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.Panel35.SuspendLayout()
@@ -707,30 +707,6 @@ Partial Class IAIPQueryGenerator
         Me.txtAIRSNumberSearch1.Size = New System.Drawing.Size(127, 20)
         Me.txtAIRSNumberSearch1.TabIndex = 1
         '
-        'chbFacilityName
-        '
-        Me.chbFacilityName.AutoSize = True
-        Me.chbFacilityName.Checked = True
-        Me.chbFacilityName.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chbFacilityName.Enabled = False
-        Me.chbFacilityName.Location = New System.Drawing.Point(8, 70)
-        Me.chbFacilityName.Name = "chbFacilityName"
-        Me.chbFacilityName.Size = New System.Drawing.Size(89, 17)
-        Me.chbFacilityName.TabIndex = 266
-        Me.chbFacilityName.Text = "Facility Name"
-        '
-        'chbAIRSNumber
-        '
-        Me.chbAIRSNumber.AutoSize = True
-        Me.chbAIRSNumber.Checked = True
-        Me.chbAIRSNumber.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chbAIRSNumber.Enabled = False
-        Me.chbAIRSNumber.Location = New System.Drawing.Point(8, 43)
-        Me.chbAIRSNumber.Name = "chbAIRSNumber"
-        Me.chbAIRSNumber.Size = New System.Drawing.Size(91, 17)
-        Me.chbAIRSNumber.TabIndex = 255
-        Me.chbAIRSNumber.Text = "AIRS Number"
-        '
         'Label3
         '
         Me.Label3.Location = New System.Drawing.Point(237, 18)
@@ -774,34 +750,35 @@ Partial Class IAIPQueryGenerator
         '
         'dgvQueryGenerator
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvQueryGenerator.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvQueryGenerator.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvQueryGenerator.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.dgvQueryGenerator.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvQueryGenerator.DecimalFieldFormat = "N6"
         Me.dgvQueryGenerator.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvQueryGenerator.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvQueryGenerator.LinkifyColumnByName = Nothing
         Me.dgvQueryGenerator.LinkifyFirstColumn = True
         Me.dgvQueryGenerator.Location = New System.Drawing.Point(0, 539)
         Me.dgvQueryGenerator.Name = "dgvQueryGenerator"
         Me.dgvQueryGenerator.ResultsCountLabel = Me.lblQueryCount
         Me.dgvQueryGenerator.ResultsCountLabelFormat = "{0} found"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvQueryGenerator.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
         Me.dgvQueryGenerator.Size = New System.Drawing.Size(739, 122)
         Me.dgvQueryGenerator.StandardTab = True
@@ -4457,6 +4434,8 @@ Partial Class IAIPQueryGenerator
         '
         'BasicSearchGroup
         '
+        Me.BasicSearchGroup.Controls.Add(Me.Label7)
+        Me.BasicSearchGroup.Controls.Add(Me.Label6)
         Me.BasicSearchGroup.Controls.Add(Me.lblQueryCount)
         Me.BasicSearchGroup.Controls.Add(Me.btnReset)
         Me.BasicSearchGroup.Controls.Add(Me.txtFacilityAIRSNumberOrder)
@@ -4467,9 +4446,7 @@ Partial Class IAIPQueryGenerator
         Me.BasicSearchGroup.Controls.Add(Me.Panel6)
         Me.BasicSearchGroup.Controls.Add(Me.Label3)
         Me.BasicSearchGroup.Controls.Add(Me.Panel35)
-        Me.BasicSearchGroup.Controls.Add(Me.chbAIRSNumber)
         Me.BasicSearchGroup.Controls.Add(Me.txtFacilityNameSearch2)
-        Me.BasicSearchGroup.Controls.Add(Me.chbFacilityName)
         Me.BasicSearchGroup.Controls.Add(Me.txtFacilityNameSearch1)
         Me.BasicSearchGroup.Controls.Add(Me.txtAIRSNumberSearch1)
         Me.BasicSearchGroup.Controls.Add(Me.Panel36)
@@ -4495,24 +4472,24 @@ Partial Class IAIPQueryGenerator
         'SaveSearchQueryToolStripMenuItem
         '
         Me.SaveSearchQueryToolStripMenuItem.Name = "SaveSearchQueryToolStripMenuItem"
-        Me.SaveSearchQueryToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SaveSearchQueryToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
         Me.SaveSearchQueryToolStripMenuItem.Text = "&Save Search Query"
         '
         'OpenSavedSearchToolStripMenuItem
         '
         Me.OpenSavedSearchToolStripMenuItem.Name = "OpenSavedSearchToolStripMenuItem"
-        Me.OpenSavedSearchToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.OpenSavedSearchToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
         Me.OpenSavedSearchToolStripMenuItem.Text = "&Open Saved Query"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(169, 6)
         '
         'mmiExport
         '
         Me.mmiExport.Name = "mmiExport"
-        Me.mmiExport.Size = New System.Drawing.Size(180, 22)
+        Me.mmiExport.Size = New System.Drawing.Size(172, 22)
         Me.mmiExport.Text = "&Export to Excel"
         '
         'MenuStrip1
@@ -4523,6 +4500,24 @@ Partial Class IAIPQueryGenerator
         Me.MenuStrip1.Size = New System.Drawing.Size(739, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(12, 44)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(72, 13)
+        Me.Label6.TabIndex = 276
+        Me.Label6.Text = "AIRS Number"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(12, 71)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(70, 13)
+        Me.Label7.TabIndex = 276
+        Me.Label7.Text = "Facility Name"
         '
         'IAIPQueryGenerator
         '
@@ -4733,8 +4728,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents rdbAIRSNumberAnd As System.Windows.Forms.RadioButton
     Friend WithEvents txtAIRSNumberSearch2 As System.Windows.Forms.TextBox
     Friend WithEvents txtAIRSNumberSearch1 As System.Windows.Forms.TextBox
-    Friend WithEvents chbFacilityName As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAIRSNumber As System.Windows.Forms.CheckBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
@@ -5109,4 +5102,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents lblCannedHistoryAirProgram As Label
     Friend WithEvents lblCannedHistoryClass As Label
     Friend WithEvents lblCannedQueryCount As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label7 As Label
 End Class

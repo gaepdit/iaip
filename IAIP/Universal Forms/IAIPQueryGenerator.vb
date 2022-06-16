@@ -1672,11 +1672,11 @@ Public Class IAIPQueryGenerator
                      OrElse txtAPCFOrder.Text <> "" OrElse txtAPCIOrder.Text <> "" _
                      OrElse txtAPCMOrder.Text <> "" OrElse txtAPCVOrder.Text <> "" Then
                 i = 1
-                If txtFacilityAIRSNumberOrder.Text <> "" AndAlso chbAIRSNumber.Checked Then
+                If txtFacilityAIRSNumberOrder.Text <> "" Then
                     temp = temp & txtFacilityAIRSNumberOrder.Text & "-AIRSNumber, "
                     i += 1
                 End If
-                If txtFacilityNameOrder.Text <> "" AndAlso chbFacilityName.Checked Then
+                If txtFacilityNameOrder.Text <> "" Then
                     temp = temp & txtFacilityNameOrder.Text & "-strFacilityName, "
                     i += 1
                 End If
@@ -2697,14 +2697,12 @@ Public Class IAIPQueryGenerator
 
     Private Sub ResetForm()
         Try
-            chbAIRSNumber.Checked = True
             txtAIRSNumberSearch1.Clear()
             txtAIRSNumberSearch2.Clear()
             rdbAIRSNumberOr.Checked = True
             rdbAIRSNumberEqual.Checked = True
             txtFacilityAIRSNumberOrder.Clear()
 
-            chbFacilityName.Checked = True
             txtFacilityNameSearch1.Clear()
             txtFacilityNameSearch2.Clear()
             rdbFacilityNameOr.Checked = True
@@ -2926,52 +2924,50 @@ Public Class IAIPQueryGenerator
 
         Try
 
-            If Me.chbAIRSNumber.Checked Then
-                DefaultsText = DefaultsText & "AIRSNumber"
-                If txtAIRSNumberSearch1.Text <> "" Then
-                    DefaultsText = DefaultsText & "#-" & txtAIRSNumberSearch1.Text & "-#"
-                End If
-                If txtAIRSNumberSearch2.Text <> "" Then
-                    DefaultsText = DefaultsText & "%-" & txtAIRSNumberSearch2.Text & "-%"
-                End If
-                If rdbAIRSNumberAnd.Checked Then
-                    DefaultsText = DefaultsText & "*-AND-*"
-                Else
-                    DefaultsText = DefaultsText & "*-OR-*"
-                End If
-                If rdbAIRSNumberEqual.Checked Then
-                    DefaultsText = DefaultsText & "@-EQUAL-@"
-                Else
-                    DefaultsText = DefaultsText & "@-NOTEQUAL-@"
-                End If
-                If txtFacilityAIRSNumberOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtFacilityAIRSNumberOrder.Text & "-^"
-                End If
-                DefaultsText = DefaultsText & "rebmuNSRIA"
+            DefaultsText = DefaultsText & "AIRSNumber"
+            If txtAIRSNumberSearch1.Text <> "" Then
+                DefaultsText = DefaultsText & "#-" & txtAIRSNumberSearch1.Text & "-#"
             End If
-            If Me.chbFacilityName.Checked Then
-                DefaultsText = DefaultsText & "FacilityName"
-                If txtFacilityNameSearch1.Text <> "" Then
-                    DefaultsText = DefaultsText & "#-" & txtFacilityNameSearch1.Text & "-#"
-                End If
-                If txtFacilityNameSearch2.Text <> "" Then
-                    DefaultsText = DefaultsText & "%-" & txtFacilityNameSearch2.Text & "-%"
-                End If
-                If rdbFacilityNameAnd.Checked Then
-                    DefaultsText = DefaultsText & "*-AND-*"
-                Else
-                    DefaultsText = DefaultsText & "*-OR-*"
-                End If
-                If rdbFacilityNameEqual.Checked Then
-                    DefaultsText = DefaultsText & "@-EQUAL-@"
-                Else
-                    DefaultsText = DefaultsText & "@-NOTEQUAL-@"
-                End If
-                If txtFacilityNameOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtFacilityNameOrder.Text & "-^"
-                End If
-                DefaultsText = DefaultsText & "emaNytilicaF"
+            If txtAIRSNumberSearch2.Text <> "" Then
+                DefaultsText = DefaultsText & "%-" & txtAIRSNumberSearch2.Text & "-%"
             End If
+            If rdbAIRSNumberAnd.Checked Then
+                DefaultsText = DefaultsText & "*-AND-*"
+            Else
+                DefaultsText = DefaultsText & "*-OR-*"
+            End If
+            If rdbAIRSNumberEqual.Checked Then
+                DefaultsText = DefaultsText & "@-EQUAL-@"
+            Else
+                DefaultsText = DefaultsText & "@-NOTEQUAL-@"
+            End If
+            If txtFacilityAIRSNumberOrder.Text <> "" Then
+                DefaultsText = DefaultsText & "^-" & txtFacilityAIRSNumberOrder.Text & "-^"
+            End If
+            DefaultsText = DefaultsText & "rebmuNSRIA"
+
+            DefaultsText = DefaultsText & "FacilityName"
+            If txtFacilityNameSearch1.Text <> "" Then
+                DefaultsText = DefaultsText & "#-" & txtFacilityNameSearch1.Text & "-#"
+            End If
+            If txtFacilityNameSearch2.Text <> "" Then
+                DefaultsText = DefaultsText & "%-" & txtFacilityNameSearch2.Text & "-%"
+            End If
+            If rdbFacilityNameAnd.Checked Then
+                DefaultsText = DefaultsText & "*-AND-*"
+            Else
+                DefaultsText = DefaultsText & "*-OR-*"
+            End If
+            If rdbFacilityNameEqual.Checked Then
+                DefaultsText = DefaultsText & "@-EQUAL-@"
+            Else
+                DefaultsText = DefaultsText & "@-NOTEQUAL-@"
+            End If
+            If txtFacilityNameOrder.Text <> "" Then
+                DefaultsText = DefaultsText & "^-" & txtFacilityNameOrder.Text & "-^"
+            End If
+            DefaultsText = DefaultsText & "emaNytilicaF"
+
             If Me.chbFacilityStreet1.Checked Then
                 DefaultsText = DefaultsText & "Street1"
                 If txtFacilityStreet1Search1.Text <> "" Then
@@ -3379,7 +3375,6 @@ Public Class IAIPQueryGenerator
                         If DefaultsText <> "" Then
                             If DefaultsText.IndexOf("AIRSNumber") <> -1 Then
                                 AIRSNumber = Mid(DefaultsText, DefaultsText.IndexOf("AIRSNumber") + 1, (DefaultsText.IndexOf("rebmuNSRIA") - DefaultsText.IndexOf("AIRSNumber") + 10))
-                                Me.chbAIRSNumber.Checked = True
                                 If AIRSNumber.IndexOf("#-") <> -1 Then
                                     txtAIRSNumberSearch1.Text = Mid(AIRSNumber, (AIRSNumber.IndexOf("#-") + 3), (AIRSNumber.IndexOf("-#") - (AIRSNumber.IndexOf("#-") + 2)))
                                 End If
@@ -3407,7 +3402,6 @@ Public Class IAIPQueryGenerator
 
                             If DefaultsText.IndexOf("FacilityName") <> -1 Then
                                 FacilityName = Mid(DefaultsText, DefaultsText.IndexOf("FacilityName") + 1, (DefaultsText.IndexOf("emaNytilicaF") - DefaultsText.IndexOf("FacilityName") + 12))
-                                Me.chbFacilityName.Checked = True
                                 If FacilityName.IndexOf("#-") <> -1 Then
                                     txtFacilityNameSearch1.Text = Mid(FacilityName, (FacilityName.IndexOf("#-") + 3), (FacilityName.IndexOf("-#") - (FacilityName.IndexOf("#-") + 2)))
                                 End If
