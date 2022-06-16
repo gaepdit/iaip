@@ -10,9 +10,9 @@ Partial Class IAIPQueryGenerator
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbExport = New System.Windows.Forms.ToolStripButton()
         Me.tsbSaveQuery = New System.Windows.Forms.ToolStripButton()
@@ -279,15 +279,6 @@ Partial Class IAIPQueryGenerator
         Me.rdbAPC6Equal = New System.Windows.Forms.RadioButton()
         Me.chbAPC9 = New System.Windows.Forms.CheckBox()
         Me.TPSubpartData = New System.Windows.Forms.TabPage()
-        Me.Panel65 = New System.Windows.Forms.Panel()
-        Me.rdbPart60SubPartOr = New System.Windows.Forms.RadioButton()
-        Me.rdbPart60SubPartAnd = New System.Windows.Forms.RadioButton()
-        Me.Panel25 = New System.Windows.Forms.Panel()
-        Me.rdbPart63SubPartOR = New System.Windows.Forms.RadioButton()
-        Me.rdbPart63SubPartAnd = New System.Windows.Forms.RadioButton()
-        Me.Panel9 = New System.Windows.Forms.Panel()
-        Me.rdbPart61SubPartOr = New System.Windows.Forms.RadioButton()
-        Me.rdbPart61SubPartAnd = New System.Windows.Forms.RadioButton()
         Me.cboPart63Search2 = New System.Windows.Forms.ComboBox()
         Me.cboPart60Search2 = New System.Windows.Forms.ComboBox()
         Me.cboPart63Search1 = New System.Windows.Forms.ComboBox()
@@ -296,22 +287,7 @@ Partial Class IAIPQueryGenerator
         Me.cboPart61Search1 = New System.Windows.Forms.ComboBox()
         Me.cboSIPSearch2 = New System.Windows.Forms.ComboBox()
         Me.cboSIPSearch1 = New System.Windows.Forms.ComboBox()
-        Me.Panel23 = New System.Windows.Forms.Panel()
-        Me.rdbSIPNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbSIPEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel24 = New System.Windows.Forms.Panel()
-        Me.rdbSIPSubPartOr = New System.Windows.Forms.RadioButton()
-        Me.rdbSIPSubPartAnd = New System.Windows.Forms.RadioButton()
         Me.chbSIP = New System.Windows.Forms.CheckBox()
-        Me.Panel68 = New System.Windows.Forms.Panel()
-        Me.rdbPart63NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbPart63Equal = New System.Windows.Forms.RadioButton()
-        Me.Panel66 = New System.Windows.Forms.Panel()
-        Me.rdbPart60NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbPart60Equal = New System.Windows.Forms.RadioButton()
-        Me.Panel64 = New System.Windows.Forms.Panel()
-        Me.rdbPart61NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbPart61Equal = New System.Windows.Forms.RadioButton()
         Me.chbAllSubparts = New System.Windows.Forms.CheckBox()
         Me.chbPart61Subpart = New System.Windows.Forms.CheckBox()
         Me.chbPart60Subpart = New System.Windows.Forms.CheckBox()
@@ -430,14 +406,6 @@ Partial Class IAIPQueryGenerator
         Me.Panel43.SuspendLayout()
         Me.Panel42.SuspendLayout()
         Me.TPSubpartData.SuspendLayout()
-        Me.Panel65.SuspendLayout()
-        Me.Panel25.SuspendLayout()
-        Me.Panel9.SuspendLayout()
-        Me.Panel23.SuspendLayout()
-        Me.Panel24.SuspendLayout()
-        Me.Panel68.SuspendLayout()
-        Me.Panel66.SuspendLayout()
-        Me.Panel64.SuspendLayout()
         Me.TPComplianceInfo.SuspendLayout()
         Me.Panel76.SuspendLayout()
         Me.Panel71.SuspendLayout()
@@ -678,17 +646,17 @@ Partial Class IAIPQueryGenerator
         '
         'dgvQueryGenerator
         '
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvQueryGenerator.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvQueryGenerator.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvQueryGenerator.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvQueryGenerator.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvQueryGenerator.DecimalFieldFormat = "N6"
         Me.dgvQueryGenerator.Dock = System.Windows.Forms.DockStyle.Fill
@@ -699,14 +667,14 @@ Partial Class IAIPQueryGenerator
         Me.dgvQueryGenerator.Name = "dgvQueryGenerator"
         Me.dgvQueryGenerator.ResultsCountLabel = Me.lblQueryCount
         Me.dgvQueryGenerator.ResultsCountLabelFormat = "{0} found"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvQueryGenerator.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
         Me.dgvQueryGenerator.Size = New System.Drawing.Size(739, 122)
         Me.dgvQueryGenerator.StandardTab = True
@@ -3147,9 +3115,6 @@ Partial Class IAIPQueryGenerator
         '
         'TPSubpartData
         '
-        Me.TPSubpartData.Controls.Add(Me.Panel65)
-        Me.TPSubpartData.Controls.Add(Me.Panel25)
-        Me.TPSubpartData.Controls.Add(Me.Panel9)
         Me.TPSubpartData.Controls.Add(Me.cboPart63Search2)
         Me.TPSubpartData.Controls.Add(Me.cboPart60Search2)
         Me.TPSubpartData.Controls.Add(Me.cboPart63Search1)
@@ -3158,12 +3123,7 @@ Partial Class IAIPQueryGenerator
         Me.TPSubpartData.Controls.Add(Me.cboPart61Search1)
         Me.TPSubpartData.Controls.Add(Me.cboSIPSearch2)
         Me.TPSubpartData.Controls.Add(Me.cboSIPSearch1)
-        Me.TPSubpartData.Controls.Add(Me.Panel23)
-        Me.TPSubpartData.Controls.Add(Me.Panel24)
         Me.TPSubpartData.Controls.Add(Me.chbSIP)
-        Me.TPSubpartData.Controls.Add(Me.Panel68)
-        Me.TPSubpartData.Controls.Add(Me.Panel66)
-        Me.TPSubpartData.Controls.Add(Me.Panel64)
         Me.TPSubpartData.Controls.Add(Me.chbAllSubparts)
         Me.TPSubpartData.Controls.Add(Me.chbPart61Subpart)
         Me.TPSubpartData.Controls.Add(Me.chbPart60Subpart)
@@ -3174,102 +3134,6 @@ Partial Class IAIPQueryGenerator
         Me.TPSubpartData.TabIndex = 4
         Me.TPSubpartData.Text = "Subpart Data"
         Me.TPSubpartData.UseVisualStyleBackColor = True
-        '
-        'Panel65
-        '
-        Me.Panel65.AutoSize = True
-        Me.Panel65.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel65.Controls.Add(Me.rdbPart60SubPartOr)
-        Me.Panel65.Controls.Add(Me.rdbPart60SubPartAnd)
-        Me.Panel65.Location = New System.Drawing.Point(469, 73)
-        Me.Panel65.Name = "Panel65"
-        Me.Panel65.Size = New System.Drawing.Size(103, 27)
-        Me.Panel65.TabIndex = 286
-        '
-        'rdbPart60SubPartOr
-        '
-        Me.rdbPart60SubPartOr.AutoSize = True
-        Me.rdbPart60SubPartOr.Checked = True
-        Me.rdbPart60SubPartOr.Location = New System.Drawing.Point(59, 7)
-        Me.rdbPart60SubPartOr.Name = "rdbPart60SubPartOr"
-        Me.rdbPart60SubPartOr.Size = New System.Drawing.Size(41, 17)
-        Me.rdbPart60SubPartOr.TabIndex = 239
-        Me.rdbPart60SubPartOr.TabStop = True
-        Me.rdbPart60SubPartOr.Text = "OR"
-        '
-        'rdbPart60SubPartAnd
-        '
-        Me.rdbPart60SubPartAnd.AutoSize = True
-        Me.rdbPart60SubPartAnd.Enabled = False
-        Me.rdbPart60SubPartAnd.Location = New System.Drawing.Point(7, 7)
-        Me.rdbPart60SubPartAnd.Name = "rdbPart60SubPartAnd"
-        Me.rdbPart60SubPartAnd.Size = New System.Drawing.Size(48, 17)
-        Me.rdbPart60SubPartAnd.TabIndex = 238
-        Me.rdbPart60SubPartAnd.Text = "AND"
-        '
-        'Panel25
-        '
-        Me.Panel25.AutoSize = True
-        Me.Panel25.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel25.Controls.Add(Me.rdbPart63SubPartOR)
-        Me.Panel25.Controls.Add(Me.rdbPart63SubPartAnd)
-        Me.Panel25.Location = New System.Drawing.Point(469, 97)
-        Me.Panel25.Name = "Panel25"
-        Me.Panel25.Size = New System.Drawing.Size(103, 27)
-        Me.Panel25.TabIndex = 285
-        '
-        'rdbPart63SubPartOR
-        '
-        Me.rdbPart63SubPartOR.AutoSize = True
-        Me.rdbPart63SubPartOR.Checked = True
-        Me.rdbPart63SubPartOR.Location = New System.Drawing.Point(59, 7)
-        Me.rdbPart63SubPartOR.Name = "rdbPart63SubPartOR"
-        Me.rdbPart63SubPartOR.Size = New System.Drawing.Size(41, 17)
-        Me.rdbPart63SubPartOR.TabIndex = 246
-        Me.rdbPart63SubPartOR.TabStop = True
-        Me.rdbPart63SubPartOR.Text = "OR"
-        '
-        'rdbPart63SubPartAnd
-        '
-        Me.rdbPart63SubPartAnd.AutoSize = True
-        Me.rdbPart63SubPartAnd.Enabled = False
-        Me.rdbPart63SubPartAnd.Location = New System.Drawing.Point(7, 7)
-        Me.rdbPart63SubPartAnd.Name = "rdbPart63SubPartAnd"
-        Me.rdbPart63SubPartAnd.Size = New System.Drawing.Size(48, 17)
-        Me.rdbPart63SubPartAnd.TabIndex = 245
-        Me.rdbPart63SubPartAnd.Text = "AND"
-        '
-        'Panel9
-        '
-        Me.Panel9.AutoSize = True
-        Me.Panel9.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel9.Controls.Add(Me.rdbPart61SubPartOr)
-        Me.Panel9.Controls.Add(Me.rdbPart61SubPartAnd)
-        Me.Panel9.Location = New System.Drawing.Point(469, 48)
-        Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(103, 27)
-        Me.Panel9.TabIndex = 284
-        '
-        'rdbPart61SubPartOr
-        '
-        Me.rdbPart61SubPartOr.AutoSize = True
-        Me.rdbPart61SubPartOr.Checked = True
-        Me.rdbPart61SubPartOr.Location = New System.Drawing.Point(59, 7)
-        Me.rdbPart61SubPartOr.Name = "rdbPart61SubPartOr"
-        Me.rdbPart61SubPartOr.Size = New System.Drawing.Size(41, 17)
-        Me.rdbPart61SubPartOr.TabIndex = 232
-        Me.rdbPart61SubPartOr.TabStop = True
-        Me.rdbPart61SubPartOr.Text = "OR"
-        '
-        'rdbPart61SubPartAnd
-        '
-        Me.rdbPart61SubPartAnd.AutoSize = True
-        Me.rdbPart61SubPartAnd.Enabled = False
-        Me.rdbPart61SubPartAnd.Location = New System.Drawing.Point(7, 7)
-        Me.rdbPart61SubPartAnd.Name = "rdbPart61SubPartAnd"
-        Me.rdbPart61SubPartAnd.Size = New System.Drawing.Size(48, 17)
-        Me.rdbPart61SubPartAnd.TabIndex = 231
-        Me.rdbPart61SubPartAnd.Text = "AND"
         '
         'cboPart63Search2
         '
@@ -3343,70 +3207,6 @@ Partial Class IAIPQueryGenerator
         Me.cboSIPSearch1.Size = New System.Drawing.Size(127, 21)
         Me.cboSIPSearch1.TabIndex = 222
         '
-        'Panel23
-        '
-        Me.Panel23.AutoSize = True
-        Me.Panel23.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel23.Controls.Add(Me.rdbSIPNotEqual)
-        Me.Panel23.Controls.Add(Me.rdbSIPEqual)
-        Me.Panel23.Location = New System.Drawing.Point(601, 23)
-        Me.Panel23.Name = "Panel23"
-        Me.Panel23.Size = New System.Drawing.Size(83, 27)
-        Me.Panel23.TabIndex = 275
-        '
-        'rdbSIPNotEqual
-        '
-        Me.rdbSIPNotEqual.AutoSize = True
-        Me.rdbSIPNotEqual.Enabled = False
-        Me.rdbSIPNotEqual.Location = New System.Drawing.Point(43, 7)
-        Me.rdbSIPNotEqual.Name = "rdbSIPNotEqual"
-        Me.rdbSIPNotEqual.Size = New System.Drawing.Size(37, 17)
-        Me.rdbSIPNotEqual.TabIndex = 227
-        Me.rdbSIPNotEqual.Text = "<>"
-        '
-        'rdbSIPEqual
-        '
-        Me.rdbSIPEqual.AutoSize = True
-        Me.rdbSIPEqual.Checked = True
-        Me.rdbSIPEqual.Location = New System.Drawing.Point(7, 7)
-        Me.rdbSIPEqual.Name = "rdbSIPEqual"
-        Me.rdbSIPEqual.Size = New System.Drawing.Size(31, 17)
-        Me.rdbSIPEqual.TabIndex = 226
-        Me.rdbSIPEqual.TabStop = True
-        Me.rdbSIPEqual.Text = "="
-        '
-        'Panel24
-        '
-        Me.Panel24.AutoSize = True
-        Me.Panel24.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel24.Controls.Add(Me.rdbSIPSubPartOr)
-        Me.Panel24.Controls.Add(Me.rdbSIPSubPartAnd)
-        Me.Panel24.Location = New System.Drawing.Point(469, 23)
-        Me.Panel24.Name = "Panel24"
-        Me.Panel24.Size = New System.Drawing.Size(103, 27)
-        Me.Panel24.TabIndex = 274
-        '
-        'rdbSIPSubPartOr
-        '
-        Me.rdbSIPSubPartOr.AutoSize = True
-        Me.rdbSIPSubPartOr.Checked = True
-        Me.rdbSIPSubPartOr.Location = New System.Drawing.Point(59, 7)
-        Me.rdbSIPSubPartOr.Name = "rdbSIPSubPartOr"
-        Me.rdbSIPSubPartOr.Size = New System.Drawing.Size(41, 17)
-        Me.rdbSIPSubPartOr.TabIndex = 225
-        Me.rdbSIPSubPartOr.TabStop = True
-        Me.rdbSIPSubPartOr.Text = "OR"
-        '
-        'rdbSIPSubPartAnd
-        '
-        Me.rdbSIPSubPartAnd.AutoSize = True
-        Me.rdbSIPSubPartAnd.Enabled = False
-        Me.rdbSIPSubPartAnd.Location = New System.Drawing.Point(7, 7)
-        Me.rdbSIPSubPartAnd.Name = "rdbSIPSubPartAnd"
-        Me.rdbSIPSubPartAnd.Size = New System.Drawing.Size(48, 17)
-        Me.rdbSIPSubPartAnd.TabIndex = 224
-        Me.rdbSIPSubPartAnd.Text = "AND"
-        '
         'chbSIP
         '
         Me.chbSIP.AutoSize = True
@@ -3416,102 +3216,6 @@ Partial Class IAIPQueryGenerator
         Me.chbSIP.Size = New System.Drawing.Size(58, 17)
         Me.chbSIP.TabIndex = 221
         Me.chbSIP.Text = "0 - SIP"
-        '
-        'Panel68
-        '
-        Me.Panel68.AutoSize = True
-        Me.Panel68.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel68.Controls.Add(Me.rdbPart63NotEqual)
-        Me.Panel68.Controls.Add(Me.rdbPart63Equal)
-        Me.Panel68.Location = New System.Drawing.Point(601, 97)
-        Me.Panel68.Name = "Panel68"
-        Me.Panel68.Size = New System.Drawing.Size(83, 27)
-        Me.Panel68.TabIndex = 270
-        '
-        'rdbPart63NotEqual
-        '
-        Me.rdbPart63NotEqual.AutoSize = True
-        Me.rdbPart63NotEqual.Enabled = False
-        Me.rdbPart63NotEqual.Location = New System.Drawing.Point(43, 7)
-        Me.rdbPart63NotEqual.Name = "rdbPart63NotEqual"
-        Me.rdbPart63NotEqual.Size = New System.Drawing.Size(37, 17)
-        Me.rdbPart63NotEqual.TabIndex = 248
-        Me.rdbPart63NotEqual.Text = "<>"
-        '
-        'rdbPart63Equal
-        '
-        Me.rdbPart63Equal.AutoSize = True
-        Me.rdbPart63Equal.Checked = True
-        Me.rdbPart63Equal.Location = New System.Drawing.Point(7, 7)
-        Me.rdbPart63Equal.Name = "rdbPart63Equal"
-        Me.rdbPart63Equal.Size = New System.Drawing.Size(31, 17)
-        Me.rdbPart63Equal.TabIndex = 247
-        Me.rdbPart63Equal.TabStop = True
-        Me.rdbPart63Equal.Text = "="
-        '
-        'Panel66
-        '
-        Me.Panel66.AutoSize = True
-        Me.Panel66.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel66.Controls.Add(Me.rdbPart60NotEqual)
-        Me.Panel66.Controls.Add(Me.rdbPart60Equal)
-        Me.Panel66.Location = New System.Drawing.Point(601, 73)
-        Me.Panel66.Name = "Panel66"
-        Me.Panel66.Size = New System.Drawing.Size(83, 27)
-        Me.Panel66.TabIndex = 265
-        '
-        'rdbPart60NotEqual
-        '
-        Me.rdbPart60NotEqual.AutoSize = True
-        Me.rdbPart60NotEqual.Enabled = False
-        Me.rdbPart60NotEqual.Location = New System.Drawing.Point(43, 7)
-        Me.rdbPart60NotEqual.Name = "rdbPart60NotEqual"
-        Me.rdbPart60NotEqual.Size = New System.Drawing.Size(37, 17)
-        Me.rdbPart60NotEqual.TabIndex = 241
-        Me.rdbPart60NotEqual.Text = "<>"
-        '
-        'rdbPart60Equal
-        '
-        Me.rdbPart60Equal.AutoSize = True
-        Me.rdbPart60Equal.Checked = True
-        Me.rdbPart60Equal.Location = New System.Drawing.Point(7, 7)
-        Me.rdbPart60Equal.Name = "rdbPart60Equal"
-        Me.rdbPart60Equal.Size = New System.Drawing.Size(31, 17)
-        Me.rdbPart60Equal.TabIndex = 240
-        Me.rdbPart60Equal.TabStop = True
-        Me.rdbPart60Equal.Text = "="
-        '
-        'Panel64
-        '
-        Me.Panel64.AutoSize = True
-        Me.Panel64.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel64.Controls.Add(Me.rdbPart61NotEqual)
-        Me.Panel64.Controls.Add(Me.rdbPart61Equal)
-        Me.Panel64.Location = New System.Drawing.Point(601, 48)
-        Me.Panel64.Name = "Panel64"
-        Me.Panel64.Size = New System.Drawing.Size(83, 27)
-        Me.Panel64.TabIndex = 260
-        '
-        'rdbPart61NotEqual
-        '
-        Me.rdbPart61NotEqual.AutoSize = True
-        Me.rdbPart61NotEqual.Enabled = False
-        Me.rdbPart61NotEqual.Location = New System.Drawing.Point(43, 7)
-        Me.rdbPart61NotEqual.Name = "rdbPart61NotEqual"
-        Me.rdbPart61NotEqual.Size = New System.Drawing.Size(37, 17)
-        Me.rdbPart61NotEqual.TabIndex = 234
-        Me.rdbPart61NotEqual.Text = "<>"
-        '
-        'rdbPart61Equal
-        '
-        Me.rdbPart61Equal.AutoSize = True
-        Me.rdbPart61Equal.Checked = True
-        Me.rdbPart61Equal.Location = New System.Drawing.Point(7, 7)
-        Me.rdbPart61Equal.Name = "rdbPart61Equal"
-        Me.rdbPart61Equal.Size = New System.Drawing.Size(31, 17)
-        Me.rdbPart61Equal.TabIndex = 233
-        Me.rdbPart61Equal.TabStop = True
-        Me.rdbPart61Equal.Text = "="
         '
         'chbAllSubparts
         '
@@ -4216,22 +3920,6 @@ Partial Class IAIPQueryGenerator
         Me.Panel42.PerformLayout()
         Me.TPSubpartData.ResumeLayout(False)
         Me.TPSubpartData.PerformLayout()
-        Me.Panel65.ResumeLayout(False)
-        Me.Panel65.PerformLayout()
-        Me.Panel25.ResumeLayout(False)
-        Me.Panel25.PerformLayout()
-        Me.Panel9.ResumeLayout(False)
-        Me.Panel9.PerformLayout()
-        Me.Panel23.ResumeLayout(False)
-        Me.Panel23.PerformLayout()
-        Me.Panel24.ResumeLayout(False)
-        Me.Panel24.PerformLayout()
-        Me.Panel68.ResumeLayout(False)
-        Me.Panel68.PerformLayout()
-        Me.Panel66.ResumeLayout(False)
-        Me.Panel66.PerformLayout()
-        Me.Panel64.ResumeLayout(False)
-        Me.Panel64.PerformLayout()
         Me.TPComplianceInfo.ResumeLayout(False)
         Me.TPComplianceInfo.PerformLayout()
         Me.Panel76.ResumeLayout(False)
@@ -4512,18 +4200,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents chbPart61Subpart As System.Windows.Forms.CheckBox
     Friend WithEvents chbPart60Subpart As System.Windows.Forms.CheckBox
     Friend WithEvents chbPart63Subpart As System.Windows.Forms.CheckBox
-    Friend WithEvents Panel68 As System.Windows.Forms.Panel
-    Friend WithEvents rdbPart63NotEqual As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbPart63Equal As System.Windows.Forms.RadioButton
-    Friend WithEvents Panel66 As System.Windows.Forms.Panel
-    Friend WithEvents rdbPart60NotEqual As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbPart60Equal As System.Windows.Forms.RadioButton
-    Friend WithEvents Panel64 As System.Windows.Forms.Panel
-    Friend WithEvents rdbPart61NotEqual As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbPart61Equal As System.Windows.Forms.RadioButton
-    Friend WithEvents Panel23 As System.Windows.Forms.Panel
-    Friend WithEvents rdbSIPNotEqual As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbSIPEqual As System.Windows.Forms.RadioButton
     Friend WithEvents chbSIP As System.Windows.Forms.CheckBox
     Friend WithEvents Panel70 As System.Windows.Forms.Panel
     Friend WithEvents rdbAPCOr As System.Windows.Forms.RadioButton
@@ -4537,18 +4213,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents cboPart60Search1 As System.Windows.Forms.ComboBox
     Friend WithEvents cboPart61Search2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboPart61Search1 As System.Windows.Forms.ComboBox
-    Friend WithEvents Panel65 As System.Windows.Forms.Panel
-    Friend WithEvents rdbPart60SubPartOr As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbPart60SubPartAnd As System.Windows.Forms.RadioButton
-    Friend WithEvents Panel25 As System.Windows.Forms.Panel
-    Friend WithEvents rdbPart63SubPartOR As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbPart63SubPartAnd As System.Windows.Forms.RadioButton
-    Friend WithEvents Panel9 As System.Windows.Forms.Panel
-    Friend WithEvents rdbPart61SubPartOr As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbPart61SubPartAnd As System.Windows.Forms.RadioButton
-    Friend WithEvents Panel24 As System.Windows.Forms.Panel
-    Friend WithEvents rdbSIPSubPartOr As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbSIPSubPartAnd As System.Windows.Forms.RadioButton
     Friend WithEvents TPComplianceInfo As System.Windows.Forms.TabPage
     Friend WithEvents Panel71 As System.Windows.Forms.Panel
     Friend WithEvents rdbSSCPUnitOr As System.Windows.Forms.RadioButton

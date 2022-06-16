@@ -1962,48 +1962,24 @@ Public Class IAIPQueryGenerator
 
             If chbAllSubparts.Checked Then
                 If chbSIP.Checked Then
-                    If rdbSIPEqual.Checked Then
-                        MainSql = MainSql & " and GASIP is not null "
-                    Else
-                        MainSql = MainSql & " and GASIP is null "
-                    End If
+                    MainSql = MainSql & " and GASIP is not null "
                 End If
 
                 If chbPart61Subpart.Checked Then
-                    If rdbPart61Equal.Checked Then
-                        MainSql = MainSql & " and Part61 is not null "
-                    Else
-                        MainSql = MainSql & " and Part61 is null "
-                    End If
+                    MainSql = MainSql & " and Part61 is not null "
                 End If
 
                 If chbPart60Subpart.Checked Then
-                    If rdbPart60Equal.Checked Then
-                        MainSql = MainSql & " and Part60 is not null "
-                    Else
-                        MainSql = MainSql & " and Part60 is null "
-                    End If
+                    MainSql = MainSql & " and Part60 is not null "
                 End If
 
                 If chbPart63Subpart.Checked Then
-                    If rdbPart63Equal.Checked Then
-                        MainSql = MainSql & " and Part63 is not null "
-                    Else
-                        MainSql = MainSql & " and Part63 is null "
-                    End If
+                    MainSql = MainSql & " and Part63 is not null "
                 End If
             Else
                 If chbSIP.Checked Then
-                    If rdbSIPSubPartOr.Checked Then
-                        SQLWhereCase1 = " OR "
-                    Else
-                        SQLWhereCase1 = " AND "
-                    End If
-                    If rdbSIPEqual.Checked Then
-                        SQLWhereCase2 = " = "
-                    Else
-                        SQLWhereCase2 = " <> "
-                    End If
+                    SQLWhereCase1 = " OR "
+                    SQLWhereCase2 = " = "
                     If cboSIPSearch1.Text <> "" AndAlso cboSIPSearch1.Text <> " " Then
                         MainSql = MainSql & " and (GASIP " & SQLWhereCase2 & " @sip1 ) "
                         params.Add(New SqlParameter("@sip1", cboSIPSearch1.Text))
@@ -2020,16 +1996,8 @@ Public Class IAIPQueryGenerator
                 End If
 
                 If chbPart61Subpart.Checked Then
-                    If rdbPart61SubPartOr.Checked Then
-                        SQLWhereCase1 = " OR "
-                    Else
-                        SQLWhereCase1 = " AND "
-                    End If
-                    If rdbPart61Equal.Checked Then
-                        SQLWhereCase2 = " = "
-                    Else
-                        SQLWhereCase2 = " <> "
-                    End If
+                    SQLWhereCase1 = " OR "
+                    SQLWhereCase2 = " = "
                     If cboPart61Search1.Text <> "" AndAlso cboPart61Search1.Text <> " " Then
                         MainSql = MainSql & " and (Part61 " & SQLWhereCase2 & " @p61a ) "
                         params.Add(New SqlParameter("@p61a", cboPart61Search1.Text))
@@ -2046,16 +2014,8 @@ Public Class IAIPQueryGenerator
                 End If
 
                 If chbPart60Subpart.Checked Then
-                    If rdbPart60SubPartOr.Checked Then
-                        SQLWhereCase1 = " OR "
-                    Else
-                        SQLWhereCase1 = " AND "
-                    End If
-                    If rdbPart60Equal.Checked Then
-                        SQLWhereCase2 = " = "
-                    Else
-                        SQLWhereCase2 = " <> "
-                    End If
+                    SQLWhereCase1 = " OR "
+                    SQLWhereCase2 = " = "
                     If cboPart60Search1.Text <> "" AndAlso cboPart60Search1.Text <> " " Then
                         MainSql = MainSql & " and (Part60 " & SQLWhereCase2 & " '" & cboPart60Search1.Text & "' ) "
                         params.Add(New SqlParameter("@p60a", cboPart60Search1.Text))
@@ -2072,16 +2032,8 @@ Public Class IAIPQueryGenerator
                 End If
 
                 If chbPart63Subpart.Checked Then
-                    If rdbPart63SubPartOR.Checked Then
-                        SQLWhereCase1 = " OR "
-                    Else
-                        SQLWhereCase1 = " AND "
-                    End If
-                    If rdbPart63Equal.Checked Then
-                        SQLWhereCase2 = " = "
-                    Else
-                        SQLWhereCase2 = " <> "
-                    End If
+                    SQLWhereCase1 = " OR "
+                    SQLWhereCase2 = " = "
                     If cboPart63Search1.Text <> "" AndAlso cboPart63Search1.Text <> " " Then
                         MainSql = MainSql & " and (Part63 " & SQLWhereCase2 & " '" & cboPart63Search1.Text & "' ) "
                         params.Add(New SqlParameter("@p63a", cboPart63Search1.Text))
