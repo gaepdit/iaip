@@ -334,7 +334,7 @@ Public Class IAIPQueryGenerator
 #End Region
 
     Private Sub GenerateSQL2()
-        Dim MasterSQL As String = ""
+        Dim MainSql As String = ""
         Dim SQLSelect As String = ""
         Dim SQLFrom As String = ""
         Dim SQLWhere As String = ""
@@ -1414,7 +1414,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
                         " " & SQLWhereCase1 & " LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " @dist2 ) "
                     Else
-                        SQLWhere = MasterSQL & " and (LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " @dist2) "
+                        SQLWhere = MainSql & " and (LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " @dist2) "
                     End If
                     params.Add(New SqlParameter("@dist2", cboDistrictSearch2.SelectedValue))
                 End If
@@ -1825,204 +1825,204 @@ Public Class IAIPQueryGenerator
             Mid(SQLFrom, 1, (SQLFrom.Length - 2)) &
             SQLWhere
 
-            MasterSQL = "Select distinct * " &
-            "from (" & query & ") MasterSQL " &
+            MainSql = "Select distinct * " &
+            "from (" & query & ") SubQuery " &
             "Where AIRSNumber is Not Null "
 
             If chb1HrYes.Checked Then
                 If rdb1HrYesEqual.Checked Then
-                    MasterSQL = MasterSQL & " and OneHRYes is not null "
+                    MainSql = MainSql & " and OneHRYes is not null "
                 Else
-                    MasterSQL = MasterSQL & " and OneHRYes is null "
+                    MainSql = MainSql & " and OneHRYes is null "
                 End If
             End If
 
             If chb1HrNo.Checked Then
                 If rdb1HrNoEqual.Checked Then
-                    MasterSQL = MasterSQL & " and OneHRNo is not null "
+                    MainSql = MainSql & " and OneHRNo is not null "
                 Else
-                    MasterSQL = MasterSQL & " and OneHRNo is null "
+                    MainSql = MainSql & " and OneHRNo is null "
                 End If
             End If
 
             If chb1HrContribute.Checked Then
                 If rdb1HrContributeEqual.Checked Then
-                    MasterSQL = MasterSQL & " and OneHRContribute is not null "
+                    MainSql = MainSql & " and OneHRContribute is not null "
                 Else
-                    MasterSQL = MasterSQL & " and OneHRContribute is null "
+                    MainSql = MainSql & " and OneHRContribute is null "
                 End If
             End If
 
             If chb8HrAtlanta.Checked Then
                 If rdb8HrAtlantaEqual.Checked Then
-                    MasterSQL = MasterSQL & " and EightHRAtlanta is not null "
+                    MainSql = MainSql & " and EightHRAtlanta is not null "
                 Else
-                    MasterSQL = MasterSQL & " and EightHRAtlanta is null "
+                    MainSql = MainSql & " and EightHRAtlanta is null "
                 End If
             End If
 
             If chb8HrMacon.Checked Then
                 If rdb8HrMaconEqual.Checked Then
-                    MasterSQL = MasterSQL & " and EightHRMacon is not null "
+                    MainSql = MainSql & " and EightHRMacon is not null "
                 Else
-                    MasterSQL = MasterSQL & " and EightHRMacon is null "
+                    MainSql = MainSql & " and EightHRMacon is null "
                 End If
             End If
 
             If chb8HrNo.Checked Then
                 If rdb8HrNoEqual.Checked Then
-                    MasterSQL = MasterSQL & " and EightHRNo is not null "
+                    MainSql = MainSql & " and EightHRNo is not null "
                 Else
-                    MasterSQL = MasterSQL & " and EightHRNo is null "
+                    MainSql = MainSql & " and EightHRNo is null "
                 End If
             End If
 
             If chbPMAtlanta.Checked Then
                 If rdbPMAtlantaEqual.Checked Then
-                    MasterSQL = MasterSQL & " and PMAtlanta is not null "
+                    MainSql = MainSql & " and PMAtlanta is not null "
                 Else
-                    MasterSQL = MasterSQL & " and PMAtlanta is null "
+                    MainSql = MainSql & " and PMAtlanta is null "
                 End If
             End If
 
             If chbPMChattanooga.Checked Then
                 If rdbPMChattanoogaEqual.Checked Then
-                    MasterSQL = MasterSQL & " and PMChattanooga is not null "
+                    MainSql = MainSql & " and PMChattanooga is not null "
                 Else
-                    MasterSQL = MasterSQL & " and PMChattanooga is null "
+                    MainSql = MainSql & " and PMChattanooga is null "
                 End If
             End If
 
             If chbPMFloyd.Checked Then
                 If rdbPMFloydEqual.Checked Then
-                    MasterSQL = MasterSQL & " and PMFloyd is not null "
+                    MainSql = MainSql & " and PMFloyd is not null "
                 Else
-                    MasterSQL = MasterSQL & " and PMFloyd is null "
+                    MainSql = MainSql & " and PMFloyd is null "
                 End If
             End If
 
             If chbPMMacon.Checked Then
                 If rdbPMMaconEqual.Checked Then
-                    MasterSQL = MasterSQL & " and PMMacon is not null "
+                    MainSql = MainSql & " and PMMacon is not null "
                 Else
-                    MasterSQL = MasterSQL & " and PMMacon is null "
+                    MainSql = MainSql & " and PMMacon is null "
                 End If
             End If
 
             If chbPMNo.Checked Then
                 If rdbPMNoEqual.Checked Then
-                    MasterSQL = MasterSQL & " and PMNo is not null "
+                    MainSql = MainSql & " and PMNo is not null "
                 Else
-                    MasterSQL = MasterSQL & " and PMNo is null "
+                    MainSql = MainSql & " and PMNo is null "
                 End If
             End If
 
             If chbNSRPSDMajor.Checked Then
                 If rdbNSRPSDMajorEqual.Checked Then
-                    MasterSQL = MasterSQL & " and NSRPSD is not Null "
+                    MainSql = MainSql & " and NSRPSD is not Null "
                 Else
-                    MasterSQL = MasterSQL & " and NSRPSD is Null "
+                    MainSql = MainSql & " and NSRPSD is Null "
                 End If
             End If
 
             If chbHAPMajor.Checked Then
                 If rdbHAPMajorEqual.Checked Then
-                    MasterSQL = MasterSQL & " and HAP is not Null "
+                    MainSql = MainSql & " and HAP is not Null "
                 Else
-                    MasterSQL = MasterSQL & " and HAP is Null "
+                    MainSql = MainSql & " and HAP is Null "
                 End If
             End If
 
             If rdbAPCAnd.Checked Then
                 If chbAPC0.Checked Then
                     If rdbAPC0Equal.Checked Then
-                        MasterSQL = MasterSQL & " and APC0 is not null "
+                        MainSql = MainSql & " and APC0 is not null "
                     Else
-                        MasterSQL = MasterSQL & " and APC0 is null "
+                        MainSql = MainSql & " and APC0 is null "
                     End If
                 End If
                 If chbAPC1.Checked Then
                     If rdbAPC1Equal.Checked Then
-                        MasterSQL = MasterSQL & " and APC1 is not null "
+                        MainSql = MainSql & " and APC1 is not null "
                     Else
-                        MasterSQL = MasterSQL & " and APC1 is null "
+                        MainSql = MainSql & " and APC1 is null "
                     End If
                 End If
                 If chbAPC3.Checked Then
                     If rdbAPC3Equal.Checked Then
-                        MasterSQL = MasterSQL & " and APC3 is not null "
+                        MainSql = MainSql & " and APC3 is not null "
                     Else
-                        MasterSQL = MasterSQL & " and APC3 is null "
+                        MainSql = MainSql & " and APC3 is null "
                     End If
                 End If
                 If chbAPC4.Checked Then
                     If rdbAPC4Equal.Checked Then
-                        MasterSQL = MasterSQL & " and APC4 is not null "
+                        MainSql = MainSql & " and APC4 is not null "
                     Else
-                        MasterSQL = MasterSQL & " and APC4 is null "
+                        MainSql = MainSql & " and APC4 is null "
                     End If
                 End If
                 If chbAPC6.Checked Then
                     If rdbAPC6Equal.Checked Then
-                        MasterSQL = MasterSQL & " and APC6 is not null "
+                        MainSql = MainSql & " and APC6 is not null "
                     Else
-                        MasterSQL = MasterSQL & " and APC6 is null "
+                        MainSql = MainSql & " and APC6 is null "
                     End If
                 End If
                 If chbAPC7.Checked Then
                     If rdbAPC7Equal.Checked Then
-                        MasterSQL = MasterSQL & " and APC7 is not null "
+                        MainSql = MainSql & " and APC7 is not null "
                     Else
-                        MasterSQL = MasterSQL & " and APC7 is null "
+                        MainSql = MainSql & " and APC7 is null "
                     End If
                 End If
                 If chbAPC8.Checked Then
                     If rdbAPC8Equal.Checked Then
-                        MasterSQL = MasterSQL & " and APC8 is not null "
+                        MainSql = MainSql & " and APC8 is not null "
                     Else
-                        MasterSQL = MasterSQL & " and APC8 is null "
+                        MainSql = MainSql & " and APC8 is null "
                     End If
                 End If
                 If chbAPC9.Checked Then
                     If rdbAPC9Equal.Checked Then
-                        MasterSQL = MasterSQL & " and APC9 is not null "
+                        MainSql = MainSql & " and APC9 is not null "
                     Else
-                        MasterSQL = MasterSQL & " and APC9 is null "
+                        MainSql = MainSql & " and APC9 is null "
                     End If
                 End If
                 If chbAPCA.Checked Then
                     If rdbAPCAEqual.Checked Then
-                        MasterSQL = MasterSQL & " and APCA is not null "
+                        MainSql = MainSql & " and APCA is not null "
                     Else
-                        MasterSQL = MasterSQL & " and APCA is null "
+                        MainSql = MainSql & " and APCA is null "
                     End If
                 End If
                 If chbAPCF.Checked Then
                     If rdbAPCFEqual.Checked Then
-                        MasterSQL = MasterSQL & " and APCF is not null "
+                        MainSql = MainSql & " and APCF is not null "
                     Else
-                        MasterSQL = MasterSQL & " and APCF is null "
+                        MainSql = MainSql & " and APCF is null "
                     End If
                 End If
                 If chbAPCI.Checked Then
                     If rdbAPCIEqual.Checked Then
-                        MasterSQL = MasterSQL & " and APCI is not null "
+                        MainSql = MainSql & " and APCI is not null "
                     Else
-                        MasterSQL = MasterSQL & " and APCI is null "
+                        MainSql = MainSql & " and APCI is null "
                     End If
                 End If
                 If chbAPCM.Checked Then
                     If rdbAPCMEqual.Checked Then
-                        MasterSQL = MasterSQL & " and APCM is not null "
+                        MainSql = MainSql & " and APCM is not null "
                     Else
-                        MasterSQL = MasterSQL & " and APCM is null "
+                        MainSql = MainSql & " and APCM is null "
                     End If
                 End If
                 If chbAPCV.Checked Then
                     If rdbAPCVEqual.Checked Then
-                        MasterSQL = MasterSQL & " and APCV is not null "
+                        MainSql = MainSql & " and APCV is not null "
                     Else
-                        MasterSQL = MasterSQL & " and APCV is null "
+                        MainSql = MainSql & " and APCV is null "
                     End If
                 End If
             Else
@@ -2030,133 +2030,133 @@ Public Class IAIPQueryGenerator
                   OrElse chbAPC6.Checked OrElse chbAPC7.Checked OrElse chbAPC8.Checked OrElse chbAPC9.Checked _
                     OrElse chbAPCA.Checked OrElse chbAPCF.Checked OrElse chbAPCI.Checked OrElse chbAPCM.Checked _
                       OrElse chbAPCV.Checked Then
-                    MasterSQL = MasterSQL & " and ("
+                    MainSql = MainSql & " and ("
 
                     If chbAPC0.Checked Then
                         If rdbAPC0Equal.Checked Then
-                            MasterSQL = MasterSQL & " APC0 is not null or "
+                            MainSql = MainSql & " APC0 is not null or "
                         Else
-                            MasterSQL = MasterSQL & " APC0 is null or "
+                            MainSql = MainSql & " APC0 is null or "
                         End If
                     End If
                     If chbAPC1.Checked Then
                         If rdbAPC1Equal.Checked Then
-                            MasterSQL = MasterSQL & " APC1 is not null or "
+                            MainSql = MainSql & " APC1 is not null or "
                         Else
-                            MasterSQL = MasterSQL & " APC1 is null or "
+                            MainSql = MainSql & " APC1 is null or "
                         End If
                     End If
                     If chbAPC3.Checked Then
                         If rdbAPC3Equal.Checked Then
-                            MasterSQL = MasterSQL & " APC3 is not null or "
+                            MainSql = MainSql & " APC3 is not null or "
                         Else
-                            MasterSQL = MasterSQL & " APC3 is null or "
+                            MainSql = MainSql & " APC3 is null or "
                         End If
                     End If
                     If chbAPC4.Checked Then
                         If rdbAPC4Equal.Checked Then
-                            MasterSQL = MasterSQL & " APC4 is not null or "
+                            MainSql = MainSql & " APC4 is not null or "
                         Else
-                            MasterSQL = MasterSQL & " APC4 is null or "
+                            MainSql = MainSql & " APC4 is null or "
                         End If
                     End If
                     If chbAPC6.Checked Then
                         If rdbAPC6Equal.Checked Then
-                            MasterSQL = MasterSQL & " APC6 is not null or "
+                            MainSql = MainSql & " APC6 is not null or "
                         Else
-                            MasterSQL = MasterSQL & " APC6 is null or "
+                            MainSql = MainSql & " APC6 is null or "
                         End If
                     End If
                     If chbAPC7.Checked Then
                         If rdbAPC7Equal.Checked Then
-                            MasterSQL = MasterSQL & " APC7 is not null or "
+                            MainSql = MainSql & " APC7 is not null or "
                         Else
-                            MasterSQL = MasterSQL & " APC7 is null or "
+                            MainSql = MainSql & " APC7 is null or "
                         End If
                     End If
                     If chbAPC8.Checked Then
                         If rdbAPC8Equal.Checked Then
-                            MasterSQL = MasterSQL & " APC8 is not null or "
+                            MainSql = MainSql & " APC8 is not null or "
                         Else
-                            MasterSQL = MasterSQL & " APC8 is null or "
+                            MainSql = MainSql & " APC8 is null or "
                         End If
                     End If
                     If chbAPC9.Checked Then
                         If rdbAPC9Equal.Checked Then
-                            MasterSQL = MasterSQL & " APC9 is not null or "
+                            MainSql = MainSql & " APC9 is not null or "
                         Else
-                            MasterSQL = MasterSQL & " APC9 is null or "
+                            MainSql = MainSql & " APC9 is null or "
                         End If
                     End If
                     If chbAPCA.Checked Then
                         If rdbAPCAEqual.Checked Then
-                            MasterSQL = MasterSQL & " APCA is not null or "
+                            MainSql = MainSql & " APCA is not null or "
                         Else
-                            MasterSQL = MasterSQL & " APCA is null or "
+                            MainSql = MainSql & " APCA is null or "
                         End If
                     End If
                     If chbAPCF.Checked Then
                         If rdbAPCFEqual.Checked Then
-                            MasterSQL = MasterSQL & " APCF is not null or "
+                            MainSql = MainSql & " APCF is not null or "
                         Else
-                            MasterSQL = MasterSQL & " APCF is null or "
+                            MainSql = MainSql & " APCF is null or "
                         End If
                     End If
                     If chbAPCI.Checked Then
                         If rdbAPCIEqual.Checked Then
-                            MasterSQL = MasterSQL & " APCI is not null or "
+                            MainSql = MainSql & " APCI is not null or "
                         Else
-                            MasterSQL = MasterSQL & " APCI is null or "
+                            MainSql = MainSql & " APCI is null or "
                         End If
                     End If
                     If chbAPCM.Checked Then
                         If rdbAPCMEqual.Checked Then
-                            MasterSQL = MasterSQL & " APCM is not null or "
+                            MainSql = MainSql & " APCM is not null or "
                         Else
-                            MasterSQL = MasterSQL & " APCM is null or "
+                            MainSql = MainSql & " APCM is null or "
                         End If
                     End If
                     If chbAPCV.Checked Then
                         If rdbAPCVEqual.Checked Then
-                            MasterSQL = MasterSQL & " APCV is not null or "
+                            MainSql = MainSql & " APCV is not null or "
                         Else
-                            MasterSQL = MasterSQL & " APCV is null or "
+                            MainSql = MainSql & " APCV is null or "
                         End If
                     End If
-                    MasterSQL = Mid(MasterSQL, 1, (MasterSQL.Length - 3)) & " ) "
+                    MainSql = Mid(MainSql, 1, (MainSql.Length - 3)) & " ) "
                 End If
             End If
 
             If chbAllSubparts.Checked Then
                 If chbSIP.Checked Then
                     If rdbSIPEqual.Checked Then
-                        MasterSQL = MasterSQL & " and GASIP is not null "
+                        MainSql = MainSql & " and GASIP is not null "
                     Else
-                        MasterSQL = MasterSQL & " and GASIP is null "
+                        MainSql = MainSql & " and GASIP is null "
                     End If
                 End If
 
                 If chbPart61Subpart.Checked Then
                     If rdbPart61Equal.Checked Then
-                        MasterSQL = MasterSQL & " and Part61 is not null "
+                        MainSql = MainSql & " and Part61 is not null "
                     Else
-                        MasterSQL = MasterSQL & " and Part61 is null "
+                        MainSql = MainSql & " and Part61 is null "
                     End If
                 End If
 
                 If chbPart60Subpart.Checked Then
                     If rdbPart60Equal.Checked Then
-                        MasterSQL = MasterSQL & " and Part60 is not null "
+                        MainSql = MainSql & " and Part60 is not null "
                     Else
-                        MasterSQL = MasterSQL & " and Part60 is null "
+                        MainSql = MainSql & " and Part60 is null "
                     End If
                 End If
 
                 If chbPart63Subpart.Checked Then
                     If rdbPart63Equal.Checked Then
-                        MasterSQL = MasterSQL & " and Part63 is not null "
+                        MainSql = MainSql & " and Part63 is not null "
                     Else
-                        MasterSQL = MasterSQL & " and Part63 is null "
+                        MainSql = MainSql & " and Part63 is null "
                     End If
                 End If
             Else
@@ -2172,15 +2172,15 @@ Public Class IAIPQueryGenerator
                         SQLWhereCase2 = " <> "
                     End If
                     If cboSIPSearch1.Text <> "" AndAlso cboSIPSearch1.Text <> " " Then
-                        MasterSQL = MasterSQL & " and (GASIP " & SQLWhereCase2 & " @sip1 ) "
+                        MainSql = MainSql & " and (GASIP " & SQLWhereCase2 & " @sip1 ) "
                         params.Add(New SqlParameter("@sip1", cboSIPSearch1.Text))
                     End If
                     If cboSIPSearch2.Text <> "" AndAlso cboSIPSearch2.Text <> " " Then
                         If cboSIPSearch1.Text <> "" AndAlso cboSIPSearch1.Text <> " " Then
-                            MasterSQL = Mid(MasterSQL, 1, (MasterSQL.Length - 2)) &
+                            MainSql = Mid(MainSql, 1, (MainSql.Length - 2)) &
                             " " & SQLWhereCase1 & " GASIP " & SQLWhereCase2 & " @sip2 ) "
                         Else
-                            MasterSQL = MasterSQL & " and (GASIP " & SQLWhereCase2 & " @sip2) "
+                            MainSql = MainSql & " and (GASIP " & SQLWhereCase2 & " @sip2) "
                         End If
                         params.Add(New SqlParameter("@sip2", cboSIPSearch2.Text))
                     End If
@@ -2198,15 +2198,15 @@ Public Class IAIPQueryGenerator
                         SQLWhereCase2 = " <> "
                     End If
                     If cboPart61Search1.Text <> "" AndAlso cboPart61Search1.Text <> " " Then
-                        MasterSQL = MasterSQL & " and (Part61 " & SQLWhereCase2 & " @p61a ) "
+                        MainSql = MainSql & " and (Part61 " & SQLWhereCase2 & " @p61a ) "
                         params.Add(New SqlParameter("@p61a", cboPart61Search1.Text))
                     End If
                     If cboPart61Search2.Text <> "" AndAlso cboPart61Search2.Text <> " " Then
                         If cboPart61Search1.Text <> "" AndAlso cboPart61Search1.Text <> " " Then
-                            MasterSQL = Mid(MasterSQL, 1, (MasterSQL.Length - 2)) &
+                            MainSql = Mid(MainSql, 1, (MainSql.Length - 2)) &
                             " " & SQLWhereCase1 & " Part61 " & SQLWhereCase2 & " @p61b ) "
                         Else
-                            MasterSQL = MasterSQL & " and (Part61 " & SQLWhereCase2 & " @p61b) "
+                            MainSql = MainSql & " and (Part61 " & SQLWhereCase2 & " @p61b) "
                         End If
                         params.Add(New SqlParameter("@p61b", cboPart61Search2.Text))
                     End If
@@ -2224,15 +2224,15 @@ Public Class IAIPQueryGenerator
                         SQLWhereCase2 = " <> "
                     End If
                     If cboPart60Search1.Text <> "" AndAlso cboPart60Search1.Text <> " " Then
-                        MasterSQL = MasterSQL & " and (Part60 " & SQLWhereCase2 & " '" & cboPart60Search1.Text & "' ) "
+                        MainSql = MainSql & " and (Part60 " & SQLWhereCase2 & " '" & cboPart60Search1.Text & "' ) "
                         params.Add(New SqlParameter("@p60a", cboPart60Search1.Text))
                     End If
                     If cboPart60Search2.Text <> "" AndAlso cboPart60Search2.Text <> " " Then
                         If cboPart60Search1.Text <> "" AndAlso cboPart60Search1.Text <> " " Then
-                            MasterSQL = Mid(MasterSQL, 1, (MasterSQL.Length - 2)) &
+                            MainSql = Mid(MainSql, 1, (MainSql.Length - 2)) &
                             " " & SQLWhereCase1 & " Part60 " & SQLWhereCase2 & " '" & cboPart60Search2.Text & "' ) "
                         Else
-                            MasterSQL = MasterSQL & " and (Part60 " & SQLWhereCase2 & " '" & cboPart60Search2.Text & "') "
+                            MainSql = MainSql & " and (Part60 " & SQLWhereCase2 & " '" & cboPart60Search2.Text & "') "
                         End If
                         params.Add(New SqlParameter("@p60b", cboPart60Search2.Text))
                     End If
@@ -2250,44 +2250,44 @@ Public Class IAIPQueryGenerator
                         SQLWhereCase2 = " <> "
                     End If
                     If cboPart63Search1.Text <> "" AndAlso cboPart63Search1.Text <> " " Then
-                        MasterSQL = MasterSQL & " and (Part63 " & SQLWhereCase2 & " '" & cboPart63Search1.Text & "' ) "
+                        MainSql = MainSql & " and (Part63 " & SQLWhereCase2 & " '" & cboPart63Search1.Text & "' ) "
                         params.Add(New SqlParameter("@p63a", cboPart63Search1.Text))
                     End If
                     If cboPart63Search2.Text <> "" AndAlso cboPart63Search2.Text <> " " Then
                         If cboPart63Search1.Text <> "" AndAlso cboPart63Search1.Text <> " " Then
-                            MasterSQL = Mid(MasterSQL, 1, (MasterSQL.Length - 2)) &
+                            MainSql = Mid(MainSql, 1, (MainSql.Length - 2)) &
                             " " & SQLWhereCase1 & " Part63 " & SQLWhereCase2 & " '" & cboPart63Search2.Text & "' ) "
                         Else
-                            MasterSQL = MasterSQL & " and (Part63 " & SQLWhereCase2 & " '" & cboPart63Search2.Text & "') "
+                            MainSql = MainSql & " and (Part63 " & SQLWhereCase2 & " '" & cboPart63Search2.Text & "') "
                         End If
                         params.Add(New SqlParameter("@p63b", cboPart63Search2.Text))
                     End If
                 End If
                 If chbSIP.Checked OrElse chbPart60Subpart.Checked OrElse chbPart61Subpart.Checked OrElse chbPart63Subpart.Checked Then
                     If chbSIP.Checked AndAlso chbPart60Subpart.Checked AndAlso chbPart61Subpart.Checked AndAlso chbPart63Subpart.Checked Then
-                        MasterSQL = MasterSQL & " and (Part60 is not null or GASIP is not null or Part61 is not null or Part63 is not null) "
+                        MainSql = MainSql & " and (Part60 is not null or GASIP is not null or Part61 is not null or Part63 is not null) "
                     Else
-                        MasterSQL = MasterSQL & " and ( "
+                        MainSql = MainSql & " and ( "
                         If chbSIP.Checked Then
-                            MasterSQL = MasterSQL & " GASIP is not Null or "
+                            MainSql = MainSql & " GASIP is not Null or "
                         End If
                         If chbPart60Subpart.Checked Then
-                            MasterSQL = MasterSQL & " Part60 is not Null or "
+                            MainSql = MainSql & " Part60 is not Null or "
                         End If
                         If chbPart61Subpart.Checked Then
-                            MasterSQL = MasterSQL & " Part61 is not Null or "
+                            MainSql = MainSql & " Part61 is not Null or "
                         End If
                         If chbPart63Subpart.Checked Then
-                            MasterSQL = MasterSQL & " Part63 is not Null or "
+                            MainSql = MainSql & " Part63 is not Null or "
                         End If
-                        MasterSQL = Mid(MasterSQL, 1, (MasterSQL.Length - 3)) & " ) "
+                        MainSql = Mid(MainSql, 1, (MainSql.Length - 3)) & " ) "
                     End If
                 End If
             End If
 
-            MasterSQL = MasterSQL & Mid(SQLOrder, 1, (SQLOrder.Length - 2))
+            MainSql = MainSql & Mid(SQLOrder, 1, (SQLOrder.Length - 2))
 
-            dgvQueryGenerator.DataSource = DB.GetDataTable(MasterSQL, params.ToArray)
+            dgvQueryGenerator.DataSource = DB.GetDataTable(MainSql, params.ToArray)
 
             Dim qParams As QueryGeneratorParameter() = params.Select(
                 Function(p) New QueryGeneratorParameter() With {
@@ -2298,7 +2298,7 @@ Public Class IAIPQueryGenerator
             Dim queryInfo As String = JSON.Serialize(
                 New QueryGeneratorValues() With {
                     .Parameters = qParams,
-                    .MasterSQL = MasterSQL
+                    .GeneratedQuery = MainSql
                 })
 
             DAL.LogQuery(queryInfo, dgvQueryGenerator.Rows.Count)
@@ -2674,7 +2674,7 @@ Public Class IAIPQueryGenerator
             Dim queryInfo As String = JSON.Serialize(
                 New QueryGeneratorValues() With {
                     .Parameters = qParams,
-                    .MasterSQL = MasterSQL
+                    .GeneratedQuery = MainSql
                 })
 
             ErrorReport(ex, queryInfo, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2683,7 +2683,7 @@ Public Class IAIPQueryGenerator
 
     Private Class QueryGeneratorValues
         Public Parameters As QueryGeneratorParameter()
-        Public MasterSQL As String
+        Public GeneratedQuery As String
     End Class
 
     Private Class QueryGeneratorParameter
