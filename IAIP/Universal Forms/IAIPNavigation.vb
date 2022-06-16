@@ -48,16 +48,27 @@ Public Class IAIPNavigation
     End Sub
 
     Public Sub CheckNetworkConnection()
-        If Not CheckingNetwork AndAlso Not bgrNetworkChecker.IsBusy Then
-            If networkCheckTimer IsNot Nothing Then
-                StopNetworkCheckTimer()
-            End If
+        If CheckingNetwork OrElse bgrNetworkChecker.IsBusy Then
+            Return
+        End If
 
-            lblNetworkCheckCountdown.Text = "Trying again..."
-            btnRetryConnection.Enabled = False
-            pnlConnectionWarning.BackColor = Color.LightGray
-            CheckingNetwork = True
-            bgrNetworkChecker.RunWorkerAsync()
+        If networkCheckTimer IsNot Nothing Then
+            StopNetworkCheckTimer()
+        End If
+
+        lblNetworkCheckCountdown.Text = "Trying again..."
+        btnRetryConnection.Enabled = False
+        pnlConnectionWarning.BackColor = Color.LightGray
+        CheckingNetwork = True
+
+        If Not bgrNetworkChecker.IsBusy Then
+            Try
+                bgrNetworkChecker.RunWorkerAsync()
+            Catch ex As InvalidOperationException
+                If ex.Message.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently.") Then
+                    Return
+                End If
+            End Try
         End If
     End Sub
 
