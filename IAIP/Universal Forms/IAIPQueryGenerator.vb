@@ -1413,7 +1413,7 @@ Public Class IAIPQueryGenerator
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
                         " " & SQLWhereCase1 & " LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " @dist2 ) "
                     Else
-                        SQLWhere = MainSql & " and (LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " @dist2) "
+                        SQLWhere = SQLWhere & " and (LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " @dist2) "
                     End If
                     params.Add(New SqlParameter("@dist2", cboDistrictSearch2.SelectedValue))
                 End If
