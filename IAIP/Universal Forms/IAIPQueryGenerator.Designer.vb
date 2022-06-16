@@ -10,9 +10,9 @@ Partial Class IAIPQueryGenerator
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbExport = New System.Windows.Forms.ToolStripButton()
         Me.tsbSaveQuery = New System.Windows.Forms.ToolStripButton()
@@ -678,17 +678,17 @@ Partial Class IAIPQueryGenerator
         '
         'dgvQueryGenerator
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvQueryGenerator.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvQueryGenerator.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvQueryGenerator.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.dgvQueryGenerator.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvQueryGenerator.DecimalFieldFormat = "N6"
         Me.dgvQueryGenerator.Dock = System.Windows.Forms.DockStyle.Fill
@@ -699,14 +699,14 @@ Partial Class IAIPQueryGenerator
         Me.dgvQueryGenerator.Name = "dgvQueryGenerator"
         Me.dgvQueryGenerator.ResultsCountLabel = Me.lblQueryCount
         Me.dgvQueryGenerator.ResultsCountLabelFormat = "{0} found"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvQueryGenerator.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
         Me.dgvQueryGenerator.Size = New System.Drawing.Size(739, 122)
         Me.dgvQueryGenerator.StandardTab = True
@@ -790,18 +790,18 @@ Partial Class IAIPQueryGenerator
         Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(419, 137)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(112, 13)
+        Me.Label5.Size = New System.Drawing.Size(67, 13)
         Me.Label5.TabIndex = 164
-        Me.Label5.Text = "(81.00.00 -> 85.53.00)"
+        Me.Label5.Text = "(81.0 — 85.9)"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(419, 112)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(112, 13)
+        Me.Label4.Size = New System.Drawing.Size(67, 13)
         Me.Label4.TabIndex = 163
-        Me.Label4.Text = "(30.31.00 -> 35.00.00)"
+        Me.Label4.Text = "(30.5 — 35.0)"
         '
         'Panel30
         '
@@ -1310,18 +1310,18 @@ Partial Class IAIPQueryGenerator
         Me.chbFacilityLatitude.AutoSize = True
         Me.chbFacilityLatitude.Location = New System.Drawing.Point(8, 111)
         Me.chbFacilityLatitude.Name = "chbFacilityLatitude"
-        Me.chbFacilityLatitude.Size = New System.Drawing.Size(64, 17)
+        Me.chbFacilityLatitude.Size = New System.Drawing.Size(81, 17)
         Me.chbFacilityLatitude.TabIndex = 48
-        Me.chbFacilityLatitude.Text = "Latitude"
+        Me.chbFacilityLatitude.Text = "Latitude (N)"
         '
         'chbFacilityLongitude
         '
         Me.chbFacilityLongitude.AutoSize = True
         Me.chbFacilityLongitude.Location = New System.Drawing.Point(8, 136)
         Me.chbFacilityLongitude.Name = "chbFacilityLongitude"
-        Me.chbFacilityLongitude.Size = New System.Drawing.Size(73, 17)
+        Me.chbFacilityLongitude.Size = New System.Drawing.Size(93, 17)
         Me.chbFacilityLongitude.TabIndex = 53
-        Me.chbFacilityLongitude.Text = "Longitude"
+        Me.chbFacilityLongitude.Text = "Longitude (W)"
         '
         'chbFacilityZipCode
         '
