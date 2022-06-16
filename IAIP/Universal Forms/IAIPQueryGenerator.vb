@@ -338,7 +338,6 @@ Public Class IAIPQueryGenerator
         Dim SQLSelect As String = ""
         Dim SQLFrom As String = ""
         Dim SQLWhere As String = ""
-        Dim SQLOrder As String = ""
         Dim SQLWhereCase1 As String = ""
         Dim SQLWhereCase2 As String = ""
         Dim params As New List(Of SqlParameter)
@@ -1655,172 +1654,6 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-
-            If txtFacilityAIRSNumberOrder.Text <> "" OrElse txtFacilityNameOrder.Text <> "" _
-                     OrElse txtFacilityStreet1Order.Text <> "" OrElse txtFacilityStreet2Order.Text <> "" _
-                     OrElse txtFacilityCityOrder.Text <> "" OrElse txtFacilityZipCodeOrder.Text <> "" _
-                     OrElse txtFacilityLatitudeOrder.Text <> "" OrElse txtFacilityLongitudeOrder.Text <> "" _
-                     OrElse txtCountyOrder.Text <> "" OrElse txtDistrictOrder.Text <> "" _
-                     OrElse txtOperationStatusOrder.Text <> "" OrElse txtClassificationOrder.Text <> "" _
-                     OrElse txtSICCodeOrder.Text <> "" OrElse txtStartUpDateOrder.Text <> "" _
-                     OrElse txtShutDownDateOrder.Text <> "" OrElse txtCMSUniverseOrder.Text <> "" _
-                     OrElse txtPlantDescriptionOrder.Text <> "" OrElse txtAPC0Order.Text <> "" _
-                     OrElse txtAPC1Order.Text <> "" OrElse txtAPC3Order.Text <> "" _
-                     OrElse txtAPC4Order.Text <> "" OrElse txtAPC6Order.Text <> "" _
-                     OrElse txtAPC7Order.Text <> "" OrElse txtAPC8Order.Text <> "" _
-                     OrElse txtAPC9Order.Text <> "" OrElse txtAPCAOrder.Text <> "" _
-                     OrElse txtAPCFOrder.Text <> "" OrElse txtAPCIOrder.Text <> "" _
-                     OrElse txtAPCMOrder.Text <> "" OrElse txtAPCVOrder.Text <> "" Then
-                i = 1
-                If txtFacilityAIRSNumberOrder.Text <> "" Then
-                    temp = temp & txtFacilityAIRSNumberOrder.Text & "-AIRSNumber, "
-                    i += 1
-                End If
-                If txtFacilityNameOrder.Text <> "" Then
-                    temp = temp & txtFacilityNameOrder.Text & "-strFacilityName, "
-                    i += 1
-                End If
-                If txtFacilityStreet1Order.Text <> "" AndAlso chbFacilityStreet1.Checked Then
-                    temp = temp & txtFacilityStreet1Order.Text & "-strFacilityStreet1, "
-                    i += 1
-                End If
-                If txtFacilityStreet2Order.Text <> "" AndAlso chbFacilityStreet2.Checked Then
-                    temp = temp & txtFacilityStreet2Order.Text & "-strFacilityStreet2, "
-                    i += 1
-                End If
-                If txtFacilityCityOrder.Text <> "" AndAlso chbFacilityCity.Checked Then
-                    temp = temp & txtFacilityCityOrder.Text & "-strFacilityCity, "
-                    i += 1
-                End If
-                If txtFacilityZipCodeOrder.Text <> "" AndAlso chbFacilityZipCode.Checked Then
-                    temp = temp & txtFacilityZipCodeOrder.Text & "-strFacilityZipCode, "
-                    i += 1
-                End If
-                If txtFacilityLatitudeOrder.Text <> "" AndAlso chbFacilityLatitude.Checked Then
-                    temp = temp & txtFacilityLatitudeOrder.Text & "-numFacilityLatitude, "
-                    i += 1
-                End If
-                If txtFacilityLongitudeOrder.Text <> "" AndAlso chbFacilityLongitude.Checked Then
-                    temp = temp & txtFacilityLongitudeOrder.Text & "-numFacilityLongitude, "
-                    i += 1
-                End If
-                If txtCountyOrder.Text <> "" AndAlso chbCounty.Checked Then
-                    temp = temp & txtCountyOrder.Text & "-strCountyName, "
-                    i += 1
-                End If
-                If txtDistrictOrder.Text <> "" AndAlso chbDistrict.Checked Then
-                    temp = temp & txtDistrictOrder.Text & "-strDistrictName, "
-                    i += 1
-                End If
-                If txtOperationStatusOrder.Text <> "" AndAlso chbOperationStatus.Checked Then
-                    temp = temp & txtOperationStatusOrder.Text & "-strOperationalStatus, "
-                    i += 1
-                End If
-                If txtClassificationOrder.Text <> "" AndAlso chbClassification.Checked Then
-                    temp = temp & txtClassificationOrder.Text & "-strClass, "
-                    i += 1
-                End If
-                If txtSICCodeOrder.Text <> "" AndAlso chbSICCode.Checked Then
-                    temp = temp & txtSICCodeOrder.Text & "-strSICCode, "
-                    i += 1
-                End If
-                If txtNAICSCodeOrder.Text <> "" AndAlso chbNAICSCode.Checked Then
-                    temp = temp & txtNAICSCodeOrder.Text & "-strNAICSCode, "
-                    i += 1
-                End If
-                If txtStartUpDateOrder.Text <> "" AndAlso chbStartUpDate.Checked Then
-                    temp = temp & txtStartUpDateOrder.Text & "-datStartUpDate, "
-                    i += 1
-                End If
-                If txtShutDownDateOrder.Text <> "" AndAlso chbShutDownDate.Checked Then
-                    temp = temp & txtShutDownDateOrder.Text & "-datShutDownDate, "
-                    i += 1
-                End If
-                If txtLastFCEOrder.Text <> "" AndAlso chbLastFCE.Checked Then
-                    temp = temp & txtLastFCEOrder.Text & "-LastFCE, "
-                    i += 1
-                End If
-                If txtCMSUniverseOrder.Text <> "" AndAlso chbCMSUniverse.Checked Then
-                    temp = temp & txtCMSUniverseOrder.Text & "-strCMSmember, "
-                    i += 1
-                End If
-                If txtPlantDescriptionOrder.Text <> "" AndAlso chbPlantDescription.Checked Then
-                    temp = temp & txtPlantDescriptionOrder.Text & "-strPlantDescription, "
-                    i += 1
-                End If
-                If txtAPC0Order.Text <> "" AndAlso chbAPC0.Checked Then
-                    temp = temp & txtAPC0Order.Text & "-APC0, "
-                    i += 1
-                End If
-                If txtAPC1Order.Text <> "" AndAlso chbAPC1.Checked Then
-                    temp = temp & txtAPC1Order.Text & "-APC1, "
-                    i += 1
-                End If
-                If txtAPC3Order.Text <> "" AndAlso chbAPC3.Checked Then
-                    temp = temp & txtAPC3Order.Text & "-APC3, "
-                    i += 1
-                End If
-                If txtAPC4Order.Text <> "" AndAlso chbAPC4.Checked Then
-                    temp = temp & txtAPC4Order.Text & "-APC4, "
-                    i += 1
-                End If
-                If txtAPC6Order.Text <> "" AndAlso chbAPC6.Checked Then
-                    temp = temp & txtAPC6Order.Text & "-APC6, "
-                    i += 1
-                End If
-                If txtAPC7Order.Text <> "" AndAlso chbAPC7.Checked Then
-                    temp = temp & txtAPC7Order.Text & "-APC7, "
-                    i += 1
-                End If
-                If txtAPC8Order.Text <> "" AndAlso chbAPC8.Checked Then
-                    temp = temp & txtAPC8Order.Text & "-APC8, "
-                    i += 1
-                End If
-                If txtAPC9Order.Text <> "" AndAlso chbAPC9.Checked Then
-                    temp = temp & txtAPC9Order.Text & "-APC9, "
-                    i += 1
-                End If
-                If txtAPCAOrder.Text <> "" AndAlso chbAPCA.Checked Then
-                    temp = temp & txtAPCAOrder.Text & "-APCA, "
-                    i += 1
-                End If
-                If txtAPCFOrder.Text <> "" AndAlso chbAPCF.Checked Then
-                    temp = temp & txtAPCFOrder.Text & "-APCF, "
-                    i += 1
-                End If
-                If txtAPCIOrder.Text <> "" AndAlso chbAPCI.Checked Then
-                    temp = temp & txtAPCIOrder.Text & "-APCI, "
-                    i += 1
-                End If
-                If txtAPCMOrder.Text <> "" AndAlso chbAPCM.Checked Then
-                    temp = temp & txtAPCMOrder.Text & "-APCM, "
-                    i += 1
-                End If
-                If txtAPCVOrder.Text <> "" AndAlso chbAPCV.Checked Then
-                    temp = temp & txtAPCVOrder.Text & "-APCV, "
-                    i += 1
-                End If
-
-                For j = 1 To i - 1
-                    Select Case j.ToString.Length
-                        Case 1
-                            SQLOrder = SQLOrder & Mid(temp, (temp.IndexOf(j.ToString & "-") + 3), Mid(temp, temp.IndexOf(j.ToString & "-") + 3).IndexOf(", ") + 2)
-                        Case 2
-                            SQLOrder = SQLOrder & Mid(temp, (temp.IndexOf(j.ToString & "-") + 4), Mid(temp, temp.IndexOf(j.ToString & "-") + 3).IndexOf(", ") + 1)
-                        Case 3
-                            SQLOrder = SQLOrder & Mid(temp, (temp.IndexOf(j.ToString & "-") + 5), Mid(temp, temp.IndexOf(j.ToString & "-") + 3).IndexOf(", "))
-                    End Select
-                Next j
-
-                If SQLOrder <> "" Then
-                    SQLOrder = " Order by " & SQLOrder
-                Else
-                    SQLOrder = " Order by AIRSNumber, strFacilityName, "
-                End If
-            Else
-                SQLOrder = " Order by AIRSNumber, strFacilityName, "
-            End If
-
             query = Mid(SQLSelect, 1, (SQLSelect.Length - 2)) &
             Mid(SQLFrom, 1, (SQLFrom.Length - 2)) &
             SQLWhere
@@ -2285,7 +2118,7 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            MainSql = MainSql & Mid(SQLOrder, 1, (SQLOrder.Length - 2))
+            MainSql &= " order by AIRSNumber, strFacilityName "
 
             dgvQueryGenerator.DataSource = DB.GetDataTable(MainSql, params.ToArray)
 
@@ -2701,87 +2534,73 @@ Public Class IAIPQueryGenerator
             txtAIRSNumberSearch2.Clear()
             rdbAIRSNumberOr.Checked = True
             rdbAIRSNumberEqual.Checked = True
-            txtFacilityAIRSNumberOrder.Clear()
 
             txtFacilityNameSearch1.Clear()
             txtFacilityNameSearch2.Clear()
             rdbFacilityNameOr.Checked = True
             rdbFacilityNameEqual.Checked = True
-            txtFacilityNameOrder.Clear()
 
             chbFacilityStreet1.Checked = False
             txtFacilityStreet1Search1.Clear()
             txtFacilityStreet1Search2.Clear()
             rdbFacilityStreet1Or.Checked = True
             rdbFacilityStreet1Equal.Checked = True
-            txtFacilityStreet1Order.Clear()
 
             chbFacilityStreet2.Checked = False
             txtFacilityStreet2Search1.Clear()
             txtFacilityStreet2Search2.Clear()
             rdbFacilityStreet2Or.Checked = True
             rdbFacilityStreet2Equal.Checked = True
-            txtFacilityStreet2Order.Clear()
 
             chbFacilityCity.Checked = False
             txtFacilityCitySearch1.Clear()
             txtFacilityCitySearch2.Clear()
             rdbFacilityCityOr.Checked = True
             rdbFacilityCityEqual.Checked = True
-            txtFacilityCityOrder.Clear()
 
             chbFacilityZipCode.Checked = False
             txtFacilityZipCodeSearch1.Clear()
             txtFacilityZipCodeSearch2.Clear()
             rdbFacilityZipCodeOr.Checked = True
             rdbFacilityZipCodeEqual.Checked = True
-            txtFacilityZipCodeOrder.Clear()
 
             chbFacilityLatitude.Checked = False
             txtFacilityLatitudeSearch1.Clear()
             txtFacilityLatitudeSearch2.Clear()
             rdbFacilityLatitudeBetween.Checked = True
-            txtFacilityLatitudeOrder.Clear()
 
             chbFacilityLongitude.Checked = False
             txtFacilityLongitudeSearch1.Clear()
             txtFacilityLongitudeSearch2.Clear()
             rdbFacilityLongitudeBetween.Checked = True
-            txtFacilityLongitudeOrder.Clear()
 
             chbCounty.Checked = False
             rdbCountyOr.Checked = True
             rdbCountyEqual.Checked = True
-            txtCountyOrder.Clear()
 
             chbDistrict.Checked = False
             rdbDistrictOr.Checked = True
             rdbDistrictEqual.Checked = True
-            txtDistrictOrder.Clear()
 
             chbOperationStatus.Checked = False
             rdbOperationalStatusOr.Checked = True
             rdbOperationStatusEqual.Checked = True
-            txtOperationStatusOrder.Clear()
 
             chbClassification.Checked = False
             rdbClassificationOr.Checked = True
             rdbClassificationEqual.Checked = True
-            txtClassificationOrder.Clear()
 
             chbSICCode.Checked = False
             txtSICCodeSearch1.Clear()
             txtSICCodeSearch2.Clear()
             rdbSICCodeOr.Checked = True
             rdbSICCodeEqual.Checked = True
-            txtSICCodeOrder.Clear()
 
             chbNAICSCode.Checked = False
             txtNAICSCodeSearch1.Clear()
             txtNAICSCodeSearch2.Clear()
             rdbNAICSCodeOr.Checked = True
             rdbNAICSCodeEqual.Checked = True
-            txtNAICSCodeOrder.Clear()
 
             chbStartUpDate.Checked = False
             DTPStartUpDateSearch1.Checked = False
@@ -2789,7 +2608,6 @@ Public Class IAIPQueryGenerator
             DTPStartUpDateSearch2.Checked = False
             DTPStartUpDateSearch2.Value = Today
             rdbStartUpDateBetween.Checked = True
-            txtStartUpDateOrder.Clear()
 
             chbShutDownDate.Checked = False
             DTPShutDownDateSearch1.Checked = False
@@ -2797,19 +2615,16 @@ Public Class IAIPQueryGenerator
             DTPShutDownDateSearch2.Checked = False
             DTPShutDownDateSearch2.Value = Today
             rdbShutDownDateBetween.Checked = True
-            txtShutDownDateOrder.Clear()
 
             chbCMSUniverse.Checked = False
             rdbCMSUniverseOR.Checked = True
             rdbCMSUniverseEqual.Checked = True
-            txtCMSUniverseOrder.Clear()
 
             chbPlantDescription.Checked = False
             txtPlantDescriptionSearch1.Clear()
             txtPlantDescriptionSearch2.Clear()
             rdbPlantDescriptionOR.Checked = True
             rdbPlantDescriptionEqual.Checked = True
-            txtPlantDescriptionOrder.Clear()
 
             chbAttainmentStatus.Checked = False
             chb1HrYes.Checked = False
@@ -2840,19 +2655,6 @@ Public Class IAIPQueryGenerator
             chbAPCI.Checked = False
             chbAPCM.Checked = False
             chbAPCV.Checked = False
-            txtAPC0Order.Clear()
-            txtAPC1Order.Clear()
-            txtAPC3Order.Clear()
-            txtAPC4Order.Clear()
-            txtAPC6Order.Clear()
-            txtAPC7Order.Clear()
-            txtAPC8Order.Clear()
-            txtAPC9Order.Clear()
-            txtAPCAOrder.Clear()
-            txtAPCFOrder.Clear()
-            txtAPCIOrder.Clear()
-            txtAPCMOrder.Clear()
-            txtAPCVOrder.Clear()
 
             chbAllSubparts.Checked = False
             chbSIP.Checked = False
@@ -2941,9 +2743,6 @@ Public Class IAIPQueryGenerator
             Else
                 DefaultsText = DefaultsText & "@-NOTEQUAL-@"
             End If
-            If txtFacilityAIRSNumberOrder.Text <> "" Then
-                DefaultsText = DefaultsText & "^-" & txtFacilityAIRSNumberOrder.Text & "-^"
-            End If
             DefaultsText = DefaultsText & "rebmuNSRIA"
 
             DefaultsText = DefaultsText & "FacilityName"
@@ -2962,9 +2761,6 @@ Public Class IAIPQueryGenerator
                 DefaultsText = DefaultsText & "@-EQUAL-@"
             Else
                 DefaultsText = DefaultsText & "@-NOTEQUAL-@"
-            End If
-            If txtFacilityNameOrder.Text <> "" Then
-                DefaultsText = DefaultsText & "^-" & txtFacilityNameOrder.Text & "-^"
             End If
             DefaultsText = DefaultsText & "emaNytilicaF"
 
@@ -2986,9 +2782,6 @@ Public Class IAIPQueryGenerator
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
                 End If
-                If txtFacilityStreet1Order.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtFacilityStreet1Order.Text & "-^"
-                End If
                 DefaultsText = DefaultsText & "1teertS"
             End If
             If Me.chbFacilityStreet2.Checked Then
@@ -3008,9 +2801,6 @@ Public Class IAIPQueryGenerator
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
-                End If
-                If txtFacilityStreet2Order.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtFacilityStreet2Order.Text & "-^"
                 End If
                 DefaultsText = DefaultsText & "2teertS"
             End If
@@ -3032,9 +2822,6 @@ Public Class IAIPQueryGenerator
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
                 End If
-                If txtFacilityCityOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtFacilityCityOrder.Text & "-^"
-                End If
                 DefaultsText = DefaultsText & "ytiC"
             End If
             If Me.chbFacilityZipCode.Checked Then
@@ -3055,9 +2842,6 @@ Public Class IAIPQueryGenerator
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
                 End If
-                If txtFacilityZipCodeOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtFacilityZipCodeOrder.Text & "-^"
-                End If
                 DefaultsText = DefaultsText & "edoCpiZ"
             End If
             If Me.chbFacilityLongitude.Checked Then
@@ -3068,9 +2852,6 @@ Public Class IAIPQueryGenerator
                 If txtFacilityLongitudeSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & txtFacilityLongitudeSearch2.Text & "-%"
                 End If
-                If txtFacilityLongitudeOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtFacilityLongitudeOrder.Text & "-^"
-                End If
                 DefaultsText = DefaultsText & "edutignoL"
             End If
             If Me.chbFacilityLatitude.Checked Then
@@ -3080,9 +2861,6 @@ Public Class IAIPQueryGenerator
                 End If
                 If txtFacilityLatitudeSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & txtFacilityLatitudeSearch2.Text & "-%"
-                End If
-                If txtFacilityLatitudeOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtFacilityLatitudeOrder.Text & "-^"
                 End If
                 DefaultsText = DefaultsText & "edutitaL"
             End If
@@ -3104,9 +2882,6 @@ Public Class IAIPQueryGenerator
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
                 End If
-                If txtCountyOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtCountyOrder.Text & "-^"
-                End If
                 DefaultsText = DefaultsText & "ytnuoC"
             End If
             If Me.chbDistrict.Checked Then
@@ -3126,9 +2901,6 @@ Public Class IAIPQueryGenerator
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
-                End If
-                If txtDistrictOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtDistrictOrder.Text & "-^"
                 End If
                 DefaultsText = DefaultsText & "tcirtsiD"
             End If
@@ -3150,9 +2922,6 @@ Public Class IAIPQueryGenerator
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
                 End If
-                If txtOperationStatusOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtOperationStatusOrder.Text & "-^"
-                End If
                 DefaultsText = DefaultsText & "sutatSpO"
             End If
             If Me.chbClassification.Checked Then
@@ -3172,9 +2941,6 @@ Public Class IAIPQueryGenerator
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
-                End If
-                If txtClassificationOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtClassificationOrder.Text & "-^"
                 End If
                 DefaultsText = DefaultsText & "noitacifissalC"
             End If
@@ -3196,9 +2962,6 @@ Public Class IAIPQueryGenerator
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
                 End If
-                If txtSICCodeOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtSICCodeOrder.Text & "-^"
-                End If
                 DefaultsText = DefaultsText & "CIS"
             End If
             If Me.chbNAICSCode.Checked Then
@@ -3219,9 +2982,6 @@ Public Class IAIPQueryGenerator
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
                 End If
-                If txtNAICSCodeOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtNAICSCodeOrder.Text & "-^"
-                End If
                 DefaultsText = DefaultsText & "SCIAN"
             End If
             If Me.chbStartUpDate.Checked Then
@@ -3235,9 +2995,6 @@ Public Class IAIPQueryGenerator
                 If rdbStartUpDateBetween.Checked Then
                     DefaultsText = DefaultsText & "*-BETWEEN-*"
                 End If
-                If txtStartUpDateOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtStartUpDateOrder.Text & "-^"
-                End If
                 DefaultsText = DefaultsText & "pUtratS"
             End If
             If Me.chbShutDownDate.Checked Then
@@ -3250,9 +3007,6 @@ Public Class IAIPQueryGenerator
                 End If
                 If rdbShutDownDateBetween.Checked Then
                     DefaultsText = DefaultsText & "*-BETWEEN-*"
-                End If
-                If txtShutDownDateOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtShutDownDateOrder.Text & "-^"
                 End If
                 DefaultsText = DefaultsText & "nwoDtuhS"
             End If
@@ -3274,9 +3028,6 @@ Public Class IAIPQueryGenerator
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
                 End If
-                If txtCMSUniverseOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtCMSUniverseOrder.Text & "-^"
-                End If
                 DefaultsText = DefaultsText & "SMC"
             End If
             If Me.chbPlantDescription.Checked Then
@@ -3296,9 +3047,6 @@ Public Class IAIPQueryGenerator
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
                     DefaultsText = DefaultsText & "@-NOTEQUAL-@"
-                End If
-                If txtPlantDescriptionOrder.Text <> "" Then
-                    DefaultsText = DefaultsText & "^-" & txtPlantDescriptionOrder.Text & "-^"
                 End If
                 DefaultsText = DefaultsText & "tnalP"
             End If
@@ -3395,9 +3143,6 @@ Public Class IAIPQueryGenerator
                                         rdbAIRSNumberNotEqual.Checked = True
                                     End If
                                 End If
-                                If AIRSNumber.IndexOf("^-") <> -1 Then
-                                    txtFacilityAIRSNumberOrder.Text = Mid(AIRSNumber, AIRSNumber.IndexOf("^-") + 3, (AIRSNumber.IndexOf("-^") - (AIRSNumber.IndexOf("^-") + 2)))
-                                End If
                             End If
 
                             If DefaultsText.IndexOf("FacilityName") <> -1 Then
@@ -3421,9 +3166,6 @@ Public Class IAIPQueryGenerator
                                     Else
                                         rdbFacilityNameNotEqual.Checked = True
                                     End If
-                                End If
-                                If FacilityName.IndexOf("^-") <> -1 Then
-                                    txtFacilityNameOrder.Text = Mid(FacilityName, FacilityName.IndexOf("^-") + 3, (FacilityName.IndexOf("-^") - (FacilityName.IndexOf("^-") + 2)))
                                 End If
                             End If
 
@@ -3450,9 +3192,6 @@ Public Class IAIPQueryGenerator
                                         rdbFacilityStreet1NotEqual.Checked = True
                                     End If
                                 End If
-                                If FacilityStreet1.IndexOf("^-") <> -1 Then
-                                    txtFacilityStreet1Order.Text = Mid(FacilityStreet1, FacilityStreet1.IndexOf("^-") + 3, (FacilityStreet1.IndexOf("-^") - (FacilityStreet1.IndexOf("^-") + 2)))
-                                End If
                             End If
 
                             If DefaultsText.IndexOf("Street2") <> -1 Then
@@ -3477,9 +3216,6 @@ Public Class IAIPQueryGenerator
                                     Else
                                         rdbFacilityStreet2NotEqual.Checked = True
                                     End If
-                                End If
-                                If FacilityStreet2.IndexOf("^-") <> -1 Then
-                                    txtFacilityStreet2Order.Text = Mid(FacilityStreet2, FacilityStreet2.IndexOf("^-") + 3, (FacilityStreet2.IndexOf("-^") - (FacilityStreet2.IndexOf("^-") + 2)))
                                 End If
                             End If
 
@@ -3506,9 +3242,6 @@ Public Class IAIPQueryGenerator
                                         rdbFacilityCityNotEqual.Checked = True
                                     End If
                                 End If
-                                If FacilityCity.IndexOf("^-") <> -1 Then
-                                    txtFacilityCityOrder.Text = Mid(FacilityCity, FacilityCity.IndexOf("^-") + 3, (FacilityCity.IndexOf("-^") - (FacilityCity.IndexOf("^-") + 2)))
-                                End If
                             End If
 
                             If DefaultsText.IndexOf("ZipCode") <> -1 Then
@@ -3534,9 +3267,6 @@ Public Class IAIPQueryGenerator
                                         rdbFacilityZipCodeNotEqual.Checked = True
                                     End If
                                 End If
-                                If FacilityZipCode.IndexOf("^-") <> -1 Then
-                                    txtFacilityZipCodeOrder.Text = Mid(FacilityZipCode, FacilityZipCode.IndexOf("^-") + 3, (FacilityZipCode.IndexOf("-^") - (FacilityZipCode.IndexOf("^-") + 2)))
-                                End If
                             End If
 
                             If DefaultsText.IndexOf("Longitude") <> -1 Then
@@ -3548,9 +3278,6 @@ Public Class IAIPQueryGenerator
                                 If Longitude.IndexOf("%-") <> -1 Then
                                     txtFacilityLongitudeSearch2.Text = Mid(Longitude, (Longitude.IndexOf("%-") + 3), (Longitude.IndexOf("-%") - (Longitude.IndexOf("%-") + 2)))
                                 End If
-                                If Longitude.IndexOf("^-") <> -1 Then
-                                    txtFacilityLongitudeOrder.Text = Mid(Longitude, Longitude.IndexOf("^-") + 3, (Longitude.IndexOf("-^") - (Longitude.IndexOf("^-") + 2)))
-                                End If
                             End If
 
                             If DefaultsText.IndexOf("Latitude") <> -1 Then
@@ -3561,9 +3288,6 @@ Public Class IAIPQueryGenerator
                                 End If
                                 If Latitude.IndexOf("%-") <> -1 Then
                                     txtFacilityLatitudeSearch2.Text = Mid(Latitude, (Latitude.IndexOf("%-") + 3), (Latitude.IndexOf("-%") - (Latitude.IndexOf("%-") + 2)))
-                                End If
-                                If Latitude.IndexOf("^-") <> -1 Then
-                                    txtFacilityLatitudeOrder.Text = Mid(Latitude, Latitude.IndexOf("^-") + 3, (Latitude.IndexOf("-^") - (Latitude.IndexOf("^-") + 2)))
                                 End If
                             End If
 
@@ -3589,9 +3313,6 @@ Public Class IAIPQueryGenerator
                                     Else
                                         rdbCountyNotEqual.Checked = True
                                     End If
-                                End If
-                                If County.IndexOf("^-") <> -1 Then
-                                    txtCountyOrder.Text = Mid(County, County.IndexOf("^-") + 3, (County.IndexOf("-^") - (County.IndexOf("^-") + 2)))
                                 End If
                             End If
 
@@ -3619,9 +3340,6 @@ Public Class IAIPQueryGenerator
                                     End If
                                 End If
 
-                                If District.IndexOf("^-") <> -1 Then
-                                    txtDistrictOrder.Text = Mid(District, District.IndexOf("^-") + 3, (District.IndexOf("-^") - (District.IndexOf("^-") + 2)))
-                                End If
                             End If
                         End If
 
@@ -3648,9 +3366,6 @@ Public Class IAIPQueryGenerator
                                     rdbOperationStatusNotEqual.Checked = True
                                 End If
                             End If
-                            If OperationStatus.IndexOf("^-") <> -1 Then
-                                txtOperationStatusOrder.Text = Mid(OperationStatus, OperationStatus.IndexOf("^-") + 3, (OperationStatus.IndexOf("-^") - (OperationStatus.IndexOf("^-") + 2)))
-                            End If
                         End If
 
                         If DefaultsText.IndexOf("Classification") <> -1 Then
@@ -3675,9 +3390,6 @@ Public Class IAIPQueryGenerator
                                 Else
                                     rdbClassificationNotEqual.Checked = True
                                 End If
-                            End If
-                            If Classification.IndexOf("^-") <> -1 Then
-                                txtClassificationOrder.Text = Mid(Classification, Classification.IndexOf("^-") + 3, (Classification.IndexOf("-^") - (Classification.IndexOf("^-") + 2)))
                             End If
                         End If
 
@@ -3704,9 +3416,6 @@ Public Class IAIPQueryGenerator
                                     rdbSICCodeNotEqual.Checked = True
                                 End If
                             End If
-                            If SICCode.IndexOf("^-") <> -1 Then
-                                txtSICCodeOrder.Text = Mid(SICCode, SICCode.IndexOf("^-") + 3, (SICCode.IndexOf("-^") - (SICCode.IndexOf("^-") + 2)))
-                            End If
                         End If
                         If DefaultsText.IndexOf("NAICS") <> -1 Then
                             NAICSCode = Mid(DefaultsText, DefaultsText.IndexOf("NAICS") + 1, (DefaultsText.IndexOf("SCIAN") - DefaultsText.IndexOf("NAICS") + 3))
@@ -3731,9 +3440,6 @@ Public Class IAIPQueryGenerator
                                     rdbNAICSCodeNotEqual.Checked = True
                                 End If
                             End If
-                            If NAICSCode.IndexOf("^-") <> -1 Then
-                                txtNAICSCodeOrder.Text = Mid(NAICSCode, NAICSCode.IndexOf("^-") + 3, (NAICSCode.IndexOf("-^") - (NAICSCode.IndexOf("^-") + 2)))
-                            End If
                         End If
                         If DefaultsText.IndexOf("StartUp") <> -1 Then
                             StartUpDate = Mid(DefaultsText, DefaultsText.IndexOf("StartUp") + 1, (DefaultsText.IndexOf("pUtratS") - DefaultsText.IndexOf("StartUp") + 7))
@@ -3750,9 +3456,6 @@ Public Class IAIPQueryGenerator
                                     Mid(StartUpDate, StartUpDate.IndexOf("*-") + 3, (StartUpDate.IndexOf("-*") - (StartUpDate.IndexOf("*-") + 2))) = "Between" Then
                                 rdbStartUpDateBetween.Checked = True
                             End If
-                            If StartUpDate.IndexOf("^-") <> -1 Then
-                                txtStartUpDateOrder.Text = Mid(StartUpDate, StartUpDate.IndexOf("^-") + 3, (StartUpDate.IndexOf("-^") - (StartUpDate.IndexOf("^-") + 2)))
-                            End If
                         End If
                         If DefaultsText.IndexOf("ShutDown") <> -1 Then
                             ShutDownDate = Mid(DefaultsText, DefaultsText.IndexOf("ShutDown") + 1, (DefaultsText.IndexOf("nwoDtuhS") - DefaultsText.IndexOf("ShutDown") + 8))
@@ -3768,9 +3471,6 @@ Public Class IAIPQueryGenerator
                             If ShutDownDate.IndexOf("*-") <> -1 AndAlso
                                 Mid(ShutDownDate, ShutDownDate.IndexOf("*-") + 3, (ShutDownDate.IndexOf("-*") - (ShutDownDate.IndexOf("*-") + 2))) = "Between" Then
                                 rdbShutDownDateBetween.Checked = True
-                            End If
-                            If ShutDownDate.IndexOf("^-") <> -1 Then
-                                txtShutDownDateOrder.Text = Mid(ShutDownDate, ShutDownDate.IndexOf("^-") + 3, (ShutDownDate.IndexOf("-^") - (ShutDownDate.IndexOf("^-") + 2)))
                             End If
                         End If
 
@@ -3797,9 +3497,6 @@ Public Class IAIPQueryGenerator
                                     rdbCMSUniverseNotEqual.Checked = True
                                 End If
                             End If
-                            If CMSUniverse.IndexOf("^-") <> -1 Then
-                                txtCMSUniverseOrder.Text = Mid(CMSUniverse, CMSUniverse.IndexOf("^-") + 3, (CMSUniverse.IndexOf("-^") - (CMSUniverse.IndexOf("^-") + 2)))
-                            End If
                         End If
 
                         If DefaultsText.IndexOf("Plant") <> -1 Then
@@ -3824,9 +3521,6 @@ Public Class IAIPQueryGenerator
                                 Else
                                     rdbPlantDescriptionNotEqual.Checked = True
                                 End If
-                            End If
-                            If PlantDesc.IndexOf("^-") <> -1 Then
-                                txtPlantDescriptionOrder.Text = Mid(PlantDesc, PlantDesc.IndexOf("^-") + 3, (PlantDesc.IndexOf("-^") - (PlantDesc.IndexOf("^-") + 2)))
                             End If
                         End If
                     End If
