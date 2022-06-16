@@ -923,6 +923,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub ClearFormToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearFormMenuItem.Click
+        AddBreadcrumb($"Facility Summary: clear form", Me)
         AirsNumber = Nothing
     End Sub
 
@@ -947,6 +948,8 @@ Public Class IAIPFacilitySummary
 #Region " Form-level events "
 
     Private Sub FSMainTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles FSMainTabControl.SelectedIndexChanged
+        If AirsNumber Is Nothing Then Return
+
         Cursor = Cursors.WaitCursor
 
         Dim data As New Dictionary(Of String, Object) From {
