@@ -1342,11 +1342,7 @@ Public Class IAIPQueryGenerator
             End If
 
             If chbCounty.Checked Then
-                If rdbCountyOr.Checked Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
+                SQLWhereCase1 = " OR "
                 If rdbCountyEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
@@ -1368,11 +1364,7 @@ Public Class IAIPQueryGenerator
             End If
 
             If chbSSCPEngineer.Checked Then
-                If rdbSSCPEngineerOr.Checked Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
+                SQLWhereCase1 = " OR "
                 If rdbSSCPEngineerEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
@@ -1394,11 +1386,7 @@ Public Class IAIPQueryGenerator
             End If
 
             If chbDistrict.Checked Then
-                If rdbDistrictOr.Checked Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
+                SQLWhereCase1 = " OR "
                 If rdbDistrictEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
@@ -1420,11 +1408,7 @@ Public Class IAIPQueryGenerator
             End If
 
             If chbOperationStatus.Checked Then
-                If rdbOperationalStatusOr.Checked Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
+                SQLWhereCase1 = " OR "
                 If rdbOperationStatusEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
@@ -1446,11 +1430,7 @@ Public Class IAIPQueryGenerator
             End If
 
             If chbClassification.Checked Then
-                If rdbClassificationOr.Checked Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
+                SQLWhereCase1 = " OR "
                 If rdbClassificationEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
@@ -1576,11 +1556,7 @@ Public Class IAIPQueryGenerator
             End If
 
             If chbCMSUniverse.Checked Then
-                If rdbCMSUniverseOR.Checked Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
+                SQLWhereCase1 = " OR "
                 If rdbCMSUniverseEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
@@ -1629,11 +1605,7 @@ Public Class IAIPQueryGenerator
 
 
             If chbSSCPUnit.Checked Then
-                If rdbSSCPUnitOr.Checked Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
+                SQLWhereCase1 = " OR "
                 If rdbSSCPUnitEqual.Checked Then
                     SQLWhereCase2 = " Like "
                 Else
@@ -2525,19 +2497,15 @@ Public Class IAIPQueryGenerator
             txtFacilityLongitudeSearch2.Clear()
 
             chbCounty.Checked = False
-            rdbCountyOr.Checked = True
             rdbCountyEqual.Checked = True
 
             chbDistrict.Checked = False
-            rdbDistrictOr.Checked = True
             rdbDistrictEqual.Checked = True
 
             chbOperationStatus.Checked = False
-            rdbOperationalStatusOr.Checked = True
             rdbOperationStatusEqual.Checked = True
 
             chbClassification.Checked = False
-            rdbClassificationOr.Checked = True
             rdbClassificationEqual.Checked = True
 
             chbSICCode.Checked = False
@@ -2565,7 +2533,6 @@ Public Class IAIPQueryGenerator
             DTPShutDownDateSearch2.Value = Today
 
             chbCMSUniverse.Checked = False
-            rdbCMSUniverseOR.Checked = True
             rdbCMSUniverseEqual.Checked = True
 
             chbPlantDescription.Checked = False
@@ -2820,11 +2787,6 @@ Public Class IAIPQueryGenerator
                 If cboCountySearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & cboCountySearch2.Text & "-%"
                 End If
-                If rdbCountyAnd.Checked Then
-                    DefaultsText = DefaultsText & "*-AND-*"
-                Else
-                    DefaultsText = DefaultsText & "*-OR-*"
-                End If
                 If rdbCountyEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
@@ -2839,11 +2801,6 @@ Public Class IAIPQueryGenerator
                 End If
                 If cboDistrictSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & cboDistrictSearch2.Text & "-%"
-                End If
-                If rdbDistrictAnd.Checked Then
-                    DefaultsText = DefaultsText & "*-AND-*"
-                Else
-                    DefaultsText = DefaultsText & "*-OR-*"
                 End If
                 If rdbDistrictEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
@@ -2860,11 +2817,6 @@ Public Class IAIPQueryGenerator
                 If cboOperationStatusSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & cboOperationStatusSearch2.Text & "-%"
                 End If
-                If rdbOperationalStatusAnd.Checked Then
-                    DefaultsText = DefaultsText & "*-AND-*"
-                Else
-                    DefaultsText = DefaultsText & "*-OR-*"
-                End If
                 If rdbOperationStatusEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
                 Else
@@ -2879,11 +2831,6 @@ Public Class IAIPQueryGenerator
                 End If
                 If cboClassificationSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & cboClassificationSearch2.Text & "-%"
-                End If
-                If rdbClassificationAnd.Checked Then
-                    DefaultsText = DefaultsText & "*-AND-*"
-                Else
-                    DefaultsText = DefaultsText & "*-OR-*"
                 End If
                 If rdbClassificationEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
@@ -2959,11 +2906,6 @@ Public Class IAIPQueryGenerator
                 End If
                 If cboCMSUniverseSearch2.Text <> "" Then
                     DefaultsText = DefaultsText & "%-" & cboCMSUniverseSearch2.Text & "-%"
-                End If
-                If rdbCMSUniverseAnd.Checked Then
-                    DefaultsText = DefaultsText & "*-AND-*"
-                Else
-                    DefaultsText = DefaultsText & "*-OR-*"
                 End If
                 If rdbCMSUniverseEqual.Checked Then
                     DefaultsText = DefaultsText & "@-EQUAL-@"
@@ -3242,13 +3184,6 @@ Public Class IAIPQueryGenerator
                                 If County.IndexOf("%-") <> -1 Then
                                     cboCountySearch2.Text = Mid(County, (County.IndexOf("%-") + 3), (County.IndexOf("-%") - (County.IndexOf("%-") + 2)))
                                 End If
-                                If County.IndexOf("*-") <> -1 Then
-                                    If Mid(County, County.IndexOf("*-") + 3, (County.IndexOf("-*") - (County.IndexOf("*-") + 2))) = "OR" Then
-                                        rdbCountyOr.Checked = True
-                                    Else
-                                        rdbCountyAnd.Checked = True
-                                    End If
-                                End If
                                 If County.IndexOf("@-") <> -1 Then
                                     If Mid(County, County.IndexOf("@-") + 3, (County.IndexOf("-@") - (County.IndexOf("@-") + 2))) = "EQUAL" Then
                                         rdbCountyEqual.Checked = True
@@ -3266,13 +3201,6 @@ Public Class IAIPQueryGenerator
                                 End If
                                 If District.IndexOf("%-") <> -1 Then
                                     cboDistrictSearch2.Text = Mid(District, (District.IndexOf("%-") + 3), (District.IndexOf("-%") - (District.IndexOf("%-") + 2)))
-                                End If
-                                If District.IndexOf("*-") <> -1 Then
-                                    If Mid(District, District.IndexOf("*-") + 3, (District.IndexOf("-*") - (District.IndexOf("*-") + 2))) = "OR" Then
-                                        rdbDistrictOr.Checked = True
-                                    Else
-                                        rdbDistrictAnd.Checked = True
-                                    End If
                                 End If
                                 If District.IndexOf("@-") <> -1 Then
                                     If Mid(District, District.IndexOf("@-") + 3, (District.IndexOf("-@") - (District.IndexOf("@-") + 2))) = "EQUAL" Then
@@ -3294,13 +3222,6 @@ Public Class IAIPQueryGenerator
                             If OperationStatus.IndexOf("%-") <> -1 Then
                                 cboOperationStatusSearch2.Text = Mid(OperationStatus, (OperationStatus.IndexOf("%-") + 3), (OperationStatus.IndexOf("-%") - (OperationStatus.IndexOf("%-") + 2)))
                             End If
-                            If OperationStatus.IndexOf("*-") <> -1 Then
-                                If Mid(OperationStatus, OperationStatus.IndexOf("*-") + 3, (OperationStatus.IndexOf("-*") - (OperationStatus.IndexOf("*-") + 2))) = "OR" Then
-                                    rdbOperationalStatusOr.Checked = True
-                                Else
-                                    rdbOperationalStatusAnd.Checked = True
-                                End If
-                            End If
                             If OperationStatus.IndexOf("@-") <> -1 Then
                                 If Mid(OperationStatus, OperationStatus.IndexOf("@-") + 3, (OperationStatus.IndexOf("-@") - (OperationStatus.IndexOf("@-") + 2))) = "EQUAL" Then
                                     rdbOperationStatusEqual.Checked = True
@@ -3318,13 +3239,6 @@ Public Class IAIPQueryGenerator
                             End If
                             If Classification.IndexOf("%-") <> -1 Then
                                 cboClassificationSearch2.Text = Mid(Classification, (Classification.IndexOf("%-") + 3), (Classification.IndexOf("-%") - (Classification.IndexOf("%-") + 2)))
-                            End If
-                            If Classification.IndexOf("*-") <> -1 Then
-                                If Mid(Classification, Classification.IndexOf("*-") + 3, (Classification.IndexOf("-*") - (Classification.IndexOf("*-") + 2))) = "OR" Then
-                                    rdbClassificationOr.Checked = True
-                                Else
-                                    rdbClassificationAnd.Checked = True
-                                End If
                             End If
                             If Classification.IndexOf("@-") <> -1 Then
                                 If Mid(Classification, Classification.IndexOf("@-") + 3, (Classification.IndexOf("-@") - (Classification.IndexOf("@-") + 2))) = "EQUAL" Then
@@ -3416,13 +3330,6 @@ Public Class IAIPQueryGenerator
                             End If
                             If CMSUniverse.IndexOf("%-") <> -1 Then
                                 cboCMSUniverseSearch2.Text = Mid(CMSUniverse, (CMSUniverse.IndexOf("%-") + 3), (CMSUniverse.IndexOf("-%") - (CMSUniverse.IndexOf("%-") + 2)))
-                            End If
-                            If CMSUniverse.IndexOf("*-") <> -1 Then
-                                If Mid(CMSUniverse, CMSUniverse.IndexOf("*-") + 3, (CMSUniverse.IndexOf("-*") - (CMSUniverse.IndexOf("*-") + 2))) = "OR" Then
-                                    rdbCMSUniverseOR.Checked = True
-                                Else
-                                    rdbCMSUniverseAnd.Checked = True
-                                End If
                             End If
                             If CMSUniverse.IndexOf("@-") <> -1 Then
                                 If Mid(CMSUniverse, CMSUniverse.IndexOf("@-") + 3, (CMSUniverse.IndexOf("-@") - (CMSUniverse.IndexOf("@-") + 2))) = "EQUAL" Then

@@ -51,12 +51,6 @@ Partial Class IAIPQueryGenerator
         Me.Panel29 = New System.Windows.Forms.Panel()
         Me.rdbDistrictNotEqual = New System.Windows.Forms.RadioButton()
         Me.rdbDistrictEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel28 = New System.Windows.Forms.Panel()
-        Me.rdbDistrictOr = New System.Windows.Forms.RadioButton()
-        Me.rdbDistrictAnd = New System.Windows.Forms.RadioButton()
-        Me.Panel27 = New System.Windows.Forms.Panel()
-        Me.rdbCountyOr = New System.Windows.Forms.RadioButton()
-        Me.rdbCountyAnd = New System.Windows.Forms.RadioButton()
         Me.cboDistrictSearch2 = New System.Windows.Forms.ComboBox()
         Me.cboDistrictSearch1 = New System.Windows.Forms.ComboBox()
         Me.cboCountySearch2 = New System.Windows.Forms.ComboBox()
@@ -115,9 +109,6 @@ Partial Class IAIPQueryGenerator
         Me.txtNAICSCodeSearch2 = New System.Windows.Forms.TextBox()
         Me.txtNAICSCodeSearch1 = New System.Windows.Forms.TextBox()
         Me.chbNAICSCode = New System.Windows.Forms.CheckBox()
-        Me.Panel11 = New System.Windows.Forms.Panel()
-        Me.rdbOperationalStatusOr = New System.Windows.Forms.RadioButton()
-        Me.rdbOperationalStatusAnd = New System.Windows.Forms.RadioButton()
         Me.cboOperationStatusSearch2 = New System.Windows.Forms.ComboBox()
         Me.cboOperationStatusSearch1 = New System.Windows.Forms.ComboBox()
         Me.Panel12 = New System.Windows.Forms.Panel()
@@ -138,13 +129,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel31 = New System.Windows.Forms.Panel()
         Me.rdbCMSUniverseNotEqual = New System.Windows.Forms.RadioButton()
         Me.rdbCMSUniverseEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel32 = New System.Windows.Forms.Panel()
-        Me.rdbCMSUniverseOR = New System.Windows.Forms.RadioButton()
-        Me.rdbCMSUniverseAnd = New System.Windows.Forms.RadioButton()
         Me.chbCMSUniverse = New System.Windows.Forms.CheckBox()
-        Me.Panel20 = New System.Windows.Forms.Panel()
-        Me.rdbClassificationOr = New System.Windows.Forms.RadioButton()
-        Me.rdbClassificationAnd = New System.Windows.Forms.RadioButton()
         Me.DTPShutDownDateSearch2 = New System.Windows.Forms.DateTimePicker()
         Me.DTPShutDownDateSearch1 = New System.Windows.Forms.DateTimePicker()
         Me.DTPStartUpDateSearch2 = New System.Windows.Forms.DateTimePicker()
@@ -300,18 +285,12 @@ Partial Class IAIPQueryGenerator
         Me.DTPLastFCESearch2 = New System.Windows.Forms.DateTimePicker()
         Me.DTPLastFCESearch1 = New System.Windows.Forms.DateTimePicker()
         Me.chbLastFCE = New System.Windows.Forms.CheckBox()
-        Me.Panel71 = New System.Windows.Forms.Panel()
-        Me.rdbSSCPUnitOr = New System.Windows.Forms.RadioButton()
-        Me.rdbSSCPUnitAnd = New System.Windows.Forms.RadioButton()
         Me.cboSSCPUnitSearch2 = New System.Windows.Forms.ComboBox()
         Me.cboSSCPUnitSearch1 = New System.Windows.Forms.ComboBox()
         Me.Panel72 = New System.Windows.Forms.Panel()
         Me.rdbSSCPUnitNotEqual = New System.Windows.Forms.RadioButton()
         Me.rdbSSCPUnitEqual = New System.Windows.Forms.RadioButton()
         Me.chbSSCPUnit = New System.Windows.Forms.CheckBox()
-        Me.Panel67 = New System.Windows.Forms.Panel()
-        Me.rdbSSCPEngineerOr = New System.Windows.Forms.RadioButton()
-        Me.rdbSSCPEngineerAnd = New System.Windows.Forms.RadioButton()
         Me.cboSSCPEngineerSearch2 = New System.Windows.Forms.ComboBox()
         Me.cboSSCPEngineerSearch1 = New System.Windows.Forms.ComboBox()
         Me.Panel69 = New System.Windows.Forms.Panel()
@@ -353,8 +332,6 @@ Partial Class IAIPQueryGenerator
         Me.TPPhysicalLocation.SuspendLayout()
         Me.Panel30.SuspendLayout()
         Me.Panel29.SuspendLayout()
-        Me.Panel28.SuspendLayout()
-        Me.Panel27.SuspendLayout()
         Me.Panel15.SuspendLayout()
         Me.Panel16.SuspendLayout()
         Me.Panel13.SuspendLayout()
@@ -366,13 +343,10 @@ Partial Class IAIPQueryGenerator
         Me.TPHeaderInformation.SuspendLayout()
         Me.Panel74.SuspendLayout()
         Me.Panel75.SuspendLayout()
-        Me.Panel11.SuspendLayout()
         Me.Panel12.SuspendLayout()
         Me.Panel33.SuspendLayout()
         Me.Panel34.SuspendLayout()
         Me.Panel31.SuspendLayout()
-        Me.Panel32.SuspendLayout()
-        Me.Panel20.SuspendLayout()
         Me.Panel21.SuspendLayout()
         Me.Panel22.SuspendLayout()
         Me.Panel19.SuspendLayout()
@@ -408,9 +382,7 @@ Partial Class IAIPQueryGenerator
         Me.TPSubpartData.SuspendLayout()
         Me.TPComplianceInfo.SuspendLayout()
         Me.Panel76.SuspendLayout()
-        Me.Panel71.SuspendLayout()
         Me.Panel72.SuspendLayout()
-        Me.Panel67.SuspendLayout()
         Me.Panel69.SuspendLayout()
         Me.TPCannedReports.SuspendLayout()
         Me.BasicSearchGroup.SuspendLayout()
@@ -477,23 +449,25 @@ Partial Class IAIPQueryGenerator
         Me.Panel6.Controls.Add(Me.rdbFacilityNameEqual)
         Me.Panel6.Location = New System.Drawing.Point(473, 66)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(80, 21)
+        Me.Panel6.Size = New System.Drawing.Size(98, 24)
         Me.Panel6.TabIndex = 272
         '
         'rdbFacilityNameNotEqual
         '
-        Me.rdbFacilityNameNotEqual.Location = New System.Drawing.Point(33, 4)
+        Me.rdbFacilityNameNotEqual.AutoSize = True
+        Me.rdbFacilityNameNotEqual.Location = New System.Drawing.Point(42, 3)
         Me.rdbFacilityNameNotEqual.Name = "rdbFacilityNameNotEqual"
-        Me.rdbFacilityNameNotEqual.Size = New System.Drawing.Size(47, 14)
+        Me.rdbFacilityNameNotEqual.Size = New System.Drawing.Size(37, 17)
         Me.rdbFacilityNameNotEqual.TabIndex = 13
         Me.rdbFacilityNameNotEqual.Text = "<>"
         '
         'rdbFacilityNameEqual
         '
+        Me.rdbFacilityNameEqual.AutoSize = True
         Me.rdbFacilityNameEqual.Checked = True
-        Me.rdbFacilityNameEqual.Location = New System.Drawing.Point(7, 4)
+        Me.rdbFacilityNameEqual.Location = New System.Drawing.Point(7, 3)
         Me.rdbFacilityNameEqual.Name = "rdbFacilityNameEqual"
-        Me.rdbFacilityNameEqual.Size = New System.Drawing.Size(46, 14)
+        Me.rdbFacilityNameEqual.Size = New System.Drawing.Size(31, 17)
         Me.rdbFacilityNameEqual.TabIndex = 12
         Me.rdbFacilityNameEqual.TabStop = True
         Me.rdbFacilityNameEqual.Text = "="
@@ -511,7 +485,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbFacilityNameOr.AutoSize = True
         Me.rdbFacilityNameOr.Checked = True
-        Me.rdbFacilityNameOr.Location = New System.Drawing.Point(53, 2)
+        Me.rdbFacilityNameOr.Location = New System.Drawing.Point(58, 2)
         Me.rdbFacilityNameOr.Name = "rdbFacilityNameOr"
         Me.rdbFacilityNameOr.Size = New System.Drawing.Size(41, 17)
         Me.rdbFacilityNameOr.TabIndex = 11
@@ -521,7 +495,7 @@ Partial Class IAIPQueryGenerator
         'rdbFacilityNameAnd
         '
         Me.rdbFacilityNameAnd.AutoSize = True
-        Me.rdbFacilityNameAnd.Location = New System.Drawing.Point(7, 2)
+        Me.rdbFacilityNameAnd.Location = New System.Drawing.Point(4, 2)
         Me.rdbFacilityNameAnd.Name = "rdbFacilityNameAnd"
         Me.rdbFacilityNameAnd.Size = New System.Drawing.Size(48, 17)
         Me.rdbFacilityNameAnd.TabIndex = 10
@@ -529,14 +503,14 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityNameSearch2
         '
-        Me.txtFacilityNameSearch2.Location = New System.Drawing.Point(240, 68)
+        Me.txtFacilityNameSearch2.Location = New System.Drawing.Point(237, 68)
         Me.txtFacilityNameSearch2.Name = "txtFacilityNameSearch2"
         Me.txtFacilityNameSearch2.Size = New System.Drawing.Size(127, 20)
         Me.txtFacilityNameSearch2.TabIndex = 9
         '
         'txtFacilityNameSearch1
         '
-        Me.txtFacilityNameSearch1.Location = New System.Drawing.Point(100, 68)
+        Me.txtFacilityNameSearch1.Location = New System.Drawing.Point(97, 68)
         Me.txtFacilityNameSearch1.Name = "txtFacilityNameSearch1"
         Me.txtFacilityNameSearch1.Size = New System.Drawing.Size(127, 20)
         Me.txtFacilityNameSearch1.TabIndex = 8
@@ -547,23 +521,25 @@ Partial Class IAIPQueryGenerator
         Me.Panel36.Controls.Add(Me.rdbAIRSNumberEqual)
         Me.Panel36.Location = New System.Drawing.Point(473, 39)
         Me.Panel36.Name = "Panel36"
-        Me.Panel36.Size = New System.Drawing.Size(80, 21)
+        Me.Panel36.Size = New System.Drawing.Size(98, 22)
         Me.Panel36.TabIndex = 270
         '
         'rdbAIRSNumberNotEqual
         '
-        Me.rdbAIRSNumberNotEqual.Location = New System.Drawing.Point(33, 4)
+        Me.rdbAIRSNumberNotEqual.AutoSize = True
+        Me.rdbAIRSNumberNotEqual.Location = New System.Drawing.Point(42, 3)
         Me.rdbAIRSNumberNotEqual.Name = "rdbAIRSNumberNotEqual"
-        Me.rdbAIRSNumberNotEqual.Size = New System.Drawing.Size(47, 14)
+        Me.rdbAIRSNumberNotEqual.Size = New System.Drawing.Size(37, 17)
         Me.rdbAIRSNumberNotEqual.TabIndex = 6
         Me.rdbAIRSNumberNotEqual.Text = "<>"
         '
         'rdbAIRSNumberEqual
         '
+        Me.rdbAIRSNumberEqual.AutoSize = True
         Me.rdbAIRSNumberEqual.Checked = True
-        Me.rdbAIRSNumberEqual.Location = New System.Drawing.Point(7, 4)
+        Me.rdbAIRSNumberEqual.Location = New System.Drawing.Point(7, 3)
         Me.rdbAIRSNumberEqual.Name = "rdbAIRSNumberEqual"
-        Me.rdbAIRSNumberEqual.Size = New System.Drawing.Size(46, 14)
+        Me.rdbAIRSNumberEqual.Size = New System.Drawing.Size(31, 17)
         Me.rdbAIRSNumberEqual.TabIndex = 5
         Me.rdbAIRSNumberEqual.TabStop = True
         Me.rdbAIRSNumberEqual.Text = "="
@@ -581,7 +557,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbAIRSNumberOr.AutoSize = True
         Me.rdbAIRSNumberOr.Checked = True
-        Me.rdbAIRSNumberOr.Location = New System.Drawing.Point(53, 2)
+        Me.rdbAIRSNumberOr.Location = New System.Drawing.Point(58, 2)
         Me.rdbAIRSNumberOr.Name = "rdbAIRSNumberOr"
         Me.rdbAIRSNumberOr.Size = New System.Drawing.Size(41, 17)
         Me.rdbAIRSNumberOr.TabIndex = 4
@@ -591,7 +567,7 @@ Partial Class IAIPQueryGenerator
         'rdbAIRSNumberAnd
         '
         Me.rdbAIRSNumberAnd.AutoSize = True
-        Me.rdbAIRSNumberAnd.Location = New System.Drawing.Point(7, 2)
+        Me.rdbAIRSNumberAnd.Location = New System.Drawing.Point(4, 2)
         Me.rdbAIRSNumberAnd.Name = "rdbAIRSNumberAnd"
         Me.rdbAIRSNumberAnd.Size = New System.Drawing.Size(48, 17)
         Me.rdbAIRSNumberAnd.TabIndex = 3
@@ -599,21 +575,21 @@ Partial Class IAIPQueryGenerator
         '
         'txtAIRSNumberSearch2
         '
-        Me.txtAIRSNumberSearch2.Location = New System.Drawing.Point(240, 41)
+        Me.txtAIRSNumberSearch2.Location = New System.Drawing.Point(237, 41)
         Me.txtAIRSNumberSearch2.Name = "txtAIRSNumberSearch2"
         Me.txtAIRSNumberSearch2.Size = New System.Drawing.Size(127, 20)
         Me.txtAIRSNumberSearch2.TabIndex = 2
         '
         'txtAIRSNumberSearch1
         '
-        Me.txtAIRSNumberSearch1.Location = New System.Drawing.Point(100, 41)
+        Me.txtAIRSNumberSearch1.Location = New System.Drawing.Point(97, 41)
         Me.txtAIRSNumberSearch1.Name = "txtAIRSNumberSearch1"
         Me.txtAIRSNumberSearch1.Size = New System.Drawing.Size(127, 20)
         Me.txtAIRSNumberSearch1.TabIndex = 1
         '
         'Label3
         '
-        Me.Label3.Location = New System.Drawing.Point(237, 18)
+        Me.Label3.Location = New System.Drawing.Point(234, 18)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(87, 14)
         Me.Label3.TabIndex = 264
@@ -621,7 +597,7 @@ Partial Class IAIPQueryGenerator
         '
         'Label2
         '
-        Me.Label2.Location = New System.Drawing.Point(97, 18)
+        Me.Label2.Location = New System.Drawing.Point(94, 18)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(87, 14)
         Me.Label2.TabIndex = 263
@@ -711,8 +687,6 @@ Partial Class IAIPQueryGenerator
         Me.TPPhysicalLocation.Controls.Add(Me.Label4)
         Me.TPPhysicalLocation.Controls.Add(Me.Panel30)
         Me.TPPhysicalLocation.Controls.Add(Me.Panel29)
-        Me.TPPhysicalLocation.Controls.Add(Me.Panel28)
-        Me.TPPhysicalLocation.Controls.Add(Me.Panel27)
         Me.TPPhysicalLocation.Controls.Add(Me.cboDistrictSearch2)
         Me.TPPhysicalLocation.Controls.Add(Me.cboDistrictSearch1)
         Me.TPPhysicalLocation.Controls.Add(Me.cboCountySearch2)
@@ -756,7 +730,7 @@ Partial Class IAIPQueryGenerator
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(419, 137)
+        Me.Label5.Location = New System.Drawing.Point(422, 137)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(67, 13)
         Me.Label5.TabIndex = 164
@@ -765,7 +739,7 @@ Partial Class IAIPQueryGenerator
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(419, 112)
+        Me.Label4.Location = New System.Drawing.Point(422, 112)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(67, 13)
         Me.Label4.TabIndex = 163
@@ -776,7 +750,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel30.AutoSize = True
         Me.Panel30.Controls.Add(Me.rdbCountyNotEqual)
         Me.Panel30.Controls.Add(Me.rdbCountyEqual)
-        Me.Panel30.Location = New System.Drawing.Point(608, 156)
+        Me.Panel30.Location = New System.Drawing.Point(539, 153)
         Me.Panel30.Name = "Panel30"
         Me.Panel30.Size = New System.Drawing.Size(76, 27)
         Me.Panel30.TabIndex = 176
@@ -806,7 +780,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel29.AutoSize = True
         Me.Panel29.Controls.Add(Me.rdbDistrictNotEqual)
         Me.Panel29.Controls.Add(Me.rdbDistrictEqual)
-        Me.Panel29.Location = New System.Drawing.Point(608, 181)
+        Me.Panel29.Location = New System.Drawing.Point(539, 178)
         Me.Panel29.Name = "Panel29"
         Me.Panel29.Size = New System.Drawing.Size(76, 27)
         Me.Panel29.TabIndex = 178
@@ -830,66 +804,6 @@ Partial Class IAIPQueryGenerator
         Me.rdbDistrictEqual.TabIndex = 71
         Me.rdbDistrictEqual.TabStop = True
         Me.rdbDistrictEqual.Text = "="
-        '
-        'Panel28
-        '
-        Me.Panel28.AutoSize = True
-        Me.Panel28.Controls.Add(Me.rdbDistrictOr)
-        Me.Panel28.Controls.Add(Me.rdbDistrictAnd)
-        Me.Panel28.Location = New System.Drawing.Point(414, 181)
-        Me.Panel28.Name = "Panel28"
-        Me.Panel28.Size = New System.Drawing.Size(99, 27)
-        Me.Panel28.TabIndex = 177
-        '
-        'rdbDistrictOr
-        '
-        Me.rdbDistrictOr.AutoSize = True
-        Me.rdbDistrictOr.Checked = True
-        Me.rdbDistrictOr.Location = New System.Drawing.Point(55, 7)
-        Me.rdbDistrictOr.Name = "rdbDistrictOr"
-        Me.rdbDistrictOr.Size = New System.Drawing.Size(41, 17)
-        Me.rdbDistrictOr.TabIndex = 70
-        Me.rdbDistrictOr.TabStop = True
-        Me.rdbDistrictOr.Text = "OR"
-        '
-        'rdbDistrictAnd
-        '
-        Me.rdbDistrictAnd.AutoSize = True
-        Me.rdbDistrictAnd.Location = New System.Drawing.Point(7, 7)
-        Me.rdbDistrictAnd.Name = "rdbDistrictAnd"
-        Me.rdbDistrictAnd.Size = New System.Drawing.Size(48, 17)
-        Me.rdbDistrictAnd.TabIndex = 69
-        Me.rdbDistrictAnd.Text = "AND"
-        '
-        'Panel27
-        '
-        Me.Panel27.AutoSize = True
-        Me.Panel27.Controls.Add(Me.rdbCountyOr)
-        Me.Panel27.Controls.Add(Me.rdbCountyAnd)
-        Me.Panel27.Location = New System.Drawing.Point(414, 156)
-        Me.Panel27.Name = "Panel27"
-        Me.Panel27.Size = New System.Drawing.Size(99, 27)
-        Me.Panel27.TabIndex = 175
-        '
-        'rdbCountyOr
-        '
-        Me.rdbCountyOr.AutoSize = True
-        Me.rdbCountyOr.Checked = True
-        Me.rdbCountyOr.Location = New System.Drawing.Point(55, 7)
-        Me.rdbCountyOr.Name = "rdbCountyOr"
-        Me.rdbCountyOr.Size = New System.Drawing.Size(41, 17)
-        Me.rdbCountyOr.TabIndex = 62
-        Me.rdbCountyOr.TabStop = True
-        Me.rdbCountyOr.Text = "OR"
-        '
-        'rdbCountyAnd
-        '
-        Me.rdbCountyAnd.AutoSize = True
-        Me.rdbCountyAnd.Location = New System.Drawing.Point(7, 7)
-        Me.rdbCountyAnd.Name = "rdbCountyAnd"
-        Me.rdbCountyAnd.Size = New System.Drawing.Size(48, 17)
-        Me.rdbCountyAnd.TabIndex = 61
-        Me.rdbCountyAnd.Text = "AND"
         '
         'cboDistrictSearch2
         '
@@ -982,7 +896,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel15.AutoSize = True
         Me.Panel15.Controls.Add(Me.rdbFacilityZipCodeNotEqual)
         Me.Panel15.Controls.Add(Me.rdbFacilityZipCodeEqual)
-        Me.Panel15.Location = New System.Drawing.Point(608, 81)
+        Me.Panel15.Location = New System.Drawing.Point(539, 78)
         Me.Panel15.Name = "Panel15"
         Me.Panel15.Size = New System.Drawing.Size(76, 27)
         Me.Panel15.TabIndex = 172
@@ -1012,7 +926,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel16.AutoSize = True
         Me.Panel16.Controls.Add(Me.rdbFacilityZipCodeOr)
         Me.Panel16.Controls.Add(Me.rdbFacilityZipCodeAnd)
-        Me.Panel16.Location = New System.Drawing.Point(414, 81)
+        Me.Panel16.Location = New System.Drawing.Point(417, 81)
         Me.Panel16.Name = "Panel16"
         Me.Panel16.Size = New System.Drawing.Size(99, 27)
         Me.Panel16.TabIndex = 171
@@ -1021,7 +935,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbFacilityZipCodeOr.AutoSize = True
         Me.rdbFacilityZipCodeOr.Checked = True
-        Me.rdbFacilityZipCodeOr.Location = New System.Drawing.Point(55, 7)
+        Me.rdbFacilityZipCodeOr.Location = New System.Drawing.Point(55, 4)
         Me.rdbFacilityZipCodeOr.Name = "rdbFacilityZipCodeOr"
         Me.rdbFacilityZipCodeOr.Size = New System.Drawing.Size(41, 17)
         Me.rdbFacilityZipCodeOr.TabIndex = 44
@@ -1031,7 +945,7 @@ Partial Class IAIPQueryGenerator
         'rdbFacilityZipCodeAnd
         '
         Me.rdbFacilityZipCodeAnd.AutoSize = True
-        Me.rdbFacilityZipCodeAnd.Location = New System.Drawing.Point(7, 7)
+        Me.rdbFacilityZipCodeAnd.Location = New System.Drawing.Point(7, 4)
         Me.rdbFacilityZipCodeAnd.Name = "rdbFacilityZipCodeAnd"
         Me.rdbFacilityZipCodeAnd.Size = New System.Drawing.Size(48, 17)
         Me.rdbFacilityZipCodeAnd.TabIndex = 43
@@ -1056,7 +970,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel13.AutoSize = True
         Me.Panel13.Controls.Add(Me.rdbFacilityCityNotEqual)
         Me.Panel13.Controls.Add(Me.rdbFacilityCityEqual)
-        Me.Panel13.Location = New System.Drawing.Point(608, 56)
+        Me.Panel13.Location = New System.Drawing.Point(539, 53)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(76, 27)
         Me.Panel13.TabIndex = 170
@@ -1086,7 +1000,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel14.AutoSize = True
         Me.Panel14.Controls.Add(Me.rdbFacilityCityOr)
         Me.Panel14.Controls.Add(Me.rdbFacilityCityAnd)
-        Me.Panel14.Location = New System.Drawing.Point(414, 56)
+        Me.Panel14.Location = New System.Drawing.Point(417, 56)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Size = New System.Drawing.Size(99, 27)
         Me.Panel14.TabIndex = 169
@@ -1095,7 +1009,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbFacilityCityOr.AutoSize = True
         Me.rdbFacilityCityOr.Checked = True
-        Me.rdbFacilityCityOr.Location = New System.Drawing.Point(55, 7)
+        Me.rdbFacilityCityOr.Location = New System.Drawing.Point(55, 4)
         Me.rdbFacilityCityOr.Name = "rdbFacilityCityOr"
         Me.rdbFacilityCityOr.Size = New System.Drawing.Size(41, 17)
         Me.rdbFacilityCityOr.TabIndex = 36
@@ -1105,7 +1019,7 @@ Partial Class IAIPQueryGenerator
         'rdbFacilityCityAnd
         '
         Me.rdbFacilityCityAnd.AutoSize = True
-        Me.rdbFacilityCityAnd.Location = New System.Drawing.Point(7, 7)
+        Me.rdbFacilityCityAnd.Location = New System.Drawing.Point(7, 4)
         Me.rdbFacilityCityAnd.Name = "rdbFacilityCityAnd"
         Me.rdbFacilityCityAnd.Size = New System.Drawing.Size(48, 17)
         Me.rdbFacilityCityAnd.TabIndex = 35
@@ -1130,7 +1044,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel7.AutoSize = True
         Me.Panel7.Controls.Add(Me.rdbFacilityStreet2NotEqual)
         Me.Panel7.Controls.Add(Me.rdbFacilityStreet2Equal)
-        Me.Panel7.Location = New System.Drawing.Point(608, 31)
+        Me.Panel7.Location = New System.Drawing.Point(539, 28)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(76, 27)
         Me.Panel7.TabIndex = 168
@@ -1160,7 +1074,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel8.AutoSize = True
         Me.Panel8.Controls.Add(Me.rdbFacilityStreet2Or)
         Me.Panel8.Controls.Add(Me.rdbFacilityStreet2And)
-        Me.Panel8.Location = New System.Drawing.Point(414, 31)
+        Me.Panel8.Location = New System.Drawing.Point(417, 31)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Size = New System.Drawing.Size(99, 27)
         Me.Panel8.TabIndex = 167
@@ -1169,7 +1083,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbFacilityStreet2Or.AutoSize = True
         Me.rdbFacilityStreet2Or.Checked = True
-        Me.rdbFacilityStreet2Or.Location = New System.Drawing.Point(55, 7)
+        Me.rdbFacilityStreet2Or.Location = New System.Drawing.Point(55, 4)
         Me.rdbFacilityStreet2Or.Name = "rdbFacilityStreet2Or"
         Me.rdbFacilityStreet2Or.Size = New System.Drawing.Size(41, 17)
         Me.rdbFacilityStreet2Or.TabIndex = 29
@@ -1179,7 +1093,7 @@ Partial Class IAIPQueryGenerator
         'rdbFacilityStreet2And
         '
         Me.rdbFacilityStreet2And.AutoSize = True
-        Me.rdbFacilityStreet2And.Location = New System.Drawing.Point(7, 7)
+        Me.rdbFacilityStreet2And.Location = New System.Drawing.Point(7, 4)
         Me.rdbFacilityStreet2And.Name = "rdbFacilityStreet2And"
         Me.rdbFacilityStreet2And.Size = New System.Drawing.Size(48, 17)
         Me.rdbFacilityStreet2And.TabIndex = 28
@@ -1204,7 +1118,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel4.AutoSize = True
         Me.Panel4.Controls.Add(Me.rdbFacilityStreet1NotEqual)
         Me.Panel4.Controls.Add(Me.rdbFacilityStreet1Equal)
-        Me.Panel4.Location = New System.Drawing.Point(608, 6)
+        Me.Panel4.Location = New System.Drawing.Point(539, 3)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(76, 27)
         Me.Panel4.TabIndex = 166
@@ -1234,7 +1148,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel5.AutoSize = True
         Me.Panel5.Controls.Add(Me.rdbFacilityStreet1Or)
         Me.Panel5.Controls.Add(Me.rdbFacilityStreet1And)
-        Me.Panel5.Location = New System.Drawing.Point(414, 6)
+        Me.Panel5.Location = New System.Drawing.Point(417, 6)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(99, 27)
         Me.Panel5.TabIndex = 165
@@ -1243,7 +1157,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbFacilityStreet1Or.AutoSize = True
         Me.rdbFacilityStreet1Or.Checked = True
-        Me.rdbFacilityStreet1Or.Location = New System.Drawing.Point(55, 7)
+        Me.rdbFacilityStreet1Or.Location = New System.Drawing.Point(55, 4)
         Me.rdbFacilityStreet1Or.Name = "rdbFacilityStreet1Or"
         Me.rdbFacilityStreet1Or.Size = New System.Drawing.Size(41, 17)
         Me.rdbFacilityStreet1Or.TabIndex = 21
@@ -1253,7 +1167,7 @@ Partial Class IAIPQueryGenerator
         'rdbFacilityStreet1And
         '
         Me.rdbFacilityStreet1And.AutoSize = True
-        Me.rdbFacilityStreet1And.Location = New System.Drawing.Point(7, 7)
+        Me.rdbFacilityStreet1And.Location = New System.Drawing.Point(7, 4)
         Me.rdbFacilityStreet1And.Name = "rdbFacilityStreet1And"
         Me.rdbFacilityStreet1And.Size = New System.Drawing.Size(48, 17)
         Me.rdbFacilityStreet1And.TabIndex = 20
@@ -1334,7 +1248,6 @@ Partial Class IAIPQueryGenerator
         Me.TPHeaderInformation.Controls.Add(Me.txtNAICSCodeSearch2)
         Me.TPHeaderInformation.Controls.Add(Me.txtNAICSCodeSearch1)
         Me.TPHeaderInformation.Controls.Add(Me.chbNAICSCode)
-        Me.TPHeaderInformation.Controls.Add(Me.Panel11)
         Me.TPHeaderInformation.Controls.Add(Me.cboOperationStatusSearch2)
         Me.TPHeaderInformation.Controls.Add(Me.cboOperationStatusSearch1)
         Me.TPHeaderInformation.Controls.Add(Me.Panel12)
@@ -1347,9 +1260,7 @@ Partial Class IAIPQueryGenerator
         Me.TPHeaderInformation.Controls.Add(Me.txtPlantDescriptionSearch1)
         Me.TPHeaderInformation.Controls.Add(Me.chbPlantDescription)
         Me.TPHeaderInformation.Controls.Add(Me.Panel31)
-        Me.TPHeaderInformation.Controls.Add(Me.Panel32)
         Me.TPHeaderInformation.Controls.Add(Me.chbCMSUniverse)
-        Me.TPHeaderInformation.Controls.Add(Me.Panel20)
         Me.TPHeaderInformation.Controls.Add(Me.DTPShutDownDateSearch2)
         Me.TPHeaderInformation.Controls.Add(Me.DTPShutDownDateSearch1)
         Me.TPHeaderInformation.Controls.Add(Me.DTPStartUpDateSearch2)
@@ -1378,7 +1289,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel74.AutoSize = True
         Me.Panel74.Controls.Add(Me.rdbNAICSCodeNotEqual)
         Me.Panel74.Controls.Add(Me.rdbNAICSCodeEqual)
-        Me.Panel74.Location = New System.Drawing.Point(606, 84)
+        Me.Panel74.Location = New System.Drawing.Point(529, 84)
         Me.Panel74.Name = "Panel74"
         Me.Panel74.Size = New System.Drawing.Size(77, 27)
         Me.Panel74.TabIndex = 239
@@ -1386,7 +1297,7 @@ Partial Class IAIPQueryGenerator
         'rdbNAICSCodeNotEqual
         '
         Me.rdbNAICSCodeNotEqual.AutoSize = True
-        Me.rdbNAICSCodeNotEqual.Location = New System.Drawing.Point(37, 4)
+        Me.rdbNAICSCodeNotEqual.Location = New System.Drawing.Point(37, 0)
         Me.rdbNAICSCodeNotEqual.Name = "rdbNAICSCodeNotEqual"
         Me.rdbNAICSCodeNotEqual.Size = New System.Drawing.Size(37, 17)
         Me.rdbNAICSCodeNotEqual.TabIndex = 96
@@ -1396,7 +1307,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbNAICSCodeEqual.AutoSize = True
         Me.rdbNAICSCodeEqual.Checked = True
-        Me.rdbNAICSCodeEqual.Location = New System.Drawing.Point(7, 4)
+        Me.rdbNAICSCodeEqual.Location = New System.Drawing.Point(7, 0)
         Me.rdbNAICSCodeEqual.Name = "rdbNAICSCodeEqual"
         Me.rdbNAICSCodeEqual.Size = New System.Drawing.Size(31, 17)
         Me.rdbNAICSCodeEqual.TabIndex = 95
@@ -1417,7 +1328,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbNAICSCodeOr.AutoSize = True
         Me.rdbNAICSCodeOr.Checked = True
-        Me.rdbNAICSCodeOr.Location = New System.Drawing.Point(57, 7)
+        Me.rdbNAICSCodeOr.Location = New System.Drawing.Point(57, 4)
         Me.rdbNAICSCodeOr.Name = "rdbNAICSCodeOr"
         Me.rdbNAICSCodeOr.Size = New System.Drawing.Size(41, 17)
         Me.rdbNAICSCodeOr.TabIndex = 94
@@ -1427,7 +1338,7 @@ Partial Class IAIPQueryGenerator
         'rdbNAICSCodeAnd
         '
         Me.rdbNAICSCodeAnd.AutoSize = True
-        Me.rdbNAICSCodeAnd.Location = New System.Drawing.Point(7, 7)
+        Me.rdbNAICSCodeAnd.Location = New System.Drawing.Point(7, 4)
         Me.rdbNAICSCodeAnd.Name = "rdbNAICSCodeAnd"
         Me.rdbNAICSCodeAnd.Size = New System.Drawing.Size(48, 17)
         Me.rdbNAICSCodeAnd.TabIndex = 93
@@ -1456,42 +1367,12 @@ Partial Class IAIPQueryGenerator
         Me.chbNAICSCode.TabIndex = 234
         Me.chbNAICSCode.Text = "NAICS Code"
         '
-        'Panel11
-        '
-        Me.Panel11.AutoSize = True
-        Me.Panel11.Controls.Add(Me.rdbOperationalStatusOr)
-        Me.Panel11.Controls.Add(Me.rdbOperationalStatusAnd)
-        Me.Panel11.Location = New System.Drawing.Point(421, 7)
-        Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(101, 27)
-        Me.Panel11.TabIndex = 232
-        '
-        'rdbOperationalStatusOr
-        '
-        Me.rdbOperationalStatusOr.AutoSize = True
-        Me.rdbOperationalStatusOr.Checked = True
-        Me.rdbOperationalStatusOr.Location = New System.Drawing.Point(57, 7)
-        Me.rdbOperationalStatusOr.Name = "rdbOperationalStatusOr"
-        Me.rdbOperationalStatusOr.Size = New System.Drawing.Size(41, 17)
-        Me.rdbOperationalStatusOr.TabIndex = 78
-        Me.rdbOperationalStatusOr.TabStop = True
-        Me.rdbOperationalStatusOr.Text = "OR"
-        '
-        'rdbOperationalStatusAnd
-        '
-        Me.rdbOperationalStatusAnd.AutoSize = True
-        Me.rdbOperationalStatusAnd.Location = New System.Drawing.Point(7, 7)
-        Me.rdbOperationalStatusAnd.Name = "rdbOperationalStatusAnd"
-        Me.rdbOperationalStatusAnd.Size = New System.Drawing.Size(48, 17)
-        Me.rdbOperationalStatusAnd.TabIndex = 77
-        Me.rdbOperationalStatusAnd.Text = "AND"
-        '
         'cboOperationStatusSearch2
         '
         Me.cboOperationStatusSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboOperationStatusSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboOperationStatusSearch2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboOperationStatusSearch2.Location = New System.Drawing.Point(283, 7)
+        Me.cboOperationStatusSearch2.Location = New System.Drawing.Point(283, 10)
         Me.cboOperationStatusSearch2.Name = "cboOperationStatusSearch2"
         Me.cboOperationStatusSearch2.Size = New System.Drawing.Size(132, 21)
         Me.cboOperationStatusSearch2.TabIndex = 76
@@ -1501,7 +1382,7 @@ Partial Class IAIPQueryGenerator
         Me.cboOperationStatusSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboOperationStatusSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboOperationStatusSearch1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboOperationStatusSearch1.Location = New System.Drawing.Point(145, 7)
+        Me.cboOperationStatusSearch1.Location = New System.Drawing.Point(145, 10)
         Me.cboOperationStatusSearch1.Name = "cboOperationStatusSearch1"
         Me.cboOperationStatusSearch1.Size = New System.Drawing.Size(132, 21)
         Me.cboOperationStatusSearch1.TabIndex = 75
@@ -1511,7 +1392,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel12.AutoSize = True
         Me.Panel12.Controls.Add(Me.rdbOperationStatusNotEqual)
         Me.Panel12.Controls.Add(Me.rdbOperationStatusEqual)
-        Me.Panel12.Location = New System.Drawing.Point(606, 7)
+        Me.Panel12.Location = New System.Drawing.Point(529, 9)
         Me.Panel12.Name = "Panel12"
         Me.Panel12.Size = New System.Drawing.Size(77, 27)
         Me.Panel12.TabIndex = 233
@@ -1519,7 +1400,7 @@ Partial Class IAIPQueryGenerator
         'rdbOperationStatusNotEqual
         '
         Me.rdbOperationStatusNotEqual.AutoSize = True
-        Me.rdbOperationStatusNotEqual.Location = New System.Drawing.Point(37, 7)
+        Me.rdbOperationStatusNotEqual.Location = New System.Drawing.Point(37, 2)
         Me.rdbOperationStatusNotEqual.Name = "rdbOperationStatusNotEqual"
         Me.rdbOperationStatusNotEqual.Size = New System.Drawing.Size(37, 17)
         Me.rdbOperationStatusNotEqual.TabIndex = 80
@@ -1529,7 +1410,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbOperationStatusEqual.AutoSize = True
         Me.rdbOperationStatusEqual.Checked = True
-        Me.rdbOperationStatusEqual.Location = New System.Drawing.Point(7, 7)
+        Me.rdbOperationStatusEqual.Location = New System.Drawing.Point(7, 2)
         Me.rdbOperationStatusEqual.Name = "rdbOperationStatusEqual"
         Me.rdbOperationStatusEqual.Size = New System.Drawing.Size(31, 17)
         Me.rdbOperationStatusEqual.TabIndex = 79
@@ -1539,7 +1420,7 @@ Partial Class IAIPQueryGenerator
         'chbOperationStatus
         '
         Me.chbOperationStatus.AutoSize = True
-        Me.chbOperationStatus.Location = New System.Drawing.Point(6, 9)
+        Me.chbOperationStatus.Location = New System.Drawing.Point(6, 12)
         Me.chbOperationStatus.Name = "chbOperationStatus"
         Me.chbOperationStatus.Size = New System.Drawing.Size(105, 17)
         Me.chbOperationStatus.TabIndex = 74
@@ -1570,7 +1451,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel33.AutoSize = True
         Me.Panel33.Controls.Add(Me.rdbPlantDescriptionNotEqual)
         Me.Panel33.Controls.Add(Me.rdbPlantDescriptionEqual)
-        Me.Panel33.Location = New System.Drawing.Point(606, 179)
+        Me.Panel33.Location = New System.Drawing.Point(529, 179)
         Me.Panel33.Name = "Panel33"
         Me.Panel33.Size = New System.Drawing.Size(77, 27)
         Me.Panel33.TabIndex = 227
@@ -1578,7 +1459,7 @@ Partial Class IAIPQueryGenerator
         'rdbPlantDescriptionNotEqual
         '
         Me.rdbPlantDescriptionNotEqual.AutoSize = True
-        Me.rdbPlantDescriptionNotEqual.Location = New System.Drawing.Point(37, 7)
+        Me.rdbPlantDescriptionNotEqual.Location = New System.Drawing.Point(37, 4)
         Me.rdbPlantDescriptionNotEqual.Name = "rdbPlantDescriptionNotEqual"
         Me.rdbPlantDescriptionNotEqual.Size = New System.Drawing.Size(37, 17)
         Me.rdbPlantDescriptionNotEqual.TabIndex = 122
@@ -1588,7 +1469,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbPlantDescriptionEqual.AutoSize = True
         Me.rdbPlantDescriptionEqual.Checked = True
-        Me.rdbPlantDescriptionEqual.Location = New System.Drawing.Point(7, 7)
+        Me.rdbPlantDescriptionEqual.Location = New System.Drawing.Point(7, 4)
         Me.rdbPlantDescriptionEqual.Name = "rdbPlantDescriptionEqual"
         Me.rdbPlantDescriptionEqual.Size = New System.Drawing.Size(31, 17)
         Me.rdbPlantDescriptionEqual.TabIndex = 121
@@ -1609,7 +1490,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbPlantDescriptionOR.AutoSize = True
         Me.rdbPlantDescriptionOR.Checked = True
-        Me.rdbPlantDescriptionOR.Location = New System.Drawing.Point(57, 7)
+        Me.rdbPlantDescriptionOR.Location = New System.Drawing.Point(57, 4)
         Me.rdbPlantDescriptionOR.Name = "rdbPlantDescriptionOR"
         Me.rdbPlantDescriptionOR.Size = New System.Drawing.Size(41, 17)
         Me.rdbPlantDescriptionOR.TabIndex = 120
@@ -1619,7 +1500,7 @@ Partial Class IAIPQueryGenerator
         'rdbPlantDescriptionAND
         '
         Me.rdbPlantDescriptionAND.AutoSize = True
-        Me.rdbPlantDescriptionAND.Location = New System.Drawing.Point(7, 7)
+        Me.rdbPlantDescriptionAND.Location = New System.Drawing.Point(7, 4)
         Me.rdbPlantDescriptionAND.Name = "rdbPlantDescriptionAND"
         Me.rdbPlantDescriptionAND.Size = New System.Drawing.Size(48, 17)
         Me.rdbPlantDescriptionAND.TabIndex = 119
@@ -1653,7 +1534,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel31.AutoSize = True
         Me.Panel31.Controls.Add(Me.rdbCMSUniverseNotEqual)
         Me.Panel31.Controls.Add(Me.rdbCMSUniverseEqual)
-        Me.Panel31.Location = New System.Drawing.Point(606, 154)
+        Me.Panel31.Location = New System.Drawing.Point(529, 154)
         Me.Panel31.Name = "Panel31"
         Me.Panel31.Size = New System.Drawing.Size(77, 27)
         Me.Panel31.TabIndex = 225
@@ -1661,7 +1542,7 @@ Partial Class IAIPQueryGenerator
         'rdbCMSUniverseNotEqual
         '
         Me.rdbCMSUniverseNotEqual.AutoSize = True
-        Me.rdbCMSUniverseNotEqual.Location = New System.Drawing.Point(37, 7)
+        Me.rdbCMSUniverseNotEqual.Location = New System.Drawing.Point(37, 4)
         Me.rdbCMSUniverseNotEqual.Name = "rdbCMSUniverseNotEqual"
         Me.rdbCMSUniverseNotEqual.Size = New System.Drawing.Size(37, 17)
         Me.rdbCMSUniverseNotEqual.TabIndex = 114
@@ -1671,42 +1552,12 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbCMSUniverseEqual.AutoSize = True
         Me.rdbCMSUniverseEqual.Checked = True
-        Me.rdbCMSUniverseEqual.Location = New System.Drawing.Point(7, 7)
+        Me.rdbCMSUniverseEqual.Location = New System.Drawing.Point(7, 4)
         Me.rdbCMSUniverseEqual.Name = "rdbCMSUniverseEqual"
         Me.rdbCMSUniverseEqual.Size = New System.Drawing.Size(31, 17)
         Me.rdbCMSUniverseEqual.TabIndex = 113
         Me.rdbCMSUniverseEqual.TabStop = True
         Me.rdbCMSUniverseEqual.Text = "="
-        '
-        'Panel32
-        '
-        Me.Panel32.AutoSize = True
-        Me.Panel32.Controls.Add(Me.rdbCMSUniverseOR)
-        Me.Panel32.Controls.Add(Me.rdbCMSUniverseAnd)
-        Me.Panel32.Location = New System.Drawing.Point(421, 154)
-        Me.Panel32.Name = "Panel32"
-        Me.Panel32.Size = New System.Drawing.Size(101, 27)
-        Me.Panel32.TabIndex = 224
-        '
-        'rdbCMSUniverseOR
-        '
-        Me.rdbCMSUniverseOR.AutoSize = True
-        Me.rdbCMSUniverseOR.Checked = True
-        Me.rdbCMSUniverseOR.Location = New System.Drawing.Point(57, 7)
-        Me.rdbCMSUniverseOR.Name = "rdbCMSUniverseOR"
-        Me.rdbCMSUniverseOR.Size = New System.Drawing.Size(41, 17)
-        Me.rdbCMSUniverseOR.TabIndex = 112
-        Me.rdbCMSUniverseOR.TabStop = True
-        Me.rdbCMSUniverseOR.Text = "OR"
-        '
-        'rdbCMSUniverseAnd
-        '
-        Me.rdbCMSUniverseAnd.AutoSize = True
-        Me.rdbCMSUniverseAnd.Location = New System.Drawing.Point(7, 7)
-        Me.rdbCMSUniverseAnd.Name = "rdbCMSUniverseAnd"
-        Me.rdbCMSUniverseAnd.Size = New System.Drawing.Size(48, 17)
-        Me.rdbCMSUniverseAnd.TabIndex = 111
-        Me.rdbCMSUniverseAnd.Text = "AND"
         '
         'chbCMSUniverse
         '
@@ -1716,36 +1567,6 @@ Partial Class IAIPQueryGenerator
         Me.chbCMSUniverse.Size = New System.Drawing.Size(94, 17)
         Me.chbCMSUniverse.TabIndex = 108
         Me.chbCMSUniverse.Text = "CMS Universe"
-        '
-        'Panel20
-        '
-        Me.Panel20.AutoSize = True
-        Me.Panel20.Controls.Add(Me.rdbClassificationOr)
-        Me.Panel20.Controls.Add(Me.rdbClassificationAnd)
-        Me.Panel20.Location = New System.Drawing.Point(421, 32)
-        Me.Panel20.Name = "Panel20"
-        Me.Panel20.Size = New System.Drawing.Size(101, 27)
-        Me.Panel20.TabIndex = 214
-        '
-        'rdbClassificationOr
-        '
-        Me.rdbClassificationOr.AutoSize = True
-        Me.rdbClassificationOr.Checked = True
-        Me.rdbClassificationOr.Location = New System.Drawing.Point(57, 7)
-        Me.rdbClassificationOr.Name = "rdbClassificationOr"
-        Me.rdbClassificationOr.Size = New System.Drawing.Size(41, 17)
-        Me.rdbClassificationOr.TabIndex = 86
-        Me.rdbClassificationOr.TabStop = True
-        Me.rdbClassificationOr.Text = "OR"
-        '
-        'rdbClassificationAnd
-        '
-        Me.rdbClassificationAnd.AutoSize = True
-        Me.rdbClassificationAnd.Location = New System.Drawing.Point(7, 7)
-        Me.rdbClassificationAnd.Name = "rdbClassificationAnd"
-        Me.rdbClassificationAnd.Size = New System.Drawing.Size(48, 17)
-        Me.rdbClassificationAnd.TabIndex = 85
-        Me.rdbClassificationAnd.Text = "AND"
         '
         'DTPShutDownDateSearch2
         '
@@ -1800,7 +1621,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel21.AutoSize = True
         Me.Panel21.Controls.Add(Me.rdbSICCodeNotEqual)
         Me.Panel21.Controls.Add(Me.rdbSICCodeEqual)
-        Me.Panel21.Location = New System.Drawing.Point(606, 57)
+        Me.Panel21.Location = New System.Drawing.Point(529, 57)
         Me.Panel21.Name = "Panel21"
         Me.Panel21.Size = New System.Drawing.Size(77, 27)
         Me.Panel21.TabIndex = 217
@@ -1808,7 +1629,7 @@ Partial Class IAIPQueryGenerator
         'rdbSICCodeNotEqual
         '
         Me.rdbSICCodeNotEqual.AutoSize = True
-        Me.rdbSICCodeNotEqual.Location = New System.Drawing.Point(37, 7)
+        Me.rdbSICCodeNotEqual.Location = New System.Drawing.Point(37, 4)
         Me.rdbSICCodeNotEqual.Name = "rdbSICCodeNotEqual"
         Me.rdbSICCodeNotEqual.Size = New System.Drawing.Size(37, 17)
         Me.rdbSICCodeNotEqual.TabIndex = 96
@@ -1818,7 +1639,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbSICCodeEqual.AutoSize = True
         Me.rdbSICCodeEqual.Checked = True
-        Me.rdbSICCodeEqual.Location = New System.Drawing.Point(7, 7)
+        Me.rdbSICCodeEqual.Location = New System.Drawing.Point(7, 4)
         Me.rdbSICCodeEqual.Name = "rdbSICCodeEqual"
         Me.rdbSICCodeEqual.Size = New System.Drawing.Size(31, 17)
         Me.rdbSICCodeEqual.TabIndex = 95
@@ -1839,7 +1660,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbSICCodeOr.AutoSize = True
         Me.rdbSICCodeOr.Checked = True
-        Me.rdbSICCodeOr.Location = New System.Drawing.Point(57, 7)
+        Me.rdbSICCodeOr.Location = New System.Drawing.Point(57, 4)
         Me.rdbSICCodeOr.Name = "rdbSICCodeOr"
         Me.rdbSICCodeOr.Size = New System.Drawing.Size(41, 17)
         Me.rdbSICCodeOr.TabIndex = 94
@@ -1849,7 +1670,7 @@ Partial Class IAIPQueryGenerator
         'rdbSICCodeAnd
         '
         Me.rdbSICCodeAnd.AutoSize = True
-        Me.rdbSICCodeAnd.Location = New System.Drawing.Point(7, 7)
+        Me.rdbSICCodeAnd.Location = New System.Drawing.Point(7, 4)
         Me.rdbSICCodeAnd.Name = "rdbSICCodeAnd"
         Me.rdbSICCodeAnd.Size = New System.Drawing.Size(48, 17)
         Me.rdbSICCodeAnd.TabIndex = 93
@@ -1894,7 +1715,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel19.AutoSize = True
         Me.Panel19.Controls.Add(Me.rdbClassificationNotEqual)
         Me.Panel19.Controls.Add(Me.rdbClassificationEqual)
-        Me.Panel19.Location = New System.Drawing.Point(606, 32)
+        Me.Panel19.Location = New System.Drawing.Point(529, 32)
         Me.Panel19.Name = "Panel19"
         Me.Panel19.Size = New System.Drawing.Size(77, 27)
         Me.Panel19.TabIndex = 215
@@ -1902,7 +1723,7 @@ Partial Class IAIPQueryGenerator
         'rdbClassificationNotEqual
         '
         Me.rdbClassificationNotEqual.AutoSize = True
-        Me.rdbClassificationNotEqual.Location = New System.Drawing.Point(37, 7)
+        Me.rdbClassificationNotEqual.Location = New System.Drawing.Point(37, 4)
         Me.rdbClassificationNotEqual.Name = "rdbClassificationNotEqual"
         Me.rdbClassificationNotEqual.Size = New System.Drawing.Size(37, 17)
         Me.rdbClassificationNotEqual.TabIndex = 88
@@ -1912,7 +1733,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.rdbClassificationEqual.AutoSize = True
         Me.rdbClassificationEqual.Checked = True
-        Me.rdbClassificationEqual.Location = New System.Drawing.Point(7, 7)
+        Me.rdbClassificationEqual.Location = New System.Drawing.Point(7, 4)
         Me.rdbClassificationEqual.Name = "rdbClassificationEqual"
         Me.rdbClassificationEqual.Size = New System.Drawing.Size(31, 17)
         Me.rdbClassificationEqual.TabIndex = 87
@@ -2015,7 +1836,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel63.AutoSize = True
         Me.Panel63.Controls.Add(Me.rdbHAPMajorNotEqual)
         Me.Panel63.Controls.Add(Me.rdbHAPMajorEqual)
-        Me.Panel63.Location = New System.Drawing.Point(476, 330)
+        Me.Panel63.Location = New System.Drawing.Point(224, 327)
         Me.Panel63.Name = "Panel63"
         Me.Panel63.Size = New System.Drawing.Size(78, 27)
         Me.Panel63.TabIndex = 304
@@ -2045,7 +1866,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel62.AutoSize = True
         Me.Panel62.Controls.Add(Me.rdbNSRPSDMajorNotEqual)
         Me.Panel62.Controls.Add(Me.rdbNSRPSDMajorEqual)
-        Me.Panel62.Location = New System.Drawing.Point(476, 305)
+        Me.Panel62.Location = New System.Drawing.Point(224, 302)
         Me.Panel62.Name = "Panel62"
         Me.Panel62.Size = New System.Drawing.Size(78, 27)
         Me.Panel62.TabIndex = 302
@@ -2075,7 +1896,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel61.AutoSize = True
         Me.Panel61.Controls.Add(Me.rdbPMNoNotEqual)
         Me.Panel61.Controls.Add(Me.rdbPMNoEqual)
-        Me.Panel61.Location = New System.Drawing.Point(476, 267)
+        Me.Panel61.Location = New System.Drawing.Point(224, 264)
         Me.Panel61.Name = "Panel61"
         Me.Panel61.Size = New System.Drawing.Size(78, 27)
         Me.Panel61.TabIndex = 300
@@ -2105,7 +1926,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel60.AutoSize = True
         Me.Panel60.Controls.Add(Me.rdbPMMaconNotEqual)
         Me.Panel60.Controls.Add(Me.rdbPMMaconEqual)
-        Me.Panel60.Location = New System.Drawing.Point(476, 242)
+        Me.Panel60.Location = New System.Drawing.Point(224, 239)
         Me.Panel60.Name = "Panel60"
         Me.Panel60.Size = New System.Drawing.Size(78, 27)
         Me.Panel60.TabIndex = 298
@@ -2135,7 +1956,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel59.AutoSize = True
         Me.Panel59.Controls.Add(Me.rdbPMFloydNotEqual)
         Me.Panel59.Controls.Add(Me.rdbPMFloydEqual)
-        Me.Panel59.Location = New System.Drawing.Point(476, 217)
+        Me.Panel59.Location = New System.Drawing.Point(224, 214)
         Me.Panel59.Name = "Panel59"
         Me.Panel59.Size = New System.Drawing.Size(78, 27)
         Me.Panel59.TabIndex = 296
@@ -2165,7 +1986,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel58.AutoSize = True
         Me.Panel58.Controls.Add(Me.rdbPMChattanoogaNotEqual)
         Me.Panel58.Controls.Add(Me.rdbPMChattanoogaEqual)
-        Me.Panel58.Location = New System.Drawing.Point(476, 192)
+        Me.Panel58.Location = New System.Drawing.Point(224, 189)
         Me.Panel58.Name = "Panel58"
         Me.Panel58.Size = New System.Drawing.Size(78, 27)
         Me.Panel58.TabIndex = 294
@@ -2195,7 +2016,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel57.AutoSize = True
         Me.Panel57.Controls.Add(Me.rdbPMAtlantaNotEqual)
         Me.Panel57.Controls.Add(Me.rdbPMAtlantaEqual)
-        Me.Panel57.Location = New System.Drawing.Point(476, 167)
+        Me.Panel57.Location = New System.Drawing.Point(224, 164)
         Me.Panel57.Name = "Panel57"
         Me.Panel57.Size = New System.Drawing.Size(78, 27)
         Me.Panel57.TabIndex = 292
@@ -2225,7 +2046,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel56.AutoSize = True
         Me.Panel56.Controls.Add(Me.rdb8HrNoNotEqual)
         Me.Panel56.Controls.Add(Me.rdb8HrNoEqual)
-        Me.Panel56.Location = New System.Drawing.Point(476, 142)
+        Me.Panel56.Location = New System.Drawing.Point(224, 139)
         Me.Panel56.Name = "Panel56"
         Me.Panel56.Size = New System.Drawing.Size(78, 27)
         Me.Panel56.TabIndex = 290
@@ -2255,7 +2076,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel55.AutoSize = True
         Me.Panel55.Controls.Add(Me.rdb8HrMaconNotEqual)
         Me.Panel55.Controls.Add(Me.rdb8HrMaconEqual)
-        Me.Panel55.Location = New System.Drawing.Point(476, 117)
+        Me.Panel55.Location = New System.Drawing.Point(224, 114)
         Me.Panel55.Name = "Panel55"
         Me.Panel55.Size = New System.Drawing.Size(78, 27)
         Me.Panel55.TabIndex = 288
@@ -2285,7 +2106,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel54.AutoSize = True
         Me.Panel54.Controls.Add(Me.rdb8HrAtlantaNotEqual)
         Me.Panel54.Controls.Add(Me.rdb8HrAtlantaEqual)
-        Me.Panel54.Location = New System.Drawing.Point(476, 92)
+        Me.Panel54.Location = New System.Drawing.Point(224, 89)
         Me.Panel54.Name = "Panel54"
         Me.Panel54.Size = New System.Drawing.Size(78, 27)
         Me.Panel54.TabIndex = 286
@@ -2315,7 +2136,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel53.AutoSize = True
         Me.Panel53.Controls.Add(Me.rdb1HrContributeNotEqual)
         Me.Panel53.Controls.Add(Me.rdb1HrContributeEqual)
-        Me.Panel53.Location = New System.Drawing.Point(476, 67)
+        Me.Panel53.Location = New System.Drawing.Point(224, 64)
         Me.Panel53.Name = "Panel53"
         Me.Panel53.Size = New System.Drawing.Size(78, 27)
         Me.Panel53.TabIndex = 284
@@ -2345,7 +2166,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel52.AutoSize = True
         Me.Panel52.Controls.Add(Me.rdb1HrNoNotEqual)
         Me.Panel52.Controls.Add(Me.rdb1HrNoEqual)
-        Me.Panel52.Location = New System.Drawing.Point(476, 42)
+        Me.Panel52.Location = New System.Drawing.Point(224, 39)
         Me.Panel52.Name = "Panel52"
         Me.Panel52.Size = New System.Drawing.Size(78, 27)
         Me.Panel52.TabIndex = 282
@@ -2393,7 +2214,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel51.AutoSize = True
         Me.Panel51.Controls.Add(Me.rdb1HrYesNotEqual)
         Me.Panel51.Controls.Add(Me.rdb1HrYesEqual)
-        Me.Panel51.Location = New System.Drawing.Point(476, 17)
+        Me.Panel51.Location = New System.Drawing.Point(224, 14)
         Me.Panel51.Name = "Panel51"
         Me.Panel51.Size = New System.Drawing.Size(78, 27)
         Me.Panel51.TabIndex = 277
@@ -2559,7 +2380,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel70.AutoSize = True
         Me.Panel70.Controls.Add(Me.rdbAPCOr)
         Me.Panel70.Controls.Add(Me.rdbAPCAnd)
-        Me.Panel70.Location = New System.Drawing.Point(588, 24)
+        Me.Panel70.Location = New System.Drawing.Point(287, 21)
         Me.Panel70.Name = "Panel70"
         Me.Panel70.Size = New System.Drawing.Size(101, 27)
         Me.Panel70.TabIndex = 252
@@ -2608,7 +2429,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel50.AutoSize = True
         Me.Panel50.Controls.Add(Me.rdbAPCVNotEqual)
         Me.Panel50.Controls.Add(Me.rdbAPCVEqual)
-        Me.Panel50.Location = New System.Drawing.Point(473, 324)
+        Me.Panel50.Location = New System.Drawing.Point(187, 321)
         Me.Panel50.Name = "Panel50"
         Me.Panel50.Size = New System.Drawing.Size(76, 27)
         Me.Panel50.TabIndex = 250
@@ -2648,7 +2469,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel38.AutoSize = True
         Me.Panel38.Controls.Add(Me.rdbAPC0NotEqual)
         Me.Panel38.Controls.Add(Me.rdbAPC0Equal)
-        Me.Panel38.Location = New System.Drawing.Point(473, 24)
+        Me.Panel38.Location = New System.Drawing.Point(187, 21)
         Me.Panel38.Name = "Panel38"
         Me.Panel38.Size = New System.Drawing.Size(76, 27)
         Me.Panel38.TabIndex = 226
@@ -2678,7 +2499,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel49.AutoSize = True
         Me.Panel49.Controls.Add(Me.rdbAPCMNotEqual)
         Me.Panel49.Controls.Add(Me.rdbAPCMEqual)
-        Me.Panel49.Location = New System.Drawing.Point(473, 299)
+        Me.Panel49.Location = New System.Drawing.Point(187, 296)
         Me.Panel49.Name = "Panel49"
         Me.Panel49.Size = New System.Drawing.Size(76, 27)
         Me.Panel49.TabIndex = 248
@@ -2708,7 +2529,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel39.AutoSize = True
         Me.Panel39.Controls.Add(Me.rdbAPC1NotEqual)
         Me.Panel39.Controls.Add(Me.rdbAPC1Equal)
-        Me.Panel39.Location = New System.Drawing.Point(473, 49)
+        Me.Panel39.Location = New System.Drawing.Point(187, 46)
         Me.Panel39.Name = "Panel39"
         Me.Panel39.Size = New System.Drawing.Size(76, 27)
         Me.Panel39.TabIndex = 228
@@ -2738,7 +2559,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel48.AutoSize = True
         Me.Panel48.Controls.Add(Me.rdbAPCINotEqual)
         Me.Panel48.Controls.Add(Me.rdbAPCIEqual)
-        Me.Panel48.Location = New System.Drawing.Point(473, 274)
+        Me.Panel48.Location = New System.Drawing.Point(187, 271)
         Me.Panel48.Name = "Panel48"
         Me.Panel48.Size = New System.Drawing.Size(76, 27)
         Me.Panel48.TabIndex = 246
@@ -2808,7 +2629,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel47.AutoSize = True
         Me.Panel47.Controls.Add(Me.rdbAPCFNotEqual)
         Me.Panel47.Controls.Add(Me.rdbAPCFEqual)
-        Me.Panel47.Location = New System.Drawing.Point(473, 249)
+        Me.Panel47.Location = New System.Drawing.Point(187, 246)
         Me.Panel47.Name = "Panel47"
         Me.Panel47.Size = New System.Drawing.Size(76, 27)
         Me.Panel47.TabIndex = 244
@@ -2848,7 +2669,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel40.AutoSize = True
         Me.Panel40.Controls.Add(Me.rdbAPC3NotEqual)
         Me.Panel40.Controls.Add(Me.rdbAPC3Equal)
-        Me.Panel40.Location = New System.Drawing.Point(473, 74)
+        Me.Panel40.Location = New System.Drawing.Point(187, 71)
         Me.Panel40.Name = "Panel40"
         Me.Panel40.Size = New System.Drawing.Size(76, 27)
         Me.Panel40.TabIndex = 230
@@ -2878,7 +2699,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel46.AutoSize = True
         Me.Panel46.Controls.Add(Me.rdbAPCANotEqual)
         Me.Panel46.Controls.Add(Me.rdbAPCAEqual)
-        Me.Panel46.Location = New System.Drawing.Point(473, 224)
+        Me.Panel46.Location = New System.Drawing.Point(187, 221)
         Me.Panel46.Name = "Panel46"
         Me.Panel46.Size = New System.Drawing.Size(76, 27)
         Me.Panel46.TabIndex = 242
@@ -2908,7 +2729,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel41.AutoSize = True
         Me.Panel41.Controls.Add(Me.rdbAPC4NotEqual)
         Me.Panel41.Controls.Add(Me.rdbAPC4Equal)
-        Me.Panel41.Location = New System.Drawing.Point(473, 99)
+        Me.Panel41.Location = New System.Drawing.Point(187, 96)
         Me.Panel41.Name = "Panel41"
         Me.Panel41.Size = New System.Drawing.Size(76, 27)
         Me.Panel41.TabIndex = 232
@@ -2938,7 +2759,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel45.AutoSize = True
         Me.Panel45.Controls.Add(Me.rdbAPC9NotEqual)
         Me.Panel45.Controls.Add(Me.rdbAPC9Equal)
-        Me.Panel45.Location = New System.Drawing.Point(473, 199)
+        Me.Panel45.Location = New System.Drawing.Point(187, 196)
         Me.Panel45.Name = "Panel45"
         Me.Panel45.Size = New System.Drawing.Size(76, 27)
         Me.Panel45.TabIndex = 240
@@ -2988,7 +2809,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel44.AutoSize = True
         Me.Panel44.Controls.Add(Me.rdbAPC8NotEqual)
         Me.Panel44.Controls.Add(Me.rdbAPC8Equal)
-        Me.Panel44.Location = New System.Drawing.Point(473, 174)
+        Me.Panel44.Location = New System.Drawing.Point(187, 171)
         Me.Panel44.Name = "Panel44"
         Me.Panel44.Size = New System.Drawing.Size(76, 27)
         Me.Panel44.TabIndex = 238
@@ -3048,7 +2869,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel43.AutoSize = True
         Me.Panel43.Controls.Add(Me.rdbAPC7NotEqual)
         Me.Panel43.Controls.Add(Me.rdbAPC7Equal)
-        Me.Panel43.Location = New System.Drawing.Point(473, 149)
+        Me.Panel43.Location = New System.Drawing.Point(187, 146)
         Me.Panel43.Name = "Panel43"
         Me.Panel43.Size = New System.Drawing.Size(76, 27)
         Me.Panel43.TabIndex = 236
@@ -3078,7 +2899,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel42.AutoSize = True
         Me.Panel42.Controls.Add(Me.rdbAPC6NotEqual)
         Me.Panel42.Controls.Add(Me.rdbAPC6Equal)
-        Me.Panel42.Location = New System.Drawing.Point(473, 124)
+        Me.Panel42.Location = New System.Drawing.Point(187, 121)
         Me.Panel42.Name = "Panel42"
         Me.Panel42.Size = New System.Drawing.Size(76, 27)
         Me.Panel42.TabIndex = 234
@@ -3263,12 +3084,10 @@ Partial Class IAIPQueryGenerator
         Me.TPComplianceInfo.Controls.Add(Me.DTPLastFCESearch2)
         Me.TPComplianceInfo.Controls.Add(Me.DTPLastFCESearch1)
         Me.TPComplianceInfo.Controls.Add(Me.chbLastFCE)
-        Me.TPComplianceInfo.Controls.Add(Me.Panel71)
         Me.TPComplianceInfo.Controls.Add(Me.cboSSCPUnitSearch2)
         Me.TPComplianceInfo.Controls.Add(Me.cboSSCPUnitSearch1)
         Me.TPComplianceInfo.Controls.Add(Me.Panel72)
         Me.TPComplianceInfo.Controls.Add(Me.chbSSCPUnit)
-        Me.TPComplianceInfo.Controls.Add(Me.Panel67)
         Me.TPComplianceInfo.Controls.Add(Me.cboSSCPEngineerSearch2)
         Me.TPComplianceInfo.Controls.Add(Me.cboSSCPEngineerSearch1)
         Me.TPComplianceInfo.Controls.Add(Me.Panel69)
@@ -3285,7 +3104,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel76.AutoSize = True
         Me.Panel76.Controls.Add(Me.rdbDistrictResponsibleFalse)
         Me.Panel76.Controls.Add(Me.rdbDistrictResponsibleTrue)
-        Me.Panel76.Location = New System.Drawing.Point(608, 93)
+        Me.Panel76.Location = New System.Drawing.Point(420, 93)
         Me.Panel76.Name = "Panel76"
         Me.Panel76.Size = New System.Drawing.Size(77, 27)
         Me.Panel76.TabIndex = 234
@@ -3352,36 +3171,6 @@ Partial Class IAIPQueryGenerator
         Me.chbLastFCE.TabIndex = 228
         Me.chbLastFCE.Text = "Last FCE"
         '
-        'Panel71
-        '
-        Me.Panel71.AutoSize = True
-        Me.Panel71.Controls.Add(Me.rdbSSCPUnitOr)
-        Me.Panel71.Controls.Add(Me.rdbSSCPUnitAnd)
-        Me.Panel71.Location = New System.Drawing.Point(417, 33)
-        Me.Panel71.Name = "Panel71"
-        Me.Panel71.Size = New System.Drawing.Size(101, 27)
-        Me.Panel71.TabIndex = 226
-        '
-        'rdbSSCPUnitOr
-        '
-        Me.rdbSSCPUnitOr.AutoSize = True
-        Me.rdbSSCPUnitOr.Checked = True
-        Me.rdbSSCPUnitOr.Location = New System.Drawing.Point(57, 7)
-        Me.rdbSSCPUnitOr.Name = "rdbSSCPUnitOr"
-        Me.rdbSSCPUnitOr.Size = New System.Drawing.Size(41, 17)
-        Me.rdbSSCPUnitOr.TabIndex = 86
-        Me.rdbSSCPUnitOr.TabStop = True
-        Me.rdbSSCPUnitOr.Text = "OR"
-        '
-        'rdbSSCPUnitAnd
-        '
-        Me.rdbSSCPUnitAnd.AutoSize = True
-        Me.rdbSSCPUnitAnd.Location = New System.Drawing.Point(7, 7)
-        Me.rdbSSCPUnitAnd.Name = "rdbSSCPUnitAnd"
-        Me.rdbSSCPUnitAnd.Size = New System.Drawing.Size(48, 17)
-        Me.rdbSSCPUnitAnd.TabIndex = 85
-        Me.rdbSSCPUnitAnd.Text = "AND"
-        '
         'cboSSCPUnitSearch2
         '
         Me.cboSSCPUnitSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
@@ -3407,7 +3196,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel72.AutoSize = True
         Me.Panel72.Controls.Add(Me.rdbSSCPUnitNotEqual)
         Me.Panel72.Controls.Add(Me.rdbSSCPUnitEqual)
-        Me.Panel72.Location = New System.Drawing.Point(608, 33)
+        Me.Panel72.Location = New System.Drawing.Point(420, 33)
         Me.Panel72.Name = "Panel72"
         Me.Panel72.Size = New System.Drawing.Size(77, 27)
         Me.Panel72.TabIndex = 227
@@ -3441,36 +3230,6 @@ Partial Class IAIPQueryGenerator
         Me.chbSSCPUnit.TabIndex = 222
         Me.chbSSCPUnit.Text = "Compliance Unit"
         '
-        'Panel67
-        '
-        Me.Panel67.AutoSize = True
-        Me.Panel67.Controls.Add(Me.rdbSSCPEngineerOr)
-        Me.Panel67.Controls.Add(Me.rdbSSCPEngineerAnd)
-        Me.Panel67.Location = New System.Drawing.Point(417, 6)
-        Me.Panel67.Name = "Panel67"
-        Me.Panel67.Size = New System.Drawing.Size(101, 27)
-        Me.Panel67.TabIndex = 220
-        '
-        'rdbSSCPEngineerOr
-        '
-        Me.rdbSSCPEngineerOr.AutoSize = True
-        Me.rdbSSCPEngineerOr.Checked = True
-        Me.rdbSSCPEngineerOr.Location = New System.Drawing.Point(57, 7)
-        Me.rdbSSCPEngineerOr.Name = "rdbSSCPEngineerOr"
-        Me.rdbSSCPEngineerOr.Size = New System.Drawing.Size(41, 17)
-        Me.rdbSSCPEngineerOr.TabIndex = 86
-        Me.rdbSSCPEngineerOr.TabStop = True
-        Me.rdbSSCPEngineerOr.Text = "OR"
-        '
-        'rdbSSCPEngineerAnd
-        '
-        Me.rdbSSCPEngineerAnd.AutoSize = True
-        Me.rdbSSCPEngineerAnd.Location = New System.Drawing.Point(7, 7)
-        Me.rdbSSCPEngineerAnd.Name = "rdbSSCPEngineerAnd"
-        Me.rdbSSCPEngineerAnd.Size = New System.Drawing.Size(48, 17)
-        Me.rdbSSCPEngineerAnd.TabIndex = 85
-        Me.rdbSSCPEngineerAnd.Text = "AND"
-        '
         'cboSSCPEngineerSearch2
         '
         Me.cboSSCPEngineerSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
@@ -3496,7 +3255,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel69.AutoSize = True
         Me.Panel69.Controls.Add(Me.rdbSSCPEngineerNotEqual)
         Me.Panel69.Controls.Add(Me.rdbSSCPEngineerEqual)
-        Me.Panel69.Location = New System.Drawing.Point(608, 6)
+        Me.Panel69.Location = New System.Drawing.Point(420, 6)
         Me.Panel69.Name = "Panel69"
         Me.Panel69.Size = New System.Drawing.Size(77, 27)
         Me.Panel69.TabIndex = 221
@@ -3801,9 +3560,11 @@ Partial Class IAIPQueryGenerator
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.Panel6.ResumeLayout(False)
+        Me.Panel6.PerformLayout()
         Me.Panel35.ResumeLayout(False)
         Me.Panel35.PerformLayout()
         Me.Panel36.ResumeLayout(False)
+        Me.Panel36.PerformLayout()
         Me.Panel37.ResumeLayout(False)
         Me.Panel37.PerformLayout()
         CType(Me.dgvQueryGenerator, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3814,10 +3575,6 @@ Partial Class IAIPQueryGenerator
         Me.Panel30.PerformLayout()
         Me.Panel29.ResumeLayout(False)
         Me.Panel29.PerformLayout()
-        Me.Panel28.ResumeLayout(False)
-        Me.Panel28.PerformLayout()
-        Me.Panel27.ResumeLayout(False)
-        Me.Panel27.PerformLayout()
         Me.Panel15.ResumeLayout(False)
         Me.Panel15.PerformLayout()
         Me.Panel16.ResumeLayout(False)
@@ -3840,8 +3597,6 @@ Partial Class IAIPQueryGenerator
         Me.Panel74.PerformLayout()
         Me.Panel75.ResumeLayout(False)
         Me.Panel75.PerformLayout()
-        Me.Panel11.ResumeLayout(False)
-        Me.Panel11.PerformLayout()
         Me.Panel12.ResumeLayout(False)
         Me.Panel12.PerformLayout()
         Me.Panel33.ResumeLayout(False)
@@ -3850,10 +3605,6 @@ Partial Class IAIPQueryGenerator
         Me.Panel34.PerformLayout()
         Me.Panel31.ResumeLayout(False)
         Me.Panel31.PerformLayout()
-        Me.Panel32.ResumeLayout(False)
-        Me.Panel32.PerformLayout()
-        Me.Panel20.ResumeLayout(False)
-        Me.Panel20.PerformLayout()
         Me.Panel21.ResumeLayout(False)
         Me.Panel21.PerformLayout()
         Me.Panel22.ResumeLayout(False)
@@ -3924,12 +3675,8 @@ Partial Class IAIPQueryGenerator
         Me.TPComplianceInfo.PerformLayout()
         Me.Panel76.ResumeLayout(False)
         Me.Panel76.PerformLayout()
-        Me.Panel71.ResumeLayout(False)
-        Me.Panel71.PerformLayout()
         Me.Panel72.ResumeLayout(False)
         Me.Panel72.PerformLayout()
-        Me.Panel67.ResumeLayout(False)
-        Me.Panel67.PerformLayout()
         Me.Panel69.ResumeLayout(False)
         Me.Panel69.PerformLayout()
         Me.TPCannedReports.ResumeLayout(False)
@@ -3980,12 +3727,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents Panel29 As System.Windows.Forms.Panel
     Friend WithEvents rdbDistrictNotEqual As System.Windows.Forms.RadioButton
     Friend WithEvents rdbDistrictEqual As System.Windows.Forms.RadioButton
-    Friend WithEvents Panel28 As System.Windows.Forms.Panel
-    Friend WithEvents rdbDistrictOr As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbDistrictAnd As System.Windows.Forms.RadioButton
-    Friend WithEvents Panel27 As System.Windows.Forms.Panel
-    Friend WithEvents rdbCountyOr As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbCountyAnd As System.Windows.Forms.RadioButton
     Friend WithEvents cboDistrictSearch2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboDistrictSearch1 As System.Windows.Forms.ComboBox
     Friend WithEvents cboCountySearch2 As System.Windows.Forms.ComboBox
@@ -4048,13 +3789,7 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents Panel31 As System.Windows.Forms.Panel
     Friend WithEvents rdbCMSUniverseNotEqual As System.Windows.Forms.RadioButton
     Friend WithEvents rdbCMSUniverseEqual As System.Windows.Forms.RadioButton
-    Friend WithEvents Panel32 As System.Windows.Forms.Panel
-    Friend WithEvents rdbCMSUniverseOR As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbCMSUniverseAnd As System.Windows.Forms.RadioButton
     Friend WithEvents chbCMSUniverse As System.Windows.Forms.CheckBox
-    Friend WithEvents Panel20 As System.Windows.Forms.Panel
-    Friend WithEvents rdbClassificationOr As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbClassificationAnd As System.Windows.Forms.RadioButton
     Friend WithEvents DTPShutDownDateSearch2 As System.Windows.Forms.DateTimePicker
     Friend WithEvents DTPShutDownDateSearch1 As System.Windows.Forms.DateTimePicker
     Friend WithEvents DTPStartUpDateSearch2 As System.Windows.Forms.DateTimePicker
@@ -4129,9 +3864,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents rdbAPC6Equal As System.Windows.Forms.RadioButton
     Friend WithEvents chbAPC9 As System.Windows.Forms.CheckBox
     Friend WithEvents Splitter1 As System.Windows.Forms.Splitter
-    Friend WithEvents Panel11 As System.Windows.Forms.Panel
-    Friend WithEvents rdbOperationalStatusOr As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbOperationalStatusAnd As System.Windows.Forms.RadioButton
     Friend WithEvents cboOperationStatusSearch2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboOperationStatusSearch1 As System.Windows.Forms.ComboBox
     Friend WithEvents Panel12 As System.Windows.Forms.Panel
@@ -4214,18 +3946,12 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents cboPart61Search2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboPart61Search1 As System.Windows.Forms.ComboBox
     Friend WithEvents TPComplianceInfo As System.Windows.Forms.TabPage
-    Friend WithEvents Panel71 As System.Windows.Forms.Panel
-    Friend WithEvents rdbSSCPUnitOr As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbSSCPUnitAnd As System.Windows.Forms.RadioButton
     Friend WithEvents cboSSCPUnitSearch2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboSSCPUnitSearch1 As System.Windows.Forms.ComboBox
     Friend WithEvents Panel72 As System.Windows.Forms.Panel
     Friend WithEvents rdbSSCPUnitNotEqual As System.Windows.Forms.RadioButton
     Friend WithEvents rdbSSCPUnitEqual As System.Windows.Forms.RadioButton
     Friend WithEvents chbSSCPUnit As System.Windows.Forms.CheckBox
-    Friend WithEvents Panel67 As System.Windows.Forms.Panel
-    Friend WithEvents rdbSSCPEngineerOr As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbSSCPEngineerAnd As System.Windows.Forms.RadioButton
     Friend WithEvents cboSSCPEngineerSearch2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboSSCPEngineerSearch1 As System.Windows.Forms.ComboBox
     Friend WithEvents Panel69 As System.Windows.Forms.Panel
