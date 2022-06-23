@@ -2026,16 +2026,16 @@ Public Class IAIPQueryGenerator
                     MainSql = MainSql & " and ( "
                     If chbSIP.Checked Then
                         MainSql = MainSql & " GASIP is not Null or "
-                        End If
-                        If chbPart60Subpart.Checked Then
-                            MainSql = MainSql & " Part60 is not Null or "
-                        End If
-                        If chbPart61Subpart.Checked Then
-                            MainSql = MainSql & " Part61 is not Null or "
-                        End If
-                        If chbPart63Subpart.Checked Then
-                            MainSql = MainSql & " Part63 is not Null or "
-                        End If
+                    End If
+                    If chbPart60Subpart.Checked Then
+                        MainSql = MainSql & " Part60 is not Null or "
+                    End If
+                    If chbPart61Subpart.Checked Then
+                        MainSql = MainSql & " Part61 is not Null or "
+                    End If
+                    If chbPart63Subpart.Checked Then
+                        MainSql = MainSql & " Part63 is not Null or "
+                    End If
                     MainSql = Mid(MainSql, 1, (MainSql.Length - 3)) & " ) "
                 End If
             End If
@@ -2452,6 +2452,8 @@ Public Class IAIPQueryGenerator
 
     Private Sub ResetForm()
         Try
+            ' Top
+
             txtAIRSNumberSearch1.Clear()
             txtAIRSNumberSearch2.Clear()
             rdbAIRSNumberOr.Checked = True
@@ -2461,6 +2463,8 @@ Public Class IAIPQueryGenerator
             txtFacilityNameSearch2.Clear()
             rdbFacilityNameOr.Checked = True
             rdbFacilityNameEqual.Checked = True
+
+            ' Location tab
 
             chbFacilityStreet1.Checked = False
             txtFacilityStreet1Search1.Clear()
@@ -2500,6 +2504,8 @@ Public Class IAIPQueryGenerator
             chbDistrict.Checked = False
             rdbDistrictEqual.Checked = True
 
+            ' Header info 1 tab
+
             chbOperationStatus.Checked = False
             rdbOperationStatusEqual.Checked = True
 
@@ -2519,16 +2525,16 @@ Public Class IAIPQueryGenerator
             rdbNAICSCodeEqual.Checked = True
 
             chbStartUpDate.Checked = False
-            DTPStartUpDateSearch1.Checked = False
             DTPStartUpDateSearch1.Value = Today
-            DTPStartUpDateSearch2.Checked = False
+            DTPStartUpDateSearch1.Checked = False
             DTPStartUpDateSearch2.Value = Today
+            DTPStartUpDateSearch2.Checked = False
 
             chbShutDownDate.Checked = False
-            DTPShutDownDateSearch1.Checked = False
             DTPShutDownDateSearch1.Value = Today
-            DTPShutDownDateSearch2.Checked = False
+            DTPShutDownDateSearch1.Checked = False
             DTPShutDownDateSearch2.Value = Today
+            DTPShutDownDateSearch2.Checked = False
 
             chbCMSUniverse.Checked = False
             rdbCMSUniverseEqual.Checked = True
@@ -2538,6 +2544,8 @@ Public Class IAIPQueryGenerator
             txtPlantDescriptionSearch2.Clear()
             rdbPlantDescriptionOR.Checked = True
             rdbPlantDescriptionEqual.Checked = True
+
+            ' Header info 2 tab
 
             chbAttainmentStatus.Checked = False
             chb1HrYes.Checked = False
@@ -2551,9 +2559,26 @@ Public Class IAIPQueryGenerator
             chbPMFloyd.Checked = False
             chbPMMacon.Checked = False
             chbPMNo.Checked = False
-            chbStateProgramCodes.Checked = False
             chbNSRPSDMajor.Checked = False
             chbHAPMajor.Checked = False
+            chbStateProgramCodes.Checked = False
+
+            rdb1HrYesEqual.Checked = True
+            rdb1HrNoEqual.Checked = True
+            rdb1HrContributeEqual.Checked = True
+            rdb8HrAtlantaEqual.Checked = True
+            rdb8HrMaconEqual.Checked = True
+            rdb8HrNoEqual.Checked = True
+            rdbPMAtlantaEqual.Checked = True
+            rdbPMChattanoogaEqual.Checked = True
+            rdbPMFloydEqual.Checked = True
+            rdbPMMaconEqual.Checked = True
+            rdbPMNoEqual.Checked = True
+            rdbNSRPSDMajorEqual.Checked = True
+            rdbHAPMajorEqual.Checked = True
+
+            ' Air Program Codes tab
+
             chbViewAirPrograms.Checked = False
             chbAPC0.Checked = False
             chbAPC1.Checked = False
@@ -2569,16 +2594,58 @@ Public Class IAIPQueryGenerator
             chbAPCM.Checked = False
             chbAPCV.Checked = False
 
+            rdbAPC0Equal.Checked = True
+            rdbAPC1Equal.Checked = True
+            rdbAPC3Equal.Checked = True
+            rdbAPC4Equal.Checked = True
+            rdbAPC6Equal.Checked = True
+            rdbAPC7Equal.Checked = True
+            rdbAPC8Equal.Checked = True
+            rdbAPC9Equal.Checked = True
+            rdbAPCAEqual.Checked = True
+            rdbAPCFEqual.Checked = True
+            rdbAPCIEqual.Checked = True
+            rdbAPCMEqual.Checked = True
+            rdbAPCVEqual.Checked = True
+            rdbAPCAnd.Checked = True
+
+            ' Subpart data tab
+
             chbAllSubparts.Checked = False
             chbSIP.Checked = False
             chbPart61Subpart.Checked = False
             chbPart60Subpart.Checked = False
             chbPart63Subpart.Checked = False
 
+            ' Compliance info tab
+
+            chbSSCPEngineer.Checked = False
+            chbSSCPUnit.Checked = False
+            chbLastFCE.Checked = False
+            DTPLastFCESearch1.Value = Today
+            DTPLastFCESearch1.Checked = False
+            DTPLastFCESearch2.Value = Today
+            DTPLastFCESearch2.Checked = False
+            chbDistrictResponsible.Checked = False
+
+            rdbSSCPEngineerEqual.Checked = True
+            rdbSSCPUnitEqual.Checked = True
+            rdbDistrictResponsibleTrue.Checked = True
+
+            ' Combo boxes
+
             cboCountySearch1.SelectedIndex = -1
             cboCountySearch2.SelectedIndex = -1
             cboDistrictSearch1.SelectedIndex = -1
             cboDistrictSearch2.SelectedIndex = -1
+
+            cboOperationStatusSearch1.SelectedIndex = -1
+            cboOperationStatusSearch2.SelectedIndex = -1
+            cboClassificationSearch1.SelectedIndex = -1
+            cboClassificationSearch2.SelectedIndex = -1
+            cboCMSUniverseSearch1.SelectedIndex = -1
+            cboCMSUniverseSearch2.SelectedIndex = -1
+
             cboSIPSearch1.SelectedIndex = -1
             cboSIPSearch2.SelectedIndex = -1
             cboPart61Search1.SelectedIndex = -1
@@ -2587,12 +2654,11 @@ Public Class IAIPQueryGenerator
             cboPart60Search2.SelectedIndex = -1
             cboPart63Search1.SelectedIndex = -1
             cboPart63Search2.SelectedIndex = -1
-            cboOperationStatusSearch1.SelectedIndex = -1
-            cboOperationStatusSearch2.SelectedIndex = -1
-            cboClassificationSearch1.SelectedIndex = -1
-            cboClassificationSearch2.SelectedIndex = -1
-            cboCMSUniverseSearch1.SelectedIndex = -1
-            cboCMSUniverseSearch2.SelectedIndex = -1
+
+            cboSSCPEngineerSearch1.SelectedIndex = -1
+            cboSSCPEngineerSearch2.SelectedIndex = -1
+            cboSSCPUnitSearch1.SelectedIndex = -1
+            cboSSCPUnitSearch2.SelectedIndex = -1
 
             ' This repetition is intentional. If a ComboBox has an item selected, the above statements set
             ' the SelectedIndex to 0 instead of -1! Setting it a second time below forces the SelectedIndex
@@ -2602,6 +2668,14 @@ Public Class IAIPQueryGenerator
             cboCountySearch2.SelectedIndex = -1
             cboDistrictSearch1.SelectedIndex = -1
             cboDistrictSearch2.SelectedIndex = -1
+
+            cboOperationStatusSearch1.SelectedIndex = -1
+            cboOperationStatusSearch2.SelectedIndex = -1
+            cboClassificationSearch1.SelectedIndex = -1
+            cboClassificationSearch2.SelectedIndex = -1
+            cboCMSUniverseSearch1.SelectedIndex = -1
+            cboCMSUniverseSearch2.SelectedIndex = -1
+
             cboSIPSearch1.SelectedIndex = -1
             cboSIPSearch2.SelectedIndex = -1
             cboPart61Search1.SelectedIndex = -1
@@ -2610,12 +2684,11 @@ Public Class IAIPQueryGenerator
             cboPart60Search2.SelectedIndex = -1
             cboPart63Search1.SelectedIndex = -1
             cboPart63Search2.SelectedIndex = -1
-            cboOperationStatusSearch1.SelectedIndex = -1
-            cboOperationStatusSearch2.SelectedIndex = -1
-            cboClassificationSearch1.SelectedIndex = -1
-            cboClassificationSearch2.SelectedIndex = -1
-            cboCMSUniverseSearch1.SelectedIndex = -1
-            cboCMSUniverseSearch2.SelectedIndex = -1
+
+            cboSSCPEngineerSearch1.SelectedIndex = -1
+            cboSSCPEngineerSearch2.SelectedIndex = -1
+            cboSSCPUnitSearch1.SelectedIndex = -1
+            cboSSCPUnitSearch2.SelectedIndex = -1
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
