@@ -1303,6 +1303,7 @@ Public Class IAIPQueryGenerator
 
             If chbFacilityLatitude.Checked AndAlso
                 (txtFacilityLatitudeSearch1.Text <> "" OrElse txtFacilityLatitudeSearch2.Text <> "") Then
+
                 If txtFacilityLatitudeSearch1.Text <> "" AndAlso txtFacilityLatitudeSearch2.Text = "" Then
                     params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch1.Text))
                     params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch1.Text))
@@ -1505,6 +1506,7 @@ Public Class IAIPQueryGenerator
 
             If chbStartUpDate.Checked AndAlso
                 (DTPStartUpDateSearch1.Checked OrElse DTPStartUpDateSearch2.Checked) Then
+
                 If DTPStartUpDateSearch1.Checked AndAlso Not DTPStartUpDateSearch2.Checked Then
                     params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch1.Value))
                     params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch1.Value))
@@ -1539,7 +1541,8 @@ Public Class IAIPQueryGenerator
             End If
 
             If chbLastFCE.Checked AndAlso
-                DTPLastFCESearch1.Checked OrElse DTPLastFCESearch2.Checked Then
+                (DTPLastFCESearch1.Checked OrElse DTPLastFCESearch2.Checked) Then
+
                 If DTPLastFCESearch1.Checked AndAlso Not DTPLastFCESearch2.Checked Then
                     params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
                     params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch1.Value))
