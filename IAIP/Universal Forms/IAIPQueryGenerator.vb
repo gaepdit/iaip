@@ -1323,16 +1323,15 @@ Public Class IAIPQueryGenerator
             End If
 
             If chbFacilityLongitude.Checked AndAlso
-                ((txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) OrElse
-                (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text))) Then
+                (IsNumeric(txtFacilityLongitudeSearch1.Text) OrElse IsNumeric(txtFacilityLongitudeSearch2.Text)) Then
 
-                If (txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) Then
+                If IsNumeric(txtFacilityLongitudeSearch1.Text) Then
                     params.Add(New SqlParameter("@long1", -Math.Abs(CType(txtFacilityLongitudeSearch1.Text, Decimal))))
                 Else
                     params.Add(New SqlParameter("@long1", 0))
                 End If
 
-                If (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text)) Then
+                If IsNumeric(txtFacilityLongitudeSearch2.Text) Then
                     params.Add(New SqlParameter("@long2", -Math.Abs(CType(txtFacilityLongitudeSearch2.Text, Decimal))))
                 Else
                     params.Add(New SqlParameter("@long2", 0))
@@ -2024,12 +2023,9 @@ Public Class IAIPQueryGenerator
                     End If
                 End If
                 If chbSIP.Checked OrElse chbPart60Subpart.Checked OrElse chbPart61Subpart.Checked OrElse chbPart63Subpart.Checked Then
-                    If chbSIP.Checked AndAlso chbPart60Subpart.Checked AndAlso chbPart61Subpart.Checked AndAlso chbPart63Subpart.Checked Then
-                        MainSql = MainSql & " and (Part60 is not null or GASIP is not null or Part61 is not null or Part63 is not null) "
-                    Else
-                        MainSql = MainSql & " and ( "
-                        If chbSIP.Checked Then
-                            MainSql = MainSql & " GASIP is not Null or "
+                    MainSql = MainSql & " and ( "
+                    If chbSIP.Checked Then
+                        MainSql = MainSql & " GASIP is not Null or "
                         End If
                         If chbPart60Subpart.Checked Then
                             MainSql = MainSql & " Part60 is not Null or "
@@ -2040,8 +2036,7 @@ Public Class IAIPQueryGenerator
                         If chbPart63Subpart.Checked Then
                             MainSql = MainSql & " Part63 is not Null or "
                         End If
-                        MainSql = Mid(MainSql, 1, (MainSql.Length - 3)) & " ) "
-                    End If
+                    MainSql = Mid(MainSql, 1, (MainSql.Length - 3)) & " ) "
                 End If
             End If
 
