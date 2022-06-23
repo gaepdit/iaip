@@ -11,6 +11,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.2.3 <span>(2022-06-23)</span>
+
+This update fixes some more bugs in the Query Generator.
+
 ## Version 6.2.2 <span>(2022-06-16)</span>
 
 This update fixes some crashes in the Facility Summary and Query Generator.
