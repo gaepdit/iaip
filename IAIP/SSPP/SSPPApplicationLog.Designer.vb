@@ -58,7 +58,7 @@ Partial Class SSPPApplicationLog
         Me.cboEngineer = New System.Windows.Forms.ComboBox()
         Me.cboSearchText1 = New System.Windows.Forms.ComboBox()
         Me.cboSearchText2 = New System.Windows.Forms.ComboBox()
-        Me.dgvApplicationLog = New System.Windows.Forms.DataGridView()
+        Me.dgvApplicationLog = New IaipDataGridView()
         Me.DTPSearchDate1b = New System.Windows.Forms.DateTimePicker()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel()
@@ -731,7 +731,7 @@ Partial Class SSPPApplicationLog
     Friend WithEvents txtSearchText2 As System.Windows.Forms.TextBox
     Friend WithEvents txtSearchText1 As System.Windows.Forms.TextBox
     Friend WithEvents cboEngineer As System.Windows.Forms.ComboBox
-    Friend WithEvents dgvApplicationLog As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvApplicationLog As IaipDataGridView
     Friend WithEvents cboSearchText1 As System.Windows.Forms.ComboBox
     Friend WithEvents cboSearchText2 As System.Windows.Forms.ComboBox
     Friend WithEvents DTPSearchDate1b As System.Windows.Forms.DateTimePicker

@@ -465,7 +465,7 @@ Public Class SSPPApplicationLog
                 d.STRSICCODE, d.STRPLANTDESCRIPTION,
                 lc.STRCOUNTYNAME,
                 case when e.STRUNITDESC is null then '' else e.STRUNITDESC end as APBUnit,
-                case when substring(strTrackedRules, 7, 1) = '1' then 'Expedited Permit' else ' ' end ExpeditedPermitRule
+                case when substring(strTrackedRules, 7, 1) = '1' then 'Expedited Permit' else 'No' end ExpeditedPermitRule
                 FROM SSPPApplicationMaster AS m
                 LEFT JOIN SSPPApplicationData AS d ON m.STRAPPLICATIONNUMBER = d.STRAPPLICATIONNUMBER
                 LEFT JOIN SSPPApplicationTracking AS t ON m.STRAPPLICATIONNUMBER = t.STRAPPLICATIONNUMBER
