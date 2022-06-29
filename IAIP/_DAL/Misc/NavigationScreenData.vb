@@ -269,7 +269,8 @@ Namespace DAL
                                        THEN t.DATREVIEWSUBMITTED
                                    WHEN a.STRSTAFFRESPONSIBLE IS NULL OR a.STRSTAFFRESPONSIBLE = '0' THEN t.DATRECEIVEDDATE
                                    ELSE t.DATASSIGNEDTOENGINEER
-                               END                                                   AS [Status Date]
+                               END                                                   AS [Status Date],
+                               IIF(substring(d.STRTRACKEDRULES, 7, 1) = '1', 'Expedited Permit', ' ') AS [Expedited Permit]
                         FROM SSPPAPPLICATIONMASTER AS a
                              LEFT JOIN SSPPAPPLICATIONTRACKING AS t
                                        ON a.STRAPPLICATIONNUMBER = t.STRAPPLICATIONNUMBER
