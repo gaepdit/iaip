@@ -343,9 +343,6 @@ Public Class IAIPQueryGenerator
         Dim params As New List(Of SqlParameter)
 
         Try
-            Dim temp As String = ""
-            Dim i As Integer = 0
-            Dim j As Integer = 0
 
             SQLSelect = "Select " &
             "substring(APBFacilityInformation.STRAIRSNUMBER, 5, 3) + '-' + substring(APBFacilityInformation.STRAIRSNUMBER, 8, 5) as AIRSNumber, " &
@@ -2058,7 +2055,7 @@ Public Class IAIPQueryGenerator
 
             DAL.LogQuery(queryInfo, dgvQueryGenerator.Rows.Count)
 
-            i = 0
+            Dim i As Integer = 0
             dgvQueryGenerator.Columns("AIRSNumber").HeaderText = "AIRS #"
             dgvQueryGenerator.Columns("AIRSNumber").DisplayIndex = i
 

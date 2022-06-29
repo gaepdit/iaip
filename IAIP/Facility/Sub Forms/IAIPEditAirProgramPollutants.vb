@@ -152,7 +152,7 @@ Public Class IAIPEditAirProgramPollutants
     End Sub
 
     Private Function VerifyUpdate() As Boolean
-        If (OperatingStatusSelect.SelectedValue <> facilityOperatingStatus) Then
+        If OperatingStatusSelect.SelectedValue <> facilityOperatingStatus Then
             Dim dr As DialogResult = MessageBox.Show("The selected pollutant operating status is not the same as the facility operating status. Do you really want to save?",
                                                      "Confirm", MessageBoxButtons.OKCancel)
             If dr = DialogResult.No Then Return False

@@ -19,3 +19,15 @@ dotnet_diagnostic.BC42016.severity = none
 # S927: Parameter names should match base declaration
 # Doesn't work in VB since names are not case sensitive
 dotnet_diagnostic.S927.severity = none
+
+# S1643: Strings should not be concatenated using "+" or "&" in a loop
+dotnet_diagnostic.S1643.severity = silent
+
+# BC42018: Operands of type Object used for operator
+dotnet_diagnostic.BC42018.severity = silent
+
+# BC42019: Operands of type Object used for operator
+dotnet_diagnostic.BC42019.severity = silent
+
+# BC42032: Operands of type Object used for operator <>
+dotnet_diagnostic.BC42032.severity = silent
