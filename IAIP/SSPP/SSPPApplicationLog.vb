@@ -183,6 +183,7 @@ Public Class SSPPApplicationLog
         cboSort1.Items.Add("Date APL Received")
         cboSort1.Items.Add("Date Finalized")
         cboSort1.Items.Add("Engineer Unit Code")
+        cboSort1.Items.Add("Expedited Permit")
         cboSort1.Items.Add("Facility County")
         cboSort1.Items.Add("Facility Name")
         cboSort1.Items.Add("Permit Number")
@@ -197,6 +198,7 @@ Public Class SSPPApplicationLog
         cboSort2.Items.Add("Date APL Received")
         cboSort2.Items.Add("Date Finalized")
         cboSort2.Items.Add("Engineer Unit Code")
+        cboSort2.Items.Add("Expedited Permit")
         cboSort2.Items.Add("Facility County")
         cboSort2.Items.Add("Facility Name")
         cboSort2.Items.Add("Permit Number")
@@ -997,6 +999,8 @@ Public Class SSPPApplicationLog
                     SQLOrder = SQLOrder & " datPermitIssued " & SortOrder1
                 Case "Engineer Unit Code"
                     SQLOrder = SQLOrder & " APBUnit " & SortOrder1
+                Case "Expedited Permit"
+                    SQLOrder = SQLOrder & " ExpeditedPermitRule " & SortOrder1
                 Case "Facility County"
                     SQLOrder = SQLOrder & " strCountyName " & SortOrder1
                 Case "Facility Name"
@@ -1042,6 +1046,8 @@ Public Class SSPPApplicationLog
                         SQLOrder = SQLOrder & " datPermitIssued " & SortOrder2
                     Case "Engineer Unit Code"
                         SQLOrder = SQLOrder & " APBUnit " & SortOrder2
+                    Case "Expedited Permit"
+                        SQLOrder = SQLOrder & " ExpeditedPermitRule " & SortOrder2
                     Case "Facility County"
                         SQLOrder = SQLOrder & " strCountyName " & SortOrder2
                     Case "Facility Name"
@@ -1134,12 +1140,12 @@ Public Class SSPPApplicationLog
 
             dgvApplicationLog.Columns("strApplicationNumber").HeaderText = "APL #"
             dgvApplicationLog.Columns("strApplicationNumber").DisplayIndex = 0
-            dgvApplicationLog.Columns("strApplicationType").HeaderText = "APL Type"
+            dgvApplicationLog.Columns("strApplicationType").HeaderText = "Application Type"
             dgvApplicationLog.Columns("strApplicationType").DisplayIndex = 4
-            dgvApplicationLog.Columns("datReceivedDate").HeaderText = "APL Rcvd"
+            dgvApplicationLog.Columns("datReceivedDate").HeaderText = "Date Received"
             dgvApplicationLog.Columns("datReceivedDate").DisplayIndex = 5
             dgvApplicationLog.Columns("datReceivedDate").DefaultCellStyle.Format = DateFormat
-            dgvApplicationLog.Columns("datPermitIssued").HeaderText = "Permit Issued"
+            dgvApplicationLog.Columns("datPermitIssued").HeaderText = "Date Issued"
             dgvApplicationLog.Columns("datPermitIssued").DisplayIndex = 6
             dgvApplicationLog.Columns("datPermitIssued").Visible = False
             dgvApplicationLog.Columns("datPermitIssued").DefaultCellStyle.Format = DateFormat
@@ -1164,7 +1170,7 @@ Public Class SSPPApplicationLog
             dgvApplicationLog.Columns("strPlantDescription").HeaderText = "Plant Description"
             dgvApplicationLog.Columns("strPlantDescription").DisplayIndex = 12
             dgvApplicationLog.Columns("strCountyName").HeaderText = "County"
-            dgvApplicationLog.Columns("APBUnit").HeaderText = "APL Unit"
+            dgvApplicationLog.Columns("APBUnit").HeaderText = "APB Unit"
             dgvApplicationLog.Columns("ExpeditedPermitRule").HeaderText = "Expedited Permit"
 
             If dtApplicationLog.Rows.Count = 1 Then
