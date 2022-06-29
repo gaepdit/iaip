@@ -1,5 +1,6 @@
 ﻿Imports System.Collections.Generic
 Imports System.ComponentModel
+Imports System.Text
 Imports Iaip.Apb
 
 ''' <summary>
@@ -7,7 +8,7 @@ Imports Iaip.Apb
 ''' </summary>
 ''' <remarks>Disallows user editing. Hides row headers. Changes selection mode
 ''' to full single row. Auto-formats several data types.</remarks>
-Public Class IaipDataGridView
+Friend Class IaipDataGridView
 
     ' Custom Properties
 
@@ -237,6 +238,8 @@ Public Class IaipDataGridView
                 ResultsCountLabel.Text = String.Empty
             End If
         Else
+            If DataSource.GetType Is GetType(DataTable) Then DataSource = New DataView(DataSource)
+
             AddBreadcrumb("IaipDataGridView: datasource changed", "Name", Name, Me)
             AddExcelExportButton()
 
@@ -268,6 +271,23 @@ Public Class IaipDataGridView
         End If
     End Sub
 
+    ' Sorting
+
+    Private ReadOnly sorters As New DataGridViewSorters()
+
+    ' Override the regular search with our super duper multi-column search
+    Public Overrides Sub Sort(dataGridViewColumn As DataGridViewColumn, direction As ListSortDirection)
+        If DataSource.GetType IsNot GetType(DataView) Then
+            MyBase.Sort(dataGridViewColumn, direction)
+            Return
+        End If
+
+        Dim sorter As New DataGridViewSorter(dataGridViewColumn.Name, direction = Global.System.ComponentModel.ListSortDirection.Ascending)
+        sorters.BringColumnToFrontOfSortOrder(sorter)
+
+        Dim view As DataView = CType(DataSource, DataView)
+        view.Sort = sorters.ToString()
+    End Sub
 
     ' Export to Excel button
 
@@ -428,7 +448,7 @@ Public Class IaipDataGridView
 
 End Class
 
-Public Class IaipDataGridViewCellLinkEventArgs
+Friend Class IaipDataGridViewCellLinkEventArgs
     Inherits EventArgs
 
     Public Sub New(linkValue As Object)
@@ -440,4 +460,47 @@ Public Class IaipDataGridViewCellLinkEventArgs
     ''' </summary>
     ''' <returns>The value of the linked cell that was selected.</returns>
     Public ReadOnly Property LinkValue As Object
+End Class
+
+Friend Class DataGridViewSorter
+    Friend ColumnName As String
+    Friend IsAscending As Boolean
+
+    Friend Sub New(columnName As String, isAscending As Boolean)
+        Me.ColumnName = columnName
+        Me.IsAscending = isAscending
+    End Sub
+
+    Public Overrides Function Equals(obj As Object) As Boolean
+        ' For equivalence, compare column name only (not object ref or sort order)
+        If obj Is Nothing Then Return False
+        If obj.GetType() <> GetType(DataGridViewSorter) Then Return False
+        Return ColumnName Is CType(obj, DataGridViewSorter).ColumnName
+    End Function
+
+    Public Overrides Function GetHashCode() As Integer
+        Return ColumnName.GetHashCode()
+    End Function
+
+    Public Overrides Function ToString() As String
+        Return String.Concat(ColumnName, IIf(IsAscending, " ASC", " DESC"))
+    End Function
+End Class
+
+Friend Class DataGridViewSorters
+    Inherits List(Of DataGridViewSorter)
+
+    Friend Sub BringColumnToFrontOfSortOrder(sorter As DataGridViewSorter)
+        If Contains(sorter) Then Remove(sorter)
+        Insert(0, sorter)
+    End Sub
+
+    Public Overrides Function ToString() As String
+        Dim s As New StringBuilder
+        For Each sorter As DataGridViewSorter In Me
+            If s.Length > 0 Then s.Append(", ")
+            s.Append(sorter.ToString())
+        Next
+        Return s.ToString()
+    End Function
 End Class
