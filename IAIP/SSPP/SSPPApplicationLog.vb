@@ -22,6 +22,7 @@ Public Class SSPPApplicationLog
     Private AppUnitText As String 'cboApplicationUnit.Text
     Private AppStatus As String 'cboApplicationStatus.Text
     Private Engineer As String 'cboEngineer.SelectedValue.ToString
+    Private ExpeditedFilter As Boolean 'cboExpeditedFilter.Checked
     Private SubpartSIP1 As String 'cboSIP1.SelectedValue.ToString
     Private SubpartSIP2 As String 'cboSIP2.SelectedValue.ToString
     Private SubpartNESHAP1 As String 'cboNESHAP1.SelectedValue.ToString
@@ -321,6 +322,7 @@ Public Class SSPPApplicationLog
         cboSortOrder2.Text = "Descending Order"
         cboApplicationType.Text = "All"
         cboEngineer.SelectedIndex = 0
+        chkExpeditedFilter.Checked = False
 
         DTPSearchDate1.Value = Today
         DTPSearchDate1b.Value = Today
@@ -378,6 +380,7 @@ Public Class SSPPApplicationLog
         AppUnitText = cboApplicationUnit.Text
         AppStatus = cboApplicationStatus.Text
         Engineer = If(cboEngineer.SelectedValue?.ToString = "", "XXX", cboEngineer.SelectedValue.ToString)
+        ExpeditedFilter = chkExpeditedFilter.Checked
         SubpartSIP1 = cboSIP1.SelectedValue.ToString
         SubpartSIP2 = cboSIP2.SelectedValue.ToString
         SubpartNESHAP1 = cboNESHAP1.SelectedValue.ToString
@@ -974,6 +977,9 @@ Public Class SSPPApplicationLog
             End If
             If Engineer <> "XXX" Then
                 SQLLine &= "and numUserID like @Engineer "
+            End If
+            If ExpeditedFilter Then
+                SQLLine &= " and substring(d.STRTRACKEDRULES, 7, 1) = '1' "
             End If
 
             SQLOrder = " order by "

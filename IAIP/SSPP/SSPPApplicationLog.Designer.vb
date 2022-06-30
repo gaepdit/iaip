@@ -58,7 +58,7 @@ Partial Class SSPPApplicationLog
         Me.cboEngineer = New System.Windows.Forms.ComboBox()
         Me.cboSearchText1 = New System.Windows.Forms.ComboBox()
         Me.cboSearchText2 = New System.Windows.Forms.ComboBox()
-        Me.dgvApplicationLog = New IaipDataGridView()
+        Me.dgvApplicationLog = New Iaip.IaipDataGridView()
         Me.DTPSearchDate1b = New System.Windows.Forms.DateTimePicker()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel()
@@ -77,6 +77,7 @@ Partial Class SSPPApplicationLog
         Me.lblMessage = New System.Windows.Forms.Label()
         Me.bgwApplicationLog = New System.ComponentModel.BackgroundWorker()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.chkExpeditedFilter = New System.Windows.Forms.CheckBox()
         Me.MainMenu1.SuspendLayout()
         CType(Me.dgvApplicationLog, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
@@ -112,7 +113,7 @@ Partial Class SSPPApplicationLog
         Me.cboSortOrder2.Location = New System.Drawing.Point(156, 42)
         Me.cboSortOrder2.Name = "cboSortOrder2"
         Me.cboSortOrder2.Size = New System.Drawing.Size(121, 21)
-        Me.cboSortOrder2.TabIndex = 11
+        Me.cboSortOrder2.TabIndex = 1
         '
         'cboSort2
         '
@@ -122,7 +123,7 @@ Partial Class SSPPApplicationLog
         Me.cboSort2.Location = New System.Drawing.Point(28, 42)
         Me.cboSort2.Name = "cboSort2"
         Me.cboSort2.Size = New System.Drawing.Size(121, 21)
-        Me.cboSort2.TabIndex = 10
+        Me.cboSort2.TabIndex = 0
         '
         'cboSortOrder1
         '
@@ -132,7 +133,7 @@ Partial Class SSPPApplicationLog
         Me.cboSortOrder1.Location = New System.Drawing.Point(161, 81)
         Me.cboSortOrder1.Name = "cboSortOrder1"
         Me.cboSortOrder1.Size = New System.Drawing.Size(121, 21)
-        Me.cboSortOrder1.TabIndex = 9
+        Me.cboSortOrder1.TabIndex = 12
         '
         'cboSort1
         '
@@ -142,7 +143,7 @@ Partial Class SSPPApplicationLog
         Me.cboSort1.Location = New System.Drawing.Point(33, 81)
         Me.cboSort1.Name = "cboSort1"
         Me.cboSort1.Size = New System.Drawing.Size(121, 21)
-        Me.cboSort1.TabIndex = 8
+        Me.cboSort1.TabIndex = 11
         '
         'cboApplicationStatus
         '
@@ -152,7 +153,7 @@ Partial Class SSPPApplicationLog
         Me.cboApplicationStatus.Location = New System.Drawing.Point(679, 67)
         Me.cboApplicationStatus.Name = "cboApplicationStatus"
         Me.cboApplicationStatus.Size = New System.Drawing.Size(121, 21)
-        Me.cboApplicationStatus.TabIndex = 6
+        Me.cboApplicationStatus.TabIndex = 8
         '
         'cboApplicationUnit
         '
@@ -162,7 +163,7 @@ Partial Class SSPPApplicationLog
         Me.cboApplicationUnit.Location = New System.Drawing.Point(679, 40)
         Me.cboApplicationUnit.Name = "cboApplicationUnit"
         Me.cboApplicationUnit.Size = New System.Drawing.Size(121, 21)
-        Me.cboApplicationUnit.TabIndex = 5
+        Me.cboApplicationUnit.TabIndex = 7
         '
         'cboApplicationType
         '
@@ -172,7 +173,7 @@ Partial Class SSPPApplicationLog
         Me.cboApplicationType.Location = New System.Drawing.Point(679, 13)
         Me.cboApplicationType.Name = "cboApplicationType"
         Me.cboApplicationType.Size = New System.Drawing.Size(121, 21)
-        Me.cboApplicationType.TabIndex = 4
+        Me.cboApplicationType.TabIndex = 6
         '
         'cboFieldType2
         '
@@ -182,7 +183,7 @@ Partial Class SSPPApplicationLog
         Me.cboFieldType2.Location = New System.Drawing.Point(367, 13)
         Me.cboFieldType2.Name = "cboFieldType2"
         Me.cboFieldType2.Size = New System.Drawing.Size(214, 21)
-        Me.cboFieldType2.TabIndex = 2
+        Me.cboFieldType2.TabIndex = 3
         '
         'cboFieldType1
         '
@@ -311,7 +312,7 @@ Partial Class SSPPApplicationLog
         Me.btnOpen.Location = New System.Drawing.Point(299, 107)
         Me.btnOpen.Name = "btnOpen"
         Me.btnOpen.Size = New System.Drawing.Size(160, 23)
-        Me.btnOpen.TabIndex = 15
+        Me.btnOpen.TabIndex = 16
         Me.btnOpen.Text = "View Selected Application"
         '
         'MenuItem4
@@ -369,7 +370,7 @@ Partial Class SSPPApplicationLog
         Me.btnResetSearch.Location = New System.Drawing.Point(382, 73)
         Me.btnResetSearch.Name = "btnResetSearch"
         Me.btnResetSearch.Size = New System.Drawing.Size(77, 30)
-        Me.btnResetSearch.TabIndex = 14
+        Me.btnResetSearch.TabIndex = 15
         Me.btnResetSearch.Text = "Reset Form"
         '
         'btnFind
@@ -377,7 +378,7 @@ Partial Class SSPPApplicationLog
         Me.btnFind.Location = New System.Drawing.Point(299, 73)
         Me.btnFind.Name = "btnFind"
         Me.btnFind.Size = New System.Drawing.Size(77, 30)
-        Me.btnFind.TabIndex = 13
+        Me.btnFind.TabIndex = 14
         Me.btnFind.Text = "Search"
         '
         'txtSearchText2
@@ -402,7 +403,7 @@ Partial Class SSPPApplicationLog
         Me.cboEngineer.Location = New System.Drawing.Point(679, 94)
         Me.cboEngineer.Name = "cboEngineer"
         Me.cboEngineer.Size = New System.Drawing.Size(121, 21)
-        Me.cboEngineer.TabIndex = 7
+        Me.cboEngineer.TabIndex = 9
         '
         'cboSearchText1
         '
@@ -428,21 +429,20 @@ Partial Class SSPPApplicationLog
         '
         'dgvApplicationLog
         '
-        Me.dgvApplicationLog.AllowUserToAddRows = False
-        Me.dgvApplicationLog.AllowUserToDeleteRows = False
-        Me.dgvApplicationLog.AllowUserToOrderColumns = True
-        Me.dgvApplicationLog.AllowUserToResizeRows = False
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
         Me.dgvApplicationLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvApplicationLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvApplicationLog.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvApplicationLog.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvApplicationLog.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvApplicationLog.LinkifyColumnByName = Nothing
         Me.dgvApplicationLog.Location = New System.Drawing.Point(0, 0)
         Me.dgvApplicationLog.Name = "dgvApplicationLog"
-        Me.dgvApplicationLog.ReadOnly = True
-        Me.dgvApplicationLog.RowHeadersVisible = False
-        Me.dgvApplicationLog.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvApplicationLog.ResultsCountLabel = Nothing
+        Me.dgvApplicationLog.ResultsCountLabelFormat = "{0} found"
         Me.dgvApplicationLog.Size = New System.Drawing.Size(812, 355)
-        Me.dgvApplicationLog.TabIndex = 253
+        Me.dgvApplicationLog.StandardTab = True
+        Me.dgvApplicationLog.TabIndex = 0
         Me.dgvApplicationLog.Visible = False
         '
         'DTPSearchDate1b
@@ -452,7 +452,7 @@ Partial Class SSPPApplicationLog
         Me.DTPSearchDate1b.Location = New System.Drawing.Point(186, 40)
         Me.DTPSearchDate1b.Name = "DTPSearchDate1b"
         Me.DTPSearchDate1b.Size = New System.Drawing.Size(100, 20)
-        Me.DTPSearchDate1b.TabIndex = 1
+        Me.DTPSearchDate1b.TabIndex = 2
         Me.DTPSearchDate1b.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPSearchDate1b.Visible = False
         '
@@ -481,7 +481,7 @@ Partial Class SSPPApplicationLog
         Me.SortGroupBox.Location = New System.Drawing.Point(5, 66)
         Me.SortGroupBox.Name = "SortGroupBox"
         Me.SortGroupBox.Size = New System.Drawing.Size(285, 71)
-        Me.SortGroupBox.TabIndex = 41
+        Me.SortGroupBox.TabIndex = 13
         Me.SortGroupBox.TabStop = False
         Me.SortGroupBox.Text = "Sort By"
         '
@@ -492,7 +492,7 @@ Partial Class SSPPApplicationLog
         Me.btnExport.Location = New System.Drawing.Point(465, 108)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(116, 23)
-        Me.btnExport.TabIndex = 16
+        Me.btnExport.TabIndex = 17
         Me.btnExport.Text = "Export to Excel"
         Me.btnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExport.UseVisualStyleBackColor = True
@@ -528,7 +528,7 @@ Partial Class SSPPApplicationLog
         Me.cboMACT2.Location = New System.Drawing.Point(367, 40)
         Me.cboMACT2.Name = "cboMACT2"
         Me.cboMACT2.Size = New System.Drawing.Size(214, 21)
-        Me.cboMACT2.TabIndex = 3
+        Me.cboMACT2.TabIndex = 4
         '
         'cboNSPS2
         '
@@ -592,7 +592,7 @@ Partial Class SSPPApplicationLog
         Me.DTPSearchDate2b.Location = New System.Drawing.Point(477, 40)
         Me.DTPSearchDate2b.Name = "DTPSearchDate2b"
         Me.DTPSearchDate2b.Size = New System.Drawing.Size(100, 20)
-        Me.DTPSearchDate2b.TabIndex = 3
+        Me.DTPSearchDate2b.TabIndex = 5
         Me.DTPSearchDate2b.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPSearchDate2b.Visible = False
         '
@@ -613,7 +613,7 @@ Partial Class SSPPApplicationLog
         Me.lblMessage.Name = "lblMessage"
         Me.lblMessage.Padding = New System.Windows.Forms.Padding(10)
         Me.lblMessage.Size = New System.Drawing.Size(147, 33)
-        Me.lblMessage.TabIndex = 254
+        Me.lblMessage.TabIndex = 1
         Me.lblMessage.Text = "No applications to display"
         '
         'bgwApplicationLog
@@ -623,6 +623,7 @@ Partial Class SSPPApplicationLog
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.chkExpeditedFilter)
         Me.Panel2.Controls.Add(Me.Label6)
         Me.Panel2.Controls.Add(Me.cboSortOrder1)
         Me.Panel2.Controls.Add(Me.cboSort1)
@@ -665,7 +666,18 @@ Partial Class SSPPApplicationLog
         Me.Panel2.Location = New System.Drawing.Point(0, 379)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(812, 144)
-        Me.Panel2.TabIndex = 42
+        Me.Panel2.TabIndex = 1
+        '
+        'chkExpeditedFilter
+        '
+        Me.chkExpeditedFilter.AutoSize = True
+        Me.chkExpeditedFilter.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.chkExpeditedFilter.Location = New System.Drawing.Point(586, 121)
+        Me.chkExpeditedFilter.Name = "chkExpeditedFilter"
+        Me.chkExpeditedFilter.Size = New System.Drawing.Size(110, 17)
+        Me.chkExpeditedFilter.TabIndex = 10
+        Me.chkExpeditedFilter.Text = "Expedited Permits"
+        Me.chkExpeditedFilter.UseVisualStyleBackColor = True
         '
         'SSPPApplicationLog
         '
@@ -752,4 +764,5 @@ Partial Class SSPPApplicationLog
     Friend WithEvents lblMessage As System.Windows.Forms.Label
     Friend WithEvents SortGroupBox As System.Windows.Forms.GroupBox
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
+    Friend WithEvents chkExpeditedFilter As CheckBox
 End Class
