@@ -11,6 +11,15 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.3.0 <span>(2022-06-30)</span>
+
+I made it a bit easier to work with expedited permits:
+
+- The permit applications list on the main navigation screen includes a column for expedited permits.
+- The permit application log can be filtered and sorted for expedited permits.
+
+I also updated the tables throughout the IAIP so that they can be sorted by multiple columns. As usual, when you click on a column header, the table will be sorted by that column. But now, when you click on a second column header, the table will remember the first sorting and will be sorted by both columns in order. It's a bit hard to explain, but I think you get it.
+
 ## Version 6.2.3 <span>(2022-06-23)</span>
 
 This update fixes some more bugs in the Query Generator.
