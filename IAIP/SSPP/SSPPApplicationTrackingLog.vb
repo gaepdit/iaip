@@ -6119,7 +6119,7 @@ Public Class SSPPApplicationTrackingLog
                         paramsList.Clear()
 
                         queryList.Add("Update SSPPApplicationTracking set " &
-                            "datDraftOnWeb = @DraftOnWeb " &
+                            "datDraftOnWeb = @DraftOnWeb, " &
                             "datEPAStatesNotified = @EPAStatesNotified , " &
                             "datFinalOnWeb = @FinalOnWeb , " &
                             "datEPANotified = @EPANotifiedPermitOnWeb , " &
