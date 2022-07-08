@@ -3722,25 +3722,25 @@ Public Class SSPPApplicationTrackingLog
                 If IsDBNull(dr.Item("datReceivedDate")) Then
                     DTPDateReceived.Value = Today
                 Else
-                    DTPDateReceived.Text = dr.Item("datReceivedDate")
+                    DTPDateReceived.Value = dr.Item("datReceivedDate")
                 End If
                 If IsDBNull(dr.Item("datSentByFacility")) Then
                     DTPDateSent.Value = Today
                 Else
-                    DTPDateSent.Text = dr.Item("datSentByFacility")
+                    DTPDateSent.Value = dr.Item("datSentByFacility")
                 End If
                 If IsDBNull(dr.Item("datAssignedToEngineer")) Then
                     DTPDateAssigned.Value = Today
                     DTPDateAssigned.Checked = False
                 Else
-                    DTPDateAssigned.Text = dr.Item("datAssignedToEngineer")
+                    DTPDateAssigned.Value = dr.Item("datAssignedToEngineer")
                     DTPDateAssigned.Checked = True
                 End If
                 If IsDBNull(dr.Item("datReassignedToEngineer")) Then
                     DTPDateReassigned.Value = Today
                     DTPDateReassigned.Checked = False
                 Else
-                    DTPDateReassigned.Text = dr.Item("datReassignedToEngineer")
+                    DTPDateReassigned.Value = dr.Item("datReassignedToEngineer")
                     DTPDateReassigned.Checked = True
                 End If
 
@@ -3748,7 +3748,7 @@ Public Class SSPPApplicationTrackingLog
                     DTPDateAcknowledge.Value = Today
                     DTPDateAcknowledge.Checked = False
                 Else
-                    DTPDateAcknowledge.Text = dr.Item("datAcknowledgementLetterSent")
+                    DTPDateAcknowledge.Value = dr.Item("datAcknowledgementLetterSent")
                     DTPDateAcknowledge.Checked = True
                 End If
                 If IsDBNull(dr.Item("strPublicInvolvement")) Then
@@ -3768,49 +3768,49 @@ Public Class SSPPApplicationTrackingLog
                     DTPDateToUC.Value = Today
                     DTPDateToUC.Checked = False
                 Else
-                    DTPDateToUC.Text = dr.Item("datToPMI")
+                    DTPDateToUC.Value = dr.Item("datToPMI")
                     DTPDateToUC.Checked = True
                 End If
                 If IsDBNull(dr.Item("datToPMII")) Then
                     DTPDateToPM.Value = Today
                     DTPDateToPM.Checked = False
                 Else
-                    DTPDateToPM.Text = dr.Item("datToPMII")
+                    DTPDateToPM.Value = dr.Item("datToPMII")
                     DTPDateToPM.Checked = True
                 End If
                 If IsDBNull(dr.Item("datPermitIssued")) Then
                     DTPFinalAction.Value = Today
                     DTPFinalAction.Checked = False
                 Else
-                    DTPFinalAction.Text = dr.Item("datPermitIssued")
+                    DTPFinalAction.Value = dr.Item("datPermitIssued")
                     DTPFinalAction.Checked = True
                 End If
                 If IsDBNull(dr.Item("datApplicationDeadLine")) Then
                     DTPDeadline.Value = Today
                     DTPDeadline.Checked = False
                 Else
-                    DTPDeadline.Text = dr.Item("datApplicationDeadline")
+                    DTPDeadline.Value = dr.Item("datApplicationDeadline")
                     DTPDeadline.Checked = True
                 End If
                 If IsDBNull(dr.Item("datDraftIssued")) Then
                     DTPDraftIssued.Value = Today
                     DTPDraftIssued.Checked = False
                 Else
-                    DTPDraftIssued.Text = dr.Item("datDraftIssued")
+                    DTPDraftIssued.Value = dr.Item("datDraftIssued")
                     DTPDraftIssued.Checked = True
                 End If
                 If IsDBNull(dr.Item("datPAExpires")) Then
                     DTPDatePAExpires.Value = Today
                     DTPDatePAExpires.Checked = False
                 Else
-                    DTPDatePAExpires.Text = dr.Item("datPAExpires")
+                    DTPDatePAExpires.Value = dr.Item("datPAExpires")
                     DTPDatePAExpires.Checked = True
                 End If
                 If IsDBNull(dr.Item("datPNExpires")) Then
                     DTPDatePNExpires.Value = Today
                     DTPDatePNExpires.Checked = False
                 Else
-                    DTPDatePNExpires.Text = dr.Item("datPNExpires")
+                    DTPDatePNExpires.Value = dr.Item("datPNExpires")
                     DTPDatePNExpires.Checked = True
                 End If
                 If IsDBNull(dr.Item("strPAReady")) Then
@@ -3835,28 +3835,28 @@ Public Class SSPPApplicationTrackingLog
                     DTPEPAWaived.Value = Today
                     DTPEPAWaived.Checked = False
                 Else
-                    DTPEPAWaived.Text = dr.Item("datEPAWaived")
+                    DTPEPAWaived.Value = dr.Item("datEPAWaived")
                     DTPEPAWaived.Checked = True
                 End If
                 If IsDBNull(dr.Item("datEPAEnds")) Then
                     DTPEPAEnds.Value = Today
                     DTPEPAEnds.Checked = False
                 Else
-                    DTPEPAEnds.Text = dr.Item("datEPAEnds")
+                    DTPEPAEnds.Value = dr.Item("datEPAEnds")
                     DTPEPAEnds.Checked = True
                 End If
                 If IsDBNull(dr.Item("datToBranchCheif")) Then
                     DTPDateToBC.Value = Today
                     DTPDateToBC.Checked = False
                 Else
-                    DTPDateToBC.Text = dr.Item("datToBranchCheif")
+                    DTPDateToBC.Value = dr.Item("datToBranchCheif")
                     DTPDateToBC.Checked = True
                 End If
                 If IsDBNull(dr.Item("datToDirector")) Then
                     DTPDateToDO.Value = Today
                     DTPDateToDO.Checked = False
                 Else
-                    DTPDateToDO.Text = dr.Item("datToDirector")
+                    DTPDateToDO.Value = dr.Item("datToDirector")
                     DTPDateToDO.Checked = True
                 End If
                 If IsDBNull(dr.Item("strStateprogramcodes")) Then
@@ -3936,7 +3936,7 @@ Public Class SSPPApplicationTrackingLog
                         DTPSSCPReview.Value = Today
                         DTPSSCPReview.Checked = False
                     Else
-                        DTPSSCPReview.Text = dr.Item("datSSCPReviewDate")
+                        DTPSSCPReview.Value = dr.Item("datSSCPReviewDate")
                         DTPSSCPReview.Checked = True
                     End If
                     If IsDBNull(dr.Item("strSSCPReviewer")) Then
@@ -3961,7 +3961,7 @@ Public Class SSPPApplicationTrackingLog
                         DTPISMPReview.Value = Today
                         DTPISMPReview.Checked = False
                     Else
-                        DTPISMPReview.Text = dr.Item("datISMPReviewDate")
+                        DTPISMPReview.Value = dr.Item("datISMPReviewDate")
                         DTPISMPReview.Checked = True
                     End If
                     If IsDBNull(dr.Item("strISMPReviewer")) Then
@@ -4009,42 +4009,42 @@ Public Class SSPPApplicationTrackingLog
                         DTPNotifiedAppReceived.Value = Today
                         DTPNotifiedAppReceived.Checked = False
                     Else
-                        DTPNotifiedAppReceived.Text = dr.Item("datEPAStatesNotifiedAppRec")
+                        DTPNotifiedAppReceived.Value = dr.Item("datEPAStatesNotifiedAppRec")
                         DTPNotifiedAppReceived.Checked = True
                     End If
                     If IsDBNull(dr.Item("datDraftOnWeb")) Then
                         DTPDraftOnWeb.Value = Today
                         DTPDraftOnWeb.Checked = False
                     Else
-                        DTPDraftOnWeb.Text = dr.Item("datDraftOnWeb")
+                        DTPDraftOnWeb.Value = dr.Item("datDraftOnWeb")
                         DTPDraftOnWeb.Checked = True
                     End If
                     If IsDBNull(dr.Item("datEPAStatesNotified")) Then
                         DTPEPAStatesNotified.Value = Today
                         DTPEPAStatesNotified.Checked = False
                     Else
-                        DTPEPAStatesNotified.Text = dr.Item("datEPAStatesNotified")
+                        DTPEPAStatesNotified.Value = dr.Item("datEPAStatesNotified")
                         DTPEPAStatesNotified.Checked = True
                     End If
                     If IsDBNull(dr.Item("datFinalOnWeb")) Then
                         DTPFinalOnWeb.Value = Today
                         DTPFinalOnWeb.Checked = False
                     Else
-                        DTPFinalOnWeb.Text = dr.Item("datFinalOnWeb")
+                        DTPFinalOnWeb.Value = dr.Item("datFinalOnWeb")
                         DTPFinalOnWeb.Checked = True
                     End If
                     If IsDBNull(dr.Item("DatEPANotified")) Then
                         DTPEPANotifiedPermitOnWeb.Value = Today
                         DTPEPANotifiedPermitOnWeb.Checked = False
                     Else
-                        DTPEPANotifiedPermitOnWeb.Text = dr.Item("DatEPANotified")
+                        DTPEPANotifiedPermitOnWeb.Value = dr.Item("DatEPANotified")
                         DTPEPANotifiedPermitOnWeb.Checked = True
                     End If
                     If IsDBNull(dr.Item("DatEffective")) Then
                         DTPEffectiveDateofPermit.Value = Today
                         DTPEffectiveDateofPermit.Checked = False
                     Else
-                        DTPEffectiveDateofPermit.Text = dr.Item("datEffective")
+                        DTPEffectiveDateofPermit.Value = dr.Item("datEffective")
                         DTPEffectiveDateofPermit.Checked = True
                     End If
                     If IsDBNull(dr.Item("datExperationDate")) Then
@@ -4052,7 +4052,7 @@ Public Class SSPPApplicationTrackingLog
                         DTPExperationDate.Checked = False
                     Else
                         DTPExperationDate.Checked = True
-                        DTPExperationDate.Text = dr.Item("datExperationDate")
+                        DTPExperationDate.Value = dr.Item("datExperationDate")
                     End If
                     If IsDBNull(dr.Item("strTargeted")) Then
                         txtEPATargetedComments.Text = ""
@@ -4064,7 +4064,7 @@ Public Class SSPPApplicationTrackingLog
                         DTPPNExpires.Checked = False
                     Else
                         DTPPNExpires.Checked = True
-                        DTPPNExpires.Text = dr.Item("datPNExpires")
+                        DTPPNExpires.Value = dr.Item("datPNExpires")
                     End If
 
                 End If
@@ -4660,31 +4660,31 @@ Public Class SSPPApplicationTrackingLog
         Dim PlantDesc As String
         Dim Comments As String
         Dim ApplicationNotes As String
-        Dim ReceivedDate As String
-        Dim SentByDate As String
-        Dim AssignedToEngineer As String
-        Dim ReAssignedToEngineer As String
+        Dim ReceivedDate As Date?
+        Dim SentByDate As Date?
+        Dim AssignedToEngineer As Date?
+        Dim ReAssignedToEngineer As Date?
         Dim PackageCompleteDate As String = Nothing
-        Dim AcknowledgementLetter As String
+        Dim AcknowledgementLetter As Date?
         Dim PublicInvolved As String
-        Dim ToPMI As String
-        Dim ToPMII As String
+        Dim ToPMI As Date?
+        Dim ToPMII As Date?
         Dim ReturnToEngineer As String
-        Dim PermitIssued As String
-        Dim AppDeadline As String
-        Dim DraftIssued As String
-        Dim EPAWaived As String
-        Dim EPAEnds As String
-        Dim ToBC As String
-        Dim ToDO As String
+        Dim PermitIssued As Date?
+        Dim AppDeadline As Date?
+        Dim DraftIssued As Date?
+        Dim EPAWaived As Date?
+        Dim EPAEnds As Date?
+        Dim ToBC As Date?
+        Dim ToDO As Date?
         Dim PAReady As String
         Dim PNReady As String
         Dim TrackedRules As String
         Dim StateProgramCodes As String
         Dim AttainmentStatus As String
         Dim SignificantComments As String
-        Dim PAExpires As String
-        Dim PNExpires As String
+        Dim PAExpires As Date?
+        Dim PNExpires As Date?
         Dim OwnershipTypeCode As String
         Dim NspsFeeExempt As Boolean
 
@@ -4981,93 +4981,65 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("@txtApplicationNumber", AppNumber)
             })
 
-            ReceivedDate = DTPDateReceived.Text
-            SentByDate = DTPDateSent.Text
+            ReceivedDate = DTPDateReceived.Value
+            SentByDate = DTPDateSent.Value
 
             If DTPDateAssigned.Checked Then
-                AssignedToEngineer = DTPDateAssigned.Text
-            Else
-                AssignedToEngineer = Nothing
+                AssignedToEngineer = DTPDateAssigned.Value
             End If
 
             If DTPDateReassigned.Checked Then
-                ReAssignedToEngineer = DTPDateReassigned.Text
-            Else
-                ReAssignedToEngineer = Nothing
+                ReAssignedToEngineer = DTPDateReassigned.Value
             End If
 
             If DTPDateAcknowledge.Checked Then
-                AcknowledgementLetter = DTPDateAcknowledge.Text
-            Else
-                AcknowledgementLetter = Nothing
+                AcknowledgementLetter = DTPDateAcknowledge.Value
             End If
 
             If DTPDateToUC.Checked Then
-                ToPMI = DTPDateToUC.Text
-            Else
-                ToPMI = Nothing
+                ToPMI = DTPDateToUC.Value
             End If
 
             If DTPDateToPM.Checked Then
-                ToPMII = DTPDateToPM.Text
-            Else
-                ToPMII = Nothing
+                ToPMII = DTPDateToPM.Value
             End If
 
             ReturnToEngineer = Nothing
 
             If DTPFinalAction.Checked Then
-                PermitIssued = DTPFinalAction.Text
-            Else
-                PermitIssued = Nothing
+                PermitIssued = DTPFinalAction.Value
             End If
 
             If DTPDeadline.Checked Then
-                AppDeadline = DTPDeadline.Text
-            Else
-                AppDeadline = Nothing
+                AppDeadline = DTPDeadline.Value
             End If
 
             If DTPDraftIssued.Checked Then
-                DraftIssued = DTPDraftIssued.Text
-            Else
-                DraftIssued = Nothing
+                DraftIssued = DTPDraftIssued.Value
             End If
 
             If DTPEPAWaived.Checked Then
-                EPAWaived = DTPEPAWaived.Text
-            Else
-                EPAWaived = Nothing
+                EPAWaived = DTPEPAWaived.Value
             End If
 
             If DTPEPAEnds.Checked Then
-                EPAEnds = DTPEPAEnds.Text
-            Else
-                EPAEnds = Nothing
+                EPAEnds = DTPEPAEnds.Value
             End If
 
             If DTPDateToBC.Checked Then
-                ToBC = DTPDateToBC.Text
-            Else
-                ToBC = Nothing
+                ToBC = DTPDateToBC.Value
             End If
 
             If DTPDateToDO.Checked Then
-                ToDO = DTPDateToDO.Text
-            Else
-                ToDO = Nothing
+                ToDO = DTPDateToDO.Value
             End If
 
             If DTPDatePAExpires.Checked Then
-                PAExpires = DTPDatePAExpires.Text
-            Else
-                PAExpires = Nothing
+                PAExpires = DTPDatePAExpires.Value
             End If
 
             If DTPDatePNExpires.Checked Then
-                PNExpires = DTPDatePNExpires.Text
-            Else
-                PNExpires = Nothing
+                PNExpires = DTPDatePNExpires.Value
             End If
 
             queriesList.Add("Update SSPPApplicationTracking set " &
@@ -6055,51 +6027,39 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SaveWebPublisherData()
-        Dim EPAStatesNotifiedAppRec As String
-        Dim DraftOnWeb As String
-        Dim EPAStatesNotified As String
-        Dim FinalOnWeb As String
-        Dim EPANotifiedPermitOnWeb As String
-        Dim EffectiveDateOnPermit As String
+        Dim EPAStatesNotifiedAppRec As Date?
+        Dim DraftOnWeb As Date?
+        Dim EPAStatesNotified As Date?
+        Dim FinalOnWeb As Date?
+        Dim EPANotifiedPermitOnWeb As Date?
+        Dim EffectiveDateOnPermit As Date?
         Dim TargetedComments As String
-        Dim ExperationDate As String
-        Dim PNExpires As String
+        Dim ExperationDate As Date?
+        Dim PNExpires As Date?
         Dim queryList As New List(Of String)
         Dim paramsList As New List(Of SqlParameter())
 
         Try
             If DTPNotifiedAppReceived.Checked Then
-                EPAStatesNotifiedAppRec = DTPNotifiedAppReceived.Text
-            Else
-                EPAStatesNotifiedAppRec = Nothing
+                EPAStatesNotifiedAppRec = DTPNotifiedAppReceived.Value
             End If
             If DTPDraftOnWeb.Checked Then
-                DraftOnWeb = DTPDraftOnWeb.Text
-            Else
-                DraftOnWeb = Nothing
+                DraftOnWeb = DTPDraftOnWeb.Value
             End If
             If DTPEPAStatesNotified.Checked Then
-                EPAStatesNotified = Me.DTPEPAStatesNotified.Text
-            Else
-                EPAStatesNotified = Nothing
+                EPAStatesNotified = DTPEPAStatesNotified.Value
             End If
             If DTPFinalOnWeb.Checked Then
-                FinalOnWeb = DTPFinalOnWeb.Text
-            Else
-                FinalOnWeb = Nothing
+                FinalOnWeb = DTPFinalOnWeb.Value
             End If
             If DTPEPANotifiedPermitOnWeb.Checked Then
-                EPANotifiedPermitOnWeb = DTPEPANotifiedPermitOnWeb.Text
-            Else
-                EPANotifiedPermitOnWeb = Nothing
+                EPANotifiedPermitOnWeb = DTPEPANotifiedPermitOnWeb.Value
             End If
             If DTPEffectiveDateofPermit.Checked Then
-                EffectiveDateOnPermit = DTPEffectiveDateofPermit.Text
-            Else
-                EffectiveDateOnPermit = Nothing
+                EffectiveDateOnPermit = DTPEffectiveDateofPermit.Value
             End If
             If DTPExperationDate.Checked Then
-                ExperationDate = DTPExperationDate.Text
+                ExperationDate = DTPExperationDate.Value
             Else
                 ExperationDate = Nothing
             End If
@@ -6109,9 +6069,7 @@ Public Class SSPPApplicationTrackingLog
                 TargetedComments = ""
             End If
             If DTPPNExpires.Checked Then
-                PNExpires = DTPPNExpires.Text
-            Else
-                PNExpires = Nothing
+                PNExpires = DTPPNExpires.Value
             End If
 
             queryList.Add("Update SSPPApplicationTracking set " &
@@ -7181,28 +7139,28 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub dgvInformationRequested_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvInformationRequested.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvInformationRequested.HitTest(e.X, e.Y)
-        Dim temp As String
+        Dim tempString As String
 
         Try
 
             If dgvInformationRequested.RowCount > 0 AndAlso hti.RowIndex <> -1 AndAlso dgvInformationRequested.Columns(1).HeaderText = "Request Key" Then
 
                 txtInformationRequestedKey.Text = dgvInformationRequested(1, hti.RowIndex).Value
-                temp = dgvInformationRequested(2, hti.RowIndex).Value
-                If temp = " " Then
+                tempString = dgvInformationRequested(2, hti.RowIndex).Value
+                If tempString = " " Then
                     DTPInformationRequested.Value = Today
                     DTPInformationRequested.Checked = False
                 Else
-                    DTPInformationRequested.Text = temp
+                    DTPInformationRequested.Value = CDate(tempString)
                     DTPInformationRequested.Checked = True
                 End If
                 txtInformationRequested.Text = dgvInformationRequested(3, hti.RowIndex).Value
-                temp = dgvInformationRequested(4, hti.RowIndex).Value
-                If temp = " " Then
+                tempString = dgvInformationRequested(4, hti.RowIndex).Value
+                If tempString = " " Then
                     DTPInformationReceived.Value = Today
                     DTPInformationReceived.Checked = False
                 Else
-                    DTPInformationReceived.Text = temp
+                    DTPInformationReceived.Value = CDate(tempString)
                     DTPInformationReceived.Checked = True
                 End If
                 txtInformationReceived.Text = dgvInformationRequested(5, hti.RowIndex).Value
