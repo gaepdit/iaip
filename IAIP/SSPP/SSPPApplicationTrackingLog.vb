@@ -3356,58 +3356,94 @@ Public Class SSPPApplicationTrackingLog
             LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
 
             query = "select strAIRSNumber,
-                   strStaffResponsible,
-                   strApplicationType,
-                   strPermitType,
-                   APBUnit,
-                   datFinalizedDate,
-                   strFacilityName,
-                   strFacilityStreet1,
-                   strFacilityCity,
-                   strFacilityZipCode,
-                   strOperationalStatus,
-                   strClass,
-                   strAirProgramCodes,
-                   strSICCode,
-                   strNAICSCode,
-                   strPermitNumber,
-                   strPlantDescription,
-                   strComments as DataComments,
-                   strApplicationNotes,
-                   strStateProgramCodes,
-                   datReceivedDate,
-                   datSentByFacility,
-                   datAssignedToEngineer,
-                   datReassignedToEngineer,
-                   datAcknowledgementLetterSent,
-                   strPublicInvolvement,
-                   datToPMI,
-                   datToPMII,
-                   datReturnedToEngineer,
-                   datPermitIssued,
-                   datApplicationDeadline,
-                   datDraftIssued,
-                   strPAReady,
-                   strPNReady,
-                   datEPAWaived,
-                   datEPAEnds,
-                   datToBranchCheif,
-                   datToDirector,
-                   datPAExpires,
-                   datPNExpires,
-                   strStateprogramcodes,
-                   strTrackedRules,
-                   STRSIGNIFICANTCOMMENTS,
-                   strPAPosted,
-                   strPNPosted,
-                   FacilityOwnershipTypeCode,
-                   NspsFeeExempt
-            from SSPPApplicationMaster m
-                left join SSPPApplicationTracking t
-                on m.strApplicationNumber = t.strApplicationNumber
-                left join SSPPApplicationData d
-                on m.strApplicationNumber = d.strApplicationNumber
-            where m.strApplicationNumber = @appnumber"
+                       strStaffResponsible,
+                       strApplicationType,
+                       strPermitType,
+                       APBUnit,
+                       datFinalizedDate,
+                       strFacilityName,
+                       strFacilityStreet1,
+                       strFacilityCity,
+                       strFacilityZipCode,
+                       strOperationalStatus,
+                       strClass,
+                       strAirProgramCodes,
+                       strSICCode,
+                       strNAICSCode,
+                       strPermitNumber,
+                       strPlantDescription,
+                       strComments                                      as DataComments,
+                       strApplicationNotes,
+                       strStateProgramCodes,
+                       datReceivedDate,
+                       datSentByFacility,
+                       datAssignedToEngineer,
+                       datReassignedToEngineer,
+                       datAcknowledgementLetterSent,
+                       strPublicInvolvement,
+                       datToPMI,
+                       datToPMII,
+                       datReturnedToEngineer,
+                       datPermitIssued,
+                       datApplicationDeadline,
+                       datDraftIssued,
+                       strPAReady,
+                       strPNReady,
+                       datEPAWaived,
+                       datEPAEnds,
+                       datToBranchCheif,
+                       datToDirector,
+                       datPAExpires,
+                       datPNExpires,
+                       strStateprogramcodes,
+                       strTrackedRules,
+                       STRSIGNIFICANTCOMMENTS,
+                       strPAPosted,
+                       strPNPosted,
+                       FacilityOwnershipTypeCode,
+                       NspsFeeExempt,
+                       CASE
+                           WHEN t.DATPERMITISSUED IS NOT NULL THEN 'Permit Issued'
+                           WHEN t.DATTODIRECTOR IS NOT NULL AND (t.DATDRAFTISSUED IS NULL OR t.DATDRAFTISSUED < t.DATTODIRECTOR)
+                               THEN 'To Director''s Office'
+                           WHEN t.DATTOBRANCHCHEIF IS NOT NULL AND t.DATTODIRECTOR IS NULL AND
+                                (t.DATDRAFTISSUED IS NULL OR t.DATDRAFTISSUED < t.DATTOBRANCHCHEIF) THEN 'To Branch Chief'
+                           WHEN t.DATEPAENDS IS NOT NULL THEN 'EPA 45-day Review'
+                           WHEN t.DATPNEXPIRES IS NOT NULL AND t.DATPNEXPIRES < GETDATE() THEN 'Public Notice Expired'
+                           WHEN t.DATPNEXPIRES IS NOT NULL AND t.DATPNEXPIRES >= GETDATE() THEN 'Public Notice'
+                           WHEN t.DATDRAFTISSUED IS NOT NULL AND t.DATPNEXPIRES IS NULL THEN 'Draft Issued'
+                           WHEN t.DATTOPMII IS NOT NULL THEN 'To Program Manager'
+                           WHEN t.DATTOPMI IS NOT NULL THEN 'To Unit Manager'
+                           WHEN t.DATREVIEWSUBMITTED IS NOT NULL AND (d.STRSSCPUNIT <> '0' OR d.STRISMPUNIT <> '0')
+                               THEN 'Internal Review'
+                           WHEN m.STRSTAFFRESPONSIBLE IS NULL OR m.STRSTAFFRESPONSIBLE = '0' THEN '00 - Received'
+                           ELSE 'At Staff'
+                       END                                              AS [Application Status],
+                       convert(date,
+                               CASE
+                                   WHEN t.DATPERMITISSUED IS NOT NULL THEN t.DATPERMITISSUED
+                                   WHEN t.DATTODIRECTOR IS NOT NULL AND (t.DATDRAFTISSUED IS NULL OR t.DATDRAFTISSUED < t.DATTODIRECTOR)
+                                       THEN t.DATTODIRECTOR
+                                   WHEN t.DATTOBRANCHCHEIF IS NOT NULL AND t.DATTODIRECTOR IS NULL AND
+                                        (t.DATDRAFTISSUED IS NULL OR t.DATDRAFTISSUED < t.DATTOBRANCHCHEIF) THEN t.DATTOBRANCHCHEIF
+                                   WHEN t.DATEPAENDS IS NOT NULL THEN t.DATEPAENDS
+                                   WHEN t.DATPNEXPIRES IS NOT NULL AND t.DATPNEXPIRES < GETDATE() THEN t.DATPNEXPIRES
+                                   WHEN t.DATPNEXPIRES IS NOT NULL AND t.DATPNEXPIRES >= GETDATE() THEN t.DATPNEXPIRES
+                                   WHEN t.DATDRAFTISSUED IS NOT NULL AND t.DATPNEXPIRES IS NULL THEN t.DATDRAFTISSUED
+                                   WHEN t.DATTOPMII IS NOT NULL THEN t.DATTOPMII
+                                   WHEN t.DATTOPMI IS NOT NULL THEN t.DATTOPMI
+                                   WHEN t.DATREVIEWSUBMITTED IS NOT NULL AND (d.STRSSCPUNIT <> '0' OR d.STRISMPUNIT <> '0')
+                                       THEN t.DATREVIEWSUBMITTED
+                                   WHEN m.STRSTAFFRESPONSIBLE IS NULL OR m.STRSTAFFRESPONSIBLE = '0' THEN t.DATRECEIVEDDATE
+                                   ELSE t.DATASSIGNEDTOENGINEER
+                               END)                                     AS [Status Date],
+                       convert(bit, substring(d.STRTRACKEDRULES, 7, 1)) AS [Expedited Permit]
+                from SSPPApplicationMaster m
+                    left join SSPPApplicationTracking t
+                    on m.strApplicationNumber = t.strApplicationNumber
+                    left join SSPPApplicationData d
+                    on m.strApplicationNumber = d.strApplicationNumber
+                where m.strApplicationNumber = @appnumber"
 
             dr = DB.GetDataRow(query, parameter)
 
@@ -3898,6 +3934,15 @@ Public Class SSPPApplicationTrackingLog
                 Else
                     lblPNReady.Text = dr.Item("strPNPosted")
                 End If
+
+                pnlStatusPanel.Visible = True
+                Dim colorPair As ColorPair = GetStatusPanelColor(dr.Item("Expedited Permit"), dr.Item("Status Date"))
+                pnlStatusPanel.BackColor = colorPair.BackgroundColor
+                pnlStatusPanel.ForeColor = colorPair.ForegroundColor
+                lblExpeditedLabel.Visible = CBool(dr.Item("Expedited Permit"))
+                lblStatusDateLabel.Text = CDate(dr.Item("Status Date")).ToString(AppGlobals.DateFormat)
+                lblStatusLabel.Text = dr.Item("Application Status").ToString()
+
             End If
 
             If TCApplicationTrackingLog.TabPages.Contains(TPReviews) Then
@@ -4080,6 +4125,32 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, "App #: " & AppNumber & "; temp: " & temp, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
+    Private Shared Function GetStatusPanelColor(expedited As Boolean, statusDate As Date) As ColorPair
+        If expedited Then
+            Select Case DateDiff(DateInterval.Day, statusDate, Today)
+                Case > 60, < 0
+                    Return IaipColors.ErrorColorPair
+                Case > 30
+                    Return IaipColors.WarningColorPair
+                Case > 15
+                    Return IaipColors.InfoColorPair
+                Case Else
+                    Return IaipColors.SuccessColorPair
+            End Select
+        End If
+
+        Select Case DateDiff(DateInterval.Day, statusDate, Today)
+            Case > 60, < 0
+                Return IaipColors.ErrorColorPair
+            Case > 60
+                Return IaipColors.WarningColorPair
+            Case > 30
+                Return IaipColors.InfoColorPair
+            Case Else
+                Return IaipColors.SuccessColorPair
+        End Select
+    End Function
 
     Private Sub ReLoadBasicFacilityInfo()
         ' TODO is this the same as LoadBasicFacilityData?

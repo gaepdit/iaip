@@ -9,6 +9,12 @@
             Return Color.Pink
         End Get
     End Property
+    Public Shared ReadOnly Property ErrorColorPair As ColorPair
+        Get
+            Return New ColorPair With {.ForegroundColor = ErrorForeColor, .BackgroundColor = ErrorBackColor}
+        End Get
+    End Property
+
     Public Shared ReadOnly Property WarningForeColor As Color
         Get
             Return ColorTranslator.FromHtml("#6A3611")
@@ -19,6 +25,12 @@
             Return Color.Bisque
         End Get
     End Property
+    Public Shared ReadOnly Property WarningColorPair As ColorPair
+        Get
+            Return New ColorPair With {.ForegroundColor = WarningForeColor, .BackgroundColor = WarningBackColor}
+        End Get
+    End Property
+
     Public Shared ReadOnly Property SuccessForeColor As Color
         Get
             Return ColorTranslator.FromHtml("#004400")
@@ -29,6 +41,12 @@
             Return Color.LightGreen
         End Get
     End Property
+    Public Shared ReadOnly Property SuccessColorPair As ColorPair
+        Get
+            Return New ColorPair With {.ForegroundColor = SuccessForeColor, .BackgroundColor = SuccessBackColor}
+        End Get
+    End Property
+
     Public Shared ReadOnly Property InfoForeColor As Color
         Get
             Return SystemColors.InfoText
@@ -37,6 +55,11 @@
     Public Shared ReadOnly Property InfoBackColor As Color
         Get
             Return SystemColors.Info
+        End Get
+    End Property
+    Public Shared ReadOnly Property InfoColorPair As ColorPair
+        Get
+            Return New ColorPair With {.ForegroundColor = InfoForeColor, .BackgroundColor = InfoBackColor}
         End Get
     End Property
 
@@ -63,4 +86,9 @@
             Return SystemColors.HotTrack
         End Get
     End Property
+End Class
+
+Public Class ColorPair
+    Public Property ForegroundColor As Color
+    Public Property BackgroundColor As Color
 End Class
