@@ -61,7 +61,20 @@ Public Class IAIPFacilitySummary
         InitializeGridEvents()
         DisableFacilityTools()
 
+        LoadTempNotesData()
+
         MyBase.OnLoad(e)
+    End Sub
+
+    Private Notes As New List(Of FacilityNote)
+
+    Private Sub LoadTempNotesData()
+        Notes = GetFacilityNotes(AirsNumber)
+        dgvFacilityNotes.DataSource = Notes
+        dgvFacilityNotes.Columns(0).Visible = False
+        dgvFacilityNotes.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+        dgvFacilityNotes.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
+        dgvFacilityNotes.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None
     End Sub
 
     Private Sub LoadPermissions()
