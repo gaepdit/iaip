@@ -6161,9 +6161,9 @@ Partial Class SSPPApplicationTrackingLog
         Me.pnlStatusPanel.Controls.Add(Me.lblStatusLabel)
         Me.pnlStatusPanel.Controls.Add(Me.Label8)
         Me.pnlStatusPanel.Controls.Add(Me.Label4)
-        Me.pnlStatusPanel.Location = New System.Drawing.Point(220, 3)
+        Me.pnlStatusPanel.Location = New System.Drawing.Point(214, 3)
         Me.pnlStatusPanel.Name = "pnlStatusPanel"
-        Me.pnlStatusPanel.Size = New System.Drawing.Size(139, 97)
+        Me.pnlStatusPanel.Size = New System.Drawing.Size(145, 97)
         Me.pnlStatusPanel.TabIndex = 336
         Me.pnlStatusPanel.Visible = False
         '
@@ -6194,7 +6194,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.lblStatusLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStatusLabel.Location = New System.Drawing.Point(3, 16)
         Me.lblStatusLabel.Name = "lblStatusLabel"
-        Me.lblStatusLabel.Size = New System.Drawing.Size(133, 26)
+        Me.lblStatusLabel.Size = New System.Drawing.Size(139, 26)
         Me.lblStatusLabel.TabIndex = 263
         Me.lblStatusLabel.Text = "Public Notice Expired"
         '
@@ -6242,7 +6242,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnFetchNewAppNumber.AutoSize = True
         Me.btnFetchNewAppNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnFetchNewAppNumber.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
-        Me.btnFetchNewAppNumber.Location = New System.Drawing.Point(199, 3)
+        Me.btnFetchNewAppNumber.Location = New System.Drawing.Point(192, 4)
         Me.btnFetchNewAppNumber.Name = "btnFetchNewAppNumber"
         Me.btnFetchNewAppNumber.Size = New System.Drawing.Size(22, 22)
         Me.btnFetchNewAppNumber.TabIndex = 0

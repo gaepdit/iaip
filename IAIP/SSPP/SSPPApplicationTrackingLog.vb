@@ -4136,7 +4136,7 @@ Public Class SSPPApplicationTrackingLog
                 Case > 15
                     Return IaipColors.InfoColorPair
                 Case Else
-                    Return IaipColors.SuccessColorPair
+                    Return IaipColors.ControlColorPair
             End Select
         End If
 
@@ -4148,7 +4148,7 @@ Public Class SSPPApplicationTrackingLog
             Case > 30
                 Return IaipColors.InfoColorPair
             Case Else
-                Return IaipColors.SuccessColorPair
+                Return IaipColors.ControlColorPair
         End Select
     End Function
 

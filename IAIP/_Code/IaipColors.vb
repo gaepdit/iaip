@@ -1,4 +1,10 @@
 ﻿Public NotInheritable Class IaipColors
+    Public Shared ReadOnly Property ControlColorPair As ColorPair
+        Get
+            Return New ColorPair With {.ForegroundColor = SystemColors.ControlText, .BackgroundColor = SystemColors.Control}
+        End Get
+    End Property
+
     Public Shared ReadOnly Property ErrorForeColor As Color
         Get
             Return ColorTranslator.FromHtml("#800000")
