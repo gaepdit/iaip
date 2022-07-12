@@ -9,7 +9,8 @@ Public Module FacilityNotesData
                 .FacilityId = airs,
                 .Dated = Today.AddDays(-1),
                 .By = Author2,
-                .Note = ShortText
+                .Note = ShortText,
+                .Archived = True
             },
             New FacilityNote() With {
                 .FacilityId = airs,
