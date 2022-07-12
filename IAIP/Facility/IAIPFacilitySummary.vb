@@ -1,5 +1,6 @@
 Imports System.Collections.Generic
 Imports System.ComponentModel
+Imports System.Linq
 Imports EpdIt
 Imports Iaip.Apb
 Imports Iaip.Apb.ApbFacilityId
@@ -62,12 +63,6 @@ Public Class IAIPFacilitySummary
         DisableFacilityTools()
 
         MyBase.OnLoad(e)
-    End Sub
-
-    Private Sub LoadFacilityNotes()
-        dgvFacilityNotes.DataSource = GetFacilityNotes(AirsNumber)
-        dgvFacilityNotes.Columns("FacilityId").Visible = False
-        dgvFacilityNotes.Columns("Archived").Visible = False
     End Sub
 
     Private Sub LoadPermissions()
@@ -201,7 +196,6 @@ Public Class IAIPFacilitySummary
         FisDateDisplay.Text = ""
         EpaFacilityIdDisplay.Text = ""
         DataUpdateDateDisplay.Text = ""
-
     End Sub
 
     Private Sub LoadBasicFacilityAndHeaderData()
@@ -216,9 +210,6 @@ Public Class IAIPFacilitySummary
             ThisFacility.RetrieveHeaderData()
             DisplayBasicFacilityData()
             DisplayHeaderData()
-
-            LoadFacilityNotes()
-
         End If
     End Sub
 
@@ -980,6 +971,8 @@ Public Class IAIPFacilitySummary
                 LoadPermittingData()
             Case FSTesting.Name
                 LoadTestingData()
+            Case FSNotes.Name
+                LoadFacilityNotes()
         End Select
 
         Cursor = Cursors.Default
@@ -1023,6 +1016,106 @@ Public Class IAIPFacilitySummary
         Finally
             MyBase.Dispose(disposing)
         End Try
+    End Sub
+
+    ' Facility Notes
+
+    Dim FacilityNotes As List(Of FacilityNote)
+
+    Private Sub LoadFacilityNotes()
+        FacilityNotes = GetFacilityNotes(AirsNumber)
+        DisplayFacilityNotes()
+    End Sub
+
+    Private Sub DisplayFacilityNotes()
+        If chkShowArchivedNotes.Checked Then
+            dgvFacilityNotes.DataSource = FacilityNotes
+            dgvFacilityNotes.Columns("Archived").Visible = True
+        Else
+            dgvFacilityNotes.DataSource = FacilityNotes.Where(Function(n) Not n.Archived).ToList()
+            dgvFacilityNotes.Columns("Archived").Visible = False
+        End If
+
+        dgvFacilityNotes.Columns("Id").Visible = False
+        dgvFacilityNotes.Columns("FacilityId").Visible = False
+
+        dgvFacilityNotes.SelectNone()
+
+        CloseEditNotePanel()
+    End Sub
+
+    Private Sub chkShowArchivedNotes_CheckedChanged(sender As Object, e As EventArgs) Handles chkShowArchivedNotes.CheckedChanged
+        DisplayFacilityNotes()
+    End Sub
+
+    Private Sub btnCloseNoteView_Click(sender As Object, e As EventArgs) Handles btnCloseNoteView.Click
+        CloseEditNotePanel()
+    End Sub
+
+    Private Sub CloseEditNotePanel()
+        pnlEditNote.Visible = False
+        pnlAddNote.Visible = True
+        dgvFacilityNotes.SelectNone()
+    End Sub
+
+    Private Sub btnSaveNote_Click(sender As Object, e As EventArgs) Handles btnSaveNote.Click
+        If txtNewNote.Text.Length = 0 Then
+            MessageBox.Show("Note cannot be empty.", "No data saved")
+            Return
+        End If
+
+        SaveFacilityNote(AirsNumber, txtNewNote.Text)
+        txtNewNote.Clear()
+        LoadFacilityNotes()
+    End Sub
+
+    Private Sub btnArchiveNote_Click(sender As Object, e As EventArgs) Handles btnArchiveNote.Click
+        ArchiveFacilityNote(SelectedFacilityNoteId, btnArchiveNote.Text)
+        CloseEditNotePanel()
+        LoadFacilityNotes()
+    End Sub
+
+    Private Sub btnDeleteNote_Click(sender As Object, e As EventArgs) Handles btnDeleteNote.Click
+        DeleteFacilityNote(SelectedFacilityNoteId)
+        CloseEditNotePanel()
+        LoadFacilityNotes()
+    End Sub
+
+    Private Sub dgvFacilityNotes_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvFacilityNotes.CellEnter
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvFacilityNotes.RowCount AndAlso dgvFacilityNotes.SelectedRows.Count = 1 Then
+            DisplaySelectedFacilityNote(dgvFacilityNotes.Rows(e.RowIndex).Cells("Id").Value)
+        End If
+    End Sub
+
+    Private SelectedFacilityNoteId As Guid
+    Private Sub DisplaySelectedFacilityNote(id As Guid)
+        Dim selectedNote As FacilityNote = FacilityNotes.SingleOrDefault(Function(n) n.Id = id)
+
+        If selectedNote Is Nothing Then
+            CloseEditNotePanel()
+            Return
+        End If
+
+        Dim intro As String
+
+        If selectedNote.Archived Then
+            intro = "Archived note"
+            btnArchiveNote.Text = "Unarchive"
+        Else
+            intro = "Note"
+            btnArchiveNote.Text = "Archive"
+        End If
+
+        lblNoteLabel.Text = $"{intro} from {selectedNote.By.FullName} on {selectedNote.Dated.ToString(DateFormatReadable)}"
+        txtDisplayNote.Text = selectedNote.Note
+        SelectedFacilityNoteId = id
+
+        OpenEditNotePanel()
+    End Sub
+
+    Private Sub OpenEditNotePanel()
+        pnlEditNote.Visible = True
+        pnlAddNote.Visible = False
     End Sub
 
 End Class

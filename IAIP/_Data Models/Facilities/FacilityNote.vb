@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 
 Public Class FacilityNote
+    Public Property Id As Guid
     <DisplayName("AIRS #")>
     Public Property FacilityId As Apb.ApbFacilityId
     Public Property Dated As Date
