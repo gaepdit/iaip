@@ -1,62 +1,81 @@
 ﻿Imports System.Collections.Generic
+Imports System.Data.SqlClient
 
 Public Module FacilityNotes
 
     Public Function GetFacilityNotes(airs As Apb.ApbFacilityId) As List(Of FacilityNote)
+        Dim query As String = "select n.Id,
+                   n.FacilityId,
+                   n.Note,
+                   n.DateEntered,
+                   n.AuthorId,
+                   n.Archived,
+                   u.STRLASTNAME  as LastName,
+                   u.STRFIRSTNAME as FirstName
+            from FacilityNotes n
+                inner join EPDUSERPROFILES u
+                on n.AuthorId = u.NUMUSERID
+            where FacilityId = @airs"
 
-        Return New List(Of FacilityNote) From {
-            New FacilityNote() With {
-                .Id = Guid.NewGuid,
-                .FacilityId = airs,
-                .Dated = Today.AddDays(-1),
-                .By = Author2,
-                .Note = ShortText,
-                .Archived = True
-            },
-            New FacilityNote() With {
-                .Id = Guid.NewGuid,
-                .FacilityId = airs,
-                .Dated = Today.AddDays(-3),
-                .By = Author1,
-                .Note = LongText
-            }
-        }
+        Dim param As New SqlParameter("@airs", airs.DbFormattedString)
 
+        Dim dt As DataTable = DB.GetDataTable(query, param)
+
+        Dim result As New List(Of FacilityNote)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+            For Each row As DataRow In dt.Rows
+                Dim author As New Staff With {
+                    .FirstName = row.Item("FirstName"),
+                    .LastName = row.Item("LastName"),
+                    .UserId = row.Item("AuthorId")
+                }
+
+                result.Add(New FacilityNote() With {
+                    .Archived = row.Item("Archived"),
+                    .By = author,
+                    .Dated = row.Item("DateEntered"),
+                    .FacilityId = New Apb.ApbFacilityId(row.Item("FacilityId")),
+                    .Id = row.Item("Id"),
+                    .Note = row.Item("Note")
+                })
+            Next
+        End If
+
+        Return result
     End Function
 
-    Private Property Author1 As New Staff() With {
-        .FirstName = "Douglas",
-        .LastName = "Waldron",
-        .UserId = 345
-    }
+    Public Function SaveFacilityNote(airs As Apb.ApbFacilityId, note As String) As Boolean
+        Dim query As String = "insert into FacilityNotes (FacilityId, Note, AuthorId) values (@airs, @note, @authorId)"
 
-    Private Property Author2 As New Staff() With {
-        .FirstName = "Demo",
-        .LastName = "User",
-        .UserId = 1
-    }
+        Dim params As SqlParameter() = {
+            New SqlParameter("@airs", airs.DbFormattedString),
+            New SqlParameter("@note", note),
+            New SqlParameter("@authorId", CurrentUser.UserID)
+        }
 
-    Private Const ShortText As String = "Short bit of text."
-    Private Const LongText As String = "Long bit of text. This text will overflow the typical column width. 
+        Return DB.RunCommand(query, params)
+    End Function
 
-Long bit of text. This text will overflow the typical column width. Long bit of text. This text will overflow the 
+    Public Function ArchiveFacilityNote(id As Guid, action As String) As Boolean
+        Dim toArchive As Boolean = action = "Archive"
 
-typical column width. Long bit of text. This text will overflow the typical column width. Long bit of text. This 
+        Dim query As String = "update FacilityNotes set Archived = @archive, DateModified = sysdatetimeoffset(), 
+            ModifiedBy = @authorId where Id = @id"
 
-text will overflow the typical column width. Long bit of text. This text will overflow the typical column width."
+        Dim params As SqlParameter() = {
+            New SqlParameter("@archive", toArchive),
+            New SqlParameter("@authorId", CurrentUser.UserID),
+            New SqlParameter("@id", id)
+        }
 
-    Public Sub SaveFacilityNote(airs As Apb.ApbFacilityId, note As String)
-    End Sub
+        Return DB.RunCommand(query, params)
+    End Function
 
-    Public Sub ArchiveFacilityNote(id As Guid, action As String)
-        If action = "Archive" Then
-
-        Else
-
-        End If
-    End Sub
-
-    Public Sub DeleteFacilityNote(id As Guid)
-    End Sub
+    Public Function DeleteFacilityNote(id As Guid) As Boolean
+        Dim query As String = "delete from FacilityNotes where Id = @id"
+        Dim param As New SqlParameter("@id", id)
+        Return DB.RunCommand(query, param)
+    End Function
 
 End Module
