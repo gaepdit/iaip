@@ -11,6 +11,14 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.3.1 <span>(2022-07-13)</span>
+
+This update:
+
+* Attempts to prevent invalid public notice expiration date.
+* Fixes a bug in the permit application web publisher tool.
+* Adds instructions in the PA/PN document for making an appointment.
+
 ## Version 6.3.0 <span>(2022-06-30)</span>
 
 I made it a bit easier to work with expedited permits:
