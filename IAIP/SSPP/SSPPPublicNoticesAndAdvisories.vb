@@ -153,7 +153,7 @@ Public Class SSPPPublicNoticesAndAdvisories
         End If
 
         ' Public Advisories section footer
-        rtfDocument.AppendLine("\pard\qj {\b ADDITIONAL INFORMATION:} The permit application, additional information, and EPD generated documents are available for review at the ")
+        rtfDocument.AppendLine("\pard\qj {\b ADDITIONAL INFORMATION:} The permit application, additional information, and EPD-generated documents are available for review at the ")
         rtfDocument.AppendLine("office of the Air Protection Branch, 4244 International Parkway, Suite 120, Atlanta, Georgia 30354 by appointment only at this time. Permit applications ")
         rtfDocument.AppendLine("listed above can be provided in electronic form upon request.\par")
         rtfDocument.AppendLine("\par")
@@ -293,6 +293,10 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("The direct link to the draft Title V permits and amendments is {\ul https://epd.georgia.gov/draft-title-v-permitsamendments-other-draft-permits}. Also available ")
         rtfDocument.AppendLine("at this Internet site is a copy of the public notice, as it will appear in the legal organ of the county where the facility is located.\par")
         rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("Due to the COVID-19 pandemic, all visits to EPD’s offices are by appointment only. To set an appointment, email askepd@dnr.ga.gov with ")
+        rtfDocument.AppendLine("your name, email, and phone number, and an associate will reach out to you. Copies of the draft permit, explanatory narrative, and associated ")
+        rtfDocument.AppendLine("permit application may also be requested by contacting Stephen Damaske, stephen.damaske@dnr.ga.gov.\par")
+        rtfDocument.AppendLine("\par")
         rtfDocument.AppendLine("Persons wishing to comment on a draft Initial Title V Operating Permit, Title V Significant Modification, Title V Operating Permit Renewal, or other Title V ")
         rtfDocument.AppendLine("Permit proceedings are required to submit their comments in writing. To comment, send written comments via email to epdcomments@dnr.ga.gov (include ")
         rtfDocument.AppendLine("\ldblquote Air permit application\rdblquote  in the subject line) or by mail to Air Permit Manager, 4244 International Parkway, Suite 120, Atlanta, Georgia 30354.\par")
@@ -392,6 +396,10 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtfDocument.AppendLine("Copies of the draft permits or permit amendments, narratives, and (in most cases) permit applications are also available at our Internet site ")
         rtfDocument.AppendLine("{\ul https://epd.georgia.gov}. ")
         rtfDocument.AppendLine("The direct link to the draft permits and amendments is {\ul https://epd.georgia.gov/draft-title-v-permitsamendments-other-draft-permits}.\par")
+        rtfDocument.AppendLine("\par")
+        rtfDocument.AppendLine("Due to the COVID-19 pandemic, all visits to EPD’s offices are by appointment only. To set an appointment, email askepd@dnr.ga.gov with ")
+        rtfDocument.AppendLine("your name, email, and phone number, and an associate will reach out to you. Copies of the draft permit, explanatory narrative, and associated ")
+        rtfDocument.AppendLine("permit application may also be requested by contacting Stephen Damaske, stephen.damaske@dnr.ga.gov.\par")
         rtfDocument.AppendLine("\par")
         rtfDocument.AppendLine("Persons wishing to comment on a draft Synthetic Minor Permit, State Implementation Plan (SIP) Construction and Operating Permit, or other SIP ")
         rtfDocument.AppendLine("Permit proceedings are required to submit their comments in writing. To comment, send written comments via email to epdcomments@dnr.ga.gov (include ")
