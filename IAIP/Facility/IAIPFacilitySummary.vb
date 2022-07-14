@@ -972,7 +972,7 @@ Public Class IAIPFacilitySummary
             Case FSTesting.Name
                 LoadTestingData()
             Case FSNotes.Name
-                LoadFacilityNotes()
+                InitializeFacilityNotes()
         End Select
 
         Cursor = Cursors.Default
@@ -1022,6 +1022,10 @@ Public Class IAIPFacilitySummary
 
     Dim FacilityNotes As List(Of FacilityNote)
 
+    Private Sub InitializeFacilityNotes()
+        If FacilityNotes Is Nothing OrElse FacilityNotes.Count = 0 Then LoadFacilityNotes()
+    End Sub
+
     Private Sub LoadFacilityNotes()
         FacilityNotes = GetFacilityNotes(AirsNumber)
         DisplayFacilityNotes()
@@ -1064,19 +1068,29 @@ Public Class IAIPFacilitySummary
             Return
         End If
 
-        SaveFacilityNote(AirsNumber, txtNewNote.Text)
-        txtNewNote.Clear()
+        If SaveFacilityNote(AirsNumber, txtNewNote.Text) Then
+            txtNewNote.Clear()
+        Else
+            MessageBox.Show("There was an error saving the note. Please try again.", "Error")
+        End If
+
         LoadFacilityNotes()
     End Sub
 
     Private Sub btnArchiveNote_Click(sender As Object, e As EventArgs) Handles btnArchiveNote.Click
-        ArchiveFacilityNote(SelectedFacilityNoteId, btnArchiveNote.Text)
+        If Not ArchiveFacilityNote(SelectedFacilityNoteId, btnArchiveNote.Text) Then
+            MessageBox.Show("There was an error archiving the note. Please try again.", "Error")
+        End If
+
         CloseEditNotePanel()
         LoadFacilityNotes()
     End Sub
 
     Private Sub btnDeleteNote_Click(sender As Object, e As EventArgs) Handles btnDeleteNote.Click
-        DeleteFacilityNote(SelectedFacilityNoteId)
+        If Not DeleteFacilityNote(SelectedFacilityNoteId) Then
+            MessageBox.Show("There was an error deleting the note. Please try again.", "Error")
+        End If
+
         CloseEditNotePanel()
         LoadFacilityNotes()
     End Sub
