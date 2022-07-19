@@ -120,6 +120,7 @@ Public Module ExcelExport
             ' Create Excel Workbook 
             Using workbook As New XLWorkbook()
                 Dim ws As IXLWorksheet = workbook.AddWorksheet(dataTable)
+                ws.Style.Alignment.SetVertical(XLAlignmentVerticalValues.Top)
                 ws.Columns().AdjustToContents(2, 8.0R, 80.0R)
 
                 For Each col As DataGridViewColumn In dataGridView.Columns
