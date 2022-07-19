@@ -1042,6 +1042,7 @@ Public Class IAIPFacilitySummary
 
         dgvFacilityNotes.Columns("Id").Visible = False
         dgvFacilityNotes.Columns("FacilityId").Visible = False
+        dgvFacilityNotes.Columns("FacilityId").Tag = "NotHidden"
 
         dgvFacilityNotes.SelectNone()
 

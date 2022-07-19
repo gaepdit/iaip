@@ -122,6 +122,12 @@ Public Module ExcelExport
                 Dim ws As IXLWorksheet = workbook.AddWorksheet(dataTable)
                 ws.Columns().AdjustToContents(2, 8.0R, 80.0R)
 
+                For Each col As DataGridViewColumn In dataGridView.Columns
+                    If Not col.Visible AndAlso (col.Tag Is Nothing OrElse col.Tag.ToString <> "NotHidden") Then
+                        ws.Column(col.Index + 1).Hide()
+                    End If
+                Next
+
                 Try
                     workbook.SaveAs(filePath)
                 Catch ex As IOException
