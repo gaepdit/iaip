@@ -104,8 +104,8 @@ Module SscpFormHelpers
     Public Function OpenFormEnforcement(airsNumber As ApbFacilityId) As SscpEnforcement
         If DAL.AirsNumberExists(airsNumber) Then
             Dim parameters As New Dictionary(Of FormParameter, String)
-            parameters(FormParameter.AirsNumber) = airsNumber.ToString
-            Return CType(OpenMultiForm(SscpEnforcement, -Convert.ToInt32(airsNumber.ToString), parameters), SscpEnforcement)
+            parameters(FormParameter.AirsNumber) = airsNumber.ShortString
+            Return CType(OpenMultiForm(SscpEnforcement, -Convert.ToInt32(airsNumber.ShortString), parameters), SscpEnforcement)
         Else
             MessageBox.Show("AIRS number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
@@ -115,9 +115,9 @@ Module SscpFormHelpers
     Public Function OpenFormEnforcement(airsNumber As ApbFacilityId, trackingNumber As Integer) As SscpEnforcement
         If DAL.AirsNumberExists(airsNumber) Then
             Dim parameters As New Dictionary(Of FormParameter, String)
-            parameters(FormParameter.AirsNumber) = airsNumber.ToString()
+            parameters(FormParameter.AirsNumber) = airsNumber.ShortString
             parameters(FormParameter.TrackingNumber) = trackingNumber.ToString()
-            Return CType(OpenMultiForm(SscpEnforcement, -Convert.ToInt32(airsNumber.ToString), parameters), SscpEnforcement)
+            Return CType(OpenMultiForm(SscpEnforcement, -Convert.ToInt32(airsNumber.ShortString), parameters), SscpEnforcement)
         Else
             MessageBox.Show("AIRS number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
