@@ -3417,7 +3417,8 @@ Public Class SSPPApplicationTrackingLog
                            WHEN t.DATREVIEWSUBMITTED IS NOT NULL AND (d.STRSSCPUNIT <> '0' OR d.STRISMPUNIT <> '0')
                                THEN 'Internal Review'
                            WHEN m.STRSTAFFRESPONSIBLE IS NULL OR m.STRSTAFFRESPONSIBLE = '0' THEN '00 - Received'
-                           ELSE 'At Staff'
+                           WHEN t.DATASSIGNEDTOENGINEER IS NOT NULL THEN 'At Staff'
+                           else 'New'
                        END                                              AS [Application Status],
                        convert(date,
                                CASE
@@ -3435,7 +3436,8 @@ Public Class SSPPApplicationTrackingLog
                                    WHEN t.DATREVIEWSUBMITTED IS NOT NULL AND (d.STRSSCPUNIT <> '0' OR d.STRISMPUNIT <> '0')
                                        THEN t.DATREVIEWSUBMITTED
                                    WHEN m.STRSTAFFRESPONSIBLE IS NULL OR m.STRSTAFFRESPONSIBLE = '0' THEN t.DATRECEIVEDDATE
-                                   ELSE t.DATASSIGNEDTOENGINEER
+                                   WHEN t.DATASSIGNEDTOENGINEER IS NOT NULL THEN t.DATASSIGNEDTOENGINEER
+                                   ELSE m.DATMODIFINGDATE
                                END)                                     AS [Status Date],
                        convert(bit, substring(d.STRTRACKEDRULES, 7, 1)) AS [Expedited Permit]
                 from SSPPApplicationMaster m
