@@ -230,6 +230,8 @@ Friend Class IaipDataGridView
     ' Data Source
 
     Private Sub IaipDataGridView_DataSourceChanged(sender As Object, e As EventArgs) Handles MyBase.DataSourceChanged
+        sorters.Clear()
+
         If DataSource Is Nothing Then
             AddBreadcrumb("IaipDataGridView: datasource removed", "Name", Name, Me)
             RemoveExcelExportButton()
