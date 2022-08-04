@@ -73,6 +73,9 @@ Public Class IAIPFacilitySummary
 
         ' Edit location/header data
         EditFacilityLocationButton.Visible = CurrentUser.HasPermission(UserCan.EditFacilityAddress)
+
+        ' Delete Facility notes
+        btnDeleteNote.Visible = CurrentUser.HasPermission(UserCan.DeleteFacilityNote)
     End Sub
 
     Private Sub InitializeDataTables()
@@ -1088,6 +1091,8 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub btnDeleteNote_Click(sender As Object, e As EventArgs) Handles btnDeleteNote.Click
+        If Not CurrentUser.HasPermission(UserCan.DeleteFacilityNote) Then Return
+
         If Not DeleteFacilityNote(SelectedFacilityNoteId) Then
             MessageBox.Show("There was an error deleting the note. Please try again.", "Error")
         End If

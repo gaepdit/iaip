@@ -120,6 +120,11 @@
                 Return HasRole({28, 29, 121, 19}) OrElse
                     (HasRoleType(RoleType.UnitManager) AndAlso UnitId = 30) ' SSCP Air Toxics Unit Manager
 
+            Case UserCan.DeleteFacilityNote
+                ' ISMP Program Manager, SSCP Program Manager, District Liaison, SSPP Program Manager,
+                ' SSPP Administrative, Branch Chief, SSCP Unit Manager, SSPP Unit Manager
+                Return HasRole({2, 19, 27, 28, 29, 102, 114, 121})
+
             ' === User management caps
             Case UserCan.EditAllUsers
                 ' Branch Chief, APB Admin, all APB program managers
@@ -218,6 +223,7 @@ Public Enum UserCan
     EditAnnualFeesDeposits
     AccessEmissionsInventory
     AccessGecoUserManagement
+    DeleteFacilityNote
 End Enum
 
 Public Enum RoleType
