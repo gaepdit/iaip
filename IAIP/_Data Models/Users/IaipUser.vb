@@ -156,11 +156,16 @@
 
             Case UserCan.UploadPermitFile
                 ' SSPP Program Manager, SSPP Unit Manager, SSPP Administrative, Branch Chief
-                Return HasRole({29, 28, 121, 102})
+                Return HasRole({28, 121, 29, 102})
 
             Case UserCan.DeletePermitFile
                 ' SSPP Program Manager, SSPP Administrative, Web Publisher
                 Return HasRole({28, 29, 120})
+
+            ' === Application Fees
+            Case UserCan.VoidUnpaidApplicationFeeInvoices
+                ' All Finance staff, SSPP Program Manager, SSPP Unit Manager
+                Return HasRole({123, 124, 125, 28, 121})
 
             ' === Annual Fees
             Case UserCan.ManageAnnualFees
@@ -218,6 +223,7 @@ Public Enum UserCan
     EditAnnualFeesDeposits
     AccessEmissionsInventory
     AccessGecoUserManagement
+    VoidUnpaidApplicationFeeInvoices
 End Enum
 
 Public Enum RoleType

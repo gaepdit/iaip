@@ -105,7 +105,7 @@ Public Class FinInvoiceView
     End Sub
 
     Private Sub SetPermissions()
-        If Not CurrentUser.HasPermission(UserCan.EditFinancialData) Then
+        If Not CurrentUser.HasPermission(UserCan.VoidUnpaidApplicationFeeInvoices) Then
             HideControls({btnNewDeposit, btnVoid})
         End If
     End Sub
