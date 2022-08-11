@@ -20,7 +20,7 @@
         ''' Returns APB facility ID as an eight-character string in the form "00000000"
         ''' </summary>
         Public Overrides Function ToString() As String
-            Return ShortString
+            Return FormattedString
         End Function
 
         ''' <summary>
@@ -83,7 +83,7 @@
 
         Public Shared Widening Operator CType(airsNumber As ApbFacilityId) As String
             ArgumentNotNull(airsNumber, NameOf(airsNumber))
-            Return airsNumber.ToString
+            Return airsNumber.ToString()
         End Operator
 
         Public Shared Operator =(airs1 As ApbFacilityId, airs2 As ApbFacilityId) As Boolean
@@ -109,7 +109,7 @@
         Public Overloads Function Equals(other As ApbFacilityId) As Boolean _
         Implements IEquatable(Of ApbFacilityId).Equals
             If other Is Nothing Then Return False
-            Return ToString().Equals(other.ToString())
+            Return ShortString.Equals(other.ShortString)
         End Function
 
         Public Overrides Function Equals(obj As Object) As Boolean
@@ -119,7 +119,7 @@
         End Function
 
         Public Overrides Function GetHashCode() As Integer
-            Return ToString().GetHashCode()
+            Return ShortString.GetHashCode()
         End Function
 
 #End Region

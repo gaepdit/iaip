@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="ComplianceTabControl.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="TPContactsFacility.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -141,9 +144,6 @@
   <metadata name="ComplianceTabControl.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="ComplianceTabControl.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="TPComplianceWork.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -161,9 +161,47 @@
   </metadata>
   <metadata name="TPEnforcement.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <data name="lblNotePolicy.Text" xml:space="preserve">
+    <value>Information to be considered during the next permit opening.  Information here will be open to GORA request and should not include Confidential Information.  When a permit has been issued this information will be archived in the latest application file.  See past application files for previous comments.</value>
+  </data>
+  <data name="txtDisplayNote.Text" xml:space="preserve">
+    <value>Long bit of text. This text will overflow the typical column width. 
+
+Long bit of text. This text will overflow the typical column width. Long bit of text. This text will overflow the 
+
+typical column width. Long bit of text. This text will overflow the typical column width. Long bit of text. This 
+
+text will overflow the typical column width. Long bit of text. This text will overflow the typical column width. Long bit of text. This text will overflow the typical column width. 
+
+Long bit of text. This text will overflow the typical column width. Long bit of text. This text will overflow the 
+
+typical column width. Long bit of text. This text will overflow the typical column width. Long bit of text. This 
+
+text will overflow the typical column width. Long bit of text. This text will overflow the typical column width.
+
+Long bit of text. This text will overflow the typical column width. 
+
+Long bit of text. This text will overflow the typical column width. Long bit of text. This text will overflow the 
+
+typical column width. Long bit of text. This text will overflow the typical column width. Long bit of text. This 
+
+text will overflow the typical column width. Long bit of text. This text will overflow the typical column width. Long bit of text. This text will overflow the typical column width. 
+
+Long bit of text. This text will overflow the typical column width. Long bit of text. This text will overflow the 
+
+typical column width. Long bit of text. This text will overflow the typical column width. Long bit of text. This 
+
+text will overflow the typical column width. Long bit of text. This text will overflow the typical column width.</value>
+  </data>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>138, 17</value>
   </metadata>
   <metadata name="FSMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
+  </metadata>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>138, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>56</value>

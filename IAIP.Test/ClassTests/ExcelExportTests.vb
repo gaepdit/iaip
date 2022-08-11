@@ -11,7 +11,8 @@ Public Class ExcelExportTests
             table.Rows.Add(New DateTime(2001, 1, 1))
             table.Rows.Add(New DateTime(2002, 2, 2))
 
-            Dim ws As IXLWorksheet = wb.AddWorksheetWithFixedDates(table)
+            FixDates(table)
+            Dim ws As IXLWorksheet = wb.AddWorksheet(table)
 
             Assert.Equal("Date", ws.Cell("A1").Value)
 
@@ -32,7 +33,8 @@ Public Class ExcelExportTests
             table.Rows.Add(New DateTime(1776, 7, 4))
             table.Rows.Add(New DateTime(2002, 2, 2))
 
-            Dim ws As IXLWorksheet = wb.AddWorksheetWithFixedDates(table)
+            FixDates(table)
+            Dim ws As IXLWorksheet = wb.AddWorksheet(table)
 
             Assert.Equal("Date", ws.Cell("A1").Value)
 
@@ -53,7 +55,8 @@ Public Class ExcelExportTests
             table.Rows.Add(DBNull.Value)
             table.Rows.Add(New DateTime(2002, 2, 2))
 
-            Dim ws As IXLWorksheet = wb.AddWorksheetWithFixedDates(table)
+            FixDates(table)
+            Dim ws As IXLWorksheet = wb.AddWorksheet(table)
 
             Assert.Equal("Date", ws.Cell("A1").Value)
 

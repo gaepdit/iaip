@@ -10,10 +10,11 @@ Partial Class IAIPFacilitySummary
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPFacilitySummary))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -43,6 +44,8 @@ Partial Class IAIPFacilitySummary
         Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.NavigationPanel = New System.Windows.Forms.Panel()
         Me.FacilitySearchButton = New System.Windows.Forms.Button()
         Me.AirsNumberEntry = New Iaip.CueTextBox()
@@ -225,6 +228,22 @@ Partial Class IAIPFacilitySummary
         Me.EiPost2009Grid = New Iaip.IaipDataGridView()
         Me.TpEiPre2009 = New System.Windows.Forms.TabPage()
         Me.EiPre2009Grid = New Iaip.IaipDataGridView()
+        Me.FSNotes = New System.Windows.Forms.TabPage()
+        Me.pnlAddNote = New System.Windows.Forms.Panel()
+        Me.lblNotePolicy = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.btnSaveNote = New System.Windows.Forms.Button()
+        Me.txtNewNote = New System.Windows.Forms.TextBox()
+        Me.chkShowArchivedNotes = New System.Windows.Forms.CheckBox()
+        Me.pnlEditNoteSidebar = New System.Windows.Forms.Panel()
+        Me.pnlEditNote = New System.Windows.Forms.Panel()
+        Me.txtDisplayNote = New System.Windows.Forms.TextBox()
+        Me.btnCloseNoteView = New System.Windows.Forms.Button()
+        Me.btnArchiveNote = New System.Windows.Forms.Button()
+        Me.btnDeleteNote = New System.Windows.Forms.Button()
+        Me.lblNoteLabel = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.dgvFacilityNotes = New Iaip.IaipDataGridView()
         Me.FSMenuStrip = New System.Windows.Forms.MenuStrip()
         Me.FileMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.LookUpFacilityMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -237,6 +256,7 @@ Partial Class IAIPFacilitySummary
         Me.UpdateEpaMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.NavigationPanel.SuspendLayout()
         Me.FSMainTabControl.SuspendLayout()
         Me.FSInfo.SuspendLayout()
@@ -304,6 +324,11 @@ Partial Class IAIPFacilitySummary
         CType(Me.EiPost2009Grid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TpEiPre2009.SuspendLayout()
         CType(Me.EiPre2009Grid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.FSNotes.SuspendLayout()
+        Me.pnlAddNote.SuspendLayout()
+        Me.pnlEditNoteSidebar.SuspendLayout()
+        Me.pnlEditNote.SuspendLayout()
+        CType(Me.dgvFacilityNotes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FSMenuStrip.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -397,12 +422,13 @@ Partial Class IAIPFacilitySummary
         Me.FSMainTabControl.Controls.Add(Me.FSPermitting)
         Me.FSMainTabControl.Controls.Add(Me.FSEmissionsFees)
         Me.FSMainTabControl.Controls.Add(Me.FSEmissionInventory)
+        Me.FSMainTabControl.Controls.Add(Me.FSNotes)
         Me.FSMainTabControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FSMainTabControl.Location = New System.Drawing.Point(0, 82)
         Me.FSMainTabControl.Name = "FSMainTabControl"
         Me.FSMainTabControl.SelectedIndex = 0
         Me.FSMainTabControl.Size = New System.Drawing.Size(604, 450)
-        Me.FSMainTabControl.TabIndex = 2
+        Me.FSMainTabControl.TabIndex = 0
         '
         'FSInfo
         '
@@ -1347,28 +1373,28 @@ Partial Class IAIPFacilitySummary
         DataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.ContactsGecoFacilityGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle34
         Me.ContactsGecoFacilityGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle35.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle35.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle35.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle35.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle35.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.ContactsGecoFacilityGrid.DefaultCellStyle = DataGridViewCellStyle35
+        DataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle37.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle37.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle37.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle37.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle37.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle37.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.ContactsGecoFacilityGrid.DefaultCellStyle = DataGridViewCellStyle37
         Me.ContactsGecoFacilityGrid.GridColor = System.Drawing.SystemColors.ControlLight
         Me.ContactsGecoFacilityGrid.LinkifyColumnByName = Nothing
         Me.ContactsGecoFacilityGrid.Location = New System.Drawing.Point(0, 42)
         Me.ContactsGecoFacilityGrid.Name = "ContactsGecoFacilityGrid"
         Me.ContactsGecoFacilityGrid.ResultsCountLabel = Nothing
         Me.ContactsGecoFacilityGrid.ResultsCountLabelFormat = "{0} found"
-        DataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle36.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle36.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle36.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle36.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle36.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsGecoFacilityGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle36
+        DataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle38.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle38.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle38.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle38.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle38.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsGecoFacilityGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle38
         Me.ContactsGecoFacilityGrid.Size = New System.Drawing.Size(588, 356)
         Me.ContactsGecoFacilityGrid.StandardTab = True
         Me.ContactsGecoFacilityGrid.TabIndex = 0
@@ -2716,6 +2742,209 @@ Partial Class IAIPFacilitySummary
         Me.EiPre2009Grid.StandardTab = True
         Me.EiPre2009Grid.TabIndex = 6
         '
+        'FSNotes
+        '
+        Me.FSNotes.Controls.Add(Me.pnlAddNote)
+        Me.FSNotes.Controls.Add(Me.chkShowArchivedNotes)
+        Me.FSNotes.Controls.Add(Me.pnlEditNoteSidebar)
+        Me.FSNotes.Controls.Add(Me.Label7)
+        Me.FSNotes.Controls.Add(Me.dgvFacilityNotes)
+        Me.FSNotes.Location = New System.Drawing.Point(4, 22)
+        Me.FSNotes.Name = "FSNotes"
+        Me.FSNotes.Padding = New System.Windows.Forms.Padding(3)
+        Me.FSNotes.Size = New System.Drawing.Size(596, 424)
+        Me.FSNotes.TabIndex = 9
+        Me.FSNotes.Text = "Notes"
+        Me.FSNotes.UseVisualStyleBackColor = True
+        '
+        'pnlAddNote
+        '
+        Me.pnlAddNote.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlAddNote.Controls.Add(Me.lblNotePolicy)
+        Me.pnlAddNote.Controls.Add(Me.Label8)
+        Me.pnlAddNote.Controls.Add(Me.btnSaveNote)
+        Me.pnlAddNote.Controls.Add(Me.txtNewNote)
+        Me.pnlAddNote.Location = New System.Drawing.Point(387, 19)
+        Me.pnlAddNote.Name = "pnlAddNote"
+        Me.pnlAddNote.Size = New System.Drawing.Size(206, 368)
+        Me.pnlAddNote.TabIndex = 4
+        '
+        'lblNotePolicy
+        '
+        Me.lblNotePolicy.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblNotePolicy.Location = New System.Drawing.Point(8, 26)
+        Me.lblNotePolicy.Name = "lblNotePolicy"
+        Me.lblNotePolicy.Size = New System.Drawing.Size(190, 126)
+        Me.lblNotePolicy.TabIndex = 1
+        Me.lblNotePolicy.Text = resources.GetString("lblNotePolicy.Text")
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(8, 0)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(85, 13)
+        Me.Label8.TabIndex = 1
+        Me.Label8.Text = "Add new note"
+        '
+        'btnSaveNote
+        '
+        Me.btnSaveNote.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSaveNote.AutoSize = True
+        Me.btnSaveNote.Location = New System.Drawing.Point(8, 345)
+        Me.btnSaveNote.Name = "btnSaveNote"
+        Me.btnSaveNote.Size = New System.Drawing.Size(96, 23)
+        Me.btnSaveNote.TabIndex = 1
+        Me.btnSaveNote.Text = "Save New Note"
+        Me.btnSaveNote.UseVisualStyleBackColor = True
+        '
+        'txtNewNote
+        '
+        Me.txtNewNote.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtNewNote.Location = New System.Drawing.Point(8, 155)
+        Me.txtNewNote.Multiline = True
+        Me.txtNewNote.Name = "txtNewNote"
+        Me.txtNewNote.Size = New System.Drawing.Size(190, 184)
+        Me.txtNewNote.TabIndex = 0
+        '
+        'chkShowArchivedNotes
+        '
+        Me.chkShowArchivedNotes.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chkShowArchivedNotes.AutoSize = True
+        Me.chkShowArchivedNotes.Location = New System.Drawing.Point(8, 397)
+        Me.chkShowArchivedNotes.Name = "chkShowArchivedNotes"
+        Me.chkShowArchivedNotes.Size = New System.Drawing.Size(126, 17)
+        Me.chkShowArchivedNotes.TabIndex = 1
+        Me.chkShowArchivedNotes.Text = "Show archived notes"
+        Me.chkShowArchivedNotes.UseVisualStyleBackColor = True
+        '
+        'pnlEditNoteSidebar
+        '
+        Me.pnlEditNoteSidebar.Controls.Add(Me.pnlEditNote)
+        Me.pnlEditNoteSidebar.Dock = System.Windows.Forms.DockStyle.Right
+        Me.pnlEditNoteSidebar.Location = New System.Drawing.Point(387, 3)
+        Me.pnlEditNoteSidebar.Name = "pnlEditNoteSidebar"
+        Me.pnlEditNoteSidebar.Size = New System.Drawing.Size(206, 418)
+        Me.pnlEditNoteSidebar.TabIndex = 5
+        '
+        'pnlEditNote
+        '
+        Me.pnlEditNote.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlEditNote.BackColor = System.Drawing.SystemColors.Control
+        Me.pnlEditNote.Controls.Add(Me.txtDisplayNote)
+        Me.pnlEditNote.Controls.Add(Me.btnCloseNoteView)
+        Me.pnlEditNote.Controls.Add(Me.btnArchiveNote)
+        Me.pnlEditNote.Controls.Add(Me.btnDeleteNote)
+        Me.pnlEditNote.Controls.Add(Me.lblNoteLabel)
+        Me.pnlEditNote.Location = New System.Drawing.Point(0, 16)
+        Me.pnlEditNote.Name = "pnlEditNote"
+        Me.pnlEditNote.Size = New System.Drawing.Size(201, 368)
+        Me.pnlEditNote.TabIndex = 0
+        Me.pnlEditNote.Visible = False
+        '
+        'txtDisplayNote
+        '
+        Me.txtDisplayNote.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtDisplayNote.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.txtDisplayNote.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtDisplayNote.Location = New System.Drawing.Point(8, 62)
+        Me.txtDisplayNote.Multiline = True
+        Me.txtDisplayNote.Name = "txtDisplayNote"
+        Me.txtDisplayNote.ReadOnly = True
+        Me.txtDisplayNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtDisplayNote.Size = New System.Drawing.Size(190, 274)
+        Me.txtDisplayNote.TabIndex = 2
+        Me.txtDisplayNote.Text = resources.GetString("txtDisplayNote.Text")
+        '
+        'btnCloseNoteView
+        '
+        Me.btnCloseNoteView.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCloseNoteView.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCloseNoteView.Location = New System.Drawing.Point(170, 14)
+        Me.btnCloseNoteView.Name = "btnCloseNoteView"
+        Me.btnCloseNoteView.Size = New System.Drawing.Size(23, 23)
+        Me.btnCloseNoteView.TabIndex = 0
+        Me.btnCloseNoteView.Text = "×"
+        Me.ToolTip1.SetToolTip(Me.btnCloseNoteView, "Close note")
+        Me.btnCloseNoteView.UseVisualStyleBackColor = True
+        '
+        'btnArchiveNote
+        '
+        Me.btnArchiveNote.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnArchiveNote.AutoSize = True
+        Me.btnArchiveNote.Location = New System.Drawing.Point(8, 342)
+        Me.btnArchiveNote.Name = "btnArchiveNote"
+        Me.btnArchiveNote.Size = New System.Drawing.Size(96, 23)
+        Me.btnArchiveNote.TabIndex = 3
+        Me.btnArchiveNote.Text = "Archive"
+        Me.btnArchiveNote.UseVisualStyleBackColor = True
+        '
+        'btnDeleteNote
+        '
+        Me.btnDeleteNote.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDeleteNote.AutoSize = True
+        Me.btnDeleteNote.Location = New System.Drawing.Point(118, 342)
+        Me.btnDeleteNote.Name = "btnDeleteNote"
+        Me.btnDeleteNote.Size = New System.Drawing.Size(75, 23)
+        Me.btnDeleteNote.TabIndex = 4
+        Me.btnDeleteNote.Text = "Delete"
+        Me.btnDeleteNote.UseVisualStyleBackColor = True
+        '
+        'lblNoteLabel
+        '
+        Me.lblNoteLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblNoteLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNoteLabel.Location = New System.Drawing.Point(8, 13)
+        Me.lblNoteLabel.Name = "lblNoteLabel"
+        Me.lblNoteLabel.Size = New System.Drawing.Size(154, 46)
+        Me.lblNoteLabel.TabIndex = 1
+        Me.lblNoteLabel.Text = "Note from Douglas Waldron on July 8, 2022"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(8, 3)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(35, 13)
+        Me.Label7.TabIndex = 2
+        Me.Label7.Text = "Notes"
+        '
+        'dgvFacilityNotes
+        '
+        DataGridViewCellStyle35.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvFacilityNotes.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle35
+        Me.dgvFacilityNotes.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvFacilityNotes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvFacilityNotes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvFacilityNotes.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvFacilityNotes.LinkifyColumnByName = Nothing
+        Me.dgvFacilityNotes.Location = New System.Drawing.Point(8, 19)
+        Me.dgvFacilityNotes.Name = "dgvFacilityNotes"
+        Me.dgvFacilityNotes.ResultsCountLabel = Nothing
+        Me.dgvFacilityNotes.ResultsCountLabelFormat = "{0} found"
+        DataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
+        DataGridViewCellStyle36.BackColor = System.Drawing.SystemColors.Info
+        DataGridViewCellStyle36.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle36.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle36.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle36.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvFacilityNotes.RowHeadersDefaultCellStyle = DataGridViewCellStyle36
+        Me.dgvFacilityNotes.Size = New System.Drawing.Size(373, 368)
+        Me.dgvFacilityNotes.StandardTab = True
+        Me.dgvFacilityNotes.TabIndex = 0
+        '
         'FSMenuStrip
         '
         Me.FSMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileMenu, Me.ToolsMenu, Me.HelpMenu})
@@ -2887,6 +3116,14 @@ Partial Class IAIPFacilitySummary
         CType(Me.EiPost2009Grid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TpEiPre2009.ResumeLayout(False)
         CType(Me.EiPre2009Grid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.FSNotes.ResumeLayout(False)
+        Me.FSNotes.PerformLayout()
+        Me.pnlAddNote.ResumeLayout(False)
+        Me.pnlAddNote.PerformLayout()
+        Me.pnlEditNoteSidebar.ResumeLayout(False)
+        Me.pnlEditNote.ResumeLayout(False)
+        Me.pnlEditNote.PerformLayout()
+        CType(Me.dgvFacilityNotes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FSMenuStrip.ResumeLayout(False)
         Me.FSMenuStrip.PerformLayout()
         Me.ResumeLayout(False)
@@ -3087,4 +3324,21 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents ContactsGecoFacilityGrid As IaipDataGridView
     Friend WithEvents Label3 As Label
     Friend WithEvents btnViewInvoice As Button
+    Friend WithEvents FSNotes As TabPage
+    Friend WithEvents dgvFacilityNotes As IaipDataGridView
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents txtNewNote As TextBox
+    Friend WithEvents btnSaveNote As Button
+    Friend WithEvents pnlAddNote As Panel
+    Friend WithEvents pnlEditNote As Panel
+    Friend WithEvents lblNoteLabel As Label
+    Friend WithEvents btnDeleteNote As Button
+    Friend WithEvents pnlEditNoteSidebar As Panel
+    Friend WithEvents txtDisplayNote As TextBox
+    Friend WithEvents btnCloseNoteView As Button
+    Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents btnArchiveNote As Button
+    Friend WithEvents chkShowArchivedNotes As CheckBox
+    Friend WithEvents lblNotePolicy As Label
 End Class

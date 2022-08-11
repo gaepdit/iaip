@@ -1856,7 +1856,7 @@ Public Class ISMPManagersTools
         End Try
     End Sub
     Private Sub llbExportToExcel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbExportToExcel.LinkClicked
-        dtEngineerGrid.ExportToExcel(Me)
+        dgrEngineersFacilityList.ExportToExcel(Me)
     End Sub
     Private Sub btnRunUnitStatsReport_Click(sender As Object, e As EventArgs) Handles btnRunUnitStatsReport.Click
         Try

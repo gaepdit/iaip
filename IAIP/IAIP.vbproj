@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -329,6 +329,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="_DAL\DbHelpers.vb" />
+    <Compile Include="_DAL\Facilities\FacilityNotes.vb" />
     <Compile Include="_DAL\Facilities\FacilityProgramHistory.vb" />
     <Compile Include="_DAL\Misc\Organization.vb" />
     <Compile Include="_DAL\GECO\Geco.vb" />
@@ -344,6 +345,7 @@
     <Compile Include="_DAL\DbResult.vb" />
     <Compile Include="_DAL\TableValuedParameter.vb" />
     <Compile Include="_DAL\Finance\FeeRatesSchedule.vb" />
+    <Compile Include="_Data Models\Facilities\FacilityNote.vb" />
     <Compile Include="_Data Models\Finance\RefundApplied.vb" />
     <Compile Include="_Data Models\Finance\FinanceEnums.vb" />
     <Compile Include="_Data Models\Finance\Deposit.vb" />
@@ -353,6 +355,7 @@
     <Compile Include="_Data Models\Finance\Invoice.vb" />
     <Compile Include="_Data Models\Finance\FeeRateItem.vb" />
     <Compile Include="_Data Models\Finance\Refund.vb" />
+    <Compile Include="_Data Models\People\Staff.vb" />
     <Compile Include="_Data Models\Users\IaipRoles.vb" />
     <Compile Include="_Code\RegexPatterns.vb" />
     <Compile Include="_Code\IaipValidation.vb" />
