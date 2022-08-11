@@ -11,6 +11,16 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.4.0 <span>(2022-08-11)</span>
+
+This updates add a tab to the Facility Summary screen allowing staff to add free-form notes related to a facility, particularly intended to add references for future permit actions.
+
+This one also fixes the public notice options in the Title V Tools, which should now be available for SIP and SM permit applications. This was causing the public notice expiration date to occasionally be changed to an incorrect date.
+
+## Version 6.3.2 <span>(2022-08-04)</span>
+
+Just a fix for a bug when sorting grids.
+
 ## Version 6.3.1 <span>(2022-07-13)</span>
 
 This update:
