@@ -173,37 +173,37 @@ Public Class SSPPTitleVTools
                     chbNotifiedAppReceived.Checked = False
                 Else
                     chbNotifiedAppReceived.Checked = True
-                    DTPNotifiedAppReceived.Text = dr.Item("datEPAStatesNotifiedAppRec")
+                    DTPNotifiedAppReceived.Value = CDate(dr.Item("datEPAStatesNotifiedAppRec"))
                 End If
                 If IsDBNull(dr.Item("datDraftOnWeb")) Then
                     chbDraftOnWeb.Checked = False
                 Else
                     chbDraftOnWeb.Checked = True
-                    DTPDraftOnWeb.Text = dr.Item("datDraftOnWEb")
+                    DTPDraftOnWeb.Value = CDate(dr.Item("datDraftOnWEb"))
                 End If
                 If IsDBNull(dr.Item("datEPAStatesNotified")) Then
                     chbEPAandStatesNotified.Checked = False
                 Else
                     chbEPAandStatesNotified.Checked = True
-                    DTPEPAStatesNotified.Text = dr.Item("datEPAStatesNotified")
+                    DTPEPAStatesNotified.Value = CDate(dr.Item("datEPAStatesNotified"))
                 End If
                 If IsDBNull(dr.Item("datFinalOnWeb")) Then
                     chbFinalOnWeb.Checked = False
                 Else
                     chbFinalOnWeb.Checked = True
-                    DTPFinalOnWeb.Text = dr.Item("datFinalOnWeb")
+                    DTPFinalOnWeb.Value = CDate(dr.Item("datFinalOnWeb"))
                 End If
                 If IsDBNull(dr.Item("datEPANotified")) Then
                     chbEPANotifiedPermitOnWeb.Checked = False
                 Else
                     chbEPANotifiedPermitOnWeb.Checked = True
-                    DTPEPANotifiedPermitOnWeb.Text = dr.Item("datEPANotified")
+                    DTPEPANotifiedPermitOnWeb.Value = CDate(dr.Item("datEPANotified"))
                 End If
                 If IsDBNull(dr.Item("datEffective")) Then
                     chbEffectiveDateOfPermit.Checked = False
                 Else
                     chbEffectiveDateOfPermit.Checked = True
-                    DTPEffectiveDateofPermit.Text = dr.Item("datEffective")
+                    DTPEffectiveDateofPermit.Value = CDate(dr.Item("datEffective"))
                 End If
                 If IsDBNull(dr.Item("strTargeted")) Then
                     txtEPATargetedComments.Text = ""
@@ -215,24 +215,39 @@ Public Class SSPPTitleVTools
                     DTPExperationDate.Value = Today
                 Else
                     chbExpirationDate.Checked = True
-                    DTPExperationDate.Text = dr.Item("datExperationDate")
+                    DTPExperationDate.Value = CDate(dr.Item("datExperationDate"))
                 End If
+
+                ' PN is available for the following application types
+                '
+                ' | Code | Type       |
+                ' |------|------------|
+                ' | 0    | N/A        |
+                ' | 2    | Acid Rain  |
+                ' | 11   | SIP        |
+                ' | 12   | SM         |
+                ' | 14   | TV-Initial |
+                ' | 16   | TV-Renewal |
+                ' | 21   | SAWO       |
+                ' | 22   | SAW        |
 
                 chbPNExpires.Visible = False
                 DTPPNExpires.Visible = False
+
                 If Not IsDBNull(dr.Item("strApplicationType")) Then
                     Select Case dr.Item("strApplicationType").ToString
-                        Case "22", "21", "14", "16", "2"
+                        Case "0", "2", "11", "12", "14", "16", "21", "22"
                             chbPNExpires.Visible = True
                     End Select
                 End If
+
                 If IsDBNull(dr.Item("datPNExpires")) Then
                     chbPNExpires.Checked = False
                     DTPPNExpires.Value = Today
                 Else
                     chbPNExpires.Checked = True
                     DTPPNExpires.Visible = chbPNExpires.Visible
-                    DTPPNExpires.Text = dr.Item("datPNExpires")
+                    DTPPNExpires.Value = CDate(dr.Item("datPNExpires"))
                 End If
 
             End If
@@ -244,42 +259,42 @@ Public Class SSPPTitleVTools
 
     End Sub
     Private Sub SaveWebPublisherData()
-        Dim EPAStatesNotifiedAppRec As String = Nothing
-        Dim DraftOnWeb As String = Nothing
-        Dim EPAStatesNotified As String = Nothing
-        Dim FinalOnWeb As String = Nothing
-        Dim EPANotifiedPermitOnWeb As String = Nothing
-        Dim EffectiveDateOnPermit As String = Nothing
+        Dim EPAStatesNotifiedAppRec As Date? = Nothing
+        Dim DraftOnWeb As Date? = Nothing
+        Dim EPAStatesNotified As Date? = Nothing
+        Dim FinalOnWeb As Date? = Nothing
+        Dim EPANotifiedPermitOnWeb As Date? = Nothing
+        Dim EffectiveDateOnPermit As Date? = Nothing
         Dim TargetedComments As String
-        Dim ExperationDate As String = Nothing
-        Dim PNExpires As String = Nothing
+        Dim ExperationDate As Date? = Nothing
+        Dim PNExpires As Date? = Nothing
 
         Try
 
             If chbNotifiedAppReceived.Checked Then
-                EPAStatesNotifiedAppRec = DTPNotifiedAppReceived.Text
+                EPAStatesNotifiedAppRec = DTPNotifiedAppReceived.Value
             End If
             If chbDraftOnWeb.Checked Then
-                DraftOnWeb = DTPDraftOnWeb.Text
+                DraftOnWeb = DTPDraftOnWeb.Value
             End If
             If chbEPAandStatesNotified.Checked Then
-                EPAStatesNotified = DTPEPAStatesNotified.Text
+                EPAStatesNotified = DTPEPAStatesNotified.Value
             End If
             If chbFinalOnWeb.Checked Then
-                FinalOnWeb = DTPFinalOnWeb.Text
+                FinalOnWeb = DTPFinalOnWeb.Value
             End If
             If chbEPANotifiedPermitOnWeb.Checked Then
-                EPANotifiedPermitOnWeb = DTPEPANotifiedPermitOnWeb.Text
+                EPANotifiedPermitOnWeb = DTPEPANotifiedPermitOnWeb.Value
             End If
             If chbEffectiveDateOfPermit.Checked Then
-                EffectiveDateOnPermit = DTPEffectiveDateofPermit.Text
+                EffectiveDateOnPermit = DTPEffectiveDateofPermit.Value
             End If
             If chbExpirationDate.Checked Then
-                ExperationDate = DTPExperationDate.Text
+                ExperationDate = DTPExperationDate.Value
             End If
             TargetedComments = Mid(txtEPATargetedComments.Text, 1, 4000)
             If chbPNExpires.Checked Then
-                PNExpires = DTPPNExpires.Text
+                PNExpires = DTPPNExpires.Value
             End If
 
             If txtWebPublisherApplicationNumber.Text <> "" Then
