@@ -1,4 +1,6 @@
+Imports System.Collections.Generic
 Imports System.Data.SqlClient
+Imports Iaip.Apb
 
 Public Class SSPPTitleVTools
 
@@ -297,8 +299,12 @@ Public Class SSPPTitleVTools
                 PNExpires = DTPPNExpires.Value
             End If
 
-            If txtWebPublisherApplicationNumber.Text <> "" Then
-                Dim query As String = "Update SSPPApplicationTracking set " &
+            If txtWebPublisherApplicationNumber.Text = "" Then
+                MessageBox.Show("Select a valid permit application number first.", "Information not saved",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
+            Dim query As String = "Update SSPPApplicationTracking set " &
                 "datDraftOnWeb = @datDraftOnWeb, " &
                 "datEPAStatesNotified = @datEPAStatesNotified, " &
                 "datFinalOnWeb = @datFinalOnWeb, " &
@@ -309,79 +315,83 @@ Public Class SSPPTitleVTools
                 "datPNExpires = @datPNExpires " &
                 "where strApplicationNumber = @strApplicationNumber "
 
-                Dim p As SqlParameter() = {
-                    New SqlParameter("@datDraftOnWeb", DraftOnWeb),
-                    New SqlParameter("@datEPAStatesNotified", EPAStatesNotified),
-                    New SqlParameter("@datFinalOnWeb", FinalOnWeb),
-                    New SqlParameter("@datEPANotified", EPANotifiedPermitOnWeb),
-                    New SqlParameter("@datEffective", EffectiveDateOnPermit),
-                    New SqlParameter("@datEPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
-                    New SqlParameter("@datExperationDate", ExperationDate),
-                    New SqlParameter("@datPNExpires", PNExpires),
-                    New SqlParameter("@strApplicationNumber", txtWebPublisherApplicationNumber.Text)
-                }
+            Dim queryList As New List(Of String) From {query}
 
-                DB.RunCommand(query, p)
+            Dim paramsList As New List(Of SqlParameter()) From {({
+                New SqlParameter("@datDraftOnWeb", DraftOnWeb),
+                New SqlParameter("@datEPAStatesNotified", EPAStatesNotified),
+                New SqlParameter("@datFinalOnWeb", FinalOnWeb),
+                New SqlParameter("@datEPANotified", EPANotifiedPermitOnWeb),
+                New SqlParameter("@datEffective", EffectiveDateOnPermit),
+                New SqlParameter("@datEPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
+                New SqlParameter("@datExperationDate", ExperationDate),
+                New SqlParameter("@datPNExpires", PNExpires),
+                New SqlParameter("@strApplicationNumber", txtWebPublisherApplicationNumber.Text)
+            })}
 
-                Dim query2 As String = "Update SSPPApplicationData set " &
+            Dim query2 As String = "Update SSPPApplicationData set " &
                 "strTargeted = @strTargeted " &
                 "where strApplicationNumber = @strApplicationNumber "
 
-                Dim p2 As SqlParameter() = {
-                    New SqlParameter("@strTargeted", TargetedComments),
-                    New SqlParameter("@strApplicationNumber", txtWebPublisherApplicationNumber.Text)
-                }
+            queryList.Add(query2)
 
-                DB.RunCommand(query2, p2)
+            paramsList.Add({
+                New SqlParameter("@strTargeted", TargetedComments),
+                New SqlParameter("@strApplicationNumber", txtWebPublisherApplicationNumber.Text)
+            })
 
-                If lblLinkWarning.Visible Then
-                    Dim LinkedApplication As String
-                    Dim i As Integer
+            If lblLinkWarning.Visible Then
+                Dim LinkedApplication As String
+                Dim i As Integer
 
-                    For i = 0 To lbLinkApplications.Items.Count - 1
-                        If lbLinkApplications.Items.Item(i).ToString <> txtWebPublisherApplicationNumber.Text Then
-                            LinkedApplication = lbLinkApplications.Items.Item(i)
-                        Else
-                            LinkedApplication = ""
-                        End If
-                        If LinkedApplication <> "" Then
+                For i = 0 To lbLinkApplications.Items.Count - 1
+                    If lbLinkApplications.Items.Item(i).ToString <> txtWebPublisherApplicationNumber.Text Then
+                        LinkedApplication = lbLinkApplications.Items.Item(i)
+                    Else
+                        LinkedApplication = ""
+                    End If
+                    If LinkedApplication <> "" Then
 
-                            Dim p3 As SqlParameter() = {
-                                New SqlParameter("@datDraftOnWeb", DraftOnWeb),
-                                New SqlParameter("@datEPAStatesNotified", EPAStatesNotified),
-                                New SqlParameter("@datFinalOnWeb", FinalOnWeb),
-                                New SqlParameter("@datEPANotified", EPANotifiedPermitOnWeb),
-                                New SqlParameter("@datEffective", EffectiveDateOnPermit),
-                                New SqlParameter("@datEPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
-                                New SqlParameter("@datExperationDate", ExperationDate),
-                                New SqlParameter("@datPNExpires", PNExpires),
-                                New SqlParameter("@strApplicationNumber", LinkedApplication)
-                            }
+                        queryList.Add(query)
 
-                            DB.RunCommand(query, p3)
+                        paramsList.Add({
+                            New SqlParameter("@datDraftOnWeb", DraftOnWeb),
+                            New SqlParameter("@datEPAStatesNotified", EPAStatesNotified),
+                            New SqlParameter("@datFinalOnWeb", FinalOnWeb),
+                            New SqlParameter("@datEPANotified", EPANotifiedPermitOnWeb),
+                            New SqlParameter("@datEffective", EffectiveDateOnPermit),
+                            New SqlParameter("@datEPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
+                            New SqlParameter("@datExperationDate", ExperationDate),
+                            New SqlParameter("@datPNExpires", PNExpires),
+                            New SqlParameter("@strApplicationNumber", LinkedApplication)
+                        })
 
-                            Dim p4 As SqlParameter() = {
-                                New SqlParameter("@strTargeted", TargetedComments),
-                                New SqlParameter("@strApplicationNumber", LinkedApplication)
-                            }
+                        queryList.Add(query2)
 
-                            DB.RunCommand(query2, p4)
-                        End If
-                    Next
-                End If
+                        paramsList.Add({
+                            New SqlParameter("@strTargeted", TargetedComments),
+                            New SqlParameter("@strApplicationNumber", LinkedApplication)
+                        })
 
-                If DraftOnWeb <> "" AndAlso EPAStatesNotified = "" Then
-                    query = "Update SSPPApplicationData set " &
-                    "strDraftOnWebNotification = 'False' " &
-                    "where strApplicationNumber = @app "
-
-                    Dim p5 As New SqlParameter("@app", txtWebPublisherApplicationNumber.Text)
-
-                    DB.RunCommand(query, p5)
-                End If
-
-                MsgBox("Web Information Saved", MsgBoxStyle.Information, "Application Tracking Log")
+                    End If
+                Next
             End If
+
+            If DraftOnWeb.HasValue AndAlso EPAStatesNotified.HasValue Then
+                queryList.Add("Update SSPPApplicationData set " &
+                    "strDraftOnWebNotification = 'False' " &
+                    "where strApplicationNumber = @app ")
+
+                paramsList.Add({New SqlParameter("@app", txtWebPublisherApplicationNumber.Text)})
+            End If
+
+            If DB.RunCommand(queryList, paramsList) Then
+                MsgBox("Web Information Saved", MsgBoxStyle.Information, "Application Tracking Log")
+            Else
+                MessageBox.Show("There was an error saving the data.", "Information not saved",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2380,11 +2390,11 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
+
     Private Sub btnSaveWebPublisher_Click(sender As Object, e As EventArgs) Handles btnSaveWebPublisher.Click
-
         SaveWebPublisherData()
-
     End Sub
+
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         Try
 
