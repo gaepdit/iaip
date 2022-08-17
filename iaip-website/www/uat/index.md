@@ -25,5 +25,5 @@ flowchart TD;
 </pre>
 
 <script src="https://use.fontawesome.com/73014ea0c4.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.14.0/mermaid.min.js" integrity="sha512-vLumCjg7NKEQKGM+xAgBYTvQ90DVu6Eo7vS1T/iPf2feNLcrpGxvumuUUmE3CPiCUPgviyKbtpWGDbhnVnmJxg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.5/mermaid.min.js" integrity="sha512-ETySttxD+gVb33UXscT3G5gtPxWepHF6fs69M13VEzJfvA6wcDwMjmkCHwrH4NPzPzMarhk/aZoVsY7BTGfnQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>mermaid.initialize({startOnLoad:true,theme:'neutral'});</script>
