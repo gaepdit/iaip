@@ -1,11 +1,25 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
-Imports Iaip.Apb
 
 Public Class SSPPTitleVTools
 
     Private Sub DMUTitleVTools_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadPermissions()
+    End Sub
+
+    ' Publishing tab
+
+    Private Sub LoadPermissions()
+        LoadWebPublisherDataGrid()
+
+        DTPNotifiedAppReceived.Value = Today
+        DTPDraftOnWeb.Value = Today
+        DTPEffectiveDateofPermit.Value = Today
+        DTPEPANotifiedPermitOnWeb.Value = Today
+        DTPEPAStatesNotified.Value = Today
+        DTPFinalOnWeb.Value = Today
+        DTPPNExpires.Value = Today
+        DTPExperationDate.Value = Today
     End Sub
 
     Private Sub LoadWebPublisherDataGrid()
@@ -88,8 +102,8 @@ Public Class SSPPTitleVTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
-
     End Sub
+
     Private Sub CheckForLinks()
         Try
             lbLinkApplications.Items.Clear()
@@ -138,18 +152,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub LoadPermissions()
-        LoadWebPublisherDataGrid()
 
-        DTPNotifiedAppReceived.Value = Today
-        DTPDraftOnWeb.Value = Today
-        DTPEffectiveDateofPermit.Value = Today
-        DTPEPANotifiedPermitOnWeb.Value = Today
-        DTPEPAStatesNotified.Value = Today
-        DTPFinalOnWeb.Value = Today
-        DTPPNExpires.Value = Today
-        DTPExperationDate.Value = Today
-    End Sub
     Private Sub LoadWebPublisherApplicationData()
         Try
 
@@ -260,6 +263,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
+
     Private Sub SaveWebPublisherData()
         Dim EPAStatesNotifiedAppRec As Date? = Nothing
         Dim DraftOnWeb As Date? = Nothing
@@ -397,6 +401,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
+
     Private Sub LoadWebPublishingFacilityInformation()
         Try
             Dim FacilityName As String = ""
@@ -454,7 +459,108 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub PreviewAppReceivedEmail()
+
+    Private Sub btnViewApplication_Click(sender As Object, e As EventArgs) Handles btnViewApplication.Click
+        OpenFormPermitApplication(txtWebPublisherApplicationNumber.Text)
+    End Sub
+
+    Private Sub btnReloadGrid_Click(sender As Object, e As EventArgs) Handles btnReloadGrid.Click
+        LoadWebPublisherDataGrid()
+    End Sub
+
+    Private Sub dgrWebPublisher_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrWebPublisher.MouseUp
+        Dim hti As DataGridView.HitTestInfo = dgrWebPublisher.HitTest(e.X, e.Y)
+        Try
+
+            If hti.Type = DataGridViewHitTestType.Cell AndAlso
+                Not IsDBNull(dgrWebPublisher(0, hti.RowIndex)) Then
+
+                txtWebPublisherApplicationNumber.Text = dgrWebPublisher(0, hti.RowIndex).Value.ToString
+
+                If txtWebPublisherApplicationNumber.Text <> "" Then
+                    LoadWebPublisherApplicationData()
+                    LoadWebPublishingFacilityInformation()
+                End If
+            End If
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+
+    End Sub
+
+    Private Sub chbNotifiedAppReceived_CheckedChanged(sender As Object, e As EventArgs) Handles chbNotifiedAppReceived.CheckedChanged
+        DTPNotifiedAppReceived.Visible = chbNotifiedAppReceived.Checked
+    End Sub
+
+    Private Sub chbDraftOnWeb_CheckedChanged(sender As Object, e As EventArgs) Handles chbDraftOnWeb.CheckedChanged
+        DTPDraftOnWeb.Visible = chbDraftOnWeb.Checked
+    End Sub
+
+    Private Sub chbPNExpires_CheckedChanged(sender As Object, e As EventArgs) Handles chbPNExpires.CheckedChanged
+        DTPPNExpires.Visible = chbPNExpires.Checked AndAlso chbPNExpires.Visible
+    End Sub
+
+    Private Sub chbEPAandStatesNotified_CheckedChanged(sender As Object, e As EventArgs) Handles chbEPAandStatesNotified.CheckedChanged
+        DTPEPAStatesNotified.Visible = chbEPAandStatesNotified.Checked
+    End Sub
+
+    Private Sub chbFinalOnWeb_CheckedChanged(sender As Object, e As EventArgs) Handles chbFinalOnWeb.CheckedChanged
+        DTPFinalOnWeb.Visible = chbFinalOnWeb.Checked
+    End Sub
+
+    Private Sub chbEPANotifiedPermitOnWeb_CheckedChanged(sender As Object, e As EventArgs) Handles chbEPANotifiedPermitOnWeb.CheckedChanged
+        DTPEPANotifiedPermitOnWeb.Visible = chbEPANotifiedPermitOnWeb.Checked
+    End Sub
+
+    Private Sub chbEffectiveDateOfPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbEffectiveDateOfPermit.CheckedChanged
+        DTPEffectiveDateofPermit.Visible = chbEffectiveDateOfPermit.Checked
+    End Sub
+
+    Private Sub chbExperationDate_CheckedChanged(sender As Object, e As EventArgs) Handles chbExpirationDate.CheckedChanged
+        DTPExperationDate.Visible = chbExpirationDate.Checked
+    End Sub
+
+    Private Sub btnSaveWebPublisher_Click(sender As Object, e As EventArgs) Handles btnSaveWebPublisher.Click
+        SaveWebPublisherData()
+    End Sub
+
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        chbDraftOnWeb.Checked = False
+        DTPDraftOnWeb.Value = Today
+        chbEPAandStatesNotified.Checked = False
+        DTPEPAStatesNotified.Value = Today
+        chbFinalOnWeb.Checked = False
+        DTPFinalOnWeb.Value = Today
+        chbEPANotifiedPermitOnWeb.Checked = False
+        DTPEPANotifiedPermitOnWeb.Value = Today
+        chbEffectiveDateOfPermit.Checked = False
+        DTPEffectiveDateofPermit.Value = Today
+        txtEPATargetedComments.Clear()
+        txtWebPublisherApplicationNumber.Clear()
+        DTPExperationDate.Value = Today
+        chbExpirationDate.Checked = False
+        txtFacilityInformation.Clear()
+        chbNotifiedAppReceived.Checked = False
+        DTPNotifiedAppReceived.Value = Today
+        chbPNExpires.Checked = False
+        DTPPNExpires.Value = Today
+    End Sub
+
+    Private Sub btnSearchForApplication_Click(sender As Object, e As EventArgs) Handles btnSearchForApplication.Click
+        LoadWebPublisherApplicationData()
+        LoadWebPublishingFacilityInformation()
+    End Sub
+
+    Private Sub txtWebPublisherApplicationNumber_Leave(sender As Object, e As EventArgs) Handles txtWebPublisherApplicationNumber.Leave
+        If txtWebPublisherApplicationNumber.Text <> "" Then
+            LoadWebPublisherApplicationData()
+            LoadWebPublishingFacilityInformation()
+        End If
+    End Sub
+
+    ' Emails tab
+
+    Private Sub btnPreviewESNReceived_Click(sender As Object, e As EventArgs) Handles btnPreviewESNReceived.Click
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -539,14 +645,14 @@ Public Class SSPPTitleVTools
 
             Next
 
-            txtEmailType.Text = "AppReceived"
+            txtApplicationCount.Text = clbTitleVEmailList.Items.Count
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
-    Private Sub GenerateAppReceivedEmail()
+
+    Private Sub btnEmailESNReceived_Click(sender As Object, e As EventArgs) Handles btnEmailESNReceived.Click
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -650,7 +756,8 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub PreviewDraftOnWeb()
+
+    Private Sub btnPreviewDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnPreviewDraftOnWeb.Click
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -833,15 +940,14 @@ Public Class SSPPTitleVTools
                 LinkedApps = Replace(LinkedApps, (MasterApp & ","), "")
             Loop
 
-            txtEmailType.Text = "DraftOnWeb"
+            txtApplicationCount.Text = clbTitleVEmailList.Items.Count
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
-
     End Sub
-    Private Sub GenerateDraftOnWebEmail()
+
+    Private Sub btnEmailDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnEmailDraftOnWeb.Click
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1034,7 +1140,8 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub GenerateDraftOnWebState()
+
+    Private Sub btnEmailDraftOnWebState_Click(sender As Object, e As EventArgs) Handles btnEmailDraftOnWebState.Click
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1222,7 +1329,9 @@ Public Class SSPPTitleVTools
 
 
     End Sub
-    Private Sub PreviewMinorModOnWeb()
+
+    Private Sub btnPreviewMinorMod_Click(sender As Object, e As EventArgs) Handles btnPreviewMinorMod.Click
+
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1401,15 +1510,14 @@ Public Class SSPPTitleVTools
                 LinkedApps = Replace(LinkedApps, (MasterApp & ","), "")
             Loop
 
-
-            txtEmailType.Text = "MinorOnWeb"
+            txtApplicationCount.Text = clbTitleVEmailList.Items.Count
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
-    Private Sub GenerateMinorOnWebEmail()
+
+    Private Sub btnMinorModOnWebEPD_Click(sender As Object, e As EventArgs) Handles btnMinorModOnWebEPD.Click
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1590,7 +1698,8 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub GenerateMinorOnWebState()
+
+    Private Sub btnMinorModOnWebState_Click(sender As Object, e As EventArgs) Handles btnMinorModOnWebState.Click
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1771,7 +1880,9 @@ Public Class SSPPTitleVTools
 
 
     End Sub
-    Private Sub PreviewFinalOnWeb()
+
+    Private Sub btnPreviewFinalOnWeb_Click(sender As Object, e As EventArgs) Handles btnPreviewFinalOnWeb.Click
+
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1786,30 +1897,30 @@ Public Class SSPPTitleVTools
             clbTitleVEmailList.Items.Clear()
 
             Dim query As String = "Select " &
-            "SSPPApplicationMaster.strApplicationNumber, " &
-            "strFacilityName, strFacilityCity, " &
-            "strApplicationTypeDesc, " &
-            " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
-            "strUnitDesc " &
-            "FROM SSPPApplicationMaster " &
-            " INNER JOIN SSPPApplicationData " &
-            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-            " INNER JOIN LookUpApplicationTypes " &
-            "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-            " INNER JOIN SSPPApplicationTracking " &
-            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-            " INNER JOIN EPDUserProfiles " &
-            "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
-            " LEFT JOIN LookUpEPDUnits " &
-            "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
-            "where (strFinalOnWebNotification is Null or strFinalOnWebNotification = 'False') " &
-            "and (strApplicationType = '14'  or strApplicationType = '16' " &
-            "or strApplicationType = '19' or strApplicationType = '20' " &
-            "or strApplicationType = '21' or strApplicationType = '22' " &
-            "or strApplicationType = '26' or strApplicationType = '15' " &
-            "or strApplicationType = '2') " &
-            "and DatFinalOnWeb is Not Null " &
-            "order by strFacilityName, strAPplicationNumber DESC "
+                "SSPPApplicationMaster.strApplicationNumber, " &
+                "strFacilityName, strFacilityCity, " &
+                "strApplicationTypeDesc, " &
+                " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
+                "strUnitDesc " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                " INNER JOIN LookUpApplicationTypes " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                " INNER JOIN SSPPApplicationTracking " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
+                " LEFT JOIN LookUpEPDUnits " &
+                "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                "where (strFinalOnWebNotification is Null or strFinalOnWebNotification = 'False') " &
+                "and (strApplicationType = '14'  or strApplicationType = '16' " &
+                "or strApplicationType = '19' or strApplicationType = '20' " &
+                "or strApplicationType = '21' or strApplicationType = '22' " &
+                "or strApplicationType = '26' or strApplicationType = '15' " &
+                "or strApplicationType = '2') " &
+                "and DatFinalOnWeb is Not Null " &
+                "order by strFacilityName, strAPplicationNumber DESC "
 
             Dim dt As DataTable = DB.GetDataTable(query)
 
@@ -1869,9 +1980,9 @@ Public Class SSPPTitleVTools
             Do While LinkedApps <> ""
                 MasterApp = Mid(LinkedApps, 1, (InStr(LinkedApps, ",", CompareMethod.Text) - 1))
                 query = "select " &
-                "strMasterApplication " &
-                "from SSPPApplicationLinking " &
-                "where strApplicationNumber = @app "
+                    "strMasterApplication " &
+                    "from SSPPApplicationLinking " &
+                    "where strApplicationNumber = @app "
 
                 Dim p As New SqlParameter("@app", MasterApp)
 
@@ -1879,23 +1990,23 @@ Public Class SSPPTitleVTools
 
                 If temp <> "" Then
                     query = "Select " &
-                    "SSPPApplicationMaster.strApplicationNumber,  " &
-                    "strFacilityName, strFacilityCity,  " &
-                    "strApplicationTypeDesc,  " &
-                    " concat(strLastName,', ',strFirstName) as StaffResponsible,  " &
-                    "strUnitDesc  " &
-                    "FROM SSPPApplicationMaster " &
-                    " INNER JOIN SSPPApplicationData  " &
-                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                    " INNER JOIN LookUpApplicationTypes " &
-                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode   " &
-                    " INNER JOIN SSPPApplicationLinking " &
-                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
-                    " INNER JOIN EPDUserProfiles " &
-                    "ON SSPPApplicationMaster.strStaffResponsible = EPDuserPRofiles.numUserID  " &
-                    " LEFT JOIN LookUpEPDUnits  " &
-                    "ON EPDUserProfiles.numUnit = LookUpEPDunits.numUnitCode " &
-                    "where SSPPApplicationMaster.strApplicationNumber = @app "
+                        "SSPPApplicationMaster.strApplicationNumber,  " &
+                        "strFacilityName, strFacilityCity,  " &
+                        "strApplicationTypeDesc,  " &
+                        " concat(strLastName,', ',strFirstName) as StaffResponsible,  " &
+                        "strUnitDesc  " &
+                        "FROM SSPPApplicationMaster " &
+                        " INNER JOIN SSPPApplicationData  " &
+                        "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                        " INNER JOIN LookUpApplicationTypes " &
+                        "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode   " &
+                        " INNER JOIN SSPPApplicationLinking " &
+                        "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
+                        " INNER JOIN EPDUserProfiles " &
+                        "ON SSPPApplicationMaster.strStaffResponsible = EPDuserPRofiles.numUserID  " &
+                        " LEFT JOIN LookUpEPDUnits  " &
+                        "ON EPDUserProfiles.numUnit = LookUpEPDunits.numUnitCode " &
+                        "where SSPPApplicationMaster.strApplicationNumber = @app "
 
                     Dim p2 As New SqlParameter("@app", temp)
 
@@ -1956,14 +2067,13 @@ Public Class SSPPTitleVTools
                 LinkedApps = Replace(LinkedApps, (MasterApp & ","), "")
             Loop
 
-            txtEmailType.Text = "FinalOnWeb"
-
+            txtApplicationCount.Text = clbTitleVEmailList.Items.Count
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
-    Private Sub GenerateFinalOnWeb()
+
+    Private Sub btnEmailFinalOnWeb_Click(sender As Object, e As EventArgs) Handles btnEmailFinalOnWeb.Click
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -2171,7 +2281,9 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub AddAppToList()
+
+    Private Sub btnAddApplicationToList_Click(sender As Object, e As EventArgs) Handles btnAddApplicationToList.Click
+
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -2183,510 +2295,85 @@ Public Class SSPPTitleVTools
 
             Dim temp As String = ""
 
-            Select Case txtEmailType.Text
-                Case "AppReceived", "DraftOnWeb", "MinorOnWeb", "FinalOnWeb"
-                    Dim query As String = "Select " &
-                        "SSPPApplicationMaster.strApplicationNumber, " &
-                        "strFacilityName, strFacilityCity, " &
-                        "strApplicationTypeDesc, " &
-                        " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
-                        "strUnitDesc " &
-                        "FROM SSPPApplicationMaster " &
-                        " INNER JOIN SSPPApplicationData " &
-                        "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-                        " INNER JOIN LookUpApplicationTypes " &
-                        "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-                        " INNER JOIN SSPPApplicationTracking " &
-                        "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                        " INNER JOIN EPDUserProfiles " &
-                        "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
-                        " LEFT JOIN LookUpEPDUnits " &
-                        "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
-                        "where SSPPApplicationMaster.strApplicationNumber = @app "
+            Dim query As String = "Select " &
+                            "SSPPApplicationMaster.strApplicationNumber, " &
+                            "strFacilityName, strFacilityCity, " &
+                            "strApplicationTypeDesc, " &
+                            " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
+                            "strUnitDesc " &
+                            "FROM SSPPApplicationMaster " &
+                            " INNER JOIN SSPPApplicationData " &
+                            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                            " INNER JOIN LookUpApplicationTypes " &
+                            "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                            " INNER JOIN SSPPApplicationTracking " &
+                            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                            " INNER JOIN EPDUserProfiles " &
+                            "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
+                            " LEFT JOIN LookUpEPDUnits " &
+                            "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                            "where SSPPApplicationMaster.strApplicationNumber = @app "
 
-                    Dim p As New SqlParameter("@app", txtApplicationNumberToAdd.Text)
+            Dim p As New SqlParameter("@app", txtApplicationNumberToAdd.Text)
 
-                    Dim dr As DataRow = DB.GetDataRow(query, p)
+            Dim dr As DataRow = DB.GetDataRow(query, p)
 
-                    If dr IsNot Nothing Then
-                        If IsDBNull(dr.Item("strApplicationNumber")) Then
-                            AppNumber = ""
-                        Else
-                            AppNumber = dr.Item("strApplicationNumber")
-                        End If
-                        If IsDBNull(dr.Item("strFacilityName")) Then
-                            FacName = ""
-                        Else
-                            FacName = dr.Item("strFacilityName")
-                        End If
-                        If IsDBNull(dr.Item("strFacilityCity")) Then
-                            FacCity = ""
-                        Else
-                            FacCity = dr.Item("strFacilityCity")
-                        End If
-                        If IsDBNull(dr.Item("strApplicationTypeDesc")) Then
-                            AppType = ""
-                        Else
-                            AppType = dr.Item("strApplicationTypeDesc")
-                        End If
-
-                        If IsDBNull(dr.Item("StaffResponsible")) Then
-                            Staff = ""
-                        Else
-                            Staff = dr.Item("StaffResponsible")
-                        End If
-                        If IsDBNull(dr.Item("strUnitDesc")) Then
-                            Unit = ""
-                        Else
-                            Unit = dr.Item("strUnitDesc")
-                        End If
-
-                        temp = AppNumber & " - " & FacName & " - (" & FacCity & ") - " & AppType
-
-                        Select Case temp.Length
-                            Case Is < 40
-                                temp = temp & vbTab & vbTab & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                            Case 40 To 49
-                                temp = temp & vbTab & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                            Case 50 To 51
-                                temp = temp & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                            Case Else
-                                temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
-                        End Select
-
-                        If Not clbTitleVEmailList.Items.Contains(temp) Then
-                            clbTitleVEmailList.Items.Add(temp)
-                            clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
-                        End If
-                    Else
-                        MsgBox("Unable to add this Application to list.", MsgBoxStyle.Information, "Data Management Tools")
-                    End If
-            End Select
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub btnViewApplication_Click(sender As Object, e As EventArgs) Handles btnViewApplication.Click
-        OpenFormPermitApplication(txtWebPublisherApplicationNumber.Text)
-    End Sub
-    Private Sub btnReloadGrid_Click(sender As Object, e As EventArgs) Handles btnReloadGrid.Click
-
-        LoadWebPublisherDataGrid()
-
-    End Sub
-    Private Sub dgrWebPublisher_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrWebPublisher.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgrWebPublisher.HitTest(e.X, e.Y)
-        Try
-
-            If hti.Type = DataGridViewHitTestType.Cell AndAlso
-                Not IsDBNull(dgrWebPublisher(0, hti.RowIndex)) Then
-
-                txtWebPublisherApplicationNumber.Text = dgrWebPublisher(0, hti.RowIndex).Value.ToString
-
-                If txtWebPublisherApplicationNumber.Text <> "" Then
-                    LoadWebPublisherApplicationData()
-                    LoadWebPublishingFacilityInformation()
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("strApplicationNumber")) Then
+                    AppNumber = ""
+                Else
+                    AppNumber = dr.Item("strApplicationNumber")
                 End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+                If IsDBNull(dr.Item("strFacilityName")) Then
+                    FacName = ""
+                Else
+                    FacName = dr.Item("strFacilityName")
+                End If
+                If IsDBNull(dr.Item("strFacilityCity")) Then
+                    FacCity = ""
+                Else
+                    FacCity = dr.Item("strFacilityCity")
+                End If
+                If IsDBNull(dr.Item("strApplicationTypeDesc")) Then
+                    AppType = ""
+                Else
+                    AppType = dr.Item("strApplicationTypeDesc")
+                End If
 
-    End Sub
-    Private Sub chbNotifiedAppReceived_CheckedChanged(sender As Object, e As EventArgs) Handles chbNotifiedAppReceived.CheckedChanged
-        Try
+                If IsDBNull(dr.Item("StaffResponsible")) Then
+                    Staff = ""
+                Else
+                    Staff = dr.Item("StaffResponsible")
+                End If
+                If IsDBNull(dr.Item("strUnitDesc")) Then
+                    Unit = ""
+                Else
+                    Unit = dr.Item("strUnitDesc")
+                End If
 
-            If chbNotifiedAppReceived.Checked Then
-                DTPNotifiedAppReceived.Visible = True
+                temp = AppNumber & " - " & FacName & " - (" & FacCity & ") - " & AppType
+
+                Select Case temp.Length
+                    Case Is < 40
+                        temp = temp & vbTab & vbTab & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
+                    Case 40 To 49
+                        temp = temp & vbTab & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
+                    Case 50 To 51
+                        temp = temp & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
+                    Case Else
+                        temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
+                End Select
+
+                If Not clbTitleVEmailList.Items.Contains(temp) Then
+                    clbTitleVEmailList.Items.Add(temp)
+                    clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
+                End If
             Else
-                DTPNotifiedAppReceived.Visible = False
+                MsgBox("Unable to add this Application to list.", MsgBoxStyle.Information, "Data Management Tools")
             End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub chbDraftOnWeb_CheckedChanged(sender As Object, e As EventArgs) Handles chbDraftOnWeb.CheckedChanged
-        Try
-
-            If chbDraftOnWeb.Checked Then
-                DTPDraftOnWeb.Visible = True
-            Else
-                DTPDraftOnWeb.Visible = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub chbPNExpires_CheckedChanged(sender As Object, e As EventArgs) Handles chbPNExpires.CheckedChanged
-        DTPPNExpires.Visible = chbPNExpires.Checked AndAlso chbPNExpires.Visible
-    End Sub
-    Private Sub chbEPAandStatesNotified_CheckedChanged(sender As Object, e As EventArgs) Handles chbEPAandStatesNotified.CheckedChanged
-        Try
-
-            If chbEPAandStatesNotified.Checked Then
-                DTPEPAStatesNotified.Visible = True
-            Else
-                DTPEPAStatesNotified.Visible = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub chbFinalOnWeb_CheckedChanged(sender As Object, e As EventArgs) Handles chbFinalOnWeb.CheckedChanged
-        Try
-
-            If chbFinalOnWeb.Checked Then
-                DTPFinalOnWeb.Visible = True
-            Else
-                DTPFinalOnWeb.Visible = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub chbEPANotifiedPermitOnWeb_CheckedChanged(sender As Object, e As EventArgs) Handles chbEPANotifiedPermitOnWeb.CheckedChanged
-        Try
-
-            If chbEPANotifiedPermitOnWeb.Checked Then
-                DTPEPANotifiedPermitOnWeb.Visible = True
-            Else
-                DTPEPANotifiedPermitOnWeb.Visible = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub chbEffectiveDateOfPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbEffectiveDateOfPermit.CheckedChanged
-        Try
-
-            If chbEffectiveDateOfPermit.Checked Then
-                DTPEffectiveDateofPermit.Visible = True
-            Else
-                DTPEffectiveDateofPermit.Visible = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub chbExperationDate_CheckedChanged(sender As Object, e As EventArgs) Handles chbExpirationDate.CheckedChanged
-        Try
-
-            If chbExpirationDate.Checked Then
-                DTPExperationDate.Visible = True
-            Else
-                DTPExperationDate.Visible = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub btnSaveWebPublisher_Click(sender As Object, e As EventArgs) Handles btnSaveWebPublisher.Click
-        SaveWebPublisherData()
-    End Sub
-
-    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
-        Try
-
-            chbDraftOnWeb.Checked = False
-            DTPDraftOnWeb.Value = Today
-            chbEPAandStatesNotified.Checked = False
-            DTPEPAStatesNotified.Value = Today
-            chbFinalOnWeb.Checked = False
-            DTPFinalOnWeb.Value = Today
-            chbEPANotifiedPermitOnWeb.Checked = False
-            DTPEPANotifiedPermitOnWeb.Value = Today
-            chbEffectiveDateOfPermit.Checked = False
-            DTPEffectiveDateofPermit.Value = Today
-            txtEPATargetedComments.Clear()
-            txtWebPublisherApplicationNumber.Clear()
-            DTPExperationDate.Value = Today
-            chbExpirationDate.Checked = False
-            txtFacilityInformation.Clear()
-            chbNotifiedAppReceived.Checked = False
-            DTPNotifiedAppReceived.Value = Today
-            chbPNExpires.Checked = False
-            DTPPNExpires.Value = Today
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnSearchForApplication_Click(sender As Object, e As EventArgs) Handles btnSearchForApplication.Click
-
-        LoadWebPublisherApplicationData()
-        LoadWebPublishingFacilityInformation()
-
-    End Sub
-    Private Sub txtWebPublisherApplicationNumber_Leave(sender As Object, e As EventArgs) Handles txtWebPublisherApplicationNumber.Leave
-        Try
-
-            If txtWebPublisherApplicationNumber.Text <> "" Then
-                LoadWebPublisherApplicationData()
-                LoadWebPublishingFacilityInformation()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub txtWebPublisherApplicationNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtWebPublisherApplicationNumber.KeyPress
-        Try
-
-            If e.KeyChar = ChrW(13) AndAlso
-                txtWebPublisherApplicationNumber.Text <> "" Then
-                LoadWebPublisherApplicationData()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-
-        End Try
-
-    End Sub
-    Private Sub btnPreviewESNReceived_Click(sender As Object, e As EventArgs) Handles btnPreviewESNReceived.Click
-        Try
-
-            PreviewAppReceivedEmail()
 
             txtApplicationCount.Text = clbTitleVEmailList.Items.Count
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnPreviewESNReceived_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnPreviewESNReceived.KeyPress
-        Try
-
-            If e.KeyChar = ChrW(13) Then
-                PreviewAppReceivedEmail()
-
-                txtApplicationCount.Text = clbTitleVEmailList.Items.Count
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnPreviewDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnPreviewDraftOnWeb.Click
-        Try
-
-            PreviewDraftOnWeb()
-
-            txtApplicationCount.Text = clbTitleVEmailList.Items.Count
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnPreviewDraftOnWeb_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnPreviewDraftOnWeb.KeyPress
-        Try
-
-            If e.KeyChar = ChrW(13) Then
-                PreviewDraftOnWeb()
-
-                txtApplicationCount.Text = clbTitleVEmailList.Items.Count
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnPreviewMinorMod_Click(sender As Object, e As EventArgs) Handles btnPreviewMinorMod.Click
-        Try
-
-            PreviewMinorModOnWeb()
-
-            txtApplicationCount.Text = clbTitleVEmailList.Items.Count
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnPreviewMinorMod_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnPreviewMinorMod.KeyPress
-        Try
-
-            If e.KeyChar = ChrW(13) Then
-                PreviewMinorModOnWeb()
-
-                txtApplicationCount.Text = clbTitleVEmailList.Items.Count
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnPreviewFinalOnWeb_Click(sender As Object, e As EventArgs) Handles btnPreviewFinalOnWeb.Click
-        Try
-
-            PreviewFinalOnWeb()
-
-            txtApplicationCount.Text = clbTitleVEmailList.Items.Count
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnPreviewFinalOnWeb_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnPreviewFinalOnWeb.KeyPress
-        Try
-
-            If e.KeyChar = ChrW(13) Then
-                PreviewFinalOnWeb()
-
-                txtApplicationCount.Text = clbTitleVEmailList.Items.Count
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnEmailESNReceived_Click(sender As Object, e As EventArgs) Handles btnEmailESNReceived.Click
-
-        GenerateAppReceivedEmail()
-
-    End Sub
-    Private Sub btnEmailESNReceived_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnEmailESNReceived.KeyPress
-        Try
-
-            If e.KeyChar = ChrW(13) Then
-                GenerateAppReceivedEmail()
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnEmailDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnEmailDraftOnWeb.Click
-
-        GenerateDraftOnWebEmail()
-
-    End Sub
-    Private Sub btnEmailDraftOnWeb_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnEmailDraftOnWeb.KeyPress
-        Try
-
-            If e.KeyChar = ChrW(13) Then
-                GenerateDraftOnWebEmail()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnEmailDraftOnWebState_Click(sender As Object, e As EventArgs) Handles btnEmailDraftOnWebState.Click
-
-        GenerateDraftOnWebState()
-
-    End Sub
-    Private Sub btnEmailDraftOnWebState_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnEmailDraftOnWebState.KeyPress
-        Try
-
-            If e.KeyChar = ChrW(13) Then
-                GenerateDraftOnWebState()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnMinorModOnWebEPD_Click(sender As Object, e As EventArgs) Handles btnMinorModOnWebEPD.Click
-
-        GenerateMinorOnWebEmail()
-
-    End Sub
-    Private Sub btnMinorModOnWebEPD_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnMinorModOnWebEPD.KeyPress
-        Try
-
-            If e.KeyChar = ChrW(13) Then
-                GenerateMinorOnWebEmail()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnMinorModOnWebState_Click(sender As Object, e As EventArgs) Handles btnMinorModOnWebState.Click
-
-        GenerateMinorOnWebState()
-
-    End Sub
-    Private Sub btnMinorModOnWebState_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnMinorModOnWebState.KeyPress
-        Try
-
-            If e.KeyChar = ChrW(13) Then
-                GenerateMinorOnWebState()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnEmailFinalOnWeb_Click(sender As Object, e As EventArgs) Handles btnEmailFinalOnWeb.Click
-
-        GenerateFinalOnWeb()
-
-    End Sub
-    Private Sub btnEmailFinalOnWeb_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnEmailFinalOnWeb.KeyPress
-        Try
-
-            If e.KeyChar = ChrW(13) Then
-
-                GenerateFinalOnWeb()
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub btnAddApplicationToList_Click(sender As Object, e As EventArgs) Handles btnAddApplicationToList.Click
-        Try
-
-            AddAppToList()
-
-            txtApplicationCount.Text = clbTitleVEmailList.Items.Count
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub txtApplicationNumberToAdd_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtApplicationNumberToAdd.KeyPress
-        Try
-
-            If e.KeyChar = ChrW(13) Then
-                AddAppToList()
-
-                txtApplicationCount.Text = clbTitleVEmailList.Items.Count
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub txtEmailLetter_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtEmailLetter.KeyPress
-        Try
-
-            If e.KeyChar = ChrW(1) Then
-                txtEmailLetter.SelectAll()
-            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

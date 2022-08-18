@@ -22,7 +22,7 @@ Partial Class SSPPTitleVTools
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.bgwTransfer = New System.ComponentModel.BackgroundWorker()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPWebPublishing = New System.Windows.Forms.TabPage()
@@ -76,7 +76,6 @@ Partial Class SSPPTitleVTools
         Me.btnMinorModOnWebEPD = New System.Windows.Forms.Button()
         Me.btnPreviewMinorMod = New System.Windows.Forms.Button()
         Me.btnEmailDraftOnWebState = New System.Windows.Forms.Button()
-        Me.txtEmailType = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.btnAddApplicationToList = New System.Windows.Forms.Button()
         Me.txtApplicationNumberToAdd = New System.Windows.Forms.TextBox()
@@ -122,8 +121,8 @@ Partial Class SSPPTitleVTools
         '
         'dgrWebPublisher
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrWebPublisher.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrWebPublisher.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgrWebPublisher.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrWebPublisher.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrWebPublisher.GridColor = System.Drawing.SystemColors.ControlLight
@@ -559,7 +558,6 @@ Partial Class SSPPTitleVTools
         Me.Panel6.Controls.Add(Me.btnMinorModOnWebEPD)
         Me.Panel6.Controls.Add(Me.btnPreviewMinorMod)
         Me.Panel6.Controls.Add(Me.btnEmailDraftOnWebState)
-        Me.Panel6.Controls.Add(Me.txtEmailType)
         Me.Panel6.Controls.Add(Me.Label25)
         Me.Panel6.Controls.Add(Me.btnAddApplicationToList)
         Me.Panel6.Controls.Add(Me.txtApplicationNumberToAdd)
@@ -651,14 +649,6 @@ Partial Class SSPPTitleVTools
         Me.btnEmailDraftOnWebState.TabIndex = 7
         Me.btnEmailDraftOnWebState.Text = "Draft on Web (State)"
         Me.btnEmailDraftOnWebState.UseVisualStyleBackColor = True
-        '
-        'txtEmailType
-        '
-        Me.txtEmailType.Location = New System.Drawing.Point(765, 26)
-        Me.txtEmailType.Name = "txtEmailType"
-        Me.txtEmailType.Size = New System.Drawing.Size(10, 20)
-        Me.txtEmailType.TabIndex = 11
-        Me.txtEmailType.Visible = False
         '
         'Label25
         '
@@ -822,7 +812,6 @@ Partial Class SSPPTitleVTools
     Friend WithEvents btnMinorModOnWebEPD As System.Windows.Forms.Button
     Friend WithEvents btnPreviewMinorMod As System.Windows.Forms.Button
     Friend WithEvents btnEmailDraftOnWebState As System.Windows.Forms.Button
-    Friend WithEvents txtEmailType As System.Windows.Forms.TextBox
     Friend WithEvents Label25 As System.Windows.Forms.Label
     Friend WithEvents btnAddApplicationToList As System.Windows.Forms.Button
     Friend WithEvents txtApplicationNumberToAdd As System.Windows.Forms.TextBox
