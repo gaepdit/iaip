@@ -1411,7 +1411,7 @@ Public Class SSPPTitleVTools
                     LEFT JOIN LOOKUPEPDUNITS u
                     ON p.NUMUNIT = u.NUMUNITCODE
                 where (d.STRDRAFTONWEBNOTIFICATION is Null or d.STRDRAFTONWEBNOTIFICATION = 'False')
-                  and m.STRAPPLICATIONTYPE in (11, 12)
+                  and m.STRAPPLICATIONTYPE in (12)
                   and d.STRPNREADY = 'True'
                   and t.DATDRAFTONWEB is not null
                 order by d.STRFACILITYNAME, convert(int, m.STRAPPLICATIONNUMBER) DESC "
