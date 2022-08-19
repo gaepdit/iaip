@@ -560,7 +560,25 @@ Public Class SSPPTitleVTools
 
     ' Emails tab
 
+    Private Sub ResetEmailResults()
+        txtEmailLetter.Clear()
+        clbTitleVEmailList.Items.Clear()
+        btnCopyEmailText.Enabled = False
+        lblPreviewCopied.Visible = False
+
+        btnEmailESNReceived.Enabled = False
+        btnEmailDraftOnWebEPA.Enabled = False
+        btnEmailDraftOnWebState.Enabled = False
+        btnSmEmailDraftOnWeb.Enabled = False
+        btnMinorModOnWebEPA.Enabled = False
+        btnMinorModOnWebState.Enabled = False
+        btnEmailFinalOnWeb.Enabled = False
+    End Sub
+
     Private Sub btnPreviewESNReceived_Click(sender As Object, e As EventArgs) Handles btnPreviewESNReceived.Click
+        Cursor = Cursors.WaitCursor
+        ResetEmailResults()
+
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -569,8 +587,6 @@ Public Class SSPPTitleVTools
             Dim Staff As String = ""
             Dim Unit As String = ""
             Dim temp As String = ""
-
-            clbTitleVEmailList.Items.Clear()
 
             Dim query As String = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
@@ -646,14 +662,20 @@ Public Class SSPPTitleVTools
             Next
 
             txtApplicationCount.Text = clbTitleVEmailList.Items.Count
+            btnEmailESNReceived.Enabled = clbTitleVEmailList.Items.Count > 0
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
+
     End Sub
 
     Private Sub btnEmailESNReceived_Click(sender As Object, e As EventArgs) Handles btnEmailESNReceived.Click
         Cursor = Cursors.WaitCursor
+        btnCopyEmailText.Enabled = False
+        lblPreviewCopied.Visible = False
 
         Try
             Dim AppNumber As String = ""
@@ -667,6 +689,8 @@ Public Class SSPPTitleVTools
             Dim strObject As Object
 
             If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
+                btnCopyEmailText.Enabled = True
+
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.7(e)(2),(3), and (4) and 70.8(a)(1) and (b)(1), you are hereby notified that " &
                 "Georgia EPD has received an application for the modification of an existing Part 70 permit for the " &
                 "following sources: " & vbCrLf & vbCrLf
@@ -744,10 +768,9 @@ Public Class SSPPTitleVTools
                 Next
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "Please reply to acknowledge receipt of this notification. " &
-                "Any questions regarding this permit application may be directed to the Air Permit Manager by calling (404) 363-7000."
+                "Any questions regarding this permit application may be directed to the Air Permit Manager by calling (404) 363-7000." & vbCrLf
 
                 DB.RunCommand(query2)
-
             Else
                 txtEmailLetter.Clear()
                 MsgBox("Click preview button first and ensure at least one applications is selected.", MsgBoxStyle.Information, "Title V Emails.")
@@ -755,12 +778,16 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
 
-        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnPreviewDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnPreviewDraftOnWeb.Click
+        Cursor = Cursors.WaitCursor
+        ResetEmailResults()
+
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -771,8 +798,6 @@ Public Class SSPPTitleVTools
             Dim temp As String = ""
             Dim LinkedApps As String = ""
             Dim MasterApp As String = ""
-
-            clbTitleVEmailList.Items.Clear()
 
             Dim query As String = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
@@ -944,14 +969,21 @@ Public Class SSPPTitleVTools
             Loop
 
             txtApplicationCount.Text = clbTitleVEmailList.Items.Count
+            btnEmailDraftOnWebEPA.Enabled = clbTitleVEmailList.Items.Count > 0
+            btnEmailDraftOnWebState.Enabled = clbTitleVEmailList.Items.Count > 0
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
+
     End Sub
 
     Private Sub btnEmailDraftOnWebEPA_Click(sender As Object, e As EventArgs) Handles btnEmailDraftOnWebEPA.Click
         Cursor = Cursors.WaitCursor
+        btnCopyEmailText.Enabled = False
+        lblPreviewCopied.Visible = False
 
         Try
             Dim AppNumber As String = ""
@@ -967,6 +999,8 @@ Public Class SSPPTitleVTools
             Dim strObject As Object
 
             If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
+                btnCopyEmailText.Enabled = True
+
                 txtEmailLetter.Text = "In accordance with Georgia's Title V Implementation Agreement, attached are the public notices for the " &
                 "draft/proposed permits and amendments for the following sources: " & vbCrLf & vbCrLf
 
@@ -1131,7 +1165,7 @@ Public Class SSPPTitleVTools
                 "https://epd.georgia.gov/draft-title-v-permitsamendments" & vbCrLf & vbCrLf &
                 "The public comment deadline is posted on the Title V web page. " & vbCrLf & vbCrLf &
                 "Please reply to acknowledge receipt of this notification. Any questions regarding the draft permits and " &
-                "amendments may be directed to the Air Permit Manager by calling (404) 363-7000."
+                "amendments may be directed to the Air Permit Manager by calling (404) 363-7000." & vbCrLf
 
                 DB.RunCommand(query2)
 
@@ -1142,13 +1176,16 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
 
-        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnEmailDraftOnWebState_Click(sender As Object, e As EventArgs) Handles btnEmailDraftOnWebState.Click
         Cursor = Cursors.WaitCursor
+        btnCopyEmailText.Enabled = False
+        lblPreviewCopied.Visible = False
 
         Try
             Dim AppNumber As String = ""
@@ -1163,6 +1200,8 @@ Public Class SSPPTitleVTools
             Dim strObject As Object
 
             If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
+                btnCopyEmailText.Enabled = True
+
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.8(b)(1), attached are the public notices for the draft/proposed permits and " &
                 "amendments for the following sources: " & vbCrLf & vbCrLf
 
@@ -1321,7 +1360,7 @@ Public Class SSPPTitleVTools
                 "https://epd.georgia.gov/draft-title-v-permitsamendments" & vbCrLf & vbCrLf &
                 "The public comment deadline is posted on the Title V web page. " & vbCrLf & vbCrLf &
                 "Please reply to acknowledge receipt of this notification. Any questions regarding the draft permits and " &
-                "amendments may be directed to the Air Permit Manager by calling (404) 363-7000."
+                "amendments may be directed to the Air Permit Manager by calling (404) 363-7000." & vbCrLf
 
                 DB.RunCommand(query2)
 
@@ -1333,12 +1372,16 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
 
-        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnPreviewSmDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnPreviewSmDraftOnWeb.Click
+        Cursor = Cursors.WaitCursor
+        ResetEmailResults()
+
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1349,8 +1392,6 @@ Public Class SSPPTitleVTools
             Dim temp As String = ""
             Dim LinkedApps As String = ""
             Dim MasterApp As String = ""
-
-            clbTitleVEmailList.Items.Clear()
 
             Dim query As String = "SELECT m.STRAPPLICATIONNUMBER,
                        d.STRFACILITYNAME,
@@ -1521,14 +1562,20 @@ Public Class SSPPTitleVTools
             Loop
 
             txtApplicationCount.Text = clbTitleVEmailList.Items.Count
+            btnSmEmailDraftOnWeb.Enabled = clbTitleVEmailList.Items.Count > 0
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
+
     End Sub
 
     Private Sub btnSmEmailDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnSmEmailDraftOnWeb.Click
         Cursor = Cursors.WaitCursor
+        btnCopyEmailText.Enabled = False
+        lblPreviewCopied.Visible = False
 
         Try
             Dim AppNumber As String = ""
@@ -1544,6 +1591,8 @@ Public Class SSPPTitleVTools
             Dim strObject As Object
 
             If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
+                btnCopyEmailText.Enabled = True
+
                 txtEmailLetter.Text = "In accordance with Georgia's State Implementation Plan, attached are the " &
                     "draft permits and amendments for the following sources:" & vbCrLf & vbCrLf
 
@@ -1707,7 +1756,7 @@ Public Class SSPPTitleVTools
                     "https://epd.georgia.gov/draft-title-v-permitsamendments" & vbCrLf & vbCrLf &
                     "The public comment deadline is posted on the web page." & vbCrLf & vbCrLf &
                     "Please reply to acknowledge receipt of this notification. Any questions regarding the draft " &
-                    "permits and amendments may be directed to the Air Permit Manager by calling (404) 363-7000."
+                    "permits and amendments may be directed to the Air Permit Manager by calling (404) 363-7000." & vbCrLf
 
                 DB.RunCommand(query2)
 
@@ -1718,12 +1767,15 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
 
-        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnPreviewMinorMod_Click(sender As Object, e As EventArgs) Handles btnPreviewMinorMod.Click
+        Cursor = Cursors.WaitCursor
+        ResetEmailResults()
 
         Try
             Dim AppNumber As String = ""
@@ -1735,8 +1787,6 @@ Public Class SSPPTitleVTools
             Dim temp As String = ""
             Dim LinkedApps As String = ""
             Dim MasterApp As String = ""
-
-            clbTitleVEmailList.Items.Clear()
 
             Dim query As String = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
@@ -1757,7 +1807,7 @@ Public Class SSPPTitleVTools
             "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
             "where datEPAStatesNotified is not Null " &
             "and (strDraftOnWebNotification is Null or strDraftOnWebNotification = 'False') " &
-            "and (strApplicationType = '19'  or strApplicationType = '20') " &
+            "and (strApplicationType = '19'  or strApplicationType = '20' or strApplicationType <> '20') " &
             "order by strFacilityName, strApplicationNumber DESC "
 
             Dim dt As DataTable = DB.GetDataTable(query)
@@ -1904,14 +1954,21 @@ Public Class SSPPTitleVTools
             Loop
 
             txtApplicationCount.Text = clbTitleVEmailList.Items.Count
+            btnMinorModOnWebEPA.Enabled = clbTitleVEmailList.Items.Count > 0
+            btnMinorModOnWebState.Enabled = clbTitleVEmailList.Items.Count > 0
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
+
     End Sub
 
     Private Sub btnMinorModOnWebEPA_Click(sender As Object, e As EventArgs) Handles btnMinorModOnWebEPA.Click
         Cursor = Cursors.WaitCursor
+        btnCopyEmailText.Enabled = False
+        lblPreviewCopied.Visible = False
 
         Try
             Dim AppNumber As String = ""
@@ -1926,6 +1983,8 @@ Public Class SSPPTitleVTools
             Dim strObject As Object
 
             If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
+                btnCopyEmailText.Enabled = True
+
                 txtEmailLetter.Text = "In accordance with Georgia's Title V Implementation Agreement, attached is the proposed Part " &
                 "70 permit modification and permit amendment narrative for the following: " & vbCrLf & vbCrLf
 
@@ -2078,7 +2137,7 @@ Public Class SSPPTitleVTools
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "EPA's review of the proposed minor amendment extends from 45 days following the date of this " &
                 "message. Please reply to acknowledge receipt of this notification. Any questions regarding this " &
-                "proposed permit amendment may be directed to the Air Permit Manager by calling (404) 363-7000."
+                "proposed permit amendment may be directed to the Air Permit Manager by calling (404) 363-7000." & vbCrLf
 
                 DB.RunCommand(query2)
 
@@ -2090,13 +2149,16 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
 
-        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnMinorModOnWebState_Click(sender As Object, e As EventArgs) Handles btnMinorModOnWebState.Click
         Cursor = Cursors.WaitCursor
+        btnCopyEmailText.Enabled = False
+        lblPreviewCopied.Visible = False
 
         Try
             Dim AppNumber As String = ""
@@ -2111,6 +2173,8 @@ Public Class SSPPTitleVTools
             Dim strObject As Object
 
             If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
+                btnCopyEmailText.Enabled = True
+
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.8(b)(1), attached is the proposed Part 70 permit modification and  " &
                 "permit amendment narrative for the following source: " & vbCrLf & vbCrLf
 
@@ -2262,7 +2326,7 @@ Public Class SSPPTitleVTools
                 query2 &= SQLLine2
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "Please reply to acknowledge receipt of this notification. Any questions regarding this proposed " &
-                "permit amendment may be directed to the Air Permit Manager by calling (404) 363-7000."
+                "permit amendment may be directed to the Air Permit Manager by calling (404) 363-7000." & vbCrLf
 
                 DB.RunCommand(query2)
 
@@ -2274,12 +2338,15 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
 
-        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnPreviewFinalOnWeb_Click(sender As Object, e As EventArgs) Handles btnPreviewFinalOnWeb.Click
+        Cursor = Cursors.WaitCursor
+        ResetEmailResults()
 
         Try
             Dim AppNumber As String = ""
@@ -2291,8 +2358,6 @@ Public Class SSPPTitleVTools
             Dim temp As String = ""
             Dim LinkedApps As String = ""
             Dim MasterApp As String = ""
-
-            clbTitleVEmailList.Items.Clear()
 
             Dim query As String = "Select " &
                 "SSPPApplicationMaster.strApplicationNumber, " &
@@ -2466,13 +2531,20 @@ Public Class SSPPTitleVTools
             Loop
 
             txtApplicationCount.Text = clbTitleVEmailList.Items.Count
+            btnEmailFinalOnWeb.Enabled = clbTitleVEmailList.Items.Count > 0
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
+
     End Sub
 
     Private Sub btnEmailFinalOnWeb_Click(sender As Object, e As EventArgs) Handles btnEmailFinalOnWeb.Click
         Cursor = Cursors.WaitCursor
+        btnCopyEmailText.Enabled = False
+        lblPreviewCopied.Visible = False
 
         Try
             Dim AppNumber As String = ""
@@ -2489,6 +2561,8 @@ Public Class SSPPTitleVTools
             Dim strObject As Object
 
             If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
+                btnCopyEmailText.Enabled = True
+
                 txtEmailLetter.Text = "In accordance with condition V.A.1.a of Georgia's Title V Agreement, the final Part 70 " &
                 "Permits were issued to the following sources:" & vbCrLf & vbCrLf
 
@@ -2666,7 +2740,7 @@ Public Class SSPPTitleVTools
                 vbCrLf & vbCrLf &
                 "https://permitsearch.gaepd.org/" & vbCrLf & vbCrLf &
                 "Please reply to acknowledge receipt of this notification. Any questions regarding the final permits " &
-                "may be directed to the Air Permit Manager by calling (404) 363-7000."
+                "may be directed to the Air Permit Manager by calling (404) 363-7000." & vbCrLf
 
                 DB.RunCommand(query2)
 
@@ -2678,9 +2752,10 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
 
-        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnAddApplicationToList_Click(sender As Object, e As EventArgs) Handles btnAddApplicationToList.Click
@@ -2779,6 +2854,11 @@ Public Class SSPPTitleVTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
+    End Sub
+
+    Private Sub btnCopyEmailText_Click(sender As Object, e As EventArgs) Handles btnCopyEmailText.Click
+        Clipboard.SetText(txtEmailLetter.Text)
+        lblPreviewCopied.Visible = True
     End Sub
 
 End Class
