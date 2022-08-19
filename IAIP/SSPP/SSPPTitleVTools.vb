@@ -653,6 +653,8 @@ Public Class SSPPTitleVTools
     End Sub
 
     Private Sub btnEmailESNReceived_Click(sender As Object, e As EventArgs) Handles btnEmailESNReceived.Click
+        Cursor = Cursors.WaitCursor
+
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -755,6 +757,7 @@ Public Class SSPPTitleVTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnPreviewDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnPreviewDraftOnWeb.Click
@@ -947,7 +950,9 @@ Public Class SSPPTitleVTools
         End Try
     End Sub
 
-    Private Sub btnEmailDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnEmailDraftOnWeb.Click
+    Private Sub btnEmailDraftOnWebEPA_Click(sender As Object, e As EventArgs) Handles btnEmailDraftOnWebEPA.Click
+        Cursor = Cursors.WaitCursor
+
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1139,9 +1144,12 @@ Public Class SSPPTitleVTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnEmailDraftOnWebState_Click(sender As Object, e As EventArgs) Handles btnEmailDraftOnWebState.Click
+        Cursor = Cursors.WaitCursor
+
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1327,7 +1335,392 @@ Public Class SSPPTitleVTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
+        Cursor = Cursors.Default
+    End Sub
 
+    Private Sub btnPreviewSmDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnPreviewSmDraftOnWeb.Click
+        Try
+            Dim AppNumber As String = ""
+            Dim FacName As String = ""
+            Dim FacCity As String = ""
+            Dim AppType As String = ""
+            Dim Staff As String = ""
+            Dim Unit As String = ""
+            Dim temp As String = ""
+            Dim LinkedApps As String = ""
+            Dim MasterApp As String = ""
+
+            clbTitleVEmailList.Items.Clear()
+
+            Dim query As String = "SELECT m.STRAPPLICATIONNUMBER,
+                       d.STRFACILITYNAME,
+                       d.STRFACILITYCITY,
+                       l.STRAPPLICATIONTYPEDESC,
+                       concat(p.STRLASTNAME, ', ', p.STRFIRSTNAME) as StaffResponsible,
+                       u.STRUNITDESC
+                FROM SSPPAPPLICATIONMASTER m
+                    INNER JOIN SSPPAPPLICATIONDATA d
+                    ON m.STRAPPLICATIONNUMBER = d.STRAPPLICATIONNUMBER
+                    INNER JOIN LOOKUPAPPLICATIONTYPES l
+                    ON m.STRAPPLICATIONTYPE = l.STRAPPLICATIONTYPECODE
+                    INNER JOIN SSPPAPPLICATIONTRACKING t
+                    ON m.STRAPPLICATIONNUMBER = t.STRAPPLICATIONNUMBER
+                    INNER JOIN EPDUSERPROFILES p
+                    ON m.STRSTAFFRESPONSIBLE = p.NUMUSERID
+                    LEFT JOIN LOOKUPEPDUNITS u
+                    ON p.NUMUNIT = u.NUMUNITCODE
+                where (d.STRDRAFTONWEBNOTIFICATION is Null or d.STRDRAFTONWEBNOTIFICATION = 'False')
+                  and m.STRAPPLICATIONTYPE in (11, 12)
+                  and d.STRPNREADY = 'True'
+                  and t.DATDRAFTONWEB is not null
+                order by d.STRFACILITYNAME, convert(int, m.STRAPPLICATIONNUMBER) DESC "
+
+            Dim dt As DataTable = DB.GetDataTable(query)
+
+            For Each dr As DataRow In dt.Rows
+                If IsDBNull(dr.Item("strApplicationNumber")) Then
+                    AppNumber = ""
+                Else
+                    AppNumber = dr.Item("strApplicationNumber")
+                    LinkedApps &= dr.Item("strApplicationNumber").ToString & ","
+                End If
+                If IsDBNull(dr.Item("strFacilityName")) Then
+                    FacName = ""
+                Else
+                    FacName = dr.Item("strFacilityName")
+                End If
+                If IsDBNull(dr.Item("strFacilityCity")) Then
+                    FacCity = ""
+                Else
+                    FacCity = dr.Item("strFacilityCity")
+                End If
+                If IsDBNull(dr.Item("strApplicationTypeDesc")) Then
+                    AppType = ""
+                Else
+                    AppType = dr.Item("strApplicationTypeDesc")
+                End If
+                If IsDBNull(dr.Item("StaffResponsible")) Then
+                    Staff = ""
+                Else
+                    Staff = dr.Item("StaffResponsible")
+                End If
+                If IsDBNull(dr.Item("strUnitDesc")) Then
+                    Unit = ""
+                Else
+                    Unit = dr.Item("strUnitDesc")
+                End If
+
+                temp = AppNumber & " - " & FacName & " - (" & FacCity & ") - " & AppType
+
+                Select Case temp.Length
+                    Case Is < 40
+                        temp = temp & vbTab & vbTab & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
+                    Case 40 To 49
+                        temp = temp & vbTab & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
+                    Case 50 To 51
+                        temp = temp & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
+                    Case Else
+                        temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
+                End Select
+
+                If Not clbTitleVEmailList.Items.Contains(temp) Then
+                    clbTitleVEmailList.Items.Add(temp)
+                    clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
+                End If
+
+            Next
+
+            Do While LinkedApps <> ""
+                MasterApp = Mid(LinkedApps, 1, (InStr(LinkedApps, ",", CompareMethod.Text) - 1))
+                query = "select " &
+                "strMasterApplication " &
+                "from SSPPApplicationLinking " &
+                "where strApplicationNumber = @app "
+
+                Dim p As New SqlParameter("@app", MasterApp)
+
+                temp = DB.GetString(query, p)
+
+                If temp <> "" Then
+                    query = "Select " &
+                    "SSPPApplicationMaster.strApplicationNumber,  " &
+                    "strFacilityName, strFacilityCity,  " &
+                    "strApplicationTypeDesc,  " &
+                    " concat(strLastName,', ',strFirstName) as StaffResponsible,  " &
+                    "strUnitDesc  " &
+                    "FROM SSPPApplicationMaster " &
+                    " INNER JOIN SSPPApplicationData  " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    " INNER JOIN LookUpApplicationTypes " &
+                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode   " &
+                    " INNER JOIN SSPPApplicationLinking " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
+                    " INNER JOIN EPDUserProfiles " &
+                    "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                    " LEFT JOIN LookUpEPDUnits  " &
+                    "ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                    "where SSPPApplicationLinking.strMasterApplication = @mapp "
+
+                    Dim p2 As New SqlParameter("@mapp", temp)
+
+                    Dim dt2 As DataTable = DB.GetDataTable(query, p2)
+
+                    For Each dr As DataRow In dt2.Rows
+                        If IsDBNull(dr.Item("strApplicationNumber")) Then
+                            AppNumber = ""
+                        Else
+                            AppNumber = dr.Item("strApplicationNumber")
+                        End If
+                        If IsDBNull(dr.Item("strFacilityName")) Then
+                            FacName = ""
+                        Else
+                            FacName = dr.Item("strFacilityName")
+                        End If
+                        If IsDBNull(dr.Item("strFacilityCity")) Then
+                            FacCity = ""
+                        Else
+                            FacCity = dr.Item("strFacilityCity")
+                        End If
+                        If IsDBNull(dr.Item("strApplicationTypeDesc")) Then
+                            AppType = ""
+                        Else
+                            AppType = dr.Item("strApplicationTypeDesc")
+                        End If
+                        If IsDBNull(dr.Item("StaffResponsible")) Then
+                            Staff = ""
+                        Else
+                            Staff = dr.Item("StaffResponsible")
+                        End If
+                        If IsDBNull(dr.Item("strUnitDesc")) Then
+                            Unit = ""
+                        Else
+                            Unit = dr.Item("strUnitDesc")
+                        End If
+
+                        temp = AppNumber & " - " & FacName & " - (" & FacCity & ") - " & AppType
+
+                        Select Case temp.Length
+                            Case Is < 40
+                                temp = temp & vbTab & vbTab & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
+                            Case 40 To 49
+                                temp = temp & vbTab & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
+                            Case 50 To 51
+                                temp = temp & vbTab & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
+                            Case Else
+                                temp = temp & vbTab & "Staff Responsible:  " & Staff & "     -     Staff Unit: " & Unit
+                        End Select
+
+                        If Not clbTitleVEmailList.Items.Contains(temp) Then
+                            clbTitleVEmailList.Items.Add(temp)
+                            clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
+                        End If
+                    Next
+                End If
+
+                LinkedApps = Replace(LinkedApps, (MasterApp & ","), "")
+            Loop
+
+            txtApplicationCount.Text = clbTitleVEmailList.Items.Count
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub btnSmEmailDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnSmEmailDraftOnWeb.Click
+        Cursor = Cursors.WaitCursor
+
+        Try
+            Dim AppNumber As String = ""
+            Dim FacName As String = ""
+            Dim FacCity As String = ""
+            Dim AppType As String = ""
+            Dim County As String = ""
+            Dim PNExpires As String = ""
+            Dim AppLine As String = ""
+            Dim LinkedApp As String = ""
+            Dim SQLLine2 As String = ""
+            Dim temp As String = ""
+            Dim strObject As Object
+
+            If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
+                txtEmailLetter.Text = "In accordance with Georgia's State Implementation Plan, attached are the " &
+                    "draft permits and amendments for the following sources:" & vbCrLf & vbCrLf
+
+                Dim query2 As String = "Update SSPPApplicationData set " &
+                "strDraftOnWebNotification = 'True' where "
+
+                For Each strObject In clbTitleVEmailList.CheckedItems
+                    temp = strObject
+                    temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
+
+                    Dim query As String = "Select strMasterApplication " &
+                    "from SSPPApplicationLinking " &
+                    "where strApplicationNumber = @app "
+
+                    Dim p As New SqlParameter("@app", temp)
+
+                    LinkedApp = DB.GetString(query, p)
+
+                    query = "Select " &
+                    "SSPPApplicationMaster.strApplicationNumber, " &
+                    "strFacilityName, strFacilityCity,  " &
+                    "strApplicationTypeDesc, " &
+                    "strCountyName, datPNExpires " &
+                    "FROM SSPPApplicationMaster " &
+                    " INNER JOIN SSPPApplicationData  " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    " INNER JOIN LookUpCountyInformation " &
+                    "ON SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
+                    " INNER JOIN LookUpApplicationTypes " &
+                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
+                    " LEFT JOIN SSPPApplicationTracking " &
+                    "ON SSPPApplicationmaster.strAPplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                    "where SSPPApplicationMaster.strApplicationNumber = @app "
+
+                    Dim dt As DataTable = DB.GetDataTable(query, p)
+
+                    For Each dr As DataRow In dt.Rows
+                        If IsDBNull(dr.Item("strApplicationNumber")) Then
+                            AppNumber = ""
+                        Else
+                            AppNumber = dr.Item("strApplicationNumber")
+                        End If
+                        If IsDBNull(dr.Item("strFacilityName")) Then
+                            FacName = ""
+                        Else
+                            FacName = dr.Item("strFacilityName")
+                        End If
+                        If IsDBNull(dr.Item("strFacilityCity")) Then
+                            FacCity = ""
+                        Else
+                            FacCity = dr.Item("strFacilityCity")
+                        End If
+                        If IsDBNull(dr.Item("strCountyName")) Then
+                            County = ""
+                        Else
+                            County = dr.Item("strCountyName")
+                        End If
+                        If IsDBNull(dr.Item("strApplicationTypeDesc")) Then
+                            AppType = ""
+                        Else
+                            AppType = dr.Item("strApplicationTypeDesc")
+                        End If
+                        Select Case AppType
+                            Case "TV-Initial"
+                                AppType = "Initial"
+                            Case "TV-Renewal"
+                                AppType = "Renewal"
+                            Case "SAWO"
+                                AppType = "Significant modification without construction"
+                            Case "SAW"
+                                AppType = "Significant modification with construction"
+                            Case "Acid Rain"
+                                AppType = "Acid Rain"
+                            Case "502(b)10"
+                                AppType = "502(b)10"
+                            Case "MAWO"
+                                AppType = "Minor modification without construction"
+                            Case "MAW"
+                                AppType = "Minor modification with construction"
+                            Case "AA"
+                                AppType = "Administrative Amendment"
+                        End Select
+                        If IsDBNull(dr.Item("datPNExpires")) Then
+                            PNExpires = ""
+                        Else
+                            PNExpires = dr.Item("datPNExpires")
+                        End If
+                    Next
+
+                    If LinkedApp = "" Then
+                        AppLine = "TV-" & AppNumber & "/" & AppType
+                    Else
+                        AppLine = ""
+
+                        query = "select " &
+                        "SSPPApplicationLinking.strApplicationNumber, " &
+                        "strApplicationTypeDesc " &
+                        "from SSPPApplicationLinking, SSPPApplicationMaster, " &
+                        "LookUpApplicationTypes " &
+                        "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
+                        "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                        "and strMasterApplication = @app "
+
+                        Dim p3 As New SqlParameter("@app", LinkedApp)
+
+                        Dim dt3 As DataTable = DB.GetDataTable(query, p3)
+
+                        For Each dr As DataRow In dt3.Rows
+                            If IsDBNull(dr.Item("strApplicationNumber")) Then
+                                AppNumber = ""
+                            Else
+                                AppNumber = dr.Item("strApplicationNumber")
+                            End If
+                            If IsDBNull(dr.Item("strApplicationTypeDesc")) Then
+                                AppType = ""
+                            Else
+                                AppType = dr.Item("strApplicationTypeDesc")
+                            End If
+                            Select Case AppType
+                                Case "TV-Initial"
+                                    AppType = "Initial"
+                                Case "TV-Renewal"
+                                    AppType = "Renewal"
+                                Case "SAWO"
+                                    AppType = "Significant modification without construction"
+                                Case "SAW"
+                                    AppType = "Significant modification with construction"
+                                Case "Acid Rain"
+                                    AppType = "Acid Rain"
+                                Case "502(b)10"
+                                    AppType = "502(b)10"
+                                Case "MAWO"
+                                    AppType = "Minor modification without construction"
+                                Case "MAW"
+                                    AppType = "Minor modification with construction"
+                                Case "AA"
+                                    AppType = "Administrative Amendment"
+                            End Select
+                            AppLine = AppLine & "TV-" & AppNumber & "/" & AppType & ", "
+                        Next
+                        AppLine = Mid(AppLine, 1, (AppLine.Length - 2))
+                    End If
+
+                    If Not txtEmailLetter.Text.Contains(AppLine) Then
+                        txtEmailLetter.Text = txtEmailLetter.Text & FacName & vbCrLf &
+                        FacCity & " (" & County & " County), GA" & vbCrLf &
+                        AppLine & vbCrLf &
+                        "30-day expires: " & PNExpires & vbCrLf & vbCrLf
+                    End If
+
+                    SQLLine2 = SQLLine2 & " SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
+                Next
+
+                SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
+                query2 &= SQLLine2
+
+                txtEmailLetter.Text = txtEmailLetter.Text & "A 30-day comment period will follow the public " &
+                    "notification sent out via email by the Division each Wednesday." & vbCrLf & vbCrLf &
+                    "The draft permit and permit review narrative will be available from the Georgia EPD - Air " &
+                    "Protection Branch Draft permit web page located at:" & vbCrLf & vbCrLf &
+                    "https://epd.georgia.gov/draft-title-v-permitsamendments" & vbCrLf & vbCrLf &
+                    "The public comment deadline is posted on the web page." & vbCrLf & vbCrLf &
+                    "Please reply to acknowledge receipt of this notification. Any questions regarding the draft " &
+                    "permits and amendments may be directed to the Air Permit Manager by calling (404) 363-7000."
+
+                DB.RunCommand(query2)
+
+            Else
+                txtEmailLetter.Clear()
+                MsgBox("Click preview button first and ensure at least one applications is selected.", MsgBoxStyle.Information, "Title V Emails.")
+            End If
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnPreviewMinorMod_Click(sender As Object, e As EventArgs) Handles btnPreviewMinorMod.Click
@@ -1517,7 +1910,9 @@ Public Class SSPPTitleVTools
         End Try
     End Sub
 
-    Private Sub btnMinorModOnWebEPD_Click(sender As Object, e As EventArgs) Handles btnMinorModOnWebEPD.Click
+    Private Sub btnMinorModOnWebEPA_Click(sender As Object, e As EventArgs) Handles btnMinorModOnWebEPA.Click
+        Cursor = Cursors.WaitCursor
+
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1697,9 +2092,12 @@ Public Class SSPPTitleVTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnMinorModOnWebState_Click(sender As Object, e As EventArgs) Handles btnMinorModOnWebState.Click
+        Cursor = Cursors.WaitCursor
+
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1878,7 +2276,7 @@ Public Class SSPPTitleVTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
-
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnPreviewFinalOnWeb_Click(sender As Object, e As EventArgs) Handles btnPreviewFinalOnWeb.Click
@@ -2074,6 +2472,8 @@ Public Class SSPPTitleVTools
     End Sub
 
     Private Sub btnEmailFinalOnWeb_Click(sender As Object, e As EventArgs) Handles btnEmailFinalOnWeb.Click
+        Cursor = Cursors.WaitCursor
+
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -2280,6 +2680,7 @@ Public Class SSPPTitleVTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnAddApplicationToList_Click(sender As Object, e As EventArgs) Handles btnAddApplicationToList.Click
