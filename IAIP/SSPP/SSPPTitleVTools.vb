@@ -2759,6 +2759,7 @@ Public Class SSPPTitleVTools
     End Sub
 
     Private Sub btnAddApplicationToList_Click(sender As Object, e As EventArgs) Handles btnAddApplicationToList.Click
+        EnableEmailButtons()
 
         Try
             Dim AppNumber As String = ""
@@ -2854,6 +2855,16 @@ Public Class SSPPTitleVTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
+    End Sub
+
+    Private Sub EnableEmailButtons()
+        btnEmailESNReceived.Enabled = True
+        btnEmailDraftOnWebEPA.Enabled = True
+        btnEmailDraftOnWebState.Enabled = True
+        btnSmEmailDraftOnWeb.Enabled = True
+        btnMinorModOnWebEPA.Enabled = True
+        btnMinorModOnWebState.Enabled = True
+        btnEmailFinalOnWeb.Enabled = True
     End Sub
 
     Private Sub btnCopyEmailText_Click(sender As Object, e As EventArgs) Handles btnCopyEmailText.Click
