@@ -1807,7 +1807,7 @@ Public Class SSPPTitleVTools
             "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
             "where datEPAStatesNotified is not Null " &
             "and (strDraftOnWebNotification is Null or strDraftOnWebNotification = 'False') " &
-            "and (strApplicationType = '19'  or strApplicationType = '20' or strApplicationType <> '20') " &
+            "and (strApplicationType in('19', '20')) " &
             "order by strFacilityName, strApplicationNumber DESC "
 
             Dim dt As DataTable = DB.GetDataTable(query)
