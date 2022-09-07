@@ -1181,15 +1181,15 @@ Public Class IAIPQueryGenerator
                 SQLWhereCase2 = " Not Like "
             End If
             If txtFacilityNameSearch1.Text <> "" Then
-                SQLWhere = SQLWhere & " and (strFacilityName " & SQLWhereCase2 & " @name1 ) "
+                SQLWhere = SQLWhere & " and (APBFacilityInformation.strFacilityName " & SQLWhereCase2 & " @name1 ) "
                 params.Add(New SqlParameter("@name1", "%" & txtFacilityNameSearch1.Text & "%"))
             End If
             If txtFacilityNameSearch2.Text <> "" Then
                 If txtFacilityNameSearch1.Text <> "" Then
                     SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                    " " & SQLWhereCase1 & " strFacilityName " & SQLWhereCase2 & " @name2 ) "
+                    " " & SQLWhereCase1 & " APBFacilityInformation.strFacilityName " & SQLWhereCase2 & " @name2 ) "
                 Else
-                    SQLWhere = SQLWhere & " and (strFacilityName " & SQLWhereCase2 & " @name2) "
+                    SQLWhere = SQLWhere & " and (APBFacilityInformation.strFacilityName " & SQLWhereCase2 & " @name2) "
                 End If
                 params.Add(New SqlParameter("@name2", "%" & txtFacilityNameSearch2.Text & "%"))
             End If
