@@ -22,7 +22,7 @@ Partial Class SSPPTitleVTools
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.bgwTransfer = New System.ComponentModel.BackgroundWorker()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPWebPublishing = New System.Windows.Forms.TabPage()
@@ -63,20 +63,19 @@ Partial Class SSPPTitleVTools
         Me.DTPEPAStatesNotified = New System.Windows.Forms.DateTimePicker()
         Me.DTPDraftOnWeb = New System.Windows.Forms.DateTimePicker()
         Me.TPTVEmails = New System.Windows.Forms.TabPage()
-        Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.EmailTextPanel = New System.Windows.Forms.Panel()
         Me.txtEmailLetter = New System.Windows.Forms.TextBox()
-        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.ApplicationListPanel = New System.Windows.Forms.Panel()
         Me.clbTitleVEmailList = New System.Windows.Forms.CheckedListBox()
-        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.ButtonOptionsPanel = New System.Windows.Forms.Panel()
         Me.Label70 = New System.Windows.Forms.Label()
         Me.Label60 = New System.Windows.Forms.Label()
         Me.txtApplicationCount = New System.Windows.Forms.TextBox()
         Me.Label26 = New System.Windows.Forms.Label()
         Me.btnMinorModOnWebState = New System.Windows.Forms.Button()
-        Me.btnMinorModOnWebEPD = New System.Windows.Forms.Button()
+        Me.btnMinorModOnWebEPA = New System.Windows.Forms.Button()
         Me.btnPreviewMinorMod = New System.Windows.Forms.Button()
         Me.btnEmailDraftOnWebState = New System.Windows.Forms.Button()
-        Me.txtEmailType = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.btnAddApplicationToList = New System.Windows.Forms.Button()
         Me.txtApplicationNumberToAdd = New System.Windows.Forms.TextBox()
@@ -84,17 +83,21 @@ Partial Class SSPPTitleVTools
         Me.btnPreviewFinalOnWeb = New System.Windows.Forms.Button()
         Me.btnPreviewESNReceived = New System.Windows.Forms.Button()
         Me.btnEmailFinalOnWeb = New System.Windows.Forms.Button()
-        Me.btnEmailDraftOnWeb = New System.Windows.Forms.Button()
+        Me.btnSmEmailDraftOnWeb = New System.Windows.Forms.Button()
+        Me.btnEmailDraftOnWebEPA = New System.Windows.Forms.Button()
+        Me.btnPreviewSmDraftOnWeb = New System.Windows.Forms.Button()
         Me.btnPreviewDraftOnWeb = New System.Windows.Forms.Button()
+        Me.btnCopyEmailText = New System.Windows.Forms.Button()
+        Me.lblPreviewCopied = New System.Windows.Forms.Label()
         Me.TCDMUTools.SuspendLayout()
         Me.TPWebPublishing.SuspendLayout()
         CType(Me.dgrWebPublisher, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.TPTVEmails.SuspendLayout()
-        Me.Panel8.SuspendLayout()
-        Me.Panel7.SuspendLayout()
-        Me.Panel6.SuspendLayout()
+        Me.EmailTextPanel.SuspendLayout()
+        Me.ApplicationListPanel.SuspendLayout()
+        Me.ButtonOptionsPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'TCDMUTools
@@ -122,8 +125,8 @@ Partial Class SSPPTitleVTools
         '
         'dgrWebPublisher
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrWebPublisher.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrWebPublisher.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgrWebPublisher.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrWebPublisher.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrWebPublisher.GridColor = System.Drawing.SystemColors.ControlLight
@@ -500,9 +503,9 @@ Partial Class SSPPTitleVTools
         '
         'TPTVEmails
         '
-        Me.TPTVEmails.Controls.Add(Me.Panel8)
-        Me.TPTVEmails.Controls.Add(Me.Panel7)
-        Me.TPTVEmails.Controls.Add(Me.Panel6)
+        Me.TPTVEmails.Controls.Add(Me.EmailTextPanel)
+        Me.TPTVEmails.Controls.Add(Me.ApplicationListPanel)
+        Me.TPTVEmails.Controls.Add(Me.ButtonOptionsPanel)
         Me.TPTVEmails.Location = New System.Drawing.Point(4, 22)
         Me.TPTVEmails.Name = "TPTVEmails"
         Me.TPTVEmails.Size = New System.Drawing.Size(815, 516)
@@ -510,33 +513,37 @@ Partial Class SSPPTitleVTools
         Me.TPTVEmails.Text = "Title V Emails"
         Me.TPTVEmails.UseVisualStyleBackColor = True
         '
-        'Panel8
+        'EmailTextPanel
         '
-        Me.Panel8.Controls.Add(Me.txtEmailLetter)
-        Me.Panel8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel8.Location = New System.Drawing.Point(0, 335)
-        Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(815, 181)
-        Me.Panel8.TabIndex = 14
+        Me.EmailTextPanel.Controls.Add(Me.lblPreviewCopied)
+        Me.EmailTextPanel.Controls.Add(Me.btnCopyEmailText)
+        Me.EmailTextPanel.Controls.Add(Me.txtEmailLetter)
+        Me.EmailTextPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.EmailTextPanel.Location = New System.Drawing.Point(0, 356)
+        Me.EmailTextPanel.Name = "EmailTextPanel"
+        Me.EmailTextPanel.Size = New System.Drawing.Size(815, 160)
+        Me.EmailTextPanel.TabIndex = 14
         '
         'txtEmailLetter
         '
-        Me.txtEmailLetter.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtEmailLetter.Location = New System.Drawing.Point(0, 0)
+        Me.txtEmailLetter.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtEmailLetter.Location = New System.Drawing.Point(0, 35)
         Me.txtEmailLetter.Multiline = True
         Me.txtEmailLetter.Name = "txtEmailLetter"
         Me.txtEmailLetter.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtEmailLetter.Size = New System.Drawing.Size(815, 181)
+        Me.txtEmailLetter.Size = New System.Drawing.Size(815, 125)
         Me.txtEmailLetter.TabIndex = 12
         '
-        'Panel7
+        'ApplicationListPanel
         '
-        Me.Panel7.Controls.Add(Me.clbTitleVEmailList)
-        Me.Panel7.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel7.Location = New System.Drawing.Point(0, 150)
-        Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(815, 185)
-        Me.Panel7.TabIndex = 13
+        Me.ApplicationListPanel.Controls.Add(Me.clbTitleVEmailList)
+        Me.ApplicationListPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ApplicationListPanel.Location = New System.Drawing.Point(0, 171)
+        Me.ApplicationListPanel.Name = "ApplicationListPanel"
+        Me.ApplicationListPanel.Size = New System.Drawing.Size(815, 185)
+        Me.ApplicationListPanel.TabIndex = 13
         '
         'clbTitleVEmailList
         '
@@ -549,36 +556,37 @@ Partial Class SSPPTitleVTools
         Me.clbTitleVEmailList.Size = New System.Drawing.Size(815, 185)
         Me.clbTitleVEmailList.TabIndex = 9
         '
-        'Panel6
+        'ButtonOptionsPanel
         '
-        Me.Panel6.Controls.Add(Me.Label70)
-        Me.Panel6.Controls.Add(Me.Label60)
-        Me.Panel6.Controls.Add(Me.txtApplicationCount)
-        Me.Panel6.Controls.Add(Me.Label26)
-        Me.Panel6.Controls.Add(Me.btnMinorModOnWebState)
-        Me.Panel6.Controls.Add(Me.btnMinorModOnWebEPD)
-        Me.Panel6.Controls.Add(Me.btnPreviewMinorMod)
-        Me.Panel6.Controls.Add(Me.btnEmailDraftOnWebState)
-        Me.Panel6.Controls.Add(Me.txtEmailType)
-        Me.Panel6.Controls.Add(Me.Label25)
-        Me.Panel6.Controls.Add(Me.btnAddApplicationToList)
-        Me.Panel6.Controls.Add(Me.txtApplicationNumberToAdd)
-        Me.Panel6.Controls.Add(Me.btnEmailESNReceived)
-        Me.Panel6.Controls.Add(Me.btnPreviewFinalOnWeb)
-        Me.Panel6.Controls.Add(Me.btnPreviewESNReceived)
-        Me.Panel6.Controls.Add(Me.btnEmailFinalOnWeb)
-        Me.Panel6.Controls.Add(Me.btnEmailDraftOnWeb)
-        Me.Panel6.Controls.Add(Me.btnPreviewDraftOnWeb)
-        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel6.Location = New System.Drawing.Point(0, 0)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(815, 150)
-        Me.Panel6.TabIndex = 8
+        Me.ButtonOptionsPanel.Controls.Add(Me.Label70)
+        Me.ButtonOptionsPanel.Controls.Add(Me.Label60)
+        Me.ButtonOptionsPanel.Controls.Add(Me.txtApplicationCount)
+        Me.ButtonOptionsPanel.Controls.Add(Me.Label26)
+        Me.ButtonOptionsPanel.Controls.Add(Me.btnMinorModOnWebState)
+        Me.ButtonOptionsPanel.Controls.Add(Me.btnMinorModOnWebEPA)
+        Me.ButtonOptionsPanel.Controls.Add(Me.btnPreviewMinorMod)
+        Me.ButtonOptionsPanel.Controls.Add(Me.btnEmailDraftOnWebState)
+        Me.ButtonOptionsPanel.Controls.Add(Me.Label25)
+        Me.ButtonOptionsPanel.Controls.Add(Me.btnAddApplicationToList)
+        Me.ButtonOptionsPanel.Controls.Add(Me.txtApplicationNumberToAdd)
+        Me.ButtonOptionsPanel.Controls.Add(Me.btnEmailESNReceived)
+        Me.ButtonOptionsPanel.Controls.Add(Me.btnPreviewFinalOnWeb)
+        Me.ButtonOptionsPanel.Controls.Add(Me.btnPreviewESNReceived)
+        Me.ButtonOptionsPanel.Controls.Add(Me.btnEmailFinalOnWeb)
+        Me.ButtonOptionsPanel.Controls.Add(Me.btnSmEmailDraftOnWeb)
+        Me.ButtonOptionsPanel.Controls.Add(Me.btnEmailDraftOnWebEPA)
+        Me.ButtonOptionsPanel.Controls.Add(Me.btnPreviewSmDraftOnWeb)
+        Me.ButtonOptionsPanel.Controls.Add(Me.btnPreviewDraftOnWeb)
+        Me.ButtonOptionsPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ButtonOptionsPanel.Location = New System.Drawing.Point(0, 0)
+        Me.ButtonOptionsPanel.Name = "ButtonOptionsPanel"
+        Me.ButtonOptionsPanel.Size = New System.Drawing.Size(815, 171)
+        Me.ButtonOptionsPanel.TabIndex = 8
         '
         'Label70
         '
         Me.Label70.AutoSize = True
-        Me.Label70.Location = New System.Drawing.Point(210, 8)
+        Me.Label70.Location = New System.Drawing.Point(216, 8)
         Me.Label70.Name = "Label70"
         Me.Label70.Size = New System.Drawing.Size(189, 13)
         Me.Label70.TabIndex = 19
@@ -588,7 +596,7 @@ Partial Class SSPPTitleVTools
         'Label60
         '
         Me.Label60.AutoSize = True
-        Me.Label60.Location = New System.Drawing.Point(5, 8)
+        Me.Label60.Location = New System.Drawing.Point(8, 8)
         Me.Label60.Name = "Label60"
         Me.Label60.Size = New System.Drawing.Size(136, 13)
         Me.Label60.TabIndex = 18
@@ -597,16 +605,19 @@ Partial Class SSPPTitleVTools
         '
         'txtApplicationCount
         '
-        Me.txtApplicationCount.Location = New System.Drawing.Point(664, 91)
+        Me.txtApplicationCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtApplicationCount.Location = New System.Drawing.Point(777, 142)
         Me.txtApplicationCount.Name = "txtApplicationCount"
         Me.txtApplicationCount.ReadOnly = True
-        Me.txtApplicationCount.Size = New System.Drawing.Size(62, 20)
+        Me.txtApplicationCount.Size = New System.Drawing.Size(30, 20)
         Me.txtApplicationCount.TabIndex = 17
+        Me.txtApplicationCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label26
         '
+        Me.Label26.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(565, 96)
+        Me.Label26.Location = New System.Drawing.Point(678, 145)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(93, 13)
         Me.Label26.TabIndex = 16
@@ -615,27 +626,29 @@ Partial Class SSPPTitleVTools
         'btnMinorModOnWebState
         '
         Me.btnMinorModOnWebState.AutoSize = True
-        Me.btnMinorModOnWebState.Location = New System.Drawing.Point(358, 88)
+        Me.btnMinorModOnWebState.Enabled = False
+        Me.btnMinorModOnWebState.Location = New System.Drawing.Point(360, 111)
         Me.btnMinorModOnWebState.Name = "btnMinorModOnWebState"
-        Me.btnMinorModOnWebState.Size = New System.Drawing.Size(125, 23)
+        Me.btnMinorModOnWebState.Size = New System.Drawing.Size(135, 23)
         Me.btnMinorModOnWebState.TabIndex = 9
         Me.btnMinorModOnWebState.Text = "Minor Proposed (State)"
         Me.btnMinorModOnWebState.UseVisualStyleBackColor = True
         '
-        'btnMinorModOnWebEPD
+        'btnMinorModOnWebEPA
         '
-        Me.btnMinorModOnWebEPD.AutoSize = True
-        Me.btnMinorModOnWebEPD.Location = New System.Drawing.Point(219, 88)
-        Me.btnMinorModOnWebEPD.Name = "btnMinorModOnWebEPD"
-        Me.btnMinorModOnWebEPD.Size = New System.Drawing.Size(121, 23)
-        Me.btnMinorModOnWebEPD.TabIndex = 8
-        Me.btnMinorModOnWebEPD.Text = "Minor Proposed (EPA)"
-        Me.btnMinorModOnWebEPD.UseVisualStyleBackColor = True
+        Me.btnMinorModOnWebEPA.AutoSize = True
+        Me.btnMinorModOnWebEPA.Enabled = False
+        Me.btnMinorModOnWebEPA.Location = New System.Drawing.Point(219, 111)
+        Me.btnMinorModOnWebEPA.Name = "btnMinorModOnWebEPA"
+        Me.btnMinorModOnWebEPA.Size = New System.Drawing.Size(135, 23)
+        Me.btnMinorModOnWebEPA.TabIndex = 8
+        Me.btnMinorModOnWebEPA.Text = "Minor Proposed (EPA)"
+        Me.btnMinorModOnWebEPA.UseVisualStyleBackColor = True
         '
         'btnPreviewMinorMod
         '
         Me.btnPreviewMinorMod.AutoSize = True
-        Me.btnPreviewMinorMod.Location = New System.Drawing.Point(12, 88)
+        Me.btnPreviewMinorMod.Location = New System.Drawing.Point(8, 111)
         Me.btnPreviewMinorMod.Name = "btnPreviewMinorMod"
         Me.btnPreviewMinorMod.Size = New System.Drawing.Size(162, 23)
         Me.btnPreviewMinorMod.TabIndex = 3
@@ -645,25 +658,19 @@ Partial Class SSPPTitleVTools
         'btnEmailDraftOnWebState
         '
         Me.btnEmailDraftOnWebState.AutoSize = True
-        Me.btnEmailDraftOnWebState.Location = New System.Drawing.Point(352, 57)
+        Me.btnEmailDraftOnWebState.Enabled = False
+        Me.btnEmailDraftOnWebState.Location = New System.Drawing.Point(360, 53)
         Me.btnEmailDraftOnWebState.Name = "btnEmailDraftOnWebState"
-        Me.btnEmailDraftOnWebState.Size = New System.Drawing.Size(115, 23)
+        Me.btnEmailDraftOnWebState.Size = New System.Drawing.Size(135, 23)
         Me.btnEmailDraftOnWebState.TabIndex = 7
-        Me.btnEmailDraftOnWebState.Text = "Draft on Web (State)"
+        Me.btnEmailDraftOnWebState.Text = "Drafts on Web (State)"
         Me.btnEmailDraftOnWebState.UseVisualStyleBackColor = True
-        '
-        'txtEmailType
-        '
-        Me.txtEmailType.Location = New System.Drawing.Point(765, 26)
-        Me.txtEmailType.Name = "txtEmailType"
-        Me.txtEmailType.Size = New System.Drawing.Size(10, 20)
-        Me.txtEmailType.TabIndex = 11
-        Me.txtEmailType.Visible = False
         '
         'Label25
         '
+        Me.Label25.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(542, 30)
+        Me.Label25.Location = New System.Drawing.Point(691, 8)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(116, 13)
         Me.Label25.TabIndex = 10
@@ -671,37 +678,40 @@ Partial Class SSPPTitleVTools
         '
         'btnAddApplicationToList
         '
+        Me.btnAddApplicationToList.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnAddApplicationToList.AutoSize = True
-        Me.btnAddApplicationToList.Location = New System.Drawing.Point(664, 52)
+        Me.btnAddApplicationToList.Location = New System.Drawing.Point(694, 50)
         Me.btnAddApplicationToList.Name = "btnAddApplicationToList"
-        Me.btnAddApplicationToList.Size = New System.Drawing.Size(91, 23)
+        Me.btnAddApplicationToList.Size = New System.Drawing.Size(113, 23)
         Me.btnAddApplicationToList.TabIndex = 12
         Me.btnAddApplicationToList.Text = "Add Application"
         Me.btnAddApplicationToList.UseVisualStyleBackColor = True
         '
         'txtApplicationNumberToAdd
         '
-        Me.txtApplicationNumberToAdd.Location = New System.Drawing.Point(664, 26)
+        Me.txtApplicationNumberToAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtApplicationNumberToAdd.Location = New System.Drawing.Point(694, 24)
         Me.txtApplicationNumberToAdd.Name = "txtApplicationNumberToAdd"
-        Me.txtApplicationNumberToAdd.Size = New System.Drawing.Size(100, 20)
+        Me.txtApplicationNumberToAdd.Size = New System.Drawing.Size(113, 20)
         Me.txtApplicationNumberToAdd.TabIndex = 11
         '
         'btnEmailESNReceived
         '
         Me.btnEmailESNReceived.AutoSize = True
-        Me.btnEmailESNReceived.Location = New System.Drawing.Point(219, 26)
+        Me.btnEmailESNReceived.Enabled = False
+        Me.btnEmailESNReceived.Location = New System.Drawing.Point(219, 24)
         Me.btnEmailESNReceived.Name = "btnEmailESNReceived"
-        Me.btnEmailESNReceived.Size = New System.Drawing.Size(183, 23)
+        Me.btnEmailESNReceived.Size = New System.Drawing.Size(135, 23)
         Me.btnEmailESNReceived.TabIndex = 5
-        Me.btnEmailESNReceived.Text = "EPA/States Notified App Received"
+        Me.btnEmailESNReceived.Text = "Applications Received"
         Me.btnEmailESNReceived.UseVisualStyleBackColor = True
         '
         'btnPreviewFinalOnWeb
         '
         Me.btnPreviewFinalOnWeb.AutoSize = True
-        Me.btnPreviewFinalOnWeb.Location = New System.Drawing.Point(12, 119)
+        Me.btnPreviewFinalOnWeb.Location = New System.Drawing.Point(8, 140)
         Me.btnPreviewFinalOnWeb.Name = "btnPreviewFinalOnWeb"
-        Me.btnPreviewFinalOnWeb.Size = New System.Drawing.Size(91, 23)
+        Me.btnPreviewFinalOnWeb.Size = New System.Drawing.Size(162, 23)
         Me.btnPreviewFinalOnWeb.TabIndex = 4
         Me.btnPreviewFinalOnWeb.Text = "Finals on Web"
         Me.btnPreviewFinalOnWeb.UseVisualStyleBackColor = True
@@ -709,9 +719,9 @@ Partial Class SSPPTitleVTools
         'btnPreviewESNReceived
         '
         Me.btnPreviewESNReceived.AutoSize = True
-        Me.btnPreviewESNReceived.Location = New System.Drawing.Point(12, 26)
+        Me.btnPreviewESNReceived.Location = New System.Drawing.Point(8, 24)
         Me.btnPreviewESNReceived.Name = "btnPreviewESNReceived"
-        Me.btnPreviewESNReceived.Size = New System.Drawing.Size(137, 23)
+        Me.btnPreviewESNReceived.Size = New System.Drawing.Size(162, 23)
         Me.btnPreviewESNReceived.TabIndex = 1
         Me.btnPreviewESNReceived.Text = "Applications Received"
         Me.btnPreviewESNReceived.UseVisualStyleBackColor = True
@@ -719,32 +729,77 @@ Partial Class SSPPTitleVTools
         'btnEmailFinalOnWeb
         '
         Me.btnEmailFinalOnWeb.AutoSize = True
-        Me.btnEmailFinalOnWeb.Location = New System.Drawing.Point(219, 119)
+        Me.btnEmailFinalOnWeb.Enabled = False
+        Me.btnEmailFinalOnWeb.Location = New System.Drawing.Point(219, 140)
         Me.btnEmailFinalOnWeb.Name = "btnEmailFinalOnWeb"
-        Me.btnEmailFinalOnWeb.Size = New System.Drawing.Size(80, 23)
+        Me.btnEmailFinalOnWeb.Size = New System.Drawing.Size(135, 23)
         Me.btnEmailFinalOnWeb.TabIndex = 10
-        Me.btnEmailFinalOnWeb.Text = "Final on Web"
+        Me.btnEmailFinalOnWeb.Text = "Finals on Web"
         Me.btnEmailFinalOnWeb.UseVisualStyleBackColor = True
         '
-        'btnEmailDraftOnWeb
+        'btnSmEmailDraftOnWeb
         '
-        Me.btnEmailDraftOnWeb.AutoSize = True
-        Me.btnEmailDraftOnWeb.Location = New System.Drawing.Point(219, 57)
-        Me.btnEmailDraftOnWeb.Name = "btnEmailDraftOnWeb"
-        Me.btnEmailDraftOnWeb.Size = New System.Drawing.Size(111, 23)
-        Me.btnEmailDraftOnWeb.TabIndex = 6
-        Me.btnEmailDraftOnWeb.Text = "Draft on Web (EPA)"
-        Me.btnEmailDraftOnWeb.UseVisualStyleBackColor = True
+        Me.btnSmEmailDraftOnWeb.AutoSize = True
+        Me.btnSmEmailDraftOnWeb.Enabled = False
+        Me.btnSmEmailDraftOnWeb.Location = New System.Drawing.Point(219, 82)
+        Me.btnSmEmailDraftOnWeb.Name = "btnSmEmailDraftOnWeb"
+        Me.btnSmEmailDraftOnWeb.Size = New System.Drawing.Size(135, 23)
+        Me.btnSmEmailDraftOnWeb.TabIndex = 6
+        Me.btnSmEmailDraftOnWeb.Text = "SM Drafts on Web (EPA)"
+        Me.btnSmEmailDraftOnWeb.UseVisualStyleBackColor = True
+        '
+        'btnEmailDraftOnWebEPA
+        '
+        Me.btnEmailDraftOnWebEPA.AutoSize = True
+        Me.btnEmailDraftOnWebEPA.Enabled = False
+        Me.btnEmailDraftOnWebEPA.Location = New System.Drawing.Point(219, 53)
+        Me.btnEmailDraftOnWebEPA.Name = "btnEmailDraftOnWebEPA"
+        Me.btnEmailDraftOnWebEPA.Size = New System.Drawing.Size(135, 23)
+        Me.btnEmailDraftOnWebEPA.TabIndex = 6
+        Me.btnEmailDraftOnWebEPA.Text = "Drafts on Web (EPA)"
+        Me.btnEmailDraftOnWebEPA.UseVisualStyleBackColor = True
+        '
+        'btnPreviewSmDraftOnWeb
+        '
+        Me.btnPreviewSmDraftOnWeb.AutoSize = True
+        Me.btnPreviewSmDraftOnWeb.Location = New System.Drawing.Point(8, 82)
+        Me.btnPreviewSmDraftOnWeb.Name = "btnPreviewSmDraftOnWeb"
+        Me.btnPreviewSmDraftOnWeb.Size = New System.Drawing.Size(162, 23)
+        Me.btnPreviewSmDraftOnWeb.TabIndex = 2
+        Me.btnPreviewSmDraftOnWeb.Text = "SM Drafts on Web"
+        Me.btnPreviewSmDraftOnWeb.UseVisualStyleBackColor = True
         '
         'btnPreviewDraftOnWeb
         '
         Me.btnPreviewDraftOnWeb.AutoSize = True
-        Me.btnPreviewDraftOnWeb.Location = New System.Drawing.Point(12, 57)
+        Me.btnPreviewDraftOnWeb.Location = New System.Drawing.Point(8, 53)
         Me.btnPreviewDraftOnWeb.Name = "btnPreviewDraftOnWeb"
-        Me.btnPreviewDraftOnWeb.Size = New System.Drawing.Size(92, 23)
+        Me.btnPreviewDraftOnWeb.Size = New System.Drawing.Size(162, 23)
         Me.btnPreviewDraftOnWeb.TabIndex = 2
         Me.btnPreviewDraftOnWeb.Text = "Drafts on Web"
         Me.btnPreviewDraftOnWeb.UseVisualStyleBackColor = True
+        '
+        'btnCopyEmailText
+        '
+        Me.btnCopyEmailText.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCopyEmailText.Location = New System.Drawing.Point(645, 6)
+        Me.btnCopyEmailText.Name = "btnCopyEmailText"
+        Me.btnCopyEmailText.Size = New System.Drawing.Size(113, 23)
+        Me.btnCopyEmailText.TabIndex = 13
+        Me.btnCopyEmailText.Text = "Copy email text"
+        Me.btnCopyEmailText.UseVisualStyleBackColor = True
+        '
+        'lblPreviewCopied
+        '
+        Me.lblPreviewCopied.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblPreviewCopied.AutoSize = True
+        Me.lblPreviewCopied.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.lblPreviewCopied.Location = New System.Drawing.Point(764, 11)
+        Me.lblPreviewCopied.Name = "lblPreviewCopied"
+        Me.lblPreviewCopied.Size = New System.Drawing.Size(43, 13)
+        Me.lblPreviewCopied.TabIndex = 14
+        Me.lblPreviewCopied.Text = "Copied!"
+        Me.lblPreviewCopied.Visible = False
         '
         'SSPPTitleVTools
         '
@@ -753,6 +808,7 @@ Partial Class SSPPTitleVTools
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(823, 542)
         Me.Controls.Add(Me.TCDMUTools)
+        Me.MinimumSize = New System.Drawing.Size(666, 581)
         Me.Name = "SSPPTitleVTools"
         Me.Text = "Title V Tools"
         Me.TCDMUTools.ResumeLayout(False)
@@ -763,11 +819,11 @@ Partial Class SSPPTitleVTools
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.TPTVEmails.ResumeLayout(False)
-        Me.Panel8.ResumeLayout(False)
-        Me.Panel8.PerformLayout()
-        Me.Panel7.ResumeLayout(False)
-        Me.Panel6.ResumeLayout(False)
-        Me.Panel6.PerformLayout()
+        Me.EmailTextPanel.ResumeLayout(False)
+        Me.EmailTextPanel.PerformLayout()
+        Me.ApplicationListPanel.ResumeLayout(False)
+        Me.ButtonOptionsPanel.ResumeLayout(False)
+        Me.ButtonOptionsPanel.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -809,20 +865,19 @@ Partial Class SSPPTitleVTools
     Friend WithEvents DTPEPAStatesNotified As System.Windows.Forms.DateTimePicker
     Friend WithEvents DTPDraftOnWeb As System.Windows.Forms.DateTimePicker
     Friend WithEvents TPTVEmails As System.Windows.Forms.TabPage
-    Friend WithEvents Panel8 As System.Windows.Forms.Panel
+    Friend WithEvents EmailTextPanel As System.Windows.Forms.Panel
     Friend WithEvents txtEmailLetter As System.Windows.Forms.TextBox
-    Friend WithEvents Panel7 As System.Windows.Forms.Panel
+    Friend WithEvents ApplicationListPanel As System.Windows.Forms.Panel
     Friend WithEvents clbTitleVEmailList As System.Windows.Forms.CheckedListBox
-    Friend WithEvents Panel6 As System.Windows.Forms.Panel
+    Friend WithEvents ButtonOptionsPanel As System.Windows.Forms.Panel
     Friend WithEvents Label70 As System.Windows.Forms.Label
     Friend WithEvents Label60 As System.Windows.Forms.Label
     Friend WithEvents txtApplicationCount As System.Windows.Forms.TextBox
     Friend WithEvents Label26 As System.Windows.Forms.Label
     Friend WithEvents btnMinorModOnWebState As System.Windows.Forms.Button
-    Friend WithEvents btnMinorModOnWebEPD As System.Windows.Forms.Button
+    Friend WithEvents btnMinorModOnWebEPA As System.Windows.Forms.Button
     Friend WithEvents btnPreviewMinorMod As System.Windows.Forms.Button
     Friend WithEvents btnEmailDraftOnWebState As System.Windows.Forms.Button
-    Friend WithEvents txtEmailType As System.Windows.Forms.TextBox
     Friend WithEvents Label25 As System.Windows.Forms.Label
     Friend WithEvents btnAddApplicationToList As System.Windows.Forms.Button
     Friend WithEvents txtApplicationNumberToAdd As System.Windows.Forms.TextBox
@@ -830,8 +885,12 @@ Partial Class SSPPTitleVTools
     Friend WithEvents btnPreviewFinalOnWeb As System.Windows.Forms.Button
     Friend WithEvents btnPreviewESNReceived As System.Windows.Forms.Button
     Friend WithEvents btnEmailFinalOnWeb As System.Windows.Forms.Button
-    Friend WithEvents btnEmailDraftOnWeb As System.Windows.Forms.Button
+    Friend WithEvents btnEmailDraftOnWebEPA As System.Windows.Forms.Button
     Friend WithEvents btnPreviewDraftOnWeb As System.Windows.Forms.Button
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label2 As Label
+    Friend WithEvents btnSmEmailDraftOnWeb As Button
+    Friend WithEvents btnPreviewSmDraftOnWeb As Button
+    Friend WithEvents btnCopyEmailText As Button
+    Friend WithEvents lblPreviewCopied As Label
 End Class
