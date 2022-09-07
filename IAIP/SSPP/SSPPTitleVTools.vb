@@ -1683,7 +1683,7 @@ Public Class SSPPTitleVTools
                     Next
 
                     If LinkedApp = "" Then
-                        AppLine = "TV-" & AppNumber & "/" & AppType
+                        AppLine = AppNumber & "/" & AppType
                     Else
                         AppLine = ""
 
@@ -1731,7 +1731,7 @@ Public Class SSPPTitleVTools
                                 Case "AA"
                                     AppType = "Administrative Amendment"
                             End Select
-                            AppLine = AppLine & "TV-" & AppNumber & "/" & AppType & ", "
+                            AppLine = AppLine & AppNumber & "/" & AppType & ", "
                         Next
                         AppLine = Mid(AppLine, 1, (AppLine.Length - 2))
                     End If
