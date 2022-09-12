@@ -31,6 +31,8 @@ Public Class SSPPApplicationTrackingLog
     Private FormStatus As String
     Private UpdatingValues As Boolean
     Private FeeChangesAllowed As Boolean = True
+    Private FeeDataFinalized As Boolean = False
+    Private PublicAdvisoryApplies As Boolean = False
 
     Private _applicationFeeAmount As Decimal = 0
     Private _expeditedFeeAmount As Decimal = 0
@@ -4914,7 +4916,7 @@ Public Class SSPPApplicationTrackingLog
             PNReady = chbPNReady.Checked.ToString
             SignificantComments = txtSignificantComments.Text
 
-            If Not cboPublicAdvisory.Visible Then
+            If Not PublicAdvisoryApplies Then
                 PublicInvolved = "0"
             Else
                 Select Case cboPublicAdvisory.Text
@@ -7403,6 +7405,8 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SetPAVisibility(visible As Boolean)
+        PublicAdvisoryApplies = visible
+
         cboPublicAdvisory.Visible = visible
         lblPublicAdvisory.Visible = visible
         DTPDatePAExpires.Visible = visible
@@ -13779,7 +13783,8 @@ Public Class SSPPApplicationTrackingLog
             chbFeeDataFinalized.Visible = FeeChangesAllowed AndAlso TotalFeeAmount > 0 AndAlso (chbAppFee.Checked OrElse chbExpFee.Checked)
             lblFeeChangesNotAllowedWarning.Visible = FeeChangesAllowed AndAlso TotalFeeAmount > 0 AndAlso (chbAppFee.Checked OrElse chbExpFee.Checked) AndAlso chbFeeDataFinalized.Checked
 
-            pnlFeeDataFinalized.Visible = Not FeeChangesAllowed AndAlso TotalFeeAmount > 0
+            FeeDataFinalized = Not FeeChangesAllowed AndAlso TotalFeeAmount > 0
+            pnlFeeDataFinalized.Visible = FeeDataFinalized
 
             ' Fees not applicable labels
             If chbAppFee.Enabled OrElse chbAppFee.Checked Then
@@ -13862,7 +13867,7 @@ Public Class SSPPApplicationTrackingLog
         Dim dateFacilityNotified As Date? = If(dtpFacilityFeeNotified.Checked, dtpFacilityFeeNotified.Value, CType(Nothing, Date?))
 
         If Not FeeChangesAllowed Then
-            If pnlFeeDataFinalized.Visible Then
+            If FeeDataFinalized Then
                 SaveApplicationFeesDateFacilityNotified(AppNumber, dateFacilityNotified)
             End If
 
