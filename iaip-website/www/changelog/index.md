@@ -11,6 +11,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.4.4 <span>(2022-09-20)</span>
+
+Fixed a bug in the permit file uploader.
+
 ## Version 6.4.3 <span>(2022-09-12)</span>
 
 Fixed an intractable bug in the Application Tracking form that has plagued SSPP for months (years?).
