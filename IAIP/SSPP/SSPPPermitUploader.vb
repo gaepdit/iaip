@@ -80,7 +80,7 @@ Public Class SSPPPermitUploader
                 "from SSPPApplicationMaster " &
                 "left join SSPPApplicationTracking " &
                 "on SSPPApplicationMaster.strApplicationNumber  = SSPPApplicationTracking.strApplicationNumber " &
-                "inner join APBFacilityInformation " &
+                "left join APBFacilityInformation " &
                 "on SSPPApplicationMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
                 "left join LookUpCountyInformation " &
                 "on SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5, 3)  = LookUpCountyInformation.strCountyCode " &
@@ -88,7 +88,7 @@ Public Class SSPPPermitUploader
                 "on SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
                 "left join LookUpPermitTypes " &
                 "on SSPPApplicationMaster.strPermitType = LookUpPermitTypes.strPermitTypeCode " &
-                "inner join EPDUserProfiles " &
+                "left join EPDUserProfiles " &
                 "on SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                 "where ssppapplicationtracking.strApplicationNumber = @appnum "
 
