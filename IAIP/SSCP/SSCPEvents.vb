@@ -2012,6 +2012,9 @@ Public Class SSCPEvents
                 chbACCReceivedByAPB.Enabled = True
                 dtpAccReportingYear.Enabled = True
             End If
+
+            CompleteReport()
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
