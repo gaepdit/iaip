@@ -11,6 +11,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.4.5 <span>(2022-10-03)</span>
+
+Fixed a UI bug when viewing closed ACCs.
+
 ## Version 6.4.4 <span>(2022-09-20)</span>
 
 Fixed a bug in the permit file uploader.
