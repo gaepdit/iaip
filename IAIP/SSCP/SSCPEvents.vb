@@ -850,6 +850,8 @@ Public Class SSCPEvents
         Dim InspectionComments As String
         Dim InspectionReason As String
         Dim WeatherCondition As String
+        Dim sqlList As New List(Of String)
+        Dim paramList As New List(Of SqlParameter())
 
         Try
 
@@ -892,7 +894,7 @@ Public Class SSCPEvents
                 Dim p As New SqlParameter("@num", TrackingNumber)
 
                 If Not DB.ValueExists(SQL, p) Then
-                    SQL = "Insert into SSCPInspections " &
+                    sqlList.Add("Insert into SSCPInspections " &
                         "(strTrackingNumber, DatInspectionDateStart, " &
                         "datinspectionDateEnd, strInspectionReason, " &
                         "strWeatherConditions, strInspectionGuide, " &
@@ -907,9 +909,9 @@ Public Class SSCPEvents
                         "@strFacilityOperating, @strInspectionComplianceStatus, " &
                         "@strInspectionComments, " &
                         "@strInspectionFollowUp, @strModifingPerson, " &
-                        "GETDATE() ) "
+                        "GETDATE() ) ")
                 Else
-                    SQL = "Update SSCPInspections set " &
+                    sqlList.Add("Update SSCPInspections set " &
                         "DatInspectionDateStart = @DatInspectionDateStart, " &
                         "datinspectionDateEnd = @datinspectionDateEnd, " &
                         "strInspectionReason = @strInspectionReason, " &
@@ -921,24 +923,31 @@ Public Class SSCPEvents
                         "strInspectionFollowUp = @strInspectionFollowUp, " &
                         "strModifingPerson = @strModifingPerson, " &
                         "datModifingDate =  GETDATE()  " &
-                        "where strtrackingNumber = @strtrackingNumber "
+                        "where strtrackingNumber = @strtrackingNumber ")
                 End If
 
-                Dim p2 As SqlParameter() = {
-                        New SqlParameter("@strTrackingNumber", TrackingNumber),
-                        New SqlParameter("@DatInspectionDateStart", InspectionDateTimeStart),
-                        New SqlParameter("@datinspectionDateEnd", InspectionDateTimeEnd),
-                        New SqlParameter("@strInspectionReason", InspectionReason),
-                        New SqlParameter("@strWeatherConditions", WeatherCondition),
-                        New SqlParameter("@strInspectionGuide", InspectionGuide),
-                        New SqlParameter("@strFacilityOperating", rdbInspectionFacilityOperatingYes.Checked.ToString),
-                        New SqlParameter("@strInspectionComplianceStatus", cboInspectionComplianceStatus.Text),
-                        New SqlParameter("@strInspectionComments", InspectionComments),
-                        New SqlParameter("@strInspectionFollowUp", rdbInspectionFollowUpYes.Checked.ToString),
-                        New SqlParameter("@strModifingPerson", CurrentUser.UserID)
-                    }
+                paramList.Add({
+                    New SqlParameter("@strTrackingNumber", TrackingNumber),
+                    New SqlParameter("@DatInspectionDateStart", InspectionDateTimeStart),
+                    New SqlParameter("@datinspectionDateEnd", InspectionDateTimeEnd),
+                    New SqlParameter("@strInspectionReason", InspectionReason),
+                    New SqlParameter("@strWeatherConditions", WeatherCondition),
+                    New SqlParameter("@strInspectionGuide", InspectionGuide),
+                    New SqlParameter("@strFacilityOperating", rdbInspectionFacilityOperatingYes.Checked.ToString),
+                    New SqlParameter("@strInspectionComplianceStatus", cboInspectionComplianceStatus.Text),
+                    New SqlParameter("@strInspectionComments", InspectionComments),
+                    New SqlParameter("@strInspectionFollowUp", rdbInspectionFollowUpYes.Checked.ToString),
+                    New SqlParameter("@strModifingPerson", CurrentUser.UserID)
+                })
 
-                Return DB.RunCommand(SQL, p2)
+                sqlList.Add("Update SSCPItemMaster set datReceivedDate = @date where strTrackingNumber = @num ")
+
+                paramList.Add({
+                    New SqlParameter("@date", DTPInspectionDateEnd.Value),
+                    New SqlParameter("@num", TrackingNumber)
+                })
+
+                Return DB.RunCommand(sqlList, paramList)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

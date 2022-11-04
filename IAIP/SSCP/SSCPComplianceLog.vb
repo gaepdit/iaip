@@ -577,7 +577,7 @@ Public Class SSCPComplianceLog
             LabelEventDescription.Text = dr("strActivityDescription").ToString
         End If
 
-        If cboEvent.Text = "Inspection" Then
+        If cboEvent.Text = "Inspection" OrElse cboEvent.Text = "RMP Inspection" Then
             lblDateField.Text = "Inspection Date:"
         Else
             lblDateField.Text = "Received by GEPD:"
