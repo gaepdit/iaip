@@ -11,6 +11,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.4.6 <span>(2022-11-07)</span>
+
+Fixed a bug that caused inspection dates to sometime show up incorrectly in search forms and summary lists.
+
 ## Version 6.4.5 <span>(2022-10-03)</span>
 
 Fixed a UI bug when viewing closed ACCs.
