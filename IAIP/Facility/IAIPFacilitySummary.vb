@@ -126,6 +126,7 @@ Public Class IAIPFacilitySummary
     Private Sub ClearAllData()
         ThisFacility = Nothing
         FacilitySummaryDataSet.Clear()
+        FacilityNotes = New List(Of FacilityNote)
         DisableFacilityTools()
         ClearBasicFacilityData()
     End Sub
@@ -1023,7 +1024,7 @@ Public Class IAIPFacilitySummary
 
     ' Facility Notes
 
-    Dim FacilityNotes As List(Of FacilityNote)
+    Dim FacilityNotes As New List(Of FacilityNote)
 
     Private Sub InitializeFacilityNotes()
         If FacilityNotes Is Nothing OrElse FacilityNotes.Count = 0 Then LoadFacilityNotes()
