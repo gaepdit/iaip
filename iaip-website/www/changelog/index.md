@@ -13,7 +13,7 @@
 
 ## Version 6.4.7 <span>(2022-11-09)</span>
 
-Critical library update.
+Critical security update.
 
 ## Version 6.4.6 <span>(2022-11-07)</span>
 
