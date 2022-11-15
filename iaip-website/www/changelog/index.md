@@ -11,6 +11,12 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.4.8 <span>(2022-11-15)</span>
+
+Facility notes now reload correctly when changing facilities in the Facility Summary.
+
+A crashing bug was fixed in the fee audit form, and all the annual fees forms got improved AIRS number entry.
+
 ## Version 6.4.7 <span>(2022-11-09)</span>
 
 Critical security update.
