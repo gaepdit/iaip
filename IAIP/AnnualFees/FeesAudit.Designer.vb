@@ -1485,6 +1485,7 @@ Partial Class FeesAudit
         'btnPrintSelectedInvoice
         '
         Me.btnPrintSelectedInvoice.AutoSize = True
+        Me.btnPrintSelectedInvoice.Enabled = False
         Me.btnPrintSelectedInvoice.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight
         Me.btnPrintSelectedInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnPrintSelectedInvoice.ForeColor = System.Drawing.Color.Blue
