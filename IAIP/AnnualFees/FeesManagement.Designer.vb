@@ -22,8 +22,8 @@ Partial Class FeesManagement
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.FeeManagementTabControl = New System.Windows.Forms.TabControl()
         Me.TPFeeAdminTools = New System.Windows.Forms.TabPage()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
@@ -103,7 +103,6 @@ Partial Class FeesManagement
         Me.FeeManagementSidePanel = New System.Windows.Forms.Panel()
         Me.dgvFeeManagementLists = New Iaip.IaipDataGridView()
         Me.FeeManagementListCountLabel = New System.Windows.Forms.Label()
-        Me.mtbCheckAIRSNumber = New System.Windows.Forms.MaskedTextBox()
         Me.btnOpenFeesLog = New System.Windows.Forms.Button()
         Me.FeeManagementToolPanel = New System.Windows.Forms.Panel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -122,6 +121,7 @@ Partial Class FeesManagement
         Me.btnSetMailoutDate = New System.Windows.Forms.Button()
         Me.btnGenerateMailoutList = New System.Windows.Forms.Button()
         Me.btnUpdateContactData = New System.Windows.Forms.Button()
+        Me.AIRSNumberEntry = New Iaip.AirNumberEntryForm()
         Me.FeeManagementTabControl.SuspendLayout()
         Me.TPFeeAdminTools.SuspendLayout()
         Me.TabControl2.SuspendLayout()
@@ -242,14 +242,15 @@ Partial Class FeesManagement
         '
         'dgvFeeRates
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvFeeRates.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvFeeRates.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvFeeRates.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvFeeRates.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvFeeRates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvFeeRates.DecimalFieldFormat = "#,0.##"
+        Me.dgvFeeRates.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvFeeRates.LinkifyColumnByName = Nothing
         Me.dgvFeeRates.Location = New System.Drawing.Point(0, 0)
         Me.dgvFeeRates.Name = "dgvFeeRates"
@@ -998,9 +999,9 @@ Partial Class FeesManagement
         '
         'FeeManagementSidePanel
         '
+        Me.FeeManagementSidePanel.Controls.Add(Me.AIRSNumberEntry)
         Me.FeeManagementSidePanel.Controls.Add(Me.dgvFeeManagementLists)
         Me.FeeManagementSidePanel.Controls.Add(Me.FeeManagementListCountLabel)
-        Me.FeeManagementSidePanel.Controls.Add(Me.mtbCheckAIRSNumber)
         Me.FeeManagementSidePanel.Controls.Add(Me.btnOpenFeesLog)
         Me.FeeManagementSidePanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FeeManagementSidePanel.Location = New System.Drawing.Point(188, 3)
@@ -1010,8 +1011,8 @@ Partial Class FeesManagement
         '
         'dgvFeeManagementLists
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvFeeManagementLists.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvFeeManagementLists.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvFeeManagementLists.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1032,27 +1033,17 @@ Partial Class FeesManagement
         'FeeManagementListCountLabel
         '
         Me.FeeManagementListCountLabel.AutoSize = True
-        Me.FeeManagementListCountLabel.Location = New System.Drawing.Point(179, 14)
+        Me.FeeManagementListCountLabel.Location = New System.Drawing.Point(197, 14)
         Me.FeeManagementListCountLabel.Name = "FeeManagementListCountLabel"
         Me.FeeManagementListCountLabel.Size = New System.Drawing.Size(35, 13)
         Me.FeeManagementListCountLabel.TabIndex = 464
         Me.FeeManagementListCountLabel.Text = "Count"
         Me.FeeManagementListCountLabel.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
-        'mtbCheckAIRSNumber
-        '
-        Me.mtbCheckAIRSNumber.Location = New System.Drawing.Point(0, 11)
-        Me.mtbCheckAIRSNumber.Mask = "000-00000"
-        Me.mtbCheckAIRSNumber.Name = "mtbCheckAIRSNumber"
-        Me.mtbCheckAIRSNumber.Size = New System.Drawing.Size(66, 20)
-        Me.mtbCheckAIRSNumber.TabIndex = 0
-        Me.mtbCheckAIRSNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.mtbCheckAIRSNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
         'btnOpenFeesLog
         '
         Me.btnOpenFeesLog.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnOpenFeesLog.Location = New System.Drawing.Point(72, 9)
+        Me.btnOpenFeesLog.Location = New System.Drawing.Point(90, 9)
         Me.btnOpenFeesLog.Name = "btnOpenFeesLog"
         Me.btnOpenFeesLog.Size = New System.Drawing.Size(101, 23)
         Me.btnOpenFeesLog.TabIndex = 1
@@ -1234,6 +1225,19 @@ Partial Class FeesManagement
         Me.btnUpdateContactData.Text = "Update Mailout List With Current Fee Contacts"
         Me.btnUpdateContactData.UseVisualStyleBackColor = True
         '
+        'AIRSNumberEntry
+        '
+        Me.AIRSNumberEntry.AirsNumber = Nothing
+        Me.AIRSNumberEntry.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
+        Me.AIRSNumberEntry.ErrorMessageLabel = Nothing
+        Me.AIRSNumberEntry.FacilityMustExist = True
+        Me.AIRSNumberEntry.Location = New System.Drawing.Point(6, 11)
+        Me.AIRSNumberEntry.Name = "AIRSNumberEntry"
+        Me.AIRSNumberEntry.ReadOnly = False
+        Me.AIRSNumberEntry.Size = New System.Drawing.Size(78, 20)
+        Me.AIRSNumberEntry.TabIndex = 465
+        Me.AIRSNumberEntry.TextBoxBackColor = System.Drawing.SystemColors.Window
+        '
         'FeesManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1351,7 +1355,6 @@ Partial Class FeesManagement
     Friend WithEvents btnSetMailoutDate As System.Windows.Forms.Button
     Friend WithEvents btnViewEnrolledFacilities As System.Windows.Forms.Button
     Friend WithEvents btnViewMailout As System.Windows.Forms.Button
-    Friend WithEvents mtbCheckAIRSNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents dtpFourthQrtDue As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label14 As System.Windows.Forms.Label
@@ -1373,4 +1376,5 @@ Partial Class FeesManagement
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents btnViewEmailList As Button
     Friend WithEvents btnViewPhysicalMailList As Button
+    Friend WithEvents AIRSNumberEntry As AirNumberEntryForm
 End Class

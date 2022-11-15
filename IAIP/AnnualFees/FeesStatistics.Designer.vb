@@ -22,10 +22,10 @@ Partial Class FeesStatistics
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCMailoutAndStats = New System.Windows.Forms.TabControl()
         Me.TPDepositAndPaymentStats = New System.Windows.Forms.TabPage()
         Me.dgvDepositsAndPayments = New Iaip.IaipDataGridView()
@@ -122,8 +122,8 @@ Partial Class FeesStatistics
         Me.dgvFeeStats = New Iaip.IaipDataGridView()
         Me.lblCountFeeStats = New System.Windows.Forms.Label()
         Me.Panel11 = New System.Windows.Forms.Panel()
+        Me.FeeStatAirsNumberEntry = New Iaip.AirNumberEntryForm()
         Me.btnOpenFeesLog = New System.Windows.Forms.Button()
-        Me.txtFeeStatAirsNumber = New System.Windows.Forms.TextBox()
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.btnCheckInvoices = New System.Windows.Forms.Button()
         Me.llbFSSummaryPaidNotFinalized = New System.Windows.Forms.LinkLabel()
@@ -291,8 +291,8 @@ Partial Class FeesStatistics
         '
         'dgvDepositsAndPayments
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvDepositsAndPayments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvDepositsAndPayments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDepositsAndPayments.Dock = System.Windows.Forms.DockStyle.Fill
@@ -1203,8 +1203,8 @@ Partial Class FeesStatistics
         '
         'dgvFeeStats
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvFeeStats.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvFeeStats.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvFeeStats.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvFeeStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvFeeStats.Dock = System.Windows.Forms.DockStyle.Fill
@@ -1231,14 +1231,27 @@ Partial Class FeesStatistics
         '
         'Panel11
         '
+        Me.Panel11.Controls.Add(Me.FeeStatAirsNumberEntry)
         Me.Panel11.Controls.Add(Me.btnOpenFeesLog)
-        Me.Panel11.Controls.Add(Me.txtFeeStatAirsNumber)
         Me.Panel11.Controls.Add(Me.lblCountFeeStats)
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel11.Location = New System.Drawing.Point(3, 16)
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(452, 41)
         Me.Panel11.TabIndex = 0
+        '
+        'FeeStatAirsNumberEntry
+        '
+        Me.FeeStatAirsNumberEntry.AirsNumber = Nothing
+        Me.FeeStatAirsNumberEntry.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
+        Me.FeeStatAirsNumberEntry.ErrorMessageLabel = Nothing
+        Me.FeeStatAirsNumberEntry.FacilityMustExist = True
+        Me.FeeStatAirsNumberEntry.Location = New System.Drawing.Point(3, 9)
+        Me.FeeStatAirsNumberEntry.Name = "FeeStatAirsNumberEntry"
+        Me.FeeStatAirsNumberEntry.ReadOnly = False
+        Me.FeeStatAirsNumberEntry.Size = New System.Drawing.Size(83, 20)
+        Me.FeeStatAirsNumberEntry.TabIndex = 125
+        Me.FeeStatAirsNumberEntry.TextBoxBackColor = System.Drawing.SystemColors.Window
         '
         'btnOpenFeesLog
         '
@@ -1249,14 +1262,6 @@ Partial Class FeesStatistics
         Me.btnOpenFeesLog.Text = "Open Fees Log"
         Me.btnOpenFeesLog.UseVisualStyleBackColor = True
         Me.btnOpenFeesLog.Visible = False
-        '
-        'txtFeeStatAirsNumber
-        '
-        Me.txtFeeStatAirsNumber.Location = New System.Drawing.Point(3, 8)
-        Me.txtFeeStatAirsNumber.Name = "txtFeeStatAirsNumber"
-        Me.txtFeeStatAirsNumber.Size = New System.Drawing.Size(83, 20)
-        Me.txtFeeStatAirsNumber.TabIndex = 123
-        Me.txtFeeStatAirsNumber.Visible = False
         '
         'Panel10
         '
@@ -2141,8 +2146,8 @@ Partial Class FeesStatistics
         '
         'dgvReported
         '
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvReported.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvReported.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvReported.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvReported.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvReported.Dock = System.Windows.Forms.DockStyle.Fill
@@ -2206,8 +2211,8 @@ Partial Class FeesStatistics
         '
         'GridFeesReports
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.GridFeesReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.GridFeesReports.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.GridFeesReports.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -2688,7 +2693,6 @@ Partial Class FeesStatistics
     Friend WithEvents llbDetailPaidFinalized As System.Windows.Forms.LinkLabel
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents btnOpenFeesLog As System.Windows.Forms.Button
-    Friend WithEvents txtFeeStatAirsNumber As System.Windows.Forms.TextBox
     Friend WithEvents lblCountFeeStats As System.Windows.Forms.Label
     Friend WithEvents btnCheckInvoices As System.Windows.Forms.Button
     Friend WithEvents Label16 As System.Windows.Forms.Label
@@ -2730,4 +2734,5 @@ Partial Class FeesStatistics
     Friend WithEvents GridFeesReports As IaipDataGridView
     Friend WithEvents btnClassification As Button
     Friend WithEvents llbFSDetailOnTime As LinkLabel
+    Friend WithEvents FeeStatAirsNumberEntry As AirNumberEntryForm
 End Class

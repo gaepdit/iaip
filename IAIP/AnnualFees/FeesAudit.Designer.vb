@@ -407,12 +407,12 @@ Partial Class FeesAudit
         Me.Label52 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.LoadPanel = New System.Windows.Forms.Panel()
+        Me.AirsNumberEntry = New Iaip.AirNumberEntryForm()
         Me.ClearFormButton = New System.Windows.Forms.Button()
         Me.FeeYearsComboBox = New System.Windows.Forms.ComboBox()
         Me.ReloadButton = New System.Windows.Forms.Button()
         Me.Label26 = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.mtbAirsNumber = New System.Windows.Forms.MaskedTextBox()
         Me.btnCheckInvoices = New System.Windows.Forms.Button()
         Me.EditContactsButton = New System.Windows.Forms.Button()
         Me.txtYear = New System.Windows.Forms.TextBox()
@@ -4336,20 +4336,33 @@ Partial Class FeesAudit
         '
         'LoadPanel
         '
+        Me.LoadPanel.Controls.Add(Me.AirsNumberEntry)
         Me.LoadPanel.Controls.Add(Me.ClearFormButton)
         Me.LoadPanel.Controls.Add(Me.FeeYearsComboBox)
         Me.LoadPanel.Controls.Add(Me.ReloadButton)
         Me.LoadPanel.Controls.Add(Me.Label26)
         Me.LoadPanel.Controls.Add(Me.Label23)
-        Me.LoadPanel.Controls.Add(Me.mtbAirsNumber)
         Me.LoadPanel.Location = New System.Drawing.Point(0, 0)
         Me.LoadPanel.Name = "LoadPanel"
-        Me.LoadPanel.Size = New System.Drawing.Size(429, 37)
+        Me.LoadPanel.Size = New System.Drawing.Size(458, 37)
         Me.LoadPanel.TabIndex = 0
+        '
+        'AirsNumberEntry
+        '
+        Me.AirsNumberEntry.AirsNumber = Nothing
+        Me.AirsNumberEntry.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
+        Me.AirsNumberEntry.ErrorMessageLabel = Nothing
+        Me.AirsNumberEntry.FacilityMustExist = True
+        Me.AirsNumberEntry.Location = New System.Drawing.Point(184, 12)
+        Me.AirsNumberEntry.Name = "AirsNumberEntry"
+        Me.AirsNumberEntry.ReadOnly = False
+        Me.AirsNumberEntry.Size = New System.Drawing.Size(77, 20)
+        Me.AirsNumberEntry.TabIndex = 427
+        Me.AirsNumberEntry.TextBoxBackColor = System.Drawing.SystemColors.Window
         '
         'ClearFormButton
         '
-        Me.ClearFormButton.Location = New System.Drawing.Point(329, 10)
+        Me.ClearFormButton.Location = New System.Drawing.Point(348, 10)
         Me.ClearFormButton.Name = "ClearFormButton"
         Me.ClearFormButton.Size = New System.Drawing.Size(80, 22)
         Me.ClearFormButton.TabIndex = 3
@@ -4370,7 +4383,7 @@ Partial Class FeesAudit
         Me.ReloadButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ReloadButton.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
         Me.ReloadButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ReloadButton.Location = New System.Drawing.Point(248, 9)
+        Me.ReloadButton.Location = New System.Drawing.Point(267, 9)
         Me.ReloadButton.Name = "ReloadButton"
         Me.ReloadButton.Padding = New System.Windows.Forms.Padding(3, 0, 4, 0)
         Me.ReloadButton.Size = New System.Drawing.Size(75, 24)
@@ -4396,15 +4409,6 @@ Partial Class FeesAudit
         Me.Label23.Size = New System.Drawing.Size(42, 13)
         Me.Label23.TabIndex = 426
         Me.Label23.Text = "AIRS #"
-        '
-        'mtbAirsNumber
-        '
-        Me.mtbAirsNumber.Location = New System.Drawing.Point(184, 12)
-        Me.mtbAirsNumber.Mask = "000-00000"
-        Me.mtbAirsNumber.Name = "mtbAirsNumber"
-        Me.mtbAirsNumber.Size = New System.Drawing.Size(58, 20)
-        Me.mtbAirsNumber.TabIndex = 1
-        Me.mtbAirsNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'btnCheckInvoices
         '
@@ -4999,7 +5003,6 @@ Partial Class FeesAudit
     Friend WithEvents Panel19 As System.Windows.Forms.Panel
     Friend WithEvents rdbEnrolledFalse As System.Windows.Forms.RadioButton
     Friend WithEvents rdbEnrolledTrue As System.Windows.Forms.RadioButton
-    Friend WithEvents mtbAirsNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents Label23 As System.Windows.Forms.Label
@@ -5410,4 +5413,5 @@ Partial Class FeesAudit
     Friend WithEvents Label5 As Label
     Friend WithEvents btnPrintSelectedInvoice As Button
     Friend WithEvents btnPrintActiveInvoices As Button
+    Friend WithEvents AirsNumberEntry As AirNumberEntryForm
 End Class

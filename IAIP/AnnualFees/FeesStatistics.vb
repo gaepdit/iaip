@@ -25,7 +25,7 @@ Public Class FeesStatistics
 
             If CurrentUser.HasPermission(UserCan.EditAnnualFees) Then
                 btnOpenFeesLog.Visible = True
-                txtFeeStatAirsNumber.Visible = True
+                FeeStatAirsNumberEntry.Visible = True
             Else
                 dgvFeeStats.LinkifyFirstColumn = False
             End If
@@ -1971,8 +1971,8 @@ Public Class FeesStatistics
 
     Private Sub btnOpenFeesLog_Click(sender As Object, e As EventArgs) Handles btnOpenFeesLog.Click
         Dim parameters As New Dictionary(Of FormParameter, String)
-        If IsValidAirsNumberFormat(txtFeeStatAirsNumber.Text) Then
-            parameters(FormParameter.AirsNumber) = txtFeeStatAirsNumber.Text
+        If IsValidAirsNumberFormat(FeeStatAirsNumberEntry.Text) Then
+            parameters(FormParameter.AirsNumber) = FeeStatAirsNumberEntry.Text
         End If
         parameters(FormParameter.FeeYear) = cboFeeStatYear.Text
 
@@ -2284,7 +2284,7 @@ Public Class FeesStatistics
     End Sub
 
     Private Sub dgvFeeStats_CellLinkSelected(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvFeeStats.CellLinkSelected
-        txtFeeStatAirsNumber.Text = TryCastApbFacilityId(e.LinkValue)?.FormattedString
+        FeeStatAirsNumberEntry.Text = TryCastApbFacilityId(e.LinkValue)?.FormattedString
     End Sub
 
 End Class

@@ -943,7 +943,7 @@ Public Class FeesManagement
     End Sub
 
     Private Sub dgvFeeManagementLists_CellLinkSelected(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvFeeManagementLists.CellLinkSelected
-        mtbCheckAIRSNumber.Text = e.LinkValue.ToString
+        AIRSNumberEntry.Text = e.LinkValue.ToString
     End Sub
 
     Private Sub dgvFeeManagementLists_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvFeeManagementLists.CellLinkActivated
@@ -959,8 +959,8 @@ Public Class FeesManagement
 
     Private Sub btnOpenFeesLog_Click(sender As Object, e As EventArgs) Handles btnOpenFeesLog.Click
         Dim parameters As New Dictionary(Of FormParameter, String)
-        If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbCheckAIRSNumber.Text) Then
-            parameters(FormParameter.AirsNumber) = mtbCheckAIRSNumber.Text
+        If Apb.ApbFacilityId.IsValidAirsNumberFormat(AIRSNumberEntry.Text) Then
+            parameters(FormParameter.AirsNumber) = AIRSNumberEntry.Text
         End If
         parameters(FormParameter.FeeYear) = cboAvailableFeeYears.Text
 

@@ -20,7 +20,7 @@ Public Class FeesDeposits
 
     Private Sub LoadFacilityData(AIRSNumber As String)
 
-        If DAL.AirsNumberExists(mtbAIRSNumber.Text) Then
+        If DAL.AirsNumberExists(AirsNumberEntry.Text) Then
             Dim query As String = "Select " &
                        "strFacilityName " &
                        "from APBFacilityInformation " &
@@ -44,7 +44,7 @@ Public Class FeesDeposits
         Dim query As String
         Dim param As SqlParameter()
 
-        If Not DAL.AirsNumberExists(mtbAIRSNumber.Text) Then
+        If Not DAL.AirsNumberExists(AirsNumberEntry.Text) Then
             MsgBox("This AIRS # is not valid; please verify that it is entered correctly." & vbCrLf &
                        "If you get this message in error, contact the Data Management Unit for help.", MsgBoxStyle.OkOnly, "Incorrect AIRS Number")
             Return False
@@ -84,7 +84,7 @@ Public Class FeesDeposits
                 "and strAIRSNumber = @AIRSNumber "
             param = {
                 New SqlParameter("@InvoiceID", txtInvoiceForDeposit.Text),
-                New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
+                New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(AirsNumberEntry.Text).DbFormattedString)
             }
             If Not DB.ValueExists(query, param) Then
                 MsgBox("Please select a valid Invoice Number", MsgBoxStyle.OkOnly, "No Valid Invoice No.")
@@ -196,7 +196,7 @@ Public Class FeesDeposits
                     "on Allinvoices.InvoiceID = Transactions.InvoiceID " &
                     "order by strBatchNo "
                 param = {
-                    New SqlParameter("@airsnum", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString),
+                    New SqlParameter("@airsnum", New Apb.ApbFacilityId(AirsNumberEntry.Text).DbFormattedString),
                     New SqlParameter("@feeyear", cbYear.Text)
                 }
 
@@ -236,7 +236,7 @@ Public Class FeesDeposits
             dtpBatchDepositDateField.Text = Date.Today
             txtCheckNumber.Clear()
 
-            If DAL.AirsNumberExists(mtbAIRSNumber.Text) Then
+            If DAL.AirsNumberExists(AirsNumberEntry.Text) Then
                 If cbYear.Text <> "" Then
                     If Not ViewInvoices() Then
                         MsgBox("There was an error loading invoices.", MsgBoxStyle.Exclamation, "Invoice Search Error")
@@ -278,7 +278,7 @@ Public Class FeesDeposits
                 Dim row As DataGridViewRow = dgvDeposits.CurrentRow
 
                 If dgvDeposits.Columns(0).HeaderText = "AIRS Number" Then
-                    mtbAIRSNumber.Text = row.Cells(0).Value
+                    AirsNumberEntry.Text = row.Cells(0).Value
                     LoadFacilityData(row.Cells(0).Value)
                     lblAIRSNumber.Text = "AIRS #: " & row.Cells(0).Value
 
@@ -376,7 +376,7 @@ Public Class FeesDeposits
                 Dim row As DataGridViewRow = dgvInvoices.CurrentRow
 
                 If dgvInvoices.Columns(0).HeaderText = "AIRS Number" Then
-                    mtbAIRSNumber.Text = row.Cells(0).Value
+                    AirsNumberEntry.Text = row.Cells(0).Value
                     LoadFacilityData(row.Cells(0).Value)
                     lblAIRSNumber.Text = "AIRS #: " & row.Cells(0).Value
 
@@ -490,7 +490,7 @@ Public Class FeesDeposits
                         New SqlParameter("@STRCOMMENT", txtDepositComments.Text),
                         New SqlParameter("@ACTIVE", "1"),
                         New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
-                        New SqlParameter("@STRAIRSNUMBER", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString),
+                        New SqlParameter("@STRAIRSNUMBER", New Apb.ApbFacilityId(AirsNumberEntry.Text).DbFormattedString),
                         New SqlParameter("@NUMFEEYEAR", cbYear2.Text),
                         New SqlParameter("@STRCREDITCARDNO", txtCreditCardNo.Text)
                     }
@@ -508,7 +508,7 @@ Public Class FeesDeposits
                     Return
                 End If
 
-                If Not DAL.UpdateFeeAdminStatus(CInt(cbYear2.Text), New Apb.ApbFacilityId(mtbAIRSNumber.Text)) Then
+                If Not DAL.UpdateFeeAdminStatus(CInt(cbYear2.Text), New Apb.ApbFacilityId(AirsNumberEntry.Text)) Then
                     MessageBox.Show("There was an error updating the database.", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
 
@@ -596,7 +596,7 @@ Public Class FeesDeposits
                         Return
                     End If
 
-                    If Not DAL.UpdateFeeAdminStatus(CInt(cbYear2.Text), New Apb.ApbFacilityId(mtbAIRSNumber.Text)) Then
+                    If Not DAL.UpdateFeeAdminStatus(CInt(cbYear2.Text), New Apb.ApbFacilityId(AirsNumberEntry.Text)) Then
                         MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
 
@@ -638,7 +638,7 @@ Public Class FeesDeposits
 
             Dim result As DialogResult =
                 MessageBox.Show("Are you sure you want to remove transaction #" & txtTransactionID.Text &
-                                " for AIRS # - " & mtbAIRSNumber.Text & "?",
+                                " for AIRS # - " & AirsNumberEntry.Text & "?",
                                 "Fee Tool", MessageBoxButtons.YesNo,
                                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
@@ -666,7 +666,7 @@ Public Class FeesDeposits
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
-            If Not DAL.UpdateFeeAdminStatus(cbYear2.Text, mtbAIRSNumber.Text) Then
+            If Not DAL.UpdateFeeAdminStatus(cbYear2.Text, AirsNumberEntry.Text) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -797,12 +797,12 @@ Public Class FeesDeposits
 
             txtCountInvoices.Text = dgvInvoices.RowCount.ToString
 
-            If DAL.AirsNumberExists(mtbAIRSNumber.Text) AndAlso dgvInvoices.RowCount = 0 Then
+            If DAL.AirsNumberExists(AirsNumberEntry.Text) AndAlso dgvInvoices.RowCount = 0 Then
                 Dim query As String = "Select " &
                 "strFacilityName " &
                 "from APBFacilityInformation " &
                 "where strAIRSNumber = @AIRSNumber "
-                Dim param As New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
+                Dim param As New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(AirsNumberEntry.Text).DbFormattedString)
 
                 Dim facName As String = DB.GetString(query, param)
 
@@ -810,7 +810,7 @@ Public Class FeesDeposits
                     lblAIRSNumber.Text = "AIRS #"
                     lblFacilityName.Text = "Facility Name"
                 Else
-                    lblAIRSNumber.Text = "AIRS #: " & mtbAIRSNumber.Text
+                    lblAIRSNumber.Text = "AIRS #: " & AirsNumberEntry.Text
                     lblFacilityName.Text = "Facility Name: " & facName
                 End If
             End If
@@ -825,7 +825,7 @@ Public Class FeesDeposits
 
     Private Sub ClearForm()
         txtCheckNumber.Clear()
-        mtbAIRSNumber.Clear()
+        AirsNumberEntry.Clear()
         cbYear.SelectedIndex = 0
         lblAIRSNumber.Text = "AIRS #"
         lblFacilityName.Text = "Facility Name"
@@ -847,7 +847,7 @@ Public Class FeesDeposits
             ClearForm()
             dgvDeposits.DataSource = Nothing
             dgvInvoices.DataSource = Nothing
-            ActiveControl = mtbAIRSNumber
+            ActiveControl = AirsNumberEntry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -984,12 +984,12 @@ Public Class FeesDeposits
                 dgvInvoices.Columns("FeeDue").Visible = True
                 txtCountInvoices.Text = dgvInvoices.RowCount.ToString
 
-                If DAL.AirsNumberExists(mtbAIRSNumber.Text) AndAlso dgvInvoices.RowCount = 0 Then
+                If DAL.AirsNumberExists(AirsNumberEntry.Text) AndAlso dgvInvoices.RowCount = 0 Then
                     query = "Select " &
                         "strFacilityName " &
                         "from APBFacilityInformation " &
                         "where strAIRSNumber = @AIRSNumber "
-                    param = {New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
+                    param = {New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(AirsNumberEntry.Text).DbFormattedString)}
 
                     Dim facName As String = DB.GetString(query, param)
 
@@ -997,7 +997,7 @@ Public Class FeesDeposits
                         lblAIRSNumber.Text = "AIRS #: "
                         lblFacilityName.Text = "Facility Name: "
                     Else
-                        lblAIRSNumber.Text = "AIRS #: " & mtbAIRSNumber.Text
+                        lblAIRSNumber.Text = "AIRS #: " & AirsNumberEntry.Text
                         lblFacilityName.Text = "Facility Name: " & facName
                     End If
                 End If
@@ -1015,7 +1015,7 @@ Public Class FeesDeposits
     Private Sub AcceptButton_Leave(sender As Object, e As EventArgs) _
         Handles dtpDepositReportStartDate.Leave, dtpDepositReportEndDate.Leave,
         txtCheckNumber.Leave, txtSearchInvoice.Leave,
-        mtbAIRSNumber.Leave, cbYear.Leave, cbYear2.Leave
+        AirsNumberEntry.Leave, cbYear.Leave, cbYear2.Leave
 
         AcceptButton = Nothing
     End Sub
@@ -1032,7 +1032,7 @@ Public Class FeesDeposits
         AcceptButton = btnSearchForInvoice
     End Sub
 
-    Private Sub mtbAIRSNumber_Enter(sender As Object, e As EventArgs) Handles mtbAIRSNumber.Enter, cbYear.Enter, cbYear2.Enter
+    Private Sub mtbAIRSNumber_Enter(sender As Object, e As EventArgs) Handles AirsNumberEntry.Enter, cbYear.Enter, cbYear2.Enter
         AcceptButton = btnViewInvoices
     End Sub
 

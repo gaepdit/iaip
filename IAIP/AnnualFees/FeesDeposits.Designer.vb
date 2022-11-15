@@ -42,6 +42,7 @@ Partial Class FeesDeposits
         Me.Label47 = New System.Windows.Forms.Label()
         Me.dgvInvoices = New System.Windows.Forms.DataGridView()
         Me.pnlInvoiceSearch = New System.Windows.Forms.Panel()
+        Me.AirsNumberEntry = New Iaip.AirNumberEntryForm()
         Me.cbYear = New System.Windows.Forms.ComboBox()
         Me.btnViewInvoices = New System.Windows.Forms.Button()
         Me.btnSearchForInvoice = New System.Windows.Forms.Button()
@@ -54,7 +55,6 @@ Partial Class FeesDeposits
         Me.Label41 = New System.Windows.Forms.Label()
         Me.Label42 = New System.Windows.Forms.Label()
         Me.Label43 = New System.Windows.Forms.Label()
-        Me.mtbAIRSNumber = New System.Windows.Forms.MaskedTextBox()
         Me.txtCheckNumber = New System.Windows.Forms.TextBox()
         Me.pnlDepositSearchs = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -236,7 +236,7 @@ Partial Class FeesDeposits
         Me.Label36.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label36.Location = New System.Drawing.Point(184, 36)
         Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(95, 16)
+        Me.Label36.Size = New System.Drawing.Size(94, 16)
         Me.Label36.TabIndex = 47
         Me.Label36.Text = "Transaction ID"
         '
@@ -246,7 +246,7 @@ Partial Class FeesDeposits
         Me.lblInvoiceNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblInvoiceNumber.Location = New System.Drawing.Point(12, 36)
         Me.lblInvoiceNumber.Name = "lblInvoiceNumber"
-        Me.lblInvoiceNumber.Size = New System.Drawing.Size(61, 16)
+        Me.lblInvoiceNumber.Size = New System.Drawing.Size(60, 16)
         Me.lblInvoiceNumber.TabIndex = 46
         Me.lblInvoiceNumber.Text = "Invoice #"
         '
@@ -284,7 +284,7 @@ Partial Class FeesDeposits
         Me.lblAIRSNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblAIRSNumber.Location = New System.Drawing.Point(12, 11)
         Me.lblAIRSNumber.Name = "lblAIRSNumber"
-        Me.lblAIRSNumber.Size = New System.Drawing.Size(49, 16)
+        Me.lblAIRSNumber.Size = New System.Drawing.Size(48, 16)
         Me.lblAIRSNumber.TabIndex = 42
         Me.lblAIRSNumber.Text = "AIRS #"
         '
@@ -322,7 +322,7 @@ Partial Class FeesDeposits
         Me.lblFacilityName.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFacilityName.Location = New System.Drawing.Point(131, 11)
         Me.lblFacilityName.Name = "lblFacilityName"
-        Me.lblFacilityName.Size = New System.Drawing.Size(90, 16)
+        Me.lblFacilityName.Size = New System.Drawing.Size(89, 16)
         Me.lblFacilityName.TabIndex = 41
         Me.lblFacilityName.Text = "Facility Name"
         '
@@ -400,6 +400,7 @@ Partial Class FeesDeposits
         '
         'pnlInvoiceSearch
         '
+        Me.pnlInvoiceSearch.Controls.Add(Me.AirsNumberEntry)
         Me.pnlInvoiceSearch.Controls.Add(Me.cbYear)
         Me.pnlInvoiceSearch.Controls.Add(Me.btnViewInvoices)
         Me.pnlInvoiceSearch.Controls.Add(Me.btnSearchForInvoice)
@@ -412,13 +413,25 @@ Partial Class FeesDeposits
         Me.pnlInvoiceSearch.Controls.Add(Me.Label41)
         Me.pnlInvoiceSearch.Controls.Add(Me.Label42)
         Me.pnlInvoiceSearch.Controls.Add(Me.Label43)
-        Me.pnlInvoiceSearch.Controls.Add(Me.mtbAIRSNumber)
         Me.pnlInvoiceSearch.Controls.Add(Me.txtCheckNumber)
         Me.pnlInvoiceSearch.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlInvoiceSearch.Location = New System.Drawing.Point(0, 0)
         Me.pnlInvoiceSearch.Name = "pnlInvoiceSearch"
         Me.pnlInvoiceSearch.Size = New System.Drawing.Size(811, 71)
         Me.pnlInvoiceSearch.TabIndex = 0
+        '
+        'AirsNumberEntry
+        '
+        Me.AirsNumberEntry.AirsNumber = Nothing
+        Me.AirsNumberEntry.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
+        Me.AirsNumberEntry.ErrorMessageLabel = Nothing
+        Me.AirsNumberEntry.FacilityMustExist = True
+        Me.AirsNumberEntry.Location = New System.Drawing.Point(159, 12)
+        Me.AirsNumberEntry.Name = "AirsNumberEntry"
+        Me.AirsNumberEntry.ReadOnly = False
+        Me.AirsNumberEntry.Size = New System.Drawing.Size(78, 20)
+        Me.AirsNumberEntry.TabIndex = 62
+        Me.AirsNumberEntry.TextBoxBackColor = System.Drawing.SystemColors.Window
         '
         'cbYear
         '
@@ -532,21 +545,11 @@ Partial Class FeesDeposits
         '
         Me.Label43.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label43.AutoSize = True
-        Me.Label43.Location = New System.Drawing.Point(124, 15)
+        Me.Label43.Location = New System.Drawing.Point(111, 15)
         Me.Label43.Name = "Label43"
         Me.Label43.Size = New System.Drawing.Size(42, 13)
         Me.Label43.TabIndex = 0
         Me.Label43.Text = "AIRS #"
-        '
-        'mtbAIRSNumber
-        '
-        Me.mtbAIRSNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.mtbAIRSNumber.Location = New System.Drawing.Point(172, 12)
-        Me.mtbAIRSNumber.Mask = "000-00000"
-        Me.mtbAIRSNumber.Name = "mtbAIRSNumber"
-        Me.mtbAIRSNumber.Size = New System.Drawing.Size(62, 20)
-        Me.mtbAIRSNumber.TabIndex = 0
-        Me.mtbAIRSNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'txtCheckNumber
         '
@@ -661,14 +664,14 @@ Partial Class FeesDeposits
         Me.SplitContainer1.SplitterDistance = 484
         Me.SplitContainer1.TabIndex = 35
         '
-        'PASPDepositsAmendments
+        'FeesDeposits
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(811, 690)
         Me.Controls.Add(Me.SplitContainer1)
         Me.MinimumSize = New System.Drawing.Size(818, 488)
-        Me.Name = "PASPDepositsAmendments"
+        Me.Name = "FeesDeposits"
         Me.Text = "Annual Fees - Deposits"
         Me.pnlDepositsEntry.ResumeLayout(False)
         Me.pnlDepositsEntry.PerformLayout()
@@ -691,7 +694,6 @@ Partial Class FeesDeposits
     Friend WithEvents Label41 As System.Windows.Forms.Label
     Friend WithEvents Label42 As System.Windows.Forms.Label
     Friend WithEvents Label43 As System.Windows.Forms.Label
-    Friend WithEvents mtbAIRSNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents txtCheckNumber As System.Windows.Forms.TextBox
     Friend WithEvents pnlDepositSearchs As System.Windows.Forms.Panel
     Friend WithEvents btnClearForm As System.Windows.Forms.Button
@@ -739,4 +741,5 @@ Partial Class FeesDeposits
     Friend WithEvents btnSearchDeposits As Button
     Friend WithEvents cbYear As ComboBox
     Friend WithEvents cbYear2 As ComboBox
+    Friend WithEvents AirsNumberEntry As AirNumberEntryForm
 End Class

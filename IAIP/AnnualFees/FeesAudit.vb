@@ -74,10 +74,10 @@ Public Class FeesAudit
             If Parameters.ContainsKey(FormParameter.AirsNumber) Then
                 Try
                     Me.AirsNumber = CType(Parameters(FormParameter.AirsNumber), Apb.ApbFacilityId)
-                    mtbAirsNumber.Text = Me.AirsNumber.FormattedString
+                    AirsNumberEntry.Text = Me.AirsNumber.FormattedString
                 Catch ex As ArgumentException
                     Me.AirsNumber = Nothing
-                    mtbAirsNumber.Clear()
+                    AirsNumberEntry.Clear()
                 End Try
             End If
 
@@ -1824,7 +1824,7 @@ Public Class FeesAudit
     End Sub
 
     Private Sub MailoutSaveContactButton_Click(sender As Object, e As EventArgs) Handles MailoutSaveContactButton.Click
-        If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+        If (AirsNumberEntry.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
             MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
                             "Please double-check and try again." &
                             vbNewLine & vbNewLine & "NO DATA SAVED.",
@@ -1851,7 +1851,7 @@ Public Class FeesAudit
     End Sub
 
     Private Sub MailoutSaveFacilityButton_Click(sender As Object, e As EventArgs) Handles MailoutSaveFacilityButton.Click
-        If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+        If (AirsNumberEntry.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
             MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
                             "Please double-check and try again." &
                             vbNewLine & vbNewLine & "NO DATA SAVED.",
@@ -1880,7 +1880,7 @@ Public Class FeesAudit
 #End Region
 
     Private Sub EditContactsButton_Click(sender As Object, e As EventArgs) Handles EditContactsButton.Click
-        If AirsNumber Is Nothing OrElse (mtbAirsNumber.Text <> AirsNumber.FormattedString) Then
+        If AirsNumber Is Nothing OrElse (AirsNumberEntry.Text <> AirsNumber.FormattedString) Then
             MessageBox.Show("Please select a valid AIRS number first.",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
@@ -1894,13 +1894,13 @@ Public Class FeesAudit
 
     Private Sub ReloadButton_Click(sender As Object, e As EventArgs) Handles ReloadButton.Click
         Try
-            If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbAirsNumber.Text) Then
+            If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(AirsNumberEntry.Text) Then
                 MessageBox.Show("AIRS number is not valid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return
             End If
 
             FeeYear = FeeYearsComboBox.Text
-            AirsNumber = mtbAirsNumber.Text
+            AirsNumber = AirsNumberEntry.Text
 
             ClearForm()
             ClearInvoices()
@@ -2031,7 +2031,7 @@ Public Class FeesAudit
                 End Select
             End If
 
-            If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+            If (AirsNumberEntry.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
@@ -2091,7 +2091,7 @@ Public Class FeesAudit
 
     Private Sub btnAddFSAdmin_Click(sender As Object, e As EventArgs) Handles btnAddFSAdmin.Click
         Try
-            If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+            If (AirsNumberEntry.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
@@ -2211,7 +2211,7 @@ Public Class FeesAudit
     Private Sub btnTransactionNew_Click(sender As Object, e As EventArgs) Handles btnTransactionNew.Click
         Try
 
-            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) OrElse
+            If (AirsNumberEntry.Text <> Me.AirsNumber.FormattedString) OrElse
                 (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) OrElse
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
@@ -2427,7 +2427,7 @@ Public Class FeesAudit
     Private Sub btnTransactionUpdate_Click(sender As Object, e As EventArgs) Handles btnTransactionUpdate.Click
         Try
 
-            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) OrElse
+            If (AirsNumberEntry.Text <> Me.AirsNumber.FormattedString) OrElse
                 (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) OrElse
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
@@ -2502,7 +2502,7 @@ Public Class FeesAudit
     Private Sub btnTransactionDelete_Click(sender As Object, e As EventArgs) Handles btnTransactionDelete.Click
         Try
 
-            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) OrElse
+            If (AirsNumberEntry.Text <> Me.AirsNumber.FormattedString) OrElse
                 (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) OrElse
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
@@ -2596,7 +2596,7 @@ Public Class FeesAudit
             Dim CollectionsDate As String = ""
 
             If Me.AirsNumber Is Nothing OrElse FeeYear Is Nothing OrElse
-                (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) OrElse
+                (AirsNumberEntry.Text <> Me.AirsNumber.FormattedString) OrElse
                 (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) OrElse
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("Reload a facility and year before continuing." &
@@ -3188,7 +3188,7 @@ Public Class FeesAudit
         Try
             Dim InvoiceStatus As String = "0"
 
-            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) OrElse
+            If (AirsNumberEntry.Text <> Me.AirsNumber.FormattedString) OrElse
                 (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) OrElse
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
@@ -3254,7 +3254,7 @@ Public Class FeesAudit
 
     Private Sub btnVOIDInvoice_Click(sender As Object, e As EventArgs) Handles btnVOIDInvoice.Click
         Try
-            If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+            If (AirsNumberEntry.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
@@ -3304,7 +3304,7 @@ Public Class FeesAudit
 
     Private Sub btnVOIDAllUnpaid_Click(sender As Object, e As EventArgs) Handles btnVOIDAllUnpaid.Click
         Try
-            If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+            If (AirsNumberEntry.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
@@ -3345,7 +3345,7 @@ Public Class FeesAudit
 
     Private Sub btnRemoveVOID_Click(sender As Object, e As EventArgs) Handles btnRemoveVOID.Click
         Try
-            If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+            If (AirsNumberEntry.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
@@ -3427,7 +3427,7 @@ Public Class FeesAudit
             Dim EndCollections As String = ""
             Dim CollectionsDate As String = ""
 
-            If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+            If (AirsNumberEntry.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
                                 "Please double-check and try again." &
                                 vbNewLine & vbNewLine & "NO DATA SAVED.",
@@ -4355,7 +4355,7 @@ Public Class FeesAudit
         ClearAuditData()
         ClearInvoices()
         ClearInvoiceForm()
-        mtbAirsNumber.Clear()
+        AirsNumberEntry.Clear()
         FeeYearsComboBox.SelectedIndex = 0
     End Sub
 

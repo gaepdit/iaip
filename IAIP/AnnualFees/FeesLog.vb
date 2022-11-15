@@ -170,7 +170,7 @@
         Try
 
             If dgvExistingYearAdmin.RowCount > 0 AndAlso hti.RowIndex <> -1 Then
-                mtbSelectedAIRSNumber.Text = dgvExistingYearAdmin(0, hti.RowIndex).Value.ToString
+                SelectedAIRSNumber.Text = dgvExistingYearAdmin(0, hti.RowIndex).Value.ToString
                 cbYear.Text = dgvExistingYearAdmin(2, hti.RowIndex).Value.ToString
             End If
 
@@ -181,8 +181,8 @@
 
     Private Sub btnOpenFeeWorkTool_Click(sender As Object, e As EventArgs) Handles btnOpenFeeWorkTool.Click
         Dim parameters As New Generic.Dictionary(Of FormParameter, String)
-        If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbSelectedAIRSNumber.Text) Then
-            parameters(FormParameter.AirsNumber) = mtbSelectedAIRSNumber.Text
+        If Apb.ApbFacilityId.IsValidAirsNumberFormat(SelectedAIRSNumber.Text) Then
+            parameters(FormParameter.AirsNumber) = SelectedAIRSNumber.Text
         End If
         parameters(FormParameter.FeeYear) = cbYear.Text
 
