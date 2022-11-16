@@ -20,10 +20,10 @@
     ' Valid NAICS codes are two to six digits
     Friend Const NaicsCodePattern As String = "^\d{2,6}$"
 
-    ' Valid permit numbers are in the form 0000-000-0000-A-00-?
+    ' Valid permit numbers are in the form 0000-000-0000-A-00-? or 0000-ABC-0000-A-00-?
     ' (with the dashes)
-    ' Test regex here: https://regexr.com/39l4d
-    Friend Const PermitNumberPattern As String = "^\d{4}-\d{3}-\d{4}-[A-Z]-\d{2}-[A-Z0-9]$"
+    ' Test regex here: https://regex101.com/r/SDDTMz/2
+    Friend Const PermitNumberPattern As String = "^\d{4}-(?:[A-Z]{3}|[0-9]{3})-\d{4}-[A-Z]-\d{2}-[A-Z0-9]$"
 
     ' Official DNR email address:
     '   user.name@dnr.ga.gov
