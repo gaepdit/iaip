@@ -6843,6 +6843,24 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub chbClosedOut_CheckedChanged(sender As Object, e As EventArgs) Handles chbClosedOut.CheckedChanged
+        If chbClosedOut.Checked AndAlso DTPFinalAction.Checked AndAlso AirsId IsNot Nothing AndAlso
+            (String.IsNullOrWhiteSpace(txtPermitNumber.Text) OrElse Not IsValidPermitNumber(txtPermitNumber.Text)) Then
+
+            Dim result As DialogResult = MessageBox.Show(
+                "The permit number entered, """ & txtPermitNumber.Text & """, is not valid." &
+                " If the application is closed without a valid permit number, " &
+                "a new permit will not be added to the facility." & vbNewLine & vbNewLine &
+                "To continue, select OK. To go back and add a permit number, select Cancel.",
+                "Invalid Permit Number", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning)
+
+            If result = DialogResult.Cancel Then
+                chbClosedOut.Checked = False
+                txtPermitNumber.Focus()
+
+                Return
+            End If
+        End If
+
         CloseOutApplication(chbClosedOut.Checked)
     End Sub
 
@@ -7016,7 +7034,7 @@ Public Class SSPPApplicationTrackingLog
                             UpdateAPBTables()
                         End If
 
-                        If AirsId IsNot Nothing AndAlso IsValidPermitNumber(txtPermitNumber.Text) Then
+                        If IsValidPermitNumber(txtPermitNumber.Text) Then
                             PermitRevocationQuery()
                             SaveIssuedPermit()
                         End If
