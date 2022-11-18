@@ -2172,7 +2172,7 @@ Public Class EisTool
                 Dim params2 As SqlParameter() = {
                     New SqlParameter("@numFacilityLongitude", -CDec(mtbEIModifyLongitude.Text)),
                     New SqlParameter("@numFacilityLatitude", mtbEIModifyLatitude.Text),
-                    New SqlParameter("@strComments", "Updated by " & CurrentUser.AlphaName & " through DMU Staff Tools - Emissions Inventory Log. "),
+                    New SqlParameter("@strComments", "Updated by " & CurrentUser.AlphaName & " through Emissions Inventory staff tools. "),
                     New SqlParameter("@strModifingPerson", CurrentUser.UserID),
                     New SqlParameter("@strAIRSNumber", txtEILogSelectedAIRSNumber.AirsNumber.DbFormattedString)
                 }

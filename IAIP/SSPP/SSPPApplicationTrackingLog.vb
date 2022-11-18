@@ -5237,7 +5237,7 @@ Public Class SSPPApplicationTrackingLog
                     Dim result As Boolean = RevokePermits(revokedPermits, DTPFinalAction.Value)
                     If Not result Then
                         MessageBox.Show("There was an error revoking permits." & vbNewLine &
-                                        "Please contact the Data Management Unit.", "Error",
+                                        "Please contact EPD-IT.", "Error",
                                         MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
                 End If
@@ -5262,7 +5262,7 @@ Public Class SSPPApplicationTrackingLog
 
         If Not result Then
             MessageBox.Show("There was an error saving the permit." & vbNewLine &
-                            "Please contact the Data Management Unit.", "Error",
+                            "Please contact EPD-IT.", "Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub

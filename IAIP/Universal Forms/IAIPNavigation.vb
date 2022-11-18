@@ -933,7 +933,7 @@ Public Class IAIPNavigation
         SSCP
         AnnualFees
         Finance
-        DMU
+        DX
         MASP
         EIS
         SBEAP
@@ -946,7 +946,7 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.SSCP, "Stationary Source Compliance Program")
         AddNavButtonCategory(NavButtonCategories.AnnualFees, "Financial Management Unit", "Annual Fees")
         AddNavButtonCategory(NavButtonCategories.Finance, "Financial Management Unit", "Application Fees")
-        AddNavButtonCategory(NavButtonCategories.DMU, "Data Management Unit")
+        AddNavButtonCategory(NavButtonCategories.DX, "Data Exchange", "Data Exchange")
         AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program", "Events")
         AddNavButtonCategory(NavButtonCategories.EIS, "Emissions and Control Strategies", "EI/ES")
         AddNavButtonCategory(NavButtonCategories.SBEAP, "Small Business Environmental Assistance Program")
@@ -997,9 +997,9 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(137, "EPD Events", NameOf(EventsManagement), NavButtonCategories.MASP)
 
         ' DMU
-        AddNavButtonIfUserHasPermission({19, 28}, "EDT Errors", NameOf(DmuEdtErrorMessages), NavButtonCategories.DMU)
-        AddNavButtonIfUserHasPermission(118, "District Tools", NameOf(IAIPDistrictSourceTool), NavButtonCategories.DMU)
-        AddNavButtonIfUserHasPermission(118, "Lookup Tables", NameOf(IAIPLookUpTables), NavButtonCategories.DMU)
+        AddNavButtonIfUserHasPermission({19, 28}, "EDT Errors", NameOf(DmuEdtErrorMessages), NavButtonCategories.DX)
+        AddNavButtonIfUserHasPermission(118, "District Tools", NameOf(IAIPDistrictSourceTool), NavButtonCategories.DX)
+        AddNavButtonIfUserHasPermission(118, "Lookup Tables", NameOf(IAIPLookUpTables), NavButtonCategories.DX)
 
         ' EIS
         AddNavButtonIfUserCan(UserCan.AccessEmissionsInventory, "Emissions Inventory", NameOf(EisTool), NavButtonCategories.EIS)
