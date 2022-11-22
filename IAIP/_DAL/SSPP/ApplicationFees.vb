@@ -40,10 +40,6 @@ Namespace DAL.Sspp
             }
         End Function
 
-        Public Function IsInvoiceGeneratedForApplication(appNumber As Integer) As Boolean
-            Return DB.GetBoolean("select fees.IsInvoiceGeneratedForApplication(@AppNumber)", New SqlParameter("@AppNumber", appNumber))
-        End Function
-
         Public Function SaveApplicationFeesData(appFeesInfo As ApplicationFeeInfo) As SaveApplicationFeesDataResult
             Dim spName As String = "fees.SaveApplicationFees"
 
