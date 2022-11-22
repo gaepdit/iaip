@@ -15,10 +15,6 @@ Namespace DAL.Finance
             Return DB.SPGetBoolean("fees.InvoiceExists", New SqlParameter("@InvoiceID", invoiceId))
         End Function
 
-        Public Function InvoiceHasPaymentsApplied(invoiceId As Integer) As Boolean
-            Return DB.SPGetBoolean("fees.InvoiceHasPaymentsApplied", New SqlParameter("@InvoiceID", invoiceId))
-        End Function
-
         Public Function GetInvoice(invoiceId As Integer) As Invoice
             Dim ds As DataSet = DB.SPGetDataSet("fees.GetInvoice", New SqlParameter("@InvoiceID", invoiceId))
 
