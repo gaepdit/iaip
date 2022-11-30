@@ -46,7 +46,7 @@ Public Class FeesDeposits
 
         If Not DAL.AirsNumberExists(AirsNumberEntry.Text) Then
             MsgBox("This AIRS # is not valid; please verify that it is entered correctly." & vbCrLf &
-                       "If you get this message in error, contact the Data Management Unit for help.", MsgBoxStyle.OkOnly, "Incorrect AIRS Number")
+                       "If you get this message in error, contact EPD-IT for help.", MsgBoxStyle.OkOnly, "Incorrect AIRS Number")
             Return False
         End If
 

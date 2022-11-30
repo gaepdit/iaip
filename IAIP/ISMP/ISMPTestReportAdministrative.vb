@@ -499,7 +499,7 @@ Public Class ISMPTestReportAdministrative
                     RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
                     If RefNum.Length > 9 Then
                         MsgBox("There was an issue with the Reference Number being more than 9 characters in length." & vbCrLf &
-                               "Please note the Reference Numbers being closed out and contact the Data Management Unit with those numbers.",
+                               "Please note the Reference Numbers being closed out and contact the EPD-IT with those numbers.",
                                 MsgBoxStyle.Exclamation, "Test Report Administration")
                         Return
                     End If

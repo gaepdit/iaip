@@ -80,7 +80,7 @@
     End Function
 
     Public Function HasPermission(capability As UserCan) As Boolean
-        If HasRole(118) Then Return True ' DMU Management
+        If HasRole(118) Then Return True ' EPD-IT
 
         Select Case capability
 
@@ -178,7 +178,7 @@
                 Return HasRole({11, 123, 124})
 
             Case UserCan.EditAnnualFees
-                ' Planning & Support Manager, SSCP Program Manager, DMU User,
+                ' Planning & Support Manager, SSCP Program Manager, EPD-IT,
                 ' Financial Administrative, Financial Manager, SBEAP Assistance Provider
                 Return HasRole({11, 19, 119, 123, 124, 142})
 
