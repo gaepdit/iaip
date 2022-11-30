@@ -5249,9 +5249,8 @@ Public Class SSPPApplicationTrackingLog
         Dim result As Boolean
         Dim permit As Permit
 
-        If Not PermitExists(txtPermitNumber.Text) Then
-            permit = New Permit(AirsId, txtPermitNumber.Text,
-                                         DTPFinalAction.Value, True, cboApplicationType.SelectedValue.ToString)
+        If Not PermitExists(txtPermitNumber.Text, AirsId) Then
+            permit = New Permit(AirsId, txtPermitNumber.Text, DTPFinalAction.Value, True, cboApplicationType.SelectedValue.ToString)
             result = AddPermit(permit)
         Else
             permit = GetPermit(txtPermitNumber.Text)

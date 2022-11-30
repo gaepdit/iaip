@@ -9,12 +9,16 @@ Namespace DAL.Sspp
 
 #Region " Read "
 
-        Public Function PermitExists(permitNumber As String) As Boolean
-            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
-                " FROM APBISSUEDPERMIT " &
-                " WHERE STRPERMITNUMBER = @permitnumber "
+        Public Function PermitExists(permitNumber As String, airsNumber As ApbFacilityId) As Boolean
+            Dim query As String = "SELECT CONVERT(bit, COUNT(*))
+                FROM APBISSUEDPERMIT
+                WHERE STRPERMITNUMBER = @permitNumber
+                  and STRAIRSNUMBER = @airsNumber "
 
-            Dim parameter As New SqlParameter("@permitnumber", permitNumber)
+            Dim parameter As SqlParameter() = {
+                New SqlParameter("@permitNumber", permitNumber),
+                New SqlParameter("@airsNumber", airsNumber.ShortString)
+            }
 
             Return DB.GetBoolean(query, parameter)
         End Function
