@@ -11,6 +11,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.5.0 <span>(2022-11-30)</span>
+
+The permit application tracking log has been updated to better handle generic permits and to warn the user if an invalid permit number has been entered. These changes should improve the accuracy of the issued permits table.
+
 ## Version 6.4.8 <span>(2022-11-15)</span>
 
 Facility notes now reload correctly when changing facilities in the Facility Summary.
