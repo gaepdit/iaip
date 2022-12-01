@@ -45,7 +45,7 @@
 
         Public Function RetrieveHeaderData() As Facility
             If Me IsNot Nothing Then
-                HeaderData = DAL.GetFacilityHeaderData(Me.AirsNumber)
+                HeaderData = DAL.GetFacilityHeaderData(AirsNumber)
             End If
             Return Me
         End Function
@@ -97,19 +97,19 @@
 
         Public ReadOnly Property LongDisplay() As String
             Get
-                Dim ld As String = Me.AirsNumber.FormattedString &
+                Dim ld As String = AirsNumber.FormattedString &
                 vbNewLine &
-                Me.FacilityName.ToString & vbNewLine
+                FacilityName.ToString & vbNewLine
 
-                If Me.FacilityLocation IsNot Nothing Then
-                    ld = ld & Me.FacilityLocation.Address.ToString & vbNewLine &
-                    Me.FacilityLocation.County.ToString & " county"
+                If FacilityLocation IsNot Nothing Then
+                    ld = ld & FacilityLocation.Address.ToString & vbNewLine &
+                    FacilityLocation.County.ToString & " county"
                 End If
 
-                If Me.HeaderData IsNot Nothing Then
+                If HeaderData IsNot Nothing Then
                     ld = ld & vbNewLine & vbNewLine &
-                    "Classification: " & Me.HeaderData.Classification.GetDescription & vbNewLine &
-                    "Status: " & Me.HeaderData.OperationalStatus.GetDescription
+                    "Classification: " & HeaderData.Classification.GetDescription & vbNewLine &
+                    "Status: " & HeaderData.OperationalStatus.GetDescription
                 End If
 
                 Return ld

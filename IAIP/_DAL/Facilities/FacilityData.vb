@@ -163,7 +163,24 @@ Namespace DAL
         End Function
 
         ''' <summary>
-        ''' Completely remove a facility (AIRS number) from the database
+        ''' Deactivate a facility (AIRS number) in the database. This might be needed, for example,
+        ''' if a facility submits a permit application and pays permit fees, but eventually no
+        ''' permit is issued and no other data is expected for the facility. The facility can't
+        ''' be deleted because of the fees data, but otherwise, deactivating the facility removes
+        ''' it from use.
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number to delete</param>
+        ''' <returns>True if successful; otherwise false</returns>
+        Public Function DeactivateFacility(airsNumber As ApbFacilityId) As Boolean
+            Dim spName As String = "iaip_facility.DeactivateFacility"
+            Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
+            Return DB.SPRunCommand(spName, parameter)
+        End Function
+
+        ''' <summary>
+        ''' Completely remove a facility (AIRS number) from the database. All records related to the
+        ''' facility are deleted. This can be done only if limited facility information has been 
+        ''' entered.
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number to delete</param>
         ''' <returns>True if successful; otherwise false</returns>

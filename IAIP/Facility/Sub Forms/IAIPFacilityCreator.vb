@@ -8,19 +8,18 @@ Public Class IAIPFacilityCreator
     Private Sub IAIPFacilityCreator_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             LoadCounty()
-            TCFacilityTools.TabPages.Remove(TPApproveNewFacility)
-            TCFacilityTools.TabPages.Remove(TPDeleteFacility)
+            FacilityLongDisplay.Text = ""
 
             If CurrentUser.HasPermission(UserCan.CreateFacility) Then
-                TCFacilityTools.TabPages.Add(TPApproveNewFacility)
                 dtpStartFilter.Value = Today
                 dtpEndFilter.Value = Today
                 DTPSSCPApproveDate.Value = Today
                 DTPSSPPApproveDate.Value = Today
 
-                TCFacilityTools.TabPages.Add(TPDeleteFacility)
-
                 LoadPendingFacilities()
+            Else
+                TCFacilityTools.TabPages.Remove(TPApproveNewFacility)
+                TCFacilityTools.TabPages.Remove(TPDeleteFacility)
             End If
 
         Catch ex As Exception
@@ -1429,44 +1428,8 @@ Public Class IAIPFacilityCreator
     End Sub
 
     Private Sub btnRemoveFromPlatform_Click(sender As Object, e As EventArgs) Handles btnRemoveFromPlatform.Click
-        Try
-            If Not ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
-                MessageBox.Show("AIRS number is not valid", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-
-            Dim airsNumberDeleting As New ApbFacilityId(txtNewAIRSNumber.Text)
-
-            If DAL.FacilityHasBeenApproved(airsNumberDeleting) Then
-                MessageBox.Show("Facility has already been approved.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-
-            If DAL.Finance.FacilityHasFeesData(airsNumberDeleting) Then
-                MessageBox.Show("Facility has permit fees data. Unable to delete unless the fees data is removed first.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-
-            Dim result As DialogResult
-            result = MessageBox.Show("Are you sure you want to completely remove this facility from the database? The data will not be recoverable.", "Confirm facility deletion",
-                                      MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
-            If result = DialogResult.No Then
-                Return
-            End If
-
-            If DAL.DeleteFacility(airsNumberDeleting) Then
-                MessageBox.Show("Facility removed from the database", "Gone", MessageBoxButtons.OK)
-            Else
-                MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
-            End If
-
-            LoadPendingFacilities()
-
-            ClearNewFacility()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        AirsNumberToRemove.Text = txtNewAIRSNumber.Text
+        TCFacilityTools.SelectedTab = TPDeleteFacility
     End Sub
 
     Private Sub btnSaveSSCPApproval_Click(sender As Object, e As EventArgs) Handles btnSaveSSCPApproval.Click
@@ -2010,21 +1973,56 @@ Public Class IAIPFacilityCreator
         LoadPendingFacilities()
     End Sub
 
-    Private Sub DeleteAirsNumber_Click(sender As Object, e As EventArgs) Handles DeleteAirsNumber.Click
+    Private Sub AirsNumberToRemove_TextChanged(sender As Object, e As EventArgs) Handles AirsNumberToRemove.TextChanged
+        btnDeactivateFacility.Enabled = False
+        btnDeleteAirsNumber.Enabled = False
+        FacilityLongDisplay.Text = ""
+        lblFacilityHasFeesData.Visible = False
+
+        If Not ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToRemove.Text) Then Return
+
+        Dim airsToDelete As New ApbFacilityId(AirsNumberToRemove.Text)
+
+        If Not DAL.AirsNumberExists(airsToDelete) Then
+            FacilityLongDisplay.Text = "AIRS Number does not exist."
+            Return
+        End If
+
+        Dim fac As Facility = DAL.GetFacility(airsToDelete)
+
+        If fac Is Nothing Then
+            FacilityLongDisplay.Text = "Facility information could not be retrieved."
+            Return
+        End If
+
+        fac.HeaderData = DAL.GetFacilityHeaderData(airsToDelete)
+
+        If fac.HeaderData Is Nothing Then
+            FacilityLongDisplay.Text = "Facility data could not be retrieved."
+            Return
+        End If
+
+        FacilityLongDisplay.Text = fac.LongDisplay
+
+        btnDeactivateFacility.Enabled = True
+
+        If DAL.Finance.FacilityHasFeesData(airsToDelete) Then
+            lblFacilityHasFeesData.Visible = True
+        Else
+            btnDeleteAirsNumber.Enabled = True
+        End If
+    End Sub
+
+    Private Sub btnDeleteAirsNumber_Click(sender As Object, e As EventArgs) Handles btnDeleteAirsNumber.Click
         Try
-            If Not ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
+            If Not ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToRemove.Text) Then
                 MessageBox.Show("AIRS number is not valid", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return
             End If
 
-            Dim airsNumberDeleting As New ApbFacilityId(AirsNumberToDelete.Text)
+            Dim airsNumberToDelete As New ApbFacilityId(AirsNumberToRemove.Text)
 
-            If Not DAL.FacilityHasBeenApproved(airsNumberDeleting) Then
-                MessageBox.Show("Facility has not been approved yet. Remove facility using the ""Approve New Facilities"" tab.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-
-            If DAL.Finance.FacilityHasFeesData(airsNumberDeleting) Then
+            If DAL.Finance.FacilityHasFeesData(airsNumberToDelete) Then
                 MessageBox.Show("Facility has permit fees data. Unable to delete unless the fees data is removed first.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return
             End If
@@ -2036,25 +2034,46 @@ Public Class IAIPFacilityCreator
                 Return
             End If
 
-            If DAL.DeleteFacility(airsNumberDeleting) Then
-                MessageBox.Show("Facility removed from the database", "Gone", MessageBoxButtons.OK)
+            If DAL.DeleteFacility(airsNumberToDelete) Then
+                MessageBox.Show("Facility/AIRS Number removed from the database", "Deleted", MessageBoxButtons.OK)
             Else
                 MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
             End If
+
+            LoadPendingFacilities()
+
+            ClearNewFacility()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub AirsNumberToDelete_TextChanged(sender As Object, e As EventArgs) Handles AirsNumberToDelete.TextChanged
-        FacilityLongDisplay.Text = ""
-        If ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
-            Dim fac As Facility = DAL.GetFacility(New ApbFacilityId(AirsNumberToDelete.Text))
-            If fac IsNot Nothing Then
-                fac.HeaderData = DAL.GetFacilityHeaderData(New ApbFacilityId(AirsNumberToDelete.Text))
-                If fac.HeaderData IsNot Nothing Then FacilityLongDisplay.Text = fac.LongDisplay
-            End If
+    Private Sub btnDeactivateFacility_Click(sender As Object, e As EventArgs) Handles btnDeactivateFacility.Click
+        If Not ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToRemove.Text) Then
+            MessageBox.Show("AIRS number is not valid", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
         End If
+
+        Dim airsNumberToDeactivate As New ApbFacilityId(AirsNumberToRemove.Text)
+
+        Dim result As DialogResult
+        result = MessageBox.Show("Are you sure you want to deactivate this facility? " &
+                                 "Data will not be deleted, but the facility will be unavailable for further use.",
+                                 "Confirm facility deactivation",
+                                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
+        If result = DialogResult.No Then
+            Return
+        End If
+
+        If DAL.DeactivateFacility(airsNumberToDeactivate) Then
+            MessageBox.Show("Facility has been deactivated", "Deactivated", MessageBoxButtons.OK)
+        Else
+            MessageBox.Show("There was an error when attempting to deactivate the facility." & vbNewLine & vbNewLine & "Facility has not been deactivated.", "Error", MessageBoxButtons.OK)
+        End If
+
+        LoadPendingFacilities()
+
+        ClearNewFacility()
     End Sub
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click

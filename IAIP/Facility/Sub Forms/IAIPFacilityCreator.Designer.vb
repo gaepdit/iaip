@@ -19,6 +19,7 @@ Partial Class IAIPFacilityCreator
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPFacilityCreator))
         Me.GBFacilityInformation = New System.Windows.Forms.GroupBox()
         Me.llbOpenWebpage = New System.Windows.Forms.LinkLabel()
         Me.mtbFacilityLongitude = New System.Windows.Forms.MaskedTextBox()
@@ -143,10 +144,14 @@ Partial Class IAIPFacilityCreator
         Me.txtNewAIRSNumber = New System.Windows.Forms.TextBox()
         Me.dgvVerifyNewFacilities = New System.Windows.Forms.DataGridView()
         Me.TPDeleteFacility = New System.Windows.Forms.TabPage()
+        Me.AirsNumberToRemove = New System.Windows.Forms.TextBox()
         Me.FacilityLongDisplay = New System.Windows.Forms.Label()
-        Me.AirsNumberToDelete = New System.Windows.Forms.TextBox()
-        Me.DeleteAirsNumber = New System.Windows.Forms.Button()
+        Me.btnDeactivateFacility = New System.Windows.Forms.Button()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
         Me.AirsNumberToDeleteLabel = New System.Windows.Forms.Label()
+        Me.btnDeleteAirsNumber = New System.Windows.Forms.Button()
+        Me.lblFacilityHasFeesData = New System.Windows.Forms.Label()
         Me.GBFacilityInformation.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.GBContactInformation.SuspendLayout()
@@ -1413,42 +1418,66 @@ Partial Class IAIPFacilityCreator
         '
         'TPDeleteFacility
         '
+        Me.TPDeleteFacility.Controls.Add(Me.AirsNumberToRemove)
         Me.TPDeleteFacility.Controls.Add(Me.FacilityLongDisplay)
-        Me.TPDeleteFacility.Controls.Add(Me.AirsNumberToDelete)
-        Me.TPDeleteFacility.Controls.Add(Me.DeleteAirsNumber)
+        Me.TPDeleteFacility.Controls.Add(Me.btnDeleteAirsNumber)
+        Me.TPDeleteFacility.Controls.Add(Me.btnDeactivateFacility)
+        Me.TPDeleteFacility.Controls.Add(Me.lblFacilityHasFeesData)
+        Me.TPDeleteFacility.Controls.Add(Me.Label25)
+        Me.TPDeleteFacility.Controls.Add(Me.Label23)
         Me.TPDeleteFacility.Controls.Add(Me.AirsNumberToDeleteLabel)
         Me.TPDeleteFacility.Location = New System.Drawing.Point(4, 22)
         Me.TPDeleteFacility.Name = "TPDeleteFacility"
         Me.TPDeleteFacility.Size = New System.Drawing.Size(738, 519)
         Me.TPDeleteFacility.TabIndex = 2
-        Me.TPDeleteFacility.Text = "Destroy Facility"
+        Me.TPDeleteFacility.Text = "Remove Facility"
         Me.TPDeleteFacility.UseVisualStyleBackColor = True
+        '
+        'AirsNumberToDelete
+        '
+        Me.AirsNumberToRemove.Location = New System.Drawing.Point(37, 55)
+        Me.AirsNumberToRemove.Name = "AirsNumberToDelete"
+        Me.AirsNumberToRemove.Size = New System.Drawing.Size(100, 20)
+        Me.AirsNumberToRemove.TabIndex = 0
         '
         'FacilityLongDisplay
         '
         Me.FacilityLongDisplay.AutoSize = True
-        Me.FacilityLongDisplay.Location = New System.Drawing.Point(247, 39)
+        Me.FacilityLongDisplay.Location = New System.Drawing.Point(34, 78)
         Me.FacilityLongDisplay.Name = "FacilityLongDisplay"
-        Me.FacilityLongDisplay.Size = New System.Drawing.Size(0, 13)
-        Me.FacilityLongDisplay.TabIndex = 67
+        Me.FacilityLongDisplay.Size = New System.Drawing.Size(97, 104)
+        Me.FacilityLongDisplay.TabIndex = 4
+        Me.FacilityLongDisplay.Text = "Facility long display" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "5" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "6" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "7" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "8"
         '
-        'AirsNumberToDelete
+        'btnDeactivateFacility
         '
-        Me.AirsNumberToDelete.Location = New System.Drawing.Point(37, 55)
-        Me.AirsNumberToDelete.MaxLength = 12
-        Me.AirsNumberToDelete.Name = "AirsNumberToDelete"
-        Me.AirsNumberToDelete.Size = New System.Drawing.Size(100, 20)
-        Me.AirsNumberToDelete.TabIndex = 0
+        Me.btnDeactivateFacility.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnDeactivateFacility.Enabled = False
+        Me.btnDeactivateFacility.Location = New System.Drawing.Point(37, 198)
+        Me.btnDeactivateFacility.Name = "btnDeactivateFacility"
+        Me.btnDeactivateFacility.Size = New System.Drawing.Size(166, 51)
+        Me.btnDeactivateFacility.TabIndex = 1
+        Me.btnDeactivateFacility.Text = "Deactivate Facility"
+        Me.btnDeactivateFacility.UseVisualStyleBackColor = True
         '
-        'DeleteAirsNumber
+        'Label25
         '
-        Me.DeleteAirsNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.DeleteAirsNumber.Location = New System.Drawing.Point(37, 81)
-        Me.DeleteAirsNumber.Name = "DeleteAirsNumber"
-        Me.DeleteAirsNumber.Size = New System.Drawing.Size(159, 38)
-        Me.DeleteAirsNumber.TabIndex = 1
-        Me.DeleteAirsNumber.Text = "Delete Facility/AIRS number"
-        Me.DeleteAirsNumber.UseVisualStyleBackColor = True
+        Me.Label25.Location = New System.Drawing.Point(209, 268)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(410, 51)
+        Me.Label25.TabIndex = 6
+        Me.Label25.Text = "If an AIRS number has been incorrectly created and no data exists other than basi" &
+    "c facility info, then the AIRS number can be deleted."
+        Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label23
+        '
+        Me.Label23.Location = New System.Drawing.Point(209, 198)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(410, 51)
+        Me.Label23.TabIndex = 5
+        Me.Label23.Text = resources.GetString("Label23.Text")
+        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'AirsNumberToDeleteLabel
         '
@@ -1456,8 +1485,31 @@ Partial Class IAIPFacilityCreator
         Me.AirsNumberToDeleteLabel.Location = New System.Drawing.Point(34, 39)
         Me.AirsNumberToDeleteLabel.Name = "AirsNumberToDeleteLabel"
         Me.AirsNumberToDeleteLabel.Size = New System.Drawing.Size(72, 13)
-        Me.AirsNumberToDeleteLabel.TabIndex = 66
+        Me.AirsNumberToDeleteLabel.TabIndex = 3
         Me.AirsNumberToDeleteLabel.Text = "AIRS Number"
+        '
+        'btnDeleteAirsNumber
+        '
+        Me.btnDeleteAirsNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnDeleteAirsNumber.Enabled = False
+        Me.btnDeleteAirsNumber.Location = New System.Drawing.Point(37, 268)
+        Me.btnDeleteAirsNumber.Name = "btnDeleteAirsNumber"
+        Me.btnDeleteAirsNumber.Size = New System.Drawing.Size(166, 51)
+        Me.btnDeleteAirsNumber.TabIndex = 2
+        Me.btnDeleteAirsNumber.Text = "Delete Facility && AIRS Number"
+        Me.btnDeleteAirsNumber.UseVisualStyleBackColor = True
+        '
+        'lblFacilityHasFeesData
+        '
+        Me.lblFacilityHasFeesData.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFacilityHasFeesData.Location = New System.Drawing.Point(209, 268)
+        Me.lblFacilityHasFeesData.Name = "lblFacilityHasFeesData"
+        Me.lblFacilityHasFeesData.Size = New System.Drawing.Size(410, 51)
+        Me.lblFacilityHasFeesData.TabIndex = 6
+        Me.lblFacilityHasFeesData.Text = "Facility has permit fees data and can't be deleted unless the fees are removed fi" &
+    "rst."
+        Me.lblFacilityHasFeesData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblFacilityHasFeesData.Visible = False
         '
         'IAIPFacilityCreator
         '
@@ -1664,11 +1716,15 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents mtbCDSNAICSCode As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label37 As System.Windows.Forms.Label
     Friend WithEvents TPDeleteFacility As System.Windows.Forms.TabPage
-    Friend WithEvents DeleteAirsNumber As System.Windows.Forms.Button
+    Friend WithEvents btnDeactivateFacility As System.Windows.Forms.Button
     Friend WithEvents AirsNumberToDeleteLabel As System.Windows.Forms.Label
-    Friend WithEvents AirsNumberToDelete As System.Windows.Forms.TextBox
     Friend WithEvents FacilityLongDisplay As System.Windows.Forms.Label
     Friend WithEvents txtApplicationNumber As CueTextBox
     Friend WithEvents btnClear As Button
     Friend WithEvents txtContactPhoneNumber As TextBox
+    Friend WithEvents AirsNumberToRemove As TextBox
+    Friend WithEvents Label23 As Label
+    Friend WithEvents Label25 As Label
+    Friend WithEvents btnDeleteAirsNumber As Button
+    Friend WithEvents lblFacilityHasFeesData As Label
 End Class
