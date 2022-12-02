@@ -1981,21 +1981,21 @@ Public Class IAIPFacilityCreator
 
         If Not ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToRemove.Text) Then Return
 
-        Dim airsToDelete As New ApbFacilityId(AirsNumberToRemove.Text)
+        Dim airsToRemove As New ApbFacilityId(AirsNumberToRemove.Text)
 
-        If Not DAL.AirsNumberExists(airsToDelete) Then
+        If Not DAL.AirsNumberExists(airsToRemove) Then
             FacilityLongDisplay.Text = "AIRS Number does not exist."
             Return
         End If
 
-        Dim fac As Facility = DAL.GetFacility(airsToDelete)
+        Dim fac As Facility = DAL.GetFacility(airsToRemove)
 
         If fac Is Nothing Then
             FacilityLongDisplay.Text = "Facility information could not be retrieved."
             Return
         End If
 
-        fac.HeaderData = DAL.GetFacilityHeaderData(airsToDelete)
+        fac.HeaderData = DAL.GetFacilityHeaderData(airsToRemove)
 
         If fac.HeaderData Is Nothing Then
             FacilityLongDisplay.Text = "Facility data could not be retrieved."
@@ -2004,13 +2004,20 @@ Public Class IAIPFacilityCreator
 
         FacilityLongDisplay.Text = fac.LongDisplay
 
-        btnDeactivateFacility.Enabled = True
-
-        If DAL.Finance.FacilityHasFeesData(airsToDelete) Then
-            lblFacilityHasFeesData.Visible = True
-        Else
+        If DAL.CanFacilityBeDeleted(airsToRemove) Then
+            btnDeactivateFacility.Enabled = True
             btnDeleteAirsNumber.Enabled = True
+            Return
+        Else
+            lblFacilityHasFeesData.Visible = True
         End If
+
+        If DAL.CanFacilityBeDeactivated(airsToRemove) Then
+            btnDeactivateFacility.Enabled = True
+        Else
+            lblFacilityHasAdditionalData.Visible = True
+        End If
+
     End Sub
 
     Private Sub btnDeleteAirsNumber_Click(sender As Object, e As EventArgs) Handles btnDeleteAirsNumber.Click

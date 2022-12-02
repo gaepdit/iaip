@@ -39,15 +39,5 @@ Namespace DAL.Finance
             Return ds
         End Function
 
-        Public Function FacilityHasFeesData(facilityId As ApbFacilityId) As Boolean
-            ArgumentNotNull(facilityId, NameOf(facilityId))
-
-            Dim query As String = "select convert(bit, count(*))
-                from fees.VW_AffectedFacilities
-                where FacilityID = @FacilityID"
-
-            Return DB.GetBoolean(query, New SqlParameter("@FacilityID", facilityId.DbFormattedString))
-        End Function
-
     End Module
 End Namespace

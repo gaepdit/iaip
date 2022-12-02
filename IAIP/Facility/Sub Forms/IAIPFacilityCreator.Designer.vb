@@ -152,6 +152,7 @@ Partial Class IAIPFacilityCreator
         Me.AirsNumberToDeleteLabel = New System.Windows.Forms.Label()
         Me.btnDeleteAirsNumber = New System.Windows.Forms.Button()
         Me.lblFacilityHasFeesData = New System.Windows.Forms.Label()
+        Me.lblFacilityHasAdditionalData = New System.Windows.Forms.Label()
         Me.GBFacilityInformation.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.GBContactInformation.SuspendLayout()
@@ -1423,6 +1424,7 @@ Partial Class IAIPFacilityCreator
         Me.TPDeleteFacility.Controls.Add(Me.btnDeleteAirsNumber)
         Me.TPDeleteFacility.Controls.Add(Me.btnDeactivateFacility)
         Me.TPDeleteFacility.Controls.Add(Me.lblFacilityHasFeesData)
+        Me.TPDeleteFacility.Controls.Add(Me.lblFacilityHasAdditionalData)
         Me.TPDeleteFacility.Controls.Add(Me.Label25)
         Me.TPDeleteFacility.Controls.Add(Me.Label23)
         Me.TPDeleteFacility.Controls.Add(Me.AirsNumberToDeleteLabel)
@@ -1510,6 +1512,17 @@ Partial Class IAIPFacilityCreator
     "rst."
         Me.lblFacilityHasFeesData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lblFacilityHasFeesData.Visible = False
+        '
+        'lblFacilityHasAdditionalData
+        '
+        Me.lblFacilityHasAdditionalData.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFacilityHasAdditionalData.Location = New System.Drawing.Point(209, 198)
+        Me.lblFacilityHasAdditionalData.Name = "lblFacilityHasFeesData"
+        Me.lblFacilityHasAdditionalData.Size = New System.Drawing.Size(410, 51)
+        Me.lblFacilityHasAdditionalData.TabIndex = 6
+        Me.lblFacilityHasAdditionalData.Text = "Facility has compliance or other data and can't be deactivated."
+        Me.lblFacilityHasAdditionalData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblFacilityHasAdditionalData.Visible = False
         '
         'IAIPFacilityCreator
         '
@@ -1727,4 +1740,5 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents Label25 As Label
     Friend WithEvents btnDeleteAirsNumber As Button
     Friend WithEvents lblFacilityHasFeesData As Label
+    Friend WithEvents lblFacilityHasAdditionalData As Label
 End Class

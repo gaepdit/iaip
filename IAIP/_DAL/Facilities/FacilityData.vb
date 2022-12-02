@@ -162,6 +162,18 @@ Namespace DAL
             Return DB.SPRunCommand(spName, parameters)
         End Function
 
+        Public Function CanFacilityBeDeactivated(airs As ApbFacilityId) As Boolean
+            Dim spName As String = "iaip_facility.CanFacilityBeDeactivated"
+            Dim parameter As New SqlParameter("@AirsNumber", airs.DbFormattedString)
+            Return DB.SPRunCommand(spName, parameter)
+        End Function
+
+        Public Function CanFacilityBeDeleted(airs As ApbFacilityId) As Boolean
+            Dim spName As String = "iaip_facility.CanFacilityBeDeleted"
+            Dim parameter As New SqlParameter("@AirsNumber", airs.DbFormattedString)
+            Return DB.SPRunCommand(spName, parameter)
+        End Function
+
         ''' <summary>
         ''' Deactivate a facility (AIRS number) in the database. This might be needed, for example,
         ''' if a facility submits a permit application and pays permit fees, but eventually no
