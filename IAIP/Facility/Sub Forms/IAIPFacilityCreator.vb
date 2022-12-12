@@ -20,6 +20,7 @@ Public Class IAIPFacilityCreator
             Else
                 TCFacilityTools.TabPages.Remove(TPApproveNewFacility)
                 TCFacilityTools.TabPages.Remove(TPDeleteFacility)
+                TCFacilityTools.TabPages.Remove(TPDeactivatedFacilities)
             End If
 
         Catch ex As Exception
@@ -56,7 +57,7 @@ Public Class IAIPFacilityCreator
 
     Private Sub LoadPendingFacilities()
         Try
-            Dim query As String = "select right(m.STRAIRSNUMBER, 8) as AIRSNumber,
+            Dim query As String = "select right(f.STRAIRSNUMBER, 8) as AIRSNumber,
                        i.STRFACILITYNAME,
                        f.DATMODIFINGDATE         as DateCreated,
                        h.STRCOMMENTS,
@@ -72,8 +73,6 @@ Public Class IAIPFacilityCreator
                 from AFSFACILITYDATA f
                     inner join APBFACILITYINFORMATION i
                     on f.STRAIRSNUMBER = i.STRAIRSNUMBER
-                    inner join APBMASTERAIRS m
-                    on f.STRAIRSNUMBER = m.STRAIRSNUMBER
                     inner join APBHEADERDATA h
                     on f.STRAIRSNUMBER = h.STRAIRSNUMBER
                     inner join APBSUPPLAMENTALDATA d
@@ -1883,9 +1882,13 @@ Public Class IAIPFacilityCreator
 
     Private Sub AirsNumberToRemove_TextChanged(sender As Object, e As EventArgs) Handles AirsNumberToRemove.TextChanged
         btnDeactivateFacility.Enabled = False
+        btnDeactivateFacility.BackColor = System.Drawing.Color.Transparent
         btnDeleteAirsNumber.Enabled = False
+        btnDeleteAirsNumber.BackColor = System.Drawing.Color.Transparent
+
         FacilityLongDisplay.Text = ""
-        lblFacilityHasFeesData.Visible = False
+        lblFacilityCannotBeDeleted.Visible = False
+        lblFacilityCannotBeDeletedOrDeactivated.Visible = False
 
         If Not ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToRemove.Text) Then Return
 
@@ -1912,18 +1915,20 @@ Public Class IAIPFacilityCreator
 
         FacilityLongDisplay.Text = fac.LongDisplay
 
-        If DAL.CanFacilityBeDeleted(airsToRemove) Then
-            btnDeactivateFacility.Enabled = True
-            btnDeleteAirsNumber.Enabled = True
-            Return
-        Else
-            lblFacilityHasFeesData.Visible = True
-        End If
-
         If DAL.CanFacilityBeDeactivated(airsToRemove) Then
             btnDeactivateFacility.Enabled = True
+            btnDeactivateFacility.BackColor = IaipColors.WarningBackColor
+            btnDeactivateFacility.ForeColor = IaipColors.WarningForeColor
+
+            If DAL.CanFacilityBeDeleted(airsToRemove) Then
+                btnDeleteAirsNumber.Enabled = True
+                btnDeleteAirsNumber.BackColor = IaipColors.ErrorBackColor
+                btnDeleteAirsNumber.ForeColor = IaipColors.ErrorForeColor
+            Else
+                lblFacilityCannotBeDeleted.Visible = True
+            End If
         Else
-            lblFacilityHasAdditionalData.Visible = True
+            lblFacilityCannotBeDeletedOrDeactivated.Visible = True
         End If
 
     End Sub
@@ -1982,6 +1987,7 @@ Public Class IAIPFacilityCreator
         End If
 
         LoadPendingFacilities()
+        LoadDeactivatedFacilities()
 
         ClearNewFacility()
     End Sub
@@ -1996,6 +2002,46 @@ Public Class IAIPFacilityCreator
 
     Private Sub txtApplicationNumber_Leave(sender As Object, e As EventArgs) Handles txtApplicationNumber.Leave
         AcceptButton = Nothing
+    End Sub
+
+    Private Sub TCFacilityTools_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TCFacilityTools.SelectedIndexChanged
+
+        If TCFacilityTools.SelectedTab.Name = TPDeactivatedFacilities.Name AndAlso deactivatedFacilities Is Nothing Then
+            LoadDeactivatedFacilities()
+        End If
+
+    End Sub
+
+    Private deactivatedFacilities As DataTable
+
+    Private Sub LoadDeactivatedFacilities()
+        Dim query As String = "select concat_ws('-', substring(f.STRAIRSNUMBER, 5, 3), right(f.STRAIRSNUMBER, 5))
+                                                            as [AIRS Number],
+            i.STRFACILITYNAME                              as [Facility Name],
+            m.DATMODIFINGDATE                              as [Date Created],
+            f.DATMODIFINGDATE                              as [Date Deactivated],
+            concat_ws(', ', u.STRLASTNAME, u.STRFIRSTNAME) as [Deactivated By],
+            h.STRCOMMENTS                                  as [Comments],
+            i.STRFACILITYSTREET1                           as [Street address],
+            i.STRFACILITYCITY                              as [City]
+        from AFSFACILITYDATA f
+            inner join APBFACILITYINFORMATION i
+            on f.STRAIRSNUMBER = i.STRAIRSNUMBER
+            inner join APBHEADERDATA h
+            on f.STRAIRSNUMBER = h.STRAIRSNUMBER
+            inner join APBMASTERAIRS m
+            on f.STRAIRSNUMBER = m.STRAIRSNUMBER
+            left join EPDUSERPROFILES u
+            on u.NUMUSERID = f.STRMODIFINGPERSON
+        where f.STRUPDATESTATUS = 'I' "
+
+        deactivatedFacilities = DB.GetDataTable(query)
+
+        dgvDeactivatedFacilities.DataSource = deactivatedFacilities
+    End Sub
+
+    Private Sub btnRefreshDeactivatedFacilities_Click(sender As Object, e As EventArgs) Handles btnRefreshDeactivatedFacilities.Click
+        LoadDeactivatedFacilities()
     End Sub
 
 End Class

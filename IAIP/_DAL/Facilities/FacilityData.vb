@@ -184,8 +184,11 @@ Namespace DAL
         ''' <returns>True if successful; otherwise false</returns>
         Public Function DeactivateFacility(airsNumber As ApbFacilityId) As Boolean
             Dim spName As String = "iaip_facility.DeactivateFacility"
-            Dim parameter As New SqlParameter("@airs", airsNumber.DbFormattedString)
-            Return DB.SPRunCommand(spName, parameter)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@airs", airsNumber.DbFormattedString),
+                New SqlParameter("@userId", CurrentUser.UserID)
+            }
+            Return DB.SPRunCommand(spName, parameters)
         End Function
 
         ''' <summary>
