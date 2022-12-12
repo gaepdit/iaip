@@ -55,112 +55,37 @@ Public Class IAIPFacilityCreator
     End Sub
 
     Private Sub LoadPendingFacilities()
-        Dim SQL As String
         Try
-            If chbIncludeApproved.Checked Then
-                SQL = "select " &
-                    "FUllData.AIRSNumber, strFacilityName, " &
-                    "DateCreated, strComments, " &
-                    "SSCPApprover, datApproveDateSSCP, strCommentSSCP, " &
-                    "SSPPApprover, datApproveDateSSPP, strCommentSSPP, " &
-                    "strfacilityStreet1 " &
-                    "from " &
-                    "(select substring(APBMasterAIRS.strAIRSNumber, 5, 8) as AIRSNumber, " &
-                    "strFacilityName, AFSFacilityData.datModifingDate as dateCreated, " &
-                    "APBHeaderData.strComments,  " &
-                    "datApproveDateSSCP, strCommentSSCP, " &
-                    "datApproveDateSSPP, strCommentSSPP, " &
-                    "strfacilityStreet1 " &
-                    "from AFSFacilityData " &
-                    "inner join APBFacilityInformation " &
-                    "on AFSFacilityData.strAIRSNumber = APBFacilityInformation.strAIRSnumber  " &
-                    "inner join APBMasterAIRS " &
-                    "on AFSFacilityData.strAIRSNumber = APBMasterAIRS.strAIRSnumber  " &
-                    "inner join APBHeaderData " &
-                    "on AFSFacilityData.strAIRSnumber = APBHeaderData.strAIRSNumber " &
-                    "inner join APBSupplamentalData " &
-                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-                    " ) FullData " &
-                    "left join " &
-                    "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
-                    "case " &
-                    "when numApprovingSSCP is not null then concat(strLastName, ', ', strFirstName) " &
-                    "else null " &
-                    "end SSCPApprover " &
-                    "from AFSFacilityData " &
-                    "inner join APBSupplamentalData " &
-                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-                    "left join EPDUserProfiles " &
-                    "on APBSupplamentalData.numApprovingSSCP = EPDUserProfiles.numUserID " &
-                    " ) SSCPStaff " &
-                    "on FullData.AIRSNumber = SSCPStaff.AIRSNumber " &
-                    " left join " &
-                    "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
-                    "case " &
-                    "when numApprovingSSPP is not null then concat(strLastName, ', ', strFirstName) " &
-                    "else null " &
-                    "end SSPPApprover " &
-                    "from AFSFacilityData, APBSupplamentalData, " &
-                    "EPDUserProfiles " &
-                    "where  AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-                    "and APBSupplamentalData.numApprovingSSPP = EPDUserProfiles.numUserID " &
-                    " ) SSPPStaff " &
-                    "on FullData.AIRSNumber = SSPPStaff.AIRSNumber "
-
-            Else
-                SQL = "select " &
-                    "FUllData.AIRSNumber, strFacilityName, " &
-                    "DateCreated, strComments, " &
-                    "SSCPApprover, datApproveDateSSCP, strCommentSSCP, " &
-                    "SSPPApprover, datApproveDateSSPP, strCommentSSPP, " &
-                    "strfacilityStreet1 " &
-                    "from " &
-                    "(select substring(APBMasterAIRS.strAIRSNumber, 5, 8) as AIRSNumber, " &
-                    "strFacilityName, AFSFacilityData.datModifingDate as dateCreated, " &
-                    "APBHeaderData.strComments,  " &
-                    "datApproveDateSSCP, strCommentSSCP, " &
-                    "datApproveDateSSPP, strCommentSSPP, " &
-                    "strfacilityStreet1 " &
-                    "from AFSFacilityData " &
-                    "inner join APBFacilityInformation " &
-                    "on AFSFacilityData.strAIRSNumber = APBFacilityInformation.strAIRSnumber  " &
-                    "inner join APBMasterAIRS " &
-                    "on AFSFacilityData.strAIRSNumber = APBMasterAIRS.strAIRSnumber  " &
-                    "inner join APBHeaderData " &
-                    "on AFSFacilityData.strAIRSnumber = APBHeaderData.strAIRSNumber " &
-                    "inner join APBSupplamentalData " &
-                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-                    "where strUpdateStatus = 'H') FullData " &
-                    " left join " &
-                    "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
-                    "case " &
-                    "when numApprovingSSCP is not null then concat(strLastName, ', ', strFirstName) " &
-                    "else null " &
-                    "end SSCPApprover " &
-                    "from AFSFacilityData " &
-                    "inner join APBSupplamentalData " &
-                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-                    "left join EPDUserProfiles " &
-                    "on APBSupplamentalData.numApprovingSSCP = EPDUserProfiles.numUserID " &
-                    "where strUpdateStatus = 'H') SSCPStaff " &
-                    "on FullData.AIRSNumber = SSCPStaff.AIRSNumber " &
-                    " left join " &
-                    "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
-                    "case " &
-                    "when numApprovingSSPP is not null then concat(strLastName, ', ', strFirstName) " &
-                    "else null " &
-                    "end SSPPApprover " &
-                    "from AFSFacilityData " &
-                    "inner join APBSupplamentalData " &
-                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-                    "left join EPDUserProfiles " &
-                    "on APBSupplamentalData.numApprovingSSPP = EPDUserProfiles.numUserID " &
-                    "where strUpdateStatus = 'H') SSPPStaff " &
-                    "on FullData.AIRSNumber = SSPPStaff.AIRSNumber "
-            End If
+            Dim query As String = "select right(m.STRAIRSNUMBER, 8) as AIRSNumber,
+                       i.STRFACILITYNAME,
+                       f.DATMODIFINGDATE         as DateCreated,
+                       h.STRCOMMENTS,
+                       IIF(d.NUMAPPROVINGSSCP is not null, concat_ws(', ', u1.STRLASTNAME, u1.STRFIRSTNAME), null)
+                                                 as SSCPApprover,
+                       d.DATAPPROVEDATESSCP,
+                       d.STRCOMMENTSSCP,
+                       IIF(d.NUMAPPROVINGSSPP is not null, concat_ws(', ', u2.STRLASTNAME, u2.STRFIRSTNAME), null)
+                                                 as SSPPApprover,
+                       d.DATAPPROVEDATESSPP,
+                       d.STRCOMMENTSSPP,
+                       i.STRFACILITYSTREET1
+                from AFSFACILITYDATA f
+                    inner join APBFACILITYINFORMATION i
+                    on f.STRAIRSNUMBER = i.STRAIRSNUMBER
+                    inner join APBMASTERAIRS m
+                    on f.STRAIRSNUMBER = m.STRAIRSNUMBER
+                    inner join APBHEADERDATA h
+                    on f.STRAIRSNUMBER = h.STRAIRSNUMBER
+                    inner join APBSUPPLAMENTALDATA d
+                    on f.STRAIRSNUMBER = d.STRAIRSNUMBER
+                    left join EPDUSERPROFILES u1
+                    on d.NUMAPPROVINGSSCP = u1.NUMUSERID
+                    left join EPDUSERPROFILES u2
+                    on d.NUMAPPROVINGSSPP = u2.NUMUSERID 
+                where f.STRUPDATESTATUS = 'H' "
 
             If chbFilterNewFacilities.Checked Then
-                SQL = SQL & " where dateCreated between @datestart and @dateend"
+                query &= " and f.DATMODIFINGDATE between @datestart and @dateend "
             End If
 
             Dim p As SqlParameter() = {
@@ -168,36 +93,22 @@ Public Class IAIPFacilityCreator
                 New SqlParameter("@dateend", dtpEndFilter.Value)
             }
 
-            dgvVerifyNewFacilities.DataSource = DB.GetDataTable(SQL, p)
-
-            dgvVerifyNewFacilities.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvVerifyNewFacilities.DataSource = DB.GetDataTable(query, p)
 
             dgvVerifyNewFacilities.Columns("AIRSNumber").HeaderText = "AIRS Number"
-            dgvVerifyNewFacilities.Columns("AIRSNumber").DisplayIndex = 0
             dgvVerifyNewFacilities.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvVerifyNewFacilities.Columns("strFacilityName").DisplayIndex = 1
             dgvVerifyNewFacilities.Columns("dateCreated").HeaderText = "Date Created"
-            dgvVerifyNewFacilities.Columns("dateCreated").DisplayIndex = 2
             dgvVerifyNewFacilities.Columns("dateCreated").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvVerifyNewFacilities.Columns("strComments").HeaderText = "Comments"
-            dgvVerifyNewFacilities.Columns("strComments").DisplayIndex = 3
-
             dgvVerifyNewFacilities.Columns("SSCPApprover").HeaderText = "SSCP Approver"
-            dgvVerifyNewFacilities.Columns("SSCPApprover").DisplayIndex = 4
             dgvVerifyNewFacilities.Columns("datApproveDateSSCP").HeaderText = "Date SSCP Approved"
-            dgvVerifyNewFacilities.Columns("datApproveDateSSCP").DisplayIndex = 5
             dgvVerifyNewFacilities.Columns("datApproveDateSSCP").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvVerifyNewFacilities.Columns("strCommentSSCP").HeaderText = "SSCP Comments"
-            dgvVerifyNewFacilities.Columns("strCommentSSCP").DisplayIndex = 6
             dgvVerifyNewFacilities.Columns("SSPPApprover").HeaderText = "SSPP Approver"
-            dgvVerifyNewFacilities.Columns("SSPPApprover").DisplayIndex = 7
             dgvVerifyNewFacilities.Columns("datApproveDateSSPP").HeaderText = "Date SSPP Approved"
-            dgvVerifyNewFacilities.Columns("datApproveDateSSPP").DisplayIndex = 8
             dgvVerifyNewFacilities.Columns("datApproveDateSSPP").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvVerifyNewFacilities.Columns("strCommentSSPP").HeaderText = "SSPP Comments"
-            dgvVerifyNewFacilities.Columns("strCommentSSPP").DisplayIndex = 9
             dgvVerifyNewFacilities.Columns("strFacilityStreet1").HeaderText = "Street Address"
-            dgvVerifyNewFacilities.Columns("strFacilityStreet1").DisplayIndex = 10
             dgvVerifyNewFacilities.Columns("strFacilityStreet1").Visible = False
 
             dgvVerifyNewFacilities.SanelyResizeColumns()
@@ -1956,12 +1867,9 @@ Public Class IAIPFacilityCreator
             If chbFilterNewFacilities.Checked Then
                 dtpStartFilter.Enabled = True
                 dtpEndFilter.Enabled = True
-                chbIncludeApproved.Enabled = True
             Else
                 dtpStartFilter.Enabled = False
                 dtpEndFilter.Enabled = False
-                chbIncludeApproved.Enabled = False
-                chbIncludeApproved.Checked = False
             End If
 
         Catch ex As Exception
@@ -2028,11 +1936,6 @@ Public Class IAIPFacilityCreator
             End If
 
             Dim airsNumberToDelete As New ApbFacilityId(AirsNumberToRemove.Text)
-
-            If DAL.Finance.FacilityHasFeesData(airsNumberToDelete) Then
-                MessageBox.Show("Facility has permit fees data. Unable to delete unless the fees data is removed first.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
 
             Dim result As DialogResult
             result = MessageBox.Show("Are you sure you want to completely remove this facility from the database? The data will not be recoverable.", "Confirm facility deletion",

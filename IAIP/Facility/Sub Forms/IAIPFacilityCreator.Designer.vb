@@ -111,7 +111,6 @@ Partial Class IAIPFacilityCreator
         Me.Label31 = New System.Windows.Forms.Label()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.txtCountFacilities = New System.Windows.Forms.TextBox()
-        Me.chbIncludeApproved = New System.Windows.Forms.CheckBox()
         Me.btnFilterNewFacilities = New System.Windows.Forms.Button()
         Me.Label26 = New System.Windows.Forms.Label()
         Me.chbFilterNewFacilities = New System.Windows.Forms.CheckBox()
@@ -146,13 +145,13 @@ Partial Class IAIPFacilityCreator
         Me.TPDeleteFacility = New System.Windows.Forms.TabPage()
         Me.AirsNumberToRemove = New System.Windows.Forms.TextBox()
         Me.FacilityLongDisplay = New System.Windows.Forms.Label()
+        Me.btnDeleteAirsNumber = New System.Windows.Forms.Button()
         Me.btnDeactivateFacility = New System.Windows.Forms.Button()
+        Me.lblFacilityHasFeesData = New System.Windows.Forms.Label()
+        Me.lblFacilityHasAdditionalData = New System.Windows.Forms.Label()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.AirsNumberToDeleteLabel = New System.Windows.Forms.Label()
-        Me.btnDeleteAirsNumber = New System.Windows.Forms.Button()
-        Me.lblFacilityHasFeesData = New System.Windows.Forms.Label()
-        Me.lblFacilityHasAdditionalData = New System.Windows.Forms.Label()
         Me.GBFacilityInformation.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.GBContactInformation.SuspendLayout()
@@ -1039,7 +1038,6 @@ Partial Class IAIPFacilityCreator
         Me.Panel5.Controls.Add(Me.Label31)
         Me.Panel5.Controls.Add(Me.Label29)
         Me.Panel5.Controls.Add(Me.txtCountFacilities)
-        Me.Panel5.Controls.Add(Me.chbIncludeApproved)
         Me.Panel5.Controls.Add(Me.btnFilterNewFacilities)
         Me.Panel5.Controls.Add(Me.Label26)
         Me.Panel5.Controls.Add(Me.chbFilterNewFacilities)
@@ -1102,22 +1100,11 @@ Partial Class IAIPFacilityCreator
         Me.txtCountFacilities.Size = New System.Drawing.Size(51, 20)
         Me.txtCountFacilities.TabIndex = 5
         '
-        'chbIncludeApproved
-        '
-        Me.chbIncludeApproved.AutoSize = True
-        Me.chbIncludeApproved.Enabled = False
-        Me.chbIncludeApproved.Location = New System.Drawing.Point(387, 7)
-        Me.chbIncludeApproved.Name = "chbIncludeApproved"
-        Me.chbIncludeApproved.Size = New System.Drawing.Size(153, 17)
-        Me.chbIncludeApproved.TabIndex = 2
-        Me.chbIncludeApproved.Text = "Include Approved Facilities"
-        Me.chbIncludeApproved.UseVisualStyleBackColor = True
-        '
         'btnFilterNewFacilities
         '
         Me.btnFilterNewFacilities.AutoSize = True
         Me.btnFilterNewFacilities.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnFilterNewFacilities.Location = New System.Drawing.Point(546, 3)
+        Me.btnFilterNewFacilities.Location = New System.Drawing.Point(396, 3)
         Me.btnFilterNewFacilities.Name = "btnFilterNewFacilities"
         Me.btnFilterNewFacilities.Size = New System.Drawing.Size(74, 23)
         Me.btnFilterNewFacilities.TabIndex = 3
@@ -1435,10 +1422,10 @@ Partial Class IAIPFacilityCreator
         Me.TPDeleteFacility.Text = "Remove Facility"
         Me.TPDeleteFacility.UseVisualStyleBackColor = True
         '
-        'AirsNumberToDelete
+        'AirsNumberToRemove
         '
         Me.AirsNumberToRemove.Location = New System.Drawing.Point(37, 55)
-        Me.AirsNumberToRemove.Name = "AirsNumberToDelete"
+        Me.AirsNumberToRemove.Name = "AirsNumberToRemove"
         Me.AirsNumberToRemove.Size = New System.Drawing.Size(100, 20)
         Me.AirsNumberToRemove.TabIndex = 0
         '
@@ -1451,6 +1438,17 @@ Partial Class IAIPFacilityCreator
         Me.FacilityLongDisplay.TabIndex = 4
         Me.FacilityLongDisplay.Text = "Facility long display" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "5" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "6" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "7" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "8"
         '
+        'btnDeleteAirsNumber
+        '
+        Me.btnDeleteAirsNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnDeleteAirsNumber.Enabled = False
+        Me.btnDeleteAirsNumber.Location = New System.Drawing.Point(37, 268)
+        Me.btnDeleteAirsNumber.Name = "btnDeleteAirsNumber"
+        Me.btnDeleteAirsNumber.Size = New System.Drawing.Size(166, 51)
+        Me.btnDeleteAirsNumber.TabIndex = 2
+        Me.btnDeleteAirsNumber.Text = "Delete Facility && AIRS Number"
+        Me.btnDeleteAirsNumber.UseVisualStyleBackColor = True
+        '
         'btnDeactivateFacility
         '
         Me.btnDeactivateFacility.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
@@ -1461,6 +1459,29 @@ Partial Class IAIPFacilityCreator
         Me.btnDeactivateFacility.TabIndex = 1
         Me.btnDeactivateFacility.Text = "Deactivate Facility"
         Me.btnDeactivateFacility.UseVisualStyleBackColor = True
+        '
+        'lblFacilityHasFeesData
+        '
+        Me.lblFacilityHasFeesData.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFacilityHasFeesData.Location = New System.Drawing.Point(209, 268)
+        Me.lblFacilityHasFeesData.Name = "lblFacilityHasFeesData"
+        Me.lblFacilityHasFeesData.Size = New System.Drawing.Size(410, 51)
+        Me.lblFacilityHasFeesData.TabIndex = 6
+        Me.lblFacilityHasFeesData.Text = "Facility has permit fees data and can't be deleted unless the fees are removed fi" &
+    "rst."
+        Me.lblFacilityHasFeesData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblFacilityHasFeesData.Visible = False
+        '
+        'lblFacilityHasAdditionalData
+        '
+        Me.lblFacilityHasAdditionalData.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFacilityHasAdditionalData.Location = New System.Drawing.Point(209, 198)
+        Me.lblFacilityHasAdditionalData.Name = "lblFacilityHasAdditionalData"
+        Me.lblFacilityHasAdditionalData.Size = New System.Drawing.Size(410, 51)
+        Me.lblFacilityHasAdditionalData.TabIndex = 6
+        Me.lblFacilityHasAdditionalData.Text = "Facility has compliance or other data and can't be deactivated."
+        Me.lblFacilityHasAdditionalData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblFacilityHasAdditionalData.Visible = False
         '
         'Label25
         '
@@ -1489,40 +1510,6 @@ Partial Class IAIPFacilityCreator
         Me.AirsNumberToDeleteLabel.Size = New System.Drawing.Size(72, 13)
         Me.AirsNumberToDeleteLabel.TabIndex = 3
         Me.AirsNumberToDeleteLabel.Text = "AIRS Number"
-        '
-        'btnDeleteAirsNumber
-        '
-        Me.btnDeleteAirsNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnDeleteAirsNumber.Enabled = False
-        Me.btnDeleteAirsNumber.Location = New System.Drawing.Point(37, 268)
-        Me.btnDeleteAirsNumber.Name = "btnDeleteAirsNumber"
-        Me.btnDeleteAirsNumber.Size = New System.Drawing.Size(166, 51)
-        Me.btnDeleteAirsNumber.TabIndex = 2
-        Me.btnDeleteAirsNumber.Text = "Delete Facility && AIRS Number"
-        Me.btnDeleteAirsNumber.UseVisualStyleBackColor = True
-        '
-        'lblFacilityHasFeesData
-        '
-        Me.lblFacilityHasFeesData.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFacilityHasFeesData.Location = New System.Drawing.Point(209, 268)
-        Me.lblFacilityHasFeesData.Name = "lblFacilityHasFeesData"
-        Me.lblFacilityHasFeesData.Size = New System.Drawing.Size(410, 51)
-        Me.lblFacilityHasFeesData.TabIndex = 6
-        Me.lblFacilityHasFeesData.Text = "Facility has permit fees data and can't be deleted unless the fees are removed fi" &
-    "rst."
-        Me.lblFacilityHasFeesData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblFacilityHasFeesData.Visible = False
-        '
-        'lblFacilityHasAdditionalData
-        '
-        Me.lblFacilityHasAdditionalData.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFacilityHasAdditionalData.Location = New System.Drawing.Point(209, 198)
-        Me.lblFacilityHasAdditionalData.Name = "lblFacilityHasFeesData"
-        Me.lblFacilityHasAdditionalData.Size = New System.Drawing.Size(410, 51)
-        Me.lblFacilityHasAdditionalData.TabIndex = 6
-        Me.lblFacilityHasAdditionalData.Text = "Facility has compliance or other data and can't be deactivated."
-        Me.lblFacilityHasAdditionalData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblFacilityHasAdditionalData.Visible = False
         '
         'IAIPFacilityCreator
         '
@@ -1719,7 +1706,6 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents chbFilterNewFacilities As System.Windows.Forms.CheckBox
     Friend WithEvents dtpEndFilter As System.Windows.Forms.DateTimePicker
     Friend WithEvents dtpStartFilter As System.Windows.Forms.DateTimePicker
-    Friend WithEvents chbIncludeApproved As System.Windows.Forms.CheckBox
     Friend WithEvents Label29 As System.Windows.Forms.Label
     Friend WithEvents txtCountFacilities As System.Windows.Forms.TextBox
     Friend WithEvents Label31 As System.Windows.Forms.Label

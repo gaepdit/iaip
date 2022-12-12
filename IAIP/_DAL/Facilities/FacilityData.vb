@@ -64,7 +64,6 @@ Namespace DAL
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number of the specified facility</param>
         ''' <returns>DataRow containing basic info for the specified facility</returns>
-        ''' <remarks>Data retrieved from VW_FACILITY_BASICINFO view.</remarks>
         Private Function GetFacilityAsDataRow(airsNumber As ApbFacilityId) As DataRow
             Dim spName As String = "iaip_facility.GetFacilityBasicInfo"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
