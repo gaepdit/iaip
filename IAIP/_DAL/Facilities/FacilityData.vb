@@ -162,15 +162,15 @@ Namespace DAL
         End Function
 
         Public Function CanFacilityBeDeactivated(airs As ApbFacilityId) As Boolean
-            Dim spName As String = "iaip_facility.CanFacilityBeDeactivated"
-            Dim parameter As New SqlParameter("@AirsNumber", airs.DbFormattedString)
-            Return DB.SPRunCommand(spName, parameter)
+            Dim spName As String = "select iaip_facility.CanFacilityBeDeactivated(@airs)"
+            Dim parameter As New SqlParameter("@airs", airs.DbFormattedString)
+            Return DB.GetBoolean(spName, parameter)
         End Function
 
         Public Function CanFacilityBeDeleted(airs As ApbFacilityId) As Boolean
-            Dim spName As String = "iaip_facility.CanFacilityBeDeleted"
-            Dim parameter As New SqlParameter("@AirsNumber", airs.DbFormattedString)
-            Return DB.SPRunCommand(spName, parameter)
+            Dim spName As String = "select iaip_facility.CanFacilityBeDeleted(@airs)"
+            Dim parameter As New SqlParameter("@airs", airs.DbFormattedString)
+            Return DB.GetBoolean(spName, parameter)
         End Function
 
         ''' <summary>
@@ -184,7 +184,7 @@ Namespace DAL
         ''' <returns>True if successful; otherwise false</returns>
         Public Function DeactivateFacility(airsNumber As ApbFacilityId) As Boolean
             Dim spName As String = "iaip_facility.DeactivateFacility"
-            Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
+            Dim parameter As New SqlParameter("@airs", airsNumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
         End Function
 
@@ -197,7 +197,7 @@ Namespace DAL
         ''' <returns>True if successful; otherwise false</returns>
         Public Function DeleteFacility(airsNumber As ApbFacilityId) As Boolean
             Dim spName As String = "iaip_facility.DeleteFacility"
-            Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
+            Dim parameter As New SqlParameter("@airs", airsNumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
         End Function
 
