@@ -49,32 +49,20 @@ Namespace DAL
         ''' <returns>A Facility with basic information, or Nothing if AIRS number does not exist.</returns>
         ''' <remarks></remarks>
         Public Function GetFacility(airsNumber As ApbFacilityId) As Facility
-            Dim row As DataRow = GetFacilityAsDataRow(airsNumber)
-            If row IsNot Nothing Then
-                Dim facility As New Facility(airsNumber)
-                FillFacilityFromDataRow(row, facility)
-                Return facility
-            Else
-                Return Nothing
-            End If
-        End Function
-
-        ''' <summary>
-        ''' Returns basic info for a specified facility as a DataRow object
-        ''' </summary>
-        ''' <param name="airsNumber">The AIRS number of the specified facility</param>
-        ''' <returns>DataRow containing basic info for the specified facility</returns>
-        Private Function GetFacilityAsDataRow(airsNumber As ApbFacilityId) As DataRow
+            Dim row As DataRow
             Dim spName As String = "iaip_facility.GetFacilityBasicInfo"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
+
             Try
-                Return DB.SPGetDataRow(spName, parameter)
+                row = DB.SPGetDataRow(spName, parameter)
             Catch ex As Exception
                 Return Nothing
             End Try
-        End Function
 
-        Private Sub FillFacilityFromDataRow(row As DataRow, ByRef facility As Facility)
+            If row Is Nothing Then Return Nothing
+
+            Dim facility As New Facility(airsNumber)
+
             Dim address As New Address
             With address
                 .City = DBUtilities.GetNullable(Of String)(row("STRFACILITYCITY"))
@@ -100,10 +88,13 @@ Namespace DAL
                 .FacilityLocation = location
                 .FacilityName = DBUtilities.GetNullable(Of String)(row("STRFACILITYNAME"))
                 .ApprovedByApb = DBUtilities.GetNullable(Of Boolean)(row("ApbApproved"))
+                .DeactivatedByApb = DBUtilities.GetNullable(Of Boolean)(row("ApbDeactivated"))
                 .DistrictOfficeLocation = DBUtilities.GetNullable(Of String)(row("STRDISTRICTNAME"))
                 .DistrictResponsible = DBUtilities.GetNullable(Of Boolean)(row("STRDISTRICTRESPONSIBLE"))
             End With
-        End Sub
+
+            Return facility
+        End Function
 
         ''' <summary>
         ''' Determines if a facility has been approved (by the APB) in the database
