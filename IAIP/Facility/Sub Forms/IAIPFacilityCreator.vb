@@ -8,19 +8,19 @@ Public Class IAIPFacilityCreator
     Private Sub IAIPFacilityCreator_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             LoadCounty()
-            TCFacilityTools.TabPages.Remove(TPApproveNewFacility)
-            TCFacilityTools.TabPages.Remove(TPDeleteFacility)
+            FacilityLongDisplay.Text = ""
 
             If CurrentUser.HasPermission(UserCan.CreateFacility) Then
-                TCFacilityTools.TabPages.Add(TPApproveNewFacility)
                 dtpStartFilter.Value = Today
                 dtpEndFilter.Value = Today
                 DTPSSCPApproveDate.Value = Today
                 DTPSSPPApproveDate.Value = Today
 
-                TCFacilityTools.TabPages.Add(TPDeleteFacility)
-
                 LoadPendingFacilities()
+            Else
+                TCFacilityTools.TabPages.Remove(TPApproveNewFacility)
+                TCFacilityTools.TabPages.Remove(TPDeleteFacility)
+                TCFacilityTools.TabPages.Remove(TPDeactivatedFacilities)
             End If
 
         Catch ex As Exception
@@ -56,112 +56,35 @@ Public Class IAIPFacilityCreator
     End Sub
 
     Private Sub LoadPendingFacilities()
-        Dim SQL As String
         Try
-            If chbIncludeApproved.Checked Then
-                SQL = "select " &
-                    "FUllData.AIRSNumber, strFacilityName, " &
-                    "DateCreated, strComments, " &
-                    "SSCPApprover, datApproveDateSSCP, strCommentSSCP, " &
-                    "SSPPApprover, datApproveDateSSPP, strCommentSSPP, " &
-                    "strfacilityStreet1 " &
-                    "from " &
-                    "(select substring(APBMasterAIRS.strAIRSNumber, 5, 8) as AIRSNumber, " &
-                    "strFacilityName, AFSFacilityData.datModifingDate as dateCreated, " &
-                    "APBHeaderData.strComments,  " &
-                    "datApproveDateSSCP, strCommentSSCP, " &
-                    "datApproveDateSSPP, strCommentSSPP, " &
-                    "strfacilityStreet1 " &
-                    "from AFSFacilityData " &
-                    "inner join APBFacilityInformation " &
-                    "on AFSFacilityData.strAIRSNumber = APBFacilityInformation.strAIRSnumber  " &
-                    "inner join APBMasterAIRS " &
-                    "on AFSFacilityData.strAIRSNumber = APBMasterAIRS.strAIRSnumber  " &
-                    "inner join APBHeaderData " &
-                    "on AFSFacilityData.strAIRSnumber = APBHeaderData.strAIRSNumber " &
-                    "inner join APBSupplamentalData " &
-                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-                    " ) FullData " &
-                    "left join " &
-                    "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
-                    "case " &
-                    "when numApprovingSSCP is not null then concat(strLastName, ', ', strFirstName) " &
-                    "else null " &
-                    "end SSCPApprover " &
-                    "from AFSFacilityData " &
-                    "inner join APBSupplamentalData " &
-                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-                    "left join EPDUserProfiles " &
-                    "on APBSupplamentalData.numApprovingSSCP = EPDUserProfiles.numUserID " &
-                    " ) SSCPStaff " &
-                    "on FullData.AIRSNumber = SSCPStaff.AIRSNumber " &
-                    " left join " &
-                    "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
-                    "case " &
-                    "when numApprovingSSPP is not null then concat(strLastName, ', ', strFirstName) " &
-                    "else null " &
-                    "end SSPPApprover " &
-                    "from AFSFacilityData, APBSupplamentalData, " &
-                    "EPDUserProfiles " &
-                    "where  AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-                    "and APBSupplamentalData.numApprovingSSPP = EPDUserProfiles.numUserID " &
-                    " ) SSPPStaff " &
-                    "on FullData.AIRSNumber = SSPPStaff.AIRSNumber "
-
-            Else
-                SQL = "select " &
-                    "FUllData.AIRSNumber, strFacilityName, " &
-                    "DateCreated, strComments, " &
-                    "SSCPApprover, datApproveDateSSCP, strCommentSSCP, " &
-                    "SSPPApprover, datApproveDateSSPP, strCommentSSPP, " &
-                    "strfacilityStreet1 " &
-                    "from " &
-                    "(select substring(APBMasterAIRS.strAIRSNumber, 5, 8) as AIRSNumber, " &
-                    "strFacilityName, AFSFacilityData.datModifingDate as dateCreated, " &
-                    "APBHeaderData.strComments,  " &
-                    "datApproveDateSSCP, strCommentSSCP, " &
-                    "datApproveDateSSPP, strCommentSSPP, " &
-                    "strfacilityStreet1 " &
-                    "from AFSFacilityData " &
-                    "inner join APBFacilityInformation " &
-                    "on AFSFacilityData.strAIRSNumber = APBFacilityInformation.strAIRSnumber  " &
-                    "inner join APBMasterAIRS " &
-                    "on AFSFacilityData.strAIRSNumber = APBMasterAIRS.strAIRSnumber  " &
-                    "inner join APBHeaderData " &
-                    "on AFSFacilityData.strAIRSnumber = APBHeaderData.strAIRSNumber " &
-                    "inner join APBSupplamentalData " &
-                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-                    "where strUpdateStatus = 'H') FullData " &
-                    " left join " &
-                    "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
-                    "case " &
-                    "when numApprovingSSCP is not null then concat(strLastName, ', ', strFirstName) " &
-                    "else null " &
-                    "end SSCPApprover " &
-                    "from AFSFacilityData " &
-                    "inner join APBSupplamentalData " &
-                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-                    "left join EPDUserProfiles " &
-                    "on APBSupplamentalData.numApprovingSSCP = EPDUserProfiles.numUserID " &
-                    "where strUpdateStatus = 'H') SSCPStaff " &
-                    "on FullData.AIRSNumber = SSCPStaff.AIRSNumber " &
-                    " left join " &
-                    "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
-                    "case " &
-                    "when numApprovingSSPP is not null then concat(strLastName, ', ', strFirstName) " &
-                    "else null " &
-                    "end SSPPApprover " &
-                    "from AFSFacilityData " &
-                    "inner join APBSupplamentalData " &
-                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-                    "left join EPDUserProfiles " &
-                    "on APBSupplamentalData.numApprovingSSPP = EPDUserProfiles.numUserID " &
-                    "where strUpdateStatus = 'H') SSPPStaff " &
-                    "on FullData.AIRSNumber = SSPPStaff.AIRSNumber "
-            End If
+            Dim query As String = "select right(f.STRAIRSNUMBER, 8) as AIRSNumber,
+                       i.STRFACILITYNAME,
+                       f.DATMODIFINGDATE         as DateCreated,
+                       h.STRCOMMENTS,
+                       IIF(d.NUMAPPROVINGSSCP is not null, concat_ws(', ', u1.STRLASTNAME, u1.STRFIRSTNAME), null)
+                                                 as SSCPApprover,
+                       d.DATAPPROVEDATESSCP,
+                       d.STRCOMMENTSSCP,
+                       IIF(d.NUMAPPROVINGSSPP is not null, concat_ws(', ', u2.STRLASTNAME, u2.STRFIRSTNAME), null)
+                                                 as SSPPApprover,
+                       d.DATAPPROVEDATESSPP,
+                       d.STRCOMMENTSSPP,
+                       i.STRFACILITYSTREET1
+                from AFSFACILITYDATA f
+                    inner join APBFACILITYINFORMATION i
+                    on f.STRAIRSNUMBER = i.STRAIRSNUMBER
+                    inner join APBHEADERDATA h
+                    on f.STRAIRSNUMBER = h.STRAIRSNUMBER
+                    inner join APBSUPPLAMENTALDATA d
+                    on f.STRAIRSNUMBER = d.STRAIRSNUMBER
+                    left join EPDUSERPROFILES u1
+                    on d.NUMAPPROVINGSSCP = u1.NUMUSERID
+                    left join EPDUSERPROFILES u2
+                    on d.NUMAPPROVINGSSPP = u2.NUMUSERID 
+                where f.STRUPDATESTATUS = 'H' "
 
             If chbFilterNewFacilities.Checked Then
-                SQL = SQL & " where dateCreated between @datestart and @dateend"
+                query &= " and f.DATMODIFINGDATE between @datestart and @dateend "
             End If
 
             Dim p As SqlParameter() = {
@@ -169,36 +92,22 @@ Public Class IAIPFacilityCreator
                 New SqlParameter("@dateend", dtpEndFilter.Value)
             }
 
-            dgvVerifyNewFacilities.DataSource = DB.GetDataTable(SQL, p)
-
-            dgvVerifyNewFacilities.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvVerifyNewFacilities.DataSource = DB.GetDataTable(query, p)
 
             dgvVerifyNewFacilities.Columns("AIRSNumber").HeaderText = "AIRS Number"
-            dgvVerifyNewFacilities.Columns("AIRSNumber").DisplayIndex = 0
             dgvVerifyNewFacilities.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvVerifyNewFacilities.Columns("strFacilityName").DisplayIndex = 1
             dgvVerifyNewFacilities.Columns("dateCreated").HeaderText = "Date Created"
-            dgvVerifyNewFacilities.Columns("dateCreated").DisplayIndex = 2
             dgvVerifyNewFacilities.Columns("dateCreated").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvVerifyNewFacilities.Columns("strComments").HeaderText = "Comments"
-            dgvVerifyNewFacilities.Columns("strComments").DisplayIndex = 3
-
             dgvVerifyNewFacilities.Columns("SSCPApprover").HeaderText = "SSCP Approver"
-            dgvVerifyNewFacilities.Columns("SSCPApprover").DisplayIndex = 4
             dgvVerifyNewFacilities.Columns("datApproveDateSSCP").HeaderText = "Date SSCP Approved"
-            dgvVerifyNewFacilities.Columns("datApproveDateSSCP").DisplayIndex = 5
             dgvVerifyNewFacilities.Columns("datApproveDateSSCP").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvVerifyNewFacilities.Columns("strCommentSSCP").HeaderText = "SSCP Comments"
-            dgvVerifyNewFacilities.Columns("strCommentSSCP").DisplayIndex = 6
             dgvVerifyNewFacilities.Columns("SSPPApprover").HeaderText = "SSPP Approver"
-            dgvVerifyNewFacilities.Columns("SSPPApprover").DisplayIndex = 7
             dgvVerifyNewFacilities.Columns("datApproveDateSSPP").HeaderText = "Date SSPP Approved"
-            dgvVerifyNewFacilities.Columns("datApproveDateSSPP").DisplayIndex = 8
             dgvVerifyNewFacilities.Columns("datApproveDateSSPP").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvVerifyNewFacilities.Columns("strCommentSSPP").HeaderText = "SSPP Comments"
-            dgvVerifyNewFacilities.Columns("strCommentSSPP").DisplayIndex = 9
             dgvVerifyNewFacilities.Columns("strFacilityStreet1").HeaderText = "Street Address"
-            dgvVerifyNewFacilities.Columns("strFacilityStreet1").DisplayIndex = 10
             dgvVerifyNewFacilities.Columns("strFacilityStreet1").Visible = False
 
             dgvVerifyNewFacilities.SanelyResizeColumns()
@@ -1429,44 +1338,8 @@ Public Class IAIPFacilityCreator
     End Sub
 
     Private Sub btnRemoveFromPlatform_Click(sender As Object, e As EventArgs) Handles btnRemoveFromPlatform.Click
-        Try
-            If Not ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
-                MessageBox.Show("AIRS number is not valid", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-
-            Dim airsNumberDeleting As New ApbFacilityId(txtNewAIRSNumber.Text)
-
-            If DAL.FacilityHasBeenApproved(airsNumberDeleting) Then
-                MessageBox.Show("Facility has already been approved.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-
-            If DAL.Finance.FacilityHasFeesData(airsNumberDeleting) Then
-                MessageBox.Show("Facility has permit fees data. Unable to delete unless the fees data is removed first.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-
-            Dim result As DialogResult
-            result = MessageBox.Show("Are you sure you want to completely remove this facility from the database? The data will not be recoverable.", "Confirm facility deletion",
-                                      MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
-            If result = DialogResult.No Then
-                Return
-            End If
-
-            If DAL.DeleteFacility(airsNumberDeleting) Then
-                MessageBox.Show("Facility removed from the database", "Gone", MessageBoxButtons.OK)
-            Else
-                MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
-            End If
-
-            LoadPendingFacilities()
-
-            ClearNewFacility()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        AirsNumberToRemove.Text = txtNewAIRSNumber.Text
+        TCFacilityTools.SelectedTab = TPDeleteFacility
     End Sub
 
     Private Sub btnSaveSSCPApproval_Click(sender As Object, e As EventArgs) Handles btnSaveSSCPApproval.Click
@@ -1993,12 +1866,9 @@ Public Class IAIPFacilityCreator
             If chbFilterNewFacilities.Checked Then
                 dtpStartFilter.Enabled = True
                 dtpEndFilter.Enabled = True
-                chbIncludeApproved.Enabled = True
             Else
                 dtpStartFilter.Enabled = False
                 dtpEndFilter.Enabled = False
-                chbIncludeApproved.Enabled = False
-                chbIncludeApproved.Checked = False
             End If
 
         Catch ex As Exception
@@ -2010,24 +1880,67 @@ Public Class IAIPFacilityCreator
         LoadPendingFacilities()
     End Sub
 
-    Private Sub DeleteAirsNumber_Click(sender As Object, e As EventArgs) Handles DeleteAirsNumber.Click
+    Private Sub AirsNumberToRemove_TextChanged(sender As Object, e As EventArgs) Handles AirsNumberToRemove.TextChanged
+        btnDeactivateFacility.Enabled = False
+        btnDeactivateFacility.BackColor = System.Drawing.Color.Transparent
+        btnDeleteAirsNumber.Enabled = False
+        btnDeleteAirsNumber.BackColor = System.Drawing.Color.Transparent
+
+        FacilityLongDisplay.Text = ""
+        lblFacilityCannotBeDeleted.Visible = False
+        lblFacilityCannotBeDeletedOrDeactivated.Visible = False
+
+        If Not ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToRemove.Text) Then Return
+
+        Dim airsToRemove As New ApbFacilityId(AirsNumberToRemove.Text)
+
+        If Not DAL.AirsNumberExists(airsToRemove) Then
+            FacilityLongDisplay.Text = "AIRS Number does not exist."
+            Return
+        End If
+
+        Dim fac As Facility = DAL.GetFacility(airsToRemove)
+
+        If fac Is Nothing Then
+            FacilityLongDisplay.Text = "Facility information could not be retrieved."
+            Return
+        End If
+
+        fac.HeaderData = DAL.GetFacilityHeaderData(airsToRemove)
+
+        If fac.HeaderData Is Nothing Then
+            FacilityLongDisplay.Text = "Facility data could not be retrieved."
+            Return
+        End If
+
+        FacilityLongDisplay.Text = fac.LongDisplay
+
+        If DAL.CanFacilityBeDeactivated(airsToRemove) Then
+            btnDeactivateFacility.Enabled = True
+            btnDeactivateFacility.BackColor = IaipColors.WarningBackColor
+            btnDeactivateFacility.ForeColor = IaipColors.WarningForeColor
+
+            If DAL.CanFacilityBeDeleted(airsToRemove) Then
+                btnDeleteAirsNumber.Enabled = True
+                btnDeleteAirsNumber.BackColor = IaipColors.ErrorBackColor
+                btnDeleteAirsNumber.ForeColor = IaipColors.ErrorForeColor
+            Else
+                lblFacilityCannotBeDeleted.Visible = True
+            End If
+        Else
+            lblFacilityCannotBeDeletedOrDeactivated.Visible = True
+        End If
+
+    End Sub
+
+    Private Sub btnDeleteAirsNumber_Click(sender As Object, e As EventArgs) Handles btnDeleteAirsNumber.Click
         Try
-            If Not ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
+            If Not ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToRemove.Text) Then
                 MessageBox.Show("AIRS number is not valid", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return
             End If
 
-            Dim airsNumberDeleting As New ApbFacilityId(AirsNumberToDelete.Text)
-
-            If Not DAL.FacilityHasBeenApproved(airsNumberDeleting) Then
-                MessageBox.Show("Facility has not been approved yet. Remove facility using the ""Approve New Facilities"" tab.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-
-            If DAL.Finance.FacilityHasFeesData(airsNumberDeleting) Then
-                MessageBox.Show("Facility has permit fees data. Unable to delete unless the fees data is removed first.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
+            Dim airsNumberToDelete As New ApbFacilityId(AirsNumberToRemove.Text)
 
             Dim result As DialogResult
             result = MessageBox.Show("Are you sure you want to completely remove this facility from the database? The data will not be recoverable.", "Confirm facility deletion",
@@ -2036,25 +1949,47 @@ Public Class IAIPFacilityCreator
                 Return
             End If
 
-            If DAL.DeleteFacility(airsNumberDeleting) Then
-                MessageBox.Show("Facility removed from the database", "Gone", MessageBoxButtons.OK)
+            If DAL.DeleteFacility(airsNumberToDelete) Then
+                MessageBox.Show("Facility/AIRS Number removed from the database", "Deleted", MessageBoxButtons.OK)
             Else
                 MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
             End If
+
+            LoadPendingFacilities()
+
+            ClearNewFacility()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub AirsNumberToDelete_TextChanged(sender As Object, e As EventArgs) Handles AirsNumberToDelete.TextChanged
-        FacilityLongDisplay.Text = ""
-        If ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
-            Dim fac As Facility = DAL.GetFacility(New ApbFacilityId(AirsNumberToDelete.Text))
-            If fac IsNot Nothing Then
-                fac.HeaderData = DAL.GetFacilityHeaderData(New ApbFacilityId(AirsNumberToDelete.Text))
-                If fac.HeaderData IsNot Nothing Then FacilityLongDisplay.Text = fac.LongDisplay
-            End If
+    Private Sub btnDeactivateFacility_Click(sender As Object, e As EventArgs) Handles btnDeactivateFacility.Click
+        If Not ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToRemove.Text) Then
+            MessageBox.Show("AIRS number is not valid", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
         End If
+
+        Dim airsNumberToDeactivate As New ApbFacilityId(AirsNumberToRemove.Text)
+
+        Dim result As DialogResult
+        result = MessageBox.Show("Are you sure you want to deactivate this facility? " &
+                                 "Data will not be deleted, but the facility will be unavailable for further use.",
+                                 "Confirm facility deactivation",
+                                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
+        If result = DialogResult.No Then
+            Return
+        End If
+
+        If DAL.DeactivateFacility(airsNumberToDeactivate) Then
+            MessageBox.Show("Facility has been deactivated", "Deactivated", MessageBoxButtons.OK)
+        Else
+            MessageBox.Show("There was an error when attempting to deactivate the facility." & vbNewLine & vbNewLine & "Facility has not been deactivated.", "Error", MessageBoxButtons.OK)
+        End If
+
+        LoadPendingFacilities()
+        LoadDeactivatedFacilities()
+
+        ClearNewFacility()
     End Sub
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
@@ -2067,6 +2002,46 @@ Public Class IAIPFacilityCreator
 
     Private Sub txtApplicationNumber_Leave(sender As Object, e As EventArgs) Handles txtApplicationNumber.Leave
         AcceptButton = Nothing
+    End Sub
+
+    Private Sub TCFacilityTools_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TCFacilityTools.SelectedIndexChanged
+
+        If TCFacilityTools.SelectedTab.Name = TPDeactivatedFacilities.Name AndAlso deactivatedFacilities Is Nothing Then
+            LoadDeactivatedFacilities()
+        End If
+
+    End Sub
+
+    Private deactivatedFacilities As DataTable
+
+    Private Sub LoadDeactivatedFacilities()
+        Dim query As String = "select concat_ws('-', substring(f.STRAIRSNUMBER, 5, 3), right(f.STRAIRSNUMBER, 5))
+                                                            as [AIRS Number],
+            i.STRFACILITYNAME                              as [Facility Name],
+            m.DATMODIFINGDATE                              as [Date Created],
+            f.DATMODIFINGDATE                              as [Date Deactivated],
+            concat_ws(', ', u.STRLASTNAME, u.STRFIRSTNAME) as [Deactivated By],
+            h.STRCOMMENTS                                  as [Comments],
+            i.STRFACILITYSTREET1                           as [Street address],
+            i.STRFACILITYCITY                              as [City]
+        from AFSFACILITYDATA f
+            inner join APBFACILITYINFORMATION i
+            on f.STRAIRSNUMBER = i.STRAIRSNUMBER
+            inner join APBHEADERDATA h
+            on f.STRAIRSNUMBER = h.STRAIRSNUMBER
+            inner join APBMASTERAIRS m
+            on f.STRAIRSNUMBER = m.STRAIRSNUMBER
+            left join EPDUSERPROFILES u
+            on u.NUMUSERID = f.STRMODIFINGPERSON
+        where f.STRUPDATESTATUS = 'I' "
+
+        deactivatedFacilities = DB.GetDataTable(query)
+
+        dgvDeactivatedFacilities.DataSource = deactivatedFacilities
+    End Sub
+
+    Private Sub btnRefreshDeactivatedFacilities_Click(sender As Object, e As EventArgs) Handles btnRefreshDeactivatedFacilities.Click
+        LoadDeactivatedFacilities()
     End Sub
 
 End Class

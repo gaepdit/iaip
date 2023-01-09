@@ -228,12 +228,22 @@ Public Class IAIPFacilitySummary
 
             FacilityNameDisplay.Text = .FacilityName
 
-            If Not .ApprovedByApb Then
+            If .ApprovedByApb Then
+                FacilityApprovalLinkLabel.Visible = False
+            Else
                 FacilityApprovalLinkLabel.Visible = True
+                FacilityApprovalLinkLabel.Text = "Facility not approved in the Facility Creator Tool"
+                FacilityApprovalLinkLabel.LinkArea = New LinkArea(29, 63)
+            End If
 
-                If Not CurrentUser.HasPermission(UserCan.CreateFacility) Then
-                    FacilityApprovalLinkLabel.LinkArea = New LinkArea()
-                End If
+            If .DeactivatedByApb Then
+                FacilityApprovalLinkLabel.Visible = True
+                FacilityApprovalLinkLabel.Text = "Warning: Facility has been deactivated by APB"
+                FacilityApprovalLinkLabel.LinkArea = New LinkArea(27, 63)
+            End If
+
+            If Not CurrentUser.HasPermission(UserCan.CreateFacility) Then
+                FacilityApprovalLinkLabel.LinkArea = New LinkArea()
             End If
 
             With .FacilityLocation

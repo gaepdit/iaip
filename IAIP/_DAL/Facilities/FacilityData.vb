@@ -49,33 +49,20 @@ Namespace DAL
         ''' <returns>A Facility with basic information, or Nothing if AIRS number does not exist.</returns>
         ''' <remarks></remarks>
         Public Function GetFacility(airsNumber As ApbFacilityId) As Facility
-            Dim row As DataRow = GetFacilityAsDataRow(airsNumber)
-            If row IsNot Nothing Then
-                Dim facility As New Facility(airsNumber)
-                FillFacilityFromDataRow(row, facility)
-                Return facility
-            Else
-                Return Nothing
-            End If
-        End Function
-
-        ''' <summary>
-        ''' Returns basic info for a specified facility as a DataRow object
-        ''' </summary>
-        ''' <param name="airsNumber">The AIRS number of the specified facility</param>
-        ''' <returns>DataRow containing basic info for the specified facility</returns>
-        ''' <remarks>Data retrieved from VW_FACILITY_BASICINFO view.</remarks>
-        Private Function GetFacilityAsDataRow(airsNumber As ApbFacilityId) As DataRow
+            Dim row As DataRow
             Dim spName As String = "iaip_facility.GetFacilityBasicInfo"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
+
             Try
-                Return DB.SPGetDataRow(spName, parameter)
+                row = DB.SPGetDataRow(spName, parameter)
             Catch ex As Exception
                 Return Nothing
             End Try
-        End Function
 
-        Private Sub FillFacilityFromDataRow(row As DataRow, ByRef facility As Facility)
+            If row Is Nothing Then Return Nothing
+
+            Dim facility As New Facility(airsNumber)
+
             Dim address As New Address
             With address
                 .City = DBUtilities.GetNullable(Of String)(row("STRFACILITYCITY"))
@@ -101,10 +88,13 @@ Namespace DAL
                 .FacilityLocation = location
                 .FacilityName = DBUtilities.GetNullable(Of String)(row("STRFACILITYNAME"))
                 .ApprovedByApb = DBUtilities.GetNullable(Of Boolean)(row("ApbApproved"))
+                .DeactivatedByApb = DBUtilities.GetNullable(Of Boolean)(row("ApbDeactivated"))
                 .DistrictOfficeLocation = DBUtilities.GetNullable(Of String)(row("STRDISTRICTNAME"))
                 .DistrictResponsible = DBUtilities.GetNullable(Of Boolean)(row("STRDISTRICTRESPONSIBLE"))
             End With
-        End Sub
+
+            Return facility
+        End Function
 
         ''' <summary>
         ''' Determines if a facility has been approved (by the APB) in the database
@@ -162,14 +152,46 @@ Namespace DAL
             Return DB.SPRunCommand(spName, parameters)
         End Function
 
+        Public Function CanFacilityBeDeactivated(airs As ApbFacilityId) As Boolean
+            Dim spName As String = "select iaip_facility.CanFacilityBeDeactivated(@airs)"
+            Dim parameter As New SqlParameter("@airs", airs.DbFormattedString)
+            Return DB.GetBoolean(spName, parameter)
+        End Function
+
+        Public Function CanFacilityBeDeleted(airs As ApbFacilityId) As Boolean
+            Dim spName As String = "select iaip_facility.CanFacilityBeDeleted(@airs)"
+            Dim parameter As New SqlParameter("@airs", airs.DbFormattedString)
+            Return DB.GetBoolean(spName, parameter)
+        End Function
+
         ''' <summary>
-        ''' Completely remove a facility (AIRS number) from the database
+        ''' Deactivate a facility (AIRS number) in the database. This might be needed, for example,
+        ''' if a facility submits a permit application and pays permit fees, but eventually no
+        ''' permit is issued and no other data is expected for the facility. The facility can't
+        ''' be deleted because of the fees data, but otherwise, deactivating the facility removes
+        ''' it from use.
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number to delete</param>
+        ''' <returns>True if successful; otherwise false</returns>
+        Public Function DeactivateFacility(airsNumber As ApbFacilityId) As Boolean
+            Dim spName As String = "iaip_facility.DeactivateFacility"
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@airs", airsNumber.DbFormattedString),
+                New SqlParameter("@userId", CurrentUser.UserID)
+            }
+            Return DB.SPRunCommand(spName, parameters)
+        End Function
+
+        ''' <summary>
+        ''' Completely remove a facility (AIRS number) from the database. All records related to the
+        ''' facility are deleted. This can be done only if limited facility information has been 
+        ''' entered.
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number to delete</param>
         ''' <returns>True if successful; otherwise false</returns>
         Public Function DeleteFacility(airsNumber As ApbFacilityId) As Boolean
             Dim spName As String = "iaip_facility.DeleteFacility"
-            Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
+            Dim parameter As New SqlParameter("@airs", airsNumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
         End Function
 
