@@ -4,7 +4,7 @@ Public Module IaipNetworkTester
 
     Public Async Function GetIaipNetworkStatusAsync() As Task(Of IaipNetworkStatus)
         If Await IsDbPingableAsync().ConfigureAwait(False) Then
-            If Await IsIaipEnabledAsync().ConfigureAwait(False) Then
+            If Await DAL.IsIaipEnabledAsync().ConfigureAwait(False) Then
                 Return IaipNetworkStatus.Enabled
             End If
 

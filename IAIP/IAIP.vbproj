@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -278,7 +278,6 @@
     <Compile Include="_Code\ExceptionLogger.vb" />
     <Compile Include="_Code\GetDotNetVersion.vb" />
     <Compile Include="_Code\Guard.vb" />
-    <Compile Include="_Code\Network\IaipEnabledCheck.vb" />
     <Compile Include="_Code\Network\IaipNetworkTester.vb" />
     <Compile Include="_Code\IPAddressRange.vb" />
     <Compile Include="_Code\ListExtensions.vb" />

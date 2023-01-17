@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Threading.Tasks
 
 Namespace DAL
     Module IaipAppData
@@ -9,11 +10,17 @@ Namespace DAL
 
             Try
                 Return DB.SPGetBoolean(spName, param)
-            Catch ex As SqlException
-                Return False
-            Catch ex As FormatException
+            Catch
                 Return False
             End Try
+        End Function
+
+        Public Async Function IsIaipEnabledAsync() As Task(Of Boolean)
+            Return Await Task.Run(
+            Function()
+                Return AppIsEnabled()
+            End Function
+            ).ConfigureAwait(False)
         End Function
 
         Public Function GetIaipAccountRoles() As DataTable
