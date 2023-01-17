@@ -26,10 +26,6 @@ Partial Class ISMPMonitoringLog
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -47,8 +43,6 @@ Partial Class ISMPMonitoringLog
         Me.tsbExportToExcel = New System.Windows.Forms.ToolStripButton()
         Me.SCMonitoringLog = New System.Windows.Forms.SplitContainer()
         Me.GBFilterAndSortOptions = New System.Windows.Forms.GroupBox()
-        Me.txtTestFirmCommentsCount = New System.Windows.Forms.TextBox()
-        Me.Label29 = New System.Windows.Forms.Label()
         Me.txtNotificationCount = New System.Windows.Forms.TextBox()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -84,7 +78,6 @@ Partial Class ISMPMonitoringLog
         Me.chbReviewingEngineer = New System.Windows.Forms.CheckBox()
         Me.btnRunFilter = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.chbTestFirmComments = New System.Windows.Forms.CheckBox()
         Me.chbNotifications = New System.Windows.Forms.CheckBox()
         Me.chbTestReports = New System.Windows.Forms.CheckBox()
         Me.TCMonitoringSelection = New System.Windows.Forms.TabControl()
@@ -121,26 +114,6 @@ Partial Class ISMPMonitoringLog
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.txtTestLogNumber = New System.Windows.Forms.TextBox()
-        Me.TPTestFirmComment = New System.Windows.Forms.TabPage()
-        Me.txtTestFirmName = New System.Windows.Forms.TextBox()
-        Me.Label38 = New System.Windows.Forms.Label()
-        Me.txtTestFirmTestLogNumber = New System.Windows.Forms.TextBox()
-        Me.Label37 = New System.Windows.Forms.Label()
-        Me.txtTestFirmReferenceNumber = New System.Windows.Forms.TextBox()
-        Me.Label30 = New System.Windows.Forms.Label()
-        Me.llbOpenComments = New System.Windows.Forms.LinkLabel()
-        Me.txtTestFirmCounty = New System.Windows.Forms.TextBox()
-        Me.Label31 = New System.Windows.Forms.Label()
-        Me.txtTestFirmFacilityCity = New System.Windows.Forms.TextBox()
-        Me.Label32 = New System.Windows.Forms.Label()
-        Me.txtTestFirmCommentType = New System.Windows.Forms.TextBox()
-        Me.Label33 = New System.Windows.Forms.Label()
-        Me.txtTestFirmAirsNumber = New System.Windows.Forms.TextBox()
-        Me.Label34 = New System.Windows.Forms.Label()
-        Me.txtTestFirmFacilityName = New System.Windows.Forms.TextBox()
-        Me.Label35 = New System.Windows.Forms.Label()
-        Me.Label36 = New System.Windows.Forms.Label()
-        Me.txtCommentNumber = New System.Windows.Forms.TextBox()
         Me.txtReportCount = New System.Windows.Forms.TextBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.chbAll = New System.Windows.Forms.CheckBox()
@@ -185,13 +158,11 @@ Partial Class ISMPMonitoringLog
         Me.chbComplianceStatus3 = New System.Windows.Forms.CheckBox()
         Me.chbComplianceStatus2 = New System.Windows.Forms.CheckBox()
         Me.chbComplianceStatus1 = New System.Windows.Forms.CheckBox()
-        Me.TCMonitoringGrids = New System.Windows.Forms.TabControl()
-        Me.TPTestReports = New System.Windows.Forms.TabPage()
-        Me.dgvTestReportViewer = New Iaip.IaipDataGridView()
         Me.TPNotifications = New System.Windows.Forms.TabPage()
+        Me.TPTestReports = New System.Windows.Forms.TabPage()
+        Me.TCMonitoringGrids = New System.Windows.Forms.TabControl()
         Me.dgvNotificationLog = New Iaip.IaipDataGridView()
-        Me.TPTestFirmComments = New System.Windows.Forms.TabPage()
-        Me.dgvTestFirmComments = New Iaip.IaipDataGridView()
+        Me.dgvTestReportViewer = New Iaip.IaipDataGridView()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.SCMonitoringLog, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -208,19 +179,16 @@ Partial Class ISMPMonitoringLog
         Me.TPSelectTestReport.SuspendLayout()
         Me.GBSelectedTestReport.SuspendLayout()
         Me.TPSelectTestLog.SuspendLayout()
-        Me.TPTestFirmComment.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GBReportType.SuspendLayout()
         Me.GBDateBias.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
-        Me.TCMonitoringGrids.SuspendLayout()
-        Me.TPTestReports.SuspendLayout()
-        CType(Me.dgvTestReportViewer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPNotifications.SuspendLayout()
+        Me.TPTestReports.SuspendLayout()
+        Me.TCMonitoringGrids.SuspendLayout()
         CType(Me.dgvNotificationLog, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPTestFirmComments.SuspendLayout()
-        CType(Me.dgvTestFirmComments, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvTestReportViewer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -334,8 +302,6 @@ Partial Class ISMPMonitoringLog
         '
         'GBFilterAndSortOptions
         '
-        Me.GBFilterAndSortOptions.Controls.Add(Me.txtTestFirmCommentsCount)
-        Me.GBFilterAndSortOptions.Controls.Add(Me.Label29)
         Me.GBFilterAndSortOptions.Controls.Add(Me.txtNotificationCount)
         Me.GBFilterAndSortOptions.Controls.Add(Me.Label27)
         Me.GBFilterAndSortOptions.Controls.Add(Me.Label13)
@@ -360,26 +326,9 @@ Partial Class ISMPMonitoringLog
         Me.GBFilterAndSortOptions.TabStop = False
         Me.GBFilterAndSortOptions.Text = "Filter and Sort Options"
         '
-        'txtTestFirmCommentsCount
-        '
-        Me.txtTestFirmCommentsCount.Location = New System.Drawing.Point(695, 121)
-        Me.txtTestFirmCommentsCount.Name = "txtTestFirmCommentsCount"
-        Me.txtTestFirmCommentsCount.ReadOnly = True
-        Me.txtTestFirmCommentsCount.Size = New System.Drawing.Size(43, 20)
-        Me.txtTestFirmCommentsCount.TabIndex = 17
-        '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(606, 122)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(81, 13)
-        Me.Label29.TabIndex = 290
-        Me.Label29.Text = "Test Firm Count"
-        '
         'txtNotificationCount
         '
-        Me.txtNotificationCount.Location = New System.Drawing.Point(695, 97)
+        Me.txtNotificationCount.Location = New System.Drawing.Point(703, 112)
         Me.txtNotificationCount.Name = "txtNotificationCount"
         Me.txtNotificationCount.ReadOnly = True
         Me.txtNotificationCount.Size = New System.Drawing.Size(43, 20)
@@ -388,7 +337,7 @@ Partial Class ISMPMonitoringLog
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(606, 98)
+        Me.Label27.Location = New System.Drawing.Point(614, 113)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(91, 13)
         Me.Label27.TabIndex = 288
@@ -397,7 +346,7 @@ Partial Class ISMPMonitoringLog
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(606, 76)
+        Me.Label13.Location = New System.Drawing.Point(614, 91)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(70, 13)
         Me.Label13.TabIndex = 287
@@ -409,14 +358,14 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox9.Controls.Add(Me.chbNotificationLinked)
         Me.GroupBox9.Location = New System.Drawing.Point(609, 16)
         Me.GroupBox9.Name = "GroupBox9"
-        Me.GroupBox9.Size = New System.Drawing.Size(96, 54)
+        Me.GroupBox9.Size = New System.Drawing.Size(96, 62)
         Me.GroupBox9.TabIndex = 10
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "Notification "
         '
         'chbNotificationUnlinked
         '
-        Me.chbNotificationUnlinked.Location = New System.Drawing.Point(8, 32)
+        Me.chbNotificationUnlinked.Location = New System.Drawing.Point(8, 37)
         Me.chbNotificationUnlinked.Name = "chbNotificationUnlinked"
         Me.chbNotificationUnlinked.Size = New System.Drawing.Size(80, 16)
         Me.chbNotificationUnlinked.TabIndex = 1
@@ -424,7 +373,7 @@ Partial Class ISMPMonitoringLog
         '
         'chbNotificationLinked
         '
-        Me.chbNotificationLinked.Location = New System.Drawing.Point(8, 16)
+        Me.chbNotificationLinked.Location = New System.Drawing.Point(8, 18)
         Me.chbNotificationLinked.Name = "chbNotificationLinked"
         Me.chbNotificationLinked.Size = New System.Drawing.Size(80, 16)
         Me.chbNotificationLinked.TabIndex = 0
@@ -454,7 +403,7 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox8.Controls.Add(Me.txtAIRSNumberFilter)
         Me.GroupBox8.Location = New System.Drawing.Point(383, 245)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(355, 250)
+        Me.GroupBox8.Size = New System.Drawing.Size(284, 250)
         Me.GroupBox8.TabIndex = 9
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Misc. "
@@ -700,24 +649,14 @@ Partial Class ISMPMonitoringLog
         '
         Me.GroupBox5.AutoSize = True
         Me.GroupBox5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.GroupBox5.Controls.Add(Me.chbTestFirmComments)
         Me.GroupBox5.Controls.Add(Me.chbNotifications)
         Me.GroupBox5.Controls.Add(Me.chbTestReports)
         Me.GroupBox5.Location = New System.Drawing.Point(7, 51)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(111, 96)
+        Me.GroupBox5.Size = New System.Drawing.Size(99, 77)
         Me.GroupBox5.TabIndex = 1
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Work Types"
-        '
-        'chbTestFirmComments
-        '
-        Me.chbTestFirmComments.AutoSize = True
-        Me.chbTestFirmComments.Location = New System.Drawing.Point(6, 60)
-        Me.chbTestFirmComments.Name = "chbTestFirmComments"
-        Me.chbTestFirmComments.Size = New System.Drawing.Size(99, 17)
-        Me.chbTestFirmComments.TabIndex = 2
-        Me.chbTestFirmComments.Text = "Test Comments"
         '
         'chbNotifications
         '
@@ -743,7 +682,6 @@ Partial Class ISMPMonitoringLog
         '
         Me.TCMonitoringSelection.Controls.Add(Me.TPSelectTestReport)
         Me.TCMonitoringSelection.Controls.Add(Me.TPSelectTestLog)
-        Me.TCMonitoringSelection.Controls.Add(Me.TPTestFirmComment)
         Me.TCMonitoringSelection.Dock = System.Windows.Forms.DockStyle.Right
         Me.TCMonitoringSelection.Location = New System.Drawing.Point(752, 16)
         Me.TCMonitoringSelection.Name = "TCMonitoringSelection"
@@ -1067,199 +1005,9 @@ Partial Class ISMPMonitoringLog
         Me.txtTestLogNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtTestLogNumber.TabIndex = 0
         '
-        'TPTestFirmComment
-        '
-        Me.TPTestFirmComment.Controls.Add(Me.txtTestFirmName)
-        Me.TPTestFirmComment.Controls.Add(Me.Label38)
-        Me.TPTestFirmComment.Controls.Add(Me.txtTestFirmTestLogNumber)
-        Me.TPTestFirmComment.Controls.Add(Me.Label37)
-        Me.TPTestFirmComment.Controls.Add(Me.txtTestFirmReferenceNumber)
-        Me.TPTestFirmComment.Controls.Add(Me.Label30)
-        Me.TPTestFirmComment.Controls.Add(Me.llbOpenComments)
-        Me.TPTestFirmComment.Controls.Add(Me.txtTestFirmCounty)
-        Me.TPTestFirmComment.Controls.Add(Me.Label31)
-        Me.TPTestFirmComment.Controls.Add(Me.txtTestFirmFacilityCity)
-        Me.TPTestFirmComment.Controls.Add(Me.Label32)
-        Me.TPTestFirmComment.Controls.Add(Me.txtTestFirmCommentType)
-        Me.TPTestFirmComment.Controls.Add(Me.Label33)
-        Me.TPTestFirmComment.Controls.Add(Me.txtTestFirmAirsNumber)
-        Me.TPTestFirmComment.Controls.Add(Me.Label34)
-        Me.TPTestFirmComment.Controls.Add(Me.txtTestFirmFacilityName)
-        Me.TPTestFirmComment.Controls.Add(Me.Label35)
-        Me.TPTestFirmComment.Controls.Add(Me.Label36)
-        Me.TPTestFirmComment.Controls.Add(Me.txtCommentNumber)
-        Me.TPTestFirmComment.Location = New System.Drawing.Point(4, 22)
-        Me.TPTestFirmComment.Name = "TPTestFirmComment"
-        Me.TPTestFirmComment.Size = New System.Drawing.Size(253, 455)
-        Me.TPTestFirmComment.TabIndex = 2
-        Me.TPTestFirmComment.Text = "Test Firm Comments"
-        Me.TPTestFirmComment.UseVisualStyleBackColor = True
-        '
-        'txtTestFirmName
-        '
-        Me.txtTestFirmName.Location = New System.Drawing.Point(24, 159)
-        Me.txtTestFirmName.Name = "txtTestFirmName"
-        Me.txtTestFirmName.ReadOnly = True
-        Me.txtTestFirmName.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmName.TabIndex = 4
-        '
-        'Label38
-        '
-        Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(8, 143)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(64, 13)
-        Me.Label38.TabIndex = 268
-        Me.Label38.Text = "Testing Firm"
-        '
-        'txtTestFirmTestLogNumber
-        '
-        Me.txtTestFirmTestLogNumber.Location = New System.Drawing.Point(24, 361)
-        Me.txtTestFirmTestLogNumber.Name = "txtTestFirmTestLogNumber"
-        Me.txtTestFirmTestLogNumber.ReadOnly = True
-        Me.txtTestFirmTestLogNumber.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmTestLogNumber.TabIndex = 9
-        '
-        'Label37
-        '
-        Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(8, 345)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(89, 13)
-        Me.Label37.TabIndex = 266
-        Me.Label37.Text = "Test Log Number"
-        '
-        'txtTestFirmReferenceNumber
-        '
-        Me.txtTestFirmReferenceNumber.Location = New System.Drawing.Point(24, 320)
-        Me.txtTestFirmReferenceNumber.Name = "txtTestFirmReferenceNumber"
-        Me.txtTestFirmReferenceNumber.ReadOnly = True
-        Me.txtTestFirmReferenceNumber.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmReferenceNumber.TabIndex = 8
-        '
-        'Label30
-        '
-        Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(8, 304)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(97, 13)
-        Me.Label30.TabIndex = 264
-        Me.Label30.Text = "Reference Number"
-        '
-        'llbOpenComments
-        '
-        Me.llbOpenComments.AutoSize = True
-        Me.llbOpenComments.Location = New System.Drawing.Point(128, 40)
-        Me.llbOpenComments.Name = "llbOpenComments"
-        Me.llbOpenComments.Size = New System.Drawing.Size(84, 26)
-        Me.llbOpenComments.TabIndex = 1
-        Me.llbOpenComments.TabStop = True
-        Me.llbOpenComments.Text = "Select Comment" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    (Add New)"
-        '
-        'txtTestFirmCounty
-        '
-        Me.txtTestFirmCounty.Location = New System.Drawing.Point(24, 281)
-        Me.txtTestFirmCounty.Name = "txtTestFirmCounty"
-        Me.txtTestFirmCounty.ReadOnly = True
-        Me.txtTestFirmCounty.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmCounty.TabIndex = 7
-        '
-        'Label31
-        '
-        Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(8, 265)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(75, 13)
-        Me.Label31.TabIndex = 259
-        Me.Label31.Text = "Facility County"
-        '
-        'txtTestFirmFacilityCity
-        '
-        Me.txtTestFirmFacilityCity.Location = New System.Drawing.Point(24, 241)
-        Me.txtTestFirmFacilityCity.Name = "txtTestFirmFacilityCity"
-        Me.txtTestFirmFacilityCity.ReadOnly = True
-        Me.txtTestFirmFacilityCity.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmFacilityCity.TabIndex = 6
-        '
-        'Label32
-        '
-        Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(8, 225)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(59, 13)
-        Me.Label32.TabIndex = 257
-        Me.Label32.Text = "Facility City"
-        '
-        'txtTestFirmCommentType
-        '
-        Me.txtTestFirmCommentType.Location = New System.Drawing.Point(24, 198)
-        Me.txtTestFirmCommentType.Name = "txtTestFirmCommentType"
-        Me.txtTestFirmCommentType.ReadOnly = True
-        Me.txtTestFirmCommentType.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmCommentType.TabIndex = 5
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(8, 182)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(78, 13)
-        Me.Label33.TabIndex = 255
-        Me.Label33.Text = "Comment Type"
-        '
-        'txtTestFirmAirsNumber
-        '
-        Me.txtTestFirmAirsNumber.Location = New System.Drawing.Point(24, 118)
-        Me.txtTestFirmAirsNumber.Name = "txtTestFirmAirsNumber"
-        Me.txtTestFirmAirsNumber.ReadOnly = True
-        Me.txtTestFirmAirsNumber.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmAirsNumber.TabIndex = 3
-        '
-        'Label34
-        '
-        Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(8, 102)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(72, 13)
-        Me.Label34.TabIndex = 253
-        Me.Label34.Text = "AIRS Number"
-        '
-        'txtTestFirmFacilityName
-        '
-        Me.txtTestFirmFacilityName.Location = New System.Drawing.Point(24, 78)
-        Me.txtTestFirmFacilityName.Name = "txtTestFirmFacilityName"
-        Me.txtTestFirmFacilityName.ReadOnly = True
-        Me.txtTestFirmFacilityName.Size = New System.Drawing.Size(208, 20)
-        Me.txtTestFirmFacilityName.TabIndex = 2
-        '
-        'Label35
-        '
-        Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(8, 62)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(70, 13)
-        Me.Label35.TabIndex = 251
-        Me.Label35.Text = "Facility Name"
-        '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(8, 24)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(91, 13)
-        Me.Label36.TabIndex = 249
-        Me.Label36.Text = "Comment Number"
-        '
-        'txtCommentNumber
-        '
-        Me.txtCommentNumber.Location = New System.Drawing.Point(24, 40)
-        Me.txtCommentNumber.Name = "txtCommentNumber"
-        Me.txtCommentNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtCommentNumber.TabIndex = 0
-        '
         'txtReportCount
         '
-        Me.txtReportCount.Location = New System.Drawing.Point(695, 73)
+        Me.txtReportCount.Location = New System.Drawing.Point(703, 88)
         Me.txtReportCount.Name = "txtReportCount"
         Me.txtReportCount.ReadOnly = True
         Me.txtReportCount.Size = New System.Drawing.Size(43, 20)
@@ -1603,16 +1351,16 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox3.Controls.Add(Me.chbOpen)
         Me.GroupBox3.Location = New System.Drawing.Point(128, 55)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(87, 90)
+        Me.GroupBox3.Size = New System.Drawing.Size(87, 73)
         Me.GroupBox3.TabIndex = 2
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Open/Closed"
         '
         'chbClosed
         '
-        Me.chbClosed.Location = New System.Drawing.Point(8, 32)
+        Me.chbClosed.Location = New System.Drawing.Point(8, 37)
         Me.chbClosed.Name = "chbClosed"
-        Me.chbClosed.Size = New System.Drawing.Size(80, 16)
+        Me.chbClosed.Size = New System.Drawing.Size(73, 17)
         Me.chbClosed.TabIndex = 1
         Me.chbClosed.Text = "Closed"
         '
@@ -1620,9 +1368,9 @@ Partial Class ISMPMonitoringLog
         '
         Me.chbOpen.Checked = True
         Me.chbOpen.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chbOpen.Location = New System.Drawing.Point(8, 16)
+        Me.chbOpen.Location = New System.Drawing.Point(7, 18)
         Me.chbOpen.Name = "chbOpen"
-        Me.chbOpen.Size = New System.Drawing.Size(80, 16)
+        Me.chbOpen.Size = New System.Drawing.Size(73, 17)
         Me.chbOpen.TabIndex = 0
         Me.chbOpen.Text = "Open"
         '
@@ -1685,17 +1433,16 @@ Partial Class ISMPMonitoringLog
         Me.chbComplianceStatus1.TabIndex = 0
         Me.chbComplianceStatus1.Text = "File Open"
         '
-        'TCMonitoringGrids
+        'TPNotifications
         '
-        Me.TCMonitoringGrids.Controls.Add(Me.TPTestReports)
-        Me.TCMonitoringGrids.Controls.Add(Me.TPNotifications)
-        Me.TCMonitoringGrids.Controls.Add(Me.TPTestFirmComments)
-        Me.TCMonitoringGrids.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCMonitoringGrids.Location = New System.Drawing.Point(0, 0)
-        Me.TCMonitoringGrids.Name = "TCMonitoringGrids"
-        Me.TCMonitoringGrids.SelectedIndex = 0
-        Me.TCMonitoringGrids.Size = New System.Drawing.Size(1016, 196)
-        Me.TCMonitoringGrids.TabIndex = 0
+        Me.TPNotifications.Controls.Add(Me.dgvNotificationLog)
+        Me.TPNotifications.Location = New System.Drawing.Point(4, 22)
+        Me.TPNotifications.Name = "TPNotifications"
+        Me.TPNotifications.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPNotifications.Size = New System.Drawing.Size(1008, 170)
+        Me.TPNotifications.TabIndex = 1
+        Me.TPNotifications.Text = "Test Notifications"
+        Me.TPNotifications.UseVisualStyleBackColor = True
         '
         'TPTestReports
         '
@@ -1708,11 +1455,22 @@ Partial Class ISMPMonitoringLog
         Me.TPTestReports.Text = "Test Reports"
         Me.TPTestReports.UseVisualStyleBackColor = True
         '
-        'dgvTestReportViewer
+        'TCMonitoringGrids
+        '
+        Me.TCMonitoringGrids.Controls.Add(Me.TPTestReports)
+        Me.TCMonitoringGrids.Controls.Add(Me.TPNotifications)
+        Me.TCMonitoringGrids.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TCMonitoringGrids.Location = New System.Drawing.Point(0, 0)
+        Me.TCMonitoringGrids.Name = "TCMonitoringGrids"
+        Me.TCMonitoringGrids.SelectedIndex = 0
+        Me.TCMonitoringGrids.Size = New System.Drawing.Size(1016, 196)
+        Me.TCMonitoringGrids.TabIndex = 0
+        '
+        'dgvNotificationLog
         '
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvTestReportViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvTestReportViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvNotificationLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvNotificationLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1720,8 +1478,8 @@ Partial Class ISMPMonitoringLog
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvTestReportViewer.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Me.dgvTestReportViewer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvNotificationLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvNotificationLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1729,7 +1487,48 @@ Partial Class ISMPMonitoringLog
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvTestReportViewer.DefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvNotificationLog.DefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvNotificationLog.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvNotificationLog.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvNotificationLog.LinkifyColumnByName = "strTestLogNumber"
+        Me.dgvNotificationLog.Location = New System.Drawing.Point(3, 3)
+        Me.dgvNotificationLog.Name = "dgvNotificationLog"
+        Me.dgvNotificationLog.ResultsCountLabel = Nothing
+        Me.dgvNotificationLog.ResultsCountLabelFormat = "{0} found"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvNotificationLog.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
+        Me.dgvNotificationLog.Size = New System.Drawing.Size(1002, 164)
+        Me.dgvNotificationLog.StandardTab = True
+        Me.dgvNotificationLog.TabIndex = 1
+        '
+        'dgvTestReportViewer
+        '
+        DataGridViewCellStyle9.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvTestReportViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        Me.dgvTestReportViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvTestReportViewer.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        Me.dgvTestReportViewer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvTestReportViewer.DefaultCellStyle = DataGridViewCellStyle11
         Me.dgvTestReportViewer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvTestReportViewer.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvTestReportViewer.LinkifyColumnByName = Nothing
@@ -1738,110 +1537,6 @@ Partial Class ISMPMonitoringLog
         Me.dgvTestReportViewer.Name = "dgvTestReportViewer"
         Me.dgvTestReportViewer.ResultsCountLabel = Nothing
         Me.dgvTestReportViewer.ResultsCountLabelFormat = "{0} found"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvTestReportViewer.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
-        Me.dgvTestReportViewer.Size = New System.Drawing.Size(1002, 164)
-        Me.dgvTestReportViewer.StandardTab = True
-        Me.dgvTestReportViewer.TabIndex = 0
-        '
-        'TPNotifications
-        '
-        Me.TPNotifications.Controls.Add(Me.dgvNotificationLog)
-        Me.TPNotifications.Location = New System.Drawing.Point(4, 22)
-        Me.TPNotifications.Name = "TPNotifications"
-        Me.TPNotifications.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPNotifications.Size = New System.Drawing.Size(1008, 170)
-        Me.TPNotifications.TabIndex = 1
-        Me.TPNotifications.Text = "Test Notifications"
-        Me.TPNotifications.UseVisualStyleBackColor = True
-        '
-        'dgvNotificationLog
-        '
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvNotificationLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
-        Me.dgvNotificationLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvNotificationLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
-        Me.dgvNotificationLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvNotificationLog.DefaultCellStyle = DataGridViewCellStyle7
-        Me.dgvNotificationLog.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvNotificationLog.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.dgvNotificationLog.LinkifyColumnByName = "strTestLogNumber"
-        Me.dgvNotificationLog.Location = New System.Drawing.Point(3, 3)
-        Me.dgvNotificationLog.Name = "dgvNotificationLog"
-        Me.dgvNotificationLog.ResultsCountLabel = Nothing
-        Me.dgvNotificationLog.ResultsCountLabelFormat = "{0} found"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvNotificationLog.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
-        Me.dgvNotificationLog.Size = New System.Drawing.Size(1002, 164)
-        Me.dgvNotificationLog.StandardTab = True
-        Me.dgvNotificationLog.TabIndex = 1
-        '
-        'TPTestFirmComments
-        '
-        Me.TPTestFirmComments.Controls.Add(Me.dgvTestFirmComments)
-        Me.TPTestFirmComments.Location = New System.Drawing.Point(4, 22)
-        Me.TPTestFirmComments.Name = "TPTestFirmComments"
-        Me.TPTestFirmComments.Size = New System.Drawing.Size(1008, 170)
-        Me.TPTestFirmComments.TabIndex = 2
-        Me.TPTestFirmComments.Text = "Test Firm Comments"
-        Me.TPTestFirmComments.UseVisualStyleBackColor = True
-        '
-        'dgvTestFirmComments
-        '
-        DataGridViewCellStyle9.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvTestFirmComments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
-        Me.dgvTestFirmComments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvTestFirmComments.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
-        Me.dgvTestFirmComments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvTestFirmComments.DefaultCellStyle = DataGridViewCellStyle11
-        Me.dgvTestFirmComments.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvTestFirmComments.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.dgvTestFirmComments.LinkifyColumnByName = Nothing
-        Me.dgvTestFirmComments.LinkifyFirstColumn = True
-        Me.dgvTestFirmComments.Location = New System.Drawing.Point(0, 0)
-        Me.dgvTestFirmComments.Name = "dgvTestFirmComments"
-        Me.dgvTestFirmComments.ResultsCountLabel = Nothing
-        Me.dgvTestFirmComments.ResultsCountLabelFormat = "{0} found"
         DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1849,10 +1544,10 @@ Partial Class ISMPMonitoringLog
         DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvTestFirmComments.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
-        Me.dgvTestFirmComments.Size = New System.Drawing.Size(1008, 170)
-        Me.dgvTestFirmComments.StandardTab = True
-        Me.dgvTestFirmComments.TabIndex = 1
+        Me.dgvTestReportViewer.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+        Me.dgvTestReportViewer.Size = New System.Drawing.Size(1002, 164)
+        Me.dgvTestReportViewer.StandardTab = True
+        Me.dgvTestReportViewer.TabIndex = 0
         '
         'ISMPMonitoringLog
         '
@@ -1890,8 +1585,6 @@ Partial Class ISMPMonitoringLog
         Me.GBSelectedTestReport.PerformLayout()
         Me.TPSelectTestLog.ResumeLayout(False)
         Me.TPSelectTestLog.PerformLayout()
-        Me.TPTestFirmComment.ResumeLayout(False)
-        Me.TPTestFirmComment.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         Me.GBReportType.ResumeLayout(False)
@@ -1900,13 +1593,11 @@ Partial Class ISMPMonitoringLog
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        Me.TCMonitoringGrids.ResumeLayout(False)
-        Me.TPTestReports.ResumeLayout(False)
-        CType(Me.dgvTestReportViewer, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPNotifications.ResumeLayout(False)
+        Me.TPTestReports.ResumeLayout(False)
+        Me.TCMonitoringGrids.ResumeLayout(False)
         CType(Me.dgvNotificationLog, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPTestFirmComments.ResumeLayout(False)
-        CType(Me.dgvTestFirmComments, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvTestReportViewer, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1977,11 +1668,6 @@ Partial Class ISMPMonitoringLog
     Friend WithEvents TCMonitoringSelection As System.Windows.Forms.TabControl
     Friend WithEvents TPSelectTestReport As System.Windows.Forms.TabPage
     Friend WithEvents TPSelectTestLog As System.Windows.Forms.TabPage
-    Friend WithEvents TCMonitoringGrids As System.Windows.Forms.TabControl
-    Friend WithEvents TPTestReports As System.Windows.Forms.TabPage
-    Friend WithEvents dgvTestReportViewer As Iaip.IaipDataGridView
-    Friend WithEvents TPNotifications As System.Windows.Forms.TabPage
-    Friend WithEvents dgvNotificationLog As Iaip.IaipDataGridView
     Friend WithEvents mmiReset As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsbResize As System.Windows.Forms.ToolStripButton
     Friend WithEvents llbSelectTestLog As System.Windows.Forms.LinkLabel
@@ -2035,38 +1721,18 @@ Partial Class ISMPMonitoringLog
     Friend WithEvents GroupBox9 As System.Windows.Forms.GroupBox
     Friend WithEvents chbNotificationUnlinked As System.Windows.Forms.CheckBox
     Friend WithEvents chbNotificationLinked As System.Windows.Forms.CheckBox
-    Friend WithEvents TPTestFirmComments As System.Windows.Forms.TabPage
-    Friend WithEvents dgvTestFirmComments As Iaip.IaipDataGridView
-    Friend WithEvents chbTestFirmComments As System.Windows.Forms.CheckBox
     Friend WithEvents Label28 As System.Windows.Forms.Label
     Friend WithEvents txtTestingFirm As System.Windows.Forms.TextBox
-    Friend WithEvents TPTestFirmComment As System.Windows.Forms.TabPage
-    Friend WithEvents txtTestFirmCommentsCount As System.Windows.Forms.TextBox
-    Friend WithEvents Label29 As System.Windows.Forms.Label
-    Friend WithEvents llbOpenComments As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtTestFirmCounty As System.Windows.Forms.TextBox
-    Friend WithEvents Label31 As System.Windows.Forms.Label
-    Friend WithEvents txtTestFirmFacilityCity As System.Windows.Forms.TextBox
-    Friend WithEvents Label32 As System.Windows.Forms.Label
-    Friend WithEvents txtTestFirmCommentType As System.Windows.Forms.TextBox
-    Friend WithEvents Label33 As System.Windows.Forms.Label
-    Friend WithEvents txtTestFirmAirsNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label34 As System.Windows.Forms.Label
-    Friend WithEvents txtTestFirmFacilityName As System.Windows.Forms.TextBox
-    Friend WithEvents Label35 As System.Windows.Forms.Label
-    Friend WithEvents Label36 As System.Windows.Forms.Label
-    Friend WithEvents txtCommentNumber As System.Windows.Forms.TextBox
     Friend WithEvents txtPollutant As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents txtTestFirmTestLogNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label37 As System.Windows.Forms.Label
-    Friend WithEvents txtTestFirmReferenceNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label30 As System.Windows.Forms.Label
-    Friend WithEvents txtTestFirmName As System.Windows.Forms.TextBox
-    Friend WithEvents Label38 As System.Windows.Forms.Label
     Friend WithEvents tsbFacilitySearch As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbExportToExcel As System.Windows.Forms.ToolStripButton
     Friend WithEvents ToolsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiReports As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ExportToExcelToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TCMonitoringGrids As TabControl
+    Friend WithEvents TPTestReports As TabPage
+    Friend WithEvents dgvTestReportViewer As IaipDataGridView
+    Friend WithEvents TPNotifications As TabPage
+    Friend WithEvents dgvNotificationLog As IaipDataGridView
 End Class

@@ -62,9 +62,8 @@ Public Class ISMPMonitoringLog
         Dim SQLWhere As String
         Dim query As String = ""
 
-        Try
-
-            If chbTestReports.Checked Then
+        If chbTestReports.Checked Then
+            Try
                 SQLWhere = ""
 
                 query = "select " &
@@ -416,9 +415,13 @@ Public Class ISMPMonitoringLog
 
                 LoadComplianceColor()
 
-            End If  'Test Reports
+            Catch ex As Exception
+                ErrorReport(ex, query, "ISMPTestReportViewer.LoadDataSet::chbTestReports.Checked")
+            End Try
+        End If  'Test Reports
 
-            If Me.chbNotifications.Checked Then
+        If Me.chbNotifications.Checked Then
+            Try
                 SQLWhere = ""
                 query = "select distinct " &
                "SUBSTRING(ISMPTEstNotification.strAIRSNumber, 5,8) as AIRSNumber, " &
@@ -535,135 +538,11 @@ Public Class ISMPMonitoringLog
 
                 dgvNotificationLog.SanelyResizeColumns()
                 txtNotificationCount.Text = dgvNotificationLog.RowCount
-            End If
 
-            If chbTestFirmComments.Checked Then
-                query = ""
-                SQLWhere = ""
-
-                query = "select " &
-               "numcommentsID, strTestingFirm, " &
-               "SUBSTRING(ISMPTestFirmComments.strAIRSNumber, 5,8) as AIRSNumber, " &
-               "strFacilityName, " &
-               "ISMPTestFirmComments.strTestLogNumber, strReferenceNumber, " &
-               "case " &
-               "when strCommentType is Null then 'Unknown' " &
-               "when strCommentType = '1' then 'Pre-test Comment' " &
-               "when strCommentType = '2' then 'Day of test Comment' " &
-               "when strCommentType = '3' then 'Post-test Comment' " &
-               "else 'Unknown' " &
-               "end CommentType, " &
-               "concat(strLastName, ', ' , strFirstName) as StaffResponsible, " &
-               "datCommentDate, strComment, " &
-               "strFacilityCity, " &
-               "LookUpCountyInformation.strCountyName " &
-               "from ISMPTestFirmComments " &
-               " INNER JOIN LookUpTestingFirms " &
-               "ON ISMPTestFirmComments.strTestingFirmKey = LooKUpTestingFirms.strTestingFirmKey " &
-               " LEFT JOIN APBFacilityInformation " &
-               "ON ISMPTestFirmComments.strAIRSnumber = APBFacilityInformation.strAIRSNumber " &
-               " LEFT JOIN EPDUserProfiles  " &
-               "ON ISMPTestFirmComments.strStaffResponsible = EPDUserProfiles.numUserID " &
-               " LEFT JOIN ISMPTestNotification " &
-               "ON ismptestfirmcomments.strtestlognumber = ismptestnotification.strtestlognumber " &
-               " LEFT JOIN LookUpCountyInformation " &
-               "ON SUBSTRING(ISMPTestFirmComments.strAIRSNUmber, 5, 3)  = LookUpCountyInformation.strCountycode " &
-               " where 1=1 "
-
-                If chbReviewingEngineer.Checked Then
-                    SQLWhere = SQLWhere & " and ( "
-                    If clbEngineer.CheckedItems.Count > 0 Then
-                        For x As Integer = 0 To clbEngineer.Items.Count - 1
-                            If clbEngineer.GetItemChecked(x) Then
-                                clbEngineer.SelectedIndex = x
-                                SQLWhere = SQLWhere & " ISMPTestFirmComments.strStaffResponsible = '" & clbEngineer.SelectedValue & "' Or "
-                            End If
-                        Next
-                    End If
-                    SQLWhere = SQLWhere & " ISMPTestFirmComments.strStaffResponsible = '" & CurrentUser.UserID & "' ) "
-                Else
-                    If clbEngineer.CheckedItems.Count > 0 Then
-                        SQLWhere = SQLWhere & " and ( "
-                        For x As Integer = 0 To clbEngineer.Items.Count - 1
-                            If clbEngineer.GetItemChecked(x) Then
-                                clbEngineer.SelectedIndex = x
-                                SQLWhere = SQLWhere & " ISMPTestFirmComments.strStaffResponsible = '" & clbEngineer.SelectedValue & "' Or "
-                            End If
-                        Next
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 3))
-                        SQLWhere = SQLWhere & " ) "
-                    End If
-                End If
-
-                If txtAIRSNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPTestFirmComments.strAIRSnumber like '%" & SqlQuote(txtAIRSNumberFilter.Text) & "%' "
-                End If
-                If txtFacilityNameFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityName like '%" & SqlQuote(txtFacilityNameFilter.Text) & "%' "
-                End If
-                If txtReferenceNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPTestFirmComments.strReferenceNumber like '%" & SqlQuote(txtReferenceNumberFilter.Text) & "%' "
-                End If
-                If txtNotificationNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPTestFirmComments.strTestLogNumber like '%" & SqlQuote(txtNotificationNumberFilter.Text) & "%' "
-                End If
-                If txtCityFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityCity like '%" & SqlQuote(txtCityFilter.Text) & "%' "
-                End If
-                If txtCountyFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and LookUpCountyInformation.strCountyName like '%" & SqlQuote(txtCountyFilter.Text) & "%' "
-                End If
-                If txtEmissionSourceTestedFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPTestNotification.strEmissionUnit " &
-                                               "like '%" & SqlQuote(txtEmissionSourceTestedFilter.Text) & "%' "
-                End If
-                If txtCommentFieldFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and ISMPTestFirmComments.strComments " &
-                                               "like '%" & SqlQuote(txtCommentFieldFilter.Text) & "%' "
-                End If
-
-                If txtTestingFirm.Text <> "" Then
-                    SQLWhere = SQLWhere & "and LookUpTestingFirms.strTestingFirm " &
-                                                "like '%" & SqlQuote(txtTestingFirm.Text) & "%' "
-                End If
-
-                query = query & SQLWhere
-
-                dgvTestFirmComments.DataSource = DB.GetDataTable(query)
-
-                dgvTestFirmComments.Columns("numCommentsID").HeaderText = "Comment #"
-                dgvTestFirmComments.Columns("numcommentsID").DisplayIndex = 0
-                dgvTestFirmComments.Columns("strTestingFirm").HeaderText = "Testing Firm Name"
-                dgvTestFirmComments.Columns("strTestingFirm").DisplayIndex = 1
-                dgvTestFirmComments.Columns("AIRSNumber").HeaderText = "AIRS Number"
-                dgvTestFirmComments.Columns("AIRSNumber").DisplayIndex = 2
-                dgvTestFirmComments.Columns("strFacilityName").HeaderText = "Facility Name"
-                dgvTestFirmComments.Columns("strFacilityName").DisplayIndex = 3
-                dgvTestFirmComments.Columns("strTestLogNumber").HeaderText = "Test Log #"
-                dgvTestFirmComments.Columns("strTestLogNumber").DisplayIndex = 4
-                dgvTestFirmComments.Columns("strReferenceNumber").HeaderText = "Reference #"
-                dgvTestFirmComments.Columns("strReferenceNumber").DisplayIndex = 5
-                dgvTestFirmComments.Columns("staffResponsible").HeaderText = "Responsible Staff"
-                dgvTestFirmComments.Columns("staffResponsible").DisplayIndex = 6
-                dgvTestFirmComments.Columns("datCommentDate").HeaderText = "Date of Comment"
-                dgvTestFirmComments.Columns("datCommentDate").DisplayIndex = 7
-                dgvTestFirmComments.Columns("datCommentDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                dgvTestFirmComments.Columns("CommentType").HeaderText = "Comment Type"
-                dgvTestFirmComments.Columns("CommentType").DisplayIndex = 8
-                dgvTestFirmComments.Columns("strComment").HeaderText = "Comments"
-                dgvTestFirmComments.Columns("strComment").DisplayIndex = 9
-                dgvTestFirmComments.Columns("strFacilityCity").HeaderText = "Facility City"
-                dgvTestFirmComments.Columns("strFacilityCity").DisplayIndex = 10
-                dgvTestFirmComments.Columns("strCountyName").HeaderText = "County Name"
-                dgvTestFirmComments.Columns("strCountyName").DisplayIndex = 11
-
-                dgvTestFirmComments.SanelyResizeColumns()
-                txtTestFirmCommentsCount.Text = dgvTestFirmComments.RowCount
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, query, "ISMPTestReportViewer.LoadDataSet")
-        End Try
+            Catch ex As Exception
+                ErrorReport(ex, query, "ISMPTestReportViewer.LoadDataSet::chbNotifications.Checked")
+            End Try
+        End If
     End Sub
 
     Private Sub LoadTestLogData()
@@ -784,26 +663,6 @@ Public Class ISMPMonitoringLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbOpenComments_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbOpenComments.LinkClicked
-        Try
-
-            Dim TestFirmComments As New ISMPTestFirmComments
-
-            If TestFirmComments IsNot Nothing AndAlso Not TestFirmComments.IsDisposed Then
-                TestFirmComments.txtAIRSNumber.Text = txtTestFirmAirsNumber.Text
-                TestFirmComments.txtFacilityTested.Text = txtTestFirmFacilityName.Text
-                TestFirmComments.cboTestingFirm.Text = txtTestFirmName.Text
-                TestFirmComments.txtTestReportNumber.Text = txtTestFirmReferenceNumber.Text
-                TestFirmComments.txtTestNotificationNumber.Text = txtTestFirmTestLogNumber.Text
-                TestFirmComments.txtCommentID.Text = txtCommentNumber.Text
-
-                TestFirmComments.Show()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
 
     Private Sub OpenFacilityLookupTool()
         Try
@@ -908,37 +767,6 @@ Public Class ISMPMonitoringLog
 
     Private Sub dgvNotificationLog_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvNotificationLog.CellLinkActivated
         OpenFormTestNotification(e.LinkValue.ToString)
-    End Sub
-
-    Private Sub dgvTestFirmComments_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvTestFirmComments.CellEnter
-        If e.RowIndex = -1 OrElse e.RowIndex >= dgvTestFirmComments.RowCount Then Return
-
-        txtCommentNumber.Text = ToStringIfNotNull(dgvTestFirmComments(0, e.RowIndex).Value, "")
-        txtTestFirmFacilityName.Text = ToStringIfNotNull(dgvTestFirmComments(3, e.RowIndex).Value, "")
-        txtTestFirmAirsNumber.Text = ToStringIfNotNull(dgvTestFirmComments(2, e.RowIndex).Value, "")
-        txtTestFirmName.Text = ToStringIfNotNull(dgvTestFirmComments(1, e.RowIndex).Value, "")
-        txtTestFirmCommentType.Text = ToStringIfNotNull(dgvTestFirmComments(6, e.RowIndex).Value, "")
-        txtTestFirmFacilityCity.Text = ToStringIfNotNull(dgvTestFirmComments(10, e.RowIndex).Value, "")
-        txtTestFirmCounty.Text = ToStringIfNotNull(dgvTestFirmComments(11, e.RowIndex).Value, "")
-        txtTestFirmReferenceNumber.Text = ToStringIfNotNull(dgvTestFirmComments(5, e.RowIndex).Value, "")
-        txtTestFirmTestLogNumber.Text = ToStringIfNotNull(dgvTestFirmComments(4, e.RowIndex).Value, "")
-    End Sub
-
-    Private Sub dgvTestFirmComments_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvTestFirmComments.CellLinkActivated
-        Dim rowIndex As Integer = dgvTestFirmComments.CurrentRow.Index
-
-        Dim TestFirmComments As New ISMPTestFirmComments
-
-        If TestFirmComments IsNot Nothing AndAlso Not TestFirmComments.IsDisposed Then
-            TestFirmComments.txtAIRSNumber.Text = ToStringIfNotNull(dgvTestFirmComments(2, rowIndex).Value, "")
-            TestFirmComments.txtFacilityTested.Text = ToStringIfNotNull(dgvTestFirmComments(3, rowIndex).Value, "")
-            TestFirmComments.cboTestingFirm.Text = ToStringIfNotNull(dgvTestFirmComments(1, rowIndex).Value, "")
-            TestFirmComments.txtTestReportNumber.Text = ToStringIfNotNull(dgvTestFirmComments(5, rowIndex).Value, "")
-            TestFirmComments.txtTestNotificationNumber.Text = ToStringIfNotNull(dgvTestFirmComments(4, rowIndex).Value, "")
-            TestFirmComments.txtCommentID.Text = ToStringIfNotNull(dgvTestFirmComments(0, rowIndex).Value, "")
-
-            TestFirmComments.Show()
-        End If
     End Sub
 
 End Class

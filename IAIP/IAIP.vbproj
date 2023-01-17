@@ -598,12 +598,6 @@
     <Compile Include="Universal Forms\IAIPQueryGenerator.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\ISMPTestFirmComments.Designer.vb">
-      <DependentUpon>ISMPTestFirmComments.vb</DependentUpon>
-    </Compile>
-    <Compile Include="ISMP\ISMPTestFirmComments.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="ISMP\ISMPTestReportAdministrative.Designer.vb">
       <DependentUpon>ISMPTestReportAdministrative.vb</DependentUpon>
     </Compile>
@@ -878,10 +872,6 @@
     <EmbeddedResource Include="Universal Forms\IAIPQueryGenerator.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPQueryGenerator.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\ISMPTestFirmComments.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ISMPTestFirmComments.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ISMP\ISMPTestReportAdministrative.resx">
       <SubType>Designer</SubType>
