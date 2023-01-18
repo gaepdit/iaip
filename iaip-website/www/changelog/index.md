@@ -12,6 +12,12 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.6.1 <span>(2023-01-18)</span>
+
+- The Compliance Managers tool now defaults to the correct current fiscal year.
+- The unused test firm comment tool was removed.
+- A few crashing bugs were fixed.
+
 ## Version 6.6.0 <span>(2023-01-09)</span>
 
 Facilities can be "deactivated" in the IAIP if they have no data other than fees data. This will prevent them from being submitted to EPA (ICIS-Air).
