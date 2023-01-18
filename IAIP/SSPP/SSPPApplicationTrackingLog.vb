@@ -5677,7 +5677,7 @@ Public Class SSPPApplicationTrackingLog
 
             DB.RunCommand(query, params)
 
-            If chbClosedOut.Checked AndAlso AirsId IsNot Nothing Then
+            If chbClosedOut.Checked AndAlso AirsId IsNot Nothing AndAlso DAL.AirsNumberExists(AirsId) Then
 
                 query = "select strKey " &
                     "from APBContactInformation inner join SSPPApplicationContact  " &
@@ -7004,8 +7004,10 @@ Public Class SSPPApplicationTrackingLog
                     ' After validating form and saving main application data, proceed with remaining data updates and cleanup
                     LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
 
-                    SaveApplicationContact()
-                    SaveApplicationFees()
+                    If DAL.AirsNumberExists(AirsId) Then
+                        SaveApplicationContact()
+                        SaveApplicationFees()
+                    End If
 
                     If DTPFinalAction.Checked AndAlso chbClosedOut.Checked AndAlso AirsId IsNot Nothing Then
                         Select Case cboPermitAction.SelectedValue.ToString
@@ -13877,7 +13879,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SaveApplicationFees()
-        If AirsId Is Nothing OrElse AppNumber = 0 Then
+        If AirsId Is Nothing OrElse AppNumber = 0 OrElse Not DAL.AirsNumberExists(AirsId) Then
             Return
         End If
 
