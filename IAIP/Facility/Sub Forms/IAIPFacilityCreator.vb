@@ -641,7 +641,7 @@ Public Class IAIPFacilityCreator
                     strContactTitle,
                     strContactPhoneNumber1
                 from SSPPApplicationdata d
-                    inner join SSPPApplicationContact c
+                    left join SSPPApplicationContact c
                         on d.strApplicationNumber = c.strApplicationNumber
                     inner join SSPPAPPLICATIONMASTER m
                         on m.STRAPPLICATIONNUMBER = d.STRAPPLICATIONNUMBER
