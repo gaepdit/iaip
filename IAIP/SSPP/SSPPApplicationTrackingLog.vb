@@ -7004,7 +7004,7 @@ Public Class SSPPApplicationTrackingLog
                     ' After validating form and saving main application data, proceed with remaining data updates and cleanup
                     LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
 
-                    If DAL.AirsNumberExists(AirsId) Then
+                    If AirsId IsNot Nothing AndAlso DAL.AirsNumberExists(AirsId) Then
                         SaveApplicationContact()
                         SaveApplicationFees()
                     End If
