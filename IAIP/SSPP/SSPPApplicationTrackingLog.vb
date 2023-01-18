@@ -7055,14 +7055,15 @@ Public Class SSPPApplicationTrackingLog
 
                     MessageBox.Show("Application data saved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
-            End If
-        End If
 
-        If NewApplication Then
-            Me.Close()
-            OpenFormPermitApplication(AppNumber)
-        Else
-            LoadBasicFacilityInfo()
+                If NewApplication Then
+                    Me.Close()
+                    OpenFormPermitApplication(AppNumber)
+                Else
+                    LoadBasicFacilityInfo()
+                End If
+
+            End If
         End If
     End Sub
 
