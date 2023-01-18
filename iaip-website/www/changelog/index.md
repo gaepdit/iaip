@@ -12,6 +12,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.6.2 <span>(2023-01-18)</span>
+
+Fix the tool to prepopulate facility details from a permit application in the facility creator tool.
+
 ## Version 6.6.1 <span>(2023-01-18)</span>
 
 - The Compliance Managers tool now defaults to the correct current fiscal year.
