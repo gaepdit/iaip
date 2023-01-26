@@ -7004,10 +7004,8 @@ Public Class SSPPApplicationTrackingLog
                     ' After validating form and saving main application data, proceed with remaining data updates and cleanup
                     LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
 
-                    If AirsId IsNot Nothing AndAlso DAL.AirsNumberExists(AirsId) Then
-                        SaveApplicationContact()
-                        SaveApplicationFees()
-                    End If
+                    SaveApplicationContact()
+                    SaveApplicationFees()
 
                     If DTPFinalAction.Checked AndAlso chbClosedOut.Checked AndAlso AirsId IsNot Nothing Then
                         Select Case cboPermitAction.SelectedValue.ToString
