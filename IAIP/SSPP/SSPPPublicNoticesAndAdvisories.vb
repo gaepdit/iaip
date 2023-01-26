@@ -269,7 +269,13 @@ Public Class SSPPPublicNoticesAndAdvisories
                     rtfDocument.AppendLine($"{GetNullableString(dr.Item("strFacilityZipCode")).IfEmpty("Unknown")}\par")
                     rtfDocument.AppendLine("{\b EPD Notice Type:} Proposed Permit\par")
                     rtfDocument.AppendLine($"{{\b Description of Operation:}} {GetNullableString(dr.Item("strPlantDescription")).IfEmpty("Unknown")}\par")
-                    rtfDocument.AppendLine($"{{\b Emission Increase/Decrease:}} {GetNullableString(dr.Item("strSignificantComments")).IfEmpty("Unknown")}\par")
+
+                    If GetNullableString(dr.Item("Type")) = "Acid Rain" Then
+                        rtfDocument.AppendLine("{\b Emission Increase/Decrease:} None\par")
+                    Else
+                        rtfDocument.AppendLine($"{{\b Emission Increase/Decrease:}} {GetNullableString(dr.Item("strSignificantComments")).IfEmpty("Unknown")}\par")
+                    End If
+
                     rtfDocument.AppendLine($"{{\b Description of Requested Modification/Change:}} {GetNullableString(dr.Item("strApplicationNotes")).IfEmpty("N/A")}\par")
                     rtfDocument.AppendLine($"{{\b Comment period/deadline for public hearing request expires on:}} {GetNullableString(dr.Item("datPNExpires")).IfEmpty("Unknown Date")}\par")
                     rtfDocument.AppendLine("\par")
