@@ -12,6 +12,12 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.6.3 <span>(2023-01-26)</span>
+
+Fixed saving contact info for new permit applications.
+
+Updated the public notice template.
+
 ## Version 6.6.2 <span>(2023-01-18)</span>
 
 Fix the tool to prepopulate facility details from a permit application in the facility creator tool.
