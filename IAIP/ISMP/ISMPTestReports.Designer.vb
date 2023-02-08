@@ -4701,7 +4701,7 @@ Partial Class ISMPTestReports
         'txtAllowableEmissionRate1Gas
         '
         Me.txtAllowableEmissionRate1Gas.Location = New System.Drawing.Point(135, 30)
-        Me.txtAllowableEmissionRate1Gas.MaxLength = 11
+        Me.txtAllowableEmissionRate1Gas.MaxLength = 10
         Me.txtAllowableEmissionRate1Gas.Name = "txtAllowableEmissionRate1Gas"
         Me.txtAllowableEmissionRate1Gas.Size = New System.Drawing.Size(88, 20)
         Me.txtAllowableEmissionRate1Gas.TabIndex = 194
