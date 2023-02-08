@@ -1544,7 +1544,7 @@ Public Class SBEAPCaseWork
                     "values " &
                     "(@NUMACTIONID, @STRTECHNICALASSISTTYPE, @DATINITIALCONTACTDATE, @DATASSISTSTARTDATE, 
                     @DATASSISTENDDATE, @STRASSISTANCEREQUEST, @STRAIRSNUMBER, @STRTECHNICALASSISTNOTES, 
-                    @STRMODIFINGSTAFF, @DATMODIFINGDATE) "
+                    @STRMODIFINGSTAFF, getdate()) "
             Else
                 SQL = "Update SBEAPTechnicalAssist set " &
                     "strTechnicalAssistType = @STRTECHNICALASSISTTYPE, " &
