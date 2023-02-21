@@ -279,7 +279,7 @@ Friend Class IaipDataGridView
 
     ' Override the regular search with our super duper multi-column search
     Public Overrides Sub Sort(dataGridViewColumn As DataGridViewColumn, direction As ListSortDirection)
-        If DataSource.GetType IsNot GetType(DataView) Then
+        If TypeOf DataSource IsNot DataView Then
             MyBase.Sort(dataGridViewColumn, direction)
             Return
         End If

@@ -1,7 +1,6 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Data.SqlTypes
-Imports EpdIt.DBUtilities
 Imports Iaip.Apb.Facilities
 
 Public Class EisTool
@@ -13,7 +12,6 @@ Public Class EisTool
 
         LoadcboEISstatusCodes()
         LoadEISLog()
-        LoadStats()
         LoadEISYear()
         LoadOperStatus()
         LoadHistoryComboBoxes()
@@ -69,147 +67,6 @@ Public Class EisTool
             .ValueMember = "QAStatusCode"
             .SelectedIndex = 0
         End With
-    End Sub
-
-    Private Sub LoadStats()
-        dgvEISStats.RowHeadersVisible = False
-        dgvEISStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-        dgvEISStats.AllowUserToResizeColumns = True
-        dgvEISStats.AllowUserToAddRows = False
-        dgvEISStats.AllowUserToDeleteRows = False
-        dgvEISStats.AllowUserToOrderColumns = False
-        dgvEISStats.AllowUserToResizeRows = False
-        dgvEISStats.ColumnHeadersHeight = 35
-
-        Dim colSelect As New DataGridViewCheckBoxColumn With {
-            .ThreeState = False,
-            .TrueValue = True,
-            .FalseValue = False,
-            .HeaderText = "Select",
-            .Name = "Select"
-        }
-
-        dgvEISStats.Columns.Add(colSelect)
-        dgvEISStats.Columns(0).Width = 50
-
-        dgvEISStats.Columns.Add("FacilitySiteID", "AIRS No.")
-        dgvEISStats.Columns("FacilitySiteID").DisplayIndex = 1
-        dgvEISStats.Columns("FacilitySiteID").Visible = True
-
-        dgvEISStats.Columns.Add("strFacilityName", "Facility Name")
-        dgvEISStats.Columns("strFacilityName").DisplayIndex = 2
-        dgvEISStats.Columns("strFacilityName").Width = 250
-
-        dgvEISStats.Columns.Add("InventoryYear", "EIS Year")
-        dgvEISStats.Columns("InventoryYear").DisplayIndex = 3
-        dgvEISStats.Columns("InventoryYear").Visible = True
-
-        dgvEISStats.Columns.Add("EISStatus", "EIS Status")
-        dgvEISStats.Columns("EISStatus").DisplayIndex = 4
-        dgvEISStats.Columns("EISStatus").Visible = True
-
-        dgvEISStats.Columns.Add("EISAccess", "EIS Access")
-        dgvEISStats.Columns("EISAccess").DisplayIndex = 5
-        dgvEISStats.Columns("EISAccess").Visible = True
-
-        dgvEISStats.Columns.Add("OptOut", "Opt Out")
-        dgvEISStats.Columns("OptOut").DisplayIndex = 6
-        dgvEISStats.Columns("OptOut").Visible = True
-
-        dgvEISStats.Columns.Add("MailOut", "Mailout")
-        dgvEISStats.Columns("MailOut").DisplayIndex = 7
-        dgvEISStats.Columns("MailOut").Visible = True
-
-        dgvEISStats.Columns.Add("MailoutEmail", "Mailout Email")
-        dgvEISStats.Columns("MailoutEmail").DisplayIndex = 8
-        dgvEISStats.Columns("MailoutEmail").Visible = True
-
-        dgvEISStats.Columns.Add("strDMUResponsibleStaff", "QA Reviewer")
-        dgvEISStats.Columns("strDMUResponsibleStaff").DisplayIndex = 9
-        dgvEISStats.Columns("strDMUResponsibleStaff").Visible = True
-
-        dgvEISStats.Columns.Add("Enrollment", "Enrollment")
-        dgvEISStats.Columns("Enrollment").DisplayIndex = 10
-        dgvEISStats.Columns("Enrollment").Visible = True
-
-        dgvEISStats.Columns.Add("QASTATUS", "QA Status")
-        dgvEISStats.Columns("QASTATUS").DisplayIndex = 11
-        dgvEISStats.Columns("QASTATUS").Visible = True
-
-        dgvEISStats.Columns.Add("datQAStatus", "QA Status Date")
-        dgvEISStats.Columns("datQAStatus").DisplayIndex = 12
-        dgvEISStats.Columns("datQAStatus").Visible = True
-        dgvEISStats.Columns("datQAStatus").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
-
-        dgvEISStats.Columns.Add("IAIPPrefix", "IAIP Prefix")
-        dgvEISStats.Columns("IAIPPrefix").DisplayIndex = 13
-        dgvEISStats.Columns("IAIPPrefix").Visible = True
-
-        dgvEISStats.Columns.Add("IAIPFIRSTNAME", "IAIP First Name")
-        dgvEISStats.Columns("IAIPFIRSTNAME").DisplayIndex = 14
-        dgvEISStats.Columns("IAIPFIRSTNAME").Visible = True
-
-
-        dgvEISStats.Columns.Add("IAIPLASTNAME", "IAIP Last Name")
-        dgvEISStats.Columns("IAIPLASTNAME").DisplayIndex = 15
-        dgvEISStats.Columns("IAIPLASTNAME").Visible = True
-
-        dgvEISStats.Columns.Add("IAIPEMAIL", "IAIP Email")
-        dgvEISStats.Columns("IAIPEMAIL").DisplayIndex = 16
-        dgvEISStats.Columns("IAIPEMAIL").Visible = True
-
-        dgvEISStats.Columns.Add("EISCOMPANYNAME", "Contact Co. Name")
-        dgvEISStats.Columns("EISCOMPANYNAME").DisplayIndex = 17
-        dgvEISStats.Columns("EISCOMPANYNAME").Visible = True
-
-        dgvEISStats.Columns.Add("EISADDRESS", "Contact Address")
-        dgvEISStats.Columns("EISADDRESS").DisplayIndex = 18
-        dgvEISStats.Columns("EISADDRESS").Visible = True
-
-        dgvEISStats.Columns.Add("EISADDRESS2", "Contact Address 2")
-        dgvEISStats.Columns("EISADDRESS2").DisplayIndex = 19
-        dgvEISStats.Columns("EISADDRESS2").Visible = True
-
-        dgvEISStats.Columns.Add("EISCITY", "Contact City")
-        dgvEISStats.Columns("EISCITY").DisplayIndex = 20
-        dgvEISStats.Columns("EISCITY").Visible = True
-
-        dgvEISStats.Columns.Add("EISState", "Contact State")
-        dgvEISStats.Columns("EISState").DisplayIndex = 21
-        dgvEISStats.Columns("EISState").Visible = True
-
-        dgvEISStats.Columns.Add("EISZipCode", "Contact Zip Code")
-        dgvEISStats.Columns("EISZipCode").DisplayIndex = 22
-        dgvEISStats.Columns("EISZipCode").Visible = True
-
-        dgvEISStats.Columns.Add("EISPrefix", "Contact Prefix")
-        dgvEISStats.Columns("EISPrefix").DisplayIndex = 23
-        dgvEISStats.Columns("EISPrefix").Visible = True
-
-        dgvEISStats.Columns.Add("EISFirstname", "Contact First Name")
-        dgvEISStats.Columns("EISFirstname").DisplayIndex = 24
-        dgvEISStats.Columns("EISFirstname").Visible = True
-
-        dgvEISStats.Columns.Add("EISLastName", "Contact Last Name")
-        dgvEISStats.Columns("EISLastName").DisplayIndex = 25
-        dgvEISStats.Columns("EISLastName").Visible = True
-
-        dgvEISStats.Columns.Add("DATFINALIZE", "Date Submitted")
-        dgvEISStats.Columns("DATFINALIZE").DisplayIndex = 26
-        dgvEISStats.Columns("DATFINALIZE").Visible = True
-
-        dgvEISStats.Columns.Add("FITrackingNumber", "FI Tracking Number")
-        dgvEISStats.Columns("FITrackingNumber").DisplayIndex = 27
-        dgvEISStats.Columns("FITrackingNumber").Visible = True
-
-        dgvEISStats.Columns.Add("PointTrackingNumber", "Point Tracking Number")
-        dgvEISStats.Columns("PointTrackingNumber").DisplayIndex = 28
-        dgvEISStats.Columns("PointTrackingNumber").Visible = True
-
-        dgvEISStats.Columns.Add("Comments", "Comments")
-        dgvEISStats.Columns("Comments").DisplayIndex = 29
-        dgvEISStats.Columns("Comments").Visible = True
     End Sub
 
     Private Sub LoadcboEISstatusCodes()
@@ -3388,27 +3245,39 @@ Public Class EisTool
                 EISActive = "1"
             End If
 
-            Dim SQL As String = "Select " &
-            "'False' as ID, " &
-            "FACILITYSITEID, " &
-            "STRFACILITYNAME, INVENTORYYEAR, " &
-            "EISSTAtuS, EISACCESS, OPTOUT, " &
-            "MAILOUT, MAILOUTEMAIL, " &
-            "STRDMURESPONSIBLESTAFF, ENROLLMENT, " &
-            "QASTATUS, DATQASTATUS, " &
-            "IAIPPREFIX, IAIPFIRSTNAME, " &
-            "IAIPLASTNAME, IAIPEMAIL, " &
-            "EISCOMPANYNAME, EISADDRESS, " &
-            "EISADDRESS2, EISCITY, " &
-            "EISSTATE, EISZIPCODE, " &
-            "EISPREFIX, EISFIRSTNAME, " &
-            "EISLASTNAME, DATFINALIZE, " &
-            "strComment as Comments, " &
-            "STRFITRACKINGNUMBER as FITrackingNumber, " &
-            "STRPOINTTRACKINGNUMBER as PointTrackingNumber " &
-            " from VW_EIS_Stats " &
-            "where inventoryyear = @inventoryyear " &
-            "and Active = @Active "
+            Dim SQL As String = "Select convert(bit, 0)        as [Select],
+                       FACILITYSITEID         as [AIRS No.],
+                       STRFACILITYNAME        as [Facility Name],
+                       INVENTORYYEAR          as [EIS Year],
+                       EISSTAtuS              as [EIS Status],
+                       EISACCESS              as [EIS Access],
+                       OPTOUT                 as [Opt Out],
+                       MAILOUT                as [Mailout],
+                       MAILOUTEMAIL           as [Mailout Email],
+                       STRDMURESPONSIBLESTAFF as [QA Reviewer],
+                       ENROLLMENT             as [Enrollment],
+                       QASTATUS               as [QA Status],
+                       DATQASTATUS            as [QA Status Date],
+                       IAIPPREFIX             as [IAIP Prefix],
+                       IAIPFIRSTNAME          as [IAIP First Name],
+                       IAIPLASTNAME           as [IAIP Last Name],
+                       IAIPEMAIL              as [IAIP Email],
+                       EISCOMPANYNAME         as [Contact Co. Name],
+                       EISADDRESS             as [Contact Address],
+                       EISADDRESS2            as [Contact Address 2],
+                       EISCITY                as [Contact City],
+                       EISSTATE               as [Contact State],
+                       EISZIPCODE             as [Contact Zip Code],
+                       EISPREFIX              as [Contact Prefix],
+                       EISFIRSTNAME           as [Contact First Name],
+                       EISLASTNAME            as [Contact Last Name],
+                       DATFINALIZE            as [Date Submitted],
+                       strComment             as [Comments],
+                       STRFITRACKINGNUMBER    as [FI Tracking Number],
+                       STRPOINTTRACKINGNUMBER as [Point Tracking Number]
+                from dbo.VW_EIS_STATS
+                where INVENTORYYEAR = @inventoryyear
+                  and ACTIVE = @Active "
 
             If EISMailout <> "" Then
                 SQL &= " and strMailout = @strMailout "
@@ -3447,153 +3316,9 @@ Public Class EisTool
                 New SqlParameter("@strEnrollment", EISEnrollment)
             }
 
-            dgvEISStats.Rows.Clear()
-
             Dim dt As DataTable = DB.GetDataTable(SQL, params)
-
-            For Each dr As DataRow In dt.Rows
-                Using dgvRow As New DataGridViewRow
-                    dgvRow.CreateCells(dgvEISStats)
-
-                    If IsDBNull(dr.Item("ID")) Then
-                        dgvRow.Cells(0).Value = ""
-                    Else
-                        dgvRow.Cells(0).Value = dr.Item("ID")
-                    End If
-                    If IsDBNull(dr.Item("FacilitySiteID")) Then
-                        dgvRow.Cells(1).Value = ""
-                    Else
-                        dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                    End If
-                    If IsDBNull(dr.Item("strFacilityName")) Then
-                        dgvRow.Cells(2).Value = ""
-                    Else
-                        dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                    End If
-                    If IsDBNull(dr.Item("INVENTORYYEAR")) Then
-                        dgvRow.Cells(3).Value = ""
-                    Else
-                        dgvRow.Cells(3).Value = dr.Item("INVENTORYYEAR")
-                    End If
-                    If IsDBNull(dr.Item("EISStatus")) Then
-                        dgvRow.Cells(4).Value = ""
-                    Else
-                        dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                    End If
-                    If IsDBNull(dr.Item("EISAccess")) Then
-                        dgvRow.Cells(5).Value = ""
-                    Else
-                        dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                    End If
-                    If IsDBNull(dr.Item("OptOut")) Then
-                        dgvRow.Cells(6).Value = ""
-                    Else
-                        dgvRow.Cells(6).Value = dr.Item("OptOut")
-                    End If
-
-                    If IsDBNull(dr.Item("MailOut")) Then
-                        dgvRow.Cells(7).Value = ""
-                    Else
-                        dgvRow.Cells(7).Value = dr.Item("Mailout")
-                    End If
-                    If IsDBNull(dr.Item("MailoutEmail")) Then
-                        dgvRow.Cells(8).Value = ""
-                    Else
-                        dgvRow.Cells(8).Value = dr.Item("MailoutEmail")
-                    End If
-                    If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                        dgvRow.Cells(9).Value = ""
-                    Else
-                        dgvRow.Cells(9).Value = dr.Item("strDMUResponsibleStaff")
-                    End If
-                    If IsDBNull(dr.Item("Enrollment")) Then
-                        dgvRow.Cells(10).Value = ""
-                    Else
-                        dgvRow.Cells(10).Value = dr.Item("Enrollment")
-                    End If
-                    If IsDBNull(dr.Item("QASTATUS")) Then
-                        dgvRow.Cells(11).Value = ""
-                    Else
-                        dgvRow.Cells(11).Value = dr.Item("QASTATUS")
-                    End If
-
-                    dgvRow.Cells(12).Value = GetNullableDateTime(dr.Item("DATQASTATUS"))
-
-                    If IsDBNull(dr.Item("IAIPPrefix")) Then
-                        dgvRow.Cells(13).Value = ""
-                    Else
-                        dgvRow.Cells(13).Value = dr.Item("IAIPPrefix")
-                    End If
-                    If IsDBNull(dr.Item("IAIPFIRSTNAME")) Then
-                        dgvRow.Cells(14).Value = ""
-                    Else
-                        dgvRow.Cells(14).Value = dr.Item("IAIPFIRSTNAME")
-                    End If
-                    If IsDBNull(dr.Item("IAIPLASTNAME")) Then
-                        dgvRow.Cells(15).Value = ""
-                    Else
-                        dgvRow.Cells(15).Value = dr.Item("IAIPLASTNAME")
-                    End If
-                    If IsDBNull(dr.Item("IAIPEMAIL")) Then
-                        dgvRow.Cells(16).Value = ""
-                    Else
-                        dgvRow.Cells(16).Value = dr.Item("IAIPEMAIL")
-                    End If
-                    If IsDBNull(dr.Item("EISCOMPANYNAME")) Then
-                        dgvRow.Cells(17).Value = ""
-                    Else
-                        dgvRow.Cells(17).Value = dr.Item("EISCOMPANYNAME")
-                    End If
-                    If IsDBNull(dr.Item("EISADDRESS")) Then
-                        dgvRow.Cells(18).Value = ""
-                    Else
-                        dgvRow.Cells(18).Value = dr.Item("EISADDRESS")
-                    End If
-                    If IsDBNull(dr.Item("EISADDRESS2")) Then
-                        dgvRow.Cells(19).Value = ""
-                    Else
-                        dgvRow.Cells(19).Value = dr.Item("EISADDRESS2")
-                    End If
-                    If IsDBNull(dr.Item("EISCITY")) Then
-                        dgvRow.Cells(20).Value = ""
-                    Else
-                        dgvRow.Cells(20).Value = dr.Item("EISCITY")
-                    End If
-                    If IsDBNull(dr.Item("EISState")) Then
-                        dgvRow.Cells(21).Value = ""
-                    Else
-                        dgvRow.Cells(21).Value = dr.Item("EISState")
-                    End If
-                    If IsDBNull(dr.Item("EISZipCode")) Then
-                        dgvRow.Cells(22).Value = ""
-                    Else
-                        dgvRow.Cells(22).Value = dr.Item("EISZipCode")
-                    End If
-                    If IsDBNull(dr.Item("EISPrefix")) Then
-                        dgvRow.Cells(23).Value = ""
-                    Else
-                        dgvRow.Cells(23).Value = dr.Item("EISPrefix")
-                    End If
-                    If IsDBNull(dr.Item("EISFirstname")) Then
-                        dgvRow.Cells(24).Value = ""
-                    Else
-                        dgvRow.Cells(24).Value = dr.Item("EISFirstname")
-                    End If
-
-                    If IsDBNull(dr.Item("EISLASTNAME")) Then
-                        dgvRow.Cells(25).Value = ""
-                    Else
-                        dgvRow.Cells(25).Value = dr.Item("EISLASTNAME")
-                    End If
-
-                    dgvRow.Cells(26).Value = GetNullableDateTime(dr.Item("DATFINALIZE"))
-                    dgvRow.Cells(27).Value = GetNullable(Of String)(dr.Item("FITrackingNumber"))
-                    dgvRow.Cells(28).Value = GetNullable(Of String)(dr.Item("PointTrackingNumber"))
-                    dgvRow.Cells(29).Value = GetNullable(Of String)(dr.Item("Comments"))
-
-                    dgvEISStats.Rows.Add(dgvRow)
-                End Using
-            Next
+            dt.Columns(0).ReadOnly = False
+            dgvEISStats.DataSource = dt
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
