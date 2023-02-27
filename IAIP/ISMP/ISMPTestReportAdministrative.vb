@@ -49,16 +49,16 @@ Public Class ISMPTestReportAdministrative
             Dim dtFacility As DataTable = DB.GetDataTable(query)
 
             With cboAIRSNumber
-                .DataSource = dtFacility
                 .DisplayMember = "strAIRSNumber"
                 .ValueMember = "strAIRSNumber"
+                .DataSource = dtFacility
                 .SelectedIndex = 0
             End With
 
             With cboFacilityName
-                .DataSource = dtFacility
                 .DisplayMember = "strFacilityName"
                 .ValueMember = "strAIRSNumber"
+                .DataSource = dtFacility
                 .SelectedIndex = 0
             End With
 
@@ -1875,6 +1875,7 @@ Public Class ISMPTestReportAdministrative
 
     Private Sub btnLoadCombos_Click(sender As Object, e As EventArgs) Handles btnLoadCombos.Click
         btnSearchForAIRS.Visible = False
+        btnLoadCombos.Visible = False
         cboAIRSNumber.Text = ""
         cboAIRSNumber.Enabled = True
         btnSearchForAIRS.Enabled = True
