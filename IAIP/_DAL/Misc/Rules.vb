@@ -8,19 +8,18 @@ Namespace DAL
 
             Select Case part
                 Case RulePart.SIP
-                    query = "SELECT
-                        STRSUBPART AS Subpart,
+                    query = "SELECT STRSUBPART AS Subpart,
                         STRDESCRIPTION AS Description,
-                        CONCAT(STRSUBPART, ' – ', STRDESCRIPTION) AS [Long Description]
+                        CONCAT(STRSUBPART, N' – ', STRDESCRIPTION) AS [Long Description]
                     FROM LOOKUPSUBPARTSIP
-                    where STRDESCRIPTION <> '[Reserved]'
+                    where STRDESCRIPTION not in ('[reserved]', 'Reserved')
                     ORDER BY STRSUBPART"
 
                 Case RulePart.NSPS
                     query = "select
                         LK_SUBPART_CODE AS Subpart,
                         ICIS_PROGRAM_SUBPART_DESC AS Description,
-                        CONCAT(LK_SUBPART_CODE, ' – ', ICIS_PROGRAM_SUBPART_DESC) AS [Long Description]
+                        CONCAT(LK_SUBPART_CODE, N' – ', ICIS_PROGRAM_SUBPART_DESC) AS [Long Description]
                     from LK_ICIS_PROGRAM_SUBPART
                     where ICIS_PROGRAM_CODE in ('CAANSPS', 'CAANSPSM')
                           and ICIS_STATUS_FLAG = 'A'
@@ -30,7 +29,7 @@ Namespace DAL
                     query = "select
                         LK_SUBPART_CODE AS Subpart,
                         ICIS_PROGRAM_SUBPART_DESC AS Description,
-                        CONCAT(LK_SUBPART_CODE, ' – ', ICIS_PROGRAM_SUBPART_DESC) AS [Long Description]
+                        CONCAT(LK_SUBPART_CODE, N' – ', ICIS_PROGRAM_SUBPART_DESC) AS [Long Description]
                     from LK_ICIS_PROGRAM_SUBPART
                     where ICIS_PROGRAM_CODE in ('CAANESH')
                           and ICIS_STATUS_FLAG = 'A'
@@ -40,7 +39,7 @@ Namespace DAL
                     query = "select
                         LK_SUBPART_CODE AS Subpart,
                         ICIS_PROGRAM_SUBPART_DESC AS Description,
-                        CONCAT(LK_SUBPART_CODE, ' – ', ICIS_PROGRAM_SUBPART_DESC) AS [Long Description]
+                        CONCAT(LK_SUBPART_CODE, N' – ', ICIS_PROGRAM_SUBPART_DESC) AS [Long Description]
                     from LK_ICIS_PROGRAM_SUBPART
                     where ICIS_PROGRAM_CODE in ('CAAMACT', 'CAAGACTM')
                           and ICIS_STATUS_FLAG = 'A'
