@@ -1425,8 +1425,9 @@ Public Class ISMPTestReportAdministrative
     Private Sub OpenFacilityLookupTool()
         Try
             Using facilityLookupDialog As New IAIPFacilityLookUpTool
-                If facilityLookupDialog.ShowDialog() = DialogResult.OK AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                    cboAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber.Replace("-", "")
+                If facilityLookupDialog.ShowDialog() = DialogResult.OK AndAlso
+                    facilityLookupDialog.SelectedAirsNumber IsNot Nothing Then
+                    cboAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumberAsText.Replace("-", "")
                 End If
             End Using
         Catch ex As Exception

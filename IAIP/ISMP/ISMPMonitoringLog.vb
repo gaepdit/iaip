@@ -667,8 +667,9 @@ Public Class ISMPMonitoringLog
     Private Sub OpenFacilityLookupTool()
         Try
             Using facilityLookupDialog As New IAIPFacilityLookUpTool
-                If facilityLookupDialog.ShowDialog() = DialogResult.OK AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                    txtAIRSNumberFilter.Text = facilityLookupDialog.SelectedAirsNumber
+                If facilityLookupDialog.ShowDialog() = DialogResult.OK AndAlso
+                    facilityLookupDialog.SelectedAirsNumber IsNot Nothing Then
+                    txtAIRSNumberFilter.Text = facilityLookupDialog.SelectedAirsNumberAsText
                 End If
             End Using
         Catch ex As Exception

@@ -66,7 +66,7 @@
                 Return Nothing
             End If
 
-            Dim sanitizedName As New System.Text.StringBuilder(name)
+            Dim sanitizedName As New Text.StringBuilder(name)
             sanitizedName.Replace("[", "(").Replace("]", ")")
 
             Return sanitizedName.ToString

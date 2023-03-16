@@ -11,7 +11,7 @@ Imports Iaip.UrlHelpers
 
 Public Class IAIPFacilitySummary
 
-#Region " Properties and fields "
+    ' " Properties and fields "
 
     Private _airsNumber As ApbFacilityId
     Public Property AirsNumber As ApbFacilityId
@@ -30,6 +30,7 @@ Public Class IAIPFacilitySummary
     Private bgw As BackgroundWorker
 
     Friend Enum FacilityDataTable
+        ColocatedFacilities
         ComplianceWork
         ComplianceEnforcement
         ComplianceFCE
@@ -52,9 +53,7 @@ Public Class IAIPFacilitySummary
         EIPre2009
     End Enum
 
-#End Region
-
-#Region " Form Load "
+    ' " Form Load "
 
     Protected Overrides Sub OnLoad(e As EventArgs)
         LoadPermissions()
@@ -67,12 +66,13 @@ Public Class IAIPFacilitySummary
 
     Private Sub LoadPermissions()
         ' Menu items
-        UpdateEpaMenuItem.Available = CurrentUser.HasRole({19, 118})
+        UpdateEpaMenuItem.Available = CurrentUser.HasPermission(UserCan.ResetEpaIcisAirData)
         CreateFacilityMenuItem.Available = CurrentUser.HasPermission(UserCan.CreateFacility)
-        ToolsMenuSeparator.Visible = (CreateFacilityMenuItem.Available AndAlso UpdateEpaMenuItem.Available)
+        ToolsMenuSeparator.Visible = CreateFacilityMenuItem.Available AndAlso UpdateEpaMenuItem.Available
 
-        ' Edit location/header data
+        ' Edit location/header data/facility colocation
         EditFacilityLocationButton.Visible = CurrentUser.HasPermission(UserCan.EditFacilityAddress)
+        EditColocatedFacilitiesButton.Visible = CurrentUser.HasPermission(UserCan.EditFacilityColocationGroups)
 
         ' Delete Facility notes
         btnDeleteNote.Visible = CurrentUser.HasPermission(UserCan.DeleteFacilityNote)
@@ -81,6 +81,7 @@ Public Class IAIPFacilitySummary
     Private Sub InitializeDataTables()
         FacilitySummaryDataSet = New DataSet
 
+        AddDataTable(FacilityDataTable.ColocatedFacilities)
         AddDataTable(FacilityDataTable.ComplianceWork)
         AddDataTable(FacilityDataTable.ComplianceEnforcement)
         AddDataTable(FacilityDataTable.ComplianceFCE)
@@ -119,9 +120,7 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-#End Region
-
-#Region " Clear all data "
+    ' " Clear all data "
 
     Private Sub ClearAllData()
         ThisFacility = Nothing
@@ -149,9 +148,7 @@ Public Class IAIPFacilitySummary
         UpdateEpaMenuItem.Enabled = True
     End Sub
 
-#End Region
-
-#Region " Basic Info data "
+    ' " Basic Info data "
 
     Private Sub EditFacilityLocationButton_Click(sender As Object, e As EventArgs) Handles EditFacilityLocationButton.Click
         If AirsNumber IsNot Nothing Then
@@ -214,6 +211,7 @@ Public Class IAIPFacilitySummary
             ThisFacility.RetrieveHeaderData()
             DisplayBasicFacilityData()
             DisplayHeaderData()
+            LoadFacilityColocationTable()
         End If
     End Sub
 
@@ -414,9 +412,7 @@ Public Class IAIPFacilitySummary
         End Try
     End Sub
 
-#End Region
-
-#Region " Header data "
+    ' " Header data "
 
     Private Sub EditPollutantsButton_Click(sender As Object, e As EventArgs) Handles EditPollutantsButton.Click
         If AirsNumber IsNot Nothing Then
@@ -438,26 +434,25 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub EditHeaderDataButton_Click(sender As Object, e As EventArgs) Handles EditHeaderDataButton.Click
-        If AirsNumber IsNot Nothing Then
-
-            Dim editHeaderDataDialog As New IAIPEditHeaderData With {
-                .AirsNumber = AirsNumber,
-                .FacilityName = ThisFacility.FacilityName
-            }
-
-            editHeaderDataDialog.ShowDialog()
-
-            If editHeaderDataDialog.SomethingWasSaved Then
-                ReloadAllData()
-                FSMainTabControl.SelectedTab = FSHeaderData
-                FSMainTabControl.Focus()
-            End If
-
-            editHeaderDataDialog.Dispose()
-        Else
+        If AirsNumber Is Nothing OrElse Not AirsNumberExists(AirsNumber) Then
             MessageBox.Show("AIRS number is not valid.", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             AirsNumber = Nothing
         End If
+
+        Dim editHeaderDataDialog As New IAIPEditHeaderData With {
+            .AirsNumber = AirsNumber,
+            .FacilityName = ThisFacility.FacilityName
+        }
+
+        editHeaderDataDialog.ShowDialog()
+
+        If editHeaderDataDialog.SomethingWasSaved Then
+            ReloadAllData()
+            FSMainTabControl.SelectedTab = FSHeaderData
+            FSMainTabControl.Focus()
+        End If
+
+        editHeaderDataDialog.Dispose()
     End Sub
 
     Private Sub DisplayHeaderData()
@@ -532,9 +527,7 @@ Public Class IAIPFacilitySummary
         End With
     End Sub
 
-#End Region
-
-#Region " Generic data table procedures "
+    ' " Generic data table procedures "
 
     Private Sub LoadDataTable(whichTable As FacilityDataTable)
         If AirsNumber Is Nothing OrElse ThisFacility Is Nothing OrElse TableDataExists(whichTable) Then
@@ -555,6 +548,10 @@ Public Class IAIPFacilitySummary
 
     Private Sub SetUpData(table As FacilityDataTable)
         Select Case table
+
+            ' Facility
+            Case FacilityDataTable.ColocatedFacilities
+                SetUpDataGridSource(ColocatedFacilitiesGrid, table)
 
             ' Compliance
             Case FacilityDataTable.ComplianceWork
@@ -626,9 +623,7 @@ Public Class IAIPFacilitySummary
         End Select
     End Sub
 
-#End Region
-
-#Region " AcceptButton "
+    ' " AcceptButton "
 
     Private Sub AddAcceptButton(sender As Object, e As EventArgs) Handles AirsNumberEntry.Enter
         AcceptButton = ViewDataButton
@@ -638,9 +633,7 @@ Public Class IAIPFacilitySummary
         AcceptButton = Nothing
     End Sub
 
-#End Region
-
-#Region " Grid Item events "
+    ' " Grid Item events "
 
     Private Sub OpenItem(dgv As IaipDataGridView, itemId As String)
         Select Case dgv.Name
@@ -698,14 +691,21 @@ Public Class IAIPFacilitySummary
         OpenItem(dgv, e.LinkValue.ToString)
     End Sub
 
-#End Region
-
-#Region " Data Sources "
+    ' " Data Sources "
 
     Private Sub SetUpDataGridSource(dgv As IaipDataGridView, table As FacilityDataTable)
         If dgv.DataSource Is Nothing Then
             dgv.DataSource = FacilitySummaryDataSet.Tables(table.ToString)
         End If
+    End Sub
+
+    Private Sub LoadFacilityColocationTable()
+        ColocatedFacilitiesGrid.DataSource = Nothing
+        If TableDataExists(FacilityDataTable.ColocatedFacilities) Then
+            FacilitySummaryDataSet.Tables(FacilityDataTable.ColocatedFacilities).Clear()
+        End If
+        LoadDataTable(FacilityDataTable.ColocatedFacilities)
+        FormatColocatedFacilitiesGrid()
     End Sub
 
     Private Sub LoadComplianceData()
@@ -874,9 +874,7 @@ Public Class IAIPFacilitySummary
         OpenPermitSearchUrl(AirsNumber, Me)
     End Sub
 
-#End Region
-
-#Region " ICIS-Air Update "
+    ' " ICIS-Air Update "
 
     Private Sub UpdateEpaData()
         If ThisFacility IsNot Nothing Then
@@ -890,9 +888,7 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-#End Region
-
-#Region " Navigation Panel "
+    ' " Navigation Panel "
 
     Private Sub FacilityApprovalLinkLabel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles FacilityApprovalLinkLabel.LinkClicked
         OpenSingleForm(IAIPFacilityCreator)
@@ -919,18 +915,14 @@ Public Class IAIPFacilitySummary
 
     Private Sub OpenFacilityLookupTool()
         Using facilityLookupDialog As New IAIPFacilityLookUpTool
-            facilityLookupDialog.ShowDialog()
-
-            If facilityLookupDialog.DialogResult = DialogResult.OK AndAlso
-                IsValidAirsNumberFormat(facilityLookupDialog.SelectedAirsNumber) Then
-                AirsNumber = CType(facilityLookupDialog.SelectedAirsNumber, ApbFacilityId)
+            If facilityLookupDialog.ShowDialog() = DialogResult.OK AndAlso
+                facilityLookupDialog.SelectedAirsNumber IsNot Nothing Then
+                AirsNumber = facilityLookupDialog.SelectedAirsNumber
             End If
         End Using
     End Sub
 
-#End Region
-
-#Region " Menu Strip "
+    ' " Menu Strip "
 
     Private Sub LookUpFacilityToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LookUpFacilityMenuItem.Click
         OpenFacilityLookupTool()
@@ -957,9 +949,7 @@ Public Class IAIPFacilitySummary
         OpenDocumentationUrl(Me)
     End Sub
 
-#End Region
-
-#Region " Form-level events "
+    ' " Form-level events "
 
     Private Sub FSMainTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles FSMainTabControl.SelectedIndexChanged
         If AirsNumber Is Nothing Then Return
@@ -1016,8 +1006,6 @@ Public Class IAIPFacilitySummary
             t.Text = "N/A"
         End If
     End Sub
-
-#End Region
 
     'Form overrides dispose to clean up the component list.
     Protected Overrides Sub Dispose(disposing As Boolean)
@@ -1147,6 +1135,76 @@ Public Class IAIPFacilitySummary
     Private Sub OpenEditNotePanel()
         pnlEditNote.Visible = True
         pnlAddNote.Visible = False
+    End Sub
+
+    ' Co-located facilities
+
+    Private Sub FormatColocatedFacilitiesGrid()
+        EditColocatedFacilitiesButton.Text = "Add"
+
+        If ColocatedFacilitiesGrid.DataSource Is Nothing Then Return
+
+        Dim dt As DataView = TryCast(ColocatedFacilitiesGrid.DataSource, DataView)
+        If dt Is Nothing Then Return
+
+        If dt.Table.Columns.Count >= 4 Then
+            ColocatedFacilitiesGrid.Columns(2).Visible = False
+            ColocatedFacilitiesGrid.Columns(3).Visible = False
+        End If
+
+        If dt.Table.Rows.Count > 0 Then
+            EditColocatedFacilitiesButton.Text = "Edit"
+        End If
+    End Sub
+
+    Private Sub dgvColocatedFacilities_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) _
+        Handles ColocatedFacilitiesGrid.CellLinkActivated
+        OpenFormFacilitySummary(CStr(e.LinkValue))
+    End Sub
+
+    Private Sub ColocatedFacilitiesGrid_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) _
+        Handles ColocatedFacilitiesGrid.CellFormatting
+
+        If e IsNot Nothing AndAlso e.ColumnIndex = 0 AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) Then
+            e.Value = New ApbFacilityId(e.Value.ToString).FormattedString
+        End If
+    End Sub
+
+    Private Sub btnEditColocatedFacilities_Click(sender As Object, e As EventArgs) Handles EditColocatedFacilitiesButton.Click
+        If AirsNumber Is Nothing OrElse Not AirsNumberExists(AirsNumber) OrElse FacilitySummaryDataSet Is Nothing Then
+            MessageBox.Show("AIRS number is not valid.", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            AirsNumber = Nothing
+        End If
+
+        If FacilitySummaryDataSet.Tables(FacilityDataTable.ColocatedFacilities.ToString) Is Nothing OrElse
+           FacilitySummaryDataSet.Tables(FacilityDataTable.ColocatedFacilities.ToString).Rows.Count = 0 Then
+
+            Dim newColocationDialog As New IAIPNewFacilityColocation With {.AirsNumber = AirsNumber}
+
+            newColocationDialog.ShowDialog()
+
+            If newColocationDialog.SomethingWasSaved Then
+                LoadFacilityColocationTable()
+                FSMainTabControl.SelectedTab = FSHeaderData
+                FSMainTabControl.Focus()
+            End If
+
+            newColocationDialog.Dispose()
+
+            Return
+        End If
+
+        Dim editColocationDialog As New IAIPEditFacilityColocation With {.AirsNumber = AirsNumber}
+
+        editColocationDialog.ShowDialog()
+
+        If editColocationDialog.SomethingWasSaved Then
+            LoadFacilityColocationTable()
+            FSMainTabControl.SelectedTab = FSHeaderData
+            FSMainTabControl.Focus()
+        End If
+
+        editColocationDialog.Dispose()
     End Sub
 
 End Class

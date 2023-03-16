@@ -114,7 +114,7 @@
             Case UserCan.ShutDownFacility
                 ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liaison, SSPP Program Manager
                 Return HasRole({114, 19, 102, 27, 28})
-                
+
             Case UserCan.CreateFacility
                 ' SSPP Program Manager, SSPP Administrative, SSPP Unit Manager, SSCP Program Manager
                 Return HasRole({28, 29, 121, 19}) OrElse
@@ -124,6 +124,9 @@
                 ' ISMP Program Manager, SSCP Program Manager, District Liaison, SSPP Program Manager,
                 ' SSPP Administrative, Branch Chief, SSCP Unit Manager, SSPP Unit Manager
                 Return HasRole({2, 19, 27, 28, 29, 102, 114, 121})
+
+            Case UserCan.EditFacilityColocationGroups
+                Return HasPermission(UserCan.EditFacilityHeaderData)
 
             ' === User management caps
             Case UserCan.EditAllUsers
@@ -200,6 +203,13 @@
                 ' 145 - ECSU Manager
                 Return HasRole({123, 124, 144, 145})
 
+            ' === EPA ICIS-Air EDT caps
+            Case UserCan.AccessEdtTools
+                Return HasRole({19, 28})
+
+            Case UserCan.ResetEpaIcisAirData
+                Return HasRole(19)
+
             Case Else
                 Return False
         End Select
@@ -230,6 +240,9 @@ Public Enum UserCan
     AccessGecoUserManagement
     DeleteFacilityNote
     VoidUnpaidApplicationFeeInvoices
+    AccessEdtTools
+    ResetEpaIcisAirData
+    EditFacilityColocationGroups
 End Enum
 
 Public Enum RoleType

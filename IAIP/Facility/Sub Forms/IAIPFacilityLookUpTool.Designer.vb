@@ -460,7 +460,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.dgvResults.ReadOnly = True
         Me.dgvResults.RowHeadersVisible = False
         Me.dgvResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvResults.Size = New System.Drawing.Size(488, 101)
+        Me.dgvResults.Size = New System.Drawing.Size(488, 213)
         Me.dgvResults.TabIndex = 3
         '
         'Label68
@@ -549,7 +549,7 @@ Partial Class IAIPFacilityLookUpTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(488, 316)
+        Me.ClientSize = New System.Drawing.Size(488, 428)
         Me.Controls.Add(Me.dgvResults)
         Me.Controls.Add(Me.Label68)
         Me.Controls.Add(Me.txtFacilityName)

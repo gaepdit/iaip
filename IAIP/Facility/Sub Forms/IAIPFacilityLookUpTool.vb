@@ -1,4 +1,6 @@
+Imports Iaip.Apb.ApbFacilityId
 Imports System.Data.SqlClient
+Imports Iaip.Apb
 
 Public Class IAIPFacilityLookUpTool
 
@@ -16,9 +18,19 @@ Public Class IAIPFacilityLookUpTool
 
 #Region " Accessible properties "
 
-    Public ReadOnly Property SelectedAirsNumber() As String
+    Public ReadOnly Property SelectedAirsNumberAsText() As String
         Get
             Return txtAIRSNumber.Text
+        End Get
+    End Property
+
+    Public ReadOnly Property SelectedAirsNumber As ApbFacilityId
+        Get
+            If txtAIRSNumber.Text Is Nothing OrElse Not IsValidAirsNumberFormat(txtAIRSNumber.Text) Then
+                Return Nothing
+            End If
+
+            Return New ApbFacilityId(txtAIRSNumber.Text)
         End Get
     End Property
 

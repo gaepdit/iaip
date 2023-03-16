@@ -200,9 +200,10 @@ Namespace Apb.Facilities
         Public Enum HeaderDataModificationLocation
             Unspecified = 0
             <Description("Permitting Action")> PermittingAction = 1
-            <Description("Facility Header Editor")> HeaderDataEditor = 2
+            <Description("Facility Header Data Editor")> HeaderDataEditor = 2
             <Description("SSCP Shutdown Notification")> SscpNotification = 3
-            <Description("IAIP Facility Creation Tool")> FacilityCreationTool = 4
+            <Description("Facility Creation Tool")> FacilityCreationTool = 4
+            <Description("Facility Colocation Editor")> FacilityColocationEditor = 5
         End Enum
 
 #End Region

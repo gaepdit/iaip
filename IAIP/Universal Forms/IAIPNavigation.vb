@@ -997,7 +997,7 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(137, "EPD Events", NameOf(EventsManagement), NavButtonCategories.MASP)
 
         ' DMU
-        AddNavButtonIfUserHasPermission({19, 28}, "EDT Errors", NameOf(DmuEdtErrorMessages), NavButtonCategories.DX)
+        AddNavButtonIfUserCan(UserCan.AccessEdtTools, "EDT Errors", NameOf(DmuEdtErrorMessages), NavButtonCategories.DX)
         AddNavButtonIfUserHasPermission(118, "District Tools", NameOf(IAIPDistrictSourceTool), NavButtonCategories.DX)
         AddNavButtonIfUserHasPermission(118, "Lookup Tables", NameOf(IAIPLookUpTables), NavButtonCategories.DX)
 

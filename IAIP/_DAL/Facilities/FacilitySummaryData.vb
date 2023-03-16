@@ -17,6 +17,9 @@ Namespace DAL
         Private Function GetCorrectStoredProcedureName(whichTable As FacilityDataTable) As String
             Select Case whichTable
 
+                Case FacilityDataTable.ColocatedFacilities
+                    Return "iaip_facility.GetColocatedFacilities"
+
                 Case FacilityDataTable.ComplianceEnforcement
                     Return "iaip_facility.GetSummaryEnforcement"
 
