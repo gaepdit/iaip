@@ -165,18 +165,6 @@
     <Compile Include="EIS\EmissionsStatement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facility\Sub Forms\IAIPNewFacilityColocation.Designer.vb">
-      <DependentUpon>IAIPNewFacilityColocation.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Facility\Sub Forms\IAIPNewFacilityColocation.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Facility\Sub Forms\IAIPEditFacilityColocation.Designer.vb">
-      <DependentUpon>IAIPEditFacilityColocation.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Facility\Sub Forms\IAIPEditFacilityColocation.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Finance\FinStatistics.Designer.vb">
       <DependentUpon>FinStatistics.vb</DependentUpon>
     </Compile>
@@ -373,12 +361,6 @@
     <EmbeddedResource Include="EIS\EmissionsStatement.resx">
       <DependentUpon>EmissionsStatement.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Facility\Sub Forms\IAIPNewFacilityColocation.resx">
-      <DependentUpon>IAIPNewFacilityColocation.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Facility\Sub Forms\IAIPEditFacilityColocation.resx">
-      <DependentUpon>IAIPEditFacilityColocation.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Finance\FinStatistics.resx">
       <DependentUpon>FinStatistics.vb</DependentUpon>

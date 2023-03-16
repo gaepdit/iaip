@@ -1,9 +1,9 @@
 Imports System.Collections.Generic
 Imports System.ComponentModel
+Imports System.Data.SqlClient
 Imports System.Linq
 Imports EpdIt
 Imports Iaip.Apb
-Imports Iaip.Apb.ApbFacilityId
 Imports Iaip.Apb.Facilities
 Imports Iaip.DAL
 Imports Iaip.DAL.FacilitySummaryData
@@ -27,6 +27,22 @@ Public Class IAIPFacilitySummary
     Private Property ThisFacility As Facility
     Private Property FacilitySummaryDataSet As DataSet
     Private Property DataDates As DataRow
+    Private ReadOnly Property AirsParam As SqlParameter
+        Get
+            Return New SqlParameter("@airsNumber", AirsNumber.DbFormattedString)
+        End Get
+    End Property
+    Private Shared ReadOnly Property UserParam As SqlParameter
+        Get
+            Return New SqlParameter("@modifiedBy", CurrentUser.UserID)
+        End Get
+    End Property
+    Private Shared ReadOnly Property LocationParam As SqlParameter
+        Get
+            Return New SqlParameter("@fromLocation", Convert.ToInt32(HeaderDataModificationLocation.FacilityColocationEditor))
+        End Get
+    End Property
+
     Private bgw As BackgroundWorker
 
     Friend Enum FacilityDataTable
@@ -72,7 +88,8 @@ Public Class IAIPFacilitySummary
 
         ' Edit location/header data/facility colocation
         EditFacilityLocationButton.Visible = CurrentUser.HasPermission(UserCan.EditFacilityAddress)
-        EditColocatedFacilitiesButton.Visible = CurrentUser.HasPermission(UserCan.EditFacilityColocationGroups)
+        AddColocatedFacility.Visible = CurrentUser.HasPermission(UserCan.EditFacilityColocationGroups)
+        RemoveColocatedFacilities.Visible = CurrentUser.HasPermission(UserCan.EditFacilityColocationGroups)
 
         ' Delete Facility notes
         btnDeleteNote.Visible = CurrentUser.HasPermission(UserCan.DeleteFacilityNote)
@@ -552,6 +569,7 @@ Public Class IAIPFacilitySummary
             ' Facility
             Case FacilityDataTable.ColocatedFacilities
                 SetUpDataGridSource(ColocatedFacilitiesGrid, table)
+                SetUpColocatedFacilityUi()
 
             ' Compliance
             Case FacilityDataTable.ComplianceWork
@@ -700,12 +718,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub LoadFacilityColocationTable()
-        ColocatedFacilitiesGrid.DataSource = Nothing
-        If TableDataExists(FacilityDataTable.ColocatedFacilities) Then
-            FacilitySummaryDataSet.Tables(FacilityDataTable.ColocatedFacilities).Clear()
-        End If
         LoadDataTable(FacilityDataTable.ColocatedFacilities)
-        FormatColocatedFacilitiesGrid()
     End Sub
 
     Private Sub LoadComplianceData()
@@ -1139,24 +1152,6 @@ Public Class IAIPFacilitySummary
 
     ' Co-located facilities
 
-    Private Sub FormatColocatedFacilitiesGrid()
-        EditColocatedFacilitiesButton.Text = "Add"
-
-        If ColocatedFacilitiesGrid.DataSource Is Nothing Then Return
-
-        Dim dt As DataView = TryCast(ColocatedFacilitiesGrid.DataSource, DataView)
-        If dt Is Nothing Then Return
-
-        If dt.Table.Columns.Count >= 4 Then
-            ColocatedFacilitiesGrid.Columns(2).Visible = False
-            ColocatedFacilitiesGrid.Columns(3).Visible = False
-        End If
-
-        If dt.Table.Rows.Count > 0 Then
-            EditColocatedFacilitiesButton.Text = "Edit"
-        End If
-    End Sub
-
     Private Sub dgvColocatedFacilities_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) _
         Handles ColocatedFacilitiesGrid.CellLinkActivated
         OpenFormFacilitySummary(CStr(e.LinkValue))
@@ -1170,41 +1165,69 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Sub btnEditColocatedFacilities_Click(sender As Object, e As EventArgs) Handles EditColocatedFacilitiesButton.Click
-        If AirsNumber Is Nothing OrElse Not AirsNumberExists(AirsNumber) OrElse FacilitySummaryDataSet Is Nothing Then
-            MessageBox.Show("AIRS number is not valid.", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            AirsNumber = Nothing
-        End If
+    Private Sub AddColocatedFacility_Click(sender As Object, e As EventArgs) Handles AddColocatedFacility.Click
+        Dim newAirsParam As SqlParameter
 
-        If FacilitySummaryDataSet.Tables(FacilityDataTable.ColocatedFacilities.ToString) Is Nothing OrElse
-           FacilitySummaryDataSet.Tables(FacilityDataTable.ColocatedFacilities.ToString).Rows.Count = 0 Then
-
-            Dim newColocationDialog As New IAIPNewFacilityColocation With {.AirsNumber = AirsNumber}
-
-            newColocationDialog.ShowDialog()
-
-            If newColocationDialog.SomethingWasSaved Then
-                LoadFacilityColocationTable()
-                FSMainTabControl.SelectedTab = FSHeaderData
-                FSMainTabControl.Focus()
+        Using lookup As New IAIPFacilityLookUpTool
+            If lookup.ShowDialog() <> DialogResult.OK OrElse
+                    lookup.SelectedAirsNumber Is Nothing OrElse
+                    lookup.SelectedAirsNumber = AirsNumber Then
+                Return
             End If
 
-            newColocationDialog.Dispose()
+            newAirsParam = New SqlParameter("@airsToAdd", lookup.SelectedAirsNumber.DbFormattedString)
+        End Using
 
+        If DB.SPRunCommand("iaip_facility.AddFacilityToColocation", {AirsParam, newAirsParam, UserParam, LocationParam}) Then
+            MessageBox.Show("The facility was added to a co-location group.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Else
+            MessageBox.Show("An unknown error occurred while trying to create the co-location group.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+
+        ReloadFacilityColocationTable()
+    End Sub
+
+    Private Sub RemoveColocatedFacility_Click(sender As Object, e As EventArgs) Handles RemoveColocatedFacilities.Click
+        If Not TableDataExists(FacilityDataTable.ColocatedFacilities) Then
+            ReloadFacilityColocationTable()
             Return
         End If
 
-        Dim editColocationDialog As New IAIPEditFacilityColocation With {.AirsNumber = AirsNumber}
-
-        editColocationDialog.ShowDialog()
-
-        If editColocationDialog.SomethingWasSaved Then
-            LoadFacilityColocationTable()
-            FSMainTabControl.SelectedTab = FSHeaderData
-            FSMainTabControl.Focus()
+        If ColocatedFacilitiesGrid.SelectedRows.Count = 0 Then
+            Return
         End If
 
-        editColocationDialog.Dispose()
+        Dim SuccessMessage As String = "The facility was removed from the co-location group."
+        Dim ErrorMessage As String = "An unknown error occurred while trying to remove the facility."
+
+        If ColocatedFacilitiesGrid.SelectedRows.Count > 1 Then
+            SuccessMessage = "The facilities were removed from the co-location group."
+            ErrorMessage = "An unknown error occurred while trying to remove the facilities."
+        End If
+
+        For Each row As DataGridViewRow In ColocatedFacilitiesGrid.SelectedRows
+            Dim removeAirsParam As New SqlParameter("@airsNumber", New ApbFacilityId(row.Cells(0).Value).DbFormattedString)
+
+            If Not DB.SPRunCommand("iaip_facility.RemoveFacilityFromColocation", {removeAirsParam, UserParam, LocationParam}) Then
+                MessageBox.Show(ErrorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ReloadFacilityColocationTable()
+                Return
+            End If
+        Next
+
+        ReloadFacilityColocationTable()
+        MessageBox.Show(SuccessMessage, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub ReloadFacilityColocationTable()
+        FacilitySummaryDataSet.Tables(FacilityDataTable.ColocatedFacilities.ToString).Clear()
+        LoadFacilityColocationTable()
+        SetUpColocatedFacilityUi()
+    End Sub
+
+    Private Sub SetUpColocatedFacilityUi()
+        RemoveColocatedFacilities.Enabled = TableDataExists(FacilityDataTable.ColocatedFacilities)
+        ColocatedFacilitiesGrid.SanelyResizeColumns(180)
     End Sub
 
 End Class
