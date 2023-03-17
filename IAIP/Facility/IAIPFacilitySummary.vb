@@ -1178,9 +1178,7 @@ Public Class IAIPFacilitySummary
             newAirsParam = New SqlParameter("@airsToAdd", lookup.SelectedAirsNumber.DbFormattedString)
         End Using
 
-        If DB.SPRunCommand("iaip_facility.AddFacilityToColocation", {AirsParam, newAirsParam, UserParam, LocationParam}) Then
-            MessageBox.Show("The facility was added to a co-location group.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Else
+        If Not DB.SPRunCommand("iaip_facility.AddFacilityToColocation", {AirsParam, newAirsParam, UserParam, LocationParam}) Then
             MessageBox.Show("An unknown error occurred while trying to create the co-location group.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
 
@@ -1188,35 +1186,16 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub RemoveColocatedFacility_Click(sender As Object, e As EventArgs) Handles RemoveColocatedFacilities.Click
-        If Not TableDataExists(FacilityDataTable.ColocatedFacilities) Then
-            ReloadFacilityColocationTable()
-            Return
-        End If
-
-        If ColocatedFacilitiesGrid.SelectedRows.Count = 0 Then
-            Return
-        End If
-
-        Dim SuccessMessage As String = "The facility was removed from the co-location group."
-        Dim ErrorMessage As String = "An unknown error occurred while trying to remove the facility."
-
-        If ColocatedFacilitiesGrid.SelectedRows.Count > 1 Then
-            SuccessMessage = "The facilities were removed from the co-location group."
-            ErrorMessage = "An unknown error occurred while trying to remove the facilities."
-        End If
-
         For Each row As DataGridViewRow In ColocatedFacilitiesGrid.SelectedRows
             Dim removeAirsParam As New SqlParameter("@airsNumber", New ApbFacilityId(row.Cells(0).Value).DbFormattedString)
 
             If Not DB.SPRunCommand("iaip_facility.RemoveFacilityFromColocation", {removeAirsParam, UserParam, LocationParam}) Then
-                MessageBox.Show(ErrorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                ReloadFacilityColocationTable()
-                Return
+                MessageBox.Show("An unknown error occurred while trying to remove a co-located facility.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit For
             End If
         Next
 
         ReloadFacilityColocationTable()
-        MessageBox.Show(SuccessMessage, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     Private Sub ReloadFacilityColocationTable()
