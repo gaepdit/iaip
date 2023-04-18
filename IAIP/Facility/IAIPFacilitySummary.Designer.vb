@@ -1134,7 +1134,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.NaicsDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.NaicsDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.NaicsDisplay.Location = New System.Drawing.Point(192, 107)
+        Me.NaicsDisplay.Location = New System.Drawing.Point(191, 62)
         Me.NaicsDisplay.Name = "NaicsDisplay"
         Me.NaicsDisplay.ReadOnly = True
         Me.NaicsDisplay.Size = New System.Drawing.Size(104, 13)
