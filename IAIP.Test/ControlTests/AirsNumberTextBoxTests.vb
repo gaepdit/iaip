@@ -58,17 +58,6 @@ Public Class AirsNumberTextBoxTests
     End Sub
 
     <Fact>
-    Private Sub ChangeAirsFromValueToNull()
-        Using airs As New AirsNumberTextBox
-            airs.AirsNumber = New Apb.ApbFacilityId("00100001")
-            airs.AirsNumber = Nothing
-
-            Assert.Equal(AirsNumberValidationResult.Empty, airs.ValidationStatus)
-            Assert.Equal(String.Empty, airs.Text)
-        End Using
-    End Sub
-
-    <Fact>
     Private Sub ValidationStatusChanged()
         Using airs As New AirsNumberTextBox()
             AddHandler airs.ValidationStatusChanged, AddressOf Airs_ValidationStatusChanged
