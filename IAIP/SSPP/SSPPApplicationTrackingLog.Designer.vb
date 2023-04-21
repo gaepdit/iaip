@@ -487,13 +487,13 @@ Partial Class SSPPApplicationTrackingLog
         Me.lblOperationalStatus = New System.Windows.Forms.Label()
         Me.TCApplicationTrackingLog = New System.Windows.Forms.TabControl()
         Me.TPFees = New System.Windows.Forms.TabPage()
-        Me.lblFeeChangesNotAllowedWarning = New System.Windows.Forms.Label()
         Me.pnlFeeDataFinalized = New System.Windows.Forms.Panel()
         Me.lblFeeDataFinalized = New System.Windows.Forms.Label()
         Me.lklGenerateEmail = New System.Windows.Forms.LinkLabel()
         Me.dtpFacilityFeeNotified = New System.Windows.Forms.DateTimePicker()
         Me.lblFacilityFeeNotified = New System.Windows.Forms.Label()
         Me.dtpFeeDataFinalized = New System.Windows.Forms.DateTimePicker()
+        Me.lblFeeChangesNotAllowedWarning = New System.Windows.Forms.Label()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.lblInvoices = New System.Windows.Forms.Label()
@@ -523,6 +523,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.SaveButton = New System.Windows.Forms.ToolStripButton()
         Me.HeaderPanel = New System.Windows.Forms.Panel()
+        Me.pnlAssignments = New System.Windows.Forms.Panel()
         Me.lklOpenAppOnline = New System.Windows.Forms.LinkLabel()
         Me.txtNewApplicationNumber = New System.Windows.Forms.TextBox()
         Me.btnFetchNewAppNumber = New System.Windows.Forms.Button()
@@ -606,6 +607,7 @@ Partial Class SSPPApplicationTrackingLog
         CType(Me.dgvApplicationPayments, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.HeaderPanel.SuspendLayout()
+        Me.pnlAssignments.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnRefreshAIRSNo
@@ -679,7 +681,7 @@ Partial Class SSPPApplicationTrackingLog
         'lblApplicationUnit
         '
         Me.lblApplicationUnit.AutoSize = True
-        Me.lblApplicationUnit.Location = New System.Drawing.Point(557, 33)
+        Me.lblApplicationUnit.Location = New System.Drawing.Point(10, 33)
         Me.lblApplicationUnit.Name = "lblApplicationUnit"
         Me.lblApplicationUnit.Size = New System.Drawing.Size(57, 13)
         Me.lblApplicationUnit.TabIndex = 253
@@ -688,7 +690,7 @@ Partial Class SSPPApplicationTrackingLog
         'lblEngineer
         '
         Me.lblEngineer.AutoSize = True
-        Me.lblEngineer.Location = New System.Drawing.Point(557, 6)
+        Me.lblEngineer.Location = New System.Drawing.Point(10, 6)
         Me.lblEngineer.Name = "lblEngineer"
         Me.lblEngineer.Size = New System.Drawing.Size(49, 13)
         Me.lblEngineer.TabIndex = 252
@@ -701,7 +703,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboApplicationUnit.BackColor = System.Drawing.SystemColors.Window
         Me.cboApplicationUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboApplicationUnit.Enabled = False
-        Me.cboApplicationUnit.Location = New System.Drawing.Point(620, 30)
+        Me.cboApplicationUnit.Location = New System.Drawing.Point(73, 30)
         Me.cboApplicationUnit.Name = "cboApplicationUnit"
         Me.cboApplicationUnit.Size = New System.Drawing.Size(160, 21)
         Me.cboApplicationUnit.TabIndex = 6
@@ -712,7 +714,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboEngineer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboEngineer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEngineer.Enabled = False
-        Me.cboEngineer.Location = New System.Drawing.Point(620, 3)
+        Me.cboEngineer.Location = New System.Drawing.Point(73, 3)
         Me.cboEngineer.Name = "cboEngineer"
         Me.cboEngineer.Size = New System.Drawing.Size(160, 21)
         Me.cboEngineer.TabIndex = 5
@@ -720,7 +722,7 @@ Partial Class SSPPApplicationTrackingLog
         'lblApplicationType
         '
         Me.lblApplicationType.AutoSize = True
-        Me.lblApplicationType.Location = New System.Drawing.Point(557, 60)
+        Me.lblApplicationType.Location = New System.Drawing.Point(10, 60)
         Me.lblApplicationType.Name = "lblApplicationType"
         Me.lblApplicationType.Size = New System.Drawing.Size(50, 13)
         Me.lblApplicationType.TabIndex = 251
@@ -732,7 +734,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboApplicationType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboApplicationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboApplicationType.Enabled = False
-        Me.cboApplicationType.Location = New System.Drawing.Point(620, 57)
+        Me.cboApplicationType.Location = New System.Drawing.Point(73, 57)
         Me.cboApplicationType.Name = "cboApplicationType"
         Me.cboApplicationType.Size = New System.Drawing.Size(160, 21)
         Me.cboApplicationType.TabIndex = 7
@@ -5706,17 +5708,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPFees.Text = "Fees"
         Me.TPFees.UseVisualStyleBackColor = True
         '
-        'lblFeeChangesNotAllowedWarning
-        '
-        Me.lblFeeChangesNotAllowedWarning.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.lblFeeChangesNotAllowedWarning.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFeeChangesNotAllowedWarning.Location = New System.Drawing.Point(8, 253)
-        Me.lblFeeChangesNotAllowedWarning.Name = "lblFeeChangesNotAllowedWarning"
-        Me.lblFeeChangesNotAllowedWarning.Size = New System.Drawing.Size(410, 71)
-        Me.lblFeeChangesNotAllowedWarning.TabIndex = 16
-        Me.lblFeeChangesNotAllowedWarning.Text = "An invoice will be generated when this application is saved. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Fees cannot be c" &
-    "hanged after an invoice has been generated unless the invoice is voided first."
-        '
         'pnlFeeDataFinalized
         '
         Me.pnlFeeDataFinalized.Controls.Add(Me.lblFeeDataFinalized)
@@ -5781,6 +5772,17 @@ Partial Class SSPPApplicationTrackingLog
         Me.dtpFeeDataFinalized.Name = "dtpFeeDataFinalized"
         Me.dtpFeeDataFinalized.Size = New System.Drawing.Size(98, 21)
         Me.dtpFeeDataFinalized.TabIndex = 13
+        '
+        'lblFeeChangesNotAllowedWarning
+        '
+        Me.lblFeeChangesNotAllowedWarning.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.lblFeeChangesNotAllowedWarning.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFeeChangesNotAllowedWarning.Location = New System.Drawing.Point(8, 253)
+        Me.lblFeeChangesNotAllowedWarning.Name = "lblFeeChangesNotAllowedWarning"
+        Me.lblFeeChangesNotAllowedWarning.Size = New System.Drawing.Size(410, 71)
+        Me.lblFeeChangesNotAllowedWarning.TabIndex = 16
+        Me.lblFeeChangesNotAllowedWarning.Text = "An invoice will be generated when this application is saved. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Fees cannot be c" &
+    "hanged after an invoice has been generated unless the invoice is voided first."
         '
         'SplitContainer1
         '
@@ -6121,7 +6123,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'HeaderPanel
         '
-        Me.HeaderPanel.Controls.Add(Me.lklOpenAppOnline)
+        Me.HeaderPanel.Controls.Add(Me.pnlAssignments)
         Me.HeaderPanel.Controls.Add(Me.txtNewApplicationNumber)
         Me.HeaderPanel.Controls.Add(Me.btnFetchNewAppNumber)
         Me.HeaderPanel.Controls.Add(Me.btnRefreshAIRSNo)
@@ -6132,25 +6134,33 @@ Partial Class SSPPApplicationTrackingLog
         Me.HeaderPanel.Controls.Add(Me.Label10)
         Me.HeaderPanel.Controls.Add(Me.txtAIRSNumber)
         Me.HeaderPanel.Controls.Add(Me.chbClosedOut)
-        Me.HeaderPanel.Controls.Add(Me.cboApplicationType)
         Me.HeaderPanel.Controls.Add(Me.Label3)
         Me.HeaderPanel.Controls.Add(Me.Label2)
-        Me.HeaderPanel.Controls.Add(Me.lblApplicationType)
-        Me.HeaderPanel.Controls.Add(Me.cboEngineer)
-        Me.HeaderPanel.Controls.Add(Me.lblApplicationUnit)
-        Me.HeaderPanel.Controls.Add(Me.cboApplicationUnit)
-        Me.HeaderPanel.Controls.Add(Me.lblEngineer)
         Me.HeaderPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.HeaderPanel.Location = New System.Drawing.Point(0, 25)
         Me.HeaderPanel.Name = "HeaderPanel"
         Me.HeaderPanel.Size = New System.Drawing.Size(792, 105)
         Me.HeaderPanel.TabIndex = 1
         '
+        'pnlAssignments
+        '
+        Me.pnlAssignments.Controls.Add(Me.cboEngineer)
+        Me.pnlAssignments.Controls.Add(Me.lklOpenAppOnline)
+        Me.pnlAssignments.Controls.Add(Me.lblEngineer)
+        Me.pnlAssignments.Controls.Add(Me.cboApplicationUnit)
+        Me.pnlAssignments.Controls.Add(Me.lblApplicationUnit)
+        Me.pnlAssignments.Controls.Add(Me.lblApplicationType)
+        Me.pnlAssignments.Controls.Add(Me.cboApplicationType)
+        Me.pnlAssignments.Location = New System.Drawing.Point(550, 0)
+        Me.pnlAssignments.Name = "pnlAssignments"
+        Me.pnlAssignments.Size = New System.Drawing.Size(242, 105)
+        Me.pnlAssignments.TabIndex = 336
+        '
         'lklOpenAppOnline
         '
         Me.lklOpenAppOnline.AutoSize = True
         Me.lklOpenAppOnline.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lklOpenAppOnline.Location = New System.Drawing.Point(557, 83)
+        Me.lklOpenAppOnline.Location = New System.Drawing.Point(10, 83)
         Me.lklOpenAppOnline.Name = "lklOpenAppOnline"
         Me.lklOpenAppOnline.Size = New System.Drawing.Size(115, 13)
         Me.lklOpenAppOnline.TabIndex = 335
@@ -6197,7 +6207,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Controls.Add(Me.TCApplicationTrackingLog)
         Me.Controls.Add(Me.HeaderPanel)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.MinimumSize = New System.Drawing.Size(808, 671)
+        Me.MinimumSize = New System.Drawing.Size(808, 672)
         Me.Name = "SSPPApplicationTrackingLog"
         Me.Text = "Application Tracking Log"
         Me.TPSubPartEditor.ResumeLayout(False)
@@ -6319,6 +6329,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.ToolStrip1.PerformLayout()
         Me.HeaderPanel.ResumeLayout(False)
         Me.HeaderPanel.PerformLayout()
+        Me.pnlAssignments.ResumeLayout(False)
+        Me.pnlAssignments.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -6829,4 +6841,5 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents chbNspsFeeExempt As CheckBox
     Friend WithEvents chbFederallyOwned As CheckBox
     Friend WithEvents pnlFeeDataFinalized As Panel
+    Friend WithEvents pnlAssignments As Panel
 End Class

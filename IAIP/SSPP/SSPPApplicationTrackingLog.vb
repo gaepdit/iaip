@@ -116,6 +116,11 @@ Public Class SSPPApplicationTrackingLog
         FormStatus = ""
 
         MyBase.OnLoad(e)
+
+        If NewApplication Then
+            MinimumSize = New Size(580, 180)
+            Size = New Size(580, 180)
+        End If
     End Sub
 
 #Region "Page Load Functions"
@@ -130,25 +135,18 @@ Public Class SSPPApplicationTrackingLog
         AddBreadcrumb("SSPP Application Tracking Log: new application", Me)
         If Not CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
             MessageBox.Show("You do not have permission to create a new application. Please contact your manager.", "Forbidden", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Me.Close()
+            Close()
+            Return
         End If
 
-        AppNumber = 0
         NewApplication = True
-        txtNewApplicationNumber.Text = DB.GetInteger("Select next value for SSPPAPPLICATIONKEY").ToString
+        FetchNewAppNumber()
         txtNewApplicationNumber.Visible = True
         btnFetchNewAppNumber.Visible = True
 
-        TCApplicationTrackingLog.TabPages.Remove(TPReviews)
-        TCApplicationTrackingLog.TabPages.Remove(TPInformationRequests)
-        TCApplicationTrackingLog.TabPages.Remove(TPWebPublisher)
-        TCApplicationTrackingLog.TabPages.Remove(TPDocuments)
-        TCApplicationTrackingLog.TabPages.Remove(TPSubPartEditor)
-        TCApplicationTrackingLog.TabPages.Remove(TPFees)
-
-        chbClosedOut.Enabled = False
-
-        btnEmailAcknowledgmentLetter.Enabled = False
+        TCApplicationTrackingLog.Visible = False
+        chbClosedOut.Visible = False
+        pnlAssignments.Visible = False
     End Sub
 
     Private Sub LoadDefaultDates()
@@ -4600,6 +4598,10 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub btnFetchNewAppNumber_Click(sender As Object, e As EventArgs) Handles btnFetchNewAppNumber.Click
+        FetchNewAppNumber()
+    End Sub
+
+    Private Sub FetchNewAppNumber()
         txtNewApplicationNumber.Text = DB.GetInteger("Select next value for SSPPAPPLICATIONKEY").ToString
         AppNumber = 0
     End Sub
@@ -4632,11 +4634,10 @@ Public Class SSPPApplicationTrackingLog
         queriesList.Add("Insert into SSPPApplicationTracking " &
             "(strApplicationNumber, strSubmittalNumber, " &
             " strModifingPerson, datModifingDate) " &
-            "values (@appnumber, @submittalnumber, @updateuser, GETDATE() ) ")
+            "values (@appnumber, 1, @updateuser, GETDATE() ) ")
 
         parametersList.Add({
             New SqlParameter("@appnumber", AppNumber),
-            New SqlParameter("@submittalnumber", 1),
             New SqlParameter("@updateuser", CurrentUser.UserID)
         })
 
@@ -6956,112 +6957,123 @@ Public Class SSPPApplicationTrackingLog
     Private Sub PreSaveCheckThenSave()
 
         If NewApplication Then
-            If Not CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
-                MessageBox.Show("You do not have permission to create a new application. Please contact your manager.", "Forbidden", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Me.Close()
+            SaveNewApplication()
+            Return
+        End If
+
+        If Not CurrentUser.HasPermission(UserCan.EditPermitApp) Then
+            MessageBox.Show("You do not have permission to edit permit applications. Please contact your manager.", "Forbidden", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Close()
+            Return
+        End If
+
+        Dim dateModifiedInDb As DateTimeOffset = GetWhenLastModified(AppNumber)
+
+        If LastModificationDateAsLoaded < dateModifiedInDb Then
+            MessageBox.Show("The application has been updated since you last opened it." & vbNewLine &
+                            "Please reopen the application to save any changes." & vbNewLine & vbNewLine &
+                            "NO DATA SAVED", "Application Tracking Log", MessageBoxButtons.OK)
+            Return
+        End If
+
+        If Not ValidateForm() Then
+            Return
+        End If
+
+        If Not SaveApplicationData() Then
+            MessageBox.Show("There was an error saving the application data. Please contact EPD-IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            LoadBasicFacilityInfo()
+        End If
+
+        ' After validating form and saving main application data, proceed with remaining data updates and cleanup
+        LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
+
+        SaveApplicationContact()
+        SaveApplicationFees()
+
+        If DTPFinalAction.Checked AndAlso chbClosedOut.Checked AndAlso AirsId IsNot Nothing Then
+            Select Case cboPermitAction.SelectedValue.ToString
+                Case "1", "4", "5", "7", "10", "12", "13"
+                    ' Note that of these, only 5, 7, & 10 are currently active types - DW
+                    '
+                    ' Active types selected here:
+                    '  5    NPR
+                    '  7    Permit
+                    ' 10    Revoked
+                    '
+                    ' Active types not selected here:
+                    '  0    N/A
+                    '  2    Denied
+                    '  6    PBR
+                    '  9    Returned
+                    ' 11    Withdrawn
+                    GenerateAFSEntry()
+            End Select
+
+            Dim dresult As DialogResult = MessageBox.Show("Do you want to update Facility Information with this Application?",
+                                                          "Permit Tracking Log", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                                                          MessageBoxDefaultButton.Button1)
+            If dresult = DialogResult.Yes Then
+                UpdateAPBTables()
             End If
 
-            If Not Integer.TryParse(txtNewApplicationNumber.Text, AppNumber) Then
-                MessageBox.Show("The selected application number is not valid. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-
-            If ApplicationExists(AppNumber) Then
-                MessageBox.Show("The selected application number already exists. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-
-            Dim result As DialogResult = MessageBox.Show("This will create a new permit application. Are you sure you want to proceed?", "New Application?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-
-            If result = DialogResult.No Then
-                Return
-            End If
-
-            If CreateNewApplication() Then
-                MessageBox.Show("New application created.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Else
-                MessageBox.Show("There was an error creating the new application. Please contact EPD-IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
+            If IsValidPermitNumber(txtPermitNumber.Text) Then
+                PermitRevocationQuery()
+                SaveIssuedPermit()
             End If
         End If
 
-        If CurrentUser.HasPermission(UserCan.EditPermitApp) Then
+        SaveApplicationSubmitForReview()
 
-            Dim dateModifiedInDb As DateTimeOffset = GetWhenLastModified(AppNumber)
+        If DTPSSCPReview.Checked Then
+            SaveSSCPReview()
+        End If
 
-            If Not NewApplication AndAlso LastModificationDateAsLoaded < dateModifiedInDb Then
-                MessageBox.Show("The application has been updated since you last opened it." & vbNewLine &
-                            "Please reopen the application to save any changes." & vbNewLine & vbNewLine &
-                            "NO DATA SAVED",
-                            "Application Tracking Log", MessageBoxButtons.OK)
-                Return
-            End If
+        If DTPISMPReview.Checked Then
+            SaveISMPReview()
+        End If
 
-            If ValidateForm() Then
-                If Not SaveApplicationData() Then
-                    MessageBox.Show("There was an error saving the application data. Please contact EPD-IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Else
-                    ' After validating form and saving main application data, proceed with remaining data updates and cleanup
-                    LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
+        MessageBox.Show("Application data saved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                    SaveApplicationContact()
-                    SaveApplicationFees()
+        LoadBasicFacilityInfo()
 
-                    If DTPFinalAction.Checked AndAlso chbClosedOut.Checked AndAlso AirsId IsNot Nothing Then
-                        Select Case cboPermitAction.SelectedValue.ToString
-                            Case "1", "4", "5", "7", "10", "12", "13"
-                                ' Note that of these, only 5, 7, & 10 are currently active types - DW
-                                '
-                                ' Active types selected here:
-                                '  5    NPR
-                                '  7    Permit
-                                ' 10    Revoked
-                                '
-                                ' Active types not selected here:
-                                '  0    N/A
-                                '  2    Denied
-                                '  6    PBR
-                                '  9    Returned
-                                ' 11    Withdrawn
-                                GenerateAFSEntry()
-                        End Select
+    End Sub
 
-                        Dim dresult As DialogResult = MessageBox.Show("Do you want to update Facility Information with this Application?",
-                                                                      "Permit Tracking Log", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                                                                      MessageBoxDefaultButton.Button1)
-                        If dresult = DialogResult.Yes Then
-                            UpdateAPBTables()
-                        End If
+    Private Sub SaveNewApplication()
+        If Not CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
+            MessageBox.Show("You do not have permission to create a new application. Please contact your manager.", "Forbidden", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Close()
+            Return
+        End If
 
-                        If IsValidPermitNumber(txtPermitNumber.Text) Then
-                            PermitRevocationQuery()
-                            SaveIssuedPermit()
-                        End If
-                    End If
+        If Not Integer.TryParse(txtNewApplicationNumber.Text, AppNumber) Then
+            MessageBox.Show("The selected application number is not valid. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
 
-                    If Not NewApplication Then
-                        SaveApplicationSubmitForReview()
+        If ApplicationExists(AppNumber) Then
+            MessageBox.Show("The selected application number already exists. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
 
-                        If DTPSSCPReview.Checked Then
-                            SaveSSCPReview()
-                        End If
+        If txtAIRSNumber.ValidationStatus <> DAL.AirsNumberValidationResult.Valid Then
+            MessageBox.Show("An AIRS number is required. Please enter a valid AIRS number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
 
-                        If DTPISMPReview.Checked Then
-                            SaveISMPReview()
-                        End If
-                    End If
+        Dim result As DialogResult = MessageBox.Show("This will create a new permit application. Are you sure you want to proceed?",
+                                                     "New Application?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
 
-                    MessageBox.Show("Application data saved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                End If
+        If result = DialogResult.No Then
+            Return
+        End If
 
-                If NewApplication Then
-                    Me.Close()
-                    OpenFormPermitApplication(AppNumber)
-                Else
-                    LoadBasicFacilityInfo()
-                End If
-
-            End If
+        If CreateNewApplication() Then
+            MessageBox.Show("A new permit application has been created. This form will now reload.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Close()
+            OpenFormPermitApplication(AppNumber)
+        Else
+            MessageBox.Show("There was an error creating the new application. Please contact EPD-IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 
@@ -13634,6 +13646,8 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub TCApplicationTrackingLog_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TCApplicationTrackingLog.SelectedIndexChanged
+        If TCApplicationTrackingLog.SelectedTab Is Nothing Then Return
+
         Select Case TCApplicationTrackingLog.SelectedTab.Name
             Case TPApplicationHistory.Name
                 LoadFacilityApplicationHistory()
