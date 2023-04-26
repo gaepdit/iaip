@@ -674,9 +674,9 @@ Public Class SSCPComplianceLog
 
     Private Sub OpenFacilityLookupTool()
         Using facilityLookupDialog As New IAIPFacilityLookUpTool
-            facilityLookupDialog.ShowDialog()
-            If facilityLookupDialog.DialogResult = DialogResult.OK AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                txtAIRSNumberFilter.Text = facilityLookupDialog.SelectedAirsNumber
+            If facilityLookupDialog.ShowDialog() = DialogResult.OK AndAlso
+                facilityLookupDialog.SelectedAirsNumber IsNot Nothing Then
+                txtAIRSNumberFilter.Text = facilityLookupDialog.SelectedAirsNumberAsText
             End If
         End Using
     End Sub

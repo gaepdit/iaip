@@ -82,11 +82,7 @@ Namespace DAL.Sspp
                 New SqlParameter("@UserID", CurrentUser.UserID)
             }
 
-            If DB.SPReturnValue(spName, params) = 0 Then
-                Return True
-            End If
-
-            Return False
+            Return DB.SPRunCommand(spName, params)
         End Function
 
     End Module
