@@ -20,6 +20,14 @@ Public Class SSPPApplicationTrackingLog
 #Region " Properties and fields "
 
     Private Property AppNumber As Integer
+        Get
+            Return _AppNumber
+        End Get
+        Set
+            _AppNumber = Value
+            _appNumberSqlParam = New SqlParameter("@appnumber", Value)
+        End Set
+    End Property
 
     Private Property AirsId As ApbFacilityId
     Private Property NewApplication As Boolean
@@ -37,6 +45,8 @@ Public Class SSPPApplicationTrackingLog
     Private _applicationFeeAmount As Decimal = 0
     Private _expeditedFeeAmount As Decimal = 0
     Private _totalFeeAmount As Decimal = 0
+    Private _AppNumber As Integer
+    Private _appNumberSqlParam As SqlParameter
 
     Private Property ApplicationFeeAmount As Decimal
         Get
@@ -127,28 +137,28 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SetUpForNewApplication()
-        AddBreadcrumb("SSPP Application Tracking Log: new application", Me)
+        AddBreadcrumb("SSPP Application Tracking Log: set up new application", Me)
         If Not CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
             MessageBox.Show("You do not have permission to create a new application. Please contact your manager.", "Forbidden", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Me.Close()
+            Close()
+            Return
         End If
 
-        AppNumber = 0
         NewApplication = True
-        txtNewApplicationNumber.Text = DB.GetInteger("Select next value for SSPPAPPLICATIONKEY").ToString
+        FetchNewAppNumber()
         txtNewApplicationNumber.Visible = True
         btnFetchNewAppNumber.Visible = True
 
         TCApplicationTrackingLog.TabPages.Remove(TPReviews)
+        TCApplicationTrackingLog.TabPages.Remove(TPApplicationHistory)
         TCApplicationTrackingLog.TabPages.Remove(TPInformationRequests)
         TCApplicationTrackingLog.TabPages.Remove(TPWebPublisher)
         TCApplicationTrackingLog.TabPages.Remove(TPDocuments)
         TCApplicationTrackingLog.TabPages.Remove(TPSubPartEditor)
         TCApplicationTrackingLog.TabPages.Remove(TPFees)
 
-        chbClosedOut.Enabled = False
-
-        btnEmailAcknowledgmentLetter.Enabled = False
+        chbClosedOut.Visible = False
+        btnEmailAcknowledgmentLetter.Visible = False
     End Sub
 
     Private Sub LoadDefaultDates()
@@ -425,61 +435,24 @@ Public Class SSPPApplicationTrackingLog
 
             'VALIDATE ALL CODES FROM LOOK UP IAIP ACCOUNTS
 
-            If Not (CurrentUser.HasRole(118) OrElse
-                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
-                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
-                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
-                 AccountFormAccess(67, 2) = "1" OrElse
-                (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") OrElse
-                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")) Then
-
+            If Not UserCanAccessReviewsTab() Then
                 TCApplicationTrackingLog.TabPages.Remove(TPReviews)
-
             End If
 
-            If Not (CurrentUser.HasRole(118) OrElse
-                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
-                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
-                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
-                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
-                (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") OrElse
-                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")) Then
-
+            If Not UserCanAccessHistoryTab() Then
                 TCApplicationTrackingLog.TabPages.Remove(TPApplicationHistory)
-
             End If
 
-            If Not (CurrentUser.HasRole(118) OrElse
-                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
-                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
-                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
-                 (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")) Then
-
+            If Not UserCanAccessInformationRequestTab() Then
                 TCApplicationTrackingLog.TabPages.Remove(TPInformationRequests)
-
             End If
 
-            If Not (CurrentUser.HasRole(118) OrElse
-                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
-                  (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
-                   AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
-
+            If Not UserCanAccessWebPublisherTab() Then
                 TCApplicationTrackingLog.TabPages.Remove(TPWebPublisher)
-
             End If
 
-            If Not (CurrentUser.HasRole(118) OrElse
-               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
-               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
-               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
-               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
-               (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") OrElse
-               AccountFormAccess(67, 2) = "1" OrElse
-               (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") OrElse
-               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")) Then
-
+            If Not UserCanAccessOtherInfoTab() Then
                 TCApplicationTrackingLog.TabPages.Remove(TPOtherInfo)
-
             End If
 
             If Not (CurrentUser.HasRole(118) OrElse
@@ -2419,6 +2392,53 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
+    Private Function UserCanAccessReviewsTab() As Boolean
+        Return CurrentUser.HasRole(118) OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                 AccountFormAccess(67, 2) = "1" OrElse
+                (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")
+    End Function
+
+    Private Function UserCanAccessHistoryTab() As Boolean
+        Return CurrentUser.HasRole(118) OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") OrElse
+                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")
+    End Function
+
+    Private Function UserCanAccessInformationRequestTab() As Boolean
+        Return CurrentUser.HasRole(118) OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+                 (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")
+    End Function
+
+    Private Function UserCanAccessWebPublisherTab() As Boolean
+        Return CurrentUser.HasRole(118) OrElse
+                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+                  (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+                   AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0"
+    End Function
+
+    Private Function UserCanAccessOtherInfoTab() As Boolean
+        Return CurrentUser.HasRole(118) OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
+               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
+               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
+               (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") OrElse
+               AccountFormAccess(67, 2) = "1" OrElse
+               (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") OrElse
+               (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")
+    End Function
+
     Private Sub LoadFacilityApplicationHistory()
         If AppNumber = 0 OrElse FacilityApplicationHistoryLoaded OrElse AirsId Is Nothing Then
             Return
@@ -2543,9 +2563,7 @@ Public Class SSPPApplicationTrackingLog
             "where strApplicationNumber = @appnumber " &
             "order by strRequestKey "
 
-        Dim parameter As New SqlParameter("@appnumber", AppNumber)
-
-        Dim dtFacInfoHistory As DataTable = DB.GetDataTable(query, parameter)
+        Dim dtFacInfoHistory As DataTable = DB.GetDataTable(query, _appNumberSqlParam)
 
         If dtFacInfoHistory Is Nothing Then
             dgvInformationRequested.DataSource = Nothing
@@ -3265,9 +3283,7 @@ Public Class SSPPApplicationTrackingLog
             "from SSPPApplicationContact " &
             "where strApplicationNumber = @appnumber "
 
-            Dim parameter As New SqlParameter("@appnumber", AppNumber)
-
-            Dim dr As DataRow = DB.GetDataRow(query, parameter)
+            Dim dr As DataRow = DB.GetDataRow(query, _appNumberSqlParam)
 
             If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strContactFirstname")) Then
@@ -3352,7 +3368,6 @@ Public Class SSPPApplicationTrackingLog
         Dim temp As String = ""
         Dim dr As DataRow
         Dim query As String
-        Dim parameter As New SqlParameter("@appnumber", AppNumber)
 
         Try
             LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
@@ -3411,7 +3426,7 @@ Public Class SSPPApplicationTrackingLog
                 on m.strApplicationNumber = d.strApplicationNumber
             where m.strApplicationNumber = @appnumber"
 
-            dr = DB.GetDataRow(query, parameter)
+            dr = DB.GetDataRow(query, _appNumberSqlParam)
 
             If dr IsNot Nothing Then
                 If Not IsDBNull(dr.Item("strAIRSNumber")) AndAlso ApbFacilityId.IsValidAirsNumberFormat(dr.Item("strAIRSNumber").ToString) Then
@@ -3914,7 +3929,7 @@ Public Class SSPPApplicationTrackingLog
                 "where SSPPApplicationData.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
                 "and SSPPApplicationData.strApplicationNumber = @appnumber"
 
-                dr = DB.GetDataRow(query, parameter)
+                dr = DB.GetDataRow(query, _appNumberSqlParam)
 
                 If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("datReviewsubmitted")) Then
@@ -4004,7 +4019,7 @@ Public Class SSPPApplicationTrackingLog
                 "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
                 "where SSPPApplicationMaster.strApplicationNumber = @appnumber"
 
-                dr = DB.GetDataRow(query, parameter)
+                dr = DB.GetDataRow(query, _appNumberSqlParam)
 
                 If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("datEPAStatesNotifiedAppRec")) Then
@@ -4538,56 +4553,53 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub CheckForLinkedApplications()
+        txtMasterApp.Clear()
+        txtMasterAppLock.Clear()
+        txtApplicationCount.Text = ""
+        lbLinkApplications.Items.Clear()
+        lblLinkWarning.Visible = False
+
+        If AppNumber = 0 Then
+            Return
+        End If
+
         Dim ApplicationCount As Integer = 0
         Dim query As String
-        Dim parameter As New SqlParameter("@appnumber", AppNumber)
 
         Try
 
-            txtMasterApp.Clear()
-            txtMasterAppLock.Clear()
-            txtApplicationCount.Text = ""
-            lbLinkApplications.Items.Clear()
+            query = "Select " &
+                "strMasterApplication " &
+                "from SSPPApplicationLinking " &
+                "where strApplicationNumber = @appnumber"
 
-            If AppNumber > 0 Then
-                query = "Select " &
-                    "strMasterApplication " &
-                    "from SSPPApplicationLinking " &
-                    "where strApplicationNumber = @appnumber"
+            Dim MasterApplication As String = DB.GetString(query, _appNumberSqlParam)
 
-                Dim MasterApplication As String = DB.GetString(query, parameter)
-
-                If String.IsNullOrEmpty(MasterApplication) Then
-                    txtMasterApp.Clear()
-                    txtMasterAppLock.Clear()
-                    txtApplicationCount.Text = ""
-                    lbLinkApplications.Items.Clear()
-                    lblLinkWarning.Visible = False
-                Else
-                    txtMasterApp.Text = MasterApplication
-                    txtMasterAppLock.Text = MasterApplication
-
-                    query = "Select " &
-                        " strApplicationNumber " &
-                        "from SSPPApplicationLinking " &
-                        "where strMasterApplication = @appnumber " &
-                        "order by strApplicationNumber "
-
-                    Dim dt As DataTable = DB.GetDataTable(query, parameter)
-
-                    For Each dr As DataRow In dt.Rows
-                        lbLinkApplications.Items.Add(CInt(dr.Item("strApplicationNumber")))
-                        ApplicationCount += 1
-                    Next
-
-                    txtApplicationCount.Text = ApplicationCount.ToString
-                    lblLinkWarning.Visible = True
-                End If
-            Else
+            If String.IsNullOrEmpty(MasterApplication) Then
                 txtMasterApp.Clear()
                 txtMasterAppLock.Clear()
+                txtApplicationCount.Text = ""
                 lbLinkApplications.Items.Clear()
                 lblLinkWarning.Visible = False
+            Else
+                txtMasterApp.Text = MasterApplication
+                txtMasterAppLock.Text = MasterApplication
+
+                query = "Select " &
+                    " strApplicationNumber " &
+                    "from SSPPApplicationLinking " &
+                    "where strMasterApplication = @appnumber " &
+                    "order by strApplicationNumber "
+
+                Dim dt As DataTable = DB.GetDataTable(query, _appNumberSqlParam)
+
+                For Each dr As DataRow In dt.Rows
+                    lbLinkApplications.Items.Add(CInt(dr.Item("strApplicationNumber")))
+                    ApplicationCount += 1
+                Next
+
+                txtApplicationCount.Text = ApplicationCount.ToString
+                lblLinkWarning.Visible = True
             End If
 
             If Not lbLinkApplications.Items.Contains(AppNumber) Then
@@ -4600,6 +4612,10 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub btnFetchNewAppNumber_Click(sender As Object, e As EventArgs) Handles btnFetchNewAppNumber.Click
+        FetchNewAppNumber()
+    End Sub
+
+    Private Sub FetchNewAppNumber()
         txtNewApplicationNumber.Text = DB.GetInteger("Select next value for SSPPAPPLICATIONKEY").ToString
         AppNumber = 0
     End Sub
@@ -4614,7 +4630,7 @@ Public Class SSPPApplicationTrackingLog
             "values (@appnumber, @airsnumber, @updateuser, GETDATE() ) ")
 
         parametersList.Add({
-            New SqlParameter("@appnumber", AppNumber),
+            _appNumberSqlParam,
             New SqlParameter("@airsnumber", AirsId?.DbFormattedString),
             New SqlParameter("@updateuser", CurrentUser.UserID)
         })
@@ -4625,18 +4641,17 @@ Public Class SSPPApplicationTrackingLog
             "values (@appnumber, @updateuser, GETDATE() ) ")
 
         parametersList.Add({
-            New SqlParameter("@appnumber", AppNumber),
+            _appNumberSqlParam,
             New SqlParameter("@updateuser", CurrentUser.UserID)
         })
 
         queriesList.Add("Insert into SSPPApplicationTracking " &
             "(strApplicationNumber, strSubmittalNumber, " &
             " strModifingPerson, datModifingDate) " &
-            "values (@appnumber, @submittalnumber, @updateuser, GETDATE() ) ")
+            "values (@appnumber, 1, @updateuser, GETDATE() ) ")
 
         parametersList.Add({
-            New SqlParameter("@appnumber", AppNumber),
-            New SqlParameter("@submittalnumber", 1),
+            _appNumberSqlParam,
             New SqlParameter("@updateuser", CurrentUser.UserID)
         })
 
@@ -4735,7 +4750,7 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("@unit", Unit),
                 New SqlParameter("@datefinalized", DateFinalized),
                 New SqlParameter("@updateuser", CurrentUser.UserID),
-                New SqlParameter("@appnumber", AppNumber)
+                _appNumberSqlParam
             })
 
             txtFacilityName.Text = SanitizeFacilityNameForDb(txtFacilityName.Text)
@@ -4955,7 +4970,7 @@ Public Class SSPPApplicationTrackingLog
             "strPublicInvolvement = @PublicInvolved, " &
             "strModifingperson = @UserGCode, " &
             "datModifingdate = GETDATE() " &
-            "where strApplicationNumber = @txtApplicationNumber ")
+            "where strApplicationNumber = @appnumber ")
 
             parametersList.Add({
                 New SqlParameter("@FacilityName", FacilityName),
@@ -4980,7 +4995,7 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("@SignificantComments", SignificantComments),
                 New SqlParameter("@PublicInvolved", PublicInvolved),
                 New SqlParameter("@UserGCode", CurrentUser.UserID),
-                New SqlParameter("@txtApplicationNumber", AppNumber)
+                _appNumberSqlParam
             })
 
             ReceivedDate = DTPDateReceived.Value
@@ -5065,7 +5080,7 @@ Public Class SSPPApplicationTrackingLog
             "datToDirector = @ToDO, " &
             "datPAExpires = @PAExpires, " &
             "datpnexpires = @PNExpires " &
-            "where strApplicationNumber = @txtApplicationNumber ")
+            "where strApplicationNumber = @appnumber ")
 
             parametersList.Add({
                 New SqlParameter("@ReceivedDate", ReceivedDate),
@@ -5087,7 +5102,7 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("@ToDO", ToDO),
                 New SqlParameter("@PAExpires", PAExpires),
                 New SqlParameter("@PNExpires", PNExpires),
-                New SqlParameter("@txtApplicationNumber", AppNumber)
+                _appNumberSqlParam
             })
 
             If lblLinkWarning.Visible AndAlso lbLinkApplications.Items.Count > 0 Then
@@ -5281,11 +5296,9 @@ Public Class SSPPApplicationTrackingLog
                 If txtInformationRequestedKey.Text = "" Then
                     query = "SELECT ISNULL(MAX(strRequestKey), 0) + 1 " &
                     "from SSPPApplicationInformation " &
-                    "where strApplicationNumber = @txtApplicationNumber"
+                    "where strApplicationNumber = @appnumber"
 
-                    parameter = {New SqlParameter("@txtApplicationNumber", AppNumber)}
-
-                    InformationRequestKey = DB.GetInteger(query, parameter)
+                    InformationRequestKey = DB.GetInteger(query, _appNumberSqlParam)
                 Else
                     InformationRequestKey = CInt(txtInformationRequestedKey.Text)
                 End If
@@ -5308,11 +5321,11 @@ Public Class SSPPApplicationTrackingLog
 
                 query = "Select strApplicationNumber " &
                 "from SSPPApplicationInformation " &
-                "where strApplicationNumber = @txtApplicationNumber " &
+                "where strApplicationNumber = @appnumber " &
                 "and strRequestKey = @InformationRequestKey "
 
                 parameter = {
-                    New SqlParameter("@txtApplicationNumber", AppNumber),
+                    _appNumberSqlParam,
                     New SqlParameter("@InformationRequestKey", InformationRequestKey)
                 }
 
@@ -5325,7 +5338,7 @@ Public Class SSPPApplicationTrackingLog
                     "strInformationReceived = @InformationReceived , " &
                     "strModifingPerson = @UserGCode , " &
                     "datModifingDate = GETDATE() " &
-                    "where strApplicationNumber = @txtApplicationNumber " &
+                    "where strApplicationNumber = @appnumber " &
                     "and strRequestKey = @InformationRequestKey  "
 
                     parameter = {
@@ -5334,7 +5347,7 @@ Public Class SSPPApplicationTrackingLog
                         New SqlParameter("@DateInfoReceived", DateInfoReceived),
                         New SqlParameter("@InformationReceived", InformationReceived),
                         New SqlParameter("@UserGCode", CurrentUser.UserID),
-                        New SqlParameter("@txtApplicationNumber", AppNumber),
+                        _appNumberSqlParam,
                         New SqlParameter("@InformationRequestKey", InformationRequestKey)
                     }
                 Else
@@ -5345,13 +5358,13 @@ Public Class SSPPApplicationTrackingLog
                     "datInformationReceived, strInformationReceived, " &
                     "strModifingPerson, datModifingDate) " &
                     "values " &
-                    "(@txtApplicationNumber, @InformationRequestKey , " &
+                    "(@appnumber, @InformationRequestKey , " &
                     "@DateInfoRequested , @InformationRequested , " &
                     "@DateInfoReceived , @InformationReceived , " &
                     "@UserGCode , GETDATE() ) "
 
                     parameter = {
-                        New SqlParameter("@txtApplicationNumber", AppNumber),
+                        _appNumberSqlParam,
                         New SqlParameter("@InformationRequestKey", InformationRequestKey),
                         New SqlParameter("@DateInfoRequested", DateInfoRequested),
                         New SqlParameter("@InformationRequested", InformationRequested),
@@ -5383,11 +5396,11 @@ Public Class SSPPApplicationTrackingLog
                 InformationRequestKey = CInt(txtInformationRequestedKey.Text)
 
                 Dim query As String = "Delete from SSPPApplicationInformation " &
-                "where strApplicationNumber = @txtApplicationNumber " &
+                "where strApplicationNumber = @appnumber " &
                 "and strRequestKey = @InformationRequestKey "
 
                 Dim parameter As SqlParameter() = {
-                    New SqlParameter("@txtApplicationNumber", AppNumber),
+                    _appNumberSqlParam,
                     New SqlParameter("@InformationRequestKey", InformationRequestKey)
                 }
 
@@ -5424,21 +5437,21 @@ Public Class SSPPApplicationTrackingLog
         queryList.Add("Update SSPPApplicationData set " &
                       "strSSCPUnit = @cboSSCPUnits, " &
                       "strISMPUnit = @cboISMPUnits " &
-                      "where strApplicationNumber = @txtApplicationNumber ")
+                      "where strApplicationNumber = @appnumber ")
 
         paramList.Add({
                       New SqlParameter("@cboSSCPUnits", SscpReviewUnit),
                       New SqlParameter("@cboISMPUnits", IsmpReviewUnit),
-                      New SqlParameter("@txtApplicationNumber", AppNumber)
+                      _appNumberSqlParam
                       })
 
         queryList.Add("Update SSPPApplicationTracking set " &
                       "datReviewSubmitted = @DateReviewSubmitted " &
-                      "where strApplicationNumber = @txtApplicationNumber ")
+                      "where strApplicationNumber = @appnumber ")
 
         paramList.Add({
                       New SqlParameter("@DateReviewSubmitted", DateReviewSubmitted),
-                      New SqlParameter("@txtApplicationNumber", AppNumber)
+                      _appNumberSqlParam
                       })
 
         DB.RunCommand(queryList, paramList)
@@ -5460,21 +5473,21 @@ Public Class SSPPApplicationTrackingLog
             queryList.Add("Update SSPPApplicationData set " &
                 "strSSCPReviewer = @cboSSCPStaff, " &
                 "strSSCPComments = @SSCPComments " &
-                "where strApplicationNumber = @txtApplicationNumber")
+                "where strApplicationNumber = @appnumber")
 
             paramList.Add({
                 New SqlParameter("@cboSSCPStaff", cboSSCPStaff.SelectedValue),
                 New SqlParameter("@SSCPComments", SSCPComments),
-                New SqlParameter("@txtApplicationNumber", AppNumber)
+                _appNumberSqlParam
             })
 
             queryList.Add("Update SSPPApplicationTracking set " &
                 "datSSCPReviewDate = @DTPSSCPReview " &
-                "where strApplicationNumber = @txtApplicationNumber ")
+                "where strApplicationNumber = @appnumber ")
 
             paramList.Add({
                 New SqlParameter("@DTPSSCPReview", DTPSSCPReview.Value),
-                New SqlParameter("@txtApplicationNumber", AppNumber)
+                _appNumberSqlParam
             })
 
             DB.RunCommand(queryList, paramList)
@@ -5500,21 +5513,21 @@ Public Class SSPPApplicationTrackingLog
             queryList.Add("Update SSPPApplicationData set " &
                 "strISMPReviewer = @cboISMPStaff , " &
                 "strISMPComments = @ISMPComments " &
-                "where strApplicationNumber = @txtApplicationNumber")
+                "where strApplicationNumber = @appnumber")
 
             paramList.Add({
                 New SqlParameter("@cboISMPStaff", cboISMPStaff.SelectedValue),
                 New SqlParameter("@ISMPComments", ISMPComments),
-                New SqlParameter("@txtApplicationNumber", AppNumber)
+                _appNumberSqlParam
             })
 
             queryList.Add("Update SSPPApplicationTracking set " &
                 "datISMPReviewDate = @DTPISMPReview " &
-                "where strApplicationNumber = @txtApplicationNumber")
+                "where strApplicationNumber = @appnumber")
 
             paramList.Add({
                 New SqlParameter("@DTPISMPReview", DTPISMPReview.Value),
-                New SqlParameter("@txtApplicationNumber", AppNumber)
+                _appNumberSqlParam
             })
 
             DB.RunCommand(queryList, paramList)
@@ -5596,11 +5609,7 @@ Public Class SSPPApplicationTrackingLog
 
             query = "select convert(bit, count(*)) from SSPPAPPLICATIONCONTACT where STRAPPLICATIONNUMBER = @appNumber "
 
-            params = {
-                New SqlParameter("@appNumber", AppNumber)
-            }
-
-            If DB.GetBoolean(query, params) Then
+            If DB.GetBoolean(query, _appNumberSqlParam) Then
                 'update
                 query = "Update SSPPApplicationContact set " &
                 "strContactFirstName = @ContactFirstName, " &
@@ -5617,7 +5626,7 @@ Public Class SSPPApplicationTrackingLog
                 "strContactState = @ContactState, " &
                 "strContactZipCode = @ContactZipCode, " &
                 "strContactDescription = @ContactDescription " &
-                "where strApplicationNumber = @txtApplicationNumber "
+                "where strApplicationNumber = @appnumber "
 
                 params = {
                     New SqlParameter("@ContactFirstName", ContactFirstName),
@@ -5634,13 +5643,13 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@ContactState", ContactState),
                     New SqlParameter("@ContactZipCode", ContactZipCode?.Replace("-", "")),
                     New SqlParameter("@ContactDescription", ContactDescription),
-                    New SqlParameter("@txtApplicationNumber", AppNumber)
+                    _appNumberSqlParam
                 }
             Else
                 'insert 
                 query = "Insert into SSPPApplicationContact " &
                 "values " &
-                "(@txtApplicationNumber, " &
+                "(@appnumber, " &
                 "@ContactFirstName, " &
                 "@ContactLastname, " &
                 "@ContactPrefix, " &
@@ -5657,7 +5666,7 @@ Public Class SSPPApplicationTrackingLog
                 "@ContactDescription) "
 
                 params = {
-                    New SqlParameter("@txtApplicationNumber", AppNumber),
+                    _appNumberSqlParam,
                     New SqlParameter("@ContactFirstName", ContactFirstName),
                     New SqlParameter("@ContactLastname", ContactLastname),
                     New SqlParameter("@ContactPrefix", ContactPrefix),
@@ -5695,11 +5704,11 @@ Public Class SSPPApplicationTrackingLog
                     "and APBContactInformation.strContactZipCode = SSPPApplicationcontact.strContactZipCode  " &
                     "and APBContactInformation.strContactDescription = SSPPApplicationContact.strContactDescription  " &
                     "where APBContactInformation.strContactKey = @pKey " &
-                    "and SSPPApplicationContact.strApplicationNumber = @app "
+                    "and SSPPApplicationContact.strApplicationNumber = @appnumber "
 
                 params = {
                     New SqlParameter("@pKey", AirsId.DbFormattedString & "30"),
-                    New SqlParameter("@app", AppNumber)
+                    _appNumberSqlParam
                 }
 
                 If Not DB.ValueExists(query, params) Then
@@ -6082,7 +6091,7 @@ Public Class SSPPApplicationTrackingLog
                           "datEPAStatesNotifiedAppRec = @EPAStatesNotifiedAppRec ,  " &
                           "datExperationDate = @ExperationDate , " &
                           "datPNExpires = @PNExpires  " &
-                          "where strApplicationNumber = @txtApplicationNumber ")
+                          "where strApplicationNumber = @appnumber ")
             paramsList.Add(
                     {New SqlParameter("@DraftOnWeb", DraftOnWeb),
                      New SqlParameter("@EPAStatesNotified", EPAStatesNotified),
@@ -6092,15 +6101,15 @@ Public Class SSPPApplicationTrackingLog
                      New SqlParameter("@EPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
                      New SqlParameter("@ExperationDate", ExperationDate),
                      New SqlParameter("@PNExpires", PNExpires),
-                     New SqlParameter("@txtApplicationNumber", AppNumber)
+                     _appNumberSqlParam
                     })
 
             queryList.Add("Update SSPPApplicationData set " &
                               "strTargeted = @TargetedComments " &
-                              "where strApplicationNumber = @txtApplicationNumber ")
+                              "where strApplicationNumber = @appnumber ")
             paramsList.Add(
                     {New SqlParameter("@TargetedComments", TargetedComments),
-                     New SqlParameter("@txtApplicationNumber", AppNumber)
+                     _appNumberSqlParam
                     })
 
             DB.RunCommand(queryList, paramsList)
@@ -6177,10 +6186,9 @@ Public Class SSPPApplicationTrackingLog
             query = "Select " &
             "strUpdateStatus " &
             "from AFSSSPPRecords " &
-            "where strApplicationNumber = @appnum "
-            params = {New SqlParameter("@appnum", AppNumber)}
+            "where strApplicationNumber = @appnumber "
 
-            UpdateStatus = DB.GetString(query, params)
+            UpdateStatus = DB.GetString(query, _appNumberSqlParam)
 
             If String.IsNullOrEmpty(UpdateStatus) Then
                 UpdateStatus = "A"
@@ -6192,11 +6200,11 @@ Public Class SSPPApplicationTrackingLog
             If recExists Then
                 query = "Update AFSSSPPRecords set " &
                     "strUpdateStatus = @UpdateStatus " &
-                    "where strApplicationNumber = @appnum "
+                    "where strApplicationNumber = @appnumber "
 
                 params = {
                     New SqlParameter("@UpdateStatus", UpdateStatus),
-                    New SqlParameter("@appnum", AppNumber)
+                    _appNumberSqlParam
                 }
 
                 DB.RunCommand(query, params)
@@ -6205,21 +6213,19 @@ Public Class SSPPApplicationTrackingLog
                     "from APBSupplamentalData " &
                     "where strAIRSNumber = @airs"
 
-                params = {New SqlParameter("@airs", AirsId.DbFormattedString)}
-
-                ActionNumber = DB.GetString(query, params)
+                ActionNumber = DB.GetString(query, New SqlParameter("@airs", AirsId.DbFormattedString))
 
                 query = "Insert into AFSSSPPRecords " &
                     "(strApplicationNumber, strAFSActionNumber, " &
                     "strUpDateStatus, strModifingPerson, " &
                     "datModifingDate) " &
                     "values " &
-                    "(@txtApplicationNumber, @ActionNumber , " &
+                    "(@appnumber, @ActionNumber , " &
                     "@UpdateStatus , @UserGCode , " &
                     " GETDATE() ) "
 
                 params = {
-                    New SqlParameter("@txtApplicationNumber", AppNumber),
+                    _appNumberSqlParam,
                     New SqlParameter("@ActionNumber", ActionNumber),
                     New SqlParameter("@UpdateStatus", UpdateStatus),
                     New SqlParameter("@UserGCode", CurrentUser.UserID)
@@ -6269,7 +6275,6 @@ Public Class SSPPApplicationTrackingLog
         Dim StateProgramCodes As String
 
         Dim query As String
-        Dim params As SqlParameter()
         Dim queryList As New List(Of String)
         Dim paramsList As New List(Of SqlParameter())
         Dim subpartList As New List(Of String)
@@ -6288,9 +6293,7 @@ Public Class SSPPApplicationTrackingLog
             "from SSPPApplicationData " &
             "where strApplicationNumber = @appnumber "
 
-            params = {New SqlParameter("@appnumber", AppNumber)}
-
-            Dim dr As DataRow = DB.GetDataRow(query, params)
+            Dim dr As DataRow = DB.GetDataRow(query, _appNumberSqlParam)
 
             If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strFacilityName")) Then
@@ -6713,9 +6716,8 @@ Public Class SSPPApplicationTrackingLog
             query = "select strMasterApplication " &
               "from SSPPApplicationLinking " &
               "where strApplicationNumber = @appnumber "
-            parameter = {New SqlParameter("@appnumber", AppNumber)}
 
-            MasterApp = DB.GetString(query, parameter)
+            MasterApp = DB.GetString(query, _appNumberSqlParam)
             If MasterApp = "" Then MasterApp = AppNumber.ToString
 
             rdbTitleVPermit.Checked = False
@@ -6954,116 +6956,163 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub PreSaveCheckThenSave()
+        Dim wasNewApplication As Boolean = NewApplication
 
         If NewApplication Then
-            If Not CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
-                MessageBox.Show("You do not have permission to create a new application. Please contact your manager.", "Forbidden", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Me.Close()
-            End If
-
-            If Not Integer.TryParse(txtNewApplicationNumber.Text, AppNumber) Then
-                MessageBox.Show("The selected application number is not valid. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            If Not SaveNewApplication() Then
                 Return
             End If
-
-            If ApplicationExists(AppNumber) Then
-                MessageBox.Show("The selected application number already exists. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Else
+            If Not CurrentUser.HasPermission(UserCan.EditPermitApp) Then
+                MessageBox.Show("You do not have permission to edit permit applications. Please contact your manager.", "Forbidden", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Close()
                 Return
             End If
-
-            Dim result As DialogResult = MessageBox.Show("This will create a new permit application. Are you sure you want to proceed?", "New Application?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-
-            If result = DialogResult.No Then
-                Return
-            End If
-
-            If CreateNewApplication() Then
-                MessageBox.Show("New application created.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Else
-                MessageBox.Show("There was an error creating the new application. Please contact EPD-IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-        End If
-
-        If CurrentUser.HasPermission(UserCan.EditPermitApp) Then
 
             Dim dateModifiedInDb As DateTimeOffset = GetWhenLastModified(AppNumber)
 
-            If Not NewApplication AndAlso LastModificationDateAsLoaded < dateModifiedInDb Then
+            If LastModificationDateAsLoaded < dateModifiedInDb Then
                 MessageBox.Show("The application has been updated since you last opened it." & vbNewLine &
-                            "Please reopen the application to save any changes." & vbNewLine & vbNewLine &
-                            "NO DATA SAVED",
-                            "Application Tracking Log", MessageBoxButtons.OK)
+                                "Please reopen the application to save any changes." & vbNewLine & vbNewLine &
+                                "NO DATA SAVED", "Application Tracking Log", MessageBoxButtons.OK)
                 Return
             End If
+        End If
 
-            If ValidateForm() Then
-                If Not SaveApplicationData() Then
-                    MessageBox.Show("There was an error saving the application data. Please contact EPD-IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Else
-                    ' After validating form and saving main application data, proceed with remaining data updates and cleanup
-                    LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
+        If Not ValidateForm() Then
+            MessageBox.Show("Application data not saved. Please correct the errors and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
 
-                    SaveApplicationContact()
-                    SaveApplicationFees()
+        If Not SaveApplicationData() Then
+            MessageBox.Show("There was an error saving the application data. Please contact EPD-IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            LoadBasicFacilityInfo()
+            Return
+        End If
 
-                    If DTPFinalAction.Checked AndAlso chbClosedOut.Checked AndAlso AirsId IsNot Nothing Then
-                        Select Case cboPermitAction.SelectedValue.ToString
-                            Case "1", "4", "5", "7", "10", "12", "13"
-                                ' Note that of these, only 5, 7, & 10 are currently active types - DW
-                                '
-                                ' Active types selected here:
-                                '  5    NPR
-                                '  7    Permit
-                                ' 10    Revoked
-                                '
-                                ' Active types not selected here:
-                                '  0    N/A
-                                '  2    Denied
-                                '  6    PBR
-                                '  9    Returned
-                                ' 11    Withdrawn
-                                GenerateAFSEntry()
-                        End Select
+        ' After validating form and saving main application data, proceed with remaining data updates and cleanup
+        LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
 
-                        Dim dresult As DialogResult = MessageBox.Show("Do you want to update Facility Information with this Application?",
-                                                                      "Permit Tracking Log", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                                                                      MessageBoxDefaultButton.Button1)
-                        If dresult = DialogResult.Yes Then
-                            UpdateAPBTables()
-                        End If
+        SaveApplicationContact()
 
-                        If IsValidPermitNumber(txtPermitNumber.Text) Then
-                            PermitRevocationQuery()
-                            SaveIssuedPermit()
-                        End If
-                    End If
+        If Not wasNewApplication Then
 
-                    If Not NewApplication Then
-                        SaveApplicationSubmitForReview()
+            SaveApplicationFees()
 
-                        If DTPSSCPReview.Checked Then
-                            SaveSSCPReview()
-                        End If
+            If DTPFinalAction.Checked AndAlso chbClosedOut.Checked AndAlso AirsId IsNot Nothing Then
+                Select Case cboPermitAction.SelectedValue.ToString
+                    Case "1", "4", "5", "7", "10", "12", "13"
+                        ' Note that of these, only 5, 7, & 10 are currently active types - DW
+                        '
+                        ' Active types selected here:
+                        '  5    NPR
+                        '  7    Permit
+                        ' 10    Revoked
+                        '
+                        ' Active types not selected here:
+                        '  0    N/A
+                        '  2    Denied
+                        '  6    PBR
+                        '  9    Returned
+                        ' 11    Withdrawn
+                        GenerateAFSEntry()
+                End Select
 
-                        If DTPISMPReview.Checked Then
-                            SaveISMPReview()
-                        End If
-                    End If
-
-                    MessageBox.Show("Application data saved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Dim dresult As DialogResult = MessageBox.Show("Do you want to update Facility Information with this Application?",
+                                                              "Permit Tracking Log", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                                                              MessageBoxDefaultButton.Button1)
+                If dresult = DialogResult.Yes Then
+                    UpdateAPBTables()
                 End If
 
-                If NewApplication Then
-                    Me.Close()
-                    OpenFormPermitApplication(AppNumber)
-                Else
-                    LoadBasicFacilityInfo()
+                If IsValidPermitNumber(txtPermitNumber.Text) Then
+                    PermitRevocationQuery()
+                    SaveIssuedPermit()
                 End If
+            End If
 
+            SaveApplicationSubmitForReview()
+
+            If DTPSSCPReview.Checked Then
+                SaveSSCPReview()
+            End If
+
+            If DTPISMPReview.Checked Then
+                SaveISMPReview()
             End If
         End If
+
+        MessageBox.Show("Application data saved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        LoadBasicFacilityInfo()
     End Sub
+
+    Private Function SaveNewApplication() As Boolean
+        AddBreadcrumb("SSPP Application Tracking Log: Attempting save new application", Me)
+
+        If Not CurrentUser.HasPermission(UserCan.CreatePermitApp) Then
+            MessageBox.Show("You do not have permission to create a new application. Please contact your manager.", "Forbidden", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Close()
+            Return False
+        End If
+
+        If Not Integer.TryParse(txtNewApplicationNumber.Text, AppNumber) Then
+            MessageBox.Show("The selected application number is not valid. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End If
+
+        If ApplicationExists(AppNumber) Then
+            MessageBox.Show("The selected application number already exists. Please enter a new application number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End If
+
+        Dim result As DialogResult = MessageBox.Show("This will create a new permit application. Are you sure you want to proceed?",
+                                                     "New Application?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
+        If result = DialogResult.No Then
+            Return False
+        End If
+
+        If CreateNewApplication() Then
+            MessageBox.Show("A new permit application has been created.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            AddBreadcrumb("SSPP Application Tracking Log: New application created", "Application Number", AppNumber, Me)
+
+            NewApplication = False
+            lblAppNumber.Text = "Application #" & AppNumber.ToString
+            LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
+
+            txtNewApplicationNumber.Visible = False
+            btnFetchNewAppNumber.Visible = False
+
+            If UserCanAccessReviewsTab() Then
+                TCApplicationTrackingLog.TabPages.Add(TPReviews)
+            End If
+
+            If UserCanAccessHistoryTab() Then
+                TCApplicationTrackingLog.TabPages.Add(TPApplicationHistory)
+            End If
+
+            If UserCanAccessInformationRequestTab() Then
+                TCApplicationTrackingLog.TabPages.Add(TPInformationRequests)
+            End If
+
+            If UserCanAccessWebPublisherTab() Then
+                TCApplicationTrackingLog.TabPages.Add(TPWebPublisher)
+            End If
+
+            TCApplicationTrackingLog.TabPages.Add(TPDocuments)
+            TCApplicationTrackingLog.TabPages.Add(TPSubPartEditor)
+            TCApplicationTrackingLog.TabPages.Add(TPFees)
+
+            chbClosedOut.Visible = True
+            btnEmailAcknowledgmentLetter.Visible = True
+
+            Return True
+        Else
+            MessageBox.Show("There was an error creating the new application. Please contact EPD-IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End If
+    End Function
 
     Private Function ValidateForm() As Boolean
         Dim valid As Boolean = True
@@ -10093,13 +10142,13 @@ Public Class SSPPApplicationTrackingLog
                         "and strAIRSnumber = @airs " &
                         "and SUBSTRING(strSubpartkey, 6,1) = '0'  " &
                         "and strSubpart = @SubPart " &
-                        "and SSPPSubpartData.strApplicationNumber  = @appnum " &
+                        "and SSPPSubpartData.strApplicationNumber  = @appnumber " &
                         "order by createdatetime "
 
                         parameter = {
                             New SqlParameter("@airs", AirsId.DbFormattedString),
                             New SqlParameter("@SubPart", SubPart),
-                            New SqlParameter("@appnum", AppNumber)
+                            _appNumberSqlParam
                         }
 
                         Dim dr As DataRow = DB.GetDataRow(query, parameter)
@@ -10921,14 +10970,14 @@ Public Class SSPPApplicationTrackingLog
                     where strAIRSnumber = @airsnum
                           and right(strSubpartkey, 1) = @key
                           and strSubpart = @subpart
-                          and s.strApplicationNumber = @appnum
+                          and s.strApplicationNumber = @appnumber
                     order by createdatetime "
 
                         parameter = {
                         New SqlParameter("@airsnum", AirsId.DbFormattedString),
                         New SqlParameter("@key", "9"),
                         New SqlParameter("@subpart", SubPart),
-                        New SqlParameter("@appnum", AppNumber)
+                        _appNumberSqlParam
                     }
 
                         Dim dr As DataRow = DB.GetDataRow(query, parameter)
@@ -11028,11 +11077,11 @@ Public Class SSPPApplicationTrackingLog
                 inner join LK_ICIS_PROGRAM_SUBPART l
                     on l.LK_SUBPART_CODE = s.STRSUBPART
                        and right(s.STRSUBPARTKEY, 1) = l.LGCY_PROGRAM_CODE
-            where m.STRAPPLICATIONNUMBER = @appnum
+            where m.STRAPPLICATIONNUMBER = @appnumber
                   and l.LGCY_PROGRAM_CODE = @key "
 
             parameter = {
-                New SqlParameter("@appnum", AppNumber),
+                _appNumberSqlParam,
                 New SqlParameter("@key", "9")
             }
 
@@ -11763,14 +11812,14 @@ Public Class SSPPApplicationTrackingLog
                     where strAIRSnumber = @airsnum 
                           and right(strSubpartkey, 1) = @key 
                           and strSubpart = @subpart 
-                          and s.strApplicationNumber = @appnum 
+                          and s.strApplicationNumber = @appnumber 
                     order by createdatetime "
 
                         parameter = {
                         New SqlParameter("@airsnum", AirsId.DbFormattedString),
                         New SqlParameter("@key", "8"),
                         New SqlParameter("@subpart", SubPart),
-                        New SqlParameter("@appnum", AppNumber)
+                        _appNumberSqlParam
                     }
 
                         Dim dr As DataRow = DB.GetDataRow(query, parameter)
@@ -11869,11 +11918,11 @@ Public Class SSPPApplicationTrackingLog
                 inner join LK_ICIS_PROGRAM_SUBPART l 
                     on l.LK_SUBPART_CODE = s.STRSUBPART 
                        and right(s.STRSUBPARTKEY, 1) = l.LGCY_PROGRAM_CODE 
-            where m.STRAPPLICATIONNUMBER = @appnum 
+            where m.STRAPPLICATIONNUMBER = @appnumber 
                   and l.LGCY_PROGRAM_CODE = @key "
 
             parameter = {
-                New SqlParameter("@appnum", AppNumber),
+                _appNumberSqlParam,
                 New SqlParameter("@key", "8")
             }
 
@@ -12609,14 +12658,14 @@ Public Class SSPPApplicationTrackingLog
                     where strAIRSnumber = @airsnum 
                           and right(strSubpartkey, 1) = @key 
                           and strSubpart = @subpart 
-                          and s.strApplicationNumber = @appnum 
+                          and s.strApplicationNumber = @appnumber 
                     order by createdatetime "
 
                         parameter = {
                         New SqlParameter("@airsnum", AirsId.DbFormattedString),
                         New SqlParameter("@key", "M"),
                         New SqlParameter("@subpart", SubPart),
-                        New SqlParameter("@appnum", AppNumber)
+                        _appNumberSqlParam
                     }
 
                         Dim dr As DataRow = DB.GetDataRow(query, parameter)
@@ -12715,11 +12764,11 @@ Public Class SSPPApplicationTrackingLog
                 inner join LK_ICIS_PROGRAM_SUBPART l 
                     on l.LK_SUBPART_CODE = s.STRSUBPART 
                        and right(s.STRSUBPARTKEY, 1) = l.LGCY_PROGRAM_CODE 
-            where m.STRAPPLICATIONNUMBER = @appnum 
+            where m.STRAPPLICATIONNUMBER = @appnumber
                   and l.LGCY_PROGRAM_CODE = @key "
 
             parameter = {
-                New SqlParameter("@appnum", AppNumber),
+                _appNumberSqlParam,
                 New SqlParameter("@key", "M")
             }
 
@@ -13634,6 +13683,8 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub TCApplicationTrackingLog_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TCApplicationTrackingLog.SelectedIndexChanged
+        If TCApplicationTrackingLog.SelectedTab Is Nothing Then Return
+
         Select Case TCApplicationTrackingLog.SelectedTab.Name
             Case TPApplicationHistory.Name
                 LoadFacilityApplicationHistory()
