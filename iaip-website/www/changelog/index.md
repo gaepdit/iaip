@@ -12,6 +12,13 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.6.5 <span>(2023-04-26)</span>
+
+* Removed unused (reserved) SIP rules from the permit application form.
+* Updated the template for Public Notices.
+* Added feature to track co-located facilities in the Facility Summary.
+* Fixed some bugs when entering new permit applications.
+
 ## Version 6.6.4 <span>(2023-02-21)</span>
 
 Fixed a few crashing bugs in SBEAP case work, pond & gas emission tests, and the EIS tools.
