@@ -12,6 +12,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.6.6 <span>(2023-05-24)</span>
+
+Just one tiny bug fixed.
+
 ## Version 6.6.5 <span>(2023-04-26)</span>
 
 * Removed unused (reserved) SIP rules from the permit application form.
