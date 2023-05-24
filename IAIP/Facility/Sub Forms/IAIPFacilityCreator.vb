@@ -160,8 +160,8 @@ Public Class IAIPFacilityCreator
             Dim FacilityStreet As String = ""
             Dim FacilityCity As String = ""
             Dim FacilityZipCode As String = ""
-            Dim FacilityLongitude As String = ""
-            Dim FacilityLatitude As String = ""
+            Dim FacilityLongitude As Decimal
+            Dim FacilityLatitude As Decimal
             Dim MailingStreet As String = ""
             Dim MailingCity As String = ""
             Dim MailingState As String = ""
@@ -191,13 +191,17 @@ Public Class IAIPFacilityCreator
                     "Either use the Edit button or clear the AIRS # before Saving a new Facility.", MsgBoxStyle.Information, Me.Name)
                 Return
             End If
-            If mtbFacilityLatitude.Text = "  ." Then
-                MsgBox("The Latitude field needs to be addressed." &
+            If mtbFacilityLatitude.Text = "  ." OrElse
+                    mtbFacilityLatitude.Text = "" OrElse
+                    Not Decimal.TryParse(mtbFacilityLatitude.Text, FacilityLatitude) Then
+                MsgBox("The Latitude field needs to be fixed. " &
                  "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Return
             End If
-            If mtbFacilityLongitude.Text = "-  ." Then
-                MsgBox("The Longitude field needs to be addressed." &
+            If mtbFacilityLongitude.Text = "-  ." OrElse
+                    mtbFacilityLongitude.Text = "" OrElse
+                    Not Decimal.TryParse(mtbFacilityLongitude.Text, FacilityLongitude) Then
+                MsgBox("The Longitude field needs to be fixed. " &
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Return
             End If
@@ -270,16 +274,6 @@ Public Class IAIPFacilityCreator
                 FacilityZipCode = mtbCDSZipCode.Text
             Else
                 FacilityZipCode = "00000"
-            End If
-            If mtbFacilityLongitude.Text <> "" AndAlso Not mtbFacilityLongitude.Text.Contains("-  .") Then
-                FacilityLongitude = mtbFacilityLongitude.Text
-            Else
-                FacilityLongitude = "00.000000"
-            End If
-            If mtbFacilityLatitude.Text <> "" AndAlso Not mtbFacilityLatitude.Text.Contains("  .") Then
-                FacilityLatitude = mtbFacilityLatitude.Text
-            Else
-                FacilityLatitude = "-00.000000"
             End If
             If cboCDSOperationalStatus.Items.Contains(cboCDSOperationalStatus.Text) Then
                 OperatingStatus = Mid(cboCDSOperationalStatus.Text, 1, 1)
@@ -1544,8 +1538,8 @@ Public Class IAIPFacilityCreator
             Dim FacilityStreet As String = ""
             Dim FacilityCity As String = ""
             Dim FacilityZipCode As String = ""
-            Dim FacilityLongitude As String = ""
-            Dim FacilityLatitude As String = ""
+            Dim FacilityLongitude As Decimal
+            Dim FacilityLatitude As Decimal
             Dim MailingStreet As String = ""
             Dim MailingCity As String = ""
             Dim MailingState As String = ""
@@ -1601,15 +1595,19 @@ Public Class IAIPFacilityCreator
             Else
                 FacilityZipCode = "00000"
             End If
-            If mtbFacilityLongitude.Text <> "" AndAlso Not mtbFacilityLongitude.Text.Contains("-  .") Then
-                FacilityLongitude = mtbFacilityLongitude.Text
-            Else
-                FacilityLongitude = "00.000000"
+            If mtbFacilityLatitude.Text = "  ." OrElse
+                    mtbFacilityLatitude.Text = "" OrElse
+                    Not Decimal.TryParse(mtbFacilityLatitude.Text, FacilityLatitude) Then
+                MsgBox("The Latitude field needs to be fixed. " &
+                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
+                Return
             End If
-            If mtbFacilityLatitude.Text <> "" AndAlso Not mtbFacilityLatitude.Text.Contains("  .") Then
-                FacilityLatitude = mtbFacilityLatitude.Text
-            Else
-                FacilityLatitude = "-00.000000"
+            If mtbFacilityLongitude.Text = "-  ." OrElse
+                    mtbFacilityLongitude.Text = "" OrElse
+                    Not Decimal.TryParse(mtbFacilityLongitude.Text, FacilityLongitude) Then
+                MsgBox("The Longitude field needs to be fixed. " &
+                "No Data saved.", MsgBoxStyle.Information, Me.Name)
+                Return
             End If
             If cboCDSOperationalStatus.Items.Contains(cboCDSOperationalStatus.Text) Then
                 OperatingStatus = Mid(cboCDSOperationalStatus.Text, 1, 1)
