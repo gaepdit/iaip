@@ -378,7 +378,7 @@ Public Class IAIPQueryGenerator
 
             If chbFacilityCity.Checked Then
                 SQLSelect = SQLSelect &
-                "APBFacilityInformation.strFacilityCity, "
+                "APBFACILITYINFORMATION.STRFACILITYCITY, "
 
                 If SQLFrom.IndexOf("APBFacilityInformation") <> -1 Then
                     ' SQLFrom = SQLFrom
@@ -422,7 +422,7 @@ Public Class IAIPQueryGenerator
                     SQLFrom = SQLFrom & " VW_SSCP_MOSTRECENTASSIGNMENT, "
                     SQLWhere = SQLWhere & " and APBMasterAIRS.strAIRSnumber = VW_SSCP_MOSTRECENTASSIGNMENT.strAIRSNumber "
                 End If
-                If SQLFrom.IndexOf("EPDUserProflies") <> -1 Then
+                If SQLFrom.IndexOf("EPDUserProfiles") <> -1 Then
                     '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " EPDUserProfiles, "
@@ -1258,15 +1258,15 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtFacilityCitySearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (strFacilityCity " & SQLWhereCase2 & " @city1) "
+                    SQLWhere = SQLWhere & " and (APBFACILITYINFORMATION.STRFACILITYCITY " & SQLWhereCase2 & " @city1) "
                     params.Add(New SqlParameter("@city1", "%" & txtFacilityCitySearch1.Text & "%"))
                 End If
                 If txtFacilityCitySearch2.Text <> "" Then
                     If txtFacilityCitySearch1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " strFacilityCity " & SQLWhereCase2 & " @city2 ) "
+                        " " & SQLWhereCase1 & " APBFACILITYINFORMATION.STRFACILITYCITY " & SQLWhereCase2 & " @city2 ) "
                     Else
-                        SQLWhere = SQLWhere & " and (strFacilityCity " & SQLWhereCase2 & " @city2) "
+                        SQLWhere = SQLWhere & " and (APBFACILITYINFORMATION.STRFACILITYCITY " & SQLWhereCase2 & " @city2) "
                     End If
                     params.Add(New SqlParameter("@city2", "%" & txtFacilityCitySearch2.Text & "%"))
                 End If
