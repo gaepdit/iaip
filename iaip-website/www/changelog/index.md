@@ -12,6 +12,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.6.7 <span>(2023-05-30)</span>
+
+Fixed a bug in the query generator.
+
 ## Version 6.6.6 <span>(2023-05-24)</span>
 
 Just one tiny bug fixed.
