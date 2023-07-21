@@ -3067,7 +3067,7 @@ Public Class SSPPPermitUploader
                     "   ,'-',SUBSTRING(strPermitNumber, 8,4),'-',SUBSTRING(strPermitNumber, 12, 1)  " &
                     "   ,'-',SUBSTRING(strPermitNumber, 13, 2) ,'-',SUBSTRING(strPermitNumber, 15,1)) as PermitNumber " &
                     "from SSPPApplicationData  " &
-                    "where strApplicationNumber like @appnum "
+                    "where strApplicationNumber = @appnum "
 
                     Dim p As New SqlParameter("@appnum", MasterApp)
 
