@@ -298,6 +298,10 @@ Partial Class IAIPQueryGenerator
         Me.rdbSSCPEngineerEqual = New System.Windows.Forms.RadioButton()
         Me.chbSSCPEngineer = New System.Windows.Forms.CheckBox()
         Me.TPCannedReports = New System.Windows.Forms.TabPage()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.rdbCannedHistoryClass = New System.Windows.Forms.RadioButton()
+        Me.rdbCannedPermitContactData = New System.Windows.Forms.RadioButton()
+        Me.rdbCannedHistoryAirProgram = New System.Windows.Forms.RadioButton()
         Me.lblCannedQueryCount = New System.Windows.Forms.Label()
         Me.cboCannedSelection = New System.Windows.Forms.ComboBox()
         Me.lblCannedSelection = New System.Windows.Forms.Label()
@@ -305,9 +309,6 @@ Partial Class IAIPQueryGenerator
         Me.lblCannedStartDate = New System.Windows.Forms.Label()
         Me.dtpCannedEndDate = New System.Windows.Forms.DateTimePicker()
         Me.dtpCannedStartDate = New System.Windows.Forms.DateTimePicker()
-        Me.rdbCannedHistoryClass = New System.Windows.Forms.RadioButton()
-        Me.rdbCannedHistoryAirProgram = New System.Windows.Forms.RadioButton()
-        Me.rdbCannedPermitContactData = New System.Windows.Forms.RadioButton()
         Me.lblCannedHistoryAirProgram = New System.Windows.Forms.Label()
         Me.lblCannedHistoryClass = New System.Windows.Forms.Label()
         Me.lblCannedPermitContactData = New System.Windows.Forms.Label()
@@ -322,7 +323,6 @@ Partial Class IAIPQueryGenerator
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mmiExport = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.Panel35.SuspendLayout()
@@ -386,9 +386,9 @@ Partial Class IAIPQueryGenerator
         Me.Panel72.SuspendLayout()
         Me.Panel69.SuspendLayout()
         Me.TPCannedReports.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.BasicSearchGroup.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
@@ -734,18 +734,18 @@ Partial Class IAIPQueryGenerator
         Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(422, 137)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(67, 13)
+        Me.Label5.Size = New System.Drawing.Size(64, 13)
         Me.Label5.TabIndex = 164
-        Me.Label5.Text = "(81.0 � 85.9)"
+        Me.Label5.Text = "(81.0 - 85.9)"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(422, 112)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(67, 13)
+        Me.Label4.Size = New System.Drawing.Size(64, 13)
         Me.Label4.TabIndex = 163
-        Me.Label4.Text = "(30.5 � 35.0)"
+        Me.Label4.Text = "(30.5 - 35.0)"
         '
         'Panel30
         '
@@ -3312,6 +3312,48 @@ Partial Class IAIPQueryGenerator
         Me.TPCannedReports.Text = "Canned Reports"
         Me.TPCannedReports.UseVisualStyleBackColor = True
         '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.rdbCannedHistoryClass)
+        Me.Panel1.Controls.Add(Me.rdbCannedPermitContactData)
+        Me.Panel1.Controls.Add(Me.rdbCannedHistoryAirProgram)
+        Me.Panel1.Location = New System.Drawing.Point(0, 6)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(195, 103)
+        Me.Panel1.TabIndex = 0
+        '
+        'rdbCannedHistoryClass
+        '
+        Me.rdbCannedHistoryClass.AutoSize = True
+        Me.rdbCannedHistoryClass.Checked = True
+        Me.rdbCannedHistoryClass.Location = New System.Drawing.Point(11, 11)
+        Me.rdbCannedHistoryClass.Name = "rdbCannedHistoryClass"
+        Me.rdbCannedHistoryClass.Size = New System.Drawing.Size(129, 17)
+        Me.rdbCannedHistoryClass.TabIndex = 0
+        Me.rdbCannedHistoryClass.TabStop = True
+        Me.rdbCannedHistoryClass.Text = "Historical Class Status"
+        Me.rdbCannedHistoryClass.UseVisualStyleBackColor = True
+        '
+        'rdbCannedPermitContactData
+        '
+        Me.rdbCannedPermitContactData.AutoSize = True
+        Me.rdbCannedPermitContactData.Location = New System.Drawing.Point(11, 63)
+        Me.rdbCannedPermitContactData.Name = "rdbCannedPermitContactData"
+        Me.rdbCannedPermitContactData.Size = New System.Drawing.Size(120, 17)
+        Me.rdbCannedPermitContactData.TabIndex = 2
+        Me.rdbCannedPermitContactData.Text = "Permit/Contact data"
+        Me.rdbCannedPermitContactData.UseVisualStyleBackColor = True
+        '
+        'rdbCannedHistoryAirProgram
+        '
+        Me.rdbCannedHistoryAirProgram.AutoSize = True
+        Me.rdbCannedHistoryAirProgram.Location = New System.Drawing.Point(11, 37)
+        Me.rdbCannedHistoryAirProgram.Name = "rdbCannedHistoryAirProgram"
+        Me.rdbCannedHistoryAirProgram.Size = New System.Drawing.Size(158, 17)
+        Me.rdbCannedHistoryAirProgram.TabIndex = 1
+        Me.rdbCannedHistoryAirProgram.Text = "Historical Air Program Status"
+        Me.rdbCannedHistoryAirProgram.UseVisualStyleBackColor = True
+        '
         'lblCannedQueryCount
         '
         Me.lblCannedQueryCount.AutoSize = True
@@ -3375,38 +3417,6 @@ Partial Class IAIPQueryGenerator
         Me.dtpCannedStartDate.Size = New System.Drawing.Size(106, 20)
         Me.dtpCannedStartDate.TabIndex = 1
         Me.dtpCannedStartDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'rdbCannedHistoryClass
-        '
-        Me.rdbCannedHistoryClass.AutoSize = True
-        Me.rdbCannedHistoryClass.Checked = True
-        Me.rdbCannedHistoryClass.Location = New System.Drawing.Point(11, 11)
-        Me.rdbCannedHistoryClass.Name = "rdbCannedHistoryClass"
-        Me.rdbCannedHistoryClass.Size = New System.Drawing.Size(129, 17)
-        Me.rdbCannedHistoryClass.TabIndex = 0
-        Me.rdbCannedHistoryClass.TabStop = True
-        Me.rdbCannedHistoryClass.Text = "Historical Class Status"
-        Me.rdbCannedHistoryClass.UseVisualStyleBackColor = True
-        '
-        'rdbCannedHistoryAirProgram
-        '
-        Me.rdbCannedHistoryAirProgram.AutoSize = True
-        Me.rdbCannedHistoryAirProgram.Location = New System.Drawing.Point(11, 37)
-        Me.rdbCannedHistoryAirProgram.Name = "rdbCannedHistoryAirProgram"
-        Me.rdbCannedHistoryAirProgram.Size = New System.Drawing.Size(158, 17)
-        Me.rdbCannedHistoryAirProgram.TabIndex = 1
-        Me.rdbCannedHistoryAirProgram.Text = "Historical Air Program Status"
-        Me.rdbCannedHistoryAirProgram.UseVisualStyleBackColor = True
-        '
-        'rdbCannedPermitContactData
-        '
-        Me.rdbCannedPermitContactData.AutoSize = True
-        Me.rdbCannedPermitContactData.Location = New System.Drawing.Point(11, 63)
-        Me.rdbCannedPermitContactData.Name = "rdbCannedPermitContactData"
-        Me.rdbCannedPermitContactData.Size = New System.Drawing.Size(120, 17)
-        Me.rdbCannedPermitContactData.TabIndex = 2
-        Me.rdbCannedPermitContactData.Text = "Permit/Contact data"
-        Me.rdbCannedPermitContactData.UseVisualStyleBackColor = True
         '
         'lblCannedHistoryAirProgram
         '
@@ -3540,16 +3550,6 @@ Partial Class IAIPQueryGenerator
         Me.MenuStrip1.Size = New System.Drawing.Size(739, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.rdbCannedHistoryClass)
-        Me.Panel1.Controls.Add(Me.rdbCannedPermitContactData)
-        Me.Panel1.Controls.Add(Me.rdbCannedHistoryAirProgram)
-        Me.Panel1.Location = New System.Drawing.Point(0, 6)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(195, 103)
-        Me.Panel1.TabIndex = 0
         '
         'IAIPQueryGenerator
         '
@@ -3691,12 +3691,12 @@ Partial Class IAIPQueryGenerator
         Me.Panel69.PerformLayout()
         Me.TPCannedReports.ResumeLayout(False)
         Me.TPCannedReports.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.BasicSearchGroup.ResumeLayout(False)
         Me.BasicSearchGroup.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
