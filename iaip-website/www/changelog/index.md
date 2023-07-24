@@ -12,6 +12,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.7.0 <span>(2023-07-24)</span>
+
+Updated the PA/PN template.
+
 ## Version 6.6.7 <span>(2023-05-30)</span>
 
 Fixed a bug in the query generator.
