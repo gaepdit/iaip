@@ -33,7 +33,7 @@ Two bug fixes in this release:
 
 ## Version 4.3.6 <span>(2016-06-15)</span>
 
-Welcome Richard E. Dunn, our new EPD Director! (The letterhead for reports has been updated.) 
+Welcome to our new EPD Director! (The letterhead for reports has been updated.)
 
 ## Version 4.3.5 <span>(2016-06-14)</span>
 
