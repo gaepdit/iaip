@@ -66,7 +66,7 @@
                 Return HasRole(102)
 
             Case RoleType.ProgramManager
-                Return HasRole({2, 11, 19, 28, 45, 57, 104, 143})
+                Return HasRole({2, 11, 19, 28, 45, 57, 104})
 
             Case RoleType.UnitManager
                 Return HasRole({47, 63, 106, 114, 115, 121, 128})
@@ -182,8 +182,8 @@
 
             Case UserCan.EditAnnualFees
                 ' Planning & Support Manager, SSCP Program Manager, EPD-IT,
-                ' Financial Administrative, Financial Manager, SBEAP Assistance Provider
-                Return HasRole({11, 19, 119, 123, 124, 142})
+                ' Financial Administrative, Financial Manager
+                Return HasRole({11, 19, 119, 123, 124})
 
             Case UserCan.EditAnnualFeesDeposits
                 ' ISMP Program Manager, Planning & Support Manager, Financial Administrative,

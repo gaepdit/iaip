@@ -291,26 +291,6 @@ Namespace DAL
                             query = query & " AND (u.NUMUNIT = @pid or a.APBUNIT = @pid) "
                     End Select
 
-                Case NavWorkListContext.SbeapCases
-                    query = "SELECT convert(int, s.NUMCASEID) AS [Case ID],
-                               convert(int, l.CLIENTID)  AS [Customer ID],
-                               c.STRCOMPANYNAME          AS Customer,
-                               s.DATCASEOPENED           AS [Case Opened],
-                               s.STRCASESUMMARY          AS Description,
-                               s.DATMODIFINGDATE         AS [Last Updated],
-                               CASE
-                                   WHEN s.NUMSTAFFRESPONSIBLE IS NULL THEN NULL
-                                   ELSE u.STRLASTNAME + ', ' + u.STRFIRSTNAME
-                               END                       AS [Staff Responsible]
-                        FROM SBEAPCASELOG AS s
-                             LEFT JOIN EPDUSERPROFILES AS u
-                                       ON s.NUMSTAFFRESPONSIBLE = u.NUMUSERID
-                             LEFT JOIN SBEAPCASELOGLINK AS l
-                                       ON s.NUMCASEID = l.NUMCASEID
-                             LEFT JOIN SBEAPCLIENTS AS c
-                                       ON l.CLIENTID = c.CLIENTID
-                        WHERE s.DATCASECLOSED IS NULL "
-
                     Select Case scope
                         Case NavWorkListScope.StaffView
                             query = query & " AND s.NUMSTAFFRESPONSIBLE = @pid "

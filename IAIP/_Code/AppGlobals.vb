@@ -69,10 +69,4 @@ Module AppGlobals
     Public Const MIN_FCE_SPAN_CLASS_SM As Integer = 5 ' Years
     Public Const MIN_FCE_SPAN_CLASS_M As Integer = 7 ' Years
 
-    ' All forms 
-
-    ' TODO DWW: Remove global form variables
-    Public ClientSummary As SBEAPClientSummary
-    Public CaseWork As SBEAPCaseWork
-
 End Module

@@ -53,13 +53,6 @@ Partial Class IAIPNavigation
         Me.btnOpenSscpItem = New System.Windows.Forms.Button()
         Me.btnOpenEnforcement = New System.Windows.Forms.Button()
         Me.btnOpenFacilitySummary = New System.Windows.Forms.Button()
-        Me.SbeapQuickAccessPanel = New System.Windows.Forms.Panel()
-        Me.txtOpenSbeapCaseLog = New Iaip.CueTextBox()
-        Me.btnOpenSbeapCaseLog = New System.Windows.Forms.Button()
-        Me.btnOpenSbeapClient = New System.Windows.Forms.Button()
-        Me.SbeapCaseLogNumberLabel = New System.Windows.Forms.Label()
-        Me.SbeapClientIDLabel = New System.Windows.Forms.Label()
-        Me.txtOpenSbeapClient = New Iaip.CueTextBox()
         Me.txtOpenTestLog = New Iaip.CueTextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.lblOpenFacilitySummary = New System.Windows.Forms.Label()
@@ -100,7 +93,6 @@ Partial Class IAIPNavigation
         Me.bgrNetworkChecker = New System.ComponentModel.BackgroundWorker()
         Me.MainMenu1.SuspendLayout()
         Me.grpQuickAccess.SuspendLayout()
-        Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.pnlCurrentList.SuspendLayout()
         Me.NavWorkListChangerPanel.SuspendLayout()
@@ -292,7 +284,6 @@ Partial Class IAIPNavigation
         Me.grpQuickAccess.Controls.Add(Me.btnOpenSscpItem)
         Me.grpQuickAccess.Controls.Add(Me.btnOpenEnforcement)
         Me.grpQuickAccess.Controls.Add(Me.btnOpenFacilitySummary)
-        Me.grpQuickAccess.Controls.Add(Me.SbeapQuickAccessPanel)
         Me.grpQuickAccess.Controls.Add(Me.txtOpenTestLog)
         Me.grpQuickAccess.Controls.Add(Me.Label8)
         Me.grpQuickAccess.Controls.Add(Me.lblOpenFacilitySummary)
@@ -396,94 +387,6 @@ Partial Class IAIPNavigation
         Me.btnOpenFacilitySummary.TabStop = False
         Me.btnOpenFacilitySummary.Text = "Open"
         Me.btnOpenFacilitySummary.UseVisualStyleBackColor = True
-        '
-        'SbeapQuickAccessPanel
-        '
-        Me.SbeapQuickAccessPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.SbeapQuickAccessPanel.Controls.Add(Me.txtOpenSbeapCaseLog)
-        Me.SbeapQuickAccessPanel.Controls.Add(Me.btnOpenSbeapCaseLog)
-        Me.SbeapQuickAccessPanel.Controls.Add(Me.btnOpenSbeapClient)
-        Me.SbeapQuickAccessPanel.Controls.Add(Me.SbeapCaseLogNumberLabel)
-        Me.SbeapQuickAccessPanel.Controls.Add(Me.SbeapClientIDLabel)
-        Me.SbeapQuickAccessPanel.Controls.Add(Me.txtOpenSbeapClient)
-        Me.SbeapQuickAccessPanel.Location = New System.Drawing.Point(483, 12)
-        Me.SbeapQuickAccessPanel.Name = "SbeapQuickAccessPanel"
-        Me.SbeapQuickAccessPanel.Size = New System.Drawing.Size(147, 102)
-        Me.SbeapQuickAccessPanel.TabIndex = 12
-        Me.SbeapQuickAccessPanel.Visible = False
-        '
-        'txtOpenSbeapCaseLog
-        '
-        Me.txtOpenSbeapCaseLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtOpenSbeapCaseLog.Cue = "Case #"
-        Me.txtOpenSbeapCaseLog.Location = New System.Drawing.Point(7, 78)
-        Me.txtOpenSbeapCaseLog.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtOpenSbeapCaseLog.MaxLength = 10
-        Me.txtOpenSbeapCaseLog.Name = "txtOpenSbeapCaseLog"
-        Me.txtOpenSbeapCaseLog.Size = New System.Drawing.Size(90, 20)
-        Me.txtOpenSbeapCaseLog.TabIndex = 2
-        '
-        'btnOpenSbeapCaseLog
-        '
-        Me.btnOpenSbeapCaseLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnOpenSbeapCaseLog.FlatAppearance.BorderSize = 0
-        Me.btnOpenSbeapCaseLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnOpenSbeapCaseLog.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.btnOpenSbeapCaseLog.Location = New System.Drawing.Point(102, 76)
-        Me.btnOpenSbeapCaseLog.Name = "btnOpenSbeapCaseLog"
-        Me.btnOpenSbeapCaseLog.Size = New System.Drawing.Size(43, 23)
-        Me.btnOpenSbeapCaseLog.TabIndex = 3
-        Me.btnOpenSbeapCaseLog.TabStop = False
-        Me.btnOpenSbeapCaseLog.Text = "Open"
-        Me.btnOpenSbeapCaseLog.UseVisualStyleBackColor = True
-        '
-        'btnOpenSbeapClient
-        '
-        Me.btnOpenSbeapClient.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnOpenSbeapClient.FlatAppearance.BorderSize = 0
-        Me.btnOpenSbeapClient.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnOpenSbeapClient.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.btnOpenSbeapClient.Location = New System.Drawing.Point(102, 22)
-        Me.btnOpenSbeapClient.Name = "btnOpenSbeapClient"
-        Me.btnOpenSbeapClient.Size = New System.Drawing.Size(43, 23)
-        Me.btnOpenSbeapClient.TabIndex = 1
-        Me.btnOpenSbeapClient.TabStop = False
-        Me.btnOpenSbeapClient.Text = "Open"
-        Me.btnOpenSbeapClient.UseVisualStyleBackColor = True
-        '
-        'SbeapCaseLogNumberLabel
-        '
-        Me.SbeapCaseLogNumberLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.SbeapCaseLogNumberLabel.AutoSize = True
-        Me.SbeapCaseLogNumberLabel.Location = New System.Drawing.Point(4, 63)
-        Me.SbeapCaseLogNumberLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.SbeapCaseLogNumberLabel.Name = "SbeapCaseLogNumberLabel"
-        Me.SbeapCaseLogNumberLabel.Size = New System.Drawing.Size(90, 13)
-        Me.SbeapCaseLogNumberLabel.TabIndex = 268
-        Me.SbeapCaseLogNumberLabel.Text = "SBEAP Case Log"
-        '
-        'SbeapClientIDLabel
-        '
-        Me.SbeapClientIDLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.SbeapClientIDLabel.AutoSize = True
-        Me.SbeapClientIDLabel.Location = New System.Drawing.Point(4, 9)
-        Me.SbeapClientIDLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.SbeapClientIDLabel.Name = "SbeapClientIDLabel"
-        Me.SbeapClientIDLabel.Size = New System.Drawing.Size(89, 13)
-        Me.SbeapClientIDLabel.TabIndex = 259
-        Me.SbeapClientIDLabel.Text = "SBEAP Customer"
-        '
-        'txtOpenSbeapClient
-        '
-        Me.txtOpenSbeapClient.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtOpenSbeapClient.Cue = "Customer ID"
-        Me.txtOpenSbeapClient.Location = New System.Drawing.Point(7, 24)
-        Me.txtOpenSbeapClient.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtOpenSbeapClient.MaxLength = 10
-        Me.txtOpenSbeapClient.Name = "txtOpenSbeapClient"
-        Me.txtOpenSbeapClient.Size = New System.Drawing.Size(90, 20)
-        Me.txtOpenSbeapClient.TabIndex = 0
         '
         'txtOpenTestLog
         '
@@ -908,8 +811,6 @@ Partial Class IAIPNavigation
         Me.MainMenu1.PerformLayout()
         Me.grpQuickAccess.ResumeLayout(False)
         Me.grpQuickAccess.PerformLayout()
-        Me.SbeapQuickAccessPanel.ResumeLayout(False)
-        Me.SbeapQuickAccessPanel.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.pnlCurrentList.ResumeLayout(False)
@@ -956,25 +857,18 @@ Partial Class IAIPNavigation
     Friend WithEvents pnlCurrentList As System.Windows.Forms.Panel
     Friend WithEvents NavWorkListScopePanel As System.Windows.Forms.Panel
     Friend WithEvents flpNavButtons As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents SbeapCaseLogNumberLabel As System.Windows.Forms.Label
-    Friend WithEvents SbeapClientIDLabel As System.Windows.Forms.Label
-    Friend WithEvents SbeapQuickAccessPanel As System.Windows.Forms.Panel
     Friend WithEvents btnOpenFacilitySummary As System.Windows.Forms.Button
     Friend WithEvents btnOpenTestReport As System.Windows.Forms.Button
     Friend WithEvents btnOpenApplication As System.Windows.Forms.Button
     Friend WithEvents btnOpenTestLog As System.Windows.Forms.Button
     Friend WithEvents btnOpenSscpItem As System.Windows.Forms.Button
     Friend WithEvents btnOpenEnforcement As System.Windows.Forms.Button
-    Friend WithEvents btnOpenSbeapCaseLog As System.Windows.Forms.Button
-    Friend WithEvents btnOpenSbeapClient As System.Windows.Forms.Button
     Friend WithEvents txtOpenSscpItem As Iaip.CueTextBox
     Friend WithEvents txtOpenApplication As Iaip.CueTextBox
     Friend WithEvents txtOpenEnforcement As Iaip.CueTextBox
     Friend WithEvents txtOpenTestReport As Iaip.CueTextBox
     Friend WithEvents txtOpenFacilitySummary As AirNumberEntryForm
     Friend WithEvents txtOpenTestLog As Iaip.CueTextBox
-    Friend WithEvents txtOpenSbeapCaseLog As Iaip.CueTextBox
-    Friend WithEvents txtOpenSbeapClient As Iaip.CueTextBox
     Private WithEvents bgrLoadWorkViewer As System.ComponentModel.BackgroundWorker
     Private WithEvents bgrUserPermissions As System.ComponentModel.BackgroundWorker
     Friend WithEvents dgvWorkViewer As IaipDataGridView

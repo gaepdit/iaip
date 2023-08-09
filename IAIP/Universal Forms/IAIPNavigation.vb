@@ -25,7 +25,6 @@ Public Class IAIPNavigation
         AssociateQuickNavButtons()
         SetUpNavWorkListContextChanger()
         SetUpNavWorkListScopeChanger()
-        CheckSbeapPermissions()
         LoadStatusBar()
         EnableConnectionEnvironmentOptions()
         DisplayUsername()
@@ -200,12 +199,6 @@ Public Class IAIPNavigation
 
 #Region " Page Load procedures "
 
-    Private Sub CheckSbeapPermissions()
-        If CurrentUser.HasRole({142, 143, 118}) Then
-            ShowControls({SbeapQuickAccessPanel})
-        End If
-    End Sub
-
     Private Sub LoadStatusBar()
         pnlName.Text = CurrentUser.FullName
         pnlDate.Text = Format(Today, DateFormat)
@@ -217,9 +210,6 @@ Public Class IAIPNavigation
         For Each v As NavWorkListContext In [Enum].GetValues(GetType(NavWorkListContext))
             NavWorkListContextDictionary.Add(v, v.GetDescription)
         Next
-        If Not CurrentUser.HasRole({142, 143, 118}) Then
-            NavWorkListContextDictionary.Remove(NavWorkListContext.SbeapCases)
-        End If
         cboNavWorkListContext.BindToDictionary(NavWorkListContextDictionary)
         AddHandler cboNavWorkListContext.SelectedValueChanged, AddressOf cboNavWorkListContext_SelectedValueChanged
         cboNavWorkListContext.SelectedValue = [Enum].Parse(GetType(NavWorkListContext), GetUserSetting(UserSetting.SelectedNavWorkListContext))
@@ -258,16 +248,13 @@ Public Class IAIPNavigation
         txtOpenApplication.Tag = btnOpenApplication
         txtOpenEnforcement.Tag = btnOpenEnforcement
         txtOpenFacilitySummary.Tag = btnOpenFacilitySummary
-        txtOpenSbeapCaseLog.Tag = btnOpenSbeapCaseLog
-        txtOpenSbeapClient.Tag = btnOpenSbeapClient
         txtOpenSscpItem.Tag = btnOpenSscpItem
         txtOpenTestLog.Tag = btnOpenTestLog
         txtOpenTestReport.Tag = btnOpenTestReport
     End Sub
 
     Private Sub QuickAccessButton_Click(sender As Object, e As EventArgs) _
-    Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenSscpItem.Click,
-    btnOpenSbeapClient.Click, btnOpenSbeapCaseLog.Click, btnOpenEnforcement.Click, btnOpenApplication.Click
+    Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenSscpItem.Click, btnOpenEnforcement.Click, btnOpenApplication.Click
         Cursor = Cursors.WaitCursor
 
         Dim thisButton As Button = CType(sender, Button)
@@ -280,10 +267,6 @@ Public Class IAIPNavigation
                     OpenEnforcement()
                 Case btnOpenFacilitySummary.Name
                     OpenFacilitySummary()
-                Case btnOpenSbeapCaseLog.Name
-                    OpenSbeapCaseLog()
-                Case btnOpenSbeapClient.Name
-                    OpenSbeapClient()
                 Case btnOpenSscpItem.Name
                     OpenSscpItem()
                 Case btnOpenTestLog.Name
@@ -295,8 +278,6 @@ Public Class IAIPNavigation
             ex.Data.AddAsUniqueIfExists("txtOpenApplication", txtOpenApplication.Text)
             ex.Data.AddAsUniqueIfExists("txtOpenEnforcement", txtOpenEnforcement.Text)
             ex.Data.AddAsUniqueIfExists("txtOpenFacilitySummary", txtOpenFacilitySummary.Text)
-            ex.Data.AddAsUniqueIfExists("txtOpenSbeapCaseLog", txtOpenSbeapCaseLog.Text)
-            ex.Data.AddAsUniqueIfExists("txtOpenSbeapClient", txtOpenSbeapClient.Text)
             ex.Data.AddAsUniqueIfExists("txtOpenSscpItem", txtOpenSscpItem.Text)
             ex.Data.AddAsUniqueIfExists("txtOpenTestLog", txtOpenTestLog.Text)
             ex.Data.AddAsUniqueIfExists("txtOpenTestReport", txtOpenTestReport.Text)
@@ -307,8 +288,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessTextbox_Enter(sender As Object, e As EventArgs) _
-    Handles txtOpenApplication.Enter, txtOpenEnforcement.Enter, txtOpenFacilitySummary.AirsTextEnter, txtOpenSbeapCaseLog.Enter,
-    txtOpenSbeapClient.Enter, txtOpenSscpItem.Enter, txtOpenTestLog.Enter, txtOpenTestReport.Enter
+    Handles txtOpenApplication.Enter, txtOpenEnforcement.Enter, txtOpenFacilitySummary.AirsTextEnter, txtOpenSscpItem.Enter, txtOpenTestLog.Enter, txtOpenTestReport.Enter
         Dim thisButton As Button = CType(CType(sender, TextBox).Tag, Button)
         Me.AcceptButton = thisButton
         thisButton.FlatStyle = FlatStyle.Standard
@@ -316,8 +296,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessTextbox_Leave(sender As Object, e As EventArgs) _
-    Handles txtOpenApplication.Leave, txtOpenEnforcement.Leave, txtOpenFacilitySummary.AirsTextLeave, txtOpenSbeapCaseLog.Leave,
-    txtOpenSbeapClient.Leave, txtOpenSscpItem.Leave, txtOpenTestLog.Leave, txtOpenTestReport.Leave
+    Handles txtOpenApplication.Leave, txtOpenEnforcement.Leave, txtOpenFacilitySummary.AirsTextLeave, txtOpenSscpItem.Leave, txtOpenTestLog.Leave, txtOpenTestReport.Leave
         Dim thisButton As Button = CType(CType(sender, TextBox).Tag, Button)
         Me.AcceptButton = Nothing
         If Not CBool(thisButton.Tag) Then
@@ -327,8 +306,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessTextbox_TextChanged(sender As Object, e As EventArgs) _
-    Handles txtOpenApplication.TextChanged, txtOpenEnforcement.TextChanged, txtOpenFacilitySummary.AirsTextChanged, txtOpenSbeapCaseLog.TextChanged,
-    txtOpenSbeapClient.TextChanged, txtOpenSscpItem.TextChanged, txtOpenTestLog.TextChanged, txtOpenTestReport.TextChanged
+    Handles txtOpenApplication.TextChanged, txtOpenEnforcement.TextChanged, txtOpenFacilitySummary.AirsTextChanged, txtOpenSscpItem.TextChanged, txtOpenTestLog.TextChanged, txtOpenTestReport.TextChanged
         Dim thisTextbox As TextBox = CType(sender, TextBox)
         Dim thisButton As Button = CType(thisTextbox.Tag, Button)
         If thisTextbox.TextLength > 0 Then
@@ -345,8 +323,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessButton_Enter(sender As Object, e As EventArgs) _
-    Handles btnOpenApplication.Enter, btnOpenEnforcement.Enter, btnOpenFacilitySummary.Enter, btnOpenSbeapCaseLog.Enter,
-    btnOpenSbeapClient.Enter, btnOpenSscpItem.Enter, btnOpenTestLog.Enter, btnOpenTestReport.Enter
+    Handles btnOpenApplication.Enter, btnOpenEnforcement.Enter, btnOpenFacilitySummary.Enter, btnOpenSscpItem.Enter, btnOpenTestLog.Enter, btnOpenTestReport.Enter
         Dim thisButton As Button = CType(sender, Button)
         If CBool(thisButton.Tag) Then
             thisButton.FlatStyle = FlatStyle.Standard
@@ -355,8 +332,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessButton_Leave(sender As Object, e As EventArgs) _
-    Handles btnOpenApplication.Leave, btnOpenEnforcement.Leave, btnOpenFacilitySummary.Leave, btnOpenSbeapCaseLog.Leave,
-    btnOpenSbeapClient.Leave, btnOpenSscpItem.Leave, btnOpenTestLog.Leave, btnOpenTestReport.Leave
+    Handles btnOpenApplication.Leave, btnOpenEnforcement.Leave, btnOpenFacilitySummary.Leave, btnOpenSscpItem.Leave, btnOpenTestLog.Leave, btnOpenTestReport.Leave
         Dim thisButton As Button = CType(sender, Button)
         If AcceptButton IsNot thisButton AndAlso Not CBool(thisButton.Tag) Then
             thisButton.FlatStyle = FlatStyle.Flat
@@ -413,61 +389,6 @@ Public Class IAIPNavigation
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
-    Private Sub OpenSbeapClient()
-        Try
-            Dim id As String = txtOpenSbeapClient.Text
-            If id = "" Then
-                Return
-            End If
-
-            If DAL.Sbeap.ClientExists(id) Then
-                If ClientSummary IsNot Nothing AndAlso Not ClientSummary.IsDisposed Then
-                    ClientSummary.Dispose()
-                End If
-
-                ClientSummary = New SBEAPClientSummary
-                ClientSummary.Show()
-                ClientSummary.txtClientID.Text = id
-                ClientSummary.LoadClientData()
-            Else
-                MsgBox("Customer ID is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub OpenSbeapCaseLog()
-        Try
-            Dim id As String = txtOpenSbeapCaseLog.Text
-            If id = "" Then
-                Return
-            End If
-
-            If DAL.Sbeap.CaseExists(id) Then
-
-                If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
-                    CaseWork.Dispose()
-                End If
-
-                CaseWork = New SBEAPCaseWork
-
-                If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
-                    CaseWork.Show()
-                    CaseWork.txtCaseID.Text = id
-                    CaseWork.LoadCaseLogData()
-                Else
-                    MessageBox.Show("There was an error displaying the Case Log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End If
-            Else
-                MsgBox("Case number is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
     Private Sub ClearQuickAccessTool()
         txtOpenFacilitySummary.Clear()
         txtOpenEnforcement.Clear()
@@ -475,8 +396,6 @@ Public Class IAIPNavigation
         txtOpenTestReport.Clear()
         txtOpenSscpItem.Clear()
         txtOpenTestLog.Clear()
-        txtOpenSbeapClient.Clear()
-        txtOpenSbeapCaseLog.Clear()
     End Sub
 
 #End Region
@@ -494,7 +413,6 @@ Public Class IAIPNavigation
         <Description("Monitoring Test Reports")> MonitoringTestReports
         <Description("Monitoring Test Notifications")> MonitoringTestNotifications
         <Description("Permit Applications")> PermitApplications
-        <Description("SBEAP Cases")> SbeapCases
     End Enum
 
     Public Enum NavWorkListScope
@@ -536,7 +454,7 @@ Public Class IAIPNavigation
     Private Sub cboNavWorkListContext_SelectedValueChanged(sender As Object, e As EventArgs)
         Dim c As NavWorkListContext = CType(cboNavWorkListContext.SelectedValue, NavWorkListContext)
         Select Case c
-            Case NavWorkListContext.ComplianceWork, NavWorkListContext.Enforcement, NavWorkListContext.MonitoringTestReports, NavWorkListContext.PermitApplications, NavWorkListContext.SbeapCases
+            Case NavWorkListContext.ComplianceWork, NavWorkListContext.Enforcement, NavWorkListContext.MonitoringTestReports, NavWorkListContext.PermitApplications
                 NavWorkListScopePanel.Visible = True
             Case NavWorkListContext.LateFce, NavWorkListContext.FacilitiesMissingSubparts, NavWorkListContext.MonitoringTestNotifications
                 NavWorkListScopePanel.Visible = False
@@ -698,8 +616,6 @@ Public Class IAIPNavigation
         Cursor = Cursors.WaitCursor
 
         Select Case dgvWorkViewer.Columns(0).HeaderText
-            Case "Case ID" ' SBEAP cases
-                OpenSbeapCaseLog()
             Case "AIRS #" ' Compliance facilities assigned; delinquent FCEs; facility subparts
                 OpenFacilitySummary()
             Case "Tracking #" ' Compliance work
@@ -719,9 +635,6 @@ Public Class IAIPNavigation
 
     Private Sub SelectItemNumbers(row As Integer)
         Select Case dgvWorkViewer.Columns(0).HeaderText
-            Case "Case ID" ' SBEAP cases
-                txtOpenSbeapCaseLog.Text = dgvWorkViewer(0, row).FormattedValue.ToString
-                txtOpenSbeapClient.Text = dgvWorkViewer(1, row).FormattedValue.ToString
             Case "AIRS #" ' Compliance facilities assigned; delinquent FCEs; facility subparts
                 txtOpenFacilitySummary.AirsNumber = If(Apb.ApbFacilityId.IsValidAirsNumberFormat(dgvWorkViewer(0, row).Value.ToString), New Apb.ApbFacilityId(dgvWorkViewer(0, row).Value.ToString), Nothing)
             Case "Tracking #" ' Compliance work
@@ -767,7 +680,7 @@ Public Class IAIPNavigation
                     Dim formAccessArray As String() = accountFormAccessString.Split({"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries)
 
                     For Each formAccessString As String In formAccessArray
-                        Dim formAccessSplit As String() = formAccessString.Split({"-"c, ","c})
+                        Dim formAccessSplit As String() = formAccessString.Split("-"c, ","c)
                         Dim formNumber As Integer = CInt(formAccessSplit(0))
                         AccountFormAccess(formNumber, 0) = formNumber.ToString()
                         For i As Integer = 1 To 4
@@ -936,7 +849,6 @@ Public Class IAIPNavigation
         DX
         MASP
         EIS
-        SBEAP
     End Enum
 
     Private Sub CreateNavButtonCategoriesList()
@@ -949,7 +861,6 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.DX, "Data Exchange", "Data Exchange")
         AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program", "Events")
         AddNavButtonCategory(NavButtonCategories.EIS, "Emissions and Control Strategies", "EI/ES")
-        AddNavButtonCategory(NavButtonCategories.SBEAP, "Small Business Environmental Assistance Program")
     End Sub
 
     Private Sub CreateNavButtonsList()
@@ -1004,13 +915,6 @@ Public Class IAIPNavigation
         ' EIS
         AddNavButtonIfUserCan(UserCan.AccessEmissionsInventory, "Emissions Inventory", NameOf(EisTool), NavButtonCategories.EIS)
         AddNavButtonIfUserCan(UserCan.AccessEmissionsInventory, "Emissions Statement", NameOf(EmissionsStatement), NavButtonCategories.EIS)
-
-        'SBEAP
-        AddNavButtonIfUserHasPermission({142, 143}, "Customer Summary", NameOf(SBEAPClientSummary), NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143}, "Case Log", NameOf(SBEAPCaseLog), NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143}, "Report Tool", NameOf(SBEAPReports), NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143}, "Phone Log", NameOf(SBEAPPhoneLog), NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143}, "Contact Data", NameOf(SBEAPMiscTools), NavButtonCategories.SBEAP)
 
     End Sub
 
