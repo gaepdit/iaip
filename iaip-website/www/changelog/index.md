@@ -12,6 +12,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.7.1 <span>(2023-07-26)</span>
+
+Fixed incorrect email addresses in the PA/PN template.
+
 ## Version 6.7.0 <span>(2023-07-24)</span>
 
 Updated the PA/PN template.
