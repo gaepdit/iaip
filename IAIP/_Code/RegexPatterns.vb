@@ -9,6 +9,7 @@
 
     ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-00000
     ' (with or without the dashes)
+    ' Test regex here: https://regex101.com/r/2uYyHl
     Friend Const AirsNumberPattern As String = "^(04-?13-?)?\d{3}-?\d{5}$"
 
     ' Valid RMP IDs are in the form 0000-0000-0000 (with the dashes)

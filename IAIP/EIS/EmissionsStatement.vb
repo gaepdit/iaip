@@ -791,8 +791,8 @@ Public Class EmissionsStatement
         Try
             Dim SQL As String = "SELECT es.STRAIRSNUMBER " &
                 ", es.STRFACILITYNAME " &
-                "FROM esMailOut em " &
-                "LEFT JOIN ESSCHEMA es " &
+                "FROM ESSCHEMA es " &
+                "LEFT JOIN esMailOut em " &
                 "ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
                 "WHERE es.INTESYEAR = @year " &
                 "AND es.STROPTOUT  IS NULL " &
@@ -805,52 +805,6 @@ Public Class EmissionsStatement
             dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
             dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub lblextraResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblextraResponse.LinkClicked
-        Try
-            Dim SQL As String = "SELECT dt_NotInMailout.SchemaAIRS " &
-                    ", es.STRAIRSNUMBER " &
-                    ", es.STRFACILITYNAME " &
-                    ", es.STRCONTACTFIRSTNAME " &
-                    ", es.STRCONTACTLASTNAME " &
-                    ", es.STRCONTACTCOMPANY " &
-                    ", es.STRCONTACTEMAIL " &
-                    ", es.STRCONTACTPHONENUMBER " &
-                    "FROM " &
-                    "  (SELECT es.STRAIRSNUMBER AS SchemaAIRS " &
-                    "  , em.STRAIRSNUMBER       AS MailoutAIRS " &
-                    "  FROM ESMailout em " &
-                    "  RIGHT JOIN ESSCHEMA es " &
-                    "  ON es.STRAIRSYEAR  = em.STRAIRSYEAR " &
-                    "  WHERE es.INTESYEAR = @year " &
-                    "  AND es.STROPTOUT  IS NOT NULL " &
-                    "  ) dt_NotInMailout " &
-                    "INNER JOIN ESSCHEMA es " &
-                    "ON dt_NotInMailout.SchemaAIRS      = es.STRAIRSNUMBER " &
-                    "WHERE dt_NotInMailout.MailoutAIRS IS NULL"
-            Dim param As New SqlParameter("@year", SelectedYear.ToString)
-
-            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
-
-            dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
-            dgvESDataCount.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
-            dgvESDataCount.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 2
-            dgvESDataCount.Columns("STRCONTACTLASTNAME").HeaderText = "Contact Last Name"
-            dgvESDataCount.Columns("STRCONTACTLASTNAME").DisplayIndex = 3
-            dgvESDataCount.Columns("STRCONTACTCOMPANY").HeaderText = "Contact Company"
-            dgvESDataCount.Columns("STRCONTACTCOMPANY").DisplayIndex = 4
-            dgvESDataCount.Columns("STRCONTACTEMAIL").HeaderText = "Contact Email"
-            dgvESDataCount.Columns("STRCONTACTEMAIL").DisplayIndex = 5
-            dgvESDataCount.Columns("STRCONTACTPHONENUMBER").HeaderText = "Phone No."
-            dgvESDataCount.Columns("STRCONTACTPHONENUMBER").DisplayIndex = 6
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1759,27 +1713,27 @@ Public Class EmissionsStatement
         End Try
     End Sub
 
-    Private Sub lblviewESextraresponder_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblviewESextraresponder.LinkClicked
+    Private Sub lblviewESextraresponder_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) _
+        Handles lblviewESextraresponder.LinkClicked, lblextraResponse.LinkClicked
+
         Try
-            Dim SQL As String = "SELECT es.STRAIRSNUMBER " &
-                ", es.STRFACILITYNAME " &
-                ", es.STRCONTACTFIRSTNAME " &
-                ", es.STRCONTACTLASTNAME " &
-                ", es.STRCONTACTCOMPANY " &
-                ", es.STRCONTACTEMAIL " &
-                ", es.STRCONTACTPHONENUMBER " &
-                "FROM " &
-                "  (SELECT es.STRAIRSNUMBER AS SchemaAIRS " &
-                "  , em.STRAIRSNUMBER       AS MailoutAIRS " &
-                "  FROM ESMailout em " &
-                "  RIGHT JOIN ESSCHEMA es " &
-                "  ON es.STRAIRSYEAR  = em.STRAIRSYEAR " &
-                "  WHERE es.INTESYEAR = @year " &
-                "  AND es.STROPTOUT  IS NOT NULL " &
-                "  ) dt_NotInMailout " &
-                "INNER JOIN ESSCHEMA es " &
-                "ON dt_NotInMailout.SchemaAIRS      = es.STRAIRSNUMBER " &
-                "WHERE dt_NotInMailout.MailoutAIRS IS NULL"
+            Dim SQL As String = "SELECT es.STRAIRSNUMBER,
+                             es.STRFACILITYNAME,
+                             es.STRCONTACTFIRSTNAME,
+                             es.STRCONTACTLASTNAME,
+                             es.STRCONTACTCOMPANY,
+                             es.STRCONTACTEMAIL,
+                             es.STRCONTACTPHONENUMBER
+                FROM (SELECT es.STRAIRSYEAR AS SchemaAIRS,
+                             em.STRAIRSYEAR AS MailoutAIRS
+                      FROM ESMailout em
+                          Right Join ESSCHEMA es
+                          ON es.STRAIRSYEAR = em.STRAIRSYEAR
+                      WHERE es.INTESYEAR = @year
+                        AND es.STROPTOUT IS NOT NULL) dt_NotInMailout
+                    INNER JOIN ESSCHEMA es
+                    On dt_NotInMailout.SchemaAIRS = es.STRAIRSYEAR
+                WHERE dt_NotInMailout.MailoutAIRS IS NULL"
             Dim param As New SqlParameter("@year", SelectedYear.ToString)
 
             dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
@@ -1906,4 +1860,10 @@ Public Class EmissionsStatement
         End Try
     End Sub
 
+    Private Sub dgvESDataCount_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvESDataCount.CellFormatting
+        If e IsNot Nothing AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) AndAlso
+            dgvESDataCount.Columns(e.ColumnIndex).HeaderText = "Airs No." Then
+            e.Value = New Apb.ApbFacilityId(e.Value.ToString).FormattedString
+        End If
+    End Sub
 End Class
