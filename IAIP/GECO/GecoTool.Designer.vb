@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class GecoTool
     Inherits BaseForm
 
@@ -22,6 +22,7 @@ Partial Class GecoTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TCGecoTools = New System.Windows.Forms.TabControl()
         Me.TPWebUsers = New System.Windows.Forms.TabPage()
@@ -41,11 +42,11 @@ Partial Class GecoTool
         Me.txtEmail = New System.Windows.Forms.TextBox()
         Me.TPWebUsers1 = New System.Windows.Forms.TabPage()
         Me.pnlUserFacility = New System.Windows.Forms.Panel()
-        Me.dgvUserFacilities = New System.Windows.Forms.DataGridView()
+        Me.dgvUserFacilities = New Iaip.IaipDataGridView()
         Me.pnlUserInfo = New System.Windows.Forms.Panel()
+        Me.mtbFacilityToAdd = New Iaip.AirNumberEntryForm()
         Me.lblChangeEmailAddress = New System.Windows.Forms.Label()
         Me.btnChangeEmailAddress = New System.Windows.Forms.Button()
-        Me.mtbFacilityToAdd = New System.Windows.Forms.MaskedTextBox()
         Me.txtEditEmail = New System.Windows.Forms.TextBox()
         Me.cboFacilityToDelete = New System.Windows.Forms.ComboBox()
         Me.lblConfirmDate = New System.Windows.Forms.Label()
@@ -56,17 +57,6 @@ Partial Class GecoTool
         Me.Label53 = New System.Windows.Forms.Label()
         Me.btnAddFacilitytoUser = New System.Windows.Forms.Button()
         Me.txtWebUserID = New System.Windows.Forms.TextBox()
-        Me.btnSaveEditedData = New System.Windows.Forms.Button()
-        Me.mtbEditZipCode = New System.Windows.Forms.MaskedTextBox()
-        Me.mtbEditState = New System.Windows.Forms.MaskedTextBox()
-        Me.mtbEditFaxNumber = New System.Windows.Forms.MaskedTextBox()
-        Me.mtbEditPhoneNumber = New System.Windows.Forms.MaskedTextBox()
-        Me.txtEditCity = New System.Windows.Forms.TextBox()
-        Me.txtEditAddress = New System.Windows.Forms.TextBox()
-        Me.txtEditCompany = New System.Windows.Forms.TextBox()
-        Me.txtEditTitle = New System.Windows.Forms.TextBox()
-        Me.txtEditLastName = New System.Windows.Forms.TextBox()
-        Me.txtEditFirstName = New System.Windows.Forms.TextBox()
         Me.btnEditUserData = New System.Windows.Forms.Button()
         Me.lblCityStateZip = New System.Windows.Forms.Label()
         Me.lblAddress = New System.Windows.Forms.Label()
@@ -244,7 +234,7 @@ Partial Class GecoTool
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(15, 46)
+        Me.Label17.Location = New System.Drawing.Point(15, 45)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(132, 13)
         Me.Label17.TabIndex = 276
@@ -252,7 +242,7 @@ Partial Class GecoTool
         '
         'txtEmail
         '
-        Me.txtEmail.Location = New System.Drawing.Point(18, 62)
+        Me.txtEmail.Location = New System.Drawing.Point(18, 61)
         Me.txtEmail.Name = "txtEmail"
         Me.txtEmail.Size = New System.Drawing.Size(229, 20)
         Me.txtEmail.TabIndex = 2
@@ -280,18 +270,30 @@ Partial Class GecoTool
         '
         'dgvUserFacilities
         '
+        Me.dgvUserFacilities.AllowUserToOrderColumns = False
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvUserFacilities.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvUserFacilities.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvUserFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvUserFacilities.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvUserFacilities.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystrokeOrF2
+        Me.dgvUserFacilities.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvUserFacilities.LinkifyColumnByName = Nothing
         Me.dgvUserFacilities.Location = New System.Drawing.Point(0, 366)
         Me.dgvUserFacilities.Name = "dgvUserFacilities"
+        Me.dgvUserFacilities.ReadOnly = False
+        Me.dgvUserFacilities.ResultsCountLabel = Nothing
+        Me.dgvUserFacilities.ResultsCountLabelFormat = "{0} found"
+        Me.dgvUserFacilities.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect
         Me.dgvUserFacilities.Size = New System.Drawing.Size(857, 224)
+        Me.dgvUserFacilities.StandardTab = True
         Me.dgvUserFacilities.TabIndex = 0
         '
         'pnlUserInfo
         '
+        Me.pnlUserInfo.Controls.Add(Me.mtbFacilityToAdd)
         Me.pnlUserInfo.Controls.Add(Me.lblChangeEmailAddress)
         Me.pnlUserInfo.Controls.Add(Me.btnChangeEmailAddress)
-        Me.pnlUserInfo.Controls.Add(Me.mtbFacilityToAdd)
         Me.pnlUserInfo.Controls.Add(Me.txtEditEmail)
         Me.pnlUserInfo.Controls.Add(Me.cboFacilityToDelete)
         Me.pnlUserInfo.Controls.Add(Me.lblConfirmDate)
@@ -302,17 +304,6 @@ Partial Class GecoTool
         Me.pnlUserInfo.Controls.Add(Me.Label53)
         Me.pnlUserInfo.Controls.Add(Me.btnAddFacilitytoUser)
         Me.pnlUserInfo.Controls.Add(Me.txtWebUserID)
-        Me.pnlUserInfo.Controls.Add(Me.btnSaveEditedData)
-        Me.pnlUserInfo.Controls.Add(Me.mtbEditZipCode)
-        Me.pnlUserInfo.Controls.Add(Me.mtbEditState)
-        Me.pnlUserInfo.Controls.Add(Me.mtbEditFaxNumber)
-        Me.pnlUserInfo.Controls.Add(Me.mtbEditPhoneNumber)
-        Me.pnlUserInfo.Controls.Add(Me.txtEditCity)
-        Me.pnlUserInfo.Controls.Add(Me.txtEditAddress)
-        Me.pnlUserInfo.Controls.Add(Me.txtEditCompany)
-        Me.pnlUserInfo.Controls.Add(Me.txtEditTitle)
-        Me.pnlUserInfo.Controls.Add(Me.txtEditLastName)
-        Me.pnlUserInfo.Controls.Add(Me.txtEditFirstName)
         Me.pnlUserInfo.Controls.Add(Me.btnEditUserData)
         Me.pnlUserInfo.Controls.Add(Me.lblCityStateZip)
         Me.pnlUserInfo.Controls.Add(Me.lblAddress)
@@ -328,12 +319,25 @@ Partial Class GecoTool
         Me.pnlUserInfo.Location = New System.Drawing.Point(0, 0)
         Me.pnlUserInfo.Name = "pnlUserInfo"
         Me.pnlUserInfo.Size = New System.Drawing.Size(857, 366)
-        Me.pnlUserInfo.TabIndex = 151
+        Me.pnlUserInfo.TabIndex = 0
+        '
+        'mtbFacilityToAdd
+        '
+        Me.mtbFacilityToAdd.AirsNumber = Nothing
+        Me.mtbFacilityToAdd.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
+        Me.mtbFacilityToAdd.ErrorMessageLabel = Nothing
+        Me.mtbFacilityToAdd.FacilityMustExist = True
+        Me.mtbFacilityToAdd.Location = New System.Drawing.Point(179, 301)
+        Me.mtbFacilityToAdd.Name = "mtbFacilityToAdd"
+        Me.mtbFacilityToAdd.ReadOnly = False
+        Me.mtbFacilityToAdd.Size = New System.Drawing.Size(78, 23)
+        Me.mtbFacilityToAdd.TabIndex = 5
+        Me.mtbFacilityToAdd.TextBoxBackColor = System.Drawing.SystemColors.Window
         '
         'lblChangeEmailAddress
         '
         Me.lblChangeEmailAddress.AutoSize = True
-        Me.lblChangeEmailAddress.Location = New System.Drawing.Point(510, 74)
+        Me.lblChangeEmailAddress.Location = New System.Drawing.Point(269, 70)
         Me.lblChangeEmailAddress.Name = "lblChangeEmailAddress"
         Me.lblChangeEmailAddress.Size = New System.Drawing.Size(173, 26)
         Me.lblChangeEmailAddress.TabIndex = 284
@@ -344,29 +348,20 @@ Partial Class GecoTool
         '
         Me.btnChangeEmailAddress.AutoSize = True
         Me.btnChangeEmailAddress.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnChangeEmailAddress.Location = New System.Drawing.Point(513, 48)
+        Me.btnChangeEmailAddress.Location = New System.Drawing.Point(272, 44)
         Me.btnChangeEmailAddress.Name = "btnChangeEmailAddress"
-        Me.btnChangeEmailAddress.Size = New System.Drawing.Size(123, 23)
-        Me.btnChangeEmailAddress.TabIndex = 16
-        Me.btnChangeEmailAddress.Text = "Change Email Address"
+        Me.btnChangeEmailAddress.Size = New System.Drawing.Size(136, 23)
+        Me.btnChangeEmailAddress.TabIndex = 4
+        Me.btnChangeEmailAddress.Text = "Save New Email Address"
         Me.btnChangeEmailAddress.UseVisualStyleBackColor = True
         Me.btnChangeEmailAddress.Visible = False
         '
-        'mtbFacilityToAdd
-        '
-        Me.mtbFacilityToAdd.Location = New System.Drawing.Point(179, 303)
-        Me.mtbFacilityToAdd.Mask = "000-00000"
-        Me.mtbFacilityToAdd.Name = "mtbFacilityToAdd"
-        Me.mtbFacilityToAdd.Size = New System.Drawing.Size(64, 20)
-        Me.mtbFacilityToAdd.TabIndex = 17
-        Me.mtbFacilityToAdd.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
         'txtEditEmail
         '
-        Me.txtEditEmail.Location = New System.Drawing.Point(513, 22)
+        Me.txtEditEmail.Location = New System.Drawing.Point(272, 18)
         Me.txtEditEmail.Name = "txtEditEmail"
         Me.txtEditEmail.Size = New System.Drawing.Size(208, 20)
-        Me.txtEditEmail.TabIndex = 15
+        Me.txtEditEmail.TabIndex = 3
         Me.txtEditEmail.Visible = False
         '
         'cboFacilityToDelete
@@ -376,7 +371,7 @@ Partial Class GecoTool
         Me.cboFacilityToDelete.Location = New System.Drawing.Point(179, 330)
         Me.cboFacilityToDelete.Name = "cboFacilityToDelete"
         Me.cboFacilityToDelete.Size = New System.Drawing.Size(252, 21)
-        Me.cboFacilityToDelete.TabIndex = 19
+        Me.cboFacilityToDelete.TabIndex = 7
         '
         'lblConfirmDate
         '
@@ -390,11 +385,11 @@ Partial Class GecoTool
         'Label75
         '
         Me.Label75.AutoSize = True
-        Me.Label75.Location = New System.Drawing.Point(20, 333)
+        Me.Label75.Location = New System.Drawing.Point(26, 333)
         Me.Label75.Name = "Label75"
-        Me.Label75.Size = New System.Drawing.Size(153, 13)
+        Me.Label75.Size = New System.Drawing.Size(147, 13)
         Me.Label75.TabIndex = 283
-        Me.Label75.Text = "Delete a facility from this user:  "
+        Me.Label75.Text = "Delete a facility from this user:"
         '
         'lblLastLogIn
         '
@@ -407,10 +402,10 @@ Partial Class GecoTool
         'btnDeleteFacilityUser
         '
         Me.btnDeleteFacilityUser.AutoSize = True
-        Me.btnDeleteFacilityUser.Location = New System.Drawing.Point(437, 330)
+        Me.btnDeleteFacilityUser.Location = New System.Drawing.Point(442, 329)
         Me.btnDeleteFacilityUser.Name = "btnDeleteFacilityUser"
         Me.btnDeleteFacilityUser.Size = New System.Drawing.Size(151, 23)
-        Me.btnDeleteFacilityUser.TabIndex = 20
+        Me.btnDeleteFacilityUser.TabIndex = 8
         Me.btnDeleteFacilityUser.Text = "Remove Facility for this User"
         Me.btnDeleteFacilityUser.UseVisualStyleBackColor = True
         '
@@ -418,15 +413,15 @@ Partial Class GecoTool
         '
         Me.btnUpdateUser.Location = New System.Drawing.Point(615, 329)
         Me.btnUpdateUser.Name = "btnUpdateUser"
-        Me.btnUpdateUser.Size = New System.Drawing.Size(106, 24)
-        Me.btnUpdateUser.TabIndex = 21
+        Me.btnUpdateUser.Size = New System.Drawing.Size(106, 23)
+        Me.btnUpdateUser.TabIndex = 9
         Me.btnUpdateUser.Text = "Save Changes"
         Me.btnUpdateUser.UseVisualStyleBackColor = True
         '
         'Label53
         '
         Me.Label53.AutoSize = True
-        Me.Label53.Location = New System.Drawing.Point(49, 306)
+        Me.Label53.Location = New System.Drawing.Point(49, 304)
         Me.Label53.Name = "Label53"
         Me.Label53.Size = New System.Drawing.Size(124, 13)
         Me.Label53.TabIndex = 276
@@ -435,10 +430,10 @@ Partial Class GecoTool
         'btnAddFacilitytoUser
         '
         Me.btnAddFacilitytoUser.AutoSize = True
-        Me.btnAddFacilitytoUser.Location = New System.Drawing.Point(249, 301)
+        Me.btnAddFacilitytoUser.Location = New System.Drawing.Point(263, 299)
         Me.btnAddFacilitytoUser.Name = "btnAddFacilitytoUser"
         Me.btnAddFacilitytoUser.Size = New System.Drawing.Size(77, 23)
-        Me.btnAddFacilitytoUser.TabIndex = 18
+        Me.btnAddFacilitytoUser.TabIndex = 6
         Me.btnAddFacilitytoUser.Text = "Add Facility"
         Me.btnAddFacilitytoUser.UseVisualStyleBackColor = True
         '
@@ -450,114 +445,15 @@ Partial Class GecoTool
         Me.txtWebUserID.TabIndex = 0
         Me.txtWebUserID.Visible = False
         '
-        'btnSaveEditedData
-        '
-        Me.btnSaveEditedData.AutoSize = True
-        Me.btnSaveEditedData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSaveEditedData.Location = New System.Drawing.Point(272, 225)
-        Me.btnSaveEditedData.Name = "btnSaveEditedData"
-        Me.btnSaveEditedData.Size = New System.Drawing.Size(68, 23)
-        Me.btnSaveEditedData.TabIndex = 12
-        Me.btnSaveEditedData.Text = "Save Data"
-        Me.btnSaveEditedData.UseVisualStyleBackColor = True
-        Me.btnSaveEditedData.Visible = False
-        '
-        'mtbEditZipCode
-        '
-        Me.mtbEditZipCode.Location = New System.Drawing.Point(442, 199)
-        Me.mtbEditZipCode.Mask = "00000"
-        Me.mtbEditZipCode.Name = "mtbEditZipCode"
-        Me.mtbEditZipCode.Size = New System.Drawing.Size(38, 20)
-        Me.mtbEditZipCode.TabIndex = 10
-        Me.mtbEditZipCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        Me.mtbEditZipCode.Visible = False
-        '
-        'mtbEditState
-        '
-        Me.mtbEditState.Location = New System.Drawing.Point(409, 199)
-        Me.mtbEditState.Mask = "&&"
-        Me.mtbEditState.Name = "mtbEditState"
-        Me.mtbEditState.Size = New System.Drawing.Size(27, 20)
-        Me.mtbEditState.TabIndex = 9
-        Me.mtbEditState.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        Me.mtbEditState.Visible = False
-        '
-        'mtbEditFaxNumber
-        '
-        Me.mtbEditFaxNumber.Location = New System.Drawing.Point(272, 146)
-        Me.mtbEditFaxNumber.Mask = "(999) 000-0000"
-        Me.mtbEditFaxNumber.Name = "mtbEditFaxNumber"
-        Me.mtbEditFaxNumber.Size = New System.Drawing.Size(82, 20)
-        Me.mtbEditFaxNumber.TabIndex = 6
-        Me.mtbEditFaxNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        Me.mtbEditFaxNumber.Visible = False
-        '
-        'mtbEditPhoneNumber
-        '
-        Me.mtbEditPhoneNumber.Location = New System.Drawing.Point(272, 120)
-        Me.mtbEditPhoneNumber.Mask = "(999) 000-0000"
-        Me.mtbEditPhoneNumber.Name = "mtbEditPhoneNumber"
-        Me.mtbEditPhoneNumber.Size = New System.Drawing.Size(82, 20)
-        Me.mtbEditPhoneNumber.TabIndex = 5
-        Me.mtbEditPhoneNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        Me.mtbEditPhoneNumber.Visible = False
-        '
-        'txtEditCity
-        '
-        Me.txtEditCity.Location = New System.Drawing.Point(272, 199)
-        Me.txtEditCity.Name = "txtEditCity"
-        Me.txtEditCity.Size = New System.Drawing.Size(128, 20)
-        Me.txtEditCity.TabIndex = 8
-        Me.txtEditCity.Visible = False
-        '
-        'txtEditAddress
-        '
-        Me.txtEditAddress.Location = New System.Drawing.Point(272, 172)
-        Me.txtEditAddress.Name = "txtEditAddress"
-        Me.txtEditAddress.Size = New System.Drawing.Size(128, 20)
-        Me.txtEditAddress.TabIndex = 7
-        Me.txtEditAddress.Visible = False
-        '
-        'txtEditCompany
-        '
-        Me.txtEditCompany.Location = New System.Drawing.Point(272, 95)
-        Me.txtEditCompany.Name = "txtEditCompany"
-        Me.txtEditCompany.Size = New System.Drawing.Size(164, 20)
-        Me.txtEditCompany.TabIndex = 4
-        Me.txtEditCompany.Visible = False
-        '
-        'txtEditTitle
-        '
-        Me.txtEditTitle.Location = New System.Drawing.Point(272, 70)
-        Me.txtEditTitle.Name = "txtEditTitle"
-        Me.txtEditTitle.Size = New System.Drawing.Size(164, 20)
-        Me.txtEditTitle.TabIndex = 3
-        Me.txtEditTitle.Visible = False
-        '
-        'txtEditLastName
-        '
-        Me.txtEditLastName.Location = New System.Drawing.Point(272, 44)
-        Me.txtEditLastName.Name = "txtEditLastName"
-        Me.txtEditLastName.Size = New System.Drawing.Size(164, 20)
-        Me.txtEditLastName.TabIndex = 2
-        Me.txtEditLastName.Visible = False
-        '
-        'txtEditFirstName
-        '
-        Me.txtEditFirstName.Location = New System.Drawing.Point(272, 18)
-        Me.txtEditFirstName.Name = "txtEditFirstName"
-        Me.txtEditFirstName.Size = New System.Drawing.Size(164, 20)
-        Me.txtEditFirstName.TabIndex = 1
-        Me.txtEditFirstName.Visible = False
-        '
         'btnEditUserData
         '
+        Me.btnEditUserData.AutoSize = True
         Me.btnEditUserData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnEditUserData.Location = New System.Drawing.Point(11, 225)
         Me.btnEditUserData.Name = "btnEditUserData"
-        Me.btnEditUserData.Size = New System.Drawing.Size(97, 23)
-        Me.btnEditUserData.TabIndex = 11
-        Me.btnEditUserData.Text = "Edit User Data"
+        Me.btnEditUserData.Size = New System.Drawing.Size(129, 23)
+        Me.btnEditUserData.TabIndex = 2
+        Me.btnEditUserData.Text = "Edit User Email Address"
         Me.btnEditUserData.UseVisualStyleBackColor = True
         '
         'lblCityStateZip
@@ -728,10 +624,9 @@ Partial Class GecoTool
     Friend WithEvents txtEmail As TextBox
     Friend WithEvents TPWebUsers1 As TabPage
     Friend WithEvents pnlUserFacility As Panel
-    Friend WithEvents dgvUserFacilities As DataGridView
+    Friend WithEvents dgvUserFacilities As IaipDataGridView
     Friend WithEvents pnlUserInfo As Panel
     Friend WithEvents btnChangeEmailAddress As Button
-    Friend WithEvents mtbFacilityToAdd As MaskedTextBox
     Friend WithEvents txtEditEmail As TextBox
     Friend WithEvents cboFacilityToDelete As ComboBox
     Friend WithEvents lblConfirmDate As Label
@@ -742,17 +637,6 @@ Partial Class GecoTool
     Friend WithEvents Label53 As Label
     Friend WithEvents btnAddFacilitytoUser As Button
     Friend WithEvents txtWebUserID As TextBox
-    Friend WithEvents btnSaveEditedData As Button
-    Friend WithEvents mtbEditZipCode As MaskedTextBox
-    Friend WithEvents mtbEditState As MaskedTextBox
-    Friend WithEvents mtbEditFaxNumber As MaskedTextBox
-    Friend WithEvents mtbEditPhoneNumber As MaskedTextBox
-    Friend WithEvents txtEditCity As TextBox
-    Friend WithEvents txtEditAddress As TextBox
-    Friend WithEvents txtEditCompany As TextBox
-    Friend WithEvents txtEditTitle As TextBox
-    Friend WithEvents txtEditLastName As TextBox
-    Friend WithEvents txtEditFirstName As TextBox
     Friend WithEvents btnEditUserData As Button
     Friend WithEvents lblCityStateZip As Label
     Friend WithEvents lblAddress As Label
@@ -770,4 +654,5 @@ Partial Class GecoTool
     Friend WithEvents btnViewUserData As Button
     Friend WithEvents btnViewEmailData As Button
     Friend WithEvents lblChangeEmailAddress As Label
+    Friend WithEvents mtbFacilityToAdd As AirNumberEntryForm
 End Class
