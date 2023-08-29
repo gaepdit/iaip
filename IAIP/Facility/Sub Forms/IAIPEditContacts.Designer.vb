@@ -24,7 +24,6 @@ Partial Class IAIPEditContacts
         Me.pnlInfoPanel = New System.Windows.Forms.Panel()
         Me.btnSaveNewContact = New System.Windows.Forms.Button()
         Me.ContactKeyGroup = New System.Windows.Forms.GroupBox()
-        Me.rdbNewESContact = New System.Windows.Forms.RadioButton()
         Me.rdbNewMonitoringContact = New System.Windows.Forms.RadioButton()
         Me.rdbNewPermittingContact = New System.Windows.Forms.RadioButton()
         Me.rdbNewComplianceContact = New System.Windows.Forms.RadioButton()
@@ -142,7 +141,6 @@ Partial Class IAIPEditContacts
         '
         'ContactKeyGroup
         '
-        Me.ContactKeyGroup.Controls.Add(Me.rdbNewESContact)
         Me.ContactKeyGroup.Controls.Add(Me.rdbNewMonitoringContact)
         Me.ContactKeyGroup.Controls.Add(Me.rdbNewPermittingContact)
         Me.ContactKeyGroup.Controls.Add(Me.rdbNewComplianceContact)
@@ -150,21 +148,10 @@ Partial Class IAIPEditContacts
         Me.ContactKeyGroup.Controls.Add(Me.rdbNewFeeContact)
         Me.ContactKeyGroup.Location = New System.Drawing.Point(655, 11)
         Me.ContactKeyGroup.Name = "ContactKeyGroup"
-        Me.ContactKeyGroup.Size = New System.Drawing.Size(141, 166)
+        Me.ContactKeyGroup.Size = New System.Drawing.Size(141, 144)
         Me.ContactKeyGroup.TabIndex = 6
         Me.ContactKeyGroup.TabStop = False
         Me.ContactKeyGroup.Text = "Contact type"
-        '
-        'rdbNewESContact
-        '
-        Me.rdbNewESContact.AutoSize = True
-        Me.rdbNewESContact.Location = New System.Drawing.Point(11, 138)
-        Me.rdbNewESContact.Name = "rdbNewESContact"
-        Me.rdbNewESContact.Size = New System.Drawing.Size(120, 17)
-        Me.rdbNewESContact.TabIndex = 5
-        Me.rdbNewESContact.TabStop = True
-        Me.rdbNewESContact.Text = "Emissions statement"
-        Me.rdbNewESContact.UseVisualStyleBackColor = True
         '
         'rdbNewMonitoringContact
         '
@@ -562,7 +549,6 @@ Partial Class IAIPEditContacts
     End Sub
     Friend WithEvents ContactsDataGrid As IaipDataGridView
     Friend WithEvents pnlInfoPanel As System.Windows.Forms.Panel
-    Friend WithEvents rdbNewESContact As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNewPermittingContact As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNewEISContact As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNewFeeContact As System.Windows.Forms.RadioButton
