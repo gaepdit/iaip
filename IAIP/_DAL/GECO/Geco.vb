@@ -35,12 +35,11 @@ Namespace DAL
             DbError
         End Enum
 
-        Public Function UpdateUserGecoAccess(adminAccess As Boolean, feeAccess As Boolean, eiAccess As Boolean, esAccess As Boolean, userID As Integer, airs As Apb.ApbFacilityId) As Boolean
+        Public Function UpdateUserGecoAccess(adminAccess As Boolean, feeAccess As Boolean, eiAccess As Boolean, userID As Integer, airs As Apb.ApbFacilityId) As Boolean
             Dim query As String = "UPDATE OlapUserAccess SET " &
             " INTADMINACCESS = @admin, " &
             " intFeeAccess = @fee, " &
-            " intEIAccess = @ei, " &
-            " intESAccess = @es " &
+            " intEIAccess = @ei " &
             " WHERE numUserID = @userID " &
             " and strAirsNumber = @airs "
 
@@ -48,7 +47,6 @@ Namespace DAL
             New SqlParameter("@admin", adminAccess),
             New SqlParameter("@fee", feeAccess),
             New SqlParameter("@ei", eiAccess),
-            New SqlParameter("@es", esAccess),
             New SqlParameter("@userID", userID),
             New SqlParameter("@airs", airs.DbFormattedString)
         }
@@ -100,8 +98,7 @@ Namespace DAL
                    f.STRFACILITYNAME,
                    INTADMINACCESS,
                    INTFEEACCESS,
-                   INTEIACCESS,
-                   INTESACCESS
+                   INTEIACCESS
             FROM OLAPUSERACCESS a
                  inner join OLAPUSERLOGIN l
                          on a.NUMUSERID = l.NUMUSERID
@@ -120,8 +117,7 @@ Namespace DAL
                 l.STRUSEREMAIL as Email,
                 INTADMINACCESS,
                 INTFEEACCESS,
-                INTEIACCESS,
-                INTESACCESS
+                INTEIACCESS
             FROM OLAPUSERACCESS a
                 inner join OLAPUSERLOGIN l
                     on a.NUMUSERID = l.NUMUSERID

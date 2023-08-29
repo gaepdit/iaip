@@ -50,11 +50,6 @@ Public Class GecoTool
             dgvUsers.Columns.Add(colFullAccess)
             dgvUsers.Columns(5).HeaderText = "EI Access"
 
-            Dim colSpecialPermissions As New DataGridViewCheckBoxColumn
-            dgvUsers.Columns.Add(colSpecialPermissions)
-            dgvUsers.Columns(6).HeaderText = "ES Access"
-
-
             dgvUserFacilities.RowHeadersVisible = False
             dgvUserFacilities.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvUserFacilities.AllowUserToResizeColumns = True
@@ -83,10 +78,6 @@ Public Class GecoTool
             Dim colFullAccess2 As New DataGridViewCheckBoxColumn
             dgvUserFacilities.Columns.Add(colFullAccess2)
             dgvUserFacilities.Columns(4).HeaderText = "EI Access"
-
-            Dim colSpecialPermissions2 As New DataGridViewCheckBoxColumn
-            dgvUserFacilities.Columns.Add(colSpecialPermissions2)
-            dgvUserFacilities.Columns(5).HeaderText = "ES Access"
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -264,7 +255,6 @@ Public Class GecoTool
                     dgvRow.Cells(2).Value = CBool(dr.Item("intAdminAccess"))
                     dgvRow.Cells(3).Value = CBool(dr.Item("intFeeAccess"))
                     dgvRow.Cells(4).Value = CBool(dr.Item("intEIAccess"))
-                    dgvRow.Cells(5).Value = CBool(dr.Item("intESAccess"))
 
                     dgvUserFacilities.Rows.Add(dgvRow)
                 End Using
@@ -323,7 +313,6 @@ Public Class GecoTool
                     dgvRow.Cells(3).Value = CBool(dr.Item("intAdminAccess"))
                     dgvRow.Cells(4).Value = CBool(dr.Item("intFeeAccess"))
                     dgvRow.Cells(5).Value = CBool(dr.Item("intEIAccess"))
-                    dgvRow.Cells(6).Value = CBool(dr.Item("intESAccess"))
 
                     dgvUsers.Rows.Add(dgvRow)
                 Next
@@ -393,15 +382,13 @@ Public Class GecoTool
             Dim adminaccess As Boolean
             Dim feeaccess As Boolean
             Dim eiaccess As Boolean
-            Dim esaccess As Boolean
 
             For i As Integer = 0 To dgvUsers.Rows.Count - 1
                 adminaccess = CBool(dgvUsers(3, i).Value)
                 feeaccess = CBool(dgvUsers(4, i).Value)
                 eiaccess = CBool(dgvUsers(5, i).Value)
-                esaccess = CBool(dgvUsers(6, i).Value)
 
-                UpdateUserGecoAccess(adminaccess, feeaccess, eiaccess, esaccess, CInt(dgvUsers(1, i).Value), New Apb.ApbFacilityId(mtbAIRSNumber.Text))
+                UpdateUserGecoAccess(adminaccess, feeaccess, eiaccess, CInt(dgvUsers(1, i).Value), New Apb.ApbFacilityId(mtbAIRSNumber.Text))
             Next
 
             ViewFacilitySpecificUsers()
@@ -595,15 +582,13 @@ Public Class GecoTool
             Dim adminaccess As Boolean
             Dim feeaccess As Boolean
             Dim eiaccess As Boolean
-            Dim esaccess As Boolean
 
             For i As Integer = 0 To dgvUserFacilities.Rows.Count - 1
                 adminaccess = CBool(dgvUserFacilities(2, i).Value)
                 feeaccess = CBool(dgvUserFacilities(3, i).Value)
                 eiaccess = CBool(dgvUserFacilities(4, i).Value)
-                esaccess = CBool(dgvUserFacilities(5, i).Value)
 
-                UpdateUserGecoAccess(adminaccess, feeaccess, eiaccess, esaccess, CInt(txtWebUserID.Text), New Apb.ApbFacilityId(dgvUserFacilities(0, i).Value.ToString))
+                UpdateUserGecoAccess(adminaccess, feeaccess, eiaccess, CInt(txtWebUserID.Text), New Apb.ApbFacilityId(dgvUserFacilities(0, i).Value.ToString))
             Next
 
             LoadUserFacilityInfo(txtWebUserEmail.Text)
