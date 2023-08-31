@@ -1,5 +1,6 @@
 Imports System.Data.SqlClient
 Imports EpdIt
+Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
 Imports Iaip.DAL
 Imports Iaip.DAL.FacilityData
@@ -12,6 +13,7 @@ Public Class GecoTool
 
     Private Sub GecoTool_Load(sender As Object, e As EventArgs) Handles Me.Load
         FormatWebUsers()
+        ClearUserInfo()
     End Sub
 
     Private Sub FormatWebUsers()
@@ -159,9 +161,16 @@ Public Class GecoTool
                 Else
                     txtEditEmail.Text = dr.Item("NewEmail")
                 End If
+
+                lableUserAddress.Visible = True
                 btnEditUserData.Visible = True
+                panelUserPermissionsTools.Visible = True
+
             Else
                 ClearUserInfo()
+                lblConfirmDate.Text = "Entered email not found in GECO."
+                lblConfirmDate.BackColor = IaipColors.WarningBackColor
+                lblConfirmDate.ForeColor = IaipColors.WarningForeColor
             End If
 
             HideEmailEditForm()
@@ -183,10 +192,10 @@ Public Class GecoTool
         lblCityStateZip.Text = ""
         lblPhoneNo.Text = ""
         lblFaxNo.Text = ""
-        lblConfirmDate.Text = "Entered email not found in GECO."
-        lblConfirmDate.BackColor = IaipColors.WarningBackColor
-        lblConfirmDate.ForeColor = IaipColors.WarningForeColor
+        lblConfirmDate.Text = ""
+        lableUserAddress.Visible = False
         btnEditUserData.Visible = False
+        panelUserPermissionsTools.Visible = False
     End Sub
 
     Private Sub HideEmailEditForm()
@@ -221,10 +230,8 @@ Public Class GecoTool
                 End Using
             Next
 
-            cboFacilityToDelete.DataSource = dt
-            cboFacilityToDelete.DisplayMember = "strfacilityname"
-            cboFacilityToDelete.ValueMember = "strairsnumber"
-            cboFacilityToDelete.Text = ""
+            dgvUserFacilities.SelectNone()
+            btnDeleteFacilityUser.Text = "Remove selected facility from user" & vbNewLine & " "
 
         Catch ex As Exception
             ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -249,13 +256,13 @@ Public Class GecoTool
     Private Sub ViewFacilitySpecificUsers()
         Try
 
-            If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbAIRSNumber.Text) Then
+            If Not ApbFacilityId.IsValidAirsNumberFormat(mtbAIRSNumber.Text) Then
                 MsgBox("Please enter a valid AIRS #.")
             Else
                 Dim dgvRow As DataGridViewRow
                 txtEmail.Clear()
 
-                Dim airs As New Apb.ApbFacilityId(mtbAIRSNumber.Text)
+                Dim airs As New ApbFacilityId(mtbAIRSNumber.Text)
 
                 Dim fn As String = GetFacilityName(airs)
 
@@ -315,7 +322,7 @@ Public Class GecoTool
                 Return
             End If
 
-            Dim airs As New Apb.ApbFacilityId(mtbAIRSNumber.Text)
+            Dim airs As New ApbFacilityId(mtbAIRSNumber.Text)
 
             If UserGecoAccessExists(userID, airs) Then ' already assigned
                 MessageBox.Show("This user already has access to this facility.")
@@ -335,7 +342,7 @@ Public Class GecoTool
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         Try
-            DeleteUserGecoAccess(CInt(cboUsers.SelectedValue), New Apb.ApbFacilityId(mtbAIRSNumber.Text))
+            DeleteUserGecoAccess(CInt(cboUsers.SelectedValue), New ApbFacilityId(mtbAIRSNumber.Text))
             ViewFacilitySpecificUsers()
             MsgBox("The user has been removed from this facility", MsgBoxStyle.Information, "User removed")
         Catch ex As Exception
@@ -354,7 +361,7 @@ Public Class GecoTool
                 feeaccess = CBool(dgvUsers(4, i).Value)
                 eiaccess = CBool(dgvUsers(5, i).Value)
 
-                UpdateUserGecoAccess(adminaccess, feeaccess, eiaccess, CInt(dgvUsers(1, i).Value), New Apb.ApbFacilityId(mtbAIRSNumber.Text))
+                UpdateUserGecoAccess(adminaccess, feeaccess, eiaccess, CInt(dgvUsers(1, i).Value), New ApbFacilityId(mtbAIRSNumber.Text))
             Next
 
             ViewFacilitySpecificUsers()
@@ -371,7 +378,7 @@ Public Class GecoTool
             lblChangeEmailAddress.Visible = True
             txtEditEmail.Visible = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -407,10 +414,10 @@ Public Class GecoTool
                 Dim result As AirsNumberValidationResult = ValidateAirsFacility(mtbFacilityToAdd.Text)
 
                 If result = AirsNumberValidationResult.Valid Then
-                    If UserGecoAccessExists(CInt(txtWebUserID.Text), New Apb.ApbFacilityId(mtbFacilityToAdd.Text)) Then
-                        MessageBox.Show(Me, "The facility already exists for this user." & vbCrLf & "NO DATA SAVED", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    If UserGecoAccessExists(CInt(txtWebUserID.Text), New ApbFacilityId(mtbFacilityToAdd.Text)) Then
+                        MessageBox.Show(Me, "The facility already exists for this user." & vbCrLf & "NO DATA SAVED", Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     Else
-                        AddUserGecoAccess(CInt(txtWebUserID.Text), New Apb.ApbFacilityId(mtbFacilityToAdd.Text))
+                        AddUserGecoAccess(CInt(txtWebUserID.Text), New ApbFacilityId(mtbFacilityToAdd.Text))
                         LoadUserFacilityInfo(txtWebUserEmail.Text)
                         MessageBox.Show(Me, "The facility has been added to this user", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     End If
@@ -426,14 +433,17 @@ Public Class GecoTool
     End Sub
 
     Private Sub btnDeleteFacilityUser_Click(sender As Object, e As EventArgs) Handles btnDeleteFacilityUser.Click
-        Try
-            If txtWebUserID.Text <> "" AndAlso cboFacilityToDelete.Text <> "" Then
-                DeleteUserGecoAccess(CInt(txtWebUserID.Text), New Apb.ApbFacilityId(cboFacilityToDelete.SelectedValue.ToString))
-                LoadUserFacilityInfo(txtWebUserEmail.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If String.IsNullOrEmpty(txtWebUserID.Text) OrElse dgvUserFacilities.SelectedCells.Count <> 1 Then Return
+
+        Dim airs As New ApbFacilityId(dgvUserFacilities.SelectedCells(0).OwningRow.Cells(0).Value.ToString)
+        DeleteUserGecoAccess(CInt(txtWebUserID.Text), airs)
+        LoadUserFacilityInfo(txtWebUserEmail.Text)
+    End Sub
+
+    Private Sub dgvUserFacilities_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvUserFacilities.CellEnter
+        If String.IsNullOrEmpty(txtWebUserID.Text) OrElse dgvUserFacilities.SelectedCells.Count <> 1 Then Return
+        btnDeleteFacilityUser.Text = "Remove selected facility from user" & vbNewLine &
+            "(" & dgvUserFacilities.SelectedCells(0).OwningRow.Cells(0).Value.ToString & ")"
     End Sub
 
     Private Sub btnUpdateUser_Click(sender As Object, e As EventArgs) Handles btnUpdateUser.Click
@@ -447,13 +457,14 @@ Public Class GecoTool
                 feeaccess = CBool(dgvUserFacilities(3, i).Value)
                 eiaccess = CBool(dgvUserFacilities(4, i).Value)
 
-                UpdateUserGecoAccess(adminaccess, feeaccess, eiaccess, CInt(txtWebUserID.Text), New Apb.ApbFacilityId(dgvUserFacilities(0, i).Value.ToString))
+                UpdateUserGecoAccess(adminaccess, feeaccess, eiaccess, CInt(txtWebUserID.Text), New ApbFacilityId(dgvUserFacilities(0, i).Value.ToString))
             Next
 
             LoadUserFacilityInfo(txtWebUserEmail.Text)
-            MsgBox("The records have been updated", MsgBoxStyle.Information, "Success")
+            MsgBox("User permissions have been saved.", MsgBoxStyle.Information, "Success")
         Catch ex As Exception
             ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            MsgBox("There was an error saving user permissions.", MsgBoxStyle.Exclamation, "Error")
         End Try
     End Sub
 
