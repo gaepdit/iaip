@@ -1,7 +1,6 @@
 Imports System.Data.SqlClient
 Imports EpdIt
 Imports Iaip.Apb
-Imports Iaip.Apb.Facilities
 Imports Iaip.DAL
 Imports Iaip.DAL.FacilityData
 Imports Iaip.DAL.Geco
@@ -12,21 +11,13 @@ Public Class GecoTool
 #Region "Page Load"
 
     Private Sub GecoTool_Load(sender As Object, e As EventArgs) Handles Me.Load
-        FormatWebUsers()
+        FormatGridViews()
         ClearUserInfo()
+        lblFaciltyName.Text = ""
     End Sub
 
-    Private Sub FormatWebUsers()
+    Private Sub FormatGridViews()
         Try
-            dgvUsers.RowHeadersVisible = False
-            dgvUsers.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvUsers.AllowUserToResizeColumns = True
-            dgvUsers.AllowUserToAddRows = False
-            dgvUsers.AllowUserToDeleteRows = False
-            dgvUsers.AllowUserToOrderColumns = False
-            dgvUsers.AllowUserToResizeRows = False
-            dgvUsers.ColumnHeadersHeight = "35"
-
             dgvUsers.Columns.Add("ID", "ID")
             dgvUsers.Columns("ID").DisplayIndex = 0
             dgvUsers.Columns("ID").Visible = False
@@ -256,9 +247,13 @@ Public Class GecoTool
     Private Sub ViewFacilitySpecificUsers()
         Try
 
-            If Not ApbFacilityId.IsValidAirsNumberFormat(mtbAIRSNumber.Text) Then
+            dgvUsers.Rows.Clear()
+
+            If mtbAIRSNumber.ValidationStatus <> AirsNumberValidationResult.Valid Then
                 MsgBox("Please enter a valid AIRS #.")
+                panelFacilityPermissionsTools.Visible = False
             Else
+                panelFacilityPermissionsTools.Visible = True
                 Dim dgvRow As DataGridViewRow
                 txtEmail.Clear()
 
@@ -269,12 +264,10 @@ Public Class GecoTool
                 If fn = "" Then
                     lblFaciltyName.Text = " - "
                 Else
-                    lblFaciltyName.Text = Facility.SanitizeFacilityNameForDb(fn)
+                    lblFaciltyName.Text = fn
                 End If
 
                 Dim dt As DataTable = GetGecoAccessForFacility(airs)
-
-                dgvUsers.Rows.Clear()
 
                 For Each dr As DataRow In dt.Rows
                     dgvRow = New DataGridViewRow
@@ -290,15 +283,18 @@ Public Class GecoTool
                     dgvUsers.Rows.Add(dgvRow)
                 Next
 
-                cboUsers.DataSource = dt
-                cboUsers.DisplayMember = "Email"
-                cboUsers.ValueMember = "numuserid"
-                cboUsers.Text = ""
+                dgvUsers.SelectNone()
+                btnDelete.Text = "Remove selected user from facility" & vbNewLine & " "
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub dgvUsers_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvUsers.CellEnter
+        btnDelete.Text = "Remove selected user from facility" & vbNewLine &
+            "(" & dgvUsers.Rows(e.RowIndex).Cells(2).Value.ToString & ")"
     End Sub
 
     Private Sub btnAddUser_Click(sender As Object, e As EventArgs) Handles btnAddUser.Click
@@ -341,13 +337,12 @@ Public Class GecoTool
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
-        Try
-            DeleteUserGecoAccess(CInt(cboUsers.SelectedValue), New ApbFacilityId(mtbAIRSNumber.Text))
-            ViewFacilitySpecificUsers()
-            MsgBox("The user has been removed from this facility", MsgBoxStyle.Information, "User removed")
-        Catch ex As Exception
-            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If String.IsNullOrEmpty(mtbAIRSNumber.Text) OrElse dgvUsers.SelectedCells.Count <> 1 Then Return
+
+        Dim userId As Integer = CInt(dgvUsers.SelectedCells(0).OwningRow.Cells(0).Value)
+        DeleteUserGecoAccess(userId, mtbAIRSNumber.AirsNumber)
+        ViewFacilitySpecificUsers()
+        MsgBox("The user has been removed from this facility.", MsgBoxStyle.Information, "User removed")
     End Sub
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
@@ -366,9 +361,10 @@ Public Class GecoTool
 
             ViewFacilitySpecificUsers()
 
-            MsgBox("The records have been updated", MsgBoxStyle.Information, "Success")
+            MsgBox("User permissions have been saved.", MsgBoxStyle.Information, "Success")
         Catch ex As Exception
             ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            MsgBox("There was an error saving user permissions.", MsgBoxStyle.Exclamation, "Error")
         End Try
     End Sub
 
