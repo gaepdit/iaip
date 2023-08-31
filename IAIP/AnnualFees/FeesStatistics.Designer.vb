@@ -122,7 +122,7 @@ Partial Class FeesStatistics
         Me.dgvFeeStats = New Iaip.IaipDataGridView()
         Me.lblCountFeeStats = New System.Windows.Forms.Label()
         Me.Panel11 = New System.Windows.Forms.Panel()
-        Me.FeeStatAirsNumberEntry = New Iaip.AirNumberEntryForm()
+        Me.FeeStatAirsNumberEntry = New Iaip.AirsNumberEntryForm()
         Me.btnOpenFeesLog = New System.Windows.Forms.Button()
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.btnCheckInvoices = New System.Windows.Forms.Button()
@@ -2734,5 +2734,5 @@ Partial Class FeesStatistics
     Friend WithEvents GridFeesReports As IaipDataGridView
     Friend WithEvents btnClassification As Button
     Friend WithEvents llbFSDetailOnTime As LinkLabel
-    Friend WithEvents FeeStatAirsNumberEntry As AirNumberEntryForm
+    Friend WithEvents FeeStatAirsNumberEntry As AirsNumberEntryForm
 End Class

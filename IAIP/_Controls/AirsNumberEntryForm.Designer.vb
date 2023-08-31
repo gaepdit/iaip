@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class AirNumberEntryForm
+Partial Class AirsNumberEntryForm
     Inherits System.Windows.Forms.UserControl
 
     'Required by the Windows Form Designer

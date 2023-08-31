@@ -46,7 +46,7 @@ Partial Class GecoTool
         Me.pnlUserInfo = New System.Windows.Forms.Panel()
         Me.panelUserPermissionsTools = New System.Windows.Forms.Panel()
         Me.btnUpdateUser = New System.Windows.Forms.Button()
-        Me.mtbFacilityToAdd = New Iaip.AirNumberEntryForm()
+        Me.mtbFacilityToAdd = New Iaip.AirsNumberEntryForm()
         Me.btnAddFacilitytoUser = New System.Windows.Forms.Button()
         Me.Label53 = New System.Windows.Forms.Label()
         Me.btnDeleteFacilityUser = New System.Windows.Forms.Button()
@@ -647,6 +647,6 @@ Partial Class GecoTool
     Friend WithEvents btnViewUserData As Button
     Friend WithEvents btnViewEmailData As Button
     Friend WithEvents lblChangeEmailAddress As Label
-    Friend WithEvents mtbFacilityToAdd As AirNumberEntryForm
+    Friend WithEvents mtbFacilityToAdd As AirsNumberEntryForm
     Friend WithEvents panelUserPermissionsTools As Panel
 End Class

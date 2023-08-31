@@ -54,7 +54,7 @@ Partial Class FeesLog
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.cbYear = New System.Windows.Forms.ComboBox()
         Me.TopPanel = New System.Windows.Forms.Panel()
-        Me.SelectedAIRSNumber = New Iaip.AirNumberEntryForm()
+        Me.SelectedAIRSNumber = New Iaip.AirsNumberEntryForm()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -469,5 +469,5 @@ Partial Class FeesLog
     Friend WithEvents TopPanel As Panel
     Friend WithEvents mtbSearchAirsNumber As TextBox
     Friend WithEvents cbYear As ComboBox
-    Friend WithEvents SelectedAIRSNumber As AirNumberEntryForm
+    Friend WithEvents SelectedAIRSNumber As AirsNumberEntryForm
 End Class

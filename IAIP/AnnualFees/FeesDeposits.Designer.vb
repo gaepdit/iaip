@@ -42,7 +42,7 @@ Partial Class FeesDeposits
         Me.Label47 = New System.Windows.Forms.Label()
         Me.dgvInvoices = New System.Windows.Forms.DataGridView()
         Me.pnlInvoiceSearch = New System.Windows.Forms.Panel()
-        Me.AirsNumberEntry = New Iaip.AirNumberEntryForm()
+        Me.AirsNumberEntry = New Iaip.AirsNumberEntryForm()
         Me.cbYear = New System.Windows.Forms.ComboBox()
         Me.btnViewInvoices = New System.Windows.Forms.Button()
         Me.btnSearchForInvoice = New System.Windows.Forms.Button()
@@ -741,5 +741,5 @@ Partial Class FeesDeposits
     Friend WithEvents btnSearchDeposits As Button
     Friend WithEvents cbYear As ComboBox
     Friend WithEvents cbYear2 As ComboBox
-    Friend WithEvents AirsNumberEntry As AirNumberEntryForm
+    Friend WithEvents AirsNumberEntry As AirsNumberEntryForm
 End Class

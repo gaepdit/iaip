@@ -2,7 +2,7 @@
 Imports Iaip.Apb
 Imports Iaip.DAL
 
-Public Class AirNumberEntryForm
+Public Class AirsNumberEntryForm
 
     ' Custom Properties 
 

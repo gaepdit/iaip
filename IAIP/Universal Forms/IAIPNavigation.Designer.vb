@@ -63,7 +63,7 @@ Partial Class IAIPNavigation
         Me.txtOpenTestLog = New Iaip.CueTextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.lblOpenFacilitySummary = New System.Windows.Forms.Label()
-        Me.txtOpenFacilitySummary = New Iaip.AirNumberEntryForm()
+        Me.txtOpenFacilitySummary = New Iaip.AirsNumberEntryForm()
         Me.txtOpenSscpItem = New Iaip.CueTextBox()
         Me.lblOpenSscpItem = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -971,7 +971,7 @@ Partial Class IAIPNavigation
     Friend WithEvents txtOpenApplication As Iaip.CueTextBox
     Friend WithEvents txtOpenEnforcement As Iaip.CueTextBox
     Friend WithEvents txtOpenTestReport As Iaip.CueTextBox
-    Friend WithEvents txtOpenFacilitySummary As AirNumberEntryForm
+    Friend WithEvents txtOpenFacilitySummary As AirsNumberEntryForm
     Friend WithEvents txtOpenTestLog As Iaip.CueTextBox
     Friend WithEvents txtOpenSbeapCaseLog As Iaip.CueTextBox
     Friend WithEvents txtOpenSbeapClient As Iaip.CueTextBox

@@ -407,7 +407,7 @@ Partial Class FeesAudit
         Me.Label52 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.LoadPanel = New System.Windows.Forms.Panel()
-        Me.AirsNumberEntry = New Iaip.AirNumberEntryForm()
+        Me.AirsNumberEntry = New Iaip.AirsNumberEntryForm()
         Me.ClearFormButton = New System.Windows.Forms.Button()
         Me.FeeYearsComboBox = New System.Windows.Forms.ComboBox()
         Me.ReloadButton = New System.Windows.Forms.Button()
@@ -5413,5 +5413,5 @@ Partial Class FeesAudit
     Friend WithEvents Label5 As Label
     Friend WithEvents btnPrintSelectedInvoice As Button
     Friend WithEvents btnPrintActiveInvoices As Button
-    Friend WithEvents AirsNumberEntry As AirNumberEntryForm
+    Friend WithEvents AirsNumberEntry As AirsNumberEntryForm
 End Class
