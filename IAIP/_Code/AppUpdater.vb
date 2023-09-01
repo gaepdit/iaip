@@ -78,14 +78,4 @@ Public Module AppUpdater
         End If
     End Sub
 
-    Public ReadOnly Property JustUpdated As Boolean
-        Get
-            If ApplicationDeployment.IsNetworkDeployed Then
-                Return ApplicationDeployment.CurrentDeployment.IsFirstRun
-            Else
-                Return False
-            End If
-        End Get
-    End Property
-
 End Module

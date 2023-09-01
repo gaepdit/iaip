@@ -1,3 +1,4 @@
+Imports System.Deployment.Application
 Imports System.Threading
 Imports System.Threading.Tasks
 Imports Iaip.UrlHelpers
@@ -157,7 +158,7 @@ Public Class IAIPLogIn
 
         currentVersion = GetCurrentVersionAsMajorMinorBuild()
 
-        If AppUpdated Then
+        If ApplicationDeployment.IsNetworkDeployed AndAlso ApplicationDeployment.CurrentDeployment.IsFirstRun Then
             msgText = "The IAIP has been updated." & vbNewLine & $"Current version:  {currentVersion}"
             msg = New IaipMessage(msgText, IaipMessage.WarningLevels.Info)
             lnkChangelog.Visible = True
