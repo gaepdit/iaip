@@ -1,4 +1,4 @@
-﻿Imports System.Deployment.Application
+Imports System.Deployment.Application
 Imports System.Linq
 
 Public Module AppUpdater
@@ -64,7 +64,6 @@ Public Module AppUpdater
 
         If doUpdate Then
             Using updateForm As New IaipUpdater
-                updateForm.Mandatory = info.IsUpdateRequired
                 updateForm.ShowDialog()
             End Using
         End If
