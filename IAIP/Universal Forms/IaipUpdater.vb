@@ -11,14 +11,14 @@ Public Class IaipUpdater
         AddHandler ad.UpdateProgressChanged, AddressOf AdUpdateProgressChanged
         AddHandler ad.CheckForUpdateCompleted, AddressOf AdCheckForUpdateCompleted
 
-        AddBreadcrumb($"IaipUpdater: opened", Me)
+        AddBreadcrumb("IaipUpdater: opened", Me)
         MyBase.OnLoad(e)
 
         ad.UpdateAsync()
     End Sub
 
     Private Sub AdCheckForUpdateCompleted(sender As Object, e As CheckForUpdateCompletedEventArgs)
-        AddBreadcrumb($"IaipUpdater: check completed", New Generic.Dictionary(Of String, Object) From {
+        AddBreadcrumb("IaipUpdater: check completed", New Generic.Dictionary(Of String, Object) From {
                       {"CurrentVersion", ad.CurrentVersion}, {"UpdatedVersion", ad.UpdatedVersion}}, Me)
 
     End Sub
@@ -48,11 +48,11 @@ Public Class IaipUpdater
             UpdaterButton.Visible = True
             UpdaterButton.Focus()
 
-            AddBreadcrumb($"IaipUpdater: udpate error", New Generic.Dictionary(Of String, Object) From {{"Error Type", e.Error.GetType}}, Me)
+            AddBreadcrumb("IaipUpdater: udpate error", New Generic.Dictionary(Of String, Object) From {{"Error Type", e.Error.GetType}}, Me)
             Return
         End If
 
-        AddBreadcrumb($"IaipUpdater: restarting", Me)
+        AddBreadcrumb("IaipUpdater: restarting", Me)
         Application.Restart()
     End Sub
 
