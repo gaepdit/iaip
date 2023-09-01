@@ -7,9 +7,11 @@ Friend Module StartupShutdown
     ''' All the procedures to run as the application is starting up
     ''' </summary>
     ''' <remarks> Called by MyApplication_Startup -> StartupShutdown.Init() </remarks>
-    Friend Sub Init()
+    Friend Function Init() As Boolean
         AddHandler Application.ThreadException, AddressOf Application_ThreadException
         AddHandler AppDomain.CurrentDomain.UnhandledException, AddressOf CurrentDomain_UnhandledException
+
+        If CheckForUpdate() Then Return False
 
         ' Updates: Should run each time program is updated
         If ApplicationDeployment.IsNetworkDeployed AndAlso ApplicationDeployment.CurrentDeployment.IsFirstRun Then
@@ -23,7 +25,8 @@ Friend Module StartupShutdown
         ' Initialize form settings
         AllFormSettings = GetAllFormSettings()
 
-    End Sub
+        Return True
+    End Function
 
     ''' <summary>
     ''' All the procedures to run as the application is shutting down

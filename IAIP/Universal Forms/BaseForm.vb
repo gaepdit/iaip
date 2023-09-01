@@ -3,7 +3,7 @@ Imports System.ComponentModel
 
 Public Class BaseForm
 
-#Region "Properties"
+    ' "Properties"
 
     Public Property ID As Integer
     Public Property Parameters As Dictionary(Of FormParameter, String)
@@ -19,9 +19,7 @@ Public Class BaseForm
         AppNumber
     End Enum
 
-#End Region
-
-#Region "Form events"
+    ' "Form events"
 
     Protected Overrides Sub OnLoad(e As EventArgs)
 
@@ -65,9 +63,7 @@ Public Class BaseForm
         AddBreadcrumb($"Form opened: {Name}", data, Me)
     End Sub
 
-#End Region
-
-#Region "Form settings - location and dimensions"
+    ' "Form settings - location and dimensions"
 
     ''' <summary>
     ''' On closing a form, save the window state, location, and size
@@ -144,7 +140,5 @@ Public Class BaseForm
 
         Return False
     End Function
-
-#End Region
 
 End Class
