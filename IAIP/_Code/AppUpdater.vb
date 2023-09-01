@@ -3,7 +3,7 @@ Imports System.Linq
 
 Public Module AppUpdater
 
-    Public Sub CheckForUpdate(Optional silent As Boolean = False)
+    Public Sub CheckForUpdate()
         AddBreadcrumb($"AppUpdater: CheckForUpdate started")
 
         Dim openFormCount As Integer = 0
@@ -14,11 +14,6 @@ Public Module AppUpdater
         Next
 
         If openFormCount > 0 Then
-            If Not silent Then
-                MessageBox.Show("The IAIP cannot be updated if multiple IAIP windows are open. Please close them and try again",
-                                "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                ShowAllForms()
-            End If
             Return
         End If
 
@@ -26,7 +21,6 @@ Public Module AppUpdater
 
         If Not ApplicationDeployment.IsNetworkDeployed Then
             AddBreadcrumb($"AppUpdater: Not Network Deployed")
-            If Not silent Then MessageBox.Show("Not running as a Network Deployed Application.", "Error")
             Return
         End If
 
@@ -51,8 +45,6 @@ Public Module AppUpdater
 
         If Not info.UpdateAvailable Then
             AddBreadcrumb($"AppUpdater: No update available")
-            If Not silent Then MessageBox.Show("You have the latest version. No updates are available. :)",
-                                               "No Update Available")
             Return
         End If
 

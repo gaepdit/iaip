@@ -39,7 +39,6 @@ Partial Class IAIPNavigation
         Me.mmiOnlineHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiResetForm = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.mmiCheckForUpdates = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiAbout = New System.Windows.Forms.ToolStripMenuItem()
         Me.TestingMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.RunTest = New System.Windows.Forms.ToolStripMenuItem()
@@ -198,7 +197,7 @@ Partial Class IAIPNavigation
         '
         'mmiHelp
         '
-        Me.mmiHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.ToolStripSeparator2, Me.mmiCheckForUpdates, Me.mmiAbout})
+        Me.mmiHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.ToolStripSeparator2, Me.mmiAbout})
         Me.mmiHelp.MergeIndex = 3
         Me.mmiHelp.Name = "mmiHelp"
         Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
@@ -208,33 +207,26 @@ Partial Class IAIPNavigation
         '
         Me.mmiOnlineHelp.MergeIndex = 0
         Me.mmiOnlineHelp.Name = "mmiOnlineHelp"
-        Me.mmiOnlineHelp.Size = New System.Drawing.Size(175, 22)
+        Me.mmiOnlineHelp.Size = New System.Drawing.Size(209, 22)
         Me.mmiOnlineHelp.Text = "Online &Help"
         '
         'mmiResetForm
         '
         Me.mmiResetForm.MergeIndex = 1
         Me.mmiResetForm.Name = "mmiResetForm"
-        Me.mmiResetForm.Size = New System.Drawing.Size(175, 22)
-        Me.mmiResetForm.Text = "&Reset all IAIP forms"
+        Me.mmiResetForm.Size = New System.Drawing.Size(209, 22)
+        Me.mmiResetForm.Text = "&Restore default form sizes"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(172, 6)
-        '
-        'mmiCheckForUpdates
-        '
-        Me.mmiCheckForUpdates.MergeIndex = 3
-        Me.mmiCheckForUpdates.Name = "mmiCheckForUpdates"
-        Me.mmiCheckForUpdates.Size = New System.Drawing.Size(175, 22)
-        Me.mmiCheckForUpdates.Text = "Check for &Updates"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(206, 6)
         '
         'mmiAbout
         '
         Me.mmiAbout.MergeIndex = 4
         Me.mmiAbout.Name = "mmiAbout"
-        Me.mmiAbout.Size = New System.Drawing.Size(175, 22)
+        Me.mmiAbout.Size = New System.Drawing.Size(209, 22)
         Me.mmiAbout.Text = "&About IAIP"
         '
         'TestingMenu
@@ -989,7 +981,6 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiSecurity As ToolStripMenuItem
     Friend WithEvents RunTest2 As ToolStripMenuItem
     Friend WithEvents lblResultsCount As Label
-    Friend WithEvents mmiCheckForUpdates As ToolStripMenuItem
     Friend WithEvents pnlConnectionStatus As ToolStripStatusLabel
     Friend WithEvents pnlConnectionWarning As Panel
     Friend WithEvents btnRetryConnection As Button

@@ -33,7 +33,7 @@ Public Class IAIPLogIn
 
     Private Sub IAIPLogIn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If Not LoggingOff Then
-            CheckForUpdate(True)
+            CheckForUpdate()
         End If
 
         FillLoginForm()
@@ -411,9 +411,6 @@ Public Class IAIPLogIn
             StartupShutdown.CloseIaip()
         End If
     End Sub
-    Private Sub mmiExit_Click(sender As Object, e As EventArgs) Handles mmiExit.Click
-        StartupShutdown.CloseIaip()
-    End Sub
 
 #End Region
 
@@ -450,10 +447,6 @@ Public Class IAIPLogIn
 
     Private Sub IAIPLogIn_HelpButtonClicked(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
         OpenSupportUrl(Me)
-    End Sub
-
-    Private Sub mmiCheckForUpdate_Click(sender As Object, e As EventArgs) Handles mmiCheckForUpdate.Click
-        CheckForUpdate()
     End Sub
 
     Private Sub mmiForgotUsername_Click(sender As Object, e As EventArgs) Handles mmiForgotUsername.Click

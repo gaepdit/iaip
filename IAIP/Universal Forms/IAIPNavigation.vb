@@ -1092,10 +1092,6 @@ Public Class IAIPNavigation
         Throw New ArgumentException("NavScreen unhandled exception testing")
     End Sub
 
-    Private Sub mmiCheckForUpdates_Click(sender As Object, e As EventArgs) Handles mmiCheckForUpdates.Click
-        CheckForUpdate()
-    End Sub
-
 #End Region
 
 End Class
