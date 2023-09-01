@@ -44,7 +44,7 @@ Public Class BaseForm
     End Sub
 
     Protected Overrides Sub OnFormClosed(e As FormClosedEventArgs)
-        AddBreadcrumb($"Form closed: {Name}", New Dictionary(Of String, Object) From {{"ID", ID}}, Me)
+        AddBreadcrumb($"Form closed: {Name}", "ID", ID, Me)
         SaveThisFormSettings()
         RemoveForm(Name, ID)
 

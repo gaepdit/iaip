@@ -112,7 +112,7 @@ Public Class SSPPApplicationTrackingLog
 
         If AppNumber > 0 Then
             If ApplicationExists(AppNumber) Then
-                AddBreadcrumb("SSPP Application Tracking Log: load application", New Dictionary(Of String, Object) From {{"Application #", AppNumber}}, Me)
+                AddBreadcrumb("SSPP Application Tracking Log: load application", "Application #", AppNumber, Me)
                 LoadApplication()
             Else
                 MessageBox.Show("Application #" & AppNumber.ToString & " does not exist.")

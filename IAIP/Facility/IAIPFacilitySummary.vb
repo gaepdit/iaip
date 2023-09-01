@@ -131,7 +131,7 @@ Public Class IAIPFacilitySummary
         If _airsNumber Is Nothing Then
             AirsNumberEntry.Focus()
         Else
-            AddBreadcrumb("Facility Summary: load facility", New Dictionary(Of String, Object) From {{"AIRS #", AirsNumber.FormattedString}}, Me)
+            AddBreadcrumb("Facility Summary: load facility", "AIRS #", AirsNumber.FormattedString, Me)
             LoadBasicFacilityAndHeaderData()
             FSMainTabControl.Focus()
         End If
