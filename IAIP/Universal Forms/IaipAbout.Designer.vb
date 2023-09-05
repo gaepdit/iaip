@@ -27,7 +27,6 @@ Partial Class IaipAbout
         Me.lblSupport = New System.Windows.Forms.LinkLabel()
         Me.lblDocumentation = New System.Windows.Forms.LinkLabel()
         Me.lblChangelog = New System.Windows.Forms.LinkLabel()
-        Me.lblUpdateCheck = New System.Windows.Forms.LinkLabel()
         Me.btnClose = New System.Windows.Forms.Button()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -39,7 +38,7 @@ Partial Class IaipAbout
         Me.lblSubTitle.Location = New System.Drawing.Point(299, 114)
         Me.lblSubTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSubTitle.Name = "lblSubTitle"
-        Me.lblSubTitle.Size = New System.Drawing.Size(274, 48)
+        Me.lblSubTitle.Size = New System.Drawing.Size(273, 48)
         Me.lblSubTitle.TabIndex = 32
         Me.lblSubTitle.Text = "Georgia Department of Natural Resources" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Environmental Protection Division" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Air P" &
     "rotection Branch"
@@ -84,7 +83,7 @@ Partial Class IaipAbout
         Me.lblVersion.Location = New System.Drawing.Point(299, 74)
         Me.lblVersion.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblVersion.Name = "lblVersion"
-        Me.lblVersion.Size = New System.Drawing.Size(61, 16)
+        Me.lblVersion.Size = New System.Drawing.Size(60, 16)
         Me.lblVersion.TabIndex = 32
         Me.lblVersion.Text = "Version"
         '
@@ -124,18 +123,6 @@ Partial Class IaipAbout
         Me.lblChangelog.TabStop = True
         Me.lblChangelog.Text = "Change log"
         '
-        'lblUpdateCheck
-        '
-        Me.lblUpdateCheck.AutoSize = True
-        Me.lblUpdateCheck.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblUpdateCheck.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
-        Me.lblUpdateCheck.Location = New System.Drawing.Point(299, 248)
-        Me.lblUpdateCheck.Name = "lblUpdateCheck"
-        Me.lblUpdateCheck.Size = New System.Drawing.Size(123, 17)
-        Me.lblUpdateCheck.TabIndex = 4
-        Me.lblUpdateCheck.TabStop = True
-        Me.lblUpdateCheck.Text = "Check for updates"
-        '
         'btnClose
         '
         Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
@@ -153,7 +140,6 @@ Partial Class IaipAbout
         Me.CancelButton = Me.btnClose
         Me.ClientSize = New System.Drawing.Size(672, 338)
         Me.Controls.Add(Me.btnClose)
-        Me.Controls.Add(Me.lblUpdateCheck)
         Me.Controls.Add(Me.lblChangelog)
         Me.Controls.Add(Me.lblDocumentation)
         Me.Controls.Add(Me.lblSupport)
@@ -183,6 +169,5 @@ Partial Class IaipAbout
     Friend WithEvents lblSupport As System.Windows.Forms.LinkLabel
     Friend WithEvents lblDocumentation As System.Windows.Forms.LinkLabel
     Friend WithEvents lblChangelog As System.Windows.Forms.LinkLabel
-    Friend WithEvents lblUpdateCheck As System.Windows.Forms.LinkLabel
     Friend WithEvents btnClose As System.Windows.Forms.Button
 End Class

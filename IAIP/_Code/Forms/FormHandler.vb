@@ -16,6 +16,8 @@ Module FormHandler
                                    id As Integer,
                                    Optional parameters As Dictionary(Of FormParameter, String) = Nothing) As Form
 
+        AddBreadcrumb($"OpenMultiForm: {formName}", "id", id)
+
         If MultiForm Is Nothing Then MultiForm = New Dictionary(Of String, Dictionary(Of Integer, BaseForm))
 
         If formName Is Nothing Then formName = formType.Name
@@ -69,6 +71,8 @@ Module FormHandler
                                     Optional id As Integer = -1,
                                     Optional parameters As Dictionary(Of FormParameter, String) = Nothing,
                                     Optional closeFirst As Boolean = False) As Form
+
+        AddBreadcrumb($"OpenSingleForm: {formName}", "id", id)
 
         If SingleForm Is Nothing Then SingleForm = New Dictionary(Of String, BaseForm)
 

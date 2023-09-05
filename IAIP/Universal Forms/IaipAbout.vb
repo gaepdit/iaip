@@ -28,8 +28,4 @@ Public Class IaipAbout
         OpenChangelogUrl(Me)
     End Sub
 
-    Private Sub lblUpdateCheck_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblUpdateCheck.LinkClicked
-        CheckForUpdate()
-    End Sub
-
 End Class

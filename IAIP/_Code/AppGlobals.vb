@@ -23,8 +23,6 @@ Module AppGlobals
 
     ' App info
 
-    Friend AppFirstRun As Boolean
-    Friend AppUpdated As Boolean
     Friend IaipExiting As Boolean
     Friend LoggingOff As Boolean
 

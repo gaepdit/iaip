@@ -1,40 +1,41 @@
 ﻿Imports System.Configuration
+Imports System.Deployment.Application
 
 Friend Module StartupShutdown
 
     ''' <summary>
-    ''' All the procedures to run as the application is starting up
+    ''' All the procedures to run as the application is starting up.
     ''' </summary>
     ''' <remarks> Called by MyApplication_Startup -> StartupShutdown.Init() </remarks>
-    Friend Sub Init()
+    Friend Function Init() As Boolean
         AddHandler Application.ThreadException, AddressOf Application_ThreadException
         AddHandler AppDomain.CurrentDomain.UnhandledException, AddressOf CurrentDomain_UnhandledException
 
-        ' Updates: Should run each time program is updated
-        If AppUpdater.JustUpdated Then
-            ' Settings.Upgrade() folds in settings from previous version
-            My.Settings.Upgrade()
-            AppUpdated = True
+        If CheckForUpdate() Then Return False
+
+        ' Updates: Should run each time program is updated.
+        If ApplicationDeployment.IsNetworkDeployed AndAlso
+            ApplicationDeployment.CurrentDeployment.IsFirstRun Then
+            My.Settings.Upgrade() ' Folds in settings from the previous version.
         End If
 
-        ' First Run: Should only run the first time a new installation is run
-        ' (A 'False' setting for My.Settings.JustInstalled should be migrated by My.Settings.Upgrade() above
-        ' before getting here.)
+        ' First Run: Should only run the first time the application is installed and run.
+        ' Currently this isn't used for any purpose, but the setting is retained in case it's needed in the future.
         If My.Settings.JustInstalled Then
-            AppFirstRun = True
-
-            ' Prevents this from running in the future
+            ' (The default value for My.Settings.JustInstalled is 'True' when first installed, but a 'False' setting
+            ' should be migrated from a previous installation before getting here.)
             My.Settings.JustInstalled = False
             My.Settings.Save()
         End If
 
-        ' DB Environment
-        SetUpDbServerEnvironment()
-
         ' Initialize form settings
         AllFormSettings = GetAllFormSettings()
 
-    End Sub
+        ' DB Environment
+        SetUpDbServerEnvironment()
+
+        Return True
+    End Function
 
     ''' <summary>
     ''' All the procedures to run as the application is shutting down
@@ -76,9 +77,7 @@ Friend Module StartupShutdown
     End Sub
 
     Private Sub CurrentDomain_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs)
-        ErrorReport(CType(e.ExceptionObject, Exception), sender.ToString,
-                    NameOf(CurrentDomain_UnhandledException), True,
-                    e.IsTerminating)
+        ErrorReport(CType(e.ExceptionObject, Exception), sender.ToString, NameOf(CurrentDomain_UnhandledException), True, e.IsTerminating)
     End Sub
 
 End Module

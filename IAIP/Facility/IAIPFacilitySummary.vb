@@ -131,7 +131,7 @@ Public Class IAIPFacilitySummary
         If _airsNumber Is Nothing Then
             AirsNumberEntry.Focus()
         Else
-            AddBreadcrumb($"Facility Summary: load facility", New Dictionary(Of String, Object) From {{"AIRS #", AirsNumber.FormattedString}}, Me)
+            AddBreadcrumb("Facility Summary: load facility", "AIRS #", AirsNumber.FormattedString, Me)
             LoadBasicFacilityAndHeaderData()
             FSMainTabControl.Focus()
         End If
@@ -942,7 +942,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub ClearFormToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearFormMenuItem.Click
-        AddBreadcrumb($"Facility Summary: clear form", Me)
+        AddBreadcrumb("Facility Summary: clear form", Me)
         AirsNumber = Nothing
     End Sub
 
@@ -973,7 +973,7 @@ Public Class IAIPFacilitySummary
             {"Name", Name},
             {"AIRS #", AirsNumber.FormattedString},
             {"Tab", FSMainTabControl.SelectedTab.Name}}
-        AddBreadcrumb($"Facility Summary: tab changed", data, Me)
+        AddBreadcrumb("Facility Summary: tab changed", data, Me)
 
         Select Case FSMainTabControl.SelectedTab.Name
             Case FSCompliance.Name

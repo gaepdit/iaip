@@ -22,36 +22,37 @@ Partial Class IaipUpdater
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.updaterStatus = New System.Windows.Forms.Label()
-        Me.updaterButton = New System.Windows.Forms.Button()
-        Me.downloadProgress = New System.Windows.Forms.ProgressBar()
+        Me.UpdaterStatus = New System.Windows.Forms.Label()
+        Me.UpdaterButton = New System.Windows.Forms.Button()
+        Me.DownloadProgress = New System.Windows.Forms.ProgressBar()
         Me.SuspendLayout()
         '
-        'updaterStatus
+        'UpdaterStatus
         '
-        Me.updaterStatus.AutoSize = True
-        Me.updaterStatus.Location = New System.Drawing.Point(34, 34)
-        Me.updaterStatus.Name = "updaterStatus"
-        Me.updaterStatus.Size = New System.Drawing.Size(114, 13)
-        Me.updaterStatus.TabIndex = 1
-        Me.updaterStatus.Text = "Downloading update..."
+        Me.UpdaterStatus.AutoSize = True
+        Me.UpdaterStatus.Location = New System.Drawing.Point(34, 34)
+        Me.UpdaterStatus.Name = "UpdaterStatus"
+        Me.UpdaterStatus.Size = New System.Drawing.Size(114, 13)
+        Me.UpdaterStatus.TabIndex = 1
+        Me.UpdaterStatus.Text = "Downloading update..."
         '
-        'updaterButton
+        'UpdaterButton
         '
-        Me.updaterButton.Location = New System.Drawing.Point(37, 105)
-        Me.updaterButton.Name = "updaterButton"
-        Me.updaterButton.Size = New System.Drawing.Size(75, 23)
-        Me.updaterButton.TabIndex = 2
-        Me.updaterButton.Text = "Cancel"
-        Me.updaterButton.UseVisualStyleBackColor = True
+        Me.UpdaterButton.Location = New System.Drawing.Point(37, 105)
+        Me.UpdaterButton.Name = "UpdaterButton"
+        Me.UpdaterButton.Size = New System.Drawing.Size(75, 23)
+        Me.UpdaterButton.TabIndex = 2
+        Me.UpdaterButton.Text = "Close"
+        Me.UpdaterButton.UseVisualStyleBackColor = True
+        Me.UpdaterButton.Visible = False
         '
-        'downloadProgress
+        'DownloadProgress
         '
-        Me.downloadProgress.Location = New System.Drawing.Point(37, 63)
-        Me.downloadProgress.Name = "downloadProgress"
-        Me.downloadProgress.Size = New System.Drawing.Size(279, 23)
-        Me.downloadProgress.Style = System.Windows.Forms.ProgressBarStyle.Continuous
-        Me.downloadProgress.TabIndex = 3
+        Me.DownloadProgress.Location = New System.Drawing.Point(37, 63)
+        Me.DownloadProgress.Name = "DownloadProgress"
+        Me.DownloadProgress.Size = New System.Drawing.Size(279, 23)
+        Me.DownloadProgress.Style = System.Windows.Forms.ProgressBarStyle.Continuous
+        Me.DownloadProgress.TabIndex = 3
         '
         'IaipUpdater
         '
@@ -60,9 +61,9 @@ Partial Class IaipUpdater
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(352, 161)
         Me.ControlBox = False
-        Me.Controls.Add(Me.downloadProgress)
-        Me.Controls.Add(Me.updaterButton)
-        Me.Controls.Add(Me.updaterStatus)
+        Me.Controls.Add(Me.DownloadProgress)
+        Me.Controls.Add(Me.UpdaterButton)
+        Me.Controls.Add(Me.UpdaterStatus)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "IaipUpdater"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
@@ -72,7 +73,7 @@ Partial Class IaipUpdater
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents updaterStatus As Label
-    Friend WithEvents updaterButton As Button
-    Friend WithEvents downloadProgress As ProgressBar
+    Friend WithEvents UpdaterStatus As Label
+    Friend WithEvents UpdaterButton As Button
+    Friend WithEvents DownloadProgress As ProgressBar
 End Class
