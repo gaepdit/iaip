@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -779,31 +779,6 @@
     <EmbeddedResource Include="AnnualFees\FeesStatistics.resx">
       <DependentUpon>FeesStatistics.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SBEAP\SBEAPCaseLog.resx">
-      <DependentUpon>SBEAPCaseLog.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SBEAP\SBEAPCaseWork.resx">
-      <DependentUpon>SBEAPCaseWork.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SBEAP\SBEAPClientSummary.resx">
-      <DependentUpon>SBEAPClientSummary.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SBEAP\SBEAPMiscTools.resx">
-      <DependentUpon>SBEAPMiscTools.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SBEAP\SBEAPPhoneLog.resx">
-      <DependentUpon>SBEAPPhoneLog.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SBEAP\SBEAPReports.resx">
-      <DependentUpon>SBEAPReports.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SBEAP\Sub Forms\SBEAPClientSearchTool.resx">
-      <DependentUpon>SBEAPClientSearchTool.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SscpDocuments.resx">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
     </EmbeddedResource>
@@ -1078,54 +1053,11 @@
     <Compile Include="_DAL\Misc\ContactData.vb" />
     <Compile Include="_DAL\EmissionFees\FeesData.vb" />
     <Compile Include="_DAL\Misc\QueryGeneratorData.vb" />
-    <Compile Include="_DAL\SBEAP\SbeapData.vb" />
     <Compile Include="_DAL\SSPP\ApplicationData.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_DAL\SSPP\PermitData.vb" />
     <Compile Include="_Code\DbConnections.vb" />
-    <Compile Include="SBEAP\SBEAPCaseLog.Designer.vb">
-      <DependentUpon>SBEAPCaseLog.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SBEAP\SBEAPCaseLog.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SBEAP\SBEAPCaseWork.Designer.vb">
-      <DependentUpon>SBEAPCaseWork.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SBEAP\SBEAPCaseWork.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SBEAP\SBEAPClientSummary.Designer.vb">
-      <DependentUpon>SBEAPClientSummary.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SBEAP\SBEAPClientSummary.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SBEAP\SBEAPMiscTools.Designer.vb">
-      <DependentUpon>SBEAPMiscTools.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SBEAP\SBEAPMiscTools.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SBEAP\SBEAPPhoneLog.Designer.vb">
-      <DependentUpon>SBEAPPhoneLog.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SBEAP\SBEAPPhoneLog.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SBEAP\SBEAPReports.Designer.vb">
-      <DependentUpon>SBEAPReports.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SBEAP\SBEAPReports.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SBEAP\Sub Forms\SBEAPClientSearchTool.Designer.vb">
-      <DependentUpon>SBEAPClientSearchTool.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SBEAP\Sub Forms\SBEAPClientSearchTool.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Universal Forms\IaipAbout.Designer.vb">
       <DependentUpon>IaipAbout.vb</DependentUpon>
     </Compile>
