@@ -3,35 +3,36 @@ Imports System.Deployment.Application
 
 Public Class IaipUpdater
 
-    Private ReadOnly ad As ApplicationDeployment = ApplicationDeployment.CurrentDeployment
+    Private ReadOnly deployment As ApplicationDeployment = ApplicationDeployment.CurrentDeployment
     Private updating As Boolean = True
 
     Protected Overrides Sub OnLoad(e As EventArgs)
-        AddHandler ad.UpdateCompleted, AddressOf AdUpdateCompleted
-        AddHandler ad.UpdateProgressChanged, AddressOf AdUpdateProgressChanged
-        AddHandler ad.CheckForUpdateCompleted, AddressOf AdCheckForUpdateCompleted
+        AddHandler deployment.UpdateCompleted, AddressOf DeploymentUpdateCompleted
+        AddHandler deployment.UpdateProgressChanged, AddressOf DeploymentUpdateProgressChanged
+        AddHandler deployment.CheckForUpdateCompleted, AddressOf DeploymentCheckForUpdateCompleted
 
         AddBreadcrumb("IaipUpdater: opened", Me)
         MyBase.OnLoad(e)
 
-        ad.UpdateAsync()
+        deployment.UpdateAsync()
     End Sub
 
-    Private Sub AdCheckForUpdateCompleted(sender As Object, e As CheckForUpdateCompletedEventArgs)
+    Private Sub DeploymentCheckForUpdateCompleted(sender As Object, e As CheckForUpdateCompletedEventArgs)
         AddBreadcrumb("IaipUpdater: check completed", New Generic.Dictionary(Of String, Object) From {
-                      {"CurrentVersion", ad.CurrentVersion}, {"UpdatedVersion", ad.UpdatedVersion}}, Me)
+                      {"CurrentVersion", deployment.CurrentVersion}, {"UpdatedVersion", deployment.UpdatedVersion}}, Me)
 
     End Sub
 
-    Private Sub AdUpdateProgressChanged(sender As Object, e As DeploymentProgressChangedEventArgs)
+    Private Sub DeploymentUpdateProgressChanged(sender As Object, e As DeploymentProgressChangedEventArgs)
         DownloadProgress.Value = e.ProgressPercentage
         If IsHandleCreated Then SetTaskbarProgressValue(Handle, e.ProgressPercentage, 100)
     End Sub
 
-    Private Sub AdUpdateCompleted(sender As Object, e As AsyncCompletedEventArgs)
+    Private Sub DeploymentUpdateCompleted(sender As Object, e As AsyncCompletedEventArgs)
         updating = False
 
         If e.Error IsNot Nothing Then
+            AddBreadcrumb("IaipUpdater: update error", New Generic.Dictionary(Of String, Object) From {{"Error Type", e.Error.GetType}}, Me)
             DownloadProgress.Visible = False
 
             If IsHandleCreated Then SetTaskbarProgressState(Handle, TaskbarState.Error)
@@ -48,7 +49,6 @@ Public Class IaipUpdater
             UpdaterButton.Visible = True
             UpdaterButton.Focus()
 
-            AddBreadcrumb("IaipUpdater: udpate error", New Generic.Dictionary(Of String, Object) From {{"Error Type", e.Error.GetType}}, Me)
             Return
         End If
 

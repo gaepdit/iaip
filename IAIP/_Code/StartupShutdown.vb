@@ -4,7 +4,7 @@ Imports System.Deployment.Application
 Friend Module StartupShutdown
 
     ''' <summary>
-    ''' All the procedures to run as the application is starting up
+    ''' All the procedures to run as the application is starting up.
     ''' </summary>
     ''' <remarks> Called by MyApplication_Startup -> StartupShutdown.Init() </remarks>
     Friend Function Init() As Boolean
@@ -13,17 +13,26 @@ Friend Module StartupShutdown
 
         If CheckForUpdate() Then Return False
 
-        ' Updates: Should run each time program is updated
-        If ApplicationDeployment.IsNetworkDeployed AndAlso ApplicationDeployment.CurrentDeployment.IsFirstRun Then
-            ' Settings.Upgrade() folds in settings from previous version
-            My.Settings.Upgrade()
+        ' Updates: Should run each time program is updated.
+        If ApplicationDeployment.IsNetworkDeployed AndAlso
+            ApplicationDeployment.CurrentDeployment.IsFirstRun Then
+            My.Settings.Upgrade() ' Folds in settings from the previous version.
         End If
 
-        ' DB Environment
-        SetUpDbServerEnvironment()
+        ' First Run: Should only run the first time the application is installed and run.
+        ' Currently this isn't used for any purpose, but the setting is retained in case it's needed in the future.
+        If My.Settings.JustInstalled Then
+            ' (The default value for My.Settings.JustInstalled is 'True' when first installed, but a 'False' setting
+            ' should be migrated from a previous installation before getting here.)
+            My.Settings.JustInstalled = False
+            My.Settings.Save()
+        End If
 
         ' Initialize form settings
         AllFormSettings = GetAllFormSettings()
+
+        ' DB Environment
+        SetUpDbServerEnvironment()
 
         Return True
     End Function
