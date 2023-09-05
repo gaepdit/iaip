@@ -133,6 +133,11 @@ Public Class FinInvoiceView
     'End Sub
 
     Private Sub btnVoid_Click(sender As Object, e As EventArgs) Handles btnVoid.Click
+        If DialogResult.No = MessageBox.Show("Are you sure you want to void this invoice?", $"Void Invoice {InvoiceID}",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) Then
+            Return
+        End If
+
         lblVoidMessage.ClearMessage()
         btnVoid.Enabled = False
 
