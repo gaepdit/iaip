@@ -12,6 +12,12 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.8.0 <span>(2023-09-05)</span>
+
+Moved the SBEAP tools to a new web application.
+
+Also, fixed an application deployment bug that has vexed me for several years.
+
 ## Version 6.7.1 <span>(2023-07-26)</span>
 
 Fixed incorrect email addresses in the PA/PN template.
