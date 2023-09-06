@@ -85,14 +85,20 @@ Public Class SSPPApplicationTrackingLog
                 _totalFeeAmount = value
                 txtFeeTotal.Text = String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C}", value)
 
+                If UpdatingValues Then Return
+
                 If value = 0 Then
                     txtFeeTotal.Visible = False
                     lblTotalFee.Visible = False
                     chbFeeDataFinalized.Visible = False
+                    btnSaveFeesGenerateInvoice.Visible = False
+                    lblFeeChangesNotAllowedWarning.Visible = False
                 Else
                     txtFeeTotal.Visible = True
                     lblTotalFee.Visible = True
                     chbFeeDataFinalized.Visible = FeeChangesAllowed
+                    btnSaveFeesGenerateInvoice.Visible = FeeChangesAllowed AndAlso chbFeeDataFinalized.Checked
+                    lblFeeChangesNotAllowedWarning.Visible = FeeChangesAllowed AndAlso chbFeeDataFinalized.Checked
                 End If
             End If
         End Set
@@ -13810,10 +13816,6 @@ Public Class SSPPApplicationTrackingLog
         End If
     End Sub
 
-    Private Sub DTPDateReceived_Leave(sender As Object, e As EventArgs) Handles DTPDateReceived.Leave
-        LoadFeeRatesComboBoxes()
-    End Sub
-
     Private Sub AdjustFeesUI()
         If AirsId Is Nothing OrElse AppNumber = 0 Then
             TPFees.Enabled = False
@@ -13849,8 +13851,11 @@ Public Class SSPPApplicationTrackingLog
             txtExpFeeOverrideReason.Visible = chbExpFeeOverride.Checked AndAlso chbExpFee.Checked
 
             ' Invoicing
-            chbFeeDataFinalized.Visible = FeeChangesAllowed AndAlso TotalFeeAmount > 0 AndAlso (chbAppFee.Checked OrElse chbExpFee.Checked)
-            lblFeeChangesNotAllowedWarning.Visible = FeeChangesAllowed AndAlso TotalFeeAmount > 0 AndAlso (chbAppFee.Checked OrElse chbExpFee.Checked) AndAlso chbFeeDataFinalized.Checked
+            Dim ableToInvoice As Boolean = FeeChangesAllowed AndAlso TotalFeeAmount > 0 AndAlso (chbAppFee.Checked OrElse chbExpFee.Checked)
+            Dim readyToInvoice As Boolean = ableToInvoice AndAlso chbFeeDataFinalized.Checked
+            chbFeeDataFinalized.Visible = ableToInvoice
+            btnSaveFeesGenerateInvoice.Visible = readyToInvoice
+            lblFeeChangesNotAllowedWarning.Visible = readyToInvoice
 
             FeeDataFinalized = Not FeeChangesAllowed AndAlso TotalFeeAmount > 0
             pnlFeeDataFinalized.Visible = FeeDataFinalized
@@ -13890,7 +13895,7 @@ Public Class SSPPApplicationTrackingLog
         cmbAppFeeType.DataSource = appFeeRates
         cmbAppFeeType.SetDropDownWidth()
 
-        If currentFeeTypeSelection > -1 AndAlso appFeeRates.Any(Function(m) m.FeeRateItemID = currentFeeTypeSelection) Then
+        If currentFeeTypeSelection > -1 AndAlso appFeeRates.Exists(Function(m) m.FeeRateItemID = currentFeeTypeSelection) Then
             cmbAppFeeType.SelectedValue = currentFeeTypeSelection
         Else
             chbAppFee.Checked = False
@@ -13910,7 +13915,7 @@ Public Class SSPPApplicationTrackingLog
         cmbExpFeeType.DataSource = expFeeRates
         cmbExpFeeType.SetDropDownWidth()
 
-        If currentFeeTypeSelection > -1 AndAlso expFeeRates.Any(Function(m) m.FeeRateItemID = currentFeeTypeSelection) Then
+        If currentFeeTypeSelection > -1 AndAlso expFeeRates.Exists(Function(m) m.FeeRateItemID = currentFeeTypeSelection) Then
             cmbExpFeeType.SelectedValue = currentFeeTypeSelection
         Else
             chbExpFee.Checked = False
@@ -13925,10 +13930,13 @@ Public Class SSPPApplicationTrackingLog
         End If
 
         UpdatingValues = False
-        AdjustFeesUI()
     End Sub
 
-    Private Sub SaveApplicationFees()
+    Private Sub btnSaveFeesGenerateInvoice_Click(sender As Object, e As EventArgs) Handles btnSaveFeesGenerateInvoice.Click
+        SaveApplicationFees(True)
+    End Sub
+
+    Private Sub SaveApplicationFees(Optional andGenerateInvoice As Boolean = False)
         If AirsId Is Nothing OrElse AppNumber = 0 OrElse Not DAL.AirsNumberExists(AirsId) Then
             Return
         End If
@@ -13965,7 +13973,7 @@ Public Class SSPPApplicationTrackingLog
         Select Case SaveApplicationFeesData(feesInfo)
             Case SaveApplicationFeesDataResult.Success
 
-                If feesInfo.FeeDataFinalized Then
+                If andGenerateInvoice AndAlso feesInfo.FeeDataFinalized Then
                     Dim invoiceId As Integer
                     Dim result As GenerateInvoiceResult = GenerateInvoice(AppNumber, CurrentUser.UserID, invoiceId)
 
@@ -14008,6 +14016,7 @@ Public Class SSPPApplicationTrackingLog
 
         If feesInfo Is Nothing Then
             UpdatingValues = False
+            AdjustFeesUI()
             Return
         End If
 
