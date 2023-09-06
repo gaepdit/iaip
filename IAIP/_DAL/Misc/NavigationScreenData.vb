@@ -291,13 +291,6 @@ Namespace DAL
                             query = query & " AND (u.NUMUNIT = @pid or a.APBUNIT = @pid) "
                     End Select
 
-                    Select Case scope
-                        Case NavWorkListScope.StaffView
-                            query = query & " AND s.NUMSTAFFRESPONSIBLE = @pid "
-                        Case NavWorkListScope.UnitView
-                            query = query & " AND u.NUMUNIT = @pid "
-                    End Select
-
             End Select
 
             query &= " ORDER BY 1, 2 "
