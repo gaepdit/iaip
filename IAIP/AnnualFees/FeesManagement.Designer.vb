@@ -121,7 +121,7 @@ Partial Class FeesManagement
         Me.btnSetMailoutDate = New System.Windows.Forms.Button()
         Me.btnGenerateMailoutList = New System.Windows.Forms.Button()
         Me.btnUpdateContactData = New System.Windows.Forms.Button()
-        Me.AIRSNumberEntry = New Iaip.AirNumberEntryForm()
+        Me.AIRSNumberEntry = New Iaip.AirsNumberEntryForm()
         Me.FeeManagementTabControl.SuspendLayout()
         Me.TPFeeAdminTools.SuspendLayout()
         Me.TabControl2.SuspendLayout()
@@ -1376,5 +1376,5 @@ Partial Class FeesManagement
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents btnViewEmailList As Button
     Friend WithEvents btnViewPhysicalMailList As Button
-    Friend WithEvents AIRSNumberEntry As AirNumberEntryForm
+    Friend WithEvents AIRSNumberEntry As AirsNumberEntryForm
 End Class

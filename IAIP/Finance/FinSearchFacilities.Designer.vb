@@ -25,7 +25,7 @@ Partial Class FinSearchFacilities
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.lblResultsCount = New System.Windows.Forms.Label()
         Me.grpFacility = New System.Windows.Forms.GroupBox()
-        Me.txtAirsNumberSearch = New Iaip.AirNumberEntryForm()
+        Me.txtAirsNumberSearch = New Iaip.AirsNumberEntryForm()
         Me.lblAirsSearchMessage = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtFacilityName = New System.Windows.Forms.TextBox()
@@ -36,7 +36,7 @@ Partial Class FinSearchFacilities
         Me.TopPanel = New System.Windows.Forms.Panel()
         Me.btnClear = New System.Windows.Forms.Button()
         Me.lblSelectedAirsMessage = New System.Windows.Forms.Label()
-        Me.txtSelectedItem = New Iaip.AirNumberEntryForm()
+        Me.txtSelectedItem = New Iaip.AirsNumberEntryForm()
         Me.btnAccounts = New System.Windows.Forms.GroupBox()
         Me.chkUnusedCredits = New System.Windows.Forms.CheckBox()
         Me.chkOpenInvoices = New System.Windows.Forms.CheckBox()
@@ -297,11 +297,11 @@ Partial Class FinSearchFacilities
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents lblResultsCount As System.Windows.Forms.Label
     Friend WithEvents TopPanel As Panel
-    Friend WithEvents txtSelectedItem As AirNumberEntryForm
+    Friend WithEvents txtSelectedItem As AirsNumberEntryForm
     Friend WithEvents btnAccounts As GroupBox
     Friend WithEvents lblSelectedAirsMessage As Label
     Friend WithEvents lblAirsSearchMessage As Label
-    Friend WithEvents txtAirsNumberSearch As AirNumberEntryForm
+    Friend WithEvents txtAirsNumberSearch As AirsNumberEntryForm
     Friend WithEvents chkPendingItems As CheckBox
     Friend WithEvents chkOpenInvoices As CheckBox
     Friend WithEvents chkUnusedCredits As CheckBox

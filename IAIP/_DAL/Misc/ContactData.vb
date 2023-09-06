@@ -12,6 +12,7 @@ Namespace DAL
             Permitting = 30
             Fees = 40
             EmissionInventory = 41
+            <Obsolete("Emissions Statement contact no longer used", True)>
             EmissionStatement = 42
             <Obsolete("Ambient contact no longer used", True)>
             AmbientMonitoring = 50
@@ -24,22 +25,22 @@ Namespace DAL
         Public Function GetCurrentContact(airsNumber As Apb.ApbFacilityId, key As ContactKey) As Contact
             If key = ContactKey.None OrElse Not [Enum].IsDefined(GetType(ContactKey), key) Then Return Nothing
 
-            Dim query As String = " SELECT strContactFirstName, " &
-                "  strContactLastName, " &
-                "  strContactPrefix, " &
-                "  strContactSuffix, " &
-                "  strContactCompanyName, " &
-                "  strContactAddress1, " &
-                "  strContactAddress2, " &
-                "  strContactCity, " &
-                "  strContactstate, " &
-                "  strContactZipCode, " &
-                "  STRCONTACTTITLE, " &
-                "  STRCONTACTPHONENUMBER1, " &
-                "  strContactEmail " &
-                " FROM APBContactInformation " &
-                " WHERE strAIRSNumber = @airsnumber " &
-                " AND strKey          = @key "
+            Const query As String = " SELECT strContactFirstName, 
+                  strContactLastName, 
+                  strContactPrefix, 
+                  strContactSuffix, 
+                  strContactCompanyName, 
+                  strContactAddress1, 
+                  strContactAddress2, 
+                  strContactCity, 
+                  strContactstate, 
+                  strContactZipCode, 
+                  STRCONTACTTITLE, 
+                  STRCONTACTPHONENUMBER1, 
+                  strContactEmail 
+                 FROM APBContactInformation 
+                 WHERE strAIRSNumber = @airsnumber 
+                 AND strKey          = @key "
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@airsnumber", airsNumber.DbFormattedString),

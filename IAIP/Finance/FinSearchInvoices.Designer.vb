@@ -17,7 +17,7 @@ Partial Class FinSearchInvoices
         Me.grpFacility = New System.Windows.Forms.GroupBox()
         Me.lblAirsSearchMessage = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.txtAirsNumberSearch = New Iaip.AirNumberEntryForm()
+        Me.txtAirsNumberSearch = New Iaip.AirsNumberEntryForm()
         Me.txtFacilityName = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnSearch = New System.Windows.Forms.Button()
@@ -384,7 +384,7 @@ Partial Class FinSearchInvoices
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents lblResultsCount As System.Windows.Forms.Label
     Friend WithEvents TopPanel As Panel
-    Friend WithEvents txtAirsNumberSearch As AirNumberEntryForm
+    Friend WithEvents txtAirsNumberSearch As AirsNumberEntryForm
     Friend WithEvents txtSelectedItem As CueTextBox
     Friend WithEvents grpDates As GroupBox
     Friend WithEvents Label3 As Label

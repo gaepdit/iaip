@@ -23,7 +23,7 @@ Partial Class FinSearchDeposits
         Me.chkIncludeDeleted = New System.Windows.Forms.CheckBox()
         Me.chkUnusedBalance = New System.Windows.Forms.CheckBox()
         Me.grpDepositDetails = New System.Windows.Forms.GroupBox()
-        Me.txtAirsNumberSearch = New Iaip.AirNumberEntryForm()
+        Me.txtAirsNumberSearch = New Iaip.AirsNumberEntryForm()
         Me.lblAirsSearchMessage = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -402,7 +402,7 @@ Partial Class FinSearchDeposits
     Friend WithEvents Label1 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents lblAirsSearchMessage As Label
-    Friend WithEvents txtAirsNumberSearch As AirNumberEntryForm
+    Friend WithEvents txtAirsNumberSearch As AirsNumberEntryForm
     Friend WithEvents btnSearch As Button
     Friend WithEvents btnClear As Button
 End Class

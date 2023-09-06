@@ -84,8 +84,6 @@ Partial Class EmissionsStatement
         Me.lblViewESMailOut = New System.Windows.Forms.LinkLabel()
         Me.txtcontactAddress1 = New System.Windows.Forms.TextBox()
         Me.Label94 = New System.Windows.Forms.Label()
-        Me.btnESDelete = New System.Windows.Forms.Button()
-        Me.btnSave = New System.Windows.Forms.Button()
         Me.txtcontactEmail = New System.Windows.Forms.TextBox()
         Me.Label97 = New System.Windows.Forms.Label()
         Me.txtcontactZipCode = New System.Windows.Forms.TextBox()
@@ -171,28 +169,6 @@ Partial Class EmissionsStatement
         Me.Label143 = New System.Windows.Forms.Label()
         Me.Label144 = New System.Windows.Forms.Label()
         Me.Label145 = New System.Windows.Forms.Label()
-        Me.tabgenerateESmailout = New System.Windows.Forms.TabPage()
-        Me.Label174 = New System.Windows.Forms.Label()
-        Me.lblviewselectedyearMailoutList = New System.Windows.Forms.LinkLabel()
-        Me.btnDelMailOut = New System.Windows.Forms.Button()
-        Me.cboMailoutYear = New System.Windows.Forms.ComboBox()
-        Me.btnGenMailOut = New System.Windows.Forms.Button()
-        Me.tabenroll = New System.Windows.Forms.TabPage()
-        Me.lblviewESenrollment = New System.Windows.Forms.LinkLabel()
-        Me.cboESYear = New System.Windows.Forms.ComboBox()
-        Me.Label189 = New System.Windows.Forms.Label()
-        Me.btnESdeenrollment = New System.Windows.Forms.Button()
-        Me.btnESenrollment = New System.Windows.Forms.Button()
-        Me.tabaddRemovefacility = New System.Windows.Forms.TabPage()
-        Me.Label190 = New System.Windows.Forms.Label()
-        Me.Label191 = New System.Windows.Forms.Label()
-        Me.btnCheckESstatus = New System.Windows.Forms.Button()
-        Me.btnremoveFacilityES = New System.Windows.Forms.Button()
-        Me.Label192 = New System.Windows.Forms.Label()
-        Me.txtESYearforFacility = New System.Windows.Forms.TextBox()
-        Me.btnaddfacilitytoES = New System.Windows.Forms.Button()
-        Me.Label193 = New System.Windows.Forms.Label()
-        Me.txtESairNumber = New System.Windows.Forms.TextBox()
         Me.PnlESYear = New System.Windows.Forms.Panel()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.cboYear = New System.Windows.Forms.ComboBox()
@@ -205,9 +181,6 @@ Partial Class EmissionsStatement
         Me.tabSummary.SuspendLayout()
         Me.tabMailOut.SuspendLayout()
         Me.TabDetails.SuspendLayout()
-        Me.tabgenerateESmailout.SuspendLayout()
-        Me.tabenroll.SuspendLayout()
-        Me.tabaddRemovefacility.SuspendLayout()
         Me.PnlESYear.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.dgvESDataCount, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -229,9 +202,6 @@ Partial Class EmissionsStatement
         Me.TabControl3.Controls.Add(Me.tabSummary)
         Me.TabControl3.Controls.Add(Me.tabMailOut)
         Me.TabControl3.Controls.Add(Me.TabDetails)
-        Me.TabControl3.Controls.Add(Me.tabgenerateESmailout)
-        Me.TabControl3.Controls.Add(Me.tabenroll)
-        Me.TabControl3.Controls.Add(Me.tabaddRemovefacility)
         Me.TabControl3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl3.Location = New System.Drawing.Point(0, 48)
         Me.TabControl3.Name = "TabControl3"
@@ -760,8 +730,6 @@ Partial Class EmissionsStatement
         Me.tabMailOut.Controls.Add(Me.lblViewESMailOut)
         Me.tabMailOut.Controls.Add(Me.txtcontactAddress1)
         Me.tabMailOut.Controls.Add(Me.Label94)
-        Me.tabMailOut.Controls.Add(Me.btnESDelete)
-        Me.tabMailOut.Controls.Add(Me.btnSave)
         Me.tabMailOut.Controls.Add(Me.txtcontactEmail)
         Me.tabMailOut.Controls.Add(Me.Label97)
         Me.tabMailOut.Controls.Add(Me.txtcontactZipCode)
@@ -817,24 +785,6 @@ Partial Class EmissionsStatement
         Me.Label94.Size = New System.Drawing.Size(107, 13)
         Me.Label94.TabIndex = 20
         Me.Label94.Text = "Company Address 1: "
-        '
-        'btnESDelete
-        '
-        Me.btnESDelete.Location = New System.Drawing.Point(317, 306)
-        Me.btnESDelete.Name = "btnESDelete"
-        Me.btnESDelete.Size = New System.Drawing.Size(75, 23)
-        Me.btnESDelete.TabIndex = 19
-        Me.btnESDelete.Text = "Delete"
-        Me.btnESDelete.UseVisualStyleBackColor = True
-        '
-        'btnSave
-        '
-        Me.btnSave.Location = New System.Drawing.Point(143, 306)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 18
-        Me.btnSave.Text = "Save"
-        Me.btnSave.UseVisualStyleBackColor = True
         '
         'txtcontactEmail
         '
@@ -1626,229 +1576,6 @@ Partial Class EmissionsStatement
         Me.Label145.TabIndex = 62
         Me.Label145.Text = "Emission Statement Information"
         '
-        'tabgenerateESmailout
-        '
-        Me.tabgenerateESmailout.AutoScroll = True
-        Me.tabgenerateESmailout.Controls.Add(Me.Label174)
-        Me.tabgenerateESmailout.Controls.Add(Me.lblviewselectedyearMailoutList)
-        Me.tabgenerateESmailout.Controls.Add(Me.btnDelMailOut)
-        Me.tabgenerateESmailout.Controls.Add(Me.cboMailoutYear)
-        Me.tabgenerateESmailout.Controls.Add(Me.btnGenMailOut)
-        Me.tabgenerateESmailout.Location = New System.Drawing.Point(4, 22)
-        Me.tabgenerateESmailout.Name = "tabgenerateESmailout"
-        Me.tabgenerateESmailout.Size = New System.Drawing.Size(548, 639)
-        Me.tabgenerateESmailout.TabIndex = 3
-        Me.tabgenerateESmailout.Text = "Generate Mailout"
-        Me.tabgenerateESmailout.UseVisualStyleBackColor = True
-        '
-        'Label174
-        '
-        Me.Label174.AutoSize = True
-        Me.Label174.Location = New System.Drawing.Point(129, 28)
-        Me.Label174.Name = "Label174"
-        Me.Label174.Size = New System.Drawing.Size(137, 13)
-        Me.Label174.TabIndex = 10
-        Me.Label174.Text = "Choose the Year for mailout"
-        '
-        'lblviewselectedyearMailoutList
-        '
-        Me.lblviewselectedyearMailoutList.AutoSize = True
-        Me.lblviewselectedyearMailoutList.Location = New System.Drawing.Point(126, 146)
-        Me.lblviewselectedyearMailoutList.Name = "lblviewselectedyearMailoutList"
-        Me.lblviewselectedyearMailoutList.Size = New System.Drawing.Size(173, 13)
-        Me.lblviewselectedyearMailoutList.TabIndex = 9
-        Me.lblviewselectedyearMailoutList.TabStop = True
-        Me.lblviewselectedyearMailoutList.Text = "View Selected Year ES Mailout List"
-        '
-        'btnDelMailOut
-        '
-        Me.btnDelMailOut.Location = New System.Drawing.Point(129, 108)
-        Me.btnDelMailOut.Name = "btnDelMailOut"
-        Me.btnDelMailOut.Size = New System.Drawing.Size(159, 23)
-        Me.btnDelMailOut.TabIndex = 8
-        Me.btnDelMailOut.Text = "Delete Mail Out List by Year"
-        Me.btnDelMailOut.UseVisualStyleBackColor = True
-        '
-        'cboMailoutYear
-        '
-        Me.cboMailoutYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboMailoutYear.FormattingEnabled = True
-        Me.cboMailoutYear.Location = New System.Drawing.Point(129, 52)
-        Me.cboMailoutYear.Name = "cboMailoutYear"
-        Me.cboMailoutYear.Size = New System.Drawing.Size(159, 21)
-        Me.cboMailoutYear.TabIndex = 6
-        '
-        'btnGenMailOut
-        '
-        Me.btnGenMailOut.Location = New System.Drawing.Point(129, 79)
-        Me.btnGenMailOut.Name = "btnGenMailOut"
-        Me.btnGenMailOut.Size = New System.Drawing.Size(159, 23)
-        Me.btnGenMailOut.TabIndex = 7
-        Me.btnGenMailOut.Text = "Generate Mail Out List by Year"
-        Me.btnGenMailOut.UseVisualStyleBackColor = True
-        '
-        'tabenroll
-        '
-        Me.tabenroll.AutoScroll = True
-        Me.tabenroll.Controls.Add(Me.lblviewESenrollment)
-        Me.tabenroll.Controls.Add(Me.cboESYear)
-        Me.tabenroll.Controls.Add(Me.Label189)
-        Me.tabenroll.Controls.Add(Me.btnESdeenrollment)
-        Me.tabenroll.Controls.Add(Me.btnESenrollment)
-        Me.tabenroll.Location = New System.Drawing.Point(4, 22)
-        Me.tabenroll.Name = "tabenroll"
-        Me.tabenroll.Size = New System.Drawing.Size(548, 639)
-        Me.tabenroll.TabIndex = 4
-        Me.tabenroll.Text = "Enrollment"
-        Me.tabenroll.UseVisualStyleBackColor = True
-        '
-        'lblviewESenrollment
-        '
-        Me.lblviewESenrollment.AutoSize = True
-        Me.lblviewESenrollment.Location = New System.Drawing.Point(290, 76)
-        Me.lblviewESenrollment.Name = "lblviewESenrollment"
-        Me.lblviewESenrollment.Size = New System.Drawing.Size(82, 13)
-        Me.lblviewESenrollment.TabIndex = 19
-        Me.lblviewESenrollment.TabStop = True
-        Me.lblviewESenrollment.Text = "View Enrollment"
-        '
-        'cboESYear
-        '
-        Me.cboESYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboESYear.FormattingEnabled = True
-        Me.cboESYear.Location = New System.Drawing.Point(273, 38)
-        Me.cboESYear.Name = "cboESYear"
-        Me.cboESYear.Size = New System.Drawing.Size(88, 21)
-        Me.cboESYear.TabIndex = 18
-        '
-        'Label189
-        '
-        Me.Label189.AutoSize = True
-        Me.Label189.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label189.Location = New System.Drawing.Point(115, 39)
-        Me.Label189.Name = "Label189"
-        Me.Label189.Size = New System.Drawing.Size(152, 16)
-        Me.Label189.TabIndex = 17
-        Me.Label189.Text = "Mailout Enrollment Year:"
-        '
-        'btnESdeenrollment
-        '
-        Me.btnESdeenrollment.Location = New System.Drawing.Point(118, 100)
-        Me.btnESdeenrollment.Name = "btnESdeenrollment"
-        Me.btnESdeenrollment.Size = New System.Drawing.Size(165, 23)
-        Me.btnESdeenrollment.TabIndex = 16
-        Me.btnESdeenrollment.Text = "Remove Mailout Enrollment"
-        Me.btnESdeenrollment.UseVisualStyleBackColor = True
-        '
-        'btnESenrollment
-        '
-        Me.btnESenrollment.Location = New System.Drawing.Point(118, 71)
-        Me.btnESenrollment.Name = "btnESenrollment"
-        Me.btnESenrollment.Size = New System.Drawing.Size(165, 23)
-        Me.btnESenrollment.TabIndex = 15
-        Me.btnESenrollment.Text = "Enroll Mailout List"
-        Me.btnESenrollment.UseVisualStyleBackColor = True
-        '
-        'tabaddRemovefacility
-        '
-        Me.tabaddRemovefacility.AutoScroll = True
-        Me.tabaddRemovefacility.Controls.Add(Me.Label190)
-        Me.tabaddRemovefacility.Controls.Add(Me.Label191)
-        Me.tabaddRemovefacility.Controls.Add(Me.btnCheckESstatus)
-        Me.tabaddRemovefacility.Controls.Add(Me.btnremoveFacilityES)
-        Me.tabaddRemovefacility.Controls.Add(Me.Label192)
-        Me.tabaddRemovefacility.Controls.Add(Me.txtESYearforFacility)
-        Me.tabaddRemovefacility.Controls.Add(Me.btnaddfacilitytoES)
-        Me.tabaddRemovefacility.Controls.Add(Me.Label193)
-        Me.tabaddRemovefacility.Controls.Add(Me.txtESairNumber)
-        Me.tabaddRemovefacility.Location = New System.Drawing.Point(4, 22)
-        Me.tabaddRemovefacility.Name = "tabaddRemovefacility"
-        Me.tabaddRemovefacility.Size = New System.Drawing.Size(548, 639)
-        Me.tabaddRemovefacility.TabIndex = 5
-        Me.tabaddRemovefacility.Text = "Add/Remove ES Facility"
-        Me.tabaddRemovefacility.UseVisualStyleBackColor = True
-        '
-        'Label190
-        '
-        Me.Label190.AutoSize = True
-        Me.Label190.Location = New System.Drawing.Point(189, 64)
-        Me.Label190.Name = "Label190"
-        Me.Label190.Size = New System.Drawing.Size(49, 13)
-        Me.Label190.TabIndex = 25
-        Me.Label190.Text = "Ex: 2008"
-        '
-        'Label191
-        '
-        Me.Label191.AutoSize = True
-        Me.Label191.Location = New System.Drawing.Point(189, 25)
-        Me.Label191.Name = "Label191"
-        Me.Label191.Size = New System.Drawing.Size(76, 13)
-        Me.Label191.TabIndex = 24
-        Me.Label191.Text = "Ex: 00100001 "
-        '
-        'btnCheckESstatus
-        '
-        Me.btnCheckESstatus.AutoSize = True
-        Me.btnCheckESstatus.Location = New System.Drawing.Point(108, 174)
-        Me.btnCheckESstatus.Name = "btnCheckESstatus"
-        Me.btnCheckESstatus.Size = New System.Drawing.Size(168, 23)
-        Me.btnCheckESstatus.TabIndex = 23
-        Me.btnCheckESstatus.Text = "Check Facility Enrollment Status"
-        Me.btnCheckESstatus.UseVisualStyleBackColor = True
-        '
-        'btnremoveFacilityES
-        '
-        Me.btnremoveFacilityES.AutoSize = True
-        Me.btnremoveFacilityES.Location = New System.Drawing.Point(107, 145)
-        Me.btnremoveFacilityES.Name = "btnremoveFacilityES"
-        Me.btnremoveFacilityES.Size = New System.Drawing.Size(169, 23)
-        Me.btnremoveFacilityES.TabIndex = 22
-        Me.btnremoveFacilityES.Text = "Remove Facility from ES List"
-        Me.btnremoveFacilityES.UseVisualStyleBackColor = True
-        '
-        'Label192
-        '
-        Me.Label192.AutoSize = True
-        Me.Label192.Location = New System.Drawing.Point(105, 81)
-        Me.Label192.Name = "Label192"
-        Me.Label192.Size = New System.Drawing.Size(52, 13)
-        Me.Label192.TabIndex = 21
-        Me.Label192.Text = "ES Year: "
-        '
-        'txtESYearforFacility
-        '
-        Me.txtESYearforFacility.Location = New System.Drawing.Point(189, 78)
-        Me.txtESYearforFacility.Name = "txtESYearforFacility"
-        Me.txtESYearforFacility.Size = New System.Drawing.Size(87, 20)
-        Me.txtESYearforFacility.TabIndex = 20
-        '
-        'btnaddfacilitytoES
-        '
-        Me.btnaddfacilitytoES.AutoSize = True
-        Me.btnaddfacilitytoES.Location = New System.Drawing.Point(107, 116)
-        Me.btnaddfacilitytoES.Name = "btnaddfacilitytoES"
-        Me.btnaddfacilitytoES.Size = New System.Drawing.Size(169, 23)
-        Me.btnaddfacilitytoES.TabIndex = 19
-        Me.btnaddfacilitytoES.Text = "Add Facility to ES List"
-        Me.btnaddfacilitytoES.UseVisualStyleBackColor = True
-        '
-        'Label193
-        '
-        Me.Label193.AutoSize = True
-        Me.Label193.Location = New System.Drawing.Point(104, 44)
-        Me.Label193.Name = "Label193"
-        Me.Label193.Size = New System.Drawing.Size(78, 13)
-        Me.Label193.TabIndex = 18
-        Me.Label193.Text = "AIRS Number: "
-        '
-        'txtESairNumber
-        '
-        Me.txtESairNumber.Location = New System.Drawing.Point(188, 41)
-        Me.txtESairNumber.MaxLength = 8
-        Me.txtESairNumber.Name = "txtESairNumber"
-        Me.txtESairNumber.Size = New System.Drawing.Size(88, 20)
-        Me.txtESairNumber.TabIndex = 17
-        '
         'PnlESYear
         '
         Me.PnlESYear.Controls.Add(Me.Label31)
@@ -1913,6 +1640,7 @@ Partial Class EmissionsStatement
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle3
         Me.dgvESDataCount.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvESDataCount.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvESDataCount.LinkifyColumnByName = Nothing
         Me.dgvESDataCount.Location = New System.Drawing.Point(0, 48)
         Me.dgvESDataCount.Name = "dgvESDataCount"
@@ -1957,12 +1685,6 @@ Partial Class EmissionsStatement
         Me.tabMailOut.PerformLayout()
         Me.TabDetails.ResumeLayout(False)
         Me.TabDetails.PerformLayout()
-        Me.tabgenerateESmailout.ResumeLayout(False)
-        Me.tabgenerateESmailout.PerformLayout()
-        Me.tabenroll.ResumeLayout(False)
-        Me.tabenroll.PerformLayout()
-        Me.tabaddRemovefacility.ResumeLayout(False)
-        Me.tabaddRemovefacility.PerformLayout()
         Me.PnlESYear.ResumeLayout(False)
         Me.PnlESYear.PerformLayout()
         Me.Panel2.ResumeLayout(False)
@@ -2032,8 +1754,6 @@ Partial Class EmissionsStatement
     Friend WithEvents lblViewESMailOut As LinkLabel
     Friend WithEvents txtcontactAddress1 As TextBox
     Friend WithEvents Label94 As Label
-    Friend WithEvents btnESDelete As Button
-    Friend WithEvents btnSave As Button
     Friend WithEvents txtcontactEmail As TextBox
     Friend WithEvents Label97 As Label
     Friend WithEvents txtcontactZipCode As TextBox
@@ -2119,21 +1839,6 @@ Partial Class EmissionsStatement
     Friend WithEvents Label143 As Label
     Friend WithEvents Label144 As Label
     Friend WithEvents Label145 As Label
-    Friend WithEvents tabgenerateESmailout As TabPage
-    Friend WithEvents lblviewselectedyearMailoutList As LinkLabel
-    Friend WithEvents btnDelMailOut As Button
-    Friend WithEvents btnGenMailOut As Button
-    Friend WithEvents tabenroll As TabPage
-    Friend WithEvents lblviewESenrollment As LinkLabel
-    Friend WithEvents btnESdeenrollment As Button
-    Friend WithEvents btnESenrollment As Button
-    Friend WithEvents tabaddRemovefacility As TabPage
-    Friend WithEvents Label191 As Label
-    Friend WithEvents btnCheckESstatus As Button
-    Friend WithEvents btnremoveFacilityES As Button
-    Friend WithEvents btnaddfacilitytoES As Button
-    Friend WithEvents Label193 As Label
-    Friend WithEvents txtESairNumber As TextBox
     Friend WithEvents PnlESYear As Panel
     Friend WithEvents Label31 As Label
     Friend WithEvents cboYear As ComboBox
@@ -2141,11 +1846,4 @@ Partial Class EmissionsStatement
     Friend WithEvents dgvESDataCount As IaipDataGridView
     Friend WithEvents Panel4 As Panel
     Friend WithEvents lblRecordNumber As Label
-    Friend WithEvents Label174 As Label
-    Friend WithEvents cboMailoutYear As ComboBox
-    Friend WithEvents cboESYear As ComboBox
-    Friend WithEvents Label189 As Label
-    Friend WithEvents Label190 As Label
-    Friend WithEvents Label192 As Label
-    Friend WithEvents txtESYearforFacility As TextBox
 End Class

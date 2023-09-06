@@ -52,7 +52,7 @@ Partial Class FinDepositView
         Me.txtAmountToApply = New Iaip.CurrencyTextBox()
         Me.btnApplyToInvoice = New System.Windows.Forms.Button()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.txtAirsInvoiceSearch = New Iaip.AirNumberEntryForm()
+        Me.txtAirsInvoiceSearch = New Iaip.AirsNumberEntryForm()
         Me.lblSearchFacilityDisplay = New System.Windows.Forms.Label()
         Me.grpInvoiceSearch = New System.Windows.Forms.GroupBox()
         Me.chkOnlyOpen = New System.Windows.Forms.CheckBox()
@@ -743,7 +743,7 @@ Partial Class FinDepositView
     Friend WithEvents txtAmountToApply As CurrencyTextBox
     Friend WithEvents btnApplyToInvoice As Button
     Friend WithEvents Label12 As Label
-    Friend WithEvents txtAirsInvoiceSearch As AirNumberEntryForm
+    Friend WithEvents txtAirsInvoiceSearch As AirsNumberEntryForm
     Friend WithEvents grpInvoiceSearch As GroupBox
     Friend WithEvents chkOnlyOpen As CheckBox
     Friend WithEvents dgvSearchResults As IaipDataGridView

@@ -25,7 +25,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnRefreshAIRSNo = New System.Windows.Forms.Button()
         Me.lblLinkWarning = New System.Windows.Forms.Label()
         Me.rtbFacilityInformation = New System.Windows.Forms.RichTextBox()
-        Me.txtAIRSNumber = New Iaip.AirNumberEntryForm()
+        Me.txtAIRSNumber = New Iaip.AirsNumberEntryForm()
         Me.lblAppNumber = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblApplicationUnit = New System.Windows.Forms.Label()
@@ -6337,7 +6337,7 @@ Partial Class SSPPApplicationTrackingLog
     End Sub
     Friend WithEvents lblLinkWarning As System.Windows.Forms.Label
     Friend WithEvents rtbFacilityInformation As System.Windows.Forms.RichTextBox
-    Friend WithEvents txtAIRSNumber As AirNumberEntryForm
+    Friend WithEvents txtAIRSNumber As AirsNumberEntryForm
     Friend WithEvents lblAppNumber As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents lblApplicationUnit As System.Windows.Forms.Label

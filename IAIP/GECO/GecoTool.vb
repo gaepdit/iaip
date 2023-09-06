@@ -1,6 +1,6 @@
-﻿Imports System.Data.SqlClient
+Imports System.Data.SqlClient
 Imports EpdIt
-Imports Iaip.Apb.Facilities
+Imports Iaip.Apb
 Imports Iaip.DAL
 Imports Iaip.DAL.FacilityData
 Imports Iaip.DAL.Geco
@@ -11,20 +11,13 @@ Public Class GecoTool
 #Region "Page Load"
 
     Private Sub GecoTool_Load(sender As Object, e As EventArgs) Handles Me.Load
-        FormatWebUsers()
+        FormatGridViews()
+        ClearUserInfo()
+        lblFaciltyName.Text = ""
     End Sub
 
-    Private Sub FormatWebUsers()
+    Private Sub FormatGridViews()
         Try
-            dgvUsers.RowHeadersVisible = False
-            dgvUsers.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvUsers.AllowUserToResizeColumns = True
-            dgvUsers.AllowUserToAddRows = False
-            dgvUsers.AllowUserToDeleteRows = False
-            dgvUsers.AllowUserToOrderColumns = False
-            dgvUsers.AllowUserToResizeRows = False
-            dgvUsers.ColumnHeadersHeight = "35"
-
             dgvUsers.Columns.Add("ID", "ID")
             dgvUsers.Columns("ID").DisplayIndex = 0
             dgvUsers.Columns("ID").Visible = False
@@ -50,20 +43,6 @@ Public Class GecoTool
             dgvUsers.Columns.Add(colFullAccess)
             dgvUsers.Columns(5).HeaderText = "EI Access"
 
-            Dim colSpecialPermissions As New DataGridViewCheckBoxColumn
-            dgvUsers.Columns.Add(colSpecialPermissions)
-            dgvUsers.Columns(6).HeaderText = "ES Access"
-
-
-            dgvUserFacilities.RowHeadersVisible = False
-            dgvUserFacilities.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvUserFacilities.AllowUserToResizeColumns = True
-            dgvUserFacilities.AllowUserToAddRows = False
-            dgvUserFacilities.AllowUserToDeleteRows = False
-            dgvUserFacilities.AllowUserToOrderColumns = True
-            dgvUserFacilities.AllowUserToResizeRows = True
-            dgvUserFacilities.ColumnHeadersHeight = "35"
-
             dgvUserFacilities.Columns.Add("strAIRSNumber", "AIRS Number")
             dgvUserFacilities.Columns("strAIRSNumber").DisplayIndex = 0
             dgvUserFacilities.Columns("strAIRSNumber").Visible = True
@@ -84,12 +63,8 @@ Public Class GecoTool
             dgvUserFacilities.Columns.Add(colFullAccess2)
             dgvUserFacilities.Columns(4).HeaderText = "EI Access"
 
-            Dim colSpecialPermissions2 As New DataGridViewCheckBoxColumn
-            dgvUserFacilities.Columns.Add(colSpecialPermissions2)
-            dgvUserFacilities.Columns(5).HeaderText = "ES Access"
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -120,63 +95,43 @@ Public Class GecoTool
                 End If
                 If IsDBNull(dr.Item("strfirstname")) Then
                     lblFName.Text = ""
-                    txtEditFirstName.Clear()
                 Else
                     lblFName.Text = "First Name: " & dr.Item("strfirstname")
-                    txtEditFirstName.Text = dr.Item("strFirstName")
                 End If
                 If IsDBNull(dr.Item("strlastname")) Then
                     lblLName.Text = ""
-                    txtEditLastName.Clear()
                 Else
                     lblLName.Text = "Last Name: " & dr.Item("strlastname")
-                    txtEditLastName.Text = dr.Item("strLastName")
                 End If
                 If IsDBNull(dr.Item("strtitle")) Then
                     lblTitle.Text = ""
-                    txtEditTitle.Clear()
                 Else
                     lblTitle.Text = "Title: " & dr.Item("strtitle")
-                    txtEditTitle.Text = dr.Item("strTitle")
                 End If
                 If IsDBNull(dr.Item("strcompanyname")) Then
                     lblCoName.Text = ""
-                    txtEditCompany.Clear()
                 Else
                     lblCoName.Text = "Company Name: " & dr.Item("strcompanyname")
-                    txtEditCompany.Text = dr.Item("strCompanyName")
                 End If
                 If IsDBNull(dr.Item("straddress")) Then
                     lblAddress.Text = ""
-                    txtEditAddress.Clear()
                 Else
                     lblAddress.Text = dr.Item("straddress")
-                    txtEditAddress.Text = dr.Item("strAddress")
                 End If
                 If IsDBNull(dr.Item("strcity")) Then
                     lblCityStateZip.Text = ""
-                    txtEditCity.Clear()
-                    mtbEditState.Clear()
-                    mtbEditZipCode.Clear()
                 Else
                     lblCityStateZip.Text = dr.Item("strcity") & ", " & dr.Item("strstate") & " " & dr.Item("strzip")
-                    txtEditCity.Text = dr.Item("strCity")
-                    mtbEditState.Text = dr.Item("strState")
-                    mtbEditZipCode.Text = dr.Item("strZip")
                 End If
                 If IsDBNull(dr.Item("strphonenumber")) Then
                     lblPhoneNo.Text = ""
-                    mtbEditPhoneNumber.Clear()
                 Else
                     lblPhoneNo.Text = "Phone Number: " & dr.Item("strphonenumber")
-                    mtbEditPhoneNumber.Text = dr.Item("strPhoneNumber")
                 End If
                 If IsDBNull(dr.Item("strfaxnumber")) Then
                     lblFaxNo.Text = ""
-                    mtbEditFaxNumber.Clear()
                 Else
                     lblFaxNo.Text = "Fax Number: " & dr.Item("strfaxnumber")
-                    mtbEditFaxNumber.Text = dr.Item("strFaxNumber")
                 End If
                 If IsDBNull(dr.Item("DateEmailConfirmed")) Then
                     lblConfirmDate.Text = $"{UserData} is registered but email not yet confirmed by user."
@@ -197,52 +152,47 @@ Public Class GecoTool
                 Else
                     txtEditEmail.Text = dr.Item("NewEmail")
                 End If
+
+                lableUserAddress.Visible = True
+                btnEditUserData.Visible = True
+                panelUserPermissionsTools.Visible = True
+
             Else
-                txtWebUserID.Clear()
-                txtEditFirstName.Clear()
-                txtEditLastName.Clear()
-                txtEditTitle.Clear()
-                txtEditCompany.Clear()
-                txtEditAddress.Clear()
-                txtEditCity.Clear()
-                mtbEditState.Clear()
-                mtbEditZipCode.Clear()
-                mtbEditPhoneNumber.Clear()
-                mtbEditFaxNumber.Clear()
-                lblLastLogIn.Text = ""
-                lblConfirmDate.Text = ""
-                txtEditEmail.Clear()
-                lblFName.Text = ""
-                lblLName.Text = ""
-                lblTitle.Text = ""
-                lblCoName.Text = ""
-                lblAddress.Text = ""
-                lblCityStateZip.Text = ""
-                lblPhoneNo.Text = ""
-                lblFaxNo.Text = ""
+                ClearUserInfo()
                 lblConfirmDate.Text = "Entered email not found in GECO."
                 lblConfirmDate.BackColor = IaipColors.WarningBackColor
                 lblConfirmDate.ForeColor = IaipColors.WarningForeColor
             End If
 
-            txtEditFirstName.Visible = False
-            txtEditLastName.Visible = False
-            txtEditTitle.Visible = False
-            txtEditCompany.Visible = False
-            txtEditAddress.Visible = False
-            txtEditCity.Visible = False
-            mtbEditState.Visible = False
-            mtbEditZipCode.Visible = False
-            mtbEditPhoneNumber.Visible = False
-            mtbEditFaxNumber.Visible = False
-            btnSaveEditedData.Visible = False
-            btnChangeEmailAddress.Visible = False
-            lblChangeEmailAddress.Visible = False
-            txtEditEmail.Visible = False
-
+            HideEmailEditForm()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub ClearUserInfo()
+        txtWebUserID.Clear()
+        lblLastLogIn.Text = ""
+        lblConfirmDate.Text = ""
+        txtEditEmail.Clear()
+        lblFName.Text = ""
+        lblLName.Text = ""
+        lblTitle.Text = ""
+        lblCoName.Text = ""
+        lblAddress.Text = ""
+        lblCityStateZip.Text = ""
+        lblPhoneNo.Text = ""
+        lblFaxNo.Text = ""
+        lblConfirmDate.Text = ""
+        lableUserAddress.Visible = False
+        btnEditUserData.Visible = False
+        panelUserPermissionsTools.Visible = False
+    End Sub
+
+    Private Sub HideEmailEditForm()
+        btnChangeEmailAddress.Visible = False
+        lblChangeEmailAddress.Visible = False
+        txtEditEmail.Visible = False
     End Sub
 
     Private Sub LoadUserFacilityInfo(EmailLoc As String)
@@ -260,29 +210,33 @@ Public Class GecoTool
                     dgvRow.CreateCells(dgvUserFacilities)
 
                     dgvRow.Cells(0).Value = dr.Item("strAIRSNumber").ToString
+                    dgvRow.Cells(0).ReadOnly = True
                     dgvRow.Cells(1).Value = DBUtilities.GetNullableString(dr.Item("strFacilityName"))
+                    dgvRow.Cells(1).ReadOnly = True
                     dgvRow.Cells(2).Value = CBool(dr.Item("intAdminAccess"))
                     dgvRow.Cells(3).Value = CBool(dr.Item("intFeeAccess"))
                     dgvRow.Cells(4).Value = CBool(dr.Item("intEIAccess"))
-                    dgvRow.Cells(5).Value = CBool(dr.Item("intESAccess"))
 
                     dgvUserFacilities.Rows.Add(dgvRow)
                 End Using
             Next
 
-            cboFacilityToDelete.DataSource = dt
-            cboFacilityToDelete.DisplayMember = "strfacilityname"
-            cboFacilityToDelete.ValueMember = "strairsnumber"
-            cboFacilityToDelete.Text = ""
+            dgvUserFacilities.SelectNone()
+            btnDeleteFacilityUser.Text = "Remove selected facility from user" & vbNewLine & " "
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub btnViewEmailData_Click(sender As Object, e As EventArgs) Handles btnViewEmailData.Click
-        LoadUserInfo(txtWebUserEmail.Text)
-        LoadUserFacilityInfo(txtWebUserEmail.Text)
+        If Not String.IsNullOrEmpty(txtWebUserEmail.Text) Then
+            LoadUserInfo(txtWebUserEmail.Text)
+            LoadUserFacilityInfo(txtWebUserEmail.Text)
+        Else
+            ClearUserInfo()
+            HideEmailEditForm()
+        End If
     End Sub
 
 
@@ -293,25 +247,27 @@ Public Class GecoTool
     Private Sub ViewFacilitySpecificUsers()
         Try
 
-            If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbAIRSNumber.Text) Then
+            dgvUsers.Rows.Clear()
+
+            If mtbAIRSNumber.ValidationStatus <> AirsNumberValidationResult.Valid Then
                 MsgBox("Please enter a valid AIRS #.")
+                panelFacilityPermissionsTools.Visible = False
             Else
+                panelFacilityPermissionsTools.Visible = True
                 Dim dgvRow As DataGridViewRow
                 txtEmail.Clear()
 
-                Dim airs As New Apb.ApbFacilityId(mtbAIRSNumber.Text)
+                Dim airs As New ApbFacilityId(mtbAIRSNumber.Text)
 
                 Dim fn As String = GetFacilityName(airs)
 
                 If fn = "" Then
                     lblFaciltyName.Text = " - "
                 Else
-                    lblFaciltyName.Text = Facility.SanitizeFacilityNameForDb(fn)
+                    lblFaciltyName.Text = fn
                 End If
 
                 Dim dt As DataTable = GetGecoAccessForFacility(airs)
-
-                dgvUsers.Rows.Clear()
 
                 For Each dr As DataRow In dt.Rows
                     dgvRow = New DataGridViewRow
@@ -323,20 +279,22 @@ Public Class GecoTool
                     dgvRow.Cells(3).Value = CBool(dr.Item("intAdminAccess"))
                     dgvRow.Cells(4).Value = CBool(dr.Item("intFeeAccess"))
                     dgvRow.Cells(5).Value = CBool(dr.Item("intEIAccess"))
-                    dgvRow.Cells(6).Value = CBool(dr.Item("intESAccess"))
 
                     dgvUsers.Rows.Add(dgvRow)
                 Next
 
-                cboUsers.DataSource = dt
-                cboUsers.DisplayMember = "Email"
-                cboUsers.ValueMember = "numuserid"
-                cboUsers.Text = ""
+                dgvUsers.SelectNone()
+                btnDelete.Text = "Remove selected user from facility" & vbNewLine & " "
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub dgvUsers_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvUsers.CellEnter
+        btnDelete.Text = "Remove selected user from facility" & vbNewLine &
+            "(" & dgvUsers.Rows(e.RowIndex).Cells(2).Value.ToString & ")"
     End Sub
 
     Private Sub btnAddUser_Click(sender As Object, e As EventArgs) Handles btnAddUser.Click
@@ -360,7 +318,7 @@ Public Class GecoTool
                 Return
             End If
 
-            Dim airs As New Apb.ApbFacilityId(mtbAIRSNumber.Text)
+            Dim airs As New ApbFacilityId(mtbAIRSNumber.Text)
 
             If UserGecoAccessExists(userID, airs) Then ' already assigned
                 MessageBox.Show("This user already has access to this facility.")
@@ -374,18 +332,17 @@ Public Class GecoTool
             MessageBox.Show("The user has been added to this facility", "Success")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
-        Try
-            DeleteUserGecoAccess(CInt(cboUsers.SelectedValue), New Apb.ApbFacilityId(mtbAIRSNumber.Text))
-            ViewFacilitySpecificUsers()
-            MsgBox("The user has been removed from this facility", MsgBoxStyle.Information, "User removed")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If String.IsNullOrEmpty(mtbAIRSNumber.Text) OrElse dgvUsers.SelectedCells.Count <> 1 Then Return
+
+        Dim userId As Integer = CInt(dgvUsers.SelectedCells(0).OwningRow.Cells(0).Value)
+        DeleteUserGecoAccess(userId, mtbAIRSNumber.AirsNumber)
+        ViewFacilitySpecificUsers()
+        MsgBox("The user has been removed from this facility.", MsgBoxStyle.Information, "User removed")
     End Sub
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
@@ -393,165 +350,57 @@ Public Class GecoTool
             Dim adminaccess As Boolean
             Dim feeaccess As Boolean
             Dim eiaccess As Boolean
-            Dim esaccess As Boolean
 
             For i As Integer = 0 To dgvUsers.Rows.Count - 1
                 adminaccess = CBool(dgvUsers(3, i).Value)
                 feeaccess = CBool(dgvUsers(4, i).Value)
                 eiaccess = CBool(dgvUsers(5, i).Value)
-                esaccess = CBool(dgvUsers(6, i).Value)
 
-                UpdateUserGecoAccess(adminaccess, feeaccess, eiaccess, esaccess, CInt(dgvUsers(1, i).Value), New Apb.ApbFacilityId(mtbAIRSNumber.Text))
+                UpdateUserGecoAccess(adminaccess, feeaccess, eiaccess, CInt(dgvUsers(1, i).Value), New ApbFacilityId(mtbAIRSNumber.Text))
             Next
 
             ViewFacilitySpecificUsers()
 
-            MsgBox("The records have been updated", MsgBoxStyle.Information, "Success")
+            MsgBox("User permissions have been saved.", MsgBoxStyle.Information, "Success")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            MsgBox("There was an error saving user permissions.", MsgBoxStyle.Exclamation, "Error")
         End Try
     End Sub
 
     Private Sub btnEditUserData_Click(sender As Object, e As EventArgs) Handles btnEditUserData.Click
         Try
-            txtEditFirstName.Visible = True
-            txtEditLastName.Visible = True
-            txtEditTitle.Visible = True
-            txtEditCompany.Visible = True
-            txtEditAddress.Visible = True
-            txtEditCity.Visible = True
-            mtbEditState.Visible = True
-            mtbEditZipCode.Visible = True
-            mtbEditPhoneNumber.Visible = True
-            mtbEditFaxNumber.Visible = True
-            btnSaveEditedData.Visible = True
             btnChangeEmailAddress.Visible = True
             lblChangeEmailAddress.Visible = True
             txtEditEmail.Visible = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnSaveEditedData_Click(sender As Object, e As EventArgs) Handles btnSaveEditedData.Click
-        Try
-            Dim FirstName As String = ""
-            Dim LastName As String = ""
-            Dim Title As String = ""
-            Dim Company As String = ""
-            Dim Address As String = ""
-            Dim City As String = ""
-            Dim State As String = ""
-            Dim Zip As String = ""
-            Dim PhoneNumber As String = ""
-            Dim FaxNumber As String = ""
-
-            If txtWebUserID.Text <> "" Then
-                If txtEditFirstName.Text <> "" Then
-                    FirstName = " strFirstName = @strFirstName "
-                End If
-                If txtEditLastName.Text <> "" Then
-                    LastName = " strLastName = @strLastName "
-                End If
-                If txtEditTitle.Text <> "" Then
-                    Title = " strTitle = @strTitle "
-                End If
-                If txtEditCompany.Text <> "" Then
-                    Company = " strCompanyName = @strCompanyName "
-                End If
-                If txtEditAddress.Text <> "" Then
-                    Address = " strAddress = @strAddress "
-                End If
-                If txtEditCity.Text <> "" Then
-                    City = " strCity = @strCity "
-                End If
-                If mtbEditState.Text <> "" Then
-                    State = " strState = @strState "
-                End If
-                If mtbEditZipCode.Text <> "" Then
-                    Zip = " strZip = @strZip "
-                End If
-                If mtbEditPhoneNumber.Text <> "" Then
-                    PhoneNumber = " strPhoneNumber = @strPhoneNumber "
-                End If
-                If mtbEditFaxNumber.Text <> "" Then
-                    FaxNumber = " strFaxNumber = @strFaxNumber "
-                End If
-
-                Dim SQL As String = "Update OLAPUserProfile set " &
-                    ConcatNonEmptyStrings(",", {FirstName, LastName, Title, Company, Address, City, State, Zip, PhoneNumber, FaxNumber}) &
-                    "where numUserID = @numUserID "
-
-                Dim params As SqlParameter() = {
-                    New SqlParameter("@strFirstName", txtEditFirstName.Text),
-                    New SqlParameter("@strLastName", txtEditLastName.Text),
-                    New SqlParameter("@strTitle", txtEditTitle.Text),
-                    New SqlParameter("@strCompanyName", txtEditCompany.Text),
-                    New SqlParameter("@strAddress", txtEditAddress.Text),
-                    New SqlParameter("@strCity", txtEditCity.Text),
-                    New SqlParameter("@strState", mtbEditState.Text),
-                    New SqlParameter("@strZip", mtbEditZipCode.Text),
-                    New SqlParameter("@strPhoneNumber", mtbEditPhoneNumber.Text),
-                    New SqlParameter("@strFaxNumber", mtbEditFaxNumber.Text),
-                    New SqlParameter("@numUserID", txtWebUserID.Text)
-                }
-
-                DB.RunCommand(SQL, params)
-
-                lblFName.Text = "First Name: " & txtEditFirstName.Text
-                lblLName.Text = "Last Name: " & txtEditLastName.Text
-                lblTitle.Text = "Title: " & txtEditTitle.Text
-                lblCoName.Text = "Company Name: " & txtEditCompany.Text
-                lblAddress.Text = txtEditAddress.Text
-                lblCityStateZip.Text = txtEditCity.Text & ", " & mtbEditState.Text & " " & mtbEditZipCode.Text
-                lblPhoneNo.Text = "Phone Number: " & mtbEditPhoneNumber.Text
-                lblFaxNo.Text = "Fax Number: " & mtbEditFaxNumber.Text
-
-                txtEditFirstName.Visible = False
-                txtEditLastName.Visible = False
-                txtEditTitle.Visible = False
-                txtEditCompany.Visible = False
-                txtEditAddress.Visible = False
-                txtEditCity.Visible = False
-                mtbEditState.Visible = False
-                mtbEditZipCode.Visible = False
-                mtbEditPhoneNumber.Visible = False
-                mtbEditFaxNumber.Visible = False
-                btnSaveEditedData.Visible = False
-                btnChangeEmailAddress.Visible = False
-                lblChangeEmailAddress.Visible = False
-                txtEditEmail.Visible = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub btnChangeEmailAddress_Click(sender As Object, e As EventArgs) Handles btnChangeEmailAddress.Click
-        If txtWebUserID.Text <> "" Then
-            If IsValidEmailAddress(txtEditEmail.Text) Then
+        If txtWebUserID.Text <> "" OrElse Not IsValidEmailAddress(txtEditEmail.Text) Then
 
-                Dim token As String = Nothing
-                Dim result As UpdateGecoUserEmailResult = UpdateGecoUserEmail(txtWebUserEmail.Text, txtEditEmail.Text, token)
+            Dim token As String = Nothing
+            Dim result As UpdateGecoUserEmailResult = UpdateGecoUserEmail(txtWebUserEmail.Text, txtEditEmail.Text, token)
 
-                Select Case result
-                    Case UpdateGecoUserEmailResult.Success
-                        MessageBox.Show("The new email has been saved. A web page will now open to confirm a link has been sent to the user.",
-                                        "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        OpenEmailChangeSuccessPage(txtEditEmail.Text, token)
+            Select Case result
+                Case UpdateGecoUserEmailResult.Success
+                    MessageBox.Show("The new email has been saved. A web page will now open to confirm a link has been sent to the user.",
+                                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    OpenEmailChangeSuccessPage(txtEditEmail.Text, token)
 
 
-                    Case UpdateGecoUserEmailResult.NewEmailExists
-                        MessageBox.Show("An account already exists for that email address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Case UpdateGecoUserEmailResult.NewEmailExists
+                    MessageBox.Show("An account already exists for that email address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
-                    Case Else
-                        MessageBox.Show("An error occurred. The email address has not been changed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Case Else
+                    MessageBox.Show("An error occurred. The email address has not been changed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
-                End Select
+            End Select
 
-            Else
-                MessageBox.Show("The email address entered is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            End If
+        Else
+            MessageBox.Show("The email address entered is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
     End Sub
 
@@ -561,33 +410,36 @@ Public Class GecoTool
                 Dim result As AirsNumberValidationResult = ValidateAirsFacility(mtbFacilityToAdd.Text)
 
                 If result = AirsNumberValidationResult.Valid Then
-                    If UserGecoAccessExists(CInt(txtWebUserID.Text), New Apb.ApbFacilityId(mtbFacilityToAdd.Text)) Then
-                        MessageBox.Show(Me, "The facility already exists for this user." & vbCrLf & "NO DATA SAVED", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    If UserGecoAccessExists(CInt(txtWebUserID.Text), New ApbFacilityId(mtbFacilityToAdd.Text)) Then
+                        MessageBox.Show(Me, "The facility already exists for this user." & vbCrLf & "NO DATA SAVED", Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     Else
-                        AddUserGecoAccess(CInt(txtWebUserID.Text), New Apb.ApbFacilityId(mtbFacilityToAdd.Text))
+                        AddUserGecoAccess(CInt(txtWebUserID.Text), New ApbFacilityId(mtbFacilityToAdd.Text))
                         LoadUserFacilityInfo(txtWebUserEmail.Text)
                         MessageBox.Show(Me, "The facility has been added to this user", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     End If
                 Else
-                    MessageBox.Show(Me, GetAirsValidationMsg(result), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    MessageBox.Show(Me, GetAirsValidationMsg(result), Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
             Else
-                MessageBox.Show(Me, "You must enter a user's e-mail address.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show(Me, "You must enter a user's e-mail address.", Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub btnDeleteFacilityUser_Click(sender As Object, e As EventArgs) Handles btnDeleteFacilityUser.Click
-        Try
-            If txtWebUserID.Text <> "" AndAlso cboFacilityToDelete.Text <> "" Then
-                DeleteUserGecoAccess(CInt(txtWebUserID.Text), New Apb.ApbFacilityId(cboFacilityToDelete.SelectedValue.ToString))
-                LoadUserFacilityInfo(txtWebUserEmail.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If String.IsNullOrEmpty(txtWebUserID.Text) OrElse dgvUserFacilities.SelectedCells.Count <> 1 Then Return
+
+        Dim airs As New ApbFacilityId(dgvUserFacilities.SelectedCells(0).OwningRow.Cells(0).Value.ToString)
+        DeleteUserGecoAccess(CInt(txtWebUserID.Text), airs)
+        LoadUserFacilityInfo(txtWebUserEmail.Text)
+    End Sub
+
+    Private Sub dgvUserFacilities_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvUserFacilities.CellEnter
+        If String.IsNullOrEmpty(txtWebUserID.Text) OrElse dgvUserFacilities.SelectedCells.Count <> 1 Then Return
+        btnDeleteFacilityUser.Text = "Remove selected facility from user" & vbNewLine &
+            "(" & dgvUserFacilities.SelectedCells(0).OwningRow.Cells(0).Value.ToString & ")"
     End Sub
 
     Private Sub btnUpdateUser_Click(sender As Object, e As EventArgs) Handles btnUpdateUser.Click
@@ -595,21 +447,20 @@ Public Class GecoTool
             Dim adminaccess As Boolean
             Dim feeaccess As Boolean
             Dim eiaccess As Boolean
-            Dim esaccess As Boolean
 
             For i As Integer = 0 To dgvUserFacilities.Rows.Count - 1
                 adminaccess = CBool(dgvUserFacilities(2, i).Value)
                 feeaccess = CBool(dgvUserFacilities(3, i).Value)
                 eiaccess = CBool(dgvUserFacilities(4, i).Value)
-                esaccess = CBool(dgvUserFacilities(5, i).Value)
 
-                UpdateUserGecoAccess(adminaccess, feeaccess, eiaccess, esaccess, CInt(txtWebUserID.Text), New Apb.ApbFacilityId(dgvUserFacilities(0, i).Value.ToString))
+                UpdateUserGecoAccess(adminaccess, feeaccess, eiaccess, CInt(txtWebUserID.Text), New ApbFacilityId(dgvUserFacilities(0, i).Value.ToString))
             Next
 
             LoadUserFacilityInfo(txtWebUserEmail.Text)
-            MsgBox("The records have been updated", MsgBoxStyle.Information, "Success")
+            MsgBox("User permissions have been saved.", MsgBoxStyle.Information, "Success")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            MsgBox("There was an error saving user permissions.", MsgBoxStyle.Exclamation, "Error")
         End Try
     End Sub
 

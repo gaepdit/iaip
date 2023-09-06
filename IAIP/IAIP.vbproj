@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -309,10 +309,10 @@
     <Compile Include="_Code\UrlHelpers\MapUrls.vb" />
     <Compile Include="_Code\UrlHelpers\PermitSearchUrls.vb" />
     <Compile Include="_Code\UrlHelpers\UrlHandler.vb" />
-    <Compile Include="_Controls\AirNumberEntryForm.Designer.vb">
-      <DependentUpon>AirNumberEntryForm.vb</DependentUpon>
+    <Compile Include="_Controls\AirsNumberEntryForm.Designer.vb">
+      <DependentUpon>AirsNumberEntryForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="_Controls\AirNumberEntryForm.vb">
+    <Compile Include="_Controls\AirsNumberEntryForm.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="_Controls\CurrencyTextBox.vb">
@@ -413,8 +413,8 @@
     <EmbeddedResource Include="Users\IaipUserProfile.resx">
       <DependentUpon>IaipUserProfile.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="_Controls\AirNumberEntryForm.resx">
-      <DependentUpon>AirNumberEntryForm.vb</DependentUpon>
+    <EmbeddedResource Include="_Controls\AirsNumberEntryForm.resx">
+      <DependentUpon>AirsNumberEntryForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="_Controls\CurrencyTextBox.resx">
       <DependentUpon>CurrencyTextBox.vb</DependentUpon>

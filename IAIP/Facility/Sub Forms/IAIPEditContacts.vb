@@ -49,7 +49,6 @@ Public Class IAIPEditContacts
                    when STRKEY = '30' then 'Current Permitting Contact'
                    when STRKEY = '40' then 'Current Fee Contact'
                    when STRKEY = '41' then 'Current EIS Contact'
-                   when STRKEY = '42' then 'Current ES Contact'
                    when left(STRKEY, 1) = '1'
                        then 'Past Monitoring Contact ' + right(STRKEY, 1)
                    when left(STRKEY, 1) = '2'
@@ -75,11 +74,12 @@ Public Class IAIPEditContacts
                STRCONTACTZIPCODE              as [Postal code],
                STRCONTACTDESCRIPTION          as Comments
         from APBCONTACTINFORMATION
-        where STRAIRSNUMBER = @airs
-          and convert(int, STRKEY) < 50 ")
+        where STRAIRSNUMBER = @airs ")
 
-        If Not chkShowHistory.Checked Then
-            query.Append(" and not (left(STRKEY, 1) in ('1', '2', '3') and right(STRKEY, 1) <> '0') ")
+        If chkShowHistory.Checked Then
+            query.Append(" and convert(int, STRKEY) <= 41 ")
+        Else
+            query.Append(" and STRKEY in ('10', '20', '30', '40', '41') ")
         End If
 
         query.Append(" order by [Contact type]")
@@ -121,7 +121,6 @@ Public Class IAIPEditContacts
         rdbNewPermittingContact.Checked = False
         rdbNewFeeContact.Checked = False
         rdbNewEISContact.Checked = False
-        rdbNewESContact.Checked = False
 
         Select Case CInt(row.Cells("Key").Value)
             Case 10 To 19
@@ -139,9 +138,6 @@ Public Class IAIPEditContacts
             Case 41
                 Key = ContactKey.EmissionInventory
                 rdbNewEISContact.Checked = True
-            Case 42
-                Key = ContactKey.EmissionStatement
-                rdbNewESContact.Checked = True
         End Select
         btnSaveNewContact.Visible = False
         btnSaveNewContact.Enabled = False
@@ -186,7 +182,6 @@ Public Class IAIPEditContacts
         rdbNewPermittingContact.Checked = False
         rdbNewFeeContact.Checked = False
         rdbNewEISContact.Checked = False
-        rdbNewESContact.Checked = False
 
         Key = ContactKey.None
 
@@ -211,8 +206,6 @@ Public Class IAIPEditContacts
             reKey = ContactKey.Fees
         ElseIf rdbNewEISContact.Checked Then
             reKey = ContactKey.EmissionInventory
-        ElseIf rdbNewESContact.Checked Then
-            reKey = ContactKey.EmissionStatement
         Else
             MsgBox("Select a Contact Type first." & vbCrLf & "No data saved.", MsgBoxStyle.Information, Text)
             Return
@@ -287,8 +280,6 @@ Public Class IAIPEditContacts
             reKey = ContactKey.Fees
         ElseIf rdbNewEISContact.Checked Then
             reKey = ContactKey.EmissionInventory
-        ElseIf rdbNewESContact.Checked Then
-            reKey = ContactKey.EmissionStatement
         Else
             MsgBox("Select a Contact Type first." & vbCrLf & "No data saved.", MsgBoxStyle.Information, Text)
             Return
@@ -354,7 +345,7 @@ Public Class IAIPEditContacts
     Private Sub rdbNewMonitoringContact_CheckedChanged(sender As Object, e As EventArgs) Handles _
             rdbNewMonitoringContact.CheckedChanged, rdbNewComplianceContact.CheckedChanged,
             rdbNewPermittingContact.CheckedChanged, rdbNewFeeContact.CheckedChanged,
-            rdbNewEISContact.CheckedChanged, rdbNewESContact.CheckedChanged
+            rdbNewEISContact.CheckedChanged
 
         If Not btnUpdateContact.Visible Then Return
 
@@ -370,8 +361,6 @@ Public Class IAIPEditContacts
             reKey = ContactKey.Fees
         ElseIf rdbNewEISContact.Checked Then
             reKey = ContactKey.EmissionInventory
-        ElseIf rdbNewESContact.Checked Then
-            reKey = ContactKey.EmissionStatement
         Else
             Return
         End If
