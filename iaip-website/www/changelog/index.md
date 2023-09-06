@@ -12,11 +12,19 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.9.0 <span>(2023-09-06)</span>
+
+- The Emissions Statement tools are now read-only. (The Emissions Statement is no longer required.)
+
+- There is a change in how permit application fee invoices are generated. Instead of being generated automatically when the application is saved, there is now a "Generate invoice" button.
+
+- I fixed a bug where the main Navigation Screen would not correctly show the Permit Applications Staff View.
+
 ## Version 6.8.0 <span>(2023-09-05)</span>
 
-Moved the SBEAP tools to a new web application.
+- Moved the SBEAP tools to a new web application.
 
-Also, fixed an application deployment bug that has vexed me for several years.
+- Fixed an application deployment bug that has vexed me for several years.
 
 ## Version 6.7.1 <span>(2023-07-26)</span>
 
