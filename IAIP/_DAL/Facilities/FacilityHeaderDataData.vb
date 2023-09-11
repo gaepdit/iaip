@@ -141,7 +141,6 @@ Namespace DAL
             '     * Update all existing keys with new operating status
             '     * If none exist, add one with the new operating status, pollutant = OT & compliance status = C
             '  4. For any inactive APC, change any existing subparts in ApbSubpartData to inactive
-            '  5. Change update status in AfsAirPollutantData to 'C' where currently 'N'
 
             Const spName As String = "iaip_facility.UpdateFacilityHeaderData"
 

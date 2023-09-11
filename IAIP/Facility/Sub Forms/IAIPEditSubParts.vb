@@ -281,12 +281,6 @@ Public Class IAIPEditSubParts
             ParamList.Add(p)
         End If
 
-        SqlList.Add("Update AFSAirPollutantData set " &
-                    "strUpdateStatus = 'C' " &
-                    "where strAirPollutantKey = @key " &
-                    "and strUpdateStatus = 'N' ")
-        ParamList.Add(p)
-
         DB.RunCommand(SqlList, ParamList)
 
         LoadDescription(subpart, rulePart)

@@ -6586,11 +6586,6 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("@pKey", pKey)
             })
 
-            queryList.Add("update AFSAirPollutantData set " &
-                "strUpdateStatus = 'C' " &
-                "where strUpdateStatus = 'N' and strAIRPollutantKey = @pKey ")
-            paramsList.Add({New SqlParameter("@pKey", AirsId.DbFormattedString & key)})
-
             DB.RunCommand(queryList, paramsList)
         End If
     End Sub
