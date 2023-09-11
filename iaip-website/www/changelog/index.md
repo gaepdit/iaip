@@ -12,6 +12,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 6.9.1 <span>(2023-09-11)</span>
+
+Minor bug fix.
+
 ## Version 6.9.0 <span>(2023-09-06)</span>
 
 - The Emissions Statement tools are now read-only. (The Emissions Statement is no longer required.)
