@@ -95,7 +95,7 @@ Public Class IAIPEditSubParts
             AccountFormAccess(26, 2) = "1" OrElse
             AccountFormAccess(26, 3) = "1" OrElse
             AccountFormAccess(26, 4) = "1" OrElse
-            CurrentUser.HasRole({19, 113, 114, 141})) Then
+            CurrentUser.HasRole({19, 113, 114, 118, 141})) Then
 
             DisableSaving()
 
