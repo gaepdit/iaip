@@ -1,4 +1,4 @@
-﻿Imports System.Collections.Generic
+Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Text
 Imports Iaip.Apb
@@ -30,16 +30,17 @@ Public Class SSCPFCEWork
 #Region " Page Load "
 
     Private Sub SSCPFCEWork_Load(sender As Object, e As EventArgs) Handles Me.Load
+        DTPFCECompleteDate.Value = Today
+        DTPFilterStartDate.Value = Today.AddDays(-365)
+        DTPFilterEndDate.Value = Today
+
         LoadHeaderData()
         LoadFCEDataset()
         LoadReviewerCombo()
         FillFCEData()
 
-        DTPFCECompleteDate.Value = Today
-        DTPFilterStartDate.Value = Today.AddDays(-365)
-        DTPFilterEndDate.Value = Today
-
-        If Not (AccountFormAccess(50, 1) = "1" OrElse AccountFormAccess(50, 2) = "1" OrElse AccountFormAccess(50, 3) = "1" OrElse AccountFormAccess(50, 4) = "1") Then
+        If Not (AccountFormAccess(50, 1) = "1" OrElse AccountFormAccess(50, 2) = "1" OrElse AccountFormAccess(50, 3) = "1" OrElse AccountFormAccess(50, 4) = "1" OrElse
+           CurrentUser.HasRole(118)) Then
             btnSave.Visible = False
         End If
     End Sub
@@ -455,8 +456,11 @@ Public Class SSCPFCEWork
                 rdbFCEOnSite.Checked = False
                 rdbFCENoOnsite.Checked = False
                 DTPFCECompleteDate.Value = Today
+                DTPFilterStartDate.Value = Today.AddDays(-365)
+                DTPFilterEndDate.Value = Today
                 txtFCEComments.Clear()
                 btnPrint.Enabled = False
+                ClearReviewData()
                 Return
             End If
 
@@ -478,8 +482,13 @@ Public Class SSCPFCEWork
             If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("datFCECompleted")) Then
                     DTPFCECompleteDate.Value = Today
+                    DTPFilterStartDate.Value = Today.AddDays(-365)
+                    DTPFilterEndDate.Value = Today
                 Else
-                    DTPFCECompleteDate.Text = dr.Item("datFCECompleted")
+                    Dim fceDate As Date = dr.Item("datFCECompleted")
+                    DTPFCECompleteDate.Value = fceDate
+                    DTPFilterStartDate.Value = fceDate.AddDays(-365)
+                    DTPFilterEndDate.Value = fceDate
                 End If
                 If IsDBNull(dr.Item("strFCEComments")) Then
                     txtFCEComments.Text = "No Comments"
@@ -506,13 +515,17 @@ Public Class SSCPFCEWork
             End If
 
             btnPrint.Enabled = True
-
+            LoadReviewData()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub llbViewFCEData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewFCEData.LinkClicked
+        LoadReviewData()
+    End Sub
+
+    Private Sub LoadReviewData()
         LoadFCEInspectionData()
         LoadFCEACCData()
         LoadFCEReports()
@@ -520,6 +533,16 @@ Public Class SSCPFCEWork
         LoadFCEPerformanceTests()
         LoadFCESummaryReports()
         LoadFCEEnforcement()
+    End Sub
+
+    Private Sub ClearReviewData()
+        dgrFCEACC.DataSource = Nothing
+        dgrFCECorrespondance.DataSource = Nothing
+        dgrFCEEnforcement.DataSource = Nothing
+        dgrFCEInspections.DataSource = Nothing
+        dgrFCEReports.DataSource = Nothing
+        dgrISMPSummaryReports.DataSource = Nothing
+        dgrPerformanceTests.DataSource = Nothing
     End Sub
 
 #End Region
