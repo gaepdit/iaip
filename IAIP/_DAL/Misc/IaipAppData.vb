@@ -1,16 +1,19 @@
-﻿Imports System.Data.SqlClient
-Imports System.Threading.Tasks
+﻿Imports System.Threading.Tasks
 
 Namespace DAL
     Module IaipAppData
 
-        Public Function AppIsEnabled() As Boolean
-            Dim spName As String = "dbo.IsIaipEnabled"
-            Dim param As New SqlParameter("@currentVersion", GetCurrentVersionAsMajorMinorBuild.ToString)
+        Private Function AppIsEnabled() As Boolean
+            Dim spName As String = "dbo.IsIaipCurrent"
 
             Try
-                Return DB.SPGetBoolean(spName, param)
-            Catch
+                Dim dr As DataRow = DB.SPGetDataRow(spName)
+                If dr Is Nothing Then Return False
+                If Not CBool(dr("Enabled")) Then Return False
+                Dim minVer As New Version(dr("MinimumVersion"))
+                Return GetCurrentVersionAsMajorMinorBuild().CompareTo(minVer) >= 0
+            Catch ex As Exception
+                Console.WriteLine(ex.ToString)
                 Return False
             End Try
         End Function
