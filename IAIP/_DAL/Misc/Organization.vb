@@ -46,16 +46,6 @@ Namespace DAL
             Return dt
         End Function
 
-        Public Function GetEpdManagerName(role As EpdManagementTypes) As String
-            Dim dt As DataTable = GetSharedData(SharedTable.EpdManagers)
-            Dim dr As DataRow = dt.Rows.Find(role.ToString)
-            If dr Is Nothing Then
-                Return " "
-            Else
-                Return GetNullable(Of String)(dr("Name"))
-            End If
-        End Function
-
         Public Function SaveEpdManagerName(role As EpdManagementTypes, name As String) As Boolean
             Dim dt As DataTable = GetSharedData(SharedTable.EpdManagers)
             Dim dr As DataRow = dt.Rows.Find(role.ToString)
@@ -101,10 +91,10 @@ Namespace DAL
             '2345678901234567890
             DnrCommissioner
             EpdDirector
-            ApbBranchChief
+            <Obsolete> ApbBranchChief
             IsmpProgramManager
-            SscpProgramManager
-            SsppProgramManager
+            <Obsolete> SscpProgramManager
+            <Obsolete> SsppProgramManager
         End Enum
 
     End Module
