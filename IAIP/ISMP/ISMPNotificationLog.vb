@@ -12,7 +12,7 @@ Public Class ISMPNotificationLog
             DTPTestDateStart.Value = Today
             DTPTestDateEnd.Value = Today
 
-            If AccountFormAccess(66, 2) <> "1" AndAlso AccountFormAccess(66, 3) <> "1" Then
+            If AccountFormAccess(66, 2) <> "1" AndAlso AccountFormAccess(66, 3) <> "1" AndAlso Not CurrentUser.HasRole(118) Then
                 SaveToolStripMenuItem.Visible = False
                 btnNewTestNotification.Visible = False
             End If

@@ -155,6 +155,7 @@ Partial Class ISMPNotificationLog
         'txtEmissionUnit
         '
         Me.txtEmissionUnit.Location = New System.Drawing.Point(26, 98)
+        Me.txtEmissionUnit.MaxLength = 3980
         Me.txtEmissionUnit.Multiline = True
         Me.txtEmissionUnit.Name = "txtEmissionUnit"
         Me.txtEmissionUnit.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -184,6 +185,7 @@ Partial Class ISMPNotificationLog
         'txtNotificationComments
         '
         Me.txtNotificationComments.Location = New System.Drawing.Point(26, 221)
+        Me.txtNotificationComments.MaxLength = 3980
         Me.txtNotificationComments.Multiline = True
         Me.txtNotificationComments.Name = "txtNotificationComments"
         Me.txtNotificationComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -249,6 +251,7 @@ Partial Class ISMPNotificationLog
         'txtContactFirstName
         '
         Me.txtContactFirstName.Location = New System.Drawing.Point(484, 33)
+        Me.txtContactFirstName.MaxLength = 100
         Me.txtContactFirstName.Name = "txtContactFirstName"
         Me.txtContactFirstName.Size = New System.Drawing.Size(100, 20)
         Me.txtContactFirstName.TabIndex = 145
@@ -256,6 +259,7 @@ Partial Class ISMPNotificationLog
         'txtContactLastName
         '
         Me.txtContactLastName.Location = New System.Drawing.Point(594, 33)
+        Me.txtContactLastName.MaxLength = 100
         Me.txtContactLastName.Name = "txtContactLastName"
         Me.txtContactLastName.Size = New System.Drawing.Size(100, 20)
         Me.txtContactLastName.TabIndex = 146
@@ -263,6 +267,7 @@ Partial Class ISMPNotificationLog
         'txtContactEmailAddress
         '
         Me.txtContactEmailAddress.Location = New System.Drawing.Point(484, 73)
+        Me.txtContactEmailAddress.MaxLength = 3980
         Me.txtContactEmailAddress.Name = "txtContactEmailAddress"
         Me.txtContactEmailAddress.Size = New System.Drawing.Size(210, 20)
         Me.txtContactEmailAddress.TabIndex = 147
@@ -375,6 +380,7 @@ Partial Class ISMPNotificationLog
         'txtTestNotificationNumber
         '
         Me.txtTestNotificationNumber.Location = New System.Drawing.Point(137, 33)
+        Me.txtTestNotificationNumber.MaxLength = 6
         Me.txtTestNotificationNumber.Name = "txtTestNotificationNumber"
         Me.txtTestNotificationNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtTestNotificationNumber.TabIndex = 154
@@ -382,6 +388,7 @@ Partial Class ISMPNotificationLog
         'txtISMPComments
         '
         Me.txtISMPComments.Location = New System.Drawing.Point(27, 78)
+        Me.txtISMPComments.MaxLength = 3980
         Me.txtISMPComments.Multiline = True
         Me.txtISMPComments.Name = "txtISMPComments"
         Me.txtISMPComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -492,6 +499,7 @@ Partial Class ISMPNotificationLog
         'txtPollutants
         '
         Me.txtPollutants.Location = New System.Drawing.Point(285, 114)
+        Me.txtPollutants.MaxLength = 3980
         Me.txtPollutants.Multiline = True
         Me.txtPollutants.Name = "txtPollutants"
         Me.txtPollutants.ScrollBars = System.Windows.Forms.ScrollBars.Vertical

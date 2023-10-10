@@ -12,6 +12,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Next Version
+
+* Fixed a bug in the Test Notifications tool.
+
 ## Version 6.9.1 <span>(2023-09-11)</span>
 
 Minor bug fix.
