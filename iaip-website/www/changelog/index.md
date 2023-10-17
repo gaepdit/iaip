@@ -14,11 +14,19 @@
 
 ## Next Version
 
-* Fixed a bug in the Test Notifications tool.
+## Version 6.9.3 <span>(2023-10-17)</span>
+
+- Fixed a bug when entering test notification data.
+- Disabled the invoice print button in the fee audit log if no invoices are available.
+- Increased the height of the address display in the facility summary to accommodate three-line facility addresses.
+
+## Version 6.9.2 <span>(2023-10-02)</span>
+
+- Improved how FCE review data filtering works.
 
 ## Version 6.9.1 <span>(2023-09-11)</span>
 
-Minor bug fix.
+Fixed permissions in the facility subpart editor.
 
 ## Version 6.9.0 <span>(2023-09-06)</span>
 
