@@ -485,9 +485,9 @@ Partial Class IAIPFacilitySummary
         '
         Me.MapPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.MapPictureBox.InitialImage = Global.Iaip.My.Resources.Resources.GeorgiaStaticMap
-        Me.MapPictureBox.Location = New System.Drawing.Point(13, 132)
+        Me.MapPictureBox.Location = New System.Drawing.Point(13, 141)
         Me.MapPictureBox.Name = "MapPictureBox"
-        Me.MapPictureBox.Size = New System.Drawing.Size(230, 280)
+        Me.MapPictureBox.Size = New System.Drawing.Size(230, 271)
         Me.MapPictureBox.TabIndex = 348
         Me.MapPictureBox.TabStop = False
         '
@@ -778,7 +778,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.CountyDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.CountyDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.CountyDisplay.Location = New System.Drawing.Point(73, 94)
+        Me.CountyDisplay.Location = New System.Drawing.Point(73, 103)
         Me.CountyDisplay.Name = "CountyDisplay"
         Me.CountyDisplay.ReadOnly = True
         Me.CountyDisplay.Size = New System.Drawing.Size(207, 13)
@@ -789,7 +789,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.LatLonDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.LatLonDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.LatLonDisplay.Location = New System.Drawing.Point(73, 113)
+        Me.LatLonDisplay.Location = New System.Drawing.Point(73, 122)
         Me.LatLonDisplay.Name = "LatLonDisplay"
         Me.LatLonDisplay.ReadOnly = True
         Me.LatLonDisplay.Size = New System.Drawing.Size(207, 13)
@@ -816,9 +816,9 @@ Partial Class IAIPFacilitySummary
         Me.LocationDisplay.Multiline = True
         Me.LocationDisplay.Name = "LocationDisplay"
         Me.LocationDisplay.ReadOnly = True
-        Me.LocationDisplay.Size = New System.Drawing.Size(207, 32)
+        Me.LocationDisplay.Size = New System.Drawing.Size(207, 41)
         Me.LocationDisplay.TabIndex = 2
-        Me.LocationDisplay.Text = "N/A"
+        Me.LocationDisplay.Text = "N/A 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3"
         '
         'EditFacilityLocationButton
         '
@@ -859,7 +859,7 @@ Partial Class IAIPFacilitySummary
         Me.MapLatLonLink.AutoSize = True
         Me.MapLatLonLink.ForeColor = System.Drawing.SystemColors.GrayText
         Me.MapLatLonLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
-        Me.MapLatLonLink.Location = New System.Drawing.Point(10, 113)
+        Me.MapLatLonLink.Location = New System.Drawing.Point(10, 122)
         Me.MapLatLonLink.Name = "MapLatLonLink"
         Me.MapLatLonLink.Size = New System.Drawing.Size(45, 13)
         Me.MapLatLonLink.TabIndex = 5
@@ -872,7 +872,7 @@ Partial Class IAIPFacilitySummary
         Me.MapCountyLink.AutoSize = True
         Me.MapCountyLink.ForeColor = System.Drawing.SystemColors.GrayText
         Me.MapCountyLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
-        Me.MapCountyLink.Location = New System.Drawing.Point(15, 94)
+        Me.MapCountyLink.Location = New System.Drawing.Point(15, 103)
         Me.MapCountyLink.Name = "MapCountyLink"
         Me.MapCountyLink.Size = New System.Drawing.Size(40, 13)
         Me.MapCountyLink.TabIndex = 3
