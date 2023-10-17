@@ -7,15 +7,13 @@ Imports Iaip.UrlHelpers
 
 Public Class FeesAudit
 
-#Region " Properties "
+    ' Properties
 
     Private Property tempContact As Contact
     Private Property tempFacility As Facility
 
     Public Property FeeYear As String
     Public Property AirsNumber As Apb.ApbFacilityId
-
-#End Region
 
     Private Sub PASPFeeAuditLog_Load(sender As Object, e As EventArgs) Handles Me.Load
         LoadSelectedNSPSExemptions()

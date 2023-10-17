@@ -621,6 +621,7 @@ Partial Class FeesAudit
         'btnPrintActiveInvoices
         '
         Me.btnPrintActiveInvoices.AutoSize = True
+        Me.btnPrintActiveInvoices.Enabled = False
         Me.btnPrintActiveInvoices.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight
         Me.btnPrintActiveInvoices.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnPrintActiveInvoices.ForeColor = System.Drawing.Color.Blue
