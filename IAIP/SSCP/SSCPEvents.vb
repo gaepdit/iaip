@@ -1,6 +1,6 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
-Imports EpdIt
+Imports GaEpd
 Imports Iaip.Apb.Sscp.WorkItemEnums
 Imports Iaip.UrlHelpers
 

@@ -4,7 +4,7 @@ Imports System.IO
 Imports System.Linq
 Imports System.Reflection
 Imports System.Text
-Imports EpdIt.DBUtilities
+Imports GaEpd.DBUtilities
 Imports Iaip.DAL
 
 Public Class SSPPPublicNoticesAndAdvisories

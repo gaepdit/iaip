@@ -9,7 +9,7 @@ Module AppGlobals
     ' DB connections
 
     Friend CurrentServerEnvironment As ServerEnvironment = ServerEnvironment.Production
-    Friend DB As EpdIt.DBHelper
+    Friend DB As GaEpd.DBHelper
 
     ' User info
 

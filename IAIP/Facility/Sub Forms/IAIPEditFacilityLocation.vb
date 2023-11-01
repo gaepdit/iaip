@@ -1,5 +1,5 @@
 Imports System.Data.SqlClient
-Imports EpdIt
+Imports GaEpd
 
 Public Class IAIPEditFacilityLocation
 

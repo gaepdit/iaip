@@ -1,7 +1,7 @@
 Imports System.Data.SqlClient
 Imports Iaip.DAL
 Imports Iaip.Apb
-Imports EpdIt.DBUtilities
+Imports GaEpd.DBUtilities
 Imports System.Text
 
 Public Class IAIPEditContacts

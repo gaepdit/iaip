@@ -3,7 +3,7 @@ Imports System.IO
 Imports System.Runtime.InteropServices
 Imports System.Data.SqlClient
 Imports Iaip.Apb.Sscp
-Imports EpdIt
+Imports GaEpd
 
 Namespace DAL
     Module DocumentData

@@ -49,7 +49,6 @@ Friend Module StartupShutdown
     ''' <summary>
     ''' Shuts down the running IAIP application
     ''' </summary>
-    ''' <remarks></remarks>
     Friend Sub CloseIaip()
         IaipExiting = True
         Application.Exit()
@@ -67,9 +66,8 @@ Friend Module StartupShutdown
             CloseIaip()
         End If
 
-        ' Create EpdIt.DBHelper object based on current server environment
-        ' This method is preferred and should be used for all future work
-        DB = New EpdIt.DBHelper(CurrentConnectionString)
+        ' Create GaEpd.DBHelper object based on current server environment
+        DB = New GaEpd.DBHelper(CurrentConnectionString)
     End Sub
 
     Private Sub Application_ThreadException(sender As Object, e As Threading.ThreadExceptionEventArgs)

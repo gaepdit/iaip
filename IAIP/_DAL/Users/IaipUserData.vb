@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Collections.Generic
-Imports EpdIt
+Imports GaEpd
 
 Namespace DAL
     Module IaipUserData

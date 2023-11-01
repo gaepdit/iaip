@@ -1,7 +1,7 @@
 Imports System.Data.SqlClient
 Imports System.Data.SqlTypes
 Imports System.Text
-Imports EpdIt.DBUtilities
+Imports GaEpd.DBUtilities
 Imports Iaip.Apb.Facilities
 Imports Iaip.UrlHelpers
 

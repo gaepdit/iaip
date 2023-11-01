@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Linq
-Imports EpdIt.DBUtilities
+Imports GaEpd.DBUtilities
 Imports Iaip.Apb.Finance
 
 Namespace DAL.Finance
