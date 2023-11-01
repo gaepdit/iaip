@@ -1,7 +1,7 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.Text
-Imports EpdIt.DBUtilities
+Imports GaEpd.DBUtilities
 
 Public Class FeesManagement
 

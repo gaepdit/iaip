@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.Dmu
-Imports EpdIt
+Imports GaEpd
 
 Namespace DAL.Dmu
 

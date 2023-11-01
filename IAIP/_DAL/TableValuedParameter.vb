@@ -19,7 +19,7 @@ Namespace DAL
         <Extension>
         <DebuggerStepThrough>
         Public Function AsTvpSqlParameter(values As IEnumerable(Of Integer), parameterName As String) As SqlParameter
-            Return EpdIt.DBUtilities.TvpSqlParameter(parameterName, values, "dbo.IntegerTableType", "Item")
+            Return GaEpd.DBUtilities.TvpSqlParameter(parameterName, values, "dbo.IntegerTableType", "Item")
         End Function
 
         ''' <summary>
@@ -31,7 +31,7 @@ Namespace DAL
         <Extension>
         <DebuggerStepThrough>
         Public Function AsTvpSqlParameter(values As IEnumerable(Of String), parameterName As String) As SqlParameter
-            Return EpdIt.DBUtilities.TvpSqlParameter(parameterName, values, "dbo.StringTableType", "Item")
+            Return GaEpd.DBUtilities.TvpSqlParameter(parameterName, values, "dbo.StringTableType", "Item")
         End Function
 
     End Module
