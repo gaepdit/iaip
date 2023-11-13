@@ -53,6 +53,7 @@ Public Class IAIPFacilitySummary
         ContactsStaff
         ContactsGecoFacility
         ContactsGecoUsers
+        ContactsCaersUsers
         ContactsIaipFacility
         TestReports
         TestNotifications
@@ -105,6 +106,7 @@ Public Class IAIPFacilitySummary
         AddDataTable(FacilityDataTable.EmissionsFeesSummary)
         AddDataTable(FacilityDataTable.ContactsGecoFacility)
         AddDataTable(FacilityDataTable.ContactsGecoUsers)
+        AddDataTable(FacilityDataTable.ContactsCaersUsers)
         AddDataTable(FacilityDataTable.ContactsIaipFacility)
         AddDataTable(FacilityDataTable.ContactsStaff)
         AddDataTable(FacilityDataTable.TestReports)
@@ -594,6 +596,9 @@ Public Class IAIPFacilitySummary
             Case FacilityDataTable.ContactsGecoUsers
                 SetUpDataGridSource(ContactsGecoUsersGrid, table)
 
+            Case FacilityDataTable.ContactsCaersUsers
+                SetUpDataGridSource(ContactsCaersUsersGrid, table)
+
                 ' Testing
             Case FacilityDataTable.TestReports
                 SetUpDataGridSource(TestReportsGrid, table)
@@ -732,6 +737,7 @@ Public Class IAIPFacilitySummary
         LoadDataTable(FacilityDataTable.ContactsGecoFacility)
         LoadDataTable(FacilityDataTable.ContactsIaipFacility)
         LoadDataTable(FacilityDataTable.ContactsGecoUsers)
+        LoadDataTable(FacilityDataTable.ContactsCaersUsers)
     End Sub
 
     Private Sub LoadEmissionInventoryData()
