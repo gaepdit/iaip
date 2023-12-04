@@ -14,6 +14,10 @@
 
 ## Next Version
 
+## Version 6.10.0 <span>(2023-12-04)</span>
+
+- This update include changes needed for the 2023 Emissions Inventory.
+
 ## Version 6.9.3 <span>(2023-10-17)</span>
 
 - Fixed a bug when entering test notification data.
