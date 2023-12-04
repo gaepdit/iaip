@@ -35,6 +35,9 @@ Namespace DAL
                 Case FacilityDataTable.ContactsGecoUsers
                     Return "iaip_facility.GetContactsGecoUsers"
 
+                Case FacilityDataTable.ContactsCaersUsers
+                    Return "iaip_facility.GetContactsCaersUsers"
+
                 Case FacilityDataTable.ContactsIaipFacility
                     Return "iaip_facility.GetContactsIaipFacility"
 
