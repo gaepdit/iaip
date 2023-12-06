@@ -2,8 +2,7 @@
 
 $configuration = "Release"
 $projectDir = "IAIP"
-$publishDir = "_publish"
-$publishPath = Join-Path -Path $projectDir -ChildPath $publishDir
+$publishDir = Join-Path -Path "_publish" -ChildPath $configuration
 
 # Display configuration before proceeding.
 Write-Output "`n"
@@ -21,9 +20,11 @@ Write-Output "=== MSBuild: $((Get-Command $msBuildPath).Path)"
 # Remove previous application files.
 Write-Output "`n"
 Write-Output "=== Removing previous files"
-if (Test-Path $publishPath) {
-    Remove-Item -Path $publishPath -Recurse
+Push-Location $projectDir
+if (Test-Path $publishDir) {
+    Remove-Item -Path $publishDir -Recurse
 }
+Pop-Location
 
 # Build & publish.
 Write-Output "`n"
@@ -37,8 +38,8 @@ Write-Output "=== Publishing"
 & $msBuildPath -target:publish -p:Configuration=$configuration -p:PublishDir=$publishDir -v:m
 
 # Measure publish size.
-$publishSize = (Get-ChildItem -Path "$publishPath/Application Files" -Recurse | Measure-Object -Property Length -Sum).Sum / 1Mb
+Push-Location $projectDir
+$publishSize = (Get-ChildItem -Path "$publishDir/Application Files" -Recurse | Measure-Object -Property Length -Sum).Sum / 1Mb
 Write-Output "`n"
 Write-Output ("=== Published size: {0:N2} MB" -f $publishSize)
-
-Pause
+Pop-Location
