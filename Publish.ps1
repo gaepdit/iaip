@@ -1,0 +1,44 @@
+# Config
+
+$configuration = "Release"
+$projectDir = "IAIP"
+$publishDir = "_publish"
+$publishPath = Join-Path -Path $projectDir -ChildPath $publishDir
+
+# Display configuration before proceeding.
+Write-Output "`n"
+Write-Output "=== Current configuration: $configuration ==="
+Write-Output "`n"
+Pause
+
+# Find MSBuild.
+$msBuildPath = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" `
+-latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe `
+-prerelease | select-object -first 1
+Write-Output "`n"
+Write-Output "=== MSBuild: $((Get-Command $msBuildPath).Path)"
+
+# Remove previous application files.
+Write-Output "`n"
+Write-Output "=== Removing previous files"
+if (Test-Path $publishPath) {
+    Remove-Item -Path $publishPath -Recurse
+}
+
+# Build & publish.
+Write-Output "`n"
+Write-Output "=== Restoring"
+& $msBuildPath -target:restore -property:Configuration=$configuration -v:m
+Write-Output "`n"
+Write-Output "=== Building"
+& $msBuildPath -target:rebuild -property:Configuration=$configuration -v:m
+Write-Output "`n"
+Write-Output "=== Publishing"
+& $msBuildPath -target:publish -p:Configuration=$configuration -p:PublishDir=$publishDir -v:m
+
+# Measure publish size.
+$publishSize = (Get-ChildItem -Path "$publishPath/Application Files" -Recurse | Measure-Object -Property Length -Sum).Sum / 1Mb
+Write-Output "`n"
+Write-Output ("=== Published size: {0:N2} MB" -f $publishSize)
+
+Pause
