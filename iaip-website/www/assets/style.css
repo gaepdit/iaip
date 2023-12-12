@@ -421,7 +421,6 @@ figcaption {
 
 .announcement {
   display: inline-block;
-  max-width: 25rem;
   margin-top: 5px;
   padding: 5px 16px;
   background: lightyellow;
