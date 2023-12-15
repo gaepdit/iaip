@@ -4,7 +4,7 @@
 <noscript>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
 </noscript>
-<link rel="stylesheet" href="/assets/style.css?20220324">
+<link rel="stylesheet" href="/assets/style.css?20231212">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/icon.svg" type="image/svg+xml" charset="utf-8">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
