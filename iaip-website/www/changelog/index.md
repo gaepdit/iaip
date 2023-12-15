@@ -14,6 +14,10 @@
 
 ## Next Version
 
+## Version 6.11.0 <span>(2023-12-15)</span>
+
+- This is a maintenance update reflecting infrastructure changes. This update contains no new features or bug fixes.
+
 ## Version 6.10.0 <span>(2023-12-04)</span>
 
 - This update include changes needed for the 2023 Emissions Inventory.
