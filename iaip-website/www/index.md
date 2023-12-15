@@ -1,15 +1,5 @@
 % Integrated Air Information Platform
 
-<div class="announcement announcement-severe announcement-centered">
-
-## Notice
-
-There will be a scheduled major system maintenance outage for all EPD applications, including the IAIP, from 2&nbsp;PM Friday, 12/15/2023 until 6&nbsp;AM Monday, 12/18/2023.
-
-Please refer to the [EPD-IT status page](https://status.gaepd.org/) for updates.
-
-</div>
-
 The IAIP is used by the Georgia EPD to collect and organize data required by the Air Protection Branch. Documentation can be found on the [IAIP Documentation site](https://sites.google.com/site/iaipdocs/).
 
 ## Support
