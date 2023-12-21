@@ -992,7 +992,7 @@ Partial Class SSCPComplianceLog
         'txtNewAIRSNumber
         '
         Me.txtNewAIRSNumber.Location = New System.Drawing.Point(9, 23)
-        Me.txtNewAIRSNumber.MaxLength = 8
+        Me.txtNewAIRSNumber.MaxLength = 9
         Me.txtNewAIRSNumber.Name = "txtNewAIRSNumber"
         Me.txtNewAIRSNumber.Size = New System.Drawing.Size(208, 20)
         Me.txtNewAIRSNumber.TabIndex = 0

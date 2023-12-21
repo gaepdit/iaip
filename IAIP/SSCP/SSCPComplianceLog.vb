@@ -448,7 +448,7 @@ Public Class SSCPComplianceLog
 
                     Dim p As SqlParameter() = {
                         New SqlParameter("@trk", trk),
-                        New SqlParameter("@airs", "0413" & txtNewAIRSNumber.Text),
+                        New SqlParameter("@airs", New Apb.ApbFacilityId(txtNewAIRSNumber.Text).DbFormattedString),
                         New SqlParameter("@daterec", DTPDateReceived.Value),
                         New SqlParameter("@event", cboEvent.SelectedValue),
                         New SqlParameter("@user", CurrentUser.UserID)

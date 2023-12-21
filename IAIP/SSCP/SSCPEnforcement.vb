@@ -870,6 +870,7 @@ Public Class SscpEnforcement
         ' All available air programs
         Dim dt As DataTable = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber, True)
         ProgramsListView.Items.Clear()
+        If dt Is Nothing Then Return
         For Each row As DataRow In dt.Rows
             ProgramsListView.Items.Add(New ListViewItem({row(1).ToString, row(0).ToString}))
         Next
