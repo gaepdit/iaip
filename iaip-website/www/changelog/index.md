@@ -14,6 +14,10 @@
 
 ## Next Version
 
+## Version 6.11.1 <span>(2023-12-21)</span>
+
+- Fixed a bug that caused a crash when creating enforcement for a facility with no assigned air programs
+
 ## Version 6.11.0 <span>(2023-12-15)</span>
 
 - This is a maintenance update reflecting infrastructure changes. This update contains no new features or bug fixes.
