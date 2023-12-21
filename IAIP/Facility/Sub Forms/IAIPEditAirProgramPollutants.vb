@@ -37,8 +37,14 @@ Public Class IAIPEditAirProgramPollutants
 #Region " Selectors "
 
     Private Sub LoadFacilityAirPrograms()
+        Dim dt As DataTable = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber, False)
+        If dt Is Nothing Then
+            MessageBox.Show("This facility does not have any active programs.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Close()
+            Return
+        End If
         With AirProgramSelect
-            .DataSource = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber, False)
+            .DataSource = dt
             .ValueMember = "Key"
             .DisplayMember = "Description"
             .SelectedIndex = -1
