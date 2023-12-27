@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>IAIP UAT Installation Page</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+  	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  </noscript>
+  <link rel="stylesheet" href="/assets/style.css?20220324">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" charset="utf-8">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#e5f6fa">
+</head>
+<body class="">
+<div class="wrapper">
+<header>
+<h1 class="title">IAIP UAT Installation Page</h1>
+</header>
+<p>Click the button to download and run the setup file.</p>
+<p><a href="IaipHorizon.application">Download the IAIP<br />UAT
+Edition</a></p>
+<h2 id="important-notes-please-read">Important Notes – Please Read</h2>
+<p>The IAIP UAT (User Acceptance Testing) Edition is made available when
+users are requested to test new features or bugfixes before they are
+released to production. Unless someone in EPD IT has asked you to
+install this, you probably don’t need it.</p>
+<p>The UAT version of the IAIP can be installed side-by-side with the
+production version of the IAIP. Both can be used simultaneously and will
+not interfere with each other. The UAT version will <em>only</em> access
+the testing (UAT) database, so no changes to production data can be
+made.</p>
+<pre class="mermaid">
+flowchart TD;
+    subgraph UAT["UAT (You are here)"]
+        D[fa:fa-tablet IAIP UAT] --> E(fa:fa-database test database);
+        F[fa:fa-tablet GECO UAT] --> E;
+    end
+    subgraph Production
+        A[fa:fa-tablet IAIP] --> B(fa:fa-database production database);
+        C[fa:fa-tablet GECO] --> B;
+    end
+    style Production stroke:#6e6e6e,fill:#f0f0f0
+    style UAT stroke:#8fc982,fill:#dff0db
+</pre>
+<script src="https://use.fontawesome.com/73014ea0c4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.5/mermaid.min.js" integrity="sha512-ETySttxD+gVb33UXscT3G5gtPxWepHF6fs69M13VEzJfvA6wcDwMjmkCHwrH4NPzPzMarhk/aZoVsY7BTGfnQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'neutral'});</script>
+</div>
+</body>
+</html>

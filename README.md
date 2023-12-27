@@ -1,6 +1,6 @@
 # iaip.gaepd.org
 
-This is the website for hosting the IAIP installation files plus some documentation.
+This repository branch, `gh-pages`, is for the IAIP website which hosts the installation files plus some documentation. Application code and more information are on the [`main` branch](https://github.com/gaepdit/iaip).
 
 ## Build Instructions
 
