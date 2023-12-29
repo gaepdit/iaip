@@ -1538,7 +1538,7 @@ Public Class ISMPTestReportAdministrative
         Try
             Dim ISMPAddTestingFirm As New ISMPAddTestingFirms
 
-            If ISMPAddTestingFirm IsNot Nothing AndAlso Not ISMPAddTestingFirm.IsDisposed Then
+            If Not ISMPAddTestingFirm.IsDisposed Then
                 ISMPAddTestingFirm.Show()
             End If
         Catch ex As Exception

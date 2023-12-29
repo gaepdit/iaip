@@ -3004,48 +3004,47 @@ Public Class SSPPPermitUploader
         btnPSDPrelimDet.Click, btnPSDPublicNotice.Click,
         btnTVDraft.Click, btnTVFinal.Click, btnTVNarrative.Click, btnTVPublicNotice.Click
 
-        Dim dialog As New OpenFileDialog
+        Using dialog As New OpenFileDialog
+            Try
+                dialog.InitialDirectory = GetUserSetting(UserSetting.FileUploadLocation)
+                dialog.Filter = "Word files (*.docx, *.doc)|*.docx;*.doc|PDF files (*.pdf)|*.pdf|All files (*.*)|*.*"
+                dialog.FilterIndex = 3
 
-        Try
-            dialog.InitialDirectory = GetUserSetting(UserSetting.FileUploadLocation)
-            dialog.Filter = "Word files (*.docx, *.doc)|*.docx;*.doc|PDF files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            dialog.FilterIndex = 3
+                If dialog.ShowDialog = DialogResult.OK Then
+                    If File.Exists(dialog.FileName) Then
 
-            If dialog.ShowDialog = DialogResult.OK Then
-                If File.Exists(dialog.FileName) Then
+                        If Path.GetDirectoryName(dialog.FileName) <> dialog.InitialDirectory Then
+                            SaveUserSetting(UserSetting.FileUploadLocation, Path.GetDirectoryName(dialog.FileName))
+                        End If
 
-                    If Path.GetDirectoryName(dialog.FileName) <> dialog.InitialDirectory Then
-                        SaveUserSetting(UserSetting.FileUploadLocation, Path.GetDirectoryName(dialog.FileName))
+                        Dim thisButton As Button = DirectCast(sender, Button)
+                        Dim thisControlName As String = thisButton.Name.Replace("btn", "txt")
+                        Dim thisControl As TextBox = Nothing
+
+                        Try
+                            Select Case Path.GetExtension(dialog.FileName).ToUpper
+                                Case ".DOC", ".DOCX"
+                                    thisControl = DirectCast(thisButton.Parent.Controls(thisControlName & "Doc"), TextBox)
+                                Case ".PDF"
+                                    thisControl = DirectCast(thisButton.Parent.Controls(thisControlName & "PDF"), TextBox)
+                            End Select
+
+                            If thisControl IsNot Nothing Then thisControl.Text = dialog.FileName
+
+                        Catch ex As Exception
+                            MessageBox.Show("There was an error selecting the file. Please contact EPD IT.")
+                        End Try
+
+                    Else
+                        MessageBox.Show("Could not read file. Please try again.")
                     End If
-
-                    Dim thisButton As Button = DirectCast(sender, Button)
-                    Dim thisControlName As String = thisButton.Name.Replace("btn", "txt")
-                    Dim thisControl As TextBox = Nothing
-
-                    Try
-                        Select Case Path.GetExtension(dialog.FileName).ToUpper
-                            Case ".DOC", ".DOCX"
-                                thisControl = DirectCast(thisButton.Parent.Controls(thisControlName & "Doc"), TextBox)
-                            Case ".PDF"
-                                thisControl = DirectCast(thisButton.Parent.Controls(thisControlName & "PDF"), TextBox)
-                        End Select
-
-                        If thisControl IsNot Nothing Then thisControl.Text = dialog.FileName
-
-                    Catch ex As Exception
-                        MessageBox.Show("There was an error selecting the file. Please contact EPD IT.")
-                    End Try
-
-                Else
-                    MessageBox.Show("Could not read file. Please try again.")
                 End If
-            End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If dialog IsNot Nothing Then dialog.Dispose()
-        End Try
+            Catch ex As Exception
+                ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            End Try
+        End Using
+
     End Sub
 
 #End Region

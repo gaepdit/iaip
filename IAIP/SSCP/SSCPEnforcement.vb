@@ -1187,7 +1187,7 @@ Public Class SscpEnforcement
             .DocumentTypeId = CInt(row.Cells("DocumentTypeId").Value)
             .FileName = row.Cells("FileName").Value.ToString
             .FileSize = CInt(row.Cells("FileSize").Value)
-            .UploadDate = DateTime.Parse(row.Cells("UploadDate").Value.ToString)
+            .UploadDate = Date.Parse(row.Cells("UploadDate").Value.ToString)
         End With
         Return doc
     End Function
@@ -1493,6 +1493,8 @@ Public Class SscpEnforcement
 
 #Region " Validation "
 
+    ' See https://github.com/SonarSource/sonar-dotnet/issues/8028
+    <CodeAnalysis.SuppressMessage("Major Bug", "S2583:Conditionally executed code should be reachable", Justification:="False positive")>
     Private Sub DisplayValidationErrors()
         ClearErrorsMenuItem.Enabled = True
         Dim messageText As New StringBuilder("Please correct the following issues before saving:")
@@ -1502,12 +1504,12 @@ Public Class SscpEnforcement
             If lines < 4 Then
                 messageText.AppendLine()
                 messageText.Append("* " & kvp.Value)
-                lines += 1
             ElseIf lines = 4 Then
                 messageText.AppendLine()
                 messageText.Append("* More...")
-                lines += 1
             End If
+
+            lines += 1
             GeneralErrorProvider.SetError(kvp.Key, kvp.Value)
             GeneralErrorProvider.SetIconAlignment(kvp.Key, ErrorIconAlignment.MiddleLeft)
         Next
@@ -1634,7 +1636,7 @@ Public Class SscpEnforcement
         Dim result As Boolean = True
 
         If LonToUC.Checked Then
-            result = result AndAlso CheckTheseDates(
+            result = CheckTheseDates(
                 LonToUC.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
                 subsequents:=New List(Of DateTimePicker) From {LonSent, LonResolved})
@@ -1665,7 +1667,7 @@ Public Class SscpEnforcement
         Dim result As Boolean = True
 
         If NovToUC.Checked Then
-            result = result AndAlso CheckTheseDates(
+            result = CheckTheseDates(
                 NovToUC.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
                 subsequents:=New List(Of DateTimePicker) From
@@ -1715,7 +1717,7 @@ Public Class SscpEnforcement
         Dim result As Boolean = True
 
         If NfaToUC.Checked Then
-            result = result AndAlso CheckTheseDates(
+            result = CheckTheseDates(
                 NfaToUC.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC},
                 subsequents:=New List(Of DateTimePicker) From {NfaToPM, NfaSent})
@@ -1749,7 +1751,7 @@ Public Class SscpEnforcement
         Dim result As Boolean = True
 
         If COToUC.Checked Then
-            result = result AndAlso CheckTheseDates(
+            result = CheckTheseDates(
                 COToUC.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
                 subsequents:=New List(Of DateTimePicker) From
@@ -1797,7 +1799,7 @@ Public Class SscpEnforcement
         Dim result As Boolean = True
 
         If AOExecuted.Checked Then
-            result = result Andalso CheckTheseDates(
+            result = CheckTheseDates(
                 AOExecuted.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
                 subsequents:=New List(Of DateTimePicker) From {AOAppealed, AOResolved})

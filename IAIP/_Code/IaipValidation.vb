@@ -9,7 +9,7 @@ Module IaipValidation
         Return True
     End Function
 
-    <CodeAnalysis.SuppressMessage("Minor Code Smell", "S1481:Unused local variables should be removed")>
+    <CodeAnalysis.SuppressMessage("Minor Code Smell", "S1481:Unused local variables should be removed", Justification:="Use of unused local variable is intentional.")>
     <Extension>
     Public Function IsValidEmailAddress(emailAddress As String, Optional requireDnrAddress As Boolean = False) As Boolean
         If String.IsNullOrEmpty(emailAddress) Then Return False

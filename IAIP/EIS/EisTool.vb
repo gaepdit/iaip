@@ -2389,9 +2389,9 @@ Public Class EisTool
                 Else
                     txtEISStatsMailoutCreateDate.Text = dr.Item("CreateDateTime")
                 End If
-            End If
 
-            If txtEISStatsMailoutFacilityName.Text = "" Then
+            Else
+
                 SQL = "SELECT * " &
                     "FROM " &
                     "  (SELECT dt_EIContact.STRAIRSNUMBER, fi.STRFACILITYNAME, " &
@@ -2486,9 +2486,9 @@ Public Class EisTool
                     " WHERE STRAIRSNUMBER = @STRAIRSNUMBER "
                 Dim param As New SqlParameter("@strAIRSnumber", "0413" & txtEISStatsMailoutAIRSNumber.Text)
 
-                Dim dr2 As DataRow = DB.GetDataRow(SQL, param)
+                dr = DB.GetDataRow(SQL, param)
 
-                If dr2 IsNot Nothing Then
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         txtEISStatsMailoutFacilityName.Clear()
                     Else
@@ -2558,8 +2558,10 @@ Public Class EisTool
                     End If
                 End If
 
-                btnAddtoEISMailout.Visible = True
+            End If
 
+            If dr IsNot Nothing Then
+                btnAddtoEISMailout.Visible = True
             End If
 
         Catch ex As Exception

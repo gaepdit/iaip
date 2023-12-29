@@ -10762,7 +10762,9 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvSIPSubpartAddEdit.Rows.RemoveAt(i)
+#Disable Warning S2589 ' Boolean expressions should not be gratuitous
                 TempRemove = TempRemove?.Replace(i & ",", "")
+#Enable Warning S2589 ' Boolean expressions should not be gratuitous
             Loop
 
         Catch ex As Exception
@@ -11603,7 +11605,9 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvNSPSSubpartAddEdit.Rows.RemoveAt(i)
+#Disable Warning S2589 ' Boolean expressions should not be gratuitous
                 TempRemove = TempRemove?.Replace(i & ",", "")
+#Enable Warning S2589 ' Boolean expressions should not be gratuitous
             Loop
 
         Catch ex As Exception
@@ -12448,7 +12452,9 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvNESHAPSubpartAddEdit.Rows.RemoveAt(i)
+#Disable Warning S2589 ' Boolean expressions should not be gratuitous
                 TempRemove = TempRemove?.Replace(i & ",", "")
+#Enable Warning S2589 ' Boolean expressions should not be gratuitous
             Loop
 
         Catch ex As Exception
@@ -13296,7 +13302,9 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvMACTSubpartAddEdit.Rows.RemoveAt(i)
+#Disable Warning S2589 ' Boolean expressions should not be gratuitous
                 TempRemove = TempRemove?.Replace(i & ",", "")
+#Enable Warning S2589 ' Boolean expressions should not be gratuitous
             Loop
 
         Catch ex As Exception

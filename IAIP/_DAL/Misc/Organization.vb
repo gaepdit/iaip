@@ -88,13 +88,9 @@ Namespace DAL
 
         Public Enum EpdManagementTypes
             ' 20 characters max...
-            '2345678901234567890
             DnrCommissioner
             EpdDirector
-            <Obsolete> ApbBranchChief
             IsmpProgramManager
-            <Obsolete> SscpProgramManager
-            <Obsolete> SsppProgramManager
         End Enum
 
     End Module
