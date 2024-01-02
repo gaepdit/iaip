@@ -119,7 +119,7 @@ Public Class DmuEdtErrorMessageDetail
         keys(0) = edtErrorMessagesTable.Columns("ERRORID")
         edtErrorMessagesTable.PrimaryKey = keys
 
-        If edtErrorMessagesTable IsNot Nothing Then
+        If edtErrorMessagesTable.Rows.Count > 0 Then
             edtErrorMessagesBindingSource = New BindingSource With {
                 .DataSource = edtErrorMessagesTable
             }

@@ -1,7 +1,10 @@
 # NOTE: Requires **VS2019 16.3** or later
 
 # Code files
-[*.{cs,vb}]
+[*.vb]
+
+# S6145: Configure 'Option Strict On'
+dotnet_diagnostic.S6145.severity = none
 
 dotnet_diagnostic.CA1031.severity = none
 dotnet_diagnostic.CA1303.severity = none
@@ -9,12 +12,12 @@ dotnet_diagnostic.CA1304.severity = none
 dotnet_diagnostic.CA1305.severity = none
 dotnet_diagnostic.CA1307.severity = none
 dotnet_diagnostic.CA3075.severity = none
+
+# S1075: URIs should not be hardcoded
 dotnet_diagnostic.S1075.severity = none
 
 # BC42016: Implicit conversion
 dotnet_diagnostic.BC42016.severity = none
-
-[*.vb]
 
 # S927: Parameter names should match base declaration
 # Doesn't work in VB since names are not case sensitive
@@ -31,3 +34,12 @@ dotnet_diagnostic.BC42019.severity = silent
 
 # BC42032: Operands of type Object used for operator <>
 dotnet_diagnostic.BC42032.severity = silent
+
+# S6580: Use a format provider when parsing date and time
+dotnet_diagnostic.S6580.severity = silent
+
+# S6562: Always set the "DateTimeKind" when creating new "DateTime" instances
+dotnet_diagnostic.S6562.severity = none
+
+# IDE1006: Naming Styles
+dotnet_diagnostic.IDE1006.severity = none

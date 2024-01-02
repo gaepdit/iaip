@@ -22,7 +22,7 @@ Public Class IaipRoles
             Dim roles As New HashSet(Of Integer)(Array.ConvertAll(dbString.Split({"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries), Function(s) Integer.Parse(s)))
             roles.Remove(0)
 
-            If roles Is Nothing OrElse roles.Count = 0 Then
+            If roles.Count = 0 Then
                 RoleCodes = New HashSet(Of Integer)({0})
             Else
                 RoleCodes = roles

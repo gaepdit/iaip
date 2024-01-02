@@ -22,9 +22,10 @@ Module DbConnections
 
             If cs Is Nothing Then
                 CloseIaip()
+                Return Nothing
+            Else
+                Return cs.ConnectionString
             End If
-
-            Return cs.ConnectionString
         End Get
     End Property
 

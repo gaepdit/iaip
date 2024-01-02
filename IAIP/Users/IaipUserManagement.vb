@@ -430,6 +430,8 @@ Public Class IaipUserManagement
 
 #Region " Field validation "
 
+    ' See https://github.com/SonarSource/sonar-dotnet/issues/8028
+    <CodeAnalysis.SuppressMessage("Major Bug", "S2583:Conditionally executed code should be reachable", Justification:="False positive")>
     Private Sub DisplayInvalidMessage()
         Dim sb As New StringBuilder()
         sb.AppendLine("Please correct the following errors:")

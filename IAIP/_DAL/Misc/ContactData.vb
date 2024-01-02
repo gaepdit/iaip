@@ -12,14 +12,14 @@ Namespace DAL
             Permitting = 30
             Fees = 40
             EmissionInventory = 41
-            <Obsolete("Emissions Statement contact no longer used", True)>
-            EmissionStatement = 42
-            <Obsolete("Ambient contact no longer used", True)>
-            AmbientMonitoring = 50
-            <Obsolete("Planning and Support contact no longer used", True)>
-            PlanningAndSupport = 60
-            <Obsolete("District Office contact no longer used", True)>
-            DistrictOffices = 70
+            '<Obsolete("Emissions Statement contact no longer used", True)>
+            'EmissionStatement = 42
+            '<Obsolete("Ambient contact no longer used", True)>
+            'AmbientMonitoring = 50
+            '<Obsolete("Planning and Support contact no longer used", True)>
+            'PlanningAndSupport = 60
+            '<Obsolete("District Office contact no longer used", True)>
+            'DistrictOffices = 70
         End Enum
 
         Public Function GetCurrentContact(airsNumber As Apb.ApbFacilityId, key As ContactKey) As Contact

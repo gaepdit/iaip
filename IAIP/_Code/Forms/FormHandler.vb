@@ -111,14 +111,14 @@ Module FormHandler
         If SingleForm Is Nothing Then Return Nothing
         Dim formName As String = GetType(T).Name
         If Not SingleForm.ContainsKey(formName) Then Return Nothing
-        Return TryCast(SingleForm(formName), T)
+        Return SingleForm(formName)
     End Function
 
     Public Sub RemoveForm(formName As String, Optional id As Integer = -1)
         If MultiForm IsNot Nothing AndAlso MultiForm.ContainsKey(formName) AndAlso MultiForm(formName).ContainsKey(id) Then
             MultiForm(formName).Remove(id)
-        ElseIf SingleForm IsNot Nothing AndAlso SingleForm.ContainsKey(formName) Then
-            SingleForm.Remove(formName)
+        Else
+            SingleForm?.Remove(formName)
         End If
     End Sub
 

@@ -94,9 +94,7 @@ Public Module SharedData
 
             dt.TableName = table.ToString
 
-            If _tDictionary.ContainsKey(table) Then
-                _tDictionary.Remove(table)
-            End If
+            _tDictionary.Remove(table)
             _tDictionary.Add(table, dt)
 
         End SyncLock
@@ -113,15 +111,15 @@ Public Module SharedData
 
                     ds.Tables.Add(DAL.GetEpdBranchesAsDataTable)
                     ds.Tables(0).TableName = "Branches"
-                    ds.Tables(0).Rows.Add({0, ""})
+                    ds.Tables(0).Rows.Add(0, "")
 
                     ds.Tables.Add(DAL.GetEpdProgramsAsDataTable)
                     ds.Tables(1).TableName = "Programs"
-                    ds.Tables(1).Rows.Add({0, ""})
+                    ds.Tables(1).Rows.Add(0, "")
 
                     ds.Tables.Add(DAL.GetEpdUnitsAsDataTable)
                     ds.Tables(2).TableName = "Units"
-                    ds.Tables(2).Rows.Add({0, ""})
+                    ds.Tables(2).Rows.Add(0, "")
 
                 Case SharedDataSet.RuleSubparts
 
@@ -139,9 +137,7 @@ Public Module SharedData
 
             End Select
 
-            If _dsDictionary.ContainsKey(dataSet) Then
-                _dsDictionary.Remove(dataSet)
-            End If
+            _dsDictionary.Remove(dataSet)
             _dsDictionary.Add(dataSet, ds)
 
         End SyncLock
@@ -162,9 +158,7 @@ Public Module SharedData
 
             End Select
 
-            If _dictDictionary.ContainsKey(lookupDictionary) Then
-                _dictDictionary.Remove(lookupDictionary)
-            End If
+            _dictDictionary.Remove(lookupDictionary)
             _dictDictionary.Add(lookupDictionary, dict)
 
         End SyncLock
@@ -182,9 +176,7 @@ Public Module SharedData
 
             End Select
 
-            If _objDictionary.ContainsKey(obj) Then
-                _objDictionary.Remove(obj)
-            End If
+            _objDictionary.Remove(obj)
             _objDictionary.Add(obj, myObj)
 
         End SyncLock
@@ -267,7 +259,7 @@ Public Module SharedData
             InitializeData(value)
         End If
 
-        Return CType(_objDictionary(value), T)
+        Return _objDictionary(value)
     End Function
 
 
@@ -275,27 +267,19 @@ Public Module SharedData
     ' Removes data from the cache
 
     Public Sub ClearSharedData(table As SharedTable)
-        If _tDictionary IsNot Nothing AndAlso _tDictionary.ContainsKey(table) Then
-            _tDictionary.Remove(table)
-        End If
+        _tDictionary?.Remove(table)
     End Sub
 
     Public Sub ClearSharedData(dataSet As SharedDataSet)
-        If _dsDictionary IsNot Nothing AndAlso _dsDictionary.ContainsKey(dataSet) Then
-            _dsDictionary.Remove(dataSet)
-        End If
+        _dsDictionary?.Remove(dataSet)
     End Sub
 
     Public Sub ClearSharedData(lookupDictionary As SharedLookupDictionary)
-        If _dictDictionary IsNot Nothing AndAlso _dictDictionary.ContainsKey(lookupDictionary) Then
-            _dictDictionary.Remove(lookupDictionary)
-        End If
+        _dictDictionary?.Remove(lookupDictionary)
     End Sub
 
     Public Sub ClearSharedObject(value As SharedObject)
-        If _objDictionary IsNot Nothing AndAlso _objDictionary.ContainsKey(value) Then
-            _objDictionary.Remove(value)
-        End If
+        _objDictionary?.Remove(value)
     End Sub
 
     ' Public functions for reloading shared data
