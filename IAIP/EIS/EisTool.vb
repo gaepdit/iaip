@@ -1345,7 +1345,7 @@ Public Class EisTool
                     New SqlParameter("@inventoryYear", EISConfirm)
                 }
 
-                ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
+                ' FUTURE: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
@@ -1404,7 +1404,7 @@ Public Class EisTool
                     New SqlParameter("@inventoryYear", EISConfirm)
                 }
 
-                ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
+                ' FUTURE: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value AndAlso dgvEISStats(6, i).Value = "No" Then
@@ -1436,7 +1436,7 @@ Public Class EisTool
                     New SqlParameter("@inventoryYear", EISConfirm)
                 }
 
-                ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
+                ' FUTURE: Change to table-valued parameter instead of dynamically built "IN" list
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value AndAlso dgvEISStats(6, i).Value = "Yes" Then
                         paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
@@ -2624,7 +2624,7 @@ Public Class EisTool
                     New SqlParameter("@UpdateUser", CurrentUser.AlphaName)
                 }
 
-                ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
+                ' FUTURE: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value Then

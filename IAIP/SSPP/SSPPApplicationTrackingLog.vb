@@ -4105,7 +4105,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub ReLoadBasicFacilityInfo()
-        ' TODO is this the same as LoadBasicFacilityData?
         Try
             Dim Facilityname As String = "N/A"
             Dim FacilityStreet As String = "N/A"
