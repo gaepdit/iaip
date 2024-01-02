@@ -3,6 +3,9 @@
 # Code files
 [*.vb]
 
+# S6145: Configure 'Option Strict On'
+dotnet_diagnostic.S6145.severity = none
+
 dotnet_diagnostic.CA1031.severity = none
 dotnet_diagnostic.CA1303.severity = none
 dotnet_diagnostic.CA1304.severity = none
