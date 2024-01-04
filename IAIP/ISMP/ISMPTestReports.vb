@@ -925,7 +925,7 @@ Public Class ISMPTestReports
                 Else
                     txtFacilityState.Text = dr.Item("strFacilityState")
                 End If
-                txtFacilityCity.Text = String.Join(", ", {txtFacilityCity.Text, txtFacilityState.Text})
+                txtFacilityCity.Text = String.Join(", ", txtFacilityCity.Text, txtFacilityState.Text)
                 If IsDBNull(dr.Item("strPollutant")) Then
                     cboPollutantDetermined.SelectedValue = 0
                 Else
@@ -1236,7 +1236,7 @@ Public Class ISMPTestReports
 
             Dim dr4 As DataRow = DB.GetDataRow(query, p)
             If dr4 IsNot Nothing Then
-                If IsDBNull(dr.Item("strReferenceNumber")) Then
+                If IsDBNull(dr4.Item("strReferenceNumber")) Then
                     lblMemoEntered.Visible = False
                 Else
                     lblMemoEntered.Visible = True
@@ -8501,7 +8501,7 @@ Public Class ISMPTestReports
                         Else
                             txtFacilityState.Text = dr.Item("strFacilityState")
                         End If
-                        txtFacilityCity.Text = String.Join(", ", {txtFacilityCity.Text, txtFacilityState.Text})
+                        txtFacilityCity.Text = String.Join(", ", txtFacilityCity.Text, txtFacilityState.Text)
                         If IsDBNull(dr.Item("strTestingFirm")) Then
                             cboTestingFirm.SelectedValue = 0
                         Else

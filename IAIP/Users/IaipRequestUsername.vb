@@ -1,38 +1,37 @@
 ﻿Imports System.Text
 Imports System.Collections.Generic
+Imports System.Threading.Tasks
 
 Public Class IaipRequestUsername
-
-    Friend Property Message As New IaipMessage
+    Private Property Message As New IaipMessage
     Private Property InvalidEntries As New List(Of Control)
 
-    Private Sub Request_Click(sender As Object, e As EventArgs) Handles DoRequestUsername.Click
+    Private Async Sub Request_Click(sender As Object, e As EventArgs) Handles DoRequestUsername.Click
         EP.Clear()
         InvalidEntries.Clear()
         Message.Clear()
 
-        If Not Me.ValidateChildren Then
-            DialogResult = DialogResult.None
+        If Not ValidateChildren() Then
             DisplayInvalidMessage()
-        Else
-            If Not RequestUsername() Then
-                DialogResult = DialogResult.None
-            End If
+            Return
         End If
+
+        If Await RequestUsernameAsync() Then DialogResult = DialogResult.OK
     End Sub
 
-    Private Function RequestUsername() As Boolean
-        Dim result As DAL.UsernameReminderResponse = DAL.SendUsernameReminder(EmailAddress.Text)
-        Select Case result
+    Private Async Function RequestUsernameAsync() As Task(Of Boolean)
+        Dim apiResult As DAL.UsernameReminderResponse = Await DAL.SendUsernameReminderAsync(EmailAddress.Text)
+
+        Select Case apiResult
             Case DAL.UsernameReminderResponse.Success
                 Return True
             Case DAL.UsernameReminderResponse.EmailNotExist
-                Dim errorMsg As String = "No account exists with that email address."
+                Const errorMsg As String = "No account exists with that email address."
                 EP.SetError(EmailAddress, errorMsg)
                 Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.Warning)
                 Message.Display(MessageDisplay)
             Case DAL.UsernameReminderResponse.InvalidInput
-                Dim errorMsg As String = "That email address is not valid."
+                Const errorMsg As String = "That email address is not valid."
                 EP.SetError(EmailAddress, errorMsg)
                 Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.Warning)
                 Message.Display(MessageDisplay)
@@ -55,14 +54,14 @@ Public Class IaipRequestUsername
         Message.Display(MessageDisplay)
     End Sub
 
-#Region " Field validation "
+    ' Field validation
 
-    Private Sub EmailAddress_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles EmailAddress.Validating
+    Private Sub EmailAddress_Validating(sender As Object, e As ComponentModel.CancelEventArgs) Handles EmailAddress.Validating
         If String.IsNullOrEmpty(EmailAddress.Text) Then
             EP.SetError(EmailAddress, "Enter your email address.")
             If Not InvalidEntries.Contains(EmailAddress) Then InvalidEntries.Add(EmailAddress)
             e.Cancel = True
-        ElseIf Not IsValidEmailAddress(EmailAddress.Text) Then
+        ElseIf Not EmailAddress.Text.IsValidEmailAddress() Then
             EP.SetError(EmailAddress, "Enter a valid email address.")
             If Not InvalidEntries.Contains(EmailAddress) Then InvalidEntries.Add(EmailAddress)
             e.Cancel = True
@@ -70,7 +69,5 @@ Public Class IaipRequestUsername
             EP.SetError(EmailAddress, String.Empty)
         End If
     End Sub
-
-#End Region
 
 End Class

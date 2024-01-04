@@ -718,7 +718,7 @@ Public Class ISMPMonitoringLog
     Private Sub mmiReports_Click(sender As Object, e As EventArgs) Handles mmiReports.Click
         Dim StaffReports As New ISMPStaffReports
 
-        If StaffReports IsNot Nothing AndAlso Not StaffReports.IsDisposed Then
+        If Not StaffReports.IsDisposed Then
             StaffReports.Show()
         End If
     End Sub

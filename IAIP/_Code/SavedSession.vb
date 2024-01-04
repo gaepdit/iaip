@@ -20,7 +20,7 @@ Public Module SavedSessions
 
                 Dim newToken As String = Await Task.Run(
                     Function()
-                        Return DAL.ValidateSession(userId, sc(1))
+                        Return DAL.ValidateSessionAsync(userId, sc(1))
                     End Function
                     ).ConfigureAwait(False)
 

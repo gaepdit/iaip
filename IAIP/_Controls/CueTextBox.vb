@@ -15,7 +15,6 @@ Public Class CueTextBox
         Private Const ECM_FIRST As UInteger = &H1500
         Friend Const EM_SETCUEBANNER As UInteger = ECM_FIRST + 1
 
-        <CodeAnalysis.SuppressMessage("Critical Code Smell", "S1186:Methods should not be empty")>
         <Runtime.InteropServices.DllImport("user32.dll", CharSet:=Runtime.InteropServices.CharSet.Unicode)>
         Public Shared Function SendMessage(hWnd As IntPtr, Msg As UInt32, wParam As IntPtr, lParam As String) As IntPtr
         End Function

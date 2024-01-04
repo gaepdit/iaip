@@ -1,22 +1,21 @@
 Imports System.Collections.Generic
-Imports System.Configuration
+Imports Iaip
 Imports Mindscape.Raygun4Net
 Imports Mindscape.Raygun4Net.Messages
 
 Friend Module ExceptionLogger
-
     Friend Function LogException(
-            ex As Exception,
-            context As String,
-            supplementalMessage As String,
-            unrecoverable As Boolean) As Boolean
+                                 ex As Exception,
+                                 context As String,
+                                 supplementalMessage As String,
+                                 unrecoverable As Boolean) As Boolean
 
-#If DEBUG Then
-        ' Only log if UAT or Prod
-        Return False
-#End If
+        If CurrentServerEnvironment = ServerEnvironment.Development
+            ' Only log if UAT or Prod
+            Return False
+        End If
 
-        Dim client As New RaygunClient(ConfigurationManager.AppSettings("RAYGUN_API_KEY")) With {
+        Dim client As New RaygunClient(CurrentAppConfig.RaygunApiKey) With {
             .ApplicationVersion = GetCurrentVersionAsMajorMinorBuild().ToString
         }
 
@@ -27,12 +26,12 @@ Friend Module ExceptionLogger
                 .FullName = CurrentUser.FullName,
                 .IsAnonymous = False,
                 .UUID = Environment.MachineName
-            }
+                }
         Else
             client.UserInfo = New RaygunIdentifierMessage("") With {
                 .IsAnonymous = True,
                 .UUID = Environment.MachineName
-            }
+                }
         End If
 
         Dim tags As New List(Of String) From {CurrentServerEnvironment.ToString, context}
@@ -41,11 +40,11 @@ Friend Module ExceptionLogger
         End If
 
         Dim customData As New Dictionary(Of String, Object) From {
-            {"Context", context},
-            {"Supplemental message", supplementalMessage},
-            {"Initial Network Status", NetworkStatus.GetDescription},
-            {"Is VPN", IsVpnConnected()}
-        }
+                {"Context", context},
+                {"Supplemental message", supplementalMessage},
+                {"Initial Network Status", NetworkStatus.GetDescription},
+                {"Is VPN", IsVpnConnected()}
+                }
 
         Try
             If unrecoverable Then
@@ -64,7 +63,8 @@ Friend Module ExceptionLogger
         AddBreadcrumb(message, New Dictionary(Of String, Object), sender)
     End Sub
 
-    Friend Sub AddBreadcrumb(message As String, dataDictionary As Dictionary(Of String, Object), Optional sender As Object = Nothing)
+    Friend Sub AddBreadcrumb(message As String, dataDictionary As Dictionary(Of String, Object),
+                             Optional sender As Object = Nothing)
         If dataDictionary Is Nothing Then dataDictionary = New Dictionary(Of String, Object)
         If TypeOf sender Is Control Then dataDictionary.Add("Sender", CType(sender, Control).Name)
         RaygunClient.RecordBreadcrumb(New RaygunBreadcrumb With {.Message = message, .CustomData = dataDictionary})
@@ -75,5 +75,4 @@ Friend Module ExceptionLogger
         If TypeOf sender Is Control Then dataDictionary.Add("Sender", CType(sender, Control).Name)
         RaygunClient.RecordBreadcrumb(New RaygunBreadcrumb With {.Message = message, .CustomData = dataDictionary})
     End Sub
-
 End Module

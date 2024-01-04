@@ -406,7 +406,7 @@ Public Class IAIPFacilitySummary
         MapPictureBox.Visible = False
 
         Dim staticMapsUrl As New Text.StringBuilder("https://maps.googleapis.com/maps/api/staticmap?")
-        staticMapsUrl.Append("key=" & GOOGLE_MAPS_API_KEY)
+        staticMapsUrl.Append("key=" & CurrentAppConfig.GoogleMapsApiKey)
         staticMapsUrl.Append("&size=" & MapPictureBox.Width.ToString & "x" & MapPictureBox.Height.ToString)
         staticMapsUrl.Append("&zoom=6&center=32.9,-83.3")
 
@@ -1191,17 +1191,20 @@ Public Class IAIPFacilitySummary
         ReloadFacilityColocationTable()
     End Sub
 
-    Private Sub RemoveColocatedFacility_Click(sender As Object, e As EventArgs) Handles RemoveColocatedFacilities.Click
+    Private Sub RemoveColocatedFacilities_Click(sender As Object, e As EventArgs) Handles RemoveColocatedFacilities.Click
+        RemoveSelectedColocatedFacilities()
+        ReloadFacilityColocationTable()
+    End Sub
+
+    Private Sub RemoveSelectedColocatedFacilities()
         For Each row As DataGridViewRow In ColocatedFacilitiesGrid.SelectedRows
             Dim removeAirsParam As New SqlParameter("@airsNumber", New ApbFacilityId(row.Cells(0).Value).DbFormattedString)
 
             If Not DB.SPRunCommand("iaip_facility.RemoveFacilityFromColocation", {removeAirsParam, UserParam, LocationParam}) Then
                 MessageBox.Show("An unknown error occurred while trying to remove a co-located facility.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit For
+                Return
             End If
         Next
-
-        ReloadFacilityColocationTable()
     End Sub
 
     Private Sub ReloadFacilityColocationTable()

@@ -51,7 +51,7 @@ Public Class SSCPManagersTools
                 .SelectedIndex = 0
             End With
 
-            If DateTime.Today.Month < 10 Then cboFiscalYear.SelectedIndex = 1
+            If Date.Today.Month < 10 Then cboFiscalYear.SelectedIndex = 1
 
             SQL = "SELECT DISTINCT INTYEAR
                 FROM SSCPINSPECTIONSREQUIRED

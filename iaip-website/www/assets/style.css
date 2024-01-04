@@ -569,17 +569,3 @@ a[href="IaipHorizon.application"]:active {
   top: 3px;
   box-shadow: 0px 1px 0px hsl(109, 30%, 75%), 0 2px hsl(109, 25%, 55%);
 }
-
-/* 
-GeorgiaGov Interactive 
-Web Standards and Guidelines » 6.0 Brand Standards » 6.2 Shared Elements
-http://portal.georgia.gov/interactive/web-standards/62-shared-elements
-*/
-
-#gagov_external_blocks-topper {
-  box-sizing: content-box;
-}
-
-#gagov_external_blocks-footer #zone-footer-wrapper {
-  min-height: 200px !important;
-}

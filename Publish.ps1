@@ -2,7 +2,7 @@
 
 $configuration = "Debug"
 $projectDir = "IAIP"
-$publishDir = Join-Path -Path "_publish" -ChildPath $configuration
+$publishDir = Join-Path -Path ".publish" -ChildPath $configuration
 
 # Display configuration before proceeding.
 Write-Output "`n"
@@ -15,7 +15,7 @@ $msBuildPath = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vsw
 -latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe `
 -prerelease | select-object -first 1
 Write-Output "`n"
-Write-Output "=== MSBuild: $((Get-Command $msBuildPath).Path)"
+Write-Output "=== MSBuild location: $((Get-Command $msBuildPath).Path)"
 
 # Remove previous application files.
 Write-Output "`n"
@@ -24,22 +24,26 @@ Push-Location $projectDir
 if (Test-Path $publishDir) {
     Remove-Item -Path $publishDir -Recurse
 }
-Pop-Location
+Write-Output "!== ... done removing previous files"
 
-# Build & publish.
+# Build & create publish files.
 Write-Output "`n"
 Write-Output "=== Restoring"
-& $msBuildPath -target:restore -property:Configuration=$configuration -v:m
+& $msBuildPath -t:restore -p:Configuration=$configuration -p:Platform=x86 -v:m
+Write-Output "!== ... done restoring"
+
 Write-Output "`n"
 Write-Output "=== Building"
-& $msBuildPath -target:rebuild -property:Configuration=$configuration -v:m
+& $msBuildPath -t:rebuild -p:Configuration=$configuration -p:Platform=x86 -v:m
+Write-Output "!== ... done building"
+
 Write-Output "`n"
-Write-Output "=== Publishing"
-& $msBuildPath -target:publish -p:Configuration=$configuration -p:PublishDir=$publishDir -v:m
+Write-Output "=== Creating publish files"
+& $msBuildPath -t:publish -p:Configuration=$configuration -p:Platform=x86 -p:PublishDir=$publishDir -v:m
+Write-Output "!== ... done creating publish files"
 
 # Measure publish size.
-Push-Location $projectDir
 $publishSize = (Get-ChildItem -Path "$publishDir/Application Files" -Recurse | Measure-Object -Property Length -Sum).Sum / 1Mb
 Write-Output "`n"
-Write-Output ("=== Published size: {0:N2} MB" -f $publishSize)
+Write-Output ("=== Published size: {0:N2} MB ===" -f $publishSize)
 Pop-Location

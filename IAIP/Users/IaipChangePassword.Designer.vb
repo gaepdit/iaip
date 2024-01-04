@@ -38,7 +38,6 @@ Partial Class IaipChangePassword
         '
         'Save
         '
-        Me.Save.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Save.Location = New System.Drawing.Point(25, 120)
         Me.Save.Name = "Save"
         Me.Save.Size = New System.Drawing.Size(128, 23)
