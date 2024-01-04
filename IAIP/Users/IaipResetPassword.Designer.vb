@@ -40,7 +40,6 @@ Partial Class IaipResetPassword
         '
         'Save
         '
-        Me.Save.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Save.Location = New System.Drawing.Point(25, 146)
         Me.Save.Name = "Save"
         Me.Save.Size = New System.Drawing.Size(133, 23)

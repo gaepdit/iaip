@@ -34,7 +34,6 @@ Partial Class IaipRequestPasswordReset
         '
         'DoResetPassword
         '
-        Me.DoResetPassword.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.DoResetPassword.Location = New System.Drawing.Point(25, 80)
         Me.DoResetPassword.Name = "DoResetPassword"
         Me.DoResetPassword.Size = New System.Drawing.Size(157, 23)

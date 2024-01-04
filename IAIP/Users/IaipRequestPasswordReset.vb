@@ -1,28 +1,25 @@
 ﻿Imports System.Text
 Imports System.Collections.Generic
+Imports System.Threading.Tasks
 
 Public Class IaipRequestPasswordReset
-
-    Friend Property Message As New IaipMessage
+    Private Property Message As New IaipMessage
     Private Property InvalidEntries As New List(Of Control)
 
-    Private Sub DoResetPassword_Click(sender As Object, e As EventArgs) Handles DoResetPassword.Click
+    Private Async Sub DoResetPassword_Click(sender As Object, e As EventArgs) Handles DoResetPassword.Click
         EP.Clear()
         InvalidEntries.Clear()
         Message.Clear()
 
-        If Not Me.ValidateChildren Then
-            DialogResult = DialogResult.None
-            DisplayInvalidMessage()
+        If ValidateChildren Then
+            If Await ResetPasswordAsync() Then DialogResult = DialogResult.OK
         Else
-            If Not ResetPassword() Then
-                DialogResult = DialogResult.None
-            End If
+            DisplayInvalidMessage()
         End If
     End Sub
 
-    Private Function ResetPassword() As Boolean
-        Dim result As DAL.RequestPasswordResetResponse = DAL.RequestPasswordReset(Username.Text)
+    Private Async Function ResetPasswordAsync() As Task(Of Boolean)
+        Dim result As DAL.RequestPasswordResetResponse = Await DAL.RequestPasswordResetAsync(Username.Text)
         Select Case result
             Case DAL.RequestPasswordResetResponse.Success
                 Return True

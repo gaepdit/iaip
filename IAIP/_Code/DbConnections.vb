@@ -1,4 +1,4 @@
-﻿Imports System.Configuration
+Imports System.Data.SqlClient
 
 Module DbConnections
 
@@ -15,17 +15,17 @@ Module DbConnections
     ''' Returns the database connection string for the current database connection environment
     ''' </summary>
     ''' <returns>A database connection string</returns>
-    ''' <remarks></remarks>
-    Public ReadOnly Property CurrentConnectionString() As String
+    Public ReadOnly Property CurrentConnectionString As String
         Get
-            Dim cs As ConnectionStringSettings = ConfigurationManager.ConnectionStrings("AirbranchDB")
+            If CurrentAppConfig.DatabaseIp = Nothing Then Return Nothing
 
-            If cs Is Nothing Then
-                CloseIaip()
-                Return Nothing
-            Else
-                Return cs.ConnectionString
-            End If
+            Return New SqlConnectionStringBuilder() With {
+                .DataSource = $"{CurrentAppConfig.DatabaseIp},{CurrentAppConfig.DatabasePort}",
+                .UserID = CurrentAppConfig.DatabaseUser,
+                .Password = CurrentAppConfig.DatabasePassword,
+                .PersistSecurityInfo = True,
+                .InitialCatalog = "airbranch"
+            }.ConnectionString
         End Get
     End Property
 

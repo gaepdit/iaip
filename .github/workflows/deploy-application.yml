@@ -1,0 +1,114 @@
+name: Publish IAIP installer
+
+on:
+  push:
+    branches:
+      - deploy/DEV
+      - deploy/UAT
+      - deploy/PROD
+
+jobs:
+  deploy:
+    name: Publish the IAIP installer
+    
+    # ↓ Change this to "false" to disable the workflow without any alert messages.
+    if: ${{ true }}
+    # ↑ Change to "true" (or delete) to enable the workflow.
+    
+    runs-on: windows-latest
+    
+    env:
+      Configuration: ${{ github.ref_name == 'deploy/PROD' && 'Release' || ( github.ref_name == 'deploy/UAT' && 'UAT' || ( github.ref_name == 'deploy/DEV' && 'Debug' || 'Error' ) ) }}
+      AssemblyName: ${{ github.ref_name == 'deploy/PROD' && 'IAIP' || ( github.ref_name == 'deploy/UAT' && 'IaipHorizon' || ( github.ref_name == 'deploy/DEV' && 'IaipDev' || 'Error' ) ) }}
+      CodeBranch: code
+      ProjectPath: code\IAIP
+      ProjectName: IAIP.vbproj
+      ManifestKeyFile: IAIP_Key.pfx
+      PublishDir: .publish
+      PublishPath: code\IAIP\.publish
+      WebsiteBranch: gh-pages
+      WebsiteSource: code\iaip-website\www\*
+      WebsiteDestination: gh-pages\docs
+      InstallerPath: ${{ github.ref_name == 'deploy/PROD' && 'gh-pages\docs\install' || ( github.ref_name == 'deploy/UAT' && 'gh-pages\docs\uat' || ( github.ref_name == 'deploy/DEV' && 'gh-pages\docs\dev' || 'Error' ) ) }}
+      
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with:
+          path: ${{ env.CodeBranch }}
+          sparse-checkout: |
+            IAIP
+            iaip-website
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Restore application
+        working-directory: ${{ env.ProjectPath }}
+        run: msbuild -t:restore -p:Configuration=$env:Configuration -p:Platform=x86 -v:m $env:ProjectName
+
+      - name: Decode the PFX certificate
+        working-directory: ${{ env.ProjectPath }}
+        run: |
+          $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.BASE64_ENCODED_PFX }}")
+          [IO.File]::WriteAllBytes("$env:ManifestKeyFile", $pfx_cert_byte)
+
+      - name: Build the application
+        working-directory: ${{ env.ProjectPath }}
+        run: msbuild -t:rebuild -p:Configuration=$env:Configuration -p:Platform=x86 -v:m $env:ProjectName
+
+      - name: Build the deployment files
+        working-directory: ${{ env.ProjectPath }}
+        run: msbuild -t:publish -p:Configuration=$env:Configuration -p:Platform=x86 -p:PublishDir=$env:PublishDir -p:SignManifests=true -p:ManifestKeyFile=$env:ManifestKeyFile -p:ManifestCertificateThumbprint=${{ secrets.PFX_THUMBPRINT }} -v:m $env:ProjectName
+
+      - name: Remove the PFX certificate
+        if: always()
+        working-directory: ${{ env.ProjectPath }}
+        run: |
+          if(Test-Path $env:ManifestKeyFile) 
+          { 
+            Remove-Item -path $env:ManifestKeyFile 
+          }
+
+      - name: Calculate published size
+        working-directory: ${{ env.ProjectPath }}
+        run: |
+          $publishSize = (Get-ChildItem -Path "$env:PublishDir\Application Files" -Recurse | Measure-Object -Property Length -Sum).Sum / 1Mb
+          Write-Output ("Published size: {0:N2} MB" -f $publishSize)
+
+      - name: Checkout website branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.WebsiteBranch }}
+          path: ${{ env.WebsiteBranch }}
+
+      - name: Remove previous installer files
+        working-directory: ${{ env.InstallerPath }}
+        run: |
+          if (Test-Path "Application Files")
+          {
+            Remove-Item -Path "Application Files" -Recurse
+          }
+          if (Test-Path "$env:AssemblyName.application") {
+            Remove-Item -Path "$env:AssemblyName.application"
+          }
+
+      - name: Copy new installer files
+        run: |
+          Copy-Item -Path "$env:PublishPath\Application Files", "$env:PublishPath\$env:AssemblyName.application" -Destination $env:InstallerPath -Recurse
+
+      - name: Copy website HTML files (if Prod)
+        if: github.ref_name == 'deploy/PROD'
+        run: |
+          Copy-Item -Path "$env:WebsiteSource" -Destination "$env:WebsiteDestination" -Recurse -Force
+
+      - name: Commit new files
+        working-directory: ${{ env.WebsiteBranch }}
+        run: |
+          # https://github.com/orgs/community/discussions/26560#discussioncomment-3252339
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add .
+          git commit -m "Update IAIP installer from ${{ github.ref_name }}"
+          git push
+          git log --name-status -1

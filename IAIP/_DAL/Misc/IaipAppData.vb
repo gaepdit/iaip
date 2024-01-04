@@ -3,25 +3,17 @@
 Namespace DAL
     Module IaipAppData
 
-        Private Function AppIsEnabled() As Boolean
-            Dim spName As String = "dbo.IsIaipCurrent"
-
-            Try
-                Dim dr As DataRow = DB.SPGetDataRow(spName)
-                If dr Is Nothing Then Return False
-                If Not CBool(dr("Enabled")) Then Return False
-                Dim minVer As New Version(dr("MinimumVersion"))
-                Return GetCurrentVersionAsMajorMinorBuild().CompareTo(minVer) >= 0
-            Catch ex As Exception
-                Console.WriteLine(ex.ToString)
-                Return False
-            End Try
+        Private Async Function AppIsEnabledAsync() As Task(Of Boolean)
+            Dim result As IaipStatusResult = Await CheckIaipStatusApiAsync().ConfigureAwait(False)
+            If Not result.Enabled Then Return False
+            Dim minVer As New Version(result.MinimumVersion)
+            Return GetCurrentVersionAsMajorMinorBuild().CompareTo(minVer) >= 0
         End Function
 
         Public Async Function IsIaipEnabledAsync() As Task(Of Boolean)
             Return Await Task.Run(
             Function()
-                Return AppIsEnabled()
+                Return AppIsEnabledAsync()
             End Function
             ).ConfigureAwait(False)
         End Function

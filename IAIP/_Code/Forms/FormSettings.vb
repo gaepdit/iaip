@@ -1,5 +1,5 @@
 ﻿Imports System.Collections.Generic
-Imports Jil
+Imports System.Text.Json
 
 Module FormSettings
 
@@ -14,13 +14,13 @@ Module FormSettings
 
     Friend Function GetAllFormSettings() As Dictionary(Of String, Dictionary(Of String, String))
         If My.Settings.SerializedFormSettings <> "" Then
-            Return JSON.Deserialize(Of Dictionary(Of String, Dictionary(Of String, String)))(My.Settings.SerializedFormSettings)
+            Return JsonSerializer.Deserialize(Of Dictionary(Of String, Dictionary(Of String, String)))(My.Settings.SerializedFormSettings)
         End If
         Return New Dictionary(Of String, Dictionary(Of String, String))
     End Function
 
     Friend Sub SaveAllFormSettings()
-        My.Settings.SerializedFormSettings = JSON.Serialize(AllFormSettings)
+        My.Settings.SerializedFormSettings = JsonSerializer.Serialize(AllFormSettings)
     End Sub
 
     ' Public function for retrieving form settings

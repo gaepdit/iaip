@@ -565,11 +565,8 @@ appsettings.*.json
 # Code coverage report from ReportGenerator
 coveragereport/
 
-#######################
-### IAIP modifications
-
-# Signing key
-!*.pfx
+# Temporary encoded signing certificate file
+SigningCertificate_Encoded.txt
 
 # Publish folder from script
-_publish/
+.publish/
