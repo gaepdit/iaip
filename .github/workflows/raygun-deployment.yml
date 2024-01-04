@@ -5,7 +5,7 @@ name: Raygun Deployment Tracking
 # Production tags in this repository begin with "version6/"
 on:
   push:
-    tags: version6/*
+    tags: v7/*
 
 jobs:
   raygun-deployment:
