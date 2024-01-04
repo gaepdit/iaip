@@ -3,26 +3,33 @@
 Public Module IaipNetworkTester
 
     Public Async Function GetIaipNetworkStatusAsync() As Task(Of IaipNetworkStatus)
-        If Await IsDbPingableAsync().ConfigureAwait(False) Then
+        Dim networkStatus As NetworkCheckResponse = Await GetNetworkStatusAsync().ConfigureAwait(False)
+
+        Select Case networkStatus
+            Case NetworkCheckResponse.OutOfNetwork
+                Return IaipNetworkStatus.NoVpn
+        End Select
+
+        Try
+
             If Await DAL.IsIaipEnabledAsync().ConfigureAwait(False) Then
                 Return IaipNetworkStatus.Enabled
             End If
 
             Return IaipNetworkStatus.AppDisabled
-        End If
 
-        Select Case Await GetNetworkStatusAsync().ConfigureAwait(False)
-            Case NetworkCheckResponse.InNetwork,
-                 NetworkCheckResponse.OnVpn
-                Return IaipNetworkStatus.NoDb
+        Catch ex As Exception
 
-            Case NetworkCheckResponse.OutOfNetwork
-                Return IaipNetworkStatus.NoVpn
+            Select Case networkStatus
+                Case NetworkCheckResponse.InNetwork, NetworkCheckResponse.OnVpn
+                    Return IaipNetworkStatus.NoDb
 
-            Case Else
-                Return IaipNetworkStatus.NoInternet
+                Case Else
+                    Return IaipNetworkStatus.NoInternet
+            End Select
 
-        End Select
+        End Try
+
     End Function
 
 End Module

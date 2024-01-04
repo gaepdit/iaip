@@ -1,15 +1,27 @@
-Imports System.Configuration
 Imports System.Net
+Imports GaEpd
 
 ''' <summary>
 ''' Global variables and constants
 ''' </summary>
 Module AppGlobals
-
     ' DB connections
 
     Friend CurrentServerEnvironment As ServerEnvironment = ServerEnvironment.Production
-    Friend DB As GaEpd.DBHelper
+    Friend DB As DBHelper
+
+    ' App config
+
+    Friend CurrentAppConfig As AppConfig
+
+    Public Class AppConfig
+        Public Property DatabaseIp As String
+        Public Property DatabasePort As String
+        Public Property DatabaseUser As String
+        Public Property DatabasePassword As String
+        Public Property GoogleMapsApiKey As String
+        Public Property RaygunApiKey As String
+    End Class
 
     ' User info
 
@@ -33,10 +45,6 @@ Module AppGlobals
     Friend Const APP_ROOT_NAMESPACE As String = "Iaip"
     Friend Const MIN_USERNAME_LENGTH As Integer = 3
     Friend Const MIN_PASSWORD_LENGTH As Integer = 3
-
-    ' API keys
-
-    Friend ReadOnly GOOGLE_MAPS_API_KEY As String = ConfigurationManager.AppSettings("GOOGLE_MAPS_API_KEY")
 
     ' String formats 
 
@@ -66,5 +74,4 @@ Module AppGlobals
     Public Const MIN_FCE_SPAN_CLASS_A As Integer = 2 ' Years
     Public Const MIN_FCE_SPAN_CLASS_SM As Integer = 5 ' Years
     Public Const MIN_FCE_SPAN_CLASS_M As Integer = 7 ' Years
-
 End Module

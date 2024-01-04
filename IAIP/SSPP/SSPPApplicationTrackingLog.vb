@@ -4105,7 +4105,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub ReLoadBasicFacilityInfo()
-        ' TODO is this the same as LoadBasicFacilityData?
         Try
             Dim Facilityname As String = "N/A"
             Dim FacilityStreet As String = "N/A"
@@ -10762,7 +10761,9 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvSIPSubpartAddEdit.Rows.RemoveAt(i)
+#Disable Warning S2589 ' Boolean expressions should not be gratuitous
                 TempRemove = TempRemove?.Replace(i & ",", "")
+#Enable Warning S2589 ' Boolean expressions should not be gratuitous
             Loop
 
         Catch ex As Exception
@@ -11603,7 +11604,9 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvNSPSSubpartAddEdit.Rows.RemoveAt(i)
+#Disable Warning S2589 ' Boolean expressions should not be gratuitous
                 TempRemove = TempRemove?.Replace(i & ",", "")
+#Enable Warning S2589 ' Boolean expressions should not be gratuitous
             Loop
 
         Catch ex As Exception
@@ -12448,7 +12451,9 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvNESHAPSubpartAddEdit.Rows.RemoveAt(i)
+#Disable Warning S2589 ' Boolean expressions should not be gratuitous
                 TempRemove = TempRemove?.Replace(i & ",", "")
+#Enable Warning S2589 ' Boolean expressions should not be gratuitous
             Loop
 
         Catch ex As Exception
@@ -13296,7 +13301,9 @@ Public Class SSPPApplicationTrackingLog
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
                 dgvMACTSubpartAddEdit.Rows.RemoveAt(i)
+#Disable Warning S2589 ' Boolean expressions should not be gratuitous
                 TempRemove = TempRemove?.Replace(i & ",", "")
+#Enable Warning S2589 ' Boolean expressions should not be gratuitous
             Loop
 
         Catch ex As Exception

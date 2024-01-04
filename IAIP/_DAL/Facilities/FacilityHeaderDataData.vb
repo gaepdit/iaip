@@ -180,11 +180,11 @@ Namespace DAL
                 New SqlParameter("@modifiedBy", CurrentUser.UserID)
             }
 
-            If activeApcList IsNot Nothing AndAlso activeApcList.Count > 0 Then
+            If activeApcList.Count > 0 Then
                 params.Add(activeApcList.AsTvpSqlParameter("@activeApcList"))
             End If
 
-            If inactiveApcList IsNot Nothing AndAlso inactiveApcList.Count > 0 Then
+            If inactiveApcList.Count > 0 Then
                 params.Add(inactiveApcList.AsTvpSqlParameter("@inactiveApcList"))
             End If
 

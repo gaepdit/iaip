@@ -9,7 +9,7 @@ Public Class IaipChangePassword
     Private Sub IaipChangePassword_Load(sender As Object, e As EventArgs) Handles Me.Load
         If CurrentUser Is Nothing Then
             MessageBox.Show("Something has gone awry.", "Unknown error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Me.Close()
+            Close()
         End If
     End Sub
 
@@ -18,10 +18,9 @@ Public Class IaipChangePassword
         InvalidEntries.Clear()
         Message.Clear()
 
-        If Me.ValidateChildren Then
-            If Not SavePassword() Then DialogResult = DialogResult.None
+        If ValidateChildren Then
+            If SavePassword() Then DialogResult = DialogResult.OK
         Else
-            DialogResult = DialogResult.None
             DisplayInvalidMessage()
         End If
     End Sub
@@ -32,16 +31,16 @@ Public Class IaipChangePassword
             Case DAL.PasswordUpdateResponse.Success
                 Return True
             Case DAL.PasswordUpdateResponse.InvalidUsername
-                Dim errorMsg As String = "User does not exist. Password not changed."
+                Const errorMsg As String = "User does not exist. Password not changed."
                 Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.ErrorReport)
                 Message.Display(MessageDisplay)
             Case DAL.PasswordUpdateResponse.InvalidLogin
-                Dim errorMsg As String = "The current password is incorrect. Password not changed."
+                Const errorMsg As String = "The current password is incorrect. Password not changed."
                 PasswordEP.SetError(CurrentPassword, errorMsg)
                 Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.ErrorReport)
                 Message.Display(MessageDisplay)
             Case DAL.PasswordUpdateResponse.InvalidNewPassword
-                Dim errorMsg As String = "The new password is not valid. Password not changed."
+                Const errorMsg As String = "The new password is not valid. Password not changed."
                 PasswordEP.SetError(NewPassword, errorMsg)
                 Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.ErrorReport)
                 Message.Display(MessageDisplay)
@@ -64,9 +63,9 @@ Public Class IaipChangePassword
         Message.Display(MessageDisplay)
     End Sub
 
-#Region " Field validation "
+    ' Field validation
 
-    Private Sub CurrentPassword_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CurrentPassword.Validating
+    Private Sub CurrentPassword_Validating(sender As Object, e As ComponentModel.CancelEventArgs) Handles CurrentPassword.Validating
         If String.IsNullOrEmpty(CurrentPassword.Text) Then
             PasswordEP.SetError(CurrentPassword, "Enter current password")
             If Not InvalidEntries.Contains(CurrentPassword) Then InvalidEntries.Add(CurrentPassword)
@@ -76,7 +75,7 @@ Public Class IaipChangePassword
         End If
     End Sub
 
-    Private Sub NewPasswordTextBox_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles NewPassword.Validating
+    Private Sub NewPasswordTextBox_Validating(sender As Object, e As ComponentModel.CancelEventArgs) Handles NewPassword.Validating
         Select Case IsValidPassword(NewPassword.Text)
             Case StringValidationResult.Empty
                 PasswordEP.SetError(NewPassword, "Enter new password")
@@ -102,7 +101,7 @@ Public Class IaipChangePassword
         End Select
     End Sub
 
-    Private Sub ConfirmPasswordTextBox_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ConfirmPassword.Validating
+    Private Sub ConfirmPasswordTextBox_Validating(sender As Object, e As ComponentModel.CancelEventArgs) Handles ConfirmPassword.Validating
         If String.IsNullOrEmpty(ConfirmPassword.Text) Then
             PasswordEP.SetError(ConfirmPassword, "Repeat new password to confirm")
             If Not InvalidEntries.Contains(ConfirmPassword) Then InvalidEntries.Add(ConfirmPassword)
@@ -115,7 +114,5 @@ Public Class IaipChangePassword
             PasswordEP.SetError(ConfirmPassword, String.Empty)
         End If
     End Sub
-
-#End Region
 
 End Class

@@ -7,7 +7,7 @@ Public Class IAIPLogIn
 
 #Region " Properties "
 
-    Private ReadOnly synchronizationContext As WindowsFormsSynchronizationContext
+    Private ReadOnly _synchronizationContext As WindowsFormsSynchronizationContext
     Private _message As IaipMessage
 
     Private Property Message As IaipMessage
@@ -27,7 +27,7 @@ Public Class IAIPLogIn
 
     Public Sub New()
         InitializeComponent()
-        synchronizationContext = CType(Threading.SynchronizationContext.Current, WindowsFormsSynchronizationContext)
+        _synchronizationContext = CType(SynchronizationContext.Current, WindowsFormsSynchronizationContext)
     End Sub
 
 
@@ -61,7 +61,7 @@ Public Class IAIPLogIn
             sessionLogin = Await CheckUserSavedSessionAsync().ConfigureAwait(False)
         End If
 
-        synchronizationContext.Post(
+        _synchronizationContext.Post(
             New SendOrPostCallback(
             Sub()
                 SetUpLoginUi(sessionLogin)
@@ -71,7 +71,7 @@ Public Class IAIPLogIn
 
     Private Sub SetUpLoginUi(sessionLogin As Boolean)
         If sessionLogin Then
-            LogInAlready()
+            StartUsingTheIaip()
         End If
 
         Select Case NetworkStatus
@@ -193,53 +193,60 @@ Public Class IAIPLogIn
 
 #Region " Login "
 
-    Private Sub LogInCheck()
+    Private Sub LogInPreCheck()
         Cursor = Cursors.WaitCursor
         If Message IsNot Nothing Then Message.Clear()
         ForgotPasswordLink.Visible = False
         ForgotUsernameLink.Visible = False
-
-        If String.IsNullOrEmpty(txtUserID.Text) OrElse String.IsNullOrEmpty(txtUserPassword.Text) Then
-            CancelLogin(True)
-        Else
-            Dim authenticationResult As DAL.IaipAuthenticationResult = DAL.AuthenticateIaipUser(txtUserID.Text, txtUserPassword.Text)
-
-            Select Case authenticationResult
-                Case DAL.IaipAuthenticationResult.InvalidUsername
-                    Message = New IaipMessage("That Username does not exist.", IaipMessage.WarningLevels.ErrorReport)
-                    ForgotUsernameLink.Visible = True
-                    CancelLogin(True)
-
-                Case DAL.IaipAuthenticationResult.InactiveUser
-                    Message = New IaipMessage("Your user status has been flagged as inactive.", IaipMessage.WarningLevels.ErrorReport)
-                    CancelLogin(True)
-
-                Case DAL.IaipAuthenticationResult.InvalidLogin
-                    Message = New IaipMessage("Login information is incorrect.", IaipMessage.WarningLevels.ErrorReport)
-                    ForgotPasswordLink.Visible = True
-                    CancelLogin(False)
-
-                Case DAL.IaipAuthenticationResult.Success
-                    CurrentUser = DAL.GetIaipUserByUsername(txtUserID.Text)
-                    If CurrentUser Is Nothing Then
-                        Message = New IaipMessage("There was a system error. Please contact support.", IaipMessage.WarningLevels.ErrorReport)
-                        CancelLogin(False)
-                    ElseIf CurrentUser.RequirePasswordChange Then
-                        RequirePasswordUpdate()
-                        CancelLogin(True)
-                    ElseIf Not ValidateUserData() Then
-                        Message = New IaipMessage("Your profile must be completed before you can use the IAIP.", IaipMessage.WarningLevels.Warning)
-                        CancelLogin(False)
-                    Else
-                        UpdateSession(chkRemember.Checked)
-                        LogInAlready()
-                    End If
-
-            End Select
-        End If
+        btnLoginButton.Enabled = False
     End Sub
 
-    Private Sub LogInAlready()
+    Private Async Function LogInCheckAsync() As Task(Of DAL.IaipAuthenticationResult)
+        If String.IsNullOrEmpty(txtUserID.Text) OrElse String.IsNullOrEmpty(txtUserPassword.Text) Then
+            CancelLogin(True)
+            Return Nothing
+        Else
+            Return Await DAL.AuthenticateIaipUserAsync(txtUserID.Text, txtUserPassword.Text).ConfigureAwait(False)
+        End If
+    End Function
+
+    Private Sub LogInPostCheck(authenticationResult As DAL.IaipAuthenticationResult)
+        Select Case authenticationResult
+            Case DAL.IaipAuthenticationResult.InvalidUsername
+                Message = New IaipMessage("That Username does not exist.", IaipMessage.WarningLevels.ErrorReport)
+                ForgotUsernameLink.Visible = True
+                CancelLogin(True)
+
+            Case DAL.IaipAuthenticationResult.InactiveUser
+                Message = New IaipMessage("Your user status has been flagged as inactive.", IaipMessage.WarningLevels.ErrorReport)
+                CancelLogin(True)
+
+            Case DAL.IaipAuthenticationResult.InvalidLogin
+                Message = New IaipMessage("Login information is incorrect.", IaipMessage.WarningLevels.ErrorReport)
+                ForgotPasswordLink.Visible = True
+                CancelLogin(False)
+
+            Case DAL.IaipAuthenticationResult.Success
+                CurrentUser = DAL.GetIaipUserByUsername(txtUserID.Text)
+
+                If CurrentUser Is Nothing Then
+                    Message = New IaipMessage("There was a system error. Please contact support.", IaipMessage.WarningLevels.ErrorReport)
+                    CancelLogin(False)
+                ElseIf CurrentUser.RequirePasswordChange Then
+                    RequirePasswordUpdate()
+                    CancelLogin(True)
+                ElseIf Not ValidateUserData() Then
+                    Message = New IaipMessage("Your profile must be completed before you can use the IAIP.", IaipMessage.WarningLevels.Warning)
+                    CancelLogin(False)
+                Else
+                    UpdateSession(chkRemember.Checked)
+                    StartUsingTheIaip()
+                End If
+
+        End Select
+    End Sub
+
+    Private Sub StartUsingTheIaip()
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
         OpenSingleForm(IAIPNavigation)
@@ -253,6 +260,7 @@ Public Class IAIPLogIn
         If clearPasswordField Then txtUserPassword.Clear()
         FocusLogin()
         Cursor = Cursors.Default
+        btnLoginButton.Enabled = True
     End Sub
 
     Private Sub RequirePasswordUpdate()
@@ -284,7 +292,7 @@ Public Class IAIPLogIn
                 End If
             End Using
 
-        ElseIf Not IsValidEmailAddress(CurrentUser.EmailAddress, True) Then
+        ElseIf Not CurrentUser.EmailAddress.IsValidEmailAddress(True) Then
 
             Using editProfile As New IaipUserProfile
                 editProfile.Message = New IaipMessage("Your profile must be updated with a valid DNR email address.", IaipMessage.WarningLevels.Info)
@@ -308,8 +316,9 @@ Public Class IAIPLogIn
         Return True
     End Function
 
-    Private Sub btnLoginButton_Click(sender As Object, e As EventArgs) Handles btnLoginButton.Click
-        LogInCheck()
+    Private Async Sub btnLoginButton_ClickAsync(sender As Object, e As EventArgs) Handles btnLoginButton.Click
+        LogInPreCheck()
+        LogInPostCheck(Await LogInCheckAsync())
     End Sub
 
 #End Region
@@ -441,7 +450,7 @@ Public Class IAIPLogIn
         IaipAbout.ShowDialog()
     End Sub
 
-    Private Sub IAIPLogIn_HelpButtonClicked(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
+    Private Sub IAIPLogIn_HelpButtonClicked(sender As Object, e As ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
         OpenSupportUrl(Me)
     End Sub
 

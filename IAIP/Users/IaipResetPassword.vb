@@ -1,5 +1,6 @@
 ﻿Imports System.Text
 Imports System.Collections.Generic
+Imports System.Threading.Tasks
 
 Public Class IaipResetPassword
 
@@ -15,42 +16,41 @@ Public Class IaipResetPassword
         If Username.Text <> "" Then Token.Focus()
     End Sub
 
-    Private Sub Save_Click(sender As Object, e As EventArgs) Handles Save.Click
+    Private Async Sub Save_Click(sender As Object, e As EventArgs) Handles Save.Click
         EP.Clear()
         InvalidEntries.Clear()
         Message.Clear()
 
-        If Me.ValidateChildren Then
-            If Not SavePassword() Then DialogResult = DialogResult.None
+        If ValidateChildren Then
+            If Await SavePasswordAsync() Then DialogResult = DialogResult.OK
         Else
-            DialogResult = DialogResult.None
             DisplayInvalidMessage()
         End If
     End Sub
 
-    Private Function SavePassword() As Boolean
-        Dim result As DAL.ResetPasswordResponse = DAL.ResetUserPassword(Username.Text, NewPassword.Text, Token.Text)
+    Private Async Function SavePasswordAsync() As Task(Of Boolean)
+        Dim result As DAL.ResetPasswordResponse = Await DAL.ResetUserPasswordAsync(Username.Text, NewPassword.Text, Token.Text)
 
         Select Case result
             Case DAL.ResetPasswordResponse.Success
                 Return True
             Case DAL.ResetPasswordResponse.InvalidNewPassword
-                Dim errorMsg As String = "The new password is not valid. Password not changed."
+                Const errorMsg As String = "The new password is not valid. Password not changed."
                 EP.SetError(NewPassword, errorMsg)
                 Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.ErrorReport)
                 Message.Display(MessageDisplay)
             Case DAL.ResetPasswordResponse.InvalidToken
-                Dim errorMsg As String = "The password reset token is not valid. Password not changed."
+                Const errorMsg As String = "The password reset token is not valid. Password not changed."
                 EP.SetError(Token, errorMsg)
                 Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.ErrorReport)
                 Message.Display(MessageDisplay)
             Case DAL.ResetPasswordResponse.InvalidUsername
-                Dim errorMsg As String = "No account exists with that username."
+                Const errorMsg As String = "No account exists with that username."
                 EP.SetError(Username, errorMsg)
                 Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.Warning)
                 Message.Display(MessageDisplay)
             Case DAL.ResetPasswordResponse.MaxAttemptsExceeded
-                Dim errorMsg As String = "Maximum number of attempts exceeded."
+                Const errorMsg As String = "Maximum number of attempts exceeded."
                 Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.Warning)
                 Message.Display(MessageDisplay)
                 DisableForm()

@@ -42,13 +42,13 @@ Namespace DAL
                 dt.Columns.Add("Key", GetType(String))
                 dt.Columns.Add("Description", GetType(String))
                 For Each ap As AirPrograms In airPrograms.GetUniqueFlags
-                    dt.Rows.Add({ap.ToString, ap.GetDescription})
+                    dt.Rows.Add(ap.ToString, ap.GetDescription)
                 Next
             Else
                 dt.Columns.Add("Key", GetType(AirPrograms))
                 dt.Columns.Add("Description", GetType(String))
                 For Each ap As AirPrograms In airPrograms.GetUniqueFlags
-                    dt.Rows.Add({ap, ap.GetDescription})
+                    dt.Rows.Add(ap, ap.GetDescription)
                 Next
             End If
 

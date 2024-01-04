@@ -34,7 +34,6 @@ Partial Class IaipRequestUsername
         '
         'DoRequestUsername
         '
-        Me.DoRequestUsername.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.DoRequestUsername.Location = New System.Drawing.Point(25, 80)
         Me.DoRequestUsername.Name = "DoRequestUsername"
         Me.DoRequestUsername.Size = New System.Drawing.Size(157, 23)

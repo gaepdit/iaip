@@ -1345,7 +1345,7 @@ Public Class EisTool
                     New SqlParameter("@inventoryYear", EISConfirm)
                 }
 
-                ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
+                ' FUTURE: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
@@ -1404,7 +1404,7 @@ Public Class EisTool
                     New SqlParameter("@inventoryYear", EISConfirm)
                 }
 
-                ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
+                ' FUTURE: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value AndAlso dgvEISStats(6, i).Value = "No" Then
@@ -1436,7 +1436,7 @@ Public Class EisTool
                     New SqlParameter("@inventoryYear", EISConfirm)
                 }
 
-                ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
+                ' FUTURE: Change to table-valued parameter instead of dynamically built "IN" list
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value AndAlso dgvEISStats(6, i).Value = "Yes" Then
                         paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
@@ -2389,9 +2389,9 @@ Public Class EisTool
                 Else
                     txtEISStatsMailoutCreateDate.Text = dr.Item("CreateDateTime")
                 End If
-            End If
 
-            If txtEISStatsMailoutFacilityName.Text = "" Then
+            Else
+
                 SQL = "SELECT * " &
                     "FROM " &
                     "  (SELECT dt_EIContact.STRAIRSNUMBER, fi.STRFACILITYNAME, " &
@@ -2486,9 +2486,9 @@ Public Class EisTool
                     " WHERE STRAIRSNUMBER = @STRAIRSNUMBER "
                 Dim param As New SqlParameter("@strAIRSnumber", "0413" & txtEISStatsMailoutAIRSNumber.Text)
 
-                Dim dr2 As DataRow = DB.GetDataRow(SQL, param)
+                dr = DB.GetDataRow(SQL, param)
 
-                If dr2 IsNot Nothing Then
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         txtEISStatsMailoutFacilityName.Clear()
                     Else
@@ -2558,8 +2558,10 @@ Public Class EisTool
                     End If
                 End If
 
-                btnAddtoEISMailout.Visible = True
+            End If
 
+            If dr IsNot Nothing Then
+                btnAddtoEISMailout.Visible = True
             End If
 
         Catch ex As Exception
@@ -2622,7 +2624,7 @@ Public Class EisTool
                     New SqlParameter("@UpdateUser", CurrentUser.AlphaName)
                 }
 
-                ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
+                ' FUTURE: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value Then
