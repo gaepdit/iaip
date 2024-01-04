@@ -45,9 +45,7 @@
 #Region " Methods "
 
         Public Function RetrieveHeaderData() As Facility
-            If Me IsNot Nothing Then
-                HeaderData = DAL.GetFacilityHeaderData(AirsNumber)
-            End If
+            HeaderData = DAL.GetFacilityHeaderData(AirsNumber)
             Return Me
         End Function
 

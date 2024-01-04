@@ -187,7 +187,7 @@ Public Class IAIPEditFacilityLocation
 
         Comments = txtComments.Text
 
-        If String.Join("", {FacilityName, Street1, Street2, City, State, ZipCode, Longitude, Latitude}) = "" Then
+        If String.Join("", FacilityName, Street1, Street2, City, State, ZipCode, Longitude, Latitude) = "" Then
             MessageBox.Show("No data has been modified")
             Return
         End If

@@ -2,8 +2,8 @@ Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Linq
+Imports System.Text.Json
 Imports Iaip.Apb.Facilities
-Imports Jil
 
 Public Class IAIPQueryGenerator
     Dim query As String
@@ -154,7 +154,7 @@ Public Class IAIPQueryGenerator
             dtcboSSCPUnitSearch2 = dtcboSSCPUnitSearch1.Copy
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2047,7 +2047,7 @@ Public Class IAIPQueryGenerator
                     .Value = p.Value.ToString()
                 }).ToArray()
 
-            Dim queryInfo As String = JSON.Serialize(
+            Dim queryInfo As String = JsonSerializer.Serialize(
                 New QueryGeneratorValues() With {
                     .Parameters = qParams,
                     .GeneratedQuery = MainSql
@@ -2423,24 +2423,24 @@ Public Class IAIPQueryGenerator
                     .Value = p.Value.ToString()
                 }).ToArray()
 
-            Dim queryInfo As String = JSON.Serialize(
+            Dim queryInfo As String = JsonSerializer.Serialize(
                 New QueryGeneratorValues() With {
                     .Parameters = qParams,
                     .GeneratedQuery = MainSql
                 })
 
-            ErrorReport(ex, queryInfo, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, queryInfo, Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Class QueryGeneratorValues
-        Public Parameters As QueryGeneratorParameter()
-        Public GeneratedQuery As String
+        Public Property Parameters As QueryGeneratorParameter()
+        Public Property GeneratedQuery As String
     End Class
 
     Private Class QueryGeneratorParameter
-        Public Value As String
-        Public ParameterName As String
+        Public Property Value As String
+        Public Property ParameterName As String
     End Class
 
     Sub ExportToExcel()
@@ -2688,7 +2688,7 @@ Public Class IAIPQueryGenerator
             cboSSCPUnitSearch2.SelectedIndex = -1
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub ResizeFilter()
@@ -2701,7 +2701,7 @@ Public Class IAIPQueryGenerator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub UpdateDefaultSearch()
@@ -3027,7 +3027,7 @@ Public Class IAIPQueryGenerator
             End Using
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -3437,7 +3437,7 @@ Public Class IAIPQueryGenerator
             End Using
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -3523,7 +3523,7 @@ Public Class IAIPQueryGenerator
             dgvQueryGenerator.Columns("IssuanceDate").HeaderText = "Issued Date"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

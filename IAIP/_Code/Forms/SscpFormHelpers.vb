@@ -48,7 +48,7 @@ Module SscpFormHelpers
                 .AirsNumber = airsNumber
             }
 
-            If SSCPFCE IsNot Nothing AndAlso Not SSCPFCE.IsDisposed Then
+            If Not SSCPFCE.IsDisposed Then
                 SSCPFCE.Show()
                 If Not String.IsNullOrEmpty(year) Then
                     SSCPFCE.SetFceYear(CInt(year))

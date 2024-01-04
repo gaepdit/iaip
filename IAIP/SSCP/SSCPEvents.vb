@@ -536,7 +536,6 @@ Public Class SSCPEvents
         End If
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Minor Code Smell", "S1643:Strings should not be concatenated using ""+"" or ""&"" in a loop", Justification:="Minor")>
     Private Sub DisplayEnforcementCases()
         Dim dt As DataTable = DAL.Sscp.GetAllEnforcementForTrackingNumber(TrackingNumber)
         If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
@@ -1963,7 +1962,7 @@ Public Class SSCPEvents
                     rdbACCResubmittalRequestedUnknown.Checked = False
                 End If
             Else
-                dtpAccReportingYear.Value = DateTime.Today.AddYears(-1)
+                dtpAccReportingYear.Value = Date.Today.AddYears(-1)
                 dtpAccReportingYear.Checked = True
             End If
 

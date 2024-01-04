@@ -481,7 +481,7 @@ Public Class SscpDocuments
             .DocumentTypeId = row.Cells("DocumentTypeId").Value
             .FileName = row.Cells("FileName").Value
             .FileSize = row.Cells("FileSize").Value
-            .UploadDate = DateTime.Parse(row.Cells("UploadDate").Value)
+            .UploadDate = Date.Parse(row.Cells("UploadDate").Value)
         End With
         Return doc
     End Function

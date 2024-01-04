@@ -31,8 +31,8 @@ Friend Module StartupShutdown
         ' Initialize form settings
         AllFormSettings = GetAllFormSettings()
 
-        ' DB Environment
-        SetUpDbServerEnvironment()
+        ' Server Environment
+        SetServerEnvironment()
 
         Return True
     End Function
@@ -57,17 +57,16 @@ Friend Module StartupShutdown
     Friend Sub LogOutUser()
         UpdateSession(False)
         CurrentUser = Nothing
+        CurrentAppConfig = Nothing
+        DB = Nothing
         Array.Clear(AccountFormAccess, 0, AccountFormAccess.Length)
     End Sub
 
-    Private Sub SetUpDbServerEnvironment()
+    Private Sub SetServerEnvironment()
         ' Set current server environment based on environment
         If Not [Enum].TryParse(ConfigurationManager.AppSettings("Environment"), CurrentServerEnvironment) Then
             CloseIaip()
         End If
-
-        ' Create GaEpd.DBHelper object based on current server environment
-        DB = New GaEpd.DBHelper(CurrentConnectionString)
     End Sub
 
     Private Sub Application_ThreadException(sender As Object, e As Threading.ThreadExceptionEventArgs)
