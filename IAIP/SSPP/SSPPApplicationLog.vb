@@ -490,7 +490,11 @@ Public Class SSPPApplicationLog
 
             Select Case FieldType1
                 Case "AIRS No."
-                    SQLSearch1 = " m.strAIRSNumber like @SearchText1 "
+                    If String.IsNullOrWhiteSpace(SearchText1) Then
+                        SQLSearch1 = " 1 = 1 "
+                    Else
+                        SQLSearch1 = " m.strAIRSNumber like @SearchText1 "
+                    End If
                 Case "Applicable Rules"
                     Select Case SearchText1b
                         Case "Any Rule"
@@ -515,7 +519,11 @@ Public Class SSPPApplicationLog
                             SQLSearch1 = " "
                     End Select
                 Case "Application No."
-                    SQLSearch1 = " m.strApplicationNumber like @SearchText1 "
+                    If String.IsNullOrWhiteSpace(SearchText1) Then
+                        SQLSearch1 = " 1 = 1 "
+                    Else
+                        SQLSearch1 = " m.strApplicationNumber like @SearchText1 "
+                    End If
                 Case "Application Status"
                     Select Case SearchText1b
                         Case "0 - Unassigned"
@@ -563,7 +571,11 @@ Public Class SSPPApplicationLog
                         SQLSearch1 = " e.strUnitDesc like @SearchText1b "
                     End If
                 Case "Applog Comments"
-                    SQLSearch1 = " d.strComments like @SearchText1 "
+                    If String.IsNullOrWhiteSpace(SearchText1) Then
+                        SQLSearch1 = " 1 = 1 "
+                    Else
+                        SQLSearch1 = " d.strComments like @SearchText1 "
+                    End If
                 Case "Date Acknowledged"
                     SQLSearch1 = " datAcknowledgementLetterSent between @SearchDate1 and @SearchDate1b "
                 Case "Date APL Completed"
@@ -599,23 +611,51 @@ Public Class SSPPApplicationLog
                 Case "Deadline"
                     SQLSearch1 = " datApplicationDeadLine between @SearchDate1 and @SearchDate1b "
                 Case "Engineer Firstname"
-                    SQLSearch1 = " strFirstName like @SearchText1 "
+                    If String.IsNullOrWhiteSpace(SearchText1) Then
+                        SQLSearch1 = " 1 = 1 "
+                    Else
+                        SQLSearch1 = " strFirstName like @SearchText1 "
+                    End If
                 Case "Engineer Lastname"
-                    SQLSearch1 = " strLastName like @SearchText1 "
+                    If String.IsNullOrWhiteSpace(SearchText1) Then
+                        SQLSearch1 = " 1 = 1 "
+                    Else
+                        SQLSearch1 = " strLastName like @SearchText1 "
+                    End If
                 Case "Engineer Unit Code"
-                    SQLSearch1 = " APBUnit like @SearchText1 "
+                    If String.IsNullOrWhiteSpace(SearchText1) Then
+                        SQLSearch1 = " 1 = 1 "
+                    Else
+                        SQLSearch1 = " APBUnit like @SearchText1 "
+                    End If
                 Case "EPA 45-day Waived"
                     SQLSearch1 = " datEPAWaived between @SearchDate1 and @SearchDate1b "
                 Case "EPA 45-day Ends"
                     SQLSearch1 = " datEPAEnds between @SearchDate1 and @SearchDate1b "
                 Case "Facility City"
-                    SQLSearch1 = " strFacilityCity like @SearchText1 "
+                    If String.IsNullOrWhiteSpace(SearchText1) Then
+                        SQLSearch1 = " 1 = 1 "
+                    Else
+                        SQLSearch1 = " strFacilityCity like @SearchText1 "
+                    End If
                 Case "Facility County"
-                    SQLSearch1 = " strCountyName like @SearchText1 "
+                    If String.IsNullOrWhiteSpace(SearchText1) Then
+                        SQLSearch1 = " 1 = 1 "
+                    Else
+                        SQLSearch1 = " strCountyName like @SearchText1 "
+                    End If
                 Case "Facility Name"
-                    SQLSearch1 = " strFacilityName like @SearchText1 "
+                    If String.IsNullOrWhiteSpace(SearchText1) Then
+                        SQLSearch1 = " 1 = 1 "
+                    Else
+                        SQLSearch1 = " strFacilityName like @SearchText1 "
+                    End If
                 Case "Facility Street"
-                    SQLSearch1 = " strFacilityStreet1 like @SearchText1 "
+                    If String.IsNullOrWhiteSpace(SearchText1) Then
+                        SQLSearch1 = " 1 = 1 "
+                    Else
+                        SQLSearch1 = " strFacilityStreet1 like @SearchText1 "
+                    End If
                 Case "HAPs Major"
                     SQLSearch1 = " h.strStateProgramCodes like '_1___' "
                 Case "NAA 1Hr-Yes"
@@ -645,7 +685,11 @@ Public Class SSPPApplicationLog
                 Case "PA Ready"
                     SQLSearch1 = " strPAReady is Not Null and strPAReady = 'True' "
                 Case "Permit Number"
-                    SQLSearch1 = " strPermitNumber like @strPermitNumber "
+                    If String.IsNullOrWhiteSpace(SearchText1) Then
+                        SQLSearch1 = " 1 = 1 "
+                    Else
+                        SQLSearch1 = " strPermitNumber like @strPermitNumber "
+                    End If
                 Case "Permit Type"
                     If SearchText1b = "Other" Then
                         SQLSearch1 = " strPermitType is Null "
@@ -684,7 +728,11 @@ Public Class SSPPApplicationLog
                         End Select
                     End If
                 Case "Plant Description"
-                    SQLSearch1 = " d.strPlantDescription like @SearchText1 "
+                    If String.IsNullOrWhiteSpace(SearchText1) Then
+                        SQLSearch1 = " 1 = 1 "
+                    Else
+                        SQLSearch1 = " d.strPlantDescription like @SearchText1 "
+                    End If
                 Case "PN Ready"
                     SQLSearch1 = " strPNReady is Not Null and strPNReady = 'True' "
                 Case "Public Advisory"
@@ -699,13 +747,21 @@ Public Class SSPPApplicationLog
                             SQLSearch1 = " strPublicInvolvement = '0' "
                     End Select
                 Case "Reason APL Submitted"
-                    SQLSearch1 = " strApplicationNotes like @SearchText1 "
+                    If String.IsNullOrWhiteSpace(SearchText1) Then
+                        SQLSearch1 = " 1 = 1 "
+                    Else
+                        SQLSearch1 = " strApplicationNotes like @SearchText1 "
+                    End If
                 Case "Regional District"
                     SQLSearch1 = " strDistrictName like @SearchText1b "
                 Case "Status Date"
                     SQLSearch1 = " StatusDate between @SearchDate1 and @SearchDate1b "
                 Case "SIC Code"
-                    SQLSearch1 = " d.strSICCode like @SearchText1 "
+                    If String.IsNullOrWhiteSpace(SearchText1) Then
+                        SQLSearch1 = " 1 = 1 "
+                    Else
+                        SQLSearch1 = " d.strSICCode like @SearchText1 "
+                    End If
                 Case "Subpart - SIP"
                     SQLSearch1 = " ( s.strSubpart = @SubpartSIP1 " &
                     "and right(s.strSubpartKey, 1) = '0' ) "
@@ -722,7 +778,11 @@ Public Class SSPPApplicationLog
 
             Select Case FieldType2
                 Case "AIRS No."
-                    SQLSearch2 = " m.strAIRSNumber like @SearchText2 "
+                    If String.IsNullOrWhiteSpace(SearchText2) Then
+                        SQLSearch2 = " 1 = 1 "
+                    Else
+                        SQLSearch2 = " m.strAIRSNumber like @SearchText2 "
+                    End If
                 Case "Applicable Rules"
                     Select Case SearchText2b
                         Case "Any Rule"
@@ -747,7 +807,11 @@ Public Class SSPPApplicationLog
                             SQLSearch2 = " "
                     End Select
                 Case "Application No."
-                    SQLSearch2 = " m.strApplicationNumber like @SearchText2 "
+                    If String.IsNullOrWhiteSpace(SearchText2) Then
+                        SQLSearch2 = " 1 = 1 "
+                    Else
+                        SQLSearch2 = " m.strApplicationNumber like @SearchText2 "
+                    End If
                 Case "Application Status"
                     Select Case SearchText2b
                         Case "0 - Unassigned"
@@ -795,7 +859,11 @@ Public Class SSPPApplicationLog
                         SQLSearch2 = " e.strUnitDesc like @SearchText2b "
                     End If
                 Case "Applog Comments"
-                    SQLSearch2 = " d.strComments like @SearchText2 "
+                    If String.IsNullOrWhiteSpace(SearchText2) Then
+                        SQLSearch2 = " 1 = 1 "
+                    Else
+                        SQLSearch2 = " d.strComments like @SearchText2 "
+                    End If
                 Case "Date Acknowledged"
                     SQLSearch2 = " datAcknowledgementLetterSent between @SearchDate2 and @SearchDate2b  "
                 Case "Date APL Completed"
@@ -831,23 +899,51 @@ Public Class SSPPApplicationLog
                 Case "Deadline"
                     SQLSearch2 = " datApplicationDeadLine between @SearchDate2 and @SearchDate2b  "
                 Case "Engineer Firstname"
-                    SQLSearch2 = " strFirstName like @SearchText2 "
+                    If String.IsNullOrWhiteSpace(SearchText2) Then
+                        SQLSearch2 = " 1 = 1 "
+                    Else
+                        SQLSearch2 = " strFirstName like @SearchText2 "
+                    End If
                 Case "Engineer Lastname"
-                    SQLSearch2 = " strLastName like @SearchText2 "
+                    If String.IsNullOrWhiteSpace(SearchText2) Then
+                        SQLSearch2 = " 1 = 1 "
+                    Else
+                        SQLSearch2 = " strLastName like @SearchText2 "
+                    End If
                 Case "Engineer Unit Code"
-                    SQLSearch2 = " APBUnit like @SearchText2 "
+                    If String.IsNullOrWhiteSpace(SearchText2) Then
+                        SQLSearch2 = " 1 = 1 "
+                    Else
+                        SQLSearch2 = " APBUnit like @SearchText2 "
+                    End If
                 Case "EPA 45-day Waived"
                     SQLSearch2 = " datEPAWaived between @SearchDate2 and @SearchDate2b  "
                 Case "EPA 45-day Ends"
                     SQLSearch2 = " datEPAEnds between @SearchDate2 and @SearchDate2b  "
                 Case "Facility City"
-                    SQLSearch2 = " strFacilityCity like @SearchText2 "
+                    If String.IsNullOrWhiteSpace(SearchText2) Then
+                        SQLSearch2 = " 1 = 1 "
+                    Else
+                        SQLSearch2 = " strFacilityCity like @SearchText2 "
+                    End If
                 Case "Facility County"
-                    SQLSearch2 = " strCountyName like @SearchText2 "
+                    If String.IsNullOrWhiteSpace(SearchText2) Then
+                        SQLSearch2 = " 1 = 1 "
+                    Else
+                        SQLSearch2 = " strCountyName like @SearchText2 "
+                    End If
                 Case "Facility Name"
-                    SQLSearch2 = " strFacilityName like @SearchText2 "
+                    If String.IsNullOrWhiteSpace(SearchText2) Then
+                        SQLSearch2 = " 1 = 1 "
+                    Else
+                        SQLSearch2 = " strFacilityName like @SearchText2 "
+                    End If
                 Case "Facility Street"
-                    SQLSearch2 = " strFacilityStreet1 like @SearchText2 "
+                    If String.IsNullOrWhiteSpace(SearchText2) Then
+                        SQLSearch2 = " 1 = 1 "
+                    Else
+                        SQLSearch2 = " strFacilityStreet1 like @SearchText2 "
+                    End If
                 Case "HAPs Major"
                     SQLSearch2 = " h.strStateProgramCodes like '1____' "
                 Case "NAA 1Hr-Yes"
@@ -877,7 +973,11 @@ Public Class SSPPApplicationLog
                 Case "PA Ready"
                     SQLSearch2 = " strPAReady is Not Null and strPAReady = 'True' "
                 Case "Permit Number"
-                    SQLSearch2 = " strPermitNumber like @strPermitNumber2 "
+                    If String.IsNullOrWhiteSpace(SearchText2) Then
+                        SQLSearch2 = " 1 = 1 "
+                    Else
+                        SQLSearch2 = " strPermitNumber like @strPermitNumber2 "
+                    End If
                 Case "Permit Type"
                     If SearchText2b = "Other" Then
                         SQLSearch2 = " strPermitType is Null "
@@ -916,7 +1016,11 @@ Public Class SSPPApplicationLog
                         End Select
                     End If
                 Case "Plant Description"
-                    SQLSearch2 = " d.strPlantDescription like @SearchText2 "
+                    If String.IsNullOrWhiteSpace(SearchText2) Then
+                        SQLSearch2 = " 1 = 1 "
+                    Else
+                        SQLSearch2 = " d.strPlantDescription like @SearchText2 "
+                    End If
                 Case "PN Ready"
                     SQLSearch2 = " strPNReady is Not Null and strPNReady = 'True' "
                 Case "Public Advisory"
@@ -931,11 +1035,19 @@ Public Class SSPPApplicationLog
                             SQLSearch2 = " strPublicInvolvement = '0' "
                     End Select
                 Case "Reason APL Submitted"
-                    SQLSearch2 = " strApplicationNotes like @SearchText2 "
+                    If String.IsNullOrWhiteSpace(SearchText2) Then
+                        SQLSearch2 = " 1 = 1 "
+                    Else
+                        SQLSearch2 = " strApplicationNotes like @SearchText2 "
+                    End If
                 Case "Regional District"
                     SQLSearch2 = " strDistrictName like @SearchText2b "
                 Case "SIC Code"
-                    SQLSearch2 = " d.strSICCode like @SearchText2 "
+                    If String.IsNullOrWhiteSpace(SearchText2) Then
+                        SQLSearch2 = " 1 = 1 "
+                    Else
+                        SQLSearch2 = " d.strSICCode like @SearchText2 "
+                    End If
                 Case "Status Date"
                     SQLSearch2 = " StatusDate between @SearchDate2 and @SearchDate2b "
                 Case "Subpart - SIP"
