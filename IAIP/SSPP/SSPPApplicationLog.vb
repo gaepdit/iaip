@@ -1089,7 +1089,7 @@ Public Class SSPPApplicationLog
 
             Dim p As SqlParameter() = {
                 New SqlParameter("@SearchText1", "%" & SearchText1 & "%"),
-                New SqlParameter("@SearchText1b", SearchText1b & "%"),
+                New SqlParameter("@SearchText1b", "%" & SearchText1b & "%"),
                 New SqlParameter("@SearchDate1", SearchDate1),
                 New SqlParameter("@SearchDate1b", SearchDate1b),
                 New SqlParameter("@SearchText2", "%" & SearchText2 & "%"),
@@ -1308,9 +1308,8 @@ Public Class SSPPApplicationLog
                 cboSearchText1.Items.Clear()
                 cboSearchText1.Items.Add("Chemical Permitting")
                 cboSearchText1.Items.Add("Combustion Permitting")
-                cboSearchText1.Items.Add("Mineral Permitting")
+                cboSearchText1.Items.Add("Minerals Permitting")
                 cboSearchText1.Items.Add("NOx Permitting")
-                cboSearchText1.Items.Add("SSPP Administrative")
                 cboSearchText1.Items.Add("VOC Permitting")
                 cboSearchText1.Text = cboSearchText1.Items.Item(0)
 
@@ -1553,9 +1552,8 @@ Public Class SSPPApplicationLog
                 cboSearchText2.Items.Clear()
                 cboSearchText2.Items.Add("Chemical Permitting")
                 cboSearchText2.Items.Add("Combustion Permitting")
-                cboSearchText2.Items.Add("Mineral Permitting")
+                cboSearchText2.Items.Add("Minerals Permitting")
                 cboSearchText2.Items.Add("NOx Permitting")
-                cboSearchText2.Items.Add("SSPP Administrative")
                 cboSearchText2.Items.Add("VOC Permitting")
                 cboSearchText2.Text = cboSearchText2.Items.Item(0)
 
