@@ -557,7 +557,11 @@ Public Class SSPPApplicationLog
                         SQLSearch1 = " strApplicationTypeDesc like @SearchText1b "
                     End If
                 Case "Application Unit"
-                    SQLSearch1 = " e.strUnitDesc like @SearchText1b "
+                    If SearchText1b = "Unassigned" Then
+                        SQLSearch1 = " e.strUnitDesc is null "
+                    Else
+                        SQLSearch1 = " e.strUnitDesc like @SearchText1b "
+                    End If
                 Case "Applog Comments"
                     SQLSearch1 = " d.strComments like @SearchText1 "
                 Case "Date Acknowledged"
@@ -785,7 +789,11 @@ Public Class SSPPApplicationLog
                         SQLSearch2 = " strApplicationTypeDesc like @SearchText2b "
                     End If
                 Case "Application Unit"
-                    SQLSearch2 = " e.strUnitDesc like @SearchText2b "
+                    If SearchText2b = "Unassigned" Then
+                        SQLSearch2 = " e.strUnitDesc is null "
+                    Else
+                        SQLSearch2 = " e.strUnitDesc like @SearchText2b "
+                    End If
                 Case "Applog Comments"
                     SQLSearch2 = " d.strComments like @SearchText2 "
                 Case "Date Acknowledged"
@@ -1311,6 +1319,7 @@ Public Class SSPPApplicationLog
                 cboSearchText1.Items.Add("Minerals Permitting")
                 cboSearchText1.Items.Add("NOx Permitting")
                 cboSearchText1.Items.Add("VOC Permitting")
+                cboSearchText1.Items.Add("Unassigned")
                 cboSearchText1.Text = cboSearchText1.Items.Item(0)
 
             Case "Date Acknowledged", "Date APL Completed", "Date APL Dated", "Date APL Received", "Date Assigned",
@@ -1555,6 +1564,7 @@ Public Class SSPPApplicationLog
                 cboSearchText2.Items.Add("Minerals Permitting")
                 cboSearchText2.Items.Add("NOx Permitting")
                 cboSearchText2.Items.Add("VOC Permitting")
+                cboSearchText2.Items.Add("Unassigned")
                 cboSearchText2.Text = cboSearchText2.Items.Item(0)
 
             Case "Date Acknowledged", "Date APL Completed", "Date APL Dated", "Date APL Received",
