@@ -10,7 +10,7 @@ Partial Class SSPPPublicNoticesAndAdvisories
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCPublicNotices = New System.Windows.Forms.TabControl()
         Me.tpPublish = New System.Windows.Forms.TabPage()
         Me.PanelBottom = New System.Windows.Forms.Panel()
@@ -40,6 +40,7 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.PanelSide = New System.Windows.Forms.Panel()
         Me.btnOpenDocument = New System.Windows.Forms.Button()
         Me.btnCopyDocument = New System.Windows.Forms.Button()
+        Me.btnExportSpreadsheet = New System.Windows.Forms.Button()
         Me.btnDownloadDocument = New System.Windows.Forms.Button()
         Me.lblExpirationDate = New System.Windows.Forms.Label()
         Me.cboPAPNReports = New System.Windows.Forms.ComboBox()
@@ -185,13 +186,13 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.btnPublishDocument.Name = "btnPublishDocument"
         Me.btnPublishDocument.Size = New System.Drawing.Size(128, 45)
         Me.btnPublishDocument.TabIndex = 2
-        Me.btnPublishDocument.Text = "Publish PA/PN and download file"
+        Me.btnPublishDocument.Text = "Publish PA/PN and download document"
         Me.btnPublishDocument.UseVisualStyleBackColor = True
         '
         'dgvApplications
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvApplications.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvApplications.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvApplications.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvApplications.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvApplications.Dock = System.Windows.Forms.DockStyle.Top
@@ -348,6 +349,7 @@ Partial Class SSPPPublicNoticesAndAdvisories
         '
         Me.PanelSide.Controls.Add(Me.btnOpenDocument)
         Me.PanelSide.Controls.Add(Me.btnCopyDocument)
+        Me.PanelSide.Controls.Add(Me.btnExportSpreadsheet)
         Me.PanelSide.Controls.Add(Me.btnDownloadDocument)
         Me.PanelSide.Controls.Add(Me.lblExpirationDate)
         Me.PanelSide.Controls.Add(Me.cboPAPNReports)
@@ -383,6 +385,16 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.btnCopyDocument.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnCopyDocument.UseVisualStyleBackColor = True
         '
+        'btnExportSpreadsheet
+        '
+        Me.btnExportSpreadsheet.Enabled = False
+        Me.btnExportSpreadsheet.Location = New System.Drawing.Point(16, 280)
+        Me.btnExportSpreadsheet.Name = "btnExportSpreadsheet"
+        Me.btnExportSpreadsheet.Size = New System.Drawing.Size(128, 46)
+        Me.btnExportSpreadsheet.TabIndex = 4
+        Me.btnExportSpreadsheet.Text = "Export as spreadsheet"
+        Me.btnExportSpreadsheet.UseVisualStyleBackColor = True
+        '
         'btnDownloadDocument
         '
         Me.btnDownloadDocument.Enabled = False
@@ -390,7 +402,7 @@ Partial Class SSPPPublicNoticesAndAdvisories
         Me.btnDownloadDocument.Name = "btnDownloadDocument"
         Me.btnDownloadDocument.Size = New System.Drawing.Size(128, 46)
         Me.btnDownloadDocument.TabIndex = 4
-        Me.btnDownloadDocument.Text = "Download file"
+        Me.btnDownloadDocument.Text = "Download PA/PN document"
         Me.btnDownloadDocument.UseVisualStyleBackColor = True
         '
         'lblExpirationDate
@@ -510,4 +522,5 @@ Partial Class SSPPPublicNoticesAndAdvisories
     Friend WithEvents lblPreviewCopied As Label
     Friend WithEvents btnCopyDocument As Button
     Friend WithEvents lblDocumentCopied As Label
+    Friend WithEvents btnExportSpreadsheet As Button
 End Class
