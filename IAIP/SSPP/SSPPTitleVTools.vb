@@ -2868,6 +2868,11 @@ Public Class SSPPTitleVTools
     End Sub
 
     Private Sub btnCopyEmailText_Click(sender As Object, e As EventArgs) Handles btnCopyEmailText.Click
+        If String.IsNullOrEmpty(txtEmailLetter.Text) Then
+            MessageBox.Show("Nothing to copy.")
+            Return
+        End If
+
         Clipboard.SetText(txtEmailLetter.Text)
         lblPreviewCopied.Visible = True
     End Sub

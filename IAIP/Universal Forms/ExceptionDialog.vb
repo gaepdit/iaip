@@ -110,6 +110,11 @@ Friend Class ExceptionDialog
     End Sub
 
     Private Sub btnCopy_Click(sender As Object, e As EventArgs) Handles btnCopy.Click
+        If String.IsNullOrEmpty(ErrorDetails.Text) Then
+            btnCopy.Text = "Nothing to copy."
+            Return
+        End If
+
         Clipboard.SetText(ErrorDetails.Text)
         btnCopy.Text = "Copied!"
     End Sub
