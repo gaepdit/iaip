@@ -13,6 +13,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.1.0 <span>(12-Mar-2024)</span>
+
+This updates adds a tool to export PA/PN data to Excel. It also fixes permissions for SSPP managers in the permit app tracking log.
+
 ## Version 7.0.1 <span>(5-Feb-2024)</span>
 
 Bug fixes:
@@ -25,6 +29,4 @@ Bug fixes:
 
 ## Version 7.0.0 <span>(4-Jan-2024)</span>
 
-This update includes significant changes to how the IAIP authenticates users and connects to the database. Nothing
-should look or work differently for the user, so as always, if you encounter unexpected or erroneous behavior, please
-contact us at [helpdesk@gaepd.zendesk.com](mailto:helpdesk@gaepd.zendesk.com).
+This update includes significant changes to how the IAIP authenticates users and connects to the database. Nothing should look or work differently for the user, so as always, if you encounter unexpected or erroneous behavior, please contact us at [helpdesk@gaepd.zendesk.com](mailto:helpdesk@gaepd.zendesk.com).

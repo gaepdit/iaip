@@ -1808,8 +1808,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPSSCPReview
-            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
-                (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") Then
+            If CurrentUser.HasRole({28, 112, 113, 121, 122}) Then
                 DTPSSCPReview.Enabled = True
             End If
 
