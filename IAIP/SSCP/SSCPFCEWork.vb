@@ -653,10 +653,34 @@ Public Class SSCPFCEWork
 
     Private Sub SaveFCE()
         Try
-
             If AccountFormAccess(50, 2) = "0" AndAlso AccountFormAccess(50, 3) = "0" AndAlso AccountFormAccess(50, 4) = "0" Then
                 MsgBox("Insufficient permissions to save Full Compliance Evaluations.", MsgBoxStyle.Information, "Full Compliance Evaluation.")
             Else
+                Dim FCEYear As Integer = CInt(cboFCEYear.Text)
+
+                ' During first two weeks of October, double-check FCE year selection
+                Dim currentYear As Integer = Today.Year
+                If Today >= New Date(currentYear, 10, 1) AndAlso Today <= New Date(currentYear, 10, 14) AndAlso txtFCENumber.Text = "" Then
+
+                    Dim msg As New StringBuilder("Please verify that you have selected the correct FCE year. You selected ")
+                    msg.Append(FCEYear)
+                    msg.Append(", the fiscal year ")
+                    If FCEYear = currentYear Then
+                        msg.Append("that ended September 30.")
+                    Else
+                        msg.Append("that began October 1.")
+                    End If
+                    msg.Append(" Do you want to continue with ")
+                    msg.Append(FCEYear)
+                    msg.Append("?"c)
+
+                    Dim fceYearResult As DialogResult = MessageBox.Show(msg.ToString, "Verify FCE Year", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+
+                    If fceYearResult = DialogResult.No Then
+                        Return
+                    End If
+                End If
+
                 Dim SQL As String
                 Dim sqlList As New List(Of String)
                 Dim paramList As New List(Of SqlParameter())
@@ -673,7 +697,6 @@ Public Class SSCPFCEWork
 
                 Dim StaffResponsible As Integer = CInt(cboReviewer.SelectedValue)
                 Dim FCEOnSite As String = rdbFCEOnSite.Checked.ToString
-                Dim FCEYear As String = cboFCEYear.Text
 
                 If txtFCENumber.Text = "" Then
                     SQL = "select MAX(STRFCENUMBER) from SSCPFCEMASTER"
@@ -702,17 +725,17 @@ Public Class SSCPFCEWork
                         "GETDATE(), @strSiteInspection, @strFCEYear) ")
 
                     paramList.Add({
-                        New SqlParameter("@strFCENumber", FCENumber),
-                        New SqlParameter("@strReviewer", StaffResponsible),
-                        New SqlParameter("@datFCECompleted", FCECompleteDate),
-                        New SqlParameter("@strFCEComments", FCEComments),
-                        New SqlParameter("@strModifingPerson", CurrentUser.UserID),
-                        New SqlParameter("@strSiteInspection", FCEOnSite),
-                        New SqlParameter("@strFCEYear", FCEYear)
-                    })
+                    New SqlParameter("@strFCENumber", FCENumber),
+                    New SqlParameter("@strReviewer", StaffResponsible),
+                    New SqlParameter("@datFCECompleted", FCECompleteDate),
+                    New SqlParameter("@strFCEComments", FCEComments),
+                    New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                    New SqlParameter("@strSiteInspection", FCEOnSite),
+                    New SqlParameter("@strFCEYear", FCEYear.ToString)
+                })
 
                     If facility.HeaderData.Classification = FacilityClassification.A OrElse
-                        facility.HeaderData.Classification = FacilityClassification.SM Then
+                    facility.HeaderData.Classification = FacilityClassification.SM Then
 
                         SQL = "Select strAFSActionNumber " &
                             "from APBSupplamentalData " &
