@@ -712,6 +712,7 @@ Partial Class SSCPFCEWork
         Me.DTPFCECompleteDate.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPFCECompleteDate.Checked = False
         Me.DTPFCECompleteDate.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPFCECompleteDate.Enabled = False
         Me.DTPFCECompleteDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPFCECompleteDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPFCECompleteDate.Location = New System.Drawing.Point(101, 65)
