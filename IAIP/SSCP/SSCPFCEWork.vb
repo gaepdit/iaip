@@ -93,19 +93,29 @@ Public Class SSCPFCEWork
 
     Private Sub FillFCEData()
         Try
+            Dim fiscalEnd As New Date(Today.Year, 10, 1)
+
             If fceTable.Rows.Count = 0 Then
-                cboFCEYear.Items.Add(Today.AddYears(1).Year)
+                ' Only add next (calendar) year after October 1 of this year
+                If Today >= fiscalEnd Then cboFCEYear.Items.Add(Today.AddYears(1).Year)
+
+                ' Add current year
                 cboFCEYear.Items.Add(Today.Year)
+
+                ' Only add previous year before October 1 of this year
+                If Today < fiscalEnd Then cboFCEYear.Items.Add(Today.AddYears(-1).Year)
+
                 cboFCEYear.Text = Today.Year
                 txtFCENumber.Text = ""
             Else
                 Dim dtFCE As DataTable = fceTable.Copy
 
                 ' Only add next (calendar) year after October 1 of this year
-                If Today >= New Date(Today.Year, 10, 1) AndAlso
-                dtFCE.Select("STRFCEYEAR=" & Today.AddYears(1).Year).Length = 0 Then
+                If Today >= fiscalEnd AndAlso
+                    dtFCE.Select("STRFCEYEAR=" & Today.AddYears(1).Year).Length = 0 Then
+
                     Dim dr As DataRow = dtFCE.NewRow()
-                    dr("STRFCEYEAR") = Date.Today.AddYears(1).Year
+                    dr("STRFCEYEAR") = Today.AddYears(1).Year
                     dtFCE.Rows.Add(dr)
                 End If
 
@@ -116,10 +126,12 @@ Public Class SSCPFCEWork
                     dtFCE.Rows.Add(dr)
                 End If
 
-                ' Add last year if missing
-                If dtFCE.Select("STRFCEYEAR=" & Today.AddYears(-1).Year).Length = 0 Then
+                ' Only add previous year before October 1 of this year
+                If Today < fiscalEnd AndAlso
+                    dtFCE.Select("STRFCEYEAR=" & Today.AddYears(-1).Year).Length = 0 Then
+
                     Dim dr As DataRow = dtFCE.NewRow()
-                    dr("STRFCEYEAR") = Date.Today.AddYears(-1).Year
+                    dr("STRFCEYEAR") = Today.AddYears(-1).Year
                     dtFCE.Rows.Add(dr)
                 End If
 
@@ -137,6 +149,7 @@ Public Class SSCPFCEWork
                     .SelectedIndex = 0
                 End With
             End If
+            AddHandler cboFCEYear.SelectedIndexChanged, AddressOf cboFCEYear_SelectedIndexChanged
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -449,15 +462,22 @@ Public Class SSCPFCEWork
 
 #Region " Load data "
 
-    Private Sub txtFCENumber_TextChanged(sender As Object, e As EventArgs) Handles txtFCENumber.TextChanged
+    Private Sub cboFCEYear_SelectedIndexChanged(sender As Object, e As EventArgs)
         Try
-            If txtFCENumber.Text = "" Then
+            If Not IsNumeric(cboFCEYear.SelectedValue) Then
                 cboReviewer.SelectedValue = CurrentUser.UserID
                 rdbFCEOnSite.Checked = False
                 rdbFCENoOnsite.Checked = False
-                DTPFCECompleteDate.Value = Today
-                DTPFilterStartDate.Value = Today.AddDays(-365)
-                DTPFilterEndDate.Value = Today
+
+                Dim fiscalEndDate As New Date(cboFCEYear.Text, 9, 30)
+                If Today > fiscalEndDate Then
+                    DTPFCECompleteDate.Value = fiscalEndDate
+                Else
+                    DTPFCECompleteDate.Value = Today
+                End If
+
+                DTPFilterStartDate.Value = DTPFCECompleteDate.Value.AddDays(-365)
+                DTPFilterEndDate.Value = DTPFCECompleteDate.Value
                 txtFCEComments.Clear()
                 btnPrint.Enabled = False
                 ClearReviewData()
@@ -475,7 +495,7 @@ Public Class SSCPFCEWork
             FROM SSCPFCE
             WHERE strFCENumber = @fce"
 
-            Dim p As New SqlParameter("@fce", txtFCENumber.Text)
+            Dim p As New SqlParameter("@fce", cboFCEYear.SelectedValue)
 
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
@@ -762,9 +782,10 @@ Public Class SSCPFCEWork
 
                 DB.RunCommand(sqlList, paramList)
 
+                RemoveHandler cboFCEYear.SelectedIndexChanged, AddressOf cboFCEYear_SelectedIndexChanged
                 LoadFCEDataset()
                 FillFCEData()
-                txtFCENumber.Text = FCENumber.ToString
+                SetFceYear(FCEYear)
                 MsgBox("FCE Saved", MsgBoxStyle.Information, "Full Compliance Evaluation")
             End If
         Catch ex As Exception
