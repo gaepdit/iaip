@@ -13,6 +13,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.2.0 <span>(12-Mar-2024)</span>
+
+This update helps ensure FCE completion dates are valid.
+
 ## Version 7.1.0 <span>(12-Mar-2024)</span>
 
 This updates adds a tool to export PA/PN data to Excel. It also fixes permissions for SSPP managers in the permit app tracking log.
