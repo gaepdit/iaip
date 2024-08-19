@@ -19,7 +19,7 @@ Namespace DAL
         Public Function AirsNumberExists(airsNumber As ApbFacilityId) As Boolean
             Dim spName As String = "iaip_facility.AirsNumberExists"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
-            Return DB.SPGetBoolean(spName, parameter)
+            Return DB IsNot Nothing AndAlso DB.SPGetBoolean(spName, parameter)
         End Function
 
         ''' <summary>
