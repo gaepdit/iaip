@@ -1,6 +1,6 @@
 ﻿Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
-Imports System.Data.SqlClient
+Imports Microsoft.Data.SqlClient
 
 Namespace DAL
 

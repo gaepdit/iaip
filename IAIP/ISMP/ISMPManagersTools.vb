@@ -1,4 +1,4 @@
-Imports System.Data.SqlClient
+Imports Microsoft.Data.SqlClient
 
 Public Class ISMPManagersTools
     Dim query As String
