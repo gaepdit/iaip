@@ -1,5 +1,5 @@
 Imports System.Collections.Generic
-Imports System.Data.SqlClient
+Imports Microsoft.Data.SqlClient
 
 Public Class ISMPTestReportAdministrative
     Dim dtGrid As DataTable
