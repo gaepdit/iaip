@@ -143,7 +143,6 @@ Public Class SSCPEvents
                 DTPReportReceivedDate.Value = ReceivedDate
                 AddReportsCombo()
                 LoadReport()
-                LoadReportSubmittalDGR()
 
             Case WorkItemEventType.Inspection
                 TCItems.TabPages.Add(TPInspection)
@@ -165,7 +164,6 @@ Public Class SSCPEvents
                 dtpAccReportingYear.Value = Today.AddYears(-1)
                 dtpAccReportingYear.Checked = True
                 LoadACC()
-                LoadACCSubmittalDGR()
                 btnPrint.Available = True
 
             Case WorkItemEventType.Notification
@@ -300,8 +298,6 @@ Public Class SSCPEvents
         DTPInspectionDateEnd.Value = Today
         DTPTestReportDueDate.Value = Today
         DTPTestReportNewDueDate.Value = Today
-        NUPReportSubmittal.Value = 1
-        NUPACCSubmittal.Value = 1
     End Sub
 
     Private Sub CheckCompleteDate()
@@ -335,7 +331,6 @@ Public Class SSCPEvents
 
             'Report
             DTPEventCompleteDate.Enabled = False
-            NUPReportSubmittal.Enabled = False
             cboReportSchedule.Enabled = False
             DTPReportPeriodStart.Enabled = False
             DTPReportPeriodEnd.Enabled = False
@@ -389,7 +384,6 @@ Public Class SSCPEvents
             chbNotificationReceivedByAPB.Enabled = False
 
             'ACC
-            NUPACCSubmittal.Enabled = False
             rdbACCPostmarkYes.Enabled = False
             rdbACCPostmarkNo.Enabled = False
             rdbACCROYes.Enabled = False
@@ -423,7 +417,6 @@ Public Class SSCPEvents
 
             'Report
             DTPEventCompleteDate.Enabled = True
-            NUPReportSubmittal.Enabled = True
             cboReportSchedule.Enabled = True
             DTPReportPeriodStart.Enabled = True
             DTPReportPeriodEnd.Enabled = True
@@ -477,62 +470,11 @@ Public Class SSCPEvents
             chbNotificationReceivedByAPB.Enabled = True
 
             'ACC
-            NUPACCSubmittal.Enabled = True
             DTPACCPostmarked.Enabled = True
             dtpAccReportingYear.Enabled = True
             txtACCComments.ReadOnly = False
             chbACCReceivedByAPB.Enabled = True
 
-            If NUPACCSubmittal.Value > 1 Then
-                rdbACCPostmarkYes.Enabled = False
-                rdbACCPostmarkNo.Enabled = False
-                rdbACCROYes.Enabled = False
-                rdbACCRONo.Enabled = False
-                rdbACCCorrectACCYes.Enabled = False
-                rdbACCCorrectACCNo.Enabled = False
-                rdbACCConditionsYes.Enabled = False
-                rdbACCConditionsNo.Enabled = False
-                rdbACCCorrectYes.Enabled = False
-                rdbACCCorrectNo.Enabled = False
-                rdbACCDeviationsReportedYes.Enabled = False
-                rdbACCDeviationsReportedNo.Enabled = False
-                rdbACCPreviouslyUnreportedDeviationsYes.Enabled = False
-                rdbACCPreviouslyUnreportedDeviationsNo.Enabled = False
-                rdbACCEnforcementNeededYes.Enabled = False
-                rdbACCEnforcementNeededNo.Enabled = False
-                rdbACCResubmittalRequestedYes.Enabled = False
-                rdbACCAllDeviationsReportedUnknown.Enabled = False
-                rdbACCResubmittalRequestedNo.Enabled = False
-                rdbACCAllDeviationsReportedYes.Enabled = False
-                rdbACCAllDeviationsReportedUnknown.Enabled = False
-                rdbACCAllDeviationsReportedNo.Enabled = False
-            Else
-                rdbACCPostmarkYes.Enabled = True
-                rdbACCPostmarkNo.Enabled = True
-                rdbACCROYes.Enabled = True
-                rdbACCRONo.Enabled = True
-                rdbACCCorrectACCYes.Enabled = True
-                rdbACCCorrectACCNo.Enabled = True
-                rdbACCConditionsYes.Enabled = True
-                rdbACCConditionsNo.Enabled = True
-                rdbACCCorrectYes.Enabled = True
-                rdbACCCorrectNo.Enabled = True
-                rdbACCDeviationsReportedYes.Enabled = True
-                rdbACCDeviationsReportedNo.Enabled = True
-                rdbACCPreviouslyUnreportedDeviationsYes.Enabled = True
-                rdbACCPreviouslyUnreportedDeviationsNo.Enabled = True
-                rdbACCEnforcementNeededYes.Enabled = True
-                rdbACCEnforcementNeededNo.Enabled = True
-                rdbACCResubmittalRequestedYes.Enabled = True
-                rdbACCResubmittalRequestedUnknown.Enabled = True
-                rdbACCResubmittalRequestedNo.Enabled = True
-                rdbACCAllDeviationsReportedYes.Enabled = True
-                rdbACCAllDeviationsReportedNo.Enabled = True
-                rdbACCAllDeviationsReportedUnknown.Enabled = True
-                DTPACCPostmarked.Enabled = True
-                dtpAccReportingYear.Enabled = True
-                chbACCReceivedByAPB.Enabled = True
-            End If
         End If
     End Sub
 
@@ -586,12 +528,10 @@ Public Class SSCPEvents
                 Select Case EventType
                     Case WorkItemEventType.Report
                         result = SaveReport()
-                        LoadReportSubmittalDGR()
                     Case WorkItemEventType.Inspection, WorkItemEventType.RmpInspection
                         result = SaveInspection()
                     Case WorkItemEventType.TvAcc
                         result = SaveACC()
-                        LoadACCSubmittalDGR()
                     Case WorkItemEventType.StackTest
                         MsgBox("Stack tests cannot be saved from this form." & vbCrLf &
                                "Please open the stack test from to update SSCP information.", MsgBoxStyle.Exclamation, Me.Text)
@@ -627,8 +567,7 @@ Public Class SSCPEvents
             ValidateALLReport()
 
             If wrnCompleteReport.Visible OrElse wrnEnforcementNeeded.Visible _
-                    OrElse wrnReportPeriod.Visible OrElse wrnShowDeviation.Visible _
-                    OrElse wrnReportSubmittal.Visible Then
+                    OrElse wrnReportPeriod.Visible OrElse wrnShowDeviation.Visible Then
                 MsgBox("Data not saved")
                 Return False
             Else
@@ -730,7 +669,6 @@ Public Class SSCPEvents
                         "where strTrackingNumber = @num ")
 
                     paramList.Add({
-                        New SqlParameter("@strSubmittalNumber", NUPReportSubmittal.Value),
                         New SqlParameter("@strReportPeriod", cboReportSchedule.Text),
                         New SqlParameter("@DatReportingPeriodStart", DTPReportPeriodStart.Value),
                         New SqlParameter("@DatReportingPeriodEnd", DTPReportPeriodEnd.Value),
@@ -751,8 +689,7 @@ Public Class SSCPEvents
                         "and strSubmittalNumber = @strSubmittalNumber "
 
                     Dim p2 As SqlParameter() = {
-                        pTrkNum,
-                        New SqlParameter("@strSubmittalNumber", NUPReportSubmittal.Value)
+                        pTrkNum
                     }
 
                     If DB.ValueExists(SQL, p2) Then
@@ -784,8 +721,7 @@ Public Class SSCPEvents
                             New SqlParameter("@strshowdeviation", rdbReportDeviationYes.Checked.ToString),
                             New SqlParameter("@strgeneralcomments", GeneralComments),
                             New SqlParameter("@strmodifingperson", CurrentUser.UserID),
-                            pTrkNum,
-                            New SqlParameter("@strSubmittalNumber", NUPReportSubmittal.Value)
+                            pTrkNum
                         })
                     Else
                         sqlList.Add("Insert into SSCPREportsHistory " &
@@ -807,7 +743,6 @@ Public Class SSCPEvents
 
                         paramList.Add({
                             pTrkNum,
-                            New SqlParameter("@strSubmittalNumber", NUPReportSubmittal.Value),
                             New SqlParameter("@strReportPeriod", cboReportSchedule.Text),
                             New SqlParameter("@DatReportingPeriodStart", DTPReportPeriodStart.Value),
                             New SqlParameter("@DatReportingPeriodEnd", DTPReportPeriodEnd.Value),
@@ -980,7 +915,7 @@ Public Class SSCPEvents
             OrElse wrnACCEnforcementNeeded.Visible OrElse wrnACCPostmark.Visible _
             OrElse wrnACCPreviousDeviations.Visible OrElse wrnACCAllDeviationsReported.Visible _
             OrElse wrnACCResubmittalRequested.Visible _
-            OrElse wrnACCRO.Visible OrElse wrnACCSubmittal.Visible Then
+            OrElse wrnACCRO.Visible Then
                 MsgBox("Data not saved", MsgBoxStyle.Information, "SSCP Events.")
                 Return False
             End If
@@ -1050,7 +985,6 @@ Public Class SSCPEvents
             Dim p As New SqlParameter("@num", TrackingNumber)
 
             If Not DB.ValueExists(SQL, p) Then
-                NUPACCSubmittal.Value = 1
 
                 sqlList.Add("Insert into SSCPACCS " &
                     "(strTrackingNumber, strSubmittalNumber, " &
@@ -1073,7 +1007,6 @@ Public Class SSCPEvents
 
                 paramList.Add({
                     New SqlParameter("@strTrackingNumber", TrackingNumber),
-                    New SqlParameter("@strSubmittalNumber", NUPACCSubmittal.Value),
                     New SqlParameter("@strPostMarkedOnTime", PostedOnTime),
                     New SqlParameter("@DATPostMarkDate", DTPACCPostmarked.Value),
                     New SqlParameter("@strsignedbyRO", SignedByRO),
@@ -1111,7 +1044,6 @@ Public Class SSCPEvents
 
                 paramList.Add({
                     New SqlParameter("@strTrackingNumber", TrackingNumber),
-                    New SqlParameter("@strSubmittalNumber", NUPACCSubmittal.Value),
                     New SqlParameter("@strPostMarkedOnTime", PostedOnTime),
                     New SqlParameter("@DATPostMarkDate", DTPACCPostmarked.Value),
                     New SqlParameter("@strsignedbyRO", SignedByRO),
@@ -1150,7 +1082,6 @@ Public Class SSCPEvents
 
                 paramList.Add({
                     New SqlParameter("@strTrackingNumber", TrackingNumber),
-                    New SqlParameter("@strSubmittalNumber", NUPACCSubmittal.Value),
                     New SqlParameter("@strPostMarkedOnTime", PostedOnTime),
                     New SqlParameter("@DATPostMarkDate", DTPACCPostmarked.Value),
                     New SqlParameter("@strsignedbyRO", SignedByRO),
@@ -1170,8 +1101,7 @@ Public Class SSCPEvents
                 SQL = "Select 1 from SSCPACCSHistory where strTrackingNumber = @num and strSubmittalNumber = @sub "
 
                 Dim p2 As SqlParameter() = {
-                    New SqlParameter("@num", TrackingNumber),
-                    New SqlParameter("@sub", NUPACCSubmittal.Text)
+                    New SqlParameter("@num", TrackingNumber)
                 }
 
                 If DB.ValueExists(SQL, p2) Then
@@ -1197,7 +1127,6 @@ Public Class SSCPEvents
 
                     paramList.Add({
                         New SqlParameter("@strTrackingNumber", TrackingNumber),
-                        New SqlParameter("@strSubmittalNumber", NUPACCSubmittal.Value),
                         New SqlParameter("@strPostMarkedOnTime", PostedOnTime),
                         New SqlParameter("@DATPostMarkDate", DTPACCPostmarked.Value),
                         New SqlParameter("@strsignedbyRO", SignedByRO),
@@ -1235,7 +1164,6 @@ Public Class SSCPEvents
 
                     paramList.Add({
                         New SqlParameter("@strTrackingNumber", TrackingNumber),
-                        New SqlParameter("@strSubmittalNumber", NUPACCSubmittal.Value),
                         New SqlParameter("@strPostMarkedOnTime", PostedOnTime),
                         New SqlParameter("@DATPostMarkDate", DTPACCPostmarked.Value),
                         New SqlParameter("@strsignedbyRO", SignedByRO),
@@ -1507,7 +1435,6 @@ Public Class SSCPEvents
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
             If dr IsNot Nothing Then
-                NUPReportSubmittal.Value = dr.Item("strSubmittalNumber")
                 cboReportSchedule.Text = dr.Item("strReportPeriod")
                 DTPReportPeriodStart.Value = dr.Item("DatReportingPeriodStart")
                 DTPReportPeriodEnd.Value = dr.Item("DatReportingPeriodEnd")
@@ -1548,14 +1475,12 @@ Public Class SSCPEvents
                 "and strSubmittalNumber = @sub "
 
             Dim p As SqlParameter() = {
-                New SqlParameter("@num", TrackingNumber),
-                New SqlParameter("@sub", NUPReportSubmittal.Value)
+                New SqlParameter("@num", TrackingNumber)
             }
 
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
             If dr IsNot Nothing Then
-                NUPReportSubmittal.Value = dr.Item("strSubmittalNumber")
                 cboReportSchedule.Text = dr.Item("strReportPeriod")
                 DTPReportPeriodStart.Value = dr.Item("DatReportingPeriodStart")
                 DTPReportPeriodEnd.Value = dr.Item("DatReportingPeriodEnd")
@@ -1582,32 +1507,6 @@ Public Class SSCPEvents
                 End If
                 txtReportsGeneralComments.Text = dr.Item("strGeneralComments")
             End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub LoadReportSubmittalDGR()
-        Try
-            Dim SQL As String = "SELECT convert(int, STRSUBMITTALNUMBER) as STRSUBMITTALNUMBER, DATMODIFINGDATE, " &
-                "CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS UserName " &
-                "FROM SSCPREPORTSHISTORY " &
-                "INNER JOIN EPDUSERPROFILES ON SSCPREPORTSHISTORY.STRMODIFINGPERSON = EPDUSERPROFILES.NUMUSERID " &
-                "WHERE STRTRACKINGNUMBER = @num " &
-                "ORDER BY STRSUBMITTALNUMBER "
-
-            Dim p As New SqlParameter("@num", TrackingNumber)
-
-            Dim dt As DataTable = DB.GetDataTable(SQL, p)
-
-            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
-                dgrReportResubmittal.DataSource = dt
-                dgrReportResubmittal.Columns("STRSUBMITTALNUMBER").HeaderText = "#"
-                dgrReportResubmittal.Columns("DATMODIFINGDATE").HeaderText = "Date"
-                dgrReportResubmittal.Columns("UserName").HeaderText = "Modifying Individual"
-                dgrReportResubmittal.SanelyResizeColumns
-            End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1680,7 +1579,6 @@ Public Class SSCPEvents
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
             If dr IsNot Nothing Then
-                NUPACCSubmittal.Value = dr.Item("strSubmittalNumber")
                 If dr.Item("strPostMarkedOnTime").ToString = "True" Then
                     rdbACCPostmarkYes.Checked = True
                 Else
@@ -1772,57 +1670,6 @@ Public Class SSCPEvents
             DTPACCPostmarked.Enabled = True
             dtpAccReportingYear.Enabled = True
             txtACCComments.ReadOnly = False
-            If NUPACCSubmittal.Value > 1 Then
-                rdbACCPostmarkYes.Enabled = False
-                rdbACCPostmarkNo.Enabled = False
-                rdbACCROYes.Enabled = False
-                rdbACCRONo.Enabled = False
-                rdbACCCorrectACCYes.Enabled = False
-                rdbACCCorrectACCNo.Enabled = False
-                rdbACCConditionsYes.Enabled = False
-                rdbACCConditionsNo.Enabled = False
-                rdbACCCorrectYes.Enabled = False
-                rdbACCCorrectNo.Enabled = False
-                rdbACCDeviationsReportedYes.Enabled = False
-                rdbACCDeviationsReportedNo.Enabled = False
-                rdbACCPreviouslyUnreportedDeviationsYes.Enabled = False
-                rdbACCPreviouslyUnreportedDeviationsNo.Enabled = False
-                rdbACCEnforcementNeededYes.Enabled = False
-                rdbACCEnforcementNeededNo.Enabled = False
-                dtpAccReportingYear.Enabled = False
-                rdbACCAllDeviationsReportedYes.Enabled = False
-                rdbACCAllDeviationsReportedNo.Enabled = False
-                rdbACCAllDeviationsReportedUnknown.Enabled = False
-                rdbACCResubmittalRequestedYes.Enabled = False
-                rdbACCResubmittalRequestedNo.Enabled = False
-                rdbACCResubmittalRequestedUnknown.Enabled = False
-            Else
-                rdbACCPostmarkYes.Enabled = True
-                rdbACCPostmarkNo.Enabled = True
-                rdbACCROYes.Enabled = True
-                rdbACCRONo.Enabled = True
-                rdbACCCorrectACCYes.Enabled = True
-                rdbACCCorrectACCNo.Enabled = True
-                rdbACCConditionsYes.Enabled = True
-                rdbACCConditionsNo.Enabled = True
-                rdbACCCorrectYes.Enabled = True
-                rdbACCCorrectNo.Enabled = True
-                rdbACCDeviationsReportedYes.Enabled = True
-                rdbACCDeviationsReportedNo.Enabled = True
-                rdbACCPreviouslyUnreportedDeviationsYes.Enabled = True
-                rdbACCPreviouslyUnreportedDeviationsNo.Enabled = True
-                rdbACCEnforcementNeededYes.Enabled = True
-                rdbACCEnforcementNeededNo.Enabled = True
-                DTPACCPostmarked.Enabled = True
-                dtpAccReportingYear.Enabled = True
-                chbACCReceivedByAPB.Enabled = True
-                rdbACCAllDeviationsReportedYes.Enabled = True
-                rdbACCAllDeviationsReportedNo.Enabled = True
-                rdbACCAllDeviationsReportedUnknown.Enabled = True
-                rdbACCResubmittalRequestedYes.Enabled = True
-                rdbACCResubmittalRequestedNo.Enabled = True
-                rdbACCResubmittalRequestedUnknown.Enabled = True
-            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1847,14 +1694,12 @@ Public Class SSCPEvents
                 "and strSubmittalNumber = @sub "
 
             Dim p As SqlParameter() = {
-                New SqlParameter("@num", TrackingNumber),
-                New SqlParameter("@sub", NUPACCSubmittal.Value)
+                New SqlParameter("@num", TrackingNumber)
             }
 
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
             If dr IsNot Nothing Then
-                NUPACCSubmittal.Value = dr.Item("strSubmittalNumber")
                 PostedOnTime = dr.Item("strPostMarkedOnTime")
                 If PostedOnTime = "True" Then
                     rdbACCPostmarkYes.Checked = True
@@ -1969,84 +1814,8 @@ Public Class SSCPEvents
             DTPACCPostmarked.Enabled = True
             dtpAccReportingYear.Enabled = True
             txtACCComments.ReadOnly = False
-            If NUPACCSubmittal.Value > 1 Then
-                rdbACCPostmarkYes.Enabled = False
-                rdbACCPostmarkNo.Enabled = False
-                rdbACCROYes.Enabled = False
-                rdbACCRONo.Enabled = False
-                rdbACCCorrectACCYes.Enabled = False
-                rdbACCCorrectACCNo.Enabled = False
-                rdbACCConditionsYes.Enabled = False
-                rdbACCConditionsNo.Enabled = False
-                rdbACCCorrectYes.Enabled = False
-                rdbACCCorrectNo.Enabled = False
-                rdbACCDeviationsReportedYes.Enabled = False
-                rdbACCDeviationsReportedNo.Enabled = False
-                rdbACCPreviouslyUnreportedDeviationsYes.Enabled = False
-                rdbACCPreviouslyUnreportedDeviationsNo.Enabled = False
-                rdbACCEnforcementNeededYes.Enabled = False
-                rdbACCEnforcementNeededNo.Enabled = False
-                rdbACCAllDeviationsReportedYes.Enabled = False
-                rdbACCAllDeviationsReportedNo.Enabled = False
-                rdbACCAllDeviationsReportedUnknown.Enabled = False
-                rdbACCResubmittalRequestedNo.Enabled = False
-                rdbACCResubmittalRequestedUnknown.Enabled = False
-                rdbACCResubmittalRequestedYes.Enabled = False
-                dtpAccReportingYear.Enabled = False
-            Else
-                rdbACCPostmarkYes.Enabled = True
-                rdbACCPostmarkNo.Enabled = True
-                rdbACCROYes.Enabled = True
-                rdbACCRONo.Enabled = True
-                rdbACCCorrectACCYes.Enabled = True
-                rdbACCCorrectACCNo.Enabled = True
-                rdbACCConditionsYes.Enabled = True
-                rdbACCConditionsNo.Enabled = True
-                rdbACCCorrectYes.Enabled = True
-                rdbACCCorrectNo.Enabled = True
-                rdbACCDeviationsReportedYes.Enabled = True
-                rdbACCDeviationsReportedNo.Enabled = True
-                rdbACCPreviouslyUnreportedDeviationsYes.Enabled = True
-                rdbACCPreviouslyUnreportedDeviationsNo.Enabled = True
-                rdbACCEnforcementNeededYes.Enabled = True
-                rdbACCEnforcementNeededNo.Enabled = True
-                rdbACCAllDeviationsReportedYes.Enabled = True
-                rdbACCAllDeviationsReportedNo.Enabled = True
-                rdbACCAllDeviationsReportedUnknown.Enabled = True
-                rdbACCResubmittalRequestedNo.Enabled = True
-                rdbACCResubmittalRequestedUnknown.Enabled = True
-                rdbACCResubmittalRequestedYes.Enabled = True
-                DTPACCPostmarked.Enabled = True
-                chbACCReceivedByAPB.Enabled = True
-                dtpAccReportingYear.Enabled = True
-            End If
 
             CompleteReport()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub LoadACCSubmittalDGR()
-        Try
-            Dim SQL As String = "Select convert(int, strSubmittalNumber) as strSubmittalNumber, datModifingDate, " &
-                "concat(strLastName, ', ' ,strFirstName) as UserName " &
-                "from SSCPACCSHistory inner join EPDUserProfiles " &
-                "on SSCPACCSHistory.strModifingPerson = EPDUserProfiles.numUserID " &
-                "where strTrackingNumber = @num " &
-                "order by strsubmittalnumber"
-            Dim p As New SqlParameter("@num", TrackingNumber)
-
-            Dim dt As DataTable = DB.GetDataTable(SQL, p)
-
-            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
-                DGRACCResubmittal.DataSource = dt
-                DGRACCResubmittal.Columns("strSubmittalNumber").HeaderText = "#"
-                DGRACCResubmittal.Columns("datModifingDate").HeaderText = "Date"
-                DGRACCResubmittal.Columns("UserName").HeaderText = "Modifying Individual"
-                DGRACCResubmittal.SanelyResizeColumns
-            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2322,9 +2091,6 @@ Public Class SSCPEvents
         ValidateEnforcementNeeded()
     End Sub
 
-    Private Sub NUPSubmittal_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles NUPReportSubmittal.Validating
-        ValidateSubmittalNumber()
-    End Sub
 
 #End Region
 
@@ -2429,10 +2195,6 @@ Public Class SSCPEvents
         ValidateROSigned()
     End Sub
 
-    Private Sub NUPACCSubmittal_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles NUPACCSubmittal.Validating
-        ValidateNUPACCSubmittal()
-    End Sub
-
 #End Region
 
 #Region "Validate Report"
@@ -2442,7 +2204,6 @@ Public Class SSCPEvents
         ValidateReportComplete()
         ValidateShowDeviation()
         ValidateEnforcementNeeded()
-        ValidateSubmittalNumber()
     End Sub
 
     Private Sub ValidatecboReportSchedule()
@@ -2477,13 +2238,6 @@ Public Class SSCPEvents
         End If
     End Sub
 
-    Private Sub ValidateSubmittalNumber()
-        If NUPReportSubmittal.Text = "" Then
-            wrnReportSubmittal.Visible = True
-        Else
-            wrnReportSubmittal.Visible = False
-        End If
-    End Sub
 
 #End Region
 
@@ -2523,7 +2277,6 @@ Public Class SSCPEvents
 #Region "Validate ACC"
 
     Private Sub ValidateAllACC()
-        ValidateNUPACCSubmittal()
         ValidatePostmarkDate()
         ValidateROSigned()
         ValidateCorrectACCForms()
@@ -2534,14 +2287,6 @@ Public Class SSCPEvents
         ValidateACCEnforcementNeeded()
         ValidateACCAllDeviationsReported()
         ValidateACCResubmittalRequested()
-    End Sub
-
-    Private Sub ValidateNUPACCSubmittal()
-        If NUPACCSubmittal.Text = "" Then
-            wrnACCSubmittal.Visible = True
-        Else
-            wrnACCSubmittal.Visible = False
-        End If
     End Sub
 
     Private Sub ValidatePostmarkDate()
@@ -2716,34 +2461,6 @@ Public Class SSCPEvents
         End Select
     End Sub
 
-    Private Sub dgrReportResubmittal_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrReportResubmittal.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgrReportResubmittal.HitTest(e.X, e.Y)
-        Try
-            If hti.Type = DataGridViewHitTestType.Cell AndAlso
-                Not IsDBNull(dgrReportResubmittal(0, hti.RowIndex)) Then
-
-                NUPReportSubmittal.Value = dgrReportResubmittal(0, hti.RowIndex).Value.ToString
-                LoadReportFromSubmittal()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub DGRACCResubmittal_MouseUp(sender As Object, e As MouseEventArgs) Handles DGRACCResubmittal.MouseUp
-        Dim hti As DataGridView.HitTestInfo = DGRACCResubmittal.HitTest(e.X, e.Y)
-        Try
-            If hti.Type = DataGridViewHitTestType.Cell AndAlso
-                Not IsDBNull(DGRACCResubmittal(0, hti.RowIndex)) Then
-
-                NUPACCSubmittal.Value = DGRACCResubmittal(0, hti.RowIndex).Value.ToString
-                LoadACCFromSubmittal()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
     Private Sub chbTestReportChangeDueDate_CheckedChanged(sender As Object, e As EventArgs) Handles chbTestReportChangeDueDate.CheckedChanged
         Try
             If Not chbTestReportChangeDueDate.Checked Then
@@ -2810,40 +2527,10 @@ Public Class SSCPEvents
         End Try
     End Sub
 
-    Private Sub btnReportMoreOptions_Click(sender As Object, e As EventArgs) Handles btnReportMoreOptions.Click
-        Try
-            Dim tempWidth As String = dgrReportResubmittal.Size.Width
-            Dim tempHeight As String = dgrReportResubmittal.Size.Height
-
-            If tempWidth <= 11 Then
-                dgrReportResubmittal.Size = New Size(200, tempHeight)
-            Else
-                dgrReportResubmittal.Size = New Size(10, tempHeight)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
     Private Sub btnViewTestReport_Click(sender As Object, e As EventArgs) Handles btnViewTestReport.Click
         If txtISMPReferenceNumber.Text <> "N/A" Then
             OpenFormTestReportPrintout(AirsNumber, txtISMPReferenceNumber.Text, Me)
         End If
-    End Sub
-
-    Private Sub btnACCSubmittals_Click(sender As Object, e As EventArgs) Handles btnACCSubmittals.Click
-        Try
-            Dim tempWidth As String = DGRACCResubmittal.Size.Width
-            Dim tempHeight As String = DGRACCResubmittal.Size.Height
-
-            If tempWidth <= 11 Then
-                DGRACCResubmittal.Size = New Size(200, tempHeight)
-            Else
-                DGRACCResubmittal.Size = New Size(10, tempHeight)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
     End Sub
 
     Private Sub chbReportReceivedByAPB_CheckedChanged(sender As Object, e As EventArgs) Handles chbReportReceivedByAPB.CheckedChanged
