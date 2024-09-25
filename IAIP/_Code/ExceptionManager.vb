@@ -1,5 +1,5 @@
 Imports System.ComponentModel
-Imports System.Data.SqlClient
+Imports Microsoft.Data.SqlClient
 Imports Daramee.TaskDialogSharp
 
 Friend Module ExceptionManager

@@ -1,5 +1,5 @@
 Imports System.Collections.Generic
-Imports System.Data.SqlClient
+Imports Microsoft.Data.SqlClient
 Imports System.IO
 Imports System.Linq
 Imports System.Reflection
@@ -583,6 +583,7 @@ Public Class SSPPPublicNoticesAndAdvisories
 
     Private Sub OpenExistingDocument()
         btnDownloadDocument.Enabled = False
+        btnExportSpreadsheet.Enabled = False
         btnCopyDocument.Enabled = False
         lblDocumentCopied.Visible = False
 
@@ -609,6 +610,7 @@ Public Class SSPPPublicNoticesAndAdvisories
             End Using
 
             btnDownloadDocument.Enabled = True
+            btnExportSpreadsheet.Enabled = True
             btnCopyDocument.Enabled = True
         Else
             OpenedDocument = Nothing
@@ -786,4 +788,20 @@ Public Class SSPPPublicNoticesAndAdvisories
         rtbDocument.Select(0, 0)
         lblDocumentCopied.Visible = True
     End Sub
+
+    Private Sub btnDownloadSpreadsheet_Click(sender As Object, e As EventArgs) Handles btnExportSpreadsheet.Click
+        If OpenedDocument IsNot Nothing AndAlso Not String.IsNullOrEmpty(OpenedDocument.FileName) Then
+            ExportSpreadsheet(OpenedDocument.FileName)
+        End If
+    End Sub
+
+    Private Sub ExportSpreadsheet(documentName As String)
+        Dim dataSet As DataSet = DB.SPGetDataSet("dbo.GetPAandPNData", New SqlParameter("@FileName", documentName))
+        dataSet.Tables(0).TableName = "Details"
+        dataSet.Tables(1).TableName = "Public Advisories"
+        dataSet.Tables(2).TableName = "Public Notices"
+
+        dataSet.ExportToExcel(Me, $"{documentName}.xlsx")
+    End Sub
+
 End Class

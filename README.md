@@ -8,6 +8,7 @@ There are several associated repositories that interact with this project:
 
 * Data is stored in the [airbranch database](https://github.com/gaepdit/airbranch-db).
 * The IAIP uses the [DB Helper](https://github.com/gaepdit/db-helper) NuGet package to handle all database interaction.
+* The [IAIP Connections API](https://github.com/gaepdit/iaip/tree/main/src/Iaip.CxApi) (included in this repository) handles user authentication.
 * [GECO](https://github.com/gaepdit/geco) is a web application used by regulated facilities to view and submit data.
 * The general public can search for air quality permits using the [Permit Search](https://github.com/gaepdit/permit-search) application.
 * Various IAIP reports are generated and displayed by a separate [reports application](https://github.com/gaepdit/airbranch-reports).

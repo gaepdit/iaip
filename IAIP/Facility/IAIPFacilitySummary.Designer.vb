@@ -2288,7 +2288,7 @@ Partial Class IAIPFacilitySummary
         Me.FeeStatusDisplay.ReadOnly = True
         Me.FeeStatusDisplay.Size = New System.Drawing.Size(127, 42)
         Me.FeeStatusDisplay.TabIndex = 2
-        Me.FeeStatusDisplay.Text = "GECO User has update the Fee Calculations" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3"
+        Me.FeeStatusDisplay.Text = "GECO User has updated the Fee Calculations" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3"
         '
         'FeeStatusLabel
         '
