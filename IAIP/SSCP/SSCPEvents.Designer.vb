@@ -60,6 +60,7 @@ Partial Class SSCPEvents
     Friend WithEvents txtUnitTested As System.Windows.Forms.TextBox
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents btnACCSubmittals As System.Windows.Forms.Button
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents btnViewTestReport As System.Windows.Forms.Button
     Friend WithEvents Label5 As System.Windows.Forms.Label
@@ -68,6 +69,7 @@ Partial Class SSCPEvents
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents DTPAcknowledgmentLetterSent As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents btnReportMoreOptions As System.Windows.Forms.Button
     Friend WithEvents btnEnforcementProcess As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtEventInformation As System.Windows.Forms.TextBox
@@ -119,6 +121,9 @@ Partial Class SSCPEvents
     Friend WithEvents wrnEnforcementNeeded As System.Windows.Forms.Label
     Friend WithEvents wrnShowDeviation As System.Windows.Forms.Label
     Friend WithEvents wrnReportPeriod As System.Windows.Forms.Label
+    Friend WithEvents lblResubmittal As System.Windows.Forms.Label
+    Friend WithEvents NUPReportSubmittal As System.Windows.Forms.NumericUpDown
+    Friend WithEvents wrnReportSubmittal As System.Windows.Forms.Label
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents PanelSSCPCompliance As System.Windows.Forms.Panel
     Friend WithEvents Splitter3 As System.Windows.Forms.Splitter
@@ -141,9 +146,12 @@ Partial Class SSCPEvents
     Friend WithEvents Label50 As System.Windows.Forms.Label
     Friend WithEvents Label46 As System.Windows.Forms.Label
     Friend WithEvents Label38 As System.Windows.Forms.Label
+    Friend WithEvents DGRACCResubmittal As IaipDataGridView
     Friend WithEvents wrnACCDatePostmarked As System.Windows.Forms.Label
     Friend WithEvents wrnACCConditions As System.Windows.Forms.Label
     Friend WithEvents PanelACC As System.Windows.Forms.Panel
+    Friend WithEvents NUPACCSubmittal As System.Windows.Forms.NumericUpDown
+    Friend WithEvents wrnACCSubmittal As System.Windows.Forms.Label
     Friend WithEvents rdbACCPostmarkNo As System.Windows.Forms.RadioButton
     Friend WithEvents rdbACCPostmarkYes As System.Windows.Forms.RadioButton
     Friend WithEvents wrnACCPostmark As System.Windows.Forms.Label
@@ -187,10 +195,14 @@ Partial Class SSCPEvents
     Friend WithEvents Label31 As System.Windows.Forms.Label
     Friend WithEvents Label27 As System.Windows.Forms.Label
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
+    Friend WithEvents Label67 As System.Windows.Forms.Label
+    Friend WithEvents SplitterACC As System.Windows.Forms.Splitter
     Friend WithEvents wrnInspectionDates As System.Windows.Forms.Label
     Friend WithEvents wrnInspectionComplianceStatus As System.Windows.Forms.Label
     Friend WithEvents wrnInspectionOperating As System.Windows.Forms.Label
+    Friend WithEvents SplitterReport As System.Windows.Forms.Splitter
     Friend WithEvents PanelReports As System.Windows.Forms.Panel
+    Friend WithEvents dgrReportResubmittal As IaipDataGridView
     Friend WithEvents DTPInspectionDateStart As System.Windows.Forms.DateTimePicker
     Friend WithEvents dtpInspectionTimeStart As System.Windows.Forms.DateTimePicker
     Friend WithEvents dtpInspectionTimeEnd As System.Windows.Forms.DateTimePicker
@@ -228,7 +240,8 @@ Partial Class SSCPEvents
 
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPEvents))
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.llEnforcementCases = New System.Windows.Forms.LinkLabel()
         Me.cboStaffResponsible = New System.Windows.Forms.ComboBox()
@@ -250,6 +263,10 @@ Partial Class SSCPEvents
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.DTPReportReceivedDate = New System.Windows.Forms.DateTimePicker()
         Me.chbReportReceivedByAPB = New System.Windows.Forms.CheckBox()
+        Me.btnReportMoreOptions = New System.Windows.Forms.Button()
+        Me.wrnReportSubmittal = New System.Windows.Forms.Label()
+        Me.NUPReportSubmittal = New System.Windows.Forms.NumericUpDown()
+        Me.lblResubmittal = New System.Windows.Forms.Label()
         Me.wrnReportPeriod = New System.Windows.Forms.Label()
         Me.wrnShowDeviation = New System.Windows.Forms.Label()
         Me.wrnEnforcementNeeded = New System.Windows.Forms.Label()
@@ -278,6 +295,8 @@ Partial Class SSCPEvents
         Me.txtReportsGeneralComments = New System.Windows.Forms.TextBox()
         Me.DTPReportPeriodEnd = New System.Windows.Forms.DateTimePicker()
         Me.DTPReportPeriodStart = New System.Windows.Forms.DateTimePicker()
+        Me.SplitterReport = New System.Windows.Forms.Splitter()
+        Me.dgrReportResubmittal = New Iaip.IaipDataGridView()
         Me.TPTestReports = New System.Windows.Forms.TabPage()
         Me.PanelSSCPCompliance2 = New System.Windows.Forms.Panel()
         Me.DTPTestReportReceivedDate = New System.Windows.Forms.DateTimePicker()
@@ -366,6 +385,7 @@ Partial Class SSCPEvents
         Me.Label25 = New System.Windows.Forms.Label()
         Me.DTPACCReceivedDate = New System.Windows.Forms.DateTimePicker()
         Me.chbACCReceivedByAPB = New System.Windows.Forms.CheckBox()
+        Me.btnACCSubmittals = New System.Windows.Forms.Button()
         Me.wrnACCCorrectACC = New System.Windows.Forms.Label()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.rdbACCCorrectACCYes = New System.Windows.Forms.RadioButton()
@@ -384,6 +404,9 @@ Partial Class SSCPEvents
         Me.rdbACCPostmarkNo = New System.Windows.Forms.RadioButton()
         Me.lblAccReportingYear = New System.Windows.Forms.Label()
         Me.Label27 = New System.Windows.Forms.Label()
+        Me.wrnACCSubmittal = New System.Windows.Forms.Label()
+        Me.NUPACCSubmittal = New System.Windows.Forms.NumericUpDown()
+        Me.Label67 = New System.Windows.Forms.Label()
         Me.wrnACCDatePostmarked = New System.Windows.Forms.Label()
         Me.Label44 = New System.Windows.Forms.Label()
         Me.txtACCComments = New System.Windows.Forms.TextBox()
@@ -424,6 +447,8 @@ Partial Class SSCPEvents
         Me.rdbACCConditionsYes = New System.Windows.Forms.RadioButton()
         Me.rdbACCConditionsNo = New System.Windows.Forms.RadioButton()
         Me.Label39 = New System.Windows.Forms.Label()
+        Me.SplitterACC = New System.Windows.Forms.Splitter()
+        Me.DGRACCResubmittal = New Iaip.IaipDataGridView()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TextBox6 = New System.Windows.Forms.TextBox()
         Me.ListView1 = New System.Windows.Forms.ListView()
@@ -438,9 +463,11 @@ Partial Class SSCPEvents
         Me.TPReport.SuspendLayout()
         Me.PanelReports.SuspendLayout()
         Me.Panel4.SuspendLayout()
+        CType(Me.NUPReportSubmittal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
         Me.Panel17.SuspendLayout()
         Me.Panel18.SuspendLayout()
+        CType(Me.dgrReportResubmittal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPTestReports.SuspendLayout()
         Me.PanelSSCPCompliance2.SuspendLayout()
         Me.Panel22.SuspendLayout()
@@ -457,6 +484,7 @@ Partial Class SSCPEvents
         Me.Panel8.SuspendLayout()
         Me.Panel7.SuspendLayout()
         Me.Panel6.SuspendLayout()
+        CType(Me.NUPACCSubmittal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel15.SuspendLayout()
         Me.Panel14.SuspendLayout()
         Me.pnlACCResubmittalRequested.SuspendLayout()
@@ -464,6 +492,7 @@ Partial Class SSCPEvents
         Me.pnlACCAllDeviationsReported.SuspendLayout()
         Me.Panel10.SuspendLayout()
         Me.Panel9.SuspendLayout()
+        CType(Me.DGRACCResubmittal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelSSCPCompliance.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -485,21 +514,19 @@ Partial Class SSCPEvents
         Me.GroupBox1.Controls.Add(Me.txtEventInformation)
         Me.GroupBox1.Controls.Add(Me.btnEnforcementProcess)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 62)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 52)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(8, 7, 8, 7)
-        Me.GroupBox1.Size = New System.Drawing.Size(2112, 403)
+        Me.GroupBox1.Size = New System.Drawing.Size(792, 169)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         '
         'llEnforcementCases
         '
         Me.llEnforcementCases.AutoSize = True
-        Me.llEnforcementCases.Location = New System.Drawing.Point(41, 277)
-        Me.llEnforcementCases.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.llEnforcementCases.Location = New System.Drawing.Point(12, 148)
         Me.llEnforcementCases.Name = "llEnforcementCases"
-        Me.llEnforcementCases.Size = New System.Drawing.Size(264, 32)
+        Me.llEnforcementCases.Size = New System.Drawing.Size(101, 13)
         Me.llEnforcementCases.TabIndex = 8
         Me.llEnforcementCases.TabStop = True
         Me.llEnforcementCases.Text = "Enforcement cases:"
@@ -509,70 +536,63 @@ Partial Class SSCPEvents
         '
         Me.cboStaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStaffResponsible.FormattingEnabled = True
-        Me.cboStaffResponsible.Location = New System.Drawing.Point(1659, 291)
-        Me.cboStaffResponsible.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.cboStaffResponsible.Location = New System.Drawing.Point(622, 122)
         Me.cboStaffResponsible.Name = "cboStaffResponsible"
-        Me.cboStaffResponsible.Size = New System.Drawing.Size(404, 39)
+        Me.cboStaffResponsible.Size = New System.Drawing.Size(154, 21)
         Me.cboStaffResponsible.TabIndex = 5
         '
         'lblRMPID
         '
         Me.lblRMPID.AutoSize = True
-        Me.lblRMPID.Location = New System.Drawing.Point(1523, 353)
-        Me.lblRMPID.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.lblRMPID.Location = New System.Drawing.Point(571, 148)
         Me.lblRMPID.Name = "lblRMPID"
-        Me.lblRMPID.Size = New System.Drawing.Size(110, 32)
+        Me.lblRMPID.Size = New System.Drawing.Size(45, 13)
         Me.lblRMPID.TabIndex = 347
         Me.lblRMPID.Text = "RMP ID"
         '
         'txtRMPID
         '
-        Me.txtRMPID.Location = New System.Drawing.Point(1659, 346)
-        Me.txtRMPID.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtRMPID.Location = New System.Drawing.Point(622, 145)
         Me.txtRMPID.Name = "txtRMPID"
         Me.txtRMPID.ReadOnly = True
-        Me.txtRMPID.Size = New System.Drawing.Size(260, 38)
+        Me.txtRMPID.Size = New System.Drawing.Size(100, 20)
         Me.txtRMPID.TabIndex = 6
         '
         'DTPAcknowledgmentLetterSent
         '
         Me.DTPAcknowledgmentLetterSent.CustomFormat = "dd-MMM-yyyy"
         Me.DTPAcknowledgmentLetterSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPAcknowledgmentLetterSent.Location = New System.Drawing.Point(1659, 229)
-        Me.DTPAcknowledgmentLetterSent.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.DTPAcknowledgmentLetterSent.Location = New System.Drawing.Point(622, 96)
         Me.DTPAcknowledgmentLetterSent.Name = "DTPAcknowledgmentLetterSent"
         Me.DTPAcknowledgmentLetterSent.ShowCheckBox = True
-        Me.DTPAcknowledgmentLetterSent.Size = New System.Drawing.Size(303, 38)
+        Me.DTPAcknowledgmentLetterSent.Size = New System.Drawing.Size(116, 20)
         Me.DTPAcknowledgmentLetterSent.TabIndex = 4
         Me.DTPAcknowledgmentLetterSent.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(1395, 298)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label13.Location = New System.Drawing.Point(523, 125)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(246, 32)
+        Me.Label13.Size = New System.Drawing.Size(93, 13)
         Me.Label13.TabIndex = 117
         Me.Label13.Text = "Staff Responsible:"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(1331, 236)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label2.Location = New System.Drawing.Point(499, 99)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(305, 32)
+        Me.Label2.Size = New System.Drawing.Size(117, 13)
         Me.Label2.TabIndex = 117
         Me.Label2.Text = "Acknowledgment Sent:"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(1045, 19)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label1.Location = New System.Drawing.Point(392, 8)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(244, 32)
+        Me.Label1.Size = New System.Drawing.Size(93, 13)
         Me.Label1.TabIndex = 115
         Me.Label1.Text = "Event Information:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft
@@ -580,10 +600,9 @@ Partial Class SSCPEvents
         'chbEventComplete
         '
         Me.chbEventComplete.AutoSize = True
-        Me.chbEventComplete.Location = New System.Drawing.Point(29, 234)
-        Me.chbEventComplete.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.chbEventComplete.Location = New System.Drawing.Point(11, 98)
         Me.chbEventComplete.Name = "chbEventComplete"
-        Me.chbEventComplete.Size = New System.Drawing.Size(182, 36)
+        Me.chbEventComplete.Size = New System.Drawing.Size(73, 17)
         Me.chbEventComplete.TabIndex = 2
         Me.chbEventComplete.Text = "Complete:"
         '
@@ -591,53 +610,48 @@ Partial Class SSCPEvents
         '
         Me.DTPEventCompleteDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPEventCompleteDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPEventCompleteDate.Location = New System.Drawing.Point(224, 229)
-        Me.DTPEventCompleteDate.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.DTPEventCompleteDate.Location = New System.Drawing.Point(84, 96)
         Me.DTPEventCompleteDate.Name = "DTPEventCompleteDate"
-        Me.DTPEventCompleteDate.Size = New System.Drawing.Size(260, 38)
+        Me.DTPEventCompleteDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPEventCompleteDate.TabIndex = 3
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(21, 19)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label3.Location = New System.Drawing.Point(8, 8)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(261, 32)
+        Me.Label3.Size = New System.Drawing.Size(97, 13)
         Me.Label3.TabIndex = 74
         Me.Label3.Text = "Facility Information:"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
         'txtFacilityInformation
         '
-        Me.txtFacilityInformation.Location = New System.Drawing.Point(299, 19)
-        Me.txtFacilityInformation.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtFacilityInformation.Location = New System.Drawing.Point(112, 8)
         Me.txtFacilityInformation.Multiline = True
         Me.txtFacilityInformation.Name = "txtFacilityInformation"
         Me.txtFacilityInformation.ReadOnly = True
         Me.txtFacilityInformation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtFacilityInformation.Size = New System.Drawing.Size(719, 200)
+        Me.txtFacilityInformation.Size = New System.Drawing.Size(272, 86)
         Me.txtFacilityInformation.TabIndex = 0
         '
         'txtEventInformation
         '
-        Me.txtEventInformation.Location = New System.Drawing.Point(1301, 19)
-        Me.txtEventInformation.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtEventInformation.Location = New System.Drawing.Point(488, 8)
         Me.txtEventInformation.Multiline = True
         Me.txtEventInformation.Name = "txtEventInformation"
         Me.txtEventInformation.ReadOnly = True
         Me.txtEventInformation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtEventInformation.Size = New System.Drawing.Size(761, 200)
+        Me.txtEventInformation.Size = New System.Drawing.Size(288, 86)
         Me.txtEventInformation.TabIndex = 1
         '
         'btnEnforcementProcess
         '
         Me.btnEnforcementProcess.AutoSize = True
         Me.btnEnforcementProcess.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEnforcementProcess.Location = New System.Drawing.Point(29, 341)
-        Me.btnEnforcementProcess.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.btnEnforcementProcess.Location = New System.Drawing.Point(11, 143)
         Me.btnEnforcementProcess.Name = "btnEnforcementProcess"
-        Me.btnEnforcementProcess.Size = New System.Drawing.Size(341, 42)
+        Me.btnEnforcementProcess.Size = New System.Drawing.Size(136, 23)
         Me.btnEnforcementProcess.TabIndex = 7
         Me.btnEnforcementProcess.Text = "Create enforcement case"
         '
@@ -650,19 +664,19 @@ Partial Class SSCPEvents
         Me.TCItems.Controls.Add(Me.TPACC)
         Me.TCItems.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCItems.Location = New System.Drawing.Point(0, 0)
-        Me.TCItems.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.TCItems.Name = "TCItems"
         Me.TCItems.SelectedIndex = 0
-        Me.TCItems.Size = New System.Drawing.Size(2112, 942)
+        Me.TCItems.Size = New System.Drawing.Size(2112, 952)
         Me.TCItems.TabIndex = 0
         '
         'TPReport
         '
         Me.TPReport.Controls.Add(Me.PanelReports)
-        Me.TPReport.Location = New System.Drawing.Point(10, 48)
-        Me.TPReport.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.TPReport.Controls.Add(Me.SplitterReport)
+        Me.TPReport.Controls.Add(Me.dgrReportResubmittal)
+        Me.TPReport.Location = New System.Drawing.Point(4, 22)
         Me.TPReport.Name = "TPReport"
-        Me.TPReport.Size = New System.Drawing.Size(2092, 884)
+        Me.TPReport.Size = New System.Drawing.Size(2092, 894)
         Me.TPReport.TabIndex = 0
         Me.TPReport.Text = "Report"
         '
@@ -670,10 +684,9 @@ Partial Class SSCPEvents
         '
         Me.PanelReports.Controls.Add(Me.Panel4)
         Me.PanelReports.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelReports.Location = New System.Drawing.Point(0, 0)
-        Me.PanelReports.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.PanelReports.Location = New System.Drawing.Point(15, 0)
         Me.PanelReports.Name = "PanelReports"
-        Me.PanelReports.Size = New System.Drawing.Size(2092, 884)
+        Me.PanelReports.Size = New System.Drawing.Size(2092, 894)
         Me.PanelReports.TabIndex = 69
         '
         'Panel4
@@ -681,6 +694,10 @@ Partial Class SSCPEvents
         Me.Panel4.AutoScroll = True
         Me.Panel4.Controls.Add(Me.DTPReportReceivedDate)
         Me.Panel4.Controls.Add(Me.chbReportReceivedByAPB)
+        Me.Panel4.Controls.Add(Me.btnReportMoreOptions)
+        Me.Panel4.Controls.Add(Me.wrnReportSubmittal)
+        Me.Panel4.Controls.Add(Me.NUPReportSubmittal)
+        Me.Panel4.Controls.Add(Me.lblResubmittal)
         Me.Panel4.Controls.Add(Me.wrnReportPeriod)
         Me.Panel4.Controls.Add(Me.wrnShowDeviation)
         Me.Panel4.Controls.Add(Me.wrnEnforcementNeeded)
@@ -705,9 +722,8 @@ Partial Class SSCPEvents
         Me.Panel4.Controls.Add(Me.DTPReportPeriodStart)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
-        Me.Panel4.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(2092, 884)
+        Me.Panel4.Size = New System.Drawing.Size(2092, 894)
         Me.Panel4.TabIndex = 78
         '
         'DTPReportReceivedDate
@@ -715,10 +731,9 @@ Partial Class SSCPEvents
         Me.DTPReportReceivedDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPReportReceivedDate.Enabled = False
         Me.DTPReportReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPReportReceivedDate.Location = New System.Drawing.Point(405, 262)
-        Me.DTPReportReceivedDate.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.DTPReportReceivedDate.Location = New System.Drawing.Point(152, 110)
         Me.DTPReportReceivedDate.Name = "DTPReportReceivedDate"
-        Me.DTPReportReceivedDate.Size = New System.Drawing.Size(260, 38)
+        Me.DTPReportReceivedDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPReportReceivedDate.TabIndex = 6
         Me.DTPReportReceivedDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
@@ -726,23 +741,64 @@ Partial Class SSCPEvents
         '
         Me.chbReportReceivedByAPB.AutoSize = True
         Me.chbReportReceivedByAPB.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbReportReceivedByAPB.Location = New System.Drawing.Point(64, 274)
-        Me.chbReportReceivedByAPB.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.chbReportReceivedByAPB.Location = New System.Drawing.Point(24, 115)
         Me.chbReportReceivedByAPB.Name = "chbReportReceivedByAPB"
-        Me.chbReportReceivedByAPB.Size = New System.Drawing.Size(303, 36)
+        Me.chbReportReceivedByAPB.Size = New System.Drawing.Size(122, 17)
         Me.chbReportReceivedByAPB.TabIndex = 5
         Me.chbReportReceivedByAPB.Text = "Received by GEPD:"
         Me.chbReportReceivedByAPB.UseVisualStyleBackColor = True
+        '
+        'btnReportMoreOptions
+        '
+        Me.btnReportMoreOptions.AutoSize = True
+        Me.btnReportMoreOptions.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnReportMoreOptions.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReportMoreOptions.ImageIndex = 53
+        Me.btnReportMoreOptions.Location = New System.Drawing.Point(0, 0)
+        Me.btnReportMoreOptions.Name = "btnReportMoreOptions"
+        Me.btnReportMoreOptions.Size = New System.Drawing.Size(74, 19)
+        Me.btnReportMoreOptions.TabIndex = 0
+        Me.btnReportMoreOptions.Text = "Submittal History"
+        '
+        'wrnReportSubmittal
+        '
+        Me.wrnReportSubmittal.AutoSize = True
+        Me.wrnReportSubmittal.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.wrnReportSubmittal.ForeColor = System.Drawing.Color.Tomato
+        Me.wrnReportSubmittal.Location = New System.Drawing.Point(198, 28)
+        Me.wrnReportSubmittal.Name = "wrnReportSubmittal"
+        Me.wrnReportSubmittal.Size = New System.Drawing.Size(135, 13)
+        Me.wrnReportSubmittal.TabIndex = 2
+        Me.wrnReportSubmittal.Text = "Warning-value not selected"
+        Me.wrnReportSubmittal.Visible = False
+        '
+        'NUPReportSubmittal
+        '
+        Me.NUPReportSubmittal.Location = New System.Drawing.Point(152, 24)
+        Me.NUPReportSubmittal.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
+        Me.NUPReportSubmittal.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NUPReportSubmittal.Name = "NUPReportSubmittal"
+        Me.NUPReportSubmittal.Size = New System.Drawing.Size(40, 20)
+        Me.NUPReportSubmittal.TabIndex = 0
+        Me.NUPReportSubmittal.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'lblResubmittal
+        '
+        Me.lblResubmittal.AutoSize = True
+        Me.lblResubmittal.Location = New System.Drawing.Point(53, 26)
+        Me.lblResubmittal.Name = "lblResubmittal"
+        Me.lblResubmittal.Size = New System.Drawing.Size(93, 13)
+        Me.lblResubmittal.TabIndex = 106
+        Me.lblResubmittal.Text = "Submittal Number:"
         '
         'wrnReportPeriod
         '
         Me.wrnReportPeriod.AutoSize = True
         Me.wrnReportPeriod.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnReportPeriod.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnReportPeriod.Location = New System.Drawing.Point(1424, 126)
-        Me.wrnReportPeriod.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnReportPeriod.Location = New System.Drawing.Point(534, 53)
         Me.wrnReportPeriod.Name = "wrnReportPeriod"
-        Me.wrnReportPeriod.Size = New System.Drawing.Size(305, 27)
+        Me.wrnReportPeriod.Size = New System.Drawing.Size(135, 13)
         Me.wrnReportPeriod.TabIndex = 105
         Me.wrnReportPeriod.Text = "Warning-value not selected"
         Me.wrnReportPeriod.Visible = False
@@ -752,10 +808,9 @@ Partial Class SSCPEvents
         Me.wrnShowDeviation.AutoSize = True
         Me.wrnShowDeviation.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnShowDeviation.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnShowDeviation.Location = New System.Drawing.Point(1187, 577)
-        Me.wrnShowDeviation.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnShowDeviation.Location = New System.Drawing.Point(445, 242)
         Me.wrnShowDeviation.Name = "wrnShowDeviation"
-        Me.wrnShowDeviation.Size = New System.Drawing.Size(305, 27)
+        Me.wrnShowDeviation.Size = New System.Drawing.Size(135, 13)
         Me.wrnShowDeviation.TabIndex = 14
         Me.wrnShowDeviation.Text = "Warning-value not selected"
         Me.wrnShowDeviation.Visible = False
@@ -765,10 +820,9 @@ Partial Class SSCPEvents
         Me.wrnEnforcementNeeded.AutoSize = True
         Me.wrnEnforcementNeeded.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnEnforcementNeeded.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnEnforcementNeeded.Location = New System.Drawing.Point(1187, 525)
-        Me.wrnEnforcementNeeded.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnEnforcementNeeded.Location = New System.Drawing.Point(445, 220)
         Me.wrnEnforcementNeeded.Name = "wrnEnforcementNeeded"
-        Me.wrnEnforcementNeeded.Size = New System.Drawing.Size(305, 27)
+        Me.wrnEnforcementNeeded.Size = New System.Drawing.Size(135, 13)
         Me.wrnEnforcementNeeded.TabIndex = 13
         Me.wrnEnforcementNeeded.Text = "Warning-value not selected"
         Me.wrnEnforcementNeeded.Visible = False
@@ -778,10 +832,9 @@ Partial Class SSCPEvents
         Me.wrnCompleteReport.AutoSize = True
         Me.wrnCompleteReport.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnCompleteReport.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnCompleteReport.Location = New System.Drawing.Point(1187, 472)
-        Me.wrnCompleteReport.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnCompleteReport.Location = New System.Drawing.Point(445, 198)
         Me.wrnCompleteReport.Name = "wrnCompleteReport"
-        Me.wrnCompleteReport.Size = New System.Drawing.Size(305, 27)
+        Me.wrnCompleteReport.Size = New System.Drawing.Size(135, 13)
         Me.wrnCompleteReport.TabIndex = 12
         Me.wrnCompleteReport.Text = "Warning-value not selected"
         Me.wrnCompleteReport.Visible = False
@@ -789,50 +842,45 @@ Partial Class SSCPEvents
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(205, 129)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label7.Location = New System.Drawing.Point(77, 54)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(177, 32)
+        Me.Label7.Size = New System.Drawing.Size(69, 13)
         Me.Label7.TabIndex = 79
         Me.Label7.Text = "Report Type:"
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(64, 179)
-        Me.Label8.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label8.Location = New System.Drawing.Point(24, 75)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(326, 32)
+        Me.Label8.Size = New System.Drawing.Size(122, 13)
         Me.Label8.TabIndex = 91
         Me.Label8.Text = "Report Period Comment:"
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(147, 339)
-        Me.Label11.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label11.Location = New System.Drawing.Point(55, 142)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(233, 32)
+        Me.Label11.Size = New System.Drawing.Size(91, 13)
         Me.Label11.TabIndex = 85
         Me.Label11.Text = "Report Due Date:"
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(104, 401)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label9.Location = New System.Drawing.Point(39, 168)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(282, 32)
+        Me.Label9.Size = New System.Drawing.Size(107, 13)
         Me.Label9.TabIndex = 83
         Me.Label9.Text = "Date Sent by Facility:"
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(131, 627)
-        Me.Label15.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label15.Location = New System.Drawing.Point(49, 263)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(257, 32)
+        Me.Label15.Size = New System.Drawing.Size(97, 13)
         Me.Label15.TabIndex = 89
         Me.Label15.Text = "Report Comments: "
         '
@@ -840,31 +888,28 @@ Partial Class SSCPEvents
         '
         Me.cboReportSchedule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboReportSchedule.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cboReportSchedule.Location = New System.Drawing.Point(405, 114)
-        Me.cboReportSchedule.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.cboReportSchedule.Location = New System.Drawing.Point(152, 48)
         Me.cboReportSchedule.Name = "cboReportSchedule"
-        Me.cboReportSchedule.Size = New System.Drawing.Size(431, 39)
+        Me.cboReportSchedule.Size = New System.Drawing.Size(164, 21)
         Me.cboReportSchedule.TabIndex = 1
         '
         'txtReportPeriodComments
         '
         Me.txtReportPeriodComments.AcceptsReturn = True
-        Me.txtReportPeriodComments.Location = New System.Drawing.Point(405, 172)
-        Me.txtReportPeriodComments.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtReportPeriodComments.Location = New System.Drawing.Point(152, 72)
         Me.txtReportPeriodComments.MaxLength = 4000
         Me.txtReportPeriodComments.Multiline = True
         Me.txtReportPeriodComments.Name = "txtReportPeriodComments"
-        Me.txtReportPeriodComments.Size = New System.Drawing.Size(996, 71)
+        Me.txtReportPeriodComments.Size = New System.Drawing.Size(376, 32)
         Me.txtReportPeriodComments.TabIndex = 4
         '
         'DTPSentDate
         '
         Me.DTPSentDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPSentDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSentDate.Location = New System.Drawing.Point(405, 386)
-        Me.DTPSentDate.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.DTPSentDate.Location = New System.Drawing.Point(152, 162)
         Me.DTPSentDate.Name = "DTPSentDate"
-        Me.DTPSentDate.Size = New System.Drawing.Size(260, 38)
+        Me.DTPSentDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPSentDate.TabIndex = 8
         Me.DTPSentDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
@@ -872,10 +917,9 @@ Partial Class SSCPEvents
         '
         Me.dtpDueDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDueDate.Location = New System.Drawing.Point(405, 324)
-        Me.dtpDueDate.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.dtpDueDate.Location = New System.Drawing.Point(152, 136)
         Me.dtpDueDate.Name = "dtpDueDate"
-        Me.dtpDueDate.Size = New System.Drawing.Size(260, 38)
+        Me.dtpDueDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpDueDate.TabIndex = 7
         Me.dtpDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
@@ -883,57 +927,51 @@ Partial Class SSCPEvents
         '
         Me.Panel5.Controls.Add(Me.rdbReportCompleteYes)
         Me.Panel5.Controls.Add(Me.rdbReportCompleteNo)
-        Me.Panel5.Location = New System.Drawing.Point(939, 463)
-        Me.Panel5.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel5.Location = New System.Drawing.Point(352, 194)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(256, 38)
+        Me.Panel5.Size = New System.Drawing.Size(96, 16)
         Me.Panel5.TabIndex = 100
         '
         'rdbReportCompleteYes
         '
         Me.rdbReportCompleteYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbReportCompleteYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbReportCompleteYes.Name = "rdbReportCompleteYes"
-        Me.rdbReportCompleteYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbReportCompleteYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbReportCompleteYes.TabIndex = 0
         Me.rdbReportCompleteYes.Text = "Yes"
         '
         'rdbReportCompleteNo
         '
-        Me.rdbReportCompleteNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbReportCompleteNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbReportCompleteNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbReportCompleteNo.Name = "rdbReportCompleteNo"
-        Me.rdbReportCompleteNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbReportCompleteNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbReportCompleteNo.TabIndex = 1
         Me.rdbReportCompleteNo.Text = "No"
         '
         'Label59
         '
         Me.Label59.AutoSize = True
-        Me.Label59.Location = New System.Drawing.Point(397, 467)
-        Me.Label59.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label59.Location = New System.Drawing.Point(149, 196)
         Me.Label59.Name = "Label59"
-        Me.Label59.Size = New System.Drawing.Size(228, 32)
+        Me.Label59.Size = New System.Drawing.Size(86, 13)
         Me.Label59.TabIndex = 9
         Me.Label59.Text = "Complete Report"
         '
         'Label62
         '
         Me.Label62.AutoSize = True
-        Me.Label62.Location = New System.Drawing.Point(397, 520)
-        Me.Label62.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label62.Location = New System.Drawing.Point(149, 218)
         Me.Label62.Name = "Label62"
-        Me.Label62.Size = New System.Drawing.Size(282, 32)
+        Me.Label62.Size = New System.Drawing.Size(108, 13)
         Me.Label62.TabIndex = 10
         Me.Label62.Text = "Enforcement Needed"
         '
         'Label63
         '
         Me.Label63.AutoSize = True
-        Me.Label63.Location = New System.Drawing.Point(397, 572)
-        Me.Label63.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label63.Location = New System.Drawing.Point(149, 240)
         Me.Label63.Name = "Label63"
-        Me.Label63.Size = New System.Drawing.Size(212, 32)
+        Me.Label63.Size = New System.Drawing.Size(82, 13)
         Me.Label63.TabIndex = 11
         Me.Label63.Text = "Show Deviation"
         '
@@ -941,27 +979,24 @@ Partial Class SSCPEvents
         '
         Me.Panel17.Controls.Add(Me.rdbReportDeviationYes)
         Me.Panel17.Controls.Add(Me.rdbReportDeviationNo)
-        Me.Panel17.Location = New System.Drawing.Point(939, 568)
-        Me.Panel17.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel17.Location = New System.Drawing.Point(352, 238)
         Me.Panel17.Name = "Panel17"
-        Me.Panel17.Size = New System.Drawing.Size(256, 38)
+        Me.Panel17.Size = New System.Drawing.Size(96, 16)
         Me.Panel17.TabIndex = 96
         '
         'rdbReportDeviationYes
         '
         Me.rdbReportDeviationYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbReportDeviationYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbReportDeviationYes.Name = "rdbReportDeviationYes"
-        Me.rdbReportDeviationYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbReportDeviationYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbReportDeviationYes.TabIndex = 0
         Me.rdbReportDeviationYes.Text = "Yes"
         '
         'rdbReportDeviationNo
         '
-        Me.rdbReportDeviationNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbReportDeviationNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbReportDeviationNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbReportDeviationNo.Name = "rdbReportDeviationNo"
-        Me.rdbReportDeviationNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbReportDeviationNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbReportDeviationNo.TabIndex = 20
         Me.rdbReportDeviationNo.Text = "No"
         '
@@ -969,50 +1004,45 @@ Partial Class SSCPEvents
         '
         Me.Panel18.Controls.Add(Me.rdbReportEnforcementYes)
         Me.Panel18.Controls.Add(Me.rdbReportEnforcementNo)
-        Me.Panel18.Location = New System.Drawing.Point(939, 515)
-        Me.Panel18.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel18.Location = New System.Drawing.Point(352, 216)
         Me.Panel18.Name = "Panel18"
-        Me.Panel18.Size = New System.Drawing.Size(256, 38)
+        Me.Panel18.Size = New System.Drawing.Size(96, 16)
         Me.Panel18.TabIndex = 93
         '
         'rdbReportEnforcementYes
         '
         Me.rdbReportEnforcementYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbReportEnforcementYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbReportEnforcementYes.Name = "rdbReportEnforcementYes"
-        Me.rdbReportEnforcementYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbReportEnforcementYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbReportEnforcementYes.TabIndex = 0
         Me.rdbReportEnforcementYes.Text = "Yes"
         '
         'rdbReportEnforcementNo
         '
-        Me.rdbReportEnforcementNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbReportEnforcementNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbReportEnforcementNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbReportEnforcementNo.Name = "rdbReportEnforcementNo"
-        Me.rdbReportEnforcementNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbReportEnforcementNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbReportEnforcementNo.TabIndex = 20
         Me.rdbReportEnforcementNo.Text = "No"
         '
         'txtReportsGeneralComments
         '
         Me.txtReportsGeneralComments.AcceptsReturn = True
-        Me.txtReportsGeneralComments.Location = New System.Drawing.Point(405, 620)
-        Me.txtReportsGeneralComments.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtReportsGeneralComments.Location = New System.Drawing.Point(152, 260)
         Me.txtReportsGeneralComments.MaxLength = 4000
         Me.txtReportsGeneralComments.Multiline = True
         Me.txtReportsGeneralComments.Name = "txtReportsGeneralComments"
         Me.txtReportsGeneralComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtReportsGeneralComments.Size = New System.Drawing.Size(996, 166)
+        Me.txtReportsGeneralComments.Size = New System.Drawing.Size(376, 72)
         Me.txtReportsGeneralComments.TabIndex = 9
         '
         'DTPReportPeriodEnd
         '
         Me.DTPReportPeriodEnd.CustomFormat = "dd-MMM-yyyy"
         Me.DTPReportPeriodEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPReportPeriodEnd.Location = New System.Drawing.Point(1141, 114)
-        Me.DTPReportPeriodEnd.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.DTPReportPeriodEnd.Location = New System.Drawing.Point(428, 48)
         Me.DTPReportPeriodEnd.Name = "DTPReportPeriodEnd"
-        Me.DTPReportPeriodEnd.Size = New System.Drawing.Size(260, 38)
+        Me.DTPReportPeriodEnd.Size = New System.Drawing.Size(100, 20)
         Me.DTPReportPeriodEnd.TabIndex = 3
         Me.DTPReportPeriodEnd.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
@@ -1020,20 +1050,45 @@ Partial Class SSCPEvents
         '
         Me.DTPReportPeriodStart.CustomFormat = "dd-MMM-yyyy"
         Me.DTPReportPeriodStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPReportPeriodStart.Location = New System.Drawing.Point(859, 114)
-        Me.DTPReportPeriodStart.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.DTPReportPeriodStart.Location = New System.Drawing.Point(322, 48)
         Me.DTPReportPeriodStart.Name = "DTPReportPeriodStart"
-        Me.DTPReportPeriodStart.Size = New System.Drawing.Size(260, 38)
+        Me.DTPReportPeriodStart.Size = New System.Drawing.Size(100, 20)
         Me.DTPReportPeriodStart.TabIndex = 2
         Me.DTPReportPeriodStart.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
+        '
+        'SplitterReport
+        '
+        Me.SplitterReport.BackColor = System.Drawing.SystemColors.Highlight
+        Me.SplitterReport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.SplitterReport.Location = New System.Drawing.Point(10, 0)
+        Me.SplitterReport.Name = "SplitterReport"
+        Me.SplitterReport.Size = New System.Drawing.Size(5, 370)
+        Me.SplitterReport.TabIndex = 68
+        Me.SplitterReport.TabStop = False
+        '
+        'dgrReportResubmittal
+        '
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrReportResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgrReportResubmittal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgrReportResubmittal.Dock = System.Windows.Forms.DockStyle.Left
+        Me.dgrReportResubmittal.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgrReportResubmittal.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgrReportResubmittal.LinkifyColumnByName = Nothing
+        Me.dgrReportResubmittal.Location = New System.Drawing.Point(0, 0)
+        Me.dgrReportResubmittal.Name = "dgrReportResubmittal"
+        Me.dgrReportResubmittal.ResultsCountLabel = Nothing
+        Me.dgrReportResubmittal.ResultsCountLabelFormat = "{0} found"
+        Me.dgrReportResubmittal.Size = New System.Drawing.Size(10, 370)
+        Me.dgrReportResubmittal.StandardTab = True
+        Me.dgrReportResubmittal.TabIndex = 30
         '
         'TPTestReports
         '
         Me.TPTestReports.Controls.Add(Me.PanelSSCPCompliance2)
-        Me.TPTestReports.Location = New System.Drawing.Point(10, 48)
-        Me.TPTestReports.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.TPTestReports.Location = New System.Drawing.Point(4, 22)
         Me.TPTestReports.Name = "TPTestReports"
-        Me.TPTestReports.Size = New System.Drawing.Size(2092, 884)
+        Me.TPTestReports.Size = New System.Drawing.Size(2092, 894)
         Me.TPTestReports.TabIndex = 2
         Me.TPTestReports.Text = "ISMP Test Report"
         '
@@ -1066,9 +1121,8 @@ Partial Class SSCPEvents
         Me.PanelSSCPCompliance2.Controls.Add(Me.txtTestReportDueDate)
         Me.PanelSSCPCompliance2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSSCPCompliance2.Location = New System.Drawing.Point(0, 0)
-        Me.PanelSSCPCompliance2.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.PanelSSCPCompliance2.Name = "PanelSSCPCompliance2"
-        Me.PanelSSCPCompliance2.Size = New System.Drawing.Size(2092, 884)
+        Me.PanelSSCPCompliance2.Size = New System.Drawing.Size(2092, 894)
         Me.PanelSSCPCompliance2.TabIndex = 161
         '
         'DTPTestReportReceivedDate
@@ -1076,10 +1130,9 @@ Partial Class SSCPEvents
         Me.DTPTestReportReceivedDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPTestReportReceivedDate.Enabled = False
         Me.DTPTestReportReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPTestReportReceivedDate.Location = New System.Drawing.Point(555, 76)
-        Me.DTPTestReportReceivedDate.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.DTPTestReportReceivedDate.Location = New System.Drawing.Point(208, 32)
         Me.DTPTestReportReceivedDate.Name = "DTPTestReportReceivedDate"
-        Me.DTPTestReportReceivedDate.Size = New System.Drawing.Size(260, 38)
+        Me.DTPTestReportReceivedDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPTestReportReceivedDate.TabIndex = 3
         Me.DTPTestReportReceivedDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
@@ -1087,49 +1140,44 @@ Partial Class SSCPEvents
         '
         Me.chbISMPTestReportReceivedByAPB.AutoSize = True
         Me.chbISMPTestReportReceivedByAPB.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbISMPTestReportReceivedByAPB.Location = New System.Drawing.Point(219, 76)
-        Me.chbISMPTestReportReceivedByAPB.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.chbISMPTestReportReceivedByAPB.Location = New System.Drawing.Point(82, 32)
         Me.chbISMPTestReportReceivedByAPB.Name = "chbISMPTestReportReceivedByAPB"
-        Me.chbISMPTestReportReceivedByAPB.Size = New System.Drawing.Size(303, 36)
+        Me.chbISMPTestReportReceivedByAPB.Size = New System.Drawing.Size(122, 17)
         Me.chbISMPTestReportReceivedByAPB.TabIndex = 2
         Me.chbISMPTestReportReceivedByAPB.Text = "Received by GEPD:"
         Me.chbISMPTestReportReceivedByAPB.UseVisualStyleBackColor = True
         '
         'txtPollutantTested
         '
-        Me.txtPollutantTested.Location = New System.Drawing.Point(555, 248)
-        Me.txtPollutantTested.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtPollutantTested.Location = New System.Drawing.Point(208, 104)
         Me.txtPollutantTested.Name = "txtPollutantTested"
         Me.txtPollutantTested.ReadOnly = True
-        Me.txtPollutantTested.Size = New System.Drawing.Size(697, 38)
+        Me.txtPollutantTested.Size = New System.Drawing.Size(264, 20)
         Me.txtPollutantTested.TabIndex = 9
         '
         'txtUnitTested
         '
-        Me.txtUnitTested.Location = New System.Drawing.Point(555, 191)
-        Me.txtUnitTested.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtUnitTested.Location = New System.Drawing.Point(208, 80)
         Me.txtUnitTested.Name = "txtUnitTested"
         Me.txtUnitTested.ReadOnly = True
-        Me.txtUnitTested.Size = New System.Drawing.Size(697, 38)
+        Me.txtUnitTested.Size = New System.Drawing.Size(264, 20)
         Me.txtUnitTested.TabIndex = 8
         '
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(307, 253)
-        Me.Label23.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label23.Location = New System.Drawing.Point(115, 106)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(229, 32)
+        Me.Label23.Size = New System.Drawing.Size(87, 13)
         Me.Label23.TabIndex = 297
         Me.Label23.Text = "Pollutant Tested:"
         '
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(363, 196)
-        Me.Label19.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label19.Location = New System.Drawing.Point(136, 82)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(158, 32)
+        Me.Label19.Size = New System.Drawing.Size(61, 13)
         Me.Label19.TabIndex = 296
         Me.Label19.Text = "Unit tested:"
         '
@@ -1137,10 +1185,9 @@ Partial Class SSCPEvents
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(960, 26)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label6.Location = New System.Drawing.Point(360, 11)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(199, 29)
+        Me.Label6.Size = New System.Drawing.Size(77, 12)
         Me.Label6.TabIndex = 295
         Me.Label6.Text = "View Test Report"
         '
@@ -1148,47 +1195,42 @@ Partial Class SSCPEvents
         '
         Me.btnViewTestReport.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnViewTestReport.ImageIndex = 53
-        Me.btnViewTestReport.Location = New System.Drawing.Point(880, 17)
-        Me.btnViewTestReport.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.btnViewTestReport.Location = New System.Drawing.Point(330, 7)
         Me.btnViewTestReport.Name = "btnViewTestReport"
-        Me.btnViewTestReport.Size = New System.Drawing.Size(64, 55)
+        Me.btnViewTestReport.Size = New System.Drawing.Size(24, 23)
         Me.btnViewTestReport.TabIndex = 1
         '
         'txtTestReportReceivedbySSCPDate
         '
-        Me.txtTestReportReceivedbySSCPDate.Location = New System.Drawing.Point(555, 305)
-        Me.txtTestReportReceivedbySSCPDate.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtTestReportReceivedbySSCPDate.Location = New System.Drawing.Point(208, 128)
         Me.txtTestReportReceivedbySSCPDate.Name = "txtTestReportReceivedbySSCPDate"
         Me.txtTestReportReceivedbySSCPDate.ReadOnly = True
-        Me.txtTestReportReceivedbySSCPDate.Size = New System.Drawing.Size(313, 38)
+        Me.txtTestReportReceivedbySSCPDate.Size = New System.Drawing.Size(120, 20)
         Me.txtTestReportReceivedbySSCPDate.TabIndex = 10
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(16, 312)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label5.Location = New System.Drawing.Point(6, 131)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(525, 32)
+        Me.Label5.Size = New System.Drawing.Size(198, 13)
         Me.Label5.TabIndex = 166
         Me.Label5.Text = "Test Summary Received by Compliance:"
         '
         'txtTestReportISMPCompleteDate
         '
-        Me.txtTestReportISMPCompleteDate.Location = New System.Drawing.Point(555, 134)
-        Me.txtTestReportISMPCompleteDate.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtTestReportISMPCompleteDate.Location = New System.Drawing.Point(208, 56)
         Me.txtTestReportISMPCompleteDate.Name = "txtTestReportISMPCompleteDate"
         Me.txtTestReportISMPCompleteDate.ReadOnly = True
-        Me.txtTestReportISMPCompleteDate.Size = New System.Drawing.Size(313, 38)
+        Me.txtTestReportISMPCompleteDate.Size = New System.Drawing.Size(120, 20)
         Me.txtTestReportISMPCompleteDate.TabIndex = 6
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(91, 138)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label4.Location = New System.Drawing.Point(34, 58)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(426, 32)
+        Me.Label4.Size = New System.Drawing.Size(162, 13)
         Me.Label4.TabIndex = 164
         Me.Label4.Text = "Test Report Completed by ISMP:"
         '
@@ -1196,47 +1238,42 @@ Partial Class SSCPEvents
         '
         Me.Panel22.Controls.Add(Me.rdbTestReportFollowUpYes)
         Me.Panel22.Controls.Add(Me.rdbTestReportFollowUpNo)
-        Me.Panel22.Location = New System.Drawing.Point(448, 687)
-        Me.Panel22.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel22.Location = New System.Drawing.Point(168, 288)
         Me.Panel22.Name = "Panel22"
-        Me.Panel22.Size = New System.Drawing.Size(256, 38)
+        Me.Panel22.Size = New System.Drawing.Size(96, 16)
         Me.Panel22.TabIndex = 163
         '
         'rdbTestReportFollowUpYes
         '
         Me.rdbTestReportFollowUpYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbTestReportFollowUpYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbTestReportFollowUpYes.Name = "rdbTestReportFollowUpYes"
-        Me.rdbTestReportFollowUpYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbTestReportFollowUpYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbTestReportFollowUpYes.TabIndex = 0
         Me.rdbTestReportFollowUpYes.Text = "Yes"
         '
         'rdbTestReportFollowUpNo
         '
-        Me.rdbTestReportFollowUpNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbTestReportFollowUpNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbTestReportFollowUpNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbTestReportFollowUpNo.Name = "rdbTestReportFollowUpNo"
-        Me.rdbTestReportFollowUpNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbTestReportFollowUpNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbTestReportFollowUpNo.TabIndex = 1
         Me.rdbTestReportFollowUpNo.Text = "No"
         '
         'Label71
         '
         Me.Label71.AutoSize = True
-        Me.Label71.Location = New System.Drawing.Point(43, 687)
-        Me.Label71.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label71.Location = New System.Drawing.Point(16, 288)
         Me.Label71.Name = "Label71"
-        Me.Label71.Size = New System.Drawing.Size(315, 32)
+        Me.Label71.Size = New System.Drawing.Size(121, 13)
         Me.Label71.TabIndex = 161
         Me.Label71.Text = "Follow-Up Action Taken"
         '
         'Label38
         '
         Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(939, 81)
-        Me.Label38.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label38.Location = New System.Drawing.Point(352, 34)
         Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(295, 32)
+        Me.Label38.Size = New System.Drawing.Size(115, 13)
         Me.Label38.TabIndex = 142
         Me.Label38.Text = "Date Test Report Due:"
         '
@@ -1244,10 +1281,9 @@ Partial Class SSCPEvents
         '
         Me.DTPTestReportDueDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPTestReportDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPTestReportDueDate.Location = New System.Drawing.Point(1259, 134)
-        Me.DTPTestReportDueDate.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.DTPTestReportDueDate.Location = New System.Drawing.Point(472, 56)
         Me.DTPTestReportDueDate.Name = "DTPTestReportDueDate"
-        Me.DTPTestReportDueDate.Size = New System.Drawing.Size(260, 38)
+        Me.DTPTestReportDueDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPTestReportDueDate.TabIndex = 7
         Me.DTPTestReportDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         Me.DTPTestReportDueDate.Visible = False
@@ -1255,91 +1291,82 @@ Partial Class SSCPEvents
         'chbTestReportChangeDueDate
         '
         Me.chbTestReportChangeDueDate.AutoSize = True
-        Me.chbTestReportChangeDueDate.Location = New System.Drawing.Point(1600, 81)
-        Me.chbTestReportChangeDueDate.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.chbTestReportChangeDueDate.Location = New System.Drawing.Point(600, 34)
         Me.chbTestReportChangeDueDate.Name = "chbTestReportChangeDueDate"
-        Me.chbTestReportChangeDueDate.Size = New System.Drawing.Size(278, 36)
+        Me.chbTestReportChangeDueDate.Size = New System.Drawing.Size(112, 17)
         Me.chbTestReportChangeDueDate.TabIndex = 5
         Me.chbTestReportChangeDueDate.Text = "Change Due Date"
         '
         'Label68
         '
         Me.Label68.AutoSize = True
-        Me.Label68.Location = New System.Drawing.Point(21, 24)
-        Me.Label68.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label68.Location = New System.Drawing.Point(8, 10)
         Me.Label68.Name = "Label68"
-        Me.Label68.Size = New System.Drawing.Size(489, 32)
+        Me.Label68.Size = New System.Drawing.Size(188, 13)
         Me.Label68.TabIndex = 154
         Me.Label68.Text = "ISMP Test Report Reference Number:"
         '
         'txtISMPReferenceNumber
         '
-        Me.txtISMPReferenceNumber.Location = New System.Drawing.Point(555, 19)
-        Me.txtISMPReferenceNumber.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtISMPReferenceNumber.Location = New System.Drawing.Point(208, 8)
         Me.txtISMPReferenceNumber.MaxLength = 9
         Me.txtISMPReferenceNumber.Name = "txtISMPReferenceNumber"
-        Me.txtISMPReferenceNumber.Size = New System.Drawing.Size(313, 38)
+        Me.txtISMPReferenceNumber.Size = New System.Drawing.Size(120, 20)
         Me.txtISMPReferenceNumber.TabIndex = 0
         '
         'DTPTestReportNewDueDate
         '
         Me.DTPTestReportNewDueDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPTestReportNewDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPTestReportNewDueDate.Location = New System.Drawing.Point(555, 610)
-        Me.DTPTestReportNewDueDate.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.DTPTestReportNewDueDate.Location = New System.Drawing.Point(208, 256)
         Me.DTPTestReportNewDueDate.Name = "DTPTestReportNewDueDate"
-        Me.DTPTestReportNewDueDate.Size = New System.Drawing.Size(260, 38)
+        Me.DTPTestReportNewDueDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPTestReportNewDueDate.TabIndex = 12
         Me.DTPTestReportNewDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'Label50
         '
         Me.Label50.AutoSize = True
-        Me.Label50.Location = New System.Drawing.Point(104, 610)
-        Me.Label50.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label50.Location = New System.Drawing.Point(39, 256)
         Me.Label50.Name = "Label50"
-        Me.Label50.Size = New System.Drawing.Size(414, 32)
+        Me.Label50.Size = New System.Drawing.Size(160, 13)
         Me.Label50.TabIndex = 149
         Me.Label50.Text = "Due Date for Next Test Reports:"
         '
         'txtTestReportComments
         '
         Me.txtTestReportComments.AcceptsReturn = True
-        Me.txtTestReportComments.Location = New System.Drawing.Point(555, 382)
-        Me.txtTestReportComments.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtTestReportComments.Location = New System.Drawing.Point(208, 160)
         Me.txtTestReportComments.MaxLength = 4000
         Me.txtTestReportComments.Multiline = True
         Me.txtTestReportComments.Name = "txtTestReportComments"
         Me.txtTestReportComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtTestReportComments.Size = New System.Drawing.Size(1060, 204)
+        Me.txtTestReportComments.Size = New System.Drawing.Size(400, 88)
         Me.txtTestReportComments.TabIndex = 11
         '
         'Label46
         '
         Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(213, 382)
-        Me.Label46.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label46.Location = New System.Drawing.Point(80, 160)
         Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(312, 32)
+        Me.Label46.Size = New System.Drawing.Size(118, 13)
         Me.Label46.TabIndex = 147
         Me.Label46.Text = "Test Report Comments:"
         '
         'txtTestReportDueDate
         '
-        Me.txtTestReportDueDate.Location = New System.Drawing.Point(1259, 76)
-        Me.txtTestReportDueDate.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtTestReportDueDate.Location = New System.Drawing.Point(472, 32)
         Me.txtTestReportDueDate.Name = "txtTestReportDueDate"
         Me.txtTestReportDueDate.ReadOnly = True
-        Me.txtTestReportDueDate.Size = New System.Drawing.Size(313, 38)
+        Me.txtTestReportDueDate.Size = New System.Drawing.Size(120, 20)
         Me.txtTestReportDueDate.TabIndex = 4
         '
         'TPInspection
         '
         Me.TPInspection.Controls.Add(Me.Panel11)
-        Me.TPInspection.Location = New System.Drawing.Point(10, 48)
-        Me.TPInspection.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.TPInspection.Location = New System.Drawing.Point(4, 22)
         Me.TPInspection.Name = "TPInspection"
-        Me.TPInspection.Size = New System.Drawing.Size(2092, 884)
+        Me.TPInspection.Size = New System.Drawing.Size(784, 370)
         Me.TPInspection.TabIndex = 1
         Me.TPInspection.Text = "Inspection"
         '
@@ -1373,86 +1400,77 @@ Partial Class SSCPEvents
         Me.Panel11.Controls.Add(Me.dtpInspectionTimeStart)
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel11.Location = New System.Drawing.Point(0, 0)
-        Me.Panel11.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(2092, 884)
+        Me.Panel11.Size = New System.Drawing.Size(784, 370)
         Me.Panel11.TabIndex = 81
         '
         'Panel21
         '
         Me.Panel21.Controls.Add(Me.rdbInspectionFollowUpYes)
         Me.Panel21.Controls.Add(Me.rdbInspectionFollowUpNo)
-        Me.Panel21.Location = New System.Drawing.Point(427, 725)
-        Me.Panel21.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel21.Location = New System.Drawing.Point(160, 304)
         Me.Panel21.Name = "Panel21"
-        Me.Panel21.Size = New System.Drawing.Size(256, 38)
+        Me.Panel21.Size = New System.Drawing.Size(96, 16)
         Me.Panel21.TabIndex = 83
         '
         'rdbInspectionFollowUpYes
         '
         Me.rdbInspectionFollowUpYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbInspectionFollowUpYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbInspectionFollowUpYes.Name = "rdbInspectionFollowUpYes"
-        Me.rdbInspectionFollowUpYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbInspectionFollowUpYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbInspectionFollowUpYes.TabIndex = 0
         Me.rdbInspectionFollowUpYes.Text = "Yes"
         '
         'rdbInspectionFollowUpNo
         '
-        Me.rdbInspectionFollowUpNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbInspectionFollowUpNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbInspectionFollowUpNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbInspectionFollowUpNo.Name = "rdbInspectionFollowUpNo"
-        Me.rdbInspectionFollowUpNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbInspectionFollowUpNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbInspectionFollowUpNo.TabIndex = 1
         Me.rdbInspectionFollowUpNo.Text = "No"
         '
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(21, 725)
-        Me.Label34.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label34.Location = New System.Drawing.Point(8, 304)
         Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(323, 32)
+        Me.Label34.Size = New System.Drawing.Size(124, 13)
         Me.Label34.TabIndex = 81
         Me.Label34.Text = "Follow-Up Action Taken:"
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(419, 19)
-        Me.Label17.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label17.Location = New System.Drawing.Point(157, 8)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(82, 32)
+        Me.Label17.Size = New System.Drawing.Size(32, 13)
         Me.Label17.TabIndex = 9
         Me.Label17.Text = "Start:"
         '
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(701, 19)
-        Me.Label16.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label16.Location = New System.Drawing.Point(263, 8)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(73, 32)
+        Me.Label16.Size = New System.Drawing.Size(29, 13)
         Me.Label16.TabIndex = 8
         Me.Label16.Text = "End:"
         '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(21, 119)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label14.Location = New System.Drawing.Point(8, 50)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(229, 32)
+        Me.Label14.Size = New System.Drawing.Size(88, 13)
         Me.Label14.TabIndex = 7
         Me.Label14.Text = "Inspection Time: "
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(21, 62)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label12.Location = New System.Drawing.Point(8, 26)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(212, 32)
+        Me.Label12.Size = New System.Drawing.Size(83, 13)
         Me.Label12.TabIndex = 4
         Me.Label12.Text = "Date Inspected:"
         '
@@ -1460,29 +1478,26 @@ Partial Class SSCPEvents
         '
         Me.DTPInspectionDateStart.CustomFormat = "dd-MMM-yyyy"
         Me.DTPInspectionDateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPInspectionDateStart.Location = New System.Drawing.Point(427, 57)
-        Me.DTPInspectionDateStart.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.DTPInspectionDateStart.Location = New System.Drawing.Point(160, 24)
         Me.DTPInspectionDateStart.Name = "DTPInspectionDateStart"
-        Me.DTPInspectionDateStart.Size = New System.Drawing.Size(260, 38)
+        Me.DTPInspectionDateStart.Size = New System.Drawing.Size(100, 20)
         Me.DTPInspectionDateStart.TabIndex = 0
         Me.DTPInspectionDateStart.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'cboInspectionComplianceStatus
         '
         Me.cboInspectionComplianceStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboInspectionComplianceStatus.Location = New System.Drawing.Point(427, 420)
-        Me.cboInspectionComplianceStatus.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.cboInspectionComplianceStatus.Location = New System.Drawing.Point(160, 176)
         Me.cboInspectionComplianceStatus.Name = "cboInspectionComplianceStatus"
-        Me.cboInspectionComplianceStatus.Size = New System.Drawing.Size(543, 39)
+        Me.cboInspectionComplianceStatus.Size = New System.Drawing.Size(206, 21)
         Me.cboInspectionComplianceStatus.TabIndex = 7
         '
         'txtWeatherConditions
         '
-        Me.txtWeatherConditions.Location = New System.Drawing.Point(427, 229)
-        Me.txtWeatherConditions.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtWeatherConditions.Location = New System.Drawing.Point(160, 96)
         Me.txtWeatherConditions.MaxLength = 100
         Me.txtWeatherConditions.Name = "txtWeatherConditions"
-        Me.txtWeatherConditions.Size = New System.Drawing.Size(543, 38)
+        Me.txtWeatherConditions.Size = New System.Drawing.Size(206, 20)
         Me.txtWeatherConditions.TabIndex = 5
         '
         'wrnInspectionDates
@@ -1490,10 +1505,9 @@ Partial Class SSCPEvents
         Me.wrnInspectionDates.AutoSize = True
         Me.wrnInspectionDates.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnInspectionDates.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnInspectionDates.Location = New System.Drawing.Point(992, 67)
-        Me.wrnInspectionDates.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnInspectionDates.Location = New System.Drawing.Point(372, 28)
         Me.wrnInspectionDates.Name = "wrnInspectionDates"
-        Me.wrnInspectionDates.Size = New System.Drawing.Size(150, 27)
+        Me.wrnInspectionDates.Size = New System.Drawing.Size(68, 13)
         Me.wrnInspectionDates.TabIndex = 78
         Me.wrnInspectionDates.Text = "Invalid Dates"
         Me.wrnInspectionDates.Visible = False
@@ -1503,10 +1517,9 @@ Partial Class SSCPEvents
         Me.wrnInspectionComplianceStatus.AutoSize = True
         Me.wrnInspectionComplianceStatus.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnInspectionComplianceStatus.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnInspectionComplianceStatus.Location = New System.Drawing.Point(992, 432)
-        Me.wrnInspectionComplianceStatus.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnInspectionComplianceStatus.Location = New System.Drawing.Point(372, 181)
         Me.wrnInspectionComplianceStatus.Name = "wrnInspectionComplianceStatus"
-        Me.wrnInspectionComplianceStatus.Size = New System.Drawing.Size(305, 27)
+        Me.wrnInspectionComplianceStatus.Size = New System.Drawing.Size(135, 13)
         Me.wrnInspectionComplianceStatus.TabIndex = 77
         Me.wrnInspectionComplianceStatus.Text = "Warning-value not selected"
         Me.wrnInspectionComplianceStatus.Visible = False
@@ -1516,10 +1529,9 @@ Partial Class SSCPEvents
         Me.wrnInspectionOperating.AutoSize = True
         Me.wrnInspectionOperating.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnInspectionOperating.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnInspectionOperating.Location = New System.Drawing.Point(661, 365)
-        Me.wrnInspectionOperating.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnInspectionOperating.Location = New System.Drawing.Point(248, 153)
         Me.wrnInspectionOperating.Name = "wrnInspectionOperating"
-        Me.wrnInspectionOperating.Size = New System.Drawing.Size(305, 27)
+        Me.wrnInspectionOperating.Size = New System.Drawing.Size(135, 13)
         Me.wrnInspectionOperating.TabIndex = 76
         Me.wrnInspectionOperating.Text = "Warning-value not selected"
         Me.wrnInspectionOperating.Visible = False
@@ -1528,127 +1540,114 @@ Partial Class SSCPEvents
         '
         Me.Panel19.Controls.Add(Me.rdbInspectionFacilityOperatingYes)
         Me.Panel19.Controls.Add(Me.rdbInspectionFacilityOperatingNo)
-        Me.Panel19.Location = New System.Drawing.Point(427, 362)
-        Me.Panel19.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel19.Location = New System.Drawing.Point(160, 152)
         Me.Panel19.Name = "Panel19"
-        Me.Panel19.Size = New System.Drawing.Size(256, 38)
+        Me.Panel19.Size = New System.Drawing.Size(96, 16)
         Me.Panel19.TabIndex = 69
         '
         'rdbInspectionFacilityOperatingYes
         '
         Me.rdbInspectionFacilityOperatingYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbInspectionFacilityOperatingYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbInspectionFacilityOperatingYes.Name = "rdbInspectionFacilityOperatingYes"
-        Me.rdbInspectionFacilityOperatingYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbInspectionFacilityOperatingYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbInspectionFacilityOperatingYes.TabIndex = 0
         Me.rdbInspectionFacilityOperatingYes.Text = "Yes"
         '
         'rdbInspectionFacilityOperatingNo
         '
-        Me.rdbInspectionFacilityOperatingNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbInspectionFacilityOperatingNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbInspectionFacilityOperatingNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbInspectionFacilityOperatingNo.Name = "rdbInspectionFacilityOperatingNo"
-        Me.rdbInspectionFacilityOperatingNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbInspectionFacilityOperatingNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbInspectionFacilityOperatingNo.TabIndex = 20
         Me.rdbInspectionFacilityOperatingNo.Text = "No"
         '
         'Label64
         '
         Me.Label64.AutoSize = True
-        Me.Label64.Location = New System.Drawing.Point(21, 362)
-        Me.Label64.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label64.Location = New System.Drawing.Point(8, 152)
         Me.Label64.Name = "Label64"
-        Me.Label64.Size = New System.Drawing.Size(245, 32)
+        Me.Label64.Size = New System.Drawing.Size(91, 13)
         Me.Label64.TabIndex = 68
         Me.Label64.Text = "Facility Operating:"
         '
         'cboInspectionReason
         '
         Me.cboInspectionReason.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboInspectionReason.Location = New System.Drawing.Point(427, 172)
-        Me.cboInspectionReason.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.cboInspectionReason.Location = New System.Drawing.Point(160, 72)
         Me.cboInspectionReason.Name = "cboInspectionReason"
-        Me.cboInspectionReason.Size = New System.Drawing.Size(543, 39)
+        Me.cboInspectionReason.Size = New System.Drawing.Size(206, 21)
         Me.cboInspectionReason.TabIndex = 4
         '
         'DTPInspectionDateEnd
         '
         Me.DTPInspectionDateEnd.CustomFormat = "dd-MMM-yyyy"
         Me.DTPInspectionDateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPInspectionDateEnd.Location = New System.Drawing.Point(709, 57)
-        Me.DTPInspectionDateEnd.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.DTPInspectionDateEnd.Location = New System.Drawing.Point(266, 24)
         Me.DTPInspectionDateEnd.Name = "DTPInspectionDateEnd"
-        Me.DTPInspectionDateEnd.Size = New System.Drawing.Size(260, 38)
+        Me.DTPInspectionDateEnd.Size = New System.Drawing.Size(100, 20)
         Me.DTPInspectionDateEnd.TabIndex = 1
         Me.DTPInspectionDateEnd.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(21, 176)
-        Me.Label24.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label24.Location = New System.Drawing.Point(8, 74)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(257, 32)
+        Me.Label24.Size = New System.Drawing.Size(99, 13)
         Me.Label24.TabIndex = 27
         Me.Label24.Text = "Inspection Reason:"
         '
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(21, 234)
-        Me.Label22.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label22.Location = New System.Drawing.Point(8, 98)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(272, 32)
+        Me.Label22.Size = New System.Drawing.Size(103, 13)
         Me.Label22.TabIndex = 22
         Me.Label22.Text = "Weather Conditions:"
         '
         'txtInspectionConclusion
         '
         Me.txtInspectionConclusion.AcceptsReturn = True
-        Me.txtInspectionConclusion.Location = New System.Drawing.Point(427, 496)
-        Me.txtInspectionConclusion.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtInspectionConclusion.Location = New System.Drawing.Point(160, 208)
         Me.txtInspectionConclusion.MaxLength = 4000
         Me.txtInspectionConclusion.Multiline = True
         Me.txtInspectionConclusion.Name = "txtInspectionConclusion"
-        Me.txtInspectionConclusion.Size = New System.Drawing.Size(1465, 204)
+        Me.txtInspectionConclusion.Size = New System.Drawing.Size(552, 88)
         Me.txtInspectionConclusion.TabIndex = 8
         '
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(21, 496)
-        Me.Label21.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label21.Location = New System.Drawing.Point(8, 208)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(295, 32)
+        Me.Label21.Size = New System.Drawing.Size(111, 13)
         Me.Label21.TabIndex = 20
         Me.Label21.Text = "Inspection Comments:"
         '
         'txtInspectionGuide
         '
-        Me.txtInspectionGuide.Location = New System.Drawing.Point(427, 286)
-        Me.txtInspectionGuide.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtInspectionGuide.Location = New System.Drawing.Point(160, 120)
         Me.txtInspectionGuide.MaxLength = 100
         Me.txtInspectionGuide.Name = "txtInspectionGuide"
-        Me.txtInspectionGuide.Size = New System.Drawing.Size(543, 38)
+        Me.txtInspectionGuide.Size = New System.Drawing.Size(206, 20)
         Me.txtInspectionGuide.TabIndex = 6
         '
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(21, 291)
-        Me.Label20.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label20.Location = New System.Drawing.Point(8, 122)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(347, 32)
+        Me.Label20.Size = New System.Drawing.Size(130, 13)
         Me.Label20.TabIndex = 18
         Me.Label20.Text = "Facility Inspection Guides:"
         '
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(21, 424)
-        Me.Label18.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label18.Location = New System.Drawing.Point(8, 178)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(261, 32)
+        Me.Label18.Size = New System.Drawing.Size(98, 13)
         Me.Label18.TabIndex = 14
         Me.Label18.Text = "Compliance Status:"
         '
@@ -1656,11 +1655,10 @@ Partial Class SSCPEvents
         '
         Me.dtpInspectionTimeEnd.CustomFormat = "h:mm tt"
         Me.dtpInspectionTimeEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpInspectionTimeEnd.Location = New System.Drawing.Point(709, 114)
-        Me.dtpInspectionTimeEnd.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.dtpInspectionTimeEnd.Location = New System.Drawing.Point(266, 48)
         Me.dtpInspectionTimeEnd.Name = "dtpInspectionTimeEnd"
         Me.dtpInspectionTimeEnd.ShowUpDown = True
-        Me.dtpInspectionTimeEnd.Size = New System.Drawing.Size(260, 38)
+        Me.dtpInspectionTimeEnd.Size = New System.Drawing.Size(100, 20)
         Me.dtpInspectionTimeEnd.TabIndex = 3
         Me.dtpInspectionTimeEnd.Value = New Date(2005, 6, 5, 12, 0, 0, 0)
         '
@@ -1668,21 +1666,19 @@ Partial Class SSCPEvents
         '
         Me.dtpInspectionTimeStart.CustomFormat = "h:mm tt"
         Me.dtpInspectionTimeStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpInspectionTimeStart.Location = New System.Drawing.Point(427, 114)
-        Me.dtpInspectionTimeStart.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.dtpInspectionTimeStart.Location = New System.Drawing.Point(160, 48)
         Me.dtpInspectionTimeStart.Name = "dtpInspectionTimeStart"
         Me.dtpInspectionTimeStart.ShowUpDown = True
-        Me.dtpInspectionTimeStart.Size = New System.Drawing.Size(260, 38)
+        Me.dtpInspectionTimeStart.Size = New System.Drawing.Size(100, 20)
         Me.dtpInspectionTimeStart.TabIndex = 2
         Me.dtpInspectionTimeStart.Value = New Date(2005, 6, 5, 8, 0, 0, 0)
         '
         'TPNotifications
         '
         Me.TPNotifications.Controls.Add(Me.Panel16)
-        Me.TPNotifications.Location = New System.Drawing.Point(10, 48)
-        Me.TPNotifications.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.TPNotifications.Location = New System.Drawing.Point(4, 22)
         Me.TPNotifications.Name = "TPNotifications"
-        Me.TPNotifications.Size = New System.Drawing.Size(2092, 884)
+        Me.TPNotifications.Size = New System.Drawing.Size(784, 370)
         Me.TPNotifications.TabIndex = 3
         Me.TPNotifications.Text = "Notifications"
         '
@@ -1709,18 +1705,16 @@ Partial Class SSCPEvents
         Me.Panel16.Controls.Add(Me.lblNotificationDate)
         Me.Panel16.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel16.Location = New System.Drawing.Point(0, 0)
-        Me.Panel16.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(2092, 884)
+        Me.Panel16.Size = New System.Drawing.Size(784, 370)
         Me.Panel16.TabIndex = 144
         '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(693, 758)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label10.Location = New System.Drawing.Point(260, 318)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(1121, 32)
+        Me.Label10.Size = New System.Drawing.Size(426, 13)
         Me.Label10.TabIndex = 172
         Me.Label10.Text = "Please note that a notification cannot be the Discovery Event for an Enforcement " &
     "Action."
@@ -1728,30 +1722,27 @@ Partial Class SSCPEvents
         'lblDateSent
         '
         Me.lblDateSent.AutoSize = True
-        Me.lblDateSent.Location = New System.Drawing.Point(699, 162)
-        Me.lblDateSent.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.lblDateSent.Location = New System.Drawing.Point(262, 68)
         Me.lblDateSent.Name = "lblDateSent"
-        Me.lblDateSent.Size = New System.Drawing.Size(430, 32)
+        Me.lblDateSent.Size = New System.Drawing.Size(167, 13)
         Me.lblDateSent.TabIndex = 171
         Me.lblDateSent.Text = "(Do not check if date is unknown)"
         '
         'lblNotificationDue
         '
         Me.lblNotificationDue.AutoSize = True
-        Me.lblNotificationDue.Location = New System.Drawing.Point(699, 105)
-        Me.lblNotificationDue.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.lblNotificationDue.Location = New System.Drawing.Point(262, 44)
         Me.lblNotificationDue.Name = "lblNotificationDue"
-        Me.lblNotificationDue.Size = New System.Drawing.Size(375, 32)
+        Me.lblNotificationDue.Size = New System.Drawing.Size(146, 13)
         Me.lblNotificationDue.TabIndex = 170
         Me.lblNotificationDue.Text = "(Do not check if no due date)"
         '
         'lblNotificationOther
         '
         Me.lblNotificationOther.AutoSize = True
-        Me.lblNotificationOther.Location = New System.Drawing.Point(21, 215)
-        Me.lblNotificationOther.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.lblNotificationOther.Location = New System.Drawing.Point(8, 90)
         Me.lblNotificationOther.Name = "lblNotificationOther"
-        Me.lblNotificationOther.Size = New System.Drawing.Size(1525, 32)
+        Me.lblNotificationOther.Size = New System.Drawing.Size(575, 13)
         Me.lblNotificationOther.TabIndex = 169
         Me.lblNotificationOther.Text = "NOTE: This will NOT change the facility operating status or CMS status. Your mana" &
     "ger will need to make those changes."
@@ -1761,10 +1752,9 @@ Partial Class SSCPEvents
         Me.DTPNotificationReceived.CustomFormat = "dd-MMM-yyyy"
         Me.DTPNotificationReceived.Enabled = False
         Me.DTPNotificationReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPNotificationReceived.Location = New System.Drawing.Point(363, 24)
-        Me.DTPNotificationReceived.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.DTPNotificationReceived.Location = New System.Drawing.Point(136, 10)
         Me.DTPNotificationReceived.Name = "DTPNotificationReceived"
-        Me.DTPNotificationReceived.Size = New System.Drawing.Size(260, 38)
+        Me.DTPNotificationReceived.Size = New System.Drawing.Size(100, 20)
         Me.DTPNotificationReceived.TabIndex = 1
         Me.DTPNotificationReceived.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
@@ -1772,10 +1762,9 @@ Partial Class SSCPEvents
         '
         Me.chbNotificationReceivedByAPB.AutoSize = True
         Me.chbNotificationReceivedByAPB.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbNotificationReceivedByAPB.Location = New System.Drawing.Point(19, 31)
-        Me.chbNotificationReceivedByAPB.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.chbNotificationReceivedByAPB.Location = New System.Drawing.Point(7, 13)
         Me.chbNotificationReceivedByAPB.Name = "chbNotificationReceivedByAPB"
-        Me.chbNotificationReceivedByAPB.Size = New System.Drawing.Size(303, 36)
+        Me.chbNotificationReceivedByAPB.Size = New System.Drawing.Size(122, 17)
         Me.chbNotificationReceivedByAPB.TabIndex = 0
         Me.chbNotificationReceivedByAPB.Text = "Received by GEPD:"
         Me.chbNotificationReceivedByAPB.UseVisualStyleBackColor = True
@@ -1784,74 +1773,66 @@ Partial Class SSCPEvents
         '
         Me.Panel23.Controls.Add(Me.rdbNotificationFollowUpYes)
         Me.Panel23.Controls.Add(Me.rdbNotificationFollowUpNo)
-        Me.Panel23.Location = New System.Drawing.Point(448, 754)
-        Me.Panel23.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel23.Location = New System.Drawing.Point(168, 316)
         Me.Panel23.Name = "Panel23"
-        Me.Panel23.Size = New System.Drawing.Size(256, 38)
+        Me.Panel23.Size = New System.Drawing.Size(96, 16)
         Me.Panel23.TabIndex = 166
         '
         'rdbNotificationFollowUpYes
         '
         Me.rdbNotificationFollowUpYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbNotificationFollowUpYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbNotificationFollowUpYes.Name = "rdbNotificationFollowUpYes"
-        Me.rdbNotificationFollowUpYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbNotificationFollowUpYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbNotificationFollowUpYes.TabIndex = 0
         Me.rdbNotificationFollowUpYes.Text = "Yes"
         '
         'rdbNotificationFollowUpNo
         '
-        Me.rdbNotificationFollowUpNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbNotificationFollowUpNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbNotificationFollowUpNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbNotificationFollowUpNo.Name = "rdbNotificationFollowUpNo"
-        Me.rdbNotificationFollowUpNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbNotificationFollowUpNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbNotificationFollowUpNo.TabIndex = 20
         Me.rdbNotificationFollowUpNo.Text = "No"
         '
         'Label72
         '
         Me.Label72.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label72.Location = New System.Drawing.Point(43, 792)
-        Me.Label72.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label72.Location = New System.Drawing.Point(16, 332)
         Me.Label72.Name = "Label72"
-        Me.Label72.Size = New System.Drawing.Size(623, 0)
+        Me.Label72.Size = New System.Drawing.Size(235, 1)
         Me.Label72.TabIndex = 165
         '
         'Label73
         '
         Me.Label73.AutoSize = True
-        Me.Label73.Location = New System.Drawing.Point(43, 754)
-        Me.Label73.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label73.Location = New System.Drawing.Point(16, 316)
         Me.Label73.Name = "Label73"
-        Me.Label73.Size = New System.Drawing.Size(315, 32)
+        Me.Label73.Size = New System.Drawing.Size(121, 13)
         Me.Label73.TabIndex = 164
         Me.Label73.Text = "Follow-Up Action Taken"
         '
         'txtNotificationTypeOther
         '
-        Me.txtNotificationTypeOther.Location = New System.Drawing.Point(1515, 153)
-        Me.txtNotificationTypeOther.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtNotificationTypeOther.Location = New System.Drawing.Point(568, 64)
         Me.txtNotificationTypeOther.Name = "txtNotificationTypeOther"
-        Me.txtNotificationTypeOther.Size = New System.Drawing.Size(505, 38)
+        Me.txtNotificationTypeOther.Size = New System.Drawing.Size(192, 20)
         Me.txtNotificationTypeOther.TabIndex = 5
         Me.txtNotificationTypeOther.Visible = False
         '
         'cboNotificationType
         '
         Me.cboNotificationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboNotificationType.Location = New System.Drawing.Point(1515, 95)
-        Me.cboNotificationType.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.cboNotificationType.Location = New System.Drawing.Point(568, 40)
         Me.cboNotificationType.Name = "cboNotificationType"
-        Me.cboNotificationType.Size = New System.Drawing.Size(505, 39)
+        Me.cboNotificationType.Size = New System.Drawing.Size(192, 21)
         Me.cboNotificationType.TabIndex = 4
         '
         'Label66
         '
         Me.Label66.AutoSize = True
-        Me.Label66.Location = New System.Drawing.Point(1259, 105)
-        Me.Label66.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label66.Location = New System.Drawing.Point(472, 44)
         Me.Label66.Name = "Label66"
-        Me.Label66.Size = New System.Drawing.Size(235, 32)
+        Me.Label66.Size = New System.Drawing.Size(90, 13)
         Me.Label66.TabIndex = 29
         Me.Label66.Text = "Notification Type:"
         '
@@ -1860,31 +1841,28 @@ Partial Class SSCPEvents
         Me.dtpNotificationDate2.Checked = False
         Me.dtpNotificationDate2.CustomFormat = "dd-MMM-yyyy"
         Me.dtpNotificationDate2.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpNotificationDate2.Location = New System.Drawing.Point(363, 153)
-        Me.dtpNotificationDate2.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.dtpNotificationDate2.Location = New System.Drawing.Point(136, 64)
         Me.dtpNotificationDate2.Name = "dtpNotificationDate2"
         Me.dtpNotificationDate2.ShowCheckBox = True
-        Me.dtpNotificationDate2.Size = New System.Drawing.Size(313, 38)
+        Me.dtpNotificationDate2.Size = New System.Drawing.Size(120, 20)
         Me.dtpNotificationDate2.TabIndex = 3
         Me.dtpNotificationDate2.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'lblNotificationDate2
         '
         Me.lblNotificationDate2.AutoSize = True
-        Me.lblNotificationDate2.Location = New System.Drawing.Point(21, 157)
-        Me.lblNotificationDate2.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.lblNotificationDate2.Location = New System.Drawing.Point(8, 66)
         Me.lblNotificationDate2.Name = "lblNotificationDate2"
-        Me.lblNotificationDate2.Size = New System.Drawing.Size(282, 32)
+        Me.lblNotificationDate2.Size = New System.Drawing.Size(107, 13)
         Me.lblNotificationDate2.TabIndex = 27
         Me.lblNotificationDate2.Text = "Date Sent by Facility:"
         '
         'Label51
         '
         Me.Label51.AutoSize = True
-        Me.Label51.Location = New System.Drawing.Point(21, 267)
-        Me.Label51.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label51.Location = New System.Drawing.Point(8, 112)
         Me.Label51.Name = "Label51"
-        Me.Label51.Size = New System.Drawing.Size(294, 32)
+        Me.Label51.Size = New System.Drawing.Size(110, 13)
         Me.Label51.TabIndex = 26
         Me.Label51.Text = "Notification Comment:"
         '
@@ -1892,13 +1870,12 @@ Partial Class SSCPEvents
         '
         Me.txtNotificationComments.AcceptsReturn = True
         Me.txtNotificationComments.AcceptsTab = True
-        Me.txtNotificationComments.Location = New System.Drawing.Point(21, 305)
-        Me.txtNotificationComments.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtNotificationComments.Location = New System.Drawing.Point(8, 128)
         Me.txtNotificationComments.MaxLength = 4000
         Me.txtNotificationComments.Multiline = True
         Me.txtNotificationComments.Name = "txtNotificationComments"
         Me.txtNotificationComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtNotificationComments.Size = New System.Drawing.Size(1999, 428)
+        Me.txtNotificationComments.Size = New System.Drawing.Size(752, 182)
         Me.txtNotificationComments.TabIndex = 6
         '
         'dtpNotificationDate
@@ -1906,31 +1883,30 @@ Partial Class SSCPEvents
         Me.dtpNotificationDate.Checked = False
         Me.dtpNotificationDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpNotificationDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpNotificationDate.Location = New System.Drawing.Point(363, 95)
-        Me.dtpNotificationDate.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.dtpNotificationDate.Location = New System.Drawing.Point(136, 40)
         Me.dtpNotificationDate.Name = "dtpNotificationDate"
         Me.dtpNotificationDate.ShowCheckBox = True
-        Me.dtpNotificationDate.Size = New System.Drawing.Size(313, 38)
+        Me.dtpNotificationDate.Size = New System.Drawing.Size(120, 20)
         Me.dtpNotificationDate.TabIndex = 2
         Me.dtpNotificationDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'lblNotificationDate
         '
         Me.lblNotificationDate.AutoSize = True
-        Me.lblNotificationDate.Location = New System.Drawing.Point(21, 100)
-        Me.lblNotificationDate.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.lblNotificationDate.Location = New System.Drawing.Point(8, 42)
         Me.lblNotificationDate.Name = "lblNotificationDate"
-        Me.lblNotificationDate.Size = New System.Drawing.Size(291, 32)
+        Me.lblNotificationDate.Size = New System.Drawing.Size(112, 13)
         Me.lblNotificationDate.TabIndex = 12
         Me.lblNotificationDate.Text = "Notification Due Date:"
         '
         'TPACC
         '
         Me.TPACC.Controls.Add(Me.PanelACC)
-        Me.TPACC.Location = New System.Drawing.Point(10, 48)
-        Me.TPACC.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.TPACC.Controls.Add(Me.SplitterACC)
+        Me.TPACC.Controls.Add(Me.DGRACCResubmittal)
+        Me.TPACC.Location = New System.Drawing.Point(4, 22)
         Me.TPACC.Name = "TPACC"
-        Me.TPACC.Size = New System.Drawing.Size(2092, 884)
+        Me.TPACC.Size = New System.Drawing.Size(2092, 894)
         Me.TPACC.TabIndex = 4
         Me.TPACC.Text = "Annual Compliance Certifications"
         '
@@ -1938,10 +1914,9 @@ Partial Class SSCPEvents
         '
         Me.PanelACC.Controls.Add(Me.Panel20)
         Me.PanelACC.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelACC.Location = New System.Drawing.Point(0, 0)
-        Me.PanelACC.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.PanelACC.Location = New System.Drawing.Point(15, 0)
         Me.PanelACC.Name = "PanelACC"
-        Me.PanelACC.Size = New System.Drawing.Size(2092, 884)
+        Me.PanelACC.Size = New System.Drawing.Size(2092, 894)
         Me.PanelACC.TabIndex = 79
         '
         'Panel20
@@ -1951,6 +1926,7 @@ Partial Class SSCPEvents
         Me.Panel20.Controls.Add(Me.Label25)
         Me.Panel20.Controls.Add(Me.DTPACCReceivedDate)
         Me.Panel20.Controls.Add(Me.chbACCReceivedByAPB)
+        Me.Panel20.Controls.Add(Me.btnACCSubmittals)
         Me.Panel20.Controls.Add(Me.wrnACCCorrectACC)
         Me.Panel20.Controls.Add(Me.Panel8)
         Me.Panel20.Controls.Add(Me.Label36)
@@ -1963,6 +1939,9 @@ Partial Class SSCPEvents
         Me.Panel20.Controls.Add(Me.Panel6)
         Me.Panel20.Controls.Add(Me.lblAccReportingYear)
         Me.Panel20.Controls.Add(Me.Label27)
+        Me.Panel20.Controls.Add(Me.wrnACCSubmittal)
+        Me.Panel20.Controls.Add(Me.NUPACCSubmittal)
+        Me.Panel20.Controls.Add(Me.Label67)
         Me.Panel20.Controls.Add(Me.wrnACCDatePostmarked)
         Me.Panel20.Controls.Add(Me.Label44)
         Me.Panel20.Controls.Add(Me.txtACCComments)
@@ -1989,30 +1968,27 @@ Partial Class SSCPEvents
         Me.Panel20.Controls.Add(Me.Label39)
         Me.Panel20.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel20.Location = New System.Drawing.Point(0, 0)
-        Me.Panel20.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.Panel20.Name = "Panel20"
-        Me.Panel20.Size = New System.Drawing.Size(2092, 884)
+        Me.Panel20.Size = New System.Drawing.Size(2092, 894)
         Me.Panel20.TabIndex = 0
         '
         'dtpAccReportingYear
         '
         Me.dtpAccReportingYear.CustomFormat = "yyyy"
         Me.dtpAccReportingYear.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpAccReportingYear.Location = New System.Drawing.Point(1651, 79)
-        Me.dtpAccReportingYear.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.dtpAccReportingYear.Location = New System.Drawing.Point(619, 33)
         Me.dtpAccReportingYear.Name = "dtpAccReportingYear"
         Me.dtpAccReportingYear.ShowCheckBox = True
         Me.dtpAccReportingYear.ShowUpDown = True
-        Me.dtpAccReportingYear.Size = New System.Drawing.Size(180, 38)
+        Me.dtpAccReportingYear.Size = New System.Drawing.Size(70, 20)
         Me.dtpAccReportingYear.TabIndex = 2
         '
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(1376, 196)
-        Me.Label25.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label25.Location = New System.Drawing.Point(516, 82)
         Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(415, 32)
+        Me.Label25.Size = New System.Drawing.Size(151, 13)
         Me.Label25.TabIndex = 297
         Me.Label25.Text = "(Applies to initial submittal only)"
         '
@@ -2021,10 +1997,9 @@ Partial Class SSCPEvents
         Me.DTPACCReceivedDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPACCReceivedDate.Enabled = False
         Me.DTPACCReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPACCReceivedDate.Location = New System.Drawing.Point(1704, 141)
-        Me.DTPACCReceivedDate.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.DTPACCReceivedDate.Location = New System.Drawing.Point(639, 59)
         Me.DTPACCReceivedDate.Name = "DTPACCReceivedDate"
-        Me.DTPACCReceivedDate.Size = New System.Drawing.Size(260, 38)
+        Me.DTPACCReceivedDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPACCReceivedDate.TabIndex = 4
         Me.DTPACCReceivedDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
@@ -2032,23 +2007,33 @@ Partial Class SSCPEvents
         '
         Me.chbACCReceivedByAPB.AutoSize = True
         Me.chbACCReceivedByAPB.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbACCReceivedByAPB.Location = New System.Drawing.Point(1371, 148)
-        Me.chbACCReceivedByAPB.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.chbACCReceivedByAPB.Location = New System.Drawing.Point(514, 62)
         Me.chbACCReceivedByAPB.Name = "chbACCReceivedByAPB"
-        Me.chbACCReceivedByAPB.Size = New System.Drawing.Size(303, 36)
+        Me.chbACCReceivedByAPB.Size = New System.Drawing.Size(122, 17)
         Me.chbACCReceivedByAPB.TabIndex = 3
         Me.chbACCReceivedByAPB.Text = "Received by GEPD:"
         Me.chbACCReceivedByAPB.UseVisualStyleBackColor = True
+        '
+        'btnACCSubmittals
+        '
+        Me.btnACCSubmittals.AutoSize = True
+        Me.btnACCSubmittals.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnACCSubmittals.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnACCSubmittals.ImageIndex = 53
+        Me.btnACCSubmittals.Location = New System.Drawing.Point(0, 0)
+        Me.btnACCSubmittals.Name = "btnACCSubmittals"
+        Me.btnACCSubmittals.Size = New System.Drawing.Size(74, 19)
+        Me.btnACCSubmittals.TabIndex = 17
+        Me.btnACCSubmittals.Text = "Submittal History"
         '
         'wrnACCCorrectACC
         '
         Me.wrnACCCorrectACC.AutoSize = True
         Me.wrnACCCorrectACC.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCCorrectACC.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCCorrectACC.Location = New System.Drawing.Point(877, 222)
-        Me.wrnACCCorrectACC.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnACCCorrectACC.Location = New System.Drawing.Point(329, 93)
         Me.wrnACCCorrectACC.Name = "wrnACCCorrectACC"
-        Me.wrnACCCorrectACC.Size = New System.Drawing.Size(305, 27)
+        Me.wrnACCCorrectACC.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCCorrectACC.TabIndex = 93
         Me.wrnACCCorrectACC.Text = "Warning-value not selected"
         Me.wrnACCCorrectACC.Visible = False
@@ -2057,37 +2042,33 @@ Partial Class SSCPEvents
         '
         Me.Panel8.Controls.Add(Me.rdbACCCorrectACCYes)
         Me.Panel8.Controls.Add(Me.rdbACCCorrectACCNo)
-        Me.Panel8.Location = New System.Drawing.Point(629, 212)
-        Me.Panel8.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel8.Location = New System.Drawing.Point(236, 89)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(256, 38)
+        Me.Panel8.Size = New System.Drawing.Size(96, 16)
         Me.Panel8.TabIndex = 4
         '
         'rdbACCCorrectACCYes
         '
         Me.rdbACCCorrectACCYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbACCCorrectACCYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbACCCorrectACCYes.Name = "rdbACCCorrectACCYes"
-        Me.rdbACCCorrectACCYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCCorrectACCYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCCorrectACCYes.TabIndex = 0
         Me.rdbACCCorrectACCYes.Text = "Yes"
         '
         'rdbACCCorrectACCNo
         '
-        Me.rdbACCCorrectACCNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbACCCorrectACCNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbACCCorrectACCNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbACCCorrectACCNo.Name = "rdbACCCorrectACCNo"
-        Me.rdbACCCorrectACCNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCCorrectACCNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCCorrectACCNo.TabIndex = 20
         Me.rdbACCCorrectACCNo.Text = "No"
         '
         'Label36
         '
         Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(288, 217)
-        Me.Label36.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label36.Location = New System.Drawing.Point(108, 91)
         Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(326, 32)
+        Me.Label36.Size = New System.Drawing.Size(122, 13)
         Me.Label36.TabIndex = 91
         Me.Label36.Text = "Correct ACC forms used:"
         '
@@ -2096,10 +2077,9 @@ Partial Class SSCPEvents
         Me.wrnACCRO.AutoSize = True
         Me.wrnACCRO.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCRO.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCRO.Location = New System.Drawing.Point(877, 165)
-        Me.wrnACCRO.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnACCRO.Location = New System.Drawing.Point(329, 69)
         Me.wrnACCRO.Name = "wrnACCRO"
-        Me.wrnACCRO.Size = New System.Drawing.Size(305, 27)
+        Me.wrnACCRO.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCRO.TabIndex = 89
         Me.wrnACCRO.Text = "Warning-value not selected"
         Me.wrnACCRO.Visible = False
@@ -2108,47 +2088,42 @@ Partial Class SSCPEvents
         '
         Me.Panel7.Controls.Add(Me.rdbACCROYes)
         Me.Panel7.Controls.Add(Me.rdbACCRONo)
-        Me.Panel7.Location = New System.Drawing.Point(629, 155)
-        Me.Panel7.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel7.Location = New System.Drawing.Point(236, 65)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(256, 38)
+        Me.Panel7.Size = New System.Drawing.Size(96, 16)
         Me.Panel7.TabIndex = 3
         '
         'rdbACCROYes
         '
         Me.rdbACCROYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbACCROYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbACCROYes.Name = "rdbACCROYes"
-        Me.rdbACCROYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCROYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCROYes.TabIndex = 0
         Me.rdbACCROYes.Text = "Yes"
         '
         'rdbACCRONo
         '
-        Me.rdbACCRONo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbACCRONo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbACCRONo.Location = New System.Drawing.Point(48, 0)
         Me.rdbACCRONo.Name = "rdbACCRONo"
-        Me.rdbACCRONo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCRONo.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCRONo.TabIndex = 20
         Me.rdbACCRONo.Text = "No"
         '
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(224, 160)
-        Me.Label32.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label32.Location = New System.Drawing.Point(84, 67)
         Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(393, 32)
+        Me.Label32.Size = New System.Drawing.Size(146, 13)
         Me.Label32.TabIndex = 87
         Me.Label32.Text = "Signed by responsible official:"
         '
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(1448, 269)
-        Me.Label31.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label31.Location = New System.Drawing.Point(543, 113)
         Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(237, 32)
+        Me.Label31.Size = New System.Drawing.Size(91, 13)
         Me.Label31.TabIndex = 85
         Me.Label31.Text = "Date postmarked:"
         '
@@ -2156,10 +2131,9 @@ Partial Class SSCPEvents
         '
         Me.DTPACCPostmarked.CustomFormat = "dd-MMM-yyyy"
         Me.DTPACCPostmarked.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPACCPostmarked.Location = New System.Drawing.Point(1704, 269)
-        Me.DTPACCPostmarked.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.DTPACCPostmarked.Location = New System.Drawing.Point(639, 113)
         Me.DTPACCPostmarked.Name = "DTPACCPostmarked"
-        Me.DTPACCPostmarked.Size = New System.Drawing.Size(260, 38)
+        Me.DTPACCPostmarked.Size = New System.Drawing.Size(100, 20)
         Me.DTPACCPostmarked.TabIndex = 5
         Me.DTPACCPostmarked.Value = New Date(2007, 1, 25, 0, 0, 0, 0)
         '
@@ -2168,10 +2142,9 @@ Partial Class SSCPEvents
         Me.wrnACCPostmark.AutoSize = True
         Me.wrnACCPostmark.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCPostmark.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCPostmark.Location = New System.Drawing.Point(877, 107)
-        Me.wrnACCPostmark.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnACCPostmark.Location = New System.Drawing.Point(329, 45)
         Me.wrnACCPostmark.Name = "wrnACCPostmark"
-        Me.wrnACCPostmark.Size = New System.Drawing.Size(305, 27)
+        Me.wrnACCPostmark.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCPostmark.TabIndex = 83
         Me.wrnACCPostmark.Text = "Warning-value not selected"
         Me.wrnACCPostmark.Visible = False
@@ -2180,59 +2153,84 @@ Partial Class SSCPEvents
         '
         Me.Panel6.Controls.Add(Me.rdbACCPostmarkYes)
         Me.Panel6.Controls.Add(Me.rdbACCPostmarkNo)
-        Me.Panel6.Location = New System.Drawing.Point(629, 98)
-        Me.Panel6.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel6.Location = New System.Drawing.Point(236, 41)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(256, 38)
+        Me.Panel6.Size = New System.Drawing.Size(96, 16)
         Me.Panel6.TabIndex = 2
         '
         'rdbACCPostmarkYes
         '
         Me.rdbACCPostmarkYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbACCPostmarkYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbACCPostmarkYes.Name = "rdbACCPostmarkYes"
-        Me.rdbACCPostmarkYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCPostmarkYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCPostmarkYes.TabIndex = 0
         Me.rdbACCPostmarkYes.Text = "Yes"
         '
         'rdbACCPostmarkNo
         '
-        Me.rdbACCPostmarkNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbACCPostmarkNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbACCPostmarkNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbACCPostmarkNo.Name = "rdbACCPostmarkNo"
-        Me.rdbACCPostmarkNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCPostmarkNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCPostmarkNo.TabIndex = 20
         Me.rdbACCPostmarkNo.Text = "No"
         '
         'lblAccReportingYear
         '
         Me.lblAccReportingYear.AutoSize = True
-        Me.lblAccReportingYear.Location = New System.Drawing.Point(1365, 81)
-        Me.lblAccReportingYear.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.lblAccReportingYear.Location = New System.Drawing.Point(512, 34)
         Me.lblAccReportingYear.Name = "lblAccReportingYear"
-        Me.lblAccReportingYear.Size = New System.Drawing.Size(270, 32)
+        Me.lblAccReportingYear.Size = New System.Drawing.Size(101, 13)
         Me.lblAccReportingYear.TabIndex = 81
         Me.lblAccReportingYear.Text = " ACC reporting year:"
         '
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(216, 103)
-        Me.Label27.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label27.Location = New System.Drawing.Point(81, 43)
         Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(397, 32)
+        Me.Label27.Size = New System.Drawing.Size(149, 13)
         Me.Label27.TabIndex = 81
         Me.Label27.Text = " ACC postmarked by deadline:"
+        '
+        'wrnACCSubmittal
+        '
+        Me.wrnACCSubmittal.AutoSize = True
+        Me.wrnACCSubmittal.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.wrnACCSubmittal.ForeColor = System.Drawing.Color.Tomato
+        Me.wrnACCSubmittal.Location = New System.Drawing.Point(148, 24)
+        Me.wrnACCSubmittal.Name = "wrnACCSubmittal"
+        Me.wrnACCSubmittal.Size = New System.Drawing.Size(135, 13)
+        Me.wrnACCSubmittal.TabIndex = 79
+        Me.wrnACCSubmittal.Text = "Warning-value not selected"
+        Me.wrnACCSubmittal.Visible = False
+        '
+        'NUPACCSubmittal
+        '
+        Me.NUPACCSubmittal.Location = New System.Drawing.Point(102, 20)
+        Me.NUPACCSubmittal.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
+        Me.NUPACCSubmittal.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NUPACCSubmittal.Name = "NUPACCSubmittal"
+        Me.NUPACCSubmittal.Size = New System.Drawing.Size(40, 20)
+        Me.NUPACCSubmittal.TabIndex = 0
+        Me.NUPACCSubmittal.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label67
+        '
+        Me.Label67.AutoSize = True
+        Me.Label67.Location = New System.Drawing.Point(6, 22)
+        Me.Label67.Name = "Label67"
+        Me.Label67.Size = New System.Drawing.Size(90, 13)
+        Me.Label67.TabIndex = 77
+        Me.Label67.Text = "Submittal Number"
         '
         'wrnACCDatePostmarked
         '
         Me.wrnACCDatePostmarked.AutoSize = True
         Me.wrnACCDatePostmarked.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCDatePostmarked.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCDatePostmarked.Location = New System.Drawing.Point(1704, 327)
-        Me.wrnACCDatePostmarked.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnACCDatePostmarked.Location = New System.Drawing.Point(639, 137)
         Me.wrnACCDatePostmarked.Name = "wrnACCDatePostmarked"
-        Me.wrnACCDatePostmarked.Size = New System.Drawing.Size(220, 27)
+        Me.wrnACCDatePostmarked.Size = New System.Drawing.Size(96, 13)
         Me.wrnACCDatePostmarked.TabIndex = 137
         Me.wrnACCDatePostmarked.Text = "Warning-Date Error"
         Me.wrnACCDatePostmarked.Visible = False
@@ -2240,23 +2238,21 @@ Partial Class SSCPEvents
         'Label44
         '
         Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(40, 656)
-        Me.Label44.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label44.Location = New System.Drawing.Point(15, 275)
         Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(158, 32)
+        Me.Label44.Size = New System.Drawing.Size(59, 13)
         Me.Label44.TabIndex = 133
         Me.Label44.Text = "Comments:"
         '
         'txtACCComments
         '
         Me.txtACCComments.AcceptsReturn = True
-        Me.txtACCComments.Location = New System.Drawing.Point(213, 649)
-        Me.txtACCComments.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.txtACCComments.Location = New System.Drawing.Point(80, 272)
         Me.txtACCComments.MaxLength = 4000
         Me.txtACCComments.Multiline = True
         Me.txtACCComments.Name = "txtACCComments"
         Me.txtACCComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtACCComments.Size = New System.Drawing.Size(1017, 185)
+        Me.txtACCComments.Size = New System.Drawing.Size(384, 80)
         Me.txtACCComments.TabIndex = 1
         '
         'wrnACCPreviousDeviations
@@ -2264,10 +2260,9 @@ Partial Class SSCPEvents
         Me.wrnACCPreviousDeviations.AutoSize = True
         Me.wrnACCPreviousDeviations.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCPreviousDeviations.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCPreviousDeviations.Location = New System.Drawing.Point(877, 448)
-        Me.wrnACCPreviousDeviations.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnACCPreviousDeviations.Location = New System.Drawing.Point(329, 188)
         Me.wrnACCPreviousDeviations.Name = "wrnACCPreviousDeviations"
-        Me.wrnACCPreviousDeviations.Size = New System.Drawing.Size(305, 27)
+        Me.wrnACCPreviousDeviations.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCPreviousDeviations.TabIndex = 131
         Me.wrnACCPreviousDeviations.Text = "Warning-value not selected"
         Me.wrnACCPreviousDeviations.Visible = False
@@ -2276,37 +2271,33 @@ Partial Class SSCPEvents
         '
         Me.Panel15.Controls.Add(Me.rdbACCPreviouslyUnreportedDeviationsYes)
         Me.Panel15.Controls.Add(Me.rdbACCPreviouslyUnreportedDeviationsNo)
-        Me.Panel15.Location = New System.Drawing.Point(629, 439)
-        Me.Panel15.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel15.Location = New System.Drawing.Point(236, 184)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(256, 38)
+        Me.Panel15.Size = New System.Drawing.Size(96, 16)
         Me.Panel15.TabIndex = 8
         '
         'rdbACCPreviouslyUnreportedDeviationsYes
         '
         Me.rdbACCPreviouslyUnreportedDeviationsYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbACCPreviouslyUnreportedDeviationsYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbACCPreviouslyUnreportedDeviationsYes.Name = "rdbACCPreviouslyUnreportedDeviationsYes"
-        Me.rdbACCPreviouslyUnreportedDeviationsYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCPreviouslyUnreportedDeviationsYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCPreviouslyUnreportedDeviationsYes.TabIndex = 0
         Me.rdbACCPreviouslyUnreportedDeviationsYes.Text = "Yes"
         '
         'rdbACCPreviouslyUnreportedDeviationsNo
         '
-        Me.rdbACCPreviouslyUnreportedDeviationsNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbACCPreviouslyUnreportedDeviationsNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbACCPreviouslyUnreportedDeviationsNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbACCPreviouslyUnreportedDeviationsNo.Name = "rdbACCPreviouslyUnreportedDeviationsNo"
-        Me.rdbACCPreviouslyUnreportedDeviationsNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCPreviouslyUnreportedDeviationsNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCPreviouslyUnreportedDeviationsNo.TabIndex = 20
         Me.rdbACCPreviouslyUnreportedDeviationsNo.Text = "No"
         '
         'lblACCPreviouslyUnreportedDeviations
         '
         Me.lblACCPreviouslyUnreportedDeviations.AutoSize = True
-        Me.lblACCPreviouslyUnreportedDeviations.Location = New System.Drawing.Point(40, 444)
-        Me.lblACCPreviouslyUnreportedDeviations.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.lblACCPreviouslyUnreportedDeviations.Location = New System.Drawing.Point(15, 186)
         Me.lblACCPreviouslyUnreportedDeviations.Name = "lblACCPreviouslyUnreportedDeviations"
-        Me.lblACCPreviouslyUnreportedDeviations.Size = New System.Drawing.Size(572, 32)
+        Me.lblACCPreviouslyUnreportedDeviations.Size = New System.Drawing.Size(215, 13)
         Me.lblACCPreviouslyUnreportedDeviations.TabIndex = 129
         Me.lblACCPreviouslyUnreportedDeviations.Text = "Reported deviations not previously reported:"
         '
@@ -2315,10 +2306,9 @@ Partial Class SSCPEvents
         Me.wrnACCDeviationsReported.AutoSize = True
         Me.wrnACCDeviationsReported.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCDeviationsReported.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCDeviationsReported.Location = New System.Drawing.Point(877, 391)
-        Me.wrnACCDeviationsReported.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnACCDeviationsReported.Location = New System.Drawing.Point(329, 164)
         Me.wrnACCDeviationsReported.Name = "wrnACCDeviationsReported"
-        Me.wrnACCDeviationsReported.Size = New System.Drawing.Size(305, 27)
+        Me.wrnACCDeviationsReported.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCDeviationsReported.TabIndex = 127
         Me.wrnACCDeviationsReported.Text = "Warning-value not selected"
         Me.wrnACCDeviationsReported.Visible = False
@@ -2327,37 +2317,33 @@ Partial Class SSCPEvents
         '
         Me.Panel14.Controls.Add(Me.rdbACCDeviationsReportedYes)
         Me.Panel14.Controls.Add(Me.rdbACCDeviationsReportedNo)
-        Me.Panel14.Location = New System.Drawing.Point(629, 382)
-        Me.Panel14.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel14.Location = New System.Drawing.Point(236, 160)
         Me.Panel14.Name = "Panel14"
-        Me.Panel14.Size = New System.Drawing.Size(256, 38)
+        Me.Panel14.Size = New System.Drawing.Size(96, 16)
         Me.Panel14.TabIndex = 7
         '
         'rdbACCDeviationsReportedYes
         '
         Me.rdbACCDeviationsReportedYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbACCDeviationsReportedYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbACCDeviationsReportedYes.Name = "rdbACCDeviationsReportedYes"
-        Me.rdbACCDeviationsReportedYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCDeviationsReportedYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCDeviationsReportedYes.TabIndex = 0
         Me.rdbACCDeviationsReportedYes.Text = "Yes"
         '
         'rdbACCDeviationsReportedNo
         '
-        Me.rdbACCDeviationsReportedNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbACCDeviationsReportedNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbACCDeviationsReportedNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbACCDeviationsReportedNo.Name = "rdbACCDeviationsReportedNo"
-        Me.rdbACCDeviationsReportedNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCDeviationsReportedNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCDeviationsReportedNo.TabIndex = 20
         Me.rdbACCDeviationsReportedNo.Text = "No"
         '
         'Label56
         '
         Me.Label56.AutoSize = True
-        Me.Label56.Location = New System.Drawing.Point(333, 386)
-        Me.Label56.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label56.Location = New System.Drawing.Point(125, 162)
         Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(276, 32)
+        Me.Label56.Size = New System.Drawing.Size(105, 13)
         Me.Label56.TabIndex = 125
         Me.Label56.Text = "Reported deviations:"
         '
@@ -2366,10 +2352,9 @@ Partial Class SSCPEvents
         Me.wrnACCResubmittalRequested.AutoSize = True
         Me.wrnACCResubmittalRequested.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCResubmittalRequested.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCResubmittalRequested.Location = New System.Drawing.Point(1083, 558)
-        Me.wrnACCResubmittalRequested.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnACCResubmittalRequested.Location = New System.Drawing.Point(406, 234)
         Me.wrnACCResubmittalRequested.Name = "wrnACCResubmittalRequested"
-        Me.wrnACCResubmittalRequested.Size = New System.Drawing.Size(305, 27)
+        Me.wrnACCResubmittalRequested.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCResubmittalRequested.TabIndex = 111
         Me.wrnACCResubmittalRequested.Text = "Warning-value not selected"
         Me.wrnACCResubmittalRequested.Visible = False
@@ -2379,10 +2364,9 @@ Partial Class SSCPEvents
         Me.wrnACCEnforcementNeeded.AutoSize = True
         Me.wrnACCEnforcementNeeded.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCEnforcementNeeded.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCEnforcementNeeded.Location = New System.Drawing.Point(877, 615)
-        Me.wrnACCEnforcementNeeded.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnACCEnforcementNeeded.Location = New System.Drawing.Point(329, 258)
         Me.wrnACCEnforcementNeeded.Name = "wrnACCEnforcementNeeded"
-        Me.wrnACCEnforcementNeeded.Size = New System.Drawing.Size(305, 27)
+        Me.wrnACCEnforcementNeeded.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCEnforcementNeeded.TabIndex = 111
         Me.wrnACCEnforcementNeeded.Text = "Warning-value not selected"
         Me.wrnACCEnforcementNeeded.Visible = False
@@ -2393,38 +2377,34 @@ Partial Class SSCPEvents
         Me.pnlACCResubmittalRequested.Controls.Add(Me.rdbACCResubmittalRequestedYes)
         Me.pnlACCResubmittalRequested.Controls.Add(Me.rdbACCResubmittalRequestedUnknown)
         Me.pnlACCResubmittalRequested.Controls.Add(Me.rdbACCResubmittalRequestedNo)
-        Me.pnlACCResubmittalRequested.Location = New System.Drawing.Point(629, 553)
-        Me.pnlACCResubmittalRequested.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.pnlACCResubmittalRequested.Location = New System.Drawing.Point(236, 232)
         Me.pnlACCResubmittalRequested.Name = "pnlACCResubmittalRequested"
-        Me.pnlACCResubmittalRequested.Size = New System.Drawing.Size(699, 93)
+        Me.pnlACCResubmittalRequested.Size = New System.Drawing.Size(164, 20)
         Me.pnlACCResubmittalRequested.TabIndex = 10
         '
         'rdbACCResubmittalRequestedYes
         '
         Me.rdbACCResubmittalRequestedYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbACCResubmittalRequestedYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbACCResubmittalRequestedYes.Name = "rdbACCResubmittalRequestedYes"
-        Me.rdbACCResubmittalRequestedYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCResubmittalRequestedYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCResubmittalRequestedYes.TabIndex = 0
         Me.rdbACCResubmittalRequestedYes.Text = "Yes"
         '
         'rdbACCResubmittalRequestedUnknown
         '
         Me.rdbACCResubmittalRequestedUnknown.AutoSize = True
-        Me.rdbACCResubmittalRequestedUnknown.Location = New System.Drawing.Point(240, 0)
-        Me.rdbACCResubmittalRequestedUnknown.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbACCResubmittalRequestedUnknown.Location = New System.Drawing.Point(90, 0)
         Me.rdbACCResubmittalRequestedUnknown.Name = "rdbACCResubmittalRequestedUnknown"
-        Me.rdbACCResubmittalRequestedUnknown.Size = New System.Drawing.Size(169, 36)
+        Me.rdbACCResubmittalRequestedUnknown.Size = New System.Drawing.Size(71, 17)
         Me.rdbACCResubmittalRequestedUnknown.TabIndex = 30
         Me.rdbACCResubmittalRequestedUnknown.Text = "Unknown"
         Me.rdbACCResubmittalRequestedUnknown.Visible = False
         '
         'rdbACCResubmittalRequestedNo
         '
-        Me.rdbACCResubmittalRequestedNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbACCResubmittalRequestedNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbACCResubmittalRequestedNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbACCResubmittalRequestedNo.Name = "rdbACCResubmittalRequestedNo"
-        Me.rdbACCResubmittalRequestedNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCResubmittalRequestedNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCResubmittalRequestedNo.TabIndex = 20
         Me.rdbACCResubmittalRequestedNo.Text = "No"
         '
@@ -2432,47 +2412,42 @@ Partial Class SSCPEvents
         '
         Me.Panel12.Controls.Add(Me.rdbACCEnforcementNeededYes)
         Me.Panel12.Controls.Add(Me.rdbACCEnforcementNeededNo)
-        Me.Panel12.Location = New System.Drawing.Point(629, 610)
-        Me.Panel12.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel12.Location = New System.Drawing.Point(236, 256)
         Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(256, 38)
+        Me.Panel12.Size = New System.Drawing.Size(96, 16)
         Me.Panel12.TabIndex = 11
         '
         'rdbACCEnforcementNeededYes
         '
         Me.rdbACCEnforcementNeededYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbACCEnforcementNeededYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbACCEnforcementNeededYes.Name = "rdbACCEnforcementNeededYes"
-        Me.rdbACCEnforcementNeededYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCEnforcementNeededYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCEnforcementNeededYes.TabIndex = 0
         Me.rdbACCEnforcementNeededYes.Text = "Yes"
         '
         'rdbACCEnforcementNeededNo
         '
-        Me.rdbACCEnforcementNeededNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbACCEnforcementNeededNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbACCEnforcementNeededNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbACCEnforcementNeededNo.Name = "rdbACCEnforcementNeededNo"
-        Me.rdbACCEnforcementNeededNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCEnforcementNeededNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCEnforcementNeededNo.TabIndex = 20
         Me.rdbACCEnforcementNeededNo.Text = "No"
         '
         'lblACCResubmittalRequested
         '
         Me.lblACCResubmittalRequested.AutoSize = True
-        Me.lblACCResubmittalRequested.Location = New System.Drawing.Point(331, 558)
-        Me.lblACCResubmittalRequested.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.lblACCResubmittalRequested.Location = New System.Drawing.Point(124, 234)
         Me.lblACCResubmittalRequested.Name = "lblACCResubmittalRequested"
-        Me.lblACCResubmittalRequested.Size = New System.Drawing.Size(285, 32)
+        Me.lblACCResubmittalRequested.Size = New System.Drawing.Size(106, 13)
         Me.lblACCResubmittalRequested.TabIndex = 109
         Me.lblACCResubmittalRequested.Text = "Resubmittal required:"
         '
         'Label48
         '
         Me.Label48.AutoSize = True
-        Me.Label48.Location = New System.Drawing.Point(323, 615)
-        Me.Label48.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label48.Location = New System.Drawing.Point(121, 258)
         Me.Label48.Name = "Label48"
-        Me.Label48.Size = New System.Drawing.Size(286, 32)
+        Me.Label48.Size = New System.Drawing.Size(109, 13)
         Me.Label48.TabIndex = 109
         Me.Label48.Text = "Enforcement needed:"
         '
@@ -2481,10 +2456,9 @@ Partial Class SSCPEvents
         Me.wrnACCAllDeviationsReported.AutoSize = True
         Me.wrnACCAllDeviationsReported.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCAllDeviationsReported.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCAllDeviationsReported.Location = New System.Drawing.Point(1083, 503)
-        Me.wrnACCAllDeviationsReported.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnACCAllDeviationsReported.Location = New System.Drawing.Point(406, 211)
         Me.wrnACCAllDeviationsReported.Name = "wrnACCAllDeviationsReported"
-        Me.wrnACCAllDeviationsReported.Size = New System.Drawing.Size(305, 27)
+        Me.wrnACCAllDeviationsReported.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCAllDeviationsReported.TabIndex = 101
         Me.wrnACCAllDeviationsReported.Text = "Warning-value not selected"
         Me.wrnACCAllDeviationsReported.Visible = False
@@ -2494,10 +2468,9 @@ Partial Class SSCPEvents
         Me.wrnACCCorrect.AutoSize = True
         Me.wrnACCCorrect.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCCorrect.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCCorrect.Location = New System.Drawing.Point(877, 336)
-        Me.wrnACCCorrect.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnACCCorrect.Location = New System.Drawing.Point(329, 141)
         Me.wrnACCCorrect.Name = "wrnACCCorrect"
-        Me.wrnACCCorrect.Size = New System.Drawing.Size(305, 27)
+        Me.wrnACCCorrect.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCCorrect.TabIndex = 101
         Me.wrnACCCorrect.Text = "Warning-value not selected"
         Me.wrnACCCorrect.Visible = False
@@ -2508,28 +2481,25 @@ Partial Class SSCPEvents
         Me.pnlACCAllDeviationsReported.Controls.Add(Me.rdbACCAllDeviationsReportedYes)
         Me.pnlACCAllDeviationsReported.Controls.Add(Me.rdbACCAllDeviationsReportedUnknown)
         Me.pnlACCAllDeviationsReported.Controls.Add(Me.rdbACCAllDeviationsReportedNo)
-        Me.pnlACCAllDeviationsReported.Location = New System.Drawing.Point(629, 494)
-        Me.pnlACCAllDeviationsReported.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.pnlACCAllDeviationsReported.Location = New System.Drawing.Point(236, 207)
         Me.pnlACCAllDeviationsReported.Name = "pnlACCAllDeviationsReported"
-        Me.pnlACCAllDeviationsReported.Size = New System.Drawing.Size(699, 93)
+        Me.pnlACCAllDeviationsReported.Size = New System.Drawing.Size(164, 24)
         Me.pnlACCAllDeviationsReported.TabIndex = 9
         '
         'rdbACCAllDeviationsReportedYes
         '
         Me.rdbACCAllDeviationsReportedYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbACCAllDeviationsReportedYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbACCAllDeviationsReportedYes.Name = "rdbACCAllDeviationsReportedYes"
-        Me.rdbACCAllDeviationsReportedYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCAllDeviationsReportedYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCAllDeviationsReportedYes.TabIndex = 0
         Me.rdbACCAllDeviationsReportedYes.Text = "Yes"
         '
         'rdbACCAllDeviationsReportedUnknown
         '
         Me.rdbACCAllDeviationsReportedUnknown.AutoSize = True
-        Me.rdbACCAllDeviationsReportedUnknown.Location = New System.Drawing.Point(240, 0)
-        Me.rdbACCAllDeviationsReportedUnknown.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbACCAllDeviationsReportedUnknown.Location = New System.Drawing.Point(90, 0)
         Me.rdbACCAllDeviationsReportedUnknown.Name = "rdbACCAllDeviationsReportedUnknown"
-        Me.rdbACCAllDeviationsReportedUnknown.Size = New System.Drawing.Size(169, 36)
+        Me.rdbACCAllDeviationsReportedUnknown.Size = New System.Drawing.Size(71, 17)
         Me.rdbACCAllDeviationsReportedUnknown.TabIndex = 30
         Me.rdbACCAllDeviationsReportedUnknown.Text = "Unknown"
         Me.rdbACCAllDeviationsReportedUnknown.Visible = False
@@ -2537,10 +2507,9 @@ Partial Class SSCPEvents
         'rdbACCAllDeviationsReportedNo
         '
         Me.rdbACCAllDeviationsReportedNo.AutoSize = True
-        Me.rdbACCAllDeviationsReportedNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbACCAllDeviationsReportedNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbACCAllDeviationsReportedNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbACCAllDeviationsReportedNo.Name = "rdbACCAllDeviationsReportedNo"
-        Me.rdbACCAllDeviationsReportedNo.Size = New System.Drawing.Size(87, 36)
+        Me.rdbACCAllDeviationsReportedNo.Size = New System.Drawing.Size(39, 17)
         Me.rdbACCAllDeviationsReportedNo.TabIndex = 20
         Me.rdbACCAllDeviationsReportedNo.Text = "No"
         '
@@ -2548,47 +2517,42 @@ Partial Class SSCPEvents
         '
         Me.Panel10.Controls.Add(Me.rdbACCCorrectYes)
         Me.Panel10.Controls.Add(Me.rdbACCCorrectNo)
-        Me.Panel10.Location = New System.Drawing.Point(629, 327)
-        Me.Panel10.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel10.Location = New System.Drawing.Point(236, 137)
         Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(256, 38)
+        Me.Panel10.Size = New System.Drawing.Size(96, 16)
         Me.Panel10.TabIndex = 6
         '
         'rdbACCCorrectYes
         '
         Me.rdbACCCorrectYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbACCCorrectYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbACCCorrectYes.Name = "rdbACCCorrectYes"
-        Me.rdbACCCorrectYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCCorrectYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCCorrectYes.TabIndex = 0
         Me.rdbACCCorrectYes.Text = "Yes"
         '
         'rdbACCCorrectNo
         '
-        Me.rdbACCCorrectNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbACCCorrectNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbACCCorrectNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbACCCorrectNo.Name = "rdbACCCorrectNo"
-        Me.rdbACCCorrectNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCCorrectNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCCorrectNo.TabIndex = 20
         Me.rdbACCCorrectNo.Text = "No"
         '
         'lblACCAllDeviationsReported
         '
         Me.lblACCAllDeviationsReported.AutoSize = True
-        Me.lblACCAllDeviationsReported.Location = New System.Drawing.Point(216, 498)
-        Me.lblACCAllDeviationsReported.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.lblACCAllDeviationsReported.Location = New System.Drawing.Point(81, 209)
         Me.lblACCAllDeviationsReported.Name = "lblACCAllDeviationsReported"
-        Me.lblACCAllDeviationsReported.Size = New System.Drawing.Size(394, 32)
+        Me.lblACCAllDeviationsReported.Size = New System.Drawing.Size(149, 13)
         Me.lblACCAllDeviationsReported.TabIndex = 99
         Me.lblACCAllDeviationsReported.Text = "All known deviations reported:"
         '
         'Label42
         '
         Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(304, 331)
-        Me.Label42.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label42.Location = New System.Drawing.Point(114, 139)
         Me.Label42.Name = "Label42"
-        Me.Label42.Size = New System.Drawing.Size(310, 32)
+        Me.Label42.Size = New System.Drawing.Size(116, 13)
         Me.Label42.TabIndex = 99
         Me.Label42.Text = "ACC correctly filled out:"
         '
@@ -2597,10 +2561,9 @@ Partial Class SSCPEvents
         Me.wrnACCConditions.AutoSize = True
         Me.wrnACCConditions.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCConditions.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCConditions.Location = New System.Drawing.Point(877, 279)
-        Me.wrnACCConditions.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.wrnACCConditions.Location = New System.Drawing.Point(329, 117)
         Me.wrnACCConditions.Name = "wrnACCConditions"
-        Me.wrnACCConditions.Size = New System.Drawing.Size(305, 27)
+        Me.wrnACCConditions.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCConditions.TabIndex = 97
         Me.wrnACCConditions.Text = "Warning-value not selected"
         Me.wrnACCConditions.Visible = False
@@ -2609,39 +2572,62 @@ Partial Class SSCPEvents
         '
         Me.Panel9.Controls.Add(Me.rdbACCConditionsYes)
         Me.Panel9.Controls.Add(Me.rdbACCConditionsNo)
-        Me.Panel9.Location = New System.Drawing.Point(629, 269)
-        Me.Panel9.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.Panel9.Location = New System.Drawing.Point(236, 113)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(256, 38)
+        Me.Panel9.Size = New System.Drawing.Size(96, 16)
         Me.Panel9.TabIndex = 5
         '
         'rdbACCConditionsYes
         '
         Me.rdbACCConditionsYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbACCConditionsYes.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.rdbACCConditionsYes.Name = "rdbACCConditionsYes"
-        Me.rdbACCConditionsYes.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCConditionsYes.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCConditionsYes.TabIndex = 0
         Me.rdbACCConditionsYes.Text = "Yes"
         '
         'rdbACCConditionsNo
         '
-        Me.rdbACCConditionsNo.Location = New System.Drawing.Point(128, 0)
-        Me.rdbACCConditionsNo.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.rdbACCConditionsNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbACCConditionsNo.Name = "rdbACCConditionsNo"
-        Me.rdbACCConditionsNo.Size = New System.Drawing.Size(128, 38)
+        Me.rdbACCConditionsNo.Size = New System.Drawing.Size(48, 16)
         Me.rdbACCConditionsNo.TabIndex = 20
         Me.rdbACCConditionsNo.Text = "No"
         '
         'Label39
         '
         Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(261, 274)
-        Me.Label39.Margin = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.Label39.Location = New System.Drawing.Point(98, 115)
         Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(355, 32)
+        Me.Label39.Size = New System.Drawing.Size(132, 13)
         Me.Label39.TabIndex = 95
         Me.Label39.Text = "All Title V conditions listed:"
+        '
+        'SplitterACC
+        '
+        Me.SplitterACC.BackColor = System.Drawing.SystemColors.Highlight
+        Me.SplitterACC.Location = New System.Drawing.Point(10, 0)
+        Me.SplitterACC.Name = "SplitterACC"
+        Me.SplitterACC.Size = New System.Drawing.Size(5, 370)
+        Me.SplitterACC.TabIndex = 78
+        Me.SplitterACC.TabStop = False
+        '
+        'DGRACCResubmittal
+        '
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.DGRACCResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        Me.DGRACCResubmittal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.DGRACCResubmittal.Dock = System.Windows.Forms.DockStyle.Left
+        Me.DGRACCResubmittal.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DGRACCResubmittal.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.DGRACCResubmittal.LinkifyColumnByName = Nothing
+        Me.DGRACCResubmittal.Location = New System.Drawing.Point(0, 0)
+        Me.DGRACCResubmittal.Name = "DGRACCResubmittal"
+        Me.DGRACCResubmittal.ResultsCountLabel = Nothing
+        Me.DGRACCResubmittal.ResultsCountLabelFormat = "{0} found"
+        Me.DGRACCResubmittal.Size = New System.Drawing.Size(10, 370)
+        Me.DGRACCResubmittal.StandardTab = True
+        Me.DGRACCResubmittal.TabIndex = 18
+        Me.DGRACCResubmittal.TabStop = False
         '
         'Button1
         '
@@ -2655,7 +2641,7 @@ Partial Class SSCPEvents
         '
         Me.TextBox6.Location = New System.Drawing.Point(152, 32)
         Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(100, 38)
+        Me.TextBox6.Size = New System.Drawing.Size(100, 20)
         Me.TextBox6.TabIndex = 1
         Me.TextBox6.Text = "TextBox6"
         '
@@ -2674,10 +2660,10 @@ Partial Class SSCPEvents
         Me.Splitter3.BackColor = System.Drawing.SystemColors.Control
         Me.Splitter3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Splitter3.Enabled = False
-        Me.Splitter3.Location = New System.Drawing.Point(0, 465)
+        Me.Splitter3.Location = New System.Drawing.Point(0, 455)
         Me.Splitter3.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.Splitter3.Name = "Splitter3"
-        Me.Splitter3.Size = New System.Drawing.Size(2112, 12)
+        Me.Splitter3.Size = New System.Drawing.Size(792, 5)
         Me.Splitter3.TabIndex = 0
         Me.Splitter3.TabStop = False
         '
@@ -2685,61 +2671,57 @@ Partial Class SSCPEvents
         '
         Me.PanelSSCPCompliance.Controls.Add(Me.TCItems)
         Me.PanelSSCPCompliance.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelSSCPCompliance.Location = New System.Drawing.Point(0, 477)
+        Me.PanelSSCPCompliance.Location = New System.Drawing.Point(0, 467)
         Me.PanelSSCPCompliance.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.PanelSSCPCompliance.Name = "PanelSSCPCompliance"
-        Me.PanelSSCPCompliance.Size = New System.Drawing.Size(2112, 942)
+        Me.PanelSSCPCompliance.Size = New System.Drawing.Size(2112, 952)
         Me.PanelSSCPCompliance.TabIndex = 231
         '
         'ToolStrip1
         '
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(40, 40)
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnSave, Me.btnPrint, Me.btnDelete})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Padding = New System.Windows.Forms.Padding(0, 0, 5, 0)
-        Me.ToolStrip1.Size = New System.Drawing.Size(2112, 62)
+        Me.ToolStrip1.Size = New System.Drawing.Size(2112, 52)
         Me.ToolStrip1.TabIndex = 0
         Me.ToolStrip1.Text = "ToolStrip1"
         '
         'btnSave
         '
-        Me.btnSave.Image = CType(resources.GetObject("btnSave.Image"), System.Drawing.Image)
+        Me.btnSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
         Me.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(123, 55)
+        Me.btnSave.Size = New System.Drawing.Size(123, 45)
         Me.btnSave.Text = "&Save"
         '
         'btnPrint
         '
-        Me.btnPrint.Image = CType(resources.GetObject("btnPrint.Image"), System.Drawing.Image)
+        Me.btnPrint.Image = Global.Iaip.My.Resources.Resources.PrintPreviewIcon
         Me.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnPrint.Name = "btnPrint"
-        Me.btnPrint.Size = New System.Drawing.Size(123, 45)
+        Me.btnPrint.Size = New System.Drawing.Size(52, 22)
         Me.btnPrint.Text = "&Print"
         Me.btnPrint.Visible = False
         '
         'btnDelete
         '
-        Me.btnDelete.Image = CType(resources.GetObject("btnDelete.Image"), System.Drawing.Image)
+        Me.btnDelete.Image = Global.Iaip.My.Resources.Resources.DeleteCrossIcon
         Me.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(148, 55)
+        Me.btnDelete.Size = New System.Drawing.Size(148, 45)
         Me.btnDelete.Text = "Delete"
         '
         'SSCPEvents
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(16.0!, 31.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(2112, 1419)
+        Me.ClientSize = New System.Drawing.Size(792, 595)
         Me.Controls.Add(Me.PanelSSCPCompliance)
         Me.Controls.Add(Me.Splitter3)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(21, 17, 21, 17)
-        Me.MinimumSize = New System.Drawing.Size(1227, 725)
         Me.Name = "SSCPEvents"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Compliance Events"
@@ -2750,9 +2732,11 @@ Partial Class SSCPEvents
         Me.PanelReports.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
+        CType(Me.NUPReportSubmittal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
         Me.Panel17.ResumeLayout(False)
         Me.Panel18.ResumeLayout(False)
+        CType(Me.dgrReportResubmittal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPTestReports.ResumeLayout(False)
         Me.PanelSSCPCompliance2.ResumeLayout(False)
         Me.PanelSSCPCompliance2.PerformLayout()
@@ -2773,6 +2757,7 @@ Partial Class SSCPEvents
         Me.Panel8.ResumeLayout(False)
         Me.Panel7.ResumeLayout(False)
         Me.Panel6.ResumeLayout(False)
+        CType(Me.NUPACCSubmittal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel15.ResumeLayout(False)
         Me.Panel14.ResumeLayout(False)
         Me.pnlACCResubmittalRequested.ResumeLayout(False)
@@ -2782,6 +2767,7 @@ Partial Class SSCPEvents
         Me.pnlACCAllDeviationsReported.PerformLayout()
         Me.Panel10.ResumeLayout(False)
         Me.Panel9.ResumeLayout(False)
+        CType(Me.DGRACCResubmittal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelSSCPCompliance.ResumeLayout(False)
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
