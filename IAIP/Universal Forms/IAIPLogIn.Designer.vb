@@ -33,6 +33,7 @@ Partial Class IAIPLogIn
         Me.mmiTestingMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiThrowHandledError = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiThrowUnhandledError = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiForceEnableLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnLoginButton = New System.Windows.Forms.Button()
         Me.LogoBox = New System.Windows.Forms.PictureBox()
         Me.lblCurrentVersionMessage = New System.Windows.Forms.Label()
@@ -138,7 +139,7 @@ Partial Class IAIPLogIn
         '
         'mmiTestingMenu
         '
-        Me.mmiTestingMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiThrowHandledError, Me.mmiThrowUnhandledError})
+        Me.mmiTestingMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiThrowHandledError, Me.mmiThrowUnhandledError, Me.mmiForceEnableLogin})
         Me.mmiTestingMenu.MergeIndex = 3
         Me.mmiTestingMenu.Name = "mmiTestingMenu"
         Me.mmiTestingMenu.Size = New System.Drawing.Size(39, 20)
@@ -158,6 +159,12 @@ Partial Class IAIPLogIn
         Me.mmiThrowUnhandledError.Name = "mmiThrowUnhandledError"
         Me.mmiThrowUnhandledError.Size = New System.Drawing.Size(187, 22)
         Me.mmiThrowUnhandledError.Text = "Unhandled Exception"
+        '
+        'mmiForceEnableLogin
+        '
+        Me.mmiForceEnableLogin.Name = "mmiForceEnableLogin"
+        Me.mmiForceEnableLogin.Size = New System.Drawing.Size(199, 22)
+        Me.mmiForceEnableLogin.Text = "&Enable the login form"
         '
         'btnLoginButton
         '
@@ -456,4 +463,5 @@ Partial Class IAIPLogIn
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents Panel1 As Panel
     Friend WithEvents lblDevInfoMessage As Label
+    Friend WithEvents mmiForceEnableLogin As ToolStripMenuItem
 End Class
