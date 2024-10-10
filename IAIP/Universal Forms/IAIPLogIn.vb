@@ -93,6 +93,15 @@ Public Class IAIPLogIn
             Case Else
                 EnableLogin()
         End Select
+
+#If DEBUG Then
+        DisplayDevInfo()
+#End If
+    End Sub
+
+    Private Sub DisplayDevInfo()
+        lblDevInfoMessage.Visible = True
+        lblDevInfoMessage.Text = $"External IP Address: {ExternalIPAddress}"
     End Sub
 
     Private Shared Async Function CheckUserSavedSessionAsync() As Task(Of Boolean)

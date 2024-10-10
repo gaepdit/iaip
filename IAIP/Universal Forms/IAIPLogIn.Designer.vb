@@ -51,6 +51,7 @@ Partial Class IAIPLogIn
         Me.lblIAIP = New System.Windows.Forms.Label()
         Me.lnkChangelog = New System.Windows.Forms.LinkLabel()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.lblDevInfoMessage = New System.Windows.Forms.Label()
         Me.MainMenu1.SuspendLayout()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -357,6 +358,7 @@ Partial Class IAIPLogIn
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.lblDevInfoMessage)
         Me.Panel1.Controls.Add(Me.lblTitle)
         Me.Panel1.Controls.Add(Me.btnLoginButton)
         Me.Panel1.Controls.Add(Me.lnkChangelog)
@@ -379,6 +381,21 @@ Partial Class IAIPLogIn
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(756, 423)
         Me.Panel1.TabIndex = 0
+        '
+        'lblDevInfoMessage
+        '
+        Me.lblDevInfoMessage.AutoSize = True
+        Me.lblDevInfoMessage.BackColor = System.Drawing.Color.AliceBlue
+        Me.lblDevInfoMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDevInfoMessage.Location = New System.Drawing.Point(454, 370)
+        Me.lblDevInfoMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblDevInfoMessage.MaximumSize = New System.Drawing.Size(382, 96)
+        Me.lblDevInfoMessage.Name = "lblDevInfoMessage"
+        Me.lblDevInfoMessage.Padding = New System.Windows.Forms.Padding(3)
+        Me.lblDevInfoMessage.Size = New System.Drawing.Size(157, 24)
+        Me.lblDevInfoMessage.TabIndex = 38
+        Me.lblDevInfoMessage.Text = "Message Placeholder"
+        Me.lblDevInfoMessage.Visible = False
         '
         'IAIPLogIn
         '
@@ -438,4 +455,5 @@ Partial Class IAIPLogIn
     Friend WithEvents lnkChangelog As LinkLabel
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents lblDevInfoMessage As Label
 End Class
