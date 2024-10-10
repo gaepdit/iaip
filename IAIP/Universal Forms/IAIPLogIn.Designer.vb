@@ -127,14 +127,14 @@ Partial Class IAIPLogIn
         '
         Me.mmiOnlineHelp.MergeIndex = 0
         Me.mmiOnlineHelp.Name = "mmiOnlineHelp"
-        Me.mmiOnlineHelp.Size = New System.Drawing.Size(180, 22)
+        Me.mmiOnlineHelp.Size = New System.Drawing.Size(140, 22)
         Me.mmiOnlineHelp.Text = "Online &Help "
         '
         'mmiAbout
         '
         Me.mmiAbout.MergeIndex = 4
         Me.mmiAbout.Name = "mmiAbout"
-        Me.mmiAbout.Size = New System.Drawing.Size(180, 22)
+        Me.mmiAbout.Size = New System.Drawing.Size(140, 22)
         Me.mmiAbout.Text = "&About IAIP"
         '
         'mmiTestingMenu
@@ -150,20 +150,21 @@ Partial Class IAIPLogIn
         '
         Me.mmiThrowHandledError.MergeIndex = 0
         Me.mmiThrowHandledError.Name = "mmiThrowHandledError"
-        Me.mmiThrowHandledError.Size = New System.Drawing.Size(187, 22)
+        Me.mmiThrowHandledError.Size = New System.Drawing.Size(188, 22)
         Me.mmiThrowHandledError.Text = "Handled Exception"
         '
         'mmiThrowUnhandledError
         '
         Me.mmiThrowUnhandledError.MergeIndex = 1
         Me.mmiThrowUnhandledError.Name = "mmiThrowUnhandledError"
-        Me.mmiThrowUnhandledError.Size = New System.Drawing.Size(187, 22)
+        Me.mmiThrowUnhandledError.Size = New System.Drawing.Size(188, 22)
         Me.mmiThrowUnhandledError.Text = "Unhandled Exception"
         '
         'mmiForceEnableLogin
         '
+        Me.mmiForceEnableLogin.MergeIndex = 2
         Me.mmiForceEnableLogin.Name = "mmiForceEnableLogin"
-        Me.mmiForceEnableLogin.Size = New System.Drawing.Size(199, 22)
+        Me.mmiForceEnableLogin.Size = New System.Drawing.Size(188, 22)
         Me.mmiForceEnableLogin.Text = "&Enable the login form"
         '
         'btnLoginButton
