@@ -33,6 +33,7 @@ Partial Class IAIPLogIn
         Me.mmiTestingMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiThrowHandledError = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiThrowUnhandledError = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiForceEnableLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnLoginButton = New System.Windows.Forms.Button()
         Me.LogoBox = New System.Windows.Forms.PictureBox()
         Me.lblCurrentVersionMessage = New System.Windows.Forms.Label()
@@ -51,6 +52,7 @@ Partial Class IAIPLogIn
         Me.lblIAIP = New System.Windows.Forms.Label()
         Me.lnkChangelog = New System.Windows.Forms.LinkLabel()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.lblDevInfoMessage = New System.Windows.Forms.Label()
         Me.MainMenu1.SuspendLayout()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -125,19 +127,19 @@ Partial Class IAIPLogIn
         '
         Me.mmiOnlineHelp.MergeIndex = 0
         Me.mmiOnlineHelp.Name = "mmiOnlineHelp"
-        Me.mmiOnlineHelp.Size = New System.Drawing.Size(180, 22)
+        Me.mmiOnlineHelp.Size = New System.Drawing.Size(140, 22)
         Me.mmiOnlineHelp.Text = "Online &Help "
         '
         'mmiAbout
         '
         Me.mmiAbout.MergeIndex = 4
         Me.mmiAbout.Name = "mmiAbout"
-        Me.mmiAbout.Size = New System.Drawing.Size(180, 22)
+        Me.mmiAbout.Size = New System.Drawing.Size(140, 22)
         Me.mmiAbout.Text = "&About IAIP"
         '
         'mmiTestingMenu
         '
-        Me.mmiTestingMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiThrowHandledError, Me.mmiThrowUnhandledError})
+        Me.mmiTestingMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiThrowHandledError, Me.mmiThrowUnhandledError, Me.mmiForceEnableLogin})
         Me.mmiTestingMenu.MergeIndex = 3
         Me.mmiTestingMenu.Name = "mmiTestingMenu"
         Me.mmiTestingMenu.Size = New System.Drawing.Size(39, 20)
@@ -148,15 +150,22 @@ Partial Class IAIPLogIn
         '
         Me.mmiThrowHandledError.MergeIndex = 0
         Me.mmiThrowHandledError.Name = "mmiThrowHandledError"
-        Me.mmiThrowHandledError.Size = New System.Drawing.Size(187, 22)
+        Me.mmiThrowHandledError.Size = New System.Drawing.Size(188, 22)
         Me.mmiThrowHandledError.Text = "Handled Exception"
         '
         'mmiThrowUnhandledError
         '
         Me.mmiThrowUnhandledError.MergeIndex = 1
         Me.mmiThrowUnhandledError.Name = "mmiThrowUnhandledError"
-        Me.mmiThrowUnhandledError.Size = New System.Drawing.Size(187, 22)
+        Me.mmiThrowUnhandledError.Size = New System.Drawing.Size(188, 22)
         Me.mmiThrowUnhandledError.Text = "Unhandled Exception"
+        '
+        'mmiForceEnableLogin
+        '
+        Me.mmiForceEnableLogin.MergeIndex = 2
+        Me.mmiForceEnableLogin.Name = "mmiForceEnableLogin"
+        Me.mmiForceEnableLogin.Size = New System.Drawing.Size(188, 22)
+        Me.mmiForceEnableLogin.Text = "&Enable the login form"
         '
         'btnLoginButton
         '
@@ -357,6 +366,7 @@ Partial Class IAIPLogIn
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.lblDevInfoMessage)
         Me.Panel1.Controls.Add(Me.lblTitle)
         Me.Panel1.Controls.Add(Me.btnLoginButton)
         Me.Panel1.Controls.Add(Me.lnkChangelog)
@@ -379,6 +389,21 @@ Partial Class IAIPLogIn
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(756, 423)
         Me.Panel1.TabIndex = 0
+        '
+        'lblDevInfoMessage
+        '
+        Me.lblDevInfoMessage.AutoSize = True
+        Me.lblDevInfoMessage.BackColor = System.Drawing.Color.AliceBlue
+        Me.lblDevInfoMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDevInfoMessage.Location = New System.Drawing.Point(454, 370)
+        Me.lblDevInfoMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblDevInfoMessage.MaximumSize = New System.Drawing.Size(382, 96)
+        Me.lblDevInfoMessage.Name = "lblDevInfoMessage"
+        Me.lblDevInfoMessage.Padding = New System.Windows.Forms.Padding(3)
+        Me.lblDevInfoMessage.Size = New System.Drawing.Size(157, 24)
+        Me.lblDevInfoMessage.TabIndex = 38
+        Me.lblDevInfoMessage.Text = "Message Placeholder"
+        Me.lblDevInfoMessage.Visible = False
         '
         'IAIPLogIn
         '
@@ -438,4 +463,6 @@ Partial Class IAIPLogIn
     Friend WithEvents lnkChangelog As LinkLabel
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents lblDevInfoMessage As Label
+    Friend WithEvents mmiForceEnableLogin As ToolStripMenuItem
 End Class

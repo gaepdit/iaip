@@ -263,7 +263,6 @@
     <Compile Include="Users\IaipUserSecurity.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Code\Api\CxApiConnectionCheck.vb" />
     <Compile Include="_Code\Api\WebApiUtils.vb" />
     <Compile Include="_Code\Api\WebRequestUtils.vb" />
     <Compile Include="_Code\AppUpdater.vb" />

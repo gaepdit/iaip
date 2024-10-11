@@ -93,6 +93,15 @@ Public Class IAIPLogIn
             Case Else
                 EnableLogin()
         End Select
+
+#If DEBUG Then
+        DisplayDevInfo()
+#End If
+    End Sub
+
+    Private Sub DisplayDevInfo()
+        lblDevInfoMessage.Visible = True
+        lblDevInfoMessage.Text = $"External IP Address: {ExternalIPAddress}"
     End Sub
 
     Private Shared Async Function CheckUserSavedSessionAsync() As Task(Of Boolean)
@@ -480,7 +489,7 @@ Public Class IAIPLogIn
 
 #End Region
 
-#Region " Exception testing "
+#Region " Dev testing "
 
     Private Sub mmiThrowUnhandledError_Click(sender As Object, e As EventArgs) Handles mmiThrowUnhandledError.Click
         Throw New ArgumentException("Unhandled exception testing")
@@ -492,6 +501,10 @@ Public Class IAIPLogIn
         Catch ex As Exception
             ErrorReport(ex, Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub mmiForceEnableLogin_Click(sender As Object, e As EventArgs) Handles mmiForceEnableLogin.Click
+        EnableLogin()
     End Sub
 
 #End Region
