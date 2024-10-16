@@ -240,8 +240,8 @@ Partial Class SSCPEvents
 
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.llEnforcementCases = New System.Windows.Forms.LinkLabel()
         Me.cboStaffResponsible = New System.Windows.Forms.ComboBox()
@@ -517,7 +517,7 @@ Partial Class SSCPEvents
         Me.GroupBox1.Location = New System.Drawing.Point(0, 25)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(792, 169)
+        Me.GroupBox1.Size = New System.Drawing.Size(791, 169)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         '
@@ -666,7 +666,7 @@ Partial Class SSCPEvents
         Me.TCItems.Location = New System.Drawing.Point(0, 0)
         Me.TCItems.Name = "TCItems"
         Me.TCItems.SelectedIndex = 0
-        Me.TCItems.Size = New System.Drawing.Size(792, 246)
+        Me.TCItems.Size = New System.Drawing.Size(791, 384)
         Me.TCItems.TabIndex = 0
         '
         'TPReport
@@ -674,7 +674,7 @@ Partial Class SSCPEvents
         Me.TPReport.Controls.Add(Me.PanelReports)
         Me.TPReport.Location = New System.Drawing.Point(4, 22)
         Me.TPReport.Name = "TPReport"
-        Me.TPReport.Size = New System.Drawing.Size(784, 220)
+        Me.TPReport.Size = New System.Drawing.Size(783, 358)
         Me.TPReport.TabIndex = 0
         Me.TPReport.Text = "Report"
         '
@@ -684,7 +684,7 @@ Partial Class SSCPEvents
         Me.PanelReports.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelReports.Location = New System.Drawing.Point(0, 0)
         Me.PanelReports.Name = "PanelReports"
-        Me.PanelReports.Size = New System.Drawing.Size(784, 220)
+        Me.PanelReports.Size = New System.Drawing.Size(783, 358)
         Me.PanelReports.TabIndex = 69
         '
         'Panel4
@@ -717,7 +717,7 @@ Partial Class SSCPEvents
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(784, 220)
+        Me.Panel4.Size = New System.Drawing.Size(783, 358)
         Me.Panel4.TabIndex = 78
         '
         'DTPReportReceivedDate
@@ -1012,7 +1012,7 @@ Partial Class SSCPEvents
         Me.TPTestReports.Controls.Add(Me.PanelSSCPCompliance2)
         Me.TPTestReports.Location = New System.Drawing.Point(4, 22)
         Me.TPTestReports.Name = "TPTestReports"
-        Me.TPTestReports.Size = New System.Drawing.Size(784, 198)
+        Me.TPTestReports.Size = New System.Drawing.Size(783, 358)
         Me.TPTestReports.TabIndex = 2
         Me.TPTestReports.Text = "ISMP Test Report"
         '
@@ -1046,7 +1046,7 @@ Partial Class SSCPEvents
         Me.PanelSSCPCompliance2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSSCPCompliance2.Location = New System.Drawing.Point(0, 0)
         Me.PanelSSCPCompliance2.Name = "PanelSSCPCompliance2"
-        Me.PanelSSCPCompliance2.Size = New System.Drawing.Size(784, 198)
+        Me.PanelSSCPCompliance2.Size = New System.Drawing.Size(783, 358)
         Me.PanelSSCPCompliance2.TabIndex = 161
         '
         'DTPTestReportReceivedDate
@@ -1290,7 +1290,7 @@ Partial Class SSCPEvents
         Me.TPInspection.Controls.Add(Me.Panel11)
         Me.TPInspection.Location = New System.Drawing.Point(4, 22)
         Me.TPInspection.Name = "TPInspection"
-        Me.TPInspection.Size = New System.Drawing.Size(784, 198)
+        Me.TPInspection.Size = New System.Drawing.Size(783, 358)
         Me.TPInspection.TabIndex = 1
         Me.TPInspection.Text = "Inspection"
         '
@@ -1325,7 +1325,7 @@ Partial Class SSCPEvents
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel11.Location = New System.Drawing.Point(0, 0)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(784, 198)
+        Me.Panel11.Size = New System.Drawing.Size(783, 358)
         Me.Panel11.TabIndex = 81
         '
         'Panel21
@@ -1602,7 +1602,7 @@ Partial Class SSCPEvents
         Me.TPNotifications.Controls.Add(Me.Panel16)
         Me.TPNotifications.Location = New System.Drawing.Point(4, 22)
         Me.TPNotifications.Name = "TPNotifications"
-        Me.TPNotifications.Size = New System.Drawing.Size(784, 198)
+        Me.TPNotifications.Size = New System.Drawing.Size(783, 358)
         Me.TPNotifications.TabIndex = 3
         Me.TPNotifications.Text = "Notifications"
         '
@@ -1630,7 +1630,7 @@ Partial Class SSCPEvents
         Me.Panel16.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel16.Location = New System.Drawing.Point(0, 0)
         Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(784, 198)
+        Me.Panel16.Size = New System.Drawing.Size(783, 358)
         Me.Panel16.TabIndex = 144
         '
         'Label10
@@ -1828,7 +1828,7 @@ Partial Class SSCPEvents
         Me.TPACC.Controls.Add(Me.PanelACC)
         Me.TPACC.Location = New System.Drawing.Point(4, 22)
         Me.TPACC.Name = "TPACC"
-        Me.TPACC.Size = New System.Drawing.Size(784, 198)
+        Me.TPACC.Size = New System.Drawing.Size(783, 358)
         Me.TPACC.TabIndex = 4
         Me.TPACC.Text = "Annual Compliance Certifications"
         '
@@ -1838,7 +1838,7 @@ Partial Class SSCPEvents
         Me.PanelACC.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelACC.Location = New System.Drawing.Point(0, 0)
         Me.PanelACC.Name = "PanelACC"
-        Me.PanelACC.Size = New System.Drawing.Size(784, 198)
+        Me.PanelACC.Size = New System.Drawing.Size(783, 358)
         Me.PanelACC.TabIndex = 79
         '
         'Panel20
@@ -1887,7 +1887,7 @@ Partial Class SSCPEvents
         Me.Panel20.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel20.Location = New System.Drawing.Point(0, 0)
         Me.Panel20.Name = "Panel20"
-        Me.Panel20.Size = New System.Drawing.Size(784, 198)
+        Me.Panel20.Size = New System.Drawing.Size(783, 358)
         Me.Panel20.TabIndex = 0
         '
         'dtpAccReportingYear
@@ -2536,8 +2536,8 @@ Partial Class SSCPEvents
         '
         'DGRACCResubmittal
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.DGRACCResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.DGRACCResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.DGRACCResubmittal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.DGRACCResubmittal.ColumnHeadersHeight = 58
         Me.DGRACCResubmittal.GridColor = System.Drawing.SystemColors.ControlLight
@@ -2577,8 +2577,8 @@ Partial Class SSCPEvents
         '
         'dgrReportResubmittal
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrReportResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgrReportResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgrReportResubmittal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgrReportResubmittal.ColumnHeadersHeight = 58
         Me.dgrReportResubmittal.GridColor = System.Drawing.SystemColors.ControlLight
@@ -2657,7 +2657,7 @@ Partial Class SSCPEvents
         Me.Splitter3.Location = New System.Drawing.Point(0, 194)
         Me.Splitter3.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.Splitter3.Name = "Splitter3"
-        Me.Splitter3.Size = New System.Drawing.Size(792, 5)
+        Me.Splitter3.Size = New System.Drawing.Size(791, 5)
         Me.Splitter3.TabIndex = 0
         Me.Splitter3.TabStop = False
         '
@@ -2668,7 +2668,7 @@ Partial Class SSCPEvents
         Me.PanelSSCPCompliance.Location = New System.Drawing.Point(0, 199)
         Me.PanelSSCPCompliance.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.PanelSSCPCompliance.Name = "PanelSSCPCompliance"
-        Me.PanelSSCPCompliance.Size = New System.Drawing.Size(792, 246)
+        Me.PanelSSCPCompliance.Size = New System.Drawing.Size(791, 384)
         Me.PanelSSCPCompliance.TabIndex = 231
         '
         'ToolStrip1
@@ -2678,7 +2678,7 @@ Partial Class SSCPEvents
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Padding = New System.Windows.Forms.Padding(0, 0, 5, 0)
-        Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(791, 25)
         Me.ToolStrip1.TabIndex = 0
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -2711,13 +2711,13 @@ Partial Class SSCPEvents
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(792, 445)
+        Me.ClientSize = New System.Drawing.Size(791, 583)
         Me.Controls.Add(Me.PanelSSCPCompliance)
         Me.Controls.Add(Me.Splitter3)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
-        Me.MinimumSize = New System.Drawing.Size(470, 327)
+        Me.MinimumSize = New System.Drawing.Size(807, 622)
         Me.Name = "SSCPEvents"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Compliance Events"
