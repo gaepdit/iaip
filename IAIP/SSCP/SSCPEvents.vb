@@ -305,7 +305,7 @@ Public Class SSCPEvents
         Dim SQL As String = "Select datCompleteDate " &
             "from SSCPItemMaster " &
             "where strTrackingNumber = @num "
-        Dim p As New Microsoft.Data.SqlClient.SqlParameter("@num", TrackingNumber)
+        Dim p As New SqlParameter("@num", TrackingNumber)
 
         Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
@@ -584,7 +584,7 @@ Public Class SSCPEvents
         Dim PeriodComments As String
         Dim GeneralComments As String
         Dim sqlList As New List(Of String)
-        Dim paramList As New List(Of Microsoft.Data.SqlClient.SqlParameter)()
+        Dim paramList As New List(Of SqlParameter)()
 
         Try
             ValidateALLReport()
@@ -608,7 +608,7 @@ Public Class SSCPEvents
             End If
 
             Dim SQL As String = "Select 1 from SSCPReports where strTrackingNumber = @strTrackingNumber"
-            Dim pTrkNum As New Microsoft.Data.SqlClient.SqlParameter("@strTrackingNumber", TrackingNumber)
+            Dim pTrkNum As New SqlParameter("@strTrackingNumber", TrackingNumber)
 
             If Not DB.ValueExists(SQL, {pTrkNum}) Then
                 sqlList.Add("Insert into SSCPReports " &
@@ -628,18 +628,18 @@ Public Class SSCPEvents
                 "@strgeneralcomments, @strmodifingperson, " &
                 "GETDATE(), '1') ")
 
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strTrackingNumber", TrackingNumber))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strReportPeriod", cboReportSchedule.Text))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@DatReportingPeriodStart", DTPReportPeriodStart.Value))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@DatReportingPeriodEnd", DTPReportPeriodEnd.Value))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strReportingPeriodComments", PeriodComments))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@datreportduedate", dtpDueDate.Value))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@datsentbyfacilitydate", DTPSentDate.Value))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strcompletestatus", rdbReportCompleteYes.Checked.ToString()))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strenforcementneeded", rdbReportEnforcementYes.Checked.ToString()))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strshowdeviation", rdbReportDeviationYes.Checked.ToString()))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strgeneralcomments", GeneralComments))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strmodifingperson", CurrentUser.UserID))
+                paramList.Add(New SqlParameter("@strTrackingNumber", TrackingNumber))
+                paramList.Add(New SqlParameter("@strReportPeriod", cboReportSchedule.Text))
+                paramList.Add(New SqlParameter("@DatReportingPeriodStart", DTPReportPeriodStart.Value))
+                paramList.Add(New SqlParameter("@DatReportingPeriodEnd", DTPReportPeriodEnd.Value))
+                paramList.Add(New SqlParameter("@strReportingPeriodComments", PeriodComments))
+                paramList.Add(New SqlParameter("@datreportduedate", dtpDueDate.Value))
+                paramList.Add(New SqlParameter("@datsentbyfacilitydate", DTPSentDate.Value))
+                paramList.Add(New SqlParameter("@strcompletestatus", rdbReportCompleteYes.Checked.ToString()))
+                paramList.Add(New SqlParameter("@strenforcementneeded", rdbReportEnforcementYes.Checked.ToString()))
+                paramList.Add(New SqlParameter("@strshowdeviation", rdbReportDeviationYes.Checked.ToString()))
+                paramList.Add(New SqlParameter("@strgeneralcomments", GeneralComments))
+                paramList.Add(New SqlParameter("@strmodifingperson", CurrentUser.UserID))
 
                 sqlList.Add("Insert into SSCPReportsHistory " &
                 "(strTrackingNumber, strSubmittalNumber, " &
@@ -677,17 +677,17 @@ Public Class SSCPEvents
                 "where strTrackingNumber = @strTrackingNumber ")
 
                 ' Add/update parameters for UPDATE
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strReportPeriod", cboReportSchedule.Text))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@DatReportingPeriodStart", DTPReportPeriodStart.Value))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@DatReportingPeriodEnd", DTPReportPeriodEnd.Value))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strReportingPeriodComments", PeriodComments))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@datreportduedate", dtpDueDate.Value))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@datsentbyfacilitydate", DTPSentDate.Value))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strcompletestatus", rdbReportCompleteYes.Checked.ToString()))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strenforcementneeded", rdbReportEnforcementYes.Checked.ToString()))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strshowdeviation", rdbReportDeviationYes.Checked.ToString()))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strgeneralcomments", GeneralComments))
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@strmodifingperson", CurrentUser.UserID))
+                paramList.Add(New SqlParameter("@strReportPeriod", cboReportSchedule.Text))
+                paramList.Add(New SqlParameter("@DatReportingPeriodStart", DTPReportPeriodStart.Value))
+                paramList.Add(New SqlParameter("@DatReportingPeriodEnd", DTPReportPeriodEnd.Value))
+                paramList.Add(New SqlParameter("@strReportingPeriodComments", PeriodComments))
+                paramList.Add(New SqlParameter("@datreportduedate", dtpDueDate.Value))
+                paramList.Add(New SqlParameter("@datsentbyfacilitydate", DTPSentDate.Value))
+                paramList.Add(New SqlParameter("@strcompletestatus", rdbReportCompleteYes.Checked.ToString()))
+                paramList.Add(New SqlParameter("@strenforcementneeded", rdbReportEnforcementYes.Checked.ToString()))
+                paramList.Add(New SqlParameter("@strshowdeviation", rdbReportDeviationYes.Checked.ToString()))
+                paramList.Add(New SqlParameter("@strgeneralcomments", GeneralComments))
+                paramList.Add(New SqlParameter("@strmodifingperson", CurrentUser.UserID))
                 paramList.Add(pTrkNum)
 
                 SQL = "Select 1 " &
@@ -724,7 +724,7 @@ Public Class SSCPEvents
                         "datReceivedDate = @date " &
                         "where strTrackingNumber = @strTrackingNumber ")
 
-                paramList.Add(New Microsoft.Data.SqlClient.SqlParameter("@date", DTPReportReceivedDate.Value))
+                paramList.Add(New SqlParameter("@date", DTPReportReceivedDate.Value))
                 paramList.Add(pTrkNum)
             End If
 
@@ -775,12 +775,12 @@ Public Class SSCPEvents
                                          dtpInspectionTimeEnd.Value.Hour, dtpInspectionTimeEnd.Value.Minute, dtpInspectionTimeEnd.Value.Second)
 
             Dim SQL As String = "Select 1 from SSCPInspections where strTrackingNumber = @num"
-            Dim p As New Microsoft.Data.SqlClient.SqlParameter("@num", TrackingNumber)
+            Dim p As New SqlParameter("@num", TrackingNumber)
 
             Dim sqlList As New List(Of String)
-            Dim paramLists As New List(Of Microsoft.Data.SqlClient.SqlParameter())
+            Dim paramLists As New List(Of SqlParameter())
 
-            If Not DB.ValueExists(SQL, New Microsoft.Data.SqlClient.SqlParameter() {p}) Then
+            If Not DB.ValueExists(SQL, New SqlParameter() {p}) Then
                 ' Insert query
                 sqlList.Add("Insert into SSCPInspections " &
                         "(strTrackingNumber, DatInspectionDateStart, datinspectionDateEnd, strInspectionReason, " &
@@ -792,18 +792,18 @@ Public Class SSCPEvents
                         "@strInspectionComments, @strInspectionFollowUp, @strModifingPerson, GETDATE())")
 
                 ' Parameters for Insert
-                Dim insertParams As Microsoft.Data.SqlClient.SqlParameter() = {
-                New Microsoft.Data.SqlClient.SqlParameter("@strTrackingNumber", TrackingNumber),
-                New Microsoft.Data.SqlClient.SqlParameter("@DatInspectionDateStart", InspectionDateTimeStart),
-                New Microsoft.Data.SqlClient.SqlParameter("@datinspectionDateEnd", InspectionDateTimeEnd),
-                New Microsoft.Data.SqlClient.SqlParameter("@strInspectionReason", InspectionReason),
-                New Microsoft.Data.SqlClient.SqlParameter("@strWeatherConditions", WeatherCondition),
-                New Microsoft.Data.SqlClient.SqlParameter("@strInspectionGuide", InspectionGuide),
-                New Microsoft.Data.SqlClient.SqlParameter("@strFacilityOperating", rdbInspectionFacilityOperatingYes.Checked.ToString()),
-                New Microsoft.Data.SqlClient.SqlParameter("@strInspectionComplianceStatus", cboInspectionComplianceStatus.Text),
-                New Microsoft.Data.SqlClient.SqlParameter("@strInspectionComments", InspectionComments),
-                New Microsoft.Data.SqlClient.SqlParameter("@strInspectionFollowUp", rdbInspectionFollowUpYes.Checked.ToString()),
-                New Microsoft.Data.SqlClient.SqlParameter("@strModifingPerson", CurrentUser.UserID)
+                Dim insertParams As SqlParameter() = {
+                New SqlParameter("@strTrackingNumber", TrackingNumber),
+                New SqlParameter("@DatInspectionDateStart", InspectionDateTimeStart),
+                New SqlParameter("@datinspectionDateEnd", InspectionDateTimeEnd),
+                New SqlParameter("@strInspectionReason", InspectionReason),
+                New SqlParameter("@strWeatherConditions", WeatherCondition),
+                New SqlParameter("@strInspectionGuide", InspectionGuide),
+                New SqlParameter("@strFacilityOperating", rdbInspectionFacilityOperatingYes.Checked.ToString()),
+                New SqlParameter("@strInspectionComplianceStatus", cboInspectionComplianceStatus.Text),
+                New SqlParameter("@strInspectionComments", InspectionComments),
+                New SqlParameter("@strInspectionFollowUp", rdbInspectionFollowUpYes.Checked.ToString()),
+                New SqlParameter("@strModifingPerson", CurrentUser.UserID)
             }
                 paramLists.Add(insertParams)
             Else
@@ -817,27 +817,27 @@ Public Class SSCPEvents
                         "datModifingDate = GETDATE() where strTrackingNumber = @strTrackingNumber")
 
                 ' Parameters for Update
-                Dim updateParams As Microsoft.Data.SqlClient.SqlParameter() = {
-                New Microsoft.Data.SqlClient.SqlParameter("@DatInspectionDateStart", InspectionDateTimeStart),
-                New Microsoft.Data.SqlClient.SqlParameter("@datinspectionDateEnd", InspectionDateTimeEnd),
-                New Microsoft.Data.SqlClient.SqlParameter("@strInspectionReason", InspectionReason),
-                New Microsoft.Data.SqlClient.SqlParameter("@strWeatherConditions", WeatherCondition),
-                New Microsoft.Data.SqlClient.SqlParameter("@strInspectionGuide", InspectionGuide),
-                New Microsoft.Data.SqlClient.SqlParameter("@strFacilityOperating", rdbInspectionFacilityOperatingYes.Checked.ToString()),
-                New Microsoft.Data.SqlClient.SqlParameter("@strInspectionComplianceStatus", cboInspectionComplianceStatus.Text),
-                New Microsoft.Data.SqlClient.SqlParameter("@strInspectionComments", InspectionComments),
-                New Microsoft.Data.SqlClient.SqlParameter("@strInspectionFollowUp", rdbInspectionFollowUpYes.Checked.ToString()),
-                New Microsoft.Data.SqlClient.SqlParameter("@strModifingPerson", CurrentUser.UserID),
-                New Microsoft.Data.SqlClient.SqlParameter("@strTrackingNumber", TrackingNumber)
+                Dim updateParams As SqlParameter() = {
+                New SqlParameter("@DatInspectionDateStart", InspectionDateTimeStart),
+                New SqlParameter("@datinspectionDateEnd", InspectionDateTimeEnd),
+                New SqlParameter("@strInspectionReason", InspectionReason),
+                New SqlParameter("@strWeatherConditions", WeatherCondition),
+                New SqlParameter("@strInspectionGuide", InspectionGuide),
+                New SqlParameter("@strFacilityOperating", rdbInspectionFacilityOperatingYes.Checked.ToString()),
+                New SqlParameter("@strInspectionComplianceStatus", cboInspectionComplianceStatus.Text),
+                New SqlParameter("@strInspectionComments", InspectionComments),
+                New SqlParameter("@strInspectionFollowUp", rdbInspectionFollowUpYes.Checked.ToString()),
+                New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                New SqlParameter("@strTrackingNumber", TrackingNumber)
             }
                 paramLists.Add(updateParams)
             End If
 
             ' Update SSCPItemMaster
             sqlList.Add("Update SSCPItemMaster set datReceivedDate = @date where strTrackingNumber = @strTrackingNumber")
-            Dim masterParams As Microsoft.Data.SqlClient.SqlParameter() = {
-            New Microsoft.Data.SqlClient.SqlParameter("@date", DTPInspectionDateEnd.Value),
-            New Microsoft.Data.SqlClient.SqlParameter("@strTrackingNumber", TrackingNumber)
+            Dim masterParams As SqlParameter() = {
+            New SqlParameter("@date", DTPInspectionDateEnd.Value),
+            New SqlParameter("@strTrackingNumber", TrackingNumber)
         }
             paramLists.Add(masterParams)
 
@@ -845,7 +845,7 @@ Public Class SSCPEvents
             Dim rowsAffected As Integer
             For i As Integer = 0 To sqlList.Count - 1
                 Dim query As String = sqlList(i)
-                Dim parameters As Microsoft.Data.SqlClient.SqlParameter() = paramLists(i)
+                Dim parameters As SqlParameter() = paramLists(i)
                 If Not DB.RunCommand(query, parameters, rowsAffected) Then
                     MsgBox("Error executing SQL command", MsgBoxStyle.Exclamation, "Error")
                     Return False
@@ -874,7 +874,7 @@ Public Class SSCPEvents
         Dim ResubmittalRequested As String
         Dim AllDeviationsReported As String
         Dim sqlList As New List(Of String)
-        Dim paramList As New List(Of Microsoft.Data.SqlClient.SqlParameter)
+        Dim paramList As New List(Of SqlParameter)
         Dim AccReportingYear As Object
 
         Try
@@ -910,7 +910,7 @@ Public Class SSCPEvents
 
             ' Check if record exists in SSCPACCS
             Dim SQL As String = "Select 1 from SSCPACCS where strTrackingNumber = @num"
-            Dim p As New Microsoft.Data.SqlClient.SqlParameter("@num", TrackingNumber)
+            Dim p As New SqlParameter("@num", TrackingNumber)
 
             If Not DB.ValueExists(SQL, p) Then
                 ' Insert into SSCPACCS
@@ -931,21 +931,21 @@ Public Class SSCPEvents
                             "@datAccReportingYear, @STRKNOWNDEVIATIONSREPORTED, @STRRESUBMITTALREQUIRED)")
 
                 paramList.AddRange({
-                    New Microsoft.Data.SqlClient.SqlParameter("@strTrackingNumber", TrackingNumber),
-                    New Microsoft.Data.SqlClient.SqlParameter("@strPostMarkedOnTime", PostedOnTime),
-                    New Microsoft.Data.SqlClient.SqlParameter("@DATPostMarkDate", DTPACCPostmarked.Value),
-                    New Microsoft.Data.SqlClient.SqlParameter("@strsignedbyRO", SignedByRO),
-                    New Microsoft.Data.SqlClient.SqlParameter("@strCorrectACCFOrms", CorrectACCForm),
-                    New Microsoft.Data.SqlClient.SqlParameter("@strTitleVConditionsListed", TitleVConditions),
-                    New Microsoft.Data.SqlClient.SqlParameter("@strACCCorrectlyFilledOut", ACCCorrectlyFilledOut),
-                    New Microsoft.Data.SqlClient.SqlParameter("@strReportedDeviations", ReportedDeviations),
-                    New Microsoft.Data.SqlClient.SqlParameter("@strDeviationsUnreported", ReportedUnReportedDeviations),
-                    New Microsoft.Data.SqlClient.SqlParameter("@strcomments", ACCComments),
-                    New Microsoft.Data.SqlClient.SqlParameter("@strEnforcementneeded", EnforcementNeeded),
-                    New Microsoft.Data.SqlClient.SqlParameter("@strModifingPerson", CurrentUser.UserID),
-                    New Microsoft.Data.SqlClient.SqlParameter("@datAccReportingYear", AccReportingYear),
-                    New Microsoft.Data.SqlClient.SqlParameter("@STRKNOWNDEVIATIONSREPORTED", AllDeviationsReported),
-                    New Microsoft.Data.SqlClient.SqlParameter("@STRRESUBMITTALREQUIRED", ResubmittalRequested)
+                    New SqlParameter("@strTrackingNumber", TrackingNumber),
+                    New SqlParameter("@strPostMarkedOnTime", PostedOnTime),
+                    New SqlParameter("@DATPostMarkDate", DTPACCPostmarked.Value),
+                    New SqlParameter("@strsignedbyRO", SignedByRO),
+                    New SqlParameter("@strCorrectACCFOrms", CorrectACCForm),
+                    New SqlParameter("@strTitleVConditionsListed", TitleVConditions),
+                    New SqlParameter("@strACCCorrectlyFilledOut", ACCCorrectlyFilledOut),
+                    New SqlParameter("@strReportedDeviations", ReportedDeviations),
+                    New SqlParameter("@strDeviationsUnreported", ReportedUnReportedDeviations),
+                    New SqlParameter("@strcomments", ACCComments),
+                    New SqlParameter("@strEnforcementneeded", EnforcementNeeded),
+                    New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                    New SqlParameter("@datAccReportingYear", AccReportingYear),
+                    New SqlParameter("@STRKNOWNDEVIATIONSREPORTED", AllDeviationsReported),
+                    New SqlParameter("@STRRESUBMITTALREQUIRED", ResubmittalRequested)
                 })
             End If
 
@@ -975,7 +975,7 @@ Public Class SSCPEvents
         Dim NotificationComment As String
         Dim NotificationFollowUp As String
         Dim sqlList As New List(Of String)
-        Dim plist As New List(Of Microsoft.Data.SqlClient.SqlParameter)
+        Dim plist As New List(Of SqlParameter)
 
         Try
             ' Set Notification Dates and Status
@@ -987,7 +987,7 @@ Public Class SSCPEvents
 
             ' Check if record exists
             Dim SQL As String = "Select 1 from SSCPNotifications where strTrackingNumber = @num"
-            Dim p As New Microsoft.Data.SqlClient.SqlParameter("@num", TrackingNumber)
+            Dim p As New SqlParameter("@num", TrackingNumber)
 
             If DB.ValueExists(SQL, p) Then
                 ' Update if record exists
@@ -1011,22 +1011,22 @@ Public Class SSCPEvents
 
             ' Add parameters
             plist.AddRange({
-            New Microsoft.Data.SqlClient.SqlParameter("@datNotificationDue", NotificationDueDate),
-            New Microsoft.Data.SqlClient.SqlParameter("@strNotificationDue", NotificationDue),
-            New Microsoft.Data.SqlClient.SqlParameter("@datNotificationSent", NotificationSentDate),
-            New Microsoft.Data.SqlClient.SqlParameter("@strNotificationSent", NotificationSent),
-            New Microsoft.Data.SqlClient.SqlParameter("@strNotificationType", cboNotificationType.SelectedValue),
-            New Microsoft.Data.SqlClient.SqlParameter("@strNotificationTypeOther", NotificationTypeOther),
-            New Microsoft.Data.SqlClient.SqlParameter("@strNotificationComment", NotificationComment),
-            New Microsoft.Data.SqlClient.SqlParameter("@strNotificationFollowUp", NotificationFollowUp),
-            New Microsoft.Data.SqlClient.SqlParameter("@strModifingPerson", CurrentUser.UserID),
-            New Microsoft.Data.SqlClient.SqlParameter("@num", TrackingNumber)
+            New SqlParameter("@datNotificationDue", NotificationDueDate),
+            New SqlParameter("@strNotificationDue", NotificationDue),
+            New SqlParameter("@datNotificationSent", NotificationSentDate),
+            New SqlParameter("@strNotificationSent", NotificationSent),
+            New SqlParameter("@strNotificationType", cboNotificationType.SelectedValue),
+            New SqlParameter("@strNotificationTypeOther", NotificationTypeOther),
+            New SqlParameter("@strNotificationComment", NotificationComment),
+            New SqlParameter("@strNotificationFollowUp", NotificationFollowUp),
+            New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+            New SqlParameter("@num", TrackingNumber)
         })
 
             ' Check if APB notification received
             If chbNotificationReceivedByAPB.Checked Then
                 sqlList.Add("Update SSCPItemMaster SET datReceivedDate = @date WHERE strTrackingNumber = @num")
-                plist.Add(New Microsoft.Data.SqlClient.SqlParameter("@date", DTPNotificationReceived.Value))
+                plist.Add(New SqlParameter("@date", DTPNotificationReceived.Value))
             End If
 
             ' Execute each query
@@ -1049,7 +1049,7 @@ Public Class SSCPEvents
     Private Function SaveDate() As Boolean
         Dim Staff As Integer
         Dim SqlList As New List(Of String)
-        Dim ParamList As New List(Of Microsoft.Data.SqlClient.SqlParameter)
+        Dim ParamList As New List(Of SqlParameter)
         Dim comDate As Object
         Dim sentDate As Object
 
@@ -1071,7 +1071,7 @@ Public Class SSCPEvents
                 sentDate = DBNull.Value
             End If
 
-            ParamList.Add(New Microsoft.Data.SqlClient.SqlParameter("@num", TrackingNumber))
+            ParamList.Add(New SqlParameter("@num", TrackingNumber))
 
             SqlList.Add("Update SSCPItemMaster set " &
                 "datCompleteDate = @complete, " &
@@ -1080,9 +1080,9 @@ Public Class SSCPEvents
                 "strDelete = null " &
                 "where strTrackingNumber = @num ")
 
-            ParamList.Add(New Microsoft.Data.SqlClient.SqlParameter("@complete", comDate))
-            ParamList.Add(New Microsoft.Data.SqlClient.SqlParameter("@sent", sentDate))
-            ParamList.Add(New Microsoft.Data.SqlClient.SqlParameter("@staff", Staff))
+            ParamList.Add(New SqlParameter("@complete", comDate))
+            ParamList.Add(New SqlParameter("@sent", sentDate))
+            ParamList.Add(New SqlParameter("@staff", Staff))
 
             Select Case EventType
                 Case WorkItemEventType.Report, WorkItemEventType.TvAcc, WorkItemEventType.Inspection
@@ -1096,7 +1096,7 @@ Public Class SSCPEvents
                         "WHERE STRAIRSNUMBER = @airs " &
                         "AND @num NOT IN (SELECT STRTRACKINGNUMBER FROM AFSSSCPRECORDS)")
 
-                    ParamList.Add(New Microsoft.Data.SqlClient.SqlParameter("@airs", AirsNumber.DbFormattedString))
+                    ParamList.Add(New SqlParameter("@airs", AirsNumber.DbFormattedString))
                     SqlList.Add("INSERT INTO AFSSSCPRecords " &
                         "(strTrackingNumber, strAFSActionNumber, strUpDateStatus, strModifingPerson, datModifingdate) " &
                         "SELECT @num, " &
@@ -1105,7 +1105,7 @@ Public Class SSCPEvents
                         "WHERE @num NOT IN " &
                         "(SELECT strTrackingNumber FROM AFSSSCPRecords)")
 
-                    ParamList.Add(New Microsoft.Data.SqlClient.SqlParameter("@user", CurrentUser.UserID))
+                    ParamList.Add(New SqlParameter("@user", CurrentUser.UserID))
 
                 Case WorkItemEventType.Notification, WorkItemEventType.RmpInspection
                     SqlList.Add("Update AFSSSCPRecords set " &
@@ -1158,7 +1158,7 @@ Public Class SSCPEvents
                 "from SSCPREports " &
                 "where strTrackingNumber = @num "
 
-            Dim p As New Microsoft.Data.SqlClient.SqlParameter("@num", TrackingNumber)
+            Dim p As New SqlParameter("@num", TrackingNumber)
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
             If dr IsNot Nothing Then
@@ -1252,7 +1252,7 @@ Public Class SSCPEvents
                 "from SSCPInspections " &
                 "where strTrackingNumber = @num "
 
-            Dim p As New Microsoft.Data.SqlClient.SqlParameter("@num", TrackingNumber)
+            Dim p As New SqlParameter("@num", TrackingNumber)
 
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
@@ -1301,7 +1301,7 @@ Public Class SSCPEvents
                 "from SSCPACCS " &
                 "where strTrackingNumber = @num"
 
-            Dim p As New Microsoft.Data.SqlClient.SqlParameter("@num", TrackingNumber)
+            Dim p As New SqlParameter("@num", TrackingNumber)
 
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
@@ -1613,7 +1613,7 @@ Public Class SSCPEvents
                             "from SSCPTestReports " &
                             "where strTrackingNumber = @num"
 
-            Dim p As New Microsoft.Data.SqlClient.SqlParameter("@num", TrackingNumber)
+            Dim p As New SqlParameter("@num", TrackingNumber)
 
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
@@ -1639,7 +1639,7 @@ Public Class SSCPEvents
                     "from ISMPReportInformation " &
                     "where strReferenceNumber = @ref "
 
-                Dim p2 As New Microsoft.Data.SqlClient.SqlParameter("@ref", txtISMPReferenceNumber.Text)
+                Dim p2 As New SqlParameter("@ref", txtISMPReferenceNumber.Text)
 
                 Dim dr2 As DataRow = DB.GetDataRow(SQL, p2)
 
@@ -1660,10 +1660,10 @@ Public Class SSCPEvents
                 "from APBSupplamentalData " &
                 "where strAIRSNumber = @airs "
 
-            Dim p3 As New Microsoft.Data.SqlClient.SqlParameter("@airs", AirsNumber.DbFormattedString)
+            Dim p3 As New SqlParameter("@airs", AirsNumber.DbFormattedString)
 
             ' Assuming DB.GetDataRow expects an array of SqlParameters
-            Dim dr3 As DataRow = DB.GetDataRow(SQL, New Microsoft.Data.SqlClient.SqlParameter() {p3})
+            Dim dr3 As DataRow = DB.GetDataRow(SQL, New SqlParameter() {p3})
 
             If dr3 IsNot Nothing Then
                 If IsDBNull(dr3.Item("datSSCPTestReportDue")) Then
@@ -1682,7 +1682,7 @@ Public Class SSCPEvents
                     "on  ISMPReportInformation.strPollutant = LookUPPollutants.strPollutantCode " &
                     "where strReferenceNumber = @ref "
 
-                Dim p2 As New Microsoft.Data.SqlClient.SqlParameter("@ref", txtISMPReferenceNumber.Text)
+                Dim p2 As New SqlParameter("@ref", txtISMPReferenceNumber.Text)
 
                 Dim dr2 As DataRow = DB.GetDataRow(SQL, p2)
 
@@ -1712,7 +1712,7 @@ Public Class SSCPEvents
                 "From SSCPNotifications " &
                 "where strTrackingNumber = @num"
 
-            Dim p As New Microsoft.Data.SqlClient.SqlParameter("@num", TrackingNumber)
+            Dim p As New SqlParameter("@num", TrackingNumber)
 
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
@@ -1814,23 +1814,23 @@ Public Class SSCPEvents
 
             ' Mark as deleted in SSCP item master and AFSSSCPRECORDS
             Dim queryList As New List(Of String)
-            Dim parametersList As New List(Of List(Of Microsoft.Data.SqlClient.SqlParameter))
+            Dim parametersList As New List(Of List(Of SqlParameter))
 
             queryList.Add("UPDATE AFSSSCPRECORDS SET STRUPDATESTATUS = 'D' WHERE STRTRACKINGNUMBER = @id")
-            Dim params1 As New List(Of Microsoft.Data.SqlClient.SqlParameter)
-            params1.Add(New Microsoft.Data.SqlClient.SqlParameter("@id", TrackingNumber))
+            Dim params1 As New List(Of SqlParameter)
+            params1.Add(New SqlParameter("@id", TrackingNumber))
             parametersList.Add(params1)
 
             queryList.Add("UPDATE SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' WHERE STRTRACKINGNUMBER = @id")
-            Dim params2 As New List(Of Microsoft.Data.SqlClient.SqlParameter)
-            params2.Add(New Microsoft.Data.SqlClient.SqlParameter("@id", TrackingNumber))
+            Dim params2 As New List(Of SqlParameter)
+            params2.Add(New SqlParameter("@id", TrackingNumber))
             parametersList.Add(params2)
 
             ' Execute each query with its corresponding parameters
             Dim rowsAffected As Integer
             For i As Integer = 0 To queryList.Count - 1
                 Dim query As String = queryList(i)
-                Dim parameters As Microsoft.Data.SqlClient.SqlParameter() = parametersList(i).ToArray()
+                Dim parameters As SqlParameter() = parametersList(i).ToArray()
 
                 ' Run each command individually with its parameters
                 If Not DB.RunCommand(query, parameters, rowsAffected) Then
