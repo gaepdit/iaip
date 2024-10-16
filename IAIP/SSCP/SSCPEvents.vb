@@ -2048,7 +2048,7 @@ Public Class SSCPEvents
         ValidateEnforcementNeeded()
     End Sub
 
-    Private Sub NUPSubmittal_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles NUPReportSubmittal.Validating
+    Private Sub NUPSubmittal_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         ValidateSubmittalNumber()
     End Sub
 
@@ -2155,7 +2155,7 @@ Public Class SSCPEvents
         ValidateROSigned()
     End Sub
 
-    Private Sub NUPACCSubmittal_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles NUPACCSubmittal.Validating
+    Private Sub NUPACCSubmittal_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         ValidateNUPACCSubmittal()
     End Sub
 
@@ -2442,7 +2442,7 @@ Public Class SSCPEvents
         End Select
     End Sub
 
-    Private Sub dgrReportResubmittal_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrReportResubmittal.MouseUp
+    Private Sub dgrReportResubmittal_MouseUp(sender As Object, e As MouseEventArgs)
         Dim hti As DataGridView.HitTestInfo = dgrReportResubmittal.HitTest(e.X, e.Y)
         Try
             If hti.Type = DataGridViewHitTestType.Cell AndAlso
@@ -2456,7 +2456,7 @@ Public Class SSCPEvents
         End Try
     End Sub
 
-    Private Sub DGRACCResubmittal_MouseUp(sender As Object, e As MouseEventArgs) Handles DGRACCResubmittal.MouseUp
+    Private Sub DGRACCResubmittal_MouseUp(sender As Object, e As MouseEventArgs)
         Dim hti As DataGridView.HitTestInfo = DGRACCResubmittal.HitTest(e.X, e.Y)
         Try
             If hti.Type = DataGridViewHitTestType.Cell AndAlso
@@ -2536,7 +2536,7 @@ Public Class SSCPEvents
         End Try
     End Sub
 
-    Private Sub btnReportMoreOptions_Click(sender As Object, e As EventArgs) Handles btnReportMoreOptions.Click
+    Private Sub btnReportMoreOptions_Click(sender As Object, e As EventArgs)
         Try
             Dim tempWidth As String = dgrReportResubmittal.Size.Width
             Dim tempHeight As String = dgrReportResubmittal.Size.Height
@@ -2557,7 +2557,7 @@ Public Class SSCPEvents
         End If
     End Sub
 
-    Private Sub btnACCSubmittals_Click(sender As Object, e As EventArgs) Handles btnACCSubmittals.Click
+    Private Sub btnACCSubmittals_Click(sender As Object, e As EventArgs)
         Try
             Dim tempWidth As String = DGRACCResubmittal.Size.Width
             Dim tempHeight As String = DGRACCResubmittal.Size.Height
@@ -2657,7 +2657,7 @@ Public Class SSCPEvents
         PrintACC()
     End Sub
 
-    Private Sub wrnReportSubmittal_Click(sender As Object, e As EventArgs) Handles wrnReportSubmittal.Click
+    Private Sub wrnReportSubmittal_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -2665,11 +2665,11 @@ Public Class SSCPEvents
 
     End Sub
 
-    Private Sub dgrReportResubmittal_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgrReportResubmittal.CellContentClick
+    Private Sub dgrReportResubmittal_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
 
     End Sub
 
-    Private Sub wrnACCSubmittal_Click(sender As Object, e As EventArgs) Handles wrnACCSubmittal.Click
+    Private Sub wrnACCSubmittal_Click(sender As Object, e As EventArgs)
 
     End Sub
 
