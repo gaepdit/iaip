@@ -13,13 +13,17 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.3.0 <span>(22-Oct-2024)</span>
+
+* Fix the link to generate a permit fees notification email
+
 ## Version 7.2.0 <span>(12-Mar-2024)</span>
 
-This update helps ensure FCE completion dates are valid.
+Change how FCE completion dates are entered to try to ensure the dates are valid.
 
 ## Version 7.1.0 <span>(12-Mar-2024)</span>
 
-This updates adds a tool to export PA/PN data to Excel. It also fixes permissions for SSPP managers in the permit app tracking log.
+Add a tool to export PA/PN data to Excel and fix permissions for SSPP managers in the permit app tracking log.
 
 ## Version 7.0.1 <span>(5-Feb-2024)</span>
 
