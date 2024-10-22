@@ -70,12 +70,11 @@ Public Module Email
 
 
             If emailUriString.Length < 2084 Then
-                ' The OpenUrl method is preferable, but is limited by URI length, 
-                ' which can be exceeded if a lot of recipients are added
+                ' This method is preferable, but is limited by URI length, which can be exceeded if a lot of recipients are added.
                 ' Ref: https://support.microsoft.com/en-us/help/208427/maximum-url-length-is-2-083-characters-in-internet-explorer
-                result = OpenUrl(New Uri(emailUriString), isMailto:=True)
+                result = OpenUriString(emailUriString, isMailto:=True)
             Else
-                ' Failover is to create a text file with instructions to user
+                ' Failover is to create a text file with instructions to user.
                 OpenEmailAsTextFile(subject, body, toParam, cc, bcc)
                 result = True
             End If

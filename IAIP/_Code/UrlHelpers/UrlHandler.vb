@@ -4,10 +4,10 @@
 
         Public Function OpenUrl(url As Uri, Optional sender As Form = Nothing, Optional isMailto As Boolean = False) As Boolean
             ArgumentNotNull(url, NameOf(url))
-            Return OpenUri(url.ToString, sender, isMailto)
+            Return OpenUriString(url.ToString, sender, isMailto)
         End Function
 
-        Private Function OpenUri(uriString As String, Optional sender As Form = Nothing, Optional isMailto As Boolean = False) As Boolean
+        Public Function OpenUriString(uriString As String, Optional sender As Form = Nothing, Optional isMailto As Boolean = False) As Boolean
             ' Reference: https://faithlife.codes/blog/2008/01/using_processstart_to_link_to/
             Try
                 If sender IsNot Nothing Then sender.Cursor = Cursors.AppStarting
