@@ -1,5 +1,5 @@
 Imports Iaip.Apb.ApbFacilityId
-Imports System.Data.SqlClient
+Imports Microsoft.Data.SqlClient
 Imports Iaip.Apb
 
 Public Class IAIPFacilityLookUpTool

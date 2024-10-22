@@ -1,4 +1,4 @@
-﻿Imports System.Data.SqlClient
+﻿Imports Microsoft.Data.SqlClient
 Imports System.Collections.Generic
 Imports System.Text.RegularExpressions
 

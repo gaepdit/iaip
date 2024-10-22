@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.IO
 Imports System.Runtime.InteropServices
-Imports System.Data.SqlClient
+Imports Microsoft.Data.SqlClient
 Imports Iaip.Apb.Sscp
 Imports GaEpd
 

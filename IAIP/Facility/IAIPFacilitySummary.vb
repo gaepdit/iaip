@@ -1,6 +1,6 @@
 Imports System.Collections.Generic
 Imports System.ComponentModel
-Imports System.Data.SqlClient
+Imports Microsoft.Data.SqlClient
 Imports System.Linq
 Imports GaEpd
 Imports Iaip.Apb
