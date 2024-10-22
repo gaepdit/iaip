@@ -1360,16 +1360,28 @@ Public Class SSCPEvents
 
     Private Sub LoadReport()
         Try
-            Dim SQL As String = "Select " &
-                "strTrackingNumber, strReportPeriod, " &
-                "datReportingPeriodStart, datReportingPeriodEnd, " &
-                "strReportingPeriodComments, datReportDueDate, " &
-                "datSentByFacilityDate, strCompleteStatus, " &
-                "strEnforcementNeeded, strShowDeviation, " &
-                "strGeneralComments, strModifingPerson, " &
-                "datModifingDate, strSubmittalNumber " &
-                "from SSCPREports " &
-                "where strTrackingNumber = @num "
+            Dim SQL As String = "select strReportPeriod,
+                   datReportingPeriodStart,
+                   datReportingPeriodEnd,
+                   strReportingPeriodComments,
+                   datReportDueDate,
+                   datSentByFacilityDate,
+                   strCompleteStatus,
+                   strEnforcementNeeded,
+                   strShowDeviation,
+                   IIF((select count(*) from SSCPREPORTSHISTORY where STRTRACKINGNUMBER = @num) > 1,
+                       (select string_agg(concat('(', convert(date, DATMODIFINGDATE), ')', CHAR(13) + CHAR(10), STRGENERALCOMMENTS),
+                                          CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + '---' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10))
+                                          within group ( order by STRSUBMITTALNUMBER)
+                        from SSCPREPORTSHISTORY
+                        where STRTRACKINGNUMBER = @num),
+                       STRGENERALCOMMENTS
+                   ) as strGeneralComments,
+                   strModifingPerson,
+                   datModifingDate
+            from SSCPREPORTSHISTORY
+            where STRSUBMITTALNUMBER = 1
+              and STRTRACKINGNUMBER = @num "
 
             Dim p As New SqlParameter("@num", TrackingNumber)
             Dim dr As DataRow = DB.GetDataRow(SQL, p)
@@ -1392,53 +1404,6 @@ Public Class SSCPEvents
                     rdbReportEnforcementNo.Checked = True
                 End If
                 If dr.Item("strShowDeviation").ToString = "True" Then
-                    rdbReportDeviationYes.Checked = True
-                Else
-                    rdbReportDeviationNo.Checked = True
-                End If
-                txtReportsGeneralComments.Text = dr.Item("strGeneralComments")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub LoadReportFromSubmittal()
-        Dim Completeness As String
-        Dim Enforcement As String
-        Dim Deviation As String
-
-        Try
-
-            Dim SQL As String = "Select * from SSCPREportsHistory " &
-                "where strTrackingNumber = @num " &
-                "and strSubmittalNumber = 1 "
-
-            Dim p As New SqlParameter("@num", TrackingNumber)
-
-            Dim dr As DataRow = DB.GetDataRow(SQL, p)
-
-            If dr IsNot Nothing Then
-                cboReportSchedule.Text = dr.Item("strReportPeriod")
-                DTPReportPeriodStart.Value = dr.Item("DatReportingPeriodStart")
-                DTPReportPeriodEnd.Value = dr.Item("DatReportingPeriodEnd")
-                txtReportPeriodComments.Text = dr.Item("strReportingPeriodComments")
-                dtpDueDate.Value = dr.Item("datreportduedate")
-                DTPSentDate.Value = dr.Item("datsentbyfacilitydate")
-                Completeness = dr.Item("strCompletestatus")
-                If Completeness = "True" Then
-                    rdbReportCompleteYes.Checked = True
-                Else
-                    rdbReportCompleteNo.Checked = True
-                End If
-                Enforcement = dr.Item("strEnforcementneeded")
-                If Enforcement = "True" Then
-                    rdbReportEnforcementYes.Checked = True
-                Else
-                    rdbReportEnforcementNo.Checked = True
-                End If
-                Deviation = dr.Item("strShowDeviation")
-                If Deviation = "True" Then
                     rdbReportDeviationYes.Checked = True
                 Else
                     rdbReportDeviationNo.Checked = True
@@ -1500,17 +1465,31 @@ Public Class SSCPEvents
 
         Try
 
-            Dim SQL As String = "Select " &
-                "strTrackingNumber, strSubmittalNumber, " &
-                "strPostmarkedOnTime, datPostmarkDate, " &
-                "strSignedByRO, strCorrectACCForms, " &
-                "strTitleVConditionsListed, strACCCorrectlyFilledOut, " &
-                "strReportedDeviations, strDeviationsUnReported, " &
-                "strComments, strEnforcementNeeded, " &
-                "strModifingPerson, datModifingDate, datAccReportingYear, " &
-                "STRKNOWNDEVIATIONSREPORTED, STRRESUBMITTALREQUIRED " &
-                "from SSCPACCS " &
-                "where strTrackingNumber = @num"
+            Dim SQL As String = "select strPostmarkedOnTime,
+                       datPostmarkDate,
+                       strSignedByRO,
+                       strCorrectACCForms,
+                       strTitleVConditionsListed,
+                       strACCCorrectlyFilledOut,
+                       strReportedDeviations,
+                       strDeviationsUnReported,
+                       IIF((select count(*) from SSCPACCSHISTORY where STRTRACKINGNUMBER = @num and STRSUBMITTALNUMBER > 1) > 1,
+                           (select string_agg(concat('(', convert(date, DATMODIFINGDATE), ')', CHAR(13) + CHAR(10), STRCOMMENTS),
+                                              CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + '---' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10))
+                                              within group ( order by STRSUBMITTALNUMBER)
+                            from SSCPACCSHISTORY
+                            where STRTRACKINGNUMBER = @num),
+                           STRCOMMENTS
+                       ) as strComments,
+                       strEnforcementNeeded,
+                       strModifingPerson,
+                       datModifingDate,
+                       datAccReportingYear,
+                       STRKNOWNDEVIATIONSREPORTED,
+                       STRRESUBMITTALREQUIRED
+                from SSCPACCSHISTORY
+                where STRSUBMITTALNUMBER = 1
+                  and STRTRACKINGNUMBER = @num "
 
             Dim p As New SqlParameter("@num", TrackingNumber)
 
@@ -1634,177 +1613,6 @@ Public Class SSCPEvents
             rdbACCResubmittalRequestedYes.Enabled = True
             rdbACCResubmittalRequestedNo.Enabled = True
             rdbACCResubmittalRequestedUnknown.Enabled = True
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub LoadACCFromSubmittal()
-        Dim PostedOnTime As String
-        Dim SignedByRO As String
-        Dim CorrectACCForm As String
-        Dim TitleVConditions As String
-        Dim ACCCorrectlyFilledOut As String
-        Dim ReportedDeviations As String
-        Dim ReportedUnReportedDeviations As String
-        Dim ACCComments As String
-        Dim EnforcementNeeded As String
-        Dim AllDeviationsReported As String
-        Dim ResubmittalRequested As String
-
-        Try
-            Dim SQL As String = "Select * from SSCPACCSHistory " &
-                "where strTrackingNumber = @num " &
-                "and strSubmittalNumber = 1 "
-
-            Dim p As New SqlParameter("@num", TrackingNumber)
-
-            Dim dr As DataRow = DB.GetDataRow(SQL, p)
-
-            If dr IsNot Nothing Then
-                PostedOnTime = dr.Item("strPostMarkedOnTime")
-                If PostedOnTime = "True" Then
-                    rdbACCPostmarkYes.Checked = True
-                    rdbACCPostmarkNo.Checked = False
-                Else
-                    rdbACCPostmarkYes.Checked = False
-                    rdbACCPostmarkNo.Checked = True
-                End If
-                If NormalizeDbDate(dr.Item("datAccReportingYear")) Is Nothing Then
-                    dtpAccReportingYear.Value = Today.AddYears(-1)
-                    dtpAccReportingYear.Checked = False
-                Else
-                    dtpAccReportingYear.Value = NormalizeDbDate(dr.Item("datAccReportingYear"))
-                    dtpAccReportingYear.Checked = True
-                End If
-                DTPACCPostmarked.Value = RealDateOrToday(NormalizeDbDate(dr.Item("DATPostmarkDate")))
-                SignedByRO = dr.Item("strSignedByRO")
-                If SignedByRO = "True" Then
-                    rdbACCROYes.Checked = True
-                    rdbACCRONo.Checked = False
-                Else
-                    rdbACCROYes.Checked = False
-                    rdbACCRONo.Checked = True
-                End If
-                CorrectACCForm = dr.Item("strCorrectACCForms")
-                If CorrectACCForm = "True" Then
-                    rdbACCCorrectACCYes.Checked = True
-                    rdbACCCorrectACCNo.Checked = False
-                Else
-                    rdbACCCorrectACCNo.Checked = True
-                    rdbACCCorrectACCYes.Checked = False
-                End If
-                TitleVConditions = dr.Item("strTitleVConditionsListed")
-                If TitleVConditions = "True" Then
-                    rdbACCConditionsYes.Checked = True
-                    rdbACCConditionsNo.Checked = False
-                Else
-                    rdbACCConditionsNo.Checked = True
-                    rdbACCConditionsYes.Checked = False
-                End If
-                ACCCorrectlyFilledOut = dr.Item("strACCCorrectlyFilledOut")
-                If ACCCorrectlyFilledOut = "True" Then
-                    rdbACCCorrectYes.Checked = True
-                    rdbACCCorrectNo.Checked = False
-                Else
-                    rdbACCCorrectYes.Checked = False
-                    rdbACCCorrectNo.Checked = True
-                End If
-                ReportedDeviations = dr.Item("strReportedDeviations")
-                If ReportedDeviations = "True" Then
-                    rdbACCDeviationsReportedYes.Checked = True
-                    rdbACCDeviationsReportedNo.Checked = False
-                Else
-                    rdbACCDeviationsReportedYes.Checked = False
-                    rdbACCDeviationsReportedNo.Checked = True
-                End If
-                ReportedUnReportedDeviations = dr.Item("strDeviationsUnreported")
-                If ReportedUnReportedDeviations = "True" Then
-                    rdbACCPreviouslyUnreportedDeviationsYes.Checked = True
-                    rdbACCPreviouslyUnreportedDeviationsNo.Checked = False
-                Else
-                    rdbACCPreviouslyUnreportedDeviationsYes.Checked = False
-                    rdbACCPreviouslyUnreportedDeviationsNo.Checked = True
-                End If
-                ACCComments = dr.Item("strcomments")
-                If ACCComments = "N/A" Then
-                    txtACCComments.Text = ""
-                Else
-                    txtACCComments.Text = ACCComments
-                End If
-                EnforcementNeeded = dr.Item("strEnforcementNeeded")
-                If EnforcementNeeded = "True" Then
-                    rdbACCEnforcementNeededYes.Checked = True
-                    rdbACCEnforcementNeededNo.Checked = False
-                Else
-                    rdbACCEnforcementNeededYes.Checked = False
-                    rdbACCEnforcementNeededNo.Checked = True
-                End If
-                AllDeviationsReported = DBUtilities.GetNullable(Of String)(dr.Item("STRKNOWNDEVIATIONSREPORTED"))
-                If AllDeviationsReported = "" Then
-                    rdbACCAllDeviationsReportedYes.Checked = False
-                    rdbACCAllDeviationsReportedNo.Checked = False
-                    rdbACCAllDeviationsReportedUnknown.Checked = True
-                ElseIf AllDeviationsReported = "True" Then
-                    rdbACCAllDeviationsReportedYes.Checked = True
-                    rdbACCAllDeviationsReportedNo.Checked = False
-                    rdbACCAllDeviationsReportedUnknown.Checked = False
-                Else
-                    rdbACCAllDeviationsReportedYes.Checked = False
-                    rdbACCAllDeviationsReportedNo.Checked = True
-                    rdbACCAllDeviationsReportedUnknown.Checked = False
-                End If
-                ResubmittalRequested = DBUtilities.GetNullable(Of String)(dr.Item("STRRESUBMITTALREQUIRED"))
-                If ResubmittalRequested = "" Then
-                    rdbACCResubmittalRequestedYes.Checked = False
-                    rdbACCResubmittalRequestedNo.Checked = False
-                    rdbACCResubmittalRequestedUnknown.Checked = True
-                ElseIf ResubmittalRequested = "True" Then
-                    rdbACCResubmittalRequestedYes.Checked = True
-                    rdbACCResubmittalRequestedNo.Checked = False
-                    rdbACCResubmittalRequestedUnknown.Checked = False
-                Else
-                    rdbACCResubmittalRequestedYes.Checked = False
-                    rdbACCResubmittalRequestedNo.Checked = True
-                    rdbACCResubmittalRequestedUnknown.Checked = False
-                End If
-            Else
-                dtpAccReportingYear.Value = Date.Today.AddYears(-1)
-                dtpAccReportingYear.Checked = True
-            End If
-
-            DTPACCPostmarked.Enabled = True
-            dtpAccReportingYear.Enabled = True
-            txtACCComments.ReadOnly = False
-
-            rdbACCPostmarkYes.Enabled = True
-            rdbACCPostmarkNo.Enabled = True
-            rdbACCROYes.Enabled = True
-            rdbACCRONo.Enabled = True
-            rdbACCCorrectACCYes.Enabled = True
-            rdbACCCorrectACCNo.Enabled = True
-            rdbACCConditionsYes.Enabled = True
-            rdbACCConditionsNo.Enabled = True
-            rdbACCCorrectYes.Enabled = True
-            rdbACCCorrectNo.Enabled = True
-            rdbACCDeviationsReportedYes.Enabled = True
-            rdbACCDeviationsReportedNo.Enabled = True
-            rdbACCPreviouslyUnreportedDeviationsYes.Enabled = True
-            rdbACCPreviouslyUnreportedDeviationsNo.Enabled = True
-            rdbACCEnforcementNeededYes.Enabled = True
-            rdbACCEnforcementNeededNo.Enabled = True
-            rdbACCAllDeviationsReportedYes.Enabled = True
-            rdbACCAllDeviationsReportedNo.Enabled = True
-            rdbACCAllDeviationsReportedUnknown.Enabled = True
-            rdbACCResubmittalRequestedNo.Enabled = True
-            rdbACCResubmittalRequestedUnknown.Enabled = True
-            rdbACCResubmittalRequestedYes.Enabled = True
-            DTPACCPostmarked.Enabled = True
-            chbACCReceivedByAPB.Enabled = True
-            dtpAccReportingYear.Enabled = True
-
-            CompleteReport()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
