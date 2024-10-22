@@ -565,18 +565,6 @@ Public Class SSCPManagersTools
 
             txtFacilitiesReporting.Text = DB.GetInteger(SQL, params).ToString
 
-            '---Requiring resubmittals
-            SQL = "select " &
-            "count(*) " &
-            "from SSCPACCs inner join SSCPItemMaster " &
-            "on SSCPACCs.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
-            "where strEventType = '04' " &
-            "and strSubmittalNumber = '2'  " &
-            "and datReceivedDate between @startdate and @enddate " &
-            "and strResponsibleStaff in (select * from @staff) "
-
-            txtResubmittals.Text = DB.GetInteger(SQL, params).ToString
-
             '---Submitted Late
             SQL = "select " &
             "count(*) " &
@@ -869,85 +857,6 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.SanelyResizeColumns
 
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub ViewACCRequiringResubmittal()
-        Try
-            Dim SQL As String
-            Dim selectedStaff As New HashSet(Of Integer)
-
-            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
-            Next
-            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
-            Next
-            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
-            Next
-            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
-            Next
-
-            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
-                MessageBox.Show("Select staff first.")
-                Return
-            End If
-
-            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
-
-            Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
-            Dim dateEndParam As New SqlParameter("@enddate", DTPSearchDateEnd.Value)
-
-            Dim params As SqlParameter() = {
-                staffParam,
-                dateStartParam,
-                dateEndParam
-            }
-
-            '---Requiring resubmittals
-            SQL = "select " &
-                "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
-                "strFacilityName,   " &
-                "concat(strLastname, ', ', strFirstName) as UserName,  " &
-                "SSCPItemMaster.strTrackingNumber  " &
-                "from APBFacilityInformation, EPDUserProfiles,   " &
-                "SSCPItemMaster, SSCPACCs    " &
-                "where SSCPItemMaster.strAirsnumber = APBFacilityInformation.strAIRSnumber   " &
-                "and SSCPItemMaster.strResponsibleStaff = EPDUserProfiles.numUserID    " &
-                "and SSCPItemMaster.strTrackingnumber = SSCPACCs.strTrackingNumber  " &
-                "and strSubmittalNumber = '2'  " &
-                "and strEventType = '04'   " &
-                "and datReceivedDate between @startdate and @enddate " &
-                "and strResponsibleStaff in (select * from @staff) " &
-                "order by strFacilityName "
-
-            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
-
-            dgvStatisticalReports.RowHeadersVisible = False
-            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatisticalReports.AllowUserToResizeColumns = True
-            dgvStatisticalReports.AllowUserToAddRows = False
-            dgvStatisticalReports.AllowUserToDeleteRows = False
-            dgvStatisticalReports.AllowUserToOrderColumns = True
-            dgvStatisticalReports.AllowUserToResizeRows = True
-
-            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
-            dgvStatisticalReports.Columns("Username").DisplayIndex = 2
-            dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
-            dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
-
-            dgvStatisticalReports.SanelyResizeColumns
-
-            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1774,10 +1683,6 @@ Public Class SSCPManagersTools
 
     Private Sub llbACCReporting_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCReporting.LinkClicked
         ViewACCReporting()
-    End Sub
-
-    Private Sub llbACCRequiringResubmittal_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCRequiringResubmittal.LinkClicked
-        ViewACCRequiringResubmittal()
     End Sub
 
     Private Sub llbACCSubmittedLate_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCSubmittedLate.LinkClicked
