@@ -1,5 +1,5 @@
 Imports System.Collections.Generic
-Imports System.Data.SqlClient
+Imports Microsoft.Data.SqlClient
 Imports System.Linq
 Imports System.Text
 Imports GaEpd

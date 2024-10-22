@@ -1,4 +1,4 @@
-Imports System.Data.SqlClient
+Imports Microsoft.Data.SqlClient
 
 Module DbConnections
 
@@ -24,6 +24,7 @@ Module DbConnections
                 .UserID = CurrentAppConfig.DatabaseUser,
                 .Password = CurrentAppConfig.DatabasePassword,
                 .PersistSecurityInfo = True,
+                .TrustServerCertificate = True,
                 .InitialCatalog = "airbranch"
             }.ConnectionString
         End Get
