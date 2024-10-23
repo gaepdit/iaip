@@ -13,17 +13,21 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.3.1 <span>(23-Oct-2024)</span>
+
+Removed the submittal history tools from SSCP Reports and ACCs.
+
 ## Version 7.3.0 <span>(22-Oct-2024)</span>
 
-* Fix the link to generate a permit fees notification email
+Fixed the link to generate a permit fees notification email.
 
 ## Version 7.2.0 <span>(12-Mar-2024)</span>
 
-Change how FCE completion dates are entered to try to ensure the dates are valid.
+Changed how FCE completion dates are entered to try to ensure the dates are valid.
 
 ## Version 7.1.0 <span>(12-Mar-2024)</span>
 
-Add a tool to export PA/PN data to Excel and fix permissions for SSPP managers in the permit app tracking log.
+Added a tool to export PA/PN data to Excel and fix permissions for SSPP managers in the permit app tracking log.
 
 ## Version 7.0.1 <span>(5-Feb-2024)</span>
 
