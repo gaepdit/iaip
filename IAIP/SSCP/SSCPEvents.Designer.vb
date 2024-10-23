@@ -1,4 +1,4 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class SSCPEvents
     Inherits BaseForm
 
@@ -13,7 +13,7 @@ Partial Class SSCPEvents
 
     End Sub
 
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overloads Overrides Sub Dispose(ByVal disposing As Boolean)
         If disposing Then
             If Not (components Is Nothing) Then
@@ -60,7 +60,6 @@ Partial Class SSCPEvents
     Friend WithEvents txtUnitTested As System.Windows.Forms.TextBox
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents btnACCSubmittals As System.Windows.Forms.Button
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents btnViewTestReport As System.Windows.Forms.Button
     Friend WithEvents Label5 As System.Windows.Forms.Label
@@ -69,7 +68,6 @@ Partial Class SSCPEvents
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents DTPAcknowledgmentLetterSent As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents btnReportMoreOptions As System.Windows.Forms.Button
     Friend WithEvents btnEnforcementProcess As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtEventInformation As System.Windows.Forms.TextBox
@@ -121,9 +119,6 @@ Partial Class SSCPEvents
     Friend WithEvents wrnEnforcementNeeded As System.Windows.Forms.Label
     Friend WithEvents wrnShowDeviation As System.Windows.Forms.Label
     Friend WithEvents wrnReportPeriod As System.Windows.Forms.Label
-    Friend WithEvents lblResubmittal As System.Windows.Forms.Label
-    Friend WithEvents NUPReportSubmittal As System.Windows.Forms.NumericUpDown
-    Friend WithEvents wrnReportSubmittal As System.Windows.Forms.Label
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents PanelSSCPCompliance As System.Windows.Forms.Panel
     Friend WithEvents Splitter3 As System.Windows.Forms.Splitter
@@ -146,12 +141,9 @@ Partial Class SSCPEvents
     Friend WithEvents Label50 As System.Windows.Forms.Label
     Friend WithEvents Label46 As System.Windows.Forms.Label
     Friend WithEvents Label38 As System.Windows.Forms.Label
-    Friend WithEvents DGRACCResubmittal As IaipDataGridView
     Friend WithEvents wrnACCDatePostmarked As System.Windows.Forms.Label
     Friend WithEvents wrnACCConditions As System.Windows.Forms.Label
     Friend WithEvents PanelACC As System.Windows.Forms.Panel
-    Friend WithEvents NUPACCSubmittal As System.Windows.Forms.NumericUpDown
-    Friend WithEvents wrnACCSubmittal As System.Windows.Forms.Label
     Friend WithEvents rdbACCPostmarkNo As System.Windows.Forms.RadioButton
     Friend WithEvents rdbACCPostmarkYes As System.Windows.Forms.RadioButton
     Friend WithEvents wrnACCPostmark As System.Windows.Forms.Label
@@ -195,14 +187,10 @@ Partial Class SSCPEvents
     Friend WithEvents Label31 As System.Windows.Forms.Label
     Friend WithEvents Label27 As System.Windows.Forms.Label
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
-    Friend WithEvents Label67 As System.Windows.Forms.Label
-    Friend WithEvents SplitterACC As System.Windows.Forms.Splitter
     Friend WithEvents wrnInspectionDates As System.Windows.Forms.Label
     Friend WithEvents wrnInspectionComplianceStatus As System.Windows.Forms.Label
     Friend WithEvents wrnInspectionOperating As System.Windows.Forms.Label
-    Friend WithEvents SplitterReport As System.Windows.Forms.Splitter
     Friend WithEvents PanelReports As System.Windows.Forms.Panel
-    Friend WithEvents dgrReportResubmittal As IaipDataGridView
     Friend WithEvents DTPInspectionDateStart As System.Windows.Forms.DateTimePicker
     Friend WithEvents dtpInspectionTimeStart As System.Windows.Forms.DateTimePicker
     Friend WithEvents dtpInspectionTimeEnd As System.Windows.Forms.DateTimePicker
@@ -240,8 +228,6 @@ Partial Class SSCPEvents
 
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.llEnforcementCases = New System.Windows.Forms.LinkLabel()
         Me.cboStaffResponsible = New System.Windows.Forms.ComboBox()
@@ -263,10 +249,6 @@ Partial Class SSCPEvents
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.DTPReportReceivedDate = New System.Windows.Forms.DateTimePicker()
         Me.chbReportReceivedByAPB = New System.Windows.Forms.CheckBox()
-        Me.btnReportMoreOptions = New System.Windows.Forms.Button()
-        Me.wrnReportSubmittal = New System.Windows.Forms.Label()
-        Me.NUPReportSubmittal = New System.Windows.Forms.NumericUpDown()
-        Me.lblResubmittal = New System.Windows.Forms.Label()
         Me.wrnReportPeriod = New System.Windows.Forms.Label()
         Me.wrnShowDeviation = New System.Windows.Forms.Label()
         Me.wrnEnforcementNeeded = New System.Windows.Forms.Label()
@@ -295,8 +277,6 @@ Partial Class SSCPEvents
         Me.txtReportsGeneralComments = New System.Windows.Forms.TextBox()
         Me.DTPReportPeriodEnd = New System.Windows.Forms.DateTimePicker()
         Me.DTPReportPeriodStart = New System.Windows.Forms.DateTimePicker()
-        Me.SplitterReport = New System.Windows.Forms.Splitter()
-        Me.dgrReportResubmittal = New Iaip.IaipDataGridView()
         Me.TPTestReports = New System.Windows.Forms.TabPage()
         Me.PanelSSCPCompliance2 = New System.Windows.Forms.Panel()
         Me.DTPTestReportReceivedDate = New System.Windows.Forms.DateTimePicker()
@@ -385,7 +365,6 @@ Partial Class SSCPEvents
         Me.Label25 = New System.Windows.Forms.Label()
         Me.DTPACCReceivedDate = New System.Windows.Forms.DateTimePicker()
         Me.chbACCReceivedByAPB = New System.Windows.Forms.CheckBox()
-        Me.btnACCSubmittals = New System.Windows.Forms.Button()
         Me.wrnACCCorrectACC = New System.Windows.Forms.Label()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.rdbACCCorrectACCYes = New System.Windows.Forms.RadioButton()
@@ -404,9 +383,6 @@ Partial Class SSCPEvents
         Me.rdbACCPostmarkNo = New System.Windows.Forms.RadioButton()
         Me.lblAccReportingYear = New System.Windows.Forms.Label()
         Me.Label27 = New System.Windows.Forms.Label()
-        Me.wrnACCSubmittal = New System.Windows.Forms.Label()
-        Me.NUPACCSubmittal = New System.Windows.Forms.NumericUpDown()
-        Me.Label67 = New System.Windows.Forms.Label()
         Me.wrnACCDatePostmarked = New System.Windows.Forms.Label()
         Me.Label44 = New System.Windows.Forms.Label()
         Me.txtACCComments = New System.Windows.Forms.TextBox()
@@ -447,8 +423,6 @@ Partial Class SSCPEvents
         Me.rdbACCConditionsYes = New System.Windows.Forms.RadioButton()
         Me.rdbACCConditionsNo = New System.Windows.Forms.RadioButton()
         Me.Label39 = New System.Windows.Forms.Label()
-        Me.SplitterACC = New System.Windows.Forms.Splitter()
-        Me.DGRACCResubmittal = New Iaip.IaipDataGridView()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TextBox6 = New System.Windows.Forms.TextBox()
         Me.ListView1 = New System.Windows.Forms.ListView()
@@ -463,11 +437,9 @@ Partial Class SSCPEvents
         Me.TPReport.SuspendLayout()
         Me.PanelReports.SuspendLayout()
         Me.Panel4.SuspendLayout()
-        CType(Me.NUPReportSubmittal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
         Me.Panel17.SuspendLayout()
         Me.Panel18.SuspendLayout()
-        CType(Me.dgrReportResubmittal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPTestReports.SuspendLayout()
         Me.PanelSSCPCompliance2.SuspendLayout()
         Me.Panel22.SuspendLayout()
@@ -484,7 +456,6 @@ Partial Class SSCPEvents
         Me.Panel8.SuspendLayout()
         Me.Panel7.SuspendLayout()
         Me.Panel6.SuspendLayout()
-        CType(Me.NUPACCSubmittal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel15.SuspendLayout()
         Me.Panel14.SuspendLayout()
         Me.pnlACCResubmittalRequested.SuspendLayout()
@@ -492,7 +463,6 @@ Partial Class SSCPEvents
         Me.pnlACCAllDeviationsReported.SuspendLayout()
         Me.Panel10.SuspendLayout()
         Me.Panel9.SuspendLayout()
-        CType(Me.DGRACCResubmittal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelSSCPCompliance.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -515,15 +485,16 @@ Partial Class SSCPEvents
         Me.GroupBox1.Controls.Add(Me.btnEnforcementProcess)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupBox1.Location = New System.Drawing.Point(0, 25)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(792, 169)
+        Me.GroupBox1.Size = New System.Drawing.Size(791, 169)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         '
         'llEnforcementCases
         '
         Me.llEnforcementCases.AutoSize = True
-        Me.llEnforcementCases.Location = New System.Drawing.Point(12, 148)
+        Me.llEnforcementCases.Location = New System.Drawing.Point(9, 123)
         Me.llEnforcementCases.Name = "llEnforcementCases"
         Me.llEnforcementCases.Size = New System.Drawing.Size(101, 13)
         Me.llEnforcementCases.TabIndex = 8
@@ -665,17 +636,15 @@ Partial Class SSCPEvents
         Me.TCItems.Location = New System.Drawing.Point(0, 0)
         Me.TCItems.Name = "TCItems"
         Me.TCItems.SelectedIndex = 0
-        Me.TCItems.Size = New System.Drawing.Size(792, 396)
+        Me.TCItems.Size = New System.Drawing.Size(791, 384)
         Me.TCItems.TabIndex = 0
         '
         'TPReport
         '
         Me.TPReport.Controls.Add(Me.PanelReports)
-        Me.TPReport.Controls.Add(Me.SplitterReport)
-        Me.TPReport.Controls.Add(Me.dgrReportResubmittal)
         Me.TPReport.Location = New System.Drawing.Point(4, 22)
         Me.TPReport.Name = "TPReport"
-        Me.TPReport.Size = New System.Drawing.Size(784, 370)
+        Me.TPReport.Size = New System.Drawing.Size(783, 358)
         Me.TPReport.TabIndex = 0
         Me.TPReport.Text = "Report"
         '
@@ -683,9 +652,9 @@ Partial Class SSCPEvents
         '
         Me.PanelReports.Controls.Add(Me.Panel4)
         Me.PanelReports.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelReports.Location = New System.Drawing.Point(15, 0)
+        Me.PanelReports.Location = New System.Drawing.Point(0, 0)
         Me.PanelReports.Name = "PanelReports"
-        Me.PanelReports.Size = New System.Drawing.Size(769, 370)
+        Me.PanelReports.Size = New System.Drawing.Size(783, 358)
         Me.PanelReports.TabIndex = 69
         '
         'Panel4
@@ -693,10 +662,6 @@ Partial Class SSCPEvents
         Me.Panel4.AutoScroll = True
         Me.Panel4.Controls.Add(Me.DTPReportReceivedDate)
         Me.Panel4.Controls.Add(Me.chbReportReceivedByAPB)
-        Me.Panel4.Controls.Add(Me.btnReportMoreOptions)
-        Me.Panel4.Controls.Add(Me.wrnReportSubmittal)
-        Me.Panel4.Controls.Add(Me.NUPReportSubmittal)
-        Me.Panel4.Controls.Add(Me.lblResubmittal)
         Me.Panel4.Controls.Add(Me.wrnReportPeriod)
         Me.Panel4.Controls.Add(Me.wrnShowDeviation)
         Me.Panel4.Controls.Add(Me.wrnEnforcementNeeded)
@@ -722,7 +687,7 @@ Partial Class SSCPEvents
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(769, 370)
+        Me.Panel4.Size = New System.Drawing.Size(783, 358)
         Me.Panel4.TabIndex = 78
         '
         'DTPReportReceivedDate
@@ -746,49 +711,6 @@ Partial Class SSCPEvents
         Me.chbReportReceivedByAPB.TabIndex = 5
         Me.chbReportReceivedByAPB.Text = "Received by GEPD:"
         Me.chbReportReceivedByAPB.UseVisualStyleBackColor = True
-        '
-        'btnReportMoreOptions
-        '
-        Me.btnReportMoreOptions.AutoSize = True
-        Me.btnReportMoreOptions.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnReportMoreOptions.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnReportMoreOptions.ImageIndex = 53
-        Me.btnReportMoreOptions.Location = New System.Drawing.Point(0, 0)
-        Me.btnReportMoreOptions.Name = "btnReportMoreOptions"
-        Me.btnReportMoreOptions.Size = New System.Drawing.Size(74, 19)
-        Me.btnReportMoreOptions.TabIndex = 0
-        Me.btnReportMoreOptions.Text = "Submittal History"
-        '
-        'wrnReportSubmittal
-        '
-        Me.wrnReportSubmittal.AutoSize = True
-        Me.wrnReportSubmittal.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.wrnReportSubmittal.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnReportSubmittal.Location = New System.Drawing.Point(198, 28)
-        Me.wrnReportSubmittal.Name = "wrnReportSubmittal"
-        Me.wrnReportSubmittal.Size = New System.Drawing.Size(135, 13)
-        Me.wrnReportSubmittal.TabIndex = 2
-        Me.wrnReportSubmittal.Text = "Warning-value not selected"
-        Me.wrnReportSubmittal.Visible = False
-        '
-        'NUPReportSubmittal
-        '
-        Me.NUPReportSubmittal.Location = New System.Drawing.Point(152, 24)
-        Me.NUPReportSubmittal.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
-        Me.NUPReportSubmittal.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NUPReportSubmittal.Name = "NUPReportSubmittal"
-        Me.NUPReportSubmittal.Size = New System.Drawing.Size(40, 20)
-        Me.NUPReportSubmittal.TabIndex = 0
-        Me.NUPReportSubmittal.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        '
-        'lblResubmittal
-        '
-        Me.lblResubmittal.AutoSize = True
-        Me.lblResubmittal.Location = New System.Drawing.Point(53, 26)
-        Me.lblResubmittal.Name = "lblResubmittal"
-        Me.lblResubmittal.Size = New System.Drawing.Size(93, 13)
-        Me.lblResubmittal.TabIndex = 106
-        Me.lblResubmittal.Text = "Submittal Number:"
         '
         'wrnReportPeriod
         '
@@ -1055,39 +977,12 @@ Partial Class SSCPEvents
         Me.DTPReportPeriodStart.TabIndex = 2
         Me.DTPReportPeriodStart.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
-        'SplitterReport
-        '
-        Me.SplitterReport.BackColor = System.Drawing.SystemColors.Highlight
-        Me.SplitterReport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.SplitterReport.Location = New System.Drawing.Point(10, 0)
-        Me.SplitterReport.Name = "SplitterReport"
-        Me.SplitterReport.Size = New System.Drawing.Size(5, 370)
-        Me.SplitterReport.TabIndex = 68
-        Me.SplitterReport.TabStop = False
-        '
-        'dgrReportResubmittal
-        '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgrReportResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgrReportResubmittal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        Me.dgrReportResubmittal.Dock = System.Windows.Forms.DockStyle.Left
-        Me.dgrReportResubmittal.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dgrReportResubmittal.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.dgrReportResubmittal.LinkifyColumnByName = Nothing
-        Me.dgrReportResubmittal.Location = New System.Drawing.Point(0, 0)
-        Me.dgrReportResubmittal.Name = "dgrReportResubmittal"
-        Me.dgrReportResubmittal.ResultsCountLabel = Nothing
-        Me.dgrReportResubmittal.ResultsCountLabelFormat = "{0} found"
-        Me.dgrReportResubmittal.Size = New System.Drawing.Size(10, 370)
-        Me.dgrReportResubmittal.StandardTab = True
-        Me.dgrReportResubmittal.TabIndex = 30
-        '
         'TPTestReports
         '
         Me.TPTestReports.Controls.Add(Me.PanelSSCPCompliance2)
         Me.TPTestReports.Location = New System.Drawing.Point(4, 22)
         Me.TPTestReports.Name = "TPTestReports"
-        Me.TPTestReports.Size = New System.Drawing.Size(784, 370)
+        Me.TPTestReports.Size = New System.Drawing.Size(783, 358)
         Me.TPTestReports.TabIndex = 2
         Me.TPTestReports.Text = "ISMP Test Report"
         '
@@ -1121,7 +1016,7 @@ Partial Class SSCPEvents
         Me.PanelSSCPCompliance2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSSCPCompliance2.Location = New System.Drawing.Point(0, 0)
         Me.PanelSSCPCompliance2.Name = "PanelSSCPCompliance2"
-        Me.PanelSSCPCompliance2.Size = New System.Drawing.Size(784, 370)
+        Me.PanelSSCPCompliance2.Size = New System.Drawing.Size(783, 358)
         Me.PanelSSCPCompliance2.TabIndex = 161
         '
         'DTPTestReportReceivedDate
@@ -1365,7 +1260,7 @@ Partial Class SSCPEvents
         Me.TPInspection.Controls.Add(Me.Panel11)
         Me.TPInspection.Location = New System.Drawing.Point(4, 22)
         Me.TPInspection.Name = "TPInspection"
-        Me.TPInspection.Size = New System.Drawing.Size(784, 370)
+        Me.TPInspection.Size = New System.Drawing.Size(783, 358)
         Me.TPInspection.TabIndex = 1
         Me.TPInspection.Text = "Inspection"
         '
@@ -1400,7 +1295,7 @@ Partial Class SSCPEvents
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel11.Location = New System.Drawing.Point(0, 0)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(784, 370)
+        Me.Panel11.Size = New System.Drawing.Size(783, 358)
         Me.Panel11.TabIndex = 81
         '
         'Panel21
@@ -1677,7 +1572,7 @@ Partial Class SSCPEvents
         Me.TPNotifications.Controls.Add(Me.Panel16)
         Me.TPNotifications.Location = New System.Drawing.Point(4, 22)
         Me.TPNotifications.Name = "TPNotifications"
-        Me.TPNotifications.Size = New System.Drawing.Size(784, 370)
+        Me.TPNotifications.Size = New System.Drawing.Size(783, 358)
         Me.TPNotifications.TabIndex = 3
         Me.TPNotifications.Text = "Notifications"
         '
@@ -1705,7 +1600,7 @@ Partial Class SSCPEvents
         Me.Panel16.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel16.Location = New System.Drawing.Point(0, 0)
         Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(784, 370)
+        Me.Panel16.Size = New System.Drawing.Size(783, 358)
         Me.Panel16.TabIndex = 144
         '
         'Label10
@@ -1901,11 +1796,9 @@ Partial Class SSCPEvents
         'TPACC
         '
         Me.TPACC.Controls.Add(Me.PanelACC)
-        Me.TPACC.Controls.Add(Me.SplitterACC)
-        Me.TPACC.Controls.Add(Me.DGRACCResubmittal)
         Me.TPACC.Location = New System.Drawing.Point(4, 22)
         Me.TPACC.Name = "TPACC"
-        Me.TPACC.Size = New System.Drawing.Size(784, 370)
+        Me.TPACC.Size = New System.Drawing.Size(783, 358)
         Me.TPACC.TabIndex = 4
         Me.TPACC.Text = "Annual Compliance Certifications"
         '
@@ -1913,9 +1806,9 @@ Partial Class SSCPEvents
         '
         Me.PanelACC.Controls.Add(Me.Panel20)
         Me.PanelACC.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelACC.Location = New System.Drawing.Point(15, 0)
+        Me.PanelACC.Location = New System.Drawing.Point(0, 0)
         Me.PanelACC.Name = "PanelACC"
-        Me.PanelACC.Size = New System.Drawing.Size(769, 370)
+        Me.PanelACC.Size = New System.Drawing.Size(783, 358)
         Me.PanelACC.TabIndex = 79
         '
         'Panel20
@@ -1925,7 +1818,6 @@ Partial Class SSCPEvents
         Me.Panel20.Controls.Add(Me.Label25)
         Me.Panel20.Controls.Add(Me.DTPACCReceivedDate)
         Me.Panel20.Controls.Add(Me.chbACCReceivedByAPB)
-        Me.Panel20.Controls.Add(Me.btnACCSubmittals)
         Me.Panel20.Controls.Add(Me.wrnACCCorrectACC)
         Me.Panel20.Controls.Add(Me.Panel8)
         Me.Panel20.Controls.Add(Me.Label36)
@@ -1938,9 +1830,6 @@ Partial Class SSCPEvents
         Me.Panel20.Controls.Add(Me.Panel6)
         Me.Panel20.Controls.Add(Me.lblAccReportingYear)
         Me.Panel20.Controls.Add(Me.Label27)
-        Me.Panel20.Controls.Add(Me.wrnACCSubmittal)
-        Me.Panel20.Controls.Add(Me.NUPACCSubmittal)
-        Me.Panel20.Controls.Add(Me.Label67)
         Me.Panel20.Controls.Add(Me.wrnACCDatePostmarked)
         Me.Panel20.Controls.Add(Me.Label44)
         Me.Panel20.Controls.Add(Me.txtACCComments)
@@ -1968,7 +1857,7 @@ Partial Class SSCPEvents
         Me.Panel20.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel20.Location = New System.Drawing.Point(0, 0)
         Me.Panel20.Name = "Panel20"
-        Me.Panel20.Size = New System.Drawing.Size(769, 370)
+        Me.Panel20.Size = New System.Drawing.Size(783, 358)
         Me.Panel20.TabIndex = 0
         '
         'dtpAccReportingYear
@@ -2012,18 +1901,6 @@ Partial Class SSCPEvents
         Me.chbACCReceivedByAPB.TabIndex = 3
         Me.chbACCReceivedByAPB.Text = "Received by GEPD:"
         Me.chbACCReceivedByAPB.UseVisualStyleBackColor = True
-        '
-        'btnACCSubmittals
-        '
-        Me.btnACCSubmittals.AutoSize = True
-        Me.btnACCSubmittals.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnACCSubmittals.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnACCSubmittals.ImageIndex = 53
-        Me.btnACCSubmittals.Location = New System.Drawing.Point(0, 0)
-        Me.btnACCSubmittals.Name = "btnACCSubmittals"
-        Me.btnACCSubmittals.Size = New System.Drawing.Size(74, 19)
-        Me.btnACCSubmittals.TabIndex = 17
-        Me.btnACCSubmittals.Text = "Submittal History"
         '
         'wrnACCCorrectACC
         '
@@ -2191,37 +2068,6 @@ Partial Class SSCPEvents
         Me.Label27.TabIndex = 81
         Me.Label27.Text = " ACC postmarked by deadline:"
         '
-        'wrnACCSubmittal
-        '
-        Me.wrnACCSubmittal.AutoSize = True
-        Me.wrnACCSubmittal.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.wrnACCSubmittal.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCSubmittal.Location = New System.Drawing.Point(148, 24)
-        Me.wrnACCSubmittal.Name = "wrnACCSubmittal"
-        Me.wrnACCSubmittal.Size = New System.Drawing.Size(135, 13)
-        Me.wrnACCSubmittal.TabIndex = 79
-        Me.wrnACCSubmittal.Text = "Warning-value not selected"
-        Me.wrnACCSubmittal.Visible = False
-        '
-        'NUPACCSubmittal
-        '
-        Me.NUPACCSubmittal.Location = New System.Drawing.Point(102, 20)
-        Me.NUPACCSubmittal.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
-        Me.NUPACCSubmittal.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NUPACCSubmittal.Name = "NUPACCSubmittal"
-        Me.NUPACCSubmittal.Size = New System.Drawing.Size(40, 20)
-        Me.NUPACCSubmittal.TabIndex = 0
-        Me.NUPACCSubmittal.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        '
-        'Label67
-        '
-        Me.Label67.AutoSize = True
-        Me.Label67.Location = New System.Drawing.Point(6, 22)
-        Me.Label67.Name = "Label67"
-        Me.Label67.Size = New System.Drawing.Size(90, 13)
-        Me.Label67.TabIndex = 77
-        Me.Label67.Text = "Submittal Number"
-        '
         'wrnACCDatePostmarked
         '
         Me.wrnACCDatePostmarked.AutoSize = True
@@ -2378,7 +2224,7 @@ Partial Class SSCPEvents
         Me.pnlACCResubmittalRequested.Controls.Add(Me.rdbACCResubmittalRequestedNo)
         Me.pnlACCResubmittalRequested.Location = New System.Drawing.Point(236, 232)
         Me.pnlACCResubmittalRequested.Name = "pnlACCResubmittalRequested"
-        Me.pnlACCResubmittalRequested.Size = New System.Drawing.Size(164, 20)
+        Me.pnlACCResubmittalRequested.Size = New System.Drawing.Size(262, 20)
         Me.pnlACCResubmittalRequested.TabIndex = 10
         '
         'rdbACCResubmittalRequestedYes
@@ -2482,7 +2328,7 @@ Partial Class SSCPEvents
         Me.pnlACCAllDeviationsReported.Controls.Add(Me.rdbACCAllDeviationsReportedNo)
         Me.pnlACCAllDeviationsReported.Location = New System.Drawing.Point(236, 207)
         Me.pnlACCAllDeviationsReported.Name = "pnlACCAllDeviationsReported"
-        Me.pnlACCAllDeviationsReported.Size = New System.Drawing.Size(164, 24)
+        Me.pnlACCAllDeviationsReported.Size = New System.Drawing.Size(262, 39)
         Me.pnlACCAllDeviationsReported.TabIndex = 9
         '
         'rdbACCAllDeviationsReportedYes
@@ -2601,33 +2447,6 @@ Partial Class SSCPEvents
         Me.Label39.TabIndex = 95
         Me.Label39.Text = "All Title V conditions listed:"
         '
-        'SplitterACC
-        '
-        Me.SplitterACC.BackColor = System.Drawing.SystemColors.Highlight
-        Me.SplitterACC.Location = New System.Drawing.Point(10, 0)
-        Me.SplitterACC.Name = "SplitterACC"
-        Me.SplitterACC.Size = New System.Drawing.Size(5, 370)
-        Me.SplitterACC.TabIndex = 78
-        Me.SplitterACC.TabStop = False
-        '
-        'DGRACCResubmittal
-        '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.DGRACCResubmittal.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
-        Me.DGRACCResubmittal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        Me.DGRACCResubmittal.Dock = System.Windows.Forms.DockStyle.Left
-        Me.DGRACCResubmittal.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DGRACCResubmittal.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.DGRACCResubmittal.LinkifyColumnByName = Nothing
-        Me.DGRACCResubmittal.Location = New System.Drawing.Point(0, 0)
-        Me.DGRACCResubmittal.Name = "DGRACCResubmittal"
-        Me.DGRACCResubmittal.ResultsCountLabel = Nothing
-        Me.DGRACCResubmittal.ResultsCountLabelFormat = "{0} found"
-        Me.DGRACCResubmittal.Size = New System.Drawing.Size(10, 370)
-        Me.DGRACCResubmittal.StandardTab = True
-        Me.DGRACCResubmittal.TabIndex = 18
-        Me.DGRACCResubmittal.TabStop = False
-        '
         'Button1
         '
         Me.Button1.Location = New System.Drawing.Point(192, 144)
@@ -2660,8 +2479,9 @@ Partial Class SSCPEvents
         Me.Splitter3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Splitter3.Enabled = False
         Me.Splitter3.Location = New System.Drawing.Point(0, 194)
+        Me.Splitter3.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.Splitter3.Name = "Splitter3"
-        Me.Splitter3.Size = New System.Drawing.Size(792, 5)
+        Me.Splitter3.Size = New System.Drawing.Size(791, 5)
         Me.Splitter3.TabIndex = 0
         Me.Splitter3.TabStop = False
         '
@@ -2670,8 +2490,9 @@ Partial Class SSCPEvents
         Me.PanelSSCPCompliance.Controls.Add(Me.TCItems)
         Me.PanelSSCPCompliance.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSSCPCompliance.Location = New System.Drawing.Point(0, 199)
+        Me.PanelSSCPCompliance.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.PanelSSCPCompliance.Name = "PanelSSCPCompliance"
-        Me.PanelSSCPCompliance.Size = New System.Drawing.Size(792, 396)
+        Me.PanelSSCPCompliance.Size = New System.Drawing.Size(791, 384)
         Me.PanelSSCPCompliance.TabIndex = 231
         '
         'ToolStrip1
@@ -2680,7 +2501,8 @@ Partial Class SSCPEvents
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnSave, Me.btnPrint, Me.btnDelete})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
+        Me.ToolStrip1.Padding = New System.Windows.Forms.Padding(0, 0, 5, 0)
+        Me.ToolStrip1.Size = New System.Drawing.Size(791, 25)
         Me.ToolStrip1.TabIndex = 0
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -2713,11 +2535,13 @@ Partial Class SSCPEvents
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(792, 595)
+        Me.ClientSize = New System.Drawing.Size(791, 583)
         Me.Controls.Add(Me.PanelSSCPCompliance)
         Me.Controls.Add(Me.Splitter3)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.ToolStrip1)
+        Me.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.MinimumSize = New System.Drawing.Size(807, 622)
         Me.Name = "SSCPEvents"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Compliance Events"
@@ -2728,11 +2552,9 @@ Partial Class SSCPEvents
         Me.PanelReports.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
-        CType(Me.NUPReportSubmittal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
         Me.Panel17.ResumeLayout(False)
         Me.Panel18.ResumeLayout(False)
-        CType(Me.dgrReportResubmittal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPTestReports.ResumeLayout(False)
         Me.PanelSSCPCompliance2.ResumeLayout(False)
         Me.PanelSSCPCompliance2.PerformLayout()
@@ -2753,7 +2575,6 @@ Partial Class SSCPEvents
         Me.Panel8.ResumeLayout(False)
         Me.Panel7.ResumeLayout(False)
         Me.Panel6.ResumeLayout(False)
-        CType(Me.NUPACCSubmittal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel15.ResumeLayout(False)
         Me.Panel14.ResumeLayout(False)
         Me.pnlACCResubmittalRequested.ResumeLayout(False)
@@ -2763,7 +2584,6 @@ Partial Class SSCPEvents
         Me.pnlACCAllDeviationsReported.PerformLayout()
         Me.Panel10.ResumeLayout(False)
         Me.Panel9.ResumeLayout(False)
-        CType(Me.DGRACCResubmittal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelSSCPCompliance.ResumeLayout(False)
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()

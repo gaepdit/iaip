@@ -178,7 +178,6 @@ Partial Class SSCPManagersTools
         Me.llbACCDeviationsReportedCorrectly = New System.Windows.Forms.LinkLabel()
         Me.llbACCDeviationsReported = New System.Windows.Forms.LinkLabel()
         Me.llbACCSubmittedLate = New System.Windows.Forms.LinkLabel()
-        Me.llbACCRequiringResubmittal = New System.Windows.Forms.LinkLabel()
         Me.llbACCReporting = New System.Windows.Forms.LinkLabel()
         Me.llbViewACCTotalAssigned = New System.Windows.Forms.LinkLabel()
         Me.txtLONTaken = New System.Windows.Forms.TextBox()
@@ -200,8 +199,6 @@ Partial Class SSCPManagersTools
         Me.Label36 = New System.Windows.Forms.Label()
         Me.txtSubmittedLate = New System.Windows.Forms.TextBox()
         Me.Label35 = New System.Windows.Forms.Label()
-        Me.txtResubmittals = New System.Windows.Forms.TextBox()
-        Me.Label34 = New System.Windows.Forms.Label()
         Me.txtFacilitiesReporting = New System.Windows.Forms.TextBox()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.txtTotalFacilities = New System.Windows.Forms.TextBox()
@@ -1705,7 +1702,6 @@ Partial Class SSCPManagersTools
         Me.TPACCStats.Controls.Add(Me.llbACCDeviationsReportedCorrectly)
         Me.TPACCStats.Controls.Add(Me.llbACCDeviationsReported)
         Me.TPACCStats.Controls.Add(Me.llbACCSubmittedLate)
-        Me.TPACCStats.Controls.Add(Me.llbACCRequiringResubmittal)
         Me.TPACCStats.Controls.Add(Me.llbACCReporting)
         Me.TPACCStats.Controls.Add(Me.llbViewACCTotalAssigned)
         Me.TPACCStats.Controls.Add(Me.txtLONTaken)
@@ -1727,8 +1723,6 @@ Partial Class SSCPManagersTools
         Me.TPACCStats.Controls.Add(Me.Label36)
         Me.TPACCStats.Controls.Add(Me.txtSubmittedLate)
         Me.TPACCStats.Controls.Add(Me.Label35)
-        Me.TPACCStats.Controls.Add(Me.txtResubmittals)
-        Me.TPACCStats.Controls.Add(Me.Label34)
         Me.TPACCStats.Controls.Add(Me.txtFacilitiesReporting)
         Me.TPACCStats.Controls.Add(Me.Label32)
         Me.TPACCStats.Controls.Add(Me.txtTotalFacilities)
@@ -2004,17 +1998,6 @@ Partial Class SSCPManagersTools
         Me.llbACCSubmittedLate.TabStop = True
         Me.llbACCSubmittedLate.Text = "View"
         '
-        'llbACCRequiringResubmittal
-        '
-        Me.llbACCRequiringResubmittal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.llbACCRequiringResubmittal.AutoSize = True
-        Me.llbACCRequiringResubmittal.Location = New System.Drawing.Point(260, 342)
-        Me.llbACCRequiringResubmittal.Name = "llbACCRequiringResubmittal"
-        Me.llbACCRequiringResubmittal.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCRequiringResubmittal.TabIndex = 27
-        Me.llbACCRequiringResubmittal.TabStop = True
-        Me.llbACCRequiringResubmittal.Text = "View"
-        '
         'llbACCReporting
         '
         Me.llbACCReporting.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -2216,25 +2199,6 @@ Partial Class SSCPManagersTools
         Me.Label35.Size = New System.Drawing.Size(121, 13)
         Me.Label35.TabIndex = 6
         Me.Label35.Text = "Facilities Submitted Late"
-        '
-        'txtResubmittals
-        '
-        Me.txtResubmittals.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtResubmittals.Location = New System.Drawing.Point(185, 338)
-        Me.txtResubmittals.Name = "txtResubmittals"
-        Me.txtResubmittals.ReadOnly = True
-        Me.txtResubmittals.Size = New System.Drawing.Size(59, 20)
-        Me.txtResubmittals.TabIndex = 5
-        '
-        'Label34
-        '
-        Me.Label34.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(6, 342)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(153, 13)
-        Me.Label34.TabIndex = 4
-        Me.Label34.Text = "Facilities Requiring Resubmittal"
         '
         'txtFacilitiesReporting
         '
@@ -2662,8 +2626,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents Label36 As System.Windows.Forms.Label
     Friend WithEvents txtSubmittedLate As System.Windows.Forms.TextBox
     Friend WithEvents Label35 As System.Windows.Forms.Label
-    Friend WithEvents txtResubmittals As System.Windows.Forms.TextBox
-    Friend WithEvents Label34 As System.Windows.Forms.Label
     Friend WithEvents txtFacilitiesReporting As System.Windows.Forms.TextBox
     Friend WithEvents Label32 As System.Windows.Forms.Label
     Friend WithEvents txtTotalFacilities As System.Windows.Forms.TextBox
@@ -2691,7 +2653,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents llbACCDeviationsReportedCorrectly As System.Windows.Forms.LinkLabel
     Friend WithEvents llbACCDeviationsReported As System.Windows.Forms.LinkLabel
     Friend WithEvents llbACCSubmittedLate As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbACCRequiringResubmittal As System.Windows.Forms.LinkLabel
     Friend WithEvents llbACCReporting As System.Windows.Forms.LinkLabel
     Friend WithEvents SCStatisticalReports As System.Windows.Forms.SplitContainer
     Friend WithEvents dgvStatisticalReports As System.Windows.Forms.DataGridView

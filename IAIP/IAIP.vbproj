@@ -53,10 +53,10 @@
     <UpdateUrl>https://iaip.gaepd.org/install/</UpdateUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>7.3.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>7.3.1.0</MinimumRequiredVersion>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>7.3.0.0</ApplicationVersion>
+    <ApplicationVersion>7.3.1.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
