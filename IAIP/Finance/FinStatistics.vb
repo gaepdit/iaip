@@ -16,13 +16,19 @@ Public Class FinStatistics
     End Sub
 
     Private Enum ReportType
-        FeesAssessedPerType
+        FeesAssessedPerApplicationType
+        FeesAssessedPerApplicationFeeType
+        FeesAssessedPerExpeditedFeeType
+        FeesAssessedPerFeeType
         FeesReceivedPerType
         UnpaidApplications
     End Enum
 
     Private ReadOnly ReportList As New Dictionary(Of ReportType, String) From {
-        {ReportType.FeesAssessedPerType, "Fees assessed per application type"},
+        {ReportType.FeesAssessedPerApplicationType, "Fees assessed per application type"},
+        {ReportType.FeesAssessedPerApplicationFeeType, "Fees assessed per application fee type"},
+        {ReportType.FeesAssessedPerExpeditedFeeType, "Fees assessed per expedited fee type"},
+        {ReportType.FeesAssessedPerFeeType, "Fees assessed per application/expedited fee type"},
         {ReportType.FeesReceivedPerType, "Fees received per application type"},
         {ReportType.UnpaidApplications, "Unpaid permit application fees"}
     }
@@ -49,10 +55,16 @@ Public Class FinStatistics
         Select Case CType(cmbReportType.SelectedValue, ReportType)
             Case ReportType.UnpaidApplications
                 spName = "fees.GetApplicationFeeStatusReport"
-            Case ReportType.FeesAssessedPerType
+            Case ReportType.FeesAssessedPerApplicationType
                 spName = "fees.GetApplicationTypeFeeSummary"
             Case ReportType.FeesReceivedPerType
                 spName = "fees.GetApplicationTypeDepositSummary"
+            Case ReportType.FeesAssessedPerApplicationFeeType
+                spName = "fees.GetApplicationFeeTypeFeeSummary"
+            Case ReportType.FeesAssessedPerExpeditedFeeType
+                spName = "fees.GetExpeditedFeeTypeFeeSummary"
+            Case ReportType.FeesAssessedPerFeeType
+                spName = "fees.GetAllFeeTypesFeeSummary"
         End Select
 
         Dim params As SqlParameter() = Array.Empty(Of SqlParameter)()
