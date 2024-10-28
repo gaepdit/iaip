@@ -13,6 +13,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.3.2 <span>(28-Oct-2024)</span>
+
+Added some new reports on permit application fees.
+
 ## Version 7.3.1 <span>(23-Oct-2024)</span>
 
 Removed the submittal history tools from SSCP Reports and ACCs.
