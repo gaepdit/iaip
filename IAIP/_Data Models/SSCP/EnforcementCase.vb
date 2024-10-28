@@ -176,6 +176,11 @@ Namespace Apb.Sscp
                 Return EpaIdFromActionNumber(AfsNovActionNumber)
             End Get
         End Property
+        Public ReadOnly Property ProposedCoActionId As String
+            Get
+                Return EpaIdFromActionNumber(AfsCoProposedNumber)
+            End Get
+        End Property
         Public ReadOnly Property CoEnforcementActionId As String
             Get
                 Return EpaIdFromActionNumber(AfsCoActionNumber)
