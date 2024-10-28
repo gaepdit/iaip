@@ -1316,7 +1316,6 @@ Public Class SscpEnforcement
                 AfsKeyActionNumber.Text = .AfsKeyActionNumber.ToString(DisplayZeroAsNA)
                 AfsNovActionNumber.Text = .AfsNovActionNumber.ToString(DisplayZeroAsNA)
                 AfsNfaActionNumber.Text = .AfsNfaActionNumber.ToString(DisplayZeroAsNA)
-                AfsCoProposedActionNumber.Text = .AfsCoProposedNumber.ToString(DisplayZeroAsNA)
                 AfsCoExecutedActionNumber.Text = .AfsCoActionNumber.ToString(DisplayZeroAsNA)
                 AfsCoResolvedActionNumber.Text = .AfsCoResolvedActionNumber.ToString(DisplayZeroAsNA)
                 AfsAoCivilCourtActionNumber.Text = .AfsCivilCourtActionNumber.ToString(DisplayZeroAsNA)
@@ -1337,6 +1336,7 @@ Public Class SscpEnforcement
                 ' EPA IDs
                 EpaCaseFileId.Text = .CaseFileId
                 EpaNovId.Text = .NovEnforcementActionId
+                EpaProposedCoId.Text = .ProposedCoActionId
                 EpaCoId.Text = .CoEnforcementActionId
                 EpaAoId.Text = .AoEnforcementActionId
 
