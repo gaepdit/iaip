@@ -54,7 +54,6 @@ app.UseSwaggerUI(c =>
 
 // Configure the HTTP request pipeline.
 if (!string.IsNullOrEmpty(AppSettings.RaygunSettings.ApiKey)) app.UseRaygun();
-app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
