@@ -2,12 +2,12 @@
 
 namespace Iaip.CxApi.Settings;
 
-public class RaygunClientProvider : DefaultRaygunAspNetCoreClientProvider
+public static class RaygunClientProvider
 {
-    public override RaygunClient GetClient(RaygunSettings settings, HttpContext context)
+    public static RaygunClient GetClient(RaygunSettings settings, HttpContext context)
     {
-        var client = base.GetClient(settings, context);
-        client.ApplicationVersion = typeof(Program).Assembly.GetName().Version?.ToString(3);
+        settings.ApplicationVersion = typeof(Program).Assembly.GetName().Version?.ToString(3);
+        var client = new RaygunClient(settings);
 
         client.SendingMessage += (_, args) =>
         {
