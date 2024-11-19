@@ -11,8 +11,12 @@ builder.Configuration.GetSection(nameof(AppSettings.IaipConfigOptions)).Bind(App
 // Configure application error monitoring.
 builder.Configuration.GetSection(nameof(AppSettings.RaygunSettings)).Bind(AppSettings.RaygunSettings);
 if (!string.IsNullOrEmpty(AppSettings.RaygunSettings.ApiKey))
-    builder.Services.AddRaygun(builder.Configuration,
-        new RaygunMiddlewareSettings { ClientProvider = new RaygunClientProvider() });
+{
+    builder.Services.AddRaygun(builder.Configuration, options =>
+    {
+        options.ApiKey = AppSettings.RaygunSettings.ApiKey;
+    });
+}
 
 // Configure DB helper.
 if (builder.Configuration.GetValue<bool>("TestDbHelper"))
