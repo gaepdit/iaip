@@ -62,4 +62,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Make it so.
-app.Run();
+await app.RunAsync();
