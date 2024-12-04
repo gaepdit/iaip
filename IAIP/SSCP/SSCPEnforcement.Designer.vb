@@ -196,7 +196,7 @@ Partial Class SscpEnforcement
         Me.AfsAoToAgActionNumber = New System.Windows.Forms.TextBox()
         Me.AfsCoResolvedActionNumber = New System.Windows.Forms.TextBox()
         Me.AfsCoExecutedActionNumber = New System.Windows.Forms.TextBox()
-        Me.AfsCoProposedActionNumber = New System.Windows.Forms.TextBox()
+        Me.EpaProposedCoId = New System.Windows.Forms.TextBox()
         Me.AfsNfaActionNumber = New System.Windows.Forms.TextBox()
         Me.EpaDayZero = New System.Windows.Forms.TextBox()
         Me.AfsNovActionNumber = New System.Windows.Forms.TextBox()
@@ -2007,7 +2007,7 @@ Partial Class SscpEnforcement
         Me.EpaValuesTabPage.Controls.Add(Me.AfsAoToAgActionNumber)
         Me.EpaValuesTabPage.Controls.Add(Me.AfsCoResolvedActionNumber)
         Me.EpaValuesTabPage.Controls.Add(Me.AfsCoExecutedActionNumber)
-        Me.EpaValuesTabPage.Controls.Add(Me.AfsCoProposedActionNumber)
+        Me.EpaValuesTabPage.Controls.Add(Me.EpaProposedCoId)
         Me.EpaValuesTabPage.Controls.Add(Me.AfsNfaActionNumber)
         Me.EpaValuesTabPage.Controls.Add(Me.EpaDayZero)
         Me.EpaValuesTabPage.Controls.Add(Me.AfsNovActionNumber)
@@ -2111,12 +2111,12 @@ Partial Class SscpEnforcement
         Me.Label51.AutoSize = True
         Me.Label51.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label51.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label51.Location = New System.Drawing.Point(86, 196)
+        Me.Label51.Location = New System.Drawing.Point(39, 196)
         Me.Label51.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label51.Name = "Label51"
-        Me.Label51.Size = New System.Drawing.Size(70, 13)
+        Me.Label51.Size = New System.Drawing.Size(117, 13)
         Me.Label51.TabIndex = 357
-        Me.Label51.Text = "CO Proposed"
+        Me.Label51.Text = "Proposed CO Action ID"
         '
         'Label50
         '
@@ -2271,14 +2271,14 @@ Partial Class SscpEnforcement
         '
         'AfsCoProposedActionNumber
         '
-        Me.AfsCoProposedActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.AfsCoProposedActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.AfsCoProposedActionNumber.Location = New System.Drawing.Point(174, 196)
-        Me.AfsCoProposedActionNumber.Name = "AfsCoProposedActionNumber"
-        Me.AfsCoProposedActionNumber.ReadOnly = True
-        Me.AfsCoProposedActionNumber.Size = New System.Drawing.Size(157, 13)
-        Me.AfsCoProposedActionNumber.TabIndex = 7
-        Me.AfsCoProposedActionNumber.Text = "N/A"
+        Me.EpaProposedCoId.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.EpaProposedCoId.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EpaProposedCoId.Location = New System.Drawing.Point(174, 196)
+        Me.EpaProposedCoId.Name = "AfsCoProposedActionNumber"
+        Me.EpaProposedCoId.ReadOnly = True
+        Me.EpaProposedCoId.Size = New System.Drawing.Size(157, 13)
+        Me.EpaProposedCoId.TabIndex = 7
+        Me.EpaProposedCoId.Text = "N/A"
         '
         'AfsNfaActionNumber
         '
@@ -2927,7 +2927,7 @@ Partial Class SscpEnforcement
     Friend WithEvents AfsAoToAgActionNumber As TextBox
     Friend WithEvents AfsCoResolvedActionNumber As TextBox
     Friend WithEvents AfsCoExecutedActionNumber As TextBox
-    Friend WithEvents AfsCoProposedActionNumber As TextBox
+    Friend WithEvents EpaProposedCoId As TextBox
     Friend WithEvents AfsNfaActionNumber As TextBox
     Friend WithEvents AfsNovActionNumber As TextBox
     Friend WithEvents EpaCaseFileId As TextBox

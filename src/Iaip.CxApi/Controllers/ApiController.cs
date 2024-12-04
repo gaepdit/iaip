@@ -42,7 +42,7 @@ public class ApiController(IDbHelper dbHelper, ILogger<ApiController> logger) : 
         if (string.IsNullOrEmpty(request.Token) || string.IsNullOrEmpty(request.MachineName) ||
             string.IsNullOrEmpty(request.WindowsDomainName) || string.IsNullOrEmpty(request.WindowsUserName))
         {
-            logger.LogWarning("Missing session details on {env} for User ID {user}", env, request.UserId.ToString());
+            logger.LogWarning("Missing session details on {Env} for User ID {User}", env, request.UserId.ToString());
             return IaipAuthResult.AuthErrorResult(string.Empty);
         }
 
@@ -55,9 +55,11 @@ public class ApiController(IDbHelper dbHelper, ILogger<ApiController> logger) : 
     [HttpPost("request-username"), Produces("text/plain")]
     public ActionResult<string> PostRequestUsernameReminder([FromRoute] string env, [FromBody] UsernameRequest request)
     {
+        Guard.NotNull(request);
         Guard.NotNullOrWhiteSpace(request.Email);
+
         var result = DatabaseConnection.RequestUsernameReminder(dbHelper, env, request);
-        logger.LogInformation("Username requested for {email} with result {result}", request.Email, result);
+        logger.LogInformation("Username requested for {Email} with result {Result}", request.Email, result);
         return result;
     }
 
@@ -66,16 +68,24 @@ public class ApiController(IDbHelper dbHelper, ILogger<ApiController> logger) : 
         [FromRoute] string env,
         [FromBody] PasswordResetRequest request)
     {
+        Guard.NotNull(request);
+        Guard.NotNullOrWhiteSpace(request.Username);
+
         var result = DatabaseConnection.RequestResetUserPassword(dbHelper, env, request);
-        logger.LogInformation("Password reset request submitted for {user} with result {result}", request.Username, result);
+        logger.LogInformation("Password reset request submitted for {User} with result {Result}", request.Username, result);
         return result;
     }
 
     [HttpPost("reset-password"), Produces("text/plain")]
     public ActionResult<string> PostResetUserPassword([FromRoute] string env, [FromBody] PasswordReset request)
     {
+        Guard.NotNull(request);
+        Guard.NotNullOrWhiteSpace(request.Username);
+        Guard.NotNullOrWhiteSpace(request.NewPassword);
+        Guard.NotNullOrWhiteSpace(request.ResetToken);
+
         var result = DatabaseConnection.ResetUserPassword(dbHelper, env, request);
-        logger.LogInformation("Password reset submitted for {user} with result {result}", request.Username, result);
+        logger.LogInformation("Password reset submitted for {User} with result {Result}", request.Username, result);
         return result;
     }
 
@@ -83,25 +93,25 @@ public class ApiController(IDbHelper dbHelper, ILogger<ApiController> logger) : 
 
     private ActionResult<IaipAuthResult> ValidCredentials(string message, string env, string user)
     {
-        logger.LogInformation("Valid credentials accepted on {env} for {user}", env, user);
+        logger.LogInformation("Valid credentials accepted on {Env} for {User}", env, user);
         return IaipAuthResult.AuthSuccessResult(env, message);
     }
 
     private ActionResult<IaipAuthResult> InvalidCredentials(string result, string env, string user)
     {
-        logger.LogWarning("Invalid login credentials on {env} for {user} with result {result}", env, user, result);
+        logger.LogWarning("Invalid login credentials on {Env} for {User} with result {Result}", env, user, result);
         return IaipAuthResult.AuthErrorResult(result);
     }
 
     private ActionResult<IaipAuthResult> ValidSession(string message, string env, int userId)
     {
-        logger.LogInformation("Valid session accepted on {env} for User ID {user}", env, userId.ToString());
+        logger.LogInformation("Valid session accepted on {Env} for User ID {User}", env, userId.ToString());
         return IaipAuthResult.AuthSuccessResult(env, message);
     }
 
     private ActionResult<IaipAuthResult> InvalidSession(string env, int userId)
     {
-        logger.LogWarning("Invalid session token on {env} for User ID {user}", env, userId.ToString());
+        logger.LogWarning("Invalid session token on {Env} for User ID {User}", env, userId.ToString());
         return IaipAuthResult.AuthErrorResult(string.Empty);
     }
 }

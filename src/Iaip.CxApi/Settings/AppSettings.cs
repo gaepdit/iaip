@@ -4,7 +4,7 @@ namespace Iaip.CxApi.Settings;
 
 internal static class AppSettings
 {
-    public static Dictionary<string, IaipConfig> IaipConfigOptions { get; set; } = new();
+    public static Dictionary<string, IaipConfig> IaipConfigOptions { get; set; } = [];
 
     // Raygun client settings
     public static RaygunClientSettings RaygunSettings { get; } = new();

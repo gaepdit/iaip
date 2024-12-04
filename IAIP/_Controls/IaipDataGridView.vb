@@ -339,6 +339,8 @@ Friend Class IaipDataGridView
             ElseIf TypeOf e.Value Is Decimal Then
                 e.CellStyle.Format = DecimalFieldFormat
                 e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            ElseIf TypeOf e.Value Is Integer Then
+                e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             End If
         End If
     End Sub
