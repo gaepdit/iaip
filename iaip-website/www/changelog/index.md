@@ -13,6 +13,17 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.3.3 <span>(4-Dec-2024)</span>
+
+New:
+
+* Enabled connecting with the GlobalProtect VPN.
+
+Bug fixes:
+
+* Fixed alignment of numbers in datagrids.
+* Fixed a bug when creating new permit application fees.
+
 ## Version 7.3.2 <span>(28-Oct-2024)</span>
 
 Added some new reports on permit application fees.
