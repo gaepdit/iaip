@@ -11,8 +11,12 @@ builder.Configuration.GetSection(nameof(AppSettings.IaipConfigOptions)).Bind(App
 // Configure application error monitoring.
 builder.Configuration.GetSection(nameof(AppSettings.RaygunSettings)).Bind(AppSettings.RaygunSettings);
 if (!string.IsNullOrEmpty(AppSettings.RaygunSettings.ApiKey))
-    builder.Services.AddRaygun(builder.Configuration,
-        new RaygunMiddlewareSettings { ClientProvider = new RaygunClientProvider() });
+{
+    builder.Services.AddRaygun(builder.Configuration, options =>
+    {
+        options.ApiKey = AppSettings.RaygunSettings.ApiKey;
+    });
+}
 
 // Configure DB helper.
 if (builder.Configuration.GetValue<bool>("TestDbHelper"))
@@ -48,15 +52,14 @@ app.UseSwagger(c => { c.RouteTemplate = "api-docs/{documentName}/openapi.json"; 
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/api-docs/v1/openapi.json", "IAIP Connections API v1");
-    c.RoutePrefix = "api-docs";
+    c.RoutePrefix = "";
     c.DocumentTitle = "Georgia EPD IAIP Connections API";
 });
 
 // Configure the HTTP request pipeline.
 if (!string.IsNullOrEmpty(AppSettings.RaygunSettings.ApiKey)) app.UseRaygun();
-app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
 // Make it so.
-app.Run();
+await app.RunAsync();

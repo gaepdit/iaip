@@ -6,7 +6,7 @@ Click the button to download and run the setup file.
 
 ## Important Notes -- Please Read
 
-The IAIP UAT (User Acceptance Testing) Edition is made available when users are requested to test new features or bugfixes before they are released to production. Unless someone in EPD IT has asked you to install this, you probably don't need it.
+The IAIP UAT (User Acceptance Testing) Edition is made available for training purposes or for when users are requested to test new features or bugfixes before they are released to production. Unless someone in EPD IT has asked you to install this, you probably don't need it.
 
 The UAT version of the IAIP can be installed side-by-side with the production version of the IAIP. Both can be used simultaneously and will not interfere with each other. The UAT version will *only* access the testing (UAT) database, so no changes to production data can be made.
 
