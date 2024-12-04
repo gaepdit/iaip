@@ -6,7 +6,8 @@ Public Module VpnStatusCheck
         If NetworkInterface.GetIsNetworkAvailable() Then
             For Each adapter As NetworkInterface In NetworkInterface.GetAllNetworkInterfaces()
                 If adapter.OperationalStatus = OperationalStatus.Up AndAlso
-                    adapter.Description = "Juniper Networks Virtual Adapter" Then
+                    (adapter.Description = "Juniper Networks Virtual Adapter" OrElse
+                    adapter.Description.StartsWith("PANGP Virtual Ethernet Adapter")) Then
                     Return True
                 End If
             Next
