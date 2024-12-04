@@ -6,6 +6,7 @@ namespace Iaip.CxApi.Controllers.ApiRequestModels;
 public record SessionCredentials
 {
     [UsedImplicitly]
+    [JsonRequired]
     public int UserId { get; init; }
 
     [UsedImplicitly]
