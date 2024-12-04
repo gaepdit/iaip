@@ -52,7 +52,7 @@ app.UseSwagger(c => { c.RouteTemplate = "api-docs/{documentName}/openapi.json"; 
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/api-docs/v1/openapi.json", "IAIP Connections API v1");
-    c.RoutePrefix = "api-docs";
+    c.RoutePrefix = "";
     c.DocumentTitle = "Georgia EPD IAIP Connections API";
 });
 
