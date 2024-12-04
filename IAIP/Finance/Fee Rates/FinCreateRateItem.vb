@@ -33,6 +33,8 @@ Public Class FinCreateRateItem
             Return
         End If
 
+        ValidateChildren()
+
         If txtNewRate.Amount <= 0 Then
             DialogResult = DialogResult.None
             lblMessage.ShowMessage("Enter a valid rate.", ErrorLevel.Warning)
@@ -55,6 +57,10 @@ Public Class FinCreateRateItem
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Close()
+    End Sub
+
+    Private Sub txtNewRate_Leave(sender As Object, e As EventArgs) Handles txtNewRate.Leave
+        ValidateChildren()
     End Sub
 
 End Class
