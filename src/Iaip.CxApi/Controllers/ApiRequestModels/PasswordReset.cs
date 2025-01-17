@@ -17,8 +17,8 @@ public record PasswordReset
     [JsonIgnore]
     public SqlParameter[] SqlParameters =>
     [
-        new SqlParameter("@username", Username),
-        new SqlParameter("@newpassword", NewPassword),
-        new SqlParameter("@resettoken", ResetToken),
+        new("@username", Username),
+        new("@newpassword", NewPassword),
+        new("@resettoken", ResetToken),
     ];
 }

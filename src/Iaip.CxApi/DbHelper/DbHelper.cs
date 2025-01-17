@@ -1,6 +1,6 @@
-﻿using System.Data;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Microsoft.VisualBasic.CompilerServices;
+using System.Data;
 
 namespace Iaip.CxApi.DbHelper;
 
@@ -10,20 +10,20 @@ public class DbHelper : IDbHelper
 
     public void SetConnectionString(string value) => _connectionString = value;
 
-    public string SpGetString(string spName) => SpGetString(spName, Array.Empty<SqlParameter>());
+    public string SpGetString(string spName) => SpGetString(spName, []);
 
     public string SpGetString(string spName, SqlParameter[] parameterArray) =>
         GetNullable<string>(SpExecuteScalar(spName, parameterArray)) ?? string.Empty;
 
     public bool SpGetBoolean(string spName) =>
-        (bool)(SpExecuteScalar(spName, Array.Empty<SqlParameter>()) ?? throw new InvalidOperationException());
+        (bool)(SpExecuteScalar(spName, []) ?? throw new InvalidOperationException());
 
     public bool SpGetBoolean(string spName, SqlParameter[] parameterArray) =>
         (bool)(SpExecuteScalar(spName, parameterArray) ?? throw new InvalidOperationException());
 
     public int SpRunCommand(string spName, SqlParameter[] parameterArray) =>
         SpExecuteNonQuery(spName, parameterArray);
-    
+
     // Database connection procedures
 
     /// <summary>

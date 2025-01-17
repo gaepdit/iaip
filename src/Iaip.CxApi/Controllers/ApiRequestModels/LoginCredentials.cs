@@ -14,7 +14,7 @@ public record LoginCredentials
     [JsonIgnore]
     public SqlParameter[] SqlParameters =>
     [
-        new SqlParameter("@username", Username),
-        new SqlParameter("@userpassword", Password),
+        new("@username", Username),
+        new("@userpassword", Password),
     ];
 }

@@ -9,7 +9,7 @@ public class DatabaseConnection
 {
     private IDbHelper DbHelper { get; }
 
-    private static readonly string[] ValidEnvironments = { "Development", "Staging", "Production" };
+    private static readonly string[] ValidEnvironments = ["Development", "Staging", "Production"];
 
     private DatabaseConnection(string env, IDbHelper dbHelper)
     {
