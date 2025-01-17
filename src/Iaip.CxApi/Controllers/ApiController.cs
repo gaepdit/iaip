@@ -3,6 +3,7 @@ using Iaip.CxApi.Controllers.ApiResponseModels;
 using Iaip.CxApi.DbHelper;
 using Iaip.CxApi.QueryDatabase;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Iaip.CxApi.Controllers;
 
