@@ -8,6 +8,4 @@ public interface IDbHelper
     Task<string> SpGetStringAsync(string spName);
     Task<string> SpGetStringAsync(string spName, SqlParameter[] parameterArray);
     Task<bool> SpGetBooleanAsync(string spName);
-    Task<bool> SpGetBooleanAsync(string spName, SqlParameter[] parameterArray);
-    Task<int> SpRunCommandAsync(string spName, SqlParameter[] parameterArray);
 }

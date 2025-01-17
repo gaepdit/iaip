@@ -25,8 +25,4 @@ public class TestDbHelper(IConfiguration configuration) : IDbHelper
     });
 
     public Task<bool> SpGetBooleanAsync(string spName) => Task.FromResult(Enabled);
-    public Task<bool> SpGetBooleanAsync(string spName, SqlParameter[] parameterArray) => Task.FromResult(Enabled);
-
-    public Task<int> SpRunCommandAsync(string spName, SqlParameter[] parameterArray) =>
-        Task.FromResult(Successful ? 0 : -1);
 }
