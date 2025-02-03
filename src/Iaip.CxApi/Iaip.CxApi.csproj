@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GaEpd.GuardClauses" Version="2.0.0" />
+    <PackageReference Include="GaEpd.GuardClauses" Version="2.1.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
     <PackageReference Include="Mindscape.Raygun4Net.AspNetCore" Version="11.2.1" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.5.0.109200">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.6.0.109712">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
