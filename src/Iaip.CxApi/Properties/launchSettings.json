@@ -3,7 +3,7 @@
     "API App": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api-docs",
+      "launchUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

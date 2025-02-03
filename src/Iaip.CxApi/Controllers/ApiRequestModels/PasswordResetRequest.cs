@@ -9,5 +9,5 @@ public record PasswordResetRequest
     public string? Username { get; init; }
 
     [JsonIgnore]
-    public SqlParameter[] SqlParameters => [new SqlParameter("@username", Username)];
+    public SqlParameter[] SqlParameters => [new("@username", Username)];
 }

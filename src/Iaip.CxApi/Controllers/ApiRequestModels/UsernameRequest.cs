@@ -9,5 +9,5 @@ public record UsernameRequest
     public string? Email { get; init; }
 
     [JsonIgnore]
-    public SqlParameter[] SqlParameters => [new SqlParameter("@emailaddress", Email)];
+    public SqlParameter[] SqlParameters => [new("@emailaddress", Email)];
 }
