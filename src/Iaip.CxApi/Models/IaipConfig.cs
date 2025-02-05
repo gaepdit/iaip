@@ -24,14 +24,13 @@ public record IaipConfig
     public string RaygunApiKey { get; init; } = "";
 
     [JsonIgnore]
-    public string GetConnectionString =>
-        new SqlConnectionStringBuilder
-        {
-            DataSource = $"{DatabaseIp},{DatabasePort}",
-            UserID = DatabaseUser,
-            Password = DatabasePassword,
-            PersistSecurityInfo = true,
-            TrustServerCertificate = true,
-            InitialCatalog = "airbranch",
-        }.ConnectionString;
+    public string GetConnectionString => new SqlConnectionStringBuilder
+    {
+        DataSource = $"{DatabaseIp},{DatabasePort}",
+        UserID = DatabaseUser,
+        Password = DatabasePassword,
+        PersistSecurityInfo = true,
+        TrustServerCertificate = true,
+        InitialCatalog = "airbranch",
+    }.ConnectionString;
 }

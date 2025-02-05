@@ -33,4 +33,4 @@ The ClickOnce signing certificate expires after one year, and a new one must be 
 
 ### Release instructions
 
-See the [Release Instructions](docs/Release-Instructions.md) file in the "docs" folder.
+See the [Release Instructions](docs/release-instructions.md) file in the "docs" folder.
