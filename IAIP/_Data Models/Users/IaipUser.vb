@@ -57,6 +57,9 @@
 
     ' Numbered roles are described in AIRBRANCH.dbo.LOOKUPIAIPACCOUNTS
     ' and stored per user in AIRBRANCH.dbo.IAIPPERMISSIONS
+    Private Shared ReadOnly ProgramManagerCodes As Integer() = {2, 11, 19, 28, 45, 57, 104}
+    Private Shared ReadOnly UnitManagerCodes As Integer() = {47, 63, 106, 114, 115, 121, 128}
+    Private Shared ReadOnly DistrictManagerCodes As Integer() = {133, 134, 135, 136, 137, 138, 140}
     Public Function HasRoleType(roleType As RoleType) As Boolean
         Select Case roleType
             Case RoleType.BranchAdmin
@@ -66,13 +69,13 @@
                 Return HasRole(102)
 
             Case RoleType.ProgramManager
-                Return HasRole({2, 11, 19, 28, 45, 57, 104})
+                Return HasRole(ProgramManagerCodes)
 
             Case RoleType.UnitManager
-                Return HasRole({47, 63, 106, 114, 115, 121, 128})
+                Return HasRole(UnitManagerCodes)
 
             Case RoleType.DistrictManager
-                Return HasRole({133, 134, 135, 136, 137, 138, 140})
+                Return HasRole(DistrictManagerCodes)
 
             Case Else
                 Return False
