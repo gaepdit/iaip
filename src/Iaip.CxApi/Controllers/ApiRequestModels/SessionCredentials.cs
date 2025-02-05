@@ -24,10 +24,10 @@ public record SessionCredentials
     [JsonIgnore]
     public SqlParameter[] SqlParameters =>
     [
-        new SqlParameter("@userId", UserId),
-        new SqlParameter("@token", Token),
-        new SqlParameter("@machineName", MachineName),
-        new SqlParameter("@windowsUserName", WindowsUserName),
-        new SqlParameter("@windowsDomainName", WindowsDomainName),
+        new("@userId", UserId),
+        new("@token", Token),
+        new("@machineName", MachineName),
+        new("@windowsUserName", WindowsUserName),
+        new("@windowsDomainName", WindowsDomainName),
     ];
 }

@@ -244,8 +244,8 @@ Public Class SSCPComplianceLog
                     SqlFilter = SqlFilter & " ([Work Type] like 'Notification%'"
                     Dim NotificationData As String = " and ("
                     For Each ind As Integer In clbNotifications.CheckedIndices
-                        clbNotifications.SelectedIndex = ind
-                        NotificationData = NotificationData & " [Notification Type] = '" & clbNotifications.SelectedValue & "' or "
+                        Dim row As DataRowView = clbNotifications.Items(ind)
+                        NotificationData = NotificationData & " [Notification Type] = '" & row(1) & "' or "
                     Next
                     If NotificationData.Length > 6 Then
                         SqlFilter = SqlFilter & Mid(NotificationData, 1, NotificationData.Length - 3) & ") "
