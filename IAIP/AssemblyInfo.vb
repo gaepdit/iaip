@@ -4,7 +4,7 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyVersion("7.0.0.0")>
 <Assembly: AssemblyCompany("State of Georgia")>
-<Assembly: AssemblyCopyright("Copyright © 2024")>
+<Assembly: AssemblyCopyright("Copyright © 2025")>
 <Assembly: CLSCompliant(True)>
 <Assembly: ComVisible(False)>
 <Assembly: NeutralResourcesLanguage("en-US")>
