@@ -6,6 +6,9 @@ on:
   push:
     tags: [v7/*]
 
+permissions:
+  contents: read
+
 jobs:
   raygun-deployment:
     runs-on: ubuntu-latest
@@ -16,7 +19,7 @@ jobs:
 
       - name: Send to the Raygun Deployments API
         id: send_deployment
-        uses: fjogeleit/http-request-action@v1
+        uses: fjogeleit/http-request-action@23ad54bcd1178fcff6a0d17538fa09de3a7f0a4d # v1.16.4
         with:
           url: https://api.raygun.com/v3/applications/api-key/${{ secrets.RAYGUN_APIKEY }}/deployments
           method: POST
