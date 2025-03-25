@@ -1,5 +1,7 @@
 # IAIP Release Instructions
 
+Deployments are handled by the `deploy-application.yml` GitHub workflow.
+
 ## Publishing DEV or UAT versions
 
 1. Merge the feature branch into the desired deployment branch, `deploy/DEV` or `deploy/UAT`. 
@@ -19,3 +21,13 @@
 7. Tag the released commit on the `main` branch using a tag in the format `v7/x.x.x`, substituting in the new version number. 
 8. Push the tag to GitHub to trigger a new Raygun deployment registration.
 9. Publish a new [release post](https://github.com/gaepdit/iaip/releases).
+
+### Signing Certificate
+
+The certificate used to sign the application expires after one year, and a new one must be generated. See the [Certificate Instructions](certificate-instructions.md) file.
+
+If the GitHub workflow returns the following errors, then the certificate has expired:
+
+> warning MSB3327: Unable to find code signing certificate in the current user’s Windows certificate store.
+> 
+> error MSB3482: An error occurred while signing: Failed to sign .publish\IaipDev.exe. SignTool Error: No certificates were found that met all the given criteria.

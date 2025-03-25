@@ -27,10 +27,10 @@ The IAIP is a Winforms Application written in VB.NET targeting .NET Framework ve
 * The `main` branch should always be ready to deploy. When starting new work, create a new branch off the latest commit on `main`, and when the changes are ready, create a pull request.
 * There are three deployment branches, `deploy/PROD`, `deploy/UAT`, and `deploy/DEV`, that trigger a deployment GitHub action.
 
-### ClickOnce Signing Certificate
-
-The ClickOnce signing certificate expires after one year, and a new one must be generated. See the [Certificate Instructions](docs/Certificate-Instructions.md) file in the "docs" folder.
-
 ### Release instructions
 
 See the [Release Instructions](docs/release-instructions.md) file in the "docs" folder.
+
+#### Signing Certificate
+
+The certificate used to sign the application expires after one year, and a new one must be generated. See the [Certificate Instructions](docs/certificate-instructions.md) file in the "docs" folder.

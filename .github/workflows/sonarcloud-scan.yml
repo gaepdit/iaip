@@ -5,6 +5,10 @@ on:
     branches: [ "main" ]
     types: [ opened, synchronize, reopened ]
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   sonarcloud-scan:
     # ↓ Change this to "false" to disable the workflow without any alert messages.
@@ -47,7 +51,7 @@ jobs:
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v2
+        uses: microsoft/setup-msbuild@6fb02220983dee41ce7ae257b6f4d8f9bf5ed4ce # v2
   
       - name: Restore application
         run: msbuild -t:restore -p:Platform=x86 -v:m IAIP/IAIP.vbproj
