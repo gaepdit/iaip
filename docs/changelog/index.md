@@ -14,6 +14,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.3.5 <span>(25-Mar-2025)</span>
+
+* Updated the email address for permit comments.
+
 ## Version 7.3.4 <span>(5-Feb-2025)</span>
 
-* Fixed searching by Notification Type in the Compliance Log
+* Fixed searching by Notification Type in the Compliance Log.
