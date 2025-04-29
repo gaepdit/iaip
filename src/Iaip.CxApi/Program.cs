@@ -1,6 +1,7 @@
 using Iaip.CxApi.DbHelper;
 using Iaip.CxApi.Settings;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -15,10 +16,8 @@ builder.Configuration.GetSection(nameof(AppSettings.IaipConfigOptions)).Bind(App
 builder.Configuration.GetSection(nameof(AppSettings.RaygunSettings)).Bind(AppSettings.RaygunSettings);
 if (!string.IsNullOrEmpty(AppSettings.RaygunSettings.ApiKey))
 {
-    builder.Services.AddRaygun(builder.Configuration, options =>
-    {
-        options.ApiKey = AppSettings.RaygunSettings.ApiKey;
-    });
+    builder.Services.AddRaygun(builder.Configuration,
+        settings => settings.ApiKey = AppSettings.RaygunSettings.ApiKey);
 }
 
 // Configure DB helper.
@@ -63,6 +62,9 @@ app.UseSwaggerUI(c =>
 if (!string.IsNullOrEmpty(AppSettings.RaygunSettings.ApiKey)) app.UseRaygun();
 app.UseAuthorization();
 app.MapControllers();
+
+// Add a health check API endpoint.
+app.MapGet("/health", () => Results.Ok());
 
 // Make it so.
 await app.RunAsync();
