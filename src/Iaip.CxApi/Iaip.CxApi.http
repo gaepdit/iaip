@@ -1,10 +1,14 @@
-@CxApi_HostAddress = https://localhost:44373
+@HostAddress = https://localhost:44373
 
-GET {{CxApi_HostAddress}}/api/Development/status/
+GET {{HostAddress}}/health
 
 ###
 
-POST {{CxApi_HostAddress}}/api/Development/login/
+GET {{HostAddress}}/api/Development/status/
+
+###
+
+POST {{HostAddress}}/api/Development/login/
 Accept: application/json
 Content-Type: application/json
 
@@ -15,7 +19,7 @@ Content-Type: application/json
 
 ###
 
-POST {{CxApi_HostAddress}}/api/Staging/session/
+POST {{HostAddress}}/api/Staging/session/
 Accept: application/json
 Content-Type: application/json
 
@@ -29,7 +33,7 @@ Content-Type: application/json
 
 ###
 
-POST {{CxApi_HostAddress}}/api/Staging/request-username/
+POST {{HostAddress}}/api/Staging/request-username/
 Accept: application/json
 Content-Type: application/json
 
@@ -39,7 +43,7 @@ Content-Type: application/json
 
 ###
 
-POST {{CxApi_HostAddress}}/api/Staging/request-password-reset/
+POST {{HostAddress}}/api/Staging/request-password-reset/
 Accept: application/json
 Content-Type: application/json
 
@@ -49,7 +53,7 @@ Content-Type: application/json
 
 ###
 
-POST {{CxApi_HostAddress}}/api/Staging/reset-password/
+POST {{HostAddress}}/api/Staging/reset-password/
 Accept: application/json
 Content-Type: application/json
 
