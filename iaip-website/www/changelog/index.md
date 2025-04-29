@@ -14,6 +14,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.3.6 <span>(29-Apr-2025)</span>
+
+* This update includes a minor fix that attempts to provide a more stable database connection.
+
 ## Version 7.3.5 <span>(25-Mar-2025)</span>
 
 * Updated the email address for permit comments.

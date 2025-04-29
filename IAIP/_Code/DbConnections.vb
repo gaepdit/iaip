@@ -25,7 +25,8 @@ Module DbConnections
                 .Password = CurrentAppConfig.DatabasePassword,
                 .PersistSecurityInfo = True,
                 .TrustServerCertificate = True,
-                .InitialCatalog = "airbranch"
+                .InitialCatalog = "airbranch",
+                .MaxPoolSize = 200
             }.ConnectionString
         End Get
     End Property
