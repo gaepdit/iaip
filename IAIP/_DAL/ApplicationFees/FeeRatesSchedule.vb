@@ -2,9 +2,9 @@
 Imports Microsoft.Data.SqlClient
 Imports System.Linq
 Imports GaEpd.DBUtilities
-Imports Iaip.Apb.Finance
+Imports Iaip.Apb.ApplicationFees
 
-Namespace DAL.Finance
+Namespace DAL.ApplicationFees
     Public Module FeeRatesSchedule
 
         Public Function GetFeeRatesSchedule() As Dictionary(Of Integer, FeeRateItem)

@@ -7,11 +7,11 @@ Imports Iaip.Apb
 Imports Iaip.Apb.Facilities.Facility
 Imports Iaip.Apb.Facilities.FacilityEnums
 Imports Iaip.Apb.Facilities.FacilityHeaderData
-Imports Iaip.Apb.Finance
+Imports Iaip.Apb.ApplicationFees
 Imports Iaip.Apb.Sspp
 Imports Iaip.Apb.Sspp.Permit
 Imports Iaip.DAL.FacilityHeaderDataData
-Imports Iaip.DAL.Finance
+Imports Iaip.DAL.ApplicationFees
 Imports Iaip.DAL.Sspp
 Imports Iaip.UrlHelpers
 

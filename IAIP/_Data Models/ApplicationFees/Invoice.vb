@@ -2,7 +2,7 @@
 Imports System.ComponentModel
 Imports Iaip.Apb.Facilities
 
-Namespace Apb.Finance
+Namespace Apb.ApplicationFees
     Public Class Invoice
 
         <DisplayName("Invoice ID")>

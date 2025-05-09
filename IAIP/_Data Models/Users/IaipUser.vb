@@ -144,17 +144,6 @@
                     HasRoleType(RoleType.UnitManager) OrElse
                     HasRoleType(RoleType.DistrictManager)
 
-            ' === Finance caps
-            Case UserCan.OverrideFeeAmount
-                ' Branch Chief, APB Admin, all APB program managers
-                Return HasRoleType(RoleType.BranchChief) OrElse
-                    HasRoleType(RoleType.BranchAdmin) OrElse
-                    HasRoleType(RoleType.ProgramManager)
-
-            Case UserCan.EditFinancialData
-                ' All Finance staff
-                Return HasRole({123, 124, 125})
-
             ' === SSPP caps
             Case UserCan.CreatePermitApp
                 ' SSPP Program Manager, SSPP Administrative, Branch Chief
@@ -174,6 +163,16 @@
                 Return HasRole({28, 29, 120})
 
             ' === Application Fees
+            Case UserCan.OverrideFeeAmount
+                ' Branch Chief, APB Admin, all APB program managers
+                Return HasRoleType(RoleType.BranchChief) OrElse
+                    HasRoleType(RoleType.BranchAdmin) OrElse
+                    HasRoleType(RoleType.ProgramManager)
+
+            Case UserCan.EditFinancialData
+                ' All Finance staff
+                Return HasRole({123, 124, 125})
+
             Case UserCan.VoidUnpaidApplicationFeeInvoices
                 ' All Finance staff, SSPP Program Manager, SSPP Unit Manager
                 Return HasRole({123, 124, 125, 28, 121})

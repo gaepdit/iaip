@@ -1,4 +1,4 @@
-﻿Namespace Apb.Finance
+﻿Namespace Apb.ApplicationFees
     Public Class FeeRateItem
 
         Public Property FeeRateItemID As Integer
