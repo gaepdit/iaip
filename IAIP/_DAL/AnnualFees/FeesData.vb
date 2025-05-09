@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports Microsoft.Data.SqlClient
 
-Namespace DAL
+Namespace DAL.AnnualFees
     Module FeesData
 
         Public Function UpdateFeeAdminStatus(feeYear As Integer, airsNumber As Apb.ApbFacilityId) As Boolean
