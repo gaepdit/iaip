@@ -1,6 +1,6 @@
 Imports System.ComponentModel
 
-Namespace Apb.Finance
+Namespace Apb.ApplicationFees
 
     Public Enum InvoiceCategory
         EmissionsFees

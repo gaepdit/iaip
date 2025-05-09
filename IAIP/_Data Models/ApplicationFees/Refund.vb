@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.ComponentModel
 
-Namespace Apb.Finance
+Namespace Apb.ApplicationFees
     Public Class Refund
 
         <DisplayName("Refund ID")>

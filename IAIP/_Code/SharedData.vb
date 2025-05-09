@@ -172,7 +172,7 @@ Public Module SharedData
             Select Case obj
 
                 Case SharedObject.FeeRatesSchedule
-                    myObj = DAL.Finance.LoadFeeRatesSchedule()
+                    myObj = DAL.ApplicationFees.LoadFeeRatesSchedule()
 
             End Select
 

@@ -1,4 +1,4 @@
-﻿Namespace Apb.Finance
+﻿Namespace Apb.ApplicationFees
     Public Class InvoiceType
 
         Public Property InvoiceTypeID As Integer

@@ -1,5 +1,5 @@
 ﻿Imports Iaip.Apb
-Imports Iaip.DAL.Finance.FacilityFinances
+Imports Iaip.DAL.ApplicationFees.FacilityFinances
 
 Public Class FinSearchFacilities
 

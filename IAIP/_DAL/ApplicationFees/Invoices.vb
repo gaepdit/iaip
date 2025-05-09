@@ -4,9 +4,9 @@ Imports System.Text.RegularExpressions
 Imports GaEpd.DBUtilities
 Imports Iaip.Apb
 Imports Iaip.Apb.ApbFacilityId
-Imports Iaip.Apb.Finance
+Imports Iaip.Apb.ApplicationFees
 
-Namespace DAL.Finance
+Namespace DAL.ApplicationFees
     Public Module Invoices
 
         ' Read
