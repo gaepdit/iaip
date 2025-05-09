@@ -21,6 +21,8 @@ Module AppGlobals
         Public Property DatabasePassword As String
         Public Property GoogleMapsApiKey As String
         Public Property RaygunApiKey As String
+        Public Property EmailQueueClientId As String
+        Public Property EmailQueueApiKey As String
     End Class
 
     ' User info
