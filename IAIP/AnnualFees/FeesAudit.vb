@@ -1,9 +1,10 @@
-Imports Microsoft.Data.SqlClient
 Imports System.Data.SqlTypes
 Imports System.Text
 Imports GaEpd.DBUtilities
 Imports Iaip.Apb.Facilities
+Imports Iaip.DAL
 Imports Iaip.UrlHelpers
+Imports Microsoft.Data.SqlClient
 
 Public Class FeesAudit
 
@@ -106,12 +107,12 @@ Public Class FeesAudit
     End Sub
 
     Private Sub LoadFeeYears()
-        FeeYearsComboBox.DataSource = DAL.GetAllFeeYears()
+        FeeYearsComboBox.DataSource = AnnualFees.GetAllFeeYears()
     End Sub
 
     Private Sub LoadPayTypes()
         With cboInvoiceType
-            .DataSource = DAL.GetFeePaymentTypes()
+            .DataSource = AnnualFees.GetFeePaymentTypes()
             .DisplayMember = "strPayTypeDesc"
             .ValueMember = "numPayTypeID"
             .SelectedIndex = 0
@@ -1830,14 +1831,14 @@ Public Class FeesAudit
             Return
         End If
 
-        If Not DAL.FeeMailoutEntryExists(AirsNumber, FeeYear) Then
+        If Not AnnualFees.FeeMailoutEntryExists(AirsNumber, FeeYear) Then
             MessageBox.Show("Can't save contact: No mailout exists for that AIRS number and year.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
         Dim contact As Contact = MailoutGetContactFromForm()
-        Dim result As Boolean = DAL.UpdateFeeMailoutContact(contact, AirsNumber.DbFormattedString, FeeYear)
+        Dim result As Boolean = AnnualFees.UpdateFeeMailoutContact(contact, AirsNumber.DbFormattedString, FeeYear)
 
         If result Then
             tempContact = Nothing
@@ -1857,14 +1858,14 @@ Public Class FeesAudit
             Return
         End If
 
-        If Not DAL.FeeMailoutEntryExists(AirsNumber, FeeYear) Then
+        If Not AnnualFees.FeeMailoutEntryExists(AirsNumber, FeeYear) Then
             MessageBox.Show("Can't save facility: No mailout exists for that AIRS number and year.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
         Dim facility As Facility = MailoutGetFacilityFromForm()
-        Dim result As Boolean = DAL.UpdateFeeMailoutFacility(facility, AirsNumber.DbFormattedString, FeeYear)
+        Dim result As Boolean = AnnualFees.UpdateFeeMailoutFacility(facility, AirsNumber.DbFormattedString, FeeYear)
 
         If result Then
             tempFacility = Nothing
@@ -2285,11 +2286,11 @@ Public Class FeesAudit
                 txtTransactionID.Text = dr.Item(0)
             End If
 
-            If Not DAL.InvoiceStatusCheck(txtInvoiceID.Text) Then
+            If Not AnnualFees.InvoiceStatusCheck(txtInvoiceID.Text) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
-            If Not DAL.UpdateFeeAdminStatus(FeeYear, AirsNumber) Then
+            If Not AnnualFees.UpdateFeeAdminStatus(FeeYear, AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -2480,11 +2481,11 @@ Public Class FeesAudit
 
             DB.RunCommand(SQL, p)
 
-            If Not DAL.InvoiceStatusCheck(txtInvoiceID.Text) Then
+            If Not AnnualFees.InvoiceStatusCheck(txtInvoiceID.Text) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
-            If Not DAL.UpdateFeeAdminStatus(FeeYear, AirsNumber) Then
+            If Not AnnualFees.UpdateFeeAdminStatus(FeeYear, AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -2540,11 +2541,11 @@ Public Class FeesAudit
 
             DB.RunCommand(SQL, p)
 
-            If Not DAL.InvoiceStatusCheck(txtInvoiceID.Text) Then
+            If Not AnnualFees.InvoiceStatusCheck(txtInvoiceID.Text) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
-            If Not DAL.UpdateFeeAdminStatus(Me.FeeYear, Me.AirsNumber) Then
+            If Not AnnualFees.UpdateFeeAdminStatus(Me.FeeYear, Me.AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -3233,7 +3234,7 @@ Public Class FeesAudit
             }
             DB.SPRunCommand("dbo.PD_FEEAMENDMENT", p5)
 
-            If Not DAL.UpdateFeeAdminStatus(CInt(FeeYear), AirsNumber) Then
+            If Not AnnualFees.UpdateFeeAdminStatus(CInt(FeeYear), AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -4423,7 +4424,7 @@ Public Class FeesAudit
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
 
-            If Not DAL.UpdateFeeAdminStatus(FeeYear, AIRSNumber) Then
+            If Not AnnualFees.UpdateFeeAdminStatus(FeeYear, AIRSNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -4512,7 +4513,7 @@ Public Class FeesAudit
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
 
-            If Not DAL.UpdateFeeAdminStatus(FeeYear, AIRSNumber) Then
+            If Not AnnualFees.UpdateFeeAdminStatus(FeeYear, AIRSNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -4545,7 +4546,7 @@ Public Class FeesAudit
             If Not DB.RunCommand(SQL, parameters) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Else
-                If Not DAL.UpdateFeeAdminStatus(FeeYear, AirsNumber) Then
+                If Not AnnualFees.UpdateFeeAdminStatus(FeeYear, AirsNumber) Then
                     MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
             End If

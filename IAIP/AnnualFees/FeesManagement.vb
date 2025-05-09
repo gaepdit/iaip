@@ -1,7 +1,8 @@
 Imports System.Collections.Generic
-Imports Microsoft.Data.SqlClient
 Imports System.Text
 Imports GaEpd.DBUtilities
+Imports Iaip.DAL
+Imports Microsoft.Data.SqlClient
 
 Public Class FeesManagement
 
@@ -22,7 +23,7 @@ Public Class FeesManagement
             ind = dgvFeeRates.SelectedRows(0).Index
         End If
 
-        dgvFeeRates.DataSource = DAL.GetFeeRates()
+        dgvFeeRates.DataSource = AnnualFees.GetFeeRates()
         dgvFeeRates.SanelyResizeColumns()
 
         If ind > -1 Then
@@ -117,7 +118,7 @@ Public Class FeesManagement
     End Sub
 
     Private Sub LoadFeeYears()
-        Dim allFeeYears As List(Of Integer) = DAL.GetAllFeeYears()
+        Dim allFeeYears As List(Of Integer) = AnnualFees.GetAllFeeYears()
         cboNSPSExemptionYear.DataSource = allFeeYears
         cboAvailableFeeYears.DataSource = allFeeYears
     End Sub
@@ -196,7 +197,7 @@ Public Class FeesManagement
             Return
         End If
 
-        If DAL.UpdateFeeRates(CInt(txtFeeYear.Text), dtpFeePeriodStart.Value, dtpFeePeriodEnd.Value,
+        If AnnualFees.UpdateFeeRates(CInt(txtFeeYear.Text), dtpFeePeriodStart.Value, dtpFeePeriodEnd.Value,
                               CDec(txtPart70Fee.Text), CDec(txtAnnualSMFee.Text), CDec(txtPerTonRate.Text),
                               CDec(txtAnnualNSPSFee.Text), dtpFeeDueDate.Value, CDec(txtAdminFeePercent.Text),
                               dtpAdminApplicableDate.Value, txtFeeNotes.Text, dtpFirstQrtDue.Value, dtpSecondQrtDue.Value,
